@@ -286,8 +286,24 @@ export const Utils = {
     } else if (view === 'board-view-gantt') {
       window.localStorage.setItem('boardView', 'board-view-gantt'); //true
       Utils.reload();
-    } else if (view === 'board-view-table') {
-      window.localStorage.setItem('boardView', 'board-view-table'); //true
+    } else if (
+      [
+        'board-view-table',
+        'board-view-time',
+        'board-view-stats',
+        'board-view-dashboard',
+        'board-view-burndown',
+        'board-view-burnup',
+        'board-view-cumulative-flow',
+        'board-view-control-chart',
+        'board-view-cycle-time',
+        'board-view-flow-efficiency',
+        'board-view-lead-time',
+        'board-view-throughput-histogram',
+        'board-view-wip-run',
+      ].includes(view)
+    ) {
+      window.localStorage.setItem('boardView', view); //true
       Utils.reload();
     } else {
       window.localStorage.setItem('boardView', 'board-view-swimlanes'); //true
@@ -328,9 +344,23 @@ export const Utils = {
     } else if (window.localStorage.getItem('boardView') === 'board-view-gantt') {
       return 'board-view-gantt';
     } else if (
-      window.localStorage.getItem('boardView') === 'board-view-table'
+      [
+        'board-view-table',
+        'board-view-time',
+        'board-view-stats',
+        'board-view-dashboard',
+        'board-view-burndown',
+        'board-view-burnup',
+        'board-view-cumulative-flow',
+        'board-view-control-chart',
+        'board-view-cycle-time',
+        'board-view-flow-efficiency',
+        'board-view-lead-time',
+        'board-view-throughput-histogram',
+        'board-view-wip-run',
+      ].includes(window.localStorage.getItem('boardView'))
     ) {
-      return 'board-view-table';
+      return window.localStorage.getItem('boardView');
     } else {
       window.localStorage.setItem('boardView', 'board-view-swimlanes'); //true
       Utils.reload();

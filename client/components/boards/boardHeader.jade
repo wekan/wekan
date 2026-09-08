@@ -165,11 +165,81 @@ template(name="boardChangeViewPopup")
           if $eq Utils.boardView "board-view-lists"
             i.fa.fa-check
     li
+      with "board-view-table"
+        a.js-open-table-view
+          i.fa.fa-table
+          | {{_ 'board-view-table'}}
+          if $eq Utils.boardView "board-view-table"
+            i.fa.fa-check
+    li
       with "board-view-cal"
         a.js-open-cal-view
           i.fa.fa-calendar
           | {{_ 'board-view-cal'}}
           if $eq Utils.boardView "board-view-cal"
+            i.fa.fa-check
+    li
+      with "board-view-time"
+        a.js-open-time-view
+          i.fa.fa-clock-o
+          | {{_ 'board-view-time'}}
+          if $eq Utils.boardView "board-view-time"
+            i.fa.fa-check
+    li
+      with "board-view-stats"
+        a.js-open-stats-view
+          i.fa.fa-pie-chart
+          | {{_ 'board-view-stats'}}
+          if $eq Utils.boardView "board-view-stats"
+            i.fa.fa-check
+    li
+      with "board-view-dashboard"
+        a.js-open-dashboard-view
+          i.fa.fa-tachometer
+          | {{_ 'board-view-dashboard'}}
+          if $eq Utils.boardView "board-view-dashboard"
+            i.fa.fa-check
+    li
+      with "board-view-burndown"
+        a.js-open-burndown-view
+          i.fa.fa-line-chart
+          | {{_ 'board-view-burndown'}}
+          if $eq Utils.boardView "board-view-burndown"
+            i.fa.fa-check
+    li
+      with "board-view-burnup"
+        a.js-open-burnup-view
+          i.fa.fa-area-chart
+          | {{_ 'board-view-burnup'}}
+          if $eq Utils.boardView "board-view-burnup"
+            i.fa.fa-check
+    li
+      with "board-view-cumulative-flow"
+        a.js-open-cumulative-flow-view
+          i.fa.fa-signal
+          | {{_ 'board-view-cumulative-flow'}}
+          if $eq Utils.boardView "board-view-cumulative-flow"
+            i.fa.fa-check
+    li
+      with "board-view-control-chart"
+        a.js-open-control-chart-view
+          i.fa.fa-crosshairs
+          | {{_ 'board-view-control-chart'}}
+          if $eq Utils.boardView "board-view-control-chart"
+            i.fa.fa-check
+    li
+      with "board-view-cycle-time"
+        a.js-open-cycle-time-view
+          i.fa.fa-refresh
+          | {{_ 'board-view-cycle-time'}}
+          if $eq Utils.boardView "board-view-cycle-time"
+            i.fa.fa-check
+    li
+      with "board-view-flow-efficiency"
+        a.js-open-flow-efficiency-view
+          i.fa.fa-percent
+          | {{_ 'board-view-flow-efficiency'}}
+          if $eq Utils.boardView "board-view-flow-efficiency"
             i.fa.fa-check
     li
       with "board-view-gantt"
@@ -179,18 +249,25 @@ template(name="boardChangeViewPopup")
           if $eq Utils.boardView "board-view-gantt"
             i.fa.fa-check
     li
-      with "board-view-table"
-        a.js-open-table-view
-          i.fa.fa-table
-          | {{_ 'board-view-table'}}
-          if $eq Utils.boardView "board-view-table"
+      with "board-view-lead-time"
+        a.js-open-lead-time-view
+          i.fa.fa-hourglass-half
+          | {{_ 'board-view-lead-time'}}
+          if $eq Utils.boardView "board-view-lead-time"
             i.fa.fa-check
     li
-      with "board-view-stats"
-        a.js-open-stats-view
-          i.fa.fa-pie-chart
-          | {{_ 'board-view-stats'}}
-          if $eq Utils.boardView "board-view-stats"
+      with "board-view-throughput-histogram"
+        a.js-open-throughput-histogram-view
+          i.fa.fa-columns
+          | {{_ 'board-view-throughput-histogram'}}
+          if $eq Utils.boardView "board-view-throughput-histogram"
+            i.fa.fa-check
+    li
+      with "board-view-wip-run"
+        a.js-open-wip-run-view
+          i.fa.fa-flag-checkered
+          | {{_ 'board-view-wip-run'}}
+          if $eq Utils.boardView "board-view-wip-run"
             i.fa.fa-check
 
 //- The Create Board form: a title, what the board is visible to, and Create.

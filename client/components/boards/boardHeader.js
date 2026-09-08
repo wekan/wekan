@@ -289,6 +289,50 @@ Template.boardChangeViewPopup.events({
     Utils.setBoardView('board-view-stats');
     Popup.back();
   },
+  'click .js-open-time-view'() {
+    Utils.setBoardView('board-view-time');
+    Popup.back();
+  },
+  'click .js-open-dashboard-view'() {
+    Utils.setBoardView('board-view-dashboard');
+    Popup.back();
+  },
+  'click .js-open-burndown-view'() {
+    Utils.setBoardView('board-view-burndown');
+    Popup.back();
+  },
+  'click .js-open-burnup-view'() {
+    Utils.setBoardView('board-view-burnup');
+    Popup.back();
+  },
+  'click .js-open-cumulative-flow-view'() {
+    Utils.setBoardView('board-view-cumulative-flow');
+    Popup.back();
+  },
+  'click .js-open-control-chart-view'() {
+    Utils.setBoardView('board-view-control-chart');
+    Popup.back();
+  },
+  'click .js-open-cycle-time-view'() {
+    Utils.setBoardView('board-view-cycle-time');
+    Popup.back();
+  },
+  'click .js-open-flow-efficiency-view'() {
+    Utils.setBoardView('board-view-flow-efficiency');
+    Popup.back();
+  },
+  'click .js-open-lead-time-view'() {
+    Utils.setBoardView('board-view-lead-time');
+    Popup.back();
+  },
+  'click .js-open-throughput-histogram-view'() {
+    Utils.setBoardView('board-view-throughput-histogram');
+    Popup.back();
+  },
+  'click .js-open-wip-run-view'() {
+    Utils.setBoardView('board-view-wip-run');
+    Popup.back();
+  },
 });
 
 // Shared setup for all create board popups
@@ -660,6 +704,17 @@ Template.boardViewMenu.helpers({
       'board-view-gantt': 'gantt',
       'board-view-table': 'board-view-table',
       'board-view-stats': 'board-view-stats',
+      'board-view-time': 'board-view-time',
+      'board-view-dashboard': 'board-view-dashboard',
+      'board-view-burndown': 'board-view-burndown',
+      'board-view-burnup': 'board-view-burnup',
+      'board-view-cumulative-flow': 'board-view-cumulative-flow',
+      'board-view-control-chart': 'board-view-control-chart',
+      'board-view-cycle-time': 'board-view-cycle-time',
+      'board-view-flow-efficiency': 'board-view-flow-efficiency',
+      'board-view-lead-time': 'board-view-lead-time',
+      'board-view-throughput-histogram': 'board-view-throughput-histogram',
+      'board-view-wip-run': 'board-view-wip-run',
     };
     return TAPi18n.__(names[Utils.boardView()] || 'board-view');
   },

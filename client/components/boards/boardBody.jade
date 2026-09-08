@@ -54,6 +54,28 @@ template(name="boardBody")
           +tableView
         else if isViewStats
           +statsView
+        else if isViewTime
+          +timeView
+        else if isViewDashboard
+          +dashboardView
+        else if isViewBurndown
+          +burndownView
+        else if isViewBurnup
+          +burnupView
+        else if isViewCumulativeFlow
+          +cumulativeFlowView
+        else if isViewControlChart
+          +controlChartView
+        else if isViewCycleTime
+          +cycleTimeView
+        else if isViewFlowEfficiency
+          +flowEfficiencyView
+        else if isViewLeadTime
+          +leadTimeView
+        else if isViewThroughputHistogram
+          +throughputHistogramView
+        else if isViewWipRun
+          +wipRunView
         else
           // Default view - show swimlanes if they exist, otherwise show lists
           if hasSwimlanes

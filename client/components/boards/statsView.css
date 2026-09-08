@@ -54,3 +54,9 @@
   /* A number is read from its END edge - the right in LTR, the left in RTL. */
   text-align: end;
 }
+
+/* The not-yet-implemented board views in chartPlaceholderViews.jade. */
+.stats-view-placeholder-note {
+  color: #888;
+  font-style: italic;
+}

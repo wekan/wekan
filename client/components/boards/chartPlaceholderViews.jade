@@ -1,0 +1,66 @@
+//- Board views listed in the "Board View" switcher menu (boardHeader.jade)
+  that do not have a real implementation yet. Each is a plain grey page - the
+  same .stats-view/.stats-view-content/.stats-view-title shell statsView.jade
+  uses - with its title matching the menu entry that opens it, and one shared
+  "not implemented yet" note. Replace a template here with a real one (and
+  drop it from this file) as each view gets built.
+
+template(name="dashboardView")
+  .stats-view
+    .stats-view-content
+      h1.stats-view-title {{_ 'board-view-dashboard'}}
+      p.stats-view-placeholder-note {{_ 'board-view-not-yet-implemented'}}
+
+template(name="burndownView")
+  .stats-view
+    .stats-view-content
+      h1.stats-view-title {{_ 'board-view-burndown'}}
+      p.stats-view-placeholder-note {{_ 'board-view-not-yet-implemented'}}
+
+template(name="burnupView")
+  .stats-view
+    .stats-view-content
+      h1.stats-view-title {{_ 'board-view-burnup'}}
+      p.stats-view-placeholder-note {{_ 'board-view-not-yet-implemented'}}
+
+template(name="cumulativeFlowView")
+  .stats-view
+    .stats-view-content
+      h1.stats-view-title {{_ 'board-view-cumulative-flow'}}
+      p.stats-view-placeholder-note {{_ 'board-view-not-yet-implemented'}}
+
+template(name="controlChartView")
+  .stats-view
+    .stats-view-content
+      h1.stats-view-title {{_ 'board-view-control-chart'}}
+      p.stats-view-placeholder-note {{_ 'board-view-not-yet-implemented'}}
+
+template(name="cycleTimeView")
+  .stats-view
+    .stats-view-content
+      h1.stats-view-title {{_ 'board-view-cycle-time'}}
+      p.stats-view-placeholder-note {{_ 'board-view-not-yet-implemented'}}
+
+template(name="flowEfficiencyView")
+  .stats-view
+    .stats-view-content
+      h1.stats-view-title {{_ 'board-view-flow-efficiency'}}
+      p.stats-view-placeholder-note {{_ 'board-view-not-yet-implemented'}}
+
+template(name="leadTimeView")
+  .stats-view
+    .stats-view-content
+      h1.stats-view-title {{_ 'board-view-lead-time'}}
+      p.stats-view-placeholder-note {{_ 'board-view-not-yet-implemented'}}
+
+template(name="throughputHistogramView")
+  .stats-view
+    .stats-view-content
+      h1.stats-view-title {{_ 'board-view-throughput-histogram'}}
+      p.stats-view-placeholder-note {{_ 'board-view-not-yet-implemented'}}
+
+template(name="wipRunView")
+  .stats-view
+    .stats-view-content
+      h1.stats-view-title {{_ 'board-view-wip-run'}}
+      p.stats-view-placeholder-note {{_ 'board-view-not-yet-implemented'}}

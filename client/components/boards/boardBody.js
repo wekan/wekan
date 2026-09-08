@@ -721,6 +721,50 @@ Template.boardBody.helpers({
     return Utils.boardView() === 'board-view-stats';
   },
 
+  isViewTime() {
+    return Utils.boardView() === 'board-view-time';
+  },
+
+  isViewDashboard() {
+    return Utils.boardView() === 'board-view-dashboard';
+  },
+
+  isViewBurndown() {
+    return Utils.boardView() === 'board-view-burndown';
+  },
+
+  isViewBurnup() {
+    return Utils.boardView() === 'board-view-burnup';
+  },
+
+  isViewCumulativeFlow() {
+    return Utils.boardView() === 'board-view-cumulative-flow';
+  },
+
+  isViewControlChart() {
+    return Utils.boardView() === 'board-view-control-chart';
+  },
+
+  isViewCycleTime() {
+    return Utils.boardView() === 'board-view-cycle-time';
+  },
+
+  isViewFlowEfficiency() {
+    return Utils.boardView() === 'board-view-flow-efficiency';
+  },
+
+  isViewLeadTime() {
+    return Utils.boardView() === 'board-view-lead-time';
+  },
+
+  isViewThroughputHistogram() {
+    return Utils.boardView() === 'board-view-throughput-histogram';
+  },
+
+  isViewWipRun() {
+    return Utils.boardView() === 'board-view-wip-run';
+  },
+
   hasSwimlanes() {
     const currentBoard = Utils.getCurrentBoard();
     if (!currentBoard) {

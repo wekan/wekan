@@ -1,0 +1,17 @@
+template(name="timeView")
+  .stats-view
+    .stats-view-content
+      h1.stats-view-title {{_ 'board-view-time'}}
+      .stats-view-section
+        h2.stats-view-heading {{_ 'board-status-time-summary'}}
+        table.stats-view-table
+          tbody
+            tr
+              td.stats-view-label {{_ 'board-status-time-spent-total'}}
+              td.stats-view-value {{ timeSpentTotal }}
+            tr
+              td.stats-view-label {{_ 'board-status-cards-with-time'}}
+              td.stats-view-value {{ cardsWithTimeSpent }}
+            tr
+              td.stats-view-label {{_ 'board-status-overtime-cards'}}
+              td.stats-view-value {{ overtimeCards }}

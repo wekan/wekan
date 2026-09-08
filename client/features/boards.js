@@ -11,6 +11,8 @@ import '/client/components/boards/miniboard.jade';
 import '/client/components/boards/originalPositionsView.jade';
 import '/client/components/boards/tableView.jade';
 import '/client/components/boards/statsView.jade';
+import '/client/components/boards/timeView.jade';
+import '/client/components/boards/chartPlaceholderViews.jade';
 
 import '/client/components/boards/boardArchive.js';
 import '/client/components/boards/boardBody.js';
@@ -25,6 +27,8 @@ import '/client/components/boards/publicBoards.js';
 import '/client/components/boards/originalPositionsView.js';
 import '/client/components/boards/tableView.js';
 import '/client/components/boards/statsView.js';
+import '/client/components/boards/timeView.js';
+import '/client/components/boards/chartPlaceholderViews.js';
 
 import '/client/components/boards/boardBody.css';
 import '/client/components/boards/dependencyOverlay.css';

@@ -5,9 +5,11 @@ import { Utils } from '/client/lib/utils';
 
 // Board view "Statistics" (Tilastot) — a full-width board view (like Swimlanes /
 // Lists / Calendar / Gantt / Table) showing the board's status: its card-loading
-// mode, counts (swimlanes, lists, cards, labels, members, custom fields) and a
-// time-spent summary. Counts come from the server `boardStatus` method so they are
-// accurate even in lazy mode, where the browser only holds the visible card window.
+// mode and counts (swimlanes, lists, cards, labels, members, custom fields). The
+// time-spent summary that used to be a second section here now has its own
+// "Time" board view (timeView.jade/.js). Counts come from the server
+// `boardStatus` method so they are accurate even in lazy mode, where the
+// browser only holds the visible card window.
 Template.statsView.onCreated(function() {
   this.status = new ReactiveVar(null);
   this.autorun(() => {
@@ -59,12 +61,4 @@ Template.statsView.helpers({
   labelCount() { return statsNum('labels'); },
   memberCount() { return statsNum('members'); },
   customFieldCount() { return statsNum('customFields'); },
-  cardsWithTimeSpent() { return statsNum('cardsWithTimeSpent'); },
-  overtimeCards() { return statsNum('overtimeCards'); },
-  timeSpentTotal() {
-    const s = Template.instance().status.get();
-    if (!s) return '…';
-    const n = Number(s.timeSpentTotal) || 0;
-    return `${n} h`;
-  },
 });
