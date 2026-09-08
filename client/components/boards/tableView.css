@@ -46,10 +46,15 @@
 .table-view-pagination button {
   min-width: 32px;
   height: 30px;
-  border: 1px solid #bbb;
-  background: #fff;
+  border: none;
+  background: #01628c;
+  color: #fff;
   border-radius: 6px;
   cursor: pointer;
+}
+
+.table-view-pagination button:hover {
+  background: #005377;
 }
 
 .table-view-pagination button.disabled {
