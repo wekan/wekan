@@ -880,6 +880,30 @@ Boards.attachSchema(
       type: Boolean,
       defaultValue: false,
     },
+    allowsPersonalListWidth: {
+      /**
+       * List-width scope for this board (#6409).
+       * - false (default): list widths are SHARED — stored in `lists.width`,
+       *   the same layout for everyone; only members with write access may
+       *   change them.
+       * - true: list widths are PERSONAL — each user keeps their own widths in
+       *   their profile (or localStorage when not logged in).
+       */
+      type: Boolean,
+      defaultValue: false,
+    },
+    autoWidth: {
+      /**
+       * Shared (per-board) auto-width for all lists (#6409). When true, lists
+       * fit their content instead of using a fixed width. Used when the board
+       * is in SHARED list-width mode (allowsPersonalListWidth = false); in
+       * PERSONAL mode each user's own profile.autoWidthBoards value is used
+       * instead.
+       */
+      type: Boolean,
+      optional: true,
+      defaultValue: false,
+    },
     allowsReceivedDateOnMinicard: {
       /**
        * Does the board allows received date on minicard?
@@ -2310,6 +2334,26 @@ Boards.helpers({
   async setRestrictCommentEditing(restrictCommentEditing) {
     return await Boards.updateAsync(this._id, {
       $set: { restrictCommentEditing: !!restrictCommentEditing },
+    });
+  },
+
+  getAllowsPersonalListWidth() {
+    return !!this.allowsPersonalListWidth;
+  },
+
+  async setAllowsPersonalListWidth(allowsPersonalListWidth) {
+    return await Boards.updateAsync(this._id, {
+      $set: { allowsPersonalListWidth: !!allowsPersonalListWidth },
+    });
+  },
+
+  getAutoWidth() {
+    return !!this.autoWidth;
+  },
+
+  async setAutoWidth(autoWidth) {
+    return await Boards.updateAsync(this._id, {
+      $set: { autoWidth: !!autoWidth },
     });
   },
 

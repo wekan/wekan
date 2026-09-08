@@ -5,6 +5,14 @@ import InviteToBoardRolesSettings, {
   INVITE_TO_BOARD_ROLES_ID,
   INVITE_TO_BOARD_ROLES_DEFAULT,
 } from '/models/inviteToBoardRolesSettings';
+// #5659: the default/minimum list width must be the SAME on every resolution
+// path (it used to be 270 here but 272 in the client and the lists schema, so
+// lists could fall back to different "defaults" on public boards).
+import {
+  DEFAULT_LIST_WIDTH,
+  MIN_LIST_WIDTH,
+  normalizeListWidth,
+} from '/models/lib/listWidth';
 // import { Index, MongoDBEngine } from 'meteor/easy:search'; // Temporarily disabled due to compatibility issues
 const { SimpleSchema } = require('/imports/simpleSchema');
 // Multitenancy option D: the per-tenant Global Admin rules, pure and shared by the
@@ -786,6 +794,33 @@ Users.attachSchema(
       type: Number,
       optional: true,
     },
+    'profile.listWidths': {
+      /**
+       * User-specified width of each list (or nothing if default).
+       * profile[boardId][listId] = width;
+       */
+      type: Object,
+      defaultValue: {},
+      blackbox: true,
+    },
+    'profile.listConstraints': {
+      /**
+       * User-specified constraint of each list (or nothing if default).
+       * profile[boardId][listId] = constraint;
+       */
+      type: Object,
+      defaultValue: {},
+      blackbox: true,
+    },
+    'profile.autoWidthBoards': {
+      /**
+       * User-specified flag for enabling auto-width for boards (false is the default).
+       * profile[boardId][listId] = constraint;
+       */
+      type: Object,
+      defaultValue: {},
+      blackbox: true,
+    },
     'profile.boardSortIndex': {
       /**
        * #6439: per-user manual board order on the All Boards page, set by drag-
@@ -797,6 +832,26 @@ Users.attachSchema(
       defaultValue: {},
       blackbox: true,
       optional: true,
+    },
+    'profile.fixedListWidthBoards': {
+      /**
+       * #5729 Per-user flag enabling "same width for all lists" (fixed width)
+       * mode for a board (false is the default).
+       * profile.fixedListWidthBoards[boardId] = true|false
+       */
+      type: Object,
+      defaultValue: {},
+      blackbox: true,
+    },
+    'profile.fixedListWidths': {
+      /**
+       * #5729 Per-user single width applied to every list of a board when fixed
+       * width mode is enabled.
+       * profile.fixedListWidths[boardId] = width
+       */
+      type: Object,
+      defaultValue: {},
+      blackbox: true,
     },
     'profile.swimlaneHeights': {
       /**
@@ -1351,6 +1406,23 @@ Users.helpers({
     return this.getDefaultBoardId() === boardId;
   },
 
+  isAutoWidth(boardId) {
+    const { autoWidthBoards = {} } = this.profile || {};
+    return autoWidthBoards[boardId] === true;
+  },
+
+  // #5729 "Same width for all lists" (fixed width) mode is per-user/per-board.
+  isFixedListWidth(boardId) {
+    const { fixedListWidthBoards = {} } = this.profile || {};
+    return fixedListWidthBoards[boardId] === true;
+  },
+
+  // #5729 The single width applied to every list when fixed width mode is on.
+  getFixedListWidth(boardId) {
+    const { fixedListWidths = {} } = this.profile || {};
+    return normalizeListWidth(fixedListWidths[boardId]);
+  },
+
   invitedBoards() {
     const { invitedBoards = [] } = this.profile || {};
     return Boards.userBoards(this._id, false, { _id: { $in: invitedBoards } }, {});
@@ -1433,6 +1505,10 @@ Users.helpers({
     return this._getListSortBy()[1];
   },
 
+  getListWidths() {
+    const { listWidths = {}, } = this.profile || {};
+    return listWidths;
+  },
   // Right board sidebar width (px), or undefined for the CSS default. Set by
   // dragging the sidebar's left edge (desktop only).
   getSidebarWidth() {
@@ -1440,6 +1516,28 @@ Users.helpers({
   },
   async setSidebarWidth(width) {
     return await Users.updateAsync(this._id, { $set: { 'profile.sidebarWidth': width } });
+  },
+  getListWidth(boardId, listId) {
+    const listWidths = this.getListWidths();
+    if (listWidths[boardId] && listWidths[boardId][listId]) {
+      // #5659: normalize so an out-of-range stored value can not make one
+      // list's width differ from the shared default everyone else sees.
+      return normalizeListWidth(listWidths[boardId][listId]);
+    } else {
+      return DEFAULT_LIST_WIDTH;
+    }
+  },
+  getListConstraints() {
+    const { listConstraints = {} } = this.profile || {};
+    return listConstraints;
+  },
+  getListConstraint(boardId, listId) {
+    const listConstraints = this.getListConstraints();
+    if (listConstraints[boardId] && listConstraints[boardId][listId]) {
+      return listConstraints[boardId][listId];
+    } else {
+      return 550;
+    }
   },
 
   getSwimlaneHeights() {
@@ -1745,6 +1843,109 @@ Users.helpers({
     });
   },
 
+  getListWidthFromStorage(boardId, listId) {
+    // For logged-in users, get from profile
+    if (this._id) {
+      return this.getListWidth(boardId, listId);
+    }
+
+    // For non-logged-in users, get from validated localStorage
+    if (typeof localStorage !== 'undefined' && typeof getValidatedLocalStorageData === 'function') {
+      try {
+        const widths = getValidatedLocalStorageData('wekan-list-widths', validators.listWidths);
+        if (widths[boardId] && widths[boardId][listId]) {
+          const width = widths[boardId][listId];
+          // Validate it's a valid number
+          if (validators.isValidNumber(width, MIN_LIST_WIDTH, 1000)) {
+            return width;
+          }
+        }
+      } catch (e) {
+        console.warn('Error reading list widths from localStorage:', e);
+      }
+    }
+
+    // #5659: same default as every other width-resolution path.
+    return DEFAULT_LIST_WIDTH;
+  },
+
+  setListWidthToStorage(boardId, listId, width) {
+    // For logged-in users, save to profile
+    if (this._id) {
+      return this.setListWidth(boardId, listId, width);
+    }
+
+    // Validate width before storing
+    if (!validators.isValidNumber(width, MIN_LIST_WIDTH, 1000)) {
+      console.warn('Invalid list width:', width);
+      return false;
+    }
+
+    // For non-logged-in users, save to validated localStorage
+    if (typeof localStorage !== 'undefined' && typeof setValidatedLocalStorageData === 'function') {
+      try {
+        const widths = getValidatedLocalStorageData('wekan-list-widths', validators.listWidths);
+
+        if (!widths[boardId]) {
+          widths[boardId] = {};
+        }
+        widths[boardId][listId] = width;
+
+        return setValidatedLocalStorageData('wekan-list-widths', widths, validators.listWidths);
+      } catch (e) {
+        console.warn('Error saving list width to localStorage:', e);
+        return false;
+      }
+    }
+    return false;
+  },
+
+  getListConstraintFromStorage(boardId, listId) {
+    // For logged-in users, get from profile
+    if (this._id) {
+      return this.getListConstraint(boardId, listId);
+    }
+
+    // For non-logged-in users, get from localStorage
+    try {
+      const stored = localStorage.getItem('wekan-list-constraints');
+      if (stored) {
+        const constraints = JSON.parse(stored);
+        if (constraints[boardId] && constraints[boardId][listId]) {
+          return constraints[boardId][listId];
+        }
+      }
+    } catch (e) {
+      console.warn('Error reading list constraints from localStorage:', e);
+    }
+
+    return 550; // Return default constraint instead of -1
+  },
+
+  setListConstraintToStorage(boardId, listId, constraint) {
+    // For logged-in users, save to profile
+    if (this._id) {
+      return this.setListConstraint(boardId, listId, constraint);
+    }
+
+    // For non-logged-in users, save to localStorage
+    try {
+      const stored = localStorage.getItem('wekan-list-constraints');
+      let constraints = stored ? JSON.parse(stored) : {};
+
+      if (!constraints[boardId]) {
+        constraints[boardId] = {};
+      }
+      constraints[boardId][listId] = constraint;
+
+      localStorage.setItem('wekan-list-constraints', JSON.stringify(constraints));
+      return true;
+    } catch (e) {
+      console.warn('Error saving list constraint to localStorage:', e);
+      return false;
+    }
+  },
+
   getSwimlaneHeightFromStorage(boardId, swimlaneId) {
     // For logged-in users, get from profile
     if (this._id) {
@@ -1979,6 +2180,26 @@ Users.helpers({
     return await Users.updateAsync(this._id, { $set: { 'profile.boardSortIndex': merged } });
   },
 
+  async toggleAutoWidth(boardId) {
+    const { autoWidthBoards = {} } = this.profile || {};
+    autoWidthBoards[boardId] = !autoWidthBoards[boardId];
+    return await Users.updateAsync(this._id, { $set: { 'profile.autoWidthBoards': autoWidthBoards } });
+  },
+
+  // #5729 Enable/disable "same width for all lists" mode for a board.
+  async setFixedListWidthEnabled(boardId, enabled) {
+    const { fixedListWidthBoards = {} } = this.profile || {};
+    fixedListWidthBoards[boardId] = !!enabled;
+    return await Users.updateAsync(this._id, { $set: { 'profile.fixedListWidthBoards': fixedListWidthBoards } });
+  },
+
+  // #5729 Set the single width used by every list in fixed width mode.
+  async setFixedListWidth(boardId, width) {
+    const { fixedListWidths = {} } = this.profile || {};
+    fixedListWidths[boardId] = width;
+    return await Users.updateAsync(this._id, { $set: { 'profile.fixedListWidths': fixedListWidths } });
+  },
+
   async toggleKeyboardShortcuts() {
     const { keyboardShortcuts = true } = this.profile || {};
     return await Users.updateAsync(this._id, { $set: { 'profile.keyboardShortcuts': !keyboardShortcuts } });
@@ -2144,6 +2365,20 @@ Users.helpers({
 
   async setBoardView(view) {
     return await Users.updateAsync(this._id, { $set: { 'profile.boardView': view } });
+  },
+
+  async setListWidth(boardId, listId, width) {
+    let currentWidths = this.getListWidths();
+    if (!currentWidths[boardId]) currentWidths[boardId] = {};
+    currentWidths[boardId][listId] = width;
+    return await Users.updateAsync(this._id, { $set: { 'profile.listWidths': currentWidths } });
+  },
+
+  async setListConstraint(boardId, listId, constraint) {
+    let currentConstraints = this.getListConstraints();
+    if (!currentConstraints[boardId]) currentConstraints[boardId] = {};
+    currentConstraints[boardId][listId] = constraint;
+    return await Users.updateAsync(this._id, { $set: { 'profile.listConstraints': currentConstraints } });
   },
 
   async setSwimlaneHeight(boardId, swimlaneId, height) {

@@ -928,6 +928,52 @@ Meteor.methods({
     user.setDateFormat(dateFormat);
   },
 
+  async applyListWidth(boardId, listId, width, constraint) {
+    check(boardId, String);
+    check(listId, String);
+    check(width, Number);
+    check(constraint, Number);
+    if (!this.userId) {
+      throw new Meteor.Error('not-logged-in', 'User must be logged in');
+    }
+    // list.width/constraint are per-board fields shared with all users, so
+    // only board members may change them, and only on the list's own board.
+    const board = await ReactiveCache.getBoard(boardId);
+    if (!board || !board.hasMember(this.userId)) {
+      throw new Meteor.Error('error-notAuthorized');
+    }
+    const list = await ReactiveCache.getList(listId);
+    if (!list || list.boardId !== boardId) {
+      throw new Meteor.Error('error-notAuthorized');
+    }
+    try {
+      // #6409: only the shared per-board width is stored on the list. The old
+      // `constraint` (max-width) is no longer used; the param is kept for
+      // backwards compatibility with existing callers but ignored.
+      Lists.updateAsync(listId, { $set: { width: width } });
+      return true;
+    } catch (error) {
+      console.error('Error updating list width:', error);
+      throw new Meteor.Error('update-failed', error.message);
+    }
+  },
+
+  async setBoardAutoWidth(boardId, autoWidth) {
+    check(boardId, String);
+    check(autoWidth, Boolean);
+    if (!this.userId) {
+      throw new Meteor.Error('not-logged-in', 'User must be logged in');
+    }
+    // Shared (per-board) auto-width affects everyone, so only board members may
+    // change it (parity with applyListWidth). See #6409.
+    const board = await ReactiveCache.getBoard(boardId);
+    if (!board || !board.hasMember(this.userId)) {
+      throw new Meteor.Error('error-notAuthorized');
+    }
+    await Boards.updateAsync(boardId, { $set: { autoWidth: !!autoWidth } });
+    return true;
+  },
+
   async setListCollapsedState(boardId, listId, collapsed) {
     check(boardId, String);
     check(listId, String);
@@ -939,6 +985,14 @@ Meteor.methods({
     if (!current[boardId]) current[boardId] = {};
     current[boardId][listId] = !!collapsed;
     await Users.updateAsync(this.userId, { $set: { 'profile.collapsedLists': current } });
+  },
+
+  async applySwimlaneHeight(boardId, swimlaneId, height) {
+    check(boardId, String);
+    check(swimlaneId, String);
+    check(height, Number);
+    const user = await ReactiveCache.getCurrentUser();
+    user.setSwimlaneHeight(boardId, swimlaneId, height);
   },
 
   async setSwimlaneCollapsedState(boardId, swimlaneId, collapsed) {
@@ -964,6 +1018,18 @@ Meteor.methods({
     }
   },
 
+  async applyListWidthToStorage(boardId, listId, width, constraint) {
+    check(boardId, String);
+    check(listId, String);
+    check(width, Number);
+    check(constraint, Number);
+    const user = await ReactiveCache.getCurrentUser();
+    if (user) {
+      user.setListWidthToStorage(boardId, listId, width);
+      user.setListConstraintToStorage(boardId, listId, constraint);
+    }
+  },
+
   // Persist the right board sidebar width (px) for a logged-in user. Anonymous
   // users on public boards keep it in localStorage on the client instead.
   async setSidebarWidth(width) {
@@ -972,6 +1038,38 @@ Meteor.methods({
     if (user) {
       await user.setSidebarWidth(width);
     }
+  },
+
+  // #5729 Enable/disable the per-user "same width for all lists" mode for a
+  // board. This is a personal viewer setting (like personal list widths), so any
+  // logged-in user may toggle it for any board they can view.
+  async setFixedListWidthEnabled(boardId, enabled) {
+    check(boardId, String);
+    check(enabled, Boolean);
+    if (!this.userId) {
+      throw new Meteor.Error('not-logged-in', 'User must be logged in');
+    }
+    const user = await ReactiveCache.getCurrentUser();
+    if (!user) return;
+    await user.setFixedListWidthEnabled(boardId, enabled);
+    return true;
+  },
+
+  // #5729 Set the single width applied to every list when fixed width mode is on.
+  async setFixedListWidth(boardId, width) {
+    check(boardId, String);
+    check(width, Number);
+    if (!this.userId) {
+      throw new Meteor.Error('not-logged-in', 'User must be logged in');
+    }
+    // #6465: keep in sync with MIN_LIST_WIDTH in models/lib/listWidth.js (200).
+    if (width < 200) {
+      throw new Meteor.Error('invalid-width', 'Width must be >= 200');
+    }
+    const user = await ReactiveCache.getCurrentUser();
+    if (!user) return;
+    await user.setFixedListWidth(boardId, width);
+    return true;
   },
 
   async setMobileMode(enabled) {

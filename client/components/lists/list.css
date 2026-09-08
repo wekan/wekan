@@ -9,6 +9,133 @@
   float: inline-start;
 }
 
+/* List resize handle */
+.list-resize-handle {
+  position: absolute;
+  top: 0;
+  inset-inline-end: -3px;
+  width: 6px;
+  height: 100%;
+  cursor: col-resize;
+  z-index: 10;
+  background: transparent;
+  transition: background-color 0.2s ease;
+  border-radius: 2px;
+  /* Ensure the handle is clickable */
+  pointer-events: auto;
+}
+
+.list-resize-handle:hover {
+  background: rgba(0, 123, 255, 0.4);
+  box-shadow: 0 0 4px rgba(0, 123, 255, 0.3);
+}
+
+.list-resize-handle:active {
+  background: rgba(0, 123, 255, 0.6);
+  box-shadow: 0 0 6px rgba(0, 123, 255, 0.4);
+}
+
+/* Show resize handle only on hover */
+.list:hover .list-resize-handle {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.list:hover .list-resize-handle:hover {
+  background: rgba(0, 123, 255, 0.4);
+  box-shadow: 0 0 4px rgba(0, 123, 255, 0.3);
+}
+
+/* Add a subtle indicator line */
+.list-resize-handle::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 2px;
+  height: 20px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 1px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.list-resize-handle:hover::before {
+  opacity: 1;
+}
+
+/* Disable resize handle for collapsed lists and mobile view */
+.list.list-collapsed .list-resize-handle,
+.list.mobile-view .list-resize-handle {
+  display: none;
+}
+
+/* Disable resize handle for auto-width lists */
+.list.list-auto-width .list-resize-handle {
+  display: none;
+}
+
+/* Visual feedback during resize */
+.list.list-resizing {
+  transition: none !important;
+  box-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
+  /* Ensure the list maintains its new width during resize */
+  flex: none !important;
+  flex-basis: auto !important;
+  flex-grow: 0 !important;
+  flex-shrink: 0 !important;
+  /* Override any conflicting layout properties.
+     Keep the flex column layout so the list-body stays height-bounded and
+     keeps its vertical scrollbar (display:block would collapse it). */
+  float: inline-start !important;
+  display: flex !important;
+  flex-direction: column !important;
+  position: relative !important;
+  /* Force width to be respected */
+  width: var(--list-width, auto) !important;
+  min-width: var(--list-width, auto) !important;
+  max-width: var(--list-width, auto) !important;
+}
+
+body.list-resizing-active {
+  cursor: col-resize !important;
+}
+
+body.list-resizing-active * {
+  cursor: col-resize !important;
+}
+
+/* Ensure swimlane container doesn't interfere with list resizing */
+.swimlane .list.list-resizing {
+  /* Override any swimlane flex properties */
+  flex: none !important;
+  flex-basis: auto !important;
+  flex-grow: 0 !important;
+  flex-shrink: 0 !important;
+  /* Ensure width is respected */
+  width: var(--list-width, auto) !important;
+  min-width: var(--list-width, auto) !important;
+  max-width: var(--list-width, auto) !important;
+}
+
+/* More aggressive override for any container that might interfere */
+.js-lists .list.list-resizing,
+.js-swimlane .list.list-resizing,
+.dragscroll .list.list-resizing,
+[id^="swimlane-"] .list.list-resizing {
+  /* Force the width to be applied */
+  width: var(--list-width, auto) !important;
+  min-width: var(--list-width, auto) !important;
+  max-width: var(--list-width, auto) !important;
+  flex: none !important;
+  flex-basis: auto !important;
+  flex-grow: 0 !important;
+  flex-shrink: 0 !important;
+  float: inline-start !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
 /* Ensure the width persists after resize is complete.
    Exclude collapsed lists: a collapsed list keeps its inline --list-width custom
    property, and without :not() this !important rule overrode the 30px collapsed
@@ -44,9 +171,10 @@
 
 /* ...but NOT in mobile mode, where a list is always full width.
    `.mobile-mode .list` (in boardHeader.css) already says width:100% !important, but
-   the rule above is !important too and more specific, so it won. In mobile mode on
-   a desktop browser the inline width was there and the lists stayed at their
-   desktop width while everything else was in mobile layout. Same three
+   the rule above is !important too and more specific, so it won. On a phone that did
+   not show, because a phone gets `list-auto-width` and no inline --list-width at all;
+   in mobile mode on a desktop browser the inline width was there and the lists stayed
+   at their desktop width while everything else was in mobile layout. Same three
    selectors, prefixed with body.mobile-mode so this one is the more specific. */
 body.mobile-mode .js-lists .list[style*="--list-width"]:not(.list-collapsed),
 body.mobile-mode .js-swimlane .list[style*="--list-width"]:not(.list-collapsed),
@@ -133,6 +261,9 @@ body.mobile-mode [id^="swimlane-"] .list[style*="--list-width"]:not(.list-collap
 }
 [id^="swimlane-"] .list:first-child {
   min-width: 35px;
+}
+.list.list-auto-width {
+  flex: 1;
 }
 .list:first-child {
   border-inline-start: none;
@@ -757,6 +888,9 @@ form.inlined-form .list-composer {
 }
 #js-wip-limit-edit div {
   float: inline-start;
+}
+#js-list-width-edit .list-width-error {
+  display: none;
 }
 /* Mobile view styles - applied when isMiniScreen is true (iPhone, etc.) */
 .mini-list.mobile-view {
@@ -1525,3 +1659,14 @@ form.inlined-form .list-composer {
   z-index: 10;
 }
 
+/* "Set width" popup (setListWidthPopup, listHeader.jade): "Same width for
+   all lists" was inline right after "Auto list width", both `a` tags with
+   no display of their own - the browser default (inline) put them side by
+   side on one crowded line instead of the toggle stack the rest of the
+   popup already reads as. Each is now its own row, in the same top-to-
+   bottom order the markup already had. */
+#js-list-width-edit .js-toggle-auto-width,
+#js-list-width-edit .js-toggle-fixed-list-width {
+  display: block;
+  margin-top: 8px;
+}

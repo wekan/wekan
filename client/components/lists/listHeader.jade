@@ -207,6 +207,12 @@ template(name="listActionPopup")
           a.js-add-list
             i.fa.fa-plus
             | {{_ 'add-list'}}
+      hr
+      ul.pop-over-list
+        li
+          a.js-set-list-width
+            i.fa.fa-arrows-h
+            |  {{_ 'set-list-width'}}
   ul.pop-over-list
     li
       a.js-toggle-watch-list
@@ -325,6 +331,28 @@ template(name="wipLimitErrorPopup")
   .wip-limit-invalid
     p {{_ 'wipLimitErrorPopup-dialog-pt1'}}
     p {{_ 'wipLimitErrorPopup-dialog-pt2'}}
+    button.full.js-back-view(type="submit") {{_ 'cancel'}}
+
+template(name="setListWidthPopup")
+  #js-list-width-edit
+    unless isAutoWidth
+      label {{_ 'set-list-width-value'}}
+        p
+          input.list-width-value(type="number" value="{{ listWidthValue }}" min="270")
+          input.list-width-apply(type="submit" value="{{_ 'apply'}}")
+          input.list-width-error
+    if canChangeAutoWidth
+      a.js-toggle-auto-width(title="{{#if isAutoWidth}}{{_ 'click-to-disable-auto-width'}}{{else}}{{_ 'click-to-enable-auto-width'}}{{/if}}")
+        i.fa(class="{{#if isAutoWidth}}fa-compress{{else}}fa-arrows-h{{/if}}")
+        span {{_ 'auto-list-width'}}
+    a.js-toggle-fixed-list-width(title="{{#if isFixedListWidth}}{{_ 'click-to-disable-fixed-list-width'}}{{else}}{{_ 'click-to-enable-fixed-list-width'}}{{/if}}")
+      i.fa(class="{{#if isFixedListWidth}}fa-check-square-o{{else}}fa-square-o{{/if}}")
+      span {{_ 'fixed-list-width'}}
+    p.list-width-scope-note {{ listWidthScopeNote }}
+
+template(name="listWidthErrorPopup")
+  .list-width-invalid
+    p {{_ 'list-width-error-message'}} '&gt;=270'
     button.full.js-back-view(type="submit") {{_ 'cancel'}}
 
 template(name="setListColorPopup")

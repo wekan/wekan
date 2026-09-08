@@ -96,12 +96,15 @@ template(name="swimlaneActionPopup")
                i.fa.fa-plus
                span
                  | {{_ 'add-list'}}
-          if currentUser.isBoardAdmin
-            hr
-            ul.pop-over-list
-              li: a.js-set-swimlane-color
-                i.fa.fa-paint-brush
-                | {{_ 'select-color'}}
+          hr
+          ul.pop-over-list
+             if currentUser.isBoardAdmin
+               li: a.js-set-swimlane-color
+                 i.fa.fa-paint-brush
+                 | {{_ 'select-color'}}
+             li: a.js-set-swimlane-height
+               i.fa.fa-arrows
+               |  {{_ 'set-swimlane-height'}}
           if currentUser.isBoardAdmin
             unless this.isTemplateContainer
               hr
@@ -152,6 +155,21 @@ template(name="setSwimlaneColorPopup")
     .flush-left
       button.primary.confirm.js-submit(style="margin-inline-start:0") {{_ 'save'}}
       button.js-remove-color.negate.wide.right(style="margin-inline-start:8px") {{_ 'unset-color'}}
+
+template(name="setSwimlaneHeightPopup")
+  .flush-left.swimlane-height-popup
+    #js-swimlane-height-edit
+      label a) {{_ 'set-swimlane-height-value'}}
+      label b) -1
+        p
+          input.swimlane-height-value(type="number" value="{{ swimlaneHeightValue }}" min="100")
+          input.swimlane-height-apply(type="submit" value="{{_ 'apply'}}")
+          input.swimlane-height-error
+
+template(name="swimlaneHeightErrorPopup")
+  .swimlane-height-invalid
+    p {{_ 'swimlane-height-error-message'}} '&gt;=100'
+    button.full.js-back-view(type="submit") {{_ 'cancel'}}
 
 template(name="swimlaneArchivePopup")
   p {{_ "swimlane-archive-pop"}}

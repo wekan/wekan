@@ -121,6 +121,7 @@ Template.swimlaneActionPopup.events({
   'click .js-add-swimlane': Popup.open('swimlaneAdd'),
   'click .js-add-list-from-swimlane': Popup.open('addList'),
   'click .js-set-swimlane-color': Popup.open('setSwimlaneColor'),
+  'click .js-set-swimlane-height': Popup.open('setSwimlaneHeight'),
   'click .js-close-swimlane': Popup.afterConfirm('swimlaneArchive', async function() {
     await this.archive();
     Popup.close();
@@ -221,3 +222,33 @@ Template.setSwimlaneColorPopup.events({
   },
 });
 
+Template.setSwimlaneHeightPopup.onCreated(function () {
+  this.currentSwimlane = Template.currentData();
+});
+
+Template.setSwimlaneHeightPopup.helpers({
+  swimlaneHeightValue() {
+    const swimlane = Template.currentData();
+    const board = swimlane.boardId;
+    return ReactiveCache.getCurrentUser().getSwimlaneHeight(board, swimlane._id);
+  },
+});
+
+Template.setSwimlaneHeightPopup.events({
+  'click .swimlane-height-apply'(event, tpl) {
+    const swimlane = Template.currentData();
+    const board = swimlane.boardId;
+    const height = parseInt(
+      tpl.$('.swimlane-height-value').val(),
+      10,
+    );
+
+    if (height != -1 && (height < 100 || !height)) {
+      tpl.$('.swimlane-height-error').click();
+    } else {
+      Meteor.call('applySwimlaneHeight', board, swimlane._id, height);
+      Popup.back();
+    }
+  },
+  'click .swimlane-height-error': Popup.open('swimlaneHeightError'),
+});
