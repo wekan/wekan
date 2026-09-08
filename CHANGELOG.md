@@ -1,6 +1,13 @@
 # Status
 
 <details>
+<summary>More status info</summary>
+
+https://wekan.fi/status/
+
+</details>
+
+<details>
 <summary>Newest WeKan at these platforms</summary>
 
 - [Install](https://wekan.fi/install/)
