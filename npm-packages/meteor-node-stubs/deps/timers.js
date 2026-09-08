@@ -1,1 +1,0 @@
-require("timers-browserify");

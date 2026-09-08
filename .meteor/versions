@@ -53,7 +53,7 @@ matb33:collection-hooks@2.1.0
 meteor@2.3.1
 meteor-base@1.5.2
 meteortesting:browser-tests@1.8.0
-meteortesting:mocha@3.3.0
+meteortesting:mocha@3.4.0
 meteortesting:mocha-core@8.2.0
 minifier-css@2.0.2
 minifier-js@3.3.1
