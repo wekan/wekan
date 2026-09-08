@@ -414,7 +414,7 @@ directly after the merge.
 
   | Repository | File | Format |
   | --- | --- | --- |
-  | `wekan/wekan` | `CHANGELOG.md` | the WeKan format this section describes: `# Platforms`, `# TODO Later`, then `# v<MAJOR>.<MINOR> YYYY-MM-DD WeKan ® release` sections of `<details>` entries whose `<summary>` links the commit |
+  | `wekan/wekan` | `CHANGELOG.md` | the WeKan format this section describes: `# Status` (Platforms/Version/TODO Later nested as `<details>`), then `# v<MAJOR>.<MINOR> YYYY-MM-DD WeKan ® release` sections of `<details>` entries whose `<summary>` links the commit |
   | `wekan/node-patches` | `CHANGELOG.md` | the same WeKan format, with `# Upcoming node-patches release` |
   | `wekan/mongo-tools-patches` | `CHANGELOG.md` | the same WeKan format, with `# Upcoming mongo-tools-patches release` |
   | `wekan/FerretDB` | `CHANGELOG.md` | **upstream FerretDB's** format, not WeKan's: `## [v1.48.0](tag URL) (YYYY-MM-DD)` and `### New Features 🎉` / `### Fixed 🐛` / `### Other Changes 🤖` bullets ending `by @xet7. Thanks to xet7.` |
@@ -446,14 +446,15 @@ directly after the merge.
 
   | | |
   | --- | --- |
-  | `CHANGELOG.md` | the current month, plus `# Platforms`, `# TODO Later`, `# Upcoming` |
+  | `CHANGELOG.md` | the current month, plus `# Status` (Platforms/TODO Later inside it), `# Upcoming` |
   | `old-CHANGELOG/<year>/<MM>.md` | earlier months of the current year |
   | `old-CHANGELOG/<year>.md` | years that are over, whole |
 
   Past years stay one file each because they are already small (30–107 KB);
   splitting them further would trade a size problem nobody has for a hundred
   more files. Each archive opens with a **release count** — per month in a year
-  file, per day in a month file — and a bullet in `# Platforms` links every one.
+  file, per day in a month file — and a bullet in `# Status`'s "Newest WeKan at
+  these platforms" details links every one.
   That `git blame` is less useful on the split file is accepted: the history is
   still in git (`gitk`, `git-gui`, `git log --follow`), and being small enough
   to open is worth more.
@@ -463,15 +464,24 @@ directly after the merge.
   takes the month to keep from the FILE rather than the clock, so two people
   running it on the same day agree. An archived section is never edited, for the
   same reason a released one is not.
-- **The file's shape, top to bottom** — keep it exactly as it is now:
-  1. `# Platforms` — the line `Newest WeKan at these platforms:` and the Install /
-     Upgrade / Docs / Mac ChangeLog bullets, the `Older releases:` bullet linking
-     the per-year archives, then a `<details>` whose `<summary>` is `Version`
-     holding "which WeKan version uses what". There is no `# Version` heading of
+- **The file's shape, top to bottom** — keep it exactly as it is now. There is
+  exactly ONE `#` heading before the releases: `# Status`. Platforms, Version
+  and TODO Later are `<details>` blocks nested inside it, not headings of
+  their own (they used to be `# Platforms` and `# TODO Later`; both were
+  folded under `# Status` so the file opens with a single top-level section
+  rather than three):
+  1. `# Status` — opens with a `<details>` whose `<summary>` is `More status
+     info`, holding a link to <https://wekan.fi/status/>. Then a `<details>`
+     whose `<summary>` is `Newest WeKan at these platforms`, holding the line
+     `Newest WeKan at these platforms:` and the Install / Upgrade / Docs / Mac
+     ChangeLog bullets, plus the `Older releases:` bullet linking the per-year
+     archives. Then a `<details>` whose `<summary>` is `Version` holding
+     "which WeKan version uses what". Then a `<details>` whose `<summary>` is
+     `TODO Later`, itself holding a `<details>` whose `<summary>` is `Carried
+     to a future release.` explaining the list, then one `<details>` per
+     category (below). There is no `# Version` or `# TODO Later` heading of
      its own.
-  2. `# TODO Later` — a `<details>` whose `<summary>` is `Carried to a future
-     release.` explaining the list, then one `<details>` per category (below).
-  3. The releases, newest first, each `# v<MAJOR>.<MINOR> YYYY-MM-DD WeKan ® release`.
+  2. The releases, newest first, each `# v<MAJOR>.<MINOR> YYYY-MM-DD WeKan ® release`.
 
   Nothing else is an `#` heading. A `##`/`###` inside a release would break the
   version list, and a wrapped line that BEGINS with `#` (e.g. an issue number such
@@ -514,7 +524,7 @@ directly after the merge.
   A `<details>` whose body only
   repeats its summary is noise; use one when there IS a longer story to reveal, which
   is most fixes.
-- **`# TODO Later` blocks are the same shape with two differences:** the `<summary>` is
+- **TODO Later's own blocks are the same shape with two differences:** the `<summary>` is
   the short category text (no `<a>`, because nothing was committed), and there is **no
   `Thanks to`** — nothing is done yet, so there is nobody to thank. The body lists the
   issues as `[#NNNN](https://github.com/wekan/wekan/issues/NNNN) (one-line reason)`.
@@ -613,8 +623,9 @@ directly after the merge.
   `This release fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:`.
   Because CRITICAL comes first, it keeps the `This release ` prefix; a following non-security
   subsection becomes `and …` per the rule above.
-- **`# TODO Later` section** — a triage backlog near the TOP of `CHANGELOG.md` (above the
-  version sections), for open issues that were **investigated but not fixed here**, each
+- **TODO Later** — a `<details>` nested inside `# Status` near the TOP of
+  `CHANGELOG.md` (above the version sections), a triage backlog for open
+  issues that were **investigated but not fixed here**, each
   recorded with a concrete REASON so whoever picks it up next knows why. Use it when working
   through open issues (the "Fix open issues" process): for each issue, either **fix it** (commit
   ending `Fixes #NNNN,`), **close it** if already fixed in current code (commit `Close #NNNN` /

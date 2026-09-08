@@ -8,7 +8,8 @@
 // <details>/<summary>, and clicking it reveals the long text below.
 //
 // These are the rules CLAUDE.md states, checked against the file:
-//   * the file opens with Platforms and TODO Later, then the releases;
+//   * the file opens with Status (Platforms/Version/TODO Later nested inside
+//     it as <details>), then the releases;
 //   * an entry's summary is a SHORT description, never a paragraph;
 //   * no commit hash is ever the visible text of a link;
 //   * no long URL is ever shown as visible text;
@@ -28,6 +29,10 @@ const read = rel => fs.readFileSync(path.join(__dirname, '..', rel), 'utf8');
 
 const changelog = read('CHANGELOG.md');
 const lines = changelog.split('\n');
+// TODO Later is nested as a <details> inside "# Status" now, not its own
+// top-level heading - this is the one place that boundary is found, reused
+// everywhere below that used to say `lines.indexOf('# TODO Later')`.
+const todoAt = lines.indexOf('<summary>TODO Later</summary>');
 
 // Every <details> block, with the summary line and the body below it.
 function blocks() {
@@ -50,29 +55,34 @@ const ALL = blocks();
 
 console.log('changelogFormat:');
 
-test('the file opens with Platforms and TODO Later, then the releases', () => {
+test('the file opens with Status, holding Platforms/Version/TODO Later, then the releases', () => {
+  // Platforms, Version and TODO Later used to be their own top-level `#`
+  // headings; they are now <details> nested inside a single `# Status`
+  // heading (which also gained a "More status info" block linking
+  // https://wekan.fi/status/). Only ONE `#` heading may exist before the
+  // releases/Upcoming, or the version list below would be split.
   const headings = lines.filter(l => l.startsWith('# '));
-  assert.deepStrictEqual(headings.slice(0, 2), ['# Platforms', '# TODO Later']);
-  // Between TODO Later and the newest release there may be ONE section for the
+  assert.strictEqual(headings[0], '# Status');
+  // Between Status and the newest release there may be ONE section for the
   // work that is not released yet - "# Upcoming WeKan ® release", which the
   // release script renames to the next version number. Everything else is a
   // release heading; a stray one would break the version list.
-  let rest = headings.slice(2);
+  let rest = headings.slice(1);
   if (rest[0] === '# Upcoming WeKan ® release') rest = rest.slice(1);
   assert.ok(rest.every(h => /^# v\d/.test(h)),
     `nothing else is a heading: ${rest.filter(h => !/^# v\d/.test(h)).join(', ')}`);
   assert.ok(!rest.includes('# Upcoming WeKan ® release'),
     'there is only ONE Upcoming section, and it is above the newest release');
-  // "which WeKan version uses what" is a block inside Platforms, not a heading.
-  const platforms = lines.slice(0, lines.indexOf('# TODO Later'));
+  assert.ok(todoAt !== -1, 'TODO Later must still exist, nested under Status');
+  // "which WeKan version uses what" is a block inside Status, not a heading.
+  const platforms = lines.slice(0, todoAt);
   assert.ok(platforms.includes('<summary>Version</summary>'));
   assert.ok(platforms.some(l => /^- \[Install\]/.test(l)), 'and the platform links');
 });
 
 test('TODO Later opens by saying what the list is', () => {
-  const start = lines.indexOf('# TODO Later');
-  assert.strictEqual(lines[start + 2], '<details>');
-  assert.strictEqual(lines[start + 3], '<summary>Carried to a future release.</summary>');
+  assert.strictEqual(lines[todoAt + 2], '<details>');
+  assert.strictEqual(lines[todoAt + 3], '<summary>Carried to a future release.</summary>');
 });
 
 test('a change is a short description, with the long one behind it', () => {
@@ -139,7 +149,7 @@ test('no long URL is shown as visible text', () => {
 });
 
 test('TODO Later says what is NOT done, and thanks nobody for it', () => {
-  const start = lines.indexOf('# TODO Later');
+  const start = todoAt;
   // The backlog ends at whatever comes next: the not-yet-released section when
   // there is one, otherwise the newest release. Ending it at `# v` alone counted
   // every Upcoming entry as a backlog entry - and those DO thank people.
@@ -189,8 +199,7 @@ test('the newest release follows the rules to the letter', () => {
   // whatever has been done since - one entry some days, a dozen on others - so
   // measuring "the release" against it fails on the size of the current day's
   // work. The Upcoming section's own entries are checked by the test below.
-  const todo = lines.indexOf('# TODO Later');
-  const start = lines.findIndex((l, i) => i > todo && /^# v\d/.test(l));
+  const start = lines.findIndex((l, i) => i > todoAt && /^# v\d/.test(l));
   const end = lines.findIndex((l, i) => i > start && /^# v\d/.test(l));
   const inSection = ALL.filter(b => b.line > start && b.line < end);
   // At least one CHANGE. A release is as big as the work in it - v10.46 carried
