@@ -55,8 +55,9 @@ cd "$REPO_DIR"
 
 # ── Version helpers ─────────────────────────────────────────────────────────
 # WeKan versions are NN.MM with a 2-digit minor. Encode NN.MM as the integer
-# NN*100+MM so the release-to-release step (normally +1) can be measured and
-# re-applied, and a minor of 99 rolls into the next major (9.99 -> 10.00).
+# NN*100+MM so the release-to-release step (always +1) can be applied with
+# plain integer arithmetic, and a minor of 99 rolls into the next major
+# (9.99 -> 10.00).
 wekan_enc() { local v="${1#v}"; local M="${v%%.*}"; local m="${v#*.}"; m="${m%%.*}"; echo $(( 10#$M * 100 + 10#$m )); }
 wekan_dec() { printf '%d.%02d' $(( $1 / 100 )) $(( $1 % 100 )); }
 
@@ -79,8 +80,8 @@ bash "$(dirname "$0")/fix-changelog-hashes.sh" || true
 # ── Determine PREVIOUS (OLD) and NEW version — no version argument needed ────
 # Explicit args still win. Otherwise:
 #   * if there is a "# Upcoming WeKan ® release" section, RENAME it to the next
-#     version (the same increment as the last release) dated today; OLD = newest
-#     release, NEW = that next version.
+#     version (always +1 minor) dated today; OLD = newest release, NEW = that
+#     next version.
 #   * if there is NO Upcoming section, the newest heading is already the prepared
 #     release, so use it as NEW (checked to be the expected increment of OLD, and
 #     referenced by a recent commit, so an old entry is never re-released).
@@ -93,12 +94,15 @@ elif grep -qE '^# Upcoming WeKan' CHANGELOG.md; then
     echo "Error: no released '# vNN.MM <date>' heading found in CHANGELOG.md." >&2
     exit 1
   fi
-  STEP=1
-  if [ -n "${RELEASED[1]:-}" ]; then
-    STEP=$(( $(wekan_enc "${RELEASED[0]}") - $(wekan_enc "${RELEASED[1]}") ))
-    [ "$STEP" -le 0 ] && STEP=1
-  fi
-  NEW="$(wekan_dec $(( $(wekan_enc "$OLD") + STEP )) )"
+  # Always +1, never "whatever the last gap between two headings happened to
+  # be": that used to be measured from RELEASED[0] vs RELEASED[1], so ONE
+  # missing or deleted heading (a release number that was prepared, then
+  # never published, then its CHANGELOG section removed instead of renamed
+  # back to Upcoming) made the gap look like the new normal cadence and
+  # every following release re-applied and widened it - v11.56 -> v11.58 ->
+  # v11.60 -> v11.62 skipped v11.57/59/61 this way, compounding a single
+  # incident into a permanent, ever-growing habit of skipping a number.
+  NEW="$(wekan_dec $(( $(wekan_enc "$OLD") + 1 )) )"
   DATE="$(date +%F)"
   echo "--- Renaming '# Upcoming WeKan ® release' -> '# v$NEW $DATE WeKan ® release' ---"
   _tmp="$(mktemp)"
@@ -122,7 +126,13 @@ else
   fi
   EXPECTED="$(wekan_dec $(( $(wekan_enc "$OLD") + 1 )) )"
   if [ "$NEW" != "$EXPECTED" ]; then
-    echo "Note: newest CHANGELOG version v$NEW is not the +1 increment (v$EXPECTED) of the previous v$OLD; proceeding anyway."
+    echo "Error: newest CHANGELOG version v$NEW is not the +1 increment (v$EXPECTED) of the previous v$OLD." >&2
+    echo "Releases always advance by exactly one minor version. A gap here means a version" >&2
+    echo "number was prepared and never published, and its CHANGELOG section was deleted" >&2
+    echo "instead of renamed back to '# Upcoming WeKan ® release' (see this script's header" >&2
+    echo "comment on a failed-vs-broken release). Fix CHANGELOG.md, or if v$NEW is really" >&2
+    echo "the intended next release, say so explicitly: $0 $OLD $NEW" >&2
+    exit 1
   fi
   if git log -15 --format='%s' 2>/dev/null | grep -qF "$NEW"; then
     echo "    (v$NEW is referenced in a recent commit — treating it as the prepared release.)"
