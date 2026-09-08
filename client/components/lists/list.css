@@ -385,8 +385,13 @@ body.mobile-mode [id^="swimlane-"] .list[style*="--list-width"]:not(.list-collap
 .list.list-collapsed .list-header .list-rotated {
   width: 100% !important;
   max-width: 100%;
-  height: auto !important;
-  margin: 10px 0 0 0 !important;
+  /* No fixed height/top-margin: `flex: 1` below needs the item's main size to
+     come from flex-basis (0, from the shorthand), not from an explicit
+     `height`, or the box shrinks to its content and sits right under the
+     collapse-toggle/drag-handle instead of filling the rest of the column.
+     That is why the title used to sit near the top of a tall collapsed list
+     with empty space below it instead of being centered in it. */
+  margin: 0 !important;
   position: relative !important;
   overflow: hidden !important;
   transform: none;
@@ -402,15 +407,24 @@ body.mobile-mode [id^="swimlane-"] .list[style*="--list-width"]:not(.list-collap
   text-align: center;
   overflow: hidden;
   white-space: normal;
-  display: block !important;
+  /* Fills its now-stretched parent (.list-rotated, edited above) and centers
+     its own text run with flex: an `auto` width/height on a vertical
+     writing-mode block box measured EMPTY in testing (the text did not
+     render at all) for the equivalent :not(.mobile-view) rule further down,
+     so this keeps 100%/100% and centers what is INSIDE the box instead of
+     shrinking the box to its content. */
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
   font-size: calc(12px * var(--wekan-ui-font-scale, 1));
   line-height: 1.2;
   color: #333;
   padding: 0;
   margin: 0;
   width: 100%;
-  max-height: 100%;
+  max-width: 100%;
   height: 100%;
+  max-height: 100%;
   position: static;
   inset-inline-start: auto;
   top: auto;
@@ -1458,31 +1472,47 @@ form.inlined-form .list-composer {
   position: relative !important;
   width: 100% !important;
   max-width: 100% !important;
-  height: auto !important;
-  margin: 4px 0 0 0 !important;
+  /* This is the rule that actually wins on desktop (the extra :not() makes
+     it more specific than the plain/media-query versions above), and it
+     used to pin the title to the top-left corner of the collapsed list on
+     purpose (display:block, flex:0 0 auto, align-self:flex-start) - the
+     title should be CENTERED in the column instead, so make this a
+     centering flex container that grows to fill the space left after the
+     collapse-toggle/drag-handle, the same as the other .list-rotated rules
+     in this file already do. */
+  height: auto;
+  margin: 0 !important;
   transform: none !important;
   transform-origin: initial !important;
   overflow: hidden !important;
   z-index: 1 !important;
   pointer-events: none !important;
-  display: block !important;
-  flex: 0 0 auto !important;
-  align-self: flex-start;
+  display: flex !important;
+  flex: 1 1 auto !important;
+  align-items: center;
+  justify-content: center;
 }
 
 .list.list-collapsed:not(.mobile-view) .list-header .list-rotated h2.list-header-name {
-  display: block !important;
+  /* Fills its now-stretched parent (.list-rotated, edited above) and centers
+     its own text run with flex rather than shrinking to content: an `auto`
+     width/height on a `vertical-lr` block box measured empty in testing
+     (the text simply did not render), so the box keeps filling 100%/100%
+     and centers what is INSIDE it instead. */
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
   width: 100% !important;
-  height: auto !important;
+  height: 100% !important;
   margin: 0 !important;
-  max-height: 100% !important;
+  max-height: 100%;
   padding: 2px 0 !important;
   white-space: normal !important;
   overflow: hidden !important;
   transform: none !important;
   writing-mode: vertical-lr !important;
   text-orientation: mixed !important;
-  text-align: start !important;
+  text-align: center !important;
   visibility: visible !important;
   opacity: 1 !important;
 }
