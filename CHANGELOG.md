@@ -610,6 +610,30 @@ no-plaintext-secrets rule.
 
 </details>
 
+and fixes the following:
+
+**Release consistency and the Statistics view test** - after the Meteor 3.5.2
+upgrade and the Time view split.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a7419ba9a">Fix Dockerfile's Meteor release pin after the 3.5.2 upgrade</a>. Thanks to xet7.</summary>
+
+`.meteor/release` was bumped to `METEOR@3.5.2`, but Dockerfile's own
+`METEOR_RELEASE` still said `METEOR@3.5.2-rc.0`, so
+`tests/releaseVersionConsistency.test.cjs` failed with a version mismatch.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5abcb5f2f">Fix Statistics view test for the Time-view split</a>. Thanks to xet7.</summary>
+
+Time spent summary moved out of the Statistics view into its own Time
+view, leaving statsView.jade with one `.stats-view-table` section (board
+status) instead of two. The Playwright test still expected 2 tables and
+failed on every browser; updated to expect 1.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for
 their translations.
 
