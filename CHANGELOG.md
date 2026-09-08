@@ -295,12 +295,14 @@ the Markdown commit as the template.
 import/export format, and gives the **GitHub/Gitea/Forgejo issue importer**
 loss-reporting instead of silently dropping fields. The **Board View menu**
 is reordered and gains placeholder pages for ten not-yet-built views plus a
-new **Time** view. Several bugs are fixed: dependency lines and collapsed
-lists bleeding past a resized swimlane, a list's collapse caret sitting in
-the wrong place, an **OIDC redirect-style login loop** that could get an
-admin's identity provider rate-limiting them, and **list width is now a
-single hardcoded 240px** for every list on every board, with the
-redundant "Set width" and "Set swimlane height" popups removed.
+new **Time** view, and the **Board Table view** toolbar is rethemed,
+properly centered and gains new tooltips. Several bugs are fixed:
+dependency lines and collapsed lists bleeding past a resized swimlane, a
+list's collapse caret sitting in the wrong place, an **OIDC redirect-style
+login loop** that could get an admin's identity provider rate-limiting
+them, and **list width is now a single hardcoded 240px** for every list on
+every board, with the redundant "Set width"/"Set swimlane height" popups
+removed.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -476,7 +478,8 @@ validation on any import; fixed as part of the same change.
 
 </details>
 
-**Board Table view** - the pagination buttons.
+**Board Table view** - its toolbar: the pagination buttons, two toggle
+button tooltips, and vertical alignment.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/2d89c086a">Theme Board Table view's pagination buttons like the Search button</a>. Thanks to xet7.</summary>
@@ -484,6 +487,29 @@ validation on any import; fixed as part of the same change.
 The prev/next page buttons were plain white with a grey border, unlike
 the blue "Search" button right next to them in the same control row - the
 two read as different UI families instead of one toolbar.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7b6b9d519">Add descriptive tooltips to the Board Table view toggle buttons</a>. Thanks to xet7.</summary>
+
+The "wrap card titles" and "group by swimlane" toggle buttons had bare
+one-word tooltips that said neither what clicking them does nor which of
+the two states is currently on. Each now has a state-aware
+tooltip/aria-label, translated into every locale.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/663a5a1cc">Vertically center the Board Table view toolbar's controls</a>. Thanks to xet7.</summary>
+
+The search input, Search button, pagination buttons and the two toggle
+buttons sit in one flex row with align-items: center - but a flex child
+never shrinks below its own content's minimum height no matter what the
+container measures, so the Search button's bold label pushed it visibly
+taller/lower than the search input beside it. Every control now shares
+one explicit border-box height, so there is nothing left for
+align-items: center to fail to center.
 
 </details>
 
