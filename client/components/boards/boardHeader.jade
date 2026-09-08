@@ -171,6 +171,7 @@ template(name="boardChangeViewPopup")
           | {{_ 'board-view-table'}}
           if $eq Utils.boardView "board-view-table"
             i.fa.fa-check
+      hr
     li
       with "board-view-cal"
         a.js-open-cal-view
@@ -185,6 +186,7 @@ template(name="boardChangeViewPopup")
           | {{_ 'board-view-time'}}
           if $eq Utils.boardView "board-view-time"
             i.fa.fa-check
+      hr
     li
       with "board-view-stats"
         a.js-open-stats-view
@@ -203,42 +205,46 @@ template(name="boardChangeViewPopup")
       with "board-view-burndown"
         a.js-open-burndown-view
           i.fa.fa-line-chart
-          | {{_ 'board-view-burndown'}}
+          //- Not translated, deliberately: this text says the view is not
+          //- fully implemented yet, which "Burndown" alone (translated, as
+          //- if it were a finished feature name like every other entry)
+          //- would not say in any language.
+          | (Burndown)
           if $eq Utils.boardView "board-view-burndown"
             i.fa.fa-check
     li
       with "board-view-burnup"
         a.js-open-burnup-view
           i.fa.fa-area-chart
-          | {{_ 'board-view-burnup'}}
+          | (Burnup)
           if $eq Utils.boardView "board-view-burnup"
             i.fa.fa-check
     li
       with "board-view-cumulative-flow"
         a.js-open-cumulative-flow-view
           i.fa.fa-signal
-          | {{_ 'board-view-cumulative-flow'}}
+          | (Cumulative Flow)
           if $eq Utils.boardView "board-view-cumulative-flow"
             i.fa.fa-check
     li
       with "board-view-control-chart"
         a.js-open-control-chart-view
           i.fa.fa-crosshairs
-          | {{_ 'board-view-control-chart'}}
+          | (Control)
           if $eq Utils.boardView "board-view-control-chart"
             i.fa.fa-check
     li
       with "board-view-cycle-time"
         a.js-open-cycle-time-view
           i.fa.fa-refresh
-          | {{_ 'board-view-cycle-time'}}
+          | (Cycle Time)
           if $eq Utils.boardView "board-view-cycle-time"
             i.fa.fa-check
     li
       with "board-view-flow-efficiency"
         a.js-open-flow-efficiency-view
           i.fa.fa-percent
-          | {{_ 'board-view-flow-efficiency'}}
+          | (Flow Efficiency)
           if $eq Utils.boardView "board-view-flow-efficiency"
             i.fa.fa-check
     li
@@ -252,21 +258,21 @@ template(name="boardChangeViewPopup")
       with "board-view-lead-time"
         a.js-open-lead-time-view
           i.fa.fa-hourglass-half
-          | {{_ 'board-view-lead-time'}}
+          | (Lead Time)
           if $eq Utils.boardView "board-view-lead-time"
             i.fa.fa-check
     li
       with "board-view-throughput-histogram"
         a.js-open-throughput-histogram-view
           i.fa.fa-columns
-          | {{_ 'board-view-throughput-histogram'}}
+          | (Throughput Histogram)
           if $eq Utils.boardView "board-view-throughput-histogram"
             i.fa.fa-check
     li
       with "board-view-wip-run"
         a.js-open-wip-run-view
           i.fa.fa-flag-checkered
-          | {{_ 'board-view-wip-run'}}
+          | (WIP Run)
           if $eq Utils.boardView "board-view-wip-run"
             i.fa.fa-check
 
