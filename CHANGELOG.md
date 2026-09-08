@@ -383,6 +383,19 @@ rest of them.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a5e74972d">Translate the Board View menu's "not implemented yet" labels</a>. Thanks to xet7.</summary>
+
+The two entries above hardcoded the English word itself inside the
+parentheses, so on an otherwise fully translated menu these ten entries
+read as a leftover bug rather than a "coming soon" marker - the page each
+one opens was already correctly translated, since its own title uses the
+same key. The literal parentheses are what say "not implemented yet"; the
+word inside them is now translated like every other entry, through the
+exact key the placeholder page's title uses.
+
+</details>
+
 and fixes the following bugs:
 
 **CHANGELOG.md formatting.**
