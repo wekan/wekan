@@ -38,21 +38,48 @@ template(name="listHeader")
             | &nbsp;
             span.list-sum-badge(title="{{_ 'sum-of-number-fields'}}") ∑ {{numberFieldsSum}}
       else
-        a.list-collapse-indicator.js-collapse(title="{{#if collapsed}}{{_ 'uncollapse'}}{{else}}{{_ 'collapse'}}{{/if}}" aria-label="{{#if collapsed}}{{_ 'uncollapse'}}{{else}}{{_ 'collapse'}}{{/if}}")
-          if collapsed
+        if collapsed
+          //- Collapsed: unchanged from before - the caret stays a sibling
+          //- BEFORE .list-rotated, so its position:absolute (list.css)
+          //- resolves against .list-header as it always has. .list-rotated
+          //- itself is position:relative (for its 90deg text rotation), so
+          //- nesting the caret inside it here would reposition the caret
+          //- relative to that small rotated box instead - see the expanded
+          //- branch below for why nesting is right for THAT case and not
+          //- this one.
+          a.list-collapse-indicator.js-collapse(title="{{_ 'uncollapse'}}" aria-label="{{_ 'uncollapse'}}")
             i.fa.fa-caret-right
-          else
+          div.list-rotated
+            h2.list-header-name(title="{{ displayDate modifiedAt 'LLL' }}")
+              +viewer
+                = title
+              if wipLimit.enabled
+               |&nbsp;(
+               span(class="{{#if exceededWipLimit}}highlight{{/if}}") {{cardsCountWhole}}
+               |/#{wipLimit.value})
+        else
+          //- #6675: a sibling BEFORE the title, same as the collapsed branch
+          //- - NOT nested inside h2.list-header-name (that was tried and
+          //- reverted: the h2 carries js-open-inlined-form/is-editable, so a
+          //- click on the caret bubbled up and opened the rename form
+          //- instead of collapsing the list). list.css floats it to the
+          //- START of the header's top content line - the same line
+          //- .list-header-menu (the hamburger/+ icons) floats to the END of
+          //- - so it lands at the header's top corner, level with those
+          //- icons, rather than wherever plain in-flow order used to put a
+          //- static element (between the card count and them).
+          a.list-collapse-indicator.js-collapse(title="{{_ 'collapse'}}" aria-label="{{_ 'collapse'}}")
             i.fa.fa-caret-down
-        div(class="{{#if collapsed}}list-rotated{{/if}}")
-          h2.list-header-name(
-            title="{{ displayDate modifiedAt 'LLL' }}"
-            class="{{#unless collapsed}}{{#if currentUser.isBoardMember}}{{#unless currentUser.isCommentOnly}}{{#unless currentUser.isWorker}}js-open-inlined-form is-editable{{/unless}}{{/unless}}{{/if}}{{/unless}}")
-            +viewer
-              = title
-            if wipLimit.enabled
-             |&nbsp;(
-             span(class="{{#if exceededWipLimit}}highlight{{/if}}") {{cardsCountWhole}}
-             |/#{wipLimit.value})
+          div
+            h2.list-header-name(
+              title="{{ displayDate modifiedAt 'LLL' }}"
+              class="{{#if currentUser.isBoardMember}}{{#unless currentUser.isCommentOnly}}{{#unless currentUser.isWorker}}js-open-inlined-form is-editable{{/unless}}{{/unless}}{{/if}}")
+              +viewer
+                = title
+              if wipLimit.enabled
+               |&nbsp;(
+               span(class="{{#if exceededWipLimit}}highlight{{/if}}") {{cardsCountWhole}}
+               |/#{wipLimit.value})
         unless collapsed
           if showCardsCountForList cardsCountWhole
             span.cardCount {{cardsCount containerSwimlaneId}} {{cardsCountForListIsOne cardsCountWhole}}

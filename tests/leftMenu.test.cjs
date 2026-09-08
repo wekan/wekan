@@ -214,8 +214,13 @@ test('the menu folds away, the same way a list does', () => {
   const tpl = jade.slice(jade.indexOf('template(name="leftMenuCollapse")'));
   // Down while open, right while folded - exactly what a list's caret does.
   const listJade = read('client/components/lists/listHeader.jade');
+  // #6675: collapsed and expanded are now two separate branches (so the
+  // expanded caret can be nested inside the title without also nesting the
+  // collapsed one inside .list-rotated), each with its own
+  // a.list-collapse-indicator - so the two carets are no longer 300 chars
+  // apart. Slice from the first one to comfortably past the second.
   const listCaret = listJade.slice(listJade.indexOf('a.list-collapse-indicator'),
-    listJade.indexOf('a.list-collapse-indicator') + 300);
+    listJade.lastIndexOf('a.list-collapse-indicator') + 300);
   for (const [what, src] of [['the list', listCaret], ['the left menu', tpl]]) {
     assert.ok(/fa-caret-right/.test(src) && /fa-caret-down/.test(src),
       `${what} draws both carets`);

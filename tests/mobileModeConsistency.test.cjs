@@ -85,8 +85,14 @@ test('the list title shows whichever markup rendered it', () => {
   // the placement was ignored and the title was squeezed into the 30px first column.
   const mini = listJade.indexOf('if isMiniScreen');
   assert.ok(mini > -1, 'the mini-screen branch exists');
-  assert.ok(/div\(class="\{\{#if collapsed\}\}list-rotated/.test(listJade),
-    'and the other branch wraps the title in a div');
+  // #6675: split into two branches (collapsed / expanded) rather than one
+  // conditional class, each with its own caret (a sibling BEFORE the div,
+  // floated into place by list.css) followed by the div - collapsed
+  // carrying the .list-rotated class, expanded a plain one.
+  assert.ok(/div\.list-rotated\s*\n\s*h2\.list-header-name/.test(listJade),
+    'the collapsed branch wraps the title in a div.list-rotated');
+  assert.ok(/if collapsed[\s\S]*?else\s*\n(?:\s*\/\/-.*\n)*\s*a\.list-collapse-indicator[\s\S]*?\n\s*div\s*\n\s*h2\.list-header-name/.test(listJade),
+    'and the expanded branch wraps it in a plain div, after its own caret');
   const rule = /\.mobile-mode \.list-header > div:not\(\.list-rotated\)[^{]*\{([^}]*)\}/
     .exec(boardCss);
   assert.ok(rule, 'the wrapper must be dropped from the layout in mobile mode');

@@ -575,13 +575,20 @@ form.inlined-form .list-composer {
   clear: both;
 }
 
-/* Expanded desktop collapse button — static, participates in flex row 1. */
+/* Expanded desktop collapse button. #6675: floated to the START of the
+   header's top content line, the same line .list-header-menu (the
+   hamburger/+ icons, below) floats to the END of - so the caret lands at
+   the header's top corner, level with those icons (the left edge for LTR,
+   the right for RTL, from the logical float value with no extra rule),
+   instead of wherever plain static in-flow order put it (between the card
+   count and them, nowhere near either). */
 .list:not(.list-collapsed):not(.mobile-view) .list-header .js-collapse {
   position: static !important;
   top: auto !important;
   inset-inline-start: auto !important;
   inset-inline-end: auto !important;
   transform: none !important;
+  float: inline-start;
   margin: 0 !important;
   min-width: 24px;
   padding: 2px 4px !important;
