@@ -317,7 +317,9 @@ had replaced the per-user/per-list drag-resize width, the "Set width" and
 hardcoded 240px for every list. At the maintainer's request that change is
 reverted: the resize handles, both popups, the board-settings "Personal
 list width" toggle and auto-width mode all work again exactly as they did
-before v11.62.
+before v11.62. The top header also gains three board-wide toggles
+(**#6680**): lock/unlock list-width resizing, lock/unlock swimlane-height
+resizing, and a board-wide **"same width for all lists"** admin setting.
 
 This release reverts the following change:
 
@@ -335,6 +337,31 @@ restored, along with their schema fields, Meteor methods and tests
 `tests/playwright/specs/38-fixed-list-width.e2e.js`, both un-deleted). No
 commit since v11.62 touched these files, so the revert applied cleanly
 with no follow-up fixes needed.
+
+</details>
+
+and adds the following feature:
+
+**The top header** - board-wide resize locks and a shared list width.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5c48be8e6">Add board-wide list-width/swimlane-height resize locks (#6680)</a>. Thanks to Hallsie and xet7.</summary>
+
+Three independent toggles, right of the drag-handles toggle, board admins
+only: a list-width resize lock (left-right arrow plus a lock/unlock icon),
+a swimlane-height resize lock (up-down arrow, same shape), and a
+board-wide "same width for all lists" - the existing per-user Set Width
+popup's fixed-width mode, now settable for the whole board so it applies
+to every viewer, overriding their personal choice while it is on.
+Enabling/disabling a toggle is admin-only on the server
+(`server/permissions/boards.js`'s default rule); dragging the shared
+same-width value itself is allowed for any board member with write
+access, through a new sole-field `Boards.allow` rule shaped exactly like
+the existing board-drag-reorder rule, so a lower-privilege member can
+never smuggle another board field into that update.
+`tests/listSwimlaneResizeLock.test.cjs` pins the schema, the header
+wiring, the permission-rule shape and that each resize handle actually
+checks its lock before starting a drag.
 
 </details>
 
