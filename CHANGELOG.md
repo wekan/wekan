@@ -1,4 +1,4 @@
-# Platforms
+# Status
 
 <details>
 <summary>Newest WeKan at these platforms</summary>
