@@ -8,7 +8,7 @@ template(name="header")
     //- nodragscroll hands dragging on this bar to client/lib/headerDragscroll.js,
     //- which forwards it to whatever actually scrolls. Without it the page-level
     //- dragscroll on the body element would scroll the page at the same time.
-    #header-quick-access.nodragscroll(class="{{themeColorClass}}" role="navigation" aria-label="{{_ 'all-boards'}}")
+    #header-quick-access.nodragscroll(class="{{themeColorClass}} {{#if headerIconsCollapsed}}header-icons-collapsed{{/if}}" role="navigation" aria-label="{{_ 'all-boards'}}")
       //- Home icon - always at left side of logo. The house is the link to All
         Boards; the TEXT beside it is the page you are on, which on a board is
         the board's title. It used to say "All Boards" on every page, so the one
@@ -40,6 +40,18 @@ template(name="header")
           else
             = headerTitleText
 
+        //- Collapse every icon from the mobile/desktop toggle through the
+          notification bell (everything given the .js-header-collapsible-icon
+          class below), right beside the title they clutter up next to. A
+          purely visual, per-viewer preference - not persisted server-side,
+          the same way mobileMode() itself is read - so it is a plain
+          Session var, read/written in header.js exactly like mobileMode.
+        a.board-header-btn.js-toggle-header-icons-collapsed(title="{{_ 'toggle-header-icons-collapsed'}}")
+          if headerIconsCollapsed
+            i.fa.fa-angle-double-right
+          else
+            i.fa.fa-angle-double-left
+
       // Logo - visible; on mobile constrained by CSS
       unless currentSetting.hideLogo
         if currentSetting.customTopLeftCornerLogoImageUrl
@@ -56,7 +68,10 @@ template(name="header")
             img(src="{{pathFor '/logo-header.png'}}" alt="{{headerLogoAlt}}" title="{{headerLogoAlt}}")
 
       // Mobile/desktop mode toggle (swapped with zoom)
-      .mobile-mode-toggle
+      // #6680 follow-up: .js-header-collapsible-icon marks every icon the new
+      // .js-toggle-header-icons-collapsed button (by the title) hides as a
+      // group - see header.css. This is the FIRST one of that range.
+      .mobile-mode-toggle.js-header-collapsible-icon
         a.board-header-btn.js-mobile-mode-toggle(title="{{_ 'mobile-desktop-toggle'}}" class="{{#if mobileMode}}mobile-active{{else}}desktop-active{{/if}}")
           if mobileMode
             i.mobile-icon
@@ -66,7 +81,7 @@ template(name="header")
               i.fa.fa-desktop
 
       // Drag handles toggle - between zoom and mobile mode toggle
-      a.board-header-btn.js-toggle-desktop-drag-handles(title="{{_ 'show-desktop-drag-handles'}}")
+      a.board-header-btn.js-toggle-desktop-drag-handles.js-header-collapsible-icon(title="{{_ 'show-desktop-drag-handles'}}")
         i.fa.fa-arrows
         if isShowDesktopDragHandles
           i.fa.fa-check
@@ -80,7 +95,7 @@ template(name="header")
       // then swimlane height (up-down arrow).
       if isBoardPage
         if canLockBoardResize
-          a.board-header-btn.js-toggle-list-width-resize-lock(title="{{_ 'lock-list-width-resize'}}")
+          a.board-header-btn.js-toggle-list-width-resize-lock.js-header-collapsible-icon(title="{{_ 'lock-list-width-resize'}}")
             i.fa.fa-arrows-h
             if isListWidthResizeLocked
               i.fa.fa-ban
@@ -89,13 +104,13 @@ template(name="header")
           // #6680: board-wide "same width for all lists" - the same mode the
           // per-list "Set width" popup already offers per user, exposed here
           // as one board setting that applies to every viewer.
-          a.board-header-btn.js-toggle-same-width-for-all-lists(title="{{_ 'same-width-for-all-lists'}}")
+          a.board-header-btn.js-toggle-same-width-for-all-lists.js-header-collapsible-icon(title="{{_ 'same-width-for-all-lists'}}")
             i.fa.fa-columns
             if isSameWidthForAllLists
               i.fa.fa-check
             else
               i.fa.fa-ban
-          a.board-header-btn.js-toggle-swimlane-height-resize-lock(title="{{_ 'lock-swimlane-height-resize'}}")
+          a.board-header-btn.js-toggle-swimlane-height-resize-lock.js-header-collapsible-icon(title="{{_ 'lock-swimlane-height-resize'}}")
             i.fa.fa-arrows-v
             if isSwimlaneHeightResizeLocked
               i.fa.fa-ban
@@ -125,7 +140,7 @@ template(name="header")
           every pop-over; nothing here has to ask for it.
         //- One GROUP: the two adjacent buttons are about the same thing - how
           many items you have starred, and whether this one is among them.
-        .header-star-group
+        .header-star-group.js-header-collapsible-icon
           a.board-header-btn.js-open-starred-boards(title="{{_ 'allboards.starred'}}")
             i.fa.fa-caret-down
             span.board-star-counter {{starredBoardsCount}}
@@ -152,7 +167,7 @@ template(name="header")
 
         //- The top-bar Create Board control shares the same form and board-template
           picker as Add Board on the overview. #3070
-        a#header-new-board-icon.board-header-btn.js-create-board(title="{{_ 'add-board'}}")
+        a#header-new-board-icon.board-header-btn.js-create-board.js-header-collapsible-icon(title="{{_ 'add-board'}}")
           i.fa.fa-plus
 
         //- The "100%" zoom control that used to sit here is REMOVED. It scaled the
@@ -164,13 +179,15 @@ template(name="header")
         //- Everything the board's second header bar held, as icons, left of the
           bell. client/components/boards/boardHeader.jade
         if isBoardPage
-          +boardHeaderButtons
+          span.js-header-collapsible-icon
+            +boardHeaderButtons
 
         //- All Boards' four controls - Sort, Search, Multi-Selection, Boards in
           Archive - as icons, left of the bell, exactly where a board's own
           controls are. client/components/boards/boardsList.jade
         if isAllBoardsPage
-          +allBoardsHeaderButtons
+          span.js-header-collapsible-icon
+            +allBoardsHeaderButtons
 
         //- The view menu of whatever page has one - Swimlanes / Lists / Calendar
           / Gantt / Table / Stats on a board, Lists / Table on All Boards. A view
@@ -178,18 +195,22 @@ template(name="header")
           in the bar that is always on screen, not in a second bar or behind a
           panel. docs/Features/Page/Header.md
         if isBoardPage
-          +boardViewMenu
+          span.js-header-collapsible-icon
+            +boardViewMenu
         else if isAllBoardsPage
-          +allBoardsViewMenu
+          span.js-header-collapsible-icon
+            +allBoardsViewMenu
 
         //- The Admin Panel's four tabs, to the LEFT of the bell. Drawn only in
           the Admin Panel: they are navigation between its four pages.
           client/components/settings/settingHeader.jade
         if isAdminPanel
-          +adminPanelTabs
+          span.js-header-collapsible-icon
+            +adminPanelTabs
 
         // Notifications
-        +notifications
+        span.js-header-collapsible-icon
+          +notifications
 
         //- Everything that belongs to YOU rather than to the page - the divider
           that separates the two, help, your account, and the sidebar toggle

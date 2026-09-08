@@ -1370,6 +1370,7 @@
   "lock-list-width-resize": "Lock/unlock resizing list width between lists",
   "lock-swimlane-height-resize": "Lock/unlock resizing swimlane height",
   "same-width-for-all-lists": "Same width for all lists (whole board)",
+  "toggle-header-icons-collapsed": "Collapse/expand header icons (mobile/desktop toggle to notifications)",
   "drag-to-resize-sidebar": "Drag to resize sidebar",
   "drag-to-resize-left-menu": "Drag to resize left menu",
   "submit-on-enter": "Submit editors with Enter",

@@ -477,6 +477,24 @@ body.mobile-mode #header-quick-access .allBoards {
 #header-quick-access .js-toggle-same-width-for-all-lists .fa {
   font-size: 0.7em;
 }
+
+/* #6680 follow-up: collapse every icon from the mobile/desktop toggle
+   through the notification bell into one .js-toggle-header-icons-collapsed
+   button beside the title. Some marked elements are pre-existing div
+   wrappers with their own box styling (.mobile-mode-toggle,
+   .header-star-group) and keep their normal display outside the collapsed
+   state; the plain `span.js-header-collapsible-icon` wrappers added around
+   +boardHeaderButtons/+allBoardsHeaderButtons/+boardViewMenu/
+   +allBoardsViewMenu/+adminPanelTabs/+notifications did not exist before
+   this feature and must stay `display: contents` so introducing them does
+   not change how their own children behave as flex items of
+   #header-quick-access when NOT collapsed. */
+#header-quick-access .header-quick-access-end > span.js-header-collapsible-icon {
+  display: contents;
+}
+#header-quick-access.header-icons-collapsed .js-header-collapsible-icon {
+  display: none !important;
+}
 #header-quick-access #header-user-bar,
 #header-quick-access #header-new-board-icon,
 #header-quick-access ul li {

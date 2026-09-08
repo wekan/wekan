@@ -364,6 +364,14 @@ Template.header.helpers({
     }
     return Utils.getMobileMode();
   },
+
+  // #6680 follow-up: whether every .js-header-collapsible-icon (mobile/
+  // desktop toggle through the notification bell) is hidden. A plain,
+  // per-viewer, per-session preference - not persisted - the same shape as
+  // mobileMode() above, not a board setting like the resize locks are.
+  headerIconsCollapsed() {
+    return !!Session.get('wekan-header-icons-collapsed');
+  },
 });
 
 Template.header.events({
@@ -468,6 +476,12 @@ Template.header.events({
     const board = Utils.getCurrentBoard();
     if (!board) return;
     board.setSwimlaneHeightResizeLocked(!board.getSwimlaneHeightResizeLocked());
+  },
+  // #6680 follow-up: collapse every icon from the mobile/desktop toggle
+  // through the notification bell, right beside the board title. Purely
+  // visual and per-session, like mobileMode() - see headerIconsCollapsed().
+  'click .js-toggle-header-icons-collapsed'() {
+    Session.set('wekan-header-icons-collapsed', !Session.get('wekan-header-icons-collapsed'));
   },
   // #6680: the board-wide "same width for all lists" toggle. Enabling it is
   // a board setting (admin-only, like the two lock toggles); it does not
