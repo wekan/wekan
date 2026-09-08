@@ -275,10 +275,11 @@ test.describe('Admin – newest features', () => {
 
     const stats = page.locator('.stats-view');
     await expect(stats).toBeVisible({ timeout: 15_000 });
-    // Shows the board title and both sections (status + time summary), with counts
+    // Shows the board title and its one section (board status), with counts
     // resolved from the server boardStatus method (not the '…' loading placeholder).
+    // Time spent summary moved out of Statistics into its own Time view.
     await expect(stats).toContainText('Stats Board');
-    await expect(stats.locator('.stats-view-table')).toHaveCount(2);
+    await expect(stats.locator('.stats-view-table')).toHaveCount(1);
     await expect(stats).toContainText('Lists');
     await expect(stats.locator('.stats-view-value').first()).not.toHaveText('…', { timeout: 15_000 });
     // The text is selectable (not user-select:none) so values can be copied.
