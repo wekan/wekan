@@ -315,7 +315,7 @@ This release fixes the following developer-tooling bug:
 **`releases/release-all.sh`** - the version-number step between releases.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/685f848d0">Stop release-all.sh from inheriting and widening a version-number gap</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/96157ef41">Stop release-all.sh from inheriting and widening a version-number gap</a>. Thanks to xet7.</summary>
 
 The next release version used to be computed by MEASURING the gap between
 the two newest `# vNN.MM` headings in CHANGELOG.md and re-applying that same
@@ -345,7 +345,7 @@ and the following developer-tooling changes:
 **CHANGELOG.md** - the empty Upcoming placeholder, and where the binaries table sits.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/4a2942dae">Stop leaving an empty Upcoming placeholder, move the binaries table to the end</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/83fa2d341">Stop leaving an empty Upcoming placeholder, move the binaries table to the end</a>. Thanks to xet7.</summary>
 
 CHANGELOG.md no longer carries an empty `# Upcoming WeKan ® release` section
 with an `**In short:** nothing here yet.` placeholder between releases.
@@ -368,7 +368,7 @@ sees.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/b4cfe5fdc">Remove the Docker Hub/Quay.io registry-overview sync</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/0c1b8a4ca">Remove the Docker Hub/Quay.io registry-overview sync</a>. Thanks to xet7.</summary>
 
 v11.62's `release-all.yml` run had already shown this step to be a
 liability rather than a convenience: `DOCKERHUB_AUTH`/`QUAY_AUTH` are
