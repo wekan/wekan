@@ -1370,6 +1370,7 @@
   "lock-list-width-resize": "Lås/lås op for ændring af listebredde mellem lister",
   "lock-swimlane-height-resize": "Lås/lås op for ændring af swimlane-højde",
   "same-width-for-all-lists": "Samme bredde for alle lister (hele tavlen)",
+  "toggle-header-icons-collapsed": "Fold sidehoved-ikoner sammen/ud",
   "drag-to-resize-sidebar": "Træk for at ændre sidepanelets bredde",
   "drag-to-resize-left-menu": "Træk for at ændre venstremenuens bredde",
   "submit-on-enter": "Send editorer med Enter",

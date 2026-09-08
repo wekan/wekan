@@ -1370,6 +1370,7 @@
   "lock-list-width-resize": "د لیستونو ترمنځ د لیست د پلنوالي بدلون تړل/خلاصول",
   "lock-swimlane-height-resize": "د سوېمي لین لوړوالي بدلون تړل/خلاصول",
   "same-width-for-all-lists": "ټولو لیستونو ته ورته پلنوالی (ټول بورډ)",
+  "toggle-header-icons-collapsed": "د سرلیک نښې راونشلول/غځول",
   "drag-to-resize-sidebar": "د اړخپټې د کچې بدلولو لپاره يې راکش کړئ",
   "drag-to-resize-left-menu": "د کيڼې غورنۍ د کچې بدلولو لپاره يې راکش کړئ",
   "submit-on-enter": "سموونکي په Enter وسپارئ",

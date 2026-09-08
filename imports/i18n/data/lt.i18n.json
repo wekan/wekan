@@ -1370,6 +1370,7 @@
   "lock-list-width-resize": "Užrakinti / atrakinti sąrašo pločio keitimą tarp sąrašų",
   "lock-swimlane-height-resize": "Užrakinti / atrakinti takelio aukščio keitimą",
   "same-width-for-all-lists": "Vienodas plotis visiems sąrašams (visa lenta)",
+  "toggle-header-icons-collapsed": "Suskleisti / išskleisti antraštės piktogramas",
   "drag-to-resize-sidebar": "Vilkite, kad pakeistumėte šoninės juostos dydį",
   "drag-to-resize-left-menu": "Vilkite, kad pakeistumėte kairiojo meniu dydį",
   "submit-on-enter": "Pateikti redaktorius klavišu Enter",

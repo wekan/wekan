@@ -1370,6 +1370,7 @@
   "lock-list-width-resize": "Lukusta/vabasta loendite vahelise loendi laiuse muutmine",
   "lock-swimlane-height-resize": "Lukusta/vabasta ujumisraja kõrguse muutmine",
   "same-width-for-all-lists": "Sama laius kõigile loenditele (kogu tahvel)",
+  "toggle-header-icons-collapsed": "Ahenda/laienda päise ikoonid",
   "drag-to-resize-sidebar": "Lohista külgriba suuruse muutmiseks",
   "drag-to-resize-left-menu": "Lohista vasaku menüü suuruse muutmiseks",
   "submit-on-enter": "Salvesta redaktorid klahviga Enter",

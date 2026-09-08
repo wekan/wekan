@@ -1370,6 +1370,7 @@
   "lock-list-width-resize": "Lås/lås opp endring av listebredde mellom lister",
   "lock-swimlane-height-resize": "Lås/lås opp endring av svømmebanehøyde",
   "same-width-for-all-lists": "Samme bredde for alle lister (hele tavlen)",
+  "toggle-header-icons-collapsed": "Slå sammen/utvid hode-ikoner",
   "drag-to-resize-sidebar": "Dra for å endre størrelse på sidepanelet",
   "drag-to-resize-left-menu": "Dra for å endre størrelse på venstremenyen",
   "submit-on-enter": "Send inn redigering med Enter",

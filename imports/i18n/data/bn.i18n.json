@@ -1370,6 +1370,7 @@
   "lock-list-width-resize": "তালিকাগুলোর মধ্যে তালিকার প্রস্থ পরিবর্তন লক/আনলক করুন",
   "lock-swimlane-height-resize": "সুইমলেনের উচ্চতা পরিবর্তন লক/আনলক করুন",
   "same-width-for-all-lists": "সব তালিকার জন্য একই প্রস্থ (সম্পূর্ণ বোর্ড)",
+  "toggle-header-icons-collapsed": "হেডার আইকনগুলি সংকুচিত/প্রসারিত করুন",
   "drag-to-resize-sidebar": "পার্শ্বদণ্ডের আকার বদলাতে টানুন",
   "drag-to-resize-left-menu": "বাঁ মেনুর আকার বদলাতে টানুন",
   "submit-on-enter": "এন্টার দিয়ে সম্পাদক জমা দিন",

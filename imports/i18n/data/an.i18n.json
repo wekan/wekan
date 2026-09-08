@@ -1370,6 +1370,7 @@
   "lock-list-width-resize": "Blocar/desbloquiar lo cambio d'amplaria d'a lista entre listas",
   "lock-swimlane-height-resize": "Blocar/desbloquiar lo cambio d'altaria d'o swimlane",
   "same-width-for-all-lists": "Mesma amplaria pa todas as listas (tot lo tablero)",
+  "toggle-header-icons-collapsed": "Contrayer/expandir iconas de capitero",
   "drag-to-resize-sidebar": "Arrastra ta redimensionar la barra lateral",
   "drag-to-resize-left-menu": "Arrastra ta redimensionar el menú izquierdo",
   "submit-on-enter": "Enviar editores con Enter",

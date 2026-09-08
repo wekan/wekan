@@ -1370,6 +1370,7 @@
   "lock-list-width-resize": "Bloquiar/desbloquiar el cambéu d'anchu de llista ente llistes",
   "lock-swimlane-height-resize": "Bloquiar/desbloquiar el cambéu d'altor del swimlane",
   "same-width-for-all-lists": "Mesmu anchu pa toles llistes (tol tableru)",
+  "toggle-header-icons-collapsed": "Contrayer/estender iconos de testera",
   "drag-to-resize-sidebar": "Arrastra pa camudar l'anchor de la barra llateral",
   "drag-to-resize-left-menu": "Arrastra pa camudar l'anchor del menú izquierdu",
   "submit-on-enter": "Unviar los editores con Enter",

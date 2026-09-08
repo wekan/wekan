@@ -1370,6 +1370,7 @@
   "lock-list-width-resize": "목록 간 목록 너비 크기 조정 잠금/잠금 해제",
   "lock-swimlane-height-resize": "스윔레인 높이 크기 조정 잠금/잠금 해제",
   "same-width-for-all-lists": "모든 목록에 동일한 너비 적용 (보드 전체)",
+  "toggle-header-icons-collapsed": "헤더 아이콘 접기/펼치기",
   "drag-to-resize-sidebar": "드래그하여 사이드바 크기 조절",
   "drag-to-resize-left-menu": "드래그하여 왼쪽 메뉴 크기 조절",
   "submit-on-enter": "Enter로 편집기 제출",

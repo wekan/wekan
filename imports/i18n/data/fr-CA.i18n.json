@@ -1370,6 +1370,7 @@
   "lock-list-width-resize": "Verrouiller/déverrouiller le redimensionnement de la largeur des listes",
   "lock-swimlane-height-resize": "Verrouiller/déverrouiller le redimensionnement de la hauteur du couloir (swimlane)",
   "same-width-for-all-lists": "Même largeur pour toutes les listes (tout le tableau)",
+  "toggle-header-icons-collapsed": "Réduire/développer les icônes d'en-tête",
   "drag-to-resize-sidebar": "Faites glisser pour redimensionner la barre latérale",
   "drag-to-resize-left-menu": "Faites glisser pour redimensionner le menu de gauche",
   "submit-on-enter": "Valider les éditeurs avec Enter",

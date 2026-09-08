@@ -1370,6 +1370,7 @@
   "lock-list-width-resize": "Bloqueja/desbloqueja el canvi d'amplada de llista entre llistes",
   "lock-swimlane-height-resize": "Bloqueja/desbloqueja el canvi d'alçada del carril (swimlane)",
   "same-width-for-all-lists": "Mateixa amplada per a totes les llistes (tot el tauler)",
+  "toggle-header-icons-collapsed": "Redueix/expandeix les icones de la capçalera",
   "drag-to-resize-sidebar": "Arrossega per canviar l'amplària de la barra lateral",
   "drag-to-resize-left-menu": "Arrossega per canviar l'amplària del menú esquerre",
   "submit-on-enter": "Envia els editors amb Enter",

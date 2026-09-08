@@ -1370,6 +1370,7 @@
   "lock-list-width-resize": "ล็อก/ปลดล็อกการปรับขนาดความกว้างของลิสต์ระหว่างลิสต์",
   "lock-swimlane-height-resize": "ล็อก/ปลดล็อกการปรับขนาดความสูงของสวิมเลน",
   "same-width-for-all-lists": "ความกว้างเท่ากันสำหรับทุกลิสต์ (ทั้งบอร์ด)",
+  "toggle-header-icons-collapsed": "ยุบ/ขยายไอคอนส่วนหัว",
   "drag-to-resize-sidebar": "ลากเพื่อปรับขนาดแถบด้านข้าง",
   "drag-to-resize-left-menu": "ลากเพื่อปรับขนาดเมนูด้านซ้าย",
   "submit-on-enter": "ส่งตัวแก้ไขด้วย Enter",

@@ -1370,6 +1370,7 @@
   "lock-list-width-resize": "Заклучи/отклучи промена на ширината на листата меѓу листи",
   "lock-swimlane-height-resize": "Заклучи/отклучи промена на висината на патеката (swimlane)",
   "same-width-for-all-lists": "Иста ширина за сите листи (целата табла)",
+  "toggle-header-icons-collapsed": "Собери/прошири икони на заглавието",
   "drag-to-resize-sidebar": "Влечете за да ја промените големината на страничната лента",
   "drag-to-resize-left-menu": "Влечете за да ја промените големината на левото мени",
   "submit-on-enter": "Испраќај уредувачи со Enter",

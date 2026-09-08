@@ -1370,6 +1370,7 @@
   "lock-list-width-resize": "锁定/解锁列表之间列宽调整",
   "lock-swimlane-height-resize": "锁定/解锁泳道高度调整",
   "same-width-for-all-lists": "所有列表使用相同宽度（整个看板）",
+  "toggle-header-icons-collapsed": "收起/展开标题图标",
   "drag-to-resize-sidebar": "拖动以调整侧栏宽度",
   "drag-to-resize-left-menu": "拖动以调整左侧菜单宽度",
   "submit-on-enter": "用 Enter 保存编辑器",

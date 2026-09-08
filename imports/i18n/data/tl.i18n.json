@@ -1370,6 +1370,7 @@
   "lock-list-width-resize": "I-lock/i-unlock ang pagbabago ng lapad ng listahan sa pagitan ng mga listahan",
   "lock-swimlane-height-resize": "I-lock/i-unlock ang pagbabago ng taas ng swimlane",
   "same-width-for-all-lists": "Parehong lapad para sa lahat ng listahan (buong board)",
+  "toggle-header-icons-collapsed": "I-collapse/i-expand ang mga icon ng header",
   "drag-to-resize-sidebar": "Drag sa resize sidebar",
   "drag-to-resize-left-menu": "Drag sa resize left talaan",
   "submit-on-enter": "Isumite editors kasama ang Ilagay",

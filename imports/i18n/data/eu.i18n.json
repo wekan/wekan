@@ -1370,6 +1370,7 @@
   "lock-list-width-resize": "Blokeatu/desblokeatu zerrenden arteko zerrenda-zabalera aldatzea",
   "lock-swimlane-height-resize": "Blokeatu/desblokeatu igerilekuaren (swimlane) altuera aldatzea",
   "same-width-for-all-lists": "Zabalera bera zerrenda guztientzat (arbel osoa)",
+  "toggle-header-icons-collapsed": "Tolestu/zabaldu goiburuko ikonoak",
   "drag-to-resize-sidebar": "Arrastatu alboko barra tamainaz aldatzeko",
   "drag-to-resize-left-menu": "Arrastatu ezkerreko menua tamainaz aldatzeko",
   "submit-on-enter": "Bidali editoreak Enter sakatuz",

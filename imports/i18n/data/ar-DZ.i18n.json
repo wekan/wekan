@@ -1370,6 +1370,7 @@
   "lock-list-width-resize": "قفل/إلغاء قفل تغيير عرض القائمة بين القوائم",
   "lock-swimlane-height-resize": "قفل/إلغاء قفل تغيير ارتفاع المسار (Swimlane)",
   "same-width-for-all-lists": "نفس العرض لجميع القوائم (اللوحة بأكملها)",
+  "toggle-header-icons-collapsed": "طيّ/فتح أيقونات الترويسة",
   "drag-to-resize-sidebar": "اسحب لتغيير عرض الشريط الجانبي",
   "drag-to-resize-left-menu": "اسحب لتغيير عرض القائمة اليسرى",
   "submit-on-enter": "إرسال المحررات بالضغط على Enter",

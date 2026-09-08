@@ -1370,6 +1370,7 @@
   "lock-list-width-resize": "યાદીઓ વચ્ચે યાદીની પહોળાઈ બદલવાનું લૉક/અનલૉક કરો",
   "lock-swimlane-height-resize": "સ્વિમલેનની ઊંચાઈ બદલવાનું લૉક/અનલૉક કરો",
   "same-width-for-all-lists": "બધી યાદીઓ માટે સમાન પહોળાઈ (સંપૂર્ણ બોર્ડ)",
+  "toggle-header-icons-collapsed": "હેડર આઇકન સંકોચો/વિસ્તૃત કરો",
   "drag-to-resize-sidebar": "સાઇડબારનું કદ બદલવા માટે ખેંચો",
   "drag-to-resize-left-menu": "ડાબા મેનુનું કદ બદલવા માટે ખેંચો",
   "submit-on-enter": "Enter વડે એડિટર સબમિટ કરો",

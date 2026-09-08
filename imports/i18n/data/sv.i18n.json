@@ -1370,6 +1370,7 @@
   "lock-list-width-resize": "Lås/lås upp ändring av listbredd mellan listor",
   "lock-swimlane-height-resize": "Lås/lås upp ändring av simbanans höjd",
   "same-width-for-all-lists": "Samma bredd för alla listor (hela tavlan)",
+  "toggle-header-icons-collapsed": "Fäll ihop/ut header-ikoner",
   "drag-to-resize-sidebar": "Dra för att ändra storlek på sidofältet",
   "drag-to-resize-left-menu": "Dra för att ändra storlek på vänstermenyn",
   "submit-on-enter": "Skicka redigerare med Enter",

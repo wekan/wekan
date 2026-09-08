@@ -1370,6 +1370,7 @@
   "lock-list-width-resize": "Bloquear/desbloquear o cambio de ancho de lista entre listas",
   "lock-swimlane-height-resize": "Bloquear/desbloquear o cambio de altura do carril (swimlane)",
   "same-width-for-all-lists": "O mesmo ancho para todas as listas (todo o taboleiro)",
+  "toggle-header-icons-collapsed": "Contraer/expandir iconas de cabeceira",
   "drag-to-resize-sidebar": "Arrastra para redimensionar a barra lateral",
   "drag-to-resize-left-menu": "Arrastra para redimensionar o menú esquerdo",
   "submit-on-enter": "Enviar os editores con Enter",

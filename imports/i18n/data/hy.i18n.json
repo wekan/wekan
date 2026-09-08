@@ -1370,6 +1370,7 @@
   "lock-list-width-resize": "Ցուցակների միջև ցուցակի լայնության փոփոխման կողպում/ապակողպում",
   "lock-swimlane-height-resize": "Swimlane-ի բարձրության փոփոխման կողպում/ապակողպում",
   "same-width-for-all-lists": "Նույն լայնությունը բոլոր ցուցակների համար (ամբողջ գրատախտակը)",
+  "toggle-header-icons-collapsed": "Ծալել/բացել վերնագրի պատկերակները",
   "drag-to-resize-sidebar": "Քաշեք՝ կողագոտու չափը փոխելու համար",
   "drag-to-resize-left-menu": "Քաշեք՝ ձախ ընտրացանկի չափը փոխելու համար",
   "submit-on-enter": "Հաստատել խմբագրիչները Enter-ով",

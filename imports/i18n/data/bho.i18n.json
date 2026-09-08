@@ -1370,6 +1370,7 @@
   "lock-list-width-resize": "लिस्टन के बीच लिस्ट के चौड़ाई बदलल लॉक/अनलॉक करीं",
   "lock-swimlane-height-resize": "स्विमलेन के ऊंचाई बदलल लॉक/अनलॉक करीं",
   "same-width-for-all-lists": "सगरी लिस्ट खातिर एके चौड़ाई (पूरा बोर्ड)",
+  "toggle-header-icons-collapsed": "हेडर आइकन के संकुचित/विस्तार करीं",
   "drag-to-resize-sidebar": "बगल-पट्टी के आकार बदले खातिर खींचीं",
   "drag-to-resize-left-menu": "बायाँ मेनू के आकार बदले खातिर खींचीं",
   "submit-on-enter": "एंटर से संपादक जमा करीं",

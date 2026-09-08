@@ -1370,6 +1370,7 @@
   "lock-list-width-resize": "قفل/باز کردن تغییر عرض فهرست بین فهرست‌ها",
   "lock-swimlane-height-resize": "قفل/باز کردن تغییر ارتفاع مسیر شنا (swimlane)",
   "same-width-for-all-lists": "عرض یکسان برای همه فهرست‌ها (کل تخته)",
+  "toggle-header-icons-collapsed": "جمع/باز کردن نمادهای سربرگ",
   "drag-to-resize-sidebar": "برای تغییر اندازه نوار کناری بکشید",
   "drag-to-resize-left-menu": "برای تغییر اندازه منوی چپ بکشید",
   "submit-on-enter": "ثبت ویرایشگرها با Enter",

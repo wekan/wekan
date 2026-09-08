@@ -1370,6 +1370,7 @@
   "lock-list-width-resize": "Uzamknúť/odomknúť zmenu šírky zoznamu medzi zoznamami",
   "lock-swimlane-height-resize": "Uzamknúť/odomknúť zmenu výšky dráhy (swimlane)",
   "same-width-for-all-lists": "Rovnaká šírka pre všetky zoznamy (celá nástenka)",
+  "toggle-header-icons-collapsed": "Zbaliť/rozbaliť ikony hlavičky",
   "drag-to-resize-sidebar": "Potiahnutím zmeníte veľkosť bočného panela",
   "drag-to-resize-left-menu": "Potiahnutím zmeníte veľkosť ľavej ponuky",
   "submit-on-enter": "Odoslať editory klávesom Enter",

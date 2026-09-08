@@ -1370,6 +1370,7 @@
   "lock-list-width-resize": "ཐོ་ཡིག་ཀྱི་བར་ན་ཐོ་ཡིག་གི་རྒྱ་ཚད་སོར་བསྒྱུར་ལྡེ་མིག་བརྒྱབ/ཕྱེ",
   "lock-swimlane-height-resize": "swimlane མཐོ་ཚད་སོར་བསྒྱུར་ལྡེ་མིག་བརྒྱབ/ཕྱེ",
   "same-width-for-all-lists": "ཐོ་ཡིག་ཆ་མཉམ་ལུ་རྒྱ་ཚད་གཅིག་པ (ཨིསྤ་བརྡ་ཧྲིལམ)",
+  "toggle-header-icons-collapsed": "མགོ་ཡིག་གི་མཚོན་རིས་བསྡུས/བརྐྱངས",
   "drag-to-resize-sidebar": "ཟུར་སྒྲོམ་གྱི་ཆེ་ཆུང་བསྒྱུར་བར་འདྲུད།",
   "drag-to-resize-left-menu": "གཡོན་འདེམས་ཐོའི་ཆེ་ཆུང་བསྒྱུར་བར་འདྲུད།",
   "submit-on-enter": "Enter མནན་ནས་རྩོམ་སྒྲིག་ཕུལ།",
