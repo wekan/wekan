@@ -2,6 +2,13 @@
    Admin Panel / People page (see client/components/settings/peopleBody.css).
    The table itself reuses the My Cards table styling (.my-cards-board-table). */
 
+/* #6685: every control in this row shares ONE explicit height (34px) with
+   box-sizing: border-box, so none of them can grow past it and leave
+   align-items: center (below) with nothing to actually center - a button's
+   own font/line-height/padding otherwise sets its MINIMUM content height,
+   which a flex child never shrinks below no matter what its container
+   measures (the Search button's bold label was doing exactly that, pushing
+   it visibly lower/taller than the search input beside it). */
 .table-view-controls {
   display: flex;
   flex-wrap: wrap;
@@ -13,16 +20,22 @@
 .table-view-search-box {
   display: flex;
   flex-direction: row;
+  align-items: center;
   height: 34px;
 }
 
 .table-view-search-box input {
+  box-sizing: border-box;
+  height: 34px;
   border: 1px solid #ccc;
   border-radius: 6px;
   padding: 0 8px;
 }
 
 .table-view-search-box button {
+  box-sizing: border-box;
+  height: 34px;
+  line-height: 1;
   min-width: 90px;
   margin-inline-start: 6px;
   background: #01628c;
@@ -44,8 +57,10 @@
 }
 
 .table-view-pagination button {
+  box-sizing: border-box;
   min-width: 32px;
-  height: 30px;
+  height: 34px;
+  line-height: 1;
   border: none;
   background: #01628c;
   color: #fff;
@@ -70,8 +85,10 @@
 
 .table-view-controls .js-table-view-toggle-card-title-wrap,
 .table-view-controls .js-table-view-toggle-swimlane-groups {
+  box-sizing: border-box;
   width: 34px;
-  height: 30px;
+  height: 34px;
+  line-height: 1;
   border: 1px solid #bbb;
   background: #fff;
   border-radius: 6px;
