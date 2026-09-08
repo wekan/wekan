@@ -4050,6 +4050,67 @@ jobs:
           done
           exit $rc
 
+      # Docker Hub and Quay.io each show a long-form "overview"/description on the
+      # repository page, separate from the image tags, and neither one updates it
+      # automatically - it has to be pushed via their API, or it silently drifts
+      # from what README.md actually documents. GHCR needs no such call: a
+      # package linked to a GitHub repository (ghcr.io/wekan/wekan is) already
+      # shows that repository's own README automatically. Same pattern as
+      # FerretDB's docker.yml: sync each registry independently, reusing the
+      # DOCKERHUB_AUTH/QUAY_AUTH secrets already decoded above for docker login,
+      # and never echo a token or the JWT.
+      - name: Sync the repository overview to Docker Hub and Quay.io from README.md
+        env:
+          DOCKERHUB_AUTH: ${{ secrets.DOCKERHUB_AUTH }}
+          QUAY_AUTH: ${{ secrets.QUAY_AUTH }}
+        run: |
+          set -uo pipefail
+          fail=0
+          readme="$(cat README.md)"
+
+          echo "::group::Sync overview to Docker Hub"
+          creds="$(printf '%s' "$DOCKERHUB_AUTH" | base64 -d)"
+          user="${creds%%:*}"
+          token="${creds#*:}"
+          jwt="$(curl -fsS -X POST https://hub.docker.com/v2/users/login \
+                   -H 'Content-Type: application/json' \
+                   -d "$(jq -n --arg u "$user" --arg p "$token" '{username:$u,password:$p}')" \
+                 | jq -r '.token')"
+          if [ -n "$jwt" ] && [ "$jwt" != null ] && curl -fsS -X PATCH \
+               https://hub.docker.com/v2/repositories/wekanteam/wekan \
+               -H "Authorization: JWT $jwt" \
+               -H 'Content-Type: application/json' \
+               -d "$(jq -n --arg d "$readme" '{full_description:$d}')" \
+               -o /dev/null; then
+            echo "Docker Hub: OK"
+          else
+            echo "::error::Docker Hub overview sync failed"
+            fail=1
+          fi
+          echo "::endgroup::"
+
+          echo "::group::Sync overview to Quay.io"
+          creds="$(printf '%s' "$QUAY_AUTH" | base64 -d)"
+          quay_token="${creds#*:}"
+          if curl -fsS -X PUT \
+               https://quay.io/api/v1/repository/wekan/wekan \
+               -H "Authorization: Bearer $quay_token" \
+               -H 'Content-Type: application/json' \
+               -d "$(jq -n --arg d "$readme" '{description:$d}')" \
+               -o /dev/null; then
+            echo "Quay.io: OK"
+          else
+            echo "::error::Quay.io overview sync failed"
+            fail=1
+          fi
+          echo "::endgroup::"
+
+          if [ "$fail" -ne 0 ]; then
+            echo "::error::One or more registry overview syncs failed (see groups above)."
+            exit 1
+          fi
+          echo "All registry overview syncs succeeded."
+
       # Always, as the last step: the run summary then answers "what worked and what
       # did not" for the whole release at a glance, instead of eighteen job logs. A
       # step that failed has already printed an ::error:: saying why; this names the
