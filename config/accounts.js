@@ -145,6 +145,21 @@ if (Meteor.isClient) {
     });
   }
 
+  // #6681: a successful login clears the OIDC auto-redirect one-shot flag
+  // (client/lib/oidcAutoRedirect.js), so a LATER logout can still trigger the
+  // auto-redirect again rather than being permanently stuck off after the
+  // first tab session. A failed login clears it too, so a genuine error
+  // (bad IdP config, id-map mismatch, ...) does not leave the sign-in page
+  // silently refusing to ever try again - the difference between a fixed
+  // loop and a new, different kind of stuck state.
+  const { OidcAutoRedirect } = require('/client/lib/oidcAutoRedirect');
+  if (Accounts && typeof Accounts.onLogin === 'function') {
+    Accounts.onLogin(() => OidcAutoRedirect.clear());
+  }
+  if (Accounts && typeof Accounts.onLoginFailure === 'function') {
+    Accounts.onLoginFailure(() => OidcAutoRedirect.clear());
+  }
+
   const { Template } = require('meteor/templating');
   const { T9n } = require('meteor/communitypackages:core');
   // Fields WeKan translates itself (complete data/<lang>.i18n.json coverage), keyed

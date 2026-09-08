@@ -5,6 +5,7 @@ import Users from '/models/users';
 import { EscapeActions } from '/client/lib/escapeActions';
 import { enablePageDragscroll, disablePageDragscroll } from '/client/lib/pageDragscroll';
 import { trapTabKey } from '/client/lib/accessibility';
+import { OidcAutoRedirect } from '/client/lib/oidcAutoRedirect';
 
 let alreadyCheck = 1;
 let isCheckDone = false;
@@ -30,7 +31,19 @@ Template.userFormsLayout.onCreated(function () {
 
   if (!ReactiveCache.getCurrentUser()?.profile) {
     Meteor.call('isOidcRedirectionEnabled', (_, result) => {
-      if (result) {
+      // #6681: with `oauth2-login-style: redirect`, the identity provider's
+      // callback bounces the browser back to this SAME sign-in page (there is
+      // no dedicated callback route), and the login method that follows a
+      // successful callback completes asynchronously - racing this template's
+      // own re-render. Firing the redirect unconditionally on every render
+      // meant the bounce-back page could see "not logged in yet" and send the
+      // browser straight back to the provider, in a loop that only stopped
+      // when the provider started rate-limiting the repeated requests. Once
+      // per tab is enough: OidcAutoRedirect's flag survives the round trip to
+      // the provider and back, and is cleared on login success/failure
+      // (config/accounts.js) so a later logout can auto-redirect again.
+      if (result && !OidcAutoRedirect.hasAlreadyFired()) {
+        OidcAutoRedirect.markFired();
         AccountsTemplates.options.socialLoginStyle = 'redirect';
         // #5695: this is an ES module, so the body runs in strict mode and
         // the previous undeclared `options = {...}` assignment threw a
