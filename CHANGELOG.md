@@ -368,6 +368,18 @@ it is not on the maintainer's list of nine.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/212d19ca5">Move Gantt between Statistics and Dashboard, mark Dashboard unfinished</a>. Thanks to xet7.</summary>
+
+Gantt moves next to Dashboard, with its own `<hr>` separator, matching the
+menu's existing grouping. Dashboard now carries the same hardcoded,
+untranslated "(Dashboard)" label the other nine not-yet-built views
+already had - the earlier entry above left it translated by oversight,
+which said the view was finished when it is a placeholder page like the
+rest of them.
+
+</details>
+
 and fixes the following bugs:
 
 **CHANGELOG.md formatting.**
