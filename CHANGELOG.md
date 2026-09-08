@@ -298,9 +298,9 @@ is reordered and gains placeholder pages for ten not-yet-built views plus a
 new **Time** view. The **Board Table** and **Calendar** view toolbars are
 rethemed, regrouped and properly centered. Several bugs are fixed:
 dependency lines and collapsed lists bleeding past a resized swimlane, a
-list's collapse caret sitting in the wrong place, an **OIDC redirect-style
-login loop** that could get an admin's identity provider rate-limiting
-them, and **list width is now a single hardcoded 240px** for every list on
+list's collapse caret sitting in the wrong place, an **OIDC redirect
+login loop**, a **Windows single-EXE** CI smoke test failing silently,
+and **list width is now a single hardcoded 240px** for every list on
 every board, with the redundant "Set width"/"Set swimlane height" popups
 removed.
 
@@ -557,6 +557,28 @@ markdown-kanban tools use (Obsidian Kanban and similar) - a plain bulleted
 list with no checkboxes still imports as open cards. The export route
 serves plain `text/markdown` rather than JSON, since the point is a file
 readable/editable directly or opened by another markdown-kanban tool.
+
+</details>
+
+and has the following developer-tooling fix:
+
+**GitHub Actions** - the Windows single-EXE build.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b34b036eb">Fix the Windows single-EXE smoke test failing with no error message</a>. Thanks to xet7.</summary>
+
+A downloaded run's logs (.tools/wekan10) showed the smoke test's success
+message print, immediately followed by "Process completed with exit code
+1" - no thrown error anywhere in between. `taskkill.exe` (unlike a
+PowerShell cmdlet) sets `$LASTEXITCODE`, which `$ErrorActionPreference`
+does not touch, and `pwsh -Command` exits with whatever `$LASTEXITCODE`
+last held when the script itself never calls `exit`. `taskkill /IM
+ferretdb.exe` finding no matching process - a normal, harmless outcome by
+the second smoke-test run - was the LAST external command the whole step
+ran, so its "no such process" exit code alone failed the step. The same
+latent bug was in the "Free ports used by the packaged EXE" step's
+cleanup loop too; both now reset `$LASTEXITCODE` after every `taskkill`
+whose own exit code the workflow does not check.
 
 </details>
 
