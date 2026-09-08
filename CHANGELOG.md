@@ -1,6 +1,7 @@
 # Platforms
 
-Newest WeKan at these platforms:
+<details>
+<summary>Newest WeKan at these platforms</summary>
 
 - [Install](https://wekan.fi/install/)
 - [Upgrade WeKan](https://wekan.fi/upgrade/)
@@ -16,6 +17,8 @@ Newest WeKan at these platforms:
   [2020](old-CHANGELOG/2020.md), [2019](old-CHANGELOG/2019.md),
   [2018](old-CHANGELOG/2018.md), [2017](old-CHANGELOG/2017.md),
   [2016](old-CHANGELOG/2016.md), [2015](old-CHANGELOG/2015.md)
+
+</details>
 
 <details>
 <summary>Version</summary>
@@ -42,7 +45,8 @@ Newest WeKan at these platforms:
 
 </details>
 
-# TODO Later
+<details>
+<summary>TODO Later</summary>
 
 <details>
 <summary>Carried to a future release.</summary>
@@ -295,6 +299,7 @@ locale files, not just an English placeholder (tests/allTranslationCompleteness.
 enforces that). Not attempted as a batch; take them one at a time, following
 the Markdown commit as the template.
 
+</details>
 </details>
 
 # Upcoming WeKan ® release
