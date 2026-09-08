@@ -380,6 +380,27 @@ PUT.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/37211bb55">Never let a Docker registry overview sync fail a release</a>. Thanks to xet7.</summary>
+
+v11.62's `release-all.yml` run failed the whole "docker" job with 403 from
+both Docker Hub and Quay.io on the repository-overview PATCH/PUT calls,
+even though the image itself had already been built, pushed and verified
+pullable by the steps before it (confirmed from the run's own logs:
+`.tools/wekan11`). `DOCKERHUB_AUTH`/`QUAY_AUTH` are scoped for `docker
+login`/image push, and neither registry grants a push-scoped token the
+broader (account-owner / repo-admin) rights a description write needs - so
+the sync step's own `exit 1` failed a job that had, in fact, already
+published, which blocked every downstream job gated on
+`needs.docker.result == 'success'` (the Helm chart update). A stale
+repository description is not worth failing a release over: the step now
+reports each registry's failure as `::warning::` rather than `::error::`,
+drops the shared `fail` flag, and always exits 0. The identical fix went
+into the companion FerretDB fork's `docker.yml` before it could hit the
+same 403.
+
+</details>
+
 **Binaries in these bundles:**
 
 | Platform | Binary | From | Version | SHA256 |
