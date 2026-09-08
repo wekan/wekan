@@ -97,13 +97,7 @@ Meteor.methods({
       $set.orgDomains = hosts.join(', ');
     }
 
-    // Image bytes use uploadBrandingImage, which validates and converts them on
-    // the server. Never restore the old arbitrary external-URL write path.
-    const imageFields = new Set([
-      'orgCustomLoginLogoImageUrl',
-      'orgCustomTopLeftCornerLogoImageUrl',
-    ]);
-    tenants.brandingOrgFields().filter(field => !imageFields.has(field)).forEach(field => {
+    tenants.brandingOrgFields().forEach(field => {
       if (fields[field] !== undefined) {
         check(fields[field], String);
         $set[field] = fields[field].trim();

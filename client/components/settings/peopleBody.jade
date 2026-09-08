@@ -336,10 +336,8 @@ template(name="editOrgPopup")
       | {{_ 'custom-product-name'}}
       input.js-orgProductName(type="text" value=org.orgProductName)
     label
-      | {{_ 'upload'}}
-      if org.orgCustomLoginLogoImageUrl
-        img.admin-branding-preview(src=org.orgCustomLoginLogoImageUrl alt="" width="160")
-      input.js-orgCustomLoginLogoImageUpload(type="file" accept="image/*")
+      | {{_ 'custom-login-logo-image-url'}}
+      input.js-orgCustomLoginLogoImageUrl(type="text" value=org.orgCustomLoginLogoImageUrl)
     label
       | {{_ 'custom-login-logo-link-url'}}
       input.js-orgCustomLoginLogoLinkUrl(type="text" value=org.orgCustomLoginLogoLinkUrl)
@@ -347,10 +345,8 @@ template(name="editOrgPopup")
       | {{_ 'text-below-custom-login-logo'}}
       input.js-orgTextBelowCustomLoginLogo(type="text" value=org.orgTextBelowCustomLoginLogo)
     label
-      | {{_ 'upload'}}
-      if org.orgCustomTopLeftCornerLogoImageUrl
-        img.admin-branding-preview(src=org.orgCustomTopLeftCornerLogoImageUrl alt="" width="160")
-      input.js-orgCustomTopLeftCornerLogoImageUpload(type="file" accept="image/*")
+      | {{_ 'custom-top-left-corner-logo-image-url'}}
+      input.js-orgCustomTopLeftCornerLogoImageUrl(type="text" value=org.orgCustomTopLeftCornerLogoImageUrl)
     label
       | {{_ 'custom-top-left-corner-logo-link-url'}}
       input.js-orgCustomTopLeftCornerLogoLinkUrl(type="text" value=org.orgCustomTopLeftCornerLogoLinkUrl)

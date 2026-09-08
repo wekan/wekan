@@ -1119,7 +1119,15 @@ Template.labelsWidget.onRendered(draggableMembersLabelsWidgets);
 // (scope="board"); its logic lives in client/components/main/themeColorPicker.js.
 
 Template.boardChangeBackgroundImagePopup.events({
-  'click .js-remove-background-image'(event) {
+  async submit(event, tpl) {
+    const currentBoard = Utils.getCurrentBoard();
+    const backgroundImageURL = tpl.find('.js-board-background-image-url').value.trim();
+    await currentBoard.setBackgroundImageURL(backgroundImageURL);
+    Utils.setBackgroundImage();
+    Popup.back();
+    event.preventDefault();
+  },
+  'click .js-remove-background-image'() {
     const currentBoard = Utils.getCurrentBoard();
     currentBoard.setBackgroundImageURL("");
     Popup.back();
@@ -1128,7 +1136,16 @@ Template.boardChangeBackgroundImagePopup.events({
   },
 });
 
-// Uploading one is the sole path for adding a board background.
+Template.boardChangeBackgroundImagePopup.helpers({
+  backgroundImageURL() {
+    const currentBoard = Utils.getCurrentBoard();
+    return currentBoard.backgroundImageURL;
+  },
+});
+
+// Uploading one. It sits with the Background Image URL field
+// (boardChangeBackgroundImagePopup) rather than with the list of images already
+// uploaded: a URL and a file are the same question answered two ways.
 // Backgrounds are board-level Attachments (meta.boardId, no cardId,
 // meta.source === 'board-background') in the default attachments storage.
 Template.boardBackgroundUpload.onCreated(function () {
@@ -1157,26 +1174,47 @@ Template.boardBackgroundUpload.events({
     if (!file) return;
     tpl.error.set('');
     tpl.uploading.set(true);
+    // The config comes from the shared builder, which is the whole reason this
+    // upload works: it stamps the generated `fileId` into `meta.fileId`, and
+    // Attachments' namingFunction reads the stored file's NAME out of there.
+    // Written by hand here, without it, every background upload was stored
+    // under `undefined` and never arrived. client/lib/attachmentUploadConfig.js
+    // allow re-selecting the same file later - done FIRST, so a failure below
+    // does not also leave the picker refusing to offer the same file again.
     const input = event.currentTarget;
     try {
-      const reader = new FileReader();
-      reader.onerror = () => {
+      const uploader = await Attachments.insertAsync(
+        buildAttachmentUploadConfig({
+          file,
+          meta: { boardId: tpl.boardId, source: 'board-background' },
+        }),
+        false,
+      );
+      // A finished upload puts itself BEHIND THE BOARD. "Add background image"
+      // is asked for by somebody who wants that picture there; an upload that
+      // only lands in a list, with the board unchanged, reads as one that did
+      // not work - which is exactly how this looked. The list under it still
+      // has the check that switches between the pictures already uploaded.
+      uploader.on('uploaded', async (err, fileRef) => {
+        if (err || !fileRef || !fileRef._id) return;
+        const board = Utils.getCurrentBoard();
+        if (!board) return;
+        await board.setBackgroundImage(fileRef._id);
+        Utils.setBackgroundImage();
+      });
+      uploader.on('end', (err) => {
         tpl.uploading.set(false);
-        tpl.error.set('upload-failed');
-      };
-      reader.onload = () => {
-        const base64 = String(reader.result || '').split(',')[1] || '';
-        Meteor.call('uploadBoardBackgroundImage', tpl.boardId, base64, (error) => {
-          tpl.uploading.set(false);
-          if (error) {
-            console.error('board background upload failed', error);
-            tpl.error.set(error.reason || error.message || 'upload-failed');
-            return;
-          }
-          Utils.setBackgroundImage();
-        });
-      };
-      reader.readAsDataURL(file);
+        if (err) {
+          console.error('board background upload failed', err);
+          tpl.error.set(err.reason || err.message || 'upload-failed');
+        }
+      });
+      uploader.on('error', (err) => {
+        tpl.uploading.set(false);
+        console.error('board background upload failed', err);
+        tpl.error.set((err && (err.reason || err.message)) || 'upload-failed');
+      });
+      uploader.start();
     } catch (error) {
       // An upload can fail BEFORE there is an uploader to listen to - a config
       // the collection refuses, a name its namingFunction cannot build. That

@@ -64,29 +64,17 @@ Organization's colour. See [Multitenancy](../../../Design/Multitenancy/Multitena
 ## Logo
 
 - **Hide Logo** — do not show it at all.
-- **Upload Custom Login Logo**, its **Link URL**, and the **text below** it.
-- **Upload Custom Top Left Corner Logo**, its **Link URL** and **Height** (default
-  27 px; width auto). The link URL is the optional destination opened when the
-  stored logo is clicked; it is not an image source.
+- **Custom Login Logo Image URL** and **Link URL**, and the **text below** it.
+- **Custom Top Left Corner Logo Image URL**, **Link URL** and **Height** (default
+  27 px; width auto).
 
 Sizes: the top-left corner logo is 27 px high, the login logo 300 px wide, the other
-dimension automatic. Uploads are size- and pixel-limited, decoded on the server,
-resized when necessary and converted to GIF. The GIF is saved to the attachment
-backend selected by Admin Panel / Attachments / Default Storage.
+dimension automatic; a logo a little larger or smaller is scaled. jpg, png, gif and
+svg all work.
 
-Older settings may contain an external `http` or `https` image URL. At startup WeKan
-fetches each one through its SSRF-protected downloader, converts it to GIF, stores it
-in Default Storage, and atomically replaces the setting with an internal immutable
-image URL. A failed source is moved immediately into an unpublished server-side
-retry queue and the visible setting is cleared; it is retried at the next startup.
-The Admin Panel and public settings never display or accept arbitrary image URLs.
-
-Board background images follow the same local-only rule. Board Settings offers an
-upload and the board's stored image list, but no external URL field. Existing external
-board backgrounds are fetched safely at startup, converted to GIF attachments in
-Default Storage, and replaced with authorized internal attachment URLs. A failed
-legacy source is cleared from the published board and retained only in the same
-unpublished startup retry queue.
+An image can be hosted anywhere (`https://example.com/logo.png`). To keep it inside
+WeKan: create a public board, add a card, attach the image, then copy the image link
+into the field here.
 
 ## Related
 

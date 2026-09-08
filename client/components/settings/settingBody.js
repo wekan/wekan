@@ -941,19 +941,6 @@ function saveVisibilitySettings($set) {
   }
 }
 
-function uploadBrandingInput(selector, slot) {
-  const file = document.querySelector(selector)?.files?.[0];
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = () => {
-    const base64 = String(reader.result || '').split(',')[1] || '';
-    Meteor.call('uploadBrandingImage', 'global', null, slot, base64, error => {
-      if (error) alert(error.reason || error.message);
-    });
-  };
-  reader.readAsDataURL(file);
-}
-
 Template.tableVisibilityModeSettings.events({
   // ── All Boards ────────────────────────────────────────────────────────────
   // Boards visibility, board activities, the two All Boards lists and the spinner.
@@ -1024,8 +1011,10 @@ Template.tableVisibilityModeSettings.events({
   // ── Logo ──────────────────────────────────────────────────────────────────
   'click button.js-visibility-logo-save'() {
     const $set = visibilityTextFields([
+      ['#custom-login-logo-image-url', 'customLoginLogoImageUrl'],
       ['#custom-login-logo-link-url', 'customLoginLogoLinkUrl'],
       ['#text-below-custom-login-logo', 'textBelowCustomLoginLogo'],
+      ['#custom-top-left-corner-logo-image-url', 'customTopLeftCornerLogoImageUrl'],
       ['#custom-top-left-corner-logo-link-url', 'customTopLeftCornerLogoLinkUrl'],
       ['#custom-top-left-corner-logo-height', 'customTopLeftCornerLogoHeight'],
     ]);
@@ -1035,8 +1024,6 @@ Template.tableVisibilityModeSettings.events({
       $set.hideLogo = $('#hide-logo').hasClass('is-checked');
     }
     saveVisibilitySettings($set);
-    uploadBrandingInput('#custom-login-logo-image-upload', 'login');
-    uploadBrandingInput('#custom-top-left-corner-logo-image-upload', 'topLeft');
   },
 });
 

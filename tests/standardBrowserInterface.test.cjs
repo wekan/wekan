@@ -19,11 +19,12 @@ test('page startup uses the standard Meteor browser interface', () => {
 });
 
 test('retained image features use the independent GIF utilities', () => {
-  for (const file of ['server/brandingImages.js', 'server/lib/documentGif.js',
+  for (const file of ['server/lib/documentGif.js',
     'server/routes/universalFileServer.js']) {
     assert.match(read(file), /[/.]imageGif'/);
     assert.doesNotMatch(read(file), /legacyHtml4Gif|omiGifCacheKey/);
   }
-  assert.match(read('server/imports.js'), /import '\/server\/brandingImages'/);
+  assert.doesNotMatch(read('server/imports.js'), /import '\/server\/brandingImages'/);
+  assert.equal(fs.existsSync(path.join(root, 'server/brandingImages.js')), false);
   assert.match(read('server/routes/universalFileServer.js'), /authorizedDocument\(req\)/);
 });

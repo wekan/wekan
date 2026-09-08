@@ -317,9 +317,6 @@ import '/server/routes/customHeadAssets';
 import '/server/routes/importTrelloZip';
 import '/server/routes/legacyAttachments';
 import '/server/routes/universalFileServer';
-// Localize Admin Panel branding images into Default Storage and accept only
-// server-converted GIF replacements from the branding upload controls.
-import '/server/brandingImages';
 
 // ----------------------------------------------------------------------------
 // 15. Server — rules engine

@@ -51,16 +51,20 @@ test('the transport is DDP on Sandstorm and HTTP elsewhere', () => {
   assert.ok(/http-bridge strips/.test(lib), 'with the reason written down');
 });
 
-test('ordinary attachment uploaders use it and backgrounds use their GIF method', () => {
-  assert.ok(/buildAttachmentUploadConfig\(\{/.test(cardUploads), 'the card asks the builder');
-  assert.ok(!/config\.meta\.fileId = fileId/.test(cardUploads),
-    'the card does not stamp the id by hand any more');
-  assert.ok(!/chunkSize: 'dynamic',\n\s*transport:/.test(cardUploads),
-    'the card has no second copy of the transport rule');
+test('every uploader uses it - none builds its own config (negative)', () => {
+  for (const [what, source] of [['the card', cardUploads], ['the board background', sidebar]]) {
+    assert.ok(/buildAttachmentUploadConfig\(\{/.test(source), `${what} asks the builder`);
+    assert.ok(!/config\.meta\.fileId = fileId/.test(source),
+      `${what} does not stamp the id by hand any more`);
+    assert.ok(!/chunkSize: 'dynamic',\n\s*transport:/.test(source),
+      `${what} has no second copy of the transport rule`);
+  }
+  // Two card call sites - the file picker and a pasted image - and one
+  // background uploader.
   assert.strictEqual((cardUploads.match(/buildAttachmentUploadConfig\(/g) || []).length, 2,
     'both card uploads');
-  assert.ok(/uploadBoardBackgroundImage/.test(sidebar),
-    'a background uses the server GIF conversion method instead');
+  assert.strictEqual((sidebar.match(/buildAttachmentUploadConfig\(/g) || []).length, 1,
+    'and the background upload');
 });
 
 test('a file with no usable name still gets one (negative)', () => {
@@ -72,8 +76,9 @@ test('a file with no usable name still gets one (negative)', () => {
 });
 
 test('the board background is still filed as one', () => {
-  const branding = read('server/brandingImages.js');
-  assert.ok(/boardId, fileId: id, source: 'board-background'/.test(branding),
+  const handler = sidebar.slice(sidebar.indexOf("'change .js-bg-upload-input'"));
+  const body = handler.slice(0, handler.indexOf('\n  },'));
+  assert.ok(/meta: \{ boardId: tpl\.boardId, source: 'board-background' \}/.test(body),
     'the meta that makes it a background, not a card attachment');
   const publication = read('server/publications/backgrounds.js');
   assert.ok(/'meta\.source': 'board-background'/.test(publication),

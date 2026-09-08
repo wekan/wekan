@@ -1,6 +1,6 @@
 'use strict';
 
-// Board backgrounds are uploaded into WeKan, never linked from another site.
+// The two ways to put a picture behind a board, in one place.
 // Run: node tests/boardBackgroundPopups.test.cjs
 //
 // "Change Background Image" asked for a URL. "Board backgrounds" listed the
@@ -40,10 +40,11 @@ function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
 
 console.log('boardBackgroundPopups:');
 
-test('the upload replaces the external Background Image URL', () => {
+test('the upload is under the Background Image URL', () => {
   assert.ok(/\+boardBackgroundUpload/.test(imagePopup), 'the upload is in this popup');
-  assert.ok(!imagePopup.includes('js-board-background-image-url'),
-    'there is no external URL input');
+  assert.ok(imagePopup.indexOf('js-board-background-image-url')
+    < imagePopup.indexOf('+boardBackgroundUpload'),
+    'below the URL field, not above it');
   assert.ok(/template\(name="boardBackgroundUpload"\)/.test(jade),
     'as its own template');
   assert.ok(/js-bg-upload-button/.test(jade.slice(jade.indexOf('template(name="boardBackgroundUpload")'),
@@ -51,10 +52,11 @@ test('the upload replaces the external Background Image URL', () => {
     'holding the + Upload background image button');
 });
 
-test('Unset remains available beside the upload', () => {
+test('Save and Unset are one row, Save first', () => {
   const row = imagePopup.slice(imagePopup.indexOf('.buttonsContainer'),
     imagePopup.indexOf('hr'));
-  assert.ok(row.includes('js-remove-background-image'), 'the active background can be unset');
+  assert.ok(row.indexOf("value=\"{{_ 'save'}}\"") < row.indexOf('js-remove-background-image'),
+    'Save, then Unset at its trailing side');
   assert.ok(/board-background-image-buttons/.test(row), 'in a row of their own');
   assert.ok(!/br\n\s+br/.test(imagePopup),
     'and the five blank lines that used to separate them are gone');
@@ -73,13 +75,13 @@ test('Unset does not submit the form (negative)', () => {
   assert.ok(/'click \.js-remove-background-image'/.test(js), 'and does its work on click');
 });
 
-test('one popup holds the upload and the list', () => {
+test('one popup holds the URL, the upload and the list', () => {
   // An upload that shows nothing afterwards is indistinguishable from one that
   // failed - which is what this looked like while the list was behind a menu
   // entry of its own.
   assert.ok(/template\(name="boardBackgroundList"\)/.test(jade), 'the list is its own template');
-  assert.ok(imagePopup.indexOf('+boardBackgroundUpload') < imagePopup.indexOf('+boardBackgroundList'),
-    'Change Background Image has the stored list under the upload');
+  assert.ok(/\+boardBackgroundUpload\n\s*\+boardBackgroundList/.test(imagePopup),
+    'Change Background Image has it under the upload');
   assert.ok(/board-backgrounds-grid/.test(list), 'the images uploaded so far');
   for (const action of ['js-set-board-background', 'js-download-board-background',
     'js-delete-board-background']) {
@@ -139,10 +141,10 @@ test('a finished upload puts itself behind the board', () => {
   // as one that did not work.
   const handler = js.slice(js.indexOf("'change .js-bg-upload-input'"));
   const body = handler.slice(0, handler.indexOf('\n  },'));
-  assert.ok(/reader\.onload/.test(body), 'it reads the selected bytes');
-  assert.ok(/uploadBoardBackgroundImage/.test(body), 'the server converts and sets it as the board\'s');
+  assert.ok(/uploader\.on\('uploaded'/.test(body), 'it waits for the file to exist');
+  assert.ok(/board\.setBackgroundImage\(fileRef\._id\)/.test(body), 'sets it as the board\'s');
   assert.ok(/Utils\.setBackgroundImage\(\)/.test(body), 'and paints it without a reload');
-  assert.ok(/if \(error\)/.test(body),
+  assert.ok(/if \(err \|\| !fileRef \|\| !fileRef\._id\) return;/.test(body),
     'a failed upload sets nothing (negative)');
 });
 
@@ -156,8 +158,8 @@ test('the upload logic moved with the markup, and only once (negative)', () => {
   const listEvents = js.slice(js.indexOf('Template.boardBackgroundList.events({'));
   assert.ok(!/js-bg-upload/.test(listEvents.slice(0, listEvents.indexOf('\n});'))),
     'nothing about uploading is left in the list');
-  assert.ok(/uploadBoardBackgroundImage', tpl\.boardId/.test(js),
-    'and the upload is sent to the board-scoped server converter');
+  assert.ok(/meta: \{ boardId: tpl\.boardId, source: 'board-background' \}/.test(js),
+    'and an uploaded image is still stored as this board\'s background');
 });
 
 test('each template asks for what it needs (negative)', () => {

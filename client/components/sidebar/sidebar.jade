@@ -159,8 +159,11 @@ template(name="boardChangeColorPopup")
     the flat/clear categories, shared with Member Settings / Change Color.
   +themeColorPicker(scope="board")
 
-//- Uploading is the only way to add a board background. Arbitrary external
-  image URLs are deliberately not accepted or exposed.
+//- Uploading a background image. It is its own template because it belongs
+  with the URL field rather than with the list of images already uploaded:
+  both put a picture behind the board, one from the web and one from this
+  machine, so they are the two halves of one question and are read together.
+  The grid below is what you have; this is how you add to it.
 template(name="boardBackgroundUpload")
   .board-background-upload
     input.js-bg-upload-input.hide(type="file" name="file" accept="image/*")
@@ -205,10 +208,22 @@ template(name="deleteBoardBackgroundPopup")
     | {{_ 'delete'}}
 
 template(name="boardChangeBackgroundImagePopup")
-  +boardBackgroundUpload
-  .buttonsContainer.board-background-image-buttons
-    button.js-remove-background-image.negate.card-details-red(type="button") {{_ 'unset-color'}}
-  hr
+  form
+    label
+      | {{_ 'board-background-image-url'}}
+      input.js-board-background-image-url(type="text" value="{{backgroundImageURL}}" autofocus)
+    //- Save and Unset side by side, in that order: they are the two things to
+      do with the address above them, and Unset was five blank lines below the
+      Save it belongs beside.
+    .buttonsContainer.board-background-image-buttons
+      input.primary(type="submit" value="{{_ 'save'}}")
+      button.js-remove-background-image.negate.card-details-red(type="button") {{_ 'unset-color'}}
+    hr
+    //- ...and the same question answered from this machine instead of from a
+      URL, with what has been uploaded to this board under it - so an upload is
+      seen to have arrived, and can be applied, without going to another popup
+      to find out.
+    +boardBackgroundUpload
   +boardBackgroundList
 
 template(name="boardInfoOnMyBoardsPopup")
