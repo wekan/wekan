@@ -8,16 +8,29 @@
 # top menu is the first-level docs/Features categories, and 0 exits (0 goes
 # back one level inside a submenu).
 #
-# Every run's starting command, logs and any produced files are written under
+# The example INPUT for a feature lives with its documentation, checked into
+# the repository: docs/Features/<path>/example-input.txt (a curl call, a URL,
+# a JSON body - hand-written for Login and ImportExport/PDF, extracted from
+# the feature's own .md for the rest). test-menu.sh only ever READS these -
+# it never writes into docs/Features.
+#
+# What running a feature actually DOES is written under
 #   .tools/test-menu/YYYY-MM-DD_HH-MM-SS/<same path as under docs/Features>/
+#     output.txt  - what came back (a real response, or the test output)
+#     result.txt  - one line: PASS / FAIL / SKIP and why
+#     run.log     - the full narrative, timestamps included
 #
 # A few leaves have a real runner wired up below (RUNNERS) that exercises the
 # actual WeKan server code from this checkout - e.g. Login does a REST
 # username/password login round trip, and ImportExport/PDF creates a board
-# and downloads its PDF export. Every leaf without a dedicated runner falls
-# back to running this repo's own automated tests (tests/*.test.cjs) whose
-# name matches the feature, which is a real, working way to exercise that
-# feature's code without a running server.
+# and downloads its PDF export - using the request shown in their
+# example-input.txt. Every leaf without a dedicated runner falls back, in
+# order, to: (1) this repo's own automated tests (tests/*.test.cjs) whose
+# name matches the feature, a real, working way to exercise that feature's
+# code without a running server, then (2) simply pointing at its
+# example-input.txt, when there is genuinely no code of its own to run (e.g.
+# Webhooks/Discord, which is just a URL convention). Either way,
+# output.txt/result.txt are never empty and never silently "nothing was run".
 #
 # Run: ./test-menu.sh
 
@@ -154,48 +167,57 @@ stop_server_if_ours() {
 }
 trap stop_server_if_ours EXIT
 
+# Writes the one-line PASS/FAIL/SKIP verdict to result.txt, run.log and the
+# terminal, all three, so it is never buried in a file nobody opens.
+record_result() {
+  local msg="$1" resultfile="$2" logfile="$3"
+  echo "$msg" >> "$resultfile"
+  echo "$msg" | tee -a "$logfile"
+}
+
 # ---------------------------------------------------------------------------
 # dedicated runners - the featues explicitly wired to real WeKan code
 # ---------------------------------------------------------------------------
 
 # Login: a real username/password REST login round trip
 # (server/apiAuthRoutes.js POST /users/login), against a disposable test user
-# created through the public POST /users/register route.
+# created through the public POST /users/register route. The request shape is
+# documented at docs/Features/Login/example-input.txt; a fresh username is
+# generated each run so repeated runs never collide with each other.
 run_login_password() {
-  local relpath="$1" outdir="$2" cmdfile="$3" logfile="$4"
+  local relpath="$1" outdir="$2" outputfile="$3" resultfile="$4" logfile="$5"
   if ! ensure_server; then
-    echo "SKIPPED: no WeKan server available." | tee -a "$logfile"
+    record_result "SKIPPED: no WeKan server available at $WEKAN_TEST_URL." "$resultfile" "$logfile"
     return
   fi
   local username="testmenu$(date +%s)$$"
   local email="${username}@example.invalid"
   local password="TestMenu-${RANDOM}${RANDOM}!"
 
-  {
-    echo "curl -sS -H 'Content-type: application/json' \\"
-    echo "  '$WEKAN_TEST_URL/users/register' \\"
-    echo "  -d '{\"username\":\"$username\",\"email\":\"$email\",\"password\":\"***redacted***\"}'"
-  } >>"$cmdfile"
+  echo "1. Register a disposable test user (POST /users/register)," \
+    "username=$username" >>"$logfile"
   local register_response
   register_response=$(curl -sS -H "Content-type: application/json" \
     "$WEKAN_TEST_URL/users/register" \
     -d "{\"username\":\"$username\",\"email\":\"$email\",\"password\":\"$password\"}")
+  {
+    echo "# 1. Register response"
+    echo "$register_response"
+  } >>"$outputfile"
   echo "$register_response" > "$outdir/register-response.json"
-  {
-    echo "Registered test user $username."
-    echo "Register response: $register_response"
-  } >>"$logfile"
+  echo "Registered test user $username. Response: $register_response" >>"$logfile"
 
-  {
-    echo
-    echo "curl -sS -H 'Content-type: application/json' \\"
-    echo "  '$WEKAN_TEST_URL/users/login' \\"
-    echo "  -d '{\"username\":\"$username\",\"password\":\"***redacted***\"}'"
-  } >>"$cmdfile"
+  echo "2. Log in with that username and password (POST /users/login)," \
+    "as documented in docs/Features/Login/example-input.txt" >>"$logfile"
   local login_response
   login_response=$(curl -sS -H "Content-type: application/json" \
     "$WEKAN_TEST_URL/users/login" \
     -d "{\"username\":\"$username\",\"password\":\"$password\"}")
+  {
+    echo
+    echo "# 2. Login response"
+    echo "$login_response"
+  } >>"$outputfile"
   echo "$login_response" > "$outdir/login-response.json"
   echo "Login response: $login_response" >>"$logfile"
 
@@ -203,23 +225,23 @@ run_login_password() {
   token=$(echo "$login_response" | jq -r '.token // empty' 2>/dev/null)
   userId=$(echo "$login_response" | jq -r '.id // empty' 2>/dev/null)
   if [ -n "$token" ] && [ -n "$userId" ]; then
-    echo "PASS: password login for $username returned a token." | tee -a "$logfile"
+    record_result "PASS: password login for $username returned a token." "$resultfile" "$logfile"
     jq -n --arg url "$WEKAN_TEST_URL" --arg token "$token" \
       --arg userId "$userId" --arg username "$username" \
       '{url:$url, token:$token, userId:$userId, username:$username}' \
       > "$STATE_DIR/session.json"
   else
-    echo "FAIL: password login did not return a token; see login-response.json" \
-      | tee -a "$logfile"
+    record_result "FAIL: password login did not return a token; see output.txt" "$resultfile" "$logfile"
   fi
 }
 
 # ImportExport/PDF: create a board through the REST API, then download its
-# PDF export (models/exportPDF.js GET /api/boards/:boardId/exportPDF).
+# PDF export (models/exportPDF.js GET /api/boards/:boardId/exportPDF), the
+# request shape documented at docs/Features/ImportExport/PDF/example-input.txt.
 run_export_pdf() {
-  local relpath="$1" outdir="$2" cmdfile="$3" logfile="$4"
+  local relpath="$1" outdir="$2" outputfile="$3" resultfile="$4" logfile="$5"
   if ! ensure_server; then
-    echo "SKIPPED: no WeKan server available." | tee -a "$logfile"
+    record_result "SKIPPED: no WeKan server available at $WEKAN_TEST_URL." "$resultfile" "$logfile"
     return
   fi
 
@@ -231,51 +253,54 @@ run_export_pdf() {
   if [ -z "$token" ] || [ "$url" != "$WEKAN_TEST_URL" ]; then
     echo "No cached login for $WEKAN_TEST_URL; logging in a fresh test user first." \
       >>"$logfile"
-    run_login_password "Login" "$outdir" "$cmdfile" "$logfile"
+    run_login_password "Login" "$outdir" "$outputfile" "$resultfile" "$logfile"
     token=$(jq -r '.token // empty' "$STATE_DIR/session.json" 2>/dev/null)
+    : > "$resultfile"
   fi
   if [ -z "$token" ]; then
-    echo "FAIL: no login token available; cannot create a board to export." \
-      | tee -a "$logfile"
+    record_result "FAIL: no login token available; cannot create a board to export." \
+      "$resultfile" "$logfile"
     return
   fi
 
-  {
-    echo
-    echo "curl -sS -H 'Authorization: Bearer ***redacted***' -H 'Content-type: application/json' \\"
-    echo "  -X POST '$WEKAN_TEST_URL/api/boards' \\"
-    echo "  -d '{\"title\":\"Test Menu Board\",\"permission\":\"private\",\"color\":\"nephritis\"}'"
-  } >>"$cmdfile"
+  echo "3. Create a board to export (POST /api/boards)" >>"$logfile"
   local board_response
   board_response=$(curl -sS -H "Authorization: Bearer $token" \
     -H "Content-type: application/json" -X POST "$WEKAN_TEST_URL/api/boards" \
     -d '{"title":"Test Menu Board","permission":"private","color":"nephritis"}')
+  {
+    echo
+    echo "# 3. Create board response"
+    echo "$board_response"
+  } >>"$outputfile"
   echo "$board_response" > "$outdir/create-board-response.json"
   echo "Create board response: $board_response" >>"$logfile"
   local boardId
   boardId=$(echo "$board_response" | jq -r '._id // .data._id // empty' 2>/dev/null)
   if [ -z "$boardId" ]; then
-    echo "FAIL: could not create a board; see create-board-response.json" \
-      | tee -a "$logfile"
+    record_result "FAIL: could not create a board; see output.txt" "$resultfile" "$logfile"
     return
   fi
   echo "Created board $boardId." >>"$logfile"
 
-  {
-    echo
-    echo "curl -sS -H 'Authorization: Bearer ***redacted***' \\"
-    echo "  '$WEKAN_TEST_URL/api/boards/$boardId/exportPDF?authToken=***redacted***' -o board.pdf"
-  } >>"$cmdfile"
+  echo "4. Export that board to PDF (GET /api/boards/:boardId/exportPDF)," \
+    "as documented in docs/Features/ImportExport/PDF/example-input.txt" >>"$logfile"
   curl -sS -H "Authorization: Bearer $token" \
     "$WEKAN_TEST_URL/api/boards/$boardId/exportPDF?authToken=$token" \
     -o "$outdir/board.pdf"
   if [ -s "$outdir/board.pdf" ] && head -c4 "$outdir/board.pdf" | grep -q "%PDF"; then
     local size
     size=$(wc -c < "$outdir/board.pdf" | tr -d ' ')
-    echo "PASS: exported board $boardId to $outdir/board.pdf ($size bytes)." \
-      | tee -a "$logfile"
+    {
+      echo
+      echo "# 4. Export result"
+      echo "board.pdf: $size bytes, starts with $(head -c8 "$outdir/board.pdf")"
+    } >>"$outputfile"
+    record_result "PASS: exported board $boardId to board.pdf ($size bytes)." \
+      "$resultfile" "$logfile"
   else
-    echo "FAIL: $outdir/board.pdf is not a PDF; see $logfile" | tee -a "$logfile"
+    echo "board.pdf is not a valid PDF (missing %PDF header)." >>"$outputfile"
+    record_result "FAIL: board.pdf is not a PDF; see output.txt" "$resultfile" "$logfile"
   fi
 }
 
@@ -288,8 +313,11 @@ declare -A RUNNERS=(
 
 # ---------------------------------------------------------------------------
 # generic fallback runner - matches the feature against this repo's own
-# automated tests and runs them, which is a real exercise of the WeKan source
-# for features that do not (yet) have a dedicated interactive runner above.
+# automated tests and runs them (a real exercise of the WeKan source, for
+# features that do not (yet) have a dedicated interactive runner above), and
+# when there is genuinely no test to run, points at the feature's checked-in
+# docs/Features/<path>/example-input.txt instead. Either way output.txt and
+# result.txt are always written and never empty.
 # ---------------------------------------------------------------------------
 
 derive_keywords() {
@@ -306,24 +334,17 @@ derive_keywords() {
   echo "$out"
 }
 
-run_generic_fallback() {
-  local relpath="$1" outdir="$2" cmdfile="$3" logfile="$4"
-  local leaf kws node_bin
-  leaf="$(basename "$relpath")"
-  kws="$(derive_keywords "$leaf")"
-  node_bin="$(resolve_node)"
-
-  {
-    echo "No dedicated runner for '$relpath'."
-    echo "Falling back to this repo's own automated tests matching: $kws"
-    echo "(see docs/Features/$relpath for what the feature itself does)"
-  } >>"$logfile"
-
-  if [ -z "$node_bin" ]; then
-    echo "SKIPPED: no usable node binary found." | tee -a "$logfile"
-    return
-  fi
-
+# Every keyword derived from the leaf's own name (not its parent's - those are
+# far too generic, e.g. "board") whose filename or file contents mention it.
+find_matching_tests() {
+  # Filename-only, deliberately: an early version also grep'd file CONTENTS
+  # for a keyword once the filename search failed, but "webhook" appears in
+  # passing in a dozen files that are not about webhooks at all (an SSRF
+  # guard test, an admin-panel pane list, ...), so it pulled in noise that
+  # made the eventual PASS/FAIL count meaningless. A feature whose name
+  # genuinely appears nowhere in a test's own filename falls through to
+  # find_doc_example below instead of a false-positive test run.
+  local kws="$1"
   local -a matches=()
   local f base kw hit
   shopt -s nocasematch
@@ -332,38 +353,93 @@ run_generic_fallback() {
     base="$(basename "$f")"
     hit=0
     for kw in $kws; do
-      [ "${#kw}" -lt 3 ] && continue
+      [ "${#kw}" -lt 4 ] && continue
       if [[ "$base" == *"$kw"* ]]; then hit=1; break; fi
     done
     [ "$hit" -eq 1 ] && matches+=("$f")
   done
   shopt -u nocasematch
+  printf '%s\n' "${matches[@]}"
+}
 
-  if [ "${#matches[@]}" -eq 0 ]; then
-    echo "No matching automated test found for '$relpath'; nothing was run." \
-      | tee -a "$logfile"
+# The feature's own checked-in example input, if any: docs/Features/<path>/
+# example-input.txt - a worked example (a curl call, a URL, a JSON body),
+# hand-written for Login and ImportExport/PDF and extracted from the
+# feature's own .md for the rest. Never written to by this script.
+example_input_file() {
+  local f="$FEATURES_DIR/$1/example-input.txt"
+  [ -f "$f" ] && echo "$f"
+}
+
+run_generic_fallback() {
+  local relpath="$1" outdir="$2" outputfile="$3" resultfile="$4" logfile="$5"
+  local leaf kws node_bin example_file
+  leaf="$(basename "$relpath")"
+  kws="$(derive_keywords "$leaf")"
+  node_bin="$(resolve_node)"
+  example_file="$(example_input_file "$relpath")"
+
+  echo "No dedicated runner for '$relpath'; matching against: $kws" >>"$logfile"
+  if [ -n "$example_file" ]; then
+    echo "Example input: ${example_file#"$ROOT_DIR"/}" >>"$logfile"
+  else
+    echo "No example-input.txt for '$relpath' either." >>"$logfile"
+  fi
+
+  local -a matches=()
+  if [ -n "$node_bin" ]; then
+    while IFS= read -r f; do [ -n "$f" ] && matches+=("$f"); done \
+      < <(find_matching_tests "$kws")
+  fi
+
+  if [ "${#matches[@]}" -gt 0 ]; then
+    {
+      echo "# Running this repo's own automated tests that match '$leaf'"
+      [ -n "$example_file" ] && \
+        echo "# (input: ${example_file#"$ROOT_DIR"/})"
+      echo "$node_bin ${matches[*]##*/}"
+    } >>"$outputfile"
+    echo "$node_bin ${matches[*]}" >>"$logfile"
+
+    local pass=0 fail=0 f out rc
+    for f in "${matches[@]}"; do
+      out=$("$node_bin" "$f" 2>&1)
+      rc=$?
+      {
+        echo
+        echo "== $(basename "$f") =="
+        echo "$out"
+      } >>"$outputfile"
+      echo "$out" >>"$logfile"
+      if [ "$rc" -eq 0 ]; then
+        pass=$((pass + 1))
+      else
+        fail=$((fail + 1))
+        echo "FAIL: $(basename "$f")" >>"$logfile"
+      fi
+    done
+    record_result \
+      "RESULT: $pass passed, $fail failed, out of ${#matches[@]} matched test(s)." \
+      "$resultfile" "$logfile"
     return
   fi
 
-  {
-    echo "$node_bin ${matches[*]}"
-  } >>"$cmdfile"
+  if [ -z "$node_bin" ]; then
+    echo "(no usable node binary was found to run automated tests either)" >>"$logfile"
+  fi
 
-  local pass=0 fail=0
-  for f in "${matches[@]}"; do
-    {
-      echo
-      echo "== $(basename "$f") =="
-    } >>"$logfile"
-    if "$node_bin" "$f" >>"$logfile" 2>&1; then
-      pass=$((pass + 1))
-    else
-      fail=$((fail + 1))
-      echo "FAIL: $(basename "$f")" >>"$logfile"
-    fi
-  done
-  echo "RESULT: $pass passed, $fail failed, out of ${#matches[@]} matched test(s)." \
-    | tee -a "$logfile"
+  if [ -n "$example_file" ]; then
+    echo "No automated test matches '$relpath' and no server-dependent runner" \
+      "is wired up for it; nothing was executed." >>"$outputfile"
+    record_result \
+      "SKIP: no automated check for '$relpath'; see ${example_file#"$ROOT_DIR"/} for its documented example." \
+      "$resultfile" "$logfile"
+  else
+    echo "(no matching test and no example-input.txt for '$relpath')" >>"$outputfile"
+    record_result \
+      "SKIP: no automated test, running server, or documented example for '$relpath'. See docs/Features/$relpath." \
+      "$resultfile" "$logfile"
+  fi
 }
 
 # ---------------------------------------------------------------------------
@@ -376,21 +452,30 @@ run_feature() {
   [ -z "$relpath" ] && return
   local outdir="$SESSION_DIR/$relpath"
   mkdir -p "$outdir"
-  local cmdfile="$outdir/command.txt" logfile="$outdir/run.log"
-  : > "$cmdfile"
+  local outputfile="$outdir/output.txt" resultfile="$outdir/result.txt"
+  local logfile="$outdir/run.log"
+  : > "$outputfile"
+  : > "$resultfile"
   {
     echo "===== $relpath - started $(date '+%Y-%m-%d %H:%M:%S %Z') ====="
+    local ef
+    ef="$(example_input_file "$relpath")"
+    if [ -n "$ef" ]; then
+      echo "Example input: ${ef#"$ROOT_DIR"/}"
+    else
+      echo "No checked-in example-input.txt for this feature."
+    fi
   } > "$logfile"
 
   log "----- $relpath -----"
   local runner="${RUNNERS[$relpath]:-}"
   if [ -n "$runner" ]; then
-    "$runner" "$relpath" "$outdir" "$cmdfile" "$logfile"
+    "$runner" "$relpath" "$outdir" "$outputfile" "$resultfile" "$logfile"
   else
-    run_generic_fallback "$relpath" "$outdir" "$cmdfile" "$logfile"
+    run_generic_fallback "$relpath" "$outdir" "$outputfile" "$resultfile" "$logfile"
   fi
   echo "===== $relpath - finished $(date '+%Y-%m-%d %H:%M:%S %Z') =====" >>"$logfile"
-  log "  -> $outdir/run.log"
+  log "  -> $outdir/result.txt"
 }
 
 # Recursively runs every leaf feature at or under $1 (a docs/Features
@@ -481,9 +566,10 @@ show_menu() {
 }
 
 echo "WeKan test menu"
+echo "Example input for each feature: docs/Features/<path>/example-input.txt"
 echo "Session directory: $SESSION_DIR"
-echo "(starting commands, run logs and any output files are saved there,"
-echo " in the same subfolders as docs/Features)"
+echo "(output.txt, result.txt and run.log are saved there, mirrored into the"
+echo " same subfolders as docs/Features)"
 echo "WEKAN_TEST_URL=$WEKAN_TEST_URL (set this env var to point at an already-running WeKan)"
 
 show_menu "$FEATURES_DIR" "WeKan Test Menu" 1

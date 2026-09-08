@@ -1,0 +1,10 @@
+# Example input for docs/Features/Automation/IFTTT, from IFTTT.md.
+# Extracted automatically from the first fenced code block in that
+# document - see IFTTT.md for the full explanation.
+
+{
+  "title": "Archive after 90 days",
+  "trigger": { "activityType": "scheduledTrigger", "scheduleKind": "aging",
+               "listName": "Completed", "days": 90, "atTime": "03:00" },
+  "action":  { "actionType": "archive" }
+}

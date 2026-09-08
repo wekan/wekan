@@ -1,0 +1,9 @@
+# Example input for docs/Features/Translations, from Change-Language.md.
+# Extracted automatically from the first fenced code block in that
+# document - see Change-Language.md for the full explanation.
+
+mongosh --quiet \
+--host 127.0.0.1 \
+--port 27019 \
+--eval 'use wekan' \
+--eval 'db.users.updateMany({}, { $set: {"profile.language": "en-GB" }});'

@@ -1,0 +1,20 @@
+# Example input for docs/Features/ImportExport/Kanboard, from Kanboard.md.
+# Extracted automatically from the first fenced code block in that
+# document - see Kanboard.md for the full explanation.
+
+{
+  "board":     { "name": "My Project" },
+  "columns":   [ { "title": "Backlog" }, { "title": "Work" }, { "title": "Done" } ],
+  "swimlanes": [ { "name": "Default" } ],
+  "tasks": [
+    {
+      "title": "Write report",
+      "description": "...",
+      "column_name": "Work",
+      "swimlane_name": "Default",
+      "date_due": "1718323200",
+      "owner_username": "alice",
+      "tags": ["urgent"]
+    }
+  ]
+}

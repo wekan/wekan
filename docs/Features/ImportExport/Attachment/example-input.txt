@@ -1,0 +1,12 @@
+# Example input for docs/Features/ImportExport/Attachment, from AttachmentBackwardCompatibility.md.
+# Extracted automatically from the first fenced code block in that
+# document - see AttachmentBackwardCompatibility.md for the full explanation.
+
+// Migrate a single attachment
+Meteor.call('migrateAttachment', attachmentId);
+
+// Migrate all attachments for a card
+Meteor.call('migrateCardAttachments', cardId);
+
+// Check migration status
+Meteor.call('getAttachmentMigrationStatus', cardId);

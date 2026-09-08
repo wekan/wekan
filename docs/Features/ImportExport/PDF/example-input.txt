@@ -1,0 +1,11 @@
+# Example input for docs/Features/ImportExport/PDF: create a board, then
+# export it to PDF. This is what test-menu.sh's ImportExport/PDF runner
+# actually sends, against models/exportPDF.js - see docs/API/Boards.md.
+
+curl -H "Authorization: Bearer <token>" -H "Content-type:application/json" \
+     -X POST http://localhost:3000/api/boards \
+     -d '{"title":"Board title here","permission":"private","color":"nephritis"}'
+
+curl -H "Authorization: Bearer <token>" \
+     "http://localhost:3000/api/boards/<boardId>/exportPDF?authToken=<token>" \
+     -o board.pdf

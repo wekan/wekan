@@ -1,0 +1,16 @@
+# Example input for docs/Features/Troubleshooting, from Logs.md.
+# Extracted automatically from the first fenced code block in that
+# document - see Logs.md for the full explanation.
+
+$ mongo
+MongoDB shell version: 2.4.9
+connecting to: test
+> use myDb
+switched to db myDb
+> db.getProfilingLevel()
+0
+> db.setProfilingLevel(2)
+{ "was" : 0, "slowms" : 1, "ok" : 1 }
+> db.getProfilingLevel()
+2
+> db.system.profile.find().pretty()

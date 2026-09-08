@@ -1,0 +1,7 @@
+# Example input for docs/Features/Login/Azure, from Azure.md.
+# Extracted automatically from the first fenced code block in that
+# document - see Azure.md for the full explanation.
+
+sudo snap set wekan oauth2-secret='AZURE-CLIENT-SECRET'
+
+sudo snap set wekan oauth2-server-url='https://login.microsoftonline.com/AZURE_DIRECTORY_ID'

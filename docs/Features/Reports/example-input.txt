@@ -1,0 +1,16 @@
+# Example input for docs/Features/Reports, from ICS-Calendar-Import.md.
+# Extracted automatically from the first fenced code block in that
+# document - see ICS-Calendar-Import.md for the full explanation.
+
+import { parseIcs, icsEventToCard, icsToCards } from '/server/lib/icsImport';
+
+// 1. Parse raw .ics text into plain event objects.
+const events = parseIcs(icsText);
+// => [{ summary, description, start: Date|null, end: Date|null, uid }, ...]
+
+// 2. Map one event to a WeKan card-shaped object.
+const card = icsEventToCard(events[0], { boardId, listId, swimlaneId });
+// => { title, description, startAt, dueAt, boardId, listId, swimlaneId }
+
+// 3. Do both in one step.
+const cards = icsToCards(icsText, { boardId, listId, swimlaneId });

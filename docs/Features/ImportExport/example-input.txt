@@ -1,0 +1,11 @@
+# Example input for docs/Features/ImportExport, from External-Tools.md.
+# Extracted automatically from the first fenced code block in that
+# document - see External-Tools.md for the full explanation.
+
+# Import from a tool's export (SOURCE = deck/openproject/github/gitlab/gitea/forgejo/asana/zenkit/trello/jira/…)
+python3 api.py importboardfrom github issues.json
+#   → POST /api/boards/import/github   (body: the tool's export JSON)
+
+# Export a board to a tool's JSON shape (FORMAT = trello/jira/deck/openproject/github/gitlab/gitea/forgejo/asana/zenkit/kanboard)
+python3 api.py exportboardformat BOARDID deck deck-board.json
+#   → GET  /api/boards/:boardId/export/deck?authToken=:token

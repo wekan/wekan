@@ -1,0 +1,7 @@
+# Example input for docs/Features/Date, from Timezone.md.
+# Extracted automatically from the first fenced code block in that
+# document - see Timezone.md for the full explanation.
+
+sudo apt -y install ntpdate
+
+sudo ntpdate ntp.ubuntu.com

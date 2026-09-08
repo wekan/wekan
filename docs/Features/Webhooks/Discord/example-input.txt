@@ -1,0 +1,5 @@
+# Example input for docs/Features/Webhooks/Discord, from Outgoing-Webhook-to-Discord.md.
+# Extracted automatically from the first fenced code block in that
+# document - see Outgoing-Webhook-to-Discord.md for the full explanation.
+
+https://discordapp.com/api/webhooks/12345/abcde/slack

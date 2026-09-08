@@ -1,0 +1,7 @@
+# Example input for docs/Features/ImportExport/Excel, from Excel-and-VBA.md.
+# Extracted automatically from the first fenced code block in that
+# document - see Excel-and-VBA.md for the full explanation.
+
+curl -H "Content-type:application/json" \
+      http://localhost:3000/users/login \
+      -d '{ "email": "my@email.com", "password": "mypassword" }'

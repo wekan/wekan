@@ -1,0 +1,28 @@
+# Example input for docs/Features/Reports/History, from History.md.
+# Extracted automatically from the first fenced code block in that
+# document - see History.md for the full explanation.
+
+{
+  _id,
+  boardId,          // for permission scoping + publications (null for non-board changes, if any)
+  // What was changed — general, not card-only:
+  entityType,       // 'card' | 'list' | 'swimlane' | 'board' | 'checklist' | 'checklistItem'
+                    //   | 'comment' | 'attachment' | 'customField' | ...
+  entityId,         // the changed entity's _id
+  cardId,           // set when the change belongs to a card (drives the card-group view); optional
+  group,            // logical group for the card view: 'description' | 'labels' | 'members'
+                    //   | 'dates' | 'checklists' | 'title' | ...  (optional for non-card changes)
+  changeType,       // 'added' | 'removed' | 'edited' | 'moved' | 'restored'
+  // Content for display + restore — structured, not just strings:
+  previousContent,  // blackbox; null for 'added'
+  newContent,       // blackbox; null for 'removed'
+  userId,           // WHO made the change — the axis the Member-settings view filters on
+  createdAt,        // Date; formatted client-side with the viewer's/card's date format
+  // Undo/redo stack (folds in #6478's userPositionHistory fields):
+  undone,           // Boolean — restored/undone, redoable until superseded
+  undoneAt,         // Date — orders the redo stack
+  batchId,          // groups a multi-entity change (e.g. multi-select move / multi-restore)
+  // Restore provenance (set only when changeType === 'restored'):
+  restoredFromId,   // the changeHistory _id whose content was restored
+  restoredByUserId, // who performed the restore
+}

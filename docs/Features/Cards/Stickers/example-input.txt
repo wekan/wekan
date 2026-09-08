@@ -1,0 +1,5 @@
+# Example input for docs/Features/Cards/Stickers, from Stickers.md.
+# Extracted automatically from the first fenced code block in that
+# document - see Stickers.md for the full explanation.
+
+python3 api.py setcardstickers BOARDID LISTID CARDID '[{"icon":"taco-cool"}]'

@@ -1,0 +1,6 @@
+# Example input for docs/Features/Board/Board-Backgrounds, from Board-Backgrounds.md.
+# Extracted automatically from the first fenced code block in that
+# document - see Board-Backgrounds.md for the full explanation.
+
+python3 api.py uploadbackground BOARDID /path/to/background.png
+python3 api.py downloadbackground BOARDID /path/to/saved-background.png

@@ -1,0 +1,6 @@
+# Example input for docs/Features/Cards/Locations, from Locations.md.
+# Extracted automatically from the first fenced code block in that
+# document - see Locations.md for the full explanation.
+
+python3 api.py setcardlocations BOARDID LISTID CARDID \
+  '[{"name":"HQ","address":"Helsinki","latitude":60.17,"longitude":24.94}]'

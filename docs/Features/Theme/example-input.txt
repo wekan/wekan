@@ -1,0 +1,5 @@
+# Example input for docs/Features/Theme, from Converting-Meteor-Stylus-to-CSS.md.
+# Extracted automatically from the first fenced code block in that
+# document - see Converting-Meteor-Stylus-to-CSS.md for the full explanation.
+
+sudo npm -g install stylus

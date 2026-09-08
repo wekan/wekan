@@ -1,0 +1,6 @@
+# Example input for docs/Features/Admin-Panel/Problems, from Design.md.
+# Extracted automatically from the first fenced code block in that
+# document - see Design.md for the full explanation.
+
+{ stream, bleed, category, action, source, severity, cwe,
+  count: 1043, firstAt: <first seen>, at: <last seen>, … }

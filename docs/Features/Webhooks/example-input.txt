@@ -1,0 +1,6 @@
+# Example input for docs/Features/Webhooks, from WebHook-And-CA.md.
+# Extracted automatically from the first fenced code block in that
+# document - see WebHook-And-CA.md for the full explanation.
+
+cd /etc/ssl/certs
+wget https://letsencrypt.org/certs/lets-encrypt-x3-cross-signed.pem.txt -O lets-encrypt-x3-cross-signed.pem

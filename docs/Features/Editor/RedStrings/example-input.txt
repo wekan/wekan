@@ -1,0 +1,30 @@
+# Example input for docs/Features/Editor/RedStrings, from RedStrings.md.
+# Extracted automatically from the first fenced code block in that
+# document - see RedStrings.md for the full explanation.
+
+Step 1 — Turn the overlay on (board header: Show dependencies),
+         then hover a card. A connect handle (o) appears on its right edge.
+
+   +----------------+
+   |  PI Alpha      (o)         +----------------+
+   |  list: Sprint 1|           |  PI Beta       |
+   +----------------+           |  list: Sprint 2|
+                                +----------------+
+
+Step 2 — Press on the handle and drag toward the other card.
+         A dashed guide line follows the cursor.
+
+   +----------------+
+   |  PI Alpha      (o)- - - - - - - - - >+
+   +----------------+           +----------------+
+                                |  PI Beta       |
+                                +----------------+
+
+Step 3 — Release the mouse over the target card.
+         A solid, colored, arrow-headed line is created (PI Alpha -> PI Beta).
+
+   +----------------+
+   |  PI Alpha      (o)================>+
+   +----------------+           +----------------+
+                                |  PI Beta       |
+                                +----------------+

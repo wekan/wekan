@@ -1,0 +1,8 @@
+# Example input for docs/Features/Login: a REST username/password login.
+# This is what test-menu.sh's Login runner actually sends against
+# server/apiAuthRoutes.js POST /users/login (after first creating the user
+# through the public POST /users/register route) - see docs/API/REST-API.md.
+
+curl -H "Content-type:application/json" \
+     http://localhost:3000/users/login \
+     -d '{ "username": "myusername", "password": "mypassword" }'
