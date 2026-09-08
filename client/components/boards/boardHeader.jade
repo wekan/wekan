@@ -195,10 +195,19 @@ template(name="boardChangeViewPopup")
           if $eq Utils.boardView "board-view-stats"
             i.fa.fa-check
     li
+      with "board-view-gantt"
+        a.js-open-gantt-view
+          i.fa.fa-bar-chart
+          | {{_ 'board-view-gantt'}}
+          if $eq Utils.boardView "board-view-gantt"
+            i.fa.fa-check
+      hr
+    li
       with "board-view-dashboard"
         a.js-open-dashboard-view
           i.fa.fa-tachometer
-          | {{_ 'board-view-dashboard'}}
+          //- Not translated, deliberately: see (Burndown) etc. below.
+          | (Dashboard)
           if $eq Utils.boardView "board-view-dashboard"
             i.fa.fa-check
     li
@@ -246,13 +255,6 @@ template(name="boardChangeViewPopup")
           i.fa.fa-percent
           | (Flow Efficiency)
           if $eq Utils.boardView "board-view-flow-efficiency"
-            i.fa.fa-check
-    li
-      with "board-view-gantt"
-        a.js-open-gantt-view
-          i.fa.fa-bar-chart
-          | {{_ 'board-view-gantt'}}
-          if $eq Utils.boardView "board-view-gantt"
             i.fa.fa-check
     li
       with "board-view-lead-time"

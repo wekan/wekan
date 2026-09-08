@@ -38,22 +38,23 @@ const VIEWS = [
   { view: 'board-view-cal', jsClass: 'js-open-cal-view', icon: 'fa-calendar' },
   { view: 'board-view-time', jsClass: 'js-open-time-view', icon: 'fa-clock-o', template: 'timeView', helper: 'isViewTime' },
   { view: 'board-view-stats', jsClass: 'js-open-stats-view', icon: 'fa-pie-chart' },
-  { view: 'board-view-dashboard', jsClass: 'js-open-dashboard-view', icon: 'fa-tachometer', template: 'dashboardView', helper: 'isViewDashboard', placeholder: true },
+  { view: 'board-view-gantt', jsClass: 'js-open-gantt-view', icon: 'fa-bar-chart' },
+  { view: 'board-view-dashboard', jsClass: 'js-open-dashboard-view', icon: 'fa-tachometer', template: 'dashboardView', helper: 'isViewDashboard', placeholder: true, hardcodedLabel: '(Dashboard)' },
   { view: 'board-view-burndown', jsClass: 'js-open-burndown-view', icon: 'fa-line-chart', template: 'burndownView', helper: 'isViewBurndown', placeholder: true, hardcodedLabel: '(Burndown)' },
   { view: 'board-view-burnup', jsClass: 'js-open-burnup-view', icon: 'fa-area-chart', template: 'burnupView', helper: 'isViewBurnup', placeholder: true, hardcodedLabel: '(Burnup)' },
   { view: 'board-view-cumulative-flow', jsClass: 'js-open-cumulative-flow-view', icon: 'fa-signal', template: 'cumulativeFlowView', helper: 'isViewCumulativeFlow', placeholder: true, hardcodedLabel: '(Cumulative Flow)' },
   { view: 'board-view-control-chart', jsClass: 'js-open-control-chart-view', icon: 'fa-crosshairs', template: 'controlChartView', helper: 'isViewControlChart', placeholder: true, hardcodedLabel: '(Control)' },
   { view: 'board-view-cycle-time', jsClass: 'js-open-cycle-time-view', icon: 'fa-refresh', template: 'cycleTimeView', helper: 'isViewCycleTime', placeholder: true, hardcodedLabel: '(Cycle Time)' },
   { view: 'board-view-flow-efficiency', jsClass: 'js-open-flow-efficiency-view', icon: 'fa-percent', template: 'flowEfficiencyView', helper: 'isViewFlowEfficiency', placeholder: true, hardcodedLabel: '(Flow Efficiency)' },
-  { view: 'board-view-gantt', jsClass: 'js-open-gantt-view', icon: 'fa-bar-chart' },
   { view: 'board-view-lead-time', jsClass: 'js-open-lead-time-view', icon: 'fa-hourglass-half', template: 'leadTimeView', helper: 'isViewLeadTime', placeholder: true, hardcodedLabel: '(Lead Time)' },
   { view: 'board-view-throughput-histogram', jsClass: 'js-open-throughput-histogram-view', icon: 'fa-columns', template: 'throughputHistogramView', helper: 'isViewThroughputHistogram', placeholder: true, hardcodedLabel: '(Throughput Histogram)' },
   { view: 'board-view-wip-run', jsClass: 'js-open-wip-run-view', icon: 'fa-flag-checkered', template: 'wipRunView', helper: 'isViewWipRun', placeholder: true, hardcodedLabel: '(WIP Run)' },
 ];
 
-// Between Table and Calendar, and between Time and Statistics - like the
-// right sidebar's own hr-separated groups (client/components/sidebar/sidebar.jade).
-const HR_AFTER = ['board-view-table', 'board-view-time'];
+// Between Table and Calendar, between Time and Statistics, and between Gantt
+// and Dashboard - like the right sidebar's own hr-separated groups
+// (client/components/sidebar/sidebar.jade).
+const HR_AFTER = ['board-view-table', 'board-view-time', 'board-view-gantt'];
 
 test('the menu lists every view in the required top-to-bottom order', () => {
   const popup = boardHeaderJade.slice(boardHeaderJade.indexOf('template(name="boardChangeViewPopup")'));
@@ -92,17 +93,7 @@ test('a not-fully-implemented view shows a hardcoded, untranslated "(Name)" labe
   });
 });
 
-test('Dashboard keeps its translated label (negative)', () => {
-  // The one placeholder view NOT in the hardcoded list above - confirms the
-  // hardcoding is deliberately scoped to the nine named views, not "every
-  // placeholder", which would have swept this one in too.
-  const popup = boardHeaderJade.slice(boardHeaderJade.indexOf('template(name="boardChangeViewPopup")'));
-  const at = popup.indexOf('"board-view-dashboard"');
-  const block = popup.slice(at, at + 300);
-  assert.match(block, /\{\{_ 'board-view-dashboard'\}\}/);
-});
-
-test('a separator sits between Table and Calendar, and between Time and Statistics', () => {
+test('a separator sits between Table and Calendar, between Time and Statistics, and between Gantt and Dashboard', () => {
   // Like the right sidebar's own hr-separated groups
   // (client/components/sidebar/sidebar.jade's homeSidebar).
   const popup = boardHeaderJade.slice(boardHeaderJade.indexOf('template(name="boardChangeViewPopup")'));
