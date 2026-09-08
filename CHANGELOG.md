@@ -20,6 +20,14 @@ Newest WeKan at these platforms:
 <details>
 <summary>Version</summary>
 
+- Version numbers v11.33, v11.54, v11.57, v11.59 and v11.61 do not exist: a bug
+  in `releases/release-all.sh` measured the version step from the two newest
+  CHANGELOG headings instead of always advancing by one, so once a prepared-
+  but-never-published release had its heading removed rather than renamed back
+  to `# Upcoming WeKan ® release`, the resulting gap was read as the new normal
+  cadence and re-applied on every later release, repeatedly skipping a number.
+  Fixed to a fixed +1 step; nothing was lost, these numbers were simply never
+  used.
 - WeKan 8.75 and newer uses Meteor 3.5
 - WeKan 8.43 upgraded to Meteor 3.x, huge thanks to harryadel:
   - https://harryadel.com/dev-diary-24/
@@ -291,12 +299,11 @@ the Markdown commit as the template.
 
 # Upcoming WeKan ® release
 
-**In short:** nothing here yet. This paragraph is the first thing a reader sees,
-so replace it as entries are added: say what the release amounts to, which areas
-changed and what changed about them, with the notable names in **bold**, and
-account for the rest in a closing clause. The table below is carried over from
-the release under this one, and is refilled from each build's provenance.tsv
-when this release is made.
+**In short:** `releases/release-all.sh` no longer skips version numbers: its
+version step is now a fixed **+1**, fixing a bug where a single unpublished,
+deleted release heading made the script measure and re-apply the resulting
+gap forever, silently skipping v11.57, v11.59 and v11.61 (and, earlier,
+v11.33 and v11.54).
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -308,6 +315,36 @@ when this release is made.
 | mac-arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-arm64) | v1.53.0 | `cb14ffe93e285903e5a8a9c1821687ddb5b8a979a11c584bf4af534b272c6d3e` |
 | mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
+
+This release fixes the following developer-tooling bug:
+
+**`releases/release-all.sh`** - the version-number step between releases.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/685f848d0">Stop release-all.sh from inheriting and widening a version-number gap</a>. Thanks to xet7.</summary>
+
+The next release version used to be computed by MEASURING the gap between
+the two newest `# vNN.MM` headings in CHANGELOG.md and re-applying that same
+gap, rather than always advancing by one. That is fine as long as every
+gap between two headings is really 1 - but it is not self-correcting: if a
+release number was ever prepared and then never published, and its
+CHANGELOG section was deleted outright instead of renamed back to `#
+Upcoming WeKan ® release` (the correct recovery for a release that never
+published, per this script's own header comment), the two headings left
+behind were 2 apart. The script read that as "the cadence is +2 now",
+applied +2 to get the next number, and did the same again next time -
+turning one incident into a permanent, ever-repeating habit of skipping a
+number. That is exactly how v11.56 -> v11.58 -> v11.60 -> v11.62 happened,
+silently skipping v11.57, v11.59 and v11.61 (v11.33 and v11.54 were
+skipped by the same bug earlier). The step is now a fixed +1 with no
+history lookup, and the other code path (resuming an already-renamed
+release) now hard-fails instead of printing "proceeding anyway" when the
+newest heading is not exactly +1 from the previous one, so a future gap is
+caught before it can be built on rather than silently accepted and
+repeated. `tests/releaseAllVersionStep.test.cjs` pins the fixed +1 step
+and the hard failure.
+
+</details>
 
 # v11.62 2026-09-08 WeKan ® release
 
