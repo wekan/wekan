@@ -4059,13 +4059,25 @@ jobs:
       # FerretDB's docker.yml: sync each registry independently, reusing the
       # DOCKERHUB_AUTH/QUAY_AUTH secrets already decoded above for docker login,
       # and never echo a token or the JWT.
+      #
+      # NEVER FAILS THE JOB. v11.62 found out why the hard way: DOCKERHUB_AUTH
+      # and QUAY_AUTH are scoped for `docker login`/image push, and both
+      # registries returned 403 to a repository-DESCRIPTION write with that
+      # same credential - Docker Hub's PATCH and Quay's PUT need broader
+      # (account-owner / repo-admin) rights than a push-scoped token carries.
+      # The image itself had already been built, pushed and verified pullable
+      # by the steps above; only this cosmetic sync step failed, and because it
+      # `exit 1`-ed, the WHOLE docker job reported failure - which blocked
+      # every job gated on `needs.docker.result == 'success'` (the Helm chart
+      # update) even though the release had, in fact, published. A repository
+      # description drifting from README.md is not worth blocking a release
+      # over, so a failure here is a warning, never a job failure.
       - name: Sync the repository overview to Docker Hub and Quay.io from README.md
         env:
           DOCKERHUB_AUTH: ${{ secrets.DOCKERHUB_AUTH }}
           QUAY_AUTH: ${{ secrets.QUAY_AUTH }}
         run: |
           set -uo pipefail
-          fail=0
           readme="$(cat README.md)"
 
           echo "::group::Sync overview to Docker Hub"
@@ -4084,8 +4096,7 @@ jobs:
                -o /dev/null; then
             echo "Docker Hub: OK"
           else
-            echo "::error::Docker Hub overview sync failed"
-            fail=1
+            echo "::warning::Docker Hub overview sync failed (non-fatal - DOCKERHUB_AUTH may lack repo-admin rights)"
           fi
           echo "::endgroup::"
 
@@ -4100,16 +4111,10 @@ jobs:
                -o /dev/null; then
             echo "Quay.io: OK"
           else
-            echo "::error::Quay.io overview sync failed"
-            fail=1
+            echo "::warning::Quay.io overview sync failed (non-fatal - QUAY_AUTH may lack repo-admin rights)"
           fi
           echo "::endgroup::"
-
-          if [ "$fail" -ne 0 ]; then
-            echo "::error::One or more registry overview syncs failed (see groups above)."
-            exit 1
-          fi
-          echo "All registry overview syncs succeeded."
+          exit 0
 
       # Always, as the last step: the run summary then answers "what worked and what
       # did not" for the whole release at a glance, instead of eighteen job logs. A

@@ -66,14 +66,27 @@ test('never echoes a credential or JWT, and never turns on shell tracing', () =>
 });
 
 test('each registry is synced independently: one failing does not skip the other', () => {
-  // Both curl calls run unconditionally (only their own success sets `fail`),
-  // and only the shared `fail` flag at the end decides the step's exit code.
+  // Both curl calls run unconditionally - neither is gated on the other's
+  // outcome - so a Docker Hub failure still lets the Quay.io attempt run.
   const dockerHubBlock = step.slice(step.indexOf('Sync overview to Docker Hub'),
     step.indexOf('Sync overview to Quay.io'));
   const quayBlock = step.slice(step.indexOf('Sync overview to Quay.io'));
-  assert.ok(/fail=1/.test(dockerHubBlock));
-  assert.ok(/fail=1/.test(quayBlock));
-  assert.ok(/if \[ "\$fail" -ne 0 \]; then/.test(step));
+  assert.ok(/::warning::Docker Hub overview sync failed/.test(dockerHubBlock));
+  assert.ok(/::warning::Quay.io overview sync failed/.test(quayBlock));
+});
+
+test('a sync failure never fails the job (negative)', () => {
+  // v11.62's release-all.yml run found out why this matters: the image was
+  // built, pushed and verified pullable, but this step alone exited 1 on a
+  // 403 (DOCKERHUB_AUTH/QUAY_AUTH are scoped for push, not repo-admin), which
+  // failed the whole docker job and blocked everything gated on
+  // needs.docker.result == 'success' - even though the release had actually
+  // published. A stale repository description must never do that again.
+  assert.ok(!/fail=1/.test(step), 'no failure flag should exist to act on');
+  assert.ok(!/echo "::error::(Docker Hub|Quay\.io) overview sync failed/.test(step),
+    'a sync failure must not be reported as ::error:: (that is what fails a job)');
+  assert.ok(!/if \[ "\$fail" -ne 0 \]; then/.test(step),
+    'no fail-the-step check should remain');
 });
 
 console.log(`\ndockerRegistryOverviewSync: ${passed} tests passed`);
