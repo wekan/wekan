@@ -504,9 +504,9 @@ test('and the view menus are icons, named by a tooltip', () => {
   const at = boardJs.indexOf('boardViewName() {');
   assert.notStrictEqual(at, -1, 'the helper must exist');
   const en = JSON.parse(read('imports/i18n/data/en.i18n.json'));
-  const keys = (boardJs.slice(at, at + 700).match(/: '[a-z0-9-]+'/g) || [])
+  const keys = (boardJs.slice(at, at + 1200).match(/: '[a-z0-9-]+'/g) || [])
     .map(x => x.slice(3, -1));
-  assert.ok(keys.length >= 6, 'one name per view');
+  assert.ok(keys.length >= 17, 'one name per view');
   for (const k of keys) assert.ok(k in en, `${k} is not a translation key`);
 
   // All Boards the same.
