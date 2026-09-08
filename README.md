@@ -99,9 +99,9 @@ that by providing one-click installation on various platforms.
 
 ## Roadmap and Demo
 
-[Roadmap][roadmap_wekan] - Public read-only board at WeKan ® demo.
+[Roadmap](https://boards.wekan.team/b/D2SzJKZDS4Z48yeQH/wekan-r-open-source-kanban-board-with-mit-license) - Public read-only board at WeKan ® demo.
 
-[Developer Documentation][dev_docs]
+[Developer Documentation](https://github.com/wekan/wekan/blob/main/docs/DeveloperDocs/Developer-Documentation.md)
 
 - There are many companies and individuals contributing code to WeKan ®, to add features and bugfixes
   [many times a day](https://github.com/wekan/wekan/blob/main/CHANGELOG.md).
@@ -166,21 +166,12 @@ chmod +x build.sh
 ```
 
 If a dev server is already running on that port, the **Dev server** options stop it automatically and start a fresh server on the same port.
- 
 
 ### WSL Users
 
 WSL users can use Snap Candidate. See [install docs](https://wekan.fi/install/).
 
-The development server will start at http://localhost:3000. Any changes you make to the source code will automatically trigger a rebuild and refresh your browser.
-
-## Screenshot
-
-[More screenshots at Features page](https://github.com/wekan/wekan/tree/main/docs/Features)
-
-[![Screenshot of WeKan ®][screenshot_wekan]][roadmap_wekan]
-
 ## License
 
-WeKan ® is released under the very permissive [MIT license](LICENSE), and made
+WeKan ® is released under the very permissive [MIT license](https://github.com/wekan/wekan/blob/main/LICENSE), and made
 with [Meteor](https://www.meteor.com).
