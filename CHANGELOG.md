@@ -391,6 +391,31 @@ height.
 
 </details>
 
+and adds the following feature:
+
+**The top header** - a collapse button for its own icons.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d1b01924e">Add a header-icons collapse toggle beside the board title (#6680 follow-up)</a>. Thanks to xet7.</summary>
+
+A single button, right after the board title, that hides every icon from
+the mobile/desktop toggle through the notification bell: mobile/desktop
+mode, drag-handles toggle, the three board-wide resize-lock icons, the
+starred-boards group, create-board, the board/all-boards header buttons,
+the view menu, the Admin Panel tabs, and notifications. Purely a
+per-viewer display preference (a plain Session var, the same shape as
+`mobileMode()` right beside it), not a board setting like the resize
+locks. Every icon in that range gets a shared
+`.js-header-collapsible-icon` marker class; the template inclusions that
+cannot carry a class of their own are each wrapped in a `span` that stays
+`display: contents` outside the collapsed state, so introducing it does
+not change how those icons behave as flex items when nothing is
+collapsed. `tests/headerIconsCollapse.test.cjs` pins the button's
+position, the Session-var shape, that every icon in the range is marked
+and nothing outside it is, and both CSS rules.
+
+</details>
+
 # v11.63 2026-09-08 WeKan ® release
 
 **In short:** `releases/release-all.sh` no longer skips version numbers: its
