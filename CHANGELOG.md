@@ -297,6 +297,35 @@ the Markdown commit as the template.
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** **Resizable list width and swimlane height are back.** v11.62
+had replaced the per-user/per-list drag-resize width, the "Set width" and
+"Set swimlane height" popups, and the auto-width mode with a single
+hardcoded 240px for every list. At the maintainer's request that change is
+reverted: the resize handles, both popups, the board-settings "Personal
+list width" toggle and auto-width mode all work again exactly as they did
+before v11.62.
+
+This release reverts the following change:
+
+**List and swimlane resizing** - restoring the popups and drag handles v11.62 removed.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6c84eff51">Revert "Hardcode list width to 240px and remove the width/height set-value popups"</a>. Thanks to xet7.</summary>
+
+This reverts commit 8614949580a8824be8c189ab3c7e5869d36f6e9b in full: the
+per-user/per-list resizable list width (drag-resize handle, the "Set
+width" list-menu popup, the board-settings "Personal list width" sidebar
+toggle, and the auto-width mode) and the "Set swimlane height" popup are
+restored, along with their schema fields, Meteor methods and tests
+(`tests/listWidthPopupLayout.test.cjs` and
+`tests/playwright/specs/38-fixed-list-width.e2e.js`, both un-deleted). No
+commit since v11.62 touched these files, so the revert applied cleanly
+with no follow-up fixes needed.
+
+</details>
+
 # v11.63 2026-09-08 WeKan ® release
 
 **In short:** `releases/release-all.sh` no longer skips version numbers: its
