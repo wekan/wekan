@@ -350,19 +350,22 @@ and adds the following feature:
 Three independent toggles, right of the drag-handles toggle, board admins
 only: a list-width resize lock (left-right arrow plus the same allowed/
 denied check/ban icon pair `.js-toggle-desktop-drag-handles` already uses),
-a swimlane-height resize lock (up-down arrow, same shape), and a
-board-wide "same width for all lists" - the existing per-user Set Width
-popup's fixed-width mode, now settable for the whole board so it applies
-to every viewer, overriding their personal choice while it is on.
-Enabling/disabling a toggle is admin-only on the server
-(`server/permissions/boards.js`'s default rule); dragging the shared
-same-width value itself is allowed for any board member with write
-access, through a new sole-field `Boards.allow` rule shaped exactly like
-the existing board-drag-reorder rule, so a lower-privilege member can
-never smuggle another board field into that update.
-`tests/listSwimlaneResizeLock.test.cjs` pins the schema, the header
-wiring, the permission-rule shape and that each resize handle actually
-checks its lock before starting a drag.
+a swimlane-height resize lock (up-down arrow, same check/ban pair), and a
+board-wide "same width for all lists" (same pair again, over a static
+columns icon) - the existing per-user Set Width popup's fixed-width mode,
+now settable for the whole board so it applies to every viewer, overriding
+their personal choice while it is on. Enabling/disabling a toggle is
+admin-only on the server (`server/permissions/boards.js`'s default rule);
+dragging the shared same-width value itself is allowed for any board
+member with write access, through a new sole-field `Boards.allow` rule
+shaped exactly like the existing board-drag-reorder rule, so a
+lower-privilege member can never smuggle another board field into that
+update. The swimlane-height handle also HIDES entirely while its lock is
+on - not just refusing the drag - the same way the list-width handle
+already hides for its own lock, so a locked handle does not still draw the
+blue drag-height line on hover. `tests/listSwimlaneResizeLock.test.cjs`
+pins the schema, the header wiring, the permission-rule shape, and that
+each resize handle actually checks (and hides for) its lock.
 
 </details>
 
