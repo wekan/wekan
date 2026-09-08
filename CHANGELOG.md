@@ -291,17 +291,15 @@ the Markdown commit as the template.
 
 # Upcoming WeKan ® release
 
-**In short:** this release adds **test-menu.sh**, an interactive menu that
-mirrors docs/Features and runs the actual WeKan code behind each feature, plus
-a checked-in example input file for most features. It also adds a **Markdown**
-import/export format (the task-list convention markdown-kanban tools such as
-Obsidian Kanban use) and gives the **GitHub/Gitea/Forgejo issue importer**
-loss-reporting for fields it cannot map instead of silently dropping them.
-The **Board View menu** is reordered and gains placeholder pages for ten
-not-yet-built views (Dashboard, Burndown, Burnup and others) plus a new
-**Time** view, and this release fixes **dependency lines and collapsed
-lists bleeding past a resized swimlane** and a **list's collapse caret**
-sitting in the wrong place.
+**In short:** this release adds **test-menu.sh** and a **Markdown**
+import/export format, and gives the **GitHub/Gitea/Forgejo issue importer**
+loss-reporting instead of silently dropping fields. The **Board View menu**
+is reordered and gains placeholder pages for ten not-yet-built views plus a
+new **Time** view. Several bugs are fixed: dependency lines and collapsed
+lists bleeding past a resized swimlane, a list's collapse caret sitting in
+the wrong place, and **list width is now a single hardcoded 240px** for
+every list on every board, with the redundant "Set width" and "Set
+swimlane height" popups removed.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -402,7 +400,7 @@ different, still-visible swimlane is unaffected.
 
 </details>
 
-**Lists** - the collapse caret and the "Set width" popup.
+**Lists** - the collapse caret, list width, and swimlane height.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/09d892a8c">Move an expanded list's collapse caret to its header's top corner</a>. Thanks to xet7.</summary>
@@ -424,6 +422,25 @@ header's top corner - the left edge for LTR, the right for RTL.
 Both are `a` toggles in the "Set width" popup with no display rule of
 their own, so the browser default (inline) put them side by side on one
 crowded line instead of stacked rows like the rest of the popup.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f6daeaf7e">Hardcode list width to 240px and remove the width/height set-value popups</a>. Thanks to xet7.</summary>
+
+List width is now a single hardcoded constant (240px) applied to every
+list on every board for every viewer. This replaces the model built up
+over several past releases - a personal per-user width, a per-list shared
+width, a viewer-toggled "same width for all lists" mode and a
+viewer-toggled auto-width mode. All of it - the "Set width" list-menu
+popup just above, the board-settings "Personal list width" sidebar toggle,
+the drag-resize handle, and every schema field and Meteor method behind
+them - is removed rather than left dead. The "Set swimlane height" menu
+popup goes too, as a redundant text-input alternative to the working
+drag-resize handle from the swimlane-resize fix above; that drag handle
+itself is untouched. models/wekanCreator.js was still mapping the removed
+board fields on WeKan JSON import, which would have failed schema
+validation on any import; fixed as part of the same change.
 
 </details>
 
