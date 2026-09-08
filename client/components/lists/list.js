@@ -41,6 +41,7 @@ const { calculateIndex } = Utils;
 import {
   DEFAULT_LIST_WIDTH,
   MIN_LIST_WIDTH,
+  normalizeListWidth,
   resolveListWidth,
 } from '/models/lib/listWidth';
 
@@ -141,11 +142,28 @@ function saveAnonFixedListWidth(boardId, width) {
   }
 }
 
+// #6680: the BOARD-WIDE equivalent of isFixedListWidth/fixedListWidthValue
+// above - same "every list renders at one shared value" mode, but as an
+// admin-set board setting (toggled from the top header) instead of each
+// viewer's own personal choice. Takes priority over the personal one below:
+// an admin turning this on should not be silently overridden by a member's
+// earlier personal preference.
+function isBoardWideFixedListWidth(boardId) {
+  const board = ReactiveCache.getBoard(boardId);
+  return !!(board && board.getSameWidthForAllLists());
+}
+
+function boardWideFixedListWidthValue(boardId) {
+  const board = ReactiveCache.getBoard(boardId);
+  return normalizeListWidth(board && board.getSameWidthForAllListsValue());
+}
+
 function effectiveListWidth(list) {
   if (!list) return DEFAULT_LIST_WIDTH;
   // #5659: all inputs are gathered here, but the fallback order and the ONE
   // default width live in models/lib/listWidth.js (shared + unit tested).
-  const fixedEnabled = isFixedListWidth(list.boardId);
+  const boardWideFixed = isBoardWideFixedListWidth(list.boardId);
+  const fixedEnabled = boardWideFixed || isFixedListWidth(list.boardId);
   const personalMode = isPersonalListWidth(list.boardId);
   let personalWidth = null;
   if (personalMode) {
@@ -157,10 +175,16 @@ function effectiveListWidth(list) {
       personalWidth = readAnonListWidth(list.boardId, list._id);
     }
   }
+  let fixedWidth = null;
+  if (boardWideFixed) {
+    fixedWidth = boardWideFixedListWidthValue(list.boardId);
+  } else if (fixedEnabled) {
+    fixedWidth = fixedListWidthValue(list.boardId);
+  }
   return resolveListWidth({
     // #5729 In fixed width mode every list renders at the single shared value.
     fixedEnabled,
-    fixedWidth: fixedEnabled ? fixedListWidthValue(list.boardId) : null,
+    fixedWidth,
     sharedWidth: list.width,
     personalMode,
     personalWidth,
@@ -173,7 +197,16 @@ function effectiveListWidth(list) {
 //  - shared mode: only with board write access
 function canResizeList(list) {
   if (!list) return false;
+  // #6680: a board-wide lock, toggled from the top header, overrides every
+  // other rule below - nobody drags a list width while it is on, regardless
+  // of personal/shared mode or board write access.
+  const board = ReactiveCache.getBoard(list.boardId);
+  if (board && board.getListWidthResizeLocked()) return false;
   if (effectiveAutoWidth(list.boardId)) return false;
+  // #6680: board-wide fixed width - any viewer with board write access may
+  // drag-resize (it changes the one value everyone sees, so a read-only
+  // visitor should not be the one setting it).
+  if (isBoardWideFixedListWidth(list.boardId)) return Utils.canModifyBoard();
   // #5729 Fixed width is the viewer's own per-board setting, so any viewer
   // (logged-in or anonymous) may drag-resize; the change applies to all lists.
   if (isFixedListWidth(list.boardId)) return true;
@@ -187,6 +220,13 @@ function saveListWidth(list, width) {
   const boardId = list.boardId;
   const listId = list._id;
   const user = ReactiveCache.getCurrentUser();
+  // #6680: board-wide fixed width persists to the BOARD (sole modified field,
+  // allowed for any board member with write access - server/permissions/boards.js).
+  if (isBoardWideFixedListWidth(boardId)) {
+    const board = ReactiveCache.getBoard(boardId);
+    if (board) board.setSameWidthForAllListsValue(width);
+    return;
+  }
   // #5729 In fixed width mode, persist to the single per-board value instead of
   // the per-list width, so EVERY list re-renders at the new width.
   if (isFixedListWidth(boardId)) {

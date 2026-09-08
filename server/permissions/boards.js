@@ -1,7 +1,7 @@
 import Boards from '/models/boards';
 import TableVisibilityModeSettings from '/models/tableVisibilityModeSettings';
 import { findWhere, where } from '/imports/lib/collectionHelpers';
-import { allowIsBoardAdmin, canUpdateBoardSort } from '/server/lib/utils';
+import { allowIsBoardAdmin, canUpdateBoardSort, canUpdateBoardSameWidthValue } from '/server/lib/utils';
 
 Boards.allow({
   async insert(userId, doc) {
@@ -30,6 +30,16 @@ Boards.allow({
     return canUpdateBoardSort(userId, board, fieldNames);
   },
   // Need members to verify membership in policy
+  fetch: ['members'],
+});
+
+// #6680: dragging the board-wide "same width for all lists" handle updates
+// ONLY sameWidthForAllListsValue, and needs write access, not board-admin -
+// same shape and the same reason as the 'sort' rule above.
+Boards.allow({
+  update(userId, board, fieldNames) {
+    return canUpdateBoardSameWidthValue(userId, board, fieldNames);
+  },
   fetch: ['members'],
 });
 

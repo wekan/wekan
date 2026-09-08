@@ -550,6 +550,12 @@ function initializeSwimlaneResize(tpl, retryCount = 0) {
   };
 
   const startResize = (e) => {
+    // #6680: a board-wide lock, toggled from the top header, disables the
+    // swimlane-height drag handle for everyone on this board.
+    const board = ReactiveCache.getBoard(swimlane.boardId);
+    if (board && board.getSwimlaneHeightResizeLocked()) {
+      return;
+    }
     isResizing = true;
     startY = getEventPageY(e);
     startHeight = parseInt($swimlane.css('height')) || 300;

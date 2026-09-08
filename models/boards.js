@@ -904,6 +904,54 @@ Boards.attachSchema(
       optional: true,
       defaultValue: false,
     },
+    listWidthResizeLocked: {
+      /**
+       * #6680: when true, the list-width drag-resize handle between lists is
+       * disabled for everyone on this board, so a viewer who is just
+       * navigating cannot accidentally drag a list to a strange width.
+       * Toggled from the top header's lock icon, beside the drag-handles
+       * toggle. Independent of swimlaneHeightResizeLocked.
+       */
+      type: Boolean,
+      optional: true,
+      defaultValue: false,
+    },
+    swimlaneHeightResizeLocked: {
+      /**
+       * #6680: when true, the swimlane-height drag-resize handle at the top
+       * of each swimlane is disabled for everyone on this board. Same toggle
+       * pattern and reasoning as listWidthResizeLocked, independent of it.
+       */
+      type: Boolean,
+      optional: true,
+      defaultValue: false,
+    },
+    sameWidthForAllLists: {
+      /**
+       * #6680: the BOARD-WIDE equivalent of each user's own "same width for
+       * all lists" (fixed width) choice in the Set Width popup
+       * (profile.fixedListWidthBoards) - an admin-set toggle, in the top
+       * header between the two resize-lock icons, that forces every list on
+       * this board to the single sameWidthForAllListsValue for EVERY viewer,
+       * overriding their personal fixed-width choice while it is on.
+       */
+      type: Boolean,
+      optional: true,
+      defaultValue: false,
+    },
+    sameWidthForAllListsValue: {
+      /**
+       * The single width (px) every list uses while sameWidthForAllLists is
+       * on. Any board member with write access may change it by dragging a
+       * list's resize handle (server/permissions/boards.js allows an update
+       * touching only this field); turning the mode itself on/off is
+       * admin-only, like the rest of this board's settings.
+       */
+      type: Number,
+      optional: true,
+      defaultValue: 220, // models/lib/listWidth.js DEFAULT_LIST_WIDTH
+      min: 200, // models/lib/listWidth.js MIN_LIST_WIDTH
+    },
     allowsReceivedDateOnMinicard: {
       /**
        * Does the board allows received date on minicard?
@@ -2354,6 +2402,46 @@ Boards.helpers({
   async setAutoWidth(autoWidth) {
     return await Boards.updateAsync(this._id, {
       $set: { autoWidth: !!autoWidth },
+    });
+  },
+
+  getListWidthResizeLocked() {
+    return !!this.listWidthResizeLocked;
+  },
+
+  async setListWidthResizeLocked(listWidthResizeLocked) {
+    return await Boards.updateAsync(this._id, {
+      $set: { listWidthResizeLocked: !!listWidthResizeLocked },
+    });
+  },
+
+  getSwimlaneHeightResizeLocked() {
+    return !!this.swimlaneHeightResizeLocked;
+  },
+
+  async setSwimlaneHeightResizeLocked(swimlaneHeightResizeLocked) {
+    return await Boards.updateAsync(this._id, {
+      $set: { swimlaneHeightResizeLocked: !!swimlaneHeightResizeLocked },
+    });
+  },
+
+  getSameWidthForAllLists() {
+    return !!this.sameWidthForAllLists;
+  },
+
+  async setSameWidthForAllLists(sameWidthForAllLists) {
+    return await Boards.updateAsync(this._id, {
+      $set: { sameWidthForAllLists: !!sameWidthForAllLists },
+    });
+  },
+
+  getSameWidthForAllListsValue() {
+    return this.sameWidthForAllListsValue;
+  },
+
+  async setSameWidthForAllListsValue(sameWidthForAllListsValue) {
+    return await Boards.updateAsync(this._id, {
+      $set: { sameWidthForAllListsValue: sameWidthForAllListsValue },
     });
   },
 

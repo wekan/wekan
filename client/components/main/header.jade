@@ -73,6 +73,32 @@ template(name="header")
         unless isShowDesktopDragHandles
           i.fa.fa-ban
 
+      // #6680: lock/unlock the list-width and swimlane-height drag-resize
+      // handles, board admins only (same as any other board setting) and
+      // only while a board is open. Two independent toggles, right of the
+      // drag-handles toggle in that order: list width (left-right arrow),
+      // then swimlane height (up-down arrow).
+      if isBoardPage
+        if canLockBoardResize
+          a.board-header-btn.js-toggle-list-width-resize-lock(title="{{_ 'lock-list-width-resize'}}")
+            i.fa.fa-arrows-h
+            if isListWidthResizeLocked
+              i.fa.fa-lock
+            else
+              i.fa.fa-unlock
+          // #6680: board-wide "same width for all lists" - the same mode the
+          // per-list "Set width" popup already offers per user, exposed here
+          // as one board setting that applies to every viewer.
+          a.board-header-btn.js-toggle-same-width-for-all-lists(title="{{_ 'same-width-for-all-lists'}}" class="{{#if isSameWidthForAllLists}}active{{/if}}")
+            i.fa.fa-arrows-h
+            i.fa.fa-columns
+          a.board-header-btn.js-toggle-swimlane-height-resize-lock(title="{{_ 'lock-swimlane-height-resize'}}")
+            i.fa.fa-arrows-v
+            if isSwimlaneHeightResizeLocked
+              i.fa.fa-lock
+            else
+              i.fa.fa-unlock
+
       //- Everything from here on hugs the END of the bar - the right edge in a
         left-to-right language, the LEFT edge in a right-to-left one. It is one
         `margin-inline-start: auto` on this wrapper, which is a LOGICAL

@@ -166,6 +166,23 @@ export function canUpdateBoardSort(userId, board, fieldNames) {
   return !!userId && fields.length === 1 && fields[0] === 'sort' && allowIsBoardMember(userId, board);
 }
 
+// #6680: same SOLE-FIELD shape as canUpdateBoardSort, and for the same
+// reason - the board-wide "same width for all lists" VALUE is dragged by any
+// board member with write access (like the shared per-list `lists.width`
+// already is), but that must never be the door a lower-privilege member uses
+// to smuggle a members/permission/title change through. Turning
+// sameWidthForAllLists itself on/off stays admin-only via the default
+// allowIsBoardAdmin rule; this only ever touches its stored width.
+export function canUpdateBoardSameWidthValue(userId, board, fieldNames) {
+  const fields = fieldNames || [];
+  return (
+    !!userId &&
+    fields.length === 1 &&
+    fields[0] === 'sameWidthForAllListsValue' &&
+    !!(board && memberCan(board.members, userId, 'write'))
+  );
+}
+
 // Issue #5998: the REST board-member endpoints historically took eight separate
 // boolean permission flags. They now also accept a single named `role`, which
 // this helper maps to that flag set. Returns null for an unknown role so callers
