@@ -1,3 +1,28 @@
+/* #6686: Today/Previous/Next/Day/Week/Month are one group on the RIGHT of
+   the title now (boardBody.js's headerToolbar: left: 'title', right:
+   '<all the buttons>') - forced to stay on one row, with the title
+   vertically centered against it, rather than relying on FullCalendar's
+   own default toolbar CSS, which wrapped the title onto its own row above
+   the buttons (WeKan's global `h2 { margin: 0 0 7px }` gives the toolbar
+   title, an <h2>, a bottom margin that a bare flex row does not clear the
+   way this explicit centering does). */
+.calendar-view .fc-header-toolbar {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.calendar-view .fc-toolbar-chunk {
+  display: flex;
+  align-items: center;
+}
+
+.calendar-view .fc-toolbar-title {
+  margin: 0;
+  display: inline-block;
+}
+
 .calendar-view .fc {
   --fc-button-text-color: #333;
   --fc-button-bg-color: #f5f5f5;

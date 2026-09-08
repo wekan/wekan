@@ -1059,11 +1059,17 @@ Template.calendarView.helpers({
         minute: '2-digit',
         meridiem: 'short',
       },
+      // #6686: Today/Previous/Next used to sit in their own group under the
+      // title, with the Day/Week/Month view toggles in a third, CENTER group
+      // that pushed everything onto a second row. All the buttons now sit
+      // together in ONE group on the right side of the title, which stays
+      // alone on the left - see calendarView.css for the title's vertical
+      // centering against that single row.
       headerToolbar: {
-        left: 'title today prev,next',
-        center:
-          'timeGridDay,listDay timeGridWeek,listWeek dayGridMonth,listMonth',
-        right: '',
+        left: 'title',
+        center: '',
+        right:
+          'today prev,next timeGridDay,listDay timeGridWeek,listWeek dayGridMonth,listMonth',
       },
       buttonIcons: false,
       buttonText: {
