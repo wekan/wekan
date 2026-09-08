@@ -39,16 +39,16 @@ const VIEWS = [
   { view: 'board-view-time', jsClass: 'js-open-time-view', icon: 'fa-clock-o', template: 'timeView', helper: 'isViewTime' },
   { view: 'board-view-stats', jsClass: 'js-open-stats-view', icon: 'fa-pie-chart' },
   { view: 'board-view-gantt', jsClass: 'js-open-gantt-view', icon: 'fa-bar-chart' },
-  { view: 'board-view-dashboard', jsClass: 'js-open-dashboard-view', icon: 'fa-tachometer', template: 'dashboardView', helper: 'isViewDashboard', placeholder: true, hardcodedLabel: '(Dashboard)' },
-  { view: 'board-view-burndown', jsClass: 'js-open-burndown-view', icon: 'fa-line-chart', template: 'burndownView', helper: 'isViewBurndown', placeholder: true, hardcodedLabel: '(Burndown)' },
-  { view: 'board-view-burnup', jsClass: 'js-open-burnup-view', icon: 'fa-area-chart', template: 'burnupView', helper: 'isViewBurnup', placeholder: true, hardcodedLabel: '(Burnup)' },
-  { view: 'board-view-cumulative-flow', jsClass: 'js-open-cumulative-flow-view', icon: 'fa-signal', template: 'cumulativeFlowView', helper: 'isViewCumulativeFlow', placeholder: true, hardcodedLabel: '(Cumulative Flow)' },
-  { view: 'board-view-control-chart', jsClass: 'js-open-control-chart-view', icon: 'fa-crosshairs', template: 'controlChartView', helper: 'isViewControlChart', placeholder: true, hardcodedLabel: '(Control)' },
-  { view: 'board-view-cycle-time', jsClass: 'js-open-cycle-time-view', icon: 'fa-refresh', template: 'cycleTimeView', helper: 'isViewCycleTime', placeholder: true, hardcodedLabel: '(Cycle Time)' },
-  { view: 'board-view-flow-efficiency', jsClass: 'js-open-flow-efficiency-view', icon: 'fa-percent', template: 'flowEfficiencyView', helper: 'isViewFlowEfficiency', placeholder: true, hardcodedLabel: '(Flow Efficiency)' },
-  { view: 'board-view-lead-time', jsClass: 'js-open-lead-time-view', icon: 'fa-hourglass-half', template: 'leadTimeView', helper: 'isViewLeadTime', placeholder: true, hardcodedLabel: '(Lead Time)' },
-  { view: 'board-view-throughput-histogram', jsClass: 'js-open-throughput-histogram-view', icon: 'fa-columns', template: 'throughputHistogramView', helper: 'isViewThroughputHistogram', placeholder: true, hardcodedLabel: '(Throughput Histogram)' },
-  { view: 'board-view-wip-run', jsClass: 'js-open-wip-run-view', icon: 'fa-flag-checkered', template: 'wipRunView', helper: 'isViewWipRun', placeholder: true, hardcodedLabel: '(WIP Run)' },
+  { view: 'board-view-dashboard', jsClass: 'js-open-dashboard-view', icon: 'fa-tachometer', template: 'dashboardView', helper: 'isViewDashboard', placeholder: true, parenthesized: true },
+  { view: 'board-view-burndown', jsClass: 'js-open-burndown-view', icon: 'fa-line-chart', template: 'burndownView', helper: 'isViewBurndown', placeholder: true, parenthesized: true },
+  { view: 'board-view-burnup', jsClass: 'js-open-burnup-view', icon: 'fa-area-chart', template: 'burnupView', helper: 'isViewBurnup', placeholder: true, parenthesized: true },
+  { view: 'board-view-cumulative-flow', jsClass: 'js-open-cumulative-flow-view', icon: 'fa-signal', template: 'cumulativeFlowView', helper: 'isViewCumulativeFlow', placeholder: true, parenthesized: true },
+  { view: 'board-view-control-chart', jsClass: 'js-open-control-chart-view', icon: 'fa-crosshairs', template: 'controlChartView', helper: 'isViewControlChart', placeholder: true, parenthesized: true },
+  { view: 'board-view-cycle-time', jsClass: 'js-open-cycle-time-view', icon: 'fa-refresh', template: 'cycleTimeView', helper: 'isViewCycleTime', placeholder: true, parenthesized: true },
+  { view: 'board-view-flow-efficiency', jsClass: 'js-open-flow-efficiency-view', icon: 'fa-percent', template: 'flowEfficiencyView', helper: 'isViewFlowEfficiency', placeholder: true, parenthesized: true },
+  { view: 'board-view-lead-time', jsClass: 'js-open-lead-time-view', icon: 'fa-hourglass-half', template: 'leadTimeView', helper: 'isViewLeadTime', placeholder: true, parenthesized: true },
+  { view: 'board-view-throughput-histogram', jsClass: 'js-open-throughput-histogram-view', icon: 'fa-columns', template: 'throughputHistogramView', helper: 'isViewThroughputHistogram', placeholder: true, parenthesized: true },
+  { view: 'board-view-wip-run', jsClass: 'js-open-wip-run-view', icon: 'fa-flag-checkered', template: 'wipRunView', helper: 'isViewWipRun', placeholder: true, parenthesized: true },
 ];
 
 // Between Table and Calendar, between Time and Statistics, and between Gantt
@@ -76,20 +76,20 @@ test('every entry carries a font-awesome icon', () => {
   });
 });
 
-test('a not-fully-implemented view shows a hardcoded, untranslated "(Name)" label', () => {
-  // Deliberately not run through {{_ '...'}}: translating "Burndown" etc. as
-  // if it were a finished feature name, like every other entry, would not
-  // say in any language that the view behind it is just a grey placeholder
-  // page. Dashboard is excluded on purpose - only the nine the maintainer
-  // named get this treatment.
+test('a not-fully-implemented view still shows a TRANSLATED "(Name)" label', () => {
+  // #6690: an earlier version hardcoded the English word itself, so on an
+  // otherwise fully translated menu these ten entries read as a bug, not a
+  // "coming soon" marker (the page each opens WAS already translated, since
+  // its own <h1> uses the same key - only the menu entry was not; see
+  // .tools/board-view.png). The literal parentheses are what say "not
+  // implemented yet"; the word inside them is translated like every other
+  // entry, through the SAME key the page title uses.
   const popup = boardHeaderJade.slice(boardHeaderJade.indexOf('template(name="boardChangeViewPopup")'));
-  VIEWS.filter(v => v.hardcodedLabel).forEach(v => {
+  VIEWS.filter(v => v.parenthesized).forEach(v => {
     const at = popup.indexOf(`"${v.view}"`);
-    const block = popup.slice(at, at + 500);
-    assert.ok(block.includes(`| ${v.hardcodedLabel}`),
-      `${v.view} shows the literal text ${v.hardcodedLabel}`);
-    assert.ok(!new RegExp(`\\{\\{_ '${v.view}'\\}\\}`).test(block),
-      `${v.view}'s menu entry does not call the translator (negative)`);
+    const block = popup.slice(at, at + 700);
+    assert.ok(block.includes(`| ({{_ '${v.view}'}})`),
+      `${v.view}'s menu label is its translated key wrapped in literal parentheses`);
   });
 });
 

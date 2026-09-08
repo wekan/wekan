@@ -206,75 +206,80 @@ template(name="boardChangeViewPopup")
       with "board-view-dashboard"
         a.js-open-dashboard-view
           i.fa.fa-tachometer
-          //- Not translated, deliberately: see (Burndown) etc. below.
-          | (Dashboard)
+          //- The parentheses, not the words, say "not implemented yet" -
+          //- see the note above (Burndown) below. The label itself is
+          //- still translated like every other entry.
+          | ({{_ 'board-view-dashboard'}})
           if $eq Utils.boardView "board-view-dashboard"
             i.fa.fa-check
     li
       with "board-view-burndown"
         a.js-open-burndown-view
           i.fa.fa-line-chart
-          //- Not translated, deliberately: this text says the view is not
-          //- fully implemented yet, which "Burndown" alone (translated, as
-          //- if it were a finished feature name like every other entry)
-          //- would not say in any language.
-          | (Burndown)
+          //- The PARENTHESES say the view is not fully implemented yet -
+          //- not, as an earlier version of this had it, leaving the word
+          //- itself untranslated. On an otherwise fully translated menu, an
+          //- English-only label read as a bug, not a "coming soon" marker
+          //- (docs/Features, .tools/board-view.png). The label is
+          //- translated like every other entry; only the wrapping parens
+          //- are literal.
+          | ({{_ 'board-view-burndown'}})
           if $eq Utils.boardView "board-view-burndown"
             i.fa.fa-check
     li
       with "board-view-burnup"
         a.js-open-burnup-view
           i.fa.fa-area-chart
-          | (Burnup)
+          | ({{_ 'board-view-burnup'}})
           if $eq Utils.boardView "board-view-burnup"
             i.fa.fa-check
     li
       with "board-view-cumulative-flow"
         a.js-open-cumulative-flow-view
           i.fa.fa-signal
-          | (Cumulative Flow)
+          | ({{_ 'board-view-cumulative-flow'}})
           if $eq Utils.boardView "board-view-cumulative-flow"
             i.fa.fa-check
     li
       with "board-view-control-chart"
         a.js-open-control-chart-view
           i.fa.fa-crosshairs
-          | (Control)
+          | ({{_ 'board-view-control-chart'}})
           if $eq Utils.boardView "board-view-control-chart"
             i.fa.fa-check
     li
       with "board-view-cycle-time"
         a.js-open-cycle-time-view
           i.fa.fa-refresh
-          | (Cycle Time)
+          | ({{_ 'board-view-cycle-time'}})
           if $eq Utils.boardView "board-view-cycle-time"
             i.fa.fa-check
     li
       with "board-view-flow-efficiency"
         a.js-open-flow-efficiency-view
           i.fa.fa-percent
-          | (Flow Efficiency)
+          | ({{_ 'board-view-flow-efficiency'}})
           if $eq Utils.boardView "board-view-flow-efficiency"
             i.fa.fa-check
     li
       with "board-view-lead-time"
         a.js-open-lead-time-view
           i.fa.fa-hourglass-half
-          | (Lead Time)
+          | ({{_ 'board-view-lead-time'}})
           if $eq Utils.boardView "board-view-lead-time"
             i.fa.fa-check
     li
       with "board-view-throughput-histogram"
         a.js-open-throughput-histogram-view
           i.fa.fa-columns
-          | (Throughput Histogram)
+          | ({{_ 'board-view-throughput-histogram'}})
           if $eq Utils.boardView "board-view-throughput-histogram"
             i.fa.fa-check
     li
       with "board-view-wip-run"
         a.js-open-wip-run-view
           i.fa.fa-flag-checkered
-          | (WIP Run)
+          | ({{_ 'board-view-wip-run'}})
           if $eq Utils.boardView "board-view-wip-run"
             i.fa.fa-check
 
