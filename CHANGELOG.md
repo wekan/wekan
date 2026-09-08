@@ -297,6 +297,11 @@ a checked-in example input file for most features. It also adds a **Markdown**
 import/export format (the task-list convention markdown-kanban tools such as
 Obsidian Kanban use) and gives the **GitHub/Gitea/Forgejo issue importer**
 loss-reporting for fields it cannot map instead of silently dropping them.
+The **Board View menu** is reordered and gains placeholder pages for ten
+not-yet-built views (Dashboard, Burndown, Burnup and others) plus a new
+**Time** view, and this release fixes **dependency lines and collapsed
+lists bleeding past a resized swimlane** and a **list's collapse caret**
+sitting in the wrong place.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -329,7 +334,28 @@ test-menu.sh only ever reads it, never writes into docs/Features.
 
 </details>
 
-and fixes the following bug:
+and adds the following Board View feature:
+
+**Board View menu** - its order, icons and the views it opens.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c11c1e17f">Reorder the Board View menu and add its not-yet-built views</a>. Thanks to xet7.</summary>
+
+New order top to bottom: Swimlanes, Lists, Table, Calendar, Time,
+Statistics, Dashboard, Burndown, Burnup, Cumulative Flow, Control, Cycle
+Time, Flow Efficiency, Gantt, Lead Time, Throughput Histogram, WIP Run -
+each with its own font-awesome icon. The ten views with no implementation
+yet get a real grey page titled like their menu entry instead of a menu
+item that opens nothing. "Time spent summary" moves out of Statistics into
+its own new Time view. models/users.js's profile.boardView schema and
+boardHeader.js's tooltip name map both had to learn every new view or
+switching to one silently failed (the server rejected it with a 400, or
+the tooltip fell back to a generic label); tests/boardViewMenu.test.cjs now
+checks the menu, the schema and the tooltip map against the same view list.
+
+</details>
+
+and fixes the following bugs:
 
 **CHANGELOG.md formatting.**
 
@@ -339,6 +365,41 @@ and fixes the following bug:
 A `<summary>` line must be on one line - a wrapped one renders its second
 line as literal text instead of part of the link. changelogFormat.test.cjs
 already checked this; it was failing before this fix.
+
+</details>
+
+**Swimlanes** - resizing one shorter.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4e3a59bd3">Fix dependency lines and collapsed lists bleeding past a resized swimlane</a>. Thanks to xet7.</summary>
+
+Two independent causes: `.swimlane.swimlane-resizing` forced
+`overflow: visible !important` for the whole drag, so a collapsed list (a
+fixed 540px tall) kept painting past a swimlane being dragged shorter, on
+top of the swimlane below it - now `hidden`. And the dependency-line ("red
+string") overlay only ever redrew on scroll or a window resize, never on a
+swimlane's own height changing, so a line kept stale coordinates from
+before the resize; it now recomputes on every height change and refuses to
+draw to/from a card with no on-screen area left once every clipping
+ancestor is accounted for - a line between two cards in the SAME shrunk
+swimlane disappears with the card, while one genuinely crossing into a
+different, still-visible swimlane is unaffected.
+
+</details>
+
+**Lists** - the collapse caret.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/09d892a8c">Move an expanded list's collapse caret to its header's top corner</a>. Thanks to xet7.</summary>
+
+The caret rendered as a plain in-flow sibling before the title, on the row
+with the card count and the +/menu icons - visually unrelated to either.
+Nesting it inside the title heading was tried first and reverted: that
+heading opens the rename form on click, so the caret's click bubbled up
+and opened that instead of collapsing the list. Fixed by floating the
+caret to the START of the header's top line, the same line the hamburger
+menu already floats to the END of, so it lands level with that menu at the
+header's top corner - the left edge for LTR, the right for RTL.
 
 </details>
 
