@@ -376,8 +376,12 @@
   height: var(--swimlane-height, auto) !important;
   min-height: var(--swimlane-height, auto) !important;
   max-height: var(--swimlane-height, auto) !important;
-  /* Ensure the height is applied immediately */
-  overflow: visible !important;
+  /* Clip content to the height being previewed - not "visible": a swimlane
+     dragged shorter must not let its own collapsed lists (each a fixed
+     540px tall, see list.css .list-collapsed) or anything else paint past
+     its own bottom edge and on top of the next swimlane while it is being
+     resized (#6675). */
+  overflow: hidden !important;
 }
 
 body.swimlane-resizing-active {

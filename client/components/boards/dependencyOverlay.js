@@ -34,12 +34,44 @@ Template.dependencyOverlay.onCreated(function () {
   // the overlay is destroyed ("Can't select in removed DomRange").
   this._overlayDestroyed = false;
 
-  // Rect of a card relative to the overlay SVG, or null if not rendered.
+  // Whether `el` has any on-screen area left once every scrolling/clipping
+  // ancestor's overflow box is accounted for. The overlay is one SVG drawn
+  // over the whole board (not clipped per swimlane), so without this a card
+  // scrolled or resized out of its swimlane's view (e.g. #6675: dragging a
+  // swimlane shorter) still reports its full, unclipped getBoundingClientRect
+  // — the line would then visibly run past that swimlane's boundary and lie
+  // on top of the next one, even though the card itself is not visible there.
+  // A dependency to/from a DIFFERENT, still-visible swimlane is unaffected:
+  // that swimlane's own rect clips its own card independently.
+  function hasVisibleArea(el) {
+    let rect = el.getBoundingClientRect();
+    let node = el.parentElement;
+    while (node && node !== document.body && node !== document.documentElement) {
+      const style = window.getComputedStyle(node);
+      const clipsY = /(hidden|auto|scroll|clip)/.test(style.overflowY);
+      const clipsX = /(hidden|auto|scroll|clip)/.test(style.overflowX);
+      if (clipsX || clipsY) {
+        const parentRect = node.getBoundingClientRect();
+        const top = clipsY ? Math.max(rect.top, parentRect.top) : rect.top;
+        const bottom = clipsY ? Math.min(rect.bottom, parentRect.bottom) : rect.bottom;
+        const left = clipsX ? Math.max(rect.left, parentRect.left) : rect.left;
+        const right = clipsX ? Math.min(rect.right, parentRect.right) : rect.right;
+        if (bottom <= top || right <= left) return false;
+        rect = { top, bottom, left, right };
+      }
+      node = node.parentElement;
+    }
+    return true;
+  }
+
+  // Rect of a card relative to the overlay SVG, or null if not rendered or
+  // clipped out of view by a scrolled/resized ancestor (see hasVisibleArea).
   this.rectOf = (cardId, svgRect) => {
     const el = document.querySelector(`[data-card-id="${cardId}"]`);
     if (!el) return null;
     const r = el.getBoundingClientRect();
     if (r.width === 0 && r.height === 0) return null;
+    if (!hasVisibleArea(el)) return null;
     return { x: r.left - svgRect.left, y: r.top - svgRect.top, w: r.width, h: r.height };
   };
 
@@ -147,12 +179,18 @@ Template.dependencyOverlay.onRendered(function () {
 
   this.onScroll = () => instance.scheduleRecompute();
   this.onResize = () => instance.scheduleRecompute();
+  // #6675: dragging a swimlane's own height handle (swimlanes.js) changes no
+  // scroll position and fires no window resize, so without this dedicated
+  // event the overlay never learns a card it was drawing to/from is now
+  // clipped out of view.
+  this.onSwimlaneResize = () => instance.scheduleRecompute();
 
   if (this.scrollEl) {
     this.scrollEl.addEventListener('scroll', this.onScroll, { passive: true });
   }
   window.addEventListener('scroll', this.onScroll, { passive: true });
   window.addEventListener('resize', this.onResize);
+  window.addEventListener('wekan-swimlane-resized', this.onSwimlaneResize);
 
   // --- drag-to-connect (from a minicard's connect handle) -----------------
   // Find the card under a viewport point. The overlay is pointer-events:none,
@@ -224,6 +262,7 @@ Template.dependencyOverlay.onDestroyed(function () {
   }
   window.removeEventListener('scroll', this.onScroll);
   window.removeEventListener('resize', this.onResize);
+  window.removeEventListener('wekan-swimlane-resized', this.onSwimlaneResize);
   if (this.onMouseDown) document.removeEventListener('mousedown', this.onMouseDown, true);
   if (this.onMouseMove) document.removeEventListener('mousemove', this.onMouseMove);
   if (this.onMouseUp) document.removeEventListener('mouseup', this.onMouseUp);

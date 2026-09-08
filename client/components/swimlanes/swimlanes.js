@@ -581,6 +581,15 @@ function initializeSwimlaneResize(tpl, retryCount = 0) {
     $swimlane[0].style.setProperty('flex-grow', '0');
     $swimlane[0].style.setProperty('flex-shrink', '0');
 
+    // #6675: the dependency-line overlay (dependencyOverlay.js) only redraws
+    // on scroll/window-resize; a swimlane's own height changing here fires
+    // neither, so without this its lines keep the coordinates from before
+    // the drag - stale positions that can visibly run past this swimlane's
+    // new (shorter) edge and on top of the swimlane below it. Its own
+    // listener is already rAF-throttled, so firing this on every mousemove
+    // is not a performance concern.
+    window.dispatchEvent(new Event('wekan-swimlane-resized'));
+
     e.preventDefault();
     e.stopPropagation();
   };
@@ -609,6 +618,11 @@ function initializeSwimlaneResize(tpl, retryCount = 0) {
     $swimlane.removeClass('swimlane-resizing');
     $('body').removeClass('swimlane-resizing-active');
     $('body').css('user-select', '');
+
+    // #6675: one more recompute once overflow reverts from the forced
+    // "visible" of .swimlane-resizing back to the base rule's "auto" - see
+    // the matching dispatch in doResize.
+    window.dispatchEvent(new Event('wekan-swimlane-resized'));
 
     // Save the new height using the existing system
     const boardId = swimlane.boardId;
