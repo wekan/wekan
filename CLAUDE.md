@@ -545,46 +545,19 @@ directly after the merge.
   `<details>` blocks below carry that information. Keep the paragraph current as
   topics change, and shorten it when added commits make it grow. A finished release
   keeps the paragraph it was written with.
-- **A release section's order, top to bottom, is: (1) the `**In short:**`
-  paragraph, (2) every `This release …:` subsection, and only THEN (3) the
-  BINARIES TABLE, under its own `**Binaries in these bundles:**` label.** The
-  table is the LAST thing in the section, right before the closing `Thanks to
-  above GitHub users …` line — not right under the summary. A reader opens a
-  release to find out what changed; the platform/SHA256 table is reference
-  material for whoever needs it, not the second thing anyone reads. A WeKan
-  bundle is not only WeKan — it carries a Node.js, a FerretDB and the MongoDB
-  Database Tools that other projects publish, and WHICH source has a given CPU
-  changes from release to release: nodejs.org builds some architectures,
-  unofficial-builds others, and [wekan/node-patches](https://github.com/wekan/node-patches)
-  the ones neither of them does. "Which Node.js is in the arm64 bundle of 10.69,
-  and was it checked" must be answerable from the CHANGELOG, not from a build log
-  that expires.
-
-  ```
-  **Binaries in these bundles:**
-
-  | Platform | Binary | From | Version | SHA256 |
-  | --- | --- | --- | --- | --- |
-  | amd64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-x64.tar.xz) | v24.19.0 | `a1b2…` |
-  | amd64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.24.0/ferretdb-amd64) | v1.24.0 | `c3d4…` |
-  | arm64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-arm64.tar.xz) | v24.19.0 | `e5f6…` |
-  ```
-
-  **GROUPED BY PLATFORM**: rows are sorted by platform and then by binary, so one
-  platform's binaries stay together and the table is read a platform at a time.
-  The URL is the LINK ON THE "From" CELL — never a bare URL as visible text, the
-  same rule as everywhere else — and it is the exact file that was downloaded, not
-  the project's front page. The SHA256 is the checksum the source published and the
-  build verified, in backticks; a source that publishes none says *no checksum
-  published*, which is not a failed check but a source worth fixing. Table rows
-  carry links, so the 80-character wrap does not apply to them.
-
-  It is the same table `releases/provenance-table.sh` puts at the top of the GitHub
-  release notes, from the `provenance.tsv` rows each build job records — so the two
-  are filled from the same data and cannot disagree. **A platform that was NOT built
-  has no rows**, which is how the table also answers "why is there no i386 bundle
-  this time": no source published a Node.js for it (see
-  `releases/resolve-node-source.sh`).
+- **No release section carries a Platform/Binary/From/Version/SHA256 table, and
+  none ever should again.** It used to sit right under the `**In short:**`
+  paragraph, then moved to a `**Binaries in these bundles:**` label at the end
+  of the section — both tried and both removed, because CHANGELOG.md is not
+  where that data belongs: it made every release's entry mostly a giant table
+  nobody read, on top of what `<details>` entries already say. "Which Node.js
+  is in the arm64 bundle of 10.69, and was it checked" is answered by the
+  **GitHub Release notes** instead: `releases/provenance-table.sh` puts the
+  same table at the TOP of those, built fresh from the `provenance.tsv` rows
+  each build job records (see `releases/record-provenance.sh`), every time a
+  release is made — so it is never stale and never needs hand-editing into
+  CHANGELOG.md. Adding a binaries table back into a CHANGELOG entry, in any
+  shape, is reintroducing something the maintainer removed on purpose.
 - **Inside a subsection, entries are GROUPED BY TOPIC/AREA.** A release touches a handful
   of areas and repeating the area's name in every summary is the noise this
   removes — twelve entries that each begin "All Boards:" say "All Boards" twelve

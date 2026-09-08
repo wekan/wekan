@@ -274,10 +274,9 @@ test('Upcoming opens with a short summary of the whole release', () => {
   // thing a reader sees, and a release this size is otherwise forty collapsed
   // blocks with no way to tell what it amounts to.
   //
-  // Just the **In short:** paragraph lives there now - the binaries table moved
-  // to its own "Binaries in these bundles" section at the END of the release
-  // (checked below), after every content subsection, so a reader reaches the
-  // release's actual changes before a five-row platform table.
+  // Just the **In short:** paragraph lives there now - no binaries table
+  // anywhere in the release (checked below): that data lives only in the
+  // GitHub Release notes now.
   const firstHeader = lines.findIndex((l, i) => i > start && /^This release .*:$/.test(l));
   assert.ok(firstHeader > start, 'the first subsection header follows it');
   const intro = lines.slice(start + 1, firstHeader).join('\n').trim();
@@ -294,63 +293,16 @@ test('Upcoming opens with a short summary of the whole release', () => {
     `and stays high-level rather than becoming a ${introWords.length}-word ledger`);
 });
 
-test('Upcoming ends by saying which binaries each platform ships', () => {
-  // A WeKan bundle is not only WeKan: it carries a Node.js and a FerretDB that
-  // other projects publish, and WHICH source has a given CPU changes from
-  // release to release. "Which Node.js is in the arm64 bundle of 10.69, and was
-  // it checked" must be answerable from the CHANGELOG rather than from a build
-  // log that expires - so the same table the release notes carry is here too,
-  // now as the LAST thing in the release, under its own "**Binaries in these
-  // bundles:**" label, after every content subsection. See CLAUDE.md.
-  const start = lines.indexOf('# Upcoming WeKan ® release');
-  if (start === -1) {
-    console.log('    (no Upcoming section right now - nothing to check)');
-    return;
-  }
-  const end = lines.findIndex((l, i) => i > start && /^# v\d/.test(l));
-  const tail = lines.slice(start + 1, end);
-  const labelAt = tail.findIndex(l => l === '**Binaries in these bundles:**');
-  assert.ok(labelAt !== -1,
-    'the release ends with a "**Binaries in these bundles:**" label');
-  const at = tail.findIndex((l, i) => i > labelAt && /^\| Platform \| Binary \| From \| Version \| SHA256 \|$/.test(l));
-  assert.ok(at !== -1,
-    'the binaries table follows that label: | Platform | Binary | From | Version | SHA256 |');
-  assert.ok(/^\|( ---+ \|)+$/.test(tail[at + 1]), 'with its separator row');
-
-  const head = tail.slice(at);
-  const rows = [];
-  for (let i = 2; i < head.length && head[i].startsWith('|'); i++) rows.push(head[i]);
-
-  // Nothing but the closing "Thanks to above GitHub users …" line (if the
-  // section has been carried that far) may follow the table - a subsection
-  // after the binaries table would mean it was not really last.
-  const trailing = head.slice(2 + rows.length).map(l => l.trim()).filter(Boolean);
-  assert.ok(trailing.every(l => l.startsWith('Thanks to above GitHub users')),
-    'nothing but the closing "Thanks to …" line may follow the binaries table');
-  assert.ok(rows.length >= 2, 'and at least one platform in it');
-  const seen = [];
-  for (const r of rows) {
-    const cells = r.split('|').map(c => c.trim()).filter(Boolean);
-    assert.strictEqual(cells.length, 5, `a row has five cells: ${r.slice(0, 60)}`);
-    // The URL is the link on the From cell - never a bare URL as visible text.
-    assert.ok(/^\[[^\]]+\]\(https:\/\/[^)]+\)$/.test(cells[2]),
-      `the From cell links the exact file it came from: ${cells[2]}`);
-    // A checksum, or an honest statement that the source publishes none.
-    assert.ok(/^`[0-9a-f]{64}`$/.test(cells[4]) || cells[4] === '*no checksum published*',
-      `the SHA256 cell is a checksum or says none is published: ${cells[4]}`);
-    seen.push(cells[0]);
-  }
-  // Grouped by platform: one platform's rows stay together, so the table is read
-  // a platform at a time rather than hunted through.
-  const firstSeen = new Map();
-  seen.forEach((p, i) => { if (!firstSeen.has(p)) firstSeen.set(p, i); });
-  for (const [p, i] of firstSeen) {
-    const last = seen.lastIndexOf(p);
-    for (let k = i; k <= last; k++) {
-      assert.strictEqual(seen[k], p,
-        `${p}'s rows must stay together - ${seen[k]} interrupts them`);
-    }
-  }
+test('no CHANGELOG section carries a Platform/Binary/From/Version/SHA256 table (negative)', () => {
+  // Tried twice - right under the "In short" summary, then under a "Binaries
+  // in these bundles" label at the end of the section - and removed both
+  // times: it made every release's entry mostly a giant table nobody read.
+  // That data now lives only in the GitHub Release notes, built fresh by
+  // releases/provenance-table.sh every time a release is made. See CLAUDE.md.
+  assert.ok(!/^\| Platform \| Binary \| From \| Version \| SHA256 \|$/m.test(changelog),
+    'a Platform/Binary/From/Version/SHA256 table must not be in CHANGELOG.md');
+  assert.ok(!/^\*\*Binaries in these bundles:\*\*$/m.test(changelog),
+    'the retired "Binaries in these bundles" label must not reappear either');
 });
 
 test('entries are grouped by area, and no summary repeats its group', () => {

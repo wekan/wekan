@@ -10,14 +10,8 @@ without an Upcoming section until there is something upcoming to say.
 **Add the section yourself, by hand, the moment you have your first real entry
 for the next release** — not before. Copy the skeleton below above the newest
 `# v<N> <date> WeKan ® release` heading, replace the `**In short:**` paragraph
-once real content exists, follow with your `<details>` entries as
-CLAUDE.md's/AGENTS.md's CHANGELOG section describes, and end with the
-`**Binaries in these bundles:**` table — **the order matters**: `**In short:**`
-first, then every content subsection, and the binaries table LAST, right
-before the closing `Thanks to above GitHub users …` line. Not right under the
-summary: a reader opens a release to find out what changed, and the
-platform/SHA256 table is reference material for whoever needs it, not the
-second thing anyone reads.
+once real content exists, and follow with your `<details>` entries as
+CLAUDE.md's/AGENTS.md's CHANGELOG section describes.
 
 ```markdown
 # Upcoming WeKan ® release
@@ -35,26 +29,15 @@ The longer description: what was wrong, why, what it does now, what the test
 pins.
 
 </details>
-
-**Binaries in these bundles:**
-
-| Platform | Binary | From | Version | SHA256 |
-| --- | --- | --- | --- | --- |
-| amd64 | Node.js | [nodejs.org](https://nodejs.org/dist/vX.Y.Z/node-vX.Y.Z-linux-x64.tar.xz) | vX.Y.Z | `<sha256>` |
-| amd64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/vA.B.C/ferretdb-amd64) | vA.B.C | `<sha256>` |
-| arm64 | Node.js | [nodejs.org](https://nodejs.org/dist/vX.Y.Z/node-vX.Y.Z-linux-arm64.tar.xz) | vX.Y.Z | `<sha256>` |
-| arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/vA.B.C/ferretdb-arm64) | vA.B.C | `<sha256>` |
-| mac-arm64 | Node.js | [nodejs.org](https://nodejs.org/dist/vX.Y.Z/node-vX.Y.Z-darwin-arm64.tar.xz) | vX.Y.Z | `<sha256>` |
-| mac-arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/vA.B.C/ferretdb-mac-arm64) | vA.B.C | `<sha256>` |
-| mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/vX.Y.Z/node-vX.Y.Z-darwin-x64.tar.xz) | vX.Y.Z | `<sha256>` |
-| mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/vA.B.C/ferretdb-mac-x64) | vA.B.C | `<sha256>` |
 ```
 
-The table starts as a **copy of the newest released section's own table** (same
-platforms are normally still built), not the placeholder rows above — those are
-only shown here because this file has no release to copy from. `release-all.yml`
-refills it from each build job's `provenance.tsv` when the release is actually
-made, so getting it approximately right by hand costs nothing.
+**No Platform/Binary/From/Version/SHA256 table belongs here, in any shape.**
+It was tried twice - right under the summary, then moved to a `**Binaries in
+these bundles:**` label at the end - and removed both times: it made the
+entry mostly a giant table nobody read. That data lives in the **GitHub
+Release notes** instead, built fresh by `releases/provenance-table.sh` from
+`releases/record-provenance.sh`'s recordings every time a release is made -
+see CLAUDE.md's/AGENTS.md's CHANGELOG section.
 
 ## Why this exists instead of an auto-created empty section
 

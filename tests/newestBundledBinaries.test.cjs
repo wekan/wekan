@@ -137,12 +137,23 @@ test('the provenance table is what makes a `latest` build reproducible after the
   // than it shipped with. That is a deliberate trade - security fixes arrive
   // without a commit - and what makes it safe is that every release RECORDS the
   // versions and SHA256s it actually shipped.
+  //
+  // That record lives in the GitHub Release notes, not CHANGELOG.md: the
+  // Platform/Binary/From/Version/SHA256 table used to be duplicated into
+  // CHANGELOG.md as well, but the maintainer removed it there (it made every
+  // release's changelog entry mostly a giant table nobody read), so the
+  // release notes - built fresh from provenance-table.sh for every build -
+  // are now the one place this answers "which FerretDB did v10.77 ship?".
   const rec = 'releases/record-provenance.sh';
   assert.ok(fs.existsSync(path.join(repoRoot, rec)),
     `${rec} must exist: it is what answers "which FerretDB did v10.77 ship?"`);
-  const changelog = fs.readFileSync(path.join(repoRoot, 'CHANGELOG.md'), 'utf8');
-  assert.ok(/\| Platform \| Binary \| From \| Version \| SHA256 \|/.test(changelog),
-    'and the CHANGELOG carries the table it produces');
+  const table = 'releases/provenance-table.sh';
+  assert.ok(fs.existsSync(path.join(repoRoot, table)), `${table} must exist`);
+  const workflow = fs.readFileSync(path.join(repoRoot, '.github/workflows/release-all.yml'), 'utf8');
+  const uses = workflow.match(/bash releases\/provenance-table\.sh > release-notes\.md/g) || [];
+  assert.ok(uses.length >= 2,
+    'and release-all.yml still puts it at the top of the release notes (the initial '
+    + 'release and the later notes rewrite)');
 });
 
 console.log(`\n${passed} tests passed`);
