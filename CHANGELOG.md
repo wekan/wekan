@@ -402,7 +402,7 @@ different, still-visible swimlane is unaffected.
 
 </details>
 
-**Lists** - the collapse caret.
+**Lists** - the collapse caret and the "Set width" popup.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/09d892a8c">Move an expanded list's collapse caret to its header's top corner</a>. Thanks to xet7.</summary>
@@ -415,6 +415,15 @@ and opened that instead of collapsing the list. Fixed by floating the
 caret to the START of the header's top line, the same line the hamburger
 menu already floats to the END of, so it lands level with that menu at the
 header's top corner - the left edge for LTR, the right for RTL.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a7a6140cd">Stack "Same width for all lists" below "Auto list width"</a>. Thanks to xet7.</summary>
+
+Both are `a` toggles in the "Set width" popup with no display rule of
+their own, so the browser default (inline) put them side by side on one
+crowded line instead of stacked rows like the rest of the popup.
 
 </details>
 
