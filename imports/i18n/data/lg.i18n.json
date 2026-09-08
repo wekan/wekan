@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "Teekamu __sourceName__ issues JSON array (__endpoint__). Issues become kaadi grouped into Ggulawo / Closed nkalala.",
   "import-board-instruction-asana": "Teekamu Asana mirimu fulumya JSON ({ \"mawulire\": [...] } okuva Asana fulumya oba GET /mirimu). Mirimu biri grouped into sections (memberships); kiwedde mirimu go eri Done.",
   "import-board-instruction-zenkit": "Teekamu ZenKit lukalala fulumya JSON ({ \"mutwe\", \"stages\":[...], \"items\":[...] }). Stages become nkalala ne items become kaadi.",
+  "import-board-instruction-markdown": "Kwatako olukalala lw'emirimu olwa markdown (empisa emikozesebwa ebikozesebwa markdown-kanban nga Obsidian Kanban): emitwe \"## Erinnya ly'olukalala\", n'ebintu \"- [ ]\"/\"- [x]\" wansi. Emitwe gifuuka olukalala n'ebintu bifuuka kaadi.",
   "import-board-instruction-trello": "Mu kyo Trello lubaawo, go eri 'Menu', olwo 'More', 'Print ne Export', 'Fulumya JSON', ne koppa resulting bigambo.",
   "import-board-instruction-csv": "Teekamu mu kyo Comma Separated Miwendo(CSV)/ Tab Separated Miwendo (TSV).",
   "import-board-instruction-jira": "Teekamu JSON okuva Jira Cloud REST API issue noonya (GET /rest/api/2/noonya), oba equivalent { \"issues\": [...] } object. Jira statuses become nkalala ne issues become kaadi. Optionally include \"automationRules\" array eri leeta mateeka.",

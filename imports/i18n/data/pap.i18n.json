@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "Pega un array HSON di issues di __sourceName__ (__endpoint__). E issues se conbierten den karchinan agrupadas den listas Abiertos / serrados.",
   "import-board-instruction-asana": "Pega un HSON di eksportashon di tareas di Asana ({ \"data\": [...] } di e eksportashon di Asana òf GET /tasks). E tareas se agrupan den secshonnan (memberships); e tareas kompletás ban na Hecho.",
   "import-board-instruction-zenkit": "Pega un HSON di eksportashon di lista di ZenKit ({ \"title\", \"stages\":[...], \"items\":[...] }). E stages se conbierten den listas i e items den karchinan.",
+  "import-board-instruction-markdown": "Pega un lista di tarea markdown (e konvenshon ku hermentnan markdown-kanban manera Obsidian Kanban ta usa): titulo \"## Nòmber di lista\", ku elementonan \"- [ ]\"/\"- [x]\" bou di dje. Titulonan ta bira lista i elementonan ta bira karchi.",
   "import-board-instruction-trello": "Den bo tabla di Treyo, be na 'Menú', luego 'Mas' > 'Imprimir i exportar' > 'Exportar HSON', i copia e teksto resultante.",
   "import-board-instruction-csv": "Pegue den su Balores separados pa coma(CSB)/Balores separados pa tab(TSB).",
   "import-board-instruction-jira": "Pega e HSON di e búskeda di issues di e API REST di Hira Cloud (GET /rest/api/2/search), òf un obheto ekibalente { \"issues\": [...] }. E estados di Hira se conbierten den listas i e issues den karchinan. Opsionalmente incluye un array \"automationRules\" pa importar reglanan.",

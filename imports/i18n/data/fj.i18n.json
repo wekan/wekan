@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "Vakabira e dua na iyatu JSON ni leqa __sourceName__ (__endpoint__). Na leqa ena yaco me kadi e wasei ki na lisi Dola / Sogo.",
   "import-board-instruction-asana": "Vakabira e dua na JSON vakau ni cakacaka Asana ({ \"data\": [...] } mai na vakau Asana se GET /tasks). Na cakacaka e wasei ki na iwase (memberships); na cakacaka sa oti e lako ki na Oti.",
   "import-board-instruction-zenkit": "Vakabira e dua na JSON vakau ni lisi ZenKit ({ \"title\", \"stages\":[...], \"items\":[...] }). Na iwase ena yaco me lisi kei na ka me kadi.",
+  "import-board-instruction-markdown": "Biuta e dua na markdown task list (na ivakarau e vakayagataki na markdown-kanban iyaya me vaka na Obsidian Kanban): ulutaga \"## Yaca ni list\", kei na iyaya \"- [ ]\"/\"- [x]\" e ra. Na ulutaga era na vakaisau me list ka na iyaya era na vakaisau me kad.",
   "import-board-instruction-trello": "Ena nomu vola Trello, lako ki na 'Menu', qai 'More', 'Print and Export', 'Export JSON', ka lavetaka na itukutuku e vakarautaki.",
   "import-board-instruction-csv": "Vakabira na nomu Veika Wasei ena Koma (CSV)/Veika Wasei ena Tab (TSV).",
   "import-board-instruction-jira": "Vakabira na JSON mai na vakasaqara leqa ni Jira Cloud REST API (GET /rest/api/2/search), se dua na ka veiganiti { \"issues\": [...] }. Na ituvaki Jira ena yaco me lisi kei na leqa me kadi. E rawa ni okati e dua na iyatu \"automationRules\" me vakacurumi kina na lawa.",

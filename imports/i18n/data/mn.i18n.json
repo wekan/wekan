@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "__sourceName__ issues JSON массивыг буулгана уу (__endpoint__). Issue-ууд нь Open / Closed жагсаалтад бүлэглэгдсэн карт болно.",
   "import-board-instruction-asana": "Asana tasks экспортын JSON-г буулгана уу (Asana экспортоос { \"data\": [...] } эсвэл GET /tasks). Tasks нь хэсгүүдэд (memberships) бүлэглэгдэнэ; дууссан tasks нь Done руу очно.",
   "import-board-instruction-zenkit": "ZenKit жагсаалтын экспортын JSON-г буулгана уу ({ \"title\", \"stages\":[...], \"items\":[...] }). Stages нь жагсаалт, items нь карт болно.",
+  "import-board-instruction-markdown": "Markdown даалгаврын жагсаалт буулгана уу (Obsidian Kanban зэрэг markdown-kanban хэрэгслүүдийн ашигладаг конвенц): доор нь \"- [ ]\"/\"- [x]\" зүйлүүдтэй \"## Жагсаалтын нэр\" гарчгууд. Гарчгууд жагсаалт болж, зүйлүүд карт болно; чекбоксгүй энгийн цэгэн жагсаалт ч мөн нээлттэй карт болж импортлогдоно.",
   "import-board-instruction-trello": "На вашей Trello доске нажмите “Menu” - “More” - “Print and export - “Export JSON” и скопируйте полученный текст",
   "import-board-instruction-csv": "Вставка CSV/TSV данных",
   "import-board-instruction-jira": "Jira Cloud REST API issue хайлтаас JSON-г буулгана уу (GET /rest/api/2/search), эсвэл түүнтэй адил { \"issues\": [...] } объект. Jira төлвүүд нь жагсаалт, issue-ууд нь карт болно. Дүрмүүдийг импортлохын тулд заавал биш \"automationRules\" массивыг оруулж болно.",

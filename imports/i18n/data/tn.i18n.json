@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "Manega lenaane la JSON la dikgang tsa __sourceName__ (__endpoint__). Dikgang di nna dikarata tse di kgaogantsweng ka manane a Bulegile / Tswetswe.",
   "import-board-instruction-asana": "Manega JSON ya thomelo ya ditiro tsa Asana ({ \"data\": [...] } go tswa thomelong ya Asana kgotsa GET /tasks). Ditiro di kgaoganngwa ka dikarolo (memberships); ditiro tse di weditsweng di ya kwa Feditswe.",
   "import-board-instruction-zenkit": "Manega JSON ya thomelo ya lenaane la ZenKit ({ \"title\", \"stages\":[...], \"items\":[...] }). Dikgato di nna manane, dintlha di nna dikarata.",
+  "import-board-instruction-markdown": "Kgomaretsa lenaane la ditiro tsa markdown (mokgwa o o dirisiwang ke didiriswa tsa markdown-kanban tse di jaaka Obsidian Kanban): ditlhogo tsa \"## Leina la lenaane\", ka dilo tsa \"- [ ]\"/\"- [x]\" ka fa tlase. Ditlhogo di nna manane mme dilo di nna dikarata.",
   "import-board-instruction-trello": "Mo botong ya gago ya Trello, ya kwa 'Menu', morago 'More', 'Print and Export', 'Export JSON', mme o kopise mokwalo o o tlhagelelang.",
   "import-board-instruction-csv": "Manega Boleng jo bo Kgaogantsweng ka Dikoma (CSV) / Boleng jo bo Kgaogantsweng ka Dithabole (TSV).",
   "import-board-instruction-jira": "Manega JSON go tswa patlong ya dikgang ya Jira Cloud REST API (GET /rest/api/2/search), kgotsa sedirwa se se tshwanang { \"issues\": [...] }. Maemo a Jira a nna manane, dikgang di nna dikarata. O ka tsenya lenaane la \"automationRules\" go tlisetsa melao.",

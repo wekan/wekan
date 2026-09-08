@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "ⵙⴻⴽⵛⴻⵎ ⵜⴰⵃⴻⵔⴼⵜ JSON ⵏ ⵉⵙⵙⵓⴻⵙ ⵏ __sourceName__ (__endpoint__). ⵉⵙⵙⵓⴻⵙ ⵜⵜⵓⵖⴰⵍⴻⵏⵜ ⴷ ⵜⵉⴽⴰⵔⴹⵉⵡⵉⵏ ⵢⴻⵜⵜⵡⴰⴳⵔⴰⵡ ⴷⴻⴳ ⵉⵎⵓⵖⴻⵏ ⵓⵒⴻⵏ / ⵛⵍⵓⵙⴻⴷ.",
   "import-board-instruction-asana": "ⵙⴻⴽⵛⴻⵎ ⴰⵙⵉⴼⴻⴹ JSON ⵏ ⵜⴻⵡⵡⵓⵔⵉⵡⵉⵏ ⵏ Asana ({ \"ⴷⴰⵜⴰ\": [...] } ⵣⴻⴳ ⵓⵙⵉⴼⴻⴹ ⵏ Asana ⵏⴻⵖ GET /tasks). ⵜⵉⵡⵓⵔⵉⵡⵉⵏ ⵜⵜⵡⴰⴳⵔⴰⵡⴻⵏⵜ ⴷⴻⴳ ⵜⵙⴻⴷⴷⴰⵔⵉⵏ (ⵎⴻⵎⴱⴻⵔⵙⵀⵉⵒⵙ); ⵜⵉⵡⵓⵔⵉⵡⵉⵏ ⵢⴻⴽⵎⴰⵍⴻⵏ ⵜⵜⴷⴷⵓⴻⵏⵜ ⵖⴻⵔ ⴷⵓⵏⴻ.",
   "import-board-instruction-zenkit": "ⵙⴻⴽⵛⴻⵎ ⴰⵙⵉⴼⴻⴹ JSON ⵏ ⵓⵎⵓⵖ ZenKit ({ \"ⵜⵉⵜⵍⴻ\", \"ⵙⵜⴰⴳⴻⵙ\":[...], \"ⵉⵜⴻⵎⵙ\":[...] }). ⵙⵜⴰⴳⴻⵙ ⵜⵜⵓⵖⴰⵍⴻⵏ ⴷ ⵉⵎⵓⵖⴻⵏ, ⵉⵜⴻⵎⵙ ⴷ ⵜⵉⴽⴰⵔⴹⵉⵡⵉⵏ.",
+  "import-board-instruction-markdown": "Sers tabdart n twuriwin s markdown (tanila i seqdacen ifecka n markdown-kanban am Obsidian Kanban): iɣwan \"## Isem n tebdart\", s iferdisen \"- [ ]\"/\"- [x]\" ddaw-s. Iɣwan ad ttuɣalen d tibdarin, iferdisen ad ttuɣalen d tikarḍiwin.",
   "import-board-instruction-trello": "In your Trello board, go to 'Menu', then 'More', 'Print and Export', 'Export JSON', and copy the resulting text",
   "import-board-instruction-csv": "Déposez vos données en CSV (valeurs séparées par des virgules) ou TSV (valeurs séparées par des tabulations).",
   "import-board-instruction-jira": "ⵙⴻⴽⵛⴻⵎ JSON ⵣⴻⴳ Jira Cloud REST API ⵉⵙⵙⵓⴻ ⵙⴻⴰⵔⵛⵀ (GET /rest/api/2/search), ⵏⴻⵖ ⵜⴰⵖⴰⵡⵙⴰ ⵢⴻⵎⵚⴰⴷⴰⵏ { \"ⵉⵙⵙⵓⴻⵙ\": [...] }. ⴰⴷⴷⴰⴷⴻⵏ ⵏ Jira ⵜⵜⵓⵖⴰⵍⴻⵏ ⴷ ⵉⵎⵓⵖⴻⵏ, ⵉⵙⵙⵓⴻⵙ ⴷ ⵜⵉⴽⴰⵔⴹⵉⵡⵉⵏ. ⵙ ⵓⴼⵔⴰⵏ, ⵔⵏⵓ ⵜⴰⵃⴻⵔⴼⵜ \"automationRules\" ⴱⴰⵛ ⴰⴷ ⵜⴽⴻⵜⵔⴻⴹ ⵉⵍⵓⴳⴰⵏ.",

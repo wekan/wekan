@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "Paste a __sourceName__ issues JSON array (__endpoint__). Issues become tarjetanaka grouped into jistʼaraña / Closed listanaka.",
   "import-board-instruction-asana": "Paste an Asana tasks anqäxar apayaña JSON ({ \"data\": [...] } ukata the Asana anqäxar apayaña jan ukax GET /tasks). Tasks apxi grouped into sections (memberships); tukuyata tasks go ukaru Done.",
   "import-board-instruction-zenkit": "Paste a ZenKit lista anqäxar apayaña JSON ({ \"pʼiqiñcha\", \"stages\":[...], \"items\":[...] }). Stages become listanaka ukat items become tarjetanaka.",
+  "import-board-instruction-markdown": "Markdown lurawi qillqata apantaña (Obsidian Kanban jina markdown-kanban lurañanaka apnaqaña): \"## List sutipa\" uñstayirinaka, \"- [ ]\"/\"- [x]\" jaqukiwinakampi manqhankiri. Uñstayirinaka listanakawa tukuyi, jaqukiwinakasti tarjetanakawa tukuyi; checkbox janiwa listasa tarjeta jistarata jani apayasa mantayasa.",
   "import-board-instruction-trello": "mana your Trello pirqa, go ukaru 'Menu', then 'More', 'Print ukat Export', 'anqäxar apayaña JSON', ukat qillqaqaña the resulting qillqa.",
   "import-board-instruction-csv": "Paste mana your Comma Separated Values(CSV)/ Tab Separated Values (TSV) .",
   "import-board-instruction-jira": "Paste the JSON ukata the Jira Cloud REST API issue thaqaña (GET /rest/api/2/thaqaña), jan ukax an equivalent { \"issues\": [...] } object. Jira statuses become listanaka ukat issues become tarjetanaka. Optionally include an \"automationRules\" array ukaru anqäxat apaniña rules.",

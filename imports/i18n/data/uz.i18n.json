@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "__sourceName__ issues JSON massivini joylashtiring (__endpoint__). Issues Open / Closed roʻyxatlariga guruhlangan kartalarga aylanadi.",
   "import-board-instruction-asana": "Asana tasks eksport JSON faylini joylashtiring ({ \"data\": [...] } Asana eksportidan yoki GET /tasks). Tasks boʻlimlarga (memberships) guruhlanadi; tugallangan tasks Done ga oʻtadi.",
   "import-board-instruction-zenkit": "ZenKit roʻyxat eksport JSON faylini joylashtiring ({ \"title\", \"stages\":[...], \"items\":[...] }). Stages roʻyxatlarga va items kartalarga aylanadi.",
+  "import-board-instruction-markdown": "Markdown vazifalar ro'yxatini joylashtiring (Obsidian Kanban kabi markdown-kanban vositalari foydalanadigan konventsiya): ostida \"- [ ]\"/\"- [x]\" elementlari bo'lgan \"## Ro'yxat nomi\" sarlavhalari. Sarlavhalar ro'yxatlarga, elementlar esa kartochkalarga aylanadi.",
   "import-board-instruction-trello": "Trello taxtasida \"Menyu\", so'ng \"Ko'proq\", \"Chop etish va eksport qilish\", \"JSONni eksport qilish\" bo'limlariga o'ting va natijada olingan matndan nusxa oling.",
   "import-board-instruction-csv": "Vergul bilan ajratilgan qiymatlar (CSV)/ Varaq bilan ajratilgan qiymatlar (TSV) ga joylashtiring.",
   "import-board-instruction-jira": "Jira Cloud REST API muammolarni qidirish JSON faylini joylashtiring (GET /rest/api/2/search) yoki tegishli { \"issues\": [...] } obyektini. Jira statuslari roʻyxatlarga va issues kartalarga aylanadi. Ixtiyoriy ravishda qoidalarni import qilish uchun \"automationRules\" massivini qoʻshing.",

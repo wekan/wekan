@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "วางอาร์เรย์ JSON ของ issues __sourceName__ (__endpoint__) Issues จะกลายเป็นการ์ดที่จัดกลุ่มเป็นรายการ Open / Closed",
   "import-board-instruction-asana": "วาง JSON การส่งออก tasks ของ Asana ({ \"data\": [...] } จากการส่งออก Asana หรือ GET /tasks) Tasks จะถูกจัดกลุ่มเป็นส่วน (memberships) tasks ที่เสร็จสมบูรณ์จะไปที่ Done",
   "import-board-instruction-zenkit": "วาง JSON การส่งออก list ของ ZenKit ({ \"title\", \"stages\":[...], \"items\":[...] }) Stages จะกลายเป็นรายการและ items จะกลายเป็นการ์ด",
+  "import-board-instruction-markdown": "วางรายการงาน markdown (ธรรมเนียมที่เครื่องมือ markdown-kanban เช่น Obsidian Kanban ใช้): หัวข้อ \"## ชื่อรายการ\" พร้อมรายการ \"- [ ]\"/\"- [x]\" ด้านล่าง หัวข้อจะกลายเป็นรายการ และรายการย่อยจะกลายเป็นการ์ด รายการสัญลักษณ์แสดงหัวข้อย่อยธรรมดาที่ไม่มีช่องทำเครื่องหมายก็จะถูกนำเข้าเช่นกัน ในรูปแบบการ์ดที่เปิดอยู่",
   "import-board-instruction-trello": "ใน Trello ของคุณให้ไปที่ 'Menu' และไปที่ More -> Print and Export -> Export JSON และคัดลอกข้อความจากนั้น",
   "import-board-instruction-csv": "วางข้อมูล CSV (ค่าที่คั่นด้วยจุลภาค) / TSV (ค่าที่คั่นด้วยแท็บ) ของคุณ",
   "import-board-instruction-jira": "วาง JSON จากการค้นหา issue ของ Jira Cloud REST API (GET /rest/api/2/search) หรืออ็อบเจกต์ { \"issues\": [...] } ที่เทียบเท่า สถานะ Jira จะกลายเป็นรายการและ issues จะกลายเป็นการ์ด สามารถรวมอาร์เรย์ \"automationRules\" เพื่อนำเข้ากฎได้",

@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "__sourceName__ issues JSON قاتارىنى چاپلاڭ (__endpoint__). Issues كارتىغا ئايلىنىپ، Open / Closed تىزىملىكلىرىگە گۇرۇپپىلىنىدۇ.",
   "import-board-instruction-asana": "Asana tasks چىقىرىش JSON نى چاپلاڭ (Asana چىقىرىشتىن ياكى GET /tasks تىن كەلگەن { \"data\": [...] }). Tasks بۆلەكلەرگە (memberships) گۇرۇپپىلىنىدۇ؛ تاماملانغان tasks Done غا كىرىدۇ.",
   "import-board-instruction-zenkit": "ZenKit تىزىملىك چىقىرىش JSON نى چاپلاڭ ({ \"title\"، \"stages\":[...]، \"items\":[...] }). Stages تىزىملىككە، items كارتىغا ئايلىنىدۇ.",
+  "import-board-instruction-markdown": "ماركداۋن ۋەزىپە تىزىملىكىنى چاپلاڭ (Obsidian Kanban غا ئوخشاش markdown-kanban قوراللىرى ئىشلىتىدىغان قائىدە): ئاستىدا \"- [ ]\"/\"- [x]\" تۈرلىرى بار \"## تىزىملىك نامى\" ماۋزۇلىرى. ماۋزۇلار تىزىملىككە، تۈرلەر بولسا كارتىلارغا ئايلىنىدۇ.",
   "import-board-instruction-trello": "Trello تاختىڭىزدا «تىزىملىك» ، ئاندىن «تېخىمۇ كۆپ» ، «بېسىش ۋە چىقىرىش» ، «JSON نى چىقىرىش» قا كىرىپ ، ھاسىل بولغان تېكىستنى كۆچۈرۈڭ.",
   "import-board-instruction-csv": "پەش بىلەن ئايرىلغان قىممەتلىرىڭىزگە چاپلاڭ (CSV) / ​​بەتكۈچ ئايرىلغان قىممەت (TSV).",
   "import-board-instruction-jira": "Jira Cloud REST API issue ئىزدەشتىن كەلگەن JSON نى (GET /rest/api/2/search) ياكى ئۇنىڭغا تەڭ بولغان { \"issues\": [...] } ئوبيېكتىنى چاپلاڭ. Jira statuses تىزىملىككە، issues كارتىغا ئايلىنىدۇ. قائىدىلەرنى ئەكىرىش ئۈچۈن ئىختىيارىي ھالدا بىر \"automationRules\" قاتارىنى قوشۇڭ.",

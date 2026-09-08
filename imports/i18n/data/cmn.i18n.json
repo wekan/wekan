@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "粘贴 __sourceName__ 的 issues JSON 数组（__endpoint__）。Issues 成为卡片，按 Open / Closed 列表分组。",
   "import-board-instruction-asana": "粘贴 Asana 任务导出 JSON（来自 Asana 导出或 GET /tasks 的 { \"data\": [...] }）。任务按分区（memberships）分组；已完成的任务归入 Done。",
   "import-board-instruction-zenkit": "粘贴 ZenKit 列表导出 JSON（{ \"title\", \"stages\":[...], \"items\":[...] }）。Stages 成为列表，items 成为卡片。",
+  "import-board-instruction-markdown": "粘贴一个 markdown 任务列表（Obsidian Kanban 等 markdown-kanban 工具使用的约定）：\"## 列表名称\" 标题，下面带有 \"- [ ]\"/\"- [x]\" 项目。标题会变成列表，项目会变成卡片；没有复选框的普通项目符号列表也会作为开放卡片导入。",
   "import-board-instruction-trello": "In your Trello board, go to 'Menu', then 'More', 'Print and Export', 'Export JSON', and copy the resulting text",
   "import-board-instruction-csv": "粘贴逗号分隔值(CSV)/制表符分隔值(TSV)。",
   "import-board-instruction-jira": "粘贴来自 Jira Cloud REST API issue 搜索（GET /rest/api/2/search）的 JSON，或等效的 { \"issues\": [...] } 对象。Jira 状态成为列表，issues 成为卡片。可选地包含 \"automationRules\" 数组以导入规则。",

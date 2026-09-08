@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "Tempel larik JSON masalah __sourceName__ (__endpoint__). Masalah dadi kertu sing diklompokake ing dhaptar Mbukak / Ditutup.",
   "import-board-instruction-asana": "Tempel JSON ekspor tugas Asana ({ \"data\": [...] } saka ekspor Asana utawa GET /tasks). Tugas diklompokake dadi bagean (memberships); tugas rampung mlebu Rampung.",
   "import-board-instruction-zenkit": "Tempel JSON ekspor dhaptar ZenKit ({ \"title\", \"stages\":[...], \"items\":[...] }). Tataran dadi dhaptar lan item dadi kertu.",
+  "import-board-instruction-markdown": "Tempel dhaptar tugas markdown (konvènsi sing digunakaké piranti markdown-kanban kayata Obsidian Kanban): irah-irahan \"## Jeneng dhaptar\", karo item \"- [ ]\"/\"- [x]\" ing ngisor. Irah-irahan dadi dhaptar lan item dadi kertu; dhaptar poin prasaja tanpa kothak centhang uga diimpor, minangka kertu mbukak.",
   "import-board-instruction-trello": "Ing papan Trello, bukak 'Menu', banjur 'More', 'Print and Export', 'Export JSON', lan salin teks asile.",
   "import-board-instruction-csv": "Tempel Nilai Dipisah Koma (CSV) / Nilai Dipisah Tab (TSV).",
   "import-board-instruction-jira": "Tempel JSON saka panelusuran masalah Jira Cloud REST API (GET /rest/api/2/search), utawa objek { \"issues\": [...] } sing padha. Status Jira dadi dhaptar lan masalah dadi kertu. Bisa uga lebokake larik \"automationRules\" kanggo ngimpor aturan.",

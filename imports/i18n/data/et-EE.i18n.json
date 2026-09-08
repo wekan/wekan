@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "Kleebi __sourceName__ probleemide JSON-massiiv (__endpoint__). Probleemidest saavad kaardid, mis on rühmitatud nimekirjadesse Avatud / Suletud.",
   "import-board-instruction-asana": "Kleebi Asana ülesannete ekspordi JSON ({ \"data\": [...] } Asana ekspordist või GET /tasks). Ülesanded rühmitatakse sektsioonidesse (memberships); lõpetatud ülesanded lähevad nimekirja Valmis.",
   "import-board-instruction-zenkit": "Kleebi ZenKit loendi ekspordi JSON ({ \"title\", \"stages\":[...], \"items\":[...] }). Etappidest (stages) saavad nimekirjad ja objektidest kaardid.",
+  "import-board-instruction-markdown": "Kleepige markdown-vormingus ülesannete loend (tava, mida kasutavad markdown-kanban tööriistad, näiteks Obsidian Kanban): pealkirjad \"## Loendi nimi\", nende all üksustega \"- [ ]\"/\"- [x]\". Pealkirjadest saavad loendid ja üksustest kaardid; ka lihtne täpploend ilma märkeruutudeta imporditakse, avatud kaartidena.",
   "import-board-instruction-trello": "Minge oma Trello tahvlil menüüsse \"Menüü\", seejärel \"Rohkem\", \"Trüki ja ekspordi\", \"Ekspordi JSON\" ja kopeerige saadud tekst.",
   "import-board-instruction-csv": "Sisestage oma komadega eraldatud väärtused (CSV) / tabulatsiooniga eraldatud väärtused (TSV) .",
   "import-board-instruction-jira": "Kleebi JSON Jira Cloud REST API probleemiotsingust (GET /rest/api/2/search) või samaväärne objekt { \"issues\": [...] }. Jira staatustest saavad nimekirjad ja probleemidest kaardid. Soovi korral lisa massiiv \"automationRules\", et importida reeglid.",

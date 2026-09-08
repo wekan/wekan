@@ -433,7 +433,7 @@ test('every downloadable format carries the selection, and the server reads it',
     // The route that serves this path must parse `fields`. The external-tool
     // exports share one handler (serveExternalExport), which does.
     const route = `'/api/boards/:boardId/${p}'`;
-    if (!server.includes(route) && !/^export\/(trello|jira|deck|openproject|github|gitlab|gitea|forgejo|asana|zenkit)$/.test(p)) {
+    if (!server.includes(route) && !/^export\/(trello|jira|deck|openproject|github|gitlab|gitea|forgejo|asana|zenkit|markdown)$/.test(p)) {
       return true;
     }
     return false;
@@ -447,9 +447,9 @@ test('every downloadable format carries the selection, and the server reads it',
     assert.ok(/parseExportFields\(req\.query && req\.query\.fields/.test(read(file)),
       `${file} must read the selection from the query`);
   }
-  assert.ok(/parseExportFields\(req\.query && req\.query\.fields, BOARD_EXPORT_FIELD_KEYS\)\) \}\)/
+  assert.ok(/buildExternalExport\(boardId, format,\s*\n\s*parseExportFields\(req\.query && req\.query\.fields, BOARD_EXPORT_FIELD_KEYS\)\)/
     .test(read('models/export.js')),
-    'and the external-tool exports (Trello, Jira, GitHub, ...) must read it too');
+    'and the external-tool exports (Trello, Jira, GitHub, Markdown, ...) must read it too');
 });
 
 test('RouteBleed: route lookup treats regex metacharacters and backslashes literally (#434)', () => {

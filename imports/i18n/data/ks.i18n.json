@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "__sourceName__ مسئلہٕ JSON ایرے (__endpoint__) چسپاں کریو۔ مسئلہٕ گژھن کھولمُت / بند فہرستن منٛز گروپ کرنہٕ آمٕتۍ کارڈ۔",
   "import-board-instruction-asana": "Asana کام برآمد JSON (Asana برآمد یا GET /tasks پؠٹھ { \"data\": [...] }) چسپاں کریو۔ کام گژھن حصن (memberships) منٛز گروپ؛ مکمل کام گژھن مکمل منٛز۔",
   "import-board-instruction-zenkit": "ZenKit فہرست برآمد JSON ({ \"title\", \"stages\":[...], \"items\":[...] }) چسپاں کریو۔ مرحلہٕ گژھن فہرستہٕ تہٕ شے گژھن کارڈ۔",
+  "import-board-instruction-markdown": "مارک ڈاؤن ٹاسک لِسٹ پیسٹ کریو (Obsidian Kanban ہندہ طرح مارک ڈاؤن-کانبان اوزار استعمال کران وول قاعدہ): \"## لِسٹ ناو\" عنوان، ہیٹھ \"- [ ]\"/\"- [x]\" آئٹمن ہمرا۔",
   "import-board-instruction-trello": "پننِس Trello بورڈس منٛز 'Menu'، پتہٕ 'More'، 'Print and Export'، 'Export JSON' کُن گژھیو تہٕ نتیجہٕ متن نقل کریو۔",
   "import-board-instruction-csv": "پنُن کاما سٕتۍ الگ قیمت (CSV) / ٹیب سٕتۍ الگ قیمت (TSV) یَتھ چسپاں کریو۔",
   "import-board-instruction-jira": "Jira Cloud REST API مسئلہٕ تلاش (GET /rest/api/2/search) پؠٹھ JSON، یا ہمان { \"issues\": [...] } آبجیکٹ چسپاں کریو۔ Jira حالتہٕ گژھن فہرستہٕ تہٕ مسئلہٕ گژھن کارڈ۔ اصول درآمد کرنہٕ خٲطرٕ اختیاری \"automationRules\" ایرے شامل کریو۔",

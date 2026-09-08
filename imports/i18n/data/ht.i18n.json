@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "Kole yon tablo JSON pwoblèm __sourceName__ (__endpoint__). Pwoblèm yo vin kat ki gwoupe nan lis Ouvè / Fèmen.",
   "import-board-instruction-asana": "Kole yon JSON ekspòtasyon travay Asana ({ \"data\": [...] } ki soti nan ekspòtasyon Asana oswa GET /tasks). Travay yo gwoupe an seksyon (memberships); travay ki fini yo ale nan Fini.",
   "import-board-instruction-zenkit": "Kole yon JSON ekspòtasyon lis ZenKit ({ \"title\", \"stages\":[...], \"items\":[...] }). Etap yo vin lis epi eleman yo vin kat.",
+  "import-board-instruction-markdown": "Kole yon lis travay markdown (konvansyon zouti markdown-kanban tankou Obsidian Kanban itilize): tit \"## Non lis la\", ak eleman \"- [ ]\"/\"- [x]\" anba yo. Tit yo vin lis epi eleman yo vin kat; yon senp lis ak pwen san checkbox tou enpòte, kòm kat ouvè.",
   "import-board-instruction-trello": "Nan tablo Trello ou a, ale nan 'Menu', apre sa 'More', 'Print and Export', 'Export JSON', epi kopye tèks ki parèt la.",
   "import-board-instruction-csv": "Kole Valè Separe ak Vigil (CSV) / Valè Separe ak Tab (TSV) ou yo.",
   "import-board-instruction-jira": "Kole JSON rechèch pwoblèm ki soti nan Jira Cloud REST API (GET /rest/api/2/search), oswa yon objè ekivalan { \"issues\": [...] }. Estati Jira yo vin lis epi pwoblèm yo vin kat. Ou ka mete yon tablo \"automationRules\" pou enpòte règ yo tou.",

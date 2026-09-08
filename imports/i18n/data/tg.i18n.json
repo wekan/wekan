@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "Массиви JSON-и масъалаҳои __sourceName__-ро гузоред (__endpoint__). Масъалаҳо ҳамчун кортҳо дар рӯйхатҳои Кушода / Пӯшида гурӯҳбандӣ мешаванд.",
   "import-board-instruction-asana": "JSON-и содироти вазифаҳои Asana-ро гузоред ({ \"data\": [...] } аз содироти Asana ё GET /tasks). Вазифаҳо дар бахшҳо (memberships) гурӯҳбандӣ мешаванд; вазифаҳои анҷомшуда ба Анҷом рафта мегузаранд.",
   "import-board-instruction-zenkit": "JSON-и содироти рӯйхати ZenKit-ро гузоред ({ \"title\", \"stages\":[...], \"items\":[...] }). Марҳилаҳо ба рӯйхат ва бандҳо ба корт табдил мешаванд.",
+  "import-board-instruction-markdown": "Рӯйхати вазифаҳои markdown-ро гузоред (қоидае, ки абзорҳои markdown-kanban ба монанди Obsidian Kanban истифода мебаранд): сарлавҳаҳои \"## Номи рӯйхат\", бо унсурҳои \"- [ ]\"/\"- [x]\" дар зер. Сарлавҳаҳо ба рӯйхатҳо ва унсурҳо ба кортҳо табдил меёбанд.",
   "import-board-instruction-trello": "Дар тахтаи Trello ба 'Menu', сипас 'More', 'Print and Export', 'Export JSON' гузаред ва матни ҳосилшударо нусхабардорӣ кунед.",
   "import-board-instruction-csv": "Арзишҳои бо вергул ҷудошуда (CSV) / Арзишҳои бо табулятсия ҷудошуда (TSV)-ро гузоред.",
   "import-board-instruction-jira": "JSON-ро аз ҷустуҷӯи масъалаҳои Jira Cloud REST API (GET /rest/api/2/search), ё объекти ҳамарзиши { \"issues\": [...] } гузоред. Ҳолатҳои Jira ба рӯйхат ва масъалаҳо ба корт табдил мешаванд. Барои ворид кардани қоидаҳо метавонед массиви \"automationRules\"-ро ҳам дохил кунед.",

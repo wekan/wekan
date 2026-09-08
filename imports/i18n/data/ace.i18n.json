@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "Tempel array JSON issues __sourceName__ (__endpoint__). Issue jadi kad nyang geukumpoi lam senarai Open / Closed.",
   "import-board-instruction-asana": "Tempel JSON ekspor tasks Asana ({ \"data\": [...] } nibak ekspor Asana atawa GET /tasks). Task geukumpoi lam bagian (memberships); task nyang ka seuleusoe jak u Done.",
   "import-board-instruction-zenkit": "Tempel JSON ekspor list ZenKit ({ \"title\", \"stages\":[...], \"items\":[...] }). Stage jadi senarai dan item jadi kad.",
+  "import-board-instruction-markdown": "Tempèl saboh dapha tugaïh markdown (aturan nyang alat markdown-kanban lagèe Obsidian Kanban geupeuguna): kepala \"## Nan dapha\", ngon barang \"- [ ]\"/\"- [x]\" di miyup. Kepala jeuet keu dapha dan barang jeuet keu kartu.",
   "import-board-instruction-trello": "Di panel Trello anda, ke 'Menu', terus 'More', 'Print and Export','Export JSON', dan salin hasilnya",
   "import-board-instruction-csv": "Tempel Comma Separated Values(CSV)/ Tab Separated Values (TSV) droeneueh.",
   "import-board-instruction-jira": "Tempel JSON nibak Jira Cloud REST API issue search (GET /rest/api/2/search), atawa objek { \"issues\": [...] } nyang saban. Status Jira jadi senarai dan issue jadi kad. Meunyoe hawa, geumasok array \"automationRules\" keu impor aturan.",

@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "__sourceName__ issues JSON এৰে (__endpoint__) পেষ্ট কৰক। Issues সমূহ Open / Closed তালিকাত গোট খাই কাৰ্ড হয়।",
   "import-board-instruction-asana": "Asana tasks ৰপ্তানি JSON (Asana ৰপ্তানি বা GET /tasks ৰ পৰা { \"data\": [...] }) পেষ্ট কৰক। Tasks সমূহ sections (memberships) ত গোট খায়; সম্পূৰ্ণ tasks Done লৈ যায়।",
   "import-board-instruction-zenkit": "ZenKit তালিকা ৰপ্তানি JSON ({ \"title\", \"stages\":[...], \"items\":[...] }) পেষ্ট কৰক। Stages তালিকা আৰু items কাৰ্ড হয়।",
+  "import-board-instruction-markdown": "মাৰ্কডাউন কাৰ্য তালিকা এটা পেষ্ট কৰক (Obsidian Kanban ৰ দৰে মাৰ্কডাউন-কানবান সঁজুলিয়ে ব্যৱহাৰ কৰা প্ৰথা): \"## তালিকাৰ নাম\" হেডিং, তলত \"- [ ]\"/\"- [x]\" বস্তুৰ সৈতে। হেডিং তালিকা হয় আৰু বস্তুবোৰ কাৰ্ড হয়; চেকবক্স নথকা সাধাৰণ বুলেট তালিকাও খোলা কাৰ্ড হিচাপে আমদানি হয়।",
   "import-board-instruction-trello": "আপোনাৰ Trello ব'ৰ্ডত 'Menu', তাৰ পিছত 'More', 'Print and Export', 'Export JSON' লৈ গৈ পোৱা পাঠ প্ৰতিলিপি কৰক।",
   "import-board-instruction-csv": "আপোনাৰ কমাৰে পৃথক কৰা মান (CSV)/ টেবে পৃথক কৰা মান (TSV) পেষ্ট কৰক।",
   "import-board-instruction-jira": "Jira Cloud REST API issue search (GET /rest/api/2/search) ৰ JSON বা সমতুল্য { \"issues\": [...] } অবজেক্ট পেষ্ট কৰক। Jira statuses তালিকা আৰু issues কাৰ্ড হয়। নিয়ম আমদানি কৰিবলৈ ইচ্ছা কৰিলে এটা \"automationRules\" এৰে অন্তৰ্ভুক্ত কৰক।",

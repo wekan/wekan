@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "Aclapez on ranrindjmint JSON d' issues __sourceName__ (__endpoint__). Les issues divnèt des cåtes rashonnêyes e djîveyes Drovous / Cloyous.",
   "import-board-instruction-asana": "Aclapez on JSON d' eberwetaedje di tåces Asana ({ \"data\": [...] } di l' eberwetaedje Asana ou GET /tasks). Les tåces sont rashonnêyes e seccions (memberships); les tåces fwaites vont a Fwait.",
   "import-board-instruction-zenkit": "Aclapez on JSON d' eberwetaedje di djîveye ZenKit ({ \"title\", \"stages\":[...], \"items\":[...] }). Les stages divnèt des djîveyes eyet les items divnèt des cåtes.",
+  "import-board-instruction-markdown": "Aclawez ene djivêye di bouyes markdown (li convension ki les usteyes markdown-kanban come Obsidian Kanban eployèt): tites \"## No del djivêye\", avou des cayets \"- [ ]\"/\"- [x]\" pa dizo. Les tites divnèt des djivêyes eyet les cayets divnèt des cwaites.",
   "import-board-instruction-trello": "Dans votre tableau Trello, allez sur 'Menu', puis sur 'Plus', 'Imprimer et exporter', 'Exporter en JSON' et copiez le texte du résultat",
   "import-board-instruction-csv": "Déposez vos données en CSV (valeurs séparées par des virgules) ou TSV (valeurs séparées par des tabulations).",
   "import-board-instruction-jira": "Aclapez l' JSON del rimuchnaedje d' issues del Jira Cloud REST API (GET /rest/api/2/search), ou èn objet ewal { \"issues\": [...] }. Les statuts Jira divnèt des djîveyes eyet les issues divnèt des cåtes. Vos ploz motoit radjouter on ranrindjmint « automationRules » po abaguer des rîles.",

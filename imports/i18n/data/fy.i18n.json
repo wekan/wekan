@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "Plak in __sourceName__ issues-JSON-array (__endpoint__). Issues wurde kaarten gruppearre yn Open / Sletten listen.",
   "import-board-instruction-asana": "Plak in Asana taken-eksport-JSON ({ \"data\": [...] } fan de Asana-eksport of GET /tasks). Taken wurde gruppearre yn seksjes (memberships); foltôge taken geane nei Done.",
   "import-board-instruction-zenkit": "Plak in ZenKit list-eksport-JSON ({ \"title\", \"stages\":[...], \"items\":[...] }). Stages wurde listen en items wurde kaarten.",
+  "import-board-instruction-markdown": "Plak in markdown-taaklist (de konvinsje dy't markdown-kanban-ark lykas Obsidian Kanban brûkt): \"## Listnamme\"-koppen, mei \"- [ ]\"/\"- [x]\"-items derûnder. Koppen wurde listen en items wurde kaarten; in gewoane opsomlist sûnder karrekjes wurdt ek ymportearre, as iepen kaarten.",
   "import-board-instruction-trello": "Gean yn jo Trello-boerd nei 'Menu', dan 'Mear', 'Print en eksportearje', 'JSON eksportearje', en kopiearje de resultearjende tekst.",
   "import-board-instruction-csv": "Plak jo Comma Separated Values ​​(CSV)/ Tab Separated Values ​​(TSV) yn.",
   "import-board-instruction-jira": "Plak de JSON fan de Jira Cloud REST API issue-sykaksje (GET /rest/api/2/search), of in lykweardich { \"issues\": [...] }-objekt. Jira-statussen wurde listen en issues wurde kaarten. Foegje opsjoneel in \"automationRules\"-array ta om regels te ymportearjen.",

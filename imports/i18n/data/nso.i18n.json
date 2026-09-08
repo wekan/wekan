@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "Kgomaretša lenaneo la JSON la ditaba tša __sourceName__ (__endpoint__). Ditaba di ba dikarata tše di hlophilwego ka mananeo a Open / Closed.",
   "import-board-instruction-asana": "Kgomaretša JSON ya ntšho ya mešomo ya Asana ({ \"data\": [...] } go tšwa ntšhong ya Asana goba GET /tasks). Mešomo e hlophwa ka dikarolo (memberships); mešomo ye e phethilwego e ya go Done.",
   "import-board-instruction-zenkit": "Kgomaretša JSON ya ntšho ya lenaneo la ZenKit ({ \"title\", \"stages\":[...], \"items\":[...] }). Magato a ba mananeo gomme dilo tša ba dikarata.",
+  "import-board-instruction-markdown": "Kgomaretša lelokelelo la mešomo ya markdown (mokgwa woo dithulusi tša markdown-kanban tša go swana le Obsidian Kanban di o šomišago): dihlogo tša \"## Leina la lelokelelo\", le dilo tša \"- [ ]\"/\"- [x]\" ka tlase. Dihlogo di fetoga malokelelo gomme dilo di fetoga dikarata.",
   "import-board-instruction-trello": "Botong ya gago ya Trello, eya go 'Menu', ke moka 'More', 'Print and Export', 'Export JSON', gomme o kopolle sengwalwa seo se tšweletšego.",
   "import-board-instruction-csv": "Kgomaretša Ditekanyetšo tše di Arogantšwego ka Diphefšana (CSV)/Ditekanyetšo tše di Arogantšwego ka Dithepo (TSV).",
   "import-board-instruction-jira": "Kgomaretša JSON go tšwa nyakong ya ditaba ya Jira Cloud REST API (GET /rest/api/2/search), goba sedirišwa se se lekanago sa { \"issues\": [...] }. Maemo a Jira a ba mananeo gomme ditaba tša ba dikarata. O ka akaretša lenaneo la \"automationRules\" go tliša melao.",

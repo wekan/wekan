@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "Cur stiagh rolley JSON jeh cooishyn __sourceName__ (__endpoint__). Hig cooishyn dy ve kaartyn ayns rolleyghyn Foshlit / Dooint.",
   "import-board-instruction-asana": "Cur stiagh JSON cur magh obbraghyn Asana ({ \"data\": [...] } veih cur magh Asana ny GET /tasks). Ta obbraghyn er nyn reaghey ayns rheynnyn (memberships); ta obbraghyn cooilleenit goll gys Jeant.",
   "import-board-instruction-zenkit": "Cur stiagh JSON cur magh rolley ZenKit ({ \"title\", \"stages\":[...], \"items\":[...] }). Hig keimyn dy ve rolleyghyn as nheeghyn dy ve kaartyn.",
+  "import-board-instruction-markdown": "Cur lhiastey obbraghyn markdown ayn (yn cliaghtey ta greienyn markdown-kanban myr Obsidian Kanban jannoo ymmyd jeh): kione-lhieyn \"## Ennym y rolley\", lesh reddyn \"- [ ]\"/\"- [x]\" fo. Ta kione-lhieyn cheet dy ve nyn rolleyn as reddyn cheet dy ve nyn gairtyn.",
   "import-board-instruction-trello": "Ayns dty voayrd Trello, gow gys 'Claare', eisht 'Tooilley', 'Prental as Cur Magh', 'Cur JSON Magh', as jean coip jeh'n teks t'ayns shen.",
   "import-board-instruction-csv": "Cur stiagh dty Luoghtyn Scarrit lesh Cromman (CSV) / Luoghtyn Scarrit lesh Tab (TSV).",
   "import-board-instruction-jira": "Cur stiagh yn JSON veih shirrey cooishyn Jira Cloud REST API (GET /rest/api/2/search), ny nhee co-chasley lesh { \"issues\": [...] }. Hig staydyn Jira dy ve rolleyghyn as cooishyn dy ve kaartyn. Foddee oo rolley \"automationRules\" y chur ayns dy chur reillyn stiagh.",

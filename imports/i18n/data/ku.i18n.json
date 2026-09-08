@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "Rêza pirsgirêkên __sourceName__ wek JSON pê ve bike (__endpoint__). Pirsgirêk dibin kart û di lîsteyên Vekirî / Girtî de tên komkirin.",
   "import-board-instruction-asana": "Derxistina erkên Asana wek JSON pê ve bike ({ \"data\": [...] } ji derxistina Asana an GET /tasks). Erk li gorî beşan (memberships) tên komkirin; erkên qediyayî diçin Qediya.",
   "import-board-instruction-zenkit": "Derxistina lîsteya ZenKit wek JSON pê ve bike ({ \"title\", \"stages\":[...], \"items\":[...] }). Ast dibin lîste û hêman dibin kart.",
+  "import-board-instruction-markdown": "Lîsteyek erkên markdown lê bişkîne (peymana ku amûrên markdown-kanban wek Obsidian Kanban bikar tînin): sernavên \"## Navê lîsteyê\", bi hêmanên \"- [ ]\"/\"- [x]\" li jêr. Sernav dibin lîste û hêman dibin kart; lîsteyek xalî ya sade bêyî qutiyên kontrolê jî tê importkirin, wek kartên vekirî.",
   "import-board-instruction-trello": "Di depoya xwe ya Trello de, here 'Menu', paşê 'More', 'Print and Export', 'Export JSON', û nivîsa encamê kopî bike.",
   "import-board-instruction-csv": "Daneya Nirxên bi Bêhnok Veqetandî (CSV)/Nirxên bi Tab Veqetandî (TSV) pê ve bike.",
   "import-board-instruction-jira": "JSON-ê ji lêgerîna pirsgirêkên Jira Cloud REST API pê ve bike (GET /rest/api/2/search), an objeyeke hevwate { \"issues\": [...] }. Rewşên Jira dibin lîste û pirsgirêk dibin kart. Ji bo têxistina rêbazan dikarî rêza \"automationRules\" jî zêde bikî.",

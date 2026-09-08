@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "یک آرایه JSON مسائل __sourceName__ را جای‌گذاری کنید (__endpoint__). مسائل به کارت تبدیل و در لیست‌های باز / بسته گروه‌بندی می‌شوند.",
   "import-board-instruction-asana": "یک JSON خروجی وظایف Asana را جای‌گذاری کنید ({ \"data\": [...] } از خروجی Asana یا GET /tasks). وظایف در بخش‌ها (memberships) گروه‌بندی می‌شوند؛ وظایف تکمیل‌شده به Done می‌روند.",
   "import-board-instruction-zenkit": "یک JSON خروجی فهرست ZenKit را جای‌گذاری کنید ({ \"title\", \"stages\":[...], \"items\":[...] }). Stageها به لیست و آیتم‌ها به کارت تبدیل می‌شوند.",
+  "import-board-instruction-markdown": "یک فهرست کار markdown را جای‌گذاری کنید (قراردادی که ابزارهای markdown-kanban مانند Obsidian Kanban استفاده می‌کنند): عنوان‌های \"## نام فهرست\"، همراه با موارد \"- [ ]\"/\"- [x]\" در زیر آن‌ها. عنوان‌ها به فهرست تبدیل می‌شوند و موارد به کارت؛ یک فهرست نقطه‌ای ساده بدون چک‌باکس نیز به‌عنوان کارت‌های باز وارد می‌شود.",
   "import-board-instruction-trello": "در Trello-ی خود  به 'Menu'، 'More'، 'Print'، 'Export to JSON رفته و متن نهایی را دراینجا وارد نمایید.",
   "import-board-instruction-csv": "مقادیر جداشده با کاما (CSV)/مقادیر جداشده با تبِ (TSV) خود را پیست کنید.",
   "import-board-instruction-jira": "JSON را از جست‌وجوی مسئله REST API جیرا Cloud (GET /rest/api/2/search) یا یک شیء معادل { \"issues\": [...] } جای‌گذاری کنید. وضعیت‌های Jira به لیست و مسائل به کارت تبدیل می‌شوند. به‌صورت اختیاری می‌توانید یک آرایه «automationRules» برای وارد کردن قوانین بگنجانید.",

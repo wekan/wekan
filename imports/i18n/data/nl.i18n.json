@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "Plak een __sourceName__ issues-JSON-array (__endpoint__). Issues worden kaarten, gegroepeerd in lijsten Open / Gesloten.",
   "import-board-instruction-asana": "Plak een Asana-taken-export-JSON ({ \"data\": [...] } uit de Asana-export of GET /tasks). Taken worden gegroepeerd in secties (memberships); voltooide taken gaan naar Klaar.",
   "import-board-instruction-zenkit": "Plak een ZenKit-lijstexport-JSON ({ \"title\", \"stages\":[...], \"items\":[...] }). Stages worden lijsten en items worden kaarten.",
+  "import-board-instruction-markdown": "Plak een markdown-taaklijst (de conventie die markdown-kanban-tools zoals Obsidian Kanban gebruiken): \"## Lijstnaam\"-koppen, met \"- [ ]\"/\"- [x]\"-items eronder. Koppen worden lijsten en items worden kaarten; een gewone opsommingslijst zonder selectievakjes wordt ook geïmporteerd, als open kaarten.",
   "import-board-instruction-trello": "Op jouw Trello bord, ga naar 'Menu', dan naar 'Meer', 'Print en Exporteer', 'Exporteer JSON', en kopieer de tekst.",
   "import-board-instruction-csv": "Plak hier je Comma Separated Values(CSV)/ Tab Separated Values (TSV) .",
   "import-board-instruction-jira": "Plak de JSON van de Jira Cloud REST API issue-zoekopdracht (GET /rest/api/2/search), of een equivalent { \"issues\": [...] }-object. Jira-statussen worden lijsten en issues worden kaarten. Voeg eventueel een \"automationRules\"-array toe om regels te importeren.",

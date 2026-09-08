@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "Bir __sourceName__ issues JSON massivi yapışdırın (__endpoint__). Issues Open / Closed siyahılarında qruplaşdırılmış kartlara çevrilir.",
   "import-board-instruction-asana": "Bir Asana tapşırıqları ixrac JSON-u yapışdırın (Asana ixracından və ya GET /tasks-dən { \"data\": [...] }). Tapşırıqlar bölmələrə (memberships) görə qruplaşdırılır; tamamlanmış tapşırıqlar Done-a keçir.",
   "import-board-instruction-zenkit": "Bir ZenKit siyahı ixrac JSON-u yapışdırın ({ \"title\", \"stages\":[...], \"items\":[...] }). Stages siyahılara, items kartlara çevrilir.",
+  "import-board-instruction-markdown": "Markdown tapşırıq siyahısı yapışdırın (Obsidian Kanban kimi markdown-kanban alətlərinin istifadə etdiyi qayda): \"## Siyahı adı\" başlıqları, altında \"- [ ]\"/\"- [x]\" elementləri ilə. Başlıqlar siyahılara, elementlər isə kartlara çevrilir; işarə qutusu olmayan sadə nöqtəli siyahı da açıq kartlar kimi idxal olunur.",
   "import-board-instruction-trello": "Trello lövhənizdə 'Menyu', sonra 'Daha çox', 'Çap və İxrac', 'JSON-u ixrac et' seçimlərinə keçin və nəticədə yaranan mətni kopyalayın.",
   "import-board-instruction-csv": "Vergüllə Ayrılmış Dəyərlərinizə (CSV)/ Nişanla Ayrılmış Dəyərlərə (TSV) yapışdırın.",
   "import-board-instruction-jira": "Jira Cloud REST API issue axtarışından (GET /rest/api/2/search) JSON-u və ya ekvivalent { \"issues\": [...] } obyektini yapışdırın. Jira statusları siyahılara, issues kartlara çevrilir. İstəyə görə qaydaları idxal etmək üçün \"automationRules\" massivi daxil edin.",

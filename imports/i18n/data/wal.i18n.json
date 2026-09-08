@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "Wolayttatto: Paste a __sourceName__ issues JSON array (__endpoint__). Issues become kaardiyata grouped into Open / Closed mazgabata.",
   "import-board-instruction-asana": "Wolayttatto: Paste an Asana tasks kessa JSON ({ \"data\": [...] } ppe the Asana kessa woy GET /tasks). Tasks are grouped into sections (memberships); polettiis tasks go kko Polettiis.",
   "import-board-instruction-zenkit": "Wolayttatto: Paste a ZenKit mazgabaa kessa JSON ({ \"huuphe sunttaa\", \"stages\":[...], \"miishshata\":[...] }). Stages become mazgabata and miishshata become kaardiyata.",
+  "import-board-instruction-markdown": "Markdoone ooso xaafo doorssaa akayaa (Obsidian Kanban mala markdown-kanban miishati go'ettiyo wogaa): garssan \"- [ ]\"/\"- [x]\" mishatinne \"## Doorssaa sunthaa\" huucettaa. Huucettati doorssa gidoosonanne mishati kaardde gidoosona.",
   "import-board-instruction-trello": "Wolayttatto: Gidon ne Trello bookkiya, go kko 'Menu', then 'Haraa', 'Print and Kessa', 'Kessa JSON', and dammissa the resulting text.",
   "import-board-instruction-csv": "Wolayttatto: Paste gidon ne Comma Separated Values(CSV)/ Tab Separated Values (TSV) .",
   "import-board-instruction-jira": "Wolayttatto: Paste the JSON ppe the Jira Cloud REST API issue koyya (GET /rest/api/2/koyya), woy an equivalent { \"issues\": [...] } object. Jira statuses become mazgabata and issues become kaardiyata. Optionally include an \"automationRules\" array kko gelissa rules.",

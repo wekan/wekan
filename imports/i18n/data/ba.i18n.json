@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "__sourceName__ мәсьәләләренең JSON массивын ҡуйығыҙ (__endpoint__). Мәсьәләләр Асыҡ / Ябыҡ исемлектәренә төркөмләнгән карточкаларға әйләнә.",
   "import-board-instruction-asana": "Asana бурыстар экспортының JSON-ын ҡуйығыҙ (Asana экспортынан йәки GET /tasks аша { \"data\": [...] }). Бурыстар бүлектәргә (memberships) төркөмләнә; тамамланған бурыстар Тамамландыға күсә.",
   "import-board-instruction-zenkit": "ZenKit исемлек экспортының JSON-ын ҡуйығыҙ ({ \"title\", \"stages\":[...], \"items\":[...] }). Этаптар исемлектәргә, пункттар карточкаларға әйләнә.",
+  "import-board-instruction-markdown": "Markdown бурыс исемлеген ябыштырығыҙ (Obsidian Kanban кеүек markdown-kanban ҡоралдары ҡулланған ҡағиҙә): аҫтарында \"- [ ]\"/\"- [x]\" элементтары менән \"## Исемлек исеме\" исемдәре. Исемдәр исемлектәргә, элементтар картаға әйләнә; чекбокссыҙ ябай нөктәле исемлек тә асыҡ карталар булараҡ импортлана.",
   "import-board-instruction-trello": "Trello таҡтағыҙҙа 'Menu', унан 'More', 'Print and Export', 'Export JSON' бүлегенә үтеп, килеп сыҡҡан тексты күсереп алығыҙ.",
   "import-board-instruction-csv": "Өтөр менән айырылған ҡиммәттәрҙе (CSV) / табуляция менән айырылған ҡиммәттәрҙе (TSV) ҡуйығыҙ.",
   "import-board-instruction-jira": "Jira Cloud REST API мәсьәлә эҙләүенән JSON-ды (GET /rest/api/2/search) йәки шуға тиң { \"issues\": [...] } объектын ҡуйығыҙ. Jira статустары исемлектәргә, мәсьәләләр карточкаларға әйләнә. Ҡағиҙәләр импортлау өсөн өҫтәмә \"automationRules\" массивын индерергә мөмкин.",

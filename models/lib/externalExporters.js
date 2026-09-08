@@ -1,4 +1,5 @@
 import { ReactiveCache } from '/imports/reactiveCache';
+import { formatMarkdownKanban } from './markdownKanbanFormat';
 
 // Generalized export: collect a WeKan board into a neutral intermediate, then a
 // per-format formatter emits the target platform's JSON shape. This mirrors the
@@ -156,6 +157,12 @@ const formatters = {
       tags: i.labels,
     })),
   }),
+  // Markdown "task list" kanban - the convention several markdown-kanban tools
+  // use (Obsidian Kanban and similar): `## List name` headings, `- [ ]`/`- [x]`
+  // items underneath, indented continuation lines as the item's description.
+  // Round-trips with parseMarkdownKanban in externalParsers.js. Returns a
+  // plain string, not an object - the one formatter here that does.
+  markdown: formatMarkdownKanban,
 };
 
 export const EXTERNAL_EXPORT_FORMATS = Object.keys(formatters);

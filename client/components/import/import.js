@@ -215,6 +215,21 @@ Template.import.onCreated(function () {
       await this.finishImport();
       return;
     }
+    // Markdown: the "task list" convention several markdown-kanban tools use
+    // (Obsidian Kanban and similar) - `## List name` headings, `- [ ]`/`- [x]`
+    // items underneath. It is plain text, not JSON, so it is sent as-is rather
+    // than parsed - models/lib/externalParsers.js does the parsing server-side.
+    if (dataSource === 'markdown') {
+      const input = this.find('.js-import-json').value;
+      if (!input || !input.trim()) {
+        this.setError('error-json-malformed');
+        return;
+      }
+      this.importedData.set(input);
+      this.membersToMap.set([]);
+      await advance();
+      return;
+    }
     if (dataSource === 'csv') {
       const input = this.find('.js-import-json').value;
       const csv = input.indexOf('\t') > 0 ? input.replace(/(\t)/g, ',') : input;
@@ -410,6 +425,7 @@ const IMPORT_SOURCES = [
   { key: 'forgejo', name: 'Forgejo' },
   { key: 'asana', name: 'Asana' },
   { key: 'zenkit', name: 'Zenkit' },
+  { key: 'markdown', name: 'Markdown' },
 ];
 
 Template.import.helpers({

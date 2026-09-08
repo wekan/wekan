@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "ჩასვით __sourceName__ issues JSON მასივი (__endpoint__). Issue-ები ხდება ბარათები, დაჯგუფებული Open / Closed სიებში.",
   "import-board-instruction-asana": "ჩასვით Asana-ს დავალებების ექსპორტის JSON ({ \"data\": [...] } Asana-ს ექსპორტიდან ან GET /tasks). დავალებები ჯგუფდება სექციებად (memberships); დასრულებული დავალებები გადადის Done-ში.",
   "import-board-instruction-zenkit": "ჩასვით ZenKit სიის ექსპორტის JSON ({ \"title\", \"stages\":[...], \"items\":[...] }). ეტაპები ხდება სიები და ელემენტები ხდება ბარათები.",
+  "import-board-instruction-markdown": "ჩასვით markdown დავალებების სია (კონვენცია, რომელსაც იყენებენ markdown-kanban ხელსაწყოები, როგორიცაა Obsidian Kanban): \"## სიის სახელი\" სათაურები, ქვემოთ \"- [ ]\"/\"- [x]\" ელემენტებით. სათაურები იქცევა სიებად და ელემენტები ბარათებად; მარტივი წერტილოვანი სია გადამოწმების ველების გარეშეც შემოდის, როგორც ღია ბარათები.",
   "import-board-instruction-trello": "თქვენს Trello დაფაზე, შედით \"მენიუ\"-ში, შემდეგ დააკლიკეთ \"მეტი\", \"ამოპრინტერება და ექსპორტი\",  \"JSON-ის ექსპორტი\" და დააკოპირეთ შედეგი.",
   "import-board-instruction-csv": "ჩასვით თქვენი CSV/TSV მონაცემები.",
   "import-board-instruction-jira": "ჩასვით JSON Jira Cloud REST API-ის issue search-იდან (GET /rest/api/2/search), ან ეკვივალენტური { \"issues\": [...] } ობიექტი. Jira-ს სტატუსები ხდება სიები და issue-ები ხდება ბარათები. სურვილისამებრ, ჩართეთ „automationRules“ მასივი წესების იმპორტისთვის.",

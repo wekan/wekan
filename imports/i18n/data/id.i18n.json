@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "Tempel array JSON isu __sourceName__ (__endpoint__). Isu menjadi kartu yang dikelompokkan ke daftar Open / Closed.",
   "import-board-instruction-asana": "Tempel JSON ekspor tugas Asana ({ \"data\": [...] } dari ekspor Asana atau GET /tasks). Tugas dikelompokkan ke dalam bagian (memberships); tugas yang selesai masuk ke Done.",
   "import-board-instruction-zenkit": "Tempel JSON ekspor list ZenKit ({ \"title\", \"stages\":[...], \"items\":[...] }). Stage menjadi daftar dan item menjadi kartu.",
+  "import-board-instruction-markdown": "Tempel daftar tugas markdown (konvensi yang digunakan alat markdown-kanban seperti Obsidian Kanban): heading \"## Nama daftar\", dengan item \"- [ ]\"/\"- [x]\" di bawahnya. Heading menjadi daftar dan item menjadi kartu; daftar poin biasa tanpa kotak centang juga diimpor, sebagai kartu terbuka.",
   "import-board-instruction-trello": "Di panel Trello anda, ke 'Menu', terus 'More', 'Print and Export','Export JSON', dan salin hasilnya",
   "import-board-instruction-csv": "Tempel Comma Separated Values(CSV)/ Tab Separated Values (TSV) Anda .",
   "import-board-instruction-jira": "Tempel JSON dari pencarian isu Jira Cloud REST API (GET /rest/api/2/search), atau objek { \"issues\": [...] } yang setara. Status Jira menjadi daftar dan isu menjadi kartu. Secara opsional sertakan array \"automationRules\" untuk mengimpor aturan.",

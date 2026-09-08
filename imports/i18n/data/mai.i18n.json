@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "__sourceName__ केर समस्या JSON सरणी (__endpoint__) पेस्ट करू। समस्या Open / Closed सूचीमे समूहित कार्ड बनत।",
   "import-board-instruction-asana": "Asana कार्य निर्यात JSON (Asana निर्यात वा GET /tasks सँ { \"data\": [...] }) पेस्ट करू। कार्य अनुभाग (memberships) अनुसार समूहित होएत; पूर्ण कार्य Done मे जाएत।",
   "import-board-instruction-zenkit": "ZenKit सूची निर्यात JSON ({ \"title\", \"stages\":[...], \"items\":[...] }) पेस्ट करू। चरण सूची आ मद कार्ड बनत।",
+  "import-board-instruction-markdown": "मार्कडाउन टास्क सूची पेस्ट करू (Obsidian Kanban जेहन markdown-kanban उपकरण जे प्रयोग करैत अछि): \"## सूचीक नाम\" शीर्षक, नीचाँ \"- [ ]\"/\"- [x]\" मद सभक संग। शीर्षक सूची बनि जाइत अछि आ मद कार्ड बनि जाइत अछि।",
   "import-board-instruction-trello": "अपन Trello बोर्डमे 'Menu', फेर 'More', 'Print and Export', 'Export JSON' पर जाउ आ प्राप्त पाठ कॉपी करू।",
   "import-board-instruction-csv": "अपन अल्पविराम सँ अलग मान (CSV) / टैब सँ अलग मान (TSV) पेस्ट करू।",
   "import-board-instruction-jira": "Jira Cloud REST API समस्या खोज (GET /rest/api/2/search) सँ JSON, वा समान { \"issues\": [...] } वस्तु पेस्ट करू। Jira स्थिति सूची आ समस्या कार्ड बनत। नियम आयात करबाक लेल वैकल्पिक \"automationRules\" सरणी शामिल करू।",

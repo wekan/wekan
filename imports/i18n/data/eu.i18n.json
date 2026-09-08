@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "Itsatsi __sourceName__ arazoen JSON array bat (__endpoint__). Arazoak Irekita / Itxita zerrendetan taldekatutako txartel bihurtzen dira.",
   "import-board-instruction-asana": "Itsatsi Asana atazen esportazio-JSON bat ({ \"data\": [...] }, Asana esportaziotik edo GET /tasks-etik). Atazak sekziotan taldekatzen dira (kidetzak); amaitutako atazak Eginda-ra doaz.",
   "import-board-instruction-zenkit": "Itsatsi ZenKit zerrenda-esportazio JSON bat ({ \"title\", \"stages\":[...], \"items\":[...] }). Faseak zerrenda bihurtzen dira eta elementuak txartel.",
+  "import-board-instruction-markdown": "Itsatsi markdown zeregin-zerrenda bat (Obsidian Kanban bezalako markdown-kanban tresnek erabiltzen duten hitzarmena): \"## Zerrendaren izena\" izenburuak, azpian \"- [ ]\"/\"- [x]\" elementuekin. Izenburuak zerrenda bihurtzen dira eta elementuak txartel; kontrol-laukirik gabeko buletdun zerrenda soila ere inportatzen da, txartel ireki gisa.",
   "import-board-instruction-trello": "Zure Trello arbelean, aukeratu 'Menu\", 'More', 'Print and Export', 'Export JSON', eta kopiatu jasotako testua hemen.",
   "import-board-instruction-csv": "Itsatsi zure Comma Separated Values(CSV)/ Tab Separated Values (TSV)-an .",
   "import-board-instruction-jira": "Itsatsi Jira Cloud REST APIaren arazo-bilaketaren JSONa (GET /rest/api/2/search), edo baliokidea den { \"issues\": [...] } objektu bat. Jira egoerak zerrenda bihurtzen dira eta arazoak txartel. Aukeran, sartu \"automationRules\" array bat arauak inportatzeko.",

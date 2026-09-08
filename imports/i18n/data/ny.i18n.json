@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "Matani mndandanda wa JSON wa ma issue a __sourceName__ (__endpoint__). Ma issue amakhala makhadi ogawidwa m'mindandanda ya Open / Closed.",
   "import-board-instruction-asana": "Matani JSON yotumizidwa ya ntchito za Asana ({ \"data\": [...] } kuchokera potumiza kwa Asana kapena GET /tasks). Ntchito zimagawidwa m'magawo (memberships); ntchito zomalizidwa zimapita ku Done.",
   "import-board-instruction-zenkit": "Matani JSON yotumizidwa ya mndandanda wa ZenKit ({ \"title\", \"stages\":[...], \"items\":[...] }). Stages zimakhala mindandanda ndipo items zimakhala makhadi.",
+  "import-board-instruction-markdown": "Kumbirani mndandanda wa ntchito wa markdown (msinkhu umene zida za markdown-kanban monga Obsidian Kanban zimagwiritsa ntchito): mitu ya \"## Dzina la mndandanda\", ndi zinthu za \"- [ ]\"/\"- [x]\" pansi pake. Mitu imasanduka mindandanda ndipo zinthu zimasanduka makhadi.",
   "import-board-instruction-trello": "Pa bolodi lanu la Trello, pitani ku 'Menu', kenako 'More', 'Print and Export', 'Export JSON', ndipo koperani mawu omwe atuluka.",
   "import-board-instruction-csv": "Matani apa mitengo yolekanitsidwa ndi koma (CSV) / mitengo yolekanitsidwa ndi tabu (TSV).",
   "import-board-instruction-jira": "Matani JSON yochokera ku kusaka ma issue kwa Jira Cloud REST API (GET /rest/api/2/search), kapena chinthu chofanana cha { \"issues\": [...] }. Ma status a Jira amakhala mindandanda ndipo ma issue amakhala makhadi. Mungaphatikize mndandanda wa \"automationRules\" kuti mulowetse malamulo.",

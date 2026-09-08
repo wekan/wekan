@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "Paste a __sourceName__ issues JSON array (__endpoint__). Issues become makadhi grouped into vhura / Closed rondedzero.",
   "import-board-instruction-asana": "Paste an Asana tasks tumira kunze JSON ({ \"data\": [...] } kubva the Asana tumira kunze kana GET /tasks). Tasks vari grouped into sections (memberships); zvapedzwa tasks go ku Done.",
   "import-board-instruction-zenkit": "Paste a ZenKit rondedzero tumira kunze JSON ({ \"musoro\", \"stages\":[...], \"items\":[...] }). Stages become rondedzero uye items become makadhi.",
+  "import-board-instruction-markdown": "Namira runyorwa rwemabasa emarkdown (tsika inoshandiswa nemidziyo yemarkdown-kanban seObsidian Kanban): misoro ye\"## Zita rerunyorwa\", ine zvinhu \"- [ ]\"/\"- [x]\" pasi payo. Misoro inova runyorwa uye zvinhu zvinova makadhi.",
   "import-board-instruction-trello": "mu yako Trello bhodhi, go ku 'menyu', then 'zvimwe', 'Print uye tumira kunze', 'tumira kunze JSON', uye kopa the resulting mashoko.",
   "import-board-instruction-csv": "Paste mu yako Comma Separated Values(CSV)/ Tab Separated Values (TSV) .",
   "import-board-instruction-jira": "Paste the JSON kubva the Jira Cloud REST API issue tsvaga (GET /rest/api/2/tsvaga), kana an equivalent { \"issues\": [...] } object. Jira statuses become rondedzero uye issues become makadhi. Optionally include an \"automationRules\" array ku pinza rules.",

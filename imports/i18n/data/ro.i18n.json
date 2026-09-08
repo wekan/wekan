@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "Lipește un tablou JSON de probleme __sourceName__ (__endpoint__). Problemele devin carduri grupate în listele Deschise / Închise.",
   "import-board-instruction-asana": "Lipește un export JSON de sarcini Asana ({ \"data\": [...] } din exportul Asana sau GET /tasks). Sarcinile sunt grupate în secțiuni (apartenențe); sarcinile finalizate merg în Finalizate.",
   "import-board-instruction-zenkit": "Lipește un export JSON de listă ZenKit ({ \"title\", \"stages\":[...], \"items\":[...] }). Etapele devin liste, iar elementele devin carduri.",
+  "import-board-instruction-markdown": "Lipiți o listă de sarcini markdown (convenția folosită de instrumente markdown-kanban precum Obsidian Kanban): titluri \"## Numele listei\", cu elemente \"- [ ]\"/\"- [x]\" dedesubt. Titlurile devin liste, iar elementele devin carduri; o listă simplă cu marcatori fără casete de bifat este de asemenea importată, ca și carduri deschise.",
   "import-board-instruction-trello": "In your Trello board, go to 'Menu', then 'More', 'Print and Export', 'Export JSON', and copy the resulting text",
   "import-board-instruction-csv": "Incolla in Comma Separated Values (CSV) / Tab Separated Values (TSV) .",
   "import-board-instruction-jira": "Lipește JSON-ul din căutarea de probleme din API-ul REST Jira Cloud (GET /rest/api/2/search) sau un obiect echivalent { \"issues\": [...] }. Statusurile Jira devin liste, iar problemele devin carduri. Opțional, include un tablou „automationRules” pentru a importa reguli.",

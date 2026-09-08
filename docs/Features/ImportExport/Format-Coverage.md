@@ -49,6 +49,7 @@ code/API schema rather than old sample files:
 | CSV / TSV | RFC 4180 CSV and tab-delimited UTF-8 with a header row | Quoted separators/newlines/quotes, BOM, CRLF/LF, locale-independent ISO dates and every documented WeKan column/custom field |
 | XLSX | ECMA-376 workbook data consumed through the maintained ExcelJS fork | Multiple worksheets when documented, typed cells/dates, formulas as displayed values, custom-field columns and size/row/column bounds |
 | PDF / HTML / SVG | Export-only rendered views | Every selected visible section, Unicode, safe links/images, pagination and deterministic filenames; these are presentations, not lossless re-import formats |
+| Markdown task list | The convention markdown-kanban tools (e.g. Obsidian Kanban) use: `## List` headings, `- [ ]`/`- [x]` items | Headings as lists, checkbox state as a `done` tag, indented lines as description; a plain bulleted list with no checkboxes still imports as open cards |
 
 ## Loss accounting and extensions
 

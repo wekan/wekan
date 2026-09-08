@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "ఒక __sourceName__ issues JSON శ్రేణిని అతికించండి (__endpoint__). Issues Open / Closed జాబితాలుగా సమూహపరచబడిన కార్డులుగా మారతాయి.",
   "import-board-instruction-asana": "ఒక Asana tasks ఎగుమతి JSONను అతికించండి (Asana ఎగుమతి లేదా GET /tasks నుండి { \"data\": [...] }). టాస్క్‌లు విభాగాలుగా (memberships) సమూహపరచబడతాయి; పూర్తయిన టాస్క్‌లు Doneకి వెళ్తాయి.",
   "import-board-instruction-zenkit": "ఒక ZenKit జాబితా ఎగుమతి JSONను అతికించండి ({ \"title\", \"stages\":[...], \"items\":[...] }). Stages జాబితాలుగా మరియు items కార్డులుగా మారతాయి.",
+  "import-board-instruction-markdown": "markdown టాస్క్ జాబితాను పేస్ట్ చేయండి (Obsidian Kanban వంటి markdown-kanban సాధనాలు ఉపయోగించే సంప్రదాయం): \"## జాబితా పేరు\" శీర్షికలు, క్రింద \"- [ ]\"/\"- [x]\" అంశాలతో. శీర్షికలు జాబితాలుగా, అంశాలు కార్డులుగా మారతాయి; చెక్‌బాక్స్ లేని సాధారణ బుల్లెట్ జాబితా కూడా తెరిచిన కార్డులుగా దిగుమతి అవుతుంది.",
   "import-board-instruction-trello": "మీ ట్రెల్లో బోర్డ్‌లో, 'మెనూ'కి వెళ్లి, ఆపై 'మరిన్ని', 'ప్రింట్ మరియు ఎగుమతి', 'ఎగుమతి JSON'కి వెళ్లి, ఫలిత వచనాన్ని కాపీ చేయండి.",
   "import-board-instruction-csv": "మీ కామాతో వేరు చేయబడిన విలువలు(CSV)/ ట్యాబ్ వేరు చేయబడిన విలువలు (TSV)లో అతికించండి.",
   "import-board-instruction-jira": "Jira Cloud REST API issue శోధన (GET /rest/api/2/search) నుండి JSONను, లేదా సమానమైన { \"issues\": [...] } ఆబ్జెక్ట్‌ను అతికించండి. Jira స్థితులు జాబితాలుగా మరియు issues కార్డులుగా మారతాయి. నియమాలను దిగుమతి చేయడానికి ఐచ్ఛికంగా \"automationRules\" శ్రేణిని చేర్చండి.",

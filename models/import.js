@@ -65,7 +65,11 @@ Meteor.methods({
     // and an early throw before checking them replaces the intended error with
     // "Did not check() all arguments". These checks validate types only; no parser,
     // feature lookup, creator or write is reached before authentication.
-    check(board, Match.OneOf(Object, Array));
+    // String is accepted alongside Object/Array for markdown-kanban text
+    // imports (models/lib/externalParsers.js parseMarkdownKanban); the
+    // 'markdown' case below is the only one that lets a string through its
+    // own per-source check().
+    check(board, Match.OneOf(Object, Array, String));
     check(data, Object);
     check(importSource, String);
     check(currentBoard, Match.Maybe(String));
@@ -108,6 +112,13 @@ Meteor.methods({
           await parseXlsxToRows(importedBoard.excelBase64), 'excel-cells', this,
         );
         creator = new CsvCreator(data);
+        break;
+      case 'markdown':
+        // A markdown-kanban task list is plain text, not JSON - see
+        // parseMarkdownKanban in models/lib/externalParsers.js.
+        check(board, String);
+        importedBoard = EXTERNAL_PARSERS.markdown(board);
+        creator = new KanboardCreator(data);
         break;
       default:
         // NextCloud Deck / OpenProject / GitHub / GitLab / Gitea / Forgejo:

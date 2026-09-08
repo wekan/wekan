@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "Տեղադրեք __sourceName__ issues JSON զանգված (__endpoint__): Issue-ները դառնում են քարտեր՝ խմբավորված Open / Closed ցուցակների մեջ:",
   "import-board-instruction-asana": "Տեղադրեք Asana առաջադրանքների արտահանման JSON ({ \"data\": [...] } Asana արտահանումից կամ GET /tasks-ից): Առաջադրանքները խմբավորվում են բաժինների մեջ (memberships); ավարտված առաջադրանքները գնում են Done:",
   "import-board-instruction-zenkit": "Տեղադրեք ZenKit ցուցակի արտահանման JSON ({ \"title\", \"stages\":[...], \"items\":[...] }): Stage-երը դառնում են ցուցակներ, իսկ item-ները՝ քարտեր:",
+  "import-board-instruction-markdown": "Տեղադրեք markdown առաջադրանքների ցանկ (կոնվենցիա, որն օգտագործում են markdown-kanban գործիքները, օրինակ՝ Obsidian Kanban-ը)՝ \"## Ցանկի անուն\" վերնագրեր, ներքևում \"- [ ]\"/\"- [x]\" տարրերով։ Վերնագրերը դառնում են ցանկեր, իսկ տարրերը՝ քարտեր. վանդակների չունեցող պարզ կետավոր ցանկը նույնպես ներմուծվում է՝ որպես բաց քարտեր։",
   "import-board-instruction-trello": "Ձեր Trello տախտակում անցեք «Մենյու», ապա «Ավելին», «Տպել և արտահանել», «Արտահանել JSON» և պատճենեք ստացված տեքստը:",
   "import-board-instruction-csv": "Տեղադրեք ձեր ստորակետերով տարանջատված արժեքները (CSV)/ ներդիրներով առանձնացված արժեքներ (TSV):",
   "import-board-instruction-jira": "Տեղադրեք JSON-ը Jira Cloud REST API issue որոնումից (GET /rest/api/2/search) կամ համարժեք { \"issues\": [...] } օբյեկտ: Jira-ի կարգավիճակները դառնում են ցուցակներ, իսկ issue-ները՝ քարտեր: Ընտրովի ներառեք \"automationRules\" զանգված՝ կանոնները ներմուծելու համար:",

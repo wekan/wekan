@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "I-paste an __sourceName__ issues JSON array (__endpoint__). An mga issue magigin card nga gin-grupo ngadto ha Open / Closed nga lista.",
   "import-board-instruction-asana": "I-paste an Asana tasks export JSON ({ \"data\": [...] } tikang ha Asana export o GET /tasks). An mga task gin-grupo ngadto ha mga seksyon (memberships); an tapos na nga mga task ngadto ha Done.",
   "import-board-instruction-zenkit": "I-paste an ZenKit list export JSON ({ \"title\", \"stages\":[...], \"items\":[...] }). An mga stage magigin lista ngan an mga item magigin card.",
+  "import-board-instruction-markdown": "Aclawez ene djivêye di bouyes markdown (li convension ki les usteyes markdown-kanban come Obsidian Kanban eployèt): tites \"## No del djivêye\", avou des cayets \"- [ ]\"/\"- [x]\" pa dizo. Les tites divnèt des djivêyes eyet les cayets divnèt des cwaites.",
   "import-board-instruction-trello": "Ha imo Trello board, kadto ha 'Menu', tapos 'More', 'Print and Export', 'Export JSON', ngan kopyaha an resulta nga teksto.",
   "import-board-instruction-csv": "I-paste an imo Comma Separated Values(CSV)/ Tab Separated Values (TSV) .",
   "import-board-instruction-jira": "I-paste an JSON tikang ha Jira Cloud REST API issue search (GET /rest/api/2/search), o kaangay nga { \"issues\": [...] } object. An mga status han Jira magigin lista ngan an mga issue magigin card. Puydi mag-upod hin \"automationRules\" array basi ma-import an mga surundon.",

@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "ዝርዝር ጉዳያት __sourceName__ JSON (__endpoint__) ለጥፍ። ጉዳያት ኣብ ዝርዝራት ክፉት / ዕጹው ዝተመደቡ ካርድታት ይኾኑ።",
   "import-board-instruction-asana": "ምልኣኽ ዕዮታት Asana JSON ({ \"data\": [...] } ካብ ምልኣኽ Asana ወይ GET /tasks) ለጥፍ። ዕዮታት ኣብ ክፍልታት (memberships) ይምደቡ፤ ዝተወድኡ ዕዮታት ናብ ተወዲኡ ይኸዱ።",
   "import-board-instruction-zenkit": "ምልኣኽ ዝርዝር ZenKit JSON ({ \"title\", \"stages\":[...], \"items\":[...] }) ለጥፍ። Stages ዝርዝራት ይኾኑ፣ items ድማ ካርድታት ይኾኑ።",
+  "import-board-instruction-markdown": "ናይ markdown ዕዮ ዝርዝር ለጥፍ (ከም Obsidian Kanban ዝበሉ markdown-kanban መሳርሕታት ዝጥቀምዎ ልምዲ): \"## ስም ዝርዝር\" ርእሲ፣ ትሕቲ \"- [ ]\"/\"- [x]\" ነገራት። ርእሲታት ናብ ዝርዝር ይቕየሩ።",
   "import-board-instruction-trello": "ኣብ ሰሌዳ Trello፣ ናብ 'Menu'፣ ድሕሪኡ 'More'፣ 'Print and Export'፣ 'Export JSON' ኪድ፣ ነቲ ዝተፈጥረ ጽሑፍ ቅዳሕ።",
   "import-board-instruction-csv": "ብኮማ ዝተፈላለዩ ክብርታት (CSV)/ብታብ ዝተፈላለዩ ክብርታት (TSV) ኣብዚ ለጥፍ።",
   "import-board-instruction-jira": "JSON ካብ ምድላይ ጉዳይ Jira Cloud REST API (GET /rest/api/2/search)፣ ወይ ተመሳሳሊ { \"issues\": [...] } ነገር ለጥፍ። ኩነታት Jira ዝርዝራት ይኾኑ፣ ጉዳያት ድማ ካርድታት ይኾኑ። ደንብታት ንምእታው ብምርጫ \"automationRules\" ዝርዝር ኣካትት።",

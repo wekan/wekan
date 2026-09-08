@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "__sourceName__ 이슈 JSON 배열(__endpoint__)을 붙여넣으세요. 이슈는 카드가 되어 Open / Closed 목록으로 그룹화됩니다.",
   "import-board-instruction-asana": "Asana 태스크 내보내기 JSON(Asana 내보내기 또는 GET /tasks의 { \"data\": [...] })을 붙여넣으세요. 태스크는 섹션(memberships)으로 그룹화되며 완료된 태스크는 Done으로 이동합니다.",
   "import-board-instruction-zenkit": "ZenKit 목록 내보내기 JSON({ \"title\", \"stages\":[...], \"items\":[...] })을 붙여넣으세요. 스테이지는 목록이 되고 항목은 카드가 됩니다.",
+  "import-board-instruction-markdown": "markdown 작업 목록을 붙여넣으세요 (Obsidian Kanban과 같은 markdown-kanban 도구가 사용하는 규칙): 아래에 \"- [ ]\"/\"- [x]\" 항목이 있는 \"## 목록 이름\" 제목. 제목은 목록이 되고 항목은 카드가 됩니다. 체크박스가 없는 일반 글머리 기호 목록도 열린 카드로 가져옵니다.",
   "import-board-instruction-trello": "Trello 게시판에서 'Menu' -> 'More' -> 'Print and Export', 'Export JSON' 선택하여 텍스트 결과값 복사",
   "import-board-instruction-csv": "쉼표로 구분된 값(CSV)/탭으로 구분된 값(TSV) 븥여넣기.",
   "import-board-instruction-jira": "Jira Cloud REST API 이슈 검색(GET /rest/api/2/search)의 JSON 또는 동등한 { \"issues\": [...] } 객체를 붙여넣으세요. Jira 상태는 목록이 되고 이슈는 카드가 됩니다. 선택적으로 \"automationRules\" 배열을 포함하여 규칙을 가져올 수 있습니다.",

@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "__sourceName__ مسئلن جو JSON ارَي (__endpoint__) پيسٽ ڪريو. مسئلا Open / Closed فهرستن ۾ ورهايل ڪارڊ بڻبا.",
   "import-board-instruction-asana": "Asana ڪمن جو برآمد JSON (Asana برآمد يا GET /tasks مان { \"data\": [...] }) پيسٽ ڪريو. ڪم حصن (memberships) ۾ ورهائبا؛ مڪمل ڪم Done ڏانهن ويندا.",
   "import-board-instruction-zenkit": "ZenKit فهرست برآمد JSON ({ \"title\", \"stages\":[...], \"items\":[...] }) پيسٽ ڪريو. مرحلا فهرستون ۽ شيون ڪارڊ بڻبا.",
+  "import-board-instruction-markdown": "مارڪ ڊائون ٽاسڪ لسٽ پيسٽ ڪريو (اهو ريتِ رواج جيڪو مارڪ ڊائون-ڪانبان اوزار جهڙوڪ Obsidian Kanban استعمال ڪن ٿا): \"## لسٽ جو نالو\" هيڊنگ، هيٺ \"- [ ]\"/\"- [x]\" شين سان. هيڊنگ لسٽون بڻجي وڃن ٿيون ۽ شيون ڪارڊ بڻجي وڃن ٿيون.",
   "import-board-instruction-trello": "پنهنجي Trello بورڊ ۾ 'Menu'، پوءِ 'More'، 'Print and Export'، 'Export JSON' ڏانهن وڃو ۽ نتيجي وارو متن نقل ڪريو.",
   "import-board-instruction-csv": "پنهنجا ڪاما سان جدا قدر (CSV)/ ٽيب سان جدا قدر (TSV) پيسٽ ڪريو.",
   "import-board-instruction-jira": "Jira Cloud REST API مسئلو ڳولا (GET /rest/api/2/search) مان JSON، يا برابر { \"issues\": [...] } آبجڪٽ پيسٽ ڪريو. Jira حالتون فهرستون ۽ مسئلا ڪارڊ بڻبا. قاعدا درآمد ڪرڻ لاءِ اختياري \"automationRules\" ارَي شامل ڪريو.",

@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "د __sourceName__ ستونزو JSON لړۍ (__endpoint__) دلته ونښلوئ. ستونزې د Open / Closed په لړليکونو کې په کارتونو بدلېږي.",
   "import-board-instruction-asana": "د Asana دندو صادراتي JSON ({ \"data\": [...] } د Asana صادراتو يا GET /tasks څخه) دلته ونښلوئ. دندې په برخو (memberships) کې ډلې کېږي؛ بشپړې دندې Done ته ځي.",
   "import-board-instruction-zenkit": "د ZenKit لړليک صادراتي JSON ({ \"title\", \"stages\":[...], \"items\":[...] }) دلته ونښلوئ. پړاوونه په لړليکونو او توکي په کارتونو بدلېږي.",
+  "import-board-instruction-markdown": "د markdown دندو لیست پیسټ کړئ (هغه کنوانسیون چې د Obsidian Kanban په شان markdown-kanban وسیلې یې کاروي): \"## د لیست نوم\" سرلیکونه، لاندې \"- [ ]\"/\"- [x]\" توکو سره. سرلیکونه لیستونه کیږي او توکي کارتونه کیږي.",
   "import-board-instruction-trello": "په خپلې Trello تختې کې 'Menu' ته، بيا 'More'، 'Print and Export' او 'Export JSON' ته لاړ شئ او پايله شوی متن کاپي کړئ.",
   "import-board-instruction-csv": "خپل Comma Separated Values (CSV)/ Tab Separated Values (TSV) دلته ونښلوئ.",
   "import-board-instruction-jira": "د Jira Cloud REST API د ستونزو د لټون JSON (GET /rest/api/2/search)، يا برابر { \"issues\": [...] } څيز دلته ونښلوئ. د Jira حالتونه په لړليکونو او ستونزې په کارتونو بدلېږي. د قواعدو واردولو لپاره په اختياري ډول د \"automationRules\" لړۍ شامله کړئ.",

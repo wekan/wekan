@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "Gludwch arae JSON materion __sourceName__ (__endpoint__). Daw'r materion yn gardiau wedi'u grwpio'n rhestrau Ar Agor / Ar Gau.",
   "import-board-instruction-asana": "Gludwch JSON allforio tasgau Asana ({ \"data\": [...] } o allforiad Asana neu GET /tasks). Grwpir tasgau'n adrannau (aelodaethau); mae tasgau cyflawn yn mynd i Wedi Gorffen.",
   "import-board-instruction-zenkit": "Gludwch JSON allforio rhestr ZenKit ({ \"title\", \"stages\":[...], \"items\":[...] }). Daw'r camau'n rhestrau a'r eitemau'n gardiau.",
+  "import-board-instruction-markdown": "Gludwch restr dasgau markdown (y confensiwn y mae offer markdown-kanban fel Obsidian Kanban yn ei ddefnyddio): penawdau \"## Enw'r rhestr\", gyda eitemau \"- [ ]\"/\"- [x]\" oddi tanynt. Mae penawdau'n dod yn rhestrau ac eitemau'n dod yn gardiau; mae rhestr bwled blaen heb flychau ticio hefyd yn cael ei mewnforio, fel cardiau agored.",
   "import-board-instruction-trello": "Yn eich bwrdd Trello, ewch i 'Dewislen', yna 'Mwy', 'Argraffu ac Allforio', 'Allforio JSON', a chopïwch y testun canlyniadol.",
   "import-board-instruction-csv": "Gludwch eich Gwerthoedd Wedi'u Gwahanu gan Goma (CSV)/Gwerthoedd Wedi'u Gwahanu â Thabiau (TSV) i mewn .",
   "import-board-instruction-jira": "Gludwch y JSON o chwiliad materion API REST Jira Cloud (GET /rest/api/2/search), neu wrthrych cyfatebol { \"issues\": [...] }. Daw statwsau Jira'n rhestrau a materion yn gardiau. Yn ddewisol, cynhwyswch arae \"automationRules\" i fewnforio rheolau.",

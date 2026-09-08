@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "Tsɔ __sourceName__ ƒe kuxiwo ƒe JSON fli de afisia (__endpoint__). Kuxiwo atrɔ̃ azu kaɖiwo si woƒu ƒu ɖe Open / Closed xexlẽdzesiwo me.",
   "import-board-instruction-asana": "Tsɔ Asana dɔwo ƒe JSON si wotsɔ ɖe go de afisia ({ \"data\": [...] } tso Asana ƒe nuɖeɖego alo GET /tasks). Woƒu dɔwo ƒu ɖe akpa me (memberships); dɔ siwo wowu nu la yina Done.",
   "import-board-instruction-zenkit": "Tsɔ ZenKit ƒe xexlẽdzesi JSON si wotsɔ ɖe go de afisia ({ \"title\", \"stages\":[...], \"items\":[...] }). Stages atrɔ̃ azu xexlẽdzesiwo eye items atrɔ̃ azu kaɖiwo.",
+  "import-board-instruction-markdown": "Tsɔ markdown dɔwɔwɔ ƒe xexlẽme pepa ɖo (mɔ si markdown-kanban dɔwɔnu siwo abe Obsidian Kanban ene zãna): \"## List ƒe ŋkɔ\" tanya siwo, kple nu siwo nye \"- [ ]\"/\"- [x]\" le woƒe te. Tanya siwo trɔna zua lisiwo eye nu siwo trɔna zua kaatawo; bullet list tsɔtsɔ si mele checkbox aɖeke ŋu o hã ge ɖe eme, abe kaata ʋuʋu ene.",
   "import-board-instruction-trello": "Le wò Trello kpekpeɖeŋu me la, yi 'Menu', emegbe 'More', 'Print and Export', 'Export JSON', eye nàkɔ nuŋɔŋlɔ si va la.",
   "import-board-instruction-csv": "Tsɔ nusiwo woma kple koma (CSV)/ nusiwo woma kple tab (TSV) de afisia.",
   "import-board-instruction-jira": "Tsɔ JSON tso Jira Cloud REST API kuxi didi me de afisia (GET /rest/api/2/search), alo nu si sɔ kple { \"issues\": [...] }. Jira ƒe nɔnɔmewo atrɔ̃ azu xexlẽdzesiwo eye kuxiwo atrɔ̃ azu kaɖiwo. Àte ŋu atsɔ \"automationRules\" ƒe fli akpe ɖe eŋu be nàtsɔ sewo ava eme.",

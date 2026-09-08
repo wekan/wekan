@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "__sourceName__ གི་དཀའ་ངལ་ JSON རིམ་ཚན་ (__endpoint__) སྦྱར། དཀའ་ངལ་ཚུ་ཁ་ཕྱེ་ / ཁ་བསྡམ་ཐོ་ཡིག་ནང་སྡེ་ཚན་བཟོ་བའི་ཤོག་བྱང་འགྱོ་འོང་།",
   "import-board-instruction-asana": "Asana ལས་འགན་ཕྱིར་འདྲེན་ JSON སྦྱར་ ({ \"data\": [...] } Asana ཕྱིར་འདྲེན་ཡང་ན་ GET /tasks ལས་) ལས་འགན་ཚུ་དབྱེ་ཚན་ (memberships) ནང་སྡེ་ཚན་བཟོ་འོང་། མཇུག་བསྡུ་བའི་ལས་འགན་ཚུ་འགྲུབ་ལུ་འགྱོ་འོང་།",
   "import-board-instruction-zenkit": "ZenKit ཐོ་ཡིག་ཕྱིར་འདྲེན་ JSON སྦྱར་ ({ \"title\", \"stages\":[...], \"items\":[...] }). གནས་རིམ་ཚུ་ཐོ་ཡིག་དང་དོན་ཚན་ཚུ་ཤོག་བྱང་འགྱོ་འོང་།",
+  "import-board-instruction-markdown": "མར་ཀ་ཌའུན་ལཱ་གྱི་ཐོ་ཡིག་ཅིག་སྦྱར་གནང་ (Obsidian Kanban ཚུགཔ་སྦེ་ markdown-kanban ལག་ཆས་ཚུས་ལག་ལེན་འཐབ་མི་སྲོལ)： འོག་ལུ་ \"- [ ]\"/\"- [x]\" ཐངས་ཚུ་དང་གཅིག་ཁར་ \"## ཐོ་ཡིག་གི་མིང་\" མགོ་མིང་ཚུ།",
   "import-board-instruction-trello": "ཁྱོད་ཀྱི་ Trello བྱང་གཞི་ནང་ 'Menu', 'More', 'Print and Export', 'Export JSON' ལུ་འགྱོ་ཞིནམ་ལས་ཐོབ་པའི་ཚིག་ཡིག་འདྲ་བཤུས་འབད།",
   "import-board-instruction-csv": "Comma Separated Values (CSV)/Tab Separated Values (TSV) སྦྱར།",
   "import-board-instruction-jira": "Jira Cloud REST API དཀའ་ངལ་འཚོལ་ཞིབ་ལས་ JSON སྦྱར་ (GET /rest/api/2/search), ཡང་ན་འདྲ་མཉམ་ { \"issues\": [...] } དངོས་པོ། Jira གནས་སྟངས་ཚུ་ཐོ་ཡིག་དང་དཀའ་ངལ་ཚུ་ཤོག་བྱང་འགྱོ་འོང་། ལམ་ལུགས་ནང་འདྲེན་འབད་ནི་ལུ་ \"automationRules\" རིམ་ཚན་གདམ་ཁ་ཅན་སྦེ་བཙུགས་ཚུགས།",

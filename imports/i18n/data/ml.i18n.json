@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "__sourceName__ പ്രശ്നങ്ങളുടെ JSON അറേ (__endpoint__) ഒട്ടിക്കുക. പ്രശ്നങ്ങൾ Open / Closed പട്ടികകളായി തരംതിരിച്ച കാർഡുകളാകും.",
   "import-board-instruction-asana": "Asana ചുമതലകളുടെ കയറ്റുമതി JSON ഒട്ടിക്കുക (Asana കയറ്റുമതിയിൽ നിന്നോ GET /tasks-ൽ നിന്നോ ലഭിക്കുന്ന { \"data\": [...] }). ചുമതലകൾ വിഭാഗങ്ങളായി (memberships) തരംതിരിക്കും; പൂർത്തിയായ ചുമതലകൾ Done-ലേക്ക് പോകും.",
   "import-board-instruction-zenkit": "ZenKit പട്ടിക കയറ്റുമതി JSON ഒട്ടിക്കുക ({ \"title\", \"stages\":[...], \"items\":[...] }). ഘട്ടങ്ങൾ പട്ടികകളും ഇനങ്ങൾ കാർഡുകളും ആകും.",
+  "import-board-instruction-markdown": "ഒരു markdown ടാസ്ക് ലിസ്റ്റ് ഒട്ടിക്കുക (Obsidian Kanban പോലുള്ള markdown-kanban ടൂളുകൾ ഉപയോഗിക്കുന്ന കൺവെൻഷൻ): \"## ലിസ്റ്റ് പേര്\" തലക്കെട്ടുകൾ, താഴെ \"- [ ]\"/\"- [x]\" ഇനങ്ങളോടെ. തലക്കെട്ടുകൾ ലിസ്റ്റുകളും ഇനങ്ങൾ കാർഡുകളും ആയി മാറുന്നു; ചെക്ക്ബോക്സ് ഇല്ലാത്ത ലളിതമായ ബുള്ളറ്റ് ലിസ്റ്റും തുറന്ന കാർഡുകളായി ഇറക്കുമതി ചെയ്യപ്പെടും.",
   "import-board-instruction-trello": "നിങ്ങളുടെ Trello ബോർഡിൽ 'Menu', തുടർന്ന് 'More', 'Print and Export', 'Export JSON' എന്നിവയിലേക്ക് പോയി ലഭിക്കുന്ന ടെക്സ്റ്റ് പകർത്തുക.",
   "import-board-instruction-csv": "കോമയാൽ വേർതിരിച്ച മൂല്യങ്ങൾ (CSV) / ടാബിനാൽ വേർതിരിച്ച മൂല്യങ്ങൾ (TSV) ഇവിടെ ഒട്ടിക്കുക.",
   "import-board-instruction-jira": "Jira Cloud REST API പ്രശ്ന തിരയലിൽ നിന്നുള്ള JSON (GET /rest/api/2/search), അല്ലെങ്കിൽ സമാനമായ { \"issues\": [...] } ഒബ്ജക്റ്റ് ഒട്ടിക്കുക. Jira നിലകൾ പട്ടികകളും പ്രശ്നങ്ങൾ കാർഡുകളും ആകും. നിയമങ്ങൾ ഇറക്കുമതി ചെയ്യാൻ വേണമെങ്കിൽ \"automationRules\" അറേ ഉൾപ്പെടുത്തുക.",

@@ -221,6 +221,7 @@ const EXPORT_FORMAT_GROUPS = [
         ext: 'zip',
       },
       { key: 'kanboard', icon: 'fa-upload', label: 'Kanboard', path: 'export/kanboard', ext: 'json', scopes: BOARD_ONLY },
+      { key: 'markdown', icon: 'fa-file-text-o', label: 'Markdown', path: 'export/markdown', ext: 'md', scopes: BOARD_ONLY },
       ...[
         ['trello', 'Trello'], ['jira', 'Jira'], ['deck', 'NextCloud Deck'],
         ['openproject', 'OpenProject'], ['github', 'GitHub'], ['gitlab', 'GitLab'],

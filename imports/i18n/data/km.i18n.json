@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "បិទភ្ជាប់ __sourceName__ issues JSON array (__endpoint__)។ Issues ក្លាយជាកាតដែលដាក់ជាក្រុមក្នុងបញ្ជី Open / Closed។",
   "import-board-instruction-asana": "បិទភ្ជាប់ Asana tasks export JSON ({ \"data\": [...] } ពី Asana export ឬ GET /tasks)។ Tasks ត្រូវបានដាក់ជាក្រុមក្នុងផ្នែក (memberships)។ tasks ដែលបានបញ្ចប់ទៅ Done។",
   "import-board-instruction-zenkit": "បិទភ្ជាប់ ZenKit list export JSON ({ \"title\", \"stages\":[...], \"items\":[...] })។ Stages ក្លាយជាបញ្ជី ហើយ items ក្លាយជាកាត។",
+  "import-board-instruction-markdown": "បិទភ្ជាប់បញ្ជីកិច្ចការ markdown (ទំនៀមទម្លាប់ដែលឧបករណ៍ markdown-kanban ដូចជា Obsidian Kanban ប្រើ): ចំណងជើង \"## ឈ្មោះបញ្ជី\" ជាមួយធាតុ \"- [ ]\"/\"- [x]\" ខាងក្រោម។ ចំណងជើងក្លាយជាបញ្ជី ហើយធាតុក្លាយជាកាត; បញ្ជីចំណុចធម្មតាដោយគ្មានប្រអប់ធីកក៏នាំចូលដែរ ជាកាតបើកចំហ។",
   "import-board-instruction-trello": "នៅក្នុងបន្ទះ Trello របស់អ្នក សូមចូលទៅកាន់ 'Menu' បន្ទាប់មក 'More', 'Print and Export', 'Export JSON' ហើយចម្លងអត្ថបទលទ្ធផល។",
   "import-board-instruction-csv": "បិទភ្ជាប់ក្នុងតម្លៃបំបែកដោយសញ្ញាក្បៀស (CSV)/Tab Separated Values ​​(TSV) របស់អ្នក។",
   "import-board-instruction-jira": "បិទភ្ជាប់ JSON ពី Jira Cloud REST API issue search (GET /rest/api/2/search) ឬវត្ថុ { \"issues\": [...] } ដែលស្មើគ្នា។ Jira statuses ក្លាយជាបញ្ជី ហើយ issues ក្លាយជាកាត។ តាមជម្រើស អាចរួមបញ្ចូល \"automationRules\" array ដើម្បីនាំចូលច្បាប់។",

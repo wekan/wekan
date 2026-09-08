@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "Emboja __sourceName__ apañuãi JSON ysaja (__endpoint__). Apañuãikuéra oikóta kuatia'i oñemboja'óva ysaja Open / Closed-pe.",
   "import-board-instruction-asana": "Emboja Asana tembiapo jegueraha JSON ({ \"data\": [...] } Asana jeguerahágui térã GET /tasks). Tembiapokuéra oñemboaty vorekuérape (memberships); tembiapo opáva oho Done-pe.",
   "import-board-instruction-zenkit": "Emboja ZenKit ysaja jegueraha JSON ({ \"title\", \"stages\":[...], \"items\":[...] }). Stage-kuéra oikóta ysaja ha mba'ekuéra kuatia'i.",
+  "import-board-instruction-markdown": "Emoĩ peteĩ markdown tembiapo rysýi (Obsidian Kanban ojoguáva markdown-kanban tembiporu oiporúva convención): \"## Rysýi réra\" ryapu, \"- [ ]\"/\"- [x]\" mba'ekuéra iguýpe. Ryapu kuéra ohóta rysýirã ha mba'ekuéra ohóta kuatiarã; rysýi mbojoja hasyʼỹva checkbox'ỹre avei ojehepyme'ẽ, kuatia ijurupe.",
   "import-board-instruction-trello": "Ne Trello peteĩchápe, tereho 'Menu'-pe, upéi 'More', 'Print and Export', 'Export JSON', ha emonguatia moñe'ẽrã osẽva.",
   "import-board-instruction-csv": "Emboja ne CSV (mba'ekuéra kytĩmbýva reheve)/TSV (mba'ekuéra tab reheve).",
   "import-board-instruction-jira": "Emboja JSON Jira Cloud REST API apañuãi jehekágui (GET /rest/api/2/search), térã peteĩ mba'e joja { \"issues\": [...] }. Jira rekokuéra oikóta ysaja ha apañuãikuéra kuatia'i. Ikatu avei emoinge peteĩ \"automationRules\" ysaja egueru hag̃ua mbojojaha.",

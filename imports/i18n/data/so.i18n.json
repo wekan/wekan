@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "Ku dheji safka JSON ee arrimaha __sourceName__ (__endpoint__). Arrimuhu waxay noqdaan kaarar loo ururiyay liisaska Open / Closed.",
   "import-board-instruction-asana": "Ku dheji dhoofinta hawlaha Asana ee JSON ({ \"data\": [...] } oo ka timid dhoofinta Asana ama GET /tasks). Hawlaha waxaa loo ururiyaa qaybo (memberships); hawlaha dhammaystiran waxay tagaan Done.",
   "import-board-instruction-zenkit": "Ku dheji dhoofinta liiska ZenKit ee JSON ({ \"title\", \"stages\":[...], \"items\":[...] }). Stages waxay noqdaan liisas, items-na waxay noqdaan kaarar.",
+  "import-board-instruction-markdown": "Ku dheji liiska hawlaha markdown (heshiiska ay isticmaalaan qalabka markdown-kanban sida Obsidian Kanban): cinwaanka \"## Magaca liiska\", oo leh walxo \"- [ ]\"/\"- [x]\" hoosta ka yaal. Cinwaannadu waxay noqdaan liisas walxuhuna waxay noqdaan kaararka.",
   "import-board-instruction-trello": "Sabuuraddaada Trello, aad 'Menu', dabadeed 'More', 'Print and Export', 'Export JSON', ka dibna koobi qoraalka soo baxa.",
   "import-board-instruction-csv": "Ku dheji Qiimayaasha Hakadka Lagu Kala Saaray (CSV)/ Qiimayaasha Tab Lagu Kala Saaray (TSV).",
   "import-board-instruction-jira": "Ku dheji JSON-ka raadinta arrimaha Jira Cloud REST API (GET /rest/api/2/search), ama walax u dhiganta { \"issues\": [...] }. Heerarka Jira waxay noqdaan liisas, arrimuhuna waxay noqdaan kaarar. Ikhtiyaar ahaan ku dar saf \"automationRules\" si aad xeerar u soo dejiso.",

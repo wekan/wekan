@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "الصق مصفوفة JSON لمشكلات __sourceName__ (__endpoint__). تصبح المشكلات بطاقات مجمّعة في قوائم مفتوحة / مغلقة.",
   "import-board-instruction-asana": "الصق ملف JSON لتصدير مهام Asana ({ \"data\": [...] } من تصدير Asana أو GET /tasks). تُجمّع المهام في أقسام (memberships)؛ وتنتقل المهام المكتملة إلى \"تم\".",
   "import-board-instruction-zenkit": "الصق ملف JSON لتصدير قائمة ZenKit ({ \"title\", \"stages\":[...], \"items\":[...] }). تصبح المراحل قوائم وتصبح العناصر بطاقات.",
+  "import-board-instruction-markdown": "Sers tabdart n twuriwin s markdown (tanila i seqdacen ifecka n markdown-kanban am Obsidian Kanban): iɣwan \"## Isem n tebdart\", s iferdisen \"- [ ]\"/\"- [x]\" ddaw-s. Iɣwan ad ttuɣalen d tibdarin, iferdisen ad ttuɣalen d tikarḍiwin.",
   "import-board-instruction-trello": "In your Trello board, go to 'Menu', then 'More', 'Print and Export', 'Export JSON', and copy the resulting text",
   "import-board-instruction-csv": "مقادیر جداشده با کاما (CSV)/مقادیر جداشده با تبِ (TSV) خود را پیست کنید.",
   "import-board-instruction-jira": "الصق ملف JSON من بحث المشكلات في Jira Cloud REST API (GET /rest/api/2/search)، أو كائن مكافئ { \"issues\": [...] }. تصبح حالات Jira قوائم وتصبح المشكلات بطاقات. يمكنك اختيارياً تضمين مصفوفة \"automationRules\" لاستيراد القواعد.",

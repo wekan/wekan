@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "ਇੱਕ __sourceName__ issues JSON ਐਰੇ ਪੇਸਟ ਕਰੋ (__endpoint__)। Issues ਕਾਰਡ ਬਣ ਕੇ Open / Closed ਸੂਚੀਆਂ ਵਿੱਚ ਵੰਡੇ ਜਾਂਦੇ ਹਨ।",
   "import-board-instruction-asana": "ਇੱਕ Asana tasks ਨਿਰਯਾਤ JSON ਪੇਸਟ ਕਰੋ (Asana ਨਿਰਯਾਤ ਜਾਂ GET /tasks ਤੋਂ { \"data\": [...] })। Tasks ਸੈਕਸ਼ਨਾਂ (memberships) ਵਿੱਚ ਵੰਡੇ ਜਾਂਦੇ ਹਨ; ਮੁਕੰਮਲ ਹੋਏ tasks Done ਵਿੱਚ ਜਾਂਦੇ ਹਨ।",
   "import-board-instruction-zenkit": "ਇੱਕ ZenKit ਸੂਚੀ ਨਿਰਯਾਤ JSON ਪੇਸਟ ਕਰੋ ({ \"title\", \"stages\":[...], \"items\":[...] })। Stages ਸੂਚੀਆਂ ਬਣ ਜਾਂਦੇ ਹਨ ਅਤੇ items ਕਾਰਡ ਬਣ ਜਾਂਦੇ ਹਨ।",
+  "import-board-instruction-markdown": "ਇੱਕ markdown ਟਾਸਕ ਸੂਚੀ ਪੇਸਟ ਕਰੋ (Obsidian Kanban ਵਰਗੇ markdown-kanban ਟੂਲ ਵਰਤਦੇ ਹਨ ਇਹ ਪਰੰਪਰਾ): \"## ਸੂਚੀ ਦਾ ਨਾਮ\" ਸਿਰਲੇਖ, ਹੇਠਾਂ \"- [ ]\"/\"- [x]\" ਆਈਟਮਾਂ ਨਾਲ। ਸਿਰਲੇਖ ਸੂਚੀਆਂ ਬਣ ਜਾਂਦੇ ਹਨ ਅਤੇ ਆਈਟਮਾਂ ਕਾਰਡ ਬਣ ਜਾਂਦੀਆਂ ਹਨ; ਬਿਨਾਂ ਚੈੱਕਬਾਕਸ ਵਾਲੀ ਸਧਾਰਨ ਬੁਲੇਟ ਸੂਚੀ ਵੀ ਖੁੱਲ੍ਹੇ ਕਾਰਡਾਂ ਵਜੋਂ ਆਯਾਤ ਹੁੰਦੀ ਹੈ।",
   "import-board-instruction-trello": "ਆਪਣੇ ਟ੍ਰੇਲੋ ਬੋਰਡ ਵਿੱਚ, 'ਮੇਨੂ' 'ਤੇ ਜਾਓ, ਫਿਰ 'ਹੋਰ', 'ਪ੍ਰਿੰਟ ਅਤੇ ਐਕਸਪੋਰਟ', 'ਜੇਐਸਓਐਨ ਐਕਸਪੋਰਟ ਕਰੋ', ਅਤੇ ਨਤੀਜੇ ਵਾਲੇ ਟੈਕਸਟ ਨੂੰ ਕਾਪੀ ਕਰੋ।",
   "import-board-instruction-csv": "ਆਪਣੇ ਕਾਮੇ ਤੋਂ ਵੱਖਰੇ ਮੁੱਲ (CSV)/ ਟੈਬ ਵੱਖਰੇ ਮੁੱਲ (TSV) ਵਿੱਚ ਪੇਸਟ ਕਰੋ।",
   "import-board-instruction-jira": "Jira Cloud REST API issue search (GET /rest/api/2/search) ਤੋਂ JSON ਪੇਸਟ ਕਰੋ, ਜਾਂ ਇੱਕ ਸਮਾਨ { \"issues\": [...] } ਆਬਜੈਕਟ। Jira statuses ਸੂਚੀਆਂ ਬਣ ਜਾਂਦੇ ਹਨ ਅਤੇ issues ਕਾਰਡ ਬਣ ਜਾਂਦੇ ਹਨ। ਵਿਕਲਪਿਕ ਤੌਰ 'ਤੇ ਨਿਯਮ ਆਯਾਤ ਕਰਨ ਲਈ ਇੱਕ \"automationRules\" ਐਰੇ ਸ਼ਾਮਲ ਕਰੋ।",

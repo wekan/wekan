@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "Namathisela uhlu lwe-JSON lwezinkinga ze-__sourceName__ (__endpoint__). Izinkinga ziba ngamakhadi ahlelwe kuzinhlu Ezivuliweyo / Ezivaliweyo.",
   "import-board-instruction-asana": "Namathisela i-JSON ekhishwe emisebenzini ye-Asana ({ \"data\": [...] } evela ekukhitshweni kwe-Asana loba GET /tasks). Imisebenzi ihlelwa ngezigaba (memberships); eqediweyo iya ku-Qediwe.",
   "import-board-instruction-zenkit": "Namathisela i-JSON ekhishwe kuluhlu lwe-ZenKit ({ \"title\", \"stages\":[...], \"items\":[...] }). Izigaba ziba yizinhlu, izinto zibe ngamakhadi.",
+  "import-board-instruction-markdown": "Namathisela uhlu lwemisebenzi lwe-markdown (indlela ezisetshenziswa amathulusi e-markdown-kanban afana ne-Obsidian Kanban): izihloko ze \"## Ibizo lohlu\", nezinto ze \"- [ ]\"/\"- [x]\" ngaphansi. Izihloko ziba luhlu bese izinto ziba amakhadi.",
   "import-board-instruction-trello": "Ebhodini lakho le-Trello, yana ku-'Menu', bese ku-'More', 'Print and Export', 'Export JSON', ukophele umbhalo ophumayo.",
   "import-board-instruction-csv": "Namathisela amanani ahlukaniswe ngamakhoma (CSV) / amanani ahlukaniswe ngamathebhu (TSV).",
   "import-board-instruction-jira": "Namathisela i-JSON evela ekusesheni izinkinga kwe-Jira Cloud REST API (GET /rest/api/2/search), loba into efanayo { \"issues\": [...] }. Izimo ze-Jira ziba yizinhlu, izinkinga zibe ngamakhadi. Ungafaka ngokuzikhethela uhlu lwe-\"automationRules\" ukungenisa imithetho.",

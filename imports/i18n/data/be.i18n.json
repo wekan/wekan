@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "Устаўце масіў JSON праблем __sourceName__ (__endpoint__). Праблемы становяцца карткамі, згрупаванымі ў спісы Адкрытыя / Закрытыя.",
   "import-board-instruction-asana": "Устаўце JSON-экспарт задач Asana ({ \"data\": [...] } з экспарту Asana або GET /tasks). Задачы групуюцца ў раздзелы (memberships); завершаныя задачы трапляюць у Гатова.",
   "import-board-instruction-zenkit": "Устаўце JSON-экспарт спіса ZenKit ({ \"title\", \"stages\":[...], \"items\":[...] }). Этапы становяцца спісамі, а элементы — карткамі.",
+  "import-board-instruction-markdown": "Устаўце markdown-спіс задач (канвенцыя, якую выкарыстоўваюць markdown-kanban інструменты, напрыклад Obsidian Kanban): загалоўкі \"## Назва спіса\", з элементамі \"- [ ]\"/\"- [x]\" пад імі. Загалоўкі становяцца спісамі, а элементы — карткамі; просты пункцёрны спіс без сцяжкоў таксама імпартуецца, як адкрытыя карткі.",
   "import-board-instruction-trello": "На вашай дошцы Trello перайдзіце ў «Menu», затым «More», «Print and Export», «Export JSON» і скапіруйце атрыманы тэкст.",
   "import-board-instruction-csv": "Устаўце свае значэнні, падзеленыя коскамі (CSV)/значэнні, падзеленыя табуляцыяй (TSV).",
   "import-board-instruction-jira": "Устаўце JSON з пошуку праблем Jira Cloud REST API (GET /rest/api/2/search) або эквівалентны аб'ект { \"issues\": [...] }. Статусы Jira становяцца спісамі, а праблемы — карткамі. Пры жаданні ўключыце масіў \"automationRules\", каб імпартаваць правілы.",

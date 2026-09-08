@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "Algluu __sourceName__-problemojn kiel JSON-tabelon (__endpoint__). Problemoj iĝas kartoj grupigitaj en listojn Malfermitaj / Fermitaj.",
   "import-board-instruction-asana": "Algluu Asana-taskan eksportan JSON ({ \"data\": [...] } el la Asana-eksporto aŭ GET /tasks). Taskoj estas grupigitaj en sekciojn (membrecoj); plenumitaj taskoj iras al Farite.",
   "import-board-instruction-zenkit": "Algluu ZenKit-listan eksportan JSON ({ \"title\", \"stages\":[...], \"items\":[...] }). Stadioj iĝas listoj kaj eroj iĝas kartoj.",
+  "import-board-instruction-markdown": "Algluu markdown-an taskoliston (la konvencio kiun uzas markdown-kanbanaj iloj kiel Obsidian Kanban): titoloj \"## Listnomo\", kun eroj \"- [ ]\"/\"- [x]\" sube. Titoloj fariĝas listoj kaj eroj fariĝas kartoj; simpla punktolisto sen kontrolkestoj ankaŭ importiĝas, kiel malfermitaj kartoj.",
   "import-board-instruction-trello": "En tu tablero de Trello, ve a 'Menú', luego 'Más' > 'Imprimir y exportar' > 'Exportar JSON', y copia el texto resultante.",
   "import-board-instruction-csv": "Pegue en sus Valores separados por coma(CSV)/Valores separados por tab(TSV).",
   "import-board-instruction-jira": "Algluu la JSON el la Jira Cloud REST API-problemserĉo (GET /rest/api/2/search), aŭ ekvivalentan objekton { \"issues\": [...] }. Jira-statusoj iĝas listoj kaj problemoj iĝas kartoj. Laŭvole inkluzivu tabelon \"automationRules\" por importi regulojn.",

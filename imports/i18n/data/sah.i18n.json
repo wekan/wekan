@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "__sourceName__ issues JSON эрээйин ук (__endpoint__). Issues Open / Closed испииһэктэргэ бөлөхтөнөн карточка буолаллар.",
   "import-board-instruction-asana": "Asana сорудахтарын таһаарыытын JSON-ын ук ({ \"data\": [...] } Asana таһаарыытыттан эбэтэр GET /tasks). Сорудахтар сиэксийэлэринэн (memberships) бөлөхтөнөллөр; бүтэриллибит сорудахтар Done манна бараллар.",
   "import-board-instruction-zenkit": "ZenKit испииһэгин таһаарыытын JSON-ын ук ({ \"title\", \"stages\":[...], \"items\":[...] }). Түһүмэхтэр испииһэк, пууннар карточка буолаллар.",
+  "import-board-instruction-markdown": "Markdown соруктар испииһэгин чапчаппыт (Obsidian Kanban курдук markdown-kanban айахтара туттар түбэлтэ): аллара \"- [ ]\"/\"- [x]\" тэрилтэлэрдээх \"## Испиис аата\" caha caalыгар.",
   "import-board-instruction-trello": "Trello дуоскаҕар 'Menu', онтон 'More', 'Print and Export', 'Export JSON' диэҥҥэ киирэн, тахсыбыт тиэкиһи төгүллээ.",
   "import-board-instruction-csv": "Comma Separated Values (CSV) / Tab Separated Values (TSV) дааннайыны ук.",
   "import-board-instruction-jira": "Jira Cloud REST API issue көрдүүр JSON-ын ук (GET /rest/api/2/search), эбэтэр тэҥ { \"issues\": [...] } обьуоһу. Jira туруктара испииһэк, issues карточка буолаллар. Быраабылалары киллэрэргэ \"automationRules\" эрээйин эбиэххин сөп.",

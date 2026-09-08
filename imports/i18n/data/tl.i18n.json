@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "I-paste a __sourceName__ issues JSON array (__endpoint__). Issues become kards grouped papunta sa Buksan / Sarado listahans.",
   "import-board-instruction-asana": "I-paste an Asana tasks i-export JSON ({ \"data\": [...] } mula sa the Asana i-export o GET /tasks). Tasks ay grouped papunta sa sections (miyembroships); nakumpleto tasks go sa Done.",
   "import-board-instruction-zenkit": "I-paste a ZenKit listahan i-export JSON ({ \"pamagat\", \"stages\":[...], \"items\":[...] }). Stages become listahans at items become kards.",
+  "import-board-instruction-markdown": "I-paste ang isang markdown task list (ang kombensiyon na ginagamit ng mga markdown-kanban tool tulad ng Obsidian Kanban): mga heading na \"## Pangalan ng listahan\", na may mga item na \"- [ ]\"/\"- [x]\" sa ilalim. Ang mga heading ay nagiging listahan at ang mga item ay nagiging cards; ang isang simpleng bulleted list na walang checkbox ay ie-import din, bilang open cards.",
   "import-board-instruction-trello": "Sa iyong Trello pisara, go sa 'Talaan', then 'Higit pa', 'Print at I-export', 'I-export JSON', at kopyahin the resulting teksto.",
   "import-board-instruction-csv": "I-paste sa iyong Comma Separated Values(CSV)/ Tab Separated Values (TSV) .",
   "import-board-instruction-jira": "I-paste the JSON mula sa the Jira Cloud REST API issue maghanap (GET /rest/api/2/maghanap), o an equivalent { \"issues\": [...] } object. Jira statuses become listahans at issues become kards. Optionally include an \"automationRules\" array sa i-import mga tuntunin.",

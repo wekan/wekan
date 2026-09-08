@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "__sourceName__ issues JSON એરે પેસ્ટ કરો (__endpoint__). Issues કાર્ડ બને છે અને Open / Closed યાદીઓમાં જૂથબદ્ધ થાય છે.",
   "import-board-instruction-asana": "Asana tasks નિકાસ JSON પેસ્ટ કરો (Asana નિકાસ અથવા GET /tasks માંથી { \"data\": [...] }). Tasks વિભાગોમાં (memberships) જૂથબદ્ધ થાય છે; પૂર્ણ થયેલા tasks Done માં જાય છે.",
   "import-board-instruction-zenkit": "ZenKit list નિકાસ JSON પેસ્ટ કરો ({ \"title\", \"stages\":[...], \"items\":[...] }). Stages યાદીઓ બને છે અને items કાર્ડ બને છે.",
+  "import-board-instruction-markdown": "માર્કડાઉન કાર્ય સૂચિ પેસ્ટ કરો (Obsidian Kanban જેવા markdown-kanban સાધનો ઉપયોગ કરે છે તે સંમેલન): \"## સૂચિનું નામ\" મથાળાં, નીચે \"- [ ]\"/\"- [x]\" આઇટમ સાથે. મથાળાં સૂચિ બની જાય છે અને આઇટમ કાર્ડ બની જાય છે; ચેકબોક્સ વગરની સાદી બુલેટ સૂચિ પણ ખુલ્લા કાર્ડ તરીકે આયાત થાય છે.",
   "import-board-instruction-trello": "તમારા ટ્રેલો બોર્ડમાં, 'મેનુ' પર જાઓ, પછી 'વધુ', 'પ્રિન્ટ અને એક્સપોર્ટ', 'જેએસઓએન નિકાસ કરો', અને પરિણામી ટેક્સ્ટની નકલ કરો.",
   "import-board-instruction-csv": "તમારા અલ્પવિરામથી વિભાજિત મૂલ્યો(CSV)/ ટૅબ વિભાજિત મૂલ્યો (TSV) માં પેસ્ટ કરો.",
   "import-board-instruction-jira": "Jira Cloud REST API issue search (GET /rest/api/2/search) માંથી JSON પેસ્ટ કરો, અથવા સમકક્ષ { \"issues\": [...] } ઑબ્જેક્ટ. Jira statuses યાદીઓ બને છે અને issues કાર્ડ બને છે. વૈકલ્પિક રીતે નિયમો આયાત કરવા \"automationRules\" એરે સામેલ કરો.",

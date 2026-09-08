@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "Lẹẹmọ akojọ __sourceName__ issues JSON (__endpoint__). Awọn ọran di awọn kaadi ti a ṣajọpọ sinu awọn atokọ Ṣíṣí / Títí.",
   "import-board-instruction-asana": "Lẹẹmọ Asana tasks export JSON ({ \"data\": [...] } lati Asana export tabi GET /tasks). A ṣajọpọ awọn iṣẹ-ṣiṣe sinu awọn apakan (awọn ọmọ ẹgbẹ); awọn iṣẹ-ṣiṣe ti a pari lọ si Done.",
   "import-board-instruction-zenkit": "Lẹẹmọ ZenKit list export JSON ({ \"title\", \"stages\":[...], \"items\":[...] }). Awọn ipele di awọn atokọ ati awọn nkan di awọn kaadi.",
+  "import-board-instruction-markdown": "Lẹ̀ àkọsílẹ̀ iṣẹ́ markdown kan (àṣà tí àwọn irinṣẹ́ markdown-kanban bí Obsidian Kanban ń lò): àwọn àkọlé \"## Orúkọ àkọsílẹ̀\", pẹ̀lú àwọn nǹkan \"- [ ]\"/\"- [x]\" ní ìsàlẹ̀. Àwọn àkọlé máa di àkọsílẹ̀ tí àwọn nǹkan yóò sì di kaadi.",
   "import-board-instruction-trello": "Ninu igbimọ Trello rẹ, lọ si 'Akojọ aṣyn', lẹhinna 'Die sii', 'Tẹjade ati Si ilẹ okeere', 'Jade okeere', ki o daakọ ọrọ ti o yọrisi.",
   "import-board-instruction-csv": "Lẹẹmọ sinu Awọn iye Iyasọtọ Koma (CSV)/ Awọn iye Iyasọtọ Taabu (TSV) .",
   "import-board-instruction-jira": "Lẹẹmọ JSON lati Jira Cloud REST API issue search (GET /rest/api/2/search), tabi ohun kan { \"issues\": [...] } ti o dọgba. Awọn ipo Jira di awọn atokọ ati awọn ọran di awọn kaadi. Ni yiyan fi akojọ \"automationRules\" kun lati gbe awọn ofin wọle.",

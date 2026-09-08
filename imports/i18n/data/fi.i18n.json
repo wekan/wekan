@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "Liitä __sourceName__-ongelmien JSON-taulukko (__endpoint__). Ongelmista tulee kortteja, jotka ryhmitellään Open / Closed -listoihin.",
   "import-board-instruction-asana": "Liitä Asana-tehtävien vienti-JSON ({ \"data\": [...] } Asana-viennistä tai GET /tasks -kutsusta). Tehtävät ryhmitellään osioihin (memberships); valmiit tehtävät menevät Done-listaan.",
   "import-board-instruction-zenkit": "Liitä ZenKit-listan vienti-JSON ({ \"title\", \"stages\":[...], \"items\":[...] }). Vaiheista tulee listoja ja kohteista kortteja.",
+  "import-board-instruction-markdown": "Liitä markdown-tehtävälista (käytäntö, jota markdown-kanban-työkalut kuten Obsidian Kanban käyttävät): \"## Listan nimi\" -otsikot, joiden alla \"- [ ]\"/\"- [x]\" -kohdat. Otsikoista tulee listoja ja kohdista kortteja; myös tavallinen luettelomerkillinen lista ilman valintaruutuja tuodaan, avoimina kortteina.",
   "import-board-instruction-trello": "Mene Trello-taulullasi 'Menu', sitten 'More', 'Print and Export', 'Export JSON', ja kopioi tuloksena saamasi teksti",
   "import-board-instruction-csv": "Liitä pilkulla erotellut arvot (CSV)/ tabilla erotetut arvot (TSV).",
   "import-board-instruction-jira": "Liitä JSON Jira Cloud REST API:n issue-hausta (GET /rest/api/2/search) tai vastaava { \"issues\": [...] } -objekti. Jira-tiloista tulee listoja ja issueista kortteja. Voit halutessasi lisätä \"automationRules\"-taulukon sääntöjen tuontia varten.",

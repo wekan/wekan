@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "__sourceName__ issues JSON ماسیوینی جایلشتیرینگ (__endpoint__). Issues کارتلرگه آیلنیب، Open / Closed رۉیختلریگه گوروهلنادی.",
   "import-board-instruction-asana": "Asana tasks اکسپورت JSON نی جایلشتیرینگ (Asana اکسپورتیدن { \"data\": [...] } یا GET /tasks). Tasks بۉلیملرگه (memberships) گوروهلنادی؛ تاماملنگن tasks Done گه اۉتادی.",
   "import-board-instruction-zenkit": "ZenKit رۉیخت اکسپورت JSON نی جایلشتیرینگ ({ \"title\", \"stages\":[...], \"items\":[...] }). Stages رۉیختلرگه و items کارتلرگه آیلنادی.",
+  "import-board-instruction-markdown": "Markdown vazifalar ro'yxatini joylashtiring (Obsidian Kanban kabi markdown-kanban vositalari foydalanadigan konventsiya): ostida \"- [ ]\"/\"- [x]\" elementlari bo'lgan \"## Ro'yxat nomi\" sarlavhalari. Sarlavhalar ro'yxatlarga, elementlar esa kartochkalarga aylanadi.",
   "import-board-instruction-trello": "Trello taxtasida \"Menyu\", so'ng \"Ko'proq\", \"Chop etish va eksport qilish\", \"JSONni eksport qilish\" bo'limlariga o'ting va natijada olingan matndan nusxa oling.",
   "import-board-instruction-csv": "Vergul bilan ajratilgan qiymatlar (CSV)/ Varaq bilan ajratilgan qiymatlar (TSV) ga joylashtiring.",
   "import-board-instruction-jira": "Jira Cloud REST API issue search (GET /rest/api/2/search) دن JSON نی، یا شونگه اۉخشش { \"issues\": [...] } آبیکتینی جایلشتیرینگ. Jira statuses رۉیختلرگه و issues کارتلرگه آیلنادی. اختیاری راویشده قایدهلرنی ایمپورت قیلیش اوچون \"automationRules\" ماسیوینی قۉشینگ.",

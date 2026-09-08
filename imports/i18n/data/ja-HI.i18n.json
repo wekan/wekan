@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "__sourceName__ の issues JSON 配列(__endpoint__)を貼り付けてください。Issue は Open / Closed リストにグループ化されたカードになります。",
   "import-board-instruction-asana": "Asana のタスクエクスポート JSON(Asana エクスポートまたは GET /tasks からの { \"data\": [...] })を貼り付けてください。タスクはセクション(memberships)ごとにグループ化され、完了したタスクは Done に移動します。",
   "import-board-instruction-zenkit": "ZenKit のリストエクスポート JSON({ \"title\", \"stages\":[...], \"items\":[...] })を貼り付けてください。ステージはリストに、アイテムはカードになります。",
+  "import-board-instruction-markdown": "markdown 形式のタスクリストを貼り付けます（Obsidian Kanban のような markdown-kanban ツールが使う規約）：「## リスト名」の見出しと、その下の「- [ ]」/「- [x]」の項目。見出しはリストになり、項目はカードになります。チェックボックスのない単純な箇条書きリストも、オープンなカードとしてインポートされます。",
   "import-board-instruction-trello": "Trelloボードの、 'Menu' → 'More' → 'Print and Export' → 'Export JSON'を選択し、テキストをコピーしてください。",
   "import-board-instruction-csv": "カンマ区切り（CSV） / タブ区切り（TSV） ファイルに貼り付けてください。",
   "import-board-instruction-jira": "Jira Cloud REST API の issue 検索(GET /rest/api/2/search)の JSON、または同等の { \"issues\": [...] } オブジェクトを貼り付けてください。Jira のステータスはリストに、Issue はカードになります。任意で「automationRules」配列を含めるとルールもインポートされます。",

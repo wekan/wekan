@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "Xicpepecho ce __sourceName__ ahcuallotl JSON tlatecpanalli (__endpoint__). Ahcuallotin mocuepah amatlapaltin tlatecpanaltin ipan Open / Closed tocatlahtoltin.",
   "import-board-instruction-asana": "Xicpepecho ce Asana tequitl tlaquixtilli JSON ({ \"data\": [...] } itech Asana tlaquixtilli noso GET /tasks). Tequitl monechicoa ipan secciones (memberships); tequitl tlamic yauh Done.",
   "import-board-instruction-zenkit": "Xicpepecho ce ZenKit tocatlahtolli tlaquixtilli JSON ({ \"title\", \"stages\":[...], \"items\":[...] }). Stages mocuepah tocatlahtoltin ihuan items mocuepah amatlapaltin.",
+  "import-board-instruction-markdown": "Xitlali ce markdown tequitl tlanechicolli (in nescayotl tlen tequitl markdown-kanban iuhqui Obsidian Kanban quitequitiltia): \"## Tlanechicolli itoca\" tlahtolpani, ihuan \"- [ ]\"/\"- [x]\" tlamantli tlatzintlan. Tlahtolpani mocuepa tlanechicolli ihuan tlamantli mocuepa amamachiotl.",
   "import-board-instruction-trello": "Ipan moTrello huapalli, xiyauh 'Menu', niman 'More', 'Print and Export', 'Export JSON', ihuan xiccopina tlahtolli monextic.",
   "import-board-instruction-csv": "Xicpepecho moComma Separated Values (CSV) / Tab Separated Values (TSV).",
   "import-board-instruction-jira": "Xicpepecho JSON itech Jira Cloud REST API ahcuallotl temoliztli (GET /rest/api/2/search), noso ce namictih { \"issues\": [...] } tlamantli. Jira statuses mocuepah tocatlahtoltin ihuan issues mocuepah amatlapaltin. Huel ticaquitis ce \"automationRules\" tlatecpanalli inic tiquincalaquis nahuatiltin.",

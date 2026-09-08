@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "__sourceName__ issues JSON အခင်း (__endpoint__) ကို ကူးထည့်ပါ။ Issues များကို Open / Closed စာရင်းများအဖြစ် အုပ်စုဖွဲ့ထားသော ကတ်များဖြစ်လာမည်။",
   "import-board-instruction-asana": "Asana လုပ်ငန်းထုတ်ယူမှု JSON (Asana ထုတ်ယူမှု သို့မဟုတ် GET /tasks မှ { \"data\": [...] }) ကို ကူးထည့်ပါ။ လုပ်ငန်းများကို ကဏ္ဍများ (memberships) အဖြစ် အုပ်စုဖွဲ့ပြီး ပြီးစီးသော လုပ်ငန်းများသည် Done သို့ သွားမည်။",
   "import-board-instruction-zenkit": "ZenKit စာရင်းထုတ်ယူမှု JSON ({ \"title\", \"stages\":[...], \"items\":[...] }) ကို ကူးထည့်ပါ။ Stages များသည် စာရင်းများဖြစ်လာပြီး items များသည် ကတ်များဖြစ်လာမည်။",
+  "import-board-instruction-markdown": "markdown လုပ်ငန်းစာရင်းကို ကူးထည့်ပါ (Obsidian Kanban ကဲ့သို့ markdown-kanban ကိရိယာများ အသုံးပြုသော ကွန်ဗင်းရှင်း)။ \"## စာရင်းအမည်\" ခေါင်းစီးများနှင့် အောက်တွင် \"- [ ]\"/\"- [x]\" အချက်များ။ ခေါင်းစီးများသည် စာရင်းများဖြစ်လာပြီး အချက်များသည် ကတ်များဖြစ်လာသည်။",
   "import-board-instruction-trello": "သင့် Trello ဘုတ်တွင် 'Menu'၊ ထို့နောက် 'More'၊ 'Print and Export'၊ 'Export JSON' သို့သွားပြီး ရလာသောစာသားကို ကူးပါ။",
   "import-board-instruction-csv": "Comma Separated Values (CSV)/Tab Separated Values (TSV) ကို ကူးထည့်ပါ။",
   "import-board-instruction-jira": "Jira Cloud REST API issue search (GET /rest/api/2/search) မှ JSON သို့မဟုတ် တူညီသော { \"issues\": [...] } အရာဝတ္ထုကို ကူးထည့်ပါ။ Jira အခြေအနေများသည် စာရင်းများဖြစ်လာပြီး issues များသည် ကတ်များဖြစ်လာမည်။ စည်းမျဉ်းများ တင်သွင်းရန် \"automationRules\" အခင်းကို ရွေးချယ်ထည့်နိုင်သည်။",

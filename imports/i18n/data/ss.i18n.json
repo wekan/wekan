@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "Namatsisela luhlu lwe-JSON lwetinkinga te-__sourceName__ (__endpoint__). Tinkinga tiba emakhadi lahlelwe etinhleni Letivulekile / Letivaliwe.",
   "import-board-instruction-asana": "Namatsisela i-JSON yekutfunyelwa kwemisebenti ye-Asana ({ \"data\": [...] } kusuka ekutfumeleni kwe-Asana noma GET /tasks). Imisebenti ihlelwa ngetigaba (memberships); imisebenti lecedziwe iya ku-Done.",
   "import-board-instruction-zenkit": "Namatsisela i-JSON yekutfunyelwa kweluhlu lwe-ZenKit ({ \"title\", \"stages\":[...], \"items\":[...] }). Tigaba tiba tinhlu netintfo tiba emakhadi.",
+  "import-board-instruction-markdown": "Namathisela luhlu lwemisebenti lwe-markdown (indlela lesetjentiswa ngemathulusi ye-markdown-kanban afana ne-Obsidian Kanban): tinhloko \"## Ligama lwelluhlu\", netintfo \"- [ ]\"/\"- [x]\" ngentasi. Tinhloko tiba luhlu naletintfo tibe emakhadi.",
   "import-board-instruction-trello": "Ebhodini lakho le-Trello, iya ku-'Menu', bese ku-'More', 'Print and Export', 'Export JSON', bese ukopisha umbhalo lovelako.",
   "import-board-instruction-csv": "Namatsisela Emagugu Lahlukaniswe Ngakhoma (CSV)/Emagugu Lahlukaniswe Ngemathebhu (TSV).",
   "import-board-instruction-jira": "Namatsisela i-JSON kusuka ekusesheni tinkinga kwe-Jira Cloud REST API (GET /rest/api/2/search), noma intfo lefananako lena-{ \"issues\": [...] }. Timo te-Jira tiba tinhlu netinkinga tiba emakhadi. Ngekutikhetsela faka luhlu lwe-\"automationRules\" kuze ungenise imitsetfo.",

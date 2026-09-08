@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "የ__sourceName__ ጉዳዮች JSON ድርድር (__endpoint__) ይለጥፉ። ጉዳዮች በክፍት/ዝግ ዝርዝሮች የተመደቡ ካርዶች ይሆናሉ።",
   "import-board-instruction-asana": "የAsana ተግባራት ወደ ውጭ የተላከ JSON ({ \"data\": [...] } ከAsana ወደ ውጭ መላኪያ ወይም GET /tasks) ይለጥፉ። ተግባራት በክፍሎች (memberships) ይመደባሉ፤ የተጠናቀቁ ተግባራት ወደ Done ይሄዳሉ።",
   "import-board-instruction-zenkit": "የZenKit ዝርዝር ወደ ውጭ የተላከ JSON ({ \"title\", \"stages\":[...], \"items\":[...] }) ይለጥፉ። Stages ዝርዝሮች ይሆናሉ፣ items ደግሞ ካርዶች ይሆናሉ።",
+  "import-board-instruction-markdown": "የMarkdown የስራ ዝርዝር ይለጥፉ (እንደ Obsidian Kanban ያሉ markdown-kanban መሳሪያዎች የሚጠቀሙበት ስምምነት)፦ \"## የዝርዝር ስም\" ራስጌዎች፣ ከስራቸው \"- [ ]\"/\"- [x]\" ንጥሎች ጋር። ራስጌዎች ዝርዝሮች ይሆናሉ፣ ንጥሎችም ካርዶች ይሆናሉ፤ ቼክቦክስ የሌለው ተራ የነጥብ ዝርዝርም እንደ ክፍት ካርዶች ይገባል።",
   "import-board-instruction-trello": "በTrello ሰሌዳዎ ውስጥ ወደ 'Menu'፣ ከዚያ 'More'፣ 'Print and Export'፣ 'Export JSON' ይሂዱና የተገኘውን ጽሑፍ ይቅዱ።",
   "import-board-instruction-csv": "በነጠላ ሰረዝ የተለዩ እሴቶች (CSV)/በትር የተለዩ እሴቶች (TSV) ይለጥፉ።",
   "import-board-instruction-jira": "ከJira Cloud REST API የጉዳይ ፍለጋ (GET /rest/api/2/search) የተገኘውን JSON ወይም ተመጣጣኝ { \"issues\": [...] } ነገር ይለጥፉ። የJira ሁኔታዎች ዝርዝሮች ይሆናሉ፣ ጉዳዮችም ካርዶች ይሆናሉ። ደንቦችን ለማስመጣት የ\"automationRules\" ድርድር በአማራጭ ያካትቱ።",

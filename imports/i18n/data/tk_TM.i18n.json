@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "__sourceName__ issues JSON massiwini goýuň (__endpoint__). Issues Open / Closed sanawlaryna toparlanan kartoçkalara öwrülýär.",
   "import-board-instruction-asana": "Asana tasks eksport JSON goýuň (Asana eksportdan ýa-da GET /tasks-dan { \"data\": [...] }). Tasks bölümlere (memberships) toparlanýar; tamamlanan tasks Done-a geçýär.",
   "import-board-instruction-zenkit": "ZenKit list eksport JSON goýuň ({ \"title\", \"stages\":[...], \"items\":[...] }). Stages sanawlara we items kartoçkalara öwrülýär.",
+  "import-board-instruction-markdown": "Markdown wezipe sanawyny goýuň (Obsidian Kanban ýaly markdown-kanban gurallarynyň ulanýan konwensiýasy): aşagynda \"- [ ]\"/\"- [x]\" elementleri bolan \"## Sanaw ady\" sözbaşylary. Sözbaşylar sanawlara, elementler bolsa kartoçkalara öwrülýär.",
   "import-board-instruction-trello": "“Trello” tagtasynda “Menýu”, soňra “Has köp”, “Çap et we eksport”, “JSON eksport et” -e gidiň we alnan teksti göçüriň.",
   "import-board-instruction-csv": "Düşündirilen aýratyn bahalaryňyza (CSV) / ​​Tab-a bölünen bahalara (TSV) goýuň.",
   "import-board-instruction-jira": "Jira Cloud REST API issue gözleginden JSON goýuň (GET /rest/api/2/search) ýa-da oňa deň { \"issues\": [...] } obýekt. Jira statuslary sanawlara we issues kartoçkalara öwrülýär. Islege görä, kadalary import etmek üçin \"automationRules\" massiwini goşuň.",

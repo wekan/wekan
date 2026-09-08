@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "Indsæt et JSON-array med issues fra __sourceName__ (__endpoint__). Issues bliver til kort grupperet i listerne Åbne / Lukkede.",
   "import-board-instruction-asana": "Indsæt en JSON-eksport med Asana-opgaver ({ \"data\": [...] } fra Asana-eksporten eller GET /tasks). Opgaver grupperes i sektioner (memberships); fuldførte opgaver flyttes til Færdig.",
   "import-board-instruction-zenkit": "Indsæt en JSON-eksport fra en ZenKit-liste ({ \"title\", \"stages\":[...], \"items\":[...] }). Stadier bliver til lister, og elementer bliver til kort.",
+  "import-board-instruction-markdown": "Indsæt en markdown-opgaveliste (den konvention, som markdown-kanban-værktøjer som Obsidian Kanban bruger): overskrifter \"## Listenavn\", med elementer \"- [ ]\"/\"- [x]\" nedenunder. Overskrifter bliver til lister, og elementer bliver til kort; en almindelig punktopstilling uden afkrydsningsfelter importeres også, som åbne kort.",
   "import-board-instruction-trello": "I din Trello-tavle, gå til 'Menu', dernæst 'More', 'Print and Export', 'Export JSON', og kopiér den tekst som vises.",
   "import-board-instruction-csv": "Indsæt dine kommaseparerede værdier (CSV)/ Tabulatorseparerede værdier (TSV).",
   "import-board-instruction-jira": "Indsæt JSON fra Jira Cloud REST API-issuesøgningen (GET /rest/api/2/search) eller et tilsvarende objekt med { \"issues\": [...] }. Jira-statusser bliver til lister, og issues bliver til kort. Du kan eventuelt medtage et \"automationRules\"-array for at importere regler.",

@@ -325,7 +325,10 @@ if (Meteor.isServer) {
   }));
 
   // Generalized export to other tools: NextCloud Deck, OpenProject, GitHub,
-  // GitLab, Gitea, Forgejo. One shared auth handler, one route per format.
+  // GitLab, Gitea, Forgejo, Markdown. One shared auth handler, one route per
+  // format. Every one of these formats is JSON except Markdown, which is
+  // plain text meant to be read/edited directly or opened by another
+  // markdown-kanban tool - wrapping it in `{"data": "..."}` would defeat that.
   async function serveExternalExport(req, res, format) {
     const boardId = req.params.boardId;
     const board = await ReactiveCache.getBoard(boardId);
@@ -333,9 +336,16 @@ if (Meteor.isServer) {
       sendJsonResult(res, { code: 404, data: { error: 'Not found' } });
       return;
     }
-    const respond = async () =>
-      sendJsonResult(res, { code: 200, data: await buildExternalExport(boardId, format,
-        parseExportFields(req.query && req.query.fields, BOARD_EXPORT_FIELD_KEYS)) });
+    const respond = async () => {
+      const built = await buildExternalExport(boardId, format,
+        parseExportFields(req.query && req.query.fields, BOARD_EXPORT_FIELD_KEYS));
+      if (format === 'markdown') {
+        res.writeHead(200, { 'Content-Type': 'text/markdown; charset=utf-8' });
+        res.end(String(built == null ? '' : built));
+        return;
+      }
+      sendJsonResult(res, { code: 200, data: built });
+    };
     if (board.isPublic()) {
       await respond();
       return;

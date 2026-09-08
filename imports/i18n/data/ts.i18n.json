@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "mhaka a __sourceName__ mhaka mhaka mhaka (__endpoint__). mhaka mhaka makhadi mhaka mhaka pfula / mhaka minxaxamelo.",
   "import-board-instruction-asana": "mhaka an mhaka mhaka humesa mhaka ({ \"mhaka\": [...] } ku suka mhaka mhaka humesa mhaka mhaka /mhaka). mhaka mhaka mhaka mhaka mhaka (mhaka); hetisiwile mhaka famba eka mhaka.",
   "import-board-instruction-zenkit": "mhaka a mhaka nxaxamelo humesa mhaka ({ \"nhlokomhaka\", \"mhaka\":[...], \"mhaka\":[...] }). mhaka mhaka minxaxamelo na mhaka mhaka makhadi.",
+  "import-board-instruction-markdown": "Namathisela nkarhi wa mintirho ya markdown (ndlela leyi swiendlakalo swa markdown-kanban swo fana na Obsidian Kanban swi yi tirhisaka): tinhloko ta \"## Vito ra nkarhi\", ni swilo swa \"- [ ]\"/\"- [x]\" ehansi. Tinhloko ti va tinxaxamelo naswona swilo swi va makhadi.",
   "import-board-instruction-trello": "eka ya wena mhaka bodo, famba eka 'menyu', mhaka 'mhaka', 'mhaka na humesa', 'humesa mhaka', na kopisa mhaka mhaka tsalwa.",
   "import-board-instruction-csv": "mhaka eka ya wena mhaka mhaka mhaka(mhaka)/ mhaka mhaka mhaka (mhaka) .",
   "import-board-instruction-jira": "mhaka mhaka mhaka ku suka mhaka mhaka mhaka mhaka mhaka mhaka lava (mhaka /mhaka/mhaka/2/lava), mhaka an mhaka { \"mhaka\": [...] } mhaka. mhaka mhaka mhaka minxaxamelo na mhaka mhaka makhadi. mhaka mhaka an \"mhaka\" mhaka eka nghenisa mhaka.",

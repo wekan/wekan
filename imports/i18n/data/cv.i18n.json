@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "__sourceName__ ыйтусен JSON массивне вырнаҫтарӑр (__endpoint__). Ыйтусем Уҫӑ / Хупӑ списоксене ушкӑнланнӑ карточка пулаҫҫӗ.",
   "import-board-instruction-asana": "Asana ӗҫӗсен экспорт JSONне вырнаҫтарӑр (Asana экспортӗнчи { \"data\": [...] } е GET /tasks). Ӗҫсене пайсене (memberships) ушкӑнлаҫҫӗ; вӗҫленӗ ӗҫсем Тунӑ списка каяҫҫӗ.",
   "import-board-instruction-zenkit": "ZenKit списокӗн экспорт JSONне вырнаҫтарӑр ({ \"title\", \"stages\":[...], \"items\":[...] }). Шайсем список, пунктсем карточка пулаҫҫӗ.",
+  "import-board-instruction-markdown": "Markdown ĕҫ спискине ҫыпӑҫтарӑр (Obsidian Kanban пек markdown-kanban хатӗрсем усӑ куракан йӗрке): аяларах \"- [ ]\"/\"- [x]\" пункчӗсемпе \"## Спис ячӗ\" заголовокӗсем. Заголовоксем спискана, пункчӗсем карточкӑна куҫаҫҫӗ.",
   "import-board-instruction-trello": "Trello хӑминче 'Menu', унтан 'More', 'Print and Export', 'Export JSON' патне кайса тухнӑ текста копилӗр.",
   "import-board-instruction-csv": "Запятойпа уйӑрнӑ значенисене (CSV) / Табуляципе уйӑрнӑ значенисене (TSV) вырнаҫтарӑр.",
   "import-board-instruction-jira": "Jira Cloud REST API ыйту шыравӗн JSONне вырнаҫтарӑр (GET /rest/api/2/search), е ҫавӑн пек { \"issues\": [...] } объект. Jira статусӗсем список, ыйтусем карточка пулаҫҫӗ. Правилӑсене импортлама \"automationRules\" массивне кӗртме пулать.",

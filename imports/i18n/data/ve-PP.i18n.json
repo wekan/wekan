@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "Ličta __sourceName__ issues-JSON-massiv (__endpoint__). Issue-t tegesoiš kartoiks, kudambad grupiruidas Avoin / Saubatud -listoihe.",
   "import-board-instruction-asana": "Ličta Asana tasks -irdalevendan JSON ({ \"data\": [...] } Asana-irdalevendaspäi vai GET /tasks). Tehtabad grupiruidas sekcijoihe (memberships); tehtud tehtabad mänoba Val'miž-listaha.",
   "import-board-instruction-zenkit": "Ličta ZenKit list -irdalevendan JSON ({ \"title\", \"stages\":[...], \"items\":[...] }). Stadiad tegesoiš listoiks i elementad kartoiks.",
+  "import-board-instruction-markdown": "Namatedza mutevhe wa mishumo ya markdown (nzila ine zwishumiswa zwa markdown-kanban zwo nga Obsidian Kanban zwi shumisaho): thoho dza \"## Dzina ḽa mutevhe\", na zwithu zwa \"- [ ]\"/\"- [x]\" fhasi. Thoho dzi vha mitevhe nahone zwithu zwi vha makhadi.",
   "import-board-instruction-trello": "Mene Trello-taulullasi 'Menu', sitten 'More', 'Print and Export', 'Export JSON', ja kopioi tuloksena saamasi teksti",
   "import-board-instruction-csv": "Liitä pilkulla erotellut arvot (CSV)/ tabilla erotetut arvot (TSV).",
   "import-board-instruction-jira": "Ličta JSON Jira Cloud REST API issue search-ospäi (GET /rest/api/2/search), vai ühtejitte { \"issues\": [...] } -objekt. Jiran statusad tegesoiš listoiks i issue-t kartoiks. Voit ližata mugažo \"automationRules\"-massivan praviloiden sizäletondaks.",

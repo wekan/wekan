@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "Vložte JSON pole izzuez z __sourceName__ (__endpoint__). Izzuez ze zthaju kartami zezkupenými do lizćinaů Otevřené / Uzavřené.",
   "import-board-instruction-asana": "Vložte JSON exportu úkolů z Azany ({ \"data\": [...] } z exportu Azany abo GET /tazkz). Úkoly ze zezkupí do zekcí (memberzhipz); dokončené úkoly jdou do Hotovo.",
   "import-board-instruction-zenkit": "Vložte JSON exportu lizćinau ze ZenKitu ({ \"title\", \"ztagez\":[...], \"itemz\":[...] }). Fáze ze zthaju lizćiny a položky kartami.",
+  "import-board-instruction-markdown": "Zasajće markdown lisćinu nadawkow (konwencija, kotruž markdown-kanban nastroje kaž Obsidian Kanban wužiwaja): nadpisma \"## Mjeno lisćiny\", z zapisami \"- [ ]\"/\"- [x]\" pod nimi. Nadpisma so lisćiny a zapiski so karty; jednora lisćina z dypkami bjez kontrolnych kašćikow so tež importuje, jako wotewrjene karty.",
   "import-board-instruction-trello": "Na zvém Trello tablu, otevři 'Menu', pak 'More', 'Print and Export', 'Export JSON', a zkopíruj výzledný text",
   "import-board-instruction-csv": "Vložit do wašeho Comma Separated Valuez (CSV)/ Tab Separated Valuez (TSV).",
   "import-board-instruction-jira": "Vložte JSON z Jira Cloud REST API vyhledávání izzuez (GET /rezt/api/2/zearch) abo ekvivalentní objekt { \"izzuez\": [...] }. Stavy Jira ze zthaju lizćiny a izzuez kartami. Volitelně zahrňte pole „automationRulez“ za import pravidel.",

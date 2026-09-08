@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "Zalijepite JSON polje s prijavama iz __sourceName__ (__endpoint__). Prijave postaju kartice grupirane u liste Otvoreno / Zatvoreno.",
   "import-board-instruction-asana": "Zalijepite JSON izvoz Asana zadataka ({ \"data\": [...] } iz Asana izvoza ili GET /tasks). Zadaci se grupiraju u odsjeke (memberships); dovršeni zadaci idu u Gotovo.",
   "import-board-instruction-zenkit": "Zalijepite JSON izvoz ZenKit liste ({ \"title\", \"stages\":[...], \"items\":[...] }). Faze postaju liste, a stavke postaju kartice.",
+  "import-board-instruction-markdown": "Zalijepite markdown popis zadataka (konvencija koju koriste markdown-kanban alati poput Obsidian Kanban): naslove \"## Naziv popisa\", s stavkama \"- [ ]\"/\"- [x]\" ispod. Naslovi postaju popisi, a stavke postaju kartice; obični popis s grafičkim oznakama bez potvrdnih okvira također se uvozi, kao otvorene kartice.",
   "import-board-instruction-trello": "У Вашоим Trello списима, идите у 'Menu', затим 'More', 'Print and Export', 'Export JSON', и умножите представљени текст.",
   "import-board-instruction-csv": "Овде залепите Ваше CSV податке (вредности раздвојене зарезом) односно TSV податке (вредности раздвојене табулатором) .",
   "import-board-instruction-jira": "Zalijepite JSON iz Jira Cloud REST API pretraživanja prijava (GET /rest/api/2/search) ili istovrijedan objekt { \"issues\": [...] }. Jira statusi postaju liste, a prijave postaju kartice. Po želji uključite polje \"automationRules\" za uvoz pravila.",

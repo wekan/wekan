@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "__sourceName__ का मुद्दाहरूको JSON एरे (__endpoint__) टाँस्नुहोस्। मुद्दाहरू Open / Closed सूचीमा समूहित कार्ड बन्छन्।",
   "import-board-instruction-asana": "Asana कार्य निर्यात JSON (Asana निर्यात वा GET /tasks बाट { \"data\": [...] }) टाँस्नुहोस्। कार्यहरू खण्डहरूमा (memberships) समूहित हुन्छन्; पूरा भएका कार्य Done मा जान्छन्।",
   "import-board-instruction-zenkit": "ZenKit सूची निर्यात JSON ({ \"title\", \"stages\":[...], \"items\":[...] }) टाँस्नुहोस्। चरणहरू सूची र वस्तुहरू कार्ड बन्छन्।",
+  "import-board-instruction-markdown": "markdown कार्य सूची टाँस्नुहोस् (Obsidian Kanban जस्ता markdown-kanban उपकरणहरूले प्रयोग गर्ने परम्परा): \"## सूचीको नाम\" शीर्षकहरू, तल \"- [ ]\"/\"- [x]\" वस्तुहरूसहित। शीर्षकहरू सूची बन्छन् र वस्तुहरू कार्ड बन्छन्; चेकबक्स नभएको साधारण बुलेट सूची पनि खुला कार्डको रूपमा आयात हुन्छ।",
   "import-board-instruction-trello": "आफ्नो Trello बोर्डमा 'Menu', त्यसपछि 'More', 'Print and Export', 'Export JSON' मा जानुहोस् र प्राप्त पाठ प्रतिलिपि गर्नुहोस्।",
   "import-board-instruction-csv": "अल्पविरामद्वारा छुट्याइएका मानहरू (CSV)/ट्याबद्वारा छुट्याइएका मानहरू (TSV) टाँस्नुहोस्।",
   "import-board-instruction-jira": "Jira Cloud REST API मुद्दा खोजको JSON (GET /rest/api/2/search), वा बराबरको { \"issues\": [...] } वस्तु टाँस्नुहोस्। Jira स्थितिहरू सूची र मुद्दाहरू कार्ड बन्छन्। नियम आयात गर्न वैकल्पिक \"automationRules\" एरे समावेश गर्नुहोस्।",

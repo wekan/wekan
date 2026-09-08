@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "Kgomaretsa lenane la JSON la mathata a __sourceName__ (__endpoint__). Mathata a fetoha dikarete tse hlophisitsweng mananeng a Open / Closed.",
   "import-board-instruction-asana": "Kgomaretsa JSON e ntshitsweng ya mesebetsi ya Asana ({ \"data\": [...] } ho tswa ho Asana kapa GET /tasks). Mesebetsi e hlophiswa ka dikarolo (memberships); e phethilweng e ya ho Done.",
   "import-board-instruction-zenkit": "Kgomaretsa JSON e ntshitsweng ya lenane la ZenKit ({ \"title\", \"stages\":[...], \"items\":[...] }). Mekgahlelo e fetoha manane mme dintho di fetoha dikarete.",
+  "import-board-instruction-markdown": "Kgomaretsa lenane la mesebetsi ea markdown (mokhoa oo lisebelisoa tsa markdown-kanban tse kang Obsidian Kanban li o sebelisang): lihlooho tsa \"## Lebitso la lenane\", ka lintho tsa \"- [ ]\"/\"- [x]\" ka tlase. Lihlooho li fetoha manane 'me lintho li fetoha likarete.",
   "import-board-instruction-trello": "Botong ya hao ya Trello, eya ho 'Menu', ebe 'More', 'Print and Export', 'Export JSON', mme o kopitse mongolo o hlahisitsweng.",
   "import-board-instruction-csv": "Kgomaretsa CSV (boleng bo arotsweng ka dikoma) / TSV (boleng bo arotsweng ka dithebo).",
   "import-board-instruction-jira": "Kgomaretsa JSON ho tswa patlong ya mathata ya Jira Cloud REST API (GET /rest/api/2/search), kapa ntho e tshwanang { \"issues\": [...] }. Maemo a Jira a fetoha manane mme mathata a fetoha dikarete. Ka boikgethelo kenya lenane la \"automationRules\" ho kenya melao.",

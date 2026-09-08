@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "ڕیزبەندی JSONی کێشەکانی __sourceName__ دابنێ (__endpoint__). کێشەکان دەبنە کارت و لە لیستەکانی کراوە / داخراو کۆدەکرێنەوە.",
   "import-board-instruction-asana": "JSONی هەناردەی ئەرکەکانی Asana دابنێ ({ \"data\": [...] } لە هەناردەی Asana یان GET /tasks). ئەرکەکان لە بەشەکان (memberships) کۆدەکرێنەوە؛ ئەرکە تەواوبووەکان دەچنە Done.",
   "import-board-instruction-zenkit": "JSONی هەناردەی لیستی ZenKit دابنێ ({ \"title\", \"stages\":[...], \"items\":[...] }). قۆناغەکان دەبنە لیست و بڕگەکان دەبنە کارت.",
+  "import-board-instruction-markdown": "لیستێکی ئەرکی مارکدائون بلکێنە (ڕێککەوتنی ئامرازە مارکدائون-کانبانەکان وەک Obsidian Kanban بەکاریدەهێنن): سەرنووسی \"## ناوی لیست\"، لەگەڵ بڕگەکانی \"- [ ]\"/\"- [x]\" لەژێریدا. سەرنووسەکان دەبنە لیست و بڕگەکان دەبنە کارت؛ لیستێکی خاڵی ساکاریش بەبێ چوارگۆشەی هەڵبژاردن هاورده دەکرێت، وەک کارتی کراوە.",
   "import-board-instruction-trello": "لە تەختەی Trello، بچۆ بۆ 'Menu'، پاشان 'More'، 'Print and Export'، 'Export JSON' و دەقە ئەنجامدراوەکە کۆپی بکە.",
   "import-board-instruction-csv": "بەها جیاکراوەکان بە کۆما (CSV) / بەها جیاکراوەکان بە تاب (TSV) دابنێ.",
   "import-board-instruction-jira": "JSONی گەڕانی کێشەی Jira Cloud REST API دابنێ (GET /rest/api/2/search)، یان ئۆبجێکتێکی هاوتای { \"issues\": [...] }. دۆخەکانی Jira دەبنە لیست و کێشەکان دەبنە کارت. بە ئارەزوو ڕیزبەندی \"automationRules\" زیاد بکە بۆ هاوردەکردنی یاساکان.",

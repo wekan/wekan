@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "Вставьте JSON-массив задач __sourceName__ (__endpoint__). Задачи становятся карточками, сгруппированными в списки Open / Closed.",
   "import-board-instruction-asana": "Вставьте JSON экспорта задач Asana ({ \"data\": [...] } из экспорта Asana или GET /tasks). Задачи группируются по разделам (memberships); завершённые задачи попадают в Done.",
   "import-board-instruction-zenkit": "Вставьте JSON экспорта списка ZenKit ({ \"title\", \"stages\":[...], \"items\":[...] }). Этапы становятся списками, а элементы — карточками.",
+  "import-board-instruction-markdown": "Вставьте список задач в формате markdown (соглашение, которое используют markdown-kanban инструменты, такие как Obsidian Kanban): заголовки \"## Название списка\", с элементами \"- [ ]\"/\"- [x]\" под ними. Заголовки становятся списками, а элементы — карточками; обычный маркированный список без флажков тоже импортируется, как открытые карточки.",
   "import-board-instruction-trello": "На вашей Trello доске нажмите “Menu” - “More” - “Print and export - “Export JSON” и скопируйте полученный текст",
   "import-board-instruction-csv": "Вставка CSV/TSV данных",
   "import-board-instruction-jira": "Вставьте JSON из поиска задач Jira Cloud REST API (GET /rest/api/2/search) или эквивалентный объект { \"issues\": [...] }. Статусы Jira становятся списками, а задачи — карточками. При необходимости включите массив «automationRules» для импорта правил.",

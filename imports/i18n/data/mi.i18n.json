@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "Whakapiri i tētahi huānga JSON take __sourceName__ (__endpoint__). Ka noho ngā take hei kāri kua whakarōpūhia ki ngā rārangi Open / Closed.",
   "import-board-instruction-asana": "Whakapiri i tētahi JSON kaweake tūmahi Asana ({ \"data\": [...] } mai i te kaweake Asana, GET /tasks rānei). Ka whakarōpūhia ngā tūmahi ki ngā wāhanga (memberships); ka haere ngā tūmahi kua oti ki Done.",
   "import-board-instruction-zenkit": "Whakapiri i tētahi JSON kaweake rārangi ZenKit ({ \"title\", \"stages\":[...], \"items\":[...] }). Ka noho ngā stages hei rārangi, ā, ngā items hei kāri.",
+  "import-board-instruction-markdown": "Whakapiritia he rārangi mahi markdown (te tikanga e whakamahia ana e ngā taputapu markdown-kanban pēnei i te Obsidian Kanban): ngā pane \"## Ingoa rārangi\", me ngā tūemi \"- [ ]\"/\"- [x]\" kei raro. Ka huri ngā pane hei rārangi, ka huri ngā tūemi hei kāri.",
   "import-board-instruction-trello": "I tō papa Trello, haere ki 'Menu', kātahi ki 'More', 'Print and Export', 'Export JSON', ā, tāruatia te kuputuhi ka puta.",
   "import-board-instruction-csv": "Whakapiri i ō Uara Wehe Piko (CSV)/Uara Wehe Ripa (TSV).",
   "import-board-instruction-jira": "Whakapiri i te JSON mai i te rapu take Jira Cloud REST API (GET /rest/api/2/search), i tētahi ahanoa ōrite { \"issues\": [...] } rānei. Ka noho ngā tūnga Jira hei rārangi, ā, ngā take hei kāri. Ka taea te whakauru i tētahi huānga \"automationRules\" hei kawemai ture.",

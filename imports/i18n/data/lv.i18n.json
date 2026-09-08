@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "Ielīmējiet __sourceName__ problēmu JSON masīvu (__endpoint__). Problēmas kļūst par kartiņām, kas sagrupētas sarakstos Atvērtās / Slēgtās.",
   "import-board-instruction-asana": "Ielīmējiet Asana uzdevumu eksporta JSON ({ \"data\": [...] } no Asana eksporta vai GET /tasks). Uzdevumi tiek grupēti sadaļās (memberships); pabeigtie uzdevumi nonāk sarakstā Done.",
   "import-board-instruction-zenkit": "Ielīmējiet ZenKit saraksta eksporta JSON ({ \"title\", \"stages\":[...], \"items\":[...] }). Posmi kļūst par sarakstiem un vienumi kļūst par kartiņām.",
+  "import-board-instruction-markdown": "Ielīmējiet markdown uzdevumu sarakstu (konvencija, ko izmanto markdown-kanban rīki, piemēram, Obsidian Kanban): virsraksti \"## Saraksta nosaukums\" ar vienumiem \"- [ ]\"/\"- [x]\" zem tiem. Virsraksti kļūst par sarakstiem, bet vienumi — par kartītēm; vienkāršs aizzīmju saraksts bez izvēles rūtiņām arī tiek importēts, kā atvērtas kartītes.",
   "import-board-instruction-trello": "Jūsu Trello dēlī ejiet uz 'Menu', tālāk 'More', 'Print and Export', 'Export JSON' un nokopejiet tekstu.",
   "import-board-instruction-csv": "Ielīmējiet jūsu Comma Separated Values(CSV)/ Tab Separated Values (TSV) .",
   "import-board-instruction-jira": "Ielīmējiet JSON no Jira Cloud REST API problēmu meklēšanas (GET /rest/api/2/search) vai līdzvērtīgu objektu { \"issues\": [...] }. Jira statusi kļūst par sarakstiem un problēmas kļūst par kartiņām. Neobligāti iekļaujiet masīvu \"automationRules\", lai importētu noteikumus.",

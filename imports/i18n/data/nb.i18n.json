@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "Lim inn en __sourceName__-issues-JSON-array (__endpoint__). Issues blir kort gruppert i listene Open / Closed.",
   "import-board-instruction-asana": "Lim inn en Asana-oppgaveeksport-JSON ({ \"data\": [...] } fra Asana-eksporten eller GET /tasks). Oppgaver grupperes i seksjoner (memberships); fullførte oppgaver havner i Done.",
   "import-board-instruction-zenkit": "Lim inn en ZenKit-listeeksport-JSON ({ \"title\", \"stages\":[...], \"items\":[...] }). Stages blir lister og items blir kort.",
+  "import-board-instruction-markdown": "Lim inn en markdown-oppgaveliste (konvensjonen som markdown-kanban-verktøy som Obsidian Kanban bruker): \"## Listenavn\"-overskrifter, med \"- [ ]\"/\"- [x]\"-elementer under. Overskrifter blir lister, og elementer blir kort; en vanlig punktliste uten avkrysningsbokser importeres også, som åpne kort.",
   "import-board-instruction-trello": "I din Trello-tavle, gå til 'Menu' -> 'More' -> 'Print og Eksporter' -> 'Eksport JSON' og kopier tekst fra eksport.",
   "import-board-instruction-csv": "Lim inn kommaseparerte verdier (CSV) / tabulatorseparerte verdier (TSV).",
   "import-board-instruction-jira": "Lim inn JSON-en fra Jira Cloud REST API issue-søket (GET /rest/api/2/search), eller et tilsvarende { \"issues\": [...] }-objekt. Jira-statuser blir lister og issues blir kort. Ta eventuelt med en \"automationRules\"-array for å importere regler.",

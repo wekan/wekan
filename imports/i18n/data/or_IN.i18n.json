@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "ଏକ __sourceName__ issues JSON ଆରେ ପେଷ୍ଟ କରନ୍ତୁ (__endpoint__)। Issues କାର୍ଡ ହୁଅନ୍ତି ଏବଂ Open / Closed ତାଲିକାରେ ଗୋଷ୍ଠୀବଦ୍ଧ ହୁଅନ୍ତି।",
   "import-board-instruction-asana": "ଏକ Asana tasks ରପ୍ତାନି JSON ପେଷ୍ଟ କରନ୍ତୁ (Asana ରପ୍ତାନି କିମ୍ବା GET /tasks ରୁ { \"data\": [...] })। ଟାସ୍କଗୁଡ଼ିକ ବିଭାଗ (memberships) ରେ ଗୋଷ୍ଠୀବଦ୍ଧ ହୁଅନ୍ତି; ସମାପ୍ତ ଟାସ୍କଗୁଡ଼ିକ Done କୁ ଯାଆନ୍ତି।",
   "import-board-instruction-zenkit": "ଏକ ZenKit ତାଲିକା ରପ୍ତାନି JSON ପେଷ୍ଟ କରନ୍ତୁ ({ \"title\", \"stages\":[...], \"items\":[...] })। Stages ତାଲିକା ହୁଅନ୍ତି ଏବଂ items କାର୍ଡ ହୁଅନ୍ତି।",
+  "import-board-instruction-markdown": "ଏକ markdown କାର୍ଯ୍ୟ ତାଲିକା ପେଷ୍ଟ କରନ୍ତୁ (Obsidian Kanban ପରି markdown-kanban ଉପକରଣଗୁଡ଼ିକ ବ୍ୟବହାର କରୁଥିବା ପ୍ରଥା): \"## ତାଲିକା ନାମ\" ଶୀର୍ଷକ, ତଳେ \"- [ ]\"/\"- [x]\" ଆଇଟମ ସହିତ। ଶୀର୍ଷକଗୁଡ଼ିକ ତାଲିକା ହୋଇଯାଏ ଏବଂ ଆଇଟମଗୁଡ଼ିକ କାର୍ଡ ହୋଇଯାଏ।",
   "import-board-instruction-trello": "ତୁମର ଟ୍ରେଲୋ ବୋର୍ଡରେ, 'ମେନୁ', ତାପରେ 'ଅଧିକ', 'ମୁଦ୍ରଣ ଏବଂ ରପ୍ତାନି', 'ରପ୍ତାନି JSON' କୁ ଯାଅ ଏବଂ ଫଳାଫଳ ପାଠ୍ୟକୁ କପି କର |",
   "import-board-instruction-csv": "ତୁମର କମା ପୃଥକ ମୂଲ୍ୟ (CSV) / ​​ଟ୍ୟାବ୍ ପୃଥକ ମୂଲ୍ୟ (TSV) ରେ ଲେପନ କର |",
   "import-board-instruction-jira": "Jira Cloud REST API issue search (GET /rest/api/2/search) ରୁ JSON, କିମ୍ବା ଏକ ସମାନ { \"issues\": [...] } ଅବ୍ଜେକ୍ଟ ପେଷ୍ଟ କରନ୍ତୁ। Jira ସ୍ଥିତିଗୁଡ଼ିକ ତାଲିକା ହୁଅନ୍ତି ଏବଂ issues କାର୍ଡ ହୁଅନ୍ତି। ନିୟମ ଆମଦାନି କରିବାକୁ ବୈକଳ୍ପିକ ଭାବରେ ଏକ \"automationRules\" ଆରେ ଅନ୍ତର୍ଭୁକ୍ତ କରନ୍ତୁ।",

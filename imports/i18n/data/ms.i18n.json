@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "Tampal tatasusunan JSON isu __sourceName__ (__endpoint__). Isu menjadi kad yang dikumpulkan ke dalam senarai Open / Closed.",
   "import-board-instruction-asana": "Tampal JSON eksport tugasan Asana ({ \"data\": [...] } daripada eksport Asana atau GET /tasks). Tugasan dikumpulkan ke dalam bahagian (memberships); tugasan yang selesai dipindahkan ke Done.",
   "import-board-instruction-zenkit": "Tampal JSON eksport senarai ZenKit ({ \"title\", \"stages\":[...], \"items\":[...] }). Stages menjadi senarai dan items menjadi kad.",
+  "import-board-instruction-markdown": "Tampal senarai tugas markdown (konvensyen yang digunakan oleh alat markdown-kanban seperti Obsidian Kanban): tajuk \"## Nama senarai\", dengan item \"- [ ]\"/\"- [x]\" di bawah. Tajuk menjadi senarai dan item menjadi kad; senarai bullet biasa tanpa kotak semak juga diimport, sebagai kad terbuka.",
   "import-board-instruction-trello": "Dalam papan Trello anda, pergi ke 'Menu', kemudian 'More', 'Print and Export', 'Export JSON', dan salin teks yang terhasil.",
   "import-board-instruction-csv": "Tampal Comma Separated Values(CSV)/ Tab Separated Values (TSV) anda .",
   "import-board-instruction-jira": "Tampal JSON daripada carian isu Jira Cloud REST API (GET /rest/api/2/search), atau objek { \"issues\": [...] } yang setara. Status Jira menjadi senarai dan isu menjadi kad. Anda boleh sertakan tatasusunan \"automationRules\" untuk mengimport peraturan.",

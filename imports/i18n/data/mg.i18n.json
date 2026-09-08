@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "Apetaho ny filaharana JSON-n'ny olana __sourceName__ (__endpoint__). Lasa karatra voavondrona ao amin'ny lisitra Misokatra / Mihidy ny olana.",
   "import-board-instruction-asana": "Apetaho ny JSON fanondranana asa Asana ({ \"data\": [...] } avy amin'ny fanondranana Asana na GET /tasks). Voavondrona ho fizarana (memberships) ny asa; mankany amin'ny Vita ny asa vita.",
   "import-board-instruction-zenkit": "Apetaho ny JSON fanondranana lisitra ZenKit ({ \"title\", \"stages\":[...], \"items\":[...] }). Lasa lisitra ny dingana ary lasa karatra ny singa.",
+  "import-board-instruction-markdown": "Apetaho ny lisitry ny asa markdown (ny fombafomba ampiasain'ny fitaovana markdown-kanban toy ny Obsidian Kanban): lohateny \"## Anaran'ny lisitra\", misy zavatra \"- [ ]\"/\"- [x]\" eo ambany. Lasa lisitra ny lohateny ary lasa karatra ny zavatra; lisitra tsotra tsy misy checkbox koa dia ampidirina, ho karatra misokatra.",
   "import-board-instruction-trello": "Ao amin'ny solaitra Trello, mankanesa amin'ny 'Menu', avy eo 'More', 'Print and Export', 'Export JSON', ary adikao ny soratra azo.",
   "import-board-instruction-csv": "Apetaho ny sanda sarahan-tsiahy (CSV) / sanda sarahan-kiheba (TSV).",
   "import-board-instruction-jira": "Apetaho ny JSON avy amin'ny fikarohana olana Jira Cloud REST API (GET /rest/api/2/search), na zavatra { \"issues\": [...] } mitovy aminy. Lasa lisitra ny satan'ny Jira ary lasa karatra ny olana. Azonao ampidirina koa ny filaharana \"automationRules\" hanafarana fitsipika.",

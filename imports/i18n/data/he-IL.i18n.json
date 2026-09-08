@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "יש להדביק מערך JSON של issues מ־__sourceName__ ‏(__endpoint__). ה־issues הופכים לכרטיסים המקובצים לרשימות Open / Closed.",
   "import-board-instruction-asana": "יש להדביק JSON של ייצוא משימות Asana ‏({ \"data\": [...] } מייצוא Asana או GET /tasks). המשימות מקובצות למקטעים (memberships); משימות שהושלמו עוברות ל־Done.",
   "import-board-instruction-zenkit": "יש להדביק JSON של ייצוא רשימת ZenKit ‏({ \"title\", \"stages\":[...], \"items\":[...] }). ה־stages הופכים לרשימות וה־items הופכים לכרטיסים.",
+  "import-board-instruction-markdown": "הדבק רשימת משימות בפורמט markdown (המוסכמה שבה משתמשים כלי markdown-kanban כגון Obsidian Kanban): כותרות \"## שם הרשימה\", עם פריטי \"- [ ]\"/\"- [x]\" מתחתיהן. הכותרות הופכות לרשימות והפריטים הופכים לכרטיסים; רשימה פשוטה עם תבליטים ללא תיבות סימון גם היא מיובאת, ככרטיסים פתוחים.",
   "import-board-instruction-trello": "בלוח הטרלו שלך, עליך ללחוץ על ‚תפריט‘, ואז על ‚עוד‘, ‚הדפסה וייצוא‘, ‚יצוא JSON‘ ולהעתיק את הטקסט שנוצר.",
   "import-board-instruction-csv": "נא להדביק את הערכים מופרדים בפסיקים (CSV)/ערכים מופרדים בטאבים (TSV) שלך.",
   "import-board-instruction-jira": "יש להדביק את ה־JSON מחיפוש issues ב־Jira Cloud REST API ‏(GET /rest/api/2/search), או אובייקט { \"issues\": [...] } שווה ערך. סטטוסים של Jira הופכים לרשימות וה־issues הופכים לכרטיסים. אפשר לכלול גם מערך \"automationRules\" כדי לייבא כללים.",

@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "__sourceName__ issues JSON lisiti nɔrɔ yan (__endpoint__). Issues bɛ kɛ karataw ye minnu labɛnnen don Open / Closed lisitiw la.",
   "import-board-instruction-asana": "Asana tasks labɔli JSON nɔrɔ yan ({ \"data\": [...] } Asana labɔli walima GET /tasks la). Tasks bɛ labɛn sections la (memberships); tasks minnu banna bɛ taa Done la.",
   "import-board-instruction-zenkit": "ZenKit lisiti labɔli JSON nɔrɔ yan ({ \"title\", \"stages\":[...], \"items\":[...] }). Stages bɛ kɛ lisitiw ye, items bɛ kɛ karataw ye.",
+  "import-board-instruction-markdown": "Bila markdown baara lisi (cogo min markdown-kanban minɛnw i n'a fɔ Obsidian Kanban be baara kɛ a la): \"## Lisi tɔgɔ\" kunben, ni \"- [ ]\"/\"- [x]\" fɛn dow ye a jukɔrɔ. Kunben bɛ kɛ lisiw ye ani fɛnw bɛ kɛ karatiw ye; bullet lisi nɔgɔman min tɛ checkbox sɔrɔ fana bɛ don, i n'a fɔ karati dayɛlɛlen.",
   "import-board-instruction-trello": "I ka Trello tabali la, taa 'Menu', o kɔ 'More', 'Print and Export', 'Export JSON', ka sɛbɛnni min bɔra, o bɔ kopi.",
   "import-board-instruction-csv": "I ka Comma Separated Values(CSV)/ Tab Separated Values (TSV) nɔrɔ yan.",
   "import-board-instruction-jira": "Jira Cloud REST API issue search JSON nɔrɔ yan (GET /rest/api/2/search), walima { \"issues\": [...] } fɛn bɛnnen. Jira statuses bɛ kɛ lisitiw ye, issues bɛ kɛ karataw ye. I bɛ se ka \"automationRules\" lisiti fara a kan ka sariyaw ladon.",

@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "Pega un array JSON d'issues de __sourceName__ (__endpoint__). Los issues conviértense en tarjetes agrupaes en listes Abiertos / Zarraos.",
   "import-board-instruction-asana": "Pega un JSON d'esportación de xeres d'Asana ({ \"data\": [...] } de la esportación d'Asana o GET /tasks). Les xeres agrúpense en seiciones (memberships); les xeres completaes van a Fecho.",
   "import-board-instruction-zenkit": "Pega un JSON d'esportación de lista de ZenKit ({ \"title\", \"stages\":[...], \"items\":[...] }). Les stages conviértense en listas y los items en tarjetes.",
+  "import-board-instruction-markdown": "Apega una llista de xeres en markdown (el convenu que usen ferramientes markdown-kanban como Obsidian Kanban): testeres \"## Nome de la llista\", con elementos \"- [ ]\"/\"- [x]\" debaxo. Les testeres vuélvense llistes y los elementos vuélvense tarxetes; una llista de vares senciella ensin caxelles tamién s'importa, como tarxetes abiertes.",
   "import-board-instruction-trello": "En tu tablero de Trello, ve a 'Menú', luego 'Más' > 'Imprimir y exportar' > 'Exportar JSON', y copia el texto resultante.",
   "import-board-instruction-csv": "Pegue en sus Valores separados por coma(CSV)/Valores separados por tab(TSV).",
   "import-board-instruction-jira": "Pega'l JSON de la gueta d'issues de la API REST de Jira Cloud (GET /rest/api/2/search), o un oxetu { \"issues\": [...] } equivalente. Los estaos de Jira conviértense en listas y los issues en tarjetes. Opcionalmente inclúi un array \"automationRules\" pa importar regles.",

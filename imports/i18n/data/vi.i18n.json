@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "Dán một mảng JSON các vấn đề của __sourceName__ (__endpoint__). Các vấn đề trở thành thẻ được nhóm vào danh sách Mở / Đã đóng.",
   "import-board-instruction-asana": "Dán một JSON xuất nhiệm vụ Asana ({ \"data\": [...] } từ bản xuất Asana hoặc GET /tasks). Các nhiệm vụ được nhóm thành các phần (memberships); nhiệm vụ đã hoàn thành chuyển vào Xong.",
   "import-board-instruction-zenkit": "Dán một JSON xuất danh sách ZenKit ({ \"title\", \"stages\":[...], \"items\":[...] }). Các stage trở thành danh sách và các item trở thành thẻ.",
+  "import-board-instruction-markdown": "Dán một danh sách công việc markdown (quy ước mà các công cụ markdown-kanban như Obsidian Kanban sử dụng): tiêu đề \"## Tên danh sách\", với các mục \"- [ ]\"/\"- [x]\" bên dưới. Tiêu đề trở thành danh sách và các mục trở thành thẻ; một danh sách gạch đầu dòng đơn giản không có ô chọn cũng được nhập, dưới dạng thẻ mở.",
   "import-board-instruction-trello": "Trong bảng Trello của bạn, đi tới 'Trình đơn', sau đó đến 'Khác', 'In và Xuất', 'Xuất JSON' và sao chép văn bản kết quả.",
   "import-board-instruction-csv": "Dán Giá trị được phân tách bằng dấu phẩy(CSV)/ Giá trị được phân cách bằng tab (TSV) của bạn.",
   "import-board-instruction-jira": "Dán JSON từ tìm kiếm vấn đề của Jira Cloud REST API (GET /rest/api/2/search), hoặc một đối tượng tương đương { \"issues\": [...] }. Các trạng thái Jira trở thành danh sách và các vấn đề trở thành thẻ. Tùy chọn có thể đưa vào một mảng \"automationRules\" để nhập quy tắc.",

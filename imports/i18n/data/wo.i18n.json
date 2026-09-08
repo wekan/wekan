@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "Kollee benn aaray JSON bu issues bu __sourceName__ (__endpoint__). Issues dañuy nekk kart yu ñu boole ci liis Open / Closed.",
   "import-board-instruction-asana": "Kollee benn JSON bu génne tasks bu Asana ({ \"data\": [...] } bu génne bu Asana walla GET /tasks). Tasks dañu leen di boole ci ay wàll (memberships); tasks yu jeex dañuy dem ci Done.",
   "import-board-instruction-zenkit": "Kollee benn JSON bu génne list bu ZenKit ({ \"title\", \"stages\":[...], \"items\":[...] }). Stages dañuy nekk liis te items dañuy nekk kart.",
+  "import-board-instruction-markdown": "Delloosi lëkkalekaay yi ci yëngu-yëngu markdown (aada gi jumtukaay markdown-kanban yi ni Obsidian Kanban di jëfandikoo): tëriindi \"## Tur lëkkalekaay\", ak yëf \"- [ ]\"/\"- [x]\" ci suuf. Tëriindi yi dañuy soppiku lëkkalekaay te yëf yi dañuy soppiku kart.",
   "import-board-instruction-trello": "Dans votre tableau Trello, allez sur 'Menu', puis sur 'Plus', 'Imprimer et exporter', 'Exporter en JSON' et copiez le texte du résultat",
   "import-board-instruction-csv": "Déposez vos données en CSV (valeurs séparées par des virgules) ou TSV (valeurs séparées par des tabulations).",
   "import-board-instruction-jira": "Kollee JSON bi jóge ci Jira Cloud REST API issue search (GET /rest/api/2/search), walla benn objet bu mel ni { \"issues\": [...] }. Statuses yu Jira dañuy nekk liis te issues dañuy nekk kart. Su la neexee boole benn aaray \"automationRules\" ngir dugal sart yi.",

@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "Paste a __sourceName__ issues JSON array (__endpoint__). Issues become kards grouped into Iftaħ / Closed listi.",
   "import-board-instruction-asana": "Paste an Asana tasks export JSON ({ \"data\": [...] } minn il- Asana export jew GET /tasks). Tasks huma grouped into sections (memberships); completed tasks go għal Done.",
   "import-board-instruction-zenkit": "Paste a ZenKit lista export JSON ({ \"titlu\", \"stages\":[...], \"items\":[...] }). Stages become listi u items become kards.",
+  "import-board-instruction-markdown": "Waħħal lista ta' xogħol f'markdown (il-konvenzjoni li għodda markdown-kanban bħal Obsidian Kanban jużaw): intestaturi \"## Isem tal-lista\", b'elementi \"- [ ]\"/\"- [x]\" taħt. L-intestaturi jsiru listi u l-elementi jsiru karti; lista sempliċi b'bullets mingħajr kaxxi tal-immarkar tiġi importata wkoll, bħala karti miftuħa.",
   "import-board-instruction-trello": "In tiegħek Trello bord, go għal 'Menu', then 'More', 'Print u Esporta', 'Esporta JSON', and copy il- resulting text.",
   "import-board-instruction-csv": "Paste ġewwa tiegħek Comma Separated Values(CSV)/ Tab Separated Values (TSV) .",
   "import-board-instruction-jira": "Paste il- JSON minn il- Jira Cloud REST API issue search (GET /rest/api/2/search), or an equivalent { \"issues\": [...] } object. Jira statuses become listi u issues become kards. Optionally include an \"automationRules\" array għal import rules.",

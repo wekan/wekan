@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "Paste a __sourceName__ issues JSON array (__endpoint__). Issues become kaads grouped kɔ Bue / To mud nhyehyɛes.",
   "import-board-instruction-asana": "Paste an Asana tasks expanaat JSON ({ \"data\": [...] } fi no Asana expanaat anaa GET /tasks). Tasks are grouped kɔ sections (ɔmannifoships); completed tasks go kɔ Done.",
   "import-board-instruction-zenkit": "Paste a ZenKit nhyehyɛe expanaat JSON ({ \"ti asɛm\", \"stages\":[...], \"items\":[...] }). Stages become nhyehyɛes ne items become kaads.",
+  "import-board-instruction-markdown": "Fa markdown adwuma nhyehyɛe krataa (kwan a markdown-kanban nnwinnade te sɛ Obsidian Kanban de di dwuma): \"## List din\" ntitire, ne \"- [ ]\"/\"- [x]\" nneɛma wɔ ase. Ntitire bɛyɛ nkrataa na nneɛma bɛyɛ kaad; bullet list a checkbox nni mu nso betumi akɔ mu, sɛ kaad a ɛda hɔ.",
   "import-board-instruction-trello": "In wo Trello bɔɔd, go kɔ 'Menu', non 'Manaae', 'Print ne Fa kɔ', 'Fa kɔ JSON', ne copy no resulting text.",
   "import-board-instruction-csv": "Paste wɔ wo Comma Separated Values(CSV)/ Tab Separated Values (TSV) .",
   "import-board-instruction-jira": "Paste no JSON fi no Jira Cloud REST API issue search (GET /rest/api/2/search), anaa an equivalent { \"issues\": [...] } object. Jira statuses become nhyehyɛes ne issues become kaads. Optionally include an \"automationRules\" array kɔ impanaat rules.",

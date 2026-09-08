@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "Liƙa jerin JSON na batutuwan __sourceName__ (__endpoint__). Batutuwa su zama katuna da aka haɗa cikin jerin Buɗe / Rufe.",
   "import-board-instruction-asana": "Liƙa JSON na fitarwar ayyukan Asana ({ \"data\": [...] } daga fitarwar Asana ko GET /tasks). Ana haɗa ayyuka cikin sassa (memberships); ayyukan da aka kammala su koma An gama.",
   "import-board-instruction-zenkit": "Liƙa JSON na fitarwar jerin ZenKit ({ \"title\", \"stages\":[...], \"items\":[...] }). Stages su zama jerin, items su zama katuna.",
+  "import-board-instruction-markdown": "Manna jerin ayyuka na markdown (al'adar da kayan aikin markdown-kanban kamar Obsidian Kanban ke amfani da ita): taken \"## Sunan jeri\", tare da abubuwa \"- [ ]\"/\"- [x]\" a ƙasa. Taken suna zama jerin sunayen kuma abubuwa suna zama katunan; jeri mai sauƙi na maki ba tare da akwatin duba ba shima ana shigar da shi, a matsayin katunan buɗe.",
   "import-board-instruction-trello": "A allon Trello, je zuwa 'Menu', sannan 'More', 'Print and Export', 'Export JSON', ka kwafi rubutun da aka samar.",
   "import-board-instruction-csv": "Liƙa Ƙimomi Masu Rabuwar Waƙafi (CSV)/Ƙimomi Masu Rabuwar Tab (TSV).",
   "import-board-instruction-jira": "Liƙa JSON daga binciken batu na Jira Cloud REST API (GET /rest/api/2/search), ko makamancin abu { \"issues\": [...] }. Matsayin Jira su zama jerin, batutuwa su zama katuna. Za ka iya haɗa jerin \"automationRules\" don shigo da dokoki.",

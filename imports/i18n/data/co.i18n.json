@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "Incolla un array JSON di issue di __sourceName__ (__endpoint__). Le issue diventano carte raggruppate in e liste Aperte / Chiuse.",
   "import-board-instruction-asana": "Incolla un JSON di esportazione dei task di Asana ({ \"data\": [...] } dall'esportazione Asana o GET /tasks). I task sono raggruppati in sezioni (memberships); i task completati vanno in Fatto.",
   "import-board-instruction-zenkit": "Incolla un JSON di esportazione di una lista ZenKit ({ \"title\", \"stages\":[...], \"items\":[...] }). Gli stage diventano liste e gli item diventano carte.",
+  "import-board-instruction-markdown": "Incollate una lista di travagli markdown (a cunvenzioni chì l'attrezzi markdown-kanban cum'è Obsidian Kanban aduprani): titoli \"## Nome di a lista\", cù elementi \"- [ ]\"/\"- [x]\" sottu. I titoli diventanu liste è l'elementi diventanu carte; una lista simplice à pallini senza casella hè ancu impurtata, cum'è carte aperte.",
   "import-board-instruction-trello": "Nella tua tavula Trello vai a 'Menu', poi 'Altro', 'Stampa ed spurtà', 'Spurtà JSON', e cupià il testo che compare.",
   "import-board-instruction-csv": "Incolla in Comma Separated Values (CSV) / Tab Separated Values (TSV) .",
   "import-board-instruction-jira": "Incolla il JSON dalla ricerca issue di a REST API di Jira Cloud (GET /rest/api/2/search), o un oggetto equivalente { \"issues\": [...] }. Gli stati di Jira diventano liste e le issue diventano carte. Facoltativamente includi un array \"automationRules\" per importare le regole.",

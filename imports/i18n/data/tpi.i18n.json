@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "Paste wanpela __sourceName__ issues JSON array (__endpoint__). Issues become ol kat grouped i go long opim / Closed ol lis.",
   "import-board-instruction-asana": "Paste wanpela Asana tasks salim i go JSON ({ \"data\": [...] } long Asana salim i go o GET /tasks). Tasks are grouped i go long sections (memberships); pinis tasks go long Done.",
   "import-board-instruction-zenkit": "Paste wanpela ZenKit lis salim i go JSON ({ \"nem\", \"stages\":[...], \"items\":[...] }). Stages become ol lis na items become ol kat.",
+  "import-board-instruction-markdown": "Pastim wanpela markdown taskliklis (kastam we ol markdown-kanban tul olsem Obsidian Kanban i save yusim): \"## Nem bilong lis\" heding, wantaim \"- [ ]\"/\"- [x]\" aitem aninit. Heding i tanim i go long lis na aitem i tanim i go long kad.",
   "import-board-instruction-trello": "In bilong yu Trello bot, go long 'Menu', then 'More', 'Print na salim i go', 'salim i go JSON', na kisim kopi resulting rait.",
   "import-board-instruction-csv": "Paste in bilong yu Comma Separated Values(CSV)/ Tab Separated Values (TSV).",
   "import-board-instruction-jira": "Paste JSON long Jira Cloud REST API issue painim (GET /rest/api/2/painim), o wanpela equivalent { \"issues\": [...] } object. Jira statuses become ol lis na issues become ol kat. Optionally include wanpela \"automationRules\" array long kisim i kam rules.",

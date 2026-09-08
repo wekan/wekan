@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "Tarree JSON dhimmoota __sourceName__ maxxansi (__endpoint__). Dhimmoonni kaardiiwwan ta'anii tarreewwan Open / Closed keessatti gurmaa'u.",
   "import-board-instruction-asana": "JSON ergaa hojiiwwan Asana maxxansi ({ \"data\": [...] } ergaa Asana keessaa yookaan GET /tasks). Hojiiwwan kutaa (memberships) keessatti gurmaa'u; hojiiwwan xumuraman gara Done deemu.",
   "import-board-instruction-zenkit": "JSON ergaa tarree ZenKit maxxansi ({ \"title\", \"stages\":[...], \"items\":[...] }). Stages tarreewwan ta'u; items kaardiiwwan ta'u.",
+  "import-board-instruction-markdown": "Tarreewwan hojii markdown maxxansi (haala meeshaaleen markdown-kanban akka Obsidian Kanban itti fayyadaman): mataduree \"## Maqaa tarree\", waliin wantoota \"- [ ]\"/\"- [x]\" gadi. Matadureewwan tarree ta'anii wantoonnis kaardii ta'u.",
   "import-board-instruction-trello": "Gabatee Trello kee keessatti gara 'Menu', achii 'More', 'Print and Export', 'Export JSON' deemii barruu argame waraabi.",
   "import-board-instruction-csv": "Gatiiwwan Qoodduu Tuqaatiin Addaan Bahan (CSV)/Gatiiwwan Taabiin Addaan Bahan (TSV) maxxansi.",
   "import-board-instruction-jira": "JSON barbaacha dhimmaa Jira Cloud REST API keessaa maxxansi (GET /rest/api/2/search), yookaan wanta { \"issues\": [...] } walqixa ta'e. Haalawwan Jira tarreewwan ta'u; dhimmoonni kaardiiwwan ta'u. Seerota galchuuf tarree \"automationRules\" filannoodhaan dabaluu dandeessa.",

@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "Faka-Tonga: Paste a __sourceName__ issues JSON array (__endpoint__). Issues become kaati grouped into fakaava / tāpuni lisi.",
   "import-board-instruction-asana": "Faka-Tonga: Paste an Asana tasks export JSON ({ \"data\": [...] } from the Asana export or GET /tasks). Tasks are grouped into sections (memberships); completed tasks go to Done.",
   "import-board-instruction-zenkit": "Faka-Tonga: Paste a ZenKit lisi export JSON ({ \"title\", \"stages\":[...], \"items\":[...] }). Stages become lisi and items become kaati.",
+  "import-board-instruction-markdown": "ʻAi ha lisi ngāue markdown (ko e founga ʻoku ngāueʻaki ʻe he ngaahi meʻangāue markdown-kanban hangē ko e Obsidian Kanban): ʻulumotuʻa \"## Hingoa lisi\", mo e ngaahi kōpite \"- [ ]\"/\"- [x]\" ʻi lalo. ʻOku hoko ʻa e ngaahi ʻulumotuʻa ko e ngaahi lisi pea hoko ʻa e ngaahi kōpite ko e ngaahi kaati.",
   "import-board-instruction-trello": "Faka-Tonga: In your Trello palakipoe, go to 'Menu', then 'More', 'Print and Export', 'Export JSON', and copy the resulting text.",
   "import-board-instruction-csv": "Faka-Tonga: Paste in your Comma Separated Values(CSV)/ Tab Separated Values (TSV) .",
   "import-board-instruction-jira": "Faka-Tonga: Paste the JSON from the Jira Cloud REST API issue kumi (GET /rest/api/2/kumi), or an equivalent { \"issues\": [...] } object. Jira statuses become lisi and issues become kaati. Optionally include an \"automationRules\" array to import rules.",

@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "Liibme __sourceName__ issues JSON -ráiddu (__endpoint__). Issues šaddet goartan mat juhkkojuvvojit Open / Closed listtuide.",
   "import-board-instruction-asana": "Liibme Asana tasks -olggosfievrrideami JSON ({ \"data\": [...] } Asana-olggosfievrrideamis dahje GET /tasks). Tasks juhkkojuvvojit sections:i (memberships); completed tasks mannet Done-listui.",
   "import-board-instruction-zenkit": "Liibme ZenKit-listtu olggosfievrrideami JSON ({ \"title\", \"stages\":[...], \"items\":[...] }). Stages šaddet listun ja items šaddet goartan.",
+  "import-board-instruction-markdown": "Liibme markdown bargobihttáseamis (vuogádat maid markdown-kanban reaidut nugo Obsidian Kanban geavahit): \"## Listu namma\" bajilčállosat, \"- [ ]\"/\"- [x]\" ášši mielde vuolábealde. Bajilčállosat šaddet listtun ja áššit šaddet koarttan.",
   "import-board-instruction-trello": "Mana Trello-távvalis 'Menu', de 'More', 'Print and Export', 'Export JSON', ja máŋge boađus teavstta.",
   "import-board-instruction-csv": "Liibme Comma Separated Values (CSV) / Tab Separated Values (TSV).",
   "import-board-instruction-jira": "Liibme JSON Jira Cloud REST API issue search -bohtosis (GET /rest/api/2/search), dahje vástideaddji { \"issues\": [...] } objeavtta. Jira-statusat šaddet listun ja issues šaddet goartan. Sáhtát maiddái lasihit \"automationRules\"-ráiddu sisafievrridit njuolggadusaid.",

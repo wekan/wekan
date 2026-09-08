@@ -73,33 +73,87 @@ export function parseOpenProject(data) {
 }
 
 // --- Shared issue-tracker mapping (GitHub / Gitea / Forgejo) -----------------
-// Accepts an array of issues (GET /repos/{o}/{r}/issues). Pull requests are
-// skipped. Issues are grouped into Open / Closed lists.
+// Accepts an array of issues (GET /repos/{o}/{r}/issues) - or several such
+// pages concatenated into one array, since completing pagination is the API
+// client's job, not this parser's (it only ever sees whatever JSON it was
+// handed). Pull requests are skipped. Issues are grouped into Open / Closed
+// lists.
+//
+// The Kanboard shape this returns (board/columns/swimlanes/tasks) has no
+// field for what does not fit a task - a second assignee, a state reason, an
+// issue number. Rather than silently drop it, `warnings`/`unsupported` are
+// attached as extra top-level keys alongside the normalized shape (the
+// `{ normalized, warnings, unsupported }` contract from
+// docs/Features/ImportExport/Format-Coverage.md, flattened here so the
+// existing KanboardCreator call site in models/import.js keeps working
+// unchanged): every caller that only reads board/columns/swimlanes/tasks is
+// unaffected, and Problems -> Recovery can still show what a full audit of
+// this parser would otherwise lose silently.
 function parseIssuesArray(data, system) {
   const issues = Array.isArray(data) ? data : data.issues || [];
+  const unsupported = [];
   const tasks = issues
     .filter(issue => !issue.pull_request)
-    .map(issue => ({
-      title: issue.title || 'Imported issue',
-      description: issue.body || issue.description || '',
-      column_name: issue.state === 'closed' ? 'Closed' : 'Open',
-      swimlane_name: 'Default',
-      date_due: (issue.milestone && (issue.milestone.due_on || issue.milestone.due_date)) || issue.due_date,
-      owner_username:
-        (issue.assignee && (issue.assignee.login || issue.assignee.username)) || undefined,
-      // Who OPENED the issue is who asked for the work - WeKan's "Requested
-      // By", as opposed to the assignee who does it. Free text, so it survives
-      // an import from a tracker nobody on this board has an account on.
-      requested_by: (issue.user && (issue.user.login || issue.user.name))
-        || (issue.author && (issue.author.login || issue.author.username || issue.author.name))
-        || undefined,
-      tags: (issue.labels || []).map(l => (typeof l === 'string' ? l : l.name)),
-    }));
+    .map((issue, index) => {
+      const path = `/${index}`;
+      const milestoneTitle = issue.milestone && (issue.milestone.title || issue.milestone.name);
+      const extraAssignees = Array.isArray(issue.assignees) ? issue.assignees.slice(1) : [];
+      const tags = (issue.labels || []).map(l => (typeof l === 'string' ? l : l.name));
+      if (milestoneTitle) tags.push(`milestone:${milestoneTitle}`);
+      extraAssignees.forEach(a => {
+        const login = a && (a.login || a.username || a.name);
+        if (login) tags.push(`assignee:${login}`);
+      });
+      if (extraAssignees.length) {
+        unsupported.push({
+          path: `${path}/assignees`,
+          reason: 'only the first assignee becomes the task Owner; the rest are kept as tags',
+        });
+      }
+      if (issue.state_reason && issue.state_reason !== 'completed') {
+        tags.push(`state_reason:${issue.state_reason}`);
+      }
+      const footer = [
+        issue.number != null ? `Source: #${issue.number}` : null,
+        issue.html_url || issue.url || null,
+      ].filter(Boolean).join(' ');
+      const commentsSection = Array.isArray(issue.comments_data) && issue.comments_data.length
+        ? `\n\nComments:\n${issue.comments_data
+            .map(c => `- ${(c.user && (c.user.login || c.user.name)) || 'unknown'}: ${c.body || ''}`)
+            .join('\n')}`
+        : '';
+      if (issue.comments && !Array.isArray(issue.comments_data) && issue.comments > 0) {
+        unsupported.push({
+          path: `${path}/comments`,
+          reason: `${issue.comments} comment(s) exist upstream but were not embedded in this export`,
+        });
+      }
+      const description = [issue.body || issue.description || '', commentsSection, footer]
+        .filter(Boolean).join('\n\n').trim();
+      return {
+        title: issue.title || 'Imported issue',
+        description,
+        column_name: issue.state === 'closed' ? 'Closed' : 'Open',
+        swimlane_name: 'Default',
+        date_due: (issue.milestone && (issue.milestone.due_on || issue.milestone.due_date)) || issue.due_date,
+        owner_username:
+          (issue.assignee && (issue.assignee.login || issue.assignee.username)) || undefined,
+        // Who OPENED the issue is who asked for the work - WeKan's "Requested
+        // By", as opposed to the assignee who does it. Free text, so it survives
+        // an import from a tracker nobody on this board has an account on.
+        requested_by: (issue.user && (issue.user.login || issue.user.name))
+          || (issue.author && (issue.author.login || issue.author.username || issue.author.name))
+          || undefined,
+        tags,
+      };
+    });
   return {
     board: { name: `Imported ${system} issues` },
     columns: [{ title: 'Open' }, { title: 'Closed' }],
     swimlanes: [{ name: 'Default' }],
     tasks,
+    warnings: [],
+    unsupported,
   };
 }
 
@@ -187,6 +241,74 @@ export function parseZenkit(data) {
   };
 }
 
+// --- Markdown "task list" kanban --------------------------------------------
+// The convention several markdown-kanban tools use (Obsidian Kanban and
+// similar, and it degrades gracefully for a plain GitHub-flavored-Markdown
+// task list too): a `## List name` heading starts a list, `- [ ]`/`- [x]`
+// items underneath are its cards, and further-indented lines under an item
+// are its description. A `- ` bullet with no checkbox is still accepted as an
+// open (unchecked) card, so an ordinary bulleted to-do list imports too, not
+// only one written specifically for a kanban tool. Round-trips with the
+// `markdown` formatter in externalExporters.js.
+export function parseMarkdownKanban(text) {
+  const lines = String(text == null ? '' : text).split(/\r\n|\r|\n/);
+  const tasks = [];
+  const unsupported = [];
+  let boardName = 'Imported Markdown board';
+  let sawTitle = false;
+  let currentList = 'Imported';
+  let currentTask = null;
+
+  lines.forEach((line, index) => {
+    const titleMatch = /^#\s+(.+?)\s*$/.exec(line);
+    const listMatch = /^##\s+(.+?)\s*$/.exec(line);
+    const taskMatch = /^[-*]\s*(?:\[([ xX])\]\s*)?(.+?)\s*$/.exec(line);
+
+    if (titleMatch && !sawTitle) {
+      boardName = titleMatch[1];
+      sawTitle = true;
+      currentTask = null;
+      return;
+    }
+    if (listMatch) {
+      currentList = listMatch[1];
+      currentTask = null;
+      return;
+    }
+    if (taskMatch) {
+      const done = (taskMatch[1] || '').toLowerCase() === 'x';
+      currentTask = {
+        title: taskMatch[2],
+        description: '',
+        column_name: currentList,
+        swimlane_name: 'Default',
+        tags: done ? ['done'] : [],
+      };
+      tasks.push(currentTask);
+      return;
+    }
+    if (currentTask && /^\s+\S/.test(line)) {
+      currentTask.description = currentTask.description
+        ? `${currentTask.description}\n${line.trim()}`
+        : line.trim();
+      return;
+    }
+    if (line.trim() && !/^#{1,6}\s/.test(line)) {
+      unsupported.push({ path: `/${index}`, reason: 'line matched no known markdown-kanban construct' });
+    }
+  });
+
+  const columns = [...new Set(tasks.map(t => t.column_name))];
+  return {
+    board: { name: boardName },
+    columns: columns.map(title => ({ title })),
+    swimlanes: [{ name: 'Default' }],
+    tasks,
+    warnings: [],
+    unsupported,
+  };
+}
+
 // Map an import source name to its parser (forgejo reuses the Gitea parser).
 export const EXTERNAL_PARSERS = {
   deck: parseNextcloudDeck,
@@ -197,4 +319,5 @@ export const EXTERNAL_PARSERS = {
   forgejo: parseGitea,
   asana: parseAsana,
   zenkit: parseZenkit,
+  markdown: parseMarkdownKanban,
 };

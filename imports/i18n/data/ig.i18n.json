@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "Mado uju JSON okwu __sourceName__ (__endpoint__). Okwu na-aghọ kaadị ekewara n'ime ndepụta Open / Closed.",
   "import-board-instruction-asana": "Mado JSON mbupụ tasks Asana ({ \"data\": [...] } site na mbupụ Asana ma ọ bụ GET /tasks). A na-ekewa tasks n'ime akụkụ (memberships); tasks emechara na-aga na Done.",
   "import-board-instruction-zenkit": "Mado JSON mbupụ ndepụta ZenKit ({ \"title\", \"stages\":[...], \"items\":[...] }). Stages na-aghọ ndepụta, items na-aghọ kaadị.",
+  "import-board-instruction-markdown": "Pịnye ndepụta ọrụ markdown (ụkpụrụ ngwaọrụ markdown-kanban dịka Obsidian Kanban na-eji arụ ọrụ): isiokwu \"## Aha ndepụta\", nwere ihe \"- [ ]\"/\"- [x]\" n'okpuru ya. Isiokwu na-aghọ ndepụta, ihe ndị ọzọ na-aghọkwa kaadị; ndepụta ntụpọ dị mfe na-enweghị igbe nlele ka a na-ebubata, dị ka kaadị mepere emepe.",
   "import-board-instruction-trello": "N'ime bọọdụ Trello gị, gaa na 'NchNhr', wee 'Ọzọ', 'Bipụta na Mbupụ', 'Bupụ JSON', ma detuo ederede ga-apụta.",
   "import-board-instruction-csv": "Tapawa n'ụkpụrụ nkewa nkewa (CSV)/ Tab kewara uru (TSV) .",
   "import-board-instruction-jira": "Mado JSON site na Jira Cloud REST API issue search (GET /rest/api/2/search), ma ọ bụ ihe { \"issues\": [...] } dabara ya. Statuses Jira na-aghọ ndepụta, issues na-aghọ kaadị. Na nhọrọ, tinye uju \"automationRules\" iji bubata iwu.",

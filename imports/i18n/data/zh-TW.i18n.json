@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "貼上包含 __sourceName__ 問題的 JSON 陣列 (__endpoint__)。這些問題將轉為卡片，並歸類至「已開啟」與「已關閉」清單中。",
   "import-board-instruction-asana": "貼上從 Asana 匯出或透過 GET /tasks 取得的 Asana 任務 JSON 檔案（格式為 { \"data\": [...] }）。任務會依區塊（成員群組）進行分組；已完成的任務會移至「已完成」區塊。",
   "import-board-instruction-zenkit": "貼上 ZenKit 清單的 JSON 匯出檔 ({ \"title\", \"stages\":[...], \"items\":[...] })。階段會轉為清單，項目則會轉為卡片。",
+  "import-board-instruction-markdown": "貼上一份 markdown 任務清單（像 Obsidian Kanban 這類 markdown-kanban 工具使用的慣例）：「## 清單名稱」標題，下方接著「- [ ]」/「- [x]」項目。標題會變成清單，項目會變成卡片；沒有核取方塊的一般項目符號清單也會匯入，成為開放卡片。",
   "import-board-instruction-trello": "在你的 Trello 看板中，點選「功能表」，然後選擇「更多」，「列印與匯出」，「匯出為 JSON」並複製結果文字。",
   "import-board-instruction-csv": "貼上您的 CSV（逗號分隔值）/TSV（Tab 分隔值）資料。",
   "import-board-instruction-jira": "請貼上來自 Jira Cloud REST API 問題搜尋 (GET /rest/api/2/search) 的 JSON 內容，或等價的 { \"issues\": [...] } 物件。Jira 狀態將轉為清單，問題則轉為卡片。您亦可選擇性地包含一個「automationRules」陣列以匯入規則。",

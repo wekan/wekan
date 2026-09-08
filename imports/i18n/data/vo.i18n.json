@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "Letälolöd __sourceName__ issues JSON-listi (__endpoint__). Issues vedons kads pegrupöl in liseds Open / Closed.",
   "import-board-instruction-asana": "Letälolöd Asana tasks-ekspori JSON ({ \"data\": [...] } de Asana-ekspor u GET /tasks). Tasks pegrupons in sekads (memberships); tasks pekompletöl golons al Done.",
   "import-board-instruction-zenkit": "Letälolöd ZenKit list-ekspori JSON ({ \"title\", \"stages\":[...], \"items\":[...] }). Stages vedons liseds e items vedons kads.",
+  "import-board-instruction-markdown": "Pladön kartöduli labotamalik markdona (fasit vödemamikam-kartöduli-kanban äsemik olös Obsidian Kanban): topits \"## Nem lasa\", ko begs \"- [ ]\"/\"- [x]\" ün bevünanöd. Topits bevögo lasis e begs bevögo kartis.",
   "import-board-instruction-trello": "Dans votre tableau Trello, allez sur 'Menu', puis sur 'Plus', 'Imprimer et exporter', 'Exporter en JSON' et copiez le texte du résultat",
   "import-board-instruction-csv": "Déposez vos données en CSV (valeurs séparées par des virgules) ou TSV (valeurs séparées par des tabulations).",
   "import-board-instruction-jira": "Letälolöd JSON de Jira Cloud REST API issue search (GET /rest/api/2/search), u eküivalik { \"issues\": [...] } subat. Jira-statuses vedons liseds e issues vedons kads. Fakultatiko läükolöd \"automationRules\" listi ad importön reguls.",

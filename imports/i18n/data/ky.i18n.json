@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "__sourceName__ маселелеринин JSON массивин чаптаңыз (__endpoint__). Маселелер Open / Closed тизмелерине топтолгон карточкаларга айланат.",
   "import-board-instruction-asana": "Asana тапшырмалар экспортунун JSON маалыматын чаптаңыз (Asana экспортунан же GET /tasks сурамынан { \"data\": [...] }). Тапшырмалар бөлүмдөргө (memberships) топтолот; аяктаган тапшырмалар Done тизмесине өтөт.",
   "import-board-instruction-zenkit": "ZenKit тизме экспортунун JSON маалыматын чаптаңыз ({ \"title\", \"stages\":[...], \"items\":[...] }). Этаптар тизмелерге, элементтер карточкаларга айланат.",
+  "import-board-instruction-markdown": "Markdown тапшырмалар тизмесин чаптаңыз (Obsidian Kanban сыяктуу markdown-kanban куралдары колдонгон конвенция): \"## Тизме аты\" аталыштары, астында \"- [ ]\"/\"- [x]\" элементтери менен. Аталыштар тизмеге, элементтер картага айланат; чекбоксу жок жөнөкөй тизме дагы ачык карталар катары импорттолот.",
   "import-board-instruction-trello": "Trello тактаңызда 'Menu', андан кийин 'More', 'Print and Export', 'Export JSON' бөлүмүнө өтүп, алынган текстти көчүрүңүз.",
   "import-board-instruction-csv": "Үтүр менен бөлүнгөн маанилерди (CSV) / Табуляция менен бөлүнгөн маанилерди (TSV) чаптаңыз.",
   "import-board-instruction-jira": "Jira Cloud REST API маселелер издөөнүн JSON маалыматын (GET /rest/api/2/search) же ага барабар { \"issues\": [...] } объектин чаптаңыз. Jira статустары тизмелерге, маселелер карточкаларга айланат. Эрежелерди импорттоо үчүн \"automationRules\" массивин кошсоңуз болот.",

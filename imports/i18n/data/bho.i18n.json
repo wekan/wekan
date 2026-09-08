@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "__sourceName__ के मुद्दा वाला JSON सरणी (__endpoint__) चिपकाईं। मुद्दा Open / Closed सूची में समूहित कार्ड बनी।",
   "import-board-instruction-asana": "Asana काम निर्यात JSON (Asana निर्यात चाहे GET /tasks से { \"data\": [...] }) चिपकाईं। काम अनुभाग (memberships) में समूहित होई; पूरा काम Done में जाई।",
   "import-board-instruction-zenkit": "ZenKit सूची निर्यात JSON ({ \"title\", \"stages\":[...], \"items\":[...] }) चिपकाईं। चरण सूची बनी आ मद कार्ड बनी।",
+  "import-board-instruction-markdown": "मार्कडाउन टास्क लिस्ट पेस्ट करीं (Obsidian Kanban जइसन markdown-kanban टूल जवन कन्वेंशन इस्तेमाल करेला): \"## लिस्ट के नाम\" हेडिंग, नीचे \"- [ ]\"/\"- [x]\" आइटम के साथ। हेडिंग लिस्ट बन जाला आ आइटम कार्ड बन जाला; बिना चेकबॉक्स के साधारण बुलेट लिस्ट भी खुला कार्ड के रूप में इंपोर्ट हो जाला।",
   "import-board-instruction-trello": "आपन Trello बोर्ड में 'Menu', फेर 'More', 'Print and Export', 'Export JSON' पर जाईं आ मिलल लिखाई के नकल करीं।",
   "import-board-instruction-csv": "आपन अल्पविराम से अलग मान (CSV)/टैब से अलग मान (TSV) चिपकाईं।",
   "import-board-instruction-jira": "Jira Cloud REST API मुद्दा खोज (GET /rest/api/2/search) से JSON, चाहे बराबर { \"issues\": [...] } वस्तु चिपकाईं। Jira स्थिति सूची बनी आ मुद्दा कार्ड बनी। नियम आयात करे खातिर चाहीं त \"automationRules\" सरणी शामिल करीं।",

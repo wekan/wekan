@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "פּײַסט אַ __sourceName__ ישוז JSON מאַסיוו (__endpoint__). ישוז ווערן קאַרדס גרופּירט אין אָפֿענע / פֿאַרמאַכטע רשימות.",
   "import-board-instruction-asana": "פּײַסט אַן Asana טאַסקס אַרויספיר JSON ({ \"data\": [...] } פֿון דעם Asana אַרויספיר אָדער GET /tasks). טאַסקס ווערן גרופּירט אין אָפּטיילן (memberships); פֿאַרענדיקטע טאַסקס גייען צו Done.",
   "import-board-instruction-zenkit": "פּײַסט אַ ZenKit רשימה־אַרויספיר JSON ({ \"title\", \"stages\":[...], \"items\":[...] }). סטעדזשעס ווערן רשימות און אײַטעמס ווערן קאַרדס.",
+  "import-board-instruction-markdown": "לייגט אריין אַ מארקדאון אויפֿגאבע רשימה (די קאנווענץ וואָס markdown-kanban געצייג ווי Obsidian Kanban ניצן): \"## רשימה נאָמען\" קעפּלעך, מיט \"- [ ]\"/\"- [x]\" זאכן אונטן. קעפּלעך ווערן רשימות און זאכן ווערן קארטן.",
   "import-board-instruction-trello": "אין דיין Trello ברעט, גיין צו 'מעניו', דעמאָלט 'מער', 'פּרינט און עקספּאָרט', 'עקספּאָרט דזשסאָן', און נאָכמאַכן די ריזאַלטינג טעקסט.",
   "import-board-instruction-csv": "פּאַפּ אין דיין קאָממאַ סעפּאַראַטעד וואַלועס (קסוו) / טאַב סעפּאַראַטעד וואַלועס (TSV).",
   "import-board-instruction-jira": "פּײַסט דעם JSON פֿון דעם Jira Cloud REST API ישו־זוך (GET /rest/api/2/search), אָדער אַן עקוויוואַלענט { \"issues\": [...] } אָביעקט. Jira סטאַטוסן ווערן רשימות און ישוז ווערן קאַרדס. אָפּציאָנעל אַרייַננעם אַן \"automationRules\" מאַסיוו צו אַרייַנפירן כּללים.",

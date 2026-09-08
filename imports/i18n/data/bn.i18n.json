@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "__sourceName__ সমস্যার JSON অ্যারে (__endpoint__) পেস্ট করুন। সমস্যাগুলো Open / Closed তালিকায় ভাগ করা কার্ড হবে।",
   "import-board-instruction-asana": "Asana কাজের রপ্তানি JSON পেস্ট করুন (Asana রপ্তানি বা GET /tasks থেকে { \"data\": [...] })। কাজগুলো বিভাগে (memberships) ভাগ হবে; সম্পূর্ণ কাজ Done-এ যাবে।",
   "import-board-instruction-zenkit": "ZenKit তালিকার রপ্তানি JSON পেস্ট করুন ({ \"title\", \"stages\":[...], \"items\":[...] })। ধাপ তালিকা এবং আইটেম কার্ড হবে।",
+  "import-board-instruction-markdown": "একটি markdown টাস্ক তালিকা পেস্ট করুন (Obsidian Kanban-এর মতো markdown-kanban টুলগুলো যে প্রথা ব্যবহার করে): \"## তালিকার নাম\" শিরোনাম, নিচে \"- [ ]\"/\"- [x]\" আইটেম সহ। শিরোনাম তালিকায় পরিণত হয় এবং আইটেমগুলো কার্ডে পরিণত হয়; চেকবক্স ছাড়া একটি সাধারণ বুলেট তালিকাও খোলা কার্ড হিসেবে আমদানি হয়।",
   "import-board-instruction-trello": "আপনার Trello বোর্ডে 'Menu', তারপর 'More', 'Print and Export', 'Export JSON'-এ যান এবং পাওয়া লেখা অনুলিপি করুন।",
   "import-board-instruction-csv": "আপনার কমা দিয়ে পৃথক মান (CSV)/ট্যাব দিয়ে পৃথক মান (TSV) পেস্ট করুন।",
   "import-board-instruction-jira": "Jira Cloud REST API সমস্যা অনুসন্ধান (GET /rest/api/2/search) থেকে JSON অথবা সমতুল্য { \"issues\": [...] } অবজেক্ট পেস্ট করুন। Jira অবস্থা তালিকা এবং সমস্যা কার্ড হবে। নিয়ম আমদানি করতে চাইলে একটি \"automationRules\" অ্যারে দিন।",

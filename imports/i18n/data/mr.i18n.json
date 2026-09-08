@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "__sourceName__ समस्यांचा JSON अॅरे (__endpoint__) ओटा. समस्या Open / Closed याद्यांत गटबद्ध कार्डे बनतात.",
   "import-board-instruction-asana": "Asana निर्यात किंवा GET /tasks मधील Asana कार्य निर्यात JSON ({ \"data\": [...] }) ओटा. कार्ये विभागांत (memberships) गटबद्ध होतात; पूर्ण कार्ये Done मध्ये जातात.",
   "import-board-instruction-zenkit": "ZenKit यादी निर्यात JSON ({ \"title\", \"stages\":[...], \"items\":[...] }) ओटा. टप्पे याद्या बनतात आणि घटक कार्डे बनतात.",
+  "import-board-instruction-markdown": "markdown कार्य सूची पेस्ट करा (Obsidian Kanban सारखी markdown-kanban साधने वापरतात ती परंपरा): \"## सूचीचे नाव\" मथळे, खाली \"- [ ]\"/\"- [x]\" आयटमसह. मथळे सूची बनतात आणि आयटम कार्ड बनतात; चेकबॉक्सशिवाय साधी बुलेट सूची देखील उघड्या कार्ड म्हणून आयात होते.",
   "import-board-instruction-trello": "तुमच्या Trello फलकात 'Menu', नंतर 'More', 'Print and Export', 'Export JSON' येथे जा आणि तयार झालेला मजकूर कॉपी करा.",
   "import-board-instruction-csv": "तुमची स्वल्पविरामाने विभक्त मूल्ये (CSV)/टॅबने विभक्त मूल्ये (TSV) ओटा.",
   "import-board-instruction-jira": "Jira Cloud REST API समस्या शोधातील JSON (GET /rest/api/2/search), किंवा समतुल्य { \"issues\": [...] } वस्तू ओटा. Jira स्थिती याद्या बनतात आणि समस्या कार्डे बनतात. नियम आयात करण्यासाठी ऐच्छिक \"automationRules\" अॅरे समाविष्ट करा.",

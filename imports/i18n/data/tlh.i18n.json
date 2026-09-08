@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "__sourceName__ issues JSON tetlh lan (__endpoint__). navmey moj Issues, Open / Closed tetlhmeyDaq boSlu'.",
   "import-board-instruction-asana": "Asana tasks ngeH JSON lan ({ \"data\": [...] }, Asana ngeH pagh GET /tasks vo'). sections-Daq (memberships) boSlu' tasks; Done-Daq ghoS tasks rInpu'bogh.",
   "import-board-instruction-zenkit": "ZenKit list ngeH JSON lan ({ \"title\", \"stages\":[...], \"items\":[...] }). tetlhmey moj stages, 'ej navmey moj items.",
+  "import-board-instruction-markdown": "markdown task tetlh yIlan (Obsidian Kanban rur markdown-kanban nuHmey lo'lu'bogh Hoch): bIng \"- [ ]\"/\"- [x]\" Doch je \"## tetlh pong\" nach mu'mey. nach mu'mey tetlh moj 'ej Doch qorDu' moj.",
   "import-board-instruction-trello": "Gehen Sie in ihrem Trello-Board auf 'Menü', dann 'Mehr', 'Drucken und Exportieren', 'JSON-Export' und kopieren Sie den dort angezeigten Text",
   "import-board-instruction-csv": "Fügen Sie die Ihre Comma-Separated- (CSV) / bzw. Tab-Separated-Values (TSV) ein.",
   "import-board-instruction-jira": "Jira Cloud REST API issue search (GET /rest/api/2/search) JSON lan, pagh rurbogh { \"issues\": [...] } Doch. tetlhmey moj Jira statuses, 'ej navmey moj issues. DIch DaneHchugh, pabmey qemmeH \"automationRules\" tetlh chel.",

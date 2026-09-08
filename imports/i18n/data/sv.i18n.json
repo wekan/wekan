@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "Klistra in en __sourceName__ issues-JSON-array (__endpoint__). Ärenden blir kort grupperade i listorna Öppna / Stängda.",
   "import-board-instruction-asana": "Klistra in en Asana tasks-export som JSON ({ \"data\": [...] } från Asana-exporten eller GET /tasks). Uppgifter grupperas i sektioner (memberships); slutförda uppgifter hamnar i Klar.",
   "import-board-instruction-zenkit": "Klistra in en ZenKit-listexport som JSON ({ \"title\", \"stages\":[...], \"items\":[...] }). Stages blir listor och items blir kort.",
+  "import-board-instruction-markdown": "Klistra in en markdown-uppgiftslista (konventionen som markdown-kanban-verktyg som Obsidian Kanban använder): \"## Listnamn\"-rubriker, med \"- [ ]\"/\"- [x]\"-punkter under. Rubriker blir listor och punkter blir kort; en vanlig punktlista utan kryssrutor importeras också, som öppna kort.",
   "import-board-instruction-trello": "I din Trello-tavla, gå till 'Meny', sedan 'Mera', 'Skriv ut och exportera', 'Exportera JSON' och kopiera den resulterande text.",
   "import-board-instruction-csv": "Klistra in Comma Separated Values(CSV)/ Tab Separated Values (TSV) .",
   "import-board-instruction-jira": "Klistra in JSON från Jira Cloud REST API:s ärendesökning (GET /rest/api/2/search), eller ett motsvarande { \"issues\": [...] }-objekt. Jira-statusar blir listor och ärenden blir kort. Inkludera valfritt en \"automationRules\"-array för att importera regler.",

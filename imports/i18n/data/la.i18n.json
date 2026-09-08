@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "Latine: Paste a __sourceName__ issues JSON array (__endpoint__). Issues become schedae grouped into Aperi / Clausum indices.",
   "import-board-instruction-asana": "Latine: Paste an Asana tasks exporta JSON ({ \"data\": [...] } ex the Asana exporta vel GET /tasks). Tasks sunt grouped into sections (memberships); perfectum tasks i ad Done.",
   "import-board-instruction-zenkit": "Latine: Paste a ZenKit index exporta JSON ({ \"titulus\", \"stages\":[...], \"res\":[...] }). Stages become indices et res become schedae.",
+  "import-board-instruction-markdown": "Insere indicem operum in forma markdown (mos quem instrumenta markdown-kanban ut Obsidian Kanban adhibent): tituli \"## Nomen indicis\", cum rebus \"- [ ]\"/\"- [x]\" infra. Tituli fiunt indices et res fiunt chartulae; index simplex punctis sine arculis etiam importatur, ut chartulae apertae.",
   "import-board-instruction-trello": "Latine: In tuum Trello tabula, i ad 'Tabula optionum', then 'Plus', 'Print et Exporta', 'Exporta JSON', et copia the resulting textus.",
   "import-board-instruction-csv": "Latine: Paste in tuum Comma Separated Valores(CSV)/ Tab Separated Valores (TSV).",
   "import-board-instruction-jira": "Latine: Paste the JSON ex the Jira Cloud REST API issue quaere (GET /rest/api/2/quaere), vel an equivalent { \"issues\": [...] } object. Jira statuses become indices et issues become schedae. Optionally include an \"automationRules\" array ad importa regulae.",

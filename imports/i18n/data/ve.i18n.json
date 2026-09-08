@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "Nambatedza __sourceName__ issues JSON array (__endpoint__). Issues dzi vha makhaḓi o dzudzanywaho kha mitevhe ya Open / Closed.",
   "import-board-instruction-asana": "Nambatedza Asana tasks export JSON ({ \"data\": [...] } u bva kha Asana export kana GET /tasks). Mishumo yo dzudzanywa kha zwipiḓa (memberships); mishumo yo fhelaho i ya kha Done.",
   "import-board-instruction-zenkit": "Nambatedza ZenKit list export JSON ({ \"title\", \"stages\":[...], \"items\":[...] }). Stages dzi vha mitevhe nahone items dzi vha makhaḓi.",
+  "import-board-instruction-markdown": "Namatedza mutevhe wa mishumo ya markdown (nzila ine zwishumiswa zwa markdown-kanban zwo nga Obsidian Kanban zwi shumisaho): thoho dza \"## Dzina ḽa mutevhe\", na zwithu zwa \"- [ ]\"/\"- [x]\" fhasi. Thoho dzi vha mitevhe nahone zwithu zwi vha makhadi.",
   "import-board-instruction-trello": "Ebhodini lakho le-Trello, hamba ku-'Menu', bese uthi 'Okwengeziwe', 'Printa futhi Khipha', 'Khipha i-JSON', bese ukopisha umbhalo owumphumela.",
   "import-board-instruction-csv": "Namathisela Amanani Ahlukaniswe Ngokhefana(CSV)/ Ithebhu Amanani Ahlukaniswe (TSV) .",
   "import-board-instruction-jira": "Nambatedza JSON u bva kha Jira Cloud REST API issue search (GET /rest/api/2/search), kana tshithu tshi eḓanaho { \"issues\": [...] }. Jira statuses dzi vha mitevhe nahone issues dzi vha makhaḓi. Arali ni tama, dzhenisani array ya \"automationRules\" u itela u dzhenisa milayo.",

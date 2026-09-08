@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "__sourceName__ ಸಮಸ್ಯೆಗಳ JSON ಸರಣಿ (__endpoint__) ಅಂಟಿಸಿ. ಸಮಸ್ಯೆಗಳು ತೆರೆಯಲಾದ / ಮುಚ್ಚಿದ ಪಟ್ಟಿಗಳಲ್ಲಿ ಗುಂಪುಮಾಡಿದ ಕಾರ್ಡ್‌ಗಳಾಗುತ್ತವೆ.",
   "import-board-instruction-asana": "Asana ಕಾರ್ಯಗಳ ರಫ್ತು JSON (Asana ರಫ್ತಿನ { \"data\": [...] } ಅಥವಾ GET /tasks) ಅಂಟಿಸಿ. ಕಾರ್ಯಗಳನ್ನು ವಿಭಾಗಗಳಲ್ಲಿ (memberships) ಗುಂಪುಮಾಡಲಾಗುತ್ತದೆ; ಪೂರ್ಣಗೊಂಡ ಕಾರ್ಯಗಳು ಮುಗಿದ ಪಟ್ಟಿಗೆ ಹೋಗುತ್ತವೆ.",
   "import-board-instruction-zenkit": "ZenKit ಪಟ್ಟಿ ರಫ್ತು JSON ({ \"title\", \"stages\":[...], \"items\":[...] }) ಅಂಟಿಸಿ. ಹಂತಗಳು ಪಟ್ಟಿಗಳಾಗುತ್ತವೆ ಮತ್ತು ಅಂಶಗಳು ಕಾರ್ಡ್‌ಗಳಾಗುತ್ತವೆ.",
+  "import-board-instruction-markdown": "markdown ಕಾರ್ಯ ಪಟ್ಟಿಯನ್ನು ಅಂಟಿಸಿ (Obsidian Kanban ನಂತಹ markdown-kanban ಪರಿಕರಗಳು ಬಳಸುವ ಸಂಪ್ರದಾಯ): \"## ಪಟ್ಟಿಯ ಹೆಸರು\" ಶೀರ್ಷಿಕೆಗಳು, ಕೆಳಗೆ \"- [ ]\"/\"- [x]\" ಐಟಂಗಳೊಂದಿಗೆ. ಶೀರ್ಷಿಕೆಗಳು ಪಟ್ಟಿಗಳಾಗುತ್ತವೆ ಮತ್ತು ಐಟಂಗಳು ಕಾರ್ಡ್‌ಗಳಾಗುತ್ತವೆ; ಚೆಕ್‌ಬಾಕ್ಸ್ ಇಲ್ಲದ ಸರಳ ಬುಲೆಟ್ ಪಟ್ಟಿಯೂ ತೆರೆದ ಕಾರ್ಡ್‌ಗಳಾಗಿ ಆಮದಾಗುತ್ತದೆ.",
   "import-board-instruction-trello": "ನಿಮ್ಮ Trello ಫಲಕದಲ್ಲಿ 'Menu', ನಂತರ 'More', 'Print and Export', 'Export JSON' ಗೆ ಹೋಗಿ ಫಲಿತಾಂಶದ ಪಠ್ಯವನ್ನು ನಕಲಿಸಿ.",
   "import-board-instruction-csv": "ನಿಮ್ಮ ಅಲ್ಪವಿರಾಮದಿಂದ ಬೇರ್ಪಡಿಸಿದ ಮೌಲ್ಯಗಳು (CSV)/ಟ್ಯಾಬ್‌ನಿಂದ ಬೇರ್ಪಡಿಸಿದ ಮೌಲ್ಯಗಳನ್ನು (TSV) ಅಂಟಿಸಿ.",
   "import-board-instruction-jira": "Jira Cloud REST API ಸಮಸ್ಯೆ ಹುಡುಕಾಟದ JSON (GET /rest/api/2/search), ಅಥವಾ ಸಮಾನವಾದ { \"issues\": [...] } ವಸ್ತುವನ್ನು ಅಂಟಿಸಿ. Jira ಸ್ಥಿತಿಗಳು ಪಟ್ಟಿಗಳಾಗುತ್ತವೆ ಮತ್ತು ಸಮಸ್ಯೆಗಳು ಕಾರ್ಡ್‌ಗಳಾಗುತ್ತವೆ. ನಿಯಮಗಳನ್ನು ಆಮದು ಮಾಡಲು ಐಚ್ಛಿಕವಾಗಿ \"automationRules\" ಸರಣಿ ಸೇರಿಸಿ.",

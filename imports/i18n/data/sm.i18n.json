@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "Faapipii se faasologa JSON o issues a __sourceName__ (__endpoint__). E avea issues ma pepa ua faavasega i lisi Open / Closed.",
   "import-board-instruction-asana": "Faapipii se JSON auina atu o tasks a Asana ({ \"data\": [...] } mai le auina atu a Asana po o GET /tasks). E faavasega tasks i sections (memberships); o tasks ua maea e alu i Done.",
   "import-board-instruction-zenkit": "Faapipii se JSON auina atu o le lisi ZenKit ({ \"title\", \"stages\":[...], \"items\":[...] }). E avea stages ma lisi ma items ma pepa.",
+  "import-board-instruction-markdown": "Pipii se lisi galuega markdown (masani lea o loʻo faʻaaogaina e meafaigaluega markdown-kanban e pei o le Obsidian Kanban): ulutala \"## Igoa o le lisi\", faatasi ai ma mea \"- [ ]\"/\"- [x]\" i lalo. E avea ulutala ma lisi ma avea mea ma kata.",
   "import-board-instruction-trello": "I lau laupapa Trello, alu i le 'Menu', sosoo ai ma le 'More', 'Print and Export', 'Export JSON', ma kopi le tusitusiga e maua.",
   "import-board-instruction-csv": "Faapipii lau Comma Separated Values (CSV)/ Tab Separated Values (TSV).",
   "import-board-instruction-jira": "Faapipii le JSON mai le sailiga issue a le Jira Cloud REST API (GET /rest/api/2/search), po o se mea faitino tutusa { \"issues\": [...] }. E avea statuses a Jira ma lisi ma issues ma pepa. E mafai foi ona aofia se faasologa \"automationRules\" e faaulu ai tulafono.",

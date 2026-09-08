@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "Paste wan __sourceName__ issues JSON array (__endpoint__). Issues become ol kad grouped into Openem / Closed ol lis.",
   "import-board-instruction-asana": "Paste wan Asana tasks karem i go JSON ({ \"data\": [...] } long Asana karem i go o GET /tasks). Tasks oli grouped into sections (memberships); finis tasks go long Done.",
   "import-board-instruction-zenkit": "Paste wan ZenKit lis karem i go JSON ({ \"taetol\", \"stages\":[...], \"items\":[...] }). Stages become ol lis mo items become ol kad.",
+  "import-board-instruction-markdown": "Pastem wan markdown task lis (kastom we ol markdown-kanban tul olsem Obsidian Kanban i yusum): \"## List name\" heding, wetem \"- [ ]\"/\"- [x]\" aitem aninit. Heding i kam list mo aitem i kam kad; wan flat bullet lis witaot checkbox tu i save go insaed, olsem open kad.",
   "import-board-instruction-trello": "In blong yu Trello bod, go long 'Menu', then 'Moa', 'Print mo Karem i go', 'Karem i go JSON', mo kopiem resulting raeting.",
   "import-board-instruction-csv": "Paste insaed long blong yu Comma Separated Values(CSV)/ Tab Separated Values (TSV) .",
   "import-board-instruction-jira": "Paste JSON long Jira Cloud REST API issue lukaotem (GET /rest/api/2/lukaotem), o wan equivalent { \"issues\": [...] } object. Jira statuses become ol lis mo issues become ol kad. Optionally include wan \"automationRules\" array long karem i kam rules.",

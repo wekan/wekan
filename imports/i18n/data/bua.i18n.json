@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "__sourceName__ асуудалнуудай JSON массив (__endpoint__) оруулагты. Асуудалнууд Нээлтэтэй / Хаалтатай жагсаалтануудта бүлэглэгдэһэн картанууд болохо.",
   "import-board-instruction-asana": "Asana даабаринуудай гаргалгын JSON ({ \"data\": [...] } Asana гаргалгаһаа гү, али GET /tasks) оруулагты. Даабаринууд хэсэгүүдээр (memberships) бүлэглэгдэхэ; дүүрэһэн даабаринууд Дүүрэһэн рүү орохо.",
   "import-board-instruction-zenkit": "ZenKit жагсаалтын гаргалгын JSON ({ \"title\", \"stages\":[...], \"items\":[...] }) оруулагты. Шатанууд жагсаалтанууд, зүйлнүүд картанууд болохо.",
+  "import-board-instruction-markdown": "Markdown даабарилгын жагсаалт буулгагты (Obsidian Kanban мэтэ markdown-kanban зэмсэгүүдэй хэрэглэдэг журам): доронь \"- [ ]\"/\"- [x]\" зүйлнүүдтэй \"## Жагсаалтын нэрэ\" гарша. Гаршанууд жагсаалт боложо, зүйлнүүд карта боложо хубилна.",
   "import-board-instruction-trello": "Trello самбартаа 'Menu', удаань 'More', 'Print and Export', 'Export JSON' руу орожо, гараһан бэшэг хуулжа абагты.",
   "import-board-instruction-csv": "Запятагаар илгагдаһан утганууд (CSV) / табуляциар илгагдаһан утганууд (TSV) оруулагты.",
   "import-board-instruction-jira": "Jira Cloud REST API асуудал бэдэрэлгын JSON (GET /rest/api/2/search) гү, али адли { \"issues\": [...] } объект оруулагты. Jira түлэбүүд жагсаалтанууд, асуудалнууд картанууд болохо. Дүрим оруулхын тула \"automationRules\" массив нэмжэ болоно.",

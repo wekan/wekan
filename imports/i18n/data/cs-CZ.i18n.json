@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "Vložte JSON pole issues z __sourceName__ (__endpoint__). Issues se stanou kartami seskupenými do seznamů Otevřené / Uzavřené.",
   "import-board-instruction-asana": "Vložte JSON exportu úkolů z Asany ({ \"data\": [...] } z exportu Asany nebo GET /tasks). Úkoly se seskupí do sekcí (memberships); dokončené úkoly jdou do Hotovo.",
   "import-board-instruction-zenkit": "Vložte JSON exportu seznamu ze ZenKitu ({ \"title\", \"stages\":[...], \"items\":[...] }). Fáze se stanou seznamy a položky kartami.",
+  "import-board-instruction-markdown": "Vložte seznam úkolů v markdownu (konvence, kterou používají markdown-kanban nástroje, jako je Obsidian Kanban): nadpisy \"## Název seznamu\" s položkami \"- [ ]\"/\"- [x]\" pod nimi. Z nadpisů se stanou seznamy a z položek karty; obyčejný odrážkový seznam bez zaškrtávacích políček se také importuje, jako otevřené karty.",
   "import-board-instruction-trello": "Na svém Trello tablu, otevři 'Menu', pak 'More', 'Print and Export', 'Export JSON', a zkopíruj výsledný text",
   "import-board-instruction-csv": "Vložit do vašeho Comma Separated Values (CSV)/ Tab Separated Values (TSV).",
   "import-board-instruction-jira": "Vložte JSON z Jira Cloud REST API vyhledávání issues (GET /rest/api/2/search) nebo ekvivalentní objekt { \"issues\": [...] }. Stavy Jira se stanou seznamy a issues kartami. Volitelně zahrňte pole „automationRules“ pro import pravidel.",

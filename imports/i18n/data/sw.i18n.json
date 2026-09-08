@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "Bandika safu ya JSON ya masuala ya __sourceName__ (__endpoint__). Masuala huwa kadi zilizopangwa katika orodha za Open / Closed.",
   "import-board-instruction-asana": "Bandika JSON ya kuhamisha kazi za Asana ({ \"data\": [...] } kutoka kwa uhamishaji wa Asana au GET /tasks). Kazi hupangwa katika sehemu (memberships); kazi zilizokamilika huenda Done.",
   "import-board-instruction-zenkit": "Bandika JSON ya kuhamisha orodha ya ZenKit ({ \"title\", \"stages\":[...], \"items\":[...] }). Stages huwa orodha na items huwa kadi.",
+  "import-board-instruction-markdown": "Bandika orodha ya kazi ya markdown (mkataba unaotumiwa na zana za markdown-kanban kama Obsidian Kanban): vichwa \"## Jina la orodha\", vikiwa na vitu \"- [ ]\"/\"- [x]\" chini yake. Vichwa vinakuwa orodha na vitu vinakuwa kadi; orodha rahisi ya vitone bila visanduku vya kuteua pia huingizwa, kama kadi zilizo wazi.",
   "import-board-instruction-trello": "Katika ubao wako wa Trello, nenda kwenye 'Menyu', kisha 'Zaidi', 'Chapisha na Hamisha', 'Hamisha JSON', na unakili maandishi yanayotokana.",
   "import-board-instruction-csv": "Bandika katika Thamani Zilizotenganishwa na Koma(CSV)/ Thamani Zilizotenganishwa za Kichupo (TSV) .",
   "import-board-instruction-jira": "Bandika JSON kutoka kwa utafutaji wa masuala wa Jira Cloud REST API (GET /rest/api/2/search), au kitu sawa cha { \"issues\": [...] }. Hali za Jira huwa orodha na masuala huwa kadi. Kwa hiari jumuisha safu ya \"automationRules\" ili kuingiza kanuni.",

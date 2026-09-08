@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "Ngjit një varg JSON të çështjeve nga __sourceName__ (__endpoint__). Çështjet bëhen karta të grupuara në listat Hapur / Mbyllur.",
   "import-board-instruction-asana": "Ngjit një eksport JSON të detyrave Asana ({ \"data\": [...] } nga eksporti Asana ose GET /tasks). Detyrat grupohen në seksione (memberships); detyrat e përfunduara kalojnë te Përfunduar.",
   "import-board-instruction-zenkit": "Ngjit një eksport JSON të listës ZenKit ({ \"title\", \"stages\":[...], \"items\":[...] }). Fazat bëhen lista dhe elementet bëhen karta.",
+  "import-board-instruction-markdown": "Ngjitni një listë detyrash markdown (konventa që përdorin mjetet markdown-kanban si Obsidian Kanban): titujt \"## Emri i listës\", me elementet \"- [ ]\"/\"- [x]\" poshtë. Titujt bëhen lista dhe elementet bëhen karta; një listë e thjeshtë me pika pa kutiza zgjedhjeje gjithashtu importohet, si karta të hapura.",
   "import-board-instruction-trello": "Në tabelën Trello shko te 'Menu', pastaj 'More', 'Print and Export', 'Export JSON' dhe kopjo tekstin e krijuar.",
   "import-board-instruction-csv": "Ngjit vlerat e ndara me presje (CSV) ose me tabulator (TSV).",
   "import-board-instruction-jira": "Ngjit JSON-in nga kërkimi i çështjeve në Jira Cloud REST API (GET /rest/api/2/search), ose një objekt të barasvlershëm { \"issues\": [...] }. Statuset Jira bëhen lista dhe çështjet bëhen karta. Mund të përfshish edhe vargun \"automationRules\" për të importuar rregullat.",

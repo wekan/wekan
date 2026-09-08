@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "Ɗakku doggol JSON caɗeele __sourceName__ (__endpoint__). Caɗeele maa ngonta karte renndinaaɗe e doggi Udditii / Uddataama.",
   "import-board-instruction-asana": "Ɗakku JSON yaltinal golle Asana ({ \"data\": [...] } iwde e yaltinal Asana walla GET /tasks). Golle renndintee e taƴe (memberships); golle timmuɗe njahata to Timmii.",
   "import-board-instruction-zenkit": "Ɗakku JSON yaltinal doggol ZenKit ({ \"title\", \"stages\":[...], \"items\":[...] }). Stages maa ngonta doggi, tee items maa ngonta karte.",
+  "import-board-instruction-markdown": "Habbir happirde golle markdown (aada nde kaɓirɗe markdown-kanban wano Obsidian Kanban huutortoo): tiitooje \"## Innde lislub\", e kuutorɗe \"- [ ]\"/\"- [x]\" e ley. Tiitooje ɗen wonata lislub, kuutorɗe ɗen wonata kaarte; lislub e tolli ngu alaa checkbox kadi naatirta, wano kaarte uddaaɗe.",
   "import-board-instruction-trello": "E alluwal Trello maa, yahu to 'Menu', rewtu 'More', 'Print and Export', 'Export JSON', kisa natto binndol keɓaangol.",
   "import-board-instruction-csv": "Ɗakku Kiisol Ceŋondiral (CSV) / Kiisol Tab (TSV) maa.",
   "import-board-instruction-jira": "Ɗakku JSON iwɗo e njiilaw caɗeele Jira Cloud REST API (GET /rest/api/2/search), walla geɗel nanndungel { \"issues\": [...] }. Jira statuses maa ngonta doggi, tee issues maa ngonta karte. A waawi ɓeydude doggol \"automationRules\" ngam naatnude kuule.",

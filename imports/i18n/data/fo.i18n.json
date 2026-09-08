@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "Líma eitt JSON-fylki av __sourceName__-málum (__endpoint__). Mál verða kort, bólkað í Opnar / Afturlatnar listar.",
   "import-board-instruction-asana": "Líma eitt Asana-uppgávuútflutnings-JSON ({ \"data\": [...] } úr Asana-útflutningi ella GET /tasks). Uppgávur verða bólkaðar í partar (memberships); lidnar uppgávur fara í Liðugt.",
   "import-board-instruction-zenkit": "Líma eitt ZenKit-listaútflutnings-JSON ({ \"title\", \"stages\":[...], \"items\":[...] }). Stig verða listar, og lutir verða kort.",
+  "import-board-instruction-markdown": "Set inn ein markdown-uppgávulista (siðvenjan sum markdown-kanban amboð sum Obsidian Kanban nýta): \"## Listanavn\"-fyrisagnir, við \"- [ ]\"/\"- [x]\"-lutum niðanundir. Fyrisagnir gerast listar og lutir gerast kort; ein einfaldur punktalisti uttan avmerkingarbox verður eisini innfluttur, sum opin kort.",
   "import-board-instruction-trello": "Far á 'Menu' á Trello-talvuni, síðan á 'More', 'Print and Export', 'Export JSON', og avrita tekstin, ið kemur fram.",
   "import-board-instruction-csv": "Líma tíni kommuskildu virði (CSV)/teknskildu virði (TSV).",
   "import-board-instruction-jira": "Líma JSON úr Jira Cloud REST API-málaleitingini (GET /rest/api/2/search), ella ein samsvarandi lut { \"issues\": [...] }. Jira-støður verða listar, og mál verða kort. Tú kanst eisini hava eitt \"automationRules\"-fylki við fyri at innflyta reglur.",

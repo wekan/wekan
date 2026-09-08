@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "Wklej tabula JSON zgłoszeń __sourceName__ (__endpoint__). Zgłoszenia stają sie kartami pogrupowanymi we listy Otwarte / Zamknięte.",
   "import-board-instruction-asana": "Wklej eksport JSON zadań Asana ({ \"datum\": [...] } z eksportu Asana abo GET /tasks). Zadania sōm grupowane we sekcje (memberships); ukończone zadania trafiają do Zakończone.",
   "import-board-instruction-zenkit": "Wklej eksport JSON listy ZenKit ({ \"title\", \"stages\":[...], \"items\":[...] }). Etapy stają sie listami, a elementy kartami.",
+  "import-board-instruction-markdown": "Wraź lista zadań we markdown (kōnwyncyjo, kero używajōm noczynia markdown-kanban jak Obsidian Kanban): nogōwki \"## Miano listy\", z elymyntami \"- [ ]\"/\"- [x]\" niżyj. Nogōwki stowajōm sie listami, a elymynty kartami.",
   "import-board-instruction-trello": "We twojej tabule na Trello przejdź do 'Menu', następnie 'Wiyncyj', 'Drukuj i eksportuj', 'Eksportuj jako JSON' i skopiyruj wynik",
   "import-board-instruction-csv": "Wklej swoje dane we postaci wartości oddzielanych przecinkiem (CSV) abo tabulatorem (TSV)",
   "import-board-instruction-jira": "Wklej JSON z wyszukiwania zgłoszeń we Jira Cloud REST API (GET /rest/api/2/search) abo równoważny obiekt { \"issues\": [...] }. Statusy Jira stają sie listami, a zgłoszenia kartami. Opcjonalnie dołącz tabula \"automationRules\", aby zaimportować reguły.",

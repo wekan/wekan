@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "Gorra omma aray JSON kudynnow __sourceName__ (__endpoint__). Kudynnow a wra bos kartennow baghes yn rolyow Open / Closed.",
   "import-board-instruction-asana": "Gorra omma JSON esperth oberennow Asana ({ \"data\": [...] } dhyworth esperth Asana po GET /tasks). Oberennow yw baghes yn rannow (memberships); oberennow gorfenwys a wra mos dhe Done.",
   "import-board-instruction-zenkit": "Gorra omma JSON esperth rol ZenKit ({ \"title\", \"stages\":[...], \"items\":[...] }). Gradhow a wra bos rolyow ha taklennow a wra bos kartennow.",
+  "import-board-instruction-markdown": "Gorra rol a wharfoseth markdown (an us a wra usya ynstrumentow markdown-kanban kepar ha Obsidian Kanban): pennow \"## Hanow an rol\", gans tybmennow \"- [ ]\"/\"- [x]\" a woles. Pennow a dheu ha bos rolyow ha tybmennow a dheu ha bos kardys.",
   "import-board-instruction-trello": "Y'th estyllen Trello, mos dhe 'Menu', ena 'More', 'Print and Export', 'Export JSON', ha kopia an tekst gwrys.",
   "import-board-instruction-csv": "Gorra omma dha Werthow digemmys gans komma (CSV)/Gwerthow digemmys gans tab (TSV).",
   "import-board-instruction-jira": "Gorra omma an JSON dhyworth hwithrans kudyn Jira Cloud REST API (GET /rest/api/2/search), po gwrthrych kehaval { \"issues\": [...] }. Studhow Jira a wra bos rolyow ha kudynnow a wra bos kartennow. A-dhewis, gorra aray \"automationRules\" rag ynperthi reulayow.",

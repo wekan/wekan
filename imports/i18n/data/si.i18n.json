@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "__sourceName__ issues JSON අරාවක් (__endpoint__) අලවන්න. Issues, Open / Closed ලැයිස්තුවලට සමූහගත කළ කාඩ්පත් බවට පත්වේ.",
   "import-board-instruction-asana": "Asana කාර්ය නිර්යාත JSON එකක් (Asana නිර්යාතයෙන් හෝ GET /tasks වෙතින් { \"data\": [...] }) අලවන්න. කාර්ය කොටස් (memberships) අනුව සමූහගත වන අතර සම්පූර්ණ කාර්ය Done වෙත යයි.",
   "import-board-instruction-zenkit": "ZenKit ලැයිස්තු නිර්යාත JSON එකක් ({ \"title\", \"stages\":[...], \"items\":[...] }) අලවන්න. Stages ලැයිස්තු බවටත් items කාඩ්පත් බවටත් පත්වේ.",
+  "import-board-instruction-markdown": "markdown කාර්ය ලැයිස්තුවක් අලවන්න (Obsidian Kanban වැනි markdown-kanban මෙවලම් භාවිතා කරන සම්මුතිය): \"## ලැයිස්තුවේ නම\" ශීර්ෂ, පහළ \"- [ ]\"/\"- [x]\" අයිතම සමඟ. ශීර්ෂ ලැයිස්තු බවට පත් වන අතර අයිතම කාඩ්පත් බවට පත් වේ; චෙක්බොක්ස් රහිත සරල බුලට් ලැයිස්තුවක් ද විවෘත කාඩ්පත් ලෙස ආනයනය වේ.",
   "import-board-instruction-trello": "ඔබගේ Trello පුවරුවේ 'Menu', ඉන්පසු 'More', 'Print and Export', 'Export JSON' වෙත ගොස් ලැබෙන පෙළ පිටපත් කරන්න.",
   "import-board-instruction-csv": "ඔබගේ Comma Separated Values (CSV)/ Tab Separated Values (TSV) මෙහි අලවන්න.",
   "import-board-instruction-jira": "Jira Cloud REST API issue සෙවුමෙන් JSON (GET /rest/api/2/search), හෝ සමාන { \"issues\": [...] } වස්තුවක් අලවන්න. Jira statuses ලැයිස්තු බවටත් issues කාඩ්පත් බවටත් පත්වේ. නීති ආයාත කිරීමට විකල්ප ලෙස \"automationRules\" අරාවක් ඇතුළත් කරන්න.",

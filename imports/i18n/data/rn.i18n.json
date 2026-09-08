@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "Shiraho urutonde rwa JSON rw'ibibazo vya __sourceName__ (__endpoint__). Ibibazo biba amakarata ashizwe mu ntonde Open / Closed.",
   "import-board-instruction-asana": "Shiraho JSON yasohowe y'ibikorwa vya Asana ({ \"data\": [...] } ivuye muri Asana canke GET /tasks). Ibikorwa bishirwa mu bice (memberships); ivyuzuye bija muri Done.",
   "import-board-instruction-zenkit": "Shiraho JSON yasohowe y'urutonde rwa ZenKit ({ \"title\", \"stages\":[...], \"items\":[...] }). Stages ziba intonde, items zikaba amakarata.",
+  "import-board-instruction-markdown": "Numukiriza urutonde rw'imirimo rwa markdown (uburyo ibikoresho vya markdown-kanban nka Obsidian Kanban bikoresha): imitwe \"## Izina ry'urutonde\", n'ibintu \"- [ ]\"/\"- [x]\" munsi yayo. Imitwe iba ivyandikwa naho ibintu bikaba amakarita.",
   "import-board-instruction-trello": "Ku capa cawe ca Trello, ja kuri 'Menu', hanyuma 'More', 'Print and Export', 'Export JSON', maze ukoporore inyandiko ivuyemwo.",
   "import-board-instruction-csv": "Shiraho Comma Separated Values(CSV)/ Tab Separated Values (TSV) zawe.",
   "import-board-instruction-jira": "Shiraho JSON ivuye mu kurondera ibibazo kwa Jira Cloud REST API (GET /rest/api/2/search), canke ikintu kingana na { \"issues\": [...] }. Statuses za Jira ziba intonde, issues zikaba amakarata. Ushobora kwongerako urutonde rwa \"automationRules\" kugira winjize amategeko.",

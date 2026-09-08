@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "Plak 'n __sourceName__ issues-JSON-skikking (__endpoint__). Issues word kaarte gegroepeer in Oop / Gesluit lyste.",
   "import-board-instruction-asana": "Plak 'n Asana take-uitvoer-JSON ({ \"data\": [...] } van die Asana-uitvoer of GET /tasks). Take word in afdelings (lidmaatskappe) gegroepeer; voltooide take gaan na Klaar.",
   "import-board-instruction-zenkit": "Plak 'n ZenKit lys-uitvoer-JSON ({ \"title\", \"stages\":[...], \"items\":[...] }). Stadiums word lyste en items word kaarte.",
+  "import-board-instruction-markdown": "Plak 'n markdown-taaklys (die konvensie wat markdown-kanban-nutsgoed soos Obsidian Kanban gebruik): \"## Lysnaam\"-opskrifte, met \"- [ ]\"/\"- [x]\"-items daaronder. Opskrifte word lyste en items word kaarte; 'n gewone koeëllys sonder merkblokkies word ook ingevoer, as oop kaarte.",
   "import-board-instruction-trello": "In jou Trello-bord, gaan na 'Menu', dan 'Meer', 'Druk en uitvoer', 'Uitvoer JSON', en kopieer die gevolglike teks.",
   "import-board-instruction-csv": "Plak jou komma-geskeide waardes (CSV)/ Tab-geskeide waardes (TSV) in.",
   "import-board-instruction-jira": "Plak die JSON van die Jira Cloud REST API issue-soektog (GET /rest/api/2/search), of 'n ekwivalente { \"issues\": [...] }-objek. Jira-statusse word lyste en issues word kaarte. Sluit opsioneel 'n \"automationRules\"-skikking in om reëls in te voer.",

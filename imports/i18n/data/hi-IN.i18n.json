@@ -665,6 +665,7 @@
   "import-board-instruction-issues": "एक __sourceName__ issues JSON सरणी पेस्ट करें (__endpoint__)। Issues कार्ड बन जाते हैं जो Open / Closed सूचियों में समूहीकृत होते हैं।",
   "import-board-instruction-asana": "एक Asana tasks निर्यात JSON पेस्ट करें (Asana निर्यात या GET /tasks से { \"data\": [...] })। Tasks अनुभागों (memberships) में समूहीकृत होते हैं; पूर्ण किए गए tasks Done में जाते हैं।",
   "import-board-instruction-zenkit": "एक ZenKit सूची निर्यात JSON पेस्ट करें ({ \"title\", \"stages\":[...], \"items\":[...] })। Stages सूचियां बन जाते हैं और items कार्ड बन जाते हैं।",
+  "import-board-instruction-markdown": "एक markdown टास्क सूची पेस्ट करें (यह वह परंपरा है जिसका उपयोग Obsidian Kanban जैसे markdown-kanban टूल करते हैं): \"## सूची का नाम\" हेडिंग, नीचे \"- [ ]\"/\"- [x]\" आइटम के साथ। हेडिंग सूचियाँ बन जाती हैं और आइटम कार्ड बन जाते हैं; बिना चेकबॉक्स वाली सामान्य बुलेट सूची भी आयात होती है, खुले कार्ड के रूप में।",
   "import-board-instruction-trello": "In your Trello बोर्ड, go तक 'Menu', then 'More', 'Print और Export', 'Export JSON', और copy the resulting text.",
   "import-board-instruction-csv": "अपने कोमा सेपरेटेड वैल्यू (CSV) / ​​टैब सेपरेटेड वैल्यू (TSV) में पेस्ट करें।",
   "import-board-instruction-jira": "Jira Cloud REST API issue search (GET /rest/api/2/search) से JSON, या समकक्ष { \"issues\": [...] } ऑब्जेक्ट पेस्ट करें। Jira statuses सूचियां बन जाते हैं और issues कार्ड बन जाते हैं। नियम आयात करने के लिए वैकल्पिक रूप से एक \"automationRules\" सरणी शामिल करें।",
