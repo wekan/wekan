@@ -1658,3 +1658,15 @@ form.inlined-form .list-composer {
   margin: 5px auto;
   z-index: 10;
 }
+
+/* "Set width" popup (setListWidthPopup, listHeader.jade): "Same width for
+   all lists" was inline right after "Auto list width", both `a` tags with
+   no display of their own - the browser default (inline) put them side by
+   side on one crowded line instead of the toggle stack the rest of the
+   popup already reads as. Each is now its own row, in the same top-to-
+   bottom order the markup already had. */
+#js-list-width-edit .js-toggle-auto-width,
+#js-list-width-edit .js-toggle-fixed-list-width {
+  display: block;
+  margin-top: 8px;
+}
