@@ -200,7 +200,12 @@ test('the board has no second header bar to lay out', () => {
   // same thing. tests/titleClickToEdit.test.cjs is where that lives.
   assert.ok(!/\+boardEditTitleButton/.test(header), 'and no pencil beside it');
   assert.ok(/js-edit-board-title/.test(header), 'the name itself opens the rename popup');
-  assert.ok(/if isBoardPage\n\s+\+boardHeaderButtons/.test(header), 'the controls beside those');
+  // #6680 follow-up: +boardHeaderButtons is now wrapped in a
+  // span.js-header-collapsible-icon (so the new header-icons-collapse
+  // toggle can hide it), one line deeper than it used to sit directly
+  // under "if isBoardPage".
+  assert.ok(/if isBoardPage\n\s+span\.js-header-collapsible-icon\n\s+\+boardHeaderButtons/.test(header),
+    'the controls beside those');
 });
 
 console.log(`\nboardHeaderOneLine: ${passed} tests passed`);

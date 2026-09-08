@@ -116,15 +116,23 @@ test('nothing outside that range carries the marker class (negative)', () => {
 });
 
 test('the CSS hides every marked icon when collapsed, and the new wrapper spans stay transparent otherwise', () => {
-  assert.ok(/#header-quick-access\.header-icons-collapsed \.js-header-collapsible-icon \{[^}]*display:\s*none\s*!important/
+  // A data ATTRIBUTE, not an extra class on #header-quick-access's own
+  // `class="{{themeColorClass}}"` binding: appending to that exact string
+  // broke tests/globalThemeColor.test.cjs's count of elements using the
+  // theme-color helper unmodified.
+  assert.ok(/#header-quick-access\[data-header-icons-collapsed="true"\] \.js-header-collapsible-icon \{[^}]*display:\s*none\s*!important/
     .test(css.replace(/\s+/g, ' ')), 'the collapsed rule hides marked icons');
   assert.ok(/#header-quick-access \.header-quick-access-end > span\.js-header-collapsible-icon \{[^}]*display:\s*contents/
     .test(css.replace(/\s+/g, ' ')), 'the new span wrappers default to display: contents');
 });
 
-test('the root element carries the collapsed class reactively', () => {
-  assert.ok(/#header-quick-access\.nodragscroll\(class="\{\{themeColorClass\}\} \{\{#if headerIconsCollapsed\}\}header-icons-collapsed\{\{\/if\}\}"/
-    .test(jade), 'the class is bound to the same helper the button reads');
+test('the root element still uses the theme-color helper unmodified, plus a data attribute', () => {
+  // globalThemeColor.test.cjs counts exact `class="{{themeColorClass}}"`
+  // occurrences (>=2, #header and #header-quick-access) - that string must
+  // stay byte-for-byte untouched; the collapsed state rides a separate
+  // data-* attribute instead of being appended into the same class string.
+  assert.ok(jade.includes('class="{{themeColorClass}}" data-header-icons-collapsed="{{headerIconsCollapsed}}"'),
+    'the theme-color class binding is untouched, with the data attribute beside it');
 });
 
 console.log(`\nheaderIconsCollapse: ${passed} tests passed`);

@@ -8,7 +8,7 @@ template(name="header")
     //- nodragscroll hands dragging on this bar to client/lib/headerDragscroll.js,
     //- which forwards it to whatever actually scrolls. Without it the page-level
     //- dragscroll on the body element would scroll the page at the same time.
-    #header-quick-access.nodragscroll(class="{{themeColorClass}} {{#if headerIconsCollapsed}}header-icons-collapsed{{/if}}" role="navigation" aria-label="{{_ 'all-boards'}}")
+    #header-quick-access.nodragscroll(class="{{themeColorClass}}" data-header-icons-collapsed="{{headerIconsCollapsed}}" role="navigation" aria-label="{{_ 'all-boards'}}")
       //- Home icon - always at left side of logo. The house is the link to All
         Boards; the TEXT beside it is the page you are on, which on a board is
         the board's title. It used to say "All Boards" on every page, so the one

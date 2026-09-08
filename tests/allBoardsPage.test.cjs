@@ -60,7 +60,9 @@ test('every control of this page is in its right sidebar', () => {
   assert.ok(!sidebar.includes('js-open-all-boards-view'), 'the view menu is not a row');
   assert.ok(/template\(name="allBoardsViewMenu"\)/.test(jade), 'it is its own template');
   const header = read('client/components/main/header.jade');
-  assert.ok(/if isAllBoardsPage\n\s+\+allBoardsViewMenu/.test(header),
+  // #6680 follow-up: wrapped in a span.js-header-collapsible-icon (the
+  // header-icons-collapse toggle).
+  assert.ok(/if isAllBoardsPage\n\s+span\.js-header-collapsible-icon\n\s+\+allBoardsViewMenu/.test(header),
     'which the first header bar renders on All Boards');
   // Sort still says whether a sort is on, which was the point of its emphasis.
   assert.ok(/js-open-boards-sort\(class="\{\{#unless isBoardsSort 'custom'\}\}emphasis/.test(sidebar),

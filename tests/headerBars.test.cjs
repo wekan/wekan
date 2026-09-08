@@ -184,7 +184,9 @@ test('the Admin Panel tabs are icons, in the first bar, left of the bell', () =>
   assert.notStrictEqual(tabsAt, -1, 'the first bar renders them');
   assert.ok(tabsAt < bellAt, 'to the LEFT of the notification bell');
   assert.ok(tabsAt < header.indexOf('#header.nodragscroll'), 'in the FIRST bar');
-  assert.ok(/if isAdminPanel\n\s+\+adminPanelTabs/.test(header),
+  // #6680 follow-up: +adminPanelTabs is now wrapped in a
+  // span.js-header-collapsible-icon (the header-icons-collapse toggle).
+  assert.ok(/if isAdminPanel\n\s+span\.js-header-collapsible-icon\n\s+\+adminPanelTabs/.test(header),
     'and only in the Admin Panel');
 
   // ...which is its four routes, from the one place that lists them.
@@ -203,8 +205,12 @@ test('the view menus are in the first bar, whichever page has one', () => {
   // name in the bar that is always on screen - not in a second bar (where the
   // board's was) and not behind a panel you have to open (where All Boards'
   // was for one step).
-  assert.ok(/if isBoardPage\n\s+\+boardViewMenu/.test(jade), "a board's view menu");
-  assert.ok(/else if isAllBoardsPage\n\s+\+allBoardsViewMenu/.test(jade), "and All Boards'");
+  // #6680 follow-up: both are now wrapped in a
+  // span.js-header-collapsible-icon (the header-icons-collapse toggle).
+  assert.ok(/if isBoardPage\n\s+span\.js-header-collapsible-icon\n\s+\+boardViewMenu/.test(jade),
+    "a board's view menu");
+  assert.ok(/else if isAllBoardsPage\n\s+span\.js-header-collapsible-icon\n\s+\+allBoardsViewMenu/.test(jade),
+    "and All Boards'");
   // One or the other, never both: they are alternatives, not a pair.
   assert.ok(jade.indexOf('+boardViewMenu') < jade.indexOf('+allBoardsViewMenu'),
     'the board branch comes first');

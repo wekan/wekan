@@ -492,7 +492,7 @@ body.mobile-mode #header-quick-access .allBoards {
 #header-quick-access .header-quick-access-end > span.js-header-collapsible-icon {
   display: contents;
 }
-#header-quick-access.header-icons-collapsed .js-header-collapsible-icon {
+#header-quick-access[data-header-icons-collapsed="true"] .js-header-collapsible-icon {
   display: none !important;
 }
 #header-quick-access #header-user-bar,
