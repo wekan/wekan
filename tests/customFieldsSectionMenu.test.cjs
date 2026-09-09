@@ -73,7 +73,7 @@ test('the field picker uses the Admin Settings and Announcement animation', () =
   'using the same green borders');
 });
 
-test('each field has a pencil, and Add sits under a rule', () => {
+test('each field has a pencil, and Add sits under a rule when there is a field to rule off', () => {
   assert.ok(/a\.js-edit-custom-field\(title="\{\{_ 'edit'\}\}" aria-label="\{\{_ 'edit'\}\}"\)/.test(popup),
     'an accessible pencil per field');
   assert.ok(/i\.fa\.fa-pencil-square-o\(aria-hidden="true"\)/.test(popup),
@@ -81,8 +81,18 @@ test('each field has a pencil, and Add sits under a rule', () => {
   const lines = popup.split('\n').map(l => l.trim());
   const at = lines.findIndex(l => l.includes('js-open-create-custom-field'));
   assert.ok(at !== -1, 'Add custom field is there');
-  assert.ok(lines.slice(0, at).includes('hr'), 'under a rule');
+  assert.ok(lines.slice(0, at).includes('hr'), 'a rule exists above it');
   assert.ok(/\{\{_ 'createCustomField'\}\}/.test(popup), 'named by the phrase the app has');
+});
+
+test('the rule is conditional on there being at least one field (negative)', () => {
+  // With no custom field on the board yet, the list above is empty - a rule
+  // between an empty list and "Add custom field" has nothing to separate.
+  const lines = popup.split('\n').map(l => l.trim());
+  const hrAt = lines.findIndex(l => l === 'hr');
+  assert.ok(hrAt !== -1, 'the hr line exists');
+  assert.strictEqual(lines[hrAt - 1], 'if board.customFields.length',
+    'the hr is guarded by whether there is at least one custom field');
 });
 
 test('Edit and Add are the board\'s own forms, not copies (negative)', () => {

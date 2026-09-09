@@ -19,7 +19,10 @@ template(name="cardCustomFieldsPopup")
                       = name
                 a.js-edit-custom-field(title="{{_ 'edit'}}" aria-label="{{_ 'edit'}}")
                     i.fa.fa-pencil-square-o(aria-hidden="true")
-    hr
+    //- The rule separates the list above from "Add custom field" below - with
+      no custom field yet, there is nothing above it to separate from.
+    if board.customFields.length
+        hr
     a.quiet-button.full.js-open-create-custom-field
         i.fa.fa-plus
         span {{_ 'createCustomField'}}
