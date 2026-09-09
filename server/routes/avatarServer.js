@@ -57,6 +57,22 @@ async function serveLegacyAvatar(fileId, req, res) {
   return true;
 }
 
+// Advisory: "serveLegacyAvatar Serves Legacy CollectionFS Avatars Without Any
+// Authentication" - both call sites below streamed a legacy avatar to any
+// anonymous caller who knew (or guessed) its old cfs.avatars.filerecord _id,
+// entirely ahead of - or, on /cfs/files/avatars, with no equivalent at all
+// to - the getUserIdFromRequest/avatarIsOnAPublicBoard check current avatars
+// already get. Legacy records carry no owner/board link we can safely check
+// (unlike current avatars, whose avatarIsOnAPublicBoard exemption needs
+// avatar.userId), so this requires an authenticated caller with no
+// anonymous/public-board bypass - a deliberately narrower rule than current
+// avatars, not the same one, because it is the only one that can be applied
+// without trusting an unverifiable claim about who a legacy file belonged to.
+async function isLegacyAvatarAuthorized(req) {
+  const userId = await getUserIdFromRequest(req);
+  return !!userId;
+}
+
 // May a caller who is NOT signed in see this avatar?
 //
 // Only on a public board, and only for somebody who is on it. The client appends
@@ -105,7 +121,14 @@ WebApp.handlers.use('/cdn/storage/avatars/:fileName', async (req, res, next) => 
     // Get avatar file from database
     const avatar = await ReactiveCache.getAvatar(fileId);
     if (!avatar) {
-      // Fall back to a legacy CollectionFS avatar (read in place).
+      // Fall back to a legacy CollectionFS avatar (read in place) - only for
+      // an authenticated caller (isLegacyAvatarAuthorized above), so an
+      // anonymous request never learns whether the id exists at all.
+      if (!(await isLegacyAvatarAuthorized(req))) {
+        res.writeHead(401);
+        res.end('Authentication required');
+        return;
+      }
       if (await serveLegacyAvatar(fileId, req, res)) {
         return;
       }
@@ -194,8 +217,16 @@ WebApp.handlers.use('/cfs/files/avatars/:fileName', async (req, res, next) => {
     // '<id>-original-<name>' form too.
     const fileId = fileName.split('-original-')[0] || fileName;
 
-    if (await serveLegacyAvatar(fileId, req, res)) {
-      return;
+    // Only an authenticated caller may read the legacy store directly; an
+    // anonymous one falls through to the redirect below, which is itself
+    // authorized (current avatars get the getUserIdFromRequest/
+    // avatarIsOnAPublicBoard check on /cdn/storage/avatars) - so a public
+    // board's already-migrated avatars still work for anonymous viewers,
+    // and only the un-migrated legacy path requires a login.
+    if (await isLegacyAvatarAuthorized(req)) {
+      if (await serveLegacyAvatar(fileId, req, res)) {
+        return;
+      }
     }
 
     // Not a legacy avatar — redirect to the new avatar URL format, KEEPING the

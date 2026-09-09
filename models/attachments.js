@@ -1,4 +1,5 @@
 import { Meteor } from 'meteor/meteor';
+import { Random } from 'meteor/random';
 import { FilesCollection } from 'meteor/ostrio:files';
 import { generateUniversalAttachmentUrl } from '/models/lib/universalUrlGenerator';
 const { cleanFileName } = require('/imports/lib/fileNameDisplay');
@@ -77,13 +78,50 @@ const Attachments = new FilesCollection({
     //const ret = fileId + "-original-" + filenameWithoutExtension;
     // NEW: Save file only with filename of ObjectID, not including filename.
     // Fixes https://github.com/wekan/wekan/issues/4416#issuecomment-1510517168
+    //
+    // SECURITY (path traversal / arbitrary file write): fileId is
+    // client-supplied (opts.fileId on the server branch, opts.meta.fileId on
+    // the client one) and is used VERBATIM as the on-disk file name below -
+    // this.sanitize() just above in the upload pipeline already strips
+    // path-traversal/shell characters (see the comment on sanitize() below),
+    // but require the result to also look like the ObjectId WeKan itself
+    // generates, so a malformed or unexpected value can never reach the
+    // filesystem at all rather than merely losing its dangerous characters.
+    if (!fileId || !/^[a-zA-Z0-9_-]{1,40}$/.test(fileId)) {
+      if (Meteor.isServer) {
+        // An attempt: no legitimate WeKan client ever sends a fileId that
+        // fails this check, so this line is what an anonymous namingFunction
+        // exploit attempt against Advisory "Unauthenticated Arbitrary File
+        // Write via Path Traversal in Attachment Upload namingFunction"
+        // looks like server-side.
+        try {
+          require('/server/lib/securityLog').record({
+            key: 'authz.file-path',
+            action: 'blocked',
+            source: 'Attachments.namingFunction',
+            detail: 'rejected a malformed/unsafe fileId, generated a fresh one instead',
+          });
+        } catch (e) { /* logging must never break the upload */ }
+      }
+      fileId = Random.id();
+    }
     const ret = fileId;
     // remove fileId from meta, it was only stored there to have this information here in the namingFunction function
     return ret;
   },
   sanitize(str, max, replacement) {
-    // keep the original filename
-    return str;
+    // SECURITY (path traversal / arbitrary file write): this used to be an
+    // identity function ("keep the original filename"), but ostrio:files
+    // never calls this.sanitize() on the human-readable file name - only on
+    // fileId/FSName, the tokens it uses to build the ON-DISK PATH before any
+    // containment check (server.js's DDP _Start/_Write methods and the HTTP
+    // __upload route all call `this.sanitize(opts.fileId, 20, 'a')` first).
+    // An identity sanitize let a client-supplied fileId like
+    // "../../../../tmp/pwn" flow straight through to the physical path.
+    // Restored to the same whitelist models/avatars.js already uses for the
+    // same tokens - file DISPLAY names are untouched, they are sanitized
+    // separately in onBeforeUpload below.
+    return (str || '').replace(/[^a-zA-Z0-9_.\-]/g, replacement || '_');
   },
   onBeforeUpload(file) {
     // SECURITY: Sanitize filename to prevent path traversal attacks

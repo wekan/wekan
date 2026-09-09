@@ -1,4 +1,4 @@
-import Attachments from '/models/attachments';
+import Attachments, { normalizeRemovedFiles } from '/models/attachments';
 import Boards from '/models/boards';
 import AttachmentStorageSettings from '/models/attachmentStorageSettings';
 import { allowIsBoardMemberWithWriteAccess } from '/server/lib/utils';
@@ -98,3 +98,60 @@ Attachments.allow({
   },
   fetch: ['meta'],
 });
+
+// Advisory: "Unauthenticated DDP Methods _FilesCollectionRemove_attachments/
+// _FilesCollectionRemove_avatars Allow Instance-Wide Deletion" - ostrio:files
+// registers its OWN DDP method (_FilesCollectionRemove_attachments), gated
+// only by `allowClientCode` (true above); its handler never goes through the
+// `Attachments.allow({remove})` rule above - that only gates the ordinary
+// Mongo `.remove()` call - and calls `self.removeAsync(selector)` directly.
+// With no onBeforeRemove defined at all, any anonymous DDP connection could
+// call it with selector `{}` and delete every attachment record and its
+// physical file on the instance. `this.userId` here is the calling DDP
+// method's own userId (ostrio:files' server.js binds it before invoking this
+// hook), so this runs the same board-write-access check `remove` above does,
+// against every document the selector actually matches - an empty or
+// non-matching selector is refused rather than treated as "nothing to check".
+Attachments.onBeforeRemove = async function (cursor) {
+  const userId = this.userId;
+  if (!userId) {
+    try {
+      require('/server/lib/securityLog').record({
+        key: 'authz.file-remove',
+        action: 'blocked',
+        source: '_FilesCollectionRemove_attachments',
+        detail: 'refused an unauthenticated attachment removal',
+      });
+    } catch (e) { /* logging must never break the guard */ }
+    return false;
+  }
+
+  const files = normalizeRemovedFiles(cursor);
+  if (!files.length) {
+    return false;
+  }
+
+  for (const fileObj of files) {
+    if (!fileObj || !fileObj.meta?.boardId) {
+      return false;
+    }
+    const board = await Boards.findOneAsync(fileObj.meta.boardId);
+    if (!board) {
+      return false;
+    }
+    if (!(await canEditAttachmentCard(userId, fileObj))) {
+      try {
+        require('/server/lib/securityLog').record({
+          key: 'authz.file-remove',
+          action: 'blocked',
+          userId,
+          source: '_FilesCollectionRemove_attachments',
+          detail: 'refused removal of an attachment outside the caller\'s write access',
+        });
+      } catch (e) { /* logging must never break the guard */ }
+      return false;
+    }
+  }
+
+  return true;
+};

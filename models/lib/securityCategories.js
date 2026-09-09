@@ -55,6 +55,12 @@ const CATALOG = {
   'authz.checklist': { category: 'authz', bleed: 'ChecklistBleed', severity: 'high', cwe: 'CWE-863' },
   'authz.comment':   { category: 'authz', bleed: 'CommentBleed', severity: 'medium', cwe: 'CWE-639' },
   'authz.file-path': { category: 'authz', bleed: 'PathBleed', severity: 'high', cwe: 'CWE-22' },
+  // Unauthenticated DDP Methods Allow Instance-Wide Deletion of Attachments
+  // and Avatars: ostrio:files registers its OWN _FilesCollectionRemove_<name>
+  // method, gated only by allowClientCode, which never went through
+  // Attachments.allow/Avatars.allow - so any anonymous caller could wipe
+  // every attachment or avatar with selector {}.
+  'authz.file-remove': { category: 'authz', bleed: 'WipeBleed', severity: 'critical', cwe: 'CWE-862' },
   'authz.parent':    { category: 'authz', bleed: 'ParentBleed', severity: 'high', cwe: 'CWE-862' },
   'authz.share':     { category: 'authz', bleed: 'RevokeBleed', severity: 'high', cwe: 'CWE-863' },
   'authz.readonly':  { category: 'authz', bleed: 'ReadOnlyBleed', severity: 'medium', cwe: 'CWE-863' },
