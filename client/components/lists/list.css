@@ -409,6 +409,10 @@ body.mobile-mode [id^="swimlane-"] .list[style*="--list-width"]:not(.list-collap
   padding: 0;
   margin: 0;
   width: 100%;
+  /* Same min-width: 56px clash as the desktop rule below - the 30px
+     collapsed column is narrower than that, so this must be overridden
+     back to 0 for width: 100% to take effect (#6680 follow-up). */
+  min-width: 0;
   max-height: 100%;
   height: 100%;
   position: static;
@@ -632,6 +636,10 @@ form.inlined-form .list-composer {
   }
   .list.list-collapsed .list-header .list-rotated h2.list-header-name {
     width: 100%;
+    /* Same min-width: 56px clash as the other collapsed-title rules (#6680
+       follow-up) - override back to 0 so width: 100% of the 30px column
+       applies. */
+    min-width: 0;
     font-size: calc(12px * var(--wekan-ui-font-scale, 1));
     height: 100%;
     line-height: 1.2;
@@ -683,6 +691,10 @@ form.inlined-form .list-composer {
   }
   .list.list-collapsed .list-header .list-rotated h2.list-header-name {
     width: 100%;
+    /* Same min-width: 56px clash as the other collapsed-title rules (#6680
+       follow-up) - override back to 0 so width: 100% of the 30px column
+       applies. */
+    min-width: 0;
     font-size: calc(12px * var(--wekan-ui-font-scale, 1));
     height: 100%;
     line-height: 1.2;
@@ -734,6 +746,10 @@ form.inlined-form .list-composer {
   }
   .list.list-collapsed .list-header .list-rotated h2.list-header-name {
     width: 100%;
+    /* Same min-width: 56px clash as the other collapsed-title rules (#6680
+       follow-up) - override back to 0 so width: 100% of the 30px column
+       applies. */
+    min-width: 0;
     font-size: calc(12px * var(--wekan-ui-font-scale, 1));
     height: 100%;
     line-height: 1.2;
@@ -1473,6 +1489,14 @@ form.inlined-form .list-composer {
 .list.list-collapsed:not(.mobile-view) .list-header .list-rotated h2.list-header-name {
   display: block !important;
   width: 100% !important;
+  /* .list-header .list-header-name sets a generic min-width: 56px (for the
+     normal, non-collapsed heading). min-width is a separate property from
+     width, so it survives the cascade even when this more specific rule
+     wins on width, and clamps the box to 56px wide regardless - offsetting
+     the rotated title to the right of the caret above it (#6680 follow-up,
+     collapse3.png). Override it back to 0 so width: 100% (of the narrow
+     collapsed column) actually applies. */
+  min-width: 0 !important;
   height: auto !important;
   margin: 0 !important;
   max-height: 100% !important;

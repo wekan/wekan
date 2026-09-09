@@ -91,7 +91,7 @@ test('the desktop rule sizes to its own content near the top, exactly as it ship
   assert.ok(/height:\s*auto\s*!important/.test(h2), 'sized to its own content again');
 });
 
-test('the plain (mobile-view) rule is untouched - it was never broken', () => {
+test('the plain (mobile-view) rule is untouched apart from the min-width fix below', () => {
   const rotated = ruleBody('.list.list-collapsed .list-header .list-rotated');
   assert.ok(/height:\s*auto\s*!important/.test(rotated));
   assert.ok(/margin:\s*10px 0 0 0\s*!important/.test(rotated));
@@ -100,6 +100,46 @@ test('the plain (mobile-view) rule is untouched - it was never broken', () => {
   assert.ok(/display:\s*block\s*!important/.test(h2));
   assert.ok(/height:\s*100%\s*;/.test(h2));
   assert.ok(/text-align:\s*center\s*;/.test(h2), 'already centered - this rule needed no fix');
+});
+
+// #6680 follow-up (.tools/collapse3.png): the title's X position did not
+// match the caret above it, even after the centering fix above. Root cause:
+// a generic, unrelated rule earlier in this file -
+// `.list-header .list-header-name { ... min-width: 56px; ... }` - applies to
+// every list heading, not just collapsed ones. min-width is a separate
+// property from width, so it survives the cascade even where a more
+// specific collapsed-list rule wins on width, and clamps the title's box to
+// 56px wide regardless of the 30px collapsed column - offsetting it to the
+// right of the caret. Fix: every collapsed-title h2 rule now also sets
+// `min-width: 0` to cancel that clamp. Verified with a Playwright
+// measurement showing the caret's and the title's horizontal centers match
+// after the fix (they did not before it: ~13px apart).
+test('every collapsed-title h2 rule cancels the generic 56px min-width clamp', () => {
+  // Two rules share this selector; the one with the 56px clamp is the later,
+  // generic heading rule further down the file (line ~473), not the earlier
+  // wrapping/overflow rule near the top - so search the whole file for it.
+  assert.ok(/\.list-header \.list-header-name \{[^}]*min-width:\s*56px/.test(css),
+    'the generic clamp this works around must still exist, or this test is stale');
+
+  for (const selector of [
+    '.list.list-collapsed .list-header .list-rotated h2.list-header-name',
+    '.list.list-collapsed:not(.mobile-view) .list-header .list-rotated h2.list-header-name',
+  ]) {
+    const body = ruleBody(selector);
+    assert.ok(/min-width:\s*0\s*(!important)?/.test(body),
+      `${selector} must override min-width back to 0`);
+  }
+
+  // The three @media (min-width: 768/1024/1200px) duplicates of the desktop
+  // rule need the same override - they are not scoped by :not(.mobile-view)
+  // and hit the same 56px clamp on ordinary desktop widths.
+  const mediaBlocks = css.match(
+    /@media \(min-width: (?:768|1024|1200)px\) \{[\s\S]*?\n\}/g) || [];
+  assert.strictEqual(mediaBlocks.length, 3, 'expected the three responsive collapsed-list blocks');
+  for (const block of mediaBlocks) {
+    assert.ok(/h2\.list-header-name \{[^}]*min-width:\s*0/.test(block.replace(/\/\*[\s\S]*?\*\//g, '')),
+      'each responsive block\'s h2 rule must also override min-width back to 0');
+  }
 });
 
 console.log(`\ncollapsedListTitleCentered: ${passed} tests passed`);
