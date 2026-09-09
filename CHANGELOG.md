@@ -309,6 +309,37 @@ the Markdown commit as the template.
 </details>
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** issue #6681 (OIDC redirect-style login loop) is confirmed
+already fixed and closed - the reporter's follow-up server log matches the
+exact race already corrected by commit 89682c251, released starting v11.62.
+No application code changed.
+
+<details>
+<summary>Confirm #6681 (OIDC redirect-style login loop) stays fixed</summary>
+
+The reporter's `DEBUG=true` server log (getToken/getUserInfo repeating six
+times in under twenty seconds, each with a fresh access token) is the same
+signature the fix for #6681 already targets: `oauth2-login-style: redirect`
+with `oidc-redirection-enabled: true`, `Template.userFormsLayout.onCreated`
+re-firing the auto-redirect on the identity provider's bounce-back render
+before the prior login had finished. That was fixed by commit 89682c251
+("Fix OIDC auto-redirect looping until the provider rate-limits it"), which
+landed before v11.62 - several releases before this one - so a build the
+reporter's log shows as v11.60 predates the fix, and the fix has not been
+touched since. `tests/oidcAutoRedirectLoop.test.cjs` (6 checks) still
+passes against current source, confirming the one-shot sessionStorage flag
+still gates the auto-redirect and is still cleared on both login success
+and failure. No new code change was needed; the issue is closed with a
+pointer to where it was already fixed, and the reporter is asked to upgrade
+to v11.62 or newer.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their
+translations.
+
 # v11.66 2026-09-09 WeKan ® release
 
 **In short:** the companion build repositories under `.tools/` move forward:
