@@ -31,6 +31,7 @@ console.log('boardSettingsSwimlaneListCard:');
 
 const sidebarJade = read('client/components/sidebar/sidebar.jade');
 const sidebarJs = read('client/components/sidebar/sidebar.js');
+const sidebarCss = read('client/components/sidebar/sidebar.css');
 const headerJade = read('client/components/main/header.jade');
 const headerJs = read('client/components/main/header.js');
 const headerCss = read('client/components/main/header.css');
@@ -174,6 +175,43 @@ test('a non-admin still reaches the one PERSONAL row ("Labels text") via persona
     sidebarJs.indexOf('});', sidebarJs.indexOf("'click .js-open-board-card-settings'")));
   assert.ok(/isBoardAdmin/.test(handler), 'the handler checks board-admin status');
   assert.ok(/personalOnly:\s*true/.test(handler), 'and asks for personalOnly when the user is not an admin');
+});
+
+// ── the column headings, back from git history (commit 02025aa6c) ──────────
+
+test('the heading row is back: Show on Card / Show on Minicard / Description', () => {
+  const tpl = sidebarJade.slice(sidebarJade.indexOf('template(name="boardCardSettingsPopup")'));
+  const form = tpl.slice(0, tpl.indexOf('\ntemplate(name='));
+  const heading = form.slice(0, form.indexOf('js-toggle-show-list-on-minicard'));
+  assert.ok(/\.card-settings-row\n\s+\.card-settings-column\n\s+h4 \{\{_ 'show-on-card'\}\}/.test(heading),
+    'first column: Show on Card');
+  assert.ok(/\.card-settings-column\n\s+h4 \{\{_ 'show-on-minicard'\}\}/.test(heading),
+    'second column: Show on Minicard');
+  assert.ok(/\.card-settings-column\n\s+h4 \{\{_ 'description'\}\}/.test(heading),
+    'third column: Description');
+  // All three are existing, already-translated keys - no new *-title-style
+  // key was added for this.
+  assert.ok(en['show-on-card'] && en['show-on-minicard'] && en['description'],
+    'all three keys already exist');
+});
+
+test('the heading is the first row, above every setting', () => {
+  const tpl = sidebarJade.slice(sidebarJade.indexOf('template(name="boardCardSettingsPopup")'));
+  const form = tpl.slice(tpl.indexOf('form.board-card-settings'));
+  const headingAt = form.indexOf("h4 {{_ 'show-on-card'}}");
+  const firstSetting = form.indexOf('js-toggle-show-list-on-minicard');
+  assert.ok(headingAt !== -1 && headingAt < firstSetting, 'the heading comes before any setting row');
+});
+
+test('the heading is a plain .card-settings-row, so it hides with a hidden column or personalOnly', () => {
+  // It is not a special .card-settings-grid element (that markup, and the
+  // sticky-header CSS/z-index that came with it, is gone for good - see
+  // commit 02025aa6c) - it is an ordinary row, so the SAME CSS that hides one
+  // checkbox column for Show on Card / Show on Minicard (settingsSideClass())
+  // hides the matching heading with it, and personalOnly hides the whole
+  // heading along with every other non-personal row.
+  assert.ok(!sidebarJade.includes('card-settings-grid'), 'no separate grid/heading markup is reintroduced');
+  assert.ok(!sidebarCss.includes('card-settings-grid'), 'and no CSS for one either');
 });
 
 console.log(`\nboardSettingsSwimlaneListCard: ${passed} tests passed`);

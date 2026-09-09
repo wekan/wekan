@@ -273,14 +273,27 @@ template(name="boardInfoOnMyBoardsPopup")
   a non-admin, who is passed `personalOnly=true` so every other (board-wide,
   admin-only) row is hidden and only that one shows.
   client/lib/minicardLabelText.js
-//- No heading row. It used to name the columns of a ROW - "Show on Card" over
-  the checkbox and "Description" over the name - which is what they label, but
-  not what they LOOK like: the rows flow into as many columns as the window
-  fits, so two headings sat above the first of three or four columns and read as
-  if they named those. A row is a checkbox and the name of a setting, and needs
-  neither.
+//- The heading row: "Show on Card" over the first checkbox column, "Show on
+  Minicard" over the second, "Description" over the setting's name. It was
+  removed once (commit 02025aa6c) because the popup used to flow its rows into
+  several side-by-side columns when only one of Card/Minicard showed - so the
+  heading sat above the FIRST of those columns only and read as if it named
+  that one alone. Board Settings / Card always shows both columns in a single
+  list of rows now (no side is passed, so the multi-column masonry layout
+  below never applies), so the ambiguity that got it removed is gone; it is a
+  `.card-settings-row` like any other, so the same CSS that hides a column
+  for "Show on Card" / "Show on Minicard" (side param still supported) hides
+  the matching heading with it, and personalOnly (the one row a non-admin
+  gets) hides it entirely, the same as every other non-personal row.
 template(name="boardCardSettingsPopup")
   form.board-card-settings(class=settingsSideClass)
+    .card-settings-row
+      .card-settings-column
+        h4 {{_ 'show-on-card'}}
+      .card-settings-column
+        h4 {{_ 'show-on-minicard'}}
+      .card-settings-column
+        h4 {{_ 'description'}}
     //- "List title": the name of the LIST this card is in, on its minicard.
       A per-CARD setting, unchecked by default, and the first row of this
       column because it is about the card as a whole rather than one of its

@@ -147,8 +147,9 @@
   cursor: pointer;
 }
 
-/* Card Settings 3-column row layout. There is no heading row above these: see
-   the note on boardCardSettingsPopup in sidebar.jade. */
+/* Card Settings 3-column row layout. The heading row (Show on Card / Show on
+   Minicard / Description) is one of these rows too - see the note on
+   boardCardSettingsPopup in sidebar.jade for why that is safe here. */
 .card-settings-row {
   display: grid;
   grid-template-columns: 1fr 1fr 2fr;
