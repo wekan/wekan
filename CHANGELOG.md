@@ -309,7 +309,7 @@ the Markdown commit as the template.
 </details>
 </details>
 
-# Upcoming WeKan ® release
+# v11.65 2026-09-09 WeKan ® release
 
 **In short:** Four security advisories against **Attachments/Avatars**
 (ostrio:files) are fixed: a **critical** path-traversal arbitrary file
