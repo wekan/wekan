@@ -96,16 +96,19 @@ template(name="swimlaneActionPopup")
                i.fa.fa-plus
                span
                  | {{_ 'add-list'}}
-          hr
-          ul.pop-over-list
-             if currentUser.isBoardAdmin
-               li: a.js-set-swimlane-color
-                 i.fa.fa-paint-brush
-                 | {{_ 'select-color'}}
-             li: a.js-set-swimlane-height
-               i.fa.fa-arrows
-               |  {{_ 'set-swimlane-height'}}
+          //- "Set swimlane height" was here. Swimlane height can still be
+            dragged from the resize handle below it (unless Board Settings /
+            Swimlane has locked that) - a menu entry for the same thing was a
+            second place to look for it. client/components/sidebar/sidebar.jade
+            Its removal left "Select color" as the only row of this group, so
+            the group's own hr moves inside the admin check with it - a non-
+            admin who cannot select the color has nothing here to rule off.
           if currentUser.isBoardAdmin
+            hr
+            ul.pop-over-list
+              li: a.js-set-swimlane-color
+                i.fa.fa-paint-brush
+                | {{_ 'select-color'}}
             unless this.isTemplateContainer
               hr
               ul.pop-over-list

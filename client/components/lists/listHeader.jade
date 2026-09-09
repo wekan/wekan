@@ -207,12 +207,11 @@ template(name="listActionPopup")
           a.js-add-list
             i.fa.fa-plus
             | {{_ 'add-list'}}
-      hr
-      ul.pop-over-list
-        li
-          a.js-set-list-width
-            i.fa.fa-arrows-h
-            |  {{_ 'set-list-width'}}
+  //- "Set width" was here. List width can still be dragged from the resize
+    handle between lists (unless Board Settings / List has locked that), and
+    the fixed-width value it used to set is now a board-wide admin toggle
+    there too - a menu entry for the same thing was a second place to look
+    for it. client/components/sidebar/sidebar.jade
   ul.pop-over-list
     li
       a.js-toggle-watch-list
