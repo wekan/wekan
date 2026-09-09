@@ -76,6 +76,19 @@ test('Board Settings has an <hr> above and below the Swimlane/List/Card group', 
   assert.strictEqual(after[0], 'hr', 'an hr directly follows the group');
 });
 
+test('only one hr sits between the group and Archive Board (negative)', () => {
+  // The group's closing hr and Archive Board's own opening hr used to be two
+  // consecutive `hr` lines - only the second was ever reachable, one board
+  // admin away from Move Board to Archive, and it read as a doubled rule.
+  const archiveAt = boardMenu.indexOf('js-archive-board');
+  const cardAt = boardMenu.indexOf('js-open-board-card-settings');
+  const structural = /^(hr|ul\.pop-over-list|if currentUser\.isBoardAdmin|li|unless currentBoard\.isTemplatesBoard)$/;
+  const between = boardMenu.slice(cardAt, archiveAt).split('\n').map(l => l.trim())
+    .filter(l => structural.test(l));
+  assert.strictEqual(between.filter(l => l === 'hr').length, 1,
+    'exactly one hr sits between the group and Archive Board');
+});
+
 test('Swimlane and List are board-admin only; Card is open to any board member', () => {
   const group = boardMenu.slice(boardMenu.indexOf('js-open-board-swimlane-settings') - 200,
     boardMenu.indexOf('js-open-board-card-settings') + 40);
