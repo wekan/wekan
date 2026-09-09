@@ -416,6 +416,33 @@ and nothing outside it is, and both CSS rules.
 
 </details>
 
+and fixes the following bug:
+
+**Collapsed lists** - the rotated title's x-position did not match the caret above it.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/afb6bc5cf">Fix collapsed list title x-position not matching the caret above it</a>. Thanks to xet7.</summary>
+
+Centering the title horizontally (above) was not enough: it still sat
+~13px right of the collapse-toggle caret (.tools/collapse3.png). Root
+cause was an unrelated, generic `.list-header .list-header-name` rule that
+sets `min-width: 56px` for ordinary (non-collapsed) list headings.
+`min-width` is a separate property from `width`, so it survives the
+cascade even where a more specific collapsed-list rule wins on `width`
+itself - it silently clamped the rotated title's box to 56px regardless
+of the 30px collapsed column, since the final used width is
+`clamp(min-width, width, max-width)`. Fixed by overriding `min-width`
+back to `0` in every collapsed-title `h2.list-header-name` rule: the
+plain/mobile-view rule, the desktop `:not(.mobile-view)` rule, and its
+three `@media (min-width: 768/1024/1200px)` duplicates. Verified with a
+Playwright measurement of the caret's and title's horizontal centers
+matching after the fix; `tests/collapsedListTitleCentered.test.cjs` pins
+that every one of those rules cancels the clamp, and that the generic
+56px rule this works around still exists (so the test does not go stale
+if that rule is ever removed).
+
+</details>
+
 # v11.63 2026-09-08 WeKan ® release
 
 **In short:** `releases/release-all.sh` no longer skips version numbers: its
