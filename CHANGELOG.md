@@ -309,6 +309,108 @@ the Markdown commit as the template.
 </details>
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** the companion build repositories under `.tools/` move forward:
+**node-patches** gets release-run diagnostics and a real PowerPC startup
+check, **mongo-tools-patches** now tracks upstream `master` (not a tagged
+release) with a Go 1.27 toolchain and expands to forty-three targets
+including Android ARM64, and **mongosh-patches** drops telemetry and fixes
+startup in a homeless container user. No WeKan application code changed.
+
+This release updates the following bundled build tooling:
+
+**Node.js (node-patches)** - release-run diagnostics and a real PowerPC startup check.
+
+<details>
+<summary><a href="https://github.com/wekan/node-patches/commit/985eed7">Warn when a platform's binary is missing from a completed release run</a>. Thanks to xet7.</summary>
+
+A transient runner DNS glitch could fail just the upload step for one
+platform while its build and checksum succeeded, and the run still finished
+green with that platform quietly missing from the release. The "attach to
+the release" step now compares the platforms actually present in `dist/`
+against the full expected set and emits a `::warning::` naming whatever is
+missing, pointing at `release-all-missing.yml` to build the gap - instead of
+requiring someone to notice by comparing sixteen build jobs' logs by hand.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/node-patches/commit/875b4bb">Build PowerPC target snapshots and reject Node runtime startup failures</a>. Thanks to xet7.</summary>
+
+The released PowerPC binary reported its version but aborted while
+initializing V8. Real target snapshot tools are now built under QEMU, as for
+s390x, and both platforms' artifacts are rejected unless JavaScript,
+separate V8 contexts, crypto and compression actually execute - the gate
+reproduces the released failure and passes with official same-version Node.
+
+</details>
+
+**MongoDB Database Tools (mongo-tools-patches)** - upstream `master` tracking, Android ARM64, and a wider target matrix.
+
+<details>
+<summary><a href="https://github.com/wekan/mongo-tools-patches/commit/18b9af9">Build every currently supported native Go target</a>. Thanks to xet7.</summary>
+
+Release All expands from seventeen to forty-two OS/CPU targets after
+compiling current upstream master with Go 1.27 across Go's native
+command-line platforms, adding AIX, DragonFly BSD, NetBSD, OpenBSD, all
+FreeBSD CPUs, and Linux MIPS and big-endian PowerPC. Illumos, Solaris and
+Plan 9 are excluded because current upstream source does not compile there.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/mongo-tools-patches/commit/d341c92">Add the Android ARM64 command-line target</a>. Thanks to xet7.</summary>
+
+The CGO-free upstream tools compile for Android arm64, expanding the
+canonical registry to forty-three targets and 344 possible binaries. Other
+Android architectures still require external CGO linking; iOS and
+WebAssembly do not produce equivalent standalone command-line programs.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/mongo-tools-patches/commit/4fa0b90">Allow the expanded tools matrix to finish</a>. Thanks to xet7.</summary>
+
+Both full and missing-only workflows now allow three hours for the expanded
+forty-two target build instead of the former seventeen-target one-hour
+limit, so adding platforms cannot create a predictably cancelled release.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/mongo-tools-patches/commit/1700c01">Document that mongo-tools has no telemetry, and pin it against upstream</a>. Thanks to xet7.</summary>
+
+Upstream `mongodb/mongo-tools` was checked for an analytics client, a
+phone-home reporter, or a telemetry/DO_NOT_TRACK flag of its own, the same
+way wekan/mongosh-patches and this fork's FerretDB were checked before
+their telemetry was patched out - there is none. `tests/no-telemetry-upstream.sh`
+re-checks this against the current upstream ref so a future release that
+adds real telemetry is caught here instead of silently missed.
+
+</details>
+
+**mongosh (mongosh-patches)** - telemetry removed, and startup fixed in a homeless container user.
+
+<details>
+<summary><a href="https://github.com/wekan/mongosh-patches/commit/e042127">Remove telemetry and fix startup errors in a homeless container user</a>. Thanks to xet7.</summary>
+
+The bundled analytics sink is now unconditionally a no-op, so no telemetry
+HTTP request is ever made regardless of the configured endpoint, and the
+native machine-id lookup that only existed to key telemetry throttle state
+is dropped. The startup banner says this fork does not collect or send
+anything. The same patch fixes mongosh running inside `ghcr.io/wekan/ferretdb`
+as its default non-root user, which has no `/etc/passwd` entry: config/log/
+history storage now falls back to a writable directory under the OS temp
+dir when the home directory is not writable, instead of failing with
+`EACCES ... mkdir '/nonexistent'` and "Could not open history file" on
+every session.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their
+translations.
+
 # v11.65 2026-09-09 WeKan ® release
 
 **In short:** Four security advisories against **Attachments/Avatars**
