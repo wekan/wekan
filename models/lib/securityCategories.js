@@ -61,6 +61,20 @@ const CATALOG = {
   // Attachments.allow/Avatars.allow - so any anonymous caller could wipe
   // every attachment or avatar with selector {}.
   'authz.file-remove': { category: 'authz', bleed: 'WipeBleed', severity: 'critical', cwe: 'CWE-862' },
+  // Unauthenticated Arbitrary File Write via Path Traversal in Attachment
+  // Upload namingFunction: fileId was used verbatim as the on-disk file name
+  // and sanitize() was neutered to an identity function. A distinct name
+  // from PathBleed (GHSA-4mxf-m8pq-xc9p, avatar versions.path/board export) -
+  // same CWE, different bug, different fix.
+  'authz.upload-path': { category: 'authz', bleed: 'UploadPathBleed', severity: 'critical', cwe: 'CWE-22' },
+  // Avatars Collection Lacks a protected Callback: ostrio:files' own
+  // library-native download route served every avatar to anyone because
+  // Avatars never set `protected` (unlike Attachments).
+  'authz.avatar-protected': { category: 'authz', bleed: 'PortraitBleed', severity: 'high', cwe: 'CWE-862' },
+  // serveLegacyAvatar Serves Legacy CollectionFS Avatars Without Any
+  // Authentication: the legacy-avatar fallback routes streamed a migrated-in
+  // avatar to anyone who knew its old filerecord id.
+  'authz.legacy-avatar': { category: 'authz', bleed: 'RelicAvatarBleed', severity: 'high', cwe: 'CWE-862' },
   'authz.parent':    { category: 'authz', bleed: 'ParentBleed', severity: 'high', cwe: 'CWE-862' },
   'authz.share':     { category: 'authz', bleed: 'RevokeBleed', severity: 'high', cwe: 'CWE-863' },
   'authz.readonly':  { category: 'authz', bleed: 'ReadOnlyBleed', severity: 'medium', cwe: 'CWE-863' },

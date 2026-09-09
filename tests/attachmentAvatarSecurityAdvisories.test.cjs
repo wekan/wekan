@@ -5,25 +5,29 @@
 // no live upload/DDP round trip) that pin the source-level fix for each.
 // Run: node tests/attachmentAvatarSecurityAdvisories.test.cjs
 //
-// 1. "Avatars Collection Lacks `protected` Callback" (High, CWE-862/284) -
-//    Avatars had no `protected` hook, so ostrio:files' own download route
-//    served every avatar to anyone. Fixed: models/avatars.server.js defines
-//    Avatars.protected, mirroring Attachments.protected.
+// 1. "Avatars Collection Lacks `protected` Callback", Hall of Fame name
+//    PortraitBleed (High, CWE-862/284) - Avatars had no `protected` hook, so
+//    ostrio:files' own download route served every avatar to anyone. Fixed:
+//    models/avatars.server.js defines Avatars.protected, mirroring
+//    Attachments.protected.
 // 2. "serveLegacyAvatar Serves Legacy CollectionFS Avatars Without Any
-//    Authentication" (High, CWE-862) - both call sites streamed a legacy
-//    avatar with no auth check. Fixed: server/routes/avatarServer.js gates
-//    both behind isLegacyAvatarAuthorized (requires a signed-in caller).
+//    Authentication", Hall of Fame name RelicAvatarBleed (High, CWE-862) -
+//    both call sites streamed a legacy avatar with no auth check. Fixed:
+//    server/routes/avatarServer.js gates both behind
+//    isLegacyAvatarAuthorized (requires a signed-in caller).
 // 3. "Unauthenticated Arbitrary File Write via Path Traversal in Attachment
-//    Upload namingFunction" (Critical, CWE-22/434/306) - fileId was used
-//    verbatim as the on-disk file name and sanitize() was an identity
-//    function. Fixed: models/attachments.js restores a whitelist sanitize()
-//    and validates the fileId namingFunction returns.
+//    Upload namingFunction", Hall of Fame name UploadPathBleed (Critical,
+//    CWE-22/434/306) - fileId was used verbatim as the on-disk file name and
+//    sanitize() was an identity function. Fixed: models/attachments.js
+//    restores a whitelist sanitize() and validates the fileId
+//    namingFunction returns.
 // 4. "Unauthenticated DDP Methods _FilesCollectionRemove_attachments/
-//    _FilesCollectionRemove_avatars Allow Instance-Wide Deletion" (Critical,
-//    CWE-862) - ostrio:files' own remove method bypasses Attachments.allow/
-//    Avatars.allow entirely and is gated only by allowClientCode + an
-//    optional onBeforeRemove, which Attachments never defined and Avatars'
-//    unconditionally returned true. Fixed: both now require this.userId and
+//    _FilesCollectionRemove_avatars Allow Instance-Wide Deletion", Hall of
+//    Fame name WipeBleed (Critical, CWE-862) - ostrio:files' own remove
+//    method bypasses Attachments.allow/Avatars.allow entirely and is gated
+//    only by allowClientCode + an optional onBeforeRemove, which Attachments
+//    never defined and Avatars' unconditionally returned true. Fixed: both
+//    now require this.userId and
 //    per-file write access (or, for avatars, ownership/site-admin).
 
 const assert = require('assert');
@@ -181,8 +185,26 @@ test('both onBeforeRemove hooks log a blocked attempt (Admin Panel / Problems)',
   }
 });
 
+test('the two High advisories also log a blocked attempt, under their own keys (not PathBleed)', () => {
+  for (const key of ['authz.upload-path', 'authz.avatar-protected', 'authz.legacy-avatar']) {
+    assert.ok(securityCategories.includes(`'${key}':`), `the catalog has a key for ${key}`);
+  }
+  // The upload path-traversal guard used to reuse the pre-existing PathBleed
+  // key (a DIFFERENT, already-published advisory, GHSA-4mxf-m8pq-xc9p) - it
+  // has its own name now so the two incidents are not conflated on the
+  // public Hall of Fame page.
+  assert.ok(!attachmentsJs.includes("key: 'authz.file-path'"),
+    'the upload guard no longer reuses the unrelated PathBleed key');
+  assert.ok(attachmentsJs.includes("key: 'authz.upload-path'"),
+    'it logs under its own UploadPathBleed key instead');
+  assert.ok(avatarsServerJs.includes("key: 'authz.avatar-protected'"),
+    'Avatars.protected logs a denied anonymous download');
+  assert.ok(avatarServerRoute.includes("key: 'authz.legacy-avatar'"),
+    'the legacy-avatar 401 branch logs the attempt');
+});
+
 test('every security log call is wrapped so logging can never break the guard (negative)', () => {
-  for (const src of [attachmentsJs, attachmentsPermissions, avatarsServerJs]) {
+  for (const src of [attachmentsJs, attachmentsPermissions, avatarsServerJs, avatarServerRoute]) {
     const calls = src.split("require('/server/lib/securityLog').record(").length - 1;
     if (calls === 0) continue;
     const tryCount = (src.match(/try \{\s*\n\s*require\('\/server\/lib\/securityLog'\)\.record\(/g) || []).length;

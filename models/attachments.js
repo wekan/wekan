@@ -96,7 +96,7 @@ const Attachments = new FilesCollection({
         // looks like server-side.
         try {
           require('/server/lib/securityLog').record({
-            key: 'authz.file-path',
+            key: 'authz.upload-path',
             action: 'blocked',
             source: 'Attachments.namingFunction',
             detail: 'rejected a malformed/unsafe fileId, generated a fresh one instead',

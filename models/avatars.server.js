@@ -163,14 +163,29 @@ Avatars.protected = async function (fileObj) {
     return true;
   }
   const owner = fileObj.userId;
-  if (!owner) {
-    return false;
+  let authorized = false;
+  if (owner) {
+    const publicBoard = await ReactiveCache.getBoard({
+      permission: 'public',
+      'members.userId': owner,
+    });
+    authorized = !!publicBoard;
   }
-  const publicBoard = await ReactiveCache.getBoard({
-    permission: 'public',
-    'members.userId': owner,
-  });
-  return !!publicBoard;
+  if (!authorized) {
+    // An attempt: an anonymous caller reaching this branch is asking for an
+    // avatar whose owner is not on a public board - that is what an
+    // enumeration/download attempt against Advisory "Avatars Collection
+    // Lacks a protected Callback" looks like once the callback exists.
+    try {
+      require('/server/lib/securityLog').record({
+        key: 'authz.avatar-protected',
+        action: 'blocked',
+        source: 'Avatars.protected',
+        detail: 'refused an anonymous download of a non-public avatar',
+      });
+    } catch (e) { /* logging must never break the guard */ }
+  }
+  return authorized;
 };
 
 Avatars.interceptDownload = function (http, fileObj, versionName) {

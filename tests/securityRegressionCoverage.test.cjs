@@ -139,6 +139,10 @@ const GUARDED = {
   usersearchbleed: ['tests/securityAdvisories20260825.test.cjs'],
   wherebleed: ['tests/selectorGuard.test.cjs'],
   zipbleed: ['tests/zipbleed.test.cjs'],
+  wipebleed: ['tests/attachmentAvatarSecurityAdvisories.test.cjs'],
+  uploadpathbleed: ['tests/attachmentAvatarSecurityAdvisories.test.cjs'],
+  portraitbleed: ['tests/attachmentAvatarSecurityAdvisories.test.cjs'],
+  relicavatarbleed: ['tests/attachmentAvatarSecurityAdvisories.test.cjs'],
 
   // Guarded by ATTEMPT DETECTION rather than by a fix-regression test: a canary
   // sits where the attack is tried, and tests/canaryCoverage.test.cjs pins that
@@ -278,7 +282,7 @@ test('the whole published list is accounted for', () => {
   // when a new one is published, and put it in GUARDED or RECORDED at the same
   // time; the two assertions together are what make "every published
   // vulnerability is accounted for" a fact rather than a hope.
-  assert.strictEqual(total, 94, 'the Hall of Fame and this list disagree on how many there are');
+  assert.strictEqual(total, 98, 'the Hall of Fame and this list disagree on how many there are');
 });
 
 test('the companion Hall of Fame names match the inventory when available', () => {

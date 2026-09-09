@@ -125,6 +125,19 @@ WebApp.handlers.use('/cdn/storage/avatars/:fileName', async (req, res, next) => 
       // an authenticated caller (isLegacyAvatarAuthorized above), so an
       // anonymous request never learns whether the id exists at all.
       if (!(await isLegacyAvatarAuthorized(req))) {
+        // An attempt: no current WeKan avatar exists for this id, so an
+        // anonymous request here is either probing for a legacy id or
+        // guessing one - what an attempt against Advisory "serveLegacyAvatar
+        // Serves Legacy CollectionFS Avatars Without Any Authentication"
+        // looks like now that the check exists.
+        try {
+          require('/server/lib/securityLog').record({
+            key: 'authz.legacy-avatar',
+            action: 'blocked',
+            source: '/cdn/storage/avatars/:fileName',
+            detail: 'refused an unauthenticated legacy-avatar fallback request',
+          });
+        } catch (e) { /* logging must never break the guard */ }
         res.writeHead(401);
         res.end('Authentication required');
         return;
