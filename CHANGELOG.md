@@ -497,6 +497,15 @@ hides the whole heading along with every other non-personal row.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a8c8ed63a">Remove the duplicate hr above Move Board to Archive</a>. Thanks to xet7.</summary>
+
+The Swimlane/List/Card group's own closing `hr` and the Archive Board
+group's opening `hr` sat back to back, drawing two rules where one was
+enough.
+
+</details>
+
 # v11.63 2026-09-08 WeKan ® release
 
 **In short:** `releases/release-all.sh` no longer skips version numbers: its
