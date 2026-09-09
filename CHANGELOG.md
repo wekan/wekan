@@ -519,6 +519,20 @@ share.
 
 </details>
 
+and fixes the following bug:
+
+**Edit Custom Fields popup** - a rule with nothing above it to separate.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/250adfe9a">No rule above Add when there are no custom fields yet</a>. Thanks to xet7.</summary>
+
+The `hr` between the field list and "Add custom field" was unconditional,
+so a board with no custom field yet drew a rule with an empty list above
+it - two lines doing the work of an empty one. It is now conditional on
+`board.customFields.length`.
+
+</details>
+
 # v11.63 2026-09-08 WeKan ® release
 
 **In short:** `releases/release-all.sh` no longer skips version numbers: its
