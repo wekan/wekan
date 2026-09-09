@@ -324,7 +324,7 @@ mounts itself under a possibly-small `/tmp`, relocating to
 This release fixes the following CRITICAL SECURITY ISSUES:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/c0446867d">Unauthenticated Arbitrary File Write via Path Traversal in Attachment Upload namingFunction</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/9947e0138">Unauthenticated Arbitrary File Write via Path Traversal in Attachment Upload namingFunction</a>. Thanks to xet7.</summary>
 
 Attachments overrode ostrio:files' `sanitize()` to an identity function
 and used the client-supplied `fileId` verbatim as the on-disk file name
@@ -347,7 +347,7 @@ string as a negative case.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/c0446867d">Unauthenticated DDP Methods Allow Instance-Wide Deletion of Attachments and Avatars</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/9947e0138">Unauthenticated DDP Methods Allow Instance-Wide Deletion of Attachments and Avatars</a>. Thanks to xet7.</summary>
 
 ostrio:files registers its own `_FilesCollectionRemove_<collection>` DDP
 method, gated only by `allowClientCode` and never routed through
@@ -375,7 +375,7 @@ and fixes the following bugs:
 **Avatars** - anonymous access to files nothing should have exposed.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/c0446867d">Add the protected callback the download library needs to gate them</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/9947e0138">Add the protected callback the download library needs to gate them</a>. Thanks to xet7.</summary>
 
 Unlike Attachments, Avatars never set `protected`, so ostrio:files' own
 library-native download route - whose `_checkAccess` defaults to
@@ -391,7 +391,7 @@ catalog key.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/c0446867d">serveLegacyAvatar Serves Legacy CollectionFS Avatars Without Any Authentication</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/9947e0138">serveLegacyAvatar Serves Legacy CollectionFS Avatars Without Any Authentication</a>. Thanks to xet7.</summary>
 
 Both routes in `server/routes/avatarServer.js` that fall back to reading
 a legacy CollectionFS avatar in place streamed it to any caller who knew
@@ -417,7 +417,7 @@ and fixes the following bug:
 **AppImage** - its own mount filling up a small /tmp.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/bebc7f69b">Relocate the AppImage's own mount from /tmp to WRITABLE_PATH/app</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/5adc030bd">Relocate the AppImage's own mount from /tmp to WRITABLE_PATH/app</a>. Thanks to xet7.</summary>
 
 checkmk warned `/tmp/.mount_wekan.OhaGOG ... 100% used` because the
 AppImage runtime's own read-only squashfs mount landed on a small `/tmp`
