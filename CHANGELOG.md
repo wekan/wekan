@@ -506,6 +506,19 @@ enough.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/13ca5e08a">On Card, the Show on Minicard column reads left of Show on Card</a>. Thanks to xet7.</summary>
+
+CSS `order` on the grid items, not a markup change: column 1 (card) and
+column 2 (minicard) keep their original DOM order, so the
+show-card-only/show-minicard-only `nth-child` hiding rules still target
+the right element regardless of side. Only the visual position of the two
+swaps; Description (column 3) gets an explicit order too, so it is not
+pulled in front by the `order: 0` an unordered item would otherwise
+share.
+
+</details>
+
 # v11.63 2026-09-08 WeKan ® release
 
 **In short:** `releases/release-all.sh` no longer skips version numbers: its
