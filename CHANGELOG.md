@@ -519,7 +519,7 @@ share.
 
 </details>
 
-and fixes the following bug:
+and fixes the following bugs:
 
 **Edit Custom Fields popup** - a rule with nothing above it to separate.
 
@@ -530,6 +530,25 @@ The `hr` between the field list and "Add custom field" was unconditional,
 so a board with no custom field yet drew a rule with an empty list above
 it - two lines doing the work of an empty one. It is now conditional on
 `board.customFields.length`.
+
+</details>
+
+**List Actions and Swimlane Actions** - two menu entries for things a drag already does.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4374502a4">Hide List Actions / Set width and Swimlane Actions / Set Swimlane height</a>. Thanks to xet7.</summary>
+
+Both are still reachable by dragging the resize handle (unless Board
+Settings / List or Board Settings / Swimlane has locked that), and the
+board-wide fixed-width value now lives in Board Settings / List - a menu
+entry for the same thing was a second place to look for it. The
+underlying popups (`setListWidthPopup`, `setSwimlaneHeightPopup`) are
+untouched, only the menu entries that opened them are removed. Removing
+"Set width" left its own group empty, so the group (and its enclosing
+`hr`) is removed entirely; removing "Set Swimlane height" left "Select
+color" as the only row of its group, so that group's `hr` moves inside
+the same admin-only check as the color entry itself, rather than leaving
+a dangling `hr` (or an empty list) for a non-admin.
 
 </details>
 
