@@ -309,7 +309,7 @@ the Markdown commit as the template.
 </details>
 </details>
 
-# Upcoming WeKan ® release
+# v11.64 2026-09-09 WeKan ® release
 
 **In short:** **Resizable list width and swimlane height are back.** v11.62
 had replaced per-user/per-list drag-resize width and the "Set width"/"Set
