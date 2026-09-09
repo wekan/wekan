@@ -478,6 +478,25 @@ personal-row fallback.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9138f6f86">Restore the Show on Card/Minicard/Description column headings, on Card</a>. Thanks to xet7.</summary>
+
+The column headings above the settings table were removed once (commit
+02025aa6c) because the popup used to flow its rows into several
+side-by-side columns whenever only Card or only Minicard was shown, so
+the heading sat above the first of those columns and read as if it named
+that one alone. Board Settings / Card always shows both columns in a
+single list of rows now, so that ambiguity is gone, and the heading is
+back: "Show on Card" / "Show on Minicard" / "Description", reusing the
+same already-translated keys as before. It is an ordinary
+`.card-settings-row` this time, not the old separate
+`.card-settings-grid`/sticky-header markup, so the same CSS that hides a
+column for the still-supported `side="card"`/`"minicard"` case hides the
+matching heading with it, and `personalOnly` (what a non-admin gets)
+hides the whole heading along with every other non-personal row.
+
+</details>
+
 # v11.63 2026-09-08 WeKan ® release
 
 **In short:** `releases/release-all.sh` no longer skips version numbers: its
