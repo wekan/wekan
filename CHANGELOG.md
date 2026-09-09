@@ -440,6 +440,34 @@ are removed.
 
 </details>
 
+and has the following developer-tooling fixes:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5f197f4bd">Fix #3823 e2e test for the Show on Minicard -> Board Settings/Card move</a>. Thanks to xet7.</summary>
+
+The test still clicked the minicard's own "Show on Minicard" menu entry
+(`.js-show-on-minicard`), which no longer exists after the Board
+Settings / Card move earlier in this release: the checkbox
+(`.js-field-has-creator-on-minicard`) and its behavior are unchanged, so
+the test now opens it from Board Settings / Card, reached from the
+board's cog menu, instead.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/FerretDB/commit/b2e1ce4b">Update hardcoded SQLite version/source-id pins to 3.53.4</a>. Thanks to xet7.</summary>
+
+The `modernc.org/sqlite` bump (1.57.0 → 1.58.0, from the earlier
+"ferretdb" dependabot group update) embeds a newer SQLite release
+(3.53.3 → 3.53.4), which three tests pinned by exact string: `TestDefaults`
+in `internal/backends/sqlite/metadata/pool/pool_test.go`
+(`sqlite_version()`/`sqlite_source_id()`), and the `BackendVersion` checks
+in `internal/backends/backend_test.go` and
+`internal/backends/sqlite/metadata/registry_test.go`. The dependency bump
+is the intended change; the guards are updated to match it.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for
 their translations.
 
