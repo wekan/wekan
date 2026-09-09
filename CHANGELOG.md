@@ -312,16 +312,15 @@ the Markdown commit as the template.
 # Upcoming WeKan ® release
 
 **In short:** **Resizable list width and swimlane height are back.** v11.62
-had replaced the per-user/per-list drag-resize width, the "Set width" and
-"Set swimlane height" popups, and the auto-width mode with a single
-hardcoded 240px for every list. At the maintainer's request that change is
-reverted: the resize handles, both popups, the board-settings "Personal
-list width" toggle and auto-width mode all work again exactly as they did
-before v11.62. Board Settings also gains three grouped sections
-(**#6680**): **Swimlane** and **List**, with new board-wide resize-lock
-and **"same width for all lists"** admin toggles, and **Card**, where
-Minicard and Card settings move back to from the card's and minicard's
-own menus.
+had replaced per-user/per-list drag-resize width and the "Set width"/"Set
+swimlane height" popups with a hardcoded 240px for every list; that is
+reverted at the maintainer's request. Board Settings also gains three
+grouped sections (**#6680**): **Swimlane** and **List**, with board-wide
+resize-lock and **"same width for all lists"** admin toggles, and
+**Card**, where Minicard/Card settings move back from their own menus.
+**FerretDB v1** now stores Infinity/-Infinity doubles like real MongoDB,
+patches a High-severity gRPC-Go DoS advisory, and keeps its dependencies
+current.
 
 This release reverts the following change:
 
@@ -549,6 +548,87 @@ untouched, only the menu entries that opened them are removed. Removing
 color" as the only row of its group, so that group's `hr` moves inside
 the same admin-only check as the color entry itself, rather than leaving
 a dangling `hr` (or an empty list) for a non-admin.
+
+</details>
+
+and updates the following FerretDB v1 dependencies and fixes:
+
+**FerretDB v1** - infinity-value storage, a gRPC security fix, and current dependencies.
+
+<details>
+<summary><a href="https://github.com/wekan/FerretDB/commit/7bbc88c8">Allow storing Infinity/-Infinity doubles, matching MongoDB</a>. Thanks to xet7.</summary>
+
+`mongorestore` restoring a wekan `cards` collection with a `sort:
+-Infinity` value failed one document with `invalid value: { "sort": -Inf
+} (infinity values are not allowed)`, even though real MongoDB stores
++Inf/-Inf doubles without complaint. The root cause was one level down
+from that check: sjson (the JSON-based encoding documents are stored as)
+already special-cased NaN as the string `"NaN"` because Go's
+`encoding/json` cannot marshal NaN/Inf floats directly, but never did the
+same for Infinity, so document validation rejected it outright rather
+than hand the storage layer a value it could not round-trip. Infinity is
+now encoded the same way NaN already was, and the document-validation
+rejection - along with the matching restriction on a `$mul` that
+overflows to infinity - is removed now that storage supports it. Unit
+and integration tests cover the insert/read/update round-trip against a
+live server.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/FerretDB/commit/3df0ce7b">Bump tools/go.mod's indirect grpc-go to 1.83.2 (GHSA-2v4p-qf9q-27wj)</a>. Thanks to xet7.</summary>
+
+Dependabot alert 47: a gRPC-Go server configured with
+`xds.NewGRPCServer()` crashes (High severity, Denial of Service) on a
+crafted request missing both the `:authority` and `Host` headers,
+affecting `google.golang.org/grpc` >= 1.83.0, < 1.83.2. The root module
+and `integration/go.mod` were already on the patched 1.83.2, but
+`tools/go.mod` - a separate module pulling grpc in indirectly through
+`golang.org/x/pkgsite` - was missed and stayed on the vulnerable 1.83.1.
+`go mod verify` and `go list -m all` both succeed with the updated graph.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/FerretDB/commit/1e23af3f">Sync integration/go.mod after the ferretdb dependency-group bump</a>. Thanks to xet7.</summary>
+
+The "ferretdb" dependency-group update brought the root module's
+`go.mod`/`go.sum` current, but left `integration`'s pointing at the old
+indirect-dependency versions, so `go build ./integration/...` failed with
+"updates to go.mod needed; to update it: go mod tidy". Running it there
+brings both modules back in sync.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/FerretDB/commit/d4f75f6a">Update gRPC to 1.83.2 in the root and integration modules</a>. Thanks to dependabot and xet7.</summary>
+
+`google.golang.org/grpc` moves from 1.83.1 to 1.83.2 in both the root
+module and `integration`. Module checksums verify and the affected
+packages build.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/FerretDB/commit/8e62741d">Update the mongo and golang build images</a>. Thanks to dependabot and xet7.</summary>
+
+The `mongo` image used by `build/deps` moves from 8.3.8 to 8.3.9, and the
+`golang` image used by `build/ferretdb` moves from 1.27.0 to 1.27.1.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/FerretDB/commit/c3a5df81">Update the "ferretdb" dependency group</a>. Thanks to dependabot and xet7.</summary>
+
+Seven updates: `github.com/SAP/go-hdb` (1.18.2 → 1.18.3),
+`github.com/go-sql-driver/mysql` (1.10.0 → 1.10.1),
+`github.com/prometheus/client_model` (0.6.2 → 0.6.3),
+`github.com/prometheus/common` (0.70.1 → 0.71.0), `golang.org/x/crypto`
+(0.55.0 → 0.56.0), `golang.org/x/sys` (0.47.0 → 0.48.0) and
+`modernc.org/sqlite` (1.57.0 → 1.58.0, pulling in newer
+`modernc.org/libc`/`modernc.org/memory`). Module checksums verify and a
+binary containing the SQLite, PostgreSQL, MySQL and HANA handlers builds
+successfully.
 
 </details>
 
