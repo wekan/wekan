@@ -211,6 +211,23 @@
   display: none;
 }
 
+/* Show on Minicard reads to the LEFT of Show on Card. The markup keeps its
+   original order (column 1 is the card checkbox, column 2 is the minicard
+   one) so the show-card-only/show-minicard-only nth-child hiding rules above
+   still target the right element - only the VISUAL position of the two swaps,
+   with `order` on the grid items. Description (column 3) gets an explicit
+   order too, so it is not pulled in front of column 1 by the default order:0
+   every unordered item would otherwise share. */
+.card-settings-row > .card-settings-column:nth-child(1) {
+  order: 2;
+}
+.card-settings-row > .card-settings-column:nth-child(2) {
+  order: 1;
+}
+.card-settings-row > .card-settings-column:nth-child(3) {
+  order: 3;
+}
+
 .card-settings-column {
   display: flex;
   align-items: center;

@@ -196,12 +196,14 @@ test('the heading row is back: Show on Card / Show on Minicard / Description', (
   const tpl = sidebarJade.slice(sidebarJade.indexOf('template(name="boardCardSettingsPopup")'));
   const form = tpl.slice(0, tpl.indexOf('\ntemplate(name='));
   const heading = form.slice(0, form.indexOf('js-toggle-show-list-on-minicard'));
+  // Markup order (1st/2nd/3rd here is DOM order, not what is drawn where -
+  // CSS swaps Card and Minicard visually, see the `order` test below).
   assert.ok(/\.card-settings-row\n\s+\.card-settings-column\n\s+h4 \{\{_ 'show-on-card'\}\}/.test(heading),
-    'first column: Show on Card');
+    'first column in markup: Show on Card');
   assert.ok(/\.card-settings-column\n\s+h4 \{\{_ 'show-on-minicard'\}\}/.test(heading),
-    'second column: Show on Minicard');
+    'second column in markup: Show on Minicard');
   assert.ok(/\.card-settings-column\n\s+h4 \{\{_ 'description'\}\}/.test(heading),
-    'third column: Description');
+    'third column in markup: Description');
   // All three are existing, already-translated keys - no new *-title-style
   // key was added for this.
   assert.ok(en['show-on-card'] && en['show-on-minicard'] && en['description'],
@@ -225,6 +227,26 @@ test('the heading is a plain .card-settings-row, so it hides with a hidden colum
   // heading along with every other non-personal row.
   assert.ok(!sidebarJade.includes('card-settings-grid'), 'no separate grid/heading markup is reintroduced');
   assert.ok(!sidebarCss.includes('card-settings-grid'), 'and no CSS for one either');
+});
+
+test('Show on Minicard reads to the LEFT of Show on Card - by CSS order, not markup order', () => {
+  // The markup itself keeps its original order (column 1 = card, column 2 =
+  // minicard, column 3 = description) so the show-card-only/show-minicard-only
+  // nth-child hiding rules still target the right element regardless of how
+  // the columns are drawn; only the VISUAL position is swapped, with `order`
+  // on the grid items.
+  const block = sidebarCss.slice(sidebarCss.indexOf('.card-settings-row > .card-settings-column:nth-child(1) {'),
+    sidebarCss.indexOf('.card-settings-column {\n  display: flex;'));
+  assert.ok(/nth-child\(1\) \{\n\s+order: 2;/.test(block), 'the card column (1st in markup) moves right');
+  assert.ok(/nth-child\(2\) \{\n\s+order: 1;/.test(block), 'the minicard column (2nd in markup) moves left');
+  assert.ok(/nth-child\(3\) \{\n\s+order: 3;/.test(block),
+    'and description keeps the highest order, so it is not pulled in front by the default order:0');
+  // The nth-child hiding rules read the DOM, not the visual order, so they
+  // are unaffected by the swap above and still need no changes.
+  assert.ok(sidebarCss.includes(
+    '.board-card-settings.show-card-only .card-settings-row > .card-settings-column:nth-child(2),\n'
+    + '.board-card-settings.show-minicard-only .card-settings-row > .card-settings-column:nth-child(1) {'),
+    'hiding still targets column 2 for show-card-only and column 1 for show-minicard-only');
 });
 
 console.log(`\nboardSettingsSwimlaneListCard: ${passed} tests passed`);
