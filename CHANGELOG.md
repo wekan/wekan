@@ -309,7 +309,7 @@ the Markdown commit as the template.
 </details>
 </details>
 
-# Upcoming WeKan ® release
+# v11.66 2026-09-09 WeKan ® release
 
 **In short:** the companion build repositories under `.tools/` move forward:
 **node-patches** gets release-run diagnostics and a real PowerPC startup
