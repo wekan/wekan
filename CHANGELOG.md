@@ -335,7 +335,8 @@ DISPLAY names are untouched - they go through a separate, unrelated
 sanitizer in `onBeforeUpload`), and `namingFunction` now also validates
 the sanitized `fileId` against the ObjectId shape WeKan itself generates,
 regenerating a fresh one rather than trusting it. A blocked attempt is
-recorded through the shared security log (`authz.file-path`/`PathBleed`),
+recorded through the shared security log
+(`authz.upload-path`/[UploadPathBleed](https://wekan.fi/hall-of-fame/uploadpathbleed/)),
 so Admin Panel / Problems shows it happened.
 `tests/attachmentAvatarSecurityAdvisories.test.cjs` pins both the
 restored sanitizer and the fileId validation, with the advisory's own PoC
@@ -359,7 +360,8 @@ and physical file) or every avatar on the instance. Both now require
 attachments need the caller's board-write access on that file's card/
 board, avatars need ownership of that avatar or site-admin status (the
 existing admin "delete another user's avatar" flow keeps working). A
-blocked attempt is recorded through a new `authz.file-remove`/`WipeBleed`
+blocked attempt is recorded through a new
+`authz.file-remove`/[WipeBleed](https://wekan.fi/hall-of-fame/wipebleed/)
 catalog key. `tests/attachmentAvatarSecurityAdvisories.test.cjs` pins
 both hooks and that an empty/non-matching selector is refused outright
 rather than treated as nothing to check.
@@ -379,7 +381,10 @@ allowing everything when `protected` is unset - served any avatar to any
 anonymous caller, entirely bypassing WeKan's own `isAuthorizedForAvatar`
 check. `Avatars.protected` now mirrors `Attachments.protected`: an
 authenticated caller may always view an avatar; an anonymous one only
-when the avatar's owner is a member of a public board.
+when the avatar's owner is a member of a public board. A denied
+anonymous download is recorded under a new
+`authz.avatar-protected`/[PortraitBleed](https://wekan.fi/hall-of-fame/portraitbleed/)
+catalog key.
 
 </details>
 
@@ -397,7 +402,9 @@ narrower rule rather than reusing that exemption on an unverifiable
 claim. The `/cfs/files/avatars` route's redirect fallback for
 already-migrated avatars is untouched, so an anonymous public-board
 viewer still sees those normally - only the legacy read-in-place path
-now requires a login.
+now requires a login. A denied attempt is recorded under a new
+`authz.legacy-avatar`/[RelicAvatarBleed](https://wekan.fi/hall-of-fame/relicavatarbleed/)
+catalog key.
 `tests/attachmentAvatarSecurityAdvisories.test.cjs` pins both call sites
 and the negative case that the redirect still works unauthenticated.
 
