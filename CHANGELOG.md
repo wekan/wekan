@@ -317,9 +317,11 @@ had replaced the per-user/per-list drag-resize width, the "Set width" and
 hardcoded 240px for every list. At the maintainer's request that change is
 reverted: the resize handles, both popups, the board-settings "Personal
 list width" toggle and auto-width mode all work again exactly as they did
-before v11.62. The top header also gains three board-wide toggles
-(**#6680**): lock/unlock list-width resizing, lock/unlock swimlane-height
-resizing, and a board-wide **"same width for all lists"** admin setting.
+before v11.62. Board Settings also gains three grouped sections
+(**#6680**): **Swimlane** and **List**, with new board-wide resize-lock
+and **"same width for all lists"** admin toggles, and **Card**, where
+Minicard and Card settings move back to from the card's and minicard's
+own menus.
 
 This release reverts the following change:
 
@@ -440,6 +442,39 @@ matching after the fix; `tests/collapsedListTitleCentered.test.cjs` pins
 that every one of those rules cancels the clamp, and that the generic
 56px rule this works around still exists (so the test does not go stale
 if that rule is ever removed).
+
+</details>
+
+and reorganizes the following board settings:
+
+**Board Settings** - Swimlane, List and Card, grouped together.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2606ab56b">Move swimlane/list resize settings and card settings into Board Settings</a>. Thanks to xet7.</summary>
+
+The list-width and swimlane-height resize-lock toggles and the board-wide
+"same width for all lists" toggle, header icons since #6680, move into
+**Board Settings / Swimlane** and **Board Settings / List** instead - with
+the rest of a board's settings, reached from the board's cog menu, rather
+than living as icons in the header. Minicard and Card settings (the
+shared table of two dozen display settings) move back into **Board
+Settings / Card**: they had been split across the card's own menu ("Show
+on Card") and the minicard's own menu ("Show on Minicard"), one column of
+the same table each. Both menu entries, their wrapper popups, and the
+`cardMenuSource` module that only existed to tell those two menus apart
+are removed; the shared settings table itself is unchanged, now opened
+directly from Board Settings with both columns shown side by side.
+Swimlane and List stay board-admin only, the same restriction the resize
+locks already had; Card is open to any board member, matching who could
+reach it before - a non-admin still gets the one PERSONAL row in that
+table ("Labels text") rather than the admin-only rows, the same fallback
+`showOnMinicardPopup` used to give them. All three reuse existing,
+already-translated words ("Swimlane", "List", "Card"/"Card Settings") via
+`Popup.open`'s `titleKey`, rather than adding new `*Popup-title` keys that
+would need translating into 147 languages. The group sits between two
+`<hr>` rules in Board Settings, as its own section.
+`tests/boardSettingsSwimlaneListCard.test.cjs` pins the new layout and the
+personal-row fallback.
 
 </details>
 
