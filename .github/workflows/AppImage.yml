@@ -34,6 +34,16 @@ name: AppImage
 # ~/.local/share/wekan here, so running the AppImage twice keeps the same boards,
 # and setting WRITABLE_PATH yourself still overrides it - the launcher's own
 # variables all still work.
+#
+# WHERE THE APPIMAGE ITSELF MOUNTS. Separately from WRITABLE_PATH, the
+# AppImage runtime mounts the squashfs this file carries under
+# $TMPDIR/.mount_<name>.<random> before AppRun ever runs - /tmp by default,
+# which is sometimes a small tmpfs. AppRun relocates every launch after the
+# first to WRITABLE_PATH/app instead (and sweeps out orphaned leftovers from
+# /tmp), so a small /tmp never fills up with WeKan's own mount. This is
+# AppImage-specific: no other WeKan platform (Docker, snap, .deb, the bundle
+# zip) uses FUSE-mounts-itself the way an AppImage does, so none of them are
+# touched by this.
 
 on:
   # Callable, so release-all-missing.yml can ask for just the architectures
@@ -256,6 +266,50 @@ jobs:
           # An AppImage is read-only, so the data cannot live beside it.
           : "${WRITABLE_PATH:=${XDG_DATA_HOME:-$HOME/.local/share}/wekan}"
           export WRITABLE_PATH
+
+          # The AppImage runtime mounts ITSELF (the squashfs this file carries)
+          # under $TMPDIR/.mount_<name>.<random> - defaulting to /tmp when
+          # TMPDIR is unset - before AppRun ever runs, so the FIRST mount of a
+          # launch cannot be redirected from in here. What CAN be done: send
+          # every launch from this point on to WRITABLE_PATH/app instead, and
+          # clean up whatever an earlier, /tmp-mounted launch left behind.
+          # Reported in production: checkmk warned
+          # "/tmp/.mount_wekan.OhaGOG ... 100% used" because /tmp was a small
+          # tmpfs and a read-only squashfs mount always reports itself as
+          # full, regardless of size - that is normal for any squashfs mount,
+          # but a small /tmp made it look like a leak and paged someone.
+          #
+          # Only when the caller did not already choose a TMPDIR (an explicit
+          # administrator setting - even TMPDIR=/tmp - is left alone), and
+          # only for a real mounted AppImage: the runtime exports APPIMAGE to
+          # the mounted copy's absolute path, which is what re-execing here
+          # needs and which running AppRun directly (e.g. during development)
+          # never sets. WEKAN_APPIMAGE_RELOCATED marks the re-exec so this
+          # runs exactly once per launch, not forever.
+          if [ -z "${TMPDIR:-}" ] && [ -n "${APPIMAGE:-}" ] \
+             && [ "${WEKAN_APPIMAGE_RELOCATED:-}" != "1" ]; then
+            APPIMAGE_TMP="$WRITABLE_PATH/app"
+            mkdir -p "$APPIMAGE_TMP"
+
+            # Sweep WeKan's own leftover mount directories out of /tmp -
+            # ORPHANED ones only. An entry /proc/mounts still lists as a live
+            # mount belongs to a running instance (quite possibly the very
+            # one this AppRun is executing out of right now) and must not be
+            # touched; one no longer listed there is left over from an
+            # earlier launch that was killed rather than shut down cleanly,
+            # and is safe to remove.
+            for d in /tmp/.mount_*[Ee]kan*; do
+              [ -d "$d" ] || continue
+              if ! awk -v d="$d" '$2==d{f=1} END{exit !f}' /proc/mounts 2>/dev/null; then
+                rm -rf "$d" 2>/dev/null || true
+              fi
+            done
+
+            export TMPDIR="$APPIMAGE_TMP"
+            export WEKAN_APPIMAGE_RELOCATED=1
+            exec "$APPIMAGE" "$@"
+          fi
+
           : "${PORT:=8080}"
           export PORT
           : "${ROOT_URL:=http://localhost:$PORT}"

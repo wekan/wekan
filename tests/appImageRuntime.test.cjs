@@ -48,6 +48,50 @@ test('a runnable inner Node is still followed by the real HTTP smoke test', () =
   assert.ok(probe >= 0 && probe < launch && launch < curl);
 });
 
+// #6699-style report: checkmk warned "/tmp/.mount_wekan.OhaGOG ... 100%
+// used" because the AppImage runtime's own squashfs mount landed on a small
+// /tmp. AppRun now relocates it to WRITABLE_PATH/app and sweeps out orphaned
+// leftovers - AppImage-only, since no other WeKan platform mounts itself
+// this way.
+test('AppRun relocates its own mount to WRITABLE_PATH/app instead of /tmp', () => {
+  const at = workflow.indexOf("WRITABLE_PATH:=");
+  const block = workflow.slice(at, workflow.indexOf('${PORT:=8080}', at));
+  assert.match(block, /APPIMAGE_TMP="\$WRITABLE_PATH\/app"/,
+    'the relocated mount directory is under WRITABLE_PATH, not /tmp');
+  assert.match(block, /export TMPDIR="\$APPIMAGE_TMP"/,
+    'TMPDIR is what the AppImage runtime itself reads for where to mount');
+  assert.match(block, /exec "\$APPIMAGE" "\$@"/,
+    'it re-execs the same AppImage so the NEXT mount honors the new TMPDIR');
+});
+
+test('the relocation only fires once per launch, and never overrides an explicit TMPDIR', () => {
+  const at = workflow.indexOf("WRITABLE_PATH:=");
+  const block = workflow.slice(at, workflow.indexOf('${PORT:=8080}', at));
+  assert.match(block, /\[ -z "\$\{TMPDIR:-\}" \]/,
+    'an administrator who already set TMPDIR (even to /tmp) is left alone');
+  assert.match(block, /\[ -n "\$\{APPIMAGE:-\}" \]/,
+    'only a real mounted AppImage re-execs - AppRun run directly is untouched');
+  assert.match(block, /WEKAN_APPIMAGE_RELOCATED.{0,20}!= "1"/s,
+    'a marker guards against re-execing forever');
+  assert.match(block, /export WEKAN_APPIMAGE_RELOCATED=1/);
+});
+
+test('only orphaned mount directories are removed, never a live one (negative)', () => {
+  const at = workflow.indexOf("WRITABLE_PATH:=");
+  const block = workflow.slice(at, workflow.indexOf('${PORT:=8080}', at));
+  assert.match(block, /for d in \/tmp\/\.mount_\*\[Ee\]kan\*/,
+    'only WeKan\'s own leftover mount directories are considered');
+  assert.match(block, /\/proc\/mounts/,
+    'a directory still listed as mounted is checked for, not assumed stale');
+  assert.match(block, /rm -rf "\$d"/);
+  // The check must gate the removal - "awk ... ; rm -rf" unconditionally would
+  // delete a live mount out from under the instance running from it.
+  const loopAt = block.indexOf('for d in /tmp/.mount_*[Ee]kan*');
+  const loopBody = block.slice(loopAt, block.indexOf('done', loopAt));
+  assert.match(loopBody, /if ! awk[\s\S]*then\s*\n\s*rm -rf/,
+    'rm -rf only runs inside the "not currently mounted" branch');
+});
+
 test('the full release waits for every bundle that an AppImage wraps', () => {
   const job = releaseAll.match(/^  appimage:\n([\s\S]*?)(?=^  \S)/m);
   assert.ok(job, 'release-all.yml must contain an appimage job');
