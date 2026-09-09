@@ -469,15 +469,6 @@ body.mobile-mode #header-quick-access .allBoards {
 #header-quick-access .js-toggle-desktop-drag-handles .fa {
   font-size: 0.7em;
 }
-/* #6680: same treatment for the list-width/swimlane-height resize-lock
-   toggles beside it - two icons per button, same size as the drag-handles
-   toggle's pair. */
-#header-quick-access .js-toggle-list-width-resize-lock .fa,
-#header-quick-access .js-toggle-swimlane-height-resize-lock .fa,
-#header-quick-access .js-toggle-same-width-for-all-lists .fa {
-  font-size: 0.7em;
-}
-
 /* #6680 follow-up: collapse every icon from the mobile/desktop toggle
    through the notification bell into one .js-toggle-header-icons-collapsed
    button beside the title. Some marked elements are pre-existing div

@@ -65,10 +65,9 @@ function computePopupOffset(params) {
     boardChangeColorPopup: 720,  // Board Settings / Change Color
     // Stickers: the same, and more of them - a hundred and fifty icons.
     cardStickersPopup: 720,      // Card / Stickers
-    // Show on Card / Show on Minicard: two dozen settings laid out in columns
-    // instead of one long list. Same numbers as popup.css.
-    showOnCardPopup: 900,
-    showOnMinicardPopup: 900,
+    // Board Settings / Card: two dozen settings laid out in columns instead
+    // of one long list. Same number as popup.css.
+    boardCardSettingsPopup: 900,
   };
   // The export popups are one popup with one scope each (#1173): same panes,
   // same formats table, same panel.

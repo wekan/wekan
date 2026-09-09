@@ -136,28 +136,6 @@ Template.header.helpers({
   isBoardPage() {
     return Boolean(Utils.getCurrentBoardId());
   },
-  // #6680: the list-width/swimlane-height resize-lock toggles are a board
-  // setting, so only a board admin may flip them - same restriction the
-  // server's Boards.allow(update: allowIsBoardAdmin) already enforces; this
-  // just keeps the button from being shown to someone whose click would do
-  // nothing.
-  canLockBoardResize() {
-    return Boolean(
-      Utils.getCurrentBoardId() && ReactiveCache.getCurrentUser()?.isBoardAdmin(),
-    );
-  },
-  isListWidthResizeLocked() {
-    const board = Utils.getCurrentBoard();
-    return Boolean(board && board.getListWidthResizeLocked());
-  },
-  isSwimlaneHeightResizeLocked() {
-    const board = Utils.getCurrentBoard();
-    return Boolean(board && board.getSwimlaneHeightResizeLocked());
-  },
-  isSameWidthForAllLists() {
-    const board = Utils.getCurrentBoard();
-    return Boolean(board && board.getSameWidthForAllLists());
-  },
   // True when the title in this bar is a BOARD's title and the user may rename
   // it: the title text itself is then the rename button. The pencil that used
   // to sit beside it is gone - one thing to click, not two that did the same.
@@ -464,33 +442,11 @@ Template.header.events({
       location.reload();
     }
   },
-  // #6680: flip the board's own lock, same call shape as the other board
-  // toggles (client calls the Board instance method directly; Boards.allow's
-  // allowIsBoardAdmin enforces who may actually persist it).
-  'click .js-toggle-list-width-resize-lock'() {
-    const board = Utils.getCurrentBoard();
-    if (!board) return;
-    board.setListWidthResizeLocked(!board.getListWidthResizeLocked());
-  },
-  'click .js-toggle-swimlane-height-resize-lock'() {
-    const board = Utils.getCurrentBoard();
-    if (!board) return;
-    board.setSwimlaneHeightResizeLocked(!board.getSwimlaneHeightResizeLocked());
-  },
   // #6680 follow-up: collapse every icon from the mobile/desktop toggle
   // through the notification bell, right beside the board title. Purely
   // visual and per-session, like mobileMode() - see headerIconsCollapsed().
   'click .js-toggle-header-icons-collapsed'() {
     Session.set('wekan-header-icons-collapsed', !Session.get('wekan-header-icons-collapsed'));
-  },
-  // #6680: the board-wide "same width for all lists" toggle. Enabling it is
-  // a board setting (admin-only, like the two lock toggles); it does not
-  // touch each member's own personal fixed-width choice, it just overrides
-  // it while on (client/components/lists/list.js effectiveListWidth).
-  'click .js-toggle-same-width-for-all-lists'() {
-    const board = Utils.getCurrentBoard();
-    if (!board) return;
-    board.setSameWidthForAllLists(!board.getSameWidthForAllLists());
   },
   'click .js-open-bookmarks'(evt) {
     // Desktop: open popup, Mobile: route to page

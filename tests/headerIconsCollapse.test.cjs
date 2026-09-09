@@ -84,9 +84,6 @@ test('every icon in the mobile-toggle-to-notifications range carries the marker 
   for (const needle of [
     '.mobile-mode-toggle.js-header-collapsible-icon',
     'js-toggle-desktop-drag-handles.js-header-collapsible-icon',
-    'js-toggle-list-width-resize-lock.js-header-collapsible-icon',
-    'js-toggle-same-width-for-all-lists.js-header-collapsible-icon',
-    'js-toggle-swimlane-height-resize-lock.js-header-collapsible-icon',
     '.header-star-group.js-header-collapsible-icon',
     'js-create-board.js-header-collapsible-icon',
   ]) {

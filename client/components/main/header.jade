@@ -88,34 +88,12 @@ template(name="header")
         unless isShowDesktopDragHandles
           i.fa.fa-ban
 
-      // #6680: lock/unlock the list-width and swimlane-height drag-resize
-      // handles, board admins only (same as any other board setting) and
-      // only while a board is open. Two independent toggles, right of the
-      // drag-handles toggle in that order: list width (left-right arrow),
-      // then swimlane height (up-down arrow).
-      if isBoardPage
-        if canLockBoardResize
-          a.board-header-btn.js-toggle-list-width-resize-lock.js-header-collapsible-icon(title="{{_ 'lock-list-width-resize'}}")
-            i.fa.fa-arrows-h
-            if isListWidthResizeLocked
-              i.fa.fa-ban
-            else
-              i.fa.fa-check
-          // #6680: board-wide "same width for all lists" - the same mode the
-          // per-list "Set width" popup already offers per user, exposed here
-          // as one board setting that applies to every viewer.
-          a.board-header-btn.js-toggle-same-width-for-all-lists.js-header-collapsible-icon(title="{{_ 'same-width-for-all-lists'}}")
-            i.fa.fa-columns
-            if isSameWidthForAllLists
-              i.fa.fa-check
-            else
-              i.fa.fa-ban
-          a.board-header-btn.js-toggle-swimlane-height-resize-lock.js-header-collapsible-icon(title="{{_ 'lock-swimlane-height-resize'}}")
-            i.fa.fa-arrows-v
-            if isSwimlaneHeightResizeLocked
-              i.fa.fa-ban
-            else
-              i.fa.fa-check
+      //- #6680: the list-width/swimlane-height resize-lock toggles and the
+        board-wide "same width for all lists" setting used to live here as
+        header icons. They moved to Board Settings / Swimlane and Board
+        Settings / List, alongside the rest of a board's settings, rather
+        than living as icons in the header.
+        client/components/sidebar/sidebar.jade
 
       //- Everything from here on hugs the END of the bar - the right edge in a
         left-to-right language, the LEFT edge in a right-to-left one. It is one

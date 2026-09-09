@@ -72,7 +72,6 @@ import { EscapeActions } from '/client/lib/escapeActions';
 import { MultiSelection } from '/client/lib/multiSelection';
 import { Utils } from '/client/lib/utils';
 import autosize from 'autosize';
-import { cardMenuSource, setCardMenuSource } from '/client/lib/cardMenuSource';
 import { caretClassFor } from '/client/lib/sectionCaret';
 const { openCardIsUnavailable } = require('/models/lib/openCardPresence');
 
@@ -1028,12 +1027,7 @@ Template.cardDetails.events({
       window.localStorage.setItem('dateFormat', dateFormat);
     }
   },
-  // The opened card's own hamburger. It says so, so the menu's first entry is
-  // "Show on Card" rather than the minicard's "Show on Minicard".
-  'click .js-open-card-details-menu'(event) {
-    setCardMenuSource('card');
-    Popup.open('cardDetailsActions').call(this, event);
-  },
+  'click .js-open-card-details-menu': Popup.open('cardDetailsActions'),
   // Mobile: switch to desktop popup view (maximize)
   'click .js-mobile-switch-to-desktop'(event) {
     event.preventDefault();
@@ -1559,12 +1553,6 @@ Template.cardDetailsActionsPopup.helpers({
     return ReactiveCache.getCurrentUser()?.isBoardAdmin();
   },
 
-  // Which of the two hamburgers opened this menu, so its first entry can be
-  // about the thing the user is looking at. client/lib/cardMenuSource.js
-  isMinicardMenu() {
-    return cardMenuSource() === 'minicard';
-  },
-
   showListOnMinicard() {
     return this.showListOnMinicard;
   },
@@ -1598,17 +1586,12 @@ Template.cardDetailsActionsPopup.events({
     if (!url) return;
     Utils.showCopied(Utils.copyTextToClipboard(url), tpl.$('.copied-tooltip'));
   },
-  // The board's Card Settings, one column of them, titled by the key the app
-  // already has for that column - so no `showOnCardPopup-title` has to be added
-  // to 147 language files to say a phrase they have already translated.
-  'click .js-show-on-card': Popup.open('showOnCard', { titleKey: 'show-on-card' }),
   // "Custom Fields" is ONE entry: it opens the picker for which of the board's
   // fields are on THIS card, and that popup's own Settings cog opens the
   // board's list of fields, where one is created, renamed or deleted. Two
   // entries for the two halves put the general one above the particular one and
   // made the menu ask which you wanted before you had seen either.
   // client/components/cards/cardCustomFields.jade
-  'click .js-show-on-minicard': Popup.open('showOnMinicard', { titleKey: 'show-on-minicard' }),
   'click .js-export-card': Popup.open('exportCard'),
   'click .js-import-card': Popup.open('importCard'),
   'click .js-members': Popup.open('cardMembers'),

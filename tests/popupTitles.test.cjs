@@ -115,11 +115,11 @@ test('the confirmations that had no header now have one', () => {
 });
 
 test('a title key is only added where the app has no words already (negative)', () => {
-  // The four that reuse an existing phrase keep doing so - adding
-  // `showOnCardPopup-title` etc. would put a second copy of one phrase into 147
-  // language files, English in every one of them until somebody translates it
-  // again.
-  for (const name of ['showOnCard', 'showOnMinicard', 'boardsSort']) {
+  // These reuse an existing phrase rather than getting their own key - adding
+  // `boardSwimlaneSettingsPopup-title` etc. would put a second copy of one
+  // phrase into 147 language files, English in every one of them until
+  // somebody translates it again.
+  for (const name of ['boardSwimlaneSettings', 'boardListSettings', 'boardsSort']) {
     assert.ok(!en[`${name}Popup-title`], `${name} has no key of its own`);
     assert.ok(explicitTitleKeys.has(name), `${name} points at one the app has`);
   }

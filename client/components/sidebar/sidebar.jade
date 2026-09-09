@@ -41,8 +41,8 @@ template(name='homeSidebar')
   +labelsWidget
   hr
   //- "Hide minicard label text" was here, under the People/Organizations tabs.
-    It is a setting about the MINICARD, so it is in the minicard's own menu now:
-    Minicard menu / Show on Minicard. See showOnMinicardPopup below.
+    It is one row of the board's Card Settings table now: Board Settings /
+    Card ("Labels text"). See boardCardSettingsPopup below.
   if currentUser
     ul#cards.vertical-scrollbars-toggle
       a.flex.js-vertical-scrollbars-toggle(title="{{_ 'enable-vertical-scrollbars'}}")
@@ -262,34 +262,23 @@ template(name="boardInfoOnMyBoardsPopup")
           i.fa.fa-arrows-h
           | {{_ 'personal-list-width'}}
 
-//- The Card Settings, from the CARD's own menu: the same popup with the
-  "Show on Minicard" column hidden, because the card menu is opened while
-  looking at a card. One list of settings, one set of handlers, one place a new
-  setting has to be added. client/components/cards/cardDetails.jade
-template(name="showOnCardPopup")
-  +boardCardSettingsPopup(side="card")
-
-//- ...and from the MINICARD's menu, the other column.
-//-
-//- "Labels text" - the one PERSONAL setting in that column - is a row of the
-//- same table, under Labels, so it is read where the rest of the minicard's
-//- settings are. It is offered to everybody, because it is stored on the user's
-//- profile (or in this browser when there is nobody logged in) and changes
-//- nothing for anyone else; a user who is not a board admin sees that row
-//- alone. client/lib/minicardLabelText.js
-template(name="showOnMinicardPopup")
-  if currentUser.isBoardAdmin
-    +boardCardSettingsPopup(side="minicard" card=this)
-  else
-    +boardCardSettingsPopup(side="minicard" personalOnly=true card=this)
-
+//- Board Settings / Card - one shared table of card/minicard display
+  settings, opened from the board's cog menu (boardMenuPopup above). It used
+  to be split across the CARD's own menu ("Show on Card", side="card") and
+  the MINICARD's own menu ("Show on Minicard", side="minicard"); both are
+  gone now and this is reached from Board Settings / Card instead, showing
+  both columns side by side (settingsSideClass() below returns no
+  show-*-only class when neither `side` is passed).
+  "Labels text" - the one PERSONAL setting in this table - stays reachable by
+  a non-admin, who is passed `personalOnly=true` so every other (board-wide,
+  admin-only) row is hidden and only that one shows.
+  client/lib/minicardLabelText.js
 //- No heading row. It used to name the columns of a ROW - "Show on Card" over
   the checkbox and "Description" over the name - which is what they label, but
   not what they LOOK like: the rows flow into as many columns as the window
   fits, so two headings sat above the first of three or four columns and read as
-  if they named those. The first of them also repeated the popup's own title,
-  which is "Show on Card" or "Show on Minicard" already. A row is a checkbox and
-  the name of a setting, and needs neither.
+  if they named those. A row is a checkbox and the name of a setting, and needs
+  neither.
 template(name="boardCardSettingsPopup")
   form.board-card-settings(class=settingsSideClass)
     //- "List title": the name of the LIST this card is in, on its minicard.
@@ -806,15 +795,37 @@ template(name="boardMenuPopup")
         a.js-outgoing-webhooks
           i.fa.fa-globe
           | {{_ 'outgoing-webhooks'}}
-      //- "Card Settings" was here. Every setting in it is now in the menu of
-        the thing it is about: the card's menu has "Show on Card" and a
-        minicard's has "Show on Minicard", each with that column of the same
-        table. A board-wide entry as well would be a third way to the same list.
-        client/components/cards/cardDetails.jade
       //- "Subtasks Settings" was here. What subtasks do on this board is behind
         the hamburger at the end of the Subtasks heading on an opened card,
         which is where somebody looking at subtasks already is.
         client/components/cards/cardDetails.jade
+  if currentUser
+    hr
+    //- Swimlane, List and Card settings, together. Swimlane and List are
+      board-admin settings (the resize locks), same restriction the server
+      already enforces. Card is not admin-only: it used to be reached from
+      the card's own menu and the minicard's own menu - "Show on Card" /
+      "Show on Minicard" - which put the same board-wide list of toggles
+      behind two different places depending on what you were looking at, and
+      which also let anyone open it for the one PERSONAL row in it ("Labels
+      text" - stored on the user's own profile, not the board). It is back
+      here as one board setting, and keeps that same personal-only fallback
+      for a non-admin. client/components/cards/cardDetails.jade
+    ul.pop-over-list
+      if currentUser.isBoardAdmin
+        li
+          a.js-open-board-swimlane-settings(title="{{_ 'swimlane'}}")
+            i.fa.fa-bars
+            | {{_ 'swimlane'}}
+        li
+          a.js-open-board-list-settings(title="{{_ 'list'}}")
+            i.fa.fa-list
+            | {{_ 'list'}}
+      li
+        a.js-open-board-card-settings(title="{{_ 'card-settings'}}")
+          i.fa.fa-id-card
+          | {{_ 'card'}}
+    hr
   unless currentBoard.isTemplatesBoard
     if currentUser.isBoardAdmin
       hr
@@ -830,6 +841,39 @@ template(name="boardMenuPopup")
           a.js-archive-board
             i.fa.fa-archive
             | {{_ 'archive-board'}}
+
+//- Board Settings / Swimlane. The board-wide swimlane-height resize lock
+  used to be a header icon (#6680); it lives here now, with the rest of a
+  board's settings. client/components/swimlanes/swimlanes.js
+template(name="boardSwimlaneSettingsPopup")
+  form.board-swimlane-settings
+    div.check-div
+      a.flex.js-toggle-swimlane-height-resize-lock(title="{{_ 'lock-swimlane-height-resize'}}" class="{{#if isSwimlaneHeightResizeLocked}}is-checked{{/if}}")
+        i.fa(class="{{#if isSwimlaneHeightResizeLocked}}fa-check{{else}}fa-square-o{{/if}}")
+        span
+          i.fa.fa-arrows-v
+          | {{_ 'lock-swimlane-height-resize'}}
+
+//- Board Settings / List. The board-wide list-width resize lock and the
+  "same width for all lists" setting used to be header icons (#6680); they
+  live here now, with the rest of a board's settings. The per-list "Set
+  width" popup keeps the personal/per-list width settings and the actual
+  shared-width value - this is only the two board-wide switches.
+  client/components/lists/list.js
+template(name="boardListSettingsPopup")
+  form.board-list-settings
+    div.check-div
+      a.flex.js-toggle-list-width-resize-lock(title="{{_ 'lock-list-width-resize'}}" class="{{#if isListWidthResizeLocked}}is-checked{{/if}}")
+        i.fa(class="{{#if isListWidthResizeLocked}}fa-check{{else}}fa-square-o{{/if}}")
+        span
+          i.fa.fa-arrows-h
+          | {{_ 'lock-list-width-resize'}}
+    div.check-div
+      a.flex.js-toggle-same-width-for-all-lists(title="{{_ 'same-width-for-all-lists'}}" class="{{#if isSameWidthForAllLists}}is-checked{{/if}}")
+        i.fa(class="{{#if isSameWidthForAllLists}}fa-check{{else}}fa-square-o{{/if}}")
+        span
+          i.fa.fa-columns
+          | {{_ 'same-width-for-all-lists'}}
 
 template(name="exportBoardPopup")
   //- The same popup as Export swimlane / list / card, with the same panes and

@@ -1,17 +1,21 @@
 'use strict';
 
 // #6680 "A way to lock your board settings": the maintainer's chosen shape is
-// not a single whole-board edit/live mode, but three independent per-board
-// header toggles: lock/unlock list-width drag-resize, lock/unlock
-// swimlane-height drag-resize, and a board-wide "same width for all lists"
-// (the existing per-user Set-Width popup mode, now also settable for the
-// whole board by an admin).
+// not a single whole-board edit/live mode, but three independent board
+// settings: lock/unlock list-width drag-resize, lock/unlock swimlane-height
+// drag-resize, and a board-wide "same width for all lists" (the existing
+// per-user Set-Width popup mode, now also settable for the whole board by an
+// admin).
+//
+// These three started as header icons, then moved to Board Settings /
+// Swimlane and Board Settings / List (a follow-up to #6680) - together with
+// the rest of a board's settings, reached from the board's cog menu, rather
+// than living as icons in the header. tests/boardSettingsSwimlaneListCard.test.cjs
+// pins where they live now; this file keeps pinning the parts that did not
+// move.
 //
 // This is a static wiring test (no Meteor runtime here), pinning:
 //   - the three board schema fields and their getter/setter methods exist;
-//   - the header icons exist, gated to board pages and board admins, with the
-//     lock/unlock icon swap and the arrow icons the maintainer asked for;
-//   - the click handlers flip the right board field;
 //   - the drag-resize code actually checks the lock before starting a drag;
 //   - the board-wide same-width value is writable by any board member with
 //     write access (not only admins), the same shape already used for
@@ -32,8 +36,6 @@ function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
 console.log('listSwimlaneResizeLock:');
 
 const boardsModel = read('models/boards.js');
-const headerJade = read('client/components/main/header.jade');
-const headerJs = read('client/components/main/header.js');
 const listJs = read('client/components/lists/list.js');
 const swimlanesJs = read('client/components/swimlanes/swimlanes.js');
 const permissions = read('server/permissions/boards.js');
@@ -55,67 +57,6 @@ test('each lock field has a getter and a setter on Boards', () => {
   ]) {
     assert.ok(boardsModel.includes(`${get}()`), `Boards has ${get}()`);
     assert.ok(boardsModel.includes(`async ${set}(`), `Boards has ${set}()`);
-  }
-});
-
-test('the header shows all three toggles only on a board page, admins only', () => {
-  const at = headerJade.indexOf('js-toggle-list-width-resize-lock');
-  assert.ok(at !== -1, 'the list-width lock button exists');
-  const before = headerJade.slice(0, at);
-  assert.ok(/if isBoardPage/.test(before.slice(before.lastIndexOf('\n\n'))),
-    'gated behind isBoardPage immediately above it');
-  assert.ok(/if canLockBoardResize/.test(before.slice(before.lastIndexOf('if isBoardPage'))),
-    'and behind canLockBoardResize (board-admin only) inside that');
-  assert.ok(headerJade.includes('js-toggle-swimlane-height-resize-lock'),
-    'the swimlane-height lock button exists');
-  assert.ok(headerJade.includes('js-toggle-same-width-for-all-lists'),
-    'the same-width-for-all-lists button exists');
-});
-
-test('the same-width-for-all-lists toggle also uses the drag-handles check/ban pair', () => {
-  const block = headerJade.slice(headerJade.indexOf('js-toggle-same-width-for-all-lists'),
-    headerJade.indexOf('js-toggle-swimlane-height-resize-lock'));
-  assert.ok(block.includes('fa-columns'), 'the base icon is still there');
-  assert.ok(block.includes('fa-check') && block.includes('fa-ban'),
-    'both the enabled (check) and disabled (ban) icon states are drawn');
-  assert.ok(/if isSameWidthForAllLists/.test(block), 'icon swap is reactive');
-});
-
-test('the list-width toggle uses a left-right arrow icon and the drag-handles check/ban pair', () => {
-  const block = headerJade.slice(headerJade.indexOf('js-toggle-list-width-resize-lock'),
-    headerJade.indexOf('js-toggle-same-width-for-all-lists'));
-  assert.ok(block.includes('fa-arrows-h'), 'left-right arrow icon (fa-arrows-h)');
-  // Same allowed/denied icon pair as .js-toggle-desktop-drag-handles - fa-check
-  // when resizing is allowed, fa-ban when this lock has denied it.
-  assert.ok(block.includes('fa-check') && block.includes('fa-ban'),
-    'both the allowed (check) and denied (ban) icon states are drawn');
-  assert.ok(!block.includes('fa-lock') && !block.includes('fa-unlock'),
-    'the old lock/unlock icons are gone');
-  assert.ok(/if isListWidthResizeLocked/.test(block), 'icon swap is reactive');
-});
-
-test('the swimlane-height toggle uses an up-down arrow icon and the drag-handles check/ban pair', () => {
-  const block = headerJade.slice(headerJade.indexOf('js-toggle-swimlane-height-resize-lock'));
-  assert.ok(block.includes('fa-arrows-v'), 'up-down arrow icon (fa-arrows-v)');
-  assert.ok(block.includes('fa-check') && block.includes('fa-ban'),
-    'both the allowed (check) and denied (ban) icon states are drawn');
-  assert.ok(!block.includes('fa-lock') && !block.includes('fa-unlock'),
-    'the old lock/unlock icons are gone');
-  assert.ok(/if isSwimlaneHeightResizeLocked/.test(block), 'icon swap is reactive');
-});
-
-test('each button has a click handler that flips the matching board field', () => {
-  const pairs = [
-    ['js-toggle-list-width-resize-lock', 'setListWidthResizeLocked', 'getListWidthResizeLocked'],
-    ['js-toggle-swimlane-height-resize-lock', 'setSwimlaneHeightResizeLocked', 'getSwimlaneHeightResizeLocked'],
-    ['js-toggle-same-width-for-all-lists', 'setSameWidthForAllLists', 'getSameWidthForAllLists'],
-  ];
-  for (const [cls, setter, getter] of pairs) {
-    const at = headerJs.indexOf(`'click .${cls}'`);
-    assert.ok(at !== -1, `header.js has a click handler for .${cls}`);
-    const body = headerJs.slice(at, headerJs.indexOf('},', at));
-    assert.ok(body.includes(setter) && body.includes(getter),
-      `.${cls} toggles ${setter}(!${getter}())`);
   }
 });
 

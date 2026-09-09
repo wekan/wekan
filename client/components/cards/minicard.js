@@ -12,7 +12,6 @@ import {
   parseChecklistItemTitles,
   buildChecklistItemPayload,
 } from '/models/lib/checklistItemTitles';
-import { setCardMenuSource } from '/client/lib/cardMenuSource';
 import {
   hiddenMinicardLabelText,
   toggleMinicardLabelText,
@@ -388,7 +387,6 @@ Template.minicard.events({
     event.preventDefault();
     event.stopPropagation();
     const card = Template.currentData();
-    setCardMenuSource('minicard');
     Popup.open('cardDetailsActions').call({currentData: () => card}, event);
   },
   // Drag and drop file upload handlers

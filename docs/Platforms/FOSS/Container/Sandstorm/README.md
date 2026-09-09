@@ -46,12 +46,9 @@ After migrating, free some disk space
 
 Cover image
 
-- You can enable it for card and minicard in the menu of the thing it is about,
-  one column of the same settings at a time: Card menu (☰ on an opened card) /
-  Show on Card, and Minicard menu (☰ on a card on the board) / Show on Minicard.
-  Cover Image is at the bottom of that list. (It used to be Right Sidebar /
-  Board Settings / Card Settings, which is gone: every setting in it is in those
-  two menus now.)
+- You can enable it for card and minicard at Right Sidebar / Board Settings /
+  Card, one table with both columns of settings side by side. Cover Image is
+  near the bottom of that list.
 
 Download Official Version
 

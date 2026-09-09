@@ -578,6 +578,26 @@ Template.boardMenuPopup.events({
   // which makes a NEW board from a file - a different question with a nearly
   // identical name, so the classes are kept apart.
   'click .js-import-into-board': Popup.open('importBoardInto'),
+  // #6680: Swimlane/List/Card, together - see the jade comment above these
+  // three entries. "swimlane" and "list" are existing, already-translated
+  // words rather than new `<popupName>-title` keys (Popup.open's own
+  // convention comment explains why: a new key would show English in every
+  // language until each is translated). "Card Settings" already has its own
+  // title key from the shared table template, so it needs no override.
+  'click .js-open-board-swimlane-settings': Popup.open('boardSwimlaneSettings', { titleKey: 'swimlane' }),
+  'click .js-open-board-list-settings': Popup.open('boardListSettings', { titleKey: 'list' }),
+  // A non-admin may still open this for the one PERSONAL row in it ("Labels
+  // text"), same as the old showOnMinicardPopup did - `personalOnly` hides
+  // every other row (client/components/sidebar/sidebar.css). Overriding
+  // `currentData` (rather than passing openOptions) is what actually reaches
+  // boardCardSettingsPopup's data context: Popup.open only falls back to
+  // `dataContextIfCurrentDataIsUndefined` when currentData() is falsy, and
+  // here it is always the board.
+  'click .js-open-board-card-settings'(event) {
+    const isAdmin = Boolean(ReactiveCache.getCurrentUser()?.isBoardAdmin());
+    const data = isAdmin ? {} : { personalOnly: true };
+    Popup.open('boardCardSettings').call({ currentData: () => data }, event);
+  },
 });
 
 Template.boardMenuPopup.onCreated(function() {
@@ -585,6 +605,53 @@ Template.boardMenuPopup.onCreated(function() {
   Meteor.call('_isApiEnabled', (e, result) => {
     this.apiEnabled.set(result);
   });
+});
+
+// #6680: Board Settings / Swimlane - moved here from the header (see
+// client/components/main/header.js history). Client calls the Board
+// instance method directly; Boards.allow's allowIsBoardAdmin (the default
+// board-setting rule) enforces who may actually persist it.
+Template.boardSwimlaneSettingsPopup.helpers({
+  isSwimlaneHeightResizeLocked() {
+    const board = Utils.getCurrentBoard();
+    return Boolean(board && board.getSwimlaneHeightResizeLocked());
+  },
+});
+
+Template.boardSwimlaneSettingsPopup.events({
+  'click .js-toggle-swimlane-height-resize-lock'() {
+    const board = Utils.getCurrentBoard();
+    if (!board) return;
+    board.setSwimlaneHeightResizeLocked(!board.getSwimlaneHeightResizeLocked());
+  },
+});
+
+// #6680: Board Settings / List - moved here from the header. The board-wide
+// "same width for all lists" value itself is still set from a list's own
+// "Set width" popup (client/components/lists/list.js saveListWidth); this is
+// only the two board-wide switches.
+Template.boardListSettingsPopup.helpers({
+  isListWidthResizeLocked() {
+    const board = Utils.getCurrentBoard();
+    return Boolean(board && board.getListWidthResizeLocked());
+  },
+  isSameWidthForAllLists() {
+    const board = Utils.getCurrentBoard();
+    return Boolean(board && board.getSameWidthForAllLists());
+  },
+});
+
+Template.boardListSettingsPopup.events({
+  'click .js-toggle-list-width-resize-lock'() {
+    const board = Utils.getCurrentBoard();
+    if (!board) return;
+    board.setListWidthResizeLocked(!board.getListWidthResizeLocked());
+  },
+  'click .js-toggle-same-width-for-all-lists'() {
+    const board = Utils.getCurrentBoard();
+    if (!board) return;
+    board.setSameWidthForAllLists(!board.getSameWidthForAllLists());
+  },
 });
 
 Template.boardMenuPopup.helpers({
