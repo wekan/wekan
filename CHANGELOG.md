@@ -317,7 +317,9 @@ write via the attachment upload `namingFunction`, a **critical**
 unauthenticated DDP method that could wipe every attachment or avatar on
 the instance, and two **high** missing-authorization bugs that let an
 anonymous caller download any avatar (a missing `protected` callback,
-and an unauthenticated legacy-avatar route).
+and an unauthenticated legacy-avatar route). The **AppImage** no longer
+mounts itself under a possibly-small `/tmp`, relocating to
+`WRITABLE_PATH/app` instead.
 
 This release fixes the following CRITICAL SECURITY ISSUES:
 
@@ -407,6 +409,34 @@ now requires a login. A denied attempt is recorded under a new
 catalog key.
 `tests/attachmentAvatarSecurityAdvisories.test.cjs` pins both call sites
 and the negative case that the redirect still works unauthenticated.
+
+</details>
+
+and fixes the following bug:
+
+**AppImage** - its own mount filling up a small /tmp.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bebc7f69b">Relocate the AppImage's own mount from /tmp to WRITABLE_PATH/app</a>. Thanks to xet7.</summary>
+
+checkmk warned `/tmp/.mount_wekan.OhaGOG ... 100% used` because the
+AppImage runtime's own read-only squashfs mount landed on a small `/tmp`
+- a squashfs mount always reports itself as 100% used regardless of
+size, so this was really "`/tmp` is too small for the AppImage", not a
+leak. The runtime mounts itself under
+`$TMPDIR/.mount_<name>.<random>` (defaulting to `/tmp`) before `AppRun`
+ever runs, so the very first launch's mount cannot be redirected from
+inside `AppRun`. `AppRun` now re-execs itself once per launch with
+`TMPDIR` set to `WRITABLE_PATH/app` when the caller has not already
+chosen a `TMPDIR`, so every launch from then on mounts there instead -
+and, on that same first launch, sweeps out any of WeKan's own orphaned
+`.mount_*ekan*` directories left in `/tmp` by an earlier, uncleanly
+killed run (checked against `/proc/mounts`, so a live one is never
+touched). AppImage-only: no other WeKan platform mounts itself this way,
+so Docker, snap, the `.deb` and the bundle zip are untouched.
+`tests/appImageRuntime.test.cjs` pins the relocation, its
+once-per-launch/explicit-`TMPDIR` guards, and that only orphaned mounts
+are removed.
 
 </details>
 
