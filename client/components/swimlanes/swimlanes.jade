@@ -3,6 +3,7 @@ template(name="swimlane")
     +swimlaneHeader
   unless collapseSwimlane
     .swimlane.js-lists.js-swimlane.dragscroll(id="swimlane-{{_id}}"
+                                   data-board-id="{{boardId}}"
                                    style="height:{{swimlaneHeight}};")
       .swimlane-resize-handle.js-swimlane-resize-handle.nodragscroll
       if isMiniScreen
@@ -57,7 +58,7 @@ template(name="swimlane")
             +cardDetails(currentCard)
 
 template(name="listsGroup")
-  .swimlane.list-group.js-lists.dragscroll
+  .swimlane.list-group.js-lists.dragscroll(data-board-id="{{_id}}")
     if isMiniScreen
       if currentList
         +list(currentList)

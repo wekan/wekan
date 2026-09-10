@@ -7,6 +7,7 @@ import getSlug from 'limax';
 import Boards from '/models/boards';
 import Swimlanes from '/models/swimlanes';
 import TableVisibilityModeSettings from '/models/tableVisibilityModeSettings';
+import visibilityDesc from '/imports/i18n/lib/visibilityDesc';
 import { Filter } from '/client/lib/filter';
 // Which way a button that opens a sidebar view goes on a click - one answer,
 // in one place, for both Filter and Search.
@@ -309,6 +310,10 @@ Template.boardChangeViewPopup.events({
     Utils.setBoardView('board-view-dashboard');
     Popup.back();
   },
+  'click .js-open-bigboard-view'() {
+    Utils.setBoardView('board-view-bigboard');
+    Popup.back();
+  },
   'click .js-open-burndown-view'() {
     Utils.setBoardView('board-view-burndown');
     Popup.back();
@@ -509,6 +514,18 @@ Template.headerBarCreateBoardPopup.helpers(createBoardHelpers());
 Template.boardVisibilityList.helpers({
   notAllowPrivateVisibilityOnly() {
     return !TableVisibilityModeSettings.findOne('tableVisibilityMode-allowPrivateOnly')?.booleanValue;
+  },
+  // #4421: an admin can override these sub-name texts in Admin Panel /
+  // Settings / Visibility (Settings.customPrivateBoardDesc /
+  // customPublicBoardDesc); empty/unset falls back to the i18n default,
+  // byte-identical to before this setting existed.
+  privateDesc() {
+    const setting = ReactiveCache.getCurrentSetting();
+    return visibilityDesc(setting?.customPrivateBoardDesc, TAPi18n.__, 'private-desc');
+  },
+  publicDesc() {
+    const setting = ReactiveCache.getCurrentSetting();
+    return visibilityDesc(setting?.customPublicBoardDesc, TAPi18n.__, 'public-desc');
   },
 });
 
@@ -721,6 +738,7 @@ Template.boardViewMenu.helpers({
       'board-view-time': 'board-view-time',
       'board-view-group-by-assignee': 'board-view-group-by-assignee',
       'board-view-dashboard': 'board-view-dashboard',
+      'board-view-bigboard': 'board-view-bigboard',
       'board-view-burndown': 'board-view-burndown',
       'board-view-burnup': 'board-view-burnup',
       'board-view-cumulative-flow': 'board-view-cumulative-flow',

@@ -107,7 +107,7 @@ template(name="boardVisibilityList")
           | {{_ 'private'}}
           if visibilityCheck
             i.fa.fa-check
-          span.sub-name {{_ 'private-desc'}}
+          span.sub-name {{privateDesc}}
     if notAllowPrivateVisibilityOnly
       li
         with "public"
@@ -116,7 +116,7 @@ template(name="boardVisibilityList")
             | {{_ 'public'}}
             if visibilityCheck
               i.fa.fa-check
-            span.sub-name {{_ 'public-desc'}}
+            span.sub-name {{publicDesc}}
 
 template(name="boardChangeVisibilityPopup")
   +boardVisibilityList
@@ -232,6 +232,14 @@ template(name="boardChangeViewPopup")
           | {{_ 'board-view-dashboard'}}
           if $eq Utils.boardView "board-view-dashboard"
             i.fa.fa-check
+    li
+      with "board-view-bigboard"
+        a.js-open-bigboard-view
+          i.fa.fa-th
+          | {{_ 'board-view-bigboard'}}
+          if $eq Utils.boardView "board-view-bigboard"
+            i.fa.fa-check
+      hr
     li
       with "board-view-burndown"
         a.js-open-burndown-view

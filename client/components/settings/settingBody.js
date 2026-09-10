@@ -990,6 +990,12 @@ Template.tableVisibilityModeSettings.events({
     if ($('#spinnerName').length) {
       $set.spinnerName = visibilityText('#spinnerName');
     }
+    if ($('#custom-private-board-desc').length) {
+      $set.customPrivateBoardDesc = visibilityText('#custom-private-board-desc');
+    }
+    if ($('#custom-public-board-desc').length) {
+      $set.customPublicBoardDesc = visibilityText('#custom-public-board-desc');
+    }
     saveVisibilitySettings($set);
   },
 

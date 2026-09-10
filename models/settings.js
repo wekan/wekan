@@ -292,6 +292,20 @@ Settings.attachSchema(
       type: String,
       optional: true,
     },
+    // Board visibility popup / create-board popup: the sub-name text shown under
+    // "Private" and "Public". Empty (the default) falls back to the i18n
+    // 'private-desc' / 'public-desc' strings unchanged - see
+    // imports/i18n/lib/visibilityDesc.js. Set by an admin who wants "Public" to
+    // mean something else on their instance, e.g. "public within our
+    // organization" rather than public on the internet (issue #4421).
+    customPrivateBoardDesc: {
+      type: String,
+      optional: true,
+    },
+    customPublicBoardDesc: {
+      type: String,
+      optional: true,
+    },
     customHeadEnabled: {
       type: Boolean,
       optional: true,

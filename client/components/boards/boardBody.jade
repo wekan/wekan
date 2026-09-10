@@ -64,6 +64,8 @@ template(name="boardBody")
           +groupByAssigneeView
         else if isViewDashboard
           +dashboardView
+        else if isViewBigboard
+          +bigboardView
         else if isViewBurndown
           +burndownView
         else if isViewBurnup

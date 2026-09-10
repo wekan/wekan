@@ -537,6 +537,17 @@ Users.attachSchema(
       type: Boolean,
       optional: true,
     },
+    'profile.showLabelTextOverride': {
+      /**
+       * #4256: optional per-user override of a board's "show label text on
+       * minicards" setting (Boards.showLabelText), mirroring the shape of
+       * profile.globalThemeColor - absent/null = no override, follow the
+       * board's own setting; true/false = always show/hide regardless of
+       * which board is being viewed.
+       */
+      type: Boolean,
+      optional: true,
+    },
     'profile.initials': {
       /**
        * initials of the user
@@ -730,6 +741,7 @@ Users.attachSchema(
         'board-view-time',
         'board-view-group-by-assignee',
         'board-view-dashboard',
+        'board-view-bigboard',
         'board-view-burndown',
         'board-view-burnup',
         'board-view-cumulative-flow',
@@ -1781,6 +1793,15 @@ Users.helpers({
   hasHiddenMinicardLabelText() {
     const profile = this.profile || {};
     return profile.hiddenMinicardLabelText || false;
+  },
+
+  // #4256: null when there is no override (follow the board's own setting),
+  // else the user's explicit true/false override.
+  getShowLabelTextOverride() {
+    const profile = this.profile || {};
+    return typeof profile.showLabelTextOverride === 'boolean'
+      ? profile.showLabelTextOverride
+      : null;
   },
 
   hasRescuedCardDescription() {

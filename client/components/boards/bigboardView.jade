@@ -1,0 +1,19 @@
+//- #4223: "Bigboard" board view - Kanboard's BigBoard plugin equivalent.
+//- Stacks EVERY board the current user is a member of on one scrollable
+//- page, each as its own compact kanban section (title + its own lists/
+//- cards), reusing the same swimlanes/listsGroup + list/card templates the
+//- normal single-board views already use so drag-and-drop, card popups and
+//- list editing work exactly as on a regular board page.
+template(name="bigboardView")
+  .bigboard-view
+    if isLoading
+      p.quiet {{_ 'loading'}}
+    else if hasBoards
+      each bigboardBoards
+        .bigboard-board(data-board-id="{{_id}}")
+          h2.bigboard-board-title
+            a.bigboard-board-link(href="{{pathFor 'board' id=_id slug=slug}}") {{title}}
+          .bigboard-board-lists
+            +listsGroup(this)
+    else
+      p.quiet {{_ 'no-boards-selected'}}

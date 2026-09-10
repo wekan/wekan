@@ -798,6 +798,10 @@ Template.boardBody.helpers({
     return Utils.boardView() === 'board-view-dashboard';
   },
 
+  isViewBigboard() {
+    return Utils.boardView() === 'board-view-bigboard';
+  },
+
   isViewBurndown() {
     return Utils.boardView() === 'board-view-burndown';
   },

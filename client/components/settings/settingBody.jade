@@ -233,6 +233,19 @@ template(name='tableVisibilityModeSettings')
       li.tableVisibilityMode-form
         .title {{_ 'wait-spinner'}}
         +selectSpinnerName(spinnerName=currentSetting.spinnerName)
+      //- #4421: an org whose "Public" means "public within our organization"
+      //- rather than public on the internet can replace the wording shown
+      //- under Private/Public in the board visibility popup and the
+      //- create-board popup. Empty = unchanged i18n default text
+      //- (imports/i18n/lib/visibilityDesc.js).
+      li.tableVisibilityMode-form
+        .title {{_ 'custom-private-desc'}}
+        .form-group
+          input.wekan-form-control#custom-private-board-desc(type="text", placeholder="{{_ 'custom-private-desc-placeholder'}}" value="{{currentSetting.customPrivateBoardDesc}}")
+      li.tableVisibilityMode-form
+        .title {{_ 'custom-public-desc'}}
+        .form-group
+          input.wekan-form-control#custom-public-board-desc(type="text", placeholder="{{_ 'custom-public-desc-placeholder'}}" value="{{currentSetting.customPublicBoardDesc}}")
       li
         //- One Save per section, at its end, above the rule that closes it. It writes
         //- this section's fields and nothing else, so saving one group can never

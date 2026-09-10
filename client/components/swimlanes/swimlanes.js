@@ -14,6 +14,22 @@ import { TAPi18n } from '/imports/i18n';
 import { defaultSwimlaneIdForBoard } from '/client/components/lists/listAddHelpers';
 const { calculateIndex } = Utils;
 
+// #4223 (Bigboard): normally exactly one board's lists are ever on the page,
+// so the plain '.js-swimlane, .js-lists' selector only ever connects a
+// board's own lists to each other. Bigboard stacks EVERY board's lists on
+// one page at once, so the same selector would let a list be dragged from
+// one board's section into another's. Scope the connect selector to the
+// dragged element's own board (via the data-board-id already rendered on
+// .js-swimlane/.js-lists) when one is present; falls back to the previous
+// unscoped selector otherwise, so ordinary single-board views are unaffected.
+function connectWithSelector($listsDom) {
+  const boardId = $listsDom && $listsDom.attr && $listsDom.attr('data-board-id');
+  if (boardId) {
+    return `.js-swimlane[data-board-id="${boardId}"], .js-lists[data-board-id="${boardId}"]`;
+  }
+  return '.js-swimlane, .js-lists';
+}
+
 function saveSorting(ui) {
   // #5462 (defense in depth): a logged-in user without write access must never
   // persist a list reorder, even if a sortable was left enabled. Anonymous
@@ -352,7 +368,7 @@ function initSortable(boardComponent, $listsDom) {
 
   try {
     $listsDom.sortable({
-      connectWith: '.js-swimlane, .js-lists',
+      connectWith: connectWithSelector($listsDom),
       tolerance: 'pointer',
       appendTo: '.board-canvas',
       helper(evt, item) {
@@ -461,7 +477,7 @@ Template.swimlane.onRendered(function () {
       });
 
       $parent.sortable({
-        connectWith: '.js-swimlane, .js-lists',
+        connectWith: connectWithSelector($parent),
         tolerance: 'pointer',
         appendTo: '.board-canvas',
         helper: 'clone',
@@ -1071,7 +1087,7 @@ Template.listsGroup.onRendered(function () {
       });
 
       $parent.sortable({
-        connectWith: '.js-swimlane, .js-lists',
+        connectWith: connectWithSelector($parent),
         tolerance: 'pointer',
         appendTo: '.board-canvas',
         helper: 'clone',
