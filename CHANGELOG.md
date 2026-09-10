@@ -1293,6 +1293,46 @@ touches the setting gets the exact pre-existing text.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/521cb4e332db486682588e77f226b89efa698a49">Card text can now autolink bare "#1234"-style tokens to an external issue tracker</a>. Thanks to grandinj and xet7.</summary>
+
+[#3069](https://github.com/wekan/wekan/issues/3069): a bare `#1234`-style
+reference typed into a card description or comment stayed plain text, so an
+instance whose team tracks issues in Jira, GitHub or Bugzilla elsewhere had
+no way to jump straight there, the way the Mattermost autolink plugin does.
+
+A new "External Issue Tracker Autolink" group under Admin Panel → Settings →
+Visibility takes a token prefix (commonly `#`) and a URL template containing
+the literal `{number}` (e.g. `https://issues.example.com/browse/PROJ-{number}`).
+When both are set, every matching bare token found in card text is rendered
+as a link to that URL, with the digits substituted in. Leaving either field
+empty keeps the feature off, which is also the default.
+
+WeKan does not autolink bare `#NNNN` to its own cards anywhere - confirmed by
+reading the whole markdown pipeline and every client template before adding
+this - so there was nothing internal to collide with. The feature stays safe
+regardless of that: it is opt-in, and it never rewrites a token that already
+sits inside an existing markdown link target or an `href="..."` attribute, so
+a future internal card-number link could not be double-linked by this either.
+
+The matching/URL-building logic lives once, as a pure function,
+`models/lib/externalLinkAutolink.js`. The markdown renderer
+(`packages/markdown/src/template-integration.js`) cannot import app code, so
+it carries a small mirror of the same algorithm, fed the two configured
+strings through a `ReactiveVar` bridge the same way the existing "always show
+code as plain text" setting already is, kept in sync by
+`client/components/main/editor.js`. `server/publications/settings.js`
+publishes the two new fields, without which the admin form would always
+render empty and "Save" would look like it did nothing.
+
+`tests/externalLinkAutolink.test.cjs` covers the pure function directly
+(matching, URL building, the no-op-when-unconfigured guard, the
+already-linked collision guard), the settings/publication/bridge wiring, and
+- by source inspection - that no internal `#NNNN`-to-card autolinker exists
+anywhere in the tree, which is the precondition the whole design leans on.
+
+</details>
+
 **Card detail actions** - the hamburger menu opened from an open card.
 
 <details>
@@ -2090,6 +2130,41 @@ Meteor-free module so the scoring and ordering rules are unit-testable:
 highest vote score first, a card with no votes scores 0 and sorts last,
 and ties (including two zero-vote cards) keep their relative manual-sort
 order via a stable sort.
+
+</details>
+
+**Lists** - a list's own header and Board Settings.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/187a3df1ce3377aba2a522cad4977900460355f0">Add a WIP limit shared across several lists together (WIP limit groups)</a>. Thanks to aviertio and xet7.</summary>
+
+[#2489](https://github.com/wekan/wekan/issues/2489) asked for a WIP limit
+that covers several columns together - e.g. three middle "in progress"
+columns that may never hold more than 10 cards between them - on top of
+the per-list limit WeKan already has (`models/lists.js` `wipLimit`).
+`Boards.wipLimitGroups` adds a small board-level array of
+`{ _id, name, listIds, limit, enabled }` groups, managed from a new "WIP
+Limit Groups" panel in Board Settings (Swimlane/List/Card/WIP Limit
+Groups, the same settings-popup pattern the other three already use),
+where two or more of the board's lists are picked to share one combined
+numeric limit.
+
+`models/lib/wipLimitGroupDecision.js` is the pure arithmetic this reuses
+everywhere the decision is needed: `combinedWipLimitGroupCount` sums the
+current card count across a group's member lists,
+`isWipLimitGroupExceeded` mirrors the per-list "exceeded" threshold
+(`value < count`, the same strict comparison `exceededWipLimit` already
+used), and `isListInExceededWipLimitGroup` answers whether a given list
+belongs to any group currently over its own shared limit - independent
+of that list's own individual `wipLimit`, so a group's total is never
+confused with what any one member list's own limit says.
+
+The list header shows the group being over limit with the exact same
+`.highlight` red-text styling the per-list WIP counter already uses
+(`client/components/lists/list.css`), not a second visual language: every
+list that belongs to an exceeded group gets its title highlighted, so it
+is clear at a glance which lists are part of the over-limit group, not
+only the one list that happens to be over on its own.
 
 </details>
 
