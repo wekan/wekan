@@ -1363,7 +1363,7 @@ card-detail editor is untouched.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/76dcb6575e2c62b676d9f8f8d94d4c2c30c5f7e1">An "Admin only" custom field definition hides its value from non-admin board members entirely</a>. Thanks to CarloRampini and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/76dcb6575aebd8f597ceb56b6bcc3edc02237251">An "Admin only" custom field definition hides its value from non-admin board members entirely</a>. Thanks to CarloRampini and xet7.</summary>
 
 [#3141](https://github.com/wekan/wekan/issues/3141) asked for a custom field
 usable for technical/integration metadata (API keys, script data) that only
@@ -1803,6 +1803,28 @@ is a stateful two-way sync protocol with its own server, which is a much
 larger feature than a dates feed, and is out of scope here - every calendar
 client that can "subscribe to a URL" reads a plain .ics feed directly, no
 CalDAV needed.
+
+</details>
+
+**Board invitations** - inviting a user to a board.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9d1b2915ef1973e2b1d13219ef03dddb0d140727">Inviting a user to a board now also sends a push notification, not just email</a>. Thanks to CondensedTea and xet7.</summary>
+
+[#3136](https://github.com/wekan/wekan/issues/3136): `inviteUserToBoard`
+(`server/models/users.js`) only ever sent an invitation email. Board
+membership/watcher changes already fan out through
+`Notifications.notify(user, title, description, params)` - the same helper
+`server/models/activities.js` calls for card assignment, due dates, mentions
+and every other activity-driven notification, reaching both the email
+service and the in-app notification bell - but an invite itself never went
+through it. `inviteUserToBoard` now also calls
+`Notifications.notify(user, 'push-invite-title', 'push-invite-text', params)`
+right after the email is sent, reusing the exact same helper and the same
+`params` already built for the email - no new push infrastructure. It is
+guarded by `!isNewUser`: a brand-new invitee created from an email address
+with no matching WeKan account has no established notification target yet,
+so they stay email-only, exactly as before, with no error.
 
 </details>
 
@@ -2458,7 +2480,7 @@ keeping their `wekan` service identical.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/f9c046dd211a5987d987fe95b5b7dcc0d9d0f001">Added a Using WeKan for Scrum guide mapping stories, story points, checklists and sprints onto existing features</a>. Thanks to lonix1 and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/f9c046dd2eba0ea6e0ef8bd535e4bf0078d30288">Added a Using WeKan for Scrum guide mapping stories, story points, checklists and sprints onto existing features</a>. Thanks to lonix1 and xet7.</summary>
 
 [#3087](https://github.com/wekan/wekan/issues/3087) asked, as a question
 rather than a feature request, how to run a basic Scrum process on WeKan:
