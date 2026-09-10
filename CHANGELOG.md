@@ -2249,6 +2249,34 @@ to parse an actually-empty string directly.
 
 </details>
 
+**Template sharing** - the picker opened by the card/list/swimlane/board "from template" buttons.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/07f6cda95e56c36fb38fa1a95e9ddeb1e60d661e">The template picker now also searches a template board shared by another member, not only the user's own</a>. Thanks to ADDAH-temp and xet7.</summary>
+
+[#2684](https://github.com/wekan/wekan/issues/2684) asked to let a team
+share board/card templates with other members, not just the creator. A
+template-container board is a regular board with a special `type`, so it
+already gets normal board membership - adding another user as a board
+member of a template board is the existing, generic sharing mechanism,
+exactly like sharing any other board, and
+`server/publications/boards.js`'s `boardTemplates` publication already
+lists any template-container board a user is a member of, not only ones
+they personally created (it is scoped through the same
+`boardVisibilitySelectors()` every other board-visibility check uses).
+
+The actual gap was narrower: the "apply a template" picker
+(`Template.searchElementPopup` in `client/components/lists/listBody.js`)
+was hard-wired to only the current user's own
+`profile.templatesBoardId`, so a template board shared by another member
+never showed up there even though it already appeared in the All Boards
+"Templates" view. The picker now also subscribes to `boardTemplates` and
+offers any OTHER template-container board the user is a member of, via a
+new dropdown that defaults to the user's own template board exactly as
+before.
+
+</details>
+
 and has the following documentation improvement:
 
 <details>
@@ -2316,6 +2344,34 @@ spec's `post_logout_redirect_uri`/`client_id` params), mirroring
 path endpoint resolved against `OAUTH2_SERVER_URL`, an absolute endpoint, an
 endpoint that already carries a query string, and percent-encoding of the
 redirect URI.
+
+</details>
+
+and closes the following already-fixed issue:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9ef7f4a07">Confirm #2498 (linked card's minicard cover) stays fixed</a>. Thanks to javen9881 and xet7.</summary>
+
+[#2498](https://github.com/wekan/wekan/issues/2498): a card that links to
+another board's card ("Link to board") does not show that linked card's
+cover image on its own minicard. `client/components/cards/minicard.js`'s
+`cover()` helper used to read `this.coverId` directly, and a linked card
+(`type: 'cardType-linkedCard'`) has no `coverId` of its own - it is a
+placeholder whose real content lives on the card `linkedId` points at - so
+the cover never rendered.
+
+This is the same fault as [#5666](https://github.com/wekan/wekan/issues/5666)
+("Minicard connection without images"), already fixed by commit 9ef7f4a07:
+`models/lib/linkedCardCover.js`'s `resolveCoverId()` hops a linked card to
+the real card via `getCard(this.linkedId)` and reads its `coverId`,
+mirroring how `getTitle`/`getDue`/the other linked-card getters already
+resolve through `linkedId`. `tests/linkedCardCover.test.cjs` (8 checks,
+still passing against current source) is a pure-Node regression guard
+covering both directions: a linked card resolves to the real card's cover,
+a plain card keeps using its own, a stray `coverId` on the placeholder is
+ignored in favor of the real card's, and an unloaded/missing real card
+returns no cover instead of throwing. No new code change was needed here;
+the issue is closed with a pointer to where it was already fixed.
 
 </details>
 
