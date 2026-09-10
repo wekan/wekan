@@ -311,16 +311,20 @@ the Markdown commit as the template.
 
 # Upcoming WeKan ® release
 
-**In short:** this release fixes a **document preview** regression where a PDF,
-DOCX, XLSX or PPTX attachment could fail to preview with a bare HTTP 415 when
-the optional native `@napi-rs/canvas` dependency was missing from the build -
-PDF previews now degrade to text-only instead of failing outright, and the
-underlying error is logged. It also hardens the **HttpOnly login cookie**
-against a rare case where it could be written without an expiry, which would
-make the browser drop it as soon as it closed instead of honoring the
-configured 90-day login.
+**In short:** this release fixes the **document preview** slideshow viewer,
+which failed to open a PDF attachment with a bare HTTP 415 - both because the
+optional native `@napi-rs/canvas` dependency could be missing from the build,
+and because `pdfjs-dist`'s worker file was being looked for inside the
+bundled server instead of `node_modules`. PDF previews now degrade to
+text-only instead of failing outright when rasterization is unavailable, and
+the underlying error is logged instead of swallowed. It also hardens the
+**HttpOnly login cookie** against a rare case where it could be written
+without an expiry, which would make the browser drop it as soon as it closed
+instead of honoring the configured 90-day login.
 
 This release fixes the following bugs:
+
+**Document preview** - opening the PDF/DOCX/XLSX/PPTX slideshow viewer on an attachment.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/9b9c2fe6e4feab6fd3bbc60ab5d65645291a025b">PDF/DOCX/XLSX/PPTX preview no longer fails outright when the optional canvas dependency is missing</a>. Thanks to rmb82 and xet7.</summary>
@@ -340,6 +344,28 @@ unreadable embedded image in a DOCX/PPTX/XLSX. The three document-preview
 routes now log the caught error before returning 415.
 
 </details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/eb98abe4b2d790de5e97847a523fdd85bd837670">PDF preview 415 from pdfjs guessing the worker's bundled path, fixed</a>. Thanks to rmb82 and xet7.</summary>
+
+Opening the PDF slideshow viewer on an attached PDF still failed with a 415
+after the fix above, now with the real error visible: "Setting up fake
+worker failed: Cannot find module '.../_build/main-dev/pdf.worker.mjs'".
+`pdfjs-dist`'s Node fake-worker fallback locates `pdf.worker.mjs` relative to
+`import.meta.url` of the module that imported it; under the bundled server
+(`_build/main-dev`, `_build/main-prod`) that URL points into the bundle
+output, not into `node_modules`, so the fallback looked for the worker beside
+the bundled `server.cjs` and never found it - every PDF preview failed, image
+and text alike, not only the rasterized-image path the fix above addressed.
+`GlobalWorkerOptions.workerSrc` now points at the real on-disk file via
+Node's own module resolution (the same `runtimeRequire` trick already used
+for `fflate`), so `pdfjs` never falls back to guessing. `pdf-to-img` imports
+the same single `pdfjs-dist` instance, so this also fixes its internal
+rasterization.
+
+</details>
+
+**Login persistence** - the HttpOnly session cookie that keeps a login across browser restarts.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/1e18c824d5950acf94e6fccd51f5c54dcbbcd09f">The HttpOnly login cookie now always gets a fallback expiry</a>. Thanks to markusst1982 and xet7.</summary>
