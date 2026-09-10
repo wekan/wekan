@@ -861,14 +861,27 @@ services:
       #- CAS_LOGIN_URL=https://cas.example.com/login
       #- CAS_VALIDATE_URL=https://cas.example.com/cas/p3/serviceValidate
       #---------------------------------------------------------------------
+      # SAML 2.0 (SP-initiated) login, see docs/Features/Login/SAML.md.
+      # SAML_ENABLED : turn the "Sign In with SAML" login button on.
       #- SAML_ENABLED=true
+      # SAML_PROVIDER : short name for the identity provider, used to build
+      # the ACS/callback URL and shown in Meteor.settings.public.
       #- SAML_PROVIDER=
+      # SAML_ENTRYPOINT : the identity provider's SSO redirect endpoint.
       #- SAML_ENTRYPOINT=
+      # SAML_ISSUER : this WeKan instance's SAML issuer/entity ID.
       #- SAML_ISSUER=
+      # SAML_CERT : the identity provider's signing certificate (PEM, no
+      # header/footer needed), used to verify the SAML response signature.
       #- SAML_CERT=
       #- SAML_IDPSLO_REDIRECTURL=
+      # SAML_PRIVATE_KEYFILE / SAML_PUBLIC_CERTFILE : optional, paths (under
+      # private/) to this WeKan instance's own key/cert, only needed if the
+      # identity provider requires signed AuthnRequests.
       #- SAML_PRIVATE_KEYFILE=
       #- SAML_PUBLIC_CERTFILE=
+      # SAML_IDENTIFIER_FORMAT : NameID format requested from the IdP.
+      # Defaults to urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress.
       #- SAML_IDENTIFIER_FORMAT=
       #- SAML_LOCAL_PROFILE_MATCH_ATTRIBUTE=
       #- SAML_ATTRIBUTES=
