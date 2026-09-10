@@ -4938,6 +4938,28 @@ pattern the file already used for `isSectionOpen`.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2f626d099">A new label no longer fails to enlarge or apply to the card</a>. Thanks to xet7.</summary>
+
+Reported directly: clicking a newly created label did not enlarge it or
+apply it to the card, with the browser console showing "Exception in
+Template.cardFlowtime canControlFlow" and the same for
+`Template.cardPomodoro canControlPomodoro` - both call
+`Utils.canModifyCard()` but never imported `Utils` (a plain ES export
+from `client/lib/utils.js`, not a Meteor global), so the helper threw a
+ReferenceError the moment either template's reactive computation ran,
+breaking the surrounding card render along with it. Searching the whole
+tree for the same shape found two more real, independent instances:
+`notificationSettingsPopup.js` called `Utils.getCurrentBoardId()`
+unimported, and `client/components/main/bookmarks.js` (the header
+bookmarks/Starred feature) called `ReactiveCache.getCurrentUser()`
+unimported in four places.
+`tests/clientSingletonImports.test.cjs` sweeps every `client/**/*.js`
+file for a call to `Utils.<method>(` or `ReactiveCache.<method>(` with no
+matching import, so this shape cannot reappear anywhere else undetected.
+
+</details>
+
 and improves the translation workflow:
 
 - [Fill in the missing Ladin, Latin, Luganda, Luxembourgish, Maithili, Malagasy, Malay, Malayalam, Maltese, Manx, Maori and Marathi translations](https://github.com/wekan/wekan/commit/718d20813). Thanks to xet7.
