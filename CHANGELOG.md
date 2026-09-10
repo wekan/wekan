@@ -4432,6 +4432,53 @@ no-op left it unchanged.
 
 </details>
 
+and adds the following new feature:
+
+**Admin Panel / Login** - LDAP_* environment variables can now be overridden.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ac363f979">Add Admin Panel overrides for LDAP_* environment variables, and a Test LDAP Connection button</a>. Thanks to xet7.</summary>
+
+Every LDAP_* setting `server/authentication.js` and `packages/wekan-ldap`
+read straight from `process.env` can now be overridden from Admin Panel /
+Login, with an explicit admin value winning over the env var and the env
+var winning over nothing
+(`models/lib/configResolver.js`'s `resolveConfigValue()`, pure and unit-
+tested for the precedence and for its 'admin'/'env'/'default' source tag).
+The Admin Panel LDAP section shows, next to every field, which source is
+currently in effect - an env var name, "Admin Panel", or "Unset" - so it
+is always clear whether a value comes from the environment or from an
+admin override.
+
+The bind password never reaches the browser: it is stored in the new
+`Settings.ldap.bindPassword` field, which `server/publications/settings.js`
+deliberately never publishes (only the boolean `ldap.bindPasswordSet` is).
+The password input starts empty and an empty submission leaves the
+existing value/source untouched, matching the existing mail-server
+password field's pattern. `hasConfigValue()` is the parallel, secret-safe
+resolver: it returns only a boolean and a source, never the value, and a
+negative test fuzzes several secret shapes through it to prove that.
+
+Found while wiring this up: `packages/wekan-ldap/server/testConnection.js`'s
+existing `ldap_test_connection` method had its isAdmin check commented
+out, so any authenticated user - not only an admin - could trigger a real
+LDAP bind attempt against the configured directory. Fixed to require
+isAdmin, the same check every other admin-only Settings method uses,
+before any connection is attempted. A new "Test LDAP Connection" button in
+Admin Panel / Login calls this method against whichever config (admin
+override or env var) is currently resolved and shows the result - success
+or the directory's own error - inline.
+
+Switching between LDAP, OAuth2, SAML and password login already has its
+own UI (the Login pane's "Default Authentication Method" selector plus
+each method's own enabled flag); this only extends "enabled" itself to be
+admin-overridable, the same as every other LDAP field. LDAP is covered end
+to end (override + test-connection); OAuth2/SAML/CAS's env vars are
+unchanged and stay env-only for now - the resolver is written to extend to
+them, but doing so was out of scope for this pass.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for
 their translations.
 
