@@ -43,6 +43,7 @@ const VIEWS = [
   { view: 'board-view-gantt-frappe', jsClass: 'js-open-gantt-frappe-view', icon: 'fa-tasks', template: 'frappeGanttView', helper: 'isViewGanttFrappe' },
   { view: 'board-view-gantt-dhtmlx', jsClass: 'js-open-gantt-dhtmlx-view', icon: 'fa-list-alt', template: 'dhtmlxGanttView', helper: 'isViewGanttDhtmlx' },
   { view: 'board-view-dashboard', jsClass: 'js-open-dashboard-view', icon: 'fa-tachometer', template: 'dashboardView', helper: 'isViewDashboard', chart: true },
+  { view: 'board-view-bigboard', jsClass: 'js-open-bigboard-view', icon: 'fa-th', template: 'bigboardView', helper: 'isViewBigboard' },
   { view: 'board-view-burndown', jsClass: 'js-open-burndown-view', icon: 'fa-line-chart', template: 'burndownView', helper: 'isViewBurndown', chart: true },
   { view: 'board-view-burnup', jsClass: 'js-open-burnup-view', icon: 'fa-area-chart', template: 'burnupView', helper: 'isViewBurnup', chart: true },
   { view: 'board-view-cumulative-flow', jsClass: 'js-open-cumulative-flow-view', icon: 'fa-signal', template: 'cumulativeFlowView', helper: 'isViewCumulativeFlow', chart: true },
@@ -207,7 +208,7 @@ test('"Time spent summary" moved to the Time view and out of Statistics', () => 
 
 test('the new templates and stylesheets are registered, like every other board view', () => {
   const boardsFeature = read('client/features/boards.js');
-  ['timeView.jade', 'timeView.js', 'groupByAssigneeView.jade', 'groupByAssigneeView.js', 'chartPlaceholderViews.jade', 'chartPlaceholderViews.js']
+  ['timeView.jade', 'timeView.js', 'groupByAssigneeView.jade', 'groupByAssigneeView.js', 'chartPlaceholderViews.jade', 'chartPlaceholderViews.js', 'bigboardView.jade', 'bigboardView.js', 'bigboardView.css']
     .forEach(f => {
       assert.ok(boardsFeature.includes(`/client/components/boards/${f}`), `${f} is imported`);
     });
