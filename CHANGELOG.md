@@ -548,6 +548,34 @@ due-date strings.
 
 </details>
 
+**Comments and activities** - a card's comment thread and its activity log.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/612be1376b58a9c22ff5b9c4bde13d6d6296a6f6">Added a shareable permalink to each comment and activity</a>. Thanks to xet7.</summary>
+
+[#4757](https://github.com/wekan/wekan/issues/4757) asked for a Trello-like
+permalink: clicking a comment's or an activity's timestamp gives a
+shareable link, and visiting that link loads the card and scrolls to and
+highlights that specific comment or activity. The permalink is the card's
+own URL (`models/lib/cardUrl.js`) plus a `#comment-<id>` or `#activity-<id>`
+fragment - both comments and activities already carry a stable Mongo `_id`,
+so no new id scheme was needed.
+
+The timestamp is now a real `<a href>` to that URL, so a normal click
+navigates there and right-click - copy link address works unmodified; a
+small link icon beside it copies the same URL to the clipboard explicitly,
+reusing the existing `copyTextToClipboard`/`showCopied` pattern already
+used for card/list/swimlane links rather than a second implementation.
+On the receiving end, the existing swimlane/list "reveal and scroll"
+mechanism (`models/lib/revealBoardItem.js`, `client/lib/revealBoardItem.js`)
+gained two more kinds, 'comment' and 'activity', fed from the URL hash
+instead of a route param - a fresh load of a permalink, an in-page
+`hashchange`, and the click handler itself all set the same Session value,
+so the target briefly gets the same highlight outline a swimlane/list link
+already produces.
+
+</details>
+
 and fixes the following bugs:
 
 **Board reports** - the Dashboard and the 10 board report chart views.
