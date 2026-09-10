@@ -533,6 +533,31 @@ dismisses its own popup without touching an unrelated one.
 
 </details>
 
+**Swimlanes** - a board-wide list shown once per swimlane row.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6fd8e787e8ca0ee7e850f7c94d429d11253680a1">A board-wide list's collapse state no longer bleeds into every other swimlane's row of it</a>. Thanks to xet7.</summary>
+
+A list with no swimlaneId of its own (shared/pre-migration) renders once
+per swimlane in Swimlanes view - the same list document, one row per
+swimlane. Collapsing/expanding it was a single Session/profile key keyed
+only by the list's `_id`, so collapsing the list in swimlane 1's row also
+collapsed swimlane 2's row of the very same list.
+`Utils.getListCollapseState`/`setListCollapseState` now take an optional
+swimlaneId and fold it into the storage key
+(`${list._id}:${swimlaneId}`) - a bare list id, used outside Swimlanes view,
+is unchanged, so existing stored state still applies exactly as before.
+Every read/write site resolves it via the same `containerSwimlaneId`
+pattern already used to scope that list's cards per swimlane, walking up
+the enclosing Blaze data contexts.
+
+Archive is unaffected by this: a list's archive/restore already scopes to
+its own `_id`, and a board-wide list archived from one swimlane correctly
+disappears from every swimlane's row of it - because it IS the one shared
+list document, not a different one.
+
+</details>
+
 **Outgoing webhooks** - the global and per-board webhook that posts card activity out.
 
 <details>
