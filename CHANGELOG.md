@@ -3805,6 +3805,8 @@ the only option, and confirms the Restore action reuses the existing
 
 and has the following documentation improvement:
 
+**Feature guides** - `docs/Features/` pages for existing or newly landed features.
+
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/87c1e82ec7d2b9579fd3255a0a9cfc7a702ef38c">Added an example Authelia OAuth2/OIDC configuration alongside the existing Keycloak and Zitadel ones</a>. Thanks to tamaskan and xet7.</summary>
 
@@ -3838,6 +3840,36 @@ actual current features - including the numeric custom field's "show sum
 at top of list" badge (`models/customFields.js`'s `showSumAtTopOfList`,
 already scoped per swimlane) as a way to total story points per
 list/sprint - and linked from `docs/README.md`'s features list.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/191472036028e303b92bec67751101f7c562a2da">Documented the new board-view charts, Bigboard, Roadmap and other recent features</a>. Thanks to xet7.</summary>
+
+A lot of board-view and member-menu features landed with no
+`docs/Features/` page yet: the 10 Chart.js report charts (Dashboard,
+Burndown, Burnup, Cumulative Flow, Control Chart, Cycle Time, Flow
+Efficiency, Lead Time, Throughput Histogram, WIP Run, Pulse), the
+Group by Assignee, Bigboard, Roadmap and Multi Board Calendar board views,
+the 3-tier Notification Settings popup, TOTP Two-Factor Authentication, and
+the My Cards/Due Cards/My Attachments member-menu pages. Added one new page
+per feature (`docs/Features/Reports/Charts/Board-Report-Charts.md`,
+`docs/Features/Board/{Bigboard,Group-By-Assignee,Roadmap}.md`,
+`docs/Features/Date/Multi-Board-Calendar.md`,
+`docs/Features/Members/{Notification-Settings,My-Cards-Due-Attachments}.md`,
+`docs/Features/Login/Two-Factor-Authentication.md`), each following the
+existing `docs/Features/Cards/Scrum.md` shape: a description, the exact
+menu path, a small ASCII-art diagram of the relevant menu/popup/chart
+layout, numbered steps including what data is needed to see something on
+screen, and prerequisites - read directly from
+`client/components/boards/boardHeader.jade`'s `boardChangeViewPopup`,
+`client/components/users/userHeader.jade`'s `memberMenuPopup`, and each
+view's own template/JS rather than guessed. Linked all eight from
+`docs/README.md`. Left for a later pass: per-Admin-Panel-section coverage
+audit, SAML/Apple login docs (already covered by existing
+`docs/Features/Login/SAML.md` and `Apple.md`), and the two additional Gantt
+engines (Frappe/dhtmlx), which share the existing
+`docs/Features/Reports/Gantt.md` page.
 
 </details>
 
