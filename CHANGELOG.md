@@ -267,7 +267,18 @@ field today),
 Calendar/Multi Board Calendar view - whether the sidebar `Filter` already
 scopes what those views draw needs checking against the LIVE calendar
 rendering, which is runtime UI state this sandbox cannot verify by reading
-source alone).
+source alone),
+[#572](https://github.com/wekan/wekan/issues/572) (label add/remove as its own
+controllable Notification Settings option - the activity feed entry it asks
+for already exists (`models/cards.js`'s `cardLabels()` hook logs
+`addedLabel`/`removedLabel`, wired the same way `cardMembers`/`cardAssignees`
+are); what is genuinely missing is the option. The 3-tier Notification
+Settings system (`models/lib/notificationSettings.js`,
+`resolveNotificationSetting()`) resolves a member/board/admin override, but
+only for the two transport SERVICES (`tray`, `email`), not per activity
+type - there is no catalog to register "label added/removed" into yet, so
+adding it means building that per-type catalog first, a larger change than
+one more key).
 
 </details>
 
@@ -3781,6 +3792,47 @@ duplicate); and every locale file already carries both translation keys.
 
 </details>
 
+and fixes the following bug:
+
+**Lists** - a list's own header, as a card drag-and-drop target.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5b00f6c5c">Dropping a dragged card on a list's header now moves it into that list</a>. Thanks to TylerL-uxai and xet7.</summary>
+
+[#766](https://github.com/wekan/wekan/issues/766) reported that dropping a
+dragged card precisely onto another list's header/title, rather than its
+card-body area, did nothing - the card snapped back to its source list. The
+card sortable's `connectWith` (`.js-minicards:not(.js-list-full)` in
+`client/components/lists/list.js`) only covers each list's card-body area;
+`.js-list-header` sits in normal document flow directly above it and does
+not overlap it, so jQuery UI's own connectWith/intersection resolution never
+finds a container there and silently cancels the drop - confirmed by reading
+the sortable configuration and the list/list-header markup and CSS, not by
+guessing.
+
+The sortable `stop` handler now hit-tests the mouseup event's own
+coordinates for a `.js-list-header` ancestor and, when found, resolves the
+same prev/next-card, `listId` and target-container values a drop at the TOP
+of that list's card body would produce, so the rest of the handler - the
+sort-index calculation, the degenerate-sort-gap repair, and the single
+existing `card.move()` mutation - runs completely unchanged. Dropping on a
+list's header now inserts the card as the first card of that list, the same
+insertion point an ordinary drop just above the first card already uses.
+
+`tests/listHeaderCardDrop766.test.cjs` is a pure-Node source-read regression
+guard, since interactive drag-and-drop needs a browser: it pins that the
+list header carries the `.js-list-header` class the detection hit-tests for,
+that the sortable `stop` handler hit-tests the drop point for it, that a
+header drop resolves to no previous card and the target list's first card as
+next, and that `list.js` still calls `card.move()` at only its two
+pre-existing call sites (the multi-selection loop and the single-card drop)
+- a negative check that the fix reuses the existing move mutation rather
+than adding a second implementation of it. Live drag-and-drop behavior could
+not be visually verified in this environment; the fix and its test are
+source-level only.
+
+</details>
+
 and closes the following already-fixed issue:
 
 **Lists and swimlanes** - linking directly to one of them.
@@ -3808,6 +3860,67 @@ references a bare/broken `rootUrl` - either the exact string #1089
 reported or a `rootUrl` template helper, which never existed and was
 the bug. No new code change was needed here; the issue is closed with a
 pointer to where it was already fixed.
+
+</details>
+
+and adds the following REST API improvements:
+
+**Checklists and comments** - editing them over the API, not just creating and deleting them.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/REPLACE_HASH">Add PUT endpoints for a checklist's title and a comment's text</a>. Thanks to mayjs and xet7.</summary>
+
+[#1037](https://github.com/wekan/wekan/issues/1037) asked for a roadmap of
+missing REST API features. Auditing the current surface
+(`server/models/*.js`, one file per resource, each registering its own
+`WebApp.handlers.get/post/put/delete`) against it found two clean CRUD
+gaps: every other board sub-resource with GET/POST/DELETE already had a
+matching PUT, but a checklist and a comment did not, so renaming a
+checklist or fixing a typo in a comment meant deleting it and
+re-creating it - losing its id, its timestamps, and, for a checklist,
+scattering its items onto a rebuild.
+
+`PUT /api/boards/:boardId/cards/:cardId/checklists/:checklistId`
+accepts `{ "title": "..." }`, mirrors the existing DELETE's board/card
+lookup and `checkBoardWriteAccess`, and rejects a missing or blank
+title with 400 rather than silently storing one - only `title` is
+writable; the per-checklist display toggles are a separate, larger
+piece of surface and stayed out of scope here.
+
+`PUT /api/boards/:boardId/cards/:cardId/comments/:commentId` accepts
+`{ "comment": "..." }`, reuses the same `validateCommentBody` the POST
+handler already uses, and applies the exact rule DDP applies
+(`assertCanMutateComment`: the comment's author, or a board admin
+unless the board sets `restrictCommentEditing`) - including the
+GHSA-pqr4-rxgp-hv2m foreign-comment canary the DELETE handler already
+trips, now named `comment.foreign-edit` for an edit versus
+`comment.foreign-delete` for a delete, so both are equally visible.
+`CardComments.direct.updateAsync` is used exactly the way the POST
+handler already inserts (`.direct`, bypassing the collection hook),
+with the same `editComment` activity recorded explicitly afterwards.
+
+`tests/restApiEditGaps.test.cjs` pins both routes as source-pattern
+tests, matching how the rest of this REST surface is already tested in
+`tests/restApiIdorBatch.test.cjs`: the auth check, the board/card-scoped
+(never bare-`_id`) lookup, the validation, and - for comments - that
+the edit path enforces the identical author/admin/canary rule as the
+existing delete path.
+
+Most of the other open API:REST-labeled issues
+([#5474](https://github.com/wekan/wekan/issues/5474),
+[#4930](https://github.com/wekan/wekan/issues/4930),
+[#2906](https://github.com/wekan/wekan/issues/2906),
+[#2761](https://github.com/wekan/wekan/issues/2761),
+[#2449](https://github.com/wekan/wekan/issues/2449),
+[#2208](https://github.com/wekan/wekan/issues/2208),
+[#2167](https://github.com/wekan/wekan/issues/2167),
+[#2017](https://github.com/wekan/wekan/issues/2017),
+[#1297](https://github.com/wekan/wekan/issues/1297),
+[#794](https://github.com/wekan/wekan/issues/794)) ask for a new
+capability (impersonation, WebHooks with richer targets, a stable
+board key, Sandstorm-specific docs) rather than a missing CRUD verb on
+an existing resource, so they are left open for their own, larger
+piece of work rather than folded into this cleanup.
 
 </details>
 
