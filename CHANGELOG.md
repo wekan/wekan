@@ -2205,7 +2205,7 @@ there.
 **Card dates** - the Received/Start/Due/End date popup shared by every date field, a vote and a planning poker end date, and a date custom field.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/PLACEHOLDER">The time field now accepts an hour alone, and an empty time defaults to midnight instead of being rejected</a>. Thanks to fakaki and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/fdc84e2e6">The time field now accepts an hour alone, and an empty time defaults to midnight instead of being rejected</a>. Thanks to fakaki and xet7.</summary>
 
 `<input type="time">` only ever reports a complete `HH:mm` value to
 JavaScript - typing just the hour ("13") and moving on leaves the browser's
