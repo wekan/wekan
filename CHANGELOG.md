@@ -421,6 +421,38 @@ cards than lists.
 
 and fixes the following bugs:
 
+**Board reports** - the Dashboard and the 10 board report chart views.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b33e2e1bebb4e1e82d43f180eaa20e3474ddd323">The Dashboard's "none" group label is now translated; a chart canvas that could render invisible now always renders</a>. Thanks to xet7.</summary>
+
+The Dashboard view's By Assignee/By Label bars grouped a card with no
+assignee or label under the literal English word "none" - untranslated in
+every language, on the live chart, the data table, and the PDF/Excel
+export alike. Two sentinel keys (`NO_ASSIGNEE_GROUP`/`NO_LABEL_GROUP`) plus
+a shared `translateGroupLabel()` replace it with a real "No assignee"/"No
+label", translated into all 245 locales directly (not left as English
+placeholders), everywhere that group label is rendered.
+
+Also fixes a board report chart (reported: Burndown) rendering its export
+buttons and table but no visible chart: the `<canvas>` only exists in the
+DOM once loading finishes and Blaze's jade conditional switches to its
+"else" branch - a sibling reactive change driven by the SAME data update
+the chart-building code also depends on, with no guaranteed ordering
+between the two. The very first successful data load could run before
+Blaze patched the DOM, silently finding no canvas and never building a
+chart, with nothing to trigger a retry afterward. The canvas lookup is now
+deferred with `Tracker.afterFlush` so it always runs after the DOM has
+actually been patched.
+
+Also removes three dead `<link>` tags in `gantt.jade` pointing at
+`gantt.css`/`ganttCard.css`/`boardCharts.css`'s raw source path - all three
+are already loaded through the normal bundler import, and the runtime
+`<link>` to the unserved source path 404'd as `text/html`, pure console
+noise on every Gantt page load.
+
+</details>
+
 **Document preview** - opening a PDF/DOCX/XLSX/PPTX attachment on a card.
 
 <details>
