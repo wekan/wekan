@@ -1,5 +1,37 @@
 # [Big Picture Roadmap](../../../FUTURE.md): Import/Export/Sync with WeKan
 
+## List sync (implemented, Jira end to end)
+
+A WeKan list can be marked as synced from an external tracker: set
+`Lists.syncSource = { type, url, projectKey, enabled }` (`models/lists.js`)
+and store the credential separately, server-only, in `ListSyncCredentials`
+(`models/listSyncCredentials.js` - no publication exists for it anywhere, so
+it can never reach the client). `server/listSync.js` registers a
+`quave:synced-cron` job (the same scheduling infrastructure
+`server/checklistResetSchedule.js` and `server/scheduledRules.js` use) that,
+every 15 minutes, fetches each synced list's current items
+(`server/lib/listSyncFetch.js`) and reconciles them against WeKan
+(`models/lib/listSyncReconcile.js`, pure and unit-tested in
+`tests/listSyncReconcile.test.cjs`):
+
+- a new external item creates a WeKan card;
+- a changed title/description updates the existing card;
+- an external item that disappeared is **archived**, never deleted - "old
+  entries are at list history", per the request this implements.
+
+Fetching and parsing REUSE the existing one-time-import code in
+`models/lib/externalParsers.js` (`parseJira`, `parseGithub`, `parseGitlab`,
+`parseGitea`) rather than a second implementation; `SYNC_CAPABLE_SOURCES`
+lists which of those parsers emit the `externalId` reconcile matches on.
+Jira works end to end (fetch, parse, reconcile, create/update/archive).
+GitHub/GitLab/Gitea/Forgejo share the exact same job and reconcile logic -
+their own fetchers exist in `listSyncFetch.js` - but are less exercised in
+this pass; see the CHANGELOG's TODO Later for what remains (moving a card
+across lists on an upstream status change, and covering more than issues).
+Configuration methods: `setListSyncSource`, `hasListSyncCredential`,
+`syncListNow` (`server/methods/listSync.js`), all requiring board write
+access.
+
 ## Implemented formats and completeness work
 
 The current contract, newest provider/API references, complete field inventory,

@@ -131,6 +131,11 @@ function parseIssuesArray(data, system) {
       const description = [issue.body || issue.description || '', commentsSection, footer]
         .filter(Boolean).join('\n\n').trim();
       return {
+        // Sync match key (models/lib/listSyncReconcile.js): the issue number
+        // alone can collide across repos synced into different lists on the
+        // same board, but is unique WITHIN one list's sync source, which is
+        // all reconcile ever compares against.
+        externalId: issue.number != null ? String(issue.number) : issue.id != null ? String(issue.id) : undefined,
         title: issue.title || 'Imported issue',
         description,
         column_name: issue.state === 'closed' ? 'Closed' : 'Open',
@@ -172,6 +177,7 @@ export function parseGitea(data) {
 export function parseGitlab(data) {
   const issues = Array.isArray(data) ? data : data.issues || [];
   const tasks = issues.map(issue => ({
+    externalId: issue.iid != null ? String(issue.iid) : issue.id != null ? String(issue.id) : undefined,
     title: issue.title || 'Imported issue',
     description: issue.description || '',
     column_name: issue.state === 'closed' ? 'Closed' : 'Open',
@@ -309,6 +315,43 @@ export function parseMarkdownKanban(text) {
   };
 }
 
+// --- Jira -------------------------------------------------------------------
+// Accepts the same shape models/jiraCreator.js consumes for a one-time board
+// import (the Jira Cloud REST search API's `{ issues: [...] }`, or a bare
+// array of issues): { key, fields: { summary, description, status:{name},
+// labels, assignee, duedate, reporter } }. Used by BOTH the one-time import
+// (via JiraCreator, which maps this shape directly) and the periodic sync job
+// (server/listSync.js), which is why `externalId` (the issue key, e.g.
+// "PROJ-1") is included here - JiraCreator does not need it, sync does, to
+// match a re-fetched issue back to the card it already created.
+export function parseJira(data) {
+  const issues = Array.isArray(data) ? data : data.issues || [];
+  const tasks = issues.map(issue => {
+    const fields = issue.fields || {};
+    const reporter = fields.reporter;
+    return {
+      externalId: issue.key,
+      title: [issue.key ? `[${issue.key}]` : null, fields.summary]
+        .filter(Boolean).join(' ') || 'Imported issue',
+      description: typeof fields.description === 'string' ? fields.description : '',
+      column_name: (fields.status && fields.status.name) || 'Imported',
+      swimlane_name: 'Default',
+      date_due: fields.duedate,
+      owner_username:
+        fields.assignee &&
+        (fields.assignee.accountId || fields.assignee.name || fields.assignee.emailAddress),
+      requested_by: reporter && (reporter.displayName || reporter.name || reporter.emailAddress),
+      tags: fields.labels || [],
+    };
+  });
+  return {
+    board: { name: (data.board && data.board.name) || 'Imported Jira Board' },
+    columns: uniq(tasks.map(t => t.column_name)).map(title => ({ title })),
+    swimlanes: [{ name: 'Default' }],
+    tasks,
+  };
+}
+
 // Map an import source name to its parser (forgejo reuses the Gitea parser).
 export const EXTERNAL_PARSERS = {
   deck: parseNextcloudDeck,
@@ -320,4 +363,12 @@ export const EXTERNAL_PARSERS = {
   asana: parseAsana,
   zenkit: parseZenkit,
   markdown: parseMarkdownKanban,
+  jira: parseJira,
 };
+
+// Sync-capable sources: sources whose normalized tasks carry `externalId`, so
+// models/lib/listSyncReconcile.js can match a re-fetched item back to the
+// card it already created. Deliberately a SUBSET of EXTERNAL_PARSERS -
+// deck/openproject/asana/zenkit/markdown parsers do not emit externalId yet,
+// so listing them here would silently recreate every card on every sync run.
+export const SYNC_CAPABLE_SOURCES = ['jira', 'github', 'gitlab', 'gitea', 'forgejo'];

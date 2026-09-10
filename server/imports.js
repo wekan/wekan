@@ -327,6 +327,8 @@ import '/server/rulesHelper';
 import '/server/triggersDef';
 import '/server/scheduledRules';
 import '/server/checklistResetSchedule';
+import '/server/listSync';
+import '/server/methods/listSync';
 import '/server/rulesButton';
 
 // ----------------------------------------------------------------------------

@@ -283,6 +283,59 @@ Lists.attachSchema(
     // NOTE: collapsed state is per-user only, stored in user profile.collapsedLists
     // and localStorage for non-logged-in users
     // NOTE: width is per-board (shared with all users), stored in lists.width
+    //
+    // List sync (docs/Features/ImportExport/Sync.md): marks this list as kept up
+    // to date from an external tracker by the periodic job in
+    // server/listSync.js, which reuses the SAME parsers models/lib/externalParsers.js
+    // already has for one-time import (parseJira here, parseGithub/parseGitlab/
+    // parseGitea for the others) rather than a second fetch/parse implementation.
+    // The credential itself is NEVER stored here - `syncSource` is published to
+    // the client like the rest of the list - it lives server-only in
+    // models/listSyncCredentials.js, a collection with no publication at all.
+    syncSource: {
+      type: Object,
+      optional: true,
+    },
+    'syncSource.type': {
+      /**
+       * which parser/fetcher to use: 'jira' | 'github' | 'gitlab' | 'gitea'
+       */
+      type: String,
+      optional: true,
+    },
+    'syncSource.url': {
+      /**
+       * base API URL of the external tracker, e.g. https://org.atlassian.net
+       */
+      type: String,
+      optional: true,
+    },
+    'syncSource.projectKey': {
+      /**
+       * Jira project key, or "owner/repo" for GitHub/Gitea, or numeric project
+       * id for GitLab
+       */
+      type: String,
+      optional: true,
+    },
+    'syncSource.enabled': {
+      type: Boolean,
+      optional: true,
+      defaultValue: true,
+    },
+    'syncSource.lastSyncedAt': {
+      type: Date,
+      optional: true,
+    },
+    'syncSource.lastSyncError': {
+      /**
+       * short message from the last failed sync attempt, cleared on success -
+       * shown in the list's sync settings so a broken credential is visible
+       * without needing Admin Panel -> Problems.
+       */
+      type: String,
+      optional: true,
+    },
   }),
 );
 

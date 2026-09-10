@@ -251,6 +251,22 @@ Cards.attachSchema(
       optional: true,
       defaultValue: '',
     },
+    // List sync (docs/Features/ImportExport/Sync.md): when a card was created or
+    // is kept up to date by a periodic sync job (server/listSync.js) from an
+    // external tracker (Jira, GitHub, GitLab, Gitea...) rather than by hand,
+    // syncExternalId is that source's own id for the item (a Jira issue key, a
+    // GitHub/GitLab issue number) and syncSourceType is which parser produced it
+    // - together they are how the reconcile step (models/lib/listSyncReconcile.js)
+    // matches an already-imported card back to its external item on the next
+    // run, instead of creating a duplicate.
+    syncExternalId: {
+      type: String,
+      optional: true,
+    },
+    syncSourceType: {
+      type: String,
+      optional: true,
+    },
     labelIds: {
       /**
        * list of labels ID the card has
