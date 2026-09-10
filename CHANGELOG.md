@@ -1752,6 +1752,24 @@ than a CRITICAL SECURITY ISSUE.
 
 </details>
 
+**Board search** - the sidebar search box and the per-list quick search.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/475f14c4a">It now also matches text inside card comments, not just title/description/custom fields</a>. Thanks to javiloncho and xet7.</summary>
+
+Board.searchCards() (the sidebar search and the per-list quick search) only
+matched a card's title, description and custom fields; global search already
+matched comment text, but the board-scoped search did not, so a card whose
+only match was in a comment never turned up. `matchingCommentCardIds()` was
+added to `models/lib/cardSearch.js`: given the board's comments and the
+search term it returns the card ids whose comment text matches, reusing the
+same case-insensitive matching rule as the rest of the search, and
+`Board.searchCards()` now ORs those card ids into its existing query.
+`tests/cardSearch.test.cjs` covers a comment-only match, a non-match, and
+case-insensitivity.
+
+</details>
+
 and has the following documentation improvement:
 
 <details>
