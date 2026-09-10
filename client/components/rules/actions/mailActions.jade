@@ -7,5 +7,7 @@ template(name="mailActions")
         input(id="email-to",type=text,placeholder="{{_'r-to'}}")
       input(id="email-subject",type=text,placeholder="{{_'r-subject'}}")
       textarea(id="email-msg")
+      div.trigger-hint.trigger-hint-email-vars
+        | {{_'r-email-vars-hint'}}
     div.trigger-button.trigger-button-email.js-mail-action.js-goto-rules
       i.fa.fa-plus

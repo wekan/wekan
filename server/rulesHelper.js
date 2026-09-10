@@ -12,6 +12,7 @@ import { resolveRuleSwimlaneId, resolveRuleListId } from '/models/lib/ruleAction
 import { cardTitleMatchList } from '/models/lib/ruleCardTitleFilter';
 import { allowIsBoardMemberWithWriteAccess } from '/server/lib/utils';
 import { tripCanary } from '/server/lib/canary';
+import { substituteVars } from '/models/lib/ruleVarsSubstitute';
 
 // #5536: robustly resolve a destination board's default swimlane, tolerating a
 // board that lacks a swimlane literally titled 'Default' (renamed/translated) or
@@ -53,6 +54,11 @@ async function buildRuleVars(activity, card) {
   vars.date = now.toLocaleDateString();
   vars.time = now.toLocaleTimeString();
   vars.datetime = now.toLocaleString();
+  let board;
+  if (activity && activity.boardId) {
+    board = await ReactiveCache.getBoard(activity.boardId);
+    if (board) vars.boardname = board.title || '';
+  }
   if (card) {
     vars.cardname = card.title || '';
     vars.cardtitle = card.title || '';
@@ -67,24 +73,37 @@ async function buildRuleVars(activity, card) {
       const sw = await ReactiveCache.getSwimlane(card.swimlaneId);
       if (sw) vars.swimlanename = sw.title || '';
     }
+    // #3301: a direct link to the card, built from the same helper the card
+    // activity notification emails already use (models/lib/cardUrl.js via
+    // Card.absoluteUrl()), so it needs no URL-building code of its own.
+    try {
+      if (typeof card.absoluteUrl === 'function') {
+        const link = card.absoluteUrl(board);
+        if (link) vars.cardlink = link;
+      }
+    } catch (e) { /* ignore */ }
   }
-  if (activity && activity.boardId) {
-    const board = await ReactiveCache.getBoard(activity.boardId);
-    if (board) vars.boardname = board.title || '';
+  // #3304: {member} - the member relevant to the trigger context (the one
+  // added/removed/assigned/etc.), falling back to whoever performed the
+  // action when the activity records no specific member.
+  const memberId = (activity && (activity.memberId || activity.userId)) || null;
+  if (memberId && memberId !== '*') {
+    const u = await ReactiveCache.getUser(memberId);
+    if (u) vars.membername = u.username || '';
   }
   if (activity && activity.userId && activity.userId !== '*') {
     const u = await ReactiveCache.getUser(activity.userId);
     if (u) vars.username = u.username || '';
   }
+  // #3304: short, memorable aliases for the tokens documented in the "send
+  // email" action's UI hint (r-email-vars-hint): {card} {cardLink} {list}
+  // {board} {member}. The longer cardname/listname/boardname/username names
+  // above stay for backward compatibility with rules already using them.
+  if (vars.cardname !== undefined) vars.card = vars.cardname;
+  if (vars.listname !== undefined) vars.list = vars.listname;
+  if (vars.boardname !== undefined) vars.board = vars.boardname;
+  if (vars.membername !== undefined) vars.member = vars.membername;
   return vars;
-}
-
-function substituteVars(text, vars) {
-  if (typeof text !== 'string') return text;
-  return text.replace(/\{(\w+)\}/g, (m, key) => {
-    const v = vars[key.toLowerCase()];
-    return v !== undefined ? v : m;
-  });
 }
 
 export const RulesHelper = {
@@ -288,8 +307,19 @@ export const RulesHelper = {
     }
     if (action.actionType === 'sendEmail') {
       const to = substituteVars(action.emailTo, ruleVars);
-      const text = substituteVars(action.emailMsg || '', ruleVars);
+      const body = substituteVars(action.emailMsg || '', ruleVars);
       const subject = substituteVars(action.emailSubject || '', ruleVars);
+      // #3301: the email used to carry no reference to the card that
+      // triggered it at all - not even its title, let alone a link. Append
+      // the card's title and a direct link automatically, even when the
+      // user's configured body/subject uses none of the {card}/{cardLink}
+      // tokens, so the recipient always has enough context to find the card.
+      const cardFooterLines = [];
+      if (ruleVars.cardname) cardFooterLines.push(`Card: ${ruleVars.cardname}`);
+      if (ruleVars.cardlink) cardFooterLines.push(`Link: ${ruleVars.cardlink}`);
+      const text = cardFooterLines.length
+        ? `${body}${body ? '\n\n' : ''}-- \n${cardFooterLines.join('\n')}`
+        : body;
       try {
         // Try to detect the recipient's language preference if it's a Wekan user
         // Otherwise, use the default language for the rule-triggered emails
