@@ -4203,6 +4203,33 @@ piece of work rather than folded into this cleanup.
 
 </details>
 
+and has the following developer-tooling fix:
+
+**Exports** - auditing every format this release's Export popup offers.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/895583784">Fix an overly-strict CHART_KEYS regex in the Time export regression test</a>. Thanks to xet7.</summary>
+
+Following the JSON-export truncation report, every OTHER export format
+was audited end-to-end: board JSON/CSV/iCal/HTML archive/dependency graph
+(JSON+SVG)/Kanboard/Trello/Jira/NextCloud Deck/OpenProject/GitHub/GitLab/
+Gitea/Forgejo/Asana/Zenkit/Markdown, and PDF/Excel for all 13 chart/report
+views (`dashboard`, `burndown`, `burnup`, `cumulativeFlow`, `controlChart`,
+`cycleTime`, `flowEfficiency`, `leadTime`, `throughputHistogram`, `wipRun`,
+`gantt`, `time`, `pulse`). For each, the route, the data-builder it calls
+and the UI entry that offers it were read directly rather than assumed:
+every route is registered and reachable, every builder is genuinely called
+and produces correct output, and none of them buffer attachment binary data
+the way the JSON export did.
+
+The only defect found was in the TEST suite, not the export code:
+`tests/timeViewReportAndExport.test.cjs` asserted `models/exportCharts.js`'s
+`CHART_KEYS` Set ended with `'time'`, which stopped being true once `'pulse'`
+was appended after it - the export itself was never affected. The regex now
+matches `'time'` anywhere in the Set literal instead of requiring it last.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for
 their translations.
 
