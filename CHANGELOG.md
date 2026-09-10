@@ -4792,10 +4792,74 @@ comment rows.
 
 </details>
 
+**Admin Panel / People, board item links, the Frappe Gantt view and the
+FerretDB Docker Compose backends** - four small pieces of drift found while
+chasing node test-suite failures.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/PLACEHOLDER1">Admin Panel / People's Notifications row now has a URL of its own</a>. Thanks to xet7.</summary>
+
+`peopleMenu()` in `client/components/settings/peopleBody.js` draws a
+"Notifications" row (the admin-level default for the 3-tier Notification
+Settings system) but `models/lib/adminUrls.js`'s `ADMIN_PAGES.people.panes`
+had no slug for `notify-setting`, so the row could not be linked to or
+deep-linked with `/admin/people/<slug>` the way every other row can be.
+Added the `notifications` slug and its title, and documented the new
+`/admin/people/notifications` URL in `docs/Features/Page/Admin-Panel-URLs.md`.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/PLACEHOLDER2">Opening a card or another board no longer leaves a stale comment/activity reveal armed</a>. Thanks to xet7.</summary>
+
+`client/lib/revealBoardItem.js`'s permalink reveal (issue #4757) is
+one-shot: following a `#comment-<id>`/`#activity-<id>` link sets
+`revealCommentId`/`revealActivityId` in `Session`, and the board scrolls to
+and highlights that element once. `config/router.js`'s `card` and `board`
+routes already cleared `revealSwimlaneId`/`revealListId` on every
+navigation so a stale swimlane/list reveal could not fire on the next
+board, but never cleared the two comment/activity keys - so following a
+comment permalink and then opening a different card could still scroll and
+highlight the old comment once the first card's board rendered again.
+Both routes now clear all four reveal keys.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/PLACEHOLDER3">The Frappe Gantt board view no longer risks "no template frappeGanttView found"</a>. Thanks to xet7.</summary>
+
+`client/components/boards/roadmapView.js` imports
+`client/components/gantt/frappeGantt.js` directly for `loadGanttLib`/
+`cardsToTasks`/`popupDetailsHtml`, but that module registers
+`Template.frappeGanttView.*` without importing its own
+`frappeGantt.jade`. Whichever module reached it first - which can now be
+`roadmapView.js`, well before `client/features/gantt.js`'s own import list
+gets to the `.jade` - registered helpers/events against a template that did
+not exist yet. `frappeGantt.js` now imports `frappeGantt.jade` itself, the
+same fix this class of bug already has for every other component two or
+more others import (`tests/clientBundleImports.test.cjs`).
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/PLACEHOLDER4">The FerretDB Docker Compose backends document SAML the same way docker-compose.yml does</a>. Thanks to xet7.</summary>
+
+`docker-compose.yml`'s WeKan service is supposed to be identical, comment
+for comment, across `docker-compose-ferretdb-v1-{postgresql,mysql,mariadb,
+sap-hana}.yml` - the whole point of having one per FerretDB v1 backend is
+that a user reading any of them configures the same WeKan. The four backend
+files still had the bare, undocumented `#- SAML_ENABLED=true` block from
+before the SAML 2.0 login feature's explanatory comments
+(`docs/Features/Login/SAML.md`) were written; they now carry the same
+per-variable comments `docker-compose.yml` does.
+
+</details>
+
 and improves the translation workflow:
 
 - [Fill in the missing Ladin, Latin, Luganda, Luxembourgish, Maithili, Malagasy, Malay, Malayalam, Maltese, Manx, Maori and Marathi translations](https://github.com/wekan/wekan/commit/718d20813). Thanks to xet7.
 - [Fill in the missing Sicilian, Silesian, Slovenian, Volapük, Southern Sotho, Swahili, Swati, Tagalog, Tajik, Tatar and Tibetan translations](https://github.com/wekan/wekan/commit/635865223). Thanks to xet7.
+- [Fill in the missing Igbo, Swedish, Indonesian, Occitan, Portuguese (Brazil), Turkmen, Tamazight, Inuktitut, Irish, Italian, Javanese, Kannada, Kashmiri, Kashubian, Kazakh, Konkani, Kurmanji Kurdish and Kyrgyz translations](https://github.com/wekan/wekan/commit/4a2e9650e). Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for
 their translations.
