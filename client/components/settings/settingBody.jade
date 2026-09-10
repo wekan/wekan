@@ -99,6 +99,8 @@ template(name="general")
 
           li
             button.js-email-invite.primary {{_ 'invite'}}
+          li
+            #invite-people-infos
     li.accounts-form
       .title {{_ 'default-authentication-method'}}
       +selectAuthenticationMethod(authenticationMethod=currentSetting.defaultAuthenticationMethod)

@@ -1283,11 +1283,22 @@ Template.general.events({
     });
     if (validEmails.length) {
       tpl.loading.set(true);
-      Meteor.call('sendInvitation', validEmails, boardsToInvite, () => {
-        // if (!err) {
-        //   TODO - show more info to user
-        // }
+      Meteor.call('sendInvitation', validEmails, boardsToInvite, (err) => {
         tpl.loading.set(false);
+        // #5707: this call used to ignore both the error and the result, so
+        // an admin who hit a mail-send failure (e.g. SMTP not configured) saw
+        // nothing at all — the button just stopped loading with no
+        // indication anything had gone wrong. Surface success/failure the
+        // same way the member "Invite People" popup already does
+        // (client/components/users/userHeader.js).
+        const divInfos = document.getElementById('invite-people-infos');
+        if (divInfos) {
+          divInfos.innerHTML = err
+            ? `<span style='color: red'>${TAPi18n.__('invite-people-error')}</span>`
+            : `<span style='color: green'>${TAPi18n.__(
+                'invite-people-success',
+              )}</span>`;
+        }
       });
     }
   },
