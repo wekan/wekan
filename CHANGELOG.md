@@ -248,6 +248,21 @@ undo it either: the restored lines blame to the revert, so the only clean way
 back is to not land it. Any fix needs a way to shrink the file that keeps `git
 blame` working with no flag — or a decision that the trade is acceptable after
 all),
+[#2509](https://github.com/wekan/wekan/issues/2509) (a "customized card
+style" - the report is a single line plus a screenshot with areas marked in
+blue that is not accessible from here, and it names no concrete visual
+property (text colour, border, font, per-card background, ...). @xet7's own
+comment on the issue already flagged this: a new Image field for Custom
+Fields, Custom Field layout options, or a Custom CSS feature "are not in
+Wekan yet." None of those exist today either, so building something now
+would still be a guess at what the blue markup meant. Meanwhile a large
+share of "customize how a card looks" already has real, present answers:
+board background colour/image, per-board/per-user label colours, and, from
+this release, the minicard title/collapse caret, opt-in comments on the
+minicard, a checkbox custom field's tick/cross icon, per-board default label
+text visibility, and custom-field sort order. Needs the maintainer either to
+describe the screenshot's blue markup or to pick which additional visual
+property should become the customizable one before this can be scoped),
 [#3275](https://github.com/wekan/wekan/issues/3275) (generate thumbnails for
 image attachments, referencing Meteor-Files' image-processing documentation, so
 minicard covers and the attachment list preview a smaller resized image instead
