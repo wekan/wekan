@@ -574,6 +574,36 @@ due-date strings.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bed9bce31227df8a6492e6f1a284ce9d28c01a29">A checklist's items can now be bulk-edited as one block of plain text</a>. Thanks to gerroon and xet7.</summary>
+
+[#4218](https://github.com/wekan/wekan/issues/4218) asked for a checklist's
+items to be editable as a single multi-line text block, one line per item,
+rather than only through individual per-item HTML rows - so reordering,
+copying between checklists/cards or a bulk rewording is paste/cut/type
+instead of a click-drag or a click-edit-save per item. WeKan already let a
+user paste multiple lines into the "add item" box to create several items at
+once (the newline-becomes-item toggle); this adds the matching capability for
+*editing* the items a checklist already has.
+
+A new "Edit as text" entry on the checklist's actions menu (next to
+Export/Import) opens a textarea pre-filled with the checklist's current
+items, one per line, using the Markdown-checklist convention `[x] Done item`
+/ `[ ] Todo item` for checked state - a plain line with no marker defaults to
+unchecked, so text pasted in from elsewhere still works. Saving replaces the
+item list with what was typed, in that order. The parsing and the
+replace-plan are pure functions
+(`models/lib/checklistItemsAsText.js`): a parsed line is matched against the
+checklist's current items by UNCHANGED title text (consumed top-to-bottom, so
+reordered duplicate-looking lines still pair 1:1); a match keeps that item's
+existing document - only its `sort`/`isFinished` change - so any other
+metadata on it, notably the #4755 due date above, survives an edit that
+doesn't touch its text. Only a line with no remaining match becomes a new
+item, and only an existing item whose text is gone from the new text is
+removed.
+
+</details>
+
 **Comments and activities** - a card's comment thread and its activity log.
 
 <details>
