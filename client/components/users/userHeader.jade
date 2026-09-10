@@ -22,6 +22,10 @@ template(name="memberMenuPopup")
           i.fa.fa-calendar
           | {{_ 'dueCards-title'}}
       li
+        a.js-my-attachments(href="{{pathFor 'my-attachments'}}")
+          i.fa.fa-paperclip
+          | {{_ 'my-attachments'}}
+      li
         a.js-global-search(href="{{pathFor 'global-search'}}")
           i.fa.fa-search
           | {{_ 'globalSearch-title'}}

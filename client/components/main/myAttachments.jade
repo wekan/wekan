@@ -1,0 +1,48 @@
+template(name="myAttachments")
+  if currentUser
+    if searching.get
+      +spinner
+    else
+      .wrapper
+        p.my-attachments-results-text {{resultsText}}
+        each board in myAttachmentsList
+          .my-cards-board-wrapper
+            .my-cards-board-title(class=board.colorClass)
+              a(href=board.originRelativeUrl)
+                +viewer
+                  = board.title
+            each swimlane in board.mySwimlanes
+              .my-cards-swimlane-title(class="{{#if swimlane.colorClass}}{{ swimlane.colorClass }}{{else}}swimlane-default-color{{/if}}")
+                +viewer
+                  = swimlane.title
+              each list in swimlane.myLists
+                .my-cards-list-wrapper
+                  .my-cards-list-title(class=list.colorClass)
+                    +viewer
+                      = list.title
+                  each card in list.myAttachmentCards
+                    .my-attachments-card-wrapper
+                      a.my-attachments-card-title.js-my-attachment-card(href=card.originRelativeUrl)
+                        i.fa.fa-external-link
+                        = card.title
+                      .attachment-gallery.my-attachments-gallery
+                        each attachment in card.myAttachments
+                          .attachment-item
+                            .attachment-thumbnail-container
+                              if attachment.link
+                                if isImage
+                                  img.attachment-thumbnail(src="{{attachment.link}}" title="{{cleanFilename attachment.name}}" alt="{{cleanFilename attachment.name}}")
+                                else
+                                  span.attachment-thumbnail-text= extension
+                            .attachment-details-container
+                              .attachment-details
+                                div
+                                  b {{ cleanFilename attachment.name }}
+                                  span.file-size ({{fileSize attachment.size}})
+                                .attachment-actions
+                                  a.js-download(href="{{attachment.link}}?download=true", title="{{_ 'download'}}")
+                                    i.fa.fa-arrow-down
+        if hasPreviousPage
+          a.js-previous-page {{_ 'previous'}}
+        if hasNextPage
+          a.js-next-page {{_ 'next'}}

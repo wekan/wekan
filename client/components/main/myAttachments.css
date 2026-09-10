@@ -1,0 +1,22 @@
+/* My Attachments (#3461) - reuses myCards.css's board/swimlane/list wrapper
+   classes for the grouping, and attachments.css's .attachment-* classes for
+   each thumbnail; only the card row and its own gallery wrapper are new. */
+.my-attachments-results-text {
+  margin: 0 18px 8px;
+}
+.my-attachments-card-wrapper {
+  margin: 8px 0;
+}
+.my-attachments-card-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.my-attachments-card-title i.fa-external-link {
+  font-size: 0.85em;
+}
+.my-attachments-gallery {
+  margin-inline-start: 12px;
+}

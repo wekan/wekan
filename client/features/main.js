@@ -13,6 +13,7 @@ import '/client/components/main/layouts.jade';
 // picked up by being on disk - see tests/templateRegistration.test.cjs.
 import '/client/components/main/pageSidebar.jade';
 import '/client/components/main/myCards.jade';
+import '/client/components/main/myAttachments.jade';
 // The map-provider chooser, shared by the card's location popup and Admin Panel
 // / Problems / Offices. A .jade file is not picked up by being on disk.
 import '/client/components/main/mapProvider.jade';
@@ -45,6 +46,7 @@ import '/client/components/main/uiFont.js';
 import '/client/components/main/layouts.js';
 import '/client/components/main/mapProvider.js';
 import '/client/components/main/myCards.js';
+import '/client/components/main/myAttachments.js';
 import '/client/components/main/popup.js';
 import '/client/components/main/recoveryMaintenance.js';
 import '/client/components/main/safeFilename.js';
@@ -62,6 +64,7 @@ import '/client/components/main/header.css';
 import '/client/components/main/keyboardShortcuts.css';
 import '/client/components/main/layouts.css';
 import '/client/components/main/myCards.css';
+import '/client/components/main/myAttachments.css';
 import '/client/components/main/popup.css';
 import '/client/components/main/recoveryMaintenance.css';
 import '/client/components/main/spinner_bounce.css';

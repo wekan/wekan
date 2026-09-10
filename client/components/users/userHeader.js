@@ -70,6 +70,9 @@ Template.memberMenuPopup.events({
   'click .js-due-cards'() {
     Popup.back();
   },
+  'click .js-my-attachments'() {
+    Popup.back();
+  },
   // Boards in Archive is a SECTION of All Boards - the row in its left menu -
   // not a page of its own. This sent the reader to `/archive`, the full-width
   // page that section replaced: the same list, but with no menu beside it and

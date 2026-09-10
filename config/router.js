@@ -619,6 +619,25 @@ FlowRouter.route('/due-cards', {
   },
 });
 
+FlowRouter.route('/my-attachments', {
+  name: 'my-attachments',
+  triggersEnter: [ensureSignedInUnlessSandstorm],
+  action() {
+    Filter.reset();
+    Session.set('sortBy', '');
+    // EscapeActions.executeAll();
+    EscapeActions.executeUpTo('popup-close');
+
+    Utils.manageCustomUI();
+    Utils.manageMatomo();
+
+    this.render('defaultLayout', {
+      content: 'myAttachments',
+    });
+    // }
+  },
+});
+
 FlowRouter.route('/global-search', {
   name: 'global-search',
   triggersEnter: [ensureSignedInUnlessSandstorm],

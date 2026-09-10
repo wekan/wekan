@@ -34,6 +34,8 @@ import Checklists from '../../models/checklists';
 import ChecklistItems from '../../models/checklistItems';
 import SessionData from '../../models/usersessiondata';
 import CustomFields from '../../models/customFields';
+const { boardVisibilitySelectors } = require('/models/lib/boardVisibilitySelectors');
+const { myAttachmentsSelector, myAttachmentsPageOptions } = require('/models/lib/myAttachmentsQuery');
 import {
   DEFAULT_LIMIT,
   OPERATOR_ASSIGNEE,
@@ -402,6 +404,84 @@ Meteor.publish('dueCards', async function(allUsers = false, limit = 200, skip = 
   const result = Cards.find(selector, options);
 
   return result;
+});
+
+// My Attachments (#3461): every attachment the current user has uploaded,
+// across every board they can see - their own boards plus public ones -
+// mirroring the board-visibility query dueCards/myCards already use above.
+// Publishes the card/board/list/swimlane each attachment belongs to as well,
+// so the page can show titles and link back to the card without a second
+// round trip.
+publishComposite('myAttachments', async function(limit = 200, skip = 0) {
+  check(limit, Number);
+  check(skip, Number);
+
+  const userId = this.userId;
+  if (!userId) {
+    return [];
+  }
+
+  // The SAME board-visibility rule the All Boards list and the `board`
+  // publication use (GHSA-gwc4-fw7p-gw58): public boards, an active
+  // membership, or an active org/team/domain share. An attachment outside
+  // that set is never published, even if its `userId` (the uploader) somehow
+  // matches - defensively, in case a since-removed membership or share left
+  // an old upload behind.
+  const currentUser = await ReactiveCache.getCurrentUser();
+  const $or = boardVisibilitySelectors({
+    userId,
+    orgIds: currentUser && typeof currentUser.orgIds === 'function' ? currentUser.orgIds() : [],
+    teamIds: currentUser && typeof currentUser.teamIds === 'function' ? currentUser.teamIds() : [],
+    emailDomains: currentUser && typeof currentUser.emailDomains === 'function' ? currentUser.emailDomains() : [],
+  });
+  const userBoards = (await ReactiveCache.getBoards({ $or })).map(board => board._id);
+
+  const selector = myAttachmentsSelector(userId, userBoards);
+  if (!selector) {
+    return [];
+  }
+
+  const options = {
+    sort: { _id: -1 },
+    ...myAttachmentsPageOptions(limit, skip),
+  };
+
+  return {
+    async find() {
+      const result = await ReactiveCache.getAttachments(selector, options, true);
+      return result.cursor || result;
+    },
+    children: [
+      {
+        async find(attachment) {
+          const cardId = attachment.meta && attachment.meta.cardId;
+          if (!cardId) return { find() { return []; } };
+          return await ReactiveCache.getCards({ _id: cardId }, {}, true);
+        },
+      },
+      {
+        async find(attachment) {
+          const boardId = attachment.meta && attachment.meta.boardId;
+          if (!boardId) return { find() { return []; } };
+          return await ReactiveCache.getBoards({ _id: boardId }, {}, true);
+        },
+      },
+      {
+        async find(attachment) {
+          const listId = attachment.meta && attachment.meta.listId;
+          if (!listId) return { find() { return []; } };
+          return await ReactiveCache.getLists({ _id: listId }, {}, true);
+        },
+      },
+      {
+        async find(attachment) {
+          const swimlaneId = attachment.meta && attachment.meta.swimlaneId;
+          if (!swimlaneId) return { find() { return []; } };
+          return await ReactiveCache.getSwimlanes({ _id: swimlaneId }, {}, true);
+        },
+      },
+    ],
+  };
 });
 
 Meteor.publish('globalSearch', async function(sessionId, params, text) {
