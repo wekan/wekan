@@ -288,7 +288,16 @@ third `permission` value alongside `public`/`private`),
 image-coordinate-based "hot area" marker visualization - upload a background
 image, overlay a grid, place clickable card markers on it - a new data model
 and rendering mode outside WeKan's existing list/swimlane structure; needs a
-scope decision before implementation).
+scope decision before implementation),
+[#3626](https://github.com/wekan/wekan/issues/3626) (a card as a subtask of
+MULTIPLE parents - today `parentId` (`models/cards.js`) is a single field, and
+every ancestor walk (`setParentId`'s #3328 cycle guard, `parentList`,
+`parentString`, the subtask completion counter) assumes exactly one parent;
+turning that into an array or a separate join changes the shape all of them
+read, so it needs a deliberate design decision rather than a quick patch. The
+other two parts of #3626 are done: the completed/total subtask counter was
+already correct (pinned by the #4050 work), and picking an EXISTING card as a
+subtask from the parent card's own UI is now built.).
 
 </details>
 
@@ -1449,6 +1458,31 @@ time - so an attachment on a board the user cannot see is never published,
 even if its `userId` field somehow still names them. The query shape is a
 small pure module, `models/lib/myAttachmentsQuery.js`, unit-tested without a
 database.
+
+</details>
+
+**Subtasks** - the Subtasks section on a card.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/27f5051be">Add an existing card as a subtask directly from the parent card's Subtasks section</a>. Thanks to ikomhoog and xet7.</summary>
+
+[#3626](https://github.com/wekan/wekan/issues/3626) asked for three things.
+The completed/total subtask counter was already correct (pinned by the
+earlier #4050 work), and letting one card be a subtask of several parents
+at once is a genuine data-model change - `parentId` (`models/cards.js`) is
+a single field today, and every ancestor walk assumes exactly one parent -
+deferred to TODO Later above for a deliberate design decision. This is the
+third, buildable part: a way to add an EXISTING card as a subtask, instead
+of only being able to create a brand-new one.
+
+A new "Add existing card as subtask" trigger sits next to "Add a new
+subtask" and opens a search popup scoped to the current card's own board,
+excluding the card itself, cards already parented to it, and anything that
+is already an ancestor of it - `setParentId`'s #3328 cycle guard would
+refuse those anyway, so they are filtered out before the user can pick
+them. Selecting a result calls the exact existing `card.setParentId(...)`
+method, the same re-parenting call every other site in the codebase uses,
+so no new card is created and no other field of the picked card changes.
 
 </details>
 
