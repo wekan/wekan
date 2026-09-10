@@ -180,6 +180,13 @@ template(name="boardChangeViewPopup")
           if $eq Utils.boardView "board-view-cal"
             i.fa.fa-check
     li
+      with "board-view-multiboard-cal"
+        a.js-open-multiboard-cal-view
+          i.fa.fa-calendar-plus-o
+          | {{_ 'board-view-multiboard-cal'}}
+          if $eq Utils.boardView "board-view-multiboard-cal"
+            i.fa.fa-check
+    li
       with "board-view-time"
         a.js-open-time-view
           i.fa.fa-clock-o

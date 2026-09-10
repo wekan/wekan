@@ -280,6 +280,10 @@ Template.boardChangeViewPopup.events({
     Utils.setBoardView('board-view-cal');
     Popup.back();
   },
+  'click .js-open-multiboard-cal-view'() {
+    Utils.setBoardView('board-view-multiboard-cal');
+    Popup.back();
+  },
   'click .js-open-gantt-view'() {
     Utils.setBoardView('board-view-gantt');
     Popup.back();
@@ -784,6 +788,7 @@ Template.boardViewMenu.helpers({
       'board-view-swimlanes': 'swimlanes',
       'board-view-lists': 'lists',
       'board-view-cal': 'calendar',
+      'board-view-multiboard-cal': 'board-view-multiboard-cal',
       'board-view-gantt': 'gantt',
       'board-view-gantt-frappe': 'board-view-gantt-frappe',
       'board-view-gantt-dhtmlx': 'board-view-gantt-dhtmlx',

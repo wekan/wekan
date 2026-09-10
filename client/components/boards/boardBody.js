@@ -766,6 +766,10 @@ Template.boardBody.helpers({
     return Utils.boardView() === 'board-view-cal';
   },
 
+  isViewMultiboardCalendar() {
+    return Utils.boardView() === 'board-view-multiboard-cal';
+  },
+
   isViewGantt() {
     return Utils.boardView() === 'board-view-gantt';
   },

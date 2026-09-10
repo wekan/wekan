@@ -1,0 +1,15 @@
+//- #2469: "Multi Board Calendar" - Planyway-style calendar showing due/
+//- start/end/received dates for cards across EVERY board the current user
+//- is a member of, not just the currently open board. Reuses the single-
+//- board Calendar view's FullCalendar rendering (+fullcalendar, the same
+//- fc-* CSS in calendarView.css) and #4223 Bigboard's all-boards
+//- subscription/query pattern (bigboardQuery in bigboardView.js) for the
+//- card set. Each event is prefixed with its board's title so entries from
+//- different boards stay distinguishable, and clicking an event opens that
+//- card the same way the single-board Calendar view already does.
+template(name="multiboardCalendarView")
+  .calendar-view.multiboard-calendar-view.swimlane.dragscroll
+    if isLoading
+      p.quiet {{_ 'loading'}}
+    else
+      +fullcalendar(multiboardCalendarOptions)

@@ -36,6 +36,7 @@ const VIEWS = [
   { view: 'board-view-lists', jsClass: 'js-open-lists-view', icon: 'fa-trello' },
   { view: 'board-view-table', jsClass: 'js-open-table-view', icon: 'fa-table' },
   { view: 'board-view-cal', jsClass: 'js-open-cal-view', icon: 'fa-calendar' },
+  { view: 'board-view-multiboard-cal', jsClass: 'js-open-multiboard-cal-view', icon: 'fa-calendar-plus-o', template: 'multiboardCalendarView', helper: 'isViewMultiboardCalendar' },
   { view: 'board-view-time', jsClass: 'js-open-time-view', icon: 'fa-clock-o', template: 'timeView', helper: 'isViewTime' },
   { view: 'board-view-stats', jsClass: 'js-open-stats-view', icon: 'fa-pie-chart' },
   { view: 'board-view-group-by-assignee', jsClass: 'js-open-group-by-assignee-view', icon: 'fa-users', template: 'groupByAssigneeView', helper: 'isViewGroupByAssignee' },
@@ -208,7 +209,7 @@ test('"Time spent summary" moved to the Time view and out of Statistics', () => 
 
 test('the new templates and stylesheets are registered, like every other board view', () => {
   const boardsFeature = read('client/features/boards.js');
-  ['timeView.jade', 'timeView.js', 'groupByAssigneeView.jade', 'groupByAssigneeView.js', 'chartPlaceholderViews.jade', 'chartPlaceholderViews.js', 'bigboardView.jade', 'bigboardView.js', 'bigboardView.css']
+  ['timeView.jade', 'timeView.js', 'groupByAssigneeView.jade', 'groupByAssigneeView.js', 'chartPlaceholderViews.jade', 'chartPlaceholderViews.js', 'bigboardView.jade', 'bigboardView.js', 'bigboardView.css', 'multiboardCalendarView.jade', 'multiboardCalendarView.js', 'multiboardCalendarView.css']
     .forEach(f => {
       assert.ok(boardsFeature.includes(`/client/components/boards/${f}`), `${f} is imported`);
     });

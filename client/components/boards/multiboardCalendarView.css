@@ -1,0 +1,9 @@
+/* #2469: Multi Board Calendar reuses calendarView.css's .calendar-view
+   fc-* rules (both classes are present on the wrapper - see
+   multiboardCalendarView.jade). This file only adds the bits specific to
+   showing several boards on one calendar: a little breathing room for the
+   "[Board title] " prefix FullCalendar renders as part of each event's
+   plain-text title. */
+.multiboard-calendar-view .fc-event-title {
+  white-space: normal;
+}

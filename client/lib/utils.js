@@ -299,6 +299,7 @@ export const Utils = {
       Utils.reload();
     } else if (
       [
+        'board-view-multiboard-cal',
         'board-view-gantt-frappe',
         'board-view-gantt-dhtmlx',
         'board-view-table',
@@ -360,6 +361,7 @@ export const Utils = {
       return 'board-view-gantt';
     } else if (
       [
+        'board-view-multiboard-cal',
         'board-view-gantt-frappe',
         'board-view-gantt-dhtmlx',
         'board-view-table',

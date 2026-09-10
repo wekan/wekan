@@ -48,6 +48,8 @@ template(name="boardBody")
           +listsGroup(currentBoard)
         else if isViewCalendar
           +calendarView
+        else if isViewMultiboardCalendar
+          +multiboardCalendarView
         else if isViewGantt
           +ganttView
         else if isViewGanttFrappe
