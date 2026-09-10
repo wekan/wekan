@@ -1972,6 +1972,12 @@
   "uncollapse": "Ka fur laabka",
   "hideCheckedChecklistItems": "Qari walxaha liiska hubinta ee la calaamadeeyey",
   "hideAllChecklistItems": "Qari dhammaan walxaha liiska hubinta",
+  "checklist-reset-interval": "Dib-u-dejin otomaatig ah",
+  "checklistResetIntervalPopup-title": "Dib-u-dejin otomaatig ah",
+  "checklist-reset-interval-none": "Damiye (si otomaatig ah looma dib-u-deji)",
+  "checklist-reset-interval-daily": "Maalin kasta",
+  "checklist-reset-interval-weekly": "Toddobaad kasta",
+  "checklist-reset-interval-monthly": "Bil kasta",
   "hideCompletedSubtasks": "Qari hawlaha yaryar ee la dhammeeyay",
   "support": "Taageero",
   "supportPopup-title": "Taageero",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Ka soo deji:",
   "import-parts-instruction": "Keliya qaybaha la calaamadeeyey ayaa la soo dejiyaa. Isla doorashada ayaa la adeegsadaa marka la dhoofinayo.",
   "import-wekan-file": "Ka soo deji fayl dhoofin .json ama .zip ah:",
-  "sum-of-number-fields": "Isu-geynta beeraha tirooyinka ee la habeeyay ee lagu muujiyo sare ee liiska"
+  "sum-of-number-fields": "Isu-geynta beeraha tirooyinka ee la habeeyay ee lagu muujiyo sare ee liiska",
+  "sticky-list-headers": "Madaxda liiska ee taagan",
+  "more-options": "Ikhtiyaaro dheeraad ah"
 }

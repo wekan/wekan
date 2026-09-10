@@ -1972,6 +1972,12 @@
   "uncollapse": "展開",
   "hideCheckedChecklistItems": "隱藏已勾選的待辦清單項目",
   "hideAllChecklistItems": "隱藏所有待辦清單項目",
+  "checklist-reset-interval": "自動重設",
+  "checklistResetIntervalPopup-title": "自動重設",
+  "checklist-reset-interval-none": "關閉（不會自動重設）",
+  "checklist-reset-interval-daily": "每天",
+  "checklist-reset-interval-weekly": "每週",
+  "checklist-reset-interval-monthly": "每月",
   "hideCompletedSubtasks": "隐藏已完成的子任务",
   "support": "支援",
   "supportPopup-title": "支援",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "匯入從：",
   "import-parts-instruction": "僅會匯入已勾選的部分。匯出時亦採用相同的設定。",
   "import-wekan-file": "從 .json 或 .zip 匯出檔匯入：",
-  "sum-of-number-fields": "在列表顶部显示的数字自定义字段的总和"
+  "sum-of-number-fields": "在列表顶部显示的数字自定义字段的总和",
+  "sticky-list-headers": "固定列表標題",
+  "more-options": "更多選項"
 }

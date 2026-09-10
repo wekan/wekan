@@ -1972,6 +1972,12 @@
   "uncollapse": "Non collassare",
   "hideCheckedChecklistItems": "Cua gli elementi de sa lista di controllo selezionados",
   "hideAllChecklistItems": "Cua gli elementi de sa lista di controllo",
+  "checklist-reset-interval": "Ripristinu automàticu",
+  "checklistResetIntervalPopup-title": "Ripristinu automàticu",
+  "checklist-reset-interval-none": "Studau (non si ripristinat automaticamente)",
+  "checklist-reset-interval-daily": "Dogna die",
+  "checklist-reset-interval-weekly": "Dogna chida",
+  "checklist-reset-interval-monthly": "Dogna mese",
   "hideCompletedSubtasks": "Cua a sos incumbensas fatas",
   "support": "Supporto",
   "supportPopup-title": "Supporto",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Importa da:",
   "import-parts-instruction": "Vengono importadas solo le parti selezionadas. La stessa scelta è usada durante l'esportatzione.",
   "import-wekan-file": "Importa da un file di esportatzione .json o .zip:",
-  "sum-of-number-fields": "Sa summa de is campos numéricos personalizados ammostraos in punta a sa lista"
+  "sum-of-number-fields": "Sa summa de is campos numéricos personalizados ammostraos in punta a sa lista",
+  "sticky-list-headers": "Testadas de lista fissas",
+  "more-options": "Prus optziones"
 }

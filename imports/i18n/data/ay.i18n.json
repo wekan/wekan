@@ -1972,6 +1972,12 @@
   "uncollapse": "Aymar aruna: Uncollapse",
   "hideCheckedChecklistItems": "imantaña uñakipata uñakipañ lista items",
   "hideAllChecklistItems": "imantaña taqi uñakipañ lista items",
+  "checklist-reset-interval": "Kikin qalltayasiña",
+  "checklistResetIntervalPopup-title": "Kikin qalltayasiña",
+  "checklist-reset-interval-none": "Jan (janiw kikinjama qalltasa)",
+  "checklist-reset-interval-daily": "Sapa uru",
+  "checklist-reset-interval-weekly": "Sapa semana",
+  "checklist-reset-interval-monthly": "Sapa phaxsi",
   "hideCompletedSubtasks": "Hide completed subtasks",
   "support": "Aymar aruna: Support",
   "supportPopup-title": "Aymar aruna: Support",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "anqäxat apaniña ukata:",
   "import-parts-instruction": "akiwa the ticked parts apxi apanita. The same choice awa used when exporting.",
   "import-wekan-file": "anqäxat apaniña ukata a .json jan ukax .zip anqäxar apayaña qillqa-wayaqa:",
-  "sum-of-number-fields": "Listaru patanxaru uñstayat jakhu jakhu yaticha uñstayanaka jakhuparinaka"
+  "sum-of-number-fields": "Listaru patanxaru uñstayat jakhu jakhu yaticha uñstayanaka jakhuparinaka",
+  "sticky-list-headers": "Lista p'iqinakapa jitheqata",
+  "more-options": "Jila yatiyanaka"
 }

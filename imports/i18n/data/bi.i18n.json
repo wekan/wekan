@@ -1972,6 +1972,12 @@
   "uncollapse": "Tok blong sistem: Uncollapse",
   "hideCheckedChecklistItems": "Hide tikim jeklis items",
   "hideAllChecklistItems": "Hide evriwan jeklis items",
+  "checklist-reset-interval": "Otomatik risɛt",
+  "checklistResetIntervalPopup-title": "Otomatik risɛt",
+  "checklist-reset-interval-none": "Off (i no risɛt olsem",
+  "checklist-reset-interval-daily": "Evri de",
+  "checklist-reset-interval-weekly": "Evri wik",
+  "checklist-reset-interval-monthly": "Evri manis",
   "hideCompletedSubtasks": "Hide completed subtasks",
   "support": "Tok blong sistem: Support",
   "supportPopup-title": "Tok blong sistem: Support",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Karem i kam long:",
   "import-parts-instruction": "Nomo ticked parts oli karem i kam finis. sem choice i used taem exporting.",
   "import-wekan-file": "Karem i kam long wan .json o .zip karem i go fael:",
-  "sum-of-number-fields": "Sam blong ol namba kastom fil we oli soem antap long lis"
+  "sum-of-number-fields": "Sam blong ol namba kastom fil we oli soem antap long lis",
+  "sticky-list-headers": "Hed blong lis we i stap fasten",
+  "more-options": "Moa option"
 }

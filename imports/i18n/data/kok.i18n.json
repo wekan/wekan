@@ -1972,6 +1972,12 @@
   "uncollapse": "परत विस्तारात",
   "hideCheckedChecklistItems": "तपासिल्ले तपास वळेरी घटक लिपयात",
   "hideAllChecklistItems": "सगळे तपास वळेरी घटक लिपयात",
+  "checklist-reset-interval": "आपोआप रिसेट",
+  "checklistResetIntervalPopup-title": "आपोआप रिसेट",
+  "checklist-reset-interval-none": "बंद (आपोआप रिसेट जायना)",
+  "checklist-reset-interval-daily": "दिसपट्टी",
+  "checklist-reset-interval-weekly": "सप्तकसप्तक",
+  "checklist-reset-interval-monthly": "म्हयन्याम्हयन्या",
   "hideCompletedSubtasks": "पुराय जाल्ले उप-कार्यां लिपोवचीं",
   "support": "आदार",
   "supportPopup-title": "आदार",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "हांगाच्यान आयात करात:",
   "import-parts-instruction": "फकत खूण केल्ले भाग आयात जातात. निर्यात करतनाय तीच निवड वापरतात.",
   "import-wekan-file": ".json वा .zip निर्यात फायलींतल्यान आयात करात:",
-  "sum-of-number-fields": "यादिचे वयर दाखय्ता ती अंकीय स्वताकुशीक क्षेत्रांचें बेरीज"
+  "sum-of-number-fields": "यादिचे वयर दाखय्ता ती अंकीय स्वताकुशीक क्षेत्रांचें बेरीज",
+  "sticky-list-headers": "स्टिकी सुची हेडर",
+  "more-options": "चड पर्याय"
 }

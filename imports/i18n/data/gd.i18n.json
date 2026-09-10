@@ -1972,6 +1972,12 @@
   "uncollapse": "Neo-phaisg",
   "hideCheckedChecklistItems": "Falaich nithean comharraichte na liosta-sgrùdaidh",
   "hideAllChecklistItems": "Falaich gach nì air an liosta-sgrùdaidh",
+  "checklist-reset-interval": "Ath-shuidheachadh fèin-obrachail",
+  "checklistResetIntervalPopup-title": "Ath-shuidheachadh fèin-obrachail",
+  "checklist-reset-interval-none": "Dheth (chan ath-shuidhichear e gu fèin-obrachail)",
+  "checklist-reset-interval-daily": "Gach latha",
+  "checklist-reset-interval-weekly": "Gach seachdain",
+  "checklist-reset-interval-monthly": "Gach mìos",
   "hideCompletedSubtasks": "Falaich fo-obraichean coileanta",
   "support": "Taic",
   "supportPopup-title": "Taic",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Iom-phortaich bho:",
   "import-parts-instruction": "Cha tèid ach na pàirtean comharraichte iom-phortadh. Cleachdar an aon roghainn nuair a thèid às-phortadh.",
   "import-wekan-file": "Iom-phortaich bho fhaidhle às-phortaidh .json no .zip:",
-  "sum-of-number-fields": "Suim nan raointean àireamhach gnàthaichte a thèid a shealltainn aig mullach an liosta"
+  "sum-of-number-fields": "Suim nan raointean àireamhach gnàthaichte a thèid a shealltainn aig mullach an liosta",
+  "sticky-list-headers": "Bannan-cinn liosta steigeach",
+  "more-options": "Barrachd roghainnean"
 }

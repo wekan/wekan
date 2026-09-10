@@ -1972,6 +1972,12 @@
   "uncollapse": "WeKan: Rozbalit",
   "hideCheckedChecklistItems": "Schować zaškrtnuté položky checkliztu",
   "hideAllChecklistItems": "Schować wšě položky checkliztu",
+  "checklist-reset-interval": "Awtomatiske wróćo stajenje",
+  "checklistResetIntervalPopup-title": "Awtomatiske wróćo stajenje",
+  "checklist-reset-interval-none": "Wupinjene (so awtomatisce njewróćo staja)",
+  "checklist-reset-interval-daily": "Wšědnje",
+  "checklist-reset-interval-weekly": "Kóždy tydźeń",
+  "checklist-reset-interval-monthly": "Kóždy měsac",
   "hideCompletedSubtasks": "Dokónčene podnadawki schować",
   "support": "Pwotpora",
   "supportPopup-title": "Pwotpora",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "WeKan: Importovat z:",
   "import-parts-instruction": "Importují ze pouze zaškrtnuté čázti. Stejná volba ze použije při exportu.",
   "import-wekan-file": "Importovat ze zouboru exportu .jzon abo .zip:",
-  "sum-of-number-fields": "Suma ličbnych swójskich polow, kotrež so horjeka lisćiny pokazuja"
+  "sum-of-number-fields": "Suma ličbnych swójskich polow, kotrež so horjeka lisćiny pokazuja",
+  "sticky-list-headers": "Nalěpjene hłowy lisćiny",
+  "more-options": "Dalše nastajenja"
 }

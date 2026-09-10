@@ -1972,6 +1972,12 @@
   "uncollapse": "Mở rộng",
   "hideCheckedChecklistItems": "Ẩn các mục checklist đã đánh dấu",
   "hideAllChecklistItems": "Ẩn tất cả các mục checklist",
+  "checklist-reset-interval": "Tự động đặt lại",
+  "checklistResetIntervalPopup-title": "Tự động đặt lại",
+  "checklist-reset-interval-none": "Tắt (không tự động đặt lại)",
+  "checklist-reset-interval-daily": "Hàng ngày",
+  "checklist-reset-interval-weekly": "Hàng tuần",
+  "checklist-reset-interval-monthly": "Hàng tháng",
   "hideCompletedSubtasks": "Ẩn công việc phụ đã hoàn thành",
   "support": "Hỗ trợ",
   "supportPopup-title": "Hỗ trợ",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Nhập từ:",
   "import-parts-instruction": "Chỉ những phần được đánh dấu mới được nhập. Cùng lựa chọn đó được dùng khi xuất.",
   "import-wekan-file": "Nhập từ tệp xuất .json hoặc .zip:",
-  "sum-of-number-fields": "Tổng các trường tùy chỉnh dạng số được hiển thị ở đầu danh sách"
+  "sum-of-number-fields": "Tổng các trường tùy chỉnh dạng số được hiển thị ở đầu danh sách",
+  "sticky-list-headers": "Tiêu đề danh sách được ghim",
+  "more-options": "Tùy chọn khác"
 }

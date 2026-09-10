@@ -1972,6 +1972,12 @@
   "uncollapse": "Kibontás",
   "hideCheckedChecklistItems": "Kipipált ellenőrzőlista-elemek elrejtése",
   "hideAllChecklistItems": "Az összes ellenőrzőlista-elem elrejtése",
+  "checklist-reset-interval": "Automatikus visszaállítás",
+  "checklistResetIntervalPopup-title": "Automatikus visszaállítás",
+  "checklist-reset-interval-none": "Kikapcsolva (nem áll vissza automatikusan)",
+  "checklist-reset-interval-daily": "Naponta",
+  "checklist-reset-interval-weekly": "Hetente",
+  "checklist-reset-interval-monthly": "Havonta",
   "hideCompletedSubtasks": "Befejezett részfeladatok elrejtése",
   "support": "Támogatás",
   "supportPopup-title": "Támogatás",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Importálás innen:",
   "import-parts-instruction": "Csak a bejelölt részek kerülnek importálásra. Ugyanez a választás érvényes exportáláskor is.",
   "import-wekan-file": "Importálás .json vagy .zip exportfájlból:",
-  "sum-of-number-fields": "A lista tetején megjelenített számmezők (egyéni mezők) összege"
+  "sum-of-number-fields": "A lista tetején megjelenített számmezők (egyéni mezők) összege",
+  "sticky-list-headers": "Rögzített listafejlécek",
+  "more-options": "További lehetőségek"
 }

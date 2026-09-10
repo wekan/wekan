@@ -1972,6 +1972,12 @@
   "uncollapse": "Wolayttatto: Uncollapse",
   "hideCheckedChecklistItems": "Wolayttatto: Hide checked paccissiya mazgabaa miishshata",
   "hideAllChecklistItems": "Wolayttatto: Hide ubba paccissiya mazgabaa miishshata",
+  "checklist-reset-interval": "Bantta koyshsha zaariyo",
+  "checklistResetIntervalPopup-title": "Bantta koyshsha zaariyo",
+  "checklist-reset-interval-none": "To'ettidayssa (bantta koyshsha zaaridenna)",
+  "checklist-reset-interval-daily": "Gallassinne gallassinne",
+  "checklist-reset-interval-weekly": "Saaminttaa saaminttaa",
+  "checklist-reset-interval-monthly": "Ageenaa ageenaa",
   "hideCompletedSubtasks": "Hide completed subtasks",
   "support": "Wolayttatto: Support",
   "supportPopup-title": "Wolayttatto: Support",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Wolayttatto: Gelissa ppe:",
   "import-parts-instruction": "Wolayttatto: Only the ticked parts are gelissiis. The same choice is used when exporting.",
   "import-wekan-file": "Wolayttatto: Gelissa ppe a .json woy .zip kessa faayiliyaa:",
-  "sum-of-number-fields": "Wodhihi bolla bessiya paydo giddo dumma qofa qoodaa woga"
+  "sum-of-number-fields": "Wodhihi bolla bessiya paydo giddo dumma qofa qoodaa woga",
+  "sticky-list-headers": "Doorssuwa gujjettiya oykettiya",
+  "more-options": "Hara doorsuwaa"
 }

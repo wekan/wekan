@@ -1972,6 +1972,12 @@
   "uncollapse": "Nsɛm a ɛfa dwumadi yi ho",
   "hideCheckedChecklistItems": "Suma checked nhwehwɛmu ades",
   "hideAllChecklistItems": "Suma all nhwehwɛmu ades",
+  "checklist-reset-interval": "Ankasa san",
+  "checklistResetIntervalPopup-title": "Ankasa san",
+  "checklist-reset-interval-none": "Ɛnnyɛ (ɛnnsan ankasa)",
+  "checklist-reset-interval-daily": "Da biara",
+  "checklist-reset-interval-weekly": "Dapɛn biara",
+  "checklist-reset-interval-monthly": "Bosome biara",
   "hideCompletedSubtasks": "Hide completed subtasks",
   "support": "Suppanaat",
   "supportPopup-title": "Suppanaat",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Fa bra fi:",
   "import-parts-instruction": "Nko ara no ticked parts are impanaated. No same choice is used when expanaating.",
   "import-wekan-file": "Fa bra fi a .json anaa .zip expanaat file:",
-  "sum-of-number-fields": "Nnipa dodow a wɔakyerɛ sɛ wɔmpue wɔ list no atifi"
+  "sum-of-number-fields": "Nnipa dodow a wɔakyerɛ sɛ wɔmpue wɔ list no atifi",
+  "sticky-list-headers": "Nkyerɛwde a ɛtare hɔ",
+  "more-options": "Nkyerɛkyerɛ pii"
 }

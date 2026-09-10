@@ -1972,6 +1972,12 @@
   "uncollapse": "بڵاوبکەرەوە",
   "hideCheckedChecklistItems": "بڕگە نیشانەکراوەکانی لیستی پشکنین بشارەوە",
   "hideAllChecklistItems": "هەموو بڕگەکانی لیستی پشکنین بشارەوە",
+  "checklist-reset-interval": "ڕێکخستنەوەی ئۆتۆماتیکی",
+  "checklistResetIntervalPopup-title": "ڕێکخستنەوەی ئۆتۆماتیکی",
+  "checklist-reset-interval-none": "ناچالاک (بە ئۆتۆماتیکی ڕێک ناخرێتەوە)",
+  "checklist-reset-interval-daily": "ڕۆژانە",
+  "checklist-reset-interval-weekly": "هەفتانە",
+  "checklist-reset-interval-monthly": "مانگانە",
   "hideCompletedSubtasks": "شاردنەوەی ژێرئەرکە تەواوبووەکان",
   "support": "پشتگیری",
   "supportPopup-title": "پشتگیری",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "هاوردەکردن لە:",
   "import-parts-instruction": "تەنها بەشە نیشانەکراوەکان هاوردە دەکرێن. هەمان هەڵبژاردە لە کاتی هەناردەکردندا بەکاردێت.",
   "import-wekan-file": "لە پەڕگەی هەناردەی .json یان .zip هاوردە بکە:",
-  "sum-of-number-fields": "کۆی خانە ژمارەییە دیاریکراوەکان کە لە سەرووی لیستەکەدا نیشان دەدرێن"
+  "sum-of-number-fields": "کۆی خانە ژمارەییە دیاریکراوەکان کە لە سەرووی لیستەکەدا نیشان دەدرێن",
+  "sticky-list-headers": "سەرپەڕەی لیستی بەسترا",
+  "more-options": "بژاردەی زیاتر"
 }

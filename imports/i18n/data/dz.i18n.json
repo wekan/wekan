@@ -1972,6 +1972,12 @@
   "uncollapse": "བསྡུས་པ་ཕྱིར་བཤིག",
   "hideCheckedChecklistItems": "རྟགས་བཀོད་པའི་ཞིབ་ཐོའི་རྣམ་གྲངས་སྦས།",
   "hideAllChecklistItems": "ཞིབ་ཐོའི་རྣམ་གྲངས་ཚང་མ་སྦས།",
+  "checklist-reset-interval": "རང་བཞིན་གྱིས་སླར་སྒྲིག",
+  "checklistResetIntervalPopup-title": "རང་བཞིན་གྱིས་སླར་སྒྲིག",
+  "checklist-reset-interval-none": "ཁ་བསྡམས (རང་བཞིན་གྱིས་སླར་སྒྲིག་མི་འབད)",
+  "checklist-reset-interval-daily": "ཉིནམ་རེ",
+  "checklist-reset-interval-weekly": "གཟའ་འཁོར་རེ",
+  "checklist-reset-interval-monthly": "ཟླཝ་རེ",
   "hideCompletedSubtasks": "Hide completed subtasks",
   "support": "རྒྱབ་སྐྱོར།",
   "supportPopup-title": "རྒྱབ་སྐྱོར།",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "འདི་ནས་ནང་འདྲེན།",
   "import-parts-instruction": "རྟགས་བཀོད་པའི་ཆ་ཤས་ཁོ་ན་ནང་འདྲེན་བྱེད། ཕྱིར་འདྲེན་སྐབས་ཀྱང་གདམ་ག་གཅིག་པ་སྤྱོད།",
   "import-wekan-file": ".json ཡང་ན་ .zip ཕྱིར་འདྲེན་ཡིག་ཆ་ནས་ནང་འདྲེན་བྱོས།",
-  "sum-of-number-fields": "ཐོ་ཡིག་གི་མགོ་ཁར་སྟོན་མི་ཨང་གྲངས་སོ་སོར་བཟོས་པའི་ས་སྒོའི་བསྡོམས།"
+  "sum-of-number-fields": "ཐོ་ཡིག་གི་མགོ་ཁར་སྟོན་མི་ཨང་གྲངས་སོ་སོར་བཟོས་པའི་ས་སྒོའི་བསྡོམས།",
+  "sticky-list-headers": "འགག་ཐོའི་མགོ་ཡིག",
+  "more-options": "འཐུས་སྒྲིག་ཐེམ་མང་ཙམ།"
 }

@@ -1972,6 +1972,12 @@
   "uncollapse": "અનકલેપ્સ",
   "hideCheckedChecklistItems": "ચેક કરેલ ચેકલિસ્ટ વસ્તુઓ છુપાવો",
   "hideAllChecklistItems": "તમામ ચેકલિસ્ટ વસ્તુઓ છુપાવો",
+  "checklist-reset-interval": "સ્વયંસંચાલિત રીસેટ",
+  "checklistResetIntervalPopup-title": "સ્વયંસંચાલિત રીસેટ",
+  "checklist-reset-interval-none": "બંધ (આપમેળે રીસેટ થશે નહીં)",
+  "checklist-reset-interval-daily": "દૈનિક",
+  "checklist-reset-interval-weekly": "સાપ્તાહિક",
+  "checklist-reset-interval-monthly": "માસિક",
   "hideCompletedSubtasks": "પૂર્ણ થયેલ ઉપકાર્યો છુપાવો",
   "support": "આધાર",
   "supportPopup-title": "આધાર",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "અહીંથી આયાત કરો:",
   "import-parts-instruction": "ફક્ત ટિક કરેલા ભાગો આયાત થાય છે. નિકાસ વખતે પણ એ જ પસંદગી વપરાય છે.",
   "import-wekan-file": ".json અથવા .zip નિકાસ ફાઇલમાંથી આયાત કરો:",
-  "sum-of-number-fields": "યાદીની ટોચે બતાવેલા સંખ્યાત્મક કસ્ટમ ફીલ્ડોનો સરવાળો"
+  "sum-of-number-fields": "યાદીની ટોચે બતાવેલા સંખ્યાત્મક કસ્ટમ ફીલ્ડોનો સરવાળો",
+  "sticky-list-headers": "ચોંટેલા યાદી હેડરો",
+  "more-options": "વધુ વિકલ્પો"
 }

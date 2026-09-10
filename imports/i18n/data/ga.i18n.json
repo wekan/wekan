@@ -1972,6 +1972,12 @@
   "uncollapse": "Leathnaigh",
   "hideCheckedChecklistItems": "Folaigh míreanna ticáilte an tseicliosta",
   "hideAllChecklistItems": "Folaigh gach mír seicliosta",
+  "checklist-reset-interval": "Athshocrú uathoibríoch",
+  "checklistResetIntervalPopup-title": "Athshocrú uathoibríoch",
+  "checklist-reset-interval-none": "As (ní athshocraítear é go huathoibríoch)",
+  "checklist-reset-interval-daily": "Laethúil",
+  "checklist-reset-interval-weekly": "Seachtainiúil",
+  "checklist-reset-interval-monthly": "Míosúil",
   "hideCompletedSubtasks": "Folaigh fotascanna críochnaithe",
   "support": "Tacaíocht",
   "supportPopup-title": "Tacaíocht",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Iompórtáil ó:",
   "import-parts-instruction": "Ní iompórtáiltear ach na codanna ticáilte. Úsáidtear an rogha chéanna agus easpórtáil á déanamh.",
   "import-wekan-file": "Iompórtáil ó chomhad easpórtála .json nó .zip:",
-  "sum-of-number-fields": "Suim na réimsí uimhriúla saincheaptha a thaispeántar ag barr an liosta"
+  "sum-of-number-fields": "Suim na réimsí uimhriúla saincheaptha a thaispeántar ag barr an liosta",
+  "sticky-list-headers": "Ceanntásca liosta greamaitheacha",
+  "more-options": "Tuilleadh roghanna"
 }

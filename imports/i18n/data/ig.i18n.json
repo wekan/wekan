@@ -1972,6 +1972,12 @@
   "uncollapse": "Kwụpụ",
   "hideCheckedChecklistItems": "Zoo ihe ndetu elele anya",
   "hideAllChecklistItems": "Zoo ihe ndepụta ndetu niile",
+  "checklist-reset-interval": "Ntọgharị akpaka",
+  "checklistResetIntervalPopup-title": "Ntọgharị akpaka",
+  "checklist-reset-interval-none": "Kwụsịrị (a naghị atọgharị ya n'onwe ya)",
+  "checklist-reset-interval-daily": "Kwa ụbọchị",
+  "checklist-reset-interval-weekly": "Kwa izu",
+  "checklist-reset-interval-monthly": "Kwa ọnwa",
   "hideCompletedSubtasks": "Zoo ọrụ nta emechara",
   "support": "Nkwado",
   "supportPopup-title": "Nkwado",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Bubata site na:",
   "import-parts-instruction": "Naanị akụkụ ndị e jiri akara họrọ ka a na-ebubata. Otu nhọrọ ahụ ka eji mgbe a na-ebupụ.",
   "import-wekan-file": "Bubata site na faịlụ mbupụ .json ma ọ bụ .zip:",
-  "sum-of-number-fields": "Nchikota nke ubi nọmba ndị e mere ka onwe eweta n'elu ndepụta"
+  "sum-of-number-fields": "Nchikota nke ubi nọmba ndị e mere ka onwe eweta n'elu ndepụta",
+  "sticky-list-headers": "Isiokwu ndepụta na-arapara",
+  "more-options": "Nhọrọ ndị ọzọ"
 }

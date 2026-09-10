@@ -1972,6 +1972,12 @@
   "uncollapse": "Չփլուզվել",
   "hideCheckedChecklistItems": "Թաքցնել ստուգված ստուգաթերթի տարրերը",
   "hideAllChecklistItems": "Թաքցնել ստուգաթերթի բոլոր կետերը",
+  "checklist-reset-interval": "Ինքնաշխատ վերակայում",
+  "checklistResetIntervalPopup-title": "Ինքնաշխատ վերակայում",
+  "checklist-reset-interval-none": "Անջատված (ավտոմատ կերպով չի վերակայվում)",
+  "checklist-reset-interval-daily": "Ամեն օր",
+  "checklist-reset-interval-weekly": "Ամեն շաբաթ",
+  "checklist-reset-interval-monthly": "Ամեն ամիս",
   "hideCompletedSubtasks": "Թաքցնել ավարտված ենթախնդիրները",
   "support": "Աջակցություն",
   "supportPopup-title": "Աջակցություն",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Ներմուծել այստեղից․",
   "import-parts-instruction": "Ներմուծվում են միայն նշված մասերը։ Նույն ընտրությունն օգտագործվում է արտահանելիս։",
   "import-wekan-file": "Ներմուծել .json կամ .zip արտահանման ֆայլից․",
-  "sum-of-number-fields": "Ցուցակի վերևում ցուցադրվող թվային հատուկ դաշտերի գումարը"
+  "sum-of-number-fields": "Ցուցակի վերևում ցուցադրվող թվային հատուկ դաշտերի գումարը",
+  "sticky-list-headers": "Կպչուն ցուցակի վերնագրեր",
+  "more-options": "Լրացուցիչ ընտրանքներ"
 }

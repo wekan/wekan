@@ -1972,6 +1972,12 @@
   "uncollapse": "Velaro",
   "hideCheckedChecklistItems": "Afeno ny singa lisitra fanamarinana voamarika",
   "hideAllChecklistItems": "Afeno ny singa lisitra fanamarinana rehetra",
+  "checklist-reset-interval": "Famerenana ho amin'ny voalohany ho azy",
+  "checklistResetIntervalPopup-title": "Famerenana ho amin'ny voalohany ho azy",
+  "checklist-reset-interval-none": "Maty (tsy averina ho azy)",
+  "checklist-reset-interval-daily": "Isan'andro",
+  "checklist-reset-interval-weekly": "Isan'herinandro",
+  "checklist-reset-interval-monthly": "Isam-bolana",
   "hideCompletedSubtasks": "Manafina ireo takelaka kely vita",
   "support": "Fanohanana",
   "supportPopup-title": "Fanohanana",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Manafatra avy amin'ny:",
   "import-parts-instruction": "Ireo ampahany voamarika ihany no hafarana. Io safidy io ihany no ampiasaina rehefa manondrana.",
   "import-wekan-file": "Manafatra avy amin'ny rakitra fanondranana .json na .zip:",
-  "sum-of-number-fields": "Fitambaran'ny saha manokana isa aseho eo ambonin'ny lisitra"
+  "sum-of-number-fields": "Fitambaran'ny saha manokana isa aseho eo ambonin'ny lisitra",
+  "sticky-list-headers": "Lohatenin'ny lisitra miraikitra",
+  "more-options": "Safidy bebe kokoa"
 }

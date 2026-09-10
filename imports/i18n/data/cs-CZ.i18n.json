@@ -1972,6 +1972,12 @@
   "uncollapse": "Rozbalit",
   "hideCheckedChecklistItems": "Skrýt zaškrtnuté položky checklistu",
   "hideAllChecklistItems": "Skrýt všechny položky checklistu",
+  "checklist-reset-interval": "Automatický reset",
+  "checklistResetIntervalPopup-title": "Automatický reset",
+  "checklist-reset-interval-none": "Vypnuto (neresetuje se automaticky)",
+  "checklist-reset-interval-daily": "Denně",
+  "checklist-reset-interval-weekly": "Týdně",
+  "checklist-reset-interval-monthly": "Měsíčně",
   "hideCompletedSubtasks": "Skrýt dokončené dílčí úkoly",
   "support": "Podpora",
   "supportPopup-title": "Podpora",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Importovat z:",
   "import-parts-instruction": "Importují se pouze zaškrtnuté části. Stejná volba se použije při exportu.",
   "import-wekan-file": "Importovat ze souboru exportu .json nebo .zip:",
-  "sum-of-number-fields": "Součet číselných vlastních polí zobrazených nahoře seznamu"
+  "sum-of-number-fields": "Součet číselných vlastních polí zobrazených nahoře seznamu",
+  "sticky-list-headers": "Přilepené záhlaví seznamu",
+  "more-options": "Další možnosti"
 }

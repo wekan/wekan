@@ -1972,6 +1972,12 @@
   "uncollapse": "Tshedimosetso: Uncollapse",
   "hideCheckedChecklistItems": "Fitlha tlhatlhobilwe dilo tsa lenaane la tlhatlhobo",
   "hideAllChecklistItems": "Fitlha tsotlhe dilo tsa lenaane la tlhatlhobo",
+  "checklist-reset-interval": "Go simolola gape ka boitiragalelo",
+  "checklistResetIntervalPopup-title": "Go simolola gape ka boitiragalelo",
+  "checklist-reset-interval-none": "E timile (ga e simolole gape ka boitiragalelo)",
+  "checklist-reset-interval-daily": "Letsatsi le letsatsi",
+  "checklist-reset-interval-weekly": "Beke le beke",
+  "checklist-reset-interval-monthly": "Kgwedi le kgwedi",
   "hideCompletedSubtasks": "Fitlha ditiro tse nnye tse di fedileng",
   "support": "Tshegetso",
   "supportPopup-title": "Tshegetso",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Tlisa go tswa:",
   "import-parts-instruction": "Fela ticked parts di e tlisitswe. tshwana choice ke dirisitswe fa go romelela kwa ntle.",
   "import-wekan-file": "Tlisa go tswa e.json kgotsa.zip romelela kwa ntle faele:",
-  "sum-of-number-fields": "Kakaretso ya masimo a dipalo tse di rulagantsweng tse di bontshiwang mo godimo ga lenaane"
+  "sum-of-number-fields": "Kakaretso ya masimo a dipalo tse di rulagantsweng tse di bontshiwang mo godimo ga lenaane",
+  "sticky-list-headers": "Ditlhogo tsa lenane tse kgomaretsang",
+  "more-options": "Dikgetho tse dingwe"
 }

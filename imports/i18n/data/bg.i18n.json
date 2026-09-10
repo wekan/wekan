@@ -1972,6 +1972,12 @@
   "uncollapse": "Рашири",
   "hideCheckedChecklistItems": "Сакриј све обављене помоћне предметне радње",
   "hideAllChecklistItems": "Сакриј све помоћне предметне радње",
+  "checklist-reset-interval": "Автоматично нулиране",
+  "checklistResetIntervalPopup-title": "Автоматично нулиране",
+  "checklist-reset-interval-none": "Изключено (не се нулира автоматично)",
+  "checklist-reset-interval-daily": "Ежедневно",
+  "checklist-reset-interval-weekly": "Ежеседмично",
+  "checklist-reset-interval-monthly": "Ежемесечно",
   "hideCompletedSubtasks": "Скриване на завършените подзадачи",
   "support": "Подршка",
   "supportPopup-title": "Подршка",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Импортиране от:",
   "import-parts-instruction": "Импортират се само отметнатите части. Същият избор се използва и при експортиране.",
   "import-wekan-file": "Импортиране от файл за експорт .json или .zip:",
-  "sum-of-number-fields": "Сума на числовите потребителски полета, показани в горната част на списъка"
+  "sum-of-number-fields": "Сума на числовите потребителски полета, показани в горната част на списъка",
+  "sticky-list-headers": "Залепени заглавия на списъци",
+  "more-options": "Още опции"
 }

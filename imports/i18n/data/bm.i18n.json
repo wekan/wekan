@@ -1972,6 +1972,12 @@
   "uncollapse": "A dayɛlɛ",
   "hideCheckedChecklistItems": "Lajɛli lisiti fɛn taamasiyɛnnenw dogo",
   "hideAllChecklistItems": "Lajɛli lisiti fɛnw bɛɛ dogo",
+  "checklist-reset-interval": "Yɛrɛyɛlɛn otomatiki",
+  "checklistResetIntervalPopup-title": "Yɛrɛyɛlɛn otomatiki",
+  "checklist-reset-interval-none": "A tashɛ (a tɛ yɛlɛn a yɛrɛ ma)",
+  "checklist-reset-interval-daily": "Don o don",
+  "checklist-reset-interval-weekly": "Dɔgɔkun o dɔgɔkun",
+  "checklist-reset-interval-monthly": "Kalo o kalo",
   "hideCompletedSubtasks": "Hide completed subtasks",
   "support": "Dɛmɛ",
   "supportPopup-title": "Dɛmɛ",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "A don ka bɔ:",
   "import-parts-instruction": "Yɔrɔ taamasiɲɛnenw dɔrɔn de bɛ don. Sugandili kelen bɛ kɛ bɔli fana na.",
   "import-wekan-file": "A don ka bɔ .json walima .zip bɔli dosye la:",
-  "sum-of-number-fields": "Jatebilenw sɛgɛsɛgɛli minnu bɛ jira liste kunna sɔrɔ jɔ"
+  "sum-of-number-fields": "Jatebilenw sɛgɛsɛgɛli minnu bɛ jira liste kunna sɔrɔ jɔ",
+  "sticky-list-headers": "Lisi kuntigiw minnu bɛ nɔrɔ",
+  "more-options": "Sugandi caman"
 }

@@ -1972,6 +1972,12 @@
   "uncollapse": "გაშლა",
   "hideCheckedChecklistItems": "მონიშნული საკონტროლო სიის ელემენტების დამალვა",
   "hideAllChecklistItems": "ყველა საკონტროლო სიის ელემენტის დამალვა",
+  "checklist-reset-interval": "ავტომატური განულება",
+  "checklistResetIntervalPopup-title": "ავტომატური განულება",
+  "checklist-reset-interval-none": "გამორთული (ავტომატურად არ განულდება)",
+  "checklist-reset-interval-daily": "ყოველდღიურად",
+  "checklist-reset-interval-weekly": "ყოველკვირეულად",
+  "checklist-reset-interval-monthly": "ყოველთვიურად",
   "hideCompletedSubtasks": "დასრულებული ქვეამოცანების დამალვა",
   "support": "მხარდაჭერა",
   "supportPopup-title": "მხარდაჭერა",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "იმპორტი წყაროდან:",
   "import-parts-instruction": "იმპორტირდება მხოლოდ მონიშნული ნაწილები. იგივე არჩევანი გამოიყენება ექსპორტისას.",
   "import-wekan-file": "იმპორტი .json ან .zip ექსპორტის ფაილიდან:",
-  "sum-of-number-fields": "სიის თავში ნაჩვენები რიცხვითი მორგებული ველების ჯამი"
+  "sum-of-number-fields": "სიის თავში ნაჩვენები რიცხვითი მორგებული ველების ჯამი",
+  "sticky-list-headers": "წებოვანი სიის სათაურები",
+  "more-options": "მეტი ვარიანტი"
 }

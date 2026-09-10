@@ -1972,6 +1972,12 @@
   "uncollapse": "ਢਹਿ-ਢੇਰੀ ਕਰੋ",
   "hideCheckedChecklistItems": "ਚੈੱਕ-ਲਿਸਟ ਆਈਟਮਾਂ ਨੂੰ ਲੁਕਾਓ",
   "hideAllChecklistItems": "ਸਾਰੀਆਂ ਚੈੱਕਲਿਸਟ ਆਈਟਮਾਂ ਨੂੰ ਲੁਕਾਓ",
+  "checklist-reset-interval": "ਆਟੋਮੈਟਿਕ ਰੀਸੈੱਟ",
+  "checklistResetIntervalPopup-title": "ਆਟੋਮੈਟਿਕ ਰੀਸੈੱਟ",
+  "checklist-reset-interval-none": "ਬੰਦ (ਆਪਣੇ ਆਪ ਰੀਸੈੱਟ ਨਹੀਂ ਹੋਵੇਗਾ)",
+  "checklist-reset-interval-daily": "ਰੋਜ਼ਾਨਾ",
+  "checklist-reset-interval-weekly": "ਹਫ਼ਤਾਵਾਰੀ",
+  "checklist-reset-interval-monthly": "ਮਾਸਿਕ",
   "hideCompletedSubtasks": "ਪੂਰੀਆਂ ਹੋਈਆਂ ਉਪ-ਕਾਰਜਾਂ ਨੂੰ ਲੁਕਾਓ",
   "support": "ਸਪੋਰਟ",
   "supportPopup-title": "ਸਪੋਰਟ",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "ਇੱਥੋਂ ਆਯਾਤ ਕਰੋ:",
   "import-parts-instruction": "ਸਿਰਫ਼ ਨਿਸ਼ਾਨਬੱਧ ਹਿੱਸੇ ਹੀ ਆਯਾਤ ਹੁੰਦੇ ਹਨ। ਨਿਰਯਾਤ ਵੇਲੇ ਵੀ ਇਹੀ ਚੋਣ ਵਰਤੀ ਜਾਂਦੀ ਹੈ।",
   "import-wekan-file": ".json ਜਾਂ .zip ਨਿਰਯਾਤ ਫ਼ਾਈਲ ਤੋਂ ਆਯਾਤ ਕਰੋ:",
-  "sum-of-number-fields": "ਸੂਚੀ ਦੇ ਸਿਖਰ 'ਤੇ ਦਿਖਾਏ ਗਏ ਸੰਖਿਆਤਮਕ ਕਸਟਮ ਫੀਲਡਾਂ ਦਾ ਜੋੜ"
+  "sum-of-number-fields": "ਸੂਚੀ ਦੇ ਸਿਖਰ 'ਤੇ ਦਿਖਾਏ ਗਏ ਸੰਖਿਆਤਮਕ ਕਸਟਮ ਫੀਲਡਾਂ ਦਾ ਜੋੜ",
+  "sticky-list-headers": "ਸਟਿੱਕੀ ਸੂਚੀ ਹੈਡਰ",
+  "more-options": "ਹੋਰ ਵਿਕਲਪ"
 }

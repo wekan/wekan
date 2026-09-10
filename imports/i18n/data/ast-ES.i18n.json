@@ -1972,6 +1972,12 @@
   "uncollapse": "Expandir",
   "hideCheckedChecklistItems": "Ocultar elementos marcados de la lista de verificación",
   "hideAllChecklistItems": "Ocultar todos los elementos de la lista de verificación",
+  "checklist-reset-interval": "Reaniciu automáticu",
+  "checklistResetIntervalPopup-title": "Reaniciu automáticu",
+  "checklist-reset-interval-none": "Desactiváu (nun se reanicia automáticamente)",
+  "checklist-reset-interval-daily": "Diariu",
+  "checklist-reset-interval-weekly": "Selmanal",
+  "checklist-reset-interval-monthly": "Mensual",
   "hideCompletedSubtasks": "Anubrir les subxeres completaes",
   "support": "Soporte",
   "supportPopup-title": "Soporte",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Importar dende:",
   "import-parts-instruction": "Namái s'importen les partes marcaes. La mesma esbilla úsase al esportar.",
   "import-wekan-file": "Importar dende un ficheru d'esportación .json o .zip:",
-  "sum-of-number-fields": "Suma de los campos numbéricos personalizaos amosaos enriba la llista"
+  "sum-of-number-fields": "Suma de los campos numbéricos personalizaos amosaos enriba la llista",
+  "sticky-list-headers": "Testeres de llista apegañoses",
+  "more-options": "Más opciones"
 }

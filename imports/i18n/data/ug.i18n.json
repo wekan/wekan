@@ -1972,6 +1972,12 @@
   "uncollapse": "يېيىش",
   "hideCheckedChecklistItems": "تەكشۈرۈلگەن تەكشۈرۈش تۈرلىرىنى يوشۇرۇش",
   "hideAllChecklistItems": "بارلىق تەكشۈرۈش تۈرلىرىنى يوشۇرۇڭ",
+  "checklist-reset-interval": "ئاپتوماتىك ئەسلىگە قايتۇرۇش",
+  "checklistResetIntervalPopup-title": "ئاپتوماتىك ئەسلىگە قايتۇرۇش",
+  "checklist-reset-interval-none": "ئۆچۈك (ئاپتوماتىك ئەسلىگە قايتمايدۇ)",
+  "checklist-reset-interval-daily": "كۈندىلىك",
+  "checklist-reset-interval-weekly": "ھەپتىلىك",
+  "checklist-reset-interval-monthly": "ئايلىق",
   "hideCompletedSubtasks": "تاماملانغان تارماق ۋەزىپىلەرنى يوشۇرۇش",
   "support": "قوللاش",
   "supportPopup-title": "قوللاش",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "مۇنداق مەنبەدىن ئەكىرىش:",
   "import-parts-instruction": "پەقەت بەلگە قويۇلغان قىسىملارلا ئەكىرىلىدۇ. ئېكسپورت قىلغاندىمۇ شۇ تاللاش ئىشلىتىلىدۇ.",
   "import-wekan-file": ".json ياكى .zip ئېكسپورت ھۆججىتىدىن ئەكىرىش:",
-  "sum-of-number-fields": "تىزىملىكنىڭ ئۈستىدە كۆرسىتىلىدىغان سانلىق ئالاھىدە بۆلەكلەرنىڭ يىغىندىسى"
+  "sum-of-number-fields": "تىزىملىكنىڭ ئۈستىدە كۆرسىتىلىدىغان سانلىق ئالاھىدە بۆلەكلەرنىڭ يىغىندىسى",
+  "sticky-list-headers": "چاپلاشقاق تىزىملىك بېشى",
+  "more-options": "تېخىمۇ كۆپ تاللاش"
 }

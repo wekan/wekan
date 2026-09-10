@@ -1972,6 +1972,12 @@
   "uncollapse": "Buka lipatan",
   "hideCheckedChecklistItems": "Sembunyikan item checklist yang tercentang",
   "hideAllChecklistItems": "Sembunyikan semua item checklist",
+  "checklist-reset-interval": "Reset otomatis",
+  "checklistResetIntervalPopup-title": "Reset otomatis",
+  "checklist-reset-interval-none": "Nonaktif (tidak direset otomatis)",
+  "checklist-reset-interval-daily": "Harian",
+  "checklist-reset-interval-weekly": "Mingguan",
+  "checklist-reset-interval-monthly": "Bulanan",
   "hideCompletedSubtasks": "Sembunyikan subtugas selesai",
   "support": "Dukungan",
   "supportPopup-title": "Dukungan",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Impor dari:",
   "import-parts-instruction": "Hanya bagian yang dicentang yang diimpor. Pilihan yang sama dipakai saat mengekspor.",
   "import-wekan-file": "Impor dari berkas ekspor .json atau .zip:",
-  "sum-of-number-fields": "Jumlah bidang khusus numerik yang ditampilkan di bagian atas daftar"
+  "sum-of-number-fields": "Jumlah bidang khusus numerik yang ditampilkan di bagian atas daftar",
+  "sticky-list-headers": "Header daftar yang tetap",
+  "more-options": "Opsi lainnya"
 }

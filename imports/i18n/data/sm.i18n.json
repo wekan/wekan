@@ -1972,6 +1972,12 @@
   "uncollapse": "Toe faalautele",
   "hideCheckedChecklistItems": "Nana mea ua siakiina o le lisi siaki",
   "hideAllChecklistItems": "Nana mea uma o le lisi siaki",
+  "checklist-reset-interval": "Toe faʻafoʻi otometi",
+  "checklistResetIntervalPopup-title": "Toe faʻafoʻi otometi",
+  "checklist-reset-interval-none": "Tapunia (e le toe faʻafoʻi otometi)",
+  "checklist-reset-interval-daily": "I aso taʻitasi",
+  "checklist-reset-interval-weekly": "I vaiaso taʻitasi",
+  "checklist-reset-interval-monthly": "I masina taʻitasi",
   "hideCompletedSubtasks": "Nānā galuega laiti ua maeʻa",
   "support": "Lagolago",
   "supportPopup-title": "Lagolago",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Aumai mai:",
   "import-parts-instruction": "E na o vaega ua faailogaina e aumai. E faaaoga foi le filifiliga lava lea pe a auina atu.",
   "import-wekan-file": "Aumai mai se faila auina atu .json po o .zip:",
-  "sum-of-number-fields": "Aofaiga o vaega fa'apitoa numera o lo'o fa'aalia i le pito i luga o le lisi"
+  "sum-of-number-fields": "Aofaiga o vaega fa'apitoa numera o lo'o fa'aalia i le pito i luga o le lisi",
+  "sticky-list-headers": "Ulutala lisi pipili",
+  "more-options": "Isi filifiliga"
 }

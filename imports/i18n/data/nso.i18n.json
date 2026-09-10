@@ -1972,6 +1972,12 @@
   "uncollapse": "Phutholla",
   "hideCheckedChecklistItems": "Fihla dilo tša lenaneo la go hlahloba tše di hlahlobilwego",
   "hideAllChecklistItems": "Fihla dilo ka moka tša lenaneo la go hlahloba",
+  "checklist-reset-interval": "Go thomiwa leswa ka go itiragalela",
+  "checklistResetIntervalPopup-title": "Go thomiwa leswa ka go itiragalela",
+  "checklist-reset-interval-none": "E timilwe (ga e thomiwe leswa ka boyona)",
+  "checklist-reset-interval-daily": "Letšatši le letšatši",
+  "checklist-reset-interval-weekly": "Beke le beke",
+  "checklist-reset-interval-monthly": "Kgwedi le kgwedi",
   "hideCompletedSubtasks": "Uta ditiro tše nnyane tše di fedišitšwego",
   "support": "Thekgo",
   "supportPopup-title": "Thekgo",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Tsenya go tšwa go:",
   "import-parts-instruction": "Go tsenywa feela dikarolo tše di swailwego. Kgetho ye e swanago e dirišwa ge go ntšhwa.",
   "import-wekan-file": "Tsenya go tšwa faeleng ya ntšho ya .json goba .zip:",
-  "sum-of-number-fields": "Kakaretšo ya masimo a dinomoro a tlwaetšego ao a bontšhwago godimo ga lenaneo"
+  "sum-of-number-fields": "Kakaretšo ya masimo a dinomoro a tlwaetšego ao a bontšhwago godimo ga lenaneo",
+  "sticky-list-headers": "Dihlogo tša lelokelelo tše kgomaretšego",
+  "more-options": "Dikgetho tše dingwe"
 }

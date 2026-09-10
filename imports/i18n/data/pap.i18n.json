@@ -1972,6 +1972,12 @@
   "uncollapse": "Expandir",
   "hideCheckedChecklistItems": "Skonde elementos marcados di e lista di chèk",
   "hideAllChecklistItems": "Skonde tur e elementos di e lista di chèk",
+  "checklist-reset-interval": "Reset outomátiko",
+  "checklistResetIntervalPopup-title": "Reset outomátiko",
+  "checklist-reset-interval-none": "Apagá (e no ta reset outomátikamente)",
+  "checklist-reset-interval-daily": "Diariamente",
+  "checklist-reset-interval-weekly": "Semanalmente",
+  "checklist-reset-interval-monthly": "Mensualmente",
   "hideCompletedSubtasks": "Skonde subtareanan kompletá",
   "support": "Soporte",
   "supportPopup-title": "Soporte",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Importar desde:",
   "import-parts-instruction": "Solamente se importan e partes markadas. E misma selekshon se usa na e exportar.",
   "import-wekan-file": "Importar desde un archibo di eksportashon .hson òf .zip:",
-  "sum-of-number-fields": "Suma di e kamponan numériko personalisá ku ta wòrdu mustra riba lista"
+  "sum-of-number-fields": "Suma di e kamponan numériko personalisá ku ta wòrdu mustra riba lista",
+  "sticky-list-headers": "Kabesera di lista pegá",
+  "more-options": "Mas opshon"
 }

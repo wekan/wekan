@@ -1972,6 +1972,12 @@
   "uncollapse": "প্রসারিত করুন",
   "hideCheckedChecklistItems": "চিহ্নিত যাচাইতালিকা আইটেম লুকান",
   "hideAllChecklistItems": "যাচাইতালিকার সব আইটেম লুকান",
+  "checklist-reset-interval": "স্বয়ংক্রিয় রিসেট",
+  "checklistResetIntervalPopup-title": "স্বয়ংক্রিয় রিসেট",
+  "checklist-reset-interval-none": "বন্ধ (স্বয়ংক্রিয়ভাবে রিসেট হবে না)",
+  "checklist-reset-interval-daily": "প্রতিদিন",
+  "checklist-reset-interval-weekly": "সাপ্তাহিক",
+  "checklist-reset-interval-monthly": "মাসিক",
   "hideCompletedSubtasks": "সম্পন্ন উপ-কার্যাবলী লুকান",
   "support": "সহায়তা",
   "supportPopup-title": "সহায়তা",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "যেখান থেকে আমদানি:",
   "import-parts-instruction": "শুধু চিহ্নিত অংশগুলো আমদানি হয়। রপ্তানির সময়ও একই নির্বাচন ব্যবহৃত হয়।",
   "import-wekan-file": ".json অথবা .zip রপ্তানি ফাইল থেকে আমদানি করুন:",
-  "sum-of-number-fields": "তালিকার উপরে প্রদর্শিত সংখ্যাসূচক কাস্টম ফিল্ডের সমষ্টি"
+  "sum-of-number-fields": "তালিকার উপরে প্রদর্শিত সংখ্যাসূচক কাস্টম ফিল্ডের সমষ্টি",
+  "sticky-list-headers": "আঠালো তালিকা হেডার",
+  "more-options": "আরও বিকল্প"
 }

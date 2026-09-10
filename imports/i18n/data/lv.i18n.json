@@ -1972,6 +1972,12 @@
   "uncollapse": "Išskleisti",
   "hideCheckedChecklistItems": "Slėpti pažymėtus kontrolinio sąrašo elementus",
   "hideAllChecklistItems": "Slėpti visus kontrolinio sąrašo elementus",
+  "checklist-reset-interval": "Automātiska atiestatīšana",
+  "checklistResetIntervalPopup-title": "Automātiska atiestatīšana",
+  "checklist-reset-interval-none": "Izslēgts (automātiski neatiestatās)",
+  "checklist-reset-interval-daily": "Katru dienu",
+  "checklist-reset-interval-weekly": "Katru nedēļu",
+  "checklist-reset-interval-monthly": "Katru mēnesi",
   "hideCompletedSubtasks": "Slēpt pabeigtos apakšuzdevumus",
   "support": "Palaikymas",
   "supportPopup-title": "Palaikymas",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Importēt no:",
   "import-parts-instruction": "Tiek importētas tikai atzīmētās daļas. Tā pati izvēle tiek izmantota eksportējot.",
   "import-wekan-file": "Importēt no .json vai .zip eksporta faila:",
-  "sum-of-number-fields": "Skaitlisko pielāgoto lauku summa, kas tiek rādīta saraksta augšpusē"
+  "sum-of-number-fields": "Skaitlisko pielāgoto lauku summa, kas tiek rādīta saraksta augšpusē",
+  "sticky-list-headers": "Pielīmētas saraksta virsraksti",
+  "more-options": "Vairāk opciju"
 }

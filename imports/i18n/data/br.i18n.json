@@ -1972,6 +1972,12 @@
   "uncollapse": "Développer",
   "hideCheckedChecklistItems": "Cacher les éléments cochés de la check-list",
   "hideAllChecklistItems": "Cacher tous les éléments de la check-list",
+  "checklist-reset-interval": "Adderaouiñ emgefreek",
+  "checklistResetIntervalPopup-title": "Adderaouiñ emgefreek",
+  "checklist-reset-interval-none": "Lazhet (ne vez ket adderaouiet emgefreek)",
+  "checklist-reset-interval-daily": "Bemdez",
+  "checklist-reset-interval-weekly": "Bep sizhun",
+  "checklist-reset-interval-monthly": "Bep miz",
   "hideCompletedSubtasks": "Kuzhat an isoberioù echu",
   "support": "Skoazell",
   "supportPopup-title": "Skoazell",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Enporzhiañ adalek:",
   "import-parts-instruction": "N'eo enporzhiet nemet al lodennoù merket. An hevelep dibab a vez implijet en ur ezporzhiañ.",
   "import-wekan-file": "Enporzhiañ diouzh ur restr ezporzhiañ .json pe .zip:",
-  "sum-of-number-fields": "Sammad ar maeziennaet niverel personelaet diskouezet e krec'h al listenn"
+  "sum-of-number-fields": "Sammad ar maeziennaet niverel personelaet diskouezet e krec'h al listenn",
+  "sticky-list-headers": "Titloù listenn stag",
+  "more-options": "Muioc'h a zibaboù"
 }

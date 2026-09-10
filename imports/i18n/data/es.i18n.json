@@ -1972,6 +1972,12 @@
   "uncollapse": "Expandir",
   "hideCheckedChecklistItems": "Ocultar elementos marcados de la lista de verificación",
   "hideAllChecklistItems": "Ocultar todos los elementos de la lista de verificación",
+  "checklist-reset-interval": "Restablecimiento automático",
+  "checklistResetIntervalPopup-title": "Restablecimiento automático",
+  "checklist-reset-interval-none": "Desactivado (no se restablece automáticamente)",
+  "checklist-reset-interval-daily": "Diariamente",
+  "checklist-reset-interval-weekly": "Semanalmente",
+  "checklist-reset-interval-monthly": "Mensualmente",
   "hideCompletedSubtasks": "Ocultar subtareas completadas",
   "support": "Soporte",
   "supportPopup-title": "Soporte",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Importar desde:",
   "import-parts-instruction": "Solo se importan las partes marcadas. La misma selección se usa al exportar.",
   "import-wekan-file": "Importar desde un archivo de exportación .json o .zip:",
-  "sum-of-number-fields": "Suma de los campos numéricos personalizados mostrados en la parte superior de la lista"
+  "sum-of-number-fields": "Suma de los campos numéricos personalizados mostrados en la parte superior de la lista",
+  "sticky-list-headers": "Encabezados de lista fijos",
+  "more-options": "Más opciones"
 }

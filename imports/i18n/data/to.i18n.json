@@ -1972,6 +1972,12 @@
   "uncollapse": "Faka-Tonga: Uncollapse",
   "hideCheckedChecklistItems": "Faka-Tonga: Hide checked checklist items",
   "hideAllChecklistItems": "Faka-Tonga: Hide all checklist items",
+  "checklist-reset-interval": "Toe fakafoki ʻo fakaʻaʻau",
+  "checklistResetIntervalPopup-title": "Toe fakafoki ʻo fakaʻaʻau",
+  "checklist-reset-interval-none": "Tāpuni (ʻoku ʻikai ke toe fakafoki fakaʻaʻau)",
+  "checklist-reset-interval-daily": "ʻI he ʻaho kotoa",
+  "checklist-reset-interval-weekly": "ʻI he uike kotoa",
+  "checklist-reset-interval-monthly": "ʻI he māhina kotoa",
   "hideCompletedSubtasks": "Fufū e ngaahi kimi ngāue kuo fakaʻosi",
   "support": "Faka-Tonga: Support",
   "supportPopup-title": "Faka-Tonga: Support",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Faka-Tonga: Import from:",
   "import-parts-instruction": "Faka-Tonga: Only the ticked parts are imported. The same choice is used when exporting.",
   "import-wekan-file": "Faka-Tonga: Import from a .json or .zip export faile:",
-  "sum-of-number-fields": "Fakalukufua ʻo e ngaahi feituʻu fika fakafiemālie ʻoku fakahā ʻi ʻolunga ʻi he lisi"
+  "sum-of-number-fields": "Fakalukufua ʻo e ngaahi feituʻu fika fakafiemālie ʻoku fakahā ʻi ʻolunga ʻi he lisi",
+  "sticky-list-headers": "'Ulutohi lisi pikitai",
+  "more-options": "Ngaahi filí lahi ange"
 }

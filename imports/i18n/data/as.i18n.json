@@ -1972,6 +1972,12 @@
   "uncollapse": "প্ৰসাৰিত কৰক",
   "hideCheckedChecklistItems": "চিহ্নিত চেকলিষ্ট বস্তুসমূহ লুকুৱাওক",
   "hideAllChecklistItems": "সকলো চেকলিষ্ট বস্তু লুকুৱাওক",
+  "checklist-reset-interval": "স্বয়ংক্ৰিয় ৰিছেট",
+  "checklistResetIntervalPopup-title": "স্বয়ংক্ৰিয় ৰিছেট",
+  "checklist-reset-interval-none": "বন্ধ (স্বয়ংক্ৰিয়ভাৱে ৰিছেট নহয়)",
+  "checklist-reset-interval-daily": "দৈনিক",
+  "checklist-reset-interval-weekly": "সাপ্তাহিক",
+  "checklist-reset-interval-monthly": "মাহেকীয়া",
   "hideCompletedSubtasks": "সম্পূৰ্ণ হোৱা উপকার্য লুকুৱাওক",
   "support": "সহায়",
   "supportPopup-title": "সহায়",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "ইয়াৰ পৰা আমদানি কৰক:",
   "import-parts-instruction": "কেৱল চিহ্নিত অংশসমূহ আমদানি কৰা হয়। ৰপ্তানিৰ সময়তো একে বাছনি ব্যৱহাৰ কৰা হয়।",
   "import-wekan-file": ".json বা .zip ৰপ্তানি ফাইলৰ পৰা আমদানি কৰক:",
-  "sum-of-number-fields": "তালিকাৰ ওপৰত দেখুওৱা সংখ্যাগত স্বনির্বাচিত ক্ষেত্ৰবোৰৰ যোগফল"
+  "sum-of-number-fields": "তালিকাৰ ওপৰত দেখুওৱা সংখ্যাগত স্বনির্বাচিত ক্ষেত্ৰবোৰৰ যোগফল",
+  "sticky-list-headers": "আঠা লগা তালিকা হেডাৰ",
+  "more-options": "অধিক বিকল্প"
 }

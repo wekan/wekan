@@ -1972,6 +1972,12 @@
   "uncollapse": "Mashoko echiShona: Uncollapse",
   "hideCheckedChecklistItems": "vanza checked rondedzero yekuongorora items",
   "hideAllChecklistItems": "vanza zvose rondedzero yekuongorora items",
+  "checklist-reset-interval": "Kudzoreredzwa kwega",
+  "checklistResetIntervalPopup-title": "Kudzoreredzwa kwega",
+  "checklist-reset-interval-none": "Yakadzimwa (haidzoreredzwe yega)",
+  "checklist-reset-interval-daily": "Zuva nezuva",
+  "checklist-reset-interval-weekly": "Vhiki nevhiki",
+  "checklist-reset-interval-monthly": "Mwedzi nemwedzi",
   "hideCompletedSubtasks": "Vanza mabasa mapfupi akapera",
   "support": "Mashoko echiShona: Support",
   "supportPopup-title": "Mashoko echiShona: Support",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "pinza kubva:",
   "import-parts-instruction": "chete the ticked parts vari zvapinzwa. The zvimwe chete choice iri used when exporting.",
   "import-wekan-file": "pinza kubva a .json kana .zip tumira kunze faira:",
-  "sum-of-number-fields": "Wongororo yemipata yenhamba yakagadzirwa inoratidzwa pamusoro perondedzero"
+  "sum-of-number-fields": "Wongororo yemipata yenhamba yakagadzirwa inoratidzwa pamusoro perondedzero",
+  "sticky-list-headers": "Misoro yerondedzero yakanamatira",
+  "more-options": "Zvimwe zvekusarudza"
 }

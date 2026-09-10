@@ -1972,6 +1972,12 @@
   "uncollapse": "ពន្លា",
   "hideCheckedChecklistItems": "លាក់ធាតុបញ្ជីត្រួតពិនិត្យ",
   "hideAllChecklistItems": "លាក់ធាតុបញ្ជីត្រួតពិនិត្យទាំងអស់។",
+  "checklist-reset-interval": "កំណត់ឡើងវិញដោយស្វ័យប្រវត្តិ",
+  "checklistResetIntervalPopup-title": "កំណត់ឡើងវិញដោយស្វ័យប្រវត្តិ",
+  "checklist-reset-interval-none": "បិទ (មិនកំណត់ឡើងវិញដោយស្វ័យប្រវត្តិទេ)",
+  "checklist-reset-interval-daily": "ប្រចាំថ្ងៃ",
+  "checklist-reset-interval-weekly": "ប្រចាំសប្តាហ៍",
+  "checklist-reset-interval-monthly": "ប្រចាំខែ",
   "hideCompletedSubtasks": "លាក់ភារកិច្ចរងដែលបានបញ្ចប់",
   "support": "គាំទ្រ",
   "supportPopup-title": "គាំទ្រ",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "នាំចូលពី៖",
   "import-parts-instruction": "មានតែផ្នែកដែលបានធីកប៉ុណ្ណោះដែលត្រូវបាននាំចូល។ ជម្រើសដដែលនេះត្រូវប្រើពេលនាំចេញ។",
   "import-wekan-file": "នាំចូលពីឯកសារនាំចេញ .json ឬ .zip៖",
-  "sum-of-number-fields": "ផលបូកនៃវាលចំនួនផ្ទាល់ខ្លួនដែលបង្ហាញនៅផ្នែកខាងលើបញ្ជី"
+  "sum-of-number-fields": "ផលបូកនៃវាលចំនួនផ្ទាល់ខ្លួនដែលបង្ហាញនៅផ្នែកខាងលើបញ្ជី",
+  "sticky-list-headers": "ក្បាលបញ្ជីស្អិត",
+  "more-options": "ជម្រើសបន្ថែម"
 }

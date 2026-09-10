@@ -1972,6 +1972,12 @@
   "uncollapse": "Išskleisti",
   "hideCheckedChecklistItems": "Slėpti pažymėtus kontrolinio sąrašo elementus",
   "hideAllChecklistItems": "Slėpti visus kontrolinio sąrašo elementus",
+  "checklist-reset-interval": "Automatinis atstatymas",
+  "checklistResetIntervalPopup-title": "Automatinis atstatymas",
+  "checklist-reset-interval-none": "Išjungta (automatiškai neatstatoma)",
+  "checklist-reset-interval-daily": "Kasdien",
+  "checklist-reset-interval-weekly": "Kas savaitę",
+  "checklist-reset-interval-monthly": "Kas mėnesį",
   "hideCompletedSubtasks": "Slėpti baigtas paužduotis",
   "support": "Palaikymas",
   "supportPopup-title": "Palaikymas",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Importuoti iš:",
   "import-parts-instruction": "Importuojamos tik pažymėtos dalys. Tas pats pasirinkimas naudojamas eksportuojant.",
   "import-wekan-file": "Importuoti iš .json arba .zip eksporto failo:",
-  "sum-of-number-fields": "Skaitinių tinkintų laukų, rodomų sąrašo viršuje, suma"
+  "sum-of-number-fields": "Skaitinių tinkintų laukų, rodomų sąrašo viršuje, suma",
+  "sticky-list-headers": "Prilipusios sąrašo antraštės",
+  "more-options": "Daugiau parinkčių"
 }

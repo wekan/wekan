@@ -1972,6 +1972,12 @@
   "uncollapse": "No collassare",
   "hideCheckedChecklistItems": "Plate gli elementi de lista di controllo selezioneti",
   "hideAllChecklistItems": "Plate gli elementi de lista di controllo",
+  "checklist-reset-interval": "Ripristinament automatic",
+  "checklistResetIntervalPopup-title": "Ripristinament automatic",
+  "checklist-reset-interval-none": "Distudât (nol ven ripristinât in automatic)",
+  "checklist-reset-interval-daily": "Ogni dì",
+  "checklist-reset-interval-weekly": "Ogni setemane",
+  "checklist-reset-interval-monthly": "Ogni mês",
   "hideCompletedSubtasks": "Plate lis sotatività finidis",
   "support": "Supporto",
   "supportPopup-title": "Supporto",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Impuarte da:",
   "import-parts-instruction": "Vengono impuartete solo le parti selezionete. La stessa scelta è usata durante l'espuartezione.",
   "import-wekan-file": "Impuarte da un file di espuartezione .json o .zip:",
-  "sum-of-number-fields": "Sume dai cjamps numerics personalizâts mostrâts in cime ae liste"
+  "sum-of-number-fields": "Sume dai cjamps numerics personalizâts mostrâts in cime ae liste",
+  "sticky-list-headers": "Intestazions di liste tacadis",
+  "more-options": "Plui oputis"
 }

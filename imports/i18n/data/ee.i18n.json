@@ -1972,6 +1972,12 @@
   "uncollapse": "Gbugbɔ kaka",
   "hideCheckedChecklistItems": "Ɣla ŋkuɖodzinudzesi ƒe nane siwo wode dzesi",
   "hideAllChecklistItems": "Ɣla ŋkuɖodzinudzesi ƒe naneawo katã",
+  "checklist-reset-interval": "Ðokuinyaɖoɖo tokuu",
+  "checklistResetIntervalPopup-title": "Ðokuinyaɖoɖo tokuu",
+  "checklist-reset-interval-none": "Etsi (menyɔ ɖe eɖokui dzi o)",
+  "checklist-reset-interval-daily": "Gbesiagbe",
+  "checklist-reset-interval-weekly": "Kwasiɖasiaɖa",
+  "checklist-reset-interval-monthly": "Ɣletisiaɣleti",
   "hideCompletedSubtasks": "Hide completed subtasks",
   "support": "Kpekpeɖeŋu",
   "supportPopup-title": "Kpekpeɖeŋu",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Tsɔ va eme tso:",
   "import-parts-instruction": "Akpa siwo wode dzesi ko woatsɔ ava eme. Wozãa tiatia ɖeka ne wotsɔ ɖe go.",
   "import-wekan-file": "Tsɔ va eme tso .json alo .zip nuɖeɖego agbalẽ me:",
-  "sum-of-number-fields": "Xexlẽme dzesi tɔxɛwo ƒe sumi si wodena le nyatakakawo ƒe dzigbeta"
+  "sum-of-number-fields": "Xexlẽme dzesi tɔxɛwo ƒe sumi si wodena le nyatakakawo ƒe dzigbeta",
+  "sticky-list-headers": "List tanya siwo léa nu",
+  "more-options": "Tiaŋtiaŋ bubuwo"
 }

@@ -1972,6 +1972,12 @@
   "uncollapse": "விரி",
   "hideCheckedChecklistItems": "குறிக்கப்பட்ட சரிபார்ப்புப் பட்டியல் உருப்படிகளை மறை",
   "hideAllChecklistItems": "அனைத்துச் சரிபார்ப்புப் பட்டியல் உருப்படிகளையும் மறை",
+  "checklist-reset-interval": "தானியங்கி மீட்டமைப்பு",
+  "checklistResetIntervalPopup-title": "தானியங்கி மீட்டமைப்பு",
+  "checklist-reset-interval-none": "நிறுத்தப்பட்டது (தானாக மீட்டமைக்கப்படாது)",
+  "checklist-reset-interval-daily": "தினசரி",
+  "checklist-reset-interval-weekly": "வாராந்திரம்",
+  "checklist-reset-interval-monthly": "மாதந்தோறும்",
   "hideCompletedSubtasks": "முடிக்கப்பட்ட துணைப்பணிகளை மறை",
   "support": "ஆதரவு",
   "supportPopup-title": "ஆதரவு",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "இங்கிருந்து இறக்குமதி:",
   "import-parts-instruction": "தேர்வு செய்யப்பட்ட பகுதிகள் மட்டுமே இறக்குமதி செய்யப்படும். ஏற்றுமதி செய்யும்போதும் அதே தேர்வு பயன்படும்.",
   "import-wekan-file": ".json அல்லது .zip ஏற்றுமதிக் கோப்பிலிருந்து இறக்குமதி செய்:",
-  "sum-of-number-fields": "பட்டியலின் மேல்பகுதியில் காட்டப்படும் எண் தனிப்பயன் புலங்களின் கூட்டுத்தொகை"
+  "sum-of-number-fields": "பட்டியலின் மேல்பகுதியில் காட்டப்படும் எண் தனிப்பயன் புலங்களின் கூட்டுத்தொகை",
+  "sticky-list-headers": "ஒட்டும் பட்டியல் தலைப்புகள்",
+  "more-options": "மேலும் விருப்பங்கள்"
 }

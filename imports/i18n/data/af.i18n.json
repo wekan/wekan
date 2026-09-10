@@ -1972,6 +1972,12 @@
   "uncollapse": "Ontvou",
   "hideCheckedChecklistItems": "Versteek gemerkte kontrolelysitems",
   "hideAllChecklistItems": "Versteek alle kontrolelys-items",
+  "checklist-reset-interval": "Outomatiese terugstel",
+  "checklistResetIntervalPopup-title": "Outomatiese terugstel",
+  "checklist-reset-interval-none": "Af (herstel nie outomaties nie)",
+  "checklist-reset-interval-daily": "Daagliks",
+  "checklist-reset-interval-weekly": "Weekliks",
+  "checklist-reset-interval-monthly": "Maandeliks",
   "hideCompletedSubtasks": "Versteek voltooide subtake",
   "support": "Ondersteuning",
   "supportPopup-title": "Ondersteuning",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Voer in vanaf:",
   "import-parts-instruction": "Slegs die gemerkte dele word ingevoer. Dieselfde keuse geld by uitvoer.",
   "import-wekan-file": "Voer in vanaf 'n .json- of .zip-uitvoerlêer:",
-  "sum-of-number-fields": "Som van numeriese pasgemaakte velde wat bo-aan die lys gewys word"
+  "sum-of-number-fields": "Som van numeriese pasgemaakte velde wat bo-aan die lys gewys word",
+  "sticky-list-headers": "Taai lyskoppe",
+  "more-options": "Meer opsies"
 }

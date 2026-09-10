@@ -1972,6 +1972,12 @@
   "uncollapse": "Latine: Uncollapse",
   "hideCheckedChecklistItems": "Latine: Cela checked index probationis res",
   "hideAllChecklistItems": "Latine: Cela omnia index probationis res",
+  "checklist-reset-interval": "Restitutio automatica",
+  "checklistResetIntervalPopup-title": "Restitutio automatica",
+  "checklist-reset-interval-none": "Exstinctum (non automatice restituitur)",
+  "checklist-reset-interval-daily": "Cotidie",
+  "checklist-reset-interval-weekly": "Quaque hebdomade",
+  "checklist-reset-interval-monthly": "Quoque mense",
   "hideCompletedSubtasks": "Celare subtaskas perfectas",
   "support": "Latine: Support",
   "supportPopup-title": "Latine: Support",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Latine: Importa ex:",
   "import-parts-instruction": "Latine: Tantum the ticked parts sunt importatum. The idem choice est used quando exporting.",
   "import-wekan-file": "Latine: Importa ex a.json vel.zip exporta fasciculus:",
-  "sum-of-number-fields": "Summa camporum numeralium propriorum in summo indicis ostensorum"
+  "sum-of-number-fields": "Summa camporum numeralium propriorum in summo indicis ostensorum",
+  "sticky-list-headers": "Capita indicis affixa",
+  "more-options": "Plures optiones"
 }

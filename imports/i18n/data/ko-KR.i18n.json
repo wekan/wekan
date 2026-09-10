@@ -1972,6 +1972,12 @@
   "uncollapse": "펴기",
   "hideCheckedChecklistItems": "확인된 확인목록 항목 숨기기",
   "hideAllChecklistItems": "모든 확인목록 항목 숨기기",
+  "checklist-reset-interval": "자동 재설정",
+  "checklistResetIntervalPopup-title": "자동 재설정",
+  "checklist-reset-interval-none": "꺼짐 (자동으로 재설정되지 않음)",
+  "checklist-reset-interval-daily": "매일",
+  "checklist-reset-interval-weekly": "매주",
+  "checklist-reset-interval-monthly": "매월",
   "hideCompletedSubtasks": "완료된 하위 작업 숨기기",
   "support": "지원",
   "supportPopup-title": "지원",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "가져올 원본:",
   "import-parts-instruction": "선택한 부분만 가져옵니다. 내보낼 때도 같은 선택이 사용됩니다.",
   "import-wekan-file": ".json 또는 .zip 내보내기 파일에서 가져오기:",
-  "sum-of-number-fields": "목록 상단에 표시되는 숫자 사용자 지정 필드의 합계"
+  "sum-of-number-fields": "목록 상단에 표시되는 숫자 사용자 지정 필드의 합계",
+  "sticky-list-headers": "고정된 목록 헤더",
+  "more-options": "추가 옵션"
 }

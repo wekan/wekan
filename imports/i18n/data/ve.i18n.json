@@ -1972,6 +1972,12 @@
   "uncollapse": "Susa ukugoqa",
   "hideCheckedChecklistItems": "Fihla izinto zohlu lokuhlola ezihloliwe",
   "hideAllChecklistItems": "Fihla zonke izinto zohlu lokuhlola",
+  "checklist-reset-interval": "U dovha nga u ḓiitela",
+  "checklistResetIntervalPopup-title": "U dovha nga u ḓiitela",
+  "checklist-reset-interval-none": "Yo dzimiswa (a i dovholowi nga u ḓiitela)",
+  "checklist-reset-interval-daily": "Ḓuvha nga ḓuvha",
+  "checklist-reset-interval-weekly": "Vhege nga vhege",
+  "checklist-reset-interval-monthly": "Ṅwedzi nga ṅwedzi",
   "hideCompletedSubtasks": "Dzumisa mishumo miṱuku yo fheleaho",
   "support": "Ukusekela",
   "supportPopup-title": "Ukusekela",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Ngenisa kusuka ku:",
   "import-parts-instruction": "Kungeniswa kuphela izingxenye ezimakiwe. Ukukhetha okufanayo kusetshenziswa lapho uthumela ngaphandle.",
   "import-wekan-file": "Ngenisa kusuka efayeleni le-.json noma le-.zip:",
-  "sum-of-number-fields": "Nzhengeledzo ya masia a khontḓo dza dziṅwalo dzi sumbedzwaho nṱha ha lushaka"
+  "sum-of-number-fields": "Nzhengeledzo ya masia a khontḓo dza dziṅwalo dzi sumbedzwaho nṱha ha lushaka",
+  "sticky-list-headers": "Dzithoho dza malayisiti dzo namatelaho",
+  "more-options": "Khetho dzo engedzeaho"
 }

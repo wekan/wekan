@@ -1972,6 +1972,12 @@
   "uncollapse": "Expandir",
   "hideCheckedChecklistItems": "Ocultar elementos marcados de la lista de verificación",
   "hideAllChecklistItems": "Ocultar todos los elementos de la lista de verificación",
+  "checklist-reset-interval": "Aŭtomata restarigo",
+  "checklistResetIntervalPopup-title": "Aŭtomata restarigo",
+  "checklist-reset-interval-none": "Malŝaltita (ne restariĝas aŭtomate)",
+  "checklist-reset-interval-daily": "Ĉiutage",
+  "checklist-reset-interval-weekly": "Ĉiusemajne",
+  "checklist-reset-interval-monthly": "Ĉiumonate",
   "hideCompletedSubtasks": "Kaŝi finitajn subtaskojn",
   "support": "Soporte",
   "supportPopup-title": "Soporte",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Importi el:",
   "import-parts-instruction": "Nur la markitaj partoj estas importataj. La sama elekto uziĝas ĉe eksportado.",
   "import-wekan-file": "Importi el .json- aŭ .zip-eksportdosiero:",
-  "sum-of-number-fields": "Sumo de la numeraj propraj kampoj montrataj supre de la listo"
+  "sum-of-number-fields": "Sumo de la numeraj propraj kampoj montrataj supre de la listo",
+  "sticky-list-headers": "Fiksitaj listaj kapoj",
+  "more-options": "Pliaj opcioj"
 }

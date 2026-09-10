@@ -1972,6 +1972,12 @@
   "uncollapse": "Uncollapse (mu Luganda)",
   "hideCheckedChecklistItems": "Kweka checked ebintu by'olukalala lw'okukebera",
   "hideAllChecklistItems": "Kweka byonna ebintu by'olukalala lw'okukebera",
+  "checklist-reset-interval": "Okuzza obuggya kwokwokka",
+  "checklistResetIntervalPopup-title": "Okuzza obuggya kwokwokka",
+  "checklist-reset-interval-none": "Kizikize (tekizzibwawo buggya kwokwokka)",
+  "checklist-reset-interval-daily": "Buli lunaku",
+  "checklist-reset-interval-weekly": "Buli wiiki",
+  "checklist-reset-interval-monthly": "Buli mwezi",
   "hideCompletedSubtasks": "Kweka obumu obutonotono obumaze",
   "support": "Buyambi",
   "supportPopup-title": "Buyambi",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Leeta okuva:",
   "import-parts-instruction": "Kyokka ticked parts biri yaleeta. kimu choice kiri kyakozesebwa nga exporting.",
   "import-wekan-file": "Leeta okuva.json oba.zip fulumya fayiro:",
-  "sum-of-number-fields": "Omugabi gw'ebifo by'ennamba ebyekozesebwa ebiraga waggulu w'olukalala"
+  "sum-of-number-fields": "Omugabi gw'ebifo by'ennamba ebyekozesebwa ebiraga waggulu w'olukalala",
+  "sticky-list-headers": "Emitwe gy'olukalala eginywerera",
+  "more-options": "Ebisalibwaamu ebisingawo"
 }

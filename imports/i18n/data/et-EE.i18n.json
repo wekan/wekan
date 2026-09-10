@@ -1972,6 +1972,12 @@
   "uncollapse": "Laienda",
   "hideCheckedChecklistItems": "Peida märgitud kontrollnimekirja objektid",
   "hideAllChecklistItems": "Peida kõik kontrollnimekirja objektid",
+  "checklist-reset-interval": "Automaatne lähtestamine",
+  "checklistResetIntervalPopup-title": "Automaatne lähtestamine",
+  "checklist-reset-interval-none": "Väljas (ei lähtestata automaatselt)",
+  "checklist-reset-interval-daily": "Iga päev",
+  "checklist-reset-interval-weekly": "Iga nädal",
+  "checklist-reset-interval-monthly": "Iga kuu",
   "hideCompletedSubtasks": "Peida lõpetatud alamülesanded",
   "support": "Tugi",
   "supportPopup-title": "Tugi",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Impordi allikast:",
   "import-parts-instruction": "Imporditakse ainult märgitud osad. Sama valikut kasutatakse eksportimisel.",
   "import-wekan-file": "Impordi .json- või .zip-ekspordifailist:",
-  "sum-of-number-fields": "Loendi ülaosas kuvatavate arvuliste kohandatud väljade summa"
+  "sum-of-number-fields": "Loendi ülaosas kuvatavate arvuliste kohandatud väljade summa",
+  "sticky-list-headers": "Kleepuvad loendipäised",
+  "more-options": "Rohkem valikuid"
 }

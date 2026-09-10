@@ -1972,6 +1972,12 @@
   "uncollapse": "ᐊᖏᓕᑎᓪᓗᒍ",
   "hideCheckedChecklistItems": "ᓇᓗᓇᐃᖅᑕᐅᓯᒪᔪᑦ ᓇᓗᓇᐃᖅᓯᕕᐅᑉ ᐃᓗᓕᖏᑦ ᐃᔨᖅᓯᒪᑎᓪᓗᒋᑦ",
   "hideAllChecklistItems": "ᓇᓗᓇᐃᖅᓯᕕᐅᑉ ᐃᓗᓕᓕᒫᖏᑦ ᐃᔨᖅᓯᒪᑎᓪᓗᒋᑦ",
+  "checklist-reset-interval": "Kingullugu aturaaqattaq",
+  "checklistResetIntervalPopup-title": "Kingullugu aturaaqattaq",
+  "checklist-reset-interval-none": "Aasaali (aturaaqattaqanngittuq)",
+  "checklist-reset-interval-daily": "Ullut tamaasa",
+  "checklist-reset-interval-weekly": "Pinasuarutit tamaasa",
+  "checklist-reset-interval-monthly": "Taqqiit tamaasa",
   "hideCompletedSubtasks": "Hide completed subtasks",
   "support": "ᐃᑲᔪᖅᑕᐅᓂᖅ",
   "supportPopup-title": "ᐃᑲᔪᖅᑕᐅᓂᖅ",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "ᐅᕙᙵᑦ ᐃᓯᖅᑎᓪᓗᒍ:",
   "import-parts-instruction": "ᓇᓗᓇᐃᖅᑕᐅᔪᑐᐊᑦ ᐃᓚᖏᑦ ᐃᓯᖅᑎᑕᐅᔪᑦ. ᓂᕈᐊᕐᓂᖅ ᑖᓐᓇᑐᐊᖅ ᐊᓂᑦᓯᓂᕐᒥ ᐊᑐᖅᑕᐅᔪᖅ.",
   "import-wekan-file": ".json-ᒥᑦ ᐅᕝᕙᓘᓐᓃᑦ .zip-ᒥᑦ ᐊᓂᑎᑕᐅᔪᒥᑦ ᐃᓯᖅᑎᓪᓗᒍ:",
-  "sum-of-number-fields": "ᑎᑎᕋᖅᓯᒪᔪᑦ ᖃᓄᐃᓕᖓᓂᖏᑦ ᑭᖑᓪᓕᖅᐹᖑᓂᖏᓐᓄᑦ ᐊᒥᓲᓐᓂᖏᑦ ᑲᑎᓪᓗᐊᓂᖏᑦ"
+  "sum-of-number-fields": "ᑎᑎᕋᖅᓯᒪᔪᑦ ᖃᓄᐃᓕᖓᓂᖏᑦ ᑭᖑᓪᓕᖅᐹᖑᓂᖏᓐᓄᑦ ᐊᒥᓲᓐᓂᖏᑦ ᑲᑎᓪᓗᐊᓂᖏᑦ",
+  "sticky-list-headers": "ᑎᑎᕋᖅᓯᒪᔪᑦ ᐊᓪᓚᖅᑕᐅᓯᒪᔪᑦ",
+  "more-options": "ᐊᒥᓱᓂᒃ ᓂᕈᐊᒐᒃᓴᑦ"
 }

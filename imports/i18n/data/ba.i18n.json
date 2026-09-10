@@ -1972,6 +1972,12 @@
   "uncollapse": "Йәйергә",
   "hideCheckedChecklistItems": "Билдәләнгән тикшереү исемлеге элементтарын йәшерергә",
   "hideAllChecklistItems": "Бөтә тикшереү исемлеге элементтарын йәшерергә",
+  "checklist-reset-interval": "Автоматик ташлау",
+  "checklistResetIntervalPopup-title": "Автоматик ташлау",
+  "checklist-reset-interval-none": "Һүнгән (автоматик ташланмай)",
+  "checklist-reset-interval-daily": "Көн һайын",
+  "checklist-reset-interval-weekly": "Атна һайын",
+  "checklist-reset-interval-monthly": "Ай һайын",
   "hideCompletedSubtasks": "Тамамланған әҙер бурыстарҙы йәшереү",
   "support": "Ярҙәм",
   "supportPopup-title": "Ярҙәм",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Импорт сығанағы:",
   "import-parts-instruction": "Билдәләнгән өлөштәр генә импортлана. Экспортлағанда ла шул уҡ һайлау ҡулланыла.",
   "import-wekan-file": ".json йәки .zip экспорт файлынан импортларға:",
-  "sum-of-number-fields": "Исемлек өҫтөндә күрһәтелгән һанлы ярҙамсы баҫмаларҙың йыйылмаһы"
+  "sum-of-number-fields": "Исемлек өҫтөндә күрһәтелгән һанлы ярҙамсы баҫмаларҙың йыйылмаһы",
+  "sticky-list-headers": "Йәбешкәк исемлек башлыҡтары",
+  "more-options": "Күбрәк вариант"
 }

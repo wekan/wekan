@@ -1972,6 +1972,12 @@
   "uncollapse": "Sheeyney reesht",
   "hideCheckedChecklistItems": "Follee nheeghyn rolley scrutaghey scrutit",
   "hideAllChecklistItems": "Follee dy chooilley nhee rolley scrutaghey",
+  "checklist-reset-interval": "Aath-hoiaghey emshynagh",
+  "checklistResetIntervalPopup-title": "Aath-hoiaghey emshynagh",
+  "checklist-reset-interval-none": "Jeh (cha nel eh dol dy aath-hoiaghey emshynagh)",
+  "checklist-reset-interval-daily": "Laa dy laa",
+  "checklist-reset-interval-weekly": "Shiaghtin dy hiaghtin",
+  "checklist-reset-interval-monthly": "Mee dy vee",
   "hideCompletedSubtasks": "Follee obbraghyn fo-lheah cooilleenit",
   "support": "Cooney",
   "supportPopup-title": "Cooney",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Cur stiagh veih:",
   "import-parts-instruction": "Cha nel agh ny ayrnyn scrutit er nyn gur stiagh. Ta'n un reih ymmydit tra ta cur magh jeant.",
   "import-wekan-file": "Cur stiagh veih coadan .json ny .zip currit magh:",
-  "sum-of-number-fields": "Suim ny magheryn earrooagh sonraigit yeeit ec baare y rolley"
+  "sum-of-number-fields": "Suim ny magheryn earrooagh sonraigit yeeit ec baare y rolley",
+  "sticky-list-headers": "Kione-lieen sthickagh",
+  "more-options": "Reihyn elley"
 }

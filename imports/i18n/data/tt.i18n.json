@@ -1972,6 +1972,12 @@
   "uncollapse": "Генишлет",
   "hideCheckedChecklistItems": "Ишаретленен җһеҗклист өгелерини гизле",
   "hideAllChecklistItems": "Түм җһеҗклист өгелерини гизле",
+  "checklist-reset-interval": "Автоматик кире кайтару",
+  "checklistResetIntervalPopup-title": "Автоматик кире кайтару",
+  "checklist-reset-interval-none": "Сүнгән (автоматик рәвештә кире кайтарылмый)",
+  "checklist-reset-interval-daily": "Көн саен",
+  "checklist-reset-interval-weekly": "Атна саен",
+  "checklist-reset-interval-monthly": "Ай саен",
   "hideCompletedSubtasks": "Тәмамланган ярдәмче бурычларны яшерү",
   "support": "Дестек",
   "supportPopup-title": "Дестек",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Шурадан иче актар:",
   "import-parts-instruction": "Йалнызҗа ишаретленен бөлүмлер иче актарылыр. Дыша актарыркен де айны сечим кулланылыр.",
   "import-wekan-file": "Бир .жсон вейа .зип дыша актарма файлсындан иче актар:",
-  "sum-of-number-fields": "Исемлек өстендә күрсәтелгән санлы махсус кырлар суммасы"
+  "sum-of-number-fields": "Исемлек өстендә күрсәтелгән санлы махсус кырлар суммасы",
+  "sticky-list-headers": "Ябышкак исемлек башлыклары",
+  "more-options": "Күбрәк вариант"
 }

@@ -1972,6 +1972,12 @@
   "uncollapse": "Jembarake maneh",
   "hideCheckedChecklistItems": "Singidake item dhaptar priksa sing dicenthang",
   "hideAllChecklistItems": "Singidake kabeh item dhaptar priksa",
+  "checklist-reset-interval": "Reset otomatis",
+  "checklistResetIntervalPopup-title": "Reset otomatis",
+  "checklist-reset-interval-none": "Mati (ora reset otomatis)",
+  "checklist-reset-interval-daily": "Saben dina",
+  "checklist-reset-interval-weekly": "Saben minggu",
+  "checklist-reset-interval-monthly": "Saben sasi",
   "hideCompletedSubtasks": "Ndhelikake subtugas sing wis rampung",
   "support": "Dhukungan",
   "supportPopup-title": "Pitulung Dhukungan",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Impor saka:",
   "import-parts-instruction": "Mung bagean sing dicenthang sing diimpor. Pilihan sing padha digunakake nalika ngekspor.",
   "import-wekan-file": "Impor saka berkas ekspor .json utawa .zip:",
-  "sum-of-number-fields": "Jumlah kolom khusus angka sing ditampilake ing ndhuwur dhaptar"
+  "sum-of-number-fields": "Jumlah kolom khusus angka sing ditampilake ing ndhuwur dhaptar",
+  "sticky-list-headers": "Header dhaptar sing lengket",
+  "more-options": "Opsi liyane"
 }

@@ -1972,6 +1972,12 @@
   "uncollapse": "展开",
   "hideCheckedChecklistItems": "隐藏选中的清单项目",
   "hideAllChecklistItems": "隐藏所有清单项目",
+  "checklist-reset-interval": "自动重置",
+  "checklistResetIntervalPopup-title": "自动重置",
+  "checklist-reset-interval-none": "关脱（勿会自动重置）",
+  "checklist-reset-interval-daily": "天天",
+  "checklist-reset-interval-weekly": "礼拜礼拜",
+  "checklist-reset-interval-monthly": "月月",
   "hideCompletedSubtasks": "隐藏已完成个子任务",
   "support": "支持",
   "supportPopup-title": "支持",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "导入来源：",
   "import-parts-instruction": "只导入勾选的部分。导出时使用相同的选择。",
   "import-wekan-file": "从 .json 或 .zip 导出文件导入：",
-  "sum-of-number-fields": "在清单顶部显示的数字自定义字段的总和"
+  "sum-of-number-fields": "在清单顶部显示的数字自定义字段的总和",
+  "sticky-list-headers": "固定列表标题",
+  "more-options": "更多选项"
 }

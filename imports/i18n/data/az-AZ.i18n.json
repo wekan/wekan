@@ -1972,6 +1972,12 @@
   "uncollapse": "Açmaq",
   "hideCheckedChecklistItems": "Yoxlanmış yoxlama siyahısı elementlərini gizlədin",
   "hideAllChecklistItems": "Bütün yoxlama siyahısı elementlərini gizlədin",
+  "checklist-reset-interval": "Avtomatik sıfırlama",
+  "checklistResetIntervalPopup-title": "Avtomatik sıfırlama",
+  "checklist-reset-interval-none": "Söndürülüb (avtomatik sıfırlanmır)",
+  "checklist-reset-interval-daily": "Gündəlik",
+  "checklist-reset-interval-weekly": "Həftəlik",
+  "checklist-reset-interval-monthly": "Aylıq",
   "hideCompletedSubtasks": "Tamamlanmış alt tapşırıqları gizlət",
   "support": "Dəstək",
   "supportPopup-title": "Dəstək",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Buradan idxal et:",
   "import-parts-instruction": "Yalnız işarələnmiş hissələr idxal olunur. İxrac zamanı da eyni seçim istifadə olunur.",
   "import-wekan-file": ".json və ya .zip ixrac faylından idxal et:",
-  "sum-of-number-fields": "Siyahının yuxarısında göstərilən ədədi xüsusi sahələrin cəmi"
+  "sum-of-number-fields": "Siyahının yuxarısında göstərilən ədədi xüsusi sahələrin cəmi",
+  "sticky-list-headers": "Yapışqan siyahı başlıqları",
+  "more-options": "Daha çox seçim"
 }

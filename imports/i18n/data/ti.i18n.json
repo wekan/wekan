@@ -1972,6 +1972,12 @@
   "uncollapse": "ዘርግሕ",
   "hideCheckedChecklistItems": "ምልክት ዝተገብረሎም ነገራት ዝርዝር መረጋገጺ ሕባእ",
   "hideAllChecklistItems": "ኩሎም ነገራት ዝርዝር መረጋገጺ ሕባእ",
+  "checklist-reset-interval": "ርእሰ ተግባር ምምላስ",
+  "checklistResetIntervalPopup-title": "ርእሰ ተግባር ምምላስ",
+  "checklist-reset-interval-none": "ጠፊኡ (ርእሰ ተግባር ኣይምለስን እዩ)",
+  "checklist-reset-interval-daily": "መዓልታዊ",
+  "checklist-reset-interval-weekly": "ሰሙናዊ",
+  "checklist-reset-interval-monthly": "ወርሓዊ",
   "hideCompletedSubtasks": "ዝተዛዘመ ንኡሳት ዕማማት ሕባእ",
   "support": "ደገፍ",
   "supportPopup-title": "ደገፍ",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "ካብዚ ኣእቱ፦",
   "import-parts-instruction": "ምልክት ዝተገብረሎም ክፍልታት ጥራይ ይኣትዉ። ኣብ ምልኣኽ እውን እቲ ሓደ ምርጫ ይጥቀም።",
   "import-wekan-file": "ካብ .json ወይ .zip ናይ ምልኣኽ ፋይል ኣእቱ፦",
-  "sum-of-number-fields": "ድምር ናይቲ ኣብ ላዕሊ ዝርዝር ዚርአዩ ቁጽራዊ ፍሉያት ሜዳታት"
+  "sum-of-number-fields": "ድምር ናይቲ ኣብ ላዕሊ ዝርዝር ዚርአዩ ቁጽራዊ ፍሉያት ሜዳታት",
+  "sticky-list-headers": "ዝጠበቐ ናይ ዝርዝር ኣርእስቲ",
+  "more-options": "ተወሳኺ ኣማራጺታት"
 }

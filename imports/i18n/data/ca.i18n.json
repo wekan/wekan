@@ -1972,6 +1972,12 @@
   "uncollapse": "Desplega",
   "hideCheckedChecklistItems": "Amaga els elements marcats de la checklist",
   "hideAllChecklistItems": "Amaga tots els elements de la checklist",
+  "checklist-reset-interval": "Restabliment automàtic",
+  "checklistResetIntervalPopup-title": "Restabliment automàtic",
+  "checklist-reset-interval-none": "Desactivat (no es restableix automàticament)",
+  "checklist-reset-interval-daily": "Diàriament",
+  "checklist-reset-interval-weekly": "Setmanalment",
+  "checklist-reset-interval-monthly": "Mensualment",
   "hideCompletedSubtasks": "Amaga les subtasques completades",
   "support": "Suport",
   "supportPopup-title": "Suport",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Importa des de:",
   "import-parts-instruction": "Només s'importen les parts marcades. La mateixa selecció s'usa en exportar.",
   "import-wekan-file": "Importa des d'un fitxer d'exportació .json o .zip:",
-  "sum-of-number-fields": "Suma dels camps numèrics personalitzats mostrats a la part superior de la llista"
+  "sum-of-number-fields": "Suma dels camps numèrics personalitzats mostrats a la part superior de la llista",
+  "sticky-list-headers": "Capçaleres de llista fixades",
+  "more-options": "Més opcions"
 }

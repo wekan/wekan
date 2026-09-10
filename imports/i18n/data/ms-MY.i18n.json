@@ -1972,6 +1972,12 @@
   "uncollapse": "Kembangkan",
   "hideCheckedChecklistItems": "Sembunyikan item senarai semak yang ditanda",
   "hideAllChecklistItems": "Sembunyikan semua item senarai semak",
+  "checklist-reset-interval": "Set semula automatik",
+  "checklistResetIntervalPopup-title": "Set semula automatik",
+  "checklist-reset-interval-none": "Mati (tidak diset semula secara automatik)",
+  "checklist-reset-interval-daily": "Harian",
+  "checklist-reset-interval-weekly": "Mingguan",
+  "checklist-reset-interval-monthly": "Bulanan",
   "hideCompletedSubtasks": "Sembunyikan subtugas selesai",
   "support": "Sokongan",
   "supportPopup-title": "Sokongan",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Import daripada:",
   "import-parts-instruction": "Hanya bahagian yang ditanda diimport. Pilihan yang sama digunakan semasa mengeksport.",
   "import-wekan-file": "Import daripada fail eksport .json atau .zip:",
-  "sum-of-number-fields": "Jumlah medan tersuai berangka yang dipaparkan di bahagian atas senarai"
+  "sum-of-number-fields": "Jumlah medan tersuai berangka yang dipaparkan di bahagian atas senarai",
+  "sticky-list-headers": "Pengepala senarai tetap",
+  "more-options": "Lagi pilihan"
 }

@@ -1972,6 +1972,12 @@
   "uncollapse": "ונקאַלאַפּס",
   "hideCheckedChecklistItems": "באַהאַלטן אָפּגעשטעלט טשעקליסט זאכן",
   "hideAllChecklistItems": "באַהאַלטן אַלע טשעקליסט זאכן",
+  "checklist-reset-interval": "אויטאָמאַטישע רעסעט",
+  "checklistResetIntervalPopup-title": "אויטאָמאַטישע רעסעט",
+  "checklist-reset-interval-none": "אויס (רעסעט נישט אויטאָמאַטיש)",
+  "checklist-reset-interval-daily": "טעגלעך",
+  "checklist-reset-interval-weekly": "וועכנטלעך",
+  "checklist-reset-interval-monthly": "חודשלעך",
   "hideCompletedSubtasks": "באהאלטן פארענדיקטע אונטער־אויפגאבעס",
   "support": "שטיצן",
   "supportPopup-title": "שטיצן",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "אימפּאָרטירן פֿון:",
   "import-parts-instruction": "בלויז די אָפּגעצייכנטע טיילן ווערן אימפּאָרטירט. די זעלבע אויסקלײַב ווערט גענוצט בײַם עקספּאָרטירן.",
   "import-wekan-file": "אימפּאָרטירן פֿון אַ .json אָדער .zip עקספּאָרט־טעקע:",
-  "sum-of-number-fields": "סומע פֿון נומעריק אָנגעפאַסטע פֿעלדער באַוויזן אויבן פֿון ליסטע"
+  "sum-of-number-fields": "סומע פֿון נומעריק אָנגעפאַסטע פֿעלדער באַוויזן אויבן פֿון ליסטע",
+  "sticky-list-headers": "קלעפּעדיקע רשימה קעפ",
+  "more-options": "מער אָפּציעס"
 }

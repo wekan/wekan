@@ -1972,6 +1972,12 @@
   "uncollapse": "Non collassare",
   "hideCheckedChecklistItems": "Nascondi gli elementi della lista di controllo selezionati",
   "hideAllChecklistItems": "Nascondi gli elementi della lista di controllo",
+  "checklist-reset-interval": "Ripristino automatico",
+  "checklistResetIntervalPopup-title": "Ripristino automatico",
+  "checklist-reset-interval-none": "Disattivato (non si ripristina automaticamente)",
+  "checklist-reset-interval-daily": "Giornaliero",
+  "checklist-reset-interval-weekly": "Settimanale",
+  "checklist-reset-interval-monthly": "Mensile",
   "hideCompletedSubtasks": "Nascondi le sottoattività completate",
   "support": "Supporto",
   "supportPopup-title": "Supporto",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Importa da:",
   "import-parts-instruction": "Vengono importate solo le parti selezionate. La stessa scelta è usata durante l'esportazione.",
   "import-wekan-file": "Importa da un file di esportazione .json o .zip:",
-  "sum-of-number-fields": "Somma dei campi personalizzati numerici mostrati in cima all'elenco"
+  "sum-of-number-fields": "Somma dei campi personalizzati numerici mostrati in cima all'elenco",
+  "sticky-list-headers": "Intestazioni di elenco fisse",
+  "more-options": "Altre opzioni"
 }

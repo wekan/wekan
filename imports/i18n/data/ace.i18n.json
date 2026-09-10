@@ -1972,6 +1972,12 @@
   "uncollapse": "Peubuka",
   "hideCheckedChecklistItems": "Sok item checklist nyang ka geucek",
   "hideAllChecklistItems": "Sok mandum item checklist",
+  "checklist-reset-interval": "Reset otomatis",
+  "checklistResetIntervalPopup-title": "Reset otomatis",
+  "checklist-reset-interval-none": "Pheut (hana reset otomatis)",
+  "checklist-reset-interval-daily": "Tieb uroe",
+  "checklist-reset-interval-weekly": "Tieb minggu",
+  "checklist-reset-interval-monthly": "Tieb buleun",
   "hideCompletedSubtasks": "Seumunyet subtugaih nyang ka lheuh",
   "support": "Bantuan",
   "supportPopup-title": "Bantuan",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Import daripada:",
   "import-parts-instruction": "Hanya bahagian yang ditanda diimport. Pilihan yang sama digunakan semasa mengeksport.",
   "import-wekan-file": "Import daripada fail eksport .json atau .zip:",
-  "sum-of-number-fields": "Jeumeulah gata angka nyang teuma peuduek di ateuh ka bak leumbah"
+  "sum-of-number-fields": "Jeumeulah gata angka nyang teuma peuduek di ateuh ka bak leumbah",
+  "sticky-list-headers": "Ulèe list nyang leukat",
+  "more-options": "Leubèh pilihan"
 }

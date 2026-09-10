@@ -1972,6 +1972,12 @@
   "uncollapse": "දිගහරින්න",
   "hideCheckedChecklistItems": "සලකුණු කළ පිරික්සුම් ලැයිස්තු අයිතම සඟවන්න",
   "hideAllChecklistItems": "සියලු පිරික්සුම් ලැයිස්තු අයිතම සඟවන්න",
+  "checklist-reset-interval": "ස්වයංක්‍රීය නැවත සකසන",
+  "checklistResetIntervalPopup-title": "ස්වයංක්‍රීය නැවත සකසන",
+  "checklist-reset-interval-none": "ක්‍රියාවිරහිත (ස්වයංක්‍රීයව නැවත සකසන්නේ නැත)",
+  "checklist-reset-interval-daily": "දිනපතා",
+  "checklist-reset-interval-weekly": "සතිපතා",
+  "checklist-reset-interval-monthly": "මාසිකව",
   "hideCompletedSubtasks": "සම්පූර්ණ කළ උපකාර්ය සඟවන්න",
   "support": "සහාය",
   "supportPopup-title": "සහාය",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "මෙතැනින් ආයාත කරන්න:",
   "import-parts-instruction": "සලකුණු කළ කොටස් පමණක් ආයාත කරයි. නිර්යාත කිරීමේදීද එම තේරීමම භාවිත කරයි.",
   "import-wekan-file": ".json හෝ .zip නිර්යාත ගොනුවකින් ආයාත කරන්න:",
-  "sum-of-number-fields": "ලැයිස්තුවේ ඉහළින් පෙන්වන සංඛ්‍යාත්මක අභිරුචි ක්ෂේත්‍රවල එකතුව"
+  "sum-of-number-fields": "ලැයිස්තුවේ ඉහළින් පෙන්වන සංඛ්‍යාත්මක අභිරුචි ක්ෂේත්‍රවල එකතුව",
+  "sticky-list-headers": "ඇලවෙන ලැයිස්තු ශීර්ෂ",
+  "more-options": "තවත් විකල්ප"
 }

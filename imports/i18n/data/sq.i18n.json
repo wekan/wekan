@@ -1972,6 +1972,12 @@
   "uncollapse": "Zgjero",
   "hideCheckedChecklistItems": "Fshih elementet e shënuara të listës së kontrollit",
   "hideAllChecklistItems": "Fshih të gjithë elementet e listës së kontrollit",
+  "checklist-reset-interval": "Rivendosje automatike",
+  "checklistResetIntervalPopup-title": "Rivendosje automatike",
+  "checklist-reset-interval-none": "Joaktive (nuk rivendoset automatikisht)",
+  "checklist-reset-interval-daily": "Ditore",
+  "checklist-reset-interval-weekly": "Javore",
+  "checklist-reset-interval-monthly": "Mujore",
   "hideCompletedSubtasks": "Fshih nën-detyrat e përfunduara",
   "support": "Mbështetja",
   "supportPopup-title": "Mbështetja",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Importo nga:",
   "import-parts-instruction": "Importohen vetëm pjesët e shënuara. E njëjta zgjedhje përdoret gjatë eksportimit.",
   "import-wekan-file": "Importo nga një skedar eksporti .json ose .zip:",
-  "sum-of-number-fields": "Shuma e fushave numerike të personalizuara të shfaqura në krye të listës"
+  "sum-of-number-fields": "Shuma e fushave numerike të personalizuara të shfaqura në krye të listës",
+  "sticky-list-headers": "Titujt e listës të fiksuar",
+  "more-options": "Më shumë opsione"
 }

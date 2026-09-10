@@ -1972,6 +1972,12 @@
   "uncollapse": "إلغاء الانهيار",
   "hideCheckedChecklistItems": "إخفاء عناصر قائمة التحقق المحددة",
   "hideAllChecklistItems": "إخفاء جميع عناصر قائمة التحقق",
+  "checklist-reset-interval": "التصفير التلقائي",
+  "checklistResetIntervalPopup-title": "التصفير التلقائي",
+  "checklist-reset-interval-none": "مبوّر (ماكيتصفّرش وحدو)",
+  "checklist-reset-interval-daily": "كل نهار",
+  "checklist-reset-interval-weekly": "كل سيمانة",
+  "checklist-reset-interval-monthly": "كل شهر",
   "hideCompletedSubtasks": "خبا المهام الفرعية لي كملات",
   "support": "دعم",
   "supportPopup-title": "دعم",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "الاستيراد من:",
   "import-parts-instruction": "لا يُستورد سوى الأجزاء المحددة. ويُستخدم الاختيار نفسه عند التصدير.",
   "import-wekan-file": "الاستيراد من ملف تصدير ‏.json أو ‏.zip:",
-  "sum-of-number-fields": "مجموع الحقول الرقمية ديال الحد ديال فوق اللائحة"
+  "sum-of-number-fields": "مجموع الحقول الرقمية ديال الحد ديال فوق اللائحة",
+  "sticky-list-headers": "رؤوس اللائحة اللاصقة",
+  "more-options": "المزيد من الخيارات"
 }

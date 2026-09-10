@@ -1972,6 +1972,12 @@
   "uncollapse": "Uitklappen",
   "hideCheckedChecklistItems": "Verberg aangevinkte checklist items",
   "hideAllChecklistItems": "Verberg alle checklist items",
+  "checklist-reset-interval": "Automatische reset",
+  "checklistResetIntervalPopup-title": "Automatische reset",
+  "checklist-reset-interval-none": "Uit (reset niet automatisch)",
+  "checklist-reset-interval-daily": "Dagelijks",
+  "checklist-reset-interval-weekly": "Wekelijks",
+  "checklist-reset-interval-monthly": "Maandelijks",
   "hideCompletedSubtasks": "Hide completed subtasks",
   "support": "Ondersteuning",
   "supportPopup-title": "Ondersteuning",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Importeren uit:",
   "import-parts-instruction": "Alleen de aangevinkte onderdelen worden geïmporteerd. Dezelfde keuze geldt bij het exporteren.",
   "import-wekan-file": "Importeren uit een .json- of .zip-exportbestand:",
-  "sum-of-number-fields": "Somu di kampu numériku personalizadu mostradu na parti riba di lista"
+  "sum-of-number-fields": "Somu di kampu numériku personalizadu mostradu na parti riba di lista",
+  "sticky-list-headers": "Dzithoho dza malayisiti dzo namatelaho",
+  "more-options": "Mas opsion"
 }

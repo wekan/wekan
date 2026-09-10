@@ -1972,6 +1972,12 @@
   "uncollapse": "وغځوئ",
   "hideCheckedChecklistItems": "نښه شوي د کتنليک توکي پټ کړئ",
   "hideAllChecklistItems": "د کتنليک ټول توکي پټ کړئ",
+  "checklist-reset-interval": "خودکاره بيا تنظيم",
+  "checklistResetIntervalPopup-title": "خودکاره بيا تنظيم",
+  "checklist-reset-interval-none": "بند (پخپله بيا تنظيم نه کيږي)",
+  "checklist-reset-interval-daily": "ورځنی",
+  "checklist-reset-interval-weekly": "اونيز",
+  "checklist-reset-interval-monthly": "میاشتنی",
   "hideCompletedSubtasks": "بشپړ شوي فرعي دندې پټول",
   "support": "ملاتړ",
   "supportPopup-title": "ملاتړ",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "له دې ځايه واردول:",
   "import-parts-instruction": "يوازې نښه شوې برخې واردېږي. د صادرولو پر مهال هماغه ټاکنه کارول کېږي.",
   "import-wekan-file": "له .json يا .zip صادرې شوې دوتنې څخه واردول:",
-  "sum-of-number-fields": "د لیست په سر کې ښودل شوي شمېریز دودیز ساحو مجموعه"
+  "sum-of-number-fields": "د لیست په سر کې ښودل شوي شمېریز دودیز ساحو مجموعه",
+  "sticky-list-headers": "د لیست سریښناک سرلیکونه",
+  "more-options": "نور اختیارونه"
 }

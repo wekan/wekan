@@ -1972,6 +1972,12 @@
   "uncollapse": "Genişlet",
   "hideCheckedChecklistItems": "İşaretlenen checklist öğelerini gizle",
   "hideAllChecklistItems": "Tüm checklist öğelerini gizle",
+  "checklist-reset-interval": "Otomatik sıfırlama",
+  "checklistResetIntervalPopup-title": "Otomatik sıfırlama",
+  "checklist-reset-interval-none": "Kapalı (otomatik olarak sıfırlanmaz)",
+  "checklist-reset-interval-daily": "Günlük",
+  "checklist-reset-interval-weekly": "Haftalık",
+  "checklist-reset-interval-monthly": "Aylık",
   "hideCompletedSubtasks": "Tamamlanan alt görevleri gizle",
   "support": "Destek",
   "supportPopup-title": "Destek",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Şuradan içe aktar:",
   "import-parts-instruction": "Yalnızca işaretlenen bölümler içe aktarılır. Dışa aktarırken de aynı seçim kullanılır.",
   "import-wekan-file": "Bir .json veya .zip dışa aktarma dosyasından içe aktar:",
-  "sum-of-number-fields": "Listenin üst kısmında gösterilen sayısal özel alanların toplamı"
+  "sum-of-number-fields": "Listenin üst kısmında gösterilen sayısal özel alanların toplamı",
+  "sticky-list-headers": "Sabit liste başlıkları",
+  "more-options": "Diğer seçenekler"
 }

@@ -1972,6 +1972,12 @@
   "uncollapse": "Жаю",
   "hideCheckedChecklistItems": "Белгіленген тексеру тізімі тармақтарын жасыру",
   "hideAllChecklistItems": "Тексеру тізімінің барлық тармақтарын жасыру",
+  "checklist-reset-interval": "Автоматты қалпына келтіру",
+  "checklistResetIntervalPopup-title": "Автоматты қалпына келтіру",
+  "checklist-reset-interval-none": "Өшірулі (автоматты түрде қалпына келтірілмейді)",
+  "checklist-reset-interval-daily": "Күнделікті",
+  "checklist-reset-interval-weekly": "Апта сайын",
+  "checklist-reset-interval-monthly": "Ай сайын",
   "hideCompletedSubtasks": "Аяқталған қосалқы тапсырмаларды жасыру",
   "support": "Қолдау",
   "supportPopup-title": "Қолдау",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Мынадан импорттау:",
   "import-parts-instruction": "Тек белгіленген бөліктер импортталады. Экспорттау кезінде де сол таңдау пайдаланылады.",
   "import-wekan-file": ".json немесе .zip экспорт файлынан импорттау:",
-  "sum-of-number-fields": "Тізімнің жоғарғы жағында көрсетілетін сандық арнайы өрістердің қосындысы"
+  "sum-of-number-fields": "Тізімнің жоғарғы жағында көрсетілетін сандық арнайы өрістердің қосындысы",
+  "sticky-list-headers": "Жабысқақ тізім тақырыптары",
+  "more-options": "Қосымша опциялар"
 }

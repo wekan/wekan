@@ -1972,6 +1972,12 @@
   "uncollapse": "Traduzzjoni Maltija: Uncollapse",
   "hideCheckedChecklistItems": "Aħbi checked checklist items",
   "hideAllChecklistItems": "Aħbi all checklist items",
+  "checklist-reset-interval": "Riseting awtomatika",
+  "checklistResetIntervalPopup-title": "Riseting awtomatika",
+  "checklist-reset-interval-none": "Mitfi (ma jerġax jiġi riset awtomatikament)",
+  "checklist-reset-interval-daily": "Kuljum",
+  "checklist-reset-interval-weekly": "Kull ġimgħa",
+  "checklist-reset-interval-monthly": "Kull xahar",
   "hideCompletedSubtasks": "Aħbi s-sottokompiti mlestija",
   "support": "Traduzzjoni Maltija: Support",
   "supportPopup-title": "Traduzzjoni Maltija: Support",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Importa minn:",
   "import-parts-instruction": "Only il- ticked parts huma importa. The same choice huwa used when exporting.",
   "import-wekan-file": "Importa minn a .json or .zip export file:",
-  "sum-of-number-fields": "Somma tal-oqsma numeriċi personalizzati murija fil-quċċata tal-lista"
+  "sum-of-number-fields": "Somma tal-oqsma numeriċi personalizzati murija fil-quċċata tal-lista",
+  "sticky-list-headers": "Intestaturi tal-lista mwaħħla",
+  "more-options": "Aktar għażliet"
 }

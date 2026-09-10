@@ -1972,6 +1972,12 @@
   "uncollapse": "ပြန်ဖြန့်ရန်",
   "hideCheckedChecklistItems": "စစ်ဆေးပြီးသော စစ်ဆေးရန်စာရင်းအရာများ ဖျောက်ရန်",
   "hideAllChecklistItems": "စစ်ဆေးရန်စာရင်းအရာအားလုံး ဖျောက်ရန်",
+  "checklist-reset-interval": "အလိုအလျောက် ပြန်လည်သတ်မှတ်ခြင်း",
+  "checklistResetIntervalPopup-title": "အလိုအလျောက် ပြန်လည်သတ်မှတ်ခြင်း",
+  "checklist-reset-interval-none": "ပိတ် (အလိုအလျောက် ပြန်မသတ်မှတ်ပါ)",
+  "checklist-reset-interval-daily": "နေ့စဉ်",
+  "checklist-reset-interval-weekly": "အပတ်စဉ်",
+  "checklist-reset-interval-monthly": "လစဉ်",
   "hideCompletedSubtasks": "ပြီးစီးသော လုပ်ငန်းခွဲများကို ဖျောက်ပါ",
   "support": "ပံ့ပိုးကူညီမှု",
   "supportPopup-title": "ပံ့ပိုးကူညီမှု",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "ဤနေရာမှ တင်သွင်းရန်-",
   "import-parts-instruction": "အမှန်ခြစ်ထားသော အပိုင်းများကိုသာ တင်သွင်းသည်။ တင်ပို့ရာတွင်လည်း အလားတူ ရွေးချယ်မှုကို သုံးသည်။",
   "import-wekan-file": ".json သို့မဟုတ် .zip တင်ပို့ဖိုင်မှ တင်သွင်းရန်-",
-  "sum-of-number-fields": "စာရင်း၏ထိပ်တွင်ပြသထားသော ဂဏန်းအလိုကျအကွက်များ၏ ပေါင်းလဒ်"
+  "sum-of-number-fields": "စာရင်း၏ထိပ်တွင်ပြသထားသော ဂဏန်းအလိုကျအကွက်များ၏ ပေါင်းလဒ်",
+  "sticky-list-headers": "စာရင်းခေါင်းစီးများ ကပ်ငြိ",
+  "more-options": "နောက်ထပ် ရွေးချယ်စရာများ"
 }

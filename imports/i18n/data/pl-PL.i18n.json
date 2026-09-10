@@ -1972,6 +1972,12 @@
   "uncollapse": "Rozwiń",
   "hideCheckedChecklistItems": "Ukryj zaznaczone pozycje checklisty",
   "hideAllChecklistItems": "Ukryj wszystkie pozycje checklisty",
+  "checklist-reset-interval": "Automatyczny reset",
+  "checklistResetIntervalPopup-title": "Automatyczny reset",
+  "checklist-reset-interval-none": "Wyłączone (nie resetuje się automatycznie)",
+  "checklist-reset-interval-daily": "Codziennie",
+  "checklist-reset-interval-weekly": "Co tydzień",
+  "checklist-reset-interval-monthly": "Co miesiąc",
   "hideCompletedSubtasks": "Ukryj ukończone podzadania",
   "support": "Wsparcie",
   "supportPopup-title": "Wsparcie",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Importuj z:",
   "import-parts-instruction": "Importowane są tylko zaznaczone części. Ten sam wybór jest używany przy eksporcie.",
   "import-wekan-file": "Importuj z pliku eksportu .json lub .zip:",
-  "sum-of-number-fields": "Suma liczbowych pól niestandardowych wyświetlanych na górze listy"
+  "sum-of-number-fields": "Suma liczbowych pól niestandardowych wyświetlanych na górze listy",
+  "sticky-list-headers": "Przyklejone nagłówki list",
+  "more-options": "Więcej opcji"
 }

@@ -1972,6 +1972,12 @@
   "uncollapse": "Développer",
   "hideCheckedChecklistItems": "Cacher les éléments cochés de la check-list",
   "hideAllChecklistItems": "Cacher tous les éléments de la check-list",
+  "checklist-reset-interval": "Delloosi ci boppam",
+  "checklistResetIntervalPopup-title": "Delloosi ci boppam",
+  "checklist-reset-interval-none": "Muñeel (du delloosi ci boppam)",
+  "checklist-reset-interval-daily": "Bis bu ne",
+  "checklist-reset-interval-weekly": "Ayubés bu ne",
+  "checklist-reset-interval-monthly": "Weer wu ne",
   "hideCompletedSubtasks": "Nëbb liggéey yu ndaw yu matale",
   "support": "Ndimbal",
   "supportPopup-title": "Ndimbal",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Dugal ci:",
   "import-parts-instruction": "Ay pàcc yi ñu tànn rekk lañu dugal. Tànn boobu la ñu jëfandikoo bu ñu génnee.",
   "import-wekan-file": "Dugal ci fiiseg génne .json walla .zip:",
-  "sum-of-number-fields": "Limu i champ yu limu jëfandikoo di feeñu ci kaw lëkkalekaay bi"
+  "sum-of-number-fields": "Limu i champ yu limu jëfandikoo di feeñu ci kaw lëkkalekaay bi",
+  "sticky-list-headers": "Bopp bu mbooloo mi tegu",
+  "more-options": "Yeneen tannéefi"
 }

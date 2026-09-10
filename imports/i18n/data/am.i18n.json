@@ -1972,6 +1972,12 @@
   "uncollapse": "ዘርጋ",
   "hideCheckedChecklistItems": "ምልክት የተደረገባቸውን የማረጋገጫ ዝርዝር ንጥሎች ደብቅ",
   "hideAllChecklistItems": "ሁሉንም የማረጋገጫ ዝርዝር ንጥሎች ደብቅ",
+  "checklist-reset-interval": "ራስ-ሰር ዳግም ማስጀመር",
+  "checklistResetIntervalPopup-title": "ራስ-ሰር ዳግም ማስጀመር",
+  "checklist-reset-interval-none": "ጠፍቷል (በራስ-ሰር አይደገምም)",
+  "checklist-reset-interval-daily": "ዕለታዊ",
+  "checklist-reset-interval-weekly": "ሳምንታዊ",
+  "checklist-reset-interval-monthly": "ወርሃዊ",
   "hideCompletedSubtasks": "የተጠናቀቁ ንዑስ ተግባራትን ደብቅ",
   "support": "ድጋፍ",
   "supportPopup-title": "ድጋፍ",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "ከዚህ አስመጣ፦",
   "import-parts-instruction": "ምልክት የተደረገባቸው ክፍሎች ብቻ ይመጣሉ። ተመሳሳይ ምርጫ ወደ ውጭ ሲላክም ይጠቀማል።",
   "import-wekan-file": "ከወደ ውጭ የተላከ .json ወይም .zip ፋይል አስመጣ፦",
-  "sum-of-number-fields": "የዝርዝሩ ከላይ የሚታዩ የቁጥር ብጁ መስኮች ድምር"
+  "sum-of-number-fields": "የዝርዝሩ ከላይ የሚታዩ የቁጥር ብጁ መስኮች ድምር",
+  "sticky-list-headers": "የተለጠፈ የዝርዝር ራስጌዎች",
+  "more-options": "ተጨማሪ አማራጮች"
 }

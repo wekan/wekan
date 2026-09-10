@@ -1972,6 +1972,12 @@
   "uncollapse": "Développer",
   "hideCheckedChecklistItems": "Cacher les éléments cochés de la check-list",
   "hideAllChecklistItems": "Cacher tous les éléments de la check-list",
+  "checklist-reset-interval": "Rimetaedje otomatike",
+  "checklistResetIntervalPopup-title": "Rimetaedje otomatike",
+  "checklist-reset-interval-none": "Distinnou (ni s' rimete nén otomatikmint)",
+  "checklist-reset-interval-daily": "Tos les djoûs",
+  "checklist-reset-interval-weekly": "Totes les samwinnes",
+  "checklist-reset-interval-monthly": "Tos les moes",
   "hideCompletedSubtasks": "Catchî les sotåxhes fineye",
   "support": "Sopoirt",
   "supportPopup-title": "Sopoirt",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Abaguer di:",
   "import-parts-instruction": "Seulmint les pårteyes tchoezeyes sont abaguêyes. Li minme tchoes est eployî po l' ebagaedje.",
   "import-wekan-file": "Abaguer d' on fitchî d' ebagaedje .json ou .zip:",
-  "sum-of-number-fields": "Sômme des tchamps limerikes da vosse mostrés å dzeu del djivêye"
+  "sum-of-number-fields": "Sômme des tchamps limerikes da vosse mostrés å dzeu del djivêye",
+  "sticky-list-headers": "Tiesses di djivêye ristautcheyes",
+  "more-options": "Pus di tchoezes"
 }

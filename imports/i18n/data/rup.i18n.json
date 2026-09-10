@@ -1972,6 +1972,12 @@
   "uncollapse": "Non collassare",
   "hideCheckedChecklistItems": "Nascondi gli elementi della lista di controllo selezionati",
   "hideAllChecklistItems": "Nascondi gli elementi della lista di controllo",
+  "checklist-reset-interval": "Ahurhescu di sinsi",
+  "checklistResetIntervalPopup-title": "Ahurhescu di sinsi",
+  "checklist-reset-interval-none": "Astes (nu s-ahureaști di sinsi)",
+  "checklist-reset-interval-daily": "Cati dzua",
+  "checklist-reset-interval-weekly": "Cati siptamana",
+  "checklist-reset-interval-monthly": "Cati mes",
   "hideCompletedSubtasks": "Ascunde suptaskili bitisiti",
   "support": "Supporto",
   "supportPopup-title": "Supporto",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Importã dit:",
   "import-parts-instruction": "Se importã doar pãrtsile bifate. Aceeashi alegere este folositã la export.",
   "import-wekan-file": "Importã dintr-un Fisier di export .json sau .zip:",
-  "sum-of-number-fields": "Suma di câmpurli numerici personalizati aspusi la nchisita di lista"
+  "sum-of-number-fields": "Suma di câmpurli numerici personalizati aspusi la nchisita di lista",
+  "sticky-list-headers": "Anteturi di listă fixate",
+  "more-options": "Ma multi opțiuni"
 }

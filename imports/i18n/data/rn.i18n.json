@@ -1972,6 +1972,12 @@
   "uncollapse": "Zingurura",
   "hideCheckedChecklistItems": "Nyegeza ibintu vyasuzumwe vyo ku rutonde rwo kugenzura",
   "hideAllChecklistItems": "Nyegeza ibintu vyose vyo ku rutonde rwo kugenzura",
+  "checklist-reset-interval": "Guhindura vy'ubuhinga",
+  "checklistResetIntervalPopup-title": "Guhindura vy'ubuhinga",
+  "checklist-reset-interval-none": "Vyahagaritswe (ntibisubira ku busanzwe ubwabyo)",
+  "checklist-reset-interval-daily": "Umusi ku musi",
+  "checklist-reset-interval-weekly": "Indwi ku ndwi",
+  "checklist-reset-interval-monthly": "Ukwezi ku kwezi",
   "hideCompletedSubtasks": "Hisha ibikorwa bito vyarangiye",
   "support": "Imfashanyo",
   "supportPopup-title": "Imfashanyo",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Injiza bivuye muri:",
   "import-parts-instruction": "Ibice vyashizweko ikimenyetso gusa ni vyo vyinjizwa. Ihitamwo rimwe rirakoreshwa no mu gusohora.",
   "import-wekan-file": "Injiza bivuye muri dosiye .json canke .zip yasohowe:",
-  "sum-of-number-fields": "Igiteranyo c'ibipimo vy'imibare zihariye zerekanwa hejuru y'urutonde"
+  "sum-of-number-fields": "Igiteranyo c'ibipimo vy'imibare zihariye zerekanwa hejuru y'urutonde",
+  "sticky-list-headers": "Imitwe y'urutonde ifatanye",
+  "more-options": "Amahitamwo menshi"
 }

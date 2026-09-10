@@ -1972,6 +1972,12 @@
   "uncollapse": "Suurenna",
   "hideCheckedChecklistItems": "Piilota ruksatut tarkistuslistan kohdat",
   "hideAllChecklistItems": "Piilota kaikki tarkistuslistan kohdat",
+  "checklist-reset-interval": "Automaattinen nollaus",
+  "checklistResetIntervalPopup-title": "Automaattinen nollaus",
+  "checklist-reset-interval-none": "Pois päältä (ei nollaudu automaattisesti)",
+  "checklist-reset-interval-daily": "Päivittäin",
+  "checklist-reset-interval-weekly": "Viikoittain",
+  "checklist-reset-interval-monthly": "Kuukausittain",
   "hideCompletedSubtasks": "Piilota valmiit alitehtävät",
   "support": "Tuki",
   "supportPopup-title": "Tuki",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Tuo lähteestä:",
   "import-parts-instruction": "Vain valitut osat tuodaan. Samaa valintaa käytetään vietäessä.",
   "import-wekan-file": "Tuo .json- tai .zip-vientitiedostosta:",
-  "sum-of-number-fields": "Listan yläreunassa näytettävien numeeristen mukautettujen kenttien summa"
+  "sum-of-number-fields": "Listan yläreunassa näytettävien numeeristen mukautettujen kenttien summa",
+  "sticky-list-headers": "Kiinnitetyt luetteloiden otsikot",
+  "more-options": "Lisää valintoja"
 }

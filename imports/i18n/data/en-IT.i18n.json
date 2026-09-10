@@ -2480,5 +2480,7 @@
   "import-source-heading": "Import from:",
   "import-parts-instruction": "Only the ticked parts are imported. The same choice is used when exporting.",
   "import-wekan-file": "Import from a .json or .zip export file:",
-  "sum-of-number-fields": "Sum of number custom fields marked to show at top of list"
+  "sum-of-number-fields": "Sum of number custom fields marked to show at top of list",
+  "sticky-list-headers": "Sticky list headers",
+  "more-options": "More options"
 }

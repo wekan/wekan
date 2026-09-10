@@ -1972,6 +1972,12 @@
   "uncollapse": "Un Collapse",
   "hideCheckedChecklistItems": "Tọju awọn ohun akojọ ayẹwo",
   "hideAllChecklistItems": "Tọju gbogbo awọn nkan akojọ ayẹwo",
+  "checklist-reset-interval": "Àtúntò aládàáṣiṣẹ́",
+  "checklistResetIntervalPopup-title": "Àtúntò aládàáṣiṣẹ́",
+  "checklist-reset-interval-none": "Pípa (kì í tún ṣe àtúntò fúnra rẹ̀)",
+  "checklist-reset-interval-daily": "Ojoojúmọ́",
+  "checklist-reset-interval-weekly": "Ọ̀sọ̀ọ̀sẹ̀",
+  "checklist-reset-interval-monthly": "Oṣooṣù",
   "hideCompletedSubtasks": "Fi àwọn iṣẹ́ kékeré tí a parí pamọ́",
   "support": "Atilẹyin",
   "supportPopup-title": "Atilẹyin",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Gbé wọlé láti:",
   "import-parts-instruction": "Àwọn apá tí a yàn nìkan ni a ó gbé wọlé. Àṣàyàn kan náà ni a ó lò nígbà okeere.",
   "import-wekan-file": "Gbé wọlé láti inú fáìlì okeere .json tàbí .zip:",
-  "sum-of-number-fields": "Àpapọ̀ àwọn àyè nọ́mbà àkànṣe tí a fihàn ní òkè àkọsílẹ̀"
+  "sum-of-number-fields": "Àpapọ̀ àwọn àyè nọ́mbà àkànṣe tí a fihàn ní òkè àkọsílẹ̀",
+  "sticky-list-headers": "Àwọn orí àtòjọ tí ó lẹ̀ mọ́",
+  "more-options": "Àwọn àṣàyàn síwájú sí i"
 }

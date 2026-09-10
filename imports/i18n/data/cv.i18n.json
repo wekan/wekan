@@ -1972,6 +1972,12 @@
   "uncollapse": "Сарӑлтарас",
   "hideCheckedChecklistItems": "Паллӑ тунӑ тӗрӗслев список пунктӗсене пытӑрас",
   "hideAllChecklistItems": "Тӗрӗслев списокӗн пур пунктне пытӑрас",
+  "checklist-reset-interval": "Автоматла упăтма",
+  "checklistResetIntervalPopup-title": "Автоматла упăтма",
+  "checklist-reset-interval-none": "Сунтарнă (автоматла упăтмасть)",
+  "checklist-reset-interval-daily": "Кулленех",
+  "checklist-reset-interval-weekly": "Эрнере",
+  "checklist-reset-interval-monthly": "Уйăхра",
   "hideCompletedSubtasks": "Пĕтернĕ хушма ĕçсене пытар",
   "support": "Пулӑшу",
   "supportPopup-title": "Пулӑшу",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Ҫакӑнтан импортлас:",
   "import-parts-instruction": "Паллӑ тунӑ пайсене ҫеҫ импортлаҫҫӗ. Экспортланӑ чухне те ҫав суйлава усӑ кураҫҫӗ.",
   "import-wekan-file": ".json е .zip экспорт файлӗнчен импортлас:",
-  "sum-of-number-fields": "Списока тăрринче кăтартакан хисеплĕ хушма уй хирĕсен шучĕ"
+  "sum-of-number-fields": "Списока тăрринче кăтартакан хисеплĕ хушма уй хирĕсен шучĕ",
+  "sticky-list-headers": "Ҫыпӑҫакан списока пуҫламӑшӗсем",
+  "more-options": "Ытти суйлав"
 }

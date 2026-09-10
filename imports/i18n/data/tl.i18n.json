@@ -1972,6 +1972,12 @@
   "uncollapse": "Ibuka",
   "hideCheckedChecklistItems": "Itago may tsek aytem ng tsek-listahanahans",
   "hideAllChecklistItems": "Itago lahat aytem ng tsek-listahanahans",
+  "checklist-reset-interval": "Awtomatikong pag-reset",
+  "checklistResetIntervalPopup-title": "Awtomatikong pag-reset",
+  "checklist-reset-interval-none": "Naka-off (hindi awtomatikong nagri-reset)",
+  "checklist-reset-interval-daily": "Araw-araw",
+  "checklist-reset-interval-weekly": "Lingguhan",
+  "checklist-reset-interval-monthly": "Buwanan",
   "hideCompletedSubtasks": "Itago ang mga natapos na subtask",
   "support": "Suporta",
   "supportPopup-title": "Suporta",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Mag-i-import mula sa:",
   "import-parts-instruction": "Lamang the ticked parts ay in-import. The pareho choice ay ginamit kapag exporting.",
   "import-wekan-file": "Mag-i-import mula sa a .json o .zip i-export talaksan:",
-  "sum-of-number-fields": "Kabuuan ng mga numerikong custom na larangan na ipinapakita sa itaas ng listahan"
+  "sum-of-number-fields": "Kabuuan ng mga numerikong custom na larangan na ipinapakita sa itaas ng listahan",
+  "sticky-list-headers": "Naka-pin na mga header ng listahan",
+  "more-options": "Higit pang pagpipilian"
 }

@@ -1972,6 +1972,12 @@
   "uncollapse": "No collassare",
   "hideCheckedChecklistItems": "Plata gli elementi da la glista di controllo sielti",
   "hideAllChecklistItems": "Plata gli elementi da la glista di controllo",
+  "checklist-reset-interval": "Reset automatic",
+  "checklistResetIntervalPopup-title": "Reset automatic",
+  "checklist-reset-interval-none": "Deactivà (na vegn betg resettà automaticamain)",
+  "checklist-reset-interval-daily": "Mintga di",
+  "checklist-reset-interval-weekly": "Mintga emna",
+  "checklist-reset-interval-monthly": "Mintga mais",
   "hideCompletedSubtasks": "Zuppentar las suttascadas terminadas",
   "support": "Supporto",
   "supportPopup-title": "Supporto",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Importa da:",
   "import-parts-instruction": "Vengono importate mé le parti sielte. La stessa scelta ie usata durante l'esportazion.",
   "import-wekan-file": "Importa da un file di esportazion .json o .zip:",
-  "sum-of-number-fields": "Summa dals champs numerics persunalisads mussads sura la glista"
+  "sum-of-number-fields": "Summa dals champs numerics persunalisads mussads sura la glista",
+  "sticky-list-headers": "Testas da glista fixadas",
+  "more-options": "Dapli opziuns"
 }

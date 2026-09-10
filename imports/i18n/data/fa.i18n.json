@@ -1972,6 +1972,12 @@
   "uncollapse": "إلغاء الانهيار",
   "hideCheckedChecklistItems": "پنهان کردن موارد انجام شده چک لیست",
   "hideAllChecklistItems": "پنهان کردن همه موارد چک لیست",
+  "checklist-reset-interval": "بازنشانی خودکار",
+  "checklistResetIntervalPopup-title": "بازنشانی خودکار",
+  "checklist-reset-interval-none": "خاموش (به‌صورت خودکار بازنشانی نمی‌شود)",
+  "checklist-reset-interval-daily": "روزانه",
+  "checklist-reset-interval-weekly": "هفتگی",
+  "checklist-reset-interval-monthly": "ماهانه",
   "hideCompletedSubtasks": "پنهان کردن زیروظیفه‌های تکمیل‌شده",
   "support": "پشتیبانی",
   "supportPopup-title": "پشتیبانی",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "درون‌ریزی از:",
   "import-parts-instruction": "تنها بخش‌های تیک‌خورده درون‌ریزی می‌شوند. همین انتخاب هنگام برون‌بری هم به کار می‌رود.",
   "import-wekan-file": "درون‌ریزی از یک پروندهٔ برون‌بری .json یا .zip:",
-  "sum-of-number-fields": "مجموع فیلدهای عددی سفارشی نمایش‌داده‌شده در بالای فهرست"
+  "sum-of-number-fields": "مجموع فیلدهای عددی سفارشی نمایش‌داده‌شده در بالای فهرست",
+  "sticky-list-headers": "سرصفحه‌های چسبان فهرست",
+  "more-options": "گزینه‌های بیشتر"
 }

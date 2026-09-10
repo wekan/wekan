@@ -1972,6 +1972,12 @@
   "uncollapse": "Zabaldu",
   "hideCheckedChecklistItems": "Ezkutatu egiaztatutako zerrendako elementuak",
   "hideAllChecklistItems": "Ezkutatu kontrol-zerrendako elementu guztiak",
+  "checklist-reset-interval": "Berrezarpen automatikoa",
+  "checklistResetIntervalPopup-title": "Berrezarpen automatikoa",
+  "checklist-reset-interval-none": "Desaktibatuta (ez da automatikoki berrezartzen)",
+  "checklist-reset-interval-daily": "Egunero",
+  "checklist-reset-interval-weekly": "Astero",
+  "checklist-reset-interval-monthly": "Hilero",
   "hideCompletedSubtasks": "Ezkutatu osatutako azpiatazak",
   "support": "Laguntza",
   "supportPopup-title": "Laguntza",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Inportatu hemendik:",
   "import-parts-instruction": "Markatutako zatiak baino ez dira inportatzen. Aukera bera erabiltzen da esportatzean.",
   "import-wekan-file": "Inportatu .json edo .zip esportazio-fitxategi batetik:",
-  "sum-of-number-fields": "Zerrendaren goialdean erakusten diren zenbakizko eremu pertsonalizatuen batura"
+  "sum-of-number-fields": "Zerrendaren goialdean erakusten diren zenbakizko eremu pertsonalizatuen batura",
+  "sticky-list-headers": "Zerrenda-goiburu itsaskorrak",
+  "more-options": "Aukera gehiago"
 }

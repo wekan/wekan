@@ -1972,6 +1972,12 @@
   "uncollapse": "Non collassare",
   "hideCheckedChecklistItems": "Nascondi gli elementi della lista di controllo selezionati",
   "hideAllChecklistItems": "Nascondi gli elementi della lista di controllo",
+  "checklist-reset-interval": "Resetare automată",
+  "checklistResetIntervalPopup-title": "Resetare automată",
+  "checklist-reset-interval-none": "Dezactivat (nu se resetează automat)",
+  "checklist-reset-interval-daily": "Zilnic",
+  "checklist-reset-interval-weekly": "Săptămânal",
+  "checklist-reset-interval-monthly": "Lunar",
   "hideCompletedSubtasks": "Ascunde subsarcinile finalizate",
   "support": "Supporto",
   "supportPopup-title": "Supporto",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Importă din:",
   "import-parts-instruction": "Se importă doar părțile bifate. Aceeași alegere este folosită la export.",
   "import-wekan-file": "Importă dintr-un fișier de export .json sau .zip:",
-  "sum-of-number-fields": "Suma câmpurilor numerice personalizate afișate în partea de sus a listei"
+  "sum-of-number-fields": "Suma câmpurilor numerice personalizate afișate în partea de sus a listei",
+  "sticky-list-headers": "Anteturi de listă fixate",
+  "more-options": "Mai multe opțiuni"
 }

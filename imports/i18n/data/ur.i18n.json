@@ -1972,6 +1972,12 @@
   "uncollapse": "ونکوللاپسے",
   "hideCheckedChecklistItems": "چھپائیں کہےککےد جانچ فہرست اجزا",
   "hideAllChecklistItems": "چھپائیں تمام جانچ فہرست اجزا",
+  "checklist-reset-interval": "خودکار ری سیٹ",
+  "checklistResetIntervalPopup-title": "خودکار ری سیٹ",
+  "checklist-reset-interval-none": "بند (خودکار طور پر ری سیٹ نہیں ہوگا)",
+  "checklist-reset-interval-daily": "روزانہ",
+  "checklist-reset-interval-weekly": "ہفتہ وار",
+  "checklist-reset-interval-monthly": "ماہانہ",
   "hideCompletedSubtasks": "مکمل ذیلی کاموں کو چھپائیں",
   "support": "سوپپورت",
   "supportPopup-title": "سوپپورت",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "درآمد سے:",
   "import-parts-instruction": "صرف تہے تیککےد پارتس ارے درآمد کیا. تہے سامے کہویکے ہے وسےد وہےن ےکسپورتینگ.",
   "import-wekan-file": "درآمد سے ا .جسون ور .زیپ برآمد فائل:",
-  "sum-of-number-fields": "فہرست کے اوپر دکھائے گئے عددی مخصوص فیلڈز کا مجموعہ"
+  "sum-of-number-fields": "فہرست کے اوپر دکھائے گئے عددی مخصوص فیلڈز کا مجموعہ",
+  "sticky-list-headers": "چپکنے والے فہرست ہیڈرز",
+  "more-options": "مزید اختیارات"
 }

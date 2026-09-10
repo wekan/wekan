@@ -1972,6 +1972,12 @@
   "uncollapse": "Deplwaye",
   "hideCheckedChecklistItems": "Kache eleman lis verifikasyon ki tcheke yo",
   "hideAllChecklistItems": "Kache tout eleman lis verifikasyon",
+  "checklist-reset-interval": "Reyajisteman otomatik",
+  "checklistResetIntervalPopup-title": "Reyajisteman otomatik",
+  "checklist-reset-interval-none": "Etenn (li pa reyajiste otomatikman)",
+  "checklist-reset-interval-daily": "Chak jou",
+  "checklist-reset-interval-weekly": "Chak semèn",
+  "checklist-reset-interval-monthly": "Chak mwa",
   "hideCompletedSubtasks": "Kache soutach ki fini",
   "support": "Sipò",
   "supportPopup-title": "Sipò",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Enpòte soti nan:",
   "import-parts-instruction": "Se sèlman pati ki tcheke yo ki enpòte. Yo itilize menm chwa a pandan ekspòtasyon.",
   "import-wekan-file": "Enpòte soti nan yon fichye ekspòtasyon .json oswa .zip:",
-  "sum-of-number-fields": "Total kantite chan nimewo pèsonalize ki montre anwo lis la"
+  "sum-of-number-fields": "Total kantite chan nimewo pèsonalize ki montre anwo lis la",
+  "sticky-list-headers": "Antèt lis kolan",
+  "more-options": "Plis opsyon"
 }

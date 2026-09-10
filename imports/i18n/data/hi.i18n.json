@@ -1972,6 +1972,12 @@
   "uncollapse": "असंकुचित करें",
   "hideCheckedChecklistItems": "चेक की गई चेकलिस्ट आइटम छिपाएं",
   "hideAllChecklistItems": "सभी चेकलिस्ट आइटम छिपाएं",
+  "checklist-reset-interval": "स्वचालित रीसेट",
+  "checklistResetIntervalPopup-title": "स्वचालित रीसेट",
+  "checklist-reset-interval-none": "बंद (स्वचालित रूप से रीसेट नहीं होगा)",
+  "checklist-reset-interval-daily": "दैनिक",
+  "checklist-reset-interval-weekly": "साप्ताहिक",
+  "checklist-reset-interval-monthly": "मासिक",
   "hideCompletedSubtasks": "पूर्ण उप-कार्य छिपाएँ",
   "support": "सहायता",
   "supportPopup-title": "सहायता",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "यहाँ से आयात करें:",
   "import-parts-instruction": "केवल चिह्नित भाग ही आयात किए जाते हैं। निर्यात करते समय भी यही चयन उपयोग होता है।",
   "import-wekan-file": ".json या .zip निर्यात फ़ाइल से आयात करें:",
-  "sum-of-number-fields": "सूची के ऊपर दिखाए गए संख्यात्मक कस्टम फ़ील्ड का योग"
+  "sum-of-number-fields": "सूची के ऊपर दिखाए गए संख्यात्मक कस्टम फ़ील्ड का योग",
+  "sticky-list-headers": "चिपकने वाले सूची हेडर",
+  "more-options": "अधिक विकल्प"
 }

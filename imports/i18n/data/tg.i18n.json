@@ -1972,6 +1972,12 @@
   "uncollapse": "Аз ҷамъшуда баровардан",
   "hideCheckedChecklistItems": "Пинҳон кардани бандҳои қайдшудаи рӯйхати санҷиш",
   "hideAllChecklistItems": "Пинҳон кардани ҳамаи бандҳои рӯйхати санҷиш",
+  "checklist-reset-interval": "Барқарорсозии худкор",
+  "checklistResetIntervalPopup-title": "Барқарорсозии худкор",
+  "checklist-reset-interval-none": "Хомӯш (ба таври худкор барқарор намешавад)",
+  "checklist-reset-interval-daily": "Ҳаррӯза",
+  "checklist-reset-interval-weekly": "Ҳарҳафта",
+  "checklist-reset-interval-monthly": "Ҳармоҳа",
   "hideCompletedSubtasks": "Пинҳон кардани вазифаҳои хурди анҷомёфта",
   "support": "Дастгирӣ",
   "supportPopup-title": "Дастгирӣ",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Ворид кардан аз:",
   "import-parts-instruction": "Танҳо қисмҳои қайдшуда ворид мешаванд. Ҳангоми содирот низ ҳамин интихоб истифода мешавад.",
   "import-wekan-file": "Ворид кардан аз файли содиротии .json ё .zip:",
-  "sum-of-number-fields": "Ҷамъи майдонҳои раками фармоишии дар болои рӯйхат нишондодашуда"
+  "sum-of-number-fields": "Ҷамъи майдонҳои раками фармоишии дар болои рӯйхат нишондодашуда",
+  "sticky-list-headers": "Сарлавҳаҳои рӯйхати часпида",
+  "more-options": "Имконоти бештар"
 }

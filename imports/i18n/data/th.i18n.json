@@ -1972,6 +1972,12 @@
   "uncollapse": "ยกเลิกการยุบ",
   "hideCheckedChecklistItems": "ซ่อนรายการเช็คลิสต์ที่ทำเครื่องหมายแล้ว",
   "hideAllChecklistItems": "ซ่อนรายการเช็คลิสต์ทั้งหมด",
+  "checklist-reset-interval": "รีเซ็ตอัตโนมัติ",
+  "checklistResetIntervalPopup-title": "รีเซ็ตอัตโนมัติ",
+  "checklist-reset-interval-none": "ปิด (จะไม่รีเซ็ตโดยอัตโนมัติ)",
+  "checklist-reset-interval-daily": "รายวัน",
+  "checklist-reset-interval-weekly": "รายสัปดาห์",
+  "checklist-reset-interval-monthly": "รายเดือน",
   "hideCompletedSubtasks": "ซ่อนงานย่อยที่เสร็จสมบูรณ์",
   "support": "การสนับสนุน",
   "supportPopup-title": "การสนับสนุน",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "นำเข้าจาก:",
   "import-parts-instruction": "จะนำเข้าเฉพาะส่วนที่ทำเครื่องหมายไว้ และใช้ตัวเลือกเดียวกันนี้เมื่อส่งออก",
   "import-wekan-file": "นำเข้าจากไฟล์ส่งออก .json หรือ .zip:",
-  "sum-of-number-fields": "ผลรวมของฟิลด์แบบกำหนดเองที่เป็นตัวเลขซึ่งแสดงที่ด้านบนของรายการ"
+  "sum-of-number-fields": "ผลรวมของฟิลด์แบบกำหนดเองที่เป็นตัวเลขซึ่งแสดงที่ด้านบนของรายการ",
+  "sticky-list-headers": "ส่วนหัวรายการที่ตรึงไว้",
+  "more-options": "ตัวเลือกเพิ่มเติม"
 }

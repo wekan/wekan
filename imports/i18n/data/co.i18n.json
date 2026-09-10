@@ -1972,6 +1972,12 @@
   "uncollapse": "Non collassare",
   "hideCheckedChecklistItems": "Piattà gli elementi di a lista di controllo selezionati",
   "hideAllChecklistItems": "Piattà gli elementi di a lista di controllo",
+  "checklist-reset-interval": "Ripristinazione automatica",
+  "checklistResetIntervalPopup-title": "Ripristinazione automatica",
+  "checklist-reset-interval-none": "Spentu (ùn si ripristina micca automaticamente)",
+  "checklist-reset-interval-daily": "Ogni ghjornu",
+  "checklist-reset-interval-weekly": "Ogni settimana",
+  "checklist-reset-interval-monthly": "Ogni mese",
   "hideCompletedSubtasks": "Piatta e sottumissioni compie",
   "support": "Supporto",
   "supportPopup-title": "Supporto",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Impurtà da:",
   "import-parts-instruction": "Vengono importate solu le parti selezionate. La stessa scelta è usata durante l'esportazione.",
   "import-wekan-file": "Impurtà da un schedariu di esportazione .json o .zip:",
-  "sum-of-number-fields": "Summa di i campi numerichi persunalizati fatti vede in cima à a lista"
+  "sum-of-number-fields": "Summa di i campi numerichi persunalizati fatti vede in cima à a lista",
+  "sticky-list-headers": "Intestazioni di lista appiccicate",
+  "more-options": "Più opzioni"
 }

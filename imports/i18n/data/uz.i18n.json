@@ -1972,6 +1972,12 @@
   "uncollapse": "Yechish",
   "hideCheckedChecklistItems": "Belgilangan nazorat roʻyxati elementlarini yashirish",
   "hideAllChecklistItems": "Tekshirish roʻyxatining barcha elementlarini yashirish",
+  "checklist-reset-interval": "Avtomatik qayta tiklash",
+  "checklistResetIntervalPopup-title": "Avtomatik qayta tiklash",
+  "checklist-reset-interval-none": "Oʻchirilgan (avtomatik ravishda qayta tiklanmaydi)",
+  "checklist-reset-interval-daily": "Kunlik",
+  "checklist-reset-interval-weekly": "Haftalik",
+  "checklist-reset-interval-monthly": "Oylik",
   "hideCompletedSubtasks": "Bajarilgan quyi vazifalarni yashirish",
   "support": "Qo'llab-quvvatlash",
   "supportPopup-title": "Qo'llab-quvvatlash",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Quyidagidan import qilish:",
   "import-parts-instruction": "Faqat belgilangan qismlar import qilinadi. Eksport qilishda ham xuddi shu tanlov ishlatiladi.",
   "import-wekan-file": ".json yoki .zip eksport faylidan import qilish:",
-  "sum-of-number-fields": "Roʻyxat tepasida koʻrsatiladigan raqamli maxsus maydonlar yigʻindisi"
+  "sum-of-number-fields": "Roʻyxat tepasida koʻrsatiladigan raqamli maxsus maydonlar yigʻindisi",
+  "sticky-list-headers": "Yopishqoq roʻyxat sarlavhalari",
+  "more-options": "Ko'proq variantlar"
 }

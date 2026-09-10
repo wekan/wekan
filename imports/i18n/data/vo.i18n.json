@@ -1972,6 +1972,12 @@
   "uncollapse": "Développer",
   "hideCheckedChecklistItems": "Cacher les éléments cochés de la check-list",
   "hideAllChecklistItems": "Cacher tous les éléments de la check-list",
+  "checklist-reset-interval": "Netikam otomatik",
+  "checklistResetIntervalPopup-title": "Netikam otomatik",
+  "checklist-reset-interval-none": "Dabepafüükön (netikam no koedön otomatiko)",
+  "checklist-reset-interval-daily": "Dagiko",
+  "checklist-reset-interval-weekly": "Vükiko",
+  "checklist-reset-interval-monthly": "Mönatiko",
   "hideCompletedSubtasks": "Lecön kanabükön kömöl",
   "support": "Yuf",
   "supportPopup-title": "Yuf",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Inkavön de:",
   "import-parts-instruction": "Te pads pemakedöl peinkavons. Lek ot pegebon ven ekavöl.",
   "import-wekan-file": "Inkavön de fail-ekav .json u .zip:",
-  "sum-of-number-fields": "Sumam kelöfa somik geïks at soakonöls balid pö bäg leda"
+  "sum-of-number-fields": "Sumam kelöfa somik geïks at soakonöls balid pö bäg leda",
+  "sticky-list-headers": "Kepibs lised smaidik",
+  "more-options": "Blomvotans"
 }

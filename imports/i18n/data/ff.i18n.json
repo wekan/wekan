@@ -1972,6 +1972,12 @@
   "uncollapse": "Yaajtin",
   "hideCheckedChecklistItems": "Suuɗ geɗe doggol ƴeewtagol ƴeewtaaɗe",
   "hideAllChecklistItems": "Suuɗ geɗe doggol ƴeewtagol fof",
+  "checklist-reset-interval": "Fuɗɗitagol jaajɗo",
+  "checklistResetIntervalPopup-title": "Fuɗɗitagol jaajɗo",
+  "checklist-reset-interval-none": "Daaɗi (fuɗɗitagol jaajɗo alaa)",
+  "checklist-reset-interval-daily": "Ñande kala",
+  "checklist-reset-interval-weekly": "Yontere kala",
+  "checklist-reset-interval-monthly": "Lewru kala",
   "hideCompletedSubtasks": "Hide completed subtasks",
   "support": "Ballal",
   "supportPopup-title": "Ballal",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Naatnu iwde e:",
   "import-parts-instruction": "Taƴe maantaaɗe tan naatnetee. Cuɓal ngal ngal huutortee kadi nde yaltinetee.",
   "import-wekan-file": "Naatnu iwde e fiilde yaltinal .json walla .zip:",
-  "sum-of-number-fields": "Denndi keɓe limooje dokkaaɗe hollitde nder dow doggol"
+  "sum-of-number-fields": "Denndi keɓe limooje dokkaaɗe hollitde nder dow doggol",
+  "sticky-list-headers": "Ko'e tonngoode ɗe ñiiɓi",
+  "more-options": "Ɓeydi cuɓagol"
 }

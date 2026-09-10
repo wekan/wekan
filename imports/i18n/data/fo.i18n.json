@@ -1972,6 +1972,12 @@
   "uncollapse": "Víðka aftur",
   "hideCheckedChecklistItems": "Fjal avhakað lið á kanningarlista",
   "hideAllChecklistItems": "Fjal øll lið á kanningarlista",
+  "checklist-reset-interval": "Sjálvvirkin endurstilling",
+  "checklistResetIntervalPopup-title": "Sjálvvirkin endurstilling",
+  "checklist-reset-interval-none": "Frá (endurstillir ikki sjálvvirkandi)",
+  "checklist-reset-interval-daily": "Dagliga",
+  "checklist-reset-interval-weekly": "Vikuliga",
+  "checklist-reset-interval-monthly": "Mánaðarliga",
   "hideCompletedSubtasks": "Fjal av gjørdar undiruppgávur",
   "support": "Stuðul",
   "supportPopup-title": "Stuðul",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Flyt inn úr:",
   "import-parts-instruction": "Bert avhakaðu partarnir verða fluttir inn. Sama val verður nýtt við útflutning.",
   "import-wekan-file": "Flyt inn úr einari .json- ella .zip-útflutningsfílu:",
-  "sum-of-number-fields": "Summa av talkendum sernøktum feltum, sum vísast ovast á listanum"
+  "sum-of-number-fields": "Summa av talkendum sernøktum feltum, sum vísast ovast á listanum",
+  "sticky-list-headers": "Klistrað listahøvd",
+  "more-options": "Fleiri valmøguleikar"
 }

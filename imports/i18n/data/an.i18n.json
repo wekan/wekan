@@ -1972,6 +1972,12 @@
   "uncollapse": "Expandir",
   "hideCheckedChecklistItems": "Ocultar elementos marcados de la lista de verificación",
   "hideAllChecklistItems": "Ocultar totz os elementos de la lista de verificación",
+  "checklist-reset-interval": "Reinicio automatico",
+  "checklistResetIntervalPopup-title": "Reinicio automatico",
+  "checklist-reset-interval-none": "Desactivau (no se reinicia automaticament)",
+  "checklist-reset-interval-daily": "Cada diya",
+  "checklist-reset-interval-weekly": "Cada semana",
+  "checklist-reset-interval-monthly": "Cada mes",
   "hideCompletedSubtasks": "Amagar as subtareas completadas",
   "support": "Soporte",
   "supportPopup-title": "Soporte",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Importar dende:",
   "import-parts-instruction": "Solo se importan as partes marcadas. La misma selección se usa t'o exportar.",
   "import-wekan-file": "Importar dende un fichero de exportación .json o .zip:",
-  "sum-of-number-fields": "Suma d'os campos numericos personalizatos que amuestran a la parte alta d'a lista"
+  "sum-of-number-fields": "Suma d'os campos numericos personalizatos que amuestran a la parte alta d'a lista",
+  "sticky-list-headers": "Capiters de lista apegallosas",
+  "more-options": "Mas opcions"
 }

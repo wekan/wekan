@@ -1972,6 +1972,12 @@
   "uncollapse": "Expandera",
   "hideCheckedChecklistItems": "Dölj markerade objekt i checklistan",
   "hideAllChecklistItems": "Dölj alla objekt i checklistan",
+  "checklist-reset-interval": "Automatisk nulstilling",
+  "checklistResetIntervalPopup-title": "Automatisk nulstilling",
+  "checklist-reset-interval-none": "Fra (nulstilles ikke automatisk)",
+  "checklist-reset-interval-daily": "Dagligt",
+  "checklist-reset-interval-weekly": "Ugentligt",
+  "checklist-reset-interval-monthly": "Månedligt",
   "hideCompletedSubtasks": "Skjul fuldførte deopgaver",
   "support": "Hjälp",
   "supportPopup-title": "Hjälp",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Importér fra:",
   "import-parts-instruction": "Kun de afkrydsede dele importeres. Det samme valg bruges ved eksport.",
   "import-wekan-file": "Importér fra en .json- eller .zip-eksportfil:",
-  "sum-of-number-fields": "Sum af numeriske brugerdefinerede felter vist øverst på listen"
+  "sum-of-number-fields": "Sum af numeriske brugerdefinerede felter vist øverst på listen",
+  "sticky-list-headers": "Fastgjorte listeoverskrifter",
+  "more-options": "Flere valgmuligheder"
 }

@@ -1972,6 +1972,12 @@
   "uncollapse": "కూలిపోవు",
   "hideCheckedChecklistItems": "తనిఖీ చేసిన చెక్‌లిస్ట్ అంశాలను దాచండి",
   "hideAllChecklistItems": "అన్ని చెక్‌లిస్ట్ అంశాలను దాచండి",
+  "checklist-reset-interval": "స్వయంచాలక రీసెట్",
+  "checklistResetIntervalPopup-title": "స్వయంచాలక రీసెట్",
+  "checklist-reset-interval-none": "ఆఫ్ (స్వయంచాలకంగా రీసెట్ కాదు)",
+  "checklist-reset-interval-daily": "రోజువారీ",
+  "checklist-reset-interval-weekly": "వారానికొకసారి",
+  "checklist-reset-interval-monthly": "నెలవారీ",
   "hideCompletedSubtasks": "పూర్తయిన ఉప-పనులను దాచు",
   "support": "మద్దతు",
   "supportPopup-title": "మద్దతు",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "దీని నుండి దిగుమతి:",
   "import-parts-instruction": "టిక్ చేసిన భాగాలు మాత్రమే దిగుమతి అవుతాయి. ఎగుమతి చేసేటప్పుడూ అదే ఎంపిక వాడబడుతుంది.",
   "import-wekan-file": ".json లేదా .zip ఎగుమతి ఫైల్ నుండి దిగుమతి చేయి:",
-  "sum-of-number-fields": "జాబితా పైభాగంలో చూపించబడే సంఖ్యా అనుకూల ఫీల్డ్‌ల మొత్తం"
+  "sum-of-number-fields": "జాబితా పైభాగంలో చూపించబడే సంఖ్యా అనుకూల ఫీల్డ్‌ల మొత్తం",
+  "sticky-list-headers": "స్టిక్కీ జాబితా శీర్షికలు",
+  "more-options": "మరిన్ని ఎంపికలు"
 }

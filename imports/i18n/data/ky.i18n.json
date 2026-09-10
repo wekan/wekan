@@ -1972,6 +1972,12 @@
   "uncollapse": "Жайуу",
   "hideCheckedChecklistItems": "Белгиленген текшерүү тизмеси пункттарын жашыруу",
   "hideAllChecklistItems": "Текшерүү тизмесинин бардык пункттарын жашыруу",
+  "checklist-reset-interval": "Автоматтык калыбына келтирүү",
+  "checklistResetIntervalPopup-title": "Автоматтык калыбына келтирүү",
+  "checklist-reset-interval-none": "Өчүк (автоматтык түрдө калыбына келтирилбейт)",
+  "checklist-reset-interval-daily": "Күн сайын",
+  "checklist-reset-interval-weekly": "Жума сайын",
+  "checklist-reset-interval-monthly": "Ай сайын",
   "hideCompletedSubtasks": "Аякталган кичи тапшырмаларды жашыруу",
   "support": "Колдоо",
   "supportPopup-title": "Колдоо",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Бул жерден импорттоо:",
   "import-parts-instruction": "Белгиленген бөлүктөр гана импорттолот. Ушул эле тандоо экспорттоодо колдонулат.",
   "import-wekan-file": ".json же .zip экспорт файлынан импорттоо:",
-  "sum-of-number-fields": "Тизменин үстүндө көрсөтүлгөн сандык атайын талаалардын суммасы"
+  "sum-of-number-fields": "Тизменин үстүндө көрсөтүлгөн сандык атайын талаалардын суммасы",
+  "sticky-list-headers": "Жабышкак тизме аталыштары",
+  "more-options": "Дагы да мүмкүнчүлүктөр"
 }

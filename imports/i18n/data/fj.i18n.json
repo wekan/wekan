@@ -1972,6 +1972,12 @@
   "uncollapse": "Dolava",
   "hideCheckedChecklistItems": "Vunitaka na ka digitaki ni lisi ni vakadinadina",
   "hideAllChecklistItems": "Vunitaka na ka kece ni lisi ni vakadinadina",
+  "checklist-reset-interval": "Vakawereleitaki vakaikaikai",
+  "checklistResetIntervalPopup-title": "Vakawereleitaki vakaikaikai",
+  "checklist-reset-interval-none": "Bibi (ena sega ni vakawereleitaki vakaikaikai)",
+  "checklist-reset-interval-daily": "Veisiga",
+  "checklist-reset-interval-weekly": "Veimacawa",
+  "checklist-reset-interval-monthly": "Veivula",
   "hideCompletedSubtasks": "Hide completed subtasks",
   "support": "Veitokoni",
   "supportPopup-title": "Veitokoni",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Vakacuruma mai na:",
   "import-parts-instruction": "Na iwase digitaki ga e vakacurumi. E vakayagataki na digidigi vata ni vakau.",
   "import-wekan-file": "Vakacuruma mai na dua na faile vakau .json se .zip:",
-  "sum-of-number-fields": "Isogo ni yavu ni wili tabulewa e vakaraitaki ena delana ni lisi"
+  "sum-of-number-fields": "Isogo ni yavu ni wili tabulewa e vakaraitaki ena delana ni lisi",
+  "sticky-list-headers": "Ulutaga ni lisi vakadei",
+  "more-options": "So tale na veidigidigi"
 }

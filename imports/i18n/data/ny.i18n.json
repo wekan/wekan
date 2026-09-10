@@ -1972,6 +1972,12 @@
   "uncollapse": "Futukulani",
   "hideCheckedChecklistItems": "Bisani zinthu zowunikidwa za mndandanda wowunika",
   "hideAllChecklistItems": "Bisani zinthu zonse za mndandanda wowunika",
+  "checklist-reset-interval": "Kuyambiranso kwaokha",
+  "checklistResetIntervalPopup-title": "Kuyambiranso kwaokha",
+  "checklist-reset-interval-none": "Yazimitsidwa (siyambiranso yokha)",
+  "checklist-reset-interval-daily": "Tsiku ndi tsiku",
+  "checklist-reset-interval-weekly": "Sabata ndi sabata",
+  "checklist-reset-interval-monthly": "Mwezi ndi mwezi",
   "hideCompletedSubtasks": "Bisa ntchito zazing'ono zomalizidwa",
   "support": "Thandizo",
   "supportPopup-title": "Thandizo",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Lowetsani kuchokera ku:",
   "import-parts-instruction": "Magawo osankhidwa okha ndi amene amalowetsedwa. Kusankha komweku kumagwiritsidwa ntchito potumiza.",
   "import-wekan-file": "Lowetsani kuchokera ku fayilo yotumizidwa ya .json kapena .zip:",
-  "sum-of-number-fields": "Chiwerengero cha minda ya manambala yosinthidwa yowonetsedwa pamwamba pa mndandanda"
+  "sum-of-number-fields": "Chiwerengero cha minda ya manambala yosinthidwa yowonetsedwa pamwamba pa mndandanda",
+  "sticky-list-headers": "Mitu ya mndandanda yokangamira",
+  "more-options": "Zosankhulapo zambiri"
 }

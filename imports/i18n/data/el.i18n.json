@@ -1972,6 +1972,12 @@
   "uncollapse": "Ανάπτυξη",
   "hideCheckedChecklistItems": "Απόκρυψη επιλεγμένων στοιχείων λίστας ελέγχου",
   "hideAllChecklistItems": "Απόκρυψη όλων των στοιχείων λίστας ελέγχου",
+  "checklist-reset-interval": "Αυτόματη επαναφορά",
+  "checklistResetIntervalPopup-title": "Αυτόματη επαναφορά",
+  "checklist-reset-interval-none": "Απενεργοποιημένο (δεν γίνεται αυτόματη επαναφορά)",
+  "checklist-reset-interval-daily": "Καθημερινά",
+  "checklist-reset-interval-weekly": "Εβδομαδιαία",
+  "checklist-reset-interval-monthly": "Μηνιαία",
   "hideCompletedSubtasks": "Απόκρυψη ολοκληρωμένων υποεργασιών",
   "support": "Υποστήριξη",
   "supportPopup-title": "Υποστήριξη",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Εισαγωγή από:",
   "import-parts-instruction": "Εισάγονται μόνο τα επιλεγμένα μέρη. Η ίδια επιλογή χρησιμοποιείται κατά την εξαγωγή.",
   "import-wekan-file": "Εισαγωγή από αρχείο εξαγωγής .json ή .zip:",
-  "sum-of-number-fields": "Άθροισμα αριθμητικών προσαρμοσμένων πεδίων που εμφανίζονται στην κορυφή της λίστας"
+  "sum-of-number-fields": "Άθροισμα αριθμητικών προσαρμοσμένων πεδίων που εμφανίζονται στην κορυφή της λίστας",
+  "sticky-list-headers": "Κολλημένες κεφαλίδες λίστας",
+  "more-options": "Περισσότερες επιλογές"
 }

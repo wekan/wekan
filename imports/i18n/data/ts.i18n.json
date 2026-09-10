@@ -1972,6 +1972,12 @@
   "uncollapse": "Hi Xitsonga: mhaka",
   "hideCheckedChecklistItems": "fihla mhaka nxaxamelo wo kambela mhaka",
   "hideAllChecklistItems": "fihla hinkwavo nxaxamelo wo kambela mhaka",
+  "checklist-reset-interval": "Ku sungula nakambe hi ku tiendlela",
+  "checklistResetIntervalPopup-title": "Ku sungula nakambe hi ku tiendlela",
+  "checklist-reset-interval-none": "Yi tsemile (a yi sunguli nakambe hi ku tiendlela)",
+  "checklist-reset-interval-daily": "Siku na siku",
+  "checklist-reset-interval-weekly": "Vhiki na vhiki",
+  "checklist-reset-interval-monthly": "N'hweti na n'hweti",
   "hideCompletedSubtasks": "Fihla mintirho leyitsongo leyi heleleke",
   "support": "Hi Xitsonga: mhaka",
   "supportPopup-title": "Hi Xitsonga: mhaka",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "nghenisa ku suka:",
   "import-parts-instruction": "mhaka mhaka mhaka mhaka mhaka nghenisiwile. mhaka mhaka mhaka mhaka mhaka mhaka mhaka.",
   "import-wekan-file": "nghenisa ku suka a .mhaka mhaka .mhaka humesa fayili:",
-  "sum-of-number-fields": "Nhlanganisela ya masimu ya tinhlayo yo tibumbela leyi kombisiwaka ehenhla ka nxaxamelo"
+  "sum-of-number-fields": "Nhlanganisela ya masimu ya tinhlayo yo tibumbela leyi kombisiwaka ehenhla ka nxaxamelo",
+  "sticky-list-headers": "Tinhloko ta nxaxamelo leti namarheleke",
+  "more-options": "Swihlawulekisi swin'wana"
 }

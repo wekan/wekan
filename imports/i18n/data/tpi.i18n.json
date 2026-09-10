@@ -1972,6 +1972,12 @@
   "uncollapse": "Toksave: Uncollapse",
   "hideCheckedChecklistItems": "Haitim checked lis bilong sekim items",
   "hideAllChecklistItems": "Haitim olgeta lis bilong sekim items",
+  "checklist-reset-interval": "Risetim yet awtomatik",
+  "checklistResetIntervalPopup-title": "Risetim yet awtomatik",
+  "checklist-reset-interval-none": "Pinis (i no risetim yet awtomatik)",
+  "checklist-reset-interval-daily": "Olgeta de",
+  "checklist-reset-interval-weekly": "Olgeta wik",
+  "checklist-reset-interval-monthly": "Olgeta mun",
   "hideCompletedSubtasks": "Haitim ol liklik wok i pinis",
   "support": "Toksave: Support",
   "supportPopup-title": "Toksave: Support",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Kisim i kam long:",
   "import-parts-instruction": "Tasol ticked parts are imported. wankain choice is used when exporting.",
   "import-wekan-file": "Kisim i kam long wanpela.json o.zip salim i go fail:",
-  "sum-of-number-fields": "Adijumap bilong ol namba fil we ol i kamapim antap long lista"
+  "sum-of-number-fields": "Adijumap bilong ol namba fil we ol i kamapim antap long lista",
+  "sticky-list-headers": "Hed bilong lis i pas",
+  "more-options": "Ol arapela opsen"
 }

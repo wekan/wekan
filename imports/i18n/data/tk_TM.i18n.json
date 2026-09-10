@@ -1972,6 +1972,12 @@
   "uncollapse": "Bölünmek",
   "hideCheckedChecklistItems": "Barlanan gözegçilik sanawyny gizläň",
   "hideAllChecklistItems": "Barlag sanawynyň ähli elementlerini gizläň",
+  "checklist-reset-interval": "Awtomatik täzeden başlatmak",
+  "checklistResetIntervalPopup-title": "Awtomatik täzeden başlatmak",
+  "checklist-reset-interval-none": "Öçürilen (awtomatik täzeden başlamaýar)",
+  "checklist-reset-interval-daily": "Gündelik",
+  "checklist-reset-interval-weekly": "Hepdelik",
+  "checklist-reset-interval-monthly": "Aýlyk",
   "hideCompletedSubtasks": "Tamamlanan kiçi wezipeleri gizle",
   "support": "Goldaw",
   "supportPopup-title": "Goldaw",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Şundan import et:",
   "import-parts-instruction": "Diňe bellenen bölekler import edilýär. Eksport edilende hem şol saýlaw ulanylýar.",
   "import-wekan-file": ".json ýa-da .zip eksport faýlyndan import et:",
-  "sum-of-number-fields": "Sanawyň ýokarsynda görkezilýän san görnüşli sazlanan meýdançalaryň jemi"
+  "sum-of-number-fields": "Sanawyň ýokarsynda görkezilýän san görnüşli sazlanan meýdançalaryň jemi",
+  "sticky-list-headers": "Ýelmeşýän sanaw sözbaşylary",
+  "more-options": "Has köp saýlaw"
 }

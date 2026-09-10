@@ -1972,6 +1972,12 @@
   "uncollapse": "Dad-gwymp",
   "hideCheckedChecklistItems": "Cuddio eitemau rhestr wirio wedi'u gwirio",
   "hideAllChecklistItems": "Cuddio holl eitemau'r rhestr wirio",
+  "checklist-reset-interval": "Ailosod yn awtomatig",
+  "checklistResetIntervalPopup-title": "Ailosod yn awtomatig",
+  "checklist-reset-interval-none": "I ffwrdd (nid yw'n ailosod yn awtomatig)",
+  "checklist-reset-interval-daily": "Yn ddyddiol",
+  "checklist-reset-interval-weekly": "Yn wythnosol",
+  "checklist-reset-interval-monthly": "Yn fisol",
   "hideCompletedSubtasks": "Cuddio is-dasgau wedi'u cwblhau",
   "support": "Cefnogaeth",
   "supportPopup-title": "Cefnogaeth",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Mewnforio o:",
   "import-parts-instruction": "Dim ond y rhannau sydd wedi'u ticio sy'n cael eu mewnforio. Defnyddir yr un dewis wrth allforio.",
   "import-wekan-file": "Mewnforio o ffeil allforio .json neu .zip:",
-  "sum-of-number-fields": "Cyfanswm y meysydd rhifol addasedig a ddangosir ar frig y rhestr"
+  "sum-of-number-fields": "Cyfanswm y meysydd rhifol addasedig a ddangosir ar frig y rhestr",
+  "sticky-list-headers": "Penawdau rhestr gludiog",
+  "more-options": "Rhagor o opsiynau"
 }

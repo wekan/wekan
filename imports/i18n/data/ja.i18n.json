@@ -1972,6 +1972,12 @@
   "uncollapse": "展開",
   "hideCheckedChecklistItems": "チェック済みチェックリスト項目を非表示",
   "hideAllChecklistItems": "すべてのチェックリスト項目を非表示",
+  "checklist-reset-interval": "自動リセット",
+  "checklistResetIntervalPopup-title": "自動リセット",
+  "checklist-reset-interval-none": "オフ（自動的にリセットしません）",
+  "checklist-reset-interval-daily": "毎日",
+  "checklist-reset-interval-weekly": "毎週",
+  "checklist-reset-interval-monthly": "毎月",
   "hideCompletedSubtasks": "完了したサブタスクを非表示にする",
   "support": "サポート",
   "supportPopup-title": "サポート",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "インポート元:",
   "import-parts-instruction": "チェックした部分だけがインポートされます。エクスポート時も同じ選択が使われます。",
   "import-wekan-file": ".json または .zip のエクスポートファイルからインポート:",
-  "sum-of-number-fields": "リストの上部に表示される数値カスタムフィールドの合計"
+  "sum-of-number-fields": "リストの上部に表示される数値カスタムフィールドの合計",
+  "sticky-list-headers": "リストヘッダーの固定",
+  "more-options": "その他のオプション"
 }

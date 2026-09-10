@@ -1972,6 +1972,12 @@
   "uncollapse": "Opna aftur",
   "hideCheckedChecklistItems": "Fela afgreidd gátlistaatriði",
   "hideAllChecklistItems": "Fela öll gátlistaatriði",
+  "checklist-reset-interval": "Sjálfvirk endurstilling",
+  "checklistResetIntervalPopup-title": "Sjálfvirk endurstilling",
+  "checklist-reset-interval-none": "Slökkt (endurstillist ekki sjálfkrafa)",
+  "checklist-reset-interval-daily": "Daglega",
+  "checklist-reset-interval-weekly": "Vikulega",
+  "checklist-reset-interval-monthly": "Mánaðarlega",
   "hideCompletedSubtasks": "Fela lokin undirverkefni",
   "support": "Aðstoð",
   "supportPopup-title": "Aðstoð",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Flytja inn frá:",
   "import-parts-instruction": "Aðeins merktu hlutarnir eru fluttir inn. Sama val er notað við útflutning.",
   "import-wekan-file": "Flytja inn úr .json- eða .zip-útflutningsskrá:",
-  "sum-of-number-fields": "Summa talnasérsviða sem birt eru efst á listanum"
+  "sum-of-number-fields": "Summa talnasérsviða sem birt eru efst á listanum",
+  "sticky-list-headers": "Föst listahaus",
+  "more-options": "Fleiri valkostir"
 }

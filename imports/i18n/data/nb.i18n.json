@@ -1972,6 +1972,12 @@
   "uncollapse": "Utvid",
   "hideCheckedChecklistItems": "Skjul avkryssede sjekklisteelementer",
   "hideAllChecklistItems": "Skjul alle sjekklisteelementer",
+  "checklist-reset-interval": "Automatisk tilbakestilling",
+  "checklistResetIntervalPopup-title": "Automatisk tilbakestilling",
+  "checklist-reset-interval-none": "Av (tilbakestilles ikke automatisk)",
+  "checklist-reset-interval-daily": "Daglig",
+  "checklist-reset-interval-weekly": "Ukentlig",
+  "checklist-reset-interval-monthly": "Månedlig",
   "hideCompletedSubtasks": "Skjul fullførte deloppgaver",
   "support": "Støtte",
   "supportPopup-title": "Støtte",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Importer fra:",
   "import-parts-instruction": "Bare de avkryssede delene importeres. Det samme valget brukes ved eksport.",
   "import-wekan-file": "Importer fra en .json- eller .zip-eksportfil:",
-  "sum-of-number-fields": "Summen av numeriske egendefinerte felt vist øverst på listen"
+  "sum-of-number-fields": "Summen av numeriske egendefinerte felt vist øverst på listen",
+  "sticky-list-headers": "Fastsatte listeoverskrifter",
+  "more-options": "Flere alternativer"
 }

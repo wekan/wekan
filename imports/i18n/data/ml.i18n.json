@@ -1972,6 +1972,12 @@
   "uncollapse": "വികസിപ്പിക്കുക",
   "hideCheckedChecklistItems": "അടയാളപ്പെടുത്തിയ ചെക്ക്‌ലിസ്റ്റ് ഇനങ്ങൾ മറയ്ക്കുക",
   "hideAllChecklistItems": "എല്ലാ ചെക്ക്‌ലിസ്റ്റ് ഇനങ്ങളും മറയ്ക്കുക",
+  "checklist-reset-interval": "സ്വയമേ പുനഃക്രമീകരണം",
+  "checklistResetIntervalPopup-title": "സ്വയമേ പുനഃക്രമീകരണം",
+  "checklist-reset-interval-none": "ഓഫ് (സ്വയമേ പുനഃക്രമീകരിക്കില്ല)",
+  "checklist-reset-interval-daily": "ദിവസേന",
+  "checklist-reset-interval-weekly": "ആഴ്ചതോറും",
+  "checklist-reset-interval-monthly": "മാസംതോറും",
   "hideCompletedSubtasks": "പൂർത്തിയായ ഉപകർമ്മങ്ങൾ മറയ്ക്കുക",
   "support": "പിന്തുണ",
   "supportPopup-title": "പിന്തുണ",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "ഇവിടെ നിന്ന് ഇറക്കുമതി ചെയ്യുക:",
   "import-parts-instruction": "അടയാളപ്പെടുത്തിയ ഭാഗങ്ങൾ മാത്രം ഇറക്കുമതി ചെയ്യും. കയറ്റുമതി ചെയ്യുമ്പോഴും ഇതേ തിരഞ്ഞെടുപ്പ് ഉപയോഗിക്കും.",
   "import-wekan-file": "ഒരു .json അല്ലെങ്കിൽ .zip കയറ്റുമതി ഫയലിൽ നിന്ന് ഇറക്കുമതി ചെയ്യുക:",
-  "sum-of-number-fields": "ലിസ്റ്റിന്റെ മുകളിൽ കാണിക്കുന്ന സംഖ്യാ ഇഷ്ടാനുസൃത ഫീൽഡുകളുടെ ആകെത്തുക"
+  "sum-of-number-fields": "ലിസ്റ്റിന്റെ മുകളിൽ കാണിക്കുന്ന സംഖ്യാ ഇഷ്ടാനുസൃത ഫീൽഡുകളുടെ ആകെത്തുക",
+  "sticky-list-headers": "സ്റ്റിക്കി ലിസ്റ്റ് ഹെഡറുകൾ",
+  "more-options": "കൂടുതൽ ഓപ്ഷനുകൾ"
 }

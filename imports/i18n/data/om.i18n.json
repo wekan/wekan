@@ -1972,6 +1972,12 @@
   "uncollapse": "Deebisii bal’isi",
   "hideCheckedChecklistItems": "Galmeewwan tarree qorannoo mallatteeffaman dhoksi",
   "hideAllChecklistItems": "Galmeewwan tarree qorannoo hunda dhoksi",
+  "checklist-reset-interval": "Haaromsaa ofumaa",
+  "checklistResetIntervalPopup-title": "Haaromsaa ofumaa",
+  "checklist-reset-interval-none": "Dhaame (ofiin hin haaromfamu)",
+  "checklist-reset-interval-daily": "Guyyuma guyyaa",
+  "checklist-reset-interval-weekly": "Torbanuma torbanii",
+  "checklist-reset-interval-monthly": "Jiʼuma jiʼaa",
   "hideCompletedSubtasks": "Hide completed subtasks",
   "support": "Deeggarsa",
   "supportPopup-title": "Deeggarsa",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Kana irraa galchi:",
   "import-parts-instruction": "Kutaaleen mallatteeffaman qofa galfamu. Filannoon wal fakkaataan yeroo erganis ni fayyada.",
   "import-wekan-file": "Faayila ergaa .json ykn .zip irraa galchi:",
-  "sum-of-number-fields": "Waliigala qaamaawwan lakkoofsaa dhuunfaa gubbaa tarreeffamaa irratti agarsiifaman"
+  "sum-of-number-fields": "Waliigala qaamaawwan lakkoofsaa dhuunfaa gubbaa tarreeffamaa irratti agarsiifaman",
+  "sticky-list-headers": "Mataduree tarreeffamaa kan maxxanu",
+  "more-options": "Filannoo dabalataa"
 }

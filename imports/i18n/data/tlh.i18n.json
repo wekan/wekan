@@ -1972,6 +1972,12 @@
   "uncollapse": "Aufklappen",
   "hideCheckedChecklistItems": "Erledigte Checklisteneinträge ausblenden",
   "hideAllChecklistItems": "Verberge alle Checklisteneinträge",
+  "checklist-reset-interval": "DoHmoHchu' automatic",
+  "checklistResetIntervalPopup-title": "DoHmoHchu' automatic",
+  "checklist-reset-interval-none": "Choq (automatic' pagh DoHmoHchu')",
+  "checklist-reset-interval-daily": "jajvam",
+  "checklist-reset-interval-weekly": "waSvam",
+  "checklist-reset-interval-monthly": "jarvam",
   "hideCompletedSubtasks": "lengmoHwI'mey rInpu' So'",
   "support": "Unterstützung",
   "supportPopup-title": "Unterstützung",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "nuqvo' yISuq:",
   "import-parts-instruction": "wIvbogh De' neH Suqlu'. ngeHmeH wIv rap lo'lu'.",
   "import-wekan-file": ".json ghap .zip De'vo' yISuq:",
-  "sum-of-number-fields": "mI' pInpu' beq nuvbogh telHa'lu'meH tetlhutlh porghmey'e' choHmoHlu'bogh"
+  "sum-of-number-fields": "mI' pInpu' beq nuvbogh telHa'lu'meH tetlhutlh porghmey'e' choHmoHlu'bogh",
+  "sticky-list-headers": "tetlh nach chu'wI'",
+  "more-options": "latlh choices"
 }

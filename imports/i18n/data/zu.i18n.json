@@ -1972,6 +1972,12 @@
   "uncollapse": "Susa ukugoqa",
   "hideCheckedChecklistItems": "Fihla izinto zohlu lokuhlola ezihloliwe",
   "hideAllChecklistItems": "Fihla zonke izinto zohlu lokuhlola",
+  "checklist-reset-interval": "Ukusetha kabusha ngokuzenzakalelayo",
+  "checklistResetIntervalPopup-title": "Ukusetha kabusha ngokuzenzakalelayo",
+  "checklist-reset-interval-none": "Icishiwe (ayisethi kabusha ngokuzenzakalelayo)",
+  "checklist-reset-interval-daily": "Nsuku zonke",
+  "checklist-reset-interval-weekly": "Amaviki onke",
+  "checklist-reset-interval-monthly": "Zonke izinyanga",
   "hideCompletedSubtasks": "Fihla imisebenzi emincane esiphelile",
   "support": "Ukusekela",
   "supportPopup-title": "Ukusekela",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Ngenisa kusuka ku:",
   "import-parts-instruction": "Kungeniswa kuphela izingxenye ezimakiwe. Ukukhetha okufanayo kusetshenziswa lapho uthumela ngaphandle.",
   "import-wekan-file": "Ngenisa kusuka efayeleni le-.json noma le-.zip:",
-  "sum-of-number-fields": "Isamba samasimu enombolo alungiselelwe aboniswa phezulu kohlu"
+  "sum-of-number-fields": "Isamba samasimu enombolo alungiselelwe aboniswa phezulu kohlu",
+  "sticky-list-headers": "Izihloko zohlu ezinamathelayo",
+  "more-options": "Okunye okuzokhethwa"
 }

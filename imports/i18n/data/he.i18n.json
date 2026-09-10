@@ -1972,6 +1972,12 @@
   "uncollapse": "ביטול צמצום",
   "hideCheckedChecklistItems": "הסתרת פריטים שסומנו ברשימת הפריטים",
   "hideAllChecklistItems": "הסתרת כל הפריטים ברשימת המטלות",
+  "checklist-reset-interval": "איפוס אוטומטי",
+  "checklistResetIntervalPopup-title": "איפוס אוטומטי",
+  "checklist-reset-interval-none": "כבוי (לא מתאפס אוטומטית)",
+  "checklist-reset-interval-daily": "יומי",
+  "checklist-reset-interval-weekly": "שבועי",
+  "checklist-reset-interval-monthly": "חודשי",
   "hideCompletedSubtasks": "הסתר משימות משנה שהושלמו",
   "support": "תמיכה",
   "supportPopup-title": "תמיכה",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "ייבוא מ־:",
   "import-parts-instruction": "רק החלקים של הקריאה מיובאים. אותה הבחירה משמשת גם לייצוא.",
   "import-wekan-file": "ייבוא מקובץ ייצוא ‎.json או ‎.zip:",
-  "sum-of-number-fields": "סכום השדות המותאמים המספריים המוצגים בראש הרשימה"
+  "sum-of-number-fields": "סכום השדות המותאמים המספריים המוצגים בראש הרשימה",
+  "sticky-list-headers": "כותרות רשימה דביקות",
+  "more-options": "אפשרויות נוספות"
 }

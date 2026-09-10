@@ -1972,6 +1972,12 @@
   "uncollapse": "Дэлгэхэ",
   "hideCheckedChecklistItems": "Тэмдэглэгдэһэн шалгалтын жагсаалтын зүйлнүүдые нюуха",
   "hideAllChecklistItems": "Шалгалтын жагсаалтын бүхы зүйлнүүдые нюуха",
+  "checklist-reset-interval": "Автомат аргалалга",
+  "checklistResetIntervalPopup-title": "Автомат аргалалга",
+  "checklist-reset-interval-none": "Унтараатай (автоматаар аргалагдахагүй)",
+  "checklist-reset-interval-daily": "Үдэр бүри",
+  "checklist-reset-interval-weekly": "Долоо хоног бүри",
+  "checklist-reset-interval-monthly": "Һара бүри",
   "hideCompletedSubtasks": "Hide completed subtasks",
   "support": "Дэмжэлгэ",
   "supportPopup-title": "Дэмжэлгэ",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Эндэһээ оруулха:",
   "import-parts-instruction": "Гансал тэмдэглэгдэһэн хэсэгүүд оруулагдана. Гаргахада мүн адли шэлэлтэ хэрэглэгдэнэ.",
   "import-wekan-file": ".json гү, али .zip гаргалгын файлһаа оруулха:",
-  "sum-of-number-fields": "Жагсаалтын дээдэ хэсэгтэ харуулагдаһан тоото талбарнуудай суу"
+  "sum-of-number-fields": "Жагсаалтын дээдэ хэсэгтэ харуулагдаһан тоото талбарнуудай суу",
+  "sticky-list-headers": "Наалдамхай жагсаалтын гарчигууд",
+  "more-options": "Олон һонголто"
 }

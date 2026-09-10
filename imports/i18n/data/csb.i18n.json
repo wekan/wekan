@@ -1972,6 +1972,12 @@
   "uncollapse": "Rozwiń — pò kaszëbskù",
   "hideCheckedChecklistItems": "Ukryj zaznaczone pozycje checklisty — pò kaszëbskù",
   "hideAllChecklistItems": "Ukryj wszystkie pozycje checklisty — pò kaszëbskù",
+  "checklist-reset-interval": "Aùtomatné resetowanié",
+  "checklistResetIntervalPopup-title": "Aùtomatné resetowanié",
+  "checklist-reset-interval-none": "Wëłączoné (nie resetëje sã aùtomatno)",
+  "checklist-reset-interval-daily": "Codniowò",
+  "checklist-reset-interval-weekly": "Co tidzéń",
+  "checklist-reset-interval-monthly": "Co miesąc",
   "hideCompletedSubtasks": "Zatacëc dokùńczoné pòdzadania",
   "support": "Wsparcie — pò kaszëbskù",
   "supportPopup-title": "Wsparcie — pò kaszëbskù",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Importuj z: — pò kaszëbskù",
   "import-parts-instruction": "Importowane są tylko zaznaczone części. Ten sam wybòr jest używany przy eksporcie.",
   "import-wekan-file": "Importuj z pliku eksportu .json lub .zip: — pò kaszëbskù",
-  "sum-of-number-fields": "Sëma numerowëch swòjich pòlów pòkôzónëch na górze lëstë"
+  "sum-of-number-fields": "Sëma numerowëch swòjich pòlów pòkôzónëch na górze lëstë",
+  "sticky-list-headers": "Przilepioné nagłówczi lëstë",
+  "more-options": "Wicy opcëji"
 }

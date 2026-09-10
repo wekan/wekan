@@ -1972,6 +1972,12 @@
   "uncollapse": "Развернуть",
   "hideCheckedChecklistItems": "Тэмдэглэсэн чеклистийн зүйлсийг нуух",
   "hideAllChecklistItems": "Бүх чеклистийн зүйлсийг нуух",
+  "checklist-reset-interval": "Автомат шинэчлэл",
+  "checklistResetIntervalPopup-title": "Автомат шинэчлэл",
+  "checklist-reset-interval-none": "Унтраасан (автоматаар шинэчлэгдэхгүй)",
+  "checklist-reset-interval-daily": "Өдөр бүр",
+  "checklist-reset-interval-weekly": "Долоо хоног бүр",
+  "checklist-reset-interval-monthly": "Сар бүр",
   "hideCompletedSubtasks": "Дууссан дэд ажлуудыг нуух",
   "support": "Дэмжлэг",
   "supportPopup-title": "Дэмжлэг",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Эндээс импортлох:",
   "import-parts-instruction": "Зөвхөн тэмдэглэсэн хэсгүүд импортлогдоно. Экспортлохдоо мөн ижил сонголтыг ашиглана.",
   "import-wekan-file": ".json эсвэл .zip экспортын файлаас импортлох:",
-  "sum-of-number-fields": "Жагсаалтын дээд хэсэгт харуулсан тоон захиалгат талбаруудын нийлбэр"
+  "sum-of-number-fields": "Жагсаалтын дээд хэсэгт харуулсан тоон захиалгат талбаруудын нийлбэр",
+  "sticky-list-headers": "Наалддаг жагсаалтын гарчгууд",
+  "more-options": "Илүү сонголтууд"
 }

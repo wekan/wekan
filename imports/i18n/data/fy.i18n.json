@@ -1972,6 +1972,12 @@
   "uncollapse": "Utklappe",
   "hideCheckedChecklistItems": "Hide kontrolearre checklist items",
   "hideAllChecklistItems": "Ferbergje alle checklist items",
+  "checklist-reset-interval": "Automatysk weromsette",
+  "checklistResetIntervalPopup-title": "Automatysk weromsette",
+  "checklist-reset-interval-none": "Út (wurdt net automatysk weromset)",
+  "checklist-reset-interval-daily": "Deistich",
+  "checklist-reset-interval-weekly": "Wyklik",
+  "checklist-reset-interval-monthly": "Moanliks",
   "hideCompletedSubtasks": "Ferstopje foltôge subtaken",
   "support": "Stypje",
   "supportPopup-title": "Stypje",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Ymportearje fan:",
   "import-parts-instruction": "Allinne de oanfinke ûnderdielen wurde ymportearre. Deselde kar jildt by it eksportearjen.",
   "import-wekan-file": "Ymportearje út in .json- of .zip-eksportbestân:",
-  "sum-of-number-fields": "Som fan numerike oanpaste fjilden dy't boppe oan de list werjûn wurde"
+  "sum-of-number-fields": "Som fan numerike oanpaste fjilden dy't boppe oan de list werjûn wurde",
+  "sticky-list-headers": "Plakkerige listkoppen",
+  "more-options": "Mear opsjes"
 }

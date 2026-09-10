@@ -1972,6 +1972,12 @@
   "uncollapse": "Embotuichajey",
   "hideCheckedChecklistItems": "Eñomi ysaja ñehesa'ỹijo mba'e ojehechamava'ekue",
   "hideAllChecklistItems": "Eñomi opaite ysaja ñehesa'ỹijo mba'e",
+  "checklist-reset-interval": "Jeikoveve ijeheguíva",
+  "checklistResetIntervalPopup-title": "Jeikoveve ijeheguíva",
+  "checklist-reset-interval-none": "Ndojekói (nomboykéiva ijeheguiete)",
+  "checklist-reset-interval-daily": "Ára ha ára",
+  "checklist-reset-interval-weekly": "Arateĩ ha arateĩ",
+  "checklist-reset-interval-monthly": "Jasy ha jasy",
   "hideCompletedSubtasks": "Emokaña subtarea oĩmavéva",
   "support": "Pytyvõ",
   "supportPopup-title": "Pytyvõ",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Egueru ko'águi:",
   "import-parts-instruction": "Pehẽ oñemohánga va'ekue añónte ojegueru. Pe poravo peteĩcha ojepuru oñeguenohẽ jave.",
   "import-wekan-file": "Egueru peteĩ .json térã .zip ñeguenohẽ marandurenda-gui:",
-  "sum-of-number-fields": "Lista ru'ãme ojehechaukáva ñe'ẽndy jerure papapy rembiapokuéra ombyaty"
+  "sum-of-number-fields": "Lista ru'ãme ojehechaukáva ñe'ẽndy jerure papapy rembiapokuéra ombyaty",
+  "sticky-list-headers": "Lista rembiapoukapy oñemboja va'ekue",
+  "more-options": "Hetave jeporavopy"
 }

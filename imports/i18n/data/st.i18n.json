@@ -1972,6 +1972,12 @@
   "uncollapse": "Phutholla",
   "hideCheckedChecklistItems": "Pata dintho tsa lenane la tlhahlobo tse tshwailweng",
   "hideAllChecklistItems": "Pata dintho tsohle tsa lenane la tlhahlobo",
+  "checklist-reset-interval": "Ho qalisoa hoesa ka boiketsetso",
+  "checklistResetIntervalPopup-title": "Ho qalisoa hoesa ka boiketsetso",
+  "checklist-reset-interval-none": "E timmeng (ha e qalisoe hoesa ka boiketsetso)",
+  "checklist-reset-interval-daily": "Letsatsi le letsatsi",
+  "checklist-reset-interval-weekly": "Beke le beke",
+  "checklist-reset-interval-monthly": "Khoeli le khoeli",
   "hideCompletedSubtasks": "Pata mesebetsi e menyenyane e felileng",
   "support": "Tshehetso",
   "supportPopup-title": "Tshehetso",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Kenya ho tswa ho:",
   "import-parts-instruction": "Ho kenngwa feela dikarolo tse tshwailweng. Kgetho e tshwanang e sebediswa ha ho ntshuwa.",
   "import-wekan-file": "Kenya ho tswa faeleng e ntshitsweng ya .json kapa .zip:",
-  "sum-of-number-fields": "Kakaretso ya masimo a dinomoro a etselitsoeng a bontšoang holimo ho lenane"
+  "sum-of-number-fields": "Kakaretso ya masimo a dinomoro a etselitsoeng a bontšoang holimo ho lenane",
+  "sticky-list-headers": "Dihlogo tsa lenane tse kgomaretseng",
+  "more-options": "Dikgetho tse ding"
 }

@@ -1972,6 +1972,12 @@
   "uncollapse": "Розгорнути",
   "hideCheckedChecklistItems": "Приховати відмічені елементи чек-листа",
   "hideAllChecklistItems": "Приховати всі пункти чек-листа",
+  "checklist-reset-interval": "Автоматичне скидання",
+  "checklistResetIntervalPopup-title": "Автоматичне скидання",
+  "checklist-reset-interval-none": "Вимкнено (не скидається автоматично)",
+  "checklist-reset-interval-daily": "Щодня",
+  "checklist-reset-interval-weekly": "Щотижня",
+  "checklist-reset-interval-monthly": "Щомісяця",
   "hideCompletedSubtasks": "Сховати завершені підзадачі",
   "support": "Підтримка",
   "supportPopup-title": "Підтримка",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Імпортувати з:",
   "import-parts-instruction": "Імпортуються лише позначені частини. Той самий вибір використовується при експорті.",
   "import-wekan-file": "Імпортувати з файлу експорту .json або .zip:",
-  "sum-of-number-fields": "Сума числових користувацьких полів, показаних угорі списку"
+  "sum-of-number-fields": "Сума числових користувацьких полів, показаних угорі списку",
+  "sticky-list-headers": "Закріплені заголовки списків",
+  "more-options": "Додаткові параметри"
 }

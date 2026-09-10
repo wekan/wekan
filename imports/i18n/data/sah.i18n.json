@@ -1972,6 +1972,12 @@
   "uncollapse": "Ас",
   "hideCheckedChecklistItems": "Бэрэбиэркэ испииһэгин бэлиэтэммит пууннарын кистээ",
   "hideAllChecklistItems": "Бэрэбиэркэ испииһэгин бары пууннарын кистээ",
+  "checklist-reset-interval": "Автоматтык туругар киллэрии",
+  "checklistResetIntervalPopup-title": "Автоматтык туругар киллэрии",
+  "checklist-reset-interval-none": "Сүппэт (автоматтык туругар киллэрбэт)",
+  "checklist-reset-interval-daily": "Күн аайы",
+  "checklist-reset-interval-weekly": "Нэдиэлэ аайы",
+  "checklist-reset-interval-monthly": "Ый аайы",
   "hideCompletedSubtasks": "Хоттуллубут аҕыйах соруктары keмнэ",
   "support": "Өйөбүл",
   "supportPopup-title": "Өйөбүл",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Мантан киллэр:",
   "import-parts-instruction": "Бэлиэтэммит чаастар эрэ киллэриллэллэр. Таһаарыыга эмиэ ол талыллыы туттуллар.",
   "import-wekan-file": ".json эбэтэр .zip таһаарыы билэтиттэн киллэр:",
-  "sum-of-number-fields": "Испииһэк үрдүгэр көрдөрүллэр ахсаан туспа хонтуоруктарын түмүгэ"
+  "sum-of-number-fields": "Испииһэк үрдүгэр көрдөрүллэр ахсаан туспа хонтуоруктарын түмүгэ",
+  "sticky-list-headers": "Ыстаакка ыпсыылаах испииһэк ааттара",
+  "more-options": "Дьайыма көрдөрүүлэр"
 }

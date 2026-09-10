@@ -1972,6 +1972,12 @@
   "uncollapse": "ٻيهر پکيڙيو",
   "hideCheckedChecklistItems": "نشان لڳل جاچ فهرست جون شيون لڪايو",
   "hideAllChecklistItems": "جاچ فهرست جون سڀ شيون لڪايو",
+  "checklist-reset-interval": "خودڪار ري سيٽ",
+  "checklistResetIntervalPopup-title": "خودڪار ري سيٽ",
+  "checklist-reset-interval-none": "بند (پاڻمرادو ري سيٽ نه ٿيندو)",
+  "checklist-reset-interval-daily": "روزانو",
+  "checklist-reset-interval-weekly": "هفتيوار",
+  "checklist-reset-interval-monthly": "مهيني وار",
   "hideCompletedSubtasks": "مڪمل ٿيل ذيلي ڪم لڪايو",
   "support": "مدد",
   "supportPopup-title": "مدد",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "هن مان درآمد ڪريو:",
   "import-parts-instruction": "رڳو نشان لڳل حصا درآمد ٿين ٿا. برآمد ڪندي به ساڳي چونڊ استعمال ٿئي ٿي.",
   "import-wekan-file": ".json يا .zip برآمد فائيل مان درآمد ڪريو:",
-  "sum-of-number-fields": "لسٽ جي مٿي تي ڏيکاريل عددي مخصوص فيلڊن جو جوڙ"
+  "sum-of-number-fields": "لسٽ جي مٿي تي ڏيکاريل عددي مخصوص فيلڊن جو جوڙ",
+  "sticky-list-headers": "لسٽ جا سرنامہ ڀٽيل",
+  "more-options": "وڌيڪ اختيار"
 }

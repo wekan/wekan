@@ -1972,6 +1972,12 @@
   "uncollapse": "ଅନାବଶ୍ୟକ",
   "hideCheckedChecklistItems": "ଯାଞ୍ଚ ହୋଇଥିବା ଯାଞ୍ଚ ତାଲିକା ଆଇଟମଗୁଡିକ ଲୁଚାନ୍ତୁ |",
   "hideAllChecklistItems": "ସମସ୍ତ ଯାଞ୍ଚ ତାଲିକା ଆଇଟମ୍ ଲୁଚାନ୍ତୁ |",
+  "checklist-reset-interval": "ସ୍ୱୟଂଚାଳିତ ରିସେଟ୍",
+  "checklistResetIntervalPopup-title": "ସ୍ୱୟଂଚାଳିତ ରିସେଟ୍",
+  "checklist-reset-interval-none": "ବନ୍ଦ (ସ୍ୱୟଂଚାଳିତ ଭାବରେ ରିସେଟ୍ ହେବ ନାହିଁ)",
+  "checklist-reset-interval-daily": "ଦୈନିକ",
+  "checklist-reset-interval-weekly": "ସାପ୍ତାହିକ",
+  "checklist-reset-interval-monthly": "ମାସିକ",
   "hideCompletedSubtasks": "ସମ୍ପୂର୍ଣ୍ଣ ଉପକାର୍ଯ୍ୟଗୁଡ଼ିକୁ ଲୁଚାନ୍ତୁ",
   "support": "ସମର୍ଥନ",
   "supportPopup-title": "ସମର୍ଥନ",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "ଏଥିରୁ ଆମଦାନି:",
   "import-parts-instruction": "କେବଳ ଚିହ୍ନିତ ଅଂଶଗୁଡ଼ିକ ଆମଦାନି ହୁଏ। ରପ୍ତାନି ସମୟରେ ମଧ୍ୟ ସେହି ପସନ୍ଦ ବ୍ୟବହାର ହୁଏ।",
   "import-wekan-file": ".json କିମ୍ବା .zip ରପ୍ତାନି ଫାଇଲରୁ ଆମଦାନି କରନ୍ତୁ:",
-  "sum-of-number-fields": "ତାଲିକାର ଉପରେ ଦେଖାଯାଉଥିବା ସାଂଖ୍ୟିକ କଷ୍ଟମ ଫିଲ୍ଡଗୁଡ଼ିକର ଯୋଗଫଳ"
+  "sum-of-number-fields": "ତାଲିକାର ଉପରେ ଦେଖାଯାଉଥିବା ସାଂଖ୍ୟିକ କଷ୍ଟମ ଫିଲ୍ଡଗୁଡ଼ିକର ଯୋଗଫଳ",
+  "sticky-list-headers": "ଷ୍ଟିକି ତାଲିକା ହେଡର",
+  "more-options": "ଅଧିକ ବିକଳ୍ପ"
 }

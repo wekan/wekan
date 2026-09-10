@@ -1972,6 +1972,12 @@
   "uncollapse": "پھیلاویو",
   "hideCheckedChecklistItems": "نشان کرنہٕ آمتۍ چیک لسٹ شے ژھانٛڈیو",
   "hideAllChecklistItems": "سٲری چیک لسٹ شے ژھانٛڈیو",
+  "checklist-reset-interval": "خودکار ریسیٹ",
+  "checklistResetIntervalPopup-title": "خودکار ریسیٹ",
+  "checklist-reset-interval-none": "بند (خودکار طور ریسیٹ نہ تھِیہ)",
+  "checklist-reset-interval-daily": "ہر روز",
+  "checklist-reset-interval-weekly": "ہر ہفتہ",
+  "checklist-reset-interval-monthly": "ہر ماہ",
   "hideCompletedSubtasks": "Hide completed subtasks",
   "support": "معاونت",
   "supportPopup-title": "معاونت",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "یَتھ پؠٹھ درآمد کریو:",
   "import-parts-instruction": "صرف نشان لگاونہٕ آمژٕ حصہٕ درآمد گژھن۔ برآمد کرنہٕ وقت تہِ ہمان ژار استعمال گژھِ۔",
   "import-wekan-file": ".json یا .zip برآمد فایل پؠٹھ درآمد کریو:",
-  "sum-of-number-fields": "لِسٹَس ہیٚکہِ ہیٚشمَتؠ گژھنٕک خٲص عددی کھیٛتٕرَن ہُنٛد جوڑ"
+  "sum-of-number-fields": "لِسٹَس ہیٚکہِ ہیٚشمَتؠ گژھنٕک خٲص عددی کھیٛتٕرَن ہُنٛد جوڑ",
+  "sticky-list-headers": "فہرست ہیڈر جو چہٹُک",
+  "more-options": "زیاد اختیار"
 }

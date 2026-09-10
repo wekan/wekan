@@ -1972,6 +1972,12 @@
   "uncollapse": "Whakaroha anō",
   "hideCheckedChecklistItems": "Huna ngā tūemi rārangi arowhai kua tohua",
   "hideAllChecklistItems": "Huna ngā tūemi rārangi arowhai katoa",
+  "checklist-reset-interval": "Tautuhi aunoa anō",
+  "checklistResetIntervalPopup-title": "Tautuhi aunoa anō",
+  "checklist-reset-interval-none": "Weto (kāore e tautuhi anō aunoa)",
+  "checklist-reset-interval-daily": "Ia rā",
+  "checklist-reset-interval-weekly": "Ia wiki",
+  "checklist-reset-interval-monthly": "Ia marama",
   "hideCompletedSubtasks": "Hunā ngā mahi paku kua oti",
   "support": "Tautoko",
   "supportPopup-title": "Tautoko",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Kawemai mai i:",
   "import-parts-instruction": "Ko ngā wāhanga kua tohua anake ka kawemai. Ka whakamahia taua kōwhiringa anō ina kaweake.",
   "import-wekan-file": "Kawemai mai i tētahi kōnae kaweake .json, .zip rānei:",
-  "sum-of-number-fields": "Te huinga o ngā āpure tau ā-ritenga e whakaatuhia ana i runga ake o te rārangi"
+  "sum-of-number-fields": "Te huinga o ngā āpure tau ā-ritenga e whakaatuhia ana i runga ake o te rārangi",
+  "sticky-list-headers": "Pane rārangi piri",
+  "more-options": "He maha ake ngā kōwhiringa"
 }

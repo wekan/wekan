@@ -1972,6 +1972,12 @@
   "uncollapse": "unakolalapake",
   "hideCheckedChecklistItems": "hūnā kaha ʻia papa kaha nā mea",
   "hideAllChecklistItems": "hūnā a pau papa kaha nā mea",
+  "checklist-reset-interval": "Hoʻōla hou ʻokoʻa",
+  "checklistResetIntervalPopup-title": "Hoʻōla hou ʻokoʻa",
+  "checklist-reset-interval-none": "Pio (ʻaʻole hoʻōla hou ʻokoʻa)",
+  "checklist-reset-interval-daily": "I kēlā me kēia lā",
+  "checklist-reset-interval-weekly": "I kēlā me kēia pule",
+  "checklist-reset-interval-monthly": "I kēlā me kēia mahina",
   "hideCompletedSubtasks": "Hūnā i nā hana liʻiliʻi i pau",
   "support": "kupapolaka",
   "supportPopup-title": "kupapolaka",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "hoʻokomo mai:",
   "import-parts-instruction": "wale nō ka kikakeka palakaka he hoʻokomo ʻia. ka kame koike he hoʻohana ʻia wahena ekapolakinaka.",
   "import-wekan-file": "hoʻokomo mai he .kakona a i ʻole .kipa hoʻokuʻu aku waihona:",
-  "sum-of-number-fields": "Ka huina o nā kahua helu i hoʻoponopono ʻia i hōʻike ʻia ma luna o ka papa inoa"
+  "sum-of-number-fields": "Ka huina o nā kahua helu i hoʻoponopono ʻia i hōʻike ʻia ma luna o ka papa inoa",
+  "sticky-list-headers": "Poʻo papa inoa pili",
+  "more-options": "ʻOi aku nā koho"
 }

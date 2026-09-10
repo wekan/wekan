@@ -1972,6 +1972,12 @@
   "uncollapse": "No collassare",
   "hideCheckedChecklistItems": "Plata gli elementi dla lista di controllo sielti",
   "hideAllChecklistItems": "Plata gli elementi dla lista di controllo",
+  "checklist-reset-interval": "Repristin automatich",
+  "checklistResetIntervalPopup-title": "Repristin automatich",
+  "checklist-reset-interval-none": "Destudà (no se repristina nia automaticamënter)",
+  "checklist-reset-interval-daily": "Vigni de",
+  "checklist-reset-interval-weekly": "Vigni sćiman",
+  "checklist-reset-interval-monthly": "Vigni luna",
   "hideCompletedSubtasks": "Stopé i sotasc completedes",
   "support": "Supporto",
   "supportPopup-title": "Supporto",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Importa da:",
   "import-parts-instruction": "Vengono importate mé le parti sielte. La stessa scelta ie usata durante l'esportazion.",
   "import-wekan-file": "Importa da un file di esportazion .json o .zip:",
-  "sum-of-number-fields": "Suma di i ciamps numerics personalisá mustrá insom la lista"
+  "sum-of-number-fields": "Suma di i ciamps numerics personalisá mustrá insom la lista",
+  "sticky-list-headers": "Intestazions de lista fisses",
+  "more-options": "Plu opzions"
 }

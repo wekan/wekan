@@ -1972,6 +1972,12 @@
   "uncollapse": "Nun collassare",
   "hideCheckedChecklistItems": "Nascondi gli elementi d' 'a lista di controllo selezionati",
   "hideAllChecklistItems": "Nascondi gli elementi d' 'a lista di controllo",
+  "checklist-reset-interval": "Ripristino automatico",
+  "checklistResetIntervalPopup-title": "Ripristino automatico",
+  "checklist-reset-interval-none": "Astutato (nun se ripristina 'e sulo)",
+  "checklist-reset-interval-daily": "Ogne ghiuorno",
+  "checklist-reset-interval-weekly": "Ogne semmana",
+  "checklist-reset-interval-monthly": "Ogne mese",
   "hideCompletedSubtasks": "Annasconne 'e sottatuvete fernute",
   "support": "Supporto",
   "supportPopup-title": "Supporto",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Importa da:",
   "import-parts-instruction": "Vengono importate sulo le parti selezionate. La stessa scelta è usata durante l'esportazione.",
   "import-wekan-file": "Importa da un file di esportazione .json o .zip:",
-  "sum-of-number-fields": "Somma d' 'e cambe numeriche pesunalizzate ammustate 'ncoppa a lista"
+  "sum-of-number-fields": "Somma d' 'e cambe numeriche pesunalizzate ammustate 'ncoppa a lista",
+  "sticky-list-headers": "Ntestazione d'’a lista attaccata",
+  "more-options": "Cchiù opzione"
 }

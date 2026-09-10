@@ -1972,6 +1972,12 @@
   "uncollapse": "Рашири",
   "hideCheckedChecklistItems": "Сакриј обављене помоћне предметне радње",
   "hideAllChecklistItems": "Сакриј све помоћне предметне радње",
+  "checklist-reset-interval": "Аутоматско ресетовање",
+  "checklistResetIntervalPopup-title": "Аутоматско ресетовање",
+  "checklist-reset-interval-none": "Искључено (не ресетује се аутоматски)",
+  "checklist-reset-interval-daily": "Дневно",
+  "checklist-reset-interval-weekly": "Недељно",
+  "checklist-reset-interval-monthly": "Месечно",
   "hideCompletedSubtasks": "Сакриј завршене подзадатке",
   "support": "Подршка",
   "supportPopup-title": "Подршка",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Увези из:",
   "import-parts-instruction": "Увозе се само означени делови. Исти избор се користи и при извозу.",
   "import-wekan-file": "Увези из .json или .zip датотеке извоза:",
-  "sum-of-number-fields": "Збир нумеричких прилагођених поља приказаних на врху листе"
+  "sum-of-number-fields": "Збир нумеричких прилагођених поља приказаних на врху листе",
+  "sticky-list-headers": "Залепљена заглавља листе",
+  "more-options": "Више опција"
 }

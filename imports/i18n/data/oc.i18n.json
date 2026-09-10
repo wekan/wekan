@@ -1972,6 +1972,12 @@
   "uncollapse": "Développer",
   "hideCheckedChecklistItems": "Cacher les éléments cochés de la check-list",
   "hideAllChecklistItems": "Cacher tous les éléments de la check-list",
+  "checklist-reset-interval": "Reïnicializacion automatica",
+  "checklistResetIntervalPopup-title": "Reïnicializacion automatica",
+  "checklist-reset-interval-none": "Atudat (se reïnicializa pas automaticament)",
+  "checklist-reset-interval-daily": "Cada jorn",
+  "checklist-reset-interval-weekly": "Cada setmana",
+  "checklist-reset-interval-monthly": "Cada mes",
   "hideCompletedSubtasks": "Amagar las sostascas acabadas",
   "support": "Assisténcia",
   "supportPopup-title": "Assisténcia",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Importar dempuèi:",
   "import-parts-instruction": "Solas las partidas marcadas son importadas. La meteissa causida es utilizada a l'expòrt.",
   "import-wekan-file": "Importar dempuèi un fichièr d'expòrt .json o .zip:",
-  "sum-of-number-fields": "Soma dels camps numerics personalizats afichats amont de la lista"
+  "sum-of-number-fields": "Soma dels camps numerics personalizats afichats amont de la lista",
+  "sticky-list-headers": "Entèstas de lista pegantas",
+  "more-options": "Mai d'opcions"
 }

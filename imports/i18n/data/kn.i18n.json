@@ -1972,6 +1972,12 @@
   "uncollapse": "ವಿಸ್ತರಿಸಿ",
   "hideCheckedChecklistItems": "ಗುರುತಿಸಿದ ಪರಿಶೀಲನಾ ಪಟ್ಟಿಯ ಅಂಶಗಳನ್ನು ಮರೆಮಾಡಿ",
   "hideAllChecklistItems": "ಎಲ್ಲ ಪರಿಶೀಲನಾ ಪಟ್ಟಿಯ ಅಂಶಗಳನ್ನು ಮರೆಮಾಡಿ",
+  "checklist-reset-interval": "ಸ್ವಯಂಚಾಲಿತ ಮರುಹೊಂದಿಕೆ",
+  "checklistResetIntervalPopup-title": "ಸ್ವಯಂಚಾಲಿತ ಮರುಹೊಂದಿಕೆ",
+  "checklist-reset-interval-none": "ಆಫ್ (ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಮರುಹೊಂದಿಸುವುದಿಲ್ಲ)",
+  "checklist-reset-interval-daily": "ಪ್ರತಿದಿನ",
+  "checklist-reset-interval-weekly": "ಪ್ರತಿ ವಾರ",
+  "checklist-reset-interval-monthly": "ಪ್ರತಿ ತಿಂಗಳು",
   "hideCompletedSubtasks": "ಪೂರ್ಣಗೊಂಡ ಉಪಕಾರ್ಯಗಳನ್ನು ಮರೆಮಾಡಿ",
   "support": "ಬೆಂಬಲ",
   "supportPopup-title": "ಬೆಂಬಲ",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "ಇದರಿಂದ ಆಮದು ಮಾಡಿ:",
   "import-parts-instruction": "ಗುರುತಿಸಿದ ಭಾಗಗಳನ್ನು ಮಾತ್ರ ಆಮದು ಮಾಡಲಾಗುತ್ತದೆ. ರಫ್ತು ಮಾಡುವಾಗಲೂ ಅದೇ ಆಯ್ಕೆಯನ್ನು ಬಳಸಲಾಗುತ್ತದೆ.",
   "import-wekan-file": ".json ಅಥವಾ .zip ರಫ್ತು ಕಡತದಿಂದ ಆಮದು ಮಾಡಿ:",
-  "sum-of-number-fields": "ಪಟ್ಟಿಯ ಮೇಲ್ಭಾಗದಲ್ಲಿ ತೋರಿಸಲಾದ ಸಂಖ್ಯಾ ಕಸ್ಟಮ್ ಕ್ಷೇತ್ರಗಳ ಮೊತ್ತ"
+  "sum-of-number-fields": "ಪಟ್ಟಿಯ ಮೇಲ್ಭಾಗದಲ್ಲಿ ತೋರಿಸಲಾದ ಸಂಖ್ಯಾ ಕಸ್ಟಮ್ ಕ್ಷೇತ್ರಗಳ ಮೊತ್ತ",
+  "sticky-list-headers": "ಅಂಟಿಕೊಂಡ ಪಟ್ಟಿ ಶೀರ್ಷಿಕೆಗಳು",
+  "more-options": "ಹೆಚ್ಚಿನ ಆಯ್ಕೆಗಳು"
 }

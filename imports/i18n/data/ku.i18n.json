@@ -1972,6 +1972,12 @@
   "uncollapse": "Veke",
   "hideCheckedChecklistItems": "Hêmanên nîşankirî yên lîsteya kontrolê veşêre",
   "hideAllChecklistItems": "Hemû hêmanên lîsteya kontrolê veşêre",
+  "checklist-reset-interval": "Nûavakirina bixweber",
+  "checklistResetIntervalPopup-title": "Nûavakirina bixweber",
+  "checklist-reset-interval-none": "Vemirandî (bixweber nayê nûavakirin)",
+  "checklist-reset-interval-daily": "Rojane",
+  "checklist-reset-interval-weekly": "Heftane",
+  "checklist-reset-interval-monthly": "Mehane",
   "hideCompletedSubtasks": "Binpêkên qedandî veşêre",
   "support": "Piştgirî",
   "supportPopup-title": "Piştgirî",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Ji vir têxe:",
   "import-parts-instruction": "Tenê beşên nîşankirî tên têxistin. Di derxistinê de jî heman hilbijartin tê bikaranîn.",
   "import-wekan-file": "Ji pela derxistinê ya .json an .zip têxe:",
-  "sum-of-number-fields": "Berhevoka qadên hejmarî yên taybet ên ku li serê lîsteyê tê nîşandan"
+  "sum-of-number-fields": "Berhevoka qadên hejmarî yên taybet ên ku li serê lîsteyê tê nîşandan",
+  "sticky-list-headers": "Sernavên lîsteyê yên sabît",
+  "more-options": "Vebijarkên din"
 }

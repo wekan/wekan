@@ -1972,6 +1972,12 @@
   "uncollapse": "Disprega",
   "hideCheckedChecklistItems": "Kudha taklennow checkys an rol checkya",
   "hideAllChecklistItems": "Kudha pub taklen an rol checkya",
+  "checklist-reset-interval": "Daspoellans omgemel",
+  "checklistResetIntervalPopup-title": "Daspoellans omgemel",
+  "checklist-reset-interval-none": "Diw (ny wra daspoellans omgemel)",
+  "checklist-reset-interval-daily": "Pub jydh",
+  "checklist-reset-interval-weekly": "Pub seythen",
+  "checklist-reset-interval-monthly": "Pub mis",
   "hideCompletedSubtasks": "Hide completed subtasks",
   "support": "Skoodhyans",
   "supportPopup-title": "Skoodhyans",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Ynperthi dhyworth:",
   "import-parts-instruction": "An rannow merkys hepken yw ynperthys. An keth dewis yw devnydhys pan wrir esperthi.",
   "import-wekan-file": "Ynperthi dhyworth restr esperthi .json po .zip:",
-  "sum-of-number-fields": "Sammans an parcow niveryek personal a wonyskwedhys yn top an rol"
+  "sum-of-number-fields": "Sammans an parcow niveryek personal a wonyskwedhys yn top an rol",
+  "sticky-list-headers": "Pennskrifow rol glegh",
+  "more-options": "Moy dewisow"
 }

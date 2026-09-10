@@ -1972,6 +1972,12 @@
   "uncollapse": "Aufklappen",
   "hideCheckedChecklistItems": "Erledigte Checklisteneinträge ausblenden",
   "hideAllChecklistItems": "Verberge all Checklisteneinträge",
+  "checklist-reset-interval": "Automatescht Zrécksetzen",
+  "checklistResetIntervalPopup-title": "Automatescht Zrécksetzen",
+  "checklist-reset-interval-none": "Aus (gëtt net automatesch zréckgesat)",
+  "checklist-reset-interval-daily": "Deeglech",
+  "checklist-reset-interval-weekly": "Wöchentlech",
+  "checklist-reset-interval-monthly": "Monatlech",
   "hideCompletedSubtasks": "Ofgeschloss Ënneraufgaben verstoppen",
   "support": "Unterstützung",
   "supportPopup-title": "Unterstützung",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Importéieren aus:",
   "import-parts-instruction": "Nur déi angehakten Teile ginn importéiert. Dieselbe Auswiel gilt beim Exportéieren.",
   "import-wekan-file": "Aus einer .json- oder .zip-Exportdatei importieren:",
-  "sum-of-number-fields": "Zomm vun de numerëschen ugepassten Felder, déi uewe op der Lëscht ugewise ginn"
+  "sum-of-number-fields": "Zomm vun de numerëschen ugepassten Felder, déi uewe op der Lëscht ugewise ginn",
+  "sticky-list-headers": "Fix Lëschtekäpp",
+  "more-options": "Méi Optiounen"
 }

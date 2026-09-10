@@ -1972,6 +1972,12 @@
   "uncollapse": "Viiddit",
   "hideCheckedChecklistItems": "Čiega merkojuvvon dárkkistančuoggáid",
   "hideAllChecklistItems": "Čiega buot dárkkistančuoggáid",
+  "checklist-reset-interval": "Automáhtalaš ođasmahttin",
+  "checklistResetIntervalPopup-title": "Automáhtalaš ođasmahttin",
+  "checklist-reset-interval-none": "Jáddan (ii ođasmahttojuvvo automáhtalaččat)",
+  "checklist-reset-interval-daily": "Beaivválaččat",
+  "checklist-reset-interval-weekly": "Vahkkosaččat",
+  "checklist-reset-interval-monthly": "Mánnosaččat",
   "hideCompletedSubtasks": "Čiega ollašuvvan vuollebargguid",
   "support": "Doarjja",
   "supportPopup-title": "Doarjja",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Fievrrit sisa dáppe:",
   "import-parts-instruction": "Dušše merkejuvvon oasit sisafievrriduvvojit. Seamma válljen geavahuvvo olggosfievrridettiin.",
   "import-wekan-file": "Fievrrit sisa .json- dahje .zip-olggosfievrridanfiillas:",
-  "sum-of-number-fields": "Listtu bajás čájehuvvon logolaš heivehuvvon giettiid submi"
+  "sum-of-number-fields": "Listtu bajás čájehuvvon logolaš heivehuvvon giettiid submi",
+  "sticky-list-headers": "Čatnon listtu bajilčállosat",
+  "more-options": "Eanet válljenvejolašvuođat"
 }

@@ -1972,6 +1972,12 @@
   "uncollapse": "Tendua",
   "hideCheckedChecklistItems": "Ficha vipengee vya orodha tiki",
   "hideAllChecklistItems": "Ficha vitu vyote vya orodha hakiki",
+  "checklist-reset-interval": "Kurejesha kiotomatiki",
+  "checklistResetIntervalPopup-title": "Kurejesha kiotomatiki",
+  "checklist-reset-interval-none": "Imezimwa (hairejeshwi kiotomatiki)",
+  "checklist-reset-interval-daily": "Kila siku",
+  "checklist-reset-interval-weekly": "Kila wiki",
+  "checklist-reset-interval-monthly": "Kila mwezi",
   "hideCompletedSubtasks": "Ficha kazi ndogo zilizokamilika",
   "support": "Msaada",
   "supportPopup-title": "Msaada",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Ingiza kutoka:",
   "import-parts-instruction": "Sehemu zilizotiwa alama pekee ndizo huingizwa. Chaguo hilo hilo hutumika unapohamisha.",
   "import-wekan-file": "Ingiza kutoka faili la kuhamisha la .json au .zip:",
-  "sum-of-number-fields": "Jumla ya sehemu maalum za nambari zinazoonyeshwa juu ya orodha"
+  "sum-of-number-fields": "Jumla ya sehemu maalum za nambari zinazoonyeshwa juu ya orodha",
+  "sticky-list-headers": "Vichwa vya orodha vilivyobandikwa",
+  "more-options": "Chaguo zaidi"
 }

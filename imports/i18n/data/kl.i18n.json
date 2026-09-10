@@ -1972,6 +1972,12 @@
   "uncollapse": "Siaartiguk",
   "hideCheckedChecklistItems": "Misissuiffiusumi immikkoortut nalunaaqutserneqartut isertukkit",
   "hideAllChecklistItems": "Misissuiffiusumi immikkoortut tamarmik isertukkit",
+  "checklist-reset-interval": "Naammattumik allanngortitsineq",
+  "checklistResetIntervalPopup-title": "Naammattumik allanngortitsineq",
+  "checklist-reset-interval-none": "Qaangiutinneqarpoq (naammattumik allanngortinneqanngilaq)",
+  "checklist-reset-interval-daily": "Ullut tamaasa",
+  "checklist-reset-interval-weekly": "Sapaatit akunnerini tamaasa",
+  "checklist-reset-interval-monthly": "Qaammatit tamaasa",
   "hideCompletedSubtasks": "Hide completed subtasks",
   "support": "Ikiorsiineq",
   "supportPopup-title": "Ikiorsiineq",
@@ -2496,5 +2502,7 @@
   "import-source-heading": "Uannga eqquguk:",
   "import-parts-instruction": "Immikkoortut nalunaaqutserneqartut kisimik eqqunneqassapput. Annissinermi toqqagaq taanna aamma atorneqassaaq.",
   "import-wekan-file": ".json- imaluunniit .zip-annissinermut filimit eqquguk:",
-  "sum-of-number-fields": "Summa naatsorsuutaasunik immikkoortitat tunngavigalugit qulaani takutinneqartartunut"
+  "sum-of-number-fields": "Summa naatsorsuutaasunik immikkoortitat tunngavigalugit qulaani takutinneqartartunut",
+  "sticky-list-headers": "Allattoqarfiup najugaa ilanngussami",
+  "more-options": "Sulinngutit amerlanerusut"
 }
