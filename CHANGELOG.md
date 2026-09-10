@@ -311,16 +311,46 @@ the Markdown commit as the template.
 
 # Upcoming WeKan ® release
 
-**In short:** this release restores the full-featured **document preview**
-viewer for DOCX/XLSX/PPTX (`office-open-xml-viewer`) and native browser PDF
-preview, replacing the minimal server-rendered GIF-slideshow approach that
-kept failing with a bare HTTP 415 under some builds. Attachment content
-search keeps working, now as a lighter, render-free text-index step. It also
+**In short:** this release adds **Frappe Gantt** below WeKan's own Gantt view
+and draws the 10 board report charts with **Chart.js**, both MIT-licensed
+with a minimal dependency footprint and lazy-loaded only when their view is
+opened. It also restores the full-featured **document preview** viewer for
+DOCX/XLSX/PPTX (`office-open-xml-viewer`) and native browser PDF preview,
+replacing the minimal server-rendered GIF-slideshow approach that kept
+failing with a bare HTTP 415 under some builds. Attachment content search
+keeps working, now as a lighter, render-free text-index step. It also
 hardens the **HttpOnly login cookie** against a rare case where it could be
 written without an expiry, which would make the browser drop it as soon as
 it closed instead of honoring the configured 90-day login.
 
-This release fixes the following bugs:
+This release adds the following new features:
+
+**Board reports** - the Gantt view and the 10 board report chart views.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5d5317d968907edcaa06011dc8fd760a21121e4f">Frappe Gantt added below the existing Gantt view; report charts now draw with Chart.js</a>. Thanks to xet7.</summary>
+
+Two full-featured, permissively-licensed charting libraries replace the
+plain CSS bars used so far, chosen for a copyfree license and a minimal,
+auditable dependency tree over feature richness:
+[Frappe Gantt](https://github.com/frappe/gantt) (MIT, zero runtime
+dependencies, ~15 KB gzipped) and [Chart.js](https://www.chartjs.org/) (MIT,
+one dependency - `@kurkle/color`, also MIT). Both are loaded with a dynamic
+`import()` so their code only reaches the browser when the relevant view is
+actually opened, never on every page load.
+
+WeKan's own hand-rolled Gantt view (the week-grid table) is kept exactly as
+it is; Frappe Gantt is added below it in the same board view, drawing the
+same start/due/end task set from the board's cards, opening a card on
+click, and exporting to PDF/Excel through the existing `gantt` chart export
+route rather than a second pipeline for identical data. The 10 board report
+chart views draw a Chart.js bar chart instead of a stack of CSS-width divs,
+reusing the same data normalization and the same per-chart export route
+unchanged - only the rendering changed.
+
+</details>
+
+and fixes the following bugs:
 
 **Document preview** - opening a PDF/DOCX/XLSX/PPTX attachment on a card.
 
