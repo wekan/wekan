@@ -1842,6 +1842,13 @@ Template.boardCardSettingsPopup.helpers({
     const currentBoard = ReactiveCache.getBoard(boardId);
     return currentBoard ? currentBoard.allowsComments : false;
   },
+  // #4285: show a card's comments directly on the minicard, opt-in and OFF by
+  // default so existing boards are unaffected.
+  allowsCommentsOnMinicard() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsCommentsOnMinicard : false;
+  },
   allowsCardNumber() {
     const boardId = Session.get('currentBoard');
     const currentBoard = ReactiveCache.getBoard(boardId);
@@ -2184,6 +2191,12 @@ Template.boardCardSettingsPopup.events({
     evt.preventDefault();
     const newValue = !tpl.currentBoard.allowsComments;
     Boards.update(tpl.currentBoard._id, { $set: { allowsComments: newValue } });
+  },
+  // #4285: card comments shown on the minicard.
+  'click .js-field-has-comments-on-minicard'(evt, tpl) {
+    evt.preventDefault();
+    const newValue = !tpl.currentBoard.allowsCommentsOnMinicard;
+    Boards.update(tpl.currentBoard._id, { $set: { allowsCommentsOnMinicard: newValue } });
   },
   'click .js-field-has-activities'(evt, tpl) {
     evt.preventDefault();

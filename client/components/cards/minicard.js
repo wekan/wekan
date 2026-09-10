@@ -193,6 +193,40 @@ Template.minicard.helpers({
     const board = this.board();
     return !!(board && board.allowsChecklistCountBadgeOnMinicard);
   },
+  // #4285: show a card's comments directly on the minicard. Opt-in and OFF by
+  // default (see models/boards.js:allowsCommentsOnMinicard), so a board that
+  // does not use this pays no extra cost - the comments list below is only
+  // built (and the comment badge's `comments` helper already runs
+  // unconditionally for the count badge) when this returns true.
+  showCommentsOnMinicard() {
+    const board = this.board();
+    return !!(board && board.allowsCommentsOnMinicard);
+  },
+  // Compact, truncated preview of the most recent comments for the minicard.
+  // Reuses the same `comments()` card helper the comment-count badge already
+  // calls (sorted newest first) rather than a new subscription/query. Caps
+  // the number shown and the length of each, and flags whether there is more
+  // to see (either more comments than shown, or a comment that got cut) so
+  // the template can offer a "more" affordance that opens the full card -
+  // the same click-to-open behavior every minicard already has.
+  commentsForMinicard() {
+    const MAX_COMMENTS = 3;
+    const MAX_LENGTH = 140;
+    const all = this.comments() || [];
+    const shown = all.slice(0, MAX_COMMENTS).map(comment => {
+      const text = comment.text || '';
+      const truncated = text.length > MAX_LENGTH;
+      return {
+        _id: comment._id,
+        text: truncated ? `${text.slice(0, MAX_LENGTH)}…` : text,
+        truncated,
+      };
+    });
+    return {
+      comments: shown,
+      hasMore: all.length > MAX_COMMENTS || shown.some(c => c.truncated),
+    };
+  },
 
   hiddenMinicardLabelText,
   stickers() {

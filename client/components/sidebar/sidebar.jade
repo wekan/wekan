@@ -551,6 +551,17 @@ template(name="boardCardSettingsPopup")
           | {{_ 'checklist-count'}}
     .card-settings-row
       .card-settings-column
+        a.flex.js-field-has-comments(title="{{_ 'card-comments-on-minicard'}}" class="{{#if allowsComments}}is-checked{{/if}}")
+          i.fa(class="{{#if allowsComments}}fa-check{{else}}fa-square-o{{/if}}")
+      .card-settings-column
+        a.flex.js-field-has-comments-on-minicard(title="{{_ 'card-comments-on-minicard'}}" class="{{#if allowsCommentsOnMinicard}}is-checked{{/if}}")
+          i.fa(class="{{#if allowsCommentsOnMinicard}}fa-check{{else}}fa-square-o{{/if}}")
+      .card-settings-column
+        span
+          i.fa.fa-comment-o
+          | {{_ 'card-comments-on-minicard'}}
+    .card-settings-row
+      .card-settings-column
         a.flex.js-field-has-subtasks(title="{{_ 'subtasks'}}" class="{{#if allowsSubtasks}}is-checked{{/if}}")
           i.fa(class="{{#if allowsSubtasks}}fa-check{{else}}fa-square-o{{/if}}")
       .card-settings-column

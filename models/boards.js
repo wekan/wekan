@@ -638,6 +638,15 @@ Boards.attachSchema(
       defaultValue: true,
     },
 
+    allowsCommentsOnMinicard: {
+      /**
+       * #4285: show a card's comments directly on the minicard? Opt-in and
+       * OFF by default so existing boards are unaffected.
+       */
+      type: Boolean,
+      defaultValue: false,
+    },
+
     allowsDescriptionTitle: {
       /**
        * Does the board allows description title?
@@ -2336,6 +2345,10 @@ Boards.helpers({
 
   async setAllowsComments(allowsComments) {
     return await Boards.updateAsync(this._id, { $set: { allowsComments } });
+  },
+
+  async setAllowsCommentsOnMinicard(allowsCommentsOnMinicard) {
+    return await Boards.updateAsync(this._id, { $set: { allowsCommentsOnMinicard } });
   },
 
   async setAllowsDescriptionTitle(allowsDescriptionTitle) {

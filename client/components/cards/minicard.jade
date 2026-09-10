@@ -268,6 +268,24 @@ template(name="minicard")
           .minicard-description
             +viewer
               | {{ getDescription }}
+      //- #4285: compact preview of the most recent comments on the minicard.
+        Opt-in (allowsCommentsOnMinicard), display-only - no reply/edit here,
+        just enough to see at a glance, with a "more" link that opens the
+        full card (the whole minicard is already a link to it, see
+        listBody.jade's a.minicard-wrapper.js-minicard).
+      if showCommentsOnMinicard
+        with commentsForMinicard
+          if comments.length
+            .minicard-comments
+              each comments
+                .minicard-comment
+                  span.minicard-comment-icon
+                    i.fa.fa-comment-o
+                  span.minicard-comment-text {{ text }}
+              if hasMore
+                a.minicard-comments-more(title="{{_ 'card-comments-on-minicard'}}")
+                  i.fa.fa-caret-down
+                  | {{_ 'card-comments-more'}}
       if shouldShowListOnMinicard
         .minicard-list-name
           i.fa.fa-list

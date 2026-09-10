@@ -578,6 +578,36 @@
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
 }
+/* #4285: compact preview of the most recent comments on the minicard. */
+.minicard .minicard-comments {
+  width: 100%;
+  margin-bottom: 3px;
+}
+.minicard .minicard-comment {
+  display: flex;
+  align-items: flex-start;
+  gap: 4px;
+  font-size: 11px;
+  color: #555;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.minicard .minicard-comment-icon {
+  flex: 0 0 auto;
+}
+.minicard .minicard-comment-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.minicard .minicard-comments-more {
+  font-size: 11px;
+  color: #888;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
 .minicard.minicard-composer {
   margin-bottom: 12px;
 }
