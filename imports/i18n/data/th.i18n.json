@@ -521,6 +521,7 @@
   "linkCardPopup-title": "เชื่อมโยงการ์ด",
   "searchElementPopup-title": "ค้นหา",
   "copyCardPopup-title": "คัดลอกการ์ด",
+  "save-card-as-template": "บันทึกเป็นเทมเพลต",
   "copyListPopup-title": "คัดลอกรายการ",
   "copyManyCardsPopup-title": "คัดลอกเทมเพลตไปยังการ์ดหลายใบ",
   "copyManyCardsPopup-instructions": "หัวข้อและคำอธิบายของการ์ดปลายทางในรูปแบบ JSON นี้",
@@ -2546,5 +2547,6 @@
   "twoFactorCode-invalid": "รหัสยืนยันตัวตนไม่ถูกต้อง โปรดลองอีกครั้ง",
   "wip-limit-groups": "กลุ่มจำกัด WIP",
   "wip-limit-group-name-placeholder": "ชื่อกลุ่ม (ไม่บังคับ)",
-  "wip-limit-group-add": "เพิ่มกลุ่มจำกัด WIP"
+  "wip-limit-group-add": "เพิ่มกลุ่มจำกัด WIP",
+  "subtask-inherit-parent-labels": "รับช่วงป้ายกำกับของการ์ดหลัก"
 }

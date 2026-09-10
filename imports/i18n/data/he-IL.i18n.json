@@ -521,6 +521,7 @@
   "linkCardPopup-title": "קישור כרטיס",
   "searchElementPopup-title": "חיפוש",
   "copyCardPopup-title": "העתקת כרטיס",
+  "save-card-as-template": "שמור כתבנית",
   "copyListPopup-title": "העתקת רשימה",
   "copyManyCardsPopup-title": "העתקת תבנית למגוון כרטיסים",
   "copyManyCardsPopup-instructions": "כותרות ותיאורים של כרטיסי יעד בתצורת JSON זו",
@@ -2546,5 +2547,6 @@
   "twoFactorCode-invalid": "קוד אימות שגוי. נסה שוב.",
   "wip-limit-groups": "קבוצות מגבלת עבודה בתהליך",
   "wip-limit-group-name-placeholder": "שם הקבוצה (אופציונלי)",
-  "wip-limit-group-add": "הוספת קבוצת מגבלה"
+  "wip-limit-group-add": "הוספת קבוצת מגבלה",
+  "subtask-inherit-parent-labels": "ירושת התוויות של הכרטיס ההורה"
 }

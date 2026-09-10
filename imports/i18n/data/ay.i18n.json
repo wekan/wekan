@@ -521,6 +521,7 @@
   "linkCardPopup-title": "chinu tarjeta",
   "searchElementPopup-title": "Thaqhaña",
   "copyCardPopup-title": "Karta qillqxaruña",
+  "save-card-as-template": "Plantillajama Imaña",
   "copyListPopup-title": "qillqaqaña lista",
   "copyManyCardsPopup-title": "qillqaqaña Template ukaru Many tarjetanaka",
   "copyManyCardsPopup-instructions": "Destination tarjeta Titles ukat Descriptions mana aka JSON format",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "naktayaña WIP Limit (Sutinaka)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "Yapaña naktayaña WIP Limit"
+  "wip-limit-group-name-placeholder": "Suti (ajlliñataki)",
+  "wip-limit-group-add": "Yapaña naktayaña WIP Limit",
+  "subtask-inherit-parent-labels": "Awkin markaparu chhijllaña"
 }

@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Карточка-ссылка",
   "searchElementPopup-title": "Поиск",
   "copyCardPopup-title": "Копировать карточку",
+  "save-card-as-template": "Загвар болгон хадгалах",
   "copyListPopup-title": "Жагсаалт хуулах",
   "copyManyCardsPopup-title": "Копировать шаблон в несколько карточек",
   "copyManyCardsPopup-instructions": "Зорилтот карточкуудын гарчиг ба тайлбарыг энэ JSON хэлбэрээр",
@@ -2546,5 +2547,6 @@
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "WIP хязгаарын бүлгүүд",
   "wip-limit-group-name-placeholder": "Бүлгийн нэр (заавал биш)",
-  "wip-limit-group-add": "WIP хязгаарын бүлэг нэмэх"
+  "wip-limit-group-add": "WIP хязгаарын бүлэг нэмэх",
+  "subtask-inherit-parent-labels": "Эцэг картын шошгыг өвлөх"
 }

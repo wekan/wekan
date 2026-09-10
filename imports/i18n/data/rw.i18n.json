@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Huza Ikarita",
   "searchElementPopup-title": "Shakisha",
   "copyCardPopup-title": "Gukoporora ikarita",
+  "save-card-as-template": "Bika nk'Icyitegererezo",
   "copyListPopup-title": "Kopera Urutonde",
   "copyManyCardsPopup-title": "Kopera Inyandikorugero ku Makarita Menshi",
   "copyManyCardsPopup-instructions": "Imitwe n'Ibisobanuro by'Amakarita Agenewe muri iyi miterere ya JSON",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "Koresha Urugero rwa WIP (Urutonde)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "Ongeraho Koresha Urugero rwa WIP"
+  "wip-limit-group-name-placeholder": "Izina (bidasabwa)",
+  "wip-limit-group-add": "Ongeraho Koresha Urugero rwa WIP",
+  "subtask-inherit-parent-labels": "Rarikira uduhwenya kw'ikarita y'umubyeyi"
 }

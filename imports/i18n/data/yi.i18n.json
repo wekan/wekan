@@ -521,6 +521,7 @@
   "linkCardPopup-title": "לינק קאַרד",
   "searchElementPopup-title": "זוכן",
   "copyCardPopup-title": "קאָפּי קאַרד",
+  "save-card-as-template": "היט ווי אַ שאַבלאָן",
   "copyListPopup-title": "קאָפּיע רשימה",
   "copyManyCardsPopup-title": "קאָפּי מוסטער צו פילע קאַרדס",
   "copyManyCardsPopup-instructions": "דעסטיניישאַן קאָרט טיטלען און דיסקריפּשאַנז אין דעם JSON פֿאָרמאַט",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "געבן WIP לימיט (רשימה)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "לייג געבן WIP לימיט"
+  "wip-limit-group-name-placeholder": "נאָמען (אַפּשאַנאַל)",
+  "wip-limit-group-add": "לייג געבן WIP לימיט",
+  "subtask-inherit-parent-labels": "ירשן די תוויות פונעם עלטערן קארטל"
 }

@@ -521,6 +521,7 @@
   "linkCardPopup-title": "কাৰ্ড সংযুক্ত কৰক",
   "searchElementPopup-title": "সন্ধান",
   "copyCardPopup-title": "কাৰ্ড কপি কৰক",
+  "save-card-as-template": "টেমপ্লেট হিচাপে সংৰক্ষণ কৰক",
   "copyListPopup-title": "তালিকা প্ৰতিলিপি কৰক",
   "copyManyCardsPopup-title": "সাঁচ বহু কাৰ্ডলৈ প্ৰতিলিপি কৰক",
   "copyManyCardsPopup-instructions": "এই JSON বিন্যাসত গন্তব্য কাৰ্ডৰ শিৰোনাম আৰু বিৱৰণ",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "WIP সীমা সক্ষম কৰক (তালিকা)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "যোগ কৰক WIP সীমা সক্ষম কৰক"
+  "wip-limit-group-name-placeholder": "নাম (ঐচ্ছিক)",
+  "wip-limit-group-add": "যোগ কৰক WIP সীমা সক্ষম কৰক",
+  "subtask-inherit-parent-labels": "উপৰি কাৰ্ডৰ লেবেলবোৰ উত্তৰাধিকাৰী কৰক"
 }

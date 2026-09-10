@@ -521,6 +521,7 @@
   "linkCardPopup-title": "連結卡片",
   "searchElementPopup-title": "搜尋",
   "copyCardPopup-title": "複製卡片",
+  "save-card-as-template": "另存為範本",
   "copyListPopup-title": "複製清單",
   "copyManyCardsPopup-title": "將範本複製到多張卡片",
   "copyManyCardsPopup-instructions": "使用此 JSON 格式來表示目標卡片的標題和描述",
@@ -2546,5 +2547,6 @@
   "twoFactorCode-invalid": "驗證代碼無效，請再試一次。",
   "wip-limit-groups": "最大任务数限制组",
   "wip-limit-group-name-placeholder": "组名(可选)",
-  "wip-limit-group-add": "添加最大任务数限制组"
+  "wip-limit-group-add": "添加最大任务数限制组",
+  "subtask-inherit-parent-labels": "繼承母卡片嘅標籤"
 }

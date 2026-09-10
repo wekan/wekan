@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Gandhengake Kertu",
   "searchElementPopup-title": "Golek",
   "copyCardPopup-title": "Salin kertu",
+  "save-card-as-template": "Simpen minangka Cithakan",
   "copyListPopup-title": "Salin Dhaptar",
   "copyManyCardsPopup-title": "Salin Cithakan menyang Akeh Kertu",
   "copyManyCardsPopup-instructions": "Judhul lan Katrangan Kertu Tujuan nganggo format JSON iki",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "Aktifake Wates WIP (Dhaptar)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "Tambah Aktifake Wates WIP"
+  "wip-limit-group-name-placeholder": "Jeneng (opsional)",
+  "wip-limit-group-add": "Tambah Aktifake Wates WIP",
+  "subtask-inherit-parent-labels": "Warisi label kertu induk"
 }

@@ -521,6 +521,7 @@
   "linkCardPopup-title": "カードをリンク",
   "searchElementPopup-title": "検索",
   "copyCardPopup-title": "カードをコピー",
+  "save-card-as-template": "テンプレートとして保存",
   "copyListPopup-title": "リストをコピー",
   "copyManyCardsPopup-title": "テンプレートから複数カードにコピー",
   "copyManyCardsPopup-instructions": "作成されるカードのタイトルと説明をJSON形式で指定",
@@ -2546,5 +2547,6 @@
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "WIP制限グループ",
   "wip-limit-group-name-placeholder": "グループ名(任意)",
-  "wip-limit-group-add": "WIP制限グループを追加"
+  "wip-limit-group-add": "WIP制限グループを追加",
+  "subtask-inherit-parent-labels": "親カードのラベルを継承する"
 }

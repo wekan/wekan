@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Fitxa d'enllaç",
   "searchElementPopup-title": "Cerca",
   "copyCardPopup-title": "Copia la fitxa",
+  "save-card-as-template": "Desa com a plantilla",
   "copyListPopup-title": "Copia la llista",
   "copyManyCardsPopup-title": "Copia la plantilla a moltes fitxes",
   "copyManyCardsPopup-instructions": "Títols i descripcions de fitxes destí en format JSON",
@@ -2546,5 +2547,6 @@
   "twoFactorCode-invalid": "Codi d'autenticació no vàlid. Torneu-ho a provar.",
   "wip-limit-groups": "Grups de límit WIP",
   "wip-limit-group-name-placeholder": "Nom del grup (opcional)",
-  "wip-limit-group-add": "Afegeix un grup de límit WIP"
+  "wip-limit-group-add": "Afegeix un grup de límit WIP",
+  "subtask-inherit-parent-labels": "Hereta les etiquetes de la targeta pare"
 }

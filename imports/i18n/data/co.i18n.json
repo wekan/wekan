@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Collega carta",
   "searchElementPopup-title": "Cercà",
   "copyCardPopup-title": "Copià a carta",
+  "save-card-as-template": "Salva cum'è Mudellu",
   "copyListPopup-title": "Cupià lista",
   "copyManyCardsPopup-title": "Cupià template su molte carte",
   "copyManyCardsPopup-instructions": "Titulu e la descrizzione di a carta di destinazione in questu formato JSON",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "Attiva limite Work In Progress (Lista)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "Aghjunghje Attiva limite Work In Progress"
+  "wip-limit-group-name-placeholder": "Nome (facultativu)",
+  "wip-limit-group-add": "Aghjunghje Attiva limite Work In Progress",
+  "subtask-inherit-parent-labels": "Eredità l'etichette di a carta parente"
 }

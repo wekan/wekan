@@ -521,6 +521,7 @@
   "linkCardPopup-title": "ربط البطاقة",
   "searchElementPopup-title": "بحث",
   "copyCardPopup-title": "نسخ البطاقة",
+  "save-card-as-template": "حفظ كقالب",
   "copyListPopup-title": "نسخ القائمة",
   "copyManyCardsPopup-title": "نسخ القالب إلى عدة بطاقات",
   "copyManyCardsPopup-instructions": "عنوان و توضیحات کارت مقصد در این قالب JSON",
@@ -2546,5 +2547,6 @@
   "twoFactorCode-invalid": "رمز مصادقة غير صالح. يرجى المحاولة مرة أخرى.",
   "wip-limit-groups": "مجموعات حد العمل الجاري",
   "wip-limit-group-name-placeholder": "اسم المجموعة (اختياري)",
-  "wip-limit-group-add": "إضافة مجموعة حد العمل الجاري"
+  "wip-limit-group-add": "إضافة مجموعة حد العمل الجاري",
+  "subtask-inherit-parent-labels": "وراثة تسميات البطاقة الأصلية"
 }

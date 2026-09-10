@@ -48,6 +48,21 @@ Settings.attachSchema(
       optional: true,
       defaultValue: false,
     },
+    // Admin Panel / Features (issue #3069): autolink bare `<prefix>NNNN` tokens
+    // (e.g. "#1234") found in card descriptions/comments to an external issue
+    // tracker. externalLinkPatternPrefix is the literal token prefix (commonly
+    // "#"); externalLinkPatternUrl is the URL template containing "{number}",
+    // which is replaced with the digits that followed the prefix. Either left
+    // empty disables the feature (no-op). See models/lib/externalLinkAutolink.js
+    // for the pure matching/URL-building function this setting drives.
+    externalLinkPatternPrefix: {
+      type: String,
+      optional: true,
+    },
+    externalLinkPatternUrl: {
+      type: String,
+      optional: true,
+    },
     // Admin Panel / Features / Notifications (issue #5820).
     // disableActivities: stop recording AND showing all activity-feed entries.
     // disableNotifications: never send watch notifications.

@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Karte verknüpfen",
   "searchElementPopup-title": "Suche",
   "copyCardPopup-title": "Karte kopieren",
+  "save-card-as-template": "rur chenmoHmeH pol",
   "copyListPopup-title": "Liste kopieren",
   "copyManyCardsPopup-title": "Kopiere die Vorlage zu mehreren Karten",
   "copyManyCardsPopup-instructions": "Titel und Beschreibungen der Zielkarten im folgenden JSON-Format",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "yIbuS",
   "twoFactorCode-invalid": "mI' authentication ghobe'. yIqIm.",
   "wip-limit-groups": "WIP-Limit einschalten (tetlh)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "yIchel WIP-Limit einschalten"
+  "wip-limit-group-name-placeholder": "pong (optionnel)",
+  "wip-limit-group-add": "yIchel WIP-Limit einschalten",
+  "subtask-inherit-parent-labels": "vav 'e' De' rar"
 }

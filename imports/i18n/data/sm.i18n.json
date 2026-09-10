@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Fesootai le Pepa",
   "searchElementPopup-title": "Saili",
   "copyCardPopup-title": "Kopi le pepa",
+  "save-card-as-template": "Fa'aola e fai ma Fa'ata'ita'iga",
   "copyListPopup-title": "Kopi le Lisi",
   "copyManyCardsPopup-title": "Kopi le Faataitaiga i Pepa e Tele",
   "copyManyCardsPopup-instructions": "Ulutala ma Faamatalaga o Pepa Taunuuga i lenei faatulagaga JSON",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "Faaola le Tapulaa WIP (Lisi)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "Faaopoopo Faaola le Tapulaa WIP"
+  "wip-limit-group-name-placeholder": "Igoa (e le faamalosia)",
+  "wip-limit-group-add": "Faaopoopo Faaola le Tapulaa WIP",
+  "subtask-inherit-parent-labels": "Talia mai fa'ailoga o le kata matua"
 }

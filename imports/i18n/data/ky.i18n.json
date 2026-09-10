@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Карточканы байланыштыруу",
   "searchElementPopup-title": "Издөө",
   "copyCardPopup-title": "Карточканы көчүрүү",
+  "save-card-as-template": "Шаблон катары сактоо",
   "copyListPopup-title": "Тизмени көчүрүү",
   "copyManyCardsPopup-title": "Үлгүнү көп карточкага көчүрүү",
   "copyManyCardsPopup-instructions": "Көздөгөн карточкалардын аталыштары жана сүрөттөмөлөрү ушул JSON форматында",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "WIP чегин иштетүү (Тизме)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "Кошуу WIP чегин иштетүү"
+  "wip-limit-group-name-placeholder": "Аты (милдеттүү эмес)",
+  "wip-limit-group-add": "Кошуу WIP чегин иштетүү",
+  "subtask-inherit-parent-labels": "Ата-эне картанын жарлыктарын мурастоо"
 }

@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Əlaqə Kartı",
   "searchElementPopup-title": "Axtar",
   "copyCardPopup-title": "Kartı kopyalayın",
+  "save-card-as-template": "Şablon kimi saxla",
   "copyListPopup-title": "Siyahını kopyalayın",
   "copyManyCardsPopup-title": "Şablonu bir çox karta kopyalayın",
   "copyManyCardsPopup-instructions": "Bu JSON formatında Təyinat Kartı Başlıqları və Təsvirləri",
@@ -2546,5 +2547,6 @@
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "WIP limit qrupları",
   "wip-limit-group-name-placeholder": "Qrup adı (isteğe bağlı)",
-  "wip-limit-group-add": "WIP limit qrupu əlavə et"
+  "wip-limit-group-add": "WIP limit qrupu əlavə et",
+  "subtask-inherit-parent-labels": "Ana kartın etiketlərini miras al"
 }

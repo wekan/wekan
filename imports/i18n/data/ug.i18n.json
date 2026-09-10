@@ -521,6 +521,7 @@
   "linkCardPopup-title": "ئۇلىنىش كارتىسى",
   "searchElementPopup-title": "ئىزدەش",
   "copyCardPopup-title": "كارتا كۆچۈرۈش",
+  "save-card-as-template": "قېلىپ سۈپىتىدە ساقلاش",
   "copyListPopup-title": "كۆچۈرۈش تىزىملىكى",
   "copyManyCardsPopup-title": "قېلىپنى نۇرغۇن كارتىلارغا كۆچۈرۈڭ",
   "copyManyCardsPopup-instructions": "بۇ JSON فورماتىدىكى نىشان كارتىنىڭ ئىسمى ۋە چۈشەندۈرۈشى",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "WIP چەكلىمىسىنى قوزغىتىڭ (تىزىملىك)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "قوش WIP چەكلىمىسىنى قوزغىتىڭ"
+  "wip-limit-group-name-placeholder": "ئىسمى (ئىختىيارىي)",
+  "wip-limit-group-add": "قوش WIP چەكلىمىسىنى قوزغىتىڭ",
+  "subtask-inherit-parent-labels": "ئاتا-ئانا كارتىسىنىڭ ئەنبەلگىلىرىگە ۋارىسلىق قىلىش"
 }

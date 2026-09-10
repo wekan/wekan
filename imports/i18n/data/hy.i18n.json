@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Հղման քարտ",
   "searchElementPopup-title": "Որոնում",
   "copyCardPopup-title": "Պատճենեք քարտ",
+  "save-card-as-template": "Պահպանել որպես Ձևանմուշ",
   "copyListPopup-title": "Պատճենել ցուցակը",
   "copyManyCardsPopup-title": "Պատճենեք ձևանմուշը բազմաթիվ քարտերի վրա",
   "copyManyCardsPopup-instructions": "Նպատակային քարտի անվանումները և նկարագրությունները այս JSON ձևաչափով",
@@ -2546,5 +2547,6 @@
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "WIP սահմանի խմբեր",
   "wip-limit-group-name-placeholder": "Խմբի անունը (ընտրովի)",
-  "wip-limit-group-add": "Ավելացնել WIP սահմանի խումբ"
+  "wip-limit-group-add": "Ավելացնել WIP սահմանի խումբ",
+  "subtask-inherit-parent-labels": "Ժառանգել ծնողական քարտի պիտակները"
 }

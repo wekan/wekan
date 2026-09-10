@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Xiriiri Kaarka",
   "searchElementPopup-title": "Raadi",
   "copyCardPopup-title": "Nuqul ka samee kaarka",
+  "save-card-as-template": "U kaydi sida Tosay",
   "copyListPopup-title": "Koobi Liiska",
   "copyManyCardsPopup-title": "Qaabka ku Koobi Kaarar Badan",
   "copyManyCardsPopup-instructions": "Cinwaannada iyo Sharraxaadaha Kaararka Meesha Loo Socdo ee qaabkan JSON",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "Awood sii Xadka WIP (Liis)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "Ku dar Awood sii Xadka WIP"
+  "wip-limit-group-name-placeholder": "Magac (ikhtiyaari)",
+  "wip-limit-group-add": "Ku dar Awood sii Xadka WIP",
+  "subtask-inherit-parent-labels": "Dhaxal siabooyinka kaadhka waalidka"
 }

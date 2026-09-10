@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Link Kard",
   "searchElementPopup-title": "Fittex",
   "copyCardPopup-title": "Ikkopja l-karta",
+  "save-card-as-template": "Issejvja bħala Mudell",
   "copyListPopup-title": "Ikkopja Lista",
   "copyManyCardsPopup-title": "Ikkopja Template għal Many Kards",
   "copyManyCardsPopup-instructions": "Destination Kard Titles u Descriptions ġewwa dan JSON format",
@@ -2546,5 +2547,6 @@
   "twoFactorCode-invalid": "Kodiċi ta' awtentikazzjoni invalidu. Erġa' pprova.",
   "wip-limit-groups": "Gruppi tal-Limitu WIP",
   "wip-limit-group-name-placeholder": "Isem tal-grupp (mhux obbligatorju)",
-  "wip-limit-group-add": "Żid grupp tal-limitu WIP"
+  "wip-limit-group-add": "Żid grupp tal-limitu WIP",
+  "subtask-inherit-parent-labels": "Wirt it-tikketti tal-karta ġenitur"
 }

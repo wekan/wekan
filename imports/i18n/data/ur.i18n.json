@@ -521,6 +521,7 @@
   "linkCardPopup-title": "لینک کارڈ",
   "searchElementPopup-title": "تلاش",
   "copyCardPopup-title": "کارڈ نقل کریں",
+  "save-card-as-template": "بطور ٹیمپلیٹ محفوظ کریں",
   "copyListPopup-title": "نقل فہرست",
   "copyManyCardsPopup-title": "نقل تےمپلاتے کو مانی کارڈز",
   "copyManyCardsPopup-instructions": "دےستیناتیون کارڈ تیتلےس اور دےسکریپتیونس میں تہیس JSON فورمات",
@@ -2546,5 +2547,6 @@
   "twoFactorCode-invalid": "غلط توثیقی کوڈ۔ دوبارہ کوشش کریں۔",
   "wip-limit-groups": "WIP حد گروپس",
   "wip-limit-group-name-placeholder": "گروپ کا نام (اختیاری)",
-  "wip-limit-group-add": "WIP حد گروپ شامل کریں"
+  "wip-limit-group-add": "WIP حد گروپ شامل کریں",
+  "subtask-inherit-parent-labels": "پیرنٹ کارڈ کے لیبل وراثت میں حاصل کریں"
 }

@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Poveži kartico",
   "searchElementPopup-title": "Išči",
   "copyCardPopup-title": "Kopiraj kartico",
+  "save-card-as-template": "Shrani kot predlogo",
   "copyListPopup-title": "Kopiraj seznam",
   "copyManyCardsPopup-title": "Расади попуњен образац",
   "copyManyCardsPopup-instructions": "Naslovi ciljnih kartic in opisi v JSON formatu",
@@ -2546,5 +2547,6 @@
   "twoFactorCode-invalid": "Neveljavna avtentikacijska koda. Poskusite znova.",
   "wip-limit-groups": "Skupine omejitev WIP",
   "wip-limit-group-name-placeholder": "Ime skupine (neobvezno)",
-  "wip-limit-group-add": "Dodaj skupino omejitev WIP"
+  "wip-limit-group-add": "Dodaj skupino omejitev WIP",
+  "subtask-inherit-parent-labels": "Podeduj oznake nadrejene kartice"
 }

@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Звязаць картку",
   "searchElementPopup-title": "Пошук",
   "copyCardPopup-title": "Капіраваць картку",
+  "save-card-as-template": "Захаваць як шаблон",
   "copyListPopup-title": "Капіраваць спіс",
   "copyManyCardsPopup-title": "Капіраваць шаблон у мноства картак",
   "copyManyCardsPopup-instructions": "Назвы і апісанні мэтавых картак у гэтым фармаце JSON",
@@ -2546,5 +2547,6 @@
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "Групы ліміту WIP",
   "wip-limit-group-name-placeholder": "Назва групы (неабавязкова)",
-  "wip-limit-group-add": "Дадаць групу ліміту WIP"
+  "wip-limit-group-add": "Дадаць групу ліміту WIP",
+  "subtask-inherit-parent-labels": "Успадкаваць меткі бацькоўскай карткі"
 }

@@ -521,6 +521,7 @@
   "linkCardPopup-title": "அட்டையை இணை",
   "searchElementPopup-title": "தேடு",
   "copyCardPopup-title": "அட்டையை நகலெடு",
+  "save-card-as-template": "வார்ப்புருவாக சேமி",
   "copyListPopup-title": "பட்டியலை நகலெடு",
   "copyManyCardsPopup-title": "வார்ப்புருவைப் பல அட்டைகளுக்கு நகலெடு",
   "copyManyCardsPopup-instructions": "இலக்கு அட்டைகளின் தலைப்புகளும் விவரங்களும் இந்த JSON வடிவத்தில்",
@@ -2546,5 +2547,6 @@
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "WIP வரம்பு குழுக்கள்",
   "wip-limit-group-name-placeholder": "குழுவின் பெயர் (விருப்பத்தேர்வு)",
-  "wip-limit-group-add": "WIP வரம்பு குழு சேர்க்க"
+  "wip-limit-group-add": "WIP வரம்பு குழு சேர்க்க",
+  "subtask-inherit-parent-labels": "பெற்றோர் அட்டையின் லேபிள்களைப் பெறவும்"
 }

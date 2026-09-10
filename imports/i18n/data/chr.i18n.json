@@ -521,6 +521,7 @@
   "linkCardPopup-title": "ᎪᏪᎵ ᎤᏍᏗ ᎦᏚᏓᎸᏍᏗ",
   "searchElementPopup-title": "ᎭᏯᏂ",
   "copyCardPopup-title": "ᎪᏪᎵ ᎯᏟᎶᏍᏓ",
+  "save-card-as-template": "ᏗᎦᎪᏙᏗ ᎾᏍᎩᏯ ᏗᎨᏒ",
   "copyListPopup-title": "ᏗᎪᏪᎵ ᎦᏁᏟᏴᏍᏗ",
   "copyManyCardsPopup-title": "ᎠᏟᎶᏍᏙᏗ ᎤᏂᏣᏘ ᏗᎪᏪᎵ ᏗᏍᏗ ᎢᏗᏢ ᎦᏁᏟᏴᏍᏗ",
   "copyManyCardsPopup-instructions": "ᎦᏘᏩᏍᏗ ᏗᎪᏪᎵ ᏗᏍᏗ ᏚᎾᏙᎥ ᎠᎴ ᏚᏂᎧᏃᎮᏓ ᎯᎠ JSON ᎢᏯᏍᏗ",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "WIP ᎢᎦᎢ ᎤᏍᏚᎢᏍᏗ (ᎠᏎᏊᎢ)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "ᎯᏟᏌ WIP ᎢᎦᎢ ᎤᏍᏚᎢᏍᏗ"
+  "wip-limit-group-name-placeholder": "ᏚᏙᎥ (ᎬᏩᏓᏓᏅᏖᏗ)",
+  "wip-limit-group-add": "ᎯᏟᏌ WIP ᎢᎦᎢ ᎤᏍᏚᎢᏍᏗ",
+  "subtask-inherit-parent-labels": "ᎠᏙᏓ ᎠᎫᏓᎶᏍᏗ ᏗᎪᏪᎵ ᏗᎨᏒᎢ"
 }

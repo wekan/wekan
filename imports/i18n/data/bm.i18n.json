@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Karata ɲɔgɔn",
   "searchElementPopup-title": "Ɲini",
   "copyCardPopup-title": "Karti kopi",
+  "save-card-as-template": "A mara i ko ɲɛfɔlan",
   "copyListPopup-title": "Lisiti bɔ kopi",
   "copyManyCardsPopup-title": "Misali bɔ kopi karata caman na",
   "copyManyCardsPopup-instructions": "Karata tɔgɔw ni u ɲɛfɔliw minnu bɛ taa yɔrɔ la JSON cogoya nin na",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "WIP dantigɛ da (Sɛbɛn)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "Fara a kan WIP dantigɛ da"
+  "wip-limit-group-name-placeholder": "Tɔgɔ (i sago)",
+  "wip-limit-group-add": "Fara a kan WIP dantigɛ da",
+  "subtask-inherit-parent-labels": "Ka fatiya karti mumɛ ka tagabiw ta"
 }

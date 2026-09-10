@@ -521,6 +521,7 @@
   "linkCardPopup-title": "کارت ونښلوئ",
   "searchElementPopup-title": "لټون",
   "copyCardPopup-title": "کارت کاپي کول",
+  "save-card-as-template": "د نمونې په توګه خوندي کړئ",
   "copyListPopup-title": "لړليک کاپي کړئ",
   "copyManyCardsPopup-title": "کينډۍ ډېرو کارتونو ته کاپي کړئ",
   "copyManyCardsPopup-instructions": "د موخې کارتونو سرليکونه او څرګندونې په دې JSON بڼه کې",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "د WIP حد چالان کړئ (لړليک)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "زياتول د WIP حد چالان کړئ"
+  "wip-limit-group-name-placeholder": "نوم (اختياري)",
+  "wip-limit-group-add": "زياتول د WIP حد چالان کړئ",
+  "subtask-inherit-parent-labels": "د پلرني کارت لیبلونه میراث یوسئ"
 }

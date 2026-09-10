@@ -521,6 +521,7 @@
   "linkCardPopup-title": "ଲିଙ୍କ୍ କାର୍ଡ |",
   "searchElementPopup-title": "ସନ୍ଧାନ କର |",
   "copyCardPopup-title": "କାର୍ଡ କପି କରନ୍ତୁ |",
+  "save-card-as-template": "ଟେମ୍ପଲେଟ୍ ଭାବରେ ସେଭ୍ କରନ୍ତୁ",
   "copyListPopup-title": "ତାଲିକା କପି କରନ୍ତୁ |",
   "copyManyCardsPopup-title": "ଅନେକ କାର୍ଡରେ ଟେମ୍ପଲେଟ୍ କପି କରନ୍ତୁ |",
   "copyManyCardsPopup-instructions": "ଏହି JSON ଫର୍ମାଟରେ ଡେଷ୍ଟିନେସନ୍ କାର୍ଡ ଆଖ୍ୟା ଏବଂ ବର୍ଣ୍ଣନା |",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "WIP ସୀମା ସକ୍ଷମ କରନ୍ତୁ | (ତାଲିକା |)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "ଯୋଡନ୍ତୁ | WIP ସୀମା ସକ୍ଷମ କରନ୍ତୁ |"
+  "wip-limit-group-name-placeholder": "ନାମ (ବ al କଳ୍ପିକ)",
+  "wip-limit-group-add": "ଯୋଡନ୍ତୁ | WIP ସୀମା ସକ୍ଷମ କରନ୍ତୁ |",
+  "subtask-inherit-parent-labels": "ମୂଳ କାର୍ଡର ଲେବୁଲଗୁଡ଼ିକୁ ଉତ୍ତରାଧିକାର ସୂତ୍ରରେ ପାଆନ୍ତୁ"
 }

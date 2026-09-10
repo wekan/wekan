@@ -521,6 +521,7 @@
   "linkCardPopup-title": "കാർഡ് ബന്ധിപ്പിക്കുക",
   "searchElementPopup-title": "തിരയുക",
   "copyCardPopup-title": "കാർഡ് പകർത്തുക",
+  "save-card-as-template": "ടെംപ്ലേറ്റ് ആയി സംരക്ഷിക്കുക",
   "copyListPopup-title": "പട്ടിക പകർത്തുക",
   "copyManyCardsPopup-title": "ടെംപ്ലേറ്റ് നിരവധി കാർഡുകളിലേക്ക് പകർത്തുക",
   "copyManyCardsPopup-instructions": "ഈ JSON രൂപത്തിലുള്ള ലക്ഷ്യ കാർഡ് ശീർഷകങ്ങളും വിവരണങ്ങളും",
@@ -2546,5 +2547,6 @@
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "WIP പരിധി ഗ്രൂപ്പുകൾ",
   "wip-limit-group-name-placeholder": "ഗ്രൂപ്പിന്റെ പേര് (ഐച്ഛികം)",
-  "wip-limit-group-add": "WIP പരിധി ഗ്രൂപ്പ് ചേർക്കുക"
+  "wip-limit-group-add": "WIP പരിധി ഗ്രൂപ്പ് ചേർക്കുക",
+  "subtask-inherit-parent-labels": "രക്ഷാകർതൃ കാർഡിന്റെ ലേബലുകൾ പാരമ്പര്യമാക്കുക"
 }

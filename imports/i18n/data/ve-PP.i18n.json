@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Linkitä kortti",
   "searchElementPopup-title": "Etsi",
   "copyCardPopup-title": "Kopioi kortti",
+  "save-card-as-template": "Bulukanya sa Tshifanyiso",
   "copyListPopup-title": "Kopioi lista",
   "copyManyCardsPopup-title": "Kopioi malli monelle kortille",
   "copyManyCardsPopup-instructions": "Kohde korttien otsikot ja kuvaukset JSON-muodossa",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "Ota käyttöön WIP-raja (Lista)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "Lisää Ota käyttöön WIP-raja"
+  "wip-limit-group-name-placeholder": "Nimi (valinnainen)",
+  "wip-limit-group-add": "Lisää Ota käyttöön WIP-raja",
+  "subtask-inherit-parent-labels": "Ḓadzhela zwiredzo zwa khadi ya mubebi"
 }

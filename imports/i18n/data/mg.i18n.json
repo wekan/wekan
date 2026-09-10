@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Ampifandraiso ny karatra",
   "searchElementPopup-title": "Hikaroka",
   "copyCardPopup-title": "Handika ny karatra",
+  "save-card-as-template": "Tehirizo ho Endrika",
   "copyListPopup-title": "Adikao ny lisitra",
   "copyManyCardsPopup-title": "Adikao amin'ny karatra maro ny lasitra",
   "copyManyCardsPopup-instructions": "Lohateny sy famaritana ny karatra kendrena amin'ity endrika JSON ity",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "Alefaso ny fetra WIP (Lisitra)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "Hanampy Alefaso ny fetra WIP"
+  "wip-limit-group-name-placeholder": "Anarana (safidy)",
+  "wip-limit-group-add": "Hanampy Alefaso ny fetra WIP",
+  "subtask-inherit-parent-labels": "Mandova ny mari-pamantarana ny karatra ray aman-dreny"
 }

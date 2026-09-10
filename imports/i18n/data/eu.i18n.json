@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Estekatu txartela",
   "searchElementPopup-title": "Bilatu",
   "copyCardPopup-title": "Kopiatu txartela",
+  "save-card-as-template": "Gorde txantiloi gisa",
   "copyListPopup-title": "Kopiatu zerrenda",
   "copyManyCardsPopup-title": "Kopiatu txantiloia txartel askotan",
   "copyManyCardsPopup-instructions": "Títulos y descripciones de las tarjetas de destino en formato JSON",
@@ -2546,5 +2547,6 @@
   "twoFactorCode-invalid": "Autentifikazio-kode baliogabea. Saiatu berriro.",
   "wip-limit-groups": "WIP mugaren taldeak",
   "wip-limit-group-name-placeholder": "Taldearen izena (aukerakoa)",
-  "wip-limit-group-add": "Gehitu WIP mugaren taldea"
+  "wip-limit-group-add": "Gehitu WIP mugaren taldea",
+  "subtask-inherit-parent-labels": "Heredatu gurasoen txartelaren etiketak"
 }

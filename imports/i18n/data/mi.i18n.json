@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Hono Kāri",
   "searchElementPopup-title": "Rapu",
   "copyCardPopup-title": "Tāruatia te kāri",
+  "save-card-as-template": "Tiakina hei Papa Tauira",
   "copyListPopup-title": "Tārua Rārangi",
   "copyManyCardsPopup-title": "Tārua Tātauira ki ngā Kāri Maha",
   "copyManyCardsPopup-instructions": "Ngā Taitara me ngā Whakaahuatanga Kāri Ūnga i tēnei hōputu JSON",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "Whakahohe Tepe WIP (Rārangi)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "Tāpiri Whakahohe Tepe WIP"
+  "wip-limit-group-name-placeholder": "Ingoa (kōwhiringa)",
+  "wip-limit-group-add": "Tāpiri Whakahohe Tepe WIP",
+  "subtask-inherit-parent-labels": "Tuku iho ngā tapanga o te kāri mātua"
 }

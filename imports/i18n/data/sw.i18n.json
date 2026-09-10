@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Kadi ya Kiungo",
   "searchElementPopup-title": "Tafuta",
   "copyCardPopup-title": "Kadi ya nakala",
+  "save-card-as-template": "Hifadhi kama Kiolezo",
   "copyListPopup-title": "Orodha ya Nakili",
   "copyManyCardsPopup-title": "Nakili Kiolezo kwa Kadi Nyingi",
   "copyManyCardsPopup-instructions": "Vichwa na Maelezo ya Kadi Lengwa katika umbizo hili la JSON",
@@ -2546,5 +2547,6 @@
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "Vikundi vya Kikomo cha WIP",
   "wip-limit-group-name-placeholder": "Jina la kikundi (hiari)",
-  "wip-limit-group-add": "Ongeza kikundi cha kikomo cha WIP"
+  "wip-limit-group-add": "Ongeza kikundi cha kikomo cha WIP",
+  "subtask-inherit-parent-labels": "Rithi lebo za kadi ya mzazi"
 }

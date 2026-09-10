@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Ugnay kard",
   "searchElementPopup-title": "Maghanap",
   "copyCardPopup-title": "Kopyahin ang kard",
+  "save-card-as-template": "I-save bilang Template",
   "copyListPopup-title": "Kopyahin listahan",
   "copyManyCardsPopup-title": "Kopyahin template sa Many kards",
   "copyManyCardsPopup-instructions": "Patutunguhan kard Titles at Descriptions sa ito JSON pormat",
@@ -2546,5 +2547,6 @@
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "Mga Grupo ng Limitasyon ng WIP",
   "wip-limit-group-name-placeholder": "Pangalan ng grupo (opsyonal)",
-  "wip-limit-group-add": "Magdagdag ng grupo ng limitasyon ng WIP"
+  "wip-limit-group-add": "Magdagdag ng grupo ng limitasyon ng WIP",
+  "subtask-inherit-parent-labels": "Manahin ang mga label ng magulang na kard"
 }

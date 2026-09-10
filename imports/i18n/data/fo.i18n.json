@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Leinkja kort",
   "searchElementPopup-title": "Leita",
   "copyCardPopup-title": "Avrita kortið",
+  "save-card-as-template": "Goym sum mynstur",
   "copyListPopup-title": "Avrita lista",
   "copyManyCardsPopup-title": "Avrita sniðmát á nógv kort",
   "copyManyCardsPopup-instructions": "Heiti og lýsingar á málkortum í hesum JSON-sniði",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "Virkja WIP-mark (Listi)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "Legg afturat Virkja WIP-mark"
+  "wip-limit-group-name-placeholder": "Navn (valfrítt)",
+  "wip-limit-group-add": "Legg afturat Virkja WIP-mark",
+  "subtask-inherit-parent-labels": "Arva merki hjá foreldrakortinum"
 }

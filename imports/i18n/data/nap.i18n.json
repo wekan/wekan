@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Collega carta",
   "searchElementPopup-title": "Cerca",
   "copyCardPopup-title": "Copia 'a carta",
+  "save-card-as-template": "Sarva comme modello",
   "copyListPopup-title": "Còpia lista",
   "copyManyCardsPopup-title": "Còpia template su molte carte",
   "copyManyCardsPopup-instructions": "Tìtulo e la descrizzione d' 'a carta di destinazione in chisto formato JSON",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "Attiva limite Work In Progress (Lista)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "Azzeccà Attiva limite Work In Progress"
+  "wip-limit-group-name-placeholder": "Nomme (facultativo)",
+  "wip-limit-group-add": "Azzeccà Attiva limite Work In Progress",
+  "subtask-inherit-parent-labels": "Ereditá 'e ttichette d''a carta genitrice"
 }

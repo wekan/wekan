@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Поврзи картичка",
   "searchElementPopup-title": "Барај",
   "copyCardPopup-title": "Копирај картичка",
+  "save-card-as-template": "Зачувај како шаблон",
   "copyListPopup-title": "Копирај листа",
   "copyManyCardsPopup-title": "Расади попуњен образац",
   "copyManyCardsPopup-instructions": "Наслови и описи одредишних предмета треба да имају следећи JSON облик:",
@@ -2546,5 +2547,6 @@
   "twoFactorCode-invalid": "Неважечки код за автентикација. Обидете се повторно.",
   "wip-limit-groups": "Групи со ограничување на WIP",
   "wip-limit-group-name-placeholder": "Име на групата (не е задолжително)",
-  "wip-limit-group-add": "Додади група со ограничување на WIP"
+  "wip-limit-group-add": "Додади група со ограничување на WIP",
+  "subtask-inherit-parent-labels": "Наследи ги ознаките на родителската картичка"
 }

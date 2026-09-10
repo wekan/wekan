@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Nasc Cárta",
   "searchElementPopup-title": "Cuardaigh",
   "copyCardPopup-title": "Cóipeáil an cárta",
+  "save-card-as-template": "Sábháil mar Theimpléad",
   "copyListPopup-title": "Cóipeáil Liosta",
   "copyManyCardsPopup-title": "Cóipeáil Teimpléad chuig Mórán Cártaí",
   "copyManyCardsPopup-instructions": "Teidil agus Cur Síos na gCártaí Cinn Scríbe san fhormáid JSON seo",
@@ -2546,5 +2547,6 @@
   "twoFactorCode-invalid": "Cód fíordheimhnithe neamhbhailí. Bain triail eile as.",
   "wip-limit-groups": "Grúpaí Teorainn WIP",
   "wip-limit-group-name-placeholder": "Ainm an ghrúpa (roghnach)",
-  "wip-limit-group-add": "Cuir grúpa teorann WIP leis"
+  "wip-limit-group-add": "Cuir grúpa teorann WIP leis",
+  "subtask-inherit-parent-labels": "Faigh lipéid an chárta tuismitheora mar oidhreacht"
 }

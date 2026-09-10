@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Kelmi karten",
   "searchElementPopup-title": "Hwilas",
   "copyCardPopup-title": "Dasskrifa an garten",
+  "save-card-as-template": "Gwitha avel Skantlyn",
   "copyListPopup-title": "Kopia rol",
   "copyManyCardsPopup-title": "Kopia patron dhe lies karten",
   "copyManyCardsPopup-instructions": "Titlow ha deskrifansow kartennow an tyller yn furv JSON ma",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "Ena fin WIP (Rol)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "Keworra Ena fin WIP"
+  "wip-limit-group-name-placeholder": "Hanow (dewisyadow)",
+  "wip-limit-group-add": "Keworra Ena fin WIP",
+  "subtask-inherit-parent-labels": "Erita labennow an gartenn dassek"
 }

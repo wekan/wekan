@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Lier une Carte",
   "searchElementPopup-title": "Chercher",
   "copyCardPopup-title": "Copier la carte",
+  "save-card-as-template": "Enregistrer comme modèle",
   "copyListPopup-title": "Copier la liste",
   "copyManyCardsPopup-title": "Copier le modèle vers plusieurs cartes",
   "copyManyCardsPopup-instructions": "Titres et descriptions des cartes de destination dans ce format JSON",
@@ -2546,5 +2547,6 @@
   "twoFactorCode-invalid": "Code d'authentification invalide. Veuillez réessayer.",
   "wip-limit-groups": "Groupes de limite WIP",
   "wip-limit-group-name-placeholder": "Nom du groupe (optionnel)",
-  "wip-limit-group-add": "Ajouter un groupe de limite WIP"
+  "wip-limit-group-add": "Ajouter un groupe de limite WIP",
+  "subtask-inherit-parent-labels": "Hériter des étiquettes de la carte parente"
 }

@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Paut Kad",
   "searchElementPopup-title": "Cari",
   "copyCardPopup-title": "Salin Kad",
+  "save-card-as-template": "Simpan sebagai Templat",
   "copyListPopup-title": "Salin Daftar",
   "copyManyCardsPopup-title": "Salin Templat kepada banyak Kad",
   "copyManyCardsPopup-instructions": "Destinasi Tajuk Kad dan Penerangan dalam format JSON ini",
@@ -2546,5 +2547,6 @@
   "twoFactorCode-invalid": "Kode autentikasi tidak valid. Silakan coba lagi.",
   "wip-limit-groups": "Grup Batas WIP",
   "wip-limit-group-name-placeholder": "Nama grup (opsional)",
-  "wip-limit-group-add": "Tambah grup batas WIP"
+  "wip-limit-group-add": "Tambah grup batas WIP",
+  "subtask-inherit-parent-labels": "Warisi label kartu induk"
 }

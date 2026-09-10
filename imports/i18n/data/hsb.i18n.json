@@ -521,6 +521,7 @@
   "linkCardPopup-title": "WeKan: Propojit kartu",
   "searchElementPopup-title": "Pytać",
   "copyCardPopup-title": "Kartku kopěrować",
+  "save-card-as-template": "Składować jako předłohu",
   "copyListPopup-title": "Kopěrować lizćina",
   "copyManyCardsPopup-title": "Kopěrować šablonu do více karet",
   "copyManyCardsPopup-instructions": "Názvy a wopizanjey cílové karty v tomto formátu JSON",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "Dowolić WIP Limit (Lisćina)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "Přidać Dowolić WIP Limit"
+  "wip-limit-group-name-placeholder": "Mjeno (opcionalny)",
+  "wip-limit-group-add": "Přidać Dowolić WIP Limit",
+  "subtask-inherit-parent-labels": "Znamjenja nadrjadowaneje karty dźědźić"
 }

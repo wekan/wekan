@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Lidh kartën",
   "searchElementPopup-title": "Kërko",
   "copyCardPopup-title": "Kopjo kartën",
+  "save-card-as-template": "Ruaj si shabllon",
   "copyListPopup-title": "Kopjo listën",
   "copyManyCardsPopup-title": "Kopjo shabllonin në shumë karta",
   "copyManyCardsPopup-instructions": "Titujt dhe përshkrimet e kartave të synuara në këtë format JSON",
@@ -2546,5 +2547,6 @@
   "twoFactorCode-invalid": "Kod vërtetimi i pavlefshëm. Provoni përsëri.",
   "wip-limit-groups": "Grupe kufiri WIP",
   "wip-limit-group-name-placeholder": "Emri i grupit (opsionale)",
-  "wip-limit-group-add": "Shto grup kufiri WIP"
+  "wip-limit-group-add": "Shto grup kufiri WIP",
+  "subtask-inherit-parent-labels": "Trashëgo etiketat e kartës prind"
 }

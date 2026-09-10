@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Lye kat",
   "searchElementPopup-title": "Chèche",
   "copyCardPopup-title": "Kopye kat la",
+  "save-card-as-template": "Sove kòm Modèl",
   "copyListPopup-title": "Kopye lis",
   "copyManyCardsPopup-title": "Kopye modèl nan plizyè kat",
   "copyManyCardsPopup-instructions": "Tit ak deskripsyon kat destinasyon yo nan fòma JSON sa a",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "Aktive limit WIP (Lis)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "Ajoute Aktive limit WIP"
+  "wip-limit-group-name-placeholder": "Non (opsyonèl)",
+  "wip-limit-group-add": "Ajoute Aktive limit WIP",
+  "subtask-inherit-parent-labels": "Erite etikèt kat paran an"
 }

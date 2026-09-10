@@ -521,6 +521,7 @@
   "linkCardPopup-title": "લિંક કાર્ડ",
   "searchElementPopup-title": "શોધો",
   "copyCardPopup-title": "કાર્ડની નકલ કરો",
+  "save-card-as-template": "ટેમ્પલેટ તરીકે સાચવો",
   "copyListPopup-title": "કૉપિ સૂચિ",
   "copyManyCardsPopup-title": "ઘણા કાર્ડ્સમાં નમૂનાની નકલ કરો",
   "copyManyCardsPopup-instructions": "આ JSON ફોર્મેટમાં ડેસ્ટિનેશન કાર્ડ શીર્ષકો અને વર્ણનો",
@@ -2546,5 +2547,6 @@
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "WIP મર્યાદા જૂથો",
   "wip-limit-group-name-placeholder": "જૂથનું નામ (વૈકલ્પિક)",
-  "wip-limit-group-add": "WIP મર્યાદા જૂથ ઉમેરો"
+  "wip-limit-group-add": "WIP મર્યાદા જૂથ ઉમેરો",
+  "subtask-inherit-parent-labels": "પેરેન્ટ કાર્ડના લેબલ્સ વારસામાં મેળવો"
 }

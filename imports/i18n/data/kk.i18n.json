@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Карточканы байланыстыру",
   "searchElementPopup-title": "Іздеу",
   "copyCardPopup-title": "Карточканы көшіру",
+  "save-card-as-template": "Үлгі ретінде сақтау",
   "copyListPopup-title": "Тізімді көшіру",
   "copyManyCardsPopup-title": "Үлгіні көптеген карточкаларға көшіру",
   "copyManyCardsPopup-instructions": "Мақсатты карточкалардың атаулары мен сипаттамалары осы JSON пішімінде",
@@ -2546,5 +2547,6 @@
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "WIP шектеу топтары",
   "wip-limit-group-name-placeholder": "Топ атауы (міндетті емес)",
-  "wip-limit-group-add": "WIP шектеу тобын қосу"
+  "wip-limit-group-add": "WIP шектеу тобын қосу",
+  "subtask-inherit-parent-labels": "Аталық карта белгілерін мұралау"
 }

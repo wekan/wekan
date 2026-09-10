@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Paut Kad",
   "searchElementPopup-title": "Cari",
   "copyCardPopup-title": "Salin Kad",
+  "save-card-as-template": "Peusaneu jeuet keu Template",
   "copyListPopup-title": "Salen Senarai",
   "copyManyCardsPopup-title": "Salin Templat kepada banyak Kad",
   "copyManyCardsPopup-instructions": "Destinasi Tajuk Kad dan Penerangan dalam format JSON ini",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "Hidupkan Had WIP (Senarai)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "Tambah Hidupkan Had WIP"
+  "wip-limit-group-name-placeholder": "Nama (opsi)",
+  "wip-limit-group-add": "Tambah Hidupkan Had WIP",
+  "subtask-inherit-parent-labels": "Turon lébel kartu indok"
 }

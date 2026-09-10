@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Link Kaad",
   "searchElementPopup-title": "Hwehwɛ",
   "copyCardPopup-title": "Kopi kaad no",
+  "save-card-as-template": "Sie sɛ Nhwɛso",
   "copyListPopup-title": "Fa bi Nhyehyɛe",
   "copyManyCardsPopup-title": "Fa bi Template kɔ Many Kaads",
   "copyManyCardsPopup-instructions": "Destination Kaad Ti asɛms ne Nkyerɛmus wɔ eyi JSON fanaamat",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "Ma ɛnyɛ adwuma WIP Limit (Nhwɛso)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "Fa ka ho Ma ɛnyɛ adwuma WIP Limit"
+  "wip-limit-group-name-placeholder": "Din (wobɛtumi apaw)",
+  "wip-limit-group-add": "Fa ka ho Ma ɛnyɛ adwuma WIP Limit",
+  "subtask-inherit-parent-labels": "Gye agya krataa no agyirae"
 }

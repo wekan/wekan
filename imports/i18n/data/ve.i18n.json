@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Ikhadi Lesixhumanisi",
   "searchElementPopup-title": "Sesha",
   "copyCardPopup-title": "Kopisha Ikhadi",
+  "save-card-as-template": "Bulukanya sa Tshifanyiso",
   "copyListPopup-title": "Kopisha Uhlu",
   "copyManyCardsPopup-title": "Kopisha Isifanekiso Emakhadini Amaningi",
   "copyManyCardsPopup-instructions": "Izihloko Nezincazelo Zamakhadi Le fomethi ye-JSON",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "Nika amandla umkhawulo we-WIP (Uhlu)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "Engeza Nika amandla umkhawulo we-WIP"
+  "wip-limit-group-name-placeholder": "Igama (ngokuzikhethela)",
+  "wip-limit-group-add": "Engeza Nika amandla umkhawulo we-WIP",
+  "subtask-inherit-parent-labels": "Ḓadzhela zwiredzo zwa khadi ya mubebi"
 }

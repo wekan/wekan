@@ -521,6 +521,7 @@
   "linkCardPopup-title": "連結卡",
   "searchElementPopup-title": "搜尋",
   "copyCardPopup-title": "影印卡",
+  "save-card-as-template": "儲存為範本",
   "copyListPopup-title": "複製列表",
   "copyManyCardsPopup-title": "將模板複製到多張卡片",
   "copyManyCardsPopup-instructions": "此 JSON 格式的目標卡標題和描述",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "啟用 WIP 限制 (清單)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "添加 啟用 WIP 限制"
+  "wip-limit-group-name-placeholder": "姓名 (選修的)",
+  "wip-limit-group-add": "添加 啟用 WIP 限制",
+  "subtask-inherit-parent-labels": "繼承母卡嘅標籤"
 }

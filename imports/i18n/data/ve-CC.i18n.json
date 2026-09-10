@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Collega scheda",
   "searchElementPopup-title": "Cerca",
   "copyCardPopup-title": "Copia scheda",
+  "save-card-as-template": "Bulukanya sa Tshifanyiso",
   "copyListPopup-title": "Copia la lista",
   "copyManyCardsPopup-title": "Copiar plantilla en muchas tarjetas",
   "copyManyCardsPopup-instructions": "Titolo e la descrizione della scheda di destinazione in questo formato JSON",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "Attiva limite Work In Progress (Lista)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "Aggiungi Attiva limite Work In Progress"
+  "wip-limit-group-name-placeholder": "Nome (opzionale)",
+  "wip-limit-group-add": "Aggiungi Attiva limite Work In Progress",
+  "subtask-inherit-parent-labels": "Ḓadzhela zwiredzo zwa khadi ya mubebi"
 }

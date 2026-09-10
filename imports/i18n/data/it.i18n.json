@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Collega scheda",
   "searchElementPopup-title": "Cerca",
   "copyCardPopup-title": "Copia scheda",
+  "save-card-as-template": "Salva come modello",
   "copyListPopup-title": "Copia lista",
   "copyManyCardsPopup-title": "Copia template su molte schede",
   "copyManyCardsPopup-instructions": "Titolo e la descrizione della scheda di destinazione in questo formato JSON",
@@ -2546,5 +2547,6 @@
   "twoFactorCode-invalid": "Codice di autenticazione non valido. Riprova.",
   "wip-limit-groups": "Gruppi limite WIP",
   "wip-limit-group-name-placeholder": "Nome del gruppo (opzionale)",
-  "wip-limit-group-add": "Aggiungi gruppo limite WIP"
+  "wip-limit-group-add": "Aggiungi gruppo limite WIP",
+  "subtask-inherit-parent-labels": "Eredita le etichette della scheda principale"
 }

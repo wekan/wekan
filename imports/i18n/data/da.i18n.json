@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Sammenkæd kort",
   "searchElementPopup-title": "Søg",
   "copyCardPopup-title": "Kopier kort",
+  "save-card-as-template": "Gem som skabelon",
   "copyListPopup-title": "Kopier liste",
   "copyManyCardsPopup-title": "Kopier skabelon til mange kort",
   "copyManyCardsPopup-instructions": "Destination for kortenes titler og beskrivelser i dette JSON-format",
@@ -2546,5 +2547,6 @@
   "twoFactorCode-invalid": "Ugyldig godkendelseskode. Prøv igen.",
   "wip-limit-groups": "WIP-grænsegrupper",
   "wip-limit-group-name-placeholder": "Gruppenavn (valgfrit)",
-  "wip-limit-group-add": "Tilføj WIP-grænsegruppe"
+  "wip-limit-group-add": "Tilføj WIP-grænsegruppe",
+  "subtask-inherit-parent-labels": "Nedarv den overordnede korts etiketter"
 }

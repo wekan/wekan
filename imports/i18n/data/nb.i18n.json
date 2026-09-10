@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Link Kort",
   "searchElementPopup-title": "Søk",
   "copyCardPopup-title": "Kopier Kort",
+  "save-card-as-template": "Lagre som mal",
   "copyListPopup-title": "Kopier liste",
   "copyManyCardsPopup-title": "Kopier mal til mange kort",
   "copyManyCardsPopup-instructions": "Mottakende korttitler og beskivelse i dette JSON-formatet",
@@ -2546,5 +2547,6 @@
   "twoFactorCode-invalid": "Ugyldig autentiseringskode. Prøv igjen.",
   "wip-limit-groups": "WIP-grensegrupper",
   "wip-limit-group-name-placeholder": "Gruppenavn (valgfritt)",
-  "wip-limit-group-add": "Legg til WIP-grensegruppe"
+  "wip-limit-group-add": "Legg til WIP-grensegruppe",
+  "subtask-inherit-parent-labels": "Arv etikettene til overordnet kort"
 }

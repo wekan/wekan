@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Kaart keppelje",
   "searchElementPopup-title": "Sykje",
   "copyCardPopup-title": "Kaart kopiearje",
+  "save-card-as-template": "Bewarje as sjabloan",
   "copyListPopup-title": "Kopiearje List",
   "copyManyCardsPopup-title": "Kopiearje sjabloan nei in protte kaarten",
   "copyManyCardsPopup-instructions": "Bestimmingskaarttitels en beskriuwingen yn dit JSON-formaat",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Annuleren",
   "twoFactorCode-invalid": "Ongeldige verificatiecode. Probeer het opnieuw.",
   "wip-limit-groups": "WIP Limit ynskeakelje (Oersjochslist)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "Tafoegje WIP Limit ynskeakelje"
+  "wip-limit-group-name-placeholder": "Namme (fakultatyf)",
+  "wip-limit-group-add": "Tafoegje WIP Limit ynskeakelje",
+  "subtask-inherit-parent-labels": "Etiketten fan de âlderkaart erve"
 }

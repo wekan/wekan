@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Карта холбохо",
   "searchElementPopup-title": "Бэдэрхэ",
   "copyCardPopup-title": "Карточко хуулаха",
+  "save-card-as-template": "Загвар болгон хадгалха",
   "copyListPopup-title": "Жагсаалта хуулха",
   "copyManyCardsPopup-title": "Загбарые олон картада хуулха",
   "copyManyCardsPopup-instructions": "Зорилгын картануудай нэрэ ба тайлбари энэ JSON хэлбэреэр",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "WIP хизаар асааха (Жагсаалта)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "Нэмэхэ WIP хизаар асааха"
+  "wip-limit-group-name-placeholder": "Нэрэ (һайн дураараа)",
+  "wip-limit-group-add": "Нэмэхэ WIP хизаар асааха",
+  "subtask-inherit-parent-labels": "Эсэгэ картын шошогуудые мүрдэхэ"
 }

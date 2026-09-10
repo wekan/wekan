@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Ceangail Cairt",
   "searchElementPopup-title": "Lorg",
   "copyCardPopup-title": "Dèan lethbhreac dhen chairt",
+  "save-card-as-template": "Sàbhail mar Theamplaid",
   "copyListPopup-title": "Dèan Lethbhreac den Liosta",
   "copyManyCardsPopup-title": "Dèan Lethbhreac den Teamplaid gu Iomadh Cairt",
   "copyManyCardsPopup-instructions": "Tiotalan agus Tuairisgeulan nan Cairtean Ceann-uidhe san fhòrmat JSON seo",
@@ -2546,5 +2547,6 @@
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "Buidhnean Cuingealachaidh WIP",
   "wip-limit-group-name-placeholder": "Ainm a bhuidhinn (roghainneil)",
-  "wip-limit-group-add": "Cuir buidheann cuingealachaidh WIP ris"
+  "wip-limit-group-add": "Cuir buidheann cuingealachaidh WIP ris",
+  "subtask-inherit-parent-labels": "Faigh leubailean a' chairt phàrantail mar dhìleab"
 }

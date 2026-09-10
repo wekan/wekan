@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Link Kad",
   "searchElementPopup-title": "Lukaotem",
   "copyCardPopup-title": "Kopiem kad",
+  "save-card-as-template": "Sevem olsem Templet",
   "copyListPopup-title": "Kopiem Lis",
   "copyManyCardsPopup-title": "Kopiem Template long Many Ol kad",
   "copyManyCardsPopup-instructions": "Destination Kad Titles mo Descriptions insaed long dispela JSON format",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "Mekem i wok WIP Limit (Lis)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "Adem Mekem i wok WIP Limit"
+  "wip-limit-group-name-placeholder": "Nem (yu save jusum)",
+  "wip-limit-group-add": "Adem Mekem i wok WIP Limit",
+  "subtask-inherit-parent-labels": "Kisim ol lebol bilong papamama kad"
 }

@@ -521,6 +521,7 @@
   "linkCardPopup-title": "ကတ် ချိတ်ဆက်ရန်",
   "searchElementPopup-title": "ရှာဖွေရန်",
   "copyCardPopup-title": "ကတ်ကို ကူးယူရန်",
+  "save-card-as-template": "နမူနာအဖြစ်သိမ်းဆည်းပါ",
   "copyListPopup-title": "စာရင်း ကူးရန်",
   "copyManyCardsPopup-title": "ပုံစံခွက်ကို ကတ်များစွာသို့ ကူးရန်",
   "copyManyCardsPopup-instructions": "ဤ JSON ပုံစံဖြင့် ဦးတည်ရာကတ် ခေါင်းစဉ်များနှင့် ဖော်ပြချက်များ",
@@ -2546,5 +2547,6 @@
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "WIP ကန့်သတ်အုပ်စုများ",
   "wip-limit-group-name-placeholder": "အုပ်စု အမည် (ရွေးချယ်နိုင်သည်)",
-  "wip-limit-group-add": "WIP ကန့်သတ်အုပ်စု ထည့်ရန်"
+  "wip-limit-group-add": "WIP ကန့်သတ်အုပ်စု ထည့်ရန်",
+  "subtask-inherit-parent-labels": "မိဘကတ်၏ လေဘယ်များကို ဆက်ခံမည်"
 }

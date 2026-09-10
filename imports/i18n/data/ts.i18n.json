@@ -521,6 +521,7 @@
   "linkCardPopup-title": "xihlanganisi khadi",
   "searchElementPopup-title": "Lavisisa",
   "copyCardPopup-title": "Kopa khadi",
+  "save-card-as-template": "Hlayisa tanihi Xikombiso",
   "copyListPopup-title": "kopisa nxaxamelo",
   "copyManyCardsPopup-title": "kopisa xivumbeko eka mhaka makhadi",
   "copyManyCardsPopup-instructions": "mhaka khadi mhaka na mhaka eka mhaka mhaka mhaka",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "pfula mhaka mhaka (Nxaxamelo)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "Engetela pfula mhaka mhaka"
+  "wip-limit-group-name-placeholder": "Vito (swa ku tihlawulela)",
+  "wip-limit-group-add": "Engetela pfula mhaka mhaka",
+  "subtask-inherit-parent-labels": "Ndzhaka swifaniso swa khadi ra vatswari"
 }

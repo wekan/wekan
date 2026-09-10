@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Kaart verknüpfen",
   "searchElementPopup-title": "Sichen",
   "copyCardPopup-title": "Kaart kopéieren",
+  "save-card-as-template": "Als Schabloun späicheren",
   "copyListPopup-title": "Lëscht kopéieren",
   "copyManyCardsPopup-title": "Kopiere déi Schabloun zu mehreren Kaarten",
   "copyManyCardsPopup-instructions": "Titel un Beschreibungen den Zielkarten den folgenden JSON-Format",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "WIP-Limit einschalten (Lëscht)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "Derbäisetzen WIP-Limit einschalten"
+  "wip-limit-group-name-placeholder": "Numm (fakultativ)",
+  "wip-limit-group-add": "Derbäisetzen WIP-Limit einschalten",
+  "subtask-inherit-parent-labels": "Elteren-Kaart Etiketten iwwerhuelen"
 }

@@ -521,6 +521,7 @@
   "linkCardPopup-title": "I-link an Card",
   "searchElementPopup-title": "Pamiling",
   "copyCardPopup-title": "Kopyaha an Card",
+  "save-card-as-template": "Schaper come modele",
   "copyListPopup-title": "Kopyaha an Lista",
   "copyManyCardsPopup-title": "Kopyaha an Template ngadto ha Damu nga Card",
   "copyManyCardsPopup-instructions": "Mga Titulo ngan Deskripsyon han Destinasyon nga Card hini nga pormat nga JSON",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "I-enable an WIP Limit (Lista)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "Idugang I-enable an WIP Limit"
+  "wip-limit-group-name-placeholder": "Ngaran (opsyonal)",
+  "wip-limit-group-add": "Idugang I-enable an WIP Limit",
+  "subtask-inherit-parent-labels": "Eriter les etikètes del cåte parint"
 }

@@ -519,6 +519,7 @@
   "linkCardPopup-title": "Link Card",
   "searchElementPopup-title": "Search",
   "copyCardPopup-title": "Copy Card",
+  "save-card-as-template": "Save as Template",
   "copyListPopup-title": "Copy List",
   "copyManyCardsPopup-title": "Copy Template to Many Cards",
   "copyManyCardsPopup-instructions": "Destination Card Titles and Descriptions in this JSON format",
@@ -2517,6 +2518,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "Enable WIP Limit (List)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "Add Enable WIP Limit"
+  "wip-limit-group-name-placeholder": "Name (optional)",
+  "wip-limit-group-add": "Add Enable WIP Limit",
+  "subtask-inherit-parent-labels": "Inherit parent's labels"
 }

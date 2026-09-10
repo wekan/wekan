@@ -521,6 +521,7 @@
   "linkCardPopup-title": "сылтама карточкаы",
   "searchElementPopup-title": "Эзләү",
   "copyCardPopup-title": "Карточканы күчермәләү",
+  "save-card-as-template": "Шаблон итеп саклау",
   "copyListPopup-title": "исемлекйи Копйала",
   "copyManyCardsPopup-title": "Шаблону Бирден Чок карточкаа Копйала",
   "copyManyCardsPopup-instructions": "Һедеф карточка исемлары ве тасвирламалары бу JSON форматында",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "Девам Еден Иш Сынырыны ач (Исемлек)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "Өстәү Девам Еден Иш Сынырыны ач"
+  "wip-limit-group-name-placeholder": "Исем (мәҗбүри түгел)",
+  "wip-limit-group-add": "Өстәү Девам Еден Иш Сынырыны ач",
+  "subtask-inherit-parent-labels": "Ата-ана картасының этикеткаларын мирас итеп алу"
 }

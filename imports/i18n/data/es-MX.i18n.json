@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Enlazar tarjeta",
   "searchElementPopup-title": "Buscar",
   "copyCardPopup-title": "Copiar la tarjeta",
+  "save-card-as-template": "Guardar como plantilla",
   "copyListPopup-title": "Copiar lista",
   "copyManyCardsPopup-title": "Copiar plantilla en muchas tarjetas",
   "copyManyCardsPopup-instructions": "Títulos y descripciones de las tarjetas de destino en formato JSON",
@@ -2546,5 +2547,6 @@
   "twoFactorCode-invalid": "Código de autenticación no válido. Vuelva a intentarlo.",
   "wip-limit-groups": "Grupos de límite de trabajo en proceso",
   "wip-limit-group-name-placeholder": "Nombre del grupo (opcional)",
-  "wip-limit-group-add": "Añadir grupo de límite de trabajo en proceso"
+  "wip-limit-group-add": "Añadir grupo de límite de trabajo en proceso",
+  "subtask-inherit-parent-labels": "Heredar las etiquetas de la tarjeta principal"
 }

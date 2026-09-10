@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Faka-Tonga: Link kaati",
   "searchElementPopup-title": "Kumi",
   "copyCardPopup-title": "Hiki ʻa e kaati",
+  "save-card-as-template": "Fakatolonga ko e Sīpinga",
   "copyListPopup-title": "Faka-Tonga: Copy lisi",
   "copyManyCardsPopup-title": "Faka-Tonga: Copy Template to Many kaati",
   "copyManyCardsPopup-instructions": "Faka-Tonga: Destination kaati Titles and Descriptions in this JSON format",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "Faka-Tonga: Enable WIP Limit (Lisi)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "Tānaki Faka-Tonga: Enable WIP Limit"
+  "wip-limit-group-name-placeholder": "Hingoa (fili pē)",
+  "wip-limit-group-add": "Tānaki Faka-Tonga: Enable WIP Limit",
+  "subtask-inherit-parent-labels": "Maʻu ʻae fakaʻilonga ʻoe kaati mātuʻa"
 }

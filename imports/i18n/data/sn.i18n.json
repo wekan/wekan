@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Link kadhi",
   "searchElementPopup-title": "Tsvaga",
   "copyCardPopup-title": "Kopa kadhi",
+  "save-card-as-template": "Chengetedza se Muenzaniso",
   "copyListPopup-title": "kopa rondedzero",
   "copyManyCardsPopup-title": "kopa Template ku Many makadhi",
   "copyManyCardsPopup-instructions": "Destination kadhi Titles uye Descriptions mu this JSON format",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "batidza WIP Limit (Rondedzero)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "Wedzera batidza WIP Limit"
+  "wip-limit-group-name-placeholder": "Zita (kusarudza)",
+  "wip-limit-group-add": "Wedzera batidza WIP Limit",
+  "subtask-inherit-parent-labels": "Gara mireza dzekadhi ravabereki"
 }

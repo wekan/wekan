@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Propojit kartu",
   "searchElementPopup-title": "Hledat",
   "copyCardPopup-title": "Kopírovat kartu",
+  "save-card-as-template": "Uložit jako šablonu",
   "copyListPopup-title": "Kopírovat seznam",
   "copyManyCardsPopup-title": "Kopírovat šablonu do více karet",
   "copyManyCardsPopup-instructions": "Názvy a popisy cílové karty v tomto formátu JSON",
@@ -2546,5 +2547,6 @@
   "twoFactorCode-invalid": "Neplatný ověřovací kód. Zkuste to znovu.",
   "wip-limit-groups": "Skupiny limitu WIP",
   "wip-limit-group-name-placeholder": "Název skupiny (volitelné)",
-  "wip-limit-group-add": "Přidat skupinu limitu WIP"
+  "wip-limit-group-add": "Přidat skupinu limitu WIP",
+  "subtask-inherit-parent-labels": "Zdědit štítky nadřazené karty"
 }

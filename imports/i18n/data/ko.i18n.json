@@ -521,6 +521,7 @@
   "linkCardPopup-title": "카드 연결",
   "searchElementPopup-title": "검색",
   "copyCardPopup-title": "카드 복사",
+  "save-card-as-template": "템플릿으로 저장",
   "copyListPopup-title": "목록 복사",
   "copyManyCardsPopup-title": "여러 카드에 템플릿 복사",
   "copyManyCardsPopup-instructions": "대상 카드의 제목과 설명을 이 JSON 형식으로 입력하세요",
@@ -2546,5 +2547,6 @@
   "twoFactorCode-invalid": "잘못된 인증 코드입니다. 다시 시도하세요.",
   "wip-limit-groups": "WIP 제한 그룹",
   "wip-limit-group-name-placeholder": "그룹 이름(선택 사항)",
-  "wip-limit-group-add": "WIP 제한 그룹 추가"
+  "wip-limit-group-add": "WIP 제한 그룹 추가",
+  "subtask-inherit-parent-labels": "상위 카드의 라벨 상속"
 }

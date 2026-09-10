@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Kay willaymi: T'inkina Tarjeta",
   "searchElementPopup-title": "Maskay",
   "copyCardPopup-title": "Kartata kikinchay",
+  "save-card-as-template": "Templo hina waqaychay",
   "copyListPopup-title": "Kay willaymi: Kikinchay Sinri",
   "copyManyCardsPopup-title": "Kay willaymi: Kikinchay Templateta man Manyta Tarjetakuna",
   "copyManyCardsPopup-instructions": "Kay willaymi: Destinationta Tarjeta Titlesta andta Descriptionsta pi thista JSONta formatta",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "Kay willaymi: Kawsachiy WIPta Limitta (Sutisuyu)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "Yapay Kay willaymi: Kawsachiy WIPta Limitta"
+  "wip-limit-group-name-placeholder": "Suti (akllanapaq)",
+  "wip-limit-group-add": "Yapay Kay willaymi: Kawsachiy WIPta Limitta",
+  "subtask-inherit-parent-labels": "Yayaq target rurichaykunata chaskiy"
 }

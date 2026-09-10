@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Semata na Kadi",
   "searchElementPopup-title": "Vakasaqara",
   "copyCardPopup-title": "Vakatani na kadi",
+  "save-card-as-template": "Vakila me iVakatakarakara",
   "copyListPopup-title": "Lavetaka na Lisi",
   "copyManyCardsPopup-title": "Lavetaka na iVakaraitaki ki na Kadi Levu",
   "copyManyCardsPopup-instructions": "Ulutaga kei na iVakamacala ni Kadi iCavacava ena ituvatuva JSON oqo",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "Vakatara na iYalayala WIP (Lisi)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "Kuria Vakatara na iYalayala WIP"
+  "wip-limit-group-name-placeholder": "Yaca (e sega ni dodonu)",
+  "wip-limit-group-add": "Kuria Vakatara na iYalayala WIP",
+  "subtask-inherit-parent-labels": "Tauri na ivakatakilakili ni kaadi itubutubu"
 }

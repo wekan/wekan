@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Kiangle kaart",
   "searchElementPopup-title": "Shirrey",
   "copyCardPopup-title": "Jean coip jeh'n kaart",
+  "save-card-as-template": "Sauail myr Clowan",
   "copyListPopup-title": "Jean coip jeh rolley",
   "copyManyCardsPopup-title": "Jean coip jeh co-earroo gys ymmodee kaartyn",
   "copyManyCardsPopup-instructions": "Enmyn as coontey kaartyn kione-jerree ayns yn aght JSON shoh",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "Cur eallagh WIP er (Rolley)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "Cur rish Cur eallagh WIP er"
+  "wip-limit-group-name-placeholder": "Ennym (reihyssagh)",
+  "wip-limit-group-add": "Cur rish Cur eallagh WIP er",
+  "subtask-inherit-parent-labels": "Eiraghys labelyn y chard ard"
 }

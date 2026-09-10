@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Hokela karete",
   "searchElementPopup-title": "Batla",
   "copyCardPopup-title": "Kopitsa karete",
+  "save-card-as-template": "Boloka e le Setshwantsho",
   "copyListPopup-title": "Kopitsa lenane",
   "copyManyCardsPopup-title": "Kopitsa thempleite dikareteng tse ngata",
   "copyManyCardsPopup-instructions": "Ditlotla le ditlhaloso tsa dikarete tse yang teng ka sebopeho sena sa JSON",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "Bulela moedi wa WIP (Lenane)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "Eketsa Bulela moedi wa WIP"
+  "wip-limit-group-name-placeholder": "Lebitso (boikhethelo)",
+  "wip-limit-group-add": "Eketsa Bulela moedi wa WIP",
+  "subtask-inherit-parent-labels": "Rua dilebele tsa karete ea motsoali"
 }

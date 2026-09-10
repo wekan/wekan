@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Ikhadi lekhonkco",
   "searchElementPopup-title": "Khangela",
   "copyCardPopup-title": "Khuphela ikhadi",
+  "save-card-as-template": "Gcina njenge Umzekelo",
   "copyListPopup-title": "Uluhlu lweekopi",
   "copyManyCardsPopup-title": "Khuphela isifanekiso kuMakhadi amaninzi",
   "copyManyCardsPopup-instructions": "Izihloko zeKhadi leNdalo kunye neeNkcazelo kule fomathi ye-JSON",
@@ -2546,5 +2547,6 @@
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "Amaqela Omda we-WIP",
   "wip-limit-group-name-placeholder": "Igama leqela (ngokukhetha)",
-  "wip-limit-group-add": "Yongeza iqela lomda we-WIP"
+  "wip-limit-group-add": "Yongeza iqela lomda we-WIP",
+  "subtask-inherit-parent-labels": "Yindlala amalebeli ekhadi lomzali"
 }

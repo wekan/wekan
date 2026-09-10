@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Зв'язати картку",
   "searchElementPopup-title": "Пошук",
   "copyCardPopup-title": "Скопіювати картку",
+  "save-card-as-template": "Зберегти як шаблон",
   "copyListPopup-title": "Скопіювати список",
   "copyManyCardsPopup-title": "Скопіювати шаблон на багато карток",
   "copyManyCardsPopup-instructions": "Заголовки та описи карток призначення у цьому JSON форматі",
@@ -2546,5 +2547,6 @@
   "twoFactorCode-invalid": "Недійсний код автентифікації. Спробуйте ще раз.",
   "wip-limit-groups": "Групи ліміту завдань",
   "wip-limit-group-name-placeholder": "Назва групи (необов'язково)",
-  "wip-limit-group-add": "Додати групу ліміту завдань"
+  "wip-limit-group-add": "Додати групу ліміту завдань",
+  "subtask-inherit-parent-labels": "Успадкувати мітки батьківської картки"
 }

@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Свържи картата",
   "searchElementPopup-title": "Търсене",
   "copyCardPopup-title": "Копирай картата",
+  "save-card-as-template": "Запиши като шаблон",
   "copyListPopup-title": "Копирай списъка",
   "copyManyCardsPopup-title": "Расади попуњен образац",
   "copyManyCardsPopup-instructions": "Наслови и описи одредишних предмета треба да имају следећи JSON облик:",
@@ -2546,5 +2547,6 @@
   "twoFactorCode-invalid": "Невалиден код за удостоверяване. Опитайте отново.",
   "wip-limit-groups": "Групи с лимит на задачите",
   "wip-limit-group-name-placeholder": "Име на групата (незадължително)",
-  "wip-limit-group-add": "Добавяне на група с лимит"
+  "wip-limit-group-add": "Добавяне на група с лимит",
+  "subtask-inherit-parent-labels": "Наследяване на етикетите на родителската карта"
 }

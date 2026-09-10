@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Link Kaart",
   "searchElementPopup-title": "Zoek",
   "copyCardPopup-title": "Kopieer kaart",
+  "save-card-as-template": "Salva come modeło",
   "copyListPopup-title": "Kopieer Lijst",
   "copyManyCardsPopup-title": "Kopieer Template naar Meerdere Kaarten",
   "copyManyCardsPopup-instructions": "Doel kaart titels en omschrijvingen in dit JSON formaat",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "Activeer WIP limiet (Lijst)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "Toevoegen Activeer WIP limiet"
+  "wip-limit-group-name-placeholder": "Naam (optioneel)",
+  "wip-limit-group-add": "Toevoegen Activeer WIP limiet",
+  "subtask-inherit-parent-labels": "Ḓadzhela zwiredzo zwa khadi ya mubebi"
 }

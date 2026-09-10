@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Länka kort",
   "searchElementPopup-title": "Sök",
   "copyCardPopup-title": "Kopiera kort",
+  "save-card-as-template": "Spara som mall",
   "copyListPopup-title": "Kopiera lista",
   "copyManyCardsPopup-title": "Kopiera mall till många kort",
   "copyManyCardsPopup-instructions": "Destinationskorttitlar och beskrivningar i detta JSON-format",
@@ -2546,5 +2547,6 @@
   "twoFactorCode-invalid": "Ogiltig autentiseringskod. Försök igen.",
   "wip-limit-groups": "WIP-gränsgrupper",
   "wip-limit-group-name-placeholder": "Gruppnamn (valfritt)",
-  "wip-limit-group-add": "Lägg till WIP-gränsgrupp"
+  "wip-limit-group-add": "Lägg till WIP-gränsgrupp",
+  "subtask-inherit-parent-labels": "Ärv förälderns etiketter"
 }

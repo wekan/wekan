@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Ligam de la carta",
   "searchElementPopup-title": "Cèrca",
   "copyCardPopup-title": "Còpia de la carta",
+  "save-card-as-template": "Enregistrar coma modèl",
   "copyListPopup-title": "Copier la liste",
   "copyManyCardsPopup-title": "Copier le modèle vers plusieurs cartes",
   "copyManyCardsPopup-instructions": "Un compte es estat creat per vos sus",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "Activar la WIP limit (Liste)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "Apondre Activar la WIP limit"
+  "wip-limit-group-name-placeholder": "Nom (opcional)",
+  "wip-limit-group-add": "Apondre Activar la WIP limit",
+  "subtask-inherit-parent-labels": "Eiretar las etiquetas de la carta parenta"
 }

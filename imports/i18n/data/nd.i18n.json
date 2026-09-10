@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Xhumanisa ikhadi",
   "searchElementPopup-title": "Dinga",
   "copyCardPopup-title": "Kopa ikhadi",
+  "save-card-as-template": "Gcina njenge-Template",
   "copyListPopup-title": "Kopela uluhlu",
   "copyManyCardsPopup-title": "Kopela imodeli emakhadini amanengi",
   "copyManyCardsPopup-instructions": "Amabizo lezincazelo zamakhadi okuya kuwo ngale ndlela ye-JSON",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "Vumela umkhawulo we-WIP (Uluhlu)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "Engeza Vumela umkhawulo we-WIP"
+  "wip-limit-group-name-placeholder": "Ibizo (kuyazikhethela)",
+  "wip-limit-group-add": "Engeza Vumela umkhawulo we-WIP",
+  "subtask-inherit-parent-labels": "Zuza amabhaji ekhadi labazali"
 }

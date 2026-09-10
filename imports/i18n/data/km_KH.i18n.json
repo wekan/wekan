@@ -521,6 +521,7 @@
   "linkCardPopup-title": "កាតភ្ជាប់",
   "searchElementPopup-title": "ស្វែងរក",
   "copyCardPopup-title": "កាតចម្លង",
+  "save-card-as-template": "រក្សាទុកជាគំរូ",
   "copyListPopup-title": "ចម្លងបញ្ជី",
   "copyManyCardsPopup-title": "ចម្លងគំរូទៅកាតជាច្រើន។",
   "copyManyCardsPopup-instructions": "ចំណងជើងប័ណ្ណគោលដៅ និងការពិពណ៌នាក្នុងទម្រង់ JSON នេះ។",
@@ -2546,5 +2547,6 @@
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "ក្រុមកំណត់ WIP",
   "wip-limit-group-name-placeholder": "ឈ្មោះក្រុម (ស្រេចចិត្ត)",
-  "wip-limit-group-add": "បន្ថែមក្រុមកំណត់ WIP"
+  "wip-limit-group-add": "បន្ថែមក្រុមកំណត់ WIP",
+  "subtask-inherit-parent-labels": "ស្នងស្លាកកាតមេ"
 }

@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Collega ciarta",
   "searchElementPopup-title": "Chirì",
   "copyCardPopup-title": "Copié la ciarta",
+  "save-card-as-template": "Salva sciöche model",
   "copyListPopup-title": "Copia lista",
   "copyManyCardsPopup-title": "Copia template su molte ciartes",
   "copyManyCardsPopup-instructions": "Titul y la descrizion dla ciarta di destinazion in questo formato JSON",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "Attiva limite Work In Progress (Lista)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "Ajonté Attiva limite Work In Progress"
+  "wip-limit-group-name-placeholder": "Inom (opzional)",
+  "wip-limit-group-add": "Ajonté Attiva limite Work In Progress",
+  "subtask-inherit-parent-labels": "Ierede les etichetes de la scheda genitor"
 }

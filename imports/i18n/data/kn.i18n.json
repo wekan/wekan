@@ -521,6 +521,7 @@
   "linkCardPopup-title": "ಕಾರ್ಡ್ ಲಿಂಕ್ ಮಾಡಿ",
   "searchElementPopup-title": "ಹುಡುಕಿ",
   "copyCardPopup-title": "ಕಾರ್ಡ್ ನಕಲಿಸಿ",
+  "save-card-as-template": "ಟೆಂಪ್ಲೇಟ್ ಆಗಿ ಉಳಿಸಿ",
   "copyListPopup-title": "ಪಟ್ಟಿ ನಕಲಿಸಿ",
   "copyManyCardsPopup-title": "ಟೆಂಪ್ಲೇಟ್ ಅನ್ನು ಅನೇಕ ಕಾರ್ಡ್‌ಗಳಿಗೆ ನಕಲಿಸಿ",
   "copyManyCardsPopup-instructions": "ಈ JSON ಸ್ವರೂಪದಲ್ಲಿ ಗಮ್ಯ ಕಾರ್ಡ್‌ಗಳ ಶೀರ್ಷಿಕೆಗಳು ಮತ್ತು ವಿವರಣೆಗಳು",
@@ -2546,5 +2547,6 @@
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "WIP ಮಿತಿ ಗುಂಪುಗಳು",
   "wip-limit-group-name-placeholder": "ಗುಂಪಿನ ಹೆಸರು (ಐಚ್ಛಿಕ)",
-  "wip-limit-group-add": "WIP ಮಿತಿ ಗುಂಪು ಸೇರಿಸಿ"
+  "wip-limit-group-add": "WIP ಮಿತಿ ಗುಂಪು ಸೇರಿಸಿ",
+  "subtask-inherit-parent-labels": "ಪೋಷಕ ಕಾರ್ಡ್‌ನ ಲೇಬಲ್‌ಗಳನ್ನು ಆನುವಂಶಿಕವಾಗಿ ಪಡೆಯಿರಿ"
 }

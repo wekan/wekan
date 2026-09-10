@@ -521,6 +521,7 @@
   "linkCardPopup-title": "ካርድ ኣራኽብ",
   "searchElementPopup-title": "ድለ",
   "copyCardPopup-title": "ካርድ ቅዳሕ",
+  "save-card-as-template": "ከም ኣብነት ኣቐምጥ",
   "copyListPopup-title": "ዝርዝር ቅዳሕ",
   "copyManyCardsPopup-title": "ኣብነት ናብ ብዙሓት ካርድታት ቅዳሕ",
   "copyManyCardsPopup-instructions": "ኣርእስትን መግለጽን መድረሲ ካርድታት በዚ ቅርጺ JSON",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "ደረት WIP ፍቐድ (ዝርዝር)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "ወስክ ደረት WIP ፍቐድ"
+  "wip-limit-group-name-placeholder": "ስም (ብድልየት)",
+  "wip-limit-group-add": "ወስክ ደረት WIP ፍቐድ",
+  "subtask-inherit-parent-labels": "ናይ ወላዲ ካርድ ስያመታት ውረስ"
 }

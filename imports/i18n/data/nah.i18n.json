@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Xicilpi amatlapalli",
   "searchElementPopup-title": "Xictemo",
   "copyCardPopup-title": "Xiccopina amatlapalli",
+  "save-card-as-template": "Xiktlali ken Nezcayotl",
   "copyListPopup-title": "Xiccopina tocatlahtolli",
   "copyManyCardsPopup-title": "Xiccopina neixcuitilli ipan miyac amatlapaltin",
   "copyManyCardsPopup-instructions": "Amatlapaltin tlen mocopinas intocayo ihuan intlahtol ipan inin JSON machiyotl",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "Xicpatlahua WIP nepantlaliztli (Tocatlahtolli)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "Xicaquiti Xicpatlahua WIP nepantlaliztli"
+  "wip-limit-group-name-placeholder": "Tocaitl (huelitiz)",
+  "wip-limit-group-add": "Xicaquiti Xicpatlahua WIP nepantlaliztli",
+  "subtask-inherit-parent-labels": "Tlacuiliztli itech in teotlahtolli tetahtin"
 }

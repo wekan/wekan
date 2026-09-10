@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Lier une Carte",
   "searchElementPopup-title": "Serĉi",
   "copyCardPopup-title": "Copier la carte",
+  "save-card-as-template": "Sav äs Timplad",
   "copyListPopup-title": "Copier la liste",
   "copyManyCardsPopup-title": "Copier le modèle vers plusieurs cartes",
   "copyManyCardsPopup-instructions": "Titres et descriptions des cartes de destination dans ce format JSON",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "Activer la limite WIP (Lised)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "Läükön Activer la limite WIP"
+  "wip-limit-group-name-placeholder": "Nem (optionnel)",
+  "wip-limit-group-add": "Läükön Activer la limite WIP",
+  "subtask-inherit-parent-labels": "Herön labaso pladasköduel"
 }

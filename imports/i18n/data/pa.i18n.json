@@ -521,6 +521,7 @@
   "linkCardPopup-title": "ਲਿੰਕ ਕਾਰਡ",
   "searchElementPopup-title": "ਖੋਜ",
   "copyCardPopup-title": "ਕਾਰਡ ਕਾਪੀ ਕਰੋ",
+  "save-card-as-template": "ਟੈਂਪਲੇਟ ਵਜੋਂ ਸੰਭਾਲੋ",
   "copyListPopup-title": "ਸੂਚੀ ਕਾਪੀ ਕਰੋ",
   "copyManyCardsPopup-title": "ਟੈਂਪਲੇਟ ਨੂੰ ਕਈ ਕਾਰਡਾਂ ਵਿੱਚ ਕਾਪੀ ਕਰੋ",
   "copyManyCardsPopup-instructions": "ਇਸ JSON ਫਾਰਮੈਟ ਵਿੱਚ ਮੰਜ਼ਿਲ ਕਾਰਡ ਦੇ ਸਿਰਲੇਖ ਅਤੇ ਵਰਣਨ",
@@ -2546,5 +2547,6 @@
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "WIP ਸੀਮਾ ਸਮੂਹ",
   "wip-limit-group-name-placeholder": "ਸਮੂਹ ਦਾ ਨਾਮ (ਚੋਣਵਾਂ)",
-  "wip-limit-group-add": "WIP ਸੀਮਾ ਸਮੂਹ ਸ਼ਾਮਲ ਕਰੋ"
+  "wip-limit-group-add": "WIP ਸੀਮਾ ਸਮੂਹ ਸ਼ਾਮਲ ਕਰੋ",
+  "subtask-inherit-parent-labels": "ਪੇਰੈਂਟ ਕਾਰਡ ਦੇ ਲੇਬਲ ਵਿਰਾਸਤ ਵਿੱਚ ਲਵੋ"
 }

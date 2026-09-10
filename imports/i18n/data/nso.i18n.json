@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Kgokaganya karata",
   "searchElementPopup-title": "Nyaka",
   "copyCardPopup-title": "Kopiša karata",
+  "save-card-as-template": "Boloka bjalo ka Setshwantsho",
   "copyListPopup-title": "Kopolla lenaneo",
   "copyManyCardsPopup-title": "Kopolla thempleiti dikarateng tše dintši",
   "copyManyCardsPopup-instructions": "Dihlogo le ditlhaloso tša dikarata tša mo di išwago ka sebopego se sa JSON",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "Dumelela moedi wa WIP (Lelokelelo)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "Oketša Dumelela moedi wa WIP"
+  "wip-limit-group-name-placeholder": "Leina (ga se gapeletšo)",
+  "wip-limit-group-add": "Oketša Dumelela moedi wa WIP",
+  "subtask-inherit-parent-labels": "Rua dilebele tša karata ya motswadi"
 }

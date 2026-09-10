@@ -1012,6 +1012,14 @@ Template.tableVisibilityModeSettings.events({
     ]));
   },
 
+  // ── External issue tracker autolink (wekan/wekan#3069) ─────────────────────
+  'click button.js-visibility-external-link-pattern-save'() {
+    saveVisibilitySettings(visibilityTextFields([
+      ['#external-link-pattern-prefix', 'externalLinkPatternPrefix'],
+      ['#external-link-pattern-url', 'externalLinkPatternUrl'],
+    ]));
+  },
+
   // ── Product name ──────────────────────────────────────────────────────────
   'click button.js-visibility-product-name-save'() {
     if (!$('#product-name').length) {

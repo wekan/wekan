@@ -521,6 +521,7 @@
   "linkCardPopup-title": "ካርድ አገናኝ",
   "searchElementPopup-title": "ፈልግ",
   "copyCardPopup-title": "ካርድ ቅዳ",
+  "save-card-as-template": "እንደ አብነት አስቀምጥ",
   "copyListPopup-title": "ዝርዝር ቅዳ",
   "copyManyCardsPopup-title": "አብነትን ወደ ብዙ ካርዶች ቅዳ",
   "copyManyCardsPopup-instructions": "የመድረሻ ካርድ ርዕሶችና መግለጫዎች በዚህ JSON ቅርጸት",
@@ -2546,5 +2547,6 @@
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "የ WIP ገደብ ቡድኖች",
   "wip-limit-group-name-placeholder": "የቡድን ስም (አማራጭ)",
-  "wip-limit-group-add": "የ WIP ገደብ ቡድን ጨምር"
+  "wip-limit-group-add": "የ WIP ገደብ ቡድን ጨምር",
+  "subtask-inherit-parent-labels": "የወላጅ ካርድ መለያዎችን ውረስ"
 }

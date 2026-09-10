@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Link kat",
   "searchElementPopup-title": "Painim",
   "copyCardPopup-title": "Kopim kat",
+  "save-card-as-template": "Seivim olsem Templet",
   "copyListPopup-title": "Kisim kopi lis",
   "copyManyCardsPopup-title": "Kisim kopi templet long Many ol kat",
   "copyManyCardsPopup-instructions": "Destination kat Titles na Descriptions in dispela JSON format",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "Larim i wok WIP Limit (Lis)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "Putim Larim i wok WIP Limit"
+  "wip-limit-group-name-placeholder": "Nem (yu ken makim)",
+  "wip-limit-group-add": "Putim Larim i wok WIP Limit",
+  "subtask-inherit-parent-labels": "Kisim ol lebol bilong kaad papamama"
 }

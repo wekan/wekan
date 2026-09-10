@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Bağlantı kartı",
   "searchElementPopup-title": "Arama",
   "copyCardPopup-title": "Kartı Kopyala",
+  "save-card-as-template": "Şablon olarak kaydet",
   "copyListPopup-title": "Listeyi Kopyala",
   "copyManyCardsPopup-title": "Şablonu Birden Çok Karta Kopyala",
   "copyManyCardsPopup-instructions": "Hedef Kart Başlıkları ve Açıklamaları bu JSON formatında",
@@ -2546,5 +2547,6 @@
   "twoFactorCode-invalid": "Geçersiz kimlik doğrulama kodu. Lütfen tekrar deneyin.",
   "wip-limit-groups": "WIP Limit Grupları",
   "wip-limit-group-name-placeholder": "Grup adı (isteğe bağlı)",
-  "wip-limit-group-add": "WIP limit grubu ekle"
+  "wip-limit-group-add": "WIP limit grubu ekle",
+  "subtask-inherit-parent-labels": "Üst kartın etiketlerini devral"
 }

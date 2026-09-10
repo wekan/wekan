@@ -521,6 +521,7 @@
   "linkCardPopup-title": "کارت ببەستەوە",
   "searchElementPopup-title": "گەڕان",
   "copyCardPopup-title": "لەبەرگرتنەوەی کارت",
+  "save-card-as-template": "وەک قاڵب پاشەکەوت بکە",
   "copyListPopup-title": "لیست کۆپی بکە",
   "copyManyCardsPopup-title": "قاڵب بۆ چەندین کارت کۆپی بکە",
   "copyManyCardsPopup-instructions": "ناونیشان و وەسفی کارتە ئامانجەکان بەم شێوەی JSONە",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "سنووری WIP چالاک بکە (لیست)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "زیادکردن سنووری WIP چالاک بکە"
+  "wip-limit-group-name-placeholder": "ناو (ئارەزوومەندانە)",
+  "wip-limit-group-add": "زیادکردن سنووری WIP چالاک بکە",
+  "subtask-inherit-parent-labels": "میراتگرتنی نیشانەکانی کارتی باوان"
 }

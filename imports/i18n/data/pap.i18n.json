@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Enlazar karchi",
   "searchElementPopup-title": "Buska",
   "copyCardPopup-title": "Kopia e karchi",
+  "save-card-as-template": "Warda komo Plantia",
   "copyListPopup-title": "Kopia lista",
   "copyManyCardsPopup-title": "Kopia plantiya den muchas karchinan",
   "copyManyCardsPopup-instructions": "Títulos i descripshonnan di e karchinan di destino den formato HSON",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "Habilitá e límite di e trabaho den proseso (Lista)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "Agregá Habilitá e límite di e trabaho den proseso"
+  "wip-limit-group-name-placeholder": "Nòmber (opshonal)",
+  "wip-limit-group-add": "Agregá Habilitá e límite di e trabaho den proseso",
+  "subtask-inherit-parent-labels": "Herda e etiketanan di e karchi mama"
 }

@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Kakwate Kaadi",
   "searchElementPopup-title": "Noonya",
   "copyCardPopup-title": "Koppa ekaadi",
+  "save-card-as-template": "Tereka nga Ekyokulabirako",
   "copyListPopup-title": "Koppa Lukalala",
   "copyManyCardsPopup-title": "Koppa Kyakulabirako eri Many Kaadi",
   "copyManyCardsPopup-instructions": "Destination Kaadi Titles ne Descriptions mu kino JSON format",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "Sobozesa WIP Limit (Olukalala)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "Yongerako Sobozesa WIP Limit"
+  "wip-limit-group-name-placeholder": "Erinnya (kya kwelonda)",
+  "wip-limit-group-add": "Yongerako Sobozesa WIP Limit",
+  "subtask-inherit-parent-labels": "Sika obubaka bwa kaadi ya muzadde"
 }

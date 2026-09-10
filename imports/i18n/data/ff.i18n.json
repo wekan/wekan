@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Jokku kartal",
   "searchElementPopup-title": "Yiylo",
   "copyCardPopup-title": "Natto kartal",
+  "save-card-as-template": "Danndu wa Tolno",
   "copyListPopup-title": "Natto doggol",
   "copyManyCardsPopup-title": "Natto mbaydi e karte keewɗe",
   "copyManyCardsPopup-instructions": "Tiitoonɗe e cifagol karte ɗo yahata e mbaydi JSON oo",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "Hurmin keerol WIP (Doggol)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "Ɓeydu Hurmin keerol WIP"
+  "wip-limit-group-name-placeholder": "Innde (suɓaaɗum)",
+  "wip-limit-group-add": "Ɓeydu Hurmin keerol WIP",
+  "subtask-inherit-parent-labels": "Roonu labeeje kaarti neene baaba"
 }

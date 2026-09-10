@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Podepnij kôrtã",
   "searchElementPopup-title": "Szukac",
   "copyCardPopup-title": "Kòpérowac kôrtã",
+  "save-card-as-template": "Zapisac jak szablonã",
   "copyListPopup-title": "Kopiuj lëstã",
   "copyManyCardsPopup-title": "Kopiuj szablon do wielu kôrtòw",
   "copyManyCardsPopup-instructions": "Docelowé tytuły i opisy kôrtòw są w formacie JSON",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "Włącz limit kôrtòw na liście (Lësta)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "Dodac Włącz limit kôrtòw na liście"
+  "wip-limit-group-name-placeholder": "Miono (òpcjonalné)",
+  "wip-limit-group-add": "Dodac Włącz limit kôrtòw na liście",
+  "subtask-inherit-parent-labels": "Dostac sztiże starszi kôrtë"
 }

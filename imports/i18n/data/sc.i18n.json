@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Collega carta",
   "searchElementPopup-title": "Chircare",
   "copyCardPopup-title": "Copiare sa carta",
+  "save-card-as-template": "Sarva comente modellu",
   "copyListPopup-title": "Copia lista",
   "copyManyCardsPopup-title": "Copia templadas su molte cartas",
   "copyManyCardsPopup-instructions": "Tìtulu e la descrittzione de sa carta di destinatzione in custu formadu JSON",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "Attiva limite Work In Progress (Lista)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "Annanghere Attiva limite Work In Progress"
+  "wip-limit-group-name-placeholder": "Nùmene (optzionale)",
+  "wip-limit-group-add": "Annanghere Attiva limite Work In Progress",
+  "subtask-inherit-parent-labels": "Eredare is etichetas de sa carta babbu"
 }

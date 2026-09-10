@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Podepnij kartę",
   "searchElementPopup-title": "Szukać",
   "copyCardPopup-title": "Kopiyruj karta",
+  "save-card-as-template": "Spamiyntej za muster",
   "copyListPopup-title": "Kopiyruj listę",
   "copyManyCardsPopup-title": "Kopiyruj szablon do wielu kart",
   "copyManyCardsPopup-instructions": "Docelowe tytuły i opisy kart sōm we formacie JSON",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "Załōncz limit kart na liście (Lista)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "Przidać Załōncz limit kart na liście"
+  "wip-limit-group-name-placeholder": "Miano (ôpcyjōnalne)",
+  "wip-limit-group-add": "Przidać Załōncz limit kart na liście",
+  "subtask-inherit-parent-labels": "Ôdziedziczyć etyketki nadrzyndnyj kartōw"
 }

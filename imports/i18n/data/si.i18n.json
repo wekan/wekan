@@ -521,6 +521,7 @@
   "linkCardPopup-title": "කාඩ්පත සම්බන්ධ කරන්න",
   "searchElementPopup-title": "සොයන්න",
   "copyCardPopup-title": "කාඩ්පත පිටපත් කරන්න",
+  "save-card-as-template": "අච්චුවක් ලෙස සුරකින්න",
   "copyListPopup-title": "ලැයිස්තුව පිටපත් කරන්න",
   "copyManyCardsPopup-title": "බොහෝ කාඩ්පත්වලට සැකිල්ල පිටපත් කරන්න",
   "copyManyCardsPopup-instructions": "මෙම JSON ආකෘතියෙන් ගමනාන්ත කාඩ්පත් මාතෘකා සහ විස්තර",
@@ -2546,5 +2547,6 @@
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "WIP සීමා කණ්ඩායම්",
   "wip-limit-group-name-placeholder": "කණ්ඩායමේ නම (විකල්පයි)",
-  "wip-limit-group-add": "WIP සීමා කණ්ඩායමක් එක් කරන්න"
+  "wip-limit-group-add": "WIP සීමා කණ්ඩායමක් එක් කරන්න",
+  "subtask-inherit-parent-labels": "මාපිය කාඩ්පතෙහි ලේබල උරුම කරගන්න"
 }

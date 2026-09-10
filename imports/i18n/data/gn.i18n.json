@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Embojoaju kuatia'i",
   "searchElementPopup-title": "Heka",
   "copyCardPopup-title": "Ekopia kuatia'i",
+  "save-card-as-template": "Ñongatu Techapyrãramo",
   "copyListPopup-title": "Emonguatia ysaja",
   "copyManyCardsPopup-title": "Emonguatia techapyrã heta kuatia'ípe",
   "copyManyCardsPopup-instructions": "Kuatia'i jehupytyrã réra ha ñemyesakã ko JSON rekópe",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "Emyendy WIP paha (Ysaja)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "Mboja Emyendy WIP paha"
+  "wip-limit-group-name-placeholder": "Téra (ikatúva)",
+  "wip-limit-group-add": "Mboja Emyendy WIP paha",
+  "subtask-inherit-parent-labels": "Herohory umi mba'echichi karda ru"
 }

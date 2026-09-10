@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Huza ikarata",
   "searchElementPopup-title": "Rondera",
   "copyCardPopup-title": "Gucopera ikarata",
+  "save-card-as-template": "Bika nk'Icyitegererezo",
   "copyListPopup-title": "Koporora urutonde",
   "copyManyCardsPopup-title": "Koporora icitegererezo ku makarata menshi",
   "copyManyCardsPopup-instructions": "Imitwe n'insiguro vy'amakarata aja iyo bije muri ubu buryo bwa JSON",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "Fungura urugero rwa WIP (Urutonde)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "Ongerako Fungura urugero rwa WIP"
+  "wip-limit-group-name-placeholder": "Izina (si ngombwa)",
+  "wip-limit-group-add": "Ongerako Fungura urugero rwa WIP",
+  "subtask-inherit-parent-labels": "Rarira uduhwenya kw'ikarata y'umuvyeyi"
 }

@@ -521,6 +521,7 @@
   "linkCardPopup-title": "ڪارڊ ڳنڍيو",
   "searchElementPopup-title": "ڳوليو",
   "copyCardPopup-title": "ڪارڊ نقل ڪريو",
+  "save-card-as-template": "ٽيمپليٽ طور محفوظ ڪريو",
   "copyListPopup-title": "فهرست نقل ڪريو",
   "copyManyCardsPopup-title": "سانچو گهڻن ڪارڊن تي نقل ڪريو",
   "copyManyCardsPopup-instructions": "منزل ڪارڊن جا عنوان ۽ وضاحتون هن JSON نموني ۾",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "WIP حد فعال ڪريو (فهرست)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "شامل ڪريو WIP حد فعال ڪريو"
+  "wip-limit-group-name-placeholder": "نالو (اختياري)",
+  "wip-limit-group-add": "شامل ڪريو WIP حد فعال ڪريو",
+  "subtask-inherit-parent-labels": "والدين جي ڪارڊ جا ليبل وارثي طور حاصل ڪريو"
 }

@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Collega scheda",
   "searchElementPopup-title": "Caută",
   "copyCardPopup-title": "Copia scheda",
+  "save-card-as-template": "Salvează ca șablon",
   "copyListPopup-title": "Copier la liste",
   "copyManyCardsPopup-title": "Copiar plantilla en muchas tarjetas",
   "copyManyCardsPopup-instructions": "Titolo e la descrizione della scheda di destinazione in questo formato JSON",
@@ -2546,5 +2547,6 @@
   "twoFactorCode-invalid": "Cod de autentificare invalid. Încercați din nou.",
   "wip-limit-groups": "Grupuri de limită WIP",
   "wip-limit-group-name-placeholder": "Nume grup (opțional)",
-  "wip-limit-group-add": "Adaugă grup de limită WIP"
+  "wip-limit-group-add": "Adaugă grup de limită WIP",
+  "subtask-inherit-parent-labels": "Moștenește etichetele cardului părinte"
 }

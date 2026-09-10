@@ -295,6 +295,25 @@ template(name='tableVisibilityModeSettings')
       li.admin-pane-group-separator
         hr
       li
+        //- wekan/wekan#3069: autolink bare "<prefix>NNNN" tokens (e.g. "#1234")
+        //- found in card descriptions/comments to an external issue tracker.
+        //- Leaving either field empty keeps this feature off (no-op).
+        h2.admin-pane-group-title {{_ 'external-link-pattern'}}
+        p.description {{_ 'external-link-pattern-description'}}
+      li.tableVisibilityMode-form
+        .title {{_ 'external-link-pattern-prefix'}}
+        .form-group
+          input.wekan-form-control#external-link-pattern-prefix(type="text", placeholder="#" value="{{currentSetting.externalLinkPatternPrefix}}")
+      li.tableVisibilityMode-form
+        .title {{_ 'external-link-pattern-url'}}
+        .form-group
+          input.wekan-form-control#external-link-pattern-url(type="text", placeholder="https://issues.example.com/browse/PROJ-{number}" value="{{currentSetting.externalLinkPatternUrl}}")
+      li
+        button.js-visibility-external-link-pattern-save.primary {{_ 'save'}}
+
+      li.admin-pane-group-separator
+        hr
+      li
         //- The group title IS the field's label here: the group holds one field, so a
         //- title above a label that says the same thing said it twice. The group title
         //- keeps its size and takes the field's existing translation.

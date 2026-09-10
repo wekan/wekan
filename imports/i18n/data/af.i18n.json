@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Koppelkaart",
   "searchElementPopup-title": "Soek",
   "copyCardPopup-title": "Kopieer kaart",
+  "save-card-as-template": "Stoor as Sjabloon",
   "copyListPopup-title": "Kopieer lys",
   "copyManyCardsPopup-title": "Kopieer sjabloon na baie kaarte",
   "copyManyCardsPopup-instructions": "Bestemmingskaarttitels en -beskrywings in hierdie JSON-formaat",
@@ -2546,5 +2547,6 @@
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "WIP-perkgroepe",
   "wip-limit-group-name-placeholder": "Groepnaam (opsioneel)",
-  "wip-limit-group-add": "Voeg WIP-perkgroep by"
+  "wip-limit-group-add": "Voeg WIP-perkgroep by",
+  "subtask-inherit-parent-labels": "Erf ouerkaart se etikette"
 }

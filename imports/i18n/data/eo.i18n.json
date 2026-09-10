@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Enlazar tarjeta",
   "searchElementPopup-title": "Serĉi",
   "copyCardPopup-title": "Copiar la tarjeta",
+  "save-card-as-template": "Konservi kiel Ŝablonon",
   "copyListPopup-title": "Copier la liste",
   "copyManyCardsPopup-title": "Copiar plantilla en muchas tarjetas",
   "copyManyCardsPopup-instructions": "Títulos y descripciones de las tarjetas de destino en formato JSON",
@@ -2546,5 +2547,6 @@
   "twoFactorCode-invalid": "Nevalida aŭtentiga kodo. Bonvolu reprovi.",
   "wip-limit-groups": "WIP-limaj grupoj",
   "wip-limit-group-name-placeholder": "Grupa nomo (malnepra)",
-  "wip-limit-group-add": "Aldoni WIP-liman grupon"
+  "wip-limit-group-add": "Aldoni WIP-liman grupon",
+  "subtask-inherit-parent-labels": "Heredi la etikedojn de la patra karto"
 }

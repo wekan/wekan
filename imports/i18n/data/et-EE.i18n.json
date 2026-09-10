@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Linkkaart",
   "searchElementPopup-title": "Otsi",
   "copyCardPopup-title": "Kopeeri kaart",
+  "save-card-as-template": "Salvesta mallina",
   "copyListPopup-title": "Kopeeri nimekiri",
   "copyManyCardsPopup-title": "Kopeeri mall paljudele kaartidele",
   "copyManyCardsPopup-instructions": "Sihtkaardi pealkirjad ja kirjeldused selles JSON-vormingus",
@@ -2546,5 +2547,6 @@
   "twoFactorCode-invalid": "Vigane autentimiskood. Proovige uuesti.",
   "wip-limit-groups": "WIP piirangugrupid",
   "wip-limit-group-name-placeholder": "Rühma nimi (valikuline)",
-  "wip-limit-group-add": "Lisa WIP piirangugrupp"
+  "wip-limit-group-add": "Lisa WIP piirangugrupp",
+  "subtask-inherit-parent-labels": "Pärandada vanemkaardi sildid"
 }

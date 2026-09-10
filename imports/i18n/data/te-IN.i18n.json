@@ -521,6 +521,7 @@
   "linkCardPopup-title": "లింక్ కార్డ్",
   "searchElementPopup-title": "శోధించండి",
   "copyCardPopup-title": "కాపీ కార్డ్",
+  "save-card-as-template": "టెంప్లేట్‌గా సేవ్ చేయి",
   "copyListPopup-title": "కాపీ జాబితా",
   "copyManyCardsPopup-title": "అనేక కార్డ్‌లకు టెంప్లేట్‌ను కాపీ చేయండి",
   "copyManyCardsPopup-instructions": "ఈ JSON ఆకృతిలో డెస్టినేషన్ కార్డ్ శీర్షికలు మరియు వివరణలు",
@@ -2546,5 +2547,6 @@
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "WIP పరిమితి సమూహాలు",
   "wip-limit-group-name-placeholder": "సమూహం పేరు (ఐచ్ఛికం)",
-  "wip-limit-group-add": "WIP పరిమితి సమూహాన్ని జోడించండి"
+  "wip-limit-group-add": "WIP పరిమితి సమూహాన్ని జోడించండి",
+  "subtask-inherit-parent-labels": "పేరెంట్ కార్డు లేబుల్స్‌ను వారసత్వంగా పొందండి"
 }

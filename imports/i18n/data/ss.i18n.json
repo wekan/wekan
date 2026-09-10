@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Chumanisa Likhadi",
   "searchElementPopup-title": "Sesha",
   "copyCardPopup-title": "Kopa likhadi",
+  "save-card-as-template": "Gcina njenge Sifanekiso",
   "copyListPopup-title": "Kopisha Luhlu",
   "copyManyCardsPopup-title": "Kopisha Sifanekiso Emakhadini Lamanyenti",
   "copyManyCardsPopup-instructions": "Tihloko Netinchazelo Temakhadi Laya Kuyo ngalefomethi ye-JSON",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "Vumela Umkhawulo we-WIP (Luhla)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "Ngeta Vumela Umkhawulo we-WIP"
+  "wip-limit-group-name-placeholder": "Ligama (akuphocelelekile)",
+  "wip-limit-group-add": "Ngeta Vumela Umkhawulo we-WIP",
+  "subtask-inherit-parent-labels": "Todlana emalebula ekhadi lomtali"
 }

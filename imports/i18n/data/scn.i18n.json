@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Collega carta",
   "searchElementPopup-title": "Circari",
   "copyCardPopup-title": "Copia la carta",
+  "save-card-as-template": "Sarva comu mudellu",
   "copyListPopup-title": "Copia lista",
   "copyManyCardsPopup-title": "Copia template su molte schede",
   "copyManyCardsPopup-instructions": "Tìtulu e la discrizzzioni dâ carta di destinazzzioni in chistu formato JSON",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "Attiva limite Work In Progress (Lista)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "Aggiunciri Attiva limite Work In Progress"
+  "wip-limit-group-name-placeholder": "Nomu (facultativu)",
+  "wip-limit-group-add": "Aggiunciri Attiva limite Work In Progress",
+  "subtask-inherit-parent-labels": "Aredità i etichetti dâ carta matri"
 }

@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Kaardii Walqabsiisi",
   "searchElementPopup-title": "Barbaadi",
   "copyCardPopup-title": "Kaardii garagalchi",
+  "save-card-as-template": "Akka Fakkeenyaatti Olkaa'i",
   "copyListPopup-title": "Tarree Waraabi",
   "copyManyCardsPopup-title": "Fakkeenya Gara Kaardiiwwan Hedduutti Waraabi",
   "copyManyCardsPopup-instructions": "Mata-dureewwanii fi ibsa kaardiiwwan galma gahiinsaa bifa JSON kanaan",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "Daangaa WIP Bani (Tarree)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "Dabali Daangaa WIP Bani"
+  "wip-limit-group-name-placeholder": "Maqaa (filannoo)",
+  "wip-limit-group-add": "Dabali Daangaa WIP Bani",
+  "subtask-inherit-parent-labels": "Labeelii kaardii maatii dhaalfachuu"
 }

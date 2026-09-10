@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Golaganya karata",
   "searchElementPopup-title": "Batla",
   "copyCardPopup-title": "Gatisa karata",
+  "save-card-as-template": "Boloka jaaka Setshwantsho",
   "copyListPopup-title": "Kopisa lenaane",
   "copyManyCardsPopup-title": "Kopisa sekao mo dikarateng tse dintsi",
   "copyManyCardsPopup-instructions": "Ditlhogo le ditlhaloso tsa dikarata tse di yang teng ka sebopego seno sa JSON",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "Kgontsha tekanyo ya WIP (Lenaane)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "Tsenya Kgontsha tekanyo ya WIP"
+  "wip-limit-group-name-placeholder": "Leina (boitlhophelo)",
+  "wip-limit-group-add": "Tsenya Kgontsha tekanyo ya WIP",
+  "subtask-inherit-parent-labels": "Rua dikarata tsa motsadi"
 }

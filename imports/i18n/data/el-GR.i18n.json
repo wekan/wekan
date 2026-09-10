@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Σύνδεση Κάρτας",
   "searchElementPopup-title": "Αναζήτηση",
   "copyCardPopup-title": "Αντιγραφή Κάρτας",
+  "save-card-as-template": "Αποθήκευση ως πρότυπο",
   "copyListPopup-title": "Αντιγραφή λίστας",
   "copyManyCardsPopup-title": "Αντιγραφή του Προτύπου Λίστας Ελέγχου - Checklist σε πολλές Κάρτες",
   "copyManyCardsPopup-instructions": "Τίτλοι και περιγραφές των καρτών προορισμού σε αυτή τη μορφή JSON",
@@ -2546,5 +2547,6 @@
   "twoFactorCode-invalid": "Μη έγκυρος κωδικός ελέγχου ταυτότητας. Δοκιμάστε ξανά.",
   "wip-limit-groups": "Ομάδες ορίου WIP",
   "wip-limit-group-name-placeholder": "Όνομα ομάδας (προαιρετικό)",
-  "wip-limit-group-add": "Προσθήκη ομάδας ορίου WIP"
+  "wip-limit-group-add": "Προσθήκη ομάδας ορίου WIP",
+  "subtask-inherit-parent-labels": "Κληρονόμηση ετικετών γονικής κάρτας"
 }

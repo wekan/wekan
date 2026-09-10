@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Thẻ liên kết",
   "searchElementPopup-title": "Tìm kiếm",
   "copyCardPopup-title": "Sao chép Thẻ",
+  "save-card-as-template": "Lưu dưới dạng mẫu",
   "copyListPopup-title": "Sao chép danh sách",
   "copyManyCardsPopup-title": "Salin Templat kepada banyak Kad",
   "copyManyCardsPopup-instructions": "Tiêu đề và mô tả thẻ đích ở định dạng JSON này",
@@ -2546,5 +2547,6 @@
   "twoFactorCode-invalid": "Mã xác thực không hợp lệ. Vui lòng thử lại.",
   "wip-limit-groups": "Nhóm giới hạn WIP",
   "wip-limit-group-name-placeholder": "Tên nhóm (tùy chọn)",
-  "wip-limit-group-add": "Thêm nhóm giới hạn WIP"
+  "wip-limit-group-add": "Thêm nhóm giới hạn WIP",
+  "subtask-inherit-parent-labels": "Kế thừa nhãn của thẻ cha"
 }

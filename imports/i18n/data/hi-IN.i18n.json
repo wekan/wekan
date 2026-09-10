@@ -521,6 +521,7 @@
   "linkCardPopup-title": "कार्ड कड़ी",
   "searchElementPopup-title": "खोजें",
   "copyCardPopup-title": "कार्ड प्रतिलिपि",
+  "save-card-as-template": "टेम्पलेट के रूप में सहेजें",
   "copyListPopup-title": "सूची कॉपी करें",
   "copyManyCardsPopup-title": "टेम्पलेट को कई कार्डों में कॉपी करें",
   "copyManyCardsPopup-instructions": "इस JSON प्रारूप में गंतव्य कार्ड शीर्षक और विवरण",
@@ -2546,5 +2547,6 @@
   "twoFactorCode-invalid": "अमान्य प्रमाणीकरण कोड। कृपया पुनः प्रयास करें।",
   "wip-limit-groups": "WIP सीमा समूह",
   "wip-limit-group-name-placeholder": "समूह का नाम (वैकल्पिक)",
-  "wip-limit-group-add": "WIP सीमा समूह जोड़ें"
+  "wip-limit-group-add": "WIP सीमा समूह जोड़ें",
+  "subtask-inherit-parent-labels": "पैरेंट कार्ड के लेबल प्राप्त करें"
 }

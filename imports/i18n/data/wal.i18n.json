@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Wolayttatto: Link Kaardiya",
   "searchElementPopup-title": "Koyya",
   "copyCardPopup-title": "Kaardiyaa dammissa",
+  "save-card-as-template": "Lemaso mala nagi",
   "copyListPopup-title": "Wolayttatto: Dammissa Mazgabaa",
   "copyManyCardsPopup-title": "Wolayttatto: Dammissa Leemisuwaa kko Many Kaardiyata",
   "copyManyCardsPopup-instructions": "Wolayttatto: Destination Kaardiya Titles and Descriptions gidon this JSON format",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "Wolayttatto: Denttetta WIP Limit (Mazgabaa)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "Gujja Wolayttatto: Denttetta WIP Limit"
+  "wip-limit-group-name-placeholder": "Sunttaa (dooruwaa)",
+  "wip-limit-group-add": "Gujja Wolayttatto: Denttetta WIP Limit",
+  "subtask-inherit-parent-labels": "Aawaa kaardiyaa suudaa laattite"
 }

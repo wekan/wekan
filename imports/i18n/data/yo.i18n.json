@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Kaadi ọna asopọ",
   "searchElementPopup-title": "Wa",
   "copyCardPopup-title": "Da Kaadi",
+  "save-card-as-template": "Fi pamọ́ gẹ́gẹ́ bí Àwòṣe",
   "copyListPopup-title": "Daakọ Akojọ",
   "copyManyCardsPopup-title": "Daakọ Awoṣe si Ọpọlọpọ awọn Kaadi",
   "copyManyCardsPopup-instructions": "Awọn akọle Kaadi Ilọsiwaju ati Awọn apejuwe ni ọna kika JSON yii",
@@ -2546,5 +2547,6 @@
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "Àwùjọ Ààlà WIP",
   "wip-limit-group-name-placeholder": "Orúkọ àwùjọ (àṣàyàn)",
-  "wip-limit-group-add": "Fi àwùjọ ààlà WIP kún"
+  "wip-limit-group-add": "Fi àwùjọ ààlà WIP kún",
+  "subtask-inherit-parent-labels": "Jogún àmi kaadi òbí"
 }

@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Cerdyn Cyswllt",
   "searchElementPopup-title": "Chwiliwch",
   "copyCardPopup-title": "Copi Cerdyn",
+  "save-card-as-template": "Cadw fel Templed",
   "copyListPopup-title": "Copi Rhestr",
   "copyManyCardsPopup-title": "Copïo Templed i lawer o gardiau",
   "copyManyCardsPopup-instructions": "Teitlau a Disgrifiadau Cerdyn Cyrchfan yn y fformat JSON hwn",
@@ -2546,5 +2547,6 @@
   "twoFactorCode-invalid": "Cod dilysu annilys. Rhowch gynnig arall arni.",
   "wip-limit-groups": "Grwpiau Terfyn WIP",
   "wip-limit-group-name-placeholder": "Enw'r grŵp (dewisol)",
-  "wip-limit-group-add": "Ychwanegu grŵp terfyn WIP"
+  "wip-limit-group-add": "Ychwanegu grŵp terfyn WIP",
+  "subtask-inherit-parent-labels": "Etifeddu labelau'r cerdyn rhiant"
 }

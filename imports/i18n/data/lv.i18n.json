@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Kartiņas saite",
   "searchElementPopup-title": "Meklēt",
   "copyCardPopup-title": "Kopēt kartiņu",
+  "save-card-as-template": "Saglabāt kā veidni",
   "copyListPopup-title": "Kopijuoti sąrašą",
   "copyManyCardsPopup-title": "Nukopijuokite šabloną į daugelį kortelių",
   "copyManyCardsPopup-instructions": "Mērķa kartiņu virsraksti un apraksti šajā JSON formātā",
@@ -2546,5 +2547,6 @@
   "twoFactorCode-invalid": "Nederīgs autentifikācijas kods. Mēģiniet vēlreiz.",
   "wip-limit-groups": "WIP limita grupas",
   "wip-limit-group-name-placeholder": "Grupas nosaukums (nav obligāts)",
-  "wip-limit-group-add": "Pievienot WIP limita grupu"
+  "wip-limit-group-add": "Pievienot WIP limita grupu",
+  "subtask-inherit-parent-labels": "Mantot vecākkartes etiķetes"
 }

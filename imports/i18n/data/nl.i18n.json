@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Link Kaart",
   "searchElementPopup-title": "Zoek",
   "copyCardPopup-title": "Kopieer kaart",
+  "save-card-as-template": "Opslaan als sjabloon",
   "copyListPopup-title": "Kopieer Lijst",
   "copyManyCardsPopup-title": "Kopieer Template naar Meerdere Kaarten",
   "copyManyCardsPopup-instructions": "Doel kaart titels en omschrijvingen in dit JSON formaat",
@@ -2546,5 +2547,6 @@
   "twoFactorCode-invalid": "Ongeldige verificatiecode. Probeer het opnieuw.",
   "wip-limit-groups": "WIP-limietgroepen",
   "wip-limit-group-name-placeholder": "Groepsnaam (optioneel)",
-  "wip-limit-group-add": "WIP-limietgroep toevoegen"
+  "wip-limit-group-add": "WIP-limietgroep toevoegen",
+  "subtask-inherit-parent-labels": "Labels van bovenliggende kaart overnemen"
 }

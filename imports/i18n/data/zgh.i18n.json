@@ -521,6 +521,7 @@
   "linkCardPopup-title": "ربط البطاقة",
   "searchElementPopup-title": "بحث",
   "copyCardPopup-title": "نسخ البطاقة",
+  "save-card-as-template": "ⵃⴹⵓ ⴰⵎ ⴰⵙⵏⵜⵍ",
   "copyListPopup-title": "Copier la liste",
   "copyManyCardsPopup-title": "Copier le modèle vers plusieurs cartes",
   "copyManyCardsPopup-instructions": "Titres et descriptions des cartes de destination dans ce format JSON",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "Activer la limite WIP (Tabdart)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "Rnu Activer la limite WIP"
+  "wip-limit-group-name-placeholder": "Isem (اختياري)",
+  "wip-limit-group-add": "Rnu Activer la limite WIP",
+  "subtask-inherit-parent-labels": "ⴰⵡⵔⵜ ⵜⵉⵜⵉⴽⵉⵜⵉⵏ ⵏ ⵜⴽⴰⵕⴹⴰ ⵏ ⵢⵉⵎⴰⵡⵍⴰⵏ"
 }

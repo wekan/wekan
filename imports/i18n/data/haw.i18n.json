@@ -521,6 +521,7 @@
   "linkCardPopup-title": "loulou kāleka",
   "searchElementPopup-title": "Huli",
   "copyCardPopup-title": "Kope i ke kāleka",
+  "save-card-as-template": "Mālama ma ke ʻano he Kumu Hoʻohālike",
   "copyListPopup-title": "kope papa inoa",
   "copyManyCardsPopup-title": "kope kumu hoʻohālike i manawa nā kāleka",
   "copyManyCardsPopup-instructions": "kekakinakiona kāleka kikaleka a kekakalipakionaka i kēia JSON polamaka",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "hoʻā WIP limika (Papa inoa)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "Hoʻohui hoʻā WIP limika"
+  "wip-limit-group-name-placeholder": "Inoa (koho)",
+  "wip-limit-group-add": "Hoʻohui hoʻā WIP limika",
+  "subtask-inherit-parent-labels": "Hoʻoili i nā lepili o ka kāleka mākua"
 }

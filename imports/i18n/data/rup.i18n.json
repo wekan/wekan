@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Collega scheda",
   "searchElementPopup-title": "Caftã",
   "copyCardPopup-title": "Copiadzã cartea",
+  "save-card-as-template": "Salvedz ca mostrã",
   "copyListPopup-title": "Copier la liste",
   "copyManyCardsPopup-title": "Copiar plantilla en muchas tarjetas",
   "copyManyCardsPopup-instructions": "Titolo e la descrizione della scheda di destinazione in questo formato JSON",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "Attiva limite Work In Progress (Listã)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "Adavgã Attiva limite Work In Progress"
+  "wip-limit-group-name-placeholder": "Numã (optsional)",
+  "wip-limit-group-add": "Adavgã Attiva limite Work In Progress",
+  "subtask-inherit-parent-labels": "Moștenește etichetele cardului părinte"
 }

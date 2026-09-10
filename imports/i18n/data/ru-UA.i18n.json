@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Карточка-ссылка",
   "searchElementPopup-title": "Поиск",
   "copyCardPopup-title": "Копировать карточку",
+  "save-card-as-template": "Сохранить как шаблон",
   "copyListPopup-title": "Копировать список",
   "copyManyCardsPopup-title": "Копировать шаблон в несколько карточек",
   "copyManyCardsPopup-instructions": "Названия и описания карточек назначения в этом формате JSON",
@@ -2546,5 +2547,6 @@
   "twoFactorCode-invalid": "Неверный код аутентификации. Попробуйте снова.",
   "wip-limit-groups": "Группы лимита задач",
   "wip-limit-group-name-placeholder": "Название группы (необязательно)",
-  "wip-limit-group-add": "Добавить группу лимита задач"
+  "wip-limit-group-add": "Добавить группу лимита задач",
+  "subtask-inherit-parent-labels": "Наследовать метки родительской карточки"
 }

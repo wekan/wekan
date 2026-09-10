@@ -521,6 +521,7 @@
   "linkCardPopup-title": "कार्ड जोडा",
   "searchElementPopup-title": "शोधा",
   "copyCardPopup-title": "कार्डची प्रत करा",
+  "save-card-as-template": "साचा म्हणून जतन करा",
   "copyListPopup-title": "यादी कॉपी करा",
   "copyManyCardsPopup-title": "अनेक कार्डांवर साचा कॉपी करा",
   "copyManyCardsPopup-instructions": "या JSON स्वरूपात गंतव्य कार्डांची शीर्षके आणि वर्णने",
@@ -2546,5 +2547,6 @@
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "WIP मर्यादा गट",
   "wip-limit-group-name-placeholder": "गटाचे नाव (ऐच्छिक)",
-  "wip-limit-group-add": "WIP मर्यादा गट जोडा"
+  "wip-limit-group-add": "WIP मर्यादा गट जोडा",
+  "subtask-inherit-parent-labels": "पालक कार्डाचे लेबल वारसा हक्काने मिळवा"
 }

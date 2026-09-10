@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Kártyára hivatkozás",
   "searchElementPopup-title": "Keresés",
   "copyCardPopup-title": "Kártya másolása",
+  "save-card-as-template": "Mentés sablonként",
   "copyListPopup-title": "Lista másolása",
   "copyManyCardsPopup-title": "Sablon másolása több kártyára",
   "copyManyCardsPopup-instructions": "A célkártyák címe és a leírások ebben a JSON formátumban",
@@ -2546,5 +2547,6 @@
   "twoFactorCode-invalid": "Érvénytelen hitelesítési kód. Próbálja újra.",
   "wip-limit-groups": "WIP-korlát csoportok",
   "wip-limit-group-name-placeholder": "Csoport neve (opcionális)",
-  "wip-limit-group-add": "WIP-korlát csoport hozzáadása"
+  "wip-limit-group-add": "WIP-korlát csoport hozzáadása",
+  "subtask-inherit-parent-labels": "Szülőkártya címkéinek öröklése"
 }

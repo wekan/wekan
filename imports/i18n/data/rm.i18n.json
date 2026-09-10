@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Collega carta",
   "searchElementPopup-title": "Tschertgar",
   "copyCardPopup-title": "Copiar la carta",
+  "save-card-as-template": "Memorisar sco model",
   "copyListPopup-title": "Copia glista",
   "copyManyCardsPopup-title": "Copia template su molte ciartes",
   "copyManyCardsPopup-instructions": "Titul e la descripziun da la carta di destinazion in questo formato JSON",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "Attiva limite Work In Progress (Glista)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "Agiuntar Attiva limite Work In Progress"
+  "wip-limit-group-name-placeholder": "Num (facultativ)",
+  "wip-limit-group-add": "Agiuntar Attiva limite Work In Progress",
+  "subtask-inherit-parent-labels": "Ertar las etichettas da la carta genitura"
 }

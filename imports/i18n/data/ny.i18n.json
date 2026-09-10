@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Lumikizani Khadi",
   "searchElementPopup-title": "Fufuzani",
   "copyCardPopup-title": "Koperani khadi",
+  "save-card-as-template": "Sungani ngati Chithunzi",
   "copyListPopup-title": "Koperani Mndandanda",
   "copyManyCardsPopup-title": "Koperani Chitsanzo ku Makhadi Ambiri",
   "copyManyCardsPopup-instructions": "Mitu ndi Mafotokozedwe a Makhadi Olandira mu kalembedwe ka JSON aka",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "Yatsani Malire a WIP (Mndandanda)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "Onjezani Yatsani Malire a WIP"
+  "wip-limit-group-name-placeholder": "Dzina (mwakufuna)",
+  "wip-limit-group-add": "Onjezani Yatsani Malire a WIP",
+  "subtask-inherit-parent-labels": "Landirani zizindikiro za khadi la kholo"
 }

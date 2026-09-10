@@ -521,6 +521,7 @@
   "linkCardPopup-title": "链接卡",
   "searchElementPopup-title": "搜索",
   "copyCardPopup-title": "复印卡",
+  "save-card-as-template": "另存为模板",
   "copyListPopup-title": "复制列表",
   "copyManyCardsPopup-title": "将模板复制到多张卡片",
   "copyManyCardsPopup-instructions": "此 JSON 格式的目标卡标题和描述",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "取消",
   "twoFactorCode-invalid": "身份验证代码无效，请重试。",
   "wip-limit-groups": "启用 WIP 限制 (列表)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "添加 启用 WIP 限制"
+  "wip-limit-group-name-placeholder": "姓名 (选修的)",
+  "wip-limit-group-add": "添加 启用 WIP 限制",
+  "subtask-inherit-parent-labels": "继承父卡片的标签"
 }

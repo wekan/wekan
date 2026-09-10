@@ -521,6 +521,7 @@
   "linkCardPopup-title": "کارڈ جُڑٲویو",
   "searchElementPopup-title": "ژھانڈیو",
   "copyCardPopup-title": "کارڈ نقل کریو",
+  "save-card-as-template": "ٹیمپلیٹ کیہہ محفوظ کریو",
   "copyListPopup-title": "فہرست نقل کریو",
   "copyManyCardsPopup-title": "سانچہ واریاہ کارڈن منٛز نقل کریو",
   "copyManyCardsPopup-instructions": "منزل کارڈن ہُنٛدۍ عنوان تہٕ تفصیل یَتھ JSON شکلس منٛز",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "WIP حد فعال کریو (فہرست)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "شامل کریو WIP حد فعال کریو"
+  "wip-limit-group-name-placeholder": "ناو (اختیاری)",
+  "wip-limit-group-add": "شامل کریو WIP حد فعال کریو",
+  "subtask-inherit-parent-labels": "پرینٹ کارڈ ہند لیبل وراثتہ منٛز حٲصل کریو"
 }

@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Kaadị njikọ",
   "searchElementPopup-title": "Chọọ",
   "copyCardPopup-title": "Detuo kaadị",
+  "save-card-as-template": "Chekwaa dị ka Ndebiiche",
   "copyListPopup-title": "Detuo Ndepụta",
   "copyManyCardsPopup-title": "Detuo template gaa na ọtụtụ kaadị",
   "copyManyCardsPopup-instructions": "Aha na nkọwa kaadị ebe aga n'ụdị JSON a",
@@ -2546,5 +2547,6 @@
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "Ìgùè Oke WIP",
   "wip-limit-group-name-placeholder": "Aha ìgùè (nhọrọ)",
-  "wip-limit-group-add": "Tinye ìgùè oke WIP"
+  "wip-limit-group-add": "Tinye ìgùè oke WIP",
+  "subtask-inherit-parent-labels": "Nweta akara mkpado nke kaadị nne na nna"
 }

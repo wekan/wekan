@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Повежи предмет",
   "searchElementPopup-title": "Pretraga",
   "copyCardPopup-title": "Kopiraj karticu",
+  "save-card-as-template": "Sačuvaj kao šablon",
   "copyListPopup-title": "Kopiraj listu",
   "copyManyCardsPopup-title": "Расади попуњен образац",
   "copyManyCardsPopup-instructions": "Наслови и описи одредишних предмета треба да имају следећи JSON облик:",
@@ -2546,5 +2547,6 @@
   "twoFactorCode-invalid": "Nevažeći kod za autentifikaciju. Pokušajte ponovo.",
   "wip-limit-groups": "Grupe WIP ograničenja",
   "wip-limit-group-name-placeholder": "Naziv grupe (opciono)",
-  "wip-limit-group-add": "Dodaj grupu WIP ograničenja"
+  "wip-limit-group-add": "Dodaj grupu WIP ograničenja",
+  "subtask-inherit-parent-labels": "Naslijedi oznake nadređene kartice"
 }

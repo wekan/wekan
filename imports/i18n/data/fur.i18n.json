@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Collega cjarte",
   "searchElementPopup-title": "Cîr",
   "copyCardPopup-title": "Copie la cjarte",
+  "save-card-as-template": "Salve come model",
   "copyListPopup-title": "Copie lista",
   "copyManyCardsPopup-title": "Copie template su molte cjartis",
   "copyManyCardsPopup-instructions": "Titul e la descrizion de cjarte di destinazione in chest formato JSON",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "Attiva limite Work In Progress (Liste)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "Zonte Attiva limite Work In Progress"
+  "wip-limit-group-name-placeholder": "Non (opzionâl)",
+  "wip-limit-group-add": "Zonte Attiva limite Work In Progress",
+  "subtask-inherit-parent-labels": "Ereditâ lis etichetis de schede gjenitôr"
 }

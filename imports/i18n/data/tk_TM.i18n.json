@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Baglanyşyk kartasy",
   "searchElementPopup-title": "Gözlemek",
   "copyCardPopup-title": "Karty göçüriň",
+  "save-card-as-template": "Şablon hökmünde ýatda sakla",
   "copyListPopup-title": "Sanawy göçüriň",
   "copyManyCardsPopup-title": "Şablony köp karta göçüriň",
   "copyManyCardsPopup-instructions": "Bu JSON formatda niýetlenen kartoçkanyň atlary we beýany",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "WIP çäklendirmesini açyň (Sanaw)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "Goş WIP çäklendirmesini açyň"
+  "wip-limit-group-name-placeholder": "Ady (islege bagly)",
+  "wip-limit-group-add": "Goş WIP çäklendirmesini açyň",
+  "subtask-inherit-parent-labels": "Ene kartyň bellikerini miras almak"
 }

@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Kortsi atassuseruk",
   "searchElementPopup-title": "Ujarlerit",
   "copyCardPopup-title": "Kortsi assilikkit",
+  "save-card-as-template": "Assersuutitut toqqorneqassaaq",
   "copyListPopup-title": "Allattorsimaffik kopieruk",
   "copyManyCardsPopup-title": "Ilaarut kortsinut arlalinnut kopieruk",
   "copyManyCardsPopup-instructions": "Kortsit ornitaasa qulequtaat nassuiaataallu JSON-ip ilusaani matumani",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "WIP-ip killissaa atulersiguk (Allattorsimaffik)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "Ilanngussuk WIP-ip killissaa atulersiguk"
+  "wip-limit-group-name-placeholder": "Ateq (piumasaqaataanngitsoq)",
+  "wip-limit-group-add": "Ilanngussuk WIP-ip killissaa atulersiguk",
+  "subtask-inherit-parent-labels": "Angajoqqaap kaartaata nalunaaqutaanik kinguaassiuutaanik tigummineq"
 }

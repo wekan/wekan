@@ -521,6 +521,7 @@
   "linkCardPopup-title": "ارتباط دادن کارت",
   "searchElementPopup-title": "جستجو",
   "copyCardPopup-title": "کپی کارت",
+  "save-card-as-template": "ذخیره به عنوان الگو",
   "copyListPopup-title": "کپی لیست",
   "copyManyCardsPopup-title": "کپی قالب به چند کارت",
   "copyManyCardsPopup-instructions": "عنوان و توضیحات کارت مقصد در این قالب JSON",
@@ -2546,5 +2547,6 @@
   "twoFactorCode-invalid": "کد احراز هویت نامعتبر است. دوباره تلاش کنید.",
   "wip-limit-groups": "گروه‌های محدودیت کار در جریان",
   "wip-limit-group-name-placeholder": "نام گروه (اختیاری)",
-  "wip-limit-group-add": "افزودن گروه محدودیت"
+  "wip-limit-group-add": "افزودن گروه محدودیت",
+  "subtask-inherit-parent-labels": "به ارث بردن برچسب‌های کارت والد"
 }

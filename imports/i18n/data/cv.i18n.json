@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Карточкӑна ҫыхӑнтарас",
   "searchElementPopup-title": "Шырав",
   "copyCardPopup-title": "Карточкӑна копилес",
+  "save-card-as-template": "Шаблон вырӑнне упра",
   "copyListPopup-title": "Списока копилес",
   "copyManyCardsPopup-title": "Тӗслӗхе нумай карточкӑна копилес",
   "copyManyCardsPopup-instructions": "Куҫмалли карточкӑсен ячӗсем тата ӑнлантарӑвӗсем ҫак JSON форматӗнче",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "WIP чиккине хутас (Список)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "Хушас WIP чиккине хутас"
+  "wip-limit-group-name-placeholder": "Ят (кирлӗ мар)",
+  "wip-limit-group-add": "Хушас WIP чиккине хутас",
+  "subtask-inherit-parent-labels": "Атте картин паллисене йышăнса илесси"
 }

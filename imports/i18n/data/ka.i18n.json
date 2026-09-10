@@ -521,6 +521,7 @@
   "linkCardPopup-title": "ბარათის დაკავშირება",
   "searchElementPopup-title": "ძებნა",
   "copyCardPopup-title": "ბარათის ასლი",
+  "save-card-as-template": "შენახვა შაბლონად",
   "copyListPopup-title": "სიის კოპირება",
   "copyManyCardsPopup-title": "შაბლონის კოპირება მრავალ ბარათზე",
   "copyManyCardsPopup-instructions": "სამიზნე ბარათების სათაურები და აღწერები ამ JSON ფორმატში",
@@ -2546,5 +2547,6 @@
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "WIP ლიმიტის ჯგუფები",
   "wip-limit-group-name-placeholder": "ჯგუფის სახელი (არასავალდებულო)",
-  "wip-limit-group-add": "WIP ლიმიტის ჯგუფის დამატება"
+  "wip-limit-group-add": "WIP ლიმიტის ჯგუფის დამატება",
+  "subtask-inherit-parent-labels": "მშობელი ბარათის ლეიბლების მემკვიდრეობა"
 }

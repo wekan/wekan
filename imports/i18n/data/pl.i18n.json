@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Podepnij kartę",
   "searchElementPopup-title": "Wyszukaj",
   "copyCardPopup-title": "Skopiuj kartę",
+  "save-card-as-template": "Zapisz jako szablon",
   "copyListPopup-title": "Kopiuj listę",
   "copyManyCardsPopup-title": "Kopiuj szablon do wielu kart",
   "copyManyCardsPopup-instructions": "Docelowe tytuły i opisy kart są w formacie JSON",
@@ -2546,5 +2547,6 @@
   "twoFactorCode-invalid": "Nieprawidłowy kod uwierzytelniający. Spróbuj ponownie.",
   "wip-limit-groups": "Grupy limitu WIP",
   "wip-limit-group-name-placeholder": "Nazwa grupy (opcjonalnie)",
-  "wip-limit-group-add": "Dodaj grupę limitu WIP"
+  "wip-limit-group-add": "Dodaj grupę limitu WIP",
+  "subtask-inherit-parent-labels": "Odziedzicz etykiety karty nadrzędnej"
 }

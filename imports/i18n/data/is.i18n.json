@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Tengja spjald",
   "searchElementPopup-title": "Leita",
   "copyCardPopup-title": "Afrita spjald",
+  "save-card-as-template": "Vista sem sniðmát",
   "copyListPopup-title": "Afrita lista",
   "copyManyCardsPopup-title": "Afrita sniðmát á mörg spjöld",
   "copyManyCardsPopup-instructions": "Heiti og lýsingar áfangaspjalda á þessu JSON-sniði",
@@ -2546,5 +2547,6 @@
   "twoFactorCode-invalid": "Ógildur auðkenningarkóði. Reyndu aftur.",
   "wip-limit-groups": "WIP-markahópar",
   "wip-limit-group-name-placeholder": "Nafn hóps (valfrjálst)",
-  "wip-limit-group-add": "Bæta við WIP-markahópi"
+  "wip-limit-group-add": "Bæta við WIP-markahópi",
+  "subtask-inherit-parent-labels": "Erfa merki foreldrakorts"
 }

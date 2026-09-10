@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Nuorodų kortelė",
   "searchElementPopup-title": "Ieškoti",
   "copyCardPopup-title": "Kopijuoti kortelę",
+  "save-card-as-template": "Išsaugoti kaip šabloną",
   "copyListPopup-title": "Kopijuoti sąrašą",
   "copyManyCardsPopup-title": "Nukopijuokite šabloną į daugelį kortelių",
   "copyManyCardsPopup-instructions": "Paskirties kortelių pavadinimai ir aprašai šiuo JSON formatu",
@@ -2546,5 +2547,6 @@
   "twoFactorCode-invalid": "Neteisingas autentifikavimo kodas. Bandykite dar kartą.",
   "wip-limit-groups": "WIP ribos grupės",
   "wip-limit-group-name-placeholder": "Grupės pavadinimas (neprivaloma)",
-  "wip-limit-group-add": "Pridėti WIP ribos grupę"
+  "wip-limit-group-add": "Pridėti WIP ribos grupę",
+  "subtask-inherit-parent-labels": "Paveldėti tėvinės kortelės žymas"
 }

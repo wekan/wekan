@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Linkitä kortti",
   "searchElementPopup-title": "Etsi",
   "copyCardPopup-title": "Kopioi kortti",
+  "save-card-as-template": "Tallenna mallina",
   "copyListPopup-title": "Kopioi lista",
   "copyManyCardsPopup-title": "Kopioi malli monelle kortille",
   "copyManyCardsPopup-instructions": "Kohde korttien otsikot ja kuvaukset JSON-muodossa",
@@ -2546,5 +2547,6 @@
   "twoFactorCode-invalid": "Virheellinen tunnistautumiskoodi. Yritä uudelleen.",
   "wip-limit-groups": "Keskeneräisen työn ryhmärajat",
   "wip-limit-group-name-placeholder": "Ryhmän nimi (valinnainen)",
-  "wip-limit-group-add": "Lisää keskeneräisen työn ryhmäraja"
+  "wip-limit-group-add": "Lisää keskeneräisen työn ryhmäraja",
+  "subtask-inherit-parent-labels": "Peri yläkortin tunnisteet"
 }

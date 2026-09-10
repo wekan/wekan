@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Карточканы ситимнээ",
   "searchElementPopup-title": "Көрдөө",
   "copyCardPopup-title": "Карточканы хатылыыр",
+  "save-card-as-template": "Шаблон курдук харайыы",
   "copyListPopup-title": "Испииһэги төгүллээ",
   "copyManyCardsPopup-title": "Холобуру элбэх карточкаҕа төгүллээ",
   "copyManyCardsPopup-instructions": "Барар карточкалар ааттара уонна ойуулааһыннара бу JSON быһыытынан",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "WIP хааччаҕын холбуу (Испииһэк)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "Эбэр WIP хааччаҕын холбуу"
+  "wip-limit-group-name-placeholder": "Аат (баҕарар буоллаххына)",
+  "wip-limit-group-add": "Эбэр WIP хааччаҕын холбуу",
+  "subtask-inherit-parent-labels": "Ийэ картаҕа хос сыттар билигиттэн ылын"
 }

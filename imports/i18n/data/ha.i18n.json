@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Haɗa kati",
   "searchElementPopup-title": "Nema",
   "copyCardPopup-title": "Kwafi kati",
+  "save-card-as-template": "Ajiye a matsayin Samfuri",
   "copyListPopup-title": "Kwafi jeri",
   "copyManyCardsPopup-title": "Kwafi samfuri zuwa katuna da yawa",
   "copyManyCardsPopup-instructions": "Taken da bayanin katunan manufa a wannan tsarin JSON",
@@ -2546,5 +2547,6 @@
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "Ƙungiyoyin Iyakar WIP",
   "wip-limit-group-name-placeholder": "Sunan ƙungiya (na zaɓi)",
-  "wip-limit-group-add": "Ƙara ƙungiyar iyakar WIP"
+  "wip-limit-group-add": "Ƙara ƙungiyar iyakar WIP",
+  "subtask-inherit-parent-labels": "Gaji lakabi na katin iyaye"
 }

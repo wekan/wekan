@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Čana goartta",
   "searchElementPopup-title": "Oza",
   "copyCardPopup-title": "Máŋge goartta",
+  "save-card-as-template": "Vurke minstarin",
   "copyListPopup-title": "Máŋge listtu",
   "copyManyCardsPopup-title": "Máŋge málle máŋgga goartii",
   "copyManyCardsPopup-instructions": "Ulbmilgoarttaid namahusat ja válddahusat dán JSON-hámis",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "Bija WIP-ráji ala (Listu)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "Lasit Bija WIP-ráji ala"
+  "wip-limit-group-name-placeholder": "Namma (eaktodáhtolaš)",
+  "wip-limit-group-add": "Lasit Bija WIP-ráji ala",
+  "subtask-inherit-parent-labels": "Árbe váhnenkoartta mearkkat"
 }

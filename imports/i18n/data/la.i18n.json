@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Latine: Vinculum Scheda",
   "searchElementPopup-title": "Quaere",
   "copyCardPopup-title": "Chartam describe",
+  "save-card-as-template": "Ut Exemplar Servare",
   "copyListPopup-title": "Latine: Copia Index",
   "copyManyCardsPopup-title": "Latine: Copia Template ad Many Schedae",
   "copyManyCardsPopup-instructions": "Latine: Destinatio Scheda Titles et Descriptions in hoc JSON format",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "Latine: Habilita WIP Limit (Index)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "Adde Latine: Habilita WIP Limit"
+  "wip-limit-group-name-placeholder": "Nomen (optativum)",
+  "wip-limit-group-add": "Adde Latine: Habilita WIP Limit",
+  "subtask-inherit-parent-labels": "Notas cartae parentis hereditare"
 }

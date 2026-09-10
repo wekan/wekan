@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Kartê girê bide",
   "searchElementPopup-title": "Bigere",
   "copyCardPopup-title": "Kartê kopî bike",
+  "save-card-as-template": "Wekî Şablonê Tomar Bike",
   "copyListPopup-title": "Lîsteyê kopî bike",
   "copyManyCardsPopup-title": "Şablonê li gelek kartan kopî bike",
   "copyManyCardsPopup-instructions": "Sernav û danasînên kartên armancê bi vê formata JSON",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "Sînorê WIP çalak bike (Lîste)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "Zêde bike Sînorê WIP çalak bike"
+  "wip-limit-group-name-placeholder": "Nav (bijare)",
+  "wip-limit-group-add": "Zêde bike Sînorê WIP çalak bike",
+  "subtask-inherit-parent-labels": "Etîketên karta dêûbav bimîratîne"
 }

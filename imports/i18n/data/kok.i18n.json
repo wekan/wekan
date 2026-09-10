@@ -521,6 +521,7 @@
   "linkCardPopup-title": "कार्ड जोडात",
   "searchElementPopup-title": "सोदचें",
   "copyCardPopup-title": "कार्डाची प्रत करची",
+  "save-card-as-template": "प्रारूप म्हण जतनकरात",
   "copyListPopup-title": "वळेरी नकल करात",
   "copyManyCardsPopup-title": "नमुनो जायतीं कार्डांचेर नकल करात",
   "copyManyCardsPopup-instructions": "ह्या JSON स्वरूपांत लक्ष्य कार्डांचीं माथाळीं आनी वर्णनां",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "WIP मर्यादा सक्षम करात (वळेरी)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "जोडचें WIP मर्यादा सक्षम करात"
+  "wip-limit-group-name-placeholder": "नांव (मर्जेन)",
+  "wip-limit-group-add": "जोडचें WIP मर्यादा सक्षम करात",
+  "subtask-inherit-parent-labels": "पालक कार्डाची लेबलां वारशान घे"
 }

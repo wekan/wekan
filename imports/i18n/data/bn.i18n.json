@@ -521,6 +521,7 @@
   "linkCardPopup-title": "কার্ড সংযুক্ত করুন",
   "searchElementPopup-title": "অনুসন্ধান",
   "copyCardPopup-title": "কার্ড অনুলিপি করুন",
+  "save-card-as-template": "টেমপ্লেট হিসেবে সংরক্ষণ করুন",
   "copyListPopup-title": "তালিকা অনুলিপি করুন",
   "copyManyCardsPopup-title": "অনেক কার্ডে টেমপ্লেট অনুলিপি করুন",
   "copyManyCardsPopup-instructions": "এই JSON বিন্যাসে গন্তব্য কার্ডের শিরোনাম ও বিবরণ",
@@ -2546,5 +2547,6 @@
   "twoFactorCode-invalid": "অবৈধ প্রমাণীকরণ কোড। আবার চেষ্টা করুন।",
   "wip-limit-groups": "WIP সীমা গ্রুপ",
   "wip-limit-group-name-placeholder": "গ্রুপের নাম (ঐচ্ছিক)",
-  "wip-limit-group-add": "WIP সীমা গ্রুপ যোগ করুন"
+  "wip-limit-group-add": "WIP সীমা গ্রুপ যোগ করুন",
+  "subtask-inherit-parent-labels": "প্যারেন্ট কার্ডের লেবেল উত্তরাধিকার করুন"
 }

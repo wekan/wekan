@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Kɔ kaɖi",
   "searchElementPopup-title": "Di",
   "copyCardPopup-title": "Ta agbalẽvi la",
+  "save-card-as-template": "Dzra ɖo abe Nudzidzeɖoɖo ene",
   "copyListPopup-title": "Kɔ xexlẽdzesi",
   "copyManyCardsPopup-title": "Kɔ kpɔɖeŋu ɖe kaɖi geɖewo ŋu",
   "copyManyCardsPopup-instructions": "Kaɖi siwo yina teƒe bubu ƒe ŋkɔwo kple numeɖeɖewo le JSON ƒe nɔnɔme sia me",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "Na mɔ WIP ƒe seƒoƒo (Xexlẽdzesi)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "Tsɔ kpe ɖe eŋu Na mɔ WIP ƒe seƒoƒo"
+  "wip-limit-group-name-placeholder": "Ŋkɔ (ɖe wò lɔlɔ̃nu)",
+  "wip-limit-group-add": "Tsɔ kpe ɖe eŋu Na mɔ WIP ƒe seƒoƒo",
+  "subtask-inherit-parent-labels": "Xɔ dzila ƒe kaad la ƒe agbalẽdzesiwo"
 }

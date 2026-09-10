@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Карточканы бәйләргә",
   "searchElementPopup-title": "Эҙләү",
   "copyCardPopup-title": "Карточканы күсереү",
+  "save-card-as-template": "Ҡалып итеп һаҡлау",
   "copyListPopup-title": "Исемлекте күсермәләргә",
   "copyManyCardsPopup-title": "Ҡалыпты күп карточкаға күсермәләргә",
   "copyManyCardsPopup-instructions": "Тәғәйен карточкаларҙың атамалары һәм тасуирламалары ошо JSON форматында",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "WIP сикләүен ҡабыҙырға (Исемлек)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "Өҫтәү WIP сикләүен ҡабыҙырға"
+  "wip-limit-group-name-placeholder": "Исем (мотлаҡ түгел)",
+  "wip-limit-group-add": "Өҫтәү WIP сикләүен ҡабыҙырға",
+  "subtask-inherit-parent-labels": "Атай карта билдәләрен мираҫ итеп алыу"
 }

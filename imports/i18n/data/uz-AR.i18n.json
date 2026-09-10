@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Bog'lanish kartasi",
   "searchElementPopup-title": "Qidiruv",
   "copyCardPopup-title": "Karta nusxasi",
+  "save-card-as-template": "Shablon sifatida saqlash",
   "copyListPopup-title": "Roʻyxatni nusxalash",
   "copyManyCardsPopup-title": "Shablonni ko'plab kartalarga nusxalash",
   "copyManyCardsPopup-instructions": "Ushbu JSON formatidagi manzil kartalari sarlavhalari va tavsiflari",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "WIP chegarasini yoqing (Roʻyxat)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "Qo'shish WIP chegarasini yoqing"
+  "wip-limit-group-name-placeholder": "Ism (ixtiyoriy)",
+  "wip-limit-group-add": "Qo'shish WIP chegarasini yoqing",
+  "subtask-inherit-parent-labels": "Ota-karta yorliqlarini meros qilib olish"
 }

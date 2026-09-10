@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Ligar Cartão",
   "searchElementPopup-title": "Procurar",
   "copyCardPopup-title": "Copiar o cartão",
+  "save-card-as-template": "Gardar como modelo",
   "copyListPopup-title": "Copiar Lista",
   "copyManyCardsPopup-title": "Copiar Modelo para Vários Cartões",
   "copyManyCardsPopup-instructions": "Títulos e Descrições de Cartões de Destino neste formato JSON",
@@ -2546,5 +2547,6 @@
   "twoFactorCode-invalid": "Código de autenticación non válido. Ténteo de novo.",
   "wip-limit-groups": "Grupos de límite WIP",
   "wip-limit-group-name-placeholder": "Nome do grupo (opcional)",
-  "wip-limit-group-add": "Engadir grupo de límite WIP"
+  "wip-limit-group-add": "Engadir grupo de límite WIP",
+  "subtask-inherit-parent-labels": "Herdar as etiquetas da tarxeta pai"
 }

@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Enlazar tarcheta",
   "searchElementPopup-title": "Mirar",
   "copyCardPopup-title": "Copiar a tarcheta",
+  "save-card-as-template": "Alzar como Plantilla",
   "copyListPopup-title": "Copiar lista",
   "copyManyCardsPopup-title": "Copiar plantilla en muchas tarchetas",
   "copyManyCardsPopup-instructions": "Títulos y descripciones de as tarchetas de destino en formato JSON",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "Habilitar el límite d'o trabajo en proceso (Lista)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "Adhibir Habilitar el límite d'o trabajo en proceso"
+  "wip-limit-group-name-placeholder": "Nombre (opcional)",
+  "wip-limit-group-add": "Adhibir Habilitar el límite d'o trabajo en proceso",
+  "subtask-inherit-parent-labels": "Heredar as etiquetas d'a tarcheta pai"
 }

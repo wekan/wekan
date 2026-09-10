@@ -521,6 +521,7 @@
   "linkCardPopup-title": "Пайваст кардани корт",
   "searchElementPopup-title": "Ҷустуҷӯ",
   "copyCardPopup-title": "Нусхабардории корт",
+  "save-card-as-template": "Ҳамчун намуна нигоҳ доред",
   "copyListPopup-title": "Нусхабардории рӯйхат",
   "copyManyCardsPopup-title": "Нусхабардории қолаб ба чанд корт",
   "copyManyCardsPopup-instructions": "Унвонҳо ва тавсифҳои кортҳои мақсад дар ин қолаби JSON",
@@ -2545,6 +2546,7 @@
   "twoFactorCode-cancel": "Cancel",
   "twoFactorCode-invalid": "Invalid authentication code. Please try again.",
   "wip-limit-groups": "Фаъол кардани ҳадди WIP (Рӯйхат)",
-  "wip-limit-group-name-placeholder": "Group name (optional)",
-  "wip-limit-group-add": "Илова кардан Фаъол кардани ҳадди WIP"
+  "wip-limit-group-name-placeholder": "Ном (ихтиёрӣ)",
+  "wip-limit-group-add": "Илова кардан Фаъол кардани ҳадди WIP",
+  "subtask-inherit-parent-labels": "Мероси тамғаҳои корти волидайнро гирифтан"
 }
