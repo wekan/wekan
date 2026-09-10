@@ -116,10 +116,14 @@ function autolinkWekanCardUrls(text, resolveTitle) {
     }
     if (!title || typeof title !== 'string') return;
     result += text.slice(lastEnd, index);
-    // Escape ']' in the title so it cannot prematurely close the markdown
-    // link label; markdown-it leaves other characters alone inside a link
-    // label and DOMPurify sanitizes the final HTML regardless.
-    const safeTitle = title.replace(/]/g, '\\]');
+    // Escape '\' and ']' in the title so it cannot prematurely close the
+    // markdown link label; markdown-it leaves other characters alone inside
+    // a link label and DOMPurify sanitizes the final HTML regardless. The
+    // backslash MUST be escaped first: a title ending in a raw backslash
+    // (e.g. "foo\") would otherwise escape the literal ']' this function
+    // inserts to close the label (CodeQL js/incomplete-sanitization), so the
+    // label never closes and the emitted markdown is not the link intended.
+    const safeTitle = title.replace(/\\/g, '\\\\').replace(/]/g, '\\]');
     result += `[${safeTitle}](${match})`;
     lastEnd = index + match.length;
     changed = true;

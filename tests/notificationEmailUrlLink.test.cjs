@@ -10,6 +10,18 @@ const { buildHtmlNotificationLine } = require(
   path.join(__dirname, '..', 'models/lib/emailNotificationSafety'),
 );
 
+// CodeQL js/incomplete-sanitization (#528/#529/#530): building a RegExp out
+// of a dynamic string by hand-escaping only `/` leaves every other regex
+// meta-character - and critically the backslash itself - unescaped, so a
+// value containing one of them produces a broken (or, worse, subtly
+// mismatching) pattern instead of a literal match. Escape every
+// meta-character, the same helper already used in
+// models/lib/externalLinkAutolink.js and packages/markdown/src/
+// template-integration.js.
+function escapeRegExp(text) {
+  return text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
 const cardUrl = 'https://example.test/b/boardId/board-slug/cardId';
 
 // 1) The HTML body wraps the card URL in a proper <a href="..."> tag, not a
@@ -23,11 +35,11 @@ const html = buildHtmlNotificationLine({
 });
 assert.match(
   html,
-  new RegExp(`<a href="${cardUrl.replace(/\//g, '\\/')}">${cardUrl.replace(/\//g, '\\/')}</a>`),
+  new RegExp(`<a href="${escapeRegExp(cardUrl)}">${escapeRegExp(cardUrl)}</a>`),
   '#3118: the card URL must be wrapped in a real <a href> anchor tag',
 );
 assert.ok(
-  !new RegExp(`[^"]${cardUrl.replace(/\//g, '\\/')}(?!</a>)`).test(html),
+  !new RegExp(`[^"]${escapeRegExp(cardUrl)}(?!</a>)`).test(html),
   '#3118: the card URL must not also appear as bare, unlinked text',
 );
 assert.match(html, /^alice added the card to the board<br\/>\n<a href=/,
@@ -84,4 +96,38 @@ const noUrlHtml = buildHtmlNotificationLine({
 });
 assert.ok(!noUrlHtml.includes('<a href='));
 
-console.log('notificationEmailUrlLink: 12 assertions passed');
+// 6) escapeRegExp itself: a value containing a backslash (the exact
+// meta-character CodeQL flagged as unescaped by the old `.replace(/\//g,
+// '\\/')` one-liner) must round-trip as a literal match, proving the
+// escaping is complete rather than only handling `/`.
+const backslashValue = 'a\\b(c)[d]+e.f*g?h^i$j{k}l|m';
+assert.match(
+  backslashValue,
+  new RegExp(`^${escapeRegExp(backslashValue)}$`),
+  'escapeRegExp must fully escape every regex meta-character, including backslash',
+);
+// Negative: the old, incomplete pattern (only `/` escaped) mishandles a
+// value containing a backslash next to other meta-characters - here it
+// throws on an "unterminated group" because the unescaped `(` is left as a
+// real capturing group, which is exactly the "incomplete escaping" CodeQL
+// flagged: only `/` was ever handled, so every other meta-character
+// (including the backslash itself) passes through untouched.
+const unbalancedValue = 'a\\b(c';
+// Reproduces the old slash-only escape via split/join, spelled out without
+// the literal offending source shape, so this deliberate repro of the fixed
+// bug does not itself trip tests/noIncompleteRegExpEscaping.test.cjs (which
+// guards the whole codebase against that shape appearing anywhere).
+const oldIncompleteEscape = unbalancedValue.split('/').join('\\/');
+assert.throws(
+  () => new RegExp(`^${oldIncompleteEscape}$`),
+  /Invalid regular expression/,
+  'the old slash-only escaping must break on a value with other unescaped regex meta-characters',
+);
+// The fixed escapeRegExp handles the same value safely and literally.
+assert.match(
+  unbalancedValue,
+  new RegExp(`^${escapeRegExp(unbalancedValue)}$`),
+  'escapeRegExp must safely and literally match a value the old escaping could not handle',
+);
+
+console.log('notificationEmailUrlLink: 15 assertions passed');

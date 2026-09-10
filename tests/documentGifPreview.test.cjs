@@ -24,6 +24,61 @@ test('document text indexing is bounded and stores plain search text separately'
   assert.doesNotMatch(source, /<table|<style|documentAsStoredGifs|convertImageBufferToGif/);
 });
 
+// CodeQL js/overly-large-range (#526): plainSearchText's control-character
+// strip used to be written with literal raw control BYTES inside the
+// character class (e.g. a real 0x0e byte and a real 0x1f byte either side of
+// '-') instead of \x escapes. Raw control bytes are visually indistinguishable
+// from one another in an editor/diff, so the range's exact boundary could
+// silently shift (widen or narrow) without anyone noticing - "overly
+// permissive" in the sense that nothing in the source makes the intended
+// range checkable. The fix rewrites it with explicit, verifiable \x escapes
+// that are byte-for-byte equivalent to the original range.
+test('plainSearchText strips C0 controls + DEL using explicit \\x escapes, not raw control bytes', () => {
+  const source = read('server/lib/documentGif.js');
+  const fn = source.match(/function plainSearchText\(value\) \{[\s\S]*?\n\}/);
+  assert.ok(fn, 'plainSearchText must exist');
+  const body = fn[0];
+  // The exact regex, spelled out with \x escapes - no raw control bytes.
+  assert.match(
+    body,
+    /\\x00-\\x08\\x0b\\x0c\\x0e-\\x1f\\x7f/,
+    'the control-character range must be written as explicit \\x escapes',
+  );
+  // Negative: no literal (unescaped, sub-0x20) control byte anywhere in the
+  // function body - proves the raw-byte form CodeQL flagged is gone, not
+  // merely duplicated alongside the escaped form.
+  for (let i = 0; i < body.length; i += 1) {
+    const code = body.charCodeAt(i);
+    assert.ok(
+      !(code < 0x20 && code !== 0x0a),
+      `function body must contain no raw control byte (found 0x${code.toString(16)} at offset ${i})`,
+    );
+  }
+});
+
+test('plainSearchText\'s control-character range behaves exactly as intended (positive + negative)', () => {
+  // Re-derive the same regex from the source text itself (rather than
+  // hand-copying it here) so this test cannot drift from the real pattern.
+  const source = read('server/lib/documentGif.js');
+  const fn = source.match(/function plainSearchText\(value\) \{[\s\S]*?\n\}/)[0];
+  const patternSource = fn.match(/\.replace\(\/(\[\\x00[^/]+\])\/g/)[1];
+  const stripControls = new RegExp(patternSource, 'g');
+
+  // Positive: every C0 control character except tab/newline/CR, plus DEL,
+  // is stripped.
+  const allStripped = Array.from({ length: 0x20 }, (_, i) => i)
+    .filter(code => ![0x09, 0x0a, 0x0d].includes(code))
+    .concat([0x7f])
+    .every(code => String.fromCharCode(code).replace(stripControls, '') === '');
+  assert.ok(allStripped, 'every intended control code must be stripped');
+
+  // Negative: tab, newline, CR (left to the later \s+ collapse) and ordinary
+  // printable text are NOT touched by this pattern - proves the range is not
+  // wider than intended in the other direction either.
+  assert.strictEqual('\t\n\r'.replace(stripControls, ''), '\t\n\r');
+  assert.strictEqual('Hello, World! 123'.replace(stripControls, ''), 'Hello, World! 123');
+});
+
 test('the PDF/OOXML text extraction uses small permissively licensed JavaScript dependencies', () => {
   const pkg = JSON.parse(read('package.json'));
   const pdfjs = JSON.parse(read('node_modules/pdfjs-dist/package.json'));

@@ -164,6 +164,29 @@ test('the markdown package renders through a reactive externalLinkPattern bridge
     'the markdown helper actually calls the autolink step before Markdown.render');
 });
 
+// CodeQL js/incomplete-sanitization (#533): the markdown package duplicates
+// autolinkWekanCardUrls' title-escaping from models/lib/cardUrlAutolink.js
+// (kept in sync per the comment there) because it cannot import app code.
+// The duplicate must escape the backslash BEFORE the ']', or a title ending
+// in a raw backslash escapes the literal ']' the function inserts and the
+// markdown link label is never terminated. Source-checked (not runtime,
+// since this package imports `meteor/...` modules unavailable to plain
+// node) so the two copies cannot silently diverge back to the incomplete
+// (]-only) escape.
+test('the markdown package escapes both "\\\\" and "]" in a card title, in that order, not just "]"', () => {
+  const pkg = read('packages/markdown/src/template-integration.js');
+  const expected = "title.replace(/\\\\/g, '\\\\\\\\').replace(/]/g, '\\\\]')";
+  assert.ok(
+    pkg.includes(expected),
+    'safeTitle must escape backslashes before escaping "]", matching models/lib/cardUrlAutolink.js',
+  );
+  const oldIncomplete = "title.replace(/]/g, '\\\\]');";
+  assert.ok(
+    !pkg.includes(oldIncomplete),
+    'the old ]-only escape (no backslash handling) must not be present anymore',
+  );
+});
+
 test('editor.js keeps the bridge in sync with the setting, like alwaysShowCodeAsText', () => {
   const editor = read('client/components/main/editor.js');
   const occurrences = editor.match(/Markdown\.externalLinkPattern\.set\(/g) || [];

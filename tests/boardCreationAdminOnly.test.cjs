@@ -32,7 +32,12 @@ console.log('boardCreationAdminOnly:');
 test('the setting defaults to off (board creation unrestricted)', () => {
   assert.ok(
     /tableVisibilityMode-boardCreationAdminOnly['"]?\s*},?\s*\n\s*\{\s*\$setOnInsert:\s*\{\s*booleanValue:\s*false/.test(
-      bootstrap.replace(/\n\s*/g, ' ').replace(/ /g, ' '),
+      // CodeQL js/identity-replacement (#527): `.replace(/ /g, ' ')` replaced
+      // a single space with itself - a no-op that did nothing. The actual
+      // intent (collapsing the RUNS of spaces the newline-collapse above can
+      // leave behind, e.g. from original multi-space indentation) is
+      // `.replace(/ +/g, ' ')`.
+      bootstrap.replace(/\n\s*/g, ' ').replace(/ +/g, ' '),
     ) || /_id: 'tableVisibilityMode-boardCreationAdminOnly' },\s*\n\s*\{ \$setOnInsert: \{ booleanValue: false/.test(bootstrap),
     'the seeded document defaults booleanValue to false',
   );
@@ -109,6 +114,21 @@ test('negative: no unexpected Meteor board-insert path exists', () => {
   })(serverDir);
   assert.deepStrictEqual(new Set(found), KNOWN_EXCEPTIONS,
     'only the known, deliberately-ungated board-insert call sites exist');
+});
+
+test('#527 the whitespace-normalizing helper actually collapses runs of spaces, not a no-op', () => {
+  // Positive: a run of literal spaces (the kind left behind once newlines +
+  // their leading indentation have already been folded to single spaces)
+  // collapses to one.
+  const normalize = s => s.replace(/\n\s*/g, ' ').replace(/ +/g, ' ');
+  assert.strictEqual(normalize('a     b'), 'a b');
+  assert.strictEqual(normalize('a\n    b'), 'a b');
+  // Negative: the OLD code (`.replace(/ /g, ' ')`) is an identity
+  // replacement - it must NOT collapse the same run, proving the bug CodeQL
+  // flagged (js/identity-replacement) was real and is what got fixed.
+  const oldNoOpNormalize = s => s.replace(/\n\s*/g, ' ').replace(/ /g, ' ');
+  assert.strictEqual(oldNoOpNormalize('a     b'), 'a     b');
+  assert.notStrictEqual(oldNoOpNormalize('a     b'), normalize('a     b'));
 });
 
 console.log(`\nboardCreationAdminOnly: ${passed} tests passed`);

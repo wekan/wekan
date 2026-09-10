@@ -187,6 +187,32 @@ test('autolinkWekanCardUrls escapes a title containing "]" so it cannot break th
   assert.strictEqual(result, `[Card [urgent\\]](${ABS_URL})`);
 });
 
+test('autolinkWekanCardUrls escapes a title ending in "\\" so it cannot prematurely close the markdown link label (CodeQL js/incomplete-sanitization)', () => {
+  // A title ending in a raw backslash: if only ']' were escaped, the
+  // resulting markdown "[foo\](url)" would have that backslash escape the
+  // very ']' this function inserts to close the label, leaving the link
+  // label unterminated. Escaping the backslash first fixes that.
+  const resolveTitle = () => 'foo\\';
+  const result = autolinkWekanCardUrls(ABS_URL, resolveTitle);
+  assert.strictEqual(result, `[foo\\\\](${ABS_URL})`);
+  // Negative: prove the OLD (]-only) escaping really did leave the label
+  // unterminated for this exact input, i.e. the bug CodeQL flagged was real.
+  const oldSafeTitle = 'foo\\'.replace(/]/g, '\\]');
+  const oldResult = `[${oldSafeTitle}](${ABS_URL})`;
+  assert.strictEqual(oldResult, `[foo\\](${ABS_URL})`);
+  assert.notStrictEqual(
+    oldResult,
+    result,
+    'the old ]-only escaping produced a different (broken) markdown string than the fix',
+  );
+});
+
+test('autolinkWekanCardUrls escapes a title containing both "\\" and "]" so the escaped backslash cannot swallow the bracket escape', () => {
+  const resolveTitle = () => 'weird \\] title';
+  const result = autolinkWekanCardUrls(ABS_URL, resolveTitle);
+  assert.strictEqual(result, `[weird \\\\\\] title](${ABS_URL})`);
+});
+
 test('autolinkWekanCardUrls keeps the #comment-/#activity- fragment in the link target', () => {
   const url = `${ABS_URL}#comment-abc`;
   const resolveTitle = () => 'Card with a comment link';

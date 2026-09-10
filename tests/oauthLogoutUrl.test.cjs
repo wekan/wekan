@@ -76,7 +76,48 @@ test('absolute endpoint is used as-is, ignoring serverUrl', () => {
     redirectUri: 'https://wekan.example.com/',
   });
   assert.ok(url.startsWith('https://other-idp.example.org/logout'));
-  assert.ok(!url.includes('id.example.com'));
+  // CodeQL js/incomplete-url-substring-sanitization (#531): a naive
+  // `!url.includes('id.example.com')` check is an incomplete URL substring
+  // check - 'id.example.com' can appear anywhere in the URL (as a query
+  // param value, a path segment, or part of an unrelated hostname such as
+  // 'evil-id.example.com.attacker.example') without the ignored serverUrl
+  // actually being used as the logout host. Parse the URL and compare the
+  // real hostname instead.
+  assert.notStrictEqual(new URL(url).hostname, 'id.example.com');
+});
+
+test('#531 negative: a naive substring check would wrongly flag a URL that merely mentions the ignored host', () => {
+  // Reproduces the exact bypass CodeQL warns about for the OLD assertion
+  // style: a URL whose hostname is something else entirely, but which
+  // contains 'id.example.com' as a query-string value, must NOT be treated
+  // as if serverUrl leaked into the host - the old `.includes()` check would
+  // have incorrectly failed (or, the mirror image, incorrectly passed for a
+  // confusable hostname like 'id.example.com.attacker.example'). Hostname
+  // comparison via `new URL()` gets both right.
+  const url = buildOauthLogoutUrl({
+    endpoint: 'https://other-idp.example.org/logout',
+    redirectUri: 'https://wekan.example.com/?ref=id.example.com',
+  });
+  const oldNaiveCheckWronglyFlagsThis = url.includes('id.example.com');
+  assert.ok(
+    oldNaiveCheckWronglyFlagsThis,
+    'sanity: the raw string really does contain the substring, so a naive check is fooled',
+  );
+  assert.strictEqual(
+    new URL(url).hostname,
+    'other-idp.example.org',
+    'the real hostname is unaffected by an unrelated substring elsewhere in the URL',
+  );
+
+  const confusable = buildOauthLogoutUrl({
+    endpoint: 'https://id.example.com.attacker.example/logout',
+    serverUrl: 'https://id.example.com',
+  });
+  assert.notStrictEqual(
+    new URL(confusable).hostname,
+    'id.example.com',
+    'a confusable hostname prefixed with the real host must not compare equal to it',
+  );
 });
 
 // --- Optional params ---------------------------------------------------------

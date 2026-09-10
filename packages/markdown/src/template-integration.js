@@ -148,7 +148,12 @@ function autolinkWekanCardUrls(text, resolveTitle) {
     }
     if (!title || typeof title !== 'string') return;
     result += text.slice(lastEnd, index);
-    const safeTitle = title.replace(/]/g, '\\]');
+    // '\' MUST be escaped before ']' - see models/lib/cardUrlAutolink.js
+    // (kept in sync with this copy) for why: a title ending in a raw
+    // backslash would otherwise escape the literal ']' inserted below,
+    // leaving the markdown link label unterminated
+    // (CodeQL js/incomplete-sanitization).
+    const safeTitle = title.replace(/\\/g, '\\\\').replace(/]/g, '\\]');
     result += `[${safeTitle}](${match})`;
     lastEnd = index + match.length;
     changed = true;
