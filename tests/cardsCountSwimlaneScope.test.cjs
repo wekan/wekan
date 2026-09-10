@@ -32,8 +32,11 @@ const bodyJade = fs.readFileSync(
   'utf8',
 );
 
-// Isolate the cardsCount() helper body.
-const start = headerJs.indexOf('cardsCount(');
+// Isolate the cardsCount() helper body. Anchor on the actual definition line
+// ("  cardsCount(...) {"), not a bare substring match - a comment elsewhere
+// in the file (listCardsForSummary's "Same swimlane-scoping decision as
+// cardsCount() below") also contains the literal text "cardsCount(".
+const start = headerJs.search(/\n {2}cardsCount\(/);
 assert.ok(start !== -1, 'cardsCount() helper not found in listHeader.js');
 const end = headerJs.indexOf('\n  },', start);
 assert.ok(end > start, 'could not delimit the cardsCount() helper');

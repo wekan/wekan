@@ -111,11 +111,12 @@ function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
     // The bug itself: reading the page back with the search query.
     assert.ok(!/Users\.find\(tpl\.findUsersOptions\.get\(\)/.test(client),
       'no bare query find - that is what put the admin on every page');
-    // Adding or deleting a user changes which users the page holds, and neither
-    // the query nor the page number changes with it.
+    // Adding, deleting or anonymizing a user changes which users the page holds
+    // (or what it shows for one), and neither the query nor the page number
+    // changes with it.
     assert.ok(/peopleListChanged\(\)/.test(client), 'create/delete ask for the page again');
-    assert.strictEqual((client.match(/peopleListChanged\(\);/g) || []).length, 2,
-      'both the create and the delete handler');
+    assert.strictEqual((client.match(/peopleListChanged\(\);/g) || []).length, 3,
+      'the create, delete and #2731 anonymize handlers');
     assert.ok(/peopleListVersion\.get\(\)/.test(client), 'and the table watches that');
   });
 

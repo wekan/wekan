@@ -229,9 +229,12 @@ test('Visibility is named groups, in order, and nothing was dropped', () => {
   // The site-theme picker is a group of its own now - the same picker as the
   // per-user "Change color", one layer below it - and it sits between the product
   // name and the logo.
+  // wekan/wekan#3069 added an "external link pattern" group (autolinking bare
+  // "<prefix>NNNN" tokens to an external issue tracker) right after the URL
+  // group and before the product name group.
   assert.deepStrictEqual(groups,
-    ['all-boards-hide', 'settings-group-url', 'custom-product-name', 'change-color',
-      'settings-group-logo'],
+    ['all-boards-hide', 'settings-group-url', 'external-link-pattern',
+      'custom-product-name', 'change-color', 'settings-group-logo'],
     'the groups, top to bottom');
   // Product name holds ONE field, so its group title IS that field's label - with
   // the label's existing translation, at the group title's size. Printing both said

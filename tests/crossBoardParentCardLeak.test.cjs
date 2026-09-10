@@ -150,8 +150,12 @@ test('the linked-card read check it was modelled on is still there', () => {
 
 test('all linked-card content and metadata cursors filter by visible boards', () => {
   const calls = publication.match(/const linkedCardIds = await visibleLinkedCardIds\(board\);/g) || [];
-  assert.strictEqual(calls.length, 10,
-    'card content plus source metadata, subtasks and dependencies — all ten');
+  // Card content plus source metadata, subtasks and dependencies, comments,
+  // CardTextNotes, attachments, checklists and checklist items - eleven,
+  // since CardTextNotes was added alongside the other linked-card content
+  // cursors after this test's original ten.
+  assert.strictEqual(calls.length, 11,
+    'card content plus source metadata, subtasks, dependencies and CardTextNotes — all eleven');
 });
 
 test('the shared helper asks the same visibility question as the ancestor cursor', () => {

@@ -160,7 +160,11 @@ test('SILENT: the deny rules still refuse by returning true, allow rules by fals
 
 test('SILENT: the REST comment delete still throws the SAME refusal', () => {
   const src = read('server/models/cardComments.js');
-  const block = src.match(/if \(comment\.userId && comment\.userId !== req\.userId\)[\s\S]*?\n      \}/)[0];
+  // The edit handler (WebApp.handlers.post) has the identical
+  // `if (comment.userId && ...)` shape with its own 'comment.foreign-edit'
+  // canary, so anchor on the DELETE route to get its block, not the edit one.
+  const deleteHandler = src.slice(src.indexOf('WebApp.handlers.delete('));
+  const block = deleteHandler.match(/if \(comment\.userId && comment\.userId !== req\.userId\)[\s\S]*?\n      \}/)[0];
   // The canary is recorded and the original refusal is re-thrown untouched, so
   // the caller sees the same 403 with the same message as before.
   assert.ok(/catch \(refusal\) \{/.test(block));

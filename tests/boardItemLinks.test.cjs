@@ -21,7 +21,7 @@ const {
   buildSwimlaneRelativeUrl, buildListRelativeUrl,
 } = require('../models/lib/boardItemUrl');
 const {
-  REVEAL_KINDS, REVEAL_TARGETS, REVEAL_SESSION_KEYS, revealElementId,
+  REVEAL_KINDS, REVEAL_TARGETS, REVEAL_SESSION_KEYS, HASH_REVEAL_KINDS, revealElementId,
 } = require('../models/lib/revealBoardItem');
 
 const router = read('config/router.js');
@@ -134,7 +134,9 @@ test('following one of these links reveals what it named', () => {
   // The route cannot scroll: it runs before the board has rendered, and on a
   // board that is already open it runs without re-creating anything. So it
   // NAMES what to reveal and the board body reveals it.
-  for (const kind of REVEAL_KINDS) {
+  // 'comment' and 'activity' are set from the URL hash (client/lib/revealBoardItem.js),
+  // not from a route param - see models/lib/revealBoardItem.js's HASH_REVEAL_KINDS.
+  for (const kind of REVEAL_KINDS.filter(k => !HASH_REVEAL_KINDS.includes(k))) {
     const { sessionKey } = REVEAL_TARGETS[kind];
     assert.ok(router.includes(`Session.set('${sessionKey}', params.${kind}Id)`),
       `the ${kind} route names what to reveal`);
