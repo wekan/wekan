@@ -37,7 +37,7 @@ const minicardCss = read('client/components/cards/minicard.css');
 
 test('the minicard title is plain content, not an inline-editor trigger', () => {
   const title = minicardJade.slice(minicardJade.indexOf('.minicard-title\n'),
-    minicardJade.indexOf('\n    if showLabels'));
+    minicardJade.indexOf('\n    unless minicardCollapsed'));
   assert.ok(/span\.minicard-title-text\n/.test(title));
   assert.ok(!/js-open-inlined-form|js-minicard-title-form/.test(title));
 });

@@ -84,7 +84,8 @@ test('the details-menu button and the drag handle are NOT inside the collapse fo
 });
 
 test('the minicard element itself carries a collapsed class for styling', () => {
-  const opening = jade.slice(jade.indexOf('.minicard('), jade.indexOf(')\n'));
+  const openingStart = jade.indexOf('.minicard(');
+  const opening = jade.slice(openingStart, jade.indexOf(')\n', openingStart));
   assert.ok(/class="\{\{#if minicardCollapsed\}\}minicard-collapsed\{\{\/if\}\}"/.test(opening));
 });
 
