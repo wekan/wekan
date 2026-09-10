@@ -727,6 +727,33 @@ deliberately ungated ones (the per-user Templates container and
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5323fdbce67e2cdfe19a00f2d776c283d45bc2d9">An admin can now customize the Private/Public board description text</a>. Thanks to Meeques and xet7.</summary>
+
+[#4421](https://github.com/wekan/wekan/issues/4421): the text shown under
+Private/Public in the board visibility popup and the create-board popup was
+hardcoded to the `private-desc`/`public-desc` i18n strings, which assume
+"Public" means public on the internet. An org that uses "Public" to mean
+"public within our organization" had no way to say so.
+
+Two free-text fields, "Custom private description" and "Custom public
+description", were added to Admin Panel → Settings → Visibility (All
+Boards group), stored as `Settings.customPrivateBoardDesc` /
+`customPublicBoardDesc` (both default to `""`). `boardVisibilityList`'s
+`privateDesc`/`publicDesc` helpers (`client/components/boards/boardHeader.js`)
+now render the admin's text when it is set, falling back to the existing
+i18n text unchanged when it is empty - so any instance that has not touched
+the new setting sees byte-identical behavior to before. The fallback logic
+itself is a small pure function, `imports/i18n/lib/visibilityDesc.js`, kept
+free of any Meteor/Blaze import so it is unit-testable on its own.
+
+`tests/visibilityDesc.test.cjs` pins the fallback (unset, empty and
+whitespace-only custom text all fall back to the i18n default; a real
+custom value is used verbatim and trimmed) and that an admin who never
+touches the setting gets the exact pre-existing text.
+
+</details>
+
 **Card detail actions** - the hamburger menu opened from an open card.
 
 <details>
@@ -979,6 +1006,28 @@ to every path that creates a rule - the classic wizard, the
 `rules.createRule` server method, and the workflow canvas - so a rule is
 never left unnamed; it can still be renamed afterwards with the rules
 list's existing inline rename.
+
+</details>
+
+**Subtasks** - the minicard's "N/M subtasks" completion badge.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2bc82f9ff3a2140f1ab2d3ba4dc8994cd4bff222">Confirmed the subtask completion badge already counts archived subtasks correctly</a>. Thanks to ufalke and xet7.</summary>
+
+[#4050](https://github.com/wekan/wekan/issues/4050) reported the minicard's
+subtask badge stuck at "0/n" no matter how many subtasks were finished, and
+expected giving a subtask an End Date to make it count. Reading the current
+`models/cards.js` shows the counter itself is correct: `subtasksFinishedCount()`
+counts subtasks with `archived: true` (the numerator), `allSubtasksCount()`
+counts every subtask regardless of archived state (the denominator), and
+`Card.archive()` - the actual way a subtask is finished - sets that flag and
+recurses into its own children, correctly moving the badge from "0/n" toward
+"n/n". `setEnd(endAt)` only ever writes `{ endAt }` and never touches
+`archived`, by design: an end date is a due-date field, not a completion flag,
+so setting one alone leaves the badge unchanged. No code change was needed;
+`tests/subtaskCompletionCounter4050.test.cjs` now pins the numerator/denominator
+source and both the archived-subtasks and end-date-only cases so this cannot
+silently regress.
 
 </details>
 
