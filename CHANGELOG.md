@@ -229,7 +229,45 @@ endpoint, environment/infrastructure this sandbox cannot stand up or verify),
 email/string templates — `{username}` and a direct card link landed for
 \#3304/\#3301, but the request is open-ended about which further fields
 (board/list/swimlane name, custom fields) should be addressable; needs the
-same templating-layer decision as the #4294 variables ask above).
+same templating-layer decision as the #4294 variables ask above),
+[#4790](https://github.com/wekan/wekan/issues/4790) (a sprawling "User
+Filter" wishlist - the reporter's own words are "I'm kind of confused" about
+whether it is one feature or several; it bundles per-org/team/board label
+expansion, granular board roles, LDAP-group-driven auto-labeling and
+permission inheritance, none of which is a filter change - needs it split
+into separate, concretely-scoped issues before any one part is buildable),
+[#2044](https://github.com/wekan/wekan/issues/2044) (an AND/OR toggle for
+the whole filter panel - today every active filter field is combined with
+implicit AND, and the fields within one SetFilter with OR; switching that
+per-panel, or per-field, is a real change to `Filter._getMongoSelector()`'s
+selector-building shape, not an additive filter, and needs a decision on
+what the toggle should scope: the whole panel, or one field at a time),
+[#1915](https://github.com/wekan/wekan/issues/1915) (hide cards by a date -
+largely already covered by the existing `Filter.dueAt` past/today/tomorrow/
+this-week/next-week/no-date states; the remaining gap is filtering by
+`createdAt`/`receivedAt`/`endAt` rather than only `dueAt`, which needs a
+decision on whether to generalize `DateFilter` to a chosen date FIELD or add
+one `DateFilter` per date field, since today's UI hard-codes "due date"),
+[#1871](https://github.com/wekan/wekan/issues/1871) (filter subtasks by
+their parent card - subtasks are cards linked via `parentId`, and no
+existing `SetFilter` targets that relation; needs a decision on UI: a
+parent-card picker in the sidebar, versus a `parent:<title>` token in the
+existing advanced/text filter),
+[#1499](https://github.com/wekan/wekan/issues/1499) (hide old/done tasks -
+overlaps `Filter.dueAt.past()` and the existing Swimlane/List "Done"
+concept; the open part is a rolling "older than N days" cutoff, which
+`DateFilter` has no relative-N-days state for today, only fixed
+day/week/no-date buckets),
+[#935](https://github.com/wekan/wekan/issues/935) (filter cards by date or
+tag - dated 2017; labels are already filterable and `Filter.dueAt` covers
+due-date ranges, but "moved on a specific date" would need a per-activity
+date filter, not a card-field one, since a card has no single "last moved"
+field today),
+[#3361](https://github.com/wekan/wekan/issues/3361) (a filter for the
+Calendar/Multi Board Calendar view - whether the sidebar `Filter` already
+scopes what those views draw needs checking against the LIVE calendar
+rendering, which is runtime UI state this sandbox cannot verify by reading
+source alone).
 
 </details>
 
@@ -2191,6 +2229,33 @@ card/field), the trigger registration, the `rulesHelper.js` wiring, the UI
 wiring, and the new i18n keys. Full AND-combination of several conditions in
 one rule remains out of scope and stays tracked under TODO Later's #4294
 entry.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9e9279987">Added a way to temporarily disable a rule without deleting it</a>. Thanks to sfahrenholz and xet7.</summary>
+
+[#2322](https://github.com/wekan/wekan/issues/2322): the only way to stop a
+rule from firing used to be deleting it, which threw away its
+trigger/action configuration for good - re-creating the same automation
+meant rebuilding it from scratch.
+
+Adds an `enabled` Boolean field to the Rules schema (`models/rules.js`),
+defaulting to `true` so every rule that existed before this field keeps
+firing exactly as before. A new `rules.setEnabled` server method
+(`server/rulesButton.js`) flips only that flag - it never touches the
+rule's Trigger/Action documents or its own title/triggerId/actionId. The
+rules list (`client/components/rules/rulesList.jade`/`.js`) gets a toggle
+button next to the existing edit/delete actions, and
+`RulesHelper.findMatchingRules()` (`server/rulesHelper.js`) skips any rule
+whose `enabled` is explicitly `false`, so a disabled rule's configuration
+stays fully intact and ready to re-enable, just never evaluated while off.
+`tests/ruleEnabledToggle.test.cjs` pins the schema default, the
+`rules.setEnabled` method (authorization, that it only `$set`s `enabled`,
+and never touches Triggers/Actions), the skip check in
+`findMatchingRules()`, and the UI wiring, plus logic-level coverage that a
+pre-existing rule with no `enabled` field still fires, a disabled rule does
+not, and re-enabling restores firing with the same trigger/action ids.
 
 </details>
 
