@@ -1486,6 +1486,30 @@ so no new card is created and no other field of the picked card changes.
 
 </details>
 
+**Lists** - a list's own header and the List hamburger/action menu.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5605e08dd">A board-wide toggle keeps every list's header pinned while its cards scroll underneath it</a>. Thanks to JFa-Orkis and xet7.</summary>
+
+[#3847](https://github.com/wekan/wekan/issues/3847): a list's title,
+WIP-limit badge and hamburger menu scrolling away with the cards
+"interfere with readability" once a list is long enough to scroll.
+
+`.list-header` already sits BEFORE `.list-body` (the cards' own scrolling
+box, `overflow-y: scroll`) as a flex sibling rather than a child of it, so
+it does not scroll away with the cards in the ordinary bounded-height board
+layout. A new `Boards.stickyListHeaders` field (default `false`, unchanged
+behaviour) additionally sets `position: sticky` on `.list-header` when on,
+so the header also stays pinned in any layout where `.list` itself turns
+out to be the actual scrolling ancestor. The setting is board-wide rather
+than per-list - freezing one list's header while its neighbours scrolled
+normally would look inconsistent - but the toggle itself is offered from
+each List's own hamburger/action menu (`listActionPopup`, next to "Set WIP
+Limit"), per the maintainer's instruction, for discoverability rather than
+scope: flipping it from one list affects every list on the board.
+
+</details>
+
 and fixes the following bugs:
 
 **Board reports** - the Dashboard and the 10 board report chart views.
