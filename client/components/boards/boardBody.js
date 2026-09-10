@@ -20,6 +20,7 @@ import TableVisibilityModeSettings from '/models/tableVisibilityModeSettings';
 import { EscapeActions } from '/client/lib/escapeActions';
 import { Utils } from '/client/lib/utils';
 import { Filter } from '/client/lib/filter';
+import { parseBoardFilterQueryParams } from '/client/lib/filterQueryParams';
 import { migrationProgressManager } from '/client/components/settings/migrationProgress';
 import { focusFirstControl } from '/client/lib/accessibility';
 
@@ -36,6 +37,59 @@ Template.board.onCreated(function () {
   this.isConverting = new ReactiveVar(false);
   this._swimlaneCreated = new Set(); // boards where a default swimlane was ensured
   this._listRepairChecked = new Set(); // boards whose data-repair was checked
+  this._queryFiltersApplied = new Set(); // boards whose URL filter params were applied
+
+  // #4540: let a board's filter state be driven by URL query params, e.g.
+  // `?assignee=johndoe` or `?member=johndoe,janedoe&label=urgent`, so a link
+  // (for instance embedded in an iframe) opens the board already filtered.
+  // Reuses the existing `Filter` sidebar state/API - this only translates the
+  // query params into the same `Filter.assignees` / `Filter.members` /
+  // `Filter.labelIds` calls the sidebar UI would make. Applied once per board
+  // load (guarded by `_queryFiltersApplied`), reading the query params once
+  // rather than reactively - this is a one-time "open pre-filtered" bridge,
+  // not two-way URL sync.
+  this.applyQueryParamFilters = (boardId) => {
+    if (!boardId || this._queryFiltersApplied.has(boardId)) {
+      return;
+    }
+    this._queryFiltersApplied.add(boardId);
+
+    const assigneeParam = FlowRouter.getQueryParam('assignee');
+    const memberParam = FlowRouter.getQueryParam('member');
+    const labelParam = FlowRouter.getQueryParam('label');
+    if (!assigneeParam && !memberParam && !labelParam) {
+      return;
+    }
+
+    const board = ReactiveCache.getBoard(boardId);
+    if (!board) {
+      return;
+    }
+
+    // Collect candidate usernames from both params to look up in one query.
+    const usernames = new Set();
+    (assigneeParam || '')
+      .split(',')
+      .concat((memberParam || '').split(','))
+      .map(u => u.trim())
+      .filter(Boolean)
+      .forEach(u => usernames.add(u));
+
+    const users = ReactiveCache.getUsers(
+      { username: { $in: Array.from(usernames) } },
+      { fields: { _id: 1, username: 1 } },
+    ) || [];
+
+    const { assigneeIds, memberIds, labelIds } = parseBoardFilterQueryParams(
+      { assignee: assigneeParam, member: memberParam, label: labelParam },
+      users,
+      board.labels,
+    );
+
+    assigneeIds.forEach(id => Filter.assignees.add(id));
+    memberIds.forEach(id => Filter.members.add(id));
+    labelIds.forEach(id => Filter.labelIds.add(id));
+  };
 
   // When a board opens, detect whether it needs the shared data-repairs (the same
   // set run during the MongoDB <-> SQLite migration): #6484 lists wrongly bound to
@@ -148,6 +202,9 @@ Template.board.onCreated(function () {
       Tracker.nonreactive(() => this.ensureDefaultSwimlane(currentBoardId));
       // Also detect + run the shared board data-repairs once the board is ready.
       Tracker.nonreactive(() => this.maybeRepairBoard(currentBoardId));
+      // #4540: apply any ?assignee=/?member=/?label= URL filter params now
+      // that the board and its members/labels are loaded.
+      Tracker.nonreactive(() => this.applyQueryParamFilters(currentBoardId));
     }
   });
 });
