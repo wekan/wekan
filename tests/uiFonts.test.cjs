@@ -246,16 +246,32 @@ test('every px text size in the client CSS scales with it (negative)', () => {
   // The point of the fix: not "the ones somebody remembered", all of them. A
   // bare `font-size: 14px` added later would be a line of text the setting
   // silently does not reach, so it fails here.
+  //
+  // Exception: files vendored verbatim from a third-party package (their own
+  // header comment says so) are shipped byte-for-byte so a later upgrade is
+  // a clean re-copy, not a hand-merge - this WeKan-authored convention does
+  // not apply to bytes WeKan did not author. The font-scale setting simply
+  // does not reach that one widget's own internal text, same as it does not
+  // reach text drawn by a canvas library.
+  const VENDORED = new Set([
+    'client/components/gantt/frappeGanttLib.css',
+  ]);
   const dir = path.join(repoRoot, 'client');
   const files = [];
   (function walk(d) {
     for (const entry of fs.readdirSync(d, { withFileTypes: true })) {
       const full = path.join(d, entry.name);
       if (entry.isDirectory()) walk(full);
-      else if (entry.name.endsWith('.css')) files.push(full);
+      else if (entry.name.endsWith('.css') && !VENDORED.has(path.relative(repoRoot, full))) {
+        files.push(full);
+      }
     }
   })(dir);
   assert.ok(files.length > 20, `expected the client stylesheets, found ${files.length}`);
+  for (const rel of VENDORED) {
+    assert.match(fs.readFileSync(path.join(repoRoot, rel), 'utf8'), /Vendored verbatim from/,
+      `${rel} is excluded as vendored but does not say so in its own header`);
+  }
 
   const bare = [];
   for (const file of files) {

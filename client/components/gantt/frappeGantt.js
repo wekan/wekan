@@ -4,18 +4,22 @@ import { ReactiveVar } from 'meteor/reactive-var';
 import Cards from '/models/cards';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { Utils } from '/client/lib/utils';
+// frappe-gantt's package.json "exports" map only exposes a "style"
+// CONDITION on its "." entry, not a "./dist/frappe-gantt.css" subpath, so
+// `import('frappe-gantt/dist/frappe-gantt.css')` is rejected outright by
+// rspack's Node exports-map enforcement. Its CSS is vendored verbatim into
+// frappeGanttLib.css instead (see that file's header) and loaded statically,
+// same as gantt.css/ganttCard.css already are for the view above it.
+import './frappeGanttLib.css';
 
 // Frappe Gantt (MIT, zero runtime dependencies) rendered below WeKan's own
-// Gantt view. Loaded with a dynamic import() so its code only reaches the
-// browser when this template actually mounts - i.e. when the user opens the
-// Gantt board view - never on every page load.
+// Gantt view. Its JavaScript is loaded with a dynamic import() so that code
+// only reaches the browser when this template actually mounts - i.e. when
+// the user opens the Gantt board view - never on every page load.
 let GanttLibPromise = null;
 function loadGanttLib() {
   if (!GanttLibPromise) {
-    GanttLibPromise = Promise.all([
-      import('frappe-gantt'),
-      import('frappe-gantt/dist/frappe-gantt.css'),
-    ]).then(([mod]) => mod.default || mod);
+    GanttLibPromise = import('frappe-gantt').then(mod => mod.default || mod);
   }
   return GanttLibPromise;
 }

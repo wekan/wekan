@@ -61,6 +61,14 @@ function parseRtlFlags() {
 // Mirrors TAPi18n.getLanguageDirection(): rtl flag -> 'rtl' | 'ltr'.
 const directionFor = isRtl => (isRtl ? 'rtl' : 'ltr');
 
+// A file vendored verbatim from a third-party package (its own header
+// comment says so) is shipped byte-for-byte so a later upgrade is a clean
+// re-copy, not a hand-merge - WeKan's own left/right -> logical-property
+// convention does not apply to bytes WeKan did not author.
+const VENDORED_CSS = new Set([
+  'client/components/gantt/frappeGanttLib.css',
+]);
+
 // Recursively collect component .css files.
 function cssFiles() {
   const out = [];
@@ -68,7 +76,8 @@ function cssFiles() {
     for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
       const p = path.join(dir, entry.name);
       if (entry.isDirectory()) walk(p);
-      else if (entry.name.endsWith('.css')) out.push(p);
+      else if (entry.name.endsWith('.css') &&
+        !VENDORED_CSS.has(path.relative(repoRoot, p))) out.push(p);
     }
   };
   walk(path.join(repoRoot, 'client/components'));

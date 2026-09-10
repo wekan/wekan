@@ -32,9 +32,17 @@ assert.equal(color.license, 'MIT');
 // or chart view is ever opened.
 const frappe = read('client/components/gantt/frappeGantt.js');
 assert.match(frappe, /import\('frappe-gantt'\)/);
-assert.match(frappe, /import\('frappe-gantt\/dist\/frappe-gantt\.css'\)/);
 assert.doesNotMatch(frappe, /^import .*['"]frappe-gantt['"]/m,
-  'a static top-level import would ship frappe-gantt on every page load');
+  'a static top-level import would ship frappe-gantt\'s JavaScript on every page load');
+// frappe-gantt's package.json "exports" map has no "./dist/frappe-gantt.css"
+// subpath (only a "style" CONDITION on "."), so that CSS cannot be reached
+// by a dynamic import() at all - rspack rejects the build outright when it
+// is tried. It is vendored verbatim instead and loaded statically, same as
+// gantt.css/ganttCard.css.
+assert.match(frappe, /^import '\.\/frappeGanttLib\.css';/m);
+const vendoredCss = read('client/components/gantt/frappeGanttLib.css');
+assert.match(vendoredCss, /Vendored verbatim from frappe-gantt@/);
+assert.match(vendoredCss, /\.gantt-container/, 'the vendored file must actually contain frappe-gantt\'s CSS');
 assert.match(frappe, /let GanttLibPromise = null/);
 assert.match(frappe, /if \(!GanttLibPromise\)/);
 
