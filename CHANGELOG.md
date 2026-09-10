@@ -2426,6 +2426,38 @@ own `showDate()`/`showTitle()`.
 
 </details>
 
+**Card templates** - creating a template from an existing board element.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bc25eee1b">The card menu gained "Save as Template", the reverse of inserting a card from a template</a>. Thanks to andresmanelli and xet7.</summary>
+
+[#2209](https://github.com/wekan/wekan/issues/2209) (a follow-up to #2165's
+original template-feature checklist) asked for "create template from
+element" - creating a template directly from an existing board/list/card,
+rather than only building one from scratch. WeKan already let a user
+insert a card FROM a template (the existing searchElementPopup flow), but
+nothing did the reverse.
+
+The card menu now offers "Save as Template" beside "Copy Card", posting to
+a new `saveCardAsTemplate` server method that copies the card into the
+user's own "Card Templates" swimlane - creating the personal Templates
+board on first use, exactly as the existing default-board-template flow
+already does - and marks the copy `type: 'template-card'` so it behaves
+as a template rather than an ordinary card. The lazy per-user Templates
+board creation used to live only inline in the `ensureTemplatesBoard`
+Meteor method; it is now exported as `ensureTemplatesBoardForUserId`
+(`server/models/users.js`) so the new method calls it directly server-side
+instead of duplicating the board/swimlane setup.
+
+\#2209's other two sub-items were checked rather than built: "cards don't
+appear in swimlanes if the general swimlane is deleted" ([#1959](https://github.com/wekan/wekan/issues/1959))
+already has thorough startup-rescue coverage in the "swimlane-structure"
+step of `server/lib/schemaUpgradeSteps.js`, with regression tests in
+`tests/schemaUpgradeSteps.test.cjs`; "templated users" was explicitly out
+of scope per the issue's own text.
+
+</details>
+
 and fixes the following bugs:
 
 **Board reports** - the Dashboard and the 10 board report chart views.
