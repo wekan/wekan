@@ -248,6 +248,30 @@ undo it either: the restored lines blame to the revert, so the only clean way
 back is to not land it. Any fix needs a way to shrink the file that keeps `git
 blame` working with no flag — or a decision that the trade is acceptable after
 all),
+[#3275](https://github.com/wekan/wekan/issues/3275) (generate thumbnails for
+image attachments, referencing Meteor-Files' image-processing documentation, so
+minicard covers and the attachment list preview a smaller resized image instead
+of the full original. Confirmed NOT built: `models/attachments.js`,
+`models/attachments.server.js`, `client/components/cards/minicard.jade` and
+`client/components/cards/attachments.jade` still read `cover.link('original')` /
+`{{link}}` with no other version, and the client override of `Attachments.link`
+(`models/attachments.js`) ignores its `version` argument entirely, always
+resolving through `generateUniversalAttachmentUrl` to `/cdn/storage/attachments/
+<fileId>` with no version selector. `sharp` IS already a project dependency
+(used today for GIF handling in `server/lib/imageGif.js`), so the image-
+processing half is not the blocker. What is missing is the plumbing around it:
+`server/routes/universalFileServer.js` serves a single stored file per
+attachment ID with no version query parameter, and attachment storage spans
+four independently-implemented backends (filesystem, GridFS, S3/Azure/GCS, each
+its own `FileStoreStrategy` in `models/lib/fileStoreStrategy.js` /
+`attachmentStoreStrategy.js`) that would each need to persist and serve a second
+"thumbnail" version safely alongside the original. Building that end-to-end
+touches the same `Attachments.onAfterUpload` hook and upload/serving routes that
+concurrent MIME-validation work (#3274) was editing live in this same session,
+so it needs a maintainer decision on the URL/version contract (a `?v=thumbnail`
+query parameter vs. a distinct route, and whether older attachments get a
+backfill or only fall back to the original) before it is safe to build without
+colliding with that other in-flight change),
 .
 
 </details>
@@ -604,6 +628,32 @@ removed.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3f4c5e68c989fac536f929d18e8650c6a8cca6d1">A template card's checklists can now be copied onto an already-existing card</a>. Thanks to Th0mas89 and xet7.</summary>
+
+[#4017](https://github.com/wekan/wekan/issues/4017) asked for a checklist
+template to be applicable to a card that already exists, not only at
+card-creation time - WeKan had no such action on an existing card's
+checklist section at all. A new "Copy Checklist From Template" button next
+to "Add checklist" opens the same board/swimlane/list/card picker already
+used by Move/Copy Checklist; picking a card (typically a template card, but
+any card works) appends every one of ITS checklists - and their items - onto
+the current card, after whatever checklists it already has. Existing
+checklists are left untouched; nothing is overwritten.
+
+The copy reuses `Checklists.copy()`, the same per-checklist helper
+`Cards.copy()` and the existing "Copy Checklist" popup already use (fresh
+ids, `.direct` inserts to skip the per-item activity-insert storm, correct
+board re-homing), through a new `Checklists.copyAllFromCardToCard()` that
+loops it over every checklist on the source card and places the copies
+after the target's own. `copy()` gained an `options.resetChecked` flag so
+copied items always arrive UNCHECKED regardless of the template's own
+checked state - applying a template should never pre-check its target -
+while every other caller (plain "Copy Checklist", card copy) keeps its
+existing checked-state-preserving behaviour untouched.
+
+</details>
+
 **Comments and activities** - a card's comment thread and its activity log.
 
 <details>
@@ -917,6 +967,37 @@ view and the card's custom-fields popup get their order from - now sorts by
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d5700f5c395f1f30ec69042562ac427aadc1d10e">A new "Dropdown (multi-select)" custom field type lets a card pick several options, not just one</a>. Thanks to huma2000 and xet7.</summary>
+
+[#4166](https://github.com/wekan/wekan/issues/4166): the existing "Dropdown"
+custom field type only ever let a card store ONE chosen option from its
+list. Added a second type, `dropdownMultiSelect`
+(`models/customFields.js`), that reuses the exact same
+`settings.dropdownItems` option-list definition mechanism and Board
+Settings editing UI the single-select dropdown already has
+(`client/components/sidebar/sidebarCustomFields.js`/`.jade`) - an admin
+defines the available options once, the same way, for either type; only
+the type picker and a shared "is this a dropdown-like type" check needed
+touching.
+
+On a card, the new type stores an ARRAY of selected item ids instead of a
+scalar, and renders as a checkbox list rather than a `<select multiple>`
+(`client/components/cards/cardCustomFields.js`/`.jade`), matching the
+toggle-checkbox interaction already used elsewhere in the app.
+`models/lib/customFieldsWD.js`'s `resolveTrueValue()` now resolves a
+multi-select's array of ids to the matching item NAMES, comma-joined, so
+every existing reader of a dropdown's `trueValue` - the minicard badge,
+board filters - shows the new type correctly without further changes. The
+CSV, PDF and Excel exporters, and `csvCreator`'s CSV header/definition
+parsing, resolve the array of ids the same way the single-select dropdown
+already resolves its one id, joining the resolved names for display.
+
+The single-select dropdown's own behavior, storage shape and rendering are
+unchanged.
+
+</details>
+
 **Minicard and card detail dates** - the received/start/due/end date badges
 shown on the minicard and in an open card.
 
@@ -949,6 +1030,39 @@ Deliberately out of scope for this pass: date-picker INPUT widgets, date
 storage, and due-date reminder/notification logic are untouched and stay
 Gregorian - only the rendered display text changes, and only for users who
 opt in.
+
+</details>
+
+**Public Boards** - the overview and its search.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3f4c5e68c">A public board card's own page now carries Open Graph meta tags, so pasting its link elsewhere renders a preview</a>. Thanks to yelloff and xet7.</summary>
+
+[#3456](https://github.com/wekan/wekan/issues/3456) asked for a WeKan card
+link pasted into Discourse to "onebox" the way a YouTube or GitHub link
+already does there. Discourse's generic-page-preview oneboxer (and every
+other og:-aware unfurler - Slack, Discord, Mastodon, ...) needs nothing
+WeKan-specific for that: it renders a card automatically from standard Open
+Graph meta tags in the target page's `<head>`, so this stays a
+standards-based fix rather than a Discourse-specific oEmbed endpoint.
+
+A connect middleware (`server/routes/cardOgTags.js`) matches the card route
+`/b/:boardId/:slug/:cardId`, looks the card and its board up, and - only
+when `board.isPublic()` - sets `request.dynamicHead` with `og:title`,
+`og:description` (truncated), `og:url` and `og:image` (the card's cover,
+when it has one) before Meteor's own SPA boilerplate serves the page.
+`dynamicHead` is the same per-request head-injection point Meteor's WebApp
+boilerplate generator already supports, used here the way
+`server/routes/customHeadAssets.js` already injects other head content. A
+private board's card is untouched: the gate is `board.isPublic()`, checked
+before anything about the card is read, so an anonymous unfurl request
+against a private card gets the normal, unmodified page - no title,
+description or image leak. The gating/rendering logic lives in
+`server/lib/cardOgTags.js` as a small Meteor-free module, covered by
+`tests/cardOgTags.test.cjs`: a public card gets all four tags (or three,
+when it has no cover), a private board's card and a missing card/board get
+none, and an object with no `isPublic()` method fails closed rather than
+open.
 
 </details>
 
