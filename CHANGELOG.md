@@ -3066,6 +3066,48 @@ introduced elsewhere either.
 
 </details>
 
+**Lists** - keeping a list synced from an external tracker.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a01e8478c">Add a list-sync job that keeps a list up to date from Jira, GitHub, GitLab and Gitea</a>. Thanks to xet7.</summary>
+
+Import from Jira/Trello/GitHub/etc. was one-time: after the initial board
+import, later changes upstream never reached WeKan. This adds an actual
+sync: a list can be given a `syncSource` (type/URL/project) and a
+credential, stored server-only in the new `ListSyncCredentials` collection
+(`models/listSyncCredentials.js` - no publication exists for it, so it
+never reaches the client). A `quave:synced-cron` job
+(`server/listSync.js`), the same scheduling infrastructure the checklist
+auto-reset job already uses, runs every 15 minutes and, for each synced
+list, fetches its current external items and reconciles them against
+WeKan's cards: a new item creates a card, a changed title/description
+updates it, and an item that disappeared upstream is **archived** - never
+deleted, so "old entries are at list history" as asked, using the
+board's normal Archive.
+
+Fetching (`server/lib/listSyncFetch.js`) and parsing deliberately reuse the
+EXISTING one-time-import parsers in `models/lib/externalParsers.js`
+(`parseJira` is new there; `parseGithub`/`parseGitlab`/`parseGitea` gained
+an `externalId` field to match on) rather than a second implementation -
+`tests/listSyncReconcile.test.cjs` has a source-scan negative test proving
+no duplicate parser exists. The reconcile decision itself
+(`models/lib/listSyncReconcile.js`) is a pure function with no database or
+network access, so create/update/archive are pinned exactly by unit tests,
+including that an already-archived card is never re-archived and a
+hand-created card sharing the list (no `syncExternalId`) is never touched.
+Jira is wired up end to end (fetch, parse, reconcile, apply); GitHub,
+GitLab, Gitea and Forgejo run through the identical job and reconcile
+logic via their own already-existing parsers, so extending sync to them
+was "add a fetcher", not "add a sync mechanism". `setListSyncSource`,
+`hasListSyncCredential` and `syncListNow` (`server/methods/listSync.js`)
+configure/run it, gated behind board write access.
+
+Deliberately deferred to this release's TODO Later: mapping an upstream
+status change to moving the card to a different WeKan list, and syncing
+anything beyond issues/tickets (comments, attachments, custom fields).
+
+</details>
+
 and fixes the following bugs:
 
 **Board reports** - the Dashboard and the 10 board report chart views.
