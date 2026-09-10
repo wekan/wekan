@@ -326,6 +326,7 @@ import '/server/routes/universalFileServer';
 import '/server/rulesHelper';
 import '/server/triggersDef';
 import '/server/scheduledRules';
+import '/server/checklistResetSchedule';
 import '/server/rulesButton';
 
 // ----------------------------------------------------------------------------
