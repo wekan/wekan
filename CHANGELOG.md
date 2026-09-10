@@ -1475,6 +1475,42 @@ from/to window is excluded.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/784a249331b98cc617bc7f00ca87ad2d28afd2c7">Added a "Roadmap" board view grouping cards by a custom field into timeline rows</a>. Thanks to datenwort and xet7.</summary>
+
+[#627](https://github.com/wekan/wekan/issues/627) asked for a "Roadmap" view
+organizing/summarizing cards by version or release milestone in a timeline
+layout - rows/lanes for feature groups plotted along a horizontal timeline,
+similar in spirit to a ProductPlan-style release roadmap chart.
+
+Structurally this is the existing Frappe Gantt view (added for #3abc/the
+Gantt board views) grouped by the VALUE of a board custom field instead of
+one flat list of cards: a dropdown lets the user pick which text/dropdown
+custom field to group by (defaulting to the first one, or a clear
+empty-state message when the board has none), each distinct value becomes
+its own row, and every row is its own small Frappe Gantt timeline built from
+the SAME `cardsToTasks()`/`loadGanttLib()`/`popupDetailsHtml()` code the
+plain Gantt view already uses (`client/components/gantt/frappeGantt.js`),
+plotted over the same `startAt`/`dueAt`/`endAt` card dates - no new charting
+library, and no custom-field creation UI, since custom fields are already
+fully managed in Board Settings. The grouping itself is a pure
+`computeCardsByCustomFieldGroup(cards, resolveValue)` fold in
+`models/lib/chartCalculations.js`, the same shape as the existing
+`computeCardsByAssigneeGroup` (a card with no value for the chosen field
+falls into a "No value" sentinel group, sorted last, translated through the
+existing `translateGroupLabel` machinery so it does not leak the raw sentinel
+key in the UI). Wired into the Board View menu like every other view -
+`client/components/boards/roadmapView.jade`/`.js`, an `isViewRoadmap()`
+helper/`boardBody.jade` branch, the `client/lib/utils.js` whitelists, the
+`profile.boardView` schema and a tooltip-name-map entry - and registered in
+`client/features/boards.js` like every other board view's templates and
+stylesheet. `tests/boardViewMenu.test.cjs` extends its `VIEWS` table with the
+new entry, and `tests/chartCalculations.test.cjs` adds positive, negative and
+sort-order unit tests for `computeCardsByCustomFieldGroup` and its
+`translateGroupLabel` handling.
+
+</details>
+
 **All Boards** - the overview and its Clone Board action.
 
 <details>
@@ -2629,6 +2665,44 @@ its `loginFailureDecision.js` already treated `no-2fa-code` as a
 non-countable step, so a 2FA login is never mistaken for a brute-force
 attempt. Scope is opt-in per-user TOTP only, as asked - no backup codes,
 SMS or admin-enforced 2FA in this pass.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/84c714001228408c871cb696bc3d37ec908b5fd8">Add SAML 2.0 login (SP-initiated), alongside password, OAuth2 and LDAP</a>. Thanks to Gobliins and xet7.</summary>
+
+[#708](https://github.com/wekan/wekan/issues/708) asked for SAML login,
+pointing at how Sandstorm and Rocket.Chat wire SAML into a Meteor app.
+`server/authentication.js` already read `SAML_*` env vars into
+`ServiceConfiguration.configurations` and the login form already called a
+not-yet-existing `Meteor.loginWithSaml()` - neither had ever been wired to a
+real accounts package.
+
+Added that package, `packages/wekan-accounts-saml`, on the MIT-licensed
+[`@node-saml/node-saml`](https://github.com/node-saml/node-saml) (license
+verified directly from its `LICENSE` file). That library does all of the
+actual SAML protocol work - building the `AuthnRequest`, parsing the
+response, verifying the XML-DSig signature; WeKan only wires it into
+Meteor's accounts system, the same scope-boundary already used for LDAP and
+CAS. It follows `wekan-accounts-cas`'s existing local-package pattern: the
+client opens a popup at a new `/_saml/authorize` endpoint that redirects to
+the identity provider, the IdP POSTs the assertion back to `/_saml/validate`
+(the Assertion Consumer Service URL), and the client exchanges a per-attempt
+credential token for a Meteor login through `Accounts.registerLoginHandler`
+- with the same account-conflict guard CAS already has, so SAML login can
+never silently take over an existing non-SAML username.
+
+A "Sign In with SAML" button is added to the login form, shown only when
+`getAuthenticationsEnabled` reports `saml` enabled (`SAML_ENABLED`) - the
+same conditional-render pattern the OAuth2 button already uses.
+`docker-compose.yml`'s existing `SAML_*` block gets doc comments for every
+variable, and `docs/Features/Login/SAML.md` now describes the actual
+implementation instead of "not in WeKan yet".
+`tests/samlLogin.test.cjs` pins the config wiring, the button's
+enable-gating, the login-handler's credential-token and account-conflict
+checks, and - as a negative test - that no XML parsing or signature
+verification was hand-rolled in this codebase (only imported from
+`@node-saml/node-saml`).
 
 </details>
 
