@@ -206,6 +206,94 @@ WebApp.handlers.post('/api/boards/:boardId/cards/:cardId/comments', async functi
   }
 });
 
+// #1037: comments had GET/POST/DELETE over the REST API but no way to edit
+// one, so an API client had to delete and re-create a comment (losing its
+// original commentId and timestamp) just to fix a typo. Mirrors the DELETE
+// handler right below it: same lookup, the same assertCanMutateComment rule
+// (author, or a board admin unless the board sets restrictCommentEditing),
+// and the same foreign-edit canary so an attempted edit of somebody else's
+// comment is as visible as an attempted delete already is.
+WebApp.handlers.put(
+  '/api/boards/:boardId/cards/:cardId/comments/:commentId',
+  async function(req, res) {
+    try {
+      const paramBoardId = req.params.boardId;
+      const paramCommentId = req.params.commentId;
+      const paramCardId = req.params.cardId;
+      await Authentication.checkBoardAccess(req.userId, paramBoardId);
+
+      const comment = await ReactiveCache.getCardComment({
+        _id: paramCommentId,
+        cardId: paramCardId,
+        boardId: paramBoardId,
+      });
+      if (!comment) {
+        sendJsonResult(res, { code: 404, data: { error: 'Comment not found' } });
+        return;
+      }
+
+      const validation = validateCommentBody(req.body);
+      if (!validation.valid) {
+        sendJsonResult(res, {
+          code: 400,
+          data: { error: validation.error },
+        });
+        return;
+      }
+
+      // Same object-level rule DDP applies (GHSA-pqr4-rxgp-hv2m), and the same
+      // canary as the DELETE handler when the caller is editing somebody
+      // else's comment.
+      if (comment.userId && comment.userId !== req.userId) {
+        try {
+          await assertCanMutateComment(req.userId, comment);
+        } catch (refusal) {
+          tripCanary('comment.foreign-edit', { req, userId: req.userId });
+          throw refusal;
+        }
+      } else {
+        await assertCanMutateComment(req.userId, comment);
+      }
+
+      await CardComments.direct.updateAsync(
+        { _id: paramCommentId, cardId: paramCardId, boardId: paramBoardId },
+        { $set: { text: validation.comment } },
+      );
+
+      sendJsonResult(res, {
+        code: 200,
+        data: { _id: paramCommentId },
+      });
+
+      const updated = await ReactiveCache.getCardComment({
+        _id: paramCommentId,
+        cardId: paramCardId,
+        boardId: paramBoardId,
+      });
+      if (updated) {
+        const card = await ReactiveCache.getCard(updated.cardId);
+        if (card) {
+          await Activities.insertAsync({
+            userId: req.userId,
+            activityType: 'editComment',
+            boardId: updated.boardId,
+            cardId: updated.cardId,
+            commentId: updated._id,
+            commentText: updated.text,
+            listId: card.listId,
+            swimlaneId: card.swimlaneId,
+          });
+        }
+      }
+    } catch (error) {
+      sendJsonResult(res, {
+        code: httpStatusForError(error),
+        data: { error: extractErrorMessage(error) },
+      });
+    }
+  },
+);
+
 WebApp.handlers.delete(
   '/api/boards/:boardId/cards/:cardId/comments/:commentId',
   async function(req, res) {

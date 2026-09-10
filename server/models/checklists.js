@@ -294,6 +294,67 @@ WebApp.handlers.post(
   },
 );
 
+// #1037: GET/POST/DELETE were exposed for a checklist but there was no way to
+// rename one over the REST API - a client had to delete and re-create it,
+// losing the checklistId and its items. Mirrors the DELETE handler right below
+// it (same lookup / auth), and lists.js's own PUT for the same "edit the
+// title of a thing on the board" shape. Only `title` is accepted: the other
+// per-checklist toggles (hideCheckedChecklistItems, resetInterval, etc.) are
+// not exposed anywhere over the REST API yet and are out of scope here.
+WebApp.handlers.put(
+  '/api/boards/:boardId/cards/:cardId/checklists/:checklistId',
+  async function(req, res) {
+    const paramBoardId = req.params.boardId;
+    const paramCardId = req.params.cardId;
+    const paramChecklistId = req.params.checklistId;
+    await Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
+
+    const card = await ReactiveCache.getCard({
+      _id: paramCardId,
+      boardId: paramBoardId,
+    });
+    if (!card) {
+      sendJsonResult(res, {
+        code: 404,
+        data: { error: 'Card not found or does not belong to the specified board' },
+      });
+      return;
+    }
+
+    const checklist = await ReactiveCache.getChecklist({
+      _id: paramChecklistId,
+      cardId: paramCardId,
+    });
+    if (!checklist) {
+      sendJsonResult(res, {
+        code: 404,
+        data: { error: 'Checklist not found or does not belong to the specified card' },
+      });
+      return;
+    }
+
+    if (!req.body || typeof req.body.title !== 'string' || req.body.title.trim() === '') {
+      sendJsonResult(res, {
+        code: 400,
+        data: { error: 'title is required' },
+      });
+      return;
+    }
+
+    await Checklists.direct.updateAsync(
+      { _id: paramChecklistId, cardId: paramCardId },
+      { $set: { title: req.body.title } },
+    );
+
+    sendJsonResult(res, {
+      code: 200,
+      data: {
+        _id: paramChecklistId,
+      },
+    });
+  },
+);
+
 WebApp.handlers.delete(
   '/api/boards/:boardId/cards/:cardId/checklists/:checklistId',
   async function(req, res) {
