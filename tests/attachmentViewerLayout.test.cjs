@@ -22,12 +22,12 @@ test('#6612: the attachment overlay gives its viewer the available viewport', ()
   assert.match(declarations('#viewer-overlay.hidden'), /display:\s*none/);
   assert.match(declarations('#viewer-container'), /flex:\s*1 1 auto/);
   assert.match(declarations('#viewer-content'), /flex:\s*1 1 auto/);
-  assert.match(declarations('#document-gif-viewer'), /width:\s*100%/);
+  assert.match(declarations('#office-viewer'), /width:\s*100%/);
   assert.match(declarations('#txt-viewer'), /width:\s*100%/);
 });
 
 test('#6612 negative: desktop document previews are not fixed-width columns', () => {
-  assert.doesNotMatch(declarations('#document-gif-viewer'), /width:\s*\d+px/);
+  assert.doesNotMatch(declarations('#office-viewer'), /width:\s*\d+px/);
   assert.doesNotMatch(declarations('#txt-viewer'), /width:\s*\d+px/);
-  assert.doesNotMatch(css, /max-width:\s*1600px[\s\S]*?#document-gif-viewer/);
+  assert.doesNotMatch(css, /max-width:\s*1600px[\s\S]*?#office-viewer/);
 });

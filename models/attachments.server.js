@@ -219,6 +219,24 @@ Attachments.onAfterUpload = async function (fileObj) {
       console.error('[onAfterUpload] Error during validation and storage migration:', error);
     }
   });
+
+  // Index PDF/DOCX/XLSX/PPTX text content for card search, in the
+  // background. This only builds the search index - it does not affect how
+  // the attachment is displayed (office-open-xml-viewer / the browser's
+  // native PDF viewer render the original file directly).
+  const extension = String(fileObj.extension || fileObj.name?.split('.').pop() || '').toLowerCase();
+  if (['pdf', 'docx', 'xlsx', 'pptx'].includes(extension)) {
+    Meteor.defer(async () => {
+      try {
+        const { indexAttachmentDocumentText } = require('/server/routes/universalFileServer');
+        const currentFileObj = await ReactiveCache.getAttachment(fileObjId);
+        if (currentFileObj) await indexAttachmentDocumentText(currentFileObj);
+      } catch (error) {
+        // Search indexing must never break the upload.
+        console.error('[onAfterUpload] Document search indexing failed:', error);
+      }
+    });
+  }
 };
 
 Attachments.interceptDownload = function (http, fileObj, versionName) {

@@ -1,0 +1,19 @@
+{
+  "name": "@wekan/office-open-xml-viewer",
+  "version": "0.85.2-wekan.1",
+  "description": "Minimal browser-only OOXML viewer fork for WeKan attachments",
+  "private": true,
+  "type": "module",
+  "sideEffects": false,
+  "license": "MIT",
+  "exports": {
+    "./docx": "./dist/docx.mjs",
+    "./xlsx": "./dist/xlsx.mjs",
+    "./pptx": "./dist/pptx.mjs"
+  },
+  "files": [
+    "dist",
+    "LICENSE",
+    "THIRD_PARTY_NOTICES.md"
+  ]
+}

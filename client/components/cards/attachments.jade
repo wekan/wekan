@@ -43,15 +43,10 @@ template(name="attachmentViewer")
         img#image-viewer.hidden
         video#video-viewer.hidden(controls="true")
         audio#audio-viewer.hidden(controls="true")
+        object#pdf-viewer.hidden(type="application/pdf")
+          span.pdf-preview-error {{_ 'preview-pdf-not-supported' }}
         object#txt-viewer.hidden(type="text/plain")
-        #document-gif-viewer.hidden
-          .document-page-controls
-            button.js-document-prev(type="button" aria-label="Previous page") ‹
-            span#document-page-number
-            button.js-document-next(type="button" aria-label="Next page") ›
-          .document-page-images
-          .document-page-html
-          pre.document-page-text
+        #office-viewer.hidden
       i.fa.fa-caret-right#next-attachment
 
 template(name="attachmentGallery")

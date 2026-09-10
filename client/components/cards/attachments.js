@@ -3,6 +3,7 @@ import '/client/components/cards/attachments.jade';
 import { attachmentKind } from '/models/lib/attachmentKind';
 import DOMPurify from 'dompurify';
 import { sanitizeHTML, sanitizeText } from '/imports/lib/secureDOMPurify';
+import { openOfficeAttachment } from '/client/lib/officeAttachmentViewer';
 import uploadProgressManager from '../../lib/uploadProgressManager';
 import { attachmentMigrationManager } from '/client/lib/attachmentMigrationManager';
 import Attachments from '/models/attachments';
@@ -28,53 +29,9 @@ let touchEndCoords = null;
 
 // Stores link to the attachment for which attachment actions popup was opened
 let attachmentActionsLink = null;
-let documentPreview = null;
-let documentPreviewPage = 0;
-
-function drawDocumentPage() {
-  if (!documentPreview) return;
-  const page = documentPreview.pages[documentPreviewPage];
-  const viewer = document.getElementById('document-gif-viewer');
-  viewer.querySelector('#document-page-number').textContent =
-    `${documentPreviewPage + 1} / ${documentPreview.pageCount}`;
-  const text = viewer.querySelector('.document-page-text');
-  const html = viewer.querySelector('.document-page-html');
-  if (page.html) {
-    html.innerHTML = DOMPurify.sanitize(page.html, {
-      ALLOWED_TAGS: ['table', 'tbody', 'tr', 'td'],
-      ALLOWED_ATTR: ['border', 'cellspacing', 'cellpadding', 'style'],
-    });
-    html.classList.remove('hidden');
-    text.classList.add('hidden');
-  } else {
-    html.replaceChildren();
-    html.classList.add('hidden');
-    text.textContent = page.text || '';
-    text.classList.remove('hidden');
-  }
-  const images = viewer.querySelector('.document-page-images');
-  images.replaceChildren();
-  for (const image of page.images || []) {
-    const img = document.createElement('img');
-    img.src = `/document-preview/${encodeURIComponent(openAttachmentId)}/${image.number}.gif`;
-    img.alt = '';
-    img.loading = 'lazy';
-    images.appendChild(img);
-  }
-}
-
-async function openDocumentPreview(attachment) {
-  const viewer = document.getElementById('document-gif-viewer');
-  viewer.classList.remove('hidden');
-  const response = await fetch(
-    `/document-preview/${encodeURIComponent(attachment._id)}/manifest.json`,
-    { credentials: 'same-origin' },
-  );
-  if (!response.ok) throw new Error(`Document preview failed: ${response.status}`);
-  documentPreview = await response.json();
-  documentPreviewPage = 0;
-  drawDocumentPage();
-}
+let officePreview = null;
+let officePreviewAbortController = null;
+let officePreviewGeneration = 0;
 
 Template.attachmentGallery.events({
   'click .open-preview'(event) {
@@ -183,10 +140,8 @@ function openAttachmentViewer(attachmentId) {
       $("#image-viewer").removeClass("hidden");
       break;
     case (kind.isPDF):
-      openDocumentPreview(attachment).catch(error => {
-        console.error('Could not create document preview:', error);
-        closeAttachmentViewer();
-      });
+      $("#pdf-viewer").attr("data", getAttachmentUrl(attachment));
+      $("#pdf-viewer").removeClass("hidden");
       break;
     case (kind.isVideo):
       // We have to create a new <source> DOM element and append it to the video
@@ -212,8 +167,26 @@ function openAttachmentViewer(attachmentId) {
       $("#txt-viewer").removeClass("hidden");
       break;
     case (kind.isOffice): {
-      openDocumentPreview(attachment).catch(error => {
-        console.error('Could not create document preview:', error);
+      const generation = ++officePreviewGeneration;
+      const container = document.getElementById('office-viewer');
+      officePreviewAbortController = new AbortController();
+      container.replaceChildren();
+      container.classList.remove('hidden');
+      openOfficeAttachment({
+        container,
+        extension: kind.extension,
+        signal: officePreviewAbortController.signal,
+        size: attachment.size,
+        url: getAttachmentUrl(attachment),
+      }).then(preview => {
+        if (generation !== officePreviewGeneration) {
+          preview.destroy();
+          return;
+        }
+        officePreview = preview;
+      }).catch(error => {
+        if (generation !== officePreviewGeneration) return;
+        console.error('Could not preview Office attachment:', error);
         closeAttachmentViewer();
       });
       break;
@@ -240,19 +213,27 @@ export function openAttachmentSlideshow(attachmentId, attachmentIds = []) {
 }
 
 function closeAttachmentViewer() {
-  const documentViewer = document.getElementById('document-gif-viewer');
-  documentViewer.classList.add('hidden');
-  documentViewer.querySelector('.document-page-images').replaceChildren();
-  documentViewer.querySelector('.document-page-text').textContent = '';
-  documentViewer.querySelector('.document-page-html').replaceChildren();
-  documentPreview = null;
-  documentPreviewPage = 0;
+  officePreviewGeneration++;
+  if (officePreviewAbortController) {
+    officePreviewAbortController.abort();
+    officePreviewAbortController = null;
+  }
+  if (officePreview) {
+    officePreview.destroy();
+    officePreview = null;
+  }
+  const officeViewer = document.getElementById('office-viewer');
+  officeViewer.replaceChildren();
+  officeViewer.classList.add('hidden');
 
   $("#viewer-overlay").addClass("hidden");
 
   // We need to reset the viewers to avoid showing previous attachments
   $("#image-viewer").attr("src", "");
   $("#image-viewer").addClass("hidden");
+
+  $("#pdf-viewer").attr("data", "");
+  $("#pdf-viewer").addClass("hidden");
 
   $("#txt-viewer").attr("data", "");
   $("#txt-viewer").addClass("hidden");
@@ -325,20 +306,6 @@ function processTouch(){
 }
 
 Template.attachmentViewer.events({
-  'click .js-document-prev'(event) {
-    event.stopPropagation();
-    if (documentPreview && documentPreviewPage > 0) {
-      documentPreviewPage -= 1;
-      drawDocumentPage();
-    }
-  },
-  'click .js-document-next'(event) {
-    event.stopPropagation();
-    if (documentPreview && documentPreviewPage + 1 < documentPreview.pageCount) {
-      documentPreviewPage += 1;
-      drawDocumentPage();
-    }
-  },
   'touchstart #viewer-container'(event) {
     touchStartCoords = {
       x: event.changedTouches[0].screenX,

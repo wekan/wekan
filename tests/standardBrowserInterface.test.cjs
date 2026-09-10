@@ -19,12 +19,16 @@ test('page startup uses the standard Meteor browser interface', () => {
 });
 
 test('retained image features use the independent GIF utilities', () => {
+  // server/lib/documentGif.js still uses the shared GIF utilities to build the
+  // search index (bounded reads, cache keys) even though document PREVIEW is
+  // now the restored office-open-xml-viewer / native <embed>, not a GIF
+  // slideshow - so universalFileServer.js no longer needs imageGif itself.
+  assert.match(read('server/lib/documentGif.js'), /[/.]imageGif'/);
   for (const file of ['server/lib/documentGif.js',
     'server/routes/universalFileServer.js']) {
-    assert.match(read(file), /[/.]imageGif'/);
     assert.doesNotMatch(read(file), /legacyHtml4Gif|omiGifCacheKey/);
   }
   assert.doesNotMatch(read('server/imports.js'), /import '\/server\/brandingImages'/);
   assert.equal(fs.existsSync(path.join(root, 'server/brandingImages.js')), false);
-  assert.match(read('server/routes/universalFileServer.js'), /authorizedDocument\(req\)/);
+  assert.match(read('server/routes/universalFileServer.js'), /export async function indexAttachmentDocumentText/);
 });
