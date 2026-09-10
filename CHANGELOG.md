@@ -321,7 +321,7 @@ buttons matching the existing card/board export look.
 This release adds the following feature:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/b11b7676b">Implement the 10 board report charts and Gantt/chart PDF+Excel export</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/3abc1078c">Implement the 10 board report charts and Gantt/chart PDF+Excel export</a>. Thanks to xet7.</summary>
 
 The Board View menu's Dashboard, Burndown, Burnup, Cumulative Flow, Control
 Chart, Lead/Cycle Time, Flow Efficiency, Throughput Histogram and WIP Run
