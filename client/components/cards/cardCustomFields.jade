@@ -179,6 +179,31 @@ template(name="cardCustomField-dropdown")
             +viewer
                 = selectedItem
 
+template(name="cardCustomField-dropdownMultiSelect")
+    if canModifyCard
+        +inlinedForm(classNames="js-card-customfield-dropdown-multi-select")
+            +customFieldCopyButton(value=selectedNames)
+            each items
+                a.flex.js-card-customfield-dropdown-multi-item(data-id=_id class="{{#if isChecked _id}}is-checked{{/if}}")
+                    .materialCheckBox(class="{{#if isChecked _id}}is-checked{{/if}}")
+                    +viewer
+                        = name
+            .edit-controls.clearfix
+                button.primary(type="submit") {{_ 'save'}}
+                a.fa.fa-times-thin.js-close-inlined-form(title="{{_ 'close'}}")
+        else
+            button.js-open-inlined-form.js-custom-field-edit-trigger(type="button" hidden)
+            a.js-edit-card-custom-field-value(title="{{_ 'edit'}}" aria-label="{{_ 'edit'}}")
+                if value.length
+                    +viewer
+                        = selectedNames
+                else
+                    i.fa.fa-pencil-square-o(aria-hidden="true")
+    else
+        if value.length
+            +viewer
+                = selectedNames
+
 template(name="cardCustomField-stringtemplate")
     if canModifyCard
         +inlinedForm(classNames="js-card-customfield-stringtemplate")

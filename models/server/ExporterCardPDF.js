@@ -212,6 +212,13 @@ class PDFExporterBase {
       const item = ((definition.settings && definition.settings.dropdownItems) || [])
         .find(entry => entry && entry._id === value);
       if (item) out = item.name;
+    } else if (definition && definition.type === 'dropdownMultiSelect') {
+      const items = (definition.settings && definition.settings.dropdownItems) || [];
+      const ids = Array.isArray(value) ? value : [];
+      out = ids.map(id => {
+        const item = items.find(entry => entry && entry._id === id);
+        return item ? item.name : id;
+      });
     }
     return formatCustomFieldValue(out, this.timezone, this.dateFormat);
   }

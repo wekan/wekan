@@ -164,6 +164,7 @@ function persistedEditValue() {
   'checkbox',
   'currency',
   'dropdown',
+  'dropdownMultiSelect',
   'stringtemplate',
 ].forEach(type => {
   Template[`cardCustomField-${type}`].events({
@@ -412,6 +413,63 @@ Template['cardCustomField-dropdown'].events({
     event.preventDefault();
     const value = tpl.find('select').value;
     tpl.card.setCustomField(tpl.customFieldId, value);
+  },
+});
+
+// cardCustomField-dropdownMultiSelect
+//
+// Same option list as cardCustomField-dropdown (settings.dropdownItems), but
+// several may be chosen: the stored value is an ARRAY of item ids instead of
+// a single one. The editor reuses the checkbox-list interaction already used
+// elsewhere for choosing several items at once (e.g. labels/members popups)
+// rather than a `<select multiple>`, which is awkward to operate on touch.
+Template['cardCustomField-dropdownMultiSelect'].onCreated(function () {
+  const data = Template.currentData();
+  this.card = getCurrentCardFromContext();
+  this.customFieldId = data._id;
+  this._items = data.definition.settings.dropdownItems || [];
+  this.checked = new ReactiveVar(
+    Array.isArray(data.value) ? data.value.slice(0) : [],
+  );
+});
+
+Template['cardCustomField-dropdownMultiSelect'].helpers({
+  items() {
+    return Template.instance()._items;
+  },
+  isChecked(itemId) {
+    return Template.instance().checked.get().includes(itemId);
+  },
+  selectedNames() {
+    const tpl = Template.instance();
+    const value = Array.isArray(this.value) ? this.value : [];
+    const names = value.map(id => {
+      const item = tpl._items.find(entry => entry._id === id);
+      return item ? item.name : TAPi18n.__('custom-field-dropdown-unknown');
+    });
+    return names.length
+      ? names.join(', ')
+      : TAPi18n.__('custom-field-dropdown-none');
+  },
+});
+
+Template['cardCustomField-dropdownMultiSelect'].events({
+  'click .js-card-customfield-dropdown-multi-item'(event, tpl) {
+    event.preventDefault();
+    const itemId = event.currentTarget.dataset.id;
+    const current = tpl.checked.get();
+    const next = current.includes(itemId)
+      ? current.filter(id => id !== itemId)
+      : [...current, itemId];
+    tpl.checked.set(next);
+  },
+  'submit .js-card-customfield-dropdown-multi-select'(event, tpl) {
+    event.preventDefault();
+    tpl.card.setCustomField(tpl.customFieldId, tpl.checked.get());
+  },
+  'click .js-close-inlined-form'(event, tpl) {
+    const data = Template.currentData();
+    tpl.checked.set(Array.isArray(data.value) ? data.value.slice(0) : []);
   },
 });
 

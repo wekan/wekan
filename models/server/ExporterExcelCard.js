@@ -94,6 +94,16 @@ class ExporterExcelCard {
       const item = items.find(entry => entry && entry._id === value);
       if (item) return item.name || '';
     }
+    if (definition && definition.type === 'dropdownMultiSelect') {
+      const items = (definition.settings && definition.settings.dropdownItems) || [];
+      const ids = Array.isArray(value) ? value : [];
+      return ids
+        .map(id => {
+          const item = items.find(entry => entry && entry._id === id);
+          return item ? item.name || '' : id;
+        })
+        .join(', ');
+    }
     if (value instanceof Date) return this.fmtDate(value);
     if (Array.isArray(value)) return value.join(', ');
     if (typeof value === 'boolean') return value ? this.__('yes') : this.__('no');

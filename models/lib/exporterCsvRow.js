@@ -124,6 +124,20 @@ function buildCsvCardRow(card, result, customFieldMap) {
         );
         const fieldValue = (fieldObj && fieldObj.name) || null;
         customFieldValuesToPush[mapEntry.position] = fieldValue;
+      } else if (mapEntry.type === 'dropdownMultiSelect') {
+        const customField = (res.customFields || []).find(
+          item => item && item._id === field._id,
+        );
+        const dropdownOptions =
+          (customField && customField.settings && customField.settings.dropdownItems) || [];
+        const ids = Array.isArray(field.value) ? field.value : [];
+        const names = ids.map(id => {
+          const fieldObj = dropdownOptions.find(item => item && item._id === id);
+          return fieldObj ? fieldObj.name : id;
+        });
+        customFieldValuesToPush[mapEntry.position] = names.length
+          ? names.join(', ')
+          : null;
       } else {
         customFieldValuesToPush[mapEntry.position] = field.value;
       }

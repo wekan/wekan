@@ -764,7 +764,7 @@ export class Exporter {
         position: i,
         type: customField.type,
       };
-      if (customField.type === 'dropdown') {
+      if (customField.type === 'dropdown' || customField.type === 'dropdownMultiSelect') {
         let options = '';
         customField.settings.dropdownItems.forEach((item) => {
           options = options === '' ? item.name : `${`${options}/${item.name}`}`;
@@ -841,7 +841,7 @@ export class Exporter {
     const customFieldMap = {};
     lookup.customFields.forEach((cf, i) => {
       customFieldMap[cf._id] = { position: i, type: cf.type };
-      if (cf.type === 'dropdown') {
+      if (cf.type === 'dropdown' || cf.type === 'dropdownMultiSelect') {
         let options = '';
         cf.settings.dropdownItems.forEach(item => { options = options === '' ? item.name : `${options}/${item.name}`; });
         columnHeaders.push(`CustomField-${cf.name}-${cf.type}-${options}`);

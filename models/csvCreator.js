@@ -107,7 +107,7 @@ export class CsvCreator {
           break;
       }
       if (headerRow[i].toLowerCase().startsWith('customfield')) {
-        if (headerRow[i].split('-')[2] === 'dropdown') {
+        if (headerRow[i].split('-')[2] === 'dropdown' || headerRow[i].split('-')[2] === 'dropdownMultiSelect') {
           index.customFields.push({
             name: headerRow[i].split('-')[1],
             type: headerRow[i].split('-')[2],
@@ -135,7 +135,7 @@ export class CsvCreator {
   async createCustomFields(boardId) {
     for (const customField of this.fieldIndex.customFields) {
       let settings = {};
-      if (customField.type === 'dropdown') {
+      if (customField.type === 'dropdown' || customField.type === 'dropdownMultiSelect') {
         settings = {
           dropdownItems: customField.options.map(option => {
             return { _id: Random.id(6), name: option };
