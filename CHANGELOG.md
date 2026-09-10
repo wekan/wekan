@@ -810,6 +810,37 @@ exists in English and every locale.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5fbbbeca9237ee19a3e94ddf65de30ce45c05fab">A board template can now be marked as the default, applied automatically when creating a board</a>. Thanks to Jieiku and xet7.</summary>
+
+[#4205](https://github.com/wekan/wekan/issues/4205) asked for a way to
+"just type a name for my new board and click create" instead of having to
+reopen the "Template" picker (the `/` link on the Create Board form) and
+pick a template by hand every time.
+
+Each row of that picker (a "Board Templates" card, shown via
+`Template.searchElementPopup`) now has a star icon beside it. Clicking the
+star marks/unmarks that template as the user's default
+(`profile.defaultBoardTemplateId`/`-BoardId`, both unset by default, so
+nothing changes for anyone who never sets one) without also applying the
+template - the rest of the row still does that, unchanged. Marking a
+default goes through a new `toggleDefaultBoardTemplate` method that only
+accepts a live, unarchived linked-board card from the caller's own
+templates board.
+
+Creating a board with the plain "type a name and click Create" flow now
+checks for a default and, when set, applies it by calling the exact same
+`copyBoard` method the manual picker already uses - not a second,
+hand-written copy of the board-copying logic - before falling back to the
+original blank-board path. Deleting the underlying template board clears it
+as anyone's default, so board creation cannot fail against a dead board id.
+`tests/defaultBoardTemplate.test.cjs` pins the schema, the toggle method's
+validation and its cleanup on template deletion, that board creation reuses
+the one `copyBoard` call site instead of a second one, and that an unset
+default leaves board creation unchanged.
+
+</details>
+
 **The Admin Panel** - People, the account list under Login → People.
 
 <details>
