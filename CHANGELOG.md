@@ -4797,7 +4797,7 @@ FerretDB Docker Compose backends** - four small pieces of drift found while
 chasing node test-suite failures.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/PLACEHOLDER1">Admin Panel / People's Notifications row now has a URL of its own</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/e15f53135">Admin Panel / People's Notifications row now has a URL of its own</a>. Thanks to xet7.</summary>
 
 `peopleMenu()` in `client/components/settings/peopleBody.js` draws a
 "Notifications" row (the admin-level default for the 3-tier Notification
@@ -4810,7 +4810,7 @@ Added the `notifications` slug and its title, and documented the new
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/PLACEHOLDER2">Opening a card or another board no longer leaves a stale comment/activity reveal armed</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/6e78c0f64">Opening a card or another board no longer leaves a stale comment/activity reveal armed</a>. Thanks to xet7.</summary>
 
 `client/lib/revealBoardItem.js`'s permalink reveal (issue #4757) is
 one-shot: following a `#comment-<id>`/`#activity-<id>` link sets
@@ -4826,7 +4826,7 @@ Both routes now clear all four reveal keys.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/PLACEHOLDER3">The Frappe Gantt board view no longer risks "no template frappeGanttView found"</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/ca9384c4a">The Frappe Gantt board view no longer risks "no template frappeGanttView found"</a>. Thanks to xet7.</summary>
 
 `client/components/boards/roadmapView.js` imports
 `client/components/gantt/frappeGantt.js` directly for `loadGanttLib`/
@@ -4842,7 +4842,7 @@ more others import (`tests/clientBundleImports.test.cjs`).
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/PLACEHOLDER4">The FerretDB Docker Compose backends document SAML the same way docker-compose.yml does</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/7cc570854">The FerretDB Docker Compose backends document SAML the same way docker-compose.yml does</a>. Thanks to xet7.</summary>
 
 `docker-compose.yml`'s WeKan service is supposed to be identical, comment
 for comment, across `docker-compose-ferretdb-v1-{postgresql,mysql,mariadb,
