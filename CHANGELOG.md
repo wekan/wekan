@@ -1800,6 +1800,36 @@ larger, mailer-level scope and is deferred - see TODO Later above.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/29488f8d52a0c3a94f9b4218910e0764908d26a2">Added "due/start/end/received date changed" rule triggers</a>. Thanks to justinr1234 and xet7.</summary>
+
+[#2474](https://github.com/wekan/wekan/issues/2474): there was no way to
+fire a rule when a card's due, start, end or received date was set or
+changed - only the label/member/assignee/checklist/attachment style
+triggers existed for that kind of field.
+
+`models/cards.js`'s `setDue`/`setStart`/`setEnd`/`setReceived` already go
+through `server/models/cards.js`'s `Cards.before.update` timing-field
+hook, which logs an `a-dueAt`/`a-startAt`/`a-endAt`/`a-receivedAt`
+activity on every SET (the same activity the due-date-change-count
+feature, [#6081](https://github.com/wekan/wekan/issues/6081), already
+reads - it only ever fires from a real value, never from
+`unsetDue`/`unsetStart`/`unsetEnd`/`unsetReceived`'s `$unset`). Four new
+`server/triggersDef.js` entries, keyed by those exact activityTypes and
+matching on `boardId`/`userId`, plug the existing activity straight into
+the generic rule matcher - no new detection mechanism. The card-triggers
+Add Rule UI (`client/components/rules/triggers/cardTriggers.jade`/`.js`)
+gets four matching "When the due/start/end/received date is set or
+changed" rows. Comparing a date against a threshold (e.g. "due within N
+days") is a separate, larger feature and is not part of this change.
+`tests/rulesDateFieldTrigger.test.cjs` pins the trigger registration, the
+existing hook it reuses, fire/no-fire matching (including that the four
+date fields never cross-fire on each other or on an unrelated activity),
+the UI wiring, and that every locale file has the four new i18n keys
+translated and in place.
+
+</details>
+
 **Quick-add card** - the composer at the bottom of a list.
 
 <details>
