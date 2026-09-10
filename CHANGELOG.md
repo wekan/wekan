@@ -283,7 +283,12 @@ all mean by "public", and needs a decision on the exact rule - e.g. any
 logged-in user vs. only this instance's users, and whether search engines
 are kept out via `robots.txt`/`noindex` meta or by the board simply never
 appearing in an unauthenticated response - before it is worth adding as a
-third `permission` value alongside `public`/`private`).
+third `permission` value alongside `public`/`private`),
+[#3256](https://github.com/wekan/wekan/issues/3256) (requests an
+image-coordinate-based "hot area" marker visualization - upload a background
+image, overlay a grid, place clickable card markers on it - a new data model
+and rendering mode outside WeKan's existing list/swimlane structure; needs a
+scope decision before implementation).
 
 </details>
 
