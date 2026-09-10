@@ -398,18 +398,15 @@ the Markdown commit as the template.
 
 # Upcoming WeKan ® release
 
-**In short:** this release adds **Frappe Gantt** and **DHTMLX Gantt**
-Community Edition as two new Board View pages alongside WeKan's own Gantt
-view, and draws the 10 board report charts with **Chart.js** - all
-MIT-licensed and lazy-loaded only when their view is opened. The
-**minicard** title moved to the top and gained a collapse caret, matching
-the fold already used for lists/swimlanes/checklists. It also restores the
-full-featured **document preview** viewer (DOCX/XLSX/PPTX, native PDF),
-hardens the **HttpOnly login cookie**, opens a board already **filtered
-from its URL**, adds **Group by Assignee** and **Bigboard** board views,
-lets **checklist items be bulk-edited as text**, lets **Clone Board** skip
-cards, filters Admin Panel / People **by Team**, and gives **Rules** title
-validation and new **assignee** triggers.
+**In short:** this release adds **Frappe Gantt**, **DHTMLX Gantt** and
+**Chart.js**-drawn report charts as new Board View pages, restores the
+full-featured **document preview** viewer, hardens the **HttpOnly login
+cookie**, and adds opt-in **two-factor authentication**. The **minicard**
+title moved to the top with a collapse caret, new **Group by Assignee** and
+**Bigboard** views join checklist bulk-editing, **Clone Board**
+card-skipping, Admin Panel People filtered **by Team**, **Rules** title
+validation and assignee triggers, and an **Admin only** custom-field flag
+that hides a field's value from non-admin board members.
 
 This release adds the following new features:
 
@@ -857,6 +854,29 @@ afterwards from the sidebar.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b13a5af330d0617d4cbd7b19c05eb4c97b90a62e">A label filter chip now cycles include -> exclude -> clear instead of only include -> clear</a>. Thanks to bennyandresen and xet7.</summary>
+
+[#2886](https://github.com/wekan/wekan/issues/2886) asked for a third state on
+the label filter: clicking an unfiltered label used to only ever filter FOR
+it, and clicking it again cleared the filter, with no way to filter AGAINST
+a label. `Filter.labelIds` now has a companion `Filter.excludedLabelIds` set
+(the same `SetFilter` shape), and a new `Filter.toggleLabelFilter(labelId)`
+cycles a click through not-filtered -> included -> excluded -> not-filtered
+again. `Filter._getMongoSelector()` merges the exclusion into the existing
+`labelIds` selector as `{$in, $nin}` rather than a selector key nothing
+reads, so a card carrying an excluded label is filtered out even when it
+also carries an included one - exclusion wins over inclusion - and a
+filter with only an exclusion (no included label) still works on its own.
+
+The sidebar's label chip shows a struck-through name plus a "no entry" icon
+for the excluded state, alongside the existing checkmark used for the
+included state. Scoped to labels only, matching the issue's exact wording -
+members, due dates and the other filter chips keep their existing two-state
+toggle for now; the same three-state cycle could be added to them later.
+
+</details>
+
 **Board views** - the Board View menu and its pages.
 
 <details>
@@ -1195,6 +1215,29 @@ otherwise mutating the original card.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/79dfd596f190c88eea1225259dba13846f266068">Move card can now leave a linked card behind at the card's original spot</a>. Thanks to superlou and xet7.</summary>
+
+[#2719](https://github.com/wekan/wekan/issues/2719): a personal task board
+whose tasks get moved onto project boards for team visibility lost the
+personal-board trail once a card moved away - there was no way to still
+track it from where it used to be. Move card's dialog
+(`client/components/cards/cardDetails.jade`'s `moveCardPopup`) gains an
+opt-in checkbox, "Leave a link at the original location", next to the
+existing board/swimlane/list picker. Unchecked - the default - a move
+behaves exactly as before.
+
+Checked, `moveCardPopup`'s `setDone` (`client/components/cards/cardDetails.js`)
+captures the card's board/swimlane/list before calling the existing
+`card.move()`, then, once the move has completed, calls the existing
+`card.link()` - the same [#4281](https://github.com/wekan/wekan/issues/4281)
+linked-card mirror mechanism above - with those captured values, leaving a
+`cardType-linkedCard` mirror pointing at the (now moved) card at the
+original spot. No new linking mechanism was added; Move and Link are
+simply chained.
+
+</details>
+
 **Custom fields** - the board's custom-field definitions and how they display.
 
 <details>
@@ -1316,6 +1359,49 @@ checkbox input) are unchanged.
 the old bare-square/plain-text rendering is gone for `checkbox`
 specifically, that the other types keep their own rendering, and that the
 card-detail editor is untouched.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/76dcb6575e2c62b676d9f8f8d94d4c2c30c5f7e1">An "Admin only" custom field definition hides its value from non-admin board members entirely</a>. Thanks to CarloRampini and xet7.</summary>
+
+[#3141](https://github.com/wekan/wekan/issues/3141) asked for a custom field
+usable for technical/integration metadata (API keys, script data) that only
+a board admin can see or edit - invisible to an ordinary board member, not
+just hidden behind a permission a client could still read.
+
+Added `adminOnly` (boolean, default `false`) to the CustomFields schema
+(`models/customFields.js`), toggled from a new checkbox in the custom-field
+definition editor (`client/components/sidebar/sidebarCustomFields.js`/
+`.jade`) that only renders for a board admin. `models/lib/customFieldsWD.js`
+gets a small pure `filterAdminOnlyDefinitions()` helper, and
+`models/cards.js`'s `customFieldsWD()` - the one shared helper both the card
+detail view and the minicard render their custom fields from - calls it
+before matching a value to its definition, so a non-admin's rendered result
+never contains the field at all, on either surface. The card's own "assign a
+custom field" popup list (`client/components/cards/cardCustomFields.js`)
+reuses the same helper so the field's name does not leak there either.
+
+The gate is enforced server-side, not just hidden in the UI: the
+`CustomFields.allow` insert/update rules
+(`server/permissions/customFields.js`) require `board.hasAdmin(userId)`
+specifically to set or create with `adminOnly`, on top of the write-access
+check every other field edit already requires, so a non-admin write-access
+board member cannot grant themselves the flag. Setting the VALUE is checked
+in three places: a new `Cards.deny` rule
+(`server/permissions/cards.js`) rejects a direct client write of
+`customFields.<index>.value` on an admin-only field (the path text/number/
+dropdown/stringtemplate fields use), and the dedicated
+`setCardCustomFieldCheckbox`/`setCardCustomFieldCurrency` Meteor methods
+(`server/models/cards.js`) check it themselves, since a method body running
+on the server bypasses `allow`/`deny` entirely.
+
+`tests/adminOnlyCustomField3141.test.cjs` covers the schema default, that a
+non-admin's `filterAdminOnlyDefinitions()`/`customFieldsWD()` result never
+contains the admin-only field's id or value while a board admin's does, that
+a field predating this change (no `adminOnly` key) is never hidden, and that
+every server-side gate (the two `allow` rules, the `deny` rule, and both
+value-setting methods) is present and checks `board.hasAdmin()`.
 
 </details>
 
@@ -1661,6 +1747,62 @@ estate that risks visual clutter.
 A "milestone" is then just a label named e.g. "Sprint 1" with a due date:
 filtering cards by that label - already supported by WeKan's existing label
 filter - is the milestone filter the issue asked for, with no new filter UI.
+
+</details>
+
+**Sign-in** - the username/password login form and the member menu's account
+settings.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0eaa97230">Added opt-in per-user TOTP two-factor authentication, via Meteor's own accounts-2fa</a>. Thanks to r0bbie and xet7.</summary>
+
+[#3058](https://github.com/wekan/wekan/issues/3058) asked for two-factor
+authentication on WeKan's own username/password login, not through a
+third-party OAuth provider. Added Meteor's official `accounts-2fa` package
+(MIT, part of the `meteor/meteor` monorepo, the same publisher as
+`accounts-password` already in use) rather than hand-rolling TOTP -
+`Accounts.generate2faActivationQrCode`/`enableUser2fa`/`disableUser2fa`/
+`has2faEnabled` do all secret generation and code verification.
+
+A new "Two-Factor Authentication" entry in the member menu shows a QR code
+and a manual-entry secret, then confirms with a 6-digit code to finish
+enabling; a "Disable" action turns it off. On the sign-in form, a password
+login that comes back with accounts-2fa's documented `no-2fa-code` error
+now shows a second "enter your 6-digit code" step instead of a generic
+failure, and resubmits with `Meteor.loginWithPasswordAnd2faCode` -
+accounts-2fa's own login method for this case, rather than any
+WeKan-side TOTP check. `wekan-accounts-lockout` already anticipated this:
+its `loginFailureDecision.js` already treated `no-2fa-code` as a
+non-countable step, so a 2FA login is never mistaken for a brute-force
+attempt. Scope is opt-in per-user TOTP only, as asked - no backup codes,
+SMS or admin-enforced 2FA in this pass.
+
+</details>
+
+**Calendar export** - a subscribable feed of a board's card dates for outside calendar apps.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a49e9d70aa744944b3fdbb5d96ac8fb50033547d">Add a per-board iCal (.ics) export feed</a>. Thanks to xet7.</summary>
+
+[#2836](https://github.com/wekan/wekan/issues/2836) ("CalDAV or iCal
+Support") asked specifically about calendar EXPORT/SYNC, not the in-app
+Calendar view [#808](https://github.com/wekan/wekan/issues/808) already
+added - and the codebase had a one-way .ics IMPORT
+([#6323](https://github.com/wekan/wekan/issues/6323)) but no export
+direction at all. A new `GET /api/boards/:boardId/calendar.ics` route
+streams a subscribable, read-only iCalendar feed of a board's cards - one
+VEVENT per Received / Start-End span / Due date, the same four dates the
+Calendar view already draws - authenticated the same way every other
+export route is (a public board needs no token; a private one takes
+`?authToken=` or a logged-in session) and scoped/authorized through the
+same `Exporter.canExport()`/`_scopedCardSelector()` every other export
+uses. The board Export popup gets a new "iCal" link built through the
+existing `exportUrl()` table, so it carries the same authToken handling as
+every other format. This is EXPORT only, one-way and read-only: full CalDAV
+is a stateful two-way sync protocol with its own server, which is a much
+larger feature than a dates feed, and is out of scope here - every calendar
+client that can "subscribe to a URL" reads a plain .ics feed directly, no
+CalDAV needed.
 
 </details>
 
