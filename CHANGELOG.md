@@ -1117,7 +1117,7 @@ from card open/close, fails this test.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/REPLACE_HASH">A card can now be filtered by who created it</a>. Thanks to lukasz-krawczyk and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/f5829b2ed3931c7d7215a168491739cc31551cd3">A card can now be filtered by who created it</a>. Thanks to bbyszio and xet7.</summary>
 
 [#3681](https://github.com/wekan/wekan/issues/3681) asked to see who created
 a card without relying on system messages, and its title was later broadened
@@ -1136,7 +1136,7 @@ produces.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/REPLACE_HASH">A filter now survives moving from one board to another, instead of being cleared on every hop</a>. Thanks to jarohen-oc and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/f5829b2ed3931c7d7215a168491739cc31551cd3">A filter now survives moving from one board to another, instead of being cleared on every hop</a>. Thanks to triple-doble and xet7.</summary>
 
 [#1751](https://github.com/wekan/wekan/issues/1751) asked for filters to stay
 active across boards - the reporter's own use case is "only show my user's
@@ -1157,7 +1157,7 @@ plus the router wiring itself.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/REPLACE_HASH">Confirmed two more open filter requests were already implemented, and pinned them with regression tests</a>. Thanks to Sh0g0-1758 and blaisep and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/7f7d4e2fb1579f2f07ebea40daec6478796b1a3d">Confirmed two more open filter requests were already implemented, and pinned them with regression tests</a>. Thanks to lumatijev and urakagi and xet7.</summary>
 
 Checking the remaining open `Feature:Filters`-labeled issues against the
 current source (per the "fix open issues" process) found two already done,
