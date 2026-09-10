@@ -5,6 +5,12 @@ import { TAPi18n } from '/imports/i18n';
 import Cards from '/models/cards';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { Utils } from '/client/lib/utils';
+// roadmapView.js imports this module directly for loadGanttLib/cardsToTasks -
+// so its own template has to be imported here too, or whichever module
+// reaches this file first (via that import, before client/features/gantt.js
+// gets to the .jade) registers Template.frappeGanttView.* against a template
+// that does not exist yet (see tests/clientBundleImports.test.cjs).
+import './frappeGantt.jade';
 // frappe-gantt's package.json "exports" map only exposes a "style"
 // CONDITION on its "." entry, not a "./dist/frappe-gantt.css" subpath, so
 // `import('frappe-gantt/dist/frappe-gantt.css')` is rejected outright by
@@ -18,7 +24,7 @@ import './frappeGanttLib.css';
 // only reaches the browser when this template actually mounts - i.e. when
 // the user opens this board view - never on every page load.
 let GanttLibPromise = null;
-function loadGanttLib() {
+export function loadGanttLib() {
   if (!GanttLibPromise) {
     GanttLibPromise = import('frappe-gantt').then(mod => mod.default || mod);
   }
@@ -53,7 +59,7 @@ function formatDate(value) {
 // visible even when one of them fell back to the other's field. `_startField`/
 // `_endField` record which underlying card field the bar's two edges
 // actually represent, so dragging the bar writes back to the right one.
-function cardsToTasks(cards) {
+export function cardsToTasks(cards) {
   const today = toISODate(new Date());
   return cards
     .map(card => {
@@ -86,7 +92,7 @@ function cardsToTasks(cards) {
 // the popup that opens on click - the bar geometry only ever represents two
 // of the four (Start/Due, or their Received/End fallbacks), so this is what
 // makes Received and End visible for a card that also has Start and Due.
-function popupDetailsHtml(task) {
+export function popupDetailsHtml(task) {
   const rows = [
     [TAPi18n.__('card-received'), task._received],
     [TAPi18n.__('card-start'), task._cardStart],
