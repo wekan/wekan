@@ -2355,6 +2355,39 @@ only the one list that happens to be over on its own.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0c7524db05a492e04b047e7523b916ccfb9df0c6">Add an "apply to whole swimlane" quick-select to WIP limit groups</a>. Thanks to Kausthub-Pandey and xet7.</summary>
+
+[#2380](https://github.com/wekan/wekan/issues/2380) asked for a WIP limit on
+a whole SWIMLANE - a cap on the total cards across all of that swimlane's
+lists combined - distinct from the per-list `wipLimit` and from the
+cross-list WIP limit groups just above (#2489). A WeKan list already carries
+an optional `swimlaneId` (`models/lists.js`) when it was created for one
+specific swimlane, so that swimlane's own lists are exactly a WIP limit
+group's `listIds` in the same `{ _id, name, listIds, limit, enabled }` shape
+#2489 already added - no separate counting or enforcement was built.
+
+The "WIP Limit Groups" panel's "Add WIP limit group" form gets a swimlane
+picker and an "Apply to swimlane" button
+(`client/components/sidebar/sidebar.jade`/`.js`). Choosing a swimlane and
+clicking it checks exactly the boxes of that swimlane's own lists, using the
+new `listIdsForSwimlane` helper
+(`models/lib/wipLimitGroupDecision.js`) - the combined count and the
+"exceeded" decision are then the exact same `combinedWipLimitGroupCount` /
+`isWipLimitGroupExceeded` functions #2489 already uses, so a swimlane's
+shared limit is enforced and displayed identically to any other WIP limit
+group, and is independent of any single member list's own individual
+`wipLimit`.
+
+`tests/swimlaneWipLimitGroup.test.cjs` covers `listIdsForSwimlane`
+(including a list with no `swimlaneId`, i.e. one shared across every
+swimlane, correctly staying out of any one swimlane's membership) and the
+combined-count/over-limit decision for a swimlane's lists, proving it stays
+correct even when one member list has its own, much higher, individual
+`wipLimit`.
+
+</details>
+
 **Comments and activities** - a card's comment thread and its activity log.
 
 <details>
@@ -3170,6 +3203,37 @@ list/sprint - and linked from `docs/README.md`'s features list.
 
 </details>
 
+**Notification emails** - the activity-notification email's subject line.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ad4613099">Covered that a card activity's email subject already includes the board and card name</a>. Thanks to Logicbloke and xet7.</summary>
+
+[#1408](https://github.com/wekan/wekan/issues/1408) asked that a
+card-activity notification email's subject include the board/card name
+(e.g. `[Board Name] Card Title`) instead of a generic subject, so email
+clients like Gmail thread notifications per card rather than lumping every
+notification together. Reading the current code
+(`server/models/activities.js`, `server/lib/activityNotificationTitle.js`,
+`server/notifications/email.js`) shows this is already the DEFAULT,
+unconditional behavior on every install: any activity with a `cardId` sets
+`title = ACTIVITY_NOTIFICATION_TITLE.CARD`, which
+`formatActivityNotificationTitle()` renders as `[Board] Card`, and
+`server/notifications/email.js` builds the email subject from exactly that
+value before any admin configuration is considered. The optional
+admin-customizable subject template added for
+[#2022](https://github.com/wekan/wekan/issues/2022) (Admin Panel -> Email
+Templates, `activityEmailSubjectTemplate`) only REPLACES this default when
+an admin explicitly sets it - it is not required to get a per-card subject.
+`tests/notificationEmailSubjectFormat.test.cjs` adds regression coverage
+for the default: it drives `formatActivityNotificationTitle()` directly for
+a representative card activity and asserts the subject contains both the
+board and card name in the `[Board] Card` shape, asserts it is not a
+generic constant, confirms every `activity.cardId` branch tags itself with
+the card-title layout, and confirms the admin template only overrides the
+already-board/card-aware default rather than being needed for it.
+
+</details>
+
 and has the following developer-tooling improvement:
 
 <details>
@@ -3357,6 +3421,41 @@ position; and Copy creates the new card on the destination board first and
 moves that new card into place, never the original - with a negative case
 confirming a failed copy is skipped rather than falling through to touch an
 unrelated card.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/PLACEHOLDER_HASH">Add a one-click "Archive all cards in this list" entry to the List menu</a>. Thanks to bkiehle and xet7.</summary>
+
+[#3383](https://github.com/wekan/wekan/issues/3383) asked for a button that
+archives every card of a single list at once, instead of moving them to
+Archive one at a time. The checkbox multi-select sidebar already reaches
+this indirectly - "Select all cards in this list" from the List hamburger
+menu, then "Archive selection" from the sidebar - but that is two menus for
+one outcome, so the List hamburger menu (`listActionPopup`,
+`client/components/lists/listHeader.jade`/`.js`) gets its own
+"Archive all cards in this list" entry next to the existing "Select all
+cards in this list" one. It reuses the exact same card-id scoping ("Select
+all cards" above: the current swimlane in Swimlanes board view, the whole
+list otherwise) and hands the list off to the SAME server method the
+sidebar's "Archive selection" button already calls -
+`archiveSelectedCards(boardId, cardIds)` in `server/models/cards.js`, added
+for [#6608](https://github.com/wekan/wekan/issues/6608) - so no new
+archiving logic was written, only a second caller of the existing one,
+behind a confirmation popup (`listArchiveCardsPopup`) in the same
+confirm-then-act shape "Archive list" (the list itself, not its cards)
+already uses. The `list-archive-cards`/`list-archive-cards-pop` translation
+strings already existed in every locale file - added ahead of the feature -
+so this commit only had to wire them up.
+
+`tests/listArchiveAllCards3383.test.cjs` is a pure-Node source-read
+regression guard pinning: the menu entry and its confirmation popup exist;
+the click handler is gated behind `Popup.afterConfirm('listArchiveCards', …)`;
+the scoping matches "Select all cards" exactly; the handler calls the shared
+`archiveSelectedCards` method rather than looping `card.archive()` or
+`Cards.update` itself; an empty list never reaches the server call; the
+server still defines exactly one `archiveSelectedCards` method (no
+duplicate); and every locale file already carries both translation keys.
 
 </details>
 
