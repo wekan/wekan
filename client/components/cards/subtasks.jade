@@ -21,6 +21,8 @@ template(name="subtasks")
     else
       a.js-open-inlined-form(title="{{_ 'add-subtask'}}")
         i.fa.fa-plus
+    a.js-add-existing-subtask(title="{{_ 'add-existing-card-as-subtask'}}")
+      i.fa.fa-link
 
 template(name="subtaskDetail")
   .js-subtasks.subtask(class="{{#if subtask.archived}}is-completed{{/if}}")
@@ -116,4 +118,15 @@ template(name="subtaskActionsPopup")
   //- The board's subtask SETTINGS are not here: they belong to the section, not
     to one subtask, and they are behind the hamburger at the end of the
     Subtasks heading. client/components/cards/cardDetails.jade
+
+template(name="addExistingSubtaskPopup")
+  form.js-add-existing-subtask-form
+    input.js-add-existing-subtask-search(type="text" placeholder="{{_ 'search'}}" autofocus dir="auto")
+    ul.pop-over-list.js-add-existing-subtask-results
+      each card in existingSubtaskCandidates
+        li
+          a.js-select-existing-subtask(data-id="{{card._id}}" title="{{card.title}}")
+            = card.title
+      if noExistingSubtaskCandidates
+        li.quiet {{_ 'add-existing-card-as-subtask-empty'}}
 
