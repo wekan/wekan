@@ -525,6 +525,30 @@ Useful for classroom/at-a-glance use, per the original request.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/694f26bf756f44249eb6120912e0db5ba15bf97e">Highlight a minicard when it has comments the user has not seen yet</a>. Thanks to H4usi and xet7.</summary>
+
+There was no way to tell at a glance which cards had new comments since the
+user last looked. Searched for an existing "last viewed"/"unread" tracking
+mechanism to reuse first - `models/cards.js`, `models/cardComments.js` and
+`models/watchable.js` only track board-level watching, and the closest
+per-user, per-card shape already in WeKan is `profile.collapsedCardSections`
+on the Users document, used for fold state - so this follows it: a new
+`profile.cardLastViews` map (cardId -> Date), set by
+`Template.cardDetails.onCreated` whenever the user opens a card, the same
+existing open trigger the fold state itself does not need to touch.
+
+Whether a card counts as unread is a pure, unit-tested decision
+(`models/lib/unreadComments.js`): a comment created after that timestamp
+flags it, and so does any comment at all on a card that was never opened -
+there is nothing to compare against yet. A card with zero comments is never
+flagged. The minicard applies a `minicard-unread-comments` class - an inset
+ring plus a left-edge stripe rather than a background fill, so it stays
+visible against every label swatch and board color a minicard can already
+have - and a tooltip naming it, and opening the card clears it immediately.
+
+</details>
+
 **Time tracking** - the Time board view.
 
 <details>
