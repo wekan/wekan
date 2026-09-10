@@ -670,6 +670,38 @@ existing checked-state-preserving behaviour untouched.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/338e05b1ebf53e9ab3953541ef2f26a027f667aa">Dragging a checklist item onto a list creates a new card from its text</a>. Thanks to BenjamindeJong82 and xet7.</summary>
+
+[#3294](https://github.com/wekan/wekan/issues/3294) asked for a checklist
+item to become a card when dragged out onto a list, and to be marked done
+when dropped onto a "Done"-style list instead. A checklist item was already
+draggable through its own jQuery UI sortable (scoped to other checklists via
+`connectWith: '.js-checklist-items'`), so dropping it anywhere else - a
+list's own card column - always reverted with no effect at all.
+
+The sortable's `stop` handler now checks, via `document.elementFromPoint` at
+the drop coordinates, whether the release landed over a list's
+`.js-minicards` card column rather than back inside a checklist. When it
+does, a new card is created titled from the item's text, in that list (and
+swimlane, resolved the same way `list.js`'s own card-drop handler resolves
+it), through a pure `buildCardFromChecklistItem()` helper
+(`models/lib/checklistItemToCard.js`) so what the new card looks like is
+pinned by a test without a Meteor database. The original checklist item is
+left completely untouched either way - the drag always reverts visually
+(`sortable('cancel')`), since nothing needs to move within the checklist.
+
+Scope decision: dropping ALWAYS creates a new card. The "mark done when
+dropped on a Done-style list" half of the request is intentionally NOT
+built - detecting that a list "means" Done would mean guessing from its
+name or position, which is unreliable and would surprise users. That
+capability is not actually missing: an item can already be marked done
+directly via its own checkbox, and WeKan also already has a manual, explicit
+"Convert to card" action for the same underlying card-creation case - this
+drag gesture is a faster path to the same outcome, not a new concept.
+
+</details>
+
 **Comments and activities** - a card's comment thread and its activity log.
 
 <details>
