@@ -138,7 +138,6 @@ CustomFields.attachSchema(
        * models/lib/customFieldsWD.js).
        */
       type: Number,
-      decimal: true,
       optional: true,
     },
     createdAt: {
