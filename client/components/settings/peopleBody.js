@@ -157,6 +157,10 @@ Template.people.onCreated(function () {
     this.loginLocationPage.set(1);
   };
   this.userFilterType = new ReactiveVar('all');
+  // #4510: which Team the People list is narrowed to, '' meaning every team. A
+  // second controls-row dropdown alongside the Show filter, so an admin with
+  // several teams can jump straight to one team's members.
+  this.teamFilterId = new ReactiveVar('');
   // The search box lives in the shared controls row now, so keep the term in
   // state rather than reading it back out of a DOM id.
   this.peopleSearchTerm = new ReactiveVar('');
@@ -337,6 +341,15 @@ Template.people.onCreated(function () {
       default:
         // Show all users, no additional filter
         break;
+    }
+
+    // #4510: narrow to one Team's members. A user's teams live in their own
+    // `teams` array (models/users.js), each entry `{ teamId, teamDisplayName }`,
+    // so this is a plain match on the embedded field - the same shape the Team
+    // membership popups already read.
+    const teamId = this.teamFilterId.get();
+    if (teamId) {
+      query['teams.teamId'] = teamId;
     }
 
     this.findUsersOptions.set(query);
@@ -638,6 +651,20 @@ Template.people.helpers({
           { value: 'active', labelKey: 'admin-people-filter-active' },
           { value: 'inactive', labelKey: 'admin-people-filter-inactive' },
           { value: 'admin', label: 'Admin' },
+        ],
+      }, {
+        // #4510: an admin with several teams wants the People list narrowed to
+        // one of them - the same "search by team" the Teams pane already has,
+        // but for who is IN the team rather than the team itself.
+        id: 'team',
+        labelKey: 'admin-people-filter-team',
+        current: tpl.teamFilterId.get(),
+        options: [
+          { value: '', labelKey: 'admin-people-filter-all-teams' },
+          ...ReactiveCache.getTeams({}, { sort: { teamDisplayName: 1 } }).map(team => ({
+            value: team._id,
+            label: team.teamDisplayName,
+          })),
         ],
       }], tpl.userFilterType.get()),
       // No per-action class: both buttons are sized and themed by the shared
@@ -983,7 +1010,14 @@ Template.people.events({
   },
   'change .js-table-page-filter'(event, tpl) {
     if (tpl.activeMenuId.get() !== 'people-setting') return;
-    tpl.userFilterType.set($(event.currentTarget).val());
+    // Two dropdowns share this class now - Show and Team (#4510) - identified
+    // by data-filter the same way buildFilters names them.
+    const filterId = $(event.currentTarget).data('filter');
+    if (filterId === 'team') {
+      tpl.teamFilterId.set($(event.currentTarget).val());
+    } else {
+      tpl.userFilterType.set($(event.currentTarget).val());
+    }
     tpl.filterPeople();
   },
   'click .js-table-page-action'(event, tpl) {
