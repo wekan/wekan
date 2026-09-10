@@ -10,6 +10,7 @@ import {
   allowIsBoardMemberCommentOnly,
   allowIsBoardMemberNoComments,
   allowIsBoardMemberByCard,
+  isBoardAdminOrSiteAdmin,
 } from '../utils';
 
 describe('utils', function() {
@@ -28,6 +29,26 @@ describe('utils', function() {
 
       expect(allowIsBoardAdmin(userId, board)).to.equal(true);
       expect(allowIsBoardAdmin(Random.id(), board)).to.equal(false);
+    });
+  });
+
+  // Issue #3249: a global site admin must be able to manage a board they are
+  // not themselves a member/admin of (e.g. its own admin left the org).
+  describe(isBoardAdminOrSiteAdmin.name, function() {
+    it('allows the board\'s own admin', function() {
+      const userId = Random.id();
+      const board = { hasAdmin: id => id === userId };
+      expect(isBoardAdminOrSiteAdmin(userId, board, false)).to.equal(true);
+    });
+
+    it('allows a global site admin who is not a board member/admin', function() {
+      const board = { hasAdmin: () => false };
+      expect(isBoardAdminOrSiteAdmin(Random.id(), board, true)).to.equal(true);
+    });
+
+    it('denies a non-admin, non-member, non-site-admin caller', function() {
+      const board = { hasAdmin: () => false };
+      expect(isBoardAdminOrSiteAdmin(Random.id(), board, false)).to.equal(false);
     });
   });
 

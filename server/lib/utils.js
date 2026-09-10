@@ -1,3 +1,4 @@
+import { Meteor } from 'meteor/meteor';
 import Boards from '/models/boards';
 import Cards from '/models/cards';
 import Checklists from '/models/checklists';
@@ -5,6 +6,35 @@ const { memberCan } = require('/models/lib/boardRoleCapabilities');
 
 export function allowIsBoardAdmin(userId, board) {
   return board && board.hasAdmin(userId);
+}
+
+// Issue #3249: a board created by a user who has since left the organization
+// (or was removed) ends up with no member who can edit its settings or add
+// new members - not even a global Admin Panel admin, because the plain
+// allowIsBoardAdmin check above only looks at the board's OWN member list.
+// This variant additionally accepts the global `isAdmin` flag on the calling
+// user's account (Admin Panel > Users), matching the bypass already used by
+// inviteUserToBoard (server/models/users.js) so a site admin can take over
+// and manage ANY board, not only ones they already belong to. Only used
+// where the whole-board update/remove rule is granted (server/permissions/
+// boards.js) - it is deliberately NOT wired into the narrower allowIsBoardAdmin
+// checks that gate rules/actions/triggers/comments on other collections.
+// Pure decision logic, split out so it is unit-testable without Meteor (see
+// tests/boardAdminOrSiteAdmin.test.cjs): true when the user is the board's own
+// admin OR carries the global `isAdmin` flag looked up by the async wrapper
+// below.
+export function isBoardAdminOrSiteAdmin(userId, board, isSiteAdmin) {
+  if (allowIsBoardAdmin(userId, board)) return true;
+  return !!(userId && isSiteAdmin);
+}
+
+export async function allowIsBoardAdminOrSiteAdmin(userId, board) {
+  if (allowIsBoardAdmin(userId, board)) return true;
+  if (!userId) return false;
+  const user = await Meteor.users.findOneAsync(userId, {
+    fields: { isAdmin: 1 },
+  });
+  return isBoardAdminOrSiteAdmin(userId, board, !!(user && user.isAdmin));
 }
 
 export function allowIsBoardMember(userId, board) {

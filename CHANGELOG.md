@@ -1427,6 +1427,39 @@ list's existing inline rename.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e643f0da71db3555f50c031a9fd532b092656d2f">The "send an email" rule action now links the card, and supports {card}/{cardLink}/{list}/{board}/{member} tokens</a>. Thanks to vossilius and ivan-paleo and xet7.</summary>
+
+[#3301](https://github.com/wekan/wekan/issues/3301) and
+[#3304](https://github.com/wekan/wekan/issues/3304) reported the same gap:
+the email a "send an email" rule action sends carried no reference at all
+to the card that triggered it - no title, no direct link, and no way to
+pull in the list, board or the relevant member. `performAction()` already
+built a `ruleVars` map and substituted `{name}` tokens in the email
+subject/body (added for [#2475](https://github.com/wekan/wekan/issues/2475)),
+so this extends that existing mechanism rather than building a new one:
+`{cardLink}` resolves through `Card.absoluteUrl()`
+(`models/lib/cardUrl.js`), the same helper card activity notification
+emails already use, and `{member}` resolves the activity's relevant member
+(who was added/removed/etc.), falling back to the acting user. `{card}`,
+`{list}` and `{board}` are short aliases of the existing
+cardname/listname/boardname variables. A new hint line next to the email
+fields (`r-email-vars-hint`, translated to every locale) documents the
+tokens directly in the rule-action UI. Independently of any template the
+user configures, the card's title and link are now always appended to the
+sent email body, so a rule set up before this change - with no tokens at
+all - still gets a usable link.
+
+`substituteVars()` moved out of `server/rulesHelper.js` into a new pure
+`models/lib/ruleVarsSubstitute.js`, the way `models/lib/cardUrl.js` next to
+it already is, so `tests/ruleEmailVars.test.cjs` can unit test token
+substitution directly (including case-insensitivity, unknown tokens left
+as literal text rather than crashing, and malformed braces not mistaken
+for a token) alongside the automatic card-link footer and the translated
+hint text.
+
+</details>
+
 **Subtasks** - the minicard's "N/M subtasks" completion badge.
 
 <details>

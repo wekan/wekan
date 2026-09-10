@@ -1,7 +1,7 @@
 import Boards from '/models/boards';
 import TableVisibilityModeSettings from '/models/tableVisibilityModeSettings';
 import { findWhere, where } from '/imports/lib/collectionHelpers';
-import { allowIsBoardAdmin, canUpdateBoardSort, canUpdateBoardSameWidthValue } from '/server/lib/utils';
+import { allowIsBoardAdminOrSiteAdmin, canUpdateBoardSort, canUpdateBoardSameWidthValue } from '/server/lib/utils';
 
 Boards.allow({
   async insert(userId, doc) {
@@ -16,8 +16,12 @@ Boards.allow({
 
     return true;
   },
-  update: allowIsBoardAdmin,
-  remove: allowIsBoardAdmin,
+  // #3249: also let a global Admin Panel admin (Meteor.user().isAdmin) edit or
+  // delete a board they are not themselves a member/admin of - the case that
+  // matters is a board whose creator left and took the only admin membership
+  // with them, leaving nobody who could otherwise touch its settings.
+  update: allowIsBoardAdminOrSiteAdmin,
+  remove: allowIsBoardAdminOrSiteAdmin,
   fetch: ['members'],
 });
 
