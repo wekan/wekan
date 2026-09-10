@@ -129,6 +129,15 @@ Template.userFormsLayout.onRendered(() => {
       })();
     }
 
+    // Same conditional-render pattern as the OAuth2 button above: SAML is a
+    // redirect/popup flow rather than a username+password submit, so it gets
+    // its own button (#at-saml in layouts.jade) shown only when the server
+    // reports the 'saml' authentication method enabled (SAML_ENABLED, see
+    // server/authentication.js).
+    if (enabledAuthenticationMethods.indexOf('saml') !== -1) {
+      $('#at-saml').removeClass('hide');
+    }
+
     AccountsTemplates.state.form.keys = new Proxy(
       AccountsTemplates.state.form.keys,
       validator,
@@ -317,6 +326,13 @@ Template.userFormsLayout.events({
       });
     }
     isCheckDone = false;
+  },
+  'click #at-saml'(event) {
+    event.preventDefault();
+    const provider = Meteor.settings.public.SAML_PROVIDER;
+    Meteor.loginWithSaml({ provider }, (err) => {
+      if (!err) FlowRouter.go('/');
+    });
   },
 });
 

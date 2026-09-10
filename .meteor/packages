@@ -32,6 +32,7 @@ communitypackages:flow-routing
 ostrio:flow-router-extra
 wekan-ldap
 wekan-accounts-cas
+wekan-accounts-saml
 wekan-accounts-sandstorm
 wekan-accounts-lockout
 wekan-oidc

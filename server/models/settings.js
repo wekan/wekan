@@ -171,6 +171,12 @@ function isCasEnabled() {
   return process.env.CAS_ENABLED === 'true' || process.env.CAS_ENABLED === true;
 }
 
+function isSamlEnabled() {
+  return (
+    process.env.SAML_ENABLED === 'true' || process.env.SAML_ENABLED === true
+  );
+}
+
 function isApiEnabled() {
   return process.env.WITH_API === 'true' || process.env.WITH_API === true;
 }
@@ -580,6 +586,7 @@ Meteor.methods({
       ldap: isLdapEnabled(),
       oauth2: isOauth2Enabled(),
       cas: isCasEnabled(),
+      saml: isSamlEnabled(),
     };
   },
 

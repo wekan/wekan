@@ -1,4 +1,35 @@
-Related Meteor SAML code, not in WeKan yet: 
+## How to enable it
+
+WeKan has SP-initiated SAML 2.0 login, built on the actively-maintained,
+MIT-licensed [`@node-saml/node-saml`](https://github.com/node-saml/node-saml)
+library (it does all SAML protocol / XML-signature handling; WeKan only wires
+it into Meteor's accounts system - see the `wekan-accounts-saml` package under
+`packages/wekan-accounts-saml/`).
+
+Enable it with these environment variables (see the commented example in
+`docker-compose.yml`):
+
+| Variable | Meaning |
+| --- | --- |
+| `SAML_ENABLED` | Set to `true` to show the "Sign In with SAML" button. |
+| `SAML_PROVIDER` | Short name for the identity provider; used in the ACS/callback URL. |
+| `SAML_ENTRYPOINT` | The identity provider's SSO redirect endpoint. |
+| `SAML_ISSUER` | This WeKan instance's SAML issuer / entity ID. |
+| `SAML_CERT` | The identity provider's signing certificate, used to verify the response signature. |
+| `SAML_IDPSLO_REDIRECTURL` | The identity provider's Single Logout redirect URL, if used. |
+| `SAML_PRIVATE_KEYFILE` / `SAML_PUBLIC_CERTFILE` | Paths under `private/` to this instance's own key/cert, only needed if the IdP requires signed `AuthnRequest`s. |
+| `SAML_IDENTIFIER_FORMAT` | NameID format requested from the IdP. Defaults to `urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress`. |
+| `SAML_LOCAL_PROFILE_MATCH_ATTRIBUTE` | Assertion attribute to use as the WeKan username instead of the NameID/email. |
+| `SAML_ATTRIBUTES` | Assertion attributes read for the local profile. |
+
+The client opens a popup at `/_saml/authorize`, which redirects to the
+identity provider (`SAML_ENTRYPOINT`); the IdP posts the signed assertion
+back to `/_saml/validate` (WeKan's Assertion Consumer Service URL -
+`<WeKan URL>/_saml/validate/<SAML_PROVIDER>`), which is registered as the
+service's callback URL with the IdP. This mirrors the existing CAS
+popup-based login flow (`packages/wekan-accounts-cas`).
+
+## Related Meteor SAML code / prior art
 
 - New: https://forums.meteor.com/t/meteor-and-saml/61561
 - Old link: https://forums.meteor.com/t/what-are-you-working-on/59187

@@ -2921,7 +2921,7 @@ reused for the other three, with a "Starred" page and a header dropdown to
 reach them.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/REPLACE_HASH">Add Star/Unstar to the Swimlane, List and Card menus, a "Starred" page and a header bookmarks section for them</a>. Thanks to chris-kwng and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/c5740e804">Add Star/Unstar to the Swimlane, List and Card menus, a "Starred" page and a header bookmarks section for them</a>. Thanks to chris-kwng and xet7.</summary>
 
 [#1172](https://github.com/wekan/wekan/issues/1172) asked to star a card;
 starring a board already existed (`profile.starredBoards`,
