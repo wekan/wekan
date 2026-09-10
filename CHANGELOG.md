@@ -1589,6 +1589,52 @@ strings, and an empty card list.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/453b309c76c1c6d34d7d48e4d48c47f18d40f0a7">The list header's custom-field summary badge now also shows min/max and a date-field range</a>. Thanks to rlach and xet7.</summary>
+
+[#2075](https://github.com/wekan/wekan/issues/2075) asked for a broader
+list-level custom-field summary than the sum #3319 above already added: a
+count of cards that have the field set at all, min/max for a number field,
+and a range for a date field. This extends that SAME mechanism - the same
+per-field "show sum at top of list" checkbox, the same badge next to the
+card count - instead of adding a second field-selection setting or a second
+badge location.
+
+`models/lib/customFieldsSum.js` gains two more pure functions alongside the
+existing `sumCustomFieldValues()`, which is untouched: `numberFieldStats()`
+(sum/min/max and how many of the cards have ANY of the flagged number
+field(s) set, out of the total, reusing the exact same numeric-parsing
+rules as the sum) and `dateFieldRange()` (earliest/latest value among the
+cards for a flagged date-type field, plus the same count/total). A
+date-custom-field value is read as a `Date`, an ISO string or a millisecond
+timestamp; an unparseable value is skipped rather than corrupting the
+range, the same policy the sum already applies to a non-numeric value.
+
+`client/components/lists/listHeader.js` factors the "which flagged fields
+of this type, which of the list's (swimlane-scoped) cards" lookup that
+`numberFieldsSum`/`hasNumberFieldsSum` already did into two small shared
+functions, then adds `numberFieldsSumTooltip()` (the existing "∑ N" badge's
+tooltip now reads "…(min–max, N/total)" when there is a range to show) and
+`hasDateFieldsRange()`/`dateFieldsRangeLabel()`/`dateFieldsRangeTooltip()`
+for a date-type field flagged the same way, rendered as an earliest–latest
+badge instead of a sum - summing dates has no meaning. The min/max/count
+detail is deliberately wordless (`(5–20, 3/8)`) so it needs no new
+translatable label and stays a hover-level detail rather than a third
+always-visible number cluttering the list header; only the date-range
+badge itself needed one new i18n key, `date-range-of-fields`, mirroring
+the existing `sum-of-number-fields` tooltip label. Added to `en.i18n.json`
+and to all 245 other locale files.
+
+`tests/customFieldsSum.test.cjs` adds a regression test proving
+`sumCustomFieldValues()`'s own result is unaffected by any of this, plus
+coverage for `numberFieldStats()` (min/max, several flagged fields
+combined, the card-count-with-a-value figure, a non-numeric value ignored,
+an empty card list) and `dateFieldRange()` (earliest/latest, `Date` and
+ISO-string values, the count figure, an unparseable value ignored rather
+than corrupting the range, and an empty card list).
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/df96ee03ca4a54722e5cc4d92c897b5d3425563e">A checkbox custom field's minicard value is now a tick/cross icon, not a bare square</a>. Thanks to CarloRampini and xet7.</summary>
 
 [#3142](https://github.com/wekan/wekan/issues/3142) asked to "display
@@ -2023,6 +2069,42 @@ exact same acting-user source `buildRuleVars()` already resolves for the
 reused rather than reimplemented, and then calls the same
 `card.assignMember()` the fixed-member path already uses. The ordinary
 fixed-member "add member" action is unchanged.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/COMMIT_HASH">Added a "card title/description contains {value}" rule trigger</a>. Thanks to sfahrenholz and xet7.</summary>
+
+[#2194](https://github.com/wekan/wekan/issues/2194) asked for a text-search
+rule condition combinable with other triggers (e.g. "card added to Backlog
+AND contains 'Patch'"). WeKan's rules stay single-trigger/single-condition
+today - combining several conditions in one rule with AND was already looked
+at and explicitly deferred by [#4294](https://github.com/wekan/wekan/issues/4294)
+(see TODO Later) - so this adds ONE new standalone trigger type instead: "when
+a card's title or description contains {value}", the same scope-down the
+[#3092](https://github.com/wekan/wekan/issues/3092) advanced-filter trigger
+used.
+
+The user types a substring when building the rule; a new pure module,
+`models/lib/ruleTextContainsMatch.js` (`textContainsMatch`/
+`cardTextContainsMatch`), does a case-insensitive substring test against the
+card's CURRENT title/description. `server/rulesHelper.js` evaluates it the
+same way it already evaluates the advanced-filter trigger - not through the
+generic `TriggersDef` exact/wildcard matcher, since a substring match isn't
+one - re-reading the card on the activities that actually change its
+matched text: card creation, and the `a-changedTitle`/`a-changedDescription`
+activities `server/models/cards.js` already logs for the outgoing-webhook
+hook (issues [#3619](https://github.com/wekan/wekan/issues/3619)/
+[#5482](https://github.com/wekan/wekan/issues/5482)). The card-triggers Add
+Rule UI (`client/components/rules/triggers/cardTriggers.jade`/`.js`) gets a
+matching "When a card's title or description contains" row with a text
+input, mirroring the advanced-filter trigger's own text-input row.
+`tests/rulesTextContainsTrigger.test.cjs` pins the pure match function
+(case-insensitive, title, description, no match, no crash on a missing
+card/field), the trigger registration, the `rulesHelper.js` wiring, the UI
+wiring, and the new i18n keys. Full AND-combination of several conditions in
+one rule remains out of scope and stays tracked under TODO Later's #4294
+entry.
 
 </details>
 
