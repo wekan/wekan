@@ -309,7 +309,7 @@ the Markdown commit as the template.
 </details>
 </details>
 
-# Upcoming WeKan ® release
+# v11.67 2026-09-10 WeKan ® release
 
 **In short:** **Board export to .zip (with attachments)** answered a bare 500
 error on every request; the archiver dependency's v8 API change was missed in
