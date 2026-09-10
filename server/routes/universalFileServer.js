@@ -559,7 +559,10 @@ if (Meteor.isServer) {
       res.writeHead(200, { 'Content-Type': 'application/json', 'Content-Length': Buffer.byteLength(body),
         'Cache-Control': 'private, no-store', 'X-Content-Type-Options': 'nosniff' });
       res.end(body);
-    } catch (error) { res.writeHead(415); res.end('Document preview unavailable'); }
+    } catch (error) {
+      console.error('Document preview manifest error:', error);
+      res.writeHead(415); res.end('Document preview unavailable');
+    }
   });
 
   WebApp.handlers.get('/document-preview/:fileId/:page.gif', async (req, res) => {
@@ -579,7 +582,10 @@ if (Meteor.isServer) {
         'Cache-Control': 'private, max-age=31536000, immutable',
         'X-Content-Type-Options': 'nosniff', 'Content-Security-Policy': "default-src 'none'; sandbox" });
       res.end(gif);
-    } catch (error) { res.writeHead(415); res.end('Document preview unavailable'); }
+    } catch (error) {
+      console.error('Document preview page image error:', error);
+      res.writeHead(415); res.end('Document preview unavailable');
+    }
   });
 
   WebApp.handlers.get('/document-preview/:fileId/:page.html', async (req, res) => {
@@ -603,7 +609,10 @@ if (Meteor.isServer) {
         'X-Content-Type-Options': 'nosniff',
         'Content-Security-Policy': "default-src 'none'; img-src 'self'; style-src 'unsafe-inline'; sandbox" });
       res.end(body);
-    } catch (error) { res.writeHead(415); res.end('Document preview unavailable'); }
+    } catch (error) {
+      console.error('Document preview page HTML error:', error);
+      res.writeHead(415); res.end('Document preview unavailable');
+    }
   });
 
   /**

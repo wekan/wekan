@@ -61,6 +61,7 @@
     "@fastify/busboy": "^3.2.2",
     "@google-cloud/storage": "^8.0.1",
     "@meteorjs/reify": "^0.25.4",
+    "@napi-rs/canvas": "^1.0.8",
     "@rwap/jquery-ui-touch-punch": "^1.0.11",
     "@swc/helpers": "^0.5.23",
     "@textcomplete/contenteditable": "^0.1.13",

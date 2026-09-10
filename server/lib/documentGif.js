@@ -164,22 +164,46 @@ async function officePages(input, extension) {
   return pages;
 }
 
+// pdf-to-img rasterizes pages through pdfjs-dist's optionalDependency
+// @napi-rs/canvas. When that native module cannot load (missing from the
+// build, unsupported architecture, no prebuilt binary) pdf-to-img throws and
+// used to fail the whole PDF preview with a bare 415 (#6685). Text extraction
+// via pdfjs-dist does not need canvas at all, so a rasterization failure here
+// only drops the page images - the preview still degrades to text, the way
+// the minimal viewer already degrades for any embedded image it cannot read.
+async function rasterizePdf(input) {
+  let document;
+  try {
+    const { pdf } = await import('pdf-to-img');
+    document = await pdf(input, { scale: 1.5 });
+  } catch (error) {
+    console.error('PDF page rasterization unavailable, falling back to text-only preview:', error);
+    return null;
+  }
+  if (document.length > DOCUMENT_MAX_PAGES) { await document.destroy(); throw new Error('PDF has too many pages'); }
+  return document;
+}
+
 async function renderPages(input, extension) {
   if (extension === 'pdf') {
-    const { pdf } = await import('pdf-to-img');
-    const document = await pdf(input, { scale: 1.5 });
-    if (document.length > DOCUMENT_MAX_PAGES) { await document.destroy(); throw new Error('PDF has too many pages'); }
-    const pages = [];
     const pdfjs = await import('pdfjs-dist/legacy/build/pdf.mjs');
     const textDocument = await pdfjs.getDocument({ data: new Uint8Array(input), isEvalSupported: false }).promise;
+    const document = await rasterizePdf(input);
+    const pageCount = document ? document.length : textDocument.numPages;
+    if (!document && pageCount > DOCUMENT_MAX_PAGES) {
+      await textDocument.destroy();
+      throw new Error('PDF has too many pages');
+    }
+    const pages = [];
     try {
-      for (let page = 1; page <= document.length; page += 1) {
+      for (let page = 1; page <= pageCount; page += 1) {
         const textPage = await textDocument.getPage(page);
         const content = await textPage.getTextContent();
-        pages.push({ image: await document.getPage(page),
-          text: content.items.map(item => item.str || '').join(' ').slice(0, DOCUMENT_MAX_TEXT), images: [] });
+        const entry = { text: content.items.map(item => item.str || '').join(' ').slice(0, DOCUMENT_MAX_TEXT), images: [] };
+        if (document) entry.image = await document.getPage(page);
+        pages.push(entry);
       }
-    } finally { await document.destroy(); await textDocument.destroy(); }
+    } finally { if (document) await document.destroy(); await textDocument.destroy(); }
     return pages;
   }
   return officePages(input, extension);
