@@ -133,8 +133,11 @@ test('cardDetails.jade renders the reorderable sections from an order-driven loo
     path.join(__dirname, '../client/components/cards/cardDetails.jade'),
     'utf8',
   );
+  // `each section in ...` rather than plain `each ...`: the plain form made the
+  // section name the data context and broke every section template and the
+  // popups opened from them (see tests/cardFieldSectionsKeepCardContext.test.cjs).
   assert.ok(
-    jade.includes('each orderedCardFieldSections'),
+    jade.includes('each section in orderedCardFieldSections'),
     'the card-details-items block must iterate the resolved order',
   );
   // Each reorderable section must be reachable only through its own named

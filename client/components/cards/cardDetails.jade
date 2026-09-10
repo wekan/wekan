@@ -143,18 +143,25 @@ template(name="cardDetails")
           appendage right after Custom Fields, so a board that never touches
           the setting renders exactly what it always has.
           models/lib/cardFieldOrder.js, client/components/sidebar/sidebar.jade
-        each orderedCardFieldSections
-          if $eq this "labels"
+        //- `each section in ...`, not `each ...`: the plain form makes the
+          section NAME ("labels", "dates", ...) the data context, so every
+          section template - and every popup opened from one, e.g. the Labels
+          popup - saw a string where it expected the card. Clicking a label
+          then silently did nothing (`card.toggleLabel` was undefined) and
+          the card's own labels/stickers/locations lists rendered empty. The
+          `in` form keeps `this` as the card.
+        each section in orderedCardFieldSections
+          if $eq section "labels"
             +cardFieldSectionLabels
-          if $eq this "dates"
+          if $eq section "dates"
             +cardFieldSectionDates
-          if $eq this "members"
+          if $eq section "members"
             +cardFieldSectionMembers
             +cardFieldSectionDependenciesAndSort
-          if $eq this "customFields"
+          if $eq section "customFields"
             +cardFieldSectionCustomFields
             +cardFieldSectionVoteAndPoker
-          if $eq this "description"
+          if $eq section "description"
             +cardFieldSectionDescription
 
       .card-checklist-attachmentGalleries
