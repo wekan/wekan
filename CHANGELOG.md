@@ -1482,6 +1482,34 @@ silently regress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4de77a4a5">An archived subtask now stays in the card's subtask list, shown as completed, with a toggle to hide it</a>. Thanks to Somantiq and xet7.</summary>
+
+[#3409](https://github.com/wekan/wekan/issues/3409) reported that archiving
+a subtask - the action that already moves the badge above from "0/n"
+toward "n/n" - made it vanish from the parent card's own subtask list
+instead of showing as completed, unlike a checked checklist item, which
+stays visible with a struck-through, dimmed look. Reading
+`client/components/cards/subtasks.jade` confirmed the list was built from
+`currentCard.subtasks()`, and `models/cards.js`'s `subtasks()` queries
+`{ archived: false }`, so an archived subtask was filtered out of the
+query entirely.
+
+The list now reads from `allSubtasks()` (no `archived` filter) through a
+new `visibleSubtasks()` template helper in `subtasks.js`, so an archived
+subtask stays in the list by default and is marked with an `is-completed`
+class - a strikethrough title and a green checkmark icon, the same "done"
+treatment `subtasks-item .item-title.is-checked` already gives a checked
+checklist item. A "Hide completed subtasks" toggle above the list flips a
+client-side `ReactiveVar` that filters archived subtasks back out for
+anyone who wants the shorter list; it is a per-viewing preference of the
+list, not card data, so no new `Cards` schema field was needed.
+`tests/subtaskArchivedVisibility3409.test.cjs` pins the query change, the
+completed styling, the toggle's wiring end-to-end, and that the #4050
+counter logic above is untouched.
+
+</details>
+
 **My Cards** - the cross-board "cards assigned to/watched by me" list.
 
 <details>
