@@ -2332,6 +2332,11 @@ before it is built; see TODO Later.
 
 </details>
 
+- [Confirmed #2413 ("Site admins to see all boards and change any board
+  permissions") is the same request as #3249 and is already resolved by the
+  fix above; annotated the regression test accordingly](https://github.com/wekan/wekan/commit/677c60fb2).
+  Thanks to JackNWeems and xet7.
+
 **Checklists** - individual items inside a checklist.
 
 <details>
