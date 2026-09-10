@@ -309,6 +309,50 @@ the Markdown commit as the template.
 </details>
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** the **Board View menu**'s nine report charts - Dashboard,
+Burndown, Burnup, Cumulative Flow, Control Chart, Lead/Cycle Time, Flow
+Efficiency, Throughput Histogram and WIP Run - are implemented, computed from
+the current board's own cards, lists and activity history. Every chart page,
+and the **Gantt** view, gain **Export to PDF** and **Export to Excel**
+buttons matching the existing card/board export look.
+
+This release adds the following feature:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b11b7676b">Implement the 10 board report charts and Gantt/chart PDF+Excel export</a>. Thanks to xet7.</summary>
+
+The Board View menu's Dashboard, Burndown, Burnup, Cumulative Flow, Control
+Chart, Lead/Cycle Time, Flow Efficiency, Throughput Histogram and WIP Run
+entries opened a plain "not implemented yet" page. Each now computes and
+renders its chart from this board's own Cards/Lists/Activities, per
+docs/Features/Reports/charts.tsv's calculation descriptions - plain HTML/CSS
+bars and a data table, no new charting dependency.
+
+Every chart page, and the Gantt view, gets Export to PDF / Export to Excel
+buttons that reuse the existing card/board export renderers (the PDF line/bar
+builder, the Excel workbook styling) through the same public-board /
+authToken / logged-in-user auth gate every other export route already uses.
+
+Completion date is `card.endAt || card.archivedAt` (WeKan has no dedicated
+"Done" list flag); WIP Run's limit line only draws when a list's own WIP
+limit is enabled (no invented board-level schema); Flow Efficiency's "active"
+time is `card.spentTime` (WeKan does not track per-list queue time). Each
+deviation from charts.tsv is documented where the calculation is.
+
+`models/lib/chartCalculations.js` (20 tests), `models/lib/chartExportRows.js`
+(8 tests) and the export routes' auth shape (10 tests) are covered by new
+regression tests; `tests/boardViewMenu.test.cjs` is updated for the now-real
+views. Not verified: actual Blaze rendering and generated PDF/XLSX bytes (no
+browser/Meteor runtime available) - matched syntactically against the
+existing statsView/timeView views and exporters instead.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their
+translations.
+
 # v11.67 2026-09-10 WeKan ® release
 
 **In short:** **Board export to .zip (with attachments)** answered a bare 500
@@ -319,7 +363,7 @@ redirect-style login loop) is confirmed already fixed and closed.
 This release fixes the following bug:
 
 <details>
-<summary>Board export to .zip (with attachments) answered a bare 500 error</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/9c04e5314">Board export to .zip (with attachments) answered a bare 500 error</a>. Thanks to xet7.</summary>
 
 `models/server/ExporterZip.js` still called the archiver package the v7 way -
 `const archiver = require('archiver'); archiver('zip', {...})`. archiver@8
@@ -343,7 +387,7 @@ second call site cannot reintroduce the same break unnoticed.
 and closes the following already-fixed issue:
 
 <details>
-<summary>Confirm #6681 (OIDC redirect-style login loop) stays fixed</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/d3a217186">Confirm #6681 (OIDC redirect-style login loop) stays fixed</a>. Thanks to Alishara and xet7.</summary>
 
 The reporter's `DEBUG=true` server log (getToken/getUserInfo repeating six
 times in under twenty seconds, each with a fresh access token) is the same
