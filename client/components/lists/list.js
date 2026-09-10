@@ -724,6 +724,17 @@ Template.list.helpers({
   collapsed() {
     return Utils.getListCollapseState(this, resolveContainerSwimlaneId(this));
   },
+
+  // #3847: board-wide "sticky list headers" toggle (client/components/lists/
+  // listHeader.jade's listActionPopup, models/boards.js). Drives the CSS in
+  // list.css that pins .list-header to the top of the list's own card
+  // scroll container (.list-body, overflow-y: scroll) instead of it
+  // scrolling out of view with the cards.
+  stickyListHeaders() {
+    const list = Template.currentData();
+    const board = list && ReactiveCache.getBoard(list.boardId);
+    return !!(board && board.getStickyListHeaders());
+  },
 });
 
 // initializeListResize as a method on the template instance

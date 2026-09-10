@@ -252,6 +252,22 @@ body.mobile-mode [id^="swimlane-"] .list[style*="--list-width"]:not(.list-collap
   padding: 4px !important;
 }
 
+/* #3847: board-wide "sticky list headers" toggle (List hamburger menu ->
+   listActionPopup in listHeader.jade, models/boards.js's stickyListHeaders).
+   .list-header already sits BEFORE .list-body (its cards' own scrolling
+   container, overflow-y: scroll below) as a flex sibling rather than inside
+   it, so it does not scroll away with the cards in the ordinary bounded-
+   height board layout. `position: sticky` additionally pins it whenever the
+   ancestor that actually scrolls turns out to be `.list` itself instead -
+   e.g. a layout where `.list-body` is not the independently scrolling box -
+   so the header stays visible either way. Content/behaviour of the header
+   is unchanged; only whether it stays pinned during scroll. */
+.list.list-sticky-header .list-header {
+  position: sticky !important;
+  top: 0;
+  z-index: 20;
+}
+
 /* Anchor header action buttons within header during resize */
 .list .list-header { position: relative; z-index: 5; }
 .list .list-header .js-open-list-menu,

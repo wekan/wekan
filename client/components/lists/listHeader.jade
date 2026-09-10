@@ -242,6 +242,15 @@ template(name="listActionPopup")
               a.js-set-wip-limit
                 i.fa.fa-ban
                 | {{#if isWipLimitEnabled }}{{_ 'edit-wip-limit'}}{{else}}{{_ 'setWipLimitPopup-title'}}{{/if}}
+        //- #3847: board-wide toggle, exposed here per the maintainer's
+          instruction to reach it from the List hamburger menu. See
+          models/boards.js's stickyListHeaders and list.css's use of the
+          board class it drives.
+        ul.pop-over-list
+          li
+            a.js-toggle-sticky-list-headers
+              i.fa(class="{{#if isStickyListHeaders}}fa-check-square-o{{else}}fa-square-o{{/if}}")
+              | {{_ 'sticky-list-headers'}}
         hr
         ul.pop-over-list
           unless currentUser.isWorker

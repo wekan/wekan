@@ -945,6 +945,20 @@ Boards.attachSchema(
       optional: true,
       defaultValue: false,
     },
+    stickyListHeaders: {
+      /**
+       * #3847: when true, every list's header (title/WIP badge/hamburger)
+       * stays pinned to the top of its own list while that list's cards
+       * scroll underneath it, instead of scrolling out of view with them.
+       * Board-wide rather than per-list - freezing one list's header while
+       * its neighbours scrolled normally would look inconsistent - but the
+       * toggle itself lives in the List hamburger/action menu
+       * (listActionPopup in client/components/lists/listHeader.jade) for
+       * discoverability, per the issue reporter's request.
+       */
+      type: Boolean,
+      defaultValue: false,
+    },
     listWidthResizeLocked: {
       /**
        * #6680: when true, the list-width drag-resize handle between lists is
@@ -2487,6 +2501,18 @@ Boards.helpers({
 
   getAutoWidth() {
     return !!this.autoWidth;
+  },
+
+  // #3847: board-wide sticky list headers, toggled from the List hamburger
+  // menu (see server/models/users.js#setStickyListHeaders).
+  getStickyListHeaders() {
+    return !!this.stickyListHeaders;
+  },
+
+  async setStickyListHeaders(stickyListHeaders) {
+    return await Boards.updateAsync(this._id, {
+      $set: { stickyListHeaders: !!stickyListHeaders },
+    });
   },
 
   async setAutoWidth(autoWidth) {

@@ -306,7 +306,15 @@ Template.listActionPopup.helpers({
 
   isWatching() {
     return this.findWatcher(Meteor.userId());
-  }
+  },
+
+  // #3847: board-wide, but surfaced from the List hamburger menu - see
+  // models/boards.js's stickyListHeaders.
+  isStickyListHeaders() {
+    const list = Template.currentData();
+    const board = list && ReactiveCache.getBoard(list.boardId);
+    return !!(board && board.getStickyListHeaders());
+  },
 });
 
 Template.listActionPopup.events({
@@ -380,6 +388,16 @@ Template.listActionPopup.events({
     await this.archive();
     Popup.close();
   }),
+  // #3847: board-wide toggle for pinning every list's header while its cards
+  // scroll underneath it, flipped from this per-list menu for discoverability.
+  'click .js-toggle-sticky-list-headers'(event) {
+    event.preventDefault();
+    const list = Template.currentData();
+    const board = ReactiveCache.getBoard(list.boardId);
+    const enabled = !(board && board.getStickyListHeaders());
+    Meteor.call('setStickyListHeaders', list.boardId, enabled);
+    Popup.back();
+  },
   'click .js-set-wip-limit': Popup.open('setWipLimit'),
   'click .js-copy-list': Popup.open('copyList'),
   'click .js-move-list': Popup.open('moveList'),

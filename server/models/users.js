@@ -1057,6 +1057,25 @@ Meteor.methods({
     return true;
   },
 
+  // #3847: board-wide "sticky list headers" toggle, offered from the List
+  // hamburger/action menu (client/components/lists/listHeader.jade) even
+  // though it affects every list on the board - see models/boards.js.
+  async setStickyListHeaders(boardId, stickyListHeaders) {
+    check(boardId, String);
+    check(stickyListHeaders, Boolean);
+    if (!this.userId) {
+      throw new Meteor.Error('not-logged-in', 'User must be logged in');
+    }
+    const board = await ReactiveCache.getBoard(boardId);
+    if (!board || !board.hasMember(this.userId)) {
+      throw new Meteor.Error('error-notAuthorized');
+    }
+    await Boards.updateAsync(boardId, {
+      $set: { stickyListHeaders: !!stickyListHeaders },
+    });
+    return true;
+  },
+
   async setListCollapsedState(boardId, listId, collapsed) {
     check(boardId, String);
     check(listId, String);
