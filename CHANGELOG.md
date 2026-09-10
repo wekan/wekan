@@ -769,6 +769,37 @@ already produces.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ab1f60d806524ee4b2f3432db9ea343df2ce281b">A comment's Reply link now caps threading at one level, grouped under its parent</a>. Thanks to FuXXz and xet7.</summary>
+
+[#3011](https://github.com/wekan/wekan/issues/3011) asked for a comment to be
+able to REPLY to another comment on the same card instead of every comment
+landing in one flat chronological list. Comments already had an optional
+`parentId` from an earlier MVP (#5907); what was missing was a cap on how
+deep that nesting could go, and grouping replies under their parent in the
+rendered list rather than leaving them interleaved by date.
+
+Clicking Reply on a reply now attaches the new comment to that reply's own
+parent - the original top-level comment - rather than nesting one level
+deeper each time. `resolveParentId()` (`models/cardComments.js`) makes that
+decision once, as a pure function with its own unit tests, and is applied
+both when the client opens the composer (so the "In reply to ..." banner
+already names the flattened target) and again in a
+`CardComments.before.insert` hook on the server, so the one-level cap holds
+regardless of how a comment is inserted.
+
+Replies now render directly under their top-level parent instead of
+interleaved by date with unrelated comments:
+`groupCommentsByThread()` (`imports/lib/commentThreading.js`) reorders the
+already-sorted flat list the `comments` template used before, with no
+schema or query change. The composer's reply banner reuses the existing,
+already fully translated `comment-in-reply-to` string plus the parent
+comment's author name for its "Replying to ..." indicator, rather than
+adding a new i18n key that would need translating across every locale file
+for a small wording difference.
+
+</details>
+
 **Board filters** - the sidebar Filter panel and how a board can be opened already filtered.
 
 <details>
@@ -1741,6 +1772,34 @@ list document, not a different one.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/520b9f56f">#3847's sticky list headers now also stay pinned while scrolling in the Swimlanes view</a>. Thanks to mikesutton and xet7.</summary>
+
+[#2805](https://github.com/wekan/wekan/issues/2805): with `Boards.stickyListHeaders`
+turned on (the #3847 toggle), a list's title still scrolled out of view
+while scrolling down through several swimlane rows in the Swimlanes view -
+the same toggle worked correctly in the default single-swimlane layout.
+
+`position: sticky` only pins an element within its NEAREST ancestor that is
+itself a CSS scroll container. `.swimlane`'s unconditional `overflow: auto`
+made every swimlane row its own scroll container on both axes, so
+`.list.list-sticky-header .list-header`'s sticky rule stuck within that
+row's own box instead of reaching the real, page-level vertical scroll on
+`.board-wrapper .board-canvas`. Since `.swimlane` itself never scrolls
+internally in ordinary use - `.list` is already `height: 100%` of it, and
+each list's own `.list-body` carries its card overflow - the row simply
+moved out from under a header "stuck" to a box with nothing to scroll.
+
+`.swimlane` keeps `overflow-x: auto`, still needed for a row of lists wider
+than the viewport, but no longer captures the vertical axis
+(`overflow-y: visible`), so the ancestor search continues up to
+`.board-canvas` and the header pins against the real page scroll instead.
+No second sticky-header mechanism was added; #3847's single
+`stickyListHeaders` toggle and its `.list.list-sticky-header .list-header`
+CSS rule are reused unchanged.
+
+</details>
+
 **Outgoing webhooks** - the global and per-board webhook that posts card activity out.
 
 <details>
@@ -2140,6 +2199,38 @@ attribute and the link text, so neither an HTML-active title nor a
 malicious URL can break out of the tag. The plain-text (non-`htmlEnabled`)
 email is untouched and still sends the bare URL as text, which is correct
 there.
+
+</details>
+
+**Card dates** - the Received/Start/Due/End date popup shared by every date field, a vote and a planning poker end date, and a date custom field.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/PLACEHOLDER">The time field now accepts an hour alone, and an empty time defaults to midnight instead of being rejected</a>. Thanks to fakaki and xet7.</summary>
+
+`<input type="time">` only ever reports a complete `HH:mm` value to
+JavaScript - typing just the hour ("13") and moving on leaves the browser's
+own `.value` empty, so the popup could not tell "13" typed from nothing
+typed at all, and the digits the user entered were silently thrown away.
+The date popup's shared time field
+(`client/components/forms/datepicker.jade`, one `editDateForm` used by
+Received/Start/Due/End, vote end, poker end and date custom fields alike)
+is now a plain text input instead, so a partially typed time actually
+reaches the parser.
+
+`parseTimeInput()` (`imports/lib/datePickerTime.js`) is the new shared,
+pure parser: an hour alone ("13", "7"), with or without am/pm ("1pm",
+"11:30 PM"), normalizes to that hour at `:00`; a blank field parses as
+`00:00`; the existing `HH:mm` format is unaffected; anything else (letters,
+an hour above 23, a minute above 59, a 12-hour hour outside 1-12) is still
+rejected exactly as before. `client/lib/datepicker.js`'s `change` and
+`submit` handlers on the shared form both call it, so due, start, end and
+received dates, vote/poker end dates and date custom fields all get the
+same looser input the same way. The submitted-empty-field behavior added
+for [#1502](https://github.com/wekan/wekan/issues/1502) - falling back to
+the popup's own configured default time (17:00 for due dates, "now" for
+received/start/end) rather than always midnight - is unchanged; the new
+midnight default is `parseTimeInput`'s own contract for callers that ask it
+to parse an actually-empty string directly.
 
 </details>
 
