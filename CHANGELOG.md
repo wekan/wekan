@@ -4265,6 +4265,91 @@ the same convention `tests/trelloCreator.import.test.js` already uses.
 
 </details>
 
+and fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
+
+**Markdown card-URL autolinking** - duplicated on purpose between app and package.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9cbf67ba7">Escape a backslash before escaping ']' in an autolinked card title, not only ']'</a>. Thanks to GitHub CodeQL and xet7.</summary>
+
+`models/lib/cardUrlAutolink.js` and `packages/markdown/src/
+template-integration.js` build a markdown link `[<title>](<url>)` around a
+pasted WeKan card URL, escaping `]` in the title so it cannot prematurely
+close the label. CodeQL's `js/incomplete-sanitization` query (alerts #532
+and #533) found the escape incomplete: a title ending in a raw backslash
+(e.g. `"foo\"`) was left untouched, so the backslash escaped the LITERAL
+`]` this code inserts to close the label instead of the label actually
+closing - the emitted markdown was not the link intended. Both copies now
+escape `\` before `]`, kept in sync as their own comments already require.
+This is a rendering-correctness fix, not an XSS hole on its own: the final
+HTML still goes through DOMPurify regardless, per the existing code
+comments, so no Admin Panel security-log entry applies.
+
+</details>
+
+**Test-only assertion bugs** - four findings inside the test suite's own logic, none reachable in production.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9cbf67ba7">Escape every regex meta-character when building a dynamic RegExp from a URL, not only '/'</a>. Thanks to GitHub CodeQL and xet7.</summary>
+
+`tests/notificationEmailUrlLink.test.cjs` built ad-hoc `RegExp`s out of a
+notification URL by hand-escaping only `/` (`js/incomplete-sanitization`,
+alerts #528-#530) - every other meta-character, including the backslash
+that would neutralize the escape itself, passed through untouched. Added
+the same `escapeRegExp()` helper already used in
+`models/lib/externalLinkAutolink.js`, plus a negative test reproducing the
+exact "unterminated group" crash the old slash-only escape hit on a value
+containing an unescaped `(`.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9cbf67ba7">Write documentGif.js's control-character strip as explicit \x escapes instead of raw control bytes</a>. Thanks to GitHub CodeQL and xet7.</summary>
+
+`server/lib/documentGif.js`'s `plainSearchText()` strips C0 control
+characters and DEL from extracted document text before indexing it for
+search, but the character class was written with literal raw control
+BYTES either side of the `-` range operators instead of `\x` escapes.
+CodeQL's `js/overly-large-range` query (alert #526) flagged the range as
+unverifiable: adjacent control bytes are visually indistinguishable in an
+editor or a diff, so a boundary could silently widen or narrow without
+anyone noticing. Rewritten with explicit `\x00-\x08\x0b\x0c\x0e-\x1f\x7f`
+escapes, byte-for-byte equivalent to the original range and now checkable
+at a glance; a new test also proves no raw control byte remains in the
+function body.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9cbf67ba7">Compare a real URL hostname instead of a naive substring check in the OAuth logout test</a>. Thanks to GitHub CodeQL and xet7.</summary>
+
+`tests/oauthLogoutUrl.test.cjs` asserted an absolute logout endpoint
+ignores `serverUrl` via `!url.includes('id.example.com')` - CodeQL's
+`js/incomplete-url-substring-sanitization` query (alert #531) flagged
+that a substring like this can appear anywhere in a URL (a query value, a
+path segment, or part of an unrelated confusable hostname) without the
+ignored host actually being used. Replaced with a `new URL(url).hostname`
+comparison, plus a negative test with both a URL that merely MENTIONS the
+substring in its query string and a confusable
+`id.example.com.attacker.example` host, neither of which the fixed check
+mistakes for the real one.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9cbf67ba7">Replace a no-op '.replace(/ /g, ' ')' with an actual run-of-spaces collapse</a>. Thanks to GitHub CodeQL and xet7.</summary>
+
+`tests/boardCreationAdminOnly.test.cjs` normalized bootstrap source text
+with `.replace(/\n\s*/g, ' ').replace(/ /g, ' ')` before matching it -
+CodeQL's `js/identity-replacement` query (alert #527) flagged the second
+`.replace()` as replacing a single space with itself, a no-op. The actual
+intent was collapsing RUNS of spaces the newline-collapse can leave
+behind, `.replace(/ +/g, ' ')`, which is what it now does; a new test
+proves the fixed helper collapses `"a     b"` to `"a b"` while the old
+no-op left it unchanged.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for
 their translations.
 
