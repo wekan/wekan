@@ -1066,6 +1066,35 @@ open.
 
 </details>
 
+**Board Settings** - the Card Settings sidebar panel, and how its choices apply.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/20a7b47e457c928f7f2775dc1a49634be69393b9">Whether a minicard shows label text is now a per-board default, with a per-user override</a>. Thanks to Meeques and xet7.</summary>
+
+[#4256](https://github.com/wekan/wekan/issues/4256): whether a minicard's
+labels show their TEXT (coloured words) or only the coloured bars was a
+single setting applying to a user across every board
+(`profile.hiddenMinicardLabelText`), with no way for a board to pick its own
+default the way every other Card Settings row already can.
+
+Adds `Boards.showLabelText` (Board Settings / Card, right above the
+existing personal row), defaulting to `true` so an existing board with
+nothing stored still shows text exactly as before. The personal row now
+OVERRIDES that board default rather than being the only setting: it shows
+whether it is following the board or has been overridden, with a "use board
+default" reset link, mirroring how Member Settings / Change Color shows and
+resets the existing global theme override
+(`profile.globalThemeColor`). The resolution order - per-user override wins,
+then the board's own setting, then the historical default - is a pure
+function (`models/lib/labelTextVisibility.js`) shared by
+`client/lib/minicardLabelText.js`, so the decision is made in exactly one
+place; `tests/labelTextVisibility.test.cjs` pins all three cases plus the
+migration-safety case that an existing board or user with nothing stored
+sees no behaviour change. A logged-out reader of a public board keeps the
+old localStorage-only toggle, now falling back to the board's own setting.
+
+</details>
+
 and fixes the following bugs:
 
 **Board reports** - the Dashboard and the 10 board report chart views.
