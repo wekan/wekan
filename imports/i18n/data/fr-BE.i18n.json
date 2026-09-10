@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Ouvrir plusieurs cartes à la fois",
   "open-many-cards-at-once-description": "Chaque carte sur laquelle vous cliquez reste ouverte dans sa propre fenêtre. Lorsque cette option est désactivée, cliquer sur une carte ferme celle qui était ouverte.",
   "submit-on-enter-description": "Lorsque cette option est activée, appuyer sur Enter enregistre le titre de la carte, la description et les autres éditeurs en ligne ; Shift+Enter insère une nouvelle ligne. Lorsqu'elle est désactivée, Ctrl/Cmd+Enter enregistre et Enter insère une nouvelle ligne.",
+  "checklist-ding-sound": "Jouer un son lorsqu'un élément de la liste de contrôle est terminé",
+  "checklist-ding-sound-description": "Joue un court signal sonore lorsque vous cochez un élément de la liste de contrôle. Désactivé par défaut.",
   "assignee": "Intervenant",
   "assignees": "Intervenants",
   "no-assignee": "Aucun assigné",

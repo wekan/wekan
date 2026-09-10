@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Avaa monta korttia kerralla",
   "open-many-cards-at-once-description": "Jokainen klikkaamasi kortti jää auki omaan ikkunaansa. Kun tämä ei ole käytössä, kortin klikkaaminen sulkee aiemmin avatun kortin.",
   "submit-on-enter-description": "Kun päällä, Enter tallentaa kortin otsikon, kuvauksen ja muut sisäiset editorit; Vaihto+Enter lisää rivinvaihdon. Kun pois, Ctrl/Cmd+Enter tallentaa ja Enter lisää rivinvaihdon.",
+  "checklist-ding-sound": "Toista ääni, kun tarkistuslistan kohta merkitään tehdyksi",
+  "checklist-ding-sound-description": "Toistaa lyhyen ping-äänen, kun merkitset tarkistuslistan kohdan tehdyksi. Oletuksena pois päältä.",
   "assignee": "Käsittelijä",
   "assignees": "Käsittelijät",
   "no-assignee": "Ei vastuuhenkilöä",

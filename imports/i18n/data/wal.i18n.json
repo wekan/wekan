@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Wolayttatto: Open many kaardiyata at once",
   "open-many-cards-at-once-description": "Wolayttatto: Keep every kaardiya ne click open gidon its own window. When this is off, clicking a kaardiya closes the one that was open.",
   "submit-on-enter-description": "Wolayttatto: When bolla, pressing Enter saves the kaardiya huuphe sunttaa, qonccissuwaa and other inline editors; Shift+Enter inserts a oorattaa line. When off, Ctrl/Cmd+Enter saves and Enter inserts a oorattaa line.",
+  "checklist-ding-sound": "Chekilisttiya harggo polettiyaa wode giireta phalqisa",
+  "checklist-ding-sound-description": "Chekilisttiya harggo malaassiya wode qanttata giireta phalqisees. Koyro hanotan digettidayssa.",
   "assignee": "Oosoy imettidoogaa",
   "assignees": "Oosoy imettidoogeeta",
   "no-assignee": "Immatinne imettibeenna",

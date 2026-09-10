@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Mở nhiều thẻ cùng lúc",
   "open-many-cards-at-once-description": "Mỗi thẻ bạn nhấp vào sẽ mở trong cửa sổ riêng của nó. Khi tắt tuỳ chọn này, nhấp vào một thẻ sẽ đóng thẻ đang mở.",
   "submit-on-enter-description": "Khi bật, nhấn Enter sẽ lưu tiêu đề thẻ, mô tả và các trình soạn thảo nội tuyến khác; Shift+Enter thêm một dòng mới. Khi tắt, Ctrl/Cmd+Enter để lưu và Enter để thêm dòng mới.",
+  "checklist-ding-sound": "Phát âm thanh khi hoàn thành một mục trong danh sách kiểm tra",
+  "checklist-ding-sound-description": "Phát một âm thanh ngắn khi bạn đánh dấu hoàn thành một mục trong danh sách kiểm tra. Mặc định tắt.",
   "assignee": "Người được giao",
   "assignees": "Người được giao",
   "no-assignee": "Không có người được giao",

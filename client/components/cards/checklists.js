@@ -9,6 +9,7 @@ import { EscapeActions } from '/client/lib/escapeActions';
 import { Utils } from '/client/lib/utils';
 import autosize from 'autosize';
 import { isChecklistShownAtMinicard } from '/models/lib/minicardChecklistVisibility';
+import { playChecklistDingSound } from '/client/lib/checklistDingSound';
 
 // SubsManager removed for Meteor 3 migration
 const { calculateIndexData } = Utils;
@@ -372,7 +373,16 @@ Template.checklistItemDetail.events({
     const checklist = Template.currentData().checklist;
     const item = Template.currentData().item;
     if (checklist && item && item._id) {
+      // #5427: play a short "ding" only on the unchecked -> checked
+      // transition (never on uncheck), and only when the user opted in.
+      const wasFinished = !!item.isFinished;
       item.toggleItem();
+      if (!wasFinished) {
+        const currentUser = ReactiveCache.getCurrentUser();
+        if (currentUser && currentUser.hasChecklistDingSound()) {
+          playChecklistDingSound();
+        }
+      }
     }
   },
 });

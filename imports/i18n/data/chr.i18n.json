@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "ᎤᏂᏣᏘ ᏗᎪᏪᎵ ᏗᏍᏗ ᏌᏊ ᎢᏳᏍᏗ ᏗᏍᏚᎢᏍᏗ",
   "open-many-cards-at-once-description": "ᏂᎦᏛ ᏗᏐᏅᏍᏔᏅ ᏗᎪᏪᎵ ᏗᏍᏗ ᎤᏅᏒ ᏗᎪᏩᏛᏗ ᎠᏂ ᏗᏍᏚᎢᏍᏔᏅ ᏗᎦᏘᏯ. ᎯᎠ ᎠᏍᏚᎲ ᏱᎩ, ᎪᏪᎵ ᎤᏍᏗ ᎯᏐᏅᏍᏔᏅ ᎢᎬᏱ ᎤᏍᏚᎢᏍᏔᏅ ᏓᏍᏚᎲ.",
   "submit-on-enter-description": "ᎤᏍᏚᎢᏍᏔᏅ ᏱᎩ, Enter ᎯᏐᏅᏍᏔᏅ ᎪᏪᎵ ᎤᏍᏗ ᎤᏙᎥ, ᎤᎧᏃᎮᏓ ᎠᎴ ᏅᏩᏓᎴ ᎠᏂ ᏗᏓᏁᏟᏴᏍᏗ ᏓᏍᏆᏂᎪᏓ; Shift+Enter ᎢᏤ ᏗᎪᏪᎵ ᎧᏁᏉᎦ. ᎠᏍᏚᎲ ᏱᎩ, Ctrl/Cmd+Enter ᏓᏍᏆᏂᎪᏓ ᎠᎴ Enter ᎢᏤ ᏗᎪᏪᎵ ᎧᏁᏉᎦ.",
+  "checklist-ding-sound": "ᎠᏰᎵ ᏗᎦᎫᏍᏗ ᎠᏓᎴᏂᏍᎬ ᎣᏍᏓ ᏂᎦᎵᏍᏙᏗᎭ",
+  "checklist-ding-sound-description": "ᎡᎳᏛ ᎣᏍᏓ ᏂᎦᎵᏍᏙᏗᎭ ᎠᏰᎵ ᏗᎦᎫᏍᏗ ᏙᏥᏰᎵᏙᎮᎢ. ᎠᎨᏫ ᎬᏙᏗ ᎥᏝ.",
   "assignee": "ᎠᏥᏁᏤᎸ",
   "assignees": "ᎨᏥᏁᏤᎸ",
   "no-assignee": "ᎥᏝ ᎩᎶ ᏱᏚᏭᏓᎴᏅᏓ",

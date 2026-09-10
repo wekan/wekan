@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Otwieraj wiele kart naraz",
   "open-many-cards-at-once-description": "Każda karta, którą klikniesz, pozostaje otwarta we własnym oknie. Gdy ta opcja je wyłączona, kliknięcie karty zamyka tę, kerŏ była otwarta.",
   "submit-on-enter-description": "Gdy włączone, naciśnięcie Enter zapisuje tytuł karty, ôpis i inne edytory wbudowane; Shift+Enter wstawia nowy wiersz. Gdy wyłączone, Ctrl/Cmd+Enter zapisuje, a Enter wstawia nowy wiersz.",
+  "checklist-ding-sound": "Grej źwynk, kej pozycyjo listy do zaznaczaniŏ je gotowo",
+  "checklist-ding-sound-description": "Grŏ krotki źwynk, kej ôbznaczisz pozycyjo listy do zaznaczaniŏ. Wyłōnczōne wedle dōmyślnego sztalōnku.",
   "assignee": "Ôdpowiedzialny",
   "assignees": "Ôdpowiedzialni",
   "no-assignee": "Bez przipisanygo",

@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Digeriñ meur a gartenn war un dro",
   "open-many-cards-at-once-description": "Pep kartenn a glikit warni a chom digor en he frenestr dezhi. Pa vez lazhet an dibarzh-mañ, klikañ war ur gartenn a serr an hini a oa digor.",
   "submit-on-enter-description": "Pa vez gweredekaet, Enter a enrolla titl ar gartenn, an deskrivadur hag an editerien enlinenn all; Shift+Enter a ouzhpenn ul linenn nevez. Pa vez diweredekaet, Ctrl/Cmd+Enter a enrolla hag Enter a ouzhpenn ul linenn nevez.",
+  "checklist-ding-sound": "Seniñ ur son pa vez echuet un elfenn eus roll gwiriañ",
+  "checklist-ding-sound-description": "Seniñ ur son berr pa vez merket un elfenn eus roll gwiriañ. Diweredekaet dre ziouer.",
   "assignee": "Personne assignée",
   "assignees": "Intervenants",
   "no-assignee": "Nikun resevet",

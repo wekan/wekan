@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "同时打开多张卡片",
   "open-many-cards-at-once-description": "你点击的每张卡片都会在各自的窗口中保持打开。关闭此项时，点击一张卡片会关闭原先打开的那张。",
   "submit-on-enter-description": "开启后，按 Enter 保存卡片标题、描述及其他内嵌编辑器；Shift+Enter 插入新行。关闭后，Ctrl/Cmd+Enter 保存，Enter 插入新行。",
+  "checklist-ding-sound": "勾选清单项目时播放声音",
+  "checklist-ding-sound-description": "勾选清单项目时播放一声短促的叮咚提示音。默认关闭。",
   "assignee": "被指派人",
   "assignees": "指派人",
   "no-assignee": "无指派人",

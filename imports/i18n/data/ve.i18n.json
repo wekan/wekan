@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Vula amakhadi amaningi ngesikhathi esisodwa",
   "open-many-cards-at-once-description": "Ikhadi ngalinye oliqhafazayo lihlala livuliwe kuwindi lalo. Uma lokhu kuvaliwe, ukuqhafaza ikhadi kuvala lelo ebelivuliwe.",
   "submit-on-enter-description": "Musi zwo vulwa, u puṱedza Enter zwi vhulunga ṱhoho ya khennde, ṱhaluso na vhaṅwe vhaṅwaledzi vha nga ngomu; Shift+Enter i engedza mutaladzi muswa. Musi zwo valwa, Ctrl/Cmd+Enter zwi a vhulunga, Enter i engedza mutaladzi muswa.",
+  "checklist-ding-sound": "Tambisa mudzumo musi tshirunwa tsha checklist tsho fhedza",
+  "checklist-ding-sound-description": "I tambisa mudzumo mupfufhi musi na mbo dzhia tshirunwa tsha checklist. Yo dzimiswa nga ndila ya u tou vha.",
   "assignee": "Onikezwayo",
   "assignees": "Ababelwe",
   "no-assignee": "A huna o daho",

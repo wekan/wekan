@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Kortsit arlallit ataatsikkut ammaruk",
   "open-many-cards-at-once-description": "Kortsit toortakkat tamarmik nammineq igalaaminni ammasuutikkit. Atorunnaarsimappat kortsimik toorsineq siornatigut ammasoq matussavaa.",
   "submit-on-enter-description": "Atulersimappat Enter-ip toorneratigut kortsip qulequtaa, nassuiaataa allanngortitsissutillu allat titarnerup iluaniittut toqqorneqassapput; Shift+Enter titarneq nutaaq ilanngutissavaa. Atorunnaarsimappat Ctrl/Cmd+Enter toqqorsissaaq Enter-ilu titarneq nutaaq ilanngutissallugu.",
+  "checklist-ding-sound": "Nipilerit atortikkit checklist-imi allaaserisap naammassinerani",
+  "checklist-ding-sound-description": "Nipi naatsooq atortikkit checklist-imi allaaserineq ilanngussakkut. Aallartitaanera atugassaanngilaq.",
   "assignee": "Akisussaasoq",
   "assignees": "Akisussaasut",
   "no-assignee": "Tunniussisimanngilaq",

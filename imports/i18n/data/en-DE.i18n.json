@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Open many cards at once",
   "open-many-cards-at-once-description": "Keep every card you click open in its own window. When this is off, clicking a card closes the one that was open.",
   "submit-on-enter-description": "When on, pressing Enter saves the card title, description and other inline editors; Shift+Enter inserts a new line. When off, Ctrl/Cmd+Enter saves and Enter inserts a new line.",
+  "checklist-ding-sound": "Play a sound when a checklist item is completed",
+  "checklist-ding-sound-description": "Play a short ding when you check off a checklist item. Off by default.",
   "assignee": "Assignee",
   "assignees": "Assignees",
   "no-assignee": "No assignee",

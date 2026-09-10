@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Bir vaqtning oʻzida bir nechta kartani ochish",
   "open-many-cards-at-once-description": "Siz bosgan har bir karta oʻz oynasida ochiq qoladi. Bu oʻchirilganda, kartani bosish ochiq boʻlgan kartani yopadi.",
   "submit-on-enter-description": "Ёқилганда Enter тугмаси карта сарлавҳаси, тавсифи ва бошқа ички муҳаррирларни сақлайди; Shift+Enter янги қатор қўшади. Ўчирилганда Ctrl/Cmd+Enter сақлайди, Enter эса янги қатор қўшади.",
+  "checklist-ding-sound": "Nazorat ro'yxati bandi tugallanganda tovush chalish",
+  "checklist-ding-sound-description": "Nazorat ro'yxati bandini belgilaganingizda qisqa tovush chalinadi. Sukut bo'yicha o'chirilgan.",
   "assignee": "Tayinlovchi",
   "assignees": "Tayinlovchilar",
   "no-assignee": "Tayinlanmagan",

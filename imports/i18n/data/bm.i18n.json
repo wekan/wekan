@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Karata caman dayɛlɛ tuma kelen",
   "open-many-cards-at-once-description": "Karata o karata min i digira, a to dayɛlɛlen a yɛrɛ fenɛtiri la. Ni nin datugulen don, karata dɔ digi bɛ min tun dayɛlɛlen datugu.",
   "submit-on-enter-description": "Ni a dalen don, Enter digi bɛ karata tɔgɔ, ɲɛfɔli ani sɛbɛnnibaga wɛrɛw mara; Shift+Enter bɛ sira kura don. Ni a datugulen don, Ctrl/Cmd+Enter bɛ mara, Enter bɛ sira kura don.",
+  "checklist-ding-sound": "Kanfa mankan tuma min na checklist fɛn dafara",
+  "checklist-ding-sound-description": "Kanfa mankan surunman tuma min na i bɛ checklist fɛn sɛbɛn. A tɛ baara la ka bɔ a bɔyɔrɔ la.",
   "assignee": "Baarakɛla",
   "assignees": "Baarakɛlaw",
   "no-assignee": "Mɔgɔ si tɛ",

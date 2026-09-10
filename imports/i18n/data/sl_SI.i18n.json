@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Odpri več kartic hkrati",
   "open-many-cards-at-once-description": "Vsaka kartica, ki jo kliknete, ostane odprta v svojem oknu. Ko je to izklopljeno, klik na kartico zapre tisto, ki je bila odprta.",
   "submit-on-enter-description": "Ko je vklopljeno, pritisk na Enter shrani naslov kartice, opis in druge vgrajene urejevalnike; Shift+Enter vstavi novo vrstico. Ko je izklopljeno, Ctrl/Cmd+Enter shrani, Enter pa vstavi novo vrstico.",
+  "checklist-ding-sound": "Predvajaj zvok, ko je element kontrolnega seznama dokončan",
+  "checklist-ding-sound-description": "Predvaja kratek zvok, ko označite element kontrolnega seznama. Privzeto izklopljeno.",
   "assignee": "Dodeljen član",
   "assignees": "Dodeljene osebe",
   "no-assignee": "Brez dodeljenega",

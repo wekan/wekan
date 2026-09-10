@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Abrir vários cartões ao mesmo tempo",
   "open-many-cards-at-once-description": "Cada cartão em que clicar permanece aberto na sua própria janela. Quando esta opção está desativada, clicar num cartão fecha o que estava aberto.",
   "submit-on-enter-description": "Quando ativado, premir Enter guarda o título do cartão, a descrição e outros editores em linha; Shift+Enter insere uma nova linha. Quando desativado, Ctrl/Cmd+Enter guarda e Enter insere uma nova linha.",
+  "checklist-ding-sound": "Reproduzir um som quando um item da lista de verificação for concluído",
+  "checklist-ding-sound-description": "Reproduz um som curto ao marcar um item da lista de verificação. Desativado por padrão.",
   "assignee": "Responsável",
   "assignees": "Administradores",
   "no-assignee": "Sem responsável",

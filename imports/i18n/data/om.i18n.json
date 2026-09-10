@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Kaardiiwwan hedduu yeroo tokkotti bani",
   "open-many-cards-at-once-description": "Kaardii cuqaastu hunda foddaa mataa isaa keessatti banaa tursiisi. Kun yeroo dhaamu, kaardii cuqaasuun isa banamee ture cufa.",
   "submit-on-enter-description": "Yeroo banamu, Enter dhiibuun mata-duree kaardii, ibsa fi gulaaltoota sararaa biroo kuusa; Shift+Enter sarara haaraa galcha. Yeroo dhaamu, Ctrl/Cmd+Enter kuusa; Enter sarara haaraa galcha.",
+  "checklist-ding-sound": "Sagalee taphachiisi yeroo tarreeffamni ilaalchaa xumurame",
+  "checklist-ding-sound-description": "Sagalee gabaabaa taphachiisa yeroo tarreeffama ilaalchaa mallatteessitu. Kan dhaabbii duraan dhaamsame.",
   "assignee": "Kan itti kenname",
   "assignees": "Kanneen itti kennaman",
   "no-assignee": "Namni ramadame hin jiru",

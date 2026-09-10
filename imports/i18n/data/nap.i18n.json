@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Aràpe più carte contemporaneamente",
   "open-many-cards-at-once-description": "Ogni carta su cui fai clic resta aperta in una finestra propria. Quanno chesta opzione è disattivata, fare clic su una carta chiude quella che era aperta.",
   "submit-on-enter-description": "Se attivo, premendo Enter si salvano il tìtulo d' 'a carta, la descrizzione e ate editor in linea; Shift+Enter inserisce una nova riga. Se disattivo, Ctrl/Cmd+Enter sarva ed Enter inserisce una nova riga.",
+  "checklist-ding-sound": "Sunà nu suono quanno n'elemento d''a lista 'e verifica se completa",
+  "checklist-ding-sound-description": "Sunà nu suono curto quanno marche n'elemento d''a lista 'e verifica. Disattivato 'e default.",
   "assignee": "Assignato",
   "assignees": "Assignate",
   "no-assignee": "Nisciuno assignato",

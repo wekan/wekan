@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "ብዙ ካርዶችን በአንድ ጊዜ ክፈት",
   "open-many-cards-at-once-description": "የሚጫኑትን እያንዳንዱን ካርድ በራሱ መስኮት ውስጥ ክፍት ያድርጉ። ይህ ሲጠፋ ካርድ መጫን ክፍት የነበረውን ይዘጋል።",
   "submit-on-enter-description": "ሲበራ Enterን መጫን የካርድ ርዕስን፣ መግለጫንና ሌሎች የውስጥ አርታዒዎችን ያስቀምጣል፤ Shift+Enter አዲስ መስመር ያስገባል። ሲጠፋ Ctrl/Cmd+Enter ያስቀምጣል፣ Enter ደግሞ አዲስ መስመር ያስገባል።",
+  "checklist-ding-sound": "የማጣሪያ ዝርዝር ንጥል ሲጠናቀቅ ድምፅ አጫውት",
+  "checklist-ding-sound-description": "የማጣሪያ ዝርዝር ንጥል ሲያመልክቱ አጭር ድምፅ ያጫውቱ። ነባሪው ጠፍቷል።",
   "assignee": "ኃላፊ",
   "assignees": "ኃላፊዎች",
   "no-assignee": "ተመዳቢ የለም",

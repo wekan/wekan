@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "複数のカードを同時に開く",
   "open-many-cards-at-once-description": "クリックしたカードをそれぞれのウィンドウで開いたままにします。オフのときは、カードをクリックすると開いていたカードが閉じます。",
   "submit-on-enter-description": "オンの場合、Enter を押すとカードのタイトル、説明、その他のインラインエディターが保存され、Shift+Enter で改行します。オフの場合、Ctrl/Cmd+Enter で保存し、Enter で改行します。",
+  "checklist-ding-sound": "チェックリストの項目を完了したときに音を再生する",
+  "checklist-ding-sound-description": "チェックリストの項目にチェックを入れたときに短い「チーン」という音を再生します。デフォルトではオフです。",
   "assignee": "担当者",
   "assignees": "担当者",
   "no-assignee": "担当者なし",

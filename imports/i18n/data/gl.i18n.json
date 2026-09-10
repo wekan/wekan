@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Abrir varios cartóns á vez",
   "open-many-cards-at-once-description": "Cada cartón no que fagas clic queda aberto na súa propia xanela. Cando isto está desactivado, premer nun cartón pecha o que estaba aberto.",
   "submit-on-enter-description": "Cando está activado, premer Enter garda o título da tarxeta, a descrición e outros editores en liña; Shift+Enter insire unha nova liña. Cando está desactivado, Ctrl/Cmd+Enter garda e Enter insire unha nova liña.",
+  "checklist-ding-sound": "Reproducir un son cando se completa un elemento da lista de verificación",
+  "checklist-ding-sound-description": "Reproduce un son curto ao marcar un elemento da lista de verificación. Desactivado por defecto.",
   "assignee": "Responsável",
   "assignees": "Administradores",
   "no-assignee": "Sen asignar",

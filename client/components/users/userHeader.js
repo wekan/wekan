@@ -338,6 +338,10 @@ Template.changeSettingsPopup.helpers({
     const currentUser = ReactiveCache.getCurrentUser();
     return currentUser ? currentUser.hasOpenManyCardsAtOnce() : false;
   },
+  isChecklistDingSound() {
+    const currentUser = ReactiveCache.getCurrentUser();
+    return currentUser ? currentUser.hasChecklistDingSound() : false;
+  },
   rescueCardDescription() {
     const currentUser = ReactiveCache.getCurrentUser();
     if (currentUser) {
@@ -412,6 +416,13 @@ Template.changeSettingsPopup.events({
   'click .js-toggle-open-many-cards-at-once'() {
     if (ReactiveCache.getCurrentUser()) {
       Meteor.call('toggleOpenManyCardsAtOnce');
+    }
+  },
+  // #5427: saved to the user profile (Member Settings only; requires a
+  // logged-in user), like the toggles above it.
+  'click .js-toggle-checklist-ding-sound'() {
+    if (ReactiveCache.getCurrentUser()) {
+      Meteor.call('toggleChecklistDingSound');
     }
   },
   'click .js-rescue-card-description'() {

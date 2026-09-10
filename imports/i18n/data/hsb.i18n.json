@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Wočinić více karet najednou",
   "open-many-cards-at-once-description": "Každá karta, na kterou klikněte, zůztaně otevřená ve vlaztním okně. Když je toto vypnuté, kliknutí na kartu zavře tu, která byla otevřená.",
   "submit-on-enter-description": "Když je zapnuto, ztizknutím Enter uložíte mjeno karty, wopizanje a dalši vložené editory; Shift+Enter vloží nowy řádek. Když je vypnuto, ukládá Ctrl/Cmd+Enter a Enter vloží nowy řádek.",
+  "checklist-ding-sound": "Wotón zynić, hdyž element kontrolneje lisćiny so dokónči",
+  "checklist-ding-sound-description": "Wotwjeduje krótki tón, hdyž element kontrolneje lisćiny woznamjenite. Po standardźe wupinjene.",
   "assignee": "Přepodaty",
   "assignees": "Přepodaći",
   "no-assignee": "Bjez připokazaneho",

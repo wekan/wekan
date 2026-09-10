@@ -250,6 +250,14 @@ template(name="changeSettingsPopup")
         | {{_ 'open-many-cards-at-once'}}
         if isOpenManyCardsAtOnce
           i.fa.fa-check
+    li
+      //- #5427: off by default - a short synthesized "ding" plays when a
+      //- checklist item is checked off.
+      a.js-toggle-checklist-ding-sound(title="{{_ 'checklist-ding-sound-description'}}")
+        i.fa.fa-bell
+        | {{_ 'checklist-ding-sound'}}
+        if isChecklistDingSound
+          i.fa.fa-check
     unless currentUser.isWorker
       li
         label.bold.clear

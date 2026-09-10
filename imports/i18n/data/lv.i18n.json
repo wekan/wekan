@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Atvērt vairākas kartiņas vienlaikus",
   "open-many-cards-at-once-description": "Katra kartiņa, uz kuras noklikšķini, paliek atvērta savā logā. Kad šis ir izslēgts, klikšķis uz kartiņas aizver to, kura bija atvērta.",
   "submit-on-enter-description": "Kad ieslēgts, nospiežot Enter tiek saglabāts kartītes nosaukums, apraksts un citi iegultie redaktori; Shift+Enter ievieto jaunu rindu. Kad izslēgts, Ctrl/Cmd+Enter saglabā, un Enter ievieto jaunu rindu.",
+  "checklist-ding-sound": "Atskaņot skaņu, kad kontrolsaraksta vienums ir pabeigts",
+  "checklist-ding-sound-description": "Atskaņo īsu skaņu, kad atzīmējat kontrolsaraksta vienumu. Pēc noklusējuma izslēgts.",
   "assignee": "Īpašnieks",
   "assignees": "Perėmėjai",
   "no-assignee": "Nav piešķirts",

@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Apri più ciartes contemporaneamente",
   "open-many-cards-at-once-description": "Ogni carta su cui fai clic resta aperta in una finestra propria. Quando questa opzione ie disattivata, fare clic su una carta chiude quella che era aperta.",
   "submit-on-enter-description": "Se activ, premendo Enter si salvano il titul da la carta, la descripziun e altri editor in linea; Shift+Enter inserisce una nuefa riga. Se disactiv, Ctrl/Cmd+Enter salva ed Enter inserisce una nuefa riga.",
+  "checklist-ding-sound": "Sunar in tun cur ch'in element da la glista da controlla vegn cumplettà",
+  "checklist-ding-sound-description": "Sunar in tun curt cur ch'in element da la glista da controlla vegn marcà. Deactivà tenor standard.",
   "assignee": "Incumbensà",
   "assignees": "Incumbensads",
   "no-assignee": "Nagin attribuì",

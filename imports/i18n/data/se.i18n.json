@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Raba máŋga goartta oktanis",
   "open-many-cards-at-once-description": "Doala juohke coahkkalan goartta rabasin iežas láses. Go dát lea eret, goartta coahkkaleapmi gidde ovdal rabas goartta.",
   "submit-on-enter-description": "Go lea alde, Enter vurke goartta namahusa, válddahusa ja eará seamma ráiddus rievdadeaddjiid; Shift+Enter lasiha ođđa ráiddu. Go lea eret, Ctrl/Cmd+Enter vurke ja Enter lasiha ođđa ráiddu.",
+  "checklist-ding-sound": "Čuojat jiena go čađahanlisttu ášši gearggahuvvo",
+  "checklist-ding-sound-description": "Čuojaha oanehis jiena go merket čađahanlisttu ášši. Lea jaddaduvvon standárda mielde.",
   "assignee": "Ovddasvástideaddji",
   "assignees": "Ovddasvástideaddjit",
   "no-assignee": "Ii leat juolluduvvon",

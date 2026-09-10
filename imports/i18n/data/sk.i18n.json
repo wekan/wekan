@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Otvoriť viac kariet naraz",
   "open-many-cards-at-once-description": "Každá karta, na ktorú kliknete, zostane otvorená vo vlastnom okne. Keď je toto vypnuté, kliknutie na kartu zavrie tú, ktorá bola otvorená.",
   "submit-on-enter-description": "Keď je zapnuté, stlačenie Enter uloží názov karty, popis a ďalšie vložené editory; Shift+Enter vloží nový riadok. Keď je vypnuté, Ctrl/Cmd+Enter uloží a Enter vloží nový riadok.",
+  "checklist-ding-sound": "Prehrať zvuk po dokončení položky kontrolného zoznamu",
+  "checklist-ding-sound-description": "Prehrá krátky zvuk pri začiarknutí položky kontrolného zoznamu. V predvolenom nastavení vypnuté.",
   "assignee": "Řešitel",
   "assignees": "Riešitelia",
   "no-assignee": "Bez priradenia",

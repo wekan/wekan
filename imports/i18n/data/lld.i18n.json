@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Apri più ciartes contemporaneamente",
   "open-many-cards-at-once-description": "Ogni ciarta su cui fai clic resta aperta in una finestra propria. Quando questa opzione ie disattivata, fare clic su una ciarta chiude quella che era aperta.",
   "submit-on-enter-description": "Se atif, premendo Enter si salvano il titul dla ciarta, la descrizion y altri editor in linea; Shift+Enter inserisce una nuefa riga. Se disatif, Ctrl/Cmd+Enter salva ed Enter inserisce una nuefa riga.",
+  "checklist-ding-sound": "Sonè n son canche n elemènt dla lista de controll ie completà",
+  "checklist-ding-sound-description": "Sonè n son curt canche te maches n elemènt dla lista de controll. Deactivà de standard.",
   "assignee": "Assegné",
   "assignees": "Assegnés",
   "no-assignee": "Degügn assegné",

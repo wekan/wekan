@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "ብዙሓት ካርድታት ብሓንሳብ ክፈት",
   "open-many-cards-at-once-description": "ኵለን እትጥውቐን ካርድታት ነናተን መስኮት ክፉት ይጽናሕ። እዚ ምስ ዝጠፍእ፣ ካርድ ምጥዋቕ ነታ ክፍትቲ ዝነበረት ይዓጽዋ።",
   "submit-on-enter-description": "ምስ ዝኽእል፣ Enter ምጽቃጥ ኣርእስቲ ካርድ፣ መግለጺን ካልኦት ኣርታዕቲን ይዕቅብ፤ Shift+Enter ሓድሽ መስመር የእቱ። ምስ ዝጠፍእ፣ Ctrl/Cmd+Enter ይዕቅብ፣ Enter ሓድሽ መስመር የእቱ።",
+  "checklist-ding-sound": "ናይ ቸክሊስት ንጥረ ነገር እንተ ተወዲኡ ድምጺ ኣስምዕ",
+  "checklist-ding-sound-description": "ንጥረ ነገር ቸክሊስት ኣብ እትምልከተሉ ግዜ ሓጺር ድምጺ የስምዕ። ብዘይ ምንቅስቓስ ጠፊኡ ኣሎ።",
   "assignee": "ሓላፍ",
   "assignees": "ሓለፍቲ",
   "no-assignee": "ዘይተመደበ",

@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Vierç più cjartis contemporisneamente",
   "open-many-cards-at-once-description": "Ogni cjarte su cui fai clic resta aperta in una finstra propria. Quando cheste opzione è disattivata, fare clic su una cjarte chiude quella che era aperta.",
   "submit-on-enter-description": "Se atîf, premendo Enter si salveno il titul de cjarte, la descrizion e altri editor in linea; Shift+Enter inserisce una gnove riga. Se disatîf, Ctrl/Cmd+Enter salve ed Enter inserisce una gnove riga.",
+  "checklist-ding-sound": "Sune un sun cuant che un element de liste di control al ven completât",
+  "checklist-ding-sound-description": "Sune un sun curt cuant che tu marchis un element de liste di control. Disativât in maniere predefinide.",
   "assignee": "Assegnât",
   "assignees": "Assegnâts",
   "no-assignee": "Nissun assegnât",

@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Buka banyak kartu sekaligus",
   "open-many-cards-at-once-description": "Setiap kartu yang Anda klik tetap terbuka di jendelanya sendiri. Bila ini dimatikan, mengeklik kartu akan menutup kartu yang sedang terbuka.",
   "submit-on-enter-description": "Watèe hidup, teugom Enter geupeusimpan judul kartu, deskripsi ngon editor inline laén; Shift+Enter geutamah baréh barô. Watèe mati, Ctrl/Cmd+Enter geupeusimpan dan Enter geutamah baréh barô.",
+  "checklist-ding-sound": "Puta su watee sinaroe checklist geuseuleusoe",
+  "checklist-ding-sound-description": "Puta su watee peuek ban meuseuleusoe (checklist). Meupateun bak sikureueng.",
   "assignee": "Penerima tugas",
   "assignees": "Penerima tugas",
   "no-assignee": "Hana nyang geutanyong",

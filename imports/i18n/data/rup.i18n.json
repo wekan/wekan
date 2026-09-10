@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Dishcljide mai multe carduri simultan",
   "open-many-cards-at-once-description": "Fiecare cartelã pe care faci clic rãmâne deschis ãn propria fereastrã. Când aceastã optsiune este dezactivatã, un clic pe un cartelã ãl ãnchide pe cel care era deschis.",
   "submit-on-enter-description": "Când este activat, apãsarea Enter salveazã titlul cardului, descrierea shi alte editoare inline; Shift+Enter insereazã o linie nouã. Când este dezactivat, Ctrl/Cmd+Enter salveazã, iar Enter insereazã o linie nouã.",
+  "checklist-ding-sound": "Cântă un son cându un elementu di lista di verificari s-bitiseashti",
+  "checklist-ding-sound-description": "Cântă un son shcurtu cându marchedz un elementu di lista di verificari. Dizactivat di-aradă.",
   "assignee": "Responsabil",
   "assignees": "Responsabilj",
   "no-assignee": "Fara atribuiri",

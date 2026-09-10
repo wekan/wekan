@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Åbn flere kort på én gang",
   "open-many-cards-at-once-description": "Hvert kort du klikker på, forbliver åbent i sit eget vindue. Når dette er slået fra, lukker et klik på et kort det kort, der var åbent.",
   "submit-on-enter-description": "Når slået til gemmer et tryk på Enter kortets titel, beskrivelse og andre indbyggede editorer; Shift+Enter indsætter en ny linje. Når slået fra gemmer Ctrl/Cmd+Enter, og Enter indsætter en ny linje.",
+  "checklist-ding-sound": "Afspil en lyd, når et tjekliste-element markeres som udført",
+  "checklist-ding-sound-description": "Afspil en kort klokkelyd, når du markerer et tjeklisteelement. Slået fra som standard.",
   "assignee": "Tildelt til",
   "assignees": "Tilldelade",
   "no-assignee": "Ingen tildelt",

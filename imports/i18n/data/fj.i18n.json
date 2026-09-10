@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Dolava e levu na kadi ena dua ga na gauna",
   "open-many-cards-at-once-description": "Maroroya me dola na kadi yadua o kiliki kina ena kena katubaleka. Ni boko oqo, na kiliki ena dua na kadi e sogota na kena a dola.",
   "submit-on-enter-description": "Ni waqa, na tabaki ni Enter e maroroya na ulutaga ni kadi, ivakamacala kei na dauveisau tale eso ena laini; Shift+Enter e vakacuruma e dua na laini vou. Ni boko, Ctrl/Cmd+Enter e maroroya ka Enter e vakacuruma e dua na laini vou.",
+  "checklist-ding-sound": "Vakayagataka na domo ni sa vakaoti na iulutaga ni checklist",
+  "checklist-ding-sound-description": "Vakayagataka e dua na domo lekaleka ni o sa vakadinadinataka na iulutaga ni checklist. E sega ni vakayagataki ena imatai ni ivakarau.",
   "assignee": "E lesi kina",
   "assignees": "O ira era lesi kina",
   "no-assignee": "Sega ni digitaki",

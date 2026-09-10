@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Openem many ol kad long once",
   "open-many-cards-at-once-description": "Keep every kad you klik openem insaed long its own window. Taem dispela i off, clicking wan kad closes one hemia i bin openem.",
   "submit-on-enter-description": "Taem long, pressing Enter saves kad taetol, diskripsen mo nara inline editors; Shift+Enter inserts wan niu line. Taem off, Ctrl/Cmd+Enter saves mo Enter inserts wan niu line.",
+  "checklist-ding-sound": "Plei wan saon taem wan cheklis samting i pinis",
+  "checklist-ding-sound-description": "Plei wan sotfala saon taem yu makem wan cheklis samting. I stap of finis wetem stat.",
   "assignee": "Man we i gat wok",
   "assignees": "Ol man we i gat wok",
   "no-assignee": "No asaen i no gat",

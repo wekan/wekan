@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Habri barias karchinan na e bez",
   "open-many-cards-at-once-description": "Kada karchi den e ku hagas clic permanese abierta den su propia bentana. Cuando esto ta desactibado, haser clic den un karchi sierra e ku estaba abierta.",
   "submit-on-enter-description": "Cuando ta actibado, presionar Enter guarda e título di e karchi, e deskripshon i otros editores den línea; Shift+Enter inserta un nobo línea. Cuando ta desactibado, Ctrl/Cmd+Enter guarda i Enter inserta un nobo línea.",
+  "checklist-ding-sound": "Toka un zonido ora un item di checklist ta kompletá",
+  "checklist-ding-sound-description": "Ta toka un zonido kortiku ora bo marka un item di checklist. Apagá pa default.",
   "assignee": "Enkargá",
   "assignees": "Enkargánan",
   "no-assignee": "Sin asigná",

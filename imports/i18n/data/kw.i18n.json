@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Ygeri lies karten war unnweyth",
   "open-many-cards-at-once-description": "Gwitha pub karten a glyckydh ygor yn y fenester y honan. Pan yw hemma marow, klyckya karten a dheg an hini o ygor.",
   "submit-on-enter-description": "Pan yw byw, gwaska Enter a with titel an garten, deskrifans ha chanjyoryon yn-linenn erel; Shift+Enter a orra linenn nowydh. Pan yw marow, Ctrl/Cmd+Enter a with hag Enter a orra linenn nowydh.",
+  "checklist-ding-sound": "Gwari son pan yw elven checklist collenwys",
+  "checklist-ding-sound-description": "Gwari son cot pan verkyugh elven checklist. Diwedhrys dre dhefowt.",
   "assignee": "Apoyntys",
   "assignees": "Apoyntysi",
   "no-assignee": "Nagen ennodhys",

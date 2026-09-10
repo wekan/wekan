@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Vula amakhadi amaningi ngesikhathi esisodwa",
   "open-many-cards-at-once-description": "Ikhadi ngalinye oliqhafazayo lihlala livuliwe kuwindi lalo. Uma lokhu kuvaliwe, ukuqhafaza ikhadi kuvala lelo ebelivuliwe.",
   "submit-on-enter-description": "Xa ivuliwe, ukucofa u-Enter kugcina isihloko sekhadi, inkcazo kunye nabanye abahleli abangaphakathi; Shift+Enter ifaka umgca omtsha. Xa icimile, Ctrl/Cmd+Enter iyagcina kwaye u-Enter ufaka umgca omtsha.",
+  "checklist-ding-sound": "Dlala isandi xa into ye-checklist igqityiwe",
+  "checklist-ding-sound-description": "Idlala isandi esifutshane xa uphawula into ye-checklist. Ivaliwe ngokungagqibekanga.",
   "assignee": "Owabelweyo",
   "assignees": "Abathunyiweyo",
   "no-assignee": "Akukho mnikiweyo",

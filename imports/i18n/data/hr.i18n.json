@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Otvori više kartica odjednom",
   "open-many-cards-at-once-description": "Svaka kartica na koju kliknete ostaje otvorena u vlastitom prozoru. Kada je ovo isključeno, klik na karticu zatvara onu koja je bila otvorena.",
   "submit-on-enter-description": "Kada je uključeno, pritisak na Enter sprema naslov kartice, opis i druge umetnute uređivače; Shift+Enter umeće novi redak. Kada je isključeno, Ctrl/Cmd+Enter sprema, a Enter umeće novi redak.",
+  "checklist-ding-sound": "Reproduciraj zvuk kada se stavka popisa provjere dovrši",
+  "checklist-ding-sound-description": "Reproducira kratak zvuk kada označite stavku popisa provjere. Prema zadanim postavkama isključeno.",
   "assignee": "Пуномоћник",
   "assignees": "Nositelji",
   "no-assignee": "Bez zaduženog",

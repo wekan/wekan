@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Bula dikarata tše dintši ka nako e tee",
   "open-many-cards-at-once-description": "Boloka karata ye nngwe le ye nngwe ye o e kgotlago e butšwe lefasetereng la yona. Ge se se timilwe, go kgotla karata go tswalela ye e bego e butšwe.",
   "submit-on-enter-description": "Ge se buletšwe, go gatelela Enter go boloka sehlogo sa karata, tlhaloso le barulaganyi ba bangwe ba mothalading; Shift+Enter e tsenya mothalo wo moswa. Ge se timilwe, Ctrl/Cmd+Enter e a boloka gomme Enter e tsenya mothalo wo moswa.",
+  "checklist-ding-sound": "Bapala modumo ge selo sa lenaneo la tlhahlobo se feditšwe",
+  "checklist-ding-sound-description": "E bapala modumo o mokopana ge o tshwaya selo sa lenaneo la tlhahlobo. E timilwe ka tlhago.",
   "assignee": "Yo a filwego mošomo",
   "assignees": "Bao ba filwego mošomo",
   "no-assignee": "Ga go na yo a abetšwego",

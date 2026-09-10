@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Öppna flera kort samtidigt",
   "open-many-cards-at-once-description": "Varje kort du klickar på förblir öppet i ett eget fönster. När det här är av stänger ett klick på ett kort det kort som var öppet.",
   "submit-on-enter-description": "När det är på sparar Enter kortets titel, beskrivning och andra inbäddade redigerare; Shift+Enter infogar en ny rad. När det är av sparar Ctrl/Cmd+Enter och Enter infogar en ny rad.",
+  "checklist-ding-sound": "Spela upp ett ljud när en checklisteobjekt slutförs",
+  "checklist-ding-sound-description": "Spelar upp ett kort pling-ljud när du bockar av ett checklisteobjekt. Avstängt som standard.",
   "assignee": "Tilldelad till",
   "assignees": "Tilldelade",
   "no-assignee": "Ingen tilldelad",

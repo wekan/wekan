@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Malfermi multajn kartojn samtempe",
   "open-many-cards-at-once-description": "Ĉiu karto, kiun vi alklakas, restas malfermita en propra fenestro. Kiam tio estas malŝaltita, alklaki karton fermas tiun, kiu estis malfermita.",
   "submit-on-enter-description": "Ven pö, klidam Enter savon karta-titoli, beskribi e redakömapaodis votik in lien; Shift+Enter läükon lini nulik. Ven öf, Ctrl/Cmd+Enter savon e Enter läükon lini nulik.",
+  "checklist-ding-sound": "Plänetön sona ka pod pukäli tefü binön",
+  "checklist-ding-sound-description": "Sonon nem tönik gletik ka val pukäli e pukläyön. Padöl no.",
   "assignee": "Intervenant",
   "assignees": "Intervenants",
   "no-assignee": "No zesüton",

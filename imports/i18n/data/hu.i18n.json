@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Több kártya megnyitása egyszerre",
   "open-many-cards-at-once-description": "Minden kártya, amelyre rákattint, saját ablakban marad nyitva. Ha ez ki van kapcsolva, egy kártyára kattintva bezárul az, amelyik nyitva volt.",
   "submit-on-enter-description": "Bekapcsolva az Enter lenyomása menti a kártya címét, leírását és más beágyazott szerkesztőket; a Shift+Enter új sort szúr be. Kikapcsolva a Ctrl/Cmd+Enter ment, az Enter pedig új sort szúr be.",
+  "checklist-ding-sound": "Hang lejátszása, ha egy ellenőrzőlista-elem befejeződik",
+  "checklist-ding-sound-description": "Rövid csengőhangot játszik le, amikor bejelölsz egy ellenőrzőlista-elemet. Alapértelmezés szerint kikapcsolva.",
   "assignee": "Felelős",
   "assignees": "Felelősök",
   "no-assignee": "Nincs felelős",

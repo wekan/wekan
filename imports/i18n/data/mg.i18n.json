@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Sokafy miaraka ny karatra maro",
   "open-many-cards-at-once-description": "Tazomy hisokatra amin'ny varavarankeliny manokana ny karatra rehetra kitihinao. Rehefa maty izany, ny fanindriana karatra dia manakatona ilay nisokatra.",
   "submit-on-enter-description": "Rehefa mandeha, ny fanindriana Enter dia mitahiry ny lohatenin'ny karatra, famaritana ary mpanova anaty andalana hafa; Shift+Enter mampiditra andalana vaovao. Rehefa maty, Ctrl/Cmd+Enter no mitahiry ary Enter mampiditra andalana vaovao.",
+  "checklist-ding-sound": "Alefaso ny feo rehefa vita ny singa iray amin'ny checklist",
+  "checklist-ding-sound-description": "Mamerina feo fohy rehefa mametaka marika amin'ny singa checklist iray. Maty amin'ny fomba tsy miova.",
   "assignee": "Voatendry",
   "assignees": "Voatendry",
   "no-assignee": "Tsy misy voatendry",

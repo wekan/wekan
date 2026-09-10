@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Bue many kaads wɔ once",
   "open-many-cards-at-once-description": "Keep every kaad wo click open wɔ its own window. When eyi is off, clicking a kaad closes no one that was open.",
   "submit-on-enter-description": "When on, pressing Enter saves no kaad ti asɛm, nkyerɛmu ne onor inline editanaas; Shift+Enter inserts a new line. When off, Ctrl/Cmd+Enter saves ne Enter inserts a new line.",
+  "checklist-ding-sound": "Bɔ nnyigyeɛ bere a wɔawie checklist adeɛ bi",
+  "checklist-ding-sound-description": "Bɔ nnyigyeɛ tiaa bi berɛ a woahyɛ checklist adeɛ bi nsɛnkyerɛnneɛ. Ɛnnyɛ adeɛ a wɔasi hɔ.",
   "assignee": "Nea wɔde adwuma ama no",
   "assignees": "Wɔn a wɔde adwuma ama wɔn",
   "no-assignee": "Obiara nnyɛ",

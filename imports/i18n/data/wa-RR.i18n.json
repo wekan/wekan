@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Drovi sacwants cwårdjeas d’ on côp",
   "open-many-cards-at-once-description": "Tchaeke cwårdjea ki vos clitchîz dmeure drovou dins si prôpe finiesse. Cwand c’ est distinde, clitchî so on cwårdjea sere li ci ki esteut drovou.",
   "submit-on-enter-description": "Kon nakabuhat, an pagpindot han Enter nagtitipig han titulo han karta, deskripsyon ngan iba nga inline nga editor; Shift+Enter nagdudugang hin bag-o nga linya. Kon nakapatay, Ctrl/Cmd+Enter an nagtitipig ngan Enter nagdudugang hin bag-o nga linya.",
+  "checklist-ding-sound": "Djouwer on son cwand èn elemint del djivêye di contrôle est fini",
+  "checklist-ding-sound-description": "Djouwe on ptit son cwand vos apontyîz on elemint del djivêye di contrôle. Distindou pa dfaut.",
   "assignee": "Gin-asignaran",
   "assignees": "Mga Gin-asignaran",
   "no-assignee": "Nouk assiné",

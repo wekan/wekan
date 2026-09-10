@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Apri più schede contemporaneamente",
   "open-many-cards-at-once-description": "Ogni scheda su cui fai clic resta aperta in una finestra propria. Quando questa opzione è disattivata, fare clic su una scheda chiude quella che era aperta.",
   "submit-on-enter-description": "Se attivo, premendo Enter si salvano il titolo della scheda, la descrizione e altri editor in linea; Shift+Enter inserisce una nuova riga. Se disattivo, Ctrl/Cmd+Enter salva ed Enter inserisce una nuova riga.",
+  "checklist-ding-sound": "Riproduci un suono quando un elemento della lista di controllo viene completato",
+  "checklist-ding-sound-description": "Riproduce un breve suono quando selezioni un elemento della lista di controllo. Disattivato per impostazione predefinita.",
   "assignee": "Assegnatario",
   "assignees": "Assegnatari",
   "no-assignee": "Nessun assegnatario",

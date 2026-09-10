@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Apri più schede contemporaneamente",
   "open-many-cards-at-once-description": "Ogni scheda su cui fai clic resta aperta in una finestra propria. Quando questa opzione è disattivata, fare clic su una scheda chiude quella che era aperta.",
   "submit-on-enter-description": "Co l'è tacà, schissar Enter salva el titolo de la carta, la descrizion e altri editor in linea; Shift+Enter zonta na riga nova. Co l'è distacà, Ctrl/Cmd+Enter salva e Enter zonta na riga nova.",
+  "checklist-ding-sound": "Tambisa mudzumo musi tshirunwa tsha checklist tsho fhedza",
+  "checklist-ding-sound-description": "I tambisa mudzumo mupfufhi musi na mbo dzhia tshirunwa tsha checklist. Yo dzimiswa nga ndila ya u tou vha.",
   "assignee": "Assegnatario",
   "assignees": "Asegnatari",
   "no-assignee": "A huna o daho",

@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Latine: Aperi many schedae at semel",
   "open-many-cards-at-once-description": "Latine: Keep omnis scheda tu click aperi in its own window. Quando hoc est abest, clicking a scheda closes the one illud erat aperi.",
   "submit-on-enter-description": "Latine: Quando adest, pressing Enter saves the scheda titulus, descriptio et aliud inline editors; Shift+Enter inserts a novum line. Quando abest, Ctrl/Cmd+Enter saves et Enter inserts a novum line.",
+  "checklist-ding-sound": "Sonum reproduce cum elementum indicis inspectionis perficitur",
+  "checklist-ding-sound-description": "Sonum brevem reproducit cum elementum indicis inspectionis notas. Per defectum inactivum.",
   "assignee": "Delegatus",
   "assignees": "Delegati",
   "no-assignee": "Nemo assignatus",

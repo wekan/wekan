@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Bula dintsi dikarata kwa gangwe",
   "open-many-cards-at-once-description": "Keep nngwe le nngwe karata wena tobetsa bula mo ya sona own letlhabaphefo. Fa eno ke timilwe, clicking e karata closes nngwe seo e ne e bula.",
   "submit-on-enter-description": "Fa mo, pressing Tsenya saves karata setlhogo, tlhaloso le nngwe inline editors; Shift+Tsenya inserts e ntšhwa mola. Fa timilwe, Ctrl/Cmd+Tsenya saves le Tsenya inserts e ntšhwa mola.",
+  "checklist-ding-sound": "Tshameka modumo fa ntlha ya lenaane la tlhomamiso e fedile",
+  "checklist-ding-sound-description": "E tshameka modumo o mokhutshwane fa o tshwaya ntlha ya lenaane la tlhomamiso. E timeditswe ka tlhago.",
   "assignee": "Yo o neetsweng tiro",
   "assignees": "Ba ba neetsweng tiro",
   "no-assignee": "Ga go na yo o abelweng",

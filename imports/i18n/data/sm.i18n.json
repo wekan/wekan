@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Tatala pepa e tele i le taimi e tasi",
   "open-many-cards-at-once-description": "Ia tatala pea pepa taitasi e te kilikiina i lona lava faamalama. Pe a tape lenei filifiliga, o le kilikiina o se pepa e tapunia ai le pepa sa tatala.",
   "submit-on-enter-description": "Pe a ola, o le oomiina o le Enter e sefe ai le ulutala o le pepa, faamatalaga ma isi faatonu i totonu; Shift+Enter e faaofi ai se laina fou. Pe a tape, Ctrl/Cmd+Enter e sefe ai ae o le Enter e faaofi ai se laina fou.",
+  "checklist-ding-sound": "Ta'alo se leo pe a maea se mea checklist",
+  "checklist-ding-sound-description": "Ta'alo se leo puupuu pe a e tuu se faailoga i se mea checklist. Ua tapeina i le fa'avae muamua.",
   "assignee": "Ua tofia",
   "assignees": "E tofia i ai",
   "no-assignee": "E leai se tofia",

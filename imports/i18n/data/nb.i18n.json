@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Åpne flere kort samtidig",
   "open-many-cards-at-once-description": "Hvert kort du klikker på forblir åpent i sitt eget vindu. Når dette er av, lukker et klikk på et kort det kortet som var åpent.",
   "submit-on-enter-description": "Når på lagrer Enter kortets tittel, beskrivelse og andre innebygde redigeringsfelt; Shift+Enter setter inn en ny linje. Når av lagrer Ctrl/Cmd+Enter, og Enter setter inn en ny linje.",
+  "checklist-ding-sound": "Spill av en lyd når et sjekkliste-element fullføres",
+  "checklist-ding-sound-description": "Spiller av en kort ding-lyd når du haker av et sjekklisteelement. Skrudd av som standard.",
   "assignee": "Tildelt",
   "assignees": "Tildelte",
   "no-assignee": "Ingen tildelt",

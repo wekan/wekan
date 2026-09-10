@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Opna mörg spjöld í einu",
   "open-many-cards-at-once-description": "Haltu hverju spjaldi sem þú smellir á opnu í eigin glugga. Þegar slökkt er á þessu lokar smellur á spjald því sem var opið.",
   "submit-on-enter-description": "Þegar virkt vistar Enter heiti spjalds, lýsingu og aðra innbyggða ritla; Shift+Enter setur inn nýja línu. Þegar óvirkt vistar Ctrl/Cmd+Enter og Enter setur inn nýja línu.",
+  "checklist-ding-sound": "Spila hljóð þegar verkefni í gátlista er lokið",
+  "checklist-ding-sound-description": "Spilar stutt hljóð þegar þú hakar við atriði í gátlista. Slökkt sjálfgefið.",
   "assignee": "Ábyrgðaraðili",
   "assignees": "Ábyrgðaraðilar",
   "no-assignee": "Enginn tilnefndur",

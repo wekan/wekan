@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "هڪ ئي وقت گهڻا ڪارڊ کوليو",
   "open-many-cards-at-once-description": "ڪلڪ ڪيل هر ڪارڊ کي پنهنجي الڳ دريءَ ۾ کليل رکو. هي بند هجي ته ڪارڊ تي ڪلڪ ڪرڻ سان اڳ کليل ڪارڊ بند ٿيندو.",
   "submit-on-enter-description": "فعال هئڻ تي Enter دٻائڻ سان ڪارڊ عنوان، وضاحت ۽ ٻيا قطار اندر سنواريندڙ محفوظ ٿيندا؛ Shift+Enter نئين قطار وجهندو. بند هئڻ تي Ctrl/Cmd+Enter محفوظ ڪندو ۽ Enter نئين قطار وجهندو.",
+  "checklist-ding-sound": "چيڪ لسٽ آئٽم مڪمل ٿيڻ تي آواز وڄايو",
+  "checklist-ding-sound-description": "چيڪ لسٽ آئٽم چيڪ ڪرڻ تي مختصر آواز وڄائي ٿو. ڊفالٽ طور بند آهي.",
   "assignee": "ذميوار",
   "assignees": "ذميوار",
   "no-assignee": "ڪوبه مقرر ٿيل نه آهي",

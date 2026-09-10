@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Opim many ol kat long once",
   "open-many-cards-at-once-description": "Keep every kat yu click opim in its own window. When dispela is off, clicking wanpela kat closes one that was opim.",
   "submit-on-enter-description": "When on, pressing Enter saves kat nem, toksave na other inline editors; Shift+Enter inserts wanpela nupela line. When off, Ctrl/Cmd+Enter saves na Enter inserts wanpela nupela line.",
+  "checklist-ding-sound": "Pilai wanpela nois taim wanpela samting long checklist i pinis",
+  "checklist-ding-sound-description": "Pilai sotpela nois taim yu makim wanpela samting long checklist. I stap ofsait long stat.",
   "assignee": "Man i gat wok",
   "assignees": "Ol man i gat wok",
   "no-assignee": "I no gat man i asainim",

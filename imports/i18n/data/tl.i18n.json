@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Buksan many kards sa minsan",
   "open-many-cards-at-once-description": "Keep bawat kard ikaw click buksan sa its own window. Kapag ito ay naka-off, clicking a kard closes the one iyon ay buksan.",
   "submit-on-enter-description": "Kapag sa, pressing Ilagay saves the kard pamagat, paglalarawan at iba inline editors; Shift+Ilagay inserts a bago line. Kapag naka-off, Ctrl/Cmd+Ilagay saves at Ilagay inserts a bago line.",
+  "checklist-ding-sound": "Magpatugtog ng tunog kapag nakumpleto ang isang checklist item",
+  "checklist-ding-sound-description": "Nagpapatugtog ng maikling tunog kapag nilagyan mo ng tsek ang isang checklist item. Naka-off bilang default.",
   "assignee": "Nakatalaga",
   "assignees": "Mga nakatalaga",
   "no-assignee": "Walang naitalaga",

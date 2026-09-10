@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Mehrere Karten gleichzeitig öffnen",
   "open-many-cards-at-once-description": "Jede Karte, die Sie anklicken, bleibt in einem eigenen Fenster geöffnet. Ist dies ausgeschaltet, schließt ein Klick auf eine Karte die zuvor geöffnete.",
   "submit-on-enter-description": "chu'lu'DI', Enter yImuvDI' card pong, QIj je latlh ghItlhwI'mey polbe'lu'; Shift+Enter chu' tlhegh chellu'. chu'be'lu'DI', Ctrl/Cmd+Enter pollu' 'ej Enter chu' tlhegh chellu'.",
+  "checklist-ding-sound": "checklist Doch chav DaH ghogh chu'",
+  "checklist-ding-sound-description": "checklist Doch DaqIp DaH mach ghogh wa' poH. wa'DIch ghogh Qotlh.",
   "assignee": "Zugewiesen",
   "assignees": "Intervenants",
   "no-assignee": "pagh nobwI'",

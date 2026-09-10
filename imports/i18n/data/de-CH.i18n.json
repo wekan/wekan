@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Mehrere Karten gleichzeitig öffnen",
   "open-many-cards-at-once-description": "Jede Karte, die Sie anklicken, bleibt in einem eigenen Fenster geöffnet. Ist dies ausgeschaltet, schliesst ein Klick auf eine Karte die zuvor geöffnete.",
   "submit-on-enter-description": "Wenn aktiviert, speichert das Drücken von Enter den Kartentitel, die Beschreibung und andere Inline-Editoren; Shift+Enter fügt eine neue Zeile ein. Wenn deaktiviert, speichert Ctrl/Cmd+Enter und Enter fügt eine neue Zeile ein.",
+  "checklist-ding-sound": "Einen Ton abspielen, wenn ein Checklistenelement erledigt wird",
+  "checklist-ding-sound-description": "Spielt einen kurzen Ton ab, wenn ein Checklistenelement abgehakt wird. Standardmäßig deaktiviert.",
   "assignee": "Zugewiesen",
   "assignees": "Zugewiesene",
   "no-assignee": "Kein Zuständiger",

@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Xiquintlapo miyac amatlapaltin san ce cahuitl",
   "open-many-cards-at-once-description": "Xiquincahua tlapoh mochi amatlapaltin tlen tictoca, sesen ipan ixventana. Ihcuac inin motzacua, ce amatlapalli tocayotl quitzacua in tlen tlapoh ocatca.",
   "submit-on-enter-description": "Ihcuac motlapoa, Enter quipia amatlapalli itocayo, itlahtol ihuan occequintin tlahtolpatlanih; Shift+Enter quicaquitia yancuic pantli. Ihcuac motzacua, Ctrl/Cmd+Enter quipia ihuan Enter quicaquitia yancuic pantli.",
+  "checklist-ding-sound": "Xitzotzona tlacaquiztli ihcuac checklist tlamantli tlamiya",
+  "checklist-ding-sound-description": "Quitzotzona ce tlacaquiztli tepitzin ihcuac ticmachiotia ce checklist tlamantli. Cehcentetl amo tlatzacuilia.",
   "assignee": "Tlanahuatilli",
   "assignees": "Tlanahuatiltin",
   "no-assignee": "Ayak akin motlanahuatilia",

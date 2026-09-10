@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Ouvrir plusieurs cartes à la fois",
   "open-many-cards-at-once-description": "Chaque carte sur laquelle vous cliquez reste ouverte dans sa propre fenêtre. Lorsque cette option est désactivée, cliquer sur une carte ferme celle qui était ouverte.",
   "submit-on-enter-description": "Bu doon dox, bësal Enter dana denc tur wu kart bi, melokaan mi ak yeneen bindkat yu nekk ci biir; Shift+Enter dana yokk benn liñ bu bees. Bu doon dee, Ctrl/Cmd+Enter dana denc te Enter dana yokk benn liñ bu bees.",
+  "checklist-ding-sound": "Fecci baat bu am bu sa checklist matoon",
+  "checklist-ding-sound-description": "Dafay fecci baat bu gàtt bu nga defe marque ci checklist. Mu tëdd ci njëkk bi.",
   "assignee": "Personne assignée",
   "assignees": "Intervenants",
   "no-assignee": "Amul ku ko dénk",

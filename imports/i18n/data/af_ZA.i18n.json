@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Maak baie kaarte gelyktydig oop",
   "open-many-cards-at-once-description": "Elke kaart waarop jy klik bly oop in sy eie venster. Wanneer dit af is, sluit ’n klik op ’n kaart die een wat oop was.",
   "submit-on-enter-description": "Wanneer aan, stoor Enter die kaart se titel, beskrywing en ander inlynredigeerders; Shift+Enter voeg 'n nuwe reël in. Wanneer af, stoor Ctrl/Cmd+Enter en voeg Enter 'n nuwe reël in.",
+  "checklist-ding-sound": "Speel 'n klank wanneer 'n kontrolelys-item voltooi word",
+  "checklist-ding-sound-description": "Speel 'n kort klokkie wanneer jy 'n kontrolelysitem afmerk. Standaard af.",
   "assignee": "Gevolmagtigde",
   "assignees": "Toegewers",
   "no-assignee": "Geen toegewese persoon nie",

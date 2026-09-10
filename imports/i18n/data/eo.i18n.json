@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Malfermi multajn kartojn samtempe",
   "open-many-cards-at-once-description": "Ĉiu karto, kiun vi alklakas, restas malfermita en propra fenestro. Kiam tio estas malŝaltita, alklaki karton fermas tiun, kiu estis malfermita.",
   "submit-on-enter-description": "Kiam ŝaltita, premo de Enter konservas la titolon de la karto, la priskribon kaj aliajn enliniajn redaktilojn; Shift+Enter enmetas novan linion. Kiam malŝaltita, Ctrl/Cmd+Enter konservas kaj Enter enmetas novan linion.",
+  "checklist-ding-sound": "Ludi sonon kiam kontrollista ero estas kompletigita",
+  "checklist-ding-sound-description": "Ludi mallongan sonon kiam vi marku kontrollistan eron. Malŝaltita defaŭlte.",
   "assignee": "Asignado",
   "assignees": "Intervenants",
   "no-assignee": "Neniu asignito",

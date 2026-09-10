@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Fosley ymmodee kaartyn ec y traa cheddin",
   "open-many-cards-at-once-description": "Freill dagh kaart broggit ayd foshlit ayns e uinnag hene. Tra ta shoh jeant ass, ta broogh er kaart dooiney yn kaart va foshlit.",
   "submit-on-enter-description": "Tra t'eh er, ta broogh Enter sauail ennym y kaart, coontey as reagheyderyn linney elley; ta Shift+Enter cur linney noa stiagh. Tra t'eh jeant ass, ta Ctrl/Cmd+Enter sauail as Enter cur linney noa stiagh.",
+  "checklist-ding-sound": "Cloie sheean tra ta reih-lettyrn checklist jeant",
+  "checklist-ding-sound-description": "Cloie sheean giare tra t'ou cur cross er reih-lettyr checklist. Ass jeh liorish daanjys.",
   "assignee": "Currit da",
   "assignees": "Currit daue",
   "no-assignee": "Gyn eiyrtys",

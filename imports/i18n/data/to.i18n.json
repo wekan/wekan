@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Faka-Tonga: fakaava many kaati at once",
   "open-many-cards-at-once-description": "Faka-Tonga: Keep every kaati you click fakaava in its own window. When this is off, clicking a kaati closes the one that was fakaava.",
   "submit-on-enter-description": "Faka-Tonga: When on, pressing Enter saves the kaati title, fakamatala and other inline editors; Shift+Enter inserts a new line. When off, Ctrl/Cmd+Enter saves and Enter inserts a new line.",
+  "checklist-ding-sound": "Fakatangi ha leʻo ʻi he taimi ʻoku fakaʻosi ai ha fāsili checklist",
+  "checklist-ding-sound-description": "ʻOku fakatangi ha leʻo nounou ʻi hoʻo fakaʻilongaʻi ha fāsili checklist. Kuo tāmateʻi ʻi he founga makehe.",
   "assignee": "Kuo tuku ki ai",
   "assignees": "Kuo tuku ki ai",
   "no-assignee": "ʻOku ʻikai ha tokotaha kuo vahe",

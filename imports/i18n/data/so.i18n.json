@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Fur kaarar badan hal mar",
   "open-many-cards-at-once-description": "Kaar kasta oo aad gujiso ku hay daaqaddiisa gaarka ah. Marka tani dansan tahay, gujinta kaar waxay xiraysaa kii furnaa.",
   "submit-on-enter-description": "Marka ay shidan tahay, riixidda Enter waxay kaydisaa cinwaanka kaarka, sharraxaadda iyo tifaftirayaasha kale ee gudaha; Shift+Enter wuxuu geliyaa sadar cusub. Marka ay dansan tahay, Ctrl/Cmd+Enter ayaa kaydiya, Enter-na wuxuu geliyaa sadar cusub.",
+  "checklist-ding-sound": "Ku ciyaar dhawaaq marka shay checklist ah dhammaado",
+  "checklist-ding-sound-description": "Ku ciyaarta dhawaaq gaaban marka aad calaamadeyso shay checklist ah. Wuu damanyahay si caadi ah.",
   "assignee": "Loo xilsaaray",
   "assignees": "Loo xilsaaray",
   "no-assignee": "Ma jiro qof loo qoondeeyay",

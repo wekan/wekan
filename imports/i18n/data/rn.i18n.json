@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Ugara amakarata menshi icarimwe",
   "open-many-cards-at-once-description": "Gumiza ikarata yose ukandako yuguruye mw'idirisha ryayo. Igihe ibi bizimye, gukanda ku karata birugara iyari yuguruye.",
   "submit-on-enter-description": "Igihe bikora, gukanda Enter bibika umutwe w'ikarata, insiguro n'ibindi bihindurirwa aho nyene; Shift+Enter yongerako umurongo mushasha. Igihe bizimye, Ctrl/Cmd+Enter irabika kandi Enter ikongerako umurongo mushasha.",
+  "checklist-ding-sound": "Cana amajwi igihe ikintu ca checklist kirangiye",
+  "checklist-ding-sound-description": "Icana ijwi rigufi igihe umenyesha ikintu ca checklist. Birazimye ku bwoko busanzwe.",
   "assignee": "Uwahawe igikorwa",
   "assignees": "Abahawe igikorwa",
   "no-assignee": "Nta uwashinzwe",

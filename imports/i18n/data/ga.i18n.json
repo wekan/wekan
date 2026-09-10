@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Oscail mórán cártaí ag an am céanna",
   "open-many-cards-at-once-description": "Coinnigh gach cárta a chliceálann tú ar oscailt ina fhuinneog féin. Nuair atá sé seo múchta, dúnann cliceáil ar chárta an ceann a bhí oscailte.",
   "submit-on-enter-description": "Nuair atá sé ar siúl, sábhálann Enter teideal an chárta, an cur síos agus eagarthóirí inlíne eile; cuireann Shift+Enter líne nua isteach. Nuair atá sé múchta, sábhálann Ctrl/Cmd+Enter agus cuireann Enter líne nua isteach.",
+  "checklist-ding-sound": "Seinn fuaim nuair a chríochnaítear mír seicliosta",
+  "checklist-ding-sound-description": "Seinneann sé fuaim ghairid nuair a sheiceálann tú mír seicliosta. Múchta de réir réamhshocraithe.",
   "assignee": "Sannaí",
   "assignees": "Sannaithe",
   "no-assignee": "Gan sannadh",

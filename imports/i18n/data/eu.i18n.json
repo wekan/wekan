@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Ireki txartel asko aldi berean",
   "open-many-cards-at-once-description": "Klik egiten duzun txartel bakoitza bere leihoan irekita geratzen da. Hau desaktibatuta dagoenean, txartel batean klik egiteak irekita zegoena ixten du.",
   "submit-on-enter-description": "Aktibatuta dagoenean, Enter sakatzeak txartelaren izenburua, deskribapena eta lerroko beste editoreak gordetzen ditu; Shift+Enter-ek lerro berri bat txertatzen du. Desaktibatuta dagoenean, Ctrl/Cmd+Enter-ek gordetzen du eta Enter-ek lerro berri bat txertatzen du.",
+  "checklist-ding-sound": "Jo soinu bat egiaztapen-zerrendako elementu bat osatzean",
+  "checklist-ding-sound-description": "Egiaztapen-zerrendako elementu bat markatzean soinu labur bat jotzen du. Berez desaktibatuta.",
   "assignee": "Asignado",
   "assignees": "Esleitutakoak",
   "no-assignee": "Esleitu gabe",

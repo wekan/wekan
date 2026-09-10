@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "여러 카드를 한 번에 열기",
   "open-many-cards-at-once-description": "클릭한 카드마다 자기 창에서 열린 채로 유지됩니다. 이 옵션이 꺼져 있으면 카드를 클릭할 때 열려 있던 카드가 닫힙니다.",
   "submit-on-enter-description": "켜면 Enter를 누를 때 카드 제목, 설명 및 기타 인라인 편집기가 저장되고, Shift+Enter는 새 줄을 삽입합니다. 끄면 Ctrl/Cmd+Enter로 저장하고 Enter는 새 줄을 삽입합니다.",
+  "checklist-ding-sound": "체크리스트 항목이 완료되면 소리 재생",
+  "checklist-ding-sound-description": "체크리스트 항목을 체크하면 짧은 딩동 소리를 재생합니다. 기본적으로 꺼져 있습니다.",
   "assignee": "담당자",
   "assignees": "담당자",
   "no-assignee": "담당자 없음",

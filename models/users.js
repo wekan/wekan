@@ -376,6 +376,14 @@ Users.attachSchema(
       type: Boolean,
       optional: true,
     },
+    'profile.checklistDingSound': {
+      /**
+       * #5427: per-user preference - play a short synthesized "ding" when a
+       * checklist item is checked off. Off by default.
+       */
+      type: Boolean,
+      optional: true,
+    },
     'profile.openManyCardsAtOnce': {
       /**
        * #6531: per-user preference. OFF by default, which is what clicking a card
@@ -1706,6 +1714,13 @@ Users.helpers({
   hasSubmitOnEnter() {
     const profile = this.profile || {};
     return profile.submitOnEnter || false;
+  },
+
+  // #5427: does this user want a short "ding" sound when a checklist item is
+  // checked off? Off by default.
+  hasChecklistDingSound() {
+    const profile = this.profile || {};
+    return profile.checklistDingSound || false;
   },
 
   // #6531: does this user want several cards open at once? Off by default, so a

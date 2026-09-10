@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Fungura amakarita menshi icyarimwe",
   "open-many-cards-at-once-description": "Gumisha buri karita ukandaho ifunguye mu idirishya ryayo. Iyo ibi bizimye, gukanda ikarita bifunga iyari ifunguye.",
   "submit-on-enter-description": "Iyo bikora, gukanda Enter bibika umutwe w'ikarita, ibisobanuro n'ibindi bihindurirwa aho biri; Shift+Enter yongeraho umurongo mushya. Iyo bizimye, Ctrl/Cmd+Enter irabika kandi Enter ikongeraho umurongo mushya.",
+  "checklist-ding-sound": "Kina ijwi iyo ikintu cya checklist kirangiye",
+  "checklist-ding-sound-description": "Ikina ijwi rigufi igihe ushyize akamenyetso ku kintu cya checklist. Byazimye ku buryo busanzwe.",
   "assignee": "Uwahawe akazi",
   "assignees": "Abahawe akazi",
   "no-assignee": "Nta washinzwe",

@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Otwieraj wiele kart naraz",
   "open-many-cards-at-once-description": "Każda karta, którą klikniesz, pozostaje otwarta we własnym oknie. Gdy ta opcja jest wyłączona, kliknięcie karty zamyka tę, która była otwarta.",
   "submit-on-enter-description": "Gdy włączone, naciśnięcie Enter zapisuje tytuł karty, opis i inne edytory wbudowane; Shift+Enter wstawia nowy wiersz. Gdy wyłączone, Ctrl/Cmd+Enter zapisuje, a Enter wstawia nowy wiersz.",
+  "checklist-ding-sound": "Odtwórz dźwięk po ukończeniu elementu listy kontrolnej",
+  "checklist-ding-sound-description": "Odtwarza krótki dźwięk po zaznaczeniu elementu listy kontrolnej. Domyślnie wyłączone.",
   "assignee": "Przypisani",
   "assignees": "Przypisani",
   "no-assignee": "Brak przypisanej osoby",

@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Huaki kāri maha i te wā kotahi",
   "open-many-cards-at-once-description": "Puritia ia kāri ka pāwhiria e koe kia huaki ki tōna ake matapihi. Ina weto tēnei, mā te pāwhiri kāri ka kati te kāri i huaki kē.",
   "submit-on-enter-description": "Ina kā, mā te pēhi Enter ka tiaki te taitara kāri, whakaahuatanga me ētahi atu pūwhakatika rārangi; ka kōkuhu a Shift+Enter i tētahi rārangi hou. Ina weto, ka tiaki a Ctrl/Cmd+Enter, ā, ka kōkuhu a Enter i tētahi rārangi hou.",
+  "checklist-ding-sound": "Tākiritia he oro ka oti te tūemi checklist",
+  "checklist-ding-sound-description": "Ka tākiritia he oro poto ina tohu koe i tētahi tūemi checklist. Ka weto i te taunoa.",
   "assignee": "Kaiwhiwhi mahi",
   "assignees": "Ngā kaiwhiwhi mahi",
   "no-assignee": "Kāore he kaiwhakarite",

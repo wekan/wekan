@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Ṣí ọ̀pọ̀ kaadi lẹ́ẹ̀kan náà",
   "open-many-cards-at-once-description": "Gbogbo kaadi tí o bá tẹ̀ yóò ṣí sílẹ̀ nínú fèrèsé tirẹ̀. Nígbà tí èyí bá wà ní pípa, títẹ kaadi kan yóò tì èyí tí ó ṣí sílẹ̀.",
   "submit-on-enter-description": "Nigbati o ba wa lori, titẹ Enter fi akọle kaadi, apejuwe ati awọn olootu inu miiran pamọ; Shift+Enter fi laini tuntun sii. Nigbati o ba wa ni pipa, Ctrl/Cmd+Enter fipamọ, Enter si fi laini tuntun sii.",
+  "checklist-ding-sound": "Mú ìró kan ṣiṣẹ́ nígbà tí ohun kan nínú àtòjọ àyẹ̀wò bá parí",
+  "checklist-ding-sound-description": "Ó máa ń mú ìró kúkúrú kan ṣiṣẹ́ nígbà tí o bá ṣàmì sí ohun kan nínú àtòjọ àyẹ̀wò. Ó ti pa dé láti ìbẹ̀rẹ̀pẹ̀pẹ̀.",
   "assignee": "Ayanfunni",
   "assignees": "Awọn ayanfunni",
   "no-assignee": "Kò sí ẹni tí a yàn",

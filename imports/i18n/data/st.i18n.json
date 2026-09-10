@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Bula dikarete tse ngata ka nako e le nngwe",
   "open-many-cards-at-once-description": "Boloka karete e nngwe le e nngwe eo o e tobetsang e butse fensetereng ya yona. Ha sena se kwetswe, ho tobetsa karete ho kwala e neng e butse.",
   "submit-on-enter-description": "Ha ho buletswe, ho tobetsa Enter ho boloka sehlooho sa karete, tlhaloso le bahlophisi ba bang ba moleng; Shift+Enter e kenya mola o motjha. Ha ho kwetswe, Ctrl/Cmd+Enter e boloka mme Enter e kenya mola o motjha.",
+  "checklist-ding-sound": "Bapala molumo ha ntho ea lenane la tlhahlobo e felile",
+  "checklist-ding-sound-description": "E bapala molumo o mokhutšoane ha o tšoaea ntho ea lenane la tlhahlobo. E timile ka tlhaho.",
   "assignee": "Ea abetsoeng",
   "assignees": "Ba abetsoeng",
   "no-assignee": "Ha ho ya abetsweng",

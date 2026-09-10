@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Vula emakhadi lamanyenti ngesikhatsi sinye",
   "open-many-cards-at-once-description": "Gcina likhadi ngalinye lolichafutako livulekile efasiteleni lalo. Uma loku kuvaliwe, kuchafata likhadi kuvala lebelivulekile.",
   "submit-on-enter-description": "Uma kuvuliwe, kuchafata Enter kulondvolota sihloko selikhadi, inchazelo nalabanye bahleli basemgceni; Shift+Enter ufaka umugca lomusha. Uma kuvaliwe, Ctrl/Cmd+Enter kulondvolota futsi Enter ufaka umugca lomusha.",
+  "checklist-ding-sound": "Dlala umsindvo nangabe intfo ye-checklist icedziwe",
+  "checklist-ding-sound-description": "Idlala umsindvo lomncane nangabe uphawula intfo ye-checklist. Icishiwe ngalokwendlalelo.",
   "assignee": "Lonikwe umsebenti",
   "assignees": "Labanikwe umsebenti",
   "no-assignee": "Akukho lophiwe umsebenti",

@@ -749,6 +749,16 @@ Meteor.methods({
     await Users.updateAsync(this.userId, { $set: { 'profile.submitOnEnter': !current } });
   },
 
+  // #5427: "play a ding when a checklist item is checked off" - a per-user
+  // preference, off by default.
+  async toggleChecklistDingSound() {
+    if (!this.userId) throw new Meteor.Error('not-logged-in', 'User must be logged in');
+    const user = await Users.findOneAsync(this.userId);
+    if (!user) throw new Meteor.Error('user-not-found', 'User not found');
+    const current = !!((user.profile || {}).checklistDingSound);
+    await Users.updateAsync(this.userId, { $set: { 'profile.checklistDingSound': !current } });
+  },
+
   // #6531: "Open many cards at once" - a per-user preference, off by default.
   async toggleOpenManyCardsAtOnce() {
     if (!this.userId) throw new Meteor.Error('not-logged-in', 'User must be logged in');

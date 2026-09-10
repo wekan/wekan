@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Iftaħ many kards fi once",
   "open-many-cards-at-once-description": "Keep every kard you click open ġewwa its own window. When dan huwa off, clicking a kard closes il- one that was open.",
   "submit-on-enter-description": "When on, pressing Daħħal saves il- kard titlu, deskrizzjoni u other inline editors; Shift+Daħħal inserts a new line. When off, Ctrl/Cmd+Daħħal saves u Daħħal inserts a new line.",
+  "checklist-ding-sound": "Idoqq ħoss meta oġġett tal-lista ta' verifika jitlesta",
+  "checklist-ding-sound-description": "Idoqq ħoss qasir meta timmarka oġġett tal-lista ta' verifika. Mitfi b'mod prestabbilit.",
   "assignee": "Assenjat",
   "assignees": "Assenjati",
   "no-assignee": "L-ebda assenjatarju",

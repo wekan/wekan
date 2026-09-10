@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Abrir varias tarjetas a la vez",
   "open-many-cards-at-once-description": "Cada tarjeta en la que hagas clic permanece abierta en su propia ventana. Cuando esto está desactivado, hacer clic en una tarjeta cierra la que estaba abierta.",
   "submit-on-enter-description": "Cuando está activado, al presionar Enter se guarda el título de la tarjeta, la descripción y otros editores en línea; Shift+Enter inserta una nueva línea. Cuando está desactivado, Ctrl/Cmd+Enter guarda y Enter inserta una nueva línea.",
+  "checklist-ding-sound": "Reproducir un sonido cuando se completa un elemento de la lista de verificación",
+  "checklist-ding-sound-description": "Reproduce un breve sonido al marcar un elemento de la lista de verificación. Desactivado de forma predeterminada.",
   "assignee": "Asignado",
   "assignees": "Asignados",
   "no-assignee": "Sin asignar",

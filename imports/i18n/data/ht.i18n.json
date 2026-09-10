@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Louvri plizyè kat anmenmtan",
   "open-many-cards-at-once-description": "Kenbe chak kat ou klike louvri nan pwòp fenèt li. Lè sa dezaktive, klike sou yon kat fèmen kat ki te louvri a.",
   "submit-on-enter-description": "Lè li aktive, peze Antre anrejistre tit kat la, deskripsyon an ak lòt editè nan liy yo; Shift+Antre mete yon nouvo liy. Lè li dezaktive, Ctrl/Cmd+Antre anrejistre epi Antre mete yon nouvo liy.",
+  "checklist-ding-sound": "Jwe yon son lè yon eleman checklist fini",
+  "checklist-ding-sound-description": "Jwe yon ti son kout lè ou tcheke yon eleman checklist. Li fèmen pa defo.",
   "assignee": "Responsab",
   "assignees": "Responsab yo",
   "no-assignee": "Pa gen moun ki responsab",

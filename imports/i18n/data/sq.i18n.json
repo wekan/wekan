@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Hap shumë karta njëherësh",
   "open-many-cards-at-once-description": "Mbaje çdo kartë që klikon të hapur në dritaren e vet. Kur kjo është joaktive, klikimi i një karte mbyll atë që ishte e hapur.",
   "submit-on-enter-description": "Kur është aktive, Enter ruan titullin, përshkrimin dhe redaktuesit e tjerë brenda kartës; Shift+Enter shton rresht të ri. Kur është joaktive, Ctrl/Cmd+Enter ruan dhe Enter shton rresht të ri.",
+  "checklist-ding-sound": "Luaj një tingull kur një artikull i listës kontrolluese përfundon",
+  "checklist-ding-sound-description": "Luan një tingull të shkurtër kur shënoni një artikull të listës kontrolluese. Çaktivizuar si parazgjedhje.",
   "assignee": "I caktuari",
   "assignees": "Të caktuarit",
   "no-assignee": "Pa të caktuar",

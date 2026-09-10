@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Buɗe katuna da yawa lokaci guda",
   "open-many-cards-at-once-description": "Bar kowane katin da ka danna a buɗe cikin tagarsa. Idan wannan a kashe yake, danna kati zai rufe wanda yake buɗe.",
   "submit-on-enter-description": "Idan yana kunne, danna Enter yana adana sunan kati, bayani da sauran masu gyara na cikin layi; Shift+Enter yana saka sabon layi. Idan yana kashe, Ctrl/Cmd+Enter yana adanawa kuma Enter yana saka sabon layi.",
+  "checklist-ding-sound": "Kunna sauti idan an kammala abu a jerin duba",
+  "checklist-ding-sound-description": "Yana kunna gajeren sauti idan ka duba abu a jerin duba. An kashe shi tun da farko.",
   "assignee": "Wanda aka ba wa",
   "assignees": "Waɗanda aka ba wa",
   "no-assignee": "Babu wanda aka bawa",

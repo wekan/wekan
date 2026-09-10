@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Ouvrir plusieurs cartes à la fois",
   "open-many-cards-at-once-description": "Chaque carte sur laquelle vous cliquez reste ouverte dans sa propre fenêtre. Lorsque cette option est désactivée, cliquer sur une carte ferme celle qui était ouverte.",
   "submit-on-enter-description": "Cwand c' est en alaedje, tchôkî Enter schape li tite del cåte, li discrijhaedje eyet ls ôtes aspougneus e roye; Shift+Enter radjoute ene nouve roye. Cwand c' est distindou, Ctrl/Cmd+Enter schape et Enter radjoute ene nouve roye.",
+  "checklist-ding-sound": "Djouwer on son cwand èn elemint del djivêye di contrôle est fini",
+  "checklist-ding-sound-description": "Djouwe on ptit son cwand vos apontyîz on elemint del djivêye di contrôle. Distindou pa dfaut.",
   "assignee": "Personne assignée",
   "assignees": "Intervenants",
   "no-assignee": "Nouk assiné",

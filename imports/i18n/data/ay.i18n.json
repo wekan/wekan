@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "jistʼaraña many tarjetanaka ukana once",
   "open-many-cards-at-once-description": "Keep every tarjeta you limtʼaña jistʼaraña mana its own window. When aka awa off, clicking a tarjeta closes the one uka was jistʼaraña.",
   "submit-on-enter-description": "When patana, pressing qillqantaña saves the tarjeta pʼiqiñcha, qhanañchäwi ukat other inline editors; Shift+qillqantaña inserts a machaqa line. When off, Ctrl/Cmd+qillqantaña saves ukat qillqantaña inserts a machaqa line.",
+  "checklist-ding-sound": "Checklist amtata phuqhasitaxa qhanañchaña uñstayaña",
+  "checklist-ding-sound-description": "Checklist amtata qillqasina taqi kunaru jisk'a qhanañcha uñstayi. Jan apnaqata.",
   "assignee": "Lurañataki churata",
   "assignees": "Lurañataki churatanaka",
   "no-assignee": "Jan churiñataki",

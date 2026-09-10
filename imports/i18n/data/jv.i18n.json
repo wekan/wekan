@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Bukak akeh kertu bebarengan",
   "open-many-cards-at-once-description": "Tansah bukak saben kertu sing sampeyan klik ing jendhelane dhewe. Yen dipateni, ngeklik kertu bakal nutup kertu sing sadurunge mbukak.",
   "submit-on-enter-description": "Yen urip, mencet Enter nyimpen judhul kertu, katrangan lan editor sajejer liyane; Shift+Enter nglebokake larik anyar. Yen mati, Ctrl/Cmd+Enter nyimpen lan Enter nglebokake larik anyar.",
+  "checklist-ding-sound": "Muter swara nalika item checklist rampung",
+  "checklist-ding-sound-description": "Muter swara cekak nalika sampeyan nyentang item checklist. Standhare mati.",
   "assignee": "Sing ditugasi",
   "assignees": "Sing ditugasi",
   "no-assignee": "Ora ana sing ditugasi",

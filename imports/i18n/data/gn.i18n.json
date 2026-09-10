@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Eipe'a heta kuatia'i peteĩ jey-pe",
   "open-many-cards-at-once-description": "Eheja peteĩteĩ kuatia'i eikutuva'ekue ijurujápe hóga'apópe. Kóva oñembogue jave, peteĩ kuatia'i jekutu omboty pe ijurujáva.",
   "submit-on-enter-description": "Oñemyendy jave, Enter jopy oñongatu kuatia'i réra, ñemombe'u ha ambue mohendaha hyepypegua; Shift+Enter omoinge tairenda pyahu. Oñembogue jave, Ctrl/Cmd+Enter oñongatu ha Enter omoinge tairenda pyahu.",
+  "checklist-ding-sound": "Mbopu peteĩ purahéi checklist rembiapo oñemohu'ãramo",
+  "checklist-ding-sound-description": "Mbopu peteĩ purahéi mbykymi remomarãva checklist rembiapo peteĩ. Ndojekuaaporãi tenondegua.",
   "assignee": "Omba'apótava",
   "assignees": "Omba'apótava kuéra",
   "no-assignee": "Ndaipóri omeʼẽva",

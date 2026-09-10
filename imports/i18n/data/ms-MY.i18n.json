@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Buka banyak kartu sekaligus",
   "open-many-cards-at-once-description": "Setiap kartu yang Anda klik tetap terbuka di jendelanya sendiri. Bila ini dimatikan, mengeklik kartu akan menutup kartu yang sedang terbuka.",
   "submit-on-enter-description": "Apabila dihidupkan, menekan Enter menyimpan tajuk kad, penerangan dan editor sebaris lain; Shift+Enter memasukkan baris baharu. Apabila dimatikan, Ctrl/Cmd+Enter menyimpan dan Enter memasukkan baris baharu.",
+  "checklist-ding-sound": "Mainkan bunyi apabila item senarai semak selesai",
+  "checklist-ding-sound-description": "Memainkan bunyi ding pendek apabila anda menanda item senarai semak. Dimatikan secara lalai.",
   "assignee": "Penerima Tugas",
   "assignees": "Penerima Tugas",
   "no-assignee": "Tiada ditugaskan",

@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Ubrir varias tarchetas a la vez",
   "open-many-cards-at-once-description": "Cada tarcheta en la que hagas clic permanece abierta en su propia ventana. Cuando esto está desactivado, fer clic en una tarcheta cierra la que estaba abierta.",
   "submit-on-enter-description": "Cuando está activado, presionar Enter guarda el título de la tarcheta, la descripción y otros editores en línea; Shift+Enter inserta una nueva línea. Cuando está desactivado, Ctrl/Cmd+Enter guarda y Enter inserta una nueva línea.",
+  "checklist-ding-sound": "Sonar quan se completa un elemento d'a lista de verificación",
+  "checklist-ding-sound-description": "Sonar un tono curto quan marcas un elemento d'a lista de verificación. Desactivau por defecto.",
   "assignee": "Asignau",
   "assignees": "Asignaus",
   "no-assignee": "Sin asignau",

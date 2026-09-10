@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Aberi più cartas contemporaneamente",
   "open-many-cards-at-once-description": "Ogni carta su cui fai clic resta aperta in una finestra propria. Quando custa optzione è disattivada, fare clic su una carta chiude quella che era aperta.",
   "submit-on-enter-description": "Se attivo, premendo Enter si salvano il tìtulu de sa carta, la descrittzione e altri editor in linea; Shift+Enter inserisce una noa riga. Se disattivo, Ctrl/Cmd+Enter sarva ed Enter inserisce una noa riga.",
+  "checklist-ding-sound": "Sona unu sonu candu un'elementu de sa lista de controllu si cumpletat",
+  "checklist-ding-sound-description": "Sonat un sonu curtzu candu marcas un'elementu de sa lista de controllu. Disativadu in manera predefinida.",
   "assignee": "Assignadu",
   "assignees": "Assignados",
   "no-assignee": "Nemmancu assignadu",

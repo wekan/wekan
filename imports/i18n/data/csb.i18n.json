@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Otwieraj wiele kôrtòw naraz",
   "open-many-cards-at-once-description": "Każda kôrta, ktòrą klikniesz, pozostaje otwarta we własnym oknié. Gdy ta opcja jest wyłączona, kliknięcie kôrtë zamyka tę, ktòra była otwarta.",
   "submit-on-enter-description": "Gdy włączone, naciśnięcie Enter zapisuje tytuł kôrtë, òpisënk i inne edytory wbudowane; Shift+Enter wstawia nowi wiersz. Gdy wyłączone, Ctrl/Cmd+Enter zapisuje, a Enter wstawia nowi wiersz.",
+  "checklist-ding-sound": "Zagrôj zwãk czej element lëstë sprôwdzeniô òstanié zakùńczony",
+  "checklist-ding-sound-description": "Zagrôj krotczi zwãk czej zaznaczysz element lëstë sprôwdzeniô. Domëslno wëłączoné.",
   "assignee": "Òdpòwiedzalny",
   "assignees": "Òdpòwiedzalnicë",
   "no-assignee": "Bez przëdzelonégò",

@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Lat nógv kort upp í senn",
   "open-many-cards-at-once-description": "Halt hvørt kort, sum tú trýstir á, opið í sínum egna glugga. Tá hetta er sløkt, letur eitt trýst á eitt kort tað kortið aftur, sum var opið.",
   "submit-on-enter-description": "Tá hetta er virkið, goymir Enter kortheiti, lýsing og aðrar innbygdar ritlar; Shift+Enter setur eina nýggja reglu inn. Tá hetta er sløkt, goymir Ctrl/Cmd+Enter, og Enter setur eina nýggja reglu inn.",
+  "checklist-ding-sound": "Spæl ein ljóð tá ein checklist-lutur verður liðugur",
+  "checklist-ding-sound-description": "Spælur eitt stutt ljóð, tá tú merkir ein checklist-lut sum liðugan. Sløkt sum sjálvvirkjandi.",
   "assignee": "Ábyrgdari",
   "assignees": "Ábyrgdarar",
   "no-assignee": "Ongin tillutur",

@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Tsegulani makhadi ambiri nthawi imodzi",
   "open-many-cards-at-once-description": "Sungani khadi lililonse lomwe mwadina lotseguka pawindo lake. Izi zikazimitsidwa, kudina khadi kumatseka lomwe linali lotseguka.",
   "submit-on-enter-description": "Izi zikayatsidwa, kukanikiza Enter kumasunga mutu wa khadi, mafotokozedwe ndi zosinthira zina za pamzere; Shift+Enter imalowetsa mzere watsopano. Zikazimitsidwa, Ctrl/Cmd+Enter imasunga ndipo Enter imalowetsa mzere watsopano.",
+  "checklist-ding-sound": "Imba phokoso ndime ya checklist ikamaliza",
+  "checklist-ding-sound-description": "Imba phokoso pang'ono mukamalizitsa chinthu pa checklist. Chazimitsidwa mwachizolowezi.",
   "assignee": "Woperekedwa ntchito",
   "assignees": "Operekedwa ntchito",
   "no-assignee": "Palibe wopatsidwa ntchito",

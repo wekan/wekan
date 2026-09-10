@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Avaa monta korttia kerralla",
   "open-many-cards-at-once-description": "Jokainen klikkaamasi kortti jää auki omaan ikkunaansa. Kun tämä ei ole käytössä, kortin klikkaaminen sulkee aiemmin avatun kortin.",
   "submit-on-enter-description": "Konz om avoitud, Enter-nübastmine panokseb kartan pälkirjutesen, kuvamišen i toižed sirased redaktorad; Shift+Enter ližadab uden rivin. Konz om saubatud, Ctrl/Cmd+Enter panokseb, a Enter ližadab uden rivin.",
+  "checklist-ding-sound": "Tambisa mudzumo musi tshirunwa tsha checklist tsho fhedza",
+  "checklist-ding-sound-description": "I tambisa mudzumo mupfufhi musi na mbo dzhia tshirunwa tsha checklist. Yo dzimiswa nga ndila ya u tou vha.",
   "assignee": "Käsittelijä",
   "assignees": "Käsittelijät",
   "no-assignee": "A huna o daho",

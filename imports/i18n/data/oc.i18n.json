@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Dobrir mantuna carta a l’encòp",
   "open-many-cards-at-once-description": "Cada carta que clicatz demòra dobèrta dins sa pròpria fenèstra. Quand aquò es desactivat, clicar sus una carta barra aquela qu’èra dobèrta.",
   "submit-on-enter-description": "Quand es activat, quichar Enter enregistra lo títol de la carta, la descripcion e los autres editors en linha; Shift+Enter inserís una linha novèla. Quand es desactivat, Ctrl/Cmd+Enter enregistra e Enter inserís una linha novèla.",
+  "checklist-ding-sound": "Jogar un son quand un element de la lista de verificacion es acabat",
+  "checklist-ding-sound-description": "Jòga un son cort quand marcatz un element de la lista de verificacion. Desactivat per defaut.",
   "assignee": "Intervenant",
   "assignees": "Intervenants",
   "no-assignee": "Pas cap assignat",

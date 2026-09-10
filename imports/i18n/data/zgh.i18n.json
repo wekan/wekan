@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "فتح عدة بطاقات في وقت واحد",
   "open-many-cards-at-once-description": "تبقى كل بطاقة تنقر عليها مفتوحة في نافذتها الخاصة. عند إيقاف هذا الخيار، يؤدي النقر على بطاقة إلى إغلاق البطاقة المفتوحة.",
   "submit-on-enter-description": "ⵎⴽ ⵉⵍⵍⴰ, ⴰⵙⵙⵉⴹⵏ ⵏ Enter ⵉⵜⵜⴰⵊⵊⴰ ⴰⵣⵡⵍ ⵏ ⵜⴽⴰⵕⴹⴰ, ⴰⴳⵍⴰⵎ ⴷ ⵉⵎⵙⵖⴰⵍ ⵢⴰⴹⵏⵉⵏ; Shift+Enter ⵉⵜⵜⴰⵔⵏ ⵉⵣⵉⵔⵉⴳ ⴰⵎⴰⵢⵏⵓ. ⵎⴽ ⵓⵔ ⵉⵍⵍⵉ, Ctrl/Cmd+Enter ⵉⵜⵜⴰⵊⵊⴰ, Enter ⵉⵜⵜⴰⵔⵏ ⵉⵣⵉⵔⵉⴳ ⴰⵎⴰⵢⵏⵓ.",
+  "checklist-ding-sound": "Sireg ameslay mi itemma umernan n checklist",
+  "checklist-ding-sound-description": "Isireg ameslay awezlan mi tettwarit umernan n checklist. Yensa s wudem alugan.",
   "assignee": "Personne assignée",
   "assignees": "Intervenants",
   "no-assignee": "Ulac win yettwaseblen",

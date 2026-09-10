@@ -1384,6 +1384,8 @@
   "open-many-cards-at-once": "Fosgail iomadh cairt aig an aon àm",
   "open-many-cards-at-once-description": "Cùm gach cairt air am briog thu fosgailte san uinneag aice fhèin. Nuair a bhios seo dheth, dùinidh briogadh air cairt an tè a bha fosgailte.",
   "submit-on-enter-description": "Nuair a bhios seo air, sàbhalaidh Enter tiotal na cairte, an tuairisgeul agus luchd-deasachaidh inline eile; cuiridh Shift+Enter loidhne ùr a-steach. Nuair a bhios seo dheth, sàbhalaidh Ctrl/Cmd+Enter agus cuiridh Enter loidhne ùr a-steach.",
+  "checklist-ding-sound": "Cluich fuaim nuair a thèid nì liosta-sgrùdaidh a choileanadh",
+  "checklist-ding-sound-description": "Cluichidh e fuaim ghoirid nuair a chuireas tu cromag ri nì liosta-sgrùdaidh. Dheth a ghnàth.",
   "assignee": "Neach-obrach",
   "assignees": "Luchd-obrach",
   "no-assignee": "Gun sanadh",
