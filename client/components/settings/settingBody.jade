@@ -157,6 +157,41 @@ template(name='email')
     li
       button.mail-settings-save.primary {{_ 'save'}}
 
+    //- #2022: admin-customizable templates for WeKan's transactional emails.
+    //- Each field is OPTIONAL and empty by default - left blank, WeKan sends
+    //- its exact current hardcoded/i18n email content, unchanged. Filled in,
+    //- it replaces that email's subject/body, with the same {token}
+    //- substitution the Rules "send email" action already uses (see
+    //- r-email-vars-hint in rules). Password-reset / account-verification
+    //- emails are deliberately NOT covered here (see the comment below).
+    li
+      h2 {{_ 'email-templates-title'}}
+      //- Password-reset / account-verification emails are deliberately not
+      //- offered here at all - see the CLAUDE.md-mandated note above and
+      //- docs/Features - so there is nothing to warn about turning off.
+    li.smtp-form
+      .title {{_ 'email-templates-invite-subject'}}
+      .description {{_ 'email-templates-invite-vars-hint'}}
+      .form-group
+        input.wekan-form-control#email-template-invite-subject(type="text" value="{{currentSetting.inviteEmailSubjectTemplate}}")
+    li.smtp-form
+      .title {{_ 'email-templates-invite-body'}}
+      .description {{_ 'email-templates-invite-vars-hint'}}
+      .form-group
+        textarea.wekan-form-control#email-template-invite-body(rows=4)= currentSetting.inviteEmailBodyTemplate
+    li.smtp-form
+      .title {{_ 'email-templates-activity-subject'}}
+      .description {{_ 'email-templates-activity-vars-hint'}}
+      .form-group
+        input.wekan-form-control#email-template-activity-subject(type="text" value="{{currentSetting.activityEmailSubjectTemplate}}")
+    li.smtp-form
+      .title {{_ 'email-templates-activity-body'}}
+      .description {{_ 'email-templates-activity-vars-hint'}}
+      .form-group
+        textarea.wekan-form-control#email-template-activity-body(rows=4)= currentSetting.activityEmailBodyTemplate
+    li
+      button.js-email-templates-save.primary {{_ 'save'}}
+
     li.smtp-form
       //- Not "Email domain name": the field decides who may INVITE. A non-admin
       //- whose address ends with this domain can send board invitations, and only

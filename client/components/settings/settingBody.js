@@ -1445,6 +1445,19 @@ Template.email.events({
       }
     });
   },
+  // #2022: Email Templates save. Each field is written only when present -
+  // an empty value clears back to the default hardcoded/i18n content, it
+  // does not fail validation, since all four Settings fields are optional.
+  'click button.js-email-templates-save'(event, tpl) {
+    event.preventDefault();
+    const $set = {
+      inviteEmailSubjectTemplate: ($('#email-template-invite-subject').val() || '').trim(),
+      inviteEmailBodyTemplate: ($('#email-template-invite-body').val() || '').trim(),
+      activityEmailSubjectTemplate: ($('#email-template-activity-subject').val() || '').trim(),
+      activityEmailBodyTemplate: ($('#email-template-activity-body').val() || '').trim(),
+    };
+    Settings.update(ReactiveCache.getCurrentSetting()._id, { $set });
+  },
   // The pane's one Save, below both settings it writes: the invite domain and the
   // allow-email-change Yes/No.
   //
