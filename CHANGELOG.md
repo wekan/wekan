@@ -326,9 +326,10 @@ MIT-licensed and lazy-loaded only when their view is opened. The
 the fold already used for lists/swimlanes/checklists. It also restores the
 full-featured **document preview** viewer (DOCX/XLSX/PPTX, native PDF),
 hardens the **HttpOnly login cookie**, opens a board already **filtered
-from its URL**, adds a **Group by Assignee** board view, lets **Clone
-Board** skip copying cards, filters Admin Panel / People **by Team**, and
-gives **Rules (IFTTT)** title validation and a generated default title.
+from its URL**, adds **Group by Assignee** and **Bigboard** board views,
+lets **Clone Board** skip copying cards, filters Admin Panel / People **by
+Team**, and gives **Rules (IFTTT)** title validation and a generated
+default title.
 
 This release adds the following new features:
 
@@ -650,6 +651,40 @@ overtime marker, deliberately not a minicard re-render, so the view stays
 lightweight for a board with many cards; clicking a card navigates to it
 like any other view, and there is no drag-and-drop or export - this is
 scoped as a read-only overview, not a second way to work the board.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5323fdbce67e2cdfe19a00f2d776c283d45bc2d9">Added a "Bigboard" board view showing every board at once</a>. Thanks to Jieiku and xet7.</summary>
+
+[#4223](https://github.com/wekan/wekan/issues/4223) asked for
+[Kanboard](https://kanboard.org/)'s BigBoard plugin
+(`kanboard_plugin_bigboard`): every board the user belongs to, stacked on
+one scrollable page, each drawn as its own mini kanban board - no manual
+setup, automatic from board membership.
+
+Added right after Dashboard in the Board View menu, wired the same way as
+every other view (menu entry, `isViewBigboard()` helper/`boardBody.jade`
+branch, the `client/lib/utils.js` whitelists, the `profile.boardView`
+schema and a tooltip-name-map entry). Unlike the other 19 views, which all
+draw the single currently open board, Bigboard queries every board the
+current user is a member of with the same selector the All Boards page
+uses, subscribes each one's lists/swimlanes/cards through the existing
+`board` composite publication, and renders each as its own section
+reusing the existing `listsGroup`/`list`/card templates - so editing,
+dragging and opening a card behave exactly as on a normal board page,
+with no new rendering or drag-and-drop code of its own.
+
+Stacking several boards' lists on one page exposed a bug the single-board
+case could never trigger: list drag-and-drop connects through a plain
+`'.js-swimlane, .js-lists'` jQuery UI sortable selector, which would let a
+list be dragged out of one board's section into another's now that more
+than one board's lists share a page. Added a `data-board-id` attribute to
+the swimlane/`listsGroup` root elements and a `connectWithSelector()`
+helper (`client/components/swimlanes/swimlanes.js`) that scopes the
+connect selector to the dragged list's own board id when one is present;
+an ordinary single-board view still has exactly one board id on the page,
+so its drag-and-drop is unchanged.
 
 </details>
 
