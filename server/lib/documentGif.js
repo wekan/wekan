@@ -14,6 +14,30 @@ function runtimeRequire(name) {
   return createRequire(path.join(process.cwd(), 'package.json'))(name);
 }
 
+function runtimeResolve(name) {
+  return createRequire(path.join(process.cwd(), 'package.json')).resolve(name);
+}
+
+// pdfjs-dist's Node "fake worker" fallback locates pdf.worker.mjs relative to
+// import.meta.url of the module that imported it. Under the bundled server
+// (_build/main-dev, _build/main-prod) that URL points into the bundle, not
+// into node_modules, so the fallback looks for the worker beside the bundled
+// server.cjs and fails: "Cannot find module
+// '.../_build/main-dev/pdf.worker.mjs'" - which used to surface as a bare 415
+// on every PDF preview, image AND text alike. Point GlobalWorkerOptions at the
+// real on-disk file via Node's own module resolution (the same runtimeRequire
+// trick already used for fflate) so pdfjs never falls back to guessing.
+let pdfWorkerConfigured = false;
+function configurePdfWorker(pdfjs) {
+  if (pdfWorkerConfigured) return;
+  pdfWorkerConfigured = true;
+  try {
+    pdfjs.GlobalWorkerOptions.workerSrc = runtimeResolve('pdfjs-dist/legacy/build/pdf.worker.mjs');
+  } catch (error) {
+    console.error('Could not resolve pdf.worker.mjs, PDF preview will fail:', error);
+  }
+}
+
 function decodeXml(value) {
   return String(value || '').replace(/<[^>]+>/g, ' ').replace(/&lt;/g, '<')
     .replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&apos;/g, "'")
@@ -187,6 +211,7 @@ async function rasterizePdf(input) {
 async function renderPages(input, extension) {
   if (extension === 'pdf') {
     const pdfjs = await import('pdfjs-dist/legacy/build/pdf.mjs');
+    configurePdfWorker(pdfjs);
     const textDocument = await pdfjs.getDocument({ data: new Uint8Array(input), isEvalSupported: false }).promise;
     const document = await rasterizePdf(input);
     const pageCount = document ? document.length : textDocument.numPages;

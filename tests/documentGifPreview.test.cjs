@@ -42,6 +42,24 @@ test('#6685: @napi-rs/canvas is a direct dependency, not left to the optional-de
   );
 });
 
+test('#6685: pdfjs is pointed at the real on-disk worker file instead of guessing', () => {
+  // pdfjs-dist's Node "fake worker" fallback locates pdf.worker.mjs relative
+  // to import.meta.url of the importing module. Under the bundled server
+  // (_build/main-dev, _build/main-prod) that URL points into the bundle, not
+  // into node_modules, so the fallback fails to find the worker and every PDF
+  // preview - image AND text - threw before even reaching rasterizePdf.
+  const source = read('server/lib/documentGif.js');
+  assert.match(source, /function runtimeResolve\(name\)/);
+  assert.match(source, /function configurePdfWorker\(pdfjs\)/);
+  assert.match(source, /pdfjs\.GlobalWorkerOptions\.workerSrc = runtimeResolve\('pdfjs-dist\/legacy\/build\/pdf\.worker\.mjs'\)/);
+  assert.match(source, /configurePdfWorker\(pdfjs\);/);
+  const path = require('path');
+  const { createRequire } = require('module');
+  const resolved = createRequire(path.join(root, 'package.json'))
+    .resolve('pdfjs-dist/legacy/build/pdf.worker.mjs');
+  assert.ok(fs.existsSync(resolved), 'the worker file this resolves to must actually exist on disk');
+});
+
 test('#6685: PDF preview falls back to text-only pages when rasterization is unavailable', () => {
   const source = read('server/lib/documentGif.js');
   assert.match(source, /async function rasterizePdf\(input\)/);
