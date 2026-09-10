@@ -51,6 +51,7 @@ import Users from '/models/users';
 import Lists from '/models/lists';
 import CardComments from '/models/cardComments';
 import { ALLOWED_COLORS } from '/config/const';
+import { CARD_RECURRENCE_INTERVALS } from '/models/lib/cardRecurrenceSchedule';
 import { isHexColor, toHex } from '/models/lib/contrastColor';
 import { uniqBy } from '/imports/lib/collectionHelpers';
 import { memberTargetBoardId } from '/models/lib/linkedCardMembers';
@@ -1685,6 +1686,7 @@ Template.cardDetailsActionsPopup.events({
       alert(err?.reason || err?.message || 'Failed to save card as template');
     }
   },
+  'click .js-set-card-recurrence-interval': Popup.open('cardRecurrenceInterval'),
   'click .js-convert-checklist-item-to-card': Popup.open('convertChecklistItemToCard'),
   'click .js-copy-checklist-cards': Popup.open('copyManyCards'),
   'click .js-set-card-color': Popup.open('setCardColor'),
@@ -3113,6 +3115,32 @@ Template.cardDependencyIconPopup.events({
     }
     editingDependencyTargetId = null;
     editingDependencyCard = null;
+    Popup.back();
+  },
+});
+
+// Kanboard-style whole-card recurrence: pick (or clear) the card's
+// automatic-recurrence interval. Mirrors checklists.js's
+// Template.checklistResetIntervalPopup.
+Template.cardRecurrenceIntervalPopup.helpers({
+  recurrenceIntervals() {
+    return CARD_RECURRENCE_INTERVALS;
+  },
+  isCurrentCardInterval() {
+    const card = Cards.findOne(getCardId());
+    const current = (card && card.recurrenceInterval) || 'none';
+    return current === this.toString();
+  },
+});
+
+Template.cardRecurrenceIntervalPopup.events({
+  'click .js-set-card-recurrence'(event) {
+    event.preventDefault();
+    const interval = event.currentTarget.getAttribute('data-interval');
+    const card = Cards.findOne(getCardId());
+    if (card) {
+      card.setRecurrenceInterval(interval);
+    }
     Popup.back();
   },
 });

@@ -1124,6 +1124,10 @@ template(name="cardDetailsActionsPopup")
               i.fa.fa-clone
               | {{_ 'save-card-as-template'}}
           li
+            a.js-set-card-recurrence-interval.card-recurrence-interval
+              i.fa.fa-refresh
+              | {{_ 'card-recurrence-interval'}} ...
+          li
             a.js-link-card-to-board
               i.fa.fa-link
               | {{_ 'linkCardToBoardPopup-title'}}
@@ -1312,6 +1316,18 @@ template(name="cardAssigneePopup")
         if $eq currentUser._id user._id
           with currentUser
             li: a.js-edit-profile {{_ 'edit-profile'}}
+
+//- Kanboard-style whole-card recurrence: pick this card's automatic-recurrence
+  interval (or 'none' to turn it off). server/cardRecurrenceSchedule.js creates
+  a fresh copy of the card in the same list once the chosen interval comes due.
+  Mirrors client/components/cards/checklists.jade's checklistResetIntervalPopup.
+template(name="cardRecurrenceIntervalPopup")
+  ul.pop-over-list
+    each recurrenceIntervals
+      li
+        a.js-set-card-recurrence(data-interval="{{this}}" class="{{#if isCurrentCardInterval}}is-checked{{/if}}")
+          i.fa(class="{{#if isCurrentCardInterval}}fa-check-circle{{else}}fa-circle-o{{/if}}")
+          | {{_ (concat 'card-recurrence-interval-' this)}}
 
 template(name="cardMorePopup")
   p.quiet

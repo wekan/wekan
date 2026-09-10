@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { Random } from 'meteor/random';
 import { ReactiveCache, ReactiveMiniMongoIndex } from '/imports/reactiveCache';
+import { CARD_RECURRENCE_INTERVALS } from '/models/lib/cardRecurrenceSchedule';
 import {
   formatDateTime,
   formatDate,
@@ -217,6 +218,32 @@ Cards.attachSchema(
           optional: true,
         },
       }),
+    },
+    recurrenceInterval: {
+      /**
+       * Kanboard-style whole-card recurrence: automatically create a fresh copy
+       * of this card in the same list on a recurring schedule (e.g. a weekly
+       * status-report card, a monthly invoice card), so the next occurrence
+       * does not have to be created by hand every time. 'none' (default) never
+       * recurs. Reuses the exact same due-date mechanism as a checklist's
+       * automatic reset (models/lib/checklistResetSchedule.js) - see
+       * models/lib/cardRecurrenceSchedule.js and
+       * server/cardRecurrenceSchedule.js for the due-date calculation and the
+       * periodic job that applies it.
+       */
+      type: String,
+      allowedValues: CARD_RECURRENCE_INTERVALS,
+      defaultValue: 'none',
+      optional: true,
+    },
+    lastRecurrenceAt: {
+      /**
+       * When the automatic-recurrence job last created this card's next
+       * occurrence. Falls back to createdAt (in isCardRecurrenceDue()) until
+       * the first automatic recurrence happens.
+       */
+      type: Date,
+      optional: true,
     },
     dateLastActivity: {
       /**
@@ -940,6 +967,17 @@ async function recordCardChange(card, change) {
 }
 
 Cards.helpers({
+  /** Kanboard-style whole-card recurrence: set (or clear, with 'none') this
+   * card's automatic-recurrence interval. Does not itself create anything -
+   * the periodic job in server/cardRecurrenceSchedule.js does that once the
+   * interval comes due. */
+  async setRecurrenceInterval(recurrenceInterval) {
+    if (!CARD_RECURRENCE_INTERVALS.includes(recurrenceInterval)) return undefined;
+    return await Cards.updateAsync(this._id, {
+      $set: { recurrenceInterval },
+    });
+  },
+
   // Gantt https://github.com/wekan/wekan/issues/2870#issuecomment-857171127
   async setGanttTargetId(sourceId, targetId, linkType, linkId){
     return await Cards.updateAsync({ _id: sourceId}, {
