@@ -784,6 +784,27 @@ function toggleValueInReactiveArray(reactiveValue, value) {
   reactiveValue.set(array);
 }
 
+// Issue #2392: a custom field with "Auto create field to all cards" (or
+// "Always on card") applied correctly to the FIRST card of a quick-add
+// session but not to any card created after it, because this same
+// computation lived only inline in `onCreated` - the one place that ran
+// before the very first card - while `reset()` (meant to clear the form
+// between cards) just set `customFields` back to `[]` instead of
+// recomputing it. Any code path that clears the form between submits would
+// therefore drop the automatic field from every card after the first.
+// Sharing one helper between `onCreated` and `reset()` means the automatic
+// fields are (re)applied consistently, not only once per template lifetime.
+function automaticCustomFieldsForCurrentBoard() {
+  const currentBoardId = Session.get('currentBoard');
+  const board = ReactiveCache.getBoard(currentBoardId);
+  const arr = [];
+  (board?.customFields() || []).forEach(function (field) {
+    if (field.automaticallyOnCard || field.alwaysOnCard)
+      arr.push({ _id: field._id, value: null });
+  });
+  return arr;
+}
+
 Template.addCardForm.onCreated(function () {
   this.labels = new ReactiveVar([]);
   this.members = new ReactiveVar([]);
@@ -797,20 +818,14 @@ Template.addCardForm.onCreated(function () {
   this.dueAt = new ReactiveVar('');
   this.assignees = new ReactiveVar([]);
 
-  const currentBoardId = Session.get('currentBoard');
-  const arr = [];
-  ReactiveCache.getBoard(currentBoardId)
-    .customFields()
-    .forEach(function (field) {
-      if (field.automaticallyOnCard || field.alwaysOnCard)
-        arr.push({ _id: field._id, value: null });
-    });
-  this.customFields.set(arr);
+  this.customFields.set(automaticCustomFieldsForCurrentBoard());
 
   this.reset = () => {
     this.labels.set([]);
     this.members.set([]);
-    this.customFields.set([]);
+    // #2392: recompute rather than clear, so a card created after a reset
+    // still gets its board's automatic custom fields.
+    this.customFields.set(automaticCustomFieldsForCurrentBoard());
     this.showMoreOptions.set(false);
     this.description.set('');
     this.dueAt.set('');
