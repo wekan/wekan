@@ -4983,6 +4983,28 @@ Applied the same fix to the `stop` handler.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0242f968b">The card detail sections and the Labels popup get the card as their data context again</a>. Thanks to xet7.</summary>
+
+Reported directly: after adding a label to an opened card, clicking it in
+the Labels popup no longer made it wider or applied it to the card - it had
+worked in the previous release. The reorderable card detail sections are
+rendered by an `each` over the board's stored section order, and the plain
+`each orderedCardFieldSections` form set the data context of everything
+inside it to the section NAME string ("labels", "dates", ...). Every section
+template, and every popup opened from one, therefore received a string
+where it expected the card: the Labels popup's `card.toggleLabel` was
+undefined and the click returned silently, `isLabelSelected` looked up
+`_id` on a string, and the section's own labels/stickers/locations lists
+rendered empty. The earlier fixes in this release (global helpers, missing
+imports, the sortable `stop` handler) each removed a real exception on this
+path but could not restore the toggle, because the popup still had no
+card. Switched to `each section in orderedCardFieldSections`, which keeps
+`this` as the card; `tests/cardFieldSectionsKeepCardContext.test.cjs` pins
+it.
+
+</details>
+
 and improves the translation workflow:
 
 - [Fill in the missing Ladin, Latin, Luganda, Luxembourgish, Maithili, Malagasy, Malay, Malayalam, Maltese, Manx, Maori and Marathi translations](https://github.com/wekan/wekan/commit/718d20813). Thanks to xet7.
