@@ -43,6 +43,9 @@ const SETTING_FIELDS = {
   disableActivities: 1,
   disableNotifications: 1,
   disableWatch: 1,
+  // 3-tier Notification Settings admin defaults (models/lib/notificationSettings.js).
+  notifyDefaultTray: 1,
+  notifyDefaultEmail: 1,
   // Admin Panel / Problems / Delete reads this field back after writing it.
   // Without publishing it, the optimistic checkmark is immediately redrawn from
   // `undefined` even though the server saved the new value.
@@ -79,6 +82,14 @@ const SETTING_FIELDS = {
   spinnerName: 1,
   oidcBtnText: 1,
   mailDomainName: 1,
+  // #2022: admin-customizable transactional-email templates (Admin Panel ->
+  // Email -> Email Templates). Unset is the default and means "use the
+  // current hardcoded/i18n content" - see server/models/settings.js and
+  // server/notifications/email.js.
+  inviteEmailSubjectTemplate: 1,
+  inviteEmailBodyTemplate: 1,
+  activityEmailSubjectTemplate: 1,
+  activityEmailBodyTemplate: 1,
   legalNotice: 1,
   customHeadEnabled: 1,
   customHeadMetaTags: 1,

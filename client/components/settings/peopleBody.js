@@ -109,6 +109,9 @@ Template.people.onCreated(function () {
   // The page opens on Login, the first entry of the menu - as it always did.
   this.registrationSetting = new ReactiveVar(true);
   this.emailSetting = new ReactiveVar(false);
+  // Admin-level default for the 3-tier Notification Settings system, see
+  // models/lib/notificationSettings.js.
+  this.notifySetting = new ReactiveVar(false);
   this.orgSetting = new ReactiveVar(false);
   this.teamSetting = new ReactiveVar(false);
   this.peopleSetting = new ReactiveVar(false);
@@ -392,6 +395,7 @@ Template.people.onCreated(function () {
       this.activeMenuId.set(targetID);
       this.registrationSetting.set('registration-setting' === targetID);
       this.emailSetting.set('email-setting' === targetID);
+      this.notifySetting.set('notify-setting' === targetID);
       this.orgSetting.set('org-setting' === targetID);
       this.teamSetting.set('team-setting' === targetID);
       this.peopleSetting.set('people-setting' === targetID);
@@ -507,6 +511,10 @@ function peopleMenu(user) {
     { id: 'registration-setting', icon: 'fa-key', labelKey: 'login', emoji: true },
     // No e-mail settings on Sandstorm; a null entry is dropped, not rendered empty.
     isSandstorm ? null : { id: 'email-setting', icon: 'fa-envelope', labelKey: 'email', emoji: true },
+    // Admin-level default for the 3-tier Notification Settings system (see
+    // models/lib/notificationSettings.js): admin default -> board override ->
+    // member override. Sits right below E-mail, the setting it is closest to.
+    { id: 'notify-setting', icon: 'fa-bell', labelKey: 'notifications', emoji: true },
     // Domains sits with E-mail: it lists the e-mail domains the users sign in
     // with, so it belongs beside the e-mail settings rather than at the end of
     // the menu, after the roles and template checkbox lists.
@@ -815,6 +823,9 @@ Template.people.helpers({
   },
   emailSetting() {
     return Template.instance().emailSetting;
+  },
+  notifySetting() {
+    return Template.instance().notifySetting;
   },
   orgSetting() {
     return Template.instance().orgSetting;
@@ -2589,6 +2600,34 @@ Template.settingsUserPopup.events({
           console.log('User deleted successfully:', result);
         }
         // One row fewer: which users this page holds has changed.
+        peopleListChanged();
+        Popup.back();
+      }
+    });
+  },
+  // #2731: GDPR-friendlier alternative to deleteButton above - scrubs PII and
+  // disables login, but leaves every board/card/comment reference to this
+  // userId untouched (no reference-pruning, no hard delete).
+  'click #anonymizeButton'(event) {
+    event.preventDefault();
+    const userId = this.userId || this.user?._id;
+
+    Meteor.call('anonymizeUser', userId, (error, result) => {
+      if (error) {
+        if (process.env.DEBUG === 'true') {
+          console.error('Error anonymizing user:', error);
+        }
+        if (error.error === 'not-authorized') {
+          alert('You are not authorized to anonymize this user.');
+        } else if (error.error === 'user-not-found') {
+          alert('User not found.');
+        } else {
+          alert('Error anonymizing user: ' + error.reason);
+        }
+      } else {
+        if (process.env.DEBUG === 'true') {
+          console.log('User anonymized successfully:', result);
+        }
         peopleListChanged();
         Popup.back();
       }

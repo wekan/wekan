@@ -1,0 +1,37 @@
+//- The reusable "Notification Settings" popup: one template, opened from the
+//- three places the 3-tier Notification Settings system (see
+//- models/lib/notificationSettings.js) can be configured -
+//-   Member Settings   (client/components/users/userHeader.jade)  scope='member'
+//-   Board Settings    (client/components/sidebar/sidebar.jade)   scope='board'
+//-   Admin Panel/People (client/components/settings/peopleBody.jade) scope='admin'
+//- Precedence: admin default -> board override -> member override, the same
+//- shape the board/member theme override already uses elsewhere. At the board
+//- and member scopes, "Use admin/board default" clears the override for that
+//- level so it falls through to the level below.
+template(name="notificationSettingsPopup")
+  ul.pop-over-list.notification-settings-popup
+    li
+      p.quiet {{_ 'notification-settings-popup-description'}}
+    each notifyServiceRows
+      li
+        .title
+          i.fa(class="{{icon}}")
+          | {{_ labelKey}}
+        .notification-settings-popup-options
+          if isAdminScope
+            a.flex.js-notify-option(data-service="{{service}}" data-value="true" class="{{#if onSelected}}is-checked{{/if}}")
+              .materialCheckBox
+              span {{_ 'yes'}}
+            a.flex.js-notify-option(data-service="{{service}}" data-value="false" class="{{#if offSelected}}is-checked{{/if}}")
+              .materialCheckBox
+              span {{_ 'no'}}
+          else
+            a.flex.js-notify-option(data-service="{{service}}" data-value="" class="{{#if inheritSelected}}is-checked{{/if}}")
+              .materialCheckBox
+              span {{_ 'default'}}
+            a.flex.js-notify-option(data-service="{{service}}" data-value="true" class="{{#if onSelected}}is-checked{{/if}}")
+              .materialCheckBox
+              span {{_ 'yes'}}
+            a.flex.js-notify-option(data-service="{{service}}" data-value="false" class="{{#if offSelected}}is-checked{{/if}}")
+              .materialCheckBox
+              span {{_ 'no'}}

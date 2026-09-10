@@ -820,6 +820,20 @@ Boards.attachSchema(
       type: Boolean,
       defaultValue: false,
     },
+    // Board-level override of the 3-tier Notification Settings system (see
+    // models/lib/notificationSettings.js). Unset (optional, no default)
+    // means "use the Admin Panel default"; an explicit true/false overrides
+    // it for every member of this board unless a member also has their own
+    // override, exactly like the admin-default -> board-override ->
+    // member-override precedence used elsewhere.
+    notifyOverrideTray: {
+      type: Boolean,
+      optional: true,
+    },
+    notifyOverrideEmail: {
+      type: Boolean,
+      optional: true,
+    },
     allowsCardNumberOnMinicard: {
       /**
        * Does the board allows card numbers on minicard?
@@ -2304,6 +2318,24 @@ Boards.helpers({
     } else {
       modifier.$unset = { customThemeColors: '' };
     }
+    return await Boards.updateAsync(this._id, modifier);
+  },
+
+  // Board-level override of the 3-tier Notification Settings system (see
+  // models/lib/notificationSettings.js): admin default -> board override ->
+  // member override. `service` is 'tray' or 'email'; `value` is true/false to
+  // override, or null/undefined to clear the override and fall back to the
+  // Admin Panel default.
+  async setNotifyOverride(service, value) {
+    const currentUser = await ReactiveCache.getCurrentUser();
+    if (!(currentUser.isBoardAdmin() || currentUser.isAdmin())) return false;
+    const field = service === 'email' ? 'notifyOverrideEmail'
+      : service === 'tray' ? 'notifyOverrideTray'
+      : null;
+    if (!field) return false;
+    const modifier = value === true || value === false
+      ? { $set: { [field]: value } }
+      : { $unset: { [field]: '' } };
     return await Boards.updateAsync(this._id, modifier);
   },
 

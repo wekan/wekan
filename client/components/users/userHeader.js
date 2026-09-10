@@ -73,6 +73,9 @@ Template.memberMenuPopup.events({
   'click .js-my-attachments'() {
     Popup.back();
   },
+  'click .js-starred-items'() {
+    Popup.back();
+  },
   // Boards in Archive is a SECTION of All Boards - the row in its left menu -
   // not a page of its own. This sent the reader to `/archive`, the full-width
   // page that section replaced: the same list, but with no menu beside it and
@@ -86,6 +89,10 @@ Template.memberMenuPopup.events({
   'click .js-edit-profile': Popup.open('editProfile'),
   'click .js-change-settings': Popup.open('changeSettings'),
   'click .js-change-color': Popup.open('changeColor'),
+  'click .js-open-notification-settings': Popup.open('notificationSettings', {
+    titleKey: 'notifications',
+    scope: 'member',
+  }),
   'click .js-change-font': Popup.open('changeFont'),
   'click .js-change-avatar': Popup.open('changeAvatar'),
   'click .js-change-password': Popup.open('changePassword'),

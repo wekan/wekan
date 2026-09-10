@@ -35,6 +35,8 @@ template(name="people")
               +general
             else if emailSetting.get
               +email
+            else if notifySetting.get
+              +notificationSettingsPopup(scope="admin")
             else if orgSetting.get
               +orgGeneral(orgTablePageData)
             else if teamSetting.get
@@ -711,6 +713,15 @@ template(name="settingsUserPopup")
         | {{_ 'impersonate-user'}}
     br
     hr
+    li
+      form
+        label.hide.userId(type="text" value=user._id)
+        label
+          | {{_ 'anonymize-account-confirm-popup' }}
+        br
+        div.buttonsContainer
+          input#anonymizeButton.card-details-red.right.wide(type="button" value="{{_ 'anonymize-account'}}")
+    br
     li
       form
         label.hide.userId(type="text" value=user._id)

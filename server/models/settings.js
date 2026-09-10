@@ -21,6 +21,7 @@ const {
   buildReinviteModifier,
   shouldRemoveInvitationOnEmailFailure,
 } = require('/models/lib/invitationCodeEmail');
+const { substituteVars } = require('/models/lib/ruleVarsSubstitute');
 
 const getReactiveCache = () => require('/imports/reactiveCache').ReactiveCache;
 const getTAPi18n = () => require('/imports/i18n').TAPi18n;
@@ -91,14 +92,40 @@ async function sendInvitationEmail(_id, { isNewInvitation = true } = {}) {
       url: Meteor.absoluteUrl('sign-up'),
     };
     const lang = author.getLanguage();
-    await EmailLocalization.sendEmail({
-      to: icode.email,
-      from: Accounts.emailTemplates.from,
-      subject: 'email-invite-register-subject',
-      text: 'email-invite-register-text',
-      params,
-      language: lang,
-    });
+    // #2022: an admin-customized invite template (Admin Panel -> Email
+    // Templates) overrides the hardcoded i18n subject/text, using the same
+    // {token} substitution the #3304 rule "send email" action uses
+    // (substituteVars). Unset (the default on every existing install) falls
+    // through to the exact i18n-driven content below, unchanged.
+    const setting = await getReactiveCache().getCurrentSetting();
+    const templateVars = {
+      email: params.email,
+      inviter: params.inviter,
+      user: params.user,
+      icode: params.icode,
+      url: params.url,
+    };
+    if (setting && setting.inviteEmailSubjectTemplate) {
+      // Sent directly (not through EmailLocalization.sendEmail) because the
+      // subject/text here are already-substituted plain text, not i18n keys
+      // - passing them through TAPi18n.__() would treat the custom text
+      // itself as a translation key to look up.
+      await Email.sendAsync({
+        to: icode.email,
+        from: Accounts.emailTemplates.from,
+        subject: substituteVars(setting.inviteEmailSubjectTemplate, templateVars),
+        text: substituteVars(setting.inviteEmailBodyTemplate || '', templateVars),
+      });
+    } else {
+      await EmailLocalization.sendEmail({
+        to: icode.email,
+        from: Accounts.emailTemplates.from,
+        subject: 'email-invite-register-subject',
+        text: 'email-invite-register-text',
+        params,
+        language: lang,
+      });
+    }
   } catch (e) {
     // #4043: only roll back a code created by this very invite. A pre-existing
     // invitation was already delivered in an earlier email; deleting it here
@@ -366,6 +393,29 @@ Meteor.methods({
       });
       throw error;
     }
+  },
+
+  // Admin-level default of the 3-tier Notification Settings system (see
+  // models/lib/notificationSettings.js). `service` is 'tray' or 'email';
+  // `enabled` is the admin default for it. Board and member overrides are set
+  // through their own methods (setBoardNotifyOverride in models/boards.js,
+  // setMemberNotifyOverride in models/users.js) and win over this default.
+  async setAdminNotifyDefault(service, enabled) {
+    check(service, String);
+    check(enabled, Boolean);
+    const user = await Meteor.userAsync();
+    if (user?.isAdmin !== true) {
+      throw new Meteor.Error('not-authorized');
+    }
+    const field = service === 'email' ? 'notifyDefaultEmail'
+      : service === 'tray' ? 'notifyDefaultTray'
+      : null;
+    if (!field) throw new Meteor.Error('invalid-service');
+
+    const setting = await Settings.findOneAsync({});
+    if (!setting) throw new Meteor.Error('settings-not-found');
+    await Settings.updateAsync(setting._id, { $set: { [field]: enabled } });
+    return enabled;
   },
 
   async sendInvitation(emails, boards) {

@@ -323,6 +323,23 @@ Users.attachSchema(
     'profile.emailBuffer.$': {
       type: String,
     },
+    'profile.notifyOverrideTray': {
+      /**
+       * Member-level override of the in-app notification tray (3-tier
+       * Notification Settings system, see models/lib/notificationSettings.js).
+       * Unset means "use the board override, or the Admin Panel default".
+       */
+      type: Boolean,
+      optional: true,
+    },
+    'profile.notifyOverrideEmail': {
+      /**
+       * Member-level override of email notifications (see
+       * models/lib/notificationSettings.js).
+       */
+      type: Boolean,
+      optional: true,
+    },
     'profile.fullname': {
       /**
        * full name of the user
@@ -684,6 +701,36 @@ Users.attachSchema(
     'profile.starredBoards.$': {
       type: String,
     },
+    'profile.starredSwimlanes': {
+      /**
+       * list of starred swimlane IDs (#1172)
+       */
+      type: Array,
+      optional: true,
+    },
+    'profile.starredSwimlanes.$': {
+      type: String,
+    },
+    'profile.starredLists': {
+      /**
+       * list of starred list IDs (#1172)
+       */
+      type: Array,
+      optional: true,
+    },
+    'profile.starredLists.$': {
+      type: String,
+    },
+    'profile.starredCards': {
+      /**
+       * list of starred card IDs (#1172)
+       */
+      type: Array,
+      optional: true,
+    },
+    'profile.starredCards.$': {
+      type: String,
+    },
     'profile.starredPages': {
       /**
        * the starred PAGES - bookmarks. A board is starred by id; a page has no
@@ -774,6 +821,7 @@ Users.attachSchema(
         'board-view-lead-time',
         'board-view-throughput-histogram',
         'board-view-wip-run',
+        'board-view-pulse',
       ],
     },
     'profile.listSortBy': {
@@ -1476,6 +1524,42 @@ Users.helpers({
     return Boards.userBoards(this._id, false, { _id: { $in: starredBoards } }, {});
   },
 
+  // #1172: the same per-user id-array shape as starredBoards, generalized to
+  // swimlanes, lists and cards so any of the four can be starred and reached
+  // from the "Starred" page and the header bookmarks dropdown.
+  starredSwimlanes() {
+    const { starredSwimlanes = [] } = this.profile || {};
+    if (!starredSwimlanes.length) return [];
+    return ReactiveCache.getSwimlanes({ _id: { $in: starredSwimlanes } });
+  },
+
+  starredLists() {
+    const { starredLists = [] } = this.profile || {};
+    if (!starredLists.length) return [];
+    return ReactiveCache.getLists({ _id: { $in: starredLists } });
+  },
+
+  starredCards() {
+    const { starredCards = [] } = this.profile || {};
+    if (!starredCards.length) return [];
+    return ReactiveCache.getCards({ _id: { $in: starredCards } });
+  },
+
+  hasStarredSwimlane(swimlaneId) {
+    const { starredSwimlanes = [] } = this.profile || {};
+    return starredSwimlanes.includes(swimlaneId);
+  },
+
+  hasStarredList(listId) {
+    const { starredLists = [] } = this.profile || {};
+    return starredLists.includes(listId);
+  },
+
+  hasStarredCard(cardId) {
+    const { starredCards = [] } = this.profile || {};
+    return starredCards.includes(cardId);
+  },
+
   // The starred PAGES - the bookmarks. Boards are starred by id; a page has no
   // id, so it is stored as the pair a bookmark is: where it goes and what to
   // call it. docs/Features/Board/Starred.md
@@ -1493,7 +1577,13 @@ Users.helpers({
   // places you keep. A count that left the pages out would say 2 above a
   // dropdown showing five rows.
   starredCount() {
-    return this.starredBoards().length + this.starredPages().length;
+    return (
+      this.starredBoards().length +
+      this.starredPages().length +
+      this.starredSwimlanes().length +
+      this.starredLists().length +
+      this.starredCards().length
+    );
   },
 
   hasStarred(boardId) {
@@ -2333,6 +2423,23 @@ Users.helpers({
     return await Users.updateAsync(this._id, { [queryKind]: { 'profile.starredBoards': boardId } });
   },
 
+  // #1172: same toggle pattern as toggleBoardStar, targeting the other three
+  // id-array fields.
+  async toggleSwimlaneStar(swimlaneId) {
+    const queryKind = this.hasStarredSwimlane(swimlaneId) ? '$pull' : '$addToSet';
+    return await Users.updateAsync(this._id, { [queryKind]: { 'profile.starredSwimlanes': swimlaneId } });
+  },
+
+  async toggleListStar(listId) {
+    const queryKind = this.hasStarredList(listId) ? '$pull' : '$addToSet';
+    return await Users.updateAsync(this._id, { [queryKind]: { 'profile.starredLists': listId } });
+  },
+
+  async toggleCardStar(cardId) {
+    const queryKind = this.hasStarredCard(cardId) ? '$pull' : '$addToSet';
+    return await Users.updateAsync(this._id, { [queryKind]: { 'profile.starredCards': cardId } });
+  },
+
   // #2220: toggle this board as the user's default "home" board (opened after
   // login). Clicking the current default clears it (back to the All Boards page).
   async toggleDefaultBoard(boardId) {
@@ -2534,6 +2641,22 @@ Users.helpers({
 
   async setAvatarUrl(avatarUrl) {
     return await Users.updateAsync(this._id, { $set: { 'profile.avatarUrl': avatarUrl } });
+  },
+
+  // Member-level override of the 3-tier Notification Settings system (see
+  // models/lib/notificationSettings.js): admin default -> board override ->
+  // member override, the same precedence the board/member theme override
+  // uses. `service` is 'tray' or 'email'; `value` is true/false to override,
+  // or null/undefined to clear it and fall back to the board/admin default.
+  async setNotifyOverride(service, value) {
+    const field = service === 'email' ? 'profile.notifyOverrideEmail'
+      : service === 'tray' ? 'profile.notifyOverrideTray'
+      : null;
+    if (!field) return false;
+    const modifier = value === true || value === false
+      ? { $set: { [field]: value } }
+      : { $unset: { [field]: '' } };
+    return await Users.updateAsync(this._id, modifier);
   },
 
   async setShowCardsCountAt(limit) {

@@ -402,6 +402,50 @@ Settings.attachSchema(
       optional: true,
       defaultValue: false,
     },
+    // Admin-level default for the 3-tier Notification Settings system (see
+    // models/lib/notificationSettings.js): the base decision used when neither a
+    // board nor a member has overridden a given notification service. Follows
+    // the same nullable-override precedence used by the board/member allowsX
+    // toggles elsewhere in this schema — see resolveNotificationSetting().
+    notifyDefaultTray: {
+      type: Boolean,
+      optional: true,
+      defaultValue: true,
+    },
+    notifyDefaultEmail: {
+      type: Boolean,
+      optional: true,
+      defaultValue: true,
+    },
+    // #2022: admin-customizable templates for WeKan's transactional emails.
+    // Each is OPTIONAL and unset by default, so an install that has never
+    // touched Admin Panel -> Email Templates sends the exact hardcoded/i18n
+    // content it always has (server/models/settings.js's sendInvitationEmail,
+    // server/notifications/email.js's activity-notification buffer). Only
+    // when an admin fills one of these in is it used, with
+    // models/lib/ruleVarsSubstitute.js's substituteVars() - the same
+    // `{token}` substitution the #3304 rule "send email" action uses -
+    // filling in the tokens documented next to each field below. Deliberately
+    // NOT included: password-reset / account-verification emails, which stay
+    // hardcoded (see docs/Security note in server/models/settings.js).
+    // Tokens: {email} {inviter} {user} {icode} {url}
+    inviteEmailSubjectTemplate: {
+      type: String,
+      optional: true,
+    },
+    inviteEmailBodyTemplate: {
+      type: String,
+      optional: true,
+    },
+    // Tokens: {board} {card} {list} {username} {url} {comment} {action}
+    activityEmailSubjectTemplate: {
+      type: String,
+      optional: true,
+    },
+    activityEmailBodyTemplate: {
+      type: String,
+      optional: true,
+    },
     supportTitle: {
       type: String,
       optional: true,

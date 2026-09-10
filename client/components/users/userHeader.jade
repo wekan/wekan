@@ -26,6 +26,10 @@ template(name="memberMenuPopup")
           i.fa.fa-paperclip
           | {{_ 'my-attachments'}}
       li
+        a.js-starred-items(href="{{pathFor 'starred-items'}}")
+          i.fa.fa-star
+          | {{_ 'allboards.starred'}}
+      li
         a.js-global-search(href="{{pathFor 'global-search'}}")
           i.fa.fa-search
           | {{_ 'globalSearch-title'}}
@@ -87,6 +91,10 @@ template(name="memberMenuPopup")
         a.js-change-color
           i.fa.fa-paint-brush
           | {{_ 'change-color'}}
+      li
+        a.js-open-notification-settings
+          i.fa.fa-bell
+          | {{_ 'notifications'}}
       li
         a.js-change-font
           i.fa.fa-font
