@@ -218,6 +218,29 @@ Template.archivesSidebar.events({
     Tracker.afterFlush(() => template.find(`#archive-tab-${slug}`)?.focus());
   },
 
+  // #1504: an archived card used to have no way to open beyond the sidebar's
+  // own cramped minicard preview. Reuse the SAME full card-detail popup a
+  // normal board card opens (client/components/lists/listBody.js's
+  // Utils.isMiniScreen() popup branch, and the cross-board myCards.js /
+  // resultCard.js minicards) instead of a parallel "archived card preview" -
+  // full width/height, every field, and (added alongside this) a Restore
+  // action in its own action menu. Skip clicks on the Restore/Delete links
+  // themselves so they keep doing their own thing rather than also opening
+  // the popup underneath them.
+  'click .archived-card-item .js-minicard'(evt) {
+    if ($(evt.target).closest('.js-restore-card, .js-delete-card').length) {
+      return;
+    }
+    evt.preventDefault();
+    const card = Template.currentData();
+    if (!card || !card._id) return;
+    Session.set('popupCardId', card._id);
+    Session.set('popupCardBoardId', card.boardId);
+    if (!Popup.isOpen()) {
+      Popup.open('cardDetails')(evt);
+    }
+  },
+
   async 'click .js-restore-card'(evt) {
     evt.preventDefault();
     const data = Template.currentData() || {};
