@@ -1417,7 +1417,7 @@ same shape used by `resultCard.js` and `tableView.js`.
 **Admin Panel and Public Boards** - inviting people, deleting a user, and viewing a public board while logged out.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/2ccd70f45">Confirmed the Admin Panel already lets an admin invite/delete people, and that public boards are already viewable while logged out</a>. Thanks to Cupara and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/2ccd70f45">Pinned Admin Panel invite/delete people and logged-out public board viewing with regression tests</a>. Thanks to Cupara and xet7.</summary>
 
 [#3310](https://github.com/wekan/wekan/issues/3310) (2020) asked for three
 things. Reading the current code shows all three are already there, in some
