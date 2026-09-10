@@ -1524,6 +1524,55 @@ capability a Normal member has.
 
 </details>
 
+**Attachment uploads** - the attachment/avatar upload pipeline, both the
+filesystem and cloud storage backends.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/61e857d96">A file's real content is now checked against its declared type, and a spoofed upload is rejected</a>. Thanks to blaggacao and xet7.</summary>
+
+[#3274](https://github.com/wekan/wekan/issues/3274): uploads were validated
+against their client-declared MIME type/extension, but nothing compared that
+declared type against the file's REAL content, so an executable renamed with
+an image extension and a spoofed `image/jpeg` Content-Type (e.g. an `.exe`
+renamed to `.jpg`) uploaded as if it were a genuine image.
+
+Adds `models/lib/uploadContentMismatch.js`, a pure decision module (no
+server, no filesystem) that flags only a MEANINGFUL, dangerous mismatch:
+content that magic-byte-sniffs as an executable (Windows PE, ELF, Mach-O,
+MSI, JAR/APK, ...) or a shell/batch script, while the declared type claims
+to be an image, document, audio, video, plain text or archive. It
+deliberately leaves compatible textual differences alone (`text/plain` vs
+`text/csv`) and does not flag an executable that is honestly declared as
+one - the existing allow-list already governs whether executables are
+permitted at all - so a legitimate upload is never broken by a false
+positive.
+
+`models/fileValidation.js`'s `isFileValid()` - the single choke point
+already shared by `models/attachments.server.js` and
+`models/avatars.server.js` - now sniffs the file's real type with the
+`file-type` package (MIT, already a dependency, used the same way for
+extension correction in `models/lib/fileTypeCorrection.js`) and rejects a
+dangerous mismatch before the file reaches its storage backend. A blocked
+attempt is logged to Admin Panel -> Problems under the existing `file.mime`
+security-log key (CWE-434, MimeBleed), wrapped so a logging failure can
+never break the guard itself.
+
+`tests/uploadContentMismatch.test.cjs` unit-tests the pure decision function
+directly: positive cases for legitimate uploads of each declared type
+(image, PDF, compatible textual mismatch, an honestly-declared executable),
+negative cases for a Windows PE `.exe`, an ELF binary and a Mach-O binary
+each disguised with an image/document type, and a shell/batch script
+disguised the same way, plus a codebase-wide search proving no other
+module re-implements its own bypassing magic-byte check and that both
+upload paths (attachments, avatars) go through the same guard.
+
+This is hardening, not a critical/remote-code-execution fix on its own: a
+rejected, deleted stored file never executes on the WeKan server merely by
+being stored, so it stays a normal bug-fix/security-hardening entry rather
+than a CRITICAL SECURITY ISSUE.
+
+</details>
+
 and has the following documentation improvement:
 
 <details>
