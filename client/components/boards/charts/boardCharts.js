@@ -7,11 +7,15 @@ const { chartExportRows } = require('/models/lib/chartExportRows');
 // `boardChartData` (server/publications/boards.js) for whichever `chartKey`
 // the wrapper template passed in, and draws it the same way statsView/
 // timeView draw the board's status - onCreated calls the method, a
-// ReactiveVar holds the answer, helpers read it. No charting library: bars
-// are plain CSS width percentages, following docs/Features/Reports/charts.tsv.
+// ReactiveVar holds the answer, helpers read it. Drawn with Chart.js (MIT,
+// canvas-based), loaded with a dynamic import() so its code only reaches the
+// browser when a chart view actually mounts, following
+// docs/Features/Reports/charts.tsv for what each chartKey means.
 Template.boardChartView.onCreated(function() {
   this.chartData = new ReactiveVar(null);
   this.loading = new ReactiveVar(true);
+  this.chartJsInstance = null;
+  this.destroyed = false;
   this.autorun(() => {
     const boardId = Session.get('currentBoard');
     const chartKey = Template.currentData().chartKey;
@@ -24,6 +28,14 @@ Template.boardChartView.onCreated(function() {
   });
 });
 
+Template.boardChartView.onDestroyed(function() {
+  this.destroyed = true;
+  if (this.chartJsInstance) {
+    this.chartJsInstance.destroy();
+    this.chartJsInstance = null;
+  }
+});
+
 Template.boardChartView.events({
   'mousedown .stats-view'(event) {
     event.stopPropagation();
@@ -33,20 +45,17 @@ Template.boardChartView.events({
   },
 });
 
-// The one series (or point/group list) each chart draws as CSS bars, capped
-// to a readable number of rows - a year of burndown days as one bar each
-// would not fit any screen, so the most recent window is shown, newest last.
+// The one series (or point/group list) each chart draws, capped to a
+// readable number of bars - a year of burndown days as one bar each would
+// not fit any screen, so the most recent window is shown, newest last.
 const MAX_BARS = 24;
 const BAR_COLOR = '#3498db';
 
 function barsFromSeries(series, valueKey, labelKey) {
   const slice = series.slice(-MAX_BARS);
-  const max = Math.max(1, ...slice.map(row => Number(row[valueKey]) || 0));
   return slice.map(row => ({
     label: row[labelKey],
     value: Math.round((Number(row[valueKey]) || 0) * 100) / 100,
-    percent: Math.round(((Number(row[valueKey]) || 0) / max) * 100),
-    color: BAR_COLOR,
   }));
 }
 
@@ -71,6 +80,55 @@ function computeBarRows(chartKey, data) {
   return [];
 }
 
+// Loaded once per page, reused by every chart view opened afterward.
+let ChartJsPromise = null;
+function loadChartJs() {
+  if (!ChartJsPromise) {
+    ChartJsPromise = import('chart.js/auto').then(mod => mod.Chart || mod.default || mod);
+  }
+  return ChartJsPromise;
+}
+
+Template.boardChartView.onRendered(function() {
+  const templateInstance = this;
+
+  loadChartJs().then(Chart => {
+    if (templateInstance.destroyed) return;
+    templateInstance.autorun(() => {
+      const chartKey = Template.currentData().chartKey;
+      const rows = computeBarRows(chartKey, templateInstance.chartData.get());
+      const canvas = templateInstance.find('.js-chart-canvas');
+      if (!canvas) return;
+      Tracker.nonreactive(() => {
+        if (templateInstance.chartJsInstance) {
+          templateInstance.chartJsInstance.destroy();
+          templateInstance.chartJsInstance = null;
+        }
+        if (!rows.length) return;
+        templateInstance.chartJsInstance = new Chart(canvas, {
+          type: 'bar',
+          data: {
+            labels: rows.map(row => row.label),
+            datasets: [{
+              label: TAPi18n.__(Template.currentData().titleKey),
+              data: rows.map(row => row.value),
+              backgroundColor: BAR_COLOR,
+            }],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: { y: { beginAtZero: true } },
+          },
+        });
+      });
+    });
+  }).catch(error => {
+    console.error('Could not load Chart.js:', error);
+  });
+});
+
 Template.boardChartView.helpers({
   chartTitle() {
     return TAPi18n.__(Template.currentData().titleKey);
@@ -81,10 +139,6 @@ Template.boardChartView.helpers({
   hasNoData() {
     const { rows } = tableOf();
     return !rows.length;
-  },
-  barRows() {
-    const chartKey = Template.currentData().chartKey;
-    return computeBarRows(chartKey, Template.instance().chartData.get());
   },
   tableHeaders() {
     return tableOf().headers;

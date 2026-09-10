@@ -15,13 +15,8 @@ template(name="boardChartView")
       else if hasNoData
         p.stats-view-placeholder-note {{_ 'no-results'}}
       else
-        .chart-bars
-          each row in barRows
-            .chart-bar-row
-              .chart-bar-label {{ row.label }}
-              .chart-bar-track
-                .chart-bar-fill(style="width: {{ row.percent }}%; background-color: {{ row.color }};")
-              .chart-bar-value {{ row.value }}
+        .chart-canvas-wrapper
+          canvas.js-chart-canvas
 
         table.stats-view-table.chart-data-table
           thead

@@ -1,0 +1,13 @@
+template(name="frappeGanttView")
+  .frappe-gantt-view
+    h3 {{_ 'board-view-gantt'}} (Frappe Gantt)
+    .chart-export-buttons
+      a.chart-export-button(href="{{ frappeGanttExportUrl 'PDF' }}" target="_blank" rel="noopener")
+        i.fa.fa-file-pdf-o
+        | Export to PDF
+      a.chart-export-button(href="{{ frappeGanttExportUrl 'Excel' }}" target="_blank" rel="noopener")
+        i.fa.fa-file-excel-o
+        | Export to Excel
+    if hasNoTasks
+      p.frappe-gantt-empty {{_ 'no-cards-found'}}
+    .js-frappe-gantt-container.frappe-gantt-container

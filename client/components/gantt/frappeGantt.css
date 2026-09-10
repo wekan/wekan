@@ -1,0 +1,22 @@
+.frappe-gantt-view {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.frappe-gantt-container {
+  overflow-x: auto;
+  min-height: 80px;
+}
+
+.frappe-gantt-empty {
+  color: #888;
+}
+
+.frappe-gantt-container .bar-wrapper.gantt-task-overdue .bar {
+  fill: #e74c3c;
+}
+
+.frappe-gantt-container .bar-wrapper.gantt-task-overdue .bar-progress {
+  fill: #c0392b;
+}
