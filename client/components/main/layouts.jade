@@ -55,6 +55,19 @@ template(name="userFormsLayout")
       else
         // ARIA live region for error messages
         div#login-error-message(role="alert" aria-live="assertive" style="color: #d32f2f; margin-bottom: 1em;")
+        // Second sign-in step for accounts-2fa (issue #3058). Hidden unless a
+        // password login comes back with the "no-2fa-code" / "invalid-2fa-code"
+        // error - see decideTwoFactorLoginStep() in
+        // imports/lib/twoFactorAuthLoginDecision.js and its wiring in
+        // config/accounts.js.
+        form#two-factor-code-container.hide
+          label(for="two-factor-code-input")
+            | {{_ 'twoFactorCode-prompt'}}
+            input#two-factor-code-input(type="text" inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="one-time-code")
+          div#two-factor-code-error.error.hide
+          div.buttonsContainer
+            input.primary(type="submit" value="{{_ 'twoFactorCode-submit'}}")
+            button#two-factor-code-cancel.js-two-factor-code-cancel(type="button") {{_ 'twoFactorCode-cancel'}}
         +Template.dynamic(template=content)
         if currentSetting.displayAuthenticationMethod
           +connectionMethod(authenticationMethod=currentSetting.defaultAuthenticationMethod)

@@ -101,6 +101,10 @@ template(name="memberMenuPopup")
             a.js-change-password
               i.fa.fa-key
               | {{_ 'changePasswordPopup-title'}}
+          li
+            a.js-two-factor-auth
+              i.fa.fa-shield
+              | {{_ 'twoFactorAuthPopup-title'}}
       li
         a.js-change-language
           i.fa.fa-flag
@@ -171,6 +175,8 @@ template(name="editProfilePopup")
       if allowUserDelete
         div
         input#deleteButton.primary.wide(type="button" value="{{_ 'delete'}}")
+        div
+        input#anonymizeButton.primary.wide(type="button" value="{{_ 'anonymize-account'}}")
 
 
 template(name="supportPopup")
@@ -181,6 +187,48 @@ template(name="supportPopup")
 
 template(name="changePasswordPopup")
   +atForm(state='changePwd')
+
+template(name="twoFactorAuthPopup")
+  //- Issue #3058: opt-in per-user TOTP two-factor authentication, via
+  //- Meteor's official accounts-2fa package
+  //- (https://docs.meteor.com/packages/accounts-2fa.html). All secret
+  //- generation and code verification is done by that package
+  //- (Accounts.generate2faActivationQrCode / Accounts.enableUser2fa /
+  //- Accounts.disableUser2fa) - this template only shows the resulting QR
+  //- code / secret and the enable/disable controls. See
+  //- client/components/users/userHeader.js for the wiring.
+  .two-factor-auth-popup
+    if isLoadingStatus
+      +loader
+    else
+      if hasTwoFactorAuth
+        p.two-factor-auth-status
+          i.fa.fa-check-circle
+          | {{_ 'twoFactorAuth-enabled'}}
+        div.buttonsContainer
+          button.primary.js-two-factor-disable(type="button") {{_ 'twoFactorAuth-disable'}}
+      else
+        if activationStep
+          p {{_ 'twoFactorAuth-scan-instructions'}}
+          if qrSvg
+            .two-factor-auth-qr-code
+              != qrSvg
+          if qrSecret
+            p.two-factor-auth-secret
+              | {{_ 'twoFactorAuth-manual-entry'}}
+              code {{qrSecret}}
+          form.js-two-factor-confirm-form
+            label
+              | {{_ 'twoFactorCode-prompt'}}
+              input.js-two-factor-confirm-input(type="text" inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="one-time-code" autofocus)
+            div.two-factor-auth-error.error.hide
+            div.buttonsContainer
+              input.primary(type="submit" value="{{_ 'twoFactorAuth-confirm'}}")
+              button.js-two-factor-cancel-activation(type="button") {{_ 'twoFactorCode-cancel'}}
+        else
+          p {{_ 'twoFactorAuth-explanation'}}
+          div.buttonsContainer
+            button.primary.js-two-factor-start-enable(type="button") {{_ 'twoFactorAuth-enable'}}
 
 template(name="changeLanguagePopup")
   ul.pop-over-list
@@ -313,3 +361,8 @@ template(name="userDeletePopup")
   unless currentUser.isWorker
     p {{_ 'delete-user-confirm-popup'}}
     button.js-confirm.negate.full(type="submit") {{_ 'delete'}}
+
+template(name="userAnonymizePopup")
+  unless currentUser.isWorker
+    p {{_ 'anonymize-account-confirm-popup'}}
+    button.js-confirm.negate.full(type="submit") {{_ 'anonymize-account'}}

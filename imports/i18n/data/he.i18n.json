@@ -1984,6 +1984,8 @@
   "hideCheckedChecklistItems": "הסתרת פריטים שסומנו ברשימת הפריטים",
   "hideAllChecklistItems": "הסתרת כל הפריטים ברשימת המטלות",
   "checklist-reset-interval": "איפוס אוטומטי",
+  "checkAllItems": "סמן את כל הפריטים",
+  "uncheckAllItems": "בטל סימון של כל הפריטים",
   "checklistResetIntervalPopup-title": "איפוס אוטומטי",
   "checklist-reset-interval-none": "כבוי (לא מתאפס אוטומטית)",
   "checklist-reset-interval-daily": "יומי",

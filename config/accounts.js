@@ -1,5 +1,9 @@
 import { TAPi18n } from '/imports/i18n';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
+const {
+  decideTwoFactorLoginStep,
+  isTwoFactorLoginStep,
+} = require('/imports/lib/twoFactorAuthLoginDecision');
 
 // Readiness-aware, reactive translation — mirrors the `{{_}}` Blaze helper
 // (imports/i18n/blaze.js). A bare TAPi18n.__() returns the raw key on the initial
@@ -226,6 +230,94 @@ function goHomeWhenSignedIn() {
   Meteor.setTimeout(finish, 5000);
 }
 
+// Issue #3058: native TOTP two-factor authentication for username/password
+// login, via Meteor's official accounts-2fa package
+// (https://docs.meteor.com/packages/accounts-2fa.html). accounts-2fa handles
+// TOTP secret generation and verification entirely server-side; WeKan's job
+// here is only to show the second "enter your 6-digit code" step when a
+// password login comes back with the documented 'no-2fa-code' /
+// 'invalid-2fa-code' error, and to resubmit via
+// Meteor.loginWithPasswordAnd2faCode - the package's own login method for
+// this case. See imports/lib/twoFactorAuthLoginDecision.js for the pure
+// decision logic (unit-tested in tests/twoFactorLoginState.test.cjs) and
+// client/components/main/layouts.jade for the #two-factor-code-container
+// markup this manipulates.
+let pendingTwoFactorSelector = null;
+let pendingTwoFactorPassword = null;
+
+function showTwoFactorPrompt(step) {
+  if (!Meteor.isClient) return;
+  const container = document.getElementById('two-factor-code-container');
+  if (!container) return;
+  container.classList.remove('hide');
+  const errorDiv = document.getElementById('two-factor-code-error');
+  if (errorDiv) {
+    if (step === 'retry-code') {
+      errorDiv.textContent = tr('twoFactorCode-invalid');
+      errorDiv.classList.remove('hide');
+    } else {
+      errorDiv.textContent = '';
+      errorDiv.classList.add('hide');
+    }
+  }
+  const input = document.getElementById('two-factor-code-input');
+  if (input) {
+    input.value = '';
+    input.focus();
+  }
+}
+
+function hideTwoFactorPrompt() {
+  if (!Meteor.isClient) return;
+  const container = document.getElementById('two-factor-code-container');
+  if (container) container.classList.add('hide');
+  const errorDiv = document.getElementById('two-factor-code-error');
+  if (errorDiv) {
+    errorDiv.classList.add('hide');
+    errorDiv.textContent = '';
+  }
+  pendingTwoFactorSelector = null;
+  pendingTwoFactorPassword = null;
+}
+
+if (Meteor.isClient) {
+  $(document).on('submit', '#two-factor-code-container', function (e) {
+    e.preventDefault();
+    const codeInput = document.getElementById('two-factor-code-input');
+    const code = codeInput ? codeInput.value.trim() : '';
+    if (!pendingTwoFactorSelector || !code) {
+      return;
+    }
+    Meteor.loginWithPasswordAnd2faCode(
+      pendingTwoFactorSelector,
+      pendingTwoFactorPassword,
+      code,
+      err => {
+        if (err) {
+          const step = decideTwoFactorLoginStep(err, 'signIn');
+          if (isTwoFactorLoginStep(step)) {
+            showTwoFactorPrompt(step);
+            return;
+          }
+          hideTwoFactorPrompt();
+          const errorDiv = document.getElementById('login-error-message');
+          if (errorDiv) {
+            errorDiv.innerHTML = err.reason || err.message || tr('twoFactorCode-invalid');
+          }
+          return;
+        }
+        hideTwoFactorPrompt();
+        goHomeWhenSignedIn();
+      },
+    );
+  });
+
+  $(document).on('click', '.js-two-factor-code-cancel', function (e) {
+    e.preventDefault();
+    hideTwoFactorPrompt();
+  });
+}
+
 AccountsTemplates.configure({
   defaultLayout: 'userFormsLayout',
   defaultContentRegion: 'content',
@@ -237,10 +329,26 @@ AccountsTemplates.configure({
   homeRoutePath: '/',
   onSubmitHook(error, state) {
     if (!error && (state === 'signUp' || state === 'signIn')) {
+      hideTwoFactorPrompt();
       goHomeWhenSignedIn();
       return;
     }
     if (error) {
+      const step = decideTwoFactorLoginStep(error, state);
+      if (isTwoFactorLoginStep(step)) {
+        if (step === 'need-code' && Meteor.isClient) {
+          // Capture the credentials just submitted so the code-entry retry
+          // can resubmit them - accounts-2fa's login method takes the same
+          // selector/password plus the code (see the docs link above).
+          const usernameField = document.getElementById('at-field-username_and_email');
+          const passwordField = document.getElementById('at-field-password');
+          if (usernameField) pendingTwoFactorSelector = usernameField.value;
+          if (passwordField) pendingTwoFactorPassword = passwordField.value;
+        }
+        showTwoFactorPrompt(step);
+        return;
+      }
+      hideTwoFactorPrompt();
       // Display error to user
       const errorDiv = document.getElementById('login-error-message');
       if (errorDiv) {

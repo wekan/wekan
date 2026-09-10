@@ -89,6 +89,7 @@ Template.memberMenuPopup.events({
   'click .js-change-font': Popup.open('changeFont'),
   'click .js-change-avatar': Popup.open('changeAvatar'),
   'click .js-change-password': Popup.open('changePassword'),
+  'click .js-two-factor-auth': Popup.open('twoFactorAuth'),
   'click .js-change-language': Popup.open('changeLanguage'),
   'click .js-support': Popup.open('support'),
   'click .js-logout'(event) {
@@ -257,6 +258,25 @@ Template.editProfilePopup.events({
       }
     });
   }),
+  // #2731: GDPR-friendlier alternative to account deletion - scrubs PII and
+  // disables login without pruning the account's board/card/comment history.
+  'click #anonymizeButton': Popup.afterConfirm('userAnonymize', function() {
+    Popup.back();
+
+    Meteor.call('anonymizeUser', Meteor.userId(), (error, result) => {
+      if (error) {
+        if (process.env.DEBUG === 'true') {
+          console.error('Error anonymizing user:', error);
+        }
+        alert('Error anonymizing account: ' + error.reason);
+      } else {
+        if (process.env.DEBUG === 'true') {
+          console.log('User anonymized successfully:', result);
+        }
+        AccountsTemplates.logout();
+      }
+    });
+  }),
 });
 
 // XXX For some reason the useraccounts autofocus isnt working in this case.
@@ -264,6 +284,109 @@ Template.editProfilePopup.events({
 Template.changePasswordPopup.onRendered(function() {
   $('.at-pwd-form').show();
   this.find('#at-field-current_password').focus();
+});
+
+// Issue #3058: opt-in per-user TOTP two-factor authentication, via Meteor's
+// official accounts-2fa package (https://docs.meteor.com/packages/accounts-2fa.html).
+// TOTP secret generation and code verification are entirely accounts-2fa's
+// job (Accounts.generate2faActivationQrCode / Accounts.enableUser2fa /
+// Accounts.disableUser2fa / Accounts.has2faEnabled) - this template only
+// renders the QR code / secret it returns and calls those functions.
+Template.twoFactorAuthPopup.onCreated(function() {
+  this.isLoadingStatus = new ReactiveVar(true);
+  this.hasTwoFactorAuth = new ReactiveVar(false);
+  this.activationStep = new ReactiveVar(false);
+  this.qrSvg = new ReactiveVar('');
+  this.qrSecret = new ReactiveVar('');
+  this.errorMessage = new ReactiveVar('');
+
+  const templateInstance = this;
+  if (typeof Accounts.has2faEnabled === 'function') {
+    Accounts.has2faEnabled((error, enabled) => {
+      templateInstance.isLoadingStatus.set(false);
+      templateInstance.hasTwoFactorAuth.set(!error && !!enabled);
+    });
+  } else {
+    // accounts-2fa not available on the client build; nothing to show.
+    templateInstance.isLoadingStatus.set(false);
+  }
+});
+
+Template.twoFactorAuthPopup.helpers({
+  isLoadingStatus() {
+    return Template.instance().isLoadingStatus.get();
+  },
+  hasTwoFactorAuth() {
+    return Template.instance().hasTwoFactorAuth.get();
+  },
+  activationStep() {
+    return Template.instance().activationStep.get();
+  },
+  qrSvg() {
+    return Template.instance().qrSvg.get();
+  },
+  qrSecret() {
+    return Template.instance().qrSecret.get();
+  },
+});
+
+Template.twoFactorAuthPopup.events({
+  'click .js-two-factor-start-enable'(event, templateInstance) {
+    event.preventDefault();
+    const productName =
+      (ReactiveCache.getCurrentSetting() &&
+        ReactiveCache.getCurrentSetting().productName) ||
+      'WeKan';
+    Accounts.generate2faActivationQrCode(productName, (error, result) => {
+      if (error) {
+        console.error('Could not start 2FA activation:', error);
+        return;
+      }
+      templateInstance.qrSvg.set(result.svg || '');
+      templateInstance.qrSecret.set(result.secret || '');
+      templateInstance.activationStep.set(true);
+    });
+  },
+  'click .js-two-factor-cancel-activation'(event, templateInstance) {
+    event.preventDefault();
+    templateInstance.activationStep.set(false);
+    templateInstance.qrSvg.set('');
+    templateInstance.qrSecret.set('');
+  },
+  'submit .js-two-factor-confirm-form'(event, templateInstance) {
+    event.preventDefault();
+    const code = templateInstance
+      .find('.js-two-factor-confirm-input')
+      .value.trim();
+    const errorElement = templateInstance.find('.two-factor-auth-error');
+    if (!code) return;
+    Accounts.enableUser2fa(code, error => {
+      if (error) {
+        if (errorElement) {
+          errorElement.textContent =
+            (error && (error.reason || error.message)) ||
+            TAPi18n.__('twoFactorCode-invalid');
+          errorElement.classList.remove('hide');
+        }
+        return;
+      }
+      if (errorElement) errorElement.classList.add('hide');
+      templateInstance.activationStep.set(false);
+      templateInstance.qrSvg.set('');
+      templateInstance.qrSecret.set('');
+      templateInstance.hasTwoFactorAuth.set(true);
+    });
+  },
+  'click .js-two-factor-disable'(event, templateInstance) {
+    event.preventDefault();
+    Accounts.disableUser2fa(error => {
+      if (error) {
+        console.error('Could not disable 2FA:', error);
+        return;
+      }
+      templateInstance.hasTwoFactorAuth.set(false);
+    });
+  },
 });
 
 Template.changeLanguagePopup.helpers({

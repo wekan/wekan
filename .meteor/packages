@@ -23,6 +23,7 @@ mongo@2.5.1
 
 # Account system
 accounts-password@3.3.1
+accounts-2fa@3.1.0
 accounts-express@1.0.0
 communitypackages:core
 communitypackages:unstyled
