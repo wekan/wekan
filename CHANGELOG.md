@@ -532,7 +532,7 @@ service is genuinely skipped, not only hidden in the popup.
 activity-notification emails.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/6f0405d9e">Add an Admin Panel "Email Templates" section for the invite and activity-notification emails</a>. Thanks to saurabharch and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/f6e98f120">Add an Admin Panel "Email Templates" section for the invite and activity-notification emails</a>. Thanks to saurabharch and xet7.</summary>
 
 [#2022](https://github.com/wekan/wekan/issues/2022) asked for admin-
 customizable templates for WeKan's transactional emails. Reading
@@ -642,7 +642,7 @@ switching or export; nothing to match there.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/3480e8a9456e01cabe3ff9997df487bf5cafc83a">The Throughput Histogram now projects a completion date from recent velocity</a>. Thanks to sojournerc and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/b467f1700858648a463eb3523868b8e931f3d47d">The Throughput Histogram now projects a completion date from recent velocity</a>. Thanks to sojournerc and xet7.</summary>
 
 [#1476](https://github.com/wekan/wekan/issues/1476) asked for cycle time,
 lead time, throughput/velocity, bottleneck analysis, and completion
@@ -756,7 +756,7 @@ for Time.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/3480e8a9456e01cabe3ff9997df487bf5cafc83a">The Time view now also totals remaining time until due, across open cards with a due date</a>. Thanks to Yachikh and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/b467f1700858648a463eb3523868b8e931f3d47d">The Time view now also totals remaining time until due, across open cards with a due date</a>. Thanks to Yachikh and xet7.</summary>
 
 [#1121](https://github.com/wekan/wekan/issues/1121) asked for the SUM of
 remaining time until a due date across a list's/board's active cards - "e.g.
@@ -1167,7 +1167,7 @@ sidebar - is added below.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/8ed546422b6b58f67f7d72a5a50f76b6c00de486">Filtering a board from the sidebar now updates the URL too, so the filtered view is itself bookmarkable/shareable</a>. Thanks to netei and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/5ffecf7aab3a7941d862bdc2dd00b362e35714a2">Filtering a board from the sidebar now updates the URL too, so the filtered view is itself bookmarkable/shareable</a>. Thanks to netei and xet7.</summary>
 
 [#319](https://github.com/wekan/wekan/issues/319) asked for the reverse of
 \#4540 above: applying a filter interactively should update the URL (e.g.
@@ -1438,7 +1438,7 @@ registration the same way it already does for Bigboard.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/0ae495c663653ed293c59ac227dd8887eaf7f1aa">Added a "Pulse" board view charting daily activity, GitHub-Pulse-style</a>. Thanks to synergico and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/2d8fb6070af0229b398f2aeed71b204c7494eb32">Added a "Pulse" board view charting daily activity, GitHub-Pulse-style</a>. Thanks to synergico and xet7.</summary>
 
 [#1292](https://github.com/wekan/wekan/issues/1292) asked for a "GitHub
 Pulse-like graph" of a board's activity level over time - GitHub's Pulse
@@ -1879,7 +1879,7 @@ strings, and an empty card list.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/453b309c76c1c6d34d7d48e4d48c47f18d40f0a7">The list header's custom-field summary badge now also shows min/max and a date-field range</a>. Thanks to rlach and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/453b309c72069ab6428b88f76a28d65fc306674f">The list header's custom-field summary badge now also shows min/max and a date-field range</a>. Thanks to rlach and xet7.</summary>
 
 [#2075](https://github.com/wekan/wekan/issues/2075) asked for a broader
 list-level custom-field summary than the sum #3319 above already added: a
@@ -2913,6 +2913,56 @@ already has thorough startup-rescue coverage in the "swimlane-structure"
 step of `server/lib/schemaUpgradeSteps.js`, with regression tests in
 `tests/schemaUpgradeSteps.test.cjs`; "templated users" was explicitly out
 of scope per the issue's own text.
+
+</details>
+
+**Star a Swimlane, List or Card** - the same per-user star a board already had,
+reused for the other three, with a "Starred" page and a header dropdown to
+reach them.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/REPLACE_HASH">Add Star/Unstar to the Swimlane, List and Card menus, a "Starred" page and a header bookmarks section for them</a>. Thanks to chris-kwng and xet7.</summary>
+
+[#1172](https://github.com/wekan/wekan/issues/1172) asked to star a card;
+starring a board already existed (`profile.starredBoards`,
+`toggleBoardStar` in `models/users.js` / `server/models/users.js`), so this
+generalizes that exact per-user id-array shape to `profile.starredSwimlanes`,
+`profile.starredLists` and `profile.starredCards`, each with its own
+`toggleSwimlaneStar`/`toggleListStar`/`toggleCardStar` Meteor method that
+checks the id and requires a login the same way `toggleBoardStar` does.
+
+A "Star"/"Unstar" row was added to the Swimlane, List and Card hamburger
+menus (`client/components/swimlanes/swimlaneHeader.jade`,
+`client/components/lists/listHeader.jade`,
+`client/components/cards/cardDetails.jade`) - reading actions, alongside
+"Copy link" and "History", so they sit above the rows that change the
+board. The list's own per-board `starred` field
+(`client/components/lists/listHeader.js` `isStarred()`/`.star()`, used for
+the sticky/pinned-list highlight) is a different, older feature and is
+untouched; the new per-user star uses its own `isListItemStarred` helper
+and `js-star-list-item` row to avoid any confusion with it.
+
+A new "Starred" page (`/starred-items`,
+`client/components/main/starredItems.jade`/`.js`) lists everything the
+current user has starred, grouped by type, reusing the "open card in place"
+popup mechanism `myCards`/`myAttachments` already use for the card group so
+opening a starred card does not navigate away. It is reachable from the
+"All Pages" member menu next to My Cards / My Due Cards / My Attachments.
+
+The header bookmarks dropdown (`starredBoardsPopup`) gained three more
+capped sections - Starred Swimlanes/Lists/Cards, five each,
+most-recently-starred first - with a "see all" link to the uncapped Starred
+page. Both the dropdown and the Starred page read the SAME
+`starredItemsByType()` query (`client/components/main/header.js`, imported
+by `starredItems.js`), so there is one definition of "what is starred" for
+a user rather than two that could drift; `tests/starredItems.test.cjs` pins
+that with a negative test grepping for a second definition. It also proves
+the toggle persistence for all three new types, that `starredCount()` (the
+group's badge) sums all five starred kinds, and that the new i18n keys are
+used by all three menus. `tests/starredPages.test.cjs`'s existing count
+assertion was updated to match - the count now goes through the shared
+`starredCount()` aggregate rather than two lengths added inline, still
+covering every starred kind.
 
 </details>
 
@@ -3952,7 +4002,7 @@ and fixes the following bug:
 **Lists** - a list's own header, as a card drag-and-drop target.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/5b00f6c5c">Dropping a dragged card on a list's header now moves it into that list</a>. Thanks to TylerL-uxai and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/4c89aa6a7">Dropping a dragged card on a list's header now moves it into that list</a>. Thanks to TylerL-uxai and xet7.</summary>
 
 [#766](https://github.com/wekan/wekan/issues/766) reported that dropping a
 dragged card precisely onto another list's header/title, rather than its
@@ -4023,7 +4073,7 @@ and adds the following REST API improvements:
 **Checklists and comments** - editing them over the API, not just creating and deleting them.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/75ce020db">Add PUT endpoints for a checklist's title and a comment's text</a>. Thanks to mayjs and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/099ab39dd">Add PUT endpoints for a checklist's title and a comment's text</a>. Thanks to mayjs and xet7.</summary>
 
 [#1037](https://github.com/wekan/wekan/issues/1037) asked for a roadmap of
 missing REST API features. Auditing the current surface
