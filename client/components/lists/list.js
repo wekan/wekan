@@ -348,10 +348,40 @@ Template.list.onRendered(function () {
     stop(evt, ui) {
       // #6558: panning is available again the moment the drag is over.
       resumeBoardDragscroll();
+
+      // #766: a card dropped precisely on another list's HEADER (rather than
+      // its card-body area, which is the only thing `connectWith` above
+      // covers) lands outside every connected sortable container, so jQuery
+      // UI resolves no new drop target and the card silently snaps back to
+      // its source list. Detect that case from the mouseup event's own
+      // coordinates - `evt` here is the native mouseup - and, when the
+      // pointer is over a `.js-list-header`, treat it exactly like a drop at
+      // the TOP of that list's card body: same neighbour-based index
+      // calculation and the same card.move() mutation below, just resolved
+      // against the header's list instead of `ui.item`'s (unchanged) DOM
+      // position.
+      let headerDropList = null;
+      if (typeof evt.clientX === 'number' && typeof evt.clientY === 'number') {
+        const pointEl = document.elementFromPoint(evt.clientX, evt.clientY);
+        const headerEl = pointEl && pointEl.closest('.js-list-header');
+        headerDropList = headerEl ? headerEl.closest('.list') : null;
+      }
+
       // To attribute the new index number, we need to get the DOM element
       // of the previous and the following card -- if any.
-      const prevCardDom = ui.item.prev('.js-minicard').get(0);
-      const nextCardDom = ui.item.next('.js-minicard').get(0);
+      let prevCardDom;
+      let nextCardDom;
+      let headerDropContainer = null;
+      if (headerDropList) {
+        headerDropContainer = headerDropList.querySelector('.js-minicards');
+        prevCardDom = null;
+        nextCardDom = headerDropContainer
+          ? headerDropContainer.querySelector(itemsSelector)
+          : null;
+      } else {
+        prevCardDom = ui.item.prev('.js-minicard').get(0);
+        nextCardDom = ui.item.next('.js-minicard').get(0);
+      }
       const nCards = MultiSelection.isActive() ? MultiSelection.count() : 1;
       let sortIndex = calculateIndex(prevCardDom, nextCardDom, nCards);
 
@@ -374,17 +404,18 @@ Template.list.onRendered(function () {
           nextCardData ? nextCardData.sort : null,
         )
       ) {
-        orderedSiblingCards = ui.item
-          .parent()
+        orderedSiblingCards = $(headerDropContainer || ui.item.parent().get(0))
           .children(itemsSelector)
           .not(ui.item)
           .toArray()
           .map((el) => Blaze.getData(el))
           .filter(Boolean);
       }
-      const listData = Blaze.getData(ui.item.parents('.list').get(0));
+      const listData = headerDropList
+        ? Blaze.getData(headerDropList)
+        : Blaze.getData(ui.item.parents('.list').get(0));
       const listId = listData._id;
-      const targetContainer = ui.item.parent().get(0);
+      const targetContainer = headerDropContainer || ui.item.parent().get(0);
       const cardDomElement = ui.item.get(0);
       const droppedCard = Blaze.getData(cardDomElement);
       // #6430: sortable('cancel') is still necessary to keep jQuery UI from
@@ -421,8 +452,9 @@ Template.list.onRendered(function () {
         Utils.boardView() === 'board-view-swimlanes' ||
         currentBoard.isTemplatesBoard()
       ) {
+        const swimlaneSourceEl = headerDropList || ui.item.parents('.list').get(0);
         targetSwimlaneId = Blaze.getData(
-          ui.item.parents('.swimlane').get(0),
+          $(swimlaneSourceEl).parents('.swimlane').get(0),
         )._id;
       } else if (listData.swimlaneId) {
         targetSwimlaneId = listData.swimlaneId;
