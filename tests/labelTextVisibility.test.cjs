@@ -6,6 +6,13 @@
 // in models/lib/labelTextVisibility.js: per-user override > board setting >
 // historical default (text shown), plus the migration-safety case that an
 // existing board/user with nothing stored sees no behaviour change.
+//
+// #2561 asked for the same thing under a different description - "hide
+// label with text on minicard" at the board level, like Trello - and is the
+// same feature: `Boards.showLabelText` (with the per-user override) is a
+// board-level toggle whose "off" state leaves only the coloured bars on the
+// minicard, which is exactly what #2561 requested. No separate
+// implementation is needed; this suite covers both reports.
 // Run: node tests/labelTextVisibility.test.cjs
 
 const assert = require('assert');
