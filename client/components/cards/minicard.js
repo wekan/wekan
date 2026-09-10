@@ -33,6 +33,10 @@ function getMinicardFlag(board, onMinicardField, legacyField, defaultValue) {
 // });
 
 Template.minicard.helpers({
+  // #1591: the whole-minicard fold, same shape as a list's collapsed() helper.
+  minicardCollapsed() {
+    return Utils.getCardCollapseState(this);
+  },
   showCustomFieldsOnMinicard() {
     const board = this.board();
     return board?.allowsCustomFieldsOnMinicard === true;
@@ -287,6 +291,22 @@ function moveCardBy(card, delta) {
 }
 
 Template.minicard.events({
+  // #1591: the same collapse toggle as a list's `.js-collapse` handler. The
+  // minicard is a link to the card, so both preventDefault and stopPropagation
+  // are needed or toggling the caret would also open the card.
+  'click .js-collapse-minicard'(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    const card = Template.currentData();
+    const collapsed = Utils.getCardCollapseState(card);
+    Utils.setCardCollapseState(card, !collapsed);
+  },
+  'keydown .js-collapse-minicard'(event) {
+    if (event.key !== 'Enter' && event.key !== ' ') return;
+    event.preventDefault();
+    event.stopPropagation();
+    $(event.currentTarget).trigger('click');
+  },
   /* Direct title editing on the minicard is disabled. The title must remain a
    * drag surface: it moves the card without handles and pans the board with
    * handles. Keep the former handlers commented for possible future reuse.

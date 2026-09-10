@@ -60,6 +60,20 @@
     transition: transform 0.2s, border-radius 0.2s;
   }
 }
+/* #1591: the whole-minicard collapse caret, top-left corner - unobtrusive,
+   the same size as the per-checklist caret it mirrors. It sits BEFORE
+   .minicard-title in the markup (see minicard.jade) so it stays at the
+   start of the title's line rather than floating separately. */
+.minicard .minicard-collapse {
+  float: inline-start;
+  margin-inline-end: 4px;
+  font-size: 0.875rem;
+  color: #999;
+  cursor: pointer;
+}
+.minicard .minicard-collapse:hover {
+  color: #4d4d4d;
+}
 .minicard-details-menu-with-handle {
   float: inline-end;
   padding-inline-start: 10px;

@@ -410,6 +410,48 @@ export const Utils = {
     }
   },
 
+  // #1591: the same shape as a list's collapse state above, for the whole
+  // minicard. There is deliberately no `Users.getPublicCollapsedCard` /
+  // `setPublicCollapsedCard` cookie fallback: a public board can have very
+  // many cards (unlike its handful of lists), and a per-card cookie entry per
+  // anonymous visitor would grow the cookie without bound. An anonymous
+  // visitor's fold still works for the session (the Session key above), it
+  // just does not survive a reload - the same tradeoff already accepted for
+  // an anonymous visitor's per-checklist folds (getCollapsedCardSection has
+  // no public/cookie fallback either).
+  getCardCollapseState(card) {
+    if (!card) return false;
+    const key = `collapsedCard-${card._id}`;
+    const sessionVal = Session.get(key);
+    if (typeof sessionVal === 'boolean') {
+      return sessionVal;
+    }
+
+    const user = ReactiveCache.getCurrentUser();
+    let stored = null;
+    if (user && user.getCollapsedCardFromStorage) {
+      stored = user.getCollapsedCardFromStorage(card.boardId, card._id);
+    }
+
+    if (typeof stored === 'boolean') {
+      Session.setDefault(key, stored);
+      return stored;
+    }
+
+    Session.setDefault(key, false);
+    return false;
+  },
+
+  setCardCollapseState(card, collapsed) {
+    if (!card) return;
+    const key = `collapsedCard-${card._id}`;
+    Session.set(key, !!collapsed);
+    const user = ReactiveCache.getCurrentUser();
+    if (user) {
+      Meteor.call('setCardCollapsedState', card.boardId, card._id, !!collapsed);
+    }
+  },
+
   // The left menu's collapse state, the same shape as a list's above: a Session
   // value so the fold is instant and survives a re-render, and the user
   // document behind it so it survives a reload and follows the reader to their

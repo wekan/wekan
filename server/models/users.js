@@ -987,6 +987,22 @@ Meteor.methods({
     await Users.updateAsync(this.userId, { $set: { 'profile.collapsedLists': current } });
   },
 
+  // #1591: the same shape as setListCollapsedState above, for the whole
+  // minicard fold. See client/lib/utils.js's Utils.setCardCollapseState for
+  // why there is no anonymous/public fallback here.
+  async setCardCollapsedState(boardId, cardId, collapsed) {
+    check(boardId, String);
+    check(cardId, String);
+    check(collapsed, Boolean);
+    if (!this.userId) throw new Meteor.Error('not-logged-in', 'User must be logged in');
+    const user = await Users.findOneAsync(this.userId);
+    if (!user) throw new Meteor.Error('user-not-found', 'User not found');
+    const current = (user.profile && user.profile.collapsedCards) || {};
+    if (!current[boardId]) current[boardId] = {};
+    current[boardId][cardId] = !!collapsed;
+    await Users.updateAsync(this.userId, { $set: { 'profile.collapsedCards': current } });
+  },
+
   async applySwimlaneHeight(boardId, swimlaneId, height) {
     check(boardId, String);
     check(swimlaneId, String);

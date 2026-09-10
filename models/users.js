@@ -873,6 +873,15 @@ Users.attachSchema(
       defaultValue: {},
       blackbox: true,
     },
+    'profile.collapsedCards': {
+      /**
+       * Per-user collapsed state for whole minicards (#1591).
+       * profile[boardId][cardId] = true|false
+       */
+      type: Object,
+      defaultValue: {},
+      blackbox: true,
+    },
     'profile.collapsedSwimlanes': {
       /**
        * Per-user collapsed state for swimlanes.
@@ -2008,6 +2017,22 @@ Users.helpers({
     }
     return null;
   },
+  // #1591: the whole-minicard collapse, same shape as getCollapsedList above.
+  getCollapsedCard(boardId, cardId) {
+    const { collapsedCards = {} } = this.profile || {};
+    if (collapsedCards[boardId] && typeof collapsedCards[boardId][cardId] === 'boolean') {
+      return collapsedCards[boardId][cardId];
+    }
+    return null;
+  },
+  /** Logged-in-only, unlike getCollapsedListFromStorage: see the comment on
+   * Utils.getCardCollapseState for why there is no anonymous/cookie fallback. */
+  getCollapsedCardFromStorage(boardId, cardId) {
+    if (this._id) {
+      return this.getCollapsedCard(boardId, cardId);
+    }
+    return null;
+  },
   /** #1591: null means "never set", so the caller can apply its own default
    * (expanded) instead of a stored false being indistinguishable from absent. */
   getCollapsedCardSection(cardId, sectionKey) {
@@ -2395,6 +2420,13 @@ Users.helpers({
     if (!current[boardId]) current[boardId] = {};
     current[boardId][listId] = !!collapsed;
     return await Users.updateAsync(this._id, { $set: { 'profile.collapsedLists': current } });
+  },
+
+  async setCollapsedCard(boardId, cardId, collapsed) {
+    const current = (this.profile && this.profile.collapsedCards) || {};
+    if (!current[boardId]) current[boardId] = {};
+    current[boardId][cardId] = !!collapsed;
+    return await Users.updateAsync(this._id, { $set: { 'profile.collapsedCards': current } });
   },
 
   async setCollapsedSwimlane(boardId, swimlaneId, collapsed) {
