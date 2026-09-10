@@ -1852,6 +1852,35 @@ so they stay email-only, exactly as before, with no error.
 
 </details>
 
+**Card sorting** - the board's "Sort" popup, which orders every list's cards.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fd935f7242addd8a15195b7ae7a0ce7afd95a213">Add an optional "Sort by votes" mode that floats highly-voted cards to the top</a>. Thanks to xet7.</summary>
+
+[#3050](https://github.com/wekan/wekan/issues/3050) asked for a way to bring
+a list's highest-voted cards to the top without dragging them there by
+hand. The board's existing "Sort" popup already offers due date, title and
+created date - the one alternate-sort mechanism WeKan has for cards - so
+"Sort by votes" is a new entry there rather than a separate per-list
+toggle or a new multi-criteria picker.
+
+Vote score (positive votes minus negative votes) is not a real Mongo
+field, so it cannot be expressed as a Mongo sort spec the way due
+date/title/created date are. `{ votes: -1 }` is used as a marker only:
+`cardsWithLimit()` (`client/components/lists/listBody.js`) recognizes it,
+fetches the window in the underlying manual `sort` order, and re-sorts the
+resulting array in JS by vote score - a pure DISPLAY-order change. The
+manual `sort` field on each card is never touched, so switching the mode
+back off (or the plain "Sort" reset) restores the exact manual drag order.
+
+`models/lib/voteSortCards.js` extracts the comparator as a plain,
+Meteor-free module so the scoring and ordering rules are unit-testable:
+highest vote score first, a card with no votes scores 0 and sorts last,
+and ties (including two zero-vote cards) keep their relative manual-sort
+order via a stable sort.
+
+</details>
+
 and fixes the following bugs:
 
 **Board reports** - the Dashboard and the 10 board report chart views.

@@ -168,6 +168,349 @@ export function parseAdvancedFilterDate(str, options = {}) {
   return null;
 }
 
+// --- Command-array -> Mongo selector -----------------------------------------
+//
+// #3092: this is the exact selector-building algorithm the sidebar's
+// "Advanced Filter" (client/lib/filter.js AdvancedFilter class) uses to turn
+// a typed filter string into the Mongo selector it filters the board with.
+// It is isomorphic (no Tracker/ReactiveCache import) so a Rule trigger can
+// call the SAME function server-side to decide whether a card matches a
+// stored advanced-filter string, instead of re-implementing the parser. Only
+// the three lookups that need live board data (custom field name -> id,
+// dropdown value -> id, date-typed custom field range) are injected via
+// `resolvers`, so the client can back them with ReactiveCache and the server
+// can back them with a synchronous, pre-fetched lookup built from the same
+// CustomFields documents.
+
+function processConditions(commands, resolvers) {
+  for (let i = 0; i < commands.length; i++) {
+    if (!commands[i].string && commands[i].cmd) {
+      switch (commands[i].cmd) {
+        case '=':
+        case '==':
+        case '===': {
+          const field = commands[i - 1].cmd;
+          const str = commands[i + 1].cmd;
+          if (commands[i + 1].regex) {
+            const match = str.match(new RegExp('^/(.*?)/([gimy]*)$'));
+            let regex = null;
+            if (match.length > 2) regex = new RegExp(match[1], match[2]);
+            else regex = new RegExp(match[1]);
+            commands[i] = {
+              'customFields._id': resolvers.fieldNameToId(field),
+              'customFields.value': regex,
+            };
+          } else {
+            commands[i] = {
+              'customFields._id': resolvers.fieldNameToId(field),
+              'customFields.value': resolvers.customFieldDateSelector(
+                field,
+                str,
+                commands[i].cmd,
+              ) || {
+                $in: [resolvers.fieldValueToId(field, str), parseInt(str, 10)],
+              },
+            };
+          }
+          commands.splice(i - 1, 1);
+          commands.splice(i, 1);
+          i--;
+          break;
+        }
+        case '!=':
+        case '!==': {
+          const field = commands[i - 1].cmd;
+          const str = commands[i + 1].cmd;
+          if (commands[i + 1].regex) {
+            const match = str.match(new RegExp('^/(.*?)/([gimy]*)$'));
+            let regex = null;
+            if (match.length > 2) regex = new RegExp(match[1], match[2]);
+            else regex = new RegExp(match[1]);
+            commands[i] = {
+              'customFields._id': resolvers.fieldNameToId(field),
+              'customFields.value': {
+                $not: regex,
+              },
+            };
+          } else {
+            commands[i] = {
+              'customFields._id': resolvers.fieldNameToId(field),
+              'customFields.value': resolvers.customFieldDateSelector(
+                field,
+                str,
+                commands[i].cmd,
+              ) || {
+                $not: {
+                  $in: [resolvers.fieldValueToId(field, str), parseInt(str, 10)],
+                },
+              },
+            };
+          }
+          commands.splice(i - 1, 1);
+          commands.splice(i, 1);
+          i--;
+          break;
+        }
+        case '>':
+        case 'gt':
+        case 'Gt':
+        case 'GT': {
+          const field = commands[i - 1].cmd;
+          const str = commands[i + 1].cmd;
+          commands[i] = {
+            'customFields._id': resolvers.fieldNameToId(field),
+            'customFields.value': resolvers.customFieldDateSelector(
+              field,
+              str,
+              commands[i].cmd,
+            ) || {
+              $gt: parseInt(str, 10),
+            },
+          };
+          commands.splice(i - 1, 1);
+          commands.splice(i, 1);
+          i--;
+          break;
+        }
+        case '>=':
+        case '>==':
+        case 'gte':
+        case 'Gte':
+        case 'GTE': {
+          const field = commands[i - 1].cmd;
+          const str = commands[i + 1].cmd;
+          commands[i] = {
+            'customFields._id': resolvers.fieldNameToId(field),
+            'customFields.value': resolvers.customFieldDateSelector(
+              field,
+              str,
+              commands[i].cmd,
+            ) || {
+              $gte: parseInt(str, 10),
+            },
+          };
+          commands.splice(i - 1, 1);
+          commands.splice(i, 1);
+          i--;
+          break;
+        }
+        case '<':
+        case 'lt':
+        case 'Lt':
+        case 'LT': {
+          const field = commands[i - 1].cmd;
+          const str = commands[i + 1].cmd;
+          commands[i] = {
+            'customFields._id': resolvers.fieldNameToId(field),
+            'customFields.value': resolvers.customFieldDateSelector(
+              field,
+              str,
+              commands[i].cmd,
+            ) || {
+              $lt: parseInt(str, 10),
+            },
+          };
+          commands.splice(i - 1, 1);
+          commands.splice(i, 1);
+          i--;
+          break;
+        }
+        case '<=':
+        case '<==':
+        case 'lte':
+        case 'Lte':
+        case 'LTE': {
+          const field = commands[i - 1].cmd;
+          const str = commands[i + 1].cmd;
+          commands[i] = {
+            'customFields._id': resolvers.fieldNameToId(field),
+            'customFields.value': resolvers.customFieldDateSelector(
+              field,
+              str,
+              commands[i].cmd,
+            ) || {
+              $lte: parseInt(str, 10),
+            },
+          };
+          commands.splice(i - 1, 1);
+          commands.splice(i, 1);
+          i--;
+          break;
+        }
+        default:
+          break;
+      }
+    }
+  }
+}
+
+function processLogicalOperators(commands) {
+  for (let i = 0; i < commands.length; i++) {
+    if (!commands[i].string && commands[i].cmd) {
+      switch (commands[i].cmd) {
+        case 'or':
+        case 'Or':
+        case 'OR':
+        case '|':
+        case '||': {
+          const op1 = commands[i - 1];
+          const op2 = commands[i + 1];
+          commands[i] = {
+            $or: [op1, op2],
+          };
+          commands.splice(i - 1, 1);
+          commands.splice(i, 1);
+          i--;
+          break;
+        }
+        case 'and':
+        case 'And':
+        case 'AND':
+        case '&':
+        case '&&': {
+          const op1 = commands[i - 1];
+          const op2 = commands[i + 1];
+          commands[i] = {
+            $and: [op1, op2],
+          };
+          commands.splice(i - 1, 1);
+          commands.splice(i, 1);
+          i--;
+          break;
+        }
+        case 'not':
+        case 'Not':
+        case 'NOT':
+        case '!': {
+          const op1 = commands[i + 1];
+          commands[i] = {
+            $not: op1,
+          };
+          commands.splice(i + 1, 1);
+          i--;
+          break;
+        }
+        default:
+          break;
+      }
+    }
+  }
+}
+
+function processSubCommands(commands, resolvers) {
+  const subcommands = [];
+  let level = 0;
+  let start = -1;
+  for (let i = 0; i < commands.length; i++) {
+    if (commands[i].cmd) {
+      switch (commands[i].cmd) {
+        case '(': {
+          level++;
+          if (start === -1) start = i;
+          continue;
+        }
+        case ')': {
+          level--;
+          commands.splice(i, 1);
+          i--;
+          continue;
+        }
+        default: {
+          if (level > 0) {
+            subcommands.push(commands[i]);
+            commands.splice(i, 1);
+            i--;
+            continue;
+          }
+        }
+      }
+    }
+  }
+  if (start !== -1) {
+    processSubCommands(subcommands, resolvers);
+    if (subcommands.length === 1) commands.splice(start, 0, subcommands[0]);
+    else commands.splice(start, 0, subcommands);
+  }
+  processConditions(commands, resolvers);
+  processLogicalOperators(commands);
+}
+
+/**
+ * Turn an already-tokenized advanced-filter command array into the same
+ * `{ $or: [...] }` Mongo selector the sidebar's Advanced Filter builds.
+ * `resolvers` supplies the three lookups that need live board data:
+ *   - fieldNameToId(fieldName) -> custom field _id
+ *   - fieldValueToId(fieldName, value) -> dropdown item _id (or value itself)
+ *   - customFieldDateSelector(fieldName, str, op) -> operator doc, or null
+ * Mutates `commands`; callers that still need the original array should pass
+ * a copy.
+ */
+export function advancedFilterCommandsToSelector(commands, resolvers) {
+  processSubCommands(commands, resolvers);
+  return { $or: commands };
+}
+
+/**
+ * Convenience wrapper: tokenize + build the selector in one call, the same
+ * two steps client/lib/filter.js's AdvancedFilter._getMongoSelector() and the
+ * "card matches advanced filter" rule trigger both perform.
+ */
+export function advancedFilterStringToSelector(filterString, resolvers) {
+  return advancedFilterCommandsToSelector(
+    tokenizeAdvancedFilter(filterString),
+    resolvers,
+  );
+}
+
+// --- Synchronous resolvers from a pre-fetched custom-field list -------------
+
+/**
+ * #3092: build the same resolver shape client/lib/filter.js's AdvancedFilter
+ * class backs with (synchronous, on the client) ReactiveCache, but from a
+ * plain pre-fetched array of the board's custom field documents instead —
+ * so server/lib/advancedFilterMatch.js (which must pre-fetch on the server,
+ * since Meteor 3 collections are async there) can call the exact same
+ * advancedFilterStringToSelector() with no Meteor/ReactiveCache dependency
+ * inside this file.
+ */
+export function buildAdvancedFilterResolversFromCustomFields(customFields, options = {}) {
+  const dayFirst = !!options.dayFirst;
+  const byName = new Map();
+  (customFields || []).forEach(cf => byName.set(cf.name, cf));
+
+  const fieldNameToId = field => {
+    const found = byName.get(field);
+    return found && found._id;
+  };
+
+  const fieldValueToId = (field, value) => {
+    const found = byName.get(field);
+    if (
+      found &&
+      found.settings &&
+      found.settings.dropdownItems &&
+      found.settings.dropdownItems.length > 0
+    ) {
+      for (let i = 0; i < found.settings.dropdownItems.length; i++) {
+        if (found.settings.dropdownItems[i].name === value) {
+          return found.settings.dropdownItems[i]._id;
+        }
+      }
+    }
+    return value;
+  };
+
+  const customFieldDateSelector = (field, str, op) => {
+    const found = byName.get(field);
+    if (!found || found.type !== 'date') return null;
+    const range = parseAdvancedFilterDate(str, { dayFirst });
+    if (!range) return null;
+    return buildDateValueSelector(op, range);
+  };
+
+  return { fieldNameToId, fieldValueToId, customFieldDateSelector };
+}
+
 // --- Selector building -------------------------------------------------------
 
 /**

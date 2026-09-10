@@ -157,3 +157,68 @@ template(name="cardTriggers")
           input(class="user-name",type=text,placeholder="{{_'username'}}")
     div.trigger-button.js-add-attachment-trigger.js-goto-action
       i.fa.fa-plus
+
+  div.trigger-item(title="{{_'advanced-filter-description'}}")
+    div.trigger-content
+      div.trigger-text
+        | {{_'r-when-a-card-matches-advanced-filter'}}
+      div.trigger-dropdown
+        input(class="advanced-filter-trigger-value",type=text,placeholder="{{_'advanced-filter-label'}}")
+    div.trigger-button.js-add-advanced-filter-trigger.js-goto-action
+      i.fa.fa-plus
+
+  div.trigger-item
+    div.trigger-content
+      div.trigger-text
+        | {{_'r-when-a-due-date-changed'}}
+      div.trigger-button.trigger-button-person.js-show-user-field
+        i.fa.fa-user
+      div.user-details.hide-element
+        div.trigger-text
+          | {{_'r-by'}}
+        div.trigger-dropdown
+          input(class="user-name",type=text,placeholder="{{_'username'}}")
+    div.trigger-button.js-add-due-date-changed-trigger.js-goto-action
+      i.fa.fa-plus
+
+  div.trigger-item
+    div.trigger-content
+      div.trigger-text
+        | {{_'r-when-a-start-date-changed'}}
+      div.trigger-button.trigger-button-person.js-show-user-field
+        i.fa.fa-user
+      div.user-details.hide-element
+        div.trigger-text
+          | {{_'r-by'}}
+        div.trigger-dropdown
+          input(class="user-name",type=text,placeholder="{{_'username'}}")
+    div.trigger-button.js-add-start-date-changed-trigger.js-goto-action
+      i.fa.fa-plus
+
+  div.trigger-item
+    div.trigger-content
+      div.trigger-text
+        | {{_'r-when-a-end-date-changed'}}
+      div.trigger-button.trigger-button-person.js-show-user-field
+        i.fa.fa-user
+      div.user-details.hide-element
+        div.trigger-text
+          | {{_'r-by'}}
+        div.trigger-dropdown
+          input(class="user-name",type=text,placeholder="{{_'username'}}")
+    div.trigger-button.js-add-end-date-changed-trigger.js-goto-action
+      i.fa.fa-plus
+
+  div.trigger-item
+    div.trigger-content
+      div.trigger-text
+        | {{_'r-when-a-received-date-changed'}}
+      div.trigger-button.trigger-button-person.js-show-user-field
+        i.fa.fa-user
+      div.user-details.hide-element
+        div.trigger-text
+          | {{_'r-by'}}
+        div.trigger-dropdown
+          input(class="user-name",type=text,placeholder="{{_'username'}}")
+    div.trigger-button.js-add-received-date-changed-trigger.js-goto-action
+      i.fa.fa-plus
