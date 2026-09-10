@@ -109,3 +109,31 @@ export function isListInExceededWipLimitGroup(groups, listId, cardCountsByListId
     return isWipLimitGroupExceeded(combined, group.limit);
   });
 }
+
+/**
+ * #2380: a WIP limit on a whole SWIMLANE - the combined card count across
+ * every list that belongs to that swimlane. WeKan lists carry an optional
+ * `swimlaneId` (models/lists.js) when a list was created for one specific
+ * swimlane rather than shared across all of a board's swimlanes; those are
+ * exactly "this swimlane's lists" and their ids form a WIP limit GROUP's
+ * `listIds` in the very same shape #2489 already uses. No separate counting
+ * or enforcement logic is needed: a swimlane's combined count/limit is a WIP
+ * limit group whose members happen to be one swimlane's lists, so
+ * combinedWipLimitGroupCount / isWipLimitGroupExceeded above are reused
+ * as-is once the membership is known - this helper only computes that
+ * membership.
+ *
+ * @param {Array<{_id: string, swimlaneId?: string}>} lists - a board's lists.
+ * @param {string} swimlaneId - the swimlane to collect list ids for.
+ * @returns {string[]} the ids of the lists that belong to that swimlane.
+ *   A list with no swimlaneId (shared across every swimlane) is not counted
+ *   as belonging to any one swimlane specifically, so it is excluded here.
+ */
+export function listIdsForSwimlane(lists, swimlaneId) {
+  if (!Array.isArray(lists) || !swimlaneId) {
+    return [];
+  }
+  return lists
+    .filter(list => list && list.swimlaneId === swimlaneId)
+    .map(list => list._id);
+}

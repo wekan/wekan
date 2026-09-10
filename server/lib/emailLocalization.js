@@ -48,13 +48,22 @@ const EmailLocalization = {
     }
 
     // Send the email with translated content
-    return await Email.sendAsync({
+    const mail = {
       to: options.to,
       from: options.from || Accounts.emailTemplates.from,
       subject: subject,
       text: text,
       html: options.html
-    });
+    };
+    // #2414: reply-by-email - a Reply-To carrying an HMAC-signed card token,
+    // set by server/notifications/email.js, lets a reply sent through the
+    // inbound-email webhook (server/routes/inboundEmail.js) be matched back to
+    // the card it was about. Omitted entirely when the caller has none to give
+    // (e.g. WEKAN_INBOUND_EMAIL_DOMAIN is not configured).
+    if (options.replyTo) {
+      mail.replyTo = options.replyTo;
+    }
+    return await Email.sendAsync(mail);
   }
 };
 

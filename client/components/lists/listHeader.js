@@ -417,6 +417,35 @@ Template.listActionPopup.events({
     MultiSelection.add(cardIds);
     Popup.back();
   },
+  // #3383: "archive all cards in this list" as one click (behind a confirm
+  // popup, same shape as "Archive list" below), instead of having to open
+  // the checkbox multi-select sidebar first. Scoped exactly like "Select all
+  // cards" above (current swimlane in swimlanes view, the whole list
+  // otherwise) and reuses the very same server method the multi-select
+  // sidebar's "Archive selection" button calls
+  // (client/components/sidebar/sidebarFilters.js's `archiveSelectedCards`
+  // handler) - no new archiving logic, only the card-id list is built here.
+  'click .js-archive-list-cards': Popup.afterConfirm(
+    'listArchiveCards',
+    async function () {
+      let swimlaneId;
+      if (Utils.boardView() === 'board-view-swimlanes' && this.swimlaneId) {
+        swimlaneId = this.swimlaneId;
+      }
+      const cardIds = this.allCards(swimlaneId).map(card => card._id);
+      Popup.close();
+      if (!cardIds.length) return;
+      try {
+        await Meteor.callAsync(
+          'archiveSelectedCards',
+          Session.get('currentBoard'),
+          cardIds,
+        );
+      } catch (error) {
+        alert(error.reason || error.message || TAPi18n.__('server-error'));
+      }
+    },
+  ),
   'click .js-toggle-watch-list'() {
     const currentList = this;
     const level = currentList.findWatcher(Meteor.userId()) ? null : 'watching';

@@ -105,6 +105,14 @@ const CATALOG = {
   'injection.sql':   { category: 'injection', bleed: 'EscapeBleed', severity: 'critical', cwe: 'CWE-89' },
   'integrity.history': { category: 'integrity', bleed: 'HistoryIntegrity', severity: 'critical', cwe: 'CWE-345' },
   'integrity.file': { category: 'integrity', bleed: 'StorageBleed', severity: 'high', cwe: 'CWE-353' },
+  // Reply-by-email (#2414): the /api/inbound-email webhook is unauthenticated
+  // by design (a mail provider, not a logged-in WeKan user, calls it), so the
+  // HMAC token in the recipient address is the only guard standing between a
+  // POST and a new card comment. A request whose token fails to verify, or
+  // whose From address matches no WeKan user, is refused - every refusal here
+  // is an ATTEMPT (a legitimate reply always carries a valid token from a mail
+  // WeKan itself sent, and a known sender address), so it is logged.
+  'authn.inbound-email': { category: 'authn', bleed: 'ReplyBleed', severity: 'medium', cwe: 'CWE-287' },
 };
 
 const DEFAULT = { category: 'unknown', bleed: 'Generic', severity: 'info', cwe: '' };

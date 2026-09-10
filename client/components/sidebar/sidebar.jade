@@ -1010,6 +1010,16 @@ template(name="wipLimitGroupsPopup")
       hr
     form.wip-limit-group-new
       p {{_ 'wip-limit-group-add'}}
+      //- #2380: a WIP limit on a whole swimlane is a WIP limit group whose
+        members are exactly that swimlane's own lists (models/lists.js
+        swimlaneId). This quick-select checks those boxes below rather than
+        adding a second, separate swimlane-limit mechanism.
+      .wip-limit-group-swimlane-quick-select.flex
+        select.js-wip-limit-group-swimlane
+          option(value="") {{_ 'wip-limit-group-select-swimlane'}}
+          each boardSwimlanes
+            option(value="{{_id}}") {{title}}
+        button.js-wip-limit-group-apply-swimlane(type="button") {{_ 'wip-limit-group-apply-swimlane'}}
       .wip-limit-group-lists
         each boardLists
           label.flex

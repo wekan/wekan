@@ -238,6 +238,10 @@ template(name="listActionPopup")
               a.js-select-cards
                 i.fa.fa-select-square
                 | {{_ 'list-select-cards'}}
+            li
+              a.js-archive-list-cards
+                i.fa.fa-archive
+                | {{_ 'list-archive-cards'}}
         if currentUser.isBoardAdmin
           ul.pop-over-list
             li
@@ -312,6 +316,13 @@ template(name="listMorePopup")
 template(name="listArchivePopup")
   p {{_ "list-archive-pop"}}
   p {{_ "list-archive-suggest"}}
+  button.js-confirm.negate.full(type="submit") {{_ 'archive'}}
+
+//- #3383: confirm before archiving every card of a list at once - same
+//- confirm-then-act shape as listArchivePopup above, just for the list's
+//- cards instead of the list itself.
+template(name="listArchiveCardsPopup")
+  p {{_ "list-archive-cards-pop"}}
   button.js-confirm.negate.full(type="submit") {{_ 'archive'}}
 
 template(name="listDeletePopup")

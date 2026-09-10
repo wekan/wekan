@@ -22,6 +22,7 @@ import Attachments from '/models/attachments';
 import { generateUniversalAttachmentUrl } from '/models/lib/universalUrlGenerator';
 import Integrations from '/models/integrations';
 import Lists from '/models/lists';
+import { listIdsForSwimlane } from '/models/lib/wipLimitGroupDecision.js';
 import { Filter } from '/client/lib/filter';
 import { EscapeActions } from '/client/lib/escapeActions';
 import { Utils } from '/client/lib/utils';
@@ -681,6 +682,15 @@ Template.wipLimitGroupsPopup.helpers({
   isListInGroup(listId, groupListIds) {
     return Array.isArray(groupListIds) && groupListIds.includes(listId);
   },
+  // #2380: swimlanes to offer in the "apply to whole swimlane" quick-select.
+  boardSwimlanes() {
+    const board = Utils.getCurrentBoard();
+    if (!board) return [];
+    return ReactiveCache.getSwimlanes(
+      { boardId: board._id, archived: false },
+      { sort: { sort: 1 } },
+    );
+  },
 });
 
 Template.wipLimitGroupsPopup.events({
@@ -716,6 +726,28 @@ Template.wipLimitGroupsPopup.events({
     if (listIds.length < 2) return;
 
     board.updateWipLimitGroup(groupId, { listIds, name, limit });
+  },
+  // #2380: "apply to whole swimlane" quick-select - checks the boxes of
+  // exactly the lists that belong to the chosen swimlane (models/lists.js
+  // swimlaneId), reusing the same #2489 group creation flow rather than a
+  // separate swimlane-limit mechanism. Also fills the group name with the
+  // swimlane's own title as a convenient default (still editable).
+  'click .js-wip-limit-group-apply-swimlane'(event, tpl) {
+    event.preventDefault();
+    const board = Utils.getCurrentBoard();
+    const form = $(event.currentTarget).closest('.wip-limit-group-new');
+    const swimlaneId = form.find('.js-wip-limit-group-swimlane').val();
+    if (!board || !swimlaneId) return;
+
+    const lists = ReactiveCache.getLists(
+      { boardId: board._id, archived: false },
+      { sort: { sort: 1 } },
+    );
+    const listIds = listIdsForSwimlane(lists, swimlaneId);
+
+    form.find('.js-wip-limit-group-new-list').each((_, el) => {
+      $(el).prop('checked', listIds.includes($(el).data('list-id')));
+    });
   },
   'submit .wip-limit-group-new'(event, tpl) {
     event.preventDefault();
