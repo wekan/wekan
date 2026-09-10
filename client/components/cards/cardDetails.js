@@ -2178,6 +2178,51 @@ Template.copyCardPopup.onCreated(function () {
 });
 registerCardDialogTemplate('copyCardPopup');
 
+/**
+ * Link Card to Board Dialog (#4281) - creates a linked-card mirror of the
+ * current card on a different, existing board, reusing the same
+ * board/swimlane/list picker as Move/Copy and the existing linked-card
+ * mechanism (Cards.helpers().link(), models/cards.js) rather than inventing
+ * a new data model. The original card is never mutated.
+ */
+Template.linkCardToBoardPopup.onCreated(function () {
+  this.dialog = new BoardSwimlaneListCardDialog(this, {
+    getDialogOptions() {
+      return ReactiveCache.getCurrentUser().getMoveAndCopyDialogOptions();
+    },
+    async setDone(cardId, options) {
+      ReactiveCache.getCurrentUser().setMoveAndCopyDialogOption(this.currentBoardId, options);
+      const card = Template.currentData();
+      const tpl = Template.instance();
+      const position = tpl.$('input[name="position"]:checked').val();
+
+      const newCardId = await card.link(options.boardId, options.swimlaneId, options.listId);
+      if (newCardId) {
+        const newCard = ReactiveCache.getCard(newCardId);
+        if (newCard) {
+          let sortIndex = 0;
+
+          if (cardId) {
+            const targetCard = ReactiveCache.getCard(cardId);
+            if (targetCard) {
+              const targetSort = targetCard.sort || 0;
+              sortIndex = position === 'above' ? targetSort - 0.5 : targetSort + 0.5;
+            }
+          } else {
+            const maxSort = await newCard.getMaxSort(options.listId, options.swimlaneId);
+            sortIndex = (typeof maxSort === 'number' && !Number.isNaN(maxSort)) ? maxSort + 1 : 0;
+          }
+
+          await newCard.move(options.boardId, options.swimlaneId, options.listId, sortIndex);
+        }
+
+        Filter.addException(newCardId);
+      }
+    },
+  });
+});
+registerCardDialogTemplate('linkCardToBoardPopup');
+
 /** Convert Checklist-Item to card dialog */
 Template.convertChecklistItemToCardPopup.onCreated(function () {
   this.dialog = new BoardSwimlaneListCardDialog(this, {
