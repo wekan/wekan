@@ -524,7 +524,7 @@ keep a separate one.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/74e4248ee0fe62be6d3237f3cae14b04a4a2b5c1">Added a Pomodoro timer, alongside Flowtime, with its own fixed work/break cycle</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/74e4248ee9e936b51654e1a1781305b1ab963392">Added a Pomodoro timer, alongside Flowtime, with its own fixed work/break cycle</a>. Thanks to xet7.</summary>
 
 [#4862](https://github.com/wekan/wekan/issues/4862) asked for a Pomodoro
 timer, the classic FIXED-interval technique this project's own Flowtime
@@ -657,7 +657,7 @@ existing checked-state-preserving behaviour untouched.
 **Comments and activities** - a card's comment thread and its activity log.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/612be1376b58a9c22ff5b9c4bde13d6d6296a6f6">Added a shareable permalink to each comment and activity</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/612be137639b3e0b44cb0c571356127378185517">Added a shareable permalink to each comment and activity</a>. Thanks to xet7.</summary>
 
 [#4757](https://github.com/wekan/wekan/issues/4757) asked for a Trello-like
 permalink: clicking a comment's or an activity's timestamp gives a
@@ -1110,7 +1110,7 @@ open.
 **Board Settings** - the Card Settings sidebar panel, and how its choices apply.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/20a7b47e457c928f7f2775dc1a49634be69393b9">Whether a minicard shows label text is now a per-board default, with a per-user override</a>. Thanks to Meeques and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/520b2e412ecba03c44a0a7ffcf8da5264a65aa77">Whether a minicard shows label text is now a per-board default, with a per-user override</a>. Thanks to Meeques and xet7.</summary>
 
 [#4256](https://github.com/wekan/wekan/issues/4256): whether a minicard's
 labels show their TEXT (coloured words) or only the coloured bars was a
@@ -1430,7 +1430,7 @@ list's existing inline rename.
 **Subtasks** - the minicard's "N/M subtasks" completion badge.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/2bc82f9ff3a2140f1ab2d3ba4dc8994cd4bff222">Confirmed the subtask completion badge already counts archived subtasks correctly</a>. Thanks to ufalke and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/2bc82f9ff5feee560f0fb8ee79a5210cf06f5658">Confirmed the subtask completion badge already counts archived subtasks correctly</a>. Thanks to ufalke and xet7.</summary>
 
 [#4050](https://github.com/wekan/wekan/issues/4050) reported the minicard's
 subtask badge stuck at "0/n" no matter how many subtasks were finished, and
