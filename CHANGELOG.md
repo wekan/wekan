@@ -1714,6 +1714,54 @@ than a hardcoded sequence.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/de4a95474">A minicard can now show its swimlane's name in List view</a>. Thanks to JB_Pollard and xet7.</summary>
+
+[#2426](https://github.com/wekan/wekan/issues/2426): in List view, unlike
+Swimlanes view, a card's swimlane membership was not visible on its
+minicard at all.
+
+Adds a board-wide `Boards.allowsSwimlaneNameOnMinicard` toggle, defaulting
+to `false` so existing boards see no change, with a new Card Settings row
+(`client/components/sidebar/sidebar.jade`, `sidebar.js`) following the same
+row pattern as "Show lists". There is no "Show on Card" equivalent - the
+opened card already shows its swimlane via its own picker - so the row's
+first column stays empty, the same shape as the existing "List title" row.
+When enabled, the minicard renders a small, unobtrusive label at its bottom
+(`client/components/cards/minicard.jade`), styled like the existing list-name
+label, resolving the swimlane reactively via
+`ReactiveCache.getSwimlane(card.swimlaneId)` - the same reactive per-card
+lookup pattern already used elsewhere on the minicard.
+`tests/minicardSwimlaneNameOnMinicard.test.cjs` pins the new field defaulting
+to `false`, the Card Settings row toggling it, and the minicard only
+rendering the label when the board flag is set.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3158b87c57ee564567b0d18f5a3a93f0ba9f4f2b">A board admin can now hide the "Time spent" badge on the card and minicard</a>. Thanks to matrixes and xet7.</summary>
+
+[#2530](https://github.com/wekan/wekan/issues/2530): the "Time spent" field
+was reachable only through the card's hamburger/context menu, and there was
+no way to control whether the card detail view and minicard showed it once
+logged.
+
+Adds `Boards.allowsSpentTime` / `allowsSpentTimeOnMinicard`, both defaulting
+to `true` - the card detail view and minicard already rendered the
+accumulated spent-time badge (and its overtime indicator) unconditionally
+whenever a card had logged time, so a `true` default keeps every existing
+board's display unchanged - with a new Card Settings row
+(`client/components/sidebar/sidebar.jade`, `sidebar.js`) following the same
+"Show on card"/"Show on minicard" two-column pattern as
+`allowsReceivedDate`/`allowsReceivedDateOnMinicard`. Turning either off now
+lets an admin hide the badge from the card detail view or the minicard
+respectively. `tests/spentTimeCardSettings.test.cjs` pins both fields
+defaulting to `true`, the Card Settings row and its toggle handlers, and
+that the card detail view and minicard only render the badge when the
+corresponding flag is set.
+
+</details>
+
 **Rules (IFTTT)** - the triggers and card actions a rule can run.
 
 <details>
@@ -2856,6 +2904,46 @@ never showed up there even though it already appeared in the All Boards
 offers any OTHER template-container board the user is a member of, via a
 new dropdown that defaults to the user's own template board exactly as
 before.
+
+</details>
+
+**Card description and comments** - the markdown rendered from a card's description and comment text.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0aa1702c0">A "- [ ] Task" / "- [x] Done" checklist line now renders as a real checkbox, not literal HTML text</a>. Thanks to rodrigocipriani and xet7.</summary>
+
+[#2419](https://github.com/wekan/wekan/issues/2419) (2019): writing GFM
+task-list syntax in a card description showed the reader
+`<input disable="" type="checkbox"/> Task` as plain text instead of a
+checkbox. WeKan's markdown renderer
+(`packages/markdown/src/template-integration.js`) is plain `markdown-it`
+with no task-list extension, so it never emitted an `<input>` element in
+the first place, and `packages/markdown/src/secureDOMPurify.js`'s
+sanitizer also listed `input` in `FORBID_TAGS` - so even a raw `<input>`
+typed directly into the text would have been stripped.
+
+A small `markdown-it` core rule, added after the emoji/math plugins,
+detects the leading `[ ]`/`[x]`/`[X]` marker on a list item's first line
+and replaces it with a disabled `<input type="checkbox">` (checked to
+match `x`/`X`); everything else about the line renders exactly as before.
+`secureDOMPurify.js` now allows `input` through, but only in the exact
+shape this renderer emits: `uponSanitizeElement`/`uponSanitizeAttribute`
+hooks reject any `type` other than `checkbox` and any `input` carrying a
+`name`, `value`, `form` or `formaction` attribute, so a card cannot smuggle
+in a live text/password field or a form control - `form` itself stays
+forbidden.
+
+The checkbox renders correctly and reflects the source accurately, but is
+deliberately left **disabled** (not clickable): toggling it would mean
+mapping a click on rendered HTML back to the exact byte offset inside the
+card's raw markdown source and saving the edit, which is a materially
+larger, separate feature from fixing the "renders as literal text" bug
+this issue reported. `tests/markdownTaskListCheckbox.test.cjs` renders
+`- [ ] Task` / `- [x] Done` through the real plugin and asserts an
+unchecked/checked `<input type="checkbox">` is produced, that a plain
+bullet list and ordinary inline markdown are unaffected, and that
+`secureDOMPurify.js` still allows the tag through restricted to
+checkbox-only.
 
 </details>
 
