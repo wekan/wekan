@@ -14,6 +14,7 @@ import { isLinkableCardTarget } from '/models/lib/linkedCardTarget';
 import { listCardsSelector } from '/models/lib/swimlaneFilter';
 import { sortWithIdTiebreaker } from '/models/lib/cardSortTiebreaker';
 import { sortCardsByTitle } from '/models/lib/sortCardsByTitle';
+import { sortCardsByVotes } from '/models/lib/voteSortCards';
 import { labelMatchesTerm } from '/models/lib/labelAutocomplete';
 import { memberMatchesTerm } from '/models/lib/memberAutocomplete';
 import {
@@ -537,6 +538,18 @@ Template.listBody.helpers({
     // ordered diff throws "Bad index in range.removeMember" — leaving the board with
     // no cards. Applied before BOTH the server window subscription and the client
     // cursor below, so they agree on a deterministic order.
+    // #3050: "Sort by votes" is a pure DISPLAY-order mode - it floats
+    // highest-voted cards to the top without touching the manual `sort`
+    // field, so turning it off restores the original manual drag order
+    // exactly. Vote score (positive minus negative) is not a stored Mongo
+    // field, so it cannot be expressed as a Mongo sort spec: fetch the
+    // window in the underlying manual order (`defaultSort`) and re-sort the
+    // resulting array client-side instead of passing `sortBy` through to
+    // Mongo/minimongo.
+    const sortByVotes = !!(sortBy && sortBy.votes);
+    if (sortByVotes) {
+      sortBy = defaultSort;
+    }
     sortBy = sortWithIdTiebreaker(sortBy);
     // #6441: build the swimlane-membership fallback as a single `swimlaneId:
     // { $in: [...] }` clause (via the shared, unit-tested helper) instead of a
@@ -569,6 +582,16 @@ Template.listBody.helpers({
         list.boardId,
         mongoSelector,
       );
+    }
+    if (sortByVotes) {
+      // Fetch as a plain array (not a cursor) so it can be re-sorted by vote
+      // score in JS - see the comment above. The underlying documents and
+      // their `sort` field are untouched; only the rendered ORDER changes.
+      const cards = ReactiveCache.getCards(renderableCardsSelector(mongoSelector), {
+        sort: sortBy,
+        limit,
+      });
+      return sortCardsByVotes(cards);
     }
     const ret = ReactiveCache.getCards(renderableCardsSelector(mongoSelector), {
       // sort: ['sort'],
@@ -1264,6 +1287,15 @@ Template.searchElementPopup.onCreated(function () {
     if (boardId) {
       Meteor.subscribe('board', boardId, false);
     }
+    // #2684: this popup used to be hard-wired to the current user's OWN
+    // templates board only, so a template-container board another member
+    // shared by adding them as a board member (the normal, existing sharing
+    // mechanism) never appeared here even though the All Boards "Templates"
+    // view already lists it (server/publications/boards.js's `boardTemplates`
+    // publication already selects by membership, not by ownership). Subscribe
+    // to that same publication so the "other template boards" dropdown below
+    // has the shared ones available in minimongo.
+    Meteor.subscribe('boardTemplates');
   } else {
     boardId = (Utils.getCurrentBoard() || {})._id;
   }
@@ -1356,6 +1388,25 @@ Template.searchElementPopup.helpers({
     const user = ReactiveCache.getCurrentUser();
     return !!user && user.isDefaultBoardTemplate(cardId);
   },
+
+  // #2684: OTHER template-container boards the current user may search -
+  // ones shared with them the normal way (added as a board member) rather
+  // than their own personal templates board, which is the default this
+  // popup already opens with. Excludes the user's own so it is not offered
+  // twice.
+  otherTemplateBoards() {
+    const tpl = Template.instance();
+    if (!tpl.isTemplateSearch) return [];
+    return ReactiveCache.getBoards(
+      {
+        archived: false,
+        type: 'template-container',
+        members: { $elemMatch: { userId: Meteor.userId(), isActive: true } },
+        _id: { $ne: tpl.boardId },
+      },
+      { sort: { sort: 1 /* boards default sorting */ } },
+    );
+  },
 });
 
 Template.searchElementPopup.events({
@@ -1374,6 +1425,19 @@ Template.searchElementPopup.events({
     const boardId = $(evt.currentTarget).val();
     // An empty <select> value is a null subscription - see above.
     if (boardId) Meteor.subscribe('board', boardId, false);
+    tpl.selectedBoardId.set(boardId);
+  },
+  // #2684: switch which template-container board this popup searches, e.g.
+  // to one shared by another member rather than the user's own. An empty
+  // value falls back to the user's own templates board (tpl.boardId's
+  // original value never changes, so this always has somewhere to return
+  // to).
+  'change .js-select-template-board'(evt, tpl) {
+    const ownTemplatesBoardId =
+      (ReactiveCache.getCurrentUser().profile || {}).templatesBoardId;
+    const boardId = $(evt.currentTarget).val() || ownTemplatesBoardId;
+    if (boardId) Meteor.subscribe('board', boardId, false);
+    tpl.boardId = boardId;
     tpl.selectedBoardId.set(boardId);
   },
   'submit .js-search-term-form'(evt, tpl) {

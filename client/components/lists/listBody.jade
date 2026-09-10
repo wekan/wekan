@@ -141,6 +141,15 @@ template(name="searchElementPopup")
         option(value="")
         each boards
           option(value="{{_id}}") {{title}}
+  if isTemplateSearch
+    if otherTemplateBoards.length
+      //- #2684: a template board shared by another board member, not just the default template board.
+      label {{_ 'boards'}}:
+      .link-board-wrapper
+        select.js-select-template-board
+          option(value="") {{_ 'templates'}}
+          each otherTemplateBoards
+            option(value="{{_id}}") {{title}}
   form.js-search-term-form
     label
       | {{_ 'template'}}
