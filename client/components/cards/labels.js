@@ -121,8 +121,17 @@ Template.cardLabelsPopup.onRendered(function () {
     },
     stop(evt, ui) {
       const newLabelOrderOnlyIds = ui.item.parent().children().toArray().map(_element => Blaze.getData(_element)._id)
-      const card = Blaze.getData(this);
-      card.board().setNewLabelOrder(newLabelOrderOnlyIds);
+      // Same reason as the js-select-label click handler below: use the
+      // popup template's own card data (linked-card-aware via
+      // getCardLabelBoard), not Blaze.getData(this) on the sortable's root
+      // element - the latter does not reliably resolve back to a real Card
+      // document (with a callable .board()) and threw "card.board is not a
+      // function" here, which broke even a plain click on a label (jQuery UI
+      // sortable's mouseup handling runs this `stop` callback regardless of
+      // whether the drag distance threshold was ever crossed).
+      const board = getCardLabelBoard(tpl.data);
+      if (!board) return;
+      board.setNewLabelOrder(newLabelOrderOnlyIds);
     },
   });
 
