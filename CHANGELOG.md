@@ -311,10 +311,36 @@ the Markdown commit as the template.
 
 # Upcoming WeKan ® release
 
-**In short:** issue #6681 (OIDC redirect-style login loop) is confirmed
-already fixed and closed - the reporter's follow-up server log matches the
-exact race already corrected by commit 89682c251, released starting v11.62.
-No application code changed.
+**In short:** **Board export to .zip (with attachments)** answered a bare 500
+error on every request; the archiver dependency's v8 API change was missed in
+one of the two places WeKan builds a zip on the server. Issue #6681 (OIDC
+redirect-style login loop) is confirmed already fixed and closed.
+
+This release fixes the following bug:
+
+<details>
+<summary>Board export to .zip (with attachments) answered a bare 500 error</summary>
+
+`models/server/ExporterZip.js` still called the archiver package the v7 way -
+`const archiver = require('archiver'); archiver('zip', {...})`. archiver@8
+(package.json pins `^8.0.0`) is ESM-only and exports classes - `{ Archiver,
+ZipArchive, TarArchive, JsonArchive }` - with no callable default, so that
+call threw `TypeError: archiver is not a function` synchronously, before the
+`exportZip` route (models/export.js) had written any response header.
+`safeRoute` (server/apiMiddleware.js) then answered a bare 500 with no
+board-specific detail - every "export board -> .zip (with attachments)"
+request, for every board, since archiver was bumped to v8.
+
+`server/methods/backup.js` hit the identical break earlier and already fixed
+it with `import { ZipArchive } from 'archiver'; new ZipArchive({...})`;
+`ExporterZip.js` was the one call site that was missed. Fixed the same way.
+`tests/exportZipArchiverApi.test.cjs` pins the correct API shape, that the
+dead factory call is gone, and scans every server-side source file so a
+second call site cannot reintroduce the same break unnoticed.
+
+</details>
+
+and closes the following already-fixed issue:
 
 <details>
 <summary>Confirm #6681 (OIDC redirect-style login loop) stays fixed</summary>

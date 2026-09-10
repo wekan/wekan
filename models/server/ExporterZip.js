@@ -1,4 +1,5 @@
 import { PassThrough } from 'stream';
+import { ZipArchive } from 'archiver';
 import { Exporter } from '/models/exporter';
 import { fileStoreStrategyFactory } from '/models/attachments.server';
 const { sanitizeDownloadFileName } = require('/imports/lib/fileNameDisplay');
@@ -39,13 +40,17 @@ class ExporterZip {
   }
 
   async build(res, filename = 'export.zip') {
-    const archiver = require('archiver');
-
+    // archiver@8 is ESM: use the ZipArchive class instead of the old
+    // archiver('zip', …) factory (which no longer exists) - the same fix
+    // server/methods/backup.js already made. The old call threw synchronously,
+    // before any response header was written, so every .zip export answered a
+    // bare 500 with nothing in it saying why.
+    //
     // store, not deflate, for the JSON? No: a board's JSON compresses to a
     // fraction of itself, and the attachments are usually already-compressed
     // formats where level 1 costs nothing and saves little. One level for both,
     // chosen for the JSON, which is the part that is worth compressing.
-    const archive = archiver('zip', { zlib: { level: 6 } });
+    const archive = new ZipArchive({ zlib: { level: 6 } });
 
     filename = sanitizeDownloadFileName(filename);
     res.writeHead(200, {
