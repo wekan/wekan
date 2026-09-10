@@ -316,8 +316,9 @@ MIT-licensed and lazy-loaded only when their view is opened. The
 the fold already used for lists/swimlanes/checklists. It also restores the
 full-featured **document preview** viewer (DOCX/XLSX/PPTX, native PDF),
 replacing the minimal server-rendered GIF-slideshow approach that kept
-failing with a bare HTTP 415, and hardens the **HttpOnly login cookie**
-against a rare case where it could be written without an expiry.
+failing with a bare HTTP 415, hardens the **HttpOnly login cookie**
+against a rare case where it could be written without an expiry, and lets a
+board open already **filtered from its URL**.
 
 This release adds the following new features:
 
@@ -567,6 +568,32 @@ instead of a route param - a fresh load of a permalink, an in-page
 `hashchange`, and the click handler itself all set the same Session value,
 so the target briefly gets the same highlight outline a swimlane/list link
 already produces.
+
+</details>
+
+**Board filters** - the sidebar Filter panel and how a board can be opened already filtered.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/963b01ff5ba7edb9d0aacfbbce2b2647a578124d">A board can now be opened pre-filtered from its URL, e.g. ?assignee=johndoe</a>. Thanks to thrademaker and xet7.</summary>
+
+[#4540](https://github.com/wekan/wekan/issues/4540) asked for a board's filter
+state to be driven by URL query parameters, so a link - for instance one
+embedded in an iframe in another tool - can open a board pre-filtered rather
+than requiring the viewer to set the filter by hand every time.
+
+`?assignee=johndoe`, `?member=janedoe` (both accept a comma-separated list of
+usernames) and `?label=urgent` (by label name, case-insensitive) are read once
+the board's subscription becomes ready
+(`client/components/boards/boardBody.js`'s `applyQueryParamFilters`, guarded
+to run once per board load) and applied through the existing sidebar `Filter`
+object's own API - `Filter.assignees.add()`/`Filter.members.add()`/
+`Filter.labelIds.add()` - the same calls the Filter sidebar UI itself makes,
+so no new filtering engine was added. Usernames are resolved to member/assignee
+ids and label names to label ids by a small pure module,
+`client/lib/filterQueryParams.js`, covered by
+`tests/filterQueryParams4540.test.cjs`. This only reads the query params once
+on load; it deliberately does not sync the URL back as filters are changed
+afterwards from the sidebar.
 
 </details>
 
