@@ -140,6 +140,18 @@ Template.ganttView.helpers({
 		const idx = day.getDay();
 		return idx === 0 || idx === 6;
 	},
+	ganttExportUrl(format) {
+		const board = Utils.getCurrentBoard();
+		if (!board) return '';
+		const path = format === 'PDF' ? 'exportPDF' : 'exportExcel';
+		const params = new URLSearchParams({
+			authToken: Accounts._storedLoginToken() || '',
+			lang: TAPi18n.getLanguage ? TAPi18n.getLanguage() : 'en',
+			tz: Intl.DateTimeFormat().resolvedOptions().timeZone || '',
+			dateFormat: (Meteor.user() && Meteor.user().profile && Meteor.user().profile.dateFormat) || 'YYYY-MM-DD',
+		});
+		return `/api/boards/${board._id}/charts/gantt/${path}?${params.toString()}`;
+	},
 	hasSelectedCard() {
 		return Template.instance().selectedCardId.get() !== null;
 	},

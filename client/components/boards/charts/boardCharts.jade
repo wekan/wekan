@@ -1,0 +1,35 @@
+template(name="boardChartView")
+  .stats-view
+    .stats-view-content.chart-view-content
+      h1.stats-view-title {{ chartTitle }}
+      .chart-export-buttons
+        a.chart-export-button(href="{{ exportUrl 'PDF' }}" target="_blank" rel="noopener")
+          i.fa.fa-file-pdf-o
+          | Export to PDF
+        a.chart-export-button(href="{{ exportUrl 'Excel' }}" target="_blank" rel="noopener")
+          i.fa.fa-file-excel-o
+          | Export to Excel
+
+      if isLoading
+        p.stats-view-placeholder-note {{_ 'loading'}}
+      else if hasNoData
+        p.stats-view-placeholder-note {{_ 'no-results'}}
+      else
+        .chart-bars
+          each row in barRows
+            .chart-bar-row
+              .chart-bar-label {{ row.label }}
+              .chart-bar-track
+                .chart-bar-fill(style="width: {{ row.percent }}%; background-color: {{ row.color }};")
+              .chart-bar-value {{ row.value }}
+
+        table.stats-view-table.chart-data-table
+          thead
+            tr
+              each header in tableHeaders
+                th {{ header }}
+          tbody
+            each row in tableRows
+              tr
+                each cell in row
+                  td {{ cell }}

@@ -70,6 +70,7 @@ import '/imports/reactiveCache';
 // Models — server-only exporters
 import '/models/csvCreator';
 import '/models/export';
+import '/models/exportCharts';
 import '/models/exportExcel';
 import '/models/exportExcelCard';
 import '/models/exportPDF';

@@ -1,8 +1,8 @@
-// Event handlers for the not-yet-implemented board views in
-// chartPlaceholderViews.jade - see that file for what each one is. Same
-// stopPropagation as statsView.js/timeView.js: the board canvas's drag-to-
-// scroll otherwise swallows the pointer/touch events native text selection
-// needs on the placeholder's `.stats-view`.
+// Event handlers for the 10 board report chart views in
+// chartPlaceholderViews.jade - see that file, and charts/boardCharts.js, for
+// what each one renders. Same stopPropagation as statsView.js/timeView.js:
+// the board canvas's drag-to-scroll otherwise swallows the pointer/touch
+// events native text selection needs on the chart's `.stats-view`.
 const PLACEHOLDER_VIEW_TEMPLATES = [
   'dashboardView',
   'burndownView',

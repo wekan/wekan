@@ -1317,4 +1317,22 @@ Meteor.methods({
       timeSpentTotal, cardsWithTimeSpent, overtimeCards,
     };
   },
+
+  // Data for the board report charts (chartPlaceholderViews.jade replacements -
+  // Dashboard/Burndown/Burnup/CFD/Control/Cycle/Flow-Efficiency/Lead/Throughput/
+  // WIP-Run), computed board-scoped as requested. The calculation itself is pure
+  // (models/lib/chartCalculations.js, unit-tested there); this method's job is
+  // only to load the plain records a chart needs and hand them off.
+  async boardChartData(boardId, chartKey) {
+    check(boardId, String);
+    check(chartKey, String);
+    const board = await ReactiveCache.getBoard(boardId);
+    if (!board || !board.isVisibleBy({ _id: this.userId })) {
+      throw new Meteor.Error('not-authorized');
+    }
+    const { loadBoardChartData } = require('/server/lib/boardChartData');
+    const data = await loadBoardChartData(boardId, chartKey);
+    if (!data) throw new Meteor.Error('bad-request', 'unknown chartKey');
+    return data;
+  },
 });

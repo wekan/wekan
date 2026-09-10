@@ -1,0 +1,81 @@
+/* The 10 board report chart views (chartPlaceholderViews.jade + boardCharts.jade)
+   - export buttons, then plain CSS bars, then the full data table, reusing
+   statsView.css's .stats-view/.stats-view-content shell. */
+.chart-view-content {
+  max-width: 1100px;
+}
+
+.chart-export-buttons {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.chart-export-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border: 1px solid #dbdbdb;
+  border-radius: 4px;
+  color: inherit;
+  text-decoration: none;
+  font-size: calc(13px * var(--wekan-ui-font-scale, 1));
+}
+
+.chart-export-button:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.chart-bars {
+  margin-bottom: 28px;
+}
+
+.chart-bar-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.chart-bar-label {
+  width: 140px;
+  flex: 0 0 140px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: calc(12px * var(--wekan-ui-font-scale, 1));
+  color: #666;
+}
+
+.chart-bar-track {
+  flex: 1 1 auto;
+  background: rgba(0, 0, 0, 0.06);
+  border-radius: 3px;
+  height: 16px;
+  overflow: hidden;
+}
+
+.chart-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  min-width: 2px;
+}
+
+.chart-bar-value {
+  width: 60px;
+  flex: 0 0 60px;
+  text-align: end;
+  font-size: calc(12px * var(--wekan-ui-font-scale, 1));
+  font-weight: bold;
+}
+
+.chart-data-table {
+  font-size: calc(13px * var(--wekan-ui-font-scale, 1));
+}
+
+.chart-data-table th {
+  text-align: start;
+  border-bottom: 2px solid #dbdbdb;
+  padding: 6px 4px;
+}
