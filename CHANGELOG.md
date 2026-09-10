@@ -2073,6 +2073,28 @@ so no new card is created and no other field of the picked card changes.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/632a107f3">An "Inherit parent's labels" checkbox optionally copies the parent card's labels onto a new subtask</a>. Thanks to MelBourbon and xet7.</summary>
+
+[#2184](https://github.com/wekan/wekan/issues/2184): a subtask always
+started with no labels, so a label that should obviously apply to it too -
+the same colour-coded category as its parent - had to be re-applied by
+hand every time.
+
+The "Add a new subtask" popup gets an "Inherit parent's labels" checkbox,
+default UNCHECKED so the existing behaviour (a subtask starts with no
+labels) is unchanged unless it is used. When checked, the parent card's
+CURRENT `labelIds` are copied onto the new subtask as part of the same
+`addSubtaskCard` server method call that creates it
+(`server/models/cards.js`), via a small pure helper,
+`computeSubtaskLabelIds` (`models/lib/subtaskLabelInheritance.js`), kept
+separate so it is unit-tested without a database. This is deliberately a
+ONE-TIME copy taken at creation time, not an ongoing sync: a later change
+to the parent's labels does not retroactively touch a subtask already
+created, which the test pins directly.
+
+</details>
+
 **Lists** - a list's own header and the List hamburger/action menu.
 
 <details>
