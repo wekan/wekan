@@ -1036,7 +1036,7 @@ opt in.
 **Public Boards** - the overview and its search.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/3f4c5e68c">A public board card's own page now carries Open Graph meta tags, so pasting its link elsewhere renders a preview</a>. Thanks to yelloff and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/3f4c5e68c989fac536f929d18e8650c6a8cca6d1">A public board card's own page now carries Open Graph meta tags, so pasting its link elsewhere renders a preview</a>. Thanks to yelloff and xet7.</summary>
 
 [#3456](https://github.com/wekan/wekan/issues/3456) asked for a WeKan card
 link pasted into Discourse to "onebox" the way a YouTube or GitHub link
