@@ -10,6 +10,7 @@ You can use some OAuth2 providers for logging into Wekan, for example:
 - Google - not tested yet
 - [LemonLDAP::NG](./OAuth2.md#lemonldapng) - works
 - [Authelia](./Authelia.md) - works
+- [Apple (Sign in with Apple)](./Apple.md) - works
 
 You can ask your identity provider (LDAP, SAML etc) do they support adding OAuth2 application like Wekan.
 

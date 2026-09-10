@@ -6,6 +6,18 @@ import https from 'https';
 import fs from 'fs';
 import { resolveOidcEndpoint } from './endpoint';
 const { mergeWhitelistedClaims } = require('./serviceDataClaims');
+const { maybeGenerateOauth2ClientSecretJwt } = require('/models/lib/oauth2ClientSecretJwt');
+
+// #2458 (Sign in with Apple): Apple's "client secret" is not a static string
+// like every other generic-OAuth2 provider's - it is a short-lived JWT the
+// server must sign itself with a private key from Apple's developer portal.
+// When OAUTH2_SECRET_JWT_KEY_PATH is set, mint a fresh one for this request;
+// otherwise fall back to the static OAUTH2_SECRET exactly as before, so
+// every provider that does not set these new env vars is unaffected.
+function resolveClientSecret(config) {
+  const jwtSecret = maybeGenerateOauth2ClientSecretJwt(process.env, config.clientId);
+  return jwtSecret || OAuth.openSecret(config.secret);
+}
 
 Oidc = {};
 httpCa = false;
@@ -230,7 +242,7 @@ if (process.env.ORACLE_OIM_ENABLED !== 'true' && process.env.ORACLE_OIM_ENABLED 
       var body = new URLSearchParams({
         code: query.code,
         client_id: config.clientId,
-        client_secret: OAuth.openSecret(config.secret),
+        client_secret: resolveClientSecret(config),
         redirect_uri: OAuth._redirectUri('oidc', config),
         grant_type: 'authorization_code',
         state: query.state
@@ -290,7 +302,7 @@ if (process.env.ORACLE_OIM_ENABLED === 'true' || process.env.ORACLE_OIM_ENABLED 
       var body = new URLSearchParams({
         code: query.code,
         client_id: config.clientId,
-        client_secret: OAuth.openSecret(config.secret),
+        client_secret: resolveClientSecret(config),
         redirect_uri: OAuth._redirectUri('oidc', config),
         grant_type: 'authorization_code',
         state: query.state
