@@ -114,6 +114,13 @@ Template.filterSidebar.events({
     Filter.assignees.toggle(getFilterIdFromEvent(evt, this?._id));
     Filter.resetExceptions();
   },
+  // #3681: filter cards by whose card.userId (the creator/author field)
+  // matches, the same toggle pattern as members/assignees above.
+  'click .js-toggle-creator-filter'(evt) {
+    evt.preventDefault();
+    Filter.userId.toggle(getFilterIdFromEvent(evt, this?._id));
+    Filter.resetExceptions();
+  },
   'click .js-toggle-no-due-date-filter'(evt) {
     evt.preventDefault();
     Filter.dueAt.noDate();

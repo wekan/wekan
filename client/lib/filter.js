@@ -463,6 +463,14 @@ export const Filter = {
   excludedLabelIds: new SetFilter(),
   members: new SetFilter(),
   assignees: new SetFilter(),
+  // #3681: filter cards by who created them. The card schema's author
+  // field is `userId` (see models/cards.js), not `creatorId` — the
+  // filter is keyed the same way so `_getMongoSelector()` below can map
+  // `_fields` entries straight onto card document field names, the same
+  // way `labelIds`/`members`/`assignees` already do. Same SetFilter
+  // shape/API as every other id-set filter, so no new filtering engine
+  // was needed.
+  userId: new SetFilter(),
   archive: new SetFilter(),
   hideEmpty: new SetFilter(),
   dueAt: new DateFilter(),
@@ -477,6 +485,7 @@ export const Filter = {
     'labelIds',
     'members',
     'assignees',
+    'userId',
     'archive',
     'hideEmpty',
     'dueAt',
@@ -614,6 +623,34 @@ export const Filter = {
     this._fields.forEach(fieldName => {
       const filter = this[fieldName];
       filter.reset();
+    });
+    this.excludedLabelIds.reset();
+    this.lists.reset();
+    this.advanced.reset();
+    this.resetExceptions();
+  },
+
+  // #1751 asked for filters to survive navigating from one board to
+  // another instead of being wiped every time - the reporter's own use
+  // case is "only show my user's cards", i.e. a `members`/`assignees`
+  // filter by user id, which means the SAME thing on every board since
+  // user ids are global. `labelIds`/`excludedLabelIds`/`customFields`/
+  // `cardDependencies`/`lists`/`advanced`, by contrast, hold ids or text
+  // that are scoped to the board the user is LEAVING (a label id from
+  // board A means nothing, or the wrong thing, on board B), so those
+  // still have to reset. `config/router.js`'s board route calls this
+  // instead of `reset()` when the target board differs from the current
+  // one, keeping the plain `reset()` behavior (e.g. the "Clear filters"
+  // sidebar button, leaving to All Boards) exactly as it was everywhere
+  // else - this only changes what happens on a board-to-board hop.
+  resetBoardScoped() {
+    const boardScopedFields = [
+      'labelIds',
+      'customFields',
+      'cardDependencies',
+    ];
+    boardScopedFields.forEach(fieldName => {
+      this[fieldName].reset();
     });
     this.excludedLabelIds.reset();
     this.lists.reset();
