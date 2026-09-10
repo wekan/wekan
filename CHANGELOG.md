@@ -3040,6 +3040,32 @@ covering every starred kind.
 
 </details>
 
+**Card details** - text notes alongside the description.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bc8caeba5">Add a per-card markdown text note, editable in a popup</a>. Thanks to Lapin0t and xet7.</summary>
+
+[#595](https://github.com/wekan/wekan/issues/595) asked for an attachable
+markdown text note, separate from a card's own description, so a card is not
+limited to cramming everything into one description field. This adds
+`CardTextNotes`: a small collection of named markdown notes per card, modeled
+on Checklists - a denormalized `boardId`, the same publish/allow/deny shape,
+and the same cross-board-move guard checklists already have
+(GHSA-gv8h-5p3p-6hx7).
+
+Each note renders as a tile in a new "Text Notes" card-detail section, with
+its title and a markdown-rendered preview. "Add text note" and a note's
+"Edit" open a popup that reuses the description's own `editor`/`viewer`
+widgets (`client/components/main/editor.jade`) verbatim - no new markdown
+editor was written. "Delete" removes just that note.
+`tests/cardTextNotes.test.cjs` pins the model's card/board scoping, the
+permission shape, and - as a negative test - that exactly one `editor` and
+one `viewer` template exist anywhere under `client/components/cards` and
+`client/components/main`, so a competing markdown widget cannot be
+introduced elsewhere either.
+
+</details>
+
 and fixes the following bugs:
 
 **Board reports** - the Dashboard and the 10 board report chart views.
