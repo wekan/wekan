@@ -728,6 +728,7 @@ Users.attachSchema(
         'board-view-table',
         'board-view-stats',
         'board-view-time',
+        'board-view-group-by-assignee',
         'board-view-dashboard',
         'board-view-burndown',
         'board-view-burnup',
@@ -949,6 +950,19 @@ Users.attachSchema(
       optional: true,
       allowedValues: ['YYYY-MM-DD', 'DD-MM-YYYY', 'MM-DD-YYYY'],
       defaultValue: 'YYYY-MM-DD',
+    },
+    'profile.calendarSystem': {
+      /**
+       * #4335: DISPLAY-ONLY calendar system used to render minicard and card
+       * detail dates (received/start/due/end). Dates are always stored as
+       * Gregorian `Date` objects; this only switches the rendered string to
+       * the Jalali (Persian/Solar Hijri) calendar for the viewing user. Date
+       * pickers/inputs are unaffected and stay Gregorian.
+       */
+      type: String,
+      optional: true,
+      allowedValues: ['gregorian', 'jalali'],
+      defaultValue: 'gregorian',
     },
     'profile.mobileMode': {
       /**
@@ -1839,6 +1853,11 @@ Users.helpers({
     return profile.dateFormat || 'YYYY-MM-DD';
   },
 
+  getCalendarSystem() {
+    const profile = this.profile || {};
+    return profile.calendarSystem || 'gregorian';
+  },
+
   getTemplatesBoardId() {
     return (this.profile || {}).templatesBoardId;
   },
@@ -2403,6 +2422,10 @@ Users.helpers({
 
   async setDateFormat(dateFormat) {
     return await Users.updateAsync(this._id, { $set: { 'profile.dateFormat': dateFormat } });
+  },
+
+  async setCalendarSystem(calendarSystem) {
+    return await Users.updateAsync(this._id, { $set: { 'profile.calendarSystem': calendarSystem } });
   },
 
   async setBoardView(view) {

@@ -196,6 +196,14 @@ template(name="boardChangeViewPopup")
             i.fa.fa-check
       hr
     li
+      with "board-view-group-by-assignee"
+        a.js-open-group-by-assignee-view
+          i.fa.fa-users
+          | {{_ 'board-view-group-by-assignee'}}
+          if $eq Utils.boardView "board-view-group-by-assignee"
+            i.fa.fa-check
+      hr
+    li
       with "board-view-gantt"
         a.js-open-gantt-view
           i.fa.fa-bar-chart

@@ -318,6 +318,36 @@ function computeTimeByCard(cards) {
     .sort((a, b) => b.hours - a.hours);
 }
 
+// Group by Assignee board view (#4688: "grouping cards by assignee" for a
+// team-meeting-friendly overview). Same shape/fold as computeDashboardGroups
+// (a card with several assignees counts under each, a card with none falls
+// into `emptyGroup`), but each group carries the actual CARDS instead of a
+// count/percent, since this view lists them rather than charting them.
+// Groups are sorted by card count (most first), with the "no assignee"
+// sentinel group always last regardless of its count so it reads as the
+// leftover bucket rather than competing with real assignees.
+function computeCardsByAssigneeGroup(cards, resolveGroups, emptyGroup = { key: 'none', label: 'none' }) {
+  const byKey = {};
+  cards.forEach(card => {
+    const groups = resolveGroups(card) || [];
+    (groups.length ? groups : [emptyGroup]).forEach(group => {
+      const entry = byKey[group.key] || { key: group.key, label: group.label, cards: [] };
+      entry.cards.push({
+        cardId: card._id,
+        title: card.title || card._id,
+        dueAt: card.dueAt || null,
+        isOvertime: !!card.isOvertime,
+      });
+      byKey[group.key] = entry;
+    });
+  });
+  return Object.values(byKey).sort((a, b) => {
+    if (a.key === emptyGroup.key) return 1;
+    if (b.key === emptyGroup.key) return -1;
+    return b.cards.length - a.cards.length;
+  });
+}
+
 module.exports = {
   completionDate,
   dayKey,
@@ -336,4 +366,5 @@ module.exports = {
   translateGroupLabel,
   computeTimeByGroup,
   computeTimeByCard,
+  computeCardsByAssigneeGroup,
 };

@@ -12,6 +12,7 @@ import '/client/components/boards/originalPositionsView.jade';
 import '/client/components/boards/tableView.jade';
 import '/client/components/boards/statsView.jade';
 import '/client/components/boards/timeView.jade';
+import '/client/components/boards/groupByAssigneeView.jade';
 import '/client/components/boards/charts/boardCharts.jade';
 import '/client/components/boards/chartPlaceholderViews.jade';
 
@@ -29,6 +30,7 @@ import '/client/components/boards/originalPositionsView.js';
 import '/client/components/boards/tableView.js';
 import '/client/components/boards/statsView.js';
 import '/client/components/boards/timeView.js';
+import '/client/components/boards/groupByAssigneeView.js';
 import '/client/components/boards/charts/boardCharts.js';
 import '/client/components/boards/chartPlaceholderViews.js';
 

@@ -22,6 +22,7 @@ const {
   NO_LABEL_GROUP,
   computeTimeByGroup,
   computeTimeByCard,
+  computeCardsByAssigneeGroup,
 } = require('/models/lib/chartCalculations');
 
 export async function loadBoardChartData(boardId, chartKey) {
@@ -80,7 +81,7 @@ export async function loadBoardChartData(boardId, chartKey) {
     };
   }
 
-  if (chartKey === 'dashboard' || chartKey === 'time') {
+  if (chartKey === 'dashboard' || chartKey === 'time' || chartKey === 'groupByAssignee') {
     const usersById = {};
     const userIds = new Set();
     allCards.forEach(card => (card.assignees || []).forEach(id => userIds.add(id)));
@@ -98,6 +99,19 @@ export async function loadBoardChartData(boardId, chartKey) {
         byAssignee: computeTimeByGroup(activeCards, card =>
           (card.assignees || []).map(id => ({ key: id, label: nameOf(id) })), NO_ASSIGNEE_GROUP),
         byCard: computeTimeByCard(activeCards),
+      };
+    }
+
+    if (chartKey === 'groupByAssignee') {
+      // #4688 ("grouping cards by assignee"): the same "which cards count
+      // under which assignee" fold the Dashboard/Time views already use,
+      // but returning the cards themselves rather than a count/hours total,
+      // for a team-meeting-friendly read-only overview. Archived cards are
+      // excluded, matching the Time view's own "archived: false" summary.
+      const activeCards = allCards.filter(card => !card.archived);
+      return {
+        groups: computeCardsByAssigneeGroup(activeCards, card =>
+          (card.assignees || []).map(id => ({ key: id, label: nameOf(id) })), NO_ASSIGNEE_GROUP),
       };
     }
 

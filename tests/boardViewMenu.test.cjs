@@ -38,6 +38,7 @@ const VIEWS = [
   { view: 'board-view-cal', jsClass: 'js-open-cal-view', icon: 'fa-calendar' },
   { view: 'board-view-time', jsClass: 'js-open-time-view', icon: 'fa-clock-o', template: 'timeView', helper: 'isViewTime' },
   { view: 'board-view-stats', jsClass: 'js-open-stats-view', icon: 'fa-pie-chart' },
+  { view: 'board-view-group-by-assignee', jsClass: 'js-open-group-by-assignee-view', icon: 'fa-users', template: 'groupByAssigneeView', helper: 'isViewGroupByAssignee' },
   { view: 'board-view-gantt', jsClass: 'js-open-gantt-view', icon: 'fa-bar-chart' },
   { view: 'board-view-gantt-frappe', jsClass: 'js-open-gantt-frappe-view', icon: 'fa-tasks', template: 'frappeGanttView', helper: 'isViewGanttFrappe' },
   { view: 'board-view-gantt-dhtmlx', jsClass: 'js-open-gantt-dhtmlx-view', icon: 'fa-list-alt', template: 'dhtmlxGanttView', helper: 'isViewGanttDhtmlx' },
@@ -57,7 +58,7 @@ const VIEWS = [
 // Statistics and the Gantt group, and between the Gantt group (WeKan's own
 // Gantt, Frappe Gantt, DHTMLX Gantt) and Dashboard - like the right
 // sidebar's own hr-separated groups (client/components/sidebar/sidebar.jade).
-const HR_AFTER = ['board-view-table', 'board-view-time', 'board-view-stats', 'board-view-gantt-dhtmlx'];
+const HR_AFTER = ['board-view-table', 'board-view-time', 'board-view-stats', 'board-view-group-by-assignee', 'board-view-gantt-dhtmlx'];
 
 test('the menu lists every view in the required top-to-bottom order', () => {
   const popup = boardHeaderJade.slice(boardHeaderJade.indexOf('template(name="boardChangeViewPopup")'));
@@ -206,7 +207,7 @@ test('"Time spent summary" moved to the Time view and out of Statistics', () => 
 
 test('the new templates and stylesheets are registered, like every other board view', () => {
   const boardsFeature = read('client/features/boards.js');
-  ['timeView.jade', 'timeView.js', 'chartPlaceholderViews.jade', 'chartPlaceholderViews.js']
+  ['timeView.jade', 'timeView.js', 'groupByAssigneeView.jade', 'groupByAssigneeView.js', 'chartPlaceholderViews.jade', 'chartPlaceholderViews.js']
     .forEach(f => {
       assert.ok(boardsFeature.includes(`/client/components/boards/${f}`), `${f} is imported`);
     });

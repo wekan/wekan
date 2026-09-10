@@ -301,6 +301,10 @@ Template.boardChangeViewPopup.events({
     Utils.setBoardView('board-view-time');
     Popup.back();
   },
+  'click .js-open-group-by-assignee-view'() {
+    Utils.setBoardView('board-view-group-by-assignee');
+    Popup.back();
+  },
   'click .js-open-dashboard-view'() {
     Utils.setBoardView('board-view-dashboard');
     Popup.back();
@@ -715,6 +719,7 @@ Template.boardViewMenu.helpers({
       'board-view-table': 'board-view-table',
       'board-view-stats': 'board-view-stats',
       'board-view-time': 'board-view-time',
+      'board-view-group-by-assignee': 'board-view-group-by-assignee',
       'board-view-dashboard': 'board-view-dashboard',
       'board-view-burndown': 'board-view-burndown',
       'board-view-burnup': 'board-view-burnup',

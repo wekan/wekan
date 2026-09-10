@@ -60,6 +60,8 @@ template(name="boardBody")
           +statsView
         else if isViewTime
           +timeView
+        else if isViewGroupByAssignee
+          +groupByAssigneeView
         else if isViewDashboard
           +dashboardView
         else if isViewBurndown

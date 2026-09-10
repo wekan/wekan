@@ -790,6 +790,10 @@ Template.boardBody.helpers({
     return Utils.boardView() === 'board-view-time';
   },
 
+  isViewGroupByAssignee() {
+    return Utils.boardView() === 'board-view-group-by-assignee';
+  },
+
   isViewDashboard() {
     return Utils.boardView() === 'board-view-dashboard';
   },

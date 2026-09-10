@@ -60,3 +60,42 @@
   color: #888;
   font-style: italic;
 }
+
+/* "Group by Assignee" board view (#4688) - the card rows under each
+   assignee heading. Kept simple (a title + optional due date/overtime
+   marker), not a minicard re-render, so a board-wide view stays lightweight. */
+.group-by-assignee-cards {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.group-by-assignee-card {
+  border-bottom: 1px solid #eee;
+}
+
+.group-by-assignee-card-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 4px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.group-by-assignee-card-link:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.group-by-assignee-card-title {
+  flex: 1;
+}
+
+.group-by-assignee-card-due {
+  color: #666;
+  font-size: calc(12px * var(--wekan-ui-font-scale, 1));
+}
+
+.group-by-assignee-card-overtime {
+  color: #d9534f;
+}

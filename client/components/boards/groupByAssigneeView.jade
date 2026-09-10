@@ -1,0 +1,21 @@
+template(name="groupByAssigneeView")
+  .stats-view
+    .stats-view-content
+      h1.stats-view-title {{_ 'board-view-group-by-assignee'}}
+      if isLoading
+        p.quiet {{_ 'loading'}}
+      else if hasGroups
+        each groups
+          .stats-view-section
+            h2.stats-view-heading {{groupLabel label}} ({{cards.length}})
+            ul.group-by-assignee-cards
+              each cards
+                li.group-by-assignee-card
+                  a.group-by-assignee-card-link(href="{{ cardUrl cardId }}")
+                    span.group-by-assignee-card-title {{ title }}
+                    if dueAt
+                      span.group-by-assignee-card-due {{ formatDueAt dueAt }}
+                    if isOvertime
+                      i.fa.fa-clock-o.group-by-assignee-card-overtime
+      else
+        p.quiet {{_ 'group-by-assignee-empty'}}
