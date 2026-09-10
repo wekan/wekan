@@ -160,6 +160,8 @@
   "close-add-checklist-item": "Isira an porma para mag-dugang hin item ha checklist",
   "close-edit-checklist-item": "Isira an porma para mag-edit hin item ha checklist",
   "convertChecklistItemToCardPopup-title": "Igliwat ngadto ha Card",
+  "convertChecklistItemToSubtask-title": "Kiviersî en sos-bouye",
+  "checklistItem-linked-subtask": "Sos-bouye raloyeye",
   "add-cover": "Idugang an cover nga imahe ha minicard",
   "add-label": "Idugang an Label",
   "add-list": "Idugang an Lista",
@@ -302,6 +304,9 @@
   "swimlaneArchivePopup-title": "I-arkibo an Swimlane?",
   "card-due": "Deadline",
   "card-due-on": "Deadline ha",
+  "due-today": "Discandiaedje ådjourdu'i",
+  "due-days-left": "i dmeure %s djoûs",
+  "due-days-overdue": "å rtård di %s djoûs",
   "card-spent": "Ginamit nga Oras",
   "card-edit-attachments": "I-edit an mga attachment",
   "card-edit-custom-fields": "I-edit an mga custom field",
@@ -2548,5 +2553,7 @@
   "wip-limit-groups": "I-enable an WIP Limit (Lista)",
   "wip-limit-group-name-placeholder": "Ngaran (opsyonal)",
   "wip-limit-group-add": "Idugang I-enable an WIP Limit",
+  "wip-limit-group-select-swimlane": "Pili-a an Board Couloir",
+  "wip-limit-group-apply-swimlane": "Igbutang Couloir",
   "subtask-inherit-parent-labels": "Eriter les etikètes del cåte parint"
 }

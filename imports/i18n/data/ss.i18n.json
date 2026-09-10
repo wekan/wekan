@@ -160,6 +160,8 @@
   "close-add-checklist-item": "Vala lifomu lekwengeta intfo eluhlwini lwekuhlola",
   "close-edit-checklist-item": "Vala lifomu lekuhlela intfo eluhlwini lwekuhlola",
   "convertChecklistItemToCardPopup-title": "Gucula kube Likhadi",
+  "convertChecklistItemToSubtask-title": "Guca kube ngumsebenti lomncane",
+  "checklistItem-linked-subtask": "Umsebenti lomncane loxhumene",
   "add-cover": "Engeta sitfombe sekumbonya ekhadini lelincane",
   "add-label": "Engeta Ilebula",
   "add-list": "Ngeta luhla",
@@ -302,6 +304,9 @@
   "swimlaneArchivePopup-title": "Yisa Umzila Engobolweni?",
   "card-due": "Kuphela",
   "card-due-on": "Kuphela nga",
+  "due-today": "Lilanga lanamuhla",
+  "due-days-left": "kusele emalanga la-%s",
+  "due-days-overdue": "emalanga la-%s aphelile",
   "card-spent": "Sikhatsi Lesisetjentisiwe",
   "card-edit-attachments": "Hlela lokunamatsiselwe",
   "card-edit-custom-fields": "Hlela tindzawo letikhetsekile",
@@ -2548,5 +2553,7 @@
   "wip-limit-groups": "Vumela Umkhawulo we-WIP (Luhla)",
   "wip-limit-group-name-placeholder": "Ligama (akuphocelelekile)",
   "wip-limit-group-add": "Ngeta Vumela Umkhawulo we-WIP",
+  "wip-limit-group-select-swimlane": "Khetsa Umtsandvo",
+  "wip-limit-group-apply-swimlane": "Sebentisa Umtsandvo",
   "subtask-inherit-parent-labels": "Todlana emalebula ekhadi lomtali"
 }

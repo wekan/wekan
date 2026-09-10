@@ -160,6 +160,8 @@
   "close-add-checklist-item": "तपास वळेरींत घटक जोडपाचो अर्ज बंद करात",
   "close-edit-checklist-item": "तपास वळेरी घटक संपादित करपाचो अर्ज बंद करात",
   "convertChecklistItemToCardPopup-title": "कार्डांत रुपांतर करात",
+  "convertChecklistItemToSubtask-title": "उप-कार्यांत बदल करचें",
+  "checklistItem-linked-subtask": "जोडिल्लें उप-कार्य",
   "add-cover": "ल्हानकार्डाक मुखपृष्ठ चित्र जोडात",
   "add-label": "लेबल जोडात",
   "add-list": "वळेरी जोडची",
@@ -302,6 +304,9 @@
   "swimlaneArchivePopup-title": "मार्ग संग्रहांत धाडचो?",
   "card-due": "निमाणें",
   "card-due-on": "निमाणी तारीख",
+  "due-today": "आयज निमणी तारीख",
+  "due-days-left": "%s दीस उरात",
+  "due-days-overdue": "%s दीस उशीर",
   "card-spent": "खर्चिल्लो वेळ",
   "card-edit-attachments": "जोडण्यो संपादित करात",
   "card-edit-custom-fields": "सानुकूल क्षेत्रां संपादित करात",
@@ -2548,5 +2553,7 @@
   "wip-limit-groups": "WIP मर्यादा सक्षम करात (वळेरी)",
   "wip-limit-group-name-placeholder": "नांव (मर्जेन)",
   "wip-limit-group-add": "जोडचें WIP मर्यादा सक्षम करात",
+  "wip-limit-group-select-swimlane": "निवडात वाट",
+  "wip-limit-group-apply-swimlane": "लागू करात वाट",
   "subtask-inherit-parent-labels": "पालक कार्डाची लेबलां वारशान घे"
 }

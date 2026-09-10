@@ -160,6 +160,8 @@
   "close-add-checklist-item": "Vala ifomu yokwengeza into kuluhlu lokuhlola",
   "close-edit-checklist-item": "Vala ifomu yokuhlela into kuluhlu lokuhlola",
   "convertChecklistItemToCardPopup-title": "Guqula kube likhadi",
+  "convertChecklistItemToSubtask-title": "Guqula kube umsebenzi omncane",
+  "checklistItem-linked-subtask": "Umsebenzi omncane oxhunyiwe",
   "add-cover": "Engeza isithombe sekhava ekhadini elincane",
   "add-label": "Engeza ilebula",
   "add-list": "Engeza uluhlu",
@@ -302,6 +304,9 @@
   "swimlaneArchivePopup-title": "Hambisa umzila eNgobweni yomlando?",
   "card-due": "Kumele kuphele",
   "card-due-on": "Kumele kuphele ngo",
+  "due-today": "Kufanele lamuhla",
+  "due-days-left": "kusele izinsuku ezingu-%s",
+  "due-days-overdue": "zephuzile izinsuku ezingu-%s",
   "card-spent": "Isikhathi esisetshenzisiweyo",
   "card-edit-attachments": "Hlela okunamathiselweyo",
   "card-edit-custom-fields": "Hlela izinkambu ezenziwe ngokwezifiso",
@@ -2548,5 +2553,7 @@
   "wip-limit-groups": "Vumela umkhawulo we-WIP (Uluhlu)",
   "wip-limit-group-name-placeholder": "Ibizo (kuyazikhethela)",
   "wip-limit-group-add": "Engeza Vumela umkhawulo we-WIP",
+  "wip-limit-group-select-swimlane": "Khetha ibhodi Umzila",
+  "wip-limit-group-apply-swimlane": "Sebenzisa Umzila",
   "subtask-inherit-parent-labels": "Zuza amabhaji ekhadi labazali"
 }

@@ -160,6 +160,8 @@
   "close-add-checklist-item": "Začinić formulář přidání položky do checkliztu",
   "close-edit-checklist-item": "Začinić formulář úpravy položky checkliztu",
   "convertChecklistItemToCardPopup-title": "Převézt na kartu",
+  "convertChecklistItemToSubtask-title": "Do podnadawka přetworić",
+  "checklistItem-linked-subtask": "Zwjazany podnadawk",
   "add-cover": "Přidać titulní obrázek k minikartě",
   "add-label": "Nalěpku přidać",
   "add-list": "Lisćinu přidać",
@@ -302,6 +304,9 @@
   "swimlaneArchivePopup-title": "WeKan: Archivovat dráhu?",
   "card-due": "WeKan: Termín",
   "card-due-on": "WeKan: Do",
+  "due-today": "Terminuje dźensa",
+  "due-days-left": "zwostawa %s dnjow",
+  "due-days-overdue": "zapozdźenje %s dnjow",
   "card-spent": "Strávený čaz",
   "card-edit-attachments": "Wobdźěłać přiwěški",
   "card-edit-custom-fields": "Wobdźěłać vlaztní pole",
@@ -2548,5 +2553,7 @@
   "wip-limit-groups": "Dowolić WIP Limit (Lisćina)",
   "wip-limit-group-name-placeholder": "Mjeno (opcionalny)",
   "wip-limit-group-add": "Přidać Dowolić WIP Limit",
+  "wip-limit-group-select-swimlane": "Wubrać tablo Pas",
+  "wip-limit-group-apply-swimlane": "WeKan: Použít Pas",
   "subtask-inherit-parent-labels": "Znamjenja nadrjadowaneje karty dźědźić"
 }

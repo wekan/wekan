@@ -160,6 +160,8 @@
   "close-add-checklist-item": "Җһеҗклист'е өге өстәме формуну яп",
   "close-edit-checklist-item": "Җһеҗклист өгеси үзгәртме формуну яп",
   "convertChecklistItemToCardPopup-title": "карточкаа Чевир",
+  "convertChecklistItemToSubtask-title": "Эчке бурычка әйләндерү",
+  "checklistItem-linked-subtask": "Бәйле эчке бурыч",
   "add-cover": "Мини карточкаа капак ресми өстә",
   "add-label": "тамга өстә",
   "add-list": "Исемлек өстәү",
@@ -302,6 +304,9 @@
   "swimlaneArchivePopup-title": "Кулвар Аршивленсин ми?",
   "card-due": "Битиш",
   "card-due-on": "Битиш датаи:",
+  "due-today": "Соңгы срок бүген",
+  "due-days-left": "%s көн калды",
+  "due-days-overdue": "%s көнгә кичектерелде",
   "card-spent": "Һарҗанан вакыт",
   "card-edit-attachments": "Ек файлсыны үзгәрт",
   "card-edit-custom-fields": "Өзел аланлары үзгәрт",
@@ -2548,5 +2553,7 @@
   "wip-limit-groups": "Девам Еден Иш Сынырыны ач (Исемлек)",
   "wip-limit-group-name-placeholder": "Исем (мәҗбүри түгел)",
   "wip-limit-group-add": "Өстәү Девам Еден Иш Сынырыны ач",
+  "wip-limit-group-select-swimlane": "тактайу Сечин Юл",
+  "wip-limit-group-apply-swimlane": "Уйгула Юл",
   "subtask-inherit-parent-labels": "Ата-ана картасының этикеткаларын мирас итеп алу"
 }

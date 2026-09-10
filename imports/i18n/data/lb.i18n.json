@@ -160,6 +160,8 @@
   "close-add-checklist-item": "Schließe Een Eintrag fir d' Checklëscht derbäisetzen",
   "close-edit-checklist-item": "Schließe Bearbeitung eines Checklisteneintrags",
   "convertChecklistItemToCardPopup-title": "Zu Kaart umwandeln",
+  "convertChecklistItemToSubtask-title": "An Ënneraufgab ëmwandelen",
+  "checklistItem-linked-subtask": "Verlinkt Ënneraufgab",
   "add-cover": "Cover Bild zu Minikarte derbäisetzen",
   "add-label": "Label derbäisetzen",
   "add-list": "Lëscht derbäisetzen",
@@ -302,6 +304,9 @@
   "swimlaneArchivePopup-title": "Swimlane archivieren?",
   "card-due": "Fällig",
   "card-due-on": "Fällig den",
+  "due-today": "Fälleg haut",
+  "due-days-left": "%s Deeg iwwreg",
+  "due-days-overdue": "%s Deeg ze spéit",
   "card-spent": "Aufgewendete Zäit",
   "card-edit-attachments": "Uschlëss änneren",
   "card-edit-custom-fields": "Benutzerdefinierte Felder editieren",
@@ -2548,5 +2553,7 @@
   "wip-limit-groups": "WIP-Limit einschalten (Lëscht)",
   "wip-limit-group-name-placeholder": "Numm (fakultativ)",
   "wip-limit-group-add": "Derbäisetzen WIP-Limit einschalten",
+  "wip-limit-group-select-swimlane": "Board auswielen Bunn",
+  "wip-limit-group-apply-swimlane": "Übernehmen Bunn",
   "subtask-inherit-parent-labels": "Elteren-Kaart Etiketten iwwerhuelen"
 }

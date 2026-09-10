@@ -160,6 +160,8 @@
   "close-add-checklist-item": "Chiudi il modulo por aggiungere un elemento ala checklist",
   "close-edit-checklist-item": "Chiudi il modulo por mudare un elemento dla checklist",
   "convertChecklistItemToCardPopup-title": "Converti in ciarta",
+  "convertChecklistItemToSubtask-title": "Converti en sotatività",
+  "checklistItem-linked-subtask": "Sotatività lianada",
   "add-cover": "Ajonté immagine di copertina a minicard",
   "add-label": "Ajonté eticheta",
   "add-list": "Ajonté na lista",
@@ -302,6 +304,9 @@
   "swimlaneArchivePopup-title": "Sposta tl archifre la swimlane?",
   "card-due": "Scadenza",
   "card-due-on": "Scade il",
+  "due-today": "Scè encueh",
+  "due-days-left": "resta %s dis",
+  "due-days-overdue": "%s dis de retert",
   "card-spent": "Tempo trascorso",
   "card-edit-attachments": "Muda injuntes",
   "card-edit-custom-fields": "Muda campi personalizzati",
@@ -2548,5 +2553,7 @@
   "wip-limit-groups": "Attiva limite Work In Progress (Lista)",
   "wip-limit-group-name-placeholder": "Inom (opzional)",
   "wip-limit-group-add": "Ajonté Attiva limite Work In Progress",
+  "wip-limit-group-select-swimlane": "Siel tofl Streda",
+  "wip-limit-group-apply-swimlane": "Applica Streda",
   "subtask-inherit-parent-labels": "Ierede les etichetes de la scheda genitor"
 }

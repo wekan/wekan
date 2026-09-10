@@ -160,6 +160,8 @@
   "close-add-checklist-item": "Klosem adem wan item long jeklis form",
   "close-edit-checklist-item": "Klosem jenisim wan item long jeklis form",
   "convertChecklistItemToCardPopup-title": "Convert long Kad",
+  "convertChecklistItemToSubtask-title": "Jenisim i go long smol wok",
+  "checklistItem-linked-subtask": "Smol wok we i join",
   "add-cover": "Adem cover pikja long minicard",
   "add-label": "Adem Mak",
   "add-list": "Adem lis",
@@ -302,6 +304,9 @@
   "swimlaneArchivePopup-title": "Akaev Swimlane?",
   "card-due": "Mas finis",
   "card-due-on": "Mas finis long",
+  "due-today": "I mas kam tude",
+  "due-days-left": "%s de i stap",
+  "due-days-overdue": "%s de i pas finis",
   "card-spent": "Spent Taem",
   "card-edit-attachments": "Jenisim ol fael we oli joen",
   "card-edit-custom-fields": "Jenisim spesel fields",
@@ -2548,5 +2553,7 @@
   "wip-limit-groups": "Mekem i wok WIP Limit (Lis)",
   "wip-limit-group-name-placeholder": "Nem (yu save jusum)",
   "wip-limit-group-add": "Adem Mekem i wok WIP Limit",
+  "wip-limit-group-select-swimlane": "Jusum Rod",
+  "wip-limit-group-apply-swimlane": "Tok blong sistem: Apply Rod",
   "subtask-inherit-parent-labels": "Kisim ol lebol bilong papamama kad"
 }

@@ -160,6 +160,8 @@
   "close-add-checklist-item": "Slút in item taheakje oan checklistformulier",
   "close-edit-checklist-item": "Slút bewurkje in item nei checklist formulier",
   "convertChecklistItemToCardPopup-title": "Konvertearje nei Card",
+  "convertChecklistItemToSubtask-title": "Omsette nei subtaak",
+  "checklistItem-linked-subtask": "Keppele subtaak",
   "add-cover": "Foegje omslachôfbylding ta oan minicard",
   "add-label": "Label tafoegje",
   "add-list": "List tafoegje",
@@ -302,6 +304,9 @@
   "swimlaneArchivePopup-title": "Argyf Swimlane?",
   "card-due": "Ferfal",
   "card-due-on": "Due op",
+  "due-today": "Ferrint hjoed",
+  "due-days-left": "noch %s dagen",
+  "due-days-overdue": "%s dagen te let",
   "card-spent": "Tiid trochbrocht",
   "card-edit-attachments": "Taheaksels bewurkje",
   "card-edit-custom-fields": "Oanpaste fjilden bewurkje",
@@ -2548,5 +2553,7 @@
   "wip-limit-groups": "WIP Limit ynskeakelje (Oersjochslist)",
   "wip-limit-group-name-placeholder": "Namme (fakultatyf)",
   "wip-limit-group-add": "Tafoegje WIP Limit ynskeakelje",
+  "wip-limit-group-select-swimlane": "Selektearje Board Swimbaan",
+  "wip-limit-group-apply-swimlane": "Tapasse Swimbaan",
   "subtask-inherit-parent-labels": "Etiketten fan de âlderkaart erve"
 }

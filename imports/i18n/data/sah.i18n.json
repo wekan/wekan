@@ -160,6 +160,8 @@
   "close-add-checklist-item": "Бэрэбиэркэ испииһэгэр пууну эбэр форманы сап",
   "close-edit-checklist-item": "Бэрэбиэркэ испииһэгин пуунун уларытар форманы сап",
   "convertChecklistItemToCardPopup-title": "Карточка гын",
+  "convertChecklistItemToSubtask-title": "Аҕыс соругу оҥор",
+  "checklistItem-linked-subtask": "Ситимнэммит аҕыс соруга",
   "add-cover": "Кыра карточкаҕа тыш ойууну эп",
   "add-label": "Бэлиэни эп",
   "add-list": "Испииһэк эбэр",
@@ -302,6 +304,9 @@
   "swimlaneArchivePopup-title": "Суолу арһыыпка көһөрүөххүн дуо?",
   "card-due": "Болдьох",
   "card-due-on": "Болдьоҕо",
+  "due-today": "Бүгүн кэрэһит",
+  "due-days-left": "%s хонук хаалла",
+  "due-days-overdue": "%s хонук халты барда",
   "card-spent": "Туттуллубут кэм",
   "card-edit-attachments": "Холбоһуктары уларыт",
   "card-edit-custom-fields": "Ураты паалаталары уларыт",
@@ -2548,5 +2553,7 @@
   "wip-limit-groups": "WIP хааччаҕын холбуу (Испииһэк)",
   "wip-limit-group-name-placeholder": "Аат (баҕарар буоллаххына)",
   "wip-limit-group-add": "Эбэр WIP хааччаҕын холбуу",
+  "wip-limit-group-select-swimlane": "ны тал Суол",
+  "wip-limit-group-apply-swimlane": "Тутун Суол",
   "subtask-inherit-parent-labels": "Ийэ картаҕа хос сыттар билигиттэн ылын"
 }

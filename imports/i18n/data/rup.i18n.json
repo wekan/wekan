@@ -160,6 +160,8 @@
   "close-add-checklist-item": "Cerrar el formulario para añadir un elemento a la lista di verificación",
   "close-edit-checklist-item": "Cerrar el formulario di edición di un elemento di la lista di verificación",
   "convertChecklistItemToCardPopup-title": "Converti in scheda",
+  "convertChecklistItemToSubtask-title": "Conversie tu suptask",
+  "checklistItem-linked-subtask": "Suptask alichit",
   "add-cover": "Aggiungi immagine di copertina a minicard",
   "add-label": "Aggiungi etichetta",
   "add-list": "Adavgã unã listã",
@@ -302,6 +304,9 @@
   "swimlaneArchivePopup-title": "Archiver le couloir ?",
   "card-due": "Scadenza",
   "card-due-on": "Scade il",
+  "due-today": "Ази easti bitanda",
+  "due-days-left": "armasi %s dzãli",
+  "due-days-overdue": "%s dzãli amãnat",
   "card-spent": "Tempo trascorso",
   "card-edit-attachments": "Editeazã atashamente",
   "card-edit-custom-fields": "Modifica campi personalizzati",
@@ -2548,5 +2553,7 @@
   "wip-limit-groups": "Attiva limite Work In Progress (Listã)",
   "wip-limit-group-name-placeholder": "Numã (optsional)",
   "wip-limit-group-add": "Adavgã Attiva limite Work In Progress",
+  "wip-limit-group-select-swimlane": "Seleziona bacheca Cali",
+  "wip-limit-group-apply-swimlane": "Applica Cali",
   "subtask-inherit-parent-labels": "Moștenește etichetele cardului părinte"
 }

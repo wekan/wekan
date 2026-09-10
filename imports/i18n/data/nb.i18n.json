@@ -160,6 +160,8 @@
   "close-add-checklist-item": "Lukk skjemaet for å legge til et element i sjekklisten",
   "close-edit-checklist-item": "Lukk skjemaet for å redigere et element i sjekklisten",
   "convertChecklistItemToCardPopup-title": "Koverter til Kort",
+  "convertChecklistItemToSubtask-title": "Konverter til deloppgave",
+  "checklistItem-linked-subtask": "Tilknyttet deloppgave",
   "add-cover": "Legg til omslagsbilde på minikortet",
   "add-label": "Legg til Etikett",
   "add-list": "Legg til Liste",
@@ -302,6 +304,9 @@
   "swimlaneArchivePopup-title": "Arkivere svømmebane?",
   "card-due": "Frist",
   "card-due-on": "Utløpsfrist",
+  "due-today": "Forfaller i dag",
+  "due-days-left": "%s dager igjen",
+  "due-days-overdue": "%s dager forsinket",
   "card-spent": "Forbrukt tid",
   "card-edit-attachments": "Rediger vedlegg",
   "card-edit-custom-fields": "Rediger tilpassede felt",
@@ -2548,5 +2553,7 @@
   "wip-limit-groups": "WIP-grensegrupper",
   "wip-limit-group-name-placeholder": "Gruppenavn (valgfritt)",
   "wip-limit-group-add": "Legg til WIP-grensegruppe",
+  "wip-limit-group-select-swimlane": "Velg Svømmebane",
+  "wip-limit-group-apply-swimlane": "Lagre Svømmebane",
   "subtask-inherit-parent-labels": "Arv etikettene til overordnet kort"
 }

@@ -160,6 +160,8 @@
   "close-add-checklist-item": "Lajɛli lisiti fɛn farali fɔrɔmu datugu",
   "close-edit-checklist-item": "Lajɛli lisiti fɛn yɛlɛmani fɔrɔmu datugu",
   "convertChecklistItemToCardPopup-title": "A yɛlɛma ka kɛ karata ye",
+  "convertChecklistItemToSubtask-title": "Yɛlɛma ka kɛ baaraden ye",
+  "checklistItem-linked-subtask": "Baaraden jɛlen",
   "add-cover": "Kankira ja fara minikarata kan",
   "add-label": "Taamasiyɛn fara a kan",
   "add-list": "Sɛbɛn fara a kan",
@@ -302,6 +304,9 @@
   "swimlaneArchivePopup-title": "Swimlane bila marayɔrɔ la?",
   "card-due": "Laban waati",
   "card-due-on": "Laban don",
+  "due-today": "A ka kan ka kɛ bi",
+  "due-days-left": "tile %s tora",
+  "due-days-overdue": "tile %s tɛmɛna",
   "card-spent": "Waati min kɛra",
   "card-edit-attachments": "Ɲɔgɔnnanw yɛlɛma",
   "card-edit-custom-fields": "Foroba kɛrɛnkɛrɛnnenw yɛlɛma",
@@ -2548,5 +2553,7 @@
   "wip-limit-groups": "WIP dantigɛ da (Sɛbɛn)",
   "wip-limit-group-name-placeholder": "Tɔgɔ (i sago)",
   "wip-limit-group-add": "Fara a kan WIP dantigɛ da",
+  "wip-limit-group-select-swimlane": "Tabali sugandi Sira",
+  "wip-limit-group-apply-swimlane": "A kɛ Sira",
   "subtask-inherit-parent-labels": "Ka fatiya karti mumɛ ka tagabiw ta"
 }

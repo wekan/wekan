@@ -160,6 +160,8 @@
   "close-add-checklist-item": "Тикшереү исемлегенә пункт өҫтәү формаһын ябырға",
   "close-edit-checklist-item": "Тикшереү исемлеге пунктын үҙгәртеү формаһын ябырға",
   "convertChecklistItemToCardPopup-title": "Карточкаға әйләндерергә",
+  "convertChecklistItemToSubtask-title": "Эске бурысҡа әйләндереү",
+  "checklistItem-linked-subtask": "Бәйле эске бурыс",
   "add-cover": "Миникарточкаға тышлыҡ рәсеме өҫтәргә",
   "add-label": "Тамға өҫтәргә",
   "add-list": "Исемлек өҫтәү",
@@ -302,6 +304,9 @@
   "swimlaneArchivePopup-title": "Йөҙөү юлын архивҡа күсерергәме?",
   "card-due": "Үтәү ваҡыты",
   "card-due-on": "Үтәү датаһы",
+  "due-today": "Бөгөн срогы бөтә",
+  "due-days-left": "%s көн ҡалды",
+  "due-days-overdue": "%s көн кисекте",
   "card-spent": "Сарыф ителгән ваҡыт",
   "card-edit-attachments": "Ҡушымталарҙы үҙгәртергә",
   "card-edit-custom-fields": "Махсус яландарҙы үҙгәртергә",
@@ -2548,5 +2553,7 @@
   "wip-limit-groups": "WIP сикләүен ҡабыҙырға (Исемлек)",
   "wip-limit-group-name-placeholder": "Исем (мотлаҡ түгел)",
   "wip-limit-group-add": "Өҫтәү WIP сикләүен ҡабыҙырға",
+  "wip-limit-group-select-swimlane": "Таҡтаны һайларға Юл",
+  "wip-limit-group-apply-swimlane": "Ҡулланырға Юл",
   "subtask-inherit-parent-labels": "Атай карта билдәләрен мираҫ итеп алыу"
 }

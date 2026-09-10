@@ -160,6 +160,8 @@
   "close-add-checklist-item": "Uddu ɓeydude huunde e fannu doggol ƴeewndagol",
   "close-edit-checklist-item": "Uddu taƴtagol huunde e fannu doggol ƴeewndagol",
   "convertChecklistItemToCardPopup-title": "Waylu wonde kartal",
+  "convertChecklistItemToSubtask-title": "Waylu e gollal pamараре",
+  "checklistItem-linked-subtask": "Gollal pamare jokku",
   "add-cover": "Ɓeydu natal damal e kartal pamarel",
   "add-label": "Ɓeydu maantorol",
   "add-list": "Ɓeydu doggol",
@@ -302,6 +304,9 @@
   "swimlaneArchivePopup-title": "Eggin laawol e mooftirde?",
   "card-due": "Timmugol",
   "card-due-on": "Timmugol e",
+  "due-today": "Hannde woni final",
+  "due-days-left": "ñalɗi %s heddii",
+  "due-days-overdue": "ñalɗi %s yawtii",
   "card-spent": "Sahaa huuwiraaɗo",
   "card-edit-attachments": "Taƴto ceŋaaɗi",
   "card-edit-custom-fields": "Taƴto galle keeriɗe",
@@ -2548,5 +2553,7 @@
   "wip-limit-groups": "Hurmin keerol WIP (Doggol)",
   "wip-limit-group-name-placeholder": "Innde (suɓaaɗum)",
   "wip-limit-group-add": "Ɓeydu Hurmin keerol WIP",
+  "wip-limit-group-select-swimlane": "Suɓo alluwal Laawol",
+  "wip-limit-group-apply-swimlane": "Huuwtin Laawol",
   "subtask-inherit-parent-labels": "Roonu labeeje kaarti neene baaba"
 }

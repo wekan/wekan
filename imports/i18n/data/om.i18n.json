@@ -160,6 +160,8 @@
   "close-add-checklist-item": "Unka wanta tarree qorannootti dabaluu cufi",
   "close-edit-checklist-item": "Unka wanta tarree qorannoo gulaaluu cufi",
   "convertChecklistItemToCardPopup-title": "Gara kaardiitti jijjiiri",
+  "convertChecklistItemToSubtask-title": "Hojii xiqqaa taasisuu",
+  "checklistItem-linked-subtask": "Hojii xiqqaa walitti hidhame",
   "add-cover": "Suuraa haguuggii kaardii xiqqaatti dabali",
   "add-label": "Asxaa dabali",
   "add-list": "Tarree dabali",
@@ -302,6 +304,9 @@
   "swimlaneArchivePopup-title": "Karaa Kuusuu?",
   "card-due": "Yeroo Xumuraa",
   "card-due-on": "Kan xumuramu",
+  "due-today": "Guyyaan har’a",
+  "due-days-left": "guyyaa %s hafe",
+  "due-days-overdue": "guyyaa %s darbe",
   "card-spent": "Yeroo Fudhatame",
   "card-edit-attachments": "Maxxansaalee gulaali",
   "card-edit-custom-fields": "Dirreewwan dhuunfaa gulaali",
@@ -2548,5 +2553,7 @@
   "wip-limit-groups": "Daangaa WIP Bani (Tarree)",
   "wip-limit-group-name-placeholder": "Maqaa (filannoo)",
   "wip-limit-group-add": "Dabali Daangaa WIP Bani",
+  "wip-limit-group-select-swimlane": "Fili Karaa",
+  "wip-limit-group-apply-swimlane": "Hojiirra oolchi Karaa",
   "subtask-inherit-parent-labels": "Labeelii kaardii maatii dhaalfachuu"
 }

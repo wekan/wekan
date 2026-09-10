@@ -160,6 +160,8 @@
   "close-add-checklist-item": "Pasim putim wanpela item long lis bilong sekim form",
   "close-edit-checklist-item": "Pasim senisim wanpela item long lis bilong sekim form",
   "convertChecklistItemToCardPopup-title": "Convert long kat",
+  "convertChecklistItemToSubtask-title": "Senisim i go long liklik wok",
+  "checklistItem-linked-subtask": "Liklik wok i pas long en",
   "add-cover": "Putim cover piksa long minicard",
   "add-label": "Putim mak",
   "add-list": "Putim lis",
@@ -302,6 +304,9 @@
   "swimlaneArchivePopup-title": "Akaiv rot?",
   "card-due": "Toksave: Due",
   "card-due-on": "Toksave: Due on",
+  "due-today": "Dede em tude",
+  "due-days-left": "%s de i stap yet",
+  "due-days-overdue": "%s de i lus pinis",
   "card-spent": "Spent taim",
   "card-edit-attachments": "Senisim ol fail i pas",
   "card-edit-custom-fields": "Senisim ol kastam fil",
@@ -2548,5 +2553,7 @@
   "wip-limit-groups": "Larim i wok WIP Limit (Lis)",
   "wip-limit-group-name-placeholder": "Nem (yu ken makim)",
   "wip-limit-group-add": "Putim Larim i wok WIP Limit",
+  "wip-limit-group-select-swimlane": "Makim bot Rot",
+  "wip-limit-group-apply-swimlane": "Toksave: Apply Rot",
   "subtask-inherit-parent-labels": "Kisim ol lebol bilong kaad papamama"
 }

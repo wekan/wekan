@@ -160,6 +160,8 @@
   "close-add-checklist-item": "Faka-Tonga: tāpuni tānaki an item to checklist form",
   "close-edit-checklist-item": "Faka-Tonga: tāpuni edit an item to checklist form",
   "convertChecklistItemToCardPopup-title": "Faka-Tonga: Convert to kaati",
+  "convertChecklistItemToSubtask-title": "Liliu ki he ngaue-iki",
+  "checklistItem-linked-subtask": "Ngaue-iki fehokotaki",
   "add-cover": "Faka-Tonga: tānaki cover image to minicard",
   "add-label": "Faka-Tonga: tānaki Label",
   "add-list": "Tānaki ha lisi",
@@ -302,6 +304,9 @@
   "swimlaneArchivePopup-title": "Faka-Tonga: Archive hala ngāue?",
   "card-due": "ʻAho ngataʻanga",
   "card-due-on": "Faka-Tonga: Due on",
+  "due-today": "ʻAho ni ʻa e ʻaho fakaʻosi",
+  "due-days-left": "%s ʻaho toe",
+  "due-days-overdue": "%s ʻaho tōmui",
   "card-spent": "Faka-Tonga: Spent taimi",
   "card-edit-attachments": "Faka-Tonga: Edit fakapipiki",
   "card-edit-custom-fields": "Faka-Tonga: Edit custom fields",
@@ -2548,5 +2553,7 @@
   "wip-limit-groups": "Faka-Tonga: Enable WIP Limit (Lisi)",
   "wip-limit-group-name-placeholder": "Hingoa (fili pē)",
   "wip-limit-group-add": "Tānaki Faka-Tonga: Enable WIP Limit",
+  "wip-limit-group-select-swimlane": "Faka-Tonga: Select palakipoe Hala",
+  "wip-limit-group-apply-swimlane": "Faka-Tonga: Apply Hala",
   "subtask-inherit-parent-labels": "Maʻu ʻae fakaʻilonga ʻoe kaati mātuʻa"
 }

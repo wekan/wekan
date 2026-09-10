@@ -24,6 +24,12 @@ Template.subtasks.events({
     const title = textarea.value.trim();
     const contextCard = ReactiveCache.getCard(this.cardId);
     const cardId = contextCard?.getRealId ? contextCard.getRealId() : this.cardId;
+    // #2184: optional one-time copy of the parent card's CURRENT labels onto
+    // the new subtask, at creation time only -- not an ongoing sync.
+    const inheritLabelsCheckbox = tpl.find(
+      'input.js-add-subtask-inherit-labels',
+    );
+    const inheritLabels = !!(inheritLabelsCheckbox && inheritLabelsCheckbox.checked);
 
     if (title) {
       // Subtask creation is performed server-side by the `addSubtaskCard` Meteor
@@ -34,7 +40,12 @@ Template.subtasks.events({
       // (#4782), and the method applies the destination board's automatic
       // custom fields to the new subtask (#4037 / #3562).
       try {
-        const _id = await Meteor.callAsync('addSubtaskCard', cardId, title);
+        const _id = await Meteor.callAsync(
+          'addSubtaskCard',
+          cardId,
+          title,
+          inheritLabels,
+        );
 
         if (!_id) {
           throw new Error('The server could not create the subtask.');
@@ -51,6 +62,9 @@ Template.subtasks.events({
             .click();
         }, 100);
         textarea.value = '';
+        if (inheritLabelsCheckbox) {
+          inheritLabelsCheckbox.checked = false;
+        }
         textarea.focus();
       } catch (error) {
         alert(error?.reason || error?.message || 'Could not create the subtask.');

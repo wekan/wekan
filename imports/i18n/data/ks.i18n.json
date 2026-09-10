@@ -160,6 +160,8 @@
   "close-add-checklist-item": "چیک لسٹس منٛز شے شامل کرنُک فارم بند کریو",
   "close-edit-checklist-item": "چیک لسٹس منٛز شے بدلاؤنُک فارم بند کریو",
   "convertChecklistItemToCardPopup-title": "کارڈس منٛز بدلاویو",
+  "convertChecklistItemToSubtask-title": "ذیلی کام مَنٛز بدلاو",
+  "checklistItem-linked-subtask": "ڑاٚبتھ کریتھ ذیلی کام",
   "add-cover": "لۄکٹس کارڈس پوش تصویر شامل کریو",
   "add-label": "لیبل شامل کریو",
   "add-list": "فہرست شامل کریو",
@@ -302,6 +304,9 @@
   "swimlaneArchivePopup-title": "وَتھ محفوظ خانس منٛز نِیو؟",
   "card-due": "آخری تٲریخ",
   "card-due-on": "آخری تٲریخ",
+  "due-today": "اَز آخری تٲریخ",
+  "due-days-left": "%s دۄہ باقی",
+  "due-days-overdue": "%s دۄہ دیر",
   "card-spent": "خرچ کرنہٕ آمُت وقت",
   "card-edit-attachments": "منسلک بدلٲویو",
   "card-edit-custom-fields": "مخصوص خانہٕ بدلٲویو",
@@ -2548,5 +2553,7 @@
   "wip-limit-groups": "WIP حد فعال کریو (فہرست)",
   "wip-limit-group-name-placeholder": "ناو (اختیاری)",
   "wip-limit-group-add": "شامل کریو WIP حد فعال کریو",
+  "wip-limit-group-select-swimlane": "ژٲریو وَتھ",
+  "wip-limit-group-apply-swimlane": "لاگو کریو وَتھ",
   "subtask-inherit-parent-labels": "پرینٹ کارڈ ہند لیبل وراثتہ منٛز حٲصل کریو"
 }

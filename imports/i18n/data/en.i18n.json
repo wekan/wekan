@@ -798,7 +798,7 @@
   "link-card": "Link to this card",
   "linkCardToBoardPopup-title": "Link to board",
   "linkCardToNewBoard": "Create board from this card",
-  "list-archive-cards": "Move all cards in this list to Archive",
+  "list-archive-cards": "Archive all cards in this list",
   "list-archive-cards-pop": "This will remove all the cards in this list from the board. To view cards in Archive and bring them back to the board, click “Menu” > “Archive”.",
   "list-move-cards": "Move all cards in this list",
   "list-select-cards": "Select all cards in this list",
@@ -1187,6 +1187,9 @@
   "r-export-selected": "Export selected",
   "r-edit-rule": "Edit rule",
   "r-edit-rule-trigger-action": "Edit trigger/action",
+  "r-rule-enabled": "Enabled",
+  "r-rule-disabled": "Disabled",
+  "r-toggle-rule-enabled": "Enable or disable this rule",
   "r-workflow-view": "Workflow view",
   "r-list-view": "List view",
   "r-when": "When",
@@ -2556,5 +2559,7 @@
   "wip-limit-groups": "WIP Limit Groups",
   "wip-limit-group-name-placeholder": "Group name (optional)",
   "wip-limit-group-add": "Add WIP limit group",
+  "wip-limit-group-select-swimlane": "Select swimlane",
+  "wip-limit-group-apply-swimlane": "Apply to swimlane",
   "subtask-inherit-parent-labels": "Inherit parent's labels"
 }

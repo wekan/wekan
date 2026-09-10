@@ -160,6 +160,8 @@
   "close-add-checklist-item": "Fermer ajouter un élément du formulaire checklist",
   "close-edit-checklist-item": "Fermer éditer un élément du formulaire checklist",
   "convertChecklistItemToCardPopup-title": "Convertir en carte",
+  "convertChecklistItemToSubtask-title": "Soppi ci ligeey ndaw",
+  "checklistItem-linked-subtask": "Ligeey ndaw bu jokkoo",
   "add-cover": "Ajouter la vignette sur la mini-carte",
   "add-label": "Ajouter une étiquette",
   "add-list": "Ajouter une liste",
@@ -302,6 +304,9 @@
   "swimlaneArchivePopup-title": "Archiver le couloir ?",
   "card-due": "À échéance",
   "card-due-on": "Échéance le",
+  "due-today": "Tey mooy jamono ji",
+  "due-days-left": "bes yu %s desnaal",
+  "due-days-overdue": "bes yu %s wees",
   "card-spent": "Temps passé",
   "card-edit-attachments": "Modifier les pièces jointes",
   "card-edit-custom-fields": "Éditer les champs personnalisés",
@@ -2548,5 +2553,7 @@
   "wip-limit-groups": "Activer la limite WIP (Limu)",
   "wip-limit-group-name-placeholder": "Tur (optionnel)",
   "wip-limit-group-add": "Yokk Activer la limite WIP",
+  "wip-limit-group-select-swimlane": "Sélectionner le tableau Yoon",
+  "wip-limit-group-apply-swimlane": "Appliquer Yoon",
   "subtask-inherit-parent-labels": "Jël limu baax yi ci karto waajur"
 }

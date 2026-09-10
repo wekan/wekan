@@ -160,6 +160,8 @@
   "close-add-checklist-item": "Serra il modulo pro annanghere un elemento a sa checklist",
   "close-edit-checklist-item": "Serra il modulo pro modificare un elemento de sa checklist",
   "convertChecklistItemToCardPopup-title": "Converti in carta",
+  "convertChecklistItemToSubtask-title": "Trasforma in sutucumpitu",
+  "checklistItem-linked-subtask": "Sutucumpitu acapiadu",
   "add-cover": "Annanghe immagine di copertina a minicard",
   "add-label": "Annanghe eticheta",
   "add-list": "Annanghere una lista",
@@ -302,6 +304,9 @@
   "swimlaneArchivePopup-title": "Archiviare la swimlane?",
   "card-due": "Scadenza",
   "card-due-on": "Scade il",
+  "due-today": "Iscadèntzia oe",
+  "due-days-left": "abarrant %s dies",
+  "due-days-overdue": "%s dies de retardu",
   "card-spent": "Tempo trascorso",
   "card-edit-attachments": "Mòdifica alligados",
   "card-edit-custom-fields": "Mòdifica campi personalizzados",
@@ -2548,5 +2553,7 @@
   "wip-limit-groups": "Attiva limite Work In Progress (Lista)",
   "wip-limit-group-name-placeholder": "Nùmene (optzionale)",
   "wip-limit-group-add": "Annanghere Attiva limite Work In Progress",
+  "wip-limit-group-select-swimlane": "Seletziona tàula Caminu",
+  "wip-limit-group-apply-swimlane": "Applica Caminu",
   "subtask-inherit-parent-labels": "Eredare is etichetas de sa carta babbu"
 }

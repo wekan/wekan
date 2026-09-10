@@ -14,6 +14,7 @@ import { titleChanged } from '/server/lib/titleChangeActivity';
 import { descriptionChanged } from '/server/lib/descriptionChangeActivity';
 import { buildDeleteCardActivity } from '/server/lib/deleteActivities';
 import { assertParentCardIsVisible } from '/server/lib/visibleBoardIds';
+import { computeSubtaskLabelIds } from '/models/lib/subtaskLabelInheritance';
 import Activities from '/models/activities';
 import Boards from '/models/boards';
 import Cards, {
@@ -321,9 +322,14 @@ Meteor.methods({
   //    server, so the client can no longer create duplicate helper boards.
   //  - #4037 / #3562 "custom fields not assigned to subtask cards": the
   //    destination board's automatic custom fields are applied to the subtask.
-  async addSubtaskCard(parentCardId, title) {
+  //  - #2184: an optional `inheritLabels` flag copies the parent card's
+  //    CURRENT labelIds onto the new subtask, once, at creation time. This is
+  //    a one-time copy, not an ongoing sync: a later change to the parent's
+  //    labels does not retroactively touch subtasks already created.
+  async addSubtaskCard(parentCardId, title, inheritLabels = false) {
     check(parentCardId, String);
     check(title, String);
+    check(inheritLabels, Boolean);
     if (!this.userId) throw new Meteor.Error('not-authorized');
     const trimmed = title.trim();
     if (!trimmed) return undefined;
@@ -386,12 +392,15 @@ Meteor.methods({
     );
     const sort =
       lastCard && Number.isFinite(lastCard.sort) ? lastCard.sort + 1 : 0;
+    // #2184: copy the parent's CURRENT labelIds when requested, otherwise
+    // keep the existing behavior of an empty labelIds array.
+    const labelIds = computeSubtaskLabelIds(parentCard, inheritLabels);
     const _id = await Cards.insertAsync({
       title: trimmed,
       parentId: parentCardId,
       members: [],
       assignees: [],
-      labelIds: [],
+      labelIds,
       customFields,
       listId: targetList._id,
       boardId: targetBoard._id,
@@ -778,6 +787,57 @@ Meteor.methods({
     }
 
     return await card.copy(boardId, swimlaneId, listId);
+  },
+
+  // #2209: "Create template from element" — save an EXISTING card as a card
+  // template, the reverse direction of the existing "insert a card FROM a
+  // template" flow (Template.searchElementPopup, client/components/lists/
+  // listBody.js). Reuses the same lazy per-user Templates board that #4205's
+  // default-template application already relies on (ensureTemplatesBoardForUserId,
+  // extracted from the ensureTemplatesBoard Meteor method in
+  // /server/models/users.js) and the same card.copy() the copyCard method above
+  // uses, just targeting the user's "Card Templates" swimlane instead of an
+  // ordinary board/swimlane/list, and marking the copy `type: 'template-card'`
+  // (Cards.isTemplateCard()) so it behaves as a template rather than a normal
+  // card. A "Default" list is created on demand the first time, mirroring the
+  // client-side "create the first list if none exists" fallback already used
+  // for ad-hoc card creation (client/components/boards/boardBody.js).
+  async saveCardAsTemplate(cardId) {
+    check(cardId, String);
+
+    if (!this.userId) throw new Meteor.Error('not-authorized');
+    const card = await ReactiveCache.getCard(cardId);
+    if (!card) throw new Meteor.Error('not-found');
+    const sourceBoard = await Boards.findOneAsync(card.boardId);
+    if (!allowIsBoardMember(this.userId, sourceBoard))
+      throw new Meteor.Error('not-authorized');
+
+    const { ensureTemplatesBoardForUserId } = require('/server/models/users');
+    const templatesBoardId = await ensureTemplatesBoardForUserId(this.userId);
+
+    const user = await ReactiveCache.getUser(this.userId);
+    const swimlaneId = user && user.profile && user.profile.cardTemplatesSwimlaneId;
+    if (!swimlaneId) throw new Meteor.Error('not-found', 'card-templates-swimlane-missing');
+
+    let list = await Lists.findOneAsync({
+      boardId: templatesBoardId,
+      swimlaneId,
+      archived: false,
+    });
+    if (!list) {
+      const listId = await Lists.insertAsync({
+        title: 'Default',
+        boardId: templatesBoardId,
+        swimlaneId,
+      });
+      list = await Lists.findOneAsync(listId);
+    }
+
+    const sort = await card.getSort(list._id, swimlaneId, false);
+    card.sort = sort + 1;
+    card.type = 'template-card';
+
+    return await card.copy(templatesBoardId, swimlaneId, list._id);
   },
 });
 

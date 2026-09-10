@@ -160,6 +160,8 @@
   "close-add-checklist-item": "Tu ŋkuɖodzinudzesi ƒe nane kpeɖeŋu ƒe agbalẽvi",
   "close-edit-checklist-item": "Tu ŋkuɖodzinudzesi ƒe nane tɔtrɔ ƒe agbalẽvi",
   "convertChecklistItemToCardPopup-title": "Trɔ̃ wòzu kaɖi",
+  "convertChecklistItemToSubtask-title": "Trɔe wòazu dɔdeasi sue",
+  "checklistItem-linked-subtask": "Dɔdeasi sue si wodo ka nu",
   "add-cover": "Tsɔ nɔnɔmetata kpe ɖe kaɖivi ŋu",
   "add-label": "Tsɔ dzesi kpe ɖe eŋu",
   "add-list": "Tsɔ xexlẽdzesi kpe ɖe eŋu",
@@ -302,6 +304,9 @@
   "swimlaneArchivePopup-title": "Tsɔ tsiƒuƒu yi nudzraɖoƒea?",
   "card-due": "Ŋkeke mamlɛ",
   "card-due-on": "Ŋkeke mamlɛ le",
+  "due-today": "Egbe nye ŋkeke la",
+  "due-days-left": "ŋkeke %s susɔ",
+  "due-days-overdue": "ŋkeke %s to",
   "card-spent": "Ɣeyiɣi si wozã",
   "card-edit-attachments": "Trɔ̃ nusiwo wokpe ɖe eŋu",
   "card-edit-custom-fields": "Trɔ̃ agble tɔxɛwo",
@@ -2548,5 +2553,7 @@
   "wip-limit-groups": "Na mɔ WIP ƒe seƒoƒo (Xexlẽdzesi)",
   "wip-limit-group-name-placeholder": "Ŋkɔ (ɖe wò lɔlɔ̃nu)",
   "wip-limit-group-add": "Tsɔ kpe ɖe eŋu Na mɔ WIP ƒe seƒoƒo",
+  "wip-limit-group-select-swimlane": "Tia kpekpeɖeŋu Mɔ",
+  "wip-limit-group-apply-swimlane": "Zã Mɔ",
   "subtask-inherit-parent-labels": "Xɔ dzila ƒe kaad la ƒe agbalẽdzesiwo"
 }

@@ -160,6 +160,8 @@
   "close-add-checklist-item": "關閉 將項目新增至清單表單",
   "close-edit-checklist-item": "關閉將項目編輯為清單表單",
   "convertChecklistItemToCardPopup-title": "轉換為卡",
+  "convertChecklistItemToSubtask-title": "轉換為子任務",
+  "checklistItem-linked-subtask": "關聯嘅子任務",
   "add-cover": "將封面圖片新增至迷你卡",
   "add-label": "添加標籤",
   "add-list": "新增列表",
@@ -302,6 +304,9 @@
   "swimlaneArchivePopup-title": "存檔泳道？",
   "card-due": "到期的",
   "card-due-on": "到期日",
+  "due-today": "今日到期",
+  "due-days-left": "仲有 %s 日",
+  "due-days-overdue": "過咗期 %s 日",
   "card-spent": "花費的時間",
   "card-edit-attachments": "編輯附件",
   "card-edit-custom-fields": "編輯自訂字段",
@@ -2548,5 +2553,7 @@
   "wip-limit-groups": "啟用 WIP 限制 (清單)",
   "wip-limit-group-name-placeholder": "姓名 (選修的)",
   "wip-limit-group-add": "添加 啟用 WIP 限制",
+  "wip-limit-group-select-swimlane": "選擇主機板 泳道",
+  "wip-limit-group-apply-swimlane": "申請 泳道",
   "subtask-inherit-parent-labels": "繼承母卡嘅標籤"
 }

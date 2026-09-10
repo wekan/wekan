@@ -160,6 +160,8 @@
   "close-add-checklist-item": "Lat oyðublaðið fyri at leggja lut í kanningarlistan aftur",
   "close-edit-checklist-item": "Lat oyðublaðið fyri at broyta lut í kanningarlistanum aftur",
   "convertChecklistItemToCardPopup-title": "Broyt til kort",
+  "convertChecklistItemToSubtask-title": "Broyt til undiruppgávu",
+  "checklistItem-linked-subtask": "Tengd undiruppgáva",
   "add-cover": "Legg forsíðumynd á smákortið",
   "add-label": "Legg merki afturat",
   "add-list": "Legg lista afturat",
@@ -302,6 +304,9 @@
   "swimlaneArchivePopup-title": "Flyt bein í goymslu?",
   "card-due": "Freist",
   "card-due-on": "Freist tann",
+  "due-today": "Ferdafrestur í dag",
+  "due-days-left": "%s dagar eftir",
+  "due-days-overdue": "%s dagar seint",
   "card-spent": "Nýtt tíð",
   "card-edit-attachments": "Broyt viðheft",
   "card-edit-custom-fields": "Broyt egin øki",
@@ -2548,5 +2553,7 @@
   "wip-limit-groups": "Virkja WIP-mark (Listi)",
   "wip-limit-group-name-placeholder": "Navn (valfrítt)",
   "wip-limit-group-add": "Legg afturat Virkja WIP-mark",
+  "wip-limit-group-select-swimlane": "Vel talvu Bein",
+  "wip-limit-group-apply-swimlane": "Nýt Bein",
   "subtask-inherit-parent-labels": "Arva merki hjá foreldrakortinum"
 }

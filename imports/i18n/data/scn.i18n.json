@@ -160,6 +160,8 @@
   "close-add-checklist-item": "Chiudi lu modulu pi aggiungere nu elemento alla checklist",
   "close-edit-checklist-item": "Chiudi lu modulu pi canciare nu elemento dâ checklist",
   "convertChecklistItemToCardPopup-title": "Converti in carta",
+  "convertChecklistItemToSubtask-title": "Cummuta in suttacumpitu",
+  "checklistItem-linked-subtask": "Suttacumpitu ligatu",
   "add-cover": "Agghiunci immagine di copertina a minicard",
   "add-label": "Agghiunci etichetta",
   "add-list": "Aggiunciri na lista",
@@ -302,6 +304,9 @@
   "swimlaneArchivePopup-title": "Archiviare la swimlane?",
   "card-due": "Scadenza",
   "card-due-on": "Scade il",
+  "due-today": "Scadi oggi",
+  "due-days-left": "restanu %s jorna",
+  "due-days-overdue": "%s jorna di ritardu",
   "card-spent": "Tempo trascorso",
   "card-edit-attachments": "Cancia allegati",
   "card-edit-custom-fields": "Cancia campi personalizzati",
@@ -2548,5 +2553,7 @@
   "wip-limit-groups": "Attiva limite Work In Progress (Lista)",
   "wip-limit-group-name-placeholder": "Nomu (facultativu)",
   "wip-limit-group-add": "Aggiunciri Attiva limite Work In Progress",
+  "wip-limit-group-select-swimlane": "Scegghi tàvula Curseva",
+  "wip-limit-group-apply-swimlane": "Applica Curseva",
   "subtask-inherit-parent-labels": "Aredità i etichetti dâ carta matri"
 }

@@ -160,6 +160,8 @@
   "close-add-checklist-item": "Шалгалтын жагсаалтада зүйл нэмэхэ маяг хааха",
   "close-edit-checklist-item": "Шалгалтын жагсаалтын зүйл заһаха маяг хааха",
   "convertChecklistItemToCardPopup-title": "Карта болгохо",
+  "convertChecklistItemToSubtask-title": "Дэд даалгавар болгожо хубилгаха",
+  "checklistItem-linked-subtask": "Холбоотой дэд даалгавар",
   "add-cover": "Бишыхан картада бүрхүүлэй зураг нэмэхэ",
   "add-label": "Тэмдэг нэмэхэ",
   "add-list": "Жагсаалта нэмэхэ",
@@ -302,6 +304,9 @@
   "swimlaneArchivePopup-title": "Мүрые архивта оруулха гү?",
   "card-due": "Дүүргэхэ",
   "card-due-on": "Дүүргэхэ үдэр",
+  "due-today": "Мүнөөдэр хугасаа",
+  "due-days-left": "%s үдэр үлэдэг",
+  "due-days-overdue": "%s үдэрэй хойшолуулагдаа",
   "card-spent": "Зарсуулагдаһан саг",
   "card-edit-attachments": "Хабсаргалтануудые заһаха",
   "card-edit-custom-fields": "Тусхай талбарнуудые заһаха",
@@ -2548,5 +2553,7 @@
   "wip-limit-groups": "WIP хизаар асааха (Жагсаалта)",
   "wip-limit-group-name-placeholder": "Нэрэ (һайн дураараа)",
   "wip-limit-group-add": "Нэмэхэ WIP хизаар асааха",
+  "wip-limit-group-select-swimlane": "шэлэхэ Зам",
+  "wip-limit-group-apply-swimlane": "Хэрэглэхэ Зам",
   "subtask-inherit-parent-labels": "Эсэгэ картын шошогуудые мүрдэхэ"
 }

@@ -160,6 +160,8 @@
   "close-add-checklist-item": "vhara wedzera an item ku rondedzero yekuongorora form",
   "close-edit-checklist-item": "vhara gadzirisa an item ku rondedzero yekuongorora form",
   "convertChecklistItemToCardPopup-title": "Convert ku kadhi",
+  "convertChecklistItemToSubtask-title": "Shandura kuve basa duku",
+  "checklistItem-linked-subtask": "Basa duku rakabatana",
   "add-cover": "wedzera cover image ku minicard",
   "add-label": "wedzera chiratidzo",
   "add-list": "Wedzera rondedzero",
@@ -302,6 +304,9 @@
   "swimlaneArchivePopup-title": "dura mukoto?",
   "card-due": "Mashoko echiShona: Due",
   "card-due-on": "Due pa",
+  "due-today": "Nhasi ndiro zuva rokupedzisira",
+  "due-days-left": "mazuva %s asara",
+  "due-days-overdue": "mazuva %s apfuura",
   "card-spent": "Spent nguva",
   "card-edit-attachments": "gadzirisa attachments",
   "card-edit-custom-fields": "gadzirisa custom ndima",
@@ -2548,5 +2553,7 @@
   "wip-limit-groups": "batidza WIP Limit (Rondedzero)",
   "wip-limit-group-name-placeholder": "Zita (kusarudza)",
   "wip-limit-group-add": "Wedzera batidza WIP Limit",
+  "wip-limit-group-select-swimlane": "sarudza bhodhi Mugwagwa",
+  "wip-limit-group-apply-swimlane": "Mashoko echiShona: Apply Mugwagwa",
   "subtask-inherit-parent-labels": "Gara mireza dzekadhi ravabereki"
 }

@@ -160,6 +160,8 @@
   "close-add-checklist-item": "Sogota na fomu ni kuri ni ka ena lisi ni vakadinadina",
   "close-edit-checklist-item": "Sogota na fomu ni veisau ni ka ena lisi ni vakadinadina",
   "convertChecklistItemToCardPopup-title": "Vukica me Kadi",
+  "convertChecklistItemToSubtask-title": "Vakadewataki ki na subtask lailai",
+  "checklistItem-linked-subtask": "Subtask lailai e sokini",
   "add-cover": "Kuria na iyaloyalo ni waqana ena kadi lailai",
   "add-label": "Kuria na ivakatakilakila",
   "add-list": "Kuria e dua na lisi",
@@ -302,6 +304,9 @@
   "swimlaneArchivePopup-title": "Maroroya na Sala?",
   "card-due": "Siga me Vakaoti",
   "card-due-on": "Me vakaoti ena",
+  "due-today": "Sa yacovi nikua",
+  "due-days-left": "%s siga vo",
+  "due-days-overdue": "%s siga sa bera",
   "card-spent": "Gauna sa Vakayagataki",
   "card-edit-attachments": "Veisautaka na ka e semati",
   "card-edit-custom-fields": "Veisautaka na vanua digitaki",
@@ -2548,5 +2553,7 @@
   "wip-limit-groups": "Vakatara na iYalayala WIP (Lisi)",
   "wip-limit-group-name-placeholder": "Yaca (e sega ni dodonu)",
   "wip-limit-group-add": "Kuria Vakatara na iYalayala WIP",
+  "wip-limit-group-select-swimlane": "Digitaka na Sala",
+  "wip-limit-group-apply-swimlane": "Vakayagataka Sala",
   "subtask-inherit-parent-labels": "Tauri na ivakatakilakili ni kaadi itubutubu"
 }

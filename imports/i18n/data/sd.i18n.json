@@ -160,6 +160,8 @@
   "close-add-checklist-item": "جاچ فهرست ۾ شيءِ شامل ڪرڻ وارو فارم بند ڪريو",
   "close-edit-checklist-item": "جاچ فهرست جي شيءِ سنوارڻ وارو فارم بند ڪريو",
   "convertChecklistItemToCardPopup-title": "ڪارڊ ۾ تبديل ڪريو",
+  "convertChecklistItemToSubtask-title": "ذيلي ڪم ۾ تبديل ڪريو",
+  "checklistItem-linked-subtask": "ڳنڍيل ذيلي ڪم",
   "add-cover": "ننڍي ڪارڊ تي ڍڪ واري تصوير شامل ڪريو",
   "add-label": "ليبل شامل ڪريو",
   "add-list": "فهرست شامل ڪريو",
@@ -302,6 +304,9 @@
   "swimlaneArchivePopup-title": "سوئم لين آرڪائيو ڪجي؟",
   "card-due": "مقرر تاريخ",
   "card-due-on": "مقرر تاريخ تي",
+  "due-today": "اڄ آخري تاريخ آهي",
+  "due-days-left": "%s ڏينهن باقي",
+  "due-days-overdue": "%s ڏينهن دير",
   "card-spent": "خرچ ٿيل وقت",
   "card-edit-attachments": "منسلڪ سنواريو",
   "card-edit-custom-fields": "حسب ضرورت خانا سنواريو",
@@ -2548,5 +2553,7 @@
   "wip-limit-groups": "WIP حد فعال ڪريو (فهرست)",
   "wip-limit-group-name-placeholder": "نالو (اختياري)",
   "wip-limit-group-add": "شامل ڪريو WIP حد فعال ڪريو",
+  "wip-limit-group-select-swimlane": "چونڊيو لڪير",
+  "wip-limit-group-apply-swimlane": "لاڳو ڪريو لڪير",
   "subtask-inherit-parent-labels": "والدين جي ڪارڊ جا ليبل وارثي طور حاصل ڪريو"
 }

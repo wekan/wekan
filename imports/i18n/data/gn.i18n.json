@@ -160,6 +160,8 @@
   "close-add-checklist-item": "Emboty ysaja ñehesa'ỹijópe mba'e ñembojoapy myanyhẽha",
   "close-edit-checklist-item": "Emboty ysaja ñehesa'ỹijópe mba'e ñembosako'i myanyhẽha",
   "convertChecklistItemToCardPopup-title": "Emoambue kuatia'ípe",
+  "convertChecklistItemToSubtask-title": "Mbojere subtarea-pe",
+  "checklistItem-linked-subtask": "Subtarea ojejokoáva",
   "add-cover": "Embojoapy ta'anga ape kuatia'i michĩme",
   "add-label": "Embojoapy techaukaha",
   "add-list": "Mboja ysaja",
@@ -302,6 +304,9 @@
   "swimlaneArchivePopup-title": "Emongu'épa tape Ñongatupyre-pe?",
   "card-due": "Ára paha",
   "card-due-on": "Ára paha",
+  "due-today": "Ko árape opa",
+  "due-days-left": "%s ára opyta",
+  "due-days-overdue": "%s ára ohasa",
   "card-spent": "Aravo ojepurúva",
   "card-edit-attachments": "Embosako'i mbojoapyhakuéra",
   "card-edit-custom-fields": "Embosako'i tenda ñemomba'epyrekuéra",
@@ -2548,5 +2553,7 @@
   "wip-limit-groups": "Emyendy WIP paha (Ysaja)",
   "wip-limit-group-name-placeholder": "Téra (ikatúva)",
   "wip-limit-group-add": "Mboja Emyendy WIP paha",
+  "wip-limit-group-select-swimlane": "Eiporavo peteĩcha Tape",
+  "wip-limit-group-apply-swimlane": "Emoañete Tape",
   "subtask-inherit-parent-labels": "Herohory umi mba'echichi karda ru"
 }

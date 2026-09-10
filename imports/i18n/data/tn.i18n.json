@@ -160,6 +160,8 @@
   "close-add-checklist-item": "Tswala foromo ya go tsenya ntlha mo lenaaneng la tlhatlhobo",
   "close-edit-checklist-item": "Tswala foromo ya go fetola ntlha mo lenaaneng la tlhatlhobo",
   "convertChecklistItemToCardPopup-title": "Fetolela go karata",
+  "convertChecklistItemToSubtask-title": "Fetola go tiro e nnye",
+  "checklistItem-linked-subtask": "Tiro e nnye e golagantsweng",
   "add-cover": "Tsenya setshwantsho sa khabara mo karateng e nnye",
   "add-label": "Tsenya leibole",
   "add-list": "Tsenya lenaane",
@@ -302,6 +304,9 @@
   "swimlaneArchivePopup-title": "Isa tsela kwa polokelong?",
   "card-due": "Bofelo",
   "card-due-on": "E tshwanetse go wediwa ka",
+  "due-today": "Letsatsi ke lone",
+  "due-days-left": "matsatsi a %s a setse",
+  "due-days-overdue": "matsatsi a %s a fetile",
   "card-spent": "Nako e e dirisitsweng",
   "card-edit-attachments": "Fetola tse di tshwaraganeng",
   "card-edit-custom-fields": "Fetola mabala a a rulagantsweng",
@@ -2548,5 +2553,7 @@
   "wip-limit-groups": "Kgontsha tekanyo ya WIP (Lenaane)",
   "wip-limit-group-name-placeholder": "Leina (boitlhophelo)",
   "wip-limit-group-add": "Tsenya Kgontsha tekanyo ya WIP",
+  "wip-limit-group-select-swimlane": "Tlhopha Tsela",
+  "wip-limit-group-apply-swimlane": "Dirisa Tsela",
   "subtask-inherit-parent-labels": "Rua dikarata tsa motsadi"
 }

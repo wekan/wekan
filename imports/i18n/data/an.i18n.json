@@ -160,6 +160,8 @@
   "close-add-checklist-item": "Zarrar el formulario ta añadir un elemento a la lista de verificación",
   "close-edit-checklist-item": "Zarrar el formulario de edición de un elemento de la lista de verificación",
   "convertChecklistItemToCardPopup-title": "Convertir en tarcheta",
+  "convertChecklistItemToSubtask-title": "Convertir en subfeina",
+  "checklistItem-linked-subtask": "Subfeina vinclada",
   "add-cover": "Adhibir imagen de portada a la minitarjeta",
   "add-label": "Adhibir una etiqueta",
   "add-list": "Adhibir una lista",
@@ -302,6 +304,9 @@
   "swimlaneArchivePopup-title": "¿Archivar carril?",
   "card-due": "Vence",
   "card-due-on": "Vence el",
+  "due-today": "Bienza güei",
+  "due-days-left": "%s diyas restants",
+  "due-days-overdue": "%s diyas de retraso",
   "card-spent": "Tiempo consumido",
   "card-edit-attachments": "Editar os adjuntos",
   "card-edit-custom-fields": "Editar os campos personalizados",
@@ -2548,5 +2553,7 @@
   "wip-limit-groups": "Habilitar el límite d'o trabajo en proceso (Lista)",
   "wip-limit-group-name-placeholder": "Nombre (opcional)",
   "wip-limit-group-add": "Adhibir Habilitar el límite d'o trabajo en proceso",
+  "wip-limit-group-select-swimlane": "Seleccionar tablero Carril",
+  "wip-limit-group-apply-swimlane": "Aplicar Carril",
   "subtask-inherit-parent-labels": "Heredar as etiquetas d'a tarcheta pai"
 }

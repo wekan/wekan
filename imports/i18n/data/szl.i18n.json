@@ -160,6 +160,8 @@
   "close-add-checklist-item": "Zawrzij formularz dodawania pozycji do checklisty",
   "close-edit-checklist-item": "Zawrzij formularz edycji pozycji checklisty",
   "convertChecklistItemToCardPopup-title": "Konwertuj na kartę",
+  "convertChecklistItemToSubtask-title": "Przekształć we podzadanie",
+  "checklistItem-linked-subtask": "Powiōnzane podzadanie",
   "add-cover": "Przidej okładkę do miniatury karty",
   "add-label": "Przidej etykietę",
   "add-list": "Przidać lista",
@@ -302,6 +304,9 @@
   "swimlaneArchivePopup-title": "Zarchiwizować ścieżkę?",
   "card-due": "Datum wykonania",
   "card-due-on": "Datum wykonania",
+  "due-today": "Terminowanie dzisiej",
+  "due-days-left": "zostało %s dni",
+  "due-days-overdue": "spóźnienie %s dni",
   "card-spent": "Poświęcony czŏs",
   "card-edit-attachments": "Edytuj przidŏwki",
   "card-edit-custom-fields": "Edytuj włŏsne pola",
@@ -2548,5 +2553,7 @@
   "wip-limit-groups": "Załōncz limit kart na liście (Lista)",
   "wip-limit-group-name-placeholder": "Miano (ôpcyjōnalne)",
   "wip-limit-group-add": "Przidać Załōncz limit kart na liście",
+  "wip-limit-group-select-swimlane": "Ôbier tabula Ślak",
+  "wip-limit-group-apply-swimlane": "Zastosuj Ślak",
   "subtask-inherit-parent-labels": "Ôdziedziczyć etyketki nadrzyndnyj kartōw"
 }

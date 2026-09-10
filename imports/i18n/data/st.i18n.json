@@ -160,6 +160,8 @@
   "close-add-checklist-item": "Kwala foromo ya ho eketsa ntho lenaneng la tlhahlobo",
   "close-edit-checklist-item": "Kwala foromo ya ho hlophisa ntho lenaneng la tlhahlobo",
   "convertChecklistItemToCardPopup-title": "Fetolela ho karete",
+  "convertChecklistItemToSubtask-title": "Fetolela ho mosebetsi o monyane",
+  "checklistItem-linked-subtask": "Mosebetsi o monyane o hokahanngoeng",
   "add-cover": "Eketsa setshwantsho sa sekoahelo kareteng e nyenyane",
   "add-label": "Eketsa leibole",
   "add-list": "Eketsa lenane",
@@ -302,6 +304,9 @@
   "swimlaneArchivePopup-title": "Isa tsela polokelong?",
   "card-due": "E lokela ho phethwa",
   "card-due-on": "E lokela ho phethwa ka",
+  "due-today": "Letsatsi ke lena",
+  "due-days-left": "matsatsi a %s a setse",
+  "due-days-overdue": "matsatsi a %s a fetile",
   "card-spent": "Nako e sebedisitsweng",
   "card-edit-attachments": "Hlophisa diphuthelwana",
   "card-edit-custom-fields": "Hlophisa dibaka tse ikgethileng",
@@ -2548,5 +2553,7 @@
   "wip-limit-groups": "Bulela moedi wa WIP (Lenane)",
   "wip-limit-group-name-placeholder": "Lebitso (boikhethelo)",
   "wip-limit-group-add": "Eketsa Bulela moedi wa WIP",
+  "wip-limit-group-select-swimlane": "Kgetha boto Tsela",
+  "wip-limit-group-apply-swimlane": "Sebedisa Tsela",
   "subtask-inherit-parent-labels": "Rua dilebele tsa karete ea motsoali"
 }

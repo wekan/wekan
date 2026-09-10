@@ -160,6 +160,8 @@
   "close-add-checklist-item": "Tapuni le pepa e faaopoopo ai se mea i le lisi siaki",
   "close-edit-checklist-item": "Tapuni le pepa e teuteu ai se mea o le lisi siaki",
   "convertChecklistItemToCardPopup-title": "Liliu i se Pepa",
+  "convertChecklistItemToSubtask-title": "Liua i se galuega laiti",
+  "checklistItem-linked-subtask": "Galuega laiti fesoʻotaʻi",
   "add-cover": "Faaopoopo se ata ufiufi i le pepa laitiiti",
   "add-label": "Faaopoopo se Igoa Faailoga",
   "add-list": "Faaopoopo se lisi",
@@ -302,6 +304,9 @@
   "swimlaneArchivePopup-title": "Teu le Ala?",
   "card-due": "E tatau ai",
   "card-due-on": "E tatau i le",
+  "due-today": "Aso e tatau ai le mea nei",
+  "due-days-left": "%s aso o totoe",
+  "due-days-overdue": "%s aso tuai",
   "card-spent": "Taimi na Faaaoga",
   "card-edit-attachments": "Teuteu faapipii",
   "card-edit-custom-fields": "Teuteu fanua patino",
@@ -2548,5 +2553,7 @@
   "wip-limit-groups": "Faaola le Tapulaa WIP (Lisi)",
   "wip-limit-group-name-placeholder": "Igoa (e le faamalosia)",
   "wip-limit-group-add": "Faaopoopo Faaola le Tapulaa WIP",
+  "wip-limit-group-select-swimlane": "Filifili le Ala",
+  "wip-limit-group-apply-swimlane": "Faaaoga Ala",
   "subtask-inherit-parent-labels": "Talia mai fa'ailoga o le kata matua"
 }

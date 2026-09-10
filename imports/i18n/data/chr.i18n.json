@@ -160,6 +160,8 @@
   "close-add-checklist-item": "ᏗᎪᏪᎵ ᎪᏪᎵ ᎧᏁᏉᏗ ᎤᏙᎯᏳᏍᏗ ᎯᏍᏚᎲ",
   "close-edit-checklist-item": "ᏗᎪᏪᎵ ᎪᏪᎵ ᎤᏓᏁᏟᏴᏍᏗ ᎤᏙᎯᏳᏍᏗ ᎯᏍᏚᎲ",
   "convertChecklistItemToCardPopup-title": "ᎪᏪᎵ ᎤᏍᏗ ᎢᏗᏢ ᎦᏁᏟᏴᏍᏗ",
+  "convertChecklistItemToSubtask-title": "ᎤᏍᏗ ᏗᎦᎸᏫᏍᏓᏁᏗ ᎠᏁᏟᏴᏍᏗ",
+  "checklistItem-linked-subtask": "ᎧᏁᏟᏴᎢᏒ ᎤᏍᏗ ᏗᎦᎸᏫᏍᏓᏁᏗ",
   "add-cover": "ᎪᏪᎵ ᎤᏍᏗ ᎦᏛᎢ ᎤᏟᎶᏍᏙᏗ ᎧᏁᏉᏗ",
   "add-label": "ᎪᏪᎵ ᎧᏁᏉᏗ",
   "add-list": "ᎠᏎᏊᎢ ᎯᏟᏌ",
@@ -302,6 +304,9 @@
   "swimlaneArchivePopup-title": "ᏍᏫᎻᎴᏅ ᎠᏍᏆᏂᎪᏙᏗ ᏫᎦᏅᏗ?",
   "card-due": "ᎤᎵᏍᏆᏗ",
   "card-due-on": "ᎤᎵᏍᏆᏗ ᎢᎦ",
+  "due-today": "ᎪᎯ ᎢᎦ ᎠᏍᏆᏛᎯ",
+  "due-days-left": "%s ᏧᏒᎯᏓᏒ ᎠᏓᎧᏂ",
+  "due-days-overdue": "%s ᏧᏒᎯᏓᏒ ᎤᎶᏐᏅ",
   "card-spent": "ᎠᎵᏍᏕᎸᏙᏗ ᎨᏒ",
   "card-edit-attachments": "ᎦᏛᎯᏍᏔᏅ ᏗᏓᏁᏟᏴᏍᏗ",
   "card-edit-custom-fields": "ᎤᏩᏒ ᏗᎧᏃᎮᏗ ᏗᏓᏁᏟᏴᏍᏗ",
@@ -2548,5 +2553,7 @@
   "wip-limit-groups": "WIP ᎢᎦᎢ ᎤᏍᏚᎢᏍᏗ (ᎠᏎᏊᎢ)",
   "wip-limit-group-name-placeholder": "ᏚᏙᎥ (ᎬᏩᏓᏓᏅᏖᏗ)",
   "wip-limit-group-add": "ᎯᏟᏌ WIP ᎢᎦᎢ ᎤᏍᏚᎢᏍᏗ",
+  "wip-limit-group-select-swimlane": "ᎦᏍᎩᎸ ᎯᏑᏰᏍᏗ ᏅᏃᎯ",
+  "wip-limit-group-apply-swimlane": "ᎲᏗ ᏅᏃᎯ",
   "subtask-inherit-parent-labels": "ᎠᏙᏓ ᎠᎫᏓᎶᏍᏗ ᏗᎪᏪᎵ ᏗᎨᏒᎢ"
 }

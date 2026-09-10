@@ -160,6 +160,8 @@
   "close-add-checklist-item": "Nzèrra il modulo pe aggiungere un elemento alla checklist",
   "close-edit-checklist-item": "Nzèrra il modulo pe modificare un elemento d' 'a checklist",
   "convertChecklistItemToCardPopup-title": "Converti in carta",
+  "convertChecklistItemToSubtask-title": "Cagna in sottocumpito",
+  "checklistItem-linked-subtask": "Sottocumpito lleato",
   "add-cover": "Aggiungi immagine di copertina a minicard",
   "add-label": "Aggiungi etichetta",
   "add-list": "Azzeccà na lista",
@@ -302,6 +304,9 @@
   "swimlaneArchivePopup-title": "Archiviare la swimlane?",
   "card-due": "Scadenza",
   "card-due-on": "Scade il",
+  "due-today": "Scaré ogge",
+  "due-days-left": "restano %s juorne",
+  "due-days-overdue": "%s juorne 'e retardo",
   "card-spent": "Tempo trascorso",
   "card-edit-attachments": "Cagna allegati",
   "card-edit-custom-fields": "Cagna campi personalizzati",
@@ -2548,5 +2553,7 @@
   "wip-limit-groups": "Attiva limite Work In Progress (Lista)",
   "wip-limit-group-name-placeholder": "Nomme (facultativo)",
   "wip-limit-group-add": "Azzeccà Attiva limite Work In Progress",
+  "wip-limit-group-select-swimlane": "Sceglie tavula Corsia",
+  "wip-limit-group-apply-swimlane": "Applica Corsia",
   "subtask-inherit-parent-labels": "Ereditá 'e ttichette d''a carta genitrice"
 }

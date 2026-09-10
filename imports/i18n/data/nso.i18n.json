@@ -160,6 +160,8 @@
   "close-add-checklist-item": "Tswalela foromo ya go oketša selo lenaneong la go hlahloba",
   "close-edit-checklist-item": "Tswalela foromo ya go rulaganya selo sa lenaneo la go hlahloba",
   "convertChecklistItemToCardPopup-title": "Fetošetša go karata",
+  "convertChecklistItemToSubtask-title": "Fetola go modiro o monyenyane",
+  "checklistItem-linked-subtask": "Modiro o monyenyane o kgokagantšwego",
   "add-cover": "Oketša seswantšho sa khabara karataneng ye nnyane",
   "add-label": "Oketša leibole",
   "add-list": "Oketša lelokelelo",
@@ -302,6 +304,9 @@
   "swimlaneArchivePopup-title": "Iša tsela ya go sesa Bobolokelong?",
   "card-due": "Mafelelo",
   "card-due-on": "E swanetše ka",
+  "due-today": "E swanetšwe lehono",
+  "due-days-left": "matšatši a %s a šetše",
+  "due-days-overdue": "matšatši a %s a šetše morago",
   "card-spent": "Nako ye e šomišitšwego",
   "card-edit-attachments": "Rulaganya dikgokaganywa",
   "card-edit-custom-fields": "Rulaganya mafelo a tlwaetšwego",
@@ -2548,5 +2553,7 @@
   "wip-limit-groups": "Dumelela moedi wa WIP (Lelokelelo)",
   "wip-limit-group-name-placeholder": "Leina (ga se gapeletšo)",
   "wip-limit-group-add": "Oketša Dumelela moedi wa WIP",
+  "wip-limit-group-select-swimlane": "Kgetha boto Tsela",
+  "wip-limit-group-apply-swimlane": "Diriša Tsela",
   "subtask-inherit-parent-labels": "Rua dilebele tša karata ya motswadi"
 }

@@ -160,6 +160,8 @@
   "close-add-checklist-item": "Siere il modulo par aggiungere un elemento alla checklist",
   "close-edit-checklist-item": "Siere il modulo par modifichere un elemento de checklist",
   "convertChecklistItemToCardPopup-title": "Converti in cjarte",
+  "convertChecklistItemToSubtask-title": "Convertìs in sot-ativitât",
+  "checklistItem-linked-subtask": "Sot-ativitât leade",
   "add-cover": "Zonte immagine di copertina a minicard",
   "add-label": "Zonte etichete",
   "add-list": "Zonte une liste",
@@ -302,6 +304,9 @@
   "swimlaneArchivePopup-title": "Archiviare la swimlane?",
   "card-due": "Scadenza",
   "card-due-on": "Scade il",
+  "due-today": "Scjadince vuê",
+  "due-days-left": "restin %s dîs",
+  "due-days-overdue": "%s dîs di ritart",
   "card-spent": "Tempo trascorso",
   "card-edit-attachments": "Modifiche zontis",
   "card-edit-custom-fields": "Modifiche campi personalizzati",
@@ -2548,5 +2553,7 @@
   "wip-limit-groups": "Attiva limite Work In Progress (Liste)",
   "wip-limit-group-name-placeholder": "Non (opzionâl)",
   "wip-limit-group-add": "Zonte Attiva limite Work In Progress",
+  "wip-limit-group-select-swimlane": "Selezione taule Corsie",
+  "wip-limit-group-apply-swimlane": "Applica Corsie",
   "subtask-inherit-parent-labels": "Ereditâ lis etichetis de schede gjenitôr"
 }

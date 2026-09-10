@@ -160,6 +160,8 @@
   "close-add-checklist-item": "To mu add an item kɔ nhwehwɛmu fanaam",
   "close-edit-checklist-item": "To mu edit an item kɔ nhwehwɛmu fanaam",
   "convertChecklistItemToCardPopup-title": "Convert kɔ Kaad",
+  "convertChecklistItemToSubtask-title": "Sesa no ma ɛnyɛ adwuma ketewa",
+  "checklistItem-linked-subtask": "Adwuma ketewa a wɔaka abom",
   "add-cover": "Fa ka ho cover image kɔ minikaad",
   "add-label": "Fa ka ho Ahyɛnsode",
   "add-list": "Fa nhwɛso ka ho",
@@ -302,6 +304,9 @@
   "swimlaneArchivePopup-title": "Kanaaabea Swimlane?",
   "card-due": "Nsɛm a ɛfa dwumadi yi ho",
   "card-due-on": "Nsɛm a ɛfa dwumadi yi ho",
+  "due-today": "Ɛda yi na ɛsɛ sɛ ɛba",
+  "due-days-left": "nna %s aka",
+  "due-days-overdue": "nna %s atwam",
   "card-spent": "Spent Bere",
   "card-edit-attachments": "Sesa fael a wɔde aka hos",
   "card-edit-custom-fields": "Sesa afuw titiriws",
@@ -2548,5 +2553,7 @@
   "wip-limit-groups": "Ma ɛnyɛ adwuma WIP Limit (Nhwɛso)",
   "wip-limit-group-name-placeholder": "Din (wobɛtumi apaw)",
   "wip-limit-group-add": "Fa ka ho Ma ɛnyɛ adwuma WIP Limit",
+  "wip-limit-group-select-swimlane": "Paw Kwan",
+  "wip-limit-group-apply-swimlane": "Nsɛm a ɛfa dwumadi yi ho Kwan",
   "subtask-inherit-parent-labels": "Gye agya krataa no agyirae"
 }

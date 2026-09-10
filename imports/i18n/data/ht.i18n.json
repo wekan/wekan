@@ -160,6 +160,8 @@
   "close-add-checklist-item": "Fèmen fòm pou ajoute yon eleman nan lis verifikasyon",
   "close-edit-checklist-item": "Fèmen fòm pou modifye yon eleman nan lis verifikasyon",
   "convertChecklistItemToCardPopup-title": "Konvèti an kat",
+  "convertChecklistItemToSubtask-title": "Konvèti an ti-tach",
+  "checklistItem-linked-subtask": "Ti-tach ki konekte",
   "add-cover": "Ajoute imaj kouvèti sou ti kat la",
   "add-label": "Ajoute etikèt",
   "add-list": "Ajoute yon lis",
@@ -302,6 +304,9 @@
   "swimlaneArchivePopup-title": "Achive kouloir la?",
   "card-due": "Dat limit",
   "card-due-on": "Dat limit nan",
+  "due-today": "Delè a se jodi a",
+  "due-days-left": "rete %s jou",
+  "due-days-overdue": "%s jou an reta",
   "card-spent": "Tan ki pase",
   "card-edit-attachments": "Modifye pyès jwenn",
   "card-edit-custom-fields": "Modifye chan pèsonalize",
@@ -2548,5 +2553,7 @@
   "wip-limit-groups": "Aktive limit WIP (Lis)",
   "wip-limit-group-name-placeholder": "Non (opsyonèl)",
   "wip-limit-group-add": "Ajoute Aktive limit WIP",
+  "wip-limit-group-select-swimlane": "Chwazi tablo Kouloir",
+  "wip-limit-group-apply-swimlane": "Aplike Kouloir",
   "subtask-inherit-parent-labels": "Erite etikèt kat paran an"
 }

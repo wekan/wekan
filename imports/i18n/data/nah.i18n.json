@@ -160,6 +160,8 @@
   "close-add-checklist-item": "Xictzacua tlamantli caquiliztli ipan tlanextiliztocatlahtolli",
   "close-edit-checklist-item": "Xictzacua tlamantli patlaliztli ipan tlanextiliztocatlahtolli",
   "convertChecklistItemToCardPopup-title": "Xiccuepa amatlapalli",
+  "convertChecklistItemToSubtask-title": "Nonotza subtarea",
+  "checklistItem-linked-subtask": "Subtarea mosalonih",
   "add-cover": "Xicaquiti ixquimilolli ipan amatlapaltontli",
   "add-label": "Xicaquiti machiotl",
   "add-list": "Xicaquiti tocatlahtolli",
@@ -302,6 +304,9 @@
   "swimlaneArchivePopup-title": "¿Xicuica ohtli pixcalco?",
   "card-due": "Tlamiliztonalli",
   "card-due-on": "Tlamiz ipan",
+  "due-today": "Axcan tlamiliztli",
+  "due-days-left": "%s tonalli mocahua",
+  "due-days-overdue": "%s tonalli opanoc",
   "card-spent": "Tequiticahuitl",
   "card-edit-attachments": "Xiquinpatla tlanamictiltin",
   "card-edit-custom-fields": "Xiquinpatla monemac tlaltin",
@@ -2548,5 +2553,7 @@
   "wip-limit-groups": "Xicpatlahua WIP nepantlaliztli (Tocatlahtolli)",
   "wip-limit-group-name-placeholder": "Tocaitl (huelitiz)",
   "wip-limit-group-add": "Xicaquiti Xicpatlahua WIP nepantlaliztli",
+  "wip-limit-group-select-swimlane": "Xicpehpena huapalli Ohtli",
+  "wip-limit-group-apply-swimlane": "Xictequihui Ohtli",
   "subtask-inherit-parent-labels": "Tlacuiliztli itech in teotlahtolli tetahtin"
 }

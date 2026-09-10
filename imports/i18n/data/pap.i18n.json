@@ -160,6 +160,8 @@
   "close-add-checklist-item": "Sera e formulario pa agregá un elemento na e lista di chèk",
   "close-edit-checklist-item": "Sera e formulario di edishon di un elemento di e lista di chèk",
   "convertChecklistItemToCardPopup-title": "Conbertir den karchi",
+  "convertChecklistItemToSubtask-title": "Konverti na subtarea",
+  "checklistItem-linked-subtask": "Subtarea link",
   "add-cover": "Agregá imagen di portada na e minikarchi",
   "add-label": "Agregá un etikèt",
   "add-list": "Agregá lista",
@@ -302,6 +304,9 @@
   "swimlaneArchivePopup-title": "¿Archibá kaminda?",
   "card-due": "Bense",
   "card-due-on": "Bense e",
+  "due-today": "Vensementu awe",
+  "due-days-left": "%s dia resta",
+  "due-days-overdue": "%s dia atrasá",
   "card-spent": "Tiempo consumido",
   "card-edit-attachments": "Editá e adhuntos",
   "card-edit-custom-fields": "Editá e kamindanan personalisá",
@@ -2548,5 +2553,7 @@
   "wip-limit-groups": "Habilitá e límite di e trabaho den proseso (Lista)",
   "wip-limit-group-name-placeholder": "Nòmber (opshonal)",
   "wip-limit-group-add": "Agregá Habilitá e límite di e trabaho den proseso",
+  "wip-limit-group-select-swimlane": "Selektá tabla Kaminda",
+  "wip-limit-group-apply-swimlane": "Aplicar Kaminda",
   "subtask-inherit-parent-labels": "Herda e etiketanan di e karchi mama"
 }

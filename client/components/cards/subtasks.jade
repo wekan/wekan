@@ -17,7 +17,7 @@ template(name="subtasks")
 
   if canModifyCard
     +inlinedForm(autoclose=false classNames="js-add-subtask" cardId = cardId)
-      +addSubtaskItemForm
+      +addSubtaskCardForm
     else
       a.js-open-inlined-form(title="{{_ 'add-subtask'}}")
         i.fa.fa-plus
@@ -50,6 +50,18 @@ template(name="subtaskDetail")
 
 template(name="addSubtaskItemForm")
   textarea.js-add-subtask-item(rows='1' autofocus dir="auto")
+  .edit-controls.clearfix
+    button.primary.confirm.js-submit-add-subtask-item-form(type="submit") {{_ 'save'}}
+    a.fa.fa-times-thin.js-close-inlined-form(title="{{_ 'close-add-checklist-item'}}")
+
+//- #2184: separate from the generic addSubtaskItemForm (shared with checklist
+  items, which have no labels) so only the "Add a new subtask" form gets the
+  inherit-labels checkbox.
+template(name="addSubtaskCardForm")
+  textarea.js-add-subtask-item(rows='1' autofocus dir="auto")
+  label.subtask-inherit-labels
+    input.js-add-subtask-inherit-labels(type="checkbox")
+    | {{_ 'subtask-inherit-parent-labels'}}
   .edit-controls.clearfix
     button.primary.confirm.js-submit-add-subtask-item-form(type="submit") {{_ 'save'}}
     a.fa.fa-times-thin.js-close-inlined-form(title="{{_ 'close-add-checklist-item'}}")

@@ -160,6 +160,8 @@
   "close-add-checklist-item": "Funga ifishi yo kongeraho ikintu ku rutonde rw'igenzura",
   "close-edit-checklist-item": "Funga ifishi yo guhindura ikintu ku rutonde rw'igenzura",
   "convertChecklistItemToCardPopup-title": "Hindura ibe Ikarita",
+  "convertChecklistItemToSubtask-title": "Hindura ube akazi gato",
+  "checklistItem-linked-subtask": "Akazi gato gahujwe",
   "add-cover": "Ongeraho ishusho y'igifuniko ku ikarita ntoyi",
   "add-label": "Ongeraho Akamenyetso",
   "add-list": "Ongeraho urutonde",
@@ -302,6 +304,9 @@
   "swimlaneArchivePopup-title": "Shyira Umurongo mu Bubiko?",
   "card-due": "Igihe Ntarengwa",
   "card-due-on": "Igihe ntarengwa ni",
+  "due-today": "Itariki ni uyu munsi",
+  "due-days-left": "iminsi %s isigaye",
+  "due-days-overdue": "iminsi %s irengeje",
   "card-spent": "Igihe Cyakoreshejwe",
   "card-edit-attachments": "Hindura imigereka",
   "card-edit-custom-fields": "Hindura imirima yihariye",
@@ -2548,5 +2553,7 @@
   "wip-limit-groups": "Koresha Urugero rwa WIP (Urutonde)",
   "wip-limit-group-name-placeholder": "Izina (bidasabwa)",
   "wip-limit-group-add": "Ongeraho Koresha Urugero rwa WIP",
+  "wip-limit-group-select-swimlane": "Hitamo Umurongo",
+  "wip-limit-group-apply-swimlane": "Koresha Umurongo",
   "subtask-inherit-parent-labels": "Rarikira uduhwenya kw'ikarita y'umubyeyi"
 }

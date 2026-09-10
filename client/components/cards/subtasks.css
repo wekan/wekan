@@ -208,6 +208,16 @@ textarea.js-edit-subtask-item {
 .subtasks-hide-completed-toggle i.fa {
   margin-inline-end: 4px;
 }
+/* #2184: "Inherit parent's labels" checkbox on the add-subtask form */
+.subtask-inherit-labels {
+  display: block;
+  margin: 0.4em 0;
+  font-weight: normal;
+  cursor: pointer;
+}
+.subtask-inherit-labels input {
+  margin-inline-end: 4px;
+}
 /* #6091: read-only status (current list / board) of a subtask */
 .subtask-title .subtask-status {
   order: 1;

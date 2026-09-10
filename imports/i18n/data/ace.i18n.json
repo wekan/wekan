@@ -160,6 +160,8 @@
   "close-add-checklist-item": "Tutup form tamah item bak checklist",
   "close-edit-checklist-item": "Tutup form sunting item bak checklist",
   "convertChecklistItemToCardPopup-title": "Ubah jadi Kad",
+  "convertChecklistItemToSubtask-title": "Ubah keu tugah cut",
+  "checklistItem-linked-subtask": "Tugah cut nyang teuikat",
   "add-cover": "Tambahkan gambar sampul untuk kartu kecil",
   "add-label": "Tambah Label",
   "add-list": "Tambah Daftar",
@@ -302,6 +304,9 @@
   "swimlaneArchivePopup-title": "Arsip Swimlane?",
   "card-due": "Jatuh Tempo",
   "card-due-on": "Jatuh Tempo pada",
+  "due-today": "Jitôh uroe nyoe",
+  "due-days-left": "%s uroe lom",
+  "due-days-overdue": "Leupah %s uroe",
   "card-spent": "Masa diluangkan",
   "card-edit-attachments": "Sunting lampiran",
   "card-edit-custom-fields": "Ubah suai ruangan khas",
@@ -2548,5 +2553,7 @@
   "wip-limit-groups": "Hidupkan Had WIP (Senarai)",
   "wip-limit-group-name-placeholder": "Nama (opsi)",
   "wip-limit-group-add": "Tambah Hidupkan Had WIP",
+  "wip-limit-group-select-swimlane": "Pilih Jalur",
+  "wip-limit-group-apply-swimlane": "Terapkan Jalur",
   "subtask-inherit-parent-labels": "Turon lébel kartu indok"
 }

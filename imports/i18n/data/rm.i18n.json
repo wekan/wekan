@@ -160,6 +160,8 @@
   "close-add-checklist-item": "Chiudi il modulo per aggiungere un elemento ala checklist",
   "close-edit-checklist-item": "Chiudi il modulo per mudare un elemento da la checklist",
   "convertChecklistItemToCardPopup-title": "Converti in carta",
+  "convertChecklistItemToSubtask-title": "Convertir en sut-incumbensa",
+  "checklistItem-linked-subtask": "Sut-incumbensa colliada",
   "add-cover": "Agiuntar immagine di copertina a minicard",
   "add-label": "Agiuntar eticheta",
   "add-list": "Agiuntar ina glista",
@@ -302,6 +304,9 @@
   "swimlaneArchivePopup-title": "Sposta tl archivre la swimlane?",
   "card-due": "Scadenza",
   "card-due-on": "Scade il",
+  "due-today": "Scada oz",
+  "due-days-left": "restan %s dis",
+  "due-days-overdue": "%s dis retard",
   "card-spent": "Tempo trascorso",
   "card-edit-attachments": "Muda injuntes",
   "card-edit-custom-fields": "Muda campi personalizzati",
@@ -2548,5 +2553,7 @@
   "wip-limit-groups": "Attiva limite Work In Progress (Glista)",
   "wip-limit-group-name-placeholder": "Num (facultativ)",
   "wip-limit-group-add": "Agiuntar Attiva limite Work In Progress",
+  "wip-limit-group-select-swimlane": "Siel tabella Via",
+  "wip-limit-group-apply-swimlane": "Applica Via",
   "subtask-inherit-parent-labels": "Ertar las etichettas da la carta genitura"
 }

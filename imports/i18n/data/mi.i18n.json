@@ -160,6 +160,8 @@
   "close-add-checklist-item": "Katia te puka tāpiri tūemi ki te rārangi arowhai",
   "close-edit-checklist-item": "Katia te puka whakatika tūemi rārangi arowhai",
   "convertChecklistItemToCardPopup-title": "Huri hei Kāri",
+  "convertChecklistItemToSubtask-title": "Huri hei mahi-iti",
+  "checklistItem-linked-subtask": "Mahi-iti hono",
   "add-cover": "Tāpiri atahanga uhi ki te kāri iti",
   "add-label": "Tāpiri Tapanga",
   "add-list": "Tāpiri rārangi",
@@ -302,6 +304,9 @@
   "swimlaneArchivePopup-title": "Tuku Kauhanga ki te Pūranga?",
   "card-due": "Rā tika",
   "card-due-on": "Ka tika ā te",
+  "due-today": "E rite ana i tēnei rā",
+  "due-days-left": "%s rā e toe ana",
+  "due-days-overdue": "roa ake i te %s rā",
   "card-spent": "Wā i Pau",
   "card-edit-attachments": "Whakatika āpitihanga",
   "card-edit-custom-fields": "Whakatika āpure ritenga",
@@ -2548,5 +2553,7 @@
   "wip-limit-groups": "Whakahohe Tepe WIP (Rārangi)",
   "wip-limit-group-name-placeholder": "Ingoa (kōwhiringa)",
   "wip-limit-group-add": "Tāpiri Whakahohe Tepe WIP",
+  "wip-limit-group-select-swimlane": "Tīpako Ara",
+  "wip-limit-group-apply-swimlane": "Hoatu Ara",
   "subtask-inherit-parent-labels": "Tuku iho ngā tapanga o te kāri mātua"
 }

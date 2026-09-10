@@ -160,6 +160,8 @@
   "close-add-checklist-item": "Chjode il modulo per aggiungere un elemento alla checklist",
   "close-edit-checklist-item": "Chjode il modulo per modificare un elemento di a checklist",
   "convertChecklistItemToCardPopup-title": "Converti in carta",
+  "convertChecklistItemToSubtask-title": "Cunvertisce in sottutask",
+  "checklistItem-linked-subtask": "Sottutask ligatu",
   "add-cover": "Aghjunghje immagine di copertina a minicard",
   "add-label": "Aghjunghje etichetta",
   "add-list": "Aghjunghje una lista",
@@ -302,6 +304,9 @@
   "swimlaneArchivePopup-title": "Archiviare la swimlane?",
   "card-due": "Scadenza",
   "card-due-on": "Scade il",
+  "due-today": "Scadenza oghje",
+  "due-days-left": "restanu %s ghjorni",
+  "due-days-overdue": "ritardu di %s ghjorni",
   "card-spent": "Tempo trascorso",
   "card-edit-attachments": "Mudificà allegati",
   "card-edit-custom-fields": "Mudificà campi personalizzati",
@@ -2548,5 +2553,7 @@
   "wip-limit-groups": "Attiva limite Work In Progress (Lista)",
   "wip-limit-group-name-placeholder": "Nome (facultativu)",
   "wip-limit-group-add": "Aghjunghje Attiva limite Work In Progress",
+  "wip-limit-group-select-swimlane": "Selezziunà tavula Corsia",
+  "wip-limit-group-apply-swimlane": "Applica Corsia",
   "subtask-inherit-parent-labels": "Eredità l'etichette di a carta parente"
 }

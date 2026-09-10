@@ -160,6 +160,8 @@
   "close-add-checklist-item": "Gidde skovi mas lasihat čuoggá dárkkistanlistui",
   "close-edit-checklist-item": "Gidde skovi mas rievdadat dárkkistanlisttu čuoggá",
   "convertChecklistItemToCardPopup-title": "Rievdat goarttan",
+  "convertChecklistItemToSubtask-title": "Jorgal vuolášbargun",
+  "checklistItem-linked-subtask": "Čadnojuvvon vuolášbargu",
   "add-cover": "Lasit gokčangova unni goartii",
   "add-label": "Lasit mearkka",
   "add-list": "Lasit listtu",
@@ -302,6 +304,9 @@
   "swimlaneArchivePopup-title": "Sirditgo bálgá vuorkái?",
   "card-due": "Mearreáigi",
   "card-due-on": "Mearreáigi lea",
+  "due-today": "Loahppaáigi otne",
+  "due-days-left": "%s beaivvi báhcán",
+  "due-days-overdue": "%s beaivvi maŋŋonan",
   "card-spent": "Geavahuvvon áigi",
   "card-edit-attachments": "Rievdat mildosiid",
   "card-edit-custom-fields": "Rievdat iešmearriduvvon giettuid",
@@ -2548,5 +2553,7 @@
   "wip-limit-groups": "Bija WIP-ráji ala (Listu)",
   "wip-limit-group-name-placeholder": "Namma (eaktodáhtolaš)",
   "wip-limit-group-add": "Lasit Bija WIP-ráji ala",
+  "wip-limit-group-select-swimlane": "Vállje távvala Bálggis",
+  "wip-limit-group-apply-swimlane": "Geavat Bálggis",
   "subtask-inherit-parent-labels": "Árbe váhnenkoartta mearkkat"
 }

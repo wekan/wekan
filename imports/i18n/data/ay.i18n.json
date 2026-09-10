@@ -160,6 +160,8 @@
   "close-add-checklist-item": "jistʼaña yapxataña an yänaka ukaru uñakipañ lista form",
   "close-edit-checklist-item": "jistʼaña askichaña an yänaka ukaru uñakipañ lista form",
   "convertChecklistItemToCardPopup-title": "Convert ukaru tarjeta",
+  "convertChecklistItemToSubtask-title": "Subtask jaqukipaña",
+  "checklistItem-linked-subtask": "Suti jaqukipata subtask",
   "add-cover": "yapxataña cover jamuqa ukaru minicard",
   "add-label": "yapxataña chimpuncha",
   "add-list": "Sutinaka yapaña",
@@ -302,6 +304,9 @@
   "swimlaneArchivePopup-title": "Archive thakhi?",
   "card-due": "tukuyañ",
   "card-due-on": "tukuyañ patana",
+  "due-today": "Jichhüru puriwa",
+  "due-days-left": "%s uru jutʼata",
+  "due-days-overdue": "%s uru jaljata",
   "card-spent": "Spent pacha",
   "card-edit-attachments": "askichaña attachments",
   "card-edit-custom-fields": "askichaña custom fields",
@@ -2548,5 +2553,7 @@
   "wip-limit-groups": "naktayaña WIP Limit (Sutinaka)",
   "wip-limit-group-name-placeholder": "Suti (ajlliñataki)",
   "wip-limit-group-add": "Yapaña naktayaña WIP Limit",
+  "wip-limit-group-select-swimlane": "ajlliña pirqa Thakhi",
+  "wip-limit-group-apply-swimlane": "Aymar aruna: Apply Thakhi",
   "subtask-inherit-parent-labels": "Awkin markaparu chhijllaña"
 }

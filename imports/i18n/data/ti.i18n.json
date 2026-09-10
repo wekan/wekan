@@ -160,6 +160,8 @@
   "close-add-checklist-item": "ቅጥዒ ምውሳኽ ነጥቢ ዝርዝር መረጋገጺ ዕጾ",
   "close-edit-checklist-item": "ቅጥዒ ምቕያር ነጥቢ ዝርዝር መረጋገጺ ዕጾ",
   "convertChecklistItemToCardPopup-title": "ናብ ካርድ ቀይር",
+  "convertChecklistItemToSubtask-title": "ናብ ንኡስ ዕማም ቀይር",
+  "checklistItem-linked-subtask": "ዝተተሓሓዘ ንኡስ ዕማም",
   "add-cover": "ስእሊ ሽፋን ናብ ንእሽቶ ካርድ ወስኽ",
   "add-label": "ምልክት ወስኽ",
   "add-list": "ዝርዝር ወስኽ",
@@ -302,6 +304,9 @@
   "swimlaneArchivePopup-title": "መስመር ይመዝገብ?",
   "card-due": "ዕለት ገደብ",
   "card-due-on": "ዕለት ገደብ ኣብ",
+  "due-today": "ናይ ሎሚ መወዳእታ ዕለት",
+  "due-days-left": "%s መዓልታት ተሪፉ",
+  "due-days-overdue": "%s መዓልታት ደንጉዩ",
   "card-spent": "ዝተወሰደ ግዜ",
   "card-edit-attachments": "መተሓሓዚታት ቀይር",
   "card-edit-custom-fields": "ብሕታዊ ዓውድታት ቀይር",
@@ -2548,5 +2553,7 @@
   "wip-limit-groups": "ደረት WIP ኣኽእል (ዝርዝር)",
   "wip-limit-group-name-placeholder": "ስም (ኣማራጺ)",
   "wip-limit-group-add": "ወስኽ ደረት WIP ኣኽእል",
+  "wip-limit-group-select-swimlane": "ምረጽ መስመር",
+  "wip-limit-group-apply-swimlane": "ተግብር መስመር",
   "subtask-inherit-parent-labels": "ናይ ወላዲ ካርድ ስያመታት ውረስ"
 }

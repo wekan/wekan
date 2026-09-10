@@ -160,6 +160,8 @@
   "close-add-checklist-item": "পৰীক্ষা-তালিকাত বস্তু যোগ কৰাৰ প্ৰপত্ৰ বন্ধ কৰক",
   "close-edit-checklist-item": "পৰীক্ষা-তালিকাৰ বস্তু সম্পাদনাৰ প্ৰপত্ৰ বন্ধ কৰক",
   "convertChecklistItemToCardPopup-title": "কাৰ্ডলৈ ৰূপান্তৰ কৰক",
+  "convertChecklistItemToSubtask-title": "উপ-কামলৈ ৰূপান্তৰ কৰক",
+  "checklistItem-linked-subtask": "সংযুক্ত উপ-কাম",
   "add-cover": "সৰু কাৰ্ডত আৱৰণ ছবি যোগ কৰক",
   "add-label": "লেবেল যোগ কৰক",
   "add-list": "তালিকা যোগ কৰক",
@@ -302,6 +304,9 @@
   "swimlaneArchivePopup-title": "স্বীমলেন সংৰক্ষণাগাৰলৈ নিবনে?",
   "card-due": "নিৰ্ধাৰিত",
   "card-due-on": "নিৰ্ধাৰিত তাৰিখ",
+  "due-today": "আজি চূড়ান্ত তাৰিখ",
+  "due-days-left": "%s দিন বাকী আছে",
+  "due-days-overdue": "%s দিন পাৰ হৈ গৈছে",
   "card-spent": "ব্যয় কৰা সময়",
   "card-edit-attachments": "সংলগ্নক সম্পাদনা কৰক",
   "card-edit-custom-fields": "স্বনিৰ্বাচিত ক্ষেত্ৰ সম্পাদনা কৰক",
@@ -2548,5 +2553,7 @@
   "wip-limit-groups": "WIP সীমা সক্ষম কৰক (তালিকা)",
   "wip-limit-group-name-placeholder": "নাম (ঐচ্ছিক)",
   "wip-limit-group-add": "যোগ কৰক WIP সীমা সক্ষম কৰক",
+  "wip-limit-group-select-swimlane": "ব'ৰ্ড বাছক পথ",
+  "wip-limit-group-apply-swimlane": "প্ৰয়োগ কৰক পথ",
   "subtask-inherit-parent-labels": "উপৰি কাৰ্ডৰ লেবেলবোৰ উত্তৰাধিকাৰী কৰক"
 }

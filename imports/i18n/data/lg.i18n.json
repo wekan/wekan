@@ -160,6 +160,8 @@
   "close-add-checklist-item": "Ggalawo yongerako item eri lukalala-lw'okukebera form",
   "close-edit-checklist-item": "Ggalawo kyusa item eri lukalala-lw'okukebera form",
   "convertChecklistItemToCardPopup-title": "Convert eri Kaadi",
+  "convertChecklistItemToSubtask-title": "Kyusa okuba omulimu omutono",
+  "checklistItem-linked-subtask": "Omulimu omutono ogugattiddwa",
   "add-cover": "Yongerako cover kifaananyi eri minicard",
   "add-label": "Yongerako Kabonero",
   "add-list": "Yongerako olukalala",
@@ -302,6 +304,9 @@
   "swimlaneArchivePopup-title": "Tterekero Akakubo?",
   "card-due": "Due (mu Luganda)",
   "card-due-on": "Due ku",
+  "due-today": "Kikoleddwa leero",
+  "due-days-left": "ennaku %s zisigadde",
+  "due-days-overdue": "ennaku %s ziyise",
   "card-spent": "Spent Budde",
   "card-edit-attachments": "Kyusa ebiyungiddwa",
   "card-edit-custom-fields": "Kyusa ennimiro ez'enjawulo",
@@ -2548,5 +2553,7 @@
   "wip-limit-groups": "Sobozesa WIP Limit (Olukalala)",
   "wip-limit-group-name-placeholder": "Erinnya (kya kwelonda)",
   "wip-limit-group-add": "Yongerako Sobozesa WIP Limit",
+  "wip-limit-group-select-swimlane": "Londa Lubaawo Akakubo",
+  "wip-limit-group-apply-swimlane": "Apply (mu Luganda) Akakubo",
   "subtask-inherit-parent-labels": "Sika obubaka bwa kaadi ya muzadde"
 }

@@ -160,6 +160,8 @@
   "close-add-checklist-item": "Akatona ny taratasy fanampiana singa amin'ny lisitra fanamarinana",
   "close-edit-checklist-item": "Akatona ny taratasy fanovana singa amin'ny lisitra fanamarinana",
   "convertChecklistItemToCardPopup-title": "Ovay ho karatra",
+  "convertChecklistItemToSubtask-title": "Ovaina ho asa madinika",
+  "checklistItem-linked-subtask": "Asa madinika mifandray",
   "add-cover": "Ampio sary fonony amin'ny karatra kely",
   "add-label": "Ampio marika",
   "add-list": "Hanampy lisitra",
@@ -302,6 +304,9 @@
   "swimlaneArchivePopup-title": "Alefa any amin'ny arisiva ny lalana?",
   "card-due": "Daty voatondro",
   "card-due-on": "Voatondro amin'ny",
+  "due-today": "Fara-fetoana androany",
+  "due-days-left": "mbola %s andro",
+  "due-days-overdue": "tara %s andro",
   "card-spent": "Fotoana lany",
   "card-edit-attachments": "Ovay ny rakitra miaraka",
   "card-edit-custom-fields": "Ovay ny saha namboarina",
@@ -2548,5 +2553,7 @@
   "wip-limit-groups": "Alefaso ny fetra WIP (Lisitra)",
   "wip-limit-group-name-placeholder": "Anarana (safidy)",
   "wip-limit-group-add": "Hanampy Alefaso ny fetra WIP",
+  "wip-limit-group-select-swimlane": "Fidio ny solaitra Lalana",
+  "wip-limit-group-apply-swimlane": "Ampiharo Lalana",
   "subtask-inherit-parent-labels": "Mandova ny mari-pamantarana ny karatra ray aman-dreny"
 }

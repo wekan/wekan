@@ -160,6 +160,8 @@
   "close-add-checklist-item": "pfala engetela an mhaka eka nxaxamelo wo kambela mhaka",
   "close-edit-checklist-item": "pfala hlela an mhaka eka nxaxamelo wo kambela mhaka",
   "convertChecklistItemToCardPopup-title": "mhaka eka khadi",
+  "convertChecklistItemToSubtask-title": "Hundzuluxa wu va ntirho lowutsongo",
+  "checklistItem-linked-subtask": "Ntirho lowutsongo lowu hlanganisiweke",
   "add-cover": "engetela mhaka mhaka eka mhaka",
   "add-label": "engetela mhaka",
   "add-list": "Engetela nxaxamelo",
@@ -302,6 +304,9 @@
   "swimlaneArchivePopup-title": "vuhlayiselo ndlela?",
   "card-due": "fanele",
   "card-due-on": "fanele eka",
+  "due-today": "Siku ra namuntlha",
+  "due-days-left": "masiku %s ya sele",
+  "due-days-overdue": "masiku %s ya hundzile",
   "card-spent": "mhaka nkarhi",
   "card-edit-attachments": "hlela swikhomanisiwa",
   "card-edit-custom-fields": "hlela wa wena mhaka",
@@ -2548,5 +2553,7 @@
   "wip-limit-groups": "pfula mhaka mhaka (Nxaxamelo)",
   "wip-limit-group-name-placeholder": "Vito (swa ku tihlawulela)",
   "wip-limit-group-add": "Engetela pfula mhaka mhaka",
+  "wip-limit-group-select-swimlane": "hlawula bodo Ndlela",
+  "wip-limit-group-apply-swimlane": "Hi Xitsonga: mhaka Ndlela",
   "subtask-inherit-parent-labels": "Ndzhaka swifaniso swa khadi ra vatswari"
 }

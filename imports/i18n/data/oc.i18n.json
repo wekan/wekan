@@ -160,6 +160,8 @@
   "close-add-checklist-item": "Fermer ajouter un élément du formulaire check-list",
   "close-edit-checklist-item": "Fermer éditer un élément du formulaire check-list",
   "convertChecklistItemToCardPopup-title": "Convertir en carte",
+  "convertChecklistItemToSubtask-title": "Convertir en sostasca",
+  "checklistItem-linked-subtask": "Sostasca ligada",
   "add-cover": "Ajouter la vignette sur la mini-carte",
   "add-label": "Apondre una etiqueta",
   "add-list": "Apondre una tièra",
@@ -302,6 +304,9 @@
   "swimlaneArchivePopup-title": "Archiver le couloir ?",
   "card-due": "Esperat",
   "card-due-on": "Esperat lo",
+  "due-today": "Escasença uèi",
+  "due-days-left": "demòran %s jorns",
+  "due-days-overdue": "%s jorns de retard",
   "card-spent": "Temps passat",
   "card-edit-attachments": "Cambiar las pèças jonchas",
   "card-edit-custom-fields": "Cambiar los camps personalizats",
@@ -2548,5 +2553,7 @@
   "wip-limit-groups": "Activar la WIP limit (Liste)",
   "wip-limit-group-name-placeholder": "Nom (opcional)",
   "wip-limit-group-add": "Apondre Activar la WIP limit",
+  "wip-limit-group-select-swimlane": "Sélectionner le tableau Couloir",
+  "wip-limit-group-apply-swimlane": "Aplicar Couloir",
   "subtask-inherit-parent-labels": "Eiretar las etiquetas de la carta parenta"
 }

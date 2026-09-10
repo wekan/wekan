@@ -160,6 +160,8 @@
   "close-add-checklist-item": "Fermer ajouter un élément du formulaire checklist",
   "close-edit-checklist-item": "Fermer éditer un élément du formulaire checklist",
   "convertChecklistItemToCardPopup-title": "Convertir en carte",
+  "convertChecklistItemToSubtask-title": "Treiñ e isdlead",
+  "checklistItem-linked-subtask": "Isdlead liammet",
   "add-cover": "Ajouter la vignette sur la mini-carte",
   "add-label": "Ajouter une étiquette",
   "add-list": "Ajouter une liste",
@@ -302,6 +304,9 @@
   "swimlaneArchivePopup-title": "Archiver le couloir ?",
   "card-due": "À échéance",
   "card-due-on": "Échéance le",
+  "due-today": "Diwezhañ hiziv",
+  "due-days-left": "%s devezh a chom",
+  "due-days-overdue": "%s devezh dale",
   "card-spent": "Temps passé",
   "card-edit-attachments": "Modifier les pièces jointes",
   "card-edit-custom-fields": "Éditer les champs personnalisés",
@@ -2548,5 +2553,7 @@
   "wip-limit-groups": "Activer la limite WIP (Roll)",
   "wip-limit-group-name-placeholder": "Anv (optionnel)",
   "wip-limit-group-add": "Ouzhpennañ Activer la limite WIP",
+  "wip-limit-group-select-swimlane": "Sélectionner le tableau Bandenn",
+  "wip-limit-group-apply-swimlane": "Appliquer Bandenn",
   "subtask-inherit-parent-labels": "Heritañ liñselioù ar gartenn c'henidik"
 }

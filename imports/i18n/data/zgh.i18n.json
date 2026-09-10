@@ -160,6 +160,8 @@
   "close-add-checklist-item": "Fermer ajouter un élément du formulaire checklist",
   "close-edit-checklist-item": "Fermer éditer un élément du formulaire checklist",
   "convertChecklistItemToCardPopup-title": "Convertir en carte",
+  "convertChecklistItemToSubtask-title": "Beddel s tawuri tawlayt",
+  "checklistItem-linked-subtask": "Tawuri tawlayt yettwarzafen",
   "add-cover": "إضافة صورة الغلاف إلى البطاقة الصغيرة",
   "add-label": "إضافة ملصق",
   "add-list": "إضافة قائمة",
@@ -302,6 +304,9 @@
   "swimlaneArchivePopup-title": "Archiver le couloir ?",
   "card-due": "مستحق",
   "card-due-on": "مستحق في",
+  "due-today": "ⴰⵙⵙ ⴰ ⵉⵙⵎⵎⴰⴹ",
+  "due-days-left": "%s ⵓⵙⵙⴰⵏ ⵉⴳⴳⵓⵔⴰⵏ",
+  "due-days-overdue": "%s ⵓⵙⵙⴰⵏ ⵉⵣⴳⵉⵜⵏ",
   "card-spent": "امضى وقتا",
   "card-edit-attachments": "تعديل المرفقات",
   "card-edit-custom-fields": "تعديل الحقل المعدل",
@@ -2548,5 +2553,7 @@
   "wip-limit-groups": "Activer la limite WIP (Tabdart)",
   "wip-limit-group-name-placeholder": "Isem (اختياري)",
   "wip-limit-group-add": "Rnu Activer la limite WIP",
+  "wip-limit-group-select-swimlane": "Sélectionner le tableau Abrid",
+  "wip-limit-group-apply-swimlane": "طبق Abrid",
   "subtask-inherit-parent-labels": "ⴰⵡⵔⵜ ⵜⵉⵜⵉⴽⵉⵜⵉⵏ ⵏ ⵜⴽⴰⵕⴹⴰ ⵏ ⵢⵉⵎⴰⵡⵍⴰⵏ"
 }

@@ -160,6 +160,8 @@
   "close-add-checklist-item": "Luk tilføj et element til tjeklisteformular",
   "close-edit-checklist-item": "Luk ændre et element til tjeklisteformular",
   "convertChecklistItemToCardPopup-title": "Ændre til kort",
+  "convertChecklistItemToSubtask-title": "Konverter til deltaks",
+  "checklistItem-linked-subtask": "Tilknyttet deltaks",
   "add-cover": "Tilføj coverbillede til minikort",
   "add-label": "Tilføj etikette",
   "add-list": "Tilføj liste",
@@ -302,6 +304,9 @@
   "swimlaneArchivePopup-title": "Arkiver svømmebane?",
   "card-due": "Forfalder",
   "card-due-on": "Forfaldsdato",
+  "due-today": "Forfalder i dag",
+  "due-days-left": "%s dage tilbage",
+  "due-days-overdue": "%s dage forsinket",
   "card-spent": "Anvendt tid",
   "card-edit-attachments": "Redigér vedhæftninger",
   "card-edit-custom-fields": "Redigér brugerdefinerede felter",
@@ -2548,5 +2553,7 @@
   "wip-limit-groups": "WIP-grænsegrupper",
   "wip-limit-group-name-placeholder": "Gruppenavn (valgfrit)",
   "wip-limit-group-add": "Tilføj WIP-grænsegruppe",
+  "wip-limit-group-select-swimlane": "Vælg tavle Svømmebaner",
+  "wip-limit-group-apply-swimlane": "Anvend Svømmebaner",
   "subtask-inherit-parent-labels": "Nedarv den overordnede korts etiketter"
 }

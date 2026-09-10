@@ -160,6 +160,8 @@
   "close-add-checklist-item": "जाँचसूचीमे मद जोड़बाक फॉर्म बन्द करू",
   "close-edit-checklist-item": "जाँचसूची मद संपादित करबाक फॉर्म बन्द करू",
   "convertChecklistItemToCardPopup-title": "कार्डमे बदलू",
+  "convertChecklistItemToSubtask-title": "उप-कार्यमे बदलू",
+  "checklistItem-linked-subtask": "जुड़ल उप-कार्य",
   "add-cover": "लघुकार्डमे आवरण चित्र जोड़ू",
   "add-label": "लेबल जोड़ू",
   "add-list": "सूची जोड़ू",
@@ -302,6 +304,9 @@
   "swimlaneArchivePopup-title": "स्विमलेन संग्रहित करू?",
   "card-due": "नियत",
   "card-due-on": "नियत तिथि",
+  "due-today": "आइ अंतिम तिथि",
+  "due-days-left": "%s दिन बाँकी",
+  "due-days-overdue": "%s दिन विलंब",
   "card-spent": "लगाओल समय",
   "card-edit-attachments": "संलग्नक संपादित करू",
   "card-edit-custom-fields": "अनुकूलित क्षेत्र संपादित करू",
@@ -2548,5 +2553,7 @@
   "wip-limit-groups": "WIP सीमा सक्षम करू (सूची)",
   "wip-limit-group-name-placeholder": "नाम (वैकल्पिक)",
   "wip-limit-group-add": "जोड़ू WIP सीमा सक्षम करू",
+  "wip-limit-group-select-swimlane": "बोर्ड चुनू मार्ग",
+  "wip-limit-group-apply-swimlane": "लागू करू मार्ग",
   "subtask-inherit-parent-labels": "पेरेंट कार्ड के लेबल विरासत में लीं"
 }

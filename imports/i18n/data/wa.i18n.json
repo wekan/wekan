@@ -160,6 +160,8 @@
   "close-add-checklist-item": "Fermer ajouter un élément du formulaire checklist",
   "close-edit-checklist-item": "Fermer éditer un élément du formulaire checklist",
   "convertChecklistItemToCardPopup-title": "Convertir en carte",
+  "convertChecklistItemToSubtask-title": "Kiviersî en sos-bouye",
+  "checklistItem-linked-subtask": "Sos-bouye raloyeye",
   "add-cover": "Ajouter la vignette sur la mini-carte",
   "add-label": "Ajouter une étiquette",
   "add-list": "Ajouter une liste",
@@ -302,6 +304,9 @@
   "swimlaneArchivePopup-title": "Archiver le couloir ?",
   "card-due": "À échéance",
   "card-due-on": "Échéance le",
+  "due-today": "Discandiaedje ådjourdu'i",
+  "due-days-left": "i dmeure %s djoûs",
+  "due-days-overdue": "å rtård di %s djoûs",
   "card-spent": "Temps passé",
   "card-edit-attachments": "Modifier les pièces jointes",
   "card-edit-custom-fields": "Éditer les champs personnalisés",
@@ -2548,5 +2553,7 @@
   "wip-limit-groups": "Activer la limite WIP (Djivêye)",
   "wip-limit-group-name-placeholder": "No (optionnel)",
   "wip-limit-group-add": "Radjouter Activer la limite WIP",
+  "wip-limit-group-select-swimlane": "Sélectionner le tableau Coridôr",
+  "wip-limit-group-apply-swimlane": "Appliquer Coridôr",
   "subtask-inherit-parent-labels": "Eriter les etikètes del cåte parint"
 }

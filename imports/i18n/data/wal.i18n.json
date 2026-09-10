@@ -160,6 +160,8 @@
   "close-add-checklist-item": "Wolayttatto: Gordda gujja an miishshaa kko paccissiya mazgabaa form",
   "close-edit-checklist-item": "Wolayttatto: Gordda laamma an miishshaa kko paccissiya mazgabaa form",
   "convertChecklistItemToCardPopup-title": "Wolayttatto: Convert kko Kaardiya",
+  "convertChecklistItemToSubtask-title": "Guuxaa oosuwa gidana laammi",
+  "checklistItem-linked-subtask": "Xayti gidido guuxaa oosu",
   "add-cover": "Wolayttatto: Gujja cover image kko minicard",
   "add-label": "Wolayttatto: Gujja Malaataa",
   "add-list": "Mazgabaa gujja",
@@ -302,6 +304,9 @@
   "swimlaneArchivePopup-title": "Wolayttatto: Naago sohuwaa Ogiyaa?",
   "card-due": "Wolayttatto: Wurssetta",
   "card-due-on": "Wolayttatto: Wurssetta bolla",
+  "due-today": "Hachchi gallassaa wodhdhanna",
+  "due-days-left": "gallassaa %s attin attees",
+  "due-days-overdue": "gallassaa %s aadhees",
   "card-spent": "Wolayttatto: Spent Wodiyaa",
   "card-edit-attachments": "Wolayttatto: Laamma gattidobata",
   "card-edit-custom-fields": "Wolayttatto: Laamma dumma sohota",
@@ -2548,5 +2553,7 @@
   "wip-limit-groups": "Wolayttatto: Denttetta WIP Limit (Mazgabaa)",
   "wip-limit-group-name-placeholder": "Sunttaa (dooruwaa)",
   "wip-limit-group-add": "Gujja Wolayttatto: Denttetta WIP Limit",
+  "wip-limit-group-select-swimlane": "Wolayttatto: Doora Ogiya",
+  "wip-limit-group-apply-swimlane": "Wolayttatto: Apply Ogiya",
   "subtask-inherit-parent-labels": "Aawaa kaardiyaa suudaa laattite"
 }

@@ -189,7 +189,10 @@ decision @xet7 raised, not a clear bug),
 reminder on a card's due date with a per-board offset — labelled Feature; the
 built-in due-date reminder already exists (`NOTIFY_DUE_DAYS_BEFORE_AND_AFTER`,
 improved in #3192), so the remaining ask is the per-board offset UI + a webhook
-reminder, a feature),
+reminder, a feature; [#4278](https://github.com/wekan/wekan/issues/4278) asks
+for the same reminder as a rule action, which needs a scheduled/deferred
+trigger the rule engine does not have today — every existing trigger fires on
+an immediate event, not a future point in time),
 [#4294](https://github.com/wekan/wekan/issues/4294) (rule actions should
 support a limited set of variables, e.g. assigning a card to its creator by
 default — every action field is a literal value today; resolving one from
@@ -199,7 +202,34 @@ the triggering event needs a small templating layer in
 combine multiple triggers/actions instead of one of each — `models/rules.js`
 ties a rule to exactly one `triggerId`/`actionId`; supporting several is a
 schema change, not a UI fix, and needs a decision on how a multi-trigger rule
-matches: any trigger, or all of them).
+matches: any trigger, or all of them; [#2953](https://github.com/wekan/wekan/issues/2953)
+asks for the same thing),
+[#4160](https://github.com/wekan/wekan/issues/4160) (rule "move card" action
+has Copy/Link siblings requested — the copy/link-card flow used by the manual
+card menu is a different code path from `server/rulesHelper.js`'s action
+runner; wiring it in as a new rule action is a real feature, not a small
+addition),
+[#3235](https://github.com/wekan/wekan/issues/3235) (rule action to copy a
+card to another board and list — same underlying gap as #4160, plus needs a
+board/list picker in the rule-action UI),
+[#3948](https://github.com/wekan/wekan/issues/3948) (rule email action should
+support attachments — `client/components/rules/actions/mailActions.js` and
+its server-side sender only handle a plain templated body today; attaching a
+card's files means streaming them through the mailer, a scope change to the
+existing action, not a bug),
+[#3195](https://github.com/wekan/wekan/issues/3195) (rule action/trigger
+values should be able to reference a custom field's value — today's action
+and trigger value inputs are plain literals; resolving a per-board custom
+field by id needs the same kind of templating layer as the #4294 variables
+ask above, plus a custom-field picker in the rule UI),
+[#2698](https://github.com/wekan/wekan/issues/2698) (sync rules with GitLab —
+a third-party integration needing a GitLab API credential and webhook
+endpoint, environment/infrastructure this sandbox cannot stand up or verify),
+[#3815](https://github.com/wekan/wekan/issues/3815) (more variables in rule
+email/string templates — `{username}` and a direct card link landed for
+\#3304/\#3301, but the request is open-ended about which further fields
+(board/list/swimlane name, custom fields) should be addressable; needs the
+same templating-layer decision as the #4294 variables ask above).
 
 </details>
 

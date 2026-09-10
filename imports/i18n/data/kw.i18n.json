@@ -160,6 +160,8 @@
   "close-add-checklist-item": "Degea an furv rag keworra taklen dhe rol checkya",
   "close-edit-checklist-item": "Degea an furv rag chanjya taklen yn rol checkya",
   "convertChecklistItemToCardPopup-title": "Treylya dhe garten",
+  "convertChecklistItemToSubtask-title": "Chanjya dhe issdhyller",
+  "checklistItem-linked-subtask": "Issdhyller kesys",
   "add-cover": "Keworra skeusen kudh dhe garten vyghan",
   "add-label": "Keworra arwodh",
   "add-list": "Keworra rol",
@@ -302,6 +304,9 @@
   "swimlaneArchivePopup-title": "Gwaya hyns dhe'n kovskrifva?",
   "card-due": "Termyn",
   "card-due-on": "Termyn war",
+  "due-today": "Res hedhyw",
+  "due-days-left": "%s dydh a wra",
+  "due-days-overdue": "%s dydh diwedhes",
   "card-spent": "Termyn usys",
   "card-edit-attachments": "Chanjya stagellow",
   "card-edit-custom-fields": "Chanjya meys a-vusur",
@@ -2548,5 +2553,7 @@
   "wip-limit-groups": "Ena fin WIP (Rol)",
   "wip-limit-group-name-placeholder": "Hanow (dewisyadow)",
   "wip-limit-group-add": "Keworra Ena fin WIP",
+  "wip-limit-group-select-swimlane": "Dewis estyllen Hyns",
+  "wip-limit-group-apply-swimlane": "Gorra yn ober Hyns",
   "subtask-inherit-parent-labels": "Erita labennow an gartenn dassek"
 }

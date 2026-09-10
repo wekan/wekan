@@ -160,6 +160,8 @@
   "close-add-checklist-item": "נאָענט לייגן אַ נומער צו טשעקליסט פאָרעם",
   "close-edit-checklist-item": "נאָענט רעדאַגירן אַ נומער צו טשעקליסט פאָרעם",
   "convertChecklistItemToCardPopup-title": "גער צו קאָרט",
+  "convertChecklistItemToSubtask-title": "פֿאַרוואַנדלען אין אונטער־אויפֿגאַבע",
+  "checklistItem-linked-subtask": "פֿאַרבונדענע אונטער־אויפֿגאַבע",
   "add-cover": "לייג דעקל בילד צו מיניקאַרד",
   "add-label": "לייג לאַבעל",
   "add-list": "לייג רשימה",
@@ -302,6 +304,9 @@
   "swimlaneArchivePopup-title": "ארכיוו סווימליין?",
   "card-due": "רעכט",
   "card-due-on": "רעכט אויף",
+  "due-today": "היינט איז דער טערמין",
+  "due-days-left": "%s טעג געבליבן",
+  "due-days-overdue": "%s טעג פֿאַרשפּעטיקט",
   "card-spent": "פארבראכט צייט",
   "card-edit-attachments": "רעדאַגירן אַטאַטשמאַנץ",
   "card-edit-custom-fields": "רעדאַגירן מנהג פעלדער",
@@ -2548,5 +2553,7 @@
   "wip-limit-groups": "געבן WIP לימיט (רשימה)",
   "wip-limit-group-name-placeholder": "נאָמען (אַפּשאַנאַל)",
   "wip-limit-group-add": "לייג געבן WIP לימיט",
+  "wip-limit-group-select-swimlane": "אויסקלייַבן סווימלאַנע",
+  "wip-limit-group-apply-swimlane": "צולייגן סווימלאַנע",
   "subtask-inherit-parent-labels": "ירשן די תוויות פונעם עלטערן קארטל"
 }

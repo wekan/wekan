@@ -160,6 +160,8 @@
   "close-add-checklist-item": "Sluit het formulier om een item aan een checklist toe te voegen",
   "close-edit-checklist-item": "Sluit het formulier om een item in een checklist wijzigen",
   "convertChecklistItemToCardPopup-title": "Converteer naar Kaart",
+  "convertChecklistItemToSubtask-title": "Omzetten naar subtaak",
+  "checklistItem-linked-subtask": "Gekoppelde subtaak",
   "add-cover": "Voeg omslagafbeelding toe aan minikaart",
   "add-label": "Label Toevoegen",
   "add-list": "Lijst Toevoegen",
@@ -302,6 +304,9 @@
   "swimlaneArchivePopup-title": "Swimlane Archiveren?",
   "card-due": "Verval",
   "card-due-on": "Vervalt op",
+  "due-today": "Скадэнца дзеньсь",
+  "due-days-left": "застаецца %s дні",
+  "due-days-overdue": "запазненне %s дні",
   "card-spent": "Gespendeerde tijd",
   "card-edit-attachments": "Wijzig bijlagen",
   "card-edit-custom-fields": "Wijzig maatwerkvelden",
@@ -2548,5 +2553,7 @@
   "wip-limit-groups": "Activeer WIP limiet (Lijst)",
   "wip-limit-group-name-placeholder": "Naam (optioneel)",
   "wip-limit-group-add": "Toevoegen Activeer WIP limiet",
+  "wip-limit-group-select-swimlane": "Selecteer Werkbaan",
+  "wip-limit-group-apply-swimlane": "Aanmelden Werkbaan",
   "subtask-inherit-parent-labels": "Ḓadzhela zwiredzo zwa khadi ya mubebi"
 }

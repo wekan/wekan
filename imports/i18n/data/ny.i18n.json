@@ -160,6 +160,8 @@
   "close-add-checklist-item": "Tsekani fomu yowonjezera chinthu ku mndandanda wowunika",
   "close-edit-checklist-item": "Tsekani fomu yosinthira chinthu cha mndandanda wowunika",
   "convertChecklistItemToCardPopup-title": "Sinthani Kukhala Khadi",
+  "convertChecklistItemToSubtask-title": "Sinthani kukhala ntchito yaing'ono",
+  "checklistItem-linked-subtask": "Ntchito yaing'ono yolumikizidwa",
   "add-cover": "Onjezani chithunzi chapamwamba pa khadi laling'ono",
   "add-label": "Onjezani Chizindikiro",
   "add-list": "Onjezani mndandanda",
@@ -302,6 +304,9 @@
   "swimlaneArchivePopup-title": "Sungani Mzere Wosambira?",
   "card-due": "Lomaliza",
   "card-due-on": "Lomaliza pa",
+  "due-today": "Tsiku lomaliza ndi lero",
+  "due-days-left": "masiku %s otsala",
+  "due-days-overdue": "masiku %s achedwa",
   "card-spent": "Nthawi Yogwiritsidwa Ntchito",
   "card-edit-attachments": "Sinthani zolumikizidwa",
   "card-edit-custom-fields": "Sinthani malo apadera",
@@ -2548,5 +2553,7 @@
   "wip-limit-groups": "Yatsani Malire a WIP (Mndandanda)",
   "wip-limit-group-name-placeholder": "Dzina (mwakufuna)",
   "wip-limit-group-add": "Onjezani Yatsani Malire a WIP",
+  "wip-limit-group-select-swimlane": "Sankhani bolodi Njira",
+  "wip-limit-group-apply-swimlane": "Gwiritsani ntchito Njira",
   "subtask-inherit-parent-labels": "Landirani zizindikiro za khadi la kholo"
 }

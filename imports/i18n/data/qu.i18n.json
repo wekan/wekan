@@ -160,6 +160,8 @@
   "close-add-checklist-item": "Kay willaymi: Wichqay Yapay anta itemta man Qhawana formta",
   "close-edit-checklist-item": "Kay willaymi: Wichqay Allichay anta itemta man Qhawana formta",
   "convertChecklistItemToCardPopup-title": "Kay willaymi: Convertta man Tarjeta",
+  "convertChecklistItemToSubtask-title": "Subtarearman tikrachiy",
+  "checklistItem-linked-subtask": "Watasqa subtarea",
   "add-cover": "Kay willaymi: Yapay coverta imageta man minicardta",
   "add-label": "Kay willaymi: Yapay Unancha",
   "add-list": "Sutisuyuta yapay",
@@ -302,6 +304,9 @@
   "swimlaneArchivePopup-title": "Kay willaymi: Waqaychana Swimlaneta?",
   "card-due": "Kay willaymi: Tukuna",
   "card-due-on": "Kay willaymi: Tukuna Kawsachisqa",
+  "due-today": "Kunanmi tukukun",
+  "due-days-left": "%s p’unchaw kaykun",
+  "due-days-overdue": "%s p’unchaw yallisqa",
   "card-spent": "Kay willaymi: Spentta Timeta",
   "card-edit-attachments": "Kay willaymi: Allichay Kuskachisqakuna",
   "card-edit-custom-fields": "Kay willaymi: Allichay Sapanchasqa K'anchakuna",
@@ -2548,5 +2553,7 @@
   "wip-limit-groups": "Kay willaymi: Kawsachiy WIPta Limitta (Sutisuyu)",
   "wip-limit-group-name-placeholder": "Suti (akllanapaq)",
   "wip-limit-group-add": "Yapay Kay willaymi: Kawsachiy WIPta Limitta",
+  "wip-limit-group-select-swimlane": "Kay willaymi: Akllay Ñan",
+  "wip-limit-group-apply-swimlane": "Kay willaymi: Applyta Ñan",
   "subtask-inherit-parent-labels": "Yayaq target rurichaykunata chaskiy"
 }

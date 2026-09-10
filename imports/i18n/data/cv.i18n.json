@@ -160,6 +160,8 @@
   "close-add-checklist-item": "Тӗрӗслев списокне пункт хушмалли формӑна хупас",
   "close-edit-checklist-item": "Тӗрӗслев списокӗн пунктне улӑштармалли формӑна хупас",
   "convertChecklistItemToCardPopup-title": "Карточкӑна ҫавӑрас",
+  "convertChecklistItemToSubtask-title": "Кĕçĕн задача туса хур",
+  "checklistItem-linked-subtask": "Çыхăннă кĕçĕн задача",
   "add-cover": "Кӗске карточкӑна витӗм ӳкерчӗкӗ хушас",
   "add-label": "Паллӑ хушас",
   "add-list": "Список хушас",
@@ -302,6 +304,9 @@
   "swimlaneArchivePopup-title": "Ҫула архива куҫарас-и?",
   "card-due": "Вӗҫленӳ",
   "card-due-on": "Вӗҫленӳ кунӗ",
+  "due-today": "Паян вӗҫленет",
+  "due-days-left": "%s кун юлчӗ",
+  "due-days-overdue": "%s кун иртсе кайрӗ",
   "card-spent": "Ирттернӗ вӑхӑт",
   "card-edit-attachments": "Хушӑннисене улӑштарас",
   "card-edit-custom-fields": "Уйрӑм уйсене улӑштарас",
@@ -2548,5 +2553,7 @@
   "wip-limit-groups": "WIP чиккине хутас (Список)",
   "wip-limit-group-name-placeholder": "Ят (кирлӗ мар)",
   "wip-limit-group-add": "Хушас WIP чиккине хутас",
+  "wip-limit-group-select-swimlane": "суйлас Ҫул",
+  "wip-limit-group-apply-swimlane": "Усӑ курас Ҫул",
   "subtask-inherit-parent-labels": "Атте картин паллисене йышăнса илесси"
 }

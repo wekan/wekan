@@ -160,6 +160,8 @@
   "close-add-checklist-item": "Misissuiffiusumut immikkoortumik ilanngussiffik matusiguk",
   "close-edit-checklist-item": "Misissuiffiusumi immikkoortumik allanngortitsiffik matusiguk",
   "convertChecklistItemToCardPopup-title": "Kortsimut allanngortiguk",
+  "convertChecklistItemToSubtask-title": "Allanngortikkuk immikkoortumut suliassamut",
+  "checklistItem-linked-subtask": "Attavigineqartoq immikkoortoq suliassaq",
   "add-cover": "Kortsiaqqamut assiliartaq ilannguguk",
   "add-label": "Nalunaaqutaq ilannguguk",
   "add-list": "Allattorsimaffik ilanngussuk",
@@ -302,6 +304,9 @@
   "swimlaneArchivePopup-title": "Aqqut toqqorsivimmut nuunneqassava?",
   "card-due": "Killigititaq",
   "card-due-on": "Killigititaq ulloq",
+  "due-today": "Ullumi naatsoq",
+  "due-days-left": "ulloq %s sinneqarpoq",
+  "due-days-overdue": "ulloq %s qaangiuppoq",
   "card-spent": "Piffissaq atorneqartoq",
   "card-edit-attachments": "Ilanngussat allanngortikkit",
   "card-edit-custom-fields": "Immikkoortut nammineq ilusilikkat allanngortikkit",
@@ -2548,5 +2553,7 @@
   "wip-limit-groups": "WIP-ip killissaa atulersiguk (Allattorsimaffik)",
   "wip-limit-group-name-placeholder": "Ateq (piumasaqaataanngitsoq)",
   "wip-limit-group-add": "Ilanngussuk WIP-ip killissaa atulersiguk",
+  "wip-limit-group-select-swimlane": "toqqaruk Aqqut",
+  "wip-limit-group-apply-swimlane": "Atoruk Aqqut",
   "subtask-inherit-parent-labels": "Angajoqqaap kaartaata nalunaaqutaanik kinguaassiuutaanik tigummineq"
 }

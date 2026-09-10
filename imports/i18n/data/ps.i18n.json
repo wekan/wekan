@@ -160,6 +160,8 @@
   "close-add-checklist-item": "کتنليک ته د توکي زياتولو فورمه وتړئ",
   "close-edit-checklist-item": "د کتنليک د توکي سمولو فورمه وتړئ",
   "convertChecklistItemToCardPopup-title": "کارت ته يې واړوئ",
+  "convertChecklistItemToSubtask-title": "د فرعي دندې په توګه بدل کړئ",
+  "checklistItem-linked-subtask": "تړلې فرعي دنده",
   "add-cover": "کوچني کارت ته د پوښ انځور زيات کړئ",
   "add-label": "نښان زيات کړئ",
   "add-list": "لړليک زياتول",
@@ -302,6 +304,9 @@
   "swimlaneArchivePopup-title": "کرښه ارشيف ته ولېږئ؟",
   "card-due": "وروستۍ نېټه",
   "card-due-on": "وروستۍ نېټه په",
+  "due-today": "نن ورځ نېټه ده",
+  "due-days-left": "%s ورځې پاتې",
+  "due-days-overdue": "%s ورځې ناوخته",
   "card-spent": "لګول شوی وخت",
   "card-edit-attachments": "ضميمې سمې کړئ",
   "card-edit-custom-fields": "دوديز ډګرونه سم کړئ",
@@ -2548,5 +2553,7 @@
   "wip-limit-groups": "د WIP حد چالان کړئ (لړليک)",
   "wip-limit-group-name-placeholder": "نوم (اختياري)",
   "wip-limit-group-add": "زياتول د WIP حد چالان کړئ",
+  "wip-limit-group-select-swimlane": "وټاکئ کرښه",
+  "wip-limit-group-apply-swimlane": "پلي کړئ کرښه",
   "subtask-inherit-parent-labels": "د پلرني کارت لیبلونه میراث یوسئ"
 }

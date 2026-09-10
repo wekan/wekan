@@ -160,6 +160,8 @@
   "close-add-checklist-item": "Dooiney yn aght dy chur nhee da rolley scrutaghey",
   "close-edit-checklist-item": "Dooiney yn aght dy reaghey nhee ayns rolley scrutaghey",
   "convertChecklistItemToCardPopup-title": "Caghlaa gys kaart",
+  "convertChecklistItemToSubtask-title": "Caghlaa gys fo-obbyr",
+  "checklistItem-linked-subtask": "Fo-obbyr kianglt",
   "add-cover": "Cur jalloo coodaghey da kaart veg",
   "add-label": "Cur cowrey",
   "add-list": "Cur rolley rish",
@@ -302,6 +304,9 @@
   "swimlaneArchivePopup-title": "Gleash cassan gys y tashtey?",
   "card-due": "Cooie",
   "card-due-on": "Cooie er",
+  "due-today": "Dyllit jiu",
+  "due-days-left": "%s laa faagit",
+  "due-days-overdue": "%s laa anmagh",
   "card-spent": "Traa ceaut",
   "card-edit-attachments": "Reaghey kiangltaghyn",
   "card-edit-custom-fields": "Reaghey magheryn reih't",
@@ -2548,5 +2553,7 @@
   "wip-limit-groups": "Cur eallagh WIP er (Rolley)",
   "wip-limit-group-name-placeholder": "Ennym (reihyssagh)",
   "wip-limit-group-add": "Cur rish Cur eallagh WIP er",
+  "wip-limit-group-select-swimlane": "Reih boayrd Cassan",
+  "wip-limit-group-apply-swimlane": "Cur rish Cassan",
   "subtask-inherit-parent-labels": "Eiraghys labelyn y chard ard"
 }

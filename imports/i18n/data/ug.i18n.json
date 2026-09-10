@@ -160,6 +160,8 @@
   "close-add-checklist-item": "تەكشۈرۈش جەدۋىلىگە بىر تۈر قوشۇڭ",
   "close-edit-checklist-item": "تىزىملىك ​​جەدۋىلىگە بىر تۈرنى تەھرىرلەشنى تاقاڭ",
   "convertChecklistItemToCardPopup-title": "كارتىغا ئايلاندۇرۇش",
+  "convertChecklistItemToSubtask-title": "قىسقا ۋەزىپىگە ئايلاندۇرۇش",
+  "checklistItem-linked-subtask": "باغلانغان قىسقا ۋەزىپە",
   "add-cover": "كىچىك رەسىمگە مۇقاۋا سۈرىتىنى قوشۇڭ",
   "add-label": "بەلگە قوشۇڭ",
   "add-list": "تىزىملىك ​​قوشۇڭ",
@@ -302,6 +304,9 @@
   "swimlaneArchivePopup-title": "يولاقنى ئارخىپلامدۇ؟",
   "card-due": "تېگىشلىك",
   "card-due-on": "سەۋەبى",
+  "due-today": "بۈگۈن ئاخىرقى ۋاقىت",
+  "due-days-left": "%s كۈن قالدى",
+  "due-days-overdue": "%s كۈن كېچىكتى",
   "card-spent": "ۋاقىت سەرپ قىلدى",
   "card-edit-attachments": "قوشۇمچە ھۆججەتلەرنى تەھرىرلەڭ",
   "card-edit-custom-fields": "ئىختىيارىي بۆلەكلەرنى تەھرىرلەڭ",
@@ -2548,5 +2553,7 @@
   "wip-limit-groups": "WIP چەكلىمىسىنى قوزغىتىڭ (تىزىملىك)",
   "wip-limit-group-name-placeholder": "ئىسمى (ئىختىيارىي)",
   "wip-limit-group-add": "قوش WIP چەكلىمىسىنى قوزغىتىڭ",
+  "wip-limit-group-select-swimlane": "ينى تاللاڭ يول",
+  "wip-limit-group-apply-swimlane": "ئىلتىماس قىلىڭ يول",
   "subtask-inherit-parent-labels": "ئاتا-ئانا كارتىسىنىڭ ئەنبەلگىلىرىگە ۋارىسلىق قىلىش"
 }
