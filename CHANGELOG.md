@@ -526,6 +526,28 @@ the preference is off.
 
 </details>
 
+**Checklists** - individual items inside a checklist.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c7bf50deb42d0c293c7db053261bde0f96ef71bd">Individual checklist items can now have their own due date</a>. Thanks to DimDz and xet7.</summary>
+
+[#4755](https://github.com/wekan/wekan/issues/4755) asked for due dates on
+checklist items - only the card itself had one, so a deadline that belonged
+to one step of a checklist had to be written into the item's title as text.
+`ChecklistItems` gained an optional `dueAt` field, and `getDue`/`setDue`/
+`unsetDue` helpers that mirror `Cards`' own due-date methods letter for
+letter. Each item row now shows a small clock icon (or, once a due date is
+set, a compact badge) that opens the same date/time-picker popup a card's own
+due date uses - the badge markup (`dateBadgeBody`) and the popup form
+(`editDateForm`) are reused as-is rather than adding a second date-picker, and
+an item whose due date has passed turns red through the same `dueDateClass`
+decision the card's due-date badges already use. No member-assignment was
+added - the issue asked for due dates only - and no new translation key was
+needed, since the popup title and badge tooltip reuse the existing card
+due-date strings.
+
+</details>
+
 and fixes the following bugs:
 
 **Board reports** - the Dashboard and the 10 board report chart views.
@@ -705,6 +727,25 @@ People" popup (`userHeader.js`) already surfaced this via a red/green
 it reads the callback's error argument and writes the same success/error
 message into a matching `#invite-people-infos` element added to
 `settingBody.jade`.
+
+</details>
+
+**User deletion** - the self-delete and admin-delete methods, and what they leave behind.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c7bf50deb42d0c293c7db053261bde0f96ef71bd">Confirmed deleting a user already prunes their board/card references</a>. Thanks to unowen1939 and xet7.</summary>
+
+[#6541](https://github.com/wekan/wekan/issues/6541) reported "users
+disappearing": a board kept referencing a deleted user's id in its
+members/assignees after the user document itself was gone, with no error
+and no webhook. Reading the current `removeUser` method in
+`server/models/users.js` (both the self-delete and admin-delete paths) shows
+it already fires the same `Users.after.remove` hook that was added for
+[#1289](https://github.com/wekan/wekan/issues/1289), which prunes the
+deleted id out of boards, cards, lists and avatars via
+`models/lib/userDeletionCleanup.js`. No code change was needed; the existing
+regression test `tests/userDeletionCleanup.test.cjs` now documents that it
+also covers this report.
 
 </details>
 
