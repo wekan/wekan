@@ -1,0 +1,95 @@
+/* Board View / Timeline - a horizontal row of clickable history markers
+ * (left = oldest activity, right = now) plus a read-only, grouped-by-list
+ * rendering of the board's reconstructed state at the clicked point. Kept
+ * deliberately simple: see client/components/boards/timelineView.js.
+ */
+.timeline-view .timeline-track {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 0 16px;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.3);
+  margin-bottom: 16px;
+}
+
+.timeline-view .timeline-marker {
+  display: inline-block;
+  padding: 4px 8px;
+  border: 1px solid rgba(128, 128, 128, 0.4);
+  border-radius: 3px;
+  font-size: 11px;
+  white-space: nowrap;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.timeline-view .timeline-marker.is-selected {
+  background: #29a3a3;
+  color: #fff;
+  border-color: #29a3a3;
+}
+
+.timeline-view .timeline-view-asof {
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+.timeline-view .timeline-lists {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.timeline-view .timeline-list {
+  min-width: 220px;
+  max-width: 280px;
+}
+
+.timeline-view .timeline-list-title {
+  font-size: 14px;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.3);
+  padding-bottom: 4px;
+}
+
+.timeline-view .timeline-card {
+  border: 1px solid rgba(128, 128, 128, 0.3);
+  border-radius: 3px;
+  padding: 8px;
+  margin-bottom: 8px;
+}
+
+.timeline-view .timeline-card-badge {
+  display: inline-block;
+  font-size: 10px;
+  background: #eee;
+  color: #333;
+  border-radius: 2px;
+  padding: 1px 4px;
+  margin-bottom: 4px;
+}
+
+.timeline-view .timeline-card-title {
+  font-size: 13px;
+  margin: 0 0 4px;
+}
+
+.timeline-view .timeline-card-description {
+  font-size: 12px;
+  opacity: 0.8;
+  margin: 0 0 4px;
+}
+
+.timeline-view .timeline-card-label {
+  display: inline-block;
+  font-size: 10px;
+  background: #ddd;
+  border-radius: 2px;
+  padding: 1px 4px;
+  margin-inline-end: 4px;
+}
+
+.timeline-view .timeline-card-restore {
+  margin-top: 6px;
+  font-size: 11px;
+}

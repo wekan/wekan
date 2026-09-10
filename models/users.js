@@ -809,6 +809,7 @@ Users.attachSchema(
         'board-view-table',
         'board-view-stats',
         'board-view-time',
+        'board-view-timeline',
         'board-view-group-by-assignee',
         'board-view-roadmap',
         'board-view-dashboard',

@@ -193,6 +193,13 @@ template(name="boardChangeViewPopup")
           | {{_ 'board-view-time'}}
           if $eq Utils.boardView "board-view-time"
             i.fa.fa-check
+    li
+      with "board-view-timeline"
+        a.js-open-timeline-view
+          i.fa.fa-history
+          | {{_ 'board-view-timeline'}}
+          if $eq Utils.boardView "board-view-timeline"
+            i.fa.fa-check
       hr
     li
       with "board-view-stats"

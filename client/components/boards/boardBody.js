@@ -852,6 +852,10 @@ Template.boardBody.helpers({
     return Utils.boardView() === 'board-view-time';
   },
 
+  isViewTimeline() {
+    return Utils.boardView() === 'board-view-timeline';
+  },
+
   isViewGroupByAssignee() {
     return Utils.boardView() === 'board-view-group-by-assignee';
   },

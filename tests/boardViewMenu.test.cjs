@@ -38,6 +38,7 @@ const VIEWS = [
   { view: 'board-view-cal', jsClass: 'js-open-cal-view', icon: 'fa-calendar' },
   { view: 'board-view-multiboard-cal', jsClass: 'js-open-multiboard-cal-view', icon: 'fa-calendar-plus-o', template: 'multiboardCalendarView', helper: 'isViewMultiboardCalendar' },
   { view: 'board-view-time', jsClass: 'js-open-time-view', icon: 'fa-clock-o', template: 'timeView', helper: 'isViewTime' },
+  { view: 'board-view-timeline', jsClass: 'js-open-timeline-view', icon: 'fa-history', template: 'timelineView', helper: 'isViewTimeline' },
   { view: 'board-view-stats', jsClass: 'js-open-stats-view', icon: 'fa-pie-chart' },
   { view: 'board-view-group-by-assignee', jsClass: 'js-open-group-by-assignee-view', icon: 'fa-users', template: 'groupByAssigneeView', helper: 'isViewGroupByAssignee' },
   { view: 'board-view-gantt', jsClass: 'js-open-gantt-view', icon: 'fa-bar-chart' },
@@ -58,11 +59,11 @@ const VIEWS = [
   { view: 'board-view-pulse', jsClass: 'js-open-pulse-view', icon: 'fa-heartbeat', template: 'pulseView', helper: 'isViewPulse', chart: true },
 ];
 
-// Between Table and Calendar, between Time and Statistics, between
+// Between Table and Calendar, between Timeline and Statistics, between
 // Statistics and the Gantt group, and between the Gantt group (WeKan's own
 // Gantt, Frappe Gantt, DHTMLX Gantt) and Dashboard - like the right
 // sidebar's own hr-separated groups (client/components/sidebar/sidebar.jade).
-const HR_AFTER = ['board-view-table', 'board-view-time', 'board-view-stats', 'board-view-group-by-assignee', 'board-view-gantt-dhtmlx'];
+const HR_AFTER = ['board-view-table', 'board-view-timeline', 'board-view-stats', 'board-view-group-by-assignee', 'board-view-gantt-dhtmlx'];
 
 test('the menu lists every view in the required top-to-bottom order', () => {
   const popup = boardHeaderJade.slice(boardHeaderJade.indexOf('template(name="boardChangeViewPopup")'));
@@ -100,7 +101,7 @@ test('a chart view menu entry is no longer parenthesized as "not implemented yet
   });
 });
 
-test('a separator sits between Table and Calendar, between Time and Statistics, and between Gantt and Dashboard', () => {
+test('a separator sits between Table and Calendar, between Timeline and Statistics, and between Gantt and Dashboard', () => {
   // Like the right sidebar's own hr-separated groups
   // (client/components/sidebar/sidebar.jade's homeSidebar).
   const popup = boardHeaderJade.slice(boardHeaderJade.indexOf('template(name="boardChangeViewPopup")'));

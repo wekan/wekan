@@ -62,6 +62,8 @@ template(name="boardBody")
           +statsView
         else if isViewTime
           +timeView
+        else if isViewTimeline
+          +timelineView
         else if isViewGroupByAssignee
           +groupByAssigneeView
         else if isViewRoadmap
