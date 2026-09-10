@@ -317,8 +317,9 @@ the fold already used for lists/swimlanes/checklists. It also restores the
 full-featured **document preview** viewer (DOCX/XLSX/PPTX, native PDF),
 replacing the minimal server-rendered GIF-slideshow approach that kept
 failing with a bare HTTP 415, hardens the **HttpOnly login cookie**
-against a rare case where it could be written without an expiry, and lets a
-board open already **filtered from its URL**.
+against a rare case where it could be written without an expiry, lets a
+board open already **filtered from its URL**, and adds a **Group by
+Assignee** board view.
 
 This release adds the following new features:
 
@@ -594,6 +595,32 @@ ids and label names to label ids by a small pure module,
 `tests/filterQueryParams4540.test.cjs`. This only reads the query params once
 on load; it deliberately does not sync the URL back as filters are changed
 afterwards from the sidebar.
+
+</details>
+
+**Board views** - the Board View menu and its pages.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8dad0d0506f89e3c54ee98099c182bdec71acc5d">Added a "Group by Assignee" board view for team-meeting-friendly overviews</a>. Thanks to xet7.</summary>
+
+[#4688](https://github.com/wekan/wekan/issues/4688) asked for cards grouped
+by assignee, clustered under each assignee's name as a heading, for a
+read-only overview well suited to a team stand-up.
+
+A card with several assignees appears under each; a card with none falls
+into "No assignee". The grouping reuses the same
+`NO_ASSIGNEE_GROUP`/`translateGroupLabel` fold the Dashboard and Time
+views already use (`models/lib/chartCalculations.js`), generalized into
+`computeCardsByAssigneeGroup`, which returns the grouped cards themselves
+rather than a count/hours total. Wired end to end like every other board
+view: a "Group by Assignee" Board View menu entry, an
+`isViewGroupByAssignee()` helper/`boardBody.jade` branch, the
+`client/lib/utils.js` whitelist, the `profile.boardView` schema and a
+tooltip-name-map entry. Each card row is a simple title + due date +
+overtime marker, deliberately not a minicard re-render, so the view stays
+lightweight for a board with many cards; clicking a card navigates to it
+like any other view, and there is no drag-and-drop or export - this is
+scoped as a read-only overview, not a second way to work the board.
 
 </details>
 

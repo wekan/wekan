@@ -145,7 +145,7 @@ Swimlanes.attachSchema(
 );
 
 Swimlanes.helpers({
-  async copy(boardId, targetSwimlaneId = null, position = 'below', title = '', cardIdMap = null) {
+  async copy(boardId, targetSwimlaneId = null, position = 'below', title = '', cardIdMap = null, withoutCards = false) {
     const oldId = this._id;
     const oldBoardId = this.boardId;
     const desiredTitle = typeof title === 'string' && title.trim().length > 0
@@ -235,7 +235,7 @@ Swimlanes.helpers({
     // when a swimlane is copied to ANOTHER board those label assignments are
     // silently lost. Pre-create the missing labels here (by name + color) so the
     // per-card remap inside card.copy() finds a match for every label.
-    if (oldBoardId && oldBoardId !== boardId) {
+    if (!withoutCards && oldBoardId && oldBoardId !== boardId) {
       const sourceBoardLabels =
         (sourceBoard && sourceBoard.labels) || [];
       const destBoard = await ReactiveCache.getBoard(boardId);
@@ -284,15 +284,20 @@ Swimlanes.helpers({
         width: sourceList.width,
       });
 
-      const cardQuery = {
-        listId: sourceList._id,
-        archived: false,
-        swimlaneId: isDefaultSourceSwimlane ? { $in: [oldId, '', null] } : oldId,
-      };
-      const cards = await ReactiveCache.getCards(cardQuery, { sort: { sort: 1 } });
+      // #4726 "Clone Board without cards": when withoutCards is set, the
+      // board/swimlane/list/label/custom-field structure above is still
+      // copied in full; only the per-card copy below is skipped.
+      if (!withoutCards) {
+        const cardQuery = {
+          listId: sourceList._id,
+          archived: false,
+          swimlaneId: isDefaultSourceSwimlane ? { $in: [oldId, '', null] } : oldId,
+        };
+        const cards = await ReactiveCache.getCards(cardQuery, { sort: { sort: 1 } });
 
-      for (const card of cards) {
-        await card.copy(boardId, newSwimlaneId, newListId, cardIdMap);
+        for (const card of cards) {
+          await card.copy(boardId, newSwimlaneId, newListId, cardIdMap);
+        }
       }
     }
 

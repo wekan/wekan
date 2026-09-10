@@ -329,6 +329,15 @@ template(name="boardList")
                       //- #2220 Home-board toggle is disabled: the icon and the
                       //- set-default-board action are intentionally not rendered.
 
+template(name="cloneBoardPopup")
+  form.js-clone-board-form
+    p {{_ 'duplicate-board-confirm'}}
+    p
+      label
+        input.js-clone-board-without-cards(type="checkbox")
+        | &nbsp;{{_ 'clone-board-without-cards'}}
+    input.primary.wide(type="submit" value="{{_ 'duplicate-board'}}")
+
 template(name="boardsSortPopup")
   ul.pop-over-list
     li

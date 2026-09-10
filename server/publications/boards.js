@@ -1264,13 +1264,15 @@ Meteor.methods({
     // POST /api/boards/:boardId/copy (checkAdminOrCondition with adminAccess).
     if (!board.hasAdmin(this.userId)) throw new Meteor.Error('not-authorized');
 
-    // Strip fields the caller must not control on the copy
-    const { members, permission, ...safeProperties } = properties;
+    // Strip fields the caller must not control on the copy, and pull out
+    // withoutCards (#4726 "Clone Board without cards") - it steers the copy
+    // itself rather than being a field assigned onto the board doc.
+    const { members, permission, withoutCards, ...safeProperties } = properties;
     for (const key of Object.keys(safeProperties)) {
       board[key] = safeProperties[key];
     }
 
-    return board.copy();
+    return board.copy(!!withoutCards);
   },
 
   // Board status for the sidebar Status popup: accurate counts computed on the

@@ -1112,7 +1112,7 @@ Boards.attachSchema(
 );
 
 Boards.helpers({
-  async copy() {
+  async copy(withoutCards = false) {
     const oldId = this._id;
     const oldWatchers = this.watchers ? this.watchers.slice() : [];
     delete this._id;
@@ -1146,7 +1146,7 @@ Boards.helpers({
     });
     for (const swimlane of swimlanes) {
       swimlane.type = 'swimlane';
-      await swimlane.copy(_id, null, 'below', '', cardIdMap);
+      await swimlane.copy(_id, null, 'below', '', cardIdMap, withoutCards);
     }
 
     // #3392: remap card-to-card dependencies (Red Strings) from the source
