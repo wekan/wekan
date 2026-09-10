@@ -4855,6 +4855,45 @@ per-variable comments `docker-compose.yml` does.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ccb5c28b7">LDAP, SAML, CAS and generic-OAuth2 no longer crash the server at boot</a>. Thanks to xet7.</summary>
+
+A local Meteor package under `packages/` is its own isolated build unit and
+cannot import an app-tree module by absolute path, static or dynamic -
+`packages/wekan-ldap/server/ldap.js` (the recent LDAP Admin Panel override
+feature) imported `Settings` and `resolveConfigValue` from `/models/...`
+directly, which compiled and even ran under a plain Node test, but threw
+"Cannot find module '/models/settings'" the moment the real Meteor server
+started - exactly what a pasted `./build.sh` run reproduced. The pure
+`configResolver` functions are now vendored into the package; `Settings`
+access is injected instead, via `setLdapSettingsAccessor()`, wired once at
+boot by the new `server/ldapAdminSettingsBridge.js`. The same shape existed
+in `packages/wekan-oidc/oidc_server.js` (a vendored
+`oauth2ClientSecretJwt.js`) and, wrapped in a try/catch that only kept it
+from crashing boot, in `packages/wekan-accounts-saml/saml_server.js` and
+`packages/wekan-accounts-cas/cas_server.js`'s account-conflict canary calls
+(now reached through `global.__wekanTripCanary`, set once by
+`server/lib/canary.js`). Also found while wiring this up:
+`saml_server.js` imports the npm package `body-parser` without declaring it
+in `package.js`'s `Npm.depends`, which crashed boot the same way once it
+stopped finding the copy an unrelated app dependency happened to hoist into
+`node_modules`. `tests/packageAppImportBoundary.test.cjs` sweeps every file
+under `packages/` for an app-tree absolute import so this shape cannot
+reappear anywhere else, and pins both vendored copies against their
+app-tree originals.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6e7388e5d">Two Jade "missing space before text" build warnings in the comment-reply banner</a>. Thanks to xet7.</summary>
+
+Both text lines in `comments.jade`'s reply banner started with a mustache
+tag directly, with no leading `|` marker - the pattern every other
+text-content line in the codebase uses. Harmless (the build still
+compiled), but noise on every build; added the `|`.
+
+</details>
+
 and improves the translation workflow:
 
 - [Fill in the missing Ladin, Latin, Luganda, Luxembourgish, Maithili, Malagasy, Malay, Malayalam, Maltese, Manx, Maori and Marathi translations](https://github.com/wekan/wekan/commit/718d20813). Thanks to xet7.
