@@ -10,8 +10,8 @@ const path = require('path');
 
 const root = path.join(__dirname, '..');
 const read = rel => fs.readFileSync(path.join(root, rel), 'utf8');
-const shell = read('releases/git-mirror-update.sh');
-const batch = read('releases/git-mirror-update.bat');
+const shell = read('releases/mirror.sh');
+const batch = read('releases/mirror.bat');
 
 let passed = 0;
 function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }

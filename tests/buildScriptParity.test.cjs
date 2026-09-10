@@ -224,11 +224,11 @@ test('every script in releases/ is reachable from BOTH menus', () => {
     'ferretdb/start-wekan.bat': 'shipped INSIDE the Windows bundle, to start it',
     'build-bundle-win64.bat': 'a Windows batch script - bash cannot run it, so it '
       + 'is not a menu entry; build.bat\'s Bundles menu says to run it directly',
-    'git-mirror-update.sh': 'standalone Linux/macOS mirror updater; its Windows '
+    'mirror.sh': 'standalone Linux/macOS mirror updater; its Windows '
       + 'counterpart cannot share one cross-platform menu entry, and each pushes '
       + 'two external mirrors rather than performing a WeKan release step',
-    'git-mirror-update.bat': 'standalone Windows counterpart of '
-      + 'git-mirror-update.sh, tied to the documented Windows checkout path',
+    'mirror.bat': 'standalone Windows counterpart of '
+      + 'mirror.sh, tied to the documented Windows checkout path',
     // Release-workflow helpers. These are called by
     // .github/workflows/release-all.yml, not by a person from a menu: they take
     // their input from the matrix and the environment of a build job and would
