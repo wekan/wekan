@@ -3514,7 +3514,7 @@ unrelated card.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/PLACEHOLDER_HASH">Add a one-click "Archive all cards in this list" entry to the List menu</a>. Thanks to bkiehle and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/0c7524db05a492e04b047e7523b916ccfb9df0c6">Add a one-click "Archive all cards in this list" entry to the List menu</a>. Thanks to bkiehle and xet7.</summary>
 
 [#3383](https://github.com/wekan/wekan/issues/3383) asked for a button that
 archives every card of a single list at once, instead of moving them to
