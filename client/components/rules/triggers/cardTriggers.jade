@@ -167,6 +167,15 @@ template(name="cardTriggers")
     div.trigger-button.js-add-advanced-filter-trigger.js-goto-action
       i.fa.fa-plus
 
+  div.trigger-item(title="{{_'text-contains-trigger-description'}}")
+    div.trigger-content
+      div.trigger-text
+        | {{_'r-when-a-card-title-or-description-contains'}}
+      div.trigger-dropdown
+        input(class="text-contains-trigger-value",type=text,placeholder="{{_'text-contains-trigger-label'}}")
+    div.trigger-button.js-add-text-contains-trigger.js-goto-action
+      i.fa.fa-plus
+
   div.trigger-item
     div.trigger-content
       div.trigger-text

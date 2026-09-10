@@ -195,6 +195,24 @@ Template.cardTriggers.events({
       desc,
     });
   },
+  // #2194: "card title/description contains {value}" - stores the raw
+  // substring the user typed; server/rulesHelper.js does the actual
+  // case-insensitive match against the card's CURRENT title/description
+  // (models/lib/ruleTextContainsMatch.js), the same "store what the user
+  // typed, match server-side" split the advanced-filter trigger above uses.
+  'click .js-add-text-contains-trigger'(event, tpl) {
+    const desc = Utils.getTriggerActionDesc(event, tpl);
+    const datas = Template.currentData();
+    const textContains = tpl.find('.text-contains-trigger-value').value.trim();
+    if (!textContains) return;
+    const boardId = Session.get('currentBoard');
+    datas.triggerVar.set({
+      activityType: 'textContainsTrigger',
+      boardId,
+      textContains,
+      desc,
+    });
+  },
   // #2474: "a card's due/start/end/received date is set or changed" - these
   // reuse the 'a-dueAt'/'a-startAt'/'a-endAt'/'a-receivedAt' activities that
   // models/cards.js's setDue/setStart/setEnd/setReceived already log via
