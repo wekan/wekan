@@ -820,6 +820,47 @@ real (non-English) translation of the two new labels.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/520b2e412ecba03c44a0a7ffcf8da5264a65aa77">People now shows each account's last-active time and an online-now badge</a>. Thanks to eccaw and xet7.</summary>
+
+[#3678](https://github.com/wekan/wekan/issues/3678) asked for a way to see
+- and log out - inactive accounts; [#3734](https://github.com/wekan/wekan/issues/3734)
+asked for the same thing from the other side, an API or log of active users
+and how long they have been active. Both come down to the same missing
+fact: WeKan had a `lastConnectionDate` field on the user schema already,
+but the only code that ever wrote it was a commented-out, env-gated block
+in `server/publications/users.js`, so no account's last-active time was
+ever actually recorded.
+
+`server/lastActiveOnLogin.js` now stamps `lastConnectionDate` on every
+successful login via `Accounts.onLogin`, the same fire-and-forget pattern
+`loginTallyOnLogin.js` and `avatarLocalizationOnLogin.js` already use so a
+failure in one cannot affect the others. An open client session refreshes
+it every two minutes through a new `usersHeartbeat` Meteor method
+(`server/methods/lastActiveHeartbeat.js`, called from
+`client/lastActiveHeartbeat.js`), which only ever updates the caller's own
+`this.userId` - a periodic timestamp, not a websocket/real-time presence
+system, which both issues' actual questions ("who is active, and for how
+long") did not need.
+
+People's table gets a "Last active" column showing that timestamp, with a
+green online-now badge when it falls within five minutes
+(`models/lib/lastActive.js`'s `isRecentlyActive`, pure arithmetic so it is
+unit-testable without a server). `tests/lastActive.test.cjs` pins the
+recency threshold at its boundary, a future timestamp (clock skew) never
+reading as online, the login hook's shape, and that the heartbeat method
+can only ever touch its own caller's document. The two new labels are
+translated into 203 locales; the remainder keep the English source as the
+explicit untranslated-everywhere placeholder.
+
+WeKan already has a per-address login lockout
+(`packages/wekan-accounts-lockout`, Admin Panel → Locked users) for the
+enforcement half of #3678 ("how do I stop a stuck session"); this change
+is deliberately visibility only and does not add a new logout-inactive-
+users mechanism on top of it.
+
+</details>
+
 **Admin Panel / Settings / Visibility** - the instance-wide toggles under this pane.
 
 <details>
@@ -1370,6 +1411,28 @@ fallback still work.
 `tests/myCardsInlineCardPopup.test.cjs` pins the click handler's
 `preventDefault()`, the popup-opening call sequence, and that it matches the
 same shape used by `resultCard.js` and `tableView.js`.
+
+</details>
+
+**Admin Panel and Public Boards** - inviting people, deleting a user, and viewing a public board while logged out.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2ccd70f45">Confirmed the Admin Panel already lets an admin invite/delete people, and that public boards are already viewable while logged out</a>. Thanks to Cupara and xet7.</summary>
+
+[#3310](https://github.com/wekan/wekan/issues/3310) (2020) asked for three
+things. Reading the current code shows all three are already there, in some
+cases in a stronger form than what was asked for: Admin Panel -> Settings'
+"Invite via Email" (`settingBody.js`, `sendInvitation`) already generates and
+mails a per-invitee invitation code rather than a single static one an admin
+would have had to hand out; Admin Panel -> People already deletes a user
+account - a row's "more settings" link opens the settingsUser popup, whose
+`#deleteButton` calls the `removeUser` server method; and a public board's own
+URL (`/b/:id`, `/b/:id/:slug`) carries no sign-in requirement in the router,
+and the board publication's visibility selector already matches
+`{ permission: 'public' }` for a subscriber with no `userId` at all
+(`models/lib/boardVisibilitySelectors.js`). No code change was needed;
+`tests/issue3310FeatureRequests.test.cjs` now pins all three so they cannot
+silently regress.
 
 </details>
 
