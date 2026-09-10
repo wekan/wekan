@@ -19,6 +19,7 @@ const CHART_TITLE_KEYS = {
   throughputHistogram: ['board-view-throughput-histogram', 'Throughput Histogram'],
   wipRun: ['board-view-wip-run', 'WIP Run'],
   gantt: ['board-view-gantt', 'Gantt'],
+  time: ['board-view-time', 'Time'],
 };
 
 function chartTitle(chartKey, translate) {
@@ -138,6 +139,24 @@ function chartExportRows(chartKey, data, translate = (key, fallback) => fallback
         ...section(translate('assignees', 'Assignees'), data.byAssignee),
         ...section(translate('labels', 'Labels'), data.byLabel),
         ...section(translate('lists', 'Lists'), data.byList),
+      ],
+    };
+  }
+
+  if (chartKey === 'time') {
+    // #812 ("reporting total hours by resource and task type"): the same
+    // sectioned two-column shape as 'dashboard' above, one section per
+    // breakdown - who logged how many hours, and which cards they went to.
+    const section = (name, rows) => [[name, ''], ...rows, ['', '']];
+    const overtimeSuffix = card => card.isOvertime ? ` (${translate('overtime', 'Overtime')})` : '';
+    return {
+      title,
+      headers: [translate('name', 'Name'), translate('hours', 'Hours')],
+      rows: [
+        ...section(translate('assignees', 'Assignees'), data.byAssignee.map(group =>
+          [translateGroupLabel(group.label, translate), group.hours])),
+        ...section(translate('card', 'Card'), data.byCard.map(card =>
+          [`${card.title}${overtimeSuffix(card)}`, card.hours])),
       ],
     };
   }

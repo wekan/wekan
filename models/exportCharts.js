@@ -6,7 +6,7 @@ import { runOnServer } from './runOnServer';
 const CHART_KEYS = new Set([
   'dashboard', 'burndown', 'burnup', 'cumulativeFlow', 'controlChart',
   'cycleTime', 'flowEfficiency', 'leadTime', 'throughputHistogram', 'wipRun',
-  'gantt',
+  'gantt', 'time',
 ]);
 
 runOnServer(function() {
@@ -95,7 +95,8 @@ runOnServer(function() {
    * boards: `/api/boards/:boardId/charts/:chartKey/exportPDF?authToken=:token`.
    * @param {string} boardId the ID of the board
    * @param {string} chartKey one of dashboard, burndown, burnup, cumulativeFlow,
-   * controlChart, cycleTime, flowEfficiency, leadTime, throughputHistogram, wipRun
+   * controlChart, cycleTime, flowEfficiency, leadTime, throughputHistogram, wipRun,
+   * time
    * @param {string} authToken the loginToken
    */
   WebApp.handlers.get('/api/boards/:boardId/charts/:chartKey/exportPDF', safeRoute(async function (req, res) {
@@ -125,7 +126,8 @@ runOnServer(function() {
    * boards: `/api/boards/:boardId/charts/:chartKey/exportExcel?authToken=:token`.
    * @param {string} boardId the ID of the board
    * @param {string} chartKey one of dashboard, burndown, burnup, cumulativeFlow,
-   * controlChart, cycleTime, flowEfficiency, leadTime, throughputHistogram, wipRun
+   * controlChart, cycleTime, flowEfficiency, leadTime, throughputHistogram, wipRun,
+   * time
    * @param {string} authToken the loginToken
    */
   WebApp.handlers.get('/api/boards/:boardId/charts/:chartKey/exportExcel', safeRoute(async function (req, res) {

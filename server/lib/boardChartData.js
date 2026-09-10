@@ -20,6 +20,8 @@ const {
   computeDashboardGroups,
   NO_ASSIGNEE_GROUP,
   NO_LABEL_GROUP,
+  computeTimeByGroup,
+  computeTimeByCard,
 } = require('/models/lib/chartCalculations');
 
 export async function loadBoardChartData(boardId, chartKey) {
@@ -30,7 +32,8 @@ export async function loadBoardChartData(boardId, chartKey) {
   const cardFields = {
     fields: {
       title: 1, listId: 1, createdAt: 1, archivedAt: 1, archived: 1,
-      startAt: 1, endAt: 1, dueAt: 1, spentTime: 1, assignees: 1, members: 1, labelIds: 1,
+      startAt: 1, endAt: 1, dueAt: 1, spentTime: 1, isOvertime: 1,
+      assignees: 1, members: 1, labelIds: 1,
     },
   };
   const allCards = await Cards.find({ boardId }, cardFields).fetchAsync();
@@ -77,7 +80,7 @@ export async function loadBoardChartData(boardId, chartKey) {
     };
   }
 
-  if (chartKey === 'dashboard') {
+  if (chartKey === 'dashboard' || chartKey === 'time') {
     const usersById = {};
     const userIds = new Set();
     allCards.forEach(card => (card.assignees || []).forEach(id => userIds.add(id)));
@@ -85,6 +88,19 @@ export async function loadBoardChartData(boardId, chartKey) {
       usersById[id] = await ReactiveCache.getUser({ _id: id });
     }));
     const nameOf = id => (usersById[id] && (usersById[id].profile?.fullname || usersById[id].username)) || id;
+
+    if (chartKey === 'time') {
+      // #812 ("reporting total hours by resource and task type"): who logged
+      // how many hours, and which cards those hours went to. Matches the
+      // Time view's own "archived: false" summary above it.
+      const activeCards = allCards.filter(card => !card.archived);
+      return {
+        byAssignee: computeTimeByGroup(activeCards, card =>
+          (card.assignees || []).map(id => ({ key: id, label: nameOf(id) })), NO_ASSIGNEE_GROUP),
+        byCard: computeTimeByCard(activeCards),
+      };
+    }
+
     const labelById = Object.fromEntries((board.labels || []).map(l => [l._id, l.name || l.color]));
     return {
       byAssignee: computeDashboardGroups(allCards, card =>

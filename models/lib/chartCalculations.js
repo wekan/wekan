@@ -274,6 +274,50 @@ function computeDashboardGroups(cards, resolveGroups, emptyGroup = { key: 'none'
     .map(entry => ({ ...entry, percent: Math.round((entry.count / total) * 1000) / 10 }));
 }
 
+// Time view (#812): spentTime grouped by assignee, and the per-card
+// breakdown - the "reporting total hours by resource and task type" the
+// issue asked for. Same shape as computeDashboardGroups (key/label/percent),
+// but SUMS each card's spentTime into the group instead of counting cards,
+// since "who spent how many hours" is the question here, not "who has how
+// many cards". `resolveGroups(card)` returns the {key, label} group(s) a
+// card's time counts under; a card with none falls into `emptyGroup`.
+function computeTimeByGroup(cards, resolveGroups, emptyGroup = { key: 'none', label: 'none' }) {
+  const byKey = {};
+  const withTime = cards.filter(card => (Number(card.spentTime) || 0) > 0);
+  withTime.forEach(card => {
+    const time = Number(card.spentTime) || 0;
+    const groups = resolveGroups(card) || [];
+    (groups.length ? groups : [emptyGroup]).forEach(group => {
+      const entry = byKey[group.key] || { key: group.key, label: group.label, hours: 0, cards: 0 };
+      entry.hours += time;
+      entry.cards += 1;
+      byKey[group.key] = entry;
+    });
+  });
+  const total = withTime.reduce((sum, card) => sum + (Number(card.spentTime) || 0), 0) || 1;
+  return Object.values(byKey)
+    .sort((a, b) => b.hours - a.hours)
+    .map(entry => ({
+      ...entry,
+      hours: Math.round(entry.hours * 100) / 100,
+      percent: Math.round((entry.hours / total) * 1000) / 10,
+    }));
+}
+
+// The per-card breakdown: one row per card that has any spentTime logged,
+// newest-largest first.
+function computeTimeByCard(cards) {
+  return cards
+    .filter(card => (Number(card.spentTime) || 0) > 0)
+    .map(card => ({
+      key: card._id,
+      title: card.title || card._id,
+      hours: Math.round((Number(card.spentTime) || 0) * 100) / 100,
+      isOvertime: !!card.isOvertime,
+    }))
+    .sort((a, b) => b.hours - a.hours);
+}
+
 module.exports = {
   completionDate,
   dayKey,
@@ -290,4 +334,6 @@ module.exports = {
   NO_ASSIGNEE_GROUP,
   NO_LABEL_GROUP,
   translateGroupLabel,
+  computeTimeByGroup,
+  computeTimeByCard,
 };

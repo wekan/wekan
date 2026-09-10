@@ -17,6 +17,9 @@ const {
   computeThroughput,
   computeFlowEfficiency,
   computeDashboardGroups,
+  computeTimeByGroup,
+  computeTimeByCard,
+  NO_ASSIGNEE_GROUP,
 } = require('../models/lib/chartCalculations');
 
 let passed = 0;
@@ -186,6 +189,61 @@ test('computeDashboardGroups groups and percentages sum to the total', () => {
 
 test('computeDashboardGroups on an empty board returns no groups', () => {
   assert.deepStrictEqual(computeDashboardGroups([], () => []), []);
+});
+
+// #812 ("reporting total hours by resource and task type"): the Time view's
+// by-assignee/by-card breakdown, shared by the live view and its PDF/Excel
+// export (models/lib/chartExportRows.js's 'time' branch).
+
+test('computeTimeByGroup sums spentTime per group, not card counts', () => {
+  const cards = [
+    { _id: 'c1', spentTime: 2, assignees: ['alice'] },
+    { _id: 'c2', spentTime: 3, assignees: ['alice'] },
+    { _id: 'c3', spentTime: 5, assignees: ['bob'] },
+  ];
+  const groups = computeTimeByGroup(cards, card =>
+    (card.assignees || []).map(id => ({ key: id, label: id })));
+  const alice = groups.find(g => g.key === 'alice');
+  const bob = groups.find(g => g.key === 'bob');
+  assert.strictEqual(alice.hours, 5, 'alice logged 2 + 3 hours, not a count of 2 cards');
+  assert.strictEqual(alice.cards, 2);
+  assert.strictEqual(bob.hours, 5);
+  const total = groups.reduce((sum, g) => sum + g.hours, 0);
+  assert.strictEqual(total, 10);
+});
+
+test('computeTimeByGroup skips cards with no logged time entirely (negative)', () => {
+  const cards = [
+    { _id: 'c1', spentTime: 0, assignees: ['alice'] },
+    { _id: 'c2', assignees: ['alice'] }, // no spentTime field at all
+  ];
+  const groups = computeTimeByGroup(cards, card =>
+    (card.assignees || []).map(id => ({ key: id, label: id })));
+  assert.deepStrictEqual(groups, [], 'a card with nothing logged must not appear as a zero-hour group');
+});
+
+test('computeTimeByGroup falls back to the supplied emptyGroup, not a hardcoded "none"', () => {
+  const cards = [{ _id: 'c1', spentTime: 4, assignees: [] }];
+  const groups = computeTimeByGroup(cards, card => (card.assignees || []).map(id => ({ key: id, label: id })),
+    NO_ASSIGNEE_GROUP);
+  assert.strictEqual(groups.length, 1);
+  assert.strictEqual(groups[0].key, '__no_assignee__');
+  assert.strictEqual(groups[0].hours, 4);
+});
+
+test('computeTimeByCard returns one row per card with logged time, largest first', () => {
+  const cards = [
+    { _id: 'c1', title: 'Small', spentTime: 1 },
+    { _id: 'c2', title: 'Big', spentTime: 9, isOvertime: true },
+    { _id: 'c3', title: 'Untouched', spentTime: 0 },
+  ];
+  const rows = computeTimeByCard(cards);
+  assert.strictEqual(rows.length, 2, 'the untouched card (no time logged) is excluded');
+  assert.strictEqual(rows[0].title, 'Big');
+  assert.strictEqual(rows[0].hours, 9);
+  assert.strictEqual(rows[0].isOvertime, true);
+  assert.strictEqual(rows[1].title, 'Small');
+  assert.strictEqual(rows[1].isOvertime, false);
 });
 
 console.log(`chartCalculations: ${passed} passed`);
