@@ -257,6 +257,10 @@ test('every locale file inserts the 4 new keys right after r-when-a-card-matches
     .filter(f => f !== 'en.i18n.json');
   const ordered = [
     'r-when-a-card-matches-advanced-filter',
+    // The "text contains" trigger (advanced-filter-label's sibling) landed
+    // between this guard's own keys and the date triggers, so it now sits
+    // between them in every locale file, en.i18n.json included.
+    'r-when-a-card-title-or-description-contains',
     'r-when-a-due-date-changed',
     'r-when-a-start-date-changed',
     'r-when-a-end-date-changed',

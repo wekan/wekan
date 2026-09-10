@@ -264,13 +264,11 @@ test('starred boards are a dropdown, not a row of links', () => {
     js.indexOf('  isPageStarrable() {'));
   assert.ok(!/if \(!\w+\.length\) return ''/.test(countHelper),
     'the count is shown at zero too, not blanked');
-  // Boards AND bookmarks: the dropdown lists both, so a count that left the
-  // bookmarks out would say 2 above five rows.
-  // docs/Features/Board/Starred.md
-  assert.ok(/starredBoards \? .*starredBoards\(\)/.test(countHelper)
-    && /starredPages \? .*starredPages\(\)/.test(countHelper),
-    'and counts both kinds');
-  assert.ok(/boards\.length \+ pages\.length/.test(countHelper), 'added together');
+  // Boards AND bookmarks (and now swimlanes/lists/cards, #1172): the count
+  // moved into the user model's own starredCount(), so a count that left any
+  // kind out would say 2 above five rows. docs/Features/Board/Starred.md
+  assert.ok(/user\.starredCount \? user\.starredCount\(\) : 0/.test(countHelper),
+    'delegates to the user model, which counts every starred kind');
 
   // ...and the board's own star is the button immediately after it: how many
   // boards you have starred, and whether this is one of them, are a pair.

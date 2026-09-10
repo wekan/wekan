@@ -59,10 +59,22 @@ for (const section of [
 const commentCreate = route(
   comments,
   "WebApp.handlers.post('/api/boards/:boardId/cards/:cardId/comments'",
-  "WebApp.handlers.delete(\n  '/api/boards/:boardId/cards/:cardId/comments/:commentId'",
+  "WebApp.handlers.put(\n  '/api/boards/:boardId/cards/:cardId/comments/:commentId'",
 );
 assert.match(commentCreate, /allowIsBoardMemberCommentOnly/);
 assert.doesNotMatch(commentCreate, /Authentication\.checkBoardAccess/);
+
+// The comment EDIT route (added after CommentBleed, GHSA-pqr4-rxgp-hv2m): it
+// requires board membership AND runs the same author-or-admin object check
+// restCommentDeleteAcl.test.cjs pins for DELETE - membership alone is not
+// enough to edit somebody else's comment either.
+const commentEdit = route(
+  comments,
+  "WebApp.handlers.put(\n  '/api/boards/:boardId/cards/:cardId/comments/:commentId'",
+  "WebApp.handlers.delete(\n  '/api/boards/:boardId/cards/:cardId/comments/:commentId'",
+);
+assert.match(commentEdit, /Authentication\.checkBoardAccess/);
+assert.match(commentEdit, /assertCanMutateComment/);
 
 const boardCreate = route(
   boards,

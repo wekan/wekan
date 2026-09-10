@@ -57,7 +57,9 @@ assert.match(
 );
 assert.match(
   email,
-  /const subject = safeEmailSubject\(formatActivityNotificationTitle\(/,
+  // `let`, not `const`: the admin-template override (#2022) below reassigns
+  // it through the same safeEmailSubject() guard, so it must stay mutable.
+  /let subject = safeEmailSubject\(formatActivityNotificationTitle\(/,
   'notification subjects must use the shared header-safe formatter',
 );
 

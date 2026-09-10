@@ -119,13 +119,22 @@ test('the refusal is a 403 for REST callers, not a 500', () => {
   assert.ok(/error-comment-edit-not-allowed/.test(fn), 'and keeps the DDP error id');
 });
 
-test('negative: there is still no REST edit route that could bypass the same rule', () => {
-  // If a PUT is ever added it must get the same check; this fails when one
-  // appears without it.
-  const routes = restComments.match(/WebApp\.handlers\.(get|post|put|delete)\(/g) || [];
-  const puts = routes.filter(r => r.includes('.put('));
-  assert.strictEqual(puts.length, 0,
-    'a comment edit route was added — give it assertCanMutateComment too');
+test('negative: a REST edit route exists now, and it carries the same rule', () => {
+  // A PUT (comment edit) route was added. It must not be a way to bypass the
+  // rule DELETE enforces: it has to require board membership AND run
+  // assertCanMutateComment with the REST caller's own identity, exactly like
+  // the DELETE handler above. tests/restSecurityAdvisories.test.cjs pins the
+  // same route from the other side (membership present, no bare
+  // Authentication.checkBoardAccess-only path for comment creation).
+  const putHandler = restComments.match(
+    /WebApp\.handlers\.put\(\s*\n\s*'\/api\/boards\/:boardId\/cards\/:cardId\/comments\/:commentId'[\s\S]*?\n\);/,
+  );
+  assert.ok(putHandler, 'the comment edit route is found');
+  const body = putHandler[0];
+  assert.ok(/Authentication\.checkBoardAccess\(req\.userId, paramBoardId\)/.test(body),
+    'board membership is required');
+  assert.ok(/assertCanMutateComment\(req\.userId, comment\)/.test(body),
+    'and the same object-level rule DELETE applies, called with req.userId');
 });
 
 console.log(`\n${passed} tests passed`);
