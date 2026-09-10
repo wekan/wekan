@@ -13,6 +13,7 @@ import {
   firstAppendSort,
 } from '/models/lib/checklistTemplateCopy';
 import { CHECKLIST_RESET_INTERVALS } from '/models/lib/checklistResetSchedule';
+import { selectBulkCheckItemIds } from '/models/lib/checklistBulkCheck';
 const { SimpleSchema } = require('/imports/simpleSchema');
 
 const Checklists = new Mongo.Collection('checklists');
@@ -245,16 +246,28 @@ Checklists.helpers({
     }
     return ret;
   },
+  // #2473: "Check all items" / "Uncheck all items" on the checklist's action
+  // menu. selectBulkCheckItemIds() (models/lib/checklistBulkCheck.js, unit
+  // tested there) is what decides WHICH items belong to this checklist - kept
+  // pure/testable so "every item of this checklist, regardless of starting
+  // state" and "items of any other checklist are untouched" can be asserted
+  // without a database.
   async checkAllItems() {
     const checkItems = await ReactiveCache.getChecklistItems({ checklistId: this._id });
+    const ids = selectBulkCheckItemIds(checkItems, this._id);
     for (const item of checkItems) {
-      await item.check();
+      if (ids.includes(item._id)) {
+        await item.check();
+      }
     }
   },
   async uncheckAllItems() {
     const checkItems = await ReactiveCache.getChecklistItems({ checklistId: this._id });
+    const ids = selectBulkCheckItemIds(checkItems, this._id);
     for (const item of checkItems) {
-      await item.uncheck();
+      if (ids.includes(item._id)) {
+        await item.uncheck();
+      }
     }
   },
   itemIndex(itemId) {

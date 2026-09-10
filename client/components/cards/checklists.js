@@ -409,6 +409,25 @@ Template.checklistActionsPopup.events({
   'click .js-move-checklist': Popup.open('moveChecklist'),
   'click .js-copy-checklist': Popup.open('copyChecklist'),
   'click .js-set-checklist-reset-interval': Popup.open('checklistResetInterval'),
+  // #2473: bulk check/uncheck every item of this checklist in one action,
+  // reusing the same checkAllItems()/uncheckAllItems() model helpers the
+  // Rules automation already uses per-item (server/rulesHelper.js).
+  'click .js-check-all-checklist-items'(event) {
+    event.preventDefault();
+    const checklist = Template.currentData().checklist;
+    if (checklist) {
+      checklist.checkAllItems();
+    }
+    Popup.back();
+  },
+  'click .js-uncheck-all-checklist-items'(event) {
+    event.preventDefault();
+    const checklist = Template.currentData().checklist;
+    if (checklist) {
+      checklist.uncheckAllItems();
+    }
+    Popup.back();
+  },
   'click .js-hide-checked-checklist-items'(event) {
     event.preventDefault();
     Template.currentData().checklist.toggleHideCheckedChecklistItems();

@@ -211,6 +211,12 @@ template(name="checklistActionsPopup")
       a.js-set-checklist-reset-interval.checklist-reset-interval
         i.fa.fa-refresh
         | {{_ "checklist-reset-interval"}} ...
+      a.js-check-all-checklist-items.check-all-checklist-items
+        i.fa.fa-check-square-o
+        | {{_ "checkAllItems"}}
+      a.js-uncheck-all-checklist-items.uncheck-all-checklist-items
+        i.fa.fa-square-o
+        | {{_ "uncheckAllItems"}}
       a.js-hide-checked-checklist-items
         i.fa.fa-eye-slash
         | {{_ "hideCheckedChecklistItems"}} ...
