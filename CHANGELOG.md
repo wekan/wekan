@@ -422,6 +422,30 @@ cards than lists.
 
 </details>
 
+**Time tracking** - the Time board view.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/070a1ad10bdf9a5ad64f2ee7346ff05e8392f7d9">The Time view now reports hours by assignee/card, and exports to PDF/Excel like every other chart view</a>. Thanks to xet7.</summary>
+
+[#812](https://github.com/wekan/wekan/issues/812)'s 39-comment thread
+repeatedly asked for external timesheet integrations (Kimai, Harvest,
+Titra) that were never resourced - the maintainer's own 2021 comment
+quotes a ~1000 EUR / 4-month estimate for a Kimai sync, shelved shortly
+after. What the thread DID converge on that fits inside WeKan itself:
+"reporting total hours by resource and task type" (the issue's own words),
+and export - both added here without any external service.
+
+The Time view now shows, alongside its existing 3-row summary kept exactly
+as it was, an hours-by-assignee breakdown (summing each card's logged time
+per assignee, not counting cards) and an hours-by-card breakdown, scoped to
+non-archived cards. `time` is registered as a real chart key alongside
+Dashboard/Burndown/Gantt/etc., so it exports to PDF/Excel through the exact
+same `/api/boards/:boardId/charts/:chartKey/export*` routes every other
+board report chart already uses, rather than a second export pipeline just
+for Time.
+
+</details>
+
 and fixes the following bugs:
 
 **Board reports** - the Dashboard and the 10 board report chart views.
