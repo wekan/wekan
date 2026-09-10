@@ -428,7 +428,7 @@ cards than lists.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/5ec0b51fef87ed4f5ab3491a7b105c8950868ff">Show a card's comments directly on the minicard, opt-in</a>. Thanks to Meeques and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/0e7a648464416b981a9062dc8aecd975f45a656c">Show a card's comments directly on the minicard, opt-in</a>. Thanks to Meeques and xet7.</summary>
 
 Board Settings / Card gets a new "Comments on minicard" row, following the
 same allowsX/allowsXOnMinicard pattern already used by Received date and

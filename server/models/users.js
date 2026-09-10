@@ -93,6 +93,7 @@ function assertSafeAvatarUrl(avatarUrl) {
 import ImpersonatedUsers from '/models/impersonatedUsers';
 import Avatars from '/models/avatars';
 import Boards from '/models/boards';
+import Cards from '/models/cards';
 const {
   isStarrablePageUrl, toggleStarredPage, moveStarredPage,
 } = require('/models/lib/starredPages');
@@ -482,6 +483,48 @@ Meteor.methods({
       : { $set: { 'profile.defaultBoardId': boardId } };
 
     await Users.updateAsync(this.userId, updateObject);
+  },
+
+  // #4205: toggle a "Board Templates" swimlane card (cardType-linkedBoard) as
+  // this user's default board template. Marking a default lets plain "type a
+  // name and click Create" board creation apply it automatically instead of
+  // starting blank; clicking the current default clears it. Only a card the
+  // caller can actually apply (their own templates board, still a live linked
+  // board card) may be set, so a stale/foreign id can never be stored.
+  async toggleDefaultBoardTemplate(cardId) {
+    check(cardId, String);
+    if (!this.userId) throw new Meteor.Error('not-logged-in', 'User must be logged in');
+    const user = await Users.findOneAsync(this.userId);
+    if (!user) throw new Meteor.Error('user-not-found', 'User not found');
+
+    const isDefault = (user.profile && user.profile.defaultBoardTemplateId) === cardId;
+    if (isDefault) {
+      await Users.updateAsync(this.userId, {
+        $unset: {
+          'profile.defaultBoardTemplateId': '',
+          'profile.defaultBoardTemplateBoardId': '',
+        },
+      });
+      return;
+    }
+
+    const templatesBoardId = user.profile && user.profile.templatesBoardId;
+    const card = await Cards.findOneAsync({
+      _id: cardId,
+      type: 'cardType-linkedBoard',
+      boardId: templatesBoardId,
+      archived: false,
+    });
+    if (!card || !card.linkedId) {
+      throw new Meteor.Error('not-found', 'Board template not found');
+    }
+
+    await Users.updateAsync(this.userId, {
+      $set: {
+        'profile.defaultBoardTemplateId': cardId,
+        'profile.defaultBoardTemplateBoardId': card.linkedId,
+      },
+    });
   },
 
   // Star the page the caller is on, or unstar it if it is already starred.
@@ -914,6 +957,24 @@ Meteor.methods({
     user.toggleLabelText(user.hasHiddenMinicardLabelText());
   },
 
+  // #4256: the per-user override of the board's "show label text on
+  // minicards" setting - null/undefined to follow the board's own setting,
+  // or an explicit true/false to always show/hide regardless of the board.
+  // Mirrors the global theme override (profile.globalThemeColor).
+  async setShowLabelTextOverride(value) {
+    if (!this.userId) return;
+    check(value, Match.OneOf(Boolean, null, undefined));
+    if (value === null || value === undefined) {
+      await Users.updateAsync(this.userId, {
+        $unset: { 'profile.showLabelTextOverride': '' },
+      });
+      return;
+    }
+    await Users.updateAsync(this.userId, {
+      $set: { 'profile.showLabelTextOverride': value },
+    });
+  },
+
   async toggleRescueCardDescription() {
     if (!this.userId) return;
     const user = await ReactiveCache.getCurrentUser();
@@ -936,6 +997,18 @@ Meteor.methods({
     const user = await ReactiveCache.getCurrentUser();
     if (!user) return;
     user.setDateFormat(dateFormat);
+  },
+
+  // #4335: per-user, display-only Jalali (Persian/Solar Hijri) calendar
+  // toggle for minicard/card-detail dates. Storage stays Gregorian.
+  async changeCalendarSystem(calendarSystem) {
+    check(calendarSystem, String);
+    if (!['gregorian', 'jalali'].includes(calendarSystem)) {
+      throw new Meteor.Error('invalid-calendar-system');
+    }
+    const user = await ReactiveCache.getCurrentUser();
+    if (!user) return;
+    user.setCalendarSystem(calendarSystem);
   },
 
   async applyListWidth(boardId, listId, width, constraint) {

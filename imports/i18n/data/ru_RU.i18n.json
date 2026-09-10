@@ -1993,6 +1993,8 @@
   "accounts-lockout-user-locked": "Пользователь заблокирован",
   "accounts-lockout-click-to-unlock": "Нажмите, чтобы разблокировать этого пользователя",
   "accounts-lockout-status": "Статус",
+  "admin-people-last-active": "Последняя активность",
+  "admin-people-currently-online": "Сейчас онлайн",
   "admin-people-filter-show": "Показать:",
   "admin-people-filter-all": "Все пользователи",
   "admin-people-filter-locked": "Только заблокированные пользователи",

@@ -716,6 +716,28 @@ Users.attachSchema(
       type: String,
       optional: true,
     },
+    'profile.defaultBoardTemplateId': {
+      /**
+       * #4205: the "Board Templates" swimlane card (cardType-linkedBoard) the
+       * user has marked as their default. When set, creating a board with the
+       * plain "type a name and click Create" flow applies this template
+       * instead of starting blank. Empty/unset means unchanged (blank board)
+       * behavior, exactly as before this feature.
+       */
+      type: String,
+      optional: true,
+    },
+    'profile.defaultBoardTemplateBoardId': {
+      /**
+       * #4205: the actual template board (type 'template-board', the card's
+       * `linkedId`) that `profile.defaultBoardTemplateId` points at, kept in
+       * sync with it. Denormalized so board creation can pass it straight to
+       * the same `copyBoard` method the manual "Template" picker already uses
+       * (client/components/lists/listBody.js), without a second subscription.
+       */
+      type: String,
+      optional: true,
+    },
     'profile.icode': {
       /**
        * icode
@@ -1451,6 +1473,17 @@ Users.helpers({
     return this.getDefaultBoardId() === boardId;
   },
 
+  // #4205: the "Board Templates" card the user has marked as their default
+  // template, applied automatically by the plain "type a name and click
+  // Create" board-creation flow.
+  getDefaultBoardTemplateId() {
+    return (this.profile && this.profile.defaultBoardTemplateId) || null;
+  },
+
+  isDefaultBoardTemplate(cardId) {
+    return this.getDefaultBoardTemplateId() === cardId;
+  },
+
   isAutoWidth(boardId) {
     const { autoWidthBoards = {} } = this.profile || {};
     return autoWidthBoards[boardId] === true;
@@ -1673,6 +1706,18 @@ Users.helpers({
     let _ret = {};
     if (this.profile && this.profile.copyChecklistDialog) {
       _ret = this.profile.copyChecklistDialog;
+    }
+    return _ret;
+  },
+
+  /** returns all confirmed "copy checklist(s) from template card" dialog
+   * field values (#4017)
+   * <li> the board, swimlane, list and (source) card id is stored for each board
+   */
+  getCopyChecklistFromTemplateDialogOptions() {
+    let _ret = {};
+    if (this.profile && this.profile.copyChecklistFromTemplateDialog) {
+      _ret = this.profile.copyChecklistFromTemplateDialog;
     }
     return _ret;
   },
@@ -2235,6 +2280,12 @@ Users.helpers({
     return await Users.updateAsync(this._id, { $set: { 'profile.copyChecklistDialog': currentOptions } });
   },
 
+  async setCopyChecklistFromTemplateDialogOption(boardId, options) {
+    let currentOptions = this.getCopyChecklistFromTemplateDialogOptions();
+    currentOptions[boardId] = options;
+    return await Users.updateAsync(this._id, { $set: { 'profile.copyChecklistFromTemplateDialog': currentOptions } });
+  },
+
   async toggleBoardStar(boardId) {
     const queryKind = this.hasStarred(boardId) ? '$pull' : '$addToSet';
     return await Users.updateAsync(this._id, { [queryKind]: { 'profile.starredBoards': boardId } });
@@ -2247,6 +2298,16 @@ Users.helpers({
       return await Users.updateAsync(this._id, { $unset: { 'profile.defaultBoardId': '' } });
     }
     return await Users.updateAsync(this._id, { $set: { 'profile.defaultBoardId': boardId } });
+  },
+
+  // #4205: toggle this "Board Templates" card as the user's default board
+  // template. Clicking the current default clears it (back to blank-board
+  // creation, unchanged from before this feature).
+  async toggleDefaultBoardTemplate(cardId) {
+    if (this.isDefaultBoardTemplate(cardId)) {
+      return await Users.updateAsync(this._id, { $unset: { 'profile.defaultBoardTemplateId': '' } });
+    }
+    return await Users.updateAsync(this._id, { $set: { 'profile.defaultBoardTemplateId': cardId } });
   },
 
   async setBoardSortIndex(boardId, sortIndex) {

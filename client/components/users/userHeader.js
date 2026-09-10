@@ -381,6 +381,20 @@ Template.changeSettingsPopup.helpers({
       return window.localStorage.getItem('startDayOfWeek');
     }
   },
+  // #4335: display-only Jalali (Persian/Solar Hijri) calendar toggle.
+  calendarSystems() {
+    const currentUser = ReactiveCache.getCurrentUser();
+    const current = currentUser
+      ? currentUser.getCalendarSystem()
+      : window.localStorage.getItem('calendarSystem') || 'gregorian';
+    return [
+      { name: TAPi18n.__('calendar-system-gregorian'), value: 'gregorian' },
+      { name: TAPi18n.__('calendar-system-jalali'), value: 'jalali' },
+    ].map(system => ({
+      ...system,
+      isSelected: system.value === current,
+    }));
+  },
 });
 
 Template.changeSettingsPopup.events({
@@ -454,6 +468,14 @@ Template.changeSettingsPopup.events({
         Meteor.call('changeStartDayOfWeek', startDay);
       } else {
         window.localStorage.setItem('startDayOfWeek', startDay);
+      }
+    }
+    const calendarSystem = templateInstance.$('#calendar-system').val();
+    if (calendarSystem) {
+      if (currentUser) {
+        Meteor.call('changeCalendarSystem', calendarSystem);
+      } else {
+        window.localStorage.setItem('calendarSystem', calendarSystem);
       }
     }
     Popup.back();

@@ -1993,6 +1993,8 @@
   "accounts-lockout-user-locked": "អ្នកប្រើប្រាស់ត្រូវបានចាក់សោ",
   "accounts-lockout-click-to-unlock": "ចុចដើម្បីដោះសោអ្នកប្រើប្រាស់នេះ។",
   "accounts-lockout-status": "ស្ថានភាព",
+  "admin-people-last-active": "សកម្មភាពចុងក្រោយ",
+  "admin-people-currently-online": "កំពុងអនឡាញឥឡូវនេះ",
   "admin-people-filter-show": "បង្ហាញ៖",
   "admin-people-filter-all": "អ្នកប្រើប្រាស់ទាំងអស់។",
   "admin-people-filter-locked": "អ្នកប្រើប្រាស់ចាក់សោតែប៉ុណ្ណោះ",
