@@ -996,6 +996,44 @@ called with the route's `currentBoard._id` directly.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/COMMIT_HASH">Added a "Multi Board Calendar" board view showing every board's dates on one calendar</a>. Thanks to justinr1234 and xet7.</summary>
+
+[#2469](https://github.com/wekan/wekan/issues/2469) referenced
+[Planyway](https://planyway.com/)'s multi-board calendar overlay for
+Trello: a calendar showing due/start/end/received dates for cards across
+every board the user belongs to, not just the currently open board - the
+same "aggregate across all my boards" idea #4223's Bigboard added above,
+rendered as a calendar instead of a stack of mini kanban boards.
+
+Added right after Calendar in the Board View menu, wired the same way as
+every other view (menu entry, `isViewMultiboardCalendar()` helper/
+`boardBody.jade` branch, the `client/lib/utils.js` whitelists, the
+`profile.boardView` schema and a tooltip-name-map entry). It is a
+composition of two already-built pieces rather than a new calendar
+implementation: the single-board Calendar view's own FullCalendar
+rendering (`+fullcalendar`, `calendarView.css`) is reused as-is, fed by
+Bigboard's exact all-boards membership query
+(`multiboardCalendarView.js`'s `multiboardCalendarQuery()`, copied from
+`bigboardView.js`'s `bigboardQuery()`) instead of the single current
+board, subscribing each visible board's `board` composite the same way
+Bigboard does. Every event is prefixed with its board's title (`[Board
+title] Card title`) so entries from different boards stay distinguishable
+on the merged calendar, and clicking an event still navigates to that
+card on its own board, exactly like the single-board Calendar view.
+
+Cross-board drag-to-reschedule is deliberately out of scope for this
+pass - a dragged event's card is not necessarily on the currently open
+board, and moving its date needs more care than the single-board
+Calendar's `eventDrop`/`eventResize`/`select` handlers give it, so this
+view is read-only (`editable: false`, `selectable: false`) and the
+single-board Calendar view's own drag-to-reschedule is untouched.
+`tests/boardViewMenu.test.cjs` pins the menu entry, icon, click handler,
+helper/template branch, schema value, tooltip and template/stylesheet
+registration the same way it already does for Bigboard.
+
+</details>
+
 **All Boards** - the overview and its Clone Board action.
 
 <details>
@@ -1615,6 +1653,52 @@ rule action (`actionType: 'removeAllLabels'`, with no label-selection
 sub-field, unlike the existing per-label actions) calls it from a new
 dropdown entry next to the existing label actions, mirroring how the
 existing "Remove all members" action is wired.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b8a6de1c89331e5786a10ee28abdd9eb9d49ddc8">Added a "card matches advanced filter" rule trigger, reusing the Filter sidebar's own matching code</a>. Thanks to signalcodec and xet7.</summary>
+
+[#3092](https://github.com/wekan/wekan/issues/3092): every existing rule
+trigger only ever tests one simple condition (a label added, a member
+added, ...), while the board's Filter sidebar already has a much richer
+"Advanced Filter" criteria language - labels, custom fields, comparisons,
+and `and`/`or`/`not`. There was no way to fire a rule from that richer
+language at all.
+
+The command-array -> Mongo selector algorithm that used to live only
+inside `client/lib/filter.js`'s `AdvancedFilter` class now lives once, in
+`/imports/lib/advancedFilter.js` (`advancedFilterCommandsToSelector`/
+`advancedFilterStringToSelector`, plus the custom-field/dropdown/date
+resolvers factored out into `buildAdvancedFilterResolversFromCustomFields`).
+The sidebar class was refactored to call the shared function instead of
+keeping its own copy of the parser - no behaviour change there.
+`server/lib/advancedFilterMatch.js` calls the exact same shared function on
+the server: it pre-fetches the board's custom fields once (Meteor 3
+collections are async server-side, so the resolvers are built from a plain
+snapshot rather than backed live by `ReactiveCache` the way the client's
+are), then checks the built selector against the real Cards collection
+(`Cards.findOneAsync({ ...selector, _id })`) - the same Mongo/FerretDB
+query engine the client's minimongo mirrors, so "does this card match" is
+answered identically in both places.
+
+`server/rulesHelper.js`'s `findMatchingRules()` evaluates
+`advancedFilterTrigger` triggers alongside the existing `TriggersDef`-driven
+ones, on every activity that carries a card. Rules only ever fire from real
+Activities (never on every raw write), so the new trigger follows the same
+once-per-meaningful-change discipline every other trigger already has,
+rather than re-evaluating on every database write. The trigger's UI
+(`client/components/rules/triggers/cardTriggers.jade`/`.js`) reuses the
+sidebar's advanced-filter text syntax directly, in a new "When a card
+matches the advanced filter" trigger row - a scoped-down but
+literally-the-same-language integration rather than a parallel UI.
+`tests/ruleAdvancedFilterTrigger.test.cjs` pins a source-pattern negative
+test that no other file redeclares the parser/selector-builder, that both
+call sites import the one shared implementation, representative
+advanced-filter combinations (`=`, `&&`, `||`, `!`) building the expected
+selector, the server resolvers matching custom field names/dropdown values
+the same way the client's do, and fire/no-fire behaviour as a card's custom
+field value crosses into a stored filter's threshold.
 
 </details>
 
@@ -2610,6 +2694,58 @@ a plain card keeps using its own, a stray `coverId` on the placeholder is
 ignored in favor of the real card's, and an unloaded/missing real card
 returns no cover instead of throwing. No new code change was needed here;
 the issue is closed with a pointer to where it was already fixed.
+
+</details>
+
+and adds a GDPR-friendlier alternative to deleting an account:
+
+**Member Settings and Admin Panel / People** - anonymizing an account.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ac4b7e75f">Anonymize an account, self-service or admin-triggered, instead of deleting it</a>. Thanks to Akuket and xet7.</summary>
+
+[#2731](https://github.com/wekan/wekan/issues/2731): the only way to leave no
+personal data behind was Delete Account, which also hard-deletes the Users
+document and prunes every board/card/comment reference to it - losing
+attribution and history entirely, which is more than GDPR requires and more
+than some users want to lose.
+
+`anonymizeUser` (`server/models/users.js`, its decision and update-shape logic
+split into `models/lib/userAnonymization.js` the same way removeUser's cleanup
+plan already lives in `models/lib/userDeletionCleanup.js`) overwrites the
+username, full name, email address and avatar with an anonymized placeholder
+and sets `loginDisabled: true` - the same flag `server/authentication.js`'s
+`validateLoginAttempt` already gates login on - so the account can no longer
+log in. It does NOT prune or touch a single board/card/comment/activity
+reference: those keep pointing at the same `userId`, which now simply
+resolves to the anonymized name, keeping the account's past activity
+structurally intact.
+
+Callable both by the account owner on themselves (a new "Anonymize account"
+button next to Delete in the Edit Profile popup,
+`client/components/users/userHeader.jade`/`.js`) and by an admin on any other
+user (next to the existing delete action in Admin Panel → People,
+`client/components/settings/peopleBody.jade`/`.js`), each behind its own
+irreversible-warning confirmation popup matching the existing delete
+confirmation's pattern. The last remaining administrator cannot be
+anonymized, mirroring removeUser's same guard.
+
+No Admin Panel → Problems entry was added: that log is for attempts an
+attacker controls, and there is no attacker here - anonymizing is a
+privileged action an admin takes on purpose, or a member acting on their own
+account. WeKan has no general admin-action audit log to hook into
+(`server/lib/recoveryAudit.js` is board-deletion-specific); the audit trail
+for this action is the new `anonymized`/`anonymizedAt` fields persisted on
+the Users document itself and visible in Admin Panel → People.
+
+`tests/userAnonymization.test.cjs` is a pure-Node regression guard (no
+Meteor) covering: PII fields are scrubbed and `loginDisabled` is set; the
+update never touches a reference-shaped field (`members`, `assignees`,
+`watchers`, `boardId`, …) - the negative test distinguishing this from
+removeUser's pruning; the same predicate `server/authentication.js` uses
+denies login afterward; both the self-service and admin-triggered paths are
+allowed; and a non-admin cannot anonymize another user, nor can the last
+administrator be anonymized.
 
 </details>
 
