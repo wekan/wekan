@@ -10,8 +10,8 @@ const ldapClient = fs.readFileSync('packages/wekan-ldap/server/ldap.js', 'utf8')
 
 test('card list chooser includes board-wide lists in every swimlane', () => {
   const helper = cardDetails.slice(
-    cardDetails.indexOf('  currentSwimlaneListsSorted() {'),
-    cardDetails.indexOf('  isCurrentListId(', cardDetails.indexOf('  currentSwimlaneListsSorted() {')),
+    cardDetails.indexOf("function currentSwimlaneListsSorted() {"),
+    cardDetails.indexOf("function isCurrentListId(", cardDetails.indexOf('function currentSwimlaneListsSorted() {')),
   );
   assert.match(helper, /selector\.swimlaneId = \{ \$in: \[swimlaneId, null, ''\] \}/);
   assert.doesNotMatch(helper, /getDefaultSwimline/);

@@ -614,12 +614,145 @@ Template.cardDetails.onDestroyed(function () {
   }
 });
 
-Template.cardDetails.helpers({
-  canShowCustomFieldsOnCard() {
-    const board = this?.board?.();
-    return Utils.canModifyCard(this) && board?.allowsCustomFields !== false;
-  },
+// The following are used from one of the cardFieldSection* templates
+// (cardDetails.jade), cardDetailsActionsPopup, or activities.jade - each a
+// SEPARATE template from cardDetails, where a template-local helper
+// (Template.cardDetails.helpers) is invisible, exactly like isDateFormat
+// above. Registered globally so every template that needs them can see
+// them.
+Template.registerHelper('canShowCustomFieldsOnCard', function canShowCustomFieldsOnCard() {
+  const board = this?.board?.();
+  return Utils.canModifyCard(this) && board?.allowsCustomFields !== false;
+});
 
+Template.registerHelper('stickers', function stickers() {
+  const card = Template.currentData();
+  return card && typeof card.getStickers === 'function' ? card.getStickers() : [];
+});
+
+Template.registerHelper('isWatching', function isWatching() {
+  const card = Template.currentData();
+  if (!card || typeof card.findWatcher !== 'function') return false;
+  const realCard = typeof card.getRealCard === 'function' ? card.getRealCard() : card;
+  return realCard.findWatcher(Meteor.userId());
+});
+
+// #6081: number of times this card's due date has been changed, for
+// accountability. Returns 0 when unavailable so the template can hide it.
+Template.registerHelper('dueDateChangeCount', function dueDateChangeCount() {
+  const card = Template.currentData();
+  if (!card || typeof card.getDueDateChangeCount !== 'function') return 0;
+  return card.getDueDateChangeCount();
+});
+
+// Returns the card's locations (multiple supported), each enriched with the
+// coordinate flag and OpenStreetMap link used by the template.
+Template.registerHelper('getLocations', function getLocations() {
+  const card = Template.currentData();
+  if (!card || !card.getLocations) return [];
+  const user = ReactiveCache.getCurrentUser();
+  const provider = user ? user.getMapProvider() : 'openstreetmap';
+  return card.getLocations().map(loc => {
+    const hasCoordinates =
+      typeof loc.latitude === 'number' && typeof loc.longitude === 'number';
+    const mapUrl = hasCoordinates
+      ? mapLinkFor(provider, loc.latitude, loc.longitude)
+      : '';
+    return { ...loc, hasCoordinates, mapUrl };
+  });
+});
+
+// #3392: PI Program Board "Red Strings". Resolve this card's dependencies
+// into card objects (with relation type, color, icon and a relative link).
+Template.registerHelper('getDependencyCards', function getDependencyCards() {
+  const card = Template.currentData();
+  if (!card || typeof card.getDependencies !== 'function') return [];
+  return card
+    .getDependencies()
+    .map(dep => {
+      const target = ReactiveCache.getCard(dep.cardId);
+      if (!target) return null;
+      return {
+        card: target,
+        linkUrl: target.originRelativeUrl(),
+        type: dep.type,
+        color: dep.color,
+        icon: dep.icon,
+        typeLabel: `dependency-type-${dep.type}`,
+        // Per-row relation-type dropdown options with the current one marked.
+        typeOption: DEPENDENCY_TYPES.map(t => ({
+          id: t.id,
+          label: `dependency-type-${t.id}`,
+          selected: t.id === dep.type,
+        })),
+      };
+    })
+    .filter(Boolean);
+});
+
+Template.registerHelper('customFieldsGrid', function customFieldsGrid() {
+  return ReactiveCache.getCurrentUser().hasCustomFieldsGrid();
+});
+
+Template.registerHelper('showActivities', function showActivities() {
+  const card = Template.currentData();
+  const realCard = card && typeof card.getRealCard === 'function'
+    ? card.getRealCard()
+    : card;
+  return realCard && realCard.showActivities;
+});
+
+Template.registerHelper('showVotingButtons', function showVotingButtons() {
+  const card = Template.currentData();
+  // #6420: currentUser was referenced but never defined here, so the helper
+  // threw "ReferenceError: currentUser is not defined" on every card render and
+  // the voting buttons disappeared. Define it and guard the board-member call.
+  const currentUser = ReactiveCache.getCurrentUser();
+  return (
+    currentUser &&
+    (currentUser.isBoardMember() || card.voteAllowNonBoardMembers()) &&
+    !card.expiredVote()
+  );
+});
+
+Template.registerHelper('showPlanningPokerButtons', function showPlanningPokerButtons() {
+  const card = Template.currentData();
+  // #6420: same as showVotingButtons — currentUser was undefined here.
+  const currentUser = ReactiveCache.getCurrentUser();
+  return (
+    currentUser &&
+    (currentUser.isBoardMember() || card.pokerAllowNonBoardMembers()) &&
+    !card.expiredPoker()
+  );
+});
+
+Template.registerHelper('currentSwimlaneListsSorted', function currentSwimlaneListsSorted() {
+  const card = Template.currentData();
+  if (!card || !card.boardId) return [];
+  const board = ReactiveCache.getBoard(card.boardId);
+  if (!board) return [];
+  const swimlaneId = card.swimlaneId;
+  const selector = { boardId: card.boardId, archived: false };
+  if (swimlaneId) {
+    // Board-wide lists have no swimlaneId. They are shared by EVERY
+    // swimlane, not only by the first/default one. Restricting this fallback
+    // to the default swimlane made the List chooser (and move/copy chooser)
+    // empty for valid cards in every later swimlane (#6614/#6618).
+    selector.swimlaneId = { $in: [swimlaneId, null, ''] };
+  }
+  return ReactiveCache.getLists(selector, { sort: { sort: 1 } });
+});
+
+Template.registerHelper('isCurrentListId', function isCurrentListId(listId) {
+  let data = Template.currentData();
+  if (!data || typeof data.listId === 'undefined') {
+    data = Template.parentData(1);
+  }
+  if (!data || typeof data.listId === 'undefined') return false;
+  return data.listId == listId;
+});
+
+Template.cardDetails.helpers({
   // #4448: the order the reorderable card-detail sections (Labels, Dates,
   // Members, Custom Fields, Description) render in, resolved from the
   // board's stored setting. models/lib/cardFieldOrder.js
@@ -632,88 +765,12 @@ Template.cardDetails.helpers({
     return applyCardFieldOrder(board?.cardFieldOrder);
   },
 
-  stickers() {
-    const card = Template.currentData();
-    return card && typeof card.getStickers === 'function' ? card.getStickers() : [];
-  },
-  isWatching() {
-    const card = Template.currentData();
-    if (!card || typeof card.findWatcher !== 'function') return false;
-    const realCard = typeof card.getRealCard === 'function' ? card.getRealCard() : card;
-    return realCard.findWatcher(Meteor.userId());
-  },
-
-  // #6081: number of times this card's due date has been changed, for
-  // accountability. Returns 0 when unavailable so the template can hide it.
-  dueDateChangeCount() {
-    const card = Template.currentData();
-    if (!card || typeof card.getDueDateChangeCount !== 'function') return 0;
-    return card.getDueDateChangeCount();
-  },
-
-  // Returns the card's locations (multiple supported), each enriched with the
-  // coordinate flag and OpenStreetMap link used by the template.
-  getLocations() {
-    const card = Template.currentData();
-    if (!card || !card.getLocations) return [];
-    const user = ReactiveCache.getCurrentUser();
-    const provider = user ? user.getMapProvider() : 'openstreetmap';
-    return card.getLocations().map(loc => {
-      const hasCoordinates =
-        typeof loc.latitude === 'number' && typeof loc.longitude === 'number';
-      const mapUrl = hasCoordinates
-        ? mapLinkFor(provider, loc.latitude, loc.longitude)
-        : '';
-      return { ...loc, hasCoordinates, mapUrl };
-    });
-  },
-
-  // #3392: PI Program Board "Red Strings". Resolve this card's dependencies
-  // into card objects (with relation type, color, icon and a relative link).
-  getDependencyCards() {
-    const card = Template.currentData();
-    if (!card || typeof card.getDependencies !== 'function') return [];
-    return card
-      .getDependencies()
-      .map(dep => {
-        const target = ReactiveCache.getCard(dep.cardId);
-        if (!target) return null;
-        return {
-          card: target,
-          linkUrl: target.originRelativeUrl(),
-          type: dep.type,
-          color: dep.color,
-          icon: dep.icon,
-          typeLabel: `dependency-type-${dep.type}`,
-          // Per-row relation-type dropdown options with the current one marked.
-          typeOption: DEPENDENCY_TYPES.map(t => ({
-            id: t.id,
-            label: `dependency-type-${t.id}`,
-            selected: t.id === dep.type,
-          })),
-        };
-      })
-      .filter(Boolean);
-  },
-
-  customFieldsGrid() {
-    return ReactiveCache.getCurrentUser().hasCustomFieldsGrid();
-  },
-
   cardMaximized() {
     const currentUser = ReactiveCache.getCurrentUser();
     const maximized = currentUser
       ? currentUser.hasCardMaximized()
       : window.localStorage.getItem('cardMaximized') === 'true';
     return !Utils.getPopupCardId() && maximized;
-  },
-
-  showActivities() {
-    const card = Template.currentData();
-    const realCard = card && typeof card.getRealCard === 'function'
-      ? card.getRealCard()
-      : card;
-    return realCard && realCard.showActivities;
   },
 
   cardCollapsed() {
@@ -753,59 +810,9 @@ Template.cardDetails.helpers({
     return result;
   },
 
-  showVotingButtons() {
-    const card = Template.currentData();
-    // #6420: currentUser was referenced but never defined here, so the helper
-    // threw "ReferenceError: currentUser is not defined" on every card render and
-    // the voting buttons disappeared. Define it and guard the board-member call.
-    const currentUser = ReactiveCache.getCurrentUser();
-    return (
-      currentUser &&
-      (currentUser.isBoardMember() || card.voteAllowNonBoardMembers()) &&
-      !card.expiredVote()
-    );
-  },
-
-  showPlanningPokerButtons() {
-    const card = Template.currentData();
-    // #6420: same as showVotingButtons — currentUser was undefined here.
-    const currentUser = ReactiveCache.getCurrentUser();
-    return (
-      currentUser &&
-      (currentUser.isBoardMember() || card.pokerAllowNonBoardMembers()) &&
-      !card.expiredPoker()
-    );
-  },
-
   isVerticalScrollbars() {
     const user = ReactiveCache.getCurrentUser();
     return user && user.isVerticalScrollbars();
-  },
-
-  currentSwimlaneListsSorted() {
-    const card = Template.currentData();
-    if (!card || !card.boardId) return [];
-    const board = ReactiveCache.getBoard(card.boardId);
-    if (!board) return [];
-    const swimlaneId = card.swimlaneId;
-    const selector = { boardId: card.boardId, archived: false };
-    if (swimlaneId) {
-      // Board-wide lists have no swimlaneId. They are shared by EVERY
-      // swimlane, not only by the first/default one. Restricting this fallback
-      // to the default swimlane made the List chooser (and move/copy chooser)
-      // empty for valid cards in every later swimlane (#6614/#6618).
-      selector.swimlaneId = { $in: [swimlaneId, null, ''] };
-    }
-    return ReactiveCache.getLists(selector, { sort: { sort: 1 } });
-  },
-
-  isCurrentListId(listId) {
-    let data = Template.currentData();
-    if (!data || typeof data.listId === 'undefined') {
-      data = Template.parentData(1);
-    }
-    if (!data || typeof data.listId === 'undefined') return false;
-    return data.listId == listId;
   },
 
   isLoaded() {
@@ -1461,18 +1468,25 @@ Template.cardDetails.events({
   },
 });
 
+// isDateFormat is used by cardFieldSectionDates.jade's date-format
+// selector, a SEPARATE template from cardDetails - a template-local helper
+// (Template.cardDetails.helpers) is invisible there, which threw "No such
+// function: isDateFormat" the instant that section rendered and broke
+// opening the card popup entirely. Registered globally, like isSectionOpen
+// just below, so every template can see it.
+Template.registerHelper('isDateFormat', function isDateFormat(format) {
+  const currentUser = ReactiveCache.getCurrentUser();
+  if (!currentUser) {
+    const stored = window.localStorage.getItem('dateFormat') || 'YYYY-MM-DD';
+    return format === stored;
+  }
+  return currentUser.getDateFormat() === format;
+});
+
 Template.cardDetails.helpers({
   isPopup() {
     let ret = !!Utils.getPopupCardId();
     return ret;
-  },
-  isDateFormat(format) {
-    const currentUser = ReactiveCache.getCurrentUser();
-    if (!currentUser) {
-      const stored = window.localStorage.getItem('dateFormat') || 'YYYY-MM-DD';
-      return format === stored;
-    }
-    return currentUser.getDateFormat() === format;
   },
   // Upload progress helpers
   hasActiveUploads() {
