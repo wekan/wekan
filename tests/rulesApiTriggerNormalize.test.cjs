@@ -308,7 +308,11 @@ test('removeMember "*" iterates the assignees, and tolerates a card with none', 
 });
 
 test('member actions resolve the user defensively and await the card writes', () => {
-  assert.ok(/if \(action\.actionType === 'addMember'\) \{\s*\n\s*const member = await ReactiveCache\.getUser\(\{ username: action\.username \}\);\s*\n\s*if \(member\) \{\s*\n\s*await card\.assignMember\(member\._id\);/.test(rulesHelperSrc));
+  // #2522: addMember gained an acting-user sentinel branch alongside the
+  // original fixed-member lookup, so this no longer matches immediately
+  // after the actionType check - the fixed-member lookup is still there,
+  // in the else branch.
+  assert.ok(/const member = await ReactiveCache\.getUser\(\{ username: action\.username \}\);\s*\n\s*if \(member\) \{\s*\n\s*await card\.assignMember\(member\._id\);/.test(rulesHelperSrc));
   assert.ok(/await card\.unassignMember\(member\._id\);/.test(rulesHelperSrc));
   assert.ok(rulesHelperSrc.includes('not found; skipping.'));
 });

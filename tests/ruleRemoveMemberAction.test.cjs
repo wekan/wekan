@@ -37,7 +37,12 @@ const removeBlock = (() => {
 const addBlock = (() => {
   const start = src.indexOf("action.actionType === 'addMember'");
   assert.ok(start > -1, 'addMember action must exist');
-  return src.slice(start, start + 400);
+  // #2522: the block grew to cover the acting-user sentinel branch as well
+  // as the original fixed-member branch, so slice up to the next action
+  // instead of a fixed byte count.
+  const end = src.indexOf("if (action.actionType === 'removeMember')", start);
+  assert.ok(end > start, 'removeMember action must follow addMember');
+  return src.slice(start, end);
 })();
 
 check('addMember assigns (writes card.assignees via assignMember)', () => {
