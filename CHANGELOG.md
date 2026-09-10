@@ -711,6 +711,36 @@ drag gesture is a faster path to the same outcome, not a new concept.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/73128dd7fc289406709c331ebed3c20180faf43d">A checklist can now automatically uncheck all its items on a daily, weekly or monthly schedule</a>. Thanks to travelg and xet7.</summary>
+
+[#3818](https://github.com/wekan/wekan/issues/3818) asked for a Trello-like
+daily checklist that resets itself, and
+[#4729](https://github.com/wekan/wekan/issues/4729) asked for the same idea
+on a longer, configurable schedule ("timed reset on boards") - both are the
+same underlying feature, a checklist that periodically un-checks its own
+items, so they are implemented together here.
+
+`Checklists` gained an optional `resetInterval` (`'none'` by default, or
+`'daily'`/`'weekly'`/`'monthly'`) and a `lastResetAt` timestamp, set from a
+new "Automatic reset" entry on the checklist's own actions menu, next to
+Move/Copy Checklist. Whether a checklist is due now is a pure, unit-tested
+function (`models/lib/checklistResetSchedule.js`) that counts forward from
+`lastResetAt` (or `createdAt`, before the first automatic reset) by the
+chosen interval - monthly advances by a calendar month rather than a fixed
+~30-day span, so a checklist reset on the 31st does not drift earlier every
+few months.
+
+The actual scan (`server/checklistResetSchedule.js`) reuses the
+`quave:synced-cron` infrastructure `server/scheduledRules.js` already
+registers its own job on, rather than adding a second scheduler: it runs
+hourly, finds every checklist whose interval has come due, and unchecks
+only that checklist's items with a single multi-update - not the per-item
+`uncheck()` helper - so an automatic reset does not generate a per-item
+activity for a change nobody made.
+
+</details>
+
 **Comments and activities** - a card's comment thread and its activity log.
 
 <details>
