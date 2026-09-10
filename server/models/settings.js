@@ -13,6 +13,7 @@ import { Authentication } from '/server/authentication';
 import { sendJsonResult } from '/server/apiMiddleware';
 import RecoveryEvents from '/models/recoveryEvents';
 import { recordRecoveryAudit } from '/server/lib/recoveryAudit';
+const { buildOauthLogoutUrl } = require('/server/lib/oauthLogoutUrl');
 const { parseCardsLoadingEnv, cardsLoadingLazyThreshold } = require('/models/lib/cardsLoading');
 const {
   normalizeInviteEmail,
@@ -547,17 +548,12 @@ Meteor.methods({
   // via post_logout_redirect_uri, instead of dumping them on the provider's home
   // page (which errors for non-admin users). See issue #6158.
   getOauthLogoutUrl() {
-    const endpoint = process.env.OAUTH2_LOGOUT_ENDPOINT;
-    if (!endpoint) return '';
-    const serverUrl = (process.env.OAUTH2_SERVER_URL || '').replace(/\/$/, '');
-    const base = /^https?:\/\//.test(endpoint) ? endpoint : serverUrl + endpoint;
-    const params = [
-      'post_logout_redirect_uri=' + encodeURIComponent(Meteor.absoluteUrl()),
-    ];
-    if (process.env.OAUTH2_CLIENT_ID) {
-      params.push('client_id=' + encodeURIComponent(process.env.OAUTH2_CLIENT_ID));
-    }
-    return base + (base.includes('?') ? '&' : '?') + params.join('&');
+    return buildOauthLogoutUrl({
+      endpoint: process.env.OAUTH2_LOGOUT_ENDPOINT,
+      serverUrl: process.env.OAUTH2_SERVER_URL,
+      clientId: process.env.OAUTH2_CLIENT_ID,
+      redirectUri: Meteor.absoluteUrl(),
+    });
   },
 
   getDefaultAuthenticationMethod() {
