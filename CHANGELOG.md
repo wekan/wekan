@@ -1136,6 +1136,28 @@ old localStorage-only toggle, now falling back to the board's own setting.
 
 </details>
 
+**Rules (IFTTT)** - the card actions a rule can run.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1c97bbac854f0504376cc3be5f0d99627c4f403d">Added a "Remove all labels" rule action</a>. Thanks to basketball00011 and xet7.</summary>
+
+[#3432](https://github.com/wekan/wekan/issues/3432): the existing per-label
+"add label X" / "remove label X" card actions
+(`models/cards.js` `addLabel`/`removeLabel`, wired in
+`server/rulesHelper.js` and the label dropdown in
+`client/components/rules/actions/cardActions.jade`/`.js`) only ever
+touched one label at a time, so clearing every label from a card needed
+one "remove label" action per label in the rule.
+
+`Card.removeAllLabels()` sets `labelIds` to an empty array in a single
+update (a card with no labels is a no-op), and a new "Remove all labels"
+rule action (`actionType: 'removeAllLabels'`, with no label-selection
+sub-field, unlike the existing per-label actions) calls it from a new
+dropdown entry next to the existing label actions, mirroring how the
+existing "Remove all members" action is wired.
+
+</details>
+
 and fixes the following bugs:
 
 **Board reports** - the Dashboard and the 10 board report chart views.
