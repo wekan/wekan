@@ -272,7 +272,18 @@ so it needs a maintainer decision on the URL/version contract (a `?v=thumbnail`
 query parameter vs. a distinct route, and whether older attachments get a
 backfill or only fall back to the original) before it is safe to build without
 colliding with that other in-flight change),
-.
+[#3249](https://github.com/wekan/wekan/issues/3249) ("semi-open" boards -
+visible to every logged-in user but excluded from search-engine indexing.
+WeKan's `permission` field is only `public`/`private` today
+(`models/boards.js`); there is no `noindex`/robots concept anywhere in the
+codebase. A third tier is more than a flag: it changes what the Public
+Boards page, the board publication's visibility selector
+(`models/lib/boardVisibilitySelectors.js`) and the sitemap/robots routing
+all mean by "public", and needs a decision on the exact rule - e.g. any
+logged-in user vs. only this instance's users, and whether search engines
+are kept out via `robots.txt`/`noindex` meta or by the board simply never
+appearing in an unauthenticated response - before it is worth adding as a
+third `permission` value alongside `public`/`private`).
 
 </details>
 
@@ -1593,6 +1604,46 @@ and the board publication's visibility selector already matches
 (`models/lib/boardVisibilitySelectors.js`). No code change was needed;
 `tests/issue3310FeatureRequests.test.cjs` now pins all three so they cannot
 silently regress.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4d9282359e27a0e396daa50e1951d40430d005b6">A global Admin Panel admin can now edit or delete any board, even one none of whose members are left</a>. Thanks to relikd and xet7.</summary>
+
+[#3249](https://github.com/wekan/wekan/issues/3249): a board created by a
+user who later left the organization - or was removed as an admin - ended
+up with nobody able to touch it, not even through the Admin Panel: renaming
+it, changing its description/visibility, adding a label, removing a member
+or archiving/deleting it all went through the board's own `Boards.allow`
+`update`/`remove` rule, which only checked `board.hasAdmin(userId)` against
+that board's own member list. `inviteUserToBoard` already bypassed this for
+a global site admin (`user.isAdmin`); the whole-board update/remove rule did
+not, so an orphaned board's settings and membership were permanently stuck.
+
+`server/lib/utils.js` gets `isBoardAdminOrSiteAdmin` (a small pure decision
+function) and the async `allowIsBoardAdminOrSiteAdmin` wrapper that looks up
+the caller's global `isAdmin` flag; `server/permissions/boards.js`'s
+`update`/`remove` rules now use it instead of the board-only
+`allowIsBoardAdmin`. The bypass is scoped to that one rule only - the
+narrower `rules`/`actions`/`triggers`/`cardComments` allow rules
+deliberately keep the board-only check, which a negative test pins so the
+wider bypass cannot spread there by accident.
+
+Two related asks from the same report turned out to already be covered:
+permanently deleting a board (as opposed to only archiving it) already
+exists as the Global-Admin-only, feature-flag-gated "Archive -> permanent
+delete" action added for [#6643](https://github.com/wekan/wekan/issues/6643)
+(`permanentlyDeleteArchivedBoards`, `server/models/boards.js`), which never
+required board membership in the first place; and Teams/Organizations
+already auto-grant board access, including to a member who joins the team
+*after* it was added to the board ([#4593](https://github.com/wekan/wekan/issues/4593),
+`models/lib/teamBoardMemberSync.js`). The report's third ask - a "semi-open"
+board tier visible to every logged-in user but excluded from search-engine
+indexing - is a real gap (WeKan's `permission` field is only
+`public`/`private`, with no noindex concept anywhere), but changes what
+"public" means across the Public Boards page, the visibility selector and
+sitemap/robots routing, so it needs a maintainer decision on the exact rule
+before it is built; see TODO Later.
 
 </details>
 

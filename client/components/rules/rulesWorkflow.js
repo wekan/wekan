@@ -27,6 +27,8 @@ const TRIGGER_PALETTE = [
   { labelKey: 'r-w-label-removed', doc: { activityType: 'removedLabel', labelId: '*', userId: '*' } },
   { labelKey: 'r-w-member-added', doc: { activityType: 'joinMember', username: '*', userId: '*' } },
   { labelKey: 'r-w-member-removed', doc: { activityType: 'unjoinMember', username: '*', userId: '*' } },
+  { labelKey: 'r-w-assignee-added', doc: { activityType: 'joinAssignee', username: '*', userId: '*' } },
+  { labelKey: 'r-w-assignee-removed', doc: { activityType: 'unjoinAssignee', username: '*', userId: '*' } },
   { labelKey: 'r-w-checklist-added', doc: { activityType: 'addChecklist', checklistName: '*', userId: '*' } },
   { labelKey: 'r-w-attachment-added', doc: { activityType: 'addAttachment', userId: '*' } },
   { labelKey: 'r-w-every-day-at', labelParams: { time: '09:00' }, doc: { activityType: 'scheduledTrigger', scheduleKind: 'calendar', scheduleType: 'daily', atTime: '09:00', listName: '*', swimlaneName: '*' } },

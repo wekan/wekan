@@ -111,6 +111,51 @@ Template.cardTriggers.events({
       });
     }
   },
+  'click .js-add-gen-assignee-trigger'(event, tpl) {
+    const desc = Utils.getTriggerActionDesc(event, tpl);
+    const datas = Template.currentData();
+    const actionSelected = tpl.find('#gen-assignee-action').value;
+    const boardId = Session.get('currentBoard');
+    if (actionSelected === 'added') {
+      datas.triggerVar.set({
+        activityType: 'joinAssignee',
+        boardId,
+        username: '*',
+        desc,
+      });
+    }
+    if (actionSelected === 'removed') {
+      datas.triggerVar.set({
+        activityType: 'unjoinAssignee',
+        boardId,
+        username: '*',
+        desc,
+      });
+    }
+  },
+  'click .js-add-spec-assignee-trigger'(event, tpl) {
+    const desc = Utils.getTriggerActionDesc(event, tpl);
+    const datas = Template.currentData();
+    const actionSelected = tpl.find('#spec-assignee-action').value;
+    const username = tpl.find('#spec-assignee').value;
+    const boardId = Session.get('currentBoard');
+    if (actionSelected === 'added') {
+      datas.triggerVar.set({
+        activityType: 'joinAssignee',
+        boardId,
+        username,
+        desc,
+      });
+    }
+    if (actionSelected === 'removed') {
+      datas.triggerVar.set({
+        activityType: 'unjoinAssignee',
+        boardId,
+        username,
+        desc,
+      });
+    }
+  },
   'click .js-add-attachment-trigger'(event, tpl) {
     const desc = Utils.getTriggerActionDesc(event, tpl);
     const datas = Template.currentData();

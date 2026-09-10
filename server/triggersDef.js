@@ -36,6 +36,12 @@ export const TriggersDef = {
   unjoinMember: {
     matchingFields: ['boardId', 'username', 'userId'],
   },
+  joinAssignee: {
+    matchingFields: ['boardId', 'username', 'userId'],
+  },
+  unjoinAssignee: {
+    matchingFields: ['boardId', 'username', 'userId'],
+  },
   addChecklist: {
     matchingFields: ['boardId', 'checklistName', 'userId'],
   },
