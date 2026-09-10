@@ -1197,6 +1197,7 @@ const BOARD_CARD_SETTING_KEYS = [
   'allowsDueDateOnMinicard',
   'allowsSubtasksOnMinicard',
   'allowsShowListsOnMinicard',
+  'showLabelText',
 ];
 
 // #3984: numeric card-settings keys (parsed as integers, not booleans). These are
