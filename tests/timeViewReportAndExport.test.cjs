@@ -18,7 +18,9 @@ const read = file => fs.readFileSync(path.join(root, file), 'utf8');
 // --- 'time' is a real, exportable chartKey, alongside every other board
 // report chart - not a second, parallel export pipeline just for Time.
 const exportCharts = read('models/exportCharts.js');
-assert.match(exportCharts, /const CHART_KEYS = new Set\(\[[\s\S]*?'time',?\s*\]\);/);
+// Match 'time' anywhere inside the Set literal - not necessarily last, since
+// later chart keys (e.g. 'pulse') are appended after it.
+assert.match(exportCharts, /const CHART_KEYS = new Set\(\[[\s\S]*?'time'[\s\S]*?\]\);/);
 
 // --- server/lib/boardChartData.js answers 'time' with an assignee
 // breakdown (hours, not card counts) and a per-card breakdown, scoped to
