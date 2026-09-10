@@ -395,7 +395,25 @@ Template.list.onRendered(function () {
         ? createCardDropPreview(cardDomElement, targetContainer)
         : null;
       const currentBoard = Utils.getCurrentBoard();
-      const defaultSwimlaneId = currentBoard.getDefaultSwimline()._id;
+      // #3298: the drop target list may belong to a DIFFERENT board than the
+      // one the page is currently routed to. The Bigboard view (#4223) stacks
+      // several boards' lists on one page, and the cards sortable's
+      // `connectWith: '.js-minicards:not(.js-list-full)'` above already
+      // connects across ALL of them (list-level dragging is the one scoped to
+      // stay within a board, via connectWithSelector() in swimlanes.js), so a
+      // card can legitimately be dropped into a list owned by another board
+      // entirely. Use the DESTINATION list's own boardId - already available
+      // on listData - rather than the route's current board, so the move
+      // lands on the right board when it crosses one. currentBoard is still
+      // used below for the CURRENT page's view-mode checks (swimlanes view /
+      // templates board), which describe how the page being dragged IN is
+      // laid out, not which board owns the drop target.
+      const targetBoardId = listData.boardId || currentBoard._id;
+      const targetBoard =
+        targetBoardId === currentBoard._id
+          ? currentBoard
+          : ReactiveCache.getBoard(targetBoardId);
+      const defaultSwimlaneId = targetBoard.getDefaultSwimline()._id;
       let targetSwimlaneId = null;
 
       // only set a new swimelane ID if the swimlanes view is active
@@ -449,7 +467,7 @@ Template.list.onRendered(function () {
             ? targetSwimlaneId
             : card.swimlaneId || defaultSwimlaneId;
           card.move(
-            currentBoard._id,
+            targetBoardId,
             newSwimlaneId,
             listId,
             sortIndex.base + i * sortIndex.increment,
@@ -461,7 +479,7 @@ Template.list.onRendered(function () {
           ? targetSwimlaneId
           : card.swimlaneId || defaultSwimlaneId;
         const moveResult = card.move(
-          currentBoard._id,
+          targetBoardId,
           newSwimlaneId,
           listId,
           sortIndex.base,
