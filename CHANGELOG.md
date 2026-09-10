@@ -2062,6 +2062,30 @@ case-insensitivity.
 
 </details>
 
+**Notification emails** - the HTML-formatted card/board activity notification email.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b6da4ebe9652f42e8923aa24afc52eb4885f7b51">A card/board URL in an HTML notification email is now a real clickable link</a>. Thanks to papimla and xet7.</summary>
+
+The HTML-formatted notification email (`server/notifications/email.js`,
+`htmlEnabled` gated on `RICHER_CARD_COMMENT_EDITOR`) built its body from the
+same plain-text line used for the non-HTML email - actor, translated
+description, then the card/board's absolute URL - and merely escaped and
+`<br/>`-ified the whole thing. That left the URL sitting as bare text a
+mail client might happen to auto-link, not a real `<a href>` the way every
+other part of the HTML email is markup. `buildHtmlNotificationLine()`
+(`models/lib/emailNotificationSafety.js`) now builds the HTML body
+directly: the actor name and translated description are still escaped
+exactly as before (this is the same code path MailTitleBleed hardened, so
+that stays unchanged), and the URL is wrapped in
+`<a href="...">...</a>` - itself escaped before going into both the href
+attribute and the link text, so neither an HTML-active title nor a
+malicious URL can break out of the tag. The plain-text (non-`htmlEnabled`)
+email is untouched and still sends the bare URL as text, which is correct
+there.
+
+</details>
+
 and has the following documentation improvement:
 
 <details>
