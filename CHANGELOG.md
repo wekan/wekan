@@ -756,6 +756,34 @@ for Time.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/COMMIT_HASH">The Time view now also totals remaining time until due, across open cards with a due date</a>. Thanks to Yachikh and xet7.</summary>
+
+[#1121](https://github.com/wekan/wekan/issues/1121) asked for the SUM of
+remaining time until a due date across a list's/board's active cards - "e.g.
+'remaining: 6 days and 9 hours'" in the issue's own words - as a summary,
+alongside the hours-already-spent breakdown the Time view already shows.
+
+`computeRemainingTimeSum(cards, now)` in `models/lib/chartCalculations.js`
+sums `dueAt - now` across the same non-archived card set the hours-by-
+assignee/card breakdown already scopes to, further excluding any card that
+already has a completion date (`endAt`/`archivedAt`) and any card with no
+`dueAt` set at all - "remaining time until due" only means something for a
+card that is both still open and has a due date. An overdue card (its
+`dueAt` already in the past) contributes its NEGATIVE remaining time rather
+than being floored at zero, so the running total shrinks, and can go
+negative, once cards slip past their due date instead of silently hiding
+them. `formatRemainingTime()` renders the total the way the issue asked for,
+"X days, Y hours", with a single leading minus for an overdue total.
+`server/lib/boardChartData.js`'s existing `time` chartKey branch adds this as
+a third `remaining` field alongside `byAssignee`/`byCard`, the Time view
+shows it as a new summary row, and `models/lib/chartExportRows.js`'s `time`
+branch carries it into the PDF/Excel export as its own section - the same
+data, computation and export pipeline the hours breakdown already uses, not
+a second one.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/d8eee59e6f4445c0bfd1d49378cabf10b256ebb5">Added a Flowtime session - start, tally interruptions and stop, feeding the same Spent Time total</a>. Thanks to xet7.</summary>
 
 [#3919](https://github.com/wekan/wekan/issues/3919) asked for Flowtime as an
@@ -1133,8 +1161,33 @@ so no new filtering engine was added. Usernames are resolved to member/assignee
 ids and label names to label ids by a small pure module,
 `client/lib/filterQueryParams.js`, covered by
 `tests/filterQueryParams4540.test.cjs`. This only reads the query params once
-on load; it deliberately does not sync the URL back as filters are changed
-afterwards from the sidebar.
+on load; the other direction - the URL following filters changed from the
+sidebar - is added below.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8ed546422b6b58f67f7d72a5a50f76b6c00de486">Filtering a board from the sidebar now updates the URL too, so the filtered view is itself bookmarkable/shareable</a>. Thanks to netei and xet7.</summary>
+
+[#319](https://github.com/wekan/wekan/issues/319) asked for the reverse of
+\#4540 above: applying a filter interactively should update the URL (e.g.
+`?assignee=johndoe`), not just the URL being able to drive the filter on
+load, so a manually filtered view can be bookmarked or shared without
+hand-typing the query string.
+
+`client/lib/filterQueryParams.js` gained `resolveIdsToUsernames`,
+`resolveIdsToLabelNames` and `buildBoardFilterQueryParams` - the exact
+inverse of the existing parser, reusing the same `assignee`/`member`/`label`
+token vocabulary, so a URL written by one direction is understood by the
+other (pinned by a round-trip test). `SetFilter`
+(`client/lib/filter.js`) gained a reactive `list()` getter so its current
+selection can be read outside the sidebar template. `boardBody.js`'s new
+`syncFilterQueryParams`, run from its own `Tracker.autorun` alongside the
+existing `applyQueryParamFilters` one, resolves
+`Filter.assignees`/`members`/`labelIds` back to names and writes them via
+`FlowRouter.setQueryParams`, wrapped in `FlowRouter.withReplaceState` so
+toggling a filter replaces the current history entry instead of piling up a
+new one per click. Covered by `tests/filterQueryParams319.test.cjs`.
 
 </details>
 
