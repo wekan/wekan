@@ -370,6 +370,14 @@ Blaze.Template.registerHelper(
     if (typeof Markdown !== 'undefined' && Markdown.alwaysShowCodeAsText) {
       Markdown.alwaysShowCodeAsText.set(!!(setting && setting.alwaysShowCodeAsText));
     }
+    // wekan/wekan#3069: same same-render-pass reasoning as alwaysShowCodeAsText
+    // above, for the external issue-tracker autolink pattern.
+    if (typeof Markdown !== 'undefined' && Markdown.externalLinkPattern) {
+      Markdown.externalLinkPattern.set({
+        prefix: (setting && setting.externalLinkPatternPrefix) || '',
+        urlTemplate: (setting && setting.externalLinkPatternUrl) || '',
+      });
+    }
     let content = Blaze.toHTML(view.templateContentBlock);
     // Admin Panel / Features: when "render links as plain text" is enabled, every
     // link (markdown [label](url) and raw HTML <a href>) is stripped to plain,
@@ -525,5 +533,30 @@ Meteor.startup(() => {
     if (typeof Markdown !== 'undefined' && Markdown.alwaysShowCodeAsText) {
       Markdown.alwaysShowCodeAsText.set(!!(setting && setting.alwaysShowCodeAsText));
     }
+    if (typeof Markdown !== 'undefined' && Markdown.externalLinkPattern) {
+      Markdown.externalLinkPattern.set({
+        prefix: (setting && setting.externalLinkPatternPrefix) || '',
+        urlTemplate: (setting && setting.externalLinkPatternUrl) || '',
+      });
+    }
   });
+
+  // wekan/wekan#2453: wire the wekan-markdown package's card-URL relabeling
+  // to a real card lookup. This is a PLAIN function, not something re-set on
+  // every setting change like the two ReactiveVars above - ReactiveCache.getCard
+  // is itself a reactive (Tracker-dependent) lookup, so calling it from inside
+  // the 'markdown' Blaze helper (itself a reactive computation) is what makes
+  // the rendered card title update automatically when the target card is
+  // renamed, and resolve to nothing - falling back to the bare URL - for a
+  // card this client's Minimongo subscription does not have: deleted, or on a
+  // board the current viewer cannot see. Minimongo is already scoped to what
+  // this user is subscribed to, so no separate permission check is needed
+  // here.
+  if (typeof Markdown !== 'undefined') {
+    Markdown.resolveCardTitle = cardId => {
+      if (!cardId) return undefined;
+      const card = ReactiveCache.getCard(cardId);
+      return card && typeof card.title === 'string' ? card.title : undefined;
+    };
+  }
 });

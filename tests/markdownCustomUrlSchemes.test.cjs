@@ -180,7 +180,10 @@ test('the viewer never lets a render failure close the card (negative)', () => {
   // The fix above removes the known crash; this keeps the guarantee when the next
   // one arrives from a plugin, a formula or an upgrade.
   const helper = source.slice(source.indexOf("registerHelper('markdown'"));
-  assert.ok(/try \{/.test(helper) && /Markdown\.render\(text\)/.test(helper),
+  // wekan/wekan#2453: the rendered variable may be reassigned/renamed (e.g.
+  // `textWithCardLinks`) by the card-URL-relabeling step that runs just before
+  // this call - match either name rather than pinning one exact identifier.
+  assert.ok(/try \{/.test(helper) && /Markdown\.render\(\w*[Tt]ext\w*\)/.test(helper),
     'the render has to be inside a try');
   const catchBlock = helper.slice(helper.indexOf('} catch (error)'));
   assert.ok(/escapeHtmlSource\(text\)/.test(catchBlock),
