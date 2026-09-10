@@ -535,6 +535,12 @@ if (Meteor.isServer) {
     if (!board || !(await isAuthorizedForBoard(req, board))) return null;
     const limits = await getAttachmentDownloadLimitSettings();
     if (limits.blocked || (limits.maxBytes > 0 && attachment.size > limits.maxBytes)) return null;
+    // The regular attachment download route repairs a stored name/extension
+    // that no longer matches the file on disk before reading it (fs-path-heal);
+    // document preview must do the same, or getFileStrategy().getReadStream()
+    // resolves the wrong (or no) path and documentAsStoredGifs fails with
+    // "Attachment image stream is unavailable".
+    await normalizeStoredNameOnRead(Attachments, attachment, attachmentStoreFactory);
     return attachment;
   }
 

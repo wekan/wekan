@@ -80,6 +80,25 @@ test('#6685: document preview routes log the real error instead of only returnin
     'each of the three /document-preview/* handlers must log the caught error before returning 415');
 });
 
+test('#6685: document preview repairs a stale stored name before reading the file, like the download route does', () => {
+  // The regular attachment download route calls normalizeStoredNameOnRead
+  // before getFileStrategy().getReadStream() (fs-path-heal: the stored
+  // name/extension can drift from what is actually on disk). authorizedDocument
+  // skipped that repair, so getReadStream() could resolve the wrong path and
+  // documentAsStoredGifs failed with "Attachment image stream is unavailable"
+  // even though the same attachment downloaded and previewed as an image fine.
+  const routes = read('server/routes/universalFileServer.js');
+  const authorizedDocument = routes.slice(
+    routes.indexOf('async function authorizedDocument'),
+    routes.indexOf('async function documentManifest'),
+  );
+  assert.match(authorizedDocument,
+    /await normalizeStoredNameOnRead\(Attachments, attachment, attachmentStoreFactory\);/);
+  // ...and it must run before the attachment is returned for use by
+  // documentManifest/documentAsStoredGifs, not after.
+  assert.match(authorizedDocument, /normalizeStoredNameOnRead[\s\S]*return attachment;/);
+});
+
 test('every document preview read and search is board-authorized', () => {
   const routes = read('server/routes/universalFileServer.js');
   assert.match(routes, /authorizedDocument\(req\)/);
