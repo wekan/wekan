@@ -816,6 +816,41 @@ so its drag-and-drop is unchanged.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ac7822aa26f4a78f6c056803039847c1516a7ef4">A card can now be dragged from one board's list into a different board's list in the Bigboard view</a>. Thanks to Science4583 and xet7.</summary>
+
+[#3298](https://github.com/wekan/wekan/issues/3298) asked to view several
+boards at once with drag-and-drop between them; Bigboard already covers
+"several boards at once", and list-level dragging was deliberately kept
+scoped to within one board when it was added, so the one part still
+missing was dragging a CARD across the boundary between two boards' lists.
+
+The card sortable's `connectWith: '.js-minicards:not(.js-list-full)'`
+selector in `client/components/lists/list.js` already connects across
+every board shown on the page - only the LIST sortable was scoped by
+board (`connectWithSelector()`, above). What stopped a cross-board card
+drop from landing correctly was the drop handler resolving the
+destination board from `Utils.getCurrentBoard()` - the board the page
+happens to be routed to - instead of from the list actually dropped into.
+On an ordinary single-board page those are the same board, so this never
+showed; in Bigboard they can differ, and the card silently moved onto the
+wrong board.
+
+The destination boardId is now read from the dropped-into list's own
+`boardId` (`listData.boardId`), exactly as the analogous list-to-swimlane
+move in `swimlanes.js` already does with `list.boardId`, and passed to
+every `card.move()` call the stop handler makes. `Card.move()` already
+fully supported a boardId change (label/member/custom-field remapping,
+cross-board dependency cleanup) and the server's `denyCrossBoardMove`
+already authorizes only when the caller can write to the destination
+board, so no model or permission change was needed - the fix is entirely
+in which board the client asked to move the card to.
+`tests/listCardCrossBoardMove.test.cjs` pins the destination-board and
+default-swimlane resolution and negatively asserts `card.move()` is never
+called with the route's `currentBoard._id` directly.
+
+</details>
+
 **All Boards** - the overview and its Clone Board action.
 
 <details>
