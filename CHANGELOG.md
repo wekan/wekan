@@ -4960,6 +4960,29 @@ matching import, so this shape cannot reappear anywhere else undetected.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/85a7f0fc8">Clicking a label to toggle it onto the card works again</a>. Thanks to xet7.</summary>
+
+Reported directly: clicking a label no longer toggled it onto the card
+(grow wider/apply on first click, shrink/remove on second), with the
+browser console showing "card.board is not a function" thrown from
+jQuery UI sortable's `stop` handler in `client/components/cards/labels.js`
+(the label-reorder drag on `cardLabelsPopup`). jQuery UI's sortable widget
+runs its `stop` callback on mouseup whenever a drag was registered, which
+ordinary mouse/trackpad clicks can trigger even without an intentional
+drag - so this handler fired far more often than "the user actually
+reordered labels," and resolved the card via
+`Blaze.getData(this).board()` on the sortable's root DOM element, which
+does not reliably resolve back to a real Card document. An uncaught
+exception inside jQuery UI's own cleanup aborted the rest of it,
+consistent with the toggle-on-click visuals getting stuck. The sibling
+`click .js-select-label` handler two lines below already had the right
+fix for the same problem (added for linked-card labels): resolve the
+board from the popup template's own data via `getCardLabelBoard(...)`.
+Applied the same fix to the `stop` handler.
+
+</details>
+
 and improves the translation workflow:
 
 - [Fill in the missing Ladin, Latin, Luganda, Luxembourgish, Maithili, Malagasy, Malay, Malayalam, Maltese, Manx, Maori and Marathi translations](https://github.com/wekan/wekan/commit/718d20813). Thanks to xet7.
