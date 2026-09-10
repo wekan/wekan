@@ -525,16 +525,15 @@ template(name="cardFieldSectionDependenciesAndSort")
                   option(value="{{_id}}" selected="{{#if isCurrentListId _id}}selected{{/if}}") {{title}}
 
           //.card-details-items
-          if currentBoard.allowsSpentTime
-            if getSpentTime
-              .card-details-item.card-details-item-spent
-                if getIsOvertime
-                  h3.card-details-item-title
-                    | {{_ 'overtime-hours'}}
-                else
-                  h3.card-details-item-title
-                    | {{_ 'spent-time-hours'}}
-                +cardSpentTime
+          if getSpentTime
+            .card-details-item.card-details-item-spent
+              if getIsOvertime
+                h3.card-details-item-title
+                  | {{_ 'overtime-hours'}}
+              else
+                h3.card-details-item-title
+                  | {{_ 'spent-time-hours'}}
+              +cardSpentTime
 
           .card-details-item.card-details-item-flow
             h3.card-details-item-title
