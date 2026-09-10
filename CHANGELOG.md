@@ -2920,6 +2920,41 @@ static-secret path is untouched.
 
 </details>
 
+and has the following developer-tooling fix:
+
+**Multi-select actions** - the checkbox multi-select sidebar's action bar.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/02e028276">Add regression coverage confirming Move/Copy selection already works across boards</a>. Thanks to gerroon and xet7.</summary>
+
+[#2155](https://github.com/wekan/wekan/issues/2155) asked to move/copy several
+selected cards to a different board at once, through an explicit action
+rather than drag-and-drop. That action already exists: WeKan's checkbox
+multi-select sidebar (`client/components/sidebar/sidebarFilters.jade`/`.js`)
+has had "Move selection" and "Copy selection" buttons since
+`82db0800e` ("Move/Copy selection and Move/Copy swimlane: one dialog each,
+not two."), each opening the same board/swimlane/list destination picker used
+throughout the app (`selectionDestinationPicker`). The board `<select>` lists
+every board the user is a member of - not only the current one - and Done
+walks the whole selection in order, calling `card.move()` for Move or
+`copyCard` + `.move()` for Copy, so it already covers the cross-board case
+this issue asked for. This is distinct from
+[#3298](https://github.com/wekan/wekan/issues/3298), which is about
+drag-and-drop specifically inside the Bigboard view.
+
+`tests/cardMultiSelectionMoveCopyToBoard.test.cjs` is a pure-Node source-read
+regression guard pinning: the Move/Copy selection buttons and popups exist;
+the board picker queries every board the user belongs to rather than
+filtering to the current board; the shared Done handler iterates the full,
+selection-scoped card list (`MultiSelection.getMongoSelector()`) rather than
+a subset; Move applies `card.move()` with the chosen board/swimlane/list/sort
+position; and Copy creates the new card on the destination board first and
+moves that new card into place, never the original - with a negative case
+confirming a failed copy is skipped rather than falling through to touch an
+unrelated card.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for
 their translations.
 
