@@ -1666,6 +1666,7 @@ Template.cardDetailsActionsPopup.events({
   }),
   'click .js-more': Popup.open('cardMore'),
   'click .js-create-board-from-card': Popup.open('createBoardFromCard'),
+  'click .js-link-card-to-board': Popup.open('linkCardToBoard'),
   'click .js-toggle-watch-card'() {
     const currentCard = Cards.findOne(getCardId());
     if (!currentCard) return;
