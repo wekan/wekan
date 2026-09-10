@@ -311,3 +311,12 @@ ul.edit-labels-pop-over span.label-handle {
 ul.edit-labels-pop-over span.label-handle + .card-label {
   max-width: 180px;
 }
+/* #2802: the label's own optional "milestone" due date, shown beside it in
+   the labels list. */
+.card-label-due-at {
+  display: inline-block;
+  margin-inline-start: 6px;
+  font-size: 0.85em;
+  color: #999;
+  vertical-align: middle;
+}

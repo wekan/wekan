@@ -224,6 +224,17 @@ Boards.attachSchema(
         return 'notAllowed';
       },
     },
+    'labels.$.dueAt': {
+      /**
+       * Optional due date carried by the label itself (#2802), e.g. a
+       * "milestone" label such as "Sprint 1" that expires on a given date.
+       * Unset by default so existing labels/boards are unaffected. Filtering
+       * cards by this label is the existing label filter; no separate
+       * Milestone object or filter UI is added for this.
+       */
+      type: Date,
+      optional: true,
+    },
     // XXX We might want to maintain more informations under the member sub-
     // documents like de-normalized meta-data (the date the member joined the
     // board, the number of contributions, etc.).
@@ -1714,9 +1725,11 @@ Boards.helpers({
 
   // XXX currently mutations return no value so we have an issue when using addLabel in import
   // XXX waiting on https://github.com/mquandalle/meteor-collection-mutations/issues/1 to remove...
-  pushLabel(name, color) {
+  pushLabel(name, color, dueAt) {
     const _id = Random.id(6);
-    Boards.direct.update(this._id, { $push: { labels: { _id, name, color } } });
+    const label = { _id, name, color };
+    if (dueAt) label.dueAt = dueAt;
+    Boards.direct.update(this._id, { $push: { labels: label } });
     return _id;
   },
 
@@ -2235,23 +2248,35 @@ Boards.helpers({
     return await Boards.updateAsync(this._id, { $set: { permission: visibility } });
   },
 
-  async addLabel(name, color) {
+  async addLabel(name, color, dueAt) {
     if (!this.getLabel(name, color)) {
       const _id = Random.id(6);
-      return await Boards.updateAsync(this._id, { $push: { labels: { _id, name, color } } });
+      const label = { _id, name, color };
+      // #2802: an optional due date turns a label into a "milestone" (e.g.
+      // "Sprint 1" due 2026-01-15) without a separate Milestone object.
+      if (dueAt) label.dueAt = dueAt;
+      return await Boards.updateAsync(this._id, { $push: { labels: label } });
     }
     return null;
   },
 
-  async editLabel(labelId, name, color) {
+  async editLabel(labelId, name, color, dueAt) {
     if (!this.getLabel(name, color)) {
       const labelIndex = this.labelIndex(labelId);
-      return await Boards.updateAsync(this._id, {
+      const update = {
         $set: {
           [`labels.${labelIndex}.name`]: name,
           [`labels.${labelIndex}.color`]: color,
         },
-      });
+      };
+      // #2802: keep a label's "milestone" due date unset unless one is
+      // provided, and clear it explicitly when it is removed in the popup.
+      if (dueAt) {
+        update.$set[`labels.${labelIndex}.dueAt`] = dueAt;
+      } else {
+        update.$unset = { [`labels.${labelIndex}.dueAt`]: '' };
+      }
+      return await Boards.updateAsync(this._id, update);
     }
     return null;
   },
