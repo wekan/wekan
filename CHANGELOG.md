@@ -1204,6 +1204,32 @@ silently regress.
 
 </details>
 
+**My Cards** - the cross-board "cards assigned to/watched by me" list.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c7db5429b">Clicking a card in My Cards now opens it in the popup instead of navigating away to its board</a>. Thanks to javen9881 and xet7.</summary>
+
+[#3640](https://github.com/wekan/wekan/issues/3640) reported that clicking a
+card in My Cards - which lists cards from many boards on one page - followed a
+plain `<a href="board-url">` link and navigated the whole browser to that
+card's own board, losing the user's place in the My Cards list. Reading
+`client/components/main/myCards.jade`/`.js` confirmed the bug was still
+present: the card link carried no click handler at all.
+
+Fixed by reusing the mechanism the app already uses to open a card from other
+cross-board contexts - global search results
+(`client/components/cards/resultCard.js`) and the Board Table view's Edit link
+(`client/components/boards/tableView.js`): intercept the click, subscribe the
+`popupCardData` publication for that card, set the `popupCardId`/
+`popupCardBoardId` Session variables, and open the shared `cardDetails` popup
+in place. The link keeps its `href`, so middle-click/ctrl-click and a no-JS
+fallback still work.
+`tests/myCardsInlineCardPopup.test.cjs` pins the click handler's
+`preventDefault()`, the popup-opening call sequence, and that it matches the
+same shape used by `resultCard.js` and `tableView.js`.
+
+</details>
+
 and has the following documentation improvement:
 
 <details>
