@@ -193,6 +193,101 @@ if (Meteor.isServer) {
   }));
 
   /**
+   * @operation exportCalendarIcs
+   * @tag Boards
+   *
+   * @summary Subscribable iCalendar (.ics) feed of a board's card dates.
+   *
+   * @description Answers GitHub issue #2836 ("CalDAV or iCal Support") - #808
+   * added the in-app Calendar VIEW, this is the separate EXPORT/subscribe
+   * feed the issue actually asked for. One VEVENT per Received / Start-End
+   * span / Due date a card has, the same four dates the Calendar view (#808)
+   * draws (see models/lib/calendarFilter.js and models/lib/icalExport.js).
+   * This is one-way and read-only: paste the URL into a calendar app's
+   * "subscribe to URL" feature. Full two-way CalDAV sync is a much larger,
+   * separate, stateful sync protocol and is out of scope.
+   *
+   * @param {string} boardId the ID of the board whose card dates to export
+   * @param {string} authToken the loginToken (omit for a public board)
+   */
+  WebApp.handlers.get('/api/boards/:boardId/calendar.ics', safeRoute(async function (req, res) {
+    const boardId = req.params.boardId;
+    let user = null;
+
+    const board = await ReactiveCache.getBoard(boardId);
+    if (!board) {
+      res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
+      res.end('Board not found');
+      return;
+    }
+
+    if (!board.isPublic()) {
+      const loginToken = req.query.authToken;
+      if (loginToken) {
+        if (loginToken.length > 10000) {
+          res.writeHead(400, { 'Content-Type': 'text/plain; charset=utf-8' });
+          res.end('Invalid token');
+          return;
+        }
+        const hashToken = Accounts._hashLoginToken(loginToken);
+        user = await ReactiveCache.getUser({
+          'services.resume.loginTokens.hashedToken': hashToken,
+        });
+        if (!user) {
+          // GHSA-3gcg-g6rf-w2rx - see the note above: an unknown token answers
+          // `undefined`, and dereferencing it crashed the server.
+          res.writeHead(401, { 'Content-Type': 'text/plain; charset=utf-8' });
+          res.end('Invalid token');
+          return;
+        }
+      } else if (!Meteor.settings.public.sandstorm) {
+        try {
+          Authentication.checkLoggedIn(req.userId);
+        } catch (error) {
+          res.writeHead(error.statusCode || 403, { 'Content-Type': 'text/plain; charset=utf-8' });
+          res.end((error && error.reason) || 'Forbidden');
+          return;
+        }
+        user = await ReactiveCache.getUser({ _id: req.userId });
+      }
+    }
+
+    const exportOptions = { scope: parseExportScope(req.query) };
+    const exporter = new Exporter(boardId, undefined, exportOptions);
+    if (!(await exporter.canExport(user))) {
+      logExportDenied();
+      res.writeHead(403, { 'Content-Type': 'text/plain; charset=utf-8' });
+      res.end('Forbidden');
+      return;
+    }
+
+    const { cardsToIcs } = require('/models/lib/icalExport');
+    const cardSelector = await exporter._scopedCardSelector(boardId);
+    cardSelector.archived = false;
+    const cards = await ReactiveCache.getCards(cardSelector);
+    const cardShapes = cards
+      .filter(card => card.startAt || card.dueAt || card.endAt || card.receivedAt)
+      .map(card => ({
+        _id: card._id,
+        title: card.title,
+        description: card.description,
+        startAt: card.startAt,
+        dueAt: card.dueAt,
+        endAt: card.endAt,
+        receivedAt: card.receivedAt,
+        url: typeof card.absoluteUrl === 'function' ? card.absoluteUrl(board) : undefined,
+      }));
+
+    const icsText = cardsToIcs(cardShapes, { calendarName: `WeKan - ${board.title}` });
+    res.writeHead(200, {
+      'Content-Type': 'text/calendar; charset=utf-8',
+      'Content-Disposition': `inline; filename="${board.slug || board._id}.ics"`,
+      'Cache-Control': 'no-store',
+    });
+    res.end(icsText);
+  }));
+
+  /**
    * @operation exportZip
    * @tag Boards
    * @summary Export as a .zip - the JSON document, and the attachments as files.

@@ -180,6 +180,20 @@ const EXPORT_FORMAT_GROUPS = [
     ],
   },
   {
+    key: 'calendar',
+    heading: 'iCal',
+    scopes: BOARD_ONLY,
+    entries: [
+      {
+        key: 'ical',
+        icon: 'fa-calendar',
+        labelKey: 'export-ical-feed',
+        path: 'calendar.ics',
+        ext: 'ics',
+      },
+    ],
+  },
+  {
     key: 'dependencies',
     headingKey: 'card-dependencies',
     scopes: BOARD_ONLY,
@@ -264,7 +278,9 @@ function resolvedFormatGroups() {
       entries: group.entries.filter(entryApplies).map(entry => ({
         ...entry,
         label: entry.labelKey
-          ? `${entry.labelPrefix} (${TAPi18n.__(entry.labelKey)})`
+          ? (entry.labelPrefix
+            ? `${entry.labelPrefix} (${TAPi18n.__(entry.labelKey)})`
+            : TAPi18n.__(entry.labelKey))
           : entry.label,
         url: entry.path ? exportUrl(`/api/boards/:boardId/${entry.path}`, entry.query || {}) : '',
       })),

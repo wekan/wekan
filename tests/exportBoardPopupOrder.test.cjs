@@ -83,10 +83,13 @@ test('a rule sits above every subheading', () => {
   assert.ok(/\.pop-over-list-subheading \{/.test(css), 'and they are styled as headings');
 });
 
-test('three subheadings name the three families', () => {
+test('four subheadings name the four families', () => {
+  // #2836 ("CalDAV or iCal Support") added the iCal group - a board-only,
+  // one-way iCal EXPORT feed link, ahead of Dependencies since it is a format
+  // to SUBSCRIBE a calendar app to rather than data to reimport.
   const headings = [...table.matchAll(/heading(?:Key)?: '([^']+)'/g)].map(m => m[1]);
-  assert.deepStrictEqual(headings, ['card-dependencies', 'CSV', 'JSON'],
-    'Dependencies, CSV and JSON - in that order');
+  assert.deepStrictEqual(headings, ['iCal', 'card-dependencies', 'CSV', 'JSON'],
+    'iCal, Dependencies, CSV and JSON - in that order');
 });
 
 test('an entry under a subheading says only what it is', () => {
