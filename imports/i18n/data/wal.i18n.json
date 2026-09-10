@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Wolayttatto: Ogiyaa height must be a positive integer",
   "add-swimlane": "Ogiya gujja",
   "add-subtask": "Wolayttatto: Gujja Subtask",
+  "add-existing-card-as-subtask": "Nam kardaa hachchi zaway lo'aana ollisiso",
+  "add-existing-card-as-subtask-empty": "Wolayttatto: Akkay Kaardiyata Found",
   "add-checklist": "Wolayttatto: Gujja Paccissiya mazgabaa",
   "checklist": "Paccissiya mazgabaa",
   "add-checklist-item": "Paaciyaa mazgabaa issibaa gujja",

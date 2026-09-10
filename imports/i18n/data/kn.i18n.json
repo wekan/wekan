@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "ಪಥದ ಎತ್ತರವು ಧನಾತ್ಮಕ ಪೂರ್ಣಾಂಕವಾಗಿರಬೇಕು",
   "add-swimlane": "ಪಥ ಸೇರಿಸಿ",
   "add-subtask": "ಉಪಕಾರ್ಯ ಸೇರಿಸಿ",
+  "add-existing-card-as-subtask": "ಈಗಿರುವ ಕಾರ್ಡ್ ಅನ್ನು ಉಪಕಾರ್ಯವಾಗಿ ಸೇರಿಸಿ",
+  "add-existing-card-as-subtask-empty": "ಕಾರ್ಡ್‌ಗಳು ಕಂಡುಬಂದಿಲ್ಲ",
   "add-checklist": "ಪರಿಶೀಲನಾ ಪಟ್ಟಿ ಸೇರಿಸಿ",
   "checklist": "ಪರಿಶೀಲನಾ ಪಟ್ಟಿ",
   "add-checklist-item": "ಪರಿಶೀಲನಾ ಪಟ್ಟಿಗೆ ಅಂಶ ಸೇರಿಸಿ",

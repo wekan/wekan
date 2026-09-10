@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "පිහිනුම් මංතීරුවේ උස ධන පූර්ණ සංඛ්‍යාවක් විය යුතුය",
   "add-swimlane": "පථය එකතු කරන්න",
   "add-subtask": "උපකාර්යයක් එක් කරන්න",
+  "add-existing-card-as-subtask": "පවතින කාඩ්පත උප-කාර්යයක් ලෙස එක් කරන්න",
+  "add-existing-card-as-subtask-empty": "කාඩ්පත් හමු නොවීය",
   "add-checklist": "පිරික්සුම් ලැයිස්තුවක් එක් කරන්න",
   "checklist": "පිරික්සුම් ලැයිස්තුව",
   "add-checklist-item": "පිරික්සුම් ලැයිස්තුවට අයිතමයක් එක් කරන්න",

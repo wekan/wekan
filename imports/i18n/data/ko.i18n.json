@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Swimlane 높이는 양수여야 합니다",
   "add-swimlane": "Swimlane 추가",
   "add-subtask": "하위 작업을 추가",
+  "add-existing-card-as-subtask": "기존 카드를 하위 작업으로 추가",
+  "add-existing-card-as-subtask-empty": "검색된 카드 없음",
   "add-checklist": "체크리스트 추가",
   "checklist": "체크리스트",
   "add-checklist-item": "체크리스트에 항목 추가",

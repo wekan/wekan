@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "ቁመት መስመር ኣወንታዊ ምሉእ ቁጽሪ ክኸውን ኣለዎ",
   "add-swimlane": "መስመር ወስኽ",
   "add-subtask": "ንኡስ ዕማም ወስኽ",
+  "add-existing-card-as-subtask": "ዘሎ ካርድ ከም ንኡስ ዕዮ ወስኽ",
+  "add-existing-card-as-subtask-empty": "ካርድታት ኣይተረኽቡን",
   "add-checklist": "ዝርዝር መረጋገጺ ወስኽ",
   "checklist": "ናይ ምርመራ ዝርዝር",
   "add-checklist-item": "ኣብ ናይ ምርመራ ዝርዝር ንጥል ወስኽ",

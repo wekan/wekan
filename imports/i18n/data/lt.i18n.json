@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Plaukimo juostos aukštis turi būti teigiamas sveikasis skaičius",
   "add-swimlane": "Pridėti Swimlane",
   "add-subtask": "Pridėti papildomą užduotį",
+  "add-existing-card-as-subtask": "Pridėti esamą kortelę kaip pouzdavinį",
+  "add-existing-card-as-subtask-empty": "Kortelių nerasta",
   "add-checklist": "Pridėti kontrolinį sąrašą",
   "checklist": "Kontrolinis sąrašas",
   "add-checklist-item": "Pridėkite elementą į kontrolinį sąrašą",

@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Me noho te teitei kauhanga hei tau tōpū tōrunga",
   "add-swimlane": "Tāpiri ara",
   "add-subtask": "Tāpiri Tūmahi-iti",
+  "add-existing-card-as-subtask": "Tāpirihia te kāri o naianei hei mahi iti",
+  "add-existing-card-as-subtask-empty": "Kāore i Kitea he Kāri",
   "add-checklist": "Tāpiri Rārangi Arowhai",
   "checklist": "Rārangi arowhai",
   "add-checklist-item": "Tāpiri tētahi mea ki te rārangi arowhai",

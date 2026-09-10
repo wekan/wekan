@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "ความสูงของสวิมเลนต้องเป็นจำนวนเต็มบวก",
   "add-swimlane": "เพิ่มสวิมเลน",
   "add-subtask": "เพิ่มงานย่อย",
+  "add-existing-card-as-subtask": "เพิ่มการ์ดที่มีอยู่เป็นงานย่อย",
+  "add-existing-card-as-subtask-empty": "ไม่พบการ์ด",
   "add-checklist": "เพิ่มเช็คลิสต์",
   "checklist": "เช็คลิสต์",
   "add-checklist-item": "เพิ่มรายการตรวจสอบ",

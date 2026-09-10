@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "ala ʻauʻau heikahaka mukaka he he pokikile inakekela",
   "add-swimlane": "Hoʻohui ala",
   "add-subtask": "hoʻohui hana liʻiliʻi",
+  "add-existing-card-as-subtask": "Hoʻohui i ka kāleka e waiho nei ma ke ʻano he hana liʻiliʻi",
+  "add-existing-card-as-subtask-empty": "ʻaʻole nā kāleka pounaka",
   "add-checklist": "hoʻohui papa kaha",
   "checklist": "Papa nānā",
   "add-checklist-item": "Hoʻohui i mea i ka papa nānā",

@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Rhaid i uchder y lôn nofio fod yn gyfanrif positif",
   "add-swimlane": "Ychwanegu Swimlane",
   "add-subtask": "Ychwanegu Is-dasg",
+  "add-existing-card-as-subtask": "Ychwanegu Cerdyn Presennol fel Is-dasg",
+  "add-existing-card-as-subtask-empty": "Heb ganfod Cardiau",
   "add-checklist": "Ychwanegu Rhestr Wirio",
   "checklist": "Rhestr wirio",
   "add-checklist-item": "Ychwanegu eitem at y rhestr wirio",

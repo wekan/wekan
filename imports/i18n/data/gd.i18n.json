@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Feumaidh àirde na sreath-snàmh a bhith na shlàn-àireamh dheimhinneach",
   "add-swimlane": "Cuir slighe ris",
   "add-subtask": "Cuir Fo-ghnìomh Ris",
+  "add-existing-card-as-subtask": "Cuir cairt a tha ann mar fho-ghnìomh",
+  "add-existing-card-as-subtask-empty": "Cha deach Cairtean a Lorg",
   "add-checklist": "Cuir Liosta-sgrùdaidh Ris",
   "checklist": "Liosta-dearbhaidh",
   "add-checklist-item": "Cuir nì ris an liosta-chromaig",

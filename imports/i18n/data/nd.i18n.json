@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Ukuphakama komzila kumele kube yinombolo epheleleyo engaphezu kuka-zero",
   "add-swimlane": "Engeza umzila",
   "add-subtask": "Engeza umsebenzi omncane",
+  "add-existing-card-as-subtask": "Faka ikhadi elikhona njengomsebenzi omncane",
+  "add-existing-card-as-subtask-empty": "Akutholakalanga makhadi",
   "add-checklist": "Engeza uluhlu lokuhlola",
   "checklist": "Uluhlu lokuhlola",
   "add-checklist-item": "Engeza into ohlwini lokuhlola",

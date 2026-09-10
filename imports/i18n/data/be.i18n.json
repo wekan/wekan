@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Вышыня дарожкі павінна быць дадатным цэлым лікам",
   "add-swimlane": "Дадаць дарожку",
   "add-subtask": "Дадаць падзадачу",
+  "add-existing-card-as-subtask": "Дадаць існуючую картку як падзадачу",
+  "add-existing-card-as-subtask-empty": "Картак не знойдзена",
   "add-checklist": "Дадаць кантрольны спіс",
   "checklist": "Кантрольны спіс",
   "add-checklist-item": "Дадаць пункт у кантрольны спіс",

@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Bogodimo jwa tsela bo tshwanetse go nna palogotlhe e e siameng",
   "add-swimlane": "Tsenya tsela",
   "add-subtask": "Tsenya tiro-potlana",
+  "add-existing-card-as-subtask": "Tsenya Karata e e Leng Teng jaaka Tiro e Nnye",
+  "add-existing-card-as-subtask-empty": "Nnyaa Dikarata Bonwe",
   "add-checklist": "Tsenya lenaane la tlhatlhobo",
   "checklist": "Lenaane la tlhatlhobo",
   "add-checklist-item": "Tsenya selo mo lenaaneng la tlhatlhobo",

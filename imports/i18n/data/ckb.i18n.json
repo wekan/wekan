@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "بەرزی ڕێڕەو دەبێت ژمارەیەکی تەواوی ئەرێنی بێت",
   "add-swimlane": "زیادکردنی ڕێڕەو",
   "add-subtask": "ئەرکی لاوەکی زیاد بکە",
+  "add-existing-card-as-subtask": "کارتی ماوە وەک ژێرئەرک زیادبکە",
+  "add-existing-card-as-subtask-empty": "هیچ کارتێک نەدۆزرایەوە",
   "add-checklist": "لیستی پشکنین زیاد بکە",
   "checklist": "لیستی پشکنین",
   "add-checklist-item": "زیادکردنی بڕگەیەک بۆ لیستی پشکنین",

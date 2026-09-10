@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "ბილიკის სიმაღლე უნდა იყოს დადებითი მთელი რიცხვი",
   "add-swimlane": "ბილიკის დამატება",
   "add-subtask": "ქვესაქმიანობის დამატება",
+  "add-existing-card-as-subtask": "არსებული ბარათის დამატება ქვედავალებად",
+  "add-existing-card-as-subtask-empty": "ბარათები ვერ მოიძებნა",
   "add-checklist": "კატალოგის დამატება",
   "checklist": "საკონტროლო სია",
   "add-checklist-item": "დაამატეთ საგანი ჩამონათვალს",

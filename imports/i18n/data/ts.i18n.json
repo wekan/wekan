@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "ndlela mhaka mhaka mhaka a mhaka mhaka",
   "add-swimlane": "Engetela ndlela",
   "add-subtask": "engetela xintirhwana",
+  "add-existing-card-as-subtask": "Engetela Khadi leyi nga Kona tanihi Ntirho Lowuntsongo",
+  "add-existing-card-as-subtask-empty": "e-e makhadi mhaka",
   "add-checklist": "engetela nxaxamelo wo kambela",
   "checklist": "Nxaxamelo wo kambela",
   "add-checklist-item": "Engetela nchumu eka nxaxamelo wo kambela",

@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Высота дорожки может принимать только положительное значение",
   "add-swimlane": "Добавить дорожку",
   "add-subtask": "Добавить подзадачу",
+  "add-existing-card-as-subtask": "Добавить существующую карточку как подзадачу",
+  "add-existing-card-as-subtask-empty": "Ни одной карточки не найдено",
   "add-checklist": "Добавить контрольный список",
   "checklist": "Чек-лист",
   "add-checklist-item": "Добавить пункт в контрольный список",

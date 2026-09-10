@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Dole tsayin layin iyo ya zama cikakkiyar lamba mai kyau",
   "add-swimlane": "Ƙara layi",
   "add-subtask": "Ƙara ƙaramin aiki",
+  "add-existing-card-as-subtask": "Ƙara Katin da ke Akwai a matsayin Ƙaramin Aiki",
+  "add-existing-card-as-subtask-empty": "Ba a sami katuna ba",
   "add-checklist": "Ƙara jerin dubawa",
   "checklist": "Jerin dubawa",
   "add-checklist-item": "Ƙara abu a jerin dubawa",

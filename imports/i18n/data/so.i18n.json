@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Dhererka waddadu waa inuu noqdaa tiro dhan oo togan",
   "add-swimlane": "Ku dar waddo",
   "add-subtask": "Ku dar Hawl Hoose",
+  "add-existing-card-as-subtask": "Ku dar Kaadhka Jira sida Hawl Hoosaadka",
+  "add-existing-card-as-subtask-empty": "Wax Kaarar ah Lama Helin",
   "add-checklist": "Ku dar Liis Hubin",
   "checklist": "Liiska hubinta",
   "add-checklist-item": "Ku dar shay liiska hubinta",

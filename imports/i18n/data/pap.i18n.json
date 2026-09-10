@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "E altura di kaminda mester ser un entero positibo",
   "add-swimlane": "Agregá un kaminda",
   "add-subtask": "Agregá subtarea",
+  "add-existing-card-as-subtask": "Aña Karchi Existente komo Sub-tarea",
+  "add-existing-card-as-subtask-empty": "Ningun karchi encontrada",
   "add-checklist": "Agregá un lista di chèk",
   "checklist": "Lista di chèk",
   "add-checklist-item": "Agregá un item na e lista di chèk",

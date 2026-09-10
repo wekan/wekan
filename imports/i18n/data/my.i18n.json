@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "ရေကူးလမ်းအမြင့်သည် အပေါင်းကိန်းပြည့် ဖြစ်ရမည်",
   "add-swimlane": "လမ်းကြောင်းထည့်ရန်",
   "add-subtask": "လုပ်ငန်းခွဲ ထည့်ရန်",
+  "add-existing-card-as-subtask": "ရှိပြီးသား ကတ်ကို အလုပ်ခွဲငယ် အဖြစ် ထည့်ပါ",
+  "add-existing-card-as-subtask-empty": "ကတ်များ မတွေ့ပါ",
   "add-checklist": "စစ်ဆေးစာရင်း ထည့်ရန်",
   "checklist": "စစ်ဆေးရန်စာရင်း",
   "add-checklist-item": "စစ်ဆေးရန်စာရင်းသို့ အရာတစ်ခုထည့်ရန်",

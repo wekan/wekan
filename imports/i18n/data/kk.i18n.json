@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Swimlane биіктігі оң бүтін сан болуы керек",
   "add-swimlane": "Жолақ қосу",
   "add-subtask": "Ішкі тапсырма қосу",
+  "add-existing-card-as-subtask": "Бар картаны кіші тапсырма ретінде қосу",
+  "add-existing-card-as-subtask-empty": "Карточкалар табылмады",
   "add-checklist": "Тексеру тізімін қосу",
   "checklist": "Тексеру тізімі",
   "add-checklist-item": "Тексеру тізіміне элемент қосу",

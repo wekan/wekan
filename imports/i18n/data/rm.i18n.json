@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "L'altezza da la corsia deve essere un intero positivo",
   "add-swimlane": "Agiuntar ina via",
   "add-subtask": "Agiuntar sotto-compito",
+  "add-existing-card-as-subtask": "Agiuntar ina carta existenta sco sutgnier",
+  "add-existing-card-as-subtask-empty": "Deguna carta trovata",
   "add-checklist": "Agiuntar checklist",
   "checklist": "Glista da controlla",
   "add-checklist-item": "Agiuntar in element a la glista da controlla",

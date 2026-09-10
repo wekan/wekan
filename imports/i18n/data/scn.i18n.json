@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "L'altezza dâ corsia deve èssiri nu intero positivo",
   "add-swimlane": "Aggiunciri na curseva",
   "add-subtask": "Agghiunci sutta-compito",
+  "add-existing-card-as-subtask": "Junci na scheda esistenti comu suttacumpitu",
+  "add-existing-card-as-subtask-empty": "Nessna carta trovata",
   "add-checklist": "Agghiunci checklist",
   "checklist": "Lista di cuntrollu",
   "add-checklist-item": "Aggiunciri n'elementu â lista di cuntrollu",

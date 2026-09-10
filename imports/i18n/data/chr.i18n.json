@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "ᏍᏫᎻᎴᏅ ᎢᎦᎢ ᎢᏅ ᎤᏙᎯᏳ ᎤᎶᏒᏍᏗ ᎠᏎᎸ ᎨᏎᏍᏗ",
   "add-swimlane": "ᏅᏃᎯ ᎯᏟᏌ",
   "add-subtask": "ᎤᏍᏗ ᎦᎸᏫᏍᏓᏁᏗ ᎧᏁᏉᏗ",
+  "add-existing-card-as-subtask": "ᎦᎪᏙᏗ ᏗᎦᎫᏱ ᎾᏍᎩᏯ ᎤᏍᏗ ᏓᏙᎸᏗ",
+  "add-existing-card-as-subtask-empty": "Ꮭ ᏗᎪᏪᎵ ᏗᏍᏗ ᎠᏩᏛᏗ",
   "add-checklist": "ᏗᎪᏪᎵ ᎧᏁᏉᏗ",
   "checklist": "ᎠᎦᏎᏍᏗ ᎠᏎᏊᎢ",
   "add-checklist-item": "ᏗᎪᎵᏰᏗ ᎠᏎᏊᎢ ᎯᏟᏌ",

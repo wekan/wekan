@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Ujumisraja kõrgus peab olema positiivne täisarv",
   "add-swimlane": "Lisage Swimlane",
   "add-subtask": "Lisa alamülesanne",
+  "add-existing-card-as-subtask": "Lisa olemasolev kaart alamülesandena",
+  "add-existing-card-as-subtask-empty": "Kaarte ei leitud",
   "add-checklist": "Lisa kontrollnimekiri",
   "checklist": "Kontrollnimekiri",
   "add-checklist-item": "Lisage objekt kontrollnimekirja",

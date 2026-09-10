@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Bálgá allodat ferte leat positiivvalaš ollislohku",
   "add-swimlane": "Lasit bálgá",
   "add-subtask": "Lasit oassebarggu",
+  "add-existing-card-as-subtask": "Lasit gávdno kártta oassebargun",
+  "add-existing-card-as-subtask-empty": "Goarttat eai gávdnon",
   "add-checklist": "Lasit dárkkistanlisttu",
   "checklist": "Dárkkistanlistu",
   "add-checklist-item": "Lasit oasi dárkkistanlisttui",

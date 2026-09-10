@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "ཆུ་ལམ་གྱི་མཐོ་ཚད་ཕོ་གྲངས་ཧྲིལ་པོ་ཡིན་དགོས།",
   "add-swimlane": "ལམ་སྣོན་པ།",
   "add-subtask": "ལས་ཕྲན་ཁ་སྣོན།",
+  "add-existing-card-as-subtask": "ཡོད་བཞིན་པའི་ཀར་ཊི་ལས་འགན་ཆུང་ངུར་སྣོན།",
+  "add-existing-card-as-subtask-empty": "བྱང་བུ་རྙེད་མ་སོང་།",
   "add-checklist": "ཞིབ་བཤེར་ཐོ་ཁ་སྣོན།",
   "checklist": "ཞིབ་བཤེར་ཐོ་གཞུང་།",
   "add-checklist-item": "ཞིབ་བཤེར་ཐོ་གཞུང་ལ་སྣོན་པ།",

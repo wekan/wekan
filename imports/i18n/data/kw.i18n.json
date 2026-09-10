@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Res yw dhe ughelder an hyns bos niver kowal posek",
   "add-swimlane": "Keworra hyns",
   "add-subtask": "Keworra is-oberen",
+  "add-existing-card-as-subtask": "Yekhy Kartenn a vew avel Isober",
+  "add-existing-card-as-subtask-empty": "Karten vyth kevys",
   "add-checklist": "Keworra rol checkya",
   "checklist": "Rol checkya",
   "add-checklist-item": "Keworra tra dhe'n rol checkya",

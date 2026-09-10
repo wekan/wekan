@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "La hauteur du couloir doit être un entier positif",
   "add-swimlane": "Apondre un corredor",
   "add-subtask": "Apondre una jos-tasca",
+  "add-existing-card-as-subtask": "Apondre una fisha existenta coma sostòca",
+  "add-existing-card-as-subtask-empty": "Aucune carte trouvée",
   "add-checklist": "Apondre una checklist",
   "checklist": "Check-list",
   "add-checklist-item": "Apondre un element a la checklist",

@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Висота доріжки мусить бути цілим числом більше 0",
   "add-swimlane": "Додати доріжку",
   "add-subtask": "Додати підзадачу",
+  "add-existing-card-as-subtask": "Додати наявну картку як підзадачу",
+  "add-existing-card-as-subtask-empty": "Картки не знайдено",
   "add-checklist": "Додати контрольний список",
   "checklist": "Контрольний список",
   "add-checklist-item": "Додати елемент в список",

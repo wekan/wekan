@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Wysokość ścieżki musi mieć wartość dodatnią — pò kaszëbskù",
   "add-swimlane": "Dodac stegnã",
   "add-subtask": "Dodôj podzadanié",
+  "add-existing-card-as-subtask": "Dodôj isniejącą kartã jakno pòdzadanié",
+  "add-existing-card-as-subtask-empty": "Nié znaleziono kôrtòw",
   "add-checklist": "Dodôj czeklistę",
   "checklist": "Kòntrolnô lësta",
   "add-checklist-item": "Dodac element do lëstë kòntrolë",

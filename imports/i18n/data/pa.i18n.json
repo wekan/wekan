@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "ਤੈਰਾਕੀ ਦੀ ਉਚਾਈ ਇੱਕ ਸਕਾਰਾਤਮਕ ਪੂਰਨ ਅੰਕ ਹੋਣੀ ਚਾਹੀਦੀ ਹੈ",
   "add-swimlane": "Swimlane ਸ਼ਾਮਲ ਕਰੋ",
   "add-subtask": "ਸਬਟਾਸਕ ਸ਼ਾਮਲ ਕਰੋ",
+  "add-existing-card-as-subtask": "ਮੌਜੂਦਾ ਕਾਰਡ ਨੂੰ ਉਪ-ਕਾਰਜ ਵਜੋਂ ਸ਼ਾਮਲ ਕਰੋ",
+  "add-existing-card-as-subtask-empty": "ਕੋਈ ਕਾਰਡ ਨਹੀਂ ਮਿਲੇ",
   "add-checklist": "ਚੈੱਕਲਿਸਟ ਸ਼ਾਮਲ ਕਰੋ",
   "checklist": "ਚੈੱਕਲਿਸਟ",
   "add-checklist-item": "ਚੈੱਕਲਿਸਟ ਵਿੱਚ ਇੱਕ ਆਈਟਮ ਸ਼ਾਮਲ ਕਰੋ",

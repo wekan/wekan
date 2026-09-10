@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "د کرښې لوړوالی بايد مثبت بشپړ شمېر وي",
   "add-swimlane": "کرښه زياتول",
   "add-subtask": "فرعي دنده زياته کړئ",
+  "add-existing-card-as-subtask": "شته کارت د فرعي دنده په توګه ورزیات کړئ",
+  "add-existing-card-as-subtask-empty": "کارتونه ونه موندل شول",
   "add-checklist": "کتنليک زيات کړئ",
   "checklist": "کتنليک",
   "add-checklist-item": "کتنليک ته توکی زياتول",

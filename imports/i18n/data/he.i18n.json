@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "גובה המסלול חייב להיות מספר שלם וחיובי",
   "add-swimlane": "הוספת מסלול",
   "add-subtask": "הוסף תת משימה",
+  "add-existing-card-as-subtask": "הוספת כרטיס קיים כמשימת משנה",
+  "add-existing-card-as-subtask-empty": "לא נמצאו כרטיסים",
   "add-checklist": "הוספת רשימת מטלות",
   "checklist": "רשימת מטלות",
   "add-checklist-item": "הוספת פריט לרשימת משימות",

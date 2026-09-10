@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Hæð sundbrautar verður að vera jákvæð heil tala",
   "add-swimlane": "Bæta við sundbraut",
   "add-subtask": "Bæta við undirverkefni",
+  "add-existing-card-as-subtask": "Bæta við fyrirliggjandi spjaldi sem undirverkefni",
+  "add-existing-card-as-subtask-empty": "Engin spjöld fundust",
   "add-checklist": "Bæta við gátlista",
   "checklist": "Gátlisti",
   "add-checklist-item": "Bæta atriði við gátlista",

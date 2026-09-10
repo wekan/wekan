@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Swimlane hichte moat in posityf hiel getal wêze",
   "add-swimlane": "Swimlane tafoegje",
   "add-subtask": "Subtask tafoegje",
+  "add-existing-card-as-subtask": "Bestaande kaart tafoegje as subtaak",
+  "add-existing-card-as-subtask-empty": "Gjin kaarten fûn",
   "add-checklist": "Kontrolearje tafoegje",
   "checklist": "Kontrôlelist",
   "add-checklist-item": "Foegje in item ta oan checklist",

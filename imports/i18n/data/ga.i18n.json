@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Caithfidh airde an lána snámha a bheith ina shlánuimhir dheimhneach",
   "add-swimlane": "Cuir lána leis",
   "add-subtask": "Cuir Fothasc Leis",
+  "add-existing-card-as-subtask": "Cuir Cárta atá ann cheana mar Fhotasc",
+  "add-existing-card-as-subtask-empty": "Níor Aimsíodh Aon Chárta",
   "add-checklist": "Cuir Seicliosta Leis",
   "checklist": "Seicliosta",
   "add-checklist-item": "Cuir mír leis an seicliosta",

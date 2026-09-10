@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "يجب أن يكون ارتفاع مسار السباحة عددًا صحيحًا موجبًا\n ",
   "add-swimlane": "افزودن مسیر شنا",
   "add-subtask": "إضافة مهمة فرعية",
+  "add-existing-card-as-subtask": "زيد كارط كاينة كتاسك فرعية",
+  "add-existing-card-as-subtask-empty": "هیچ کارتی یافت نشد",
   "add-checklist": "إضافة قائمة تدقيق",
   "checklist": "قائمة التحقق",
   "add-checklist-item": "إضافة عنصر إلى قائمة التحقق",

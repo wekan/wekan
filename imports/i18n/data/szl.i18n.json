@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Wysokość ścieżki musi mieć wartość dodatnią",
   "add-swimlane": "Przidać ślak",
   "add-subtask": "Przidej podzadanie",
+  "add-existing-card-as-subtask": "Przidej isztniyjůnco kartã za podzadanie",
+  "add-existing-card-as-subtask-empty": "Niy szło znojś kart",
   "add-checklist": "Przidej czeklistę",
   "checklist": "Lista kōntrole",
   "add-checklist-item": "Przidać elymynt do listy kōntrole",

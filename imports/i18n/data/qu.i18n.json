@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Kay willaymi: Swimlaneta heightta mustta beta ata positiveta integerta",
   "add-swimlane": "Ñanta yapay",
   "add-subtask": "Kay willaymi: Yapay Huch'uy llamk'ay",
+  "add-existing-card-as-subtask": "Kaq tarjetata sub-llamkay hina yapay",
+  "add-existing-card-as-subtask-empty": "Kay willaymi: Mana Tarjetakuna Foundta",
   "add-checklist": "Kay willaymi: Yapay Qhawana",
   "checklist": "Qhawana sutisuyu",
   "add-checklist-item": "Qhaway sutisuyuman huk kaqta yapay",

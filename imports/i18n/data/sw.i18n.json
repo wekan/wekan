@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Urefu wa kuogelea lazima uwe nambari kamili chanya",
   "add-swimlane": "Ongeza Swimlane",
   "add-subtask": "Ongeza Jukumu dogo",
+  "add-existing-card-as-subtask": "Ongeza Kadi Iliyopo kama Kazi Ndogo",
+  "add-existing-card-as-subtask-empty": "Hakuna Kadi Zilizopatikana",
   "add-checklist": "Ongeza Orodha",
   "checklist": "Orodha ya ukaguzi",
   "add-checklist-item": "Ongeza kipengee kwenye orodha hakiki",

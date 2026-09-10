@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Swimlane height must stap wan positive integer",
   "add-swimlane": "Adem rod",
   "add-subtask": "Adem Subtask",
+  "add-existing-card-as-subtask": "Adem wan kad we i stap finis olsem sabtaks",
+  "add-existing-card-as-subtask-empty": "Nogat Ol kad Found",
   "add-checklist": "Adem Jeklis",
   "checklist": "Lis blong jekem",
   "add-checklist-item": "Adem wan samting long jeklis",

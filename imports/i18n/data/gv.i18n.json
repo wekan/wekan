@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Shegin da yrjid y chassan ve slane-earroo mie",
   "add-swimlane": "Cur cassan rish",
   "add-subtask": "Cur far-obbragh",
+  "add-existing-card-as-subtask": "Cur cairt t'ayn myr fo-obbyr",
+  "add-existing-card-as-subtask-empty": "Cha row kaartyn er nyn gheddyn",
   "add-checklist": "Cur rolley scrutaghey",
   "checklist": "Rolley scrutaghey",
   "add-checklist-item": "Cur nhee rish y rolley cronnee",

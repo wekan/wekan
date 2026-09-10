@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Suzish chizig'ining balandligi musbat butun son bo'lishi kerak",
   "add-swimlane": "Swimlane qo'shing",
   "add-subtask": "Qo'shimcha vazifa qo'shing",
+  "add-existing-card-as-subtask": "Mavjud kartani quyi vazifa sifatida qo'shish",
+  "add-existing-card-as-subtask-empty": "Hech qanday karta topilmadi",
   "add-checklist": "Tekshirish roʻyxatini qoʻshish",
   "checklist": "Tekshirish roʻyxati",
   "add-checklist-item": "Tekshirish ro'yxatiga element qo'shing",

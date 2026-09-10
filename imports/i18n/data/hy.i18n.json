@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Լողավազանի բարձրությունը պետք է լինի դրական ամբողջ թիվ",
   "add-swimlane": "Ավելացնել Swimlane",
   "add-subtask": "Ավելացնել ենթաառաջադրանք",
+  "add-existing-card-as-subtask": "Ավելացնել գոյություն ունեցող քարտը որպես ենթաառաջադրանք",
+  "add-existing-card-as-subtask-empty": "Քարտեր չեն գտնվել",
   "add-checklist": "Ավելացնել ստուգաթերթ",
   "checklist": "Ստուգաթերթիկ",
   "add-checklist-item": "Ավելացրեք կետ ստուգաթերթում",

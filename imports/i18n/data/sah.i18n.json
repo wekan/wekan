@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Суол үрдүгэ нуултан улахан бүтүн чыыһыла буолуохтаах",
   "add-swimlane": "Суолу эбэр",
   "add-subtask": "Эбии сорудаҕы эп",
+  "add-existing-card-as-subtask": "Баар карточканы кыра соруда быһыытынан эбии",
+  "add-existing-card-as-subtask-empty": "Карточка булуллубата",
   "add-checklist": "Бэрэбиэркэ испииһэгин эп",
   "checklist": "Бэрэбиэркэ испииһэгэ",
   "add-checklist-item": "Бэрэбиэркэ испииһэгэр эбэр",

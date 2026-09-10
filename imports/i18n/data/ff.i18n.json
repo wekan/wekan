@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Toowugol laawol foti wonde limre timmunde ɓurnde tusde",
   "add-swimlane": "Ɓeydu laawol",
   "add-subtask": "Ɓeydu gollel",
+  "add-existing-card-as-subtask": "Ɓeydu Kaardi Gooɗɗo Wonande Sub-golle",
+  "add-existing-card-as-subtask-empty": "Alaa karte yiytaa",
   "add-checklist": "Ɓeydu doggol ƴeewndagol",
   "checklist": "Doggol ƴeewndagol",
   "add-checklist-item": "Ɓeydu huunde e doggol ƴeewndo",

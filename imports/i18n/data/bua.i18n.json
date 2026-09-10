@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Мүрэй үндэр эерэг бүхэли тоо байха ёһотой",
   "add-swimlane": "Зам нэмэхэ",
   "add-subtask": "Дэд-даабари нэмэхэ",
+  "add-existing-card-as-subtask": "Байгаа картые дэд даалгабари болгожо нэмэхэ",
+  "add-existing-card-as-subtask-empty": "Карта олдобогүй",
   "add-checklist": "Шалгалтын жагсаалта нэмэхэ",
   "checklist": "Шалгалтын жагсаалта",
   "add-checklist-item": "Шалгалтын жагсаалтада зүйл нэмэхэ",

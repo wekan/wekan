@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Wotè kouloir la dwe yon nonb antye pozitif",
   "add-swimlane": "Ajoute yon kouloir",
   "add-subtask": "Ajoute sou-tach",
+  "add-existing-card-as-subtask": "Ajoute yon kat ki egziste kòm yon soutach",
+  "add-existing-card-as-subtask-empty": "Pa jwenn kat",
   "add-checklist": "Ajoute lis verifikasyon",
   "checklist": "Lis verifikasyon",
   "add-checklist-item": "Ajoute yon eleman nan lis kontwòl la",

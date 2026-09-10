@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "ସନ୍ତରଣ ଉଚ୍ଚତା ଏକ ସକରାତ୍ମକ ପୂର୍ଣ୍ଣ ସଂଖ୍ୟା ହେବା ଜରୁରୀ |",
   "add-swimlane": "ସନ୍ତରଣ ଯୋଗ କରନ୍ତୁ |",
   "add-subtask": "ସବଟାସ୍କ ଯୋଡନ୍ତୁ |",
+  "add-existing-card-as-subtask": "ସ୍ଥିତ କାର୍ଡକୁ ଉପକାର୍ଯ୍ୟ ଭାବରେ ଯୋଡନ୍ତୁ",
+  "add-existing-card-as-subtask-empty": "କ No ଣସି କାର୍ଡ ମିଳିଲା ନାହିଁ |",
   "add-checklist": "ଯାଞ୍ଚ ତାଲିକା ଯୋଡନ୍ତୁ |",
   "checklist": "ଯାଞ୍ଚ ତାଲିକା |",
   "add-checklist-item": "ଯାଞ୍ଚ ତାଲିକାରେ ଏକ ଆଇଟମ୍ ଯୋଡନ୍ତୁ |",

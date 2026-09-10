@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Kulvar Uzunluğu pozitif bir tam sayı olmak zorundadır.",
   "add-swimlane": "Kulvar Ekle",
   "add-subtask": "Alt Görev Ekle",
+  "add-existing-card-as-subtask": "Var olan kartı alt görev olarak ekle",
+  "add-existing-card-as-subtask-empty": "Kart Bulunamadı",
   "add-checklist": "Yapılacak Listesi Ekle",
   "checklist": "Kontrol listesi",
   "add-checklist-item": "Yapılacak listesine yeni bir öğe ekle",

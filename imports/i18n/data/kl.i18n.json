@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Aqqutip portussusia kisitsisaasariaqarpoq positiviiusoq",
   "add-swimlane": "Aqqut ilanngussuk",
   "add-subtask": "Suliassaq immikkoortoq ilannguguk",
+  "add-existing-card-as-subtask": "Ilanngussa card atuisoq ilassutaajutut suliassanngortitat",
+  "add-existing-card-as-subtask-empty": "Kortsinik nassaartoqanngilaq",
   "add-checklist": "Misissuiffiusumik allattorsimaffik ilannguguk",
   "checklist": "Misissuiffiusumik allattorsimaffik",
   "add-checklist-item": "Misissuiffimmut ilanngussuk",

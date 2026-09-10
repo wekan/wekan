@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "سویملانے ہےیگہت موست بے ا پوسیتیوے ینتےگےر",
   "add-swimlane": "لین شامل کریں",
   "add-subtask": "شامل ذیلی کام",
+  "add-existing-card-as-subtask": "موجودہ کارڈ کو ذیلی کام کے طور پر شامل کریں",
+  "add-existing-card-as-subtask-empty": "نہیں کارڈز فووند",
   "add-checklist": "شامل جانچ فہرست",
   "checklist": "چیک لسٹ",
   "add-checklist-item": "چیک لسٹ میں آئٹم شامل کریں",

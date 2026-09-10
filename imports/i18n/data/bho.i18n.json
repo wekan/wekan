@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "स्विमलेन के ऊँचाई धन पूर्णांक होखे के चाहीं",
   "add-swimlane": "रस्ता जोड़ीं",
   "add-subtask": "उपकार्य जोड़ीं",
+  "add-existing-card-as-subtask": "मौजूदा कार्ड के उप-कार्य के रूप में जोड़ीं",
+  "add-existing-card-as-subtask-empty": "कवनो कार्ड ना मिलल",
   "add-checklist": "जाँच-सूची जोड़ीं",
   "checklist": "जाँच सूची",
   "add-checklist-item": "जाँच सूची में एगो चीज जोड़ीं",

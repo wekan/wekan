@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Tape yvatekue ha'eva'erã papapy oĩmbáva ha iporãva",
   "add-swimlane": "Mboja tape",
   "add-subtask": "Embojoapy tembiapo'i",
+  "add-existing-card-as-subtask": "Embojoapy Tarjeta Oĩma Subtarea ramo",
+  "add-existing-card-as-subtask-empty": "Ndojejuhúi kuatia'i",
   "add-checklist": "Embojoapy ysaja ñehesa'ỹijo",
   "checklist": "Ysaja ñehesa'ỹijo",
   "add-checklist-item": "Mboja peteĩ mba'e ysaja jehechajeyrãme",

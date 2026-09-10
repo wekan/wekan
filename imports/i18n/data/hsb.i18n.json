@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Výška zwimlaně muzí být celé kladné čízlo",
   "add-swimlane": "Pas přidać",
   "add-subtask": "Přidać Pwotúkol",
+  "add-existing-card-as-subtask": "Eksistowacu kartu jako pódtasku přidać",
+  "add-existing-card-as-subtask-empty": "Žádné karty něbyly nalezeny",
   "add-checklist": "Přidać zaškrtávací lizćina",
   "checklist": "Kontrolna lisćina",
   "add-checklist-item": "Zapisk kontrolnej lisćinje přidać",

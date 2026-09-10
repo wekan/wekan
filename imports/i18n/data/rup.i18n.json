@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "L'altezza della corsia deve essere un intero positivo",
   "add-swimlane": "Adavgã cali",
   "add-subtask": "Aggiungi sotto-compito",
+  "add-existing-card-as-subtask": "Adavgă cartea existentã ca sub-huzmet",
+  "add-existing-card-as-subtask-empty": "Nessuna scheda trovata",
   "add-checklist": "Aggiungi checklist",
   "checklist": "Listã di verificari",
   "add-checklist-item": "Adavgã un element tu lista di virificari",

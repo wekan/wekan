@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Üzgüçülük zolağının hündürlüyü müsbət tam ədəd olmalıdır",
   "add-swimlane": "Swimlane əlavə edin",
   "add-subtask": "Alt tapşırıq əlavə edin",
+  "add-existing-card-as-subtask": "Mövcud kartı alt tapşırıq kimi əlavə et",
+  "add-existing-card-as-subtask-empty": "Kart tapılmadı",
   "add-checklist": "Yoxlama siyahısı əlavə edin",
   "checklist": "Yoxlama siyahısı",
   "add-checklist-item": "Yoxlama siyahısına element əlavə edin",

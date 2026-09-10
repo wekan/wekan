@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "সাঁতারপথের উচ্চতা ধনাত্মক পূর্ণসংখ্যা হতে হবে",
   "add-swimlane": "সাঁতারপথ যোগ করুন",
   "add-subtask": "উপকাজ যোগ করুন",
+  "add-existing-card-as-subtask": "বিদ্যমান কার্ডটি উপ-কাজ হিসেবে যোগ করুন",
+  "add-existing-card-as-subtask-empty": "কোনো কার্ড পাওয়া যায়নি",
   "add-checklist": "যাচাইতালিকা যোগ করুন",
   "checklist": "চেকলিস্ট",
   "add-checklist-item": "চেকলিস্টে একটি আইটেম যোগ করুন",

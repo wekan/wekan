@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "daan taas dapat maging a positive integer",
   "add-swimlane": "Magdagdag ng daanan",
   "add-subtask": "Magdagdag subtask",
+  "add-existing-card-as-subtask": "Idagdag ang Umiiral na Kard bilang Subtask",
+  "add-existing-card-as-subtask-empty": "Hindi kards Found",
   "add-checklist": "Magdagdag tsek-listahanahan",
   "checklist": "Tsek-listahan",
   "add-checklist-item": "Magdagdag ng aytem sa tsek-listahan",

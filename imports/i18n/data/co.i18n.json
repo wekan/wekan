@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "L'altezza di a corsia deve essere un intero positivo",
   "add-swimlane": "Aghjunghje una corsia",
   "add-subtask": "Aghjunghje sotto-compito",
+  "add-existing-card-as-subtask": "Aghjunghje carta esistente cum'è suttacumpitu",
+  "add-existing-card-as-subtask-empty": "Nessuna carta trovata",
   "add-checklist": "Aghjunghje checklist",
   "checklist": "Lista di cuntrollu",
   "add-checklist-item": "Aghjunghje un elementu à a lista di cuntrollu",

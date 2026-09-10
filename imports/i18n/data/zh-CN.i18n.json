@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "泳道高度需要设置数字类型",
   "add-swimlane": "添加泳道图",
   "add-subtask": "添加子任务",
+  "add-existing-card-as-subtask": "将现有卡片添加为子任务",
+  "add-existing-card-as-subtask-empty": "无法查询到卡片",
   "add-checklist": "添加清单",
   "checklist": "清单",
   "add-checklist-item": "添加项目清单",

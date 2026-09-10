@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "thakhi saytʼu must be a positive integer",
   "add-swimlane": "Thakhi yapaña",
   "add-subtask": "yapxataña Subtask",
+  "add-existing-card-as-subtask": "Utjki Tarjeta Sub-lurawi ukhamaru Yapaqtayaña",
+  "add-existing-card-as-subtask-empty": "janiwa tarjetanaka Found",
   "add-checklist": "yapxataña uñakipañ lista",
   "checklist": "Uñakipaña sutinaka",
   "add-checklist-item": "Uñakipaña sutiru mä yänaka yapaña",

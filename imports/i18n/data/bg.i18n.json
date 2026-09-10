@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Висина тока поступка мора бити позитиван број",
   "add-swimlane": "Добави коридор",
   "add-subtask": "Добави подзадача",
+  "add-existing-card-as-subtask": "Добавяне на съществуваща карта като подзадача",
+  "add-existing-card-as-subtask-empty": "Није пронађен ни један предмет",
   "add-checklist": "Добави списък със задачи",
   "checklist": "Чеклист",
   "add-checklist-item": "Добави точка към списъка със задачи",

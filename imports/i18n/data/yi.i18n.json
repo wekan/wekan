@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "סווימלאַנע הייך מוזן זיין אַ positive ינטאַדזשער",
   "add-swimlane": "לייג סווימלאַנע",
   "add-subtask": "לייג סובטאַסק",
+  "add-existing-card-as-subtask": "צולייגן אַן עקזיסטירנדע קאַרטל ווי אַ אונטער-אױפֿגאַבע",
+  "add-existing-card-as-subtask-empty": "קיין קאַרדס געפונען",
   "add-checklist": "לייג טשעקליסט",
   "checklist": "טשעקליסט",
   "add-checklist-item": "לייג אַ נומער צו טשעקליסט",

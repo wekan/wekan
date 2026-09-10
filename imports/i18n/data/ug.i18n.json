@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "سۇ ئۈزۈش ئېگىزلىكى چوقۇم مۇسبەت پۈتۈن سان بولۇشى كېرەك",
   "add-swimlane": "Swimlane نى قوشۇڭ",
   "add-subtask": "Subtask نى قوشۇڭ",
+  "add-existing-card-as-subtask": "مەۋجۇت كارتىنى تارماق ۋەزىپە سۈپىتىدە قوشۇش",
+  "add-existing-card-as-subtask-empty": "كارتا تېپىلمىدى",
   "add-checklist": "تەكشۈرۈش تىزىملىكىنى قوشۇڭ",
   "checklist": "تەكشۈرۈش تىزىملىكى",
   "add-checklist-item": "تەكشۈرۈش تىزىملىكىگە بىر تۈر قوشۇڭ",

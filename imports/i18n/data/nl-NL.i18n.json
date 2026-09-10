@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Swimlane-hoogte moet positief geheel getal zijn",
   "add-swimlane": "Swimlane Toevoegen",
   "add-subtask": "Subtaak Toevoegen",
+  "add-existing-card-as-subtask": "Bestaande kaart toevoegen als subtaak",
+  "add-existing-card-as-subtask-empty": "Geen Kaarten Gevonden",
   "add-checklist": "Checklist toevoegen",
   "checklist": "Controlelijst",
   "add-checklist-item": "Item aan checklist toevoegen",

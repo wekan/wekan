@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Svømmebanehøyden må være et positivt heltall",
   "add-swimlane": "Legg til Svømmebane",
   "add-subtask": "Legg til Underoppgave",
+  "add-existing-card-as-subtask": "Legg til eksisterende kort som underoppgave",
+  "add-existing-card-as-subtask-empty": "Ingen Kort funnet.",
   "add-checklist": "Legg til Sjekkliste",
   "checklist": "Sjekkliste",
   "add-checklist-item": "Nytt punkt på sjekklisten",

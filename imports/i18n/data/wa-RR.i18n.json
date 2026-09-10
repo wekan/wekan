@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "An kahitaas han swimlane kinahanglan positibo nga integer",
   "add-swimlane": "Idugang an Swimlane",
   "add-subtask": "Idugang an Subtask",
+  "add-existing-card-as-subtask": "Radjouter ene cåte egzistante come sos-bezogne",
+  "add-existing-card-as-subtask-empty": "Waray Nakita nga Card",
   "add-checklist": "Idugang an Checklist",
   "checklist": "Check-list",
   "add-checklist-item": "Idugang hin item ha checklist",

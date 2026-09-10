@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "സ്വിംലെയിൻ ഉയരം ധനാത്മക പൂർണ്ണസംഖ്യയായിരിക്കണം",
   "add-swimlane": "പാത ചേർക്കുക",
   "add-subtask": "ഉപചുമതല ചേർക്കുക",
+  "add-existing-card-as-subtask": "നിലവിലുള്ള കാർഡ് ഉപടാസ്‌ക് ആയി ചേർക്കുക",
+  "add-existing-card-as-subtask-empty": "കാർഡുകളൊന്നും കണ്ടെത്തിയില്ല",
   "add-checklist": "ചെക്ക്‌ലിസ്റ്റ് ചേർക്കുക",
   "checklist": "പരിശോധനാ പട്ടിക",
   "add-checklist-item": "പരിശോധനാ പട്ടികയിൽ ഇനം ചേർക്കുക",

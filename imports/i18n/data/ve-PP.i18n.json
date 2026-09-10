@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Uimaradan korkeuden täytyy olla positiivinen kokonaisluku",
   "add-swimlane": "Lisää uimarata",
   "add-subtask": "Lisää alitehtävä",
+  "add-existing-card-as-subtask": "Engeḓzela Khadi ḽi no vha hone sa Mushumo muṱuku",
+  "add-existing-card-as-subtask-empty": "Kortteja ei löytynyt.",
   "add-checklist": "Lisää tarkistuslista",
   "checklist": "Tarkistuslista",
   "add-checklist-item": "Lisää kohta tarkistuslistaan",

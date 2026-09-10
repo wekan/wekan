@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Olka'iinsi karaa lakkoofsa guutuu poozatiivii ta'uu qaba",
   "add-swimlane": "Karaa dabali",
   "add-subtask": "Hojii xiqqaa dabali",
+  "add-existing-card-as-subtask": "Kaardii Jiru Akka Hojii Xiqqaa Ida'i",
+  "add-existing-card-as-subtask-empty": "Kaardiin Hin Argamne",
   "add-checklist": "Tarree qorannoo dabali",
   "checklist": "Tarree qorannoo",
   "add-checklist-item": "Wanta tokko tarree qorannootti dabali",

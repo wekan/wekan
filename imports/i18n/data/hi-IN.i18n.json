@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "स्विमलेन की ऊंचाई एक धनात्मक पूर्णांक होनी चाहिए",
   "add-swimlane": "तैरन जोड़ें",
   "add-subtask": "उप कार्य जोड़ें",
+  "add-existing-card-as-subtask": "मौजूदा कार्ड को उप-कार्य के रूप में जोड़ें",
+  "add-existing-card-as-subtask-empty": "कोई कार्ड नहीं मिला",
   "add-checklist": "चिह्नांकन-सूची जोड़ें",
   "checklist": "चेकलिस्ट",
   "add-checklist-item": "चिह्नांकन-सूची विषय कोई तक जोड़ें",

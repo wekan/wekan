@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Rot height i mas wanpela positive integer",
   "add-swimlane": "Putim rot",
   "add-subtask": "Putim liklik wok",
+  "add-existing-card-as-subtask": "Putim kad i stap pinis olsem liklik wok",
+  "add-existing-card-as-subtask-empty": "Nogat ol kat Found",
   "add-checklist": "Putim lis bilong sekim",
   "checklist": "Lis bilong sekim",
   "add-checklist-item": "Putim wanpela samting long seklis",

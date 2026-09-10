@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "La altura de carril debe ser un entero positivo",
   "add-swimlane": "Agregar Calle",
   "add-subtask": "Agregar Subtarea",
+  "add-existing-card-as-subtask": "Añadir tarjeta existente como subtarea",
+  "add-existing-card-as-subtask-empty": "Ninguna tarjeta encontrada",
   "add-checklist": "Agregar Lista de Tareas",
   "checklist": "Lista de tareas",
   "add-checklist-item": "Agregar ítem a lista de tareas",

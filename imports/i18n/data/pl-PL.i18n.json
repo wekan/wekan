@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Wysokość ścieżki musi mieć wartość dodatnią",
   "add-swimlane": "Dodaj ścieżkę",
   "add-subtask": "Dodaj podzadanie",
+  "add-existing-card-as-subtask": "Dodaj istniejącą kartę jako podzadanie",
+  "add-existing-card-as-subtask-empty": "Nie znaleziono kart",
   "add-checklist": "Dodaj czeklistę",
   "checklist": "Checklista",
   "add-checklist-item": "Dodaj element do czeklisty",

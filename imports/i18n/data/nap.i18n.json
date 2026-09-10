@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "L'altezza d' 'a corsia deve essere un intero positivo",
   "add-swimlane": "Azzecca 'na corsia",
   "add-subtask": "Aggiungi sotto-compito",
+  "add-existing-card-as-subtask": "Aggiungere na scheda esistente comme suttattività",
+  "add-existing-card-as-subtask-empty": "Nessuna carta trovata",
   "add-checklist": "Aggiungi checklist",
   "checklist": "Lista 'e controllo",
   "add-checklist-item": "Azzecca 'nu punto â lista 'e cuntrollo",

@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Die Höhe den Swimlane muss eng positive ganze Zahl sein",
   "add-swimlane": "Bunn derbäisetzen",
   "add-subtask": "Ënneraufgab derbäisetzen",
+  "add-existing-card-as-subtask": "Bestehend Kaart als Ënneraufgab dobäisetzen",
+  "add-existing-card-as-subtask-empty": "Keng Kaarten gefunden",
   "add-checklist": "Checklëscht derbäisetzen",
   "checklist": "Checklëscht",
   "add-checklist-item": "En Element an d'Checklëscht derbäisetzen",

@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Die Höhe der Swimlane muss eine positive ganze Zahl sein",
   "add-swimlane": "Swimlane hinzufügen",
   "add-subtask": "Teilaufgabe hinzufügen",
+  "add-existing-card-as-subtask": "Vorhandene Karte als Unteraufgabe hinzufügen",
+  "add-existing-card-as-subtask-empty": "Keine Karten gefunden",
   "add-checklist": "Checkliste hinzufügen",
   "checklist": "Checkliste",
   "add-checklist-item": "Element zu Checkliste hinzufügen",

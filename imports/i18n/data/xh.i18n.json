@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Ubude bomgama wokuqubha kufuneka bube yinani elipheleleyo",
   "add-swimlane": "Yongeza i-Swimlane",
   "add-subtask": "Yongeza uMsetyenzana",
+  "add-existing-card-as-subtask": "Yongeza Ikhadi Elikhoyo Njengomsebenzi Omncinci",
+  "add-existing-card-as-subtask-empty": "Akukho makhadi afunyenweyo",
   "add-checklist": "Yongeza uluhlu lokukhangela",
   "checklist": "Uluhlu lokukhangela",
   "add-checklist-item": "Yongeza into kuluhlu lokukhangela",

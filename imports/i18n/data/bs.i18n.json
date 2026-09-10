@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Висина тока поступка мора бити позитиван број",
   "add-swimlane": "Dodaj traku",
   "add-subtask": "Dodaj podzadatak",
+  "add-existing-card-as-subtask": "Dodaj postojeću karticu kao podzadatak",
+  "add-existing-card-as-subtask-empty": "Није пронађен ни један предмет",
   "add-checklist": "Dodaj listu provjere",
   "checklist": "Kontrolna lista",
   "add-checklist-item": "Dodaj stavku na kontrolnu listu",

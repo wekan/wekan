@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Ogo igwu mmiri ga-abụrịrị ọnụọgụ dị mma",
   "add-swimlane": "Tinye Swimlane",
   "add-subtask": "Tinye Sub ọrụ",
+  "add-existing-card-as-subtask": "Tinye kaadị dị adị dịka ọrụ nta",
+  "add-existing-card-as-subtask-empty": "Enweghị kaadị ahụrụ",
   "add-checklist": "Tinye ndepụta nlele",
   "checklist": "Ndepụta ndetu",
   "add-checklist-item": "Tinye ihe na ndetu ndetu",

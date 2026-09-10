@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Kuphakama kwemzila kufanele kube yinombolo lephelele levumako",
   "add-swimlane": "Ngeta umtsandvo",
   "add-subtask": "Engeta Umsebenti Lomncane",
+  "add-existing-card-as-subtask": "Ngeza Ikhadi Elikhona Njengemsebenti Lomncane",
+  "add-existing-card-as-subtask-empty": "Kute Emakhadi Latfolakele",
   "add-checklist": "Engeta Luhlu Lwekuhlola",
   "checklist": "Luhla lwekuhlola",
   "add-checklist-item": "Ngeta intfo eluhleni lwekuhlola",

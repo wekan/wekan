@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Botelele bja tsela ya go sesa bo swanetše go ba palotlalo ya positifi",
   "add-swimlane": "Oketša tsela",
   "add-subtask": "Oketša mošomo-potlana",
+  "add-existing-card-as-subtask": "Oketša Karata yeo e Šetšego bjalo ka Mošomo o Monyenyane",
+  "add-existing-card-as-subtask-empty": "Ga go Dikarata tše di Hweditšwego",
   "add-checklist": "Oketša lenaneo la go hlahloba",
   "checklist": "Lelokelelo la tlhahlobo",
   "add-checklist-item": "Oketša selo lelokelelong la tlhahlobo",

@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Az úszósáv magasságának pozitív egész számnak kell lennie",
   "add-swimlane": "Úszósáv hozzáadása",
   "add-subtask": "Rész-feladat hozzáadása",
+  "add-existing-card-as-subtask": "Meglévő kártya hozzáadása alfeladatként",
+  "add-existing-card-as-subtask-empty": "Nem találtam Kártyát",
   "add-checklist": "Ellenőrzőlista hozzáadása",
   "checklist": "Ellenőrzőlista",
   "add-checklist-item": "Elem hozzáadása az ellenőrzőlistához",

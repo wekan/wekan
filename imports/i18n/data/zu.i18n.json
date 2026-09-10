@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Ubude be-Swimlane kufanele kube inombolo ephozithivu",
   "add-swimlane": "Engeza i-Swimlane",
   "add-subtask": "Engeza Umsebenzi ongaphansi",
+  "add-existing-card-as-subtask": "Engeza Ikhadi Elikhona Njengomsebenzi Omncane",
+  "add-existing-card-as-subtask-empty": "Awekho Amakhadi Atholiwe",
   "add-checklist": "Engeza Uhlu Lokuhlola",
   "checklist": "Uhlu lokuhlola",
   "add-checklist-item": "Engeza into ohlwini lokuhlola",

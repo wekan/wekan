@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "កម្ពស់ Swimlane ត្រូវតែជាចំនួនគត់វិជ្ជមាន",
   "add-swimlane": "បន្ថែម Swimlane",
   "add-subtask": "បន្ថែមកិច្ចការរង",
+  "add-existing-card-as-subtask": "បន្ថែមកាតដែលមានស្រាប់ជាកិច្ចការរង",
+  "add-existing-card-as-subtask-empty": "រកមិនឃើញកាតទេ។",
   "add-checklist": "បន្ថែមបញ្ជីត្រួតពិនិត្យ",
   "checklist": "បញ្ជីត្រួតពិនិត្យ",
   "add-checklist-item": "បន្ថែមធាតុទៅបញ្ជីត្រួតពិនិត្យ",

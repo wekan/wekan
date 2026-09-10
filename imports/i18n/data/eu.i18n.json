@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Errailaren altuerak zenbaki oso positiboa izan behar du",
   "add-swimlane": "Gehitu erraila",
   "add-subtask": "Gehitu azpiataza",
+  "add-existing-card-as-subtask": "Gehitu dagoen txartela azpiataza gisa",
+  "add-existing-card-as-subtask-empty": "Ez da txartelik aurkitu",
   "add-checklist": "Gehitu kontrol-zerrenda",
   "checklist": "Kontrol-zerrenda",
   "add-checklist-item": "Gehitu elementu bat kontrol-zerrendara",

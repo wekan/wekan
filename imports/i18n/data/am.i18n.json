@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "የመስመሩ ቁመት አዎንታዊ ሙሉ ቁጥር መሆን አለበት",
   "add-swimlane": "መስመር ጨምር",
   "add-subtask": "ንዑስ ተግባር ጨምር",
+  "add-existing-card-as-subtask": "ያለውን ካርድ እንደ ንዑስ ተግባር ጨምር",
+  "add-existing-card-as-subtask-empty": "ምንም ካርድ አልተገኘም",
   "add-checklist": "የማረጋገጫ ዝርዝር ጨምር",
   "checklist": "የማረጋገጫ ዝርዝር",
   "add-checklist-item": "ወደ ማረጋገጫ ዝርዝር ንጥል ጨምር",

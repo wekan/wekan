@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "স্বীমলেনৰ উচ্চতা ধনাত্মক পূৰ্ণসংখ্যা হ'ব লাগিব",
   "add-swimlane": "পথ যোগ কৰক",
   "add-subtask": "উপকাৰ্য যোগ কৰক",
+  "add-existing-card-as-subtask": "বৰ্তমান কাৰ্ডখন উপ-কাৰ্য হিচাপে যোগ কৰক",
+  "add-existing-card-as-subtask-empty": "কোনো কাৰ্ড পোৱা নগ'ল",
   "add-checklist": "পৰীক্ষা-তালিকা যোগ কৰক",
   "checklist": "পৰীক্ষা তালিকা",
   "add-checklist-item": "পৰীক্ষা তালিকাত এটা বস্তু যোগ কৰক",

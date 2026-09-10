@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "స్విమ్‌లేన్ ఎత్తు తప్పనిసరిగా ధనాత్మక పూర్ణాంకం అయి ఉండాలి",
   "add-swimlane": "స్విమ్‌లేన్‌ని జోడించండి",
   "add-subtask": "సబ్‌టాస్క్‌ని జోడించండి",
+  "add-existing-card-as-subtask": "ఉన్న కార్డును ఉప-పనిగా జోడించండి",
+  "add-existing-card-as-subtask-empty": "కార్డ్‌లు ఏవీ కనుగొనబడలేదు",
   "add-checklist": "చెక్‌లిస్ట్ జోడించండి",
   "checklist": "చెక్‌లిస్ట్",
   "add-checklist-item": "చెక్‌లిస్ట్‌కు ఒక అంశాన్ని జోడించండి",

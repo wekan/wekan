@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Uburebure bw'umurongo butegerezwa kuba igitigiri cuzuye kirenga zero",
   "add-swimlane": "Ongerako umurongo",
   "add-subtask": "Ongerako igikorwa gitoyi",
+  "add-existing-card-as-subtask": "Ongeraho ikarita isanzwe nk'akazi gato",
+  "add-existing-card-as-subtask-empty": "Nta Makarata Yabonetse",
   "add-checklist": "Ongerako urutonde rwo kugenzura",
   "checklist": "Urutonde rwo kugenzura",
   "add-checklist-item": "Ongerako ikintu ku rutonde rwo kugenzura",

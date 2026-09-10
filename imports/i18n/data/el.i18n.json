@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Το ύψος του διαδρόμου πρέπει να είναι θετικός ακέραιος",
   "add-swimlane": "Προσθήκη Λωρίδας",
   "add-subtask": "Προσθήκη Υποεργασίας",
+  "add-existing-card-as-subtask": "Προσθήκη υπάρχουσας κάρτας ως υποεργασία",
+  "add-existing-card-as-subtask-empty": "Δεν βρέθηκαν κάρτες",
   "add-checklist": "Προσθήκη Λίστας ελέγχου",
   "checklist": "Check-list",
   "add-checklist-item": "Προσθήκη ενός στοιχείου στη λίστα ελέγχου - checklist",

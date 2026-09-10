@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "मार्गाची उंचाय धन पूर्णांक आसपाक जाय",
   "add-swimlane": "वाट जोडची",
   "add-subtask": "उपकाम जोडात",
+  "add-existing-card-as-subtask": "आसा तो कार्ड उप-काम म्हूण जोडात",
+  "add-existing-card-as-subtask-empty": "कार्डां मेळ्ळीं ना",
   "add-checklist": "तपास वळेरी जोडात",
   "checklist": "तपासणी वळेरी",
   "add-checklist-item": "तपासणी वळेरेंत एक वस्त जोडची",

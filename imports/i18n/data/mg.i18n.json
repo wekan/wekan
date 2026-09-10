@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Tsy maintsy isa feno miabo ny haavon'ny lalana",
   "add-swimlane": "Hanampy lalana",
   "add-subtask": "Ampio zana-asa",
+  "add-existing-card-as-subtask": "Ampio karatra efa misy ho zana-draharaha",
+  "add-existing-card-as-subtask-empty": "Tsy nahitana karatra",
   "add-checklist": "Ampio lisitra fanamarinana",
   "checklist": "Lisitra fanamarinana",
   "add-checklist-item": "Hanampy zavatra amin'ny lisitra fanamarinana",

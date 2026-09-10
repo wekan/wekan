@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Swimlane height must be a positive integer",
   "add-swimlane": "Add Swimlane",
   "add-subtask": "Add Subtask",
+  "add-existing-card-as-subtask": "Add Existing Card as Subtask",
+  "add-existing-card-as-subtask-empty": "No matching cards found",
   "add-checklist": "Add Checklist",
   "checklist": "Checklist",
   "add-checklist-item": "Add an item to checklist",
@@ -1972,6 +1974,12 @@
   "uncollapse": "Uncollapse",
   "hideCheckedChecklistItems": "Hide checked checklist items",
   "hideAllChecklistItems": "Hide all checklist items",
+  "checklist-reset-interval": "Automatic reset",
+  "checklistResetIntervalPopup-title": "Automatic reset",
+  "checklist-reset-interval-none": "Off (do not reset automatically)",
+  "checklist-reset-interval-daily": "Daily",
+  "checklist-reset-interval-weekly": "Weekly",
+  "checklist-reset-interval-monthly": "Monthly",
   "hideCompletedSubtasks": "Hide completed subtasks",
   "support": "Support",
   "supportPopup-title": "Support",
@@ -2497,6 +2505,6 @@
   "import-parts-instruction": "Only the ticked parts are imported. The same choice is used when exporting.",
   "import-wekan-file": "Import from a .json or .zip export file:",
   "sum-of-number-fields": "Sum of number custom fields marked to show at top of list",
-  "sticky-list-headers": "Sticky list headers",
-  "more-options": "More options"
+  "more-options": "More options",
+  "sticky-list-headers": "Sticky list headers"
 }

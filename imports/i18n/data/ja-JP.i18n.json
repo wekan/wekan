@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "スイムレーンの高さは正の整数を入力してください",
   "add-swimlane": "スイムレーンを追加",
   "add-subtask": "サブタスクを追加",
+  "add-existing-card-as-subtask": "既存のカードをサブタスクとして追加",
+  "add-existing-card-as-subtask-empty": "カードが見つかりませんでした",
   "add-checklist": "チェックリストを追加",
   "checklist": "チェックリスト",
   "add-checklist-item": "チェックリストに項目を追加",

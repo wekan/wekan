@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Lartësia e korsisë duhet të jetë numër i plotë pozitiv",
   "add-swimlane": "Shto korsi",
   "add-subtask": "Shto nëndetyrë",
+  "add-existing-card-as-subtask": "Shto kartën ekzistuese si nën-detyrë",
+  "add-existing-card-as-subtask-empty": "Nuk u gjetën karta",
   "add-checklist": "Shto listë kontrolli",
   "checklist": "Listë kontrolli",
   "add-checklist-item": "Shto një artikull në listën e kontrollit",

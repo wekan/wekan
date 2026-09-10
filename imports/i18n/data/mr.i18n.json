@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "स्विमलेनची उंची धन पूर्णांक असणे आवश्यक आहे",
   "add-swimlane": "मार्गिका जोडा",
   "add-subtask": "उपकार्य जोडा",
+  "add-existing-card-as-subtask": "विद्यमान कार्ड उप-कार्य म्हणून जोडा",
+  "add-existing-card-as-subtask-empty": "कार्डे सापडली नाहीत",
   "add-checklist": "तपासणीसूची जोडा",
   "checklist": "तपासणी यादी",
   "add-checklist-item": "तपासणी यादीत एक बाब जोडा",

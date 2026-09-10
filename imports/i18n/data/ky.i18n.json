@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Жолдун бийиктиги оң бүтүн сан болушу керек",
   "add-swimlane": "Жол кошуу",
   "add-subtask": "Кошумча тапшырма кошуу",
+  "add-existing-card-as-subtask": "Учурдагы картаны кичи тапшырма катары кошуу",
+  "add-existing-card-as-subtask-empty": "Карточкалар табылган жок",
   "add-checklist": "Текшерүү тизмесин кошуу",
   "checklist": "Текшерүү тизмеси",
   "add-checklist-item": "Текшерүү тизмесине элемент кошуу",

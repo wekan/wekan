@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Ҫул ҫӳллӗшӗ нульрен пысӑк пӗтӗм хисеп пулмалла",
   "add-swimlane": "Ҫул хушас",
   "add-subtask": "Аялти ӗҫ хушас",
+  "add-existing-card-as-subtask": "Пур ҫыртаса подзадача пек хушмалла",
+  "add-existing-card-as-subtask-empty": "Карточкӑсем тупӑнмарӗҫ",
   "add-checklist": "Тӗрӗслев списокӗ хушас",
   "checklist": "Тӗрӗслев списокӗ",
   "add-checklist-item": "Тӗрӗслев спискине элемент хушас",

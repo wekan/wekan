@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "La hauteur du couloir doit être un entier positif",
   "add-swimlane": "Ajouter un couloir",
   "add-subtask": "Ajouter une sous-tâche",
+  "add-existing-card-as-subtask": "Ajouter une carte existante comme sous-tâche",
+  "add-existing-card-as-subtask-empty": "Aucune carte trouvée",
   "add-checklist": "Ajouter une checklist",
   "checklist": "Check-list",
   "add-checklist-item": "Ajouter un élément à la checklist",

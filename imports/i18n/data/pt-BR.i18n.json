@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Altura da Raia deve ser um inteiro positivo",
   "add-swimlane": "Adicionar Raia",
   "add-subtask": "Adicionar subtarefa",
+  "add-existing-card-as-subtask": "Adicionar cartão existente como subtarefa",
+  "add-existing-card-as-subtask-empty": "Nenhum cartão encontrado",
   "add-checklist": "Adicionar lista de verificação",
   "checklist": "Lista de verificação",
   "add-checklist-item": "Adicionar um item à lista de verificação",

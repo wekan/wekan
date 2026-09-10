@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Hæddin á beininum skal vera eitt positivt heilt tal",
   "add-swimlane": "Legg bein afturat",
   "add-subtask": "Legg undiruppgávu afturat",
+  "add-existing-card-as-subtask": "Legg til verandi kort sum undiruppgávu",
+  "add-existing-card-as-subtask-empty": "Eingi kort funnin",
   "add-checklist": "Legg kanningarlista afturat",
   "checklist": "Eftirkanningarlisti",
   "add-checklist-item": "Legg lut í kanningarlistan",

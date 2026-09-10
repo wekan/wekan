@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Bophahamo ba tsela e lokela ho ba nomoro e felletseng e ntle",
   "add-swimlane": "Eketsa tsela",
   "add-subtask": "Eketsa mosebetsi o monyane",
+  "add-existing-card-as-subtask": "Kenyelletsa Karete e Leng Teng jwalo ka Mosebetsi o Monyenyane",
+  "add-existing-card-as-subtask-empty": "Ha ho dikarete tse fumanweng",
   "add-checklist": "Eketsa lenane la tlhahlobo",
   "checklist": "Lenane la ho hlahloba",
   "add-checklist-item": "Eketsa ntho lenaneng la ho hlahloba",

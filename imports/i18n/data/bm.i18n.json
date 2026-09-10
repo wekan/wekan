@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Swimlane jan bonya ka kan ka kɛ hakɛtilennen positifi ye",
   "add-swimlane": "Sira fara a kan",
   "add-subtask": "Baara fitini fara a kan",
+  "add-existing-card-as-subtask": "Kartiw min bɛ yen kɛ sanga dɔɔnin ye ka fara a kan",
+  "add-existing-card-as-subtask-empty": "Karata si ma sɔrɔ",
   "add-checklist": "Lajɛli lisiti fara a kan",
   "checklist": "Sɛgɛsɛgɛli sɛbɛn",
   "add-checklist-item": "Fɛn dɔ fara sɛgɛsɛgɛli sɛbɛn kan",

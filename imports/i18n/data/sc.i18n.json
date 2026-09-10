@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "L'altezza de sa caminu deve essere un intero positivo",
   "add-swimlane": "Annanghere unu caminu",
   "add-subtask": "Annanghe sotto-compito",
+  "add-existing-card-as-subtask": "Agiunghi una carta esistente comente sutu-atividade",
+  "add-existing-card-as-subtask-empty": "Nessuna carta trovada",
   "add-checklist": "Annanghe checklist",
   "checklist": "Lista de controllu",
   "add-checklist-item": "Annanghere un'elementu a sa lista de controllu",

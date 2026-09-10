@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Mfomso bi sii wɔ dwumadi yi mu",
   "add-swimlane": "Fa kwan ka ho",
   "add-subtask": "Fa ka ho Subtask",
+  "add-existing-card-as-subtask": "Fa Kad a Ɛwɔ Hɔ Ka Subtaak Ho",
+  "add-existing-card-as-subtask-empty": "Daabi Kaads Found",
   "add-checklist": "Fa ka ho Checknhyehyɛe",
   "checklist": "Nhwehwɛmu nhwɛso",
   "add-checklist-item": "Fa biribi ka nhwehwɛmu nhwɛso no ho",

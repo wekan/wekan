@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Ketinggian Swimlane mestilah integer positif",
   "add-swimlane": "Tambah Swimlane",
   "add-subtask": "Tambah Subtugas",
+  "add-existing-card-as-subtask": "Tambah Kad Sedia Ada sebagai Sub-tugas",
+  "add-existing-card-as-subtask-empty": "Tiada Kad Ditemui",
   "add-checklist": "Tambah Checklist",
   "checklist": "Senarai semak",
   "add-checklist-item": "Tambah item ke checklist",

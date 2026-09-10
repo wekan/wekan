@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Dhuwure swimlane kudu wilangan wutuh positif",
   "add-swimlane": "Tambah lajur",
   "add-subtask": "Tambah Subtugas",
+  "add-existing-card-as-subtask": "Tambahake Kertu sing Wis Ana dadi Subtugas",
+  "add-existing-card-as-subtask-empty": "Ora Ana Kertu sing Ditemokake",
   "add-checklist": "Tambah Dhaptar Priksa",
   "checklist": "Dhaptar priksa",
   "add-checklist-item": "Tambah item ing dhaptar priksa",

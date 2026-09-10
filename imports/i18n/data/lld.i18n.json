@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "L'altezza dla corsia deve essere un intero positivo",
   "add-swimlane": "Ajonté streda",
   "add-subtask": "Ajonté sotto-compito",
+  "add-existing-card-as-subtask": "Agiunté na cherta ejistënta sciöche sotarbora",
+  "add-existing-card-as-subtask-empty": "Deguna ciarta trovata",
   "add-checklist": "Ajonté checklist",
   "checklist": "Lista de control",
   "add-checklist-item": "Ajonté n element ala lista de control",

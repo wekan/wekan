@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Swimüzmek beýikligi polo positiveitel bitewi san bolmaly",
   "add-swimlane": "Swimlane goşuň",
   "add-subtask": "Subtask goşuň",
+  "add-existing-card-as-subtask": "Bar bolan kartany kiçi tabşyryk hökmünde goş",
+  "add-existing-card-as-subtask-empty": "Kartlar tapylmady",
   "add-checklist": "Barlag sanawyny goşuň",
   "checklist": "Barlag sanawy",
   "add-checklist-item": "Gözegçilik sanawyna element goşuň",

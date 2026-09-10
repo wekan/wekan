@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Высота дорожки может принимать только положительное значение",
   "add-swimlane": "Добавить дорожку",
   "add-subtask": "Дэд даалгавар нэмэх",
+  "add-existing-card-as-subtask": "Одоо байгаа картыг дэд даалгавар болгон нэмэх",
+  "add-existing-card-as-subtask-empty": "Ни одной карточки не найдено",
   "add-checklist": "Чеклист нэмэх",
   "checklist": "Чеклист",
   "add-checklist-item": "Шалгах хуудсанд зүйл нэмэх",

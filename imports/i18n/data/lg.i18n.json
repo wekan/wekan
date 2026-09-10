@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Akakubo bugulumivu kiteekwa ba positive integer",
   "add-swimlane": "Yongerako akakubo",
   "add-subtask": "Yongerako Mulimu-mutono",
+  "add-existing-card-as-subtask": "Yongera Kaadi eriyo nga akakolwa akatono",
+  "add-existing-card-as-subtask-empty": "Nedda Kaadi Found",
   "add-checklist": "Yongerako Lukalala-lw'okukebera",
   "checklist": "Olukalala lw'okukebera",
   "add-checklist-item": "Yongerako ekintu ku lukalala lw'okukebera",

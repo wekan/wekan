@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Tinggi Swimlane harus sebuah bilangan bulat positif",
   "add-swimlane": "Thêm làn ngang",
   "add-subtask": "Thêm Nhiệm vụ phụ",
+  "add-existing-card-as-subtask": "Thêm thẻ hiện có làm việc con",
+  "add-existing-card-as-subtask-empty": "Không tìm thấy thẻ",
   "add-checklist": "Thêm Danh Sách Kiểm Tra",
   "checklist": "Danh sách kiểm tra",
   "add-checklist-item": "Thêm Một Mục Vào Danh Sách Kiểm Tra",

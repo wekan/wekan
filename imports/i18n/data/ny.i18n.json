@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Utali wa mzere wosambira uyenera kukhala nambala yathunthu yoposa ziro",
   "add-swimlane": "Onjezani njira",
   "add-subtask": "Onjezani Kantchito",
+  "add-existing-card-as-subtask": "Onjezerani Kadi yomwe Ilipo ngati Ntchito Yaing'ono",
+  "add-existing-card-as-subtask-empty": "Palibe makhadi omwe apezeka",
   "add-checklist": "Onjezani Mndandanda Wowunika",
   "checklist": "Mndandanda woyang'anira",
   "add-checklist-item": "Onjezani chinthu ku mndandanda woyang'anira",

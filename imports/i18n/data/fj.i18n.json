@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Na cecere ni sala me dua na naba taucoko vinaka",
   "add-swimlane": "Kuria e dua na sala",
   "add-subtask": "Kuria na cakacaka lailai",
+  "add-existing-card-as-subtask": "Kacivi na Kadi tiko me Vakasama Lailai",
+  "add-existing-card-as-subtask-empty": "Sega ni Kune na Kadi",
   "add-checklist": "Kuria na lisi ni vakadinadina",
   "checklist": "Lisi ni veidikevi",
   "add-checklist-item": "Kuria e dua na ka ki na lisi ni vakadinadina",

@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Simbanans höjd måste vara ett positivt heltal",
   "add-swimlane": "Lägg till simbana",
   "add-subtask": "Lägg till deluppgift",
+  "add-existing-card-as-subtask": "Lägg till befintligt kort som underuppgift",
+  "add-existing-card-as-subtask-empty": "Inga kort hittades",
   "add-checklist": "Lägg till checklista",
   "checklist": "Checklista",
   "add-checklist-item": "Lägg till objekt i checklista",

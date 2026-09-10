@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Кулвар Узунлугу позитиф бир там сайы олмак зорундадыр.",
   "add-swimlane": "Юл өстәү",
   "add-subtask": "Алт Гөрев өстә",
+  "add-existing-card-as-subtask": "Булган картаны кече бурыч итеп өстәү",
+  "add-existing-card-as-subtask-empty": "карточка Булунамады",
   "add-checklist": "Йапылаҗак исемлекси өстә",
   "checklist": "Тикшерү исемлеге",
   "add-checklist-item": "Тикшерү исемлегенә элемент өстәү",

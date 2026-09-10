@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Swimlane height must be a positive integer",
   "add-swimlane": "Add Swimlane",
   "add-subtask": "Add Subtask",
+  "add-existing-card-as-subtask": "Add Existing Card as Subtask",
+  "add-existing-card-as-subtask-empty": "No Cards Found",
   "add-checklist": "Add Checklist",
   "checklist": "Checklist",
   "add-checklist-item": "Add an item to checklist",

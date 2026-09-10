@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Faka-Tonga: hala ngāue height must be a positive integer",
   "add-swimlane": "Tānaki ha hala",
   "add-subtask": "Faka-Tonga: tānaki Subtask",
+  "add-existing-card-as-subtask": "Tānaki ʻa e Kaati ʻoku ʻi ai ko ha Ngāue Iiki",
+  "add-existing-card-as-subtask-empty": "Faka-Tonga: No kaati Found",
   "add-checklist": "Faka-Tonga: tānaki Checklist",
   "checklist": "Lisi sivi",
   "add-checklist-item": "Tānaki ha meʻa ki he lisi sivi",

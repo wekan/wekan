@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Bilindahiya rêçê divê hejmareke tam a erênî be",
   "add-swimlane": "Rêç zêde bike",
   "add-subtask": "Erkê biçûk zêde bike",
+  "add-existing-card-as-subtask": "Karta heyî wek jêrepêkî zêde bike",
+  "add-existing-card-as-subtask-empty": "Tu kart nehatin dîtin",
   "add-checklist": "Lîsteya kontrolê zêde bike",
   "checklist": "Lîsteya kontrolê",
   "add-checklist-item": "Hêmanek li lîsteya kontrolê zêde bike",

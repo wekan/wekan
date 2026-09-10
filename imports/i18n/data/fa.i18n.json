@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "مقدار ارتقاع مسیر باید یک عدد مثبت باشد",
   "add-swimlane": "افزودن مسیر شنا",
   "add-subtask": "افزودن زیر وظیفه",
+  "add-existing-card-as-subtask": "افزودن کارت موجود به‌عنوان زیرکار",
+  "add-existing-card-as-subtask-empty": "هیچ کارتی یافت نشد",
   "add-checklist": "افزودن چک‌لیست",
   "checklist": "چک‌لیست",
   "add-checklist-item": "افزودن مورد به چک‌لیست",

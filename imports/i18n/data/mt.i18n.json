@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Korsija height must be a positive integer",
   "add-swimlane": "Żid korsija",
   "add-subtask": "Żid Subtask",
+  "add-existing-card-as-subtask": "Żid Karta Eżistenti bħala Sottokompitu",
+  "add-existing-card-as-subtask-empty": "Le Kards Found",
   "add-checklist": "Żid Lista ta’ kontroll",
   "checklist": "Lista ta' verifika",
   "add-checklist-item": "Żid element mal-lista ta' verifika",

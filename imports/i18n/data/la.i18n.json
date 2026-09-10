@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Latine: semita natatoria height debet esse a positive integer",
   "add-swimlane": "Semitam adde",
   "add-subtask": "Latine: Adde Submunus",
+  "add-existing-card-as-subtask": "Adde Chartam Existentem ut Subtaskum",
+  "add-existing-card-as-subtask-empty": "Latine: Non Schedae Found",
   "add-checklist": "Latine: Adde index probationis",
   "checklist": "Index probationis",
   "add-checklist-item": "Rem indici probationis adde",

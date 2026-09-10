@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "泳道高度必須是正整數",
   "add-swimlane": "新增泳道",
   "add-subtask": "新增子任務",
+  "add-existing-card-as-subtask": "加現有嘅咭做子任務",
+  "add-existing-card-as-subtask-empty": "未找到卡片",
   "add-checklist": "新增清單",
   "checklist": "清單",
   "add-checklist-item": "將項目加入清單中",

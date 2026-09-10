@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Swembaanhoogte moet 'n positiewe heelgetal wees",
   "add-swimlane": "Voeg Swimlane by",
   "add-subtask": "Voeg subtaak by",
+  "add-existing-card-as-subtask": "Voeg Bestaande Kaart by as Subtaak",
+  "add-existing-card-as-subtask-empty": "Geen kaarte gevind nie",
   "add-checklist": "Voeg kontrolelys by",
   "checklist": "Kontrolelys",
   "add-checklist-item": "Voeg 'n item by kontrolelys",

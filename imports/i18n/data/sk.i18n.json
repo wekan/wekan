@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Výška swimlane musí být celé kladné číslo",
   "add-swimlane": "Pridať Swimlane",
   "add-subtask": "Pridať Podúlohu",
+  "add-existing-card-as-subtask": "Pridať existujúcu kartu ako podúlohu",
+  "add-existing-card-as-subtask-empty": "Žádné karty nebyly nalezeny",
   "add-checklist": "Pridať Checklist",
   "checklist": "Kontrolný zoznam",
   "add-checklist-item": "Pridať novú položku do Checklistu",

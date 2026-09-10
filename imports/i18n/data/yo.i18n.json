@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Giga swimlane gbọdọ jẹ odidi rere",
   "add-swimlane": "Fi Swimlane kun",
   "add-subtask": "Ṣafikun Iṣẹ-ṣiṣe",
+  "add-existing-card-as-subtask": "Fi Káàdì tó Wà Kún gẹ́gẹ́ bí Iṣẹ́ Kékeré",
+  "add-existing-card-as-subtask-empty": "Ko si Awọn kaadi Ri",
   "add-checklist": "Fi Akojọ Ayẹwo",
   "checklist": "Akojọ ayẹwo",
   "add-checklist-item": "Fi ohun kan kun si atokọ ayẹwo",

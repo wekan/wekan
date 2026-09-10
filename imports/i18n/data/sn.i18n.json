@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "mukoto height anofanira iva a positive integer",
   "add-swimlane": "Wedzera mugwagwa",
   "add-subtask": "wedzera Subtask",
+  "add-existing-card-as-subtask": "Wedzera Kadhi riripo se Basa Diki",
+  "add-existing-card-as-subtask-empty": "kwete makadhi Found",
   "add-checklist": "wedzera rondedzero yekuongorora",
   "checklist": "Rondedzero yekuongorora",
   "add-checklist-item": "Wedzera chinhu kurondedzero yekuongorora",

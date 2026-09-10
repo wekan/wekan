@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "سوئم لين جي اوچائي مثبت صحيح عدد هجڻ گهرجي",
   "add-swimlane": "لڪير شامل ڪريو",
   "add-subtask": "ذيلي ڪم شامل ڪريو",
+  "add-existing-card-as-subtask": "موجود ڪارڊ کي ذيلي ڪم طور شامل ڪريو",
+  "add-existing-card-as-subtask-empty": "ڪي به ڪارڊ نه مليا",
   "add-checklist": "جاچ فهرست شامل ڪريو",
   "checklist": "چڪاس فهرست",
   "add-checklist-item": "چڪاس فهرست ۾ شيءِ شامل ڪريو",

@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "L'altezza della corsia deve essere un intero positivo",
   "add-swimlane": "Aggiungi swimlane",
   "add-subtask": "Aggiungi sotto-compito",
+  "add-existing-card-as-subtask": "Engeḓzela Khadi ḽi no vha hone sa Mushumo muṱuku",
+  "add-existing-card-as-subtask-empty": "Nessuna scheda trovata",
   "add-checklist": "Aggiungi checklist",
   "checklist": "Uhlu lokuhlola",
   "add-checklist-item": "Aggiungi un elemento alla checklist",

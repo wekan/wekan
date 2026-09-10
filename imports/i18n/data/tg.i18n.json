@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "Баландии хат бояд адади бутуни мусбат бошад",
   "add-swimlane": "Хат илова кардан",
   "add-subtask": "Илова кардани зервазифа",
+  "add-existing-card-as-subtask": "Илова кардани корти мавҷуда ҳамчун кӯтоҳкор",
+  "add-existing-card-as-subtask-empty": "Ягон корт ёфт нашуд",
   "add-checklist": "Илова кардани рӯйхати санҷиш",
   "checklist": "Рӯйхати санҷиш",
   "add-checklist-item": "Ба рӯйхати санҷиш ҷузъ илова кардан",

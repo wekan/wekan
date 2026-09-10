@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "સ્વિમલેનની ઊંચાઈ સકારાત્મક પૂર્ણાંક હોવી આવશ્યક છે",
   "add-swimlane": "સ્વિમલેન ઉમેરો",
   "add-subtask": "સબટાસ્ક ઉમેરો",
+  "add-existing-card-as-subtask": "હાલનું કાર્ડ પેટા-કાર્ય તરીકે ઉમેરો",
+  "add-existing-card-as-subtask-empty": "કોઈ કાર્ડ મળ્યા નથી",
   "add-checklist": "ચેકલિસ્ટ ઉમેરો",
   "checklist": "ચેકલિસ્ટ",
   "add-checklist-item": "ચેકલિસ્ટમાં આઇટમ ઉમેરો",

@@ -152,6 +152,8 @@
   "swimlane-height-error-message": "La altura de carril debe ser un entero positivo",
   "add-swimlane": "Afegeix carril",
   "add-subtask": "Afegir Subtasca",
+  "add-existing-card-as-subtask": "Afegeix la targeta existent com a subtasca",
+  "add-existing-card-as-subtask-empty": "No s'han trobat fitxes",
   "add-checklist": "Llista de verificació d'Afegeix",
   "checklist": "Llista de verificació",
   "add-checklist-item": "Afegeix un ítem al checklist",
