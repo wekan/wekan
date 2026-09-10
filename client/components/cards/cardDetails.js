@@ -1665,6 +1665,7 @@ Template.cardDetailsActionsPopup.events({
     Utils.goBoardId(card.boardId);
   }),
   'click .js-more': Popup.open('cardMore'),
+  'click .js-create-board-from-card': Popup.open('createBoardFromCard'),
   'click .js-toggle-watch-card'() {
     const currentCard = Cards.findOne(getCardId());
     if (!currentCard) return;
@@ -2522,6 +2523,47 @@ Template.cardMorePopup.events({
   'change .js-field-parent-card'(event, tpl) {
     const selection = $(event.currentTarget).val();
     tpl.setParentCardId(selection);
+  },
+});
+
+// #4495: create a brand-new board from THIS existing card, and link the card
+// to it, in one step. Adjacent to, and independent from, the existing
+// "Link to board" flow (Template.linkCardPopup in
+// client/components/lists/listBody.js), which links a NEW card to an
+// EXISTING board. This popup only asks for the new board's title (defaulting
+// to the card's own title); the actual board creation and linking happen
+// server-side, in the `createBoardFromCard` method (server/models/cards.js),
+// which sets on the card the exact same `type`/`linkedId` fields that flow
+// sets when linking to a whole board.
+Template.createBoardFromCardPopup.helpers({
+  cardTitle() {
+    const card = Cards.findOne(getCardId());
+    return card ? card.title : '';
+  },
+});
+
+Template.createBoardFromCardPopup.events({
+  'submit .js-create-board-from-card-form'(evt, tpl) {
+    evt.preventDefault();
+    const card = Cards.findOne(getCardId());
+    if (!card) {
+      Popup.back();
+      return;
+    }
+    const title = tpl.$('.js-create-board-from-card-title').val();
+    Meteor.call('createBoardFromCard', card._id, title, (err, boardId) => {
+      if (err) {
+        alert(err.reason || err.message);
+        return;
+      }
+      if (boardId) {
+        Session.set(
+          'boardSubscriptionGeneration',
+          (Session.get('boardSubscriptionGeneration') || 0) + 1,
+        );
+      }
+      Popup.back();
+    });
   },
 });
 

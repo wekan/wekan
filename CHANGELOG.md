@@ -189,7 +189,17 @@ decision @xet7 raised, not a clear bug),
 reminder on a card's due date with a per-board offset — labelled Feature; the
 built-in due-date reminder already exists (`NOTIFY_DUE_DAYS_BEFORE_AND_AFTER`,
 improved in #3192), so the remaining ask is the per-board offset UI + a webhook
-reminder, a feature).
+reminder, a feature),
+[#4294](https://github.com/wekan/wekan/issues/4294) (rule actions should
+support a limited set of variables, e.g. assigning a card to its creator by
+default — every action field is a literal value today; resolving one from
+the triggering event needs a small templating layer in
+`server/rulesHelper.js`'s action runner, a new kind of field),
+[#4294](https://github.com/wekan/wekan/issues/4294) (a rule should be able to
+combine multiple triggers/actions instead of one of each — `models/rules.js`
+ties a rule to exactly one `triggerId`/`actionId`; supporting several is a
+schema change, not a UI fix, and needs a decision on how a multi-trigger rule
+matches: any trigger, or all of them).
 
 </details>
 
@@ -317,8 +327,9 @@ the fold already used for lists/swimlanes/checklists. It also restores the
 full-featured **document preview** viewer (DOCX/XLSX/PPTX, native PDF),
 hardens the **HttpOnly login cookie** against a rare missing-expiry case,
 lets a board open already **filtered from its URL**, adds a **Group by
-Assignee** board view, lets **Clone Board** skip copying cards, and lets
-Admin Panel / People be **filtered by Team**.
+Assignee** board view, lets **Clone Board** skip copying cards, lets
+Admin Panel / People be **filtered by Team**, and makes **Rules (IFTTT)**
+validate an empty title and default one from the chosen trigger/action.
 
 This release adds the following new features:
 
@@ -675,6 +686,48 @@ real (non-English) translation of the two new labels.
 
 </details>
 
+**Admin Panel / Settings / Visibility** - the instance-wide toggles under this pane.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/52972b3e4cacdc451e5840709f505e98db285913">Board creation can now be restricted to admins only</a>. Thanks to belf88 and xet7.</summary>
+
+[#4475](https://github.com/wekan/wekan/issues/4475): there was no way for an
+admin to stop other user accounts from creating new boards - every signed-in
+user could always make one, no matter what the instance's policy was meant
+to be.
+
+A new checkbox, "Only admins can create boards"
+(`tableVisibilityMode-boardCreationAdminOnly`), sits beside the existing
+"Public boards" toggle in Admin Panel → Settings → Visibility, following
+the exact same `TableVisibilityModeSettings` pattern: a collection document
+seeded off by default in `server/models/collectionBootstrap.js`, a jade
+checkbox and reactive helper in `settingBody.jade`/`settingBody.js`, and a
+write in that section's own Save handler. The enforcement is server-side,
+in `createBoardWithInitialSwimlanes` (`server/models/boards.js`): the
+method now rejects the call with `not-authorized` when the setting is on
+and the caller is not `isAdmin === true`, before the board is inserted -
+not only when the client UI happens to hide the button. A shared
+`client/lib/boardCreationAllowed.js` helper hides the top-bar "+" and the
+All Boards "Add board" tile for a restricted user as a convenience, but
+nothing security-relevant depends on the client agreeing.
+
+A full per-user allow/deny override was intentionally left out of this
+pass - it would need its own schema field and a People/Admin Panel UI to
+flip it per account, which is a larger change than this issue's core
+request to forbid board creation instance-wide. The global toggle covers
+that request on its own.
+
+`tests/boardCreationAdminOnly.test.cjs` pins the default-off setting, the
+checkbox/handler wiring, that the server-side admin check runs before the
+insert, the shared client helper backing every entry point, the new
+`board-creation-admin-only` translation key sitting right after its
+sibling in every locale file, and - as a negative test - that no other
+`Boards.insertAsync` call site exists outside the two already-known and
+deliberately ungated ones (the per-user Templates container and
+`createBoardFromCard`).
+
+</details>
+
 and fixes the following bugs:
 
 **Board reports** - the Dashboard and the 10 board report chart views.
@@ -873,6 +926,35 @@ deleted id out of boards, cards, lists and avatars via
 `models/lib/userDeletionCleanup.js`. No code change was needed; the existing
 regression test `tests/userDeletionCleanup.test.cjs` now documents that it
 also covers this report.
+
+</details>
+
+**Rules (IFTTT)** - creating a rule, and its title.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/52972b3e4cacdc451e5840709f505e98db285913">Clicking "Add Rule" with an empty title now shows a validation message instead of doing nothing</a>. Thanks to xeruf and xet7.</summary>
+
+[#4294](https://github.com/wekan/wekan/issues/4294) described the rules
+wizard as clunky: the "Add Rule" button visibly reacted to a click with an
+empty title field, but nothing happened next, with no explanation why. The
+field is now highlighted and a validation message appears instead of the
+silent no-op.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/52972b3e4cacdc451e5840709f505e98db285913">A rule created with no title now gets a sensible default composed from its trigger and action</a>. Thanks to xeruf and xet7.</summary>
+
+Also from [#4294](https://github.com/wekan/wekan/issues/4294): once a
+trigger and an action are chosen, `models/rules.js`'s `title` schema
+generates a default like "When a card is added to list Doing, then set due
+date" from the trigger/action's own human-readable descriptions (the same
+strings the "View rule" details page already shows), via a new pure,
+unit-tested helper, `models/lib/generateDefaultRuleTitle.js`. This applies
+to every path that creates a rule - the classic wizard, the
+`rules.createRule` server method, and the workflow canvas - so a rule is
+never left unnamed; it can still be renamed afterwards with the rules
+list's existing inline rename.
 
 </details>
 

@@ -1008,6 +1008,10 @@ template(name="cardDetailsActionsPopup")
                 a.js-copy-card
                   i.fa.fa-clipboard
                   | {{_ 'copyCardPopup-title'}}
+              li
+                a.js-link-card-to-board
+                  i.fa.fa-link
+                  | {{_ 'linkCardToBoardPopup-title'}}
           unless currentUser.isWorker
             ul.pop-over-list
               li
@@ -1028,6 +1032,10 @@ template(name="cardDetailsActionsPopup")
                   span.emoji-icon
                   i.fa.fa-link
                   | {{_ 'cardMorePopup-title'}}
+              li
+                a.js-create-board-from-card
+                  i.fa.fa-external-link
+                  | {{_ 'linkCardToNewBoard'}}
     if canModifyCard
       hr
       ul.pop-over-list
@@ -1051,6 +1059,10 @@ template(name="cardDetailsActionsPopup")
             a.js-copy-card
               i.fa.fa-clipboard
               | {{_ 'copyCardPopup-title'}}
+          li
+            a.js-link-card-to-board
+              i.fa.fa-link
+              | {{_ 'linkCardToBoardPopup-title'}}
       unless currentUser.isWorker
         ul.pop-over-list
           li
@@ -1071,6 +1083,10 @@ template(name="cardDetailsActionsPopup")
               span.emoji-icon
                 i.fa.fa-link
               | {{_ 'cardMorePopup-title'}}
+          li
+            a.js-create-board-from-card
+              i.fa.fa-external-link
+              | {{_ 'linkCardToNewBoard'}}
 
 //- #1173: the card export popup IS the shared export body - the same checkbox
   list and the same four formats every other menu offers, with the card as its
@@ -1133,6 +1149,9 @@ template(name="copyCardPopup")
   label(for='copy-card-title') {{_ 'title'}}:
   textarea#copy-card-title.minicard-composer-textarea.js-card-title(autofocus)
     = getTitle
+  +cardDestinationPicker(dialog=dialog)
+
+template(name="linkCardToBoardPopup")
   +cardDestinationPicker(dialog=dialog)
 
 template(name="copyManyCardsPopup")
@@ -1269,6 +1288,17 @@ template(name="cardMorePopup")
     span.date(title=card.createdAt) {{ displayDate createdAt 'LLL' }}
     if currentUser.isBoardAdmin
       a.js-delete(title="{{_ 'card-delete-notice'}}") {{_ 'delete'}}
+
+//- #4495: create a brand-new board from THIS existing card, and link the card
+  to it, in one step - the user never leaves the card. Adjacent to, and does
+  not touch, the existing "Link to board" flow
+  (client/components/lists/listBody.js Template.linkCardPopup), which links a
+  NEW card to an EXISTING board from the list's add-card composer.
+template(name="createBoardFromCardPopup")
+  form.js-create-board-from-card-form
+    label {{_ 'name'}}
+    input.js-create-board-from-card-title.inline-input(type="text" value="{{ cardTitle }}" autofocus="autofocus")
+    button.primary.confirm.js-submit {{_ 'linkCardToNewBoard'}}
 
 template(name="setCardColorPopup")
   form.edit-label

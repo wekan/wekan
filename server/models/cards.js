@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { WebApp } from 'meteor/webapp';
-import { check } from 'meteor/check';
+import { check, Match } from 'meteor/check';
 import { Random } from 'meteor/random';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { add, now } from '/imports/lib/dateUtils';
@@ -36,8 +36,86 @@ import ChecklistItems from '/models/checklistItems';
 import { subtaskCustomFields } from '/imports/lib/subtaskHelpers';
 import { ensureIndex } from '/server/lib/mongoStartup';
 import { canEditCardOrLinkedCard } from '/server/lib/linkedCardPermission';
+import getSlug from 'limax';
+
+const getTAPi18n = () => require('/imports/i18n').TAPi18n;
+
+function getTranslatedString(key, fallback, options) {
+  const i18n = getTAPi18n && getTAPi18n();
+  if (!i18n || !i18n.i18n) {
+    return fallback;
+  }
+  const translated = i18n.__(key, options);
+  return typeof translated === 'string' ? translated : fallback;
+}
 
 Meteor.methods({
+  // #4495: create a brand-new board from an EXISTING card, in one step, and
+  // link that same card to it — without leaving the card. This reuses the
+  // exact board-creation shape server/models/boards.js's own `/api/boards`
+  // endpoint uses (an admin member, a default swimlane), and then sets on the
+  // card the exact same fields the "Link to board" popup sets when linking to
+  // a whole board (client/components/lists/listBody.js `.js-link-board`):
+  // `type: 'cardType-linkedBoard'`, `linkedId: <boardId>`. Nothing else on the
+  // card is touched, so this is a conversion of the existing card, not a copy.
+  async createBoardFromCard(cardId, title) {
+    check(cardId, String);
+    check(title, Match.Optional(String));
+    if (!this.userId) throw new Meteor.Error('not-authorized');
+
+    const card = await Cards.findOneAsync(cardId);
+    if (!card) throw new Meteor.Error('not-found');
+    if (card.archived === true) throw new Meteor.Error('invalid-card');
+    if (
+      card.type === 'template-card' ||
+      card.type === 'cardType-linkedCard' ||
+      card.type === 'cardType-linkedBoard'
+    ) {
+      // Already a link, or a template card: nothing sensible to convert.
+      throw new Meteor.Error('invalid-linked-card');
+    }
+
+    const sourceBoard = await Boards.findOneAsync(card.boardId);
+    if (!sourceBoard || !allowIsBoardMemberWithWriteAccess(this.userId, sourceBoard)) {
+      throw new Meteor.Error('not-authorized');
+    }
+
+    const boardTitle = (title && title.trim()) || card.title || '';
+    if (!boardTitle) throw new Meteor.Error('invalid-title');
+
+    const boardId = await Boards.insertAsync({
+      title: boardTitle,
+      slug: getSlug(boardTitle) || 'board',
+      members: [
+        {
+          userId: this.userId,
+          isAdmin: true,
+          isActive: true,
+          isNoComments: false,
+          isCommentOnly: false,
+          isWorker: false,
+        },
+      ],
+      permission: sourceBoard.permission === 'public' ? 'public' : 'private',
+      color: sourceBoard.color,
+      migrationVersion: 1,
+    });
+    await Swimlanes.insertAsync({
+      title: getTranslatedString('default', 'Default'),
+      boardId,
+    });
+
+    // The same two fields the existing "Link to board" flow sets — nothing
+    // else on the card changes.
+    await Cards.updateAsync(cardId, {
+      $set: {
+        type: 'cardType-linkedBoard',
+        linkedId: boardId,
+      },
+    });
+
+    return boardId;
+  },
   // #6613: create cross-board card links as an acknowledged, authoritative
   // operation. A direct client insert could be rejected after the optimistic
   // write, leaving the Link popup open without creating anything.
