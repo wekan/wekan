@@ -1871,7 +1871,7 @@ translated and in place.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/6f79e87919d95d3b5c979db01730b0fc2b2ac0d5">The "add member" rule action can now add whoever triggered the rule, not just a fixed member</a>. Thanks to arisjr and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/6f79e8791420b696d098c9342a98db9cdd04c140">The "add member" rule action can now add whoever triggered the rule, not just a fixed member</a>. Thanks to arisjr and xet7.</summary>
 
 [#2522](https://github.com/wekan/wekan/issues/2522): the "add member" card
 action only ever stored one specific, pre-chosen board member, so "when a
