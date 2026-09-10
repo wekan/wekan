@@ -445,6 +445,18 @@ template(name="cardDetails")
                       | {{_ 'spent-time-hours'}}
                   +cardSpentTime
 
+              .card-details-item.card-details-item-flow
+                h3.card-details-item-title
+                  i.fa.fa-bolt
+                  | {{_ 'flowtime'}}
+                +cardFlowtime
+
+              .card-details-item.card-details-item-pomodoro
+                h3.card-details-item-title
+                  i.fa.fa-clock-o
+                  | {{_ 'pomodoro'}}
+                +cardPomodoro
+
               //.card-details-items
         //- The heading is here for EVERY card the reader may write to, not only
           for one that already has a custom field on it. The hamburger at the end

@@ -1,0 +1,20 @@
+.card-flowtime {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+}
+.flow-status {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.flow-elapsed {
+  font-variant-numeric: tabular-nums;
+  font-weight: bold;
+}
+.flow-btn {
+  padding: 2px 8px;
+  border-radius: 4px;
+}

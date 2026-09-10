@@ -1,0 +1,12 @@
+template(name="cardFlowtime")
+  .card-flowtime
+    if isFlowActive
+      .flow-status
+        span.flow-elapsed {{elapsedDisplay}}
+        span.flow-interruptions {{_ 'flow-interruptions' flowInterruptions}}
+      if canControlFlow
+        button.js-add-flow-interruption.flow-btn(type="button") {{_ 'flow-add-interruption'}}
+        button.js-stop-flow.flow-btn.negate(type="button") {{_ 'flow-stop'}}
+    else
+      if canControlFlow
+        button.js-start-flow.flow-btn.primary(type="button") {{_ 'flow-start'}}

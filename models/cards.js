@@ -485,6 +485,83 @@ Cards.attachSchema(
       defaultValue: false,
       optional: true,
     },
+    // Flowtime (#3919): an in-progress, uninterrupted work session. Unlike
+    // Pomodoro's fixed interval, a Flowtime session runs until the user stops
+    // it themselves; interruptions are only tallied, not used to pause the
+    // clock. Stopping the session adds its duration into the existing
+    // `spentTime` field above via the same setSpentTime() card helper the
+    // manual time-entry popup already uses.
+    flowStartAt: {
+      /**
+       * when the active Flowtime session on this card started, or null/unset
+       * when no session is active
+       */
+      type: Date,
+      optional: true,
+    },
+    flowInterruptions: {
+      /**
+       * how many interruptions have been tallied during the active session
+       */
+      type: Number,
+      optional: true,
+      defaultValue: 0,
+    },
+    flowUserId: {
+      /**
+       * the user who started the active Flowtime session; a session belongs
+       * to one person
+       */
+      type: String,
+      optional: true,
+    },
+    // Pomodoro (#4862): the classic FIXED-interval technique - unlike
+    // Flowtime above, a Pomodoro session alternates fixed-length work and
+    // break intervals. A completed work interval adds its duration into the
+    // same `spentTime` field via the same setSpentTime() card helper the
+    // manual time-entry popup and Flowtime both use.
+    pomodoroStartAt: {
+      /**
+       * when the current work/break interval started, or null/unset when no
+       * Pomodoro interval is active
+       */
+      type: Date,
+      optional: true,
+    },
+    pomodoroPhase: {
+      /**
+       * 'work' or 'break' while an interval is active; null/unset otherwise
+       */
+      type: String,
+      optional: true,
+      allowedValues: ['work', 'break'],
+    },
+    pomodoroCount: {
+      /**
+       * how many work intervals have been completed, used for the "long
+       * break every 4th interval" rule
+       */
+      type: Number,
+      optional: true,
+      defaultValue: 0,
+    },
+    pomodoroUserId: {
+      /**
+       * the user who started the active Pomodoro session; a session belongs
+       * to one person
+       */
+      type: String,
+      optional: true,
+    },
+    pomodoroWorkMinutes: {
+      /**
+       * length of a work interval in minutes, configurable per session;
+       * defaults to the standard 25 minutes
+       */
+      type: Number,
+      optional: true,
+      defaultValue: 25,
+    },
     // XXX Should probably be called `authorId`. Is it even needed since we have
     // the `members` field?
     userId: {
@@ -2040,6 +2117,165 @@ Cards.helpers({
     } else {
       return Cards.updateAsync({ _id: this.getRealId() }, { $set: { spentTime } });
     }
+  },
+
+  // Flowtime (#3919) session helpers. These mirror the shape of
+  // setSpentTime()/setIsOvertime() above, but do not follow linked
+  // cards/boards - a Flowtime session belongs to one person working on one
+  // card right now, not to whatever the card links to.
+  getFlowStartAt() {
+    return this.flowStartAt;
+  },
+
+  getFlowInterruptions() {
+    return this.flowInterruptions || 0;
+  },
+
+  getFlowUserId() {
+    return this.flowUserId;
+  },
+
+  isFlowActive() {
+    return !!this.flowStartAt;
+  },
+
+  startFlowSession(userId) {
+    return Cards.updateAsync(
+      { _id: this.getRealId() },
+      { $set: { flowStartAt: new Date(), flowInterruptions: 0, flowUserId: userId } },
+    );
+  },
+
+  addFlowInterruption() {
+    return Cards.updateAsync(
+      { _id: this.getRealId() },
+      { $inc: { flowInterruptions: 1 } },
+    );
+  },
+
+  // Stops the active Flowtime session: adds its duration (in hours) into the
+  // existing spentTime field via setSpentTime() - the same method the manual
+  // time-entry popup uses - and clears the session fields.
+  stopFlowSession() {
+    if (!this.flowStartAt) return null;
+    const elapsedHours =
+      (Date.now() - new Date(this.flowStartAt).getTime()) / (1000 * 60 * 60);
+    const newSpentTime = (this.spentTime || 0) + elapsedHours;
+    this.setSpentTime(newSpentTime);
+    return Cards.updateAsync(
+      { _id: this.getRealId() },
+      { $set: { flowStartAt: null, flowInterruptions: 0, flowUserId: null } },
+    );
+  },
+
+  // Pomodoro (#4862) session helpers. Additive and separate from the
+  // Flowtime helpers above - same shape, different technique (fixed
+  // intervals rather than open-ended).
+  BREAK_MINUTES: 5,
+  LONG_BREAK_MINUTES: 15,
+
+  getPomodoroStartAt() {
+    return this.pomodoroStartAt;
+  },
+
+  getPomodoroPhase() {
+    return this.pomodoroPhase;
+  },
+
+  getPomodoroCount() {
+    return this.pomodoroCount || 0;
+  },
+
+  getPomodoroUserId() {
+    return this.pomodoroUserId;
+  },
+
+  getPomodoroWorkMinutes() {
+    return this.pomodoroWorkMinutes || 25;
+  },
+
+  isPomodoroActive() {
+    return !!this.pomodoroStartAt && !!this.pomodoroPhase;
+  },
+
+  // Every 4th completed work interval gets the longer break (the standard
+  // Pomodoro Technique rule) - a plain modulo check on the count.
+  getPomodoroBreakMinutes() {
+    const count = this.getPomodoroCount();
+    return count > 0 && count % 4 === 0
+      ? this.LONG_BREAK_MINUTES
+      : this.BREAK_MINUTES;
+  },
+
+  startPomodoro(userId, workMinutes) {
+    return Cards.updateAsync(
+      { _id: this.getRealId() },
+      {
+        $set: {
+          pomodoroStartAt: new Date(),
+          pomodoroPhase: 'work',
+          pomodoroUserId: userId,
+          pomodoroWorkMinutes: workMinutes || this.getPomodoroWorkMinutes(),
+        },
+      },
+    );
+  },
+
+  // Called when a work interval's countdown reaches zero: adds the interval
+  // duration (in hours) into the existing spentTime field via setSpentTime()
+  // - the same method the manual time-entry popup uses - increments the
+  // completed-interval count, and switches to a break interval.
+  completePomodoroWorkInterval() {
+    if (!this.pomodoroStartAt || this.pomodoroPhase !== 'work') return null;
+    const workHours = this.getPomodoroWorkMinutes() / 60;
+    this.setSpentTime((this.spentTime || 0) + workHours);
+    const newCount = this.getPomodoroCount() + 1;
+    return Cards.updateAsync(
+      { _id: this.getRealId() },
+      {
+        $set: {
+          pomodoroStartAt: new Date(),
+          pomodoroPhase: 'break',
+          pomodoroCount: newCount,
+        },
+      },
+    );
+  },
+
+  // Called when a break interval's countdown reaches zero: goes back to
+  // ready-to-start rather than auto-starting the next work interval.
+  completePomodoroBreakInterval() {
+    if (!this.pomodoroStartAt || this.pomodoroPhase !== 'break') return null;
+    return Cards.updateAsync(
+      { _id: this.getRealId() },
+      { $set: { pomodoroStartAt: null, pomodoroPhase: null } },
+    );
+  },
+
+  // Stop/Reset: clears all Pomodoro fields back to their empty/null
+  // defaults. If stopped mid-work-interval, credits the partial elapsed
+  // time to spentTime (consistent with how Flowtime's stopFlowSession()
+  // credits an interrupted session above); a break interval adds no time.
+  stopPomodoro() {
+    if (!this.pomodoroStartAt) return null;
+    if (this.pomodoroPhase === 'work') {
+      const elapsedHours =
+        (Date.now() - new Date(this.pomodoroStartAt).getTime()) /
+        (1000 * 60 * 60);
+      this.setSpentTime((this.spentTime || 0) + elapsedHours);
+    }
+    return Cards.updateAsync(
+      { _id: this.getRealId() },
+      {
+        $set: {
+          pomodoroStartAt: null,
+          pomodoroPhase: null,
+          pomodoroCount: 0,
+          pomodoroUserId: null,
+          pomodoroWorkMinutes: 25,
+        },
+      },
+    );
   },
 
   getVoteQuestion() {
