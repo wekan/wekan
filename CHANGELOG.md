@@ -1275,6 +1275,32 @@ module, `models/lib/quickAddCardLabel.js`
 
 </details>
 
+**The member menu** - My Cards, My Due Cards and the pages beside them.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a9dd6b05b">A "My Attachments" page lists every attachment the user has uploaded, across every board</a>. Thanks to Jieiku and xet7.</summary>
+
+[#3461](https://github.com/wekan/wekan/issues/3461): the member menu already
+had My Cards and My Due Cards, each its own entry and its own page listing
+cards across every board the user belongs to. My Attachments is a third,
+identical sibling - added right after My Due Cards
+(`client/components/users/userHeader.jade`) - listing every attachment the
+CURRENT user has uploaded (not everybody's, just theirs), grouped board >
+swimlane > list > card the same way My Cards is, with the same "open the
+card in place" popup click handler My Cards' `.js-minicard` uses (#3640) so
+opening one never navigates away from the list.
+
+The new `myAttachments` publication (`server/publications/cards.js`) filters
+by both the uploader and board visibility, reusing the same
+`boardVisibilitySelectors()` the All Boards list and the `board` publication
+already use (GHSA-gwc4-fw7p-gw58) rather than writing that rule a third
+time - so an attachment on a board the user cannot see is never published,
+even if its `userId` field somehow still names them. The query shape is a
+small pure module, `models/lib/myAttachmentsQuery.js`, unit-tested without a
+database.
+
+</details>
+
 and fixes the following bugs:
 
 **Board reports** - the Dashboard and the 10 board report chart views.
