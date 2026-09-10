@@ -1936,6 +1936,13 @@ Template.boardCardSettingsPopup.helpers({
     const currentBoard = ReactiveCache.getBoard(boardId);
     return getMinicardSetting(currentBoard, 'allowsShowListsOnMinicard', 'allowsShowLists', false);
   },
+  // #2426: board-wide toggle for showing the swimlane name at the bottom of
+  // a minicard in List view. Defaults to false, matching "Show lists".
+  allowsSwimlaneNameOnMinicard() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.allowsSwimlaneNameOnMinicard === true : false;
+  },
   allowsChecklists() {
     const boardId = Session.get('currentBoard');
     const currentBoard = ReactiveCache.getBoard(boardId);
@@ -2293,6 +2300,11 @@ Template.boardCardSettingsPopup.events({
     evt.preventDefault();
     const newValue = !tpl.currentBoard.allowsShowListsOnMinicard;
     Boards.update(tpl.currentBoard._id, { $set: { allowsShowListsOnMinicard: newValue } });
+  },
+  'click .js-field-has-swimlane-name-on-minicard'(evt, tpl) {
+    evt.preventDefault();
+    const newValue = !tpl.currentBoard.allowsSwimlaneNameOnMinicard;
+    Boards.update(tpl.currentBoard._id, { $set: { allowsSwimlaneNameOnMinicard: newValue } });
   },
   'click .js-field-has-description-title'(evt, tpl) {
     evt.preventDefault();

@@ -10,6 +10,9 @@ import { MultiSelection } from '/client/lib/multiSelection';
 import { Utils } from '/client/lib/utils';
 import { lazyListCardCount } from '/client/lib/lazyCards';
 import { sumCustomFieldValues } from '/models/lib/customFieldsSum';
+import {
+  isListInExceededWipLimitGroup,
+} from '/models/lib/wipLimitGroupDecision';
 // #5659: single source of truth for the default/minimum list width, shared
 // with client/components/lists/list.js and models/users.js.
 import {
@@ -131,7 +134,19 @@ Template.listHeader.helpers({
     const list = Template.currentData();
     const lazyCount = lazyListCardCount(list, undefined);
     const count = lazyCount !== null ? lazyCount : list.cards().length;
-    return list.getWipLimit('enabled') && list.getWipLimit('value') < count;
+    return (
+      (list.getWipLimit('enabled') && list.getWipLimit('value') < count) ||
+      Template.instance().exceededWipLimitGroup()
+    );
+  },
+
+  // #2489: is this list a member of a board-level WIP limit GROUP that is
+  // currently over its own shared limit? Reuses the exact same `.highlight`
+  // styling as the per-list `exceededWipLimit` above (see listHeader.jade) -
+  // the group feature only supplies a different reason the list is flagged,
+  // not a second visual language.
+  exceededWipLimitGroup() {
+    return Template.instance().exceededWipLimitGroup();
   },
 
   // Accurate whole-list card count (used by the badge visibility, WIP-limit
@@ -204,6 +219,31 @@ Template.listHeader.onCreated(function () {
     const lazyCount = lazyListCardCount(list, undefined);
     const count = lazyCount !== null ? lazyCount : list.cards().length;
     return list.getWipLimit('enabled') && list.getWipLimit('value') <= count;
+  };
+
+  // #2489: board-level WIP limit groups - the combined count/over-limit
+  // decision itself is the pure models/lib/wipLimitGroupDecision.js module;
+  // this only gathers the (reactive) inputs it needs: the board's groups and
+  // the current card count of every list any of them names.
+  this.exceededWipLimitGroup = function () {
+    const list = Template.currentData();
+    if (!list) return false;
+    const board = ReactiveCache.getBoard(list.boardId);
+    const groups = board ? board.getWipLimitGroups() : [];
+    if (!groups.length) return false;
+
+    const cardCountsByListId = {};
+    groups.forEach(group => {
+      (group.listIds || []).forEach(listId => {
+        if (cardCountsByListId[listId] !== undefined) return;
+        const memberList = ReactiveCache.getList(listId);
+        const lazyCount = memberList ? lazyListCardCount(memberList, undefined) : null;
+        cardCountsByListId[listId] =
+          lazyCount !== null ? lazyCount : memberList ? memberList.cards().length : 0;
+      });
+    });
+
+    return isListInExceededWipLimitGroup(groups, list._id, cardCountsByListId);
   };
 });
 

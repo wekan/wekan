@@ -449,6 +449,23 @@ template(name="boardCardSettingsPopup")
         span
           i.fa.fa-list
           | {{_ 'card-show-lists'}}
+    //- #2426: the swimlane a card belongs to isn't otherwise visible on a
+      minicard in List view (Swimlanes view already groups cards visually by
+      swimlane), so this board-wide toggle shows the swimlane's name at the
+      bottom of the minicard, the same place/style as the list name above.
+      There is no "Show on Card" equivalent - the card detail view already
+      shows the swimlane via its own picker - so the first column stays
+      empty, the same shape as the "List title" row above.
+      client/components/cards/minicard.jade
+    .card-settings-row
+      .card-settings-column
+      .card-settings-column
+        a.flex.js-field-has-swimlane-name-on-minicard(title="{{_ 'swimlane'}}" class="{{#if allowsSwimlaneNameOnMinicard}}is-checked{{/if}}")
+          i.fa(class="{{#if allowsSwimlaneNameOnMinicard}}fa-check{{else}}fa-square-o{{/if}}")
+      .card-settings-column
+        span
+          i.fa.fa-list-alt
+          | {{_ 'swimlane'}}
     .card-settings-row
       .card-settings-column
         a.flex.js-field-has-labels(title="{{_ 'labels'}}" class="{{#if allowsLabels}}is-checked{{/if}}")

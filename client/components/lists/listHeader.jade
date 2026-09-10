@@ -25,7 +25,8 @@ template(name="listHeader")
       if isMiniScreen
         h2.list-header-name(
           title="{{ displayDate modifiedAt 'LLL' }}"
-          class="{{#if currentUser.isBoardMember}}{{#unless currentUser.isCommentOnly}}{{#unless currentUser.isWorker}}js-open-inlined-form is-editable{{/unless}}{{/unless}}{{/if}}")
+          class="{{#if currentUser.isBoardMember}}{{#unless currentUser.isCommentOnly}}{{#unless currentUser.isWorker}}js-open-inlined-form is-editable{{/unless}}{{/unless}}{{/if}}"
+          class="{{#if exceededWipLimitGroup}}highlight{{/if}}")
           +viewer
             = title
           if wipLimit.enabled
@@ -50,7 +51,7 @@ template(name="listHeader")
           a.list-collapse-indicator.js-collapse(title="{{_ 'uncollapse'}}" aria-label="{{_ 'uncollapse'}}")
             i.fa.fa-caret-right
           div.list-rotated
-            h2.list-header-name(title="{{ displayDate modifiedAt 'LLL' }}")
+            h2.list-header-name(title="{{ displayDate modifiedAt 'LLL' }}" class="{{#if exceededWipLimitGroup}}highlight{{/if}}")
               +viewer
                 = title
               if wipLimit.enabled
@@ -73,7 +74,8 @@ template(name="listHeader")
           div
             h2.list-header-name(
               title="{{ displayDate modifiedAt 'LLL' }}"
-              class="{{#if currentUser.isBoardMember}}{{#unless currentUser.isCommentOnly}}{{#unless currentUser.isWorker}}js-open-inlined-form is-editable{{/unless}}{{/unless}}{{/if}}")
+              class="{{#if currentUser.isBoardMember}}{{#unless currentUser.isCommentOnly}}{{#unless currentUser.isWorker}}js-open-inlined-form is-editable{{/unless}}{{/unless}}{{/if}}"
+          class="{{#if exceededWipLimitGroup}}highlight{{/if}}")
               +viewer
                 = title
               if wipLimit.enabled

@@ -965,6 +965,18 @@ Boards.attachSchema(
       defaultValue: false,
     },
 
+    // #2426: a card's swimlane isn't otherwise visible on its minicard in
+    // List view (Swimlanes view already groups cards by swimlane), so this
+    // board-wide toggle shows the swimlane's name at the bottom of the
+    // minicard. Defaults to false so existing boards see no change.
+    allowsSwimlaneNameOnMinicard: {
+      /**
+       * Does the board allow showing the swimlane name on all minicards?
+       */
+      type: Boolean,
+      defaultValue: false,
+    },
+
     allowsChecklistAtMinicard: {
       /**
        * Does the board allow showing checklists on all minicards?
@@ -2489,6 +2501,12 @@ Boards.helpers({
 
   async setAllowsShowListsOnMinicard(allowsShowListsOnMinicard) {
     return await Boards.updateAsync(this._id, { $set: { allowsShowListsOnMinicard } });
+  },
+
+  async setAllowsSwimlaneNameOnMinicard(allowsSwimlaneNameOnMinicard) {
+    return await Boards.updateAsync(this._id, {
+      $set: { allowsSwimlaneNameOnMinicard },
+    });
   },
 
   async setAllowsChecklistAtMinicard(allowsChecklistAtMinicard) {
