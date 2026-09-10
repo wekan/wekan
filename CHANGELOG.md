@@ -315,11 +315,9 @@ MIT-licensed and lazy-loaded only when their view is opened. The
 **minicard** title moved to the top and gained a collapse caret, matching
 the fold already used for lists/swimlanes/checklists. It also restores the
 full-featured **document preview** viewer (DOCX/XLSX/PPTX, native PDF),
-replacing the minimal server-rendered GIF-slideshow approach that kept
-failing with a bare HTTP 415, hardens the **HttpOnly login cookie**
-against a rare case where it could be written without an expiry, lets a
-board open already **filtered from its URL**, and adds a **Group by
-Assignee** board view.
+hardens the **HttpOnly login cookie** against a rare missing-expiry case,
+lets a board open already **filtered from its URL**, adds a **Group by
+Assignee** board view, and lets **Clone Board** skip copying cards.
 
 This release adds the following new features:
 
@@ -621,6 +619,32 @@ overtime marker, deliberately not a minicard re-render, so the view stays
 lightweight for a board with many cards; clicking a card navigates to it
 like any other view, and there is no drag-and-drop or export - this is
 scoped as a read-only overview, not a second way to work the board.
+
+</details>
+
+**All Boards** - the overview and its Clone Board action.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d4876eca3bf1db91d45970b1b4e888b6e16083ab">Clone Board can now skip copying cards</a>. Thanks to e-gaulue and xet7.</summary>
+
+[#4726](https://github.com/wekan/wekan/issues/4726) asked for a way to
+clone a board as a structural template - swimlanes, lists, labels, custom
+fields and settings - without also duplicating every card onto the copy.
+
+The Clone Board action (the per-board "Clone" tile, previously a plain
+`confirm()` dialog) now opens a small popup with a "Without cards"
+checkbox. Checking it sends a `withoutCards` flag through the `copyBoard`
+Meteor method into `Boards.helpers().copy()` and
+`Swimlanes.helpers().copy()`, which skip only the one loop that actually
+creates card copies; everything else in the copy chain (swimlanes, lists,
+labels, custom field definitions, rules/actions/triggers, integrations)
+already becomes a no-op with zero cards and needed no change. Leaving the
+checkbox unchecked reproduces today's clone exactly.
+`tests/cloneBoardWithoutCards.test.cjs` pins the flag's default, the
+single gated card-copy call site (and that no second, unguarded one
+exists), the method's handling of the flag, and the client popup/checkbox
+wiring - plus that the new `clone-board-without-cards` translation key
+exists in English and every locale.
 
 </details>
 
