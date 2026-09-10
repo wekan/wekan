@@ -98,11 +98,6 @@ than none of it: a card would show a person that an export drops.
 <details>
 <summary>Need specific infrastructure / a running server stack we cannot reproduce here (left for environment owners).</summary>
 
-[#5707](https://github.com/wekan/wekan/issues/5707) (board invitation email
-never arrives - the reporter's own title says environment specific, and the send
-path needs a real SMTP server to tell a WeKan defect from a rejected or
-silently-dropped message; the code that composes and sends it is worth reading
-against a live log rather than guessed at),
 [#3318](https://github.com/wekan/wekan/issues/3318) (outgoing webhooks from a
 Sandstorm grain require a user-granted Powerbox network capability and a
 Node-24-compatible bridge implementation; direct HTTP is intentionally blocked
@@ -115,7 +110,15 @@ already exists — the behaviour is on the identity-provider side, and reproduci
 it needs that whole chain), [#6552](https://github.com/wekan/wekan/issues/6552)
 (raise the file-descriptor limit for Caddy in the snap — snapcraft has no
 per-app ulimit key and snapd owns the systemd unit, so this needs a snapd
-feature or a wrapper change verified on a real snap install).
+feature or a wrapper change verified on a real snap install),
+[#5758](https://github.com/wekan/wekan/issues/5758) (Windows SSO via Kerberos/
+NTLM through `node-expose-sspi`: a Windows-only native Node addon exposing the
+Win32 SSPI API — needs a Windows host, node-gyp/MSVC build tools, an Active
+Directory domain, and a real SSPI handshake to build or verify at all; it also
+sits directly in the authentication path, where a wrong implementation done
+without that environment is a security risk rather than a convenience. The
+maintainer's own comment on the issue already flags Node 20 compatibility
+doubts and asks for a Windows/AD-experienced contributor).
 
 </details>
 
