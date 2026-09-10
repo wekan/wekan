@@ -425,15 +425,54 @@ async function createBoardSubmit(tpl, event) {
   } else {
     const visibility = tpl.visibility.get();
 
-    tpl.boardId.set(
-      await Meteor.callAsync('createBoardWithInitialSwimlanes', {
-        title,
-        slug,
-        permission: visibility,
-        migrationVersion: 1,
-        swimlanes: [{ title: 'Default' }],
-      }),
-    );
+    // #4205: when the user has marked a board template as their default,
+    // apply it automatically - the same "type a name and click Create" flow
+    // that used to always start blank now reuses the EXACT copyBoard call the
+    // manual "Template" picker already makes (Template.searchElementPopup's
+    // 'click .js-minicard' handler, client/components/lists/listBody.js) -
+    // only the source (the default template's board) and the typed title
+    // differ. Nothing changes for a user who has not set a default.
+    const currentUser = ReactiveCache.getCurrentUser();
+    const defaultTemplateBoardId = currentUser
+      && currentUser.profile
+      && currentUser.profile.defaultBoardTemplateBoardId;
+
+    if (defaultTemplateBoardId) {
+      await new Promise((resolve) => {
+        Meteor.call(
+          'copyBoard',
+          defaultTemplateBoardId,
+          {
+            sort: ReactiveCache.getBoards({ archived: false }).length,
+            type: 'board',
+            title,
+          },
+          (err, newBoardId) => {
+            if (err) {
+              // Stale/removed default (should self-heal via boardRemover, but
+              // guard against a race): fall back to a blank board rather than
+              // leaving Create silently broken.
+              console.error(err);
+            } else {
+              tpl.boardId.set(newBoardId);
+            }
+            resolve();
+          },
+        );
+      });
+    }
+
+    if (!tpl.boardId.get()) {
+      tpl.boardId.set(
+        await Meteor.callAsync('createBoardWithInitialSwimlanes', {
+          title,
+          slug,
+          permission: visibility,
+          migrationVersion: 1,
+          swimlanes: [{ title: 'Default' }],
+        }),
+      );
+    }
 
     // Assign to space if one was selected
     const spaceId = Session.get('createBoardInWorkspace');

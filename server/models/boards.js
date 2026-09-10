@@ -82,6 +82,23 @@ async function boardRemover(doc) {
       { multi: true },
     );
   }
+
+  // #4205: when an individual board template (type 'template-board', the
+  // board a "Board Templates" linked card points at) is deleted, clear it as
+  // anyone's default board template so board creation falls back to its
+  // normal blank-board behavior instead of failing against a dead board id.
+  if (doc.type === 'template-board') {
+    await Users.updateAsync(
+      { 'profile.defaultBoardTemplateBoardId': doc._id },
+      {
+        $unset: {
+          'profile.defaultBoardTemplateId': '',
+          'profile.defaultBoardTemplateBoardId': '',
+        },
+      },
+      { multi: true },
+    );
+  }
 }
 
 const foreachRemovedMember = (doc, modifier, callback) => {

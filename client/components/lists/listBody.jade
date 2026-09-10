@@ -54,6 +54,24 @@ template(name="addCardForm")
         each members.get
           +userAvatar(userId=this)
 
+    //- #3967: an optional "More options" panel lets the description, due
+    //- date and assignees be filled in BEFORE the card is created, so they
+    //- become part of the same Cards.insert call as the title instead of
+    //- separate edits (each of which would fire its own watcher-notification
+    //- email) right after creating the card.
+    if showMoreOptions
+      .add-card-more-options.js-more-options
+        textarea.js-more-options-description(placeholder="{{_ 'description'}}" dir="auto")
+        label {{_ 'due-date'}}
+        input.js-more-options-due-at(type="datetime-local")
+        if boardMembersForAssignees
+          label {{_ 'assignees'}}
+          .add-card-more-options-assignees
+            each boardMembersForAssignees
+              label.add-card-more-options-assignee
+                input.js-more-options-assignee(type="checkbox" value="{{userId}}" checked=(isAssignee userId))
+                +userAvatar(userId=userId)
+
   .add-controls.clearfix
     button.primary.confirm(type="submit") {{_ 'add'}}
     a.js-close-inlined-form
@@ -72,6 +90,10 @@ template(name="addCardForm")
           | &nbsp;
           | /
           a.js-card-template {{_ 'template'}}
+    span.quiet
+      | &nbsp;
+      | /
+      a.js-toggle-more-options {{_ 'more-options'}}
 
 template(name="autocompleteLabelLine")
   .minicard-label(class="card-label-{{colorName}}" title=labelName)
@@ -128,6 +150,16 @@ template(name="searchElementPopup")
       if isBoardTemplateSearch
         each results
           a.minicard-wrapper.js-minicard
+            //- #4205: mark one board template as the default applied by the
+              plain "type a name and click Create" board-creation flow, so a
+              user does not have to reopen this picker every time. Toggling
+              stops the click from also applying the template (this popup is
+              also how a template is manually applied, by clicking the rest
+              of the row).
+            span.js-set-default-board-template(
+              title="{{#if isDefaultBoardTemplate _id}}{{_ 'unset-default-board-template'}}{{else}}{{_ 'set-default-board-template'}}{{/if}}"
+              class="{{#if isDefaultBoardTemplate _id}}is-default-board-template{{/if}}")
+              i.fa(class="{{#if isDefaultBoardTemplate _id}}fa-star{{else}}fa-star-o{{/if}}")
             +miniboard(this)
       if isListTemplateSearch
         each results

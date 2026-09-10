@@ -853,11 +853,36 @@ Template.addCardForm.helpers({
     }
     return false;
   },
+  // #3967
+  showMoreOptions() {
+    return Template.instance().showMoreOptions.get();
+  },
+  boardMembersForAssignees() {
+    const currentBoardId = Session.get('currentBoard');
+    const board = ReactiveCache.getBoard(currentBoardId);
+    return (board?.members || []).filter(m => m.isActive !== false);
+  },
+  isAssignee(userId) {
+    return Template.instance().assignees.get().includes(userId);
+  },
 });
 
 Template.addCardForm.events({
   keydown(evt, tpl) {
     tpl.pressKey(evt);
+  },
+  'click .js-toggle-more-options'(evt, tpl) {
+    evt.preventDefault();
+    tpl.showMoreOptions.set(!tpl.showMoreOptions.get());
+  },
+  'input .js-more-options-description'(evt, tpl) {
+    tpl.description.set(evt.currentTarget.value);
+  },
+  'change .js-more-options-due-at'(evt, tpl) {
+    tpl.dueAt.set(evt.currentTarget.value);
+  },
+  'change .js-more-options-assignee'(evt, tpl) {
+    toggleValueInReactiveArray(tpl.assignees, evt.currentTarget.value);
   },
   'click .js-link': Popup.open('linkCard'),
   'click .js-search': Popup.open('searchElement'),
