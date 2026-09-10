@@ -9,7 +9,11 @@ import { isHexColor, toHex } from '/models/lib/contrastColor';
 import { MultiSelection } from '/client/lib/multiSelection';
 import { Utils } from '/client/lib/utils';
 import { lazyListCardCount } from '/client/lib/lazyCards';
-import { sumCustomFieldValues } from '/models/lib/customFieldsSum';
+import {
+  sumCustomFieldValues,
+  numberFieldStats,
+  dateFieldRange,
+} from '/models/lib/customFieldsSum';
 import {
   isListInExceededWipLimitGroup,
 } from '/models/lib/wipLimitGroupDecision';
@@ -35,6 +39,38 @@ Meteor.startup(() => {
 // (#list-collapse-swimlane-bleed) reuses the exact same resolution, from
 // inside both a helper and an event handler - Template.parentData() works in
 // either, since Blaze keeps the current view active for both.
+// #2075: shared by numberFieldsSum()/numberFieldsStats()/dateFieldsRange()
+// below - the "which flagged custom fields of this type, which cards" lookup
+// is identical for a number-field sum/min/max and a date-field range; only
+// the aggregation function applied to the result differs.
+function summarizableCustomFields(boardId, type) {
+  return (
+    ReactiveCache.getCustomFields({
+      boardIds: { $in: [boardId] },
+      showSumAtTopOfList: true,
+      type,
+    }) || []
+  );
+}
+
+function listCardsForSummary(list, containerSwimlaneId) {
+  // Same swimlane-scoping decision as cardsCount() below: in Swimlanes view,
+  // scope to the swimlane row this header is rendered in (the SAME id the
+  // card body / card count already use), so a shared list does not report
+  // the whole-list figure under every swimlane row.
+  const selector = { listId: list._id, archived: false };
+  if (Utils.boardView() === 'board-view-swimlanes') {
+    const swimlaneId =
+      typeof containerSwimlaneId === 'string' && containerSwimlaneId
+        ? containerSwimlaneId
+        : list.swimlaneId || '';
+    if (swimlaneId) {
+      selector.swimlaneId = swimlaneId;
+    }
+  }
+  return ReactiveCache.getCards(selector);
+}
+
 function resolveContainerSwimlaneId(list) {
   if (!list || Utils.boardView() !== 'board-view-swimlanes') {
     return undefined;
@@ -176,41 +212,91 @@ Template.listHeader.helpers({
     const list = Template.currentData();
     if (!list) return 0;
     const boardId = Session.get('currentBoard');
-    const fields = ReactiveCache.getCustomFields({
-      boardIds: { $in: [boardId] },
-      showSumAtTopOfList: true,
-      type: 'number',
-    });
-    if (!fields || !fields.length) return 0;
-
-    // Same swimlane-scoping decision as cardsCount() above: in Swimlanes view,
-    // scope the sum to the swimlane row this header is rendered in (the SAME
-    // id the card body / card count already use), so a shared list does not
-    // report the whole-list sum under every swimlane row.
-    const selector = { listId: list._id, archived: false };
-    if (Utils.boardView() === 'board-view-swimlanes') {
-      const swimlaneId =
-        typeof containerSwimlaneId === 'string' && containerSwimlaneId
-          ? containerSwimlaneId
-          : list.swimlaneId || '';
-      if (swimlaneId) {
-        selector.swimlaneId = swimlaneId;
-      }
-    }
-    const cards = ReactiveCache.getCards(selector);
+    const fields = summarizableCustomFields(boardId, 'number');
+    if (!fields.length) return 0;
+    const cards = listCardsForSummary(list, containerSwimlaneId);
     return sumCustomFieldValues(cards, fields.map(field => field._id));
   },
 
   hasNumberFieldsSum() {
     const boardId = Session.get('currentBoard');
-    const fields = ReactiveCache.getCustomFields({
-      boardIds: { $in: [boardId] },
-      showSumAtTopOfList: true,
-      type: 'number',
-    });
-    return !!(fields && fields.length);
+    return !!summarizableCustomFields(boardId, 'number').length;
+  },
+
+  // #2075: min/max/"how many cards have the field set" alongside the #3319
+  // sum, for the SAME flagged number field(s) - no separate field-selection
+  // setting. Returns null when there is nothing to show so the template can
+  // keep the primary "∑ N" badge unadorned (no min/max yet flagged/no data).
+  numberFieldsStats(containerSwimlaneId) {
+    const list = Template.currentData();
+    if (!list) return null;
+    const boardId = Session.get('currentBoard');
+    const fields = summarizableCustomFields(boardId, 'number');
+    if (!fields.length) return null;
+    const cards = listCardsForSummary(list, containerSwimlaneId);
+    const stats = numberFieldStats(cards, fields.map(field => field._id));
+    return stats.min === null ? null : stats;
+  },
+
+  // A tooltip for the "∑ N" badge that adds the min/max range and the
+  // "N of M cards have a value" count WITHOUT any extra always-visible
+  // number in the header itself - hover/long-press only. Deliberately
+  // wordless (min–max, count/total) so it needs no new translatable label.
+  numberFieldsSumTooltip(containerSwimlaneId) {
+    const label = TAPi18n.__('sum-of-number-fields');
+    const list = Template.currentData();
+    if (!list) return label;
+    const boardId = Session.get('currentBoard');
+    const fields = summarizableCustomFields(boardId, 'number');
+    if (!fields.length) return label;
+    const cards = listCardsForSummary(list, containerSwimlaneId);
+    const s = numberFieldStats(cards, fields.map(field => field._id));
+    if (s.min === null) return label;
+    return `${label} (${s.min}–${s.max}, ${s.count}/${s.total})`;
+  },
+
+  // #2075: a date-type field flagged showSumAtTopOfList=true (the SAME
+  // per-field checkbox #3319 already ships, just no longer number-only) is
+  // shown as an earliest-latest range instead of a sum - a sum of dates has
+  // no meaning. Mutually exclusive in practice with the number badge: a
+  // field is either type 'number' or type 'date', never both.
+  hasDateFieldsRange() {
+    const boardId = Session.get('currentBoard');
+    return !!summarizableCustomFields(boardId, 'date').length;
+  },
+
+  // A short "earliest – latest" badge label. Formatted here (rather than via
+  // a nested Jade subexpression calling the shared `displayDate` helper) to
+  // keep the template simple - a plain YYYY-MM-DD is unambiguous in every
+  // locale and needs no new translatable text.
+  dateFieldsRangeLabel(containerSwimlaneId) {
+    const stats = dateFieldsRangeStats(containerSwimlaneId);
+    if (!stats || stats.earliest === null) return '';
+    const iso = t => new Date(t).toISOString().slice(0, 10);
+    return stats.earliest === stats.latest
+      ? iso(stats.earliest)
+      : `${iso(stats.earliest)} – ${iso(stats.latest)}`;
+  },
+
+  dateFieldsRangeTooltip(containerSwimlaneId) {
+    const label = TAPi18n.__('date-range-of-fields');
+    const stats = dateFieldsRangeStats(containerSwimlaneId);
+    if (!stats || stats.earliest === null) return label;
+    return `${label} (${stats.count}/${stats.total})`;
   },
 });
+
+// Shared by the three dateFieldsRange* helpers above - same "recompute the
+// range" logic, once, keyed the same way as the number-field helpers.
+function dateFieldsRangeStats(containerSwimlaneId) {
+  const list = Template.currentData();
+  if (!list) return null;
+  const boardId = Session.get('currentBoard');
+  const fields = summarizableCustomFields(boardId, 'date');
+  if (!fields.length) return null;
+  const cards = listCardsForSummary(list, containerSwimlaneId);
+  return dateFieldRange(cards, fields.map(field => field._id));
+}
 
 // Helper function on template instance for reachedWipLimit check
 Template.listHeader.onCreated(function () {
@@ -355,6 +441,15 @@ Template.listActionPopup.helpers({
     const board = list && ReactiveCache.getBoard(list.boardId);
     return !!(board && board.getStickyListHeaders());
   },
+
+  // #1172: per-user star, same shape as toggleBoardStar - not to be confused
+  // with `starred()`/`isStarred()` above, which is the list's own per-board
+  // "starred" field (models/lists.js `star()`).
+  isListItemStarred() {
+    const list = Template.currentData();
+    const user = ReactiveCache.getCurrentUser();
+    return !!(list && user && user.hasStarredList(list._id));
+  },
 });
 
 Template.listActionPopup.events({
@@ -377,6 +472,13 @@ Template.listActionPopup.events({
     Utils.showCopied(Utils.copyTextToClipboard(url), tpl.$('.copied-tooltip'));
   },
   'click .js-list-subscribe'() {},
+  // #1172: star/unstar this list for the current user only.
+  async 'click .js-star-list-item'(event) {
+    event.preventDefault();
+    const list = Template.currentData();
+    if (!list) return;
+    await Meteor.callAsync('toggleListStar', list._id);
+  },
   'click .js-add-card.list-header-plus-top'(event) {
     const listDom = $(`#js-list-${this._id}`)[0];
     const view = Blaze.getView(listDom, 'Template.list');

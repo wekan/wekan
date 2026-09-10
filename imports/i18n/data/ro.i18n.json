@@ -2552,6 +2552,7 @@
   "import-parts-instruction": "Se importă doar părțile bifate. Aceeași alegere este folosită la export.",
   "import-wekan-file": "Importă dintr-un fișier de export .json sau .zip:",
   "sum-of-number-fields": "Suma câmpurilor numerice personalizate afișate în partea de sus a listei",
+  "date-range-of-fields": "Intervalul de date al câmpurilor personalizate de tip dată marcate pentru afișare în partea de sus a listei",
   "sticky-list-headers": "Anteturi de listă fixate",
   "more-options": "Mai multe opțiuni",
   "sort-by-votes": "Sortare după voturi",
