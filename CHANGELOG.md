@@ -402,8 +402,8 @@ the Markdown commit as the template.
 **Chart.js**-drawn report charts as new Board View pages, restores the
 full-featured **document preview** viewer, hardens the **HttpOnly login
 cookie**, and adds opt-in **two-factor authentication**. The **minicard**
-title moved to the top with a collapse caret, new **Group by Assignee** and
-**Bigboard** views join checklist bulk-editing, **Clone Board**
+title moved to the top with a collapse caret, new **Group by Assignee**,
+**Bigboard** and **Multi Board Calendar** views join checklist bulk-editing, **Clone Board**
 card-skipping, Admin Panel People filtered **by Team**, **Rules** title
 validation and assignee triggers, and an **Admin only** custom-field flag
 that hides a field's value from non-admin board members.
@@ -997,7 +997,7 @@ called with the route's `currentBoard._id` directly.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/COMMIT_HASH">Added a "Multi Board Calendar" board view showing every board's dates on one calendar</a>. Thanks to justinr1234 and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/0c15b56f6e3db5b52e43ceaf238dfac30ab7fb6d">Added a "Multi Board Calendar" board view showing every board's dates on one calendar</a>. Thanks to justinr1234 and xet7.</summary>
 
 [#2469](https://github.com/wekan/wekan/issues/2469) referenced
 [Planyway](https://planyway.com/)'s multi-board calendar overlay for
@@ -1699,6 +1699,39 @@ advanced-filter combinations (`=`, `&&`, `||`, `!`) building the expected
 selector, the server resolvers matching custom field names/dropdown values
 the same way the client's do, and fire/no-fire behaviour as a card's custom
 field value crosses into a stored filter's threshold.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b8a6de1c89331e5786a10ee28abdd9eb9d49ddc8">A rule's trigger/action can now be edited in place, and its "send email" action includes the card's description too</a>. Thanks to kabi178 and xet7.</summary>
+
+[#2713](https://github.com/wekan/wekan/issues/2713) asked for two things.
+
+Editing a rule used to mean deleting it and rebuilding it from scratch,
+losing its position and its identity. The rule row's toolbar gets a second
+"Edit trigger/action" button next to the existing title-rename pencil,
+opening the same trigger/action wizard used to create a rule, pre-filled
+with the rule's current title. A new server method, `rules.updateRule`
+(`server/rulesButton.js`), mirrors `rules.createRule`'s authorization and
+RuleBleed cross-board destination checks but REPLACES the existing
+trigger/action documents in place (a full-document update by their
+existing `_id`, not a remove-then-insert), so the rule keeps its own
+`_id`, and its trigger/action keep theirs, across an edit. Every
+action-template click handler that used to call `rules.createRule` or
+insert `Triggers`/`Actions`/`Rules` directly now goes through one shared
+helper, `client/components/rules/rulesSaveHelper.js`, which picks create
+vs. update based on whether the wizard was opened to edit an existing
+rule.
+
+The "send an email" rule action already appended the card's title and a
+direct link to it automatically ([#3301](https://github.com/wekan/wekan/issues/3301)),
+even when the user's own template used none of the `{card}`/`{cardLink}`
+tokens; it did not do the same for the card's description.
+`server/rulesHelper.js` now appends a "Description: ..." line to the
+footer alongside the existing title/link lines.
+
+Actually attaching the card's FILE attachments to the outgoing email is
+larger, mailer-level scope and is deferred - see TODO Later above.
 
 </details>
 
