@@ -4696,6 +4696,35 @@ them, but doing so was out of scope for this pass.
 
 </details>
 
+**Server startup and email/import robustness** - a production unhandledRejection
+and the values that fed it.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/563a0a6ed">Guard three toLowerCase() call sites that could receive a non-string value</a>. Thanks to xet7.</summary>
+
+A production log kept showing `[unhandledRejection] WeKan keeps running:
+TypeError: string.toLowerCase is not a function`. Auditing every server-
+reachable `.toLowerCase()` call site (`server/`, `models/`, `packages/`)
+found the actual cause: `Users.after.insert()`'s registration-invitation-code
+check read `doc.authenticationMethod.toLowerCase()` unguarded, but
+`authenticationMethod` is only ever set for oauth2/ldap signups - a normal
+password/invitation signup leaves it `undefined`, so this crashed on every
+new-user insert whenever `disableRegistration` was on; `doc.emails[0].address`
+was also read unguarded there. The buffered activity-notification-email
+sender in `server/notifications/email.js` had the same shape:
+`user.emails[0].address.toLowerCase()` unguarded, crashing when a user (for
+example a header-auth or LDAP account) has an empty `emails` array instead of
+just skipping that send. The CSV/TSV importer's header-row mapping in
+`models/csvCreator.js` read `headerRow[i].toLowerCase()` unguarded, which
+could throw on a sparse row whose cell isn't a string. All three now check
+`typeof`/presence first and fall through (skip the branch, or use an empty
+string) instead of throwing. Every other `.toLowerCase()` call site in
+server-reachable code was already guarded (a `typeof` check, an `|| ''`
+fallback, or a value sourced from a validated schema field) and was left
+unchanged.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for
 their translations.
 
