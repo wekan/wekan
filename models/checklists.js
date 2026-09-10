@@ -7,6 +7,11 @@ import {
   isChecklistShownAtMinicard,
   toggledChecklistAtMinicard,
 } from '/models/lib/minicardChecklistVisibility';
+import {
+  buildCopiedChecklistDoc,
+  buildCopiedItemDoc,
+  firstAppendSort,
+} from '/models/lib/checklistTemplateCopy';
 const { SimpleSchema } = require('/imports/simpleSchema');
 
 const Checklists = new Mongo.Collection('checklists');
@@ -135,23 +140,22 @@ Checklists.helpers({
     const newCard = await ReactiveCache.getCard(newCardId);
     const boardId = newCard && newCard.boardId;
 
-    const copyObj = Object.assign({}, this);
-    delete copyObj._id;
-    copyObj.cardId = newCardId;
-    copyObj.boardId = boardId;
+    const copyObj = buildCopiedChecklistDoc(this, {
+      newCardId,
+      boardId,
+      sort: this.sort,
+    });
     copyObj.createdAt = new Date();
     const newChecklistId = await Checklists.direct.insertAsync(copyObj);
 
     const items = await ReactiveCache.getChecklistItems({ checklistId: this._id });
     for (const item of items) {
-      const copyItem = Object.assign({}, item);
-      delete copyItem._id;
-      copyItem.checklistId = newChecklistId;
-      copyItem.cardId = newCardId;
-      copyItem.boardId = boardId;
-      if (resetChecked) {
-        copyItem.isFinished = false;
-      }
+      const copyItem = buildCopiedItemDoc(item, {
+        newChecklistId,
+        newCardId,
+        boardId,
+        resetChecked,
+      });
       await ChecklistItems.direct.insertAsync(copyItem);
     }
 
@@ -302,8 +306,7 @@ Checklists.copyAllFromCardToCard = async function (sourceCardId, targetCardId) {
     { cardId: targetCardId },
     { sort: { sort: 1 } },
   );
-  const lastTarget = targetChecklists[targetChecklists.length - 1];
-  let nextSort = lastTarget && typeof lastTarget.sort === 'number' ? lastTarget.sort + 1 : 0;
+  let nextSort = firstAppendSort(targetChecklists);
 
   const newChecklistIds = [];
   for (const checklist of sourceChecklists) {
