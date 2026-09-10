@@ -30,6 +30,13 @@ ChecklistItems.attachSchema(
       type: Boolean,
       defaultValue: false,
     },
+    dueAt: {
+      /**
+       * Date the checklist item is due
+       */
+      type: Date,
+      optional: true,
+    },
     checklistId: {
       /**
        * the checklist ID the item is attached to
@@ -106,6 +113,19 @@ ChecklistItems.helpers({
     return await ChecklistItems.updateAsync(this._id, {
       $set: { cardId, checklistId, sort: sortIndex },
     });
+  },
+  // getDue/setDue/unsetDue mirror models/cards.js's own due-date methods
+  // (#4755) - a checklist item never links to another card/board, so unlike
+  // Cards.getDue()/setDue() there is no linked-card/board indirection to
+  // resolve.
+  getDue() {
+    return this.dueAt;
+  },
+  async setDue(dueAt) {
+    return await ChecklistItems.updateAsync(this._id, { $set: { dueAt } });
+  },
+  async unsetDue() {
+    return await ChecklistItems.updateAsync(this._id, { $unset: { dueAt: '' } });
   },
 });
 

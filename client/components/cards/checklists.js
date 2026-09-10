@@ -10,6 +10,16 @@ import { Utils } from '/client/lib/utils';
 import autosize from 'autosize';
 import { isChecklistShownAtMinicard } from '/models/lib/minicardChecklistVisibility';
 import { playChecklistDingSound } from '/client/lib/checklistDingSound';
+import {
+  datePickerRendered,
+  datePickerHelpers,
+} from '/client/lib/datepicker';
+import {
+  formatDateByUserPreference,
+  isValidDate,
+} from '/imports/lib/dateUtils';
+import { dueDateClass } from '/client/lib/dueDateColor';
+import { subscribeDateNowTicker } from '/client/lib/dateNowTicker';
 
 // SubsManager removed for Meteor 3 migration
 const { calculateIndexData } = Utils;
@@ -385,7 +395,117 @@ Template.checklistItemDetail.events({
       }
     }
   },
+  // #4755: open the checklist item's own due-date popup. Bound to the ITEM
+  // (not the {item, checklist, card} data this template's events normally see)
+  // so it opens exactly like a card's own due-date popup does for a card.
+  'click .js-checklist-item-due-date'(event, tpl) {
+    event.preventDefault();
+    event.stopPropagation();
+    const item = Template.currentData().item;
+    if (item) {
+      // Reuse the card's own "Change due date" title (#4755) rather than
+      // adding a near-duplicate translation key to every locale file.
+      Popup.open('editChecklistItemDueDate', {
+        titleKey: 'editCardDueDatePopup-title',
+      }).call(item, event, tpl);
+    }
+  },
 });
+
+// checklistItemDueDate - the compact due-date badge on a single checklist
+// item (#4755). Reuses dateBadgeBody, the same markup the card's own
+// received/start/due/end badges use, so the item's badge looks and colours
+// itself identically (see client/components/cards/cardDate.jade / .js).
+Template.checklistItemDueDate.onCreated(function () {
+  this.date = new ReactiveVar();
+  const dateNowTicker = subscribeDateNowTicker();
+  this.now = dateNowTicker.now;
+  this.view.onViewDestroyed(dateNowTicker.unsubscribe);
+  const self = this;
+  self.autorun(() => {
+    const item = Template.currentData().item;
+    self.date.set(new Date(item && item.getDue ? item.getDue() : undefined));
+  });
+});
+
+Template.checklistItemDueDate.helpers({
+  showWeek() {
+    // Checklist items are dense UI (see CLAUDE.md) - no ISO-week badge here.
+    return '';
+  },
+  showWeekOfYear() {
+    return false;
+  },
+  showDate() {
+    const currentUser = ReactiveCache.getCurrentUser();
+    const dateFormat = currentUser ? currentUser.getDateFormat() : (window.localStorage.getItem('dateFormat') || 'YYYY-MM-DD');
+    return formatDateByUserPreference(Template.instance().date.get(), dateFormat, true);
+  },
+  showISODate() {
+    return Template.instance().date.get().toISOString();
+  },
+  classes() {
+    const tpl = Template.instance();
+    return dueDateClass(tpl.date.get(), tpl.now.get());
+  },
+  showTitle() {
+    const tpl = Template.instance();
+    const currentUser = ReactiveCache.getCurrentUser();
+    const dateFormat = currentUser ? currentUser.getDateFormat() : (window.localStorage.getItem('dateFormat') || 'YYYY-MM-DD');
+    const formattedDate = formatDateByUserPreference(tpl.date.get(), dateFormat, true);
+    return `${TAPi18n.__('card-due-on')} ${formattedDate}`;
+  },
+});
+
+Template.checklistItemDueDate.events({
+  'click .js-edit-date'(event, tpl) {
+    event.preventDefault();
+    event.stopPropagation();
+    const item = Template.currentData().item;
+    if (item) {
+      // Reuse the card's own "Change due date" title (#4755) rather than
+      // adding a near-duplicate translation key to every locale file.
+      Popup.open('editChecklistItemDueDate', {
+        titleKey: 'editCardDueDatePopup-title',
+      }).call(item, event, tpl);
+    }
+  },
+});
+
+// editChecklistItemDueDatePopup - the popup form editing that badge. Reuses
+// editDateForm - the same date/time-picker markup and submit/delete events
+// (datePickerEvents(), registered once on Template.editDateForm) the card's
+// own editCardDueDatePopup uses. Deliberately does NOT use setupDatePicker
+// from /client/lib/datepicker: that helper resolves its `card` via
+// getCurrentCardFromContext(), which - opened from inside an already-open
+// card detail dialog - would find the CARD, not the checklist item, and
+// silently save the due date on the wrong document.
+Template.editChecklistItemDueDatePopup.onCreated(function () {
+  const item = Template.currentData();
+  const initialDate = item && item.getDue ? item.getDue() : undefined;
+  this.datePicker = {
+    error: new ReactiveVar(''),
+    card: item,
+    date: new ReactiveVar(
+      initialDate && isValidDate(new Date(initialDate))
+        ? new Date(initialDate)
+        : new Date('invalid'),
+    ),
+    defaultTime: '1970-01-01 17:00:00',
+    storeDate(date, currentItem) {
+      return currentItem.setDue(date);
+    },
+    deleteDate(currentItem) {
+      return currentItem.unsetDue();
+    },
+  };
+});
+
+Template.editChecklistItemDueDatePopup.onRendered(function () {
+  datePickerRendered(this);
+});
+
+Template.editChecklistItemDueDatePopup.helpers(datePickerHelpers());
 
 /**
  * Helper to find the dialog instance from a parent popup template.

@@ -150,6 +150,26 @@ textarea.js-edit-checklist-item {
   padding-top: 2px;
   padding-inline-end: 10px;
 }
+/* #4755: the due-date badge/add-icon on a single checklist item. Checklist
+   items are dense UI, so the badge (reusing .card-date's own colours/icon -
+   see cardDate.css) is shrunk down rather than given its own new styling. */
+.checklist-item .checklist-item-due-date {
+  align-self: center;
+  margin-inline-start: 6px;
+  font-size: 0.82em;
+  padding: 0 4px;
+  line-height: 1.6em;
+  white-space: nowrap;
+}
+.checklist-item .checklist-item-due-date-add {
+  align-self: center;
+  margin-inline-start: 6px;
+  color: #8c8c8c;
+  text-decoration: none;
+}
+.checklist-item .checklist-item-due-date-add:hover {
+  color: #2980b9;
+}
 .js-delete-checklist-item,
 .js-convert-checklist-item-to-card {
   margin: 0 0 0.5em 1.33em;

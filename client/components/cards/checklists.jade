@@ -161,11 +161,18 @@ template(name='checklistItemDetail')
       .item-title.js-open-inlined-form.is-editable(class="{{#if item.isFinished }}is-checked{{/if}}")
         +viewer
           = item.title
+      if item.getDue
+        +checklistItemDueDate(item=item canModifyCard=canModifyCard)
+      else
+        a.checklist-item-due-date-add.js-checklist-item-due-date(title="{{_ 'card-due'}}")
+          i.fa.fa-clock-o
     else
       .materialCheckBox(class="{{#if item.isFinished }}is-checked{{/if}}")
       .item-title(class="{{#if item.isFinished }}is-checked{{/if}}")
         +viewer
           = item.title
+      if item.getDue
+        +checklistItemDueDate(item=item canModifyCard=false)
 
 template(name="checklistActionsPopup")
   //- #1173: a checklist exports like everything else - the same popup body, with
@@ -249,3 +256,13 @@ template(name="copyAndMoveChecklist")
 
   .edit-controls.clearfix
     button.primary.confirm.js-done {{_ 'done'}}
+
+//- Due date on a single checklist item (#4755). The badge and its edit popup
+  reuse the card's own date-badge markup (dateBadgeBody) and date-picker form
+  (editDateForm) - see client/components/cards/cardDate.jade - so a checklist
+  item's due date looks and behaves exactly like a card's.
+template(name="checklistItemDueDate")
+  +dateBadgeBody(canModifyCard=canModifyCard baseClass="card-date due-date checklist-item-due-date" showTitle=showTitle classes=classes showISODate=showISODate showDate=showDate showWeekOfYear=showWeekOfYear showWeek=showWeek)
+
+template(name="editChecklistItemDueDatePopup")
+  +editDateForm(showDate=showDate showTime=showTime error=error datePicker=datePicker)

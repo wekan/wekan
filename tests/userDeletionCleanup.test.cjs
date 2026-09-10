@@ -11,6 +11,13 @@
 // editing MongoDB directly. buildUserDeletionCleanupPlan must produce the
 // exact multi-updates that prune those references (and nothing else), and
 // applyUserDeletionCleanup must drive them against the injected collections.
+//
+// Also closes #6541 ("users disappearing"): a duplicate report of the same
+// symptom — a deleted user's id left behind in a board's members/assignees —
+// filed years later against a much older WeKan (6.09.0). Both `removeUser`
+// paths in server/models/users.js (self-delete and admin-delete) funnel
+// through the same `Users.after.remove` hook that calls this planner, so the
+// fix already covers the #6541 report; no code change was needed for it.
 
 const assert = require('assert');
 const {
