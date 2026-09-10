@@ -427,6 +427,26 @@ cards than lists.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5ec0b51fef87ed4f5ab3491a7b105c8950868ff">Show a card's comments directly on the minicard, opt-in</a>. Thanks to Meeques and xet7.</summary>
+
+Board Settings / Card gets a new "Comments on minicard" row, following the
+same allowsX/allowsXOnMinicard pattern already used by Received date and
+every other Card Settings toggle. It is opt-in and OFF by default, so
+existing boards are unaffected.
+
+When enabled, the minicard shows up to 3 of the card's most recent
+comments, each truncated to 140 characters, reusing the same `comments()`
+card helper the existing comment-count badge already calls - no new
+subscription, so boards that do not use this pay no extra cost. A "more"
+affordance appears when there are more comments than shown or one got
+truncated; it relies on the minicard already being a link to the full card
+rather than adding a second, in-place "expand all comments" interaction -
+display only, with no reply/edit capability from the minicard itself.
+Useful for classroom/at-a-glance use, per the original request.
+
+</details>
+
 **Time tracking** - the Time board view.
 
 <details>
@@ -1029,6 +1049,28 @@ so setting one alone leaves the badge unchanged. No code change was needed;
 `tests/subtaskCompletionCounter4050.test.cjs` now pins the numerator/denominator
 source and both the archived-subtasks and end-date-only cases so this cannot
 silently regress.
+
+</details>
+
+and has the following documentation improvement:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/87c1e82ec7d2b9579fd3255a0a9cfc7a702ef38c">Added an example Authelia OAuth2/OIDC configuration alongside the existing Keycloak and Zitadel ones</a>. Thanks to tamaskan and xet7.</summary>
+
+[#4210](https://github.com/wekan/wekan/issues/4210) asked for example
+settings to log into Wekan through [Authelia](https://www.authelia.com/), a
+self-hosted authentication/SSO server that speaks OIDC. Added
+`docs/Features/Login/Authelia.md` with Snap and Docker settings mapped to
+Authelia's own OIDC endpoints (`authorization_endpoint`, `token_endpoint`
+and `userinfo_endpoint`, all under `/api/oidc/`, per Authelia's OpenID
+Connect documentation), in the same format already used for Keycloak and
+Zitadel, including a note that Authelia does not yet implement OpenID
+Connect RP-Initiated Logout so `OAUTH2_LOGOUT_ENDPOINT` should stay unset
+for it. Linked from `docs/README.md`'s Login Auth list and the provider
+list in `docs/Features/Login/OAuth2.md`, and added the matching commented
+`OAUTH2_*` example block to `docker-compose.yml` and every other
+`docker-compose-*.yml` variant that carries the OAuth2 provider examples,
+keeping their `wekan` service identical.
 
 </details>
 
