@@ -126,6 +126,7 @@ Wekan is distributed under the [MIT License], allowing anyone to easily work wit
 * [CAS](./Features/Login/CAS.md) Please test
 * [SAML](./Features/Login/SAML.md) Please test
 * [Zitadel](./Features/Login/Zitadel.md)
+* [Two-Factor Authentication (TOTP)](./Features/Login/Two-Factor-Authentication.md)
 
 # <a name="Logs"></a>Metrics, Logs, Stats
 
@@ -148,6 +149,8 @@ Wekan is distributed under the [MIT License], allowing anyone to easily work wit
 * [Due Date](./Features/Date/Due-Date.md)
 * [Day of week start](./Features/Date/Day-of-week-start.md)
 * [Calendar](./Features/Date/Calendar.md)
+* [Multi Board Calendar](./Features/Date/Multi-Board-Calendar.md)
+* [Board Report Charts (Dashboard, Burndown, Burnup, Cumulative Flow, Control Chart, Cycle Time, Flow Efficiency, Lead Time, Throughput Histogram, WIP Run, Pulse)](Features/Reports/Charts/Board-Report-Charts.md)
 
 # <a name="Features"></a>Features
 
@@ -190,6 +193,11 @@ Wekan is distributed under the [MIT License], allowing anyone to easily work wit
 * [Fix Export board menu not visible on some boards](https://github.com/wekan/wekan/issues/1060)
 * [RAM usage](https://github.com/wekan/wekan/issues/1088#issuecomment-311843230)
 * [Swimlanes](Features/Board/Swimlanes.md)
+* [Group by Assignee](Features/Board/Group-By-Assignee.md)
+* [Bigboard (all your boards stacked on one page)](Features/Board/Bigboard.md)
+* [Roadmap (custom-field-grouped Gantt)](Features/Board/Roadmap.md)
+* [Notification Settings (Admin → Board → Member)](Features/Members/Notification-Settings.md)
+* [My Cards, Due Cards, My Attachments](Features/Members/My-Cards-Due-Attachments.md)
 
 # <a name="Email"></a>Email
 
