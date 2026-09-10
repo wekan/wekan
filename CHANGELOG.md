@@ -1870,6 +1870,28 @@ translated and in place.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6f79e87919d95d3b5c979db01730b0fc2b2ac0d5">The "add member" rule action can now add whoever triggered the rule, not just a fixed member</a>. Thanks to arisjr and xet7.</summary>
+
+[#2522](https://github.com/wekan/wekan/issues/2522): the "add member" card
+action only ever stored one specific, pre-chosen board member, so "when a
+card moves to list X, add whoever just moved it as a member" could not be
+built - there was no way for the action to mean "the person who just did
+the triggering action" instead of a fixed name.
+
+The action gets a second button, "Add the user who triggered this rule as
+a member", that saves the same `addMember` action with a sentinel
+`username` (`RULE_ACTING_USER_SENTINEL`, `models/lib/ruleActingUser.js`)
+instead of a fixed one. At execution time `server/rulesHelper.js` resolves
+that sentinel to `activity.userId` through `resolveActingUserId()` - the
+exact same acting-user source `buildRuleVars()` already resolves for the
+`{username}` template variable ([#3304](https://github.com/wekan/wekan/issues/3304)/[#3301](https://github.com/wekan/wekan/issues/3301)),
+reused rather than reimplemented, and then calls the same
+`card.assignMember()` the fixed-member path already uses. The ordinary
+fixed-member "add member" action is unchanged.
+
+</details>
+
 **Quick-add card** - the composer at the bottom of a list.
 
 <details>
