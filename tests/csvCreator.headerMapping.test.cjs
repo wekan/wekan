@@ -19,7 +19,11 @@ function mapHeadertoCardFieldIndex(headerRow) {
   const index = {};
   index.customFields = [];
   for (let i = 0; i < headerRow.length; i++) {
-    switch (headerRow[i].trim().toLowerCase()) {
+    // #6620: a sparse/short CSV row can hand back undefined/null/a number for
+    // a cell instead of a string - guard so an odd header is skipped instead
+    // of throwing "toLowerCase is not a function".
+    const header = typeof headerRow[i] === 'string' ? headerRow[i] : '';
+    switch (header.trim().toLowerCase()) {
       case 'title':
         index.title = i;
         break;
@@ -66,25 +70,25 @@ function mapHeadertoCardFieldIndex(headerRow) {
         index.modifiedAt = i;
         break;
     }
-    if (headerRow[i].toLowerCase().startsWith('customfield')) {
-      if (headerRow[i].split('-')[2] === 'dropdown' || headerRow[i].split('-')[2] === 'dropdownMultiSelect') {
+    if (header.toLowerCase().startsWith('customfield')) {
+      if (header.split('-')[2] === 'dropdown' || header.split('-')[2] === 'dropdownMultiSelect') {
         index.customFields.push({
-          name: headerRow[i].split('-')[1],
-          type: headerRow[i].split('-')[2],
-          options: headerRow[i].split('-')[3].split('/'),
+          name: header.split('-')[1],
+          type: header.split('-')[2],
+          options: header.split('-')[3].split('/'),
           position: i,
         });
-      } else if (headerRow[i].split('-')[2] === 'currency') {
+      } else if (header.split('-')[2] === 'currency') {
         index.customFields.push({
-          name: headerRow[i].split('-')[1],
-          type: headerRow[i].split('-')[2],
-          currencyCode: headerRow[i].split('-')[3],
+          name: header.split('-')[1],
+          type: header.split('-')[2],
+          currencyCode: header.split('-')[3],
           position: i,
         });
       } else {
         index.customFields.push({
-          name: headerRow[i].split('-')[1],
-          type: headerRow[i].split('-')[2],
+          name: header.split('-')[1],
+          type: header.split('-')[2],
           position: i,
         });
       }
@@ -186,6 +190,15 @@ function mapHeadertoCardFieldIndex(headerRow) {
   assert.strictEqual(index.customFields.length, 2);
   assert.strictEqual(index.customFields[0].position, 1);
   assert.strictEqual(index.customFields[1].position, 2);
+}
+
+// 9. #6620: undefined/null/number cells (a sparse row) do not throw and are
+// simply skipped rather than mapped to a field.
+{
+  const index = mapHeadertoCardFieldIndex(['title', undefined, null, 42]);
+  assert.strictEqual(index.title, 0);
+  assert.strictEqual(index.customFields.length, 0);
+  assert.doesNotThrow(() => mapHeadertoCardFieldIndex([undefined, null, 42, 'title']));
 }
 
 console.log('ok - csvCreator header mapping tests passed');

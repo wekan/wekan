@@ -2243,9 +2243,22 @@ Users.after.insert(async (userId, doc) => {
   const disableRegistration = (await ReactiveCache.getCurrentSetting()).disableRegistration;
   if (doc.authenticationMethod !== 'ldap' && disableRegistration) {
     let invitationCode = null;
-    if (doc.authenticationMethod.toLowerCase() === 'oauth2') {
+    // #6620: authenticationMethod is only set for oauth2/ldap signups (see
+    // ATCreateUserServer/enrollOrLoginOidcUser above) - a normal
+    // password/invitation signup leaves it undefined, and calling
+    // .toLowerCase() on that crashed here as an unhandledRejection
+    // ("TypeError: string.toLowerCase is not a function") every time
+    // disableRegistration was on. Likewise doc.emails may be empty for an
+    // account created without an email. Both are guarded so a missing value
+    // just falls through to the invitation-code branch below instead of
+    // throwing.
+    if (
+      typeof doc.authenticationMethod === 'string' &&
+      doc.authenticationMethod.toLowerCase() === 'oauth2'
+    ) {
+      const oauthEmail = doc.emails && doc.emails[0] && doc.emails[0].address;
       invitationCode = await ReactiveCache.getInvitationCode({
-        email: doc.emails[0].address.toLowerCase(),
+        email: typeof oauthEmail === 'string' ? oauthEmail.toLowerCase() : '',
         valid: true,
       });
     } else {

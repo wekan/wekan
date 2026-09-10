@@ -159,8 +159,17 @@ Meteor.startup(() => {
         const replyToCardId = lastNotifiedCardIdByUser.get(userId);
         lastNotifiedCardIdByUser.delete(userId);
         try {
+          // #6620: a user can reach this path (e.g. header-auth/LDAP
+          // accounts) with an empty emails array - user.emails[0] would then
+          // be undefined and .address.toLowerCase() threw an
+          // unhandledRejection. Skip the buffered digest send rather than
+          // crash when there is nowhere to send it.
+          const emailAddress = user.emails && user.emails[0] && user.emails[0].address;
+          if (typeof emailAddress !== 'string' || !emailAddress) {
+            return;
+          }
           await EmailLocalization.sendEmail({
-            to: user.emails[0].address.toLowerCase(),
+            to: emailAddress.toLowerCase(),
             from: Accounts.emailTemplates.from,
             subject,
             html,

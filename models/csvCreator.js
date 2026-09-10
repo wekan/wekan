@@ -59,7 +59,12 @@ export class CsvCreator {
     const index = {};
     index.customFields = [];
     for (let i = 0; i < headerRow.length; i++) {
-      switch (headerRow[i].trim().toLowerCase()) {
+      // #6620: a sparse/short CSV row (a trailing empty column some CSV
+      // parsers report as a hole rather than '') yields undefined here -
+      // guard so an odd header row is skipped instead of crashing the
+      // import with "toLowerCase is not a function".
+      const header = typeof headerRow[i] === 'string' ? headerRow[i] : '';
+      switch (header.trim().toLowerCase()) {
         case 'title':
           index.title = i;
           break;
@@ -106,7 +111,7 @@ export class CsvCreator {
           index.modifiedAt = i;
           break;
       }
-      if (headerRow[i].toLowerCase().startsWith('customfield')) {
+      if (header.toLowerCase().startsWith('customfield')) {
         if (headerRow[i].split('-')[2] === 'dropdown' || headerRow[i].split('-')[2] === 'dropdownMultiSelect') {
           index.customFields.push({
             name: headerRow[i].split('-')[1],
