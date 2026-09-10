@@ -1,5 +1,6 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
+import { Filter } from '/client/lib/filter';
 import Cards from '/models/cards';
 import Boards from '/models/boards';
 import ChecklistItems from '/models/checklistItems';
@@ -27,6 +28,8 @@ import {
   planChecklistItemsTextUpdate,
 } from '/models/lib/checklistItemsAsText';
 import { buildCardFromChecklistItem } from '/models/lib/checklistItemToCard';
+import { subtaskNavTarget } from '/client/components/cards/subtaskViewHelpers';
+import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 
 // SubsManager removed for Meteor 3 migration
 const { calculateIndexData } = Utils;
@@ -332,6 +335,47 @@ Template.checklists.events({
     }
   },
   'click .js-convert-checklist-item-to-card': Popup.open('convertChecklistItemToCard'),
+  // #2422: "Convert to subtask" - distinct from the plain, unlinked
+  // "Convert to card" action above and from the #3294 drag-to-card gesture.
+  // This creates a proper SUBTASK of the CURRENT card (reusing the same
+  // server-side `addSubtaskCard` method 'submit .js-add-subtask' uses in
+  // subtasks.js, so the default subtasks board/list/swimlane and automatic
+  // custom fields are resolved exactly the same way), seeded with the
+  // checklist item's own title, and then records the new subtask's _id on
+  // the item's `linkedCardId` field so a "linked subtask" indicator can be
+  // shown on the item (checklistItemDetail, below). The original checklist
+  // item is left untouched - it is not deleted or replaced.
+  async 'click .js-convert-checklist-item-to-subtask'(event, tpl) {
+    event.preventDefault();
+    const item = Template.currentData().item;
+    if (!item || !item.title || !item.cardId) {
+      return;
+    }
+    const parentCard = ReactiveCache.getCard(item.cardId);
+    const parentCardId = parentCard && parentCard.getRealId
+      ? parentCard.getRealId()
+      : item.cardId;
+    if (!parentCardId) {
+      return;
+    }
+    try {
+      const _id = await Meteor.callAsync(
+        'addSubtaskCard',
+        parentCardId,
+        item.title,
+        false,
+      );
+      if (!_id) {
+        throw new Error('The server could not create the subtask.');
+      }
+      await item.setLinkedCardId(_id);
+      // In case the filter is active, keep the new subtask visible instead
+      // of it disappearing instantly. See https://github.com/wekan/wekan/issues/80
+      Filter.addException(_id);
+    } catch (error) {
+      alert(error?.reason || error?.message || 'Could not create the subtask.');
+    }
+  },
   'click .js-delete-checklist-item': Popup.afterConfirm('checklistItemDelete', function () {
     Popup.back();
     const item = this?.item || this;
@@ -543,9 +587,36 @@ Template.editChecklistItemForm.events({
 });
 
 Template.checklistItemDetail.helpers({
+  // #2422: show the "linked subtask" indicator only while the linked card
+  // still exists (it may have been archived/removed independently since).
+  linkedSubtask() {
+    const item = this.item;
+    return item && item.getLinkedCard ? item.getLinkedCard() : undefined;
+  },
 });
 
 Template.checklistItemDetail.events({
+  // #2422: open the checklist item's linked subtask card. Reuses the same
+  // navigation guard subtasks.js uses for its own "View it" button, so a
+  // subtask on another (not-yet-loaded) board resolves the same way.
+  'click .js-checklist-item-linked-subtask'(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    const item = Template.currentData().item;
+    const subtask = item && item.getLinkedCard ? item.getLinkedCard() : undefined;
+    if (!subtask) {
+      return;
+    }
+    const target = subtaskNavTarget(subtask);
+    if (target) {
+      FlowRouter.go('card', target);
+    } else {
+      console.warn(
+        'Cannot view linked subtask: missing board/card id on subtask',
+        subtask && subtask._id,
+      );
+    }
+  },
   'click .js-checklist-item .check-box-container'() {
     const checklist = Template.currentData().checklist;
     const item = Template.currentData().item;

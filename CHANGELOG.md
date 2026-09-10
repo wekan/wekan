@@ -855,6 +855,32 @@ left untouched" are both unit-tested without a database.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/dbb7adb172f032554de0b3313b236a9aa7a82e8a">A checklist item can now be converted to a linked subtask, not just a plain card</a>. Thanks to javen9881 and xet7.</summary>
+
+[#2422](https://github.com/wekan/wekan/issues/2422) asked for a checklist
+item to become a subtask, with the link between them kept - distinct from
+the pre-existing "Convert to card" action and the #3294 drag-to-card
+gesture above, both of which only ever create a plain, standalone card with
+no parentId and no reference back to the item.
+
+A new "Convert to subtask" action, next to "Convert to card" on the item's
+edit form, instead calls the same server-side `addSubtaskCard` method "Add
+a new subtask" already uses, so the result is a real subtask of the current
+card - the default subtasks board/list/swimlane and automatic custom fields
+are resolved exactly the same way an ordinary subtask's are. The new
+subtask's `_id` is then written to a new optional `linkedCardId` field on
+the checklist item (`models/checklistItems.js`), and the item shows a small
+"linked subtask" icon that opens the subtask on click.
+
+Scope decision: this is a one-way, set-once reference recorded at
+conversion time, not an ongoing bidirectional sync - checking the item does
+not check the subtask, or vice versa. The original checklist item is never
+deleted or mutated by this action, unlike a "replace item with card"
+behaviour.
+
+</details>
+
 **Comments and activities** - a card's comment thread and its activity log.
 
 <details>
@@ -3188,6 +3214,43 @@ unchecked/checked `<input type="checkbox">` is produced, that a plain
 bullet list and ordinary inline markdown are unaffected, and that
 `secureDOMPurify.js` still allows the tag through restricted to
 checkbox-only.
+
+</details>
+
+**Archive sidebar** - the sidebar tab that lists archived cards, lists and swimlanes.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5c77c86bb">An archived card now opens in the full card-detail popup, with a Restore action of its own</a>. Thanks to therampageradoagent and xet7.</summary>
+
+[#1504](https://github.com/wekan/wekan/issues/1504): the Archive sidebar's
+card tab drew each archived card with the same narrow shared minicard every
+other list uses, but clicking it did nothing - `sidebarArchives.js` had no
+`.js-minicard` click handler at all, so the only way to see more than the
+minicard's own cramped preview was the separate Restore/Delete text links
+beside it.
+
+Clicking an archived card now opens the SAME full card-detail popup
+(`cardDetailsPopup` / `Template.cardDetails`) a normal board card opens -
+full width and height, every field, all the normal card-detail
+functionality - reusing the exact `popupCardId`/`popupCardBoardId` +
+`Popup.open('cardDetails')` mechanism `myCards.js` and `resultCard.js`
+already use for their own cross-context minicards, rather than building a
+parallel "archived card preview" component.
+
+That full view had nowhere to put the card back once it was open: its
+action menu hid "Archive" while a card was already archived, but offered no
+opposite action. Both copies of the action menu (the `canModifyCard` one and
+the read-only one) now show a "Restore" entry in exactly that place,
+calling the same `card.restore()` mutation the Archive sidebar's own
+Restore link already uses, with the same target-list fallback popup
+(`restoreArchivedCardToListPopup`) for a card whose list was itself archived
+or deleted, so `canBeRestored()` is never asked about a missing list.
+
+`tests/archiveSidebarFullCardDetails.test.cjs` pins the click handler to the
+shared `cardDetails` popup template rather than a bespoke preview, checks
+both action-menu copies gained the Restore entry where Archive used to be
+the only option, and confirms the Restore action reuses the existing
+`card.restore()` call and target-list fallback popup.
 
 </details>
 

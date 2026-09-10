@@ -133,6 +133,9 @@ template(name="editChecklistItemForm")
       a.js-convert-checklist-item-to-card
         i.fa.fa-copy
         | {{_ 'convertChecklistItemToCardPopup-title'}}
+      a.js-convert-checklist-item-to-subtask
+        i.fa.fa-sitemap
+        | {{_ 'convertChecklistItemToSubtask-title'}}
 
 template(name="checklistItems")
   if checklist.items.length
@@ -173,6 +176,12 @@ template(name='checklistItemDetail')
       .item-title.js-open-inlined-form.is-editable(class="{{#if item.isFinished }}is-checked{{/if}}")
         +viewer
           = item.title
+      //- #2422: "linked subtask" indicator - shown when this item was
+        converted to a subtask and the link is still valid (linkedSubtask
+        helper returns undefined once the subtask no longer exists).
+      if linkedSubtask
+        a.checklist-item-linked-subtask.js-checklist-item-linked-subtask(title="{{_ 'checklistItem-linked-subtask'}}")
+          i.fa.fa-sitemap
       if item.getDue
         +checklistItemDueDate(item=item canModifyCard=canModifyCard)
       else
@@ -182,6 +191,9 @@ template(name='checklistItemDetail')
       .item-title(class="{{#if item.isFinished }}is-checked{{/if}}")
         +viewer
           = item.title
+      if linkedSubtask
+        a.checklist-item-linked-subtask.js-checklist-item-linked-subtask(title="{{_ 'checklistItem-linked-subtask'}}")
+          i.fa.fa-sitemap
       if item.getDue
         +checklistItemDueDate(item=item canModifyCard=false)
 
