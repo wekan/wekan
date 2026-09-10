@@ -151,6 +151,38 @@ test('empty or malformed inputs never throw and return []', () => {
   );
 });
 
+test('#4165: matched entries are sorted by the definition\'s `sort`, not name', () => {
+  const lowSort = { _id: 'cf-z', name: 'Zebra', type: 'text', settings: {}, sort: 0 };
+  const highSort = { _id: 'cf-a', name: 'Aardvark', type: 'text', settings: {}, sort: 1 };
+  const ret = buildCustomFieldsWD(
+    [
+      { _id: 'cf-a', value: '1' },
+      { _id: 'cf-z', value: '2' },
+    ],
+    [lowSort, highSort],
+  );
+  assert.deepStrictEqual(
+    ret.map(f => f.definition._id),
+    ['cf-z', 'cf-a'],
+  );
+});
+
+test('#4165: a definition with no `sort` yet falls after ones that have it', () => {
+  const withSort = { _id: 'cf-with', name: 'Zeta', type: 'text', settings: {}, sort: 5 };
+  const withoutSort = { _id: 'cf-without', name: 'Alpha', type: 'text', settings: {} };
+  const ret = buildCustomFieldsWD(
+    [
+      { _id: 'cf-without', value: '1' },
+      { _id: 'cf-with', value: '2' },
+    ],
+    [withoutSort, withSort],
+  );
+  assert.deepStrictEqual(
+    ret.map(f => f.definition._id),
+    ['cf-with', 'cf-without'],
+  );
+});
+
 test('definitions without a name do not break sorting', () => {
   const namelessDef = { _id: 'cf-noname', type: 'text', settings: {} };
   const ret = buildCustomFieldsWD(

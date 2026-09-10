@@ -734,7 +734,8 @@ deliberately ungated ones (the per-user Templates container and
 Private/Public in the board visibility popup and the create-board popup was
 hardcoded to the `private-desc`/`public-desc` i18n strings, which assume
 "Public" means public on the internet. An org that uses "Public" to mean
-"public within our organization" had no way to say so.
+"public within our organization" had no way to say so - the reporter's own
+words were "public does not mean that boards can be found on google".
 
 Two free-text fields, "Custom private description" and "Custom public
 description", were added to Admin Panel → Settings → Visibility (All

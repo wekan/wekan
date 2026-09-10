@@ -1,8 +1,9 @@
 template(name="customFieldsSidebar")
-    ul.sidebar-list
+    ul.sidebar-list.js-custom-fields-sidebar-list
         each customFields
-            li
+            li(data-id="{{_id}}")
                 div.minicard-wrapper.js-minicard
+                    i.fa.fa-bars.js-custom-field-drag-handle
                     div.minicard
                         a.js-edit-custom-field.minicard-edit-button
                           i.fa.fa-pencil
@@ -59,7 +60,7 @@ template(name="createCustomFieldPopup")
                 .materialCheckBox(class="{{#if showSumAtTopOfList}}is-checked{{/if}}")
                 span {{_ 'showSum-field-on-list'}}
 
-        div.js-field-settings.js-field-settings-dropdown(class="{{#if isTypeNotSelected 'dropdown'}}hide{{/if}}")
+        div.js-field-settings.js-field-settings-dropdown(class="{{#if isDropdownTypeNotSelected}}hide{{/if}}")
             label
                 | {{_ 'custom-field-dropdown-options'}}
             each dropdownItems.get

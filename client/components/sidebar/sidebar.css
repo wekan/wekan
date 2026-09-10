@@ -286,6 +286,20 @@
 .sidebar .sidebar-content ul.sidebar-list li .minicard .minicard-edit-button:hover {
   background: #dbdbdb;
 }
+/* #4165: drag handle for reordering the board's custom fields list. */
+.sidebar .sidebar-content ul.js-custom-fields-sidebar-list li .js-custom-field-drag-handle {
+  cursor: move;
+  padding: 0 6px 0 2px;
+  opacity: 0.5;
+}
+.sidebar .sidebar-content ul.js-custom-fields-sidebar-list li .js-custom-field-drag-handle:hover {
+  opacity: 1;
+}
+.sidebar .sidebar-content ul.js-custom-fields-sidebar-list li.custom-field-sidebar-item.placeholder {
+  border: 1px dashed #c2c2c2;
+  background: #f5f5f5;
+  list-style: none;
+}
 .sidebar .sidebar-content .sidebar-btn {
   display: block;
   margin: 5px 0;

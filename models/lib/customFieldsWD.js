@@ -16,25 +16,38 @@
 // render. Unmatched entries must be SKIPPED instead.
 
 // A dropdown custom field stores the selected item's id as `value`; the
-// human-readable "true value" is the matching dropdown item's name. Any other
-// field type (or an id that no longer matches an item) keeps the raw value.
-function resolveTrueValue(definition, value) {
-  const items =
-    definition && definition.settings && definition.settings.dropdownItems;
+// human-readable "true value" is the matching dropdown item's name. A
+// dropdownMultiSelect custom field stores an ARRAY of selected item ids, and
+// its "true value" is the matching item names joined for display. Any other
+// field type (or an id/array entry that no longer matches an item) keeps the
+// raw value.
+function resolveDropdownItemName(items, id) {
   if (Array.isArray(items)) {
     for (const item of items) {
-      if (item && item._id === value) {
+      if (item && item._id === id) {
         return item.name;
       }
     }
   }
-  return value;
+  return id;
+}
+
+function resolveTrueValue(definition, value) {
+  const items =
+    definition && definition.settings && definition.settings.dropdownItems;
+  if (definition && definition.type === 'dropdownMultiSelect') {
+    const ids = Array.isArray(value) ? value : [];
+    return ids.map(id => resolveDropdownItemName(items, id)).join(', ');
+  }
+  return resolveDropdownItemName(items, value);
 }
 
 // customFields: the card's own `customFields` array ([{_id, value}, ...]).
 // definitions: the CustomFields definitions attached to the card's board.
-// Returns [{_id, value, trueValue, definition}, ...] sorted by definition
-// name, with entries whose definition is not on this board left out.
+// Returns [{_id, value, trueValue, definition}, ...] sorted by the
+// definition's user-settable `sort` (#4165), falling back to name order for
+// fields created before `sort` existed, with entries whose definition is not
+// on this board left out.
 function buildCustomFieldsWD(customFields, definitions) {
   if (!Array.isArray(customFields) || !Array.isArray(definitions)) {
     return [];
@@ -60,6 +73,19 @@ function buildCustomFieldsWD(customFields, definitions) {
     });
   }
   ret.sort((a, b) => {
+    const aSort = a.definition.sort;
+    const bSort = b.definition.sort;
+    const aHasSort = typeof aSort === 'number';
+    const bHasSort = typeof bSort === 'number';
+    if (aHasSort && bHasSort && aSort !== bSort) {
+      return aSort - bSort;
+    }
+    // A field with no `sort` yet (created before #4165) sorts after any field
+    // that has one, so a board that starts reordering does not have its
+    // untouched fields jump ahead of the ones the user just placed.
+    if (aHasSort !== bHasSort) {
+      return aHasSort ? -1 : 1;
+    }
     const aName = a.definition.name;
     const bName = b.definition.name;
     if (aName === undefined || bName === undefined) {
@@ -70,4 +96,4 @@ function buildCustomFieldsWD(customFields, definitions) {
   return ret;
 }
 
-export { buildCustomFieldsWD, resolveTrueValue };
+export { buildCustomFieldsWD, resolveTrueValue, resolveDropdownItemName };

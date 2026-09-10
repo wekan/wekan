@@ -34,6 +34,7 @@ CustomFields.attachSchema(
         'number',
         'date',
         'dropdown',
+        'dropdownMultiSelect',
         'checkbox',
         'currency',
         'stringtemplate',
@@ -114,6 +115,20 @@ CustomFields.attachSchema(
        */
       type: Boolean,
       defaultValue: false,
+    },
+    sort: {
+      /**
+       * #4165: the user-settable DISPLAY order of the custom field, both in the
+       * board-settings list and on a card. Ascending, lower first - mirrors
+       * Lists' own `sort` field. A newly created field defaults to the end of
+       * the board's current list (the client passes `existingCount` on insert)
+       * rather than jumping to the top; fields created before this existed have
+       * no `sort` of their own and fall back to name order (see
+       * models/lib/customFieldsWD.js).
+       */
+      type: Number,
+      decimal: true,
+      optional: true,
     },
     createdAt: {
       type: Date,
