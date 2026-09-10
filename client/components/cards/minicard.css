@@ -601,7 +601,7 @@
   display: flex;
   align-items: flex-start;
   gap: 4px;
-  font-size: 11px;
+  font-size: calc(11px * var(--wekan-ui-font-scale, 1));
   color: #555;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -616,7 +616,7 @@
   white-space: nowrap;
 }
 .minicard .minicard-comments-more {
-  font-size: 11px;
+  font-size: calc(11px * var(--wekan-ui-font-scale, 1));
   color: #888;
   display: inline-flex;
   align-items: center;

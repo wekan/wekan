@@ -141,6 +141,7 @@ const BOARD_ALLOWS_TRUE_DEFAULTS = [
   'allowsShowLists',
   'allowsAssignedBy', 'allowsAssignedByOnMinicard',
   'allowsReceivedDate', 'allowsReceivedDateOnMinicard',
+  'allowsSpentTime', 'allowsSpentTimeOnMinicard',
   'allowsStartDate', 'allowsStartDateOnMinicard',
   'allowsEndDate', 'allowsEndDateOnMinicard',
   'allowsDueDate', 'allowsDueDateOnMinicard',

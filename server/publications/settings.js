@@ -68,6 +68,8 @@ const SETTING_FIELDS = {
   customLoginLogoImageUrl: 1,
   customLoginLogoLinkUrl: 1,
   customHelpLinkUrl: 1,
+  customPrivateBoardDesc: 1,
+  customPublicBoardDesc: 1,
   textBelowCustomLoginLogo: 1,
   automaticLinkedUrlSchemes: 1,
   externalLinkPatternPrefix: 1,
