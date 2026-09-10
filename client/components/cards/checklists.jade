@@ -208,6 +208,9 @@ template(name="checklistActionsPopup")
       a.js-copy-checklist.copy-checklist
         i.fa.fa-copy
         | {{_ "copyChecklist"}} ...
+      a.js-set-checklist-reset-interval.checklist-reset-interval
+        i.fa.fa-refresh
+        | {{_ "checklist-reset-interval"}} ...
       a.js-hide-checked-checklist-items
         i.fa.fa-eye-slash
         | {{_ "hideCheckedChecklistItems"}} ...
@@ -239,6 +242,17 @@ template(name="checklistActionsPopup")
           else
             input.toggle-switch(type="checkbox" id="toggleShowChecklistAtMinicard_{{checklist._id}}")
           label.toggle-label(for="toggleShowChecklistAtMinicard_{{checklist._id}}")
+
+//- #3818 / #4729: pick this checklist's automatic-reset interval (or 'none' to
+  turn it off). server/checklistResetSchedule.js unchecks all of the
+  checklist's items once the chosen interval comes due.
+template(name="checklistResetIntervalPopup")
+  ul.pop-over-list
+    each resetIntervals
+      li
+        a.js-set-reset-interval(data-interval="{{this}}" class="{{#if isCurrentInterval}}is-checked{{/if}}")
+          i.fa(class="{{#if isCurrentInterval}}fa-check-circle{{else}}fa-circle-o{{/if}}")
+          | {{_ (concat 'checklist-reset-interval-' this)}}
 
 template(name="copyChecklistPopup")
   +copyAndMoveChecklist

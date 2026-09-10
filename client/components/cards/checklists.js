@@ -9,6 +9,7 @@ import { EscapeActions } from '/client/lib/escapeActions';
 import { Utils } from '/client/lib/utils';
 import autosize from 'autosize';
 import { isChecklistShownAtMinicard } from '/models/lib/minicardChecklistVisibility';
+import { CHECKLIST_RESET_INTERVALS } from '/models/lib/checklistResetSchedule';
 import { playChecklistDingSound } from '/client/lib/checklistDingSound';
 import {
   datePickerRendered,
@@ -407,6 +408,7 @@ Template.checklistActionsPopup.events({
   }),
   'click .js-move-checklist': Popup.open('moveChecklist'),
   'click .js-copy-checklist': Popup.open('copyChecklist'),
+  'click .js-set-checklist-reset-interval': Popup.open('checklistResetInterval'),
   'click .js-hide-checked-checklist-items'(event) {
     event.preventDefault();
     Template.currentData().checklist.toggleHideCheckedChecklistItems();
@@ -425,6 +427,30 @@ Template.checklistActionsPopup.events({
     // the first click do nothing while the board default was on (false -> true,
     // still shown) - reported by email.
     checklist.toggleShowChecklistAtMinicard(boardAllowsChecklistsOnMinicard(checklist));
+    Popup.back();
+  },
+});
+
+// #3818 / #4729: pick (or clear) the checklist's automatic-reset interval.
+Template.checklistResetIntervalPopup.helpers({
+  resetIntervals() {
+    return CHECKLIST_RESET_INTERVALS;
+  },
+  isCurrentInterval() {
+    const checklist = Template.instance().data && Template.instance().data.checklist;
+    const current = (checklist && checklist.resetInterval) || 'none';
+    return current === this.toString();
+  },
+});
+
+Template.checklistResetIntervalPopup.events({
+  'click .js-set-reset-interval'(event, tpl) {
+    event.preventDefault();
+    const interval = event.currentTarget.getAttribute('data-interval');
+    const checklist = tpl.data && tpl.data.checklist;
+    if (checklist) {
+      checklist.setResetInterval(interval);
+    }
     Popup.back();
   },
 });
