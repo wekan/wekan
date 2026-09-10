@@ -1279,6 +1279,7 @@
   "r-label": "ラベル",
   "r-member": "メンバー",
   "r-remove-all": "カードのすべてのメンバーを削除",
+  "r-remove-all-labels": "カードのすべてのラベルを削除",
   "r-set-color": "色を設定",
   "r-checklist": "チェックリスト",
   "r-check-all": "すべてチェック",

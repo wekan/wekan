@@ -314,6 +314,7 @@ import '/server/publications/trelloImportJobs';
 // ----------------------------------------------------------------------------
 import '/server/routes/attachmentApi';
 import '/server/routes/avatarServer';
+import '/server/routes/cardOgTags';
 import '/server/routes/customHeadAssets';
 import '/server/routes/importTrelloZip';
 import '/server/routes/legacyAttachments';
@@ -371,6 +372,10 @@ import '/server/avatarLocalizationOnLogin';
 // office groupings in Admin Panel (server/lib/loginTally.js).
 import '/server/loginTallyOnLogin';
 import '/server/methods/loginOffices';
+// Presence for Admin Panel > People (#3678, #3734): last-active timestamp set on
+// login and refreshed by an open client session's heartbeat.
+import '/server/lastActiveOnLogin';
+import '/server/methods/lastActiveHeartbeat';
 import '/server/importedUserReconciliation';
 
 // ----------------------------------------------------------------------------

@@ -1279,6 +1279,7 @@
   "r-label": "etiket",
   "r-member": "üye",
   "r-remove-all": "Tüm üyeleri karttan çıkarın",
+  "r-remove-all-labels": "Karttaki tüm etiketleri kaldır",
   "r-set-color": "Rengi şu değere ayarla:",
   "r-checklist": "Kontrol Listesi",
   "r-check-all": "Tümünü işaretle",

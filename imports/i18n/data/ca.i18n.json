@@ -1279,6 +1279,7 @@
   "r-label": "etiqueta",
   "r-member": "membre",
   "r-remove-all": "Elimina tots els membres de la fitxa",
+  "r-remove-all-labels": "Elimina totes les etiquetes de la targeta",
   "r-set-color": "Estableix el color a",
   "r-checklist": "llistadecontrol",
   "r-check-all": "Comprova-ho tot",

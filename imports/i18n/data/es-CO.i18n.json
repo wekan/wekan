@@ -1279,6 +1279,7 @@
   "r-label": "etiqueta",
   "r-member": "miembro",
   "r-remove-all": "Eliminar todos los miembros de la tarjeta",
+  "r-remove-all-labels": "Eliminar todas las etiquetas de la tarjeta",
   "r-set-color": "Cambiar el color a",
   "r-checklist": "lista de verificación",
   "r-check-all": "Marcar todo",

@@ -1279,6 +1279,7 @@
   "r-label": "etiqueta",
   "r-member": "miembro",
   "r-remove-all": "Kendu txarteleko kide guztiak",
+  "r-remove-all-labels": "Kendu etiketa guztiak txarteletik",
   "r-set-color": "Cambiar el color a",
   "r-checklist": "kontrol-zerrenda",
   "r-check-all": "Marcar todo",

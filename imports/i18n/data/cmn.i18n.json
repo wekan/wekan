@@ -1279,6 +1279,7 @@
   "r-label": "标签",
   "r-member": "成员",
   "r-remove-all": "从卡中删除所有成员",
+  "r-remove-all-labels": "从卡中删除所有标签",
   "r-set-color": "将颜色设置为",
   "r-checklist": "清单",
   "r-check-all": "检查全部",

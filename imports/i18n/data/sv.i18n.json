@@ -1279,6 +1279,7 @@
   "r-label": "etikett",
   "r-member": "medlem",
   "r-remove-all": "Ta bort alla medlemmar från kortet",
+  "r-remove-all-labels": "Ta bort alla etiketter från kortet",
   "r-set-color": "Ställ in färg till",
   "r-checklist": "checklista",
   "r-check-all": "Kryssa alla",

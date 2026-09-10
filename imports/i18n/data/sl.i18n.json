@@ -1279,6 +1279,7 @@
   "r-label": "oznaka",
   "r-member": "član",
   "r-remove-all": "Izbriši vse člane iz kartice",
+  "r-remove-all-labels": "Odstrani vse oznake s kartice",
   "r-set-color": "Nastavi barvo na",
   "r-checklist": "kontrolni seznam",
   "r-check-all": "Označi vse",

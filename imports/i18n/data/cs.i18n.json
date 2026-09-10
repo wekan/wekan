@@ -1279,6 +1279,7 @@
   "r-label": "štítek",
   "r-member": "člen",
   "r-remove-all": "Odstranit všechny členy z této karty",
+  "r-remove-all-labels": "Odebrat všechny štítky z karty",
   "r-set-color": "Nastav barvu na",
   "r-checklist": "zaškrtávací seznam",
   "r-check-all": "Zaškrtnout vše",

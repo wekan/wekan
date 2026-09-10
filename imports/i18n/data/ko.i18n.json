@@ -1279,6 +1279,7 @@
   "r-label": "라벨",
   "r-member": "멤버",
   "r-remove-all": "카드에서 모든 구성원 제거",
+  "r-remove-all-labels": "카드에서 모든 라벨 제거",
   "r-set-color": "색상을 다음으로 설정",
   "r-checklist": "확인목록",
   "r-check-all": "전체 선택",

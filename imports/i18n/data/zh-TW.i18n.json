@@ -1279,6 +1279,7 @@
   "r-label": "標籤",
   "r-member": "成員",
   "r-remove-all": "從卡片移除所有成員",
+  "r-remove-all-labels": "從卡片移除所有標籤",
   "r-set-color": "設定顏色",
   "r-checklist": "待辦清單",
   "r-check-all": "勾選所有",

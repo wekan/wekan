@@ -1279,6 +1279,7 @@
   "r-label": "label rheol",
   "r-member": "aelod",
   "r-remove-all": "Tynnwch yr holl aelodau o'r cerdyn",
+  "r-remove-all-labels": "Tynnu'r holl labeli oddi ar y cerdyn",
   "r-set-color": "Gosod lliw i",
   "r-checklist": "rhestr wirio",
   "r-check-all": "Gwiriwch y cyfan",

@@ -1279,6 +1279,7 @@
   "r-label": "etiket",
   "r-member": "lid",
   "r-remove-all": "Verwyder alle lede van die kaart",
+  "r-remove-all-labels": "Verwyder alle etikette van die kaart",
   "r-set-color": "Stel kleur op",
   "r-checklist": "kontrolelys",
   "r-check-all": "Kontroleer alles",
