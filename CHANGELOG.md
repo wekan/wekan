@@ -1136,6 +1136,45 @@ old localStorage-only toggle, now falling back to the board's own setting.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/131514d6140479aaa8de925774fe226814f507f3">The opened card's Description, Custom Fields, Labels, Dates and Members sections can now be reordered</a>. Thanks to mimZD and xet7.</summary>
+
+[#4448](https://github.com/wekan/wekan/issues/4448) asked for Description to
+be movable earlier among a card's fields (e.g. third) with Custom Fields
+rendering after it, rather than the card detail view's previous fixed
+sequence.
+
+Boards now store a `cardFieldOrder` array; a new pure module,
+`models/lib/cardFieldOrder.js`, resolves it against the historical default
+order (`labels, dates, members, customFields, description`), dropping any
+unknown key and filling in any section missing from a stale or partial
+stored value, so a section can never be duplicated or silently dropped from
+the card. `cardDetails.jade` now renders these five sections from that
+resolved order via an `each` loop, each one now its own template
+(`cardFieldSectionLabels`, `...Dates`, `...Members`, `...CustomFields`,
+`...Description`) rather than inlined at a fixed spot. Dependencies+Sort
+stay a fixed appendage right after Members, and Vote+Poker stay one right
+after Custom Fields, so a board that never touches the new setting renders
+byte-for-byte what it always has. Checklists, Attachments and Activity are
+left out of this pass - they sit in their own flex/right-column layout
+further down the template, and reordering them was not needed for the
+issue's ask and would add layout risk this environment could not verify
+visually.
+
+Board Settings / Card Settings gets a new "Card field order" list with
+up/down buttons per row (`client/components/sidebar/sidebar.jade`,
+`sidebar.js`) rather than a drag-and-drop library: this codebase's existing
+jQuery-ui-sortable usages (list/swimlane/board reordering) are heavier
+drag-and-drop over board layout, not a simple settings list, so buttons are
+the simpler, safer mechanism here. `tests/cardFieldOrder.test.cjs` pins the
+default order, that description can move to third with custom fields after
+it, that unknown/duplicate/missing keys are always resolved to a complete
+and valid order, the up/down move helper's boundaries, and that
+`cardDetails.jade` renders these sections from the order-driven loop rather
+than a hardcoded sequence.
+
+</details>
+
 **Rules (IFTTT)** - the card actions a rule can run.
 
 <details>
@@ -1455,6 +1494,33 @@ and the board publication's visibility selector already matches
 (`models/lib/boardVisibilitySelectors.js`). No code change was needed;
 `tests/issue3310FeatureRequests.test.cjs` now pins all three so they cannot
 silently regress.
+
+</details>
+
+**Checklists** - individual items inside a checklist.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/af847bd08">A Worker can now check/uncheck a checklist item, without gaining edit or delete</a>. Thanks to mweiss237 and xet7.</summary>
+
+[#3307](https://github.com/wekan/wekan/issues/3307): a board member with the
+Worker role could not check or uncheck a checklist item at all - the checkbox
+was gated behind the same `canModifyCard`/`write` check that also gates
+editing and deleting an item, both on the client
+(`client/components/cards/checklists.jade` never drew a clickable box) and on
+the server (the `ChecklistItems.allow().update()` rule refused the write).
+
+Widening `write` for Worker was not the fix - that would also hand Workers
+edit and delete, which the reporter explicitly did not want. Instead this
+gives checking/unchecking its own, narrower, field-level capability, the same
+shape as the existing move/self-assign carve-out for cards
+(`models/lib/workerCardWrite.js`, #3189):
+`models/lib/workerChecklistItemToggle.js` allows a Worker to `$set isFinished`
+and nothing else on a checklist item, enforced in
+`server/permissions/checklistItems.js`. The client mirrors it with
+`Utils.canCheckChecklistItem` / a `canCheckChecklistItem` Blaze helper, so the
+checkbox is drawn under that helper while the rest of the row - title edit,
+drag handle, due-date edit, delete - still requires the full write
+capability a Normal member has.
 
 </details>
 
