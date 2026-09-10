@@ -1039,6 +1039,44 @@ unchanged.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4de77a4a5b377ffa8ce8111a9d85c9bdc7cf78c0">The list header's numeric custom-field sum badge is now scoped to the swimlane row it is drawn in</a>. Thanks to ccollins0601 and xet7.</summary>
+
+[#3319](https://github.com/wekan/wekan/issues/3319) asked for a numeric
+custom field (e.g. "story points") to be totalled per list and/or per
+swimlane, for velocity tracking alongside the existing WIP-limit card count.
+That was already possible: a numeric custom field's Board Settings sidebar
+panel has a "show sum at top of list" toggle
+(`models/customFields.js`'s `showSumAtTopOfList`), and when set, the list
+header already drew a "∑ n" badge next to the card-count badge
+(`client/components/lists/listHeader.jade`'s `numberFieldsSum`/
+`hasNumberFieldsSum` helpers). Two gaps remained:
+
+- the sum was always computed over the WHOLE list, even though a board-wide
+  list renders once per swimlane row in Swimlanes view (the same list
+  document, one row per swimlane) - so a shared list's badge reported the
+  entire list's total under every swimlane row instead of that row's own
+  cards, unlike the adjacent card-count badge, which is already scoped to
+  the rendered row via `cardsCount(containerSwimlaneId)`.
+  `numberFieldsSum` now takes the same `containerSwimlaneId` argument,
+  passed from the template exactly like `cardsCount` already is, and adds it
+  to the `Cards` selector the same way.
+- the referenced `sum-of-number-fields` i18n key (the badge's tooltip) had
+  never actually been added to `en.i18n.json` or any other locale file,
+  so the tooltip silently fell back to showing the raw key. Added it to
+  `en.i18n.json` and filled a real translation into the other 245 locale
+  files.
+
+The sum arithmetic itself (walk a list of cards, skip a card missing the
+field or holding a null/non-numeric value, parse a numeric-looking string)
+is pulled out of the Blaze helper into a small Meteor-free pure function,
+`sumCustomFieldValues()` in the new `models/lib/customFieldsSum.js`, with
+`tests/customFieldsSum.test.cjs` covering a plain sum, several flagged
+fields summed together, numeric strings, missing/null values, non-numeric
+strings, and an empty card list.
+
+</details>
+
 **Minicard and card detail dates** - the received/start/due/end date badges
 shown on the minicard and in an open card.
 
