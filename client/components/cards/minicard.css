@@ -180,6 +180,12 @@
   max-width: 100%;
   margin-inline-end: 7px;
 }
+.minicard .minicard-custom-field-checkbox-icon.minicard-custom-field-checkbox-true {
+  color: #2ecc71;
+}
+.minicard .minicard-custom-field-checkbox-icon.minicard-custom-field-checkbox-false {
+  color: #e74c3c;
+}
 .minicard .handle {
   width: 20px;
   height: 20px;

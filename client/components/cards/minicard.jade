@@ -151,7 +151,7 @@ template(name="minicard")
                       .date
                         +minicardCustomFieldDate
                     else if $eq definition.type "checkbox"
-                      .materialCheckBox(class="{{#if value }}is-checked{{/if}}")
+                      i.fa.minicard-custom-field-checkbox-icon(class="{{#if value}}fa-check-circle minicard-custom-field-checkbox-true{{else}}fa-times-circle minicard-custom-field-checkbox-false{{/if}}" title="{{#if value}}{{_ 'yes'}}{{else}}{{_ 'no'}}{{/if}}")
                     else if $eq definition.type "stringtemplate"
                       +viewer
                         = formattedStringtemplateCustomFieldValue(definition)
@@ -169,7 +169,7 @@ template(name="minicard")
                       .date
                         +minicardCustomFieldDate
                     else if $eq definition.type "checkbox"
-                      .materialCheckBox(class="{{#if value }}is-checked{{/if}}")
+                      i.fa.minicard-custom-field-checkbox-icon(class="{{#if value}}fa-check-circle minicard-custom-field-checkbox-true{{else}}fa-times-circle minicard-custom-field-checkbox-false{{/if}}" title="{{#if value}}{{_ 'yes'}}{{else}}{{_ 'no'}}{{/if}}")
                     else if $eq definition.type "stringtemplate"
                       +viewer
                         = formattedStringtemplateCustomFieldValue(definition)
