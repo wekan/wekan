@@ -369,7 +369,7 @@ hardens the **HttpOnly login cookie**, opens a board already **filtered
 from its URL**, adds **Group by Assignee** and **Bigboard** board views,
 lets **checklist items be bulk-edited as text**, lets **Clone Board** skip
 cards, filters Admin Panel / People **by Team**, and gives **Rules** title
-validation and a default title.
+validation and new **assignee** triggers.
 
 This release adds the following new features:
 
@@ -1260,7 +1260,32 @@ than a hardcoded sequence.
 
 </details>
 
-**Rules (IFTTT)** - the card actions a rule can run.
+**Rules (IFTTT)** - the triggers and card actions a rule can run.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b9b36629a">Added "assignee added to card" / "assignee removed from card" rule triggers</a>. Thanks to HayWo and xet7.</summary>
+
+[#3390](https://github.com/wekan/wekan/issues/3390): Rules already triggered
+on a MEMBER being added to or removed from a card (`joinMember`/
+`unjoinMember`, `server/triggersDef.js`). `assignees` is a separate card
+field from `members` (`models/cards.js`), and its `joinAssignee`/
+`unjoinAssignee` activities were already recorded for the activity feed, but
+nothing wired them to the rule engine, so "when an assignee is added/
+removed" could not be built.
+
+Two new `server/triggersDef.js` entries (`joinAssignee`/`unjoinAssignee`,
+the same `boardId`/`username`/`userId` matching shape as the member
+triggers) plug directly into the existing generic rule matcher - no new
+engine code needed. The card-triggers Add Rule UI
+(`client/components/rules/triggers/cardTriggers.jade`/`.js`) gets matching
+"when a/the assignee is added/removed" blocks, and the drag-and-drop
+workflow palette (`rulesWorkflow.js`) gets the matching chips, mirroring the
+member trigger's UI exactly. `tests/rulesAssigneeTrigger.test.cjs` pins the
+trigger registration and matching (including that it does not fire on the
+sibling member activity, or vice versa), the UI wiring, and that every
+locale file has the four new i18n keys translated and in place.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/1c97bbac854f0504376cc3be5f0d99627c4f403d">Added a "Remove all labels" rule action</a>. Thanks to basketball00011 and xet7.</summary>
