@@ -536,6 +536,53 @@ Meteor.methods({
     await Users.updateAsync(this.userId, updateObject);
   },
 
+  // #1172: same toggle pattern as toggleBoardStar, generalized to swimlanes,
+  // lists and cards - each its own per-user id-array field on the profile.
+  async toggleSwimlaneStar(swimlaneId) {
+    check(swimlaneId, String);
+    if (!this.userId) throw new Meteor.Error('not-logged-in', 'User must be logged in');
+    const user = await Users.findOneAsync(this.userId);
+    if (!user) throw new Meteor.Error('user-not-found', 'User not found');
+
+    const starredSwimlanes = (user.profile && user.profile.starredSwimlanes) || [];
+    const isStarred = starredSwimlanes.includes(swimlaneId);
+    const updateObject = isStarred
+      ? { $pull: { 'profile.starredSwimlanes': swimlaneId } }
+      : { $addToSet: { 'profile.starredSwimlanes': swimlaneId } };
+
+    await Users.updateAsync(this.userId, updateObject);
+  },
+
+  async toggleListStar(listId) {
+    check(listId, String);
+    if (!this.userId) throw new Meteor.Error('not-logged-in', 'User must be logged in');
+    const user = await Users.findOneAsync(this.userId);
+    if (!user) throw new Meteor.Error('user-not-found', 'User not found');
+
+    const starredLists = (user.profile && user.profile.starredLists) || [];
+    const isStarred = starredLists.includes(listId);
+    const updateObject = isStarred
+      ? { $pull: { 'profile.starredLists': listId } }
+      : { $addToSet: { 'profile.starredLists': listId } };
+
+    await Users.updateAsync(this.userId, updateObject);
+  },
+
+  async toggleCardStar(cardId) {
+    check(cardId, String);
+    if (!this.userId) throw new Meteor.Error('not-logged-in', 'User must be logged in');
+    const user = await Users.findOneAsync(this.userId);
+    if (!user) throw new Meteor.Error('user-not-found', 'User not found');
+
+    const starredCards = (user.profile && user.profile.starredCards) || [];
+    const isStarred = starredCards.includes(cardId);
+    const updateObject = isStarred
+      ? { $pull: { 'profile.starredCards': cardId } }
+      : { $addToSet: { 'profile.starredCards': cardId } };
+
+    await Users.updateAsync(this.userId, updateObject);
+  },
+
   // #2220: toggle the board that opens after login (the user's "home" board).
   async toggleDefaultBoard(boardId) {
     check(boardId, String);

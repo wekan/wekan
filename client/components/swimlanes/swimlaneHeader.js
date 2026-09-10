@@ -128,11 +128,25 @@ Template.swimlaneActionPopup.events({
   }),
   'click .js-move-swimlane': Popup.open('moveSwimlane'),
   'click .js-copy-swimlane': Popup.open('copySwimlane'),
+  // #1172: star/unstar this swimlane for the current user only.
+  async 'click .js-star-swimlane-item'(event) {
+    event.preventDefault();
+    const swimlane = Template.currentData();
+    if (!swimlane) return;
+    await Meteor.callAsync('toggleSwimlaneStar', swimlane._id);
+  },
 });
 
 Template.swimlaneActionPopup.helpers({
   isCommentOnly() {
     return ReactiveCache.getCurrentUser().isCommentOnly();
+  },
+
+  // #1172: same per-user star shape as boards/lists.
+  isSwimlaneItemStarred() {
+    const swimlane = Template.currentData();
+    const user = ReactiveCache.getCurrentUser();
+    return !!(swimlane && user && user.hasStarredSwimlane(swimlane._id));
   },
 });
 

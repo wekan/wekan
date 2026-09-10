@@ -1603,6 +1603,13 @@ Template.cardDetailsActionsPopup.helpers({
   showListOnMinicard() {
     return this.showListOnMinicard;
   },
+
+  // #1172: per-user star, same shape as boards/swimlanes/lists.
+  isCardItemStarred() {
+    const card = this.card || this;
+    const user = ReactiveCache.getCurrentUser();
+    return !!(card && card._id && user && user.hasStarredCard(card._id));
+  },
 });
 
 Template.cardDetailsActionsPopup.events({
@@ -1632,6 +1639,13 @@ Template.cardDetailsActionsPopup.events({
     const url = card.absoluteUrl();
     if (!url) return;
     Utils.showCopied(Utils.copyTextToClipboard(url), tpl.$('.copied-tooltip'));
+  },
+  // #1172: star/unstar this card for the current user only.
+  async 'click .js-star-card-item'(event) {
+    event.preventDefault();
+    const card = this.card || this;
+    if (!card || !card._id) return;
+    await Meteor.callAsync('toggleCardStar', card._id);
   },
   // "Custom Fields" is ONE entry: it opens the picker for which of the board's
   // fields are on THIS card, and that popup's own Settings cog opens the

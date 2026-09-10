@@ -301,6 +301,47 @@ template(name="starredBoardsPopup")
           a(href="{{url}}")
             i.fa.fa-star
             span {{title}}
+  //- #1172: swimlanes, lists and cards - the same per-user star shape as
+    boards, each under its own heading and capped (starredSwimlanes/
+    starredLists/starredCards already return at most DROPDOWN_ITEMS_PER_TYPE,
+    most-recently-starred first). "See all" goes to the full Starred page,
+    which has no cap.
+  if starredSwimlanes.length
+    hr
+    div.pop-over-list-title {{_ 'starred-swimlanes'}}
+    ul.pop-over-list
+      each starredSwimlanes
+        li
+          a(href="{{originRelativeUrl}}")
+            i.fa.fa-star
+            +viewer
+              = title
+  if starredLists.length
+    hr
+    div.pop-over-list-title {{_ 'starred-lists'}}
+    ul.pop-over-list
+      each starredLists
+        li
+          a(href="{{originRelativeUrl}}")
+            i.fa.fa-star
+            +viewer
+              = title
+  if starredCards.length
+    hr
+    div.pop-over-list-title {{_ 'starred-cards'}}
+    ul.pop-over-list
+      each starredCards
+        li
+          a(href="{{originRelativeUrl}}")
+            i.fa.fa-star
+            +viewer
+              = title
   unless hasAnyStarred
     ul.pop-over-list
       li.no-items-message {{_ 'quick-access-description'}}
+  hr
+  ul.pop-over-list
+    li
+      a(href="{{pathFor 'starred-items'}}")
+        i.fa.fa-list
+        | {{_ 'see-all-starred-items'}}

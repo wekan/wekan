@@ -34,6 +34,7 @@ const PAGE_TITLE_KEYS = {
   'global-search': 'globalSearch-title',
   'due-cards': 'dueCards-title',
   'my-attachments': 'my-attachments',
+  'starred-items': 'allboards.starred',
   'broken-cards': 'broken-cards',
   accessibility: 'accessibility',
   // Import names its source, so this key is only the fallback.

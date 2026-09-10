@@ -204,10 +204,15 @@ test('the dropdown lists both kinds, and the count counts both', () => {
   assert.ok(/a\(href="\{\{url\}\}"\)/.test(popup), 'each bookmark a link to its URL');
   assert.ok(/span \{\{title\}\}/.test(popup), 'named by its title');
 
+  // #1172: the count now goes through user.starredCount(), which itself sums
+  // boards + pages + swimlanes + lists + cards (models/users.js) - so boards
+  // and pages are still both counted, just through the one shared aggregate
+  // rather than two lengths added inline here. tests/starredItems.test.cjs
+  // pins that starredCount() covers all five kinds.
   const count = headerJs.slice(headerJs.indexOf('  starredBoardsCount() {'),
     headerJs.indexOf('  isPageStarrable() {'));
-  assert.ok(/boards\.length \+ pages\.length/.test(count),
-    'and the count is both, or it says 2 above five rows');
+  assert.ok(/user\.starredCount\(\)/.test(count),
+    'and the count is every starred kind, or it says 2 above five rows');
 
   const en = JSON.parse(read('imports/i18n/data/en.i18n.json'));
   for (const key of ['click-to-star-page', 'click-to-unstar-page', 'starred-pages']) {

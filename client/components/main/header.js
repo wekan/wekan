@@ -111,12 +111,11 @@ Template.header.helpers({
   starredBoardsCount() {
     const user = ReactiveCache.getCurrentUser();
     if (!user) return 0;
-    // Boards AND pages: the group is one list of the places you keep, like a
-    // browser's bookmarks, so a count that left the pages out would say 2 above
-    // a dropdown showing five rows. docs/Features/Board/Starred.md
-    const boards = user.starredBoards ? user.starredBoards() : [];
-    const pages = user.starredPages ? user.starredPages() : [];
-    return boards.length + pages.length;
+    // Boards, pages, swimlanes, lists AND cards (#1172): the group is one list
+    // of the places you keep, like a browser's bookmarks, so a count that left
+    // any kind out would undercount what the dropdown actually shows.
+    // docs/Features/Board/Starred.md
+    return user.starredCount ? user.starredCount() : 0;
   },
 
   // The star at the end of the group, on a page that is not a board: it stars
@@ -472,16 +471,74 @@ Template.offlineWarning.events({
   },
 });
 
-// The dropdown lists two kinds of thing, so "is it empty" is a question about
-// both. Without this the "Star a board to add a shortcut" line was drawn under
-// a list of starred pages, because the `each` it hung off only knew about
-// boards. docs/Features/Board/Starred.md
+// #1172: the shared query behind both the header bookmarks dropdown below AND
+// the full "Starred" page (client/components/main/starredItems.js) - one
+// place resolves the four `profile.starred*` id arrays into docs, so the two
+// views can never drift into different logic for "what is starred". Exported
+// so starredItems.js can import it rather than duplicate it (see
+// tests/starredItemsSharedQuery.test.cjs, which pins that there is only one
+// definition of this resolution in the source tree).
+//
+// `cap`, when given, keeps only the `cap` MOST RECENTLY starred of each type -
+// the dropdown is a shortcut, not an unbounded list - and ordering is always
+// most-recently-starred first: `$addToSet` appends, so the id arrays are
+// oldest-first and are read in reverse.
+export function starredItemsByType(user, cap) {
+  const profile = (user && user.profile) || {};
+  const resolve = (ids, finder) => {
+    if (!Array.isArray(ids) || !ids.length) return [];
+    const found = finder({ _id: { $in: ids } }) || [];
+    const docs = Array.isArray(found) ? found : (found.fetch ? found.fetch() : []);
+    const byId = new Map(docs.map(doc => [doc._id, doc]));
+    const ordered = [...ids].reverse().map(id => byId.get(id)).filter(Boolean);
+    return cap ? ordered.slice(0, cap) : ordered;
+  };
+  return {
+    boards: resolve(profile.starredBoards, sel => ReactiveCache.getBoards(sel)),
+    swimlanes: resolve(profile.starredSwimlanes, sel => ReactiveCache.getSwimlanes(sel)),
+    lists: resolve(profile.starredLists, sel => ReactiveCache.getLists(sel)),
+    cards: resolve(profile.starredCards, sel => ReactiveCache.getCards(sel)),
+  };
+}
+
+// The number of rows the dropdown shows per new type before "see all" takes
+// over - a reasonable cap, not the unbounded list the full Starred page is.
+const DROPDOWN_ITEMS_PER_TYPE = 5;
+
+// The dropdown lists several kinds of thing, so "is it empty" is a question
+// about all of them. Without this the "Star a board to add a shortcut" line
+// was drawn under a list of starred pages, because the `each` it hung off
+// only knew about boards. docs/Features/Board/Starred.md
 Template.starredBoardsPopup.helpers({
   hasAnyStarred() {
     const user = ReactiveCache.getCurrentUser();
     if (!user) return false;
     const boards = user.starredBoards ? user.starredBoards() : [];
     const pages = user.starredPages ? user.starredPages() : [];
-    return boards.length + pages.length > 0;
+    return boards.length + pages.length > 0 || Template.instance().hasAnyNewStarred();
   },
+
+  // #1172: swimlanes, lists and cards, each capped and most-recently-starred
+  // first, with a "see all" link to the full Starred page.
+  starredSwimlanes() {
+    const user = ReactiveCache.getCurrentUser();
+    return user ? starredItemsByType(user, DROPDOWN_ITEMS_PER_TYPE).swimlanes : [];
+  },
+  starredLists() {
+    const user = ReactiveCache.getCurrentUser();
+    return user ? starredItemsByType(user, DROPDOWN_ITEMS_PER_TYPE).lists : [];
+  },
+  starredCards() {
+    const user = ReactiveCache.getCurrentUser();
+    return user ? starredItemsByType(user, DROPDOWN_ITEMS_PER_TYPE).cards : [];
+  },
+});
+
+Template.starredBoardsPopup.onCreated(function () {
+  this.hasAnyNewStarred = () => {
+    const user = ReactiveCache.getCurrentUser();
+    if (!user) return false;
+    const groups = starredItemsByType(user);
+    return groups.swimlanes.length + groups.lists.length + groups.cards.length > 0;
+  };
 });

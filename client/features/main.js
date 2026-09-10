@@ -14,6 +14,7 @@ import '/client/components/main/layouts.jade';
 import '/client/components/main/pageSidebar.jade';
 import '/client/components/main/myCards.jade';
 import '/client/components/main/myAttachments.jade';
+import '/client/components/main/starredItems.jade';
 // The map-provider chooser, shared by the card's location popup and Admin Panel
 // / Problems / Offices. A .jade file is not picked up by being on disk.
 import '/client/components/main/mapProvider.jade';
@@ -47,6 +48,7 @@ import '/client/components/main/layouts.js';
 import '/client/components/main/mapProvider.js';
 import '/client/components/main/myCards.js';
 import '/client/components/main/myAttachments.js';
+import '/client/components/main/starredItems.js';
 import '/client/components/main/popup.js';
 import '/client/components/main/recoveryMaintenance.js';
 import '/client/components/main/safeFilename.js';

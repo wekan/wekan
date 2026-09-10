@@ -1,0 +1,36 @@
+template(name="starredItems")
+  if currentUser
+    .wrapper
+      if hasNoStarredItems
+        p.my-attachments-results-text {{_ 'no-starred-items'}}
+      else
+        if starredBoards.length
+          .my-cards-board-title {{_ 'allboards.starred'}} - {{_ 'boards'}}
+          each starredBoards
+            .my-cards-board-wrapper
+              .my-cards-board-title(class=colorClass)
+                a(href=originRelativeUrl)
+                  +viewer
+                    = title
+        if starredSwimlanes.length
+          .my-cards-board-title {{_ 'allboards.starred'}} - {{_ 'starred-swimlanes'}}
+          each starredSwimlanes
+            .my-cards-swimlane-title(class="{{#if colorClass}}{{ colorClass }}{{else}}swimlane-default-color{{/if}}")
+              a(href=originRelativeUrl)
+                +viewer
+                  = title
+        if starredLists.length
+          .my-cards-board-title {{_ 'allboards.starred'}} - {{_ 'starred-lists'}}
+          each starredLists
+            .my-cards-list-wrapper
+              .my-cards-list-title(class=colorClass)
+                a(href=originRelativeUrl)
+                  +viewer
+                    = title
+        if starredCards.length
+          .my-cards-board-title {{_ 'allboards.starred'}} - {{_ 'starred-cards'}}
+          each starredCards
+            .my-attachments-card-wrapper
+              a.my-attachments-card-title.js-starred-card(href=originRelativeUrl)
+                i.fa.fa-external-link
+                = title

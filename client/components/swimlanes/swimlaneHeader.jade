@@ -62,6 +62,13 @@ template(name="swimlaneActionPopup")
         span
           | {{_ 'copy-link-to-clipboard'}}
     span.copied-tooltip {{_ 'copied'}}
+    //- #1172: star/unstar this swimlane - same toggle pattern as the board
+      star, reading-like so it sits above the rows that change the board.
+    ul.pop-over-list
+      li: a.js-star-swimlane-item
+        i.fa(class="{{#if isSwimlaneItemStarred}}fa-star{{else}}fa-star-o{{/if}}")
+        span
+          | {{#if isSwimlaneItemStarred}}{{_ 'unstar-item'}}{{else}}{{_ 'star-item'}}{{/if}}
     //- History of this swimlane and everything in it. Reading, like the link
       above it, so it sits above the rows that change the board.
     ul.pop-over-list

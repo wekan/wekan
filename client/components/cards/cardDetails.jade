@@ -189,6 +189,15 @@ template(name="cardDetails")
             .card-checklist-attachmentGallery.card-attachmentGallery
               +attachmentGallery
 
+        //- GitHub issue #595: markdown text notes, a card-level collection of
+          small editable markdown blocks - separate from the card's single
+          description - so a card is not limited to cramming everything into
+          one description field. Edited in a popup reusing the SAME editor/
+          viewer widget the description above already uses.
+        +cardSectionHeader(section="text-notes" icon="fa-file-text-o" label="text-notes")
+        if isSectionOpen "text-notes"
+          +cardTextNotes(_id = _id)
+
       if currentBoard.allowsComments
         .comment-title
           +cardSectionHeader(section="comments" icon="fa-comment-o" label="comments")
@@ -956,6 +965,17 @@ template(name="cardDetailsActionsPopup")
           else
             i.fa.fa-eye
             |  {{_ 'watch'}}
+    hr
+    //- #1172: star/unstar this card - same toggle pattern as the board star.
+    ul.pop-over-list
+      li
+        a.js-star-card-item
+          if isCardItemStarred
+            i.fa.fa-star
+            |  {{_ 'unstar-item'}}
+          else
+            i.fa.fa-star-o
+            |  {{_ 'star-item'}}
     hr
     //- The board's custom fields, and this card's. The first is Board Settings
       / Custom Fields - the list of fields the board HAS, which is where one is
