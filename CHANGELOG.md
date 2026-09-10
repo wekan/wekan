@@ -325,11 +325,10 @@ MIT-licensed and lazy-loaded only when their view is opened. The
 **minicard** title moved to the top and gained a collapse caret, matching
 the fold already used for lists/swimlanes/checklists. It also restores the
 full-featured **document preview** viewer (DOCX/XLSX/PPTX, native PDF),
-hardens the **HttpOnly login cookie** against a rare missing-expiry case,
-lets a board open already **filtered from its URL**, adds a **Group by
-Assignee** board view, lets **Clone Board** skip copying cards, lets
-Admin Panel / People be **filtered by Team**, and makes **Rules (IFTTT)**
-validate an empty title and default one from the chosen trigger/action.
+hardens the **HttpOnly login cookie**, opens a board already **filtered
+from its URL**, adds a **Group by Assignee** board view, lets **Clone
+Board** skip copying cards, filters Admin Panel / People **by Team**, and
+gives **Rules (IFTTT)** title validation and a generated default title.
 
 This release adds the following new features:
 
@@ -725,6 +724,31 @@ sibling in every locale file, and - as a negative test - that no other
 `Boards.insertAsync` call site exists outside the two already-known and
 deliberately ungated ones (the per-user Templates container and
 `createBoardFromCard`).
+
+</details>
+
+**Card detail actions** - the hamburger menu opened from an open card.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/17c6d8d9b90e0fcef66177d94c18b15bec62adbf">A card can now create and link to a brand-new board in one step</a>. Thanks to Xilef11 and xet7.</summary>
+
+[#4495](https://github.com/wekan/wekan/issues/4495): linking a card to a
+board already worked, but only in two steps - create the board first, then
+come back and use the existing "Link to board" action
+(`client/components/lists/listBody.js`'s `Template.linkCardPopup`, opened
+from a list's add-card composer) to find it.
+
+A new, separate action sits beside it in the card's own hamburger menu,
+"Create board from this card". It prompts for the new board's title
+(defaulting to the card's own title), creates the board the same way
+board creation normally does (an admin member, a default swimlane), and
+then sets on the SAME card exactly the two fields the existing "link to a
+whole board" flow sets - `type: 'cardType-linkedBoard'` and
+`linkedId: <the new board>` - so opening the card now opens the sub-board,
+without ever leaving the card. The new server method,
+`createBoardFromCard` (`server/models/cards.js`), refuses to convert a
+card that is already a link or a template, and checks write access on the
+card's own board before creating anything.
 
 </details>
 
