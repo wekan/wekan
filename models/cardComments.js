@@ -53,6 +53,35 @@ const CardComments = new Mongo.Collection('card_comments');
  *                                               authored by others.
  * @returns {boolean} whether the acting user may edit/delete the comment.
  */
+/**
+ * Resolve the parentId a NEW comment should actually be stored with, capping
+ * threading at one level (issue #3011). A reply to a top-level comment keeps
+ * its parentId as-is; a reply to a REPLY is flattened onto that reply's own
+ * parent (the original top-level comment), so nesting never goes deeper than
+ * one level no matter how many times "Reply" is clicked down the chain.
+ *
+ * Kept standalone and pure (no collection access) so it can be unit-tested
+ * without a database, and reused by both the client (choosing what to send)
+ * and the server (defense in depth against a caller that sends its own
+ * parentId, e.g. a future API).
+ *
+ * @param {string} parentId    the _id of the comment being replied to, or ''.
+ * @param {function(string): ({parentId: string}|undefined)} getComment
+ *        looks up a comment by _id; returns the doc (or at least its
+ *        parentId) if found, undefined otherwise.
+ * @returns {string} the parentId to store, '' for a top-level comment.
+ */
+export function resolveParentId(parentId, getComment) {
+  if (!parentId) {
+    return '';
+  }
+  const parent = getComment(parentId);
+  if (parent && parent.parentId) {
+    return parent.parentId;
+  }
+  return parentId;
+}
+
 export function canEditComment({ isAuthor, isBoardAdmin, restrictCommentEditing }) {
   // The author may always edit/delete their own comment.
   if (isAuthor) {
@@ -256,6 +285,18 @@ export async function assertCanMutateComment(userId, doc) {
 }
 
 if (Meteor.isServer) {
+  // Issue #3011: cap threading at one level regardless of caller. The client
+  // already sends a flattened parentId (see the reply-click handler in
+  // client/components/activities/comments.js), but this re-derives it
+  // server-side so a reply-to-a-reply can never be stored deeper than one
+  // level, however the insert was made.
+  CardComments.before.insert(async (userId, doc) => {
+    if (doc.parentId) {
+      const parent = await ReactiveCache.getCardComment(doc.parentId);
+      doc.parentId = resolveParentId(doc.parentId, () => parent);
+    }
+  });
+
   CardComments.before.update(async (userId, doc) => {
     await assertCanMutateComment(userId, doc);
   });

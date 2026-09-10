@@ -1,5 +1,6 @@
 import { ReactiveCache } from '/imports/reactiveCache';
-import CardComments, { canEditComment } from '/models/cardComments';
+import CardComments, { canEditComment, resolveParentId } from '/models/cardComments';
+import { groupCommentsByThread } from '/imports/lib/commentThreading';
 import { UnsavedEdits } from '/client/lib/unsavedEdits';
 import { EscapeActions } from '/client/lib/escapeActions';
 import { Utils } from '/client/lib/utils';
@@ -79,6 +80,15 @@ Template.commentForm.helpers({
     const id = replyToCommentId.get();
     return id ? ReactiveCache.getCardComment(id) : undefined;
   },
+  // The name shown by the "Replying to [author]" banner while composing a
+  // reply, or undefined when the parent comment/its author can no longer be
+  // found (the banner then falls back to the plain "In reply to" wording).
+  replyToCommentAuthorName() {
+    const id = replyToCommentId.get();
+    const comment = id ? ReactiveCache.getCardComment(id) : undefined;
+    const user = comment && ReactiveCache.getUser(comment.userId);
+    return user && user.getName ? user.getName() : undefined;
+  },
 });
 
 Template.commentForm.events({
@@ -142,7 +152,9 @@ Template.comments.helpers({
   getComments() {
     const data = Template.currentData();
     if (!data || typeof data.comments !== 'function') return [];
-    return data.comments();
+    // #3011: replies render directly under their (one-level) parent rather
+    // than interleaved by date with unrelated top-level comments.
+    return groupCommentsByThread(data.comments());
   },
 });
 
@@ -205,7 +217,14 @@ Template.comment.events({
   },
   'click .js-reply-comment'(evt) {
     evt.preventDefault();
-    replyToCommentId.set(this._id);
+    // #3011: cap threading at one level - replying to a reply attaches the
+    // new comment to that reply's own parent (the original top-level
+    // comment) instead of nesting further, so the banner and the eventual
+    // insert both point at the same, already-flattened target.
+    const targetId = resolveParentId(this._id, id =>
+      ReactiveCache.getCardComment(id),
+    );
+    replyToCommentId.set(targetId);
     // Open and focus the new-comment form.
     const input = $('.js-new-comment-input');
     input.click();
