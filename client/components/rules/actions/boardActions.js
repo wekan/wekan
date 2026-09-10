@@ -1,10 +1,8 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
-import Actions from '/models/actions';
-import Rules from '/models/rules';
-import Triggers from '/models/triggers';
 import { Utils } from '/client/lib/utils';
 import { canSelectBoardInRules } from '/models/lib/rulesBoardSelector';
+import { saveRuleTriggerAction } from '/client/components/rules/rulesSaveHelper';
 
 Template.boardActions.onCreated(function () {
   this.subscribe('boards');
@@ -59,20 +57,13 @@ Template.boardActions.events({
     const swimlaneName = tpl.find('#swimlane-name2').value;
     const boardId = Session.get('currentBoard');
     const desc = Utils.getTriggerActionDesc(event, tpl);
-    const triggerId = Triggers.insert(trigger);
-    const actionId = Actions.insert({
+    saveRuleTriggerAction(boardId, data.ruleId, ruleName, trigger, {
       actionType: 'createCard',
       swimlaneName,
       cardName,
       listName,
       boardId,
       desc,
-    });
-    Rules.insert({
-      title: ruleName,
-      triggerId,
-      actionId,
-      boardId,
     });
   },
   'click .js-add-swimlane-action'(event, tpl) {
@@ -82,18 +73,11 @@ Template.boardActions.events({
     const swimlaneName = tpl.find('#swimlane-name').value;
     const boardId = Session.get('currentBoard');
     const desc = Utils.getTriggerActionDesc(event, tpl);
-    const triggerId = Triggers.insert(trigger);
-    const actionId = Actions.insert({
+    saveRuleTriggerAction(boardId, data.ruleId, ruleName, trigger, {
       actionType: 'addSwimlane',
       swimlaneName,
       boardId,
       desc,
-    });
-    Rules.insert({
-      title: ruleName,
-      triggerId,
-      actionId,
-      boardId,
     });
   },
   'click .js-add-spec-move-action'(event, tpl) {
@@ -106,13 +90,14 @@ Template.boardActions.events({
     const boardId = Session.get('currentBoard');
     const destBoardId = tpl.find('#board-id').value;
     const desc = Utils.getTriggerActionDesc(event, tpl);
-    // #5536: create the rule on the server (see server/rulesButton.js →
-    // rules.createRule) instead of three optimistic client Collection.insert()
-    // calls. The optimistic writes landed in minimongo limbo once the wizard
-    // subscription stopped, so the cross-board move action rendered BLANK; and
-    // the client allow/deny rules rejected them outright for non-owner members.
-    // The action keeps its own destination `boardId` (the board to move to).
-    Meteor.call('rules.createRule', boardId, ruleName, trigger, {
+    // #5536: create/update the rule on the server (see server/rulesButton.js
+    // -> rules.createRule / rules.updateRule) instead of three optimistic
+    // client Collection.insert() calls. The optimistic writes landed in
+    // minimongo limbo once the wizard subscription stopped, so the
+    // cross-board move action rendered BLANK; and the client allow/deny
+    // rules rejected them outright for non-owner members. The action keeps
+    // its own destination `boardId` (the board to move to).
+    saveRuleTriggerAction(boardId, data.ruleId, ruleName, trigger, {
       actionType: actionSelected === 'bottom' ? 'moveCardToBottom' : 'moveCardToTop',
       listName,
       swimlaneName,
@@ -129,10 +114,10 @@ Template.boardActions.events({
     const actionSelected = tpl.find('#move-gen-action').value;
     const actionType =
       actionSelected === 'bottom' ? 'moveCardToBottom' : 'moveCardToTop';
-    // Insert the rule on the server (see server/rulesButton.js → rules.createRule)
-    // rather than via three optimistic client Collection.insert() calls, whose
-    // documents land in minimongo limbo when the wizard subscription stops.
-    Meteor.call('rules.createRule', boardId, ruleName, trigger, {
+    // Create/update the rule on the server rather than via three optimistic
+    // client Collection.insert() calls, whose documents land in minimongo
+    // limbo when the wizard subscription stops.
+    saveRuleTriggerAction(boardId, data.ruleId, ruleName, trigger, {
       actionType,
       // #6472: was `listTitle: '*'` since the original rules implementation,
       // but performAction reads action.listName/action.swimlaneName — so every
@@ -151,31 +136,17 @@ Template.boardActions.events({
     const trigger = data.triggerVar.get();
     const actionSelected = tpl.find('#arch-action').value;
     if (actionSelected === 'archive') {
-      const triggerId = Triggers.insert(trigger);
-      const actionId = Actions.insert({
+      saveRuleTriggerAction(boardId, data.ruleId, ruleName, trigger, {
         actionType: 'archive',
         boardId,
         desc,
       });
-      Rules.insert({
-        title: ruleName,
-        triggerId,
-        actionId,
-        boardId,
-      });
     }
     if (actionSelected === 'unarchive') {
-      const triggerId = Triggers.insert(trigger);
-      const actionId = Actions.insert({
+      saveRuleTriggerAction(boardId, data.ruleId, ruleName, trigger, {
         actionType: 'unarchive',
         boardId,
         desc,
-      });
-      Rules.insert({
-        title: ruleName,
-        triggerId,
-        actionId,
-        boardId,
       });
     }
   },
@@ -188,10 +159,11 @@ Template.boardActions.events({
     const boardId = Session.get('currentBoard');
     const destBoardId = tpl.find('#board-id-link').value;
     const desc = Utils.getTriggerActionDesc(event, tpl);
-    // #5536: create on the server so the cross-board link action does not land
-    // blank in minimongo limbo / get rejected by client allow/deny. The action
-    // keeps its own destination `boardId` (the board to link the card into).
-    Meteor.call('rules.createRule', boardId, ruleName, trigger, {
+    // #5536: create/update on the server so the cross-board link action does
+    // not land blank in minimongo limbo / get rejected by client allow/deny.
+    // The action keeps its own destination `boardId` (the board to link the
+    // card into).
+    saveRuleTriggerAction(boardId, data.ruleId, ruleName, trigger, {
       actionType: 'linkCard',
       listName,
       swimlaneName,
@@ -207,15 +179,13 @@ Template.boardActions.events({
     const desc = Utils.getTriggerActionDesc(event, tpl);
     const listName = tpl.find('#sort-list-name').value || '*';
     const sortField = tpl.find('#sort-field').value;
-    const triggerId = Triggers.insert(trigger);
-    const actionId = Actions.insert({
+    saveRuleTriggerAction(boardId, data.ruleId, ruleName, trigger, {
       actionType: 'sortList',
       listName,
       sortField,
       boardId,
       desc,
     });
-    Rules.insert({ title: ruleName, triggerId, actionId, boardId });
   },
   'click .js-move-all-cards-action'(event, tpl) {
     const data = Template.currentData();
@@ -225,15 +195,13 @@ Template.boardActions.events({
     const desc = Utils.getTriggerActionDesc(event, tpl);
     const fromListName = tpl.find('#moveall-from-list').value || '*';
     const listName = tpl.find('#moveall-to-list').value || '*';
-    const triggerId = Triggers.insert(trigger);
-    const actionId = Actions.insert({
+    saveRuleTriggerAction(boardId, data.ruleId, ruleName, trigger, {
       actionType: 'moveAllCardsInList',
       fromListName,
       listName,
       boardId,
       desc,
     });
-    Rules.insert({ title: ruleName, triggerId, actionId, boardId });
   },
 });
 /* eslint-no-undef */

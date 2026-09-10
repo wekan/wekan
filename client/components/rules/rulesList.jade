@@ -37,6 +37,9 @@ template(name="rulesList")
               button.primary.wide.js-edit-rule(type="submit" data-rule-id="{{_id}}")
                 i.fa.fa-pencil
                 | {{_ 'r-edit-rule'}}
+              button.primary.wide.js-edit-rule-full(type="submit" data-rule-id="{{_id}}")
+                i.fa.fa-sliders
+                | {{_ 'r-edit-rule-trigger-action'}}
               button.primary.wide.js-delete-rule(type="submit" data-rule-id="{{_id}}")
                 i.fa.fa-trash
                 | {{_ 'r-delete-rule'}}

@@ -24,8 +24,8 @@ template(name="rulesMain")
         else
           +rulesList
       if($eq rulesCurrentTab.get 'trigger')
-        +rulesTriggers(ruleName=ruleName triggerVar=triggerVar)
+        +rulesTriggers(ruleName=ruleName triggerVar=triggerVar ruleId=editingRuleId)
       if($eq rulesCurrentTab.get 'action')
-        +rulesActions(ruleName=ruleName triggerVar=triggerVar)
+        +rulesActions(ruleName=ruleName triggerVar=triggerVar ruleId=editingRuleId)
       if($eq rulesCurrentTab.get 'ruleDetails')
         +ruleDetails(ruleId=ruleId)

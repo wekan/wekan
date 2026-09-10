@@ -113,6 +113,77 @@ Meteor.methods({
     return { _id: ruleId, triggerId, actionId };
   },
 
+  // #2713: edit an existing rule's trigger/action in place instead of forcing
+  // "delete the rule, recreate it from scratch". The rule document keeps its
+  // own _id (and, when it already has one, its trigger/action _ids too) —
+  // only their CONTENT is replaced, so anything that already refers to this
+  // rule by id keeps working after the edit.
+  async 'rules.updateRule'(ruleId, title, trigger, action) {
+    check(ruleId, String);
+    check(title, Match.Optional(String));
+    check(trigger, Object);
+    check(action, Object);
+
+    const rule = await ReactiveCache.getRule(ruleId);
+    if (!rule) throw new Meteor.Error('not-found', 'Rule not found');
+
+    const board = await ReactiveCache.getBoard(rule.boardId);
+    if (!board) throw new Meteor.Error('not-found', 'Board not found');
+    if (!board.hasAdmin(this.userId)) {
+      throw new Meteor.Error('not-authorized', 'Must be a board admin');
+    }
+
+    const clean = doc => {
+      const { _id, ...rest } = doc || {};
+      return rest;
+    };
+
+    const boardId = rule.boardId;
+    // Same cross-board destination handling as rules.createRule above.
+    const actionDoc = { boardId, ...clean(action) };
+    if (!actionDoc.boardId) actionDoc.boardId = boardId;
+    if (actionDoc.boardId !== boardId) {
+      const destination = await ReactiveCache.getBoard(actionDoc.boardId);
+      if (!allowIsBoardMemberWithWriteAccess(this.userId, destination)) {
+        tripCanary('rule.cross-board-write', { userId: this.userId });
+        throw new Meteor.Error(
+          'not-authorized',
+          'Must have write access to the destination board',
+        );
+      }
+    }
+    const triggerDoc = { ...clean(trigger), boardId };
+
+    // Full-document replace (not $set) so a trigger/action switched to a
+    // different type does not keep stale fields from the type it replaced -
+    // and keep the existing _id when there is one, so the rule's triggerId/
+    // actionId never have to change just because the configuration did.
+    let triggerId = rule.triggerId;
+    if (triggerId) {
+      await Triggers.updateAsync(triggerId, triggerDoc);
+    } else {
+      triggerId = await Triggers.insertAsync(triggerDoc);
+    }
+    let actionId = rule.actionId;
+    if (actionId) {
+      await Actions.updateAsync(actionId, actionDoc);
+    } else {
+      actionId = await Actions.insertAsync(actionDoc);
+    }
+
+    const ruleSet = {
+      title: title || rule.title || 'Rule',
+      triggerId,
+      actionId,
+    };
+    if (trigger && trigger.activityType === 'button') {
+      ruleSet.buttonType = trigger.buttonType || 'card';
+      ruleSet.buttonLabel = trigger.buttonLabel || ruleSet.title;
+    }
+    await Rules.updateAsync(ruleId, { $set: ruleSet });
+    return { _id: ruleId, triggerId, actionId };
+  },
+
   // Delete a rule (and its trigger + action) on the server in one call. The rule
   // wizard/list/workflow views previously ran three client-side
   // Collection.remove() calls; each is gated by a per-collection allow() rule

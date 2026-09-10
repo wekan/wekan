@@ -252,6 +252,7 @@
   "zoom-level": "Zoom Level",
   "enter-zoom-level": "Enter zoom level (50-300%):",
   "board-view-cal": "Calendar",
+  "board-view-multiboard-cal": "Multi Board Calendar",
   "board-view-swimlanes": "Swimlanes",
   "board-view-collapse": "Collapse",
   "board-view-gantt": "Gantt",
@@ -360,6 +361,7 @@
   "deleteBoardBackgroundPopup-title": "Delete Background Image",
   "deleteDuplicateListsPopup-title": "Delete Duplicate Lists",
   "userDeletePopup-title": "Delete Account",
+  "userAnonymizePopup-title": "Anonymize import users",
   "addBoardDomainPopup-title": "Add Domain",
   "removeBoardDomainPopup-title": "Remove Domain",
   "mapImportedMemberPopup-title": "Map to existing user",
@@ -1282,6 +1284,7 @@
   "r-remove": "Remove",
   "r-label": "label",
   "r-member": "member",
+  "r-add-actinguser-member": "Add the user who triggered this rule as a member",
   "r-remove-all": "Remove all members from the card",
   "r-remove-all-labels": "Remove all labels from the card",
   "r-set-color": "Set color to",
@@ -1969,6 +1972,8 @@
   "uncollapse": "Uncollapse",
   "hideCheckedChecklistItems": "Hide checked checklist items",
   "hideAllChecklistItems": "Hide all checklist items",
+  "checkAllItems": "Check all items",
+  "uncheckAllItems": "Uncheck all items",
   "hideCompletedSubtasks": "Hide completed subtasks",
   "support": "Support",
   "supportPopup-title": "Support",
@@ -2510,5 +2515,8 @@
   "twoFactorCode-prompt": "Masukkan kode autentikasi 6 digit Anda",
   "twoFactorCode-submit": "Verifikasi",
   "twoFactorCode-cancel": "Batal",
-  "twoFactorCode-invalid": "Kode autentikasi tidak valid. Silakan coba lagi."
+  "twoFactorCode-invalid": "Kode autentikasi tidak valid. Silakan coba lagi.",
+  "wip-limit-groups": "Enable WIP Limit (List)",
+  "wip-limit-group-name-placeholder": "Group name (optional)",
+  "wip-limit-group-add": "Add Enable WIP Limit"
 }

@@ -1,8 +1,16 @@
 'use strict';
 
 // Regression guard for #6630. Action descriptions belong to Actions; putting
-// the same `desc` key in a Rules.insert document makes SimpleSchema reject the
-// whole rule with keyNotInSchema.
+// the same `desc` key in a Rule document makes SimpleSchema reject the whole
+// rule with keyNotInSchema.
+//
+// #2713 routed every card-action handler through
+// rulesSaveHelper.saveRuleTriggerAction(boardId, ruleId, ruleName, trigger,
+// actionDoc) instead of raw Actions.insert()/Rules.insert() calls, so this
+// now checks: the action object literal passed to that helper still carries
+// `desc`, and the rule document server/rulesButton.js actually persists
+// (both rules.createRule's `ruleDoc` and rules.updateRule's `ruleSet`) never
+// does.
 
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
@@ -10,6 +18,10 @@ const path = require('node:path');
 
 const source = fs.readFileSync(
   path.join(__dirname, '..', 'client/components/rules/actions/cardActions.js'),
+  'utf8',
+);
+const rulesButtonSource = fs.readFileSync(
+  path.join(__dirname, '..', 'server/rulesButton.js'),
   'utf8',
 );
 
@@ -21,8 +33,8 @@ function handler(selector, nextSelector) {
   return source.slice(start, end);
 }
 
-function insertedObjects(block, collection) {
-  return [...block.matchAll(new RegExp(`${collection}\\.insert\\(\\{([\\s\\S]*?)\\}\\);`, 'g'))]
+function savedActionObjects(block) {
+  return [...block.matchAll(/saveRuleTriggerAction\([^,]*,[^,]*,[^,]*,[^,]*,\s*\{([\s\S]*?)\}\);/g)]
     .map((match) => match[1]);
 }
 
@@ -34,19 +46,24 @@ const cases = [
 
 for (const [name, selector, nextSelector] of cases) {
   const block = handler(selector, nextSelector);
-  const actions = insertedObjects(block, 'Actions');
-  const rules = insertedObjects(block, 'Rules');
-
-  assert.ok(actions.some((object) => /\bdesc\b/.test(object)), `${name}: Action keeps desc`);
-  assert.ok(rules.length > 0, `${name}: inserts a Rule`);
-  assert.ok(rules.every((object) => !/\bdesc\b/.test(object)), `${name}: Rule rejects desc`);
+  const actions = savedActionObjects(block);
+  assert.ok(actions.length > 0, `${name}: calls saveRuleTriggerAction`);
+  assert.ok(actions.some((object) => /\bdesc\b/.test(object)), `${name}: action object keeps desc`);
 }
 
-// Negative guard: no Rules.insert in this action module may reintroduce an
-// Action-only description later.
-assert.ok(
-  insertedObjects(source, 'Rules').every((object) => !/\bdesc\b/.test(object)),
-  'no card-action Rule document contains desc',
-);
+// Negative guard: the RULE document the server actually persists must never
+// carry `desc` - neither on create nor on update (#2713's rules.updateRule).
+for (const [methodName, docVar] of [
+  ["rules.createRule", 'ruleDoc'],
+  ["rules.updateRule", 'ruleSet'],
+]) {
+  const methodStart = rulesButtonSource.indexOf(`async '${methodName}'`);
+  assert.notEqual(methodStart, -1, `${methodName} exists in server/rulesButton.js`);
+  const nextMethod = rulesButtonSource.indexOf("async '", methodStart + methodName.length);
+  const block = rulesButtonSource.slice(methodStart, nextMethod === -1 ? undefined : nextMethod);
+  const docLiteral = block.match(new RegExp(`const ${docVar} = \\{([\\s\\S]*?)\\};`));
+  assert.ok(docLiteral, `${methodName}: builds a ${docVar} literal`);
+  assert.ok(!/\bdesc\b/.test(docLiteral[1]), `${methodName}: ${docVar} must not carry desc`);
+}
 
-console.log('\nruleCardActionSchema: 7 checks passed');
+console.log('\nruleCardActionSchema: 8 checks passed');

@@ -16,13 +16,13 @@ template(name="rulesActions")
             | @
       .triggers-main-body
         if $eq currentActions.get 'board'
-          +boardActions(ruleName=data.ruleName triggerVar=data.triggerVar)
+          +boardActions(ruleName=data.ruleName triggerVar=data.triggerVar ruleId=data.ruleId)
         else if $eq currentActions.get 'card'
-          +cardActions(ruleName=data.ruleName triggerVar=data.triggerVar)
+          +cardActions(ruleName=data.ruleName triggerVar=data.triggerVar ruleId=data.ruleId)
         else if $eq currentActions.get 'checklist'
-          +checklistActions(ruleName=data.ruleName triggerVar=data.triggerVar)
+          +checklistActions(ruleName=data.ruleName triggerVar=data.triggerVar ruleId=data.ruleId)
         else if $eq currentActions.get 'mail'
-          +mailActions(ruleName=data.ruleName triggerVar=data.triggerVar)
+          +mailActions(ruleName=data.ruleName triggerVar=data.triggerVar ruleId=data.ruleId)
   div.rules-back
       button.primary.wide.js-goback(type="submit")
           i.fa.fa-arrow-left

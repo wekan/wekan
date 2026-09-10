@@ -1,8 +1,7 @@
-import Actions from '/models/actions';
 import { CARD_COLORS } from '/models/metadata/colors';
-import Rules from '/models/rules';
-import Triggers from '/models/triggers';
 import { Utils } from '/client/lib/utils';
+import { saveRuleTriggerAction } from '/client/components/rules/rulesSaveHelper';
+import { RULE_ACTING_USER_SENTINEL } from '/models/lib/ruleActingUser';
 
 let cardColors;
 Meteor.startup(() => {
@@ -44,24 +43,15 @@ Template.cardActions.events({
     const data = Template.currentData();
     const ruleName = data.ruleName.get();
     const trigger = data.triggerVar.get();
-    const triggerId = Triggers.insert(trigger);
     const actionSelected = tpl.find('#setdate-action').value;
     const dateFieldSelected = tpl.find('#setdate-datefield').value;
     const boardId = Session.get('currentBoard');
     const desc = Utils.getTriggerActionDesc(event, tpl);
-
-    const actionId = Actions.insert({
+    saveRuleTriggerAction(boardId, data.ruleId, ruleName, trigger, {
       actionType: actionSelected,
       dateField: dateFieldSelected,
       boardId,
       desc,
-    });
-
-    Rules.insert({
-      title: ruleName,
-      triggerId,
-      actionId,
-      boardId,
     });
   },
 
@@ -69,24 +59,15 @@ Template.cardActions.events({
     const data = Template.currentData();
     const ruleName = data.ruleName.get();
     const trigger = data.triggerVar.get();
-    const triggerId = Triggers.insert(trigger);
     const dateFieldSelected = tpl.find('#setdate-removedatefieldvalue')
       .value;
     const boardId = Session.get('currentBoard');
     const desc = Utils.getTriggerActionDesc(event, tpl);
-
-    const actionId = Actions.insert({
+    saveRuleTriggerAction(boardId, data.ruleId, ruleName, trigger, {
       actionType: 'removeDate',
       dateField: dateFieldSelected,
       boardId,
       desc,
-    });
-
-    Rules.insert({
-      title: ruleName,
-      triggerId,
-      actionId,
-      boardId,
     });
   },
   'click .js-add-label-action'(event, tpl) {
@@ -98,33 +79,19 @@ Template.cardActions.events({
     const boardId = Session.get('currentBoard');
     const desc = Utils.getTriggerActionDesc(event, tpl);
     if (actionSelected === 'add') {
-      const triggerId = Triggers.insert(trigger);
-      const actionId = Actions.insert({
+      saveRuleTriggerAction(boardId, data.ruleId, ruleName, trigger, {
         actionType: 'addLabel',
         labelId,
         boardId,
         desc,
       });
-      Rules.insert({
-        title: ruleName,
-        triggerId,
-        actionId,
-        boardId,
-      });
     }
     if (actionSelected === 'remove') {
-      const triggerId = Triggers.insert(trigger);
-      const actionId = Actions.insert({
+      saveRuleTriggerAction(boardId, data.ruleId, ruleName, trigger, {
         actionType: 'removeLabel',
         labelId,
         boardId,
         desc,
-      });
-      Rules.insert({
-        title: ruleName,
-        triggerId,
-        actionId,
-        boardId,
       });
     }
   },
@@ -137,74 +104,63 @@ Template.cardActions.events({
     const boardId = Session.get('currentBoard');
     const desc = Utils.getTriggerActionDesc(event, tpl);
     if (actionSelected === 'add') {
-      const triggerId = Triggers.insert(trigger);
-      const actionId = Actions.insert({
+      saveRuleTriggerAction(boardId, data.ruleId, ruleName, trigger, {
         actionType: 'addMember',
         username,
         boardId,
         desc,
       });
-      Rules.insert({
-        title: ruleName,
-        triggerId,
-        actionId,
-        boardId,
-      });
     }
     if (actionSelected === 'remove') {
-      const triggerId = Triggers.insert(trigger);
-      const actionId = Actions.insert({
+      saveRuleTriggerAction(boardId, data.ruleId, ruleName, trigger, {
         actionType: 'removeMember',
         username,
         boardId,
         desc,
       });
-      Rules.insert({
-        title: ruleName,
-        triggerId,
-        actionId,
-        boardId,
-      });
     }
   },
+  // #2522: "add member" acting-user option - stores the sentinel username
+  // instead of a fixed board member, resolved at execution time by
+  // server/rulesHelper.js to whoever's action fired the rule.
+  'click .js-add-actinguser-member-action'(event, tpl) {
+    const data = Template.currentData();
+    const ruleName = data.ruleName.get();
+    const trigger = data.triggerVar.get();
+    const desc = Utils.getTriggerActionDesc(event, tpl);
+    const boardId = Session.get('currentBoard');
+    saveRuleTriggerAction(boardId, data.ruleId, ruleName, trigger, {
+      actionType: 'addMember',
+      username: RULE_ACTING_USER_SENTINEL,
+      boardId,
+      desc,
+    });
+  },
+
   'click .js-add-removeall-action'(event, tpl) {
     const data = Template.currentData();
     const ruleName = data.ruleName.get();
     const trigger = data.triggerVar.get();
-    const triggerId = Triggers.insert(trigger);
     const desc = Utils.getTriggerActionDesc(event, tpl);
     const boardId = Session.get('currentBoard');
-    const actionId = Actions.insert({
+    saveRuleTriggerAction(boardId, data.ruleId, ruleName, trigger, {
       actionType: 'removeMember',
       //  deepcode ignore NoHardcodedCredentials: it's no credential
       username: '*',
       boardId,
       desc,
     });
-    Rules.insert({
-      title: ruleName,
-      triggerId,
-      actionId,
-      boardId,
-    });
   },
   'click .js-add-removealllabels-action'(event, tpl) {
     const data = Template.currentData();
     const ruleName = data.ruleName.get();
     const trigger = data.triggerVar.get();
-    const triggerId = Triggers.insert(trigger);
     const desc = Utils.getTriggerActionDesc(event, tpl);
     const boardId = Session.get('currentBoard');
-    const actionId = Actions.insert({
+    saveRuleTriggerAction(boardId, data.ruleId, ruleName, trigger, {
       actionType: 'removeAllLabels',
       boardId,
       desc,
-    });
-    Rules.insert({
-      title: ruleName,
-      triggerId,
-      actionId,
-      boardId,
     });
   },
   'click .js-show-color-palette'(event, tpl) {
@@ -222,18 +178,11 @@ Template.cardActions.events({
     const selectedColor = tpl.cardColorButtonValue.get();
     const boardId = Session.get('currentBoard');
     const desc = Utils.getTriggerActionDesc(event, tpl);
-    const triggerId = Triggers.insert(trigger);
-    const actionId = Actions.insert({
+    saveRuleTriggerAction(boardId, data.ruleId, ruleName, trigger, {
       actionType: 'setColor',
       selectedColor,
       boardId,
       desc,
-    });
-    Rules.insert({
-      title: ruleName,
-      triggerId,
-      actionId,
-      boardId,
     });
   },
   'click .js-set-complete-action'(event, tpl) {
@@ -243,9 +192,11 @@ Template.cardActions.events({
     const boardId = Session.get('currentBoard');
     const desc = Utils.getTriggerActionDesc(event, tpl);
     const actionType = tpl.find('#complete-action').value;
-    const triggerId = Triggers.insert(trigger);
-    const actionId = Actions.insert({ actionType, boardId, desc });
-    Rules.insert({ title: ruleName, triggerId, actionId, boardId });
+    saveRuleTriggerAction(boardId, data.ruleId, ruleName, trigger, {
+      actionType,
+      boardId,
+      desc,
+    });
   },
   'click .js-set-reldate-action'(event, tpl) {
     const data = Template.currentData();
@@ -258,8 +209,7 @@ Template.cardActions.events({
     // amount, interpreted together with `unit` (minutes/hours/days/weeks/months).
     const days = parseInt(tpl.find('#reldate-days').value, 10) || 0;
     const unit = tpl.find('#reldate-unit').value;
-    const triggerId = Triggers.insert(trigger);
-    const actionId = Actions.insert({
+    saveRuleTriggerAction(boardId, data.ruleId, ruleName, trigger, {
       actionType: 'setDateRelative',
       dateField,
       days,
@@ -267,7 +217,6 @@ Template.cardActions.events({
       boardId,
       desc,
     });
-    Rules.insert({ title: ruleName, triggerId, actionId, boardId });
   },
 });
 

@@ -13,6 +13,8 @@ import { cardTitleMatchList } from '/models/lib/ruleCardTitleFilter';
 import { allowIsBoardMemberWithWriteAccess } from '/server/lib/utils';
 import { tripCanary } from '/server/lib/canary';
 import { substituteVars } from '/models/lib/ruleVarsSubstitute';
+import { cardMatchesAdvancedFilter } from '/server/lib/advancedFilterMatch';
+import { RULE_ACTING_USER_SENTINEL, resolveActingUserId } from '/models/lib/ruleActingUser';
 
 // #5536: robustly resolve a destination board's default swimlane, tolerating a
 // board that lacks a swimlane literally titled 'Default' (renamed/translated) or
@@ -91,8 +93,12 @@ async function buildRuleVars(activity, card) {
     const u = await ReactiveCache.getUser(memberId);
     if (u) vars.membername = u.username || '';
   }
-  if (activity && activity.userId && activity.userId !== '*') {
-    const u = await ReactiveCache.getUser(activity.userId);
+  // #2522: reuse the same acting-user resolution the "add member" action's
+  // acting-user option resolves to below, so {username} and that option
+  // never disagree about who triggered the rule.
+  const actingUserId = resolveActingUserId(activity);
+  if (actingUserId) {
+    const u = await ReactiveCache.getUser(actingUserId);
     if (u) vars.username = u.username || '';
   }
   // #3304: short, memorable aliases for the tokens documented in the "send
@@ -118,19 +124,50 @@ export const RulesHelper = {
   },
   async findMatchingRules(activity) {
     const activityType = activity.activityType;
-    if (TriggersDef[activityType] === undefined) {
-      return [];
-    }
-    const matchingFields = TriggersDef[activityType].matchingFields;
-    const matchingMap = await this.buildMatchingFieldsMap(activity, matchingFields);
-    const matchingTriggers = await ReactiveCache.getTriggers(matchingMap);
     const matchingRules = [];
-    for (const trigger of matchingTriggers) {
-      const rule = await trigger.getRule();
-      // Check that for some unknown reason there are some leftover triggers
-      // not connected to any rules
-      if (rule !== undefined) {
-        matchingRules.push(rule);
+    if (TriggersDef[activityType] !== undefined) {
+      const matchingFields = TriggersDef[activityType].matchingFields;
+      const matchingMap = await this.buildMatchingFieldsMap(activity, matchingFields);
+      const matchingTriggers = await ReactiveCache.getTriggers(matchingMap);
+      for (const trigger of matchingTriggers) {
+        const rule = await trigger.getRule();
+        // Check that for some unknown reason there are some leftover triggers
+        // not connected to any rules
+        if (rule !== undefined) {
+          matchingRules.push(rule);
+        }
+      }
+    }
+    // #3092: "card matches advanced filter" triggers are not tied to one
+    // activity field like the TriggersDef-driven ones above — they reuse the
+    // Filter sidebar's whole Advanced Filter criteria language against the
+    // card's CURRENT state. They still only run on the same card-affecting
+    // activities everything else here reacts to (TriggersDef[activityType]
+    // above, or createCard which has its own matchingFields entry already
+    // checked); Activities are only inserted for meaningful card changes to
+    // begin with (not on every write), so this follows the same
+    // once-per-meaningful-change discipline as every other trigger rather
+    // than re-evaluating on every database write.
+    if (activity.cardId && activity.boardId) {
+      const advancedTriggers = await ReactiveCache.getTriggers({
+        boardId: activity.boardId,
+        activityType: 'advancedFilterTrigger',
+      });
+      if (advancedTriggers.length) {
+        const card = await ReactiveCache.getCard(activity.cardId);
+        if (card) {
+          for (const trigger of advancedTriggers) {
+            // eslint-disable-next-line no-await-in-loop
+            const matches = await cardMatchesAdvancedFilter(card, trigger.advancedFilter);
+            if (matches) {
+              // eslint-disable-next-line no-await-in-loop
+              const rule = await trigger.getRule();
+              if (rule !== undefined) {
+                matchingRules.push(rule);
+              }
+            }
+          }
+        }
       }
     }
     return matchingRules;
@@ -314,8 +351,13 @@ export const RulesHelper = {
       // the card's title and a direct link automatically, even when the
       // user's configured body/subject uses none of the {card}/{cardLink}
       // tokens, so the recipient always has enough context to find the card.
+      // #2713: also carry the card's description automatically - the title
+      // and link were already appended unconditionally (#3301); the
+      // description is the other piece of "full card content" the rule
+      // action was missing without the user typing {description} by hand.
       const cardFooterLines = [];
       if (ruleVars.cardname) cardFooterLines.push(`Card: ${ruleVars.cardname}`);
+      if (ruleVars.description) cardFooterLines.push(`Description: ${ruleVars.description}`);
       if (ruleVars.cardlink) cardFooterLines.push(`Link: ${ruleVars.cardlink}`);
       const text = cardFooterLines.length
         ? `${body}${body ? '\n\n' : ''}-- \n${cardFooterLines.join('\n')}`
@@ -471,13 +513,28 @@ export const RulesHelper = {
     // "member is added on move-to but never removed on move-from" report. Warn
     // instead of crashing, and await the writes so failures are not lost.
     if (action.actionType === 'addMember') {
-      const member = await ReactiveCache.getUser({ username: action.username });
-      if (member) {
-        await card.assignMember(member._id);
+      // #2522: "add member" gained an acting-user option (issue #2522) - a
+      // sentinel `username` meaning "whoever triggered this rule" instead of
+      // a fixed board member, resolved via the same resolveActingUserId()
+      // buildRuleVars() above already uses for {username}.
+      if (action.username === RULE_ACTING_USER_SENTINEL) {
+        const memberId = resolveActingUserId(activity);
+        if (memberId) {
+          await card.assignMember(memberId);
+        } else {
+          console.warn(
+            'WeKan rule action addMember: no acting user available for this activity; skipping.',
+          );
+        }
       } else {
-        console.warn(
-          `WeKan rule action addMember: user "${action.username}" not found; skipping.`,
-        );
+        const member = await ReactiveCache.getUser({ username: action.username });
+        if (member) {
+          await card.assignMember(member._id);
+        } else {
+          console.warn(
+            `WeKan rule action addMember: user "${action.username}" not found; skipping.`,
+          );
+        }
       }
     }
     if (action.actionType === 'removeMember') {
