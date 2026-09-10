@@ -793,6 +793,25 @@ activity for a change nobody made.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6d43020212fbad1878d2ac646ec52850ffffe30f">Added "Check all items" / "Uncheck all items" to the checklist action menu</a>. Thanks to justinr1234 and xet7.</summary>
+
+[#2473](https://github.com/wekan/wekan/issues/2473) asked for a bulk
+check/uncheck action on a checklist, rather than clicking every item's own
+checkbox by hand - #4218's "Edit as text" (above) only gave an indirect
+workaround (select all, replace every `[ ]`/`[x]` marker, save).
+`Checklists.checkAllItems()`/`uncheckAllItems()` already existed as model
+helpers, used per-item by the Rules automation
+(`server/rulesHelper.js`) but never exposed anywhere in the UI. Two new
+entries on the checklist's own actions menu, next to "Automatic reset", now
+call the same two helpers directly. The item-selection they share - which
+items belong to THIS checklist, regardless of their current checked state -
+is a pure function (`models/lib/checklistBulkCheck.js`) so "every item of
+the checklist ends up checked/unchecked" and "another checklist's items are
+left untouched" are both unit-tested without a database.
+
+</details>
+
 **Comments and activities** - a card's comment thread and its activity log.
 
 <details>
