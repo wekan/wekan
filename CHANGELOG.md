@@ -311,57 +311,41 @@ the Markdown commit as the template.
 
 # Upcoming WeKan ® release
 
-**In short:** this release fixes the **document preview** slideshow viewer,
-which failed to open a PDF attachment with a bare HTTP 415 - both because the
-optional native `@napi-rs/canvas` dependency could be missing from the build,
-and because `pdfjs-dist`'s worker file was being looked for inside the
-bundled server instead of `node_modules`. PDF previews now degrade to
-text-only instead of failing outright when rasterization is unavailable, and
-the underlying error is logged instead of swallowed. It also hardens the
-**HttpOnly login cookie** against a rare case where it could be written
-without an expiry, which would make the browser drop it as soon as it closed
-instead of honoring the configured 90-day login.
+**In short:** this release restores the full-featured **document preview**
+viewer for DOCX/XLSX/PPTX (`office-open-xml-viewer`) and native browser PDF
+preview, replacing the minimal server-rendered GIF-slideshow approach that
+kept failing with a bare HTTP 415 under some builds. Attachment content
+search keeps working, now as a lighter, render-free text-index step. It also
+hardens the **HttpOnly login cookie** against a rare case where it could be
+written without an expiry, which would make the browser drop it as soon as
+it closed instead of honoring the configured 90-day login.
 
 This release fixes the following bugs:
 
-**Document preview** - opening the PDF/DOCX/XLSX/PPTX slideshow viewer on an attachment.
+**Document preview** - opening a PDF/DOCX/XLSX/PPTX attachment on a card.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/9b9c2fe6e4feab6fd3bbc60ab5d65645291a025b">PDF/DOCX/XLSX/PPTX preview no longer fails outright when the optional canvas dependency is missing</a>. Thanks to rmb82 and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/373980ac8a37eb830539b01ffc12dfb0c0a53e18">The full-featured DOCX/XLSX/PPTX viewer and native PDF preview are back</a>. Thanks to xet7.</summary>
 
-`pdf-to-img` rasterizes PDF pages through `pdfjs-dist`'s optionalDependency
-`@napi-rs/canvas`. A Docker/Snap build that skips optional dependencies, or
-lacks a prebuilt binary for its target architecture, threw on the very first
-PDF preview - "Cannot load @napi-rs/canvas", "Cannot polyfill DOMMatrix" -
-which the generic `catch` in `server/routes/universalFileServer.js` turned
-into a bare 415 with the real error never logged. `@napi-rs/canvas` is now a
-direct dependency so it installs the same way every other required package
-does, and rasterization is no longer all-or-nothing: `pdfjs-dist`'s text
-extraction does not need canvas, so when rasterizing still fails for any
-reason the PDF preview now degrades to text-only pages instead of failing -
-the same graceful degradation the minimal viewer already applies to an
-unreadable embedded image in a DOCX/PPTX/XLSX. The three document-preview
-routes now log the caught error before returning 415.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/eb98abe4b2d790de5e97847a523fdd85bd837670">PDF preview 415 from pdfjs guessing the worker's bundled path, fixed</a>. Thanks to rmb82 and xet7.</summary>
-
-Opening the PDF slideshow viewer on an attached PDF still failed with a 415
-after the fix above, now with the real error visible: "Setting up fake
-worker failed: Cannot find module '.../_build/main-dev/pdf.worker.mjs'".
-`pdfjs-dist`'s Node fake-worker fallback locates `pdf.worker.mjs` relative to
-`import.meta.url` of the module that imported it; under the bundled server
-(`_build/main-dev`, `_build/main-prod`) that URL points into the bundle
-output, not into `node_modules`, so the fallback looked for the worker beside
-the bundled `server.cjs` and never found it - every PDF preview failed, image
-and text alike, not only the rasterized-image path the fix above addressed.
-`GlobalWorkerOptions.workerSrc` now points at the real on-disk file via
-Node's own module resolution (the same `runtimeRequire` trick already used
-for `fflate`), so `pdfjs` never falls back to guessing. `pdf-to-img` imports
-the same single `pdfjs-dist` instance, so this also fixes its internal
-rasterization.
+The minimal server-rendered GIF-slideshow preview (introduced this week to
+cut dependency weight) turned out to fail outright whenever its own
+rasterization dependency chain (`pdf-to-img` -> `pdfjs-dist`'s optional
+`@napi-rs/canvas`) was missing or misresolved a worker path under the
+bundled server - three separate 415 fixes landed for it in a single day.
+Rather than keep chasing that dependency chain, the previous full-featured
+viewer is restored instead: `office-open-xml-viewer` (MIT-licensed,
+canvas-based, zero runtime dependencies) renders DOCX/XLSX/PPTX client-side
+exactly as it did before, and PDF goes back to the browser's own native
+`<embed>` viewer - simpler, zero extra dependencies, and gets the browser's
+own zoom/search/print for free. The server-side full-text search this week's
+change also introduced is kept: `server/lib/documentGif.js` now does nothing
+but extract plain text for the search index (`indexDocumentText`, triggered
+in the background from `Attachments.onAfterUpload`) - no rendering, no HTML,
+no page images - so `pdf-to-img` and `@napi-rs/canvas` are dropped entirely
+(nothing rasterizes a PDF page server-side any more) while `pdfjs-dist`
+stays, now as a direct dependency, for its text-only extraction. Searching
+attachment contents from the card search box keeps working exactly as
+before.
 
 </details>
 
