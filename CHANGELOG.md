@@ -4861,6 +4861,17 @@ and improves the translation workflow:
 - [Fill in the missing Sicilian, Silesian, Slovenian, Volapük, Southern Sotho, Swahili, Swati, Tagalog, Tajik, Tatar and Tibetan translations](https://github.com/wekan/wekan/commit/635865223). Thanks to xet7.
 - [Fill in the missing Igbo, Swedish, Indonesian, Occitan, Portuguese (Brazil), Turkmen, Tamazight, Inuktitut, Irish, Italian, Javanese, Kannada, Kashmiri, Kashubian, Kazakh, Konkani, Kurmanji Kurdish and Kyrgyz translations](https://github.com/wekan/wekan/commit/4a2e9650e). Thanks to xet7.
 - [Fill in the missing Tok Pisin, Tongan, Tsonga, Tswana, Upper Sorbian, Urdu, Valencian, Walloon, Yoruba, West Frisian, Wolaytta, Wolof, Esperanto, Bulgarian, Persian, Macedonian, Hungarian, Khmer, Latvian, Portuguese, Belarusian, Armenian, Georgian, Mongolian, Serbian, Tamil, Spanish, Thai, Turkish, Venda and Zulu translations](https://github.com/wekan/wekan/commit/2df919006). Thanks to xet7.
+- [Treat placeholder URLs (list-sync-url-placeholder) as locale-invariant in fill-translations.mjs, and fill in the missing Norwegian Bokmål translations](https://github.com/wekan/wekan/commit/f247b04c3). Thanks to xet7.
+- [Fill in the missing Nepali translations](https://github.com/wekan/wekan/commit/aec9d7cd4). Thanks to xet7.
+- [Fill in the missing Scottish Gaelic translations](https://github.com/wekan/wekan/commit/fd227bf7c). Thanks to xet7.
+- [Fill in the missing Shona translations](https://github.com/wekan/wekan/commit/e4d4b8e05). Thanks to xet7.
+- [Fill in the missing Northern Sotho translations](https://github.com/wekan/wekan/commit/57b5f3ce8). Thanks to xet7.
+- [Fill in the missing Sardinian translations](https://github.com/wekan/wekan/commit/97479a4da). Thanks to xet7.
+- [Fill in the missing Neapolitan translations](https://github.com/wekan/wekan/commit/9cbdbb5d4). Thanks to xet7.
+- [Fill in the remaining missing Papiamento translations](https://github.com/wekan/wekan/commit/dcd00c77f). Thanks to xet7.
+- [Fill in the remaining missing Quechua translations](https://github.com/wekan/wekan/commit/021654282). Thanks to xet7.
+- [Fill in the remaining missing Romansh translations](https://github.com/wekan/wekan/commit/4c2a6b60c). Thanks to xet7.
+- [Fill in the missing Nahuatl and Northern Ndebele translations](https://github.com/wekan/wekan/commit/3f872cccc). Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for
 their translations.
