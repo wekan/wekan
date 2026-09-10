@@ -1200,6 +1200,33 @@ strings, and an empty card list.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/df96ee03ca4a54722e5cc4d92c897b5d3425563e">A checkbox custom field's minicard value is now a tick/cross icon, not a bare square</a>. Thanks to CarloRampini and xet7.</summary>
+
+[#3142](https://github.com/wekan/wekan/issues/3142) asked to "display
+read-only values like true/false and yes/no with icons" on the minicard
+instead of text, specifically for a boolean/checkbox custom field. The
+minicard already rendered a bare `.materialCheckBox` square for this type
+rather than plain text, but it carried no true/false distinction at a
+glance and did not match the other minicard badge icons, which are Font
+Awesome glyphs.
+
+`client/components/cards/minicard.jade`'s `checkbox`-type branch (both the
+labelled and the no-label full-width layout) now renders `fa-check-circle`
+when the field's value is true and `fa-times-circle` when it is false,
+colored green/red in `client/components/cards/minicard.css`, with a title
+tooltip using the existing `yes`/`no` i18n keys - no new translation keys
+were needed. Every other custom field type (text, number, currency, date,
+dropdown, multi-select, stringtemplate) and the full card-detail checkbox
+editor (`client/components/cards/cardCustomFields.jade`, still a real
+checkbox input) are unchanged.
+`tests/minicardCustomFieldCheckboxIcon.test.cjs` pins the icon markup, that
+the old bare-square/plain-text rendering is gone for `checkbox`
+specifically, that the other types keep their own rendering, and that the
+card-detail editor is untouched.
+
+</details>
+
 **Minicard and card detail dates** - the received/start/due/end date badges
 shown on the minicard and in an open card.
 
