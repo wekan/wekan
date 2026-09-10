@@ -4758,6 +4758,40 @@ to `en.i18n.json`.
 
 </details>
 
+**Board feature flags, Board Settings and Notification Settings** - four
+more regressions from today's heavy development session.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1deae2fca">Fix the spent-time backfill, two Board Settings fields, Notification Settings wiring and two font sizes</a>. Thanks to xet7.</summary>
+
+`allowsSpentTime`/`allowsSpentTimeOnMinicard` have `defaultValue: true` in
+`models/boards.js` but were missing from
+`server/lib/schemaUpgradeSteps.js`'s `BOARD_ALLOWS_TRUE_DEFAULTS`, so a
+board created before those flags existed would read them as
+undefined/false and hide its spent-time badge -
+`tests/schemaUpgradeSteps.test.cjs` pins the list against the schema so
+the two can no longer drift apart.
+
+`customPrivateBoardDesc`/`customPublicBoardDesc` are read by
+`settingBody.jade` but were missing from
+`server/publications/settings.js`'s `SETTING_FIELDS`, so both fields
+always rendered empty and saving them looked like it did nothing - the
+same class of bug `tests/settingPublishedFields.test.cjs` already exists
+to catch.
+
+`notificationSettingsPopup.jade`/`.js` (the 3-tier Notification Settings
+popup) are used by `peopleBody.jade` but were never imported into
+`client/features/settings.js`, so the template compiled to nothing and
+the popup did not exist at runtime; added both imports.
+
+`client/components/boards/timelineView.css` and two rules in
+`client/components/cards/minicard.css` still used bare px `font-size`
+values instead of `calc(Npx * var(--wekan-ui-font-scale, 1))`, so the UI
+font-size preset did not reach the Timeline board view or two minicard
+comment rows.
+
+</details>
+
 and improves the translation workflow:
 
 - [Fill in the missing Ladin, Latin, Luganda, Luxembourgish, Maithili, Malagasy, Malay, Malayalam, Maltese, Manx, Maori and Marathi translations](https://github.com/wekan/wekan/commit/718d20813). Thanks to xet7.
