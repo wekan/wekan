@@ -6,7 +6,7 @@ import { runOnServer } from './runOnServer';
 const CHART_KEYS = new Set([
   'dashboard', 'burndown', 'burnup', 'cumulativeFlow', 'controlChart',
   'cycleTime', 'flowEfficiency', 'leadTime', 'throughputHistogram', 'wipRun',
-  'gantt', 'time',
+  'gantt', 'time', 'pulse',
 ]);
 
 runOnServer(function() {

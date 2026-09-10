@@ -233,6 +233,13 @@ template(name="boardChangeViewPopup")
             i.fa.fa-check
       hr
     li
+      with "board-view-roadmap"
+        a.js-open-roadmap-view
+          i.fa.fa-road
+          | {{_ 'board-view-roadmap'}}
+          if $eq Utils.boardView "board-view-roadmap"
+            i.fa.fa-check
+    li
       with "board-view-dashboard"
         a.js-open-dashboard-view
           i.fa.fa-tachometer
@@ -309,6 +316,13 @@ template(name="boardChangeViewPopup")
           i.fa.fa-flag-checkered
           | {{_ 'board-view-wip-run'}}
           if $eq Utils.boardView "board-view-wip-run"
+            i.fa.fa-check
+    li
+      with "board-view-pulse"
+        a.js-open-pulse-view
+          i.fa.fa-heartbeat
+          | {{_ 'board-view-pulse'}}
+          if $eq Utils.boardView "board-view-pulse"
             i.fa.fa-check
 
 //- The Create Board form: a title, what the board is visible to, and Create.

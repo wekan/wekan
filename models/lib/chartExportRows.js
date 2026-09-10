@@ -5,7 +5,7 @@
 // the Excel chart exporters, so a chart's export is one function away from
 // either format. `translate(key, fallback)` is the exporter's own `__()`.
 
-const { translateGroupLabel } = require('./chartCalculations');
+const { translateGroupLabel, formatRemainingTime } = require('./chartCalculations');
 
 const CHART_TITLE_KEYS = {
   dashboard: ['board-view-dashboard', 'Dashboard'],
@@ -20,6 +20,7 @@ const CHART_TITLE_KEYS = {
   wipRun: ['board-view-wip-run', 'WIP Run'],
   gantt: ['board-view-gantt', 'Gantt'],
   time: ['board-view-time', 'Time'],
+  pulse: ['board-view-pulse', 'Pulse'],
 };
 
 function chartTitle(chartKey, translate) {
@@ -115,6 +116,14 @@ function chartExportRows(chartKey, data, translate = (key, fallback) => fallback
     };
   }
 
+  if (chartKey === 'pulse') {
+    return {
+      title,
+      headers: [translate('date', 'Date'), translate('board-view-pulse', 'Pulse')],
+      rows: data.series.map(day => [day.day, day.count]),
+    };
+  }
+
   if (chartKey === 'gantt') {
     return {
       title,
@@ -153,6 +162,12 @@ function chartExportRows(chartKey, data, translate = (key, fallback) => fallback
       title,
       headers: [translate('name', 'Name'), translate('hours', 'Hours')],
       rows: [
+        // #1121: the sum of remaining time until due date, as its own
+        // one-row section ahead of the hours breakdowns, so the export
+        // carries the same summary the Time view shows on screen.
+        ...section(translate('board-status-remaining-time-total', 'Remaining time until due'),
+          [[translate('board-status-remaining-time-total', 'Remaining time until due'),
+            formatRemainingTime(data.remaining, translate)]]),
         ...section(translate('assignees', 'Assignees'), data.byAssignee.map(group =>
           [translateGroupLabel(group.label, translate), group.hours])),
         ...section(translate('card', 'Card'), data.byCard.map(card =>

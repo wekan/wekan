@@ -810,6 +810,7 @@ Users.attachSchema(
         'board-view-stats',
         'board-view-time',
         'board-view-group-by-assignee',
+        'board-view-roadmap',
         'board-view-dashboard',
         'board-view-bigboard',
         'board-view-burndown',

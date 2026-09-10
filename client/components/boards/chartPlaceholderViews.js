@@ -14,6 +14,7 @@ const PLACEHOLDER_VIEW_TEMPLATES = [
   'leadTimeView',
   'throughputHistogramView',
   'wipRunView',
+  'pulseView',
 ];
 
 PLACEHOLDER_VIEW_TEMPLATES.forEach(name => {

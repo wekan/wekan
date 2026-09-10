@@ -54,6 +54,7 @@ const VIEWS = [
   { view: 'board-view-lead-time', jsClass: 'js-open-lead-time-view', icon: 'fa-hourglass-half', template: 'leadTimeView', helper: 'isViewLeadTime', chart: true },
   { view: 'board-view-throughput-histogram', jsClass: 'js-open-throughput-histogram-view', icon: 'fa-columns', template: 'throughputHistogramView', helper: 'isViewThroughputHistogram', chart: true },
   { view: 'board-view-wip-run', jsClass: 'js-open-wip-run-view', icon: 'fa-flag-checkered', template: 'wipRunView', helper: 'isViewWipRun', chart: true },
+  { view: 'board-view-pulse', jsClass: 'js-open-pulse-view', icon: 'fa-heartbeat', template: 'pulseView', helper: 'isViewPulse', chart: true },
 ];
 
 // Between Table and Calendar, between Time and Statistics, between

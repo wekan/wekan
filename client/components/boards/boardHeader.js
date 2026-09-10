@@ -312,6 +312,10 @@ Template.boardChangeViewPopup.events({
     Utils.setBoardView('board-view-group-by-assignee');
     Popup.back();
   },
+  'click .js-open-roadmap-view'() {
+    Utils.setBoardView('board-view-roadmap');
+    Popup.back();
+  },
   'click .js-open-dashboard-view'() {
     Utils.setBoardView('board-view-dashboard');
     Popup.back();
@@ -354,6 +358,10 @@ Template.boardChangeViewPopup.events({
   },
   'click .js-open-wip-run-view'() {
     Utils.setBoardView('board-view-wip-run');
+    Popup.back();
+  },
+  'click .js-open-pulse-view'() {
+    Utils.setBoardView('board-view-pulse');
     Popup.back();
   },
 });
@@ -796,6 +804,7 @@ Template.boardViewMenu.helpers({
       'board-view-stats': 'board-view-stats',
       'board-view-time': 'board-view-time',
       'board-view-group-by-assignee': 'board-view-group-by-assignee',
+      'board-view-roadmap': 'board-view-roadmap',
       'board-view-dashboard': 'board-view-dashboard',
       'board-view-bigboard': 'board-view-bigboard',
       'board-view-burndown': 'board-view-burndown',
@@ -807,6 +816,7 @@ Template.boardViewMenu.helpers({
       'board-view-lead-time': 'board-view-lead-time',
       'board-view-throughput-histogram': 'board-view-throughput-histogram',
       'board-view-wip-run': 'board-view-wip-run',
+      'board-view-pulse': 'board-view-pulse',
     };
     return TAPi18n.__(names[Utils.boardView()] || 'board-view');
   },

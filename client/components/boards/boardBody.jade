@@ -64,6 +64,8 @@ template(name="boardBody")
           +timeView
         else if isViewGroupByAssignee
           +groupByAssigneeView
+        else if isViewRoadmap
+          +roadmapView
         else if isViewDashboard
           +dashboardView
         else if isViewBigboard
@@ -86,6 +88,8 @@ template(name="boardBody")
           +throughputHistogramView
         else if isViewWipRun
           +wipRunView
+        else if isViewPulse
+          +pulseView
         else
           // Default view - show swimlanes if they exist, otherwise show lists
           if hasSwimlanes

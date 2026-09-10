@@ -306,6 +306,7 @@ export const Utils = {
         'board-view-time',
         'board-view-stats',
         'board-view-group-by-assignee',
+        'board-view-roadmap',
         'board-view-dashboard',
         'board-view-bigboard',
         'board-view-burndown',
@@ -317,6 +318,7 @@ export const Utils = {
         'board-view-lead-time',
         'board-view-throughput-histogram',
         'board-view-wip-run',
+        'board-view-pulse',
       ].includes(view)
     ) {
       window.localStorage.setItem('boardView', view); //true
@@ -368,6 +370,7 @@ export const Utils = {
         'board-view-time',
         'board-view-stats',
         'board-view-group-by-assignee',
+        'board-view-roadmap',
         'board-view-dashboard',
         'board-view-bigboard',
         'board-view-burndown',
@@ -379,6 +382,7 @@ export const Utils = {
         'board-view-lead-time',
         'board-view-throughput-histogram',
         'board-view-wip-run',
+        'board-view-pulse',
       ].includes(window.localStorage.getItem('boardView'))
     ) {
       return window.localStorage.getItem('boardView');
