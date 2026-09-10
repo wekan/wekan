@@ -328,7 +328,20 @@ review. SQRL's real-world adoption peaked around 2013-2016 and has not grown
 since this issue was filed; WebAuthn/FIDO2 passkeys are the passwordless
 standard that gained the adoption SQRL did not. Needs a maintainer decision
 on whether this remains worth pursuing before any implementation is
-attempted.).
+attempted.),
+[#2713](https://github.com/wekan/wekan/issues/2713) (attaching a card's
+actual FILE attachments to the email a rule sends, not just its
+title/description/link - every WeKan email today goes through
+`server/rulesHelper.js`'s `Email.sendAsync`/`EmailLocalization.sendEmail`
+call sites, which take `{ to, from, subject, text }` with no `attachments`
+parameter anywhere in this codebase; no other WeKan email path attaches a
+file either. Wiring a real attachment through needs the mailer wrapper
+itself to grow attachment support and code to read the file back out of
+whichever of the four storage backends
+(`models/lib/fileStoreStrategy.js`/`attachmentStoreStrategy.js`:
+filesystem, GridFS, S3/Azure/GCS) holds it - mailer-level scope past what a
+single rule action should take on alone, and needs a maintainer decision on
+size limits/backend coverage before it is built.).
 
 </details>
 
