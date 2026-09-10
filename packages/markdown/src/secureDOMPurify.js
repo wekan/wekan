@@ -27,10 +27,15 @@ const MATHML_ATTR = [
 // Centralized secure DOMPurify configuration to prevent XSS and CSS injection attacks
 export function getSecureDOMPurifyConfig() {
   return {
-    // Allow common markdown elements including anchor tags, plus MathML for Temml math
-    ALLOWED_TAGS: ['a', 'p', 'br', 'strong', 'em', 'u', 's', 'del', 'strike', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'ul', 'ol', 'li', 'blockquote', 'pre', 'code', 'img', 'table', 'thead', 'tbody', 'tr', 'th', 'td', 'hr', 'div', 'span', ...MATHML_TAGS],
-    // Allow safe attributes including href for anchor tags, plus MathML presentation attributes
-    ALLOWED_ATTR: ['href', 'title', 'alt', 'src', 'width', 'height', 'target', 'rel', ...MATHML_ATTR],
+    // Allow common markdown elements including anchor tags, plus MathML for Temml math.
+    // wekan/wekan#2419: 'input' is allowed so a GFM task-list checkbox
+    // ("- [ ] Task") survives sanitization as a real, disabled <input
+    // type="checkbox">; uponSanitizeAttribute below still restricts it to
+    // exactly that shape (type=checkbox only, no name/value/form attributes).
+    ALLOWED_TAGS: ['a', 'p', 'br', 'strong', 'em', 'u', 's', 'del', 'strike', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'ul', 'ol', 'li', 'blockquote', 'pre', 'code', 'img', 'table', 'thead', 'tbody', 'tr', 'th', 'td', 'hr', 'div', 'span', 'input', ...MATHML_TAGS],
+    // Allow safe attributes including href for anchor tags, plus MathML presentation attributes.
+    // 'type', 'checked', 'disabled' are for the task-list checkbox above (#2419).
+    ALLOWED_ATTR: ['href', 'title', 'alt', 'src', 'width', 'height', 'target', 'rel', 'type', 'checked', 'disabled', ...MATHML_ATTR],
     // Allow safe protocols for links
     ALLOWED_URI_REGEXP: /^(?:(?:(?:f|ht)tps?|mailto|tel|callto|cid|xmpp):|[^a-z]|[a-z+.\-]+(?:[^a-z+.\-:]|$))/i,
     // Allow unknown protocols but be cautious
@@ -40,7 +45,12 @@ export function getSecureDOMPurifyConfig() {
     // Keep content but sanitize it
     KEEP_CONTENT: true,
     // Block dangerous elements that can cause XSS
-    FORBID_TAGS: ['script', 'style', 'iframe', 'object', 'embed', 'applet', 'svg', 'defs', 'use', 'g', 'symbol', 'marker', 'pattern', 'mask', 'clipPath', 'linearGradient', 'radialGradient', 'stop', 'animate', 'animateTransform', 'animateMotion', 'set', 'switch', 'foreignObject', 'link', 'meta', 'form', 'input', 'textarea', 'select', 'option', 'button', 'label', 'fieldset', 'legend', 'frameset', 'frame', 'noframes', 'base', 'basefont', 'isindex', 'dir', 'menu', 'menuitem'],
+    // 'input' is intentionally NOT forbidden here (#2419 task-list checkbox) -
+    // ALLOWED_TAGS above is the whitelist that matters, and the hooks below
+    // pin it down to a plain disabled checkbox with no form to submit to
+    // ('form' stays forbidden), so it can never become a text/password field
+    // or carry a name/value/formaction.
+    FORBID_TAGS: ['script', 'style', 'iframe', 'object', 'embed', 'applet', 'svg', 'defs', 'use', 'g', 'symbol', 'marker', 'pattern', 'mask', 'clipPath', 'linearGradient', 'radialGradient', 'stop', 'animate', 'animateTransform', 'animateMotion', 'set', 'switch', 'foreignObject', 'link', 'meta', 'form', 'textarea', 'select', 'option', 'button', 'label', 'fieldset', 'legend', 'frameset', 'frame', 'noframes', 'base', 'basefont', 'isindex', 'dir', 'menu', 'menuitem'],
     // Block dangerous attributes but allow safe href
     FORBID_ATTR: ['xlink:href', 'onload', 'onerror', 'onclick', 'onmouseover', 'onfocus', 'onblur', 'onchange', 'onsubmit', 'onreset', 'onselect', 'onunload', 'onresize', 'onscroll', 'onkeydown', 'onkeyup', 'onkeypress', 'onmousedown', 'onmouseup', 'onmouseover', 'onmouseout', 'onmousemove', 'ondblclick', 'oncontextmenu', 'onwheel', 'ontouchstart', 'ontouchend', 'ontouchmove', 'ontouchcancel', 'onabort', 'oncanplay', 'oncanplaythrough', 'ondurationchange', 'onemptied', 'onended', 'onerror', 'onloadeddata', 'onloadedmetadata', 'onloadstart', 'onpause', 'onplay', 'onplaying', 'onprogress', 'onratechange', 'onseeked', 'onseeking', 'onstalled', 'onsuspend', 'ontimeupdate', 'onvolumechange', 'onwaiting', 'onbeforeunload', 'onhashchange', 'onpagehide', 'onpageshow', 'onpopstate', 'onstorage', 'onunload', 'style', 'class', 'id', 'data-*', 'aria-*'],
     // Block data URIs that could contain malicious content
@@ -109,9 +119,37 @@ export function getSecureDOMPurifyConfig() {
           }
         }
 
+        // wekan/wekan#2419: an <input> element may only be the task-list
+        // checkbox this package itself emits - a plain, disabled checkbox
+        // with no name/value/form. Anything else (a text/password/file
+        // input, or one carrying name/value/formaction) is dropped rather
+        // than let through as a harmless-looking form control.
+        if (node.tagName && node.tagName.toLowerCase() === 'input') {
+          const type = (node.getAttribute('type') || '').toLowerCase();
+          if (type !== 'checkbox' || node.hasAttribute('name') || node.hasAttribute('value')
+            || node.hasAttribute('form') || node.hasAttribute('formaction')) {
+            if (process.env.DEBUG === 'true') {
+              console.warn('Blocked non-checkbox or form-carrying input element');
+            }
+            return false;
+          }
+        }
+
         return true;
       },
       uponSanitizeAttribute: function(node, data) {
+        // Task-list checkbox (#2419): only ever "checkbox" - never
+        // text/password/file/etc, which could otherwise render a live form
+        // control out of card text.
+        if (data.attrName === 'type' && node.tagName && node.tagName.toLowerCase() === 'input') {
+          if (data.attrValue !== 'checkbox') {
+            if (process.env.DEBUG === 'true') {
+              console.warn('Blocked non-checkbox input type:', data.attrValue);
+            }
+            return false;
+          }
+        }
+
         // Block style attributes completely
         if (data.attrName === 'style') {
           if (process.env.DEBUG === 'true') {

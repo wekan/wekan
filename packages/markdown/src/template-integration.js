@@ -266,6 +266,50 @@ if (emojiPlugin) {
   Markdown.use(emojiPlugin);
 }
 
+// wekan/wekan#2419: GFM task-list items ("- [ ] Task" / "- [x] Done") rendered
+// as literal text ("<input disable=\"\" type=\"checkbox\"/> Task") instead of a
+// real checkbox, because plain markdown-it has no task-list extension and never
+// emits an <input> in the first place - there was nothing for the sanitizer
+// below to keep. This core rule runs after inline parsing (md.core.ruler.push
+// appends to the end of the chain, so `children` are already tokenized) and
+// looks at only the FIRST list item per bullet: a leading "[ ] "/"[x] " text
+// token is swapped for a real (but disabled - see the note on click-to-toggle
+// below) checkbox, matching what GitHub and other GFM renderers do.
+//
+// The checkbox is DISABLED and non-interactive: toggling it would need to
+// write back into the raw markdown SOURCE of the card description/comment
+// from a click on rendered output, which is a separate, materially larger
+// feature (mapping a DOM node back to its exact source offset, then saving
+// through the card's update API) - out of scope for this rendering fix. The
+// bug this closes is specifically "renders as literal HTML text", and a
+// disabled checkbox already fixes that: the box is real and its
+// checked/unchecked state reflects the source accurately.
+const TASK_LIST_ITEM_RE = /^\[([ xX])\]\s+/;
+Markdown.use(function(md) {
+  md.core.ruler.push('task-lists', function(state) {
+    const tokens = state.tokens;
+    for (let i = 0; i < tokens.length; i++) {
+      if (tokens[i].type !== 'list_item_open') continue;
+      for (let j = i + 1; j < tokens.length; j++) {
+        if (tokens[j].type === 'list_item_close') break;
+        if (tokens[j].type !== 'inline') continue;
+        const inline = tokens[j];
+        const first = inline.children && inline.children[0];
+        if (first && first.type === 'text' && TASK_LIST_ITEM_RE.test(first.content)) {
+          const match = TASK_LIST_ITEM_RE.exec(first.content);
+          const checked = match[1].toLowerCase() === 'x';
+          first.content = first.content.slice(match[0].length);
+          const checkbox = new state.Token('html_inline', '', 0);
+          checkbox.content = '<input type="checkbox" disabled="disabled"'
+            + (checked ? ' checked="checked"' : '') + '> ';
+          inline.children.unshift(checkbox);
+        }
+        break;
+      }
+    }
+  });
+});
+
 // LaTeX math support. Renders $...$ (inline) and $$...$$ (block) to native
 // MathML using Temml, which browsers display without any client-side rendering
 // engine. Migrated from markdown-it-mathjax3 (which bundled all of MathJax and
