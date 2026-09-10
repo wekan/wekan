@@ -6,9 +6,9 @@ template(name="commentForm")
       .comment-reply-banner.js-reply-banner
         span.comment-reply-banner-label
           if replyToCommentAuthorName
-            {{_ 'comment-in-reply-to'}} {{ replyToCommentAuthorName }}:
+            | {{_ 'comment-in-reply-to'}} {{ replyToCommentAuthorName }}:
           else
-            {{_ 'comment-in-reply-to'}}:
+            | {{_ 'comment-in-reply-to'}}:
         span.comment-reply-banner-text
           +viewer
             = replyToComment.text
