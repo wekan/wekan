@@ -2588,5 +2588,11 @@
   "list-sync-now-pending": "Syncing…",
   "list-sync-now-success": "Sync completed successfully.",
   "list-sync-now-error": "Sync failed: %s",
-  "list-sync-clear": "Stop syncing"
+  "list-sync-clear": "Stop syncing",
+  "card-recurrence-interval": "Card recurrence",
+  "cardRecurrenceIntervalPopup-title": "Card recurrence",
+  "card-recurrence-interval-none": "Off (do not recur automatically)",
+  "card-recurrence-interval-daily": "Daily",
+  "card-recurrence-interval-weekly": "Weekly",
+  "card-recurrence-interval-monthly": "Monthly"
 }
