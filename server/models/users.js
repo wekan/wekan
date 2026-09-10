@@ -24,7 +24,9 @@ import { isKnownFont, isKnownFontSize, isHexColor6 } from '/models/lib/uiFonts';
 import { DDPRateLimiter } from 'meteor/ddp-rate-limiter';
 import { publicErrorData } from '/server/lib/apiResponseHelpers';
 import escapeForRegex from 'escape-string-regexp';
+import { Notifications } from '/server/notifications/notifications';
 const { recordAuthRateLimitDenial } = require('/server/lib/authRateLimitDecision');
+const { decideAnonymize, buildAnonymizeUpdate } = require('/models/lib/userAnonymization');
 
 // Security (reported by meifukun): defence-in-depth throttle on account creation
 // so invitation-code sign-up (and any other registration) attempts cannot be
@@ -378,6 +380,53 @@ Meteor.methods({
 
     await Users.removeAsync(targetUserId);
     return { success: true, message: 'User deleted successfully' };
+  },
+
+  // #2731: GDPR-friendlier alternative to removeUser. removeUser (above) prunes
+  // the user's references off every board/card/comment and hard-deletes the
+  // Users document, which loses attribution/history entirely. anonymizeUser
+  // instead overwrites the directly-identifying profile fields in place with a
+  // placeholder and disables login (`loginDisabled: true`, the same flag
+  // server/authentication.js's validateLoginAttempt already gates on, and the
+  // same field editUser above already lets an admin toggle) - it does NOT touch
+  // any board/card/comment/activity reference, which keeps pointing at the same
+  // userId and now simply displays the anonymized name. Callable both by the
+  // account owner on themselves and by an admin on any other user, mirroring
+  // removeUser's self/admin split below.
+  //
+  // No Admin Panel -> Problems entry: that log is for ATTEMPTS an attacker
+  // controls (see CLAUDE.md's security-logging discipline), and there is no
+  // attacker here - this is a privileged admin action an admin takes on
+  // purpose, or a member acting on their own account. WeKan has no general
+  // admin-action audit log to hook into (server/lib/recoveryAudit.js is
+  // board-deletion-specific, keyed to RecoveryEvents/boardIds); the audit trail
+  // for this action is the anonymized/anonymizedAt fields persisted on the
+  // Users document itself and visible in Admin Panel -> People.
+  async anonymizeUser(targetUserId) {
+    check(targetUserId, String);
+
+    const currentUserId = this.userId;
+    const currentUser = currentUserId ? await ReactiveCache.getUser(currentUserId) : null;
+    const targetUser = await ReactiveCache.getUser(targetUserId);
+    const adminsCount = currentUser && currentUser.isAdmin
+      ? (await ReactiveCache.getUsers({ isAdmin: true })).length
+      : undefined;
+
+    const decision = decideAnonymize({
+      currentUserId,
+      currentUser,
+      targetUserId,
+      targetUser,
+      adminsCount,
+    });
+    if (!decision.allowed) {
+      throw new Meteor.Error(decision.error, decision.reason);
+    }
+
+    const placeholder = `deleted-user-${Random.id(8).toLowerCase()}`;
+    await Users.updateAsync(targetUserId, buildAnonymizeUpdate(placeholder));
+
+    return { success: true, message: 'User anonymized successfully' };
   },
 
   async editUser(targetUserId, updateData) {
@@ -1585,6 +1634,23 @@ Meteor.methods({
     } catch (e) {
       throw new Meteor.Error('email-fail', e.message);
     }
+
+    // #3136: also push-notify the invitee, the same way other event types
+    // (card assignment, due dates, mentions, ...) already do - via the
+    // shared notify() helper, which fans out to every subscribed
+    // notification service (email + the in-app notification bell). Only
+    // possible for an EXISTING user: a brand-new invitee has no established
+    // notification target yet, so they stay email-only (isNewUser is true
+    // only when no matching account existed above).
+    if (!isNewUser) {
+      try {
+        Notifications.notify(user, 'push-invite-title', 'push-invite-text', params);
+      } catch (e) {
+        // Logging must never break the invite itself.
+        console.error('Error sending board invite push notification:', e);
+      }
+    }
+
     return {
       username: user.username,
       email: user.emails[0].address,
