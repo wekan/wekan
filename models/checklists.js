@@ -12,6 +12,7 @@ import {
   buildCopiedItemDoc,
   firstAppendSort,
 } from '/models/lib/checklistTemplateCopy';
+import { CHECKLIST_RESET_INTERVALS } from '/models/lib/checklistResetSchedule';
 const { SimpleSchema } = require('/imports/simpleSchema');
 
 const Checklists = new Mongo.Collection('checklists');
@@ -111,6 +112,28 @@ Checklists.attachSchema(
       // `defaultValue: false` every checklist was born "hidden", making "hidden"
       // and "not chosen" the same value. See models/lib/minicardChecklistVisibility.js.
       type: Boolean,
+      optional: true,
+    },
+    resetInterval: {
+      /**
+       * #3818 / #4729: automatically uncheck all items of this checklist on a
+       * recurring schedule. 'none' (default) never resets automatically.
+       * See models/lib/checklistResetSchedule.js and
+       * server/checklistResetSchedule.js for the due-date calculation and the
+       * periodic job that applies it.
+       */
+      type: String,
+      allowedValues: CHECKLIST_RESET_INTERVALS,
+      defaultValue: 'none',
+      optional: true,
+    },
+    lastResetAt: {
+      /**
+       * When the automatic-reset job last unchecked this checklist's items.
+       * Falls back to createdAt (in isChecklistResetDue()) until the first
+       * automatic reset happens.
+       */
+      type: Date,
       optional: true,
     },
   }),
@@ -274,6 +297,15 @@ Checklists.helpers({
         showChecklistAtMinicard:
           toggledChecklistAtMinicard(this, boardAllowsChecklistsOnMinicard),
       },
+    });
+  },
+  /** #3818 / #4729: set (or clear, with 'none') this checklist's automatic-reset
+   * interval. Does not itself uncheck anything - the periodic job in
+   * server/checklistResetSchedule.js does that once the interval comes due. */
+  async setResetInterval(resetInterval) {
+    if (!CHECKLIST_RESET_INTERVALS.includes(resetInterval)) return undefined;
+    return await Checklists.updateAsync(this._id, {
+      $set: { resetInterval },
     });
   },
 });
