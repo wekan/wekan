@@ -145,6 +145,7 @@ Wekan is distributed under the [MIT License], allowing anyone to easily work wit
 # <a name="Time"></a>Time
 
 * [Time Tracking](./Features/Date/Time-Tracking.md)
+* [Flowtime and Pomodoro timers](./Features/Date/Flowtime-and-Pomodoro.md)
 * [Gantt Chart](Features/Reports/Gantt.md)
 * [Due Date](./Features/Date/Due-Date.md)
 * [Day of week start](./Features/Date/Day-of-week-start.md)
@@ -160,6 +161,7 @@ Wekan is distributed under the [MIT License], allowing anyone to easily work wit
 * [Cards](Features/Cards/Cards.md)
 * [Members and Permissions](Features/Members/Members.md)
 * [WIP Limits](Features/Lists/WipLimit/WipLimit.md)
+* [WIP Limit Groups (shared limit across several lists)](Features/Lists/WipLimit/WIP-Limit-Groups.md)
 * [Keyboard Shortcuts](Features/Keyboard-Shortcuts/Keyboard-Shortcuts.md)
 * [Accessibility](Features/Accessibility/Accessibility.md)
 * [Rules (Automation)](Features/Automation/Rules/Rules.md)
@@ -198,6 +200,10 @@ Wekan is distributed under the [MIT License], allowing anyone to easily work wit
 * [Roadmap (custom-field-grouped Gantt)](Features/Board/Roadmap.md)
 * [Notification Settings (Admin → Board → Member)](Features/Members/Notification-Settings.md)
 * [My Cards, Due Cards, My Attachments](Features/Members/My-Cards-Due-Attachments.md)
+* [Custom field: Admin only and display order](Features/Cards/CustomFields/Custom-Field-Admin-Only-And-Order.md)
+* [Label due dates (Milestones)](Features/Board/Labels-Milestone-Due-Date.md)
+* [Checklists (automatic reset, bulk text edit)](Features/Cards/Checklists.md)
+* [Card field display order](Features/Board/Card-Field-Display-Order.md)
 
 # <a name="Email"></a>Email
 
