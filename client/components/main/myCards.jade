@@ -41,7 +41,7 @@ template(name="myCards")
                         = list.title
                     each card in list.myCards
                       .my-cards-card-wrapper
-                        a.minicard-wrapper(href=card.originRelativeUrl)
+                        a.minicard-wrapper.js-minicard(href=card.originRelativeUrl)
                           +minicard(card)
       if $eq myCardsView 'table'
         .wrapper

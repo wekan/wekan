@@ -176,6 +176,29 @@ Template.myCards.events({
     evt.preventDefault();
     tpl.search.previousPage();
   },
+
+  // #3640: My Cards spans many boards, so a plain `<a href="board-url">`
+  // navigates the browser away to the card's own board and loses the user's
+  // place in this list. Open the card details POPUP in place instead, using
+  // the same cross-board mechanism resultCard.js (global search results) and
+  // tableView.js (Board Table view) already use: subscribe the popup-only
+  // publication, then open the shared `cardDetails` popup template.
+  'click .js-minicard'(evt) {
+    evt.preventDefault();
+    const card = Blaze.getData(evt.currentTarget);
+    if (!card || !card._id) return;
+    const cardId = card._id;
+    const boardId = card.boardId;
+    Meteor.subscribe('popupCardData', cardId, {
+      onReady() {
+        Session.set('popupCardId', cardId);
+        Session.set('popupCardBoardId', boardId);
+        if (!Popup.isOpen()) {
+          Popup.open('cardDetails')(evt);
+        }
+      },
+    });
+  },
 });
 
 Template.myCardsViewChangePopup.events({
