@@ -9,6 +9,7 @@ You can use some OAuth2 providers for logging into Wekan, for example:
 - [GitLab](./OAuth2.md#gitlab-providing-oauth2-login-to-wekan) - works
 - Google - not tested yet
 - [LemonLDAP::NG](./OAuth2.md#lemonldapng) - works
+- [Authelia](./Authelia.md) - works
 
 You can ask your identity provider (LDAP, SAML etc) do they support adding OAuth2 application like Wekan.
 

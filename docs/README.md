@@ -115,6 +115,7 @@ Wekan is distributed under the [MIT License], allowing anyone to easily work wit
 * [LDAP](./Features/Login/LDAP.md)
 * [LDAP AD Simple Auth](./Features/Login/LDAP-AD-Simple-Auth.md)
 * [Keycloak](./Features/Login/Keycloak/Keycloak.md)
+* [Authelia](./Features/Login/Authelia.md)
 * [Google login](./Features/Login/Google-login.md)
 * [Azure](./Features/Login/Azure/Azure.md)
 * [OAuth2](./Features/Login/OAuth2.md), Auth0, GitLab, RocketChat

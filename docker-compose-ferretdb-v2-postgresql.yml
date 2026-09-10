@@ -442,6 +442,25 @@ services:
       #- OAUTH2_EMAIL_MAP=email
       #- OAUTH2_FULLNAME_MAP=name
       #-----------------------------------------------------------------
+      # ==== OAUTH2 AUTHELIA ====
+      # https://github.com/wekan/wekan/blob/main/docs/Features/Login/Authelia.md  <== MAPPING INFO, REQUIRED
+      # https://www.authelia.com/integration/openid-connect/introduction/
+      #- OAUTH2_ENABLED=true
+      # OAuth2 login style: popup or redirect.
+      #- OAUTH2_LOGIN_STYLE=redirect
+      #- OAUTH2_CLIENT_ID=<Authelia client id>
+      #- OAUTH2_SERVER_URL=https://auth.yourserver.com
+      #- OAUTH2_AUTH_ENDPOINT=/api/oidc/authorization
+      #- OAUTH2_USERINFO_ENDPOINT=/api/oidc/userinfo
+      #- OAUTH2_TOKEN_ENDPOINT=/api/oidc/token
+      #- OAUTH2_SECRET=<Authelia client secret>
+      #- OAUTH2_SECRET_FILE=/run/secrets/oauth2_secret
+      #- OAUTH2_ID_MAP=sub
+      #- OAUTH2_USERNAME_MAP=preferred_username
+      #- OAUTH2_EMAIL_MAP=email
+      #- OAUTH2_FULLNAME_MAP=name
+      #- OAUTH2_REQUEST_PERMISSIONS=openid profile email
+      #-----------------------------------------------------------------
       # ==== OAUTH2 DOORKEEPER ====
       # https://github.com/wekan/wekan/issues/1874
       # https://github.com/wekan/wekan/blob/main/docs/Login/OAuth2.md2
