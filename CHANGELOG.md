@@ -4860,6 +4860,7 @@ and improves the translation workflow:
 - [Fill in the missing Ladin, Latin, Luganda, Luxembourgish, Maithili, Malagasy, Malay, Malayalam, Maltese, Manx, Maori and Marathi translations](https://github.com/wekan/wekan/commit/718d20813). Thanks to xet7.
 - [Fill in the missing Sicilian, Silesian, Slovenian, Volapük, Southern Sotho, Swahili, Swati, Tagalog, Tajik, Tatar and Tibetan translations](https://github.com/wekan/wekan/commit/635865223). Thanks to xet7.
 - [Fill in the missing Igbo, Swedish, Indonesian, Occitan, Portuguese (Brazil), Turkmen, Tamazight, Inuktitut, Irish, Italian, Javanese, Kannada, Kashmiri, Kashubian, Kazakh, Konkani, Kurmanji Kurdish and Kyrgyz translations](https://github.com/wekan/wekan/commit/4a2e9650e). Thanks to xet7.
+- [Fill in the missing Tok Pisin, Tongan, Tsonga, Tswana, Upper Sorbian, Urdu, Valencian, Walloon, Yoruba, West Frisian, Wolaytta, Wolof, Esperanto, Bulgarian, Persian, Macedonian, Hungarian, Khmer, Latvian, Portuguese, Belarusian, Armenian, Georgian, Mongolian, Serbian, Tamil, Spanish, Thai, Turkish, Venda and Zulu translations](https://github.com/wekan/wekan/commit/2df919006). Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for
 their translations.
