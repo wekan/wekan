@@ -366,6 +366,34 @@ workaround.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/17aa92e90aa97bee086f2efb6ecd6e50d7ab5ef9">Calendar, Frappe Gantt and DHTMLX Gantt now show all four card dates, and dragging a bar reschedules the card</a>. Thanks to xet7.</summary>
+
+The Calendar view drew a Start/End interval bar and a separate Due marker,
+but Received never got a marker at all, and a card whose Start fell
+outside the visible window got no End marker either. `cardsReceivedInBetween`/
+`cardsEndInBetween` (mirroring the existing `cardsDueInBetween`) give
+Received and End their own labeled events, so all four of WeKan's card
+dates are visible on the Calendar.
+
+Frappe Gantt and DHTMLX Gantt each only ever drew a single bar per card
+(Start-or-Received to Due-or-End), silently dropping whichever date lost
+that fallback. Both now track which underlying field each bar edge
+actually represents and show all four dates - Frappe in its click popup,
+DHTMLX in its hover tooltip - so Received/End stay visible even when the
+bar itself only spans Start/Due.
+
+Compared against [Kanboard](https://kanboard.org/)'s Gantt
+(`kanboard/plugin-gantt`, MIT) for feature parity: both WeKan Gantt
+alternatives now support drag-to-move and drag-to-resize, persisted back to
+the correct field (`card.setStart`/`setDue`/`setReceived`/`setEnd` - the
+same calls the Calendar's own drag handlers already use), gated on the same
+board-write capability as the rest of WeKan rather than offered to users
+the server would refuse. Kanboard has no dependency arrows, view-mode
+switching or export; nothing to match there.
+
+</details>
+
 and fixes the following bugs:
 
 **Document preview** - opening a PDF/DOCX/XLSX/PPTX attachment on a card.
