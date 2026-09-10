@@ -1573,6 +1573,35 @@ scope: flipping it from one list affects every list on the board.
 
 </details>
 
+**Labels** - the label popup opened from a card's Labels button and Board Settings.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1af1d7ad3fcadbaeca0a52ef473552a775849f02">A label can now carry its own optional due date, so it doubles as a "milestone"</a>. Thanks to locnide and xet7.</summary>
+
+[#2802](https://github.com/wekan/wekan/issues/2802) asked for "Milestones": a
+board-level tag with a due date, and the ability to view/filter cards by
+milestone. A whole new Milestone object - its own collection, CRUD UI and
+filter integration - would duplicate what labels already do, so instead
+labels themselves gained one optional field: `labels.$.dueAt` in
+`models/boards.js`, nullable and unset by default, so every existing label
+and board is completely unaffected.
+
+The existing label create/edit popup
+(`client/components/cards/labels.js`/`.jade`, the same popup used for a
+label's name and color) gained a "Due Date" date input, wired through
+`Boards.addLabel`/`editLabel`'s new trailing `dueAt` argument;
+`editLabel` explicitly `$unset`s it when the field is cleared rather than
+leaving a stale value. When set, the labels list (the same popup that lists
+a board's labels for editing) shows the date next to the label as a small,
+muted badge - the safe minimum requested, rather than new minicard real
+estate that risks visual clutter.
+
+A "milestone" is then just a label named e.g. "Sprint 1" with a due date:
+filtering cards by that label - already supported by WeKan's existing label
+filter - is the milestone filter the issue asked for, with no new filter UI.
+
+</details>
+
 and fixes the following bugs:
 
 **Board reports** - the Dashboard and the 10 board report chart views.
@@ -1883,6 +1912,28 @@ list, not card data, so no new `Cards` schema field was needed.
 `tests/subtaskArchivedVisibility3409.test.cjs` pins the query change, the
 completed styling, the toggle's wiring end-to-end, and that the #4050
 counter logic above is untouched.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9aaecba8b1cf1a4219131cac14a66fb393d931af">Confirmed a newly-created subtask already lands in the parent card's own swimlane</a>. Thanks to savin-msk and xet7.</summary>
+
+[#2732](https://github.com/wekan/wekan/issues/2732) asked that a subtask land
+in the same swimlane as its parent card instead of some other or default one.
+Reading `server/models/cards.js`'s `addSubtaskCard` method shows this is
+already the case: a new subtask is not simply inserted onto the parent's own
+board, it goes to a dedicated default subtasks board/list (see
+[#3868](https://github.com/wekan/wekan/issues/3868)/[#5788](https://github.com/wekan/wekan/issues/5788)/[#2256](https://github.com/wekan/wekan/issues/2256)),
+so its `swimlaneId` can never literally equal the parent's - swimlanes are
+scoped to a single board. The method already resolves the correct swimlane on
+that destination board by TITLE instead: it reads the parent card's own
+swimlane, reuses the swimlane on the target board whose title matches it, and
+only falls back to the target board's default swimlane when no such swimlane
+exists there yet. No code change was needed;
+`tests/subtaskSwimlaneInheritance2732.test.cjs` now pins the parent-swimlane
+lookup, the title-matching reuse, the default-swimlane fallback branch, and
+that the inserted card carries the resolved `swimlaneId`, so this cannot
+silently regress.
 
 </details>
 
