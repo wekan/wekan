@@ -977,3 +977,20 @@ li.has-error .form-group .wekan-form-control {
     max-width: none;
   }
 }
+
+/* ── Admin Panel / LDAP override source badges ───────────────────────────────
+   "Clearly visible, is in use environment variable or admin panel setting"
+   (see client/components/settings/settingBody.js's ldapSourceLabelFor). */
+.ldap-source-badge {
+  color: #767676;
+  font-size: 0.85em;
+  font-style: italic;
+}
+
+.ldap-test-success {
+  color: #2e7d32;
+}
+
+.ldap-test-error {
+  color: #c62828;
+}

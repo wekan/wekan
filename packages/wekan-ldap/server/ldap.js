@@ -7,6 +7,36 @@ import {
   missingLoginGroupFilterSettings,
   loginGroupNames,
 } from './groupFilterConfig';
+import Settings from '/models/settings';
+import { resolveConfigValue } from '/models/lib/configResolver';
+
+// Admin Panel -> LDAP override (models/settings.js's `ldap` sub-document): maps
+// each env var this module reads to the admin-editable field that may override
+// it (models/lib/configResolver.js's resolveConfigValue() - admin value wins
+// when set and non-empty, otherwise the env var, otherwise undefined). Every
+// field here is a NON-secret value; the bind password has its own resolver
+// call below (still server-only - nothing here is ever published) so its
+// admin-panel storage stays out of this generic map.
+const LDAP_ADMIN_OVERRIDE_FIELD = {
+  LDAP_ENABLE: 'enabled',
+  LDAP_HOST: 'host',
+  LDAP_PORT: 'port',
+  LDAP_BASEDN: 'baseDN',
+  LDAP_AUTHENTIFICATION_USERDN: 'authentificationUserDN',
+  LDAP_USER_SEARCH_FILTER: 'userSearchFilter',
+  LDAP_USER_SEARCH_FIELD: 'userSearchField',
+  LDAP_ENCRYPTION: 'encryption',
+};
+
+function currentLdapAdminSettings() {
+  try {
+    return Settings.findOne({})?.ldap || {};
+  } catch (e) {
+    // Settings collection not ready yet (e.g. very early boot) - fall back to
+    // env-var-only behaviour rather than crashing the LDAP module.
+    return {};
+  }
+}
 
 // #4158: warn about a deprecated/invalid LDAP_ENCRYPTION value only once per
 // distinct message, not on every single login attempt (LDAP instantiates a
@@ -79,7 +109,16 @@ export default class LDAP {
       reject_unauthorized                : this.constructor.settings_get('LDAP_REJECT_UNAUTHORIZED') !== undefined ? this.constructor.settings_get('LDAP_REJECT_UNAUTHORIZED') : true,
       Authentication                     : this.constructor.settings_get('LDAP_AUTHENTIFICATION'),
       Authentication_UserDN              : this.constructor.settings_get('LDAP_AUTHENTIFICATION_USERDN'),
-      Authentication_Password            : this.constructor.settings_get('LDAP_AUTHENTIFICATION_PASSWORD'),
+      // The bind password is resolved separately from settings_get()'s generic
+      // env-var/admin-override map: it is a SECRET, stored in
+      // Settings.ldap.bindPassword, which is never published to the client (see
+      // server/publications/settings.js). Reading it here, server-side only, to
+      // actually perform the LDAP bind is fine; nothing below returns it to a
+      // caller that could leak it to the browser.
+      Authentication_Password            : resolveConfigValue(
+        'LDAP_AUTHENTIFICATION_PASSWORD',
+        currentLdapAdminSettings().bindPassword,
+      ).value,
       Authentication_Fallback            : this.constructor.settings_get('LDAP_LOGIN_FALLBACK'),
       BaseDN                             : this.constructor.settings_get('LDAP_BASEDN'),
       Internal_Log_Level                 : this.constructor.settings_get('INTERNAL_LOG_LEVEL'), //this setting does not have any effect any more and should be deprecated
@@ -110,12 +149,23 @@ export default class LDAP {
   }
 
   static settings_get(name, ...args) {
-    let value = process.env[name];
+    const overrideField = LDAP_ADMIN_OVERRIDE_FIELD[name];
+    let value;
+    if (overrideField) {
+      value = resolveConfigValue(name, currentLdapAdminSettings()[overrideField]).value;
+    } else {
+      value = process.env[name];
+    }
     if (value !== undefined) {
-      if (value === 'true' || value === 'false') {
-        value = JSON.parse(value);
-      } else if (value !== '' && !isNaN(value)) {
-        value = Number(value);
+      // The admin-override path can hand back an already-typed value (e.g. a
+      // Boolean for 'ldap.enabled', a SimpleSchema Boolean field) - only the
+      // env var's raw string needs the 'true'/'false'/numeric coercion below.
+      if (typeof value === 'string') {
+        if (value === 'true' || value === 'false') {
+          value = JSON.parse(value);
+        } else if (value !== '' && !isNaN(value)) {
+          value = Number(value);
+        }
       }
       return value;
     } else {

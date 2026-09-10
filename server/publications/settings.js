@@ -118,6 +118,20 @@ const SETTING_FIELDS = {
   // Organizations and / Teams.
   boardMembersFromSameOrgOnly: 1,
   boardMembersFromSameTeamOnly: 1,
+  // Admin Panel / LDAP override fields (models/lib/configResolver.js). NOTE:
+  // 'ldap.bindPassword' is deliberately absent from this allowlist - it must
+  // NEVER reach the client. Only 'ldap.bindPasswordSet' (a boolean) is
+  // published, so the UI can show "a password is configured" without ever
+  // transmitting the password itself.
+  'ldap.enabled': 1,
+  'ldap.host': 1,
+  'ldap.port': 1,
+  'ldap.baseDN': 1,
+  'ldap.authentificationUserDN': 1,
+  'ldap.bindPasswordSet': 1,
+  'ldap.userSearchFilter': 1,
+  'ldap.userSearchField': 1,
+  'ldap.encryption': 1,
 };
 
 Meteor.publish('setting', async function() {

@@ -8,10 +8,15 @@ Meteor.methods({
       throw new Meteor.Error('error-invalid-user', 'Invalid user', { method: 'ldap_test_connection' });
     }
 
-    //TODO: This needs to be fixed - security issue -> alanning:meteor-roles
-    //if (!RocketChat.authz.hasRole(user._id, 'admin')) {
-    //	throw new Meteor.Error('error-not-authorized', 'Not authorized', { method: 'ldap_test_connection' });
-    //}
+    // #(admin-panel LDAP overrides): this was previously commented out, so ANY
+    // authenticated user - not only an admin - could trigger an LDAP bind
+    // attempt against the configured directory. Fixed to require isAdmin, the
+    // same check every other admin-only Meteor method in this codebase uses
+    // (see server/models/settings.js's saveMailServer, etc.). A non-admin
+    // caller is refused before an LDAP connection is even attempted.
+    if (!user.isAdmin) {
+      throw new Meteor.Error('error-notAuthorized', 'Not authorized', { method: 'ldap_test_connection' });
+    }
 
     if (LDAP.settings_get('LDAP_ENABLE') !== true) {
       throw new Meteor.Error('LDAP_disabled');

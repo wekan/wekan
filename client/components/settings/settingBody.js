@@ -1353,6 +1353,133 @@ Template.general.events({
     }
   },
 });
+
+// Admin Panel -> LDAP override section (Login pane). Mirrors the E-mail pane's
+// mail-server pattern below: non-secret fields are read straight from the
+// published `currentSetting.ldap.*`, the bind password NEVER is (only a
+// boolean "is one configured" comes back from getLdapConfigSources), and
+// "which source is active" is fetched from the server on demand rather than
+// guessed on the client, because only the server can see the env vars.
+const LDAP_TEXT_FIELDS = [
+  { field: 'host', envVar: 'LDAP_HOST' },
+  { field: 'port', envVar: 'LDAP_PORT' },
+  { field: 'baseDN', envVar: 'LDAP_BASEDN' },
+  { field: 'authentificationUserDN', envVar: 'LDAP_AUTHENTIFICATION_USERDN' },
+  { field: 'userSearchFilter', envVar: 'LDAP_USER_SEARCH_FILTER' },
+  { field: 'userSearchField', envVar: 'LDAP_USER_SEARCH_FIELD' },
+  { field: 'encryption', envVar: 'LDAP_ENCRYPTION' },
+];
+
+Template.general.onCreated(function () {
+  this.ldapSources = new ReactiveVar({});
+  this.ldapTestResult = new ReactiveVar('');
+  this.ldapTestSuccess = new ReactiveVar(true);
+  const tpl = this;
+  const refreshLdapSources = () => {
+    Meteor.call('getLdapConfigSources', (err, res) => {
+      if (!err && res) tpl.ldapSources.set(res);
+    });
+  };
+  refreshLdapSources();
+  this.refreshLdapSources = refreshLdapSources;
+});
+
+Template.general.helpers({
+  ldapTextFields() {
+    return LDAP_TEXT_FIELDS;
+  },
+  ldapFieldValue(field) {
+    const ldap = ReactiveCache.getCurrentSetting()?.ldap || {};
+    return ldap[field] || '';
+  },
+  // Badge text: literally names the source ('Admin Panel', the env var name,
+  // or 'Unset') rather than adding more new i18n keys for this - 'admin-panel'
+  // and 'unset-color' are already translated everywhere, and an env var name
+  // is a technical identifier, not language content.
+  ldapSourceLabelFor(field) {
+    const inst = Template.instance();
+    const sources = inst.ldapSources.get();
+    const entry = sources[field];
+    if (!entry) return '';
+    if (entry.source === 'admin') return TAPi18n.__('admin-panel');
+    if (entry.source === 'env') {
+      const envVar = (LDAP_TEXT_FIELDS.find(f => f.field === field) || {}).envVar;
+      return envVar || TAPi18n.__('admin-panel');
+    }
+    return TAPi18n.__('unset-color');
+  },
+  ldapSourceLabel(field) {
+    const inst = Template.instance();
+    const sources = inst.ldapSources.get();
+    const entry = sources[field];
+    if (!entry) return '';
+    if (entry.source === 'admin') return TAPi18n.__('admin-panel');
+    if (entry.source === 'env') return 'LDAP_ENABLE';
+    return TAPi18n.__('unset-color');
+  },
+  ldapPasswordStatusText() {
+    const inst = Template.instance();
+    const sources = inst.ldapSources.get();
+    const entry = sources.bindPassword;
+    if (!entry || !entry.hasValue) return TAPi18n.__('unset-color');
+    const from =
+      entry.source === 'admin'
+        ? TAPi18n.__('admin-panel')
+        : 'LDAP_AUTHENTIFICATION_PASSWORD';
+    return `${TAPi18n.__('password')}: ${from}`;
+  },
+  ldapTestResult() {
+    return Template.instance().ldapTestResult.get();
+  },
+  ldapTestResultClass() {
+    return Template.instance().ldapTestSuccess.get()
+      ? 'ldap-test-success'
+      : 'ldap-test-error';
+  },
+});
+
+Template.general.events({
+  'click a.js-toggle-ldap-enabled'(event, tpl) {
+    const ldap = ReactiveCache.getCurrentSetting()?.ldap || {};
+    Settings.update(ReactiveCache.getCurrentSetting()._id, {
+      $set: { 'ldap.enabled': !ldap.enabled },
+    });
+  },
+  'click button.js-ldap-settings-save'(event, tpl) {
+    const input = { enabled: !!ReactiveCache.getCurrentSetting()?.ldap?.enabled };
+    LDAP_TEXT_FIELDS.forEach(({ field }) => {
+      const $el = $(`.js-ldap-field[data-field="${field}"]`);
+      if ($el.length) input[field] = $el.val();
+    });
+    const bindPassword = $('#ldap-bind-password').val();
+    if (bindPassword) input.bindPassword = bindPassword;
+    Meteor.call('saveLdapSettings', input, (err) => {
+      $('#ldap-bind-password').val('');
+      if (!err) tpl.refreshLdapSources();
+    });
+  },
+  // "It should be possible to test at admin panel, does for example LDAP login
+  // work, to get back error message visible at admin panel" - calls the
+  // existing (now admin-gated, see packages/wekan-ldap/server/testConnection.js)
+  // ldap_test_connection method against whichever config (admin override or
+  // env var) is CURRENTLY resolved server-side, and shows the result inline.
+  'click button.js-ldap-test-connection'(event, tpl) {
+    tpl.ldapTestResult.set('...');
+    Meteor.call('ldap_test_connection', (err) => {
+      if (err) {
+        tpl.ldapTestSuccess.set(false);
+        tpl.ldapTestResult.set(
+          TAPi18n.__('ldap-test-connection-error', {
+            sprintf: [err.reason || err.message || ''],
+          }),
+        );
+      } else {
+        tpl.ldapTestSuccess.set(true);
+        tpl.ldapTestResult.set(TAPi18n.__('ldap-test-connection-success'));
+      }
+    });
+  },
+});
 // The E-mail pane's own behaviour. These handlers were registered on
 // Template.setting, which is fine only while Settings renders the pane. Admin Panel /
 // People renders it now, and Blaze delivers an event to the handlers of the template

@@ -110,6 +110,43 @@ template(name="general")
         input.wekan-form-control#oidcBtnTextvalue(type="text", placeholder="" value="{{currentSetting.oidcBtnText}}")
       button.js-account-access-save.primary {{_ 'save'}}
 
+    //- Admin Panel override of the LDAP_* environment variables (maintainer
+    //- request: "Add all settings from environment variables to Admin Panel
+    //- where appropriate ... as possibility to override"). Every field falls
+    //- back to its LDAP_* env var when left blank here - see
+    //- models/lib/configResolver.js and server/models/settings.js's
+    //- saveLdapSettings/getLdapConfigSources. The badge after each label says
+    //- which one is currently in effect; nothing here ever shows the bind
+    //- password itself (client/components/settings/settingBody.js only ever
+    //- receives a boolean "is a password configured").
+    if currentUser.isAdmin
+      li.admin-pane-group-separator
+        hr
+      li
+        h2.admin-pane-group-title {{_ 'ldap'}}
+      li.accounts-form
+        a.flex.js-toggle-ldap-enabled
+          .materialCheckBox(class="{{#if currentSetting.ldap.enabled}}is-checked{{/if}}")
+          span LDAP_ENABLE
+          span.ldap-source-badge  ({{ldapSourceLabel 'enabled'}})
+      each ldapTextFields
+        li.accounts-form
+          .title= envVar
+          .form-group
+            input.wekan-form-control(type="text" class="js-ldap-field" data-field="{{field}}" placeholder="{{envVar}}" value="{{ldapFieldValue field}}")
+            span.ldap-source-badge  ({{ldapSourceLabelFor field}})
+      li.accounts-form
+        .title LDAP_AUTHENTIFICATION_PASSWORD
+        .description {{ldapPasswordStatusText}}
+        .form-group
+          input.wekan-form-control#ldap-bind-password(type="password", placeholder="{{_ 'password'}}" value="" autocomplete="new-password")
+      li.accounts-form
+        button.js-ldap-settings-save.primary {{_ 'save'}}
+        button.js-ldap-test-connection {{_ 'ldap-test-connection'}}
+      if ldapTestResult
+        li.accounts-form
+          span(class="{{ldapTestResultClass}}")= ldapTestResult
+
 //- The E-mail pane. Rendered by Admin Panel / People too - see the note above.
 template(name='email')
   ul#email-setting.setting-detail

@@ -40,7 +40,22 @@ function walk(dir, out = []) {
 const pub = read('server/publications/settings.js');
 const fieldsBlock = pub.slice(pub.indexOf('const SETTING_FIELDS = {'),
   pub.indexOf('};', pub.indexOf('const SETTING_FIELDS = {')));
-const published = new Set([...fieldsBlock.matchAll(/^\s*([A-Za-z][\w]*): 1,/gm)].map(m => m[1]));
+// A published field can be a bare name (`productName: 1,`) or a dotted
+// sub-document path in quotes (`'ldap.host': 1,` - the same pattern the LDAP
+// admin-panel override section added: models/settings.js's `ldap` sub-doc is
+// published field-by-field, deliberately never as a bare `ldap: 1` (MongoDB
+// projection does not allow mixing a whole-object projection with dotted
+// projections of the same path, and a bare `ldap: 1` would also publish the
+// secret 'ldap.bindPassword' field, which server/publications/settings.js
+// intentionally omits). A template reading `currentSetting.ldap.host` is
+// checked against the field's TOP-LEVEL segment ("ldap"), so that segment is
+// registered as published whenever any 'ldap.<...>': 1 entry exists.
+const published = new Set();
+for (const m of fieldsBlock.matchAll(/^\s*(?:'([\w.]+)'|([A-Za-z][\w]*)): 1,/gm)) {
+  const name = m[1] || m[2];
+  published.add(name);
+  published.add(name.split('.')[0]);
+}
 
 // The one deliberate exception: the SMTP settings are admin-only and carry a
 // password, so they have their own admin-gated publication ('mailServer') instead of
