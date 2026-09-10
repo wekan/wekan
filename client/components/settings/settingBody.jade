@@ -215,7 +215,7 @@ template(name='email')
       .title {{_ 'email-templates-invite-body'}}
       .description {{_ 'email-templates-invite-vars-hint'}}
       .form-group
-        textarea.wekan-form-control#email-template-invite-body(rows=4)= currentSetting.inviteEmailBodyTemplate
+        textarea.wekan-form-control#email-template-invite-body(rows="4")= currentSetting.inviteEmailBodyTemplate
     li.smtp-form
       .title {{_ 'email-templates-activity-subject'}}
       .description {{_ 'email-templates-activity-vars-hint'}}
@@ -225,7 +225,7 @@ template(name='email')
       .title {{_ 'email-templates-activity-body'}}
       .description {{_ 'email-templates-activity-vars-hint'}}
       .form-group
-        textarea.wekan-form-control#email-template-activity-body(rows=4)= currentSetting.activityEmailBodyTemplate
+        textarea.wekan-form-control#email-template-activity-body(rows="4")= currentSetting.activityEmailBodyTemplate
     li
       button.js-email-templates-save.primary {{_ 'save'}}
 

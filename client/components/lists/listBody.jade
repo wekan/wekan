@@ -69,7 +69,7 @@ template(name="addCardForm")
           .add-card-more-options-assignees
             each boardMembersForAssignees
               label.add-card-more-options-assignee
-                input.js-more-options-assignee(type="checkbox" value="{{userId}}" checked=(isAssignee userId))
+                input.js-more-options-assignee(type="checkbox" value="{{userId}}" checked="{{#if isAssignee userId}}checked{{/if}}")
                 +userAvatar(userId=userId)
 
   .add-controls.clearfix
