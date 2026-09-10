@@ -146,7 +146,28 @@ Template.comments.helpers({
   },
 });
 
+// Issue #4757: permalink to a comment. The card's own URL
+// (models/lib/cardUrl.js) plus a `#comment-<id>` fragment - see
+// client/lib/revealBoardItem.js for how the fragment turns back into a
+// scroll+highlight on the other end. Shared by the helper below and the
+// click handler, which needs the same URL to build the copy-to-clipboard
+// text.
+function commentPermalinkFor(comment) {
+  if (!comment || !comment._id || !comment.cardId) return '';
+  const card = ReactiveCache.getCard(comment.cardId);
+  const url = card && card.absoluteUrl();
+  return url ? `${url}#comment-${comment._id}` : '';
+}
+
 Template.comment.helpers({
+  // The element id `comments.jade` anchors this comment to, so a permalink's
+  // `#comment-<id>` fragment has something to scroll to.
+  commentDomId() {
+    return this._id ? `comment-${this._id}` : undefined;
+  },
+  commentPermalink() {
+    return commentPermalinkFor(this);
+  },
   // Whether the current user may edit/delete this comment, honouring the
   // board's restrictCommentEditing setting (issue #5906). Mirrors the
   // server-side enforcement so the UI hides buttons the server would reject.
@@ -166,6 +187,22 @@ Template.comment.helpers({
 });
 
 Template.comment.events({
+  // Issue #4757: the timestamp is a real `<a href>` to the permalink, so a
+  // normal click already navigates there (and back/forward and a fresh load
+  // of that URL are handled by client/lib/revealBoardItem.js reading the
+  // hash). This also sets the reveal Session value directly, rather than
+  // relying only on the browser's `hashchange` event, because neither a
+  // same-page anchor click nor FlowRouter's `pushState` navigation is
+  // guaranteed to fire one.
+  'click .js-comment-permalink'() {
+    if (this._id) Session.set('revealCommentId', this._id);
+  },
+  'click .js-copy-comment-link'(evt, tpl) {
+    evt.preventDefault();
+    const url = commentPermalinkFor(this);
+    if (!url) return;
+    Utils.showCopied(Utils.copyTextToClipboard(url), tpl.$('.copied-tooltip'));
+  },
   'click .js-reply-comment'(evt) {
     evt.preventDefault();
     replyToCommentId.set(this._id);

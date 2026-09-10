@@ -17,7 +17,7 @@ template(name="cardActivities")
     +activity(activity=activityData card=card mode=mode)
 
 template(name="activity")
-  .activity(data-id=activity._id)
+  .activity(id=activityDomId data-id=activity._id)
     +userAvatar(userId=activity.user._id)
     p.activity-desc
       span.activity-member
@@ -206,4 +206,11 @@ template(name="activity")
         | {{_ activity.activityType currentData.timeValue}}
 
       if($neq mode 'none')
-        div(title=activity.createdAt).activity-meta {{ displayDate activity.createdAt }}
+        div(title=activity.createdAt).activity-meta
+          //- Issue #4757: same permalink pattern as the comment timestamp in
+          //- comments.jade - card URL + #activity-<id>, plus an explicit
+          //- copy-to-clipboard icon.
+          a.js-activity-permalink(href="{{ activityPermalink }}") {{ displayDate activity.createdAt }}
+          a.js-copy-activity-link(title="{{_ 'copy-link-to-clipboard'}}")
+            i.fa.fa-link
+          span.copied-tooltip {{_ 'copied'}}

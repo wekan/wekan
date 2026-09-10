@@ -138,7 +138,30 @@ Template.cardActivities.helpers({
   },
 });
 
+// Issue #4757: permalink to an activity - the card's own URL plus a
+// `#activity-<id>` fragment. Mirrors commentPermalinkFor() in
+// client/components/activities/comments.js; the two are kept separate rather
+// than shared because a comment's card is looked up by `cardId` off a plain
+// CardComments doc while an activity already carries a `card()` helper
+// (models/activities.js) that copes with an archived/missing card.
+function activityPermalinkFor(activity) {
+  if (!activity || !activity._id) return '';
+  const card = typeof activity.card === 'function' ? activity.card() : null;
+  const url = card && card.absoluteUrl();
+  return url ? `${url}#activity-${activity._id}` : '';
+}
+
 Template.activity.helpers({
+  // The element id `activities.jade` anchors this activity to, so a
+  // permalink's `#activity-<id>` fragment has something to scroll to.
+  activityDomId() {
+    return this.activity && this.activity._id
+      ? `activity-${this.activity._id}`
+      : undefined;
+  },
+  activityPermalink() {
+    return activityPermalinkFor(this.activity);
+  },
   checkItem() {
     const checkItemId = this.activity.checklistItemId;
     const checkItem = ReactiveCache.getChecklistItem(checkItemId);
@@ -317,6 +340,23 @@ Template.activity.helpers({
 Template.activity.helpers({
   sanitize(value) {
     return sanitizeHTML(value);
+  },
+});
+
+Template.activity.events({
+  // Issue #4757: see the matching comment on Template.comment.events in
+  // comments.js for why this sets the Session value directly instead of
+  // relying only on the browser's `hashchange` event.
+  'click .js-activity-permalink'() {
+    if (this.activity && this.activity._id) {
+      Session.set('revealActivityId', this.activity._id);
+    }
+  },
+  'click .js-copy-activity-link'(evt, tpl) {
+    evt.preventDefault();
+    const url = activityPermalinkFor(this.activity);
+    if (!url) return;
+    Utils.showCopied(Utils.copyTextToClipboard(url), tpl.$('.copied-tooltip'));
   },
 });
 

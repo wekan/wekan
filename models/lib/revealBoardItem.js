@@ -16,16 +16,32 @@
 // `allBoardsMultiselectionSidebar` happened - and a guard checks each one
 // against the markup that draws it.
 //
+// 'comment' and 'activity' (issue #4757) work the same way but are named from
+// the URL *hash* rather than a route param: a comment or an activity has no
+// address of its own the way a swimlane or list does - it only ever appears
+// inside a card - so its permalink is the card's URL plus a fragment
+// (`#comment-<id>` / `#activity-<id>`), and client/lib/revealBoardItem.js
+// turns that fragment into the same Session-driven reveal used here.
+// `client/components/activities/comments.jade` gives a comment
+// `id="comment-<id>"` and `client/components/activities/activities.jade`
+// gives an activity `id="activity-<id>"`.
+//
 // Pure: an id in, an element id out. No DOM, no Meteor, no jQuery.
 // docs/Features/Page/Board-Item-Links.md
 
-const REVEAL_KINDS = ['swimlane', 'list'];
+const REVEAL_KINDS = ['swimlane', 'list', 'comment', 'activity'];
 
 // kind -> the Session key the route writes, and how that kind's element is named.
 const REVEAL_TARGETS = {
   swimlane: { sessionKey: 'revealSwimlaneId', elementId: id => `swimlane-${id}` },
   list: { sessionKey: 'revealListId', elementId: id => `js-list-${id}` },
+  comment: { sessionKey: 'revealCommentId', elementId: id => `comment-${id}` },
+  activity: { sessionKey: 'revealActivityId', elementId: id => `activity-${id}` },
 };
+
+// The two kinds whose Session value is set from the URL hash rather than a
+// route param - see the comment above.
+const HASH_REVEAL_KINDS = ['comment', 'activity'];
 
 const REVEAL_SESSION_KEYS = REVEAL_KINDS.map(kind => REVEAL_TARGETS[kind].sessionKey);
 
@@ -41,5 +57,6 @@ module.exports = {
   REVEAL_KINDS,
   REVEAL_TARGETS,
   REVEAL_SESSION_KEYS,
+  HASH_REVEAL_KINDS,
   revealElementId,
 };

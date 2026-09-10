@@ -3,6 +3,7 @@ import { Tracker } from 'meteor/tracker';
 import {
   REVEAL_KINDS,
   REVEAL_TARGETS,
+  HASH_REVEAL_KINDS,
   revealElementId,
 } from '/models/lib/revealBoardItem';
 
@@ -87,8 +88,44 @@ function watchKind(kind) {
   return { stop() { stopTimer(); computation.stop(); } };
 }
 
+// A comment or an activity (issue #4757) has no route of its own - it only
+// ever appears inside a card - so its permalink is the card's own URL plus a
+// `#comment-<id>` / `#activity-<id>` fragment (built in
+// client/components/activities/comments.js and activities.js) instead of a
+// route param. This reads that fragment into the same Session keys the
+// generic watcher above already polls for, so a comment/activity permalink
+// reveals exactly the way a swimlane/list link does.
+//
+// Read on: a fresh load of a URL that already carries the fragment (the
+// fragment is never sent to the server, so nothing but the client can see
+// it); the `hashchange` listener below on top of that for a link clicked
+// while the card is already open, since neither FlowRouter's `pushState`
+// navigation nor a same-page anchor click is guaranteed to re-run this
+// function on its own. The permalink click handlers in comments.js/
+// activities.js also set the Session value directly, so this is a second,
+// redundant path to the same place rather than the only one.
+function applyLocationHash() {
+  if (typeof window === 'undefined' || !window.location) return;
+  const hash = window.location.hash || '';
+  HASH_REVEAL_KINDS.forEach(kind => {
+    const { sessionKey } = REVEAL_TARGETS[kind];
+    const prefix = `#${kind}-`;
+    if (hash.indexOf(prefix) === 0) {
+      const id = hash.slice(prefix.length);
+      if (id) Session.set(sessionKey, id);
+    }
+  });
+}
+
+if (typeof window !== 'undefined' && window.addEventListener) {
+  window.addEventListener('hashchange', applyLocationHash);
+}
+
 // Start watching every kind. Called from the board body once it has rendered.
 export function watchBoardItemReveals() {
+  // Picks up a fragment that was already in the address when this board body
+  // was created (a fresh load, or a card opened by URL).
+  applyLocationHash();
   const watchers = REVEAL_KINDS.map(watchKind);
   return { stop() { watchers.forEach(w => w.stop()); } };
 }
