@@ -17,6 +17,8 @@
 // proving the combined decision is independent of any one member list's own
 // individual wipLimit.
 //
+// Closes https://github.com/wekan/wekan/issues/2380.
+//
 // Run: node tests/swimlaneWipLimitGroup.test.cjs
 
 const assert = require('assert');
