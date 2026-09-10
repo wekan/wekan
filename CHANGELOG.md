@@ -510,6 +510,29 @@ open pending confirmation from a live browser-restart reproduction.
 
 </details>
 
+**Labels popup** - the popup opened from a card's Labels button.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/780f0b9115054e3163fe7ce006927e5ae5abb1df">The Labels popup no longer stays open after leaving a card, or applies to the wrong card</a>. Thanks to rmb82 and xet7.</summary>
+
+The Labels popup (`client/lib/popup.js`'s global `Popup` singleton) was never
+closed when a card's details view was closed or swapped for another card -
+Blaze just destroys the `cardDetails` template instance, and nothing called
+`Popup.close()`/`back()` in response. So the popup stayed visible after
+leaving card A, and opening Labels again on card B pushed a new stack entry
+on top of the stale one instead of replacing it, leaving the old entry
+(still bound to card A's data) rendered alongside the new one and able to
+keep toggling labels on the wrong card.
+
+`Popup.open()` now resets its stack when a fresh popup (not a sub-popup
+opened from within the popup that is already showing) is opened while a
+previous popup is still open. `Template.cardDetails` remembers which card it
+was opened for and, on destroy, closes `Popup` if it is still showing that
+same card's data at the base of its stack - so closing or switching a card
+dismisses its own popup without touching an unrelated one.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for
 their translations.
 
