@@ -110,6 +110,7 @@ webapp-hashing@1.1.2
 wekan-accounts-cas@0.2.0
 wekan-accounts-lockout@1.1.0
 wekan-accounts-oidc@1.0.10
+wekan-accounts-saml@0.1.0
 wekan-accounts-sandstorm@0.9.0
 wekan-fontawesome@6.4.2
 wekan-fullcalendar@5.11.5
