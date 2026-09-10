@@ -8,6 +8,15 @@
 // (server/lib/utils.js) that also accept the global `isAdmin` flag, and that
 // the Boards.allow rule is actually wired to the new helper rather than the
 // old board-only one.
+//
+// Issue #2413 ("Site admins to see all boards and change any board
+// permissions") describes the same gap from the other direction: a global
+// site admin should be able to view/change permissions on ANY board, not
+// only ones they already belong to. That is exactly what
+// isBoardAdminOrSiteAdmin/allowIsBoardAdminOrSiteAdmin grant, so the same
+// suite - in particular the "global site admin who is NOT a board
+// member/admin is allowed" and Boards.allow wiring cases below - covers
+// #2413 as well as #3249.
 // Run: node tests/boardAdminOrSiteAdmin.test.cjs
 
 const assert = require('assert');
@@ -79,7 +88,7 @@ test('the board\'s own admin is allowed, site-admin flag false', () => {
   );
 });
 
-test('a global site admin who is NOT a board member/admin is allowed (#3249 core case)', () => {
+test('a global site admin who is NOT a board member/admin is allowed (#3249 / #2413 core case)', () => {
   assert.strictEqual(
     isBoardAdminOrSiteAdmin('siteAdminId', board(['someoneElse']), true),
     true,
