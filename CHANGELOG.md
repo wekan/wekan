@@ -309,6 +309,59 @@ the Markdown commit as the template.
 </details>
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** this release fixes a **document preview** regression where a PDF,
+DOCX, XLSX or PPTX attachment could fail to preview with a bare HTTP 415 when
+the optional native `@napi-rs/canvas` dependency was missing from the build -
+PDF previews now degrade to text-only instead of failing outright, and the
+underlying error is logged. It also hardens the **HttpOnly login cookie**
+against a rare case where it could be written without an expiry, which would
+make the browser drop it as soon as it closed instead of honoring the
+configured 90-day login.
+
+This release fixes the following bugs:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9b9c2fe6e4feab6fd3bbc60ab5d65645291a025b">PDF/DOCX/XLSX/PPTX preview no longer fails outright when the optional canvas dependency is missing</a>. Thanks to rmb82 and xet7.</summary>
+
+`pdf-to-img` rasterizes PDF pages through `pdfjs-dist`'s optionalDependency
+`@napi-rs/canvas`. A Docker/Snap build that skips optional dependencies, or
+lacks a prebuilt binary for its target architecture, threw on the very first
+PDF preview - "Cannot load @napi-rs/canvas", "Cannot polyfill DOMMatrix" -
+which the generic `catch` in `server/routes/universalFileServer.js` turned
+into a bare 415 with the real error never logged. `@napi-rs/canvas` is now a
+direct dependency so it installs the same way every other required package
+does, and rasterization is no longer all-or-nothing: `pdfjs-dist`'s text
+extraction does not need canvas, so when rasterizing still fails for any
+reason the PDF preview now degrades to text-only pages instead of failing -
+the same graceful degradation the minimal viewer already applies to an
+unreadable embedded image in a DOCX/PPTX/XLSX. The three document-preview
+routes now log the caught error before returning 415.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1e18c824d5950acf94e6fccd51f5c54dcbbcd09f">The HttpOnly login cookie now always gets a fallback expiry</a>. Thanks to markusst1982 and xet7.</summary>
+
+The native `useHttpOnlyCookies` resume flow only attaches `Expires`/`Max-Age`
+to `meteor_login_token` when it can match the freshly issued token back to a
+stored resume token in the database at the exact moment the cookie is
+written. When that lookup misses, the cookie was written with no expiry at
+all, so the browser treats it as a plain session cookie and drops it the
+moment the browser closes - silently downgrading the configured 90-day login
+into a same-session-only one. `http.ServerResponse.prototype.setHeader` is
+now patched to guarantee a fallback expiry, decided by a pure, tested helper
+(`server/lib/loginCookieExpiry.js`), whenever a `Set-Cookie` header for that
+cookie carries neither directive. This hardens the failure mode that best
+matches [#6684](https://github.com/wekan/wekan/issues/6684), which stays
+open pending confirmation from a live browser-restart reproduction.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for
+their translations.
+
 # v11.68 2026-09-10 WeKan ® release
 
 **In short:** the **Board View menu**'s nine report charts - Dashboard,
