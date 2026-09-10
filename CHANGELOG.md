@@ -800,6 +800,30 @@ card's own board before creating anything.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9b1a90239b5b2b10f1184a251888190ac89d2484">A "Link to board" action lets a card be mirrored onto a different, existing board in one click</a>. Thanks to HT-Marley and xet7.</summary>
+
+[#4281](https://github.com/wekan/wekan/issues/4281): a user working across
+several project boards plus a personal overview board wanted a card to
+also appear, linked rather than copied or moved, on another board -
+without switching boards and re-adding it by hand. This is distinct from
+[#4495](https://github.com/wekan/wekan/issues/4495) above (which links a
+card to a BRAND-NEW board created on the spot): here the target board
+already exists and is picked from a list.
+
+The linked-card data model already existed
+(`Cards.helpers().link(boardId, swimlaneId, listId)`, `models/cards.js`,
+setting `type: 'cardType-linkedCard'` and `linkedId` on a copy of the
+card), and so did the board/swimlane/list chooser Move card and Copy card
+already use (`cardDestinationPicker`). Neither was reachable from the
+card's own hamburger menu for this purpose. A new "Link to board" entry
+sits next to "Move card"/"Copy card", opening a `linkCardToBoardPopup`
+that reuses the same picker and, on Done, calls the existing `card.link()`
+- creating the mirror on the chosen board without moving, copying or
+otherwise mutating the original card.
+
+</details>
+
 **Custom fields** - the board's custom-field definitions and how they display.
 
 <details>
