@@ -309,7 +309,7 @@ the Markdown commit as the template.
 </details>
 </details>
 
-# Upcoming WeKan ® release
+# v11.68 2026-09-10 WeKan ® release
 
 **In short:** the **Board View menu**'s nine report charts - Dashboard,
 Burndown, Burnup, Cumulative Flow, Control Chart, Lead/Cycle Time, Flow
