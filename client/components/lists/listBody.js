@@ -3,6 +3,7 @@ import { TAPi18n } from '/imports/i18n';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { getSpinnerName, getSpinnerTemplate } from '/client/lib/spinner';
 import getSlug from 'limax';
+import { Random } from 'meteor/random';
 import Boards from '/models/boards';
 import Cards from '/models/cards';
 import Swimlanes from '/models/swimlanes';
@@ -15,6 +16,12 @@ import { sortWithIdTiebreaker } from '/models/lib/cardSortTiebreaker';
 import { sortCardsByTitle } from '/models/lib/sortCardsByTitle';
 import { labelMatchesTerm } from '/models/lib/labelAutocomplete';
 import { memberMatchesTerm } from '/models/lib/memberAutocomplete';
+import {
+  parseQuickAddCardLabel,
+  findExistingLabelIdByName,
+  pickDefaultLabelColor,
+} from '/models/lib/quickAddCardLabel';
+import { LABEL_COLORS } from '/models/metadata/colors';
 import { isLazyCards, BoardListCardCounts, windowCountId } from '/client/lib/lazyCards';
 import {
   shouldShowLoadMoreSpinner,
@@ -168,7 +175,12 @@ Template.listBody.onCreated(function () {
     }
     const textarea = $(submittedForm).find('textarea.js-card-title');
     const position = Blaze.getData(submittedForm)?.position;
-    const title = textarea.val().trim();
+    const rawTitle = textarea.val().trim();
+    // #3986: a leading "[LabelName] " prefix on the typed title applies (and,
+    // if needed, creates) that label instead of becoming part of the card
+    // title - e.g. "[Fedora] Do a thing" creates "Do a thing" labeled
+    // "Fedora". Only a single bracket prefix at the very start is parsed.
+    const { title, labelName: quickAddLabelName } = parseQuickAddCardLabel(rawTitle);
 
     let sortIndex;
     if (position === 'top') {
@@ -182,8 +194,20 @@ Template.listBody.onCreated(function () {
       return;
     }
     const members = formComponent.members.get();
-    const labelIds = formComponent.labels.get();
+    let labelIds = formComponent.labels.get();
     const customFields = formComponent.customFields.get();
+    // #3967: "More options" lets a few common fields be filled in as part of
+    // THIS SAME Cards.insert call, rather than as separate Cards.update calls
+    // right after creation. Each Cards.update fires its own watcher
+    // notification email (server/models/activities.js reacts to every
+    // Activities insert), so a card created with its description/due
+    // date/assignees already set produces exactly one "card created"
+    // notification instead of one email per field the user would otherwise
+    // set afterward.
+    const description = formComponent.description?.get().trim() || '';
+    const dueAtValue = formComponent.dueAt?.get() || '';
+    const dueAt = dueAtValue ? new Date(dueAtValue) : undefined;
+    const assignees = formComponent.assignees?.get() || [];
 
     const data = this.data;
     if (!data) {
@@ -198,6 +222,24 @@ Template.listBody.onCreated(function () {
       // before any async operations that would leave the old text visible.
       textarea.val('').focus();
       autosize.update(textarea);
+
+      // #3986: resolve the "[LabelName] " bracket prefix (if any) against the
+      // board's labels - match an existing label by name case-insensitively,
+      // or create one (with the same default-color pick as the "Add label"
+      // popup) when no label with that name exists yet.
+      if (quickAddLabelName) {
+        let quickAddLabelId = findExistingLabelIdByName(board.labels, quickAddLabelName);
+        if (!quickAddLabelId) {
+          quickAddLabelId = Random.id(6);
+          const color = pickDefaultLabelColor(board.labels, LABEL_COLORS);
+          await Boards.updateAsync(board._id, {
+            $push: { labels: { _id: quickAddLabelId, name: quickAddLabelName, color } },
+          });
+        }
+        if (labelIds.indexOf(quickAddLabelId) === -1) {
+          labelIds = [...labelIds, quickAddLabelId];
+        }
+      }
 
       if (board.isTemplatesBoard()) {
         const swimlaneEl = this.$('.js-minicards').closest('.swimlane').get(0);
@@ -234,7 +276,7 @@ Template.listBody.onCreated(function () {
 
       const nextCardNumber = await board.getNextCardNumber();
 
-      const _id = Cards.insert({
+      const cardFields = {
         title,
         members,
         labelIds,
@@ -246,7 +288,19 @@ Template.listBody.onCreated(function () {
         type: cardType,
         cardNumber: nextCardNumber,
         linkedId,
-      });
+      };
+      // #3967: only add these when actually filled in via "More options", so a
+      // plain quick-add card keeps behaving exactly as before.
+      if (description) {
+        cardFields.description = description;
+      }
+      if (dueAt && !isNaN(dueAt.getTime())) {
+        cardFields.dueAt = dueAt;
+      }
+      if (assignees.length) {
+        cardFields.assignees = assignees;
+      }
+      const _id = Cards.insert(cardFields);
 
       // if the displayed card count is less than the total cards in the list,
       // we need to increment the displayed card count to prevent the spinner
@@ -711,6 +765,14 @@ Template.addCardForm.onCreated(function () {
   this.labels = new ReactiveVar([]);
   this.members = new ReactiveVar([]);
   this.customFields = new ReactiveVar([]);
+  // #3967: "More options" — a handful of common fields that can be filled in
+  // before the card is created, so they travel in the SAME Cards.insert call
+  // as the title instead of as separate edits (and separate watcher-
+  // notification emails) right after.
+  this.showMoreOptions = new ReactiveVar(false);
+  this.description = new ReactiveVar('');
+  this.dueAt = new ReactiveVar('');
+  this.assignees = new ReactiveVar([]);
 
   const currentBoardId = Session.get('currentBoard');
   const arr = [];
@@ -726,6 +788,10 @@ Template.addCardForm.onCreated(function () {
     this.labels.set([]);
     this.members.set([]);
     this.customFields.set([]);
+    this.showMoreOptions.set(false);
+    this.description.set('');
+    this.dueAt.set('');
+    this.assignees.set([]);
   };
 
   this.pressKey = (evt) => {
@@ -1259,9 +1325,26 @@ Template.searchElementPopup.helpers({
       return [];
     }
   },
+
+  // #4205: is this "Board Templates" card the user's current default?
+  isDefaultBoardTemplate(cardId) {
+    const user = ReactiveCache.getCurrentUser();
+    return !!user && user.isDefaultBoardTemplate(cardId);
+  },
 });
 
 Template.searchElementPopup.events({
+  // #4205: toggle this board template as the default, without also applying
+  // it (the rest of the row still does that - see 'click .js-minicard').
+  'click .js-set-default-board-template'(evt) {
+    evt.preventDefault();
+    evt.stopPropagation();
+    const cardId = this && this._id;
+    if (!cardId) return;
+    Meteor.call('toggleDefaultBoardTemplate', cardId, (err) => {
+      if (err) alert(err?.reason || err?.message || 'Failed to set default board template');
+    });
+  },
   'change .js-select-boards'(evt, tpl) {
     const boardId = $(evt.currentTarget).val();
     // An empty <select> value is a null subscription - see above.
