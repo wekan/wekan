@@ -206,7 +206,11 @@ export const RulesHelper = {
         }
       }
     }
-    return matchingRules;
+    // #2322: a disabled rule keeps its trigger/action documents and
+    // configuration intact so it can be re-enabled later, but it must never
+    // fire while disabled. `enabled` defaults to `true` in the schema, so
+    // only an explicit `false` is skipped here.
+    return matchingRules.filter(rule => rule.enabled !== false);
   },
   async buildMatchingFieldsMap(activity, matchingFields) {
     const matchingMap = { activityType: activity.activityType };

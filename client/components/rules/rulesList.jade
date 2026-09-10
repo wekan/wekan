@@ -34,6 +34,13 @@ template(name="rulesList")
               i.fa.fa-eye
               | {{_ 'r-view-rule'}}
             if canAdmin
+              button.primary.wide.js-toggle-rule-enabled(type="submit" data-rule-id="{{_id}}" title="{{_ 'r-toggle-rule-enabled'}}")
+                if isEnabled
+                  i.fa.fa-toggle-on
+                  | {{_ 'r-rule-enabled'}}
+                else
+                  i.fa.fa-toggle-off
+                  | {{_ 'r-rule-disabled'}}
               button.primary.wide.js-edit-rule(type="submit" data-rule-id="{{_id}}")
                 i.fa.fa-pencil
                 | {{_ 'r-edit-rule'}}

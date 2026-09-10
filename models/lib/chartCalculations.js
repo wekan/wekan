@@ -206,6 +206,35 @@ function computeThroughput(cards, bucket = 'week') {
   return Object.keys(buckets).sort().map(key => ({ bucket: key, count: buckets[key] }));
 }
 
+// Completion forecast (#1476): projects a completion date for the cards still
+// open, from the average throughput of the most recent buckets of
+// `computeThroughput`'s own series - reusing that series rather than
+// recomputing velocity a second way. `bucketDays` is how many calendar days
+// one throughput bucket spans (7 for 'week', 30 for 'month', 1 for 'day'),
+// and `windowSize` is how many of the most recent buckets the average is
+// taken over (default 4, e.g. the last 4 weeks). Returns null when there is
+// nothing open to project, or when recent throughput is zero (the rate never
+// finishes the remaining work, so no date can be given).
+function computeCompletionForecast(cards, throughputSeries, bucketDays = 7, windowSize = 4) {
+  const remaining = cards.filter(card => !completionDate(card)).length;
+  if (remaining <= 0) return { remaining: 0, averagePerBucket: 0, bucketsNeeded: 0, projectedDate: null };
+  const recent = throughputSeries.slice(-windowSize);
+  const totalCompleted = recent.reduce((sum, row) => sum + (Number(row.count) || 0), 0);
+  const averagePerBucket = recent.length ? totalCompleted / recent.length : 0;
+  if (averagePerBucket <= 0) {
+    return { remaining, averagePerBucket: 0, bucketsNeeded: null, projectedDate: null };
+  }
+  const bucketsNeeded = Math.ceil(remaining / averagePerBucket);
+  const projected = new Date();
+  projected.setUTCDate(projected.getUTCDate() + bucketsNeeded * bucketDays);
+  return {
+    remaining,
+    averagePerBucket: Math.round(averagePerBucket * 100) / 100,
+    bucketsNeeded,
+    projectedDate: dayKey(projected),
+  };
+}
+
 // Flow Efficiency: active-work time (spentTime, if the board tracks it) as a
 // share of total cycle time. Boards that never log time on a card cannot say
 // how much of its cycle time was "active" vs "waiting" - charts.tsv's "queue
@@ -359,6 +388,7 @@ module.exports = {
   computeBurndown,
   computeBurnup,
   computeThroughput,
+  computeCompletionForecast,
   computeFlowEfficiency,
   computeDashboardGroups,
   NO_ASSIGNEE_GROUP,

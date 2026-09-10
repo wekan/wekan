@@ -69,6 +69,17 @@ Rules.attachSchema(
       type: String,
       optional: true,
     },
+    // #2322: temporarily disable a rule without deleting it. Defaults to
+    // `true` so every rule that existed before this field was added (and any
+    // rule created without explicitly setting it) keeps firing exactly as
+    // before - only an explicit flip to `false` (rules.setEnabled) stops a
+    // rule's trigger/action from being evaluated; its Trigger/Action
+    // documents and the rule's own configuration are untouched either way.
+    enabled: {
+      type: Boolean,
+      optional: true,
+      defaultValue: true,
+    },
     createdAt: {
       type: Date,
       optional: true,

@@ -37,6 +37,13 @@ Template.rulesList.helpers({
   isEditing() {
     return Template.instance().editingRuleId.get() === this._id;
   },
+  // #2322: `enabled` defaults to true in the schema (and is absent on any
+  // rule document written before this field existed), so only an explicit
+  // `false` counts as disabled here - matching the skip check in
+  // server/rulesHelper.js's findMatchingRules().
+  isEnabled() {
+    return this.enabled !== false;
+  },
 });
 
 Template.rulesList.events({
@@ -69,6 +76,15 @@ Template.rulesList.events({
     setSelected([]);
   },
   'click .js-rules-export-selected': Popup.open('rulesImportExport'),
+  // #2322: flip a rule's enabled/disabled state in place, without touching
+  // its trigger/action configuration (server/rulesButton.js rules.setEnabled).
+  'click .js-toggle-rule-enabled'(event) {
+    const ruleId = event.currentTarget.getAttribute('data-rule-id');
+    const rule = ReactiveCache.getRule(ruleId);
+    if (!rule) return;
+    const nextEnabled = rule.enabled === false;
+    Meteor.call('rules.setEnabled', ruleId, nextEnabled);
+  },
   // Inline rename of a rule.
   'click .js-edit-rule'(event, tpl) {
     tpl.editingRuleId.set(this._id);

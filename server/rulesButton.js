@@ -212,4 +212,26 @@ Meteor.methods({
     if (rule.actionId) await Actions.removeAsync(rule.actionId);
     return { _id: rule._id };
   },
+
+  // #2322: flip a rule's `enabled` flag without touching anything else. A
+  // disabled rule's Trigger/Action documents and the rule's own title/
+  // trigger/action are left exactly as they are - only RulesHelper.
+  // findMatchingRules() skips it (server/rulesHelper.js) - so re-enabling
+  // restores the rule to firing with the same configuration it had before.
+  async 'rules.setEnabled'(ruleId, enabled) {
+    check(ruleId, String);
+    check(enabled, Boolean);
+
+    const rule = await ReactiveCache.getRule(ruleId);
+    if (!rule) throw new Meteor.Error('not-found', 'Rule not found');
+
+    const board = await ReactiveCache.getBoard(rule.boardId);
+    if (!board) throw new Meteor.Error('not-found', 'Board not found');
+    if (!board.hasAdmin(this.userId)) {
+      throw new Meteor.Error('not-authorized', 'Must be a board admin');
+    }
+
+    await Rules.updateAsync(ruleId, { $set: { enabled } });
+    return { _id: ruleId, enabled };
+  },
 });

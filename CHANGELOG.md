@@ -453,6 +453,32 @@ that hides a field's value from non-admin board members.
 
 This release adds the following new features:
 
+**Notification Settings** - one place to turn tray/email notifications on or off.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bde66a5c7ddba955c7e6583304a1ca7274aaf8f4">Add a 3-tier Notification Settings popup to Member Settings, Board Settings and Admin Panel / People</a>. Thanks to xet7.</summary>
+
+Whether a notification reaches the in-app tray or an email was previously
+all-or-nothing: `Notifications.notify` fanned out to every subscribed
+service (`profile` for the tray, `email` for mail) with no way to turn
+either off. This adds a "Notification Settings" entry - right below Email
+in Admin Panel / People, and matching entries in Board Settings and Member
+Settings - all three opening the same reusable
+`notificationSettingsPopup` template.
+
+Precedence follows the theme override pattern already used elsewhere:
+Admin Panel default, then Board override, then the member's own override,
+each optional/nullable so an unset level falls through to the next. The
+resolution itself is a small pure function,
+`resolveNotificationSetting()` in `models/lib/notificationSettings.js`,
+unit-tested for every precedence case
+(`tests/notificationSettingsResolution.test.cjs`).
+`server/notifications/profile.js` and `server/notifications/email.js` now
+call it before adding to the tray or buffering an email, so a disabled
+service is genuinely skipped, not only hidden in the popup.
+
+</details>
+
 **Board reports** - the Gantt view and the 10 board report chart views.
 
 <details>
@@ -1049,6 +1075,66 @@ code path calls `Filter.reset()`/clear, and every `Filter.reset()` call
 site in `client/` and `imports/` remains one of the three known, explicit
 actions - so a future change that adds a fourth, especially one reachable
 from card open/close, fails this test.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/REPLACE_HASH">A card can now be filtered by who created it</a>. Thanks to lukasz-krawczyk and xet7.</summary>
+
+[#3681](https://github.com/wekan/wekan/issues/3681) asked to see who created
+a card without relying on system messages, and its title was later broadened
+to "Filter by Creator". `Filter.userId` (`client/lib/filter.js`) is a new
+`SetFilter`, the exact same shape/API `Filter.members`/`Filter.assignees`
+already use, keyed to match `models/cards.js`'s own name for the card-author
+field (`userId` - "should probably be called `authorId`", per its own
+long-standing comment) rather than inventing a `creatorId` alias, so
+`Filter._getMongoSelector()` needed no special-casing. A new "Filter by
+creator" section in the sidebar (`sidebarFilters.jade`/`.js`) lists the
+board's active members exactly like the existing Member/Assignee sections
+and toggles `Filter.userId` the same way. `tests/creatorFilter3681.test.cjs`
+drives the real `Filter` object end to end, through the mongo selector it
+produces.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/REPLACE_HASH">A filter now survives moving from one board to another, instead of being cleared on every hop</a>. Thanks to jarohen-oc and xet7.</summary>
+
+[#1751](https://github.com/wekan/wekan/issues/1751) asked for filters to stay
+active across boards - the reporter's own use case is "only show my user's
+cards", i.e. a member/assignee/creator filter by user id, which means the
+same thing on every board since user ids are global. `config/router.js`'s
+board route used to call `Filter.reset()` (clearing everything) whenever the
+target board differed from the current one. It now calls a new
+`Filter.resetBoardScoped()` (`client/lib/filter.js`) instead, which only
+clears the filters whose values are scoped to the board being left - labels,
+excluded labels, custom fields, dependency types and the advanced/list text
+filters, all ids or text that mean nothing, or the wrong thing, on a
+different board - and leaves member/assignee/creator/due-date/title filters
+in place. The sidebar's own "Clear filters" button and every other route
+(All Boards, Archive, Public, …) still call the original `reset()`
+unchanged. `tests/filterPersistsAcrossBoards1751.test.cjs` pins both halves
+plus the router wiring itself.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/REPLACE_HASH">Confirmed two more open filter requests were already implemented, and pinned them with regression tests</a>. Thanks to Sh0g0-1758 and blaisep and xet7.</summary>
+
+Checking the remaining open `Feature:Filters`-labeled issues against the
+current source (per the "fix open issues" process) found two already done,
+neither part of today's earlier filter work:
+[#567](https://github.com/wekan/wekan/issues/567) ("Hide empty lists when
+filtering items in a board") is `Filter.hideEmpty`, wired end to end
+(`sidebarFilters.jade`/`.js`, consumed by
+`client/components/swimlanes/swimlanes.js`); and
+[#2035](https://github.com/wekan/wekan/issues/2035) ("extended Filter
+feature that will list up archived cards and cards in archived lists") is
+`Filter.archive`, whose sidebar toggle re-subscribes to the board with the
+archived flag set rather than only filtering client-side. Neither had a
+regression test pinning that the wiring stays intact;
+`tests/filterAlreadyFixedIssues.test.cjs` now reads the actual source for
+both and fails if either toggle, handler or consumer disappears.
 
 </details>
 
@@ -2073,7 +2159,7 @@ fixed-member "add member" action is unchanged.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/COMMIT_HASH">Added a "card title/description contains {value}" rule trigger</a>. Thanks to sfahrenholz and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/b42034171">Added a "card title/description contains {value}" rule trigger</a>. Thanks to sfahrenholz and xet7.</summary>
 
 [#2194](https://github.com/wekan/wekan/issues/2194) asked for a text-search
 rule condition combinable with other triggers (e.g. "card added to Backlog
@@ -3627,6 +3713,36 @@ the scoping matches "Select all cards" exactly; the handler calls the shared
 `Cards.update` itself; an empty list never reaches the server call; the
 server still defines exactly one `archiveSelectedCards` method (no
 duplicate); and every locale file already carries both translation keys.
+
+</details>
+
+and closes the following already-fixed issue:
+
+**Lists and swimlanes** - linking directly to one of them.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c8ad1b61d">Confirm #1089 ("Link to this list") stays fixed</a>. Thanks to xet7.</summary>
+
+[#1089](https://github.com/wekan/wekan/issues/1089) asked for "Link to
+this list", and reported the same fault #6459 later named exactly: the
+list-more popup's link box read the nonexistent `{{ rootUrl }}` template
+helper, so the box was always empty - there was no working list link,
+and no swimlane link at all.
+
+Already fixed by commit e755b60b3 ("Link to a swimlane or a list, the
+way you can link to a card."): `models/lib/boardItemUrl.js` builds a
+real relative path for each, `List#absoluteUrl`/`Swimlane#absoluteUrl`
+resolve it through `Meteor.absoluteUrl()`, and
+`listHeader.js`/`swimlaneHeader.js`'s copy-link handlers call it -
+confirmed by reading the current code, not just the commit history.
+`tests/listSwimlaneLinkRootUrlIssue1089.test.cjs` is a pure-Node
+regression guard pinning both directions: the list and swimlane
+copy-link paths use the real `Meteor.absoluteUrl()` API, and (negative)
+no `.jade` template or `.js` helper anywhere in `client/` still
+references a bare/broken `rootUrl` - either the exact string #1089
+reported or a `rootUrl` template helper, which never existed and was
+the bug. No new code change was needed here; the issue is closed with a
+pointer to where it was already fixed.
 
 </details>
 
