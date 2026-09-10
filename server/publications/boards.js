@@ -965,6 +965,28 @@ publishComposite('board', async function(boardId, isArchived, generation) {
           return await ReactiveCache.getCardComments({ boardId: { $in: boardIds } }, {}, true);
         }
       },
+      // CardTextNotes for the whole board — a single cursor on the denormalized
+      // boardId, same pattern as checklists/comments above (#595).
+      {
+        async find(board) {
+          if (await boardIsLazy(board)) return null;
+          const boardIds = [board._id];
+          if (board.subtasksDefaultBoardId) boardIds.push(board.subtasksDefaultBoardId);
+          if (thisUserId && board.members) {
+            const member = findWhere(board.members, { userId: thisUserId, isActive: true });
+            if (member && (member.isNormalAssignedOnly || member.isCommentAssignedOnly || member.isReadAssignedOnly)) {
+              const cards = await ReactiveCache.getCards(
+                { boardId: { $in: boardIds }, archived: isArchived, assignees: { $in: [thisUserId] } },
+                { fields: { _id: 1 } },
+                false,
+              );
+              const cardIds = (cards || []).map(c => c._id);
+              return await ReactiveCache.getCardTextNotes({ cardId: { $in: cardIds } }, {}, true);
+            }
+          }
+          return await ReactiveCache.getCardTextNotes({ boardId: { $in: boardIds } }, {}, true);
+        }
+      },
       // Attachments for the whole board — a single cursor on the denormalized
       // meta.boardId (indexed), replacing the former one-cursor-per-card N+1 (#6480).
       {
@@ -1174,6 +1196,15 @@ publishComposite('board', async function(boardId, isArchived, generation) {
           if (linkedCardIds.length === 0) return null;
 
           return await ReactiveCache.getCardComments({ cardId: { $in: linkedCardIds } }, {}, true);
+        }
+      },
+      // CardTextNotes for linked cards
+      {
+        async find(board) {
+          const linkedCardIds = await visibleLinkedCardIds(board);
+          if (linkedCardIds.length === 0) return null;
+
+          return await ReactiveCache.getCardTextNotes({ cardId: { $in: linkedCardIds } }, {}, true);
         }
       },
       // Attachments for linked cards

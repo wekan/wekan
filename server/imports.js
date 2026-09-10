@@ -342,6 +342,7 @@ import '/server/permissions/boards';
 import '/server/permissions/cardCommentReactions';
 import '/server/permissions/cardComments';
 import '/server/permissions/cards';
+import '/server/permissions/cardTextNotes';
 import '/server/permissions/checklistItems';
 import '/server/permissions/checklists';
 import '/server/permissions/customFields';

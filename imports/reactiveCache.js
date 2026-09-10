@@ -51,6 +51,7 @@ const CardCommentReactions = lazyCollectionProxy(
   () => require('/models/cardCommentReactions').default,
 );
 const CardComments = lazyCollectionProxy(() => require('/models/cardComments').default);
+const CardTextNotes = lazyCollectionProxy(() => require('/models/cardTextNotes').default);
 const Cards = lazyCollectionProxy(() => require('/models/cards').default);
 const ChecklistItems = lazyCollectionProxy(() => require('/models/checklistItems').default);
 const Checklists = lazyCollectionProxy(() => require('/models/checklists').default);
@@ -164,6 +165,17 @@ const ReactiveCacheServer = {
   },
   async getCardCommentReactions(selector = {}, options = {}, getQuery = false) {
     let ret = CardCommentReactions.find(selector, options);
+    if (getQuery !== true) {
+      ret = typeof ret.fetchAsync === 'function' ? await ret.fetchAsync() : ret.fetch();
+    }
+    return ret;
+  },
+  async getCardTextNote(idOrFirstObjectSelector = {}, options = {}) {
+    const ret = typeof CardTextNotes.findOneAsync === 'function' ? await CardTextNotes.findOneAsync(idOrFirstObjectSelector, options) : CardTextNotes.findOne(idOrFirstObjectSelector, options);
+    return ret;
+  },
+  async getCardTextNotes(selector = {}, options = {}, getQuery = false) {
+    let ret = CardTextNotes.find(selector, options);
     if (getQuery !== true) {
       ret = typeof ret.fetchAsync === 'function' ? await ret.fetchAsync() : ret.fetch();
     }
@@ -622,6 +634,36 @@ const ReactiveCacheClient = {
       });
     }
     const ret = this.__cardCommentReactions.get(EJSON.stringify(select));
+    return ret;
+  },
+  getCardTextNote(idOrFirstObjectSelector = {}, options = {}) {
+    const idOrFirstObjectSelect = { idOrFirstObjectSelector, options };
+    if (!this.__cardTextNote) {
+      this.__cardTextNote = new DataCache((_idOrFirstObjectSelect) => {
+        const __select = EJSON.parse(_idOrFirstObjectSelect);
+        const _ret = CardTextNotes.findOne(
+          __select.idOrFirstObjectSelector,
+          __select.options,
+        );
+        return _ret;
+      });
+    }
+    const ret = this.__cardTextNote.get(EJSON.stringify(idOrFirstObjectSelect));
+    return ret;
+  },
+  getCardTextNotes(selector = {}, options = {}, getQuery = false) {
+    const select = { selector, options, getQuery };
+    if (!this.__cardTextNotes) {
+      this.__cardTextNotes = new DataCache((_select) => {
+        const __select = EJSON.parse(_select);
+        let _ret = CardTextNotes.find(__select.selector, __select.options);
+        if (__select.getQuery !== true) {
+          _ret = _ret.fetch();
+        }
+        return _ret;
+      });
+    }
+    const ret = this.__cardTextNotes.get(EJSON.stringify(select));
     return ret;
   },
   getCustomField(idOrFirstObjectSelector = {}, options = {}) {
@@ -1274,6 +1316,26 @@ const ReactiveCache = {
         options,
         getQuery,
       );
+    }
+  },
+  getCardTextNote(idOrFirstObjectSelector = {}, options = {}) {
+    if (Meteor.isServer) {
+      return ReactiveCacheServer.getCardTextNote(
+        idOrFirstObjectSelector,
+        options,
+      );
+    } else {
+      return ReactiveCacheClient.getCardTextNote(
+        idOrFirstObjectSelector,
+        options,
+      );
+    }
+  },
+  getCardTextNotes(selector = {}, options = {}, getQuery = false) {
+    if (Meteor.isServer) {
+      return ReactiveCacheServer.getCardTextNotes(selector, options, getQuery);
+    } else {
+      return ReactiveCacheClient.getCardTextNotes(selector, options, getQuery);
     }
   },
   getCustomField(idOrFirstObjectSelector = {}, options = {}) {

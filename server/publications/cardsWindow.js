@@ -251,6 +251,14 @@ publishComposite('boardCardsWindow', function(boardId, cardSelector, sort, limit
           return await ReactiveCache.getChecklistItems({ cardId: { $in: ids } }, {}, true);
         },
       },
+      // The window's text notes (#595).
+      {
+        async find(board) {
+          const ids = await windowCardIds(board);
+          if (ids.length === 0) return null;
+          return await ReactiveCache.getCardTextNotes({ cardId: { $in: ids } }, {}, true);
+        },
+      },
     ],
   };
 });

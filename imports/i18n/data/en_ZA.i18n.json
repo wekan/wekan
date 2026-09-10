@@ -439,6 +439,8 @@
   "text-note-title": "Title",
   "text-note-text": "Text",
   "text-note-delete-pop": "Are you sure you want to delete this text note?",
+  "cardTextNoteEditPopup-title": "Text Note",
+  "cardTextNoteDeletePopup-title": "Delete Text Note",
   "changeAvatarPopup-title": "Change Avatar",
   "delete-avatar-confirm": "Are you sure you want to delete this avatar?",
   "deleteAvatarPopup-title": "Delete Avatar?",

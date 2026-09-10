@@ -180,6 +180,11 @@ publishComposite('openCardData', async function(cardId) {
           return await ReactiveCache.getChecklistItems({ cardId: c._id }, {}, true);
         },
       },
+      {
+        async find(c) {
+          return await ReactiveCache.getCardTextNotes({ cardId: c._id }, {}, true);
+        },
+      },
     ],
   };
 });

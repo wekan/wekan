@@ -1,0 +1,36 @@
+template(name="cardTextNotes")
+  .card-text-notes
+    each textNotes
+      .card-text-note-item
+        .card-text-note-header
+          b.card-text-note-title {{title}}
+          if canModifyCard
+            .card-text-note-actions
+              a.js-edit-text-note(title="{{_ 'edit-text-note'}}" data-id="{{_id}}")
+                i.fa.fa-pencil
+              a.js-delete-text-note(title="{{_ 'delete-text-note'}}" data-id="{{_id}}")
+                i.fa.fa-trash
+        .card-text-note-preview
+          +viewer
+            = text
+
+    if canModifyCard
+      a.add-text-note.js-add-text-note(title="{{_ 'add-text-note'}}")
+        i.fa.fa-plus
+        | {{_ 'add-text-note'}}
+
+template(name="cardTextNoteEditPopup")
+  form.js-card-text-note-edit-form
+    label {{_ 'text-note-title'}}
+    input.js-card-text-note-title-input(type="text" value="{{title}}" dir="auto" autofocus)
+    label {{_ 'text-note-text'}}
+    +editor(class="js-card-text-note-text-input")
+      = text
+    .edit-controls.clearfix
+      button.primary.confirm.js-submit-text-note(type="submit") {{_ 'save'}}
+      if cardId
+        a.fa.fa-trash-o.js-delete-text-note-from-popup(title="{{_ 'delete-text-note'}}")
+
+template(name="cardTextNoteDeletePopup")
+  p {{_ "text-note-delete-pop"}}
+  button.js-confirm.negate.full(type="submit") {{_ 'delete'}}
