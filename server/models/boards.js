@@ -1216,6 +1216,7 @@ const BOARD_CARD_SETTING_KEYS = [
   'allowsDueDateOnMinicard',
   'allowsSubtasksOnMinicard',
   'allowsShowListsOnMinicard',
+  'allowsSwimlaneNameOnMinicard',
   'showLabelText',
 ];
 

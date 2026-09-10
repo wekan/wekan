@@ -300,6 +300,22 @@ Template.minicard.helpers({
     return currentBoard.allowsShowListsOnMinicard || this.getRealCard().showListOnMinicard;
   },
 
+  // #2426: the swimlane a card belongs to isn't otherwise visible on its
+  // minicard in List view (Swimlanes view already groups cards by
+  // swimlane), so this board-wide toggle shows the swimlane's name at the
+  // bottom of the minicard, the same place/style as the list name above.
+  shouldShowSwimlaneNameOnMinicard() {
+    const currentBoard = this.board();
+    if (!currentBoard) return false;
+    return currentBoard.allowsSwimlaneNameOnMinicard === true;
+  },
+
+  swimlaneName() {
+    const card = this.getRealCard();
+    const swimlane = card && ReactiveCache.getSwimlane(card.swimlaneId);
+    return swimlane ? swimlane.title : '';
+  },
+
   shouldShowChecklistAtMinicard() {
     // Return checklists that should be shown on minicard
     const currentBoard = this.board();

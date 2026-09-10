@@ -293,6 +293,10 @@ template(name="minicard")
         .minicard-list-name
           i.fa.fa-list
           | {{ listName }}
+      if shouldShowSwimlaneNameOnMinicard
+        .minicard-swimlane-name
+          i.fa.fa-list-alt
+          | {{ swimlaneName }}
       if $eq 'subtext-with-full-path' currentBoard.presentParentTask
         .parent-subtext
           | {{ parentString ' > ' }}

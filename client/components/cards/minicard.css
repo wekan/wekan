@@ -972,6 +972,18 @@
   gap: 4px;
 }
 
+/* #2426: the swimlane-name label, same place/weight as the list name above -
+   a small, unobtrusive line at the bottom of the minicard. */
+.minicard-swimlane-name {
+  clear: inline-start;
+  font-size: 0.75em;
+  color: #8c8c8c;
+  margin-top: 2px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
 /* Checklist display on minicard */
 .minicard-checklist {
   width: 100%;
