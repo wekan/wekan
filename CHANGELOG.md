@@ -2402,6 +2402,30 @@ Reply-To header, not a bug.
 
 </details>
 
+**The due-date badge** - the card detail and minicard badge showing a
+card's due date.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/67f1c7c56">The due-date badge now shows a countdown, not just the raw date</a>. Thanks to javen9881 and xet7.</summary>
+
+The badge only ever showed the formatted due date, even though its own
+hover title already read "Due on ...", giving no sense of urgency without
+opening the card. `dueCountdown()` (`client/lib/dueDateColor.js`) is a
+pure day-count helper - comparing the due date's calendar day against
+"now"'s, so a card due later today reads "Due today" rather than "0 days
+left" - sharing its "now" comparison with the existing `dueDateClass()`
+so the countdown and the badge's colour coding always agree.
+`cardDate.js`'s new `dueCountdownText()` turns it into translated text,
+and both the card-detail and minicard due-date badges now show it in
+their visible text and their hover title, e.g. "Jun 15 (3 days left)" /
+"Jun 15 (2 days overdue)" / "Jun 15 (Due today)". A due date that already
+has an end date set (the card is done) keeps just the plain date - there
+is nothing left to count down. The received/start/end date badges are
+untouched; they draw from the same shared markup template but keep their
+own `showDate()`/`showTitle()`.
+
+</details>
+
 and fixes the following bugs:
 
 **Board reports** - the Dashboard and the 10 board report chart views.
