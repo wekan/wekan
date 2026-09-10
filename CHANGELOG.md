@@ -533,6 +533,27 @@ dismisses its own popup without touching an unrelated one.
 
 </details>
 
+**Admin Panel** - the "Invite People" form under Accounts settings.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b2ca9962ba30a83ea4f831f44ccf05d2c7bb1d24">The Admin Panel's "Invite People" form now shows whether the invitation email actually sent</a>. Thanks to Rayene123 and xet7.</summary>
+
+This form's `sendInvitation` call used a callback with an empty parameter
+list, so it ignored both the error and the result - an admin who hit a
+mail-send failure (for example the server's mail transport not being
+configured, which `sendInvitationEmail` already reports as a descriptive
+`Meteor.Error('email-fail', ...)`) saw nothing at all: the Send button
+just stopped spinning either way, matching the silent "sending email
+failed" confusion reported in
+[#5707](https://github.com/wekan/wekan/issues/5707). The member "Invite
+People" popup (`userHeader.js`) already surfaced this via a red/green
+`#invite-people-infos` message, so `settingBody.js` now does the same:
+it reads the callback's error argument and writes the same success/error
+message into a matching `#invite-people-infos` element added to
+`settingBody.jade`.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for
 their translations.
 
