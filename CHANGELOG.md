@@ -1251,6 +1251,30 @@ existing "Remove all members" action is wired.
 
 </details>
 
+**Quick-add card** - the composer at the bottom of a list.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bc699ab43b379081755022ee4d5aa63d19f61039">A "[LabelName] " prefix in the quick-add-card title now applies (and creates) that label</a>. Thanks to mattdm and xet7.</summary>
+
+[#3986](https://github.com/wekan/wekan/issues/3986): bulk-entering cards
+through the quick-add composer had no way to label them without opening
+each card afterward. Typing a title that starts with a bracketed label
+name, e.g. "[Fedora] Do a thing", now creates the card titled "Do a
+thing" with the "Fedora" label applied - matching an existing board label
+by name case-insensitively, or creating one (with the same default-color
+pick the "Add label" popup uses) when no label with that name exists yet.
+
+Only a single bracket prefix at the very start of the title is parsed -
+an empty bracket, nested brackets, or a bracket with nothing left after
+it (e.g. "[Fedora]" alone) is left as literal title text rather than
+misread as the syntax. The parsing and label-resolution logic is a pure
+module, `models/lib/quickAddCardLabel.js`
+(`parseQuickAddCardLabel`/`findExistingLabelIdByName`/
+`pickDefaultLabelColor`), wired into `addCard` in
+`client/components/lists/listBody.js`.
+
+</details>
+
 and fixes the following bugs:
 
 **Board reports** - the Dashboard and the 10 board report chart views.
