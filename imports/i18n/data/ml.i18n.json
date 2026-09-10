@@ -250,6 +250,8 @@
   "board-view-swimlanes": "പാതകൾ",
   "board-view-collapse": "ചുരുക്കുക",
   "board-view-gantt": "Gantt",
+  "board-view-gantt-frappe": "Frappe Gantt",
+  "board-view-gantt-dhtmlx": "DHTMLX Gantt",
   "board-view-lists": "പട്ടികകൾ",
   "board-view-table": "പട്ടിക",
   "board-view-stats": "സ്ഥിതിവിവരക്കണക്കുകൾ",

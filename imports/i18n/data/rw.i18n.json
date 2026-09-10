@@ -250,6 +250,8 @@
   "board-view-swimlanes": "Imirongo",
   "board-view-collapse": "Zinga",
   "board-view-gantt": "Gantt",
+  "board-view-gantt-frappe": "Frappe Gantt",
+  "board-view-gantt-dhtmlx": "DHTMLX Gantt",
   "board-view-lists": "Intonde",
   "board-view-table": "Imbonerahamwe",
   "board-view-stats": "Imibare",

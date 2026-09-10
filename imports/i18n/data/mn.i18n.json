@@ -250,6 +250,8 @@
   "board-view-swimlanes": "Усан замууд",
   "board-view-collapse": "Хураах",
   "board-view-gantt": "Гантын диаграм",
+  "board-view-gantt-frappe": "Frappe Gantt",
+  "board-view-gantt-dhtmlx": "DHTMLX Gantt",
   "board-view-lists": "Жагсаалтууд",
   "board-view-table": "Хүснэгт",
   "board-view-stats": "Статистик",

@@ -250,6 +250,8 @@
   "board-view-swimlanes": "Λωρίδες",
   "board-view-collapse": "Σύμπτυξη",
   "board-view-gantt": "Διάγραμμα Gantt",
+  "board-view-gantt-frappe": "Frappe Gantt",
+  "board-view-gantt-dhtmlx": "DHTMLX Gantt",
   "board-view-lists": "Λίστες",
   "board-view-table": "Πίνακας δεδομένων",
   "board-view-stats": "Στατιστικά",

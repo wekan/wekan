@@ -250,6 +250,8 @@
   "board-view-swimlanes": "Ścieżki",
   "board-view-collapse": "Sbalit",
   "board-view-gantt": "Gannt",
+  "board-view-gantt-frappe": "Frappe Gantt",
+  "board-view-gantt-dhtmlx": "DHTMLX Gantt",
   "board-view-lists": "Zoznamy",
   "board-view-table": "Tabulka",
   "board-view-stats": "Štatistiky",

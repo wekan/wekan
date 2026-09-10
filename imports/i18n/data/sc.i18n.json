@@ -250,6 +250,8 @@
   "board-view-swimlanes": "Càminos",
   "board-view-collapse": "Comprimi",
   "board-view-gantt": "Elementu: Gantt",
+  "board-view-gantt-frappe": "Frappe Gantt",
+  "board-view-gantt-dhtmlx": "DHTMLX Gantt",
   "board-view-lists": "Listas",
   "board-view-table": "Tabella",
   "board-view-stats": "Statistiche",

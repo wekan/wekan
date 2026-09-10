@@ -250,6 +250,8 @@
   "board-view-swimlanes": "Làn ngang",
   "board-view-collapse": "Thu gọn",
   "board-view-gantt": "Biểu đồ Gantt",
+  "board-view-gantt-frappe": "Frappe Gantt",
+  "board-view-gantt-dhtmlx": "DHTMLX Gantt",
   "board-view-lists": "Danh sách",
   "board-view-table": "Jadual",
   "board-view-stats": "Thống kê",

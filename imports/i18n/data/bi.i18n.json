@@ -250,6 +250,8 @@
   "board-view-swimlanes": "Ol rod",
   "board-view-collapse": "Tok blong sistem: Collapse",
   "board-view-gantt": "Tok blong sistem: Gantt",
+  "board-view-gantt-frappe": "Frappe Gantt",
+  "board-view-gantt-dhtmlx": "DHTMLX Gantt",
   "board-view-lists": "Ol lis",
   "board-view-table": "Tok blong sistem: Table",
   "board-view-stats": "Tok blong sistem: Statistics",

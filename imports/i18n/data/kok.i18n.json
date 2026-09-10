@@ -250,6 +250,8 @@
   "board-view-swimlanes": "वाटो",
   "board-view-collapse": "आंकसात",
   "board-view-gantt": "Gantt",
+  "board-view-gantt-frappe": "Frappe Gantt",
+  "board-view-gantt-dhtmlx": "DHTMLX Gantt",
   "board-view-lists": "वळेऱ्यो",
   "board-view-table": "कोष्टक",
   "board-view-stats": "आंकडेवारी",

@@ -250,6 +250,8 @@
   "board-view-swimlanes": "Pistas",
   "board-view-collapse": "Colapsar",
   "board-view-gantt": "Gantt",
+  "board-view-gantt-frappe": "Frappe Gantt",
+  "board-view-gantt-dhtmlx": "DHTMLX Gantt",
   "board-view-lists": "Listas",
   "board-view-table": "Tabela",
   "board-view-stats": "Estatísticas",

@@ -250,6 +250,8 @@
   "board-view-swimlanes": "Kouloir yo",
   "board-view-collapse": "Redui",
   "board-view-gantt": "Gantt",
+  "board-view-gantt-frappe": "Frappe Gantt",
+  "board-view-gantt-dhtmlx": "DHTMLX Gantt",
   "board-view-lists": "Lis yo",
   "board-view-table": "Tablo done",
   "board-view-stats": "Estatistik",

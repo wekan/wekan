@@ -250,6 +250,8 @@
   "board-view-swimlanes": "泳道图",
   "board-view-collapse": "崩溃",
   "board-view-gantt": "甘特图",
+  "board-view-gantt-frappe": "Frappe Gantt",
+  "board-view-gantt-dhtmlx": "DHTMLX Gantt",
   "board-view-lists": "列表",
   "board-view-table": "表格",
   "board-view-stats": "统计",

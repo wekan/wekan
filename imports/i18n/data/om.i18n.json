@@ -250,6 +250,8 @@
   "board-view-swimlanes": "Karaalee",
   "board-view-collapse": "Dachaasi",
   "board-view-gantt": "Gantt",
+  "board-view-gantt-frappe": "Frappe Gantt",
+  "board-view-gantt-dhtmlx": "DHTMLX Gantt",
   "board-view-lists": "Tarreewwan",
   "board-view-table": "Gabatee",
   "board-view-stats": "Istaatistiksii",

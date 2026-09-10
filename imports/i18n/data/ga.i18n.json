@@ -250,6 +250,8 @@
   "board-view-swimlanes": "Lánaí",
   "board-view-collapse": "Laghdaigh",
   "board-view-gantt": "Gantt",
+  "board-view-gantt-frappe": "Frappe Gantt",
+  "board-view-gantt-dhtmlx": "DHTMLX Gantt",
   "board-view-lists": "Liostaí",
   "board-view-table": "Tábla",
   "board-view-stats": "Staitisticí",

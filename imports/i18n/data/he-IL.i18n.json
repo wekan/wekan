@@ -250,6 +250,8 @@
   "board-view-swimlanes": "מסלולים",
   "board-view-collapse": "צמצום",
   "board-view-gantt": "גאנט",
+  "board-view-gantt-frappe": "Frappe Gantt",
+  "board-view-gantt-dhtmlx": "DHTMLX Gantt",
   "board-view-lists": "רשימות",
   "board-view-table": "טבלה",
   "board-view-stats": "סטטיסטיקה",

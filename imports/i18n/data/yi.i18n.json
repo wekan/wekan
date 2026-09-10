@@ -250,6 +250,8 @@
   "board-view-swimlanes": "סווימלאַנעס",
   "board-view-collapse": "ייַנבראָך",
   "board-view-gantt": "גאַנטט",
+  "board-view-gantt-frappe": "Frappe Gantt",
+  "board-view-gantt-dhtmlx": "DHTMLX Gantt",
   "board-view-lists": "רשימות",
   "board-view-table": "טיש",
   "board-view-stats": "סטאַטיסטיק",

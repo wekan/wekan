@@ -250,6 +250,8 @@
   "board-view-swimlanes": "لڪيرون",
   "board-view-collapse": "ويڙهيو",
   "board-view-gantt": "Gantt",
+  "board-view-gantt-frappe": "Frappe Gantt",
+  "board-view-gantt-dhtmlx": "DHTMLX Gantt",
   "board-view-lists": "فهرستون",
   "board-view-table": "جدول",
   "board-view-stats": "انگ اکر",

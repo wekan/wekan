@@ -250,6 +250,8 @@
   "board-view-swimlanes": "Cassanyn",
   "board-view-collapse": "Co-chur",
   "board-view-gantt": "Gantt",
+  "board-view-gantt-frappe": "Frappe Gantt",
+  "board-view-gantt-dhtmlx": "DHTMLX Gantt",
   "board-view-lists": "Rolleeyn",
   "board-view-table": "Boayrd",
   "board-view-stats": "Staydraa",

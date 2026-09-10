@@ -50,6 +50,10 @@ template(name="boardBody")
           +calendarView
         else if isViewGantt
           +ganttView
+        else if isViewGanttFrappe
+          +frappeGanttView
+        else if isViewGanttDhtmlx
+          +dhtmlxGanttView
         else if isViewTable
           +tableView
         else if isViewStats

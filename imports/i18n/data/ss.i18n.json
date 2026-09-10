@@ -250,6 +250,8 @@
   "board-view-swimlanes": "Imitsandvo",
   "board-view-collapse": "Goca",
   "board-view-gantt": "Gantt",
+  "board-view-gantt-frappe": "Frappe Gantt",
+  "board-view-gantt-dhtmlx": "DHTMLX Gantt",
   "board-view-lists": "Tinhla",
   "board-view-table": "Lithebula",
   "board-view-stats": "Tibalo",

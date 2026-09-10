@@ -39,6 +39,8 @@ const VIEWS = [
   { view: 'board-view-time', jsClass: 'js-open-time-view', icon: 'fa-clock-o', template: 'timeView', helper: 'isViewTime' },
   { view: 'board-view-stats', jsClass: 'js-open-stats-view', icon: 'fa-pie-chart' },
   { view: 'board-view-gantt', jsClass: 'js-open-gantt-view', icon: 'fa-bar-chart' },
+  { view: 'board-view-gantt-frappe', jsClass: 'js-open-gantt-frappe-view', icon: 'fa-tasks', template: 'frappeGanttView', helper: 'isViewGanttFrappe' },
+  { view: 'board-view-gantt-dhtmlx', jsClass: 'js-open-gantt-dhtmlx-view', icon: 'fa-list-alt', template: 'dhtmlxGanttView', helper: 'isViewGanttDhtmlx' },
   { view: 'board-view-dashboard', jsClass: 'js-open-dashboard-view', icon: 'fa-tachometer', template: 'dashboardView', helper: 'isViewDashboard', chart: true },
   { view: 'board-view-burndown', jsClass: 'js-open-burndown-view', icon: 'fa-line-chart', template: 'burndownView', helper: 'isViewBurndown', chart: true },
   { view: 'board-view-burnup', jsClass: 'js-open-burnup-view', icon: 'fa-area-chart', template: 'burnupView', helper: 'isViewBurnup', chart: true },
@@ -51,10 +53,11 @@ const VIEWS = [
   { view: 'board-view-wip-run', jsClass: 'js-open-wip-run-view', icon: 'fa-flag-checkered', template: 'wipRunView', helper: 'isViewWipRun', chart: true },
 ];
 
-// Between Table and Calendar, between Time and Statistics, and between Gantt
-// and Dashboard - like the right sidebar's own hr-separated groups
-// (client/components/sidebar/sidebar.jade).
-const HR_AFTER = ['board-view-table', 'board-view-time', 'board-view-gantt'];
+// Between Table and Calendar, between Time and Statistics, between
+// Statistics and the Gantt group, and between the Gantt group (WeKan's own
+// Gantt, Frappe Gantt, DHTMLX Gantt) and Dashboard - like the right
+// sidebar's own hr-separated groups (client/components/sidebar/sidebar.jade).
+const HR_AFTER = ['board-view-table', 'board-view-time', 'board-view-stats', 'board-view-gantt-dhtmlx'];
 
 test('the menu lists every view in the required top-to-bottom order', () => {
   const popup = boardHeaderJade.slice(boardHeaderJade.indexOf('template(name="boardChangeViewPopup")'));

@@ -250,6 +250,8 @@
   "board-view-swimlanes": "Rêç",
   "board-view-collapse": "Bitewîne",
   "board-view-gantt": "Gantt",
+  "board-view-gantt-frappe": "Frappe Gantt",
+  "board-view-gantt-dhtmlx": "DHTMLX Gantt",
   "board-view-lists": "Lîste",
   "board-view-table": "Tablo",
   "board-view-stats": "Statîstîk",

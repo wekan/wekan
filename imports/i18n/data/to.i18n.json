@@ -250,6 +250,8 @@
   "board-view-swimlanes": "Ngaahi hala",
   "board-view-collapse": "Faka-Tonga: Collapse",
   "board-view-gantt": "Faka-Tonga: Gantt",
+  "board-view-gantt-frappe": "Frappe Gantt",
+  "board-view-gantt-dhtmlx": "DHTMLX Gantt",
   "board-view-lists": "Ngaahi lisi",
   "board-view-table": "Faka-Tonga: Table",
   "board-view-stats": "Faka-Tonga: Statistics",

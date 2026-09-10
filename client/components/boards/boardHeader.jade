@@ -194,12 +194,27 @@ template(name="boardChangeViewPopup")
           | {{_ 'board-view-stats'}}
           if $eq Utils.boardView "board-view-stats"
             i.fa.fa-check
+      hr
     li
       with "board-view-gantt"
         a.js-open-gantt-view
           i.fa.fa-bar-chart
           | {{_ 'board-view-gantt'}}
           if $eq Utils.boardView "board-view-gantt"
+            i.fa.fa-check
+    li
+      with "board-view-gantt-frappe"
+        a.js-open-gantt-frappe-view
+          i.fa.fa-tasks
+          | {{_ 'board-view-gantt-frappe'}}
+          if $eq Utils.boardView "board-view-gantt-frappe"
+            i.fa.fa-check
+    li
+      with "board-view-gantt-dhtmlx"
+        a.js-open-gantt-dhtmlx-view
+          i.fa.fa-list-alt
+          | {{_ 'board-view-gantt-dhtmlx'}}
+          if $eq Utils.boardView "board-view-gantt-dhtmlx"
             i.fa.fa-check
       hr
     li

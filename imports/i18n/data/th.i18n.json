@@ -250,6 +250,8 @@
   "board-view-swimlanes": "สวิมเลน",
   "board-view-collapse": "ยุบ",
   "board-view-gantt": "แกนต์",
+  "board-view-gantt-frappe": "Frappe Gantt",
+  "board-view-gantt-dhtmlx": "DHTMLX Gantt",
   "board-view-lists": "รายการ",
   "board-view-table": "ตาราง",
   "board-view-stats": "สถิติ",

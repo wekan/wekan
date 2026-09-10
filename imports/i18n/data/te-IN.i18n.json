@@ -250,6 +250,8 @@
   "board-view-swimlanes": "స్విమ్లేన్స్",
   "board-view-collapse": "కుదించు",
   "board-view-gantt": "గాంట్",
+  "board-view-gantt-frappe": "Frappe Gantt",
+  "board-view-gantt-dhtmlx": "DHTMLX Gantt",
   "board-view-lists": "జాబితాలు",
   "board-view-table": "పట్టిక",
   "board-view-stats": "గణాంకాలు",

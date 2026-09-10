@@ -250,6 +250,8 @@
   "board-view-swimlanes": "Дорожки",
   "board-view-collapse": "Свернуть",
   "board-view-gantt": "Диаграмма Ганта",
+  "board-view-gantt-frappe": "Frappe Gantt",
+  "board-view-gantt-dhtmlx": "DHTMLX Gantt",
   "board-view-lists": "Списки",
   "board-view-table": "Таблица",
   "board-view-stats": "Статистика",

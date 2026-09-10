@@ -250,6 +250,8 @@
   "board-view-swimlanes": "मार्गिका",
   "board-view-collapse": "संक्षिप्त करा",
   "board-view-gantt": "Gantt",
+  "board-view-gantt-frappe": "Frappe Gantt",
+  "board-view-gantt-dhtmlx": "DHTMLX Gantt",
   "board-view-lists": "याद्या",
   "board-view-table": "तक्ता",
   "board-view-stats": "आकडेवारी",

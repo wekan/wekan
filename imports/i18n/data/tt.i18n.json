@@ -250,6 +250,8 @@
   "board-view-swimlanes": "Юллар",
   "board-view-collapse": "Катла",
   "board-view-gantt": "Гант Шемасы",
+  "board-view-gantt-frappe": "Frappe Gantt",
+  "board-view-gantt-dhtmlx": "DHTMLX Gantt",
   "board-view-lists": "Исемлекләр",
   "board-view-table": "Табло",
   "board-view-stats": "Истатистиклер",

@@ -250,6 +250,8 @@
   "board-view-swimlanes": "Uimaradat",
   "board-view-collapse": "Pienennä",
   "board-view-gantt": "Gantt-näkymä",
+  "board-view-gantt-frappe": "Frappe Gantt",
+  "board-view-gantt-dhtmlx": "DHTMLX Gantt",
   "board-view-lists": "Listat",
   "board-view-table": "Taulukko",
   "board-view-stats": "Tilastot",

@@ -250,6 +250,8 @@
   "board-view-swimlanes": "Migwagwa",
   "board-view-collapse": "Mashoko echiShona: Collapse",
   "board-view-gantt": "Mashoko echiShona: Gantt",
+  "board-view-gantt-frappe": "Frappe Gantt",
+  "board-view-gantt-dhtmlx": "DHTMLX Gantt",
   "board-view-lists": "Marondedzero",
   "board-view-table": "Mashoko echiShona: Table",
   "board-view-stats": "Mashoko echiShona: Statistics",

@@ -250,6 +250,8 @@
   "board-view-swimlanes": "সাঁতারপথসমূহ",
   "board-view-collapse": "সংকুচিত",
   "board-view-gantt": "Gantt",
+  "board-view-gantt-frappe": "Frappe Gantt",
+  "board-view-gantt-dhtmlx": "DHTMLX Gantt",
   "board-view-lists": "তালিকাসমূহ",
   "board-view-table": "সারণি",
   "board-view-stats": "পরিসংখ্যান",

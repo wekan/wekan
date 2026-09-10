@@ -250,6 +250,8 @@
   "board-view-swimlanes": "Obukubo",
   "board-view-collapse": "Collapse (mu Luganda)",
   "board-view-gantt": "Gantt (mu Luganda)",
+  "board-view-gantt-frappe": "Frappe Gantt",
+  "board-view-gantt-dhtmlx": "DHTMLX Gantt",
   "board-view-lists": "Enkalala",
   "board-view-table": "Table (mu Luganda)",
   "board-view-stats": "Statistics (mu Luganda)",

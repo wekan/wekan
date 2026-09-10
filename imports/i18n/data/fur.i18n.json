@@ -250,6 +250,8 @@
   "board-view-swimlanes": "Corsiis",
   "board-view-collapse": "Comprimi",
   "board-view-gantt": "Par furlan: Gantt",
+  "board-view-gantt-frappe": "Frappe Gantt",
+  "board-view-gantt-dhtmlx": "DHTMLX Gantt",
   "board-view-lists": "Listis",
   "board-view-table": "Tabella",
   "board-view-stats": "Statistiche",

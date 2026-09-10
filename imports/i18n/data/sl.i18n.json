@@ -250,6 +250,8 @@
   "board-view-swimlanes": "Plavalne steze",
   "board-view-collapse": "Skrči",
   "board-view-gantt": "Гант",
+  "board-view-gantt-frappe": "Frappe Gantt",
+  "board-view-gantt-dhtmlx": "DHTMLX Gantt",
   "board-view-lists": "Seznami",
   "board-view-table": "Приказани у табели",
   "board-view-stats": "Statistika",

@@ -250,6 +250,8 @@
   "board-view-swimlanes": "Simbanor",
   "board-view-collapse": "Fäll ihop",
   "board-view-gantt": "Gantt",
+  "board-view-gantt-frappe": "Frappe Gantt",
+  "board-view-gantt-dhtmlx": "DHTMLX Gantt",
   "board-view-lists": "Listor",
   "board-view-table": "Tabell",
   "board-view-stats": "Statistik",

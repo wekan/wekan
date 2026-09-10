@@ -250,6 +250,8 @@
   "board-view-swimlanes": "સ્વિમલેન્સ",
   "board-view-collapse": "સંકુચિત કરો",
   "board-view-gantt": "ગેન્ટ",
+  "board-view-gantt-frappe": "Frappe Gantt",
+  "board-view-gantt-dhtmlx": "DHTMLX Gantt",
   "board-view-lists": "યાદીઓ",
   "board-view-table": "ટેબલ",
   "board-view-stats": "આંકડા",

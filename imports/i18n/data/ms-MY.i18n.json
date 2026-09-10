@@ -250,6 +250,8 @@
   "board-view-swimlanes": "Aliran Renang",
   "board-view-collapse": "Buka",
   "board-view-gantt": "Gantt",
+  "board-view-gantt-frappe": "Frappe Gantt",
+  "board-view-gantt-dhtmlx": "DHTMLX Gantt",
   "board-view-lists": "Senarai",
   "board-view-table": "Jadual",
   "board-view-stats": "Statistik",

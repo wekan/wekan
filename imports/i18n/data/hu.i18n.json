@@ -250,6 +250,8 @@
   "board-view-swimlanes": "Úszósávok",
   "board-view-collapse": "Összecsukás",
   "board-view-gantt": "Gantt",
+  "board-view-gantt-frappe": "Frappe Gantt",
+  "board-view-gantt-dhtmlx": "DHTMLX Gantt",
   "board-view-lists": "Listák",
   "board-view-table": "Táblázat",
   "board-view-stats": "Statisztika",

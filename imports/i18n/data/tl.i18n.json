@@ -250,6 +250,8 @@
   "board-view-swimlanes": "Mga daanan",
   "board-view-collapse": "Itiklop",
   "board-view-gantt": "Gantt",
+  "board-view-gantt-frappe": "Frappe Gantt",
+  "board-view-gantt-dhtmlx": "DHTMLX Gantt",
   "board-view-lists": "Mga listahan",
   "board-view-table": "Talahanayan",
   "board-view-stats": "Estadistika",

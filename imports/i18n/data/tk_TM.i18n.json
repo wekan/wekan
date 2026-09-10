@@ -250,6 +250,8 @@
   "board-view-swimlanes": "Swimüzüjiler",
   "board-view-collapse": "Apseykylmak",
   "board-view-gantt": "Gant",
+  "board-view-gantt-frappe": "Frappe Gantt",
+  "board-view-gantt-dhtmlx": "DHTMLX Gantt",
   "board-view-lists": "Sanawlar",
   "board-view-table": "Tablisa",
   "board-view-stats": "Statistika",

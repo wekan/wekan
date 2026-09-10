@@ -250,6 +250,8 @@
   "board-view-swimlanes": "Լողավազաններ",
   "board-view-collapse": "Փլուզվել",
   "board-view-gantt": "Գանտ",
+  "board-view-gantt-frappe": "Frappe Gantt",
+  "board-view-gantt-dhtmlx": "DHTMLX Gantt",
   "board-view-lists": "Ցուցակներ",
   "board-view-table": "Աղյուսակ",
   "board-view-stats": "Վիճակագրություն",

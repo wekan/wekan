@@ -250,6 +250,8 @@
   "board-view-swimlanes": "Ҫулсем",
   "board-view-collapse": "Пӗчӗклетес",
   "board-view-gantt": "Gantt",
+  "board-view-gantt-frappe": "Frappe Gantt",
+  "board-view-gantt-dhtmlx": "DHTMLX Gantt",
   "board-view-lists": "Спискӑсем",
   "board-view-table": "Таблица",
   "board-view-stats": "Статистика",

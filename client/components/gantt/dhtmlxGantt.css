@@ -1,0 +1,8 @@
+.dhtmlx-gantt-container {
+  width: 100%;
+  height: 500px;
+}
+
+.dhtmlx-gantt-empty {
+  color: #888;
+}

@@ -250,6 +250,8 @@
   "board-view-swimlanes": "मार्गहरू",
   "board-view-collapse": "खुम्च्याउनुहोस्",
   "board-view-gantt": "Gantt",
+  "board-view-gantt-frappe": "Frappe Gantt",
+  "board-view-gantt-dhtmlx": "DHTMLX Gantt",
   "board-view-lists": "सूचीहरू",
   "board-view-table": "तालिका",
   "board-view-stats": "तथ्याङ्क",

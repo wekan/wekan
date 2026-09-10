@@ -288,6 +288,8 @@ export const Utils = {
       Utils.reload();
     } else if (
       [
+        'board-view-gantt-frappe',
+        'board-view-gantt-dhtmlx',
         'board-view-table',
         'board-view-time',
         'board-view-stats',
@@ -345,6 +347,8 @@ export const Utils = {
       return 'board-view-gantt';
     } else if (
       [
+        'board-view-gantt-frappe',
+        'board-view-gantt-dhtmlx',
         'board-view-table',
         'board-view-time',
         'board-view-stats',

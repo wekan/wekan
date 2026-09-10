@@ -250,6 +250,8 @@
   "board-view-swimlanes": "خطوط السباحة",
   "board-view-collapse": "انهيار",
   "board-view-gantt": "Gantt",
+  "board-view-gantt-frappe": "Frappe Gantt",
+  "board-view-gantt-dhtmlx": "DHTMLX Gantt",
   "board-view-lists": "القائمات",
   "board-view-table": "جدول",
   "board-view-stats": "ⵜⵉⵙⵉⴹⵏⵉⵏ",

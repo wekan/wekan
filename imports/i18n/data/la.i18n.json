@@ -250,6 +250,8 @@
   "board-view-swimlanes": "Semitae",
   "board-view-collapse": "Latine: Collapse",
   "board-view-gantt": "Latine: Gantt",
+  "board-view-gantt-frappe": "Frappe Gantt",
+  "board-view-gantt-dhtmlx": "DHTMLX Gantt",
   "board-view-lists": "Indices",
   "board-view-table": "Latine: Table",
   "board-view-stats": "Latine: Statistics",

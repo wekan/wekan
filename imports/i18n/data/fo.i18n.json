@@ -250,6 +250,8 @@
   "board-view-swimlanes": "Bein",
   "board-view-collapse": "Fella saman",
   "board-view-gantt": "Gantt",
+  "board-view-gantt-frappe": "Frappe Gantt",
+  "board-view-gantt-dhtmlx": "DHTMLX Gantt",
   "board-view-lists": "Listar",
   "board-view-table": "Talva",
   "board-view-stats": "Hagtøl",

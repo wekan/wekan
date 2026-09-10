@@ -250,6 +250,8 @@
   "board-view-swimlanes": "스윔레인",
   "board-view-collapse": "접기",
   "board-view-gantt": "간트",
+  "board-view-gantt-frappe": "Frappe Gantt",
+  "board-view-gantt-dhtmlx": "DHTMLX Gantt",
   "board-view-lists": "목록들",
   "board-view-table": "표",
   "board-view-stats": "통계",

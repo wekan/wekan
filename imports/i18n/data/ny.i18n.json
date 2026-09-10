@@ -250,6 +250,8 @@
   "board-view-swimlanes": "Njira",
   "board-view-collapse": "Pindani",
   "board-view-gantt": "Gantt",
+  "board-view-gantt-frappe": "Frappe Gantt",
+  "board-view-gantt-dhtmlx": "DHTMLX Gantt",
   "board-view-lists": "Mindandanda",
   "board-view-table": "Tebulo",
   "board-view-stats": "Ziwerengero",

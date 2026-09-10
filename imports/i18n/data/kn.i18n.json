@@ -250,6 +250,8 @@
   "board-view-swimlanes": "ಪಥಗಳು",
   "board-view-collapse": "ಕುಗ್ಗಿಸಿ",
   "board-view-gantt": "Gantt",
+  "board-view-gantt-frappe": "Frappe Gantt",
+  "board-view-gantt-dhtmlx": "DHTMLX Gantt",
   "board-view-lists": "ಪಟ್ಟಿಗಳು",
   "board-view-table": "ಕೋಷ್ಟಕ",
   "board-view-stats": "ಅಂಕಿಅಂಶಗಳು",

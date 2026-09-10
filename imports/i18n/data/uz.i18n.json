@@ -250,6 +250,8 @@
   "board-view-swimlanes": "Suzish yo'llari",
   "board-view-collapse": "Yiqilish",
   "board-view-gantt": "Gantt",
+  "board-view-gantt-frappe": "Frappe Gantt",
+  "board-view-gantt-dhtmlx": "DHTMLX Gantt",
   "board-view-lists": "Roʻyxatlar",
   "board-view-table": "Jadval",
   "board-view-stats": "Statistika",

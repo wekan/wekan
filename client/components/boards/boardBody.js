@@ -713,6 +713,14 @@ Template.boardBody.helpers({
     return Utils.boardView() === 'board-view-gantt';
   },
 
+  isViewGanttFrappe() {
+    return Utils.boardView() === 'board-view-gantt-frappe';
+  },
+
+  isViewGanttDhtmlx() {
+    return Utils.boardView() === 'board-view-gantt-dhtmlx';
+  },
+
   isViewTable() {
     return Utils.boardView() === 'board-view-table';
   },

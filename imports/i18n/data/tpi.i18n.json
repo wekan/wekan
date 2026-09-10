@@ -250,6 +250,8 @@
   "board-view-swimlanes": "Ol rot",
   "board-view-collapse": "Toksave: Collapse",
   "board-view-gantt": "Gantt",
+  "board-view-gantt-frappe": "Frappe Gantt",
+  "board-view-gantt-dhtmlx": "DHTMLX Gantt",
   "board-view-lists": "Ol lis",
   "board-view-table": "Toksave: Table",
   "board-view-stats": "Toksave: Statistics",

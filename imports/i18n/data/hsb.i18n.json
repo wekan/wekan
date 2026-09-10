@@ -250,6 +250,8 @@
   "board-view-swimlanes": "Pasy",
   "board-view-collapse": "WeKan: Sbalit",
   "board-view-gantt": "WeKan: Gannt",
+  "board-view-gantt-frappe": "Frappe Gantt",
+  "board-view-gantt-dhtmlx": "DHTMLX Gantt",
   "board-view-lists": "Lisćiny",
   "board-view-table": "WeKan: Tabulka",
   "board-view-stats": "Statiztiky",

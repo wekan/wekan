@@ -250,6 +250,8 @@
   "board-view-swimlanes": "Stredes",
   "board-view-collapse": "Comprimi",
   "board-view-gantt": "Diagram de Gantt",
+  "board-view-gantt-frappe": "Frappe Gantt",
+  "board-view-gantt-dhtmlx": "DHTMLX Gantt",
   "board-view-lists": "Listes",
   "board-view-table": "Tabella",
   "board-view-stats": "Statistiche",

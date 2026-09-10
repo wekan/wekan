@@ -250,6 +250,8 @@
   "board-view-swimlanes": "Carriles",
   "board-view-collapse": "Contraer",
   "board-view-gantt": "Gantt",
+  "board-view-gantt-frappe": "Frappe Gantt",
+  "board-view-gantt-dhtmlx": "DHTMLX Gantt",
   "board-view-lists": "Listas",
   "board-view-table": "Tabla",
   "board-view-stats": "Estadísticas",

@@ -250,6 +250,8 @@
   "board-view-swimlanes": "وَتھ",
   "board-view-collapse": "سکیوٗڑیو",
   "board-view-gantt": "Gantt",
+  "board-view-gantt-frappe": "Frappe Gantt",
+  "board-view-gantt-dhtmlx": "DHTMLX Gantt",
   "board-view-lists": "فہرست",
   "board-view-table": "جدول",
   "board-view-stats": "اعداد و شمار",

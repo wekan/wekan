@@ -250,6 +250,8 @@
   "board-view-swimlanes": "Ohtin",
   "board-view-collapse": "Xictzicuiltia",
   "board-view-gantt": "Gantt",
+  "board-view-gantt-frappe": "Frappe Gantt",
+  "board-view-gantt-dhtmlx": "DHTMLX Gantt",
   "board-view-lists": "Tocatlahtoltin",
   "board-view-table": "Tlapoualtlacuilolli",
   "board-view-stats": "Tlapoualiztli",

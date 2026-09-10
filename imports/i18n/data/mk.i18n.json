@@ -250,6 +250,8 @@
   "board-view-swimlanes": "Коридори",
   "board-view-collapse": "Събери",
   "board-view-gantt": "План",
+  "board-view-gantt-frappe": "Frappe Gantt",
+  "board-view-gantt-dhtmlx": "DHTMLX Gantt",
   "board-view-lists": "Листи",
   "board-view-table": "Приказани у табели",
   "board-view-stats": "Статистика",

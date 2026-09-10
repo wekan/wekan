@@ -250,6 +250,8 @@
   "board-view-swimlanes": "நீச்சல்பாதைகள்",
   "board-view-collapse": "சுருக்கு",
   "board-view-gantt": "கான்ட்",
+  "board-view-gantt-frappe": "Frappe Gantt",
+  "board-view-gantt-dhtmlx": "DHTMLX Gantt",
   "board-view-lists": "பட்டியல்கள்",
   "board-view-table": "அட்டவணை",
   "board-view-stats": "புள்ளிவிவரம்",

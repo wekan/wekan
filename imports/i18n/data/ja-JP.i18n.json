@@ -250,6 +250,8 @@
   "board-view-swimlanes": "スイムレーン",
   "board-view-collapse": "折りたたむ",
   "board-view-gantt": "ガント",
+  "board-view-gantt-frappe": "Frappe Gantt",
+  "board-view-gantt-dhtmlx": "DHTMLX Gantt",
   "board-view-lists": "リスト",
   "board-view-table": "テーブル",
   "board-view-stats": "統計",

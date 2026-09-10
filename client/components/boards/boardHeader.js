@@ -281,6 +281,14 @@ Template.boardChangeViewPopup.events({
     Utils.setBoardView('board-view-gantt');
     Popup.back();
   },
+  'click .js-open-gantt-frappe-view'() {
+    Utils.setBoardView('board-view-gantt-frappe');
+    Popup.back();
+  },
+  'click .js-open-gantt-dhtmlx-view'() {
+    Utils.setBoardView('board-view-gantt-dhtmlx');
+    Popup.back();
+  },
   'click .js-open-table-view'() {
     Utils.setBoardView('board-view-table');
     Popup.back();
@@ -702,6 +710,8 @@ Template.boardViewMenu.helpers({
       'board-view-lists': 'lists',
       'board-view-cal': 'calendar',
       'board-view-gantt': 'gantt',
+      'board-view-gantt-frappe': 'board-view-gantt-frappe',
+      'board-view-gantt-dhtmlx': 'board-view-gantt-dhtmlx',
       'board-view-table': 'board-view-table',
       'board-view-stats': 'board-view-stats',
       'board-view-time': 'board-view-time',

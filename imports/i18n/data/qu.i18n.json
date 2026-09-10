@@ -250,6 +250,8 @@
   "board-view-swimlanes": "Ñankuna",
   "board-view-collapse": "Kay willaymi: Collapseta",
   "board-view-gantt": "Kay willaymi: Ganttta",
+  "board-view-gantt-frappe": "Frappe Gantt",
+  "board-view-gantt-dhtmlx": "DHTMLX Gantt",
   "board-view-lists": "Sutisuyukuna",
   "board-view-table": "Kay willaymi: Tableta",
   "board-view-stats": "Kay willaymi: Statisticsta",

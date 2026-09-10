@@ -250,6 +250,8 @@
   "board-view-swimlanes": "Свімлейни",
   "board-view-collapse": "Згорнути",
   "board-view-gantt": "Гантт",
+  "board-view-gantt-frappe": "Frappe Gantt",
+  "board-view-gantt-dhtmlx": "DHTMLX Gantt",
   "board-view-lists": "Списки",
   "board-view-table": "Таблиця",
   "board-view-stats": "Статистика",

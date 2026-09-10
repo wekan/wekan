@@ -250,6 +250,8 @@
   "board-view-swimlanes": "መስመሮች",
   "board-view-collapse": "ሰብስብ",
   "board-view-gantt": "Gantt",
+  "board-view-gantt-frappe": "Frappe Gantt",
+  "board-view-gantt-dhtmlx": "DHTMLX Gantt",
   "board-view-lists": "ዝርዝሮች",
   "board-view-table": "ሰንጠረዥ",
   "board-view-stats": "ስታቲስቲክስ",

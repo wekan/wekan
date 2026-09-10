@@ -250,6 +250,8 @@
   "board-view-swimlanes": "ལམ།",
   "board-view-collapse": "བསྡུ།",
   "board-view-gantt": "Gantt",
+  "board-view-gantt-frappe": "Frappe Gantt",
+  "board-view-gantt-dhtmlx": "DHTMLX Gantt",
   "board-view-lists": "ཐོ་གཞུང་།",
   "board-view-table": "རེའུ་མིག",
   "board-view-stats": "སྡོམ་རྩིས།",

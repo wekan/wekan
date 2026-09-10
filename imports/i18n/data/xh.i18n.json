@@ -250,6 +250,8 @@
   "board-view-swimlanes": "Iinqwelo zokuqubha",
   "board-view-collapse": "Ukuwa",
   "board-view-gantt": "Gantt",
+  "board-view-gantt-frappe": "Frappe Gantt",
+  "board-view-gantt-dhtmlx": "DHTMLX Gantt",
   "board-view-lists": "Uluhlu",
   "board-view-table": "Itheyibhile",
   "board-view-stats": "Iinkcukacha-manani",

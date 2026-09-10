@@ -250,6 +250,8 @@
   "board-view-swimlanes": "Carrils",
   "board-view-collapse": "Contraer",
   "board-view-gantt": "En aragonés: Gantt",
+  "board-view-gantt-frappe": "Frappe Gantt",
+  "board-view-gantt-dhtmlx": "DHTMLX Gantt",
   "board-view-lists": "Listas",
   "board-view-table": "Tabla",
   "board-view-stats": "Estadísticas",

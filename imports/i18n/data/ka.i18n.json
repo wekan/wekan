@@ -250,6 +250,8 @@
   "board-view-swimlanes": "ბილიკები",
   "board-view-collapse": "ჩაკეცვა",
   "board-view-gantt": "განტის დიაგრამა",
+  "board-view-gantt-frappe": "Frappe Gantt",
+  "board-view-gantt-dhtmlx": "DHTMLX Gantt",
   "board-view-lists": "ჩამონათვალი",
   "board-view-table": "ცხრილი",
   "board-view-stats": "სტატისტიკა",

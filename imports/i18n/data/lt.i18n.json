@@ -250,6 +250,8 @@
   "board-view-swimlanes": "Plaukimo juostos",
   "board-view-collapse": "Sutraukti",
   "board-view-gantt": "Gantas",
+  "board-view-gantt-frappe": "Frappe Gantt",
+  "board-view-gantt-dhtmlx": "DHTMLX Gantt",
   "board-view-lists": "Sąrašai",
   "board-view-table": "Lentelė",
   "board-view-stats": "Statistika",

@@ -250,6 +250,8 @@
   "board-view-swimlanes": "مسیرها",
   "board-view-collapse": "جمع کردن",
   "board-view-gantt": "گانت",
+  "board-view-gantt-frappe": "Frappe Gantt",
+  "board-view-gantt-dhtmlx": "DHTMLX Gantt",
   "board-view-lists": "لیست‌ها",
   "board-view-table": "جدول",
   "board-view-stats": "آمار",

@@ -250,6 +250,8 @@
   "board-view-swimlanes": "Lajur-lajur",
   "board-view-collapse": "Ciutake",
   "board-view-gantt": "Gantt",
+  "board-view-gantt-frappe": "Frappe Gantt",
+  "board-view-gantt-dhtmlx": "DHTMLX Gantt",
   "board-view-lists": "Dhaptar-dhaptar",
   "board-view-table": "Tabel",
   "board-view-stats": "Statistik",

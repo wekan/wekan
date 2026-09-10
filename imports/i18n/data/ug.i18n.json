@@ -250,6 +250,8 @@
   "board-view-swimlanes": "سۇ ئۈزۈش",
   "board-view-collapse": "يىمىرىلىش",
   "board-view-gantt": "Gantt",
+  "board-view-gantt-frappe": "Frappe Gantt",
+  "board-view-gantt-dhtmlx": "DHTMLX Gantt",
   "board-view-lists": "تىزىملىك",
   "board-view-table": "جەدۋەل",
   "board-view-stats": "ستاتىستىكا",
