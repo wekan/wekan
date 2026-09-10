@@ -628,6 +628,21 @@ template(name="boardCardSettingsPopup")
         span
           i.fa.fa-picture-o
           | {{_ 'cover-image'}}
+    //- #2530: "Time spent" was only reachable via the card's hamburger menu.
+      Both toggles default to true (models/boards.js) since the card detail
+      view and minicard already show it unconditionally when a card has
+      logged time; this row only lets an admin turn it OFF.
+    .card-settings-row
+      .card-settings-column
+        a.flex.js-field-has-spent-time(title="{{_ 'spent-time-hours'}}" class="{{#if allowsSpentTime}}is-checked{{/if}}")
+          i.fa(class="{{#if allowsSpentTime}}fa-check{{else}}fa-square-o{{/if}}")
+      .card-settings-column
+        a.flex.js-field-has-spent-time-on-minicard(title="{{_ 'spent-time-hours'}}" class="{{#if allowsSpentTimeOnMinicard}}is-checked{{/if}}")
+          i.fa(class="{{#if allowsSpentTimeOnMinicard}}fa-check{{else}}fa-square-o{{/if}}")
+      .card-settings-column
+        span
+          i.fa.fa-clock-o
+          | {{_ 'spent-time-hours'}}
     //div.check-div
     //
       a.flex.js-field-has-comments(class="{{#if allowsComments}}is-checked{{/if}}")
@@ -892,6 +907,10 @@ template(name="boardMenuPopup")
           a.js-open-board-list-settings(title="{{_ 'list'}}")
             i.fa.fa-list
             | {{_ 'list'}}
+        li
+          a.js-open-board-wip-limit-groups(title="{{_ 'wip-limit-groups'}}")
+            i.fa.fa-tasks
+            | {{_ 'wip-limit-groups'}}
       li
         a.js-open-board-card-settings(title="{{_ 'card-settings'}}")
           i.fa.fa-id-card
@@ -944,6 +963,44 @@ template(name="boardListSettingsPopup")
         span
           i.fa.fa-columns
           | {{_ 'same-width-for-all-lists'}}
+
+//- #2489: Board Settings / WIP Limit Groups - a shared WIP limit across two or
+  more of this board's lists together, on top of the existing per-list
+  wipLimit (client/components/lists/listHeader.jade). Same panel pattern as
+  Swimlane/List/Card settings above. client/components/sidebar/sidebar.js
+template(name="wipLimitGroupsPopup")
+  .wip-limit-groups
+    each wipLimitGroups
+      form.wip-limit-group(data-id="{{_id}}")
+        .wip-limit-group-name
+          input.js-wip-limit-group-name(type="text" value="{{name}}" placeholder="{{_ 'wip-limit-group-name-placeholder'}}")
+        .wip-limit-group-lists
+          each ../boardLists
+            label.flex
+              input.js-wip-limit-group-list-toggle(type="checkbox" data-list-id="{{_id}}" checked="{{isListInGroup _id ../listIds}}")
+              | {{title}}
+        .wip-limit-group-limit
+          label {{_ 'set-wip-limit-value'}}
+          input.js-wip-limit-group-limit-value(type="number" value="{{limit}}" min="1" max="999")
+          input.js-wip-limit-group-save(type="submit" value="{{_ 'apply'}}")
+        .wip-limit-group-actions
+          a.flex.js-toggle-wip-limit-group-enabled(class="{{#if enabled}}is-checked{{/if}}")
+            i.fa(class="{{#if enabled}}fa-check{{else}}fa-square-o{{/if}}")
+            span {{_ 'enable-wip-limit'}}
+          a.js-remove-wip-limit-group
+            i.fa.fa-trash
+            | {{_ 'delete'}}
+      hr
+    form.wip-limit-group-new
+      p {{_ 'wip-limit-group-add'}}
+      .wip-limit-group-lists
+        each boardLists
+          label.flex
+            input.js-wip-limit-group-new-list(type="checkbox" data-list-id="{{_id}}")
+            | {{title}}
+      label {{_ 'set-wip-limit-value'}}
+      input.js-wip-limit-group-new-limit(type="number" value="1" min="1" max="999")
+      input.js-wip-limit-group-new-save(type="submit" value="{{_ 'wip-limit-group-add'}}")
 
 template(name="exportBoardPopup")
   //- The same popup as Export swimlane / list / card, with the same panes and

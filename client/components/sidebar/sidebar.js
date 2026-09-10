@@ -590,6 +590,8 @@ Template.boardMenuPopup.events({
   // title key from the shared table template, so it needs no override.
   'click .js-open-board-swimlane-settings': Popup.open('boardSwimlaneSettings', { titleKey: 'swimlane' }),
   'click .js-open-board-list-settings': Popup.open('boardListSettings', { titleKey: 'list' }),
+  // #2489: board-level WIP limit groups.
+  'click .js-open-board-wip-limit-groups': Popup.open('wipLimitGroups', { titleKey: 'wip-limit-groups' }),
   // A non-admin may still open this for the one PERSONAL row in it ("Labels
   // text"), same as the old showOnMinicardPopup did - `personalOnly` hides
   // every other row (client/components/sidebar/sidebar.css). Overriding
@@ -655,6 +657,85 @@ Template.boardListSettingsPopup.events({
     const board = Utils.getCurrentBoard();
     if (!board) return;
     board.setSameWidthForAllLists(!board.getSameWidthForAllLists());
+  },
+});
+
+// #2489: Board Settings / WIP Limit Groups - a shared WIP limit across two or
+// more of this board's lists together. See models/lib/wipLimitGroupDecision.js
+// for the pure combined-count / over-limit arithmetic this popup and the list
+// header both reuse, and models/boards.js for the `wipLimitGroups` schema and
+// helpers (addWipLimitGroup/updateWipLimitGroup/removeWipLimitGroup).
+Template.wipLimitGroupsPopup.helpers({
+  wipLimitGroups() {
+    const board = Utils.getCurrentBoard();
+    return board ? board.getWipLimitGroups() : [];
+  },
+  boardLists() {
+    const board = Utils.getCurrentBoard();
+    if (!board) return [];
+    return ReactiveCache.getLists(
+      { boardId: board._id, archived: false },
+      { sort: { sort: 1 } },
+    );
+  },
+  isListInGroup(listId, groupListIds) {
+    return Array.isArray(groupListIds) && groupListIds.includes(listId);
+  },
+});
+
+Template.wipLimitGroupsPopup.events({
+  'click .js-toggle-wip-limit-group-enabled'(event) {
+    event.preventDefault();
+    const board = Utils.getCurrentBoard();
+    const groupId = $(event.currentTarget).closest('.wip-limit-group').data('id');
+    const group = board && board.getWipLimitGroups().find(g => g._id === groupId);
+    if (!board || !group) return;
+    board.updateWipLimitGroup(groupId, { enabled: !group.enabled });
+  },
+  'click .js-remove-wip-limit-group'(event) {
+    event.preventDefault();
+    const board = Utils.getCurrentBoard();
+    const groupId = $(event.currentTarget).closest('.wip-limit-group').data('id');
+    if (!board || !groupId) return;
+    board.removeWipLimitGroup(groupId);
+  },
+  'submit .wip-limit-group'(event, tpl) {
+    event.preventDefault();
+    const board = Utils.getCurrentBoard();
+    const form = $(event.currentTarget);
+    const groupId = form.data('id');
+    if (!board || !groupId) return;
+
+    const listIds = form
+      .find('.js-wip-limit-group-list-toggle:checked')
+      .map((_, el) => $(el).data('list-id'))
+      .get();
+    const name = form.find('.js-wip-limit-group-name').val();
+    const limit = parseInt(form.find('.js-wip-limit-group-limit-value').val(), 10);
+    if (!Number.isFinite(limit) || limit < 1) return;
+    if (listIds.length < 2) return;
+
+    board.updateWipLimitGroup(groupId, { listIds, name, limit });
+  },
+  'submit .wip-limit-group-new'(event, tpl) {
+    event.preventDefault();
+    const board = Utils.getCurrentBoard();
+    if (!board) return;
+    const form = $(event.currentTarget);
+
+    const listIds = form
+      .find('.js-wip-limit-group-new-list:checked')
+      .map((_, el) => $(el).data('list-id'))
+      .get();
+    const limit = parseInt(form.find('.js-wip-limit-group-new-limit').val(), 10);
+    if (!Number.isFinite(limit) || limit < 1) return;
+    // A "group" of fewer than two lists is just that list's own individual
+    // wipLimit - refuse rather than silently create a pointless group.
+    if (listIds.length < 2) return;
+
+    board.addWipLimitGroup(listIds, limit);
+    form.find('.js-wip-limit-group-new-list').prop('checked', false);
+    form.find('.js-wip-limit-group-new-limit').val(1);
   },
 });
 
@@ -1701,6 +1782,19 @@ Template.boardCardSettingsPopup.helpers({
     const currentBoard = ReactiveCache.getBoard(boardId);
     return currentBoard ? currentBoard.allowsReceivedDate : false;
   },
+  // #2530: "Time spent" Card Settings toggles. Both default true
+  // (models/boards.js) since the card detail view/minicard already show it
+  // unconditionally today; this only lets an admin turn it off.
+  allowsSpentTime() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard && currentBoard.allowsSpentTime !== false;
+  },
+  allowsSpentTimeOnMinicard() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard && currentBoard.allowsSpentTimeOnMinicard !== false;
+  },
   allowsDueComplete() {
     const boardId = Session.get('currentBoard');
     const currentBoard = ReactiveCache.getBoard(boardId);
@@ -2259,6 +2353,16 @@ Template.boardCardSettingsPopup.events({
     evt.preventDefault();
     const newValue = !tpl.currentBoard.allowsCoverAttachmentOnCard;
     Boards.update(tpl.currentBoard._id, { $set: { allowsCoverAttachmentOnCard: newValue } });
+  },
+  'click .js-field-has-spent-time'(evt, tpl) {
+    evt.preventDefault();
+    const currentValue = tpl.currentBoard.allowsSpentTime !== false;
+    Boards.update(tpl.currentBoard._id, { $set: { allowsSpentTime: !currentValue } });
+  },
+  'click .js-field-has-spent-time-on-minicard'(evt, tpl) {
+    evt.preventDefault();
+    const currentValue = tpl.currentBoard.allowsSpentTimeOnMinicard !== false;
+    Boards.update(tpl.currentBoard._id, { $set: { allowsSpentTimeOnMinicard: !currentValue } });
   },
   'click .js-field-has-attachments'(evt, tpl) {
     evt.preventDefault();

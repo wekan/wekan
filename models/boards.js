@@ -442,6 +442,63 @@ Boards.attachSchema(
         }
       },
     },
+    // #2489: WIP limit GROUPS - a shared limit across two or more of this
+    // board's lists together (e.g. "these three middle columns together may
+    // never hold more than 10 cards total"), on top of the existing per-list
+    // `wipLimit` in models/lists.js. Deliberately its own small array rather
+    // than a second WIP-tracking system: the combined count and "over limit"
+    // decision are pure arithmetic (models/lib/wipLimitGroupDecision.js) and
+    // the visual indicator it drives is the SAME `.highlight` styling the
+    // per-list limit already uses (client/components/lists/listHeader.js).
+    wipLimitGroups: {
+      /**
+       * List of board-level WIP limit groups.
+       */
+      type: Array,
+      optional: true,
+    },
+    'wipLimitGroups.$': {
+      type: Object,
+    },
+    'wipLimitGroups.$._id': {
+      /**
+       * Unique id of a WIP limit group.
+       */
+      type: String,
+    },
+    'wipLimitGroups.$.name': {
+      /**
+       * Optional display name for the group (e.g. "Middle columns").
+       */
+      type: String,
+      optional: true,
+    },
+    'wipLimitGroups.$.listIds': {
+      /**
+       * The _ids of the board's lists that share this group's limit. At least
+       * two - a "group" of one is just that list's own individual wipLimit.
+       */
+      type: Array,
+    },
+    'wipLimitGroups.$.listIds.$': {
+      type: String,
+    },
+    'wipLimitGroups.$.limit': {
+      /**
+       * The combined card-count limit shared by every list in listIds.
+       */
+      type: Number,
+      defaultValue: 1,
+    },
+    'wipLimitGroups.$.enabled': {
+      /**
+       * Whether this group's limit is currently in effect. Kept (rather than
+       * deleting the group) so a temporarily-disabled group's list selection
+       * and limit are not lost.
+       */
+      type: Boolean,
+      defaultValue: true,
+    },
     customThemeColors: {
       /**
        * Optional custom colors for the "flat" (1 color) and "clear" (2 colors,
@@ -919,6 +976,30 @@ Boards.attachSchema(
     allowsReceivedDate: {
       /**
        * Does the board allows received date?
+       */
+      type: Boolean,
+      defaultValue: true,
+    },
+
+    // #2530: the "Time spent" field (and its overtime indicator) was only
+    // reachable through the card's hamburger/context menu. Both the card
+    // detail view and the minicard already render it unconditionally
+    // whenever a card has logged time (see getSpentTime() in
+    // client/components/cards/minicard.jade and cardDetails.jade), so these
+    // two toggles default to TRUE - matching that existing behaviour rather
+    // than hiding something boards already show - and only let an admin turn
+    // it OFF via Card Settings, the same "Show on card"/"Show on minicard"
+    // pattern used by allowsReceivedDate/allowsReceivedDateOnMinicard above.
+    allowsSpentTime: {
+      /**
+       * Does the board show the accumulated spent-time badge on the opened card?
+       */
+      type: Boolean,
+      defaultValue: true,
+    },
+    allowsSpentTimeOnMinicard: {
+      /**
+       * Does the board show the accumulated spent-time badge on the minicard?
        */
       type: Boolean,
       defaultValue: true,
@@ -2504,6 +2585,14 @@ Boards.helpers({
     return await Boards.updateAsync(this._id, { $set: { allowsReceivedDate } });
   },
 
+  async setAllowsSpentTime(allowsSpentTime) {
+    return await Boards.updateAsync(this._id, { $set: { allowsSpentTime } });
+  },
+
+  async setAllowsSpentTimeOnMinicard(allowsSpentTimeOnMinicard) {
+    return await Boards.updateAsync(this._id, { $set: { allowsSpentTimeOnMinicard } });
+  },
+
   getRestrictCommentEditing() {
     return !!this.restrictCommentEditing;
   },
@@ -2573,6 +2662,54 @@ Boards.helpers({
   async setSameWidthForAllLists(sameWidthForAllLists) {
     return await Boards.updateAsync(this._id, {
       $set: { sameWidthForAllLists: !!sameWidthForAllLists },
+    });
+  },
+
+  // #2489: WIP limit groups - see the schema comment above for what these are.
+  getWipLimitGroups() {
+    return Array.isArray(this.wipLimitGroups) ? this.wipLimitGroups : [];
+  },
+
+  async addWipLimitGroup(listIds, limit, name = '') {
+    const group = {
+      _id: Random.id(6),
+      name: name || '',
+      listIds: Array.isArray(listIds) ? listIds : [],
+      limit: Number.isFinite(limit) && limit > 0 ? limit : 1,
+      enabled: true,
+    };
+    await Boards.updateAsync(this._id, {
+      $push: { wipLimitGroups: group },
+    });
+    return group._id;
+  },
+
+  async updateWipLimitGroup(groupId, fields = {}) {
+    const $set = {};
+    if (Array.isArray(fields.listIds)) {
+      $set['wipLimitGroups.$.listIds'] = fields.listIds;
+    }
+    if (Number.isFinite(fields.limit) && fields.limit > 0) {
+      $set['wipLimitGroups.$.limit'] = fields.limit;
+    }
+    if (typeof fields.name === 'string') {
+      $set['wipLimitGroups.$.name'] = fields.name;
+    }
+    if (typeof fields.enabled === 'boolean') {
+      $set['wipLimitGroups.$.enabled'] = fields.enabled;
+    }
+    if (Object.keys($set).length === 0) {
+      return 0;
+    }
+    return await Boards.updateAsync(
+      { _id: this._id, 'wipLimitGroups._id': groupId },
+      { $set },
+    );
+  },
+
+  async removeWipLimitGroup(groupId) {
+    return await Boards.updateAsync(this._id, {
+      $pull: { wipLimitGroups: { _id: groupId } },
     });
   },
 
