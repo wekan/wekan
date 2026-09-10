@@ -57,6 +57,77 @@ test('#6685: pdfjs text extraction is pointed at the real on-disk worker file in
   assert.ok(fs.existsSync(resolved), 'the worker file this resolves to must actually exist on disk');
 });
 
+test('PDF text extraction destroys the loading task, not the resolved document proxy', () => {
+  // getDocument() returns a PDFDocumentLoadingTask; destroy() lives THERE.
+  // The PDFDocumentProxy its .promise resolves to has no destroy() of its
+  // own - calling it on that object throws "textDocument.destroy is not a
+  // function" (uncaught in the onAfterUpload background indexing path,
+  // observed on every real PDF upload).
+  const source = read('server/lib/documentGif.js');
+  assert.match(source, /const loadingTask = pdfjs\.getDocument\(/);
+  assert.match(source, /const textDocument = await loadingTask\.promise;/);
+  assert.match(source, /await loadingTask\.destroy\(\);/);
+  assert.doesNotMatch(source, /textDocument\.destroy\(\)/,
+    'PDFDocumentProxy has no destroy() method - only the loading task does');
+});
+
+test('PDF text extraction resolves pdfjs-dist\'s own font/cmap assets instead of warning and falling back', () => {
+  const source = read('server/lib/documentGif.js');
+  assert.match(source, /function pdfjsAssetPath\(sub\)/);
+  assert.match(source, /standardFontDataUrl: pdfjsAssetPath\('standard_fonts'\)/);
+  assert.match(source, /cMapUrl: pdfjsAssetPath\('cmaps'\)/);
+  const require_ = require('module').createRequire(path.join(root, 'package.json'));
+  const pkgPath = require_.resolve('pdfjs-dist/package.json');
+  const pathMod = require('path');
+  assert.ok(fs.existsSync(pathMod.join(pathMod.dirname(pkgPath), 'standard_fonts')));
+  assert.ok(fs.existsSync(pathMod.join(pathMod.dirname(pkgPath), 'cmaps')));
+});
+
+// End-to-end: extract text from a real PDF exactly the way indexDocumentText
+// does, using the loading-task lifecycle above - not just source patterns.
+// Skips gracefully (rather than failing the suite) when no sample PDF is
+// present in this checkout's local upload storage.
+test('end-to-end: a real PDF is text-extracted and its loading task destroyed cleanly', async () => {
+  function findSamplePdf(dir) {
+    let entries;
+    try { entries = fs.readdirSync(dir, { withFileTypes: true }); } catch (_) { return null; }
+    for (const entry of entries) {
+      const full = path.join(dir, entry.name);
+      if (entry.isDirectory()) {
+        const found = findSamplePdf(full);
+        if (found) return found;
+      } else if (entry.name.endsWith('.pdf')) {
+        return full;
+      }
+    }
+    return null;
+  }
+  const samplePdf = findSamplePdf(path.join(root, '.meteor/local/build/programs/files/attachments'));
+  if (!samplePdf) {
+    console.log('  (skipped: no sample PDF in .meteor/local/build/programs/files/attachments)');
+    return;
+  }
+  const pdfjs = await import('pdfjs-dist/legacy/build/pdf.mjs');
+  const require_ = require('module').createRequire(path.join(root, 'package.json'));
+  pdfjs.GlobalWorkerOptions.workerSrc = require_.resolve('pdfjs-dist/legacy/build/pdf.worker.mjs');
+  const pkgPath = require_.resolve('pdfjs-dist/package.json');
+  const pathMod = require('path');
+  const assetPath = sub => pathMod.join(pathMod.dirname(pkgPath), sub) + pathMod.sep;
+  const loadingTask = pdfjs.getDocument({
+    data: new Uint8Array(fs.readFileSync(samplePdf)),
+    isEvalSupported: false,
+    standardFontDataUrl: assetPath('standard_fonts'),
+    cMapUrl: assetPath('cmaps'),
+    cMapPacked: true,
+  });
+  const document = await loadingTask.promise;
+  assert.ok(document.numPages >= 1);
+  const page = await document.getPage(1);
+  const content = await page.getTextContent();
+  assert.ok(content.items.length > 0, 'a real PDF page must yield extractable text items');
+  await loadingTask.destroy();
+});
+
 test('search indexing repairs a stale stored name before reading the file, like the download route does', () => {
   // The regular attachment download route calls normalizeStoredNameOnRead
   // before getFileStrategy().getReadStream() (fs-path-heal: the stored
