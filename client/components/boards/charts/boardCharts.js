@@ -66,6 +66,7 @@ function computeBarRows(chartKey, data) {
   if (chartKey === 'burnup') return barsFromSeries(data.series, 'completed', 'day');
   if (chartKey === 'wipRun') return barsFromSeries(data.series, 'count', 'day');
   if (chartKey === 'throughputHistogram') return barsFromSeries(data.series, 'count', 'bucket');
+  if (chartKey === 'pulse') return barsFromSeries(data.series, 'count', 'day');
   if (chartKey === 'cumulativeFlow') {
     const last = data.lists.map(list => ({
       list: list.title,
@@ -152,6 +153,22 @@ Template.boardChartView.helpers({
   hasNoData() {
     const { rows } = tableOf();
     return !rows.length;
+  },
+  // #1476 ("completion estimates based on velocity"): only the Throughput
+  // Histogram view carries a `forecast` field (server/lib/boardChartData.js),
+  // computed from that same series by computeCompletionForecast.
+  forecastNote() {
+    if (Template.currentData().chartKey !== 'throughputHistogram') return null;
+    const data = Template.instance().chartData.get();
+    const forecast = data && data.forecast;
+    if (!forecast) return null;
+    if (forecast.remaining === 0) return TAPi18n.__('chart-forecast-none-remaining');
+    if (!forecast.projectedDate) return TAPi18n.__('chart-forecast-no-velocity', { remaining: forecast.remaining });
+    return TAPi18n.__('chart-forecast-projected', {
+      remaining: forecast.remaining,
+      average: forecast.averagePerBucket,
+      date: forecast.projectedDate,
+    });
   },
   tableHeaders() {
     return tableOf().headers;

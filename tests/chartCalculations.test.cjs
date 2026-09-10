@@ -15,10 +15,14 @@ const {
   computeBurndown,
   computeBurnup,
   computeThroughput,
+  computeCompletionForecast,
   computeFlowEfficiency,
+  computeActivityPulse,
   computeDashboardGroups,
   computeTimeByGroup,
   computeTimeByCard,
+  computeRemainingTimeSum,
+  formatRemainingTime,
   NO_ASSIGNEE_GROUP,
 } = require('../models/lib/chartCalculations');
 
@@ -164,6 +168,44 @@ test('computeThroughput ignores cards that never completed', () => {
   assert.strictEqual(series.length, 0);
 });
 
+// #1476 ("completion estimates based on velocity"): projects a completion
+// date for the still-open cards from the recent weeks of the Throughput
+// Histogram's own series, reused rather than recomputed.
+
+test('computeCompletionForecast projects a date from remaining count / recent average velocity', () => {
+  const cards = [
+    { _id: 'c1', createdAt: '2026-01-01T00:00:00Z' }, // still open
+    { _id: 'c2', createdAt: '2026-01-01T00:00:00Z' }, // still open
+  ];
+  // 2 completed per week, most recent 4 weeks.
+  const series = [
+    { bucket: '2026-01-05', count: 2 },
+    { bucket: '2026-01-12', count: 2 },
+  ];
+  const forecast = computeCompletionForecast(cards, series, 7, 4);
+  assert.strictEqual(forecast.remaining, 2);
+  assert.strictEqual(forecast.averagePerBucket, 2);
+  // 2 remaining / 2 per week = 1 week = 1 bucket needed.
+  assert.strictEqual(forecast.bucketsNeeded, 1);
+  assert.ok(forecast.projectedDate, 'a projected date is returned when velocity is positive');
+});
+
+test('computeCompletionForecast returns zero-remaining with no projected date when everything is done', () => {
+  const cards = [{ _id: 'c1', createdAt: '2026-01-01T00:00:00Z', archivedAt: '2026-01-02T00:00:00Z' }];
+  const forecast = computeCompletionForecast(cards, [{ bucket: '2026-01-05', count: 1 }]);
+  assert.strictEqual(forecast.remaining, 0);
+  assert.strictEqual(forecast.projectedDate, null);
+});
+
+test('computeCompletionForecast (negative) gives no projected date when recent velocity is zero', () => {
+  const cards = [{ _id: 'c1', createdAt: '2026-01-01T00:00:00Z' }]; // still open
+  const forecast = computeCompletionForecast(cards, [{ bucket: '2026-01-05', count: 0 }]);
+  assert.strictEqual(forecast.remaining, 1);
+  assert.strictEqual(forecast.averagePerBucket, 0);
+  assert.strictEqual(forecast.bucketsNeeded, null);
+  assert.strictEqual(forecast.projectedDate, null);
+});
+
 test('computeFlowEfficiency is active hours over total elapsed hours, capped at 100', () => {
   const cards = [{
     _id: 'c1', startAt: '2026-01-01T00:00:00Z', endAt: '2026-01-01T10:00:00Z', spentTime: 5,
@@ -244,6 +286,134 @@ test('computeTimeByCard returns one row per card with logged time, largest first
   assert.strictEqual(rows[0].isOvertime, true);
   assert.strictEqual(rows[1].title, 'Small');
   assert.strictEqual(rows[1].isOvertime, false);
+});
+
+// #1121 ("show the SUM of remaining time until due date"): sums the time
+// between `now` and each open card's dueAt, across the board's/list's still-
+// open cards. `now` is fixed at midnight so a whole-day due date lands on an
+// exact hour boundary rather than depending on wall-clock time.
+const NOW_1121 = new Date('2026-01-10T00:00:00.000Z');
+
+test('computeRemainingTimeSum sums remaining time for open cards with a due date', () => {
+  const cards = [
+    { _id: 'c1', dueAt: '2026-01-13T00:00:00.000Z' }, // 3 days from now
+    { _id: 'c2', dueAt: '2026-01-13T09:00:00.000Z' }, // 3 days 9 hours from now
+  ];
+  const result = computeRemainingTimeSum(cards, NOW_1121);
+  assert.strictEqual(result.cardCount, 2);
+  assert.strictEqual(result.totalHours, 153); // 72 + 81
+  assert.strictEqual(result.days, 6);
+  assert.strictEqual(result.hours, 9);
+});
+
+test('computeRemainingTimeSum excludes archived and already-completed cards (negative)', () => {
+  const cards = [
+    { _id: 'archived', dueAt: '2026-01-20T00:00:00.000Z', archived: true },
+    { _id: 'done-endAt', dueAt: '2026-01-20T00:00:00.000Z', endAt: '2026-01-09T00:00:00.000Z' },
+    { _id: 'done-archivedAt', dueAt: '2026-01-20T00:00:00.000Z', archivedAt: '2026-01-09T00:00:00.000Z' },
+  ];
+  const result = computeRemainingTimeSum(cards, NOW_1121);
+  assert.strictEqual(result.cardCount, 0, 'archived/completed cards must not count toward the sum');
+  assert.strictEqual(result.totalHours, 0);
+});
+
+test('computeRemainingTimeSum excludes open cards with no due date set (negative)', () => {
+  const cards = [
+    { _id: 'no-due' },
+    { _id: 'with-due', dueAt: '2026-01-11T00:00:00.000Z' },
+  ];
+  const result = computeRemainingTimeSum(cards, NOW_1121);
+  assert.strictEqual(result.cardCount, 1, 'a card with no dueAt is not part of "remaining time until due"');
+  assert.strictEqual(result.totalHours, 24);
+});
+
+test('computeRemainingTimeSum counts an overdue card as NEGATIVE remaining time, not zero', () => {
+  // Decision: an overdue open card (dueAt already in the past, no end date
+  // yet) contributes its negative remaining time to the total instead of
+  // being floored at 0 - the running total should shrink, and go negative,
+  // once cards slip past their due date, rather than silently ignoring them.
+  const cards = [
+    { _id: 'overdue', dueAt: '2026-01-09T00:00:00.000Z' }, // 1 day ago
+  ];
+  const result = computeRemainingTimeSum(cards, NOW_1121);
+  assert.strictEqual(result.cardCount, 1);
+  assert.strictEqual(result.totalHours, -24);
+  assert.strictEqual(result.days, -1);
+  assert.strictEqual(result.hours, 0);
+});
+
+test('computeRemainingTimeSum mixes overdue and upcoming cards into one signed total', () => {
+  const cards = [
+    { _id: 'overdue', dueAt: '2026-01-09T00:00:00.000Z' }, // -24h
+    { _id: 'upcoming', dueAt: '2026-01-11T06:00:00.000Z' }, // +30h
+  ];
+  const result = computeRemainingTimeSum(cards, NOW_1121);
+  assert.strictEqual(result.totalHours, 6);
+  assert.strictEqual(result.days, 0);
+  assert.strictEqual(result.hours, 6);
+});
+
+test('formatRemainingTime renders "X days, Y hours" per #1121\'s own example format', () => {
+  const result = computeRemainingTimeSum(
+    [{ _id: 'c1', dueAt: '2026-01-16T09:00:00.000Z' }], // 6 days 9 hours
+    NOW_1121,
+  );
+  assert.strictEqual(formatRemainingTime(result), '6 days, 9 hours');
+});
+
+test('formatRemainingTime shows a single leading minus for an overdue total', () => {
+  const result = computeRemainingTimeSum(
+    [{ _id: 'c1', dueAt: '2026-01-08T15:00:00.000Z' }], // -1 day 9 hours
+    NOW_1121,
+  );
+  assert.strictEqual(formatRemainingTime(result), '-1 days, 9 hours');
+});
+
+// #1292 ("GitHub Pulse-like graph"): total board activity per day/week.
+test('computeActivityPulse buckets activity documents by day, zero-filled', () => {
+  const activities = [
+    { createdAt: '2026-01-01T08:00:00Z' },
+    { createdAt: '2026-01-01T20:00:00Z' },
+    { createdAt: '2026-01-03T12:00:00Z' },
+  ];
+  const series = computeActivityPulse(activities, '2026-01-01', '2026-01-03', 'day');
+  assert.deepStrictEqual(series, [
+    { day: '2026-01-01', count: 2 },
+    { day: '2026-01-02', count: 0 },
+    { day: '2026-01-03', count: 1 },
+  ]);
+});
+
+test('computeActivityPulse on a board with no activity in the window returns all-zero buckets (negative)', () => {
+  const series = computeActivityPulse([], '2026-01-01', '2026-01-02', 'day');
+  assert.deepStrictEqual(series, [
+    { day: '2026-01-01', count: 0 },
+    { day: '2026-01-02', count: 0 },
+  ]);
+});
+
+test('computeActivityPulse ignores activity outside the from/to window', () => {
+  const activities = [
+    { createdAt: '2025-12-31T23:59:59Z' }, // before window
+    { createdAt: '2026-01-01T00:00:00Z' }, // in window
+    { createdAt: '2026-01-04T00:00:00Z' }, // after window
+  ];
+  const series = computeActivityPulse(activities, '2026-01-01', '2026-01-02', 'day');
+  const total = series.reduce((sum, day) => sum + day.count, 0);
+  assert.strictEqual(total, 1, 'only the in-window activity is counted');
+});
+
+test('computeActivityPulse buckets by week (Monday start) when asked', () => {
+  const activities = [
+    { createdAt: '2026-01-05T00:00:00Z' }, // Monday
+    { createdAt: '2026-01-08T00:00:00Z' }, // Thursday, same week
+    { createdAt: '2026-01-12T00:00:00Z' }, // next Monday
+  ];
+  const series = computeActivityPulse(activities, '2026-01-05', '2026-01-12', 'week');
+  assert.deepStrictEqual(series, [
+    { day: '2026-01-05', count: 2 },
+    { day: '2026-01-12', count: 1 },
+  ]);
 });
 
 console.log(`chartCalculations: ${passed} passed`);

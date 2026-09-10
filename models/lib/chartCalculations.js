@@ -256,6 +256,46 @@ function computeFlowEfficiency(cards) {
     .filter(Boolean);
 }
 
+// Pulse (#1292: a "GitHub Pulse-like graph" of board activity over time):
+// total Activities documents per day (or per week, once the window is long
+// enough that a day-per-bar chart would not fit) across `fromDate`..`toDate`.
+// A day with no activity is a zero-count bucket, never omitted - otherwise
+// the chart would silently compress quiet stretches instead of showing them.
+// `activities` is any array of `{ createdAt }` records (the caller filters
+// to the board and the window before calling this).
+function computeActivityPulse(activities, fromDate, toDate, bucket = 'day') {
+  const days = eachDay(fromDate, toDate);
+  if (bucket === 'week') {
+    const weekOf = day => {
+      const date = new Date(day);
+      const weekday = (date.getUTCDay() + 6) % 7; // Monday = 0
+      date.setUTCDate(date.getUTCDate() - weekday);
+      return dayKey(date);
+    };
+    const weeks = [];
+    const seen = new Set();
+    days.forEach(day => {
+      const week = weekOf(day);
+      if (!seen.has(week)) {
+        seen.add(week);
+        weeks.push(week);
+      }
+    });
+    const counts = Object.fromEntries(weeks.map(week => [week, 0]));
+    activities.forEach(activity => {
+      const week = weekOf(dayKey(activity.createdAt));
+      if (week in counts) counts[week] += 1;
+    });
+    return weeks.map(week => ({ day: week, count: counts[week] }));
+  }
+  const counts = Object.fromEntries(days.map(day => [day, 0]));
+  activities.forEach(activity => {
+    const key = dayKey(activity.createdAt);
+    if (key in counts) counts[key] += 1;
+  });
+  return days.map(day => ({ day, count: counts[day] }));
+}
+
 // Sentinel keys (never shown as-is) for a card that has no assignee/label to
 // group under. group.label carries the SAME sentinel, and every renderer of
 // dashboard groups (the live bar chart, the data table, the PDF/Excel
@@ -267,6 +307,7 @@ const NO_LABEL_GROUP = { key: '__no_label__', label: '__no_label__' };
 const DASHBOARD_EMPTY_GROUP_KEYS = {
   __no_assignee__: ['no-assignee', 'No assignee'],
   __no_label__: ['no-label', 'No label'],
+  __no_roadmap_value__: ['roadmap-no-value', 'No value'],
 };
 
 // `translate(key, fallback)` is the caller's own `__()` (TAPi18n.__ on the
@@ -347,6 +388,36 @@ function computeTimeByCard(cards) {
     .sort((a, b) => b.hours - a.hours);
 }
 
+// Roadmap board view (#627: "a Roadmap view organizing cards by version/
+// release milestone in a timeline layout") - groups cards by the VALUE of
+// one board custom field (a "Version"/"Release" text or dropdown field the
+// board already has), one row per distinct value, each row keeping the
+// CARDS (not just a count) so the caller can plot them on a timeline the
+// same way the Gantt views already do. `resolveValue(card)` returns the
+// card's value for the chosen field, or a falsy value when the card has none
+// - those fall into `emptyGroup`, always sorted last so it reads as the
+// leftover bucket rather than competing with real versions/releases, same
+// convention as computeCardsByAssigneeGroup below. Unlike an assignee, a
+// custom field's text/dropdown value is a single string, not an array, so
+// each card counts under exactly one group.
+const NO_ROADMAP_GROUP = { key: '__no_roadmap_value__', label: '__no_roadmap_value__' };
+
+function computeCardsByCustomFieldGroup(cards, resolveValue, emptyGroup = NO_ROADMAP_GROUP) {
+  const byKey = {};
+  cards.forEach(card => {
+    const value = resolveValue(card);
+    const group = value ? { key: value, label: value } : emptyGroup;
+    const entry = byKey[group.key] || { key: group.key, label: group.label, cards: [] };
+    entry.cards.push(card);
+    byKey[group.key] = entry;
+  });
+  return Object.values(byKey).sort((a, b) => {
+    if (a.key === emptyGroup.key) return 1;
+    if (b.key === emptyGroup.key) return -1;
+    return a.label.localeCompare(b.label);
+  });
+}
+
 // Group by Assignee board view (#4688: "grouping cards by assignee" for a
 // team-meeting-friendly overview). Same shape/fold as computeDashboardGroups
 // (a card with several assignees counts under each, a card with none falls
@@ -377,6 +448,59 @@ function computeCardsByAssigneeGroup(cards, resolveGroups, emptyGroup = { key: '
   });
 }
 
+// Time view (#1121): the SUM of remaining time until due date, across the
+// board's/list's active (still-open) cards that have a due date set - "how
+// much is left" alongside the "how much has already been spent" breakdown
+// above. Only OPEN cards count: `card.archived` excludes archived cards, and
+// an end date (endAt, i.e. `completionDate` finding a value) means the card
+// is already done and drops out even if it is not archived. A card with no
+// dueAt is not part of "remaining time until due" at all and is skipped.
+// An overdue card (dueAt already in the past) contributes its NEGATIVE
+// remaining time rather than 0: the issue's own "remaining: 6 days and 9
+// hours" wants one running total, and silently flooring overdue cards to 0
+// would hide exactly the cards most worth surfacing (the ones already late)
+// behind cards that still have time left - the total should get SMALLER,
+// not stay flat, when a card slips past its due date.
+function computeRemainingTimeSum(cards, now = new Date()) {
+  const nowMs = now.getTime();
+  const openCardsWithDue = cards.filter(card =>
+    !card.archived && !completionDate(card) && card.dueAt);
+  const totalMs = openCardsWithDue.reduce((sum, card) => {
+    const dueMs = new Date(card.dueAt).getTime();
+    return sum + (dueMs - nowMs);
+  }, 0);
+  const totalHours = totalMs / (1000 * 60 * 60);
+  const sign = totalHours < 0 ? -1 : 1;
+  const absHours = Math.round(Math.abs(totalHours));
+  let days = Math.floor(absHours / 24);
+  let hours = absHours - days * 24;
+  if (hours === 24) { // rounding can push the remainder up to a full day
+    days += 1;
+    hours = 0;
+  }
+  return {
+    totalHours: Math.round(totalHours * 100) / 100,
+    days: days * sign,
+    hours: hours === 0 ? 0 : hours * sign, // avoid a signed -0 when the hour part is exactly 0
+    cardCount: openCardsWithDue.length,
+  };
+}
+
+// Formats computeRemainingTimeSum's {days, hours} as the issue's own
+// "6 days and 9 hours" shape - here "X days, Y hours", matching the format
+// requested in #1121. An overdue total (days/hours negative) prints as
+// "-X days, Y hours": one leading minus on the whole duration rather than a
+// minus on each half, since "-6 days, -9 hours" reads as two separate
+// negatives instead of one overdue amount.
+function formatRemainingTime(remaining, translate = (key, fallback) => fallback) {
+  const negative = remaining.days < 0 || remaining.hours < 0;
+  const days = Math.abs(remaining.days);
+  const hours = Math.abs(remaining.hours);
+  const daysLabel = translate('days', 'days');
+  const hoursLabel = translate('hours', 'hours');
+  return `${negative ? '-' : ''}${days} ${daysLabel}, ${hours} ${hoursLabel}`;
+}
+
 module.exports = {
   completionDate,
   dayKey,
@@ -390,6 +514,7 @@ module.exports = {
   computeThroughput,
   computeCompletionForecast,
   computeFlowEfficiency,
+  computeActivityPulse,
   computeDashboardGroups,
   NO_ASSIGNEE_GROUP,
   NO_LABEL_GROUP,
@@ -397,4 +522,8 @@ module.exports = {
   computeTimeByGroup,
   computeTimeByCard,
   computeCardsByAssigneeGroup,
+  computeCardsByCustomFieldGroup,
+  NO_ROADMAP_GROUP,
+  computeRemainingTimeSum,
+  formatRemainingTime,
 };

@@ -16,13 +16,16 @@ const {
   computeBurndown,
   computeBurnup,
   computeThroughput,
+  computeCompletionForecast,
   computeFlowEfficiency,
+  computeActivityPulse,
   computeDashboardGroups,
   NO_ASSIGNEE_GROUP,
   NO_LABEL_GROUP,
   computeTimeByGroup,
   computeTimeByCard,
   computeCardsByAssigneeGroup,
+  computeRemainingTimeSum,
 } = require('/models/lib/chartCalculations');
 
 export async function loadBoardChartData(boardId, chartKey) {
@@ -42,6 +45,23 @@ export async function loadBoardChartData(boardId, chartKey) {
     (min, card) => (!min || card.createdAt < min ? card.createdAt : min), null);
   const fromDate = firstCreatedAt || new Date();
   const toDate = new Date();
+
+  if (chartKey === 'pulse') {
+    // #1292 ("GitHub Pulse-like graph"): total board activity per day over a
+    // fixed recent window, independent of allCards' fromDate (a quiet board
+    // with old cards should still show a 30-day-wide, mostly-zero chart
+    // rather than one card's creation date away).
+    const pulseToDate = new Date();
+    const pulseFromDate = new Date(pulseToDate);
+    pulseFromDate.setUTCDate(pulseFromDate.getUTCDate() - 29);
+    const pulseActivities = await Activities.find(
+      { boardId, createdAt: { $gte: pulseFromDate, $lte: pulseToDate } },
+      { fields: { createdAt: 1 } },
+    ).fetchAsync();
+    return {
+      series: computeActivityPulse(pulseActivities, pulseFromDate, pulseToDate, 'day'),
+    };
+  }
 
   if (chartKey === 'cumulativeFlow' || chartKey === 'wipRun') {
     const events = await Activities.find(
@@ -67,7 +87,13 @@ export async function loadBoardChartData(boardId, chartKey) {
   if (chartKey === 'leadTime' || chartKey === 'cycleTime') return { points: computeLeadCycleTime(allCards) };
   if (chartKey === 'burndown') return { series: computeBurndown(allCards, fromDate, toDate) };
   if (chartKey === 'burnup') return { series: computeBurnup(allCards, fromDate, toDate) };
-  if (chartKey === 'throughputHistogram') return { series: computeThroughput(allCards, 'week') };
+  if (chartKey === 'throughputHistogram') {
+    const series = computeThroughput(allCards, 'week');
+    // #1476 ("completion estimates based on velocity"): a forward-looking
+    // projection alongside the histogram itself - at the recent weekly
+    // completion rate, when the cards still open would be done.
+    return { series, forecast: computeCompletionForecast(allCards, series, 7, 4) };
+  }
   if (chartKey === 'flowEfficiency') return { points: computeFlowEfficiency(allCards) };
 
   if (chartKey === 'gantt') {
@@ -99,6 +125,12 @@ export async function loadBoardChartData(boardId, chartKey) {
         byAssignee: computeTimeByGroup(activeCards, card =>
           (card.assignees || []).map(id => ({ key: id, label: nameOf(id) })), NO_ASSIGNEE_GROUP),
         byCard: computeTimeByCard(activeCards),
+        // #1121 ("show the SUM of remaining time until due date"): the same
+        // activeCards set as above (archived cards excluded); a card also
+        // needs an unset completion date and a dueAt to count - see
+        // computeRemainingTimeSum's own comment for why an overdue card
+        // still counts, as a negative amount.
+        remaining: computeRemainingTimeSum(activeCards),
       };
     }
 

@@ -18,6 +18,9 @@ template(name="boardChartView")
         .chart-canvas-wrapper
           canvas.js-chart-canvas
 
+        if forecastNote
+          p.stats-view-placeholder-note.chart-forecast-note {{ forecastNote }}
+
         table.stats-view-table.chart-data-table
           thead
             tr
