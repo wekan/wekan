@@ -13,6 +13,7 @@ import '/client/components/boards/tableView.jade';
 import '/client/components/boards/statsView.jade';
 import '/client/components/boards/timeView.jade';
 import '/client/components/boards/groupByAssigneeView.jade';
+import '/client/components/boards/roadmapView.jade';
 import '/client/components/boards/charts/boardCharts.jade';
 import '/client/components/boards/chartPlaceholderViews.jade';
 import '/client/components/boards/bigboardView.jade';
@@ -37,6 +38,7 @@ import '/client/components/boards/charts/boardCharts.js';
 import '/client/components/boards/chartPlaceholderViews.js';
 import '/client/components/boards/bigboardView.js';
 import '/client/components/boards/multiboardCalendarView.js';
+import '/client/components/boards/roadmapView.js';
 
 import '/client/components/boards/boardBody.css';
 import '/client/components/boards/dependencyOverlay.css';
@@ -51,4 +53,5 @@ import '/client/components/boards/statsView.css';
 import '/client/components/boards/charts/boardCharts.css';
 import '/client/components/boards/bigboardView.css';
 import '/client/components/boards/multiboardCalendarView.css';
+import '/client/components/boards/roadmapView.css';
 

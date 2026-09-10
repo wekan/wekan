@@ -23,6 +23,9 @@ const {
   computeTimeByCard,
   computeRemainingTimeSum,
   formatRemainingTime,
+  computeCardsByCustomFieldGroup,
+  NO_ROADMAP_GROUP,
+  translateGroupLabel,
   NO_ASSIGNEE_GROUP,
 } = require('../models/lib/chartCalculations');
 
@@ -414,6 +417,49 @@ test('computeActivityPulse buckets by week (Monday start) when asked', () => {
     { day: '2026-01-05', count: 2 },
     { day: '2026-01-12', count: 1 },
   ]);
+});
+
+// Roadmap board view (#627: "a Roadmap view organizing cards by version/
+// release milestone") - groups cards by the VALUE of one custom field,
+// keeping the actual cards per group (not just a count) so the Roadmap view
+// can plot each row as its own Gantt timeline.
+test('computeCardsByCustomFieldGroup groups cards by a custom field value, keeping the cards', () => {
+  const cards = [
+    { _id: 'c1', title: 'Card 1' },
+    { _id: 'c2', title: 'Card 2' },
+    { _id: 'c3', title: 'Card 3' },
+  ];
+  const valueByCard = { c1: 'v1.0', c2: 'v1.0', c3: 'v2.0' };
+  const groups = computeCardsByCustomFieldGroup(cards, card => valueByCard[card._id]);
+  assert.deepStrictEqual(groups.map(g => [g.key, g.cards.length]), [
+    ['v1.0', 2],
+    ['v2.0', 1],
+  ]);
+  assert.deepStrictEqual(groups[0].cards.map(c => c._id), ['c1', 'c2']);
+});
+
+test('computeCardsByCustomFieldGroup (negative) puts cards with no value in the empty group, sorted last', () => {
+  const cards = [
+    { _id: 'c1' },
+    { _id: 'c2' },
+  ];
+  const valueByCard = { c2: 'v1.0' };
+  const groups = computeCardsByCustomFieldGroup(cards, card => valueByCard[card._id]);
+  assert.deepStrictEqual(groups.map(g => g.key), ['v1.0', NO_ROADMAP_GROUP.key]);
+  assert.strictEqual(groups[groups.length - 1].cards[0]._id, 'c1');
+});
+
+test('computeCardsByCustomFieldGroup sorts real groups alphabetically by label', () => {
+  const cards = [{ _id: 'c1' }, { _id: 'c2' }, { _id: 'c3' }];
+  const valueByCard = { c1: 'v2.0', c2: 'v1.0', c3: 'v1.5' };
+  const groups = computeCardsByCustomFieldGroup(cards, card => valueByCard[card._id]);
+  assert.deepStrictEqual(groups.map(g => g.key), ['v1.0', 'v1.5', 'v2.0']);
+});
+
+test('translateGroupLabel translates the Roadmap "no value" sentinel, like the assignee/label ones', () => {
+  const translate = (key, fallback) => (key === 'roadmap-no-value' ? 'Ei arvoa' : fallback);
+  assert.strictEqual(translateGroupLabel(NO_ROADMAP_GROUP.label, translate), 'Ei arvoa');
+  assert.strictEqual(translateGroupLabel('v1.0', translate), 'v1.0');
 });
 
 console.log(`chartCalculations: ${passed} passed`);

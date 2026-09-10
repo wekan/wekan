@@ -1,0 +1,33 @@
+/* Roadmap board view (#627) - one Frappe Gantt row per custom-field value.
+ * .gantt-view / .frappe-gantt-container base styling is already provided by
+ * client/components/gantt/gantt.css and frappeGantt.css (loaded globally by
+ * client/features/gantt.js); this file only adds the field-picker and
+ * per-row layout that are specific to this view. */
+
+.roadmap-field-picker {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 8px 0 16px;
+}
+
+.roadmap-field-picker-label {
+  font-weight: bold;
+}
+
+.roadmap-row {
+  margin-bottom: 24px;
+}
+
+.roadmap-row-heading {
+  margin: 0 0 6px;
+}
+
+.roadmap-gantt-container {
+  min-height: 60px;
+}
+
+.roadmap-empty {
+  opacity: 0.7;
+  padding: 12px 0;
+}
