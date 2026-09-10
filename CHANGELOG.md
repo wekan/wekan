@@ -327,9 +327,9 @@ the fold already used for lists/swimlanes/checklists. It also restores the
 full-featured **document preview** viewer (DOCX/XLSX/PPTX, native PDF),
 hardens the **HttpOnly login cookie**, opens a board already **filtered
 from its URL**, adds **Group by Assignee** and **Bigboard** board views,
-lets **Clone Board** skip copying cards, filters Admin Panel / People **by
-Team**, and gives **Rules (IFTTT)** title validation and a generated
-default title.
+lets **checklist items be bulk-edited as text**, lets **Clone Board** skip
+cards, filters Admin Panel / People **by Team**, and gives **Rules** title
+validation and a default title.
 
 This release adds the following new features:
 
