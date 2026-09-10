@@ -36,7 +36,7 @@ template(name="listHeader")
           span.cardCount {{cardsCount containerSwimlaneId}} {{cardsCountForListIsOne cardsCountWhole}}
           if hasNumberFieldsSum
             | &nbsp;
-            span.list-sum-badge(title="{{_ 'sum-of-number-fields'}}") ∑ {{numberFieldsSum}}
+            span.list-sum-badge(title="{{_ 'sum-of-number-fields'}}") ∑ {{numberFieldsSum containerSwimlaneId}}
       else
         if collapsed
           //- Collapsed: unchanged from before - the caret stays a sibling
@@ -85,7 +85,7 @@ template(name="listHeader")
             span.cardCount {{cardsCount containerSwimlaneId}} {{cardsCountForListIsOne cardsCountWhole}}
             if hasNumberFieldsSum
               | &nbsp;
-              span.list-sum-badge(title="{{_ 'sum-of-number-fields'}}") ∑ {{numberFieldsSum}}
+              span.list-sum-badge(title="{{_ 'sum-of-number-fields'}}") ∑ {{numberFieldsSum containerSwimlaneId}}
       if isMiniScreen
         if isCurrentList
           if isWatching

@@ -6,8 +6,13 @@ template(name="subtasks")
       .board-overlay#card-details-overlay
       +subtaskDeleteDialog(subtask = subtaskToDelete)
 
+  if currentCard.allSubtasksCount
+    a.js-toggle-hide-completed-subtasks.subtasks-hide-completed-toggle
+      i.fa(class="{{#if hideCompletedSubtasks}}fa-eye-slash{{else}}fa-eye{{/if}}")
+      | {{_ 'hideCompletedSubtasks'}} ...
+
   .card-subtasks-items
-    each subtask in currentCard.subtasks
+    each subtask in visibleSubtasks
       +subtaskDetail(subtask = subtask)
 
   if canModifyCard
@@ -18,12 +23,14 @@ template(name="subtasks")
         i.fa.fa-plus
 
 template(name="subtaskDetail")
-  .js-subtasks.subtask
+  .js-subtasks.subtask(class="{{#if subtask.archived}}is-completed{{/if}}")
     +inlinedForm(classNames="js-edit-subtask-title" subtask = subtask)
       +editSubtaskItemForm(subtask = subtask)
     else
       .subtask-title
         span
+        if subtask.archived
+          i.fa.fa-check-circle.subtask-completed-icon(title="{{_ 'completed'}}")
         if canModifyCard
           a.fa.fa-navicon.subtask-details-menu.js-open-subtask-details-menu(title="{{_ 'subtaskActionsPopup-title'}}")
         if canModifyCard

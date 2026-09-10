@@ -1528,7 +1528,7 @@ capability a Normal member has.
 filesystem and cloud storage backends.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/61e857d96">A file's real content is now checked against its declared type, and a spoofed upload is rejected</a>. Thanks to blaggacao and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/9b03e77de">A file's real content is now checked against its declared type, and a spoofed upload is rejected</a>. Thanks to blaggacao and xet7.</summary>
 
 [#3274](https://github.com/wekan/wekan/issues/3274): uploads were validated
 against their client-declared MIME type/extension, but nothing compared that

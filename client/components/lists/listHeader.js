@@ -9,6 +9,7 @@ import { isHexColor, toHex } from '/models/lib/contrastColor';
 import { MultiSelection } from '/client/lib/multiSelection';
 import { Utils } from '/client/lib/utils';
 import { lazyListCardCount } from '/client/lib/lazyCards';
+import { sumCustomFieldValues } from '/models/lib/customFieldsSum';
 // #5659: single source of truth for the default/minimum list width, shared
 // with client/components/lists/list.js and models/users.js.
 import {
@@ -156,7 +157,7 @@ Template.listHeader.helpers({
     }
   },
 
-  numberFieldsSum() {
+  numberFieldsSum(containerSwimlaneId) {
     const list = Template.currentData();
     if (!list) return 0;
     const boardId = Session.get('currentBoard');
@@ -166,27 +167,23 @@ Template.listHeader.helpers({
       type: 'number',
     });
     if (!fields || !fields.length) return 0;
-    const cards = ReactiveCache.getCards({ listId: list._id, archived: false });
-    let total = 0;
-    if (cards && cards.length) {
-      cards.forEach(card => {
-        const cfs = (card.customFields || []);
-        fields.forEach(field => {
-          const cf = cfs.find(f => f && f._id === field._id);
-          if (!cf || cf.value === null || cf.value === undefined) return;
-          let v = cf.value;
-          if (typeof v === 'string') {
-            const parsed = parseFloat(v.replace(',', '.'));
-            if (isNaN(parsed)) return;
-            v = parsed;
-          }
-          if (typeof v === 'number' && isFinite(v)) {
-            total += v;
-          }
-        });
-      });
+
+    // Same swimlane-scoping decision as cardsCount() above: in Swimlanes view,
+    // scope the sum to the swimlane row this header is rendered in (the SAME
+    // id the card body / card count already use), so a shared list does not
+    // report the whole-list sum under every swimlane row.
+    const selector = { listId: list._id, archived: false };
+    if (Utils.boardView() === 'board-view-swimlanes') {
+      const swimlaneId =
+        typeof containerSwimlaneId === 'string' && containerSwimlaneId
+          ? containerSwimlaneId
+          : list.swimlaneId || '';
+      if (swimlaneId) {
+        selector.swimlaneId = swimlaneId;
+      }
     }
-    return total;
+    const cards = ReactiveCache.getCards(selector);
+    return sumCustomFieldValues(cards, fields.map(field => field._id));
   },
 
   hasNumberFieldsSum() {

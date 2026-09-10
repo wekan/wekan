@@ -182,6 +182,32 @@ textarea.js-edit-subtask-item {
   padding: 6px 10px 6px 10px;
   order: 2;
 }
+/* #3409: an archived subtask stays visible in the list, marked completed,
+   instead of disappearing — the same dimmed/italic treatment a checked
+   checklist item gets (.subtasks-item .item-title.is-checked above). */
+.subtask.is-completed .subtask-title .title {
+  color: #8c8c8c;
+  font-style: italic;
+  text-decoration: line-through;
+}
+.subtask-completed-icon {
+  color: #3cb500;
+  flex-shrink: 0;
+  padding-top: 6px;
+  margin-inline-end: 0.3em;
+}
+.subtasks-hide-completed-toggle {
+  display: inline-block;
+  margin: 0.2em 0 0.5em 1.33em;
+  color: #8c8c8c;
+  cursor: pointer;
+}
+.subtasks-hide-completed-toggle:hover {
+  color: inherit;
+}
+.subtasks-hide-completed-toggle i.fa {
+  margin-inline-end: 4px;
+}
 /* #6091: read-only status (current list / board) of a subtask */
 .subtask-title .subtask-status {
   order: 1;

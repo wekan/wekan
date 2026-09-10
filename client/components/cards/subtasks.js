@@ -84,6 +84,11 @@ Template.subtasks.events({
 
 Template.subtasks.onCreated(function () {
   this.toggleDeleteDialog = new ReactiveVar(false);
+  // #3409: archived subtasks stay in the list, shown as completed, instead of
+  // vanishing. This toggle hides them again for anyone who wants the shorter
+  // list — a client-side ReactiveVar, not a persisted field, because it is a
+  // per-viewing preference of this subtask list, not data about the card.
+  this.hideCompletedSubtasks = new ReactiveVar(false);
 });
 
 Template.subtasks.helpers({
@@ -92,6 +97,29 @@ Template.subtasks.helpers({
   },
   toggleDeleteDialog() {
     return Template.instance().toggleDeleteDialog;
+  },
+  hideCompletedSubtasks() {
+    return Template.instance().hideCompletedSubtasks.get();
+  },
+  // #3409: archived (= completed) subtasks are always fetched — currentCard.subtasks()
+  // used to filter them out entirely — and only hidden here, on the client,
+  // when the toggle above is on. The template's own data context is
+  // {cardId}, not the card itself (see +subtasks(cardId = _id) below), so the
+  // card is looked up the same way the add-subtask handler above does.
+  visibleSubtasks() {
+    const card = ReactiveCache.getCard(this.cardId);
+    const allSubtasks = card && card.allSubtasks ? card.allSubtasks() : [];
+    if (Template.instance().hideCompletedSubtasks.get()) {
+      return allSubtasks.filter(subtask => !subtask.archived);
+    }
+    return allSubtasks;
+  },
+});
+
+Template.subtasks.events({
+  'click .js-toggle-hide-completed-subtasks'(event, tpl) {
+    event.preventDefault();
+    tpl.hideCompletedSubtasks.set(!tpl.hideCompletedSubtasks.get());
   },
 });
 
