@@ -4914,6 +4914,30 @@ file under `models/` for the same shape.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0c538bb92">Clicking a minicard opens the card popup again</a>. Thanks to xet7.</summary>
+
+Reported directly: clicking a minicard did not open the card popup, with
+the browser console showing "Error: No such function: isDateFormat" from
+`Template.cardFieldSectionDates`. `cardDetails.jade` was split into
+several per-section templates (Labels/Dates/Members/
+DependenciesAndSort/CustomFields/VoteAndPoker), plus
+`cardDetailsActionsPopup` and `activities.jade` are separate templates
+entirely - but twelve helpers those templates actually call
+(`isDateFormat`, `canShowCustomFieldsOnCard`, `stickers`, `isWatching`,
+`dueDateChangeCount`, `getLocations`, `getDependencyCards`,
+`customFieldsGrid`, `showActivities`, `showVotingButtons`,
+`showPlanningPokerButtons`, `currentSwimlaneListsSorted`,
+`isCurrentListId`) were only ever registered on
+`Template.cardDetails.helpers` - template-local, so invisible to every
+template that isn't `cardDetails` itself. Blaze only surfaces this the
+moment that piece of UI actually renders, which is why it passed the
+Node test suite and even a `meteor build` cleanly and only broke live.
+Moved all twelve to `Template.registerHelper` (global), matching the
+pattern the file already used for `isSectionOpen`.
+
+</details>
+
 and improves the translation workflow:
 
 - [Fill in the missing Ladin, Latin, Luganda, Luxembourgish, Maithili, Malagasy, Malay, Malayalam, Maltese, Manx, Maori and Marathi translations](https://github.com/wekan/wekan/commit/718d20813). Thanks to xet7.
