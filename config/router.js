@@ -458,6 +458,8 @@ FlowRouter.route('/b/:boardId/:slug/:cardId', {
     // scroll the board away from the card it just opened.
     Session.set('revealSwimlaneId', null);
     Session.set('revealListId', null);
+    Session.set('revealCommentId', null);
+    Session.set('revealActivityId', null);
     Session.set('popupCardId', null);
     Session.set('popupCardBoardId', null);
     // #4758: if the card was moved to another board, redirect to its current one.
@@ -516,6 +518,8 @@ FlowRouter.route('/b/:id/:slug', {
     Session.set('currentCard', null);
     Session.set('revealSwimlaneId', null);
     Session.set('revealListId', null);
+    Session.set('revealCommentId', null);
+    Session.set('revealActivityId', null);
     Session.set('popupCardId', null);
     Session.set('popupCardBoardId', null);
 
