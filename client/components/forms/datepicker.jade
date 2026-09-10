@@ -19,7 +19,7 @@ template(name="editDateForm")
           input.js-date-field#date(type="date" name="date" value=showDate autofocus)
         .right
           label(for="time") {{_ 'time'}}
-          input.js-time-field#time(type="time" name="time" value=showTime)
+          input.js-time-field#time(type="text" inputmode="numeric" name="time" value=showTime placeholder="HH:mm" autocomplete="off")
         if customFieldControls
           .custom-field-date-copy
             +customFieldCopyButton(value=customFieldCopyValue)

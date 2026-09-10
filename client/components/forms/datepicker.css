@@ -18,7 +18,7 @@
   width: auto;
 }
 .datepicker-container .fields input[type='date'],
-.datepicker-container .fields input[type='time'] {
+.datepicker-container .fields .js-time-field {
   box-sizing: border-box;
   max-width: 100%;
   width: 100%;

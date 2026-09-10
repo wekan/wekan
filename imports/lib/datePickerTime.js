@@ -56,9 +56,60 @@ function fallbackSubmitTime(defaultTime) {
   return defaultTimeValue(defaultTime) || '12:00';
 }
 
+// Parse a user-typed time string into 'HH:mm', accepting looser formats than
+// a bare 'HH:mm' (#2903). `<input type="time">` only ever reports a complete
+// 'HH:mm' (or '' when incomplete), so it can never carry an hour-only value
+// like '13' through to this code - the time field is a plain text input
+// (client/components/forms/datepicker.jade) precisely so a partially typed
+// time reaches here instead of being silently discarded by the browser.
+// Accepted:
+//  - '' / whitespace-only -> '00:00' (a blank time means midnight; the
+//    popup's own configured-default behavior for a submitted-empty field
+//    stays layered on top of this in fallbackSubmitTime, see #1502 above -
+//    this function's empty-string contract is for callers that want the
+//    plain "nothing typed" answer);
+//  - an hour alone, 0-23, with or without am/pm ('13', '7', '1pm', '1 pm')
+//    -> that hour at :00;
+//  - 'H:mm' / 'HH:mm', with or without am/pm ('9:05', '13:45', '11:30pm').
+// Anything else (letters, out-of-range hours/minutes, garbage) returns null
+// so callers keep rejecting it exactly as before.
+function parseTimeInput(value) {
+  if (value === undefined || value === null) return null;
+  const trimmed = String(value).trim();
+  if (trimmed === '') return '00:00';
+
+  let match = trimmed.match(/^(\d{1,2}):(\d{2})\s*([ap]\.?m\.?)?$/i);
+  let hourStr;
+  let minuteStr;
+  let meridiemStr;
+  if (match) {
+    [, hourStr, minuteStr, meridiemStr] = match;
+  } else {
+    match = trimmed.match(/^(\d{1,2})\s*([ap]\.?m\.?)?$/i);
+    if (!match) return null;
+    [, hourStr, meridiemStr] = match;
+    minuteStr = '00';
+  }
+
+  let hours = parseInt(hourStr, 10);
+  const minutes = parseInt(minuteStr, 10);
+  if (isNaN(hours) || isNaN(minutes) || minutes > 59) return null;
+
+  const meridiem = meridiemStr ? meridiemStr[0].toLowerCase() : null;
+  if (meridiem) {
+    if (hours < 1 || hours > 12) return null;
+    hours = meridiem === 'a' ? (hours === 12 ? 0 : hours) : (hours === 12 ? 12 : hours + 12);
+  } else if (hours < 0 || hours > 23) {
+    return null;
+  }
+
+  return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
+}
+
 export {
   isValidDate,
   formatTime,
   initialTimeValue,
   fallbackSubmitTime,
+  parseTimeInput,
 };

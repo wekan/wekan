@@ -481,7 +481,7 @@
 }
 
 .pop-over[data-popup*='Date'] .datepicker-container input[type='date'],
-.pop-over[data-popup*='Date'] .datepicker-container input[type='time'] {
+.pop-over[data-popup*='Date'] .datepicker-container .js-time-field {
   width: 100% !important;
   padding: 8px !important;
   border: 1px solid #ccc !important;
@@ -491,7 +491,7 @@
 }
 
 .pop-over[data-popup*='Date'] .datepicker-container input[type='date']:focus,
-.pop-over[data-popup*='Date'] .datepicker-container input[type='time']:focus {
+.pop-over[data-popup*='Date'] .datepicker-container .js-time-field:focus {
   outline: none !important;
   border-color: #007cba !important;
   box-shadow: 0 0 0 2px rgba(0, 124, 186, 0.2) !important;

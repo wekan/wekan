@@ -258,7 +258,7 @@ test('copy sits above the top-right corner of every custom field editor', () => 
     /\.fields \.right \{[\s\S]*?flex: 1;[\s\S]*?min-width: 0;[\s\S]*?float: none;[\s\S]*?order: 2;[\s\S]*?width: auto;/,
     'Time is explicitly the second item in the row');
   assert.match(datepickerCss,
-    /input\[type='date'\],[\s\S]*?input\[type='time'\][\s\S]*?box-sizing: border-box;[\s\S]*?max-width: 100%;[\s\S]*?width: 100%;/,
+    /input\[type='date'\],[\s\S]*?\.js-time-field[\s\S]*?box-sizing: border-box;[\s\S]*?max-width: 100%;[\s\S]*?width: 100%;/,
     'date and time inputs shrink inside the popup instead of creating horizontal scroll');
   assert.match(datepickerCss,
     /\.custom-field-date-copy \{[\s\S]*?order: 3;/,

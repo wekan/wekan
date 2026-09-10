@@ -15,6 +15,7 @@ import {
   formatTime,
   initialTimeValue,
   fallbackSubmitTime,
+  parseTimeInput,
 } from '/imports/lib/datePickerTime';
 
 // Format date as YYYY-MM-DD
@@ -160,13 +161,15 @@ export function datePickerEvents() {
     },
     'change .js-time-field'(evt, tpl) {
       const datePicker = getDatePicker(tpl);
-      // Native HTML time input validation. Normalize any non-Latin digits
-      // (e.g. Persian/Arabic-Indic) so parsing works in those locales (#5752).
-      const timeValue = normalizeDigits(tpl.find('#time').value);
-      if (timeValue) {
-        // HTML time input format is always HH:mm
-        const timeObj = new Date(`1970-01-01T${timeValue}:00`);
-        if (isValidDate(timeObj)) {
+      // Normalize any non-Latin digits (e.g. Persian/Arabic-Indic) so parsing
+      // works in those locales (#5752), then accept the looser formats
+      // parseTimeInput understands - an hour alone ('13'), with am/pm, etc.
+      // (#2903) - not just a complete 'HH:mm'.
+      const rawTime = normalizeDigits(tpl.find('#time').value);
+      if (rawTime) {
+        const timeValue = parseTimeInput(rawTime);
+        const timeObj = timeValue ? new Date(`1970-01-01T${timeValue}:00`) : null;
+        if (timeObj && isValidDate(timeObj)) {
           const currentDate = datePicker.date.get();
           if (isValidDate(currentDate)) {
             const draftDate = new Date(currentDate);
@@ -191,11 +194,23 @@ export function datePickerEvents() {
       // Normalize any non-Latin digits (e.g. Persian/Arabic-Indic) before
       // parsing so due/start/end dates work in those locales (#5752).
       // An empty time falls back to the popup's configured default time
-      // (e.g. 17:00 for due dates), then 12:00 (#1502).
+      // (e.g. 17:00 for due dates), then 12:00 (#1502). A non-empty time
+      // accepts the looser formats parseTimeInput understands - an hour
+      // alone ('13'), with am/pm, etc. (#2903) - and is rejected the same
+      // way a bad 'HH:mm' always was.
       const dateValue = normalizeDigits(evt.target.date.value);
-      const timeValue =
-        normalizeDigits(evt.target.time.value) ||
-        fallbackSubmitTime(datePicker.defaultTime);
+      const rawTime = normalizeDigits(evt.target.time.value);
+      let timeValue;
+      if (rawTime) {
+        timeValue = parseTimeInput(rawTime);
+        if (!timeValue) {
+          datePicker.error.set('invalid-time');
+          evt.target.time.focus();
+          return;
+        }
+      } else {
+        timeValue = fallbackSubmitTime(datePicker.defaultTime);
+      }
 
       if (!dateValue) {
         datePicker.error.set('invalid-date');
