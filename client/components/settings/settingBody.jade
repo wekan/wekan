@@ -211,6 +211,13 @@ template(name='tableVisibilityModeSettings')
         a.flex.js-toggle-all-boards-hide
           .materialCheckBox#accounts-allowPrivateOnly(class="{{#if allowPrivateOnly}}is-checked{{/if}}")
           span {{_ 'public-boards'}}
+      li.tableVisibilityMode-form
+        //- #4475: ticked forbids anyone who is not a site admin from creating
+        //- new boards. Same Save button and same collection as the setting
+        //- above - only the checked key differs.
+        a.flex.js-toggle-all-boards-hide
+          .materialCheckBox#accounts-boardCreationAdminOnly(class="{{#if boardCreationAdminOnly}}is-checked{{/if}}")
+          span {{_ 'board-creation-admin-only'}}
       li.hideBoardActivities-form
         a.flex.js-toggle-all-boards-hide
           .materialCheckBox#hide-board-activities(class="{{#if currentSetting.hideBoardActivitiesOnAllBoards}}is-checked{{/if}}")

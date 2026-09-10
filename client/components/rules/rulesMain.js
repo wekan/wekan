@@ -95,12 +95,31 @@ Template.rulesMain.events({
   },
   'click .js-goto-trigger'(event, tpl) {
     event.preventDefault();
-    const ruleTitle = tpl.find('#ruleTitle').value;
-    if (ruleTitle !== undefined && ruleTitle !== '') {
-      tpl.find('#ruleTitle').value = '';
-      tpl.ruleName.set(ruleTitle);
-      tpl.rulesCurrentTab.set('trigger');
+    const input = tpl.find('#ruleTitle');
+    const ruleTitle = (input.value || '').trim();
+    // #4294: clicking "Add Rule" with an empty title used to just do
+    // nothing — no error, no explanation, and the button visibly reacted to
+    // the click. Show a validation message and highlight the field instead
+    // of the silent no-op.
+    if (ruleTitle === '') {
+      input.classList.add('rules-field-error');
+      input.setAttribute('aria-invalid', 'true');
+      input.focus();
+      $(input)
+        .closest('.rules-add')
+        .find('.js-rule-title-error')
+        .removeClass('hide-element');
+      return;
     }
+    input.classList.remove('rules-field-error');
+    input.removeAttribute('aria-invalid');
+    $(input)
+      .closest('.rules-add')
+      .find('.js-rule-title-error')
+      .addClass('hide-element');
+    input.value = '';
+    tpl.ruleName.set(ruleTitle);
+    tpl.rulesCurrentTab.set('trigger');
   },
   'click .js-goto-action'(event, tpl) {
     event.preventDefault();

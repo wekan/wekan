@@ -13,6 +13,7 @@ import { headerTitle } from '/models/lib/pageTitles';
 // The bookmark rules. docs/Features/Board/Starred.md
 import { isStarrablePageUrl } from '/models/lib/starredPages';
 import { headerPathVar } from '/client/lib/headerPathVar';
+import { boardCreationAllowed } from '/client/lib/boardCreationAllowed';
 // The right sidebar the hamburger opens. On a board that is the board's own; on
 // every other page it is the shared page sidebar.
 import { getSidebarInstance } from '/client/features/sidebar/service';
@@ -146,6 +147,12 @@ Template.header.helpers({
   },
   isAllBoardsPage() {
     return ALL_BOARDS_VIEW_ROUTES.includes(FlowRouter.getRouteName());
+  },
+
+  // #4475: hide the top-bar "+" when board creation is restricted to admins
+  // and the current user is not one. Enforcement itself is server-side.
+  canCreateBoard() {
+    return boardCreationAllowed();
   },
 
   // The Admin Panel is four routes; its tabs show on all of them.

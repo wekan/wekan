@@ -48,3 +48,4 @@ template(name="rulesList")
           i.fa.fa-plus
           | {{_ 'r-add-rule'}}
         input(type=text,placeholder="{{_ 'r-new-rule-name' }}",id="ruleTitle")
+        p.rules-field-error-message.js-rule-title-error.hide-element {{_ 'r-rule-title-required'}}

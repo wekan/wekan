@@ -145,8 +145,9 @@ template(name="header")
 
         //- The top-bar Create Board control shares the same form and board-template
           picker as Add Board on the overview. #3070
-        a#header-new-board-icon.board-header-btn.js-create-board.js-header-collapsible-icon(title="{{_ 'add-board'}}")
-          i.fa.fa-plus
+        if canCreateBoard
+          a#header-new-board-icon.board-header-btn.js-create-board.js-header-collapsible-icon(title="{{_ 'add-board'}}")
+            i.fa.fa-plus
 
         //- The "100%" zoom control that used to sit here is REMOVED. It scaled the
           board with a CSS transform, which never worked properly - and WeKan

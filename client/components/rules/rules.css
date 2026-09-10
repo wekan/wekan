@@ -409,3 +409,13 @@
   border-radius: 4px;
   font-size: calc(13px * var(--wekan-ui-font-scale, 1));
 }
+/* #4294: empty-title validation on the "Add Rule" input. */
+.rules-add .rules-field-error {
+  border: 1px solid #d9534f;
+  background: #fdf2f2;
+}
+.rules-add .rules-field-error-message {
+  margin: 0.3em 0 0;
+  color: #d9534f;
+  font-size: calc(12px * var(--wekan-ui-font-scale, 1));
+}

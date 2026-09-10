@@ -1,6 +1,9 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { Mongo } from 'meteor/mongo';
 import { Meteor } from 'meteor/meteor';
+import Triggers from './triggers';
+import Actions from './actions';
+import { generateDefaultRuleTitle } from './lib/generateDefaultRuleTitle';
 const { SimpleSchema } = require('/imports/simpleSchema');
 
 const Rules = new Mongo.Collection('rules');
@@ -10,6 +13,36 @@ Rules.attachSchema(
     title: {
       type: String,
       optional: false,
+      // #4294: a rule created with no title used to store an empty string
+      // (the client-side "Add Rule" gate is the primary defence against
+      // that, but every creation path goes through this schema, including
+      // the rules.createRule server method and the rules-workflow canvas).
+      // Once trigger+action are known, generate a sensible default instead
+      // of leaving the rule unnamed; an existing/explicit title always wins.
+      // eslint-disable-next-line consistent-return
+      autoValue() {
+        const value = this.value;
+        if (value !== undefined && value !== null && `${value}`.trim() !== '') {
+          return value;
+        }
+        if (this.isInsert) {
+          const triggerId = this.field('triggerId').value;
+          const actionId = this.field('actionId').value;
+          try {
+            const trigger = triggerId && Triggers.findOne(triggerId);
+            const action = actionId && Actions.findOne(actionId);
+            return generateDefaultRuleTitle(
+              trigger && trigger.desc,
+              action && action.desc,
+            );
+          } catch (e) {
+            return 'Rule';
+          }
+        }
+        // An update that sent no title (e.g. a partial $set from elsewhere)
+        // must not blank out an existing one.
+        this.unset();
+      },
     },
     triggerId: {
       type: String,

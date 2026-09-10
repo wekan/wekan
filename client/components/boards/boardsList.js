@@ -7,6 +7,7 @@ import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import getSlug from 'limax';
 // The archived-at line on a tile in the Archive, in the reader's own format.
 import { formatDateByUserPreference } from '/imports/lib/dateUtils';
+import { boardCreationAllowed } from '/client/lib/boardCreationAllowed';
 // The All Boards URLs, and the slug path of a workspace in the tree.
 // docs/Features/Page/All-Boards-URLs.md
 import {
@@ -992,7 +993,10 @@ Template.boardList.helpers({
     const info = pageInfo(all.length, tpl.tablePageVar.get());
     const page = all.slice(info.skip, info.skip + TABLE_PAGE_ROWS_PER_PAGE);
     const selectedMenu = tpl.selectedMenu.get();
-    const canAddBoard = selectedMenu !== 'archive' && selectedMenu !== 'home';
+    const canAddBoard =
+      selectedMenu !== 'archive' &&
+      selectedMenu !== 'home' &&
+      boardCreationAllowed();
     return {
       header: buildHeader(ALL_BOARDS_COLUMNS),
       rowTemplate: 'allBoardsRow',
@@ -1196,7 +1200,7 @@ Template.boardList.helpers({
   // Home (a new board is not the board that opens after login).
   showsAddBoardTile() {
     const sel = Template.instance().selectedMenu.get();
-    return sel !== 'archive' && sel !== 'home';
+    return sel !== 'archive' && sel !== 'home' && boardCreationAllowed();
   },
 
   // The count for a row. The three board lists count what the page can see; the

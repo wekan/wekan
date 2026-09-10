@@ -138,6 +138,22 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized');
     }
 
+    // #4475: an admin can restrict board creation to admins only. The
+    // setting lives beside its sibling tableVisibilityMode-allowPrivateOnly
+    // in Admin Panel -> Settings -> Visibility, so it is read the same way.
+    const boardCreationAdminOnly = await TableVisibilityModeSettings.findOneAsync(
+      'tableVisibilityMode-boardCreationAdminOnly',
+    );
+    if (boardCreationAdminOnly && boardCreationAdminOnly.booleanValue) {
+      const creator = await ReactiveCache.getUser(this.userId);
+      if (!creator || creator.isAdmin !== true) {
+        throw new Meteor.Error(
+          'not-authorized',
+          'Board creation is restricted to admins.',
+        );
+      }
+    }
+
     const boardId = await Boards.insertAsync({
       title,
       slug,
@@ -1143,6 +1159,7 @@ const BOARD_CARD_SETTING_KEYS = [
   'allowsAttachments',
   'allowsChecklists',
   'allowsComments',
+  'allowsCommentsOnMinicard',
   'allowsDescriptionTitle',
   'allowsDescriptionText',
   'allowsActivities',

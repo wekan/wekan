@@ -135,6 +135,12 @@ Meteor.startup(async () => {
     { _id: 'tableVisibilityMode-allowPrivateOnly' },
     { $setOnInsert: { booleanValue: false, sort: 0 } },
   );
+  // #4475: off by default, so board creation stays unrestricted unless a
+  // site admin explicitly turns it on.
+  await TableVisibilityModeSettings.upsertAsync(
+    { _id: 'tableVisibilityMode-boardCreationAdminOnly' },
+    { $setOnInsert: { booleanValue: false, sort: 1 } },
+  );
 
   await ensureIndex(InviteToBoardRolesSettings, { modifiedAt: -1 });
   await InviteToBoardRolesSettings.upsertAsync(

@@ -911,6 +911,11 @@ Template.tableVisibilityModeSettings.helpers({
       'tableVisibilityMode-allowPrivateOnly',
     ).booleanValue;
   },
+  boardCreationAdminOnly() {
+    return TableVisibilityModeSettings.findOne(
+      'tableVisibilityMode-boardCreationAdminOnly',
+    )?.booleanValue;
+  },
 });
 
 // Admin Panel / Settings / Visibility saves per SECTION: All Boards, URL, Product
@@ -965,6 +970,11 @@ Template.tableVisibilityModeSettings.events({
     if ($('#accounts-allowPrivateOnly').length) {
       TableVisibilityModeSettings.update('tableVisibilityMode-allowPrivateOnly', {
         $set: { booleanValue: $('#accounts-allowPrivateOnly').hasClass('is-checked') },
+      });
+    }
+    if ($('#accounts-boardCreationAdminOnly').length) {
+      TableVisibilityModeSettings.update('tableVisibilityMode-boardCreationAdminOnly', {
+        $set: { booleanValue: $('#accounts-boardCreationAdminOnly').hasClass('is-checked') },
       });
     }
     const $set = {};
