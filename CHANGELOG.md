@@ -4894,6 +4894,26 @@ compiled), but noise on every build; added the `|`.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7930da455">Custom fields no longer crash the server at boot on an invalid schema property</a>. Thanks to xet7.</summary>
+
+Another crash a pasted `./build.sh` run reproduced directly:
+"[uncaughtException] WeKan is stopping: Error: Invalid definition for sort
+field: 'decimal' is not a supported property", thrown from SimpleSchema's
+own constructor the moment the server started - before any board could
+load. `decimal: true` on `models/customFields.js`'s `sort` field is not,
+and has never been, a property SimpleSchema recognizes; nothing exercises
+that validation under a plain Node test, which is why it slipped through
+review. `type: Number` already allows fractional values with no extra
+flag - the same as Lists' own `sort` field, which this one was
+deliberately written to mirror and which never had this property either -
+so removing it changes nothing about what the field accepts.
+`tests/customFieldsSortSchema.test.cjs` pins the field's definition
+against SimpleSchema's actual valid-property list and sweeps every other
+file under `models/` for the same shape.
+
+</details>
+
 and improves the translation workflow:
 
 - [Fill in the missing Ladin, Latin, Luganda, Luxembourgish, Maithili, Malagasy, Malay, Malayalam, Maltese, Manx, Maori and Marathi translations](https://github.com/wekan/wekan/commit/718d20813). Thanks to xet7.
