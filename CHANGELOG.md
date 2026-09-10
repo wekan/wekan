@@ -2303,6 +2303,53 @@ only the one list that happens to be over on its own.
 
 </details>
 
+**Comments and activities** - a card's comment thread and its activity log.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7443ab18ef283ebb2d753dc44a016a178ac67a6b">Reply to a notification email, and the reply becomes a comment on the card</a>. Thanks to vasyugan and xet7.</summary>
+
+[#2414](https://github.com/wekan/wekan/issues/2414) asked for Trello's
+reply-by-email: reply to a WeKan notification email, and the reply shows up
+as a comment. WeKan only ever SENDS email - there was no infrastructure to
+RECEIVE it, and building a full IMAP-polling mail client is real operational
+complexity (a running mailbox, credentials, a polling loop) most self-hosters
+do not want. This is deliberately the smaller, webhook-based half instead: a
+new `POST /api/inbound-email` that a mail provider's inbound-parse webhook
+(Mailgun Routes, SendGrid Inbound Parse, Postmark inbound) calls with the
+parsed reply, documented with provider-side setup steps in
+`docs/Features/Email/Reply-By-Email.md`.
+
+Every outbound notification email's `Reply-To` now carries
+`reply+<cardId>-<hmac>@<domain>` (`server/lib/inboundEmailReplyToken.js`),
+the HMAC keyed by a server-only `INBOUND_EMAIL_HMAC_SECRET` so the token
+cannot be forged or guessed from a card id alone. The webhook verifies it
+with a constant-time comparison, resolves the target card, strips the
+reply's quoted text with a heuristic covering the common "On ... wrote:",
+`>`-quoted and Outlook-style markers (`server/lib/inboundEmailQuoteStrip.js`),
+matches the sender's From address to an existing WeKan user
+(`server/lib/inboundEmailUserMatch.js`), and inserts a `CardComments`
+document. **No matching user means the reply is rejected outright - it is
+never turned into an anonymous comment.**
+
+The endpoint is unauthenticated by design (a mail provider calls it, not a
+logged-in WeKan user), so the HMAC token is the only guard standing between
+an arbitrary POST and a new comment. Every rejection - a bad/forged/expired
+token, a card the token points at that no longer exists, or a sender address
+matching no account - is recorded through `server/lib/securityLog` under a
+new `authn.inbound-email` catalog key (`models/lib/securityCategories.js`),
+wrapped so logging can never break the guard, so repeated forged or
+unmatched attempts show up in Admin Panel → Problems.
+
+Both `INBOUND_EMAIL_HMAC_SECRET` and `INBOUND_EMAIL_DOMAIN` are opt-in; with
+either unset (the default) no `Reply-To` is added at all and every existing
+install is unaffected. Because notification emails are batched into one
+digest per user, a digest covering several cards can only carry a single
+`Reply-To`, so a reply lands on the MOST RECENTLY notified card in that
+digest - a documented limitation of combining batching with a single
+Reply-To header, not a bug.
+
+</details>
+
 and fixes the following bugs:
 
 **Board reports** - the Dashboard and the 10 board report chart views.
