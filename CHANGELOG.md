@@ -4873,6 +4873,7 @@ and improves the translation workflow:
 - [Fill in the remaining missing Romansh translations](https://github.com/wekan/wekan/commit/4c2a6b60c). Thanks to xet7.
 - [Fill in the missing Nahuatl and Northern Ndebele translations](https://github.com/wekan/wekan/commit/3f872cccc). Thanks to xet7.
 - [Fill in the missing Acehnese, Asturian, Breton, Gujarati, Japanese (Hiragana), Odia, Telugu, Klingon, Uyghur and Xhosa translations](https://github.com/wekan/wekan/commit/dff307b00). Thanks to xet7.
+- [Fill in missing translations for Acehnese, Arabic, Greek, Finnish, Hindi, French, Croatian, German, Danish, Hebrew, Japanese, Korean, Dutch, Polish, Russian, Ukrainian, Vietnamese, Chinese (Simplified/Traditional).](https://github.com/wekan/wekan/commit/b40b35422). Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for
 their translations.
