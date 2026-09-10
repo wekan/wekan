@@ -446,6 +446,33 @@ for Time.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d8eee59e6f4445c0bfd1d49378cabf10b256ebb5">Added a Flowtime session - start, tally interruptions and stop, feeding the same Spent Time total</a>. Thanks to xet7.</summary>
+
+[#3919](https://github.com/wekan/wekan/issues/3919) asked for Flowtime as an
+alternative to Pomodoro: unlike Pomodoro's fixed 25-minute work/break cycle,
+Flowtime has no fixed interval - you start a session and keep going as long
+as you are in flow, tally interruptions as they happen without stopping the
+clock, and stop the session when the flow naturally ends. Per the issue's
+own "related to Timetracking #812", this integrates with the existing
+manual time-entry popup (`cardTime.js`/`models/cards.js`
+`setSpentTime()`/`setIsOvertime()`) rather than tracking a second,
+disconnected total.
+
+A new card-detail block (`cardFlowtime.js`/`.jade`/`.css`) offers Start
+Flow, a live elapsed-time readout that ticks every second, the running
+interruption count, Add Interruption and Stop Flow, gated on
+`Utils.canModifyCard()`. The in-progress session
+(`flowStartAt`/`flowInterruptions`/`flowUserId`) is persisted on the card
+itself rather than in Session/localStorage, so a page reload does not lose
+it. Stopping the session computes its duration and ADDS it, in hours, into
+the card's existing `spentTime` field through the same `setSpentTime()`
+helper the manual popup already calls, then clears the session fields -
+Flowtime feeds the one Spent Time total the card already had, it does not
+keep a separate one.
+
+</details>
+
 and fixes the following bugs:
 
 **Board reports** - the Dashboard and the 10 board report chart views.
