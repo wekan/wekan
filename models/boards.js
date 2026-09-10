@@ -33,7 +33,7 @@ import {
   cardsEndInBetweenSelector,
 } from '/models/lib/calendarFilter';
 import { generateUniversalAttachmentUrl } from '/models/lib/universalUrlGenerator';
-import { buildCardSearchOr } from '/models/lib/cardSearch';
+import { buildCardSearchOr, matchingCommentCardIds } from '/models/lib/cardSearch';
 const { SimpleSchema } = require('/imports/simpleSchema');
 const getTAPi18n = () => require('/imports/i18n').TAPi18n;
 
@@ -1809,6 +1809,21 @@ Boards.helpers({
       // #5680: build the $or so numeric custom fields (number / currency, stored
       // as JS Numbers) match by value too — a regex alone only matches strings.
       query.$or = buildCardSearchOr(term);
+
+      // #3841: also find cards whose match is only inside a COMMENT. Comments
+      // live in a separate collection, so Minimongo can't match them with a
+      // single query on Cards — pull this board's comment texts, work out
+      // which cards they belong to (using the same case-insensitive matching
+      // rule as the rest of the search), and OR those card ids in too.
+      const comments = ReactiveCache.getCardComments(
+        { boardId: this._id },
+        { fields: { cardId: 1, text: 1 } },
+      );
+      const commentCardIds = matchingCommentCardIds(comments, term);
+      if (commentCardIds.length) {
+        query.$or.push({ _id: { $in: commentCardIds } });
+      }
+
       ret = ReactiveCache.getCards(query, projection);
     }
     return ret;

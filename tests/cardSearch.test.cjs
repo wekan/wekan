@@ -16,6 +16,7 @@ const assert = require('assert');
 const {
   parseNumericSearchTerm,
   buildCardSearchOr,
+  matchingCommentCardIds,
 } = await import('../models/lib/cardSearch.js');
 
 let passed = 0;
@@ -131,6 +132,46 @@ test('non-numeric term against a numeric-only card finds nothing', () => {
   const or = buildCardSearchOr('abc');
   const card = { title: 'Numbers', customFields: [{ value: 2025001 }] };
   assert.ok(!orMatches(or, card));
+});
+
+// --- matchingCommentCardIds (#3841: board search must match comment text) ---
+test('#3841: a card with no title/description match but a matching comment is found', () => {
+  const comments = [
+    { cardId: 'card1', text: 'nothing relevant here' },
+    { cardId: 'card2', text: 'please check the payment gateway' },
+  ];
+  assert.deepStrictEqual(matchingCommentCardIds(comments, 'payment gateway'), ['card2']);
+});
+
+test('#3841: a card with no matching comment (and no title/description match) is not found', () => {
+  const comments = [
+    { cardId: 'card1', text: 'unrelated comment' },
+    { cardId: 'card2', text: 'another one' },
+  ];
+  assert.deepStrictEqual(matchingCommentCardIds(comments, 'payment'), []);
+});
+
+test('#3841: matching is case-insensitive', () => {
+  const comments = [{ cardId: 'card1', text: 'Mentions a Gateway' }];
+  assert.deepStrictEqual(matchingCommentCardIds(comments, 'GATEWAY'), ['card1']);
+});
+
+test('#3841: a card id is only returned once even with several matching comments', () => {
+  const comments = [
+    { cardId: 'card1', text: 'first mentions widget' },
+    { cardId: 'card1', text: 'second also mentions widget' },
+    { cardId: 'card2', text: 'unrelated' },
+  ];
+  assert.deepStrictEqual(matchingCommentCardIds(comments, 'widget'), ['card1']);
+});
+
+test('#3841: tolerates missing/empty/non-string text and empty input', () => {
+  assert.deepStrictEqual(matchingCommentCardIds([], 'x'), []);
+  assert.deepStrictEqual(matchingCommentCardIds(undefined, 'x'), []);
+  assert.deepStrictEqual(
+    matchingCommentCardIds([{ cardId: 'c1', text: null }, { cardId: 'c2' }], 'x'),
+    [],
+  );
 });
 
 console.log(`\n${passed} tests passed`);

@@ -48,4 +48,22 @@ function buildCardSearchOr(term) {
   return or;
 }
 
-export { parseNumericSearchTerm, buildCardSearchOr };
+// #3841: board search must also find cards whose match is only in a COMMENT,
+// not just title/description/custom fields. `comments` is a plain array of
+// `{ cardId, text }` (as pulled from the CardComments collection for the
+// current board); returns the de-duplicated list of `cardId`s whose comment
+// text matches `term`, using the SAME case-insensitive regex the rest of the
+// card search uses (reuses `buildCardSearchOr`'s matching rule rather than a
+// second implementation of "does this term match this text").
+function matchingCommentCardIds(comments, term) {
+  const regex = new RegExp(term, 'i');
+  const ids = new Set();
+  (comments || []).forEach(comment => {
+    if (comment && typeof comment.text === 'string' && regex.test(comment.text)) {
+      ids.add(comment.cardId);
+    }
+  });
+  return Array.from(ids);
+}
+
+export { parseNumericSearchTerm, buildCardSearchOr, matchingCommentCardIds };
