@@ -4758,6 +4758,10 @@ to `en.i18n.json`.
 
 </details>
 
+and improves the translation workflow:
+
+- [Fill in the missing Ladin, Latin, Luganda, Luxembourgish, Maithili, Malagasy, Malay, Malayalam, Maltese, Manx, Maori and Marathi translations](https://github.com/wekan/wekan/commit/718d20813). Thanks to xet7.
+
 Thanks to above GitHub users for their contributions and translators for
 their translations.
 
