@@ -800,6 +800,34 @@ card's own board before creating anything.
 
 </details>
 
+**Custom fields** - the board's custom-field definitions and how they display.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0c6901f3a9eda2efd7e53c85d262add49fb53135">A board's custom fields can now be reordered by drag-and-drop, instead of always sorting alphabetically</a>. Thanks to huma2000 and xet7.</summary>
+
+[#4165](https://github.com/wekan/wekan/issues/4165): custom fields always
+rendered alphabetically by name, both in the Board Settings sidebar list and
+on a card, with no way to change it - users worked around it by prefixing
+names with numbers.
+
+Added an optional numeric `sort` to the CustomFields schema
+(`models/customFields.js`); a field created before it existed has none and
+keeps sorting by name as a fallback. The Board Settings sidebar list
+(`client/components/sidebar/sidebarCustomFields.jade`/`.js`) gets a drag
+handle and a jQuery-ui sortable, mirroring the card-labels popup's own
+reordering (`client/components/cards/labels.js`) rather than Lists'
+fractional-index drag, which is built for a long, frequently-reordered
+column of cards. Dropping recomputes sequential `sort` values with
+`computeSortIndexMapping()`, the same pure helper the All Boards page
+already uses for its own drag-reorder (`models/lib/boardSortReorder.js`), so
+no new reordering logic was added. A newly created field defaults to the end
+of the board's current list rather than jumping to the top.
+`models/lib/customFieldsWD.js` - the shared matcher both the card detail
+view and the card's custom-fields popup get their order from - now sorts by
+`sort` ascending instead of by name.
+
+</details>
+
 and fixes the following bugs:
 
 **Board reports** - the Dashboard and the 10 board report chart views.
