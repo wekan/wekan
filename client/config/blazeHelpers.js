@@ -156,6 +156,11 @@ Blaze.registerHelper('canModifyCard', function canModifyCard() {
 
 Blaze.registerHelper('canMoveCard', () => Utils.canMoveCard());
 
+// #3307: a Worker cannot edit/delete a checklist item, but may check it.
+Blaze.registerHelper('canCheckChecklistItem', function canCheckChecklistItem() {
+  return Utils.canCheckChecklistItem(this && this.card);
+});
+
 Blaze.registerHelper('canModifyBoard', () => Utils.canModifyBoard());
 
 Blaze.registerHelper('add', (a, b) => a + b);

@@ -158,9 +158,16 @@ template(name="checklistItems")
 template(name='checklistItemDetail')
   .js-checklist-item.checklist-item(class="{{#if item.isFinished }}is-checked{{#if checklist.isItemHidden item.isFinished}} invisible{{/if}}{{/if}}{{#if checklist.hideAllChecklistItems}} is-checked invisible{{/if}}"
     role="checkbox" aria-checked="{{#if item.isFinished }}true{{else}}false{{/if}}" tabindex="0")
-    if canModifyCard
+    //- #3307: checking off an item is a lower bar than editing/deleting one - a
+      Worker may do the former but not the latter, so the checkbox itself is
+      gated on canCheckChecklistItem while everything else here still needs
+      canModifyCard.
+    if canCheckChecklistItem
       .check-box-container
         .check-box.materialCheckBox(class="{{#if item.isFinished }}is-checked{{/if}}")
+    else
+      .materialCheckBox(class="{{#if item.isFinished }}is-checked{{/if}}")
+    if canModifyCard
       if isTouchScreenOrShowDesktopDragHandles
         span.fa.checklistitem-handle(class="fa-arrows" title="{{_ 'dragChecklistItem'}}")
       .item-title.js-open-inlined-form.is-editable(class="{{#if item.isFinished }}is-checked{{/if}}")
@@ -172,7 +179,6 @@ template(name='checklistItemDetail')
         a.checklist-item-due-date-add.js-checklist-item-due-date(title="{{_ 'card-due'}}")
           i.fa.fa-clock-o
     else
-      .materialCheckBox(class="{{#if item.isFinished }}is-checked{{/if}}")
       .item-title(class="{{#if item.isFinished }}is-checked{{/if}}")
         +viewer
           = item.title

@@ -249,6 +249,17 @@ export const Utils = {
   canMoveCard() {
     return Utils.currentUserCan('moveCard');
   },
+  // #3307: checking/unchecking a checklist item is not the same capability as
+  // editing or deleting one either - a Worker (write: false) may still tick a
+  // box, field by field, exactly like the move/self-assign carve-out above
+  // (models/lib/workerChecklistItemToggle.js enforces it server-side). Every
+  // role that can `write` can also check an item, so this only ever ADDS the
+  // Worker on top of whoever canModifyCard already allows.
+  canCheckChecklistItem(card = Utils.getCurrentCard()) {
+    if (Utils.canModifyCard(card)) return true;
+    const user = ReactiveCache.getCurrentUser();
+    return !!(user && user.isWorker && user.isWorker());
+  },
   canModifyBoard() {
     return Utils.currentUserCan('write');
   },

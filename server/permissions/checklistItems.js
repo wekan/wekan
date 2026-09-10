@@ -1,23 +1,32 @@
+import Boards from '/models/boards';
 import Cards from '/models/cards';
 import ChecklistItems from '/models/checklistItems';
 import { denyCrossBoardMoveByChecklistItem } from '/server/lib/utils';
 import { tripCanaryDeny } from '/server/lib/canary';
 import { canEditCardOrLinkedCard } from '/server/lib/linkedCardPermission';
+const { workerMayToggleChecklistItem } = require('/models/lib/workerChecklistItemToggle');
 
 ChecklistItems.allow({
   async insert(userId, doc) {
     // ReadOnly users cannot create checklist items
     return await canEditCardOrLinkedCard(userId, await Cards.findOneAsync(doc.cardId));
   },
-  async update(userId, doc) {
-    // ReadOnly users cannot edit checklist items
-    return await canEditCardOrLinkedCard(userId, await Cards.findOneAsync(doc.cardId));
+  // wekan/wekan#3307: a Worker cannot edit or delete a checklist item, but may
+  // still CHECK/UNCHECK it - the same field-level carve-out workerCardWrite.js
+  // gives a Worker on a card (see models/lib/workerChecklistItemToggle.js).
+  async update(userId, doc, fieldNames, modifier) {
+    if (await canEditCardOrLinkedCard(userId, await Cards.findOneAsync(doc.cardId))) {
+      return true;
+    }
+    if (!workerMayToggleChecklistItem(userId, modifier)) return false;
+    const board = await Boards.findOneAsync(doc.boardId);
+    return !!(board && board.hasWorker(userId));
   },
   async remove(userId, doc) {
     // ReadOnly users cannot delete checklist items
     return await canEditCardOrLinkedCard(userId, await Cards.findOneAsync(doc.cardId));
   },
-  fetch: ['userId', 'cardId'],
+  fetch: ['userId', 'cardId', 'boardId'],
 });
 
 // Security (GHSA-gv8h-5p3p-6hx7): the allow rule above only checks write access
