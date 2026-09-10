@@ -638,6 +638,56 @@ Template.list.onRendered(function () {
   });
 });
 
+// A board-wide list (no swimlaneId of its own) renders once per swimlane in
+// Swimlanes view - the SAME list document, one row per swimlane - so its
+// collapse state must be resolved per-swimlane, or collapsing it in one
+// swimlane's row collapses every other swimlane's row of it too. Mirrors
+// listHeader.js's resolveContainerSwimlaneId exactly (#6660's fix for card
+// visibility, extended here to the collapse toggle).
+function resolveContainerSwimlaneId(list) {
+  if (!list || Utils.boardView() !== 'board-view-swimlanes') {
+    return undefined;
+  }
+  for (let depth = 1; depth <= 5; depth += 1) {
+    const candidate = Template.parentData(depth);
+    if (
+      candidate &&
+      candidate._id &&
+      candidate._id !== list._id &&
+      candidate.boardId === list.boardId
+    ) {
+      return candidate._id;
+    }
+  }
+  return undefined;
+}
+
+// The same resolution as resolveContainerSwimlaneId above, but usable from
+// initializeListResize's async/deferred code, where there is no active
+// Blaze render or event dispatch for Template.parentData() to read from
+// (that is exactly why this function already resolves `list` itself via
+// tpl.data/Blaze.getData instead of Template.currentData()). A View's
+// .parentView chain is a stored reference on the object, not a call-stack
+// snapshot, so it stays walkable at any time - the same idiom used by
+// client/components/gantt/ganttCard.js and cards/checklists.js.
+function resolveContainerSwimlaneIdFromView(view, list) {
+  if (!list || Utils.boardView() !== 'board-view-swimlanes') {
+    return undefined;
+  }
+  let current = view;
+  let depth = 0;
+  while (current && depth < 8) {
+    const inst = current.templateInstance && current.templateInstance();
+    const data = inst && inst.data;
+    if (data && data._id && data._id !== list._id && data.boardId === list.boardId) {
+      return data._id;
+    }
+    current = current.parentView;
+    depth += 1;
+  }
+  return undefined;
+}
+
 Template.list.helpers({
   listWidth() {
     return effectiveListWidth(Template.currentData());
@@ -654,7 +704,7 @@ Template.list.helpers({
   },
 
   collapsed() {
-    return Utils.getListCollapseState(this);
+    return Utils.getListCollapseState(this, resolveContainerSwimlaneId(this));
   },
 });
 
@@ -672,8 +722,9 @@ Template.list.onCreated(function () {
     }
     const $list = tpl.$('.js-list');
     const $resizeHandle = tpl.$('.js-list-resize-handle');
+    const swimlaneId = resolveContainerSwimlaneIdFromView(tpl.view, list);
 
-    const isCollapsed = Utils.getListCollapseState(list);
+    const isCollapsed = Utils.getListCollapseState(list, swimlaneId);
     if (isCollapsed) {
       // Collapsed lists do not render a resize handle by design.
       return;
@@ -694,7 +745,7 @@ Template.list.onCreated(function () {
     // user is allowed to change this list's width (always in personal mode; only
     // with board write access in shared mode).
     tpl.autorun(() => {
-      const isCollapsed = Utils.getListCollapseState(list);
+      const isCollapsed = Utils.getListCollapseState(list, swimlaneId);
       if (isCollapsed || !canResizeList(list)) {
         $resizeHandle.hide();
       } else {

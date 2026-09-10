@@ -22,28 +22,40 @@ Meteor.startup(() => {
   listsColors = LIST_COLORS;
 });
 
+// A board-wide list (no swimlaneId of its own) renders once per swimlane in
+// Swimlanes view - the SAME list document, one row per swimlane - so any
+// per-swimlane state (which cards show, whether THIS row is collapsed) needs
+// to know which swimlane row it is currently rendering inside. #6660 already
+// solved this for card visibility by walking up parent data contexts rather
+// than relying on Jade's fragile `../../_id` traversal; the collapse toggle
+// (#list-collapse-swimlane-bleed) reuses the exact same resolution, from
+// inside both a helper and an event handler - Template.parentData() works in
+// either, since Blaze keeps the current view active for both.
+function resolveContainerSwimlaneId(list) {
+  if (!list || Utils.boardView() !== 'board-view-swimlanes') {
+    return undefined;
+  }
+  for (let depth = 1; depth <= 5; depth += 1) {
+    const candidate = Template.parentData(depth);
+    if (
+      candidate &&
+      candidate._id &&
+      candidate._id !== list._id &&
+      candidate.boardId === list.boardId
+    ) {
+      return candidate._id;
+    }
+  }
+  return undefined;
+}
+
 Template.listHeader.helpers({
   isCurrentList() {
     const list = Template.currentData();
     return Boolean(list && Utils.getCurrentListId() === list._id);
   },
   containerSwimlaneId() {
-    const list = Template.currentData();
-    if (!list || Utils.boardView() !== 'board-view-swimlanes') {
-      return undefined;
-    }
-    for (let depth = 1; depth <= 5; depth += 1) {
-      const candidate = Template.parentData(depth);
-      if (
-        candidate &&
-        candidate._id &&
-        candidate._id !== list._id &&
-        candidate.boardId === list.boardId
-      ) {
-        return candidate._id;
-      }
-    }
-    return undefined;
+    return resolveContainerSwimlaneId(Template.currentData());
   },
   canSeeAddCard() {
     const list = Template.currentData();
@@ -66,7 +78,7 @@ Template.listHeader.helpers({
 
   collapsed() {
     const list = Template.currentData();
-    return Utils.getListCollapseState(list);
+    return Utils.getListCollapseState(list, resolveContainerSwimlaneId(list));
   },
 
   isWatching() {
@@ -237,8 +249,9 @@ Template.listHeader.events({
   'click .js-collapse'(event) {
     event.preventDefault();
     const list = Template.currentData();
-    const status = Utils.getListCollapseState(list);
-    Utils.setListCollapseState(list, !status);
+    const swimlaneId = resolveContainerSwimlaneId(list);
+    const status = Utils.getListCollapseState(list, swimlaneId);
+    Utils.setListCollapseState(list, !status, swimlaneId);
   },
   'click .js-open-list-menu': Popup.open('listAction'),
   // #6465: open the inline Add List composer after this list. Record the

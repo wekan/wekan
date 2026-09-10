@@ -372,9 +372,20 @@ export const Utils = {
     }
   },
 
-  getListCollapseState(list) {
+  // `swimlaneId` scopes a BOARD-WIDE list's collapse state to the one
+  // swimlane row it was toggled in. A list with no swimlaneId of its own
+  // (shared/pre-migration) renders once per swimlane in Swimlanes view - the
+  // SAME list document, one row per swimlane - so without this, collapsing
+  // it in swimlane 1 collapsed every other swimlane's row of it too, since
+  // they all shared the one `collapsedList-<listId>` key. Callers resolve
+  // swimlaneId via the containerSwimlaneId pattern already used for scoping
+  // that list's CARDS per swimlane (client/components/lists/listHeader.js,
+  // listBody.js) - undefined outside Swimlanes view, where there is only
+  // ever one row for the list and the old unscoped key is exactly right.
+  getListCollapseState(list, swimlaneId) {
     if (!list) return false;
-    const key = `collapsedList-${list._id}`;
+    const storageId = swimlaneId ? `${list._id}:${swimlaneId}` : list._id;
+    const key = `collapsedList-${storageId}`;
     const sessionVal = Session.get(key);
     if (typeof sessionVal === 'boolean') {
       return sessionVal;
@@ -383,9 +394,9 @@ export const Utils = {
     const user = ReactiveCache.getCurrentUser();
     let stored = null;
     if (user && user.getCollapsedListFromStorage) {
-      stored = user.getCollapsedListFromStorage(list.boardId, list._id);
+      stored = user.getCollapsedListFromStorage(list.boardId, storageId);
     } else if (Users.getPublicCollapsedList) {
-      stored = Users.getPublicCollapsedList(list.boardId, list._id);
+      stored = Users.getPublicCollapsedList(list.boardId, storageId);
     }
 
     if (typeof stored === 'boolean') {
@@ -398,15 +409,16 @@ export const Utils = {
     return fallback;
   },
 
-  setListCollapseState(list, collapsed) {
+  setListCollapseState(list, collapsed, swimlaneId) {
     if (!list) return;
-    const key = `collapsedList-${list._id}`;
+    const storageId = swimlaneId ? `${list._id}:${swimlaneId}` : list._id;
+    const key = `collapsedList-${storageId}`;
     Session.set(key, !!collapsed);
     const user = ReactiveCache.getCurrentUser();
     if (user) {
-      Meteor.call('setListCollapsedState', list.boardId, list._id, !!collapsed);
+      Meteor.call('setListCollapsedState', list.boardId, storageId, !!collapsed);
     } else if (Users.setPublicCollapsedList) {
-      Users.setPublicCollapsedList(list.boardId, list._id, !!collapsed);
+      Users.setPublicCollapsedList(list.boardId, storageId, !!collapsed);
     }
   },
 
