@@ -852,6 +852,41 @@ view and the card's custom-fields popup get their order from - now sorts by
 
 </details>
 
+**Minicard and card detail dates** - the received/start/due/end date badges
+shown on the minicard and in an open card.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fb761c7f10f89b78eed3ceaf385f741de577ad2c">An opt-in Jalali (Persian/Solar Hijri) calendar display for card dates</a>. Thanks to mimZD and xet7.</summary>
+
+[#4335](https://github.com/wekan/wekan/issues/4335) asked for Jalali dates
+on the minicard, at least as a preview. Dates stay stored as Gregorian
+`Date` objects everywhere - this adds a per-user, display-only toggle
+(`profile.calendarSystem`, `allowedValues: ['gregorian', 'jalali']`,
+default `gregorian`) that renders the minicard and card detail
+received/start/due/end dates - and the vote/poker end dates, which share
+the same template - in the Jalali calendar when set to `jalali`. The
+toggle sits in Member Settings next to "Set day of the week start", saved
+through the same `Meteor.call`/`localStorage` pattern already used there
+for the other per-user display preferences.
+
+The Gregorian↔Jalali conversion (`imports/lib/jalaliDate.js`) is a
+from-scratch implementation of the standard, widely published
+astronomical/tabular Jalali algorithm plus the standard Fliegel & Van
+Flandern Julian Day Number conversion - not copied from any single
+licensed source - so no new npm dependency or license question is
+introduced. It is exercised against three independently verifiable
+reference dates (2026-03-21 = 1405-01-01, Nowruz; 1979-02-11 = 1357-11-22;
+2000-01-01 = 1378-10-11), round-trips through the reverse conversion, and
+stays internally consistent day to day across the Nowruz year rollover
+(`tests/jalaliDate.test.cjs`).
+
+Deliberately out of scope for this pass: date-picker INPUT widgets, date
+storage, and due-date reminder/notification logic are untouched and stay
+Gregorian - only the rendered display text changes, and only for users who
+opt in.
+
+</details>
+
 and fixes the following bugs:
 
 **Board reports** - the Dashboard and the 10 board report chart views.
