@@ -756,7 +756,7 @@ for Time.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/COMMIT_HASH">The Time view now also totals remaining time until due, across open cards with a due date</a>. Thanks to Yachikh and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/3480e8a9456e01cabe3ff9997df487bf5cafc83a">The Time view now also totals remaining time until due, across open cards with a due date</a>. Thanks to Yachikh and xet7.</summary>
 
 [#1121](https://github.com/wekan/wekan/issues/1121) asked for the SUM of
 remaining time until a due date across a list's/board's active cards - "e.g.
@@ -1434,6 +1434,44 @@ single-board Calendar view's own drag-to-reschedule is untouched.
 `tests/boardViewMenu.test.cjs` pins the menu entry, icon, click handler,
 helper/template branch, schema value, tooltip and template/stylesheet
 registration the same way it already does for Bigboard.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0ae495c663653ed293c59ac227dd8887eaf7f1aa">Added a "Pulse" board view charting daily activity, GitHub-Pulse-style</a>. Thanks to synergico and xet7.</summary>
+
+[#1292](https://github.com/wekan/wekan/issues/1292) asked for a "GitHub
+Pulse-like graph" of a board's activity level over time - GitHub's Pulse
+page shows commit/PR/issue activity as a bar chart over a recent window,
+and this is the board equivalent: a bar per day of how many `Activities`
+documents the board logged, over the last 30 days.
+
+Rather than a new charting mechanism, this reuses 100% of the existing
+board report chart pipeline: a pure `computeActivityPulse(activities,
+fromDate, toDate, bucket)` in `models/lib/chartCalculations.js` (zero-count
+days are real buckets, never omitted, with an optional weekly-bucket mode
+for a longer window), a `chartKey === 'pulse'` branch in
+`server/lib/boardChartData.js` that loads the board's `Activities` for a
+fixed last-30-days window independent of the board's card-driven
+`fromDate` (a quiet board with old cards still gets a full 30-day, mostly
+zero chart rather than one card's creation date away), a `'pulse'` branch
+in `models/lib/chartExportRows.js` and `CHART_KEYS` registration in
+`models/exportCharts.js` for the same PDF/Excel export every other chart
+view already has. On the client it is one more thin wrapper template
+(`pulseView` in `chartPlaceholderViews.jade`) around the shared
+`boardChartView` (`charts/boardCharts.jade`/`.js`), the same Chart.js bar
+chart every other chart view already draws, with a `pulse` case added to
+`computeBarRows`. Wired into the Board View menu like every other view -
+placed after WIP Run at the end of the chart group - with an
+`isViewPulse()` helper/`boardBody.jade` branch, the `client/lib/utils.js`
+whitelists, the `profile.boardView` schema and a tooltip-name-map entry.
+`tests/boardViewMenu.test.cjs` extends its `VIEWS` table with the new
+entry (menu order, icon, click handler, helper/template branch, schema
+value, tooltip, chart registration) the same way it already does for every
+other chart view, and `tests/chartCalculations.test.cjs` pins
+`computeActivityPulse`'s day/week bucketing, that a zero-activity day
+shows as zero rather than being omitted, and that activity outside the
+from/to window is excluded.
 
 </details>
 
