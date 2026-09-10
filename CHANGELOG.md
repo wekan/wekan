@@ -533,6 +533,28 @@ dismisses its own popup without touching an unrelated one.
 
 </details>
 
+**Outgoing webhooks** - the global and per-board webhook that posts card activity out.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/691b096fafdd099da697aac895673683f36e3793">Confirmed the global webhook already fires when a card is edited, and pinned it with a regression test</a>. Thanks to Rishats and xet7.</summary>
+
+[#4912](https://github.com/wekan/wekan/issues/4912) asked for an `act-editCard`
+action on the global webhook so card edits could be tracked, same as other
+card operations already were. Reading the current code shows this is already
+the case: `server/models/cards.js` logs an `Activities` entry for title
+changes (`a-changedTitle`, from the #3619 fix), description changes
+(`a-changedDescription`, from the #5482 fix) and due/start/end/received date
+changes, and `server/models/activities.js`'s `Activities.after.insert` hook
+turns every logged activity into `act-${activityType}` and dispatches it to
+any enabled integration on the card's own board OR the special global-webhook
+id, filtered by `activities: { $in: [description, 'all'] }`. So editing a
+card's title, description or dates already reaches a globally configured
+webhook today, under those activity names. No code change was needed; a
+source-pattern regression test (`tests/globalWebhookEditCardActivity.test.cjs`)
+now pins this path so it cannot silently regress.
+
+</details>
+
 **Admin Panel** - the "Invite People" form under Accounts settings.
 
 <details>
