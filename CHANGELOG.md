@@ -2877,6 +2877,49 @@ administrator be anonymized.
 
 </details>
 
+and adds Sign in with Apple login support:
+
+**OAuth2/OIDC login** - the generic provider client Keycloak, Authelia and now Apple share.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/517bee3f0">Server-signed JWT client secret for OAuth2, enabling Sign in with Apple</a>. Thanks to xet7.</summary>
+
+[#2458](https://github.com/wekan/wekan/issues/2458) asked for "Sign in with
+Apple". Apple's login is OIDC-compatible, so it works through Wekan's existing
+generic OAuth2/OIDC client - except its "client secret" is not a static
+string like Keycloak's or Authelia's: it must be a short-lived JWT the server
+signs itself (ES256), using a private key downloaded once from Apple's
+developer portal.
+
+`models/lib/oauth2ClientSecretJwt.js` mints that JWT using only Node's
+built-in `crypto` module - no new dependency, since ES256 signing with
+IEEE-P1363 signature encoding (the format a JWT requires) has been supported
+since Node 12. It is opt-in via a new `OAUTH2_SECRET_JWT_KEY_PATH` env var
+(plus `OAUTH2_SECRET_JWT_ISSUER`/`_KEY_ID`/`_AUDIENCE`/`_SUBJECT`/
+`_EXPIRES_IN`); when unset (the default, and every existing provider's
+configuration), `packages/wekan-oidc/oidc_server.js` falls back to the static
+`OAUTH2_SECRET` exactly as before, so Keycloak, Authelia and every other
+provider are unaffected.
+
+Apple's other quirk - it returns the user's name only on the very first
+authorization, never again - needs no special-casing: `Accounts.onCreateUser`
+(`server/models/users.js`) already copies the OIDC fullname/email claims into
+the user's `profile` only once, at account creation, and never overwrites
+them on later logins (Meteor's `updateOrCreateUserFromExternalService` only
+touches `services.oidc.*` for a returning user, not `profile.*`).
+
+`docs/Features/Login/Apple.md` documents Apple's fixed endpoints
+(`https://appleid.apple.com/auth/authorize`/`/auth/token`) and the new env
+vars, in the same format as the Keycloak/Authelia docs, and is linked from
+`docs/Features/Login/OAuth2.md`'s provider list.
+`tests/oauth2ClientSecretJwt.test.cjs` is a pure-Node regression guard
+covering the minted JWT's header/claims shape, that its ES256 signature
+verifies against the matching public key and fails against another key, and
+the negative case: with the new env vars unset, no JWT is generated and the
+static-secret path is untouched.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for
 their translations.
 
