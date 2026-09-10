@@ -3873,6 +3873,30 @@ engines (Frappe/dhtmlx), which share the existing
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/902f1422634af0e5289817f6f37225be505cc7c2">Documented the two additional Gantt engines, WIP limit groups and five more recent features</a>. Thanks to xet7.</summary>
+
+Continuing the previous documentation pass: added a "Frappe" and "dhtmlx"
+section to `docs/Features/Reports/Gantt.md` covering the two extra
+Board-View Gantt engines left for later (drag-to-reschedule, gated on board
+write access, versus the original table view's click-a-date-icon editing).
+Added six new pages read directly from the current code rather than
+guessed: `docs/Features/Lists/WipLimit/WIP-Limit-Groups.md` (Board Settings
+→ WIP Limit Groups, `models/boards.js`'s `wipLimitGroups`, including the
+swimlane quick-select), `docs/Features/Cards/CustomFields/Custom-Field-Admin-Only-And-Order.md`
+(the admin-only value-hiding flag and the sidebar drag-to-reorder `sort`
+field), `docs/Features/Board/Labels-Milestone-Due-Date.md` (a label's
+optional due date turning it into a milestone), `docs/Features/Cards/Checklists.md`
+(the automatic daily/weekly/monthly reset interval and the bulk
+plain-text item editor), `docs/Features/Board/Card-Field-Display-Order.md`
+(reordering a card's Labels/Dates/Members/Custom Fields/Description
+sections) and `docs/Features/Date/Flowtime-and-Pomodoro.md` (the two
+per-card work timers that both feed Spent Time). Linked all seven from
+`docs/README.md`. A pass over this release's remaining Upcoming entries
+found no other feature-shaped gap worth a page in the time available.
+
+</details>
+
 **Notification emails** - the activity-notification email's subject line.
 
 <details>
