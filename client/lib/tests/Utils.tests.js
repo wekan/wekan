@@ -2,7 +2,7 @@
 import sinon from 'sinon';
 import { expect } from 'chai';
 import { Random } from 'meteor/random';
-import '../utils';
+import { Utils } from '../utils';
 
 
 describe('Utils', function () {

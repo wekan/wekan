@@ -1,5 +1,6 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { NOTIFICATION_SERVICES } from '/models/lib/notificationSettings';
+import { Utils } from '/client/lib/utils';
 
 // The 3-tier Notification Settings popup (see notificationSettingsPopup.jade
 // and models/lib/notificationSettings.js). `this.data().scope` is one of

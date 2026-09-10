@@ -1,4 +1,5 @@
 import Boards from '/models/boards';
+import { ReactiveCache } from '/imports/reactiveCache';
 
 Template.bookmarks.helpers({
   hasStarredBoards() {

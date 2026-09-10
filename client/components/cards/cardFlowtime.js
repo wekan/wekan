@@ -8,6 +8,7 @@
 import { TAPi18n } from '/imports/i18n';
 import Cards from '/models/cards';
 import { getCurrentCardIdFromContext } from '/client/lib/currentCard';
+import { Utils } from '/client/lib/utils';
 
 function getCardId() {
   return getCurrentCardIdFromContext();
