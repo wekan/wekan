@@ -57,8 +57,8 @@ back to its source card on the backlog/planning board below.
 A separate board (or a "Backlog" list on the same board) holds stories not
 yet committed to a sprint. Move or copy a card into the active sprint
 board/swimlane when it is pulled into a sprint - WeKan's
-[Drag Drop](../../DragDrop/Drag-Drop.md) and "move card to board" actions
-both work across boards. [WIP Limits](../../Lists/WipLimit/WipLimit.md) on
+[Drag Drop](../DragDrop/Drag-Drop.md) and "move card to board" actions
+both work across boards. [WIP Limits](../Lists/WipLimit/WipLimit.md) on
 the sprint board's "Doing" list give a simple check against overcommitting
 mid-sprint.
 
