@@ -283,6 +283,42 @@ one more key).
 </details>
 
 <details>
+<summary>Trello/Jira/Kanboard/Nextcloud Deck/Gitea gaps investigated but not built this pass.</summary>
+
+Researched against WeKan's actual current code (not assumed) to find what is
+genuinely still missing after this session's landed work, then scoped down
+to the smallest well-understood piece (card recurrence, added above) rather
+than a shallow pass across all five tools. What is investigated but deferred:
+**Jira Server/DC named issue-link types** (blocks/is blocked
+by/duplicates/relates to, as a typed relationship on
+`Cards.cardDependencies`, distinct from the existing untyped
+dependency/subtask/parent-child mechanism - needs a link-type enum, a
+reciprocal-link UI decision, and touches the Gantt/Roadmap views that already
+read `cardDependencies`, so it is a schema-and-three-views change, not an
+additive field). **Jira issue TYPES** (Bug/Task/Story/Epic as a first-class
+card attribute with its own icon set and swimlane-per-epic grouping - the
+existing custom-field mechanism can represent the VALUE but not the icon/
+swimlane-grouping behaviour Jira gives a type, so this needs a decision on
+whether to build it as a special custom field or a new schema concept before
+any UI is worth writing). **Kanboard color-coded categories** (a per-board
+tag distinct from labels, used for at-a-glance visual grouping rather than
+filtering - overlaps enough with labels that it needs a maintainer decision
+on whether it is a genuinely separate concept or a label-color affordance
+that already exists). **Trello-style card-aging visual indicator** (a
+minicard opacity/border fade the longer a card sits without activity -
+needs a decision on the staleness threshold and whether it is board-
+configurable, plus a minicard rendering change touching every board view).
+**Nextcloud Deck auto-archival after N days of inactivity** (overlaps the
+card-recurrence scan job's shape closely enough to reuse
+`SyncedCron`/`models/lib/*Schedule.js` once built, but is a separate
+feature - archiving instead of cloning - and needs its own opt-in field and
+UI, not a variant of recurrence). None of these needs Internet access to
+run - all are genuinely on-premise-buildable - they are deferred for scope,
+not for a missing on-premise capability.
+
+</details>
+
+<details>
 <summary>Carried from a fix that went as far as it could without a new dependency.</summary>
 
 [#6586](https://github.com/wekan/wekan/issues/6586) has two parts left. The PDF
@@ -3215,6 +3251,35 @@ returns a raw `.token` field, plus that the Meteor.call sites still match
 the existing method names and argument shapes and that the status display
 reads `syncSource.lastSyncedAt`/`lastSyncError`/`enabled` off the list's
 own already-published, credential-free fields.
+
+</details>
+
+**Cards** - a Kanboard-parity addition for recurring work.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2e0956537">Add Kanboard-style whole-card recurrence</a>. Thanks to xet7.</summary>
+
+Kanboard can automatically re-create a recurring task once it is done; WeKan
+had the same idea for a checklist's items
+(`models/lib/checklistResetSchedule.js`, `server/checklistResetSchedule.js`)
+but nothing for a whole card. This adds a `recurrenceInterval` field to
+`Cards` (`none`/`daily`/`weekly`/`monthly`, default `none`) and
+`models/lib/cardRecurrenceSchedule.js`, the pure due-date-arithmetic twin of
+the checklist module, reused as closely as the shape allows. The card's
+"..." menu gets a new **Card recurrence** entry, right beside **Save card as
+template**, opening a popup shaped exactly like the checklist's **Automatic
+reset** popup. `server/cardRecurrenceSchedule.js` registers one more job on
+the same shared `quave:synced-cron` infrastructure the checklist reset, the
+list-sync job and scheduled Rules already run on; once an hour it creates a
+fresh copy of every due card - same board/swimlane/list, title, description,
+labels and custom fields carried over, everything else starting fresh - and
+stamps `lastRecurrenceAt` on the source card so the chain keeps recurring on
+schedule. An archived card is skipped even with its interval still set.
+`tests/cardRecurrenceSchedule.test.cjs` covers the daily/weekly/monthly due-
+date arithmetic (including the same calendar-month edge case the checklist
+tests pin), the scan-selection step and, as a negative test, that an
+archived card never spawns another occurrence. See
+[docs/Features/Cards/Card-Recurrence.md](docs/Features/Cards/Card-Recurrence.md).
 
 </details>
 
