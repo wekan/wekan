@@ -4230,6 +4230,41 @@ matches `'time'` anywhere in the Set literal instead of requiring it last.
 
 </details>
 
+**Imports** - the natural companion audit, on the import side.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/baec475fe">Add regression tests for CSV, Kanboard and Jira import parsing</a>. Thanks to xet7.</summary>
+
+Every import source was audited end-to-end the same way: WeKan JSON,
+WeKan zip, Trello JSON/API/zip, CSV/TSV, Excel, Jira, Kanboard, Markdown,
+NextCloud Deck/OpenProject/GitHub/GitLab/Gitea/Forgejo/Asana/Zenkit, and
+ICS. Every one of them is genuinely reachable from the Import popup and
+produces a real board - no dead popups, no "Mapper"-only stubs. The
+WeKan JSON round-trip (`models/wekanCreator.js`) restores swimlanes,
+lists, cards, checklists, labels and custom fields without dropping any
+of them.
+
+This also checked the cross-cutting question the JSON-export truncation
+report raised: does import now expect attachment content the export side
+might stop embedding inline? It does not - `models/wekanCreator.js`'s
+attachment import already works both from inline base64 content and from
+a bare URL reference, so an attachment with no embedded bytes simply
+isn't recreated rather than failing the whole import, and the export
+side's fix (attachments always empty in JSON export, commit
+643e2738b, already on `main`) needs no matching change here.
+
+The one genuine gap found was test coverage, not behavior: CSV, Jira and
+Kanboard import had real, working parsers but no dedicated tests. Added
+`tests/csvCreator.headerMapping.test.cjs` (header aliases and the
+customfield-<name>-<type>-<extra> dropdown/currency/plain variants) and
+`tests/kanboardJiraCreator.import.test.cjs` (Kanboard's unix-timestamp
+date parsing and column/swimlane derivation, and Jira's issue-link-to-
+card-dependency mapping), each a faithful copy of the production logic
+since both modules import Meteor code that can't run under plain Node -
+the same convention `tests/trelloCreator.import.test.js` already uses.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for
 their translations.
 
