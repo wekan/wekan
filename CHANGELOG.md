@@ -2027,6 +2027,22 @@ keeping their `wekan` service identical.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f9c046dd211a5987d987fe95b5b7dcc0d9d0f001">Added a Using WeKan for Scrum guide mapping stories, story points, checklists and sprints onto existing features</a>. Thanks to lonix1 and xet7.</summary>
+
+[#3087](https://github.com/wekan/wekan/issues/3087) asked, as a question
+rather than a feature request, how to run a basic Scrum process on WeKan:
+cards as user stories with a story-points field, checklists for acceptance
+tests, a board per sprint, and a separate planning/backlog board. All of
+that is already possible, so instead of new code this adds
+`docs/Features/Cards/Scrum.md` confirming the mapping against WeKan's
+actual current features - including the numeric custom field's "show sum
+at top of list" badge (`models/customFields.js`'s `showSumAtTopOfList`,
+already scoped per swimlane) as a way to total story points per
+list/sprint - and linked from `docs/README.md`'s features list.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for
 their translations.
 
