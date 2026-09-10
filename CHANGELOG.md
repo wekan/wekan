@@ -311,42 +311,58 @@ the Markdown commit as the template.
 
 # Upcoming WeKan ® release
 
-**In short:** this release adds **Frappe Gantt** below WeKan's own Gantt view
-and draws the 10 board report charts with **Chart.js**, both MIT-licensed
-with a minimal dependency footprint and lazy-loaded only when their view is
-opened. It also restores the full-featured **document preview** viewer for
-DOCX/XLSX/PPTX (`office-open-xml-viewer`) and native browser PDF preview,
-replacing the minimal server-rendered GIF-slideshow approach that kept
-failing with a bare HTTP 415 under some builds. Attachment content search
-keeps working, now as a lighter, render-free text-index step. It also
-hardens the **HttpOnly login cookie** against a rare case where it could be
-written without an expiry, which would make the browser drop it as soon as
-it closed instead of honoring the configured 90-day login.
+**In short:** this release adds **Frappe Gantt** and **DHTMLX Gantt**
+Community Edition as two new Board View pages alongside WeKan's own Gantt
+view, and draws the 10 board report charts with **Chart.js** - all
+MIT-licensed and lazy-loaded only when their view is opened. It also
+restores the full-featured **document preview** viewer (DOCX/XLSX/PPTX,
+native PDF), replacing the minimal server-rendered GIF-slideshow approach
+that kept failing with a bare HTTP 415, and hardens the **HttpOnly login
+cookie** against a rare case where it could be written without an expiry.
 
 This release adds the following new features:
 
 **Board reports** - the Gantt view and the 10 board report chart views.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/5d5317d968907edcaa06011dc8fd760a21121e4f">Frappe Gantt added below the existing Gantt view; report charts now draw with Chart.js</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/e5e4c97154f5ecf940958504c65f1159cf0b7165">Frappe Gantt and DHTMLX Gantt added as their own Board View pages; report charts now draw with Chart.js</a>. Thanks to xet7.</summary>
 
-Two full-featured, permissively-licensed charting libraries replace the
+Three full-featured, permissively-licensed charting libraries replace the
 plain CSS bars used so far, chosen for a copyfree license and a minimal,
 auditable dependency tree over feature richness:
 [Frappe Gantt](https://github.com/frappe/gantt) (MIT, zero runtime
-dependencies, ~15 KB gzipped) and [Chart.js](https://www.chartjs.org/) (MIT,
-one dependency - `@kurkle/color`, also MIT). Both are loaded with a dynamic
-`import()` so their code only reaches the browser when the relevant view is
-actually opened, never on every page load.
+dependencies, ~15 KB gzipped), [DHTMLX Gantt Community Edition](https://dhtmlx.com/docs/products/dhtmlxGantt/)
+(genuinely MIT as of v10 - verified against the LICENSE.md text inside the
+published package, not just the npm license field, since
+[#2870](https://github.com/wekan/wekan/issues/2870) rejected an earlier
+DHTMLX Gantt proposal in 2020 for being GPL), and
+[Chart.js](https://www.chartjs.org/) (MIT, one dependency - `@kurkle/color`,
+also MIT). All three are loaded with a dynamic `import()` so their code
+only reaches the browser when the relevant view is actually opened, never
+on every page load.
 
 WeKan's own hand-rolled Gantt view (the week-grid table) is kept exactly as
-it is; Frappe Gantt is added below it in the same board view, drawing the
-same start/due/end task set from the board's cards, opening a card on
-click, and exporting to PDF/Excel through the existing `gantt` chart export
-route rather than a second pipeline for identical data. The 10 board report
-chart views draw a Chart.js bar chart instead of a stack of CSS-width divs,
+it is. Frappe Gantt and DHTMLX Gantt are each their own separate Board View
+menu entry and page - like every other view (Swimlanes, List, Calendar,
+Statistics, ...), picking one shows only that view, rather than stacking a
+second Gantt below the first on the same page. Both draw the same
+start/due/end task set from the board's cards, open a card on click, and
+export to PDF/Excel through the existing `gantt` chart export route rather
+than a second pipeline for identical data. DHTMLX Gantt is a page-wide
+singleton (`gantt`, not a class instantiated per container, unlike Frappe
+Gantt), so it is torn down with `destructor()` on every re-render and
+template destroy rather than merely cleared. The 10 board report chart
+views draw a Chart.js bar chart instead of a stack of CSS-width divs,
 reusing the same data normalization and the same per-chart export route
 unchanged - only the rendering changed.
+
+frappe-gantt's package.json `exports` map has no `./dist/frappe-gantt.css`
+subpath (only a `style` CONDITION on `.`), which `meteor build` caught
+immediately: "Package subpath './dist/frappe-gantt.css' is not defined by
+exports". Its CSS is vendored verbatim into `frappeGanttLib.css` instead and
+loaded statically, the same way `gantt.css`/`ganttCard.css` already are.
+`dhtmlx-gantt` has no `exports` map at all, so its CSS needed no such
+workaround.
 
 </details>
 
@@ -376,6 +392,16 @@ no page images - so `pdf-to-img` and `@napi-rs/canvas` are dropped entirely
 stays, now as a direct dependency, for its text-only extraction. Searching
 attachment contents from the card search box keeps working exactly as
 before.
+
+Every PDF upload initially logged "Document search indexing failed:
+TypeError: textDocument.destroy is not a function" and left that PDF
+unsearchable: `pdfjs-dist`'s `getDocument()` returns a loading task, and
+`destroy()` lives on THAT, not on the `PDFDocumentProxy` its `.promise`
+resolves to. Also silenced "Ensure that the standardFontDataUrl API
+parameter is provided" on every PDF by pointing `standardFontDataUrl`/
+`cMapUrl` at `pdfjs-dist`'s own bundled font-metric and CJK character-map
+files instead of falling back to an approximation each time. Verified
+end-to-end against a real uploaded PDF.
 
 </details>
 
