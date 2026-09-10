@@ -70,6 +70,7 @@ const ADMIN_PAGES = {
     panes: {
       login: 'registration-setting',
       email: 'email-setting',
+      notifications: 'notify-setting',
       domains: 'domains-setting',
       organizations: 'org-setting',
       teams: 'team-setting',
@@ -163,6 +164,7 @@ const ADMIN_PANE_TITLES = {
   people: {
     login: { titleKey: 'login' },
     email: { titleKey: 'email' },
+    notifications: { titleKey: 'notifications' },
     domains: { titleKey: 'domains' },
     organizations: { titleKey: 'organizations' },
     teams: { titleKey: 'teams' },

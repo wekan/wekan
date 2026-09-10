@@ -50,6 +50,7 @@ The bare `/admin/settings` still resolves; it *redirects* to
 | `/admin/people/people` | People | `people-setting` |
 | `/admin/people/login` | Login | `registration-setting` |
 | `/admin/people/email` | Email | `email-setting` |
+| `/admin/people/notifications` | Notifications | `notify-setting` |
 | `/admin/people/domains` | Domains | `domains-setting` |
 | `/admin/people/organizations` | Organizations | `org-setting` |
 | `/admin/people/teams` | Teams | `team-setting` |
