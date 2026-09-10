@@ -1653,6 +1653,24 @@ Template.cardDetailsActionsPopup.events({
   'click .js-spent-time': Popup.open('editCardSpentTime'),
   'click .js-move-card': Popup.open('moveCard'),
   'click .js-copy-card': Popup.open('copyCard'),
+  // #2209: "Create template from element" - save THIS card as a card template
+  // in the user's own Templates board, the reverse direction of the existing
+  // "insert a card FROM a template" flow (Template.searchElementPopup,
+  // client/components/lists/listBody.js). Server does the actual copy
+  // (server/models/cards.js saveCardAsTemplate), reusing the same lazy
+  // per-user Templates board #4205's default-template application already
+  // relies on.
+  async 'click .js-save-card-as-template'(event) {
+    event.preventDefault();
+    const cardId = getCardId();
+    if (!cardId) return;
+    try {
+      await Meteor.callAsync('saveCardAsTemplate', cardId);
+      Popup.back();
+    } catch (err) {
+      alert(err?.reason || err?.message || 'Failed to save card as template');
+    }
+  },
   'click .js-convert-checklist-item-to-card': Popup.open('convertChecklistItemToCard'),
   'click .js-copy-checklist-cards': Popup.open('copyManyCards'),
   'click .js-set-card-color': Popup.open('setCardColor'),
@@ -1689,6 +1707,29 @@ Template.cardDetailsActionsPopup.events({
     }
     Utils.goBoardId(card.boardId);
   }),
+  // #1504: restoring an archived card from the FULL card-detail view - the
+  // same target-list fallback the Archive sidebar's own "Restore" link uses
+  // (client/components/sidebar/sidebarArchives.js `.js-restore-card`), so a
+  // card whose list was itself archived/deleted still gets a place to land
+  // instead of `canBeRestored()` crashing on a missing list.
+  async 'click .js-restore-archived-card'(event) {
+    event.preventDefault();
+    const card = Cards.findOne(getCardId());
+    if (!card) return;
+
+    const currentList = ReactiveCache.getList(card.listId);
+    if (!currentList) {
+      Popup.open('restoreArchivedCardToList')(event, {
+        dataContextIfCurrentDataIsUndefined: { _id: card._id },
+      });
+      return;
+    }
+
+    if (typeof card.canBeRestored === 'function' && card.canBeRestored()) {
+      await card.restore();
+    }
+    Popup.back();
+  },
   'click .js-more': Popup.open('cardMore'),
   'click .js-create-board-from-card': Popup.open('createBoardFromCard'),
   'click .js-link-card-to-board': Popup.open('linkCardToBoard'),

@@ -1038,6 +1038,10 @@ template(name="cardDetailsActionsPopup")
                   i.fa.fa-clipboard
                   | {{_ 'copyCardPopup-title'}}
               li
+                a.js-save-card-as-template
+                  i.fa.fa-clone
+                  | {{_ 'save-card-as-template'}}
+              li
                 a.js-link-card-to-board
                   i.fa.fa-link
                   | {{_ 'linkCardToBoardPopup-title'}}
@@ -1054,6 +1058,13 @@ template(name="cardDetailsActionsPopup")
                   a.js-archive
                     i.fa.fa-archive
                     | {{_ 'archive-card'}}
+            if archived
+              hr
+              ul.pop-over-list
+                li
+                  a.js-restore-archived-card
+                    i.fa.fa-recycle
+                    | {{_ 'restore'}}
             hr
             ul.pop-over-list
               li
@@ -1089,6 +1100,10 @@ template(name="cardDetailsActionsPopup")
               i.fa.fa-clipboard
               | {{_ 'copyCardPopup-title'}}
           li
+            a.js-save-card-as-template
+              i.fa.fa-clone
+              | {{_ 'save-card-as-template'}}
+          li
             a.js-link-card-to-board
               i.fa.fa-link
               | {{_ 'linkCardToBoardPopup-title'}}
@@ -1105,6 +1120,13 @@ template(name="cardDetailsActionsPopup")
               a.js-archive
                 i.fa.fa-archive
                 | {{_ 'archive-card'}}
+        if archived
+          hr
+          ul.pop-over-list
+            li
+              a.js-restore-archived-card
+                i.fa.fa-recycle
+                | {{_ 'restore'}}
         hr
         ul.pop-over-list
           li

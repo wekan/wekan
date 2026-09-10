@@ -193,8 +193,22 @@ Meteor.methods({
   // created exactly as the removed signup hook did, and the id is returned.
   async ensureTemplatesBoard() {
     if (!this.userId) throw new Meteor.Error('not-logged-in');
+    return await ensureTemplatesBoardForUserId(this.userId);
+  },
+});
 
-    const existing = await Users.findOneAsync(this.userId, {
+// #2209: "Create template from element" — extracted from the ensureTemplatesBoard
+// Meteor method above so a plain server-side caller (saveCardAsTemplate in
+// /server/models/cards.js, the "Save as Template" card action) can reuse the
+// exact same lazy per-user Templates board without going through a nested
+// Meteor method call. Behaviour is unchanged: idempotent, returns the existing
+// board id when one already exists and its board was not deleted, otherwise
+// creates the Templates board and its three swimlanes exactly as before.
+export async function ensureTemplatesBoardForUserId(userId) {
+  if (!userId) throw new Meteor.Error('not-logged-in');
+
+  {
+    const existing = await Users.findOneAsync(userId, {
       fields: { 'profile.templatesBoardId': 1 },
     });
     const existingId =
@@ -206,84 +220,87 @@ Meteor.methods({
         return existingId;
       }
     }
+  }
 
-    const fakeUser = {
-      extendAutoValueContext: {
-        userId: this.userId,
+  const fakeUser = {
+    extendAutoValueContext: {
+      userId,
+    },
+  };
+
+  let createdId;
+  await fakeUserId.withValue(userId, async () => {
+    const boardId = await Boards.insertAsync(
+      {
+        title:
+          getTAPi18n() && getTAPi18n().i18n
+            ? getTAPi18n().__('templates')
+            : 'Templates',
+        permission: 'private',
+        type: 'template-container',
       },
-    };
+      fakeUser,
+    );
 
-    let createdId;
-    await fakeUserId.withValue(this.userId, async () => {
-      const boardId = await Boards.insertAsync(
-        {
-          title:
-            getTAPi18n() && getTAPi18n().i18n
-              ? getTAPi18n().__('templates')
-              : 'Templates',
-          permission: 'private',
-          type: 'template-container',
-        },
-        fakeUser,
-      );
-
-      await Users.updateAsync(this.userId, {
-        $set: { 'profile.templatesBoardId': boardId },
-      });
-
-      const cardSwimlaneId = await Swimlanes.insertAsync(
-        {
-          title:
-            getTAPi18n() && getTAPi18n().i18n
-              ? getTAPi18n().__('card-templates-swimlane')
-              : 'Card Templates',
-          boardId,
-          sort: 1,
-          type: 'template-container',
-        },
-        fakeUser,
-      );
-      await Users.updateAsync(this.userId, {
-        $set: { 'profile.cardTemplatesSwimlaneId': cardSwimlaneId },
-      });
-
-      const listSwimlaneId = await Swimlanes.insertAsync(
-        {
-          title:
-            getTAPi18n() && getTAPi18n().i18n
-              ? getTAPi18n().__('list-templates-swimlane')
-              : 'List Templates',
-          boardId,
-          sort: 2,
-          type: 'template-container',
-        },
-        fakeUser,
-      );
-      await Users.updateAsync(this.userId, {
-        $set: { 'profile.listTemplatesSwimlaneId': listSwimlaneId },
-      });
-
-      const boardSwimlaneId = await Swimlanes.insertAsync(
-        {
-          title:
-            getTAPi18n() && getTAPi18n().i18n
-              ? getTAPi18n().__('board-templates-swimlane')
-              : 'Board Templates',
-          boardId,
-          sort: 3,
-          type: 'template-container',
-        },
-        fakeUser,
-      );
-      await Users.updateAsync(this.userId, {
-        $set: { 'profile.boardTemplatesSwimlaneId': boardSwimlaneId },
-      });
-
-      createdId = boardId;
+    await Users.updateAsync(userId, {
+      $set: { 'profile.templatesBoardId': boardId },
     });
 
-    return createdId;
-  },
+    const cardSwimlaneId = await Swimlanes.insertAsync(
+      {
+        title:
+          getTAPi18n() && getTAPi18n().i18n
+            ? getTAPi18n().__('card-templates-swimlane')
+            : 'Card Templates',
+        boardId,
+        sort: 1,
+        type: 'template-container',
+      },
+      fakeUser,
+    );
+    await Users.updateAsync(userId, {
+      $set: { 'profile.cardTemplatesSwimlaneId': cardSwimlaneId },
+    });
+
+    const listSwimlaneId = await Swimlanes.insertAsync(
+      {
+        title:
+          getTAPi18n() && getTAPi18n().i18n
+            ? getTAPi18n().__('list-templates-swimlane')
+            : 'List Templates',
+        boardId,
+        sort: 2,
+        type: 'template-container',
+      },
+      fakeUser,
+    );
+    await Users.updateAsync(userId, {
+      $set: { 'profile.listTemplatesSwimlaneId': listSwimlaneId },
+    });
+
+    const boardSwimlaneId = await Swimlanes.insertAsync(
+      {
+        title:
+          getTAPi18n() && getTAPi18n().i18n
+            ? getTAPi18n().__('board-templates-swimlane')
+            : 'Board Templates',
+        boardId,
+        sort: 3,
+        type: 'template-container',
+      },
+      fakeUser,
+    );
+    await Users.updateAsync(userId, {
+      $set: { 'profile.boardTemplatesSwimlaneId': boardSwimlaneId },
+    });
+
+    createdId = boardId;
+  });
+
+  return createdId;
+}
+
+Meteor.methods({
   async deleteWorkspace(workspaceId) {
     check(workspaceId, String);
     if (!this.userId) throw new Meteor.Error('not-logged-in');
