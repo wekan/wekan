@@ -1511,6 +1511,45 @@ sort-order unit tests for `computeCardsByCustomFieldGroup` and its
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f36166857">Added the pure reconstruction core for a "Timeline" board view</a>. Thanks to xet7.</summary>
+
+Requested: a Timeline view under the Board View menu, below Time, with a
+left-to-right time slider that can show the board's state at any past
+point, restore a card's historical state onto the current card, and
+selectively remove one member's changes from a time period, all without
+ever deleting Activity data.
+
+This commit delivers the foundation only: `models/lib/boardTimeline.js`'s
+`reconstructBoardStateAt(currentCards, activities, asOfTimestamp)`, a
+pure, read-only function that reconstructs each card's title,
+description, listId, swimlaneId, labelIds, members, assignees, dueAt and
+archived flag as of a chosen timestamp by replaying the board's existing
+Activities log backwards from the card's current state - no separate
+snapshot storage, and no Activity is ever read destructively, written, or
+removed. It covers every activityType that currently records enough
+old/new detail to reverse (title, description, due date, list/swimlane
+moves, archive/restore, member/assignee join-unjoin, label add/remove);
+cross-board moves, custom-field changes and permanent deletes are known
+limitations, stated in the module's comments and surfaced per-card via
+`unreversedActivityTypes` rather than silently mis-reconstructed.
+
+**Not yet done, deliberately deferred rather than rushed:** the Timeline
+board-view menu entry/UI (the slider and read-only historical rendering),
+the per-card "restore to this point in time" action, and the selective
+per-member change-removal action described in the same request. All three
+are real mutation logic (restore and removal write new card state) and
+the maintainer's own requirement - "have checks that all data stays at
+undo history, so that this does not delete any data" - means they need to
+be built and tested as carefully as this reconstruction core, rather than
+delivered incompletely under time pressure. `tests/boardTimeline.test.cjs`
+pins every undo transform, a multi-step history at several points, purity
+(no mutation of its inputs), and a negative test scanning the source for
+any Activities removal call, so the safety property this feature depends
+on already has coverage for the part that exists.
+
+</details>
+
 **All Boards** - the overview and its Clone Board action.
 
 <details>
