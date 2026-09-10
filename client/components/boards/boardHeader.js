@@ -121,6 +121,8 @@ Template.boardHeaderButtons.helpers({
       return 'fa-font'; // alphabetical
     } else if (sortBy.createdAt) {
       return sortBy.createdAt === 1 ? 'fa-arrow-up' : 'fa-arrow-down';
+    } else if (sortBy.votes) {
+      return 'fa-thumbs-o-up'; // sort by votes (#3050)
     }
     return 'fa-sort';
   },
@@ -747,6 +749,19 @@ Template.cardsSortPopup.events({
     };
     setCardsSortBy(sortBy);
     sortCardsBy.set(TAPi18n.__('date-created-oldest-first'));
+    Popup.back();
+  },
+  // #3050: float highest-voted cards to the top of each list. `votes` is not
+  // a real Mongo field (vote score is computed from vote.positive/negative),
+  // so this is a marker only - client.components.lists.listBody's
+  // cardsWithLimit() recognizes it and re-sorts the rendered cards in JS
+  // instead of passing it through as a Mongo sort spec.
+  'click .js-sort-votes'() {
+    const sortBy = {
+      votes: -1,
+    };
+    setCardsSortBy(sortBy);
+    sortCardsBy.set(TAPi18n.__('sort-by-votes'));
     Popup.back();
   },
 });
