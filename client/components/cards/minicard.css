@@ -5,6 +5,14 @@
   align-items: center;
   margin-bottom: 8px;
 }
+/* #3078: a subtle highlight for a minicard that has comments the current
+   user has not seen yet. An inset ring plus a left-edge stripe, not a
+   background fill, so it stays visible against every label swatch and
+   colorStyle background a minicard can already have (an inline
+   background-color always wins over these box-shadow rings anyway). */
+.minicard.minicard-unread-comments {
+  box-shadow: inset 3px 0 0 0 #f2c94c, inset 0 0 0 1px rgba(242, 201, 76, 0.55);
+}
 .minicard-wrapper.placeholder {
   background: #ccc;
   border-radius: 17px;

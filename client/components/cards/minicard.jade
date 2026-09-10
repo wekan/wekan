@@ -15,6 +15,8 @@ template(name="minicard")
     class="{{agingClass}}"
     class="{{#if colorClass}}minicard-{{colorClass}}{{/if}}"
     class="{{#if minicardCollapsed}}minicard-collapsed{{/if}}"
+    class="{{#if hasUnreadComments}}minicard-unread-comments{{/if}}"
+    title="{{#if hasUnreadComments}}{{_ 'card-has-unread-comments'}}{{/if}}"
     style="{{colorStyle}}")
     if canMoveCard
       if isTouchScreenOrShowDesktopDragHandles
@@ -87,9 +89,10 @@ template(name="minicard")
         if showEnd
           if getEnd
              +minicardEndDate
-        if getSpentTime
-          .date
-            +cardSpentTime
+        if showSpentTime
+          if getSpentTime
+            .date
+              +cardSpentTime
       if cover
         if currentBoard.allowsCoverAttachmentOnMinicard
           .minicard-cover(style="background-image: url('{{cover.link 'original'}}?dummyReloadAfterSessionEstablished={{sess}}');")

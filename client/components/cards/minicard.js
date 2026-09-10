@@ -8,6 +8,7 @@ import ChecklistItems from '/models/checklistItems';
 import Cards from '/models/cards';
 import { resolveCoverId } from '/models/lib/linkedCardCover';
 import { isChecklistShownAtMinicard } from '/models/lib/minicardChecklistVisibility';
+import { hasUnreadComments } from '/models/lib/unreadComments';
 import {
   parseChecklistItemTitles,
   buildChecklistItemPayload,
@@ -40,6 +41,20 @@ Template.minicard.helpers({
   showCustomFieldsOnMinicard() {
     const board = this.board();
     return board?.allowsCustomFieldsOnMinicard === true;
+  },
+  // #3078: highlight the minicard when it has comments the current user has
+  // not seen yet - a comment created after the user's last-viewed timestamp
+  // for this card (models/users.js getCardLastViewedAt/setCardLastViewed),
+  // or any comment at all when the card was never opened by this user. The
+  // decision itself is pure/tested in models/lib/unreadComments.js.
+  hasUnreadComments() {
+    const card = this;
+    if (!card || !card._id) return false;
+    const comments = ReactiveCache.getCardComments({ cardId: card._id }) || [];
+    if (!comments.length) return false;
+    const user = ReactiveCache.getCurrentUser();
+    if (!user) return false;
+    return hasUnreadComments(comments, user.getCardLastViewedAt(card._id));
   },
   // True exactly when the drag handle is rendered (see minicard.jade): the user
   // may move the card AND drag handles are on. On a coarse pointer the handle is
@@ -165,6 +180,13 @@ Template.minicard.helpers({
   showEnd() {
     const board = this.board();
     return getMinicardFlag(board, 'allowsEndDateOnMinicard', 'allowsEndDate', true);
+  },
+  // #2530: accumulated spent-time badge on the minicard. Defaults to true
+  // (models/boards.js) since it was already shown unconditionally; this only
+  // lets an admin turn it off via Card Settings.
+  showSpentTime() {
+    const board = this.board();
+    return getMinicardFlag(board, 'allowsSpentTimeOnMinicard', 'allowsSpentTime', true);
   },
   showLabels() {
     const board = this.board();

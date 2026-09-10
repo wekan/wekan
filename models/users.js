@@ -955,6 +955,25 @@ Users.attachSchema(
       defaultValue: {},
       blackbox: true,
     },
+    'profile.cardLastViews': {
+      /**
+       * Per-user, per-card "last viewed" timestamp (#3078).
+       * profile.cardLastViews[cardId] = Date
+       *
+       * Set when the user opens a card's detail view (Template.cardDetails
+       * onCreated). Used to decide whether a card's minicard should show the
+       * "has unread comments" highlight: a comment created after this
+       * timestamp is unread, and a card that was never opened is treated as
+       * unread whenever it has any comment at all (see
+       * models/lib/unreadComments.js). Same shape as collapsedCardSections
+       * above - a blackbox map keyed by cardId - because it is the same kind
+       * of thing: per-user view state, not an edit to the card, so every
+       * board member can have their own.
+       */
+      type: Object,
+      defaultValue: {},
+      blackbox: true,
+    },
     'profile.keyboardShortcuts': {
       /**
        * User-specified state of keyboard shortcut activation.
@@ -1096,6 +1115,23 @@ Users.attachSchema(
       type: String,
     },
     lastConnectionDate: {
+      type: Date,
+      optional: true,
+    },
+    anonymized: {
+      /**
+       * #2731: true once anonymizeUser has scrubbed this account's PII in
+       * place (username/profile/emails replaced with a placeholder,
+       * loginDisabled set). Board/card/comment references to this userId are
+       * left untouched - see server/models/users.js anonymizeUser.
+       */
+      type: Boolean,
+      optional: true,
+    },
+    anonymizedAt: {
+      /**
+       * When anonymizeUser last ran for this account.
+       */
       type: Date,
       optional: true,
     },
@@ -2147,6 +2183,11 @@ Users.helpers({
   checklistSectionKey(checklistId) {
     return `checklist-${checklistId}`;
   },
+  /** #3078: when this user last opened this card, or null if never. */
+  getCardLastViewedAt(cardId) {
+    const { cardLastViews = {} } = this.profile || {};
+    return cardLastViews[cardId] || null;
+  },
   setCollapsedListToStorage(boardId, listId, collapsed) {
     // Logged-in users: save to profile
     if (this._id) {
@@ -2561,6 +2602,14 @@ Users.helpers({
     if (!current[cardId]) current[cardId] = {};
     current[cardId][sectionKey] = !!collapsed;
     return await Users.updateAsync(this._id, { $set: { 'profile.collapsedCardSections': current } });
+  },
+
+  /** #3078: record that this user just opened this card, clearing its
+   * "unread comments" highlight on every minicard that shows it. */
+  async setCardLastViewed(cardId) {
+    const current = (this.profile && this.profile.cardLastViews) || {};
+    current[cardId] = new Date();
+    return await Users.updateAsync(this._id, { $set: { 'profile.cardLastViews': current } });
   },
 
   async setMobileMode(enabled) {

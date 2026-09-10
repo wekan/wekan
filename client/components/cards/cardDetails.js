@@ -385,6 +385,18 @@ Template.cardDetails.onCreated(function () {
   // still showing this card's data.
   this.openedCardId = openedCardId;
 
+  // #3078: opening a card is what clears its minicard "unread comments"
+  // highlight - reusing this existing open trigger rather than a new
+  // tracking mechanism. Record the current user's own last-viewed
+  // timestamp for this card; see models/users.js setCardLastViewed and the
+  // minicard helper in client/components/cards/minicard.js.
+  if (openedCardId) {
+    const currentUser = ReactiveCache.getCurrentUser();
+    if (currentUser) {
+      currentUser.setCardLastViewed(openedCardId);
+    }
+  }
+
   const boardBody = getBoardBodyInstance();
   if (boardBody !== null) {
     // Only show overlay in mobile mode, not in desktop mode
@@ -2109,9 +2121,18 @@ Template.moveCardPopup.onCreated(function () {
       const tpl = Template.instance();
       const title = tpl.$('#move-card-title').val().trim();
       const position = tpl.$('input[name="position"]:checked').val();
+      // #2719: optionally leave a linked-card mirror behind at the card's
+      // ORIGINAL board/swimlane/list once the move completes, reusing the
+      // same linked-card mechanism as #4281's "Link to board" action rather
+      // than inventing a new one. Unchecked (the default) leaves plain move
+      // behavior completely unchanged.
+      const leaveLinkAtOrigin = tpl.$('#js-leave-link-at-origin').is(':checked');
 
       ReactiveCache.getCurrentUser().setMoveAndCopyDialogOption(this.currentBoardId, options);
       const card = Template.currentData();
+      const originalBoardId = card.boardId;
+      const originalSwimlaneId = card.swimlaneId;
+      const originalListId = card.listId;
       let sortIndex = 0;
 
       if (cardId) {
@@ -2132,6 +2153,13 @@ Template.moveCardPopup.onCreated(function () {
       await card.move(options.boardId, options.swimlaneId, options.listId, sortIndex);
       if (title && title !== card.title) {
         await card.setTitle(title);
+      }
+
+      if (leaveLinkAtOrigin) {
+        const linkCardId = await card.link(originalBoardId, originalSwimlaneId, originalListId);
+        if (linkCardId) {
+          Filter.addException(linkCardId);
+        }
       }
     },
   });
