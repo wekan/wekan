@@ -6,7 +6,23 @@
   background: #dedede;
   display: flex;
   flex-direction: row;
-  overflow: auto;
+  /* #2805: `overflow: auto` here (both axes) makes .swimlane itself a CSS
+     scroll container. `.list.list-sticky-header .list-header`'s
+     `position: sticky` (#3847) sticks within the NEAREST scroll-container
+     ancestor's own scrollport - so with both axes captured here, the header
+     stuck to the top of `.swimlane`'s box instead of to the real, page-level
+     vertical scroll on `.board-wrapper .board-canvas` (boardBody.css). Since
+     `.swimlane` itself never scrolls internally in normal use - `.list` is
+     already `height: 100%` of it (list.css) and each list's own `.list-body`
+     carries its card overflow (overflow-y: scroll) - the swimlane row simply
+     moved out from under a header that was "stuck" to a box with nothing to
+     scroll, so titles disappeared while scrolling down through swimlane rows
+     in the Swimlanes view. Horizontal scrolling of a row of lists is still
+     needed, so only that axis stays a scroll container here; leaving the
+     vertical axis `visible` lets the sticky ancestor search continue up to
+     `.board-canvas`, where the header can pin against the real page scroll. */
+  overflow-x: auto;
+  overflow-y: visible;
   max-height: 100%;
   position: relative;
 }
