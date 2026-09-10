@@ -255,6 +255,15 @@ class SetFilter {
     return this._selectedElements.indexOf(val) > -1;
   }
 
+  // #319: a reactive snapshot of the selected values, used to mirror the
+  // filter's state into the URL query string as the user changes it (the
+  // write direction of #4540's read-on-load `?assignee=`/`?member=`/`?label=`
+  // support). Returns a copy so callers cannot mutate internal state.
+  list() {
+    this._dep.depend();
+    return this._selectedElements.slice();
+  }
+
   add(val) {
     if (this._indexOfVal(val) === -1) {
       this._selectedElements.push(val);

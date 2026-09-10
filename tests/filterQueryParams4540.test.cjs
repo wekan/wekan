@@ -89,7 +89,7 @@ const { pathToFileURL } = require('node:url');
   );
   assert.match(
     boardBody,
-    /import \{ parseBoardFilterQueryParams \} from '\/client\/lib\/filterQueryParams';/,
+    /parseBoardFilterQueryParams,?\s*[\s\S]{0,80}from '\/client\/lib\/filterQueryParams';/,
     'boardBody.js must import the pure param-parsing helper',
   );
   assert.match(

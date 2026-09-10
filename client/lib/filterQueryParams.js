@@ -52,6 +52,53 @@ export function resolveLabelNamesToIds(labelNames, labels) {
     .filter(Boolean);
 }
 
+// #319: the inverse of the parsing below - given the *ids* the `Filter`
+// sidebar currently holds, resolves them back to the usernames/label names
+// the query-param vocabulary uses, so an interactively filtered board can
+// write its own bookmarkable/shareable URL. Kept alongside the parser so the
+// two directions can never drift into different token formats.
+export function resolveIdsToUsernames(ids, users) {
+  const byId = new Map(
+    (users || [])
+      .filter(user => user && user._id)
+      .map(user => [user._id, user.username]),
+  );
+  return (ids || []).map(id => byId.get(id)).filter(Boolean);
+}
+
+export function resolveIdsToLabelNames(ids, labels) {
+  const byId = new Map(
+    (labels || [])
+      .filter(label => label && label._id)
+      .map(label => [label._id, label.name]),
+  );
+  return (ids || []).map(id => byId.get(id)).filter(Boolean);
+}
+
+// Builds the `{ assignee, member, label }` query-param object (comma-joined,
+// same vocabulary `parseBoardFilterQueryParams` reads) from the board
+// filter's current id-based state. `assigneeIds`/`memberIds`/`labelIds` come
+// from `Filter.assignees.list()` / `Filter.members.list()` /
+// `Filter.labelIds.list()`; `users`/`labels` resolve them back to names. A
+// param whose list is empty is set to `null` so the caller can pass the
+// result straight to `FlowRouter.setQueryParams`, which removes any key
+// whose value is `null`/`undefined`.
+export function buildBoardFilterQueryParams(
+  { assigneeIds, memberIds, labelIds },
+  users,
+  labels,
+) {
+  const assigneeUsernames = resolveIdsToUsernames(assigneeIds, users);
+  const memberUsernames = resolveIdsToUsernames(memberIds, users);
+  const labelNames = resolveIdsToLabelNames(labelIds, labels);
+
+  return {
+    assignee: assigneeUsernames.length ? assigneeUsernames.join(',') : null,
+    member: memberUsernames.length ? memberUsernames.join(',') : null,
+    label: labelNames.length ? labelNames.join(',') : null,
+  };
+}
+
 // Parses the supported board-filter query params into the shape the `Filter`
 // object needs: arrays of member ids, assignee ids and label ids. `queryParams`
 // is a plain object such as `{ assignee: 'johndoe', member: 'a,b', label: 'x' }`
