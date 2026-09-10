@@ -275,6 +275,16 @@
   margin: 0 4px;
   color: #3cb500;
 }
+/* #2886: a label filter clicked a third time inverts to EXCLUDE that label
+   (rather than clearing the filter) — struck-through text plus a "no
+   entry" icon distinguish it from the plain checked "include" state above. */
+.sidebar .sidebar-content ul.sidebar-list li.excluded > a .sidebar-list-item-description {
+  text-decoration: line-through;
+}
+.sidebar .sidebar-content ul.sidebar-list li > a .fa.fa-ban {
+  margin: 0 4px;
+  color: #e63737;
+}
 .sidebar .sidebar-content ul.sidebar-list li .minicard {
   padding: 6px 8px 4px;
 }

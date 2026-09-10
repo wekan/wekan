@@ -27,7 +27,7 @@ template(name="filterSidebar")
             if Filter.labelIds.isSelected undefined
               i.fa.fa-check
     each currentBoard.labels
-      li
+      li(class="{{#if Filter.labelIds.isSelected _id}}active{{/if}}{{#if Filter.excludedLabelIds.isSelected _id}} excluded{{/if}}")
         a.name.js-toggle-label-filter(data-filter-id="{{_id}}")
           span.card-label.square(class="{{labelColorClass color}}" style="{{labelColorStyle color}}")
           span.sidebar-list-item-description
@@ -37,6 +37,8 @@ template(name="filterSidebar")
               span.quiet {{_ "label-default" (_ (concat "color-" color))}}
           if Filter.labelIds.isSelected _id
             i.fa.fa-check
+          if Filter.excludedLabelIds.isSelected _id
+            i.fa.fa-ban(title="{{_ 'filter-label-excluded'}}")
   hr
   h3
     i.fa.fa-users

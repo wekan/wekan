@@ -93,7 +93,15 @@ Template.filterSidebar.events({
   },
   'click .js-toggle-label-filter'(evt) {
     evt.preventDefault();
-    Filter.labelIds.toggle(getFilterIdFromEvent(evt, this?._id));
+    const filterId = getFilterIdFromEvent(evt, this?._id);
+    if (filterId === undefined) {
+      // The "no label" pseudo-entry stays a simple two-state toggle; the
+      // #2886 three-state include/exclude/clear cycle is scoped to actual
+      // labels.
+      Filter.labelIds.toggle(filterId);
+    } else {
+      Filter.toggleLabelFilter(filterId);
+    }
     Filter.resetExceptions();
   },
   'click .js-toggle-member-filter'(evt) {
