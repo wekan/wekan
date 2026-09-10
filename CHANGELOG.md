@@ -125,12 +125,6 @@ doubts and asks for a Windows/AD-experienced contributor).
 <details>
 <summary>Need the running app to reproduce/verify (runtime UI or publication/mergebox state), not unit-testable here.</summary>
 
-[#6541](https://github.com/wekan/wekan/issues/6541) (users disappear from the
-Users collection while their id stays on the board, WeKan 6.09 / MongoDB 3.2 —
-nothing in the server log and no webhook, so there is no path to follow in the
-code; the deletion helpers since gained the cleanup that removes a user from
-every board they were on, so a repeat today would leave no orphan ids, but the
-disappearance itself has no reproduction),
 [#1942](https://github.com/wekan/wekan/issues/1942) (a card linked from board A
 into board B shows a blank view / freezes when the viewer has no rights on board
 A — the linked-card open resolves the real card the viewer cannot see; needs a
