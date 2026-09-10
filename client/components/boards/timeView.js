@@ -1,6 +1,6 @@
 import { ReactiveVar } from 'meteor/reactive-var';
 import { TAPi18n } from '/imports/i18n';
-const { translateGroupLabel } = require('/models/lib/chartCalculations');
+const { translateGroupLabel, formatRemainingTime } = require('/models/lib/chartCalculations');
 
 // Board view "Time" - split out of "Statistics" so time tracking has its own
 // place in the board-view menu. The summary counts come from the server
@@ -62,6 +62,13 @@ Template.timeView.helpers({
   byCard() {
     const breakdown = Template.instance().breakdown.get();
     return breakdown ? breakdown.byCard : [];
+  },
+  // #1121 ("show the SUM of remaining time until due date"): formatted the
+  // same "X days, Y hours" way the PDF/Excel export renders it.
+  remainingTimeTotal() {
+    const breakdown = Template.instance().breakdown.get();
+    if (!breakdown || !breakdown.remaining) return '…';
+    return formatRemainingTime(breakdown.remaining, key => TAPi18n.__(key));
   },
   // The "none" sentinel from models/lib/chartCalculations.js's
   // NO_ASSIGNEE_GROUP - translated the same way the Dashboard view's own

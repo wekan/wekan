@@ -22,6 +22,12 @@ template(name="timeView")
             tr
               td.stats-view-label {{_ 'board-status-overtime-cards'}}
               td.stats-view-value {{ overtimeCards }}
+            tr
+              //- #1121: sum of remaining time until due date, across the
+              //- board's open cards that have a due date - the same value
+              //- the PDF/Excel export carries as its own section.
+              td.stats-view-label {{_ 'board-status-remaining-time-total'}}
+              td.stats-view-value {{ remainingTimeTotal }}
       if hasTimeBreakdown
         //- #812 ("reporting total hours by resource and task type"): who
         //- logged how many hours, and which cards those hours went to - the
