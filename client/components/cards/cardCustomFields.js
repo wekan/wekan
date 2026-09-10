@@ -79,6 +79,23 @@ Template.cardCustomFieldsPopup.helpers({
     const card = getCurrentCardFromContext();
     return card?.getRealBoard ? card.getRealBoard() : card?.board?.();
   },
+  // #3141: the assign/unassign list this popup shows is reachable from the
+  // ordinary card-detail "Custom Fields" hamburger, so it is a card-detail
+  // call site same as the value itself - an "Admin only" field's NAME must
+  // not appear here either for a non-admin board member.
+  customFields() {
+    const card = getCurrentCardFromContext();
+    const realBoard = card?.getRealBoard ? card.getRealBoard() : card?.board?.();
+    if (!realBoard) return [];
+    const fields = realBoard.customFields ? realBoard.customFields() : [];
+    const currentUser = Meteor.user && Meteor.user();
+    const isBoardAdmin =
+      !!currentUser &&
+      typeof currentUser.isBoardAdmin === 'function' &&
+      currentUser.isBoardAdmin(realBoard._id);
+    const { filterAdminOnlyDefinitions } = require('/models/lib/customFieldsWD');
+    return filterAdminOnlyDefinitions(fields, isBoardAdmin);
+  },
   hasCustomField() {
     const card = getCurrentCardFromContext();
     if (!card) return false;

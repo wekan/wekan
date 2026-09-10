@@ -96,4 +96,27 @@ function buildCustomFieldsWD(customFields, definitions) {
   return ret;
 }
 
-export { buildCustomFieldsWD, resolveTrueValue, resolveDropdownItemName };
+// #3141: an "Admin only" custom field definition is dropped entirely for a
+// non board-admin viewer, BEFORE it ever reaches buildCustomFieldsWD() - so
+// neither the card-detail view nor the minicard (both render off the one
+// customFieldsWD() call) nor the "assign to this card" popup list can show
+// its name or value to anyone but a board admin. A defensive filter: any
+// falsy/malformed definition is left as-is rather than dropped, since a
+// missing `adminOnly` (the default for every field created before this
+// existed) must never hide a field that was never marked admin-only.
+function filterAdminOnlyDefinitions(definitions, isBoardAdmin) {
+  if (!Array.isArray(definitions)) {
+    return definitions;
+  }
+  if (isBoardAdmin) {
+    return definitions;
+  }
+  return definitions.filter(def => !(def && def.adminOnly));
+}
+
+export {
+  buildCustomFieldsWD,
+  resolveTrueValue,
+  resolveDropdownItemName,
+  filterAdminOnlyDefinitions,
+};

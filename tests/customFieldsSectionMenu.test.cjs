@@ -51,7 +51,11 @@ test('the Custom Fields heading carries the hamburger', () => {
 });
 
 test('the popup shows every board field, ticked when it is on the card', () => {
-  assert.ok(/each board\.customFields/.test(popup), 'every field the board has');
+  // #3141: the popup no longer iterates `board.customFields` directly - it
+  // goes through the template's own `customFields` helper, which additionally
+  // filters out "Admin only" fields for a non-admin viewer (see
+  // client/components/cards/cardCustomFields.js).
+  assert.ok(/each customFields/.test(popup), 'every field the board has');
   assert.ok(/\.materialCheckBox\(class="\{\{#if hasCustomField\}\}is-checked\{\{\/if\}\}"\)/.test(popup),
     'as the shared animated checkbox, ticked when the field is on this card');
   assert.ok(!/fa-check-square-o|fa-square-o/.test(popup),
@@ -91,7 +95,7 @@ test('the rule is conditional on there being at least one field (negative)', () 
   const lines = popup.split('\n').map(l => l.trim());
   const hrAt = lines.findIndex(l => l === 'hr');
   assert.ok(hrAt !== -1, 'the hr line exists');
-  assert.strictEqual(lines[hrAt - 1], 'if board.customFields.length',
+  assert.strictEqual(lines[hrAt - 1], 'if customFields.length',
     'the hr is guarded by whether there is at least one custom field');
 });
 
@@ -178,7 +182,7 @@ test('the list is a checkbox, a name and a pencil, per field', () => {
   // What the popup is for: every field the BOARD has, ticked when it is on this
   // card, so one click puts it on the card - and a pencil at the other end to
   // edit the field itself.
-  const item = popup.slice(popup.indexOf('each board.customFields'));
+  const item = popup.slice(popup.indexOf('each customFields'));
   const li = item.slice(0, item.indexOf('\n    hr'));
   assert.ok(li.indexOf('js-select-field') < li.indexOf('js-edit-custom-field'),
     'the checkbox and name come first, the pencil last');

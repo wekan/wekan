@@ -116,6 +116,17 @@ CustomFields.attachSchema(
       type: Boolean,
       defaultValue: false,
     },
+    adminOnly: {
+      /**
+       * #3141: when true, this custom field's VALUE is hidden from - and
+       * cannot be set by - a non board-admin board member: not on the card
+       * detail view, not on the minicard, and not through the server-side
+       * setCustomField method (a UI-only hide is not real access control).
+       * Defaults to false so every existing custom field is unaffected.
+       */
+      type: Boolean,
+      defaultValue: false,
+    },
     sort: {
       /**
        * #4165: the user-settable DISPLAY order of the custom field, both in the

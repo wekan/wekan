@@ -1493,16 +1493,28 @@ Cards.helpers({
   customFieldsWD() {
     const card = this.getRealCard();
     // get all definitions attached to this card's CURRENT board
-    const definitions = ReactiveCache.getCustomFields({
+    let definitions = ReactiveCache.getCustomFields({
       boardIds: { $in: [card.boardId] },
     });
     if (!definitions) {
       return {};
     }
+    // #3141: an "Admin only" custom field's VALUE is invisible to anyone who
+    // is not a board admin - on the card detail view and the minicard alike,
+    // since both render off this one shared helper. Filtering the definition
+    // out here, before buildCustomFieldsWD() ever matches a value to it, is
+    // the single choke point for every render call site at once, the same
+    // way an unmatched/deleted definition is already skipped (#3748 above).
+    const currentUser = Meteor.user && Meteor.user();
+    const isBoardAdmin =
+      !!currentUser &&
+      typeof currentUser.isBoardAdmin === 'function' &&
+      currentUser.isBoardAdmin(card.boardId);
+    const { buildCustomFieldsWD, filterAdminOnlyDefinitions } = require('./lib/customFieldsWD');
+    definitions = filterAdminOnlyDefinitions(definitions, isBoardAdmin);
     // #3748: entries whose definition is unavailable are skipped rather than
     // becoming phantom `{}` rows. For a linked card both values and definitions
     // now come from its source board publication.
-    const { buildCustomFieldsWD } = require('./lib/customFieldsWD');
     return buildCustomFieldsWD(card.customFields, definitions);
   },
 

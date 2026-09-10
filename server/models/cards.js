@@ -263,6 +263,12 @@ Meteor.methods({
       type: 'checkbox',
     });
     if (!definition) throw new Meteor.Error('custom-field-not-found');
+    // #3141: a UI-only hide is not real access control - a direct method call
+    // is checked the same as the deny rule that covers text/number/dropdown/
+    // stringtemplate fields (server/permissions/cards.js).
+    if (definition.adminOnly && !board.hasAdmin(this.userId)) {
+      throw new Meteor.Error('not-authorized');
+    }
 
     const index = (card.customFields || []).findIndex(field =>
       field && field._id === customFieldId);
@@ -294,6 +300,10 @@ Meteor.methods({
       type: 'currency',
     });
     if (!definition) throw new Meteor.Error('custom-field-not-found');
+    // #3141: same server-side gate as setCardCustomFieldCheckbox above.
+    if (definition.adminOnly && !board.hasAdmin(this.userId)) {
+      throw new Meteor.Error('not-authorized');
+    }
 
     const index = (card.customFields || []).findIndex(field =>
       field && field._id === customFieldId);

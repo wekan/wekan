@@ -93,6 +93,14 @@ template(name="createCustomFieldPopup")
 
             span {{_ 'showLabel-field-on-card'}}
 
+        //- #3141: only a board admin may see/toggle this - it decides whether
+          the field's value is hidden from everyone else. Non-admins never see
+          the control at all, matching how other admin-only UI is gated.
+        if currentUser.isBoardAdmin
+            a.flex.js-field-admin-only(class="{{#if adminOnly}}is-checked{{/if}}")
+                .materialCheckBox(class="{{#if adminOnly}}is-checked{{/if}}")
+                span {{_ 'admin-only-field'}}
+
         button.primary.wide.left(type="button")
             | {{_ 'save'}}
         if _id

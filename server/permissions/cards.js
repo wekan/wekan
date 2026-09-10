@@ -1,5 +1,6 @@
 import Cards from '/models/cards';
 import Boards from '/models/boards';
+import CustomFields from '/models/customFields';
 import { allowIsBoardMemberWithWriteAccess, denyCrossBoardMove } from '/server/lib/utils';
 import { canUserSeeBoard } from '/server/lib/visibleBoardIds';
 import { tripCanary, tripCanaryDeny } from '/server/lib/canary';
@@ -110,4 +111,37 @@ Cards.deny({
     return tripCanaryDeny('card.invisible-parent', { userId });
   },
   fetch: [],
+});
+
+// #3141: a non board-admin must not be able to set an "Admin only" custom
+// field's VALUE even via a direct client collection write (card.setCustomField()
+// writes `customFields.<index>.value` straight through Cards.updateAsync on the
+// client for text/number/dropdown/stringtemplate fields) - a UI-only hide is not
+// real access control, since client HTML/JS is visible and bypassable.
+export async function denyAdminOnlyCustomFieldValueWrite(userId, doc, modifier) {
+  const set = modifier && modifier.$set;
+  if (!set) return false;
+  const customFields = (doc && doc.customFields) || [];
+  for (const key of Object.keys(set)) {
+    const match = /^customFields\.(\d+)\.value$/.exec(key);
+    if (!match) continue;
+    const index = Number(match[1]);
+    const entry = customFields[index];
+    if (!entry || !entry._id) continue;
+    const definition = await CustomFields.findOneAsync(entry._id);
+    if (!definition || !definition.adminOnly) continue;
+    const board = await Boards.findOneAsync(doc.boardId);
+    if (!board || !board.hasAdmin(userId)) return true;
+  }
+  return false;
+}
+
+Cards.deny({
+  async update(userId, doc, fieldNames, modifier) {
+    if (await denyAdminOnlyCustomFieldValueWrite(userId, doc, modifier)) {
+      return tripCanaryDeny('card.admin-only-custom-field', { userId });
+    }
+    return false;
+  },
+  fetch: ['boardId', 'customFields'],
 });

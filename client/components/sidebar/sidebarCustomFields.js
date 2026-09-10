@@ -279,6 +279,14 @@ Template.createCustomFieldPopup.events({
     $target.find('.materialCheckBox').toggleClass('is-checked');
     $target.toggleClass('is-checked');
   },
+  'click .js-field-admin-only'(evt) {
+    let $target = $(evt.target);
+    if (!$target.hasClass('js-field-admin-only')) {
+      $target = $target.parent();
+    }
+    $target.find('.materialCheckBox').toggleClass('is-checked');
+    $target.toggleClass('is-checked');
+  },
   'click .primary'(evt, tpl) {
     evt.preventDefault();
 
@@ -296,6 +304,15 @@ Template.createCustomFieldPopup.events({
       showSumAtTopOfList:
         tpl.find('.js-field-show-sum-at-top-of-list.is-checked') !== null,
     };
+
+    // #3141: the control itself is only rendered for a board admin (see the
+    // jade template), so a non-admin's form never has `.js-field-admin-only`
+    // in it at all - leave `adminOnly` out of `data` rather than writing
+    // `false` and silently clearing an admin's existing flag out from under
+    // them via a non-admin's save of the same field.
+    if (tpl.find('.js-field-admin-only')) {
+      data.adminOnly = tpl.find('.js-field-admin-only.is-checked') !== null;
+    }
 
     const currentData = Template.currentData();
     // Insert or update, decided by whether this form was opened ON a custom
