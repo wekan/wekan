@@ -4725,6 +4725,39 @@ unchanged.
 
 </details>
 
+**Popups and languages** - a Scrum doc's links, six popups with no header,
+and two duplicated language files.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3f872cccc78986b56142711a6fabdd250bf6a13">Fix broken docs links, restore the km-KH/ru-RU language symlinks, and title six popups that rendered with no header</a>. Thanks to xet7.</summary>
+
+`docs/Features/Cards/Scrum.md` linked `../../DragDrop/Drag-Drop.md` and
+`../../Lists/WipLimit/WipLimit.md`, one directory level too high from
+`docs/Features/Cards/`; both 404'd. Fixed to `../DragDrop/Drag-Drop.md`
+and `../Lists/WipLimit/WipLimit.md`.
+
+`imports/i18n/data/km-KH.i18n.json` and `ru-RU.i18n.json` had drifted into
+independent copies of `km_KH.i18n.json`/`ru_RU.i18n.json` instead of being
+a symlink to the file a Transifex pull actually writes, so the registry's
+`km-KH`/`ru-RU` entries loaded a stale duplicate and `ru-RU` was missing
+two keys that had only landed in `ru_RU.i18n.json`. Restored both as
+symlinks.
+
+Six popups - Add Existing Subtask, Restore Card to Timeline, Clone Board,
+Create Board From Card, Archive All (list) Cards, and List Sync - had no
+`<name>Popup-title` key, so each rendered with no header and so no close
+button (the same class of problem `deleteBoardBackgroundPopup` etc. were
+fixed for earlier). Added the title key to `en.i18n.json` and every
+locale file, left as the English placeholder where no translation exists
+yet.
+
+Also inserted `text-contains-trigger-label`/`-description` into five
+locale files (`ace`, `ba` and three others) that were missing them
+entirely, which had shifted every following key out of position relative
+to `en.i18n.json`.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for
 their translations.
 
