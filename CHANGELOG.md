@@ -528,6 +528,47 @@ service is genuinely skipped, not only hidden in the popup.
 
 </details>
 
+**Email Templates** - admin-customizable subject/body for the invite and
+activity-notification emails.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6f0405d9e">Add an Admin Panel "Email Templates" section for the invite and activity-notification emails</a>. Thanks to saurabharch and xet7.</summary>
+
+[#2022](https://github.com/wekan/wekan/issues/2022) asked for admin-
+customizable templates for WeKan's transactional emails. Reading
+`server/notifications/email.js` and `server/models/settings.js`'s
+`sendInvitationEmail()` showed both already built their subject/body from
+hardcoded i18n keys, with no admin-configurable template mechanism -
+except for the Settings schema fields themselves
+(`inviteEmailSubjectTemplate`/`inviteEmailBodyTemplate`,
+`activityEmailSubjectTemplate`/`activityEmailBodyTemplate`) and their
+server-side use, which already existed and already reused
+`models/lib/ruleVarsSubstitute.js`'s `substituteVars()` - the same
+`{token}` substitution the #3304 rule "send email" action uses - but had
+no Admin Panel UI to actually set them.
+
+This adds that missing UI: Admin Panel / Email / Email Templates, right
+below the SMTP settings, with its own Save. Each of the four fields is
+optional and empty by default, so an existing install sees the exact
+current hardcoded/i18n email content, completely unchanged, until an admin
+explicitly fills one in. The invite email accepts
+`{email} {inviter} {user} {icode} {url}`; the activity-notification email
+accepts `{board} {card} {list} {username} {url} {comment} {action}`.
+
+Deliberately NOT covered: password-reset and account-verification emails.
+Those stay hardcoded - a misconfigured or malicious custom template on a
+security-critical email (e.g. one that strips the reset link) would be a
+real account-takeover risk, so `server/lib/resetPasswordEmail.js` and
+`config/accounts.js` never read any of the four new template fields, which
+`tests/emailTemplatesCustomization.test.cjs` pins with a negative test - it
+also proves an unset template falls back to exactly the previous
+hardcoded/i18n content, that a set template substitutes correctly through
+the existing `substituteVars()` (with a source-pattern negative test
+against a second/duplicate templating implementation), and that the new
+Admin Panel labels are translated in every locale file.
+
+</details>
+
 **Board reports** - the Gantt view and the 10 board report chart views.
 
 <details>
@@ -597,6 +638,29 @@ same calls the Calendar's own drag handlers already use), gated on the same
 board-write capability as the rest of WeKan rather than offered to users
 the server would refuse. Kanboard has no dependency arrows, view-mode
 switching or export; nothing to match there.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3480e8a9456e01cabe3ff9997df487bf5cafc83a">The Throughput Histogram now projects a completion date from recent velocity</a>. Thanks to sojournerc and xet7.</summary>
+
+[#1476](https://github.com/wekan/wekan/issues/1476) asked for cycle time,
+lead time, throughput/velocity, bottleneck analysis, and completion
+estimates based on velocity. The first four were already covered: the
+Cycle Time and Lead Time board views, the Throughput Histogram, and the
+Control Chart / Cumulative Flow Diagram / WIP Run views, which are the
+standard Kanban tools for spotting a bottleneck even though none of them
+is literally named "bottleneck". The one missing piece was a forward-
+looking projection - at the recent completion rate, when will the cards
+still open be done.
+
+`computeCompletionForecast` in `models/lib/chartCalculations.js` answers
+that, reusing `computeThroughput`'s own weekly series rather than
+recomputing velocity a second way: it averages the last 4 weeks of
+completions and divides the remaining open-card count by that rate to
+project a date. `server/lib/boardChartData.js` attaches it to the
+Throughput Histogram's data as a `forecast` field alongside the existing
+`series`, and the view shows it as a plain-text note under the chart.
 
 </details>
 
@@ -3868,7 +3932,7 @@ and adds the following REST API improvements:
 **Checklists and comments** - editing them over the API, not just creating and deleting them.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/REPLACE_HASH">Add PUT endpoints for a checklist's title and a comment's text</a>. Thanks to mayjs and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/75ce020db">Add PUT endpoints for a checklist's title and a comment's text</a>. Thanks to mayjs and xet7.</summary>
 
 [#1037](https://github.com/wekan/wekan/issues/1037) asked for a roadmap of
 missing REST API features. Auditing the current surface
