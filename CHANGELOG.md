@@ -2356,7 +2356,7 @@ only the one list that happens to be over on its own.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/0c7524db05a492e04b047e7523b916ccfb9df0c6">Add an "apply to whole swimlane" quick-select to WIP limit groups</a>. Thanks to Kausthub-Pandey and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/0c7524db05a492e04b047e7523b916ccfb9df0c6">Add an "apply to whole swimlane" quick-select to WIP limit groups</a>. Thanks to bhueck and xet7.</summary>
 
 [#2380](https://github.com/wekan/wekan/issues/2380) asked for a WIP limit on
 a whole SWIMLANE - a cap on the total cards across all of that swimlane's
@@ -2365,7 +2365,7 @@ cross-list WIP limit groups just above (#2489). A WeKan list already carries
 an optional `swimlaneId` (`models/lists.js`) when it was created for one
 specific swimlane, so that swimlane's own lists are exactly a WIP limit
 group's `listIds` in the same `{ _id, name, listIds, limit, enabled }` shape
-#2489 already added - no separate counting or enforcement was built.
+\#2489 already added - no separate counting or enforcement was built.
 
 The "WIP Limit Groups" panel's "Add WIP limit group" form gets a swimlane
 picker and an "Apply to swimlane" button
@@ -2971,6 +2971,32 @@ and nothing else on a checklist item, enforced in
 checkbox is drawn under that helper while the rest of the row - title edit,
 drag handle, due-date edit, delete - still requires the full write
 capability a Normal member has.
+
+</details>
+
+**Custom fields** - the board's custom-field definitions and how they display.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bf2fa4179">An auto-create custom field now shows on every quick-added card, not only the first one</a>. Thanks to coleyon and xet7.</summary>
+
+[#2392](https://github.com/wekan/wekan/issues/2392): a custom field with
+"Auto create field to all cards" (or "Always on card") and "Show field
+label on minicard" enabled applied correctly to the first card created
+through a list's quick-add form, but not to any card created after it in
+the same session.
+
+`client/components/lists/listBody.js`'s `addCardForm` computed the
+board's automatic custom fields exactly once, inline in `onCreated`, and
+reused that same value for every submission. The form's own `reset()` -
+meant to clear "More options", labels and members between cards - set
+that list back to `[]` unconditionally instead of recomputing it, so any
+reset between two cards silently dropped the automatic field starting
+with the second one. `onCreated` and `reset()` now share one
+`automaticCustomFieldsForCurrentBoard()` helper that recomputes the
+field list from the board's current custom-field definitions every time,
+so it is (re)applied consistently rather than only once per form
+lifetime. A regression test creates three cards in sequence and asserts
+the automatic field is attached to all three, not just the first.
 
 </details>
 
