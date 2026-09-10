@@ -203,9 +203,14 @@ Accounts.registerLoginHandler(async (options) => {
     const mergeAllowed = process.env.SAML_MERGE_EXISTING_USERS === 'true';
     if (!isSamlAccount && !mergeAllowed) {
       try {
-        require('/server/lib/canary').tripCanary('saml.account-conflict', {
-          username: userOptions.username,
-        });
+        // A local Meteor package cannot import app-tree code (see
+        // server/lib/canary.js's header comment on this bridge); tripCanary
+        // is reached through the shared Node `global`, set once at app boot.
+        if (typeof global.__wekanTripCanary === 'function') {
+          global.__wekanTripCanary('saml.account-conflict', {
+            username: userOptions.username,
+          });
+        }
       } catch (e) {
         /* logging must never break the guard */
       }

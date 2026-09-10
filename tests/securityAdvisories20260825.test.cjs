@@ -105,7 +105,10 @@ test('CAS refuses implicit linking and marks newly created CAS accounts', () => 
   assert.ok(/user\.authenticationMethod === 'cas'/.test(cas));
   assert.ok(/CAS_MERGE_EXISTING_USERS/.test(cas));
   assert.ok(/'cas-account-conflict'/.test(cas));
-  assert.ok(/tripCanary\('cas\.account-conflict'/.test(cas));
+  // cas_server.js is a local Meteor package and cannot import server/lib/
+  // canary.js directly (see that file's global.__wekanTripCanary bridge
+  // comment); it calls tripCanary through that shared bridge instead.
+  assert.ok(/__wekanTripCanary\('cas\.account-conflict'/.test(cas));
 });
 
 console.log('\nsecurityAdvisories20260825: all ' + passed + ' tests passed');

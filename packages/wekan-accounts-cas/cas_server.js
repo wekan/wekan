@@ -262,9 +262,14 @@ const casValidate = (req, ticket, token, service, callback) => {
     const mergeAllowed = process.env.CAS_MERGE_EXISTING_USERS === 'true';
     if (!isCasAccount && !mergeAllowed) {
       try {
-        require('/server/lib/canary').tripCanary('cas.account-conflict', {
-          username: options.username,
-        });
+        // A local Meteor package cannot import app-tree code (see
+        // server/lib/canary.js's header comment on this bridge); tripCanary
+        // is reached through the shared Node `global`, set once at app boot.
+        if (typeof global.__wekanTripCanary === 'function') {
+          global.__wekanTripCanary('cas.account-conflict', {
+            username: options.username,
+          });
+        }
       } catch (e) {
         /* logging must never break the guard */
       }

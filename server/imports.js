@@ -130,6 +130,7 @@ import '/server/models/userPositionHistory';
 // mainModule, so files not imported here are never loaded / their methods are
 // not registered).
 import '/server/ldapGroupSync';
+import '/server/ldapAdminSettingsBridge';
 import '/server/sharedTemplateTargets';
 import '/server/propagateOrgTeamMembers';
 

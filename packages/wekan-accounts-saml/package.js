@@ -28,4 +28,12 @@ Npm.depends({
   // verified directly from https://github.com/node-saml/node-saml/blob/master/LICENSE
   // (MIT, (c) Henri Bergius, Michael Bosworth).
   '@node-saml/node-saml': '5.1.0',
+  // Parses the IdP's application/x-www-form-urlencoded POST to the ACS
+  // endpoint (saml_server.js's urlEncodedParser). A local Meteor package
+  // resolves npm dependencies only through its own Npm.depends - it happened
+  // to still find this in node_modules while some unrelated app dependency
+  // pulled it in transitively, but that is not guaranteed, and stopped being
+  // true the moment it wasn't: "Cannot find module '/node_modules/body-parser/index.js'"
+  // at server boot.
+  'body-parser': '1.20.8',
 });

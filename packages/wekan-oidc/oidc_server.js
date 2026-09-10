@@ -6,7 +6,7 @@ import https from 'https';
 import fs from 'fs';
 import { resolveOidcEndpoint } from './endpoint';
 const { mergeWhitelistedClaims } = require('./serviceDataClaims');
-const { maybeGenerateOauth2ClientSecretJwt } = require('/models/lib/oauth2ClientSecretJwt');
+const { maybeGenerateOauth2ClientSecretJwt } = require('./oauth2ClientSecretJwt');
 
 // #2458 (Sign in with Apple): Apple's "client secret" is not a static string
 // like every other generic-OAuth2 provider's - it is a short-lived JWT the

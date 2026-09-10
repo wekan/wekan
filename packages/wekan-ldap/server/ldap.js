@@ -7,8 +7,7 @@ import {
   missingLoginGroupFilterSettings,
   loginGroupNames,
 } from './groupFilterConfig';
-import Settings from '/models/settings';
-import { resolveConfigValue } from '/models/lib/configResolver';
+import { resolveConfigValue } from './configResolver';
 
 // Admin Panel -> LDAP override (models/settings.js's `ldap` sub-document): maps
 // each env var this module reads to the admin-editable field that may override
@@ -28,9 +27,21 @@ const LDAP_ADMIN_OVERRIDE_FIELD = {
   LDAP_ENCRYPTION: 'encryption',
 };
 
+// A local Meteor package cannot import the app's Settings collection
+// directly (see configResolver.js's header comment), so the app hands this
+// module a getter instead - wired once at server boot by
+// server/ldapAdminSettingsBridge.js via setLdapSettingsAccessor(). Until
+// that runs (or if it is never wired, e.g. a test loading this file in
+// isolation), this falls back to env-var-only behaviour.
+let ldapSettingsAccessor = () => ({});
+
+export function setLdapSettingsAccessor(fn) {
+  ldapSettingsAccessor = typeof fn === 'function' ? fn : () => ({});
+}
+
 function currentLdapAdminSettings() {
   try {
-    return Settings.findOne({})?.ldap || {};
+    return ldapSettingsAccessor() || {};
   } catch (e) {
     // Settings collection not ready yet (e.g. very early boot) - fall back to
     // env-var-only behaviour rather than crashing the LDAP module.
