@@ -42,3 +42,35 @@ export function dueDateClass(dueDate, now, endDate) {
   }
   return 'not-due';
 }
+
+/**
+ * Pure helper that turns a due date into a countdown - "N days left" or
+ * "N days overdue" - for the due-date badge (GitHub issue #2424). The badge
+ * used to show only the formatted date; this adds a relative day count next
+ * to it, using CALENDAR days (the due date's own day minus "now"'s day), so
+ * a card due later today still reads "Due today" rather than "0 days left".
+ *
+ * @param {Date|string|number} dueDate - The card due date.
+ * @param {Date|string|number} now - The current time.
+ * @returns {{key: 'due-today'|'due-days-left'|'due-days-overdue', days: number}}
+ *   `days` is always a non-negative count; `key` says which direction/phrase
+ *   to use. Look the phrase up with TAPi18n.__(key, { count: days }) (or
+ *   plain %s substitution) at the call site - this module stays i18n-free.
+ */
+export function dueCountdown(dueDate, now) {
+  const due = new Date(dueDate);
+  const nowVal = new Date(now);
+
+  const startOfDay = date =>
+    new Date(date.getFullYear(), date.getMonth(), date.getDate()).getTime();
+
+  const dayMs = 24 * 60 * 60 * 1000;
+  const diffDays = Math.round((startOfDay(due) - startOfDay(nowVal)) / dayMs);
+
+  if (diffDays === 0) {
+    return { key: 'due-today', days: 0 };
+  } else if (diffDays > 0) {
+    return { key: 'due-days-left', days: diffDays };
+  }
+  return { key: 'due-days-overdue', days: -diffDays };
+}

@@ -26,9 +26,22 @@ import {
   fromNow,
   calendar
 } from '/imports/lib/dateUtils';
-import { dueDateClass } from '/client/lib/dueDateColor';
+import { dueDateClass, dueCountdown } from '/client/lib/dueDateColor';
 import { subscribeDateNowTicker } from '/client/lib/dateNowTicker';
 import { formatJalaliDate } from '/imports/lib/jalaliDate';
+
+// #2424: turn a due date's countdown into the badge's visible suffix, e.g.
+// "Jun 15 (3 days left)" / "Jun 15 (2 days overdue)" / "Jun 15 (Due today)".
+// Pure day-count math lives in dueCountdown() (client/lib/dueDateColor.js,
+// shared with dueDateClass so the countdown and the badge colour always
+// agree); this only turns its result into translated text.
+function dueCountdownText(dueDate, nowVal) {
+  const { key, days } = dueCountdown(dueDate, nowVal);
+  if (key === 'due-today') {
+    return TAPi18n.__('due-today');
+  }
+  return TAPi18n.__(key, { sprintf: [days] });
+}
 
 // #4335: DISPLAY-ONLY per-user calendar-system toggle. Storage always stays
 // Gregorian (native `Date`); when the viewing user opted into
@@ -295,7 +308,19 @@ Template.cardDueDate.helpers(cardDateHelpers({
   showTitle() {
     const tpl = Template.instance();
     const formattedDate = formatCardDateForDisplay(tpl.date.get(), true);
-    return `${TAPi18n.__('card-due-on')} ${formattedDate}`;
+    const data = cardFromDateContext();
+    const endAt = data.getEnd();
+    const title = `${TAPi18n.__('card-due-on')} ${formattedDate}`;
+    if (endAt) return title;
+    return `${title} (${dueCountdownText(tpl.date.get(), tpl.now.get())})`;
+  },
+  showDate() {
+    const tpl = Template.instance();
+    const formattedDate = formatCardDateForDisplay(tpl.date.get(), true);
+    const data = cardFromDateContext();
+    const endAt = data.getEnd();
+    if (endAt) return formattedDate;
+    return `${formattedDate} (${dueCountdownText(tpl.date.get(), tpl.now.get())})`;
   },
 }));
 
@@ -480,10 +505,19 @@ Template.minicardDueDate.helpers(cardDateHelpers({
   showTitle() {
     const tpl = Template.instance();
     const formattedDate = formatCardDateForDisplay(tpl.date.get(), true);
-    return `${TAPi18n.__('card-due-on')} ${formattedDate}`;
+    const data = cardFromDateContext();
+    const endAt = data.getEnd();
+    const title = `${TAPi18n.__('card-due-on')} ${formattedDate}`;
+    if (endAt) return title;
+    return `${title} (${dueCountdownText(tpl.date.get(), tpl.now.get())})`;
   },
   showDate() {
-    return formatCardDateForDisplay(Template.instance().date.get(), true);
+    const tpl = Template.instance();
+    const formattedDate = formatCardDateForDisplay(tpl.date.get(), true);
+    const data = cardFromDateContext();
+    const endAt = data.getEnd();
+    if (endAt) return formattedDate;
+    return `${formattedDate} (${dueCountdownText(tpl.date.get(), tpl.now.get())})`;
   },
 }));
 
