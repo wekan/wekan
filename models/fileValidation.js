@@ -100,6 +100,24 @@ function logUploadBlock(key, detail) {
 }
 
 const { filenameLooksLikeExploit } = require('./lib/uploadFileName');
+const { isDangerousUploadMismatch } = require('./lib/uploadContentMismatch');
+
+// GitHub issue #3274: sniff the file's REAL type from its magic bytes with the
+// maintained `file-type` package (already a dependency, used the same way by
+// models/lib/fileTypeCorrection.js for extension correction) and compare it
+// against the client-declared MIME type. `file-type` is ESM-only, so it is
+// loaded with a dynamic import; detection failure must never block a
+// legitimate upload, so any error here simply yields no sniffed mime.
+async function detectMimeFromMagicBytes(filePath) {
+  if (!Meteor.isServer) return undefined;
+  try {
+    const { fileTypeFromFile } = await import('file-type');
+    const type = await fileTypeFromFile(String(filePath));
+    return type && type.mime ? String(type.mime).toLowerCase() : undefined;
+  } catch (e) {
+    return undefined;
+  }
+}
 
 export async function isFileValid(fileObj, mimeTypesAllowed, sizeAllowed, externalCommandLine) {
   // Reject uploads whose FILENAME itself looks like an exploit: HTML/script
@@ -200,6 +218,33 @@ export async function isFileValid(fileObj, mimeTypesAllowed, sizeAllowed, extern
       }
     } catch (e) {
       // Head unreadable — the checks below still apply.
+    }
+
+    // GitHub issue #3274 (CWE-434): compare the client-declared MIME type
+    // against the REAL type sniffed from the file's magic bytes, and reject a
+    // dangerous mismatch - e.g. a Windows PE executable or a shell/batch
+    // script renamed with an image/document extension and Content-Type. Kept
+    // narrow (see isDangerousUploadMismatch): it never flags compatible
+    // textual differences (text/plain vs text/csv) to avoid false-positive
+    // breakage of legitimate uploads.
+    try {
+      const magicByteMime = await detectMimeFromMagicBytes(fileObj.path);
+      const { text: mismatchHead } = await readTextHead(fileObj.path, 4096);
+      const mismatch = isDangerousUploadMismatch({
+        declaredMime: fileObj.type,
+        detectedMime: magicByteMime,
+        headText: mismatchHead,
+      });
+      if (mismatch.blocked) {
+        console.log(
+          'Validation of uploaded file failed (declared/content type mismatch): file '
+          + fileObj.path + ' - ' + mismatch.reason,
+        );
+        logUploadBlock('file.mime', 'rejected spoofed upload type (' + mismatch.reason + ')');
+        return false;
+      }
+    } catch (e) {
+      // Mismatch detection must never block a legitimate upload on its own error.
     }
 
     // GHSA-jhph-whx8-wq6p (CWE-434): when content-based detection via the `file`
