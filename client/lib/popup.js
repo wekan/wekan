@@ -71,6 +71,19 @@ window.Popup = new (class {
           $(previousOpenerElement).removeClass('is-active');
           // Clean up previous popup content to prevent mixing
           self._cleanupPreviousPopupContent();
+          // #6686: a popup opened from a card (e.g. the Labels popup) that is
+          // never explicitly closed (the card is closed/switched without going
+          // through Popup.close/back) leaves this popup's stack non-empty. The
+          // next *fresh* open (not a sub-popup opened from within the current
+          // popup) must replace that stale stack rather than push on top of
+          // it - otherwise the old, still-rendered entry stacks alongside the
+          // new one and its data context (the previous card) can end up
+          // reacting to clicks meant for the new card. A sub-popup opened
+          // from inside the currently open popup (clickFromPopup) legitimately
+          // grows the stack and must not be reset here.
+          if (!clickFromPopup(evt)) {
+            self._stack = [];
+          }
         }
       }
 

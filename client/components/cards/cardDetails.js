@@ -375,6 +375,16 @@ Template.cardDetails.onCreated(function () {
     }
   });
 
+  // #6686: a sub-popup opened from this card (Labels, Members, ...) is a
+  // global singleton (client/lib/popup.js) that is not tied to this card
+  // details instance. Closing this card, or switching to another card,
+  // destroys this template instance without ever calling Popup.close()/back(),
+  // so the popup stayed open and, when re-opened on the next card, could still
+  // be operating on the closed card's stale data. Remember which card this
+  // instance was opened for so onDestroyed (below) can close a popup that is
+  // still showing this card's data.
+  this.openedCardId = openedCardId;
+
   const boardBody = getBoardBodyInstance();
   if (boardBody !== null) {
     // Only show overlay in mobile mode, not in desktop mode
@@ -575,8 +585,20 @@ Template.cardDetails.onRendered(function () {
 
 Template.cardDetails.onDestroyed(function () {
   const boardBody = getBoardBodyInstance();
-  if (boardBody === null) return;
-  boardBody.showOverlay.set(false);
+  if (boardBody !== null) {
+    boardBody.showOverlay.set(false);
+  }
+
+  // #6686: see the comment in onCreated above. Only close a popup that is
+  // still showing THIS card's data at the base of its stack - a popup opened
+  // for an unrelated card/context must not be touched.
+  const openedCardId = this.openedCardId;
+  if (openedCardId && Popup.isOpen()) {
+    const baseStackEntry = Popup._stack?.[0];
+    if (baseStackEntry?.dataContext?._id === openedCardId) {
+      Popup.close();
+    }
+  }
 });
 
 Template.cardDetails.helpers({
