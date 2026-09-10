@@ -431,6 +431,9 @@ export const RulesHelper = {
     if (action.actionType === 'removeLabel') {
       card.removeLabel(action.labelId);
     }
+    if (action.actionType === 'removeAllLabels') {
+      card.removeAllLabels();
+    }
     // #2674: resolve the username defensively for the member actions. A rule
     // whose username no longer resolves (user renamed/deleted, or a typo in an
     // API-created rule) crashed here on `undefined._id`; the activity hook

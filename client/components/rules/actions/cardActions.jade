@@ -71,6 +71,13 @@ template(name="cardActions")
   div.trigger-item
     div.trigger-content
       div.trigger-text
+        | {{_'r-remove-all-labels'}}
+    div.trigger-button.js-add-removealllabels-action.js-goto-rules
+      i.fa.fa-plus
+
+  div.trigger-item
+    div.trigger-content
+      div.trigger-text
         | {{_'r-set-color'}}
         button.trigger-button.trigger-button-color.js-show-color-palette(
           id="color-action"

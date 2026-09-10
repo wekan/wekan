@@ -188,6 +188,25 @@ Template.cardActions.events({
       boardId,
     });
   },
+  'click .js-add-removealllabels-action'(event, tpl) {
+    const data = Template.currentData();
+    const ruleName = data.ruleName.get();
+    const trigger = data.triggerVar.get();
+    const triggerId = Triggers.insert(trigger);
+    const desc = Utils.getTriggerActionDesc(event, tpl);
+    const boardId = Session.get('currentBoard');
+    const actionId = Actions.insert({
+      actionType: 'removeAllLabels',
+      boardId,
+      desc,
+    });
+    Rules.insert({
+      title: ruleName,
+      triggerId,
+      actionId,
+      boardId,
+    });
+  },
   'click .js-show-color-palette'(event, tpl) {
     const funct = Popup.open('setCardActionsColor');
     const colorButton = tpl.find('#color-action');

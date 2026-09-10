@@ -3068,6 +3068,14 @@ Cards.helpers({
     }
   },
 
+  // #3432: remove every label from the card in one step, instead of one
+  // "remove label" rule action per label. A card with no labels is a no-op.
+  removeAllLabels() {
+    const card = this.getRealCard();
+    card.labelIds = [];
+    return Cards.updateAsync(this.getRealId(), { $set: { labelIds: [] } });
+  },
+
   // A sticker is identified by its icon plus its highlight style ('underline'
   // for the mascot pack, 'round' for the computer pack, or none), so the same
   // icon can exist as a plain, mascot or computer sticker.
