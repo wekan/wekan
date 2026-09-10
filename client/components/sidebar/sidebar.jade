@@ -460,19 +460,37 @@ template(name="boardCardSettingsPopup")
         span
           i.fa.fa-tag
           | {{_ 'labels'}}
-    //- "Labels text": the labels on a minicard as coloured WORDS, or as
+    //- #4256: "Labels text" - the labels on a minicard as coloured WORDS, or as
       coloured bars with the words left out. Directly under Labels, because it
       is about what those labels look like.
-      It is the one PERSONAL row of this table - the user's own profile, or this
+      This BOARD row is the board's own default - a board admin sets it here,
+      the same as every other row in this table, and it applies to everybody
+      who has not overridden it below. Checked by default: the text is what a
+      minicard shows unless an admin turns it off. Minicard-only, so the Card
+      column is left blank. client/lib/minicardLabelText.js
+    .card-settings-row
+      .card-settings-column
+      .card-settings-column
+        a.flex.js-field-has-label-text(title="{{_ 'labels'}} {{_ 'custom-field-text'}}" class="{{#if allowsLabelText}}is-checked{{/if}}")
+          i.fa(class="{{#if allowsLabelText}}fa-check{{else}}fa-square-o{{/if}}")
+      .card-settings-column
+        span
+          i.fa.fa-tag
+          i.fa.fa-file-text-o
+          | {{_ 'labels'}}
+          | {{_ 'custom-field-text'}}
+    //- The one PERSONAL row of this table - the user's own profile, or this
       browser when nobody is logged in - so it is shown only in the minicard's
       own view (Minicard menu / Show on Minicard) and not in the board-wide
-      Card Settings, where every other row belongs to the board. Checked by
-      default: the text is what a minicard shows unless somebody turns it off.
-      client/lib/minicardLabelText.js
+      Card Settings, where every other row (including the board default above)
+      belongs to the board. It OVERRIDES the board default above: checking or
+      unchecking it here always wins, on every board, until reset back to
+      "follow the board" - mirroring the global theme override
+      (client/components/main/globalThemeColor.js). client/lib/minicardLabelText.js
     .card-settings-row.card-settings-row-personal
       .card-settings-column
       .card-settings-column
-        a.flex.js-toggle-minicard-label-text(title="{{_ 'labels'}} {{_ 'custom-field-text'}}" class="{{#if showsMinicardLabelText}}is-checked{{/if}}")
+        a.flex.js-toggle-minicard-label-text(title="{{_ 'labels'}} {{_ 'custom-field-text'}} {{_ 'label-text-override'}}" class="{{#if showsMinicardLabelText}}is-checked{{/if}}")
           i.fa(class="{{#if showsMinicardLabelText}}fa-check{{else}}fa-square-o{{/if}}")
       .card-settings-column
         span
@@ -480,6 +498,12 @@ template(name="boardCardSettingsPopup")
           i.fa.fa-file-text-o
           | {{_ 'labels'}}
           | {{_ 'custom-field-text'}}
+          if hasLabelTextOverride
+            | &nbsp;
+            a.js-reset-minicard-label-text-override(title="{{_ 'label-text-use-board-default'}}")
+              | ({{_ 'label-text-overridden'}})
+          else
+            | &nbsp;({{_ 'label-text-follows-board'}})
     .card-settings-row
       .card-settings-column
         a.flex.js-field-has-custom-fields(title="{{_ 'custom-fields'}}" class="{{#if allowsCustomFields}}is-checked{{/if}}")
@@ -626,6 +650,29 @@ template(name="boardCardSettingsPopup")
           i.fa.fa-history
     //
           | {{_ 'activities'}}
+
+    //- #4448: reorder the major sections of the opened card (Labels, Dates,
+      Members, Custom Fields, Description) - move Description earlier and have
+      Custom Fields render after it, instead of the historical fixed order.
+      Up/down buttons rather than a drag library: no jQuery-ui-sortable-based
+      reorder of a plain settings LIST exists elsewhere in this codebase to
+      reuse (the sortable usages for lists/swimlanes/boards are heavier
+      drag-and-drop over board layout, not a simple ordered list), so buttons
+      are the simpler, safer mechanism here.
+      client/components/sidebar/sidebar.js, models/lib/cardFieldOrder.js
+    if canModifyBoard
+      .card-settings-row
+        .card-settings-column
+          h4 {{_ 'card-field-order'}}
+      each cardFieldOrderRows
+        .card-settings-row.js-card-field-order-row(data-key="{{key}}")
+          .card-settings-column
+            a.flex.js-card-field-order-up(class="{{#if isFirst}}is-disabled{{/if}}" title="{{_ 'card-field-order-move-up'}}")
+              i.fa.fa-arrow-up
+            a.flex.js-card-field-order-down(class="{{#if isLast}}is-disabled{{/if}}" title="{{_ 'card-field-order-move-down'}}")
+              i.fa.fa-arrow-down
+          .card-settings-column
+            span {{_ label}}
 
 //- The board's Subtasks Settings. Its own template, because the same settings
   are read from two places: Board Settings, and the menu of a subtask on an

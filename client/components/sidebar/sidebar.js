@@ -9,6 +9,10 @@ const {
   SIDEBAR_BACK_CLOSE,
   sidebarBackAction,
 } = require('/models/lib/sidebarBackAction');
+const {
+  applyCardFieldOrder,
+  moveCardFieldKey,
+} = require('/models/lib/cardFieldOrder');
 import { InfiniteScrolling } from '/client/lib/infiniteScrolling';
 import '/client/components/boards/exportScope';
 import AccessibilitySettings from '/models/accessibilitySettings';
@@ -30,7 +34,7 @@ import { caretClassFor } from '/client/lib/sectionCaret';
 import { buildAttachmentUploadConfig } from '/client/lib/attachmentUploadConfig';
 import { toggleFold } from '/client/lib/foldState';
 import {
-  hiddenMinicardLabelText,
+  resolveShowLabelText,
   toggleMinicardLabelText,
 } from '/client/lib/minicardLabelText';
 import {
@@ -1633,12 +1637,55 @@ Template.boardCardSettingsPopup.helpers({
     return classes.join(' ');
   },
 
-  // Checked means the labels on a minicard show their TEXT, which is what they
-  // do unless somebody turns it off - so the stored "hidden" flag is read the
-  // other way round here. A checkbox that is unticked by default for the
-  // default behaviour reads as broken. client/lib/minicardLabelText.js
+  // #4448: the reorderable card-detail sections (Labels, Dates, Members,
+  // Custom Fields, Description), in the board's current order, each with
+  // whether it is first/last so the up/down buttons can disable themselves at
+  // the ends. models/lib/cardFieldOrder.js
+  cardFieldOrderRows() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    const order = applyCardFieldOrder(currentBoard?.cardFieldOrder);
+    const labelForKey = {
+      labels: 'labels',
+      dates: 'date-format',
+      members: 'members',
+      customFields: 'custom-fields',
+      description: 'description',
+    };
+    return order.map((key, index) => ({
+      key,
+      label: labelForKey[key] || key,
+      isFirst: index === 0,
+      isLast: index === order.length - 1,
+    }));
+  },
+
+  // Board-level DEFAULT (#4256, Board Settings): whether this board shows
+  // label text on its minicards unless a user overrides it. Checked means
+  // shown, which is what a board does unless an admin turns it off.
+  allowsLabelText() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return currentBoard ? currentBoard.showLabelText !== false : true;
+  },
+
+  // The user's own PERSONAL override on top of the board's default, tri-state:
+  // no override (follow the board), forced shown, or forced hidden. Checked
+  // means the resolved value is "shown" - so the checkbox always reflects what
+  // the minicard is currently doing, not just whether an override is set.
+  // client/lib/minicardLabelText.js
   showsMinicardLabelText() {
-    return !hiddenMinicardLabelText();
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return resolveShowLabelText(currentBoard);
+  },
+
+  // Whether the user has an explicit override set at all, so the template can
+  // show "(follows board default)" vs. "(overridden)".
+  hasLabelTextOverride() {
+    const currentUser = ReactiveCache.getCurrentUser();
+    if (!currentUser) return false;
+    return typeof (currentUser.profile || {}).showLabelTextOverride === 'boolean';
   },
 
   // "List title" is the CARD's own setting, not the board's, so the card is
@@ -1953,10 +2000,46 @@ Template.boardCardSettingsPopup.helpers({
 });
 
 Template.boardCardSettingsPopup.events({
+  // #4448: Board Settings / Card Settings up/down reorder of the card-detail
+  // sections. Re-reads the board's CURRENT order on every click (rather than
+  // trusting the row's stale data context) so two quick clicks in a row each
+  // move from where the previous one actually left it.
+  'click .js-card-field-order-up'(evt, tpl) {
+    evt.preventDefault();
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    if (!currentBoard) return;
+    const key = this.key;
+    const newOrder = moveCardFieldKey(currentBoard.cardFieldOrder, key, 'up');
+    Boards.update(currentBoard._id, { $set: { cardFieldOrder: newOrder } });
+  },
+  'click .js-card-field-order-down'(evt, tpl) {
+    evt.preventDefault();
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    if (!currentBoard) return;
+    const key = this.key;
+    const newOrder = moveCardFieldKey(currentBoard.cardFieldOrder, key, 'down');
+    Boards.update(currentBoard._id, { $set: { cardFieldOrder: newOrder } });
+  },
+  // Board-level default for #4256: whether labels show their TEXT on this
+  // board's minicards, unless a user's own override (below) says otherwise.
+  'click .js-field-has-label-text'(evt, tpl) {
+    evt.preventDefault();
+    const newValue = !(tpl.currentBoard.showLabelText !== false);
+    Boards.update(tpl.currentBoard._id, { $set: { showLabelText: newValue } });
+  },
   // The one row of this table that is the user's own, not the board's.
   'click .js-toggle-minicard-label-text'(evt) {
     evt.preventDefault();
     toggleMinicardLabelText();
+  },
+  // Explicit "back to the board's own setting" for the per-user override,
+  // rather than making somebody cycle the checkbox through both states again.
+  'click .js-reset-minicard-label-text-override'(evt) {
+    evt.preventDefault();
+    evt.stopPropagation();
+    Meteor.call('setShowLabelTextOverride', null);
   },
   // ...and the one that is this CARD's. The board-wide "Show lists" row further
   // down turns the list name on for every card; this turns it on for one.

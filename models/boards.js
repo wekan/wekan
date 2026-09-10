@@ -677,6 +677,22 @@ Boards.attachSchema(
       defaultValue: false,
     },
 
+    // #4448: the order the major sections of the opened card (Labels, Dates,
+    // Members, Custom Fields, Description) render in. A missing/partial/unknown
+    // value falls back to the historical fixed order via
+    // applyCardFieldOrder() in models/lib/cardFieldOrder.js - see that file for
+    // which sections are (and are not) covered by this setting.
+    cardFieldOrder: {
+      /**
+       * The order of the reorderable card-detail-view sections
+       */
+      type: Array,
+      optional: true,
+    },
+    'cardFieldOrder.$': {
+      type: String,
+    },
+
     allowsCoverAttachmentOnMinicard: {
       /**
        * Does the board allows cover attachment on minicard?
@@ -781,6 +797,20 @@ Boards.attachSchema(
        */
       type: Boolean,
       defaultValue: false,
+    },
+
+    showLabelText: {
+      /**
+       * #4256: does this board show label TEXT on its minicards (coloured
+       * words), or only the coloured bars? Board Settings / Card ("Labels
+       * text"). A user's own profile.showLabelTextOverride, when set, wins
+       * over this on every board - see client/lib/minicardLabelText.js.
+       * Defaults to true (text shown), the historical global default, so an
+       * existing board with no value stored sees no behaviour change.
+       */
+      type: Boolean,
+      defaultValue: true,
+      optional: true,
     },
 
     allowsAssignee: {
@@ -1635,6 +1665,13 @@ Boards.helpers({
     return ret;
   },
 
+  // #4448: the resolved, always-complete order of the reorderable card-detail
+  // sections - see models/lib/cardFieldOrder.js.
+  getCardFieldOrder() {
+    const { applyCardFieldOrder } = require('/models/lib/cardFieldOrder');
+    return applyCardFieldOrder(this.cardFieldOrder);
+  },
+
   absoluteUrl() {
     // Build the URL from the relative path rather than FlowRouter.url():
     // FlowRouter is client-only, so on the server (board invitation emails,
@@ -2394,6 +2431,15 @@ Boards.helpers({
 
   async setallowsCardSortingByNumberOnMinicard(allowsCardSortingByNumberOnMinicard) {
     return await this.setAllowsCardSortingByNumberOnMinicard(allowsCardSortingByNumberOnMinicard);
+  },
+
+  // #4256: this board's own default for showing label text on minicards.
+  getShowLabelText() {
+    return this.showLabelText !== false;
+  },
+
+  async setShowLabelText(showLabelText) {
+    return await Boards.updateAsync(this._id, { $set: { showLabelText } });
   },
 
   async setAllowsActivities(allowsActivities) {

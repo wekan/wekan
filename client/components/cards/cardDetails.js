@@ -606,6 +606,19 @@ Template.cardDetails.helpers({
     const board = this?.board?.();
     return Utils.canModifyCard(this) && board?.allowsCustomFields !== false;
   },
+
+  // #4448: the order the reorderable card-detail sections (Labels, Dates,
+  // Members, Custom Fields, Description) render in, resolved from the
+  // board's stored setting. models/lib/cardFieldOrder.js
+  orderedCardFieldSections() {
+    const board = this?.board?.();
+    if (board && typeof board.getCardFieldOrder === 'function') {
+      return board.getCardFieldOrder();
+    }
+    const { applyCardFieldOrder } = require('/models/lib/cardFieldOrder');
+    return applyCardFieldOrder(board?.cardFieldOrder);
+  },
+
   stickers() {
     const card = Template.currentData();
     return card && typeof card.getStickers === 'function' ? card.getStickers() : [];
