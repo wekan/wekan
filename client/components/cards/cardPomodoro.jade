@@ -1,0 +1,13 @@
+template(name="cardPomodoro")
+  .card-pomodoro
+    if isPomodoroActive
+      .pomodoro-status
+        span.pomodoro-phase {{pomodoroPhaseLabel}}
+        span.pomodoro-remaining {{remainingDisplay}}
+        span.pomodoro-count {{_ 'pomodoro-completed' pomodoroCount}}
+      if canControlPomodoro
+        button.js-stop-pomodoro.pomodoro-btn.negate(type="button") {{_ 'stop'}}
+    else
+      if canControlPomodoro
+        input.js-pomodoro-work-minutes.pomodoro-minutes(type="number" min="1" value="{{workMinutesInput}}")
+        button.js-start-pomodoro.pomodoro-btn.primary(type="button") {{_ 'pomodoro-start'}}

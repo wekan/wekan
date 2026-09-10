@@ -1,0 +1,23 @@
+.card-pomodoro {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+}
+.pomodoro-status {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.pomodoro-remaining {
+  font-variant-numeric: tabular-nums;
+  font-weight: bold;
+}
+.pomodoro-minutes {
+  width: 50px;
+}
+.pomodoro-btn {
+  padding: 2px 8px;
+  border-radius: 4px;
+}
