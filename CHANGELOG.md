@@ -314,11 +314,13 @@ the Markdown commit as the template.
 **In short:** this release adds **Frappe Gantt** and **DHTMLX Gantt**
 Community Edition as two new Board View pages alongside WeKan's own Gantt
 view, and draws the 10 board report charts with **Chart.js** - all
-MIT-licensed and lazy-loaded only when their view is opened. It also
-restores the full-featured **document preview** viewer (DOCX/XLSX/PPTX,
-native PDF), replacing the minimal server-rendered GIF-slideshow approach
-that kept failing with a bare HTTP 415, and hardens the **HttpOnly login
-cookie** against a rare case where it could be written without an expiry.
+MIT-licensed and lazy-loaded only when their view is opened. The
+**minicard** title moved to the top and gained a collapse caret, matching
+the fold already used for lists/swimlanes/checklists. It also restores the
+full-featured **document preview** viewer (DOCX/XLSX/PPTX, native PDF),
+replacing the minimal server-rendered GIF-slideshow approach that kept
+failing with a bare HTTP 415, and hardens the **HttpOnly login cookie**
+against a rare case where it could be written without an expiry.
 
 This release adds the following new features:
 
@@ -391,6 +393,29 @@ same calls the Calendar's own drag handlers already use), gated on the same
 board-write capability as the rest of WeKan rather than offered to users
 the server would refuse. Kanboard has no dependency arrows, view-mode
 switching or export; nothing to match there.
+
+</details>
+
+**Minicard** - the card as drawn on the board.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ce1cbf6fff2301bf5a0847d509a40049a349fb3f">The minicard title moved to the top, and gained a whole-card collapse caret</a>. Thanks to xet7.</summary>
+
+The title used to render after the dates/cover/upload-progress block. It
+now renders first, right after the drag handle and details-menu button, so
+it stays visible regardless of collapse state.
+
+A caret at the minicard's top-left corner - the same caret-down/caret-right
+convention already used for list, swimlane and per-checklist folding, with
+the same accessibility attributes as the per-checklist caret on the
+minicard itself - collapses everything except the caret and title: dates,
+cover, upload progress, labels, custom fields, assignees/members,
+checklists, badges, description, list name and parent-task prefix/subtext.
+The details-menu button and the optional drag handle stay reachable either
+way. State persists the same way list collapse already does - a Session
+cache, then `profile.collapsedCards` on the user document - deliberately
+with no anonymous/cookie fallback, since a public board can have far more
+cards than lists.
 
 </details>
 
