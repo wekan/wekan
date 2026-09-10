@@ -2168,6 +2168,41 @@ only the one list that happens to be over on its own.
 
 </details>
 
+**Lists** - a list's own header and Board Settings.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/187a3df1ce3377aba2a522cad4977900460355f0">Add a WIP limit shared across several lists together (WIP limit groups)</a>. Thanks to aviertio and xet7.</summary>
+
+[#2489](https://github.com/wekan/wekan/issues/2489) asked for a WIP limit
+that covers several columns together - e.g. three middle "in progress"
+columns that may never hold more than 10 cards between them - on top of
+the per-list limit WeKan already has (`models/lists.js` `wipLimit`).
+`Boards.wipLimitGroups` adds a small board-level array of
+`{ _id, name, listIds, limit, enabled }` groups, managed from a new "WIP
+Limit Groups" panel in Board Settings (Swimlane/List/Card/WIP Limit
+Groups, the same settings-popup pattern the other three already use),
+where two or more of the board's lists are picked to share one combined
+numeric limit.
+
+`models/lib/wipLimitGroupDecision.js` is the pure arithmetic this reuses
+everywhere the decision is needed: `combinedWipLimitGroupCount` sums the
+current card count across a group's member lists,
+`isWipLimitGroupExceeded` mirrors the per-list "exceeded" threshold
+(`value < count`, the same strict comparison `exceededWipLimit` already
+used), and `isListInExceededWipLimitGroup` answers whether a given list
+belongs to any group currently over its own shared limit - independent
+of that list's own individual `wipLimit`, so a group's total is never
+confused with what any one member list's own limit says.
+
+The list header shows the group being over limit with the exact same
+`.highlight` red-text styling the per-list WIP counter already uses
+(`client/components/lists/list.css`), not a second visual language: every
+list that belongs to an exceeded group gets its title highlighted, so it
+is clear at a glance which lists are part of the over-limit group, not
+only the one list that happens to be over on its own.
+
+</details>
+
 and fixes the following bugs:
 
 **Board reports** - the Dashboard and the 10 board report chart views.
