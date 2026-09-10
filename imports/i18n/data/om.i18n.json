@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Yeroo banamu, Enter dhiibuun mata-duree kaardii, ibsa fi gulaaltoota sararaa biroo kuusa; Shift+Enter sarara haaraa galcha. Yeroo dhaamu, Ctrl/Cmd+Enter kuusa; Enter sarara haaraa galcha.",
   "assignee": "Kan itti kenname",
   "assignees": "Kanneen itti kennaman",
+  "no-assignee": "Namni ramadame hin jiru",
+  "no-label": "Mallattoon hin jiru",
   "cardAssigneesPopup-title": "Kan itti kenname",
   "addmore-detail": "Ibsa bal'aa dabalataa dabali",
   "show-on-card": "Kaardii Irratti Agarsiisi",

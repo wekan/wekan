@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Musi zwo vulwa, u puṱedza Enter zwi vhulunga ṱhoho ya khennde, ṱhaluso na vhaṅwe vhaṅwaledzi vha nga ngomu; Shift+Enter i engedza mutaladzi muswa. Musi zwo valwa, Ctrl/Cmd+Enter zwi a vhulunga, Enter i engedza mutaladzi muswa.",
   "assignee": "Onikezwayo",
   "assignees": "Ababelwe",
+  "no-assignee": "A huna o daho",
+  "no-label": "A huna luvhoni",
   "cardAssigneesPopup-title": "Onikezwayo",
   "addmore-detail": "Engeza incazelo enemininingwane eyengeziwe",
   "show-on-card": "Bonisa ekhadini",

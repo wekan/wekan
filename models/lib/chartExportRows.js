@@ -5,6 +5,8 @@
 // the Excel chart exporters, so a chart's export is one function away from
 // either format. `translate(key, fallback)` is the exporter's own `__()`.
 
+const { translateGroupLabel } = require('./chartCalculations');
+
 const CHART_TITLE_KEYS = {
   dashboard: ['board-view-dashboard', 'Dashboard'],
   burndown: ['board-view-burndown', 'Burndown'],
@@ -126,7 +128,7 @@ function chartExportRows(chartKey, data, translate = (key, fallback) => fallback
   if (chartKey === 'dashboard') {
     const section = (name, groups) => [
       [name, ''],
-      ...groups.map(group => [group.label, `${group.count} (${group.percent}%)`]),
+      ...groups.map(group => [translateGroupLabel(group.label, translate), `${group.count} (${group.percent}%)`]),
       ['', ''],
     ];
     return {

@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Ne ele dɔ wɔm la, Enter dzi zizi dzraa kaɖi ƒe ŋkɔ, numeɖeɖe kple nuŋlɔla bubu siwo le fli dzi ɖo; Shift+Enter tsɔa fli yeye kpe ɖe eŋu. Ne mele dɔ wɔm o la, Ctrl/Cmd+Enter dzraa ɖo eye Enter tsɔa fli yeye kpe ɖe eŋu.",
   "assignee": "Ame si wotsɔ dɔ na",
   "assignees": "Ame siwo wotsɔ dɔ na",
+  "no-assignee": "Ame aɖeke meli o",
+  "no-label": "Dzesi aɖeke meli o",
   "cardAssigneesPopup-title": "Ame si wotsɔ dɔ na",
   "addmore-detail": "Tsɔ numeɖeɖe le nyatakaka geɖe me kpe ɖe eŋu",
   "show-on-card": "Fia le kaɖi dzi",

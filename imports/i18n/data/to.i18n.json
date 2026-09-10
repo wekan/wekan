@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Faka-Tonga: When on, pressing Enter saves the kaati title, fakamatala and other inline editors; Shift+Enter inserts a new line. When off, Ctrl/Cmd+Enter saves and Enter inserts a new line.",
   "assignee": "Kuo tuku ki ai",
   "assignees": "Kuo tuku ki ai",
+  "no-assignee": "ʻOku ʻikai ha tokotaha kuo vahe",
+  "no-label": "ʻOku ʻikai ha fakaʻilonga",
   "cardAssigneesPopup-title": "Kuo tuku ki ai",
   "addmore-detail": "Faka-Tonga: tānaki a more detailed fakamatala",
   "show-on-card": "Faka-Tonga: Show on kaati",

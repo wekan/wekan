@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Nigbati o ba wa lori, titẹ Enter fi akọle kaadi, apejuwe ati awọn olootu inu miiran pamọ; Shift+Enter fi laini tuntun sii. Nigbati o ba wa ni pipa, Ctrl/Cmd+Enter fipamọ, Enter si fi laini tuntun sii.",
   "assignee": "Ayanfunni",
   "assignees": "Awọn ayanfunni",
+  "no-assignee": "Kò sí ẹni tí a yàn",
+  "no-label": "Kò sí àmì",
   "cardAssigneesPopup-title": "Ayanfunni",
   "addmore-detail": "Ṣafikun apejuwe alaye diẹ sii",
   "show-on-card": "Fihan lori Kaadi",

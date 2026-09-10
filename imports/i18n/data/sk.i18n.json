@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Keď je zapnuté, stlačenie Enter uloží názov karty, popis a ďalšie vložené editory; Shift+Enter vloží nový riadok. Keď je vypnuté, Ctrl/Cmd+Enter uloží a Enter vloží nový riadok.",
   "assignee": "Řešitel",
   "assignees": "Riešitelia",
+  "no-assignee": "Bez priradenia",
+  "no-label": "Bez štítku",
   "cardAssigneesPopup-title": "Řešitel",
   "addmore-detail": "Přidat detailnější popis",
   "show-on-card": "Zobrazit na kartě",

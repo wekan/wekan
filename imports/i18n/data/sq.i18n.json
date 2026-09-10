@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Kur është aktive, Enter ruan titullin, përshkrimin dhe redaktuesit e tjerë brenda kartës; Shift+Enter shton rresht të ri. Kur është joaktive, Ctrl/Cmd+Enter ruan dhe Enter shton rresht të ri.",
   "assignee": "I caktuari",
   "assignees": "Të caktuarit",
+  "no-assignee": "Pa të caktuar",
+  "no-label": "Pa etiketë",
   "cardAssigneesPopup-title": "I caktuari",
   "addmore-detail": "Shto një përshkrim më të hollësishëm",
   "show-on-card": "Shfaq në kartë",

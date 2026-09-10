@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "সক্ৰিয় থাকিলে Enter টিপিলে কাৰ্ডৰ শিৰোনাম, বিৱৰণ আৰু আন ইনলাইন সম্পাদক সংৰক্ষণ হয়; Shift+Enter-এ নতুন শাৰী যোগ কৰে। বন্ধ থাকিলে Ctrl/Cmd+Enter-এ সংৰক্ষণ কৰে আৰু Enter-এ নতুন শাৰী যোগ কৰে।",
   "assignee": "দায়িত্বপ্ৰাপ্ত",
   "assignees": "দায়িত্বপ্ৰাপ্তসকল",
+  "no-assignee": "কোনো অসাইনি নাই",
+  "no-label": "কোনো লেবেল নাই",
   "cardAssigneesPopup-title": "দায়িত্বপ্ৰাপ্ত",
   "addmore-detail": "অধিক বিশদ বিৱৰণ যোগ কৰক",
   "show-on-card": "কাৰ্ডত দেখুৱাওক",

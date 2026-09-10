@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "When on, pressing Enter saves kat nem, toksave na other inline editors; Shift+Enter inserts wanpela nupela line. When off, Ctrl/Cmd+Enter saves na Enter inserts wanpela nupela line.",
   "assignee": "Man i gat wok",
   "assignees": "Ol man i gat wok",
+  "no-assignee": "I no gat man i asainim",
+  "no-label": "I no gat lebel",
   "cardAssigneesPopup-title": "Man i gat wok",
   "addmore-detail": "Putim wanpela more detailed toksave",
   "show-on-card": "Soim on kat",

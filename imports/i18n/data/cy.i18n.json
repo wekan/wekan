@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Pan fydd ymlaen, mae pwyso Enter yn cadw teitl y cerdyn, y disgrifiad a golygyddion mewnol eraill; mae Shift+Enter yn mewnosod llinell newydd. Pan fydd i ffwrdd, mae Ctrl/Cmd+Enter yn cadw ac mae Enter yn mewnosod llinell newydd.",
   "assignee": "Aseinai",
   "assignees": "Aseinwyr",
+  "no-assignee": "Dim aseiniwr",
+  "no-label": "Dim label",
   "cardAssigneesPopup-title": "Aseinai",
   "addmore-detail": "Ychwanegu disgrifiad manylach",
   "show-on-card": "Dangos ar Gerdyn",

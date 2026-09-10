@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Uma kuvuliwe, kuchafata Enter kulondvolota sihloko selikhadi, inchazelo nalabanye bahleli basemgceni; Shift+Enter ufaka umugca lomusha. Uma kuvaliwe, Ctrl/Cmd+Enter kulondvolota futsi Enter ufaka umugca lomusha.",
   "assignee": "Lonikwe umsebenti",
   "assignees": "Labanikwe umsebenti",
+  "no-assignee": "Akukho lophiwe umsebenti",
+  "no-label": "Akukho luphawu",
   "cardAssigneesPopup-title": "Lonikwe umsebenti",
   "addmore-detail": "Engeta inchazelo lenemininingwane",
   "show-on-card": "Khombisa Ekhadini",

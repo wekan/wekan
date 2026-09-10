@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Kun päällä, Enter tallentaa kortin otsikon, kuvauksen ja muut sisäiset editorit; Vaihto+Enter lisää rivinvaihdon. Kun pois, Ctrl/Cmd+Enter tallentaa ja Enter lisää rivinvaihdon.",
   "assignee": "Käsittelijä",
   "assignees": "Käsittelijät",
+  "no-assignee": "Ei vastuuhenkilöä",
+  "no-label": "Ei tarraa",
   "cardAssigneesPopup-title": "Käsittelijä",
   "addmore-detail": "Lisää tarkempi kuvaus",
   "show-on-card": "Näytä kortilla",

@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "chu'lu'DI', Enter yImuvDI' card pong, QIj je latlh ghItlhwI'mey polbe'lu'; Shift+Enter chu' tlhegh chellu'. chu'be'lu'DI', Ctrl/Cmd+Enter pollu' 'ej Enter chu' tlhegh chellu'.",
   "assignee": "Zugewiesen",
   "assignees": "Intervenants",
+  "no-assignee": "pagh nobwI'",
+  "no-label": "pagh mark",
   "cardAssigneesPopup-title": "Zugewiesen",
   "addmore-detail": "Eine detailliertere Beschreibung hinzufügen",
   "show-on-card": "Zeige auf Karte",

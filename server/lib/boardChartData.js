@@ -18,6 +18,8 @@ const {
   computeThroughput,
   computeFlowEfficiency,
   computeDashboardGroups,
+  NO_ASSIGNEE_GROUP,
+  NO_LABEL_GROUP,
 } = require('/models/lib/chartCalculations');
 
 export async function loadBoardChartData(boardId, chartKey) {
@@ -86,9 +88,9 @@ export async function loadBoardChartData(boardId, chartKey) {
     const labelById = Object.fromEntries((board.labels || []).map(l => [l._id, l.name || l.color]));
     return {
       byAssignee: computeDashboardGroups(allCards, card =>
-        (card.assignees || []).map(id => ({ key: id, label: nameOf(id) }))),
+        (card.assignees || []).map(id => ({ key: id, label: nameOf(id) })), NO_ASSIGNEE_GROUP),
       byLabel: computeDashboardGroups(allCards, card =>
-        (card.labelIds || []).map(id => ({ key: id, label: labelById[id] || id }))),
+        (card.labelIds || []).map(id => ({ key: id, label: labelById[id] || id })), NO_LABEL_GROUP),
       byList: computeDashboardGroups(allCards, card =>
         [{ key: card.listId, label: (lists.find(l => l._id === card.listId) || {}).title || card.listId }]),
     };

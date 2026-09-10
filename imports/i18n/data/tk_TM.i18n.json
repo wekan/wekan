@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Işjeňleşdirilende, Enter basmak kartanyň adyny, düşündirişini we beýleki içki redaktorlary saklaýar; Shift+Enter täze setir goşýar. Öçürilende, Ctrl/Cmd+Enter saklaýar we Enter täze setir goşýar.",
   "assignee": "Bellenen",
   "assignees": "Bellenenler",
+  "no-assignee": "Bellenilmedik",
+  "no-label": "Bellik ýok",
   "cardAssigneesPopup-title": "Bellenen",
   "addmore-detail": "Has giňişleýin düşündiriş goşuň",
   "show-on-card": "Kartda görkez",

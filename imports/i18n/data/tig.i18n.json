@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "ምስ ዝኽእል፣ Enter ምጽቃጥ ኣርእስቲ ካርድ፣ መግለጺን ካልኦት ኣርታዕቲን ይዕቅብ፤ Shift+Enter ሓድሽ መስመር የእቱ። ምስ ዝጠፍእ፣ Ctrl/Cmd+Enter ይዕቅብ፣ Enter ሓድሽ መስመር የእቱ።",
   "assignee": "ሓላፍ",
   "assignees": "ሓለፍቲ",
+  "no-assignee": "ዘይተመደበ",
+  "no-label": "መለለዪ የብሉን",
   "cardAssigneesPopup-title": "ሓላፍ",
   "addmore-detail": "ዝርዝር መግለጺ ወስኽ",
   "show-on-card": "ኣብ ካርድ ኣርኢ",

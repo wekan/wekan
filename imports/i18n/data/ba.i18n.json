@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Был рөхсәт ителгәндә, Enter карточка исемен, тасуирламаһын һәм башҡа эске мөхәррирҙәрҙе һаҡлай; Shift+Enter яңы юл өҫтәй. Һүндерелгәндә, Ctrl/Cmd+Enter һаҡлай, ә Enter яңы юл өҫтәй.",
   "assignee": "Яуаплы",
   "assignees": "Яуаплылар",
+  "no-assignee": "Тәғайынланмаған",
+  "no-label": "Билдәлек юҡ",
   "cardAssigneesPopup-title": "Яуаплы",
   "addmore-detail": "Ентеклерәк тасуирлама өҫтәргә",
   "show-on-card": "Карточкала күрһәтергә",

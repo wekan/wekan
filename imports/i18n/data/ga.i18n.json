@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Nuair atá sé ar siúl, sábhálann Enter teideal an chárta, an cur síos agus eagarthóirí inlíne eile; cuireann Shift+Enter líne nua isteach. Nuair atá sé múchta, sábhálann Ctrl/Cmd+Enter agus cuireann Enter líne nua isteach.",
   "assignee": "Sannaí",
   "assignees": "Sannaithe",
+  "no-assignee": "Gan sannadh",
+  "no-label": "Gan lipéad",
   "cardAssigneesPopup-title": "Sannaí",
   "addmore-detail": "Cuir cur síos níos mionsonraithe leis",
   "show-on-card": "Taispeáin ar an gCárta",

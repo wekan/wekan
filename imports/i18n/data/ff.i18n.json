@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "So hurminaama, dobagol Enter mooftata hoore kartal, cifagol e taƴtorɗe goɗɗe e gorol; Shift+Enter naatnata gorol kesol. So dartinaama, Ctrl/Cmd+Enter mooftata tee Enter naatnata gorol kesol.",
   "assignee": "Halfinaaɗo",
   "assignees": "Halfinaaɓe",
+  "no-assignee": "Alaa on newnaaɗo",
+  "no-label": "Alaa maandeeji",
   "cardAssigneesPopup-title": "Halfinaaɗo",
   "addmore-detail": "ƈeydu cifagol ɓurɗol carɗude",
   "show-on-card": "Hollu e kartal",

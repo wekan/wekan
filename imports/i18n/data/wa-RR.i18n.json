@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Kon nakabuhat, an pagpindot han Enter nagtitipig han titulo han karta, deskripsyon ngan iba nga inline nga editor; Shift+Enter nagdudugang hin bag-o nga linya. Kon nakapatay, Ctrl/Cmd+Enter an nagtitipig ngan Enter nagdudugang hin bag-o nga linya.",
   "assignee": "Gin-asignaran",
   "assignees": "Mga Gin-asignaran",
+  "no-assignee": "Nouk assiné",
+  "no-label": "Nouk etikete",
   "cardAssigneesPopup-title": "Gin-asignaran",
   "addmore-detail": "Magdugang hin mas detalyado nga deskripsyon",
   "show-on-card": "Ipakita ha Card",

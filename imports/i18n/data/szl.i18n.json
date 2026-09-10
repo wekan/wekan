@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Gdy włączone, naciśnięcie Enter zapisuje tytuł karty, ôpis i inne edytory wbudowane; Shift+Enter wstawia nowy wiersz. Gdy wyłączone, Ctrl/Cmd+Enter zapisuje, a Enter wstawia nowy wiersz.",
   "assignee": "Ôdpowiedzialny",
   "assignees": "Ôdpowiedzialni",
+  "no-assignee": "Bez przipisanygo",
+  "no-label": "Bez etyknety",
   "cardAssigneesPopup-title": "Ôdpowiedzialny",
   "addmore-detail": "Przidej bardziej szczegółowy ôpis",
   "show-on-card": "Pokoż na karcie",

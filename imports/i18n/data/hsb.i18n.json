@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Když je zapnuto, ztizknutím Enter uložíte mjeno karty, wopizanje a dalši vložené editory; Shift+Enter vloží nowy řádek. Když je vypnuto, ukládá Ctrl/Cmd+Enter a Enter vloží nowy řádek.",
   "assignee": "Přepodaty",
   "assignees": "Přepodaći",
+  "no-assignee": "Bjez připokazaneho",
+  "no-label": "Bjez znamješka",
   "cardAssigneesPopup-title": "Přepodaty",
   "addmore-detail": "Přidać detailnější wopizanje",
   "show-on-card": "Pokazać na kartě",

@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Lorsque cette option est activée, appuyer sur Enter enregistre le titre de la carte, la description et les autres éditeurs en ligne ; Shift+Enter insère une nouvelle ligne. Lorsqu'elle est désactivée, Ctrl/Cmd+Enter enregistre et Enter insère une nouvelle ligne.",
   "assignee": "Personne assignée",
   "assignees": "Intervenants",
+  "no-assignee": "Aucun assigné",
+  "no-label": "Aucune étiquette",
   "cardAssigneesPopup-title": "Personne assignée",
   "addmore-detail": "Ajouter une description plus détaillée",
   "show-on-card": "Afficher sur la carte",

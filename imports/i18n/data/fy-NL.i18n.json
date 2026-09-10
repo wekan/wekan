@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "As dit oanstiet, bewarret it drukken op Enter de kaarttitel, beskriuwing en oare ynline bewurkers; Shift+Enter foeget in nije rigel ta. As it útstiet, bewarret Ctrl/Cmd+Enter en foeget Enter in nije rigel ta.",
   "assignee": "Oanwêzige",
   "assignees": "Oanwêzigen",
+  "no-assignee": "Gjin tawiisde persoan",
+  "no-label": "Gjin label",
   "cardAssigneesPopup-title": "Oanwêzige",
   "addmore-detail": "Foegje in mear detaillearre beskriuwing ta",
   "show-on-card": "Toane op kaart",

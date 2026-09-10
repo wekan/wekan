@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "चालू रहला पर Enter दबेला सँ कार्ड शीर्षक, विवरण आ आन इनलाइन संपादक सहेजल जाएत; Shift+Enter नव पंक्ति जोड़ैत अछि। बन्द रहला पर Ctrl/Cmd+Enter सहेजैत अछि आ Enter नव पंक्ति जोड़ैत अछि।",
   "assignee": "उत्तरदायी",
   "assignees": "उत्तरदायी लोकनि",
+  "no-assignee": "कोनो नियुक्ति नहि",
+  "no-label": "कोनो लेबल नहि",
   "cardAssigneesPopup-title": "उत्तरदायी",
   "addmore-detail": "आओर विस्तृत विवरण जोड़ू",
   "show-on-card": "कार्ड पर देखाउ",

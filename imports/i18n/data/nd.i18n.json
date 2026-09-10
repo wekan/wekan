@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Nxa kuvuliwe, ukucindezela u-Enter kulondoloza isihloko sekhadi, incazelo labanye abahleli abasemgqeni; u-Shift+Enter ufaka umugqa omutsha. Nxa kuvaliwe, u-Ctrl/Cmd+Enter uyalondoloza njalo u-Enter ufaka umugqa omutsha.",
   "assignee": "Onikwe umsebenzi",
   "assignees": "Abanikwe umsebenzi",
+  "no-assignee": "Akuna owabelwe",
+  "no-label": "Akuna ithegi",
   "cardAssigneesPopup-title": "Onikwe umsebenzi",
   "addmore-detail": "Engeza incazelo elemininingwane eminengi",
   "show-on-card": "Bonisa ekhadini",

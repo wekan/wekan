@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Se attivo, premendo Enter si salvano il tìtulo d' 'a carta, la descrizzione e ate editor in linea; Shift+Enter inserisce una nova riga. Se disattivo, Ctrl/Cmd+Enter sarva ed Enter inserisce una nova riga.",
   "assignee": "Assignato",
   "assignees": "Assignate",
+  "no-assignee": "Nisciuno assignato",
+  "no-label": "Nisciuna etichetta",
   "cardAssigneesPopup-title": "Assignato",
   "addmore-detail": "Aggiungi una descrizzione più dettagliata",
   "show-on-card": "Mostra ncopp' 'a carta",

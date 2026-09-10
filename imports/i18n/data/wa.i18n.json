@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Cwand c' est en alaedje, tchôkî Enter schape li tite del cåte, li discrijhaedje eyet ls ôtes aspougneus e roye; Shift+Enter radjoute ene nouve roye. Cwand c' est distindou, Ctrl/Cmd+Enter schape et Enter radjoute ene nouve roye.",
   "assignee": "Personne assignée",
   "assignees": "Intervenants",
+  "no-assignee": "Nouk assiné",
+  "no-label": "Nouk etikete",
   "cardAssigneesPopup-title": "Personne assignée",
   "addmore-detail": "Ajouter une description plus détaillée",
   "show-on-card": "Afficher sur la carte",

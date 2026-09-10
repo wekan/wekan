@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Ikiwashwa, kubonyeza Enter huhifadhi kichwa cha kadi, maelezo na wahariri wengine wa ndani; Shift+Enter huingiza mstari mpya. Ikizimwa, Ctrl/Cmd+Enter huhifadhi na Enter huingiza mstari mpya.",
   "assignee": "Mkabidhiwa",
   "assignees": "Waliokabidhiwa",
+  "no-assignee": "Hakuna aliyepangiwa",
+  "no-label": "Hakuna lebo",
   "cardAssigneesPopup-title": "Mkabidhiwa",
   "addmore-detail": "Ongeza maelezo ya kina zaidi",
   "show-on-card": "Onyesha kwenye Kadi",

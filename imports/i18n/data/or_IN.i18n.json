@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "ଚାଲୁ ଥିଲେ, Enter ଦବାଇଲେ କାର୍ଡର ଶିରୋନାମା, ବିବରଣୀ ଏବଂ ଅନ୍ୟ ଇନଲାଇନ ସମ୍ପାଦକ ସଞ୍ଚୟ ହୁଏ; Shift+Enter ଏକ ନୂଆ ଧାଡ଼ି ଯୋଡ଼େ। ବନ୍ଦ ଥିଲେ, Ctrl/Cmd+Enter ସଞ୍ଚୟ କରେ ଏବଂ Enter ଏକ ନୂଆ ଧାଡ଼ି ଯୋଡ଼େ।",
   "assignee": "ନ୍ୟସ୍ତ",
   "assignees": "ନ୍ୟସ୍ତ",
+  "no-assignee": "କୌଣସି ନ୍ୟସ୍ତ ବ୍ୟକ୍ତି ନାହିଁ",
+  "no-label": "କୌଣସି ଲେବଲ୍ ନାହିଁ",
   "cardAssigneesPopup-title": "ନ୍ୟସ୍ତ",
   "addmore-detail": "ଏକ ବିସ୍ତୃତ ବିବରଣୀ ଯୋଡନ୍ତୁ |",
   "show-on-card": "କାର୍ଡରେ ଦେଖାନ୍ତୁ |",

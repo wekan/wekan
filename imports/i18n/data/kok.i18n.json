@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "चालू आसतना एंटर दामल्यार कार्ड माथाळें, वर्णन आनी हेर ओळींतले संपादक सांबाळटात; Shift+Enter नवी वळ घालता. बंद आसतना Ctrl/Cmd+Enter सांबाळटा आनी एंटर नवी वळ घालता.",
   "assignee": "जापसालदार",
   "assignees": "जापसालदार",
+  "no-assignee": "नेमणूक ना",
+  "no-label": "लेबल ना",
   "cardAssigneesPopup-title": "जापसालदार",
   "addmore-detail": "आनी तपशीलवार वर्णन जोडात",
   "show-on-card": "कार्डाचेर दाखयात",

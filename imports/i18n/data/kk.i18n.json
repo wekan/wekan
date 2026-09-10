@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Қосылғанда Enter пернесін басу карточка атауын, сипаттамасын және басқа кірістірілген редакторларды сақтайды; Shift+Enter жаңа жол енгізеді. Өшірілгенде Ctrl/Cmd+Enter сақтайды, ал Enter жаңа жол енгізеді.",
   "assignee": "Жауапты",
   "assignees": "Жауаптылар",
+  "no-assignee": "Тағайындалмаған",
+  "no-label": "Белгі жоқ",
   "cardAssigneesPopup-title": "Жауапты",
   "addmore-detail": "Толығырақ сипаттама қосу",
   "show-on-card": "Карточкада көрсету",

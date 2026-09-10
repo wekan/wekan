@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Konz om avoitud, Enter-nübastmine panokseb kartan pälkirjutesen, kuvamišen i toižed sirased redaktorad; Shift+Enter ližadab uden rivin. Konz om saubatud, Ctrl/Cmd+Enter panokseb, a Enter ližadab uden rivin.",
   "assignee": "Käsittelijä",
   "assignees": "Käsittelijät",
+  "no-assignee": "A huna o daho",
+  "no-label": "A huna luvhoni",
   "cardAssigneesPopup-title": "Käsittelijä",
   "addmore-detail": "Lisää tarkempi kuvaus",
   "show-on-card": "Näytä kortilla",

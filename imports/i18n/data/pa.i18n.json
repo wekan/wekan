@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "ਜਦੋਂ ਚਾਲੂ ਹੋਵੇ, Enter ਦਬਾਉਣ ਨਾਲ ਕਾਰਡ ਦਾ ਸਿਰਲੇਖ, ਵੇਰਵਾ ਅਤੇ ਹੋਰ ਇਨਲਾਈਨ ਸੰਪਾਦਕ ਸੰਭਾਲੇ ਜਾਂਦੇ ਹਨ; Shift+Enter ਨਵੀਂ ਲਾਈਨ ਜੋੜਦਾ ਹੈ। ਜਦੋਂ ਬੰਦ ਹੋਵੇ, Ctrl/Cmd+Enter ਸੰਭਾਲਦਾ ਹੈ ਅਤੇ Enter ਨਵੀਂ ਲਾਈਨ ਜੋੜਦਾ ਹੈ।",
   "assignee": "ਸੌਂਪਣ ਵਾਲਾ",
   "assignees": "ਸੌਂਪੇ ਗਏ",
+  "no-assignee": "ਕੋਈ ਸੌਂਪਿਆ ਨਹੀਂ",
+  "no-label": "ਕੋਈ ਲੇਬਲ ਨਹੀਂ",
   "cardAssigneesPopup-title": "ਸੌਂਪਣ ਵਾਲਾ",
   "addmore-detail": "ਇੱਕ ਹੋਰ ਵਿਸਤ੍ਰਿਤ ਵੇਰਵਾ ਸ਼ਾਮਲ ਕਰੋ",
   "show-on-card": "ਕਾਰਡ 'ਤੇ ਦਿਖਾਓ",

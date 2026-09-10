@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "När det är på sparar Enter kortets titel, beskrivning och andra inbäddade redigerare; Shift+Enter infogar en ny rad. När det är av sparar Ctrl/Cmd+Enter och Enter infogar en ny rad.",
   "assignee": "Tilldelad till",
   "assignees": "Tilldelade",
+  "no-assignee": "Ingen tilldelad",
+  "no-label": "Ingen etikett",
   "cardAssigneesPopup-title": "Tilldelad till",
   "addmore-detail": "Lägg till detaljerad beskrivning",
   "show-on-card": "Visa på kort",

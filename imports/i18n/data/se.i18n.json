@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Go lea alde, Enter vurke goartta namahusa, válddahusa ja eará seamma ráiddus rievdadeaddjiid; Shift+Enter lasiha ođđa ráiddu. Go lea eret, Ctrl/Cmd+Enter vurke ja Enter lasiha ođđa ráiddu.",
   "assignee": "Ovddasvástideaddji",
   "assignees": "Ovddasvástideaddjit",
+  "no-assignee": "Ii leat juolluduvvon",
+  "no-label": "Ii leat mearka",
   "cardAssigneesPopup-title": "Ovddasvástideaddji",
   "addmore-detail": "Lasit dárkilat válddahusa",
   "show-on-card": "Čájet goarttas",

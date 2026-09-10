@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Gdy włączone, naciśnięcie Enter zapisuje tytuł kôrtë, òpisënk i inne edytory wbudowane; Shift+Enter wstawia nowi wiersz. Gdy wyłączone, Ctrl/Cmd+Enter zapisuje, a Enter wstawia nowi wiersz.",
   "assignee": "Òdpòwiedzalny",
   "assignees": "Òdpòwiedzalnicë",
+  "no-assignee": "Bez przëdzelonégò",
+  "no-label": "Bez etiketë",
   "cardAssigneesPopup-title": "Òdpòwiedzalny",
   "addmore-detail": "Dodôj bardziej szczegòłowi òpisënk",
   "show-on-card": "Pokaż na karcie — pò kaszëbskù",

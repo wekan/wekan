@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Se activ, premendo Enter si salvano il titul da la carta, la descripziun e altri editor in linea; Shift+Enter inserisce una nuefa riga. Se disactiv, Ctrl/Cmd+Enter salva ed Enter inserisce una nuefa riga.",
   "assignee": "Incumbensà",
   "assignees": "Incumbensads",
+  "no-assignee": "Nagin attribuì",
+  "no-label": "Nagina etichetta",
   "cardAssigneesPopup-title": "Incumbensà",
   "addmore-detail": "Agiuntar una descripziun più dettagliata",
   "show-on-card": "Mussar sulla carta",

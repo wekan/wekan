@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Lè li aktive, peze Antre anrejistre tit kat la, deskripsyon an ak lòt editè nan liy yo; Shift+Antre mete yon nouvo liy. Lè li dezaktive, Ctrl/Cmd+Antre anrejistre epi Antre mete yon nouvo liy.",
   "assignee": "Responsab",
   "assignees": "Responsab yo",
+  "no-assignee": "Pa gen moun ki responsab",
+  "no-label": "Pa gen etikèt",
   "cardAssigneesPopup-title": "Responsab",
   "addmore-detail": "Ajoute yon deskripsyon ki pi detaye",
   "show-on-card": "Montre sou kat",

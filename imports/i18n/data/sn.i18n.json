@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "When pa, pressing Enter saves the kadhi musoro, tsananguro uye zvimwe inline editors; Shift+Enter inserts a itsva line. When off, Ctrl/Cmd+Enter saves uye Enter inserts a itsva line.",
   "assignee": "Wapiwa basa",
   "assignees": "Vapiwa basa",
+  "no-assignee": "Hapana akapiwa basa",
+  "no-label": "Hapana chiratidzo",
   "cardAssigneesPopup-title": "Wapiwa basa",
   "addmore-detail": "wedzera a zvimwe detailed tsananguro",
   "show-on-card": "ratidza pa kadhi",

@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Gdy włączone, naciśnięcie Enter zapisuje tytuł karty, opis i inne edytory wbudowane; Shift+Enter wstawia nowy wiersz. Gdy wyłączone, Ctrl/Cmd+Enter zapisuje, a Enter wstawia nowy wiersz.",
   "assignee": "Przypisani",
   "assignees": "Przypisani",
+  "no-assignee": "Brak przypisanej osoby",
+  "no-label": "Brak etykiety",
   "cardAssigneesPopup-title": "Przypisani",
   "addmore-detail": "Dodaj bardziej szczegółowy opis",
   "show-on-card": "Pokaż na karcie",

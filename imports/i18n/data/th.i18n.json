@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "เมื่อเปิดใช้งาน การกด Enter จะบันทึกชื่อการ์ด คำอธิบาย และตัวแก้ไขในบรรทัดอื่น ๆ ส่วน Shift+Enter จะขึ้นบรรทัดใหม่ เมื่อปิดใช้งาน Ctrl/Cmd+Enter จะบันทึก และ Enter จะขึ้นบรรทัดใหม่",
   "assignee": "ผู้รับผิดชอบ",
   "assignees": "ผู้รับผิดชอบ",
+  "no-assignee": "ไม่มีผู้รับมอบหมาย",
+  "no-label": "ไม่มีป้ายกำกับ",
   "cardAssigneesPopup-title": "ผู้รับผิดชอบ",
   "addmore-detail": "เพิ่มคำอธิบายที่ละเอียดขึ้น",
   "show-on-card": "แสดงบนการ์ด",

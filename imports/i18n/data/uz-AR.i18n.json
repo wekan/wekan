@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Ёқилганда Enter тугмаси карта сарлавҳаси, тавсифи ва бошқа ички муҳаррирларни сақлайди; Shift+Enter янги қатор қўшади. Ўчирилганда Ctrl/Cmd+Enter сақлайди, Enter эса янги қатор қўшади.",
   "assignee": "Tayinlovchi",
   "assignees": "Tayinlovchilar",
+  "no-assignee": "Tayinlanmagan",
+  "no-label": "Yorliq yo'q",
   "cardAssigneesPopup-title": "Tayinlovchi",
   "addmore-detail": "Batafsil tavsif qo'shing",
   "show-on-card": "Kartada ko'rsatish",

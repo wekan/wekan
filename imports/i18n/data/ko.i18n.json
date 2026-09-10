@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "켜면 Enter를 누를 때 카드 제목, 설명 및 기타 인라인 편집기가 저장되고, Shift+Enter는 새 줄을 삽입합니다. 끄면 Ctrl/Cmd+Enter로 저장하고 Enter는 새 줄을 삽입합니다.",
   "assignee": "담당자",
   "assignees": "담당자",
+  "no-assignee": "담당자 없음",
+  "no-label": "라벨 없음",
   "cardAssigneesPopup-title": "담당자",
   "addmore-detail": "자세한 설명 추가",
   "show-on-card": "카드에 표시",

@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Bekapcsolva az Enter lenyomása menti a kártya címét, leírását és más beágyazott szerkesztőket; a Shift+Enter új sort szúr be. Kikapcsolva a Ctrl/Cmd+Enter ment, az Enter pedig új sort szúr be.",
   "assignee": "Felelős",
   "assignees": "Felelősök",
+  "no-assignee": "Nincs felelős",
+  "no-label": "Nincs címke",
   "cardAssigneesPopup-title": "Felelős",
   "addmore-detail": "Részletesebb leírás hozzáadása",
   "show-on-card": "Mutassa a Kártyán",

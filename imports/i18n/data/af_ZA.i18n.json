@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Wanneer aan, stoor Enter die kaart se titel, beskrywing en ander inlynredigeerders; Shift+Enter voeg 'n nuwe reël in. Wanneer af, stoor Ctrl/Cmd+Enter en voeg Enter 'n nuwe reël in.",
   "assignee": "Gevolmagtigde",
   "assignees": "Toegewers",
+  "no-assignee": "Geen toegewese persoon nie",
+  "no-label": "Geen etiket nie",
   "cardAssigneesPopup-title": "Gevolmagtigde",
   "addmore-detail": "Voeg 'n meer gedetailleerde beskrywing by",
   "show-on-card": "Wys op kaart",

@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "کله چې چالان وي، د Enter کېکاږل د کارت سرليک، څرګندونه او نور همدلته سموونکي خوندي کوي؛ Shift+Enter نوې کرښه ورزياتوي. کله چې بند وي، Ctrl/Cmd+Enter خوندي کوي او Enter نوې کرښه ورزياتوي.",
   "assignee": "ګمارل شوی",
   "assignees": "ګمارل شوي",
+  "no-assignee": "ګمارل شوی نشته",
+  "no-label": "لیبل نشته",
   "cardAssigneesPopup-title": "ګمارل شوی",
   "addmore-detail": "لا تفصيلي څرګندونه زياته کړئ",
   "show-on-card": "پر کارت يې وښيئ",

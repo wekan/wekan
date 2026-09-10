@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Atulersimappat Enter-ip toorneratigut kortsip qulequtaa, nassuiaataa allanngortitsissutillu allat titarnerup iluaniittut toqqorneqassapput; Shift+Enter titarneq nutaaq ilanngutissavaa. Atorunnaarsimappat Ctrl/Cmd+Enter toqqorsissaaq Enter-ilu titarneq nutaaq ilanngutissallugu.",
   "assignee": "Akisussaasoq",
   "assignees": "Akisussaasut",
+  "no-assignee": "Tunniussisimanngilaq",
+  "no-label": "Nalunaaqutaq peqanngilaq",
   "cardAssigneesPopup-title": "Akisussaasoq",
   "addmore-detail": "Nassuiaat sukumiinerusoq ilannguguk",
   "show-on-card": "Kortsimi takutiguk",

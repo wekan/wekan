@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Tá hetta er virkið, goymir Enter kortheiti, lýsing og aðrar innbygdar ritlar; Shift+Enter setur eina nýggja reglu inn. Tá hetta er sløkt, goymir Ctrl/Cmd+Enter, og Enter setur eina nýggja reglu inn.",
   "assignee": "Ábyrgdari",
   "assignees": "Ábyrgdarar",
+  "no-assignee": "Ongin tillutur",
+  "no-label": "Ongin merki",
   "cardAssigneesPopup-title": "Ábyrgdari",
   "addmore-detail": "Legg eina nágreiniligari lýsing afturat",
   "show-on-card": "Vís á korti",

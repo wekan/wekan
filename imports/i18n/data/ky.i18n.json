@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Күйгүзүлгөндө Enter басуу карточканын аталышын, сүрөттөмөсүн жана башка сап ичиндеги редакторлорду сактайт; Shift+Enter жаңы сап киргизет. Өчүрүлгөндө Ctrl/Cmd+Enter сактайт, ал эми Enter жаңы сап киргизет.",
   "assignee": "Жооптуу",
   "assignees": "Жооптуулар",
+  "no-assignee": "Дайындалган жок",
+  "no-label": "Белги жок",
   "cardAssigneesPopup-title": "Жооптуу",
   "addmore-detail": "Кененирээк сүрөттөмө кошуу",
   "show-on-card": "Карточкада көрсөтүү",

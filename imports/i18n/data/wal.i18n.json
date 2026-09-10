@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Wolayttatto: When bolla, pressing Enter saves the kaardiya huuphe sunttaa, qonccissuwaa and other inline editors; Shift+Enter inserts a oorattaa line. When off, Ctrl/Cmd+Enter saves and Enter inserts a oorattaa line.",
   "assignee": "Oosoy imettidoogaa",
   "assignees": "Oosoy imettidoogeeta",
+  "no-assignee": "Immatinne imettibeenna",
+  "no-label": "Malaati baawa",
   "cardAssigneesPopup-title": "Oosoy imettidoogaa",
   "addmore-detail": "Wolayttatto: Gujja a haraa detailed qonccissuwaa",
   "show-on-card": "Wolayttatto: Show bolla Kaardiya",

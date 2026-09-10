@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Taem long, pressing Enter saves kad taetol, diskripsen mo nara inline editors; Shift+Enter inserts wan niu line. Taem off, Ctrl/Cmd+Enter saves mo Enter inserts wan niu line.",
   "assignee": "Man we i gat wok",
   "assignees": "Ol man we i gat wok",
+  "no-assignee": "No asaen i no gat",
+  "no-label": "No lebol i no gat",
   "cardAssigneesPopup-title": "Man we i gat wok",
   "addmore-detail": "Adem wan moa detailed diskripsen",
   "show-on-card": "Show long Kad",

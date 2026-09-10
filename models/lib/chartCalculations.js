@@ -227,14 +227,42 @@ function computeFlowEfficiency(cards) {
     .filter(Boolean);
 }
 
+// Sentinel keys (never shown as-is) for a card that has no assignee/label to
+// group under. group.label carries the SAME sentinel, and every renderer of
+// dashboard groups (the live bar chart, the data table, the PDF/Excel
+// export) must run it through DASHBOARD_EMPTY_GROUP_KEYS/translateGroupLabel
+// before display - otherwise the literal word "none" reaches the screen
+// untranslated, in every language, which is the bug this fixes.
+const NO_ASSIGNEE_GROUP = { key: '__no_assignee__', label: '__no_assignee__' };
+const NO_LABEL_GROUP = { key: '__no_label__', label: '__no_label__' };
+const DASHBOARD_EMPTY_GROUP_KEYS = {
+  __no_assignee__: ['no-assignee', 'No assignee'],
+  __no_label__: ['no-label', 'No label'],
+};
+
+// `translate(key, fallback)` is the caller's own `__()` (TAPi18n.__ on the
+// client, an exporter's own translate function on the server - see
+// models/lib/chartExportRows.js). A label that is not one of the sentinels
+// above is user data (a real assignee name or label name) and passes through
+// unchanged.
+function translateGroupLabel(label, translate) {
+  const entry = DASHBOARD_EMPTY_GROUP_KEYS[label];
+  if (!entry) return label;
+  return translate ? translate(entry[0], entry[1]) : entry[1];
+}
+
 // Dashboard: card counts grouped by an attribute (assignee/label/etc), each
 // entry {key, label, count}. `resolveGroups(card)` returns the array of
 // {key, label} the card counts under (a card can have several labels).
-function computeDashboardGroups(cards, resolveGroups) {
+// `emptyGroup` is the {key, label} a card with no groups falls into - the
+// caller supplies one appropriate to what is being grouped (e.g. a real,
+// translated "No assignee"/"No label" instead of the literal word "none",
+// which used to show up untranslated on the Dashboard view no matter what).
+function computeDashboardGroups(cards, resolveGroups, emptyGroup = { key: 'none', label: 'none' }) {
   const byKey = {};
   cards.forEach(card => {
     const groups = resolveGroups(card) || [];
-    (groups.length ? groups : [{ key: 'none', label: 'none' }]).forEach(group => {
+    (groups.length ? groups : [emptyGroup]).forEach(group => {
       const entry = byKey[group.key] || { key: group.key, label: group.label, count: 0 };
       entry.count += 1;
       byKey[group.key] = entry;
@@ -259,4 +287,7 @@ module.exports = {
   computeThroughput,
   computeFlowEfficiency,
   computeDashboardGroups,
+  NO_ASSIGNEE_GROUP,
+  NO_LABEL_GROUP,
+  translateGroupLabel,
 };

@@ -1,8 +1,10 @@
 //- Gantt Chart View Template
+//- gantt.css/ganttCard.css/boardCharts.css are already loaded through the
+//- normal bundler import (client/features/gantt.js, client/features/boards.js)
+//- - a runtime <link> to their raw source path here served text/html (a 404
+//- fallback, not real CSS) and was pure console noise on every Gantt page
+//- load.
 template(name="ganttView")
-  link(rel="stylesheet" href="/client/components/gantt/gantt.css")
-  link(rel="stylesheet" href="/client/components/gantt/ganttCard.css")
-  link(rel="stylesheet" href="/client/components/boards/charts/boardCharts.css")
   .gantt-view
     h2 {{_ 'board-view-gantt'}}
     .chart-export-buttons

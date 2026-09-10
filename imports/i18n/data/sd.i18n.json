@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "فعال هئڻ تي Enter دٻائڻ سان ڪارڊ عنوان، وضاحت ۽ ٻيا قطار اندر سنواريندڙ محفوظ ٿيندا؛ Shift+Enter نئين قطار وجهندو. بند هئڻ تي Ctrl/Cmd+Enter محفوظ ڪندو ۽ Enter نئين قطار وجهندو.",
   "assignee": "ذميوار",
   "assignees": "ذميوار",
+  "no-assignee": "ڪوبه مقرر ٿيل نه آهي",
+  "no-label": "ڪو به ليبل ناهي",
   "cardAssigneesPopup-title": "ذميوار",
   "addmore-detail": "وڌيڪ تفصيلي وضاحت شامل ڪريو",
   "show-on-card": "ڪارڊ تي ڏيکاريو",

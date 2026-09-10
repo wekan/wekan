@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "کاتێک چالاکە، پەنجەدان بە Enter ناونیشان، وەسف و دەستکاریکەرە ناوهێڵییەکانی تر پاشەکەوت دەکات؛ Shift+Enter هێڵێکی نوێ زیاد دەکات. کاتێک ناچالاکە، Ctrl/Cmd+Enter پاشەکەوت دەکات و Enter هێڵێکی نوێ زیاد دەکات.",
   "assignee": "بەرپرس",
   "assignees": "بەرپرسان",
+  "no-assignee": "ئەرکدار نییە",
+  "no-label": "لەیبڵ نییە",
   "cardAssigneesPopup-title": "بەرپرس",
   "addmore-detail": "وەسفێکی وردتر زیاد بکە",
   "show-on-card": "لە کارت پیشان بدە",

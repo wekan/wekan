@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Ha ho buletswe, ho tobetsa Enter ho boloka sehlooho sa karete, tlhaloso le bahlophisi ba bang ba moleng; Shift+Enter e kenya mola o motjha. Ha ho kwetswe, Ctrl/Cmd+Enter e boloka mme Enter e kenya mola o motjha.",
   "assignee": "Ea abetsoeng",
   "assignees": "Ba abetsoeng",
+  "no-assignee": "Ha ho ya abetsweng",
+  "no-label": "Ha ho leibole",
   "cardAssigneesPopup-title": "Ea abetsoeng",
   "addmore-detail": "Eketsa tlhaloso e qaqileng haholoanyane",
   "show-on-card": "Bontsha kareteng",

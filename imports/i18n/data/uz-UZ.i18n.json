@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Yoqilganda Enter tugmasi karta sarlavhasi, tavsifi va boshqa ichki tahrirlagichlarni saqlaydi; Shift+Enter yangi qator qo‘shadi. O‘chirilganda Ctrl/Cmd+Enter saqlaydi, Enter esa yangi qator qo‘shadi.",
   "assignee": "Tayinlovchi",
   "assignees": "Tayinlovchilar",
+  "no-assignee": "Tayinlanmagan",
+  "no-label": "Yorliq yo'q",
   "cardAssigneesPopup-title": "Tayinlovchi",
   "addmore-detail": "Batafsil tavsif qo'shing",
   "show-on-card": "Kartada ko'rsatish",

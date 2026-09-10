@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Igihe bikora, gukanda Enter bibika umutwe w'ikarata, insiguro n'ibindi bihindurirwa aho nyene; Shift+Enter yongerako umurongo mushasha. Igihe bizimye, Ctrl/Cmd+Enter irabika kandi Enter ikongerako umurongo mushasha.",
   "assignee": "Uwahawe igikorwa",
   "assignees": "Abahawe igikorwa",
+  "no-assignee": "Nta uwashinzwe",
+  "no-label": "Nta kamenyetso",
   "cardAssigneesPopup-title": "Uwahawe igikorwa",
   "addmore-detail": "Ongerako insiguro irambuye kurushiriza",
   "show-on-card": "Erekana ku Karata",

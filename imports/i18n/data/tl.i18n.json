@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Kapag sa, pressing Ilagay saves the kard pamagat, paglalarawan at iba inline editors; Shift+Ilagay inserts a bago line. Kapag naka-off, Ctrl/Cmd+Ilagay saves at Ilagay inserts a bago line.",
   "assignee": "Nakatalaga",
   "assignees": "Mga nakatalaga",
+  "no-assignee": "Walang naitalaga",
+  "no-label": "Walang label",
   "cardAssigneesPopup-title": "Nakatalaga",
   "addmore-detail": "Magdagdag a higit pa detailed paglalarawan",
   "show-on-card": "Ipakita sa kard",

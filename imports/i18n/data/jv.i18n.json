@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Yen urip, mencet Enter nyimpen judhul kertu, katrangan lan editor sajejer liyane; Shift+Enter nglebokake larik anyar. Yen mati, Ctrl/Cmd+Enter nyimpen lan Enter nglebokake larik anyar.",
   "assignee": "Sing ditugasi",
   "assignees": "Sing ditugasi",
+  "no-assignee": "Ora ana sing ditugasi",
+  "no-label": "Ora ana label",
   "cardAssigneesPopup-title": "Sing ditugasi",
   "addmore-detail": "Tambah katrangan sing luwih rinci",
   "show-on-card": "Tampilake ing Kertu",

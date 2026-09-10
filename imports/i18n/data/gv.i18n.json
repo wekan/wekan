@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Tra t'eh er, ta broogh Enter sauail ennym y kaart, coontey as reagheyderyn linney elley; ta Shift+Enter cur linney noa stiagh. Tra t'eh jeant ass, ta Ctrl/Cmd+Enter sauail as Enter cur linney noa stiagh.",
   "assignee": "Currit da",
   "assignees": "Currit daue",
+  "no-assignee": "Gyn eiyrtys",
+  "no-label": "Gyn lipperagh",
   "cardAssigneesPopup-title": "Currit da",
   "addmore-detail": "Cur coontey ny smoo myn-phoyntyn",
   "show-on-card": "Taishbyn er kaart",

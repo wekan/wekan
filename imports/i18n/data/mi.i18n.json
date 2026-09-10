@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Ina kā, mā te pēhi Enter ka tiaki te taitara kāri, whakaahuatanga me ētahi atu pūwhakatika rārangi; ka kōkuhu a Shift+Enter i tētahi rārangi hou. Ina weto, ka tiaki a Ctrl/Cmd+Enter, ā, ka kōkuhu a Enter i tētahi rārangi hou.",
   "assignee": "Kaiwhiwhi mahi",
   "assignees": "Ngā kaiwhiwhi mahi",
+  "no-assignee": "Kāore he kaiwhakarite",
+  "no-label": "Kāore he tapanga",
   "cardAssigneesPopup-title": "Kaiwhiwhi mahi",
   "addmore-detail": "Tāpiri whakaahuatanga taipitopito ake",
   "show-on-card": "Whakaatu ki te Kāri",

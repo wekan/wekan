@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Marka ay shidan tahay, riixidda Enter waxay kaydisaa cinwaanka kaarka, sharraxaadda iyo tifaftirayaasha kale ee gudaha; Shift+Enter wuxuu geliyaa sadar cusub. Marka ay dansan tahay, Ctrl/Cmd+Enter ayaa kaydiya, Enter-na wuxuu geliyaa sadar cusub.",
   "assignee": "Loo xilsaaray",
   "assignees": "Loo xilsaaray",
+  "no-assignee": "Ma jiro qof loo qoondeeyay",
+  "no-label": "Sumad ma jirto",
   "cardAssigneesPopup-title": "Loo xilsaaray",
   "addmore-detail": "Ku dar sharraxaad faahfaahsan",
   "show-on-card": "Ku muuji Kaarka",

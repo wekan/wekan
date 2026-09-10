@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "ᐃᑭᒪᑎᓪᓗᒍ, Enter ᓇᕿᓐᓂᖅ ᐊᓪᓚᖅᓯᒪᔫᑉ ᑕᐃᒎᓯᖓ, ᐅᓂᒃᑳᖓ ᐊᒻᒪ ᐊᓯᖏᑦ ᑎᑎᕋᕐᕖᑦ ᑐᖅᑯᖅᑐᑦ; Shift+Enter ᓄᑖᒥᒃ ᑎᑎᖅᑲᓕᐊᒥᒃ ᐃᓚᓯᔪᖅ. ᖃᒥᑕᐅᑎᓪᓗᒍ, Ctrl/Cmd+Enter ᑐᖅᑯᖅᓯᔪᖅ ᐊᒻᒪ Enter ᓄᑖᒥᒃ ᑎᑎᖅᑲᓕᐊᒥᒃ ᐃᓚᓯᔪᖅ.",
   "assignee": "ᐱᓕᕆᐊᖃᖅᑐᖅ",
   "assignees": "ᐱᓕᕆᐊᖃᖅᑐᑦ",
+  "no-assignee": "ᑎᓕᔭᐅᓯᒪᙱᑦᑐᖅ",
+  "no-label": "ᓇᓗᓇᐃᒃᑯᑕᖃᙱᑦᑐᖅ",
   "cardAssigneesPopup-title": "ᐱᓕᕆᐊᖃᖅᑐᖅ",
   "addmore-detail": "ᓇᓗᓇᐃᖅᓯᒪᓂᖅᓴᒥᒃ ᐅᓂᒃᑳᒥᒃ ᐃᓚᓯᓗᑎᑦ",
   "show-on-card": "ᐊᓪᓚᖅᓯᒪᔪᒥ ᑕᑯᑎᓪᓗᒍ",

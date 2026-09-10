@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Indien ingeschakeld slaat Enter de kaarttitel, beschrijving en andere inline-editors op; Shift+Enter voegt een nieuwe regel in. Indien uitgeschakeld slaat Ctrl/Cmd+Enter op en voegt Enter een nieuwe regel in.",
   "assignee": "Toegewezen aan",
   "assignees": "Toegewezen personen",
+  "no-assignee": "Geen toegewezen persoon",
+  "no-label": "Geen label",
   "cardAssigneesPopup-title": "Toegewezen aan",
   "addmore-detail": "Voeg een meer gedetailleerde beschrijving toe",
   "show-on-card": "Toon op kaart",

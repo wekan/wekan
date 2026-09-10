@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Kai įjungta, paspaudus Enter išsaugomas kortelės pavadinimas, aprašymas ir kiti įterptiniai redaktoriai; Shift+Enter įterpia naują eilutę. Kai išjungta, Ctrl/Cmd+Enter išsaugo, o Enter įterpia naują eilutę.",
   "assignee": "Perėmėjas",
   "assignees": "Perėmėjai",
+  "no-assignee": "Nepriskirta",
+  "no-label": "Nėra žymos",
   "cardAssigneesPopup-title": "Perėmėjas",
   "addmore-detail": "Pridėkite išsamesnį aprašymą",
   "show-on-card": "Rodyti kortelėje",

@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Iyo bikora, gukanda Enter bibika umutwe w'ikarita, ibisobanuro n'ibindi bihindurirwa aho biri; Shift+Enter yongeraho umurongo mushya. Iyo bizimye, Ctrl/Cmd+Enter irabika kandi Enter ikongeraho umurongo mushya.",
   "assignee": "Uwahawe akazi",
   "assignees": "Abahawe akazi",
+  "no-assignee": "Nta washinzwe",
+  "no-label": "Nta kimenyetso",
   "cardAssigneesPopup-title": "Uwahawe akazi",
   "addmore-detail": "Ongeraho ibisobanuro birambuye kurushaho",
   "show-on-card": "Erekana ku Ikarita",

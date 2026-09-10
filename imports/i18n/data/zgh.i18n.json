@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "ⵎⴽ ⵉⵍⵍⴰ, ⴰⵙⵙⵉⴹⵏ ⵏ Enter ⵉⵜⵜⴰⵊⵊⴰ ⴰⵣⵡⵍ ⵏ ⵜⴽⴰⵕⴹⴰ, ⴰⴳⵍⴰⵎ ⴷ ⵉⵎⵙⵖⴰⵍ ⵢⴰⴹⵏⵉⵏ; Shift+Enter ⵉⵜⵜⴰⵔⵏ ⵉⵣⵉⵔⵉⴳ ⴰⵎⴰⵢⵏⵓ. ⵎⴽ ⵓⵔ ⵉⵍⵍⵉ, Ctrl/Cmd+Enter ⵉⵜⵜⴰⵊⵊⴰ, Enter ⵉⵜⵜⴰⵔⵏ ⵉⵣⵉⵔⵉⴳ ⴰⵎⴰⵢⵏⵓ.",
   "assignee": "Personne assignée",
   "assignees": "Intervenants",
+  "no-assignee": "Ulac win yettwaseblen",
+  "no-label": "Ulac tacreḍt",
   "cardAssigneesPopup-title": "Personne assignée",
   "addmore-detail": "Ajouter une description plus détaillée",
   "show-on-card": "Afficher sur la carte",

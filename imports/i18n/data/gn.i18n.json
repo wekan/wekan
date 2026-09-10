@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Oñemyendy jave, Enter jopy oñongatu kuatia'i réra, ñemombe'u ha ambue mohendaha hyepypegua; Shift+Enter omoinge tairenda pyahu. Oñembogue jave, Ctrl/Cmd+Enter oñongatu ha Enter omoinge tairenda pyahu.",
   "assignee": "Omba'apótava",
   "assignees": "Omba'apótava kuéra",
+  "no-assignee": "Ndaipóri omeʼẽva",
+  "no-label": "Ndaipóri techaukaha",
   "cardAssigneesPopup-title": "Omba'apótava",
   "addmore-detail": "Embojoapy ñemombe'u hesakãvéva",
   "show-on-card": "Ehechauka kuatia'i-pe",

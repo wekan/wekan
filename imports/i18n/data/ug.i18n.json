@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "ئوچۇق بولغاندا، Enter بېسىش كارتا ماۋزۇسى، چۈشەندۈرۈشى ۋە باشقا ئىچكى تەھرىرلىگۈچلەرنى ساقلايدۇ؛ Shift+Enter يېڭى قۇر قوشىدۇ. تاقاق بولغاندا، Ctrl/Cmd+Enter ساقلايدۇ، Enter يېڭى قۇر قوشىدۇ.",
   "assignee": "ھاۋالە قىلغۇچى",
   "assignees": "ھاۋالە قىلغۇچىلار",
+  "no-assignee": "تەيىنلەنمىگەن",
+  "no-label": "بەلگە يوق",
   "cardAssigneesPopup-title": "ھاۋالە قىلغۇچى",
   "addmore-detail": "تېخىمۇ تەپسىلىي چۈشەندۈرۈش قوشۇڭ",
   "show-on-card": "كارتا كۆرسەت",

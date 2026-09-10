@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "चालू होने पर, Enter दबाने से कार्ड का शीर्षक, विवरण और अन्य इनलाइन संपादक सहेजे जाते हैं; Shift+Enter नई पंक्ति जोड़ता है। बंद होने पर, Ctrl/Cmd+Enter सहेजता है और Enter नई पंक्ति जोड़ता है।",
   "assignee": "कार्यभारी",
   "assignees": "कार्यभारी",
+  "no-assignee": "कोई नियत व्यक्ति नहीं",
+  "no-label": "कोई लेबल नहीं",
   "cardAssigneesPopup-title": "कार्यभारी",
   "addmore-detail": "अधिक विस्तृत विवरण जोड़ें",
   "show-on-card": "कार्ड पर दिखाएँ",

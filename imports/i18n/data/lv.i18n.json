@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Kad ieslēgts, nospiežot Enter tiek saglabāts kartītes nosaukums, apraksts un citi iegultie redaktori; Shift+Enter ievieto jaunu rindu. Kad izslēgts, Ctrl/Cmd+Enter saglabā, un Enter ievieto jaunu rindu.",
   "assignee": "Īpašnieks",
   "assignees": "Perėmėjai",
+  "no-assignee": "Nav piešķirts",
+  "no-label": "Nav etiķetes",
   "cardAssigneesPopup-title": "Īpašnieks",
   "addmore-detail": "Pievienot detalizētāku aprakstu",
   "show-on-card": "Rādīt kartiņā",

@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Bu doon dox, bësal Enter dana denc tur wu kart bi, melokaan mi ak yeneen bindkat yu nekk ci biir; Shift+Enter dana yokk benn liñ bu bees. Bu doon dee, Ctrl/Cmd+Enter dana denc te Enter dana yokk benn liñ bu bees.",
   "assignee": "Personne assignée",
   "assignees": "Intervenants",
+  "no-assignee": "Amul ku ko dénk",
+  "no-label": "Amul araf",
   "cardAssigneesPopup-title": "Personne assignée",
   "addmore-detail": "Ajouter une description plus détaillée",
   "show-on-card": "Afficher sur la carte",

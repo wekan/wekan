@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Коли ввімкнено, натискання Enter зберігає назву картки, опис та інші вбудовані редактори; Shift+Enter додає новий рядок. Коли вимкнено, Ctrl/Cmd+Enter зберігає, а Enter додає новий рядок.",
   "assignee": "Виконавець",
   "assignees": "Виконавці",
+  "no-assignee": "Без виконавця",
+  "no-label": "Без мітки",
   "cardAssigneesPopup-title": "Виконавець",
   "addmore-detail": "Додати більш детальний опис",
   "show-on-card": "Показати на картці",

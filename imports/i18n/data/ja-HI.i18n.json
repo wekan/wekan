@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "オンの場合、Enter を押すとカードのタイトル、説明、その他のインラインエディターが保存され、Shift+Enter で改行します。オフの場合、Ctrl/Cmd+Enter で保存し、Enter で改行します。",
   "assignee": "担当者",
   "assignees": "担当者",
+  "no-assignee": "担当者なし",
+  "no-label": "ラベルなし",
   "cardAssigneesPopup-title": "担当者",
   "addmore-detail": "詳細説明の追加",
   "show-on-card": "カードに表示する項目",

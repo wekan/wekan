@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Quando ativado, pressionar Enter salva o título do cartão, a descrição e outros editores em linha; Shift+Enter insere uma nova linha. Quando desativado, Ctrl/Cmd+Enter salva e Enter insere uma nova linha.",
   "assignee": "Administrador",
   "assignees": "Administradores",
+  "no-assignee": "Sem responsável",
+  "no-label": "Sem etiqueta",
   "cardAssigneesPopup-title": "Administrador",
   "addmore-detail": "Adicionar descrição detalhada",
   "show-on-card": "Mostrar no Cartão",

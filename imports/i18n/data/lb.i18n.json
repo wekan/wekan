@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Wann aktivéiert, speichert dat Drücken vun Enter den Kartentitel, déi Beschreiwung un andere Inline-Editoren; Shift+Enter fügt eng neue Zeile ein. Wann deaktiviert, speichert Ctrl/Cmd+Enter un Enter fügt eng neue Zeile ein.",
   "assignee": "Zoustänneg",
   "assignees": "Zoustänneg",
+  "no-assignee": "Keen zougewisen",
+  "no-label": "Keng Etikett",
   "cardAssigneesPopup-title": "Zoustänneg",
   "addmore-detail": "Eng detailliertere Beschreiwung derbäisetzen",
   "show-on-card": "Zeige op Kaart",

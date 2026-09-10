@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Cuando está activado, presionar Enter guarda el título de la tarcheta, la descripción y otros editores en línea; Shift+Enter inserta una nueva línea. Cuando está desactivado, Ctrl/Cmd+Enter guarda y Enter inserta una nueva línea.",
   "assignee": "Asignau",
   "assignees": "Asignaus",
+  "no-assignee": "Sin asignau",
+  "no-label": "Sin etiqueta",
   "cardAssigneesPopup-title": "Asignau",
   "addmore-detail": "Adhibir una descripción detallada",
   "show-on-card": "Mostrar en la tarcheta",

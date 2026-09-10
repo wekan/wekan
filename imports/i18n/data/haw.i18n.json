@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "wahena ma, palekakinaka enakela kaleka ka kāleka inoa, wehewehe a ʻē aʻe inaline ekikolaka; kipaka+enakela inakelakaka he hou line. wahena pio, kakalala/kamaka+enakela kaleka a enakela inakelakaka he hou line.",
   "assignee": "Mea i hāʻawi ʻia",
   "assignees": "Nā mea i hāʻawi ʻia",
+  "no-assignee": "ʻAʻohe mea i hōʻike ʻia",
+  "no-label": "ʻAʻohe lepili",
   "cardAssigneesPopup-title": "Mea i hāʻawi ʻia",
   "addmore-detail": "hoʻohui he hou aku kekaileka wehewehe",
   "show-on-card": "hōʻike ma kāleka",

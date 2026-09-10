@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Cuando ta activao, calcar Enter guarda'l títulu de la tarxeta, la descripción y otros editores en llinia; Shift+Enter inxerta una llinia nueva. Cuando ta desactivao, Ctrl/Cmd+Enter guarda y Enter inxerta una llinia nueva.",
   "assignee": "Asignado",
   "assignees": "Asignaos",
+  "no-assignee": "Ensin asignar",
+  "no-label": "Ensin etiqueta",
   "cardAssigneesPopup-title": "Asignado",
   "addmore-detail": "Añadir una descripción detallada",
   "show-on-card": "Mostrar en la tarjeta",

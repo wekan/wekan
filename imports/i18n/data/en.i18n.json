@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "When on, pressing Enter saves the card title, description and other inline editors; Shift+Enter inserts a new line. When off, Ctrl/Cmd+Enter saves and Enter inserts a new line.",
   "assignee": "Assignee",
   "assignees": "Assignees",
+  "no-assignee": "No assignee",
+  "no-label": "No label",
   "cardAssigneesPopup-title": "Assignee",
   "addmore-detail": "Add a more detailed description",
   "show-on-card": "Show on Card",

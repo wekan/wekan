@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "ሲበራ Enterን መጫን የካርድ ርዕስን፣ መግለጫንና ሌሎች የውስጥ አርታዒዎችን ያስቀምጣል፤ Shift+Enter አዲስ መስመር ያስገባል። ሲጠፋ Ctrl/Cmd+Enter ያስቀምጣል፣ Enter ደግሞ አዲስ መስመር ያስገባል።",
   "assignee": "ኃላፊ",
   "assignees": "ኃላፊዎች",
+  "no-assignee": "ተመዳቢ የለም",
+  "no-label": "መለያ የለም",
   "cardAssigneesPopup-title": "ኃላፊ",
   "addmore-detail": "ይበልጥ ዝርዝር መግለጫ ጨምር",
   "show-on-card": "በካርድ ላይ አሳይ",

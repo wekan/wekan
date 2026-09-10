@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Ge se buletšwe, go gatelela Enter go boloka sehlogo sa karata, tlhaloso le barulaganyi ba bangwe ba mothalading; Shift+Enter e tsenya mothalo wo moswa. Ge se timilwe, Ctrl/Cmd+Enter e a boloka gomme Enter e tsenya mothalo wo moswa.",
   "assignee": "Yo a filwego mošomo",
   "assignees": "Bao ba filwego mošomo",
+  "no-assignee": "Ga go na yo a abetšwego",
+  "no-label": "Ga go na leibole",
   "cardAssigneesPopup-title": "Yo a filwego mošomo",
   "addmore-detail": "Tsenya tlhaloso ye e nago le dintlha tše dintši",
   "show-on-card": "Bontšha Karateng",

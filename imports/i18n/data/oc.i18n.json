@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Quand es activat, quichar Enter enregistra lo títol de la carta, la descripcion e los autres editors en linha; Shift+Enter inserís una linha novèla. Quand es desactivat, Ctrl/Cmd+Enter enregistra e Enter inserís una linha novèla.",
   "assignee": "Intervenant",
   "assignees": "Intervenants",
+  "no-assignee": "Pas cap assignat",
+  "no-label": "Pas cap etiqueta",
   "cardAssigneesPopup-title": "Intervenant",
   "addmore-detail": "Ajouter une description plus détaillée",
   "show-on-card": "Afficher sur la carte",

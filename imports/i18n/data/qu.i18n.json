@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Kay willaymi: Whenta Kawsachisqa, pressingta Enterta savesta theta Tarjeta Umalliq, Willakuy andta otherta inlineta editorsta; Shiftta+Enterta insertsta ata Musuq lineta. Whenta Wañusqa, Ctrlta/Cmdta+Enterta savesta andta Enterta insertsta ata Musuq lineta.",
   "assignee": "Ruranapaq churasqa",
   "assignees": "Ruranapaq churasqakuna",
+  "no-assignee": "Mana pihta kasqachu",
+  "no-label": "Mana laphi kasqachu",
   "cardAssigneesPopup-title": "Ruranapaq churasqa",
   "addmore-detail": "Kay willaymi: Yapay ata moreta detailedta Willakuy",
   "show-on-card": "Kay willaymi: Rikuchiy Kawsachisqa Tarjeta",

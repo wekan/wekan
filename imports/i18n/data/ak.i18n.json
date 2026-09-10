@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "When on, pressing Enter saves no kaad ti asɛm, nkyerɛmu ne onor inline editanaas; Shift+Enter inserts a new line. When off, Ctrl/Cmd+Enter saves ne Enter inserts a new line.",
   "assignee": "Nea wɔde adwuma ama no",
   "assignees": "Wɔn a wɔde adwuma ama wɔn",
+  "no-assignee": "Obiara nnyɛ",
+  "no-label": "Agyirae biara nni hɔ",
   "cardAssigneesPopup-title": "Nea wɔde adwuma ama no",
   "addmore-detail": "Fa ka ho a manaae detailed nkyerɛmu",
   "show-on-card": "Kyerɛ wɔ Kaad",

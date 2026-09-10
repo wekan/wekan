@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Khi bật, nhấn Enter sẽ lưu tiêu đề thẻ, mô tả và các trình soạn thảo nội tuyến khác; Shift+Enter thêm một dòng mới. Khi tắt, Ctrl/Cmd+Enter để lưu và Enter để thêm dòng mới.",
   "assignee": "Người được giao",
   "assignees": "Người được giao",
+  "no-assignee": "Không có người được giao",
+  "no-label": "Không có nhãn",
   "cardAssigneesPopup-title": "Người được giao",
   "addmore-detail": "Thêm mô tả chi tiết hơn",
   "show-on-card": "Hiển thị trên thẻ",

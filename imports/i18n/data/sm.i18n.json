@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Pe a ola, o le oomiina o le Enter e sefe ai le ulutala o le pepa, faamatalaga ma isi faatonu i totonu; Shift+Enter e faaofi ai se laina fou. Pe a tape, Ctrl/Cmd+Enter e sefe ai ae o le Enter e faaofi ai se laina fou.",
   "assignee": "Ua tofia",
   "assignees": "E tofia i ai",
+  "no-assignee": "E leai se tofia",
+  "no-label": "E leai se fa'ailoga",
   "cardAssigneesPopup-title": "Ua tofia",
   "addmore-detail": "Faaopoopo se faamatalaga e sili atu ona auiliili",
   "show-on-card": "Faaali i luga o le Pepa",

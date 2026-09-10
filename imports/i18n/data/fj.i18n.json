@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Ni waqa, na tabaki ni Enter e maroroya na ulutaga ni kadi, ivakamacala kei na dauveisau tale eso ena laini; Shift+Enter e vakacuruma e dua na laini vou. Ni boko, Ctrl/Cmd+Enter e maroroya ka Enter e vakacuruma e dua na laini vou.",
   "assignee": "E lesi kina",
   "assignees": "O ira era lesi kina",
+  "no-assignee": "Sega ni digitaki",
+  "no-label": "Sega ni ivakatakilakila",
   "cardAssigneesPopup-title": "E lesi kina",
   "addmore-detail": "Kuria e dua na ivakamacala matailalai cake",
   "show-on-card": "Vakaraitaka ena Kadi",

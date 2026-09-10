@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "ચાલુ હોય ત્યારે, Enter દબાવવાથી કાર્ડનું શીર્ષક, વર્ણન અને અન્ય ઇનલાઇન એડિટર સાચવાય છે; Shift+Enter નવી લાઇન ઉમેરે છે. બંધ હોય ત્યારે, Ctrl/Cmd+Enter સાચવે છે અને Enter નવી લાઇન ઉમેરે છે.",
   "assignee": "સોંપનાર",
   "assignees": "સોંપણીઓ",
+  "no-assignee": "કોઈ સોંપણી નથી",
+  "no-label": "કોઈ લેબલ નથી",
   "cardAssigneesPopup-title": "સોંપનાર",
   "addmore-detail": "વધુ વિગતવાર વર્ણન ઉમેરો",
   "show-on-card": "કાર્ડ પર બતાવો",

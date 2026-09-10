@@ -2,6 +2,7 @@ import { TAPi18n } from '/imports/i18n';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { Utils } from '/client/lib/utils';
 const { chartExportRows } = require('/models/lib/chartExportRows');
+const { translateGroupLabel } = require('/models/lib/chartCalculations');
 
 // Shared by the 10 chart views registered in chartPlaceholderViews.jade: reads
 // `boardChartData` (server/publications/boards.js) for whichever `chartKey`
@@ -76,7 +77,10 @@ function computeBarRows(chartKey, data) {
     return barsFromSeries(data.points, 'cycleDays' in (data.points[0] || {}) ? 'cycleDays' : 'leadDays', 'title');
   }
   if (chartKey === 'flowEfficiency') return barsFromSeries(data.points, 'efficiency', 'title');
-  if (chartKey === 'dashboard') return barsFromSeries(data.byAssignee, 'count', 'label');
+  if (chartKey === 'dashboard') {
+    return barsFromSeries(data.byAssignee, 'count', 'label')
+      .map(row => ({ ...row, label: translateGroupLabel(row.label, key => TAPi18n.__(key)) }));
+  }
   return [];
 }
 
@@ -97,9 +101,18 @@ Template.boardChartView.onRendered(function() {
     templateInstance.autorun(() => {
       const chartKey = Template.currentData().chartKey;
       const rows = computeBarRows(chartKey, templateInstance.chartData.get());
-      const canvas = templateInstance.find('.js-chart-canvas');
-      if (!canvas) return;
-      Tracker.nonreactive(() => {
+      // The `<canvas>` only exists in the DOM once isLoading/hasNoData flip
+      // jade to the "else" branch - a sibling reactive change driven by the
+      // SAME chartData update this autorun also depends on, with no
+      // guaranteed ordering between the two. Without afterFlush, the very
+      // first successful data load can run this body before Blaze has
+      // patched the DOM: templateInstance.find() returns null, the chart is
+      // silently never built, and nothing triggers a retry afterward - the
+      // canvas area stays empty (#Dashboard-charts-invisible).
+      Tracker.afterFlush(() => {
+        if (templateInstance.destroyed) return;
+        const canvas = templateInstance.find('.js-chart-canvas');
+        if (!canvas) return;
         if (templateInstance.chartJsInstance) {
           templateInstance.chartJsInstance.destroy();
           templateInstance.chartJsInstance = null;

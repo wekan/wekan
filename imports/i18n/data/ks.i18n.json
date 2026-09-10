@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "چالو آسنس پؠٹھ Enter دباونس سٕتۍ کارڈ ناو، تفصیل تہٕ دۄیِم اِن لائن ایڈیٹر محفوظ گژھن؛ Shift+Enter نوٚو سطر شامل کرِ۔ بند آسنس پؠٹھ Ctrl/Cmd+Enter محفوظ کرِ تہٕ Enter نوٚو سطر شامل کرِ۔",
   "assignee": "ذمہ دار",
   "assignees": "ذمہ دار",
+  "no-assignee": "کوٚنؠ مقرر ناٚ",
+  "no-label": "کوٚنؠ لیبل ناٚ",
   "cardAssigneesPopup-title": "ذمہ دار",
   "addmore-detail": "مزید تفصیٖلی وضاحت شامل کریو",
   "show-on-card": "کارڈس پؠٹھ ہٲویو",

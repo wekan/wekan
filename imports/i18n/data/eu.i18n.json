@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Aktibatuta dagoenean, Enter sakatzeak txartelaren izenburua, deskribapena eta lerroko beste editoreak gordetzen ditu; Shift+Enter-ek lerro berri bat txertatzen du. Desaktibatuta dagoenean, Ctrl/Cmd+Enter-ek gordetzen du eta Enter-ek lerro berri bat txertatzen du.",
   "assignee": "Asignado",
   "assignees": "Esleitutakoak",
+  "no-assignee": "Esleitu gabe",
+  "no-label": "Etiketarik gabe",
   "cardAssigneesPopup-title": "Asignado",
   "addmore-detail": "Añadir una descripción detallada",
   "show-on-card": "Erakutsi txartelan",

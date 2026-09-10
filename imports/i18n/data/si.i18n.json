@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "සක්‍රිය විට Enter එබීමෙන් කාඩ්පත් මාතෘකාව, විස්තරය සහ අනෙකුත් පේළිගත සංස්කාරක සුරැකේ; Shift+Enter නව පේළියක් ඇතුළත් කරයි. අක්‍රිය විට Ctrl/Cmd+Enter සුරකින අතර Enter නව පේළියක් ඇතුළත් කරයි.",
   "assignee": "පවරන ලද අය",
   "assignees": "පවරන ලද අය",
+  "no-assignee": "පවරන ලද අයෙක් නැත",
+  "no-label": "ලේබලයක් නැත",
   "cardAssigneesPopup-title": "පවරන ලද අය",
   "addmore-detail": "වඩා විස්තරාත්මක විස්තරයක් එක් කරන්න",
   "show-on-card": "කාඩ්පතේ පෙන්වන්න",

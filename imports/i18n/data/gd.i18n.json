@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Nuair a bhios seo air, sàbhalaidh Enter tiotal na cairte, an tuairisgeul agus luchd-deasachaidh inline eile; cuiridh Shift+Enter loidhne ùr a-steach. Nuair a bhios seo dheth, sàbhalaidh Ctrl/Cmd+Enter agus cuiridh Enter loidhne ùr a-steach.",
   "assignee": "Neach-obrach",
   "assignees": "Luchd-obrach",
+  "no-assignee": "Gun sanadh",
+  "no-label": "Gun leubail",
   "cardAssigneesPopup-title": "Neach-obrach",
   "addmore-detail": "Cuir tuairisgeul nas mionaidiche ris",
   "show-on-card": "Seall air a' Chairt",

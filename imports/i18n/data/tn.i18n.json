@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Fa mo, pressing Tsenya saves karata setlhogo, tlhaloso le nngwe inline editors; Shift+Tsenya inserts e ntšhwa mola. Fa timilwe, Ctrl/Cmd+Tsenya saves le Tsenya inserts e ntšhwa mola.",
   "assignee": "Yo o neetsweng tiro",
   "assignees": "Ba ba neetsweng tiro",
+  "no-assignee": "Ga go na yo o abelweng",
+  "no-label": "Ga go na leibole",
   "cardAssigneesPopup-title": "Yo o neetsweng tiro",
   "addmore-detail": "Tsenya e go feta detailed tlhaloso",
   "show-on-card": "Bontsha mo Karata",

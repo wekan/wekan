@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Latine: Quando adest, pressing Enter saves the scheda titulus, descriptio et aliud inline editors; Shift+Enter inserts a novum line. Quando abest, Ctrl/Cmd+Enter saves et Enter inserts a novum line.",
   "assignee": "Delegatus",
   "assignees": "Delegati",
+  "no-assignee": "Nemo assignatus",
+  "no-label": "Nullum titulus",
   "cardAssigneesPopup-title": "Delegatus",
   "addmore-detail": "Latine: Adde a plus detailed descriptio",
   "show-on-card": "Latine: Monstra adest Scheda",

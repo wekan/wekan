@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Kada je uključeno, pritisak na Enter sprema naslov kartice, opis i druge umetnute uređivače; Shift+Enter umeće novi redak. Kada je isključeno, Ctrl/Cmd+Enter sprema, a Enter umeće novi redak.",
   "assignee": "Zaduženi",
   "assignees": "Zaduženi",
+  "no-assignee": "Bez zaduženog",
+  "no-label": "Bez oznake",
   "cardAssigneesPopup-title": "Zaduženi",
   "addmore-detail": "Додај детаљнији опис",
   "show-on-card": "Видљиво у појединостима",

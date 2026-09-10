@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Асаалттай үед Enter дарахад картын гарчиг, тайлбар болон бусад засварыг хадгална; Shift+Enter шинэ мөр оруулна. Унтраалттай үед Ctrl/Cmd+Enter хадгалж, Enter шинэ мөр оруулна.",
   "assignee": "Исполнитель",
   "assignees": "Хариуцагчид",
+  "no-assignee": "Хариуцагч байхгүй",
+  "no-label": "Шошго байхгүй",
   "cardAssigneesPopup-title": "Хариуцагч",
   "addmore-detail": "Добавить более детальное описание",
   "show-on-card": "Показать на карточке",

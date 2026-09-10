@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Rehefa mandeha, ny fanindriana Enter dia mitahiry ny lohatenin'ny karatra, famaritana ary mpanova anaty andalana hafa; Shift+Enter mampiditra andalana vaovao. Rehefa maty, Ctrl/Cmd+Enter no mitahiry ary Enter mampiditra andalana vaovao.",
   "assignee": "Voatendry",
   "assignees": "Voatendry",
+  "no-assignee": "Tsy misy voatendry",
+  "no-label": "Tsy misy marika",
   "cardAssigneesPopup-title": "Voatendry",
   "addmore-detail": "Ampio famaritana amin'ny antsipiriany kokoa",
   "show-on-card": "Asehoy amin'ny karatra",

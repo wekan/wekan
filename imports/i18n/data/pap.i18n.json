@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Cuando ta actibado, presionar Enter guarda e título di e karchi, e deskripshon i otros editores den línea; Shift+Enter inserta un nobo línea. Cuando ta desactibado, Ctrl/Cmd+Enter guarda i Enter inserta un nobo línea.",
   "assignee": "Enkargá",
   "assignees": "Enkargánan",
+  "no-assignee": "Sin asigná",
+  "no-label": "Sin etiketa",
   "cardAssigneesPopup-title": "Enkargá",
   "addmore-detail": "Agregá un deskripshon detayada",
   "show-on-card": "Mustra den e karchi",

@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Ko je vklopljeno, pritisk na Enter shrani naslov kartice, opis in druge vgrajene urejevalnike; Shift+Enter vstavi novo vrstico. Ko je izklopljeno, Ctrl/Cmd+Enter shrani, Enter pa vstavi novo vrstico.",
   "assignee": "Dodeljen član",
   "assignees": "Dodeljene osebe",
+  "no-assignee": "Brez dodeljenega",
+  "no-label": "Brez oznake",
   "cardAssigneesPopup-title": "Dodeljen član",
   "addmore-detail": "Dodaj podrobnejši opis",
   "show-on-card": "Prikaži na kartici",

@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "mhaka eka, mhaka mhaka mhaka mhaka khadi nhlokomhaka, nhlamuselo na mhaka’wana mhaka mhaka; mhaka+mhaka mhaka a ntshwa mhaka. mhaka mhaka, mhaka/mhaka+mhaka mhaka na mhaka mhaka a ntshwa mhaka.",
   "assignee": "La nyikiweke ntirho",
   "assignees": "Lava nyikiweke ntirho",
+  "no-assignee": "A ku na loyi a nyikiweke",
+  "no-label": "A ku na xikombiso",
   "cardAssigneesPopup-title": "La nyikiweke ntirho",
   "addmore-detail": "engetela a mhaka mhaka nhlamuselo",
   "show-on-card": "komba eka khadi",

@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Pan yw byw, gwaska Enter a with titel an garten, deskrifans ha chanjyoryon yn-linenn erel; Shift+Enter a orra linenn nowydh. Pan yw marow, Ctrl/Cmd+Enter a with hag Enter a orra linenn nowydh.",
   "assignee": "Apoyntys",
   "assignees": "Apoyntysi",
+  "no-assignee": "Nagen ennodhys",
+  "no-label": "Nagen scrif-nod",
   "cardAssigneesPopup-title": "Apoyntys",
   "addmore-detail": "Keworra deskrifans moy manylys",
   "show-on-card": "Diskwedhes war garten",

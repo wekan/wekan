@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Þegar virkt vistar Enter heiti spjalds, lýsingu og aðra innbyggða ritla; Shift+Enter setur inn nýja línu. Þegar óvirkt vistar Ctrl/Cmd+Enter og Enter setur inn nýja línu.",
   "assignee": "Ábyrgðaraðili",
   "assignees": "Ábyrgðaraðilar",
+  "no-assignee": "Enginn tilnefndur",
+  "no-label": "Ekkert merki",
   "cardAssigneesPopup-title": "Ábyrgðaraðili",
   "addmore-detail": "Bæta við ítarlegri lýsingu",
   "show-on-card": "Sýna á spjaldi",

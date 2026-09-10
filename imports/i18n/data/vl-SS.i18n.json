@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "As 't an stiet, bewoart Enter den titel van de koarte, de beschrievienge en andere inline-editors; Shift+Enter voegt een nieuwe regel toe. As 't uut stiet, bewoart Ctrl/Cmd+Enter en voegt Enter een nieuwe regel toe.",
   "assignee": "Toegewezen aan",
   "assignees": "Toegewezen personen",
+  "no-assignee": "Nisunu assignatu",
+  "no-label": "Nisuna etichetta",
   "cardAssigneesPopup-title": "Toegewezen aan",
   "addmore-detail": "Voeg een meer gedetailleerde beschrijving toe",
   "show-on-card": "Toon op kaart",

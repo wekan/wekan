@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "चालू होखे त Enter दबइला से कार्ड शीर्षक, विवरण आ दोसरा पाँति वाला संपादक सहेजल जाला; Shift+Enter नया पाँति जोड़ेला। बंद होखे त Ctrl/Cmd+Enter सहेजेला आ Enter नया पाँति जोड़ेला।",
   "assignee": "जिम्मेदार",
   "assignees": "जिम्मेदार लोग",
+  "no-assignee": "कवनो नियुक्त ना",
+  "no-label": "कवनो लेबल ना",
   "cardAssigneesPopup-title": "जिम्मेदार",
   "addmore-detail": "अउरी विस्तार वाला विवरण जोड़ीं",
   "show-on-card": "कार्ड पर देखाईं",

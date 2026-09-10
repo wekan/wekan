@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "وقتی روشن است، فشردن Enter عنوان کارت، توضیحات و دیگر ویرایشگرهای درون‌خطی را ذخیره می‌کند؛ Shift+Enter یک خط جدید ایجاد می‌کند. وقتی خاموش است، Ctrl/Cmd+Enter ذخیره می‌کند و Enter یک خط جدید ایجاد می‌کند.",
   "assignee": "محول‌شده",
   "assignees": "محول‌شدگان",
+  "no-assignee": "بدون مسئول",
+  "no-label": "بدون برچسب",
   "cardAssigneesPopup-title": "محول‌شده",
   "addmore-detail": "افزودن توضیحات کامل تر",
   "show-on-card": "نمایش در کارت",

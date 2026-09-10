@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Ihcuac motlapoa, Enter quipia amatlapalli itocayo, itlahtol ihuan occequintin tlahtolpatlanih; Shift+Enter quicaquitia yancuic pantli. Ihcuac motzacua, Ctrl/Cmd+Enter quipia ihuan Enter quicaquitia yancuic pantli.",
   "assignee": "Tlanahuatilli",
   "assignees": "Tlanahuatiltin",
+  "no-assignee": "Ayak akin motlanahuatilia",
+  "no-label": "Ayak tlaixiptla",
   "cardAssigneesPopup-title": "Tlanahuatilli",
   "addmore-detail": "Xicaquiti ocachi cenquizca tlahtolli",
   "show-on-card": "Xicnexti ipan amatlapalli",

@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Når på lagrer Enter kortets tittel, beskrivelse og andre innebygde redigeringsfelt; Shift+Enter setter inn en ny linje. Når av lagrer Ctrl/Cmd+Enter, og Enter setter inn en ny linje.",
   "assignee": "Tildelt",
   "assignees": "Tildelte",
+  "no-assignee": "Ingen tildelt",
+  "no-label": "Ingen etikett",
   "cardAssigneesPopup-title": "Tildelt",
   "addmore-detail": "Legg til detaljert beskrivelse",
   "show-on-card": "Vis på Kort",

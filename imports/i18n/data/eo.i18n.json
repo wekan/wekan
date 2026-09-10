@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Kiam ŝaltita, premo de Enter konservas la titolon de la karto, la priskribon kaj aliajn enliniajn redaktilojn; Shift+Enter enmetas novan linion. Kiam malŝaltita, Ctrl/Cmd+Enter konservas kaj Enter enmetas novan linion.",
   "assignee": "Asignado",
   "assignees": "Intervenants",
+  "no-assignee": "Neniu asignito",
+  "no-label": "Neniu etikedo",
   "cardAssigneesPopup-title": "Asignado",
   "addmore-detail": "Añadir una descripción detallada",
   "show-on-card": "Mostrar en la tarjeta",

@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Când este activat, apãsarea Enter salveazã titlul cardului, descrierea shi alte editoare inline; Shift+Enter insereazã o linie nouã. Când este dezactivat, Ctrl/Cmd+Enter salveazã, iar Enter insereazã o linie nouã.",
   "assignee": "Responsabil",
   "assignees": "Responsabilj",
+  "no-assignee": "Fara atribuiri",
+  "no-label": "Fara etichetã",
   "cardAssigneesPopup-title": "Responsabil",
   "addmore-detail": "Aggiungi una descrizione più dettagliata",
   "show-on-card": "Mostra sulla scheda",

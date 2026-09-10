@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Хутшӑнтарнӑ пулсан, Enter карточка ятне, ӑнлантарӑвне тата ытти йӗр редакторӗсене упрать; Shift+Enter ҫӗнӗ йӗр хушать. Сӳнтернӗ пулсан, Ctrl/Cmd+Enter упрать, Enter ҫӗнӗ йӗр хушать.",
   "assignee": "Яваплӑ",
   "assignees": "Яваплисем",
+  "no-assignee": "Палăртман",
+  "no-label": "Паллă çук",
   "cardAssigneesPopup-title": "Яваплӑ",
   "addmore-detail": "Туллин ӑнлантару хушас",
   "show-on-card": "Карточка ҫинче кӑтартас",

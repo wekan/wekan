@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "चालू असताना Enter दाबल्याने कार्डाचे शीर्षक, वर्णन आणि इतर इनलाइन संपादक जतन होतात; Shift+Enter नवीन ओळ घालते. बंद असताना Ctrl/Cmd+Enter जतन करते आणि Enter नवीन ओळ घालते.",
   "assignee": "नियुक्त व्यक्ती",
   "assignees": "नियुक्त व्यक्ती",
+  "no-assignee": "नेमणूक नाही",
+  "no-label": "लेबल नाही",
   "cardAssigneesPopup-title": "नियुक्त व्यक्ती",
   "addmore-detail": "अधिक तपशीलवार वर्णन जोडा",
   "show-on-card": "कार्डावर दाखवा",

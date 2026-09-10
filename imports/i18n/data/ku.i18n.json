@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Dema çalak be, pêlkirina Enter sernav, danasîn û edîtorên din ên nav-rêzê tomar dike; Shift+Enter rêzeke nû dixe. Dema neçalak be, Ctrl/Cmd+Enter tomar dike û Enter rêzeke nû dixe.",
   "assignee": "Berpirsyar",
   "assignees": "Berpirsyar",
+  "no-assignee": "Tê pêşkêşkirin tune",
+  "no-label": "Etîket tune",
   "cardAssigneesPopup-title": "Berpirsyar",
   "addmore-detail": "Danasîneke hûrgulîtir zêde bike",
   "show-on-card": "Li kartê nîşan bide",

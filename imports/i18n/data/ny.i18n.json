@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Izi zikayatsidwa, kukanikiza Enter kumasunga mutu wa khadi, mafotokozedwe ndi zosinthira zina za pamzere; Shift+Enter imalowetsa mzere watsopano. Zikazimitsidwa, Ctrl/Cmd+Enter imasunga ndipo Enter imalowetsa mzere watsopano.",
   "assignee": "Woperekedwa ntchito",
   "assignees": "Operekedwa ntchito",
+  "no-assignee": "Palibe wopatsidwa ntchito",
+  "no-label": "Palibe chizindikiro",
   "cardAssigneesPopup-title": "Woperekedwa ntchito",
   "addmore-detail": "Onjezani mafotokozedwe atsatanetsatane",
   "show-on-card": "Onetsani pa khadi",

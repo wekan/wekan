@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Pa vez gweredekaet, Enter a enrolla titl ar gartenn, an deskrivadur hag an editerien enlinenn all; Shift+Enter a ouzhpenn ul linenn nevez. Pa vez diweredekaet, Ctrl/Cmd+Enter a enrolla hag Enter a ouzhpenn ul linenn nevez.",
   "assignee": "Personne assignée",
   "assignees": "Intervenants",
+  "no-assignee": "Nikun resevet",
+  "no-label": "Nikun tikedenn",
   "cardAssigneesPopup-title": "Personne assignée",
   "addmore-detail": "Ajouter une description plus détaillée",
   "show-on-card": "Afficher sur la carte",

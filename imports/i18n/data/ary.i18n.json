@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "ملي مفعّل، Enter كيسجّل عنوان الكارطة والوصف والمحررات الأخرى؛ Shift+Enter كيزيد سطر جديد. ملي مطفّي، Ctrl/Cmd+Enter كيسجّل وEnter كيزيد سطر جديد.",
   "assignee": "محول‌شده",
   "assignees": "المكلَّفون",
+  "no-assignee": "ماكاينش لي تعطات ليه",
+  "no-label": "ماكاينش label",
   "cardAssigneesPopup-title": "محول‌شده",
   "addmore-detail": "افزودن توضیحات کامل تر",
   "show-on-card": "نمایش در کارت",

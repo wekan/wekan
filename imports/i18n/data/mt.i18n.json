@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "When on, pressing Daħħal saves il- kard titlu, deskrizzjoni u other inline editors; Shift+Daħħal inserts a new line. When off, Ctrl/Cmd+Daħħal saves u Daħħal inserts a new line.",
   "assignee": "Assenjat",
   "assignees": "Assenjati",
+  "no-assignee": "L-ebda assenjatarju",
+  "no-label": "L-ebda tikketta",
   "cardAssigneesPopup-title": "Assenjat",
   "addmore-detail": "Żid a more detailed deskrizzjoni",
   "show-on-card": "Uri fuq Kard",

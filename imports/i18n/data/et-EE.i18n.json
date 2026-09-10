@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "Kui see on sees, salvestab Enter kaardi pealkirja, kirjelduse ja muud reasisesed redaktorid; Shift+Enter lisab uue rea. Kui see on väljas, salvestab Ctrl/Cmd+Enter ja Enter lisab uue rea.",
   "assignee": "Vastuvõtja",
   "assignees": "Vastutajad",
+  "no-assignee": "Vastutaja puudub",
+  "no-label": "Silti pole",
   "cardAssigneesPopup-title": "Vastuvõtja",
   "addmore-detail": "Lisage üksikasjalikum kirjeldus",
   "show-on-card": "Näita kaardil",

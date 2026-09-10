@@ -1381,6 +1381,8 @@
   "submit-on-enter-description": "开咗之后，㩒 Enter 会保存卡片标题、描述同其他内嵌编辑器；Shift+Enter 换行。熄咗之后，Ctrl/Cmd+Enter 保存，㩒 Enter 换行。",
   "assignee": "受讓人",
   "assignees": "受讓人",
+  "no-assignee": "無指派人",
+  "no-label": "無標籤",
   "cardAssigneesPopup-title": "受讓人",
   "addmore-detail": "添加更詳細的描述",
   "show-on-card": "顯示在卡片上",
