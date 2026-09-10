@@ -473,6 +473,30 @@ keep a separate one.
 
 </details>
 
+**Member Settings** - the notification/editor toggles in the Member Settings popup.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6e36dcabe5ca01dadd106b066ec21b7f954d4dd7">Added an audio ding when a checklist item is checked off</a>. Thanks to C0rn3j and xet7.</summary>
+
+[#5427](https://github.com/wekan/wekan/issues/5427) asked for a short sound
+when a checklist task is checked off. An earlier attempt to bundle a
+downloaded (Pixabay) sound file was rejected in the issue thread because its
+license was not copyfree/MIT/BSD-compatible for WeKan to ship, so instead
+`client/lib/checklistDingSound.js` synthesizes a short two-note chime with
+the Web Audio API (`OscillatorNode` + a `GainNode` envelope) - no audio file,
+no licensing question. Playback is wrapped in try/catch and guarded on
+`window.AudioContext`/`webkitAudioContext` actually existing, so it can never
+throw into the checklist toggle it is called from.
+
+A new Member Settings toggle, `profile.checklistDingSound` (off by default,
+the same shape as the existing `submitOnEnter`/`openManyCardsAtOnce`
+preferences beside it), gates it. The ding only plays on the
+unchecked-to-checked transition of `checklistItemDetail`'s toggle handler in
+`client/components/cards/checklists.js` - never on uncheck, and never when
+the preference is off.
+
+</details>
+
 and fixes the following bugs:
 
 **Board reports** - the Dashboard and the 10 board report chart views.
