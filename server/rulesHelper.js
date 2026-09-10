@@ -14,6 +14,8 @@ import { allowIsBoardMemberWithWriteAccess } from '/server/lib/utils';
 import { tripCanary } from '/server/lib/canary';
 import { substituteVars } from '/models/lib/ruleVarsSubstitute';
 import { cardMatchesAdvancedFilter } from '/server/lib/advancedFilterMatch';
+import { cardTextContainsMatch } from '/models/lib/ruleTextContainsMatch';
+import { RULE_ACTING_USER_SENTINEL, resolveActingUserId } from '/models/lib/ruleActingUser';
 
 // #5536: robustly resolve a destination board's default swimlane, tolerating a
 // board that lacks a swimlane literally titled 'Default' (renamed/translated) or
@@ -92,8 +94,12 @@ async function buildRuleVars(activity, card) {
     const u = await ReactiveCache.getUser(memberId);
     if (u) vars.membername = u.username || '';
   }
-  if (activity && activity.userId && activity.userId !== '*') {
-    const u = await ReactiveCache.getUser(activity.userId);
+  // #2522: reuse the same acting-user resolution the "add member" action's
+  // acting-user option resolves to below, so {username} and that option
+  // never disagree about who triggered the rule.
+  const actingUserId = resolveActingUserId(activity);
+  if (actingUserId) {
+    const u = await ReactiveCache.getUser(actingUserId);
     if (u) vars.username = u.username || '';
   }
   // #3304: short, memorable aliases for the tokens documented in the "send
@@ -155,6 +161,41 @@ export const RulesHelper = {
             // eslint-disable-next-line no-await-in-loop
             const matches = await cardMatchesAdvancedFilter(card, trigger.advancedFilter);
             if (matches) {
+              // eslint-disable-next-line no-await-in-loop
+              const rule = await trigger.getRule();
+              if (rule !== undefined) {
+                matchingRules.push(rule);
+              }
+            }
+          }
+        }
+      }
+    }
+    // #2194: "card title/description contains {value}" trigger. Like the
+    // advancedFilterTrigger block above, this is not one of the simple
+    // exact/wildcard TriggersDef matches - it re-reads the card's CURRENT
+    // title/description and does a case-insensitive substring test
+    // (cardTextContainsMatch, shared with the unit tests). It only needs to
+    // run on activities that actually change the text a card is matched
+    // against: card creation, and a title/description edit (the
+    // 'a-changedTitle'/'a-changedDescription' activities server/models/cards.js
+    // already logs for the outgoing-webhook hook) - not on every unrelated
+    // card activity.
+    const textContainsActivityTypes = [
+      'createCard',
+      'a-changedTitle',
+      'a-changedDescription',
+    ];
+    if (activity.cardId && activity.boardId && textContainsActivityTypes.includes(activityType)) {
+      const textContainsTriggers = await ReactiveCache.getTriggers({
+        boardId: activity.boardId,
+        activityType: 'textContainsTrigger',
+      });
+      if (textContainsTriggers.length) {
+        const card = await ReactiveCache.getCard(activity.cardId);
+        if (card) {
+          for (const trigger of textContainsTriggers) {
+            if (cardTextContainsMatch(card, trigger.textContains)) {
               // eslint-disable-next-line no-await-in-loop
               const rule = await trigger.getRule();
               if (rule !== undefined) {
@@ -346,8 +387,13 @@ export const RulesHelper = {
       // the card's title and a direct link automatically, even when the
       // user's configured body/subject uses none of the {card}/{cardLink}
       // tokens, so the recipient always has enough context to find the card.
+      // #2713: also carry the card's description automatically - the title
+      // and link were already appended unconditionally (#3301); the
+      // description is the other piece of "full card content" the rule
+      // action was missing without the user typing {description} by hand.
       const cardFooterLines = [];
       if (ruleVars.cardname) cardFooterLines.push(`Card: ${ruleVars.cardname}`);
+      if (ruleVars.description) cardFooterLines.push(`Description: ${ruleVars.description}`);
       if (ruleVars.cardlink) cardFooterLines.push(`Link: ${ruleVars.cardlink}`);
       const text = cardFooterLines.length
         ? `${body}${body ? '\n\n' : ''}-- \n${cardFooterLines.join('\n')}`
@@ -503,13 +549,28 @@ export const RulesHelper = {
     // "member is added on move-to but never removed on move-from" report. Warn
     // instead of crashing, and await the writes so failures are not lost.
     if (action.actionType === 'addMember') {
-      const member = await ReactiveCache.getUser({ username: action.username });
-      if (member) {
-        await card.assignMember(member._id);
+      // #2522: "add member" gained an acting-user option (issue #2522) - a
+      // sentinel `username` meaning "whoever triggered this rule" instead of
+      // a fixed board member, resolved via the same resolveActingUserId()
+      // buildRuleVars() above already uses for {username}.
+      if (action.username === RULE_ACTING_USER_SENTINEL) {
+        const memberId = resolveActingUserId(activity);
+        if (memberId) {
+          await card.assignMember(memberId);
+        } else {
+          console.warn(
+            'WeKan rule action addMember: no acting user available for this activity; skipping.',
+          );
+        }
       } else {
-        console.warn(
-          `WeKan rule action addMember: user "${action.username}" not found; skipping.`,
-        );
+        const member = await ReactiveCache.getUser({ username: action.username });
+        if (member) {
+          await card.assignMember(member._id);
+        } else {
+          console.warn(
+            `WeKan rule action addMember: user "${action.username}" not found; skipping.`,
+          );
+        }
       }
     }
     if (action.actionType === 'removeMember') {
