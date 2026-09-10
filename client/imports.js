@@ -91,6 +91,9 @@ import '/client/features/history';
 import '/client/features/settings';
 import '/client/features/sidebar';
 import '/client/features/users';
+// Presence for Admin Panel > People (#3678, #3734): periodic last-active
+// heartbeat for the current session.
+import '/client/lastActiveHeartbeat';
 import '/client/features/activities';
 import '/client/features/boardConversion';
 import '/client/features/gantt';

@@ -284,6 +284,14 @@ template(name="peopleRow")
       else
         span.text-green.js-toggle-lock-status.emoji-icon(data-user-id=userData._id, data-is-locked="false", title="{{_ 'accounts-lockout-user-unlocked'}}")
           i.fa.fa-unlock
+    td.last-active-status
+      if lastActiveAt
+        if isRecentlyActive
+          span.text-green.emoji-icon(title="{{_ 'admin-people-currently-online'}}")
+            i.fa.fa-circle
+        | {{ displayDate lastActiveAt 'LLL' }}
+      else
+        | -
     if userData.loginDisabled
       td <s>{{ displayDate userData.createdAt 'LLL' }}</s>
     else

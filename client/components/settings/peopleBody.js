@@ -25,6 +25,8 @@ import * as tenantAdmin from '/models/lib/tenantAdmin';
 // Is this account locked, and why. The lockout is per source address
 // (GHSA-rf3w-rj48-jxcc), so one place knows the shape.
 const { isUserLocked: lockoutIsUserLocked } = require('/models/lib/accountLockout');
+// #3678, #3734: presence recency threshold, shared with the unit test.
+const { isRecentlyActive } = require('/models/lib/lastActive');
 import InviteToBoardRolesSettings, {
   INVITE_TO_BOARD_ROLES,
   INVITE_TO_BOARD_ROLES_ID,
@@ -581,6 +583,8 @@ const PEOPLE_COLUMNS = [
   { labelKey: 'active-person' },
   { labelKey: 'location' },
   { labelKey: 'accounts-lockout-status' },
+  // #3678, #3734: when was this account last seen, and is it here right now.
+  { labelKey: 'admin-people-last-active' },
   { labelKey: 'createdAt' },
   { headerTemplate: 'selectAllUser' },
 ];
@@ -1449,7 +1453,21 @@ Template.peopleRow.helpers({
     // address). This read the flat field that fix removed, so every account
     // showed as unlocked; models/lib/accountLockout.js knows the shape now.
     return lockoutIsUserLocked(user);
-  }
+  },
+  // #3678, #3734: presence for the People table. The timestamp itself is
+  // written by server/lastActiveOnLogin.js (on login) and the client heartbeat
+  // (client/lastActiveHeartbeat.js) via the `usersHeartbeat` method; the
+  // recency threshold for "online now" lives in models/lib/lastActive.js so
+  // this helper and the unit test agree on what "recent" means.
+  lastActiveAt() {
+    const user = this.user || ReactiveCache.getUser(this.userId);
+    return user && user.lastConnectionDate;
+  },
+  isRecentlyActive() {
+    const user = this.user || ReactiveCache.getUser(this.userId);
+    if (!user || !user.lastConnectionDate) return false;
+    return isRecentlyActive(user.lastConnectionDate, new Date());
+  },
 });
 
 // Initialize filter dropdown

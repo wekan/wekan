@@ -121,6 +121,8 @@
   "home-board-empty": "Drag only one board here to open it after login",
   "home-board-remove": "Remove from Home",
   "home-board-remove-confirm": "Remove this board from Home? The board itself is not deleted.",
+  "set-default-board-template": "Set as default board template (applied automatically when creating a board)",
+  "unset-default-board-template": "Unset as default board template",
   "activity-dueDate": "edited due date to %s of %s",
   "activity-endDate": "edited end date to %s of %s",
   "add-attachment": "Add Attachment",
@@ -1489,6 +1491,7 @@
   "website": "Website",
   "person": "Person",
   "my-cards": "My Cards",
+  "my-attachments": "My Attachments",
   "card": "Card",
   "board-table-card-title-wrap-on": "Card titles wrap to multiple lines. Click to truncate them with an ellipsis instead.",
   "board-table-card-title-wrap-off": "Card titles are truncated with an ellipsis. Click to wrap them to multiple lines instead.",
@@ -1953,6 +1956,7 @@
   "uncollapse": "Uncollapse",
   "hideCheckedChecklistItems": "Hide checked checklist items",
   "hideAllChecklistItems": "Hide all checklist items",
+  "hideCompletedSubtasks": "Hide completed subtasks",
   "support": "Support",
   "supportPopup-title": "Support",
   "support-page-enabled": "Support page enabled",
@@ -2475,5 +2479,6 @@
   "import-board-source": "Import board (Trello, Jira, WeKan export, CSV, Excel, …)",
   "import-source-heading": "Import from:",
   "import-parts-instruction": "Only the ticked parts are imported. The same choice is used when exporting.",
-  "import-wekan-file": "Import from a .json or .zip export file:"
+  "import-wekan-file": "Import from a .json or .zip export file:",
+  "sum-of-number-fields": "Sum of number custom fields marked to show at top of list"
 }
