@@ -4936,7 +4936,7 @@ redirect-style login loop) is confirmed already fixed and closed.
 This release fixes the following bug:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/9c04e5314">Board export to .zip (with attachments) answered a bare 500 error</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/f383fe9b3">Board export to .zip (with attachments) answered a bare 500 error</a>. Thanks to xet7.</summary>
 
 `models/server/ExporterZip.js` still called the archiver package the v7 way -
 `const archiver = require('archiver'); archiver('zip', {...})`. archiver@8
@@ -4960,7 +4960,7 @@ second call site cannot reintroduce the same break unnoticed.
 and closes the following already-fixed issue:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/d3a217186">Confirm #6681 (OIDC redirect-style login loop) stays fixed</a>. Thanks to Alishara and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/f3c39f3b2">Confirm #6681 (OIDC redirect-style login loop) stays fixed</a>. Thanks to Alishara and xet7.</summary>
 
 The reporter's `DEBUG=true` server log (getToken/getUserInfo repeating six
 times in under twenty seconds, each with a fresh access token) is the same
