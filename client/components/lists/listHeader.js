@@ -24,6 +24,13 @@ import {
   MIN_LIST_WIDTH,
   normalizeListWidth,
 } from '/models/lib/listWidth';
+// List sync (docs/Features/ImportExport/Sync.md): UI wiring only, calls the
+// EXISTING setListSyncSource/hasListSyncCredential/syncListNow methods in
+// server/methods/listSync.js. SYNC_CAPABLE_SOURCES is the same list those
+// methods validate `type` against, reused here so the picker can never offer
+// a source the backend would reject.
+import { SYNC_CAPABLE_SOURCES } from '/models/lib/externalParsers';
+import { fromNow } from '/imports/lib/dateUtils';
 
 let listsColors;
 Meteor.startup(() => {
@@ -506,6 +513,7 @@ Template.listActionPopup.events({
   'click .js-add-list': Popup.open('addList'),
   'click .js-set-list-width': Popup.open('setListWidth'),
   'click .js-set-color-list': Popup.open('setListColor'),
+  'click .js-list-sync': Popup.open('listSync'),
   'click .js-select-cards'() {
     // Scope "select all cards" to the current swimlane when invoked from a
     // swimlane context (#5623). In swimlanes board view the list carries its
@@ -841,6 +849,175 @@ Template.setListColorPopup.events({
       console.error('[ListColor] remove color error:', err);
     }
     Popup.close();
+  },
+});
+
+// List sync settings popup (docs/Features/ImportExport/Sync.md). UI wiring
+// only: reads the list's own (already published, credential-free) syncSource
+// fields and calls setListSyncSource/hasListSyncCredential/syncListNow
+// (server/methods/listSync.js) exactly as they are defined there - this file
+// does not add to or change the sync backend.
+Template.listSyncPopup.onCreated(function () {
+  const tpl = this;
+  const list = Template.currentData();
+  // Which of the picker's radio/select values is "currently chosen" - starts
+  // at whatever the list already has, then tracks the user's picks so the
+  // form fields below (url/projectKey/credential) show/hide live.
+  tpl.selectedSyncType = new ReactiveVar((list && list.syncSource && list.syncSource.type) || '');
+  tpl.selectedSyncEnabled = new ReactiveVar(
+    !(list && list.syncSource && list.syncSource.enabled === false),
+  );
+  // Never pre-filled with the real token - only whether ONE IS SET, fetched
+  // as a boolean from the existing hasListSyncCredential method, the same
+  // secret-safety discipline as the LDAP Admin Panel override's bind
+  // password (client/components/settings/settingBody.js, models/lib/configResolver.js).
+  tpl.hasCredential = new ReactiveVar(false);
+  tpl.syncNowResult = new ReactiveVar('');
+  tpl.syncNowSuccess = new ReactiveVar(true);
+
+  const refreshCredentialStatus = () => {
+    if (!list || !list._id) return;
+    Meteor.call('hasListSyncCredential', list._id, (err, res) => {
+      if (!err) tpl.hasCredential.set(!!res);
+    });
+  };
+  tpl.refreshCredentialStatus = refreshCredentialStatus;
+  if (list && list.syncSource && list.syncSource.type) {
+    refreshCredentialStatus();
+  }
+});
+
+Template.listSyncPopup.helpers({
+  listSyncSourceTypes() {
+    return SYNC_CAPABLE_SOURCES;
+  },
+  listSyncSourceLabel(type) {
+    // Technical identifiers (source names), not language content - same
+    // reasoning as the LDAP env-var badges not being translated.
+    const labels = {
+      jira: 'Jira',
+      github: 'GitHub',
+      gitlab: 'GitLab',
+      gitea: 'Gitea',
+      forgejo: 'Forgejo',
+    };
+    return labels[type] || type;
+  },
+  isCurrentSyncType(type) {
+    return Template.instance().selectedSyncType.get() === type;
+  },
+  isSyncTypeSelected() {
+    return !!Template.instance().selectedSyncType.get();
+  },
+  currentSyncUrl() {
+    const list = Template.currentData();
+    return (list && list.syncSource && list.syncSource.url) || '';
+  },
+  currentSyncProjectKey() {
+    const list = Template.currentData();
+    return (list && list.syncSource && list.syncSource.projectKey) || '';
+  },
+  currentSyncUsername() {
+    const list = Template.currentData();
+    return (list && list.syncSource && list.syncSource.username) || '';
+  },
+  currentSyncEnabled() {
+    return Template.instance().selectedSyncEnabled.get();
+  },
+  listSyncCredentialStatusText() {
+    return Template.instance().hasCredential.get()
+      ? TAPi18n.__('list-sync-credential-status-set')
+      : TAPi18n.__('list-sync-credential-status-unset');
+  },
+  listSyncLastSyncedText() {
+    const list = Template.currentData();
+    const lastSyncedAt = list && list.syncSource && list.syncSource.lastSyncedAt;
+    if (!lastSyncedAt) return TAPi18n.__('list-sync-last-synced-never');
+    return fromNow(lastSyncedAt);
+  },
+  listSyncLastError() {
+    const list = Template.currentData();
+    return (list && list.syncSource && list.syncSource.lastSyncError) || '';
+  },
+  listSyncNowResult() {
+    return Template.instance().syncNowResult.get();
+  },
+  listSyncNowResultClass() {
+    return Template.instance().syncNowSuccess.get()
+      ? 'list-sync-now-success'
+      : 'list-sync-now-error';
+  },
+});
+
+Template.listSyncPopup.events({
+  'change .js-list-sync-type'(event, tpl) {
+    tpl.selectedSyncType.set(event.currentTarget.value);
+  },
+  'click a.js-toggle-list-sync-enabled'(event, tpl) {
+    event.preventDefault();
+    tpl.selectedSyncEnabled.set(!tpl.selectedSyncEnabled.get());
+  },
+  async 'click .js-list-sync-save'(event, tpl) {
+    event.preventDefault();
+    const list = Template.currentData();
+    const type = tpl.selectedSyncType.get();
+    if (!list || !list._id || !type) return;
+    const projectKey = tpl.$('.js-list-sync-project-key').val() || '';
+    const url = tpl.$('.js-list-sync-url').val() || '';
+    const token = tpl.$('.js-list-sync-token').val() || '';
+    const username = tpl.$('.js-list-sync-username').val() || '';
+    const config = {
+      type,
+      url,
+      projectKey,
+      enabled: tpl.selectedSyncEnabled.get(),
+      // Leaving the credential field blank keeps whatever is already stored
+      // - setListSyncSource only overwrites it when a non-empty token is
+      // sent (server/methods/listSync.js).
+      token: token || null,
+      username,
+    };
+    Meteor.call('setListSyncSource', list._id, config, (err) => {
+      tpl.$('.js-list-sync-token').val('');
+      if (!err) {
+        tpl.refreshCredentialStatus();
+      } else {
+        tpl.syncNowSuccess.set(false);
+        tpl.syncNowResult.set(err.reason || err.message || String(err));
+      }
+    });
+  },
+  'click .js-list-sync-now'(event, tpl) {
+    event.preventDefault();
+    const list = Template.currentData();
+    if (!list || !list._id) return;
+    tpl.syncNowResult.set(TAPi18n.__('list-sync-now-pending'));
+    Meteor.call('syncListNow', list._id, (err, res) => {
+      if (err) {
+        tpl.syncNowSuccess.set(false);
+        tpl.syncNowResult.set(
+          TAPi18n.__('list-sync-now-error', {
+            sprintf: [err.reason || err.message || ''],
+          }),
+        );
+      } else {
+        tpl.syncNowSuccess.set(true);
+        tpl.syncNowResult.set(TAPi18n.__('list-sync-now-success'));
+      }
+    });
+  },
+  async 'click .js-list-sync-clear'(event, tpl) {
+    event.preventDefault();
+    const list = Template.currentData();
+    if (!list || !list._id) return;
+    Meteor.call('setListSyncSource', list._id, null, (err) => {
+      if (!err) {
+        tpl.selectedSyncType.set('');
+        tpl.hasCredential.set(false);
+        tpl.syncNowResult.set('');
+        Popup.close();
+      }
+    });
   },
 });
 

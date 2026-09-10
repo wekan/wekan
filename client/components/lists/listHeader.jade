@@ -270,6 +270,18 @@ template(name="listActionPopup")
             a.js-toggle-sticky-list-headers
               i.fa(class="{{#if isStickyListHeaders}}fa-check-square-o{{else}}fa-square-o{{/if}}")
               | {{_ 'sticky-list-headers'}}
+        //- List sync (docs/Features/ImportExport/Sync.md): opens the settings
+          for keeping this list up to date from an external tracker. Calls the
+          EXISTING setListSyncSource/hasListSyncCredential/syncListNow methods
+          in server/methods/listSync.js - this popup is UI wiring only.
+        ul.pop-over-list
+          li
+            a.js-list-sync
+              i.fa.fa-refresh
+              | {{_ 'list-sync-menu'}}
+              if syncSource.type
+                | &nbsp;
+                i.fa.fa-check-circle(class="{{#if syncSource.enabled}}list-sync-active{{else}}list-sync-paused{{/if}}")
         hr
         ul.pop-over-list
           unless currentUser.isWorker
@@ -402,6 +414,53 @@ template(name="setListColorPopup")
       input.js-list-color-wheel#listColorWheel(type="color" value=currentColorHex title="{{_ 'custom-color'}}")
     button.primary.confirm.js-submit {{_ 'save'}}
     button.js-remove-color.negate.wide.right {{_ 'unset-color'}}
+
+//- List sync settings (docs/Features/ImportExport/Sync.md). UI wiring only -
+  calls the EXISTING setListSyncSource/hasListSyncCredential/syncListNow
+  Meteor methods (server/methods/listSync.js) exactly as they are defined;
+  this popup does not touch the sync backend itself.
+  The credential field (js-list-sync-token) is write-only, the same
+  discipline the LDAP Admin Panel override uses for its bind password
+  (client/components/settings/settingBody.jade/.js, models/lib/configResolver.js's
+  hasConfigValue): it always starts empty and is never pre-filled with the
+  real token, even when one is already stored - only a boolean "a credential
+  is set" (from the hasListSyncCredential method) is shown.
+template(name="listSyncPopup")
+  #js-list-sync-edit
+    p.quiet {{_ 'list-sync-description'}}
+    label {{_ 'list-sync-source-type'}}
+    p
+      select.list-sync-type.js-list-sync-type
+        option(value="") {{_ 'list-sync-source-none'}}
+        each listSyncSourceTypes
+          option(value="{{this}}" selected="{{#if isCurrentSyncType this}}selected{{/if}}") {{listSyncSourceLabel this}}
+    if isSyncTypeSelected
+      label {{_ 'list-sync-url'}}
+      p
+        input.list-sync-url.js-list-sync-url(type="text" value="{{currentSyncUrl}}" placeholder="{{_ 'list-sync-url-placeholder'}}")
+      label {{_ 'list-sync-project-key'}}
+      p
+        input.list-sync-project-key.js-list-sync-project-key(type="text" value="{{currentSyncProjectKey}}" placeholder="{{_ 'list-sync-project-key-placeholder'}}")
+      label {{_ 'list-sync-credential'}}
+      p.quiet.list-sync-credential-status {{ listSyncCredentialStatusText }}
+      p
+        input.list-sync-token.js-list-sync-token(type="password" value="" autocomplete="new-password" placeholder="{{_ 'list-sync-credential-placeholder'}}")
+      p
+        input.list-sync-username.js-list-sync-username(type="text" value="{{currentSyncUsername}}" placeholder="{{_ 'list-sync-username-placeholder'}}")
+      p
+        a.flex.js-toggle-list-sync-enabled
+          .materialCheckBox(class="{{#if currentSyncEnabled}}is-checked{{/if}}")
+          span {{_ 'list-sync-enabled'}}
+      p.quiet
+        span {{_ 'list-sync-last-synced'}}: {{ listSyncLastSyncedText }}
+      if listSyncLastError
+        p.list-sync-error {{_ 'list-sync-last-error'}}: {{ listSyncLastError }}
+      p
+        button.js-list-sync-save.primary(type="submit") {{_ 'save'}}
+        button.js-list-sync-now(type="button") {{_ 'list-sync-now'}}
+        button.js-list-sync-clear.negate(type="button") {{_ 'list-sync-clear'}}
+      if listSyncNowResult
+        p(class="{{listSyncNowResultClass}}")= listSyncNowResult
 
 //- WHERE a list goes: the board, the swimlane, which list to put it left or
   right of, and Done. Copy list and Move list asked the same question with the

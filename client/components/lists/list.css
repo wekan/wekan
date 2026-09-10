@@ -1716,3 +1716,31 @@ form.inlined-form .list-composer {
   display: block;
   margin-top: 8px;
 }
+
+/* List sync popup (listSyncPopup, listHeader.jade/.js,
+   docs/Features/ImportExport/Sync.md). Same success/error color convention
+   as the LDAP test-connection result (client/components/settings/settingBody.css
+   .ldap-test-success/.ldap-test-error) so an inline result reads the same way
+   everywhere it appears. */
+.list-sync-now-success {
+  color: #2e7d32;
+}
+
+.list-sync-now-error,
+.list-sync-error {
+  color: #c62828;
+}
+
+.list-sync-credential-status {
+  margin: 2px 0 6px;
+}
+
+/* Hamburger-menu badge (listActionPopup) showing whether this list already
+   has a sync source configured, and whether it is enabled or paused. */
+.list-sync-active {
+  color: #2e7d32;
+}
+
+.list-sync-paused {
+  color: #999;
+}
