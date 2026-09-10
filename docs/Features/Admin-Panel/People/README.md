@@ -6,6 +6,7 @@ Who may sign in, who they belong to, and what they may do — in menu order.
 | --- | --- | --- | --- |
 | People / Login | `login` | [Login.md](Login.md) | What is allowed at sign-in, and the authentication method. |
 | People / E-mail | `email` | [E-mail.md](E-mail.md) | SMTP, the invite domain, and whether users may change their address. |
+| People / Notifications | `notifications` | [Notifications.md](Notifications.md) | The site-wide notification default, overridable per board and per member. |
 | People / Domains | `domains` | [Domains.md](Domains.md) | The e-mail domains in use, with a user count each. |
 | People / Organizations | `organizations` | [Organizations.md](Organizations.md) | Organizations, their per-organization switches, and the same-Organization board restriction. |
 | People / Teams | `teams` | [Teams.md](Teams.md) | Teams, their per-team switches, and the same-Team board restriction. |
