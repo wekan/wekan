@@ -7,9 +7,9 @@ const fs = require('node:fs');
 const path = require('node:path');
 
 const root = path.resolve(__dirname, '..');
-const { escapeEmailHtml, safeEmailSubject } = require(
-  path.join(root, 'models/lib/emailNotificationSafety'),
-);
+const safetyModulePath = path.join(root, 'models/lib/emailNotificationSafety');
+const { escapeEmailHtml, safeEmailSubject } = require(safetyModulePath);
+const safetySource = fs.readFileSync(`${safetyModulePath}.js`, 'utf8');
 const email = fs.readFileSync(
   path.join(root, 'server/notifications/email.js'),
   'utf8',
@@ -32,8 +32,28 @@ assert.equal(
 );
 assert.match(
   email,
-  /htmlEnabled \? escapeEmailHtml\(text\)\.replace\(\/\\n\/g, '<br\/>'\) : text/,
-  'the completed localized message must be escaped before line breaks become HTML',
+  /htmlEnabled\s*\n\s*\? buildHtmlNotificationLine\(\{/,
+  'the HTML notification body must be built by the shared, escaping-aware helper',
+);
+assert.match(
+  safetySource,
+  /escapeEmailHtml\(actorName \|\| ''\)/,
+  'the actor name must be escaped before it is placed into the HTML message',
+);
+assert.match(
+  safetySource,
+  /escapeEmailHtml\(\s*descriptionText \|\| '',?\s*\)/,
+  'the localized description must be escaped before it is placed into the HTML message',
+);
+assert.match(
+  safetySource,
+  /escapeEmailHtml\(safeUrl\)/,
+  '#3118: the card\\/board URL must be escaped before it is placed into the <a href> link',
+);
+assert.match(
+  safetySource,
+  /<a href="\$\{escapeEmailHtml\(safeUrl\)\}">\$\{escapeEmailHtml\(safeUrl\)\}<\/a>/,
+  '#3118: an HTML-formatted notification email must wrap the card\\/board URL in a real <a href> link, not plain text',
 );
 assert.match(
   email,
@@ -41,4 +61,4 @@ assert.match(
   'notification subjects must use the shared header-safe formatter',
 );
 
-console.log('notificationEmailHtmlSafety: 5 assertions passed');
+console.log('notificationEmailHtmlSafety: 8 assertions passed');

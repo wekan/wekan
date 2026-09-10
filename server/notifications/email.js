@@ -8,6 +8,7 @@ import { formatActivityNotificationTitle } from '/server/lib/activityNotificatio
 const {
   escapeEmailHtml,
   safeEmailSubject,
+  buildHtmlNotificationLine,
 } = require('/models/lib/emailNotificationSafety');
 
 // buffer each user's email text in a queue, then flush them in single email
@@ -50,12 +51,21 @@ Meteor.startup(() => {
         Meteor.settings.public &&
         Meteor.settings.public.RICHER_CARD_COMMENT_EDITOR !== false;
       const actorName = params.user || '';
+      const descriptionText = TAPi18n.__(description, quoteParams, lan);
       const text = `${existing ? `\n${subject}\n` : ''}${
         actorName
-      } ${TAPi18n.__(description, quoteParams, lan)}\n${params.url}`;
+      } ${descriptionText}\n${params.url}`;
 
       user.addEmailBuffer(
-        htmlEnabled ? escapeEmailHtml(text).replace(/\n/g, '<br/>') : text,
+        htmlEnabled
+          ? buildHtmlNotificationLine({
+              existing,
+              subject,
+              actorName,
+              descriptionText,
+              url: params.url,
+            })
+          : text,
       );
 
       const userId = user._id;
