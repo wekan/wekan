@@ -996,6 +996,36 @@ toggle for now; the same three-state cycle could be added to them later.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/02cc79928">Confirmed opening a card to edit it does not reset an active board filter</a>. Thanks to PhilSnider and xet7.</summary>
+
+[#2335](https://github.com/wekan/wekan/issues/2335) reported that opening a
+card while a board Filter is active resets the filter, forcing it to be
+reapplied. Reading the current code: `Filter`
+(`client/lib/filter.js`) is a plain module-level singleton, not keyed by
+route or `Session`, and opening/closing a card
+(`client/components/cards/cardDetails.js`) is a FlowRouter navigation that
+never calls `Filter.reset()` or any other filter-clearing method - it only
+calls `Filter.addException()`, to keep an affected card visible despite the
+active filter. The only three `Filter.reset()` call sites anywhere in the
+client are explicit user actions unrelated to card open: the "clear filter"
+button, the sidebar "clear all" button, and the `x` hotkey.
+
+So the filter does not reset today. What can look like a reset is a
+different, correct behavior: the filtered card list is reactive, so editing
+the open card can change a field the active filter matches on (for example
+removing the very label being filtered on), and the card legitimately drops
+out of the filtered view - that is the filter working as designed, not a
+bug resetting it.
+
+`tests/filterPersistsOnCardOpen2335.test.cjs` pins this: no card-open/close
+code path calls `Filter.reset()`/clear, and every `Filter.reset()` call
+site in `client/` and `imports/` remains one of the three known, explicit
+actions - so a future change that adds a fourth, especially one reachable
+from card open/close, fails this test.
+
+</details>
+
 **Board views** - the Board View menu and its pages.
 
 <details>
