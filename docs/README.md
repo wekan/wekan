@@ -173,6 +173,7 @@ Wekan is distributed under the [MIT License], allowing anyone to easily work wit
 * [Customize Translations](./Features/Translations/Customize-Translations.md)
 * [Default Language for All Users](https://github.com/wekan/wekan/issues/3927)
 * [Planning Poker](Features/Cards/Planning-Poker.md)
+* [Using WeKan for Scrum](Features/Cards/Scrum.md)
 * [Scaling](./Platforms/Webserver/Scaling.md)
 * [Custom Logo](Features/Admin-Panel/Settings/Visibility.md)
 * [Subtasks](Features/Cards/Subtasks.md)
