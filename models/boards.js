@@ -29,6 +29,8 @@ import { findWhere, where, groupBy } from '/imports/lib/collectionHelpers';
 import {
   cardsDueInBetweenSelector,
   cardsInIntervalSelector,
+  cardsReceivedInBetweenSelector,
+  cardsEndInBetweenSelector,
 } from '/models/lib/calendarFilter';
 import { generateUniversalAttachmentUrl } from '/models/lib/universalUrlGenerator';
 import { buildCardSearchOr } from '/models/lib/cardSearch';
@@ -2063,6 +2065,20 @@ Boards.helpers({
   cardsInInterval(start, end, filterSelector) {
     const ret = ReactiveCache.getCards(
       cardsInIntervalSelector(this._id, start, end, filterSelector),
+    );
+    return ret;
+  },
+
+  cardsReceivedInBetween(start, end, filterSelector) {
+    const ret = ReactiveCache.getCards(
+      cardsReceivedInBetweenSelector(this._id, start, end, filterSelector),
+    );
+    return ret;
+  },
+
+  cardsEndInBetween(start, end, filterSelector) {
+    const ret = ReactiveCache.getCards(
+      cardsEndInBetweenSelector(this._id, start, end, filterSelector),
     );
     return ret;
   },

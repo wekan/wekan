@@ -1138,6 +1138,23 @@ Template.calendarView.helpers({
           .forEach(function (card) {
             pushEvent(card);
           });
+        // #6712-adjacent: Received, Start, Due and End are all meant to be
+        // visible on the Calendar - the Start/End span above draws as one
+        // bar, but a card whose Start (or End) falls outside the visible
+        // range would otherwise show no marker for Received/End at all, and
+        // Due never had one. Received and End each get their own event the
+        // same way Due already does.
+        currentBoard
+          .cardsReceivedInBetween(fetchInfo.start, fetchInfo.end, filterSelector)
+          .forEach(function (card) {
+            pushEvent(
+              card,
+              `${card.title} ${TAPi18n.__('card-received')}`,
+              card.receivedAt,
+              new Date(card.receivedAt.getTime() + 36e5),
+              'calendar-event-received',
+            );
+          });
         currentBoard
           .cardsDueInBetween(fetchInfo.start, fetchInfo.end, filterSelector)
           .forEach(function (card) {
@@ -1146,6 +1163,18 @@ Template.calendarView.helpers({
               `${card.title} ${TAPi18n.__('card-due')}`,
               card.dueAt,
               new Date(card.dueAt.getTime() + 36e5),
+              'calendar-event-due',
+            );
+          });
+        currentBoard
+          .cardsEndInBetween(fetchInfo.start, fetchInfo.end, filterSelector)
+          .forEach(function (card) {
+            pushEvent(
+              card,
+              `${card.title} ${TAPi18n.__('card-end')}`,
+              card.endAt,
+              new Date(card.endAt.getTime() + 36e5),
+              'calendar-event-end',
             );
           });
         events.sort(function (first, second) {

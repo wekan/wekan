@@ -30,6 +30,35 @@ function cardsDueInBetweenSelector(boardId, start, end, filterSelector) {
   );
 }
 
+// Cards whose received date falls within [start, end] - the Calendar view's
+// counterpart to cardsDueInBetweenSelector, so Received gets its own marker
+// the same way Due already does (#6712-adjacent: all four card dates -
+// Received, Start, Due, End - are meant to be visible on the Calendar).
+function cardsReceivedInBetweenSelector(boardId, start, end, filterSelector) {
+  return combineWithFilter(
+    {
+      boardId,
+      receivedAt: { $gte: start, $lte: end },
+    },
+    filterSelector,
+  );
+}
+
+// Cards whose end date falls within [start, end]. cardsInIntervalSelector
+// already covers a card whose [startAt, endAt] span overlaps the visible
+// range, but that draws ONE bar for the whole span - a card whose End lands
+// in the visible range while its Start does not (e.g. Start is months in the
+// past) would otherwise never get its own End marker on the Calendar.
+function cardsEndInBetweenSelector(boardId, start, end, filterSelector) {
+  return combineWithFilter(
+    {
+      boardId,
+      endAt: { $gte: start, $lte: end },
+    },
+    filterSelector,
+  );
+}
+
 // Cards whose [startAt, endAt] interval overlaps [start, end] in any way:
 // starts before and still runs at `start`, starts before and still runs at
 // `end`, or is fully contained within [start, end].
@@ -50,4 +79,6 @@ function cardsInIntervalSelector(boardId, start, end, filterSelector) {
 export {
   cardsDueInBetweenSelector,
   cardsInIntervalSelector,
+  cardsReceivedInBetweenSelector,
+  cardsEndInBetweenSelector,
 };

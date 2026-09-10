@@ -1,6 +1,7 @@
 import { Template } from 'meteor/templating';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { ReactiveVar } from 'meteor/reactive-var';
+import { TAPi18n } from '/imports/i18n';
 import Cards from '/models/cards';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { Utils } from '/client/lib/utils';
@@ -12,10 +13,10 @@ import { Utils } from '/client/lib/utils';
 // same as gantt.css/ganttCard.css already are for the view above it.
 import './frappeGanttLib.css';
 
-// Frappe Gantt (MIT, zero runtime dependencies) rendered below WeKan's own
-// Gantt view. Its JavaScript is loaded with a dynamic import() so that code
+// Frappe Gantt (MIT, zero runtime dependencies) as an alternative Gantt
+// Board View. Its JavaScript is loaded with a dynamic import() so that code
 // only reaches the browser when this template actually mounts - i.e. when
-// the user opens the Gantt board view - never on every page load.
+// the user opens this board view - never on every page load.
 let GanttLibPromise = null;
 function loadGanttLib() {
   if (!GanttLibPromise) {
@@ -37,16 +38,30 @@ function addDays(isoDate, days) {
   return date.toISOString().slice(0, 10);
 }
 
-// Turns a board's cards into Frappe Gantt's flat task list. Only cards with
-// at least a start date can be placed on a timeline; a card with no due/end
-// date gets a one-day bar rather than being silently dropped.
+function formatDate(value) {
+  if (!value) return '';
+  const date = value instanceof Date ? value : new Date(value);
+  if (Number.isNaN(date.getTime())) return '';
+  return date.toISOString().slice(0, 10);
+}
+
+// Turns a board's cards into Frappe Gantt's flat task list. A card needs a
+// Start (or Received, as a fallback) to be placed on the timeline; the bar
+// itself spans Start->Due (or their Received/End fallbacks) - the pair
+// conventionally dragged in a Gantt chart - while ALL FOUR of WeKan's own
+// card dates (Received, Start, Due, End) are shown in the popup and stay
+// visible even when one of them fell back to the other's field. `_startField`/
+// `_endField` record which underlying card field the bar's two edges
+// actually represent, so dragging the bar writes back to the right one.
 function cardsToTasks(cards) {
   const today = toISODate(new Date());
   return cards
     .map(card => {
-      const start = toISODate(card.startAt || card.receivedAt);
-      if (!start) return null;
-      let end = toISODate(card.dueAt || card.endAt);
+      const startField = card.startAt ? 'startAt' : (card.receivedAt ? 'receivedAt' : null);
+      if (!startField) return null;
+      const start = toISODate(card[startField]);
+      const endField = card.dueAt ? 'dueAt' : (card.endAt ? 'endAt' : null);
+      let end = endField ? toISODate(card[endField]) : null;
       if (!end || end <= start) end = addDays(start, 1);
       const overdue = card.dueAt && !card.endAt && toISODate(card.dueAt) < today;
       return {
@@ -56,9 +71,30 @@ function cardsToTasks(cards) {
         end,
         progress: card.endAt ? 100 : 0,
         custom_class: overdue ? 'gantt-task-overdue' : '',
+        _startField: startField,
+        _endField: endField || 'dueAt',
+        _received: formatDate(card.receivedAt),
+        _cardStart: formatDate(card.startAt),
+        _due: formatDate(card.dueAt),
+        _end: formatDate(card.endAt),
       };
     })
     .filter(Boolean);
+}
+
+// All four WeKan card dates, one row per date that is actually set, shown in
+// the popup that opens on click - the bar geometry only ever represents two
+// of the four (Start/Due, or their Received/End fallbacks), so this is what
+// makes Received and End visible for a card that also has Start and Due.
+function popupDetailsHtml(task) {
+  const rows = [
+    [TAPi18n.__('card-received'), task._received],
+    [TAPi18n.__('card-start'), task._cardStart],
+    [TAPi18n.__('card-due'), task._due],
+    [TAPi18n.__('card-end'), task._end],
+  ].filter(([, value]) => value);
+  return rows.map(([label, value]) =>
+    `<div>${label}: ${value}</div>`).join('');
 }
 
 Template.frappeGanttView.onCreated(function() {
@@ -89,8 +125,21 @@ Template.frappeGanttView.onRendered(function() {
       if (!tasks.length) return;
       // eslint-disable-next-line no-new -- the instance manages its own DOM;
       // nothing outside this render pass needs to reference it further.
+      // Matches Kanboard's Gantt: dragging/resizing bars is gated on the same
+      // board-write capability the rest of WeKan uses (Utils.canModifyCard),
+      // not offered as a control that the server would then refuse.
+      const readonly = !Utils.currentUserCan('write', board);
       new GanttLib(container, tasks, {
         view_mode: 'Week',
+        readonly_dates: readonly,
+        readonly_progress: true,
+        // Lets the user switch Day/Week/Month/Year from a dropdown, one of
+        // Frappe Gantt's normally-used features (README "Key Features":
+        // "Customizable Views").
+        view_mode_select: true,
+        popup({ task, set_details }) {
+          set_details(popupDetailsHtml(task));
+        },
         on_click(task) {
           const card = ReactiveCache.getCard(task.id);
           if (!card) return;
@@ -100,6 +149,20 @@ Template.frappeGanttView.onRendered(function() {
             slug: (cardBoard && cardBoard.slug) || 'board',
             cardId: card._id,
           });
+        },
+        // Dragging or resizing the bar is a normally-used Gantt feature;
+        // persist it back to whichever card field the dragged edge actually
+        // represents (see cardsToTasks's _startField/_endField), the same
+        // card.setStart/setDue/setReceived/setEnd calls WeKan's Calendar
+        // view already uses for its own drag-to-edit (boardBody.js
+        // eventDrop/eventResize).
+        on_date_change(task, start, end) {
+          const card = ReactiveCache.getCard(task.id);
+          if (!card) return;
+          if (task._startField === 'receivedAt') card.setReceived(start);
+          else card.setStart(start);
+          if (task._endField === 'endAt') card.setEnd(end);
+          else card.setDue(end);
         },
       });
     });

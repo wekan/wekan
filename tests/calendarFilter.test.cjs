@@ -16,6 +16,8 @@ const assert = require('assert');
 const {
   cardsDueInBetweenSelector,
   cardsInIntervalSelector,
+  cardsReceivedInBetweenSelector,
+  cardsEndInBetweenSelector,
 } = await import('../models/lib/calendarFilter.js');
 
 let passed = 0;
@@ -132,6 +134,64 @@ test('#5656: without a filter, both users\' cards are shown (pre-fix behaviour p
   const theirs = { _id: 'c7', boardId: BOARD, dueAt: 150, assignees: ['user-b'] };
   assert.ok(docMatches(sel, mine));
   assert.ok(docMatches(sel, theirs), 'no active filter: every in-range card shown');
+});
+
+// --- Received and End get their own selectors, mirroring Due -----------
+// The Calendar view used to show a Start/End interval bar and a separate
+// Due marker, but no Received marker at all, and no End marker for a card
+// whose Start fell outside the visible range - so a user could not see all
+// four of WeKan's card dates (Received, Start, Due, End) on the Calendar.
+
+test('cardsReceivedInBetweenSelector mirrors cardsDueInBetweenSelector, on receivedAt', () => {
+  const base = { boardId: BOARD, receivedAt: { $gte: START, $lte: END } };
+  assert.deepStrictEqual(cardsReceivedInBetweenSelector(BOARD, START, END), base);
+  const filter = assigneeFilterSelector(USER);
+  assert.deepStrictEqual(cardsReceivedInBetweenSelector(BOARD, START, END, filter), {
+    $and: [filter, base],
+  });
+});
+
+test('cardsEndInBetweenSelector mirrors cardsDueInBetweenSelector, on endAt', () => {
+  const base = { boardId: BOARD, endAt: { $gte: START, $lte: END } };
+  assert.deepStrictEqual(cardsEndInBetweenSelector(BOARD, START, END), base);
+  const filter = assigneeFilterSelector(USER);
+  assert.deepStrictEqual(cardsEndInBetweenSelector(BOARD, START, END, filter), {
+    $and: [filter, base],
+  });
+});
+
+test('a card with only a Received date (no Start/Due/End) is found by the Received selector', () => {
+  const sel = cardsReceivedInBetweenSelector(BOARD, START, END);
+  const receivedOnly = { _id: 'c8', boardId: BOARD, receivedAt: 150 };
+  assert.ok(docMatches(sel, receivedOnly));
+  // Negative: cardsInIntervalSelector (Start/End) does NOT find it - proving
+  // the dedicated Received selector is what makes it visible at all.
+  assert.ok(!docMatches(cardsInIntervalSelector(BOARD, START, END), receivedOnly));
+});
+
+test('a card whose End lands in range but whose Start does not still gets an End marker', () => {
+  const sel = cardsEndInBetweenSelector(BOARD, START, END);
+  const longRunning = { _id: 'c9', boardId: BOARD, startAt: 0, endAt: 150 };
+  assert.ok(docMatches(sel, longRunning));
+});
+
+// --- wiring: the Calendar view's client code actually calls all four -------
+test('the Calendar view fetches and labels all four date types (Received, Start/End, Due, End)', () => {
+  const fs = require('fs');
+  const path = require('path');
+  const boardBodyJs = fs.readFileSync(
+    path.join(__dirname, '..', 'client/components/boards/boardBody.js'), 'utf8');
+  assert.match(boardBodyJs, /cardsReceivedInBetween\(fetchInfo\.start, fetchInfo\.end, filterSelector\)/);
+  assert.match(boardBodyJs, /cardsDueInBetween\(fetchInfo\.start, fetchInfo\.end, filterSelector\)/);
+  assert.match(boardBodyJs, /cardsEndInBetween\(fetchInfo\.start, fetchInfo\.end, filterSelector\)/);
+  assert.match(boardBodyJs, /cardsInInterval\(fetchInfo\.start, fetchInfo\.end, filterSelector\)/);
+  assert.match(boardBodyJs, /TAPi18n\.__\('card-received'\)/);
+  assert.match(boardBodyJs, /TAPi18n\.__\('card-due'\)/);
+  assert.match(boardBodyJs, /TAPi18n\.__\('card-end'\)/);
+  const boardsJs = fs.readFileSync(
+    path.join(__dirname, '..', 'models/boards.js'), 'utf8');
+  assert.match(boardsJs, /cardsReceivedInBetween\(start, end, filterSelector\)/);
+  assert.match(boardsJs, /cardsEndInBetween\(start, end, filterSelector\)/);
 });
 
 console.log(`\n${passed} tests passed`);
