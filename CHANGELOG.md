@@ -473,6 +473,35 @@ keep a separate one.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/74e4248ee0fe62be6d3237f3cae14b04a4a2b5c1">Added a Pomodoro timer, alongside Flowtime, with its own fixed work/break cycle</a>. Thanks to xet7.</summary>
+
+[#4862](https://github.com/wekan/wekan/issues/4862) asked for a Pomodoro
+timer, the classic FIXED-interval technique this project's own Flowtime
+feature (above) deliberately does the opposite of: a 25-minute work
+interval, then a break (5 minutes, or a longer 15-minute break every 4th
+completed work interval), rather than an open-ended session. It sits as
+its own, separate block (`cardPomodoro.js`/`.jade`/`.css`, its own
+`pomodoroStartAt`/`pomodoroPhase`/`pomodoroCount`/`pomodoroUserId` fields
+and its own Start/Stop methods) alongside `cardFlowtime`'s block in
+`cardDetails.jade`, not a rename or reuse of anything Flowtime added.
+
+A configurable work-length input and Start Pomodoro button begin a work
+interval; a live countdown (the same `Meteor.setInterval` idiom
+`cardFlowtime.js` uses for its own elapsed-time readout) shows the
+Work/Break phase and the completed-interval count. When a work interval's
+countdown reaches zero, its duration is added, in hours, into the card's
+existing `spentTime` field through the same `setSpentTime()` helper the
+manual time-entry popup and Flowtime both already use, the completed count
+increments, and the card switches to a break interval; a completed break
+interval adds no time and returns to ready-to-start rather than
+auto-starting the next work interval. Stop/Reset credits whatever elapsed
+so far if stopped mid-work-interval (consistent with Flowtime's own
+partial-session credit) and clears every Pomodoro field back to its
+empty/null default.
+
+</details>
+
 **Member Settings** - the notification/editor toggles in the Member Settings popup.
 
 <details>
