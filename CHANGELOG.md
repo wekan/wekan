@@ -317,7 +317,8 @@ the fold already used for lists/swimlanes/checklists. It also restores the
 full-featured **document preview** viewer (DOCX/XLSX/PPTX, native PDF),
 hardens the **HttpOnly login cookie** against a rare missing-expiry case,
 lets a board open already **filtered from its URL**, adds a **Group by
-Assignee** board view, and lets **Clone Board** skip copying cards.
+Assignee** board view, lets **Clone Board** skip copying cards, and lets
+Admin Panel / People be **filtered by Team**.
 
 This release adds the following new features:
 
@@ -645,6 +646,32 @@ single gated card-copy call site (and that no second, unguarded one
 exists), the method's handling of the flag, and the client popup/checkbox
 wiring - plus that the new `clone-board-without-cards` translation key
 exists in English and every locale.
+
+</details>
+
+**The Admin Panel** - People, the account list under Login → People.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0297f52c4ba4beb47a60fb2c4d5798696c8c9af1">People can now be filtered by Team</a>. Thanks to hesco and xet7.</summary>
+
+[#4510](https://github.com/wekan/wekan/issues/4510): an admin whose
+instance had grown to 19 users across 6 teams had only the existing Show
+filter (All/Locked/Active/Inactive/Admin) and the free-text search box to
+narrow the People list - neither could show just one team's members.
+
+A user's team membership already lives in their own `teams` array
+(`models/users.js`, each entry `{ teamId, teamDisplayName }`), the same
+field the Team membership popups already read and write. The People
+pane's shared controls row gets a second dropdown, Team, next to Show,
+built from every team (`ReactiveCache.getTeams({})`, not just the current
+page of the paginated Teams table) and matched against `teams.teamId` the
+same way Show already narrows the query. Both dropdowns share the
+`.js-table-page-filter` class the shared table page already renders one
+of per filter; a `data-filter` attribute distinguishes which one changed.
+`tests/peopleTeamFilter.test.cjs` pins the new ReactiveVar, the query
+predicate, the second filter entry and its options source, the
+data-filter routing in the change handler, and that every locale has a
+real (non-English) translation of the two new labels.
 
 </details>
 
