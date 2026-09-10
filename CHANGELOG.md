@@ -1352,6 +1352,12 @@ migration-safety case that an existing board or user with nothing stored
 sees no behaviour change. A logged-out reader of a public board keeps the
 old localStorage-only toggle, now falling back to the board's own setting.
 
+[#2561](https://github.com/wekan/wekan/issues/2561) asked for the same
+thing under a different description - a board-level toggle to hide label
+text on minicards and leave only the colour bars, like Trello - and is
+fully covered by this same `Boards.showLabelText` setting; no separate
+change was needed.
+
 </details>
 
 <details>
@@ -2121,6 +2127,38 @@ actual current features - including the numeric custom field's "show sum
 at top of list" badge (`models/customFields.js`'s `showSumAtTopOfList`,
 already scoped per swimlane) as a way to total story points per
 list/sprint - and linked from `docs/README.md`'s features list.
+
+</details>
+
+and has the following developer-tooling improvement:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2e752c1e9">Extracted the OIDC RP-Initiated Logout URL builder into a pure, tested helper</a>. Thanks to Dzordzu and xet7.</summary>
+
+[#2905](https://github.com/wekan/wekan/issues/2905) asked for Single Logout
+(SLO): logging out of Wekan should also end the identity provider's own SSO
+session for OIDC/OAuth2 providers that support RP-Initiated Logout (Keycloak's
+`/realms/<realm>/protocol/openid-connect/logout`, for example), via an
+optional `OAUTH2_LOGOUT_ENDPOINT` env var. This was already built for
+[#6158](https://github.com/wekan/wekan/issues/6158) -
+`getOauthLogoutUrl()` in `server/models/settings.js`, wired into
+`config/accounts.js`'s `onLogoutHook()`, documented in
+[Keycloak.md](https://github.com/wekan/wekan/blob/main/docs/Features/Login/Keycloak/Keycloak.md)
+and the `docker-compose.yml` OAuth2 example blocks - so #2905 needed no new
+feature. When `OAUTH2_LOGOUT_ENDPOINT` is unset (the default), logout is
+unchanged.
+
+Its URL-building logic lived inline in the Meteor method with no direct test
+coverage. Extracted it to `server/lib/oauthLogoutUrl.js`'s pure
+`buildOauthLogoutUrl()` (endpoint/serverUrl/clientId/redirectUri in, the
+end_session URL out, following the OpenID Connect RP-Initiated Logout 1.0
+spec's `post_logout_redirect_uri`/`client_id` params), mirroring
+`server/lib/ldapPasswordLoginGuard.js`'s plain-Node testable style.
+`getOauthLogoutUrl()` now calls it; behavior is unchanged. Added
+`tests/oauthLogoutUrl.test.cjs`, covering the default no-op, a Keycloak-shaped
+path endpoint resolved against `OAUTH2_SERVER_URL`, an absolute endpoint, an
+endpoint that already carries a query string, and percent-encoding of the
+redirect URI.
 
 </details>
 
