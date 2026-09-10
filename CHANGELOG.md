@@ -871,6 +871,39 @@ for a small wording difference.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1d4a47db2">A pasted link to another WeKan card now shows that card's title, not the raw URL</a>. Thanks to justinr1234 and xet7.</summary>
+
+[#2453](https://github.com/wekan/wekan/issues/2453) asked for a card URL
+pasted into a description or comment - copied straight from the address
+bar, e.g. `.../b/<boardId>/<slug>/<cardId>` - to render with the target
+card's title visible, rather than as a raw, unlabeled link.
+`models/lib/cardUrlAutolink.js` is a pure parser/rewriter, mirroring the
+`#3069` external-tracker autolinker's shape: it finds a WeKan card URL
+(optionally carrying the `#comment-`/`#activity-` fragment `#4757`
+added) in free text and, when it is not already inside a markdown/HTML
+link, replaces it with `[title](url)` for a caller-supplied title
+resolver - falling back to the bare URL when the resolver has nothing to
+say.
+
+The rendering pipeline (`packages/markdown/src/template-integration.js`)
+runs it just before `markdown-it`'s own render, resolving titles through
+`Markdown.resolveCardTitle`, a plain function
+`client/components/main/editor.js` wires up at startup to
+`ReactiveCache.getCard(cardId)`. That lookup is itself a reactive
+dependency of the markdown helper's own render, so the link text updates
+automatically if the target card is renamed afterwards. It resolves to
+nothing - leaving the URL as plain text, not an error - for a card this
+client's Minimongo does not have: deleted, or on a board the current
+viewer cannot see, since Minimongo is already scoped to what the viewer
+is subscribed to and needed no separate permission check here.
+
+This is rendering only: a pasted plain URL is relabeled where it is
+found. It does not add a new `[[card link]]` insertion syntax - that is
+a different feature.
+
+</details>
+
 **Board filters** - the sidebar Filter panel and how a board can be opened already filtered.
 
 <details>
