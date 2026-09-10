@@ -1849,6 +1849,8 @@
   "originOrder": "ordine originale",
   "copyChecklist": "Cupià checklist",
   "copyChecklistPopup-title": "Cupià checklist",
+  "copyChecklistFromTemplate": "Cupià checklist - Mudellu",
+  "copyChecklistFromTemplatePopup-title": "Cupià checklist - Mudellu",
   "edit-checklist-items-as-text": "Mudificà cum'è testu",
   "editChecklistItemsAsTextPopup-title": "Mudificà l'elementi di a lista di verificazione cum'è testu",
   "card-show-lists": "Mustrà liste di a carta",

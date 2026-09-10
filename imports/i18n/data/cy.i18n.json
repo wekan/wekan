@@ -1849,6 +1849,8 @@
   "originOrder": "archeb wreiddiol",
   "copyChecklist": "Copïo Rhestr Wirio",
   "copyChecklistPopup-title": "Copïo Rhestr Wirio",
+  "copyChecklistFromTemplate": "Copïo Rhestr Wirio - Templed",
+  "copyChecklistFromTemplatePopup-title": "Copïo Rhestr Wirio - Templed",
   "edit-checklist-items-as-text": "Golygu fel testun",
   "editChecklistItemsAsTextPopup-title": "Golygu eitemau'r rhestr wirio fel testun",
   "card-show-lists": "Rhestrau Sioe Cardiau",

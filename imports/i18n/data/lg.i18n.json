@@ -1849,6 +1849,8 @@
   "originOrder": "original order (mu Luganda)",
   "copyChecklist": "Koppa Lukalala-lw'okukebera",
   "copyChecklistPopup-title": "Koppa Lukalala-lw'okukebera",
+  "copyChecklistFromTemplate": "Koppa Lukalala-lw'okukebera - Ekyokulabirako",
+  "copyChecklistFromTemplatePopup-title": "Koppa Lukalala-lw'okukebera - Ekyokulabirako",
   "edit-checklist-items-as-text": "Kyuusa nga ennyiriri",
   "editChecklistItemsAsTextPopup-title": "Kyuusa ebintu bya checklist nga ennyiriri",
   "card-show-lists": "Kaadi Laga Nkalala",

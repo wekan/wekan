@@ -1849,6 +1849,8 @@
   "originOrder": "aturan asal",
   "copyChecklist": "Salen Checklist",
   "copyChecklistPopup-title": "Salen Checklist",
+  "copyChecklistFromTemplate": "Salen Checklist - Klise",
+  "copyChecklistFromTemplatePopup-title": "Salen Checklist - Klise",
   "edit-checklist-items-as-text": "Edit sebagai teks",
   "editChecklistItemsAsTextPopup-title": "Edit barang checklist sebagai teks",
   "card-show-lists": "Kad Peudeuh Senarai",

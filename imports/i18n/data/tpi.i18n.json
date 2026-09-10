@@ -1849,6 +1849,8 @@
   "originOrder": "Toksave: original order",
   "copyChecklist": "Kisim kopi lis bilong sekim",
   "copyChecklistPopup-title": "Kisim kopi lis bilong sekim",
+  "copyChecklistFromTemplate": "Kisim kopi lis bilong sekim - Templet",
+  "copyChecklistFromTemplatePopup-title": "Kisim kopi lis bilong sekim - Templet",
   "edit-checklist-items-as-text": "Senisim olsem raitim",
   "editChecklistItemsAsTextPopup-title": "Senisim ol samting bilong checklist olsem raitim",
   "card-show-lists": "Kat soim ol lis",

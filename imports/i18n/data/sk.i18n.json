@@ -1849,6 +1849,8 @@
   "originOrder": "pierwotna kolejność",
   "copyChecklist": "Kopírovať checklist",
   "copyChecklistPopup-title": "Kopírovať checklist",
+  "copyChecklistFromTemplate": "Kopírovať checklist - Šablona",
+  "copyChecklistFromTemplatePopup-title": "Kopírovať checklist - Šablona",
   "edit-checklist-items-as-text": "Upraviť ako text",
   "editChecklistItemsAsTextPopup-title": "Upraviť položky kontrolného zoznamu ako text",
   "card-show-lists": "Zobrazenie zoznamov karty",

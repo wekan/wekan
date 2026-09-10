@@ -1849,6 +1849,8 @@
   "originOrder": "مرتب سازی اصلی",
   "copyChecklist": "کپی چک‌لیست",
   "copyChecklistPopup-title": "کپی چک‌لیست",
+  "copyChecklistFromTemplate": "کپی چک‌لیست - قالب",
+  "copyChecklistFromTemplatePopup-title": "کپی چک‌لیست - قالب",
   "edit-checklist-items-as-text": "ویرایش به صورت متن",
   "editChecklistItemsAsTextPopup-title": "ویرایش موارد چک‌لیست به صورت متن",
   "card-show-lists": "نمایش لیست‌های کارت",

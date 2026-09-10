@@ -1849,6 +1849,8 @@
   "originOrder": "оригінальний порядок",
   "copyChecklist": "Скопіювати чек-лист",
   "copyChecklistPopup-title": "Копіювання чек-листу",
+  "copyChecklistFromTemplate": "Скопіювати чек-лист - Шаблон",
+  "copyChecklistFromTemplatePopup-title": "Скопіювати чек-лист - Шаблон",
   "edit-checklist-items-as-text": "Редагувати як текст",
   "editChecklistItemsAsTextPopup-title": "Редагувати елементи чек-листа як текст",
   "card-show-lists": "Карта Показ списків",

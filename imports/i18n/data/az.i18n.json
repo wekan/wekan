@@ -1849,6 +1849,8 @@
   "originOrder": "orijinal sifariş",
   "copyChecklist": "Yoxlama siyahısını kopyalayın",
   "copyChecklistPopup-title": "Yoxlama siyahısını kopyalayın",
+  "copyChecklistFromTemplate": "Yoxlama siyahısını kopyalayın - Şablon",
+  "copyChecklistFromTemplatePopup-title": "Yoxlama siyahısını kopyalayın - Şablon",
   "edit-checklist-items-as-text": "Mətn kimi redaktə et",
   "editChecklistItemsAsTextPopup-title": "Yoxlama siyahısı elementlərini mətn kimi redaktə et",
   "card-show-lists": "Kart nümayişi siyahıları",

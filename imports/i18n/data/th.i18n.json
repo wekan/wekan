@@ -1849,6 +1849,8 @@
   "originOrder": "ลำดับเดิม",
   "copyChecklist": "คัดลอกเช็คลิสต์",
   "copyChecklistPopup-title": "คัดลอกเช็คลิสต์",
+  "copyChecklistFromTemplate": "คัดลอกเช็คลิสต์ - Mẫu",
+  "copyChecklistFromTemplatePopup-title": "คัดลอกเช็คลิสต์ - Mẫu",
   "edit-checklist-items-as-text": "แก้ไขเป็นข้อความ",
   "editChecklistItemsAsTextPopup-title": "แก้ไขรายการเช็คลิสต์เป็นข้อความ",
   "card-show-lists": "การ์ดแสดงรายการ",

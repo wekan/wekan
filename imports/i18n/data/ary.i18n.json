@@ -1849,6 +1849,8 @@
   "originOrder": "النظام الأصلي\n ",
   "copyChecklist": "نسخ قائمة التحقق",
   "copyChecklistPopup-title": "نسخ قائمة التحقق",
+  "copyChecklistFromTemplate": "نسخ قائمة التحقق - نموذج",
+  "copyChecklistFromTemplatePopup-title": "نسخ قائمة التحقق - نموذج",
   "edit-checklist-items-as-text": "تحرير كنص",
   "editChecklistItemsAsTextPopup-title": "تحرير عناصر قائمة التحقق كنص",
   "card-show-lists": "عرض قوائم البطاقة",

@@ -1849,6 +1849,8 @@
   "originOrder": "મૂળ ઓર્ડર",
   "copyChecklist": "ચેકલિસ્ટની નકલ કરો",
   "copyChecklistPopup-title": "ચેકલિસ્ટની નકલ કરો",
+  "copyChecklistFromTemplate": "ચેકલિસ્ટની નકલ કરો - ઢાંચો",
+  "copyChecklistFromTemplatePopup-title": "ચેકલિસ્ટની નકલ કરો - ઢાંચો",
   "edit-checklist-items-as-text": "ટેક્સ્ટ તરીકે સંપાદિત કરો",
   "editChecklistItemsAsTextPopup-title": "ચેકલિસ્ટ આઇટમ્સને ટેક્સ્ટ તરીકે સંપાદિત કરો",
   "card-show-lists": "કાર્ડ બતાવો યાદીઓ",

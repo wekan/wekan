@@ -1849,6 +1849,8 @@
   "originOrder": "அசல் வரிசை",
   "copyChecklist": "சரிபார்ப்புப் பட்டியலை நகலெடு",
   "copyChecklistPopup-title": "சரிபார்ப்புப் பட்டியலை நகலெடு",
+  "copyChecklistFromTemplate": "சரிபார்ப்புப் பட்டியலை நகலெடு - வார்ப்புரு",
+  "copyChecklistFromTemplatePopup-title": "சரிபார்ப்புப் பட்டியலை நகலெடு - வார்ப்புரு",
   "edit-checklist-items-as-text": "உரையாக திருத்து",
   "editChecklistItemsAsTextPopup-title": "சரிபார்ப்பு பட்டியல் உருப்படிகளை உரையாக திருத்து",
   "card-show-lists": "அட்டையின் பட்டியல்களைக் காட்டு",

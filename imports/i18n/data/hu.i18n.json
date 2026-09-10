@@ -1849,6 +1849,8 @@
   "originOrder": "eredeti sorrend",
   "copyChecklist": "Ellenőrzőlista másolása",
   "copyChecklistPopup-title": "Ellenőrzőlista másolása",
+  "copyChecklistFromTemplate": "Ellenőrzőlista másolása - Sablon",
+  "copyChecklistFromTemplatePopup-title": "Ellenőrzőlista másolása - Sablon",
   "edit-checklist-items-as-text": "Szerkesztés szövegként",
   "editChecklistItemsAsTextPopup-title": "Ellenőrzőlista elemeinek szerkesztése szövegként",
   "card-show-lists": "Kártya listáinak megjelenítése",

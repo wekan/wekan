@@ -1849,6 +1849,8 @@
   "originOrder": "ordine originale",
   "copyChecklist": "Còpia checklist",
   "copyChecklistPopup-title": "Còpia checklist",
+  "copyChecklistFromTemplate": "Còpia checklist - Mudello",
+  "copyChecklistFromTemplatePopup-title": "Còpia checklist - Mudello",
   "edit-checklist-items-as-text": "Cagna comme testo",
   "editChecklistItemsAsTextPopup-title": "Cagna 'e elemente d''a lista 'e controllo comme testo",
   "card-show-lists": "Mostra liste d' 'a carta",

@@ -1849,6 +1849,8 @@
   "originOrder": "ursprüngliche Reihenfolge",
   "copyChecklist": "Checkliste kopieren",
   "copyChecklistPopup-title": "Checkliste kopieren",
+  "copyChecklistFromTemplate": "Checkliste kopieren - Vorlage",
+  "copyChecklistFromTemplatePopup-title": "Checkliste kopieren - Vorlage",
   "edit-checklist-items-as-text": "mu'mey rur ghantaH",
   "editChecklistItemsAsTextPopup-title": "chek DIchvo' mu'mey rur ghantaH",
   "card-show-lists": "Listen anzeigen",

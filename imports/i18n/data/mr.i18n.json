@@ -1849,6 +1849,8 @@
   "originOrder": "मूळ क्रम",
   "copyChecklist": "तपासणीसूची कॉपी करा",
   "copyChecklistPopup-title": "तपासणीसूची कॉपी करा",
+  "copyChecklistFromTemplate": "तपासणीसूची कॉपी करा - साचा",
+  "copyChecklistFromTemplatePopup-title": "तपासणीसूची कॉपी करा - साचा",
   "edit-checklist-items-as-text": "मजकूर म्हणून संपादित करा",
   "editChecklistItemsAsTextPopup-title": "चेकलिस्ट आयटम मजकूर म्हणून संपादित करा",
   "card-show-lists": "कार्डावर याद्या दाखवा",

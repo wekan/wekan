@@ -1849,6 +1849,8 @@
   "originOrder": "umyalelo wokuqala",
   "copyChecklist": "Kopa Uluhlu lokukhangela",
   "copyChecklistPopup-title": "Kopa Uluhlu lokukhangela",
+  "copyChecklistFromTemplate": "Kopa Uluhlu lokukhangela - Isakhelo",
+  "copyChecklistFromTemplatePopup-title": "Kopa Uluhlu lokukhangela - Isakhelo",
   "edit-checklist-items-as-text": "Hlela njengombhalo",
   "editChecklistItemsAsTextPopup-title": "Hlela izinto zoluhlu lokujonga njengombhalo",
   "card-show-lists": "Izintlu zokuBonisa amakhadi",

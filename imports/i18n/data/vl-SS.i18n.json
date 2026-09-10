@@ -1849,6 +1849,8 @@
   "originOrder": "volgorde van invoeren",
   "copyChecklist": "Kopieer Checklist",
   "copyChecklistPopup-title": "Kopieer Checklist",
+  "copyChecklistFromTemplate": "Kopieer Checklist - Sjabloon",
+  "copyChecklistFromTemplatePopup-title": "Kopieer Checklist - Sjabloon",
   "edit-checklist-items-as-text": "Modifică ca text",
   "editChecklistItemsAsTextPopup-title": "Modifică elementili di lista di verificari ca text",
   "card-show-lists": "Kaart Toon Lijsten",

@@ -1849,6 +1849,8 @@
   "originOrder": "Tok blong sistem: original order",
   "copyChecklist": "Kopiem Jeklis",
   "copyChecklistPopup-title": "Kopiem Jeklis",
+  "copyChecklistFromTemplate": "Kopiem Jeklis - Templet",
+  "copyChecklistFromTemplatePopup-title": "Kopiem Jeklis - Templet",
   "edit-checklist-items-as-text": "Editim olsem tex",
   "editChecklistItemsAsTextPopup-title": "Editim ol checklist samting olsem tex",
   "card-show-lists": "Kad Show Ol lis",

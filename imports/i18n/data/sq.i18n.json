@@ -1849,6 +1849,8 @@
   "originOrder": "rendi origjinal",
   "copyChecklist": "Kopjo listën e kontrollit",
   "copyChecklistPopup-title": "Kopjo listën e kontrollit",
+  "copyChecklistFromTemplate": "Kopjo listën e kontrollit - Shabllon",
+  "copyChecklistFromTemplatePopup-title": "Kopjo listën e kontrollit - Shabllon",
   "edit-checklist-items-as-text": "Redakto si tekst",
   "editChecklistItemsAsTextPopup-title": "Redakto elementet e listës kontrolluese si tekst",
   "card-show-lists": "Listat e shfaqura në kartë",

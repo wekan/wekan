@@ -1849,6 +1849,8 @@
   "originOrder": "filaharana tany am-boalohany",
   "copyChecklist": "Adikao ny lisitra fanamarinana",
   "copyChecklistPopup-title": "Adikao ny lisitra fanamarinana",
+  "copyChecklistFromTemplate": "Adikao ny lisitra fanamarinana - Modely",
+  "copyChecklistFromTemplatePopup-title": "Adikao ny lisitra fanamarinana - Modely",
   "edit-checklist-items-as-text": "Ovay ho lahatsoratra",
   "editChecklistItemsAsTextPopup-title": "Ovay ho lahatsoratra ny singa ao amin'ny lisi-pandinihana",
   "card-show-lists": "Asehoy amin'ny karatra ny lisitra",

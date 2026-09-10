@@ -1849,6 +1849,8 @@
   "originOrder": "původní pořadí",
   "copyChecklist": "Kopírovat checklist",
   "copyChecklistPopup-title": "Kopírovat checklist",
+  "copyChecklistFromTemplate": "Kopírovat checklist - Šablona",
+  "copyChecklistFromTemplatePopup-title": "Kopírovat checklist - Šablona",
   "edit-checklist-items-as-text": "Upravit jako text",
   "editChecklistItemsAsTextPopup-title": "Upravit položky kontrolního seznamu jako text",
   "card-show-lists": "Karta zobrazuje seznamy",

@@ -1849,6 +1849,8 @@
   "originOrder": "मूल क्रम",
   "copyChecklist": "जाँचसूची कॉपी करू",
   "copyChecklistPopup-title": "जाँचसूची कॉपी करू",
+  "copyChecklistFromTemplate": "जाँचसूची कॉपी करू - टेम्पलेट",
+  "copyChecklistFromTemplatePopup-title": "जाँचसूची कॉपी करू - टेम्पलेट",
   "edit-checklist-items-as-text": "पाठ रूपमे संपादित करू",
   "editChecklistItemsAsTextPopup-title": "चेकलिस्ट आइटमकेँ पाठ रूपमे संपादित करू",
   "card-show-lists": "कार्डमे सूची देखाउ",

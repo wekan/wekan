@@ -1849,6 +1849,8 @@
   "originOrder": "анхны дараалал",
   "copyChecklist": "Шалгах хуудсыг хуулах",
   "copyChecklistPopup-title": "Шалгах хуудсыг хуулах",
+  "copyChecklistFromTemplate": "Шалгах хуудсыг хуулах - Загвар",
+  "copyChecklistFromTemplatePopup-title": "Шалгах хуудсыг хуулах - Загвар",
   "edit-checklist-items-as-text": "Текст болгон засах",
   "editChecklistItemsAsTextPopup-title": "Хяналтын жагсаалтын зүйлсийг текст болгон засах",
   "card-show-lists": "Картын жагсаалтуудыг харуулах",

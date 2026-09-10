@@ -20,6 +20,11 @@ import {
 } from '/imports/lib/dateUtils';
 import { dueDateClass } from '/client/lib/dueDateColor';
 import { subscribeDateNowTicker } from '/client/lib/dateNowTicker';
+import {
+  checklistItemsToText,
+  parseChecklistItemsText,
+  planChecklistItemsTextUpdate,
+} from '/models/lib/checklistItemsAsText';
 
 // SubsManager removed for Meteor 3 migration
 const { calculateIndexData } = Utils;
@@ -150,6 +155,9 @@ Template.checklists.helpers({
 
 Template.checklists.events({
   'click .js-open-checklist-details-menu': Popup.open('checklistActions'),
+  // #4017: apply/append a template card's checklists onto this already
+  // existing card, alongside whatever checklists it already has.
+  'click .js-copy-checklist-from-template': Popup.open('copyChecklistFromTemplate'),
   'submit .js-add-checklist'(event, tpl) {
     event.preventDefault();
     const textarea = tpl.find('textarea.js-add-checklist-item');
@@ -329,6 +337,7 @@ Template.checklistActionsPopup.helpers({
 
 Template.checklistActionsPopup.events({
   'click .js-export-checklist': Popup.open('exportChecklist'),
+  'click .js-edit-checklist-items-as-text': Popup.open('editChecklistItemsAsText'),
   'click .js-delete-checklist': Popup.afterConfirm('checklistDelete', function () {
     Popup.back(2);
     const checklist = this.checklist;
@@ -357,6 +366,60 @@ Template.checklistActionsPopup.events({
     // the first click do nothing while the board default was on (false -> true,
     // still shown) - reported by email.
     checklist.toggleShowChecklistAtMinicard(boardAllowsChecklistsOnMinicard(checklist));
+    Popup.back();
+  },
+});
+
+// #4218: bulk-edit a checklist's items as one multi-line text block.
+Template.editChecklistItemsAsTextPopup.helpers({
+  checklistItemsAsText() {
+    const checklist = this.checklist;
+    if (!checklist) return '';
+    const items = checklist.items ? checklist.items() : [];
+    return checklistItemsToText(items);
+  },
+});
+
+Template.editChecklistItemsAsTextPopup.onRendered(function () {
+  autosize(this.$('textarea.js-checklist-items-as-text'));
+});
+
+Template.editChecklistItemsAsTextPopup.events({
+  'click .js-cancel-checklist-items-as-text'(event) {
+    event.preventDefault();
+    Popup.back();
+  },
+  'submit .js-edit-checklist-items-as-text-form'(event, tpl) {
+    event.preventDefault();
+    const checklist = Template.currentData().checklist;
+    if (!checklist) return;
+    const textarea = tpl.find('textarea.js-checklist-items-as-text');
+    const parsedLines = parseChecklistItemsText(textarea.value);
+    const existingItems = (checklist.items ? checklist.items() : []).map(item => ({
+      _id: item._id,
+      title: item.title,
+    }));
+    const plan = planChecklistItemsTextUpdate(existingItems, parsedLines);
+
+    plan.keep.forEach(({ _id, sort, isFinished }) => {
+      ChecklistItems.updateAsync(_id, { $set: { sort, isFinished } });
+    });
+    plan.insert.forEach(({ title, isFinished, sort }) => {
+      ChecklistItems.insert({
+        title,
+        isFinished,
+        checklistId: checklist._id,
+        cardId: checklist.cardId,
+        sort,
+      });
+    });
+    plan.remove.forEach(_id => {
+      // #3252: see js-delete-checklist-item - avoid "Removed nonexistent document".
+      if (ChecklistItems.findOne(_id)) {
+        ChecklistItems.remove(_id);
+      }
+    });
+
     Popup.back();
   },
 });
@@ -637,3 +700,32 @@ Template.copyChecklistPopup.onCreated(function () {
   });
 });
 registerChecklistDialogEvents('copyChecklistPopup');
+
+/**
+ * Copy Checklist(s) From Template Card Dialog (#4017).
+ *
+ * Unlike "Copy Checklist" above (which copies ONE existing checklist FROM
+ * this card TO a chosen destination card), this picks a SOURCE card — a
+ * template card, or any other card — and APPENDS every one of its checklists
+ * onto THIS card, alongside whatever checklists this card already has. It
+ * reuses the same `Checklists.copy()` helper (via `copyAllFromCardToCard`),
+ * so the copy semantics (fresh ids, `.direct` inserts, board re-homing) are
+ * the same as every other checklist copy in the app — the only difference is
+ * that copied items always come in unchecked (`resetChecked`), since a
+ * template being applied should never pre-check its target.
+ */
+Template.copyChecklistFromTemplatePopup.onCreated(function () {
+  this.dialog = new BoardSwimlaneListCardDialog(this, {
+    getDialogOptions() {
+      return ReactiveCache.getCurrentUser().getCopyChecklistFromTemplateDialogOptions();
+    },
+    async setDone(sourceCardId, options) {
+      ReactiveCache.getCurrentUser().setCopyChecklistFromTemplateDialogOption(this.currentBoardId, options);
+      const targetCardId = Template.currentData().cardId;
+      if (sourceCardId && targetCardId) {
+        await Checklists.copyAllFromCardToCard(sourceCardId, targetCardId);
+      }
+    },
+  });
+});
+registerChecklistDialogEvents('copyChecklistFromTemplatePopup');

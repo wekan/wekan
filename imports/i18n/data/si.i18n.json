@@ -1849,6 +1849,8 @@
   "originOrder": "මුල් අනුපිළිවෙළ",
   "copyChecklist": "පිරික්සුම් ලැයිස්තුව පිටපත් කරන්න",
   "copyChecklistPopup-title": "පිරික්සුම් ලැයිස්තුව පිටපත් කරන්න",
+  "copyChecklistFromTemplate": "පිරික්සුම් ලැයිස්තුව පිටපත් කරන්න - අච්චුව",
+  "copyChecklistFromTemplatePopup-title": "පිරික්සුම් ලැයිස්තුව පිටපත් කරන්න - අච්චුව",
   "edit-checklist-items-as-text": "පෙළ ලෙස සංස්කරණය කරන්න",
   "editChecklistItemsAsTextPopup-title": "චෙක්ලිස්ට අයිතම පෙළ ලෙස සංස්කරණය කරන්න",
   "card-show-lists": "කාඩ්පතේ ලැයිස්තු පෙන්වන්න",

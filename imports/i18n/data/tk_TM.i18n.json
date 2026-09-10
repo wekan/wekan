@@ -1849,6 +1849,8 @@
   "originOrder": "asyl tertip",
   "copyChecklist": "Gözegçilik sanawyny göçüriň",
   "copyChecklistPopup-title": "Gözegçilik sanawyny göçüriň",
+  "copyChecklistFromTemplate": "Gözegçilik sanawyny göçüriň - Şablon",
+  "copyChecklistFromTemplatePopup-title": "Gözegçilik sanawyny göçüriň - Şablon",
   "edit-checklist-items-as-text": "Tekst hökmünde redaktirle",
   "editChecklistItemsAsTextPopup-title": "Barlag sanaw elementlerini tekst hökmünde redaktirle",
   "card-show-lists": "Kart görkeziş sanawlary",

@@ -1849,6 +1849,8 @@
   "originOrder": "исходный порядок",
   "copyChecklist": "Скопировать Чек-лист",
   "copyChecklistPopup-title": "Скопировать Чек-лист",
+  "copyChecklistFromTemplate": "Скопировать Чек-лист - Шаблон",
+  "copyChecklistFromTemplatePopup-title": "Скопировать Чек-лист - Шаблон",
   "edit-checklist-items-as-text": "Редактировать как текст",
   "editChecklistItemsAsTextPopup-title": "Редактировать элементы чек-листа как текст",
   "card-show-lists": "Просмотр списка карточек",

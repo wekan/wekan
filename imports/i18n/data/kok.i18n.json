@@ -1849,6 +1849,8 @@
   "originOrder": "मूळ क्रम",
   "copyChecklist": "तपास वळेरी नकल करात",
   "copyChecklistPopup-title": "तपास वळेरी नकल करात",
+  "copyChecklistFromTemplate": "तपास वळेरी नकल करात - नमुनो",
+  "copyChecklistFromTemplatePopup-title": "तपास वळेरी नकल करात - नमुनो",
   "edit-checklist-items-as-text": "टेक्स्ट म्हणून संपादित करा",
   "editChecklistItemsAsTextPopup-title": "चेकलिस्ट आयटम्स टेक्स्ट म्हणून संपादित करा",
   "card-show-lists": "कार्ड वळेरी दाखयात",

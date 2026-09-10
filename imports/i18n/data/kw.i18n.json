@@ -1849,6 +1849,8 @@
   "originOrder": "orden gwredhek",
   "copyChecklist": "Kopia rol checkya",
   "copyChecklistPopup-title": "Kopia rol checkya",
+  "copyChecklistFromTemplate": "Kopia rol checkya - Patron",
+  "copyChecklistFromTemplatePopup-title": "Kopia rol checkya - Patron",
   "edit-checklist-items-as-text": "Chanjya avel tekst",
   "editChecklistItemsAsTextPopup-title": "Chanjya taklennow an rol-restren avel tekst",
   "card-show-lists": "Karten a dhiskwedh rolyow",

@@ -1849,6 +1849,8 @@
   "originOrder": "ordine originale",
   "copyChecklist": "Copia checklist",
   "copyChecklistPopup-title": "Copia checklist",
+  "copyChecklistFromTemplate": "Copia checklist - Plantilla",
+  "copyChecklistFromTemplatePopup-title": "Copia checklist - Plantilla",
   "edit-checklist-items-as-text": "Editează ca text",
   "editChecklistItemsAsTextPopup-title": "Editează elementele listei de verificare ca text",
   "card-show-lists": "Mostrar Listas de Tarjetas",

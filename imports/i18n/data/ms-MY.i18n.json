@@ -1849,6 +1849,8 @@
   "originOrder": "aturan asal",
   "copyChecklist": "Salin Senarai Semak",
   "copyChecklistPopup-title": "Salin Senarai Semak",
+  "copyChecklistFromTemplate": "Salin Senarai Semak - Templat",
+  "copyChecklistFromTemplatePopup-title": "Salin Senarai Semak - Templat",
   "edit-checklist-items-as-text": "Edit sebagai teks",
   "editChecklistItemsAsTextPopup-title": "Edit item senarai semak sebagai teks",
   "card-show-lists": "Kad Tunjuk Senarai",

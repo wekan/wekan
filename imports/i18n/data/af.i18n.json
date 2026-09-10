@@ -1849,6 +1849,8 @@
   "originOrder": "oorspronklike bestelling",
   "copyChecklist": "Kopieer kontrolelys",
   "copyChecklistPopup-title": "Kopieer kontrolelys",
+  "copyChecklistFromTemplate": "Kopieer kontrolelys - Sjabloon",
+  "copyChecklistFromTemplatePopup-title": "Kopieer kontrolelys - Sjabloon",
   "edit-checklist-items-as-text": "Wysig as teks",
   "editChecklistItemsAsTextPopup-title": "Wysig kontrolelysitems as teks",
   "card-show-lists": "Kaart Wys lyste",

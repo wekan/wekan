@@ -1849,6 +1849,8 @@
   "originOrder": "aturan asal",
   "copyChecklist": "Salin Checklist",
   "copyChecklistPopup-title": "Salin Checklist",
+  "copyChecklistFromTemplate": "Salin Checklist - Klise",
+  "copyChecklistFromTemplatePopup-title": "Salin Checklist - Klise",
   "edit-checklist-items-as-text": "Edit sebagai teks",
   "editChecklistItemsAsTextPopup-title": "Edit item daftar periksa sebagai teks",
   "card-show-lists": "Kartu Tampilkan Daftar",

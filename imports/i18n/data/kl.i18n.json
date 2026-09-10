@@ -1849,6 +1849,8 @@
   "originOrder": "tulleriiaarneq siulleq",
   "copyChecklist": "Misissuiffiusoq kopieruk",
   "copyChecklistPopup-title": "Misissuiffiusoq kopieruk",
+  "copyChecklistFromTemplate": "Misissuiffiusoq kopieruk - Ilusilersuut",
+  "copyChecklistFromTemplatePopup-title": "Misissuiffiusoq kopieruk - Ilusilersuut",
   "edit-checklist-items-as-text": "Allattaaserlugu aaqqissuiuk",
   "editChecklistItemsAsTextPopup-title": "Nalunaarsuiffiup imai allattaaserlugit aaqqissuiuk",
   "card-show-lists": "Kortsip allattorsimaffinnik takutitsernera",

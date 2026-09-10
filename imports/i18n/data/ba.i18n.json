@@ -1849,6 +1849,8 @@
   "originOrder": "баштағы тәртип",
   "copyChecklist": "Тикшереү исемлеген күсермәләргә",
   "copyChecklistPopup-title": "Тикшереү исемлеген күсермәләргә",
+  "copyChecklistFromTemplate": "Тикшереү исемлеген күсермәләргә - Өлгө",
+  "copyChecklistFromTemplatePopup-title": "Тикшереү исемлеген күсермәләргә - Өлгө",
   "edit-checklist-items-as-text": "Текст булараҡ үҙгәртеү",
   "editChecklistItemsAsTextPopup-title": "Тикшереү исемлеге элементтарын текст булараҡ үҙгәртеү",
   "card-show-lists": "Карточкала исемлектәрҙе күрһәтергә",

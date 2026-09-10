@@ -1849,6 +1849,8 @@
   "originOrder": "Hi Xitsonga: mhaka mhaka",
   "copyChecklist": "kopisa nxaxamelo wo kambela",
   "copyChecklistPopup-title": "kopisa nxaxamelo wo kambela",
+  "copyChecklistFromTemplate": "kopisa nxaxamelo wo kambela - Xikombiso",
+  "copyChecklistFromTemplatePopup-title": "kopisa nxaxamelo wo kambela - Xikombiso",
   "edit-checklist-items-as-text": "Cinca tanihi tsalwa",
   "editChecklistItemsAsTextPopup-title": "Cinca swilo swa nxaxamelo wo kambela tanihi tsalwa",
   "card-show-lists": "khadi komba minxaxamelo",

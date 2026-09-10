@@ -1849,6 +1849,8 @@
   "originOrder": "originalus užsakymas",
   "copyChecklist": "Kopijuoti kontrolinį sąrašą",
   "copyChecklistPopup-title": "Kopijuoti kontrolinį sąrašą",
+  "copyChecklistFromTemplate": "Kopijuoti kontrolinį sąrašą - Šablonas",
+  "copyChecklistFromTemplatePopup-title": "Kopijuoti kontrolinį sąrašą - Šablonas",
   "edit-checklist-items-as-text": "Redaguoti kaip tekstą",
   "editChecklistItemsAsTextPopup-title": "Redaguoti kontrolinio sąrašo elementus kaip tekstą",
   "card-show-lists": "Kortelių rodymo sąrašai",

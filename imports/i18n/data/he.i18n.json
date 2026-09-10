@@ -1849,6 +1849,8 @@
   "originOrder": "סדר מקורי",
   "copyChecklist": "העתקת רשימת מטלות",
   "copyChecklistPopup-title": "העתקת רשימת מטלות",
+  "copyChecklistFromTemplate": "העתקת רשימת מטלות - תבנית",
+  "copyChecklistFromTemplatePopup-title": "העתקת רשימת מטלות - תבנית",
   "edit-checklist-items-as-text": "ערוך כטקסט",
   "editChecklistItemsAsTextPopup-title": "ערוך פריטי רשימת בדיקה כטקסט",
   "card-show-lists": "הצגת רשימות על הכרטיס",

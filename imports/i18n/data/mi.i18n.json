@@ -1849,6 +1849,8 @@
   "originOrder": "raupapa taketake",
   "copyChecklist": "Tārua Rārangi Arowhai",
   "copyChecklistPopup-title": "Tārua Rārangi Arowhai",
+  "copyChecklistFromTemplate": "Tārua Rārangi Arowhai - Papatauira",
+  "copyChecklistFromTemplatePopup-title": "Tārua Rārangi Arowhai - Papatauira",
   "edit-checklist-items-as-text": "Whakatika hei kuputuhi",
   "editChecklistItemsAsTextPopup-title": "Whakatika ngā tūemi rārangi tirotiro hei kuputuhi",
   "card-show-lists": "Whakaatu Rārangi Kāri",

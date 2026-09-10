@@ -1849,6 +1849,8 @@
   "originOrder": "изворни редослед",
   "copyChecklist": "Умножи списак",
   "copyChecklistPopup-title": "Умножи списак",
+  "copyChecklistFromTemplate": "Умножи списак - Образац",
+  "copyChecklistFromTemplatePopup-title": "Умножи списак - Образац",
   "edit-checklist-items-as-text": "Уреди као текст",
   "editChecklistItemsAsTextPopup-title": "Уреди ставке контролне листе као текст",
   "card-show-lists": "Део тока",

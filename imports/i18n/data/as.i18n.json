@@ -1849,6 +1849,8 @@
   "originOrder": "মূল ক্ৰম",
   "copyChecklist": "চেকলিষ্ট কপি কৰক",
   "copyChecklistPopup-title": "চেকলিষ্ট কপি কৰক",
+  "copyChecklistFromTemplate": "চেকলিষ্ট কপি কৰক - টেমপ্লেট",
+  "copyChecklistFromTemplatePopup-title": "চেকলিষ্ট কপি কৰক - টেমপ্লেট",
   "edit-checklist-items-as-text": "পাঠ হিচাপে সম্পাদনা কৰক",
   "editChecklistItemsAsTextPopup-title": "চেকলিষ্ট বস্তুবোৰ পাঠ হিচাপে সম্পাদনা কৰক",
   "card-show-lists": "কাৰ্ডত তালিকা দেখুৱাওক",

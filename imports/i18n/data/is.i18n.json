@@ -1849,6 +1849,8 @@
   "originOrder": "upprunaleg röð",
   "copyChecklist": "Afrita gátlista",
   "copyChecklistPopup-title": "Afrita gátlista",
+  "copyChecklistFromTemplate": "Afrita gátlista - Sniðmát",
+  "copyChecklistFromTemplatePopup-title": "Afrita gátlista - Sniðmát",
   "edit-checklist-items-as-text": "Breyta sem texta",
   "editChecklistItemsAsTextPopup-title": "Breyta gátlistaatriðum sem texta",
   "card-show-lists": "Spjald sýnir lista",

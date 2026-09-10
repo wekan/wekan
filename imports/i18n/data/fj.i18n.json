@@ -1849,6 +1849,8 @@
   "originOrder": "ituvatuva taumada",
   "copyChecklist": "Lavetaka na Lisi ni Vakadinadina",
   "copyChecklistPopup-title": "Lavetaka na Lisi ni Vakadinadina",
+  "copyChecklistFromTemplate": "Lavetaka na Lisi ni Vakadinadina - Ivakarau",
+  "copyChecklistFromTemplatePopup-title": "Lavetaka na Lisi ni Vakadinadina - Ivakarau",
   "edit-checklist-items-as-text": "Sasagataka me vosa vakavolatabu",
   "editChecklistItemsAsTextPopup-title": "Sasagataka na iyaya ni lisi ni dikeva me vosa vakavolatabu",
   "card-show-lists": "Kadi e Vakaraitaka na Lisi",

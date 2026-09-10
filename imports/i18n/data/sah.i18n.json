@@ -1849,6 +1849,8 @@
   "originOrder": "бастакы бэрээдэк",
   "copyChecklist": "Бэрэбиэркэ испииһэгин төгүллээ",
   "copyChecklistPopup-title": "Бэрэбиэркэ испииһэгин төгүллээ",
+  "copyChecklistFromTemplate": "Бэрэбиэркэ испииһэгин төгүллээ - Халыып",
+  "copyChecklistFromTemplatePopup-title": "Бэрэбиэркэ испииһэгин төгүллээ - Халыып",
   "edit-checklist-items-as-text": "Тиэкис курдук уларыт",
   "editChecklistItemsAsTextPopup-title": "Хонтуруол испииһэгин чинчилэрин тиэкис курдук уларыт",
   "card-show-lists": "Карточка испииһэктэри көрдөрүүтэ",

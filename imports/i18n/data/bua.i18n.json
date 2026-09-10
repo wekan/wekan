@@ -1849,6 +1849,8 @@
   "originOrder": "эхин эрэмбэ",
   "copyChecklist": "Шалгалтын жагсаалта хуулха",
   "copyChecklistPopup-title": "Шалгалтын жагсаалта хуулха",
+  "copyChecklistFromTemplate": "Шалгалтын жагсаалта хуулха - Загбар",
+  "copyChecklistFromTemplatePopup-title": "Шалгалтын жагсаалта хуулха - Загбар",
   "edit-checklist-items-as-text": "Текст болгон засаха",
   "editChecklistItemsAsTextPopup-title": "Шалгалтын жагсаалтын элементүүдые текст болгон засаха",
   "card-show-lists": "Карта жагсаалтануудые харуулха",

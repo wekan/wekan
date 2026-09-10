@@ -1849,6 +1849,8 @@
   "originOrder": "ئەسلى تەرتىپ",
   "copyChecklist": "تەكشۈرۈش تىزىملىكىنى كۆچۈرۈڭ",
   "copyChecklistPopup-title": "تەكشۈرۈش تىزىملىكىنى كۆچۈرۈڭ",
+  "copyChecklistFromTemplate": "تەكشۈرۈش تىزىملىكىنى كۆچۈرۈڭ - قېلىپ",
+  "copyChecklistFromTemplatePopup-title": "تەكشۈرۈش تىزىملىكىنى كۆچۈرۈڭ - قېلىپ",
   "edit-checklist-items-as-text": "تېكىست سۈپىتىدە تەھرىرلەش",
   "editChecklistItemsAsTextPopup-title": "تەكشۈرۈش تىزىملىكى تۈرلىرىنى تېكىست سۈپىتىدە تەھرىرلەش",
   "card-show-lists": "كارتا كۆرسىتىش تىزىملىكى",

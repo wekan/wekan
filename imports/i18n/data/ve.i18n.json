@@ -1849,6 +1849,8 @@
   "originOrder": "i-oda langempela",
   "copyChecklist": "Kopisha Uhlu Lokuhlola",
   "copyChecklistPopup-title": "Kopisha Uhlu Lokuhlola",
+  "copyChecklistFromTemplate": "Kopisha Uhlu Lokuhlola - Isifanekiso",
+  "copyChecklistFromTemplatePopup-title": "Kopisha Uhlu Lokuhlola - Isifanekiso",
   "edit-checklist-items-as-text": "Khwinisa sa mafhungo",
   "editChecklistItemsAsTextPopup-title": "Khwinisa zwithu zwa lutho lwa u tolo sa mafhungo",
   "card-show-lists": "Uhlu Lombukiso Wamakhadi",

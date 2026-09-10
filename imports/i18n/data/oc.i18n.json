@@ -1849,6 +1849,8 @@
   "originOrder": "ordre original",
   "copyChecklist": "Copier la check-list",
   "copyChecklistPopup-title": "Copier la check-list",
+  "copyChecklistFromTemplate": "Copier la check-list - Modèl",
+  "copyChecklistFromTemplatePopup-title": "Copier la check-list - Modèl",
   "edit-checklist-items-as-text": "Modificar coma tèxte",
   "editChecklistItemsAsTextPopup-title": "Modificar los elements de la lista de verificacion coma tèxte",
   "card-show-lists": "Afficher les listes sur la carte",

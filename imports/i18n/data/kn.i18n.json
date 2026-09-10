@@ -1849,6 +1849,8 @@
   "originOrder": "ಮೂಲ ಕ್ರಮ",
   "copyChecklist": "ಪರಿಶೀಲನಾ ಪಟ್ಟಿಯನ್ನು ನಕಲಿಸಿ",
   "copyChecklistPopup-title": "ಪರಿಶೀಲನಾ ಪಟ್ಟಿಯನ್ನು ನಕಲಿಸಿ",
+  "copyChecklistFromTemplate": "ಪರಿಶೀಲನಾ ಪಟ್ಟಿಯನ್ನು ನಕಲಿಸಿ - ಟೆಂಪ್ಲೇಟ್",
+  "copyChecklistFromTemplatePopup-title": "ಪರಿಶೀಲನಾ ಪಟ್ಟಿಯನ್ನು ನಕಲಿಸಿ - ಟೆಂಪ್ಲೇಟ್",
   "edit-checklist-items-as-text": "ಪಠ್ಯವಾಗಿ ಸಂಪಾದಿಸಿ",
   "editChecklistItemsAsTextPopup-title": "ಪರಿಶೀಲನಾಪಟ್ಟಿ ಐಟಂಗಳನ್ನು ಪಠ್ಯವಾಗಿ ಸಂಪಾದಿಸಿ",
   "card-show-lists": "ಕಾರ್ಡ್ ಪಟ್ಟಿಗಳನ್ನು ತೋರಿಸಿ",

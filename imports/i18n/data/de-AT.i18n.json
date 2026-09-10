@@ -1849,6 +1849,8 @@
   "originOrder": "ursprüngliche Reihenfolge",
   "copyChecklist": "Checkliste kopieren",
   "copyChecklistPopup-title": "Checkliste kopieren",
+  "copyChecklistFromTemplate": "Checkliste kopieren - Vorlage",
+  "copyChecklistFromTemplatePopup-title": "Checkliste kopieren - Vorlage",
   "edit-checklist-items-as-text": "Als Text bearbeiten",
   "editChecklistItemsAsTextPopup-title": "Checklistenelemente als Text bearbeiten",
   "card-show-lists": "Listen anzeigen",

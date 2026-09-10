@@ -1849,6 +1849,8 @@
   "originOrder": "lòd orijinal",
   "copyChecklist": "Kopye lis verifikasyon",
   "copyChecklistPopup-title": "Kopye lis verifikasyon",
+  "copyChecklistFromTemplate": "Kopye lis verifikasyon - Modèl",
+  "copyChecklistFromTemplatePopup-title": "Kopye lis verifikasyon - Modèl",
   "edit-checklist-items-as-text": "Modifye kòm tèks",
   "editChecklistItemsAsTextPopup-title": "Modifye eleman lis kontwòl yo kòm tèks",
   "card-show-lists": "Montre lis kat yo",

@@ -1849,6 +1849,8 @@
   "originOrder": "бастапқы рет",
   "copyChecklist": "Тексеру тізімін көшіру",
   "copyChecklistPopup-title": "Тексеру тізімін көшіру",
+  "copyChecklistFromTemplate": "Тексеру тізімін көшіру - Үлгі",
+  "copyChecklistFromTemplatePopup-title": "Тексеру тізімін көшіру - Үлгі",
   "edit-checklist-items-as-text": "Мәтін ретінде өңдеу",
   "editChecklistItemsAsTextPopup-title": "Тексеру тізімі элементтерін мәтін ретінде өңдеу",
   "card-show-lists": "Карточкада тізімдерді көрсету",

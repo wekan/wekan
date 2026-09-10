@@ -1849,6 +1849,8 @@
   "originOrder": "မူလအစီအစဉ်",
   "copyChecklist": "စစ်ဆေးရန်စာရင်း ကူးရန်",
   "copyChecklistPopup-title": "စစ်ဆေးရန်စာရင်း ကူးရန်",
+  "copyChecklistFromTemplate": "စစ်ဆေးရန်စာရင်း ကူးရန် - ပုံစံ",
+  "copyChecklistFromTemplatePopup-title": "စစ်ဆေးရန်စာရင်း ကူးရန် - ပုံစံ",
   "edit-checklist-items-as-text": "စာသားအဖြစ် တည်းဖြတ်ပါ",
   "editChecklistItemsAsTextPopup-title": "စစ်ဆေးရန်စာရင်းအချက်များကို စာသားအဖြစ်တည်းဖြတ်ပါ",
   "card-show-lists": "ကတ်တွင် စာရင်းများ ပြရန်",

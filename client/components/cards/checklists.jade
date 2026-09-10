@@ -31,6 +31,11 @@ template(name="checklists")
     else
       a.add-checklist.js-open-inlined-form(title="{{_ 'add-checklist'}}")
         i.fa.fa-plus
+    //- #4017: append a template card's checklists (and their items,
+      unchecked) onto this already-existing card, alongside whatever
+      checklists it already has.
+    a.copy-checklist-from-template.js-copy-checklist-from-template(title="{{_ 'copyChecklistFromTemplate'}}")
+      i.fa.fa-clone
 
 template(name="checklistDetail")
   .js-checklist.checklist.nodragscroll
@@ -182,6 +187,9 @@ template(name="checklistActionsPopup")
       a.js-export-checklist
         i.fa.fa-exchange
         | {{_ 'export'}} / {{_ 'import'}} ...
+      a.js-edit-checklist-items-as-text
+        i.fa.fa-align-left
+        | {{_ 'edit-checklist-items-as-text'}} ...
   hr
   ul.pop-over-list
     li
@@ -232,6 +240,13 @@ template(name="copyChecklistPopup")
 template(name="moveChecklistPopup")
   +copyAndMoveChecklist
 
+//- #4017: pick a source (e.g. template) card whose checklists - all of them,
+  with their items unchecked - are appended onto the current card's existing
+  checklists. Reuses the same board/swimlane/list/card picker as Move/Copy
+  Checklist above; only what "done" does differs (see checklists.js).
+template(name="copyChecklistFromTemplatePopup")
+  +copyAndMoveChecklist
+
 template(name="copyAndMoveChecklist")
   unless currentUser.isWorker
     label {{_ 'boards'}}:
@@ -266,3 +281,14 @@ template(name="checklistItemDueDate")
 
 template(name="editChecklistItemDueDatePopup")
   +editDateForm(showDate=showDate showTime=showTime error=error datePicker=datePicker)
+
+//- #4218: bulk-edit a checklist's items as one multi-line text block, one
+  item per line, `[x]`/`[ ]` marking checked/unchecked - so reordering,
+  copying between checklists/cards and bulk edits are paste/cut/type instead
+  of a click-drag or a click-edit-save per item.
+template(name="editChecklistItemsAsTextPopup")
+  form.js-edit-checklist-items-as-text-form
+    textarea.js-checklist-items-as-text(rows='10' autofocus)= checklistItemsAsText
+    .edit-controls.clearfix
+      button.primary.confirm(type="submit") {{_ 'save'}}
+      a.fa.fa-times-thin.js-cancel-checklist-items-as-text(title="{{_ 'close-edit-checklist-item'}}")

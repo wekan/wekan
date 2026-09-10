@@ -1849,6 +1849,8 @@
   "originOrder": "ordine originale",
   "copyChecklist": "Copia checklist",
   "copyChecklistPopup-title": "Copia checklist",
+  "copyChecklistFromTemplate": "Copia checklist - Model",
+  "copyChecklistFromTemplatePopup-title": "Copia checklist - Model",
   "edit-checklist-items-as-text": "Modifitgar sco text",
   "editChecklistItemsAsTextPopup-title": "Modifitgar ils elements da la glista da controlla sco text",
   "card-show-lists": "Mussar liste da la carta",

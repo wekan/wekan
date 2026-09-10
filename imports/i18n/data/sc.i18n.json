@@ -1849,6 +1849,8 @@
   "originOrder": "ordine originale",
   "copyChecklist": "Copia checklist",
   "copyChecklistPopup-title": "Copia checklist",
+  "copyChecklistFromTemplate": "Copia checklist - Modellu",
+  "copyChecklistFromTemplatePopup-title": "Copia checklist - Modellu",
   "edit-checklist-items-as-text": "Modifica comente testu",
   "editChecklistItemsAsTextPopup-title": "Modifica is elementos de sa lista de controllu comente testu",
   "card-show-lists": "Mostra liste de sa carta",

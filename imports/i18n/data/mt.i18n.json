@@ -1849,6 +1849,8 @@
   "originOrder": "Traduzzjoni Maltija: original order",
   "copyChecklist": "Ikkopja Lista ta’ kontroll",
   "copyChecklistPopup-title": "Ikkopja Lista ta’ kontroll",
+  "copyChecklistFromTemplate": "Ikkopja Lista ta’ kontroll - Mudell",
+  "copyChecklistFromTemplatePopup-title": "Ikkopja Lista ta’ kontroll - Mudell",
   "edit-checklist-items-as-text": "Editja bħala test",
   "editChecklistItemsAsTextPopup-title": "Editja l-elementi tal-lista ta' verifika bħala test",
   "card-show-lists": "Kard Uri Listi",

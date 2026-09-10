@@ -1849,6 +1849,8 @@
   "originOrder": "ordine originale",
   "copyChecklist": "Copia checklist",
   "copyChecklistPopup-title": "Copia checklist",
+  "copyChecklistFromTemplate": "Copia checklist - Model",
+  "copyChecklistFromTemplatePopup-title": "Copia checklist - Model",
   "edit-checklist-items-as-text": "Modifică ca text",
   "editChecklistItemsAsTextPopup-title": "Modifică elementili di lista di verificari ca text",
   "card-show-lists": "Mostrar Listas di Tarjetas",

@@ -1849,6 +1849,8 @@
   "originOrder": "aturan asal",
   "copyChecklist": "Sao chép checklist",
   "copyChecklistPopup-title": "Sao chép checklist",
+  "copyChecklistFromTemplate": "Sao chép checklist - Mẫu",
+  "copyChecklistFromTemplatePopup-title": "Sao chép checklist - Mẫu",
   "edit-checklist-items-as-text": "Chỉnh sửa dưới dạng văn bản",
   "editChecklistItemsAsTextPopup-title": "Chỉnh sửa các mục danh sách kiểm tra dưới dạng văn bản",
   "card-show-lists": "Thẻ hiển thị danh sách",

@@ -1849,6 +1849,8 @@
   "originOrder": "اصلی ترتیب",
   "copyChecklist": "چیک لسٹ نقل کریو",
   "copyChecklistPopup-title": "چیک لسٹ نقل کریو",
+  "copyChecklistFromTemplate": "چیک لسٹ نقل کریو - خاکہ",
+  "copyChecklistFromTemplatePopup-title": "چیک لسٹ نقل کریو - خاکہ",
   "edit-checklist-items-as-text": "متن طور تہٕ ترمیم کریو",
   "editChecklistItemsAsTextPopup-title": "چیک لسٹ آئٹم متن طور تہٕ ترمیم کریو",
   "card-show-lists": "کارڈ فہرست ہٲویو",

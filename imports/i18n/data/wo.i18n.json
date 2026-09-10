@@ -1849,6 +1849,8 @@
   "originOrder": "ordre original",
   "copyChecklist": "Copier la checklist",
   "copyChecklistPopup-title": "Copier la checklist",
+  "copyChecklistFromTemplate": "Copier la checklist - Modèle",
+  "copyChecklistFromTemplatePopup-title": "Copier la checklist - Modèle",
   "edit-checklist-items-as-text": "Soppi ni bataaxal",
   "editChecklistItemsAsTextPopup-title": "Soppi yëf yu lëkkalekaay wu seetlu ni bataaxal",
   "card-show-lists": "Afficher les listes sur la carte",

@@ -1849,6 +1849,8 @@
   "originOrder": "alkuperäinen järjestys",
   "copyChecklist": "Kopioi tarkistuslista",
   "copyChecklistPopup-title": "Kopioi tarkistuslista",
+  "copyChecklistFromTemplate": "Kopioi tarkistuslista - Malli",
+  "copyChecklistFromTemplatePopup-title": "Kopioi tarkistuslista - Malli",
   "edit-checklist-items-as-text": "Khwinisa sa mafhungo",
   "editChecklistItemsAsTextPopup-title": "Khwinisa zwithu zwa lutho lwa u tolo sa mafhungo",
   "card-show-lists": "Näytä listat kortilla",

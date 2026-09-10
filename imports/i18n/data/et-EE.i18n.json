@@ -1849,6 +1849,8 @@
   "originOrder": "algne järjekord",
   "copyChecklist": "Kopeeri kontrollnimekiri",
   "copyChecklistPopup-title": "Kopeeri kontrollnimekiri",
+  "copyChecklistFromTemplate": "Kopeeri kontrollnimekiri - Mall",
+  "copyChecklistFromTemplatePopup-title": "Kopeeri kontrollnimekiri - Mall",
   "edit-checklist-items-as-text": "Muuda tekstina",
   "editChecklistItemsAsTextPopup-title": "Muuda kontrollnimekirja üksuseid tekstina",
   "card-show-lists": "Kaart – näita nimekirju",

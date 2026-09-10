@@ -1849,6 +1849,8 @@
   "originOrder": "малтанхи йӗрке",
   "copyChecklist": "Тӗрӗслев списокне копилес",
   "copyChecklistPopup-title": "Тӗрӗслев списокне копилес",
+  "copyChecklistFromTemplate": "Тӗрӗслев списокне копилес - Тӗслӗх",
+  "copyChecklistFromTemplatePopup-title": "Тӗрӗслев списокне копилес - Тӗслӗх",
   "edit-checklist-items-as-text": "Текст пек тӳрлетмелле",
   "editChecklistItemsAsTextPopup-title": "Тӗрӗслев списокӗн элеменчӗсене текст пек тӳрлетмелле",
   "card-show-lists": "Карточка списоксене кӑтартать",

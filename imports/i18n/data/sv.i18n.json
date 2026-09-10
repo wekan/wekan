@@ -1849,6 +1849,8 @@
   "originOrder": "ursprunglig ordning",
   "copyChecklist": "Kopiera checklista",
   "copyChecklistPopup-title": "Kopiera checklista",
+  "copyChecklistFromTemplate": "Kopiera checklista - Mall",
+  "copyChecklistFromTemplatePopup-title": "Kopiera checklista - Mall",
   "edit-checklist-items-as-text": "Redigera som text",
   "editChecklistItemsAsTextPopup-title": "Redigera checklisteobjekt som text",
   "card-show-lists": "Visa listor på kort",

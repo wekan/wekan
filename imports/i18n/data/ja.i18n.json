@@ -1849,6 +1849,8 @@
   "originOrder": "元のオーダ",
   "copyChecklist": "チェックリストをコピー",
   "copyChecklistPopup-title": "チェックリストをコピー",
+  "copyChecklistFromTemplate": "チェックリストをコピー - テンプレート",
+  "copyChecklistFromTemplatePopup-title": "チェックリストをコピー - テンプレート",
   "edit-checklist-items-as-text": "テキストとして編集",
   "editChecklistItemsAsTextPopup-title": "チェックリスト項目をテキストとして編集",
   "card-show-lists": "カードにリストを表示",

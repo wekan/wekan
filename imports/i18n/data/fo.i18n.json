@@ -1849,6 +1849,8 @@
   "originOrder": "upprunalig raðfylgja",
   "copyChecklist": "Avrita kanningarlista",
   "copyChecklistPopup-title": "Avrita kanningarlista",
+  "copyChecklistFromTemplate": "Avrita kanningarlista - Formur",
+  "copyChecklistFromTemplatePopup-title": "Avrita kanningarlista - Formur",
   "edit-checklist-items-as-text": "Rætta sum tekst",
   "editChecklistItemsAsTextPopup-title": "Rætta sjekklistuliðir sum tekst",
   "card-show-lists": "Vís listar á korti",

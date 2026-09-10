@@ -1849,6 +1849,8 @@
   "originOrder": "ordine originale",
   "copyChecklist": "Copia checklist",
   "copyChecklistPopup-title": "Copia checklist",
+  "copyChecklistFromTemplate": "Copia checklist - Plantilla",
+  "copyChecklistFromTemplatePopup-title": "Copia checklist - Plantilla",
   "edit-checklist-items-as-text": "Khwinisa sa mafhungo",
   "editChecklistItemsAsTextPopup-title": "Khwinisa zwithu zwa lutho lwa u tolo sa mafhungo",
   "card-show-lists": "Mostrar Listas de Tarjetas",

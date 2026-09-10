@@ -1849,6 +1849,8 @@
   "originOrder": "原始订单",
   "copyChecklist": "复制清单",
   "copyChecklistPopup-title": "复制清单",
+  "copyChecklistFromTemplate": "复制清单 - 模板",
+  "copyChecklistFromTemplatePopup-title": "复制清单 - 模板",
   "edit-checklist-items-as-text": "编辑为文本",
   "editChecklistItemsAsTextPopup-title": "将检查清单项目编辑为文本",
   "card-show-lists": "卡片展示列表",

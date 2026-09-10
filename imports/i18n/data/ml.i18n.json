@@ -1849,6 +1849,8 @@
   "originOrder": "യഥാർത്ഥ ക്രമം",
   "copyChecklist": "ചെക്ക്‌ലിസ്റ്റ് പകർത്തുക",
   "copyChecklistPopup-title": "ചെക്ക്‌ലിസ്റ്റ് പകർത്തുക",
+  "copyChecklistFromTemplate": "ചെക്ക്‌ലിസ്റ്റ് പകർത്തുക - ടെംപ്ലേറ്റ്",
+  "copyChecklistFromTemplatePopup-title": "ചെക്ക്‌ലിസ്റ്റ് പകർത്തുക - ടെംപ്ലേറ്റ്",
   "edit-checklist-items-as-text": "വാചകമായി എഡിറ്റ് ചെയ്യുക",
   "editChecklistItemsAsTextPopup-title": "ചെക്ക്‌ലിസ്റ്റ് ഇനങ്ങൾ വാചകമായി എഡിറ്റ് ചെയ്യുക",
   "card-show-lists": "കാർഡ് കാണിക്കുന്ന പട്ടികകൾ",

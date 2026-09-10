@@ -1849,6 +1849,8 @@
   "originOrder": "原始排序",
   "copyChecklist": "複製檢查清單",
   "copyChecklistPopup-title": "複製檢查清單",
+  "copyChecklistFromTemplate": "複製檢查清單 - 範本",
+  "copyChecklistFromTemplatePopup-title": "複製檢查清單 - 範本",
   "edit-checklist-items-as-text": "編輯為文字",
   "editChecklistItemsAsTextPopup-title": "將檢查清單項目編輯為文字",
   "card-show-lists": "卡片顯示清單",

@@ -1849,6 +1849,8 @@
   "originOrder": "original buyurtma",
   "copyChecklist": "Tekshirish roʻyxatini nusxalash",
   "copyChecklistPopup-title": "Tekshirish roʻyxatini nusxalash",
+  "copyChecklistFromTemplate": "Tekshirish roʻyxatini nusxalash - Shablon",
+  "copyChecklistFromTemplatePopup-title": "Tekshirish roʻyxatini nusxalash - Shablon",
   "edit-checklist-items-as-text": "Matn sifatida tahrirlash",
   "editChecklistItemsAsTextPopup-title": "Nazorat ro'yxati elementlarini matn sifatida tahrirlash",
   "card-show-lists": "Karta ko'rsatish ro'yxatlari",

@@ -1849,6 +1849,8 @@
   "originOrder": "ordine originale",
   "copyChecklist": "Copia checklist",
   "copyChecklistPopup-title": "Copia checklist",
+  "copyChecklistFromTemplate": "Copia checklist - Model",
+  "copyChecklistFromTemplatePopup-title": "Copia checklist - Model",
   "edit-checklist-items-as-text": "Modifiché coche test",
   "editChecklistItemsAsTextPopup-title": "Modifiché i elemenc dla lista de controlo coche test",
   "card-show-lists": "Mostra liste dla ciarta",

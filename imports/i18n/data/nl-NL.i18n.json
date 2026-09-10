@@ -1849,6 +1849,8 @@
   "originOrder": "volgorde van invoeren",
   "copyChecklist": "Kopieer Checklist",
   "copyChecklistPopup-title": "Kopieer Checklist",
+  "copyChecklistFromTemplate": "Kopieer Checklist - Sjabloon",
+  "copyChecklistFromTemplatePopup-title": "Kopieer Checklist - Sjabloon",
   "edit-checklist-items-as-text": "Bewerken als tekst",
   "editChecklistItemsAsTextPopup-title": "Controlelijstitems als tekst bewerken",
   "card-show-lists": "Kaart Toon Lijsten",

@@ -1849,6 +1849,8 @@
   "originOrder": "օրիգինալ պատվեր",
   "copyChecklist": "Պատճենել ստուգաթերթը",
   "copyChecklistPopup-title": "Պատճենել ստուգաթերթը",
+  "copyChecklistFromTemplate": "Պատճենել ստուգաթերթը - Կաղապար",
+  "copyChecklistFromTemplatePopup-title": "Պատճենել ստուգաթերթը - Կաղապար",
   "edit-checklist-items-as-text": "Խմբագրել որպես տեքստ",
   "editChecklistItemsAsTextPopup-title": "Խմբագրել ստուգաթերթի տարրերը որպես տեքստ",
   "card-show-lists": "Քարտերի ցուցադրման ցուցակներ",

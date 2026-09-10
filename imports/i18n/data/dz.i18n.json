@@ -1849,6 +1849,8 @@
   "originOrder": "ཐོག་མའི་གོ་རིམ།",
   "copyChecklist": "ཞིབ་ཐོ་འདྲ་བཤུས།",
   "copyChecklistPopup-title": "ཞིབ་ཐོ་འདྲ་བཤུས།",
+  "copyChecklistFromTemplate": "ཞིབ་ཐོ་འདྲ་བཤུས། - དཔེ་གཞི།",
+  "copyChecklistFromTemplatePopup-title": "ཞིབ་ཐོ་འདྲ་བཤུས། - དཔེ་གཞི།",
   "edit-checklist-items-as-text": "ཚིག་ཡིག་བཟུམ་སྦེ་ཞུན་དག",
   "editChecklistItemsAsTextPopup-title": "ཞིབ་དཔྱད་ཐོ་བཀོད་ཀྱི་ཆ་ཤས་ཚུ་ཚིག་ཡིག་བཟུམ་སྦེ་ཞུན་དག",
   "card-show-lists": "ཤོག་བྱང་ཐོ་གཞུང་སྟོན།",

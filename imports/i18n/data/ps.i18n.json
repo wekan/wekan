@@ -1849,6 +1849,8 @@
   "originOrder": "اصلي ترتيب",
   "copyChecklist": "کتنليک کاپي کړئ",
   "copyChecklistPopup-title": "کتنليک کاپي کړئ",
+  "copyChecklistFromTemplate": "کتنليک کاپي کړئ - کينډۍ",
+  "copyChecklistFromTemplatePopup-title": "کتنليک کاپي کړئ - کينډۍ",
   "edit-checklist-items-as-text": "د متن په توګه سمول",
   "editChecklistItemsAsTextPopup-title": "د چک لست توکي د متن په توګه سمول",
   "card-show-lists": "په کارت کې لړليکونه وښيئ",

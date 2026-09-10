@@ -1849,6 +1849,8 @@
   "originOrder": "pierwotna kolejność",
   "copyChecklist": "Kopiuj checklistę",
   "copyChecklistPopup-title": "Kopiuj checklistę",
+  "copyChecklistFromTemplate": "Kopiuj checklistę - Szablon",
+  "copyChecklistFromTemplatePopup-title": "Kopiuj checklistę - Szablon",
   "edit-checklist-items-as-text": "Edytuj jako tekst",
   "editChecklistItemsAsTextPopup-title": "Edytuj elementy listy kontrolnej jako tekst",
   "card-show-lists": "Pokaż listy na karcie",

@@ -1849,6 +1849,8 @@
   "originOrder": "jatorrizko ordena",
   "copyChecklist": "Kopiatu kontrol zerrrenda",
   "copyChecklistPopup-title": "Kopiatu kontrol zerrenda",
+  "copyChecklistFromTemplate": "Kopiatu kontrol zerrrenda - Txantiloia",
+  "copyChecklistFromTemplatePopup-title": "Kopiatu kontrol zerrrenda - Txantiloia",
   "edit-checklist-items-as-text": "Editatu testu gisa",
   "editChecklistItemsAsTextPopup-title": "Editatu egiaztapen-zerrendako elementuak testu gisa",
   "card-show-lists": "Aurkezpen zerrenden txartelak",

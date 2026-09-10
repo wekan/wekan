@@ -1849,6 +1849,8 @@
   "originOrder": "মূল ক্রম",
   "copyChecklist": "যাচাইতালিকা অনুলিপি করুন",
   "copyChecklistPopup-title": "যাচাইতালিকা অনুলিপি করুন",
+  "copyChecklistFromTemplate": "যাচাইতালিকা অনুলিপি করুন - টেমপ্লেট",
+  "copyChecklistFromTemplatePopup-title": "যাচাইতালিকা অনুলিপি করুন - টেমপ্লেট",
   "edit-checklist-items-as-text": "টেক্সট হিসাবে সম্পাদনা করুন",
   "editChecklistItemsAsTextPopup-title": "চেকলিস্ট আইটেমগুলি টেক্সট হিসাবে সম্পাদনা করুন",
   "card-show-lists": "কার্ডে তালিকা দেখান",

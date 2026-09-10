@@ -1849,6 +1849,8 @@
   "originOrder": "original pagkakasunod-sunod",
   "copyChecklist": "Kopyahin tsek-listahanahan",
   "copyChecklistPopup-title": "Kopyahin tsek-listahanahan",
+  "copyChecklistFromTemplate": "Kopyahin tsek-listahanahan - template",
+  "copyChecklistFromTemplatePopup-title": "Kopyahin tsek-listahanahan - template",
   "edit-checklist-items-as-text": "I-edit bilang teksto",
   "editChecklistItemsAsTextPopup-title": "I-edit ang mga item ng checklist bilang teksto",
   "card-show-lists": "kard Ipakita listahans",

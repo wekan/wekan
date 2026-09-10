@@ -1849,6 +1849,8 @@
   "originOrder": "Latine: original order",
   "copyChecklist": "Latine: Copia index probationis",
   "copyChecklistPopup-title": "Latine: Copia index probationis",
+  "copyChecklistFromTemplate": "Latine: Copia index probationis - Exemplar",
+  "copyChecklistFromTemplatePopup-title": "Latine: Copia index probationis - Exemplar",
   "edit-checklist-items-as-text": "Ut textum recensere",
   "editChecklistItemsAsTextPopup-title": "Res indicis inspectionis ut textum recensere",
   "card-show-lists": "Latine: Scheda Monstra Indices",

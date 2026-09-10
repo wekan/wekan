@@ -1849,6 +1849,8 @@
   "originOrder": "orden original",
   "copyChecklist": "Copiar Lista de Tareas",
   "copyChecklistPopup-title": "Copiar Lista de Tareas",
+  "copyChecklistFromTemplate": "Copiar Lista de Tareas - Plantilla",
+  "copyChecklistFromTemplatePopup-title": "Copiar Lista de Tareas - Plantilla",
   "edit-checklist-items-as-text": "Redakti kiel tekston",
   "editChecklistItemsAsTextPopup-title": "Redakti la kontrolliston-elementojn kiel tekston",
   "card-show-lists": "Mostrar Listas de Tarjetas",

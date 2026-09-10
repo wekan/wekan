@@ -1849,6 +1849,8 @@
   "originOrder": "орижинал сыра",
   "copyChecklist": "Контрол исемлексини Копйала",
   "copyChecklistPopup-title": "Контрол исемлексини Копйала",
+  "copyChecklistFromTemplate": "Контрол исемлексини Копйала - Үрнәк",
+  "copyChecklistFromTemplatePopup-title": "Контрол исемлексини Копйала - Үрнәк",
   "edit-checklist-items-as-text": "Текст итеп үзгәртү",
   "editChecklistItemsAsTextPopup-title": "Тикшерү исемлеге элементларын текст итеп үзгәртү",
   "card-show-lists": "карточка Гөстери исемлеклери",

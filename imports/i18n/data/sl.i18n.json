@@ -1849,6 +1849,8 @@
   "originOrder": "изворни редослед",
   "copyChecklist": "Умножи списак",
   "copyChecklistPopup-title": "Умножи списак",
+  "copyChecklistFromTemplate": "Умножи списак - Predloga",
+  "copyChecklistFromTemplatePopup-title": "Умножи списак - Predloga",
   "edit-checklist-items-as-text": "Uredi kot besedilo",
   "editChecklistItemsAsTextPopup-title": "Uredi elemente kontrolnega seznama kot besedilo",
   "card-show-lists": "Избор дела поступка",

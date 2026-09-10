@@ -1849,6 +1849,8 @@
   "originOrder": "ordre original",
   "copyChecklist": "Copia el checklist",
   "copyChecklistPopup-title": "Copia el checklist",
+  "copyChecklistFromTemplate": "Copia el checklist - Plantilla",
+  "copyChecklistFromTemplatePopup-title": "Copia el checklist - Plantilla",
   "edit-checklist-items-as-text": "Edita com a text",
   "editChecklistItemsAsTextPopup-title": "Edita els elements de la llista de verificació com a text",
   "card-show-lists": "Llistes de mostres de fitxes",

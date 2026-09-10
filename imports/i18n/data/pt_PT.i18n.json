@@ -1849,6 +1849,8 @@
   "originOrder": "ordem original",
   "copyChecklist": "Copiar Lista de verificação",
   "copyChecklistPopup-title": "Copiar Lista de verificação",
+  "copyChecklistFromTemplate": "Copiar Lista de verificação - Modelo",
+  "copyChecklistFromTemplatePopup-title": "Copiar Lista de verificação - Modelo",
   "edit-checklist-items-as-text": "Editar como texto",
   "editChecklistItemsAsTextPopup-title": "Editar itens da lista de verificação como texto",
   "card-show-lists": "Cartão mostra listas",

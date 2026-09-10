@@ -1849,6 +1849,8 @@
   "originOrder": "orijinal sıra",
   "copyChecklist": "Kontrol Listesini Kopyala",
   "copyChecklistPopup-title": "Kontrol Listesini Kopyala",
+  "copyChecklistFromTemplate": "Kontrol Listesini Kopyala - Şablon",
+  "copyChecklistFromTemplatePopup-title": "Kontrol Listesini Kopyala - Şablon",
   "edit-checklist-items-as-text": "Metin olarak düzenle",
   "editChecklistItemsAsTextPopup-title": "Kontrol listesi öğelerini metin olarak düzenle",
   "card-show-lists": "Kart Gösteri Listeleri",

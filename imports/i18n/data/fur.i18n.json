@@ -1849,6 +1849,8 @@
   "originOrder": "ordine originale",
   "copyChecklist": "Copie checklist",
   "copyChecklistPopup-title": "Copie checklist",
+  "copyChecklistFromTemplate": "Copie checklist - Model",
+  "copyChecklistFromTemplatePopup-title": "Copie checklist - Model",
   "edit-checklist-items-as-text": "Modifiche come test",
   "editChecklistItemsAsTextPopup-title": "Modifiche i elements de liste di control come test",
   "card-show-lists": "Mostre liste de cjarte",

@@ -1849,6 +1849,8 @@
   "originOrder": "orihinal nga han-ay",
   "copyChecklist": "Kopyaha an Checklist",
   "copyChecklistPopup-title": "Kopyaha an Checklist",
+  "copyChecklistFromTemplate": "Kopyaha an Checklist - Modèle",
+  "copyChecklistFromTemplatePopup-title": "Kopyaha an Checklist - Modèle",
   "edit-checklist-items-as-text": "Candjî come tecse",
   "editChecklistItemsAsTextPopup-title": "Candjî lès pîces del djivêye di verifiaedje come tecse",
   "card-show-lists": "Ipakita han Card an mga Lista",

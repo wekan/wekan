@@ -1838,6 +1838,8 @@
   "originOrder": "original order",
   "copyChecklist": "Copy Checklist",
   "copyChecklistPopup-title": "Copy Checklist",
+  "copyChecklistFromTemplate": "Copy Checklist From Template",
+  "copyChecklistFromTemplatePopup-title": "Copy Checklist From Template",
   "edit-checklist-items-as-text": "Edit as text",
   "editChecklistItemsAsTextPopup-title": "Edit checklist items as text",
   "card-show-lists": "Card Show Lists",

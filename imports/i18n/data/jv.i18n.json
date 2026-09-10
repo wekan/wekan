@@ -1849,6 +1849,8 @@
   "originOrder": "urutan asli",
   "copyChecklist": "Salin Dhaptar Priksa",
   "copyChecklistPopup-title": "Salin Dhaptar Priksa",
+  "copyChecklistFromTemplate": "Salin Dhaptar Priksa - Cithakan",
+  "copyChecklistFromTemplatePopup-title": "Salin Dhaptar Priksa - Cithakan",
   "edit-checklist-items-as-text": "Sunting minangka teks",
   "editChecklistItemsAsTextPopup-title": "Sunting item checklist minangka teks",
   "card-show-lists": "Kertu Nampilake Dhaptar",

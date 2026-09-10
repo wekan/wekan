@@ -1849,6 +1849,8 @@
   "originOrder": "የመጀመሪያው ቅደም ተከተል",
   "copyChecklist": "የማረጋገጫ ዝርዝሩን ቅዳ",
   "copyChecklistPopup-title": "የማረጋገጫ ዝርዝሩን ቅዳ",
+  "copyChecklistFromTemplate": "የማረጋገጫ ዝርዝሩን ቅዳ - አብነት",
+  "copyChecklistFromTemplatePopup-title": "የማረጋገጫ ዝርዝሩን ቅዳ - አብነት",
   "edit-checklist-items-as-text": "እንደ ጽሑፍ አርትዕ",
   "editChecklistItemsAsTextPopup-title": "የማረጋገጫ ዝርዝር ንጥሎችን እንደ ጽሑፍ አርትዕ",
   "card-show-lists": "ካርድ ዝርዝሮችን ያሳያል",

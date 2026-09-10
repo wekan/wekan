@@ -1849,6 +1849,8 @@
   "originOrder": "ord bunaidh",
   "copyChecklist": "Cóipeáil Seicliosta",
   "copyChecklistPopup-title": "Cóipeáil Seicliosta",
+  "copyChecklistFromTemplate": "Cóipeáil Seicliosta - Teimpléad",
+  "copyChecklistFromTemplatePopup-title": "Cóipeáil Seicliosta - Teimpléad",
   "edit-checklist-items-as-text": "Cuir in eagar mar théacs",
   "editChecklistItemsAsTextPopup-title": "Cuir in eagar míreanna an tseiceliosta mar théacs",
   "card-show-lists": "Taispeáin Liostaí ar Chárta",

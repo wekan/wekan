@@ -1849,6 +1849,8 @@
   "originOrder": "opprinnelig rekkefølge",
   "copyChecklist": "Kopier sjekkliste",
   "copyChecklistPopup-title": "Kopier sjekkliste",
+  "copyChecklistFromTemplate": "Kopier sjekkliste - Mal",
+  "copyChecklistFromTemplatePopup-title": "Kopier sjekkliste - Mal",
   "edit-checklist-items-as-text": "Rediger som tekst",
   "editChecklistItemsAsTextPopup-title": "Rediger sjekklisteelementer som tekst",
   "card-show-lists": "Vis liste over kort",

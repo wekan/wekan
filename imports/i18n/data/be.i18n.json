@@ -1849,6 +1849,8 @@
   "originOrder": "зыходны парадак",
   "copyChecklist": "Капіраваць кантрольны спіс",
   "copyChecklistPopup-title": "Капіраваць кантрольны спіс",
+  "copyChecklistFromTemplate": "Капіраваць кантрольны спіс - Шаблон",
+  "copyChecklistFromTemplatePopup-title": "Капіраваць кантрольны спіс - Шаблон",
   "edit-checklist-items-as-text": "Рэдагаваць як тэкст",
   "editChecklistItemsAsTextPopup-title": "Рэдагаваць элементы спіса як тэкст",
   "card-show-lists": "Паказваць спісы на картцы",

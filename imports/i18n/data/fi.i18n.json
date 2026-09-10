@@ -1849,6 +1849,8 @@
   "originOrder": "alkuperäinen järjestys",
   "copyChecklist": "Kopioi tarkistuslista",
   "copyChecklistPopup-title": "Kopioi tarkistuslista",
+  "copyChecklistFromTemplate": "Kopioi tarkistuslista - Malli",
+  "copyChecklistFromTemplatePopup-title": "Kopioi tarkistuslista - Malli",
   "edit-checklist-items-as-text": "Muokkaa tekstinä",
   "editChecklistItemsAsTextPopup-title": "Muokkaa tarkistuslistan kohteita tekstinä",
   "card-show-lists": "Näytä listat kortilla",

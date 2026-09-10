@@ -1849,6 +1849,8 @@
   "originOrder": "అసలు ఆర్డర్",
   "copyChecklist": "చెక్‌లిస్ట్‌ని కాపీ చేయండి",
   "copyChecklistPopup-title": "చెక్‌లిస్ట్‌ని కాపీ చేయండి",
+  "copyChecklistFromTemplate": "చెక్‌లిస్ట్‌ని కాపీ చేయండి - మూస",
+  "copyChecklistFromTemplatePopup-title": "చెక్‌లిస్ట్‌ని కాపీ చేయండి - మూస",
   "edit-checklist-items-as-text": "వచనంగా సవరించు",
   "editChecklistItemsAsTextPopup-title": "చెక్‌లిస్ట్ అంశాలను వచనంగా సవరించు",
   "card-show-lists": "కార్డ్ షో జాబితాలు",

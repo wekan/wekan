@@ -1849,6 +1849,8 @@
   "originOrder": "αρχική σειρά",
   "copyChecklist": "Αντιγραφή λίστας ελέγχου",
   "copyChecklistPopup-title": "Αντιγραφή λίστας ελέγχου",
+  "copyChecklistFromTemplate": "Αντιγραφή λίστας ελέγχου - Πρότυπο",
+  "copyChecklistFromTemplatePopup-title": "Αντιγραφή λίστας ελέγχου - Πρότυπο",
   "edit-checklist-items-as-text": "Επεξεργασία ως κείμενο",
   "editChecklistItemsAsTextPopup-title": "Επεξεργασία στοιχείων λίστας ελέγχου ως κείμενο",
   "card-show-lists": "Εμφάνιση λιστών στην κάρτα",

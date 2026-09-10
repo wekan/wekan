@@ -1849,6 +1849,8 @@
   "originOrder": "pierwotna kolejność — pò kaszëbskù",
   "copyChecklist": "Kopiuj checklistę — pò kaszëbskù",
   "copyChecklistPopup-title": "Kopiuj checklistę — pò kaszëbskù",
+  "copyChecklistFromTemplate": "Kopiuj checklistę — pò kaszëbskù - Szablon",
+  "copyChecklistFromTemplatePopup-title": "Kopiuj checklistę — pò kaszëbskù - Szablon",
   "edit-checklist-items-as-text": "Edytëjë jakò tekst",
   "editChecklistItemsAsTextPopup-title": "Edytëjë elementë lëstë kòntrolnë jakò tekst",
   "card-show-lists": "Pokaż lëstë na karcie",

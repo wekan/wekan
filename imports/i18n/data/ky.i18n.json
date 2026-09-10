@@ -1849,6 +1849,8 @@
   "originOrder": "баштапкы тартип",
   "copyChecklist": "Текшерүү тизмесин көчүрүү",
   "copyChecklistPopup-title": "Текшерүү тизмесин көчүрүү",
+  "copyChecklistFromTemplate": "Текшерүү тизмесин көчүрүү - Үлгү",
+  "copyChecklistFromTemplatePopup-title": "Текшерүү тизмесин көчүрүү - Үлгү",
   "edit-checklist-items-as-text": "Текст катары түзөтүү",
   "editChecklistItemsAsTextPopup-title": "Текшерүү тизмесинин элементтерин текст катары түзөтүү",
   "card-show-lists": "Карточкада тизмелерди көрсөтүү",

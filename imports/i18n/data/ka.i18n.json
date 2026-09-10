@@ -1849,6 +1849,8 @@
   "originOrder": "თავდაპირველი თანმიმდევრობა",
   "copyChecklist": "სიის კოპირება",
   "copyChecklistPopup-title": "სიის კოპირება",
+  "copyChecklistFromTemplate": "სიის კოპირება - შაბლონი",
+  "copyChecklistFromTemplatePopup-title": "სიის კოპირება - შაბლონი",
   "edit-checklist-items-as-text": "რედაქტირება როგორც ტექსტი",
   "editChecklistItemsAsTextPopup-title": "საკონტროლო სიის ელემენტების რედაქტირება ტექსტად",
   "card-show-lists": "ბარათზე სიების ჩვენება",

@@ -1849,6 +1849,8 @@
   "originOrder": "원래 순서",
   "copyChecklist": "체크리스트 복사",
   "copyChecklistPopup-title": "체크리스트 복사",
+  "copyChecklistFromTemplate": "체크리스트 복사 - 템플릿",
+  "copyChecklistFromTemplatePopup-title": "체크리스트 복사 - 템플릿",
   "edit-checklist-items-as-text": "텍스트로 편집",
   "editChecklistItemsAsTextPopup-title": "체크리스트 항목을 텍스트로 편집",
   "card-show-lists": "카드 목록 표시",

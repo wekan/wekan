@@ -1849,6 +1849,8 @@
   "originOrder": "ڕیزی ڕەسەن",
   "copyChecklist": "لیستی پشکنین لەبەر بگرەوە",
   "copyChecklistPopup-title": "لیستی پشکنین لەبەر بگرەوە",
+  "copyChecklistFromTemplate": "لیستی پشکنین لەبەر بگرەوە - ڕووکێش",
+  "copyChecklistFromTemplatePopup-title": "لیستی پشکنین لەبەر بگرەوە - ڕووکێش",
   "edit-checklist-items-as-text": "وەک دەق دەستکاری بکە",
   "editChecklistItemsAsTextPopup-title": "بڕگەکانی لیستی پشکنین وەک دەق دەستکاری بکە",
   "card-show-lists": "لیستەکانی پیشاندانی کارت",

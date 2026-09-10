@@ -1849,6 +1849,8 @@
   "originOrder": "النظام الأصلي\n ",
   "copyChecklist": "Copier la checklist",
   "copyChecklistPopup-title": "Copier la checklist",
+  "copyChecklistFromTemplate": "Copier la checklist - نموذج",
+  "copyChecklistFromTemplatePopup-title": "Copier la checklist - نموذج",
   "edit-checklist-items-as-text": "Ẓreg amzwaru n uḍris",
   "editChecklistItemsAsTextPopup-title": "Ẓreg iferdisen n tebdart n usenqed amzwaru n uḍris",
   "card-show-lists": "Afficher les listes sur la carte",

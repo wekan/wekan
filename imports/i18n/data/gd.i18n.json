@@ -1849,6 +1849,8 @@
   "originOrder": "òrdugh tùsail",
   "copyChecklist": "Dèan lethbhreac den liosta-sgrùdaidh",
   "copyChecklistPopup-title": "Dèan lethbhreac den liosta-sgrùdaidh",
+  "copyChecklistFromTemplate": "Dèan lethbhreac den liosta-sgrùdaidh - Teamplaid",
+  "copyChecklistFromTemplatePopup-title": "Dèan lethbhreac den liosta-sgrùdaidh - Teamplaid",
   "edit-checklist-items-as-text": "Deasaich mar theacsa",
   "editChecklistItemsAsTextPopup-title": "Deasaich nithean an liosta-sgrùdaidh mar theacsa",
   "card-show-lists": "Liostaichean taisbeanaidh na cairt",
