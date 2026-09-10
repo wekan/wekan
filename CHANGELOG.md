@@ -312,7 +312,23 @@ turning that into an array or a separate join changes the shape all of them
 read, so it needs a deliberate design decision rather than a quick patch. The
 other two parts of #3626 are done: the completed/total subtask counter was
 already correct (pinned by the #4050 work), and picking an EXISTING card as a
-subtask from the parent card's own UI is now built.).
+subtask from the parent card's own UI is now built.),
+[#2460](https://github.com/wekan/wekan/issues/2460) (SQRL login - the report
+is a single comment-free link to https://www.grc.com/sqrl from 2019. SQRL has
+no official Meteor/Node package, unlike accounts-2fa (#3058); confirmed no
+`sqrl` dependency exists in `package.json`. Supporting it would mean
+implementing SQRL's own custom Ed25519-based handshake protocol - not
+OAuth2/OIDC, which WeKan already supports generically via
+`accounts-oidc`/similar - either from scratch or via a third-party library,
+and no well-maintained, actively-updated, MIT/copyfree-licensed Node.js SQRL
+library is known to exist that a Meteor server integration could trust.
+Hand-rolling an authentication protocol's cryptography is exactly the
+security-critical work that should not be freshly written without extensive
+review. SQRL's real-world adoption peaked around 2013-2016 and has not grown
+since this issue was filed; WebAuthn/FIDO2 passkeys are the passwordless
+standard that gained the adoption SQRL did not. Needs a maintainer decision
+on whether this remains worth pursuing before any implementation is
+attempted.).
 
 </details>
 
