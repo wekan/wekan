@@ -2358,7 +2358,7 @@ only the one list that happens to be over on its own.
 **Comments and activities** - a card's comment thread and its activity log.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/7443ab18ef283ebb2d753dc44a016a178ac67a6b">Reply to a notification email, and the reply becomes a comment on the card</a>. Thanks to vasyugan and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/0c7524db05a492e04b047e7523b916ccfb9df0c6">Reply to a notification email, and the reply becomes a comment on the card</a>. Thanks to vasyugan and xet7.</summary>
 
 [#2414](https://github.com/wekan/wekan/issues/2414) asked for Trello's
 reply-by-email: reply to a WeKan notification email, and the reply shows up
