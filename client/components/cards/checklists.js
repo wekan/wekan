@@ -25,9 +25,46 @@ import {
   parseChecklistItemsText,
   planChecklistItemsTextUpdate,
 } from '/models/lib/checklistItemsAsText';
+import { buildCardFromChecklistItem } from '/models/lib/checklistItemToCard';
 
 // SubsManager removed for Meteor 3 migration
 const { calculateIndexData } = Utils;
+
+// #3294: was the sortable `stop` released over a LIST's own card column
+// (`.js-minicards`, see client/components/lists/listBody.jade) rather than
+// back inside a checklist? Reads the element under the pointer rather than
+// tracking drop targets some other way, because the checklist-item sortable
+// is only ever connected to OTHER `.js-checklist-items` containers (see
+// initSorting below) - a `.js-minicards` is never a valid sortable target for
+// it, so jQuery UI always reverts the drag, and this is what turns that
+// revert into "create a card here" instead of a no-op.
+function resolveListDropTarget(evt) {
+  const pageX = evt && (evt.pageX ?? (evt.originalEvent && evt.originalEvent.pageX));
+  const pageY = evt && (evt.pageY ?? (evt.originalEvent && evt.originalEvent.pageY));
+  if (typeof pageX !== 'number' || typeof pageY !== 'number') return null;
+  const x = pageX - window.scrollX;
+  const y = pageY - window.scrollY;
+  const el = document.elementFromPoint(x, y);
+  if (!el) return null;
+  const $minicards = $(el).closest('.js-minicards');
+  if (!$minicards.length) return null;
+  const list = Blaze.getData($minicards.get(0));
+  if (!list || !list._id) return null;
+
+  // Same swimlane-resolution shape as list.js's own card-drop handler: use
+  // the swimlane row being dropped into when the board is in swimlanes view,
+  // otherwise fall back to the list's own swimlaneId, then the board default.
+  const swimlaneEl = $minicards.closest('.swimlane').get(0);
+  const swimlaneData = swimlaneEl && Blaze.getData(swimlaneEl);
+  let swimlaneId = swimlaneData && swimlaneData._id;
+  if (!swimlaneId) swimlaneId = list.swimlaneId;
+  if (!swimlaneId) {
+    const board = ReactiveCache.getBoard(list.boardId);
+    const defaultSwimlane = board && board.getDefaultSwimline && board.getDefaultSwimline();
+    swimlaneId = defaultSwimlane && defaultSwimlane._id;
+  }
+  return { list, swimlaneId };
+}
 
 function initSorting(items) {
   items.sortable({
@@ -44,6 +81,33 @@ function initSorting(items) {
       EscapeActions.clickExecute(evt.target, 'inlinedForm');
     },
     stop(evt, ui) {
+      const checklistDomElement = ui.item.get(0);
+      const checklistData = Blaze.getData(checklistDomElement);
+      const checklistItem = checklistData.item;
+
+      items.sortable('cancel');
+
+      // #3294: dropped onto a list rather than back into a checklist -
+      // create a new card from the item's text instead of reordering. The
+      // original checklist item is left exactly as it was (see
+      // buildCardFromChecklistItem's scope note - this never marks it done).
+      const dropTarget = resolveListDropTarget(evt);
+      if (dropTarget) {
+        const maxSort = ReactiveCache.getCards({
+          listId: dropTarget.list._id,
+        }).reduce((max, c) => Math.max(max, c.sort || 0), 0);
+        const cardDoc = buildCardFromChecklistItem(
+          checklistItem,
+          dropTarget.list,
+          dropTarget.swimlaneId,
+          maxSort + 1,
+        );
+        if (cardDoc) {
+          Cards.insert(cardDoc);
+        }
+        return;
+      }
+
       const parent = ui.item.parents('.js-checklist-items');
       const checklistId = Blaze.getData(parent.get(0)).checklist._id;
       let prevItem = ui.item.prev('.js-checklist-item').get(0);
@@ -56,11 +120,6 @@ function initSorting(items) {
       }
       const nItems = 1;
       const sortIndex = calculateIndexData(prevItem, nextItem, nItems);
-      const checklistDomElement = ui.item.get(0);
-      const checklistData = Blaze.getData(checklistDomElement);
-      const checklistItem = checklistData.item;
-
-      items.sortable('cancel');
 
       checklistItem.move(checklistId, sortIndex.base);
     },
