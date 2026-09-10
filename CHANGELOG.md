@@ -1550,6 +1550,46 @@ on already has coverage for the part that exists.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/12cd826c3">Timeline board view: browse a board's reconstructed past and restore a card from it</a>. Thanks to xet7.</summary>
+
+Builds the rest of the request on top of the reconstruction core above: a
+"Timeline" board-view menu entry right after Time, wired the same way as
+every other view. It renders a horizontal row of clickable markers built
+from the board's distinct activity timestamps (sampled down to 50 when
+there are more, plus a "Now" marker), and clicking one calls the existing
+`reconstructBoardStateAt()` - never reimplemented here - to render a
+read-only, grouped-by-list view of what the board looked like then: title,
+description snippet, labels, members, due date and an archived badge.
+
+Each card in a historical view also gets a "Restore to this state" button,
+behind a confirmation popup. It applies the reconstructed field values to
+the card's CURRENT document by calling only the card's own existing
+setters one at a time - `setTitle`, `setDescription`, `move`, `addLabel`/
+`removeLabel`, `assignMember`/`unassignMember`, `setDue` - the same calls
+the rest of the UI already makes, never a bulk update that bypasses them.
+Each setter logs its own Activity through the existing hooks, so the
+restore itself becomes new, fully visible history and satisfies "have
+checks that all data stays at undo history, so that this does not delete
+any data" the same way the reconstruction core does.
+
+Deliberately deferred, same as the reconstruction commit already said:
+"selective per-member change removal within a time period" is a separate,
+higher-risk mutation feature left for a dedicated future pass, not
+attempted here.
+
+`tests/boardViewMenu.test.cjs`'s `VIEWS` table gets the new entry end to
+end (menu position, click handler, `isViewTimeline()`, schema
+`allowedValues`, tooltip name, template/stylesheet registration), and its
+separator moves from after Time to after Timeline.
+`tests/boardTimelineRestore.test.cjs` pins that the restore path only ever
+calls the card's own setters, with a negative test scanning the whole file
+for a direct `Cards.update`/`updateAsync` bypass, that the restore button
+only renders while viewing a historical timestamp (never on the live
+board), and that a confirmation step gates the action.
+
+</details>
+
 **All Boards** - the overview and its Clone Board action.
 
 <details>
@@ -3144,6 +3184,37 @@ configure/run it, gated behind board write access.
 Deliberately deferred to this release's TODO Later: mapping an upstream
 status change to moving the card to a different WeKan list, and syncing
 anything beyond issues/tickets (comments, attachments, custom fields).
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b382519aa">List sync now has a Settings panel, in the List hamburger menu</a>. Thanks to xet7.</summary>
+
+The list-sync backend above shipped with configuration only reachable
+through the Meteor console. Its List hamburger menu now has a "Sync" item
+(badged when a source is already configured, showing whether it is
+enabled or paused) opening a panel where a board member with write access
+picks a source type from the existing `SYNC_CAPABLE_SOURCES`
+(Jira/GitHub/GitLab/Gitea/Forgejo), sets the URL and project key, sees the
+current status (enabled, last synced - as a relative time, last error if
+the previous attempt failed) and can run "Sync now" for immediate
+feedback instead of waiting for the 15-minute cron. This is UI wiring
+only: it calls the existing `setListSyncSource`/`hasListSyncCredential`/
+`syncListNow` methods (`server/methods/listSync.js`) exactly as they were
+already defined - the sync backend itself is unchanged.
+
+The credential field is write-only, the same discipline the Admin Panel's
+LDAP bind-password override already uses: it always renders with a
+hard-coded empty value and is never pre-filled with the real token even
+when one is already stored - `hasListSyncCredential` only ever returns a
+boolean, so the panel can show "a credential is set" without the token
+ever reaching the browser. `tests/listSyncUiWiring.test.cjs` pins this
+with a source check on the input's markup (never bound to a token/
+credential value) and a negative, whole-file scan proving no helper
+returns a raw `.token` field, plus that the Meteor.call sites still match
+the existing method names and argument shapes and that the status display
+reads `syncSource.lastSyncedAt`/`lastSyncError`/`enabled` off the list's
+own already-published, credential-free fields.
 
 </details>
 
