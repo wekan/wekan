@@ -93,6 +93,33 @@ labels are drawn), *List title* (the per-card switch under *Show lists*),
 *Requested by*, *Assigned by*, *Description title*, *Attachments* - so they
 sit under the row they modify with their arrows disabled.
 
+## The default order
+
+The default - what a board that never touched the popup shows, and where any
+field a stored order does not name goes - is the order the card and the
+minicard had **before fields became orderable**: the templates as they were
+at commit `59f7d61df`, right before #4448's first commit, read top to
+bottom. It is not a tidied-up order; changing it would change the shape of
+every card on upgrade.
+
+**Card:** Mark as complete, Card number, Cover image; Labels, Stickers,
+Location; Received, Start, Due, End; Members, Assignee, Creator, Requested
+by, Assigned by; Dependencies; Sort number, Show lists, Spent time, Flowtime,
+Pomodoro; Custom Fields; Vote, Planning Poker; Description title,
+Description text; Checklists, Checklist count, Subtasks, Attachments,
+Attachment count, Text notes, Comments, Activities.
+
+**Minicard:** Mark as complete, Card number; Received, Start, Due, End,
+Spent time; Cover image; Labels; Custom Fields; Assignees; Members; Creator;
+Checklists; Dependencies, Stickers, Comment count, Vote, Planning Poker,
+Attachment count, Subtasks, Checklist count, Sort number; Description text;
+Comments; List name; Swimlane name.
+
+Two fields did not exist at that commit and sit beside their closest older
+neighbour: *Text notes* (card, between the attachment count and comments)
+and *Swimlane name* (minicard, last, under the list name).
+`tests/cardFieldOrderDefaultIsPreFeatureOrder.test.cjs` pins both sequences.
+
 ## Prerequisites
 
 - Only a board admin can change these settings; the arrows are shown only

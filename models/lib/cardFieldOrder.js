@@ -31,6 +31,18 @@
 // and the minicard all read one canonical sequence and cannot disagree, and a
 // board that never touched the setting renders byte-for-byte what it always
 // has.
+//
+// THE DEFAULT ORDER of each layout - head, then the sections and their fields
+// as listed, then the tail - is the order the opened card and the minicard
+// rendered BEFORE fields became orderable: cardDetails.jade and minicard.jade
+// as they were at 59f7d61df, the parent of the first field-order commit
+// (#4448, 131514d61), read top to bottom. It is not a tidied-up order and it
+// must not become one, because that default is also what every board without
+// a stored order renders and what applyLayoutOrder() falls back to for the
+// keys a stored order does not name. A field added since then sits beside
+// its closest older neighbour (Text notes in the card's tail, Swimlane name
+// last on the minicard). tests/cardFieldOrderDefaultIsPreFeatureOrder.test.cjs
+// pins both sequences literally.
 
 // ── the opened card ──────────────────────────────────────────────────────────
 

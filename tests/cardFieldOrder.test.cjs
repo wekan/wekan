@@ -28,7 +28,14 @@ function test(name, fn) {
 }
 
 // --- default / fallback behaviour -------------------------------------------
+// The "historical fixed order" is the section order cardDetails.jade rendered
+// at 59f7d61df, before #4448 (131514d61) made it orderable: Labels, Dates,
+// Members, Dependencies, Sort, Custom Fields, Vote/Poker, Description. The
+// per-field sequence is pinned in
+// tests/cardFieldOrderDefaultIsPreFeatureOrder.test.cjs.
 test('no stored order at all falls back to the historical fixed order', () => {
+  assert.deepStrictEqual(DEFAULT_CARD_FIELD_ORDER,
+    ['labels', 'dates', 'members', 'dependencies', 'sort', 'customFields', 'voteAndPoker', 'description']);
   assert.deepStrictEqual(applyCardFieldOrder(undefined), DEFAULT_CARD_FIELD_ORDER);
   assert.deepStrictEqual(applyCardFieldOrder(null), DEFAULT_CARD_FIELD_ORDER);
   assert.deepStrictEqual(applyCardFieldOrder([]), DEFAULT_CARD_FIELD_ORDER);

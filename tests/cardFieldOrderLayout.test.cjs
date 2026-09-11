@@ -37,6 +37,11 @@ console.log('cardFieldOrderLayout:');
 
 // ── canonical order ──────────────────────────────────────────────────────────
 
+// "Historical" here is literal: the default is the render order of
+// cardDetails.jade and minicard.jade at 59f7d61df, the commit before fields
+// became orderable (#4448, 131514d61). The exact sequences are pinned in
+// tests/cardFieldOrderDefaultIsPreFeatureOrder.test.cjs; this suite tests the
+// arithmetic around them.
 test('no stored order gives the historical order of each surface', () => {
   assert.deepStrictEqual(applyCardOrder(undefined), DEFAULT_CARD_ORDER);
   assert.deepStrictEqual(applyCardOrder(null), DEFAULT_CARD_ORDER);
