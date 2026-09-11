@@ -739,6 +739,31 @@ describes the layout and both orders.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/859771a10ece44f1c48c371d182b4c079c84faad">The default card and minicard field order is the order they had before fields became orderable</a>. Thanks to xet7.</summary>
+
+The default of the two layouts - what a board that never touched Board
+Settings / Card renders, and where any field a stored order does not name
+goes - is pinned to the render order of `cardDetails.jade` and
+`minicard.jade` as they were right before the first field-order commit
+(#4448's parent, `59f7d61df`), read top to bottom: on the card, Mark
+complete, number and cover, then Labels, Dates, Members, Dependencies, Sort,
+Custom Fields, Vote and Poker, Description, then the galleries, comments and
+activities; on the minicard, the dates line, cover, labels, custom fields,
+assignees, members, creator, checklists, the badge strip, description text,
+the comment preview and the list name. Reading those templates gives exactly
+the sequence the layout module already held, so no existing card changes
+shape and a board with a stored order is untouched; the module, the docs and
+the tests now say where the order comes from. The two fields newer than that
+commit stay beside their closest older neighbour: Text notes in the card's
+fixed tail, Swimlane name last on the minicard.
+`tests/cardFieldOrderDefaultIsPreFeatureOrder.test.cjs` pins both literal
+sequences, the section sequence, the fallback for a partial stored order and
+the popup's two lists, so a reshuffle of a layout cannot pass by reshuffling
+the template with it.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/921c7f301ccf85c94c5b463a361be2fea195eeed">WIP Limit Groups moved into Board Settings / Swimlane</a>. Thanks to xet7.</summary>
 
 "WIP Limit Groups" was a fourth top-level entry of the Board Settings group,
