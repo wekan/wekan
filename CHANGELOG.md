@@ -538,8 +538,7 @@ lost when GitHub's runner moved to **Visual Studio 2026**, are built again.
 
 This release adds the following new features:
 
-**Attachments** - soft delete, card-history restore, and the one place they
-are ever really deleted.
+**Attachments** - soft delete, card-history restore, and the one real delete.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/5e0d348b6c8072430effb5ecb92e9747c666626b">Design: how an attachment is deleted, shown in the card history, restored and purged</a>. Thanks to xet7.</summary>
@@ -602,9 +601,7 @@ controls and that it never offers cover or background.
 
 </details>
 
-**Board Settings** - the Card settings table covers the whole card, in the
-card's own order, and a new Board View table decides what a public or a
-private board offers.
+**Board Settings** - a toggle for every card section, and the Board View table.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/148f8a2aa76087749ed72f5eea78ffdd0c953fb2">A toggle for every card section and minicard badge, listed in card order</a>. Thanks to rmb82 and xet7.</summary>
@@ -673,8 +670,7 @@ menu view in menu order, the schema fields and setters, the radio and
 
 </details>
 
-**REST API** - endpoints for the features of the recent releases that had a
-UI but no API, and the OpenAPI spec they are documented in.
+**REST API** - endpoints for recent features that had a UI but no API.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/9e2f9e9b344a25f4afd7dc5efd517b2065ae4b77">Endpoints for attachment restore, Problems, OAuth providers, card field order and rule pausing</a>. Thanks to xet7.</summary>
