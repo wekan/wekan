@@ -83,9 +83,16 @@ async function renderCardDocumentExcel(ws, workbook, startRow, document, options
     cell.alignment = { vertical: 'middle', horizontal: 'right' };
     cell.border = THIN;
   };
-  const value = (ref, content) => {
+  const value = (ref, content, rawDate) => {
     const cell = ws.getCell(ref);
-    cell.value = content;
+    if (rawDate instanceof Date) {
+      // A real date cell in the spreadsheet's own date format, not the
+      // pre-formatted text the PDF prints (models/lib/cardDocument.js add()).
+      cell.value = rawDate;
+      cell.numFmt = 'yyyy-mm-dd hh:mm';
+    } else {
+      cell.value = content;
+    }
     cell.font = { name: fontName, size: 10 };
     cell.alignment = { vertical: 'middle', horizontal: 'left', wrapText: true };
     cell.border = THIN;
@@ -111,7 +118,7 @@ async function renderCardDocumentExcel(ws, workbook, startRow, document, options
           const ordinaryColumns = [['A', 'B'], ['C', 'D'], ['E', 'F']];
           ordinaryPairs.forEach((pair, index) => {
             label(`${ordinaryColumns[index][0]}${row}`, pair[0]);
-            value(`${ordinaryColumns[index][1]}${row}`, pair[1]);
+            value(`${ordinaryColumns[index][1]}${row}`, pair[1], pair[2]);
           });
           ws.getRow(row).height = 20;
           row += 1;
@@ -141,7 +148,7 @@ async function renderCardDocumentExcel(ws, workbook, startRow, document, options
       const columns = [['A', 'B'], ['C', 'D'], ['E', 'F']];
       (block.pairs || []).slice(0, 3).forEach((pair, index) => {
         label(`${columns[index][0]}${row}`, pair[0]);
-        value(`${columns[index][1]}${row}`, pair[1]);
+        value(`${columns[index][1]}${row}`, pair[1], pair[2]);
       });
       ws.getRow(row).height = 20; row += 1;
       continue;

@@ -72,7 +72,17 @@ class ExporterChartExcel {
     rows.forEach((row, rowIndex) => {
       const sheetRow = ws.getRow(3 + rowIndex);
       row.forEach((cell, cellIndex) => {
-        sheetRow.getCell(cellIndex + 1).value = cell instanceof Date ? cell.toISOString() : cell;
+        const sheetCell = sheetRow.getCell(cellIndex + 1);
+        if (cell instanceof Date) {
+          // A real date cell, not an ISO text string: Excel/LibreOffice then
+          // show it in the sheet's date format, sort it as a date and accept
+          // it in date arithmetic. (Before this it was cell.toISOString(),
+          // which rendered as "2026-09-23T09:00:00.000Z" text.)
+          sheetCell.value = cell;
+          sheetCell.numFmt = 'yyyy-mm-dd hh:mm';
+        } else {
+          sheetCell.value = cell;
+        }
       });
       sheetRow.commit();
     });

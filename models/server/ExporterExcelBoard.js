@@ -242,7 +242,7 @@ class ExporterExcelBoard {
       row += 1;
     };
 
-    const labelValue = (label, value) => {
+    const labelValue = (label, value, rawDate) => {
       const lc = ws.getCell(`A${row}`);
       lc.value = `${label}:`;
       lc.font = { name: fontName, size: 10, bold: true };
@@ -250,7 +250,13 @@ class ExporterExcelBoard {
       lc.border = thinBdr;
       ws.mergeCells(`B${row}:F${row}`);
       const vc = ws.getCell(`B${row}`);
-      vc.value = value;
+      if (rawDate instanceof Date) {
+        // A real date cell, not pre-formatted text (see renderCardDocumentExcel).
+        vc.value = rawDate;
+        vc.numFmt = 'yyyy-mm-dd hh:mm';
+      } else {
+        vc.value = value;
+      }
       vc.font = { name: fontName, size: 10 };
       vc.alignment = { vertical: 'middle', horizontal: 'left', wrapText: true };
       vc.border = thinBdr;
@@ -273,8 +279,8 @@ class ExporterExcelBoard {
         .map(member => userMap[member.userId] || member.userId)
         .filter(Boolean).join(', ');
       labelValue(this.__('members'), memberNames);
-      labelValue(this.__('createdAt'), this.fmtDate(board.createdAt));
-      labelValue(this.__('modifiedAt'), this.fmtDate(board.modifiedAt));
+      labelValue(this.__('createdAt'), this.fmtDate(board.createdAt), board.createdAt);
+      labelValue(this.__('modifiedAt'), this.fmtDate(board.modifiedAt), board.modifiedAt);
       if (board.description) labelValue(this.__('description'), board.description);
       row += 1;
     }

@@ -226,7 +226,9 @@ test('the board export draws its cards with the CARD export\'s own block', () =>
   const document = read('models/lib/cardDocument.js');
   assert.ok(/add\('labels'/.test(document), 'which puts them in the header');
   assert.ok(/dueAt: date\(card\.dueAt\)/.test(adapter)
-    && /add\('card-due', data\.dueAt\)/.test(document),
+    // The third argument is the raw Date the Excel renderer writes as a real
+    // date cell; the PDF still prints data.dueAt's text.
+    && /add\('card-due', data\.dueAt, card\.dueAt\)/.test(document),
     'and the dates, under the same i18n keys the card export gives them');
   assert.ok(!/dates\.push\(`due /.test(exporter),
     'the lowercase colon-less "due" is what was reported; it must not come back');

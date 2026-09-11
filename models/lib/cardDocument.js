@@ -90,9 +90,15 @@ function cardHeaderBlocks(card, data, fields, translate) {
   };
   const blocks = [{ type: 'title', runs: plainRuns(card.title || '') }];
   const pairs = [];
-  const add = (labelKey, value) => {
+  // A pair is [label, text] - and, for a date, [label, text, Date]: the text
+  // is what the PDF and the card layout print, the Date is what the Excel
+  // renderer writes as a real date cell (with a date number format) instead
+  // of the text, so the spreadsheet sorts and computes on it.
+  const add = (labelKey, value, rawDate) => {
     if (value === undefined || value === null || value === '') return;
-    pairs.push([t(labelKey), String(value)]);
+    const pair = [t(labelKey), String(value)];
+    if (rawDate instanceof Date && !Number.isNaN(rawDate.getTime())) pair.push(rawDate);
+    pairs.push(pair);
   };
 
   if (wanted(fields, 'board-info')) {
@@ -112,12 +118,12 @@ function cardHeaderBlocks(card, data, fields, translate) {
     add('assigned-by', [...(data.assigners || []), data.assignedBy].filter(Boolean).join(', '));
   }
   if (wanted(fields, 'dates')) {
-    add('createdAt', data.createdAt);
-    add('card-received', data.receivedAt);
-    add('card-start', data.startAt);
-    add('card-due', data.dueAt);
-    add('card-end', data.endAt);
-    add('last-activity', data.modifiedAt);
+    add('createdAt', data.createdAt, card.createdAt);
+    add('card-received', data.receivedAt, card.receivedAt);
+    add('card-start', data.startAt, card.startAt);
+    add('card-due', data.dueAt, card.dueAt);
+    add('card-end', data.endAt, card.endAt);
+    add('last-activity', data.modifiedAt, card.modifiedAt);
     add('card-spent', data.spentTime);
     add('overtime', data.overtime);
   }
