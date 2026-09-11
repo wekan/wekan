@@ -162,6 +162,40 @@ export function recordDatabaseProblem(error, options = {}) {
   }
 }
 
+// Record one database HEALTH finding - not something the database said, but
+// something WeKan measured or did about it (server/lib/databaseHealth.js:
+// a restart, a data directory on a network filesystem, storage latency,
+// disk space running out; server/lib/mongoStartup.js: a missing index
+// created). Same stream and shape as recordDatabaseProblem, so it lands on
+// the same Admin Panel / Problems / Database page, and the same per-minute
+// quieting per (type, database).
+export function recordDatabaseHealth(finding = {}) {
+  try {
+    if (!finding || !finding.type) return null;
+    const database = configuredDatabase(process.env) || 'mongodb';
+    if (tooRecent(`${finding.type}:${database}`)) return finding;
+    const p = EventLog.insertAsync({
+      stream: 'database',
+      at: new Date(),
+      severity: finding.severity || 'medium',
+      type: finding.type,
+      db: database,
+      kind: finding.kind || 'health',
+      detail: sanitizeDetail(finding.detail || ''),
+      source: finding.source || 'health',
+      message: finding.message ? sanitizeDetail(finding.message) : undefined,
+    });
+    if (p && typeof p.catch === 'function') p.catch(() => {});
+    return finding;
+  } catch (e) {
+    if (process.env.DEBUG === 'true') {
+      // eslint-disable-next-line no-console
+      console.error('recordDatabaseHealth failed:', e && e.message);
+    }
+    return null;
+  }
+}
+
 // Watch the errors WeKan already surfaces. Meteor routes every uncaught error in
 // a method or a publication through Meteor._debug, which is where a database
 // error becomes visible without wrapping every call site in the app.

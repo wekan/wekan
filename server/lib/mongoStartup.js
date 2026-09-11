@@ -64,7 +64,7 @@ just slow to replay its journal.
 ========================================================================
 `;
 
-function getRawDb() {
+export function getRawDb() {
   // Available once the `mongo` package has loaded, which is before any
   // application code runs.
   return MongoInternals.defaultRemoteCollectionDriver().mongo.db;
@@ -160,6 +160,22 @@ export async function ensureIndex(collection, keys, options = {}) {
       return false;
     }
     await raw.createIndex(keys, options);
+    // An index created on a collection that already holds documents is a
+    // remediation, not setup: every query on it was a collection scan until
+    // now (the "Slow query" lines a reported MongoDB log was full of -
+    // .tools/crash, card_comment_reactions). Tell Admin Panel / Problems it
+    // was found and fixed. A brand-new, empty collection getting its indexes
+    // is ordinary startup and stays silent.
+    try {
+      const documents = await raw.estimatedDocumentCount();
+      if (documents > 0) {
+        const { indexCreatedRemediation } = require('/models/lib/databaseHealth');
+        const { recordDatabaseHealth } = require('/server/lib/databaseProblems');
+        recordDatabaseHealth(indexCreatedRemediation(raw.collectionName, keys, documents));
+      }
+    } catch (e) {
+      // reporting must never undo the fix
+    }
     return true;
   } catch (e) {
     // e.g. transient connection error or an option conflict on an existing
