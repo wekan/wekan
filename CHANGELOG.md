@@ -530,7 +530,9 @@ the Markdown commit as the template.
 that the **card history** shows and restores, with no per-attachment hard
 delete anywhere - only deleting an archived board with permanent delete
 enabled removes attachment files. **Board Settings / Card** gains a toggle
-for every card section and minicard badge, listed in the card's own order.
+for every card section and minicard badge, listed in the card's own order,
+and a new **Board Settings / Board View** chooses which views a **public**
+or **private** board offers and which one it opens in.
 This release also repairs the **Windows release builds**, which v11.70 lost
 when GitHub's `windows-latest` moved to **Visual Studio 2026**: the bundle
 now compiles its native modules with a node-gyp that recognises it, so the
@@ -603,7 +605,8 @@ controls and that it never offers cover or background.
 </details>
 
 **Board Settings** - the Card settings table covers the whole card, in the
-card's own order.
+card's own order, and a new Board View table decides what a public or a
+private board offers.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/148f8a2aa76087749ed72f5eea78ffdd0c953fb2">A toggle for every card section and minicard badge, listed in card order</a>. Thanks to rmb82 and xet7.</summary>
@@ -633,6 +636,42 @@ every row reuses the field's existing name.
 `cardDetails.jade` and pins the popup to it, checks that every board gate of
 the card and the minicard has a row and every new row is read by a template,
 and that none of the four sections the issue names is unconditional.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/881d667858adacab4642613e7c31b2baf175e972">Board View: which views a public or private board offers, and which one it opens in</a>. Thanks to xet7.</summary>
+
+A new **Board View** entry at the top of Board Settings, above Swimlane,
+opens a table like Card Settings: one row per entry of the Board View menu,
+in the menu's order and with the menu's own labels, under the columns
+*Default on Public Board*, *Show on Public Board*, *Default on Private
+Board*, *Show on Private Board* and *Description*. The two Default columns
+are radio groups drawn as checkboxes - one default per side, and making a
+view the default also ticks its Show box; the default's Show box cannot be
+un-ticked, so a board always opens in a view it offers. When Admin Panel /
+Settings / Visibility hides public boards, the two public columns are not
+rendered and the table has three columns.
+
+The Board View menu lists only the views ticked for the board's current
+visibility, and the view WeKan renders is now resolved through the board:
+the viewer's stored choice when the board offers it, otherwise that side's
+default, otherwise Swimlanes - nobody is left on a view the menu no longer
+lists, and switching a board Private ⇄ Public swaps the menu on the spot.
+A board that never opened the popup behaves as before: every view on both
+sides, Swimlanes as the default.
+
+Stored per board as `boardViewSettings`, `defaultPublicBoardView` and
+`defaultPrivateBoardView`; every decision is the pure module
+`models/lib/boardViewSettings.js`, applied by the Board setters
+`setBoardViewShown` and `setDefaultBoardView` under the existing board-admin
+allow rule. The four column headers are new translation keys, filled in
+every locale. `docs/Features/Board/Board-View-Settings.md` describes the
+design and `tests/boardViewSettings.test.cjs` pins it: the entry above
+Swimlane, the five columns and their public-hidden variant, one row per
+menu view in menu order, the schema fields and setters, the radio and
+"default stays shown" semantics, the menu filter, the fallback in
+`Utils.boardView()`, and the translations.
 
 </details>
 
