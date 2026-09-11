@@ -602,7 +602,7 @@ controls and that it never offers cover or background.
 
 </details>
 
-**Board Settings** - card section toggles, field order, the Board View table, and WIP Limit Groups under Swimlane.
+**Board Settings** - card section toggles, field order, the Board View table, WIP Limit Groups under Swimlane, and the menu's order.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/970213010013529150101d3fd6c59f33eab542d4">A toggle for every card section and minicard badge, listed in card order</a>. Thanks to rmb82 and xet7.</summary>
@@ -750,6 +750,26 @@ reuses the existing `wip-limit-groups` key rather than adding one.
 `tests/boardSettingsSwimlaneListCard.test.cjs` pins the row and its single
 click handler in the Swimlane popup, and that the top-level list no longer
 carries the entry. The docs describe the new path.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/74f3db87d4f3fb6d15fd4a8adb7015ca8b22291d">The menu is four groups: Rules and colours, the views, in and out, and the archive</a>. Thanks to xet7.</summary>
+
+The Board Settings menu is ordered, top to bottom: Rules, Change color,
+Change Background Image; then Board View, Swimlane, List, Card; then Export,
+Import, Notifications, Outgoing Webhooks; then Archived items and Move Board
+to Archive - a rule between each group. Before, Archived items sat second in
+the first group, Notifications sat among the colours, and Move Board to
+Archive was alone at the end. Every entry keeps the guard it had: the
+board-admin entries stay board-admin, Export and Import stay behind the API
+setting, Card stays open to any member for its personal "Labels text" row,
+and Move Board to Archive stays off the templates board. No translation keys
+are added. `tests/boardMenuOrder.test.cjs` derives the sequence of entries
+and rules from the template and pins it exactly, pins each entry's guards so
+a reorder cannot loosen who sees what, and pins the diagram in
+[Board View settings](docs/Features/Board/Board-View-Settings.md) to the
+same order.
 
 </details>
 
