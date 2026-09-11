@@ -78,12 +78,14 @@ export async function probeDatabaseHealth() {
   }
   if (!db) return;
 
+  const dbPath = await dataDirectory(db);
+
   const status = await serverStatus(db);
   if (status) {
     const uptime = Number(status.uptime);
     if (health.restartDetected(state.uptime, uptime)) {
       state.restarts += 1;
-      recordDatabaseHealth(health.restartProblem(state.restarts));
+      recordDatabaseHealth(health.restartProblem(state.restarts, dbPath));
     }
     if (Number.isFinite(uptime)) state.uptime = uptime;
 
@@ -98,9 +100,9 @@ export async function probeDatabaseHealth() {
 
   const stats = await dbStats(db);
   const space = health.diskSpace(stats);
-  if (space && space.critical) recordDatabaseHealth(health.diskSpaceProblem(space));
+  if (space && space.critical) recordDatabaseHealth(health.diskSpaceProblem(space, dbPath));
 
-  checkDataDirectory(await dataDirectory(db));
+  checkDataDirectory(dbPath);
 }
 
 Meteor.startup(() => {

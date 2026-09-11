@@ -107,16 +107,41 @@ function gib(bytes) {
   return `${(bytes / (1024 * 1024 * 1024)).toFixed(2)} GiB`;
 }
 
+// MongoDB 8.2 keeps a second, throwaway WiredTiger instance under the data
+// directory for queries that spill to disk. mongod empties it on every start
+// (it holds nothing worth keeping) and recreates it - but a second reported
+// crash series (.tools/test: mongo:8.2.2 in Kubernetes, the disk really full)
+// showed that emptying it can fail ("Failed to clear dbpath of the internal
+// WiredTiger instance", "Directory not empty") after an abort, and mongod
+// then opens the half-emptied directory, finds no WiredTiger version file,
+// reports "Failed to open the spill WiredTiger instance ... database
+// corruption detected" and fasserts. It does that on EVERY start, with the
+// disk long since freed, until somebody deletes the directory by hand. The
+// real data is not corrupt; only this scratch directory is.
+const SPILL_DIRECTORY = '_tmp/spilldb';
+const SPILL_OPEN_FAILURE = 'Failed to open the spill WiredTiger instance';
+
+function spillDirectory(dbPath) {
+  const base = String(dbPath || '').replace(/[\\/]+$/, '');
+  return `${base}/${SPILL_DIRECTORY}`;
+}
+
+function spillLoopAdvice(dbPath) {
+  return `If MongoDB 8.2 then fails to START, with "${SPILL_OPEN_FAILURE}" in its log, only its scratch `
+    + `directory is broken: stop it, delete ${spillDirectory(dbPath || '<dbPath>')} (nothing else), and start it again`;
+}
+
 // The rows, in the `database` stream's shape (type/kind/severity/detail).
-function restartProblem(restarts) {
+function restartProblem(restarts, dbPath) {
   return {
     type: 'db.restart',
     kind: 'availability',
     severity: 'high',
     detail: `The database process restarted (${restarts} time${restarts === 1 ? '' : 's'} since WeKan started) `
       + 'while WeKan kept running - MongoDB aborting is the usual cause. Read its log for a "Fatal assertion": '
-      + 'a WiredTiger checkpoint failing with "No space left on device" on a data directory that has free '
-      + `space means the directory is on a network filesystem (SMB/NFS), which MongoDB cannot use - see ${DOCS}.`,
+      + 'a WiredTiger checkpoint failing with "No space left on device" means the disk under the data '
+      + 'directory is full (free it or grow the volume), or, when it has free space, that the directory is on a '
+      + `network filesystem (SMB/NFS), which MongoDB cannot use. ${spillLoopAdvice(dbPath)} - see ${DOCS}.`,
   };
 }
 
@@ -142,14 +167,14 @@ function slowStorageProblem(avgReadMs, ops) {
   };
 }
 
-function diskSpaceProblem(space) {
+function diskSpaceProblem(space, dbPath) {
   return {
     type: 'db.disk-space',
     kind: 'disk',
     severity: 'high',
     detail: `The filesystem under MongoDB's data directory has ${gib(space.freeBytes)} free of `
       + `${gib(space.totalBytes)} (${space.percentFree.toFixed(1)}%). Below that, writes and checkpoints fail `
-      + 'with "No space left on device" and MongoDB stops. Free space or grow the volume now.',
+      + `with "No space left on device" and MongoDB stops. Free space or grow the volume now. ${spillLoopAdvice(dbPath)}.`,
   };
 }
 
@@ -170,6 +195,10 @@ module.exports = {
   SLOW_READ_MS,
   MIN_FREE_BYTES,
   MIN_FREE_PERCENT,
+  SPILL_DIRECTORY,
+  SPILL_OPEN_FAILURE,
+  spillDirectory,
+  spillLoopAdvice,
   networkFilesystem,
   filesystemName,
   restartDetected,

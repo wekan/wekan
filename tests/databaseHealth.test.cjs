@@ -82,6 +82,66 @@ test('every problem row is in the database stream\'s shape and says what to do',
   assert.ok(H.indexCreatedRemediation('x', { a: 1 }, 2).detail.includes('Fixed automatically'));
 });
 
+// The second reported series (.tools/test): mongo:8.2.2 in Kubernetes, the
+// disk really full, and then a start-up crash loop AFTER the disk was freed:
+// "Failed to clear dbpath of the internal WiredTiger instance: Directory not
+// empty" followed by "Failed to open the spill WiredTiger instance ...
+// database corruption detected" and a fassert, on every start, because
+// MongoDB's own emptying of its <dbPath>/_tmp/spilldb scratch instance failed
+// once and nothing retries it. The data is intact; only that directory is
+// broken, and deleting it is the whole fix.
+test('the restart and disk-space rows name the MongoDB 8.2 spill directory and what to delete', () => {
+  assert.strictEqual(H.SPILL_DIRECTORY, '_tmp/spilldb', 'StorageGlobalParams::getSpillDbPath() = dbpath/_tmp/spilldb');
+  assert.strictEqual(H.spillDirectory('/data/db'), '/data/db/_tmp/spilldb');
+  assert.strictEqual(H.spillDirectory('/data/db/'), '/data/db/_tmp/spilldb', 'a trailing slash is not doubled');
+  assert.ok(H.spillDirectory('').startsWith('/'), 'an unknown dbPath still yields a path');
+  const restart = H.restartProblem(2, '/data/db').detail;
+  assert.ok(restart.includes(H.SPILL_OPEN_FAILURE), 'the log line the admin will see');
+  assert.ok(restart.includes('/data/db/_tmp/spilldb'), 'the exact directory to delete');
+  assert.ok(/full/.test(restart) && /network filesystem/.test(restart), 'both ENOSPC causes, not only the network one');
+  assert.ok(!/\n/.test(restart));
+  assert.ok(H.restartProblem(1).detail.includes('<dbPath>/_tmp/spilldb'), 'without getCmdLineOpts (FerretDB) the path is still named');
+  const disk = H.diskSpaceProblem(H.diskSpace({ fsTotalSize: 1e10, fsUsedSize: 9.9e9 }), '/data/db').detail;
+  assert.ok(disk.includes('/data/db/_tmp/spilldb'), 'the disk-space warning says what a full disk leads to on 8.2');
+  // Negative: the advice deletes the scratch directory and nothing else.
+  assert.ok(/\(nothing else\)/.test(H.spillLoopAdvice('/data/db')));
+  assert.ok(!/rm -rf \/data\/db[^/]/.test(H.spillLoopAdvice('/data/db')));
+});
+
+test('the probe passes the data directory to the restart and disk-space rows', () => {
+  const probe = fs.readFileSync(path.join(ROOT, 'server/lib/databaseHealth.js'), 'utf8');
+  assert.ok(/health\.restartProblem\(state\.restarts, dbPath\)/.test(probe));
+  assert.ok(/health\.diskSpaceProblem\(space, dbPath\)/.test(probe));
+  assert.ok(/const dbPath = await dataDirectory\(db\);/.test(probe), 'looked up once, before the rows that need it');
+});
+
+test('the snap deletes the spill directory before every mongod start, and explains the loop on a start failure', () => {
+  const src = fs.readFileSync(path.join(ROOT, 'snap-src/bin/mongodb-control'), 'utf8');
+  const fn = src.indexOf('clear_spill_directory() {');
+  assert.ok(fn > 0, 'clear_spill_directory is defined');
+  assert.ok(src.indexOf('clear_spill_directory\n', fn) > fn, 'and called');
+  const firstStart = src.indexOf('Starting MongoDB temporarily to check replica set configuration');
+  assert.ok(src.indexOf('clear_spill_directory\n', fn) < firstStart, 'before the FIRST mongod start (the temporary one)');
+  assert.ok(src.indexOf('if check_mongodb_running; then') < fn, 'after the running-instance check: never under a live mongod');
+  assert.ok(/rm -rf "\$\{MONGO_DATA_DIR:\?\}\/_tmp\/spilldb"/.test(src), 'exactly that directory, with the variable guarded');
+  // Negative: the only rm -rf under the data directory, apart from the
+  // FerretDB SQLite reset that already existed, is the spill directory.
+  const rms = src.match(/rm -rf [^\n]*/g) || [];
+  for (const rm of rms) {
+    assert.ok(/_tmp\/spilldb|files\/db\//.test(rm), `unexpected recursive delete: ${rm}`);
+  }
+  assert.ok(src.includes('Failed to open the spill WiredTiger instance'), 'the failure handler recognises the log line');
+  assert.ok(/Storage-Requirements\.md/.test(src), 'and points at the page that explains it');
+});
+
+test('the storage page documents the spill-directory loop with its log signature and the one command', () => {
+  const doc = fs.readFileSync(path.join(ROOT, H.DOCS), 'utf8');
+  assert.ok(doc.includes('Failed to open the spill WiredTiger instance'));
+  assert.ok(doc.includes('Failed to clear dbpath of the internal WiredTiger instance'));
+  assert.ok(doc.includes('rm -rf /data/db/_tmp/spilldb'));
+  assert.ok(/Only that directory/.test(doc), 'and says the rest of the data directory must not be touched');
+});
+
 test('the probe records through the database stream, runs at startup and on a timer, and is imported', () => {
   const probe = fs.readFileSync(path.join(ROOT, 'server/lib/databaseHealth.js'), 'utf8');
   assert.ok(/recordDatabaseHealth/.test(probe));

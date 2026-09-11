@@ -301,6 +301,16 @@ handle_mongod_start_failure() {
     fi
     echo "Last mongod log lines:"
     tail -n 5 "$MONGO_LOG_FILE" 2>/dev/null || true
+    if tail -n 50 "$MONGO_LOG_FILE" 2>/dev/null | grep -q "Failed to open the spill WiredTiger instance"; then
+        # MongoDB 8.2's scratch instance for queries that spill to disk. mongod
+        # empties it on every start; when that fails after an abort it opens the
+        # half-emptied directory, finds no version file, calls it corruption and
+        # fasserts - on every start, forever. The real data is untouched. This
+        # script deletes the directory before each start (clear_spill_directory),
+        # so reaching this branch means that deletion did not happen either.
+        echo "The failure is MongoDB's scratch directory ${MONGO_DATA_DIR}/_tmp/spilldb, not the data:"
+        echo "delete that directory (only that one) and start again - see docs/Databases/MongoDB/Storage-Requirements.md"
+    fi
 
     switch_to_completed_ferretdb || true
 
@@ -391,6 +401,23 @@ if check_mongodb_running; then
     echo "MongoDB is already running. Exiting to prevent multiple instances."
     exit 0
 fi
+
+# MongoDB 8.2+ keeps a throwaway WiredTiger instance under _tmp/spilldb for
+# queries that spill to disk, and empties it itself on every start. A reported
+# crash loop (a full disk, an abort, then "Failed to clear dbpath of the
+# internal WiredTiger instance: Directory not empty" followed by "Failed to
+# open the spill WiredTiger instance ... database corruption detected" on
+# every start after) showed that its own emptying can fail and leave it
+# unstartable with the data intact. No mongod is running here (checked
+# above), so the directory holds nothing: delete it before every start.
+# Nothing else under the data directory is ever touched by this.
+clear_spill_directory() {
+    local spill="${MONGO_DATA_DIR:?}/_tmp/spilldb"
+    [ -d "$spill" ] || return 0
+    echo "Removing MongoDB's scratch directory ${spill} before start (mongod recreates it)."
+    rm -rf "${MONGO_DATA_DIR:?}/_tmp/spilldb" || echo "WARNING: could not remove ${spill}; mongod will try itself."
+}
+clear_spill_directory
 
 # Start MongoDB 7.x server
 echo "Starting MongoDB 7.x server..."
