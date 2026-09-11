@@ -527,16 +527,14 @@ the Markdown commit as the template.
 # Upcoming WeKan ® release
 
 **In short:** deleting an **attachment** from a card is now a **soft delete**
-that the **card history** shows and restores, with no per-attachment hard
-delete anywhere - only deleting an archived board with permanent delete
-enabled removes attachment files. **Board Settings / Card** gains a toggle
-for every card section and minicard badge, listed in the card's own order,
-and a new **Board Settings / Board View** chooses which views a **public**
-or **private** board offers and which one it opens in.
-This release also repairs the **Windows release builds**, which v11.70 lost
-when GitHub's `windows-latest` moved to **Visual Studio 2026**: the bundle
-now compiles its native modules with a node-gyp that recognises it, so the
-win64 and win-arm64 zips are built again.
+that the **card history** shows and restores; the only hard delete left is
+deleting an archived board with permanent delete enabled. **Board Settings /
+Card** gains a toggle for every card section and minicard badge, and a new
+**Board Settings / Board View** chooses which views a **public** or
+**private** board offers. The **REST API** covers attachment restore, Admin
+Panel Problems, OAuth providers, card field order and rule pausing, and its
+OpenAPI spec carries the Boards API again. The **Windows release builds**,
+lost when GitHub's runner moved to **Visual Studio 2026**, are built again.
 
 This release adds the following new features:
 
@@ -672,6 +670,53 @@ Swimlane, the five columns and their public-hidden variant, one row per
 menu view in menu order, the schema fields and setters, the radio and
 "default stays shown" semantics, the menu filter, the fallback in
 `Utils.boardView()`, and the translations.
+
+</details>
+
+**REST API** - endpoints for the features of the recent releases that had a
+UI but no API, and the OpenAPI spec they are documented in.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9e2f9e9b344a25f4afd7dc5efd517b2065ae4b77">Endpoints for attachment restore, Problems, OAuth providers, card field order and rule pausing</a>. Thanks to xet7.</summary>
+
+Each endpoint runs the same server-side code its UI uses, as the request's
+user, so the permission checks and side effects are the ones the UI gets:
+
+- `DELETE /api/boards/:boardId/attachments/:attachmentId` soft-deletes,
+  `POST .../attachments/:attachmentId/restore` restores, and
+  `GET /api/boards/:boardId/attachments/deleted` lists what is restorable,
+  through the `attachments.softDelete` / `attachments.restore` methods the
+  card and the card history use. There is no hard delete over the API.
+- `GET /api/admin/problems` is the Problems status overview with the
+  new-problem count per stream, `GET /api/admin/problems/:stream` one page
+  of a stream (`limit`, `skip`, `search`), and
+  `POST /api/admin/problems/:stream/acknowledge` the acknowledge button -
+  all through the admin-only `eventLog*` methods the Admin Panel calls.
+- `GET /api/admin/oauth-providers`, `PUT /api/admin/oauth-providers/:providerKey`
+  and `PUT /api/admin/passwordless` read and save the Admin Panel / People /
+  Login provider settings; a secret is reported only as `{ source, hasValue }`.
+- `GET`/`PUT /api/boards/:boardId/cardFieldOrder` read and set the opened
+  card's section order, normalised with the same `applyCardFieldOrder()`.
+- `PUT /api/boards/:boardId/rules/:ruleId` accepts `enabled` to pause and
+  resume a rule, and `GET` reports it.
+
+The OpenAPI generator is fixed on the way: `server/models/boards.js` has had
+a bare `catch {` since v11.67, the esprima parser cannot read that, and a
+parse failure was skipped silently - so `public/api/wekan.yml` has shipped
+without the whole Boards API since then. It now downlevels `catch {` and
+`for await (`, warns when a file cannot be parsed, and no longer emits an
+empty sub-schema for a primitive array-element marker such as
+`wipLimitGroups.$.listIds.$`, which made the spec unparseable YAML.
+`public/api/wekan.yml` and `wekan.html` are regenerated with the release
+workflow's own commands: 156 operations, up from 122. `docs/API/REST-API.md`
+and `docs/API/Rules.md` document every new endpoint with a curl example.
+
+`tests/restApiNewFeatureRoutes.test.cjs` pins every new route to its method,
+path, `@operation` block and authentication check, that the OAuth endpoints
+never mention a secret outside the input whitelist, the generator's fixes,
+that the generated and the committed spec carry the Boards API and the new
+operations, and - as the negative sweep - that no route in `models/` or
+`server/models/` lacks an authentication check.
 
 </details>
 
