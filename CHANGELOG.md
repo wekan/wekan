@@ -531,7 +531,8 @@ system offers - **Google**, **GitHub**, **Facebook**, **X (Twitter)**,
 **Meteor Developer**, **Weibo**, **Meetup** and **passwordless** email codes -
 configurable with environment variables on every platform and overridable
 in **Admin Panel / People / Login**, where a badge beside each field names
-the source in effect and a change applies without a restart.
+the source in effect and a change applies without a restart. It also fixes
+the **release bump job**, which failed on the generated OpenAPI spec.
 
 This release adds the following new features:
 
@@ -639,6 +640,26 @@ index. `tests/oauthProvidersPlatformEnv.test.cjs` pins every variable on every
 platform, the Snap triples and their kebab-case keys, the Sandstorm defaults,
 and that the docs pages exist and are linked; the compose-parity suite keeps
 the five FerretDB v1 files identical.
+
+</details>
+
+and fixes the following bug:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/cfaf71d22">The release bump job no longer fails on the generated OpenAPI spec</a>. Thanks to xet7.</summary>
+
+The bump job of release-all.yml regenerates `public/api/wekan.yml` from the
+models' JSDoc and renders it with @redocly/cli, which stopped the release
+with "bad indentation of a mapping entry (1232:2)". A `@param` whose
+description continues on the next JSDoc lines (the chart export's
+`chartKey`) was emitted under `description: |` with only its first line
+indented, so the continuation lines fell out of the block scalar and the
+whole spec failed to parse. The generator now indents every line. It also
+stopped warning "unknown type object" for the rules API's trigger/action
+parameters: OpenAPI 2.0 has no `object` for a path/query/form parameter, so
+they are emitted as a JSON string. Reproduced locally and verified with the
+same @redocly/cli render; `tests/openapiParamMultiline.test.cjs` pins the
+emitter and parses the regenerated spec.
 
 </details>
 
