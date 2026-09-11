@@ -524,6 +524,52 @@ the Markdown commit as the template.
 </details>
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** this release repairs the **Windows release builds**, which
+v11.70 lost when GitHub's `windows-latest` moved to **Visual Studio 2026**:
+the bundle now compiles its native modules with a node-gyp that recognises
+it, so the win64 and win-arm64 zips are built again.
+
+This release fixes the following bug:
+
+**The release workflow** - what stopped the v11.70 release run.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/037975a9d1b48c65860564e5024e84ec7abde073">The Windows legs compile argon2 again on the Visual Studio 2026 runner image</a>. Thanks to xet7.</summary>
+
+`build-win64` and `build-win-arm64` both failed in "Rebuild native modules
+for Windows" while argon2 compiled during `npm install`:
+`gyp ERR! find VS unknown version "undefined" found at "C:\Program
+Files\Microsoft Visual Studio\18\Enterprise"`. On 2026-09-07 GitHub's
+`windows-latest` became the `windows-2025-vs2026` image, with Visual Studio 18
+and no longer 17, and the node-gyp doing the compiling was not one this
+repository installs: Meteor's bundler pins `programs/server/package.json` to
+the node-gyp inside the Meteor tool - 10.2.0 in Meteor 3.5.2 - which knows
+nothing newer than Visual Studio 2022. argon2 always compiles on Windows,
+because `node-gyp-build`'s prebuild probe runs through the Linux-made `.bin/`
+shims and fails there, so a compiler that cannot find Visual Studio ends the
+job.
+
+`releases/bump-bundle-node-gyp.mjs` now raises that pin to node-gyp 13.0.2
+(12.1.0 added Visual Studio 2026; 13.0.1/13.0.2 fixed its version detection)
+once, in `build-amd64` before its first `npm install`, from where every other
+architecture's bundle inherits it. A pin already at or above the minimum, a
+range, or a bundle without one is left alone. `releases/build-release-bundle.sh`
+does the same, so a local release bundle matches what a release ships.
+`tests/bumpBundleNodeGyp.test.cjs` pins each decision, the minimum, the
+step order in the workflow, and that no leg hard-codes node-gyp 10.2.0 or a
+`GYP_MSVS_VERSION` workaround.
+
+The same run's other failures are not the repository's: the three amd64 snap
+jobs timed out creating snapcraft's LXD base instance (`apt-get install -y
+snapd`, 600 s; the arm64 twins passed) and `snap-launchpad riscv64` was still
+building on Launchpad when the job cap cancelled it. Both pass on a re-run.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v11.70 2026-09-11 WeKan ® release
 
 **In short:** this release adds every way to log in that Meteor's accounts
