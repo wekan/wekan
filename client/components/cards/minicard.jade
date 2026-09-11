@@ -200,44 +200,54 @@ template(name="minicard")
         each shouldShowChecklistAtMinicard
           +minicardChecklist(checklist=. card=..)
       .badges
-        if dependencyBadge
-          .badge.badge-state-image-only.minicard-dependencies(title="{{_ 'card-dependencies'}}")
-            span.badge-icon(style="color:{{dependencyBadge.color}}")
-              i.fa(class="fa-{{dependencyBadge.icon}}")
-            span.badge-text {{ dependencyBadge.count }}
-        if stickers.length
-          .badge.badge-state-image-only.minicard-stickers
-            each stickers
-              span.badge-icon.minicard-sticker(title="{{#if name}}{{name}}{{else}}{{icon}}{{/if}}")
-                i.fa(class="fa-{{icon}} {{#if highlight}}sticker-{{highlight}}{{/if}}")
-        if comments.length
-          .badge(title="{{_ 'card-comments-title' comments.length }}")
-            span.badge-icon.badge-comment.badge-text
-              i.fa.fa-comment-o
-              = ' '
-              = comments.length
-              //span.badge-comment.badge-text
-              //|
-                {{_ 'comment'}}
+        //- #6688: every badge has a Board Settings / Card "Show on Minicard"
+          toggle (the cheap board flag is read first, so a board that turned a
+          badge off never counts what it would have shown). Dependencies,
+          stickers, the comment count, vote and poker rendered unconditionally
+          before; all default on. client/components/sidebar/sidebar.jade
+        if showDependenciesOnMinicard
+          if dependencyBadge
+            .badge.badge-state-image-only.minicard-dependencies(title="{{_ 'card-dependencies'}}")
+              span.badge-icon(style="color:{{dependencyBadge.color}}")
+                i.fa(class="fa-{{dependencyBadge.icon}}")
+              span.badge-text {{ dependencyBadge.count }}
+        if showStickersOnMinicard
+          if stickers.length
+            .badge.badge-state-image-only.minicard-stickers
+              each stickers
+                span.badge-icon.minicard-sticker(title="{{#if name}}{{name}}{{else}}{{icon}}{{/if}}")
+                  i.fa(class="fa-{{icon}} {{#if highlight}}sticker-{{highlight}}{{/if}}")
+        if showCommentCountOnMinicard
+          if comments.length
+            .badge(title="{{_ 'card-comments-title' comments.length }}")
+              span.badge-icon.badge-comment.badge-text
+                i.fa.fa-comment-o
+                = ' '
+                = comments.length
+                //span.badge-comment.badge-text
+                //|
+                  {{_ 'comment'}}
         if getDescription
           unless currentBoard.allowsDescriptionTextOnMinicard
             .badge.badge-state-image-only(title=getDescription)
               span.badge-icon
                 i.fa.fa-file-text-o
-        if getVoteQuestion
-          .badge.badge-state-image-only(title=getVoteQuestion)
-            span.badge-icon(class="{{#if voteState}}text-green{{/if}}")
-              i.fa.fa-thumbs-up
-            span.badge-text {{ voteCountPositive }}
-            span.badge-icon(class="{{#if $eq voteState false}}text-red{{/if}}")
-              i.fa.fa-thumbs-down
-            span.badge-text {{ voteCountNegative }}
-        if getPokerQuestion
-          .badge.badge-state-image-only(title=getPokerQuestion)
-            span.badge-icon(class="{{#if pokerState}}text-green{{/if}}")
-              i.fa.fa-check-square
-            if expiredPoker
-              span.badge-text {{ getPokerEstimation }}
+        if showVoteOnMinicard
+          if getVoteQuestion
+            .badge.badge-state-image-only(title=getVoteQuestion)
+              span.badge-icon(class="{{#if voteState}}text-green{{/if}}")
+                i.fa.fa-thumbs-up
+              span.badge-text {{ voteCountPositive }}
+              span.badge-icon(class="{{#if $eq voteState false}}text-red{{/if}}")
+                i.fa.fa-thumbs-down
+              span.badge-text {{ voteCountNegative }}
+        if showPokerOnMinicard
+          if getPokerQuestion
+            .badge.badge-state-image-only(title=getPokerQuestion)
+              span.badge-icon(class="{{#if pokerState}}text-green{{/if}}")
+                i.fa.fa-check-square
+              if expiredPoker
+                span.badge-text {{ getPokerEstimation }}
         if attachments.length
           if currentBoard.allowsBadgeAttachmentOnMinicard
             .badge

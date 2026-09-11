@@ -1229,6 +1229,20 @@ const BOARD_CARD_SETTING_KEYS = [
   'allowsShowListsOnMinicard',
   'allowsSwimlaneNameOnMinicard',
   'showLabelText',
+  // #6688: the sections/badges that had no toggle.
+  'allowsStickers',
+  'allowsStickersOnMinicard',
+  'allowsLocation',
+  'allowsDependencies',
+  'allowsDependenciesOnMinicard',
+  'allowsFlowtime',
+  'allowsPomodoro',
+  'allowsVote',
+  'allowsVoteOnMinicard',
+  'allowsPoker',
+  'allowsPokerOnMinicard',
+  'allowsTextNotes',
+  'allowsCommentCountOnMinicard',
 ];
 
 // #3984: numeric card-settings keys (parsed as integers, not booleans). These are

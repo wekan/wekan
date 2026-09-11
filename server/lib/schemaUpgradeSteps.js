@@ -145,6 +145,16 @@ const BOARD_ALLOWS_TRUE_DEFAULTS = [
   'allowsStartDate', 'allowsStartDateOnMinicard',
   'allowsEndDate', 'allowsEndDateOnMinicard',
   'allowsDueDate', 'allowsDueDateOnMinicard',
+  // #6688: sections/badges that rendered unconditionally before they got a
+  // toggle - true by default so an existing board keeps showing them.
+  'allowsStickers', 'allowsStickersOnMinicard',
+  'allowsLocation',
+  'allowsDependencies', 'allowsDependenciesOnMinicard',
+  'allowsFlowtime', 'allowsPomodoro',
+  'allowsVote', 'allowsVoteOnMinicard',
+  'allowsPoker', 'allowsPokerOnMinicard',
+  'allowsTextNotes',
+  'allowsCommentCountOnMinicard',
 ];
 
 const MISSING_OR_EMPTY = { $in: [null, ''] };   // matches missing, null and ''

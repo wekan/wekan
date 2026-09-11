@@ -208,6 +208,31 @@ Template.minicard.helpers({
     const board = this.board();
     return getMinicardFlag(board, 'allowsSubtasksOnMinicard', 'allowsSubtasks', true);
   },
+  // #6688: the minicard badges that had no Board Settings / Card toggle.
+  // Each defaults to TRUE (models/boards.js) because it always rendered
+  // before; a legacy board without the field keeps showing it. The card-side
+  // flag is NOT a fallback here - hiding the Dependencies section of the
+  // opened card is a different decision from hiding its badge.
+  showDependenciesOnMinicard() {
+    const board = this.board();
+    return getMinicardFlag(board, 'allowsDependenciesOnMinicard', null, true);
+  },
+  showStickersOnMinicard() {
+    const board = this.board();
+    return getMinicardFlag(board, 'allowsStickersOnMinicard', null, true);
+  },
+  showCommentCountOnMinicard() {
+    const board = this.board();
+    return getMinicardFlag(board, 'allowsCommentCountOnMinicard', null, true);
+  },
+  showVoteOnMinicard() {
+    const board = this.board();
+    return getMinicardFlag(board, 'allowsVoteOnMinicard', null, true);
+  },
+  showPokerOnMinicard() {
+    const board = this.board();
+    return getMinicardFlag(board, 'allowsPokerOnMinicard', null, true);
+  },
   // #6431: compact checklist item-count badge (finished/total) on the minicard.
   // Opt-in, OFF by default. Only a cheap boolean read here; the actual checklist
   // counting (checklistFinishedCount/checklistItemCount) is gated behind this in

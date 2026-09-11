@@ -594,6 +594,9 @@ Template.boardMenuPopup.events({
   // convention comment explains why: a new key would show English in every
   // language until each is translated). "Card Settings" already has its own
   // title key from the shared table template, so it needs no override.
+  // Board Settings / Board View - "board-view" is the existing, translated
+  // "Board View" key the view switcher already uses.
+  'click .js-open-board-view-settings': Popup.open('boardViewSettings', { titleKey: 'board-view' }),
   'click .js-open-board-swimlane-settings': Popup.open('boardSwimlaneSettings', { titleKey: 'swimlane' }),
   'click .js-open-board-list-settings': Popup.open('boardListSettings', { titleKey: 'list' }),
   // #2489: board-level WIP limit groups.
@@ -1834,6 +1837,77 @@ Template.boardCardSettingsPopup.helpers({
     const currentBoard = ReactiveCache.getBoard(boardId);
     return currentBoard && currentBoard.allowsSpentTimeOnMinicard !== false;
   },
+  // #6688: the rows of Board Settings / Card follow the opened card's own
+  // section order - the SAME helper name and source (models/lib/cardFieldOrder.js)
+  // as cardDetails.jade's `each section in orderedCardFieldSections`, so
+  // reordering with the arrows at the bottom of the popup reorders these rows
+  // the same way and the two can never disagree.
+  orderedCardFieldSections() {
+    const boardId = Session.get('currentBoard');
+    const currentBoard = ReactiveCache.getBoard(boardId);
+    return applyCardFieldOrder(currentBoard?.cardFieldOrder);
+  },
+  // #6688: the sections and badges that rendered unconditionally before they
+  // had a toggle. All default TRUE (models/boards.js), so like Spent time
+  // above they read `!== false`: a board without the field shows the thing.
+  allowsStickers() {
+    const board = ReactiveCache.getBoard(Session.get('currentBoard'));
+    return board && board.allowsStickers !== false;
+  },
+  allowsStickersOnMinicard() {
+    const board = ReactiveCache.getBoard(Session.get('currentBoard'));
+    return board && board.allowsStickersOnMinicard !== false;
+  },
+  allowsLocation() {
+    const board = ReactiveCache.getBoard(Session.get('currentBoard'));
+    return board && board.allowsLocation !== false;
+  },
+  allowsDependencies() {
+    const board = ReactiveCache.getBoard(Session.get('currentBoard'));
+    return board && board.allowsDependencies !== false;
+  },
+  allowsDependenciesOnMinicard() {
+    const board = ReactiveCache.getBoard(Session.get('currentBoard'));
+    return board && board.allowsDependenciesOnMinicard !== false;
+  },
+  allowsFlowtime() {
+    const board = ReactiveCache.getBoard(Session.get('currentBoard'));
+    return board && board.allowsFlowtime !== false;
+  },
+  allowsPomodoro() {
+    const board = ReactiveCache.getBoard(Session.get('currentBoard'));
+    return board && board.allowsPomodoro !== false;
+  },
+  allowsVote() {
+    const board = ReactiveCache.getBoard(Session.get('currentBoard'));
+    return board && board.allowsVote !== false;
+  },
+  allowsVoteOnMinicard() {
+    const board = ReactiveCache.getBoard(Session.get('currentBoard'));
+    return board && board.allowsVoteOnMinicard !== false;
+  },
+  allowsPoker() {
+    const board = ReactiveCache.getBoard(Session.get('currentBoard'));
+    return board && board.allowsPoker !== false;
+  },
+  allowsPokerOnMinicard() {
+    const board = ReactiveCache.getBoard(Session.get('currentBoard'));
+    return board && board.allowsPokerOnMinicard !== false;
+  },
+  allowsTextNotes() {
+    const board = ReactiveCache.getBoard(Session.get('currentBoard'));
+    return board && board.allowsTextNotes !== false;
+  },
+  allowsCommentCountOnMinicard() {
+    const board = ReactiveCache.getBoard(Session.get('currentBoard'));
+    return board && board.allowsCommentCountOnMinicard !== false;
+  },
+  // The field and its click handler predate #6688; only the row and this
+  // helper were missing (the row sat commented out in sidebar.jade).
+  allowsActivities() {
+    const board = ReactiveCache.getBoard(Session.get('currentBoard'));
+    return board && board.allowsActivities !== false;
+  },
   allowsDueComplete() {
     const boardId = Session.get('currentBoard');
     const currentBoard = ReactiveCache.getBoard(boardId);
@@ -2414,6 +2488,73 @@ Template.boardCardSettingsPopup.events({
     evt.preventDefault();
     const currentValue = tpl.currentBoard.allowsSpentTimeOnMinicard !== false;
     Boards.update(tpl.currentBoard._id, { $set: { allowsSpentTimeOnMinicard: !currentValue } });
+  },
+  // #6688: default-true toggles, so a missing field counts as ON and the
+  // first click turns it OFF - the same `!== false` the Spent time pair uses.
+  'click .js-field-has-stickers'(evt, tpl) {
+    evt.preventDefault();
+    const currentValue = tpl.currentBoard.allowsStickers !== false;
+    Boards.update(tpl.currentBoard._id, { $set: { allowsStickers: !currentValue } });
+  },
+  'click .js-field-has-stickers-on-minicard'(evt, tpl) {
+    evt.preventDefault();
+    const currentValue = tpl.currentBoard.allowsStickersOnMinicard !== false;
+    Boards.update(tpl.currentBoard._id, { $set: { allowsStickersOnMinicard: !currentValue } });
+  },
+  'click .js-field-has-location'(evt, tpl) {
+    evt.preventDefault();
+    const currentValue = tpl.currentBoard.allowsLocation !== false;
+    Boards.update(tpl.currentBoard._id, { $set: { allowsLocation: !currentValue } });
+  },
+  'click .js-field-has-dependencies'(evt, tpl) {
+    evt.preventDefault();
+    const currentValue = tpl.currentBoard.allowsDependencies !== false;
+    Boards.update(tpl.currentBoard._id, { $set: { allowsDependencies: !currentValue } });
+  },
+  'click .js-field-has-dependencies-on-minicard'(evt, tpl) {
+    evt.preventDefault();
+    const currentValue = tpl.currentBoard.allowsDependenciesOnMinicard !== false;
+    Boards.update(tpl.currentBoard._id, { $set: { allowsDependenciesOnMinicard: !currentValue } });
+  },
+  'click .js-field-has-flowtime'(evt, tpl) {
+    evt.preventDefault();
+    const currentValue = tpl.currentBoard.allowsFlowtime !== false;
+    Boards.update(tpl.currentBoard._id, { $set: { allowsFlowtime: !currentValue } });
+  },
+  'click .js-field-has-pomodoro'(evt, tpl) {
+    evt.preventDefault();
+    const currentValue = tpl.currentBoard.allowsPomodoro !== false;
+    Boards.update(tpl.currentBoard._id, { $set: { allowsPomodoro: !currentValue } });
+  },
+  'click .js-field-has-vote'(evt, tpl) {
+    evt.preventDefault();
+    const currentValue = tpl.currentBoard.allowsVote !== false;
+    Boards.update(tpl.currentBoard._id, { $set: { allowsVote: !currentValue } });
+  },
+  'click .js-field-has-vote-on-minicard'(evt, tpl) {
+    evt.preventDefault();
+    const currentValue = tpl.currentBoard.allowsVoteOnMinicard !== false;
+    Boards.update(tpl.currentBoard._id, { $set: { allowsVoteOnMinicard: !currentValue } });
+  },
+  'click .js-field-has-poker'(evt, tpl) {
+    evt.preventDefault();
+    const currentValue = tpl.currentBoard.allowsPoker !== false;
+    Boards.update(tpl.currentBoard._id, { $set: { allowsPoker: !currentValue } });
+  },
+  'click .js-field-has-poker-on-minicard'(evt, tpl) {
+    evt.preventDefault();
+    const currentValue = tpl.currentBoard.allowsPokerOnMinicard !== false;
+    Boards.update(tpl.currentBoard._id, { $set: { allowsPokerOnMinicard: !currentValue } });
+  },
+  'click .js-field-has-text-notes'(evt, tpl) {
+    evt.preventDefault();
+    const currentValue = tpl.currentBoard.allowsTextNotes !== false;
+    Boards.update(tpl.currentBoard._id, { $set: { allowsTextNotes: !currentValue } });
+  },
+  'click .js-field-has-comment-count-on-minicard'(evt, tpl) {
+    evt.preventDefault();
+    const currentValue = tpl.currentBoard.allowsCommentCountOnMinicard !== false;
+    Boards.update(tpl.currentBoard._id, { $set: { allowsCommentCountOnMinicard: !currentValue } });
   },
   'click .js-field-has-attachments'(evt, tpl) {
     evt.preventDefault();

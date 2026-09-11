@@ -285,6 +285,20 @@ template(name="boardInfoOnMyBoardsPopup")
   for "Show on Card" / "Show on Minicard" (side param still supported) hides
   the matching heading with it, and personalOnly (the one row a non-admin
   gets) hides it entirely, the same as every other non-personal row.
+//- #6688: the rows are in the ORDER the fields appear on the opened card,
+  top to bottom, so that a reader can run a finger down the card and down
+  this list and meet the same things in the same sequence - and EVERY
+  section of the card and every badge of the minicard has a row here. The
+  card's header fields come first (number, complete toggle, cover); then the
+  five reorderable sections in the board's OWN order - `each section in
+  orderedCardFieldSections`, the same source cardDetails.jade renders from,
+  so moving Description up with the arrows at the bottom of this popup moves
+  its rows up here too - each carrying the fixed appendage the card gives it
+  (Dependencies/Sort/timers after Members, Vote/Poker after Custom Fields);
+  then the fixed tail of the card (Checklists ... Comments, Activities).
+  Rows that exist only on the minicard (Labels text, List title, Swimlane,
+  Comment count) sit beside the card row they belong with.
+  tests/cardSettingsCoverage.test.cjs pins both the coverage and the order.
 template(name="boardCardSettingsPopup")
   form.board-card-settings(class=settingsSideClass)
     .card-settings-row
@@ -294,72 +308,9 @@ template(name="boardCardSettingsPopup")
         h4 {{_ 'show-on-minicard'}}
       .card-settings-column
         h4 {{_ 'description'}}
-    //- "List title": the name of the LIST this card is in, on its minicard.
-      A per-CARD setting, unchecked by default, and the first row of this
-      column because it is about the card as a whole rather than one of its
-      fields. It was a line in the card's menu reading "Show list on minicard";
-      it is a checkbox among the other things a minicard can show, which is
-      where somebody looking for it would look. Only for a user who may change
-      the card - the same permission the menu entry had.
-      The board-wide "Show lists" row further down turns it on for EVERY card;
-      this one is for a single card that needs it, which is what it is for on a
-      swimlane, in search results and in My Cards, where a card is read away
-      from the column it lives in. client/components/cards/minicard.jade
-    if canModifyCard
-      .card-settings-row.card-settings-row-personal
-        .card-settings-column
-        .card-settings-column
-          a.flex.js-toggle-show-list-on-minicard(title="{{_ 'list'}} {{_ 'title'}}" class="{{#if showsListOnMinicard}}is-checked{{/if}}")
-            i.fa(class="{{#if showsListOnMinicard}}fa-check{{else}}fa-square-o{{/if}}")
-        .card-settings-column
-          span
-            i.fa.fa-list
-            | {{_ 'list'}}
-            | {{_ 'title'}}
-    .card-settings-row
-      .card-settings-column
-        a.flex.js-field-has-receiveddate(title="{{_ 'card-received'}}" class="{{#if allowsReceivedDate}}is-checked{{/if}}")
-          i.fa(class="{{#if allowsReceivedDate}}fa-check{{else}}fa-square-o{{/if}}")
-      .card-settings-column
-        a.flex.js-field-has-receiveddate-on-minicard(title="{{_ 'card-received'}}" class="{{#if allowsReceivedDateOnMinicard}}is-checked{{/if}}")
-          i.fa(class="{{#if allowsReceivedDateOnMinicard}}fa-check{{else}}fa-square-o{{/if}}")
-      .card-settings-column
-        span
-          i.fa.fa-sign-in
-          | {{_ 'card-received'}}
-    .card-settings-row
-      .card-settings-column
-        a.flex.js-field-has-startdate(title="{{_ 'card-start'}}" class="{{#if allowsStartDate}}is-checked{{/if}}")
-          i.fa(class="{{#if allowsStartDate}}fa-check{{else}}fa-square-o{{/if}}")
-      .card-settings-column
-        a.flex.js-field-has-startdate-on-minicard(title="{{_ 'card-start'}}" class="{{#if allowsStartDateOnMinicard}}is-checked{{/if}}")
-          i.fa(class="{{#if allowsStartDateOnMinicard}}fa-check{{else}}fa-square-o{{/if}}")
-      .card-settings-column
-        span
-          i.fa.fa-hourglass
-          | {{_ 'card-start'}}
-    .card-settings-row
-      .card-settings-column
-        a.flex.js-field-has-duedate(title="{{_ 'card-due'}}" class="{{#if allowsDueDate}}is-checked{{/if}}")
-          i.fa(class="{{#if allowsDueDate}}fa-check{{else}}fa-square-o{{/if}}")
-      .card-settings-column
-        a.flex.js-field-has-duedate-on-minicard(title="{{_ 'card-due'}}" class="{{#if allowsDueDateOnMinicard}}is-checked{{/if}}")
-          i.fa(class="{{#if allowsDueDateOnMinicard}}fa-check{{else}}fa-square-o{{/if}}")
-      .card-settings-column
-        span
-          i.fa.fa-sign-in
-          | {{_ 'card-due'}}
-    .card-settings-row
-      .card-settings-column
-        a.flex.js-field-has-enddate(title="{{_ 'card-end'}}" class="{{#if allowsEndDate}}is-checked{{/if}}")
-          i.fa(class="{{#if allowsEndDate}}fa-check{{else}}fa-square-o{{/if}}")
-      .card-settings-column
-        a.flex.js-field-has-enddate-on-minicard(title="{{_ 'card-end'}}" class="{{#if allowsEndDateOnMinicard}}is-checked{{/if}}")
-          i.fa(class="{{#if allowsEndDateOnMinicard}}fa-check{{else}}fa-square-o{{/if}}")
-      .card-settings-column
-        span
-          i.fa.fa-clock-o
-          | {{_ 'card-end'}}
+    //- The card header, left to right and top to bottom: the "Mark as complete"
+      toggle, the number in front of the title, and the cover image under it -
+      the minicard puts them in the same order.
     .card-settings-row
       .card-settings-column
         a.flex.js-field-has-duecomplete(title="{{_ 'card-mark-complete'}}" class="{{#if allowsDueComplete}}is-checked{{/if}}")
@@ -371,167 +322,6 @@ template(name="boardCardSettingsPopup")
         span
           i.fa.fa-check-square-o
           | {{_ 'card-mark-complete'}}
-    .card-settings-row
-      .card-settings-column
-        a.flex.js-field-has-members(title="{{_ 'members'}}" class="{{#if allowsMembers}}is-checked{{/if}}")
-          i.fa(class="{{#if allowsMembers}}fa-check{{else}}fa-square-o{{/if}}")
-      .card-settings-column
-        a.flex.js-field-has-members-on-minicard(title="{{_ 'members'}}" class="{{#if allowsMembersOnMinicard}}is-checked{{/if}}")
-          i.fa(class="{{#if allowsMembersOnMinicard}}fa-check{{else}}fa-square-o{{/if}}")
-      .card-settings-column
-        span
-          i.fa.fa-users
-          | {{_ 'members'}}
-    .card-settings-row
-      .card-settings-column
-        a.flex.js-field-has-creator(title="{{_ 'creator'}}" class="{{#if allowsCreator}}is-checked{{/if}}")
-          i.fa(class="{{#if allowsCreator}}fa-check{{else}}fa-square-o{{/if}}")
-      .card-settings-column
-        a.flex.js-field-has-creator-on-minicard(title="{{_ 'creator'}}" class="{{#if allowsCreatorOnMinicard}}is-checked{{/if}}")
-          i.fa(class="{{#if allowsCreatorOnMinicard}}fa-check{{else}}fa-square-o{{/if}}")
-      .card-settings-column
-        span
-          i.fa.fa-user
-          | {{_ 'creator'}}
-    .card-settings-row
-      .card-settings-column
-        a.flex.js-field-has-assignee(title="{{_ 'assignee'}}" class="{{#if allowsAssignee}}is-checked{{/if}}")
-          i.fa(class="{{#if allowsAssignee}}fa-check{{else}}fa-square-o{{/if}}")
-      .card-settings-column
-        a.flex.js-field-has-assignee-on-minicard(title="{{_ 'assignee'}}" class="{{#if allowsAssigneeOnMinicard}}is-checked{{/if}}")
-          i.fa(class="{{#if allowsAssigneeOnMinicard}}fa-check{{else}}fa-square-o{{/if}}")
-      .card-settings-column
-        span
-          i.fa.fa-user
-          | {{_ 'assignee'}}
-    .card-settings-row
-      .card-settings-column
-        a.flex.js-field-has-assigned-by(title="{{_ 'assigned-by'}}" class="{{#if allowsAssignedBy}}is-checked{{/if}}")
-          i.fa(class="{{#if allowsAssignedBy}}fa-check{{else}}fa-square-o{{/if}}")
-      .card-settings-column
-        a.flex.js-field-has-assigned-by-on-minicard(title="{{_ 'assigned-by'}}" class="{{#if allowsAssignedByOnMinicard}}is-checked{{/if}}")
-          i.fa(class="{{#if allowsAssignedByOnMinicard}}fa-check{{else}}fa-square-o{{/if}}")
-      .card-settings-column
-        span
-          i.fa.fa-shopping-cart
-          | {{_ 'assigned-by'}}
-    .card-settings-row
-      .card-settings-column
-        a.flex.js-field-has-requested-by(title="{{_ 'requested-by'}}" class="{{#if allowsRequestedBy}}is-checked{{/if}}")
-          i.fa(class="{{#if allowsRequestedBy}}fa-check{{else}}fa-square-o{{/if}}")
-      .card-settings-column
-        a.flex.js-field-has-requested-by-on-minicard(title="{{_ 'requested-by'}}" class="{{#if allowsRequestedByOnMinicard}}is-checked{{/if}}")
-          i.fa(class="{{#if allowsRequestedByOnMinicard}}fa-check{{else}}fa-square-o{{/if}}")
-      .card-settings-column
-        span
-          i.fa.fa-user
-          i.fa.fa-plus
-          | {{_ 'requested-by'}}
-    .card-settings-row
-      .card-settings-column
-        a.flex.js-field-has-card-sorting-by-number(title="{{_ 'card-sorting-by-number'}}" class="{{#if allowsCardSortingByNumber}}is-checked{{/if}}")
-          i.fa(class="{{#if allowsCardSortingByNumber}}fa-check{{else}}fa-square-o{{/if}}")
-      .card-settings-column
-        a.flex.js-field-has-card-sorting-by-number-on-minicard(title="{{_ 'card-sorting-by-number'}}" class="{{#if allowsCardSortingByNumberOnMinicard}}is-checked{{/if}}")
-          i.fa(class="{{#if allowsCardSortingByNumberOnMinicard}}fa-check{{else}}fa-square-o{{/if}}")
-      .card-settings-column
-        span
-          i.fa.fa-sort-numeric-asc
-          | {{_ 'card-sorting-by-number'}}
-    .card-settings-row
-      .card-settings-column
-        a.flex.js-field-has-card-show-lists(title="{{_ 'card-show-lists'}}" class="{{#if allowsShowLists}}is-checked{{/if}}")
-          i.fa(class="{{#if allowsShowLists}}fa-check{{else}}fa-square-o{{/if}}")
-      .card-settings-column
-        a.flex.js-field-has-card-show-lists-on-minicard(title="{{_ 'card-show-lists'}}" class="{{#if allowsShowListsOnMinicard}}is-checked{{/if}}")
-          i.fa(class="{{#if allowsShowListsOnMinicard}}fa-check{{else}}fa-square-o{{/if}}")
-      .card-settings-column
-        span
-          i.fa.fa-list
-          | {{_ 'card-show-lists'}}
-    //- #2426: the swimlane a card belongs to isn't otherwise visible on a
-      minicard in List view (Swimlanes view already groups cards visually by
-      swimlane), so this board-wide toggle shows the swimlane's name at the
-      bottom of the minicard, the same place/style as the list name above.
-      There is no "Show on Card" equivalent - the card detail view already
-      shows the swimlane via its own picker - so the first column stays
-      empty, the same shape as the "List title" row above.
-      client/components/cards/minicard.jade
-    .card-settings-row
-      .card-settings-column
-      .card-settings-column
-        a.flex.js-field-has-swimlane-name-on-minicard(title="{{_ 'swimlane'}}" class="{{#if allowsSwimlaneNameOnMinicard}}is-checked{{/if}}")
-          i.fa(class="{{#if allowsSwimlaneNameOnMinicard}}fa-check{{else}}fa-square-o{{/if}}")
-      .card-settings-column
-        span
-          i.fa.fa-list-alt
-          | {{_ 'swimlane'}}
-    .card-settings-row
-      .card-settings-column
-        a.flex.js-field-has-labels(title="{{_ 'labels'}}" class="{{#if allowsLabels}}is-checked{{/if}}")
-          i.fa(class="{{#if allowsLabels}}fa-check{{else}}fa-square-o{{/if}}")
-      .card-settings-column
-        a.flex.js-field-has-labels-on-minicard(title="{{_ 'labels'}}" class="{{#if allowsLabelsOnMinicard}}is-checked{{/if}}")
-          i.fa(class="{{#if allowsLabelsOnMinicard}}fa-check{{else}}fa-square-o{{/if}}")
-      .card-settings-column
-        span
-          i.fa.fa-tag
-          | {{_ 'labels'}}
-    //- #4256: "Labels text" - the labels on a minicard as coloured WORDS, or as
-      coloured bars with the words left out. Directly under Labels, because it
-      is about what those labels look like.
-      This BOARD row is the board's own default - a board admin sets it here,
-      the same as every other row in this table, and it applies to everybody
-      who has not overridden it below. Checked by default: the text is what a
-      minicard shows unless an admin turns it off. Minicard-only, so the Card
-      column is left blank. client/lib/minicardLabelText.js
-    .card-settings-row
-      .card-settings-column
-      .card-settings-column
-        a.flex.js-field-has-label-text(title="{{_ 'labels'}} {{_ 'custom-field-text'}}" class="{{#if allowsLabelText}}is-checked{{/if}}")
-          i.fa(class="{{#if allowsLabelText}}fa-check{{else}}fa-square-o{{/if}}")
-      .card-settings-column
-        span
-          i.fa.fa-tag
-          i.fa.fa-file-text-o
-          | {{_ 'labels'}}
-          | {{_ 'custom-field-text'}}
-    //- The one PERSONAL row of this table - the user's own profile, or this
-      browser when nobody is logged in - so it is shown only in the minicard's
-      own view (Minicard menu / Show on Minicard) and not in the board-wide
-      Card Settings, where every other row (including the board default above)
-      belongs to the board. It OVERRIDES the board default above: checking or
-      unchecking it here always wins, on every board, until reset back to
-      "follow the board" - mirroring the global theme override
-      (client/components/main/globalThemeColor.js). client/lib/minicardLabelText.js
-    .card-settings-row.card-settings-row-personal
-      .card-settings-column
-      .card-settings-column
-        a.flex.js-toggle-minicard-label-text(title="{{_ 'labels'}} {{_ 'custom-field-text'}} {{_ 'label-text-override'}}" class="{{#if showsMinicardLabelText}}is-checked{{/if}}")
-          i.fa(class="{{#if showsMinicardLabelText}}fa-check{{else}}fa-square-o{{/if}}")
-      .card-settings-column
-        span
-          i.fa.fa-tag
-          i.fa.fa-file-text-o
-          | {{_ 'labels'}}
-          | {{_ 'custom-field-text'}}
-          if hasLabelTextOverride
-            | &nbsp;
-            a.js-reset-minicard-label-text-override(title="{{_ 'label-text-use-board-default'}}")
-              | ({{_ 'label-text-overridden'}})
-          else
-            | &nbsp;({{_ 'label-text-follows-board'}})
-    .card-settings-row
-      .card-settings-column
-        a.flex.js-field-has-custom-fields(title="{{_ 'custom-fields'}}" class="{{#if allowsCustomFields}}is-checked{{/if}}")
-          i.fa(class="{{#if allowsCustomFields}}fa-check{{else}}fa-square-o{{/if}}")
-      .card-settings-column
-        a.flex.js-field-has-custom-fields-on-minicard(title="{{_ 'custom-fields'}}" class="{{#if allowsCustomFieldsOnMinicard}}is-checked{{/if}}")
-          i.fa(class="{{#if allowsCustomFieldsOnMinicard}}fa-check{{else}}fa-square-o{{/if}}")
-      .card-settings-column
-        span
-          i.fa.fa-list-alt
-          | {{_ 'custom-fields'}}
     .card-settings-row
       .card-settings-column
         a.flex.js-field-has-card-number(title="{{_ 'card'}} {{_ 'number'}}" class="{{#if allowsCardNumber}}is-checked{{/if}}")
@@ -546,28 +336,371 @@ template(name="boardCardSettingsPopup")
           | {{_ 'number'}}
     .card-settings-row
       .card-settings-column
-        a.flex.js-field-has-description-title(title="{{_ 'description'}} {{_ 'title'}}" class="{{#if allowsDescriptionTitle}}is-checked{{/if}}")
-          i.fa(class="{{#if allowsDescriptionTitle}}fa-check{{else}}fa-square-o{{/if}}")
+        a.flex.js-field-has-cover-attachment-on-card(title="{{_ 'cover-image'}}" class="{{#if allowsCoverAttachmentOnCard}}is-checked{{/if}}")
+          i.fa(class="{{#if allowsCoverAttachmentOnCard}}fa-check{{else}}fa-square-o{{/if}}")
       .card-settings-column
-        a.flex.js-field-has-description-title-on-minicard(title="{{_ 'description'}} {{_ 'title'}}" class="{{#if allowsDescriptionTitleOnMinicard}}is-checked{{/if}}")
-          i.fa(class="{{#if allowsDescriptionTitleOnMinicard}}fa-check{{else}}fa-square-o{{/if}}")
-      .card-settings-column
-        span
-          i.fa.fa-file-text-o
-          | {{_ 'description'}}
-          | {{_ 'title'}}
-    .card-settings-row
-      .card-settings-column
-        a.flex.js-field-has-description-text(title="{{_ 'description'}} {{_ 'custom-field-text'}}" class="{{#if allowsDescriptionText}}is-checked{{/if}}")
-          i.fa(class="{{#if allowsDescriptionText}}fa-check{{else}}fa-square-o{{/if}}")
-      .card-settings-column
-        a.flex.js-field-has-description-text-on-minicard(title="{{_ 'description'}} {{_ 'custom-field-text'}}" class="{{#if allowsDescriptionTextOnMinicard}}is-checked{{/if}}")
-          i.fa(class="{{#if allowsDescriptionTextOnMinicard}}fa-check{{else}}fa-square-o{{/if}}")
+        a.flex.js-field-has-cover-attachment-on-minicard(title="{{_ 'cover-image'}}" class="{{#if allowsCoverAttachmentOnMinicard}}is-checked{{/if}}")
+          i.fa(class="{{#if allowsCoverAttachmentOnMinicard}}fa-check{{else}}fa-square-o{{/if}}")
       .card-settings-column
         span
-          i.fa.fa-file-text-o
-          | {{_ 'description'}}
-          | {{_ 'custom-field-text'}}
+          i.fa.fa-picture-o
+          | {{_ 'cover-image'}}
+    //- The reorderable sections, in the board's order (#4448) - the SAME
+      helper name and source as cardDetails.jade, so the two cannot drift.
+      `each section in`, not `each`: the `in` form keeps the data context (the
+      popup's own), which is what settingsSideClass/showsListOnMinicard read.
+    each section in orderedCardFieldSections
+      if $eq section "labels"
+        .card-settings-row
+          .card-settings-column
+            a.flex.js-field-has-labels(title="{{_ 'labels'}}" class="{{#if allowsLabels}}is-checked{{/if}}")
+              i.fa(class="{{#if allowsLabels}}fa-check{{else}}fa-square-o{{/if}}")
+          .card-settings-column
+            a.flex.js-field-has-labels-on-minicard(title="{{_ 'labels'}}" class="{{#if allowsLabelsOnMinicard}}is-checked{{/if}}")
+              i.fa(class="{{#if allowsLabelsOnMinicard}}fa-check{{else}}fa-square-o{{/if}}")
+          .card-settings-column
+            span
+              i.fa.fa-tag
+              | {{_ 'labels'}}
+        //- #4256: "Labels text" - the labels on a minicard as coloured WORDS, or as
+          coloured bars with the words left out. Directly under Labels, because it
+          is about what those labels look like.
+          This BOARD row is the board's own default - a board admin sets it here,
+          the same as every other row in this table, and it applies to everybody
+          who has not overridden it below. Checked by default: the text is what a
+          minicard shows unless an admin turns it off. Minicard-only, so the Card
+          column is left blank. client/lib/minicardLabelText.js
+        .card-settings-row
+          .card-settings-column
+          .card-settings-column
+            a.flex.js-field-has-label-text(title="{{_ 'labels'}} {{_ 'custom-field-text'}}" class="{{#if allowsLabelText}}is-checked{{/if}}")
+              i.fa(class="{{#if allowsLabelText}}fa-check{{else}}fa-square-o{{/if}}")
+          .card-settings-column
+            span
+              i.fa.fa-tag
+              i.fa.fa-file-text-o
+              | {{_ 'labels'}}
+              | {{_ 'custom-field-text'}}
+        //- The one PERSONAL row of this table - the user's own profile, or this
+          browser when nobody is logged in - so it is shown only in the minicard's
+          own view (Minicard menu / Show on Minicard) and not in the board-wide
+          Card Settings, where every other row (including the board default above)
+          belongs to the board. It OVERRIDES the board default above: checking or
+          unchecking it here always wins, on every board, until reset back to
+          "follow the board" - mirroring the global theme override
+          (client/components/main/globalThemeColor.js). client/lib/minicardLabelText.js
+        .card-settings-row.card-settings-row-personal
+          .card-settings-column
+          .card-settings-column
+            a.flex.js-toggle-minicard-label-text(title="{{_ 'labels'}} {{_ 'custom-field-text'}} {{_ 'label-text-override'}}" class="{{#if showsMinicardLabelText}}is-checked{{/if}}")
+              i.fa(class="{{#if showsMinicardLabelText}}fa-check{{else}}fa-square-o{{/if}}")
+          .card-settings-column
+            span
+              i.fa.fa-tag
+              i.fa.fa-file-text-o
+              | {{_ 'labels'}}
+              | {{_ 'custom-field-text'}}
+              if hasLabelTextOverride
+                | &nbsp;
+                a.js-reset-minicard-label-text-override(title="{{_ 'label-text-use-board-default'}}")
+                  | ({{_ 'label-text-overridden'}})
+              else
+                | &nbsp;({{_ 'label-text-follows-board'}})
+        //- #6688: Stickers and Location share the Labels group of the card, so their
+          rows follow it. Location has no minicard equivalent.
+        .card-settings-row
+          .card-settings-column
+            a.flex.js-field-has-stickers(title="{{_ 'stickers'}}" class="{{#if allowsStickers}}is-checked{{/if}}")
+              i.fa(class="{{#if allowsStickers}}fa-check{{else}}fa-square-o{{/if}}")
+          .card-settings-column
+            a.flex.js-field-has-stickers-on-minicard(title="{{_ 'stickers'}}" class="{{#if allowsStickersOnMinicard}}is-checked{{/if}}")
+              i.fa(class="{{#if allowsStickersOnMinicard}}fa-check{{else}}fa-square-o{{/if}}")
+          .card-settings-column
+            span
+              i.fa.fa-sticky-note-o
+              | {{_ 'stickers'}}
+        .card-settings-row
+          .card-settings-column
+            a.flex.js-field-has-location(title="{{_ 'location'}}" class="{{#if allowsLocation}}is-checked{{/if}}")
+              i.fa(class="{{#if allowsLocation}}fa-check{{else}}fa-square-o{{/if}}")
+          .card-settings-column
+          .card-settings-column
+            span
+              i.fa.fa-map-marker
+              | {{_ 'location'}}
+      if $eq section "dates"
+        .card-settings-row
+          .card-settings-column
+            a.flex.js-field-has-receiveddate(title="{{_ 'card-received'}}" class="{{#if allowsReceivedDate}}is-checked{{/if}}")
+              i.fa(class="{{#if allowsReceivedDate}}fa-check{{else}}fa-square-o{{/if}}")
+          .card-settings-column
+            a.flex.js-field-has-receiveddate-on-minicard(title="{{_ 'card-received'}}" class="{{#if allowsReceivedDateOnMinicard}}is-checked{{/if}}")
+              i.fa(class="{{#if allowsReceivedDateOnMinicard}}fa-check{{else}}fa-square-o{{/if}}")
+          .card-settings-column
+            span
+              i.fa.fa-sign-in
+              | {{_ 'card-received'}}
+        .card-settings-row
+          .card-settings-column
+            a.flex.js-field-has-startdate(title="{{_ 'card-start'}}" class="{{#if allowsStartDate}}is-checked{{/if}}")
+              i.fa(class="{{#if allowsStartDate}}fa-check{{else}}fa-square-o{{/if}}")
+          .card-settings-column
+            a.flex.js-field-has-startdate-on-minicard(title="{{_ 'card-start'}}" class="{{#if allowsStartDateOnMinicard}}is-checked{{/if}}")
+              i.fa(class="{{#if allowsStartDateOnMinicard}}fa-check{{else}}fa-square-o{{/if}}")
+          .card-settings-column
+            span
+              i.fa.fa-hourglass
+              | {{_ 'card-start'}}
+        .card-settings-row
+          .card-settings-column
+            a.flex.js-field-has-duedate(title="{{_ 'card-due'}}" class="{{#if allowsDueDate}}is-checked{{/if}}")
+              i.fa(class="{{#if allowsDueDate}}fa-check{{else}}fa-square-o{{/if}}")
+          .card-settings-column
+            a.flex.js-field-has-duedate-on-minicard(title="{{_ 'card-due'}}" class="{{#if allowsDueDateOnMinicard}}is-checked{{/if}}")
+              i.fa(class="{{#if allowsDueDateOnMinicard}}fa-check{{else}}fa-square-o{{/if}}")
+          .card-settings-column
+            span
+              i.fa.fa-sign-in
+              | {{_ 'card-due'}}
+        .card-settings-row
+          .card-settings-column
+            a.flex.js-field-has-enddate(title="{{_ 'card-end'}}" class="{{#if allowsEndDate}}is-checked{{/if}}")
+              i.fa(class="{{#if allowsEndDate}}fa-check{{else}}fa-square-o{{/if}}")
+          .card-settings-column
+            a.flex.js-field-has-enddate-on-minicard(title="{{_ 'card-end'}}" class="{{#if allowsEndDateOnMinicard}}is-checked{{/if}}")
+              i.fa(class="{{#if allowsEndDateOnMinicard}}fa-check{{else}}fa-square-o{{/if}}")
+          .card-settings-column
+            span
+              i.fa.fa-clock-o
+              | {{_ 'card-end'}}
+      if $eq section "members"
+        .card-settings-row
+          .card-settings-column
+            a.flex.js-field-has-members(title="{{_ 'members'}}" class="{{#if allowsMembers}}is-checked{{/if}}")
+              i.fa(class="{{#if allowsMembers}}fa-check{{else}}fa-square-o{{/if}}")
+          .card-settings-column
+            a.flex.js-field-has-members-on-minicard(title="{{_ 'members'}}" class="{{#if allowsMembersOnMinicard}}is-checked{{/if}}")
+              i.fa(class="{{#if allowsMembersOnMinicard}}fa-check{{else}}fa-square-o{{/if}}")
+          .card-settings-column
+            span
+              i.fa.fa-users
+              | {{_ 'members'}}
+        .card-settings-row
+          .card-settings-column
+            a.flex.js-field-has-assignee(title="{{_ 'assignee'}}" class="{{#if allowsAssignee}}is-checked{{/if}}")
+              i.fa(class="{{#if allowsAssignee}}fa-check{{else}}fa-square-o{{/if}}")
+          .card-settings-column
+            a.flex.js-field-has-assignee-on-minicard(title="{{_ 'assignee'}}" class="{{#if allowsAssigneeOnMinicard}}is-checked{{/if}}")
+              i.fa(class="{{#if allowsAssigneeOnMinicard}}fa-check{{else}}fa-square-o{{/if}}")
+          .card-settings-column
+            span
+              i.fa.fa-user
+              | {{_ 'assignee'}}
+        .card-settings-row
+          .card-settings-column
+            a.flex.js-field-has-creator(title="{{_ 'creator'}}" class="{{#if allowsCreator}}is-checked{{/if}}")
+              i.fa(class="{{#if allowsCreator}}fa-check{{else}}fa-square-o{{/if}}")
+          .card-settings-column
+            a.flex.js-field-has-creator-on-minicard(title="{{_ 'creator'}}" class="{{#if allowsCreatorOnMinicard}}is-checked{{/if}}")
+              i.fa(class="{{#if allowsCreatorOnMinicard}}fa-check{{else}}fa-square-o{{/if}}")
+          .card-settings-column
+            span
+              i.fa.fa-user
+              | {{_ 'creator'}}
+        .card-settings-row
+          .card-settings-column
+            a.flex.js-field-has-requested-by(title="{{_ 'requested-by'}}" class="{{#if allowsRequestedBy}}is-checked{{/if}}")
+              i.fa(class="{{#if allowsRequestedBy}}fa-check{{else}}fa-square-o{{/if}}")
+          .card-settings-column
+            a.flex.js-field-has-requested-by-on-minicard(title="{{_ 'requested-by'}}" class="{{#if allowsRequestedByOnMinicard}}is-checked{{/if}}")
+              i.fa(class="{{#if allowsRequestedByOnMinicard}}fa-check{{else}}fa-square-o{{/if}}")
+          .card-settings-column
+            span
+              i.fa.fa-user
+              i.fa.fa-plus
+              | {{_ 'requested-by'}}
+        .card-settings-row
+          .card-settings-column
+            a.flex.js-field-has-assigned-by(title="{{_ 'assigned-by'}}" class="{{#if allowsAssignedBy}}is-checked{{/if}}")
+              i.fa(class="{{#if allowsAssignedBy}}fa-check{{else}}fa-square-o{{/if}}")
+          .card-settings-column
+            a.flex.js-field-has-assigned-by-on-minicard(title="{{_ 'assigned-by'}}" class="{{#if allowsAssignedByOnMinicard}}is-checked{{/if}}")
+              i.fa(class="{{#if allowsAssignedByOnMinicard}}fa-check{{else}}fa-square-o{{/if}}")
+          .card-settings-column
+            span
+              i.fa.fa-shopping-cart
+              | {{_ 'assigned-by'}}
+        //- The fixed appendage the card renders right after Members: Dependencies,
+          then the Sort group (sort number, list, spent time, the two timers).
+          #6688 gave Dependencies, Flowtime and Pomodoro their rows.
+        .card-settings-row
+          .card-settings-column
+            a.flex.js-field-has-dependencies(title="{{_ 'card-dependencies'}}" class="{{#if allowsDependencies}}is-checked{{/if}}")
+              i.fa(class="{{#if allowsDependencies}}fa-check{{else}}fa-square-o{{/if}}")
+          .card-settings-column
+            a.flex.js-field-has-dependencies-on-minicard(title="{{_ 'card-dependencies'}}" class="{{#if allowsDependenciesOnMinicard}}is-checked{{/if}}")
+              i.fa(class="{{#if allowsDependenciesOnMinicard}}fa-check{{else}}fa-square-o{{/if}}")
+          .card-settings-column
+            span
+              i.fa.fa-link
+              | {{_ 'card-dependencies'}}
+        .card-settings-row
+          .card-settings-column
+            a.flex.js-field-has-card-sorting-by-number(title="{{_ 'card-sorting-by-number'}}" class="{{#if allowsCardSortingByNumber}}is-checked{{/if}}")
+              i.fa(class="{{#if allowsCardSortingByNumber}}fa-check{{else}}fa-square-o{{/if}}")
+          .card-settings-column
+            a.flex.js-field-has-card-sorting-by-number-on-minicard(title="{{_ 'card-sorting-by-number'}}" class="{{#if allowsCardSortingByNumberOnMinicard}}is-checked{{/if}}")
+              i.fa(class="{{#if allowsCardSortingByNumberOnMinicard}}fa-check{{else}}fa-square-o{{/if}}")
+          .card-settings-column
+            span
+              i.fa.fa-sort-numeric-asc
+              | {{_ 'card-sorting-by-number'}}
+        .card-settings-row
+          .card-settings-column
+            a.flex.js-field-has-card-show-lists(title="{{_ 'card-show-lists'}}" class="{{#if allowsShowLists}}is-checked{{/if}}")
+              i.fa(class="{{#if allowsShowLists}}fa-check{{else}}fa-square-o{{/if}}")
+          .card-settings-column
+            a.flex.js-field-has-card-show-lists-on-minicard(title="{{_ 'card-show-lists'}}" class="{{#if allowsShowListsOnMinicard}}is-checked{{/if}}")
+              i.fa(class="{{#if allowsShowListsOnMinicard}}fa-check{{else}}fa-square-o{{/if}}")
+          .card-settings-column
+            span
+              i.fa.fa-list
+              | {{_ 'card-show-lists'}}
+        //- "List title": the name of the LIST this card is in, on its minicard.
+          A per-CARD setting, unchecked by default, directly under the board-wide
+          "Show lists" row that turns it on for EVERY card; this one is for a
+          single card that needs it, which is what it is for on a swimlane, in
+          search results and in My Cards, where a card is read away from the
+          column it lives in. It was a line in the card's menu reading "Show list
+          on minicard"; it is a checkbox among the other things a minicard can
+          show, which is where somebody looking for it would look. Only for a
+          user who may change the card - the same permission the menu entry had.
+          client/components/cards/minicard.jade
+        if canModifyCard
+          .card-settings-row.card-settings-row-personal
+            .card-settings-column
+            .card-settings-column
+              a.flex.js-toggle-show-list-on-minicard(title="{{_ 'list'}} {{_ 'title'}}" class="{{#if showsListOnMinicard}}is-checked{{/if}}")
+                i.fa(class="{{#if showsListOnMinicard}}fa-check{{else}}fa-square-o{{/if}}")
+            .card-settings-column
+              span
+                i.fa.fa-list
+                | {{_ 'list'}}
+                | {{_ 'title'}}
+        //- #2426: the swimlane a card belongs to isn't otherwise visible on a
+          minicard in List view (Swimlanes view already groups cards visually by
+          swimlane), so this board-wide toggle shows the swimlane's name at the
+          bottom of the minicard, the same place/style as the list name above.
+          There is no "Show on Card" equivalent - the card detail view already
+          shows the swimlane via its own picker - so the first column stays
+          empty, the same shape as the "List title" row above.
+          client/components/cards/minicard.jade
+        .card-settings-row
+          .card-settings-column
+          .card-settings-column
+            a.flex.js-field-has-swimlane-name-on-minicard(title="{{_ 'swimlane'}}" class="{{#if allowsSwimlaneNameOnMinicard}}is-checked{{/if}}")
+              i.fa(class="{{#if allowsSwimlaneNameOnMinicard}}fa-check{{else}}fa-square-o{{/if}}")
+          .card-settings-column
+            span
+              i.fa.fa-list-alt
+              | {{_ 'swimlane'}}
+        //- #2530: "Time spent" was only reachable via the card's hamburger menu.
+          Both toggles default to true (models/boards.js) since the card detail
+          view and minicard already show it unconditionally when a card has
+          logged time; this row only lets an admin turn it OFF.
+        .card-settings-row
+          .card-settings-column
+            a.flex.js-field-has-spent-time(title="{{_ 'spent-time-hours'}}" class="{{#if allowsSpentTime}}is-checked{{/if}}")
+              i.fa(class="{{#if allowsSpentTime}}fa-check{{else}}fa-square-o{{/if}}")
+          .card-settings-column
+            a.flex.js-field-has-spent-time-on-minicard(title="{{_ 'spent-time-hours'}}" class="{{#if allowsSpentTimeOnMinicard}}is-checked{{/if}}")
+              i.fa(class="{{#if allowsSpentTimeOnMinicard}}fa-check{{else}}fa-square-o{{/if}}")
+          .card-settings-column
+            span
+              i.fa.fa-clock-o
+              | {{_ 'spent-time-hours'}}
+        .card-settings-row
+          .card-settings-column
+            a.flex.js-field-has-flowtime(title="{{_ 'flowtime'}}" class="{{#if allowsFlowtime}}is-checked{{/if}}")
+              i.fa(class="{{#if allowsFlowtime}}fa-check{{else}}fa-square-o{{/if}}")
+          .card-settings-column
+          .card-settings-column
+            span
+              i.fa.fa-bolt
+              | {{_ 'flowtime'}}
+        .card-settings-row
+          .card-settings-column
+            a.flex.js-field-has-pomodoro(title="{{_ 'pomodoro'}}" class="{{#if allowsPomodoro}}is-checked{{/if}}")
+              i.fa(class="{{#if allowsPomodoro}}fa-check{{else}}fa-square-o{{/if}}")
+          .card-settings-column
+          .card-settings-column
+            span
+              i.fa.fa-clock-o
+              | {{_ 'pomodoro'}}
+      if $eq section "customFields"
+        .card-settings-row
+          .card-settings-column
+            a.flex.js-field-has-custom-fields(title="{{_ 'custom-fields'}}" class="{{#if allowsCustomFields}}is-checked{{/if}}")
+              i.fa(class="{{#if allowsCustomFields}}fa-check{{else}}fa-square-o{{/if}}")
+          .card-settings-column
+            a.flex.js-field-has-custom-fields-on-minicard(title="{{_ 'custom-fields'}}" class="{{#if allowsCustomFieldsOnMinicard}}is-checked{{/if}}")
+              i.fa(class="{{#if allowsCustomFieldsOnMinicard}}fa-check{{else}}fa-square-o{{/if}}")
+          .card-settings-column
+            span
+              i.fa.fa-list-alt
+              | {{_ 'custom-fields'}}
+        //- The fixed appendage after Custom Fields: a card's voting and its Planning
+          Poker (#6688), each with its minicard badge.
+        .card-settings-row
+          .card-settings-column
+            a.flex.js-field-has-vote(title="{{_ 'vote-question'}}" class="{{#if allowsVote}}is-checked{{/if}}")
+              i.fa(class="{{#if allowsVote}}fa-check{{else}}fa-square-o{{/if}}")
+          .card-settings-column
+            a.flex.js-field-has-vote-on-minicard(title="{{_ 'vote-question'}}" class="{{#if allowsVoteOnMinicard}}is-checked{{/if}}")
+              i.fa(class="{{#if allowsVoteOnMinicard}}fa-check{{else}}fa-square-o{{/if}}")
+          .card-settings-column
+            span
+              i.fa.fa-thumbs-up
+              | {{_ 'vote-question'}}
+        .card-settings-row
+          .card-settings-column
+            a.flex.js-field-has-poker(title="{{_ 'poker-question'}}" class="{{#if allowsPoker}}is-checked{{/if}}")
+              i.fa(class="{{#if allowsPoker}}fa-check{{else}}fa-square-o{{/if}}")
+          .card-settings-column
+            a.flex.js-field-has-poker-on-minicard(title="{{_ 'poker-question'}}" class="{{#if allowsPokerOnMinicard}}is-checked{{/if}}")
+              i.fa(class="{{#if allowsPokerOnMinicard}}fa-check{{else}}fa-square-o{{/if}}")
+          .card-settings-column
+            span
+              i.fa.fa-check-square
+              | {{_ 'poker-question'}}
+      if $eq section "description"
+        .card-settings-row
+          .card-settings-column
+            a.flex.js-field-has-description-title(title="{{_ 'description'}} {{_ 'title'}}" class="{{#if allowsDescriptionTitle}}is-checked{{/if}}")
+              i.fa(class="{{#if allowsDescriptionTitle}}fa-check{{else}}fa-square-o{{/if}}")
+          .card-settings-column
+            a.flex.js-field-has-description-title-on-minicard(title="{{_ 'description'}} {{_ 'title'}}" class="{{#if allowsDescriptionTitleOnMinicard}}is-checked{{/if}}")
+              i.fa(class="{{#if allowsDescriptionTitleOnMinicard}}fa-check{{else}}fa-square-o{{/if}}")
+          .card-settings-column
+            span
+              i.fa.fa-file-text-o
+              | {{_ 'description'}}
+              | {{_ 'title'}}
+        .card-settings-row
+          .card-settings-column
+            a.flex.js-field-has-description-text(title="{{_ 'description'}} {{_ 'custom-field-text'}}" class="{{#if allowsDescriptionText}}is-checked{{/if}}")
+              i.fa(class="{{#if allowsDescriptionText}}fa-check{{else}}fa-square-o{{/if}}")
+          .card-settings-column
+            a.flex.js-field-has-description-text-on-minicard(title="{{_ 'description'}} {{_ 'custom-field-text'}}" class="{{#if allowsDescriptionTextOnMinicard}}is-checked{{/if}}")
+              i.fa(class="{{#if allowsDescriptionTextOnMinicard}}fa-check{{else}}fa-square-o{{/if}}")
+          .card-settings-column
+            span
+              i.fa.fa-file-text-o
+              | {{_ 'description'}}
+              | {{_ 'custom-field-text'}}
+    //- The card's fixed tail, below the reorderable sections: checklists and
+      subtasks, attachments, text notes, comments, and the activity history in
+      the right column.
     .card-settings-row
       .card-settings-column
         a.flex.js-field-has-checklists(title="{{_ 'checklists'}}" class="{{#if allowsChecklists}}is-checked{{/if}}")
@@ -590,17 +723,6 @@ template(name="boardCardSettingsPopup")
         span
           i.fa.fa-check-square-o
           | {{_ 'checklist-count'}}
-    .card-settings-row
-      .card-settings-column
-        a.flex.js-field-has-comments(title="{{_ 'card-comments-on-minicard'}}" class="{{#if allowsComments}}is-checked{{/if}}")
-          i.fa(class="{{#if allowsComments}}fa-check{{else}}fa-square-o{{/if}}")
-      .card-settings-column
-        a.flex.js-field-has-comments-on-minicard(title="{{_ 'card-comments-on-minicard'}}" class="{{#if allowsCommentsOnMinicard}}is-checked{{/if}}")
-          i.fa(class="{{#if allowsCommentsOnMinicard}}fa-check{{else}}fa-square-o{{/if}}")
-      .card-settings-column
-        span
-          i.fa.fa-comment-o
-          | {{_ 'card-comments-on-minicard'}}
     .card-settings-row
       .card-settings-column
         a.flex.js-field-has-subtasks(title="{{_ 'subtasks'}}" class="{{#if allowsSubtasks}}is-checked{{/if}}")
@@ -634,53 +756,52 @@ template(name="boardCardSettingsPopup")
         span
           i.fa.fa-paperclip
           | {{_ 'attachment-count'}}
+    //- #6688: Text Notes (#595) had no toggle; card only, nothing of it is on the
+      minicard.
     .card-settings-row
       .card-settings-column
-        a.flex.js-field-has-cover-attachment-on-card(title="{{_ 'cover-image'}}" class="{{#if allowsCoverAttachmentOnCard}}is-checked{{/if}}")
-          i.fa(class="{{#if allowsCoverAttachmentOnCard}}fa-check{{else}}fa-square-o{{/if}}")
+        a.flex.js-field-has-text-notes(title="{{_ 'text-notes'}}" class="{{#if allowsTextNotes}}is-checked{{/if}}")
+          i.fa(class="{{#if allowsTextNotes}}fa-check{{else}}fa-square-o{{/if}}")
       .card-settings-column
-        a.flex.js-field-has-cover-attachment-on-minicard(title="{{_ 'cover-image'}}" class="{{#if allowsCoverAttachmentOnMinicard}}is-checked{{/if}}")
-          i.fa(class="{{#if allowsCoverAttachmentOnMinicard}}fa-check{{else}}fa-square-o{{/if}}")
       .card-settings-column
         span
-          i.fa.fa-picture-o
-          | {{_ 'cover-image'}}
-    //- #2530: "Time spent" was only reachable via the card's hamburger menu.
-      Both toggles default to true (models/boards.js) since the card detail
-      view and minicard already show it unconditionally when a card has
-      logged time; this row only lets an admin turn it OFF.
+          i.fa.fa-file-text-o
+          | {{_ 'text-notes'}}
     .card-settings-row
       .card-settings-column
-        a.flex.js-field-has-spent-time(title="{{_ 'spent-time-hours'}}" class="{{#if allowsSpentTime}}is-checked{{/if}}")
-          i.fa(class="{{#if allowsSpentTime}}fa-check{{else}}fa-square-o{{/if}}")
+        a.flex.js-field-has-comments(title="{{_ 'card-comments-on-minicard'}}" class="{{#if allowsComments}}is-checked{{/if}}")
+          i.fa(class="{{#if allowsComments}}fa-check{{else}}fa-square-o{{/if}}")
       .card-settings-column
-        a.flex.js-field-has-spent-time-on-minicard(title="{{_ 'spent-time-hours'}}" class="{{#if allowsSpentTimeOnMinicard}}is-checked{{/if}}")
-          i.fa(class="{{#if allowsSpentTimeOnMinicard}}fa-check{{else}}fa-square-o{{/if}}")
+        a.flex.js-field-has-comments-on-minicard(title="{{_ 'card-comments-on-minicard'}}" class="{{#if allowsCommentsOnMinicard}}is-checked{{/if}}")
+          i.fa(class="{{#if allowsCommentsOnMinicard}}fa-check{{else}}fa-square-o{{/if}}")
       .card-settings-column
         span
-          i.fa.fa-clock-o
-          | {{_ 'spent-time-hours'}}
-    //div.check-div
-    //
-      a.flex.js-field-has-comments(class="{{#if allowsComments}}is-checked{{/if}}")
-    //
-        .materialCheckBox(class="{{#if allowsComments}}is-checked{{/if}}")
-    //
-        span
-    //
           i.fa.fa-comment-o
-    //
-          | {{_ 'comment'}}
-    //div.check-div
-    //
-      a.flex.js-field-has-activities(class="{{#if allowsActivities}}is-checked{{/if}}")
-    //
-        .materialCheckBox(class="{{#if allowsActivities}}is-checked{{/if}}")
-    //
+          | {{_ 'card-comments-on-minicard'}}
+    //- #6688: the comment-COUNT badge of the minicard, separate from the comment
+      preview above (which is opt-in and shows the text). Minicard only.
+    .card-settings-row
+      .card-settings-column
+      .card-settings-column
+        a.flex.js-field-has-comment-count-on-minicard(title="{{_ 'comments'}} {{_ 'number'}}" class="{{#if allowsCommentCountOnMinicard}}is-checked{{/if}}")
+          i.fa(class="{{#if allowsCommentCountOnMinicard}}fa-check{{else}}fa-square-o{{/if}}")
+      .card-settings-column
         span
-    //
+          i.fa.fa-comment-o
+          | {{_ 'comments'}}
+          | {{_ 'number'}}
+    //- #6688: the activity history at the right of the opened card. The board
+      field (allowsActivities) and its click handler already existed - the row
+      was commented out and the field gated nothing - so this only puts the row
+      back and makes the card read it.
+    .card-settings-row
+      .card-settings-column
+        a.flex.js-field-has-activities(title="{{_ 'activities'}}" class="{{#if allowsActivities}}is-checked{{/if}}")
+          i.fa(class="{{#if allowsActivities}}fa-check{{else}}fa-square-o{{/if}}")
+      .card-settings-column
+      .card-settings-column
+        span
           i.fa.fa-history
-    //
           | {{_ 'activities'}}
 
     //- #4448: reorder the major sections of the opened card (Labels, Dates,
@@ -920,6 +1041,15 @@ template(name="boardMenuPopup")
       for a non-admin. client/components/cards/cardDetails.jade
     ul.pop-over-list
       if currentUser.isBoardAdmin
+        //- Board Settings / Board View: which Board View menu entries this
+          board offers, and which one it opens in, for a public and for a
+          private board. Above Swimlane, since it decides what the whole
+          board looks like before any swimlane does.
+          docs/Features/Board/Board-View-Settings.md
+        li
+          a.js-open-board-view-settings(title="{{_ 'board-view'}}")
+            i.fa.fa-eye
+            | {{_ 'board-view'}}
         li
           a.js-open-board-swimlane-settings(title="{{_ 'swimlane'}}")
             i.fa.fa-bars
@@ -951,6 +1081,47 @@ template(name="boardMenuPopup")
           a.js-archive-board
             i.fa.fa-archive
             | {{_ 'archive-board'}}
+
+//- Board Settings / Board View. Same table as Card Settings - one row per
+  view of the Board View menu (models/lib/boardViewSettings.js BOARD_VIEWS,
+  in the menu's order), a checkbox per column, the view's name last. The two
+  "Default" columns are radio groups drawn as checkboxes: one tick each. The
+  two public columns are not rendered when Admin Panel / Settings /
+  Visibility hides public boards (tableVisibilityMode-allowPrivateOnly).
+  docs/Features/Board/Board-View-Settings.md, client/components/sidebar/sidebar.js
+template(name="boardViewSettingsPopup")
+  form.board-view-settings(class="{{#if publicBoardsHidden}}hide-public-columns{{/if}}")
+    .board-view-settings-row
+      unless publicBoardsHidden
+        .board-view-settings-column
+          h4 {{_ 'default-on-public-board'}}
+        .board-view-settings-column
+          h4 {{_ 'show-on-public-board'}}
+      .board-view-settings-column
+        h4 {{_ 'default-on-private-board'}}
+      .board-view-settings-column
+        h4 {{_ 'show-on-private-board'}}
+      .board-view-settings-column
+        h4 {{_ 'description'}}
+    each boardViewRows
+      .board-view-settings-row(data-view="{{view}}")
+        unless ../publicBoardsHidden
+          .board-view-settings-column
+            a.flex.js-board-view-default(data-visibility="public" title="{{_ 'default-on-public-board'}}" class="{{#if isDefaultPublic}}is-checked{{/if}}")
+              i.fa(class="{{#if isDefaultPublic}}fa-check{{else}}fa-square-o{{/if}}")
+          .board-view-settings-column
+            a.flex.js-board-view-show(data-visibility="public" title="{{_ 'show-on-public-board'}}" class="{{#if showOnPublic}}is-checked{{/if}}")
+              i.fa(class="{{#if showOnPublic}}fa-check{{else}}fa-square-o{{/if}}")
+        .board-view-settings-column
+          a.flex.js-board-view-default(data-visibility="private" title="{{_ 'default-on-private-board'}}" class="{{#if isDefaultPrivate}}is-checked{{/if}}")
+            i.fa(class="{{#if isDefaultPrivate}}fa-check{{else}}fa-square-o{{/if}}")
+        .board-view-settings-column
+          a.flex.js-board-view-show(data-visibility="private" title="{{_ 'show-on-private-board'}}" class="{{#if showOnPrivate}}is-checked{{/if}}")
+            i.fa(class="{{#if showOnPrivate}}fa-check{{else}}fa-square-o{{/if}}")
+        .board-view-settings-column
+          span
+            i.fa(class="{{icon}}")
+            | {{_ labelKey}}
 
 //- Board Settings / Swimlane. The board-wide swimlane-height resize lock
   used to be a header icon (#6680); it lives here now, with the rest of a

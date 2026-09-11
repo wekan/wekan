@@ -5,6 +5,7 @@ import { Random } from 'meteor/random';
 import { ReactiveCache } from '/imports/reactiveCache';
 const { notHelperBoardTitle } = require('/models/lib/helperBoards');
 const { boardVisibilitySelectors } = require('/models/lib/boardVisibilitySelectors');
+const boardViewSettings = require('/models/lib/boardViewSettings');
 import escapeForRegex from 'escape-string-regexp';
 import CustomFields from './customFields';
 import {
@@ -1030,6 +1031,104 @@ Boards.attachSchema(
       type: Boolean,
       defaultValue: true,
     },
+    // #6688: the card sections that shipped WITHOUT a Board Settings / Card
+    // toggle - Stickers, Location, Dependencies, Flowtime, Pomodoro, Vote,
+    // Planning Poker, Text Notes - and the minicard badges of the ones that
+    // have one (Stickers, Dependencies, Vote, Poker, the comment count). All
+    // default to TRUE because every one of them rendered unconditionally
+    // before, so an existing board keeps showing exactly what it showed; the
+    // toggle only lets an admin turn one OFF, the allowsSpentTime pattern.
+    allowsStickers: {
+      /**
+       * Does the board show the Stickers section on the opened card?
+       */
+      type: Boolean,
+      defaultValue: true,
+    },
+    allowsStickersOnMinicard: {
+      /**
+       * Does the board show the stickers badge on the minicard?
+       */
+      type: Boolean,
+      defaultValue: true,
+    },
+    allowsLocation: {
+      /**
+       * Does the board show the Location section on the opened card?
+       */
+      type: Boolean,
+      defaultValue: true,
+    },
+    allowsDependencies: {
+      /**
+       * Does the board show the Dependencies section on the opened card?
+       */
+      type: Boolean,
+      defaultValue: true,
+    },
+    allowsDependenciesOnMinicard: {
+      /**
+       * Does the board show the dependencies badge on the minicard?
+       */
+      type: Boolean,
+      defaultValue: true,
+    },
+    allowsFlowtime: {
+      /**
+       * Does the board show the Flowtime timer on the opened card?
+       */
+      type: Boolean,
+      defaultValue: true,
+    },
+    allowsPomodoro: {
+      /**
+       * Does the board show the Pomodoro timer on the opened card?
+       */
+      type: Boolean,
+      defaultValue: true,
+    },
+    allowsVote: {
+      /**
+       * Does the board show a card's voting question and buttons on the opened card?
+       */
+      type: Boolean,
+      defaultValue: true,
+    },
+    allowsVoteOnMinicard: {
+      /**
+       * Does the board show the vote-count badge on the minicard?
+       */
+      type: Boolean,
+      defaultValue: true,
+    },
+    allowsPoker: {
+      /**
+       * Does the board show a card's Planning Poker on the opened card?
+       */
+      type: Boolean,
+      defaultValue: true,
+    },
+    allowsPokerOnMinicard: {
+      /**
+       * Does the board show the Planning Poker badge on the minicard?
+       */
+      type: Boolean,
+      defaultValue: true,
+    },
+    allowsTextNotes: {
+      /**
+       * Does the board show the Text Notes section on the opened card?
+       */
+      type: Boolean,
+      defaultValue: true,
+    },
+    allowsCommentCountOnMinicard: {
+      /**
+       * Does the board show the comment-count badge on the minicard?
+       */
+      type: Boolean,
+      defaultValue: true,
+    },
     restrictCommentEditing: {
       /**
        * When true, board admins can NOT edit or delete comments authored by
@@ -1098,6 +1197,38 @@ Boards.attachSchema(
       type: Boolean,
       optional: true,
       defaultValue: false,
+    },
+    // Board Settings / Board View (docs/Features/Board/Board-View-Settings.md):
+    // which Board View menu entries this board offers, and which one it opens
+    // in, separately for a public and a private board. The decisions live in
+    // models/lib/boardViewSettings.js; a missing entry/side means SHOWN and a
+    // missing default means Swimlanes, so a board that never opened the popup
+    // behaves as it always did.
+    boardViewSettings: {
+      /**
+       * Per view: { '<board-view-key>': { showOnPublic: Boolean, showOnPrivate: Boolean } }
+       */
+      type: Object,
+      blackbox: true,
+      optional: true,
+    },
+    defaultPublicBoardView: {
+      /**
+       * The Board View a PUBLIC board opens in when the viewer has no stored
+       * choice (or a choice this board hides). Always shown on public.
+       */
+      type: String,
+      optional: true,
+      defaultValue: 'board-view-swimlanes',
+    },
+    defaultPrivateBoardView: {
+      /**
+       * The Board View a PRIVATE board opens in when the viewer has no stored
+       * choice (or a choice this board hides). Always shown on private.
+       */
+      type: String,
+      optional: true,
+      defaultValue: 'board-view-swimlanes',
     },
     sameWidthForAllLists: {
       /**
@@ -2643,6 +2774,59 @@ Boards.helpers({
     return await Boards.updateAsync(this._id, { $set: { allowsSpentTimeOnMinicard } });
   },
 
+  // #6688: the card sections and minicard badges that had no toggle before.
+  async setAllowsStickers(allowsStickers) {
+    return await Boards.updateAsync(this._id, { $set: { allowsStickers } });
+  },
+
+  async setAllowsStickersOnMinicard(allowsStickersOnMinicard) {
+    return await Boards.updateAsync(this._id, { $set: { allowsStickersOnMinicard } });
+  },
+
+  async setAllowsLocation(allowsLocation) {
+    return await Boards.updateAsync(this._id, { $set: { allowsLocation } });
+  },
+
+  async setAllowsDependencies(allowsDependencies) {
+    return await Boards.updateAsync(this._id, { $set: { allowsDependencies } });
+  },
+
+  async setAllowsDependenciesOnMinicard(allowsDependenciesOnMinicard) {
+    return await Boards.updateAsync(this._id, { $set: { allowsDependenciesOnMinicard } });
+  },
+
+  async setAllowsFlowtime(allowsFlowtime) {
+    return await Boards.updateAsync(this._id, { $set: { allowsFlowtime } });
+  },
+
+  async setAllowsPomodoro(allowsPomodoro) {
+    return await Boards.updateAsync(this._id, { $set: { allowsPomodoro } });
+  },
+
+  async setAllowsVote(allowsVote) {
+    return await Boards.updateAsync(this._id, { $set: { allowsVote } });
+  },
+
+  async setAllowsVoteOnMinicard(allowsVoteOnMinicard) {
+    return await Boards.updateAsync(this._id, { $set: { allowsVoteOnMinicard } });
+  },
+
+  async setAllowsPoker(allowsPoker) {
+    return await Boards.updateAsync(this._id, { $set: { allowsPoker } });
+  },
+
+  async setAllowsPokerOnMinicard(allowsPokerOnMinicard) {
+    return await Boards.updateAsync(this._id, { $set: { allowsPokerOnMinicard } });
+  },
+
+  async setAllowsTextNotes(allowsTextNotes) {
+    return await Boards.updateAsync(this._id, { $set: { allowsTextNotes } });
+  },
+
+  async setAllowsCommentCountOnMinicard(allowsCommentCountOnMinicard) {
+    return await Boards.updateAsync(this._id, { $set: { allowsCommentCountOnMinicard } });
+  },
+
   getRestrictCommentEditing() {
     return !!this.restrictCommentEditing;
   },
@@ -2703,6 +2887,32 @@ Boards.helpers({
     return await Boards.updateAsync(this._id, {
       $set: { swimlaneHeightResizeLocked: !!swimlaneHeightResizeLocked },
     });
+  },
+
+  // Board Settings / Board View. Both setters apply the pure modifiers of
+  // models/lib/boardViewSettings.js and are called from the popup the way
+  // setSwimlaneHeightResizeLocked is; Boards.allow's update rule
+  // (server/permissions/boards.js) is what limits them to a board admin.
+  // A null modifier is a refused click (hiding the default view, an unknown
+  // view) and writes nothing.
+  isBoardViewShown(view, visibility) {
+    return boardViewSettings.isBoardViewShown(this, view, visibility);
+  },
+
+  defaultBoardView(visibility) {
+    return boardViewSettings.defaultBoardView(this, visibility);
+  },
+
+  async setBoardViewShown(view, visibility, shown) {
+    const $set = boardViewSettings.showBoardViewModifier(this, view, visibility, shown);
+    if (!$set) return false;
+    return await Boards.updateAsync(this._id, { $set });
+  },
+
+  async setDefaultBoardView(view, visibility) {
+    const $set = boardViewSettings.defaultBoardViewModifier(this, view, visibility);
+    if (!$set) return false;
+    return await Boards.updateAsync(this._id, { $set });
   },
 
   getSameWidthForAllLists() {
