@@ -524,7 +524,7 @@ the Markdown commit as the template.
 </details>
 </details>
 
-# Upcoming WeKan ® release
+# v11.72 2026-09-11 WeKan ® release
 
 **In short:** Board JSON exports now complete when cards contain HTML, with
 or without embedded attachments. Interrupted exports report a failed download
