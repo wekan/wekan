@@ -25,6 +25,7 @@ import { DDPRateLimiter } from 'meteor/ddp-rate-limiter';
 import { publicErrorData } from '/server/lib/apiResponseHelpers';
 import escapeForRegex from 'escape-string-regexp';
 import { Notifications } from '/server/notifications/notifications';
+import { providerOfUser, onCreateProviderUser } from '/server/lib/oauthProviders';
 const { recordAuthRateLimitDenial } = require('/server/lib/authRateLimitDecision');
 const { decideAnonymize, buildAnonymizeUpdate } = require('/models/lib/userAnonymization');
 
@@ -1847,6 +1848,22 @@ Accounts.onCreateUser(async (options, user) => {
   // username, email, profile and authenticationMethod are top-level fields.
   // Only enter the OIDC normalization path when OIDC service data exists.
   // #3204
+  //
+  // A login through one of Meteor's own accounts packages (Google, GitHub,
+  // Facebook, Twitter/X, Meteor Developer, Weibo, Meetup) is normalised by
+  // server/lib/oauthProviders.js with the same fail-closed linking rule as
+  // OIDC below. An existing account comes back ready to return; a brand-new
+  // one falls through to the ordinary registration checks further down.
+  const oauthProvider = providerOfUser(user);
+  if (oauthProvider) {
+    const created = await onCreateProviderUser(options, user, oauthProvider);
+    if (created.existing) return created.user;
+  } else if (options && options.passwordless === true && user.services && !Object.keys(user.services).length) {
+    // accounts-passwordless: the account is made by requestLoginTokenForUser
+    // before the first code is e-mailed, with no service data yet.
+    user.authenticationMethod = 'passwordless';
+  }
+
   if (user.services?.oidc) {
     let email = user.services.oidc.email;
     if (Array.isArray(email)) {

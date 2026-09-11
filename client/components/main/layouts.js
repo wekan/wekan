@@ -1,5 +1,6 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
+const { OAUTH_PROVIDERS, providerByKey } = require('/models/lib/oauthProviders');
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import Users from '/models/users';
 import { EscapeActions } from '/client/lib/escapeActions';
@@ -28,6 +29,14 @@ Template.userFormsLayout.onCreated(function () {
   const templateInstance = this;
   templateInstance.currentSetting = new ReactiveVar();
   templateInstance.isLoading = new ReactiveVar(false);
+  // The Meteor accounts-* OAuth providers the server reports enabled (keys
+  // only) and whether e-mailed one-time-code login is on; both are filled by
+  // the getAuthenticationsEnabled call in onRendered.
+  templateInstance.enabledOauthProviders = new ReactiveVar([]);
+  templateInstance.passwordlessEnabled = new ReactiveVar(false);
+  // 'email' while asking for an address, 'code' once the code was sent.
+  templateInstance.passwordlessStep = new ReactiveVar('email');
+  templateInstance.passwordlessEmail = new ReactiveVar('');
 
   if (!ReactiveCache.getCurrentUser()?.profile) {
     Meteor.call('isOidcRedirectionEnabled', (_, result) => {
@@ -138,6 +147,23 @@ Template.userFormsLayout.onRendered(() => {
       $('#at-saml').removeClass('hide');
     }
 
+    // Meteor's own accounts-* providers (Google, GitHub, Facebook, X/Twitter,
+    // Meteor Developer, Weibo, Meetup): the server reports one key per
+    // enabled provider, and the form renders one .js-oauth-provider button
+    // per key from the catalog (models/lib/oauthProviders.js). Passwordless
+    // (e-mailed one-time code) gets its own small form.
+    const instance = Template.instance();
+    if (instance) {
+      instance.enabledOauthProviders.set(
+        OAUTH_PROVIDERS.filter(p => enabledAuthenticationMethods.indexOf(p.key) !== -1).map(
+          p => p.key,
+        ),
+      );
+      instance.passwordlessEnabled.set(
+        enabledAuthenticationMethods.indexOf('passwordless') !== -1,
+      );
+    }
+
     AccountsTemplates.state.form.keys = new Proxy(
       AccountsTemplates.state.form.keys,
       validator,
@@ -246,6 +272,29 @@ Template.userFormsLayout.onDestroyed(() => {
 });
 
 Template.userFormsLayout.helpers({
+  // One entry per enabled Meteor accounts-* provider: key, icon class and the
+  // translated provider name for {{_ 'sign-in-with' label}}. No credential
+  // ever reaches this list - the server sends keys only.
+  oauthProviders() {
+    return Template.instance()
+      .enabledOauthProviders.get()
+      .map(key => providerByKey(key))
+      .filter(Boolean)
+      .map(p => ({ key: p.key, icon: p.icon, label: TAPi18n.__(p.labelKey) }));
+  },
+
+  passwordlessEnabled() {
+    return Template.instance().passwordlessEnabled.get();
+  },
+
+  passwordlessCodeStep() {
+    return Template.instance().passwordlessStep.get() === 'code';
+  },
+
+  passwordlessEmail() {
+    return Template.instance().passwordlessEmail.get();
+  },
+
   isLegalNoticeLinkExist() {
     const currSet = Template.instance().currentSetting.get();
     if (currSet && currSet !== undefined && currSet != null) {
@@ -334,7 +383,83 @@ Template.userFormsLayout.events({
       if (!err) FlowRouter.go('/');
     });
   },
+  // Google / GitHub / Facebook / X / Meteor Developer / Weibo / Meetup: the
+  // button's data-provider is a catalog key, and the catalog names the
+  // Meteor.loginWith… function the accounts-* package registered. The login
+  // style (popup or redirect) is decided by the server's ServiceConfiguration,
+  // which Meteor's OAuth client reads on its own.
+  'click .js-oauth-provider'(event) {
+    event.preventDefault();
+    const key = $(event.currentTarget).data('provider');
+    const provider = providerByKey(key);
+    if (!provider || typeof Meteor[provider.loginMethod] !== 'function') return;
+    showLoginError('');
+    Meteor[provider.loginMethod]({}, (err) => {
+      if (err) {
+        showLoginError(err);
+        return;
+      }
+      FlowRouter.go('/');
+    });
+  },
+  // Passwordless (accounts-passwordless): step one asks for the address and
+  // has the server e-mail a one-time code; step two exchanges the code for a
+  // login. Both steps report errors in the same #login-error-message region
+  // as the password form.
+  'submit .js-passwordless-request'(event, templateInstance) {
+    event.preventDefault();
+    const email = String($('#passwordless-email').val() || '').trim();
+    if (!email) return;
+    showLoginError('');
+    Accounts.requestLoginTokenForUser(
+      { selector: email, userData: { email, passwordless: true } },
+      (err) => {
+        if (err) {
+          showLoginError(err);
+          return;
+        }
+        templateInstance.passwordlessEmail.set(email);
+        templateInstance.passwordlessStep.set('code');
+      },
+    );
+  },
+  'submit .js-passwordless-login'(event, templateInstance) {
+    event.preventDefault();
+    const email = templateInstance.passwordlessEmail.get();
+    const code = String($('#passwordless-code').val() || '').trim();
+    if (!email || !code) return;
+    showLoginError('');
+    Meteor.passwordlessLoginWithToken(email, code, (err) => {
+      if (err) {
+        showLoginError(err);
+        return;
+      }
+      templateInstance.passwordlessStep.set('email');
+      FlowRouter.go('/');
+    });
+  },
+  'click .js-passwordless-cancel'(event, templateInstance) {
+    event.preventDefault();
+    showLoginError('');
+    templateInstance.passwordlessStep.set('email');
+  },
 });
+
+// The same ARIA live region config/accounts.js writes the password form's
+// login errors into, so a provider or code error reads the same way.
+function showLoginError(err) {
+  const errorDiv = document.getElementById('login-error-message');
+  if (!errorDiv) return;
+  if (!err) {
+    errorDiv.textContent = '';
+    return;
+  }
+  const reason = err.reason || err.message || '';
+  errorDiv.textContent =
+    err.error === 'oauth-account-conflict'
+      ? TAPi18n.__('oauth-account-conflict')
+      : reason || String(err.error || err);
+}
 
 Template.defaultLayout.events({
   'click .js-close-modal': () => {

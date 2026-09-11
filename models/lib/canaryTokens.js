@@ -135,6 +135,10 @@ const CANARIES = {
     key: 'authn.cas-link',
     what: 'tried to link a CAS identity to an existing non-CAS account without consent',
   },
+  'oauth.account-conflict': {
+    key: 'authn.oauth-link',
+    what: 'tried to sign in through an OAuth provider with the email of an existing account made by another login method',
+  },
   'database.canary': {
     key: 'authz.database',
     what: 'the database refused an operation that WeKan never issues',

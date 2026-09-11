@@ -807,12 +807,25 @@ Meteor.methods({
   },
 
   getAuthenticationsEnabled() {
-    return {
+    const enabled = {
       ldap: isLdapEnabled(),
       oauth2: isOauth2Enabled(),
       cas: isCasEnabled(),
       saml: isSamlEnabled(),
     };
+    // Meteor's own accounts-* providers and accounts-passwordless
+    // (server/lib/oauthProviders.js): one key per enabled provider, so the
+    // login form shows a button for each. Keys only - never a credential.
+    try {
+      const oauth = require('/server/lib/oauthProviders');
+      oauth.enabledOauthProviders().forEach(key => {
+        enabled[key] = true;
+      });
+      enabled.passwordless = oauth.isPasswordlessLoginEnabled();
+    } catch (e) {
+      enabled.passwordless = false;
+    }
+    return enabled;
   },
 
   getOauthServerUrl() {

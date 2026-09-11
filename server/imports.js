@@ -131,6 +131,7 @@ import '/server/models/userPositionHistory';
 // not registered).
 import '/server/ldapGroupSync';
 import '/server/ldapAdminSettingsBridge';
+import '/server/lib/oauthProviders';
 import '/server/sharedTemplateTargets';
 import '/server/propagateOrgTeamMembers';
 

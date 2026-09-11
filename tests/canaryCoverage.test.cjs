@@ -42,6 +42,7 @@ const WIRED = [
   ['user.miniprofile-without-login',  'server/publications/users.js',                'MiniProfileBleed'],
   ['history.cross-board',              'server/permissions/userPositionHistory.js',   'PositionHistoryBleed'],
   ['cas.account-conflict',             'packages/wekan-accounts-cas/cas_server.js',    'CasBleed'],
+  ['oauth.account-conflict',           'server/lib/oauthProviders.js',                'CasBleed'],
   ['list.cross-board-move',            'server/permissions/lists.js',                 'BoardBleed'],
   ['swimlane.cross-board-move',        'server/permissions/swimlanes.js',             'BoardBleed'],
   ['checklist.cross-board-move',       'server/permissions/checklists.js',            'ChecklistBleed'],

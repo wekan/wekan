@@ -75,6 +75,10 @@ function buildHook(env) {
     // Free variable used by the hook for brand-new users; a no-op keeps the
     // creation path exercisable without an Orgs collection.
     autoAddOrgsByDomain: async () => {},
+    // The Meteor accounts-* provider branch that runs before the OIDC one
+    // (server/lib/oauthProviders.js); an OIDC user has no such service.
+    providerOfUser: () => undefined,
+    onCreateProviderUser: async () => { throw new Error('not an OAuth provider user'); },
     ReactiveCache: null, // set per scenario below
     InvitationCodes: { removeAsync: async () => {} },
   };

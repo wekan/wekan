@@ -24,6 +24,10 @@ const CATALOG = {
   'authz.position-history': { category: 'authz', bleed: 'PositionHistoryBleed', severity: 'high', cwe: 'CWE-639' },
   'auth-race.cas':   { category: 'auth-race', bleed: 'CasBleed', severity: 'high', cwe: 'CWE-362' },
   'authn.cas-link':  { category: 'authn', bleed: 'CasBleed', severity: 'medium', cwe: 'CWE-287' },
+  // A Google/GitHub/Facebook/… login whose email matches an account made by
+  // another method, while OAUTH_PROVIDERS_MERGE_EXISTING_USERS is off: the same
+  // takeover shape as CasBleed and OIDC's GHSA-mp7g-hj5q-gxhq, refused and recorded.
+  'authn.oauth-link': { category: 'authn', bleed: 'CasBleed', severity: 'medium', cwe: 'CWE-287' },
   'auth-race.oidc':  { category: 'auth-race', bleed: 'OIDCBleed', severity: 'high', cwe: 'CWE-362' },
   'brute.invite':    { category: 'brute-force', bleed: 'InviteBleed', severity: 'high', cwe: 'CWE-307' },
   'brute.login':     { category: 'brute-force', bleed: 'BruteBleed', severity: 'medium', cwe: 'CWE-307' },

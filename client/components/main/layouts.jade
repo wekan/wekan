@@ -72,6 +72,32 @@ template(name="userFormsLayout")
         button#at-saml.hide(type="button")
           i.fa.fa-key
           | {{_ 'samlSignIn'}}
+        // One button per Meteor accounts-* OAuth provider the server reports
+        // enabled (getAuthenticationsEnabled -> models/lib/oauthProviders.js).
+        each oauthProviders
+          button.primary.js-oauth-provider(type="button" data-provider=key)
+            i.fa(class=icon)
+            | {{_ 'sign-in-with' label}}
+        // accounts-passwordless: e-mailed one-time sign-in code.
+        if passwordlessEnabled
+          if passwordlessCodeStep
+            form#passwordless-code-form.js-passwordless-login
+              p {{_ 'passwordless-code-sent'}}
+              label(for="passwordless-code")
+                | {{_ 'passwordless-enter-code'}}
+                input#passwordless-code(type="text" inputmode="numeric" autocomplete="one-time-code" required)
+              div.buttonsContainer
+                input.primary(type="submit" value="{{_ 'passwordless-sign-in'}}")
+                button.js-passwordless-cancel(type="button") {{_ 'cancel'}}
+          else
+            form#passwordless-email-form.js-passwordless-request
+              label(for="passwordless-email")
+                | {{_ 'passwordless-email'}}
+                input#passwordless-email(type="email" autocomplete="email" required)
+              div.buttonsContainer
+                button.primary.js-passwordless-send(type="submit")
+                  i.fa.fa-envelope
+                  | {{_ 'passwordless-login'}}
         if currentSetting.displayAuthenticationMethod
           +connectionMethod(authenticationMethod=currentSetting.defaultAuthenticationMethod)
         if isLegalNoticeLinkExist

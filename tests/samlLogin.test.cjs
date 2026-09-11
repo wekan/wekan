@@ -55,7 +55,11 @@ test('the SAML service configuration is written to ServiceConfiguration.configur
 
 test('getAuthenticationsEnabled reports saml, gated by isSamlEnabled()', () => {
   assert.match(settings, /function isSamlEnabled\(\)\s*{\s*\n\s*return\s*\(\s*\n?\s*process\.env\.SAML_ENABLED === 'true' \|\| process\.env\.SAML_ENABLED === true/);
-  assert.match(settings, /getAuthenticationsEnabled\(\)\s*{\s*\n\s*return\s*{[^}]*saml: isSamlEnabled\(\)/);
+  // The map is built in a local before it is returned, because the Meteor
+  // accounts-* providers and passwordless are added to it after the four fixed
+  // methods (server/lib/oauthProviders.js); the saml entry is still gated on
+  // isSamlEnabled() alone.
+  assert.match(settings, /getAuthenticationsEnabled\(\)\s*{\s*\n\s*const enabled\s*=\s*{[^}]*saml: isSamlEnabled\(\)/);
 });
 
 test('the SAML package depends on the verified-MIT @node-saml/node-saml library, not a hand-rolled implementation', () => {
