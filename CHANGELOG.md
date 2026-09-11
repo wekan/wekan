@@ -5005,6 +5005,8 @@ it.
 
 </details>
 
+- [The Flowtime "Add Interruption" button uses the same theme colors as "Start Pomodoro"](https://github.com/wekan/wekan/commit/aa728a8dc). Thanks to xet7.
+
 and improves the translation workflow:
 
 - [Fill in the missing Ladin, Latin, Luganda, Luxembourgish, Maithili, Malagasy, Malay, Malayalam, Maltese, Manx, Maori and Marathi translations](https://github.com/wekan/wekan/commit/718d20813). Thanks to xet7.
