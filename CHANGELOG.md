@@ -538,6 +538,47 @@ This release adds the following new features:
 **Login** - every way to log in that Meteor's accounts system offers.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/83d2a7fc7">Google, GitHub, Facebook, X, Meteor Developer, Weibo, Meetup and passwordless login</a>. Thanks to xet7.</summary>
+
+Meteor's own accounts packages - accounts-google, accounts-github,
+accounts-facebook, accounts-twitter, accounts-meteor-developer,
+accounts-weibo, accounts-meetup and accounts-passwordless - are added, so
+every login method Meteor's accounts system offers is now in WeKan beside
+password, 2FA, OIDC, LDAP, CAS and SAML.
+
+`models/lib/oauthProviders.js` is the pure catalog of the seven providers:
+the `OAUTH_<PROVIDER>_ENABLED`, `_CLIENT_ID` (`_APP_ID` for Facebook,
+`_CONSUMER_KEY` for X) and `_SECRET` env vars, each credential also read
+from a `<NAME>_FILE` Docker secret; the shared
+`OAUTH_PROVIDERS_LOGIN_STYLE` (popup or redirect) and
+`OAUTH_PROVIDERS_MERGE_EXISTING_USERS`; and `PASSWORDLESS_ENABLED`. An
+Admin Panel value wins over the env var, and a provider is enabled only
+with the flag AND both credentials.
+
+`server/lib/oauthProviders.js` writes Meteor's `ServiceConfiguration` for
+every enabled provider at startup and whenever the Admin Panel saves, and
+REMOVES it for a disabled one, so switching a provider off takes effect
+without a restart. A first login through a provider becomes a WeKan user
+the way OIDC does, fail-closed: an existing account made by another login
+method is linked only when merging is on and the provider verified the
+address; otherwise the login is refused with `oauth-account-conflict` and
+the attempt is recorded on the new `oauth.account-conflict` canary, so
+Admin Panel -> Problems shows who tried. Passwordless is refused at both
+the token-request method and the login attempt while it is off, so the
+package cannot create accounts or send codes when nobody enabled it.
+
+The login form shows one button per enabled provider under the SAML
+button, and a two-step "Email me a sign-in code" form (address, then code)
+when passwordless is on; errors land in the same region as the password
+form. `getAuthenticationsEnabled` reports keys only - no credential ever
+reaches a browser. `tests/oauthProviders.test.cjs` pins the catalog shape,
+the env, `_FILE` and Admin Panel resolution, the enabled and takeover
+decisions, the upsert/remove, the canary, the form and the negative
+no-secret-on-the-client sweep.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/d1b5d0a75">Admin Panel override of the OAuth login provider and passwordless env vars</a>. Thanks to xet7.</summary>
 
 Admin Panel / People / Login gets a section for Meteor's own accounts-*
