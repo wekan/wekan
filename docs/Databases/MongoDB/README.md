@@ -10,6 +10,7 @@ is the compose file for it. The default database of WeKan is
 | [Driver-System.md](Driver-System.md) | Which Node driver is used for which server version, and how that is decided |
 | [Version-Management.md](Version-Management.md) | Detecting the server version and switching to the matching binary + driver |
 | [Compatibility-Guide.md](Compatibility-Guide.md) | What breaks between MongoDB 3.0 and 8.0 with Meteor, and the fixes |
+| [Storage-Requirements.md](Storage-Requirements.md) | Why the data directory must be on a local filesystem, and what an SMB/NFS-backed one does (fsync ENOSPC aborts, slow queries) |
 | [Oplog-Configuration.md](Oplog-Configuration.md) | Why the OpLog matters for pub/sub, and how to turn it on |
 | [OpLog-Enablement.md](OpLog-Enablement.md) | Whether it IS on, per deployment platform |
 | [avx-qemu.md](avx-qemu.md) | Running MongoDB 5+ on a CPU with no AVX, through qemu-user |

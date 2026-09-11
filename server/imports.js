@@ -122,6 +122,7 @@ import '/server/models/org';
 import '/server/models/rules';
 import '/server/models/settings';
 import '/server/models/swimlanes';
+import '/server/models/cardCommentReactions';
 import '/server/models/team';
 import '/server/models/translation';
 import '/server/models/users';
@@ -211,6 +212,7 @@ import '/server/lib/tenantResolver';
 import '/server/lib/ssrfGuard';
 import '/server/lib/ddpSessionSendGuard';
 import '/server/lib/databaseProblems';
+import '/server/lib/databaseHealth';
 // What the FILESYSTEM said, and whether this server stopped cleanly last time
 // (docs/Security/Remediation/WeKan.md §13). Both write to the 'integrity' event
 // stream, shown in Admin Panel / Problems / Filesystem integrity.
