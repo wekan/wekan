@@ -375,6 +375,13 @@
     width: min(90vw, 900px) !important;
     max-width: 90vw !important;
   }
+
+  /* Board Settings / Board View: five columns, four of them headed by a
+     three-word title. Same width as Card Settings for the same reason. */
+  .pop-over[data-popup='boardViewSettingsPopup'] {
+    width: min(90vw, 900px) !important;
+    max-width: 90vw !important;
+  }
 }
 
 /* Make language popup extend to bottom of browser window */

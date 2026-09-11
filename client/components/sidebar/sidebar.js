@@ -18,6 +18,8 @@ import { InfiniteScrolling } from '/client/lib/infiniteScrolling';
 import '/client/components/boards/exportScope';
 import AccessibilitySettings from '/models/accessibilitySettings';
 import Boards from '/models/boards';
+import TableVisibilityModeSettings from '/models/tableVisibilityModeSettings';
+const boardViewSettings = require('/models/lib/boardViewSettings');
 import Cards from '/models/cards';
 import Attachments from '/models/attachments';
 import { generateUniversalAttachmentUrl } from '/models/lib/universalUrlGenerator';
@@ -620,6 +622,51 @@ Template.boardMenuPopup.onCreated(function() {
   Meteor.call('_isApiEnabled', (e, result) => {
     this.apiEnabled.set(result);
   });
+});
+
+// Board Settings / Board View (docs/Features/Board/Board-View-Settings.md).
+// Rows come from the one shared BOARD_VIEWS table; every decision - what is
+// shown, what is default, what a click may change - is the pure module's,
+// applied through the Board instance setters, so the popup, the Board View
+// menu and Utils.boardView() can not disagree. Boards.allow's board-admin
+// rule enforces who may persist a click.
+Template.boardViewSettingsPopup.helpers({
+  publicBoardsHidden() {
+    return Boolean(
+      TableVisibilityModeSettings.findOne('tableVisibilityMode-allowPrivateOnly')?.booleanValue,
+    );
+  },
+  boardViewRows() {
+    const board = Utils.getCurrentBoard();
+    return boardViewSettings.BOARD_VIEWS.map(v => ({
+      view: v.view,
+      labelKey: v.labelKey,
+      icon: `fa ${v.icon}`,
+      showOnPublic: boardViewSettings.isBoardViewShown(board, v.view, 'public'),
+      showOnPrivate: boardViewSettings.isBoardViewShown(board, v.view, 'private'),
+      isDefaultPublic: boardViewSettings.defaultBoardView(board, 'public') === v.view,
+      isDefaultPrivate: boardViewSettings.defaultBoardView(board, 'private') === v.view,
+    }));
+  },
+});
+
+Template.boardViewSettingsPopup.events({
+  'click .js-board-view-show'(evt) {
+    evt.preventDefault();
+    const board = Utils.getCurrentBoard();
+    if (!board) return;
+    const visibility = evt.currentTarget.dataset.visibility;
+    const view = evt.currentTarget.closest('[data-view]').dataset.view;
+    board.setBoardViewShown(view, visibility, !board.isBoardViewShown(view, visibility));
+  },
+  'click .js-board-view-default'(evt) {
+    evt.preventDefault();
+    const board = Utils.getCurrentBoard();
+    if (!board) return;
+    const visibility = evt.currentTarget.dataset.visibility;
+    const view = evt.currentTarget.closest('[data-view]').dataset.view;
+    board.setDefaultBoardView(view, visibility);
+  },
 });
 
 // #6680: Board Settings / Swimlane - moved here from the header (see

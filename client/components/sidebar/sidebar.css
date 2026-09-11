@@ -244,6 +244,47 @@
   font-weight: bold;
   text-align: center;
 }
+
+/* Board Settings / Board View: the same table as Card Settings above, with
+   FIVE columns (Default/Show on Public, Default/Show on Private, the view's
+   name) - or three when Admin Panel hides public boards and the popup does
+   not render the two public columns (sidebar.jade boardViewSettingsPopup).
+   Its own class rather than .card-settings-row, because that one swaps its
+   first two columns visually with `order` and this table reads left to
+   right as its header says. */
+.board-view-settings-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 2fr;
+  gap: 10px;
+  align-items: center;
+  padding: 5px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.board-view-settings.hide-public-columns .board-view-settings-row {
+  grid-template-columns: 1fr 1fr 2fr;
+}
+
+.board-view-settings-column {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.board-view-settings-column:last-child {
+  justify-content: flex-start;
+}
+
+.board-view-settings-column h4 {
+  margin: 0;
+  font-size: calc(12px * var(--wekan-ui-font-scale, 1));
+  font-weight: bold;
+  text-align: center;
+}
+
+.board-view-settings-column span i.fa {
+  margin-inline-end: 6px;
+}
 .sidebar .sidebar-content ul.sidebar-list li > a {
   display: flex;
   height: 30px;

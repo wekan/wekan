@@ -14,6 +14,8 @@ is documented yet — contributions are welcome.
 - [Cards](Cards/Cards.md) — description, labels, checklists, attachments, comments,
   markdown, dates, drag-and-drop images, multi-selection, filtered views.
 - [Swimlanes](Board/Swimlanes.md)
+- [Board View settings](Board/Board-View-Settings.md) — which Board View menu entries a
+  public / private board offers, and which one it opens in.
 - [WIP Limits](Lists/WipLimit/WipLimit.md)
 - [Members and Permissions](Members/Members.md)
 - [Templates](Board/Templates.md)

@@ -62,14 +62,20 @@ test('the three toggles are gone from the header (negative)', () => {
 
 test('Board Settings has an <hr> above and below the Swimlane/List/Card group', () => {
   const lines = boardMenu.split('\n').map(l => l.trim());
+  // The group's FIRST entry is Board View (docs/Features/Board/Board-View-
+  // Settings.md, tests/boardViewSettings.test.cjs), which sits directly
+  // above Swimlane; the hr-above check is anchored on it, so that the group
+  // still starts right after the rule. The Swimlane -> Card order stays.
+  const firstAt = lines.findIndex(l => l.includes('js-open-board-view-settings'));
   const swimlaneAt = lines.findIndex(l => l.includes('js-open-board-swimlane-settings'));
   const cardAt = lines.findIndex(l => l.includes('js-open-board-card-settings'));
-  assert.ok(swimlaneAt !== -1 && cardAt !== -1 && swimlaneAt < cardAt, 'the group exists, in order');
+  assert.ok(firstAt !== -1 && swimlaneAt !== -1 && cardAt !== -1 && firstAt < swimlaneAt && swimlaneAt < cardAt,
+    'the group exists, in order: Board View, Swimlane, ..., Card');
   // Reduce to only the structural markup lines that matter here (hr, ul, the
   // admin if-gate, li) - dropping comment prose entirely, rather than trying
   // to detect where a multi-line jade comment ends.
   const structural = /^(hr|ul\.pop-over-list|if currentUser\.isBoardAdmin|li)$/;
-  const before = lines.slice(0, swimlaneAt).filter(l => structural.test(l));
+  const before = lines.slice(0, firstAt).filter(l => structural.test(l));
   assert.strictEqual(before[before.length - 4], 'hr',
     'an hr directly precedes the group\'s ul (only ul/if/li wrappers in between)');
   const after = lines.slice(cardAt + 1).filter(l => structural.test(l));
@@ -90,7 +96,10 @@ test('only one hr sits between the group and Archive Board (negative)', () => {
 });
 
 test('Swimlane and List are board-admin only; Card is open to any board member', () => {
-  const group = boardMenu.slice(boardMenu.indexOf('js-open-board-swimlane-settings') - 200,
+  // The slice starts before the group's first entry (Board View, whose jade
+  // comment now sits between the if-gate and Swimlane), so the gate is still
+  // inside the window the regex reads.
+  const group = boardMenu.slice(boardMenu.indexOf('js-open-board-view-settings') - 600,
     boardMenu.indexOf('js-open-board-card-settings') + 40);
   assert.ok(/if currentUser\.isBoardAdmin\n(?:[\s\S]*?)li\n(?:[\s\S]*?)js-open-board-swimlane-settings/.test(group),
     'Swimlane sits behind an isBoardAdmin gate');

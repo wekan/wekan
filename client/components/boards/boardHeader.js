@@ -8,6 +8,7 @@ import Boards from '/models/boards';
 import Swimlanes from '/models/swimlanes';
 import TableVisibilityModeSettings from '/models/tableVisibilityModeSettings';
 import visibilityDesc from '/imports/i18n/lib/visibilityDesc';
+const { isBoardViewShown } = require('/models/lib/boardViewSettings');
 import { Filter } from '/client/lib/filter';
 // Which way a button that opens a sidebar view goes on a click - one answer,
 // in one place, for both Filter and Search.
@@ -264,6 +265,18 @@ Template.boardHeaderButtons.events({
   },
   'click .js-log-in'() {
     FlowRouter.go('atSignIn');
+  },
+});
+
+// Board Settings / Board View (docs/Features/Board/Board-View-Settings.md):
+// a view the board admin un-ticked for this board's visibility (public or
+// private) is not offered. Reads the board reactively, so switching the
+// board Private <-> Public swaps the menu on the spot.
+Template.boardChangeViewPopup.helpers({
+  showsBoardView(view) {
+    const board = Utils.getCurrentBoard();
+    if (!board) return true;
+    return isBoardViewShown(board, view, board.permission);
   },
 });
 

@@ -150,187 +150,212 @@ template(name="boardChangeWatchPopup")
 
 template(name="boardChangeViewPopup")
   ul.pop-over-list
-    li
-      with "board-view-swimlanes"
-        a.js-open-swimlanes-view
-          i.fa.fa-th-large
-          | {{_ 'swimlanes'}}
-          if $eq Utils.boardView "board-view-swimlanes"
-            i.fa.fa-check
-    li
-      with "board-view-lists"
-        a.js-open-lists-view
-          i.fa.fa-trello
-          | {{_ 'board-view-lists'}}
-          if $eq Utils.boardView "board-view-lists"
-            i.fa.fa-check
-    li
-      with "board-view-table"
-        a.js-open-table-view
-          i.fa.fa-table
-          | {{_ 'board-view-table'}}
-          if $eq Utils.boardView "board-view-table"
-            i.fa.fa-check
-      hr
-    li
-      with "board-view-cal"
-        a.js-open-cal-view
-          i.fa.fa-calendar
-          | {{_ 'board-view-cal'}}
-          if $eq Utils.boardView "board-view-cal"
-            i.fa.fa-check
-    li
-      with "board-view-multiboard-cal"
-        a.js-open-multiboard-cal-view
-          i.fa.fa-calendar-plus-o
-          | {{_ 'board-view-multiboard-cal'}}
-          if $eq Utils.boardView "board-view-multiboard-cal"
-            i.fa.fa-check
-    li
-      with "board-view-time"
-        a.js-open-time-view
-          i.fa.fa-clock-o
-          | {{_ 'board-view-time'}}
-          if $eq Utils.boardView "board-view-time"
-            i.fa.fa-check
-    li
-      with "board-view-timeline"
-        a.js-open-timeline-view
-          i.fa.fa-history
-          | {{_ 'board-view-timeline'}}
-          if $eq Utils.boardView "board-view-timeline"
-            i.fa.fa-check
-      hr
-    li
-      with "board-view-stats"
-        a.js-open-stats-view
-          i.fa.fa-pie-chart
-          | {{_ 'board-view-stats'}}
-          if $eq Utils.boardView "board-view-stats"
-            i.fa.fa-check
-      hr
-    li
-      with "board-view-group-by-assignee"
-        a.js-open-group-by-assignee-view
-          i.fa.fa-users
-          | {{_ 'board-view-group-by-assignee'}}
-          if $eq Utils.boardView "board-view-group-by-assignee"
-            i.fa.fa-check
-      hr
-    li
-      with "board-view-gantt"
-        a.js-open-gantt-view
-          i.fa.fa-bar-chart
-          | {{_ 'board-view-gantt'}}
-          if $eq Utils.boardView "board-view-gantt"
-            i.fa.fa-check
-    li
-      with "board-view-gantt-frappe"
-        a.js-open-gantt-frappe-view
-          i.fa.fa-tasks
-          | {{_ 'board-view-gantt-frappe'}}
-          if $eq Utils.boardView "board-view-gantt-frappe"
-            i.fa.fa-check
-    li
-      with "board-view-gantt-dhtmlx"
-        a.js-open-gantt-dhtmlx-view
-          i.fa.fa-list-alt
-          | {{_ 'board-view-gantt-dhtmlx'}}
-          if $eq Utils.boardView "board-view-gantt-dhtmlx"
-            i.fa.fa-check
-      hr
-    li
-      with "board-view-roadmap"
-        a.js-open-roadmap-view
-          i.fa.fa-road
-          | {{_ 'board-view-roadmap'}}
-          if $eq Utils.boardView "board-view-roadmap"
-            i.fa.fa-check
-    li
-      with "board-view-dashboard"
-        a.js-open-dashboard-view
-          i.fa.fa-tachometer
-          | {{_ 'board-view-dashboard'}}
-          if $eq Utils.boardView "board-view-dashboard"
-            i.fa.fa-check
-    li
-      with "board-view-bigboard"
-        a.js-open-bigboard-view
-          i.fa.fa-th
-          | {{_ 'board-view-bigboard'}}
-          if $eq Utils.boardView "board-view-bigboard"
-            i.fa.fa-check
-      hr
-    li
-      with "board-view-burndown"
-        a.js-open-burndown-view
-          i.fa.fa-line-chart
-          | {{_ 'board-view-burndown'}}
-          if $eq Utils.boardView "board-view-burndown"
-            i.fa.fa-check
-    li
-      with "board-view-burnup"
-        a.js-open-burnup-view
-          i.fa.fa-area-chart
-          | {{_ 'board-view-burnup'}}
-          if $eq Utils.boardView "board-view-burnup"
-            i.fa.fa-check
-    li
-      with "board-view-cumulative-flow"
-        a.js-open-cumulative-flow-view
-          i.fa.fa-signal
-          | {{_ 'board-view-cumulative-flow'}}
-          if $eq Utils.boardView "board-view-cumulative-flow"
-            i.fa.fa-check
-    li
-      with "board-view-control-chart"
-        a.js-open-control-chart-view
-          i.fa.fa-crosshairs
-          | {{_ 'board-view-control-chart'}}
-          if $eq Utils.boardView "board-view-control-chart"
-            i.fa.fa-check
-    li
-      with "board-view-cycle-time"
-        a.js-open-cycle-time-view
-          i.fa.fa-refresh
-          | {{_ 'board-view-cycle-time'}}
-          if $eq Utils.boardView "board-view-cycle-time"
-            i.fa.fa-check
-    li
-      with "board-view-flow-efficiency"
-        a.js-open-flow-efficiency-view
-          i.fa.fa-percent
-          | {{_ 'board-view-flow-efficiency'}}
-          if $eq Utils.boardView "board-view-flow-efficiency"
-            i.fa.fa-check
-    li
-      with "board-view-lead-time"
-        a.js-open-lead-time-view
-          i.fa.fa-hourglass-half
-          | {{_ 'board-view-lead-time'}}
-          if $eq Utils.boardView "board-view-lead-time"
-            i.fa.fa-check
-    li
-      with "board-view-throughput-histogram"
-        a.js-open-throughput-histogram-view
-          i.fa.fa-columns
-          | {{_ 'board-view-throughput-histogram'}}
-          if $eq Utils.boardView "board-view-throughput-histogram"
-            i.fa.fa-check
-    li
-      with "board-view-wip-run"
-        a.js-open-wip-run-view
-          i.fa.fa-flag-checkered
-          | {{_ 'board-view-wip-run'}}
-          if $eq Utils.boardView "board-view-wip-run"
-            i.fa.fa-check
-    li
-      with "board-view-pulse"
-        a.js-open-pulse-view
-          i.fa.fa-heartbeat
-          | {{_ 'board-view-pulse'}}
-          if $eq Utils.boardView "board-view-pulse"
-            i.fa.fa-check
+    if showsBoardView "board-view-swimlanes"
+      li
+        with "board-view-swimlanes"
+          a.js-open-swimlanes-view
+            i.fa.fa-th-large
+            | {{_ 'swimlanes'}}
+            if $eq Utils.boardView "board-view-swimlanes"
+              i.fa.fa-check
+    if showsBoardView "board-view-lists"
+      li
+        with "board-view-lists"
+          a.js-open-lists-view
+            i.fa.fa-trello
+            | {{_ 'board-view-lists'}}
+            if $eq Utils.boardView "board-view-lists"
+              i.fa.fa-check
+    if showsBoardView "board-view-table"
+      li
+        with "board-view-table"
+          a.js-open-table-view
+            i.fa.fa-table
+            | {{_ 'board-view-table'}}
+            if $eq Utils.boardView "board-view-table"
+              i.fa.fa-check
+        hr
+    if showsBoardView "board-view-cal"
+      li
+        with "board-view-cal"
+          a.js-open-cal-view
+            i.fa.fa-calendar
+            | {{_ 'board-view-cal'}}
+            if $eq Utils.boardView "board-view-cal"
+              i.fa.fa-check
+    if showsBoardView "board-view-multiboard-cal"
+      li
+        with "board-view-multiboard-cal"
+          a.js-open-multiboard-cal-view
+            i.fa.fa-calendar-plus-o
+            | {{_ 'board-view-multiboard-cal'}}
+            if $eq Utils.boardView "board-view-multiboard-cal"
+              i.fa.fa-check
+    if showsBoardView "board-view-time"
+      li
+        with "board-view-time"
+          a.js-open-time-view
+            i.fa.fa-clock-o
+            | {{_ 'board-view-time'}}
+            if $eq Utils.boardView "board-view-time"
+              i.fa.fa-check
+    if showsBoardView "board-view-timeline"
+      li
+        with "board-view-timeline"
+          a.js-open-timeline-view
+            i.fa.fa-history
+            | {{_ 'board-view-timeline'}}
+            if $eq Utils.boardView "board-view-timeline"
+              i.fa.fa-check
+        hr
+    if showsBoardView "board-view-stats"
+      li
+        with "board-view-stats"
+          a.js-open-stats-view
+            i.fa.fa-pie-chart
+            | {{_ 'board-view-stats'}}
+            if $eq Utils.boardView "board-view-stats"
+              i.fa.fa-check
+        hr
+    if showsBoardView "board-view-group-by-assignee"
+      li
+        with "board-view-group-by-assignee"
+          a.js-open-group-by-assignee-view
+            i.fa.fa-users
+            | {{_ 'board-view-group-by-assignee'}}
+            if $eq Utils.boardView "board-view-group-by-assignee"
+              i.fa.fa-check
+        hr
+    if showsBoardView "board-view-gantt"
+      li
+        with "board-view-gantt"
+          a.js-open-gantt-view
+            i.fa.fa-bar-chart
+            | {{_ 'board-view-gantt'}}
+            if $eq Utils.boardView "board-view-gantt"
+              i.fa.fa-check
+    if showsBoardView "board-view-gantt-frappe"
+      li
+        with "board-view-gantt-frappe"
+          a.js-open-gantt-frappe-view
+            i.fa.fa-tasks
+            | {{_ 'board-view-gantt-frappe'}}
+            if $eq Utils.boardView "board-view-gantt-frappe"
+              i.fa.fa-check
+    if showsBoardView "board-view-gantt-dhtmlx"
+      li
+        with "board-view-gantt-dhtmlx"
+          a.js-open-gantt-dhtmlx-view
+            i.fa.fa-list-alt
+            | {{_ 'board-view-gantt-dhtmlx'}}
+            if $eq Utils.boardView "board-view-gantt-dhtmlx"
+              i.fa.fa-check
+        hr
+    if showsBoardView "board-view-roadmap"
+      li
+        with "board-view-roadmap"
+          a.js-open-roadmap-view
+            i.fa.fa-road
+            | {{_ 'board-view-roadmap'}}
+            if $eq Utils.boardView "board-view-roadmap"
+              i.fa.fa-check
+    if showsBoardView "board-view-dashboard"
+      li
+        with "board-view-dashboard"
+          a.js-open-dashboard-view
+            i.fa.fa-tachometer
+            | {{_ 'board-view-dashboard'}}
+            if $eq Utils.boardView "board-view-dashboard"
+              i.fa.fa-check
+    if showsBoardView "board-view-bigboard"
+      li
+        with "board-view-bigboard"
+          a.js-open-bigboard-view
+            i.fa.fa-th
+            | {{_ 'board-view-bigboard'}}
+            if $eq Utils.boardView "board-view-bigboard"
+              i.fa.fa-check
+        hr
+    if showsBoardView "board-view-burndown"
+      li
+        with "board-view-burndown"
+          a.js-open-burndown-view
+            i.fa.fa-line-chart
+            | {{_ 'board-view-burndown'}}
+            if $eq Utils.boardView "board-view-burndown"
+              i.fa.fa-check
+    if showsBoardView "board-view-burnup"
+      li
+        with "board-view-burnup"
+          a.js-open-burnup-view
+            i.fa.fa-area-chart
+            | {{_ 'board-view-burnup'}}
+            if $eq Utils.boardView "board-view-burnup"
+              i.fa.fa-check
+    if showsBoardView "board-view-cumulative-flow"
+      li
+        with "board-view-cumulative-flow"
+          a.js-open-cumulative-flow-view
+            i.fa.fa-signal
+            | {{_ 'board-view-cumulative-flow'}}
+            if $eq Utils.boardView "board-view-cumulative-flow"
+              i.fa.fa-check
+    if showsBoardView "board-view-control-chart"
+      li
+        with "board-view-control-chart"
+          a.js-open-control-chart-view
+            i.fa.fa-crosshairs
+            | {{_ 'board-view-control-chart'}}
+            if $eq Utils.boardView "board-view-control-chart"
+              i.fa.fa-check
+    if showsBoardView "board-view-cycle-time"
+      li
+        with "board-view-cycle-time"
+          a.js-open-cycle-time-view
+            i.fa.fa-refresh
+            | {{_ 'board-view-cycle-time'}}
+            if $eq Utils.boardView "board-view-cycle-time"
+              i.fa.fa-check
+    if showsBoardView "board-view-flow-efficiency"
+      li
+        with "board-view-flow-efficiency"
+          a.js-open-flow-efficiency-view
+            i.fa.fa-percent
+            | {{_ 'board-view-flow-efficiency'}}
+            if $eq Utils.boardView "board-view-flow-efficiency"
+              i.fa.fa-check
+    if showsBoardView "board-view-lead-time"
+      li
+        with "board-view-lead-time"
+          a.js-open-lead-time-view
+            i.fa.fa-hourglass-half
+            | {{_ 'board-view-lead-time'}}
+            if $eq Utils.boardView "board-view-lead-time"
+              i.fa.fa-check
+    if showsBoardView "board-view-throughput-histogram"
+      li
+        with "board-view-throughput-histogram"
+          a.js-open-throughput-histogram-view
+            i.fa.fa-columns
+            | {{_ 'board-view-throughput-histogram'}}
+            if $eq Utils.boardView "board-view-throughput-histogram"
+              i.fa.fa-check
+    if showsBoardView "board-view-wip-run"
+      li
+        with "board-view-wip-run"
+          a.js-open-wip-run-view
+            i.fa.fa-flag-checkered
+            | {{_ 'board-view-wip-run'}}
+            if $eq Utils.boardView "board-view-wip-run"
+              i.fa.fa-check
+    if showsBoardView "board-view-pulse"
+      li
+        with "board-view-pulse"
+          a.js-open-pulse-view
+            i.fa.fa-heartbeat
+            | {{_ 'board-view-pulse'}}
+            if $eq Utils.boardView "board-view-pulse"
+              i.fa.fa-check
 
 //- The Create Board form: a title, what the board is visible to, and Create.
   Four templates drew it letter for letter - the one on the All Boards page and

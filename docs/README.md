@@ -206,6 +206,7 @@ Wekan is distributed under the [MIT License], allowing anyone to easily work wit
 * [Label due dates (Milestones)](Features/Board/Labels-Milestone-Due-Date.md)
 * [Checklists (automatic reset, bulk text edit)](Features/Cards/Checklists.md)
 * [Card field display order](Features/Board/Card-Field-Display-Order.md)
+* [Board View settings (which views a public/private board offers and opens in)](Features/Board/Board-View-Settings.md)
 
 # <a name="Email"></a>Email
 
