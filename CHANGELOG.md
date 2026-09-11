@@ -642,6 +642,20 @@ the five FerretDB v1 files identical.
 
 </details>
 
+and improves the translation workflow:
+
+- [Add the OAuth-provider and passwordless login i18n keys](https://github.com/wekan/wekan/commit/1ac7ddfad)
+  to every locale file, with the seven provider names treated as invariant
+  proper nouns by the fill tool. Thanks to xet7.
+- [Translate the OAuth-provider and passwordless login strings for the major languages](https://github.com/wekan/wekan/commit/24260c497)
+  and their regional variants, 88 locale files. Thanks to xet7.
+- [Translate them for the European and Central-Asian languages](https://github.com/wekan/wekan/commit/24e5ee4ca),
+  62 locale files, in the language each locale tag names. Thanks to xet7.
+- [Translate them for the South and Southeast Asian languages](https://github.com/wekan/wekan/commit/8537f7851),
+  29 locale files. Thanks to xet7.
+- [Translate them for the remaining languages](https://github.com/wekan/wekan/commit/3cdd33437),
+  53 locale files, so no locale has an untranslated string left. Thanks to xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v11.69 2026-09-11 WeKan ® release
