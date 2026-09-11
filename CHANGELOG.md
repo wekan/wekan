@@ -637,6 +637,12 @@ building on Launchpad when the job cap cancelled it. Both pass on a re-run.
 
 </details>
 
+and improves the translation workflow:
+
+- [Translate the attachment soft-delete confirmation for Russian, Aromanian, Kinyarwanda, Sakha, Sardinian, Sicilian, Sindhi, Northern Sami, Sinhala, Slovak, Slovenian, Samoan, Shona, Somali, Albanian, Serbian, Swati, Sotho, Swedish, Swahili, Silesian, Tamil, Telugu, Tajik, Thai, Tigrinya, Tigre, Turkmen, Tagalog, Klingon, Tswana, Tongan, Tok Pisin, Turkish, Tsonga, Tatar and Uyghur](https://github.com/wekan/wekan/commit/f5773b9958c935ebe3b4e22bf83c503f0eecb651). Thanks to xet7.
+
+- [Translate the attachment soft-delete confirmation for Danish, German, Greek, Spanish, French, Finnish and 15 more languages](https://github.com/wekan/wekan/commit/21f2d1ed5). Thanks to xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v11.70 2026-09-11 WeKan ® release
