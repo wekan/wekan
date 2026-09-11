@@ -605,8 +605,8 @@ Template.boardMenuPopup.events({
   'click .js-open-board-view-settings': Popup.open('boardViewSettings', { titleKey: 'board-view' }),
   'click .js-open-board-swimlane-settings': Popup.open('boardSwimlaneSettings', { titleKey: 'swimlane' }),
   'click .js-open-board-list-settings': Popup.open('boardListSettings', { titleKey: 'list' }),
-  // #2489: board-level WIP limit groups.
-  'click .js-open-board-wip-limit-groups': Popup.open('wipLimitGroups', { titleKey: 'wip-limit-groups' }),
+  // #2489: WIP Limit Groups is reached from Board Settings / Swimlane now -
+  // its click handler sits with the Swimlane popup's events below.
   // A non-admin may still open this for the one PERSONAL row in it ("Labels
   // text"), same as the old showOnMinicardPopup did - `personalOnly` hides
   // every other row (client/components/sidebar/sidebar.css). Overriding
@@ -705,6 +705,9 @@ Template.boardSwimlaneSettingsPopup.events({
     if (!board) return;
     board.setSwimlaneHeightResizeLocked(!board.getSwimlaneHeightResizeLocked());
   },
+  // #2489: Board Settings / Swimlane / WIP Limit Groups. Opened from inside
+  // this popup, so Popup.open stacks it and its back arrow returns here.
+  'click .js-open-board-wip-limit-groups': Popup.open('wipLimitGroups', { titleKey: 'wip-limit-groups' }),
 });
 
 // #6680: Board Settings / List - moved here from the header. The board-wide

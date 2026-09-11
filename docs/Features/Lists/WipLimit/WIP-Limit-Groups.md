@@ -8,16 +8,23 @@ separately - or cap an entire swimlane at once.
 
 ## Where to find it
 
-**Board sidebar (hamburger menu) → Board Settings → WIP Limit Groups.**
+**Board sidebar (hamburger menu) → Board Settings → Swimlane → WIP Limit
+Groups.** It is a row of the Swimlane settings popup (board admins only),
+since a group most often caps one swimlane's lists together.
 
 ```
 ┌─ Sidebar ▾ ─────────────────┐
 │ Board Settings               │
-│  Swimlane                    │
+│  Board View                  │
+│  ▸ Swimlane          <- here │
 │  List                        │
 │  Card                        │
-│  ▸ WIP Limit Groups  <- here │
-└────────────────────────────────┘
+└──────────────────────────────┘
+
+┌ Swimlane ───────────────────────────────────────┐
+│ ☐ Lock swimlane height resize                   │
+│ ▸ WIP Limit Groups                     <- here  │
+└─────────────────────────────────────────────────┘
 
 ┌ WIP Limit Groups ──────────────────────────────┐
 │ [ Group name.............. ]                    │
@@ -35,7 +42,7 @@ separately - or cap an entire swimlane at once.
 ## Steps to use it
 
 1. Open a board, click the sidebar's hamburger menu, then **Board Settings →
-   WIP Limit Groups**.
+   Swimlane → WIP Limit Groups**.
 2. Under **Add group**, type an optional name for the group, then check the
    lists it should cover (any two or more lists on the board).
 3. Enter the combined **limit** (an integer, 1-999) and click **Add** (the

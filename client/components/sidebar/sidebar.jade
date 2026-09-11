@@ -566,10 +566,10 @@ template(name="boardMenuPopup")
           a.js-open-board-list-settings(title="{{_ 'list'}}")
             i.fa.fa-list
             | {{_ 'list'}}
-        li
-          a.js-open-board-wip-limit-groups(title="{{_ 'wip-limit-groups'}}")
-            i.fa.fa-tasks
-            | {{_ 'wip-limit-groups'}}
+        //- "WIP Limit Groups" was here. It is a row of Board Settings /
+          Swimlane now (boardSwimlaneSettingsPopup below): a group most often
+          caps one swimlane's lists together, so it sits with the swimlane
+          settings rather than as a fourth top-level entry.
       li
         a.js-open-board-card-settings(title="{{_ 'card-settings'}}")
           i.fa.fa-id-card
@@ -652,6 +652,14 @@ template(name="boardSwimlaneSettingsPopup")
         span
           i.fa.fa-arrows-v
           | {{_ 'lock-swimlane-height-resize'}}
+  //- Board Settings / Swimlane / WIP Limit Groups (#2489). Used to be its own
+    top-level Board Settings entry; it opens the unchanged wipLimitGroupsPopup
+    below, stacked on this one so the popup's back arrow returns here.
+  ul.pop-over-list
+    li
+      a.js-open-board-wip-limit-groups(title="{{_ 'wip-limit-groups'}}")
+        i.fa.fa-tasks
+        | {{_ 'wip-limit-groups'}}
 
 //- Board Settings / List. The board-wide list-width resize lock and the
   "same width for all lists" setting used to be header icons (#6680); they

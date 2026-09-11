@@ -148,6 +148,40 @@ test('Board Settings / Swimlane has the swimlane-height resize lock', () => {
     'the click handler flips it');
 });
 
+// #2489 follow-up: "WIP Limit Groups" used to be a fourth top-level entry of
+// the Board Settings group, between List and Card. A group most often caps
+// one swimlane's lists together, so it was deliberately moved INTO Board
+// Settings / Swimlane as a row there - the path is now Board Settings /
+// Swimlane / WIP Limit Groups. The wipLimitGroupsPopup itself and its
+// handlers are unchanged; only where it is opened from moved.
+test('Board Settings / Swimlane has the WIP Limit Groups row, opening the existing popup', () => {
+  const tpl = sidebarJade.slice(sidebarJade.indexOf('template(name="boardSwimlaneSettingsPopup")'),
+    sidebarJade.indexOf('template(name="boardListSettingsPopup")'));
+  assert.ok(tpl.includes(`a.js-open-board-wip-limit-groups(title="{{_ 'wip-limit-groups'}}")`),
+    'the row is in the Swimlane popup, titled from the existing wip-limit-groups key');
+  assert.ok(tpl.indexOf('js-toggle-swimlane-height-resize-lock') < tpl.indexOf('js-open-board-wip-limit-groups'),
+    'below the resize lock');
+  assert.ok(en['wip-limit-groups'], 'the key already exists');
+  const handler = sidebarJs.slice(sidebarJs.indexOf('Template.boardSwimlaneSettingsPopup.events'));
+  const body = handler.slice(0, handler.indexOf('});'));
+  assert.ok(/'click \.js-open-board-wip-limit-groups': Popup\.open\('wipLimitGroups', \{ titleKey: 'wip-limit-groups' \}\)/
+    .test(body), 'the Swimlane popup opens the unchanged wipLimitGroupsPopup, stacked on itself');
+  assert.ok(sidebarJade.includes('template(name="wipLimitGroupsPopup")'), 'the popup still exists');
+});
+
+test('the top-level Board Settings list no longer has a WIP Limit Groups entry (negative)', () => {
+  assert.ok(!boardMenu.includes('js-open-board-wip-limit-groups'),
+    'no js-open-board-wip-limit-groups link in the Board Settings menu');
+  assert.ok(!boardMenu.includes("{{_ 'wip-limit-groups'}}"),
+    'the menu does not render the wip-limit-groups label');
+  const menuEvents = sidebarJs.slice(sidebarJs.indexOf('Template.boardMenuPopup.events'),
+    sidebarJs.indexOf('Template.boardSwimlaneSettingsPopup.helpers'));
+  assert.ok(!/'click \.js-open-board-wip-limit-groups'/.test(menuEvents),
+    'and boardMenuPopup has no handler for it - the one handler lives in the Swimlane popup');
+  assert.strictEqual((sidebarJs.match(/'click \.js-open-board-wip-limit-groups'/g) || []).length, 1,
+    'exactly one handler opens it');
+});
+
 test('Board Settings / List has the list-width resize lock and same-width-for-all-lists', () => {
   const tpl = sidebarJade.slice(sidebarJade.indexOf('template(name="boardListSettingsPopup")'),
     sidebarJade.indexOf('template(name="exportBoardPopup")'));

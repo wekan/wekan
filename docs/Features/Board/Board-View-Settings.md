@@ -19,7 +19,6 @@ only - same restriction as Swimlane and List.
 │  ▸ Board View        <- here │
 │  Swimlane                    │
 │  List                        │
-│  WIP Limit Groups            │
 │  Card                        │
 └──────────────────────────────┘
 ```
