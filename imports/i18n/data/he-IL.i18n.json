@@ -207,7 +207,7 @@
   "attached": "מצורף",
   "attachment": "קובץ מצורף",
   "attachment-delete-pop": "מחיקת קובץ מצורף הנה סופית. אין דרך חזרה.",
-  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
+  "attachment-soft-delete-pop": "הקובץ המצורף מוסר מהכרטיס הזה והקובץ עצמו נשמר. כל מי שיכול לערוך את הכרטיס יכול לשחזר אותו מהיסטוריית הכרטיס.",
   "attachmentDeletePopup-title": "למחוק קובץ מצורף?",
   "attachments": "קבצים מצורפים",
   "auto-watch": "הוספת לוחות למעקב כשהם נוצרים",

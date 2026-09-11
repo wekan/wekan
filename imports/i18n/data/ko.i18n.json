@@ -207,7 +207,7 @@
   "attached": "첨부됨",
   "attachment": "첨부 파일",
   "attachment-delete-pop": "영구 첨부파일을 삭제합니다. 되돌릴 수 없습니다.",
-  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
+  "attachment-soft-delete-pop": "첨부 파일이 이 카드에서 제거되지만 파일 자체는 보관됩니다. 카드를 편집할 수 있는 사람은 누구나 카드 이력에서 복구할 수 있습니다.",
   "attachmentDeletePopup-title": "첨부 파일을 삭제합니까?",
   "attachments": "첨부 파일",
   "auto-watch": "생성한 보드를 자동으로 감시합니다.",

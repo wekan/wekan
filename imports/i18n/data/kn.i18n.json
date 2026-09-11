@@ -207,7 +207,7 @@
   "attached": "ಲಗತ್ತಿಸಲಾಗಿದೆ",
   "attachment": "ಲಗತ್ತು",
   "attachment-delete-pop": "ಲಗತ್ತನ್ನು ಅಳಿಸುವುದು ಶಾಶ್ವತ. ಇದನ್ನು ರದ್ದುಗೊಳಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ.",
-  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
+  "attachment-soft-delete-pop": "ಲಗತ್ತನ್ನು ಈ ಕಾರ್ಡ್‌ನಿಂದ ತೆಗೆದುಹಾಕಲಾಗುತ್ತದೆ ಮತ್ತು ಅದರ ಫೈಲ್ ಅನ್ನು ಉಳಿಸಿಕೊಳ್ಳಲಾಗುತ್ತದೆ. ಕಾರ್ಡ್ ಅನ್ನು ಸಂಪಾದಿಸಬಲ್ಲ ಯಾರಾದರೂ ಅದನ್ನು ಕಾರ್ಡ್ ಇತಿಹಾಸದಿಂದ ಮರುಸ್ಥಾಪಿಸಬಹುದು.",
   "attachmentDeletePopup-title": "ಲಗತ್ತನ್ನು ಅಳಿಸುವುದೇ?",
   "attachments": "ಲಗತ್ತುಗಳು",
   "auto-watch": "ಫಲಕಗಳನ್ನು ರಚಿಸಿದಾಗ ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಗಮನಿಸಿ",

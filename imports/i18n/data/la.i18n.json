@@ -207,7 +207,7 @@
   "attached": "Latine: attached",
   "attachment": "Adiunctum",
   "attachment-delete-pop": "Latine: Deleting an adnexum est permanent. There est non solve.",
-  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
+  "attachment-soft-delete-pop": "Adiunctum ex hac charta removetur et fasciculus eius servatur. Quicumque chartam recensere potest, id ex historia chartae restituere potest.",
   "attachmentDeletePopup-title": "Latine: Dele Adnexum?",
   "attachments": "Adiuncta",
   "auto-watch": "Latine: Automatice watch tabulae quando they sunt creatum",

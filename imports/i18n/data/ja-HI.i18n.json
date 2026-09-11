@@ -207,7 +207,7 @@
   "attached": "添付されました",
   "attachment": "添付ファイル",
   "attachment-delete-pop": "添付ファイルの削除をすると取り消しできません。",
-  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
+  "attachment-soft-delete-pop": "添付ファイルはこのカードから削除されますが、ファイル自体は保持されます。カードを編集できるユーザーは、カードの履歴からリストアできます。",
   "attachmentDeletePopup-title": "添付ファイルを削除しますか？",
   "attachments": "添付ファイル",
   "auto-watch": "作成されたボードを自動的にウォッチする",
