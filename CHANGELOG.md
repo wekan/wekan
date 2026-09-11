@@ -5041,6 +5041,28 @@ and for DHTMLX prefers a locale the library bundles when there is one.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/364903fd8">Every chart view has one translated Export popup, and Frappe Gantt's own buttons are translated</a>. Thanks to xet7.</summary>
+
+Reported directly: the Frappe Gantt view - and the DHTMLX Gantt, WeKan
+Gantt, Time and the ten report-chart views - each showed two untranslated
+"Export to PDF" / "Export to Excel" links, with five copies of the same
+URL-building helper behind them. They now share one translated "Export"
+button opening a new `exportChartPopup`: the same pop-over list of formats
+the board/swimlane/list/card export popup uses, offering PDF and Excel with
+the same icons and labels, with the URL built in exactly one place
+(`client/components/boards/charts/exportChart.js`). The popup's title comes
+from each locale's existing "export" translation, so no new words were
+needed for it. Frappe Gantt's own chrome was English in every language
+too: its view-mode dropdown now receives translated copies of the
+library's default modes (Day/Week/Month from existing keys, plus four new
+keys for Hour, Quarter Day, Half Day and Year), and its hardcoded "Today"
+button and "Mode" placeholder, which the library rebuilds on every view
+change, are re-translated by an observer. `tests/chartExportPopup.test.cjs`
+pins all of it.
+
+</details>
+
 and improves the translation workflow:
 
 - [Fill in the missing Ladin, Latin, Luganda, Luxembourgish, Maithili, Malagasy, Malay, Malayalam, Maltese, Manx, Maori and Marathi translations](https://github.com/wekan/wekan/commit/718d20813). Thanks to xet7.
