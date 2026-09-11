@@ -529,7 +529,8 @@ the Markdown commit as the template.
 **In short:** deleting an **attachment** from a card is now a **soft delete**
 that the **card history** shows and restores; the only hard delete left is
 deleting an archived board with permanent delete enabled. **Board Settings /
-Card** gains a toggle for every card section and minicard badge, and a new
+Card** gains a toggle for every card section and minicard badge and orders
+the **card** and **minicard** fields independently; a new
 **Board Settings / Board View** chooses which views a **public** or
 **private** board offers, and in what order. The **REST API** covers attachment restore, Admin
 Panel Problems, OAuth providers, card field order and rule pausing, and its
@@ -601,7 +602,8 @@ controls and that it never offers cover or background.
 
 </details>
 
-**Board Settings** - a toggle for every card section, and the Board View table.
+**Board Settings** - a toggle for every card section, the card's and the
+minicard's field order, and the Board View table.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/148f8a2aa76087749ed72f5eea78ffdd0c953fb2">A toggle for every card section and minicard badge, listed in card order</a>. Thanks to rmb82 and xet7.</summary>
@@ -692,6 +694,48 @@ order is the default one, since a custom order has no groups.
 read that table, the same thing the template reads, and
 `tests/boardViewSettings.test.cjs` pins the arrows, the field, the setter
 and the normalize/move logic, with the no-op and unknown-key cases.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d7566f7281dff213351ac3efaa2b5df172031122">One "Card field order" heading over two lists, with arrows on every row</a>. Thanks to xet7.</summary>
+
+Board Settings / Card was a three-column table (Show on Card, Show on
+Minicard, the name) with a separate "Card field order" list of arrows at the
+bottom that reordered five sections of the opened card. It is one heading,
+**Card field order**, over two lists now: **Show on Minicard** in the
+board's minicard order and **Show on Card** in its card order, and every row
+of either list is `[checkbox] [up] [down] icon label` - the checkbox is
+whether that side shows the field, the arrows move it on that side only, and
+the icon and name are the field's own. The lists are independent because the
+orders are: a field can be third on the minicard and last on the card.
+
+The arithmetic is `models/lib/cardFieldOrder.js`, pure and tested without
+Meteor: each surface is a fixed head (the card's title bar), reorderable
+sections of fields, and a fixed tail (the card's galleries and right
+column). A field moves within its section; at the section's edge it moves
+the whole section; a section's header - Labels, Members, Sort number,
+Description title - stays first. What is stored is one flat array of field
+keys per surface: `cardFieldOrder`, which the first #4448 filled with five
+section keys that stay valid and expand to exactly what they rendered, and
+the new `minicardFieldOrder`. Two board setters normalise before storing and
+the update allow rule keeps them to a board admin; the REST `cardFieldOrder`
+endpoints still speak in section keys, eight now. `cardDetails.jade` renders
+its sections in the board's order and, inside Labels, Dates, Members, Sort
+and Vote/Poker, the fields in theirs; `minicard.jade` renders every block
+under the title through the minicard order. Every gate is unchanged, and a
+board that never touched the order shows what it always has.
+
+The popup's rows are a table, `models/lib/cardSettingsRows.js`, drawn twice,
+so no row is hand-written and each checkbox reads the helper it always read.
+`tests/cardFieldOrderLayout.test.cjs` pins the arithmetic and its negatives
+(unknown keys dropped, missing keys appended, a first row's up and a fixed
+row's arrows no-ops, one side's move leaving the other alone);
+`tests/cardSettingsCoverage.test.cjs` derives each layout's default order
+from the templates and pins the heading, the five parts of every row, the
+admin-only setters and that no locale lacks the heading and arrow keys.
+[Card field display order](docs/Features/Board/Card-Field-Display-Order.md)
+describes the layout and both orders.
 
 </details>
 
