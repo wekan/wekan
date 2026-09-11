@@ -225,8 +225,10 @@ test('PUT /api/boards/:boardId/cardFieldOrder needs board admin, normalises thro
   });
   // The helper it relies on drops unknown keys and appends missing ones.
   const { applyCardFieldOrder, DEFAULT_CARD_FIELD_ORDER } = require('../models/lib/cardFieldOrder');
+  // Eight sections since Board Settings / Card orders per field: Dependencies,
+  // Sort and Vote/Poker are sections of their own (models/lib/cardFieldOrder.js).
   assert.deepStrictEqual(applyCardFieldOrder(['description', 'bogus', 'labels', 'labels']),
-    ['description', 'labels', 'dates', 'members', 'customFields']);
+    ['description', 'labels', 'dates', 'members', 'dependencies', 'sort', 'customFields', 'voteAndPoker']);
   assert.deepStrictEqual(applyCardFieldOrder(undefined), DEFAULT_CARD_FIELD_ORDER);
 });
 

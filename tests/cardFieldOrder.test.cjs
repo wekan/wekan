@@ -42,7 +42,12 @@ test('a non-array stored order falls back to the default order', () => {
 // --- the actual issue: move description earlier, custom fields after it ----
 test('#4448: description can be moved to third, with custom fields right after it', () => {
   const stored = ['labels', 'dates', 'description', 'customFields', 'members'];
-  assert.deepStrictEqual(applyCardFieldOrder(stored), stored);
+  // The five keys the first version of #4448 stored stay valid. Dependencies
+  // and Sort were a fixed appendage of Members then, Vote/Poker of Custom
+  // Fields; they are sections now (Board Settings / Card orders per field),
+  // so a legacy value expands to exactly what it rendered.
+  assert.deepStrictEqual(applyCardFieldOrder(stored),
+    ['labels', 'dates', 'description', 'customFields', 'voteAndPoker', 'members', 'dependencies', 'sort']);
   const order = applyCardFieldOrder(stored);
   assert.strictEqual(order.indexOf('description'), 2, 'description is third (0-indexed 2)');
   assert.ok(

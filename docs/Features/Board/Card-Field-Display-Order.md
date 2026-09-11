@@ -1,51 +1,127 @@
 # Card field display order
 
-Reorder the major sections of an opened card - **Labels, Dates, Members,
-Custom Fields, Description** - instead of the historical fixed order (#4448).
-Useful when a board relies mostly on Description or Custom Fields and wants
-that section to show up first, right under the card title.
+Choose what the opened card and the minicard show, and in what order - each
+of the two independently (#4448, #6688). Useful when a board relies mostly on
+Description or Custom Fields and wants that section first, right under the
+card title, or wants the minicard to lead with its due date rather than its
+labels.
 
 ## Where to find it
 
-**Board sidebar (hamburger menu) → Board Settings → Card**, in the "Card
-field order" list near the bottom of that panel.
+**Board sidebar (hamburger menu) → Board Settings → Card.** The popup is one
+heading, **Card field order**, over two lists:
 
 ```
-┌─ Sidebar ▾ ─────────────────┐
-│ Board Settings               │
-│  Swimlane                    │
-│  List                        │
-│  ▸ Card              <- here │
-└────────────────────────────────┘
-
-┌ Card Settings ───────────────────────┐
-│ ...                                   │
-│ Card field order                      │
-│  ↑ ↓   Labels                         │
-│  ↑ ↓   Dates                          │
-│  ↑ ↓   Members                        │
-│  ↑ ↓   Custom Fields                  │
-│  ↑ ↓   Description                    │
-└──────────────────────────────────────────┘
+┌ Card Settings ───────────────────────────────────────────────────┐
+│ Card field order                                                  │
+│                                                                   │
+│ Show on Minicard                 Show on Card                     │
+│ [✓] [▲][▼] ☑ Mark as complete    [✓] [▲][▼] ☑ Mark as complete    │
+│ [ ] [▲][▼] # Card number         [ ] [▲][▼] # Card number         │
+│ [✓] [▲][▼] 🕓 Received           [✓] [▲][▼] 🖼 Cover image         │
+│ [✓] [▲][▼] ⌛ Start               [✓] [▲][▼] 🏷 Labels             │
+│ [✓] [▲][▼] 🕓 Due                [✓] [▲][▼] 📝 Stickers           │
+│ ...                              ...                              │
+└───────────────────────────────────────────────────────────────────┘
 ```
+
+Every row of either list reads the same way:
+
+| part | what it does |
+| --- | --- |
+| checkbox | whether that side shows the field at all - the same board toggles as before (`allowsLabels`, `allowsLabelsOnMinicard`, ...) |
+| ▲ ▼ | move the field earlier or later **on that side only** |
+| icon and name | the field, with the same icon and name the card uses for it |
+
+The **Show on Minicard** list is in the board's minicard order and the
+**Show on Card** list in its card order. They are independent: a field can
+be third on the minicard and last on the card. What either list shows top to
+bottom is what that surface draws top to bottom.
 
 ## Steps to use it
 
 1. Open a board you are an admin of, click the sidebar's hamburger menu,
    then **Board Settings → Card**.
-2. Scroll to **Card field order**, which lists the five reorderable
-   sections: Labels, Dates, Members, Custom Fields, Description.
-3. Click the **up**/**down** arrow beside a section to move it earlier or
-   later - the top-most arrow is disabled on the first row and the
-   bottom-most arrow is disabled on the last row.
-4. The change takes effect immediately on every card of this board; there is
-   no separate save step.
-5. What information is needed: none beyond deciding the order - this is a
-   pure reordering control, not a text field.
+2. In the **Show on Card** list, click ▲ or ▼ beside a field to move it on
+   the opened card; in the **Show on Minicard** list, to move it on the
+   minicard.
+3. The change takes effect immediately on every card of this board; there
+   is no separate save step.
+4. Untick a checkbox to hide the field on that side; tick it to show it.
+
+An arrow that would do nothing is greyed out, so a row's arrows also tell
+you what can move (see below).
+
+## What moves, and how
+
+The card and the minicard are each a fixed **head**, a reorderable middle of
+**sections**, and (on the card) a fixed **tail**.
+
+**On the opened card:**
+
+- *Head, fixed:* Mark as complete, Card number, Cover image - the title bar.
+- *Sections, reorderable:* Labels (Labels, Stickers, Location), Dates
+  (Received, Start, Due, End), Members (Members, Assignee, Creator,
+  Requested by, Assigned by), Dependencies, Sort (Sort number, Show lists,
+  Spent time, Flowtime, Pomodoro), Custom Fields, Vote and Planning Poker,
+  Description (title, text).
+- *Tail, fixed:* Checklists, Checklist count, Subtasks, Attachments,
+  Attachment count, Text notes, Comments, Activities - they live in the
+  card's galleries and its right column, not in the field list.
+
+**On the minicard:** the title bar (Mark as complete, Card number) is fixed;
+everything under it is reorderable - the dates line, Cover, Labels, Custom
+Fields, Assignees, Members, Creator, Checklists, the badge strip
+(Dependencies, Stickers, Comment count, Vote, Poker, Attachment count,
+Subtasks, Checklist count, Sort number), Description text, the comment
+preview, List name, Swimlane name. Inside the dates line and the badge strip
+the fields reorder among themselves too.
+
+The arrows follow three rules:
+
+1. **A field moves within its section.** ▼ on *Start* puts it after *Due*.
+2. **At the edge of its section, a field moves the whole section.** ▲ on
+   the first row of Dates lifts the Dates section above the section before
+   it; ▼ on its last row drops it below the next one.
+3. **A section's header stays first.** Labels, Members, Sort number and
+   Description title head their sections (the fold caret is theirs), so
+   their arrows always move the section, and no other field goes above
+   them.
+
+A few minicard rows have no element of their own there - *Labels text* (how
+labels are drawn), *List title* (the per-card switch under *Show lists*),
+*Requested by*, *Assigned by*, *Description title*, *Attachments* - so they
+sit under the row they modify with their arrows disabled.
 
 ## Prerequisites
 
-- Only a board admin can see and change this setting (`canModifyBoard`).
-- Only these five sections are reorderable. Checklists, Attachments,
-  Comments, Activity, Dependencies/Sort and Vote/Poker stay at their current
-  fixed positions and are not affected by this setting.
+- Only a board admin can change these settings; the arrows are shown only
+  to an admin. Who may write them is decided where it is for every other
+  board setting: `Boards.allow`'s update rule in
+  `server/permissions/boards.js`.
+- A board that never touched the order shows exactly what it always has.
+
+## For developers
+
+- `models/lib/cardFieldOrder.js` - the two layouts (`CARD_LAYOUT`,
+  `MINICARD_LAYOUT`), the canonical order (`applyCardOrder`,
+  `applyMinicardOrder`) and the move (`moveKey`). Pure, tested without
+  Meteor by `tests/cardFieldOrderLayout.test.cjs` and
+  `tests/cardFieldOrder.test.cjs`.
+- `models/lib/cardSettingsRows.js` - the rows of the popup: toggle class,
+  board field, icons and label keys of every setting.
+- Stored on the board as `cardFieldOrder` and `minicardFieldOrder`, flat
+  arrays of field keys, written through `board.setCardFieldOrder()` and
+  `board.setMinicardFieldOrder()`. The five section keys the first version
+  of #4448 stored (`labels, dates, members, customFields, description`)
+  stay valid and expand to what they rendered - Members carried
+  Dependencies and Sort then, Custom Fields carried Vote/Poker. The REST
+  endpoints `GET/PUT /api/boards/:boardId/cardFieldOrder` still speak in
+  section keys (eight now: `labels, dates, members, dependencies, sort,
+  customFields, voteAndPoker, description`).
+- `cardDetails.jade` renders the sections through `each section in
+  orderedCardFieldSections` and the fields inside a section through
+  `orderedDatesFields`, `orderedMembersFields`, ...; `minicard.jade`
+  through `orderedMinicardSections`, `orderedMinicardDates` and
+  `orderedMinicardBadges`. `tests/cardSettingsCoverage.test.cjs` derives
+  each layout's default order from the templates and pins the popup.

@@ -147,45 +147,86 @@
   cursor: pointer;
 }
 
-/* Card Settings 3-column row layout. The heading row (Show on Card / Show on
-   Minicard / Description) is one of these rows too - see the note on
-   boardCardSettingsPopup in sidebar.jade for why that is safe here. */
-.card-settings-row {
+/* Board Settings / Card: one "Card field order" heading over TWO lists -
+   "Show on Minicard" in the board's minicard order, "Show on Card" in its
+   card order (sidebar.jade boardCardSettingsPopup). Two lists rather than
+   one table of rows, because the two orders are independent: a field can be
+   third on the minicard and last on the card. Minicard reads to the LEFT of
+   Card, as the old table drew it. */
+.card-field-order-heading {
+  margin: 0 0 6px;
+  font-size: calc(13px * var(--wekan-ui-font-scale, 1));
+  font-weight: bold;
+}
+
+.card-field-order-columns {
   display: grid;
-  grid-template-columns: 1fr 1fr 2fr;
-  gap: 10px;
-  align-items: center;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 18px;
+  align-items: start;
+}
+
+.card-field-order-column-heading {
+  margin: 0;
   padding: 5px 0;
+  font-size: calc(12px * var(--wekan-ui-font-scale, 1));
+  font-weight: bold;
   border-bottom: 1px solid #eee;
 }
 
-/* One side of the same table. Card menu / Show on Card and Minicard menu /
-   Show on Minicard open this popup asking for one column; the other one is
-   hidden here, so there is still ONE list of settings and one set of handlers.
-   A hidden grid item takes no track, so the two that remain fill the two
-   columns declared below. client/components/sidebar/sidebar.jade */
-.board-card-settings.show-card-only .card-settings-row,
-.board-card-settings.show-minicard-only .card-settings-row {
-  grid-template-columns: 1fr 2fr;
+/* A row: [checkbox] [up] [down] icon label. */
+.card-field-order-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 0;
+  border-bottom: 1px solid #eee;
 }
 
-/* Two dozen settings in one column is a list nobody sees the end of: "Show on
-   Card" opened, and the answer to "is Description on?" was somewhere below the
-   fold. With one column of checkboxes hidden the rows are half as wide as they
-   were, so the width the popup already has is enough for two or three of them
-   side by side - and popup.css gives these two popups more of it.
+.card-field-order-toggle,
+.card-field-order-move {
+  flex-shrink: 0;
+}
 
-   The FORM becomes the grid and each ROW is one of its cells; the row keeps its
-   own "checkbox | name" grid inside that cell. `auto-fill` rather than a fixed
-   count, so a narrow window still gets one column and a wide one gets four
-   without a media query per size. */
+.card-field-order-move.is-disabled {
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.card-field-order-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+}
+
+/* One side of the same popup. Card menu / Show on Card and Minicard menu /
+   Show on Minicard open this popup asking for one column; the other list is
+   hidden here, so there is still ONE set of rows and one set of handlers.
+   With a single list left, the width the popup already has is enough for two
+   or three columns of rows side by side (popup.css gives these popups more of
+   it), `auto-fill` so a narrow window still gets one column. */
+.board-card-settings.show-card-only .card-field-order-column-minicard,
+.board-card-settings.show-minicard-only .card-field-order-column-card {
+  display: none;
+}
+
+.board-card-settings.show-card-only .card-field-order-columns,
+.board-card-settings.show-minicard-only .card-field-order-columns {
+  display: block;
+}
+
 @media screen and (min-width: 801px) {
-  .board-card-settings.show-card-only,
-  .board-card-settings.show-minicard-only {
+  .board-card-settings.show-card-only .card-field-order-column-card,
+  .board-card-settings.show-minicard-only .card-field-order-column-minicard {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     column-gap: 18px;
     align-items: start;
+  }
+  .board-card-settings.show-card-only .card-field-order-column-heading,
+  .board-card-settings.show-minicard-only .card-field-order-column-heading {
+    grid-column: 1 / -1;
   }
 }
 
@@ -193,56 +234,21 @@
    minicard's own view and nowhere else - not in Board Settings / Card Settings,
    where every other row is board-wide, and not in Show on Card, which is about
    the opened card. And when the reader is not a board admin, it is the only row
-   they may change, so it is the only row they get. */
+   they may change, so it is the only row they get - the headings and the card
+   list go with the rows they would have headed. */
 .board-card-settings .card-settings-row-personal {
   display: none;
 }
 
 .board-card-settings.show-minicard-only .card-settings-row-personal {
-  display: grid;
-}
-
-.board-card-settings.show-personal-only .card-settings-row:not(.card-settings-row-personal) {
-  display: none;
-}
-
-.board-card-settings.show-card-only .card-settings-row > .card-settings-column:nth-child(2),
-.board-card-settings.show-minicard-only .card-settings-row > .card-settings-column:nth-child(1) {
-  display: none;
-}
-
-/* Show on Minicard reads to the LEFT of Show on Card. The markup keeps its
-   original order (column 1 is the card checkbox, column 2 is the minicard
-   one) so the show-card-only/show-minicard-only nth-child hiding rules above
-   still target the right element - only the VISUAL position of the two swaps,
-   with `order` on the grid items. Description (column 3) gets an explicit
-   order too, so it is not pulled in front of column 1 by the default order:0
-   every unordered item would otherwise share. */
-.card-settings-row > .card-settings-column:nth-child(1) {
-  order: 2;
-}
-.card-settings-row > .card-settings-column:nth-child(2) {
-  order: 1;
-}
-.card-settings-row > .card-settings-column:nth-child(3) {
-  order: 3;
-}
-
-.card-settings-column {
   display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
-.card-settings-column:last-child {
-  justify-content: flex-start;
-}
-
-.card-settings-column h4 {
-  margin: 0;
-  font-size: calc(12px * var(--wekan-ui-font-scale, 1));
-  font-weight: bold;
-  text-align: center;
+.board-card-settings.show-personal-only .card-field-order-row:not(.card-settings-row-personal),
+.board-card-settings.show-personal-only .card-field-order-heading,
+.board-card-settings.show-personal-only .card-field-order-column-heading,
+.board-card-settings.show-personal-only .card-field-order-column-card {
+  display: none;
 }
 
 /* Board Settings / Board View: the same table as Card Settings above, with

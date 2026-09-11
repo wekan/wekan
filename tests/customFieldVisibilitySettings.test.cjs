@@ -25,9 +25,13 @@ test('custom fields default on for cards and off for minicards', () => {
 });
 
 test('card and minicard menus expose independent Custom Fields rows', () => {
-  assert.match(sidebarTemplate, /js-field-has-custom-fields/);
-  assert.match(sidebarTemplate, /js-field-has-custom-fields-on-minicard/);
-  assert.match(sidebarTemplate, /\{\{_ 'custom-fields'\}\}/);
+  // The rows of Board Settings / Card are a table the template draws from
+  // (models/lib/cardSettingsRows.js), not hand-written markup, so the
+  // handler classes and the label key are looked for there.
+  const rows = read('models/lib/cardSettingsRows.js');
+  assert.match(rows, /js-field-has-custom-fields'/);
+  assert.match(rows, /js-field-has-custom-fields-on-minicard/);
+  assert.match(rows, /label: \['custom-fields'\]/);
   assert.match(sidebar, /'click \.js-field-has-custom-fields'/);
   assert.match(sidebar, /\$set: \{ allowsCustomFields: !currentValue \}/);
   assert.match(sidebar, /'click \.js-field-has-custom-fields-on-minicard'/);

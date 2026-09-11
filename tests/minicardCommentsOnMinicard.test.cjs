@@ -62,16 +62,18 @@ test('the server allow-list can be written to from the client', () => {
     'without this, Boards.update from the sidebar toggle would be rejected');
 });
 
-test('Card Settings has a row for it, same 3-column pattern as allowsReceivedDate(OnMinicard)', () => {
-  const jade = read('client/components/sidebar/sidebar.jade');
-  assert.ok(/js-field-has-comments-on-minicard/.test(jade));
-  assert.ok(/allowsCommentsOnMinicard/.test(jade));
-  // Same shape as the received-date row: two toggle columns, then a label column.
-  const at = jade.indexOf('js-field-has-comments(');
-  assert.ok(at !== -1, 'expected a matching "on card" column reusing allowsComments');
-  const row = jade.slice(Math.max(0, at - 40), at + 700);
-  assert.ok(/js-field-has-comments-on-minicard/.test(row),
-    'the on-card and on-minicard toggles belong to the same card-settings-row');
+test('Card Settings has a row for it, the same entry as its "on card" toggle', () => {
+  // The rows of Board Settings / Card are a table the template draws from
+  // (models/lib/cardSettingsRows.js); one entry carries both the card and
+  // the minicard toggle of a field, the way one hand-written row once did.
+  const { CARD_SETTINGS_ROWS } = require('../models/lib/cardSettingsRows');
+  const row = CARD_SETTINGS_ROWS.find(r => r.key === 'comments');
+  assert.ok(row, 'a comments row');
+  assert.strictEqual(row.minicard.toggle, 'js-field-has-comments-on-minicard');
+  assert.strictEqual(row.minicard.field, 'allowsCommentsOnMinicard');
+  assert.strictEqual(row.card.toggle, 'js-field-has-comments',
+    'expected a matching "on card" column reusing allowsComments');
+  assert.strictEqual(row.card.field, 'allowsComments');
 
   const sidebarJs = read('client/components/sidebar/sidebar.js');
   assert.ok(/'click \.js-field-has-comments-on-minicard'/.test(sidebarJs));

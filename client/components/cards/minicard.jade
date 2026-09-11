@@ -72,31 +72,16 @@ template(name="minicard")
             span.card-number
               | ##{getCardNumber} &nbsp;
           = getTitle
+    //- Everything under the title renders in the board's minicard order
+      (Board Settings / Card, "Show on Minicard"; board.minicardFieldOrder,
+      models/lib/cardFieldOrder.js): the sections top to bottom, and inside
+      the `.dates` line and the `.badges` strip - the two groups whose fields
+      share one container - the fields in their own order. A board that never
+      set it gets the order this template always had. Every gate (the show*
+      helpers, the currentBoard.allows* flags) is unchanged; only where a
+      block sits is decided by the loop. The upload progress indicator is not
+      a field of the card and keeps a fixed place at the top.
     unless minicardCollapsed
-      .dates
-        if showReceived
-          if getReceived
-            .date
-              +minicardReceivedDate
-        if showStart
-          if getStart
-            .date
-              +minicardStartDate
-        if showDue
-          if getDue
-            .date(class="{{#if getDueComplete}}due-complete{{/if}}")
-              +minicardDueDate
-        if showEnd
-          if getEnd
-             +minicardEndDate
-        if showSpentTime
-          if getSpentTime
-            .date
-              +cardSpentTime
-      if cover
-        if currentBoard.allowsCoverAttachmentOnMinicard
-          .minicard-cover(style="background-image: url('{{cover.link 'original'}}?dummyReloadAfterSessionEstablished={{sess}}');")
-
       // Upload progress indicator for drag-and-drop uploads
       if hasActiveUploads
         .minicard-upload-progress
@@ -124,189 +109,244 @@ template(name="minicard")
           +editMinicardTitleForm
         else
 
-      if showLabels
-        if labels
-          .minicard-labels(class="{{#if hiddenMinicardLabelText}}minicard-labels-no-text{{/if}}")
-            each labels
-              unless hiddenMinicardLabelText
-                span.js-card-label.card-label(class="{{labelColorClass color}}" style="{{labelColorStyle color}}" title=name)
-                  +viewer
-                    = name
-              if hiddenMinicardLabelText
-                .minicard-label(class="{{labelColorClass color}}" style="{{labelColorStyle color}}" title="{{name}}")
+      each section in orderedMinicardSections
+        if $eq section "dates"
+          .dates
+            each field in orderedMinicardDates
+              if $eq field "receivedDate"
+                if showReceived
+                  if getReceived
+                    .date
+                      +minicardReceivedDate
+              if $eq field "startDate"
+                if showStart
+                  if getStart
+                    .date
+                      +minicardStartDate
+              if $eq field "dueDate"
+                if showDue
+                  if getDue
+                    .date(class="{{#if getDueComplete}}due-complete{{/if}}")
+                      +minicardDueDate
+              if $eq field "endDate"
+                if showEnd
+                  if getEnd
+                     +minicardEndDate
+              if $eq field "spentTime"
+                if showSpentTime
+                  if getSpentTime
+                    .date
+                      +cardSpentTime
+        if $eq section "cover"
+          if cover
+            if currentBoard.allowsCoverAttachmentOnMinicard
+              .minicard-cover(style="background-image: url('{{cover.link 'original'}}?dummyReloadAfterSessionEstablished={{sess}}');")
 
-      if showCustomFieldsOnMinicard
-        .minicard-custom-fields
-          each customFieldsWD
-            if definition.showOnCard
-              .minicard-custom-field
-                // If there is custom field label, show label at left,
-                // and value at right
-                if definition.showLabelOnMiniCard
-                  .minicard-custom-field-item
-                    +viewer
-                      = definition.name
-                  .minicard-custom-field-item
-                    if $eq definition.type "currency"
+        if $eq section "labels"
+          if showLabels
+            if labels
+              .minicard-labels(class="{{#if hiddenMinicardLabelText}}minicard-labels-no-text{{/if}}")
+                each labels
+                  unless hiddenMinicardLabelText
+                    span.js-card-label.card-label(class="{{labelColorClass color}}" style="{{labelColorStyle color}}" title=name)
                       +viewer
-                        = formattedCurrencyCustomFieldValue(definition)
-                    else if $eq definition.type "date"
-                      .date
-                        +minicardCustomFieldDate
-                    else if $eq definition.type "checkbox"
-                      i.fa.minicard-custom-field-checkbox-icon(class="{{#if value}}fa-check-circle minicard-custom-field-checkbox-true{{else}}fa-times-circle minicard-custom-field-checkbox-false{{/if}}" title="{{#if value}}{{_ 'yes'}}{{else}}{{_ 'no'}}{{/if}}")
-                    else if $eq definition.type "stringtemplate"
-                      +viewer
-                        = formattedStringtemplateCustomFieldValue(definition)
+                        = name
+                  if hiddenMinicardLabelText
+                    .minicard-label(class="{{labelColorClass color}}" style="{{labelColorStyle color}}" title="{{name}}")
+
+        if $eq section "customFields"
+          if showCustomFieldsOnMinicard
+            .minicard-custom-fields
+              each customFieldsWD
+                if definition.showOnCard
+                  .minicard-custom-field
+                    // If there is custom field label, show label at left,
+                    // and value at right
+                    if definition.showLabelOnMiniCard
+                      .minicard-custom-field-item
+                        +viewer
+                          = definition.name
+                      .minicard-custom-field-item
+                        if $eq definition.type "currency"
+                          +viewer
+                            = formattedCurrencyCustomFieldValue(definition)
+                        else if $eq definition.type "date"
+                          .date
+                            +minicardCustomFieldDate
+                        else if $eq definition.type "checkbox"
+                          i.fa.minicard-custom-field-checkbox-icon(class="{{#if value}}fa-check-circle minicard-custom-field-checkbox-true{{else}}fa-times-circle minicard-custom-field-checkbox-false{{/if}}" title="{{#if value}}{{_ 'yes'}}{{else}}{{_ 'no'}}{{/if}}")
+                        else if $eq definition.type "stringtemplate"
+                          +viewer
+                            = formattedStringtemplateCustomFieldValue(definition)
+                        else
+                          +viewer
+                            = trueValue
                     else
-                      +viewer
-                        = trueValue
-                else
-                  // If there is no custom field label,
-                  // show value full width
-                  .minicard-custom-field-item-fullwidth
-                    if $eq definition.type "currency"
-                      +viewer
-                        = formattedCurrencyCustomFieldValue(definition)
-                    else if $eq definition.type "date"
-                      .date
-                        +minicardCustomFieldDate
-                    else if $eq definition.type "checkbox"
-                      i.fa.minicard-custom-field-checkbox-icon(class="{{#if value}}fa-check-circle minicard-custom-field-checkbox-true{{else}}fa-times-circle minicard-custom-field-checkbox-false{{/if}}" title="{{#if value}}{{_ 'yes'}}{{else}}{{_ 'no'}}{{/if}}")
-                    else if $eq definition.type "stringtemplate"
-                      +viewer
-                        = formattedStringtemplateCustomFieldValue(definition)
-                    else
-                      +viewer
-                        = trueValue
+                      // If there is no custom field label,
+                      // show value full width
+                      .minicard-custom-field-item-fullwidth
+                        if $eq definition.type "currency"
+                          +viewer
+                            = formattedCurrencyCustomFieldValue(definition)
+                        else if $eq definition.type "date"
+                          .date
+                            +minicardCustomFieldDate
+                        else if $eq definition.type "checkbox"
+                          i.fa.minicard-custom-field-checkbox-icon(class="{{#if value}}fa-check-circle minicard-custom-field-checkbox-true{{else}}fa-times-circle minicard-custom-field-checkbox-false{{/if}}" title="{{#if value}}{{_ 'yes'}}{{else}}{{_ 'no'}}{{/if}}")
+                        else if $eq definition.type "stringtemplate"
+                          +viewer
+                            = formattedStringtemplateCustomFieldValue(definition)
+                        else
+                          +viewer
+                            = trueValue
 
-      if showAssignee
-        if getAssignees
-          .minicard-assignees.js-minicard-assignees
-            each getAssignees
-              +userAvatar(userId=this)
+        if $eq section "assignee"
+          if showAssignee
+            if getAssignees
+              .minicard-assignees.js-minicard-assignees
+                each getAssignees
+                  +userAvatar(userId=this)
 
-      if showMembers
-        if getMembers
-          .minicard-members.js-minicard-members
-            each getMembers
-              +userAvatar(userId=this)
+        if $eq section "members"
+          if showMembers
+            if getMembers
+              .minicard-members.js-minicard-members
+                each getMembers
+                  +userAvatar(userId=this)
 
-      if showCreatorOnMinicard
-        .minicard-creator
-          +userAvatar(userId=getCreatorId noRemove=true)
+        if $eq section "creator"
+          if showCreatorOnMinicard
+            .minicard-creator
+              +userAvatar(userId=getCreatorId noRemove=true)
 
-      if shouldShowChecklistAtMinicard
-        each shouldShowChecklistAtMinicard
-          +minicardChecklist(checklist=. card=..)
-      .badges
-        //- #6688: every badge has a Board Settings / Card "Show on Minicard"
-          toggle (the cheap board flag is read first, so a board that turned a
-          badge off never counts what it would have shown). Dependencies,
-          stickers, the comment count, vote and poker rendered unconditionally
-          before; all default on. client/components/sidebar/sidebar.jade
-        if showDependenciesOnMinicard
-          if dependencyBadge
-            .badge.badge-state-image-only.minicard-dependencies(title="{{_ 'card-dependencies'}}")
-              span.badge-icon(style="color:{{dependencyBadge.color}}")
-                i.fa(class="fa-{{dependencyBadge.icon}}")
-              span.badge-text {{ dependencyBadge.count }}
-        if showStickersOnMinicard
-          if stickers.length
-            .badge.badge-state-image-only.minicard-stickers
-              each stickers
-                span.badge-icon.minicard-sticker(title="{{#if name}}{{name}}{{else}}{{icon}}{{/if}}")
-                  i.fa(class="fa-{{icon}} {{#if highlight}}sticker-{{highlight}}{{/if}}")
-        if showCommentCountOnMinicard
-          if comments.length
-            .badge(title="{{_ 'card-comments-title' comments.length }}")
-              span.badge-icon.badge-comment.badge-text
-                i.fa.fa-comment-o
-                = ' '
-                = comments.length
-                //span.badge-comment.badge-text
-                //|
-                  {{_ 'comment'}}
-        if getDescription
-          unless currentBoard.allowsDescriptionTextOnMinicard
-            .badge.badge-state-image-only(title=getDescription)
-              span.badge-icon
-                i.fa.fa-file-text-o
-        if showVoteOnMinicard
-          if getVoteQuestion
-            .badge.badge-state-image-only(title=getVoteQuestion)
-              span.badge-icon(class="{{#if voteState}}text-green{{/if}}")
-                i.fa.fa-thumbs-up
-              span.badge-text {{ voteCountPositive }}
-              span.badge-icon(class="{{#if $eq voteState false}}text-red{{/if}}")
-                i.fa.fa-thumbs-down
-              span.badge-text {{ voteCountNegative }}
-        if showPokerOnMinicard
-          if getPokerQuestion
-            .badge.badge-state-image-only(title=getPokerQuestion)
-              span.badge-icon(class="{{#if pokerState}}text-green{{/if}}")
-                i.fa.fa-check-square
-              if expiredPoker
-                span.badge-text {{ getPokerEstimation }}
-        if attachments.length
-          if currentBoard.allowsBadgeAttachmentOnMinicard
-            .badge
-              span.badge-icon
-                i.fa.fa-paperclip
-              span.badge-text= attachments.length
-        if showSubtasks
-          if allSubtasks.count
-            .badge
-              span.badge-icon
-                i.fa.fa-globe
-              span.badge-text.check-list-text {{subtasksFinishedCount}}/{{allSubtasksCount}}
-              //{{subtasksFinishedCount}}/{{subtasksCount}} does not work because when a subtaks is archived, the count goes down
-        //- #6431: compact checklist item-count badge (finished/total). The outer
-          guard is a cheap boolean, so when the setting is off the checklist
-          counting below never runs.
-        if showChecklistCountBadge
-          if checklists.length
-            .badge(class="{{#if checklistFinished}}is-finished{{/if}}" title="{{_ 'checklists'}}")
-              span.badge-icon
-                i.fa.fa-check-square-o
-              span.badge-text.check-list-text {{checklistFinishedCount}}/{{checklistItemCount}}
-        if currentBoard.allowsCardSortingByNumber
-          if currentBoard.allowsCardSortingByNumberOnMinicard
-            .badge
-              span.badge-icon
-                i.fa.fa-sort-numeric-asc
-              span.badge-text.check-list-sort {{ sort }}
-      if currentBoard.allowsDescriptionTextOnMinicard
-        if getDescription
-          .minicard-description
-            +viewer
-              | {{ getDescription }}
-      //- #4285: compact preview of the most recent comments on the minicard.
-        Opt-in (allowsCommentsOnMinicard), display-only - no reply/edit here,
-        just enough to see at a glance, with a "more" link that opens the
-        full card (the whole minicard is already a link to it, see
-        listBody.jade's a.minicard-wrapper.js-minicard).
-      if showCommentsOnMinicard
-        with commentsForMinicard
-          if comments.length
-            .minicard-comments
-              each comments
-                .minicard-comment
-                  span.minicard-comment-icon
-                    i.fa.fa-comment-o
-                  span.minicard-comment-text {{ text }}
-              if hasMore
-                a.minicard-comments-more(title="{{_ 'card-comments-on-minicard'}}")
-                  i.fa.fa-caret-down
-                  | {{_ 'card-comments-more'}}
-      if shouldShowListOnMinicard
-        .minicard-list-name
-          i.fa.fa-list
-          | {{ listName }}
-      if shouldShowSwimlaneNameOnMinicard
-        .minicard-swimlane-name
-          i.fa.fa-list-alt
-          | {{ swimlaneName }}
+        if $eq section "checklists"
+          if shouldShowChecklistAtMinicard
+            each shouldShowChecklistAtMinicard
+              +minicardChecklist(checklist=. card=..)
+        if $eq section "badges"
+          .badges
+            //- The description BADGE - shown when the description's text is not
+              on the minicard - belongs to the Description text row, whose own
+              position is the full text further down; it keeps the first place
+              of the strip.
+            if getDescription
+              unless currentBoard.allowsDescriptionTextOnMinicard
+                .badge.badge-state-image-only(title=getDescription)
+                  span.badge-icon
+                    i.fa.fa-file-text-o
+            //- #6688: every badge has a Board Settings / Card "Show on Minicard"
+              toggle (the cheap board flag is read first, so a board that turned a
+              badge off never counts what it would have shown). Dependencies,
+              stickers, the comment count, vote and poker rendered unconditionally
+              before; all default on. client/components/sidebar/sidebar.jade
+            each field in orderedMinicardBadges
+              if $eq field "dependencies"
+                if showDependenciesOnMinicard
+                  if dependencyBadge
+                    .badge.badge-state-image-only.minicard-dependencies(title="{{_ 'card-dependencies'}}")
+                      span.badge-icon(style="color:{{dependencyBadge.color}}")
+                        i.fa(class="fa-{{dependencyBadge.icon}}")
+                      span.badge-text {{ dependencyBadge.count }}
+              if $eq field "stickers"
+                if showStickersOnMinicard
+                  if stickers.length
+                    .badge.badge-state-image-only.minicard-stickers
+                      each stickers
+                        span.badge-icon.minicard-sticker(title="{{#if name}}{{name}}{{else}}{{icon}}{{/if}}")
+                          i.fa(class="fa-{{icon}} {{#if highlight}}sticker-{{highlight}}{{/if}}")
+              if $eq field "commentCount"
+                if showCommentCountOnMinicard
+                  if comments.length
+                    .badge(title="{{_ 'card-comments-title' comments.length }}")
+                      span.badge-icon.badge-comment.badge-text
+                        i.fa.fa-comment-o
+                        = ' '
+                        = comments.length
+              if $eq field "vote"
+                if showVoteOnMinicard
+                  if getVoteQuestion
+                    .badge.badge-state-image-only(title=getVoteQuestion)
+                      span.badge-icon(class="{{#if voteState}}text-green{{/if}}")
+                        i.fa.fa-thumbs-up
+                      span.badge-text {{ voteCountPositive }}
+                      span.badge-icon(class="{{#if $eq voteState false}}text-red{{/if}}")
+                        i.fa.fa-thumbs-down
+                      span.badge-text {{ voteCountNegative }}
+              if $eq field "poker"
+                if showPokerOnMinicard
+                  if getPokerQuestion
+                    .badge.badge-state-image-only(title=getPokerQuestion)
+                      span.badge-icon(class="{{#if pokerState}}text-green{{/if}}")
+                        i.fa.fa-check-square
+                      if expiredPoker
+                        span.badge-text {{ getPokerEstimation }}
+              if $eq field "attachmentCount"
+                if attachments.length
+                  if currentBoard.allowsBadgeAttachmentOnMinicard
+                    .badge
+                      span.badge-icon
+                        i.fa.fa-paperclip
+                      span.badge-text= attachments.length
+              if $eq field "subtasks"
+                if showSubtasks
+                  if allSubtasks.count
+                    .badge
+                      span.badge-icon
+                        i.fa.fa-globe
+                      span.badge-text.check-list-text {{subtasksFinishedCount}}/{{allSubtasksCount}}
+                      //{{subtasksFinishedCount}}/{{subtasksCount}} does not work because when a subtaks is archived, the count goes down
+              //- #6431: compact checklist item-count badge (finished/total). The outer
+                guard is a cheap boolean, so when the setting is off the checklist
+                counting below never runs.
+              if $eq field "checklistCount"
+                if showChecklistCountBadge
+                  if checklists.length
+                    .badge(class="{{#if checklistFinished}}is-finished{{/if}}" title="{{_ 'checklists'}}")
+                      span.badge-icon
+                        i.fa.fa-check-square-o
+                      span.badge-text.check-list-text {{checklistFinishedCount}}/{{checklistItemCount}}
+              if $eq field "cardSortingByNumber"
+                if currentBoard.allowsCardSortingByNumber
+                  if currentBoard.allowsCardSortingByNumberOnMinicard
+                    .badge
+                      span.badge-icon
+                        i.fa.fa-sort-numeric-asc
+                      span.badge-text.check-list-sort {{ sort }}
+        if $eq section "descriptionText"
+          if currentBoard.allowsDescriptionTextOnMinicard
+            if getDescription
+              .minicard-description
+                +viewer
+                  | {{ getDescription }}
+        //- #4285: compact preview of the most recent comments on the minicard.
+          Opt-in (allowsCommentsOnMinicard), display-only - no reply/edit here,
+          just enough to see at a glance, with a "more" link that opens the
+          full card (the whole minicard is already a link to it, see
+          listBody.jade's a.minicard-wrapper.js-minicard).
+        if $eq section "comments"
+          if showCommentsOnMinicard
+            with commentsForMinicard
+              if comments.length
+                .minicard-comments
+                  each comments
+                    .minicard-comment
+                      span.minicard-comment-icon
+                        i.fa.fa-comment-o
+                      span.minicard-comment-text {{ text }}
+                  if hasMore
+                    a.minicard-comments-more(title="{{_ 'card-comments-on-minicard'}}")
+                      i.fa.fa-caret-down
+                      | {{_ 'card-comments-more'}}
+        if $eq section "showLists"
+          if shouldShowListOnMinicard
+            .minicard-list-name
+              i.fa.fa-list
+              | {{ listName }}
+        if $eq section "swimlaneName"
+          if shouldShowSwimlaneNameOnMinicard
+            .minicard-swimlane-name
+              i.fa.fa-list-alt
+              | {{ swimlaneName }}
       if $eq 'subtext-with-full-path' currentBoard.presentParentTask
         .parent-subtext
           | {{ parentString ' > ' }}

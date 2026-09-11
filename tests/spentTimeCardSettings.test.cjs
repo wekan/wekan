@@ -56,18 +56,17 @@ test('the server allow-lists can be written to from the client', () => {
   assert.ok(/'allowsSpentTimeOnMinicard'/.test(serverBoards));
 });
 
-test('Card Settings has a row for it, same 3-column pattern as allowsReceivedDate(OnMinicard)', () => {
-  const jade = read('client/components/sidebar/sidebar.jade');
-  assert.ok(/js-field-has-spent-time\b/.test(jade));
-  assert.ok(/js-field-has-spent-time-on-minicard/.test(jade));
-  assert.ok(/allowsSpentTime\b/.test(jade));
-  assert.ok(/allowsSpentTimeOnMinicard/.test(jade));
-
-  const at = jade.indexOf('js-field-has-spent-time(');
-  assert.ok(at !== -1);
-  const row = jade.slice(Math.max(0, at - 40), at + 700);
-  assert.ok(/js-field-has-spent-time-on-minicard/.test(row),
-    'the on-card and on-minicard toggles belong to the same card-settings-row');
+test('Card Settings has a row for it, the same entry as allowsReceivedDate(OnMinicard) has', () => {
+  // The rows of Board Settings / Card are a table the template draws from
+  // (models/lib/cardSettingsRows.js); one entry carries both the card and
+  // the minicard toggle of a field, the way one hand-written row once did.
+  const { CARD_SETTINGS_ROWS } = require('../models/lib/cardSettingsRows');
+  const row = CARD_SETTINGS_ROWS.find(r => r.key === 'spentTime');
+  assert.ok(row, 'a spent-time row');
+  assert.strictEqual(row.card.toggle, 'js-field-has-spent-time');
+  assert.strictEqual(row.minicard.toggle, 'js-field-has-spent-time-on-minicard');
+  assert.strictEqual(row.card.field, 'allowsSpentTime');
+  assert.strictEqual(row.minicard.field, 'allowsSpentTimeOnMinicard');
 
   const sidebarJs = read('client/components/sidebar/sidebar.js');
   assert.ok(/'click \.js-field-has-spent-time'/.test(sidebarJs));

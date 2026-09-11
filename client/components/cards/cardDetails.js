@@ -752,10 +752,30 @@ Template.registerHelper('isCurrentListId', function isCurrentListId(listId) {
   return data.listId == listId;
 });
 
+// #4448: the fields INSIDE a reorderable section (the four dates, the people
+// of Members, ...) render in the board's order too. One argument-less helper
+// per section, registered globally like isDateFormat above because each
+// section is its own template. The card is the data context (`each field in`
+// keeps it), so `this.board()` is the board. models/lib/cardFieldOrder.js
+{
+  const { orderedCardFieldsOf } = require('/models/lib/cardFieldOrder');
+  const sectionHelper = section => function orderedFields() {
+    const board = this?.board?.();
+    return orderedCardFieldsOf(board?.cardFieldOrder, section);
+  };
+  Template.registerHelper('orderedLabelsFields', sectionHelper('labels'));
+  Template.registerHelper('orderedDatesFields', sectionHelper('dates'));
+  Template.registerHelper('orderedMembersFields', sectionHelper('members'));
+  Template.registerHelper('orderedSortFields', sectionHelper('sort'));
+  Template.registerHelper('orderedVoteAndPokerFields', sectionHelper('voteAndPoker'));
+}
+
 Template.cardDetails.helpers({
   // #4448: the order the reorderable card-detail sections (Labels, Dates,
-  // Members, Custom Fields, Description) render in, resolved from the
-  // board's stored setting. models/lib/cardFieldOrder.js
+  // Members, Dependencies, Sort, Custom Fields, Vote/Poker, Description)
+  // render in, resolved from the board's stored setting - the section order
+  // of the flat field order Board Settings / Card writes.
+  // models/lib/cardFieldOrder.js
   orderedCardFieldSections() {
     const board = this?.board?.();
     if (board && typeof board.getCardFieldOrder === 'function') {

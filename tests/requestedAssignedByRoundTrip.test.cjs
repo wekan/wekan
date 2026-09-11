@@ -59,9 +59,11 @@ test('selected members use arrays matching assignees while free text remains sep
 });
 
 test('Board Settings can turn each of them off', () => {
-  const sidebar = read('client/components/sidebar/sidebar.jade');
+  // The rows of Board Settings / Card are a table the template draws from
+  // (models/lib/cardSettingsRows.js), so the rows are looked for there.
+  const rows = read('models/lib/cardSettingsRows.js');
   for (const cls of ['js-field-has-requested-by', 'js-field-has-assigned-by']) {
-    assert.ok(sidebar.includes(cls), `${cls} is in Card Settings`);
+    assert.ok(rows.includes(`'${cls}'`), `${cls} is in Card Settings`);
   }
 });
 

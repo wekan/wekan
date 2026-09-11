@@ -11,9 +11,13 @@ const {
   sidebarBackAction,
 } = require('/models/lib/sidebarBackAction');
 const {
-  applyCardFieldOrder,
-  moveCardFieldKey,
+  CARD_LAYOUT,
+  MINICARD_LAYOUT,
+  applyLayoutOrder,
+  canMove,
+  moveKey,
 } = require('/models/lib/cardFieldOrder');
+const { rowsForSide } = require('/models/lib/cardSettingsRows');
 import { InfiniteScrolling } from '/client/lib/infiniteScrolling';
 import '/client/components/boards/exportScope';
 import AccessibilitySettings from '/models/accessibilitySettings';
@@ -1803,7 +1807,48 @@ function settingsCard() {
   return passed && passed._id ? ReactiveCache.getCard(passed._id) : null;
 }
 
-Template.boardCardSettingsPopup.helpers({
+// The rows of one column of Board Settings / Card, ready for the template:
+// the board's order for that side (models/lib/cardFieldOrder.js) applied to
+// the row table (models/lib/cardSettingsRows.js), each row with the checkbox
+// state its own helper reports, its icons, its translated label, and whether
+// each arrow would do anything. `data` is the popup's data context, so the
+// helpers that read it (showsListOnMinicard, settingsSideClass) see what they
+// saw when the rows were written out by hand.
+function buildCardSettingsRows(side, data) {
+  const boardId = Session.get('currentBoard');
+  const currentBoard = ReactiveCache.getBoard(boardId);
+  const layout = side === 'card' ? CARD_LAYOUT : MINICARD_LAYOUT;
+  const stored = side === 'card' ? currentBoard?.cardFieldOrder : currentBoard?.minicardFieldOrder;
+  const order = applyLayoutOrder(stored, layout);
+  return rowsForSide(side, order)
+    // "List title" is a CARD's setting: only for somebody who may change the
+    // card, the same gate the hand-written row had (`if canModifyCard`).
+    .filter(row => !row[side].needsCard || Utils.canModifyCard(data))
+    .map(row => {
+      const spec = row[side];
+      const helper = boardCardSettingsHelpers[spec.field];
+      const positioned = !spec.after;
+      return {
+        key: row.key,
+        toggle: spec.toggle,
+        checked: typeof helper === 'function' ? Boolean(helper.call(data)) : false,
+        icons: row.icons,
+        title: row.label.map(k => TAPi18n.__(k)).join(' '),
+        personal: Boolean(spec.personal),
+        labelTextOverride: Boolean(spec.labelTextOverride),
+        canMoveUp: positioned && canMove(stored, layout, row.key, 'up'),
+        canMoveDown: positioned && canMove(stored, layout, row.key, 'down'),
+      };
+    });
+}
+
+// A named object rather than an inline `.helpers({...})`: the two row
+// builders below (cardSettingsRows / minicardSettingsRows) ask each row's
+// "is it checked" helper by name - allowsLabels(), showsListOnMinicard(), ...
+// - so a row's checkbox reads exactly what its old hand-written `{{#if
+// allowsLabels}}` read, defaults and fallbacks included, without a second
+// copy of that logic. Registered at the end of the object.
+const boardCardSettingsHelpers = {
   // Board Settings / Card Settings shows both columns - "Show on Card" and
   // "Show on Minicard" beside each other. The card's own menu and the
   // minicard's menu open the SAME popup asking for one of them, and the other
@@ -1822,27 +1867,16 @@ Template.boardCardSettingsPopup.helpers({
     return classes.join(' ');
   },
 
-  // #4448: the reorderable card-detail sections (Labels, Dates, Members,
-  // Custom Fields, Description), in the board's current order, each with
-  // whether it is first/last so the up/down buttons can disable themselves at
-  // the ends. models/lib/cardFieldOrder.js
-  cardFieldOrderRows() {
-    const boardId = Session.get('currentBoard');
-    const currentBoard = ReactiveCache.getBoard(boardId);
-    const order = applyCardFieldOrder(currentBoard?.cardFieldOrder);
-    const labelForKey = {
-      labels: 'labels',
-      dates: 'date-format',
-      members: 'members',
-      customFields: 'custom-fields',
-      description: 'description',
-    };
-    return order.map((key, index) => ({
-      key,
-      label: labelForKey[key] || key,
-      isFirst: index === 0,
-      isLast: index === order.length - 1,
-    }));
+  // The rows of the "Show on Card" list, in the board's card order, and of
+  // the "Show on Minicard" list, in its minicard order - each row with its
+  // checkbox state, its handler class, its icons and its translated label,
+  // and whether each arrow does anything. models/lib/cardSettingsRows.js
+  // is the table, models/lib/cardFieldOrder.js the order.
+  cardSettingsRows() {
+    return buildCardSettingsRows('card', this);
+  },
+  minicardSettingsRows() {
+    return buildCardSettingsRows('minicard', this);
   },
 
   // Board-level DEFAULT (#4256, Board Settings): whether this board shows
@@ -1898,16 +1932,6 @@ Template.boardCardSettingsPopup.helpers({
     const boardId = Session.get('currentBoard');
     const currentBoard = ReactiveCache.getBoard(boardId);
     return currentBoard && currentBoard.allowsSpentTimeOnMinicard !== false;
-  },
-  // #6688: the rows of Board Settings / Card follow the opened card's own
-  // section order - the SAME helper name and source (models/lib/cardFieldOrder.js)
-  // as cardDetails.jade's `each section in orderedCardFieldSections`, so
-  // reordering with the arrows at the bottom of the popup reorders these rows
-  // the same way and the two can never disagree.
-  orderedCardFieldSections() {
-    const boardId = Session.get('currentBoard');
-    const currentBoard = ReactiveCache.getBoard(boardId);
-    return applyCardFieldOrder(currentBoard?.cardFieldOrder);
   },
   // #6688: the sections and badges that rendered unconditionally before they
   // had a toggle. All default TRUE (models/boards.js), so like Spent time
@@ -2273,30 +2297,36 @@ Template.boardCardSettingsPopup.helpers({
       tpl.currentBoard.dateSettingsDefaultBoardId === Template.currentData()._id
     );
   },
-});
+};
+Template.boardCardSettingsPopup.helpers(boardCardSettingsHelpers);
+
+// #4448: an up/down arrow of Board Settings / Card. The row says which field
+// and which side (data-key / data-side, because `each row in` keeps the
+// popup's own data context); the board's CURRENT order is re-read on every
+// click rather than taken from the row, so two quick clicks each move from
+// where the previous one actually left it; and the move goes through the
+// board's setter, which normalises it. models/lib/cardFieldOrder.js
+function moveCardSettingsRow(evt, direction) {
+  evt.preventDefault();
+  const rowEl = evt.currentTarget.closest('.js-card-field-order-row');
+  if (!rowEl) return;
+  const { key, side } = rowEl.dataset;
+  const boardId = Session.get('currentBoard');
+  const currentBoard = ReactiveCache.getBoard(boardId);
+  if (!currentBoard || !key) return;
+  if (side === 'minicard') {
+    currentBoard.setMinicardFieldOrder(moveKey(currentBoard.minicardFieldOrder, key, direction, MINICARD_LAYOUT));
+  } else {
+    currentBoard.setCardFieldOrder(moveKey(currentBoard.cardFieldOrder, key, direction, CARD_LAYOUT));
+  }
+}
 
 Template.boardCardSettingsPopup.events({
-  // #4448: Board Settings / Card Settings up/down reorder of the card-detail
-  // sections. Re-reads the board's CURRENT order on every click (rather than
-  // trusting the row's stale data context) so two quick clicks in a row each
-  // move from where the previous one actually left it.
-  'click .js-card-field-order-up'(evt, tpl) {
-    evt.preventDefault();
-    const boardId = Session.get('currentBoard');
-    const currentBoard = ReactiveCache.getBoard(boardId);
-    if (!currentBoard) return;
-    const key = this.key;
-    const newOrder = moveCardFieldKey(currentBoard.cardFieldOrder, key, 'up');
-    Boards.update(currentBoard._id, { $set: { cardFieldOrder: newOrder } });
+  'click .js-card-field-order-up'(evt) {
+    moveCardSettingsRow(evt, 'up');
   },
-  'click .js-card-field-order-down'(evt, tpl) {
-    evt.preventDefault();
-    const boardId = Session.get('currentBoard');
-    const currentBoard = ReactiveCache.getBoard(boardId);
-    if (!currentBoard) return;
-    const key = this.key;
-    const newOrder = moveCardFieldKey(currentBoard.cardFieldOrder, key, 'down');
-    Boards.update(currentBoard._id, { $set: { cardFieldOrder: newOrder } });
+  'click .js-card-field-order-down'(evt) {
+    moveCardSettingsRow(evt, 'down');
   },
   // Board-level default for #4256: whether labels show their TEXT on this
   // board's minicards, unless a user's own override (below) says otherwise.

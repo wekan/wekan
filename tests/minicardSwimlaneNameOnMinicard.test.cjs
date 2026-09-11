@@ -50,9 +50,11 @@ test('the server allow-list can be written to from the client', () => {
 });
 
 test('Card Settings has a row for it, toggling allowsSwimlaneNameOnMinicard', () => {
-  const jade = read('client/components/sidebar/sidebar.jade');
-  assert.ok(/js-field-has-swimlane-name-on-minicard/.test(jade));
-  assert.ok(/allowsSwimlaneNameOnMinicard/.test(jade));
+  // The rows of Board Settings / Card are a table the template draws from
+  // (models/lib/cardSettingsRows.js), so the row is looked for there.
+  const rows = read('models/lib/cardSettingsRows.js');
+  assert.ok(/js-field-has-swimlane-name-on-minicard/.test(rows));
+  assert.ok(/allowsSwimlaneNameOnMinicard/.test(rows));
 
   const sidebarJs = read('client/components/sidebar/sidebar.js');
   assert.ok(/allowsSwimlaneNameOnMinicard\(\)/.test(sidebarJs),

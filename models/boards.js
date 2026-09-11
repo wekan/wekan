@@ -746,19 +746,33 @@ Boards.attachSchema(
       defaultValue: false,
     },
 
-    // #4448: the order the major sections of the opened card (Labels, Dates,
-    // Members, Custom Fields, Description) render in. A missing/partial/unknown
-    // value falls back to the historical fixed order via
-    // applyCardFieldOrder() in models/lib/cardFieldOrder.js - see that file for
-    // which sections are (and are not) covered by this setting.
+    // #4448: the order the fields of the opened card render in - field keys
+    // of models/lib/cardFieldOrder.js (the first version stored the five
+    // SECTION keys; those stay valid). A missing/partial/unknown value falls
+    // back to the historical fixed order via applyCardOrder() /
+    // applyCardFieldOrder() there - see that file for what is reorderable.
     cardFieldOrder: {
       /**
-       * The order of the reorderable card-detail-view sections
+       * The order of the opened card's fields (models/lib/cardFieldOrder.js keys)
        */
       type: Array,
       optional: true,
     },
     'cardFieldOrder.$': {
+      type: String,
+    },
+    // The same for the minicard, independently: the order its dates, labels,
+    // avatars, badges and the rest render in, from Board Settings / Card's
+    // "Show on Minicard" column. applyMinicardOrder() in
+    // models/lib/cardFieldOrder.js; missing means the historical order.
+    minicardFieldOrder: {
+      /**
+       * The order of the minicard's fields (models/lib/cardFieldOrder.js keys)
+       */
+      type: Array,
+      optional: true,
+    },
+    'minicardFieldOrder.$': {
       type: String,
     },
 
@@ -1935,6 +1949,28 @@ Boards.helpers({
   hasAnyAllowsDate() {
     const ret = this.allowsReceivedDate || this.allowsStartDate || this.allowsDueDate || this.allowsEndDate;
     return ret;
+  },
+
+  // The minicard's field order (models/lib/cardFieldOrder.js), canonical.
+  getMinicardFieldOrder() {
+    const { applyMinicardOrder } = require('/models/lib/cardFieldOrder');
+    return applyMinicardOrder(this.minicardFieldOrder);
+  },
+
+  // Board Settings / Card's up/down arrows write through these two, the way
+  // Board View's popup writes through setBoardViewShown: the order is
+  // normalised before it is stored, so the database never holds an unknown
+  // or duplicated key. Who may call them is decided where it is for every
+  // other board setting - Boards.allow's update rule in
+  // server/permissions/boards.js, which requires a board admin.
+  async setCardFieldOrder(order) {
+    const { applyCardOrder } = require('/models/lib/cardFieldOrder');
+    return await Boards.updateAsync(this._id, { $set: { cardFieldOrder: applyCardOrder(order) } });
+  },
+
+  async setMinicardFieldOrder(order) {
+    const { applyMinicardOrder } = require('/models/lib/cardFieldOrder');
+    return await Boards.updateAsync(this._id, { $set: { minicardFieldOrder: applyMinicardOrder(order) } });
   },
 
   hasAnyAllowsUser() {

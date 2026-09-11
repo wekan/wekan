@@ -199,63 +199,42 @@ test('a non-admin still reaches the one PERSONAL row ("Labels text") via persona
   assert.ok(/personalOnly:\s*true/.test(handler), 'and asks for personalOnly when the user is not an admin');
 });
 
-// ── the column headings, back from git history (commit 02025aa6c) ──────────
+// ── the headings: "Card field order" over two lists ───────────────────────────
 
-test('the heading row is back: Show on Card / Show on Minicard / Description', () => {
+test('one "Card field order" heading, above both lists, then Show on Minicard and Show on Card', () => {
+  // The popup was a three-column table (Show on Card / Show on Minicard /
+  // Description) with a separate "Card field order" list of arrows under it.
+  // It is two LISTS now - the minicard's rows in the board's minicard order,
+  // the card's rows in its card order - under one heading, with the arrows
+  // on every row (models/lib/cardFieldOrder.js, models/lib/cardSettingsRows.js).
   const tpl = sidebarJade.slice(sidebarJade.indexOf('template(name="boardCardSettingsPopup")'));
   const form = tpl.slice(0, tpl.indexOf('\ntemplate(name='));
-  const heading = form.slice(0, form.indexOf('js-toggle-show-list-on-minicard'));
-  // Markup order (1st/2nd/3rd here is DOM order, not what is drawn where -
-  // CSS swaps Card and Minicard visually, see the `order` test below).
-  assert.ok(/\.card-settings-row\n\s+\.card-settings-column\n\s+h4 \{\{_ 'show-on-card'\}\}/.test(heading),
-    'first column in markup: Show on Card');
-  assert.ok(/\.card-settings-column\n\s+h4 \{\{_ 'show-on-minicard'\}\}/.test(heading),
-    'second column in markup: Show on Minicard');
-  assert.ok(/\.card-settings-column\n\s+h4 \{\{_ 'description'\}\}/.test(heading),
-    'third column in markup: Description');
-  // All three are existing, already-translated keys - no new *-title-style
-  // key was added for this.
-  assert.ok(en['show-on-card'] && en['show-on-minicard'] && en['description'],
-    'all three keys already exist');
-});
-
-test('the heading is the first row, above every setting', () => {
-  const tpl = sidebarJade.slice(sidebarJade.indexOf('template(name="boardCardSettingsPopup")'));
-  const form = tpl.slice(tpl.indexOf('form.board-card-settings'));
-  const headingAt = form.indexOf("h4 {{_ 'show-on-card'}}");
-  const firstSetting = form.indexOf('js-toggle-show-list-on-minicard');
-  assert.ok(headingAt !== -1 && headingAt < firstSetting, 'the heading comes before any setting row');
-});
-
-test('the heading is a plain .card-settings-row, so it hides with a hidden column or personalOnly', () => {
-  // It is not a special .card-settings-grid element (that markup, and the
-  // sticky-header CSS/z-index that came with it, is gone for good - see
-  // commit 02025aa6c) - it is an ordinary row, so the SAME CSS that hides one
-  // checkbox column for Show on Card / Show on Minicard (settingsSideClass())
-  // hides the matching heading with it, and personalOnly hides the whole
-  // heading along with every other non-personal row.
+  const heading = form.indexOf("h4.card-field-order-heading {{_ 'card-field-order'}}");
+  const minicard = form.indexOf("{{_ 'show-on-minicard'}}");
+  const card = form.indexOf("{{_ 'show-on-card'}}");
+  const firstRow = form.indexOf('each row in');
+  assert.ok(heading !== -1, 'the heading is there');
+  assert.ok(heading < minicard && heading < card, 'and above both column headings');
+  assert.ok(minicard < firstRow, 'Show on Minicard heads the first list');
+  assert.ok(card > firstRow, 'Show on Card heads the second');
+  assert.ok(en['card-field-order'] && en['show-on-card'] && en['show-on-minicard'],
+    'all three are existing, already-translated keys');
   assert.ok(!sidebarJade.includes('card-settings-grid'), 'no separate grid/heading markup is reintroduced');
   assert.ok(!sidebarCss.includes('card-settings-grid'), 'and no CSS for one either');
 });
 
-test('Show on Minicard reads to the LEFT of Show on Card - by CSS order, not markup order', () => {
-  // The markup itself keeps its original order (column 1 = card, column 2 =
-  // minicard, column 3 = description) so the show-card-only/show-minicard-only
-  // nth-child hiding rules still target the right element regardless of how
-  // the columns are drawn; only the VISUAL position is swapped, with `order`
-  // on the grid items.
-  const block = sidebarCss.slice(sidebarCss.indexOf('.card-settings-row > .card-settings-column:nth-child(1) {'),
-    sidebarCss.indexOf('.card-settings-column {\n  display: flex;'));
-  assert.ok(/nth-child\(1\) \{\n\s+order: 2;/.test(block), 'the card column (1st in markup) moves right');
-  assert.ok(/nth-child\(2\) \{\n\s+order: 1;/.test(block), 'the minicard column (2nd in markup) moves left');
-  assert.ok(/nth-child\(3\) \{\n\s+order: 3;/.test(block),
-    'and description keeps the highest order, so it is not pulled in front by the default order:0');
-  // The nth-child hiding rules read the DOM, not the visual order, so they
-  // are unaffected by the swap above and still need no changes.
+test('Show on Minicard reads to the LEFT of Show on Card - now by markup order', () => {
+  // The old table kept the card column first in markup and swapped the two
+  // visually with `order`; with two lists there is nothing to swap, the
+  // minicard list is simply first, and the side-hiding rules name the list.
+  const tpl = sidebarJade.slice(sidebarJade.indexOf('template(name="boardCardSettingsPopup")'));
+  assert.ok(tpl.indexOf('card-field-order-column-minicard') < tpl.indexOf('card-field-order-column-card'));
   assert.ok(sidebarCss.includes(
-    '.board-card-settings.show-card-only .card-settings-row > .card-settings-column:nth-child(2),\n'
-    + '.board-card-settings.show-minicard-only .card-settings-row > .card-settings-column:nth-child(1) {'),
-    'hiding still targets column 2 for show-card-only and column 1 for show-minicard-only');
+    '.board-card-settings.show-card-only .card-field-order-column-minicard,\n'
+    + '.board-card-settings.show-minicard-only .card-field-order-column-card {'),
+    'show-card-only hides the minicard list and show-minicard-only the card list');
+  assert.ok(!/card-settings-column:nth-child\(\d\) \{\n\s+order:/.test(sidebarCss),
+    'the nth-child order swap of the old table is gone (negative)');
 });
 
 console.log(`\nboardSettingsSwimlaneListCard: ${passed} tests passed`);

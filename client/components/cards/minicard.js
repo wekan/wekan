@@ -18,6 +18,10 @@ import {
   hiddenMinicardLabelText,
   toggleMinicardLabelText,
 } from '/client/lib/minicardLabelText';
+const {
+  orderedMinicardSections,
+  orderedMinicardFieldsOf,
+} = require('/models/lib/cardFieldOrder');
 
 function getMinicardFlag(board, onMinicardField, legacyField, defaultValue) {
   if (!board) return false;
@@ -38,6 +42,23 @@ Template.minicard.helpers({
   // #1591: the whole-minicard fold, same shape as a list's collapsed() helper.
   minicardCollapsed() {
     return Utils.getCardCollapseState(this);
+  },
+  // The minicard's field order from Board Settings / Card's "Show on
+  // Minicard" column (board.minicardFieldOrder): the sections top to bottom,
+  // and the fields inside the two grouped ones - the `.dates` line and the
+  // `.badges` strip. A board that never set it gets the historical order.
+  // models/lib/cardFieldOrder.js
+  orderedMinicardSections() {
+    const board = this.board();
+    return orderedMinicardSections(board?.minicardFieldOrder);
+  },
+  orderedMinicardDates() {
+    const board = this.board();
+    return orderedMinicardFieldsOf(board?.minicardFieldOrder, 'dates');
+  },
+  orderedMinicardBadges() {
+    const board = this.board();
+    return orderedMinicardFieldsOf(board?.minicardFieldOrder, 'badges');
   },
   showCustomFieldsOnMinicard() {
     const board = this.board();
