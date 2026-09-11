@@ -100,7 +100,13 @@ Template.boardChartView.onRendered(function() {
   loadChartJs().then(Chart => {
     if (templateInstance.destroyed) return;
     templateInstance.autorun(() => {
-      const chartKey = Template.currentData().chartKey;
+      // Read the data context HERE, inside the autorun: Tracker.afterFlush
+      // below runs outside any Blaze view, so Template.currentData() there
+      // throws "There is no current view" - which killed the whole chart
+      // build and left the Dashboard's canvas area empty.
+      const data = Template.currentData();
+      const chartKey = data.chartKey;
+      const titleKey = data.titleKey;
       const rows = computeBarRows(chartKey, templateInstance.chartData.get());
       // The `<canvas>` only exists in the DOM once isLoading/hasNoData flip
       // jade to the "else" branch - a sibling reactive change driven by the
@@ -124,7 +130,7 @@ Template.boardChartView.onRendered(function() {
           data: {
             labels: rows.map(row => row.label),
             datasets: [{
-              label: TAPi18n.__(Template.currentData().titleKey),
+              label: TAPi18n.__(titleKey),
               data: rows.map(row => row.value),
               backgroundColor: BAR_COLOR,
             }],
