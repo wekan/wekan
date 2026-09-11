@@ -207,6 +207,7 @@
   "attached": "ڳنڍيو ويو",
   "attachment": "منسلڪ",
   "attachment-delete-pop": "منسلڪ ڊاهڻ مستقل آهي. ان کي واپس نٿو ڪري سگهجي.",
+  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
   "attachmentDeletePopup-title": "منسلڪ ڊاهجي؟",
   "attachments": "منسلڪات",
   "auto-watch": "بورڊ ٺهڻ وقت پاڻمرادو ڏسو",

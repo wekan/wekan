@@ -7,6 +7,10 @@ import { Meteor } from 'meteor/meteor';
 // dependency at all, so nothing resolved it. No source-reading test could have
 // caught that; the build did, first time.
 import { formatDateTime } from '/imports/lib/dateUtils';
+import { ReactiveCache } from '/imports/reactiveCache';
+import { attachmentKind } from '/models/lib/attachmentKind';
+import { historyRowOffersRestore } from '/models/lib/attachmentSoftDelete';
+import { openAttachmentSlideshow } from '/client/components/cards/attachments';
 
 // THE History view — one implementation for every scope
 // (docs/Features/Reports/History/History.md §7a). The card-group menu, the whole
@@ -110,6 +114,9 @@ function summarise(row) {
   }
   if (content.document && content.document.title) return content.document.title;
   if (content.document && content.document.text) return content.document.text;
+  // An attachment's lifecycle row carries its filename (History.md §12.2).
+  if (content.document && content.document.name) return content.document.name;
+  if (typeof content.name === 'string' && content.name) return content.name;
   if (content.deleted !== undefined) {
     return TAPi18n.__(content.deleted ? 'history-change-removed' : 'history-change-restored');
   }
@@ -118,6 +125,29 @@ function summarise(row) {
   } catch {
     return '';
   }
+}
+
+/*
+ * The attachment behind an attachment row, for the row's controls (History.md
+ * §12.2). The soft-deleted ones are still published to the card, so a deleted
+ * attachment is found here as itself - that is what lets the row preview and
+ * restore it. The same openable-kinds rule as the card gallery, from the same
+ * helper; a row whose attachment is gone for good (its board was purged) has no
+ * controls.
+ */
+function attachmentForRow(row) {
+  if (!row || row.entityType !== 'attachment') return null;
+  const attachment = ReactiveCache.getAttachment(row.entityId);
+  if (!attachment) return null;
+  const kind = attachmentKind(attachment);
+  return {
+    _id: attachment._id,
+    name: attachment.name,
+    link: typeof attachment.link === 'function' ? attachment.link() : '',
+    canPreview: !!(kind.isImage || kind.isPDF || kind.isText || kind.isJSON
+      || kind.isOffice || kind.isVideo || kind.isAudio),
+    isDeleted: historyRowOffersRestore(row, attachment),
+  };
 }
 
 Template.historyTable.helpers({
@@ -135,6 +165,7 @@ Template.historyTable.helpers({
       contentSummary: summarise(row),
       prettyWhen: formatDateTime(row.createdAt),
       isSelected: selected.includes(row._id),
+      attachment: attachmentForRow(row),
     }));
   },
   hasRows() {
@@ -216,6 +247,36 @@ Template.historyTable.events({
     if (at === -1) selected.push(id);
     else selected.splice(at, 1);
     instance.state.set('selected', selected);
+  },
+  // The attachment row's own controls (History.md §12.2).
+  'click .js-history-attachment-preview'(event, instance) {
+    event.preventDefault();
+    const attachmentId = event.currentTarget.dataset.attachmentId;
+    if (!attachmentId) return;
+    // The slideshow walks the attachments of the rows on this page, deleted
+    // ones included - the explicit id list is what lets the viewer show one
+    // the card itself no longer draws.
+    const ids = instance.findAll('.js-history-attachment-preview')
+      .map(element => element.dataset.attachmentId)
+      .filter((id, index, all) => id && all.indexOf(id) === index);
+    openAttachmentSlideshow(attachmentId, ids);
+  },
+  // If we let this event bubble, FlowRouter will handle it and empty the page
+  // content (the same #101 the gallery's download link guards against).
+  'click .js-download'(event) {
+    event.stopPropagation();
+  },
+  // Restore THIS row - the same changeHistory.restore the selection uses, for
+  // one row, so the applier (applyAttachmentContent) and the provenance rows
+  // are the same whichever button was pressed.
+  'click .js-history-attachment-restore'(event, instance) {
+    event.preventDefault();
+    const id = event.currentTarget.dataset.id;
+    if (!id) return;
+    Meteor.call('changeHistory.restore', [id], () => {
+      instance.state.set('selected', []);
+      instance.fetch();
+    });
   },
   'click .js-history-restore'(event, instance) {
     event.preventDefault();

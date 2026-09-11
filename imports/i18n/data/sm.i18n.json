@@ -207,6 +207,7 @@
   "attached": "ua faapipii",
   "attachment": "Faapipii",
   "attachment-delete-pop": "O le soloia o se faapipii e tumau. E le mafai ona toe faafoi.",
+  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
   "attachmentDeletePopup-title": "Soloi le Faapipii?",
   "attachments": "Faapipiiga",
   "auto-watch": "Mataitu otometi laupapa pe a fausia",

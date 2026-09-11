@@ -207,6 +207,7 @@
   "attached": "সংলগ্ন কৰিলে",
   "attachment": "সংলগ্ন",
   "attachment-delete-pop": "সংলগ্নক মচাটো স্থায়ী। ইয়াক পূৰ্বাৱস্থালৈ ঘূৰাব নোৱাৰি।",
+  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
   "attachmentDeletePopup-title": "সংলগ্নক মচিবনে?",
   "attachments": "সংলগ্নসমূহ",
   "auto-watch": "ব'ৰ্ড সৃষ্টি হ'লে স্বয়ংক্ৰিয়ভাৱে অনুসৰণ কৰক",

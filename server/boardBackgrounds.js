@@ -2,8 +2,9 @@ import { Meteor } from 'meteor/meteor';
 import { ReactiveCache } from '/imports/reactiveCache';
 import Attachments from '/models/attachments';
 import Boards from '/models/boards';
+import { softDeleteAttachment } from '/server/attachmentSoftDelete';
 
-// Delete a board background (a board-level Attachment). Needs an async
+// Soft-delete a board background (a board-level Attachment). Needs an async
 // board-admin check, so it is a method rather than an `allow` rule.
 Meteor.methods({
   async removeBoardBackground(attachmentId) {
@@ -30,7 +31,9 @@ Meteor.methods({
         $set: { backgroundImageId: '', backgroundImageURL: '' },
       });
     }
-    await Attachments.removeAsync(attachmentId);
+    // A soft delete (History.md §12.3), like every attachment: the file stays
+    // and the board's history can restore it.
+    await softDeleteAttachment({ userId: this.userId, attachment });
     return true;
   },
 });

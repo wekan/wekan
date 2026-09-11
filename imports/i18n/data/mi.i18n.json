@@ -207,6 +207,7 @@
   "attached": "kua āpitihia",
   "attachment": "Āpitihanga",
   "attachment-delete-pop": "He pūmau te muku āpitihanga. Kāore e taea te wete.",
+  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
   "attachmentDeletePopup-title": "Muku Āpitihanga?",
   "attachments": "Ngā āpitihanga",
   "auto-watch": "Aroturuki aunoa i ngā papa ina waihangatia",

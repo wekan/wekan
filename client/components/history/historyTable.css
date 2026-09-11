@@ -129,6 +129,8 @@
 }
 .history-select { width: 28px; }
 .history-content { word-break: break-word; }
+.history-attachment-actions { margin-top: 2px; }
+.history-attachment-actions a { margin-inline-end: 10px; cursor: pointer; }
 .history-when { white-space: nowrap; opacity: 0.75; }
 .history-group { margin-inline-start: 6px; font-size: 0.85em; }
 .history-rows tr.is-selected { background: rgba(128, 128, 128, 0.12); }

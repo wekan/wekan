@@ -207,6 +207,7 @@
   "attached": "Traduzzjoni Maltija: attached",
   "attachment": "Mehmuż",
   "attachment-delete-pop": "Deleting an attachment huwa permanent. There huwa no undo.",
+  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
   "attachmentDeletePopup-title": "Ħassar Mehmuż?",
   "attachments": "Mehmużin",
   "auto-watch": "Automatically watch bordijiet when they huma ħoloq",

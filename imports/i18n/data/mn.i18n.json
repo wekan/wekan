@@ -207,6 +207,7 @@
   "attached": "прикреплено",
   "attachment": "Хавсралт",
   "attachment-delete-pop": "Хавсралтыг устгавал бүрмөсөн устах бөгөөд буцаах боломжгүй.",
+  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
   "attachmentDeletePopup-title": "Хавсралтыг устгах уу?",
   "attachments": "Хавсралтууд",
   "auto-watch": "Автоматически следить за созданными досками",

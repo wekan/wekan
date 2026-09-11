@@ -7,6 +7,7 @@ import { Utils } from '/client/lib/utils';
 import ChecklistItems from '/models/checklistItems';
 import Cards from '/models/cards';
 import { resolveCoverId } from '/models/lib/linkedCardCover';
+import { isLiveAttachment } from '/models/lib/attachmentSoftDelete';
 import { isChecklistShownAtMinicard } from '/models/lib/minicardChecklistVisibility';
 import { hasUnreadComments } from '/models/lib/unreadComments';
 import {
@@ -261,7 +262,8 @@ Template.minicard.helpers({
     const coverId = resolveCoverId(this, id => ReactiveCache.getCard(id));
     if (!coverId) return null;
     const attachment = ReactiveCache.getAttachment(coverId);
-    if (!attachment) return null;
+    // A soft-deleted attachment is never a cover (History.md §12.1).
+    if (!isLiveAttachment(attachment)) return null;
     const coverLink = typeof attachment.link === 'function' ? attachment.link() : '';
     if (!coverLink) return null;
     return {

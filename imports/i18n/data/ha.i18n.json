@@ -207,6 +207,7 @@
   "attached": "an maƙala",
   "attachment": "Abin haɗawa",
   "attachment-delete-pop": "Share maƙala na dindindin ne. Babu janyewa.",
+  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
   "attachmentDeletePopup-title": "A share maƙala?",
   "attachments": "Abubuwan haɗawa",
   "auto-watch": "Kalli alluna ta atomatik lokacin da aka ƙirƙire su",

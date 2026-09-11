@@ -207,6 +207,7 @@
   "attached": "അറ്റാച്ച് ചെയ്തു",
   "attachment": "അറ്റാച്ച്‌മെന്റ്",
   "attachment-delete-pop": "അറ്റാച്ച്മെന്റ് ഇല്ലാതാക്കുന്നത് സ്ഥിരമാണ്. പഴയപടിയാക്കാനാവില്ല.",
+  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
   "attachmentDeletePopup-title": "അറ്റാച്ച്മെന്റ് ഇല്ലാതാക്കണോ?",
   "attachments": "അറ്റാച്ച്‌മെന്റുകൾ",
   "auto-watch": "ബോർഡുകൾ സൃഷ്ടിക്കുമ്പോൾ അവയെ സ്വയമേവ നിരീക്ഷിക്കുക",

@@ -27,7 +27,9 @@ template(name="previewClipboardImagePopup")
   button.primary.js-upload-pasted-image {{_ 'upload'}}
 
 template(name="attachmentDeletePopup")
-  p {{_ "attachment-delete-pop"}}
+  //- History.md §12.1: a soft delete, restorable from the card history - so
+  //- not the "permanent, no undo" text the hard delete had.
+  p {{_ "attachment-soft-delete-pop"}}
   button.js-confirm.negate.full(type="submit") {{_ 'delete'}}
 
 template(name="attachmentViewer")

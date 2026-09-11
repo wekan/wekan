@@ -207,6 +207,7 @@
   "attached": "wokpe ɖe eŋu",
   "attachment": "Nu si wotsɔ kpe ɖe eŋu",
   "attachment-delete-pop": "Nusi wokpe ɖe eŋu ƒe tutudodo nɔa anyi tegbee. Mɔ aɖeke meli be woagbugbɔe o.",
+  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
   "attachmentDeletePopup-title": "Tutu nusi wokpe ɖe eŋua?",
   "attachments": "Nu siwo wotsɔ kpe ɖe eŋu",
   "auto-watch": "Kpɔ kpekpeɖeŋuwo ŋu le wo wɔwɔ me le eya ŋutɔ si",

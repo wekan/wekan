@@ -207,6 +207,7 @@
   "attached": "hengdi við",
   "attachment": "Viðhengi",
   "attachment-delete-pop": "Eyðing viðhengis er varanleg. Ekki er hægt að afturkalla hana.",
+  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
   "attachmentDeletePopup-title": "Eyða viðhengi?",
   "attachments": "Viðhengi",
   "auto-watch": "Fylgjast sjálfkrafa með töflum þegar þær eru búnar til",

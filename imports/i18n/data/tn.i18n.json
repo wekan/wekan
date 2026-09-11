@@ -207,6 +207,7 @@
   "attached": "gokeletswe",
   "attachment": "Se se tshwaraganeng",
   "attachment-delete-pop": "Go phumola se se tshwaraganeng ke ga leruri. Ga go na go dirolola.",
+  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
   "attachmentDeletePopup-title": "Phumola se se tshwaraganeng?",
   "attachments": "Tse di tshwaraganeng",
   "auto-watch": "Lebelela diboto ka go itirisa fa di tlhodiwa",

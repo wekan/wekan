@@ -207,6 +207,7 @@
   "attached": "ပူးတွဲပြီး",
   "attachment": "ပူးတွဲဖိုင်",
   "attachment-delete-pop": "ပူးတွဲဖိုင်ကို ဖျက်ခြင်းသည် အမြဲတမ်းဖြစ်သည်။ ပြန်ဖျက်၍ မရပါ။",
+  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
   "attachmentDeletePopup-title": "ပူးတွဲဖိုင်ကို ဖျက်မလား။",
   "attachments": "ပူးတွဲဖိုင်များ",
   "auto-watch": "ဘုတ်များဖန်တီးသောအခါ အလိုအလျောက် စောင့်ကြည့်ရန်",

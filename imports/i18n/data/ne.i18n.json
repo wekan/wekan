@@ -207,6 +207,7 @@
   "attached": "संलग्न गरियो",
   "attachment": "संलग्नक",
   "attachment-delete-pop": "संलग्नक मेटाउनु स्थायी हुन्छ। यसलाई पूर्ववत् गर्न सकिँदैन।",
+  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
   "attachmentDeletePopup-title": "संलग्नक मेटाउने?",
   "attachments": "संलग्नकहरू",
   "auto-watch": "बोर्डहरू सिर्जना हुँदा स्वचालित रूपमा निगरानी गर्नुहोस्",

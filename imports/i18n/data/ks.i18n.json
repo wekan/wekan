@@ -207,6 +207,7 @@
   "attached": "منسلک کرنہٕ آمُت",
   "attachment": "منسلک",
   "attachment-delete-pop": "منسلک مٹاوُن چھُ مستقل۔ یِہ ہؠکنہٕ واپس اننہٕ۔",
+  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
   "attachmentDeletePopup-title": "منسلک مٹاوُن؟",
   "attachments": "منسلکات",
   "auto-watch": "بورڈ بننس سٕتۍ یِم خودکار وُچھِو",

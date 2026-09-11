@@ -207,6 +207,7 @@
   "attached": "injunta",
   "attachment": "Enjonta",
   "attachment-delete-pop": "L'desfàzion di un injunta ie permanente. No ie possibile tornare indô.",
+  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
   "attachmentDeletePopup-title": "Desfàre l'injunta?",
   "attachments": "Injuntes",
   "auto-watch": "Segui automaticamente le tofli quando vengono create.",

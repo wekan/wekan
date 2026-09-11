@@ -78,6 +78,17 @@ const COMMENT_FIELDS = {
   text: 'comments',
 };
 
+/*
+ * An attachment (History.md §12.2): a rename is the one field edit worth a row.
+ * Its soft delete and restore are lifecycle rows written by
+ * server/attachmentSoftDelete.js, with the filename in the content, so the
+ * bookkeeping fields are deliberately NOT listed here - the diffing hook would
+ * otherwise describe the same delete a second time as three field edits.
+ */
+const ATTACHMENT_FIELDS = {
+  name: 'attachments',
+};
+
 const FIELDS_BY_ENTITY = {
   card: CARD_FIELDS,
   list: LIST_FIELDS,
@@ -85,6 +96,7 @@ const FIELDS_BY_ENTITY = {
   checklist: CHECKLIST_FIELDS,
   checklistItem: CHECKLIST_ITEM_FIELDS,
   comment: COMMENT_FIELDS,
+  attachment: ATTACHMENT_FIELDS,
 };
 
 /* Fields that are never worth a row, whatever the entity. */

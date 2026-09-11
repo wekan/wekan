@@ -207,6 +207,7 @@
   "attached": "Hi Xitsonga: mhaka",
   "attachment": "Xihlanganisi",
   "attachment-delete-pop": "mhaka an xikhomanisiwa mhaka mhaka. mhaka mhaka e-e mhaka.",
+  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
   "attachmentDeletePopup-title": "susa xikhomanisiwa?",
   "attachments": "Swihlanganisi",
   "auto-watch": "mhaka mhaka tibodo mhaka mhaka mhaka endliwile",

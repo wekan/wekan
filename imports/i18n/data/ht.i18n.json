@@ -207,6 +207,7 @@
   "attached": "tache",
   "attachment": "Pyès jwenn",
   "attachment-delete-pop": "Efase yon pyès jwenn se pèmanan. Pa gen fason pou defèt sa.",
+  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
   "attachmentDeletePopup-title": "Efase pyès jwenn?",
   "attachments": "Pyès jwenn",
   "auto-watch": "Siveye tablo otomatikman lè yo kreye",

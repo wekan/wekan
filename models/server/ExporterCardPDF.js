@@ -1,4 +1,5 @@
 import { ReactiveCache } from '/imports/reactiveCache';
+import { liveAttachments } from '/models/lib/attachmentSoftDelete';
 import { TAPi18n } from '/imports/i18n';
 import { formatDateByUserPreference } from '/imports/lib/dateUtils';
 import { BOARD_EXPORT_FIELD_KEYS } from '/models/lib/exportFields';
@@ -311,7 +312,7 @@ class ExporterCardPDF extends PDFExporterBase {
       { sort: { sort: 1 } },
     );
     const attachments = await ReactiveCache.getAttachments(
-      { 'meta.cardId': this._cardId },
+      liveAttachments({ 'meta.cardId': this._cardId }),
       { sort: { uploadedAt: 1 } },
     );
     const images = await attachmentImages(attachments);
@@ -472,7 +473,7 @@ class ExporterBoardPDF extends PDFExporterBase {
       ? await ReactiveCache.getCardComments({ cardId: { $in: cardIds } }, { sort: { createdAt: 1 } })
       : [];
     const attachments = this.hasField('attachments')
-      ? await ReactiveCache.getAttachments({ 'meta.cardId': { $in: cardIds } }, { sort: { uploadedAt: 1 } })
+      ? await ReactiveCache.getAttachments(liveAttachments({ 'meta.cardId': { $in: cardIds } }), { sort: { uploadedAt: 1 } })
       : [];
     const imagesByCard = {};
     if (this.hasField('attachments')) {

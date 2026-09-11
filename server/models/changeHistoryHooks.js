@@ -5,6 +5,7 @@ import Checklists from '/models/checklists';
 import ChecklistItems from '/models/checklistItems';
 import Lists from '/models/lists';
 import Swimlanes from '/models/swimlanes';
+import Attachments from '/models/attachments';
 import ChangeHistory from '/models/changeHistory';
 import { isRecordingSuppressed } from '/server/lib/historyRecordingScope';
 import { diffFields } from '/models/lib/changeHistoryGroups';
@@ -70,6 +71,21 @@ async function locate(entityType, doc) {
         cardId: card._id,
       };
     }
+    case 'attachment': {
+      // A Meteor-Files document keeps its containers under meta. A board-level
+      // attachment (a background) has no card and is located by its board.
+      const meta = doc.meta || {};
+      const card = meta.cardId ? await Cards.findOneAsync(meta.cardId) : null;
+      if (card) {
+        return {
+          boardId: card.boardId,
+          swimlaneId: card.swimlaneId,
+          listId: card.listId,
+          cardId: card._id,
+        };
+      }
+      return meta.boardId ? { boardId: meta.boardId } : null;
+    }
     default:
       return null;
   }
@@ -130,11 +146,14 @@ async function recordLifecycle(entityType, userId, doc, changeType) {
     const where = await locate(entityType, doc);
     if (!where || !where.boardId) return;
     const snapshot = JSON.parse(JSON.stringify(doc));
+    const group = entityType === 'comment' ? 'comments'
+      : entityType === 'attachment' ? 'attachments'
+        : 'checklists';
     await ChangeHistory.record({
       ...where,
       entityType,
       entityId: doc._id,
-      group: entityType === 'comment' ? 'comments' : 'checklists',
+      group,
       changeType,
       previousContent: changeType === 'removed' ? { document: snapshot } : null,
       newContent: changeType === 'added' ? { document: snapshot } : null,
@@ -154,6 +173,9 @@ Meteor.startup(() => {
     [Checklists, 'checklist'],
     [ChecklistItems, 'checklistItem'],
     [CardComments, 'comment'],
+    // The raw Meteor-Files collection: a rename goes through it (History.md
+    // §12.2). The soft delete's own fields are not diffed - see ATTACHMENT_FIELDS.
+    [Attachments.collection, 'attachment'],
   ];
   for (const [collection, entityType] of updates) {
     collection.after.update(async function (userId, doc, fieldNames) {
@@ -178,6 +200,17 @@ Meteor.startup(() => {
       await recordLifecycle(entityType, userId, doc, 'removed');
     });
   }
+
+  // An upload is an attachment 'added' row (History.md §12.2). There is no
+  // after.remove: an attachment is never removed in ordinary use - its delete
+  // is the soft delete in server/attachmentSoftDelete.js, which records its own
+  // lifecycle row with the filename - and the archived-board purge that does
+  // remove it takes the board's whole history with it.
+  Attachments.collection.after.insert(async (userId, doc) => {
+    const uploader = userId || (doc && doc.userId);
+    if (doc && doc.meta && doc.meta.source === 'import') return;
+    await recordLifecycle('attachment', uploader, doc, 'added');
+  });
 });
 
 export { recordUpdate, recordLifecycle, locate };

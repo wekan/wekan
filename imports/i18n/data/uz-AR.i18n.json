@@ -207,6 +207,7 @@
   "attached": "biriktirilgan",
   "attachment": "Qo'shimcha",
   "attachment-delete-pop": "Qo'shimchani o'chirish doimiy hisoblanadi. Bekor qilish yo'q.",
+  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
   "attachmentDeletePopup-title": "Biriktirma oʻchirilsinmi?",
   "attachments": "Qo'shimchalar",
   "auto-watch": "Doskalar yaratilganda ularni avtomatik tomosha qiling",

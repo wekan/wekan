@@ -207,6 +207,7 @@
   "attached": "जोडलें",
   "attachment": "जोडपत्र",
   "attachment-delete-pop": "जोडणी काडून उडयली की ती कायमची वता. ती परत हाडूंक मेळची ना.",
+  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
   "attachmentDeletePopup-title": "जोडणी काडून उडोवची?",
   "attachments": "जोडणी",
   "auto-watch": "फळे तयार जातना ती आपोआप पळयात",

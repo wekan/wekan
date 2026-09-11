@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { ReactiveCache } from '/imports/reactiveCache';
+import { liveAttachments } from '/models/lib/attachmentSoftDelete';
 import { TAPi18n } from '/imports/i18n';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 const { allBoardsPath, SECTION_ARCHIVE } = require('/models/lib/allBoardsUrls');
@@ -1430,11 +1431,13 @@ Template.boardBackgroundList.onCreated(function () {
 Template.boardBackgroundList.helpers({
   backgrounds() {
     // Raw collection docs don't carry the .link() helper, so compute the URL.
+    // Live ones only (History.md §12.1): a deleted background is soft-deleted
+    // like every attachment, and stays out of the picker.
     return Attachments.collection
-      .find({
+      .find(liveAttachments({
         'meta.boardId': Template.instance().boardId,
         'meta.source': 'board-background',
-      })
+      }))
       .fetch()
       .map(att => ({
         _id: att._id,

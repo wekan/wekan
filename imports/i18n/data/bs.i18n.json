@@ -207,6 +207,7 @@
   "attached": "u prilogu",
   "attachment": "Prilog",
   "attachment-delete-pop": "Brisanje priloga je trajno. Nema poništavanja brisanja.",
+  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
   "attachmentDeletePopup-title": "Obrisati privitak?",
   "attachments": "Prilozi",
   "auto-watch": "Automatski pratite nove ploče kada su kreirane",

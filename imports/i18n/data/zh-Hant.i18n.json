@@ -207,6 +207,7 @@
   "attached": "附加",
   "attachment": "附件",
   "attachment-delete-pop": "刪除附件的操作不可逆。",
+  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
   "attachmentDeletePopup-title": "刪除附件？",
   "attachments": "附件",
   "auto-watch": "自動訂閱新建立的看板",

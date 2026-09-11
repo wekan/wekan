@@ -207,6 +207,7 @@
   "attached": "ynghlwm",
   "attachment": "Ymlyniad",
   "attachment-delete-pop": "Mae dileu atodiad yn barhaol. Does dim dadwneud.",
+  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
   "attachmentDeletePopup-title": "Dileu Atodiad?",
   "attachments": "Ymlyniadau",
   "auto-watch": "Gwylio byrddau yn awtomatig pan fyddant yn cael eu creu",

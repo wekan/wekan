@@ -207,6 +207,7 @@
   "attached": "e hoketswe",
   "attachment": "Se kopantsoeng",
   "attachment-delete-pop": "Ho hlakola sephuthelwana ke ha ka ho sa feleng. Ha ho kgutlisetso.",
+  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
   "attachmentDeletePopup-title": "Hlakola sephuthelwana?",
   "attachments": "Tse kopantsoeng",
   "auto-watch": "Shebella diboto ka boiketsetso ha di thehwa",

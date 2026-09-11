@@ -207,6 +207,7 @@
   "attached": "dodał załącznik",
   "attachment": "Załącznik",
   "attachment-delete-pop": "Usunięcie załącznika jest nieodwracalne.",
+  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
   "attachmentDeletePopup-title": "Usunąć załącznik?",
   "attachments": "Załączniki",
   "auto-watch": "Automatycznie obserwuj tablice gdy zostaną stworzone",

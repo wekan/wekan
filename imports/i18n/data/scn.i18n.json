@@ -207,6 +207,7 @@
   "attached": "allicatu",
   "attachment": "Alligatu",
   "attachment-delete-pop": "L'cancellazzzioni di nu allicatu è permanente. Nnu è possibili tornare indietro.",
+  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
   "attachmentDeletePopup-title": "Cancellare l'allicatu?",
   "attachments": "Allegati",
   "auto-watch": "Segui automaticamenti li bacheche quannu vengono create.",

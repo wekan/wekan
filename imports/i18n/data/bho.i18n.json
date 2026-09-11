@@ -207,6 +207,7 @@
   "attached": "संलग्न भइल",
   "attachment": "संलग्नक",
   "attachment-delete-pop": "संलग्नक मेटावल स्थायी बा। एकरा वापस ना कइल जा सके।",
+  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
   "attachmentDeletePopup-title": "संलग्नक मेटावल जाव?",
   "attachments": "संलग्नक",
   "auto-watch": "बोर्ड बनते अपने-आप ओकरा पर नजर राखीं",

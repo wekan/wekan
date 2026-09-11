@@ -207,6 +207,7 @@
   "attached": "ceangailte",
   "attachment": "Ceanglachan",
   "attachment-delete-pop": "Tha sguabadh às ceanglachain maireannach. Cha ghabh seo a neo-dhèanamh.",
+  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
   "attachmentDeletePopup-title": "Sguab às Ceanglachan?",
   "attachments": "Ceanglachain",
   "auto-watch": "Coimhead bùird gu fèin-obrachail nuair a thèid an cruthachadh",

@@ -207,6 +207,7 @@
   "attached": "la ved",
   "attachment": "Vedlegg",
   "attachment-delete-pop": "Sletting av vedlegg er permanent og kan ikke angres",
+  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
   "attachmentDeletePopup-title": "Slette vedlegg?",
   "attachments": "Vedlegg",
   "auto-watch": "Automatisk overvåkning av tavler når de opprettes",

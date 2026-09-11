@@ -207,6 +207,7 @@
   "attached": "ተለጢፉ",
   "attachment": "ተታሓሒዙ",
   "attachment-delete-pop": "ተለጣፊ ምድምሳስ ቀዋሚ እዩ። ምምላስ የለን።",
+  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
   "attachmentDeletePopup-title": "ተለጣፊ ይደምሰስ?",
   "attachments": "ተለጠፍቲ",
   "auto-watch": "ሰሌዳታት ምስ ዝፍጠሩ ብራስ-ሰር ተኸታተል",

@@ -207,6 +207,7 @@
   "attached": "Nsɛm a ɛfa dwumadi yi ho",
   "attachment": "Deɛ wɔde aka ho",
   "attachment-delete-pop": "Deleting an fael a wɔde aka ho is permanent. Nore is no undo.",
+  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
   "attachmentDeletePopup-title": "Pepa Attachment?",
   "attachments": "Nneɛma a wɔde aka ho",
   "auto-watch": "Automatically watch bɔɔds when noy are yɛɛ",

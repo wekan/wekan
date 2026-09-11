@@ -207,6 +207,7 @@
   "attached": "ភ្ជាប់",
   "attachment": "ឯកសារភ្ជាប់",
   "attachment-delete-pop": "ការលុបឯកសារភ្ជាប់គឺអចិន្ត្រៃយ៍។ មិនមានការលុបចោលទេ។",
+  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
   "attachmentDeletePopup-title": "លុបឯកសារភ្ជាប់?",
   "attachments": "ឯកសារភ្ជាប់",
   "auto-watch": "មើលក្តារដោយស្វ័យប្រវត្តិនៅពេលពួកវាត្រូវបានបង្កើត",

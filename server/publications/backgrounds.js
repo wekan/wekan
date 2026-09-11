@@ -1,5 +1,6 @@
 import Attachments from '/models/attachments';
 import { ReactiveCache } from '/imports/reactiveCache';
+import { liveAttachments } from '/models/lib/attachmentSoftDelete';
 
 // Publish a board's background images so the board-settings backgrounds list
 // can show them. Board backgrounds are stored as board-level Attachments
@@ -18,8 +19,8 @@ Meteor.publish('boardBackgrounds', async function (boardId) {
   if (!isPublic && !isMember) {
     return this.ready();
   }
-  return Attachments.collection.find({
+  return Attachments.collection.find(liveAttachments({
     'meta.boardId': boardId,
     'meta.source': 'board-background',
-  });
+  }));
 });

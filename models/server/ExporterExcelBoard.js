@@ -1,4 +1,5 @@
 import { ReactiveCache } from '/imports/reactiveCache';
+import { liveAttachments } from '/models/lib/attachmentSoftDelete';
 import { TAPi18n } from '/imports/i18n';
 import { createWorkbook } from './createWorkbook';
 import { formatDateByUserPreference } from '/imports/lib/dateUtils';
@@ -107,7 +108,7 @@ class ExporterExcelBoard {
       ? await ReactiveCache.getCardComments({ cardId: { $in: cardIds } }, { sort: { createdAt: 1 } })
       : [];
     const attachments = this.hasField('attachments')
-      ? await ReactiveCache.getAttachments({ 'meta.cardId': { $in: cardIds } }, { sort: { uploadedAt: -1 } })
+      ? await ReactiveCache.getAttachments(liveAttachments({ 'meta.cardId': { $in: cardIds } }), { sort: { uploadedAt: -1 } })
       : [];
 
     const customFieldsById = {};

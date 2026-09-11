@@ -1,4 +1,5 @@
 import { ReactiveCache } from '/imports/reactiveCache';
+import { liveAttachments } from '/models/lib/attachmentSoftDelete';
 const Papa = require('papaparse');
 const { buildCsvCardRow } = require('./lib/exporterCsvRow');
 const { csvColumnMask, applyMask } = require('./lib/exportFields');
@@ -235,7 +236,7 @@ export class Exporter {
     const byBoardAndAttachment = this._attachmentId
       ? { 'meta.boardId': this._boardId, _id: this._attachmentId }
       : byBoardAttachment;
-    const attachmentDocs = await ReactiveCache.getAttachments(byBoardAndAttachment);
+    const attachmentDocs = await ReactiveCache.getAttachments(liveAttachments(byBoardAndAttachment));
     result.attachments = [];
     for (const attachment of attachmentDocs) {
       const attachmentExport = {

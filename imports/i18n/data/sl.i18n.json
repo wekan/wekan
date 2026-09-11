@@ -207,6 +207,7 @@
   "attached": "pripeto",
   "attachment": "Priponka",
   "attachment-delete-pop": "Brisanje priponke je trajno. Ne obstaja razveljavitev.",
+  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
   "attachmentDeletePopup-title": "Briši priponko?",
   "attachments": "Priponke",
   "auto-watch": "Samodejno spremljaj ustvarjene table",

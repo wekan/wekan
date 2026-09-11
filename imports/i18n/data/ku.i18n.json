@@ -207,6 +207,7 @@
   "attached": "hat pêvekirin",
   "attachment": "Pêvek",
   "attachment-delete-pop": "Jêbirina pêvekê mayînde ye. Nikare vegere.",
+  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
   "attachmentDeletePopup-title": "Pêvekê jê bibî?",
   "attachments": "Pêvek",
   "auto-watch": "Dema depo tên afirandin wan bixweber bişopîne",

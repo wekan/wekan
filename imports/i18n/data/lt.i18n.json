@@ -207,6 +207,7 @@
   "attached": "pridedamas",
   "attachment": "Priedas",
   "attachment-delete-pop": "Priedo ištrynimas yra visam laikui. Anuliuoti negalima.",
+  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
   "attachmentDeletePopup-title": "Ištrinti priedą?",
   "attachments": "Priedai",
   "auto-watch": "Automatiškai žiūrėti lentas, kai jos sukuriamos",

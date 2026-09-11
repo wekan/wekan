@@ -207,6 +207,7 @@
   "attached": "adjuntado",
   "attachment": "Adchunto",
   "attachment-delete-pop": "La eliminación de un fichero adjunto es permanente. Ista acción no puet deshacerse.",
+  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
   "attachmentDeletePopup-title": "¿Borrar el adjunto?",
   "attachments": "Adchuntos",
   "auto-watch": "Suscribirse automáticamente a os tableros cuando son creados",

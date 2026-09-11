@@ -207,6 +207,7 @@
   "attached": "aangeheg",
   "attachment": "Aanhegsel",
   "attachment-delete-pop": "Die uitvee van 'n aanhegsel is permanent. Daar is geen ongedaan maak nie.",
+  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
   "attachmentDeletePopup-title": "Vee aanhegsel uit?",
   "attachments": "Aanhangsels",
   "auto-watch": "Kyk outomaties na borde wanneer hulle geskep word",

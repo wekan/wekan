@@ -207,6 +207,7 @@
   "attached": "jónher",
   "attachment": "pèça joncha",
   "attachment-delete-pop": "Tirar una pèça joncha es defenitiu.",
+  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
   "attachmentDeletePopup-title": "Tirar la pèça joncha ?",
   "attachments": "Pèças jonchas",
   "auto-watch": "Survelhar automaticament lo tablèu un còp creat",

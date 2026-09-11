@@ -207,6 +207,7 @@
   "attached": "ସଂଲଗ୍ନ ହୋଇଛି |",
   "attachment": "ସଂଲଗ୍ନ",
   "attachment-delete-pop": "ଏକ ସଂଲଗ୍ନ ବିଲୋପ କରିବା ସ୍ଥାୟୀ ଅଟେ | କ und ଣସି ପୂର୍ବବତ୍ ନାହିଁ |",
+  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
   "attachmentDeletePopup-title": "ସଂଲଗ୍ନ ବିଲୋପ କରିବେ କି?",
   "attachments": "ସଂଲଗ୍ନକ",
   "auto-watch": "ଯେତେବେଳେ ସେଗୁଡ଼ିକ ସୃଷ୍ଟି ହୁଏ ସ୍ୱୟଂଚାଳିତ ଭାବରେ ବୋର୍ଡଗୁଡ଼ିକ ଦେଖନ୍ତୁ |",

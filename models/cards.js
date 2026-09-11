@@ -31,6 +31,7 @@ import {
 import { CARD_COLORS } from '/models/metadata/colors';
 import { isHexColor, contrastText } from '/models/lib/contrastColor';
 import { resolveCoverId } from '/models/lib/linkedCardCover';
+import { liveAttachments, isLiveAttachment } from '/models/lib/attachmentSoftDelete';
 import {
   DEFAULT_DEPENDENCY_COLOR,
   DEFAULT_DEPENDENCY_ICON,
@@ -1151,7 +1152,7 @@ Cards.helpers({
     if (Meteor.isServer) {
       const { copyFile } = require('./lib/fileStoreStrategy.js');
       const { fileStoreStrategyFactory } = require('./attachments.server');
-      const attachmentList = await ReactiveCache.getAttachments({ 'meta.cardId': oldId });
+      const attachmentList = await ReactiveCache.getAttachments(liveAttachments({ 'meta.cardId': oldId }));
       for (const att of attachmentList) {
         copyFile(att, _id, fileStoreStrategyFactory);
       }
@@ -1424,8 +1425,11 @@ Cards.helpers({
   },
 
   attachments() {
+    // Live attachments only (History.md §12.1): a soft-deleted one is invisible
+    // on the card, in its count and on the minicard badge, and is reached
+    // through the card history instead.
     const ret = ReactiveCache.getAttachments(
-      { 'meta.cardId': this.getRealId() },
+      liveAttachments({ 'meta.cardId': this.getRealId() }),
       { sort: { uploadedAt: -1 } },
       true,
     ).each();
@@ -1439,6 +1443,8 @@ Cards.helpers({
     const coverId = resolveCoverId(this, id => ReactiveCache.getCard(id));
     if (!coverId) return false;
     const cover = ReactiveCache.getAttachment(coverId);
+    // A soft-deleted attachment is never a cover (History.md §12.1).
+    if (!isLiveAttachment(cover)) return false;
     // if we return a cover before it is fully stored, we will get errors when we try to display it
     // todo XXX we could return a default "upload pending" image in the meantime?
     return cover && cover.link() && cover;

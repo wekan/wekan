@@ -207,6 +207,7 @@
   "attached": "додано",
   "attachment": "Додаток",
   "attachment-delete-pop": "Видалення додатку безповоротне. Відмінити не можна.",
+  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
   "attachmentDeletePopup-title": "Видалити додаток?",
   "attachments": "Додатки",
   "auto-watch": "Автоматично дивитися дошки, коли вони створені",

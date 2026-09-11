@@ -207,6 +207,7 @@
   "attached": "જોડાયેલ",
   "attachment": "જોડાણ",
   "attachment-delete-pop": "જોડાણ કાઢી નાખવું કાયમી છે. ત્યાં કોઈ પૂર્વવત્ નથી.",
+  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
   "attachmentDeletePopup-title": "જોડાણ કાઢી નાખીએ?",
   "attachments": "જોડાણો",
   "auto-watch": "જ્યારે બોર્ડ બનાવવામાં આવે ત્યારે આપમેળે જુઓ",

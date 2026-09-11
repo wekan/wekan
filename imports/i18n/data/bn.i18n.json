@@ -207,6 +207,7 @@
   "attached": "সংযুক্ত হয়েছে",
   "attachment": "সংযুক্তি",
   "attachment-delete-pop": "সংযুক্তি মোছা স্থায়ী। এটি ফেরানো যাবে না।",
+  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
   "attachmentDeletePopup-title": "সংযুক্তি মুছবেন?",
   "attachments": "সংযুক্তিসমূহ",
   "auto-watch": "বোর্ড তৈরি হলে স্বয়ংক্রিয়ভাবে নজরে রাখুন",

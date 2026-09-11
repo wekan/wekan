@@ -17,6 +17,8 @@ import { LABEL_COLORS } from '/models/metadata/colors';
 import { filterUserBoards } from '/server/lib/boardListFilter';
 import { ReactiveCache } from '/imports/reactiveCache';
 import Actions from '/models/actions';
+import Attachments from '/models/attachments';
+import { liveAttachments } from '/models/lib/attachmentSoftDelete';
 import Activities from '/models/activities';
 import Boards from '/models/boards';
 import Cards from '/models/cards';
@@ -60,6 +62,15 @@ async function boardRemover(doc) {
   ]) {
     await element.removeAsync({ boardId: doc._id });
   }
+
+  // History.md §12.4: THE one hard delete of attachments. Every attachment of
+  // the board - live and soft-deleted alike, card attachments and board
+  // backgrounds - and its file in the storage backend go with the board. In
+  // ordinary use a board only gets here through permanentlyDeleteArchivedBoards
+  // (Global Admin, Admin Panel / Problems / Delete enabled, archived board).
+  // tests/attachmentSoftDeleteNoHardDelete.test.cjs allows this call here and
+  // nowhere else.
+  await Attachments.removeAsync({ 'meta.boardId': doc._id });
 
   // #2339/#5850: when a Template Container board is deleted, clear it from the
   // profile of any user pointing at it so no save/insert-from-template path is
@@ -1525,7 +1536,7 @@ WebApp.handlers.get('/api/boards/:boardId/attachments', async function(req, res)
   const paramBoardId = req.params.boardId;
   await Authentication.checkBoardAccess(req.userId, paramBoardId);
   const attachments = await ReactiveCache.getAttachments(
-    { 'meta.boardId': paramBoardId },
+    liveAttachments({ 'meta.boardId': paramBoardId }),
   );
   sendJsonResult(res, {
     code: 200,

@@ -143,18 +143,24 @@ test('Random is imported for the fallback id (negative: no ad-hoc Math.random id
 
 // ── 4. Unauthenticated DDP remove ───────────────────────────────────────────
 
-test('Attachments.onBeforeRemove requires an authenticated caller with write access', () => {
-  assert.ok(/Attachments\.onBeforeRemove = async function \(cursor\)/.test(attachmentsPermissions),
+test('Attachments.onBeforeRemove refuses every DDP remove (History.md §12.3)', () => {
+  // The advisory's fix made this hook check the caller's write access. Since
+  // History.md §12 there is no per-attachment hard delete at all - Delete is
+  // the attachments.softDelete method - so the hook refuses EVERY caller,
+  // authenticated or not, and the allow rule below it does the same for the
+  // ordinary Mongo remove. Refusing more than before is still a fix for the
+  // advisory: an anonymous `{}` selector deletes nothing.
+  assert.ok(/Attachments\.onBeforeRemove = function \(cursor\)/.test(attachmentsPermissions),
     'the hook is defined - it did not exist before');
-  const at = attachmentsPermissions.indexOf('Attachments.onBeforeRemove = async function');
+  const at = attachmentsPermissions.indexOf('Attachments.onBeforeRemove = function');
   const body = attachmentsPermissions.slice(at, attachmentsPermissions.indexOf('\n};', at));
-  assert.ok(/const userId = this\.userId;/.test(body), 'reads the DDP method\'s own userId');
-  assert.ok(/if \(!userId\) \{[\s\S]{0,400}return false;/.test(body),
-    'an anonymous caller (no userId) is refused');
-  assert.ok(/if \(!files\.length\) \{\s*\n\s*return false;/.test(body),
-    'an empty/non-matching selector is refused, not treated as nothing to check');
-  assert.ok(/canEditAttachmentCard\(userId, fileObj\)/.test(body),
-    'every matched file is checked against the caller\'s write access');
+  assert.ok(/const userId = this\.userId;/.test(body), 'reads the DDP method\'s own userId, for the log');
+  assert.ok(/\n  return false;$/.test(body), 'ends by refusing, unconditionally');
+  assert.ok(!/return true/.test(body), 'negative: no path through the hook allows the removal');
+  const allowAt = attachmentsPermissions.indexOf('  remove() {');
+  const allowBody = attachmentsPermissions.slice(allowAt, attachmentsPermissions.indexOf('  },', allowAt));
+  assert.ok(/return false;/.test(allowBody) && !/return true/.test(allowBody),
+    'the allow rule for remove refuses too');
 });
 
 test('Avatars.onBeforeRemove no longer unconditionally returns true (negative)', () => {

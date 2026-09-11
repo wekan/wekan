@@ -44,22 +44,9 @@ Template.tablePage.events({
     event.stopPropagation();
   },
 
-  'click .js-table-page-attachment-delete'(event) {
-    event.preventDefault();
-    event.stopPropagation();
-    const attachmentId = event.currentTarget.getAttribute('data-attachment-id');
-    if (!attachmentId || !window.confirm(TAPi18n.__('attachment-delete-pop'))) return;
-    const button = event.currentTarget;
-    button.disabled = true;
-    Meteor.call('permanentlyDeleteAttachmentFromFilesReport', attachmentId, error => {
-      button.disabled = false;
-      if (error) {
-        window.alert(error.reason || error.message);
-        return;
-      }
-      button.dispatchEvent(new CustomEvent('files-report-changed', { bubbles: true }));
-    });
-  },
+  // No per-attachment delete here (History.md §12.3): the Files report lists
+  // attachments, and the only way an attachment is ever removed is deleting an
+  // archived board with Admin Panel / Problems / Delete enabled.
 
   // A location cell: which map to open it at. The cell itself stays SHORT -
   // "London", with the country's flag - because the table is wide and the

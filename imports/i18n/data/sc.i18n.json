@@ -207,6 +207,7 @@
   "attached": "alligadu",
   "attachment": "Allegadu",
   "attachment-delete-pop": "L'eliminatzione di un alligadu è permanente. Non è possibile tornare indietro.",
+  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
   "attachmentDeletePopup-title": "Cantzellare l'alligadu?",
   "attachments": "Alligados",
   "auto-watch": "Segui automaticamente le tàulas quando vengono creadas.",

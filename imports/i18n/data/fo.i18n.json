@@ -207,6 +207,7 @@
   "attached": "viðheft",
   "attachment": "Viðheft",
   "attachment-delete-pop": "At strika eitt viðheft er varandi. Tað kann ikki angrast.",
+  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
   "attachmentDeletePopup-title": "Strika viðheft?",
   "attachments": "Viðheft",
   "auto-watch": "Fylg sjálvvirkandi talvum, tá tær verða stovnaðar",

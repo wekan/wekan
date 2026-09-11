@@ -207,6 +207,7 @@
   "attached": "隨附的",
   "attachment": "依戀",
   "attachment-delete-pop": "刪除附件是永久性的。無法撤銷。",
+  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
   "attachmentDeletePopup-title": "刪除附件？",
   "attachments": "附件",
   "auto-watch": "創建板時自動監視板",

@@ -1,6 +1,7 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import '/client/components/cards/attachments.jade';
 import { attachmentKind } from '/models/lib/attachmentKind';
+import { liveAttachments } from '/models/lib/attachmentSoftDelete';
 import DOMPurify from 'dompurify';
 import { sanitizeHTML, sanitizeText } from '/imports/lib/secureDOMPurify';
 import { openOfficeAttachment } from '/client/lib/officeAttachmentViewer';
@@ -53,27 +54,26 @@ Template.attachmentGallery.events({
     attachmentActionsLink = event.currentTarget.getAttribute("data-attachment-link");
   },
   'click .js-rename': Popup.open('attachmentRename'),
-  'click .js-confirm-delete': Popup.afterConfirm('attachmentDelete', async function() {
-      const card = this.meta && this.meta.cardId ? ReactiveCache.getCard(this.meta.cardId) : null;
-      if (card && card.coverId === this._id) {
-        await card.unsetCover();
-      }
-      // #5282 (same class as #3252 for comments/checklists): only remove if the
-      // doc is still in the local cache. Under publication churn the attachment
-      // can already be evicted from Minimongo, and removing a missing _id
-      // throws "Removed nonexistent document" even though the delete itself
-      // succeeded on the server.
-      if (this._id && ReactiveCache.getAttachment(this._id)) {
-        await Attachments.removeAsync(this._id);
+  // History.md §12.1: Delete is a SOFT delete, done by the server. The method
+  // marks the attachment deleted, keeps the file, unsets the cover if this was
+  // it, and records who did it in the card history - where it can be restored.
+  // Nothing on the client removes an attachment document any more (#5282's
+  // "Removed nonexistent document" cannot happen when nothing is removed).
+  'click .js-confirm-delete': Popup.afterConfirm('attachmentDelete', function() {
+      if (this._id) {
+        Meteor.call('attachments.softDelete', this._id);
       }
       Popup.back();
   }),
 });
 
+// The slideshow walks the card's LIVE attachments (History.md §12.1) unless it
+// was opened with an explicit list of ids - the Files report and the card
+// history do that, and the history's list may contain a soft-deleted one.
 function getNextAttachmentId(currentAttachmentId, offset = 0) {
   const attachments = slideshowAttachmentIds
     ? slideshowAttachmentIds.map(id => ReactiveCache.getAttachment(id)).filter(Boolean)
-    : ReactiveCache.getAttachments({'meta.cardId': cardId});
+    : ReactiveCache.getAttachments(liveAttachments({'meta.cardId': cardId}));
 
   let i = 0;
   for (; i < attachments.length; i++) {
@@ -87,7 +87,7 @@ function getNextAttachmentId(currentAttachmentId, offset = 0) {
 function getPrevAttachmentId(currentAttachmentId, offset = 0) {
   const attachments = slideshowAttachmentIds
     ? slideshowAttachmentIds.map(id => ReactiveCache.getAttachment(id)).filter(Boolean)
-    : ReactiveCache.getAttachments({'meta.cardId': cardId});
+    : ReactiveCache.getAttachments(liveAttachments({'meta.cardId': cardId}));
 
   let i = 0;
   for (; i < attachments.length; i++) {
@@ -356,8 +356,10 @@ Template.attachmentGallery.helpers({
     if (!card) return [];
     const cardId = typeof card.getRealId === 'function' ? card.getRealId() : card._id;
     if (!cardId) return [];
+    // Live ones only (History.md §12.1); the soft-deleted ones are still in
+    // minimongo for the card history, and must not be drawn here.
     const filesCursor = Attachments.find(
-      { 'meta.cardId': cardId },
+      liveAttachments({ 'meta.cardId': cardId }),
       { sort: { uploadedAt: -1 } },
     );
     // Call fetch() on the underlying Mongo cursor to establish a reactive

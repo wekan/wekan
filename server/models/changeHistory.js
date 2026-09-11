@@ -8,7 +8,13 @@ import Checklists from '/models/checklists';
 import ChecklistItems from '/models/checklistItems';
 import Lists from '/models/lists';
 import Swimlanes from '/models/swimlanes';
+import Attachments from '/models/attachments';
 import ChangeHistory from '/models/changeHistory';
+import { attachmentContentAction } from '/models/lib/attachmentSoftDelete';
+import {
+  softDeleteAttachment,
+  restoreAttachment,
+} from '/server/attachmentSoftDelete';
 import { ensureIndex } from '/server/lib/mongoStartup';
 import { pickUndo, pickRedo } from '/models/lib/undoRedoSelection';
 import {
@@ -194,6 +200,34 @@ async function applySwimlaneContent(row, content) {
   return applyFieldContent(Swimlanes, row, content);
 }
 
+/*
+ * An attachment row (History.md §12.2). A lifecycle row's content says whether
+ * the attachment is deleted; a removal is written with previousContent only, so
+ * Restore on the "Removed" row (contentForDirection's fallback) makes it live
+ * again, and Restore on the "Added" row of an earlier restore does the same.
+ * Both go through the same soft-delete/restore the card's own Delete uses, so
+ * the activity and the mirror history row are written the same way - and the
+ * cover is never touched: §12.1, only a live attachment on a card can be one.
+ * A rename row ({ field: 'name' }) is the generic field write.
+ */
+async function applyAttachmentContent(row, content) {
+  const attachment = await Attachments.collection.findOneAsync({ _id: row.entityId });
+  if (!attachment) return false;
+  if (row.group === 'lifecycle') {
+    const action = attachmentContentAction(content);
+    if (action === 'restore') {
+      await restoreAttachment({ userId: row.restoredByUserId || row.userId, attachment });
+      return true;
+    }
+    if (action === 'delete') {
+      await softDeleteAttachment({ userId: row.userId, attachment });
+      return true;
+    }
+    return false;
+  }
+  return applyFieldContent(Attachments.collection, row, content);
+}
+
 const APPLIERS = {
   card: applyCardContent,
   list: applyListContent,
@@ -201,6 +235,7 @@ const APPLIERS = {
   checklist: (row, content) => applyFieldContent(Checklists, row, content),
   checklistItem: (row, content) => applyFieldContent(ChecklistItems, row, content),
   comment: (row, content) => applyFieldContent(CardComments, row, content),
+  attachment: applyAttachmentContent,
 };
 
 /* Which collection each entity type lives in, for reading a value back. */
@@ -211,6 +246,7 @@ const COLLECTIONS = {
   checklist: Checklists,
   checklistItem: ChecklistItems,
   comment: CardComments,
+  attachment: Attachments.collection,
 };
 
 /*

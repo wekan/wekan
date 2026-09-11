@@ -1,6 +1,7 @@
 import { PassThrough } from 'stream';
 import { ZipArchive } from 'archiver';
 import { Exporter } from '/models/exporter';
+import { liveAttachments } from '/models/lib/attachmentSoftDelete';
 import { fileStoreStrategyFactory } from '/models/attachments.server';
 const { sanitizeDownloadFileName } = require('/imports/lib/fileNameDisplay');
 const { numberedName } = require('/models/lib/uploadFileName');
@@ -119,14 +120,14 @@ class ExporterZip {
     if (!exporter.hasField('attachments')) return [];
 
     if (!exporter.hasScope()) {
-      return ReactiveCache.getAttachments({ 'meta.boardId': this._boardId });
+      return ReactiveCache.getAttachments(liveAttachments({ 'meta.boardId': this._boardId }));
     }
 
     const cardsRaw = require('/models/cards').default.rawCollection();
     const selector = await exporter._scopedCardSelector(this._boardId);
     const cards = await cardsRaw.find(selector, { projection: { _id: 1 } }).toArray();
     const cardIds = cards.map(card => card._id);
-    return ReactiveCache.getAttachments({ 'meta.cardId': { $in: cardIds } });
+    return ReactiveCache.getAttachments(liveAttachments({ 'meta.cardId': { $in: cardIds } }));
   }
 }
 

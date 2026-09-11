@@ -18,6 +18,8 @@ import path from 'path';
 import { ObjectId } from 'bson';
 import { allowIsBoardMemberWithWriteAccess } from '/server/lib/utils';
 import { tripCanary } from '/server/lib/canary';
+import { liveAttachments } from '/models/lib/attachmentSoftDelete';
+import { softDeleteAttachment } from '/server/attachmentSoftDelete';
 
 const HARD_MAX_API_FILE_BYTES = 64 * 1024 * 1024;
 const HARD_MAX_API_UPLOAD_BODY_BYTES = 96 * 1024 * 1024;
@@ -685,7 +687,7 @@ WebApp.handlers.use('/api/attachment/upload', async (req, res, next) => {
         query['meta.cardId'] = cardId;
       }
 
-      const attachments = await ReactiveCache.getAttachments(query);
+      const attachments = await ReactiveCache.getAttachments(liveAttachments(query));
 
       const attachmentList = attachments.map(attachment => {
         const strategy = fileStoreStrategyFactory.getFileStrategy(attachment, 'original');
@@ -730,7 +732,7 @@ WebApp.handlers.use('/api/boards/:boardId/attachments', async (req, res, next) =
     if (!board || !board.hasMember(userId)) {
       return sendErrorResponse(res, 403, 'You do not have permission to access this board');
     }
-    const query = { 'meta.boardId': boardId };
+    const query = liveAttachments({ 'meta.boardId': boardId });
     const attachments = await ReactiveCache.getAttachments(query);
     const attachmentList = attachments.map(attachment => {
       const strategy = fileStoreStrategyFactory.getFileStrategy(attachment, 'original');
@@ -1065,8 +1067,9 @@ WebApp.handlers.use('/api/boards/:boardId/attachments', async (req, res, next) =
         return sendErrorResponse(res, 403, 'You do not have permission to delete this attachment');
       }
 
-      // Delete attachment
-      await Attachments.removeAsync(attachmentId);
+      // A soft delete (History.md §12.3): the file stays, the card history
+      // shows who deleted it and restores it. No API call hard-deletes.
+      await softDeleteAttachment({ userId, attachment });
 
       sendJsonResponse(res, 200, {
         success: true,

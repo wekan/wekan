@@ -76,25 +76,12 @@ Attachments.allow({
     // ReadOnly users cannot update attachments
     return await canEditAttachmentCard(userId, fileObj);
   },
-  async remove(userId, fileObj) {
-    // Additional security check: ensure the file belongs to the board the user has access to
-    if (!fileObj || !fileObj.meta?.boardId) {
-      if (process.env.DEBUG === 'true') {
-        console.warn('Blocked attachment removal: file has no boardId');
-      }
-      return false;
-    }
-
-    const board = await Boards.findOneAsync(fileObj.meta?.boardId);
-    if (!board) {
-      if (process.env.DEBUG === 'true') {
-        console.warn('Blocked attachment removal: board not found');
-      }
-      return false;
-    }
-
-    // ReadOnly users cannot delete attachments
-    return await canEditAttachmentCard(userId, fileObj);
+  // History.md §12.3: no per-attachment hard delete exists. "Delete" on a card
+  // is the 'attachments.softDelete' method; the client never removes a
+  // document. This rule is what the ordinary Mongo remove() consults, and the
+  // ostrio DDP remove method is refused in onBeforeRemove below.
+  remove() {
+    return false;
   },
   fetch: ['meta'],
 });
@@ -112,46 +99,27 @@ Attachments.allow({
 // hook), so this runs the same board-write-access check `remove` above does,
 // against every document the selector actually matches - an empty or
 // non-matching selector is refused rather than treated as "nothing to check".
-Attachments.onBeforeRemove = async function (cursor) {
+// History.md §12.3 on top of that: the DDP remove is refused for EVERYONE, not
+// only for callers without write access. There is no per-attachment hard delete
+// in WeKan any more - Delete on a card soft-deletes through the
+// 'attachments.softDelete' method, and the only removal of attachment records
+// and files is the archived-board purge (server/models/boards.js boardRemover).
+// A call that reaches here is a client bypassing the UI, so it is logged as an
+// attempt under Admin Panel -> Problems and denied.
+Attachments.onBeforeRemove = function (cursor) {
   const userId = this.userId;
-  if (!userId) {
-    try {
-      require('/server/lib/securityLog').record({
-        key: 'authz.file-remove',
-        action: 'blocked',
-        source: '_FilesCollectionRemove_attachments',
-        detail: 'refused an unauthenticated attachment removal',
-      });
-    } catch (e) { /* logging must never break the guard */ }
-    return false;
-  }
-
-  const files = normalizeRemovedFiles(cursor);
-  if (!files.length) {
-    return false;
-  }
-
-  for (const fileObj of files) {
-    if (!fileObj || !fileObj.meta?.boardId) {
-      return false;
-    }
-    const board = await Boards.findOneAsync(fileObj.meta.boardId);
-    if (!board) {
-      return false;
-    }
-    if (!(await canEditAttachmentCard(userId, fileObj))) {
-      try {
-        require('/server/lib/securityLog').record({
-          key: 'authz.file-remove',
-          action: 'blocked',
-          userId,
-          source: '_FilesCollectionRemove_attachments',
-          detail: 'refused removal of an attachment outside the caller\'s write access',
-        });
-      } catch (e) { /* logging must never break the guard */ }
-      return false;
-    }
-  }
-
-  return true;
+  let count = 0;
+  try { count = normalizeRemovedFiles(cursor).length; } catch (e) { /* the count is only for the log */ }
+  try {
+    require('/server/lib/securityLog').record({
+      key: 'authz.file-remove',
+      action: 'blocked',
+      userId: userId || undefined,
+      source: '_FilesCollectionRemove_attachments',
+      detail: userId
+        ? `refused a client attachment removal of ${count} document(s): attachments are soft-deleted, never removed`
+        : 'refused an unauthenticated attachment removal',
+    });
+  } catch (e) { /* logging must never break the guard */ }
+  return false;
 };

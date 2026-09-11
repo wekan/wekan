@@ -207,6 +207,7 @@
   "attached": "අමුණා ඇත",
   "attachment": "ඇමුණුම",
   "attachment-delete-pop": "ඇමුණුමක් මකා දැමීම ස්ථිරයි. එය අහෝසි කළ නොහැක.",
+  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
   "attachmentDeletePopup-title": "ඇමුණුම මකා දමන්නද?",
   "attachments": "ඇමුණුම්",
   "auto-watch": "පුවරු නිර්මාණය කළ විට ස්වයංක්‍රීයව ඒවා නරඹන්න",

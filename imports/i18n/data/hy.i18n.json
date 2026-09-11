@@ -207,6 +207,7 @@
   "attached": "կից",
   "attachment": "Հավելված",
   "attachment-delete-pop": "Հավելվածը ջնջելը մշտական ​​է: Չեղարկվել:",
+  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
   "attachmentDeletePopup-title": "Ջնջե՞լ առդիրը",
   "attachments": "Կցորդներ",
   "auto-watch": "Ավտոմատ դիտել տախտակները, երբ դրանք ստեղծվեն",

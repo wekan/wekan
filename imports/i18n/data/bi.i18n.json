@@ -207,6 +207,7 @@
   "attached": "joenem finis",
   "attachment": "Samting we i joen",
   "attachment-delete-pop": "Deleting wan fael we i joen i permanent. There i nogat undo.",
+  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
   "attachmentDeletePopup-title": "Diletem Fael we i joen?",
   "attachments": "Ol atajmen",
   "auto-watch": "Automatically watch ol bod taem they oli mekem finis",

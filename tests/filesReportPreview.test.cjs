@@ -44,36 +44,29 @@ test('preview uses the card viewer and only the displayed report page', () => {
   assert.match(attachments, /slideshowAttachmentIds/);
 });
 
-test('permanent delete is hidden by default and server-enforced when enabled', () => {
+test('the Files report offers no per-attachment delete (History.md §12.3)', () => {
   const reports = read('client/components/settings/adminProblems.js');
   const jade = read('client/components/settings/tablePage.jade');
   const table = read('client/components/settings/tablePage.js');
   const server = read('server/attachmentApi.js');
-  const recovery = read('models/recoveryEvents.js');
-  assert.match(reports,
-    /canPermanentlyDelete:[\s\S]*isAdmin === true[\s\S]*enablePermanentDelete === true/);
-  assert.match(jade,
-    /if attachment\.canPermanentlyDelete\s+button\.negate\.js-table-page-attachment-delete/);
-  assert.match(table, /Meteor\.call\('permanentlyDeleteAttachmentFromFilesReport'/);
-  assert.match(server, /async permanentlyDeleteAttachmentFromFilesReport\(attachmentId\)/);
-  assert.match(server,
-    /user\?\.isAdmin !== true \|\| !getFeatureFlags\(\)\.enablePermanentDelete/);
-  assert.match(server, /await Attachments\.removeAsync\(attachmentId\)/);
-  assert.match(recovery,
-    /ATTACHMENT_PERMANENTLY_DELETED: 'attachment-permanently-deleted'/);
-  assert.match(server,
-    /type: RecoveryEvents\.types\.ATTACHMENT_PERMANENTLY_DELETED[\s\S]*done: true[\s\S]*deletedData: true/);
-  assert.match(server,
-    /catch \(error\)[\s\S]*type: RecoveryEvents\.types\.ATTACHMENT_PERMANENTLY_DELETED[\s\S]*done: false/);
+  // The button, its handler, its method and the flag that used to show it are
+  // all gone: the only way an attachment is ever removed is deleting an
+  // archived board with the permanent-delete setting enabled.
+  assert.doesNotMatch(jade, /js-table-page-attachment-delete/);
+  assert.doesNotMatch(table, /permanentlyDeleteAttachmentFromFilesReport/);
+  assert.doesNotMatch(server, /async permanentlyDeleteAttachmentFromFilesReport\(/);
+  assert.doesNotMatch(server, /await Attachments\.removeAsync\(/);
+  assert.doesNotMatch(reports, /canPermanentlyDelete:/);
+  // The pane says so, in the description the Files report shows.
   const tables = reports.slice(reports.indexOf('const REPORT_TABLES = {'));
   const files = tables.slice(tables.indexOf("'report-files':"),
     tables.indexOf("'report-rules':"));
-  assert.match(files, /additionalDesc: PERMANENT_DELETE_RECOVERY_DESCRIPTION/);
-  assert.match(reports,
-    /file deletion records the attachment ID, sanitized filename and card ID/);
-  assert.match(reports,
-    /permanent-delete setting must be enabled before a delete icon is shown/);
-  assert.match(server, /JSON\.stringify\(cleanFileName\(attachment\.name \|\| ''\)\)/);
+  assert.match(files, /additionalDesc: FILES_REPORT_DELETE_DESCRIPTION/);
+  assert.match(reports, /Attachments are never deleted one at a time/);
+  // The board purge keeps its Recovery description; it no longer claims a
+  // file-deletion record it cannot write.
+  assert.doesNotMatch(reports,
+    /PERMANENT_DELETE_RECOVERY_DESCRIPTION =[^;]*file deletion records/);
 });
 
 console.log(`\nfilesReportPreview: ${passed} tests passed`);

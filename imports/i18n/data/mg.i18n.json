@@ -207,6 +207,7 @@
   "attached": "nampidirina",
   "attachment": "Rakitra miaraka",
   "attachment-delete-pop": "Maharitra ny famafana rakitra. Tsy azo averina.",
+  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
   "attachmentDeletePopup-title": "Fafao ny rakitra?",
   "attachments": "Rakitra miaraka",
   "auto-watch": "Araho ho azy ny solaitra rehefa noforonina",

@@ -207,6 +207,7 @@
   "attached": "angehängt",
   "attachment": "Unhang",
   "attachment-delete-pop": "Das Läschen eines Anhangs kann net rückgängig gemacht ginn.",
+  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
   "attachmentDeletePopup-title": "Uschloss läschen?",
   "attachments": "Unhäng",
   "auto-watch": "Neue Boards no Erstellung automatisch beobachten",

@@ -2,6 +2,7 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import Attachments from '/models/attachments';
 import { attachmentKind } from '/models/lib/attachmentKind';
+import { liveAttachments } from '/models/lib/attachmentSoftDelete';
 const { filesize } = require('filesize');
 
 // My Attachments (#3461): a third sibling of My Cards / My Due Cards in the
@@ -49,7 +50,7 @@ Template.myAttachments.onCreated(function () {
     if (!userId) return [];
 
     const attachments = Attachments.find(
-      { userId },
+      liveAttachments({ userId }),
       { sort: { _id: -1 } },
     ).each();
 

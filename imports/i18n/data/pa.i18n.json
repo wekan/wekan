@@ -207,6 +207,7 @@
   "attached": "ਨੱਥੀ",
   "attachment": "ਅਟੈਚਮੈਂਟ",
   "attachment-delete-pop": "ਅਟੈਚਮੈਂਟ ਨੂੰ ਮਿਟਾਉਣਾ ਸਥਾਈ ਹੈ। ਕੋਈ ਅਨਡੂ ਨਹੀਂ ਹੈ।",
+  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
   "attachmentDeletePopup-title": "ਕੀ ਅਟੈਚਮੈਂਟ ਨੂੰ ਮਿਟਾਉਣਾ ਹੈ?",
   "attachments": "ਅਟੈਚਮੈਂਟਸ",
   "auto-watch": "ਜਦੋਂ ਉਹ ਬਣਾਏ ਜਾਂਦੇ ਹਨ ਤਾਂ ਆਟੋਮੈਟਿਕਲੀ ਬੋਰਡ ਦੇਖੋ",

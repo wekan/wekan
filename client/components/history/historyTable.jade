@@ -86,7 +86,25 @@ template(name="historyTable")
                     span.history-change-type {{_ row.changeTypeKey}}
                     if row.groupKey
                       span.quiet.history-group {{_ row.groupKey}}
-                  td.history-content {{row.contentSummary}}
+                  td.history-content
+                    | {{row.contentSummary}}
+                    //- An attachment row (History.md §12.2) has the card's own
+                    //- controls - the same preview (the attachmentViewer
+                    //- slideshow) and the same download link the gallery
+                    //- draws - plus Restore while it is deleted. NEVER cover or
+                    //- background: only a live attachment on a card can be one,
+                    //- so no js-add-cover / js-add-background-image here.
+                    if row.attachment
+                      .history-attachment-actions
+                        if row.attachment.canPreview
+                          a.js-history-attachment-preview(data-attachment-id="{{row.attachment._id}}" title="{{_ 'preview'}}")
+                            i.fa.fa-search-plus
+                        a.js-download(href="{{row.attachment.link}}?download=true" download="{{downloadFilename row.attachment.name}}" title="{{_ 'download'}}")
+                          i.fa.fa-arrow-down
+                        if row.attachment.isDeleted
+                          a.js-history-attachment-restore(data-id="{{row._id}}" title="{{_ 'restore'}}")
+                            i.fa.fa-undo
+                            |  {{_ 'restore'}}
                   td.history-when {{row.prettyWhen}}
       else
         p.quiet {{_ 'no-results'}}

@@ -381,7 +381,10 @@ describe('attachmentApi authentication', function() {
       }));
       // user-1 IS a global admin.
       stub(ReactiveCache, 'getUser', async () => ({ _id: 'user-1', isAdmin: true }));
-      stub(Attachments, 'removeAsync', async () => 1);
+      // History.md §12.3: the API delete is a SOFT delete - it marks the
+      // document and never calls Attachments.removeAsync.
+      stub(Attachments, 'removeAsync', async () => { throw new Error('hard delete must not be called'); });
+      stub(Attachments.collection, 'updateAsync', async () => 1);
 
       let result;
       let thrown;

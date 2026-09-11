@@ -207,6 +207,7 @@
   "attached": "liitetty",
   "attachment": "Liitetiedosto",
   "attachment-delete-pop": "Liitetiedoston poistaminen on lopullista. Tätä ei pysty peruuttamaan.",
+  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
   "attachmentDeletePopup-title": "Poista liitetiedosto?",
   "attachments": "Liitetiedostot",
   "auto-watch": "Automaattisesti seuraa tauluja kun ne on luotu",

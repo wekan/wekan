@@ -1,4 +1,5 @@
 import { ReactiveCache } from '/imports/reactiveCache';
+import { liveAttachments } from '/models/lib/attachmentSoftDelete';
 import { TAPi18n } from '/imports/i18n';
 import { CARD_EXPORT_FIELD_KEYS } from '/models/lib/exportFields';
 import { createWorkbook } from './createWorkbook';
@@ -271,7 +272,7 @@ class ExporterExcelCard {
     const checklistItems= needsChecklists  ? await ReactiveCache.getChecklistItems({ cardId: this._cardId })                             : [];
     const subtasks      = needsSubtasks    ? await ReactiveCache.getCards({ boardId: this._boardId, parentId: this._cardId })            : [];
     const comments      = needsComments    ? await ReactiveCache.getCardComments({ cardId: this._cardId }, { sort: { createdAt: 1 } })   : [];
-    const attachments   = needsAttachments ? await ReactiveCache.getAttachments({ 'meta.cardId': this._cardId }, { sort: { uploadedAt: -1 } }) : [];
+    const attachments   = needsAttachments ? await ReactiveCache.getAttachments(liveAttachments({ 'meta.cardId': this._cardId }), { sort: { uploadedAt: -1 } }) : [];
 
     // A card stores a custom field as { _id, value }; the NAME - and, for a
     // dropdown, the name behind the item id it stores - is on the definition.

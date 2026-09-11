@@ -207,6 +207,7 @@
   "attached": "επισυνάφθηκε",
   "attachment": "Συνημμένο",
   "attachment-delete-pop": "Η διαγραφή του συνημμένου είναι μόνιμη. Δεν υπάρχει δυνατότητα επαναφοράς.",
+  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
   "attachmentDeletePopup-title": "Διαγραφή Συνημμένου;",
   "attachments": "Συνημμένα",
   "auto-watch": "Αυτόματη παρακολούθηση των πινάκων από τη στιγμή που δημιουργούνται.",

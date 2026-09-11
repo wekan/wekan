@@ -51,7 +51,11 @@ function abbreviate(text) {
 // The same audit trail is relevant where permanent deletion is enabled and where
 // its events are reviewed. Keep one sentence so the two panes cannot drift apart.
 const PERMANENT_DELETE_RECOVERY_DESCRIPTION =
-  'The permanent-delete setting must be enabled before a delete icon is shown. Recovery logs setting changes and every successful, failed, or unauthorized permanent-delete attempt, including Done status, user ID, username, trusted IPv4 or IPv6 address and available location. Board deletion records IDs and titles; file deletion records the attachment ID, sanitized filename and card ID.';
+  'The permanent-delete setting must be enabled before a delete icon is shown. Recovery logs setting changes and every successful, failed, or unauthorized permanent-delete attempt, including Done status, user ID, username, trusted IPv4 or IPv6 address and available location. Board deletion records IDs and titles.';
+
+// History.md §12.3-12.4: there is no per-attachment delete, here or anywhere.
+const FILES_REPORT_DELETE_DESCRIPTION =
+  'Attachments are never deleted one at a time. Delete on a card soft-deletes the attachment and keeps the file; the card history shows who deleted it and restores it. An attachment and its file are removed only when the permanent-delete setting is enabled and its board is deleted from the archive, which Recovery records as a board deletion.';
 
 // The report publications already send only the current page (server-side
 // search + limit/skip, sorted). Display exactly what was published, applying
@@ -622,7 +626,7 @@ function formatDate(date) {
 // repeat.
 const REPORT_TABLES = {
   'report-files': {
-    additionalDesc: PERMANENT_DELETE_RECOVERY_DESCRIPTION,
+    additionalDesc: FILES_REPORT_DELETE_DESCRIPTION,
     emptyKey: 'no-results',
     docs: () => {
       // The UNDERLYING reactive minimongo collection: the 'attachmentsList'
@@ -658,9 +662,6 @@ const REPORT_TABLES = {
             link: Attachments.link.call(d),
             extension: kind.extension || 'file',
             isImage: kind.isImage,
-            canPermanentlyDelete:
-              ReactiveCache.getCurrentUser()?.isAdmin === true
-              && ReactiveCache.getCurrentSetting()?.enablePermanentDelete === true,
           };
         },
       },
