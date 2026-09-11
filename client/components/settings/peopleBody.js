@@ -1,4 +1,5 @@
 import { ReactiveCache } from '/imports/reactiveCache';
+import { TAPi18n } from '/imports/i18n';
 import { Session } from 'meteor/session';
 import { leftMenuData, paneTitle } from '/models/lib/leftMenu';
 // buildFilters and buildActions are imported like the rest of them. The People

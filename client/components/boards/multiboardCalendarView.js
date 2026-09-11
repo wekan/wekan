@@ -1,4 +1,5 @@
 import { ReactiveCache } from '/imports/reactiveCache';
+import { TAPi18n } from '/imports/i18n';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { toFullCalendarFirstDay } from '/client/lib/calendarFirstDay';
 import { weekNumberByFirstDay } from '/models/lib/weekStart';

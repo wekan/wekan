@@ -61,6 +61,10 @@ function stripComments(src) {
 const SINGLETONS = [
   { name: 'Utils', definedIn: 'client/lib/utils.js' },
   { name: 'ReactiveCache', definedIn: 'imports/reactiveCache.js' },
+  // Reported next: "Exception in Template.rolesGeneral rolesStatusTable" -
+  // Admin Panel / People / Roles' status table called TAPi18n.__() in a file
+  // that never imported TAPi18n; the same shape in three more files.
+  { name: 'TAPi18n', definedIn: 'imports/i18n/index.js' },
 ];
 
 console.log('clientSingletonImports:');
