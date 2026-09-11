@@ -5098,6 +5098,20 @@ legacy whole-board Excel export already wrote real dates.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ad3554bbc">Board Settings / Rules switches to the Workflow view from any tab</a>. Thanks to xet7.</summary>
+
+Reported directly, with screenshots: clicking "Workflow view" in the Rules
+page's sidebar changed the button's label to "List view" but the page kept
+showing the "Add trigger" tab - the workflow builder never appeared. The
+workflow view is rendered only while the page's list tab is current, and
+the toggle lives in a separate sidebar template that can only flip the
+view mode, not the tab. The Rules page now brings itself back to the list
+tab whenever the workflow view is selected.
+`tests/rulesWorkflowViewToggle.test.cjs` pins it.
+
+</details>
+
 and improves the translation workflow:
 
 - [Fill in the missing Ladin, Latin, Luganda, Luxembourgish, Maithili, Malagasy, Malay, Malayalam, Maltese, Manx, Maori and Marathi translations](https://github.com/wekan/wekan/commit/718d20813). Thanks to xet7.
