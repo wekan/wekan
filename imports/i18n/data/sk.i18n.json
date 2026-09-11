@@ -207,7 +207,7 @@
   "attached": "přiloženo",
   "attachment": "Príloha",
   "attachment-delete-pop": "Smazání přílohy je trvalé. Nejde vrátit zpět.",
-  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
+  "attachment-soft-delete-pop": "Príloha sa odstráni z tejto karty a jej súbor zostane zachovaný. Ktokoľvek, kto môže upravovať kartu, ju môže obnoviť z histórie karty.",
   "attachmentDeletePopup-title": "Smazat přílohu?",
   "attachments": "Prílohy",
   "auto-watch": "Automaticky sleduj tabla když jsou vytvořena",

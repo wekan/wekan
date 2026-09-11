@@ -207,7 +207,7 @@
   "attached": "файл(сы) өстәнди",
   "attachment": "Кушымта",
   "attachment-delete-pop": "Ек бетерме ишлеми калыҗыдыр ве кире алынамаз.",
-  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
+  "attachment-soft-delete-pop": "Кушымта бу карточкадан бетерелә, ә аның файлы саклана. Карточканы үзгәртә алган һәркем аны карточка тарихыннан торгыза ала.",
   "attachmentDeletePopup-title": "Ек бетеринсин ми?",
   "attachments": "Кушымталар",
   "auto-watch": "Олушан йени такталары кендилигинден излемейе ал",

@@ -207,7 +207,7 @@
   "attached": "இணைக்கப்பட்டது",
   "attachment": "இணைப்பு",
   "attachment-delete-pop": "இணைப்பை நீக்குவது நிரந்தரமானது. மீட்க வழி இல்லை.",
-  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
+  "attachment-soft-delete-pop": "இணைப்பு இந்த அட்டையிலிருந்து நீக்கப்படும், அதன் கோப்பு வைத்திருக்கப்படும். அட்டையைத் திருத்தக்கூடிய எவரும் அட்டை வரலாற்றிலிருந்து அதை மீட்டெடுக்கலாம்.",
   "attachmentDeletePopup-title": "இணைப்பை நீக்கவா?",
   "attachments": "இணைப்புகள்",
   "auto-watch": "பலகைகள் உருவாக்கப்படும்போது தானாகவே அவற்றைக் கவனி",

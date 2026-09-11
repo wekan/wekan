@@ -207,7 +207,7 @@
   "attached": "Прикупљено",
   "attachment": "Прикупљена грађа",
   "attachment-delete-pop": "Уклањање прикупљене предметне грађе је трајно. Опозив ове радње неће бити могућ.",
-  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
+  "attachment-soft-delete-pop": "Прилог се уклања са ове картице, а његова датотека се чува. Свако ко може да уређује картицу може да га опорави из историје картице.",
   "attachmentDeletePopup-title": "Уклонићете прикупљену грађу?",
   "attachments": "Предметна грађа",
   "auto-watch": "Чим настану нови списи почни да прикупљаш све промене",

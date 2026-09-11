@@ -207,7 +207,7 @@
   "attached": "జోడించబడింది",
   "attachment": "అటాచ్మెంట్",
   "attachment-delete-pop": "అటాచ్‌మెంట్‌ను తొలగించడం శాశ్వతం. రద్దు చేయడం లేదు.",
-  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
+  "attachment-soft-delete-pop": "జోడింపు ఈ కార్డ్ నుండి తీసివేయబడుతుంది, దాని ఫైల్ ఉంచబడుతుంది. కార్డ్‌ను సవరించగల ఎవరైనా కార్డ్ చరిత్ర నుండి దాన్ని పునరుద్ధరించవచ్చు.",
   "attachmentDeletePopup-title": "జోడింపుని తొలగించాలా?",
   "attachments": "జోడింపులు",
   "auto-watch": "బోర్డులు సృష్టించబడినప్పుడు స్వయంచాలకంగా చూడండి",

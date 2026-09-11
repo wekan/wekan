@@ -207,7 +207,7 @@
   "attached": "Toksave: attached",
   "attachment": "Samting i pas wantaim",
   "attachment-delete-pop": "Deleting wanpela fail i pas is permanent. There is nogat undo.",
-  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
+  "attachment-soft-delete-pop": "Samting i pas i rausim long dispela kat, tasol fail bilong en i stap yet. Wanem man i ken senisim kat i ken kisim bek long histori bilong kat.",
   "attachmentDeletePopup-title": "Rausim fail i pas?",
   "attachments": "Ol samting i pas",
   "auto-watch": "Automatically watch ol bot when they are wokim pinis",

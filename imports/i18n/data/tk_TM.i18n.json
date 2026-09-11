@@ -207,7 +207,7 @@
   "attached": "birikdirildi",
   "attachment": "Goşundy",
   "attachment-delete-pop": "Goşundyny pozmak hemişelikdir. Yza gaýtarmak ýok.",
-  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
+  "attachment-soft-delete-pop": "Goşundy bu kartdan aýrylýar we onuň faýly saklanýar. Karty üýtgedip bilýän islendik adam ony kartyň taryhyndan dikeldip biler.",
   "attachmentDeletePopup-title": "Goşundyny pozuň?",
   "attachments": "Goşundylar",
   "auto-watch": "Tagtalar döredilende awtomatiki synlaň",

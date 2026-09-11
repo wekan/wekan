@@ -207,7 +207,7 @@
   "attached": "u bashkëngjit",
   "attachment": "Bashkëngjitje",
   "attachment-delete-pop": "Fshirja e një bashkëngjitjeje është e përhershme. Nuk mund të zhbëhet.",
-  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
+  "attachment-soft-delete-pop": "Bashkëngjitja hiqet nga kjo kartë dhe skedari i saj ruhet. Kushdo që mund të redaktojë kartën mund ta rikthejë atë nga historiku i kartës.",
   "attachmentDeletePopup-title": "Të fshihet bashkëngjitja?",
   "attachments": "Bashkëngjitjet",
   "auto-watch": "Ndiq automatikisht tabelat kur krijohen",

@@ -207,7 +207,7 @@
   "attached": "dodał przidŏwek",
   "attachment": "Przidŏwek",
   "attachment-delete-pop": "Usunięcie przidŏwka je nieodwracalne.",
-  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
+  "attachment-soft-delete-pop": "Przidŏwek je wyciepniynty z tyj karty, a jego zbiōr ôstŏwo. Kożdy, fto może edytować karta, może go prziwrōcić z historyje karty.",
   "attachmentDeletePopup-title": "Usunąć przidŏwek?",
   "attachments": "Przidŏwki",
   "auto-watch": "Automatycznie obserwuj tabule gdy zostaną stworzone",
