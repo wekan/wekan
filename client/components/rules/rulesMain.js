@@ -13,6 +13,19 @@ Template.rulesMain.onCreated(function () {
   // creating a new one. null while creating a brand-new rule.
   this.editingRuleId = new ReactiveVar(null);
 
+  // The Workflow view is the rulesList tab's alternative rendering, so it can
+  // only show while that tab is current. The toggle lives in rulesControls -
+  // a separate template in the page sidebar with no handle on this instance
+  // - and it only flips Session 'rulesViewMode'; from the Add trigger / Add
+  // action / rule details tabs that changed the button's label and nothing
+  // else. Switching to the workflow view therefore brings the page back to
+  // the list tab here, where the tab state lives.
+  this.autorun(() => {
+    if (Session.get('rulesViewMode') === 'workflow') {
+      this.rulesCurrentTab.set('rulesList');
+    }
+  });
+
   // The Rules page is now a standalone board-scoped route, so subscribe to the
   // board data (lists, swimlanes, labels, members) the trigger/action forms need,
   // in addition to the rules themselves.
