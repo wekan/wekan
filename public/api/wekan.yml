@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v11.67
+  version: v11.70
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -456,6 +456,36 @@ paths:
         '200':
           description: |-
             200 response
+  /api/boards/{board}/calendar.ics:
+    get:
+      operationId: exportCalendarIcs
+      summary: Subscribable iCalendar (.ics) feed of a board's card dates.
+      description: |
+        Answers GitHub issue #2836 ("CalDAV or iCal Support") - #808
+         added the in-app Calendar VIEW, this is the separate EXPORT/subscribe
+         feed the issue actually asked for. One VEVENT per Received / Start-End
+         span / Due date a card has, the same four dates the Calendar view (#808)
+         draws (see models/lib/calendarFilter.js and models/lib/icalExport.js).
+         This is one-way and read-only: paste the URL into a calendar app's
+         "subscribe to URL" feature. Full two-way CalDAV sync is a much larger,
+         separate, stateful sync protocol and is out of scope.
+      tags:
+        - Boards
+      parameters:
+        - name: board
+          in: path
+          description: |
+            the ID of the board whose card dates to export
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
   /api/boards/{board}/cards/{card}/checklists:
     get:
       operationId: get_board_card_checklists
@@ -517,6 +547,42 @@ paths:
       tags:
         - Checklists
       parameters:
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+        - name: card
+          in: path
+          description: the card value
+          type: string
+          required: true
+        - name: checklist
+          in: path
+          description: the checklist value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+    put:
+      operationId: put_board_card_checklist
+      tags:
+        - Checklists
+      consumes:
+        - multipart/form-data
+        - application/json
+      parameters:
+        - name: title
+          in: formData
+          description: the title value
+          type: string
+          required: true
         - name: board
           in: path
           description: the board value
@@ -763,6 +829,37 @@ paths:
       operationId: get_board_card_comment
       tags:
         - CardComments
+      parameters:
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+        - name: card
+          in: path
+          description: the card value
+          type: string
+          required: true
+        - name: comment
+          in: path
+          description: the comment value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+    put:
+      operationId: put_board_card_comment
+      tags:
+        - CardComments
+      consumes:
+        - multipart/form-data
+        - application/json
       parameters:
         - name: board
           in: path
@@ -1102,6 +1199,70 @@ paths:
         - name: board
           in: path
           description: the board value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+  /api/boards/{board}/charts/{chartKey}/exportExcel:
+    get:
+      operationId: exportChartExcel
+      summary: Export one board report chart to Excel (.xlsx).
+      description: |
+        Pass the loginToken as the `authToken` query param for private
+         boards: `/api/boards/:boardId/charts/:chartKey/exportExcel?authToken=:token`.
+      tags:
+        - Boards
+      parameters:
+        - name: board
+          in: path
+          description: |
+            the ID of the board
+          type: string
+          required: true
+        - name: chartKey
+          in: path
+          description: |
+            one of dashboard, burndown, burnup, cumulativeFlow,
+            controlChart, cycleTime, flowEfficiency, leadTime, throughputHistogram, wipRun,
+            time
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+  /api/boards/{board}/charts/{chartKey}/exportPDF:
+    get:
+      operationId: exportChartPDF
+      summary: Export one board report chart (Dashboard, Burndown, Burnup, CFD,  Control Chart, Cycle/Lead Time, Flow Efficiency, Throughput, WIP Run) to PDF.
+      description: |
+        Pass the loginToken as the `authToken` query param for private
+         boards: `/api/boards/:boardId/charts/:chartKey/exportPDF?authToken=:token`.
+      tags:
+        - Boards
+      parameters:
+        - name: board
+          in: path
+          description: |
+            the ID of the board
+          type: string
+          required: true
+        - name: chartKey
+          in: path
+          description: |
+            one of dashboard, burndown, burnup, cumulativeFlow,
+            controlChart, cycleTime, flowEfficiency, leadTime, throughputHistogram, wipRun,
+            time
           type: string
           required: true
       produces:
@@ -2684,13 +2845,15 @@ paths:
           in: formData
           description: |
             the trigger document (must include activityType)
-          type: object
+          type: string
+          format: json
           required: true
         - name: action
           in: formData
           description: |
             the action document (must include actionType)
-          type: object
+          type: string
+          format: json
           required: true
         - name: board
           in: path
@@ -2779,13 +2942,15 @@ paths:
           in: formData
           description: |
             the new trigger document
-          type: object
+          type: string
+          format: json
           required: false
         - name: action
           in: formData
           description: |
             the new action document
-          type: object
+          type: string
+          format: json
           required: false
         - name: board
           in: path
@@ -4190,6 +4355,31 @@ definitions:
         items:
           $ref: "#/definitions/CardsCustomfields"
         x-nullable: true
+      recurrenceInterval:
+        description: |
+           Kanboard-style whole-card recurrence: automatically create a fresh copy
+           of this card in the same list on a recurring schedule (e.g. a weekly
+           status-report card, a monthly invoice card), so the next occurrence
+           does not have to be created by hand every time. 'none' (default) never
+           recurs. Reuses the exact same due-date mechanism as a checklist's
+           automatic reset (models/lib/checklistResetSchedule.js) - see
+           models/lib/cardRecurrenceSchedule.js and
+           server/cardRecurrenceSchedule.js for the due-date calculation and the
+           periodic job that applies it.
+        type: string
+        enum:
+          - none
+          - daily
+          - weekly
+          - monthly
+        x-nullable: true
+      lastRecurrenceAt:
+        description: |
+           When the automatic-recurrence job last created this card's next
+           occurrence. Falls back to createdAt (in isCardRecurrenceDue()) until
+           the first automatic recurrence happens.
+        type: string
+        x-nullable: true
       dateLastActivity:
         description: |
            Date of last activity
@@ -4207,6 +4397,12 @@ definitions:
       assignedBy:
         description: |
            display name entered manually or copied from the selected user
+        type: string
+        x-nullable: true
+      syncExternalId:
+        type: string
+        x-nullable: true
+      syncSourceType:
         type: string
         x-nullable: true
       labelIds:
@@ -4318,6 +4514,55 @@ definitions:
         description: |
            is the card over time?
         type: boolean
+        x-nullable: true
+      flowStartAt:
+        description: |
+           when the active Flowtime session on this card started, or null/unset
+           when no session is active
+        type: string
+        x-nullable: true
+      flowInterruptions:
+        description: |
+           how many interruptions have been tallied during the active session
+        type: number
+        x-nullable: true
+      flowUserId:
+        description: |
+           the user who started the active Flowtime session; a session belongs
+           to one person
+        type: string
+        x-nullable: true
+      pomodoroStartAt:
+        description: |
+           when the current work/break interval started, or null/unset when no
+           Pomodoro interval is active
+        type: string
+        x-nullable: true
+      pomodoroPhase:
+        description: |
+           'work' or 'break' while an interval is active; null/unset otherwise
+        type: string
+        enum:
+          - work
+          - break
+        x-nullable: true
+      pomodoroCount:
+        description: |
+           how many work intervals have been completed, used for the "long
+           break every 4th interval" rule
+        type: number
+        x-nullable: true
+      pomodoroUserId:
+        description: |
+           the user who started the active Pomodoro session; a session belongs
+           to one person
+        type: string
+        x-nullable: true
+      pomodoroWorkMinutes:
+        description: |
+           length of a work interval in minutes, configurable per session;
+           defaults to the standard 25 minutes
+        type: number
         x-nullable: true
       userId:
         description: |
@@ -4595,6 +4840,11 @@ definitions:
         description: |
            Is the item checked?
         type: boolean
+      dueAt:
+        description: |
+           Date the checklist item is due
+        type: string
+        x-nullable: true
       checklistId:
         description: |
            the checklist ID the item is attached to
@@ -4610,6 +4860,19 @@ definitions:
            reactive cursor filtered by boardId. Kept in sync on insert, on the
            item / its checklist moving to another card, and when the card moves to
            another board.
+        type: string
+        x-nullable: true
+      linkedCardId:
+        description: |
+           #2422: the _id of the subtask card created from this checklist item
+           via "Convert to subtask" (checklists.js's
+           'click .js-convert-checklist-item-to-subtask' handler), if any. This
+           is a one-way, set-once reference recorded at conversion time - it is
+           NOT kept in sync with the subtask afterwards (no bidirectional status
+           sync), and it is unrelated to the pre-existing "Convert to card"
+           action (convertChecklistItemToCardPopup) or the #3294 drag-to-card
+           gesture (buildCardFromChecklistItem), neither of which sets this
+           field: both of those create a plain, unlinked, non-subtask card.
         type: string
         x-nullable: true
       createdAt:
@@ -4676,6 +4939,27 @@ definitions:
            allowsChecklistsOnMinicard default; true/false override it.
         type: boolean
         x-nullable: true
+      resetInterval:
+        description: |
+           #3818 / #4729: automatically uncheck all items of this checklist on a
+           recurring schedule. 'none' (default) never resets automatically.
+           See models/lib/checklistResetSchedule.js and
+           server/checklistResetSchedule.js for the due-date calculation and the
+           periodic job that applies it.
+        type: string
+        enum:
+          - none
+          - daily
+          - weekly
+          - monthly
+        x-nullable: true
+      lastResetAt:
+        description: |
+           When the automatic-reset job last unchecked this checklist's items.
+           Falls back to createdAt (in isChecklistResetDue()) until the first
+           automatic reset happens.
+        type: string
+        x-nullable: true
     required:
       - cardId
       - title
@@ -4705,6 +4989,7 @@ definitions:
           - number
           - date
           - dropdown
+          - dropdownmultiselect
           - checkbox
           - currency
           - stringtemplate
@@ -4732,6 +5017,25 @@ definitions:
         description: |
            should the sum of the custom fields be shown at top of list?
         type: boolean
+      adminOnly:
+        description: |
+           #3141: when true, this custom field's VALUE is hidden from - and
+           cannot be set by - a non board-admin board member: not on the card
+           detail view, not on the minicard, and not through the server-side
+           setCustomField method (a UI-only hide is not real access control).
+           Defaults to false so every existing custom field is unaffected.
+        type: boolean
+      sort:
+        description: |
+           #4165: the user-settable DISPLAY order of the custom field, both in the
+           board-settings list and on a card. Ascending, lower first - mirrors
+           Lists' own `sort` field. A newly created field defaults to the end of
+           the board's current list (the client passes `existingCount` on insert)
+           rather than jumping to the top; fields created before this existed have
+           no `sort` of their own and fall back to name order (see
+           models/lib/customFieldsWD.js).
+        type: number
+        x-nullable: true
       createdAt:
         type: string
         x-nullable: true
@@ -4747,6 +5051,7 @@ definitions:
       - alwaysOnCard
       - showLabelOnMiniCard
       - showSumAtTopOfList
+      - adminOnly
       - modifiedAt
   CustomFieldsSettings:
     type: object
@@ -4845,6 +5150,9 @@ definitions:
            screen; kept in sync with DEFAULT_LIST_WIDTH in models/lib/listWidth.js.
         type: number
         x-nullable: true
+      syncSource:
+        $ref: "#/definitions/ListsSyncsource"
+        x-nullable: true
     required:
       - title
       - archived
@@ -4852,6 +5160,32 @@ definitions:
       - createdAt
       - modifiedAt
       - type
+  ListsSyncsource:
+    type: object
+    properties:
+      type:
+        description: |
+           which parser/fetcher to use: 'jira' | 'github' | 'gitlab' | 'gitea'
+        type: string
+      url:
+        description: |
+           base API URL of the external tracker, e.g. https://org.atlassian.net
+        type: string
+      projectKey:
+        description: |
+           Jira project key, or "owner/repo" for GitHub/Gitea, or numeric project
+           id for GitLab
+        type: string
+      enabled:
+        type: boolean
+      lastSyncedAt:
+        type: string
+      lastSyncError:
+        description: |
+           short message from the last failed sync attempt, cleared on success -
+           shown in the list's sync settings so a broken credential is visible
+           without needing Admin Panel -> Problems.
+        type: string
   ListsWiplimit:
     type: object
     properties:
@@ -5009,6 +5343,9 @@ definitions:
       buttonLabel:
         type: string
         x-nullable: true
+      enabled:
+        type: boolean
+        x-nullable: true
       createdAt:
         type: string
         x-nullable: true
@@ -5034,6 +5371,12 @@ definitions:
         x-nullable: true
       alwaysShowCodeAsText:
         type: boolean
+        x-nullable: true
+      externalLinkPatternPrefix:
+        type: string
+        x-nullable: true
+      externalLinkPatternUrl:
+        type: string
         x-nullable: true
       disableActivities:
         type: boolean
@@ -5148,6 +5491,12 @@ definitions:
       legalNotice:
         type: string
         x-nullable: true
+      customPrivateBoardDesc:
+        type: string
+        x-nullable: true
+      customPublicBoardDesc:
+        type: string
+        x-nullable: true
       customHeadEnabled:
         type: boolean
         x-nullable: true
@@ -5196,11 +5545,47 @@ definitions:
       boardMembersFromSameOrgOrTeamOnly:
         type: boolean
         x-nullable: true
+      notifyDefaultTray:
+        type: boolean
+        x-nullable: true
+      notifyDefaultEmail:
+        type: boolean
+        x-nullable: true
+      inviteEmailSubjectTemplate:
+        type: string
+        x-nullable: true
+      inviteEmailBodyTemplate:
+        type: string
+        x-nullable: true
+      activityEmailSubjectTemplate:
+        type: string
+        x-nullable: true
+      activityEmailBodyTemplate:
+        type: string
+        x-nullable: true
       supportTitle:
         type: string
         x-nullable: true
       supportPageText:
         type: string
+        x-nullable: true
+      ldap:
+        $ref: "#/definitions/SettingsLdap"
+        x-nullable: true
+      oauthProviders:
+        type: object
+        x-nullable: true
+      oauthProvidersLoginStyle:
+        type: string
+        enum:
+          - popup
+          - redirect
+        x-nullable: true
+      oauthProvidersMergeExistingUsers:
+        type: boolean
+        x-nullable: true
+      passwordlessEnabled:
+        type: boolean
         x-nullable: true
       createdAt:
         type: string
@@ -5210,6 +5595,29 @@ definitions:
       - defaultAuthenticationMethod
       - createdAt
       - modifiedAt
+  SettingsLdap:
+    type: object
+    properties:
+      enabled:
+        type: boolean
+      host:
+        type: string
+      port:
+        type: string
+      baseDN:
+        type: string
+      authentificationUserDN:
+        type: string
+      bindPassword:
+        type: string
+      bindPasswordSet:
+        type: boolean
+      userSearchFilter:
+        type: string
+      userSearchField:
+        type: string
+      encryption:
+        type: string
   SettingsMailserver:
     type: object
     properties:
@@ -5438,6 +5846,19 @@ definitions:
       lastConnectionDate:
         type: string
         x-nullable: true
+      anonymized:
+        description: |
+           #2731: true once anonymizeUser has scrubbed this account's PII in
+           place (username/profile/emails replaced with a placeholder,
+           loginDisabled set). Board/card/comment references to this userId are
+           left untouched - see server/models/users.js anonymizeUser.
+        type: boolean
+        x-nullable: true
+      anonymizedAt:
+        description: |
+           When anonymizeUser last ran for this account.
+        type: string
+        x-nullable: true
     required:
       - createdAt
       - modifiedAt
@@ -5456,6 +5877,17 @@ definitions:
         items:
           type: string
           x-nullable: true
+      notifyOverrideTray:
+        description: |
+           Member-level override of the in-app notification tray (3-tier
+           Notification Settings system, see models/lib/notificationSettings.js).
+           Unset means "use the board override, or the Admin Panel default".
+        type: boolean
+      notifyOverrideEmail:
+        description: |
+           Member-level override of email notifications (see
+           models/lib/notificationSettings.js).
+        type: boolean
       fullname:
         description: |
            full name of the user
@@ -5489,6 +5921,11 @@ definitions:
            per-user preference: in multi-line editors (card title/description and
            other inlined forms) submit on plain Enter (Shift+Enter for a newline)
            instead of the default Ctrl/Cmd+Enter. Off by default. See #4236/#6480.
+        type: boolean
+      checklistDingSound:
+        description: |
+           #5427: per-user preference - play a short synthesized "ding" when a
+           checklist item is checked off. Off by default.
         type: boolean
       openManyCardsAtOnce:
         description: |
@@ -5585,6 +6022,14 @@ definitions:
         description: |
            does the user want to hide minicard label texts?
         type: boolean
+      showLabelTextOverride:
+        description: |
+           #4256: optional per-user override of a board's "show label text on
+           minicards" setting (Boards.showLabelText), mirroring the shape of
+           profile.globalThemeColor - absent/null = no override, follow the
+           board's own setting; true/false = always show/hide regardless of
+           which board is being viewed.
+        type: boolean
       initials:
         description: |
            initials of the user
@@ -5659,6 +6104,27 @@ definitions:
         items:
           type: string
           x-nullable: true
+      starredSwimlanes:
+        description: |
+           list of starred swimlane IDs (#1172)
+        type: array
+        items:
+          type: string
+          x-nullable: true
+      starredLists:
+        description: |
+           list of starred list IDs (#1172)
+        type: array
+        items:
+          type: string
+          x-nullable: true
+      starredCards:
+        description: |
+           list of starred card IDs (#1172)
+        type: array
+        items:
+          type: string
+          x-nullable: true
       starredPages:
         description: |
            the starred PAGES - bookmarks. A board is starred by id; a page has no
@@ -5672,6 +6138,22 @@ definitions:
            #2220: the board that opens automatically after logging in (the user's
            "home" board). Empty/unset means land on the All Boards page as before.
         type: string
+      defaultBoardTemplateId:
+        description: |
+           #4205: the "Board Templates" swimlane card (cardType-linkedBoard) the
+           user has marked as their default. When set, creating a board with the
+           plain "type a name and click Create" flow applies this template
+           instead of starting blank. Empty/unset means unchanged (blank board)
+           behavior, exactly as before this feature.
+        type: string
+      defaultBoardTemplateBoardId:
+        description: |
+           #4205: the actual template board (type 'template-board', the card's
+           `linkedId`) that `profile.defaultBoardTemplateId` points at, kept in
+           sync with it. Denormalized so board creation can pass it straight to
+           the same `copyBoard` method the manual "Template" picker already uses
+           (client/components/lists/listBody.js), without a second subscription.
+        type: string
       icode:
         description: |
            icode
@@ -5684,11 +6166,18 @@ definitions:
           - board-view-swimlanes
           - board-view-lists
           - board-view-cal
+          - board-view-multiboard-cal
           - board-view-gantt
+          - board-view-gantt-frappe
+          - board-view-gantt-dhtmlx
           - board-view-table
           - board-view-stats
           - board-view-time
+          - board-view-timeline
+          - board-view-group-by-assignee
+          - board-view-roadmap
           - board-view-dashboard
+          - board-view-bigboard
           - board-view-burndown
           - board-view-burnup
           - board-view-cumulative-flow
@@ -5698,6 +6187,7 @@ definitions:
           - board-view-lead-time
           - board-view-throughput-histogram
           - board-view-wip-run
+          - board-view-pulse
       listSortBy:
         description: |
            default sort list for user
@@ -5784,6 +6274,11 @@ definitions:
            Per-user collapsed state for lists.
            profile[boardId][listId] = true|false
         type: object
+      collapsedCards:
+        description: |
+           Per-user collapsed state for whole minicards (#1591).
+           profile[boardId][cardId] = true|false
+        type: object
       collapsedSwimlanes:
         description: |
            Per-user collapsed state for swimlanes.
@@ -5806,6 +6301,21 @@ definitions:
            Folding something to get it out of your way is a view preference, not
            an edit to the card.
         type: object
+      cardLastViews:
+        description: |
+           Per-user, per-card "last viewed" timestamp (#3078).
+           profile.cardLastViews[cardId] = Date
+
+           Set when the user opens a card's detail view (Template.cardDetails
+           onCreated). Used to decide whether a card's minicard should show the
+           "has unread comments" highlight: a comment created after this
+           timestamp is unread, and a card that was never opened is treated as
+           unread whenever it has any comment at all (see
+           models/lib/unreadComments.js). Same shape as collapsedCardSections
+           above - a blackbox map keyed by cardId - because it is the same kind
+           of thing: per-user view state, not an edit to the card, so every
+           board member can have their own.
+        type: object
       keyboardShortcuts:
         description: |
            User-specified state of keyboard shortcut activation.
@@ -5826,6 +6336,17 @@ definitions:
           - yyyy-mm-dd
           - dd-mm-yyyy
           - mm-dd-yyyy
+      calendarSystem:
+        description: |
+           #4335: DISPLAY-ONLY calendar system used to render minicard and card
+           detail dates (received/start/due/end). Dates are always stored as
+           Gregorian `Date` objects; this only switches the rendered string to
+           the Jalali (Persian/Solar Hijri) calendar for the viewing user. Date
+           pickers/inputs are unaffected and stay Gregorian.
+        type: string
+        enum:
+          - gregorian
+          - jalali
       mobileMode:
         description: |
            User-specified mobile/desktop mode toggle.
@@ -5848,8 +6369,10 @@ definitions:
       - fixedListWidths
       - swimlaneHeights
       - collapsedLists
+      - collapsedCards
       - collapsedSwimlanes
       - collapsedCardSections
+      - cardLastViews
       - keyboardShortcuts
       - verticalScrollbars
       - showWeekOfYear
@@ -5935,6 +6458,12 @@ definitions:
     required:
       - activity
   UsersProfileStarredboards:
+    type: object
+  UsersProfileStarredswimlanes:
+    type: object
+  UsersProfileStarredlists:
+    type: object
+  UsersProfileStarredcards:
     type: object
   UsersProfileStarredpages:
     type: object
