@@ -2643,7 +2643,7 @@
   "twoFactorAuth-confirm": "Conferma e attiva",
   "twoFactorCode-prompt": "Inserisci il tuo codice di autenticazione a 6 cifre",
   "twoFactorCode-submit": "Verifica",
-  "twoFactorCode-cancel": "Annulla",
+  "twoFactorCode-cancel": "Cancella",
   "twoFactorCode-invalid": "Codice di autenticazione non valido. Riprova.",
   "sort-by-votes": "Ordina per voti",
   "wip-limit-groups": "Gruppi limite WIP",

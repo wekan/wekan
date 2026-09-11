@@ -2643,7 +2643,7 @@
   "twoFactorAuth-confirm": "جەزملەشتۈرۈش ۋە قوزغىتىش",
   "twoFactorCode-prompt": "6 خانىلىق دەلىللەش كودىڭىزنى كىرگۈزۈڭ",
   "twoFactorCode-submit": "دەلىللەش",
-  "twoFactorCode-cancel": "ۋاز كېچىش",
+  "twoFactorCode-cancel": "بىكار قىلىش",
   "twoFactorCode-invalid": "ئىناۋەتسىز دەلىللەش كودى. قايتا سىناڭ.",
   "sort-by-votes": "ئاۋاز بويىچە تەرتىپلەش",
   "wip-limit-groups": "WIP چەكلىمىسىنى قوزغىتىڭ (تىزىملىك)",

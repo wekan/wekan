@@ -2643,7 +2643,7 @@
   "twoFactorAuth-confirm": "Επιβεβαίωση και ενεργοποίηση",
   "twoFactorCode-prompt": "Εισαγάγετε τον 6ψήφιο κωδικό ελέγχου ταυτότητας",
   "twoFactorCode-submit": "Επαλήθευση",
-  "twoFactorCode-cancel": "Άκυρο",
+  "twoFactorCode-cancel": "Ακύρωση",
   "twoFactorCode-invalid": "Μη έγκυρος κωδικός ελέγχου ταυτότητας. Δοκιμάστε ξανά.",
   "sort-by-votes": "Ταξινόμηση κατά ψήφους",
   "wip-limit-groups": "Ομάδες ορίου WIP",

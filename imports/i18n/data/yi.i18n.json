@@ -2643,7 +2643,7 @@
   "twoFactorAuth-confirm": "באַשטעטיקן און אָנצינדן",
   "twoFactorCode-prompt": "אַרײַנשרײַבט אײער 6-ציפֿער באַשטעטיקונג-קאָד",
   "twoFactorCode-submit": "באַשטעטיקן",
-  "twoFactorCode-cancel": "אָפּזאָגן",
+  "twoFactorCode-cancel": "באָטל מאַכן",
   "twoFactorCode-invalid": "אומגילטיקער באַשטעטיקונג-קאָד. ביטע פּרוּווט נאָך אַ מאָל.",
   "sort-by-votes": "סארטירן לויט קולות",
   "wip-limit-groups": "געבן WIP לימיט (רשימה)",

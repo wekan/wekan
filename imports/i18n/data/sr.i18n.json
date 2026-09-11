@@ -2643,7 +2643,7 @@
   "twoFactorAuth-confirm": "Potvrdi i omogući",
   "twoFactorCode-prompt": "Unesite svoj šestocifreni kod za autentifikaciju",
   "twoFactorCode-submit": "Proveri",
-  "twoFactorCode-cancel": "Otkaži",
+  "twoFactorCode-cancel": "Откажи",
   "twoFactorCode-invalid": "Nevažeći kod za autentifikaciju. Pokušajte ponovo.",
   "sort-by-votes": "Поређај по гласовима",
   "wip-limit-groups": "Групе ограничења WIP",

@@ -2643,7 +2643,7 @@
   "twoFactorAuth-confirm": "Acertinez eyet metoz en alaedje",
   "twoFactorCode-prompt": "Sicrijhoz vosse côde otintifiaedje di 6 chifes",
   "twoFactorCode-submit": "Verifyî",
-  "twoFactorCode-cancel": "Rinoncî",
+  "twoFactorCode-cancel": "Kanselaha",
   "twoFactorCode-invalid": "Côde d' otintifiaedje nén valåbe. Sayîz co ene feye.",
   "sort-by-votes": "Relére sorlon les vôtes",
   "wip-limit-groups": "I-enable an WIP Limit (Lista)",

@@ -1531,7 +1531,7 @@
   "checklist-ding-sound-description": "Yoxlama siyahısı elementini işarələyəndə qısa siqnal səsi çal. Standart olaraq söndürülüb.",
   "assignee": "Təyinatçı",
   "assignees": "Təyin edilmiş şəxslər",
-  "no-assignee": "Təyin edilməyib",
+  "no-assignee": "Təyinatlı yoxdur",
   "no-label": "Etiket yoxdur",
   "cardAssigneesPopup-title": "Təyinatçı",
   "addmore-detail": "Daha ətraflı təsvir əlavə edin",

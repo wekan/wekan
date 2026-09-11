@@ -2643,7 +2643,7 @@
   "twoFactorAuth-confirm": "ନିଶ୍ଚିତ କରନ୍ତୁ ଏବଂ ସକ୍ଷମ କରନ୍ତୁ",
   "twoFactorCode-prompt": "ଆପଣଙ୍କ 6-ଅଙ୍କ ପ୍ରମାଣୀକରଣ କୋଡ ପ୍ରବେଶ କରନ୍ତୁ",
   "twoFactorCode-submit": "ଯାଞ୍ଚ କରନ୍ତୁ",
-  "twoFactorCode-cancel": "ବାତିଲ କରନ୍ତୁ",
+  "twoFactorCode-cancel": "ବାତିଲ୍ କରନ୍ତୁ |",
   "twoFactorCode-invalid": "ଅବୈଧ ପ୍ରମାଣୀକରଣ କୋଡ। ଦୟାକରି ପୁନର୍ବାର ଚେଷ୍ଟା କରନ୍ତୁ।",
   "sort-by-votes": "ଭୋଟ ଅନୁଯାୟୀ ସଜାନ୍ତୁ",
   "wip-limit-groups": "WIP ସୀମା ସକ୍ଷମ କରନ୍ତୁ | (ତାଲିକା |)",

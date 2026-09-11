@@ -2643,7 +2643,7 @@
   "twoFactorAuth-confirm": "Confirmar e activar",
   "twoFactorCode-prompt": "Picatz vòstre còdi d'autentificacion de 6 chifras",
   "twoFactorCode-submit": "Verificar",
-  "twoFactorCode-cancel": "Anullar",
+  "twoFactorCode-cancel": "Tornar",
   "twoFactorCode-invalid": "Còdi d'autentificacion invalid. Ensajatz tornarmai.",
   "sort-by-votes": "Triar per vòtes",
   "wip-limit-groups": "Activar la WIP limit (Liste)",

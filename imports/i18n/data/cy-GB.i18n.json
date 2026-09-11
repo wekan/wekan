@@ -2100,7 +2100,7 @@
   "card-recurrence-interval": "Ailosod yn awtomatig",
   "cardRecurrenceIntervalPopup-title": "Ailosod yn awtomatig",
   "card-recurrence-interval-none": "I ffwrdd (nid yw'n ailosod yn awtomatig)",
-  "card-recurrence-interval-daily": "Yn ddyddiol",
+  "card-recurrence-interval-daily": "Dyddiol",
   "card-recurrence-interval-weekly": "Wythnosol",
   "card-recurrence-interval-monthly": "Misol",
   "hideCompletedSubtasks": "Cuddio is-dasgau wedi'u cwblhau",

@@ -2643,7 +2643,7 @@
   "twoFactorAuth-confirm": "Confirmați și activați",
   "twoFactorCode-prompt": "Introduceți codul de autentificare din 6 cifre",
   "twoFactorCode-submit": "Verificați",
-  "twoFactorCode-cancel": "Anulați",
+  "twoFactorCode-cancel": "Anulează",
   "twoFactorCode-invalid": "Cod de autentificare invalid. Încercați din nou.",
   "sort-by-votes": "Sortare după voturi",
   "wip-limit-groups": "Grupuri de limită WIP",

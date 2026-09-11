@@ -2643,7 +2643,7 @@
   "twoFactorAuth-confirm": "Bevestigen en inschakelen",
   "twoFactorCode-prompt": "Voer uw 6-cijferige verificatiecode in",
   "twoFactorCode-submit": "Verifiëren",
-  "twoFactorCode-cancel": "Annuleren",
+  "twoFactorCode-cancel": "Ofbrekke",
   "twoFactorCode-invalid": "Ongeldige verificatiecode. Probeer het opnieuw.",
   "sort-by-votes": "Sortearje op stimmen",
   "wip-limit-groups": "WIP Limit ynskeakelje (Oersjochslist)",

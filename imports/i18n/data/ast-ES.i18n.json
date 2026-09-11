@@ -1424,7 +1424,7 @@
   "r-link-card": "Enlazar tarjeta a",
   "ldap": "LDAP",
   "ldap-test-connection": "Probar la conexón LDAP",
-  "ldap-test-connection-success": "Conexón fecha con ésitu",
+  "ldap-test-connection-success": "Conexón correuta",
   "ldap-test-connection-error": "Falló la conexón: %s",
   "oauth-providers-title": "Fornidores d’aniciu de sesión OAuth",
   "oauth-providers-hint": "Cada fornidor pue activase equí o cola so variable d’entornu OAUTH_*_ENABLED; un valor definíu equí anula la variable d’entornu. El secretu guárdase nel sirvidor y nunca s’amuesa.",
