@@ -529,10 +529,12 @@ the Markdown commit as the template.
 **In short:** deleting an **attachment** from a card is now a **soft delete**
 that the **card history** shows and restores, with no per-attachment hard
 delete anywhere - only deleting an archived board with permanent delete
-enabled removes attachment files. This release also repairs the **Windows
-release builds**, which v11.70 lost when GitHub's `windows-latest` moved to
-**Visual Studio 2026**: the bundle now compiles its native modules with a
-node-gyp that recognises it, so the win64 and win-arm64 zips are built again.
+enabled removes attachment files. **Board Settings / Card** gains a toggle
+for every card section and minicard badge, listed in the card's own order.
+This release also repairs the **Windows release builds**, which v11.70 lost
+when GitHub's `windows-latest` moved to **Visual Studio 2026**: the bundle
+now compiles its native modules with a node-gyp that recognises it, so the
+win64 and win-arm64 zips are built again.
 
 This release adds the following new features:
 
@@ -597,6 +599,40 @@ rejections, `tests/attachmentSoftDeleteReads.test.cjs` pins every
 card-facing read to the live filter and the publications to not filtering,
 and `tests/attachmentHistoryRowControls.test.cjs` pins the history row's
 controls and that it never offers cover or background.
+
+</details>
+
+**Board Settings** - the Card settings table covers the whole card, in the
+card's own order.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/148f8a2aa76087749ed72f5eea78ffdd0c953fb2">A toggle for every card section and minicard badge, listed in card order</a>. Thanks to rmb82 and xet7.</summary>
+
+Flowtime, Pomodoro, Stickers and Location were added to the opened card
+without an `allows*` board toggle, so they rendered on every card and Board
+Settings / Card had no row to hide them. Dependencies, Vote, Planning Poker,
+Text Notes and the activity history had the same gap on the card, and the
+dependencies, stickers, comment-count, vote and poker badges had it on the
+minicard. Each now has a board field that defaults to true (an existing
+board keeps showing exactly what it showed), a setter, a REST card-setting
+key, a healed default in the schema upgrade, a row in Board Settings / Card
+with its click handler, and a gate in the card or minicard template.
+`allowsActivities` already existed but gated nothing and its row was
+commented out; it is wired now.
+
+The rows are in the order the fields appear on the opened card: Mark
+complete, card number and cover first; then the reorderable sections through
+the same `orderedCardFieldSections` source the card renders from, so moving
+Description up with the arrows at the bottom of the popup moves its rows up
+too; then checklists, subtasks, attachments, text notes, comments and
+activities. Minicard-only rows (Labels text, List title, Swimlane, Comment
+count) sit beside the card row they belong with. No new translation keys:
+every row reuses the field's existing name.
+
+`tests/cardSettingsCoverage.test.cjs` derives the card's order from
+`cardDetails.jade` and pins the popup to it, checks that every board gate of
+the card and the minicard has a row and every new row is read by a template,
+and that none of the four sections the issue names is unconditional.
 
 </details>
 
