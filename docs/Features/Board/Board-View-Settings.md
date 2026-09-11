@@ -10,16 +10,28 @@ private again, shows its members every view and opens in Swimlanes.
 ## Where to find it
 
 **Board sidebar (hamburger menu) → Board Settings → Board View**, the first
-entry of the Board Settings group, directly ABOVE **Swimlane**. Board admins
-only - same restriction as Swimlane and List.
+entry of the second group of Board Settings, directly ABOVE **Swimlane**.
+Board admins only - same restriction as Swimlane and List.
 
 ```
 ┌─ Sidebar ▾ ─────────────────┐
 │ Board Settings               │
+│  Rules                       │
+│  Change color                │
+│  Change Background Image     │
+│  ────────────────────────    │
 │  ▸ Board View        <- here │
 │  Swimlane                    │
 │  List                        │
 │  Card                        │
+│  ────────────────────────    │
+│  Export                      │
+│  Import                      │
+│  Notifications               │
+│  Outgoing Webhooks           │
+│  ────────────────────────    │
+│  Archived items              │
+│  Move Board to Archive       │
 └──────────────────────────────┘
 ```
 

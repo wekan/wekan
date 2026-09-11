@@ -66,6 +66,9 @@ test('Board Settings has an <hr> above and below the Swimlane/List/Card group', 
   // Settings.md, tests/boardViewSettings.test.cjs), which sits directly
   // above Swimlane; the hr-above check is anchored on it, so that the group
   // still starts right after the rule. The Swimlane -> Card order stays.
+  // Since the menu reorder (tests/boardMenuOrder.test.cjs) the rule above
+  // it closes the Rules / Change color / Change Background Image group and
+  // the rule below it opens the Export group; the group itself is unchanged.
   const firstAt = lines.findIndex(l => l.includes('js-open-board-view-settings'));
   const swimlaneAt = lines.findIndex(l => l.includes('js-open-board-swimlane-settings'));
   const cardAt = lines.findIndex(l => l.includes('js-open-board-card-settings'));
@@ -82,17 +85,23 @@ test('Board Settings has an <hr> above and below the Swimlane/List/Card group', 
   assert.strictEqual(after[0], 'hr', 'an hr directly follows the group');
 });
 
-test('only one hr sits between the group and Archive Board (negative)', () => {
+test('no doubled hr between the group and Archive Board (negative)', () => {
   // The group's closing hr and Archive Board's own opening hr used to be two
   // consecutive `hr` lines - only the second was ever reachable, one board
   // admin away from Move Board to Archive, and it read as a doubled rule.
+  // The menu was then reordered (tests/boardMenuOrder.test.cjs): the
+  // Export / Notifications / Outgoing Webhooks group now sits between this
+  // group and the Archive group, so exactly TWO rules separate Card from
+  // Move Board to Archive - one under each group - and never two in a row.
   const archiveAt = boardMenu.indexOf('js-archive-board');
   const cardAt = boardMenu.indexOf('js-open-board-card-settings');
   const structural = /^(hr|ul\.pop-over-list|if currentUser\.isBoardAdmin|li|unless currentBoard\.isTemplatesBoard)$/;
   const between = boardMenu.slice(cardAt, archiveAt).split('\n').map(l => l.trim())
     .filter(l => structural.test(l));
-  assert.strictEqual(between.filter(l => l === 'hr').length, 1,
-    'exactly one hr sits between the group and Archive Board');
+  assert.strictEqual(between.filter(l => l === 'hr').length, 2,
+    'one hr under the Swimlane/List/Card group and one under the Export group');
+  assert.ok(!between.some((l, i) => l === 'hr' && between[i + 1] === 'hr'),
+    'no two consecutive hr lines');
 });
 
 test('Swimlane and List are board-admin only; Card is open to any board member', () => {

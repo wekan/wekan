@@ -467,22 +467,26 @@ template(name="outgoingWebhooksPopup")
             option(value=_type) {{_ _type}}
     input.primary.wide(type="submit" value="{{_ 'create'}}")
 
+//- Board Settings, top to bottom, in four groups divided by a rule:
+    Rules, Change color, Change Background Image | Board View, Swimlane,
+    List, Card | Export, Import, Notifications, Outgoing Webhooks |
+    Archived items, Move Board to Archive. The first group is what the board
+    IS, the second how it is drawn, the third what goes in and out of it,
+    the last what has been put away. Every entry keeps its own guard: the
+    board-admin ones stay board-admin, Export/Import stay behind withApi,
+    Move Board to Archive stays off the templates board.
+    tests/boardMenuOrder.test.cjs pins this order and the rules.
 template(name="boardMenuPopup")
-  ul.pop-over-list
-    if currentUser.isBoardAdmin
+  if currentUser.isBoardAdmin
+    ul.pop-over-list
       li
         a.js-open-rules-view(title="{{_ 'rules'}}")
           i.fa.fa-magic
           | {{_ 'rules'}}
-    //- "Custom Fields" was here. The board's list of them is in the card's own
-      menu now - Card menu / Custom Fields, whose Settings cog opens it - which
-      is where somebody looking at a card's fields already is.
-      client/components/cards/cardDetails.jade
-    li
-      a.js-open-archives
-        i.fa.fa-archive
-        | {{_ 'archived-items'}}
-    if currentUser.isBoardAdmin
+      //- "Custom Fields" was here. The board's list of them is in the card's own
+        menu now - Card menu / Custom Fields, whose Settings cog opens it - which
+        is where somebody looking at a card's fields already is.
+        client/components/cards/cardDetails.jade
       li
         a.js-change-board-color
           i.fa.fa-paint-brush
@@ -491,10 +495,6 @@ template(name="boardMenuPopup")
         a.js-change-background-image
           i.fa.fa-picture-o
           | {{_ 'board-change-background-image'}}
-      li
-        a.js-open-notification-settings
-          i.fa.fa-bell
-          | {{_ 'notifications'}}
       //- "Board backgrounds" was here. It was the list of pictures uploaded to
         this board, and that list is drawn inside Change Background Image now -
         under the upload that adds to it - so a second entry to the same list
@@ -513,40 +513,19 @@ template(name="boardMenuPopup")
               i.fa.fa-id-card-o
     //
               | {{_ 'board-info-on-my-boards'}}
-  hr
-  ul.pop-over-list
-    if withApi
-      unless exportDisabled
-        li
-          a.js-export-board
-            i.fa.fa-upload
-            | {{_ 'export'}}
-        if canImportIntoBoard
-          li
-            a.js-import-into-board
-              i.fa.fa-download
-              | {{_ 'import'}}
-    if currentUser.isBoardAdmin
-      li
-        a.js-outgoing-webhooks
-          i.fa.fa-globe
-          | {{_ 'outgoing-webhooks'}}
-      //- "Subtasks Settings" was here. What subtasks do on this board is behind
-        the hamburger at the end of the Subtasks heading on an opened card,
-        which is where somebody looking at subtasks already is.
-        client/components/cards/cardDetails.jade
-  if currentUser
     hr
-    //- Swimlane, List and Card settings, together. Swimlane and List are
-      board-admin settings (the resize locks), same restriction the server
-      already enforces. Card is not admin-only: it used to be reached from
-      the card's own menu and the minicard's own menu - "Show on Card" /
-      "Show on Minicard" - which put the same board-wide list of toggles
-      behind two different places depending on what you were looking at, and
-      which also let anyone open it for the one PERSONAL row in it ("Labels
-      text" - stored on the user's own profile, not the board). It is back
-      here as one board setting, and keeps that same personal-only fallback
-      for a non-admin. client/components/cards/cardDetails.jade
+  if currentUser
+    //- Board View, Swimlane, List and Card settings, together. Board View,
+      Swimlane and List are board-admin settings (the resize locks), same
+      restriction the server already enforces. Card is not admin-only: it
+      used to be reached from the card's own menu and the minicard's own
+      menu - "Show on Card" / "Show on Minicard" - which put the same
+      board-wide list of toggles behind two different places depending on
+      what you were looking at, and which also let anyone open it for the one
+      PERSONAL row in it ("Labels text" - stored on the user's own profile,
+      not the board). It is back here as one board setting, and keeps that
+      same personal-only fallback for a non-admin.
+      client/components/cards/cardDetails.jade
     ul.pop-over-list
       if currentUser.isBoardAdmin
         //- Board Settings / Board View: which Board View menu entries this
@@ -575,9 +554,39 @@ template(name="boardMenuPopup")
           i.fa.fa-id-card
           | {{_ 'card'}}
     hr
-  unless currentBoard.isTemplatesBoard
+  ul.pop-over-list
+    if withApi
+      unless exportDisabled
+        li
+          a.js-export-board
+            i.fa.fa-upload
+            | {{_ 'export'}}
+        if canImportIntoBoard
+          li
+            a.js-import-into-board
+              i.fa.fa-download
+              | {{_ 'import'}}
     if currentUser.isBoardAdmin
-      ul.pop-over-list
+      li
+        a.js-open-notification-settings
+          i.fa.fa-bell
+          | {{_ 'notifications'}}
+      li
+        a.js-outgoing-webhooks
+          i.fa.fa-globe
+          | {{_ 'outgoing-webhooks'}}
+      //- "Subtasks Settings" was here. What subtasks do on this board is behind
+        the hamburger at the end of the Subtasks heading on an opened card,
+        which is where somebody looking at subtasks already is.
+        client/components/cards/cardDetails.jade
+  hr
+  ul.pop-over-list
+    li
+      a.js-open-archives
+        i.fa.fa-archive
+        | {{_ 'archived-items'}}
+    unless currentBoard.isTemplatesBoard
+      if currentUser.isBoardAdmin
         // li
         //
            a.js-delete-duplicate-lists

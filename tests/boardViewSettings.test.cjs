@@ -48,6 +48,11 @@ const COLUMN_KEYS = [
 // ---------------------------------------------------------------- the menu
 
 test('Board Settings lists "Board View" directly above "Swimlane", board-admin only', () => {
+  // The Board Settings menu was reordered into Rules / Change color / Change
+  // Background Image, then Board View / Swimlane / List / Card, then Export /
+  // Notifications / Outgoing Webhooks, then Archive (tests/boardMenuOrder.
+  // test.cjs). Board View kept its place directly above Swimlane, so every
+  // assertion here still holds as written.
   const at = sidebarJade.indexOf('a.js-open-board-view-settings');
   const swimlane = sidebarJade.indexOf('a.js-open-board-swimlane-settings');
   assert.ok(at !== -1, 'the Board View entry exists');
