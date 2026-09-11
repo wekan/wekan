@@ -1506,7 +1506,7 @@
   "checklist-ding-sound-description": "Spelar upp ett kort pling-ljud när du bockar av ett checklisteobjekt. Avstängt som standard.",
   "assignee": "Tilldelad till",
   "assignees": "Tilldelade",
-  "no-assignee": "Ingen tilldelad",
+  "no-assignee": "Inte tilldelad",
   "no-label": "Ingen etikett",
   "cardAssigneesPopup-title": "Tilldelad till",
   "addmore-detail": "Lägg till detaljerad beskrivning",
