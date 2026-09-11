@@ -5006,6 +5006,40 @@ it.
 </details>
 
 - [The Flowtime "Add Interruption" button uses the same theme colors as "Start Pomodoro"](https://github.com/wekan/wekan/commit/aa728a8dc). Thanks to xet7.
+- [The Timeline "Restore to this state", List "Sync now" and Admin Panel "Test LDAP Connection" buttons are themed the same way](https://github.com/wekan/wekan/commit/376790de5). Thanks to xet7.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d0a70473e">The Dashboard's charts render again above its table</a>. Thanks to xet7.</summary>
+
+Reported directly: the Dashboard view showed nothing above its table, with
+"Exception from Tracker afterFlush function: Error: There is no current
+view" from `boardCharts.js`. The chart is deliberately built inside
+`Tracker.afterFlush` so the `<canvas>` exists by then, but that callback
+runs outside every Blaze view, where `Template.currentData()` throws - and
+one such call (the dataset title) sat inside it, aborting the whole chart
+build with nothing to retry it. The data context is now read once in the
+autorun and only the captured values are used inside the callback;
+`tests/boardChartsAfterFlushContext.test.cjs` pins that no `afterFlush`
+body in the file calls `Template.currentData()`.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/10c58867a">Frappe Gantt and DHTMLX Gantt show month and weekday names in the user's language</a>. Thanks to xet7.</summary>
+
+Reported directly: both Gantt board views showed English month names in
+every language. Neither library reads WeKan's translations - Frappe Gantt
+takes a `language` tag it hands to `Intl.DateTimeFormat`, and DHTMLX Gantt
+takes a locale object and only bundles a fixed set of them, defaulting to
+English. The new `client/lib/ganttLocale.js` feeds both from the browser's
+own Intl data, so every WeKan language gets its month and weekday names:
+it maps WeKan's tag to one Intl accepts (the underscore tags such as
+`ru_RU` make Intl throw; an unknown tag falls back to its primary subtag,
+then English - every tag under `imports/i18n/data` is pinned to resolve),
+and for DHTMLX prefers a locale the library bundles when there is one.
+`tests/ganttLocale.test.cjs` covers it.
+
+</details>
 
 and improves the translation workflow:
 
