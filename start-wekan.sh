@@ -756,6 +756,71 @@
       #export SAML_LOCAL_PROFILE_MATCH_ATTRIBUTE=
       #export SAML_ATTRIBUTES=
       #---------------------------------------------------------------------
+      # Login with Meteor accounts providers, see docs/Features/Login/OAuth-Providers.md
+      # and docs/Features/Login/Passwordless.md. Every one of these can be overridden
+      # in Admin Panel / People / Login; a value set there wins over the environment
+      # variable. Register this callback URL at the provider:
+      #   <ROOT_URL>/_oauth/<service>  where service is google, github, facebook,
+      #   twitter, meteor-developer, weibo or meetup.
+      # ==== Google ==== create the app at https://console.cloud.google.com/apis/credentials
+      # callback URL: <ROOT_URL>/_oauth/google
+      #export OAUTH_GOOGLE_ENABLED=true
+      #export OAUTH_GOOGLE_CLIENT_ID=
+      #export OAUTH_GOOGLE_SECRET=
+      # OAUTH_GOOGLE_SECRET_FILE : read the secret from a file (Docker secrets) instead
+      #export OAUTH_GOOGLE_SECRET_FILE=/run/secrets/oauth_google_secret
+      # ==== GitHub ==== create the app at https://github.com/settings/developers
+      # callback URL: <ROOT_URL>/_oauth/github
+      #export OAUTH_GITHUB_ENABLED=true
+      #export OAUTH_GITHUB_CLIENT_ID=
+      #export OAUTH_GITHUB_SECRET=
+      # OAUTH_GITHUB_SECRET_FILE : read the secret from a file (Docker secrets) instead
+      #export OAUTH_GITHUB_SECRET_FILE=/run/secrets/oauth_github_secret
+      # ==== Facebook ==== create the app at https://developers.facebook.com/apps/
+      # callback URL: <ROOT_URL>/_oauth/facebook
+      #export OAUTH_FACEBOOK_ENABLED=true
+      #export OAUTH_FACEBOOK_APP_ID=
+      #export OAUTH_FACEBOOK_SECRET=
+      # OAUTH_FACEBOOK_SECRET_FILE : read the secret from a file (Docker secrets) instead
+      #export OAUTH_FACEBOOK_SECRET_FILE=/run/secrets/oauth_facebook_secret
+      # ==== Twitter / X ==== create the app at https://developer.x.com/en/portal/dashboard
+      # callback URL: <ROOT_URL>/_oauth/twitter
+      #export OAUTH_TWITTER_ENABLED=true
+      #export OAUTH_TWITTER_CONSUMER_KEY=
+      #export OAUTH_TWITTER_SECRET=
+      # OAUTH_TWITTER_SECRET_FILE : read the secret from a file (Docker secrets) instead
+      #export OAUTH_TWITTER_SECRET_FILE=/run/secrets/oauth_twitter_secret
+      # ==== Meteor Developer ==== create the app at https://www.meteor.com/
+      # callback URL: <ROOT_URL>/_oauth/meteor-developer
+      #export OAUTH_METEOR_DEVELOPER_ENABLED=true
+      #export OAUTH_METEOR_DEVELOPER_CLIENT_ID=
+      #export OAUTH_METEOR_DEVELOPER_SECRET=
+      # OAUTH_METEOR_DEVELOPER_SECRET_FILE : read the secret from a file (Docker secrets) instead
+      #export OAUTH_METEOR_DEVELOPER_SECRET_FILE=/run/secrets/oauth_meteor_developer_secret
+      # ==== Weibo ==== create the app at https://open.weibo.com/
+      # callback URL: <ROOT_URL>/_oauth/weibo
+      #export OAUTH_WEIBO_ENABLED=true
+      #export OAUTH_WEIBO_CLIENT_ID=
+      #export OAUTH_WEIBO_SECRET=
+      # OAUTH_WEIBO_SECRET_FILE : read the secret from a file (Docker secrets) instead
+      #export OAUTH_WEIBO_SECRET_FILE=/run/secrets/oauth_weibo_secret
+      # ==== Meetup ==== create the app at https://www.meetup.com/api/oauth/list/
+      # callback URL: <ROOT_URL>/_oauth/meetup
+      #export OAUTH_MEETUP_ENABLED=true
+      #export OAUTH_MEETUP_CLIENT_ID=
+      #export OAUTH_MEETUP_SECRET=
+      # OAUTH_MEETUP_SECRET_FILE : read the secret from a file (Docker secrets) instead
+      #export OAUTH_MEETUP_SECRET_FILE=/run/secrets/oauth_meetup_secret
+      # OAUTH_PROVIDERS_LOGIN_STYLE : popup or redirect, for all providers above. Default: popup
+      #export OAUTH_PROVIDERS_LOGIN_STYLE=popup
+      # OAUTH_PROVIDERS_MERGE_EXISTING_USERS : link a provider login to an existing WeKan
+      # account with the same email. Default: false = the login is refused, not merged,
+      # like OAUTH2_MERGE_EXISTING_USERS. Enable only if you trust the provider's emails.
+      #export OAUTH_PROVIDERS_MERGE_EXISTING_USERS=false
+      # PASSWORDLESS_ENABLED : email a one-time sign-in code instead of asking a
+      # password. Needs MAIL_URL. Also switchable in Admin Panel / People / Login.
+      #export PASSWORDLESS_ENABLED=true
+      #---------------------------------------------------------------------
       # Wait spinner to use
       #export WAIT_SPINNER=Bounce
       #---------------------------------------------------------------------

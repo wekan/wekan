@@ -810,6 +810,71 @@ REM SET SAML_IDENTIFIER_FORMAT=
 REM SET SAML_LOCAL_PROFILE_MATCH_ATTRIBUTE=
 REM SET SAML_ATTRIBUTES=
 
+REM # Login with Meteor accounts providers, see docs/Features/Login/OAuth-Providers.md
+REM # and docs/Features/Login/Passwordless.md. Every one of these can be overridden
+REM # in Admin Panel / People / Login; a value set there wins over the environment
+REM # variable. Register this callback URL at the provider:
+REM #   <ROOT_URL>/_oauth/<service>  where service is google, github, facebook,
+REM #   twitter, meteor-developer, weibo or meetup.
+REM # ==== Google ==== create the app at https://console.cloud.google.com/apis/credentials
+REM # callback URL: <ROOT_URL>/_oauth/google
+REM SET OAUTH_GOOGLE_ENABLED=true
+REM SET OAUTH_GOOGLE_CLIENT_ID=
+REM SET OAUTH_GOOGLE_SECRET=
+REM # OAUTH_GOOGLE_SECRET_FILE : read the secret from a file (Docker secrets) instead
+REM SET OAUTH_GOOGLE_SECRET_FILE=/run/secrets/oauth_google_secret
+REM # ==== GitHub ==== create the app at https://github.com/settings/developers
+REM # callback URL: <ROOT_URL>/_oauth/github
+REM SET OAUTH_GITHUB_ENABLED=true
+REM SET OAUTH_GITHUB_CLIENT_ID=
+REM SET OAUTH_GITHUB_SECRET=
+REM # OAUTH_GITHUB_SECRET_FILE : read the secret from a file (Docker secrets) instead
+REM SET OAUTH_GITHUB_SECRET_FILE=/run/secrets/oauth_github_secret
+REM # ==== Facebook ==== create the app at https://developers.facebook.com/apps/
+REM # callback URL: <ROOT_URL>/_oauth/facebook
+REM SET OAUTH_FACEBOOK_ENABLED=true
+REM SET OAUTH_FACEBOOK_APP_ID=
+REM SET OAUTH_FACEBOOK_SECRET=
+REM # OAUTH_FACEBOOK_SECRET_FILE : read the secret from a file (Docker secrets) instead
+REM SET OAUTH_FACEBOOK_SECRET_FILE=/run/secrets/oauth_facebook_secret
+REM # ==== Twitter / X ==== create the app at https://developer.x.com/en/portal/dashboard
+REM # callback URL: <ROOT_URL>/_oauth/twitter
+REM SET OAUTH_TWITTER_ENABLED=true
+REM SET OAUTH_TWITTER_CONSUMER_KEY=
+REM SET OAUTH_TWITTER_SECRET=
+REM # OAUTH_TWITTER_SECRET_FILE : read the secret from a file (Docker secrets) instead
+REM SET OAUTH_TWITTER_SECRET_FILE=/run/secrets/oauth_twitter_secret
+REM # ==== Meteor Developer ==== create the app at https://www.meteor.com/
+REM # callback URL: <ROOT_URL>/_oauth/meteor-developer
+REM SET OAUTH_METEOR_DEVELOPER_ENABLED=true
+REM SET OAUTH_METEOR_DEVELOPER_CLIENT_ID=
+REM SET OAUTH_METEOR_DEVELOPER_SECRET=
+REM # OAUTH_METEOR_DEVELOPER_SECRET_FILE : read the secret from a file (Docker secrets) instead
+REM SET OAUTH_METEOR_DEVELOPER_SECRET_FILE=/run/secrets/oauth_meteor_developer_secret
+REM # ==== Weibo ==== create the app at https://open.weibo.com/
+REM # callback URL: <ROOT_URL>/_oauth/weibo
+REM SET OAUTH_WEIBO_ENABLED=true
+REM SET OAUTH_WEIBO_CLIENT_ID=
+REM SET OAUTH_WEIBO_SECRET=
+REM # OAUTH_WEIBO_SECRET_FILE : read the secret from a file (Docker secrets) instead
+REM SET OAUTH_WEIBO_SECRET_FILE=/run/secrets/oauth_weibo_secret
+REM # ==== Meetup ==== create the app at https://www.meetup.com/api/oauth/list/
+REM # callback URL: <ROOT_URL>/_oauth/meetup
+REM SET OAUTH_MEETUP_ENABLED=true
+REM SET OAUTH_MEETUP_CLIENT_ID=
+REM SET OAUTH_MEETUP_SECRET=
+REM # OAUTH_MEETUP_SECRET_FILE : read the secret from a file (Docker secrets) instead
+REM SET OAUTH_MEETUP_SECRET_FILE=/run/secrets/oauth_meetup_secret
+REM # OAUTH_PROVIDERS_LOGIN_STYLE : popup or redirect, for all providers above. Default: popup
+REM SET OAUTH_PROVIDERS_LOGIN_STYLE=popup
+REM # OAUTH_PROVIDERS_MERGE_EXISTING_USERS : link a provider login to an existing WeKan
+REM # account with the same email. Default: false = the login is refused, not merged,
+REM # like OAUTH2_MERGE_EXISTING_USERS. Enable only if you trust the provider's emails.
+REM SET OAUTH_PROVIDERS_MERGE_EXISTING_USERS=false
+REM # PASSWORDLESS_ENABLED : email a one-time sign-in code instead of asking a
+REM # password. Needs MAIL_URL. Also switchable in Admin Panel / People / Login.
+REM SET PASSWORDLESS_ENABLED=true
+
 REM # Wait spinner to use https://github.com/wekan/wekan/wiki/Wait-Spinners
 REM SET WAIT_SPINNER=Bounce
 

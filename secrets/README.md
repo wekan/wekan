@@ -6,6 +6,10 @@ This directory contains example secret files for Wekan Docker Compose deployment
 
 - `ldap_auth_password.txt` - LDAP authentication password
 - `oauth2_secret.txt` - OAuth2 secret key
+- `oauth_<service>_secret` - the secret of a Meteor accounts login provider,
+  read through `OAUTH_<PROVIDER>_SECRET_FILE`; `<service>` is one of `google`,
+  `github`, `facebook`, `twitter`, `meteor_developer`, `weibo`, `meetup`
+  (see `docs/Features/Login/OAuth-Providers.md`)
 - `mail_service_password.txt` - Mail service password
 - `mongo_password.txt` - MongoDB password
 - `s3_secret.txt` - S3 configuration (JSON format)

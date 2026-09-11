@@ -119,6 +119,8 @@ Wekan is distributed under the [MIT License], allowing anyone to easily work wit
 * [Google login](./Features/Login/Google-login.md)
 * [Azure](./Features/Login/Azure/Azure.md)
 * [OAuth2](./Features/Login/OAuth2.md), Auth0, GitLab, RocketChat
+* [OAuth Providers](./Features/Login/OAuth-Providers.md): Google, GitHub, Facebook, Twitter, Meteor Developer, Weibo, Meetup
+* [Passwordless](./Features/Login/Passwordless.md): one-time sign-in code by email
 * [Oracle OIM on premise using OAuth2](./Features/Login/Oracle-OIM.md)
 * [ADFS 4.0 using OAuth2 and OpenID](./Features/Login/ADFS.md)
 * [Azure AD B2C using OAuth2](./Features/Login/B2C.md)

@@ -27,6 +27,34 @@ if [ -f "/run/secrets/oauth2_secret" ]; then
     export OAUTH2_SECRET=$(cat /run/secrets/oauth2_secret)
 fi
 
+if [ -f "/run/secrets/oauth_google_secret" ]; then
+    export OAUTH_GOOGLE_SECRET=$(cat /run/secrets/oauth_google_secret)
+fi
+
+if [ -f "/run/secrets/oauth_github_secret" ]; then
+    export OAUTH_GITHUB_SECRET=$(cat /run/secrets/oauth_github_secret)
+fi
+
+if [ -f "/run/secrets/oauth_facebook_secret" ]; then
+    export OAUTH_FACEBOOK_SECRET=$(cat /run/secrets/oauth_facebook_secret)
+fi
+
+if [ -f "/run/secrets/oauth_twitter_secret" ]; then
+    export OAUTH_TWITTER_SECRET=$(cat /run/secrets/oauth_twitter_secret)
+fi
+
+if [ -f "/run/secrets/oauth_meteor_developer_secret" ]; then
+    export OAUTH_METEOR_DEVELOPER_SECRET=$(cat /run/secrets/oauth_meteor_developer_secret)
+fi
+
+if [ -f "/run/secrets/oauth_weibo_secret" ]; then
+    export OAUTH_WEIBO_SECRET=$(cat /run/secrets/oauth_weibo_secret)
+fi
+
+if [ -f "/run/secrets/oauth_meetup_secret" ]; then
+    export OAUTH_MEETUP_SECRET=$(cat /run/secrets/oauth_meetup_secret)
+fi
+
 if [ -f "/run/secrets/mail_service_password" ]; then
     export MAIL_SERVICE_PASSWORD=$(cat /run/secrets/mail_service_password)
 fi
