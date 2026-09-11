@@ -643,6 +643,8 @@ and improves the translation workflow:
 
 - [Translate the attachment soft-delete confirmation for Danish, German, Greek, Spanish, French, Finnish and 15 more languages](https://github.com/wekan/wekan/commit/21f2d1ed5). Thanks to xet7.
 
+- [Translate the attachment soft-delete confirmation for Ukrainian, Urdu, Uzbek, Vietnamese, Chinese, Cantonese, Wu, Yiddish, Yoruba, Xhosa, Zulu and 10 more languages](https://github.com/wekan/wekan/commit/8fa5279fe). Thanks to xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v11.70 2026-09-11 WeKan ® release
