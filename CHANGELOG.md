@@ -536,7 +536,107 @@ card-skipping, Admin Panel People filtered **by Team**, **Rules** title
 validation and assignee triggers, and an **Admin only** custom-field flag
 that hides a field's value from non-admin board members.
 
-This release adds the following new features:
+This release fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
+
+**Markdown card-URL autolinking** - duplicated on purpose between app and package.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9cbf67ba7">Escape a backslash before escaping ']' in an autolinked card title, not only ']'</a>. Thanks to GitHub CodeQL and xet7.</summary>
+
+`models/lib/cardUrlAutolink.js` and `packages/markdown/src/
+template-integration.js` build a markdown link `[<title>](<url>)` around a
+pasted WeKan card URL, escaping `]` in the title so it cannot prematurely
+close the label. CodeQL's `js/incomplete-sanitization` query (alerts #532
+and #533) found the escape incomplete: a title ending in a raw backslash
+(e.g. `"foo\"`) was left untouched, so the backslash escaped the LITERAL
+`]` this code inserts to close the label instead of the label actually
+closing - the emitted markdown was not the link intended. Both copies now
+escape `\` before `]`, kept in sync as their own comments already require.
+This is a rendering-correctness fix, not an XSS hole on its own: the final
+HTML still goes through DOMPurify regardless, per the existing code
+comments, so no Admin Panel security-log entry applies.
+
+</details>
+
+**Test-only assertion bugs** - four findings inside the test suite's own logic, none reachable in production.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9cbf67ba7">Escape every regex meta-character when building a dynamic RegExp from a URL, not only '/'</a>. Thanks to GitHub CodeQL and xet7.</summary>
+
+`tests/notificationEmailUrlLink.test.cjs` built ad-hoc `RegExp`s out of a
+notification URL by hand-escaping only `/` (`js/incomplete-sanitization`,
+alerts #528-#530) - every other meta-character, including the backslash
+that would neutralize the escape itself, passed through untouched. Added
+the same `escapeRegExp()` helper already used in
+`models/lib/externalLinkAutolink.js`, plus a negative test reproducing the
+exact "unterminated group" crash the old slash-only escape hit on a value
+containing an unescaped `(`.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9cbf67ba7">Write documentGif.js's control-character strip as explicit \x escapes instead of raw control bytes</a>. Thanks to GitHub CodeQL and xet7.</summary>
+
+`server/lib/documentGif.js`'s `plainSearchText()` strips C0 control
+characters and DEL from extracted document text before indexing it for
+search, but the character class was written with literal raw control
+BYTES either side of the `-` range operators instead of `\x` escapes.
+CodeQL's `js/overly-large-range` query (alert #526) flagged the range as
+unverifiable: adjacent control bytes are visually indistinguishable in an
+editor or a diff, so a boundary could silently widen or narrow without
+anyone noticing. Rewritten with explicit `\x00-\x08\x0b\x0c\x0e-\x1f\x7f`
+escapes, byte-for-byte equivalent to the original range and now checkable
+at a glance; a new test also proves no raw control byte remains in the
+function body.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9cbf67ba7">Compare a real URL hostname instead of a naive substring check in the OAuth logout test</a>. Thanks to GitHub CodeQL and xet7.</summary>
+
+`tests/oauthLogoutUrl.test.cjs` asserted an absolute logout endpoint
+ignores `serverUrl` via `!url.includes('id.example.com')` - CodeQL's
+`js/incomplete-url-substring-sanitization` query (alert #531) flagged
+that a substring like this can appear anywhere in a URL (a query value, a
+path segment, or part of an unrelated confusable hostname) without the
+ignored host actually being used. Replaced with a `new URL(url).hostname`
+comparison, plus a negative test with both a URL that merely MENTIONS the
+substring in its query string and a confusable
+`id.example.com.attacker.example` host, neither of which the fixed check
+mistakes for the real one.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9cbf67ba7">Replace a no-op '.replace(/ /g, ' ')' with an actual run-of-spaces collapse</a>. Thanks to GitHub CodeQL and xet7.</summary>
+
+`tests/boardCreationAdminOnly.test.cjs` normalized bootstrap source text
+with `.replace(/\n\s*/g, ' ').replace(/ /g, ' ')` before matching it -
+CodeQL's `js/identity-replacement` query (alert #527) flagged the second
+`.replace()` as replacing a single space with itself, a no-op. The actual
+intent was collapsing RUNS of spaces the newline-collapse can leave
+behind, `.replace(/ +/g, ' ')`, which is what it now does; a new test
+proves the fixed helper collapses `"a     b"` to `"a b"` while the old
+no-op left it unchanged.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ead5578e8">Close CodeQL alerts #534, #535 and #536, which pointed at the negative tests</a>. Thanks to GitHub CodeQL and xet7.</summary>
+
+The three alerts point at tests, not application code: the negative tests
+added with the fix above reproduce each OLD bug to prove it is gone - and
+did so with the exact construct CodeQL flags, so the alerts stayed open on
+the test lines. The `]`-only escaping is now reproduced with split/join
+rather than a `]`-only regex replace, the naive `includes` check
+assembles its hostname at run time rather than from a literal, and the
+"replace a space with a space" no-op builds its RegExp at run time. Each
+test still asserts the same old-vs-new difference; no application code
+changed.
+
+</details>
+
+and adds the following new features:
 
 **Notification Settings** - one place to turn tray/email notifications on or off.
 
@@ -3283,6 +3383,663 @@ archived card never spawns another occurrence. See
 
 </details>
 
+**Account deactivation** - a GDPR-friendlier alternative to deleting an account.
+
+**Member Settings and Admin Panel / People** - anonymizing an account.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ac4b7e75f">Anonymize an account, self-service or admin-triggered, instead of deleting it</a>. Thanks to Akuket and xet7.</summary>
+
+[#2731](https://github.com/wekan/wekan/issues/2731): the only way to leave no
+personal data behind was Delete Account, which also hard-deletes the Users
+document and prunes every board/card/comment reference to it - losing
+attribution and history entirely, which is more than GDPR requires and more
+than some users want to lose.
+
+`anonymizeUser` (`server/models/users.js`, its decision and update-shape logic
+split into `models/lib/userAnonymization.js` the same way removeUser's cleanup
+plan already lives in `models/lib/userDeletionCleanup.js`) overwrites the
+username, full name, email address and avatar with an anonymized placeholder
+and sets `loginDisabled: true` - the same flag `server/authentication.js`'s
+`validateLoginAttempt` already gates login on - so the account can no longer
+log in. It does NOT prune or touch a single board/card/comment/activity
+reference: those keep pointing at the same `userId`, which now simply
+resolves to the anonymized name, keeping the account's past activity
+structurally intact.
+
+Callable both by the account owner on themselves (a new "Anonymize account"
+button next to Delete in the Edit Profile popup,
+`client/components/users/userHeader.jade`/`.js`) and by an admin on any other
+user (next to the existing delete action in Admin Panel → People,
+`client/components/settings/peopleBody.jade`/`.js`), each behind its own
+irreversible-warning confirmation popup matching the existing delete
+confirmation's pattern. The last remaining administrator cannot be
+anonymized, mirroring removeUser's same guard.
+
+No Admin Panel → Problems entry was added: that log is for attempts an
+attacker controls, and there is no attacker here - anonymizing is a
+privileged action an admin takes on purpose, or a member acting on their own
+account. WeKan has no general admin-action audit log to hook into
+(`server/lib/recoveryAudit.js` is board-deletion-specific); the audit trail
+for this action is the new `anonymized`/`anonymizedAt` fields persisted on
+the Users document itself and visible in Admin Panel → People.
+
+`tests/userAnonymization.test.cjs` is a pure-Node regression guard (no
+Meteor) covering: PII fields are scrubbed and `loginDisabled` is set; the
+update never touches a reference-shaped field (`members`, `assignees`,
+`watchers`, `boardId`, …) - the negative test distinguishing this from
+removeUser's pruning; the same predicate `server/authentication.js` uses
+denies login afterward; both the self-service and admin-triggered paths are
+allowed; and a non-admin cannot anonymize another user, nor can the last
+administrator be anonymized.
+
+</details>
+
+**Sign in with Apple** - OIDC-shaped login with a JWT client secret.
+
+**OAuth2/OIDC login** - the generic provider client Keycloak, Authelia and now Apple share.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/517bee3f0">Server-signed JWT client secret for OAuth2, enabling Sign in with Apple</a>. Thanks to xet7.</summary>
+
+[#2458](https://github.com/wekan/wekan/issues/2458) asked for "Sign in with
+Apple". Apple's login is OIDC-compatible, so it works through Wekan's existing
+generic OAuth2/OIDC client - except its "client secret" is not a static
+string like Keycloak's or Authelia's: it must be a short-lived JWT the server
+signs itself (ES256), using a private key downloaded once from Apple's
+developer portal.
+
+`models/lib/oauth2ClientSecretJwt.js` mints that JWT using only Node's
+built-in `crypto` module - no new dependency, since ES256 signing with
+IEEE-P1363 signature encoding (the format a JWT requires) has been supported
+since Node 12. It is opt-in via a new `OAUTH2_SECRET_JWT_KEY_PATH` env var
+(plus `OAUTH2_SECRET_JWT_ISSUER`/`_KEY_ID`/`_AUDIENCE`/`_SUBJECT`/
+`_EXPIRES_IN`); when unset (the default, and every existing provider's
+configuration), `packages/wekan-oidc/oidc_server.js` falls back to the static
+`OAUTH2_SECRET` exactly as before, so Keycloak, Authelia and every other
+provider are unaffected.
+
+Apple's other quirk - it returns the user's name only on the very first
+authorization, never again - needs no special-casing: `Accounts.onCreateUser`
+(`server/models/users.js`) already copies the OIDC fullname/email claims into
+the user's `profile` only once, at account creation, and never overwrites
+them on later logins (Meteor's `updateOrCreateUserFromExternalService` only
+touches `services.oidc.*` for a returning user, not `profile.*`).
+
+`docs/Features/Login/Apple.md` documents Apple's fixed endpoints
+(`https://appleid.apple.com/auth/authorize`/`/auth/token`) and the new env
+vars, in the same format as the Keycloak/Authelia docs, and is linked from
+`docs/Features/Login/OAuth2.md`'s provider list.
+`tests/oauth2ClientSecretJwt.test.cjs` is a pure-Node regression guard
+covering the minted JWT's header/claims shape, that its ES256 signature
+verifies against the matching public key and fails against another key, and
+the negative case: with the new env vars unset, no JWT is generated and the
+static-secret path is untouched.
+
+</details>
+
+**REST API** - improvements to the HTTP API.
+
+**Checklists and comments** - editing them over the API, not just creating and deleting them.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/099ab39dd">Add PUT endpoints for a checklist's title and a comment's text</a>. Thanks to mayjs and xet7.</summary>
+
+[#1037](https://github.com/wekan/wekan/issues/1037) asked for a roadmap of
+missing REST API features. Auditing the current surface
+(`server/models/*.js`, one file per resource, each registering its own
+`WebApp.handlers.get/post/put/delete`) against it found two clean CRUD
+gaps: every other board sub-resource with GET/POST/DELETE already had a
+matching PUT, but a checklist and a comment did not, so renaming a
+checklist or fixing a typo in a comment meant deleting it and
+re-creating it - losing its id, its timestamps, and, for a checklist,
+scattering its items onto a rebuild.
+
+`PUT /api/boards/:boardId/cards/:cardId/checklists/:checklistId`
+accepts `{ "title": "..." }`, mirrors the existing DELETE's board/card
+lookup and `checkBoardWriteAccess`, and rejects a missing or blank
+title with 400 rather than silently storing one - only `title` is
+writable; the per-checklist display toggles are a separate, larger
+piece of surface and stayed out of scope here.
+
+`PUT /api/boards/:boardId/cards/:cardId/comments/:commentId` accepts
+`{ "comment": "..." }`, reuses the same `validateCommentBody` the POST
+handler already uses, and applies the exact rule DDP applies
+(`assertCanMutateComment`: the comment's author, or a board admin
+unless the board sets `restrictCommentEditing`) - including the
+GHSA-pqr4-rxgp-hv2m foreign-comment canary the DELETE handler already
+trips, now named `comment.foreign-edit` for an edit versus
+`comment.foreign-delete` for a delete, so both are equally visible.
+`CardComments.direct.updateAsync` is used exactly the way the POST
+handler already inserts (`.direct`, bypassing the collection hook),
+with the same `editComment` activity recorded explicitly afterwards.
+
+`tests/restApiEditGaps.test.cjs` pins both routes as source-pattern
+tests, matching how the rest of this REST surface is already tested in
+`tests/restApiIdorBatch.test.cjs`: the auth check, the board/card-scoped
+(never bare-`_id`) lookup, the validation, and - for comments - that
+the edit path enforces the identical author/admin/canary rule as the
+existing delete path.
+
+Most of the other open API:REST-labeled issues
+([#5474](https://github.com/wekan/wekan/issues/5474),
+[#4930](https://github.com/wekan/wekan/issues/4930),
+[#2906](https://github.com/wekan/wekan/issues/2906),
+[#2761](https://github.com/wekan/wekan/issues/2761),
+[#2449](https://github.com/wekan/wekan/issues/2449),
+[#2208](https://github.com/wekan/wekan/issues/2208),
+[#2167](https://github.com/wekan/wekan/issues/2167),
+[#2017](https://github.com/wekan/wekan/issues/2017),
+[#1297](https://github.com/wekan/wekan/issues/1297),
+[#794](https://github.com/wekan/wekan/issues/794)) ask for a new
+capability (impersonation, WebHooks with richer targets, a stable
+board key, Sandstorm-specific docs) rather than a missing CRUD verb on
+an existing resource, so they are left open for their own, larger
+piece of work rather than folded into this cleanup.
+
+</details>
+
+**Admin Panel / Login** - LDAP_* environment variables can now be overridden.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ac363f979">Add Admin Panel overrides for LDAP_* environment variables, and a Test LDAP Connection button</a>. Thanks to xet7.</summary>
+
+Every LDAP_* setting `server/authentication.js` and `packages/wekan-ldap`
+read straight from `process.env` can now be overridden from Admin Panel /
+Login, with an explicit admin value winning over the env var and the env
+var winning over nothing
+(`models/lib/configResolver.js`'s `resolveConfigValue()`, pure and unit-
+tested for the precedence and for its 'admin'/'env'/'default' source tag).
+The Admin Panel LDAP section shows, next to every field, which source is
+currently in effect - an env var name, "Admin Panel", or "Unset" - so it
+is always clear whether a value comes from the environment or from an
+admin override.
+
+The bind password never reaches the browser: it is stored in the new
+`Settings.ldap.bindPassword` field, which `server/publications/settings.js`
+deliberately never publishes (only the boolean `ldap.bindPasswordSet` is).
+The password input starts empty and an empty submission leaves the
+existing value/source untouched, matching the existing mail-server
+password field's pattern. `hasConfigValue()` is the parallel, secret-safe
+resolver: it returns only a boolean and a source, never the value, and a
+negative test fuzzes several secret shapes through it to prove that.
+
+Found while wiring this up: `packages/wekan-ldap/server/testConnection.js`'s
+existing `ldap_test_connection` method had its isAdmin check commented
+out, so any authenticated user - not only an admin - could trigger a real
+LDAP bind attempt against the configured directory. Fixed to require
+isAdmin, the same check every other admin-only Settings method uses,
+before any connection is attempted. A new "Test LDAP Connection" button in
+Admin Panel / Login calls this method against whichever config (admin
+override or env var) is currently resolved and shows the result - success
+or the directory's own error - inline.
+
+Switching between LDAP, OAuth2, SAML and password login already has its
+own UI (the Login pane's "Default Authentication Method" selector plus
+each method's own enabled flag); this only extends "enabled" itself to be
+admin-overridable, the same as every other LDAP field. LDAP is covered end
+to end (override + test-connection); OAuth2/SAML/CAS's env vars are
+unchanged and stay env-only for now - the resolver is written to extend to
+them, but doing so was out of scope for this pass.
+
+</details>
+
+**Server startup and email/import robustness** - a production unhandledRejection
+and the values that fed it.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/563a0a6ed">Guard three toLowerCase() call sites that could receive a non-string value</a>. Thanks to xet7.</summary>
+
+A production log kept showing `[unhandledRejection] WeKan keeps running:
+TypeError: string.toLowerCase is not a function`. Auditing every server-
+reachable `.toLowerCase()` call site (`server/`, `models/`, `packages/`)
+found the actual cause: `Users.after.insert()`'s registration-invitation-code
+check read `doc.authenticationMethod.toLowerCase()` unguarded, but
+`authenticationMethod` is only ever set for oauth2/ldap signups - a normal
+password/invitation signup leaves it `undefined`, so this crashed on every
+new-user insert whenever `disableRegistration` was on; `doc.emails[0].address`
+was also read unguarded there. The buffered activity-notification-email
+sender in `server/notifications/email.js` had the same shape:
+`user.emails[0].address.toLowerCase()` unguarded, crashing when a user (for
+example a header-auth or LDAP account) has an empty `emails` array instead of
+just skipping that send. The CSV/TSV importer's header-row mapping in
+`models/csvCreator.js` read `headerRow[i].toLowerCase()` unguarded, which
+could throw on a sparse row whose cell isn't a string. All three now check
+`typeof`/presence first and fall through (skip the branch, or use an empty
+string) instead of throwing. Every other `.toLowerCase()` call site in
+server-reachable code was already guarded (a `typeof` check, an `|| ''`
+fallback, or a value sourced from a validated schema field) and was left
+unchanged.
+
+</details>
+
+**Popups and languages** - a Scrum doc's links, six popups with no header,
+and two duplicated language files.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3f872cccc78986b56142711a6fabdd250bf6a13">Fix broken docs links, restore the km-KH/ru-RU language symlinks, and title six popups that rendered with no header</a>. Thanks to xet7.</summary>
+
+`docs/Features/Cards/Scrum.md` linked `../../DragDrop/Drag-Drop.md` and
+`../../Lists/WipLimit/WipLimit.md`, one directory level too high from
+`docs/Features/Cards/`; both 404'd. Fixed to `../DragDrop/Drag-Drop.md`
+and `../Lists/WipLimit/WipLimit.md`.
+
+`imports/i18n/data/km-KH.i18n.json` and `ru-RU.i18n.json` had drifted into
+independent copies of `km_KH.i18n.json`/`ru_RU.i18n.json` instead of being
+a symlink to the file a Transifex pull actually writes, so the registry's
+`km-KH`/`ru-RU` entries loaded a stale duplicate and `ru-RU` was missing
+two keys that had only landed in `ru_RU.i18n.json`. Restored both as
+symlinks.
+
+Six popups - Add Existing Subtask, Restore Card to Timeline, Clone Board,
+Create Board From Card, Archive All (list) Cards, and List Sync - had no
+`<name>Popup-title` key, so each rendered with no header and so no close
+button (the same class of problem `deleteBoardBackgroundPopup` etc. were
+fixed for earlier). Added the title key to `en.i18n.json` and every
+locale file, left as the English placeholder where no translation exists
+yet.
+
+Also inserted `text-contains-trigger-label`/`-description` into five
+locale files (`ace`, `ba` and three others) that were missing them
+entirely, which had shifted every following key out of position relative
+to `en.i18n.json`.
+
+</details>
+
+**Board feature flags, Board Settings and Notification Settings** - four
+more regressions from today's heavy development session.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1deae2fca">Fix the spent-time backfill, two Board Settings fields, Notification Settings wiring and two font sizes</a>. Thanks to xet7.</summary>
+
+`allowsSpentTime`/`allowsSpentTimeOnMinicard` have `defaultValue: true` in
+`models/boards.js` but were missing from
+`server/lib/schemaUpgradeSteps.js`'s `BOARD_ALLOWS_TRUE_DEFAULTS`, so a
+board created before those flags existed would read them as
+undefined/false and hide its spent-time badge -
+`tests/schemaUpgradeSteps.test.cjs` pins the list against the schema so
+the two can no longer drift apart.
+
+`customPrivateBoardDesc`/`customPublicBoardDesc` are read by
+`settingBody.jade` but were missing from
+`server/publications/settings.js`'s `SETTING_FIELDS`, so both fields
+always rendered empty and saving them looked like it did nothing - the
+same class of bug `tests/settingPublishedFields.test.cjs` already exists
+to catch.
+
+`notificationSettingsPopup.jade`/`.js` (the 3-tier Notification Settings
+popup) are used by `peopleBody.jade` but were never imported into
+`client/features/settings.js`, so the template compiled to nothing and
+the popup did not exist at runtime; added both imports.
+
+`client/components/boards/timelineView.css` and two rules in
+`client/components/cards/minicard.css` still used bare px `font-size`
+values instead of `calc(Npx * var(--wekan-ui-font-scale, 1))`, so the UI
+font-size preset did not reach the Timeline board view or two minicard
+comment rows.
+
+</details>
+
+**Admin Panel / People, board item links, the Frappe Gantt view and the
+FerretDB Docker Compose backends** - four small pieces of drift found while
+chasing node test-suite failures.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e15f53135">Admin Panel / People's Notifications row now has a URL of its own</a>. Thanks to xet7.</summary>
+
+`peopleMenu()` in `client/components/settings/peopleBody.js` draws a
+"Notifications" row (the admin-level default for the 3-tier Notification
+Settings system) but `models/lib/adminUrls.js`'s `ADMIN_PAGES.people.panes`
+had no slug for `notify-setting`, so the row could not be linked to or
+deep-linked with `/admin/people/<slug>` the way every other row can be.
+Added the `notifications` slug and its title, and documented the new
+`/admin/people/notifications` URL in `docs/Features/Page/Admin-Panel-URLs.md`.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6e78c0f64">Opening a card or another board no longer leaves a stale comment/activity reveal armed</a>. Thanks to xet7.</summary>
+
+`client/lib/revealBoardItem.js`'s permalink reveal (issue #4757) is
+one-shot: following a `#comment-<id>`/`#activity-<id>` link sets
+`revealCommentId`/`revealActivityId` in `Session`, and the board scrolls to
+and highlights that element once. `config/router.js`'s `card` and `board`
+routes already cleared `revealSwimlaneId`/`revealListId` on every
+navigation so a stale swimlane/list reveal could not fire on the next
+board, but never cleared the two comment/activity keys - so following a
+comment permalink and then opening a different card could still scroll and
+highlight the old comment once the first card's board rendered again.
+Both routes now clear all four reveal keys.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ca9384c4a">The Frappe Gantt board view no longer risks "no template frappeGanttView found"</a>. Thanks to xet7.</summary>
+
+`client/components/boards/roadmapView.js` imports
+`client/components/gantt/frappeGantt.js` directly for `loadGanttLib`/
+`cardsToTasks`/`popupDetailsHtml`, but that module registers
+`Template.frappeGanttView.*` without importing its own
+`frappeGantt.jade`. Whichever module reached it first - which can now be
+`roadmapView.js`, well before `client/features/gantt.js`'s own import list
+gets to the `.jade` - registered helpers/events against a template that did
+not exist yet. `frappeGantt.js` now imports `frappeGantt.jade` itself, the
+same fix this class of bug already has for every other component two or
+more others import (`tests/clientBundleImports.test.cjs`).
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7cc570854">The FerretDB Docker Compose backends document SAML the same way docker-compose.yml does</a>. Thanks to xet7.</summary>
+
+`docker-compose.yml`'s WeKan service is supposed to be identical, comment
+for comment, across `docker-compose-ferretdb-v1-{postgresql,mysql,mariadb,
+sap-hana}.yml` - the whole point of having one per FerretDB v1 backend is
+that a user reading any of them configures the same WeKan. The four backend
+files still had the bare, undocumented `#- SAML_ENABLED=true` block from
+before the SAML 2.0 login feature's explanatory comments
+(`docs/Features/Login/SAML.md`) were written; they now carry the same
+per-variable comments `docker-compose.yml` does.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ccb5c28b7">LDAP, SAML, CAS and generic-OAuth2 no longer crash the server at boot</a>. Thanks to xet7.</summary>
+
+A local Meteor package under `packages/` is its own isolated build unit and
+cannot import an app-tree module by absolute path, static or dynamic -
+`packages/wekan-ldap/server/ldap.js` (the recent LDAP Admin Panel override
+feature) imported `Settings` and `resolveConfigValue` from `/models/...`
+directly, which compiled and even ran under a plain Node test, but threw
+"Cannot find module '/models/settings'" the moment the real Meteor server
+started - exactly what a pasted `./build.sh` run reproduced. The pure
+`configResolver` functions are now vendored into the package; `Settings`
+access is injected instead, via `setLdapSettingsAccessor()`, wired once at
+boot by the new `server/ldapAdminSettingsBridge.js`. The same shape existed
+in `packages/wekan-oidc/oidc_server.js` (a vendored
+`oauth2ClientSecretJwt.js`) and, wrapped in a try/catch that only kept it
+from crashing boot, in `packages/wekan-accounts-saml/saml_server.js` and
+`packages/wekan-accounts-cas/cas_server.js`'s account-conflict canary calls
+(now reached through `global.__wekanTripCanary`, set once by
+`server/lib/canary.js`). Also found while wiring this up:
+`saml_server.js` imports the npm package `body-parser` without declaring it
+in `package.js`'s `Npm.depends`, which crashed boot the same way once it
+stopped finding the copy an unrelated app dependency happened to hoist into
+`node_modules`. `tests/packageAppImportBoundary.test.cjs` sweeps every file
+under `packages/` for an app-tree absolute import so this shape cannot
+reappear anywhere else, and pins both vendored copies against their
+app-tree originals.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6e7388e5d">Two Jade "missing space before text" build warnings in the comment-reply banner</a>. Thanks to xet7.</summary>
+
+Both text lines in `comments.jade`'s reply banner started with a mustache
+tag directly, with no leading `|` marker - the pattern every other
+text-content line in the codebase uses. Harmless (the build still
+compiled), but noise on every build; added the `|`.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7930da455">Custom fields no longer crash the server at boot on an invalid schema property</a>. Thanks to xet7.</summary>
+
+Another crash a pasted `./build.sh` run reproduced directly:
+"[uncaughtException] WeKan is stopping: Error: Invalid definition for sort
+field: 'decimal' is not a supported property", thrown from SimpleSchema's
+own constructor the moment the server started - before any board could
+load. `decimal: true` on `models/customFields.js`'s `sort` field is not,
+and has never been, a property SimpleSchema recognizes; nothing exercises
+that validation under a plain Node test, which is why it slipped through
+review. `type: Number` already allows fractional values with no extra
+flag - the same as Lists' own `sort` field, which this one was
+deliberately written to mirror and which never had this property either -
+so removing it changes nothing about what the field accepts.
+`tests/customFieldsSortSchema.test.cjs` pins the field's definition
+against SimpleSchema's actual valid-property list and sweeps every other
+file under `models/` for the same shape.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0c538bb92">Clicking a minicard opens the card popup again</a>. Thanks to xet7.</summary>
+
+Reported directly: clicking a minicard did not open the card popup, with
+the browser console showing "Error: No such function: isDateFormat" from
+`Template.cardFieldSectionDates`. `cardDetails.jade` was split into
+several per-section templates (Labels/Dates/Members/
+DependenciesAndSort/CustomFields/VoteAndPoker), plus
+`cardDetailsActionsPopup` and `activities.jade` are separate templates
+entirely - but twelve helpers those templates actually call
+(`isDateFormat`, `canShowCustomFieldsOnCard`, `stickers`, `isWatching`,
+`dueDateChangeCount`, `getLocations`, `getDependencyCards`,
+`customFieldsGrid`, `showActivities`, `showVotingButtons`,
+`showPlanningPokerButtons`, `currentSwimlaneListsSorted`,
+`isCurrentListId`) were only ever registered on
+`Template.cardDetails.helpers` - template-local, so invisible to every
+template that isn't `cardDetails` itself. Blaze only surfaces this the
+moment that piece of UI actually renders, which is why it passed the
+Node test suite and even a `meteor build` cleanly and only broke live.
+Moved all twelve to `Template.registerHelper` (global), matching the
+pattern the file already used for `isSectionOpen`.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2f626d099">A new label no longer fails to enlarge or apply to the card</a>. Thanks to xet7.</summary>
+
+Reported directly: clicking a newly created label did not enlarge it or
+apply it to the card, with the browser console showing "Exception in
+Template.cardFlowtime canControlFlow" and the same for
+`Template.cardPomodoro canControlPomodoro` - both call
+`Utils.canModifyCard()` but never imported `Utils` (a plain ES export
+from `client/lib/utils.js`, not a Meteor global), so the helper threw a
+ReferenceError the moment either template's reactive computation ran,
+breaking the surrounding card render along with it. Searching the whole
+tree for the same shape found two more real, independent instances:
+`notificationSettingsPopup.js` called `Utils.getCurrentBoardId()`
+unimported, and `client/components/main/bookmarks.js` (the header
+bookmarks/Starred feature) called `ReactiveCache.getCurrentUser()`
+unimported in four places.
+`tests/clientSingletonImports.test.cjs` sweeps every `client/**/*.js`
+file for a call to `Utils.<method>(` or `ReactiveCache.<method>(` with no
+matching import, so this shape cannot reappear anywhere else undetected.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/85a7f0fc8">Clicking a label to toggle it onto the card works again</a>. Thanks to xet7.</summary>
+
+Reported directly: clicking a label no longer toggled it onto the card
+(grow wider/apply on first click, shrink/remove on second), with the
+browser console showing "card.board is not a function" thrown from
+jQuery UI sortable's `stop` handler in `client/components/cards/labels.js`
+(the label-reorder drag on `cardLabelsPopup`). jQuery UI's sortable widget
+runs its `stop` callback on mouseup whenever a drag was registered, which
+ordinary mouse/trackpad clicks can trigger even without an intentional
+drag - so this handler fired far more often than "the user actually
+reordered labels," and resolved the card via
+`Blaze.getData(this).board()` on the sortable's root DOM element, which
+does not reliably resolve back to a real Card document. An uncaught
+exception inside jQuery UI's own cleanup aborted the rest of it,
+consistent with the toggle-on-click visuals getting stuck. The sibling
+`click .js-select-label` handler two lines below already had the right
+fix for the same problem (added for linked-card labels): resolve the
+board from the popup template's own data via `getCardLabelBoard(...)`.
+Applied the same fix to the `stop` handler.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0242f968b">The card detail sections and the Labels popup get the card as their data context again</a>. Thanks to xet7.</summary>
+
+Reported directly: after adding a label to an opened card, clicking it in
+the Labels popup no longer made it wider or applied it to the card - it had
+worked in the previous release. The reorderable card detail sections are
+rendered by an `each` over the board's stored section order, and the plain
+`each orderedCardFieldSections` form set the data context of everything
+inside it to the section NAME string ("labels", "dates", ...). Every section
+template, and every popup opened from one, therefore received a string
+where it expected the card: the Labels popup's `card.toggleLabel` was
+undefined and the click returned silently, `isLabelSelected` looked up
+`_id` on a string, and the section's own labels/stickers/locations lists
+rendered empty. The earlier fixes in this release (global helpers, missing
+imports, the sortable `stop` handler) each removed a real exception on this
+path but could not restore the toggle, because the popup still had no
+card. Switched to `each section in orderedCardFieldSections`, which keeps
+`this` as the card; `tests/cardFieldSectionsKeepCardContext.test.cjs` pins
+it.
+
+</details>
+
+- [The Flowtime "Add Interruption" button uses the same theme colors as "Start Pomodoro"](https://github.com/wekan/wekan/commit/aa728a8dc). Thanks to xet7.
+- [The Timeline "Restore to this state", List "Sync now" and Admin Panel "Test LDAP Connection" buttons are themed the same way](https://github.com/wekan/wekan/commit/376790de5). Thanks to xet7.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d0a70473e">The Dashboard's charts render again above its table</a>. Thanks to xet7.</summary>
+
+Reported directly: the Dashboard view showed nothing above its table, with
+"Exception from Tracker afterFlush function: Error: There is no current
+view" from `boardCharts.js`. The chart is deliberately built inside
+`Tracker.afterFlush` so the `<canvas>` exists by then, but that callback
+runs outside every Blaze view, where `Template.currentData()` throws - and
+one such call (the dataset title) sat inside it, aborting the whole chart
+build with nothing to retry it. The data context is now read once in the
+autorun and only the captured values are used inside the callback;
+`tests/boardChartsAfterFlushContext.test.cjs` pins that no `afterFlush`
+body in the file calls `Template.currentData()`.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/10c58867a">Frappe Gantt and DHTMLX Gantt show month and weekday names in the user's language</a>. Thanks to xet7.</summary>
+
+Reported directly: both Gantt board views showed English month names in
+every language. Neither library reads WeKan's translations - Frappe Gantt
+takes a `language` tag it hands to `Intl.DateTimeFormat`, and DHTMLX Gantt
+takes a locale object and only bundles a fixed set of them, defaulting to
+English. The new `client/lib/ganttLocale.js` feeds both from the browser's
+own Intl data, so every WeKan language gets its month and weekday names:
+it maps WeKan's tag to one Intl accepts (the underscore tags such as
+`ru_RU` make Intl throw; an unknown tag falls back to its primary subtag,
+then English - every tag under `imports/i18n/data` is pinned to resolve),
+and for DHTMLX prefers a locale the library bundles when there is one.
+`tests/ganttLocale.test.cjs` covers it.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/364903fd8">Every chart view has one translated Export popup, and Frappe Gantt's own buttons are translated</a>. Thanks to xet7.</summary>
+
+Reported directly: the Frappe Gantt view - and the DHTMLX Gantt, WeKan
+Gantt, Time and the ten report-chart views - each showed two untranslated
+"Export to PDF" / "Export to Excel" links, with five copies of the same
+URL-building helper behind them. They now share one translated "Export"
+button opening a new `exportChartPopup`: the same pop-over list of formats
+the board/swimlane/list/card export popup uses, offering PDF and Excel with
+the same icons and labels, with the URL built in exactly one place
+(`client/components/boards/charts/exportChart.js`). The popup's title comes
+from each locale's existing "export" translation, so no new words were
+needed for it. Frappe Gantt's own chrome was English in every language
+too: its view-mode dropdown now receives translated copies of the
+library's default modes (Day/Week/Month from existing keys, plus four new
+keys for Hour, Quarter Day, Half Day and Year), and its hardcoded "Today"
+button and "Mode" placeholder, which the library rebuilds on every view
+change, are re-translated by an observer. `tests/chartExportPopup.test.cjs`
+pins all of it.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e487f8d91">Chart PDF exports keep every row on one line, in aligned columns</a>. Thanks to xet7.</summary>
+
+Reported directly: in the Frappe Gantt view's PDF export a row's text was
+not on one line. The chart PDF exporter wrote every header and data row as
+one text line - "title | start | due | end" - with no width limit, so a
+long card title pushed the dates off the page edge, and nothing lined up
+from row to row. Rows are now real table rows with fixed column widths
+(the name column twice the others); a cell that does not fit is clipped
+with an ellipsis rather than wrapped, so a row is always exactly one line,
+in both the Unicode PDF and the base-font fallback. Gantt, Time and the
+report charts share this exporter. `tests/chartPdfTableRows.test.cjs` pins
+it.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/278db0ada">Every Excel export writes dates as real date cells, not text</a>. Thanks to xet7.</summary>
+
+Reported directly, with a LibreOffice screenshot: the Frappe Gantt view's
+Excel export showed Start/Due/End as ISO text
+("2026-09-23T09:00:00.000Z") - the chart Excel exporter wrote
+`toISOString()` into the cell. A date is now a real date cell with a date
+number format, so the spreadsheet shows it in its own date format, sorts
+it as a date and can do arithmetic on it. Checking every other Excel
+export as asked: the board and card exports draw the shared card document,
+whose Created/Received/Start/Due/End/Last activity values were
+pre-formatted text as well - a date pair now also carries the raw Date,
+which the Excel renderer writes as a date cell while the PDF keeps
+printing the text; the board's own Created/Modified lines likewise. The
+legacy whole-board Excel export already wrote real dates.
+`tests/chartExcelDateCells.test.cjs` covers all of them.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ad3554bbc">Board Settings / Rules switches to the Workflow view from any tab</a>. Thanks to xet7.</summary>
+
+Reported directly, with screenshots: clicking "Workflow view" in the Rules
+page's sidebar changed the button's label to "List view" but the page kept
+showing the "Add trigger" tab - the workflow builder never appeared. The
+workflow view is rendered only while the page's list tab is current, and
+the toggle lives in a separate sidebar template that can only flip the
+view mode, not the tab. The Rules page now brings itself back to the list
+tab whenever the workflow view is selected.
+`tests/rulesWorkflowViewToggle.test.cjs` pins it.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/48106ee17">Admin Panel / People / Roles no longer throws in its status table</a>. Thanks to xet7.</summary>
+
+Reported directly: "Exception in Template.rolesGeneral rolesStatusTable" -
+the table's column value functions call `TAPi18n.__()` in a file that
+never imported `TAPi18n` (a named export, not a global). Sweeping the tree
+for the same shape found it in two more files that would have failed the
+same way the moment their call ran: the Locked Users pane's unlock
+confirmation and the Multi Board Calendar view's locale and labels.
+`tests/clientSingletonImports.test.cjs` now sweeps for `TAPi18n` too,
+beside `Utils` and `ReactiveCache`.
+
+</details>
+
+**Rules, checklists and subtasks** - more automation, editable in place.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/16c8f425d">A rule's trigger and action can be edited in place, and the "send email" action can include the card's description</a>. Thanks to xet7.</summary>
+
+Editing a rule no longer means deleting and recreating it: its trigger and
+its action open back into the same forms they were made with. The "send
+email" action gained the card's description as one more variable, beside
+the title and the link.
+
+</details>
+
+- [Add a "Remove all labels" rule action](https://github.com/wekan/wekan/commit/bcd00c09b), with [its regression test](https://github.com/wekan/wekan/commit/68f8b5a86) and [the shared label-text resolution helper it uses (#4256)](https://github.com/wekan/wekan/commit/fa71c8ba4). Thanks to xet7.
+- [Restore the "send email" rule action's automatic description line (#2713)](https://github.com/wekan/wekan/commit/b925b2170). Thanks to xet7.
+- [Add an "Automatic reset" entry to the checklist actions menu](https://github.com/wekan/wekan/commit/16a919279) and [wire up its periodic job](https://github.com/wekan/wekan/commit/6ba3a3eb9). Thanks to xet7.
+- [Extract the checklist-template append/copy document builders as pure functions, with tests](https://github.com/wekan/wekan/commit/f4af25ee2). Thanks to xet7.
+- [Add regression tests for the due/start/end/received date-change triggers](https://github.com/wekan/wekan/commit/340ee1c7a). Thanks to xet7.
+
+**Boards, lists and cards** - new ways to create and connect them.
+
+- [Let a card create and link to a brand-new board, in one step](https://github.com/wekan/wekan/commit/a83a8a2cf). Thanks to xet7.
+- [Add a Sync section to the List Settings popup for the list-sync backend](https://github.com/wekan/wekan/commit/85f4f5db2). Thanks to xet7.
+- [Register the Bigboard view's templates and add its regression test](https://github.com/wekan/wekan/commit/8c7345ace). Thanks to xet7.
+- [Show the Time view's client-side summary row and export label for remaining time until due](https://github.com/wekan/wekan/commit/120a1b665). Thanks to xet7.
+- [Add Frappe Gantt below the existing Gantt view, and draw the report charts with Chart.js](https://github.com/wekan/wekan/commit/5d5317d96). Thanks to xet7.
+
 and fixes the following bugs:
 
 **Board reports** - the Dashboard and the 10 board report chart views.
@@ -4020,7 +4777,234 @@ the only option, and confirms the Restore action reuses the existing
 
 </details>
 
-and has the following documentation improvement:
+**Lists** - a list's own header, as a card drag-and-drop target.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4c89aa6a7">Dropping a dragged card on a list's header now moves it into that list</a>. Thanks to TylerL-uxai and xet7.</summary>
+
+[#766](https://github.com/wekan/wekan/issues/766) reported that dropping a
+dragged card precisely onto another list's header/title, rather than its
+card-body area, did nothing - the card snapped back to its source list. The
+card sortable's `connectWith` (`.js-minicards:not(.js-list-full)` in
+`client/components/lists/list.js`) only covers each list's card-body area;
+`.js-list-header` sits in normal document flow directly above it and does
+not overlap it, so jQuery UI's own connectWith/intersection resolution never
+finds a container there and silently cancels the drop - confirmed by reading
+the sortable configuration and the list/list-header markup and CSS, not by
+guessing.
+
+The sortable `stop` handler now hit-tests the mouseup event's own
+coordinates for a `.js-list-header` ancestor and, when found, resolves the
+same prev/next-card, `listId` and target-container values a drop at the TOP
+of that list's card body would produce, so the rest of the handler - the
+sort-index calculation, the degenerate-sort-gap repair, and the single
+existing `card.move()` mutation - runs completely unchanged. Dropping on a
+list's header now inserts the card as the first card of that list, the same
+insertion point an ordinary drop just above the first card already uses.
+
+`tests/listHeaderCardDrop766.test.cjs` is a pure-Node source-read regression
+guard, since interactive drag-and-drop needs a browser: it pins that the
+list header carries the `.js-list-header` class the detection hit-tests for,
+that the sortable `stop` handler hit-tests the drop point for it, that a
+header drop resolves to no previous card and the target list's first card as
+next, and that `list.js` still calls `card.move()` at only its two
+pre-existing call sites (the multi-selection loop and the single-card drop)
+- a negative check that the fix reuses the existing move mutation rather
+than adding a second implementation of it. Live drag-and-drop behavior could
+not be visually verified in this environment; the fix and its test are
+source-level only.
+
+</details>
+
+**The build** - what stopped ./build.sh's development build.
+
+- [Fix two Jade syntax errors that broke the development build](https://github.com/wekan/wekan/commit/7b7ad30fe). Thanks to xet7.
+- [Fix the build: frappe-gantt's CSS has no importable subpath export](https://github.com/wekan/wekan/commit/0782d8c66). Thanks to xet7.
+- [Update the npm/Meteor lockfiles for the SAML accounts package](https://github.com/wekan/wekan/commit/0aa5c6795). Thanks to xet7.
+
+**Document preview** - the 415 errors opening an attachment.
+
+- [Fix #6685: document preview 415 from a stale stored name on disk](https://github.com/wekan/wekan/commit/64adab5aa). Thanks to xet7.
+- [Fix #6685: PDF preview 415 from pdfjs guessing the worker's bundled path](https://github.com/wekan/wekan/commit/eb98abe4b). Thanks to xet7.
+- [Fix PDF/DOCX/XLSX/PPTX preview 415 when the optional canvas dependency is missing](https://github.com/wekan/wekan/commit/9b9c2fe6e). Thanks to xet7.
+- [Fix PDF search indexing: the wrong object was destroyed, and font/cmap assets were missing](https://github.com/wekan/wekan/commit/fb895847b). Thanks to xet7.
+
+and has the following developer-tooling improvements and fixes:
+
+**Developer tooling** - helpers, release tooling and test infrastructure.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2e752c1e9">Extracted the OIDC RP-Initiated Logout URL builder into a pure, tested helper</a>. Thanks to Dzordzu and xet7.</summary>
+
+[#2905](https://github.com/wekan/wekan/issues/2905) asked for Single Logout
+(SLO): logging out of Wekan should also end the identity provider's own SSO
+session for OIDC/OAuth2 providers that support RP-Initiated Logout (Keycloak's
+`/realms/<realm>/protocol/openid-connect/logout`, for example), via an
+optional `OAUTH2_LOGOUT_ENDPOINT` env var. This was already built for
+[#6158](https://github.com/wekan/wekan/issues/6158) -
+`getOauthLogoutUrl()` in `server/models/settings.js`, wired into
+`config/accounts.js`'s `onLogoutHook()`, documented in
+[Keycloak.md](https://github.com/wekan/wekan/blob/main/docs/Features/Login/Keycloak/Keycloak.md)
+and the `docker-compose.yml` OAuth2 example blocks - so #2905 needed no new
+feature. When `OAUTH2_LOGOUT_ENDPOINT` is unset (the default), logout is
+unchanged.
+
+Its URL-building logic lived inline in the Meteor method with no direct test
+coverage. Extracted it to `server/lib/oauthLogoutUrl.js`'s pure
+`buildOauthLogoutUrl()` (endpoint/serverUrl/clientId/redirectUri in, the
+end_session URL out, following the OpenID Connect RP-Initiated Logout 1.0
+spec's `post_logout_redirect_uri`/`client_id` params), mirroring
+`server/lib/ldapPasswordLoginGuard.js`'s plain-Node testable style.
+`getOauthLogoutUrl()` now calls it; behavior is unchanged. Added
+`tests/oauthLogoutUrl.test.cjs`, covering the default no-op, a Keycloak-shaped
+path endpoint resolved against `OAUTH2_SERVER_URL`, an absolute endpoint, an
+endpoint that already carries a query string, and percent-encoding of the
+redirect URI.
+
+</details>
+
+**Multi-select actions** - the checkbox multi-select sidebar's action bar.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/02e028276">Add regression coverage confirming Move/Copy selection already works across boards</a>. Thanks to gerroon and xet7.</summary>
+
+[#2155](https://github.com/wekan/wekan/issues/2155) asked to move/copy several
+selected cards to a different board at once, through an explicit action
+rather than drag-and-drop. That action already exists: WeKan's checkbox
+multi-select sidebar (`client/components/sidebar/sidebarFilters.jade`/`.js`)
+has had "Move selection" and "Copy selection" buttons since
+`82db0800e` ("Move/Copy selection and Move/Copy swimlane: one dialog each,
+not two."), each opening the same board/swimlane/list destination picker used
+throughout the app (`selectionDestinationPicker`). The board `<select>` lists
+every board the user is a member of - not only the current one - and Done
+walks the whole selection in order, calling `card.move()` for Move or
+`copyCard` + `.move()` for Copy, so it already covers the cross-board case
+this issue asked for. This is distinct from
+[#3298](https://github.com/wekan/wekan/issues/3298), which is about
+drag-and-drop specifically inside the Bigboard view.
+
+`tests/cardMultiSelectionMoveCopyToBoard.test.cjs` is a pure-Node source-read
+regression guard pinning: the Move/Copy selection buttons and popups exist;
+the board picker queries every board the user belongs to rather than
+filtering to the current board; the shared Done handler iterates the full,
+selection-scoped card list (`MultiSelection.getMongoSelector()`) rather than
+a subset; Move applies `card.move()` with the chosen board/swimlane/list/sort
+position; and Copy creates the new card on the destination board first and
+moves that new card into place, never the original - with a negative case
+confirming a failed copy is skipped rather than falling through to touch an
+unrelated card.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0c7524db05a492e04b047e7523b916ccfb9df0c6">Add a one-click "Archive all cards in this list" entry to the List menu</a>. Thanks to bkiehle and xet7.</summary>
+
+[#3383](https://github.com/wekan/wekan/issues/3383) asked for a button that
+archives every card of a single list at once, instead of moving them to
+Archive one at a time. The checkbox multi-select sidebar already reaches
+this indirectly - "Select all cards in this list" from the List hamburger
+menu, then "Archive selection" from the sidebar - but that is two menus for
+one outcome, so the List hamburger menu (`listActionPopup`,
+`client/components/lists/listHeader.jade`/`.js`) gets its own
+"Archive all cards in this list" entry next to the existing "Select all
+cards in this list" one. It reuses the exact same card-id scoping ("Select
+all cards" above: the current swimlane in Swimlanes board view, the whole
+list otherwise) and hands the list off to the SAME server method the
+sidebar's "Archive selection" button already calls -
+`archiveSelectedCards(boardId, cardIds)` in `server/models/cards.js`, added
+for [#6608](https://github.com/wekan/wekan/issues/6608) - so no new
+archiving logic was written, only a second caller of the existing one,
+behind a confirmation popup (`listArchiveCardsPopup`) in the same
+confirm-then-act shape "Archive list" (the list itself, not its cards)
+already uses. The `list-archive-cards`/`list-archive-cards-pop` translation
+strings already existed in every locale file - added ahead of the feature -
+so this commit only had to wire them up.
+
+`tests/listArchiveAllCards3383.test.cjs` is a pure-Node source-read
+regression guard pinning: the menu entry and its confirmation popup exist;
+the click handler is gated behind `Popup.afterConfirm('listArchiveCards', …)`;
+the scoping matches "Select all cards" exactly; the handler calls the shared
+`archiveSelectedCards` method rather than looping `card.archive()` or
+`Cards.update` itself; an empty list never reaches the server call; the
+server still defines exactly one `archiveSelectedCards` method (no
+duplicate); and every locale file already carries both translation keys.
+
+</details>
+
+**Exports** - auditing every format this release's Export popup offers.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/895583784">Fix an overly-strict CHART_KEYS regex in the Time export regression test</a>. Thanks to xet7.</summary>
+
+Following the JSON-export truncation report, every OTHER export format
+was audited end-to-end: board JSON/CSV/iCal/HTML archive/dependency graph
+(JSON+SVG)/Kanboard/Trello/Jira/NextCloud Deck/OpenProject/GitHub/GitLab/
+Gitea/Forgejo/Asana/Zenkit/Markdown, and PDF/Excel for all 13 chart/report
+views (`dashboard`, `burndown`, `burnup`, `cumulativeFlow`, `controlChart`,
+`cycleTime`, `flowEfficiency`, `leadTime`, `throughputHistogram`, `wipRun`,
+`gantt`, `time`, `pulse`). For each, the route, the data-builder it calls
+and the UI entry that offers it were read directly rather than assumed:
+every route is registered and reachable, every builder is genuinely called
+and produces correct output, and none of them buffer attachment binary data
+the way the JSON export did.
+
+The only defect found was in the TEST suite, not the export code:
+`tests/timeViewReportAndExport.test.cjs` asserted `models/exportCharts.js`'s
+`CHART_KEYS` Set ended with `'time'`, which stopped being true once `'pulse'`
+was appended after it - the export itself was never affected. The regex now
+matches `'time'` anywhere in the Set literal instead of requiring it last.
+
+</details>
+
+**Imports** - the natural companion audit, on the import side.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/baec475fe">Add regression tests for CSV, Kanboard and Jira import parsing</a>. Thanks to xet7.</summary>
+
+Every import source was audited end-to-end the same way: WeKan JSON,
+WeKan zip, Trello JSON/API/zip, CSV/TSV, Excel, Jira, Kanboard, Markdown,
+NextCloud Deck/OpenProject/GitHub/GitLab/Gitea/Forgejo/Asana/Zenkit, and
+ICS. Every one of them is genuinely reachable from the Import popup and
+produces a real board - no dead popups, no "Mapper"-only stubs. The
+WeKan JSON round-trip (`models/wekanCreator.js`) restores swimlanes,
+lists, cards, checklists, labels and custom fields without dropping any
+of them.
+
+This also checked the cross-cutting question the JSON-export truncation
+report raised: does import now expect attachment content the export side
+might stop embedding inline? It does not - `models/wekanCreator.js`'s
+attachment import already works both from inline base64 content and from
+a bare URL reference, so an attachment with no embedded bytes simply
+isn't recreated rather than failing the whole import, and the export
+side's fix (attachments always empty in JSON export, commit
+643e2738b, already on `main`) needs no matching change here.
+
+The one genuine gap found was test coverage, not behavior: CSV, Jira and
+Kanboard import had real, working parsers but no dedicated tests. Added
+`tests/csvCreator.headerMapping.test.cjs` (header aliases and the
+customfield-<name>-<type>-<extra> dropdown/currency/plain variants) and
+`tests/kanboardJiraCreator.import.test.cjs` (Kanboard's unix-timestamp
+date parsing and column/swimlane derivation, and Jira's issue-link-to-
+card-dependency mapping), each a faithful copy of the production logic
+since both modules import Meteor code that can't run under plain Node -
+the same convention `tests/trelloCreator.import.test.js` already uses.
+
+</details>
+
+**Test guards** - suites that read the source, brought up to date with deliberate changes, and new coverage.
+
+- [Fix tests still referencing the renamed mirror scripts](https://github.com/wekan/wekan/commit/117edc33b). Thanks to xet7.
+- [Update seven node test-suite guards for legitimately-changed behavior](https://github.com/wekan/wekan/commit/404dad239) and [five more for intentional changes made the same day](https://github.com/wekan/wekan/commit/d8d3446cc). Thanks to xet7.
+- [Fix the minicard collapse test's off-by-scope index and a stale offset](https://github.com/wekan/wekan/commit/688a2b3c4). Thanks to xet7.
+- [Add regression coverage for label add/remove activity logging (#572)](https://github.com/wekan/wekan/commit/eae45d19b). Thanks to xet7.
+- [Add a unit test for the swimlane-scoped WIP limit group arithmetic](https://github.com/wekan/wekan/commit/52891ec01) and [note the swimlane WIP quick-select test as the #2380 closing reference](https://github.com/wekan/wekan/commit/35ad7bc92). Thanks to xet7.
+- [Add regression coverage for the List menu's "Archive all cards in this list" action](https://github.com/wekan/wekan/commit/c55af0e34). Thanks to xet7.
+- [Add regression coverage for the minicard unread-comments highlight](https://github.com/wekan/wekan/commit/556753789). Thanks to xet7.
+- [Add regression coverage for the board-wide "sticky list headers" toggle](https://github.com/wekan/wekan/commit/d3e0c591a). Thanks to xet7.
+- [Add regression coverage for the quick-add "More options" single-insert path (#3967)](https://github.com/wekan/wekan/commit/7e7aa4e5b). Thanks to xet7.
+- [Add regression coverage for "Clone Board without cards"](https://github.com/wekan/wekan/commit/a033ed28a). Thanks to xet7.
+
+and has the following documentation improvements:
 
 **Feature guides** - `docs/Features/` pages for existing or newly landed features.
 
@@ -4145,39 +5129,17 @@ already-board/card-aware default rather than being needed for it.
 
 </details>
 
-and has the following developer-tooling improvement:
+**Docs and the backlog** - pages added, and TODO Later kept current.
 
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/2e752c1e9">Extracted the OIDC RP-Initiated Logout URL builder into a pure, tested helper</a>. Thanks to Dzordzu and xet7.</summary>
+- [Document the People / Notifications admin panel pane](https://github.com/wekan/wekan/commit/93814d5c3). Thanks to xet7.
+- [Document card recurrence](https://github.com/wekan/wekan/commit/8fa2b6d8e). Thanks to xet7.
+- [Add #3256 (hot-area image map visualization) to TODO Later](https://github.com/wekan/wekan/commit/904f1f0c1). Thanks to xet7.
+- [Add #5758 (Windows SSO via node-expose-sspi) to TODO Later, and remove the stale #5707 entry](https://github.com/wekan/wekan/commit/0133fa2e0). Thanks to xet7.
+- [Add the CHANGELOG entry for the spent-time backfill, Board Settings and Notification Settings fixes](https://github.com/wekan/wekan/commit/0ca5dac44). Thanks to xet7.
 
-[#2905](https://github.com/wekan/wekan/issues/2905) asked for Single Logout
-(SLO): logging out of Wekan should also end the identity provider's own SSO
-session for OIDC/OAuth2 providers that support RP-Initiated Logout (Keycloak's
-`/realms/<realm>/protocol/openid-connect/logout`, for example), via an
-optional `OAUTH2_LOGOUT_ENDPOINT` env var. This was already built for
-[#6158](https://github.com/wekan/wekan/issues/6158) -
-`getOauthLogoutUrl()` in `server/models/settings.js`, wired into
-`config/accounts.js`'s `onLogoutHook()`, documented in
-[Keycloak.md](https://github.com/wekan/wekan/blob/main/docs/Features/Login/Keycloak/Keycloak.md)
-and the `docker-compose.yml` OAuth2 example blocks - so #2905 needed no new
-feature. When `OAUTH2_LOGOUT_ENDPOINT` is unset (the default), logout is
-unchanged.
+and closes the following already-fixed issues:
 
-Its URL-building logic lived inline in the Meteor method with no direct test
-coverage. Extracted it to `server/lib/oauthLogoutUrl.js`'s pure
-`buildOauthLogoutUrl()` (endpoint/serverUrl/clientId/redirectUri in, the
-end_session URL out, following the OpenID Connect RP-Initiated Logout 1.0
-spec's `post_logout_redirect_uri`/`client_id` params), mirroring
-`server/lib/ldapPasswordLoginGuard.js`'s plain-Node testable style.
-`getOauthLogoutUrl()` now calls it; behavior is unchanged. Added
-`tests/oauthLogoutUrl.test.cjs`, covering the default no-op, a Keycloak-shaped
-path endpoint resolved against `OAUTH2_SERVER_URL`, an absolute endpoint, an
-endpoint that already carries a query string, and percent-encoding of the
-redirect URI.
-
-</details>
-
-and closes the following already-fixed issue:
+**Closed issues** - reports already fixed by earlier work, closed with a reference to where.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/9ef7f4a07">Confirm #2498 (linked card's minicard cover) stays fixed</a>. Thanks to javen9881 and xet7.</summary>
@@ -4205,213 +5167,7 @@ the issue is closed with a pointer to where it was already fixed.
 
 </details>
 
-and adds a GDPR-friendlier alternative to deleting an account:
-
-**Member Settings and Admin Panel / People** - anonymizing an account.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/ac4b7e75f">Anonymize an account, self-service or admin-triggered, instead of deleting it</a>. Thanks to Akuket and xet7.</summary>
-
-[#2731](https://github.com/wekan/wekan/issues/2731): the only way to leave no
-personal data behind was Delete Account, which also hard-deletes the Users
-document and prunes every board/card/comment reference to it - losing
-attribution and history entirely, which is more than GDPR requires and more
-than some users want to lose.
-
-`anonymizeUser` (`server/models/users.js`, its decision and update-shape logic
-split into `models/lib/userAnonymization.js` the same way removeUser's cleanup
-plan already lives in `models/lib/userDeletionCleanup.js`) overwrites the
-username, full name, email address and avatar with an anonymized placeholder
-and sets `loginDisabled: true` - the same flag `server/authentication.js`'s
-`validateLoginAttempt` already gates login on - so the account can no longer
-log in. It does NOT prune or touch a single board/card/comment/activity
-reference: those keep pointing at the same `userId`, which now simply
-resolves to the anonymized name, keeping the account's past activity
-structurally intact.
-
-Callable both by the account owner on themselves (a new "Anonymize account"
-button next to Delete in the Edit Profile popup,
-`client/components/users/userHeader.jade`/`.js`) and by an admin on any other
-user (next to the existing delete action in Admin Panel → People,
-`client/components/settings/peopleBody.jade`/`.js`), each behind its own
-irreversible-warning confirmation popup matching the existing delete
-confirmation's pattern. The last remaining administrator cannot be
-anonymized, mirroring removeUser's same guard.
-
-No Admin Panel → Problems entry was added: that log is for attempts an
-attacker controls, and there is no attacker here - anonymizing is a
-privileged action an admin takes on purpose, or a member acting on their own
-account. WeKan has no general admin-action audit log to hook into
-(`server/lib/recoveryAudit.js` is board-deletion-specific); the audit trail
-for this action is the new `anonymized`/`anonymizedAt` fields persisted on
-the Users document itself and visible in Admin Panel → People.
-
-`tests/userAnonymization.test.cjs` is a pure-Node regression guard (no
-Meteor) covering: PII fields are scrubbed and `loginDisabled` is set; the
-update never touches a reference-shaped field (`members`, `assignees`,
-`watchers`, `boardId`, …) - the negative test distinguishing this from
-removeUser's pruning; the same predicate `server/authentication.js` uses
-denies login afterward; both the self-service and admin-triggered paths are
-allowed; and a non-admin cannot anonymize another user, nor can the last
-administrator be anonymized.
-
-</details>
-
-and adds Sign in with Apple login support:
-
-**OAuth2/OIDC login** - the generic provider client Keycloak, Authelia and now Apple share.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/517bee3f0">Server-signed JWT client secret for OAuth2, enabling Sign in with Apple</a>. Thanks to xet7.</summary>
-
-[#2458](https://github.com/wekan/wekan/issues/2458) asked for "Sign in with
-Apple". Apple's login is OIDC-compatible, so it works through Wekan's existing
-generic OAuth2/OIDC client - except its "client secret" is not a static
-string like Keycloak's or Authelia's: it must be a short-lived JWT the server
-signs itself (ES256), using a private key downloaded once from Apple's
-developer portal.
-
-`models/lib/oauth2ClientSecretJwt.js` mints that JWT using only Node's
-built-in `crypto` module - no new dependency, since ES256 signing with
-IEEE-P1363 signature encoding (the format a JWT requires) has been supported
-since Node 12. It is opt-in via a new `OAUTH2_SECRET_JWT_KEY_PATH` env var
-(plus `OAUTH2_SECRET_JWT_ISSUER`/`_KEY_ID`/`_AUDIENCE`/`_SUBJECT`/
-`_EXPIRES_IN`); when unset (the default, and every existing provider's
-configuration), `packages/wekan-oidc/oidc_server.js` falls back to the static
-`OAUTH2_SECRET` exactly as before, so Keycloak, Authelia and every other
-provider are unaffected.
-
-Apple's other quirk - it returns the user's name only on the very first
-authorization, never again - needs no special-casing: `Accounts.onCreateUser`
-(`server/models/users.js`) already copies the OIDC fullname/email claims into
-the user's `profile` only once, at account creation, and never overwrites
-them on later logins (Meteor's `updateOrCreateUserFromExternalService` only
-touches `services.oidc.*` for a returning user, not `profile.*`).
-
-`docs/Features/Login/Apple.md` documents Apple's fixed endpoints
-(`https://appleid.apple.com/auth/authorize`/`/auth/token`) and the new env
-vars, in the same format as the Keycloak/Authelia docs, and is linked from
-`docs/Features/Login/OAuth2.md`'s provider list.
-`tests/oauth2ClientSecretJwt.test.cjs` is a pure-Node regression guard
-covering the minted JWT's header/claims shape, that its ES256 signature
-verifies against the matching public key and fails against another key, and
-the negative case: with the new env vars unset, no JWT is generated and the
-static-secret path is untouched.
-
-</details>
-
-and has the following developer-tooling fix:
-
-**Multi-select actions** - the checkbox multi-select sidebar's action bar.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/02e028276">Add regression coverage confirming Move/Copy selection already works across boards</a>. Thanks to gerroon and xet7.</summary>
-
-[#2155](https://github.com/wekan/wekan/issues/2155) asked to move/copy several
-selected cards to a different board at once, through an explicit action
-rather than drag-and-drop. That action already exists: WeKan's checkbox
-multi-select sidebar (`client/components/sidebar/sidebarFilters.jade`/`.js`)
-has had "Move selection" and "Copy selection" buttons since
-`82db0800e` ("Move/Copy selection and Move/Copy swimlane: one dialog each,
-not two."), each opening the same board/swimlane/list destination picker used
-throughout the app (`selectionDestinationPicker`). The board `<select>` lists
-every board the user is a member of - not only the current one - and Done
-walks the whole selection in order, calling `card.move()` for Move or
-`copyCard` + `.move()` for Copy, so it already covers the cross-board case
-this issue asked for. This is distinct from
-[#3298](https://github.com/wekan/wekan/issues/3298), which is about
-drag-and-drop specifically inside the Bigboard view.
-
-`tests/cardMultiSelectionMoveCopyToBoard.test.cjs` is a pure-Node source-read
-regression guard pinning: the Move/Copy selection buttons and popups exist;
-the board picker queries every board the user belongs to rather than
-filtering to the current board; the shared Done handler iterates the full,
-selection-scoped card list (`MultiSelection.getMongoSelector()`) rather than
-a subset; Move applies `card.move()` with the chosen board/swimlane/list/sort
-position; and Copy creates the new card on the destination board first and
-moves that new card into place, never the original - with a negative case
-confirming a failed copy is skipped rather than falling through to touch an
-unrelated card.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/0c7524db05a492e04b047e7523b916ccfb9df0c6">Add a one-click "Archive all cards in this list" entry to the List menu</a>. Thanks to bkiehle and xet7.</summary>
-
-[#3383](https://github.com/wekan/wekan/issues/3383) asked for a button that
-archives every card of a single list at once, instead of moving them to
-Archive one at a time. The checkbox multi-select sidebar already reaches
-this indirectly - "Select all cards in this list" from the List hamburger
-menu, then "Archive selection" from the sidebar - but that is two menus for
-one outcome, so the List hamburger menu (`listActionPopup`,
-`client/components/lists/listHeader.jade`/`.js`) gets its own
-"Archive all cards in this list" entry next to the existing "Select all
-cards in this list" one. It reuses the exact same card-id scoping ("Select
-all cards" above: the current swimlane in Swimlanes board view, the whole
-list otherwise) and hands the list off to the SAME server method the
-sidebar's "Archive selection" button already calls -
-`archiveSelectedCards(boardId, cardIds)` in `server/models/cards.js`, added
-for [#6608](https://github.com/wekan/wekan/issues/6608) - so no new
-archiving logic was written, only a second caller of the existing one,
-behind a confirmation popup (`listArchiveCardsPopup`) in the same
-confirm-then-act shape "Archive list" (the list itself, not its cards)
-already uses. The `list-archive-cards`/`list-archive-cards-pop` translation
-strings already existed in every locale file - added ahead of the feature -
-so this commit only had to wire them up.
-
-`tests/listArchiveAllCards3383.test.cjs` is a pure-Node source-read
-regression guard pinning: the menu entry and its confirmation popup exist;
-the click handler is gated behind `Popup.afterConfirm('listArchiveCards', …)`;
-the scoping matches "Select all cards" exactly; the handler calls the shared
-`archiveSelectedCards` method rather than looping `card.archive()` or
-`Cards.update` itself; an empty list never reaches the server call; the
-server still defines exactly one `archiveSelectedCards` method (no
-duplicate); and every locale file already carries both translation keys.
-
-</details>
-
-and fixes the following bug:
-
-**Lists** - a list's own header, as a card drag-and-drop target.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/4c89aa6a7">Dropping a dragged card on a list's header now moves it into that list</a>. Thanks to TylerL-uxai and xet7.</summary>
-
-[#766](https://github.com/wekan/wekan/issues/766) reported that dropping a
-dragged card precisely onto another list's header/title, rather than its
-card-body area, did nothing - the card snapped back to its source list. The
-card sortable's `connectWith` (`.js-minicards:not(.js-list-full)` in
-`client/components/lists/list.js`) only covers each list's card-body area;
-`.js-list-header` sits in normal document flow directly above it and does
-not overlap it, so jQuery UI's own connectWith/intersection resolution never
-finds a container there and silently cancels the drop - confirmed by reading
-the sortable configuration and the list/list-header markup and CSS, not by
-guessing.
-
-The sortable `stop` handler now hit-tests the mouseup event's own
-coordinates for a `.js-list-header` ancestor and, when found, resolves the
-same prev/next-card, `listId` and target-container values a drop at the TOP
-of that list's card body would produce, so the rest of the handler - the
-sort-index calculation, the degenerate-sort-gap repair, and the single
-existing `card.move()` mutation - runs completely unchanged. Dropping on a
-list's header now inserts the card as the first card of that list, the same
-insertion point an ordinary drop just above the first card already uses.
-
-`tests/listHeaderCardDrop766.test.cjs` is a pure-Node source-read regression
-guard, since interactive drag-and-drop needs a browser: it pins that the
-list header carries the `.js-list-header` class the detection hit-tests for,
-that the sortable `stop` handler hit-tests the drop point for it, that a
-header drop resolves to no previous card and the target list's first card as
-next, and that `list.js` still calls `card.move()` at only its two
-pre-existing call sites (the multi-selection loop and the single-card drop)
-- a negative check that the fix reuses the existing move mutation rather
-than adding a second implementation of it. Live drag-and-drop behavior could
-not be visually verified in this environment; the fix and its test are
-source-level only.
-
-</details>
-
-and closes the following already-fixed issue:
+- [Note that #2561 is the same request as #4256 and is already fixed](https://github.com/wekan/wekan/commit/2b7d89978). Thanks to xet7.
 
 **Lists and swimlanes** - linking directly to one of them.
 
@@ -4438,691 +5194,6 @@ references a bare/broken `rootUrl` - either the exact string #1089
 reported or a `rootUrl` template helper, which never existed and was
 the bug. No new code change was needed here; the issue is closed with a
 pointer to where it was already fixed.
-
-</details>
-
-and adds the following REST API improvements:
-
-**Checklists and comments** - editing them over the API, not just creating and deleting them.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/099ab39dd">Add PUT endpoints for a checklist's title and a comment's text</a>. Thanks to mayjs and xet7.</summary>
-
-[#1037](https://github.com/wekan/wekan/issues/1037) asked for a roadmap of
-missing REST API features. Auditing the current surface
-(`server/models/*.js`, one file per resource, each registering its own
-`WebApp.handlers.get/post/put/delete`) against it found two clean CRUD
-gaps: every other board sub-resource with GET/POST/DELETE already had a
-matching PUT, but a checklist and a comment did not, so renaming a
-checklist or fixing a typo in a comment meant deleting it and
-re-creating it - losing its id, its timestamps, and, for a checklist,
-scattering its items onto a rebuild.
-
-`PUT /api/boards/:boardId/cards/:cardId/checklists/:checklistId`
-accepts `{ "title": "..." }`, mirrors the existing DELETE's board/card
-lookup and `checkBoardWriteAccess`, and rejects a missing or blank
-title with 400 rather than silently storing one - only `title` is
-writable; the per-checklist display toggles are a separate, larger
-piece of surface and stayed out of scope here.
-
-`PUT /api/boards/:boardId/cards/:cardId/comments/:commentId` accepts
-`{ "comment": "..." }`, reuses the same `validateCommentBody` the POST
-handler already uses, and applies the exact rule DDP applies
-(`assertCanMutateComment`: the comment's author, or a board admin
-unless the board sets `restrictCommentEditing`) - including the
-GHSA-pqr4-rxgp-hv2m foreign-comment canary the DELETE handler already
-trips, now named `comment.foreign-edit` for an edit versus
-`comment.foreign-delete` for a delete, so both are equally visible.
-`CardComments.direct.updateAsync` is used exactly the way the POST
-handler already inserts (`.direct`, bypassing the collection hook),
-with the same `editComment` activity recorded explicitly afterwards.
-
-`tests/restApiEditGaps.test.cjs` pins both routes as source-pattern
-tests, matching how the rest of this REST surface is already tested in
-`tests/restApiIdorBatch.test.cjs`: the auth check, the board/card-scoped
-(never bare-`_id`) lookup, the validation, and - for comments - that
-the edit path enforces the identical author/admin/canary rule as the
-existing delete path.
-
-Most of the other open API:REST-labeled issues
-([#5474](https://github.com/wekan/wekan/issues/5474),
-[#4930](https://github.com/wekan/wekan/issues/4930),
-[#2906](https://github.com/wekan/wekan/issues/2906),
-[#2761](https://github.com/wekan/wekan/issues/2761),
-[#2449](https://github.com/wekan/wekan/issues/2449),
-[#2208](https://github.com/wekan/wekan/issues/2208),
-[#2167](https://github.com/wekan/wekan/issues/2167),
-[#2017](https://github.com/wekan/wekan/issues/2017),
-[#1297](https://github.com/wekan/wekan/issues/1297),
-[#794](https://github.com/wekan/wekan/issues/794)) ask for a new
-capability (impersonation, WebHooks with richer targets, a stable
-board key, Sandstorm-specific docs) rather than a missing CRUD verb on
-an existing resource, so they are left open for their own, larger
-piece of work rather than folded into this cleanup.
-
-</details>
-
-and has the following developer-tooling fix:
-
-**Exports** - auditing every format this release's Export popup offers.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/895583784">Fix an overly-strict CHART_KEYS regex in the Time export regression test</a>. Thanks to xet7.</summary>
-
-Following the JSON-export truncation report, every OTHER export format
-was audited end-to-end: board JSON/CSV/iCal/HTML archive/dependency graph
-(JSON+SVG)/Kanboard/Trello/Jira/NextCloud Deck/OpenProject/GitHub/GitLab/
-Gitea/Forgejo/Asana/Zenkit/Markdown, and PDF/Excel for all 13 chart/report
-views (`dashboard`, `burndown`, `burnup`, `cumulativeFlow`, `controlChart`,
-`cycleTime`, `flowEfficiency`, `leadTime`, `throughputHistogram`, `wipRun`,
-`gantt`, `time`, `pulse`). For each, the route, the data-builder it calls
-and the UI entry that offers it were read directly rather than assumed:
-every route is registered and reachable, every builder is genuinely called
-and produces correct output, and none of them buffer attachment binary data
-the way the JSON export did.
-
-The only defect found was in the TEST suite, not the export code:
-`tests/timeViewReportAndExport.test.cjs` asserted `models/exportCharts.js`'s
-`CHART_KEYS` Set ended with `'time'`, which stopped being true once `'pulse'`
-was appended after it - the export itself was never affected. The regex now
-matches `'time'` anywhere in the Set literal instead of requiring it last.
-
-</details>
-
-**Imports** - the natural companion audit, on the import side.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/baec475fe">Add regression tests for CSV, Kanboard and Jira import parsing</a>. Thanks to xet7.</summary>
-
-Every import source was audited end-to-end the same way: WeKan JSON,
-WeKan zip, Trello JSON/API/zip, CSV/TSV, Excel, Jira, Kanboard, Markdown,
-NextCloud Deck/OpenProject/GitHub/GitLab/Gitea/Forgejo/Asana/Zenkit, and
-ICS. Every one of them is genuinely reachable from the Import popup and
-produces a real board - no dead popups, no "Mapper"-only stubs. The
-WeKan JSON round-trip (`models/wekanCreator.js`) restores swimlanes,
-lists, cards, checklists, labels and custom fields without dropping any
-of them.
-
-This also checked the cross-cutting question the JSON-export truncation
-report raised: does import now expect attachment content the export side
-might stop embedding inline? It does not - `models/wekanCreator.js`'s
-attachment import already works both from inline base64 content and from
-a bare URL reference, so an attachment with no embedded bytes simply
-isn't recreated rather than failing the whole import, and the export
-side's fix (attachments always empty in JSON export, commit
-643e2738b, already on `main`) needs no matching change here.
-
-The one genuine gap found was test coverage, not behavior: CSV, Jira and
-Kanboard import had real, working parsers but no dedicated tests. Added
-`tests/csvCreator.headerMapping.test.cjs` (header aliases and the
-customfield-<name>-<type>-<extra> dropdown/currency/plain variants) and
-`tests/kanboardJiraCreator.import.test.cjs` (Kanboard's unix-timestamp
-date parsing and column/swimlane derivation, and Jira's issue-link-to-
-card-dependency mapping), each a faithful copy of the production logic
-since both modules import Meteor code that can't run under plain Node -
-the same convention `tests/trelloCreator.import.test.js` already uses.
-
-</details>
-
-and fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
-
-**Markdown card-URL autolinking** - duplicated on purpose between app and package.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/9cbf67ba7">Escape a backslash before escaping ']' in an autolinked card title, not only ']'</a>. Thanks to GitHub CodeQL and xet7.</summary>
-
-`models/lib/cardUrlAutolink.js` and `packages/markdown/src/
-template-integration.js` build a markdown link `[<title>](<url>)` around a
-pasted WeKan card URL, escaping `]` in the title so it cannot prematurely
-close the label. CodeQL's `js/incomplete-sanitization` query (alerts #532
-and #533) found the escape incomplete: a title ending in a raw backslash
-(e.g. `"foo\"`) was left untouched, so the backslash escaped the LITERAL
-`]` this code inserts to close the label instead of the label actually
-closing - the emitted markdown was not the link intended. Both copies now
-escape `\` before `]`, kept in sync as their own comments already require.
-This is a rendering-correctness fix, not an XSS hole on its own: the final
-HTML still goes through DOMPurify regardless, per the existing code
-comments, so no Admin Panel security-log entry applies.
-
-</details>
-
-**Test-only assertion bugs** - four findings inside the test suite's own logic, none reachable in production.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/9cbf67ba7">Escape every regex meta-character when building a dynamic RegExp from a URL, not only '/'</a>. Thanks to GitHub CodeQL and xet7.</summary>
-
-`tests/notificationEmailUrlLink.test.cjs` built ad-hoc `RegExp`s out of a
-notification URL by hand-escaping only `/` (`js/incomplete-sanitization`,
-alerts #528-#530) - every other meta-character, including the backslash
-that would neutralize the escape itself, passed through untouched. Added
-the same `escapeRegExp()` helper already used in
-`models/lib/externalLinkAutolink.js`, plus a negative test reproducing the
-exact "unterminated group" crash the old slash-only escape hit on a value
-containing an unescaped `(`.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/9cbf67ba7">Write documentGif.js's control-character strip as explicit \x escapes instead of raw control bytes</a>. Thanks to GitHub CodeQL and xet7.</summary>
-
-`server/lib/documentGif.js`'s `plainSearchText()` strips C0 control
-characters and DEL from extracted document text before indexing it for
-search, but the character class was written with literal raw control
-BYTES either side of the `-` range operators instead of `\x` escapes.
-CodeQL's `js/overly-large-range` query (alert #526) flagged the range as
-unverifiable: adjacent control bytes are visually indistinguishable in an
-editor or a diff, so a boundary could silently widen or narrow without
-anyone noticing. Rewritten with explicit `\x00-\x08\x0b\x0c\x0e-\x1f\x7f`
-escapes, byte-for-byte equivalent to the original range and now checkable
-at a glance; a new test also proves no raw control byte remains in the
-function body.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/9cbf67ba7">Compare a real URL hostname instead of a naive substring check in the OAuth logout test</a>. Thanks to GitHub CodeQL and xet7.</summary>
-
-`tests/oauthLogoutUrl.test.cjs` asserted an absolute logout endpoint
-ignores `serverUrl` via `!url.includes('id.example.com')` - CodeQL's
-`js/incomplete-url-substring-sanitization` query (alert #531) flagged
-that a substring like this can appear anywhere in a URL (a query value, a
-path segment, or part of an unrelated confusable hostname) without the
-ignored host actually being used. Replaced with a `new URL(url).hostname`
-comparison, plus a negative test with both a URL that merely MENTIONS the
-substring in its query string and a confusable
-`id.example.com.attacker.example` host, neither of which the fixed check
-mistakes for the real one.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/9cbf67ba7">Replace a no-op '.replace(/ /g, ' ')' with an actual run-of-spaces collapse</a>. Thanks to GitHub CodeQL and xet7.</summary>
-
-`tests/boardCreationAdminOnly.test.cjs` normalized bootstrap source text
-with `.replace(/\n\s*/g, ' ').replace(/ /g, ' ')` before matching it -
-CodeQL's `js/identity-replacement` query (alert #527) flagged the second
-`.replace()` as replacing a single space with itself, a no-op. The actual
-intent was collapsing RUNS of spaces the newline-collapse can leave
-behind, `.replace(/ +/g, ' ')`, which is what it now does; a new test
-proves the fixed helper collapses `"a     b"` to `"a b"` while the old
-no-op left it unchanged.
-
-</details>
-
-and adds the following new feature:
-
-**Admin Panel / Login** - LDAP_* environment variables can now be overridden.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/ac363f979">Add Admin Panel overrides for LDAP_* environment variables, and a Test LDAP Connection button</a>. Thanks to xet7.</summary>
-
-Every LDAP_* setting `server/authentication.js` and `packages/wekan-ldap`
-read straight from `process.env` can now be overridden from Admin Panel /
-Login, with an explicit admin value winning over the env var and the env
-var winning over nothing
-(`models/lib/configResolver.js`'s `resolveConfigValue()`, pure and unit-
-tested for the precedence and for its 'admin'/'env'/'default' source tag).
-The Admin Panel LDAP section shows, next to every field, which source is
-currently in effect - an env var name, "Admin Panel", or "Unset" - so it
-is always clear whether a value comes from the environment or from an
-admin override.
-
-The bind password never reaches the browser: it is stored in the new
-`Settings.ldap.bindPassword` field, which `server/publications/settings.js`
-deliberately never publishes (only the boolean `ldap.bindPasswordSet` is).
-The password input starts empty and an empty submission leaves the
-existing value/source untouched, matching the existing mail-server
-password field's pattern. `hasConfigValue()` is the parallel, secret-safe
-resolver: it returns only a boolean and a source, never the value, and a
-negative test fuzzes several secret shapes through it to prove that.
-
-Found while wiring this up: `packages/wekan-ldap/server/testConnection.js`'s
-existing `ldap_test_connection` method had its isAdmin check commented
-out, so any authenticated user - not only an admin - could trigger a real
-LDAP bind attempt against the configured directory. Fixed to require
-isAdmin, the same check every other admin-only Settings method uses,
-before any connection is attempted. A new "Test LDAP Connection" button in
-Admin Panel / Login calls this method against whichever config (admin
-override or env var) is currently resolved and shows the result - success
-or the directory's own error - inline.
-
-Switching between LDAP, OAuth2, SAML and password login already has its
-own UI (the Login pane's "Default Authentication Method" selector plus
-each method's own enabled flag); this only extends "enabled" itself to be
-admin-overridable, the same as every other LDAP field. LDAP is covered end
-to end (override + test-connection); OAuth2/SAML/CAS's env vars are
-unchanged and stay env-only for now - the resolver is written to extend to
-them, but doing so was out of scope for this pass.
-
-</details>
-
-**Server startup and email/import robustness** - a production unhandledRejection
-and the values that fed it.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/563a0a6ed">Guard three toLowerCase() call sites that could receive a non-string value</a>. Thanks to xet7.</summary>
-
-A production log kept showing `[unhandledRejection] WeKan keeps running:
-TypeError: string.toLowerCase is not a function`. Auditing every server-
-reachable `.toLowerCase()` call site (`server/`, `models/`, `packages/`)
-found the actual cause: `Users.after.insert()`'s registration-invitation-code
-check read `doc.authenticationMethod.toLowerCase()` unguarded, but
-`authenticationMethod` is only ever set for oauth2/ldap signups - a normal
-password/invitation signup leaves it `undefined`, so this crashed on every
-new-user insert whenever `disableRegistration` was on; `doc.emails[0].address`
-was also read unguarded there. The buffered activity-notification-email
-sender in `server/notifications/email.js` had the same shape:
-`user.emails[0].address.toLowerCase()` unguarded, crashing when a user (for
-example a header-auth or LDAP account) has an empty `emails` array instead of
-just skipping that send. The CSV/TSV importer's header-row mapping in
-`models/csvCreator.js` read `headerRow[i].toLowerCase()` unguarded, which
-could throw on a sparse row whose cell isn't a string. All three now check
-`typeof`/presence first and fall through (skip the branch, or use an empty
-string) instead of throwing. Every other `.toLowerCase()` call site in
-server-reachable code was already guarded (a `typeof` check, an `|| ''`
-fallback, or a value sourced from a validated schema field) and was left
-unchanged.
-
-</details>
-
-**Popups and languages** - a Scrum doc's links, six popups with no header,
-and two duplicated language files.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/3f872cccc78986b56142711a6fabdd250bf6a13">Fix broken docs links, restore the km-KH/ru-RU language symlinks, and title six popups that rendered with no header</a>. Thanks to xet7.</summary>
-
-`docs/Features/Cards/Scrum.md` linked `../../DragDrop/Drag-Drop.md` and
-`../../Lists/WipLimit/WipLimit.md`, one directory level too high from
-`docs/Features/Cards/`; both 404'd. Fixed to `../DragDrop/Drag-Drop.md`
-and `../Lists/WipLimit/WipLimit.md`.
-
-`imports/i18n/data/km-KH.i18n.json` and `ru-RU.i18n.json` had drifted into
-independent copies of `km_KH.i18n.json`/`ru_RU.i18n.json` instead of being
-a symlink to the file a Transifex pull actually writes, so the registry's
-`km-KH`/`ru-RU` entries loaded a stale duplicate and `ru-RU` was missing
-two keys that had only landed in `ru_RU.i18n.json`. Restored both as
-symlinks.
-
-Six popups - Add Existing Subtask, Restore Card to Timeline, Clone Board,
-Create Board From Card, Archive All (list) Cards, and List Sync - had no
-`<name>Popup-title` key, so each rendered with no header and so no close
-button (the same class of problem `deleteBoardBackgroundPopup` etc. were
-fixed for earlier). Added the title key to `en.i18n.json` and every
-locale file, left as the English placeholder where no translation exists
-yet.
-
-Also inserted `text-contains-trigger-label`/`-description` into five
-locale files (`ace`, `ba` and three others) that were missing them
-entirely, which had shifted every following key out of position relative
-to `en.i18n.json`.
-
-</details>
-
-**Board feature flags, Board Settings and Notification Settings** - four
-more regressions from today's heavy development session.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/1deae2fca">Fix the spent-time backfill, two Board Settings fields, Notification Settings wiring and two font sizes</a>. Thanks to xet7.</summary>
-
-`allowsSpentTime`/`allowsSpentTimeOnMinicard` have `defaultValue: true` in
-`models/boards.js` but were missing from
-`server/lib/schemaUpgradeSteps.js`'s `BOARD_ALLOWS_TRUE_DEFAULTS`, so a
-board created before those flags existed would read them as
-undefined/false and hide its spent-time badge -
-`tests/schemaUpgradeSteps.test.cjs` pins the list against the schema so
-the two can no longer drift apart.
-
-`customPrivateBoardDesc`/`customPublicBoardDesc` are read by
-`settingBody.jade` but were missing from
-`server/publications/settings.js`'s `SETTING_FIELDS`, so both fields
-always rendered empty and saving them looked like it did nothing - the
-same class of bug `tests/settingPublishedFields.test.cjs` already exists
-to catch.
-
-`notificationSettingsPopup.jade`/`.js` (the 3-tier Notification Settings
-popup) are used by `peopleBody.jade` but were never imported into
-`client/features/settings.js`, so the template compiled to nothing and
-the popup did not exist at runtime; added both imports.
-
-`client/components/boards/timelineView.css` and two rules in
-`client/components/cards/minicard.css` still used bare px `font-size`
-values instead of `calc(Npx * var(--wekan-ui-font-scale, 1))`, so the UI
-font-size preset did not reach the Timeline board view or two minicard
-comment rows.
-
-</details>
-
-**Admin Panel / People, board item links, the Frappe Gantt view and the
-FerretDB Docker Compose backends** - four small pieces of drift found while
-chasing node test-suite failures.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/e15f53135">Admin Panel / People's Notifications row now has a URL of its own</a>. Thanks to xet7.</summary>
-
-`peopleMenu()` in `client/components/settings/peopleBody.js` draws a
-"Notifications" row (the admin-level default for the 3-tier Notification
-Settings system) but `models/lib/adminUrls.js`'s `ADMIN_PAGES.people.panes`
-had no slug for `notify-setting`, so the row could not be linked to or
-deep-linked with `/admin/people/<slug>` the way every other row can be.
-Added the `notifications` slug and its title, and documented the new
-`/admin/people/notifications` URL in `docs/Features/Page/Admin-Panel-URLs.md`.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/6e78c0f64">Opening a card or another board no longer leaves a stale comment/activity reveal armed</a>. Thanks to xet7.</summary>
-
-`client/lib/revealBoardItem.js`'s permalink reveal (issue #4757) is
-one-shot: following a `#comment-<id>`/`#activity-<id>` link sets
-`revealCommentId`/`revealActivityId` in `Session`, and the board scrolls to
-and highlights that element once. `config/router.js`'s `card` and `board`
-routes already cleared `revealSwimlaneId`/`revealListId` on every
-navigation so a stale swimlane/list reveal could not fire on the next
-board, but never cleared the two comment/activity keys - so following a
-comment permalink and then opening a different card could still scroll and
-highlight the old comment once the first card's board rendered again.
-Both routes now clear all four reveal keys.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/ca9384c4a">The Frappe Gantt board view no longer risks "no template frappeGanttView found"</a>. Thanks to xet7.</summary>
-
-`client/components/boards/roadmapView.js` imports
-`client/components/gantt/frappeGantt.js` directly for `loadGanttLib`/
-`cardsToTasks`/`popupDetailsHtml`, but that module registers
-`Template.frappeGanttView.*` without importing its own
-`frappeGantt.jade`. Whichever module reached it first - which can now be
-`roadmapView.js`, well before `client/features/gantt.js`'s own import list
-gets to the `.jade` - registered helpers/events against a template that did
-not exist yet. `frappeGantt.js` now imports `frappeGantt.jade` itself, the
-same fix this class of bug already has for every other component two or
-more others import (`tests/clientBundleImports.test.cjs`).
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/7cc570854">The FerretDB Docker Compose backends document SAML the same way docker-compose.yml does</a>. Thanks to xet7.</summary>
-
-`docker-compose.yml`'s WeKan service is supposed to be identical, comment
-for comment, across `docker-compose-ferretdb-v1-{postgresql,mysql,mariadb,
-sap-hana}.yml` - the whole point of having one per FerretDB v1 backend is
-that a user reading any of them configures the same WeKan. The four backend
-files still had the bare, undocumented `#- SAML_ENABLED=true` block from
-before the SAML 2.0 login feature's explanatory comments
-(`docs/Features/Login/SAML.md`) were written; they now carry the same
-per-variable comments `docker-compose.yml` does.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/ccb5c28b7">LDAP, SAML, CAS and generic-OAuth2 no longer crash the server at boot</a>. Thanks to xet7.</summary>
-
-A local Meteor package under `packages/` is its own isolated build unit and
-cannot import an app-tree module by absolute path, static or dynamic -
-`packages/wekan-ldap/server/ldap.js` (the recent LDAP Admin Panel override
-feature) imported `Settings` and `resolveConfigValue` from `/models/...`
-directly, which compiled and even ran under a plain Node test, but threw
-"Cannot find module '/models/settings'" the moment the real Meteor server
-started - exactly what a pasted `./build.sh` run reproduced. The pure
-`configResolver` functions are now vendored into the package; `Settings`
-access is injected instead, via `setLdapSettingsAccessor()`, wired once at
-boot by the new `server/ldapAdminSettingsBridge.js`. The same shape existed
-in `packages/wekan-oidc/oidc_server.js` (a vendored
-`oauth2ClientSecretJwt.js`) and, wrapped in a try/catch that only kept it
-from crashing boot, in `packages/wekan-accounts-saml/saml_server.js` and
-`packages/wekan-accounts-cas/cas_server.js`'s account-conflict canary calls
-(now reached through `global.__wekanTripCanary`, set once by
-`server/lib/canary.js`). Also found while wiring this up:
-`saml_server.js` imports the npm package `body-parser` without declaring it
-in `package.js`'s `Npm.depends`, which crashed boot the same way once it
-stopped finding the copy an unrelated app dependency happened to hoist into
-`node_modules`. `tests/packageAppImportBoundary.test.cjs` sweeps every file
-under `packages/` for an app-tree absolute import so this shape cannot
-reappear anywhere else, and pins both vendored copies against their
-app-tree originals.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/6e7388e5d">Two Jade "missing space before text" build warnings in the comment-reply banner</a>. Thanks to xet7.</summary>
-
-Both text lines in `comments.jade`'s reply banner started with a mustache
-tag directly, with no leading `|` marker - the pattern every other
-text-content line in the codebase uses. Harmless (the build still
-compiled), but noise on every build; added the `|`.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/7930da455">Custom fields no longer crash the server at boot on an invalid schema property</a>. Thanks to xet7.</summary>
-
-Another crash a pasted `./build.sh` run reproduced directly:
-"[uncaughtException] WeKan is stopping: Error: Invalid definition for sort
-field: 'decimal' is not a supported property", thrown from SimpleSchema's
-own constructor the moment the server started - before any board could
-load. `decimal: true` on `models/customFields.js`'s `sort` field is not,
-and has never been, a property SimpleSchema recognizes; nothing exercises
-that validation under a plain Node test, which is why it slipped through
-review. `type: Number` already allows fractional values with no extra
-flag - the same as Lists' own `sort` field, which this one was
-deliberately written to mirror and which never had this property either -
-so removing it changes nothing about what the field accepts.
-`tests/customFieldsSortSchema.test.cjs` pins the field's definition
-against SimpleSchema's actual valid-property list and sweeps every other
-file under `models/` for the same shape.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/0c538bb92">Clicking a minicard opens the card popup again</a>. Thanks to xet7.</summary>
-
-Reported directly: clicking a minicard did not open the card popup, with
-the browser console showing "Error: No such function: isDateFormat" from
-`Template.cardFieldSectionDates`. `cardDetails.jade` was split into
-several per-section templates (Labels/Dates/Members/
-DependenciesAndSort/CustomFields/VoteAndPoker), plus
-`cardDetailsActionsPopup` and `activities.jade` are separate templates
-entirely - but twelve helpers those templates actually call
-(`isDateFormat`, `canShowCustomFieldsOnCard`, `stickers`, `isWatching`,
-`dueDateChangeCount`, `getLocations`, `getDependencyCards`,
-`customFieldsGrid`, `showActivities`, `showVotingButtons`,
-`showPlanningPokerButtons`, `currentSwimlaneListsSorted`,
-`isCurrentListId`) were only ever registered on
-`Template.cardDetails.helpers` - template-local, so invisible to every
-template that isn't `cardDetails` itself. Blaze only surfaces this the
-moment that piece of UI actually renders, which is why it passed the
-Node test suite and even a `meteor build` cleanly and only broke live.
-Moved all twelve to `Template.registerHelper` (global), matching the
-pattern the file already used for `isSectionOpen`.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/2f626d099">A new label no longer fails to enlarge or apply to the card</a>. Thanks to xet7.</summary>
-
-Reported directly: clicking a newly created label did not enlarge it or
-apply it to the card, with the browser console showing "Exception in
-Template.cardFlowtime canControlFlow" and the same for
-`Template.cardPomodoro canControlPomodoro` - both call
-`Utils.canModifyCard()` but never imported `Utils` (a plain ES export
-from `client/lib/utils.js`, not a Meteor global), so the helper threw a
-ReferenceError the moment either template's reactive computation ran,
-breaking the surrounding card render along with it. Searching the whole
-tree for the same shape found two more real, independent instances:
-`notificationSettingsPopup.js` called `Utils.getCurrentBoardId()`
-unimported, and `client/components/main/bookmarks.js` (the header
-bookmarks/Starred feature) called `ReactiveCache.getCurrentUser()`
-unimported in four places.
-`tests/clientSingletonImports.test.cjs` sweeps every `client/**/*.js`
-file for a call to `Utils.<method>(` or `ReactiveCache.<method>(` with no
-matching import, so this shape cannot reappear anywhere else undetected.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/85a7f0fc8">Clicking a label to toggle it onto the card works again</a>. Thanks to xet7.</summary>
-
-Reported directly: clicking a label no longer toggled it onto the card
-(grow wider/apply on first click, shrink/remove on second), with the
-browser console showing "card.board is not a function" thrown from
-jQuery UI sortable's `stop` handler in `client/components/cards/labels.js`
-(the label-reorder drag on `cardLabelsPopup`). jQuery UI's sortable widget
-runs its `stop` callback on mouseup whenever a drag was registered, which
-ordinary mouse/trackpad clicks can trigger even without an intentional
-drag - so this handler fired far more often than "the user actually
-reordered labels," and resolved the card via
-`Blaze.getData(this).board()` on the sortable's root DOM element, which
-does not reliably resolve back to a real Card document. An uncaught
-exception inside jQuery UI's own cleanup aborted the rest of it,
-consistent with the toggle-on-click visuals getting stuck. The sibling
-`click .js-select-label` handler two lines below already had the right
-fix for the same problem (added for linked-card labels): resolve the
-board from the popup template's own data via `getCardLabelBoard(...)`.
-Applied the same fix to the `stop` handler.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/0242f968b">The card detail sections and the Labels popup get the card as their data context again</a>. Thanks to xet7.</summary>
-
-Reported directly: after adding a label to an opened card, clicking it in
-the Labels popup no longer made it wider or applied it to the card - it had
-worked in the previous release. The reorderable card detail sections are
-rendered by an `each` over the board's stored section order, and the plain
-`each orderedCardFieldSections` form set the data context of everything
-inside it to the section NAME string ("labels", "dates", ...). Every section
-template, and every popup opened from one, therefore received a string
-where it expected the card: the Labels popup's `card.toggleLabel` was
-undefined and the click returned silently, `isLabelSelected` looked up
-`_id` on a string, and the section's own labels/stickers/locations lists
-rendered empty. The earlier fixes in this release (global helpers, missing
-imports, the sortable `stop` handler) each removed a real exception on this
-path but could not restore the toggle, because the popup still had no
-card. Switched to `each section in orderedCardFieldSections`, which keeps
-`this` as the card; `tests/cardFieldSectionsKeepCardContext.test.cjs` pins
-it.
-
-</details>
-
-- [The Flowtime "Add Interruption" button uses the same theme colors as "Start Pomodoro"](https://github.com/wekan/wekan/commit/aa728a8dc). Thanks to xet7.
-- [The Timeline "Restore to this state", List "Sync now" and Admin Panel "Test LDAP Connection" buttons are themed the same way](https://github.com/wekan/wekan/commit/376790de5). Thanks to xet7.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/d0a70473e">The Dashboard's charts render again above its table</a>. Thanks to xet7.</summary>
-
-Reported directly: the Dashboard view showed nothing above its table, with
-"Exception from Tracker afterFlush function: Error: There is no current
-view" from `boardCharts.js`. The chart is deliberately built inside
-`Tracker.afterFlush` so the `<canvas>` exists by then, but that callback
-runs outside every Blaze view, where `Template.currentData()` throws - and
-one such call (the dataset title) sat inside it, aborting the whole chart
-build with nothing to retry it. The data context is now read once in the
-autorun and only the captured values are used inside the callback;
-`tests/boardChartsAfterFlushContext.test.cjs` pins that no `afterFlush`
-body in the file calls `Template.currentData()`.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/10c58867a">Frappe Gantt and DHTMLX Gantt show month and weekday names in the user's language</a>. Thanks to xet7.</summary>
-
-Reported directly: both Gantt board views showed English month names in
-every language. Neither library reads WeKan's translations - Frappe Gantt
-takes a `language` tag it hands to `Intl.DateTimeFormat`, and DHTMLX Gantt
-takes a locale object and only bundles a fixed set of them, defaulting to
-English. The new `client/lib/ganttLocale.js` feeds both from the browser's
-own Intl data, so every WeKan language gets its month and weekday names:
-it maps WeKan's tag to one Intl accepts (the underscore tags such as
-`ru_RU` make Intl throw; an unknown tag falls back to its primary subtag,
-then English - every tag under `imports/i18n/data` is pinned to resolve),
-and for DHTMLX prefers a locale the library bundles when there is one.
-`tests/ganttLocale.test.cjs` covers it.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/364903fd8">Every chart view has one translated Export popup, and Frappe Gantt's own buttons are translated</a>. Thanks to xet7.</summary>
-
-Reported directly: the Frappe Gantt view - and the DHTMLX Gantt, WeKan
-Gantt, Time and the ten report-chart views - each showed two untranslated
-"Export to PDF" / "Export to Excel" links, with five copies of the same
-URL-building helper behind them. They now share one translated "Export"
-button opening a new `exportChartPopup`: the same pop-over list of formats
-the board/swimlane/list/card export popup uses, offering PDF and Excel with
-the same icons and labels, with the URL built in exactly one place
-(`client/components/boards/charts/exportChart.js`). The popup's title comes
-from each locale's existing "export" translation, so no new words were
-needed for it. Frappe Gantt's own chrome was English in every language
-too: its view-mode dropdown now receives translated copies of the
-library's default modes (Day/Week/Month from existing keys, plus four new
-keys for Hour, Quarter Day, Half Day and Year), and its hardcoded "Today"
-button and "Mode" placeholder, which the library rebuilds on every view
-change, are re-translated by an observer. `tests/chartExportPopup.test.cjs`
-pins all of it.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/e487f8d91">Chart PDF exports keep every row on one line, in aligned columns</a>. Thanks to xet7.</summary>
-
-Reported directly: in the Frappe Gantt view's PDF export a row's text was
-not on one line. The chart PDF exporter wrote every header and data row as
-one text line - "title | start | due | end" - with no width limit, so a
-long card title pushed the dates off the page edge, and nothing lined up
-from row to row. Rows are now real table rows with fixed column widths
-(the name column twice the others); a cell that does not fit is clipped
-with an ellipsis rather than wrapped, so a row is always exactly one line,
-in both the Unicode PDF and the base-font fallback. Gantt, Time and the
-report charts share this exporter. `tests/chartPdfTableRows.test.cjs` pins
-it.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/278db0ada">Every Excel export writes dates as real date cells, not text</a>. Thanks to xet7.</summary>
-
-Reported directly, with a LibreOffice screenshot: the Frappe Gantt view's
-Excel export showed Start/Due/End as ISO text
-("2026-09-23T09:00:00.000Z") - the chart Excel exporter wrote
-`toISOString()` into the cell. A date is now a real date cell with a date
-number format, so the spreadsheet shows it in its own date format, sorts
-it as a date and can do arithmetic on it. Checking every other Excel
-export as asked: the board and card exports draw the shared card document,
-whose Created/Received/Start/Due/End/Last activity values were
-pre-formatted text as well - a date pair now also carries the raw Date,
-which the Excel renderer writes as a date cell while the PDF keeps
-printing the text; the board's own Created/Modified lines likewise. The
-legacy whole-board Excel export already wrote real dates.
-`tests/chartExcelDateCells.test.cjs` covers all of them.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/ad3554bbc">Board Settings / Rules switches to the Workflow view from any tab</a>. Thanks to xet7.</summary>
-
-Reported directly, with screenshots: clicking "Workflow view" in the Rules
-page's sidebar changed the button's label to "List view" but the page kept
-showing the "Add trigger" tab - the workflow builder never appeared. The
-workflow view is rendered only while the page's list tab is current, and
-the toggle lives in a separate sidebar template that can only flip the
-view mode, not the tab. The Rules page now brings itself back to the list
-tab whenever the workflow view is selected.
-`tests/rulesWorkflowViewToggle.test.cjs` pins it.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/48106ee17">Admin Panel / People / Roles no longer throws in its status table</a>. Thanks to xet7.</summary>
-
-Reported directly: "Exception in Template.rolesGeneral rolesStatusTable" -
-the table's column value functions call `TAPi18n.__()` in a file that
-never imported `TAPi18n` (a named export, not a global). Sweeping the tree
-for the same shape found it in two more files that would have failed the
-same way the moment their call ran: the Locked Users pane's unlock
-confirmation and the Multi Board Calendar view's locale and labels.
-`tests/clientSingletonImports.test.cjs` now sweeps for `TAPi18n` too,
-beside `Utils` and `ReactiveCache`.
 
 </details>
 
@@ -5157,6 +5228,16 @@ and improves the translation workflow:
 - [Translate the Frappe Gantt view-mode strings for Gujarati, Manx, Hausa, Hawaiian, Hebrew, Hindi, Croatian, Upper Sorbian, Haitian Creole, Hungarian, Armenian, Indonesian, Igbo, Icelandic, Italian, Inuktitut, Japanese, Javanese, Georgian, Kazakh, Greenlandic, Khmer, Kannada, Korean, Konkani, Kashmiri, Kurdish, Cornish, Kyrgyz, Latin, Luxembourgish, Luganda and Ladin.](https://github.com/wekan/wekan/commit/87f2fa12b). Thanks to xet7.
 - [Translate the Frappe Gantt view-mode strings for Russian, Aromanian, Kinyarwanda, Yakut, Sardinian, Sicilian, Sindhi, Northern Sami, Sinhala, Slovak, Slovenian, Samoan, Shona, Somali, Albanian, Serbian, Swati, Sotho, Swedish, Swahili, Silesian, Tamil, Telugu, Tajik, Thai, Tigrinya, Tigre, Turkmen, Tagalog, Klingon, Tswana, Tongan, Tok Pisin, Turkish, Tsonga, Tatar and Uyghur.](https://github.com/wekan/wekan/commit/4bb68ceda). Thanks to xet7.
 - [Translate the Frappe Gantt view-mode strings for Ukrainian, Urdu, Uzbek, Venetian, Veps, Venda, Vietnamese, Flemish, Volapük, Waray, Walloon, Wolaytta, Wolof, Wu, Xhosa, Yiddish, Yoruba, Cantonese, Tamazight, Chinese and Zulu.](https://github.com/wekan/wekan/commit/aac7657e1). Thanks to xet7.
+
+- [Translate the remaining strings for Dutch (Netherlands), Polish (Poland), Russian (Ukraine/Russia), Ukrainian (Ukraine), Vietnamese (Vietnam) and Chinese (Simplified/UK/Traditional)](https://github.com/wekan/wekan/commit/d3b433d63). Thanks to xet7.
+- [Fill in the missing Northern Ndebele translations](https://github.com/wekan/wekan/commit/4338aef01). Thanks to xet7.
+- [Translate the six popup titles for Ladin, Latin, Luganda, Luxembourgish, Maithili, Malagasy, Malay, Malayalam, Maltese, Manx, Maori and Marathi](https://github.com/wekan/wekan/commit/768c0c079). Thanks to xet7.
+- [Translate the card-recurrence-interval strings to every locale](https://github.com/wekan/wekan/commit/5e255d174). Thanks to xet7.
+- [Translate the checklist automatic-reset labels for Acehnese, Kinyarwanda and Flemish](https://github.com/wekan/wekan/commit/ec69a54a5). Thanks to xet7.
+- [Add the "Pulse" board view menu label to all locale files](https://github.com/wekan/wekan/commit/7f35409cb). Thanks to xet7.
+- [Add the "Convert to subtask" / "linked subtask" i18n keys to all locale files](https://github.com/wekan/wekan/commit/33fbf9100). Thanks to xet7.
+- [Add the "Add existing card as subtask" i18n key to all locale files](https://github.com/wekan/wekan/commit/5d0b08a72). Thanks to xet7.
+- [Add the "more-options" quick-add i18n key for #3967](https://github.com/wekan/wekan/commit/59878c590). Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for
 their translations.
