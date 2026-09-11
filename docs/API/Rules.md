@@ -145,9 +145,10 @@ plus `userId`, `swimlaneName`, `cardTitle`) are stored as `'*'` wildcards.
 
 ## Edit a rule
 
-Any of `title`, `trigger` and `action` may be supplied; a supplied trigger or
-action document replaces the stored fields. When the supplied trigger includes
-an `activityType`, its missing matching fields are defaulted to `'*'` too.
+Any of `title`, `enabled`, `trigger` and `action` may be supplied; a supplied
+trigger or action document replaces the stored fields. When the supplied
+trigger includes an `activityType`, its missing matching fields are defaulted
+to `'*'` too.
 
 ```shell
 curl -H "Authorization: Bearer TOKEN" \
@@ -155,6 +156,20 @@ curl -H "Authorization: Bearer TOKEN" \
      -X PUT \
      http://localhost:3000/api/boards/BOARDID/rules/RULEID \
      -d '{ "action": { "actionType": "removeMember", "username": "*" } }'
+```
+
+### Pause and resume a rule
+
+`enabled: false` pauses the rule without deleting it - its trigger and action
+stay as they are and the rule engine simply skips it - and `enabled: true`
+resumes it. `GET` reports the current `enabled` value of every rule.
+
+```shell
+curl -H "Authorization: Bearer TOKEN" \
+     -H "Content-type: application/json" \
+     -X PUT \
+     http://localhost:3000/api/boards/BOARDID/rules/RULEID \
+     -d '{ "enabled": false }'
 ```
 
 ## Delete a rule

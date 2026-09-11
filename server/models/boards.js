@@ -1573,3 +1573,83 @@ WebApp.handlers.get('/api/boards/:boardId/attachments', async function(req, res)
     })),
   });
 });
+
+/**
+ * @operation get_board_card_field_order
+ * @tag Boards
+ * @summary Get the order of the opened card's sections
+ *
+ * @description The Board Settings "card field order": the sequence in which
+ * the opened card draws its Labels, Dates, Members, Custom Fields and
+ * Description sections. Always returns every one of the five keys exactly
+ * once, in effect - a board that never changed the setting gets the default
+ * `labels, dates, members, customFields, description`. Requires board access.
+ *
+ * @param {string} boardId the board ID
+ * @return_type {cardFieldOrder: [string], keys: [string]}
+ */
+WebApp.handlers.get('/api/boards/:boardId/cardFieldOrder', async function(req, res) {
+  try {
+    const paramBoardId = req.params.boardId;
+    await Authentication.checkBoardAccess(req.userId, paramBoardId);
+    const board = await ReactiveCache.getBoard(paramBoardId);
+    if (!board) {
+      sendJsonResult(res, { code: 404, data: { error: 'Board not found' } });
+      return;
+    }
+    const { applyCardFieldOrder, CARD_FIELD_ORDER_KEYS } = require('/models/lib/cardFieldOrder');
+    sendJsonResult(res, {
+      code: 200,
+      data: {
+        cardFieldOrder: applyCardFieldOrder(board.cardFieldOrder),
+        keys: CARD_FIELD_ORDER_KEYS.slice(),
+      },
+    });
+  } catch (error) {
+    sendJsonResult(res, publicErrorData(error));
+  }
+});
+
+/**
+ * @operation update_board_card_field_order
+ * @tag Boards
+ * @summary Set the order of the opened card's sections
+ *
+ * @description Stores a new card field order for the board. The order is
+ * normalised the way the card renders it: unknown keys are dropped,
+ * duplicates keep their first position, and any of the five keys left out is
+ * appended in its default position - so the card always draws every section
+ * exactly once. Requires the caller to be a board admin (or site admin).
+ * Returns the order in effect.
+ *
+ * @param {string} boardId the board ID
+ * @param {string} cardFieldOrder JSON array of section keys, e.g. ["description", "labels", "dates", "members", "customFields"]
+ * @return_type {cardFieldOrder: [string], keys: [string]}
+ */
+WebApp.handlers.put('/api/boards/:boardId/cardFieldOrder', async function(req, res) {
+  try {
+    const paramBoardId = req.params.boardId;
+    await Authentication.checkBoardAdmin(req.userId, paramBoardId);
+    let order = req.body ? req.body.cardFieldOrder : undefined;
+    if (typeof order === 'string') {
+      try {
+        order = JSON.parse(order);
+      } catch (e) {
+        order = order.split(',').map(s => s.trim());
+      }
+    }
+    if (!Array.isArray(order)) {
+      sendJsonResult(res, { code: 400, data: { error: 'cardFieldOrder must be an array of section keys' } });
+      return;
+    }
+    const { applyCardFieldOrder, CARD_FIELD_ORDER_KEYS } = require('/models/lib/cardFieldOrder');
+    const cardFieldOrder = applyCardFieldOrder(order);
+    await Boards.updateAsync(paramBoardId, { $set: { cardFieldOrder } });
+    sendJsonResult(res, {
+      code: 200,
+      data: { cardFieldOrder, keys: CARD_FIELD_ORDER_KEYS.slice() },
+    });
+  } catch (error) {
+    sendJsonResult(res, publicErrorData(error));
+  }
+});

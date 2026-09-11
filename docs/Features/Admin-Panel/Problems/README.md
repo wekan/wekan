@@ -10,7 +10,11 @@ it at **Admin Panel → Problems** (you must be an admin — `currentUser.isAdmi
 The same information is available **without** the Admin Panel, from the server
 command line, via `snap run wekan.problems` — see **[Snap.md](Snap.md)** — so an
 admin who only has server (snap) access can read it without being given Admin
-Panel access.
+Panel access. It is also on the REST API, for monitoring from outside:
+`GET /api/admin/problems` is this overview with the new-problem count per
+stream, `GET /api/admin/problems/:stream` one page of a stream, and
+`POST /api/admin/problems/:stream/acknowledge` the acknowledge button - see
+[REST API](../../../API/REST-API.md#admin-panel-problems).
 
 ## The Status overview (Problems → Summary)
 

@@ -65,6 +65,30 @@ When calling a production Wekan server, ensure it is running via HTTPS and has a
 | :--- | :--- | :--- |
 | `GET` | `/api/settings` | [Read the Admin Panel global settings.](#get-settings) |
 | `PUT` | `/api/settings` | [Update the Admin Panel global settings.](#update-settings) |
+### Attachments
+| HTTP Method | Url | Short Description |
+| :--- | :--- | :--- |
+| `GET` | `/api/boards/:boardId/attachments` | List the live attachments of a board. |
+| `GET` | `/api/boards/:boardId/attachments/deleted` | [List the soft-deleted attachments of a board.](#list-deleted-attachments) |
+| `DELETE` | `/api/boards/:boardId/attachments/:attachmentId` | [Soft-delete an attachment.](#soft-delete-an-attachment) |
+| `POST` | `/api/boards/:boardId/attachments/:attachmentId/restore` | [Restore a soft-deleted attachment.](#restore-an-attachment) |
+### Board Settings: card field order
+| HTTP Method | Url | Short Description |
+| :--- | :--- | :--- |
+| `GET` | `/api/boards/:boardId/cardFieldOrder` | [Get the order of the opened card's sections.](#get-the-card-field-order) |
+| `PUT` | `/api/boards/:boardId/cardFieldOrder` | [Set the order of the opened card's sections.](#set-the-card-field-order) |
+### Admin Panel: Problems
+| HTTP Method | Url | Short Description |
+| :--- | :--- | :--- |
+| `GET` | `/api/admin/problems` | [The Problems status overview and new-problem counts.](#problems-overview) |
+| `GET` | `/api/admin/problems/:stream` | [One page of a problem stream.](#problem-stream) |
+| `POST` | `/api/admin/problems/:stream/acknowledge` | [Acknowledge a stream's new problems.](#acknowledge-a-stream) |
+### Admin Panel: OAuth login providers and passwordless
+| HTTP Method | Url | Short Description |
+| :--- | :--- | :--- |
+| `GET` | `/api/admin/oauth-providers` | [Which source is in effect for every provider setting.](#get-oauth-provider-settings) |
+| `PUT` | `/api/admin/oauth-providers/:providerKey` | [Update one provider's Admin Panel settings.](#update-an-oauth-provider) |
+| `PUT` | `/api/admin/passwordless` | [Turn passwordless login on or off.](#passwordless) |
 
 
 ---
@@ -229,3 +253,258 @@ curl -H "Authorization: Bearer t7iYB86mXoLfP_XsMegxF41oKT7iiA9lDYiKVtXcctl" \
      http://localhost:3000/api/settings \
      -d '{ "productName": "My WeKan", "disableRegistration": true }'
 ```
+
+---
+
+# Attachments
+
+Deleting an attachment from a card is a **soft delete** (see
+[History.md §12](../Features/Reports/History/History.md)): the file is kept,
+the card and the minicard badge hide it, and the card history - or this API -
+restores it. There is **no hard delete of a single attachment** over the API;
+the one hard delete is deleting an archived board with Admin Panel / Problems /
+Delete enabled. All three endpoints go through the same server methods the
+card and the card history use, so the permission check, the cover unset and
+the history row are the ones the UI gets.
+
+## List deleted attachments
+| URL | Requires Auth (board access) | HTTP Method |
+| :--- | :--- | :--- |
+| `/api/boards/:boardId/attachments/deleted` | `yes` | `GET` |
+
+```bash
+curl -H "Authorization: Bearer t7iYB86mXoLfP_XsMegxF41oKT7iiA9lDYiKVtXcctl" \
+     http://localhost:3000/api/boards/BOARDID/attachments/deleted
+```
+
+Result:
+
+```json
+[
+  {
+    "attachmentId": "sKHd9a2vLQ7Wq3xPz",
+    "attachmentName": "spec.pdf",
+    "attachmentType": "application/pdf",
+    "boardId": "BOARDID",
+    "swimlaneId": "yhY4RJmoZ2P7hFjQm",
+    "listId": "vFnjPvQHnKf2EzRfE",
+    "cardId": "a2oXL5HGdVTZuTjxi",
+    "deletedAt": "2026-09-11T10:12:41.203Z",
+    "deletedBy": "USERID",
+    "deleteBatchId": "attachment-1789107161203-USERID"
+  }
+]
+```
+
+The live attachments are listed by `GET /api/boards/:boardId/attachments`.
+
+## Soft-delete an attachment
+| URL | Requires Auth (may edit the card) | HTTP Method |
+| :--- | :--- | :--- |
+| `/api/boards/:boardId/attachments/:attachmentId` | `yes` | `DELETE` |
+
+```bash
+curl -H "Authorization: Bearer t7iYB86mXoLfP_XsMegxF41oKT7iiA9lDYiKVtXcctl" \
+     -X DELETE \
+     http://localhost:3000/api/boards/BOARDID/attachments/ATTACHMENTID
+```
+
+Result: `{ "deleted": true, "batchId": "attachment-1789107161203-USERID" }`.
+Idempotent: an attachment that is already deleted is left as it is. If the
+attachment was the card's cover, the cover is unset.
+
+## Restore an attachment
+| URL | Requires Auth (may edit the card) | HTTP Method |
+| :--- | :--- | :--- |
+| `/api/boards/:boardId/attachments/:attachmentId/restore` | `yes` | `POST` |
+
+```bash
+curl -H "Authorization: Bearer t7iYB86mXoLfP_XsMegxF41oKT7iiA9lDYiKVtXcctl" \
+     -X POST \
+     http://localhost:3000/api/boards/BOARDID/attachments/ATTACHMENTID/restore
+```
+
+Result: `{ "restored": true }` (`false` when the attachment was not deleted).
+The cover is never re-set by a restore.
+
+---
+
+# Board Settings: card field order
+
+The opened card draws its Labels, Dates, Members, Custom Fields and Description
+sections in the order Board Settings sets. Whatever is stored, the order in
+effect always contains each of the five keys exactly once: unknown keys are
+dropped, duplicates keep their first position, and a missing key is appended in
+its default position.
+
+## Get the card field order
+| URL | Requires Auth (board access) | HTTP Method |
+| :--- | :--- | :--- |
+| `/api/boards/:boardId/cardFieldOrder` | `yes` | `GET` |
+
+```bash
+curl -H "Authorization: Bearer t7iYB86mXoLfP_XsMegxF41oKT7iiA9lDYiKVtXcctl" \
+     http://localhost:3000/api/boards/BOARDID/cardFieldOrder
+```
+
+Result:
+
+```json
+{
+  "cardFieldOrder": ["labels", "dates", "members", "customFields", "description"],
+  "keys": ["labels", "dates", "members", "customFields", "description"]
+}
+```
+
+## Set the card field order
+| URL | Requires Auth (board admin) | HTTP Method |
+| :--- | :--- | :--- |
+| `/api/boards/:boardId/cardFieldOrder` | `yes` | `PUT` |
+
+```bash
+curl -H "Authorization: Bearer t7iYB86mXoLfP_XsMegxF41oKT7iiA9lDYiKVtXcctl" \
+     -H "Content-type:application/json" \
+     -X PUT \
+     http://localhost:3000/api/boards/BOARDID/cardFieldOrder \
+     -d '{ "cardFieldOrder": ["description", "customFields", "labels", "dates", "members"] }'
+```
+
+Returns the order in effect, in the same shape as `GET`.
+
+---
+
+# Admin Panel: Problems
+
+The **Admin Panel → Problems** pages over the API, **global-admin only** and
+read-only apart from acknowledging a stream. Each row of a stream is a
+summary that accumulates (`count`, `firstAt`..`at`, `actors`), never a row per
+event - see [Problems](../Features/Admin-Panel/Problems/README.md).
+
+## Problems overview
+| URL | Requires Auth (global admin) | HTTP Method |
+| :--- | :--- | :--- |
+| `/api/admin/problems` | `yes` | `GET` |
+
+```bash
+curl -H "Authorization: Bearer t7iYB86mXoLfP_XsMegxF41oKT7iiA9lDYiKVtXcctl" \
+     http://localhost:3000/api/admin/problems
+```
+
+Result:
+
+```json
+{
+  "inProgress": [{ "kind": "board-repair", "active": true, "message": "Board data-repair — 12/146 boards" }],
+  "problems": [{ "id": "broken-cards", "severity": "warning", "count": 3, "title": "Broken cards", "detail": "..." }],
+  "newProblems": [{ "stream": "security", "count": 2 }, { "stream": "database", "count": 1 }],
+  "streams": ["security", "speed", "tests", "cpu", "database", "integrity"]
+}
+```
+
+## Problem stream
+| URL | Requires Auth (global admin) | HTTP Method |
+| :--- | :--- | :--- |
+| `/api/admin/problems/:stream` | `yes` | `GET` |
+
+`:stream` is one of `security`, `speed`, `tests`, `cpu`, `database`,
+`integrity` or `api` (the REST API usage report). Query parameters: `limit`
+(1..200, default 50), `skip` (default 0) and `search` (case-insensitive text
+over the columns the page shows).
+
+```bash
+curl -H "Authorization: Bearer t7iYB86mXoLfP_XsMegxF41oKT7iiA9lDYiKVtXcctl" \
+     "http://localhost:3000/api/admin/problems/database?limit=20&search=disk"
+```
+
+Result: `{ "stream": "database", "total": 1, "limit": 20, "skip": 0, "rows": [ ... ] }`.
+
+## Acknowledge a stream
+| URL | Requires Auth (global admin) | HTTP Method |
+| :--- | :--- | :--- |
+| `/api/admin/problems/:stream/acknowledge` | `yes` | `POST` |
+
+```bash
+curl -H "Authorization: Bearer t7iYB86mXoLfP_XsMegxF41oKT7iiA9lDYiKVtXcctl" \
+     -X POST \
+     http://localhost:3000/api/admin/problems/security/acknowledge
+```
+
+Result: `{ "acknowledged": "security" }`. The overview then reports zero new
+problems for the stream until the next one is recorded.
+
+---
+
+# Admin Panel: OAuth login providers and passwordless
+
+The **Admin Panel / People / Login** section for Meteor's own accounts-*
+login services (Google, GitHub, Facebook, X/Twitter, Meteor Developer, Weibo,
+Meetup) and passwordless email codes - see
+[OAuth Providers](../Features/Login/OAuth-Providers.md) and
+[Passwordless](../Features/Login/Passwordless.md). **Global-admin only.** A
+value saved here wins over the `OAUTH_*` / `PASSWORDLESS_ENABLED` environment
+variable and takes effect without a restart. **A provider's secret is never
+returned**: it is reported only as `{ "source", "hasValue" }`.
+
+## Get OAuth provider settings
+| URL | Requires Auth (global admin) | HTTP Method |
+| :--- | :--- | :--- |
+| `/api/admin/oauth-providers` | `yes` | `GET` |
+
+```bash
+curl -H "Authorization: Bearer t7iYB86mXoLfP_XsMegxF41oKT7iiA9lDYiKVtXcctl" \
+     http://localhost:3000/api/admin/oauth-providers
+```
+
+Result (`source` is `env`, `admin` or `unset`):
+
+```json
+{
+  "providers": {
+    "google": {
+      "enabled": { "source": "admin", "value": true },
+      "id": { "source": "env", "value": "1234.apps.googleusercontent.com" },
+      "secret": { "source": "env", "hasValue": true }
+    },
+    "github": { "enabled": { "source": "unset", "value": null }, "id": { "source": "unset", "value": null }, "secret": { "source": "unset", "hasValue": false } }
+  },
+  "loginStyle": { "source": "env", "value": "popup" },
+  "mergeExistingUsers": { "source": "unset", "value": null },
+  "passwordless": { "source": "admin", "value": false }
+}
+```
+
+## Update an OAuth provider
+| URL | Requires Auth (global admin) | HTTP Method |
+| :--- | :--- | :--- |
+| `/api/admin/oauth-providers/:providerKey` | `yes` | `PUT` |
+
+`:providerKey` is one of `google`, `github`, `facebook`, `twitter`,
+`meteor-developer`, `weibo`, `meetup`. Body fields, all optional: `enabled`,
+`id`, `secret` (an empty or missing secret keeps the stored one), `loginStyle`
+(`popup` or `redirect`), and the two settings shared by every provider,
+`globalLoginStyle` and `mergeExistingUsers`.
+
+```bash
+curl -H "Authorization: Bearer t7iYB86mXoLfP_XsMegxF41oKT7iiA9lDYiKVtXcctl" \
+     -H "Content-type:application/json" \
+     -X PUT \
+     http://localhost:3000/api/admin/oauth-providers/github \
+     -d '{ "enabled": true, "id": "Iv1.abc123", "secret": "...", "loginStyle": "redirect" }'
+```
+
+Returns the same source report as `GET` - without the secret.
+
+## Passwordless
+| URL | Requires Auth (global admin) | HTTP Method |
+| :--- | :--- | :--- |
+| `/api/admin/passwordless` | `yes` | `PUT` |
+
+```bash
+curl -H "Authorization: Bearer t7iYB86mXoLfP_XsMegxF41oKT7iiA9lDYiKVtXcctl" \
+     -H "Content-type:application/json" \
+     -X PUT \
+     http://localhost:3000/api/admin/passwordless \
+     -d '{ "enabled": true }'
+```
+
+Result: `{ "passwordless": { "source": "admin", "value": true } }`.

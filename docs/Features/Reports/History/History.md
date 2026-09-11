@@ -489,8 +489,11 @@ Decided (maintainer, 2026-09). These are rules, not proposals; the tests under
 - No board member, board admin, or global admin can permanently delete one attachment from a
   card, a board, the Files report, the REST API, or the DDP API. Every one of those paths is
   either a soft delete now (`api.attachment.delete`, `DELETE /api/attachment/delete/:id`,
-  `removeBoardBackground`) or gone (`permanentlyDeleteAttachmentFromFilesReport` and its
-  Files-report button).
+  `DELETE /api/boards/:boardId/attachments/:attachmentId`, `removeBoardBackground`) or gone
+  (`permanentlyDeleteAttachmentFromFilesReport` and its Files-report button). The REST API
+  restores with `POST /api/boards/:boardId/attachments/:attachmentId/restore` and lists what
+  is restorable with `GET /api/boards/:boardId/attachments/deleted`, through the same
+  `attachments.softDelete` / `attachments.restore` methods the card and the history use.
 - The client cannot remove an attachment document at all: `Attachments.allow({ remove })`
   returns `false` and `onBeforeRemove` refuses every `_FilesCollectionRemove_attachments` call,
   logged as an attempt under Admin Panel → Problems.

@@ -765,6 +765,15 @@ class SchemaProperty(object):
                 prefix = self.name + '.'
                 if any(f.name.startswith(prefix) for f in (self.schema.fields or [])):
                     return current_schema
+                # A primitive element marker such as `'wipLimitGroups.$.listIds.$':
+                # {type: String}` is already described by its parent array's
+                # `items:` (array_elements). Emitting a sub-schema for it printed
+                # `BoardsWiplimitgroups$Listids:` with `type: object` and no
+                # `properties:` line, and the NEXT sibling field then landed under
+                # it as a bare mapping - "mapping values are not allowed here",
+                # which broke public/api/wekan.yml for every parser.
+                if self.type != 'object':
+                    return current_schema
 
                 # reference in reference
                 subschema = ''.join([n.capitalize() for n in self.name.split('.')[:-1]])
@@ -956,12 +965,22 @@ def downlevel_js(data):
       foo?.bar -> foo .bar    (optional member)
       a ??= b  -> a   = b     (nullish assignment)
       a ?? b   -> a || b      (nullish coalescing)
+      catch {  -> catch (_) { (optional catch binding, ES2019)
+      for await (x of y) -> for (x of y)   (async iteration, ES2018)
+
+    The last two are not length-neutral but still never touch a newline. They
+    matter: server/models/boards.js has had a bare `catch {` since v11.67, and
+    because a parse failure was silently skipped, EVERY route in that file -
+    the whole Boards API - was missing from the generated wekan.yml until the
+    rewrite below was added (tests/openapiParsesEveryRouteFile.test.cjs).
     '''
     data = data.replace('?.(', '  (')
     data = data.replace('?.[', '  [')
     data = data.replace('?.', ' .')
     data = data.replace('??=', '  =')
     data = data.replace('??', '||')
+    data = re.sub(r'\bcatch\s*\{', 'catch (_) {', data)
+    data = re.sub(r'\bfor\s+await\s*\(', 'for (', data)
     return data
 
 
@@ -991,7 +1010,10 @@ def parse_file(path):
     try:
         # if the file failed, it's likely it doesn't contain a schema
         context = Context(path)
-    except:
+    except Exception as e:
+        # Say so: a route file that does not parse drops EVERY route it holds
+        # from the spec, silently, which is how the Boards API went missing.
+        logger.warning('%s: cannot parse, its schema and routes are skipped: %s', path, e)
         return
 
     return context

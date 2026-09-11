@@ -5,6 +5,7 @@ import { Email, EmailInternals } from 'meteor/email';
 import { installAdminMailTransport, installMailTransport } from '/server/lib/mailTransport';
 import { ServiceConfiguration } from 'meteor/service-configuration';
 import { WebApp } from 'meteor/webapp';
+import { DDP } from 'meteor/ddp';
 import Settings from '/models/settings';
 import InvitationCodes from '/models/invitationCodes';
 import EmailLocalization from '/server/lib/emailLocalization';
@@ -991,5 +992,120 @@ WebApp.handlers.put('/api/settings', async function(req, res) {
     sendJsonResult(res, { code: 200, data: pickSettingsFields(updated) });
   } catch (error) {
     sendJsonResult(res, { code: 200, data: error });
+  }
+});
+
+/**
+ * @operation get_oauth_provider_settings
+ * @tag Settings
+ *
+ * @summary Get the OAuth login provider and passwordless settings
+ *
+ * @description The Admin Panel / People / Login section for Meteor's own
+ * accounts-* login services (Google, GitHub, Facebook, X/Twitter, Meteor
+ * Developer, Weibo, Meetup) and passwordless email codes. For every provider
+ * field, the shared login style, the merge switch and passwordless it reports
+ * which source is in effect - `env` (the `OAUTH_*` / `PASSWORDLESS_ENABLED`
+ * environment variable), `admin` (a value saved in the Admin Panel) or
+ * `unset` - and the resolved value. A provider's secret is reported ONLY as
+ * `{ source, hasValue }`; its value is never returned. Only the global admin
+ * can call this.
+ *
+ * @return_type {providers: object, loginStyle: {source: string, value: string}, mergeExistingUsers: {source: string, value: string}, passwordless: {source: string, value: string}}
+ */
+WebApp.handlers.get('/api/admin/oauth-providers', async function(req, res) {
+  try {
+    await Authentication.checkUserId(req.userId);
+    const sources = await DDP._CurrentMethodInvocation.withValue(
+      { userId: req.userId },
+      async () => Meteor.callAsync('getOauthProviderConfigSources'),
+    );
+    sendJsonResult(res, { code: 200, data: sources });
+  } catch (error) {
+    sendJsonResult(res, { code: error.statusCode || 500, data: { error: error.reason || error.message } });
+  }
+});
+
+/**
+ * @operation update_oauth_provider_settings
+ * @tag Settings
+ *
+ * @summary Update one OAuth login provider's Admin Panel settings
+ *
+ * @description The same save the Admin Panel makes: `enabled` and `id` are
+ * stored as given, `secret` only when non-empty (an empty or missing secret
+ * leaves the stored one untouched), and `loginStyle` must be `popup` or
+ * `redirect` (anything else clears the per-provider override). The two
+ * settings shared by every provider, `globalLoginStyle` and
+ * `mergeExistingUsers`, may ride along. A value saved here wins over the
+ * environment variable, and the provider is reconfigured at once, without a
+ * restart. The response is the same source report as
+ * get_oauth_provider_settings and never contains a secret. Only the global
+ * admin can call this.
+ *
+ * @param {string} providerKey one of google, github, facebook, twitter, meteor-developer, weibo, meetup
+ * @param {boolean} [enabled] whether the provider's login button is offered
+ * @param {string} [id] the client id / app id / consumer key issued by the provider
+ * @param {string} [secret] the client secret; omitted or empty keeps the stored one
+ * @param {string} [loginStyle] popup or redirect, for this provider
+ * @param {string} [globalLoginStyle] popup or redirect, the default for every provider
+ * @param {boolean} [mergeExistingUsers] link a first provider login to an existing account with the same verified email
+ * @return_type {providers: object, loginStyle: {source: string, value: string}, mergeExistingUsers: {source: string, value: string}, passwordless: {source: string, value: string}}
+ */
+WebApp.handlers.put('/api/admin/oauth-providers/:providerKey', async function(req, res) {
+  try {
+    await Authentication.checkUserId(req.userId);
+    const providerKey = String(req.params.providerKey || '');
+    if (!oauthProviderCatalog().some(p => p.key === providerKey)) {
+      sendJsonResult(res, { code: 404, data: { error: 'Unknown OAuth provider' } });
+      return;
+    }
+    const body = req.body || {};
+    const input = {};
+    ['enabled', 'id', 'secret', 'loginStyle', 'globalLoginStyle', 'mergeExistingUsers'].forEach(key => {
+      if (body[key] !== undefined) input[key] = body[key];
+    });
+    const sources = await DDP._CurrentMethodInvocation.withValue(
+      { userId: req.userId },
+      async () => {
+        await Meteor.callAsync('saveOauthProviderSettings', providerKey, input);
+        return Meteor.callAsync('getOauthProviderConfigSources');
+      },
+    );
+    sendJsonResult(res, { code: 200, data: sources });
+  } catch (error) {
+    sendJsonResult(res, { code: error.statusCode || 500, data: { error: error.reason || error.message } });
+  }
+});
+
+/**
+ * @operation update_passwordless_settings
+ * @tag Settings
+ *
+ * @summary Turn passwordless (email sign-in code) login on or off
+ *
+ * @description The Admin Panel override of `PASSWORDLESS_ENABLED`. While it
+ * is off, the sign-in-code form is not shown and the token request and the
+ * login attempt are both refused, so the package can neither create accounts
+ * nor send codes. Takes effect at once, without a restart. Only the global
+ * admin can call this.
+ *
+ * @param {boolean} enabled whether passwordless login is offered
+ * @return_type {passwordless: {source: string, value: string}}
+ */
+WebApp.handlers.put('/api/admin/passwordless', async function(req, res) {
+  try {
+    await Authentication.checkUserId(req.userId);
+    const body = req.body || {};
+    const sources = await DDP._CurrentMethodInvocation.withValue(
+      { userId: req.userId },
+      async () => {
+        await Meteor.callAsync('savePasswordlessSettings', { enabled: body.enabled === true });
+        return Meteor.callAsync('getOauthProviderConfigSources');
+      },
+    );
+    sendJsonResult(res, { code: 200, data: { passwordless: sources.passwordless } });
+  } catch (error) {
+    sendJsonResult(res, { code: error.statusCode || 500, data: { error: error.reason || error.message } });
   }
 });

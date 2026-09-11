@@ -63,6 +63,7 @@ async function serializeRule(rule) {
   return {
     _id: rule._id,
     title: rule.title,
+    enabled: rule.enabled !== false,
     trigger: trigger ? strip(trigger) : null,
     action: action ? strip(action) : null,
   };
@@ -172,7 +173,7 @@ if (Meteor.isServer) {
    * @tag Rules
    * @summary Edit an automation rule
    *
-   * @description Any of title, trigger and action may be supplied; the trigger
+   * @description Any of title, enabled, trigger and action may be supplied; the trigger
    * and action documents are replaced ($set) when present. A supplied trigger
    * that includes an activityType gets its missing matching fields defaulted
    * to the '*' wildcard, like on creation.
@@ -180,6 +181,8 @@ if (Meteor.isServer) {
    * @param {string} boardId the board ID
    * @param {string} ruleId the rule ID
    * @param {string} [title] the new rule title
+   * @param {boolean} [enabled] false pauses the rule without deleting it (its
+   * trigger and action stay as they are); true resumes it
    * @param {object} [trigger] the new trigger document
    * @param {object} [action] the new action document
    * @return_type {_id: string}
@@ -196,6 +199,12 @@ if (Meteor.isServer) {
 
       if (typeof req.body.title === 'string') {
         await Rules.updateAsync(rule._id, { $set: { title: req.body.title } });
+      }
+      // The "temporarily disable a rule" switch: a paused rule keeps its
+      // trigger and action and is simply skipped by the rule engine.
+      if (req.body.enabled !== undefined) {
+        const enabled = req.body.enabled === true || req.body.enabled === 'true';
+        await Rules.updateAsync(rule._id, { $set: { enabled } });
       }
       if (req.body.trigger) {
         await Triggers.updateAsync(rule.triggerId, {

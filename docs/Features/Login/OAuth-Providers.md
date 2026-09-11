@@ -114,6 +114,12 @@ provider, or rotate a secret, without restarting WeKan. Leave a field empty in
 the Admin Panel to fall back to the environment variable. This is how the
 `LDAP_*` and `OAUTH2_*` settings already behave.
 
+The same settings are scriptable over the REST API, global admin only:
+`GET /api/admin/oauth-providers` reports which source is in effect for every
+field (the secret only as "is set"), `PUT /api/admin/oauth-providers/:providerKey`
+saves one provider and `PUT /api/admin/passwordless` switches passwordless -
+see [REST API](../../API/REST-API.md#admin-panel-oauth-login-providers-and-passwordless).
+
 ## What the user sees
 
 - The login page shows one button per enabled provider under the password
