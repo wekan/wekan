@@ -602,8 +602,7 @@ controls and that it never offers cover or background.
 
 </details>
 
-**Board Settings** - a toggle for every card section, the card's and the
-minicard's field order, and the Board View table.
+**Board Settings** - card section toggles, field order, the Board View table, and WIP Limit Groups under Swimlane.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/970213010013529150101d3fd6c59f33eab542d4">A toggle for every card section and minicard badge, listed in card order</a>. Thanks to rmb82 and xet7.</summary>
@@ -739,6 +738,21 @@ describes the layout and both orders.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/921c7f301ccf85c94c5b463a361be2fea195eeed">WIP Limit Groups moved into Board Settings / Swimlane</a>. Thanks to xet7.</summary>
+
+"WIP Limit Groups" was a fourth top-level entry of the Board Settings group,
+between List and Card. A group most often caps one swimlane's lists
+together, so it is a row of the Swimlane settings popup now - Board Settings
+/ Swimlane / WIP Limit Groups. The row opens the unchanged WIP Limit Groups
+popup stacked on the Swimlane popup, so its back arrow returns there, and it
+reuses the existing `wip-limit-groups` key rather than adding one.
+`tests/boardSettingsSwimlaneListCard.test.cjs` pins the row and its single
+click handler in the Swimlane popup, and that the top-level list no longer
+carries the entry. The docs describe the new path.
+
+</details>
+
 **REST API** - endpoints for recent features that had a UI but no API.
 
 <details>
@@ -821,7 +835,7 @@ applies nothing), and that both specs carry the four operations exactly once.
 
 </details>
 
-and fixes the following bug:
+and fixes the following bugs:
 
 **The release workflow** - what stopped the v11.70 release run.
 
@@ -855,6 +869,37 @@ The same run's other failures are not the repository's: the three amd64 snap
 jobs timed out creating snapcraft's LXD base instance (`apt-get install -y
 snapd`, 600 s; the arm64 twins passed) and `snap-launchpad riscv64` was still
 building on Launchpad when the job cap cancelled it. Both pass on a re-run.
+
+</details>
+
+**The database** - a MongoDB 8.2 crash loop, explained, reported and remediated.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/faaa83ed0f8d1ad5e2ab4d1dbc3ac18a8fdd0cc1">MongoDB 8.2 that will not start after a full disk: the scratch directory to delete, and the snap deletes it</a>. Thanks to xet7.</summary>
+
+A reported test environment (`mongo:8.2.2` in Kubernetes) filled its data
+volume: the checkpoint's `fdatasync` returned `ENOSPC`, WiredTiger panicked and
+mongod aborted - and then it kept failing on every start, with the disk long
+since freed. MongoDB 8.2 keeps a throwaway WiredTiger instance under
+`<dbPath>/_tmp/spilldb` for queries that spill to disk and empties it itself on
+each start; after the abort that emptying failed ("Failed to clear dbpath of
+the internal WiredTiger instance: Directory not empty"), mongod opened the
+half-emptied directory, found no version file, reported "Failed to open the
+spill WiredTiger instance ... database corruption detected" and fasserted.
+Nothing retries, so the pod restarts forever. The data is intact; deleting that
+one directory is the whole fix.
+
+The snap's `mongodb-control` now deletes `_tmp/spilldb` before every mongod
+start (no mongod is running then, and mongod recreates it), and its
+start-failure handler recognises the log line and names the directory. Admin
+Panel / Problems' `db.restart` row now says what a "No space left on device"
+abort means for a full disk as well as for a network filesystem, and both it
+and `db.disk-space` name the exact directory to delete when MongoDB 8.2 will
+not start afterwards. `docs/Databases/MongoDB/Storage-Requirements.md` carries
+the log signature of both stages, the one command, what must not be touched,
+and that Docker and Kubernetes users run it themselves, since the database
+container is MongoDB's own image. `tests/databaseHealth.test.cjs` pins the
+path, both rows, the probe wiring, the snap's pre-start deletion and the page.
 
 </details>
 
