@@ -569,6 +569,38 @@ now also matches hyphenated sub-document keys such as
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/61806605f">The provider and passwordless settings documented on every platform, with docs</a>. Thanks to xet7.</summary>
+
+A setting that exists in the code but not where a user configures WeKan is
+invisible, so `OAUTH_<PROVIDER>_ENABLED` / `_CLIENT_ID` (`_APP_ID` for
+Facebook, `_CONSUMER_KEY` for Twitter) / `_SECRET` / `_SECRET_FILE` for
+Google, GitHub, Facebook, Twitter, Meteor Developer, Weibo and Meetup,
+`OAUTH_PROVIDERS_LOGIN_STYLE`, `OAUTH_PROVIDERS_MERGE_EXISTING_USERS` and
+`PASSWORDLESS_ENABLED` now appear, commented out with the same explanation,
+everywhere the `OAUTH2_*` and `SAML_*` settings already do: `docker-compose.yml`
+and its FerretDB v1 (PostgreSQL, MySQL, MariaDB, SAP HANA), FerretDB v2 and
+MongoDB variants, the `Dockerfile` and devcontainer `ENV` block (every
+`*_ENABLED` defaulting to `false`, login style to `popup`), `start-wekan.sh`,
+`start-wekan.bat`, the Snap's `config` (keys list plus a
+`DESCRIPTION_`/`DEFAULT_`/`KEY_` triple each, so `snap set wekan
+oauth-google-enabled='true'` works) and `wekan-help`, the Sandstorm package
+definition, the stacksmith Docker-secrets reader, `secrets/README.md` and the
+Helm chart's `values.yaml` in `wekan/charts`. Each comment names the callback
+URL to register at the provider, `<ROOT_URL>/_oauth/<service>`, and says that
+Admin Panel / People / Login overrides the environment.
+
+Two new docs pages: [OAuth Providers](docs/Features/Login/OAuth-Providers.md)
+(where to create the app at each provider, the callback URL, the variables,
+the Admin Panel section, login style, merging, troubleshooting) and
+[Passwordless](docs/Features/Login/Passwordless.md), both linked from the docs
+index. `tests/oauthProvidersPlatformEnv.test.cjs` pins every variable on every
+platform, the Snap triples and their kebab-case keys, the Sandstorm defaults,
+and that the docs pages exist and are linked; the compose-parity suite keeps
+the five FerretDB v1 files identical.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v11.69 2026-09-11 WeKan ® release
