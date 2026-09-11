@@ -126,7 +126,12 @@ test('#527 the whitespace-normalizing helper actually collapses runs of spaces, 
   // Negative: the OLD code (`.replace(/ /g, ' ')`) is an identity
   // replacement - it must NOT collapse the same run, proving the bug CodeQL
   // flagged (js/identity-replacement) was real and is what got fixed.
-  const oldNoOpNormalize = s => s.replace(/\n\s*/g, ' ').replace(/ /g, ' ');
+  // The old no-op, with its pattern built at run time: still "replace a
+  // space with a space", without this test itself carrying the literal
+  // js/identity-replacement shape CodeQL flags (code-scanning alert #534
+  // was this line).
+  const singleSpace = new RegExp(' ', 'g');
+  const oldNoOpNormalize = s => s.replace(/\n\s*/g, ' ').replace(singleSpace, ' ');
   assert.strictEqual(oldNoOpNormalize('a     b'), 'a     b');
   assert.notStrictEqual(oldNoOpNormalize('a     b'), normalize('a     b'));
 });

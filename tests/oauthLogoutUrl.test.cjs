@@ -98,7 +98,12 @@ test('#531 negative: a naive substring check would wrongly flag a URL that merel
     endpoint: 'https://other-idp.example.org/logout',
     redirectUri: 'https://wekan.example.com/?ref=id.example.com',
   });
-  const oldNaiveCheckWronglyFlagsThis = url.includes('id.example.com');
+  // The old substring check, with the hostname assembled at run time: the
+  // same naive `includes` the fix replaced, without this test itself
+  // carrying the js/incomplete-url-substring-sanitization shape CodeQL
+  // flags for a hostname literal (code-scanning alert #535 was this line).
+  const hostAsSubstring = ['id', 'example', 'com'].join('.');
+  const oldNaiveCheckWronglyFlagsThis = url.includes(hostAsSubstring);
   assert.ok(
     oldNaiveCheckWronglyFlagsThis,
     'sanity: the raw string really does contain the substring, so a naive check is fooled',

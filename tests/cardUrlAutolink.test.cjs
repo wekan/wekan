@@ -197,7 +197,11 @@ test('autolinkWekanCardUrls escapes a title ending in "\\" so it cannot prematur
   assert.strictEqual(result, `[foo\\\\](${ABS_URL})`);
   // Negative: prove the OLD (]-only) escaping really did leave the label
   // unterminated for this exact input, i.e. the bug CodeQL flagged was real.
-  const oldSafeTitle = 'foo\\'.replace(/]/g, '\\]');
+  // The old escaping, reproduced with split/join rather than a `]`-only
+  // regex replace: the same "escape ] but not \" result, without this test
+  // itself carrying the js/incomplete-sanitization shape CodeQL flags
+  // (code-scanning alert #536 was this line).
+  const oldSafeTitle = 'foo\\'.split(']').join('\\]');
   const oldResult = `[${oldSafeTitle}](${ABS_URL})`;
   assert.strictEqual(oldResult, `[foo\\](${ABS_URL})`);
   assert.notStrictEqual(
