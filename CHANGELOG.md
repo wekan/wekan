@@ -5088,6 +5088,7 @@ and improves the translation workflow:
 - [Fill in missing translations for Czech, Lithuanian, Slovak, Romanian, Chinese, Welsh, Arabic (Algeria/Egypt), Greek, Hindi, Chinese (Hong Kong), Welsh (UK) and German (Austria).](https://github.com/wekan/wekan/commit/1ceb3767a). Thanks to xet7.
 - [Fill in missing translations for Fula, Fijian, Friulian, Guarani, Oromo, Northern Sami, Walloon, Aymara, Bashkir, Kalaallisut, Rundi, Aromanian, Sakha, Bislama, Buryat, Cornish and Venda.](https://github.com/wekan/wekan/commit/69abcf8a9). Thanks to xet7.
 - [Fill in missing translations for Akan, Amharic, Aragonese, Assamese, Bhojpuri, Bambara, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Faroese, Hawaiian, Haitian Creole, Nyanja, Kinyarwanda, Sindhi, Samoan, Somali and Yiddish.](https://github.com/wekan/wekan/commit/6cb4f8677). Thanks to xet7.
+- [Translate the Frappe Gantt view-mode strings for Acehnese, Afrikaans, Akan, Amharic, Aragonese, Arabic, Assamese, Asturian, Aymara, Azerbaijani, Bashkir, Belarusian, Bulgarian, Bhojpuri, Bislama, Bambara, Bengali, Tibetan, Breton, Bosnian, Buryat, Catalan, Cherokee, Sorani, Mandarin, Corsican, Czech, Kashubian, Chuvash and Welsh](https://github.com/wekan/wekan/commit/6faf19872). Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for
 their translations.
