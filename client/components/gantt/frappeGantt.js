@@ -5,6 +5,7 @@ import { TAPi18n } from '/imports/i18n';
 import Cards from '/models/cards';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { Utils } from '/client/lib/utils';
+import { intlLocaleFor } from '/client/lib/ganttLocale';
 // roadmapView.js imports this module directly for loadGanttLib/cardsToTasks -
 // so its own template has to be imported here too, or whichever module
 // reaches this file first (via that import, before client/features/gantt.js
@@ -137,6 +138,10 @@ Template.frappeGanttView.onRendered(function() {
       const readonly = !Utils.currentUserCan('write', board);
       new GanttLib(container, tasks, {
         view_mode: 'Week',
+        // Month names in the header come from Intl.DateTimeFormat(language);
+        // without this every language saw English. intlLocaleFor maps
+        // WeKan's tag ('ru_RU', 'zh-Hans', ...) to one Intl accepts.
+        language: intlLocaleFor(TAPi18n.getLanguage()),
         readonly_dates: readonly,
         readonly_progress: true,
         // Lets the user switch Day/Week/Month/Year from a dropdown, one of

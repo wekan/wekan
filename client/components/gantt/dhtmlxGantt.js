@@ -5,6 +5,7 @@ import { TAPi18n } from '/imports/i18n';
 import Cards from '/models/cards';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { Utils } from '/client/lib/utils';
+import { dhtmlxLocaleFor } from '/client/lib/ganttLocale';
 // dhtmlx-gantt has no package.json "exports" map (only "main"/"module"/
 // "style"), so unlike frappe-gantt its CSS resolves fine through a normal
 // subpath import - no need to vendor it.
@@ -131,6 +132,12 @@ Template.dhtmlxGanttView.onRendered(function() {
       // (Utils.canModifyCard), not offered as a control that the server
       // would then refuse.
       gantt.config.readonly = !Utils.currentUserCan('write', board);
+      // Month/weekday names on the time scale. dhtmlx only knows its own
+      // bundled locales and defaults to English; dhtmlxLocaleFor uses the
+      // bundled one when there is one for the current language and builds
+      // the date names from Intl otherwise, so every WeKan language gets
+      // them. Re-applied on each run so a language change takes effect.
+      gantt.i18n.setLocale(dhtmlxLocaleFor(gantt, TAPi18n.getLanguage()));
       if (!tasks.length) return;
       if (!templateInstance.ganttInitialized) {
         gantt.config.date_format = '%Y-%m-%d %H:%i';
