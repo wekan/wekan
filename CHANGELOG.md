@@ -524,7 +524,7 @@ the Markdown commit as the template.
 </details>
 </details>
 
-# Upcoming WeKan ® release
+# v11.70 2026-09-11 WeKan ® release
 
 **In short:** this release adds every way to log in that Meteor's accounts
 system offers - **Google**, **GitHub**, **Facebook**, **X (Twitter)**,
