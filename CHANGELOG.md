@@ -741,6 +741,42 @@ operations, and - as the negative sweep - that no route in `models/` or
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/56204244f5a28a86cfd78d6fc47dbc414f5da217">Endpoints for Board Settings / Board View, and OpenAPI blocks for the card settings routes</a>. Thanks to xet7.</summary>
+
+`GET /api/boards/:boardId/boardViewSettings` (board access) answers which
+entries of the Board View menu a board offers, which one it opens in -
+separately for a public and a private board - and the menu order, in the
+normalised shape the menu renders with: every view once with both
+`showOnPublic` and `showOnPrivate` explicit, the two defaults resolved
+(missing or unknown reads as Swimlanes), `boardViewOrder` made whole, and
+`keys` listing the known views.
+
+`PUT /api/boards/:boardId/boardViewSettings` (board admin) takes any subset
+of `boardViewSettings`, `defaultPublicBoardView`, `defaultPrivateBoardView`
+and `boardViewOrder`, through the same pure modifiers the popup's clicks
+apply, composed by `boardViewSettingsRequest()` in
+`models/lib/boardViewSettings.js`: a default is always shown on its side,
+hiding a side's current default is a `400` (set another default first - or
+in the same request, since defaults are applied before the show flags), an
+unknown view key anywhere in the body is a `400` and nothing of that request
+is written, and the order is normalised so the menu lists every view exactly
+once.
+
+The existing `GET`/`PUT /api/boards/:boardId/cardSettings` routes get the
+JSDoc `@operation` blocks the OpenAPI generator reads, so the hand-written
+copy in `openapi/extra_paths.yml` - which now duplicated the operationId - is
+removed; `public/api/wekan.yml` and `wekan.html` are regenerated: 158
+operations. `docs/API/REST-API.md` documents both endpoints with curl
+examples and `docs/Features/Board/Board-View-Settings.md` links to them.
+`tests/restApiNewFeatureRoutes.test.cjs` pins the four routes to method,
+path, `@operation` and auth check, that the PUT writes only the helper's
+`$set`, the snapshot's shape, the helper's positive and negative cases
+(unknown keys, hiding a default, malformed bodies, a partly-invalid body
+applies nothing), and that both specs carry the four operations exactly once.
+
+</details>
+
 and fixes the following bug:
 
 **The release workflow** - what stopped the v11.70 release run.
