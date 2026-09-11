@@ -78,11 +78,12 @@ menu's own order**, with the same translation keys the menu uses:
 24. WIP Run (`board-view-wip-run`)
 25. Pulse (`board-view-pulse`)
 
-The one list is `BOARD_VIEWS` in `models/lib/boardViewSettings.js`; the popup
-renders it, and `tests/boardViewSettings.test.cjs` checks that it matches the
-Board View menu in `client/components/boards/boardHeader.jade` entry for entry
-and in the same order, so a view added to the menu without a row here fails
-the test.
+The one list is `BOARD_VIEWS` in `models/lib/boardViewSettings.js`. Both the
+popup and the Board View menu (`boardChangeViewPopup` in
+`client/components/boards/boardHeader.jade`) render from it, so a view
+exists in one exactly when it exists in the other;
+`tests/boardViewMenu.test.cjs` pins the table to the required menu order and
+`tests/boardViewSettings.test.cjs` pins the two templates to the table.
 
 ### When public boards are hidden
 
@@ -111,11 +112,37 @@ Every setting is on by default: a board that has never opened this popup
 shows every view on both public and private, and opens in **Swimlanes**
 (`board-view-swimlanes`) for both, which is what WeKan has always done.
 
+### Reordering the menu
+
+Each row carries an **up** and a **down** arrow in front of its name, in the
+Description column - the same arrows as Card Settings' *Card field order*,
+with the same *Move up* / *Move down* titles (`card-field-order-move-up`,
+`card-field-order-move-down`; no new keys). They are real links, so the
+keyboard reaches them with Tab and presses them with Enter. Clicking one
+moves the row one step, and the **Board View menu lists its entries in that
+order** for everybody on the board. The first row's up arrow and the last
+row's down arrow do nothing and are drawn disabled.
+
+The default order is the menu's order above, and while the order is the
+default one the menu draws its usual separators between the groups (after
+Table, Timeline, Statistics, Group by Assignee, DHTMLX Gantt and Bigboard).
+A custom order has no groups, so it has no separators.
+
+The order is stored on the board as `boardViewOrder`, an array of view keys
+first to last. A stored order is **made whole** before use
+(`normalizeBoardViewOrder`): unknown keys are dropped, duplicates are
+dropped, and every known view missing from it is appended in its default
+position - so a menu never loses a view and never shows one twice, whatever
+an old or hand-edited document holds, and a view added to WeKan later
+appears at the end of an existing custom order.
+
 ## How the settings apply
 
-- **The Board View menu** (`boardChangeViewPopup`) lists only the views whose
-  *Show* box is ticked for the board's current visibility (`board.permission`
-  is `public` or `private`). A view hidden here is also not opened by the
+- **The Board View menu** (`boardChangeViewPopup`) is rendered from the
+  board: `boardViewMenuEntries` gives it the views whose *Show* box is ticked
+  for the board's current visibility (`board.permission` is `public` or
+  `private`), in the board's order, each with the `js-open-<view>-view` class
+  its click handler listens for. A view hidden here is also not opened by the
   keyboard or by an old link: the view WeKan renders is always resolved
   through the board's settings (below).
 - **The default view.** A user's chosen view is still stored where it was -
@@ -138,6 +165,7 @@ Three fields on the board (`models/boards.js`):
 | `boardViewSettings` | object | `{ '<view>': { showOnPublic: Boolean, showOnPrivate: Boolean } }`. A view with no entry, or an entry with no value for that side, is **shown**. |
 | `defaultPublicBoardView` | string | the view a public board opens in; default `board-view-swimlanes` |
 | `defaultPrivateBoardView` | string | the view a private board opens in; default `board-view-swimlanes` |
+| `boardViewOrder` | array of strings | the Board View menu's order, first to last; missing = the default order |
 
 The decision logic is a pure CommonJS module, `models/lib/boardViewSettings.js`,
 so it is testable without Meteor and shared by the client, the server and the
@@ -149,7 +177,13 @@ tests:
 | `DEFAULT_BOARD_VIEW` | `'board-view-swimlanes'` |
 | `isBoardViewShown(board, view, visibility)` | reads `boardViewSettings`; missing means shown |
 | `defaultBoardView(board, visibility)` | `defaultPublicBoardView` / `defaultPrivateBoardView`, falling back to `DEFAULT_BOARD_VIEW` |
-| `visibleBoardViews(board, visibility)` | `BOARD_VIEWS` filtered by `isBoardViewShown` |
+| `DEFAULT_BOARD_VIEW_ORDER` | the view keys of `BOARD_VIEWS`, in menu order |
+| `normalizeBoardViewOrder(storedOrder)` | the stored order made whole: unknown and duplicate keys dropped, missing views appended in default order |
+| `isDefaultBoardViewOrder(order)` | whether the (normalized) order is the default one |
+| `orderedBoardViews(board)` | `BOARD_VIEWS` in the board's order |
+| `moveBoardView(order, view, direction)` | a new normalized order with `view` moved one step `'up'` or `'down'`; unchanged for an unknown view, the first view up or the last view down |
+| `visibleBoardViews(board, visibility)` | `orderedBoardViews` filtered by `isBoardViewShown` |
+| `boardViewMenuEntries(board, currentView)` | what the menu renders: the visible views in order, each with `jsClass`, `isCurrent` and `separatorAfter` (default order only, after the views in `SEPARATOR_AFTER`) |
 | `resolveBoardView(board, requestedView)` | the view to render: `requestedView` if the board shows it for `board.permission`, else that side's default, else `DEFAULT_BOARD_VIEW` |
 | `showBoardViewModifier(board, view, visibility, shown)` | the `$set` for a *Show* click; returns `null` when it would hide that side's default |
 | `defaultBoardViewModifier(board, view, visibility)` | the `$set` for a *Default* click: sets the default AND that side's `showOn…` to `true`; returns `null` for an unknown view |
@@ -157,9 +191,12 @@ tests:
 `visibility` is `'public'` or `'private'`; anything else is treated as
 `'private'`.
 
-The board has two instance methods that apply those modifiers -
-`board.setBoardViewShown(view, visibility, shown)` and
-`board.setDefaultBoardView(view, visibility)` - and the popup calls them
+The board has three instance methods that apply those decisions -
+`board.setBoardViewShown(view, visibility, shown)`,
+`board.setDefaultBoardView(view, visibility)` and
+`board.moveBoardView(view, direction)` (which re-reads the board's current
+order on every click, so two quick clicks each move from where the previous
+one left it, and writes nothing for a no-op) - and the popup calls them
 directly, the way Swimlane Settings calls `setSwimlaneHeightResizeLocked`.
 Who may persist them is decided where it is for every other board setting:
 `Boards.allow`'s update rule in `server/permissions/boards.js`, which requires

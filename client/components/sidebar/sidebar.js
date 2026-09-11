@@ -638,7 +638,8 @@ Template.boardViewSettingsPopup.helpers({
   },
   boardViewRows() {
     const board = Utils.getCurrentBoard();
-    return boardViewSettings.BOARD_VIEWS.map(v => ({
+    const ordered = boardViewSettings.orderedBoardViews(board);
+    return ordered.map((v, i) => ({
       view: v.view,
       labelKey: v.labelKey,
       icon: `fa ${v.icon}`,
@@ -646,6 +647,8 @@ Template.boardViewSettingsPopup.helpers({
       showOnPrivate: boardViewSettings.isBoardViewShown(board, v.view, 'private'),
       isDefaultPublic: boardViewSettings.defaultBoardView(board, 'public') === v.view,
       isDefaultPrivate: boardViewSettings.defaultBoardView(board, 'private') === v.view,
+      isFirst: i === 0,
+      isLast: i === ordered.length - 1,
     }));
   },
 });
@@ -666,6 +669,18 @@ Template.boardViewSettingsPopup.events({
     const visibility = evt.currentTarget.dataset.visibility;
     const view = evt.currentTarget.closest('[data-view]').dataset.view;
     board.setDefaultBoardView(view, visibility);
+  },
+  'click .js-board-view-order-up'(evt) {
+    evt.preventDefault();
+    const board = Utils.getCurrentBoard();
+    if (!board) return;
+    board.moveBoardView(evt.currentTarget.closest('[data-view]').dataset.view, 'up');
+  },
+  'click .js-board-view-order-down'(evt) {
+    evt.preventDefault();
+    const board = Utils.getCurrentBoard();
+    if (!board) return;
+    board.moveBoardView(evt.currentTarget.closest('[data-view]').dataset.view, 'down');
   },
 });
 

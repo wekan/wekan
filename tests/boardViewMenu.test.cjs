@@ -60,29 +60,39 @@ const VIEWS = [
 ];
 
 // Between Table and Calendar, between Timeline and Statistics, between
-// Statistics and the Gantt group, and between the Gantt group (WeKan's own
-// Gantt, Frappe Gantt, DHTMLX Gantt) and Dashboard - like the right
-// sidebar's own hr-separated groups (client/components/sidebar/sidebar.jade).
-const HR_AFTER = ['board-view-table', 'board-view-timeline', 'board-view-stats', 'board-view-group-by-assignee', 'board-view-gantt-dhtmlx'];
+// Statistics and the Gantt group, between the Gantt group (WeKan's own
+// Gantt, Frappe Gantt, DHTMLX Gantt) and Roadmap/Dashboard/Bigboard, and
+// between those and the charts - like the right sidebar's own hr-separated
+// groups (client/components/sidebar/sidebar.jade).
+const HR_AFTER = ['board-view-table', 'board-view-timeline', 'board-view-stats', 'board-view-group-by-assignee', 'board-view-gantt-dhtmlx', 'board-view-bigboard'];
+
+// The menu is no longer 25 static entries in the jade: Board Settings / Board
+// View (docs/Features/Board/Board-View-Settings.md) lets a board admin hide
+// and REORDER the entries per board, so boardChangeViewPopup renders one
+// `each boardViewMenuEntries` loop from the shared table in
+// models/lib/boardViewSettings.js. The order, icon, label and separator pins
+// below therefore read that table - the same thing the template reads - and
+// the template is pinned to render every field of it.
+const bvs = require('../models/lib/boardViewSettings.js');
+const popup = boardHeaderJade.slice(boardHeaderJade.indexOf('template(name="boardChangeViewPopup")'),
+  boardHeaderJade.indexOf('\n//- The Create Board form'));
 
 test('the menu lists every view in the required top-to-bottom order', () => {
-  const popup = boardHeaderJade.slice(boardHeaderJade.indexOf('template(name="boardChangeViewPopup")'));
-  const positions = VIEWS.map(v => ({ view: v.view, at: popup.indexOf(`"${v.view}"`) }));
-  positions.forEach(p => assert.ok(p.at !== -1, `${p.view} is in the menu`));
-  for (let i = 1; i < positions.length; i++) {
-    assert.ok(positions[i].at > positions[i - 1].at,
-      `${positions[i].view} must come after ${positions[i - 1].view}`);
-  }
+  assert.deepStrictEqual(bvs.BOARD_VIEWS.map(v => v.view), VIEWS.map(v => v.view));
+  assert.deepStrictEqual(bvs.DEFAULT_BOARD_VIEW_ORDER, VIEWS.map(v => v.view));
+  // A board with no stored order renders exactly that, all of it.
+  assert.deepStrictEqual(bvs.boardViewMenuEntries({ permission: 'private' }).map(e => e.view), VIEWS.map(v => v.view));
+  assert.match(popup, /each boardViewMenuEntries\n\s*li\n\s*a\(class="\{\{jsClass\}\}"\)/, 'the template loops over the entries');
 });
 
 test('every entry carries a font-awesome icon', () => {
-  const popup = boardHeaderJade.slice(boardHeaderJade.indexOf('template(name="boardChangeViewPopup")'));
   VIEWS.forEach(v => {
-    const at = popup.indexOf(`"${v.view}"`);
-    const block = popup.slice(at, at + 200);
-    assert.ok(block.includes(`i.fa.${v.icon}`), `${v.view} uses ${v.icon}`);
-    assert.ok(block.includes(`a.${v.jsClass}`), `${v.view} opens via .${v.jsClass}`);
+    const entry = bvs.BOARD_VIEWS.find(e => e.view === v.view);
+    assert.strictEqual(entry.icon, v.icon, `${v.view} uses ${v.icon}`);
+    assert.strictEqual(bvs.boardViewJsClass(v.view), v.jsClass, `${v.view} opens via .${v.jsClass}`);
   });
+  assert.match(popup, /i\.fa\(class="\{\{icon\}\}"\)/, 'the template renders the icon');
+  assert.match(boardHeaderJs, /icon: `fa \$\{entry\.icon\}`/, 'as a fa class');
 });
 
 test('a chart view menu entry is no longer parenthesized as "not implemented yet"', () => {
@@ -90,27 +100,26 @@ test('a chart view menu entry is no longer parenthesized as "not implemented yet
   // label was wrapped in literal parentheses to say so (#6690). Now each opens
   // a real chart (chartPlaceholderViews.jade + charts/boardCharts.js/.jade),
   // so the parentheses - which meant "coming soon" - would be actively wrong.
-  const popup = boardHeaderJade.slice(boardHeaderJade.indexOf('template(name="boardChangeViewPopup")'));
+  assert.ok(popup.includes("| {{_ labelKey}}"), 'the menu label is the translated key, unwrapped');
+  assert.ok(!popup.includes("({{_ labelKey}})"), 'and not parenthesized (negative)');
   VIEWS.filter(v => v.chart).forEach(v => {
-    const at = popup.indexOf(`"${v.view}"`);
-    const block = popup.slice(at, at + 700);
-    assert.ok(block.includes(`| {{_ '${v.view}'}}`),
-      `${v.view}'s menu label is its translated key, unwrapped`);
-    assert.ok(!block.includes(`| ({{_ '${v.view}'}})`),
-      `${v.view}'s menu label is no longer parenthesized (negative)`);
+    const entry = bvs.BOARD_VIEWS.find(e => e.view === v.view);
+    assert.strictEqual(entry.labelKey, v.view, `${v.view}'s label key is its own view key`);
   });
 });
 
-test('a separator sits between Table and Calendar, between Timeline and Statistics, and between Gantt and Dashboard', () => {
+test('a separator sits between Table and Calendar, between Timeline and Statistics, and between Gantt and Roadmap', () => {
   // Like the right sidebar's own hr-separated groups
   // (client/components/sidebar/sidebar.jade's homeSidebar).
-  const popup = boardHeaderJade.slice(boardHeaderJade.indexOf('template(name="boardChangeViewPopup")'));
-  HR_AFTER.forEach(view => {
-    const at = popup.indexOf(`"${view}"`);
-    const nextLi = popup.indexOf('li', popup.indexOf('i.fa.fa-check', at));
-    const between = popup.slice(at, nextLi);
-    assert.match(between, /\n\s*hr\s*\n/, `an <hr> follows the ${view} entry`);
+  assert.deepStrictEqual(bvs.SEPARATOR_AFTER, HR_AFTER);
+  const entries = bvs.boardViewMenuEntries({ permission: 'private' });
+  entries.forEach(e => {
+    assert.strictEqual(e.separatorAfter, HR_AFTER.includes(e.view), `separator after ${e.view}`);
   });
+  assert.match(popup, /if separatorAfter\n\s*hr/, 'the template draws it');
+  // A custom order has no groups, so no separators.
+  const custom = bvs.boardViewMenuEntries({ permission: 'private', boardViewOrder: ['board-view-pulse'] });
+  assert.ok(custom.every(e => !e.separatorAfter));
 });
 
 test('every menu entry has a click handler that sets that board view', () => {

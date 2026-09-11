@@ -285,6 +285,18 @@
 .board-view-settings-column span i.fa {
   margin-inline-end: 6px;
 }
+
+/* The row's up/down arrows sit in front of its name, in the Description
+   column, so the four checkbox columns stay exactly what their headers say. */
+.board-view-settings-column .js-board-view-order-up,
+.board-view-settings-column .js-board-view-order-down {
+  margin-inline-end: 6px;
+}
+
+.board-view-settings-column .is-disabled {
+  opacity: 0.35;
+  pointer-events: none;
+}
 .sidebar .sidebar-content ul.sidebar-list li > a {
   display: flex;
   height: 30px;

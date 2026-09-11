@@ -8,7 +8,7 @@ import Boards from '/models/boards';
 import Swimlanes from '/models/swimlanes';
 import TableVisibilityModeSettings from '/models/tableVisibilityModeSettings';
 import visibilityDesc from '/imports/i18n/lib/visibilityDesc';
-const { isBoardViewShown } = require('/models/lib/boardViewSettings');
+const { boardViewMenuEntries } = require('/models/lib/boardViewSettings');
 import { Filter } from '/client/lib/filter';
 // Which way a button that opens a sidebar view goes on a click - one answer,
 // in one place, for both Filter and Search.
@@ -273,10 +273,14 @@ Template.boardHeaderButtons.events({
 // private) is not offered. Reads the board reactively, so switching the
 // board Private <-> Public swaps the menu on the spot.
 Template.boardChangeViewPopup.helpers({
-  showsBoardView(view) {
+  // Reads the board reactively, so switching the board Private <-> Public,
+  // or a click in Board Settings / Board View, changes the menu on the spot.
+  boardViewMenuEntries() {
     const board = Utils.getCurrentBoard();
-    if (!board) return true;
-    return isBoardViewShown(board, view, board.permission);
+    return boardViewMenuEntries(board, Utils.boardView()).map(entry => ({
+      ...entry,
+      icon: `fa ${entry.icon}`,
+    }));
   },
 });
 

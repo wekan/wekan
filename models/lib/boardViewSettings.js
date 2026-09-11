@@ -51,8 +51,81 @@ const DEFAULT_BOARD_VIEW = 'board-view-swimlanes';
 
 const VIEW_KEYS = BOARD_VIEWS.map(v => v.view);
 
+// The menu's default order, which is also the popup's default row order.
+const DEFAULT_BOARD_VIEW_ORDER = VIEW_KEYS.slice();
+
+// After which entries the menu draws a separator - only in the DEFAULT
+// order, where the groups (board views / calendars and time / statistics /
+// grouping / the Gantts / roadmap, dashboard, bigboard / the charts) still
+// mean something. A custom order has no groups and no separators.
+const SEPARATOR_AFTER = [
+  'board-view-table',
+  'board-view-timeline',
+  'board-view-stats',
+  'board-view-group-by-assignee',
+  'board-view-gantt-dhtmlx',
+  'board-view-bigboard',
+];
+
+// The class the per-view click handlers in boardHeader.js listen for:
+// 'board-view-gantt-frappe' -> 'js-open-gantt-frappe-view'.
+function boardViewJsClass(view) {
+  return `js-open-${view.replace(/^board-view-/, '')}-view`;
+}
+
 function isKnownBoardView(view) {
   return VIEW_KEYS.includes(view);
+}
+
+// A stored order made whole (same shape as models/lib/cardFieldOrder.js):
+// unknown keys and duplicates are dropped, and every known view that is
+// missing is appended in its default position, so the menu always lists
+// every view exactly once, whatever an old or hand-edited document holds.
+function normalizeBoardViewOrder(storedOrder) {
+  const seen = new Set();
+  const result = [];
+  if (Array.isArray(storedOrder)) {
+    storedOrder.forEach(view => {
+      if (typeof view === 'string' && isKnownBoardView(view) && !seen.has(view)) {
+        seen.add(view);
+        result.push(view);
+      }
+    });
+  }
+  DEFAULT_BOARD_VIEW_ORDER.forEach(view => {
+    if (!seen.has(view)) {
+      seen.add(view);
+      result.push(view);
+    }
+  });
+  return result;
+}
+
+function isDefaultBoardViewOrder(order) {
+  const list = normalizeBoardViewOrder(order);
+  return list.every((view, i) => view === DEFAULT_BOARD_VIEW_ORDER[i]);
+}
+
+// BOARD_VIEWS in the board's order.
+function orderedBoardViews(board) {
+  const byKey = new Map(BOARD_VIEWS.map(v => [v.view, v]));
+  return normalizeBoardViewOrder(board && board.boardViewOrder).map(view => byKey.get(view));
+}
+
+// Move `view` one step up or down. Returns a new, normalized array; a no-op
+// (unknown view, first item up, last item down) returns the normalized
+// order unchanged, so the first row's up arrow and the last row's down
+// arrow do nothing.
+function moveBoardView(order, view, direction) {
+  const list = normalizeBoardViewOrder(order);
+  const from = list.indexOf(view);
+  if (from === -1) return list;
+  const to = direction === 'up' ? from - 1 : from + 1;
+  if (to < 0 || to >= list.length) return list;
+  const result = list.slice();
+  const [moved] = result.splice(from, 1);
+  result.splice(to, 0, moved);
+  return result;
 }
 
 // 'public' or 'private'; anything else (undefined on a board doc that
@@ -84,8 +157,27 @@ function defaultBoardView(board, visibility) {
   return isKnownBoardView(value) ? value : DEFAULT_BOARD_VIEW;
 }
 
+// The views the board offers, in the board's order.
 function visibleBoardViews(board, visibility) {
-  return BOARD_VIEWS.filter(v => isBoardViewShown(board, v.view, visibility));
+  return orderedBoardViews(board).filter(v => isBoardViewShown(board, v.view, visibility));
+}
+
+// What the Board View menu renders: the visible views in the board's order,
+// each with the class its click handler listens for, whether it is the one
+// currently rendered, and whether a separator follows it (default order
+// only). `currentView` is what Utils.boardView() returns.
+function boardViewMenuEntries(board, currentView) {
+  const visibility = board && board.permission;
+  const defaultOrder = isDefaultBoardViewOrder(board && board.boardViewOrder);
+  const visible = visibleBoardViews(board, visibility);
+  return visible.map((v, i) => ({
+    view: v.view,
+    labelKey: v.labelKey,
+    icon: v.icon,
+    jsClass: boardViewJsClass(v.view),
+    isCurrent: v.view === currentView,
+    separatorAfter: defaultOrder && i < visible.length - 1 && SEPARATOR_AFTER.includes(v.view),
+  }));
 }
 
 // The view to RENDER for this board: what the user asked for when the board
@@ -128,6 +220,14 @@ function defaultBoardViewModifier(board, view, visibility) {
 module.exports = {
   BOARD_VIEWS,
   DEFAULT_BOARD_VIEW,
+  DEFAULT_BOARD_VIEW_ORDER,
+  SEPARATOR_AFTER,
+  boardViewJsClass,
+  normalizeBoardViewOrder,
+  isDefaultBoardViewOrder,
+  orderedBoardViews,
+  moveBoardView,
+  boardViewMenuEntries,
   isKnownBoardView,
   normalizeVisibility,
   isBoardViewShown,

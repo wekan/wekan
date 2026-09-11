@@ -1119,6 +1119,16 @@ template(name="boardViewSettingsPopup")
           a.flex.js-board-view-show(data-visibility="private" title="{{_ 'show-on-private-board'}}" class="{{#if showOnPrivate}}is-checked{{/if}}")
             i.fa(class="{{#if showOnPrivate}}fa-check{{else}}fa-square-o{{/if}}")
         .board-view-settings-column
+          //- The row's place in the Board View menu: up/down, like Card
+            Settings' card field order. Real links (href) so the keyboard
+            reaches them and Enter presses them; the first row's up and the
+            last row's down are no-ops (models/lib/boardViewSettings.js
+            moveBoardView) and drawn disabled. The two existing "Move up" /
+            "Move down" keys are reused rather than new ones.
+          a.flex.js-board-view-order-up(href="#" role="button" class="{{#if isFirst}}is-disabled{{/if}}" title="{{_ 'card-field-order-move-up'}}" aria-label="{{_ 'card-field-order-move-up'}}")
+            i.fa.fa-arrow-up
+          a.flex.js-board-view-order-down(href="#" role="button" class="{{#if isLast}}is-disabled{{/if}}" title="{{_ 'card-field-order-move-down'}}" aria-label="{{_ 'card-field-order-move-down'}}")
+            i.fa.fa-arrow-down
           span
             i.fa(class="{{icon}}")
             | {{_ labelKey}}

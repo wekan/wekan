@@ -110,27 +110,29 @@ test('every row has a Default and a Show checkbox for each side, and the label t
   });
   assert.ok(rows.includes('| {{_ labelKey}}'), 'the Description cell is the view label key');
   assert.ok(rows.includes('.board-view-settings-row(data-view="{{view}}")'));
-  assert.ok(/boardViewRows\(\) \{[\s\S]*?boardViewSettings\.BOARD_VIEWS\.map/.test(sidebarJs),
-    'rows come from the shared BOARD_VIEWS table');
+  assert.ok(/boardViewRows\(\) \{[\s\S]*?boardViewSettings\.orderedBoardViews\(board\)/.test(sidebarJs),
+    'rows come from the shared BOARD_VIEWS table, in the board\'s order');
 });
 
 // ------------------------------------------- one row per view, menu order
 
-const menu = boardHeaderJade.slice(boardHeaderJade.indexOf('template(name="boardChangeViewPopup")'));
-const menuViews = [...menu.matchAll(/^\s*with "(board-view-[a-z-]+)"\s*$/gm)].map(m => m[1]);
+const menu = boardHeaderJade.slice(boardHeaderJade.indexOf('template(name="boardChangeViewPopup")'),
+  boardHeaderJade.indexOf('\n//- The Create Board form'));
 
-test('BOARD_VIEWS is exactly the Board View menu, in the menu\'s order, with its label keys', () => {
-  assert.ok(menuViews.length >= 25, `the menu has ${menuViews.length} views`);
-  assert.deepStrictEqual(bvs.BOARD_VIEWS.map(v => v.view), menuViews);
+test('the Board View menu and the popup render the same BOARD_VIEWS table, every view once, Swimlanes first', () => {
+  // The menu is rendered from the table (one `each` loop), so the popup's
+  // rows and the menu's entries are the same list by construction; every
+  // view has a click handler (per-view class), a label key and an icon.
+  assert.ok(bvs.BOARD_VIEWS.length >= 25, `the table has ${bvs.BOARD_VIEWS.length} views`);
+  assert.match(menu, /each boardViewMenuEntries\n\s*li\n\s*a\(class="\{\{jsClass\}\}"\)\n\s*i\.fa\(class="\{\{icon\}\}"\)\n\s*\| \{\{_ labelKey\}\}/);
   bvs.BOARD_VIEWS.forEach(v => {
-    const at = menu.indexOf(`with "${v.view}"`);
-    const block = menu.slice(at, at + 250);
-    assert.ok(block.includes(`| {{_ '${v.labelKey}'}}`), `${v.view} uses label key ${v.labelKey} like the menu`);
-    assert.ok(block.includes(`i.fa.${v.icon}`), `${v.view} uses icon ${v.icon} like the menu`);
     assert.ok(typeof en[v.labelKey] === 'string' && en[v.labelKey], `${v.labelKey} is an English key`);
+    assert.ok(/^fa-[a-z-]+$/.test(v.icon), `${v.view} has an icon`);
+    assert.ok(boardHeaderJs.includes(`'click .${bvs.boardViewJsClass(v.view)}'`), `${v.view} has a click handler`);
   });
   assert.strictEqual(bvs.BOARD_VIEWS[0].view, 'board-view-swimlanes');
   assert.strictEqual(bvs.BOARD_VIEWS[0].labelKey, 'swimlanes');
+  assert.ok(!/with "board-view-/.test(menu), 'no static entry is left beside the loop (negative)');
 });
 
 test('a view the menu does not have is not a row, and a duplicate is not either (negative)', () => {
@@ -239,12 +241,75 @@ test('resolveBoardView never leaves a user on a hidden view: it falls back to th
 
 // ------------------------------------------------------- applied in the UI
 
-test('the Board View menu wraps every entry in showsBoardView, read from the board and its visibility', () => {
-  bvs.BOARD_VIEWS.forEach(v => {
-    assert.ok(menu.includes(`if showsBoardView "${v.view}"\n      li\n        with "${v.view}"`), `${v.view} is guarded`);
-  });
-  assert.ok(/showsBoardView\(view\) \{[\s\S]*?return isBoardViewShown\(board, view, board\.permission\);/.test(boardHeaderJs));
+test('the Board View menu lists only the views shown for the board\'s visibility, in the board\'s order', () => {
+  assert.ok(/boardViewMenuEntries\(\) \{[\s\S]*?return boardViewMenuEntries\(board, Utils\.boardView\(\)\)/.test(boardHeaderJs));
   assert.ok(boardHeaderJs.includes("require('/models/lib/boardViewSettings')"));
+  const board = {
+    permission: 'public',
+    boardViewOrder: ['board-view-pulse', 'board-view-lists'],
+    boardViewSettings: { 'board-view-lists': { showOnPublic: false }, 'board-view-cal': { showOnPrivate: false } },
+  };
+  const pub = bvs.boardViewMenuEntries(board, 'board-view-pulse');
+  assert.deepStrictEqual(pub.slice(0, 2).map(e => e.view), ['board-view-pulse', 'board-view-swimlanes'], 'custom order, Lists hidden on public');
+  assert.ok(!pub.some(e => e.view === 'board-view-lists'));
+  assert.ok(pub.some(e => e.view === 'board-view-cal'), 'Calendar is hidden on private only');
+  assert.strictEqual(pub[0].isCurrent, true);
+  assert.strictEqual(pub[0].jsClass, 'js-open-pulse-view');
+  assert.ok(pub.every(e => !e.separatorAfter), 'a custom order has no separators');
+  const priv = bvs.boardViewMenuEntries({ ...board, permission: 'private' }, 'board-view-cal');
+  assert.ok(priv.some(e => e.view === 'board-view-lists') && !priv.some(e => e.view === 'board-view-cal'));
+  assert.ok(priv.every(e => !e.isCurrent), 'the hidden current view is ticked nowhere');
+});
+
+// ------------------------------------------------------------ reordering
+
+test('each popup row has keyboard-reachable up/down arrows, reusing the existing Move up/down keys', () => {
+  const rows = popup.slice(popup.indexOf('each boardViewRows'));
+  assert.ok(rows.includes('a.flex.js-board-view-order-up(href="#" role="button" class="{{#if isFirst}}is-disabled{{/if}}" title="{{_ \'card-field-order-move-up\'}}"'));
+  assert.ok(rows.includes('a.flex.js-board-view-order-down(href="#" role="button" class="{{#if isLast}}is-disabled{{/if}}" title="{{_ \'card-field-order-move-down\'}}"'));
+  assert.strictEqual(en['card-field-order-move-up'], 'Move up');
+  assert.strictEqual(en['card-field-order-move-down'], 'Move down');
+  assert.ok(!en['board-view-order-move-up'] && !en['board-view-move-up'], 'no new move keys (negative)');
+  assert.ok(/boardViewRows\(\) \{[\s\S]*?boardViewSettings\.orderedBoardViews\(board\)/.test(sidebarJs), 'rows follow the board order');
+  assert.ok(/'click \.js-board-view-order-up'\(evt\) \{[\s\S]*?board\.moveBoardView\(evt\.currentTarget\.closest\('\[data-view\]'\)\.dataset\.view, 'up'\)/.test(sidebarJs));
+  assert.ok(/'click \.js-board-view-order-down'\(evt\) \{[\s\S]*?board\.moveBoardView\(evt\.currentTarget\.closest\('\[data-view\]'\)\.dataset\.view, 'down'\)/.test(sidebarJs));
+  assert.ok(/boardViewOrder: \{[\s\S]*?type: Array,\s*optional: true,\s*\},\s*'boardViewOrder\.\$': \{\s*type: String,/.test(boardsJs), 'the schema field');
+  assert.ok(/async moveBoardView\(view, direction\) \{[\s\S]*?boardViewSettings\.moveBoardView\(this\.boardViewOrder, view, direction\)[\s\S]*?\$set: \{ boardViewOrder: order \}/.test(boardsJs), 'the setter');
+});
+
+test('normalizeBoardViewOrder drops unknown keys and duplicates and appends missing views in default order', () => {
+  const all = bvs.DEFAULT_BOARD_VIEW_ORDER;
+  assert.deepStrictEqual(bvs.normalizeBoardViewOrder(undefined), all);
+  assert.deepStrictEqual(bvs.normalizeBoardViewOrder([]), all);
+  assert.deepStrictEqual(bvs.normalizeBoardViewOrder('board-view-lists'), all, 'a non-array is ignored');
+  const stored = ['board-view-pulse', 'board-view-nope', 'board-view-lists', 'board-view-pulse', 42];
+  const out = bvs.normalizeBoardViewOrder(stored);
+  assert.deepStrictEqual(out.slice(0, 2), ['board-view-pulse', 'board-view-lists']);
+  assert.deepStrictEqual(out.slice(2), all.filter(v => v !== 'board-view-pulse' && v !== 'board-view-lists'));
+  assert.strictEqual(out.length, all.length, 'every view exactly once');
+  assert.ok(!out.includes('board-view-nope'));
+  assert.strictEqual(bvs.isDefaultBoardViewOrder(undefined), true);
+  assert.strictEqual(bvs.isDefaultBoardViewOrder(all.slice()), true);
+  assert.strictEqual(bvs.isDefaultBoardViewOrder(['board-view-lists']), false);
+  assert.deepStrictEqual(bvs.orderedBoardViews({ boardViewOrder: ['board-view-cal'] })[0], bvs.BOARD_VIEWS[3]);
+});
+
+test('moveBoardView moves one step, and the first up / last down / unknown are no-ops (negative)', () => {
+  const all = bvs.DEFAULT_BOARD_VIEW_ORDER;
+  const up = bvs.moveBoardView(undefined, 'board-view-lists', 'up');
+  assert.deepStrictEqual(up.slice(0, 2), ['board-view-lists', 'board-view-swimlanes']);
+  assert.deepStrictEqual(up.slice(2), all.slice(2));
+  const down = bvs.moveBoardView(up, 'board-view-lists', 'down');
+  assert.deepStrictEqual(down, all, 'and back');
+  assert.deepStrictEqual(bvs.moveBoardView(undefined, 'board-view-swimlanes', 'up'), all, 'first item up');
+  assert.deepStrictEqual(bvs.moveBoardView(undefined, 'board-view-pulse', 'down'), all, 'last item down');
+  assert.deepStrictEqual(bvs.moveBoardView(undefined, 'board-view-nope', 'up'), all, 'unknown');
+  // Once the unknown key is dropped Pulse IS the first row, so its up is a no-op.
+  assert.deepStrictEqual(bvs.moveBoardView(['board-view-nope', 'board-view-pulse'], 'board-view-pulse', 'up'),
+    bvs.normalizeBoardViewOrder(['board-view-pulse']), 'first after cleanup');
+  const input = ['board-view-cal', 'board-view-lists'];
+  bvs.moveBoardView(input, 'board-view-lists', 'up');
+  assert.deepStrictEqual(input, ['board-view-cal', 'board-view-lists'], 'the input is not mutated');
 });
 
 test('Utils.boardView() resolves the stored choice through the current board', () => {

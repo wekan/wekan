@@ -1230,6 +1230,20 @@ Boards.attachSchema(
       optional: true,
       defaultValue: 'board-view-swimlanes',
     },
+    // The order of the Board View menu on this board, set with the up/down
+    // arrows in Board Settings / Board View. Missing, partial or unknown
+    // values are made whole by normalizeBoardViewOrder() in
+    // models/lib/boardViewSettings.js, the same way cardFieldOrder is.
+    boardViewOrder: {
+      /**
+       * The Board View menu's order: board-view keys, first to last
+       */
+      type: Array,
+      optional: true,
+    },
+    'boardViewOrder.$': {
+      type: String,
+    },
     sameWidthForAllLists: {
       /**
        * #6680: the BOARD-WIDE equivalent of each user's own "same width for
@@ -2913,6 +2927,17 @@ Boards.helpers({
     const $set = boardViewSettings.defaultBoardViewModifier(this, view, visibility);
     if (!$set) return false;
     return await Boards.updateAsync(this._id, { $set });
+  },
+
+  // The up/down arrows of Board Settings / Board View. Re-reads this
+  // board's current order, so two quick clicks each move from where the
+  // previous one left it; a no-op (first row up, last row down) writes
+  // nothing.
+  async moveBoardView(view, direction) {
+    const order = boardViewSettings.moveBoardView(this.boardViewOrder, view, direction);
+    const before = boardViewSettings.normalizeBoardViewOrder(this.boardViewOrder);
+    if (order.every((v, i) => v === before[i])) return false;
+    return await Boards.updateAsync(this._id, { $set: { boardViewOrder: order } });
   },
 
   getSameWidthForAllLists() {
