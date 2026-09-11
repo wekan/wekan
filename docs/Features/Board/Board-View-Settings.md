@@ -96,6 +96,16 @@ exists in one exactly when it exists in the other;
 `tests/boardViewMenu.test.cjs` pins the table to the required menu order and
 `tests/boardViewSettings.test.cjs` pins the two templates to the table.
 
+That order is not an accident of how the table is written: it is **the order
+the Board View menu had before views became orderable** - the 25 static
+entries of `boardChangeViewPopup` as of commit `525bcab1b`, the parent of the
+Board Settings / Board View feature, with its six separators after Table,
+Timeline, Statistics, Group by Assignee, DHTMLX Gantt and Bigboard. The model
+keeps it as a literal list, `DEFAULT_BOARD_VIEW_ORDER`, and
+`tests/boardViewSettings.test.cjs` pins that list and the separator positions
+to the pre-feature template, so re-sorting `BOARD_VIEWS` cannot change what a
+board with no stored order shows.
+
 ### When public boards are hidden
 
 When **Admin Panel → Settings → Visibility → All Boards: Hide → Public
@@ -134,18 +144,20 @@ moves the row one step, and the **Board View menu lists its entries in that
 order** for everybody on the board. The first row's up arrow and the last
 row's down arrow do nothing and are drawn disabled.
 
-The default order is the menu's order above, and while the order is the
-default one the menu draws its usual separators between the groups (after
-Table, Timeline, Statistics, Group by Assignee, DHTMLX Gantt and Bigboard).
-A custom order has no groups, so it has no separators.
+The default order is the menu's order above - the pre-feature menu order,
+exactly as the menu was before it became orderable - and while the order is
+the default one the menu draws its usual separators between the groups (after
+Table, Timeline, Statistics, Group by Assignee, DHTMLX Gantt and Bigboard),
+in the same places the old template drew them. A custom order has no groups,
+so it has no separators.
 
 The order is stored on the board as `boardViewOrder`, an array of view keys
 first to last. A stored order is **made whole** before use
 (`normalizeBoardViewOrder`): unknown keys are dropped, duplicates are
-dropped, and every known view missing from it is appended in its default
-position - so a menu never loses a view and never shows one twice, whatever
-an old or hand-edited document holds, and a view added to WeKan later
-appears at the end of an existing custom order.
+dropped, and every known view missing from it is appended after the stored
+keys, in the default (pre-feature) order - so a menu never loses a view and
+never shows one twice, whatever an old or hand-edited document holds, and a
+view added to WeKan later appears at the end of an existing custom order.
 
 ## How the settings apply
 

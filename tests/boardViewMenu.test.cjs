@@ -78,6 +78,11 @@ const popup = boardHeaderJade.slice(boardHeaderJade.indexOf('template(name="boar
   boardHeaderJade.indexOf('\n//- The Create Board form'));
 
 test('the menu lists every view in the required top-to-bottom order', () => {
+  // The DEFAULT order (no stored boardViewOrder) is the order this menu had
+  // before views became orderable - the static template at commit 525bcab1b,
+  // the parent of the Board Settings / Board View feature. VIEWS above is
+  // that order; tests/boardViewSettings.test.cjs pins the model's literal
+  // list and the separator positions against the same template.
   assert.deepStrictEqual(bvs.BOARD_VIEWS.map(v => v.view), VIEWS.map(v => v.view));
   assert.deepStrictEqual(bvs.DEFAULT_BOARD_VIEW_ORDER, VIEWS.map(v => v.view));
   // A board with no stored order renders exactly that, all of it.

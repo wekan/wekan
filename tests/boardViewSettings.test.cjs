@@ -344,4 +344,98 @@ test('the four column headers exist in English and are translated in every non-E
   assert.deepStrictEqual(untranslated, [], 'every locale has its own value');
 });
 
+// ----------------------------------------------------- the default order
+
+// The DEFAULT order is the order the Board View menu had BEFORE views became
+// orderable: the 25 static `li` entries (and six `hr`s) of boardChangeViewPopup
+// in client/components/boards/boardHeader.jade as of commit 525bcab1b, the
+// parent of the Board Settings / Board View feature commit - read with
+//   git show 525bcab1b:client/components/boards/boardHeader.jade
+// and transcribed here literally, so the list is pinned to that template
+// rather than to whatever order BOARD_VIEWS happens to be written in.
+const PRE_FEATURE_MENU = [
+  'board-view-swimlanes',
+  'board-view-lists',
+  'board-view-table',
+  'hr',
+  'board-view-cal',
+  'board-view-multiboard-cal',
+  'board-view-time',
+  'board-view-timeline',
+  'hr',
+  'board-view-stats',
+  'hr',
+  'board-view-group-by-assignee',
+  'hr',
+  'board-view-gantt',
+  'board-view-gantt-frappe',
+  'board-view-gantt-dhtmlx',
+  'hr',
+  'board-view-roadmap',
+  'board-view-dashboard',
+  'board-view-bigboard',
+  'hr',
+  'board-view-burndown',
+  'board-view-burnup',
+  'board-view-cumulative-flow',
+  'board-view-control-chart',
+  'board-view-cycle-time',
+  'board-view-flow-efficiency',
+  'board-view-lead-time',
+  'board-view-throughput-histogram',
+  'board-view-wip-run',
+  'board-view-pulse',
+];
+const bvsSrc = read('models/lib/boardViewSettings.js');
+const PRE_FEATURE_ORDER = PRE_FEATURE_MENU.filter(k => k !== 'hr');
+const PRE_FEATURE_HR_AFTER = PRE_FEATURE_MENU
+  .map((k, i) => (k === 'hr' ? PRE_FEATURE_MENU[i - 1] : null))
+  .filter(Boolean);
+
+test('the default order is the pre-feature menu order (525bcab1b), literally', () => {
+  assert.deepStrictEqual(bvs.DEFAULT_BOARD_VIEW_ORDER, PRE_FEATURE_ORDER);
+  assert.strictEqual(PRE_FEATURE_ORDER.length, 25);
+  // The literal in the model is a list of its own, not a slice of the table
+  // (negative: re-sorting BOARD_VIEWS must not be able to change the default).
+  assert.match(bvsSrc, /const DEFAULT_BOARD_VIEW_ORDER = \[\n\s*'board-view-swimlanes',/);
+  assert.ok(!/DEFAULT_BOARD_VIEW_ORDER = VIEW_KEYS/.test(bvsSrc));
+  // ...but it names exactly the views the table knows - nothing more, nothing missing.
+  assert.deepStrictEqual(bvs.DEFAULT_BOARD_VIEW_ORDER.slice().sort(), bvs.BOARD_VIEWS.map(v => v.view).sort());
+});
+
+test('a board with no stored order renders the pre-feature menu, separators in the same places', () => {
+  ['public', 'private'].forEach(permission => {
+    [undefined, null, [], 'garbage'].forEach(boardViewOrder => {
+      const entries = bvs.boardViewMenuEntries({ permission, boardViewOrder });
+      const rendered = [];
+      entries.forEach(e => {
+        rendered.push(e.view);
+        if (e.separatorAfter) rendered.push('hr');
+      });
+      assert.deepStrictEqual(rendered, PRE_FEATURE_MENU, `${permission} / ${JSON.stringify(boardViewOrder)}`);
+    });
+  });
+  assert.deepStrictEqual(bvs.SEPARATOR_AFTER, PRE_FEATURE_HR_AFTER);
+  assert.strictEqual(PRE_FEATURE_HR_AFTER.length, 6);
+});
+
+test('views missing from a stored order follow it in the pre-feature order', () => {
+  // The fallback for keys a stored order lacks is the pre-feature order too:
+  // they are appended after the stored keys, in that order (the mechanics of
+  // normalizeBoardViewOrder are unchanged - a stored order stays a record of
+  // what the admin arranged, and what it never mentioned comes after it).
+  const custom = ['board-view-pulse', 'board-view-lists'];
+  const norm = bvs.normalizeBoardViewOrder(custom);
+  assert.deepStrictEqual(norm.slice(0, 2), custom);
+  assert.deepStrictEqual(norm.slice(2), PRE_FEATURE_ORDER.filter(v => !custom.includes(v)));
+  // A stored order that IS the pre-feature order minus a view WeKan gained
+  // later ends with that view, and is not the default order any more.
+  const stored = PRE_FEATURE_ORDER.filter(v => v !== 'board-view-timeline');
+  assert.deepStrictEqual(bvs.normalizeBoardViewOrder(stored), stored.concat('board-view-timeline'));
+  assert.strictEqual(bvs.isDefaultBoardViewOrder(stored), false);
+  // Negative: a view the table knows but the literal forgot still reaches the
+  // menu at the end instead of vanishing.
+  assert.match(bvsSrc, /DEFAULT_BOARD_VIEW_ORDER\.concat\(VIEW_KEYS\)\.forEach/);
+});
+
 console.log(`boardViewSettings: ${passed} passed`);

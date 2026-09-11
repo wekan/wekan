@@ -51,11 +51,46 @@ const DEFAULT_BOARD_VIEW = 'board-view-swimlanes';
 
 const VIEW_KEYS = BOARD_VIEWS.map(v => v.view);
 
-// The menu's default order, which is also the popup's default row order.
-const DEFAULT_BOARD_VIEW_ORDER = VIEW_KEYS.slice();
+// The menu's DEFAULT order - what a board with no stored boardViewOrder
+// renders, the popup's default row order, and where a view missing from a
+// stored order is slotted in. It is the order the Board View menu had BEFORE
+// views became orderable: the 25 static `li` entries of boardChangeViewPopup
+// in client/components/boards/boardHeader.jade at commit 525bcab1b (the
+// parent of the Board Settings / Board View feature), transcribed top to
+// bottom. Written out rather than derived from BOARD_VIEWS so that
+// re-sorting that table can not silently change what every board shows;
+// tests/boardViewSettings.test.cjs pins this list literally.
+const DEFAULT_BOARD_VIEW_ORDER = [
+  'board-view-swimlanes',
+  'board-view-lists',
+  'board-view-table',
+  'board-view-cal',
+  'board-view-multiboard-cal',
+  'board-view-time',
+  'board-view-timeline',
+  'board-view-stats',
+  'board-view-group-by-assignee',
+  'board-view-gantt',
+  'board-view-gantt-frappe',
+  'board-view-gantt-dhtmlx',
+  'board-view-roadmap',
+  'board-view-dashboard',
+  'board-view-bigboard',
+  'board-view-burndown',
+  'board-view-burnup',
+  'board-view-cumulative-flow',
+  'board-view-control-chart',
+  'board-view-cycle-time',
+  'board-view-flow-efficiency',
+  'board-view-lead-time',
+  'board-view-throughput-histogram',
+  'board-view-wip-run',
+  'board-view-pulse',
+];
 
-// After which entries the menu draws a separator - only in the DEFAULT
-// order, where the groups (board views / calendars and time / statistics /
+// After which entries the menu draws a separator - the same six `hr`s the
+// pre-feature template had, at the same places - only in the DEFAULT order,
+// where the groups (board views / calendars and time / statistics /
 // grouping / the Gantts / roadmap, dashboard, bigboard / the charts) still
 // mean something. A custom order has no groups and no separators.
 const SEPARATOR_AFTER = [
@@ -92,7 +127,11 @@ function normalizeBoardViewOrder(storedOrder) {
       }
     });
   }
-  DEFAULT_BOARD_VIEW_ORDER.forEach(view => {
+  // The default list first, then - belt and braces - any view BOARD_VIEWS
+  // knows that the default list does not, so a view added to the table but
+  // not yet to the list above still reaches the menu (at the end) instead
+  // of vanishing. tests/boardViewSettings.test.cjs fails when the two differ.
+  DEFAULT_BOARD_VIEW_ORDER.concat(VIEW_KEYS).forEach(view => {
     if (!seen.has(view)) {
       seen.add(view);
       result.push(view);
