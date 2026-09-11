@@ -530,12 +530,12 @@ the Markdown commit as the template.
 that the **card history** shows and restores; the only hard delete left is
 deleting an archived board with permanent delete enabled. **Board Settings /
 Card** gains a toggle for every card section and minicard badge and orders
-the **card** and **minicard** fields independently; a new
-**Board Settings / Board View** chooses which views a **public** or
-**private** board offers, and in what order. The **REST API** covers attachment restore, Admin
-Panel Problems, OAuth providers, card field order and rule pausing, and its
-OpenAPI spec carries the Boards API again. The **Windows release builds**,
-lost when GitHub's runner moved to **Visual Studio 2026**, are built again.
+**card** and **minicard** fields independently; a new **Board Settings /
+Board View** chooses which views a **public** or **private** board offers,
+and in what order. The **REST API** covers those and the other recent
+features, and its OpenAPI spec carries the Boards API again. The **Windows
+release builds** work on **Visual Studio 2026** again, and a **MongoDB 8.2**
+crash loop after a full disk is explained and remediated.
 
 This release adds the following new features:
 
@@ -875,7 +875,7 @@ building on Launchpad when the job cap cancelled it. Both pass on a re-run.
 **The database** - a MongoDB 8.2 crash loop, explained, reported and remediated.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/faaa83ed0f8d1ad5e2ab4d1dbc3ac18a8fdd0cc1">MongoDB 8.2 that will not start after a full disk: the scratch directory to delete, and the snap deletes it</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/faaa83ed0922603bb143317213911d7e38691641">MongoDB 8.2 that will not start after a full disk: the scratch directory to delete, and the snap deletes it</a>. Thanks to xet7.</summary>
 
 A reported test environment (`mongo:8.2.2` in Kubernetes) filled its data
 volume: the checkpoint's `fdatasync` returned `ENOSPC`, WiredTiger panicked and
