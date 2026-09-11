@@ -533,7 +533,7 @@ instead of silently saving an unfinished JSON document.
 This release fixes the following bugs:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/2834c5ffc">Fix board JSON exports containing HTML</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/49eaade95">Fix board JSON exports containing HTML</a>. Thanks to xet7.</summary>
 
 The server called DOMPurify without a browser DOM, where its import has no
 `sanitize` method. The first HTML-bearing card stopped the streaming export at
