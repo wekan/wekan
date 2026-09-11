@@ -524,7 +524,7 @@ the Markdown commit as the template.
 </details>
 </details>
 
-# Upcoming WeKan ® release
+# v11.69 2026-09-11 WeKan ® release
 
 **In short:** this release adds **Frappe Gantt**, **DHTMLX Gantt** and
 **Chart.js**-drawn report charts as new Board View pages, restores the
