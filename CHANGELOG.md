@@ -5063,6 +5063,41 @@ pins all of it.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e487f8d91">Chart PDF exports keep every row on one line, in aligned columns</a>. Thanks to xet7.</summary>
+
+Reported directly: in the Frappe Gantt view's PDF export a row's text was
+not on one line. The chart PDF exporter wrote every header and data row as
+one text line - "title | start | due | end" - with no width limit, so a
+long card title pushed the dates off the page edge, and nothing lined up
+from row to row. Rows are now real table rows with fixed column widths
+(the name column twice the others); a cell that does not fit is clipped
+with an ellipsis rather than wrapped, so a row is always exactly one line,
+in both the Unicode PDF and the base-font fallback. Gantt, Time and the
+report charts share this exporter. `tests/chartPdfTableRows.test.cjs` pins
+it.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/278db0ada">Every Excel export writes dates as real date cells, not text</a>. Thanks to xet7.</summary>
+
+Reported directly, with a LibreOffice screenshot: the Frappe Gantt view's
+Excel export showed Start/Due/End as ISO text
+("2026-09-23T09:00:00.000Z") - the chart Excel exporter wrote
+`toISOString()` into the cell. A date is now a real date cell with a date
+number format, so the spreadsheet shows it in its own date format, sorts
+it as a date and can do arithmetic on it. Checking every other Excel
+export as asked: the board and card exports draw the shared card document,
+whose Created/Received/Start/Due/End/Last activity values were
+pre-formatted text as well - a date pair now also carries the raw Date,
+which the Excel renderer writes as a date cell while the PDF keeps
+printing the text; the board's own Created/Modified lines likewise. The
+legacy whole-board Excel export already wrote real dates.
+`tests/chartExcelDateCells.test.cjs` covers all of them.
+
+</details>
+
 and improves the translation workflow:
 
 - [Fill in the missing Ladin, Latin, Luganda, Luxembourgish, Maithili, Malagasy, Malay, Malayalam, Maltese, Manx, Maori and Marathi translations](https://github.com/wekan/wekan/commit/718d20813). Thanks to xet7.
