@@ -917,6 +917,78 @@ paths:
                   type: string
                 deleteBatchId:
                   type: string
+  /api/boards/{board}/boardViewSettings:
+    get:
+      operationId: get_board_view_settings
+      summary: Get the Board Settings / Board View of a board
+      description: |
+        Which entries of the Board View menu this board offers and
+         which one it opens in, separately for when the board is public and when it
+         is private, and the order the menu lists them in. `boardViewSettings` has
+         every view key exactly once with both `showOnPublic` and `showOnPrivate`
+         made explicit (a board that never opened the popup shows every view), the
+         two defaults are resolved (missing or unknown reads as
+         `board-view-swimlanes`), and `boardViewOrder` is made whole: every view
+         exactly once, unknown keys dropped, missing ones appended in default order.
+         `keys` lists the known view keys. Requires board access.
+      tags:
+        - Boards
+        - Boards
+      parameters:
+        - name: board
+          in: path
+          description: |
+            the board ID
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+          schema:
+            type: {boardViewSettings: object, defaultPublicBoardView: string, defaultPrivateBoardView: string, boardViewOrder: [string], keys: [string]}
+    put:
+      operationId: update_board_view_settings
+      summary: Set the Board Settings / Board View of a board
+      description: |
+        Sets any subset of `boardViewSettings` (an object of
+         `"<view>": { showOnPublic, showOnPrivate }`, each side optional),
+         `defaultPublicBoardView`, `defaultPrivateBoardView` and `boardViewOrder`
+         (an array of view keys), with the rules the Board View popup applies: a
+         default is always shown on its side (setting a default also shows it, and
+         hiding a side's current default is refused with 400 - set another default
+         first), an unknown view key anywhere in the body is a 400, and the order is
+         normalised so the menu lists every view exactly once. Defaults are applied
+         before the show flags, so one request can move the default and hide the
+         old one. Requires the caller to be a board admin (or site admin). Returns
+         the settings in effect, in the same shape as GET.
+      tags:
+        - Boards
+        - Boards
+      consumes:
+        - multipart/form-data
+        - application/json
+      parameters:
+        - name: board
+          in: path
+          description: |
+            the board ID
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+          schema:
+            type: {boardViewSettings: object, defaultPublicBoardView: string, defaultPrivateBoardView: string, boardViewOrder: [string], keys: [string]}
   /api/boards/{board}/calendar.ics:
     get:
       operationId: exportCalendarIcs
@@ -1012,13 +1084,22 @@ paths:
             type: {cardFieldOrder: [string], keys: [string]}
   /api/boards/{board}/cardSettings:
     get:
-      operationId: get_board_cardSettings
+      operationId: get_board_card_settings
+      summary: Get the Board Settings / Card Settings of a board
+      description: |
+        The card feature toggles of Board Settings / Card Settings -
+         which card fields and features this board offers (`allowsDescriptionTitle`,
+         `allowsLabels`, `allowsChecklists`, `allowsAttachments`, `allowsComments`,
+         `allowsActivities`, …, each `true`/`false`) - and the three card-aging day
+         thresholds (`cardAgingDays1`..`cardAgingDays3`). Requires board access.
       tags:
+        - Boards
         - Boards
       parameters:
         - name: board
           in: path
-          description: the board value
+          description: |
+            the board ID
           type: string
           required: true
       produces:
@@ -1029,9 +1110,39 @@ paths:
         '200':
           description: |-
             200 response
+          schema:
+            type: object
+            properties:
+              allowsDescriptionTitle:
+                type: boolean
+              allowsLabels:
+                type: boolean
+              allowsChecklists:
+                type: boolean
+              allowsAttachments:
+                type: boolean
+              allowsComments:
+                type: boolean
+              allowsActivities:
+                type: boolean
+              cardAgingDays1:
+                type: number
+              cardAgingDays2:
+                type: number
+              cardAgingDays3:
+                type: number
     put:
-      operationId: put_board_cardSettings
+      operationId: update_board_card_settings
+      summary: Set the Board Settings / Card Settings of a board
+      description: |
+        Sets any subset of the card feature toggles (any `allows*`
+         key of the board, as `true`/`false`) and of the card-aging thresholds
+         (`cardAgingDays1`..`cardAgingDays3`, non-negative integers). Keys not in
+         the body are left as they are; a body with no recognised key is a 400.
+         Requires board write access. Returns the settings in effect, in the same
+         shape as GET.
       tags:
+        - Boards
         - Boards
       consumes:
         - multipart/form-data
@@ -1044,7 +1155,8 @@ paths:
           required: true
         - name: board
           in: path
-          description: the board value
+          description: |
+            the board ID
           type: string
           required: true
       produces:
@@ -1055,6 +1167,27 @@ paths:
         '200':
           description: |-
             200 response
+          schema:
+            type: object
+            properties:
+              allowsDescriptionTitle:
+                type: boolean
+              allowsLabels:
+                type: boolean
+              allowsChecklists:
+                type: boolean
+              allowsAttachments:
+                type: boolean
+              allowsComments:
+                type: boolean
+              allowsActivities:
+                type: boolean
+              cardAgingDays1:
+                type: number
+              cardAgingDays2:
+                type: number
+              cardAgingDays3:
+                type: number
   /api/boards/{board}/cards/{card}/checklists:
     get:
       operationId: get_board_card_checklists
@@ -4914,84 +5047,6 @@ paths:
           description: Attachment not found
 
   # ───────────────────────────────────────────────────────────────────────────
-  # Board card settings (server/models/boards.js)
-  #
-  # Registered with WebApp.handlers.get/put but the body fields are read in a
-  # loop, so they are documented here by hand. Boolean keys are the board card
-  # display toggles (allows*). Numeric keys configure card aging (#3984):
-  # cardAging (bool) plus cardAgingDays1/2/3 (fade-tier day thresholds).
-  # ───────────────────────────────────────────────────────────────────────────
-  /api/boards/{boardId}/cardSettings:
-    get:
-      operationId: get_board_card_settings
-      summary: Get a board's card settings (display toggles + card aging)
-      produces:
-        - application/json
-      tags:
-        - Boards
-      security:
-        - UserSecurity: []
-      parameters:
-        - name: boardId
-          in: path
-          required: true
-          type: string
-      responses:
-        '200':
-          description: Card settings returned
-        '401':
-          description: Missing or invalid authentication
-        '404':
-          description: Board not found
-    put:
-      operationId: edit_board_card_settings
-      summary: Update a board's card settings (display toggles + card aging)
-      description: |
-        Boolean keys (the allows* display toggles and `cardAging`) accept true/false.
-        Numeric keys `cardAgingDays1`, `cardAgingDays2`, `cardAgingDays3` set the
-        three card-aging fade-tier day thresholds (default 7 / 14 / 28).
-      consumes:
-        - application/json
-      produces:
-        - application/json
-      tags:
-        - Boards
-      security:
-        - UserSecurity: []
-      parameters:
-        - name: boardId
-          in: path
-          required: true
-          type: string
-        - name: body
-          in: body
-          required: true
-          schema:
-            type: object
-            properties:
-              cardAging:
-                type: boolean
-                description: Enable visual card aging on the board
-              cardAgingDays1:
-                type: integer
-                description: Idle days for the first (lightest) fade tier
-              cardAgingDays2:
-                type: integer
-                description: Idle days for the second fade tier
-              cardAgingDays3:
-                type: integer
-                description: Idle days for the third (heaviest) fade tier
-      responses:
-        '200':
-          description: Updated card settings returned
-        '400':
-          description: No recognized card settings in body
-        '401':
-          description: Missing or invalid authentication
-        '404':
-          description: Board not found
-
-  # ───────────────────────────────────────────────────────────────────────────
   # iCalendar (.ics) import (server/methods/icsImport.js)
   #
   # Registered with `WebApp.handlers.post(...)` in server/methods/ which is not
@@ -5421,7 +5476,15 @@ definitions:
         type: boolean
       cardFieldOrder:
         description: |
-           The order of the reorderable card-detail-view sections
+           The order of the opened card's fields (models/lib/cardFieldOrder.js keys)
+        type: array
+        items:
+          type: string
+          x-nullable: true
+        x-nullable: true
+      minicardFieldOrder:
+        description: |
+           The order of the minicard's fields (models/lib/cardFieldOrder.js keys)
         type: array
         items:
           type: string
@@ -5682,6 +5745,14 @@ definitions:
            The Board View a PRIVATE board opens in when the viewer has no stored
            choice (or a choice this board hides). Always shown on private.
         type: string
+        x-nullable: true
+      boardViewOrder:
+        description: |
+           The Board View menu's order: board-view keys, first to last
+        type: array
+        items:
+          type: string
+          x-nullable: true
         x-nullable: true
       sameWidthForAllLists:
         description: |

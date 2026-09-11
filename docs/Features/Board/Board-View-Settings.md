@@ -203,6 +203,21 @@ Who may persist them is decided where it is for every other board setting:
 a **board admin** (or a site admin). A non-admin does not see the menu entry
 and could not write the fields if they did.
 
+## REST API
+
+The same settings over HTTP, for scripts and integrations:
+`GET /api/boards/:boardId/boardViewSettings` (board access) answers
+`boardViewSettings`, `defaultPublicBoardView`, `defaultPrivateBoardView`,
+`boardViewOrder` and `keys` in the normalised shape the menu renders with, and
+`PUT /api/boards/:boardId/boardViewSettings` (board admin) accepts any subset
+of the first four, through the same pure modifiers the popup applies
+(`boardViewSettingsRequest()` in `models/lib/boardViewSettings.js`): a default
+is always shown, hiding a side's default is a `400`, an unknown view key is a
+`400`, and the order is normalised. Both are documented with `curl` examples in
+[REST-API.md, Board Settings: Board View](../../API/REST-API.md#board-settings-board-view)
+and in the generated OpenAPI spec (`get_board_view_settings`,
+`update_board_view_settings`).
+
 ## Related
 
 - [Card field display order](Card-Field-Display-Order.md) - the Card Settings

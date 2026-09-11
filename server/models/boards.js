@@ -1253,6 +1253,20 @@ const BOARD_CARD_NUMERIC_SETTING_KEYS = [
   'cardAgingDays3',
 ];
 
+/**
+ * @operation get_board_card_settings
+ * @tag Boards
+ * @summary Get the Board Settings / Card Settings of a board
+ *
+ * @description The card feature toggles of Board Settings / Card Settings -
+ * which card fields and features this board offers (`allowsDescriptionTitle`,
+ * `allowsLabels`, `allowsChecklists`, `allowsAttachments`, `allowsComments`,
+ * `allowsActivities`, …, each `true`/`false`) - and the three card-aging day
+ * thresholds (`cardAgingDays1`..`cardAgingDays3`). Requires board access.
+ *
+ * @param {string} boardId the board ID
+ * @return_type {allowsDescriptionTitle: boolean, allowsLabels: boolean, allowsChecklists: boolean, allowsAttachments: boolean, allowsComments: boolean, allowsActivities: boolean, cardAgingDays1: number, cardAgingDays2: number, cardAgingDays3: number}
+ */
 WebApp.handlers.get('/api/boards/:boardId/cardSettings', async function(req, res) {
   const id = req.params.boardId;
   await Authentication.checkBoardAccess(req.userId, id);
@@ -1271,6 +1285,31 @@ WebApp.handlers.get('/api/boards/:boardId/cardSettings', async function(req, res
   sendJsonResult(res, { code: 200, data });
 });
 
+/**
+ * @operation update_board_card_settings
+ * @tag Boards
+ * @summary Set the Board Settings / Card Settings of a board
+ *
+ * @description Sets any subset of the card feature toggles (any `allows*`
+ * key of the board, as `true`/`false`) and of the card-aging thresholds
+ * (`cardAgingDays1`..`cardAgingDays3`, non-negative integers). Keys not in
+ * the body are left as they are; a body with no recognised key is a 400.
+ * Requires board write access. Returns the settings in effect, in the same
+ * shape as GET.
+ *
+ * @param {string} boardId the board ID
+ * @param {boolean} [allowsDescriptionTitle] show the description title on cards
+ * @param {boolean} [allowsLabels] offer labels on cards
+ * @param {boolean} [allowsChecklists] offer checklists on cards
+ * @param {boolean} [allowsAttachments] offer attachments on cards
+ * @param {boolean} [allowsComments] offer comments on cards
+ * @param {boolean} [allowsActivities] show activities on cards
+ * @param {boolean} [cardAging] fade idle cards (card aging)
+ * @param {number} [cardAgingDays1] days until the first card-aging fade
+ * @param {number} [cardAgingDays2] days until the second card-aging fade
+ * @param {number} [cardAgingDays3] days until the third card-aging fade
+ * @return_type {allowsDescriptionTitle: boolean, allowsLabels: boolean, allowsChecklists: boolean, allowsAttachments: boolean, allowsComments: boolean, allowsActivities: boolean, cardAgingDays1: number, cardAgingDays2: number, cardAgingDays3: number}
+ */
 WebApp.handlers.put('/api/boards/:boardId/cardSettings', async function(req, res) {
   const id = req.params.boardId;
   await Authentication.checkBoardWriteAccess(req.userId, id);
@@ -1649,6 +1688,102 @@ WebApp.handlers.put('/api/boards/:boardId/cardFieldOrder', async function(req, r
       code: 200,
       data: { cardFieldOrder, keys: CARD_FIELD_ORDER_KEYS.slice() },
     });
+  } catch (error) {
+    sendJsonResult(res, publicErrorData(error));
+  }
+});
+
+/**
+ * @operation get_board_view_settings
+ * @tag Boards
+ * @summary Get the Board Settings / Board View of a board
+ *
+ * @description Which entries of the Board View menu this board offers and
+ * which one it opens in, separately for when the board is public and when it
+ * is private, and the order the menu lists them in. `boardViewSettings` has
+ * every view key exactly once with both `showOnPublic` and `showOnPrivate`
+ * made explicit (a board that never opened the popup shows every view), the
+ * two defaults are resolved (missing or unknown reads as
+ * `board-view-swimlanes`), and `boardViewOrder` is made whole: every view
+ * exactly once, unknown keys dropped, missing ones appended in default order.
+ * `keys` lists the known view keys. Requires board access.
+ *
+ * @param {string} boardId the board ID
+ * @return_type {boardViewSettings: object, defaultPublicBoardView: string, defaultPrivateBoardView: string, boardViewOrder: [string], keys: [string]}
+ */
+WebApp.handlers.get('/api/boards/:boardId/boardViewSettings', async function(req, res) {
+  try {
+    const paramBoardId = req.params.boardId;
+    await Authentication.checkBoardAccess(req.userId, paramBoardId);
+    const board = await ReactiveCache.getBoard(paramBoardId);
+    if (!board) {
+      sendJsonResult(res, { code: 404, data: { error: 'Board not found' } });
+      return;
+    }
+    const { boardViewSettingsSnapshot } = require('/models/lib/boardViewSettings');
+    sendJsonResult(res, { code: 200, data: boardViewSettingsSnapshot(board) });
+  } catch (error) {
+    sendJsonResult(res, publicErrorData(error));
+  }
+});
+
+/**
+ * @operation update_board_view_settings
+ * @tag Boards
+ * @summary Set the Board Settings / Board View of a board
+ *
+ * @description Sets any subset of `boardViewSettings` (an object of
+ * `"<view>": { showOnPublic, showOnPrivate }`, each side optional),
+ * `defaultPublicBoardView`, `defaultPrivateBoardView` and `boardViewOrder`
+ * (an array of view keys), with the rules the Board View popup applies: a
+ * default is always shown on its side (setting a default also shows it, and
+ * hiding a side's current default is refused with 400 - set another default
+ * first), an unknown view key anywhere in the body is a 400, and the order is
+ * normalised so the menu lists every view exactly once. Defaults are applied
+ * before the show flags, so one request can move the default and hide the
+ * old one. Requires the caller to be a board admin (or site admin). Returns
+ * the settings in effect, in the same shape as GET.
+ *
+ * @param {string} boardId the board ID
+ * @param {object} [boardViewSettings] e.g. {"board-view-table": {"showOnPublic": false}}
+ * @param {string} [defaultPublicBoardView] the view a public board opens in, e.g. board-view-roadmap
+ * @param {string} [defaultPrivateBoardView] the view a private board opens in, e.g. board-view-swimlanes
+ * @param {string} [boardViewOrder] JSON array of view keys in menu order, e.g. ["board-view-lists", "board-view-swimlanes"]
+ * @return_type {boardViewSettings: object, defaultPublicBoardView: string, defaultPrivateBoardView: string, boardViewOrder: [string], keys: [string]}
+ */
+WebApp.handlers.put('/api/boards/:boardId/boardViewSettings', async function(req, res) {
+  try {
+    const paramBoardId = req.params.boardId;
+    await Authentication.checkBoardAdmin(req.userId, paramBoardId);
+    const board = await ReactiveCache.getBoard(paramBoardId);
+    if (!board) {
+      sendJsonResult(res, { code: 404, data: { error: 'Board not found' } });
+      return;
+    }
+    const input = Object.assign({}, req.body || {});
+    // Form-encoded callers send JSON text for the structured fields.
+    for (const key of ['boardViewSettings', 'boardViewOrder']) {
+      if (typeof input[key] === 'string') {
+        try {
+          input[key] = JSON.parse(input[key]);
+        } catch (e) {
+          if (key === 'boardViewOrder') input[key] = input[key].split(',').map(s => s.trim());
+        }
+      }
+    }
+    const { boardViewSettingsRequest, boardViewSettingsSnapshot } = require('/models/lib/boardViewSettings');
+    const result = boardViewSettingsRequest(board, input);
+    if (result.error) {
+      sendJsonResult(res, { code: 400, data: { error: result.error } });
+      return;
+    }
+    if (Object.keys(result.$set).length === 0) {
+      sendJsonResult(res, { code: 400, data: { error: 'no recognized board view settings in body' } });
+      return;
+    }
+    await Boards.updateAsync(paramBoardId, { $set: result.$set });
+    const updated = await ReactiveCache.getBoard(paramBoardId);
+    sendJsonResult(res, { code: 200, data: boardViewSettingsSnapshot(updated) });
   } catch (error) {
     sendJsonResult(res, publicErrorData(error));
   }

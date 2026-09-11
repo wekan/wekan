@@ -231,6 +231,130 @@ test('PUT /api/boards/:boardId/cardFieldOrder needs board admin, normalises thro
 });
 
 // ---------------------------------------------------------------------------
+// Card Settings (Board Settings): the pre-existing routes now carry the
+// @operation block the OpenAPI generator reads.
+// ---------------------------------------------------------------------------
+
+test('GET /api/boards/:boardId/cardSettings has an @operation block and needs board access', () => {
+  pinRoute('server/models/boards.js', 'get', '/api/boards/:boardId/cardSettings', 'get_board_card_settings', {
+    auth: /Authentication\.checkBoardAccess\(req\.userId, id\)/,
+    body: [/BOARD_CARD_SETTING_KEYS\.forEach/, /BOARD_CARD_NUMERIC_SETTING_KEYS\.forEach/],
+  });
+});
+
+test('PUT /api/boards/:boardId/cardSettings has an @operation block and needs board write access', () => {
+  const { doc } = pinRoute('server/models/boards.js', 'put', '/api/boards/:boardId/cardSettings',
+    'update_board_card_settings', {
+      auth: /Authentication\.checkBoardWriteAccess\(req\.userId, id\)/,
+      body: [/code: 400/, /toBool\(req\.body\[key\]\)/],
+    });
+  assert.match(doc, /@param \{number\} \[cardAgingDays1\]/);
+});
+
+// ---------------------------------------------------------------------------
+// Board View settings (Board Settings / Board View)
+// ---------------------------------------------------------------------------
+
+test('GET /api/boards/:boardId/boardViewSettings needs board access and answers the normalised snapshot', () => {
+  pinRoute('server/models/boards.js', 'get', '/api/boards/:boardId/boardViewSettings', 'get_board_view_settings', {
+    auth: /Authentication\.checkBoardAccess\(req\.userId, paramBoardId\)/,
+    body: [/boardViewSettingsSnapshot\(board\)/, /code: 404/],
+    // The raw document fields are never handed out un-normalised.
+    not: [/data: board\.boardViewSettings/, /boardViewOrder: board\.boardViewOrder/],
+  });
+});
+
+test('PUT /api/boards/:boardId/boardViewSettings needs board admin, writes only the pure helper\'s $set', () => {
+  pinRoute('server/models/boards.js', 'put', '/api/boards/:boardId/boardViewSettings', 'update_board_view_settings', {
+    auth: /Authentication\.checkBoardAdmin\(req\.userId, paramBoardId\)/,
+    body: [/boardViewSettingsRequest\(board, input\)/, /\$set: result\.\$set/, /code: 400/,
+      /boardViewSettingsSnapshot\(updated\)/],
+    // Nothing from the request body reaches the database directly.
+    not: [/\$set: req\.body/, /\$set: input/, /\$set: \{ boardViewSettings: /],
+  });
+});
+
+test('boardViewSettingsSnapshot lists every view once, both sides explicit, defaults resolved, order whole', () => {
+  const m = require('../models/lib/boardViewSettings');
+  const snap = m.boardViewSettingsSnapshot({
+    boardViewSettings: { 'board-view-table': { showOnPublic: false } },
+    defaultPublicBoardView: 'board-view-lists',
+    defaultPrivateBoardView: 'not-a-view',
+    boardViewOrder: ['board-view-gantt', 'bogus', 'board-view-gantt'],
+  });
+  assert.deepStrictEqual(Object.keys(snap.boardViewSettings), m.DEFAULT_BOARD_VIEW_ORDER);
+  assert.deepStrictEqual(snap.boardViewSettings['board-view-table'], { showOnPublic: false, showOnPrivate: true });
+  assert.deepStrictEqual(snap.boardViewSettings['board-view-swimlanes'], { showOnPublic: true, showOnPrivate: true });
+  assert.strictEqual(snap.defaultPublicBoardView, 'board-view-lists');
+  assert.strictEqual(snap.defaultPrivateBoardView, m.DEFAULT_BOARD_VIEW, 'an unknown default reads as Swimlanes');
+  assert.strictEqual(snap.boardViewOrder[0], 'board-view-gantt');
+  assert.strictEqual(snap.boardViewOrder.length, m.BOARD_VIEWS.length);
+  assert.ok(!snap.boardViewOrder.includes('bogus'));
+  assert.deepStrictEqual(snap.keys, m.DEFAULT_BOARD_VIEW_ORDER);
+  // A board that never opened the popup: everything shown, Swimlanes both sides.
+  const fresh = m.boardViewSettingsSnapshot({});
+  assert.ok(Object.values(fresh.boardViewSettings).every(e => e.showOnPublic && e.showOnPrivate));
+  assert.strictEqual(fresh.defaultPublicBoardView, m.DEFAULT_BOARD_VIEW);
+});
+
+test('boardViewSettingsRequest applies the popup\'s modifiers: a default is always shown, order normalised', () => {
+  const m = require('../models/lib/boardViewSettings');
+  const board = { boardViewSettings: {}, defaultPublicBoardView: 'board-view-swimlanes' };
+  // Setting a default also shows it on that side (defaultBoardViewModifier).
+  let r = m.boardViewSettingsRequest(board, { defaultPublicBoardView: 'board-view-lists' });
+  assert.deepStrictEqual(r, { $set: {
+    defaultPublicBoardView: 'board-view-lists',
+    'boardViewSettings.board-view-lists.showOnPublic': true,
+  } });
+  // One request may move the default AND hide the old one: defaults first.
+  r = m.boardViewSettingsRequest(board, {
+    defaultPublicBoardView: 'board-view-lists',
+    boardViewSettings: { 'board-view-swimlanes': { showOnPublic: false, showOnPrivate: 'true' } },
+  });
+  assert.strictEqual(r.$set['boardViewSettings.board-view-swimlanes.showOnPublic'], false);
+  assert.strictEqual(r.$set['boardViewSettings.board-view-swimlanes.showOnPrivate'], true);
+  // Order: normalised, so every view exactly once with the given ones first.
+  r = m.boardViewSettingsRequest(board, { boardViewOrder: ['board-view-table', 'board-view-table'] });
+  assert.strictEqual(r.$set.boardViewOrder[0], 'board-view-table');
+  assert.strictEqual(r.$set.boardViewOrder.length, m.BOARD_VIEWS.length);
+  assert.strictEqual(new Set(r.$set.boardViewOrder).size, m.BOARD_VIEWS.length);
+  // Nothing recognised: an empty $set (the route turns that into a 400).
+  assert.deepStrictEqual(m.boardViewSettingsRequest(board, { unrelated: 1 }), { $set: {} });
+  // The input board is not mutated.
+  assert.deepStrictEqual(board, { boardViewSettings: {}, defaultPublicBoardView: 'board-view-swimlanes' });
+});
+
+test('boardViewSettingsRequest refuses an unknown view key, and hiding a side\'s default (negative)', () => {
+  const m = require('../models/lib/boardViewSettings');
+  const board = { boardViewSettings: {}, defaultPublicBoardView: 'board-view-swimlanes' };
+  const refused = [
+    { boardViewOrder: ['board-view-lists', 'board-view-bogus'] },
+    { boardViewSettings: { 'board-view-bogus': { showOnPublic: false } } },
+    { defaultPublicBoardView: 'board-view-bogus' },
+    { defaultPrivateBoardView: 42 },
+    { boardViewSettings: { 'board-view-swimlanes': { showOnPublic: false } } }, // the public default
+    { boardViewSettings: { 'board-view-swimlanes': { showOnPrivate: false } } }, // the private default (missing = Swimlanes)
+    { boardViewOrder: 'board-view-lists' },
+    { boardViewSettings: ['board-view-lists'] },
+    { boardViewSettings: { 'board-view-lists': 'no' } },
+  ];
+  for (const input of refused) {
+    const r = m.boardViewSettingsRequest(board, input);
+    assert.ok(r.error && !r.$set, `refused: ${JSON.stringify(input)} -> ${JSON.stringify(r)}`);
+  }
+  assert.match(m.boardViewSettingsRequest(board, { boardViewOrder: ['x'] }).error, /unknown board view "x"/);
+  assert.match(m.boardViewSettingsRequest(board, { boardViewSettings: { 'board-view-swimlanes': { showOnPublic: false } } }).error,
+    /cannot hide the public default view/);
+  assert.ok(m.boardViewSettingsRequest(board, null).error);
+  assert.ok(m.boardViewSettingsRequest(board, []).error);
+  // A refusal is whole: the valid part of a partly-invalid body is not applied either.
+  const r = m.boardViewSettingsRequest(board, { defaultPublicBoardView: 'board-view-lists', boardViewOrder: ['nope'] });
+  assert.ok(r.error && !r.$set);
+  // Hiding a view that is NOT the default on that side is fine.
+  assert.ok(!m.boardViewSettingsRequest(board, { boardViewSettings: { 'board-view-lists': { showOnPublic: false } } }).error);
+});
+
+// ---------------------------------------------------------------------------
 // Rules: enabled
 // ---------------------------------------------------------------------------
 
@@ -343,9 +467,18 @@ test('the generated spec parses and carries the Boards API and every new operati
     "        'get_board_deleted_attachments', 'get_admin_problems', 'get_admin_problem_stream',",
     "        'acknowledge_admin_problem_stream', 'get_oauth_provider_settings',",
     "        'update_oauth_provider_settings', 'update_passwordless_settings',",
-    "        'get_board_card_field_order', 'update_board_card_field_order']",
+    "        'get_board_card_field_order', 'update_board_card_field_order',",
+    "        'get_board_card_settings', 'update_board_card_settings',",
+    "        'get_board_view_settings', 'update_board_view_settings']",
     "missing = [n for n in need if n not in ops]",
     "assert not missing, missing",
+    "# The card settings pair used to be hand-written in openapi/extra_paths.yml",
+    "# as well; a second copy would be a duplicate operationId (negative).",
+    "from collections import Counter",
+    "counts = Counter(op['operationId'] for p in d['paths'].values() for op in p.values() if isinstance(op, dict) and 'operationId' in op)",
+    "dup = [n for n in need[-4:] if counts[n] != 1]",
+    "assert not dup, 'duplicate operationId: %s' % dup",
+    "assert 'edit_board_card_settings' not in counts",
     "assert 'Boards' in d['definitions'], 'Boards schema'",
     "print('ok', len(ops))",
   ].join('\n')], { encoding: 'utf8' });
@@ -358,9 +491,16 @@ test('the committed public/api/wekan.yml carries the Boards API and the new oper
   for (const op of ['get_board_domains', 'delete_board_attachment', 'restore_board_attachment',
     'get_board_deleted_attachments', 'get_admin_problems', 'get_admin_problem_stream',
     'acknowledge_admin_problem_stream', 'get_oauth_provider_settings', 'update_oauth_provider_settings',
-    'update_passwordless_settings', 'get_board_card_field_order', 'update_board_card_field_order']) {
+    'update_passwordless_settings', 'get_board_card_field_order', 'update_board_card_field_order',
+    'get_board_card_settings', 'update_board_card_settings',
+    'get_board_view_settings', 'update_board_view_settings']) {
     assert.ok(yml.includes(`operationId: ${op}`), `public/api/wekan.yml has ${op}`);
   }
+  // The card settings routes carry their own @operation now; the hand-written
+  // duplicate that openapi/extra_paths.yml used to hold is gone (negative).
+  assert.strictEqual((yml.match(/operationId: get_board_card_settings\n/g) || []).length, 1);
+  assert.ok(!yml.includes('operationId: edit_board_card_settings'));
+  assert.ok(!read('openapi/extra_paths.yml').includes('cardSettings'));
   assert.ok(!/^  \w+\$\w+:\n    type: object\n      /m.test(yml), 'no empty $-sub-schema followed by a bare mapping');
 });
 

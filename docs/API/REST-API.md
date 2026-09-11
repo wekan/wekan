@@ -77,6 +77,11 @@ When calling a production Wekan server, ensure it is running via HTTPS and has a
 | :--- | :--- | :--- |
 | `GET` | `/api/boards/:boardId/cardFieldOrder` | [Get the order of the opened card's sections.](#get-the-card-field-order) |
 | `PUT` | `/api/boards/:boardId/cardFieldOrder` | [Set the order of the opened card's sections.](#set-the-card-field-order) |
+### Board Settings: Board View
+| HTTP Method | Url | Short Description |
+| :--- | :--- | :--- |
+| `GET` | `/api/boards/:boardId/boardViewSettings` | [Get which Board View menu entries a board offers, its defaults and their order.](#get-the-board-view-settings) |
+| `PUT` | `/api/boards/:boardId/boardViewSettings` | [Set which views are offered, which is the default, and the menu order.](#set-the-board-view-settings) |
 ### Admin Panel: Problems
 | HTTP Method | Url | Short Description |
 | :--- | :--- | :--- |
@@ -370,6 +375,90 @@ curl -H "Authorization: Bearer t7iYB86mXoLfP_XsMegxF41oKT7iiA9lDYiKVtXcctl" \
 ```
 
 Returns the order in effect, in the same shape as `GET`.
+
+---
+
+# Board Settings: Board View
+
+Which entries of the **Board View** menu a board offers and which one it
+opens in, separately for when the board is public and when it is private, and
+the order the menu lists them in - the [Board View settings](../Features/Board/Board-View-Settings.md)
+popup over the API. Both endpoints answer the state in effect, the way the
+menu renders it: every view key exactly once with both `showOnPublic` and
+`showOnPrivate` explicit (a board that never opened the popup shows every
+view), the two defaults resolved (missing or unknown reads as
+`board-view-swimlanes`), and `boardViewOrder` made whole (unknown keys
+dropped, missing views appended in default order). `keys` lists the known
+view keys.
+
+## Get the Board View settings
+| URL | Requires Auth (board access) | HTTP Method |
+| :--- | :--- | :--- |
+| `/api/boards/:boardId/boardViewSettings` | `yes` | `GET` |
+
+```bash
+curl -H "Authorization: Bearer t7iYB86mXoLfP_XsMegxF41oKT7iiA9lDYiKVtXcctl" \
+     http://localhost:3000/api/boards/BOARDID/boardViewSettings
+```
+
+Result (shortened):
+
+```json
+{
+  "boardViewSettings": {
+    "board-view-swimlanes": { "showOnPublic": true, "showOnPrivate": true },
+    "board-view-lists": { "showOnPublic": true, "showOnPrivate": true },
+    "board-view-table": { "showOnPublic": false, "showOnPrivate": true },
+    "...": {}
+  },
+  "defaultPublicBoardView": "board-view-swimlanes",
+  "defaultPrivateBoardView": "board-view-swimlanes",
+  "boardViewOrder": ["board-view-swimlanes", "board-view-lists", "board-view-table", "..."],
+  "keys": ["board-view-swimlanes", "board-view-lists", "board-view-table", "..."]
+}
+```
+
+## Set the Board View settings
+| URL | Requires Auth (board admin) | HTTP Method |
+| :--- | :--- | :--- |
+| `/api/boards/:boardId/boardViewSettings` | `yes` | `PUT` |
+
+The body is any subset of `boardViewSettings`, `defaultPublicBoardView`,
+`defaultPrivateBoardView` and `boardViewOrder`; keys not sent are left as
+they are. The rules are the popup's:
+
+- a default is always shown on its side: setting a default also ticks its
+  *Show* box, and hiding a side's current default is refused with `400` -
+  set another default first (or in the same request: defaults are applied
+  before the show flags, so one request can move the default and hide the
+  old one);
+- an unknown view key anywhere in the body is a `400`, and nothing of that
+  request is applied;
+- `boardViewOrder` is normalised so the menu lists every view exactly once:
+  the keys sent come first in the order given, the rest follow in default
+  order;
+- a body with none of the four keys is a `400`.
+
+```bash
+curl -H "Authorization: Bearer t7iYB86mXoLfP_XsMegxF41oKT7iiA9lDYiKVtXcctl" \
+     -H "Content-type:application/json" \
+     -X PUT \
+     http://localhost:3000/api/boards/BOARDID/boardViewSettings \
+     -d '{
+       "defaultPublicBoardView": "board-view-roadmap",
+       "boardViewSettings": {
+         "board-view-swimlanes": { "showOnPublic": false },
+         "board-view-table": { "showOnPublic": false, "showOnPrivate": true }
+       },
+       "boardViewOrder": ["board-view-roadmap", "board-view-gantt"]
+     }'
+```
+
+Returns the settings in effect, in the same shape as `GET`. A refusal:
+
+```json
+{ "error": "boardViewSettings.board-view-swimlanes.showOnPublic: cannot hide the public default view; set defaultPublicBoardView to another view first" }
+```
 
 ---
 
