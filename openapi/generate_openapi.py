@@ -289,7 +289,7 @@ class EntryPoint(object):
                     if param_type == 'Object':
                         # hope for the best
                         param_type = 'object'
-                    elif param_type not in ['string', 'number', 'boolean', 'integer', 'array', 'file']:
+                    elif param_type not in ['string', 'number', 'boolean', 'integer', 'array', 'file', 'object']:
                         self.warn('unknown type {}\n allowed values: string, number, boolean, integer, array, file'.format(param_type))
                     try:
                         name, desc = desc.split(maxsplit=1)
@@ -425,10 +425,23 @@ class EntryPoint(object):
         ptype, poptional, pdesc = self.doc_param(name)
         if pdesc is not None:
             print('{}description: |'.format(' ' * indent))
-            print('{}{}'.format(' ' * (indent + 2), pdesc))
+            # A @param description that continues on the next JSDoc lines
+            # arrives here with embedded newlines. Every line of a YAML block
+            # scalar must be indented at least as far as its first line, so
+            # each one is indented - not only the first, which put the
+            # continuation lines at column 1 and made the whole spec unparseable
+            # ("bad indentation of a mapping entry", the release bump job).
+            for line in str(pdesc).split('\n'):
+                print('{}{}'.format(' ' * (indent + 2), line.strip()))
         else:
             print('{}description: the {} value'.format(' ' * indent, name))
-        if ptype is not None:
+        if ptype == 'object':
+            # OpenAPI 2.0 has no `object` for a query/form/path parameter; the
+            # REST API takes such a value as JSON in a string. Say so in the
+            # spec rather than emit a type Swagger tooling rejects.
+            print('{}type: string'.format(' ' * indent))
+            print('{}format: json'.format(' ' * indent))
+        elif ptype is not None:
             print('{}type: {}'.format(' ' * indent, ptype))
         else:
             print('{}type: string'.format(' ' * indent))
