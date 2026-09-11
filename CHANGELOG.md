@@ -5112,6 +5112,20 @@ tab whenever the workflow view is selected.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/48106ee17">Admin Panel / People / Roles no longer throws in its status table</a>. Thanks to xet7.</summary>
+
+Reported directly: "Exception in Template.rolesGeneral rolesStatusTable" -
+the table's column value functions call `TAPi18n.__()` in a file that
+never imported `TAPi18n` (a named export, not a global). Sweeping the tree
+for the same shape found it in two more files that would have failed the
+same way the moment their call ran: the Locked Users pane's unlock
+confirmation and the Multi Board Calendar view's locale and labels.
+`tests/clientSingletonImports.test.cjs` now sweeps for `TAPi18n` too,
+beside `Utils` and `ReactiveCache`.
+
+</details>
+
 and improves the translation workflow:
 
 - [Fill in the missing Ladin, Latin, Luganda, Luxembourgish, Maithili, Malagasy, Malay, Malayalam, Maltese, Manx, Maori and Marathi translations](https://github.com/wekan/wekan/commit/718d20813). Thanks to xet7.
