@@ -104,6 +104,48 @@ export function popupDetailsHtml(task) {
     `<div>${label}: ${value}</div>`).join('');
 }
 
+// Frappe's seven default view modes, in its order, each a copy whose `name`
+// is WeKan's translation. `_key` is our own tag so the initial mode can be
+// picked without comparing translated text.
+const VIEW_MODE_KEYS = [
+  ['HOUR', 'gantt-view-hour'],
+  ['QUARTER_DAY', 'gantt-view-quarter-day'],
+  ['HALF_DAY', 'gantt-view-half-day'],
+  ['DAY', 'day'],
+  ['WEEK', 'week'],
+  ['MONTH', 'month'],
+  ['YEAR', 'gantt-view-year'],
+];
+export function translatedViewModes(GanttLib) {
+  return VIEW_MODE_KEYS
+    .filter(([key]) => GanttLib.VIEW_MODE && GanttLib.VIEW_MODE[key])
+    .map(([key, i18nKey]) => ({
+      ...GanttLib.VIEW_MODE[key],
+      name: TAPi18n.__(i18nKey),
+      _key: key,
+    }));
+}
+
+// Re-translate the strings Frappe hardcodes in its own DOM ("Today" on the
+// scroll-to-today button, "Mode" as the dropdown placeholder) whenever it
+// (re)builds its header. Idempotent; one observer per container.
+function translateFrappeChrome(container, templateInstance) {
+  const apply = () => {
+    const today = container.querySelector('.today-button');
+    if (today && today.textContent === 'Today') today.textContent = TAPi18n.__('today');
+    const placeholder = container.querySelector('.viewmode-select option[disabled]');
+    if (placeholder && placeholder.textContent === 'Mode') {
+      placeholder.textContent = TAPi18n.__('gantt-view-mode');
+    }
+  };
+  if (!templateInstance.chromeObserver) {
+    const observer = new MutationObserver(apply);
+    observer.observe(container, { childList: true, subtree: true });
+    templateInstance.chromeObserver = observer;
+  }
+  apply();
+}
+
 Template.frappeGanttView.onCreated(function() {
   this.taskCount = new ReactiveVar(0);
   this.destroyed = false;
@@ -111,6 +153,10 @@ Template.frappeGanttView.onCreated(function() {
 
 Template.frappeGanttView.onDestroyed(function() {
   this.destroyed = true;
+  if (this.chromeObserver) {
+    this.chromeObserver.disconnect();
+    this.chromeObserver = null;
+  }
 });
 
 Template.frappeGanttView.onRendered(function() {
@@ -136,8 +182,17 @@ Template.frappeGanttView.onRendered(function() {
       // board-write capability the rest of WeKan uses (Utils.canModifyCard),
       // not offered as a control that the server would then refuse.
       const readonly = !Utils.currentUserCan('write', board);
+      // Frappe's view-mode dropdown prints each mode's `name` verbatim and
+      // looks modes up by that name, so translated COPIES of its default
+      // modes (exposed on GanttLib.VIEW_MODE) translate the dropdown natively
+      // and survive every re-render. Its "Today" button and "Mode" placeholder
+      // are hardcoded strings instead, rebuilt on every view change - the
+      // observer below re-translates them whenever they reappear.
+      const viewModes = translatedViewModes(GanttLib);
+      translateFrappeChrome(container, templateInstance);
       new GanttLib(container, tasks, {
-        view_mode: 'Week',
+        view_modes: viewModes,
+        view_mode: viewModes.find(mode => mode._key === 'WEEK').name,
         // Month names in the header come from Intl.DateTimeFormat(language);
         // without this every language saw English. intlLocaleFor maps
         // WeKan's tag ('ru_RU', 'zh-Hans', ...) to one Intl accepts.
@@ -185,21 +240,5 @@ Template.frappeGanttView.onRendered(function() {
 Template.frappeGanttView.helpers({
   hasNoTasks() {
     return Template.instance().taskCount.get() === 0;
-  },
-  // Frappe Gantt draws the same start/due/end task set as WeKan's own Gantt
-  // view, so its export reuses the existing gantt chart export routes
-  // (models/exportCharts.js, chartKey 'gantt') rather than adding a second,
-  // parallel export pipeline for identical data.
-  frappeGanttExportUrl(format) {
-    const board = Utils.getCurrentBoard();
-    if (!board) return '';
-    const path = format === 'PDF' ? 'exportPDF' : 'exportExcel';
-    const params = new URLSearchParams({
-      authToken: Accounts._storedLoginToken() || '',
-      lang: TAPi18n.getLanguage ? TAPi18n.getLanguage() : 'en',
-      tz: Intl.DateTimeFormat().resolvedOptions().timeZone || '',
-      dateFormat: (Meteor.user() && Meteor.user().profile && Meteor.user().profile.dateFormat) || 'YYYY-MM-DD',
-    });
-    return `/api/boards/${board._id}/charts/gantt/${path}?${params.toString()}`;
   },
 });

@@ -186,7 +186,12 @@ test('the shared chart view calls the board-scoped boardChartData server method 
   assert.match(boardChartsJs, /Meteor\.call\('boardChartData', boardId, chartKey/);
   assert.match(boardsPublications, /async boardChartData\(boardId, chartKey\)/);
   assert.match(boardsPublications, /board\.isVisibleBy\(\{ _id: this\.userId \}\)/);
-  assert.match(boardChartsJs, /charts\/\$\{chartKey\}\/\$\{path\}/);
+  // The PDF/Excel export moved into the one shared "Export" popup
+  // (exportChart.js builds the URL for every chart view; see
+  // tests/chartExportPopup.test.cjs).
+  const exportChartJs = read('client/components/boards/charts/exportChart.js');
+  assert.match(exportChartJs, /charts\/\$\{chartKey\}\/\$\{path\}/);
+  assert.match(read('client/components/boards/charts/boardCharts.jade'), /js-export-chart\(href="#" data-chart-key="\{\{chartKey\}\}"\)/);
 });
 
 test('"Time spent summary" moved to the Time view and out of Statistics', () => {

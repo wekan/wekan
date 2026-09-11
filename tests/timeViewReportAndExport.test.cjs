@@ -46,12 +46,14 @@ assert.match(chartExportRows, /translateGroupLabel\(group\.label, translate\)/);
 // views", not a bespoke Time-only export.
 const timeViewJs = read('client/components/boards/timeView.js');
 assert.match(timeViewJs, /Meteor\.call\('boardChartData', boardId, 'time'/);
-assert.match(timeViewJs, /timeExportUrl\(format\)/);
-assert.match(timeViewJs, /\/api\/boards\/\$\{boardId\}\/charts\/time\/\$\{path\}/);
+// The export URL is built in the one shared place every chart view uses
+// (exportChart.js, chartKey from the view's Export button); the Time view
+// names its chart key there. tests/chartExportPopup.test.cjs covers the popup.
+assert.doesNotMatch(timeViewJs, /timeExportUrl\(format\)/, 'no Time-only export URL builder');
+assert.match(read('client/components/boards/charts/exportChart.js'), /\/api\/boards\/\$\{boardId\}\/charts\/\$\{chartKey\}\/\$\{path\}/);
 
 const timeViewJade = read('client/components/boards/timeView.jade');
-assert.match(timeViewJade, /a\.chart-export-button\(href="\{\{ timeExportUrl 'PDF' \}\}"/);
-assert.match(timeViewJade, /a\.chart-export-button\(href="\{\{ timeExportUrl 'Excel' \}\}"/);
+assert.match(timeViewJade, /a\.chart-export-button\.js-export-chart\(href="#" data-chart-key="time"\)/);
 // Negative: the original 3-row summary is kept exactly as it was (this is
 // additive - #812's asks are new sections alongside it, not a replacement).
 assert.match(timeViewJade, /\{\{_ 'board-status-time-spent-total'\}\}/);

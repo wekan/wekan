@@ -3,12 +3,9 @@ template(name="boardChartView")
     .stats-view-content.chart-view-content
       h1.stats-view-title {{ chartTitle }}
       .chart-export-buttons
-        a.chart-export-button(href="{{ exportUrl 'PDF' }}" target="_blank" rel="noopener")
-          i.fa.fa-file-pdf-o
-          | Export to PDF
-        a.chart-export-button(href="{{ exportUrl 'Excel' }}" target="_blank" rel="noopener")
-          i.fa.fa-file-excel-o
-          | Export to Excel
+        a.chart-export-button.js-export-chart(href="#" data-chart-key="{{chartKey}}")
+          i.fa.fa-share-square-o
+          | {{_ 'export'}}
 
       if isLoading
         p.stats-view-placeholder-note {{_ 'loading'}}

@@ -192,20 +192,4 @@ Template.dhtmlxGanttView.helpers({
   hasNoTasks() {
     return Template.instance().taskCount.get() === 0;
   },
-  // DHTMLX Gantt draws the same start/due/end task set as WeKan's own Gantt
-  // view, so its export reuses the existing gantt chart export routes
-  // (models/exportCharts.js, chartKey 'gantt') rather than adding a second,
-  // parallel export pipeline for identical data.
-  dhtmlxGanttExportUrl(format) {
-    const board = Utils.getCurrentBoard();
-    if (!board) return '';
-    const path = format === 'PDF' ? 'exportPDF' : 'exportExcel';
-    const params = new URLSearchParams({
-      authToken: Accounts._storedLoginToken() || '',
-      lang: TAPi18n.getLanguage ? TAPi18n.getLanguage() : 'en',
-      tz: Intl.DateTimeFormat().resolvedOptions().timeZone || '',
-      dateFormat: (Meteor.user() && Meteor.user().profile && Meteor.user().profile.dateFormat) || 'YYYY-MM-DD',
-    });
-    return `/api/boards/${board._id}/charts/gantt/${path}?${params.toString()}`;
-  },
 });

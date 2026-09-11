@@ -8,12 +8,9 @@ template(name="ganttView")
   .gantt-view
     h2 {{_ 'board-view-gantt'}}
     .chart-export-buttons
-      a.chart-export-button(href="{{ ganttExportUrl 'PDF' }}" target="_blank" rel="noopener")
-        i.fa.fa-file-pdf-o
-        | Export to PDF
-      a.chart-export-button(href="{{ ganttExportUrl 'Excel' }}" target="_blank" rel="noopener")
-        i.fa.fa-file-excel-o
-        | Export to Excel
+      a.chart-export-button.js-export-chart(href="#" data-chart-key="gantt")
+        i.fa.fa-share-square-o
+        | {{_ 'export'}}
     if hasSelectedCard
       +ganttCard(selectedCard)
     each weeks

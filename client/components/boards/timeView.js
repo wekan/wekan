@@ -78,18 +78,4 @@ Template.timeView.helpers({
   assigneeLabel(label) {
     return translateGroupLabel(label, key => TAPi18n.__(key));
   },
-  // #812 export, matching every other board report chart's export buttons
-  // (client/components/boards/charts/boardCharts.js's own exportUrl helper).
-  timeExportUrl(format) {
-    const boardId = Session.get('currentBoard');
-    if (!boardId) return '';
-    const path = format === 'PDF' ? 'exportPDF' : 'exportExcel';
-    const params = new URLSearchParams({
-      authToken: Accounts._storedLoginToken() || '',
-      lang: TAPi18n.getLanguage ? TAPi18n.getLanguage() : 'en',
-      tz: Intl.DateTimeFormat().resolvedOptions().timeZone || '',
-      dateFormat: (Meteor.user() && Meteor.user().profile && Meteor.user().profile.dateFormat) || 'YYYY-MM-DD',
-    });
-    return `/api/boards/${boardId}/charts/time/${path}?${params.toString()}`;
-  },
 });

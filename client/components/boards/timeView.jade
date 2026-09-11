@@ -3,12 +3,9 @@ template(name="timeView")
     .stats-view-content
       h1.stats-view-title {{_ 'board-view-time'}}
       .chart-export-buttons
-        a.chart-export-button(href="{{ timeExportUrl 'PDF' }}" target="_blank" rel="noopener")
-          i.fa.fa-file-pdf-o
-          | Export to PDF
-        a.chart-export-button(href="{{ timeExportUrl 'Excel' }}" target="_blank" rel="noopener")
-          i.fa.fa-file-excel-o
-          | Export to Excel
+        a.chart-export-button.js-export-chart(href="#" data-chart-key="time")
+          i.fa.fa-share-square-o
+          | {{_ 'export'}}
       .stats-view-section
         h2.stats-view-heading {{_ 'board-status-time-summary'}}
         table.stats-view-table

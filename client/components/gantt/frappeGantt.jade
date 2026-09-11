@@ -2,12 +2,9 @@ template(name="frappeGanttView")
   .gantt-view
     h2 {{_ 'board-view-gantt-frappe'}}
     .chart-export-buttons
-      a.chart-export-button(href="{{ frappeGanttExportUrl 'PDF' }}" target="_blank" rel="noopener")
-        i.fa.fa-file-pdf-o
-        | Export to PDF
-      a.chart-export-button(href="{{ frappeGanttExportUrl 'Excel' }}" target="_blank" rel="noopener")
-        i.fa.fa-file-excel-o
-        | Export to Excel
+      a.chart-export-button.js-export-chart(href="#" data-chart-key="gantt")
+        i.fa.fa-share-square-o
+        | {{_ 'export'}}
     if hasNoTasks
       p.frappe-gantt-empty {{_ 'no-cards-found'}}
     .js-frappe-gantt-container.frappe-gantt-container

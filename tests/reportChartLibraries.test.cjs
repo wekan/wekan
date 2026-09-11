@@ -108,11 +108,13 @@ assert.match(boardBodyJade, /else if isViewGanttDhtmlx\s*\n\s*\+dhtmlxGanttView/
 // adding a second, parallel export pipeline for identical data. Board
 // report charts keep exporting through the same per-chartKey route as
 // before.
-assert.match(frappe, /\/api\/boards\/\$\{board\._id\}\/charts\/gantt\/\$\{path\}/);
-assert.match(dhtmlx, /\/api\/boards\/\$\{board\._id\}\/charts\/gantt\/\$\{path\}/);
+// Every view's "Export" button names its chart key; the URL itself is built
+// in exactly one place, exportChart.js (tests/chartExportPopup.test.cjs).
+assert.match(read('client/components/gantt/frappeGantt.jade'), /js-export-chart\(href="#" data-chart-key="gantt"\)/);
+assert.match(read('client/components/gantt/dhtmlxGantt.jade'), /js-export-chart\(href="#" data-chart-key="gantt"\)/);
 const exportRoutes = read('models/exportCharts.js');
 assert.match(exportRoutes, /'gantt'/, 'the shared export route catalog must still include gantt');
-assert.match(charts, /\/api\/boards\/\$\{boardId\}\/charts\/\$\{chartKey\}\/\$\{path\}/);
+assert.match(read('client/components/boards/charts/exportChart.js'), /\/api\/boards\/\$\{boardId\}\/charts\/\$\{chartKey\}\/\$\{path\}/);
 assert.match(charts, /chartExportRows/);
 
 // Every jade/client-registration file this feature touches is wired into the

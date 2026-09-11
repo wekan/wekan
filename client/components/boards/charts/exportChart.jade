@@ -1,0 +1,14 @@
+//- The one "Export" popup every chart-style board view opens - the ten
+  report charts, Time, and the three Gantt views. Same look as the board /
+  swimlane / list / card export popup (exportScope.jade): a pop-over list of
+  formats, each a direct download link. A chart has no field selection, so
+  there is no left pane. The view says which chart it is through the
+  `chartKey` data context; the URL is built in one place (exportChart.js).
+template(name="exportChartPopup")
+  ul.pop-over-list
+    each formats
+      li
+        //- The server supplies the localized filename.
+        a(href="{{url}}" download)
+          i.fa(class="{{icon}}")
+          | {{label}}

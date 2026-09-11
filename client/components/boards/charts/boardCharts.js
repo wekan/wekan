@@ -182,19 +182,6 @@ Template.boardChartView.helpers({
   tableRows() {
     return tableOf().rows;
   },
-  exportUrl(format) {
-    const boardId = Session.get('currentBoard');
-    const chartKey = Template.currentData().chartKey;
-    if (!boardId || !chartKey) return '';
-    const path = format === 'PDF' ? 'exportPDF' : 'exportExcel';
-    const params = new URLSearchParams({
-      authToken: Accounts._storedLoginToken() || '',
-      lang: TAPi18n.getLanguage ? TAPi18n.getLanguage() : 'en',
-      tz: Intl.DateTimeFormat().resolvedOptions().timeZone || '',
-      dateFormat: (Meteor.user() && Meteor.user().profile && Meteor.user().profile.dateFormat) || 'YYYY-MM-DD',
-    });
-    return `/api/boards/${boardId}/charts/${chartKey}/${path}?${params.toString()}`;
-  },
 });
 
 // The data table, shared with the export - same `chartExportRows` the PDF/

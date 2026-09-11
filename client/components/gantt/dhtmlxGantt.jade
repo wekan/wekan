@@ -2,12 +2,9 @@ template(name="dhtmlxGanttView")
   .gantt-view
     h2 {{_ 'board-view-gantt-dhtmlx'}}
     .chart-export-buttons
-      a.chart-export-button(href="{{ dhtmlxGanttExportUrl 'PDF' }}" target="_blank" rel="noopener")
-        i.fa.fa-file-pdf-o
-        | Export to PDF
-      a.chart-export-button(href="{{ dhtmlxGanttExportUrl 'Excel' }}" target="_blank" rel="noopener")
-        i.fa.fa-file-excel-o
-        | Export to Excel
+      a.chart-export-button.js-export-chart(href="#" data-chart-key="gantt")
+        i.fa.fa-share-square-o
+        | {{_ 'export'}}
     if hasNoTasks
       p.dhtmlx-gantt-empty {{_ 'no-cards-found'}}
     .js-dhtmlx-gantt-container.dhtmlx-gantt-container
