@@ -697,6 +697,33 @@ and the normalize/move logic, with the no-op and unknown-key cases.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/bbe8b40d903c516491c45c69d3b220415dfd2b32">Board View: the default menu order is the order it had before views became orderable</a>. Thanks to xet7.</summary>
+
+The default order - what a board with no stored `boardViewOrder` renders,
+the popup's default row order, and the order in which views a stored order
+does not name follow it - is now pinned to the Board View menu as it was
+right before views became orderable: the 25 static entries of
+`boardChangeViewPopup` in `boardHeader.jade` at `525bcab1b`, the parent of
+the Board Settings / Board View feature commit, read top to bottom with its
+six separators after Table, Timeline, Statistics, Group by Assignee, DHTMLX
+Gantt and Bigboard. Reading that template gives exactly the sequence
+`BOARD_VIEWS` already held, so no board changes what it shows and a board
+with a stored order is untouched. What changes is where the order comes
+from: `DEFAULT_BOARD_VIEW_ORDER` in `models/lib/boardViewSettings.js` is a
+literal list transcribed from that template rather than a slice of the
+table, so re-sorting `BOARD_VIEWS` can no longer silently reorder every
+board's menu, and `normalizeBoardViewOrder` appends any view the table knows
+but the list does not, so a view can never vanish from the menu.
+`tests/boardViewSettings.test.cjs` pins the literal sequence, the six
+separator positions on a board with no stored order (public and private,
+for a missing, null, empty and garbage `boardViewOrder`), the fallback for
+a partial stored order, and that the list is not derived from the table.
+`docs/Features/Board/Board-View-Settings.md` says where the default comes
+from.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/15b2b6c5339979341d8237aa592ae37a5fd0607d">One "Card field order" heading over two lists, with arrows on every row</a>. Thanks to xet7.</summary>
 
 Board Settings / Card was a three-column table (Show on Card, Show on
