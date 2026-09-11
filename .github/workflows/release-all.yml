@@ -582,6 +582,14 @@ jobs:
       - name: Install server npm modules
         run: |
           cd .build/bundle/programs/server
+          # BEFORE the first install: Meteor pins programs/server's node-gyp to
+          # the one inside the Meteor tool (10.2.0 in 3.5.2), which cannot see
+          # Visual Studio 2026 on GitHub's windows-latest image, and every other
+          # arch reinstalls programs/server from THIS package.json - so raising
+          # the pin here is what lets build-win64 / build-win-arm64 compile
+          # argon2 at all (v11.70).
+          node "$GITHUB_WORKSPACE/releases/bump-bundle-node-gyp.mjs" \
+            "$GITHUB_WORKSPACE/.build/bundle"
           bash "$GITHUB_WORKSPACE/releases/npm-retry.sh" npm install
           # node-gyp's tree is 83 of the 120 packages that install leaves behind,
           # and this bundle compiles nothing at run time. Every other arch's

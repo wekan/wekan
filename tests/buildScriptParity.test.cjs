@@ -268,6 +268,11 @@ test('every script in releases/ is reachable from BOTH menus', () => {
     'bump-bundle-npm-deps.mjs': 'release-workflow + Dockerfile: the same shape -\n'
       + '      it raises the npm packages inside a BUILT bundle to the minimums in\n'
       + '      bundle-npm-security-bumps.json, and is run by the build jobs',
+    'bump-bundle-node-gyp.mjs': 'release-workflow: the same shape once more - it\n'
+      + '      raises the node-gyp pin Meteor writes into a BUILT bundle\'s\n'
+      + '      programs/server/package.json (10.2.0 cannot see Visual Studio 2026\n'
+      + '      on windows-latest) BEFORE the amd64 npm install, from where every\n'
+      + '      other arch inherits it. Nothing to point at until a build exists',
     'prune-unreachable-npm.mjs': 'release-workflow: the same shape again - it walks\n'
       + '      a BUILT bundle\'s require graph and removes from\n'
       + '      programs/server/npm/node_modules only what it can prove nothing\n'
