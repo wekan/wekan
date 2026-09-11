@@ -524,6 +524,53 @@ the Markdown commit as the template.
 </details>
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** this release adds every way to log in that Meteor's accounts
+system offers - **Google**, **GitHub**, **Facebook**, **X (Twitter)**,
+**Meteor Developer**, **Weibo**, **Meetup** and **passwordless** email codes -
+configurable with environment variables on every platform and overridable
+in **Admin Panel / People / Login**, where a badge beside each field names
+the source in effect and a change applies without a restart.
+
+This release adds the following new features:
+
+**Login** - every way to log in that Meteor's accounts system offers.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d1b5d0a75">Admin Panel override of the OAuth login provider and passwordless env vars</a>. Thanks to xet7.</summary>
+
+Admin Panel / People / Login gets a section for Meteor's own accounts-*
+login services (Google, GitHub, Facebook, X/Twitter, Meteor Developer, Weibo,
+Meetup) and for passwordless login, built the same way as the LDAP section
+above it: every `OAUTH_<PROVIDER>_ENABLED` / `_CLIENT_ID` / `_SECRET` env
+var, the shared `OAUTH_PROVIDERS_LOGIN_STYLE` and
+`OAUTH_PROVIDERS_MERGE_EXISTING_USERS`, and `PASSWORDLESS_ENABLED` can be
+set there, a value set in the Admin Panel wins over the env var
+(`models/lib/configResolver.js`), and a badge beside each field says
+whether the env var, the Admin Panel or nothing is in effect.
+
+The secret is stored in `Settings.oauthProviders.<key>.secret` and, like the
+LDAP bind password, never reaches a browser: the `setting` publication
+carries only `enabled`, `id`, `loginStyle` and the boolean `secretSet`
+per provider, an empty secret submission leaves the stored one untouched,
+and the sources method reports the secret through `hasConfigValue()` as
+"is set (source)" only. `saveOauthProviderSettings` validates the provider
+key against the catalog, and both it and `savePasswordlessSettings` are
+admin-only and call `reconfigureOauthProviders()` so a change takes effect
+without a server restart.
+
+`tests/oauthProvidersAdminOverride.test.cjs` pins the schema, the published
+field list (secret absent, secretSet present), the admin gate, the key
+validation, the empty-secret rule, the reconfigure call and the jade badges;
+the whole-tree secret sweep in `tests/ldapAdminOverrideSecurity.test.cjs`
+now also matches hyphenated sub-document keys such as
+`oauthProviders.meteor-developer.secret`.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v11.69 2026-09-11 WeKan ® release
 
 **In short:** this release adds **Frappe Gantt**, **DHTMLX Gantt** and
