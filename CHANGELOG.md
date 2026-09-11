@@ -542,7 +542,7 @@ This release adds the following new features:
 **Attachments** - soft delete, card-history restore, and the one real delete.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/5e0d348b6c8072430effb5ecb92e9747c666626b">Design: how an attachment is deleted, shown in the card history, restored and purged</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/9a322618113a88e922772acb6cbca3ad45b513f2">Design: how an attachment is deleted, shown in the card history, restored and purged</a>. Thanks to xet7.</summary>
 
 `docs/Features/Reports/History/History.md` gains section 12 and closes the
 section 11 question about restoring a removed attachment. The decisions:
@@ -559,7 +559,7 @@ files.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/5a09dca4026d05b36fd7699f8b4c4714419443ba">Delete soft-deletes, the card history restores, and only the archived-board purge removes files</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/dce28983820f99927b2cb3626e586488c962e084">Delete soft-deletes, the card history restores, and only the archived-board purge removes files</a>. Thanks to xet7.</summary>
 
 Delete on an attachment used to remove the document and its file at once.
 It is now the `attachments.softDelete` method: the document gets
@@ -606,7 +606,7 @@ controls and that it never offers cover or background.
 minicard's field order, and the Board View table.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/148f8a2aa76087749ed72f5eea78ffdd0c953fb2">A toggle for every card section and minicard badge, listed in card order</a>. Thanks to rmb82 and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/970213010013529150101d3fd6c59f33eab542d4">A toggle for every card section and minicard badge, listed in card order</a>. Thanks to rmb82 and xet7.</summary>
 
 Flowtime, Pomodoro, Stickers and Location were added to the opened card
 without an `allows*` board toggle, so they rendered on every card and Board
@@ -637,7 +637,7 @@ and that none of the four sections the issue names is unconditional.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/881d667858adacab4642613e7c31b2baf175e972">Board View: which views a public or private board offers, and which one it opens in</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/349c7490e72f93b4e692ff1ff22c7f0eda2431da">Board View: which views a public or private board offers, and which one it opens in</a>. Thanks to xet7.</summary>
 
 A new **Board View** entry at the top of Board Settings, above Swimlane,
 opens a table like Card Settings: one row per entry of the Board View menu,
@@ -673,7 +673,7 @@ menu view in menu order, the schema fields and setters, the radio and
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/223a8aa8af24c621b465e0e550fe0cda104b5749">Board View: reorder the menu with up/down arrows on each row</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/82646e4bc0f891ed044bdc5c6cf910cd8dd4a4ea">Board View: reorder the menu with up/down arrows on each row</a>. Thanks to xet7.</summary>
 
 Each row of the Board View table carries an up and a down arrow in front of
 its name - real links, so the keyboard reaches them, titled with the
@@ -698,7 +698,7 @@ and the normalize/move logic, with the no-op and unknown-key cases.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/d7566f7281dff213351ac3efaa2b5df172031122">One "Card field order" heading over two lists, with arrows on every row</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/15b2b6c5339979341d8237aa592ae37a5fd0607d">One "Card field order" heading over two lists, with arrows on every row</a>. Thanks to xet7.</summary>
 
 Board Settings / Card was a three-column table (Show on Card, Show on
 Minicard, the name) with a separate "Card field order" list of arrows at the
@@ -742,7 +742,7 @@ describes the layout and both orders.
 **REST API** - endpoints for recent features that had a UI but no API.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/9e2f9e9b344a25f4afd7dc5efd517b2065ae4b77">Endpoints for attachment restore, Problems, OAuth providers, card field order and rule pausing</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/bbcd98d9d83b874200ba45b2cbc2a495585031d9">Endpoints for attachment restore, Problems, OAuth providers, card field order and rule pausing</a>. Thanks to xet7.</summary>
 
 Each endpoint runs the same server-side code its UI uses, as the request's
 user, so the permission checks and side effects are the ones the UI gets:
@@ -786,7 +786,7 @@ operations, and - as the negative sweep - that no route in `models/` or
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/56204244f5a28a86cfd78d6fc47dbc414f5da217">Endpoints for Board Settings / Board View, and OpenAPI blocks for the card settings routes</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/c64d3454ac625f8c16d267decad88a9113417659">Endpoints for Board Settings / Board View, and OpenAPI blocks for the card settings routes</a>. Thanks to xet7.</summary>
 
 `GET /api/boards/:boardId/boardViewSettings` (board access) answers which
 entries of the Board View menu a board offers, which one it opens in -
@@ -826,7 +826,7 @@ and fixes the following bug:
 **The release workflow** - what stopped the v11.70 release run.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/037975a9d1b48c65860564e5024e84ec7abde073">The Windows legs compile argon2 again on the Visual Studio 2026 runner image</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/0001d09a8deb021b1b0696e52aced36a596561e9">The Windows legs compile argon2 again on the Visual Studio 2026 runner image</a>. Thanks to xet7.</summary>
 
 `build-win64` and `build-win-arm64` both failed in "Rebuild native modules
 for Windows" while argon2 compiled during `npm install`:
@@ -860,17 +860,17 @@ building on Launchpad when the job cap cancelled it. Both pass on a re-run.
 
 and improves the translation workflow:
 
-- [Translate the attachment soft-delete confirmation for Russian, Aromanian, Kinyarwanda, Sakha, Sardinian, Sicilian, Sindhi, Northern Sami, Sinhala, Slovak, Slovenian, Samoan, Shona, Somali, Albanian, Serbian, Swati, Sotho, Swedish, Swahili, Silesian, Tamil, Telugu, Tajik, Thai, Tigrinya, Tigre, Turkmen, Tagalog, Klingon, Tswana, Tongan, Tok Pisin, Turkish, Tsonga, Tatar and Uyghur](https://github.com/wekan/wekan/commit/f5773b9958c935ebe3b4e22bf83c503f0eecb651). Thanks to xet7.
+- [Translate the attachment soft-delete confirmation for Russian, Aromanian, Kinyarwanda, Sakha, Sardinian, Sicilian, Sindhi, Northern Sami, Sinhala, Slovak, Slovenian, Samoan, Shona, Somali, Albanian, Serbian, Swati, Sotho, Swedish, Swahili, Silesian, Tamil, Telugu, Tajik, Thai, Tigrinya, Tigre, Turkmen, Tagalog, Klingon, Tswana, Tongan, Tok Pisin, Turkish, Tsonga, Tatar and Uyghur](https://github.com/wekan/wekan/commit/aa2ff7a8a27e314f58ec61a6173d6b225e4c8953). Thanks to xet7.
 
-- [Translate the attachment soft-delete confirmation for Danish, German, Greek, Spanish, French, Finnish and 15 more languages](https://github.com/wekan/wekan/commit/21f2d1ed5). Thanks to xet7.
+- [Translate the attachment soft-delete confirmation for Danish, German, Greek, Spanish, French, Finnish and 15 more languages](https://github.com/wekan/wekan/commit/1815d97f3). Thanks to xet7.
 
-- [Translate the attachment soft-delete confirmation for Ukrainian, Urdu, Uzbek, Vietnamese, Chinese, Cantonese, Wu, Yiddish, Yoruba, Xhosa, Zulu and 10 more languages](https://github.com/wekan/wekan/commit/8fa5279fe). Thanks to xet7.
+- [Translate the attachment soft-delete confirmation for Ukrainian, Urdu, Uzbek, Vietnamese, Chinese, Cantonese, Wu, Yiddish, Yoruba, Xhosa, Zulu and 10 more languages](https://github.com/wekan/wekan/commit/7f2d644e2). Thanks to xet7.
 
-- [Translate the attachment soft-delete confirmation for Lithuanian, Latvian, Macedonian, Malay, Dutch, Norwegian Bokmål, Polish, Portuguese, Romanian and 23 more languages](https://github.com/wekan/wekan/commit/48f4e0f6e8cd44a2197551fdb1e9778bd0de5b5a). Thanks to xet7.
+- [Translate the attachment soft-delete confirmation for Lithuanian, Latvian, Macedonian, Malay, Dutch, Norwegian Bokmål, Polish, Portuguese, Romanian and 23 more languages](https://github.com/wekan/wekan/commit/73e476e93a6ed6fff379f8417aea74954fb706d9). Thanks to xet7.
 
-- [Translate the attachment soft-delete confirmation for Gujarati, Hebrew, Hindi, Croatian, Hungarian, Indonesian, Italian, Japanese, Korean and 24 more languages](https://github.com/wekan/wekan/commit/af3f4054e12559460be592ebc59755a5885719d8). Thanks to xet7.
+- [Translate the attachment soft-delete confirmation for Gujarati, Hebrew, Hindi, Croatian, Hungarian, Indonesian, Italian, Japanese, Korean and 24 more languages](https://github.com/wekan/wekan/commit/f6eeb18b75884f547265f776e015059c16c07854). Thanks to xet7.
 
-- [Translate the attachment soft-delete confirmation for Afrikaans, Amharic, Arabic, Azerbaijani, Belarusian, Bulgarian, Bengali, Catalan, Czech, Welsh and 22 more languages](https://github.com/wekan/wekan/commit/c3a618637). Thanks to xet7.
+- [Translate the attachment soft-delete confirmation for Afrikaans, Amharic, Arabic, Azerbaijani, Belarusian, Bulgarian, Bengali, Catalan, Czech, Welsh and 22 more languages](https://github.com/wekan/wekan/commit/55bf153b2). Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
