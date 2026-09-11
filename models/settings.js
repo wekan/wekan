@@ -510,6 +510,36 @@ Settings.attachSchema(
       type: String,
       optional: true,
     },
+    // Admin Panel override of the OAUTH_<PROVIDER>_* environment variables for
+    // Meteor's own accounts-* login services (Google, GitHub, Facebook,
+    // X/Twitter, Meteor Developer, Weibo, Meetup - models/lib/oauthProviders.js
+    // is the catalog). Same contract as `ldap` above: everything OPTIONAL and
+    // unset by default so an env-var-only install is unchanged, and per
+    // provider ONLY `enabled`, `id`, `loginStyle` and the derived boolean
+    // `secretSet` are published (server/publications/settings.js) - the
+    // `secret` itself never leaves the server, exactly like ldap.bindPassword.
+    oauthProviders: {
+      type: Object,
+      optional: true,
+      blackbox: true,
+    },
+    // OAUTH_PROVIDERS_LOGIN_STYLE ('popup' | 'redirect') for every provider.
+    oauthProvidersLoginStyle: {
+      type: String,
+      optional: true,
+      allowedValues: ['popup', 'redirect'],
+    },
+    // OAUTH_PROVIDERS_MERGE_EXISTING_USERS: attach a provider login to the
+    // existing account that has the same verified email instead of a new one.
+    oauthProvidersMergeExistingUsers: {
+      type: Boolean,
+      optional: true,
+    },
+    // PASSWORDLESS_ENABLED: Meteor's accounts-passwordless one-time email code.
+    passwordlessEnabled: {
+      type: Boolean,
+      optional: true,
+    },
     createdAt: {
       type: Date,
       // eslint-disable-next-line consistent-return

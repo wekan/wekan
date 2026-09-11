@@ -147,6 +147,64 @@ template(name="general")
         li.accounts-form
           span(class="{{ldapTestResultClass}}")= ldapTestResult
 
+    //- Admin Panel override of the OAUTH_<PROVIDER>_* environment variables for
+    //- Meteor's own accounts-* login services (models/lib/oauthProviders.js),
+    //- and of PASSWORDLESS_ENABLED. Same shape and rules as the LDAP block
+    //- above: every field falls back to its env var when blank, the badge names
+    //- the source in effect, and the secret is never shown - the client only
+    //- ever receives "a secret is set" (see server/models/settings.js
+    //- saveOauthProviderSettings/getOauthProviderConfigSources).
+    if currentUser.isAdmin
+      li.admin-pane-group-separator
+        hr
+      li
+        h2.admin-pane-group-title {{_ 'oauth-providers-title'}}
+      li.accounts-form
+        .description {{_ 'oauth-providers-hint'}}
+      each oauthProviderList
+        li.accounts-form.js-oauth-provider(data-provider="{{key}}")
+          .title {{_ labelKey}}
+          a.flex.js-toggle-oauth-provider-enabled(data-provider="{{key}}")
+            .materialCheckBox.js-oauth-provider-enabled(class="{{#if oauthProviderEnabled key}}is-checked{{/if}}")
+            span= enabledVar
+            span.ldap-source-badge  ({{oauthProviderSourceLabel key 'enabled'}})
+          .form-group
+            label {{_ 'oauth-provider-client-id'}}
+            input.wekan-form-control(type="text" class="js-oauth-provider-field" data-provider="{{key}}" data-field="id" placeholder="{{idVar}}" value="{{oauthProviderFieldValue key 'id'}}")
+            span.ldap-source-badge  ({{oauthProviderSourceLabel key 'id'}})
+          .form-group
+            label {{_ 'oauth-provider-secret'}}
+            .description {{oauthProviderSecretStatusText key}}
+            input.wekan-form-control(type="password" class="js-oauth-provider-secret" data-provider="{{key}}" placeholder="{{secretVar}}" value="" autocomplete="new-password")
+          button.js-oauth-provider-save.primary(data-provider="{{key}}") {{_ 'save'}}
+      li.accounts-form
+        .title {{_ 'oauth-providers-login-style'}}
+        .form-group
+          select.wekan-form-control#oauth-providers-login-style
+            each oauthLoginStyleOptions
+              option(value=value selected=selected)= label
+          span.ldap-source-badge  ({{oauthSharedSourceLabel 'loginStyle'}})
+      li.accounts-form
+        a.flex.js-toggle-oauth-merge-existing-users
+          .materialCheckBox(class="{{#if currentSetting.oauthProvidersMergeExistingUsers}}is-checked{{/if}}")
+          span {{_ 'oauth-providers-merge-existing-users'}}
+          span.ldap-source-badge  ({{oauthSharedSourceLabel 'mergeExistingUsers'}})
+      li.accounts-form
+        button.js-oauth-shared-save.primary {{_ 'save'}}
+
+      li.admin-pane-group-separator
+        hr
+      li
+        h2.admin-pane-group-title {{_ 'passwordless-title'}}
+      li.accounts-form
+        .description {{_ 'passwordless-hint'}}
+        a.flex.js-toggle-passwordless-enabled
+          .materialCheckBox(class="{{#if currentSetting.passwordlessEnabled}}is-checked{{/if}}")
+          span {{_ 'passwordless-enabled'}}
+          span.ldap-source-badge  ({{oauthSharedSourceLabel 'passwordless'}})
+      li.accounts-form
+        button.js-passwordless-save.primary {{_ 'save'}}
+
 //- The E-mail pane. Rendered by Admin Panel / People too - see the note above.
 template(name='email')
   ul#email-setting.setting-detail

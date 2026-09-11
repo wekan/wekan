@@ -134,6 +134,44 @@ const SETTING_FIELDS = {
   'ldap.userSearchFilter': 1,
   'ldap.userSearchField': 1,
   'ldap.encryption': 1,
+  // Admin Panel / OAuth login providers (Meteor accounts-google/-github/...,
+  // models/lib/oauthProviders.js) and passwordless login. Per provider ONLY
+  // `enabled`, `id`, `loginStyle` and the boolean `secretSet` are published;
+  // 'oauthProviders.<key>.secret' is deliberately absent from this allowlist
+  // for the same reason 'ldap.bindPassword' is - it must NEVER reach the
+  // client. Field-by-field for the same reason as `ldap` (a bare
+  // `oauthProviders: 1` would carry every secret).
+  'oauthProviders.google.enabled': 1,
+  'oauthProviders.google.id': 1,
+  'oauthProviders.google.loginStyle': 1,
+  'oauthProviders.google.secretSet': 1,
+  'oauthProviders.github.enabled': 1,
+  'oauthProviders.github.id': 1,
+  'oauthProviders.github.loginStyle': 1,
+  'oauthProviders.github.secretSet': 1,
+  'oauthProviders.facebook.enabled': 1,
+  'oauthProviders.facebook.id': 1,
+  'oauthProviders.facebook.loginStyle': 1,
+  'oauthProviders.facebook.secretSet': 1,
+  'oauthProviders.twitter.enabled': 1,
+  'oauthProviders.twitter.id': 1,
+  'oauthProviders.twitter.loginStyle': 1,
+  'oauthProviders.twitter.secretSet': 1,
+  'oauthProviders.meteor-developer.enabled': 1,
+  'oauthProviders.meteor-developer.id': 1,
+  'oauthProviders.meteor-developer.loginStyle': 1,
+  'oauthProviders.meteor-developer.secretSet': 1,
+  'oauthProviders.weibo.enabled': 1,
+  'oauthProviders.weibo.id': 1,
+  'oauthProviders.weibo.loginStyle': 1,
+  'oauthProviders.weibo.secretSet': 1,
+  'oauthProviders.meetup.enabled': 1,
+  'oauthProviders.meetup.id': 1,
+  'oauthProviders.meetup.loginStyle': 1,
+  'oauthProviders.meetup.secretSet': 1,
+  oauthProvidersLoginStyle: 1,
+  oauthProvidersMergeExistingUsers: 1,
+  passwordlessEnabled: 1,
 };
 
 Meteor.publish('setting', async function() {

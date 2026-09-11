@@ -23,6 +23,43 @@ const {
 } = require('/models/lib/invitationCodeEmail');
 const { substituteVars } = require('/models/lib/ruleVarsSubstitute');
 const { resolveConfigValue, hasConfigValue } = require('/models/lib/configResolver');
+// The Meteor accounts-* OAuth providers the Admin Panel can override
+// (models/lib/oauthProviders.js). Required lazily so this file loads even
+// while the catalog module is absent; the fallback carries the same keys.
+const FALLBACK_OAUTH_PROVIDER_KEYS = [
+  'google', 'github', 'facebook', 'twitter', 'meteor-developer', 'weibo', 'meetup',
+];
+function oauthProviderCatalog() {
+  try {
+    const { OAUTH_PROVIDERS } = require('/models/lib/oauthProviders');
+    if (Array.isArray(OAUTH_PROVIDERS) && OAUTH_PROVIDERS.length) return OAUTH_PROVIDERS;
+  } catch (e) {
+    // fall through to the minimal catalog below
+  }
+  return FALLBACK_OAUTH_PROVIDER_KEYS.map(key => {
+    const upper = key.toUpperCase().replace(/-/g, '_');
+    const idVar = key === 'facebook' ? 'OAUTH_FACEBOOK_APP_ID'
+      : key === 'twitter' ? 'OAUTH_TWITTER_CONSUMER_KEY'
+      : `OAUTH_${upper}_CLIENT_ID`;
+    return { key, envPrefix: `OAUTH_${upper}`, idVar, secretVar: `OAUTH_${upper}_SECRET` };
+  });
+}
+// Re-read the Settings document and the OAUTH_* env vars into Meteor's
+// ServiceConfiguration so an Admin Panel change takes effect without a server
+// restart. Guarded: the reconfigure module is optional and a failure in it
+// must never turn a successful save into an error.
+function reconfigureOauthProvidersNow() {
+  try {
+    const mod = require('/server/lib/oauthProviders');
+    if (typeof mod.reconfigureOauthProviders === 'function') {
+      const p = mod.reconfigureOauthProviders();
+      if (p && typeof p.catch === 'function') p.catch(() => {});
+    }
+  } catch (e) {
+    // the module is not present, or reconfiguring failed; the saved settings
+    // still apply at the next startup.
+  }
+}
 
 const getReactiveCache = () => require('/imports/reactiveCache').ReactiveCache;
 const getTAPi18n = () => require('/imports/i18n').TAPi18n;
@@ -442,6 +479,113 @@ Meteor.methods({
       source: passwordStatus.source,
       hasValue: passwordStatus.hasValue,
     };
+    return result;
+  },
+  // Admin Panel -> OAuth login providers (Meteor's accounts-google/-github/
+  // -facebook/-twitter/-meteor-developer/-weibo/-meetup; the catalog is
+  // models/lib/oauthProviders.js). Same contract as saveLdapSettings above:
+  // isAdmin only, the non-secret fields (`enabled`, `id`, `loginStyle`) are
+  // saved plainly, the secret ONLY when a new one was actually typed - an
+  // empty submission leaves the stored secret and its source untouched - and
+  // the secret is never returned; only 'oauthProviders.<key>.secretSet' is
+  // published (server/publications/settings.js). After saving, the provider
+  // is reconfigured in place (server/lib/oauthProviders.js) so switching a
+  // login method on or off needs no server restart.
+  async saveOauthProviderSettings(providerKey, input) {
+    check(providerKey, String);
+    check(input, Object);
+    const user = await Meteor.userAsync();
+    if (!user?.isAdmin) throw new Meteor.Error('error-notAuthorized');
+
+    const provider = oauthProviderCatalog().find(p => p.key === providerKey);
+    if (!provider) throw new Meteor.Error('error-unknown-oauth-provider');
+
+    const setting = await Settings.findOneAsync({});
+    if (!setting) throw new Meteor.Error('settings-not-found');
+
+    const prefix = `oauthProviders.${providerKey}`;
+    const set = {
+      [`${prefix}.enabled`]: input.enabled === true,
+      [`${prefix}.id`]: String(input.id || '').trim(),
+    };
+    if (input.loginStyle !== undefined) {
+      const loginStyle = String(input.loginStyle || '').trim();
+      set[`${prefix}.loginStyle`] =
+        loginStyle === 'popup' || loginStyle === 'redirect' ? loginStyle : '';
+    }
+    const secret = String(input.secret || '');
+    if (secret) {
+      set[`${prefix}.secret`] = secret;
+      set[`${prefix}.secretSet`] = true;
+    }
+    // The two settings shared by every provider ride along with any save.
+    if (input.globalLoginStyle !== undefined) {
+      const style = String(input.globalLoginStyle || '').trim();
+      set.oauthProvidersLoginStyle =
+        style === 'popup' || style === 'redirect' ? style : '';
+    }
+    if (input.mergeExistingUsers !== undefined) {
+      set.oauthProvidersMergeExistingUsers = input.mergeExistingUsers === true;
+    }
+    await Settings.updateAsync(setting._id, { $set: set });
+    reconfigureOauthProvidersNow();
+    return true;
+  },
+  // Admin Panel -> Passwordless login (Meteor accounts-passwordless, env var
+  // PASSWORDLESS_ENABLED). isAdmin only; no secret involved.
+  async savePasswordlessSettings(input) {
+    check(input, Object);
+    const user = await Meteor.userAsync();
+    if (!user?.isAdmin) throw new Meteor.Error('error-notAuthorized');
+
+    const setting = await Settings.findOneAsync({});
+    if (!setting) throw new Meteor.Error('settings-not-found');
+    await Settings.updateAsync(setting._id, {
+      $set: { passwordlessEnabled: input.enabled === true },
+    });
+    reconfigureOauthProvidersNow();
+    return true;
+  },
+  // Admin-only. Which source (env var / Admin Panel / unset) is active for
+  // every OAuth provider field, the shared login style / merge setting and
+  // passwordless - the LDAP getLdapConfigSources contract. The secret is
+  // reported ONLY as hasValue/source from hasConfigValue(), never its value.
+  async getOauthProviderConfigSources() {
+    const user = await Meteor.userAsync();
+    if (!user?.isAdmin) throw new Meteor.Error('error-notAuthorized');
+
+    const setting = await Settings.findOneAsync({});
+    const stored = setting?.oauthProviders || {};
+    const result = { providers: {} };
+    oauthProviderCatalog().forEach(provider => {
+      const admin = stored[provider.key] || {};
+      const enabled = resolveConfigValue(
+        `${provider.envPrefix}_ENABLED`,
+        admin.enabled,
+      );
+      const id = resolveConfigValue(provider.idVar, admin.id);
+      const secret = hasConfigValue(provider.secretVar, admin.secret);
+      result.providers[provider.key] = {
+        enabled: { source: enabled.source, value: enabled.value },
+        id: { source: id.source, value: id.value },
+        secret: { source: secret.source, hasValue: secret.hasValue },
+      };
+    });
+    const style = resolveConfigValue(
+      'OAUTH_PROVIDERS_LOGIN_STYLE',
+      setting?.oauthProvidersLoginStyle,
+    );
+    result.loginStyle = { source: style.source, value: style.value };
+    const merge = resolveConfigValue(
+      'OAUTH_PROVIDERS_MERGE_EXISTING_USERS',
+      setting?.oauthProvidersMergeExistingUsers,
+    );
+    result.mergeExistingUsers = { source: merge.source, value: merge.value };
+    const passwordless = resolveConfigValue(
+      'PASSWORDLESS_ENABLED',
+      setting?.passwordlessEnabled,
+    );
+    result.passwordless = { source: passwordless.source, value: passwordless.value };
     return result;
   },
   async setPermanentDeleteEnabled(enabled) {
