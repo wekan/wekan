@@ -126,6 +126,11 @@ const flowtimeJade = read('client/components/cards/cardFlowtime.jade');
 assert.match(flowtimeJade, /template\(name="cardFlowtime"\)/);
 assert.match(flowtimeJade, /button\.js-start-flow/);
 assert.match(flowtimeJade, /button\.js-add-flow-interruption/);
+// The interruption button carries the same `.primary` theme class as the
+// Start Flow and Start Pomodoro buttons: it rendered as an unthemed default
+// button beside them, which read as a different, unstyled control.
+assert.match(flowtimeJade, /button\.js-add-flow-interruption\.flow-btn\.primary\(/,
+  '"Add Interruption" must use the .primary theme class like "Start Pomodoro"');
 assert.match(flowtimeJade, /button\.js-stop-flow/);
 
 const cardDetailsJade = read('client/components/cards/cardDetails.jade');
