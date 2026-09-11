@@ -47,7 +47,7 @@ test('uses the established sanitizer for active strings', () => {
     base64: 'YWJjZGVmZw==',
   }, {
     // This is an observation stub, not an example sanitizer. The production
-    // callback is server/lib/inputSanitizer.js (DOMPurify). Return fixed clean
+    // callback is server/lib/inputSanitizer.js (sanitize-html). Return fixed clean
     // fixtures so a regex that incompletely strips schemes or multi-character
     // HTML can never creep into security regression code.
     sanitizeHtml(value) {

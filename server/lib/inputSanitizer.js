@@ -1,4 +1,4 @@
-import DOMPurify from 'dompurify';
+import sanitizeHtml from 'sanitize-html';
 
 // Server-side input sanitization to prevent CSS injection and XSS attacks
 export function sanitizeInput(input) {
@@ -7,17 +7,12 @@ export function sanitizeInput(input) {
   }
 
   // Remove any HTML tags and dangerous content
-  const sanitized = DOMPurify.sanitize(input, {
-    ALLOWED_TAGS: [],
-    ALLOWED_ATTR: [],
-    KEEP_CONTENT: true,
-    FORBID_TAGS: ['style', 'script', 'link', 'meta', 'iframe', 'object', 'embed', 'applet', 'form', 'input', 'textarea', 'select', 'option', 'button', 'label', 'fieldset', 'legend', 'frameset', 'frame', 'noframes', 'base', 'basefont', 'isindex', 'dir', 'menu', 'menuitem', 'svg', 'defs', 'use', 'g', 'symbol', 'marker', 'pattern', 'mask', 'clipPath', 'linearGradient', 'radialGradient', 'stop', 'animate', 'animateTransform', 'animateMotion', 'set', 'switch', 'foreignObject'],
-    FORBID_ATTR: ['style', 'class', 'id', 'onload', 'onerror', 'onclick', 'onmouseover', 'onfocus', 'onblur', 'onchange', 'onsubmit', 'onreset', 'onselect', 'onunload', 'onresize', 'onscroll', 'onkeydown', 'onkeyup', 'onkeypress', 'onmousedown', 'onmouseup', 'onmouseover', 'onmouseout', 'onmousemove', 'ondblclick', 'oncontextmenu', 'onwheel', 'ontouchstart', 'ontouchend', 'ontouchmove', 'ontouchcancel', 'onabort', 'oncanplay', 'oncanplaythrough', 'ondurationchange', 'onemptied', 'onended', 'onerror', 'onloadeddata', 'onloadedmetadata', 'onloadstart', 'onpause', 'onplay', 'onplaying', 'onprogress', 'onratechange', 'onseeked', 'onseeking', 'onstalled', 'onsuspend', 'ontimeupdate', 'onvolumechange', 'onwaiting', 'onbeforeunload', 'onhashchange', 'onpagehide', 'onpageshow', 'onpopstate', 'onstorage', 'onunload', 'xlink:href', 'href', 'data-*', 'aria-*'],
-    ALLOW_UNKNOWN_PROTOCOLS: false,
-    SANITIZE_DOM: true,
-    KEEP_CONTENT: true,
-    ADD_ATTR: [],
-    ALLOW_DATA_ATTR: false
+  // DOMPurify needs a browser window. On Node its default export is a
+  // factory without .sanitize(), which aborted JSON exports on the first
+  // HTML-bearing card. Parse on the server without a DOM or network access.
+  const sanitized = sanitizeHtml(input, {
+    allowedTags: [],
+    allowedAttributes: {},
   });
 
   // Additional check for CSS injection patterns

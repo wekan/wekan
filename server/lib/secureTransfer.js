@@ -2,7 +2,7 @@ import { sanitizeTransferValue } from '/models/lib/importExportBoundary';
 import { sanitizeInput } from '/server/lib/inputSanitizer';
 
 // Server wrapper around the pure structural boundary. This is deliberately the
-// only place that couples transfer validation to DOMPurify and Admin Problems,
+// only place that couples transfer validation to server HTML sanitization and Admin Problems,
 // so every adapter records blocked and sanitized attempts consistently.
 export function secureTransfer(value, context = {}) {
   try {

@@ -36,12 +36,13 @@ if (Meteor.isServer) {
       await exporter.buildStream(res);
       res.end();
     } catch (error) {
-      if (process.env.DEBUG === 'true') console.error('board export stream failed:', error);
+      console.error('board export stream failed:', error);
       // If we have not flushed any body yet the headers are still mutable, so we
       // can return a clean JSON error; otherwise the partial body is already on
-      // the wire and all we can do is end it.
+      // the wire. Abort the transfer so clients cannot mistake it for a
+      // successfully downloaded backup.
       if (!res.headersSent) sendJsonResult(res, { code: 500, data: { error: 'Export failed' } });
-      else try { res.end(); } catch (_) {}
+      else res.destroy();
     }
   }
 

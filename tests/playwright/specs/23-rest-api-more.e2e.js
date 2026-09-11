@@ -147,12 +147,18 @@ test.describe('REST API: rules + card sub-resources + core CRUD', () => {
   // manually with a real big board; here we guard that the param is accepted,
   // the export still succeeds, and no attachment carries a `file` field.)
   test('export with attachments=false returns the board without attachment file data', async ({ request, user, board }) => {
+    // Seed stored HTML directly: card creation may sanitize it before export.
+    const cardId = listCards(board.boardId, board.listIds[0])[0]._id;
+    db.updateOne('cards', { _id: cardId }, { $set: {
+      description: '<b>Meteor 3 roadmap</b><script>alert(1)</script>',
+    } });
     const res = await request.get(
       `/api/boards/${board.boardId}/export?attachments=false`,
       { headers: authHeaders(user.token) },
     );
     expect(res.status()).toBe(200);
     const exported = await res.json();
+    expect(exported.cards.find(card => card._id === cardId).description).toBe('Meteor 3 roadmap');
     // Board structure is intact.
     expect(exported._format).toBe('wekan-board-1.0.0');
     expect(Array.isArray(exported.lists)).toBe(true);
@@ -170,8 +176,48 @@ test.describe('REST API: rules + card sub-resources + core CRUD', () => {
     expect(full.status()).toBe(200);
     const fullExported = await full.json();
     expect(fullExported._format).toBe('wekan-board-1.0.0');
+    expect(fullExported.cards.find(card => card._id === cardId).description).toBe('Meteor 3 roadmap');
+    expect(fullExported.cards).toHaveLength(exported.cards.length);
+    expect(Array.isArray(fullExported.users)).toBe(true);
     for (const att of fullExported.attachments) {
       expect(att).toHaveProperty('file');
+    }
+  });
+
+  test('board menu downloads complete JSON in both attachment modes', async ({ boardPage, board }) => {
+    const cardId = listCards(board.boardId, board.listIds[0])[0]._id;
+    db.updateOne('cards', { _id: cardId }, { $set: {
+      description: '<b>Meteor 3 roadmap</b><script>alert(1)</script>',
+    } });
+    const menu = boardPage.locator('.board-sidebar .js-open-board-menu');
+    if (!(await menu.isVisible())) {
+      await boardPage.locator('.js-toggle-page-sidebar').first().click();
+    }
+    await menu.click();
+    await boardPage.locator('.js-export-board').click();
+    const links = boardPage.locator('.export-board-pane-formats a[download]');
+    for (const withoutAttachments of [false, true]) {
+      const hrefs = await links.evaluateAll(elements => elements.map(element => element.href));
+      const href = hrefs.find(value => {
+        const url = new URL(value);
+        return url.pathname.endsWith('/export')
+          && (url.searchParams.get('attachments') === 'false') === withoutAttachments;
+      });
+      expect(href).toBeTruthy();
+      const link = links.filter({ hasText: 'JSON' });
+      const chosen = await link.evaluateAll((elements, target) =>
+        elements.findIndex(element => element.href === target), href);
+      expect(chosen).toBeGreaterThanOrEqual(0);
+      const pending = boardPage.waitForEvent('download');
+      await link.nth(chosen).click();
+      const download = await pending;
+      expect(await download.failure()).toBeNull();
+      const stream = await download.createReadStream();
+      const chunks = [];
+      for await (const chunk of stream) chunks.push(chunk);
+      const exported = JSON.parse(Buffer.concat(chunks).toString('utf8'));
+      expect(exported.cards.find(card => card._id === cardId).description).toBe('Meteor 3 roadmap');
+      expect(Array.isArray(exported.users)).toBe(true);
     }
   });
 
