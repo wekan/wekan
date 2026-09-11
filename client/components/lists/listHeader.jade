@@ -457,7 +457,7 @@ template(name="listSyncPopup")
         p.list-sync-error {{_ 'list-sync-last-error'}}: {{ listSyncLastError }}
       p
         button.js-list-sync-save.primary(type="submit") {{_ 'save'}}
-        button.js-list-sync-now(type="button") {{_ 'list-sync-now'}}
+        button.js-list-sync-now.primary(type="button") {{_ 'list-sync-now'}}
         button.js-list-sync-clear.negate(type="button") {{_ 'list-sync-clear'}}
       if listSyncNowResult
         p(class="{{listSyncNowResultClass}}")= listSyncNowResult

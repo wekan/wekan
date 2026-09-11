@@ -38,7 +38,7 @@ template(name="timelineView")
                   p.timeline-card-due
                     | {{_ 'card-due-date'}}: {{this.formattedDueAt}}
                 if selectedTimestamp
-                  button.timeline-card-restore.js-restore-card-timeline(type="button")
+                  button.timeline-card-restore.js-restore-card-timeline.primary(type="button")
                     | {{_ 'board-view-timeline-restore'}}
 
 template(name="cardRestoreToTimelinePopup")

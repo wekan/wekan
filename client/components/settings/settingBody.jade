@@ -142,7 +142,7 @@ template(name="general")
           input.wekan-form-control#ldap-bind-password(type="password", placeholder="{{_ 'password'}}" value="" autocomplete="new-password")
       li.accounts-form
         button.js-ldap-settings-save.primary {{_ 'save'}}
-        button.js-ldap-test-connection {{_ 'ldap-test-connection'}}
+        button.js-ldap-test-connection.primary {{_ 'ldap-test-connection'}}
       if ldapTestResult
         li.accounts-form
           span(class="{{ldapTestResultClass}}")= ldapTestResult
