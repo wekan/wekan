@@ -524,7 +524,7 @@ the Markdown commit as the template.
 </details>
 </details>
 
-# Upcoming WeKan ® release
+# v11.71 2026-09-11 WeKan ® release
 
 **In short:** deleting an **attachment** from a card is now a **soft delete**
 that the **card history** shows and restores; the only hard delete left is
