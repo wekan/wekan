@@ -207,7 +207,7 @@
   "attached": "adjuntat",
   "attachment": "Adjunt",
   "attachment-delete-pop": "L'esborrat d'un arxiu adjunt és permanent. No es pot desfer.",
-  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
+  "attachment-soft-delete-pop": "L'adjunt s'elimina d'esta fitxa i el seu fitxer es conserva. Qualsevol que puga editar la fitxa pot restaurar-lo des de l'història de la fitxa.",
   "attachmentDeletePopup-title": "Esborrar adjunt?",
   "attachments": "Adjunts",
   "auto-watch": "Segueix automàticament els taulers quan són creats",

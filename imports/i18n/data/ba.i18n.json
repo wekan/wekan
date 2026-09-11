@@ -207,7 +207,7 @@
   "attached": "ҡушылды",
   "attachment": "Ҡушымта",
   "attachment-delete-pop": "Ҡушымтаны юйыу даими. Кире ҡайтарып булмай.",
-  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
+  "attachment-soft-delete-pop": "Ҡушымта был карточканан алына, ә файлы һаҡлана. Карточканы үҙгәртә алған һәр кем уны карточка тарихынан тергеҙә ала.",
   "attachmentDeletePopup-title": "Ҡушымтаны юйырғамы?",
   "attachments": "Ҡушымталар",
   "auto-watch": "Таҡталар булдырылғанда уларҙы автоматик күҙәтергә",

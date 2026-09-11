@@ -207,7 +207,7 @@
   "attached": "прикачен",
   "attachment": "Прикаченн файл",
   "attachment-delete-pop": "Изтриването на прикачен файл е завинаги. Няма как да бъде възстановен.",
-  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
+  "attachment-soft-delete-pop": "Прикаченият файл се премахва от тази карта, а файлът му се запазва. Всеки, който може да редактира картата, може да го възстанови от историята на картата.",
   "attachmentDeletePopup-title": "Желаете ли да изтриете прикачения файл?",
   "attachments": "Прикачени файлове",
   "auto-watch": "Автоматично наблюдаване на таблата, когато са създадени",
