@@ -388,6 +388,39 @@ function bar(text) {
 // A ROW OF LABEL/VALUE PAIRS, in columns. The font is monospaced, so a column is
 // a character count and the alignment needs no measuring: three pairs across the
 // page is what the worksheet does with A-F.
+// A TABLE ROW with fixed column widths, for the chart exports (Gantt, Time,
+// the report charts): one line per row, always. A row written as one text
+// line - "title  |  start  |  due  |  end" - has no width limit, so a long
+// card title pushed the dates off the page (or, in the base-font fallback,
+// past the line), and the columns never lined up from row to row. The first
+// column (the name) gets twice the share of the others; a cell that does not
+// fit is clipped with an ellipsis rather than wrapped, so the row stays a row.
+// `tableCells` is what the Unicode builder draws with measured widths;
+// `runs` is the same row padded in monospaced characters for the fallback.
+function tableColumnWeights(count) {
+  return Array.from({ length: count }, (_, index) => (index === 0 ? 2 : 1));
+}
+
+function tableRow(cells, options = {}) {
+  const values = (cells || []).map(cell => String(cell ?? ''));
+  if (!values.length) return line('');
+  const header = !!options.header;
+  const weights = tableColumnWeights(values.length);
+  const totalWeight = weights.reduce((sum, weight) => sum + weight, 0);
+  const runs = [];
+  values.forEach((value, index) => {
+    const cellWidth = Math.max(6, Math.floor(TEXT_WIDTH * weights[index] / totalWeight));
+    const room = cellWidth - 1;
+    const clipped = value.length > room ? `${value.slice(0, Math.max(0, room - 1))}…` : value;
+    runs.push({ text: clipped, bold: header, italic: false });
+    const pad = cellWidth - clipped.length;
+    if (pad > 0 && index < values.length - 1) {
+      runs.push({ text: ' '.repeat(pad), bold: false, italic: false });
+    }
+  });
+  return { tableCells: values, tableHeader: header, bar: header, bold: header, runs };
+}
+
 function columns(pairs, width = TEXT_WIDTH) {
   const cells = (pairs || []).filter(pair => pair && pair.length);
   if (!cells.length) return line('');
@@ -891,6 +924,8 @@ export {
   bar,
   columns,
   columnRows,
+  tableRow,
+  tableColumnWeights,
   richLine,
   paginateLines,
   preparePdfImage,

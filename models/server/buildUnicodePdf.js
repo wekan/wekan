@@ -12,6 +12,7 @@ import {
   PAGE_MARGIN,
   PAGE_WIDTH,
   paginateLines,
+  tableColumnWeights,
 } from '/models/lib/pdfDocument';
 
 const MAIN_FONT = 'WeKanUnicodeBMP';
@@ -109,6 +110,24 @@ function buildUnicodePdf(rawLines, fonts) {
             pdf.restore();
           }
           drawText(`${done}/${total}`, PAGE_MARGIN + 2, y, { size: 8 });
+          return;
+        }
+        if (item && item.tableCells) {
+          // Chart table rows (models/lib/pdfDocument.js tableRow): measured
+          // cell widths in the same 2:1:1... proportion the fallback uses,
+          // clipped with an ellipsis so every row stays on its own line. The
+          // header's grey bar is already drawn above (item.bar).
+          const weights = tableColumnWeights(item.tableCells.length);
+          const totalWeight = weights.reduce((sum, weight) => sum + weight, 0);
+          const usable = PAGE_WIDTH - PAGE_MARGIN * 2;
+          let x = PAGE_MARGIN;
+          item.tableCells.forEach((cell, cellIndex) => {
+            const width = usable * weights[cellIndex] / totalWeight;
+            drawText(String(cell ?? ''), x, y, {
+              size: item.tableHeader ? FONT_SIZE + 0.5 : FONT_SIZE, width: width - 6,
+            });
+            x += width;
+          });
           return;
         }
         if (item && item.attachmentCells) {

@@ -1,7 +1,7 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import { formatDateByUserPreference } from '/imports/lib/dateUtils';
-import { line, bar, buildPdfBuffer } from '/models/lib/pdfDocument';
+import { line, tableRow, buildPdfBuffer } from '/models/lib/pdfDocument';
 import { buildUnicodePdf } from '/models/server/buildUnicodePdf';
 import { attachmentDisposition, exportFilename } from '/models/lib/exportFilename';
 import { loadBoardChartData } from '/server/lib/boardChartData';
@@ -59,10 +59,12 @@ class ExporterChartPDF {
     const { title, headers, rows } = chartExportRows(
       this._chartKey, data || {}, (key, fallback) => this.__(key, fallback));
 
+    // One tableRow per header/data row: fixed column widths, one line each,
+    // so a long card title clips instead of pushing its dates off the line.
     const lines = [line(`${board.title} - ${title}`, true), ''];
-    if (headers.length) lines.push(bar(headers.join('  |  ')));
-    rows.forEach(row => lines.push(line(row.map(cell =>
-      cell instanceof Date ? this.date(cell) : String(cell ?? '')).join('  |  '))));
+    if (headers.length) lines.push(tableRow(headers, { header: true }));
+    rows.forEach(row => lines.push(tableRow(row.map(cell =>
+      cell instanceof Date ? this.date(cell) : String(cell ?? '')))));
     if (!rows.length) lines.push(line(this.__('no-data', 'No data')));
 
     let pdf;
