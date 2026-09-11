@@ -207,7 +207,7 @@
   "attached": "maxxanfame",
   "attachment": "Maxxansa",
   "attachment-delete-pop": "Maxxansa haquun dhaabbataa dha. Deebisuun hin jiru.",
-  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
+  "attachment-soft-delete-pop": "Maxxansi kaardii kana irraa haqama, faayilli isaa garuu ni eegama. Namni kaardii gulaaluu danda’u kamiyyuu seenaa kaardii irraa deebisuu danda’a.",
   "attachmentDeletePopup-title": "Maxxansa haquu?",
   "attachments": "Maxxansaalee",
   "auto-watch": "Gabateewwan yeroo uumaman ofumaan hordofi",

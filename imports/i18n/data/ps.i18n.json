@@ -207,7 +207,7 @@
   "attached": "نښلول شوی",
   "attachment": "ضميمه",
   "attachment-delete-pop": "د ضميمې ړنګول دايمي دي. بېرته ستنول نشته.",
-  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
+  "attachment-soft-delete-pop": "ضميمه له دې کارت څخه لرې کېږي او د هغې دوتنه ساتل کېږي. هر څوک چې کارت سمولی شي، کولی شي هغه د کارت له مخينې څخه بيا راوګرځوي.",
   "attachmentDeletePopup-title": "ضميمه ړنګه کړئ؟",
   "attachments": "ضميمې",
   "auto-watch": "تختې د جوړېدو پر مهال په اوتومات ډول وڅارئ",

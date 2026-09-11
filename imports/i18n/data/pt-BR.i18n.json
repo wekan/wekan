@@ -207,7 +207,7 @@
   "attached": "anexado",
   "attachment": "Anexo",
   "attachment-delete-pop": "Excluir um anexo é permanente. Não será possível recuperá-lo.",
-  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
+  "attachment-soft-delete-pop": "O anexo é removido deste cartão e seu arquivo é mantido. Qualquer pessoa que possa editar o cartão pode restaurá-lo a partir do histórico do cartão.",
   "attachmentDeletePopup-title": "Excluir Anexo?",
   "attachments": "Anexos",
   "auto-watch": "Veja automaticamente os boards que são criados",
