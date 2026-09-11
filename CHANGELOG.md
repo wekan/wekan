@@ -526,12 +526,81 @@ the Markdown commit as the template.
 
 # Upcoming WeKan ® release
 
-**In short:** this release repairs the **Windows release builds**, which
-v11.70 lost when GitHub's `windows-latest` moved to **Visual Studio 2026**:
-the bundle now compiles its native modules with a node-gyp that recognises
-it, so the win64 and win-arm64 zips are built again.
+**In short:** deleting an **attachment** from a card is now a **soft delete**
+that the **card history** shows and restores, with no per-attachment hard
+delete anywhere - only deleting an archived board with permanent delete
+enabled removes attachment files. This release also repairs the **Windows
+release builds**, which v11.70 lost when GitHub's `windows-latest` moved to
+**Visual Studio 2026**: the bundle now compiles its native modules with a
+node-gyp that recognises it, so the win64 and win-arm64 zips are built again.
 
-This release fixes the following bug:
+This release adds the following new features:
+
+**Attachments** - soft delete, card-history restore, and the one place they
+are ever really deleted.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5e0d348b6c8072430effb5ecb92e9747c666626b">Design: how an attachment is deleted, shown in the card history, restored and purged</a>. Thanks to xet7.</summary>
+
+`docs/Features/Reports/History/History.md` gains section 12 and closes the
+section 11 question about restoring a removed attachment. The decisions:
+Delete on a card is a soft delete that keeps the file and unsets the cover;
+the card, its count and the minicard badge hide a deleted attachment; the
+card history shows who deleted it and when, and restores it with the same
+preview and download controls the card has, but never cover or background,
+because only a live attachment on a card can be either; no per-attachment
+hard delete exists anywhere; and the one hard delete is Admin Panel /
+Problems / Delete enabled, board archived, board deleted from the archive,
+which removes the board's attachments, live and soft-deleted, with their
+files.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5a09dca4026d05b36fd7699f8b4c4714419443ba">Delete soft-deletes, the card history restores, and only the archived-board purge removes files</a>. Thanks to xet7.</summary>
+
+Delete on an attachment used to remove the document and its file at once.
+It is now the `attachments.softDelete` method: the document gets
+`deletedAt`, `deletedBy` and `deleteBatchId` with the same helpers lists
+use, the file is kept, and the card's cover is unset if this was it. Every
+card-facing read - the opened card's gallery and "Attachments (N)" count,
+the minicard paperclip badge, the slideshow, the cover, the board-background
+picker, My Attachments, the API list endpoints and the exporters - filters
+to live attachments; the publications keep sending the deleted ones so the
+card history can reach them.
+
+The card history records who deleted it and when, with the filename in the
+row. Restore - the table's selection and Restore button, or the row's own
+Restore, both through `changeHistory.restore` - clears the mark, so the
+card, its count and the minicard badge include the attachment again; the
+cover is never re-set. An attachment row previews with the existing
+attachment viewer slideshow and downloads with the same link the gallery
+draws, and never offers cover or background. Uploads and renames are
+recorded through the existing history hooks.
+
+There is no per-attachment hard delete any more: `api.attachment.delete`,
+`DELETE /api/attachment/delete/:id` and `removeBoardBackground`
+soft-delete, the Files report's delete button and its method are gone, and
+the attachment collection refuses every client remove and logs the attempt
+under Admin Panel / Problems. The one hard delete is Admin Panel / Problems
+/ Delete enabled, board archived, board deleted from the archive, which now
+removes every attachment of the board, live and soft-deleted, with its
+file. The delete confirmation says the attachment can be restored from the
+card history (one new translation key, `attachment-soft-delete-pop`).
+
+`tests/attachmentSoftDelete.test.cjs` pins the decisions as arithmetic -
+what a delete sets, that it unsets the cover, that a restore never re-sets
+it, that Restore on the "Removed" row restores rather than deletes again.
+`tests/attachmentSoftDeleteNoHardDelete.test.cjs` sweeps the whole tree for
+any remaining hard delete outside the board purge and the upload
+rejections, `tests/attachmentSoftDeleteReads.test.cjs` pins every
+card-facing read to the live filter and the publications to not filtering,
+and `tests/attachmentHistoryRowControls.test.cjs` pins the history row's
+controls and that it never offers cover or background.
+
+</details>
+
+and fixes the following bug:
 
 **The release workflow** - what stopped the v11.70 release run.
 
