@@ -27,18 +27,22 @@ function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
 
 console.log('cardCommentReactionsIndexes:');
 
-test('card_comment_reactions gets cardId, boardId and cardCommentId indexes at startup', () => {
-  const src = read('server/models/cardCommentReactions.js');
+test('card_comment_reactions gets cardId and boardId indexes at startup, beside its unique cardCommentId one', () => {
+  // In the central bootstrap that already owns this collection's indexes -
+  // one place per collection, not a second file for the same one.
+  const src = read('server/models/collectionBootstrap.js');
   assert.ok(/import CardCommentReactions from '\/models\/cardCommentReactions'/.test(src));
-  assert.ok(/import \{ ensureIndex \} from '\/server\/lib\/mongoStartup'/.test(src));
-  for (const key of ['cardId', 'boardId', 'cardCommentId']) {
+  assert.ok(/await ensureIndex\(\s*CardCommentReactions,\s*\{ cardCommentId: 1 \},\s*\{ unique: true \},?\s*\)/.test(src));
+  for (const key of ['cardId', 'boardId']) {
     assert.ok(src.includes(`await ensureIndex(CardCommentReactions, { ${key}: 1 });`), `index on ${key}`);
   }
-  assert.ok(/Meteor\.startup\(async \(\) => \{/.test(src));
+  assert.ok(!fs.existsSync(path.join(ROOT, 'server/models/cardCommentReactions.js')),
+    'no second module for the same collection\'s indexes (negative)');
 });
 
-test('the server module is imported, so the startup hook actually runs', () => {
-  assert.ok(read('server/imports.js').includes("import '/server/models/cardCommentReactions';"));
+test('the bootstrap is imported, so the startup hook actually runs', () => {
+  assert.ok(read('server/imports.js').includes("import '/server/models/collectionBootstrap';"));
+  assert.ok(!read('server/imports.js').includes("import '/server/models/cardCommentReactions';"));
 });
 
 test('the queries the log showed scanning are the ones now indexed (negative: none is unindexed)', () => {

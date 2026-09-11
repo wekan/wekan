@@ -122,7 +122,6 @@ import '/server/models/org';
 import '/server/models/rules';
 import '/server/models/settings';
 import '/server/models/swimlanes';
-import '/server/models/cardCommentReactions';
 import '/server/models/team';
 import '/server/models/translation';
 import '/server/models/users';

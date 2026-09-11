@@ -48,6 +48,13 @@ Meteor.startup(async () => {
     { cardCommentId: 1 },
     { unique: true },
   );
+  // The two ways the app actually READS reactions - the card publication by
+  // `cardId: { $in: [...all the board's cards] }`, the board publication by
+  // `boardId` - had no index: a reported MongoDB log (.tools/crash) had 3,397
+  // full collection scans of this one collection, up to 1.6 s each on slow
+  // storage, the bulk of that server's "Slow query" lines.
+  await ensureIndex(CardCommentReactions, { cardId: 1 });
+  await ensureIndex(CardCommentReactions, { boardId: 1 });
   await ensureIndex(InvitationCodes, { modifiedAt: -1 });
 
   await ensureIndex(LockoutSettings, { modifiedAt: -1 });
