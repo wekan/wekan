@@ -427,10 +427,87 @@ says so, which is the behaviour #6583 arrived at the hard way.
 - Retention: how many history rows per card/board before pruning?
 - Does history need to survive card **archive/restore** and **copy/move** across boards?
 - Should restore of a **removed** entity re-create it (attachments, comments) or only text/scalar
-  fields in v1?
+  fields in v1? **Decided for attachments in §12:** nothing is re-created because nothing is
+  destroyed - a deleted attachment is soft-deleted and Restore clears the mark. Comments remain
+  open.
 - Per-board on/off setting for history (storage cost)?
 
 ---
+
+## 12. Attachments: soft delete, history, restore, purge
+
+Decided (maintainer, 2026-09). These are rules, not proposals; the tests under
+`tests/attachmentSoftDelete*.test.cjs` pin each one.
+
+### 12.1 Deleting an attachment from a card is a soft delete
+
+- "Delete" on an attachment in the opened card calls `attachments.softDelete`. It sets
+  `deletedAt`, `deletedBy` and `deleteBatchId` on the attachment document (the same three
+  fields and the same `models/lib/softDelete.js` helpers lists use) and **keeps the file**. No
+  bytes are removed from any storage backend.
+- If the attachment was the card's **cover**, the soft delete unsets the cover. Restore does
+  **not** set it back: cover is a choice made about a live attachment, and the person restoring
+  can make it again.
+- A soft-deleted attachment is **invisible everywhere a card is drawn**: the opened card's
+  gallery, the "Attachments (N)" section count, the minicard paperclip badge, the slideshow's
+  next/previous, the cover picker, the board-background picker, the API list endpoints, the
+  exporters and the My Attachments page. Every one of those reads goes through the live filter
+  (`{ deletedAt: null }`, `notDeleted()` / `liveAttachments()`), which matches documents where
+  the field is absent, so no backfill is needed. The publications still send soft-deleted
+  attachments to the client, because the card history has to reach them (12.2).
+- The `deleteAttachment` **activity** is still written (same actor rules as before, #5504), so
+  the card's activity feed and the outgoing webhooks see the delete as they always did.
+
+### 12.2 The card history shows who deleted it, and restores it
+
+- The soft delete records a `changeHistory` row: `entityType: 'attachment'`, `group:
+  'lifecycle'`, `changeType: 'removed'`, `userId` = who deleted it, `createdAt` = when. The
+  content carries the **filename** (`{ name, deleted }`), so the row reads "Removed ·
+  photo.png" and the summary needs no lookup. The row is written with `previousContent:
+  { deleted: false, name }` and **no** `newContent`: §8 says Restore applies what the row
+  shows, and a removal shows what it removed, so Restore of a removal brings it back (the
+  `contentForDirection` fallback already does exactly this). Restore records the mirror row
+  (`changeType: 'added'`, `newContent: { deleted: false, name }`), and the generic §8.3 pair of
+  `restored` rows on top.
+- An attachment's upload and rename are recorded too (`added`, `edited` on `name`), through the
+  same `changeHistoryHooks.js` choke point, located by `meta.cardId` → card.
+- **Restore** — either the table's selection + Restore (the generic `changeHistory.restore`,
+  dispatched to `applyAttachmentContent`) or the row's own Restore button (which calls the same
+  method with that one row) — clears the three bookkeeping fields with `restoreModifier()`.
+  The card, its count and the minicard badge include it again at once, because they read the
+  live filter reactively. Restoring an attachment that is already live is a no-op.
+- **The history row has the card's controls, minus two.** For an `attachment` row the table
+  renders the same **preview** (the existing `attachmentViewer` slideshow overlay, opened by
+  `openAttachmentSlideshow` with the row's attachment id, which accepts a soft-deleted
+  attachment) and the same **download** link the gallery has, and a **Restore** button when
+  the attachment is currently deleted. It **never** renders `js-add-cover` /
+  `js-add-background-image`: only a live attachment on a card can be a cover or a board
+  background, and the history row is not a place to set either.
+
+### 12.3 There is no per-attachment hard delete
+
+- No board member, board admin, or global admin can permanently delete one attachment from a
+  card, a board, the Files report, the REST API, or the DDP API. Every one of those paths is
+  either a soft delete now (`api.attachment.delete`, `DELETE /api/attachment/delete/:id`,
+  `removeBoardBackground`) or gone (`permanentlyDeleteAttachmentFromFilesReport` and its
+  Files-report button).
+- The client cannot remove an attachment document at all: `Attachments.allow({ remove })`
+  returns `false` and `onBeforeRemove` refuses every `_FilesCollectionRemove_attachments` call,
+  logged as an attempt under Admin Panel → Problems.
+- The `Attachments.removeAsync` calls that remain are not deletes of a user's attachment:
+  the **upload rejections** in `models/attachments.server.js` (an exploit-looking filename, a
+  file that fails the size/MIME validation) discard bytes that never became an attachment,
+  and the CollectionFS export in `attachmentBulkMove.js` converts a storage format and keeps
+  the file. A source-reading test lists these and fails on any other.
+
+### 12.4 The only hard delete: Admin Panel / Problems / Delete → archive → delete
+
+- With **Enable permanent delete** on (Admin Panel / Problems / Delete, `enablePermanentDelete`),
+  a global admin can archive a board and then delete it from the archive
+  (`permanentlyDeleteArchivedBoards`). Removing the board removes **every attachment whose
+  `meta.boardId` is that board — live and soft-deleted alike — and their files** from the
+  storage backend, through `boardRemover`. That is the one place attachment bytes are ever
+  removed, and it is recorded in Recovery like the board deletion itself.
 
 ### Appendix: lessons already banked from this session
 
