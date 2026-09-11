@@ -524,6 +524,35 @@ the Markdown commit as the template.
 </details>
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** Board JSON exports now complete when cards contain HTML, with
+or without embedded attachments. Interrupted exports report a failed download
+instead of silently saving an unfinished JSON document.
+
+This release fixes the following bugs:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2834c5ffc">Fix board JSON exports containing HTML</a>. Thanks to xet7.</summary>
+
+The server called DOMPurify without a browser DOM, where its import has no
+`sanitize` method. The first HTML-bearing card stopped the streaming export at
+`"cards":[`, matching the incomplete Roadmap export. Use the MIT-licensed
+`sanitize-html` 2.17.7 server parser, with no runtime Internet access, to retain
+text while stripping markup. The dependency installation audit reported no known
+vulnerabilities. Failed streams now abort the HTTP transfer instead of ending a
+partial document with a successful response.
+
+Regression tests execute the production writer and sanitizer in both attachment
+modes, parse every exported section, compare embedded attachment bytes, and
+verify failure handling. All 26 export-related Node suites passed. Browser
+regressions cover both board-menu downloads and HTML-bearing card API exports;
+they were syntax-checked, but could not run without a local WeKan test server.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v11.71 2026-09-11 WeKan ® release
 
 **In short:** deleting an **attachment** from a card is now a **soft delete**
