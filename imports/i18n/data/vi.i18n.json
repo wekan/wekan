@@ -207,7 +207,7 @@
   "attached": "đã đính kèm",
   "attachment": "Phần đính kèm",
   "attachment-delete-pop": "Xóa tệp đính kèm là vĩnh viễn. Không có khôi phục.",
-  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
+  "attachment-soft-delete-pop": "Tệp đính kèm sẽ bị gỡ khỏi thẻ này nhưng tệp của nó vẫn được giữ lại. Bất kỳ ai có thể sửa thẻ đều có thể khôi phục nó từ lịch sử thẻ.",
   "attachmentDeletePopup-title": "Xóa tệp đính kèm không?",
   "attachments": "Tệp Đính Kèm",
   "auto-watch": "Tự động xem bảng lúc được tạo ra",

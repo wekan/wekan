@@ -207,7 +207,7 @@
   "attached": "okunamathiselwe",
   "attachment": "Okunamathiselwe",
   "attachment-delete-pop": "Ukususa okunamathiselwe kungunaphakade. Akukho ukuhlehlisa.",
-  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
+  "attachment-soft-delete-pop": "Okunamathiselwe kususwa kuleli khadi kodwa ifayela lakho liyagcinwa. Noma ubani ongahlela ikhadi angakubuyisela emlandweni wekhadi.",
   "attachmentDeletePopup-title": "Susa Okunamathiselwe?",
   "attachments": "Okunamathiselwe",
   "auto-watch": "Buka amabhodi ngokuzenzakalelayo uma edalwa",

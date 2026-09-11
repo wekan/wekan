@@ -207,7 +207,7 @@
   "attached": "gin-attach",
   "attachment": "Pièce jointe",
   "attachment-delete-pop": "An pagpara hin attachment permanente. Waray undo.",
-  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
+  "attachment-soft-delete-pop": "An attachment ginkukuha tikang hini nga card ngan an file hito ginpapabilin. Bisan hin-o nga makaka-edit han card makakaibalik hito tikang ha kasaysayan han card.",
   "attachmentDeletePopup-title": "Paraon an Attachment?",
   "attachments": "Mga Attachment",
   "auto-watch": "Awtomatiko nga bantayan an mga board kon ginhihimo ini",
