@@ -207,7 +207,7 @@
   "attached": "joint",
   "attachment": "Pièce jointe",
   "attachment-delete-pop": "La suppression d'une pièce jointe est définitive. Cela est irréversible.",
-  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
+  "attachment-soft-delete-pop": "La pièce jointe est retirée de cette carte et son fichier est conservé. Toute personne pouvant modifier la carte peut la restaurer depuis l'historique de la carte.",
   "attachmentDeletePopup-title": "Supprimer la pièce jointe ?",
   "attachments": "Pièces jointes",
   "auto-watch": "Surveiller automatiquement les tableaux quand ils sont créés",

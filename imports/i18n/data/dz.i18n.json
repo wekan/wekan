@@ -207,7 +207,7 @@
   "attached": "མཉམ་སྦྲགས་འབད་ཡོད།",
   "attachment": "མཉམ་སྦྱར།",
   "attachment-delete-pop": "མཉམ་སྦྲགས་བཏོན་པ་ཅིན་རྟག་བརྟན་ཨིན། ལོག་བཟོ་མི་ཚུགས།",
-  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
+  "attachment-soft-delete-pop": "མཉམ་སྦྲགས་འདི་ཤོག་བྱང་འདི་ལས་བཏོན་ཏེ་ཡིག་སྣོད་འདི་བཞག་ནི་ཨིན། ཤོག་བྱང་ཞུན་དག་འབད་ཚུགས་མི་ག་ར་གིས་ཤོག་བྱང་གི་ལོ་རྒྱུས་ནང་ལས་སོར་ཆུད་འབད་ཚུགས།",
   "attachmentDeletePopup-title": "མཉམ་སྦྲགས་བཏོན་ག?",
   "attachments": "མཉམ་སྦྲགས།",
   "auto-watch": "བྱང་གཞི་གསར་བསྐྲུན་འབདཝ་ད་རང་བཞིན་གྱིས་བལྟ་རྟོག་འབད།",

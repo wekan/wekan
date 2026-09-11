@@ -207,7 +207,7 @@
   "attached": "taheakke",
   "attachment": "Taheaksel",
   "attachment-delete-pop": "It wiskjen fan in taheaksel is permanint. Der is gjin undo.",
-  "attachment-soft-delete-pop": "The attachment is removed from this card and its file is kept. Anyone who can edit the card can restore it from the card history.",
+  "attachment-soft-delete-pop": "It taheaksel wurdt fan dizze kaart helle en de triem wurdt bewarre. Elkenien dy't de kaart bewurkje kin, kin it weromsette út de skiednis fan de kaart.",
   "attachmentDeletePopup-title": "Taheaksel wiskje?",
   "attachments": "Taheaksels",
   "auto-watch": "Sjoch boerden automatysk as se binne makke",
