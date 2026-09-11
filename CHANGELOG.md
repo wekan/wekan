@@ -4040,7 +4040,52 @@ the title and the link.
 - [Show the Time view's client-side summary row and export label for remaining time until due](https://github.com/wekan/wekan/commit/120a1b665). Thanks to xet7.
 - [Add Frappe Gantt below the existing Gantt view, and draw the report charts with Chart.js](https://github.com/wekan/wekan/commit/5d5317d96). Thanks to xet7.
 
+**The database** - what Admin Panel / Problems can now see about it.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4a0955139">Admin Panel / Problems reports database restarts, storage and disk-space trouble, and self-fixes a missing index</a>. Thanks to xet7.</summary>
+
+A reported MongoDB crash series (WeKan and MongoDB in one Kubernetes pod,
+the database volume on an SMB/DFS share) was invisible from inside WeKan:
+MongoDB aborting on every checkpoint, restarting, aborting again, every
+query in between slow - and the admin found it in the container log.
+Admin Panel / Problems / Database problems now gets a row for each thing
+WeKan can measure from its side of the socket, from a probe that runs
+after startup and every five minutes: `db.restart` (the database process
+restarted while WeKan kept running), `db.network-filesystem` (the data
+directory, when WeKan can see it, is on CIFS/SMB, NFS or FUSE),
+`db.slow-storage` (reads averaged over 100 ms across the interval) and
+`db.disk-space` (below 5% or 512 MiB free - the real "no space left on
+device", before it happens), each with what to do. The one remediation
+WeKan can do itself it does: an index it creates at startup on a
+collection that already held documents is reported as `db.index-created`,
+found and fixed. FerretDB answers only some of these commands; what it
+cannot answer is skipped. `tests/databaseHealth.test.cjs` drives every
+decision.
+
+</details>
+
 and fixes the following bugs:
+
+**The database** - the reported crash's WeKan-side cause, and its real cause documented.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/03ffb56a5">Index card_comment_reactions, and document why MongoDB's data directory must be on a local filesystem</a>. Thanks to xet7.</summary>
+
+From the same reported crash logs: `card_comment_reactions` had no index
+at all, and every board open queried it by `cardId` and by `boardId` as a
+full collection scan - 3,397 collection scans of that one collection in
+the last crash log, up to 1.6 s each, the bulk of its "Slow query" lines.
+It now gets indexes on cardId, boardId and cardCommentId at startup, like
+every other per-card collection. The crash itself is WiredTiger's
+checkpoint `fsync()` returning "No space left on device" on the network
+share (with 519 MB used and 10 GiB free), followed by a fatal assertion -
+the storage, not WeKan: MongoDB requires a local filesystem with real
+fsync semantics under its data directory. The new
+`docs/Databases/MongoDB/Storage-Requirements.md` says so, shows what the
+log looks like when it is not, and what to do.
+
+</details>
 
 **Board reports** - the Dashboard and the 10 board report chart views.
 
