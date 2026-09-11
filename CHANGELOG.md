@@ -531,7 +531,7 @@ that the **card history** shows and restores; the only hard delete left is
 deleting an archived board with permanent delete enabled. **Board Settings /
 Card** gains a toggle for every card section and minicard badge, and a new
 **Board Settings / Board View** chooses which views a **public** or
-**private** board offers. The **REST API** covers attachment restore, Admin
+**private** board offers, and in what order. The **REST API** covers attachment restore, Admin
 Panel Problems, OAuth providers, card field order and rule pausing, and its
 OpenAPI spec carries the Boards API again. The **Windows release builds**,
 lost when GitHub's runner moved to **Visual Studio 2026**, are built again.
@@ -667,6 +667,31 @@ Swimlane, the five columns and their public-hidden variant, one row per
 menu view in menu order, the schema fields and setters, the radio and
 "default stays shown" semantics, the menu filter, the fallback in
 `Utils.boardView()`, and the translations.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/223a8aa8af24c621b465e0e550fe0cda104b5749">Board View: reorder the menu with up/down arrows on each row</a>. Thanks to xet7.</summary>
+
+Each row of the Board View table carries an up and a down arrow in front of
+its name - real links, so the keyboard reaches them, titled with the
+existing *Move up* / *Move down* keys of Card Settings' card field order -
+and the Board View menu lists its entries in that order for everybody on
+the board. The first row's up and the last row's down are no-ops, drawn
+disabled. Stored per board as `boardViewOrder`; `normalizeBoardViewOrder()`
+drops unknown keys and duplicates and appends missing views in default
+order, so the menu always lists every view exactly once whatever an old or
+hand-edited document holds.
+
+The menu is now rendered from the same table as the popup - one `each
+boardViewMenuEntries` loop over `models/lib/boardViewSettings.js` instead
+of 25 static entries - keeping the per-view `js-open-<view>-view` class each
+click handler listens for. The group separators are drawn only while the
+order is the default one, since a custom order has no groups.
+`tests/boardViewMenu.test.cjs`'s order, icon, label and separator pins now
+read that table, the same thing the template reads, and
+`tests/boardViewSettings.test.cjs` pins the arrows, the field, the setter
+and the normalize/move logic, with the no-op and unknown-key cases.
 
 </details>
 
