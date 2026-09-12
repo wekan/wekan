@@ -558,6 +558,13 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/3e693f7c2">Finish flagged Bosnian translation repairs</a>. Thanks to xet7.</summary>
+
+Correct the final 30 flagged Bosnian values. Regressions verify support access, irreversible deletion, integer heights, keyboard ranges, voting identity and literal filter examples. Meaning, source-token, target-script, exact-value, rendering, key-order and repair checks pass; progress tests confirm zero pending Bosnian findings. Audit.md records current progress.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/a1a4930e8">Repair Bosnian migration steps and starred board help</a>. Thanks to xet7.</summary>
 
 Correct 14 flagged values. Regressions verify starred-board ordering, week start, empty duplicates and migration entity names. Meaning, source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records current progress.
