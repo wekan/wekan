@@ -10,3 +10,10 @@ assert.match(data['accounts-lockout-settings'], /protección contra ataques de f
 assert.match(data['accounts-lockout-show-locked-users'], /Amostrar nomás os usuarios blocaus/);
 assert.notEqual(data['accounts-lockout-locked-users-info'], data['accounts-lockout-no-locked-users']);
 console.log('Aragonese calendar and account-lockout meanings verified');
+assert.match(data['accounts-lockout-user-locked'], /usuario ye blocau/);
+assert.match(data['act-activity-notify'], /Notificación d'actividat/);
+assert.match(data['act-createCustomField'], /creyó o campo personalizau __customField__.*__board__/);
+assert.match(data['act-createSwimlane'], /creyó o carril __swimlane__.*__board__/);
+assert.match(data['act-newDue'], /__list__\/__card__.*primer recordatorio.*\[__board__\]/);
+assert.match(data['activity-subtask-added'], /adhibió una subtasca a %s/);
+assert.doesNotMatch(data['activity-subtask-added'], /eliminó/);

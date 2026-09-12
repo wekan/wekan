@@ -43909,5 +43909,47 @@
     "before": "Mostrar solo usuarios bloqueados",
     "after": "Amostrar nomás os usuarios blocaus",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "accounts-lockout-user-locked",
+    "before": "El usuario está bloqueado",
+    "after": "L'usuario ye blocau",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "act-activity-notify",
+    "before": "Notificación de actividad",
+    "after": "Notificación d'actividat",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "act-createCustomField",
+    "before": "creado el campo personalizado __customField__ en el tablero __board__",
+    "after": "creyó o campo personalizau __customField__ en o tablero __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "act-createSwimlane",
+    "before": "creó el carril de flujo __swimlane__ en el tablero __board__",
+    "after": "creyó o carril __swimlane__ en o tablero __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "act-newDue",
+    "before": "__list__/__card__ tiene una primera notificación de vencimiento [__board__]",
+    "after": "__list__/__card__ tiene o primer recordatorio de vencimiento [__board__]",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "activity-subtask-added",
+    "before": "ha añadido la subtarea a %s",
+    "after": "adhibió una subtasca a %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
