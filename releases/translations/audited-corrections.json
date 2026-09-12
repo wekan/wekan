@@ -47619,5 +47619,26 @@
     "before": "Republic of China",
     "after": "Kalendarju Minguo",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mi",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "Maramataka ā-motu o Inia",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mi",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "Maramataka Hitiuri (Hauti Arapia, te mātakitaki i te marama)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mi",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "Maramataka Hitiuri (tūtohi, tīmatanga tatau wā ā-arorangi)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
