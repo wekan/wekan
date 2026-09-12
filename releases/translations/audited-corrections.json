@@ -41788,5 +41788,61 @@
     "before": "Configuración de la Organización",
     "after": "Preferencies de la organización",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "shortcut-add-self",
+    "before": "Añadirte a ti mismo a la tarjeta actual",
+    "after": "Añadite a la tarxeta actual",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "shortcut-assign-self",
+    "before": "Asignarte a ti mismo a la tarjeta actual",
+    "after": "Asignate a la tarxeta actual",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "shortcut-filter-my-assigned-cards",
+    "before": "Filtrar mis tarjetas asignadas",
+    "after": "Filtrar les mios tarxetes asignaes",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "shortcut-toggle-sidebar",
+    "before": "Conmutar la barra lateral del tablero",
+    "after": "Alternar la barra llateral del tableru",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "show-at-all-boards-page",
+    "before": "Mostrar todos los tableros",
+    "after": "Mostrar na páxina de tolos tableros",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "show-board_members-avatar",
+    "before": "Mostrar los avatares de los miembros del tablero",
+    "after": "Mostrar los avatares de los miembros del tableru",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "show-card-counter-per-list",
+    "before": "Mostrar el contador de tarjetas por lista",
+    "after": "Mostrar el númberu de tarxetes por llista",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "show-cards-minimum-count",
+    "before": "Mostrar recuento de tarjetas si la lista contiene más de",
+    "after": "Mostrar el númberu de tarxetes si la llista contién más de",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

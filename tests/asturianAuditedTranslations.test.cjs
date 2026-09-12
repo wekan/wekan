@@ -134,3 +134,8 @@ assert.match(data['rescue-card-description-dialogue'], /Sobrescribir.*colos tos 
 assert.match(data['s3-settings-save-failed'], /^Nun se pudo guardar/);
 assert.match(data['s3-settings-saved'], /guardóse correutamente/);
 assert.match(data['search-cards'], /títulos, descripciones y campos personalizaos.*nesti tableru/);
+assert.match(data['shortcut-add-self'], /^Añadite/);
+assert.match(data['shortcut-assign-self'], /^Asignate/);
+assert.notEqual(data['shortcut-add-self'], data['shortcut-assign-self']);
+assert.match(data['show-at-all-boards-page'], /na páxina de tolos tableros/);
+assert.match(data['show-cards-minimum-count'], /si la llista contién más de$/);
