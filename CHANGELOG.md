@@ -558,6 +558,15 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/b2cdec01e9fafc410170b2482d80e64f9f59c3fd">Fix Galician regional storage and scheduled job translations</a></summary>
+
+Replace 28 Portuguese values with reviewed Galician and retain two correct custom-field labels. Preserve storage instructions, display states, sorting order and scheduled-job success/failure messages. Translation meaning, unchanged-review, placeholder, key-order and idempotency regression checks pass.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/2f6e6884e1e2d45e98a53cb83c0b5a2742bff04b">Fix Galician regional activities and administration translations</a></summary>
 
 Replace 30 Portuguese values with reviewed Galician. Clarify custom-field value clearing and preserve activity argument order, administration scope, workspace actions and archive destinations. Translation meaning, placeholder, key-order and idempotency regression checks pass.
