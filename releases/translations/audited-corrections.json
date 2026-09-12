@@ -28411,5 +28411,89 @@
     "before": "`__operator_list__:<назив>` - сви предмети чији део поступка има следећи *<назив>*",
     "after": "`__operator_list__:<title>` - kartice u listama koje odgovaraju navedenom *<title>*",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "globalSearch-instructions-operator-member",
+    "before": "`__operator_member__:<неко>` - предмети где је *<неко>* сарадник",
+    "after": "`__operator_member__:<username>` - kartice na kojima je *<username>* član",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "globalSearch-instructions-operator-modified",
+    "before": "`__operator_modified__:<n>` - предмети који су имали измене у задњих *<n>* дана",
+    "after": "`__operator_modified__:<n>` - kartice izmijenjene prije *<n>* dana ili manje",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "globalSearch-instructions-operator-org",
+    "before": "`__operator_org__:<име или пословно име|скраћено пословно име>` - предмети у вези са *<странком>*",
+    "after": "`__operator_org__:<display name|short name>` - kartice na ploči dodijeljenoj organizaciji *<name>*",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "globalSearch-instructions-operator-sort",
+    "before": "`__operator_sort__:<правило>` - где је *<правило>* једно од `__predicate_due__`, `__predicate_created__` или `__predicate_modified__`.  За опадајући редослед уметните минус `-` испред правила.",
+    "after": "`__operator_sort__:<sort-name>` - gdje je *<sort-name>* jedno od `__predicate_due__`, `__predicate_created__` ili `__predicate_modified__`. Za opadajuće sortiranje stavite `-` ispred naziva sortiranja.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "globalSearch-instructions-operator-status",
+    "before": "`__operator_status__:<стање>` - где се под *<стањем>* подразумева једно од следећих:",
+    "after": "`__operator_status__:<status>` - gdje je *<status>* jedno od sljedećeg:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "globalSearch-instructions-operator-swimlane",
+    "before": "`__operator_swimlane__:<врста>` - сви предмети који се налазе у задатој *<врсти>* поступка",
+    "after": "`__operator_swimlane__:<title>` - kartice u stazama koje odgovaraju navedenom *<title>*",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "globalSearch-instructions-operator-team",
+    "before": "`__operator_team__:<назив тима|скраћени назив>` - предмети које обрађује правни тим *<назив>*",
+    "after": "`__operator_team__:<display name|short name>` - kartice na ploči dodijeljenoj timu *<name>*",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "globalSearch-instructions-operator-user",
+    "before": "`__operator_user__:<неко>` - сви предмети где је *<неко>* или *сарадник* или *пуномоћник*",
+    "after": "`__operator_user__:<username>` - kartice na kojima je *<username>* član ili zaduženi korisnik",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "globalSearch-instructions-operators",
+    "before": "Оператори на располагању:",
+    "after": "Dostupni operatori:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "globalSearch-instructions-status-all",
+    "before": "`__predicate_all__` - сви архивирани и неархивирани задаци",
+    "after": "`__predicate_all__` - sve arhivirane i nearhivirane kartice",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "globalSearch-instructions-status-ended",
+    "before": "`__predicate_ended__` - сви окончани предмети",
+    "after": "`__predicate_ended__` - kartice s datumom završetka",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "globalSearch-instructions-status-private",
+    "before": "`__predicate_private__` - предмети видљиви искључиво сарадницима",
+    "after": "`__predicate_private__` - kartice samo na privatnim pločama",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

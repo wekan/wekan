@@ -197,3 +197,14 @@ assert.match(data['globalSearch-instructions-operator-due'], /rok prošao/);
 assert.match(data['globalSearch-instructions-operator-assignee'], /zaduženi korisnik/);
 assert.match(data['globalSearch-instructions-operator-creator'], /autor/);
 console.log('bosnianAuditedTranslations: search operator syntax, negation, label OR and integer limits passed');
+
+assert.match(data['globalSearch-instructions-status-ended'], /s datumom završetka/);
+assert.doesNotMatch(data['globalSearch-instructions-status-ended'], /dovršene|okončane/);
+assert.match(data['globalSearch-instructions-status-private'], /samo na privatnim pločama/);
+assert.match(data['globalSearch-instructions-operator-org'], /ploči dodijeljenoj organizaciji/);
+assert.match(data['globalSearch-instructions-operator-team'], /ploči dodijeljenoj timu/);
+assert.match(data['globalSearch-instructions-operator-user'], /član ili zaduženi korisnik/);
+assert.match(data['globalSearch-instructions-operator-sort'], /opadajuće.*`-`/);
+assert.match(data['globalSearch-instructions-operator-modified'], /dana ili manje/);
+assert.match(data['globalSearch-instructions-status-all'], /arhivirane i nearhivirane/);
+console.log('bosnianAuditedTranslations: end-date status, private-board scope, assignment and descending sort passed');
