@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Audit keys |
 | --- | ---: |
-| Explicitly corrected | 6,592 |
+| Explicitly corrected | 6,594 |
 | Restored pre-pull values awaiting further validation | 4,059 |
 | Reviewed and retained unchanged | 149 |
-| Pending review or repair | 9,281 |
+| Pending review or repair | 9,279 |
 | Total tracked | 20,081 |
 
 **Translation repairs remain unfinished.** These counts cover flagged findings; unflagged strings and restored values are not certified as correct.
 
-Fixes cover wrong-language text, terminology, missing warnings, JSON examples, placeholders and calendar/search formatting. The correction history records **6,654 values**, including fixes outside the audit. Flagged queues are complete for Bosnian, Croatian, Macedonian, both Slovenian locales, Latvian, Romanian, Slovak, both Galician locales, Asturian, Aragonese, Friulian, Tok Pisin, Bulgarian and both Korean and both Afrikaans locales and all three Catalan locales Esperanto, Indonesian and both Malay locales Belarusian Icelandic and all three Azerbaijani locales.
+Fixes cover wrong-language text, terminology, missing warnings, JSON examples, placeholders and calendar/search formatting. The correction history records **6,656 values**, including fixes outside the audit. Flagged queues are complete for Bosnian, Croatian, Macedonian, both Slovenian locales, Latvian, Romanian, Slovak, both Galician locales, Asturian, Aragonese, Friulian, Tok Pisin, Bulgarian and both Korean and both Afrikaans locales and all three Catalan locales Esperanto, Indonesian and both Malay locales Belarusian Icelandic and all three Azerbaijani locales and Irish.
 
-Latest fix: [c226b0b4a](https://github.com/wekan/wekan/commit/c226b0b4a12929128a2c7eb09c1d62d81338d754), **2026-09-13** — six Azerbaijani filter-help/Hijri labels repaired, preserving examples and lunar observation. **All flagged Azerbaijani queues are complete.** Exact-value, placeholder, key-order and idempotency checks pass; Azerbaijani/Icelandic technical wording and earlier Tok Pisin, Friulian, Aragonese and Asturian wording need native-speaker review. Live Meteor browser verification remains unavailable.
+Latest fix: [c65c83eba](https://github.com/wekan/wekan/commit/c65c83eba1654a3fb05c826127c8f8fa93adedea), **2026-09-13** — two Irish Hijri labels repaired, preserving lunar observation and astronomical epoch. **The flagged Irish queue is complete.** Exact-value, placeholder, key-order and idempotency checks pass; Irish/Azerbaijani/Icelandic technical wording and earlier Tok Pisin, Friulian, Aragonese and Asturian wording need native-speaker review. Live Meteor browser verification remains unavailable.
 
 **Provenance:** not all errors came from Transifex. The captured pull changed 4,061 values; the full-local audit added 16,020 findings. Bosnian errors came from the September 5 [local completion commit](https://github.com/wekan/wekan/commit/bdb3b15886a749b725b5290ba0109fcba955f983), with no Bosnian changes in the captured pull. Other ultimate origins remain unverified.
 
