@@ -308,3 +308,13 @@ assert.notEqual(data.hideAllChecklistItems, data.hideCheckedChecklistItems);
 for (const key of ['hide-checked-items','hide-finished-checklist','hideAllChecklistItems','hideCheckedChecklistItems']) assert.doesNotMatch(data[key], /Eliminar|borrar/);
 assert.match(data['import-board-instruction-csv'], /comes \(CSV\).*tabulaciones \(TSV\)/);
 assert.match(data['import-csv-placeholder'], /Apega equí.*CSV\/TSV válidos/);
+
+assert.match(data['import-json-placeholder'], /Apega equí.*JSON válidos/);
+assert.match(data['import-show-user-mapping'], /Revisar la correspondencia de miembros/);
+assert.match(data['invalid-file'], /nome del ficheru nun ye válidu.*cancélase la xubida o’l cambéu de nome/);
+assert.match(data['invite-people-error'], /unviar la invitación pa rexistrase/);
+assert.match(data['label-default'], /Etiqueta %s \(por defeutu\)/);
+assert.match(data['label-not-found'], /Nun s’alcontró la etiqueta '%s'/);
+assert.match(data['last-admin-desc'], /Nun pues cambiar los roles.*polo menos un alministrador/);
+assert.match(data['list-delete-pop'], /toles aiciones del historial d’actividá.*nun vas poder recuperar la llista.*Nun se puede desfacer/);
+assert.doesNotMatch(data['list-delete-pop'], /archivar|volver a abrir/);

@@ -43034,5 +43034,61 @@
     "before": "Pega tus datos CSV/TSV válidos aquí",
     "after": "Apega equí los tos datos CSV/TSV válidos",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "import-json-placeholder",
+    "before": "Pega tus datos JSON válidos aquí",
+    "after": "Apega equí los tos datos JSON válidos",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "import-show-user-mapping",
+    "before": "Revisión de la asignación de miembros",
+    "after": "Revisar la correspondencia de miembros",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "invalid-file",
+    "before": "Si el nombre de archivo no es válido, la carga o el cambio de nombre es cancelado.",
+    "after": "Si el nome del ficheru nun ye válidu, cancélase la xubida o’l cambéu de nome.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "invite-people-error",
+    "before": "Error al enviar la invitación para registrarse",
+    "after": "Error al unviar la invitación pa rexistrase",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "label-default",
+    "before": "etiqueta %s (por defecto)",
+    "after": "Etiqueta %s (por defeutu)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "label-not-found",
+    "before": "Etiqueta '%s' no encontrada.",
+    "after": "Nun s’alcontró la etiqueta '%s'.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "last-admin-desc",
+    "before": "No puedes cambiar roles porque debe haber al menos un administrador.",
+    "after": "Nun pues cambiar los roles porque tien d’haber polo menos un alministrador.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "list-delete-pop",
+    "before": "Se eliminarán todas las acciones del historial de actividades y no se podrá volver a abrir la lista. Esta acción no puede deshacerse.",
+    "after": "Van eliminase toles aiciones del historial d’actividá y nun vas poder recuperar la llista. Nun se puede desfacer.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
