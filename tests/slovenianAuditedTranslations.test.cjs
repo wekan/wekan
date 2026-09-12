@@ -23,6 +23,12 @@ for (const locale of ['sl', 'sl_SI']) {
   assert.match(data['accounts-lockout-info'], /napadi z grobo silo/);
   assert.doesNotMatch(data['accounts-lockout-info'], /lozinkef/);
   assert.equal(data.MongoDB_storage_engine, 'Shranjevalni pogon MongoDB');
+  assert.match(data['restore-all-archived-migration-description'], /vse arhivirane steze, sezname in kartice.*swimlaneId ali listId.*vidne/);
+  assert.match(data['restore-lost-cards-migration-description'], /kartice in sezname.*swimlaneId ali listId.*Ustvari stezo »Lost Cards«.*znova vidne/);
+  assert.match(data['restore-lost-cards-nothing-to-restore'], /stez, seznamov ali kartic/);
+  assert.match(data['rescue-card-description-dialogue'], /Prepišem trenutni opis.*vašimi spremembami/);
+  assert.match(data['run-comprehensive-migration-confirm'], /celovitosti podatkov table.*nekaj trenutkov.*nadaljevati/);
+
   for (const key of ['read-assigned-only-desc', 'read-only-desc']) assert.match(data[key], /Ne more urejati/);
   assert.match(data['read-assigned-only-desc'], /samo dodeljene kartice/);
   assert.match(data['poker-delete-pop'], /Brisanje je trajno.*vsa dejanja/);

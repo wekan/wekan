@@ -34431,5 +34431,145 @@
     "before": "Да ли сте сигурни да желите да овој странци забраните увид у ове списе ?",
     "after": "Ali ste prepričani, da želite odstraniti to organizacijo s te table?",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "remove-team-from-table",
+    "before": "Да ли сте сигурни да желите да овом правном тиму укинете увид у ове списе ?",
+    "after": "Ali ste prepričani, da želite odstraniti to ekipo s table?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "rescue-card-description",
+    "before": "Понуди још једну прилику да се забележи несачувани опис предмета пре затварања",
+    "after": "Pred zapiranjem prikaži pogovorno okno za reševanje neshranjenih opisov kartic",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "rescue-card-description-dialogue",
+    "before": "Преписаћете тренутни опис предмета са допуњеним?",
+    "after": "Prepišem trenutni opis kartice z vašimi spremembami?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "restore-all-archived-migration",
+    "before": "Опоравак свих предмета из архиве",
+    "after": "Obnovi vse arhivirano",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "restore-all-archived-migration-description",
+    "before": "Опоравља све архивиране делове поступака, поступке и предмете притом поправљајући недостајућа поља swimlaneId или listId.",
+    "after": "Obnovi vse arhivirane steze, sezname in kartice. Samodejno popravi manjkajoče vrednosti swimlaneId ali listId, da so postavke vidne.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "restore-lost-cards-migration",
+    "before": "Опоравак загубљених предмета",
+    "after": "Obnovi izgubljene kartice",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "restore-lost-cards-migration-description",
+    "before": "Открива и опоравља предмете и делове поступака којима недостају поља swimlaneId или listId и смешта у „Опорављене предмете“.",
+    "after": "Poišče in obnovi kartice in sezname z manjkajočimi vrednostmi swimlaneId ali listId. Ustvari stezo »Lost Cards«, da so vse izgubljene postavke znova vidne.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "restore-lost-cards-nothing-to-restore",
+    "before": "Нема нити загубљених поступака нити предмета за опоравак",
+    "after": "Ni izgubljenih stez, seznamov ali kartic za obnovitev",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "rulesReportTitle",
+    "before": "Извештај везан за правила",
+    "after": "Poročilo o pravilih",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "run-comprehensive-migration-confirm",
+    "before": "Овим ће бити изведене свеобухватне провере и поправке целовитости података у списима. То би кратко трајало уколико сте сагласни?",
+    "after": "S tem boste izvedli celovito selitev za preverjanje in popravljanje celovitosti podatkov table. To lahko traja nekaj trenutkov. Želite nadaljevati?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "remove-team-from-table",
+    "before": "Да ли сте сигурни да желите да овом правном тиму укинете увид у ове списе ?",
+    "after": "Ali ste prepričani, da želite odstraniti to ekipo s table?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "rescue-card-description",
+    "before": "Понуди још једну прилику да се забележи несачувани опис предмета пре затварања",
+    "after": "Pred zapiranjem prikaži pogovorno okno za reševanje neshranjenih opisov kartic",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "rescue-card-description-dialogue",
+    "before": "Преписаћете тренутни опис предмета са допуњеним?",
+    "after": "Prepišem trenutni opis kartice z vašimi spremembami?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "restore-all-archived-migration",
+    "before": "Опоравак свих предмета из архиве",
+    "after": "Obnovi vse arhivirano",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "restore-all-archived-migration-description",
+    "before": "Опоравља све архивиране делове поступака, поступке и предмете притом поправљајући недостајућа поља swimlaneId или listId.",
+    "after": "Obnovi vse arhivirane steze, sezname in kartice. Samodejno popravi manjkajoče vrednosti swimlaneId ali listId, da so postavke vidne.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "restore-lost-cards-migration",
+    "before": "Опоравак загубљених предмета",
+    "after": "Obnovi izgubljene kartice",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "restore-lost-cards-migration-description",
+    "before": "Открива и опоравља предмете и делове поступака којима недостају поља swimlaneId или listId и смешта у „Опорављене предмете“.",
+    "after": "Poišče in obnovi kartice in sezname z manjkajočimi vrednostmi swimlaneId ali listId. Ustvari stezo »Lost Cards«, da so vse izgubljene postavke znova vidne.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "restore-lost-cards-nothing-to-restore",
+    "before": "Нема нити загубљених поступака нити предмета за опоравак",
+    "after": "Ni izgubljenih stez, seznamov ali kartic za obnovitev",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "rulesReportTitle",
+    "before": "Извештај везан за правила",
+    "after": "Poročilo o pravilih",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "run-comprehensive-migration-confirm",
+    "before": "Овим ће бити изведене свеобухватне провере и поправке целовитости података у списима. То би кратко трајало уколико сте сагласни?",
+    "after": "S tem boste izvedli celovito selitev za preverjanje in popravljanje celovitosti podatkov table. To lahko traja nekaj trenutkov. Želite nadaljevati?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
