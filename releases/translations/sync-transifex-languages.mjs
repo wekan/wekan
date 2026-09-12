@@ -22,6 +22,7 @@
 import { readFileSync, readdirSync, existsSync } from 'fs';
 import { homedir } from 'os';
 import path from 'path';
+import { fileURLToPath } from 'node:url';
 
 const API = 'https://rest.api.transifex.com';
 const DATA_DIR = 'imports/i18n/data';
@@ -36,7 +37,7 @@ const listOnly = args.includes('--list');
 // `lang_map = te_IN: te-IN, ...` maps the TRANSIFEX language code (the key) to
 // the name of the local file (the value). Pushing needs the other direction: a
 // file on disk, and the code Transifex knows it by.
-function readConfig() {
+export function readConfig() {
   const text = readFileSync(CONFIG, 'utf8');
 
   const mapLine = text.split('\n').find(l => l.trim().startsWith('lang_map'));
@@ -52,23 +53,25 @@ function readConfig() {
   const section = text.match(/^\[o:([^:]+):p:([^:]+):r:([^\]]+)\]/m);
   if (!section) throw new Error(`${CONFIG}: no [o:...:p:...:r:...] section`);
 
-  return { localToTx, org: section[1], project: section[2], resource: section[3] };
+  return { localToTx, org: section[1], project: section[2], resource: section[3],
+    sourceFile: text.match(/^source_file\s*=\s*(.+)$/m)?.[1].trim(),
+    sourceLanguage: text.match(/^source_lang\s*=\s*(.+)$/m)?.[1].trim() || 'en' };
 }
 
 // Every language WeKan ships, as the code Transifex knows it by. English is the
 // SOURCE language, so it is not a target and is left out.
-function localLanguages({ localToTx }) {
+export function localLanguages({ localToTx, sourceLanguage = 'en' }) {
   return readdirSync(DATA_DIR)
     .filter(f => f.endsWith('.i18n.json'))
     .map(f => f.replace('.i18n.json', ''))
-    .filter(name => name !== 'en')
+    .filter(name => name !== sourceLanguage)
     .map(name => ({ file: name, code: localToTx.get(name) || name }))
     .sort((a, b) => a.code.localeCompare(b.code));
 }
 
 // ── the token ───────────────────────────────────────────────────────────────
 
-function readToken() {
+export function readToken() {
   if (process.env.TX_TOKEN) return process.env.TX_TOKEN.trim();
 
   const rc = path.join(homedir(), '.transifexrc');
@@ -82,8 +85,12 @@ function readToken() {
 
 // ── the API ─────────────────────────────────────────────────────────────────
 
-async function api(token, method, url, body) {
-  const res = await fetch(url.startsWith('http') ? url : API + url, {
+export async function api(token, method, url, body) {
+  const target = new URL(url, API);
+  if (target.origin !== API) throw new Error('Unexpected Transifex API URL');
+  const res = await fetch(target, {
+    signal: AbortSignal.timeout(60000),
+    redirect: 'error',
     method,
     headers: {
       Authorization: `Bearer ${token}`,
@@ -113,7 +120,7 @@ async function api(token, method, url, body) {
 
 // The project's current target languages, following pagination - a project with
 // a couple of hundred languages does not come back in one page.
-async function projectLanguages(token, org, project) {
+export async function projectLanguages(token, org, project) {
   const codes = new Set();
   let url = `/projects/o:${org}:p:${project}/languages`;
 
@@ -131,6 +138,7 @@ async function projectLanguages(token, org, project) {
 
 // ── main ────────────────────────────────────────────────────────────────────
 
+async function main() {
 const config = readConfig();
 const languages = localLanguages(config);
 
@@ -177,7 +185,7 @@ const rejected = [];
 
 for (const lang of missing) {
   try {
-    await api(token, 'POST', `/projects/o:${config.org}:p:${config.project}/languages`, {
+    await api(token, 'POST', `/projects/o:${config.org}:p:${config.project}/relationships/languages`, {
       data: [{ type: 'languages', id: `l:${lang.code}` }],
     });
     added.push(lang.code);
@@ -198,4 +206,9 @@ if (rejected.length) {
     '[tx] created on Transifex first. Its file still ships in WeKan either way;\n' +
     '[tx] only the round trip through Transifex is missing.',
   );
+}
+
+}
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  main().catch(error => { console.error(`[tx] ${error.message}`); process.exitCode = 1; });
 }
