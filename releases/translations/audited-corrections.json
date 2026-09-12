@@ -22321,5 +22321,145 @@
     "before": "%s уопште није исправан предикат",
     "after": "%s не е валиден предикат за отстранување грешки",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "operator-has-invalid",
+    "before": "%s уопште није исправна провера постојања",
+    "after": "%s не е валидна проверка за постоење",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "operator-limit-invalid",
+    "before": "%s уопште није исправно ограничење. Граница се задаје позитивним целим бројем.",
+    "after": "%s не е валидно ограничување. Ограничувањето треба да биде позитивен цел број.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "operator-number-expected",
+    "before": "оператор __operator__ је очекивао неки број а добио је '__value__'",
+    "after": "Операторот __operator__ очекуваше број, а доби '__value__'",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "operator-sort-invalid",
+    "before": "правило за преслагање '%s' није исправно",
+    "after": "Подредувањето '%s' е невалидно",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "org-name-not-found",
+    "before": "Странка по имену '%s' није пронађена.",
+    "after": "Организацијата '%s' не е пронајдена.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "org-number",
+    "before": "Број евидентираних странака је:",
+    "after": "Бројот на организации е: ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "page-maybe-private",
+    "before": "Ови списи су могуће под велом тајности. Можда ћете ипак моћи да их видите кад се <a href='%s'>пријавите овде</a>.",
+    "after": "Оваа страница можеби е приватна. Можеби ќе можете да ја видите ако <a href='%s'>се најавите</a>.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "pastdue",
+    "before": "крајњи рок  %s је пробијен",
+    "after": "Тековниот рок %s е поминат",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "paste-or-dragdrop",
+    "before": " налепите/пренесите/испустите овде слику (важи само за слике)",
+    "after": "за да залепите или повлечете и испуштите слика во него (само слики)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "people-number",
+    "before": "Укупан број сарадника је:",
+    "after": "Бројот на луѓе е: ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "poker-delete-pop",
+    "before": "Брисање има трајни карактер. Изгубићете све радње у вези овог плана за партију покера.",
+    "after": "Бришењето е трајно. Ќе ги изгубите сите дејства поврзани со овој покер за планирање.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "preview-pdf-not-supported",
+    "before": "Ваш уређај не подржава приказивање pdf докумената. Пробајте да преузмете документ.",
+    "after": "Вашиот уред не поддржува преглед на PDF. Обидете се да ја преземете датотеката.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "private-desc",
+    "before": "Ови списи су тајни. Само одобрени сарадници могу да их читају и уређују.",
+    "after": "Оваа табла е приватна. Само луѓето додадени на таблата можат да ја гледаат и уредуваат.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "public-desc",
+    "before": "Ови списи су потпуно јавни. Видљиви су сваком ко има везу до њих и појавиће се и у google претрагама. Једино одобрени сарадници могу бити уредници.",
+    "after": "Оваа табла е јавна. Видлива е за секој што ја има врската и ќе се појавува во пребарувачи како Google. Само луѓето додадени на таблата можат да ја уредуваат.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "push-invite-text",
+    "before": "Поштовани __user__,\n\n__inviter__ Вам је омогућио пун увид у \"__board__\" списе и нада се заједничкој сарадњи.\n\nМолим да испратите везу испод:\n\n__url__\n\nХвала.",
+    "after": "Почитуван/а __user__,\n\n__inviter__ ве поканува да се придружите на таблата \"__board__\" за соработка.\n\nСледете ја врската подолу:\n\n__url__\n\nБлагодариме.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "quick-access-description",
+    "before": "Означите списе звездицом да би овде стајала пречица.",
+    "after": "Означете табла со ѕвезда за да додадете кратенка во оваа лента.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "r-board-note",
+    "before": "Белешка: Непопуњено поље одговара свакој могућој вредности.",
+    "after": "Забелешка: Оставете го полето празно за да се совпадне со секоја можна вредност. ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "r-check-all",
+    "before": "Маркирай всички като завършени",
+    "after": "Означи ги сите",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "r-checklist-note",
+    "before": "Белешка: Ставке на списку морају да буду раздвојене зарезом.",
+    "after": "Забелешка: Ставките од списокот за проверка треба да се напишат како вредности одделени со запирки.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "r-d-check-all",
+    "before": "Означи све ставке са списка као обављене",
+    "after": "Означи ги сите ставки од списокот",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
