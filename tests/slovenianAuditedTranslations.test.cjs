@@ -23,6 +23,13 @@ for (const locale of ['sl', 'sl_SI']) {
   assert.match(data['accounts-lockout-info'], /napadi z grobo silo/);
   assert.doesNotMatch(data['accounts-lockout-info'], /lozinkef/);
   assert.equal(data.MongoDB_storage_engine, 'Shranjevalni pogon MongoDB');
+  assert.match(data['migration-cpu-threshold-description'], /Začasno ustavi.*preseže.*\(10-90\)/);
+  assert.doesNotMatch(data['migration-cpu-threshold-description'], /doseže/);
+  assert.match(data['migration-batch-size-description'], /priponk.*vsakem paketu.*\(1-100\)/);
+  assert.match(data['migration-delay-ms-description'], /med paketi v milisekundah.*\(100-10000\)/);
+  for (const key of ['max-avatar-filesize', 'max-upload-filesize']) assert.match(data[key], /v bajtih/);
+  assert.doesNotMatch(data['migrate-all-to-s3'], /Amazon|oblak/);
+
   assert.match(data['import-board-zip'], /\.zip.*JSON tabel.*podmapami.*priponke/);
   assert.match(data['import-members-map-note'], /Nepreslikani člani.*trenutnemu uporabniku/);
   assert.match(data['keyboard-shortcuts-disabled'], /onemogočene.*Kliknite.*omogočite/);
