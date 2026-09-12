@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Audit keys |
 | --- | ---: |
-| Explicitly corrected | 6,790 |
+| Explicitly corrected | 6,798 |
 | Restored pre-pull values awaiting further validation | 4,059 |
 | Reviewed and retained unchanged | 175 |
-| Pending review or repair | 9,057 |
+| Pending review or repair | 9,049 |
 | Total tracked | 20,081 |
 
 **Translation repairs remain unfinished.** These counts cover flagged findings; unflagged strings and restored values are not certified as correct.
 
-Fixes cover wrong-language text, terminology, warnings, JSON examples, placeholders and calendar/search formatting. The correction history records **6,863 values**, including fixes outside the audit. Per-language remaining work is available through the command below.
+Fixes cover wrong-language text, terminology, warnings, JSON examples, placeholders and calendar/search formatting. The correction history records **6,871 values**, including fixes outside the audit. Per-language remaining work is available through the command below.
 
-Latest fix: [56d013e6e](https://github.com/wekan/wekan/commit/56d013e6e0ab1e0f6915234b3c2b6e99838d5967), **2026-09-13** — eight Romansh card-activity messages repaired; **314 Romansh findings remain**. Exact-value, placeholder, key-order and idempotency checks pass. Wording needs native-speaker review; live browser verification remains unavailable.
+Latest fix: [c730a428f](https://github.com/wekan/wekan/commit/c730a428f1928114f52fcb093a3a76980626d4d0), **2026-09-13** — eight Romansh custom-field/admin values repaired; **306 Romansh findings remain**. Exact-value, placeholder, key-order and idempotency checks pass. Wording needs native-speaker review; live browser verification remains unavailable.
 
 **Provenance:** not all errors came from Transifex. The captured pull changed 4,061 values; the local audit added 16,020 findings. Bosnian errors predated that pull in a [local completion commit](https://github.com/wekan/wekan/commit/bdb3b15886a749b725b5290ba0109fcba955f983). Other ultimate origins remain unverified.
 
