@@ -32569,5 +32569,257 @@
     "before": "Издвој по надлежном сараднику",
     "after": "Filtriraj po članu",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "filter-no-assignee",
+    "before": "Где никоме није дата пуномоћ",
+    "after": "Brez zadolženega uporabnika",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "fix-all-file-urls-migration",
+    "before": "Поправка кад ишчезне предметна грађа",
+    "after": "Popravi vse URL-je datotek",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "fix-all-file-urls-migration-description",
+    "before": "Преусмерава везу ка складишту где се стварно налази предметна грађа из ових списа.",
+    "after": "Posodobi URL-je vseh datotečnih priponk na tej tabli, da uporabljajo pravilno zaledje za shranjevanje, in popravi poškodovane sklice na datoteke.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "fix-avatar-urls-migration",
+    "before": "Поправка кад се не виде слике сарадника",
+    "after": "Popravi URL-je avatarjev",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "fix-avatar-urls-migration-description",
+    "before": "Исправља везу до складишта са сликама сарадника из ових списа.",
+    "after": "Posodobi URL-je avatarjev članov table, da uporabljajo pravilno zaledje za shranjevanje, in popravi poškodovane sklice na avatarje.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "fix-missing-lists-migration",
+    "before": "Поправка кад недостају делови поступка",
+    "after": "Popravi manjkajoče sezname",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "fix-missing-lists-migration-description",
+    "before": "Открива и поправља сваки део поступка који недостаје или који је оштећен.",
+    "after": "Zazna in popravi manjkajoče ali poškodovane sezname v strukturi table.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "globalSearch-instructions-description",
+    "before": "Да би сте сузили резултате претраге предлажемо Вам да почнете да користите операнде. Операнд је математички појам којег овде дефинишемо као целину која се састоји од променљиве и њене припадајуће вредности који су међусобно раздвојени двотачком. На пример, ако задате операнд `део:одложено` то ће сузити претрагу само на оне предмете који су смештени у делу поступка под називом *одложено*. Уколико вредност садржи размак између речи или садржи посебне знакове вредност морате обухватити наводницима (нпр. `__operator_list__:\"у жалбеном поступку\"`).",
+    "after": "Iskanje lahko vključuje operatorje za natančnejše rezultate. Operator določite tako, da njegovo ime in vrednost ločite z dvopičjem. Na primer, `list:Blocked` omeji iskanje na kartice na seznamu z imenom *Blocked*. Če vrednost vsebuje presledke ali posebne znake, jo morate obdati z narekovaji (npr. `__operator_list__:\"To Review\"`).",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "globalSearch-instructions-heading",
+    "before": "Правилник за детаљно претраживање",
+    "after": "Navodila za iskanje",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "globalSearch-instructions-notes-1",
+    "before": "Можете истовремено задати више оператора.",
+    "after": "Določite lahko več operatorjev.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "globalSearch-instructions-notes-2",
+    "before": "Над сродним операторима се изводи операција логичко ИЛИ.  Биће приказани предмети који испуњавају било који од услова.\n`__operator_list__:Припрема  __operator_list__:Жалба`  као резултат приказује све предмете које су било у деоници *Припрема* било у деоници *Жалба*.",
+    "after": "Enaki operatorji so povezani z logičnim *ALI*. Vrnjene so kartice, ki izpolnjujejo katerega koli od pogojev.\n`__operator_list__:Available __operator_list__:Blocked` vrne kartice na katerem koli seznamu z imenom *Blocked* ali *Available*.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "globalSearch-instructions-notes-3",
+    "before": "На несродним операторима се изводи операција логичко И.  Биће приказани само они задаци који испуњавају све услове.  `__operator_list__:Жалба __operator_label__:црвена` приказаће међу свим предметима у *жалбеном* делу поступка само оне са *црвеном* налепницом.",
+    "after": "Različni operatorji so povezani z logičnim *IN*. Vrnjene so samo kartice, ki izpolnjujejo vse različne operatorje. `__operator_list__:Available __operator_label__:red` vrne samo kartice na seznamu *Available* z oznako *red*.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "globalSearch-instructions-notes-3-2",
+    "before": "Дани се могу задати као позитивни или негативни цели бројеви или се користе `__predicate_week__`, `__predicate_month__`, `__predicate_quarter__` or `__predicate_year__` за текући период.",
+    "after": "Dneve lahko določite kot pozitivno ali negativno celo število ali uporabite `__predicate_week__`, `__predicate_month__`, `__predicate_quarter__` ali `__predicate_year__` za trenutno obdobje.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "globalSearch-instructions-notes-4",
+    "before": "Разлика између малих и великих слова се не узима у обзир.",
+    "after": "Besedilno iskanje ne razlikuje med velikimi in malimi črkami.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "globalSearch-instructions-notes-5",
+    "before": "Ако нисте ништа дирали, претрагом неће бити обухваћени предмети из архиве.",
+    "after": "Privzeto se arhivirane kartice ne preiskujejo.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "globalSearch-instructions-operator-assignee",
+    "before": "`__operator_assignee__:<неко>` - предмети где је *<неко>* пуномоћник",
+    "after": "`__operator_assignee__:<username>` – kartice, pri katerih je *<username>* zadolženi uporabnik",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "globalSearch-instructions-operator-at",
+    "before": "`__operator_user_abbrev__корисничко име` - скраћеница за `user:<корисничко име>`",
+    "after": "`__operator_user_abbrev__username` – okrajšava za `user:<username>`",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "globalSearch-instructions-operator-board",
+    "before": "`__operator_board__:<наслов>` - сви предмети у списима са задатим *<насловом>*",
+    "after": "`__operator_board__:<title>` – kartice na tablah, ki ustrezajo določenemu *<title>*",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "filter-no-assignee",
+    "before": "Где никоме није дата пуномоћ",
+    "after": "Brez zadolženega uporabnika",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "fix-all-file-urls-migration",
+    "before": "Поправка кад ишчезне предметна грађа",
+    "after": "Popravi vse URL-je datotek",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "fix-all-file-urls-migration-description",
+    "before": "Преусмерава везу ка складишту где се стварно налази предметна грађа из ових списа.",
+    "after": "Posodobi URL-je vseh datotečnih priponk na tej tabli, da uporabljajo pravilno zaledje za shranjevanje, in popravi poškodovane sklice na datoteke.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "fix-avatar-urls-migration",
+    "before": "Поправка кад се не виде слике сарадника",
+    "after": "Popravi URL-je avatarjev",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "fix-avatar-urls-migration-description",
+    "before": "Исправља везу до складишта са сликама сарадника из ових списа.",
+    "after": "Posodobi URL-je avatarjev članov table, da uporabljajo pravilno zaledje za shranjevanje, in popravi poškodovane sklice na avatarje.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "fix-missing-lists-migration",
+    "before": "Поправка кад недостају делови поступка",
+    "after": "Popravi manjkajoče sezname",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "fix-missing-lists-migration-description",
+    "before": "Открива и поправља сваки део поступка који недостаје или који је оштећен.",
+    "after": "Zazna in popravi manjkajoče ali poškodovane sezname v strukturi table.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "globalSearch-instructions-description",
+    "before": "Да би сте сузили резултате претраге предлажемо Вам да почнете да користите операнде. Операнд је математички појам којег овде дефинишемо као целину која се састоји од променљиве и њене припадајуће вредности који су међусобно раздвојени двотачком. На пример, ако задате операнд `део:одложено` то ће сузити претрагу само на оне предмете који су смештени у делу поступка под називом *одложено*. Уколико вредност садржи размак између речи или садржи посебне знакове вредност морате обухватити наводницима (нпр. `__operator_list__:\"у жалбеном поступку\"`).",
+    "after": "Iskanje lahko vključuje operatorje za natančnejše rezultate. Operator določite tako, da njegovo ime in vrednost ločite z dvopičjem. Na primer, `list:Blocked` omeji iskanje na kartice na seznamu z imenom *Blocked*. Če vrednost vsebuje presledke ali posebne znake, jo morate obdati z narekovaji (npr. `__operator_list__:\"To Review\"`).",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "globalSearch-instructions-heading",
+    "before": "Правилник за детаљно претраживање",
+    "after": "Navodila za iskanje",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "globalSearch-instructions-notes-1",
+    "before": "Можете истовремено задати више оператора.",
+    "after": "Določite lahko več operatorjev.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "globalSearch-instructions-notes-2",
+    "before": "Над сродним операторима се изводи операција логичко ИЛИ.  Биће приказани предмети који испуњавају било који од услова.\n`__operator_list__:Припрема  __operator_list__:Жалба`  као резултат приказује све предмете које су било у деоници *Припрема* било у деоници *Жалба*.",
+    "after": "Enaki operatorji so povezani z logičnim *ALI*. Vrnjene so kartice, ki izpolnjujejo katerega koli od pogojev.\n`__operator_list__:Available __operator_list__:Blocked` vrne kartice na katerem koli seznamu z imenom *Blocked* ali *Available*.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "globalSearch-instructions-notes-3",
+    "before": "На несродним операторима се изводи операција логичко И.  Биће приказани само они задаци који испуњавају све услове.  `__operator_list__:Жалба __operator_label__:црвена` приказаће међу свим предметима у *жалбеном* делу поступка само оне са *црвеном* налепницом.",
+    "after": "Različni operatorji so povezani z logičnim *IN*. Vrnjene so samo kartice, ki izpolnjujejo vse različne operatorje. `__operator_list__:Available __operator_label__:red` vrne samo kartice na seznamu *Available* z oznako *red*.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "globalSearch-instructions-notes-3-2",
+    "before": "Дани се могу задати као позитивни или негативни цели бројеви или се користе `__predicate_week__`, `__predicate_month__`, `__predicate_quarter__` or `__predicate_year__` за текући период.",
+    "after": "Dneve lahko določite kot pozitivno ali negativno celo število ali uporabite `__predicate_week__`, `__predicate_month__`, `__predicate_quarter__` ali `__predicate_year__` za trenutno obdobje.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "globalSearch-instructions-notes-4",
+    "before": "Разлика између малих и великих слова се не узима у обзир.",
+    "after": "Besedilno iskanje ne razlikuje med velikimi in malimi črkami.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "globalSearch-instructions-notes-5",
+    "before": "Ако нисте ништа дирали, претрагом неће бити обухваћени предмети из архиве.",
+    "after": "Privzeto se arhivirane kartice ne preiskujejo.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "globalSearch-instructions-operator-assignee",
+    "before": "`__operator_assignee__:<неко>` - предмети где је *<неко>* пуномоћник",
+    "after": "`__operator_assignee__:<username>` – kartice, pri katerih je *<username>* zadolženi uporabnik",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "globalSearch-instructions-operator-at",
+    "before": "`__operator_user_abbrev__корисничко име` - скраћеница за `user:<корисничко име>`",
+    "after": "`__operator_user_abbrev__username` – okrajšava za `user:<username>`",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "globalSearch-instructions-operator-board",
+    "before": "`__operator_board__:<наслов>` - сви предмети у списима са задатим *<насловом>*",
+    "after": "`__operator_board__:<title>` – kartice na tablah, ki ustrezajo določenemu *<title>*",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

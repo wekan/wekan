@@ -23,6 +23,13 @@ for (const locale of ['sl', 'sl_SI']) {
   assert.match(data['accounts-lockout-info'], /napadi z grobo silo/);
   assert.doesNotMatch(data['accounts-lockout-info'], /lozinkef/);
   assert.equal(data.MongoDB_storage_engine, 'Shranjevalni pogon MongoDB');
+  assert.match(data['fix-all-file-urls-migration-description'], /vseh datotečnih priponk.*pravilno zaledje.*poškodovane sklice/);
+  assert.match(data['fix-avatar-urls-migration-description'], /članov table.*pravilno zaledje.*poškodovane sklice/);
+  assert.match(data['globalSearch-instructions-notes-2'], /logičnim \*ALI\*.*katerega koli/);
+  assert.match(data['globalSearch-instructions-notes-3'], /logičnim \*IN\*.*vse različne/);
+  assert.match(data['globalSearch-instructions-notes-5'], /Privzeto.*ne preiskujejo/);
+  assert.match(data['globalSearch-instructions-description'], /`list:Blocked`.*`__operator_list__:"To Review"`/);
+
   assert.match(data['dueCardsViewChange-choice-all-description'], /vse nedokončane kartice.*\*roka\*.*uporabnik dovoljenje/);
   assert.match(data['editVoteEndDatePopup-title'], /datum konca glasovanja/);
   assert.match(data['editPokerEndDatePopup-title'], /datum konca glasovanja.*pokru načrtovanja/);
