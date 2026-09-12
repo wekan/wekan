@@ -416,3 +416,11 @@ assert.equal(data['server-error-troubleshooting'].split('\n').length, 3);
 assert.match(data['set-swimlane-height'], /Establecer l’altor del carril/);
 assert.match(data['set-swimlane-height-value'], /Altor del carril \(píxeles\)/);
 assert.doesNotMatch(data['set-swimlane-height-value'], /anchor/);
+
+assert.match(data['set-wip-limit-value'], /llende pal númberu máximu de xeres nesta llista/);
+assert.equal(data['setSwimlaneHeightPopup-title'], data['set-swimlane-height']);
+assert.match(data['setWipLimitPopup-title'], /llende del trabayu en cursu/);
+assert.match(data['settingsTranslationPopup-title'], /Eliminar esta cadena de traducción personalizada/);
+assert.match(data['shortcut-clear-filters'], /Llimpiar tolos filtros/);
+assert.match(data['shortcut-close-dialog'], /Zarrar el cuadru de diálogu/);
+assert.doesNotMatch(data['shortcut-close-dialog'], /Eliminar/);

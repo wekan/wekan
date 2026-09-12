@@ -43573,5 +43573,47 @@
     "before": "Altura de carril (píxeles)",
     "after": "Altor del carril (píxeles)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "set-wip-limit-value",
+    "before": "Cambiar el límite para el número máximo de tareas en esta lista.",
+    "after": "Establecer una llende pal númberu máximu de xeres nesta llista",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "setSwimlaneHeightPopup-title",
+    "before": "Ajustar la altura del carril",
+    "after": "Establecer l’altor del carril",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "setWipLimitPopup-title",
+    "before": "Establecer el límite del trabajo en proceso",
+    "after": "Establecer la llende del trabayu en cursu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "settingsTranslationPopup-title",
+    "before": "¿Borrar esta cadena de traducción personalizada?",
+    "after": "¿Eliminar esta cadena de traducción personalizada?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "shortcut-clear-filters",
+    "before": "Limpiar todos los filtros",
+    "after": "Llimpiar tolos filtros",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "shortcut-close-dialog",
+    "before": "Cerrar el cuadro de diálogo",
+    "after": "Zarrar el cuadru de diálogu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
