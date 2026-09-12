@@ -558,6 +558,15 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/60364ccc13af1e5f52aac7f53ca81d22ecdc5259">Fix Galician regional account and memory diagnostics translations</a></summary>
+
+Replace 23 Portuguese values with reviewed Galician. Preserve account requirements and worker restrictions, distinguish heap from stack, and correct storage-engine and memory diagnostic labels. Translation meaning, placeholder, key-order and idempotency regression checks pass.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/767bbcd84ef64c0c9956c1fe8f55ec3736003e7d">Fix Galician regional display and swimlane translations</a></summary>
 
 Replace 25 Portuguese values with reviewed Galician. Restore assignee shortcut terminology and preserve swimlane archive and deletion warnings, private-only visibility, notification scope and export restrictions. Translation meaning, placeholder, key-order and idempotency regression checks pass.
