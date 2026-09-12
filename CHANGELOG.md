@@ -558,6 +558,13 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/6d3cbf6b3">Repair Bosnian board scheduling and settings translations</a>. Thanks to xet7.</summary>
+
+Correct 16 flagged values. Positive and negative regressions verify scheduling results, All Boards scope, board-icon instructions and archived-card visibility. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/21d4a3fb7">Repair Bosnian attachment storage and avatar translations</a>. Thanks to xet7.</summary>
 
 Correct 18 flagged values. Positive and negative regressions verify storage destinations, clickable URL schemes, automatic user addition, avatar limits and new-card scope. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
