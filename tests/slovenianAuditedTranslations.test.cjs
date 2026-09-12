@@ -23,6 +23,12 @@ for (const locale of ['sl', 'sl_SI']) {
   assert.match(data['accounts-lockout-info'], /napadi z grobo silo/);
   assert.doesNotMatch(data['accounts-lockout-info'], /lozinkef/);
   assert.equal(data.MongoDB_storage_engine, 'Shranjevalni pogon MongoDB');
+  assert.match(data['showSum-field-on-list'], /vsoto polj na vrhu seznama/);
+  assert.doesNotMatch(data['showSum-field-on-list'], /število polj/);
+  assert.match(data['show-card-counter-per-list'], /število kartic na seznam/);
+  for (const key of ['show-list-on-minicard', 'showChecklistAtMinicard']) assert.match(data[key], /mini kartici/);
+  assert.match(data['show-board_members-avatar'], /avatarje članov table/);
+
   assert.match(data['search-cards'], /naslovih kartic in seznamov, opisih.*poljih po meri na tej tabli/);
   assert.match(data['server-error-troubleshooting'], /`sudo snap logs wekan.wekan`/);
   assert.match(data['server-error-troubleshooting'], /`sudo docker logs wekan-app`/);

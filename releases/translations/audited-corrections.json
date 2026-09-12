@@ -34991,5 +34991,145 @@
     "before": "Издвој предмете где сам пуномоћник",
     "after": "Filtriraj moje dodeljene kartice",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "show-at-all-boards-page",
+    "before": "Смести на полицу са списима",
+    "after": "Prikaži na strani vseh tabel",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "show-board_members-avatar",
+    "before": "Прикажи слике сарадника на омоту списа",
+    "after": "Prikaži avatarje članov table",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "show-card-counter-per-list",
+    "before": "Прикажи бројач предмета на сваком делу тока поступка",
+    "after": "Prikaži število kartic na seznam",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "show-list-on-minicard",
+    "before": "Прикажи део поступка на омоту",
+    "after": "Prikaži seznam na mini kartici",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "show-subtasks-field",
+    "before": "Прикажи поље издвојени послови",
+    "after": "Prikaži polje podopravil",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "showChecklistAtMinicard",
+    "before": "Прикажи предметну радњу на омоту",
+    "after": "Prikaži kontrolni seznam na mini kartici",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "showSum-field-on-list",
+    "before": "Прикажи збирни број придружених рубрика на врху деонице",
+    "after": "Prikaži vsoto polj na vrhu seznama",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "start-day-of-week",
+    "before": "Постави који дан се рачуна за почетак недеље",
+    "after": "Nastavi začetni dan tedna",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "step-convert-shared-lists",
+    "before": "Претварам дељене делове поступка",
+    "after": "Pretvori skupne sezname",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "step-create-missing-lists",
+    "before": "Стварам недостајуће делове",
+    "after": "Ustvari manjkajoče sezname",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "show-at-all-boards-page",
+    "before": "Смести на полицу са списима",
+    "after": "Prikaži na strani vseh tabel",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "show-board_members-avatar",
+    "before": "Прикажи слике сарадника на омоту списа",
+    "after": "Prikaži avatarje članov table",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "show-card-counter-per-list",
+    "before": "Прикажи бројач предмета на сваком делу тока поступка",
+    "after": "Prikaži število kartic na seznam",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "show-list-on-minicard",
+    "before": "Прикажи део поступка на омоту",
+    "after": "Prikaži seznam na mini kartici",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "show-subtasks-field",
+    "before": "Прикажи поље издвојени послови",
+    "after": "Prikaži polje podopravil",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "showChecklistAtMinicard",
+    "before": "Прикажи предметну радњу на омоту",
+    "after": "Prikaži kontrolni seznam na mini kartici",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "showSum-field-on-list",
+    "before": "Прикажи збирни број придружених рубрика на врху деонице",
+    "after": "Prikaži vsoto polj na vrhu seznama",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "start-day-of-week",
+    "before": "Постави који дан се рачуна за почетак недеље",
+    "after": "Nastavi začetni dan tedna",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "step-convert-shared-lists",
+    "before": "Претварам дељене делове поступка",
+    "after": "Pretvori skupne sezname",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "step-create-missing-lists",
+    "before": "Стварам недостајуће делове",
+    "after": "Ustvari manjkajoče sezname",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
