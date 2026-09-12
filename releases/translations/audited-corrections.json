@@ -30287,5 +30287,145 @@
     "before": "Исцртавај лист који се окреће",
     "after": "Kazalnik čakanja z vrtečo se ravnino",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "acceptance_of_our_legalNotice",
+    "before": "Ако наставите даље, сагласни сте да прихватате наше",
+    "after": "Z nadaljevanjem sprejemate naše",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "accessibility-info-not-added-yet",
+    "before": "Информације намењене особама са посебним потешкоћама, за сада, нису додате",
+    "after": "Informacije o dostopnosti še niso dodane",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "accessibility-page-enabled",
+    "before": "Омогући страницу за особе са посебним потешкоћама",
+    "after": "Stran za dostopnost je omogočena",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "accounts-lockout-all-users-unlocked",
+    "before": "Сви сарадници којима је претходно било одузето право пријаве су скинути са ове мере",
+    "after": "Vsi zaklenjeni uporabniki so odklenjeni",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "accounts-lockout-click-to-unlock",
+    "before": "Притисните да налог добије право приступа",
+    "after": "Kliknite za odklep tega uporabnika",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "accounts-lockout-confirm-unlock",
+    "before": "Да ли сте сигурни да желите да скинете овај налог са мера?",
+    "after": "Ali ste prepričani, da želite odkleniti tega uporabnika?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "accounts-lockout-confirm-unlock-all",
+    "before": "Да ли сте сигурни да желите да скинете све налоге са мера?",
+    "after": "Ali ste prepričani, da želite odkleniti vse zaklenjene uporabnike?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "accounts-lockout-failure-window",
+    "before": "Временски оквир у којем се одиграва насилан упад (у секундама)",
+    "after": "Časovno obdobje neuspelih poskusov (sekunde)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "accounts-lockout-failures-before",
+    "before": "Граница неуспешних покушаја пријаве (након које се сараднику одузима право приступа)",
+    "after": "Število neuspelih poskusov pred zaklepanjem",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "accounts-lockout-info",
+    "before": "Овим мерама се штитимо од насилних покушаја пријављивања погађањем лозинкеf.",
+    "after": "Te nastavitve določajo zaščito poskusov prijave pred napadi z grobo silo.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "acceptance_of_our_legalNotice",
+    "before": "Ако наставите даље, сагласни сте да прихватате наше",
+    "after": "Z nadaljevanjem sprejemate naše",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "accessibility-info-not-added-yet",
+    "before": "Информације намењене особама са посебним потешкоћама, за сада, нису додате",
+    "after": "Informacije o dostopnosti še niso dodane",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "accessibility-page-enabled",
+    "before": "Омогући страницу за особе са посебним потешкоћама",
+    "after": "Stran za dostopnost je omogočena",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "accounts-lockout-all-users-unlocked",
+    "before": "Сви сарадници којима је претходно било одузето право пријаве су скинути са ове мере",
+    "after": "Vsi zaklenjeni uporabniki so odklenjeni",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "accounts-lockout-click-to-unlock",
+    "before": "Притисните да налог добије право приступа",
+    "after": "Kliknite za odklep tega uporabnika",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "accounts-lockout-confirm-unlock",
+    "before": "Да ли сте сигурни да желите да скинете овај налог са мера?",
+    "after": "Ali ste prepričani, da želite odkleniti tega uporabnika?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "accounts-lockout-confirm-unlock-all",
+    "before": "Да ли сте сигурни да желите да скинете све налоге са мера?",
+    "after": "Ali ste prepričani, da želite odkleniti vse zaklenjene uporabnike?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "accounts-lockout-failure-window",
+    "before": "Временски оквир у којем се одиграва насилан упад (у секундама)",
+    "after": "Časovno obdobje neuspelih poskusov (sekunde)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "accounts-lockout-failures-before",
+    "before": "Граница неуспешних покушаја пријаве (након које се сараднику одузима право приступа)",
+    "after": "Število neuspelih poskusov pred zaklepanjem",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "accounts-lockout-info",
+    "before": "Овим мерама се штитимо од насилних покушаја пријављивања погађањем лозинкеf.",
+    "after": "Te nastavitve določajo zaščito poskusov prijave pred napadi z grobo silo.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
