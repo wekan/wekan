@@ -40248,5 +40248,89 @@
     "before": "`__operator_label__:<color>` `__operator_label__:<name>` - tarxetas que teñen unha etiqueta que coincide con *<color>* ou *<name>",
     "after": "`__operator_label__:<color>` `__operator_label__:<name>` - tarxetas que teñen unha etiqueta que coincide con *<color>* ou *<name>*",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "accounts-allowUserDelete",
+    "before": "Permitir a los usuarios eliminar su cuenta",
+    "after": "Permitir a los usuarios eliminar la so cuenta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "accounts-allowUserNameChange",
+    "before": "Permitir cambiar el nombre de usuario",
+    "after": "Cambéu del nome d'usuariu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "accounts-lockout-click-to-unlock",
+    "before": "Haz clic para desbloquear a este usuario",
+    "after": "Fai clic pa desbloquiar esti usuariu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "accounts-lockout-confirm-unlock",
+    "before": "¿Estas seguro de querer desbloquear a este usuario?",
+    "after": "¿Tas seguru de querer desbloquiar esti usuariu?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "accounts-lockout-confirm-unlock-all",
+    "before": "¿Estás seguro de querer desbloquear todos los usuarios bloqueados?",
+    "after": "¿Tas seguru de querer desbloquiar tolos usuarios bloquiaos?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "accounts-lockout-info",
+    "before": "Estas opciones de configuración controlan cómo los inicios de sesión se protegen de ataques de fuerza bruta.",
+    "after": "Estes preferencies controlen cómo se protexen los intentos d'aniciu de sesión contra ataques de fuercia bruto.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "accounts-lockout-known-users",
+    "before": "Configuración para usuarios conocidos (nombre de usuario correcto, contraseña incorrecta)",
+    "after": "Preferencies pa usuarios conocíos (nome d'usuariu correutu, contraseña incorreuta)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "accounts-lockout-locked-users-info",
+    "before": "Usuarios actualmente bloqueados debido a demasiados intentos fallidos de inicio de sesión",
+    "after": "Usuarios bloquiaos anguaño por demasiaos intentos fallíos d'aniciu de sesión",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "accounts-lockout-settings",
+    "before": "Configuración de protección de ataques de fuerza bruta",
+    "after": "Preferencies de proteición contra ataques de fuercia bruto",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "accounts-lockout-settings-updated",
+    "before": "La configuración de protección de fuerza bruta se ha actualizado",
+    "after": "Actualizáronse les preferencies de proteición contra ataques de fuercia bruto",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "accounts-lockout-unknown-users",
+    "before": "Configuración para usuarios desconocidos (nombre de usuario desconocido)",
+    "after": "Preferencies pa usuarios desconocíos (nome d'usuariu que nun esiste)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "accounts-lockout-user-locked",
+    "before": "El usuario está bloqueado",
+    "after": "L'usuariu ta bloquiáu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
