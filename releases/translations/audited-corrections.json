@@ -47255,5 +47255,26 @@
     "before": "Islamic tabular",
     "after": "islamiskur kalendari (talvuskapaður, stjørnufrøðilig byrjan á tíðarteljing)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "scn",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "Calannariu nazziunali indianu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "scn",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "Calannariu slàmicu (Arabbia Saudita, ussirvazzioni dâ luna)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "scn",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "Calannariu slàmicu (tabulari, èpuca astrunòmica)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
