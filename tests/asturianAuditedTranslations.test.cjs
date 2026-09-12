@@ -157,3 +157,7 @@ assert.match(data['act-almostdue'], /se ta averando/);
 assert.match(data['act-duenow'], /ye agora/);
 assert.match(data['act-pastdue'], /yá pasó/);
 assert.match(data['act-a-dueAt'], /__timeValue__.*\nÓnde: __card__.*\n.*__timeOldValue__/);
+assert.match(data['activity-checklist-uncompleted'], /marcó como incompleta.*%s de %s/);
+assert.match(data['activity-checklist-uncompleted-card'], /marcó como incompleta/);
+assert.notEqual(data['activity-checklist-completed'], data['activity-checklist-uncompleted']);
+assert.match(data['activity-checked-item'], /marcó %s.*comprobación %s de %s/);

@@ -42103,5 +42103,75 @@
     "before": "se ha notificado que el vencimiento actual (__timeValue__) de __card__ se sobrepasó",
     "after": "recordaba que el vencimientu actual (__timeValue__) de __card__ yá pasó",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "act-withDue",
+    "before": "__list__/__card__ notificaciones de vencimiento [__board__]",
+    "after": "__list__/__card__ recordatorios de vencimientu [__board__]",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "activity-checked-item",
+    "before": "marcado %s en la lista de verificación %s de %s",
+    "after": "marcó %s na llista de comprobación %s de %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "activity-checked-item-card",
+    "before": "marcado %s en la lista de verificación %s",
+    "after": "marcó %s na llista de comprobación %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "activity-checklist-added",
+    "before": "ha agregado una lista de verificación a %s",
+    "after": "añadió una llista de comprobación a %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "activity-checklist-completed",
+    "before": "lista de verificación completada %s de %s",
+    "after": "completó la llista de comprobación %s de %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "activity-checklist-item-added",
+    "before": "ha agregado el elemento de la lista de verificación a '%s' en %s",
+    "after": "añadió un elementu a la llista de comprobación '%s' en %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "activity-checklist-uncompleted",
+    "before": "no completado la lista %s de %s",
+    "after": "marcó como incompleta la llista de comprobación %s de %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "activity-checklist-uncompleted-card",
+    "before": "no completó la lista de verificación %s",
+    "after": "marcó como incompleta la llista de comprobación %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "activity-customfield-created",
+    "before": "creó el campo personalizado %s",
+    "after": "creó el campu personalizáu %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "activity-dueDate",
+    "before": "editada la fecha de vencimiento a %s de %s",
+    "after": "cambió la fecha de vencimientu a %s de %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
