@@ -558,6 +558,13 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/9adbfda106bc50b035a415d7e9a2162ebff8972a">Repair Galician regional JSON validation and Excel export messages</a>. Thanks to xet7.</summary>
+
+Repair eight regional values with reviewed Galician wording. Preserve JSON validation distinctions, authorization denial, disk-space failures and export scope. Meaning, exact-value, placeholder, key-order and idempotency checks pass. The short translation audit records current progress.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/db4c2bdd9b211960fd3bd3f1734f7d02f5343e6a">Repair Galician regional invitations and board permission errors</a>. Thanks to xet7.</summary>
 
 Repair eight regional values with reviewed Galician wording. Preserve invitation codes/links, member/admin distinctions, CSV/TSV separators and due-card view aliases. Actual registration-email rendering, meaning, exact-value, placeholder, key-order and idempotency checks pass. The short translation audit records current progress.
