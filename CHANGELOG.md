@@ -557,6 +557,20 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/0432fb50a">Finish all audited Romanian translation repairs</a>. Thanks to xet7.</summary>
+
+Correct the final 670 audited values across both Romanian locales, including
+invitations, imports, permission warnings, administration, archives, search
+instructions and Hijri calendar variants. Both Romanian audit queues are now
+complete. Positive and negative checks cover native vocabulary, Boolean meaning,
+JSON fields, executable query examples and actual date/card sprintf order.
+Correction, progress and human-preference checks pass. Browser regressions are
+registered and syntax-checked; live Meteor execution was unavailable.
+Other locale findings remain under review.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/9c974f034">Repair Italian-seeded Romanian kanban labels and activity messages</a>. Thanks to xet7.</summary>
 
 Correct 160 values across the two Romanian locales, covering account protection,
