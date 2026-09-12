@@ -15,7 +15,6 @@ template(name="editDateForm")
     form.edit-date(class="{{#if customFieldControls}}custom-field-date-editor{{/if}}")
       .fields
         .left
-          label {{_ 'date'}}
           +calendarDateInput(inputId="date" inputName="date" fieldClass="js-date-field" value=showDate inline=true)
         .right
           label {{_ 'time'}}

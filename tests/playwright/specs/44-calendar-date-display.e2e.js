@@ -31,6 +31,9 @@ test('Jalali mouse and keyboard selection saves the same native instant in an En
   await expect(popup.locator('.selected-calendar-picker')).toBeVisible();
   await expect(popup.locator('.js-calendar-toggle')).toHaveCount(0);
   await expect(popup.locator('.selected-calendar-date')).toContainText('1405-01-01');
+  await expect(popup.locator('.selected-calendar-heading')).toContainText('Farvardin');
+  await expect(popup.locator('.selected-calendar-heading .selected-calendar-date')).toHaveCount(1);
+  await expect(popup.locator('.fields > .left > label')).toHaveCount(0);
   const calendarWidth = await popup.locator('.selected-calendar-picker').evaluate(el => el.getBoundingClientRect().width);
   const fieldsWidth = await popup.locator('.fields').evaluate(el => el.getBoundingClientRect().width);
   expect(Math.abs(calendarWidth - fieldsWidth)).toBeLessThan(2);

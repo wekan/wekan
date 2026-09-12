@@ -4,10 +4,7 @@ template(name="calendarDateInput")
       input(type=inputType id=inputId name=inputName class=fieldClass value=value autofocus=autofocus)
     else
       input.js-calendar-native-value(type="hidden" id=inputId name=inputName class=fieldClass value=value)
-      if inline
-        if selectedDateText
-          .selected-calendar-date {{selectedDateText}}
-      else
+      unless inline
         button.js-calendar-toggle(type="button" aria-label="{{_ 'date'}}" aria-expanded=expanded)
           if selectedDateText
             | {{selectedDateText}}
@@ -21,7 +18,10 @@ template(name="calendarDateInput")
           .selected-calendar-heading
             button.primary.js-calendar-year-previous(type="button" aria-label="{{_ 'previous'}} {{_ 'predicate-year'}}") «
             button.primary.js-calendar-previous(type="button" aria-label="{{_ 'previous'}} {{_ 'month'}}") ‹
-            span(aria-live="polite") {{monthLabel}}
+            span(aria-live="polite")
+              | {{monthLabel}}
+              if inline
+                span.selected-calendar-date {{headingDateText}}
             button.primary.js-calendar-next(type="button" aria-label="{{_ 'next'}} {{_ 'month'}}") ›
             button.primary.js-calendar-year-next(type="button" aria-label="{{_ 'next'}} {{_ 'predicate-year'}}") »
           table

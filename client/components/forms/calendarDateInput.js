@@ -53,13 +53,18 @@ Template.calendarDateInput.helpers({
   useNativeInput() { return !this.inline && dateDisplayPreferences().calendarSystem === 'gregorian'; },
   inputType() { return this.withTime ? 'datetime-local' : 'date'; },
   selectedDateText() { return formatDateForDisplay(Template.instance().selectedDate.get(), false); },
+  headingDateText() {
+    const tpl = Template.instance();
+    return formatDateForDisplay(tpl.selectedDate.get() || tpl.shownDate.get(), false);
+  },
   expanded() { return !!Template.instance().data.inline || Template.instance().expanded.get(); },
   calendarName() { return TAPi18n.__(selectedSystem().labelKey); },
   monthLabel() {
     const date = Template.instance().shownDate.get();
     try {
       return new Intl.DateTimeFormat(TAPi18n.getLanguage() || 'en', {
-        calendar: selectedSystem().intl, month: 'long', year: 'numeric', numberingSystem: 'latn',
+        calendar: selectedSystem().intl, month: 'long',
+        ...(Template.instance().data.inline ? {} : { year: 'numeric' }), numberingSystem: 'latn',
       }).format(date);
     } catch (error) { return formatDateForDisplay(date, false); }
   },

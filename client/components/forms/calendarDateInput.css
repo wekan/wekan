@@ -72,3 +72,7 @@
   margin-bottom: 0;
   padding-inline: 4px;
 }
+
+.selected-calendar-heading .selected-calendar-date {
+  margin-inline-start: 4px;
+}
