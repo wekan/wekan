@@ -558,6 +558,13 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/5e13d325d">Repair Bosnian administration and workspace translations</a>. Thanks to xet7.</summary>
+
+Correct 20 flagged values. Positive and negative regressions verify member-removal permission, activation, logged-in scope, literal HTML and the refresh data-loss warning. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/ca539fbe7">Repair Bosnian date activities and reminders</a>. Thanks to xet7.</summary>
 
 Correct 20 flagged values, restoring first-reminder, due-now and custom-field clearing meanings. Positive and negative regressions and actual i18next/sprintf rendering verify dates and mentions. Source-token, target-script, exact-value, key-order and repair checks pass. Audit.md records dated progress.
