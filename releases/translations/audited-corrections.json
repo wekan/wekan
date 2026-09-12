@@ -33927,5 +33927,173 @@
     "before": "Премести целокупну предметну грађу из списа у облак на Amazon S3",
     "after": "Premakni vse priponke v S3",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "multi-selection-active",
+    "before": "Штиклирајте да би изабрали списе",
+    "after": "Kliknite potrditvena polja za izbiro tabel",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "multi-selection-label",
+    "before": "Залепите или одлепите налепнице на одабране предмете",
+    "after": "Nastavi oznako za izbor",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "my-cards",
+    "before": "Предмети где имам надлежност",
+    "after": "Moje kartice",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "myCardsSortChange-choice-board",
+    "before": "По деловодном броју списа",
+    "after": "Po tabli",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "myCardsSortChange-title",
+    "before": "Редослед предмета где имам пуномоћ",
+    "after": "Razvrščanje mojih kartic",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "myCardsSortChangePopup-title",
+    "before": "Поређај предмете где имам пуномоћ",
+    "after": "Razvrščanje mojih kartic",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "myCardsViewChangePopup-title",
+    "before": "Такви предмети треба да буду",
+    "after": "Pogled mojih kartic",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "n-cards-found",
+    "before": "Број пронађених предмета: %s",
+    "after": "Najdenih kartic: %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "newlineBecomesNewChecklistItem",
+    "before": "Сваки ред текста постаје ставка на списку",
+    "after": "Vsaka vrstica besedila postane postavka kontrolnega seznama",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "newlineBecomesNewChecklistItemOriginOrder",
+    "before": "Сваки ред текста постаје ставка на списку - по изворном редоследу уноса",
+    "after": "Vsaka vrstica besedila postane postavka kontrolnega seznama v izvirnem vrstnem redu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "no-assignee",
+    "before": "Где никоме није дата пуномоћ",
+    "after": "Brez zadolženega uporabnika",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "no-cards-found",
+    "before": "Није пронађен ни један предмет",
+    "after": "Ni najdenih kartic",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "multi-selection-active",
+    "before": "Штиклирајте да би изабрали списе",
+    "after": "Kliknite potrditvena polja za izbiro tabel",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "multi-selection-label",
+    "before": "Залепите или одлепите налепнице на одабране предмете",
+    "after": "Nastavi oznako za izbor",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "my-cards",
+    "before": "Предмети где имам надлежност",
+    "after": "Moje kartice",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "myCardsSortChange-choice-board",
+    "before": "По деловодном броју списа",
+    "after": "Po tabli",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "myCardsSortChange-title",
+    "before": "Редослед предмета где имам пуномоћ",
+    "after": "Razvrščanje mojih kartic",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "myCardsSortChangePopup-title",
+    "before": "Поређај предмете где имам пуномоћ",
+    "after": "Razvrščanje mojih kartic",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "myCardsViewChangePopup-title",
+    "before": "Такви предмети треба да буду",
+    "after": "Pogled mojih kartic",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "n-cards-found",
+    "before": "Број пронађених предмета: %s",
+    "after": "Najdenih kartic: %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "newlineBecomesNewChecklistItem",
+    "before": "Сваки ред текста постаје ставка на списку",
+    "after": "Vsaka vrstica besedila postane postavka kontrolnega seznama",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "newlineBecomesNewChecklistItemOriginOrder",
+    "before": "Сваки ред текста постаје ставка на списку - по изворном редоследу уноса",
+    "after": "Vsaka vrstica besedila postane postavka kontrolnega seznama v izvirnem vrstnem redu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "no-assignee",
+    "before": "Где никоме није дата пуномоћ",
+    "after": "Brez zadolženega uporabnika",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "no-cards-found",
+    "before": "Није пронађен ни један предмет",
+    "after": "Ni najdenih kartic",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
