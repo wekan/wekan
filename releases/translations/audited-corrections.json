@@ -42544,5 +42544,75 @@
     "before": "Personalizar la URL del logotipo en la esquina superior izquierda",
     "after": "URL de la imaxe del logotipu personalizáu de la esquina superior izquierda",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "custom-top-left-corner-logo-link-url",
+    "before": "Personalizar el enlace del logotipo de la esquina superior izquierda",
+    "after": "URL del enllaz del logotipu personalizáu de la esquina superior izquierda",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "default-authentication-method",
+    "before": "Método de autenticación por defecto",
+    "after": "Métodu d’autenticación por defeutu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "delete-org-confirm-popup",
+    "before": "¿Estás seguro de querer eliminar esta organización? Esta acción no puede deshacerse.",
+    "after": "¿De xuru que quies eliminar esta organización? Nun se puede desfacer.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "delete-team-confirm-popup",
+    "before": "¿Estás seguro de querer eliminar este equipo? Esta acción no puede deshacerse",
+    "after": "¿De xuru que quies eliminar esti equipu? Nun se puede desfacer.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "delete-translation-confirm-popup",
+    "before": "¿Estás seguro de querer eliminar esta cadena de traducción personalizada? Esta acción no puede deshacerse.",
+    "after": "¿De xuru que quies eliminar esta cadena de traducción personalizada? Nun se puede desfacer.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "delete-user-confirm-popup",
+    "before": "¿Estás seguro de querer eliminar esta cuenta? Esta acción no puede deshacerse.",
+    "after": "¿De xuru que quies eliminar esta cuenta? Nun se puede desfacer.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "deleteCustomFieldPopup-title",
+    "before": "¿Eliminar el campo personalizado?",
+    "after": "¿Eliminar el campu personalizáu?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "deletePokerPopup-title",
+    "before": "¿Borrar el Planning Poker?",
+    "after": "¿Eliminar el Planning Poker?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "deposit-subtasks-list",
+    "before": "Lista de destino para subtareas depositadas aquí:",
+    "after": "Llista de destín pa les subtarees depositaes equí:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "disable-webhook",
+    "before": "Deshabilitar este Webhook",
+    "after": "Desactivar esti Webhook",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

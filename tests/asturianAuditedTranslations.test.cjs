@@ -216,3 +216,17 @@ assert.notEqual(data['custom-login-logo-image-url'], data['custom-login-logo-lin
 assert.match(data['custom-product-name'], /Nome personalizáu del productu/);
 assert.match(data['custom-top-left-corner-logo-height'], /Altor.*Por defeutu: 27$/);
 assert.match(data['custom-top-left-corner-logo-image-url'], /URL de la imaxe.*esquina superior izquierda/);
+
+for (const key of ['delete-org-confirm-popup', 'delete-team-confirm-popup', 'delete-translation-confirm-popup', 'delete-user-confirm-popup']) {
+  assert.match(data[key], /quies eliminar.*Nun se puede desfacer/);
+  assert.doesNotMatch(data[key], /archivar|recuperar/);
+}
+assert.match(data['delete-team-confirm-popup'], /esti equipu/);
+assert.match(data['delete-user-confirm-popup'], /esta cuenta/);
+assert.match(data['delete-translation-confirm-popup'], /cadena de traducción personalizada/);
+assert.match(data['deleteCustomFieldPopup-title'], /campu personalizáu/);
+assert.match(data['deletePokerPopup-title'], /Eliminar el Planning Poker/);
+assert.match(data['deposit-subtasks-list'], /Llista de destín pa les subtarees depositaes equí/);
+assert.match(data['disable-webhook'], /Desactivar esti Webhook/);
+assert.match(data['custom-top-left-corner-logo-link-url'], /URL del enllaz.*esquina superior izquierda/);
+assert.match(data['default-authentication-method'], /Métodu d’autenticación por defeutu/);
