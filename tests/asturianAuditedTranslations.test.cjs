@@ -329,3 +329,14 @@ assert.match(data['migration-start-failed'], /Falló l’aniciu/);
 assert.match(data['migration-started'], /aniciáronse correutamente/);
 assert.doesNotMatch(data['migration-started'], /Falló/);
 assert.notEqual(data['migration-pause-failed'], data['migration-start-failed']);
+
+assert.match(data['migration-stop-confirm'], /parar toles migraciones/);
+assert.match(data['migration-stop-failed'], /Falló la parada/);
+assert.match(data['migration-stopped'], /paráronse correutamente/);
+assert.doesNotMatch(data['migration-stopped'], /Falló/);
+assert.match(data['mobile-desktop-toggle'], /mou móvil y el mou d’escritoriu/);
+assert.match(data['mongodb-gridfs-storage'], /Almacenamientu MongoDB GridFS/);
+assert.match(data['move-all-attachments-to-fs'], /Mover tolos axuntos al sistema de ficheros/);
+assert.match(data['move-all-attachments-to-gridfs'], /Mover tolos axuntos a GridFS/);
+assert.notEqual(data['move-all-attachments-to-fs'], data['move-all-attachments-to-gridfs']);
+assert.match(data['multi-selection-label'], /etiqueta pa la selección/);

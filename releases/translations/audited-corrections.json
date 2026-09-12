@@ -43146,5 +43146,61 @@
     "before": "Las migraciones se han iniciado correctamente",
     "after": "Les migraciones aniciáronse correutamente",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "migration-stop-confirm",
+    "before": "¿Estás seguro de querer detener todas las migraciones?",
+    "after": "¿De xuru que quies parar toles migraciones?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "migration-stop-failed",
+    "before": "Fallo al detener las migraciones",
+    "after": "Falló la parada de les migraciones",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "migration-stopped",
+    "before": "Las migraciones se han detenido correctamente",
+    "after": "Les migraciones paráronse correutamente",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "mobile-desktop-toggle",
+    "before": "Alterna entre el Modo Móvil y el Modo de Escritorio",
+    "after": "Alternar ente’l mou móvil y el mou d’escritoriu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "mongodb-gridfs-storage",
+    "before": "Almacenamiento MongoDB GridFS",
+    "after": "Almacenamientu MongoDB GridFS",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "move-all-attachments-to-fs",
+    "before": "Mover todos los archivos adjuntos al sistema de archivos",
+    "after": "Mover tolos axuntos al sistema de ficheros",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "move-all-attachments-to-gridfs",
+    "before": "Mover todos los adjuntos a GridFS",
+    "after": "Mover tolos axuntos a GridFS",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "multi-selection-label",
+    "before": "Establecer etiqueta para la selección",
+    "after": "Establecer una etiqueta pa la selección",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
