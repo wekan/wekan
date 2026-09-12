@@ -4,21 +4,21 @@ Audit date: **2026-09-12**. Last updated: **2026-09-12**.
 
 | Status | Audit keys |
 | --- | ---: |
-| Explicitly corrected | 5,037 |
+| Explicitly corrected | 5,047 |
 | Original pull values restored to pre-pull local values | 4,061 |
 | Reviewed and retained unchanged | 78 |
-| Pending review or repair | 10,905 |
+| Pending review or repair | 10,895 |
 | Total tracked | 20,081 |
 
 The full translation repair goal remains unfinished. Counts describe the tracked audit findings; unflagged strings are not individually certified. Restored pre-pull values are not automatically certified as correct translations.
 
 ## Fixes completed
 
-Repairs address wrong-language text, incorrect kanban terminology, missing restrictions and warnings, malformed JSON examples, translated placeholders, calendar names, search syntax and date/message argument order. The reviewed correction list contains **5,099 values**, including corrections outside the flagged audit rows.
+Repairs address wrong-language text, incorrect kanban terminology, missing restrictions and warnings, malformed JSON examples, translated placeholders, calendar names, search syntax and date/message argument order. The reviewed correction list contains **5,109 values**, including corrections outside the flagged audit rows.
 
 The flagged Bosnian, Croatian, Macedonian and both Slovenian queues are complete. Other completed queues include Latvian, Romanian, Slovak and several smaller regional queues. **Bosnian has no remaining flagged findings**.
 
-Latest translation correction: [d23bf515e](https://github.com/wekan/wekan/commit/d23bf515e6019085087b4b6a873550e563cbee05), **2026-09-12**, fixes 10 Galician regional accessibility, lockout and activity values that contained Portuguese. Reuses individually reviewed existing Galician wording, preserving credential distinctions and activity placeholders. The Galician regional queue has 653 findings remaining. Actual attachment-message rendering, meaning, token, exact-value, key-order and idempotent repair checks pass.
+Latest translation correction: [015786fc1](https://github.com/wekan/wekan/commit/015786fc15bcec7c7f475f0f755bbafc8bd627b4), **2026-09-12**, fixes 10 Galician regional checklist, comment, label, subtask, archive and mention activity values containing Portuguese. Reuses individually reviewed Galician wording and preserves all activity placeholders. The Galician regional queue has 643 findings remaining. Actual checklist-item, mention and archive rendering, exact-value, token, key-order and idempotent repair checks pass.
 
 ## Provenance
 
