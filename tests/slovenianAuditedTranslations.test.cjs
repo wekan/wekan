@@ -23,6 +23,13 @@ for (const locale of ['sl', 'sl_SI']) {
   assert.match(data['accounts-lockout-info'], /napadi z grobo silo/);
   assert.doesNotMatch(data['accounts-lockout-info'], /lozinkef/);
   assert.equal(data.MongoDB_storage_engine, 'Shranjevalni pogon MongoDB');
+  assert.match(data['custom-field-stringtemplate-separator'], /&#32;.*&nbsp;/);
+  assert.match(data['custom-top-left-corner-logo-height'], /Privzeto: 27/);
+  assert.match(data['delete-duplicate-empty-lists-migration-description'], /nimajo kartic IN.*enakim naslovom.*vsebuje kartice/);
+  for (const key of ['delete-all-notifications-confirm', 'delete-org-confirm-popup', 'delete-team-confirm-popup', 'delete-translation-confirm-popup']) assert.match(data[key], /ni mogoče razveljaviti/);
+  for (const key of ['delete-org-warning-message', 'delete-team-warning-message']) assert.match(data[key], /ni mogoče izbrisati.*vsaj en uporabnik/);
+  assert.match(data['delete-linked-cards-before-this-list'], /najprej.*povezanih kartic.*kažejo na kartice na tem seznamu/);
+
   assert.match(data['conversion-info-text'], /enkrat na tablo.*izboljša zmogljivost.*še naprej uporabljate/);
   assert.match(data['created-at-newest-first'], /ustvarjanja.*najnovejše/);
   assert.match(data['created-at-oldest-first'], /ustvarjanja.*najstarejše/);
