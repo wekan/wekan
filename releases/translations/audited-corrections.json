@@ -41018,5 +41018,61 @@
     "before": "Haz clic para quitar la estrella de esta página.",
     "after": "Fai clic pa quitar esta páxina de les favorites.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "close-add-checklist-item",
+    "before": "Cerrar el formulario para añadir un elemento a la lista de verificación",
+    "after": "Zarrar el formulariu p'añadir un elementu a la llista de comprobación",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "close-board-pop",
+    "before": "Podrás restaurar el tablero haciendo clic en el botón \"Archivo\" del encabezado de la pantalla inicial.",
+    "after": "Puedes restaurar el tableru faciendo clic nel botón «Archivu» de la cabecera de la páxina d'aniciu.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "comment-only-desc",
+    "before": "Solo puedes comentar en las tarjetas.",
+    "after": "Solo puedes comentar nes tarxetes.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "copy-card-link-to-clipboard",
+    "before": "Copiar el enlace de la tarjeta al portapapeles",
+    "after": "Copiar l'enllaz de la tarxeta al portapapeles",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "copyManyCardsPopup-format",
+    "before": "[ {\"title\": \"Título de la primera tarjeta\", \"description\":\"Descripción de la primera tarjeta\"}, {\"title\":\"Título de la segunda tarjeta\",\"description\":\"Descripción de la segunda tarjeta\"},{\"title\":\"Título de la última tarjeta\",\"description\":\"Descripción de la última tarjeta\"} ]",
+    "after": "[{\"title\": \"Títulu de la primera tarxeta\", \"description\": \"Descripción de la primera tarxeta\"}, {\"title\": \"Títulu de la segunda tarxeta\", \"description\": \"Descripción de la segunda tarxeta\"}, {\"title\": \"Títulu de la última tarxeta\", \"description\": \"Descripción de la última tarxeta\"}]",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "copyManyCardsPopup-instructions",
+    "before": "Títulos y descripciones de las tarjetas de destino en formato JSON",
+    "after": "Títulos y descripciones de les tarxetes de destín nesti formatu JSON",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "copyManyCardsPopup-title",
+    "before": "Copiar plantilla en muchas tarjetas",
+    "after": "Copiar la plantía en munches tarxetes",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "createTemplateContainerPopup-title",
+    "before": "añadir plantilla de contenedor",
+    "after": "Añadir un contenedor de plantíes",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

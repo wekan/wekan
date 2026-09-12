@@ -61,3 +61,13 @@ assert.match(data['click-to-enable-auto-width'], /desactiváu.*activalu/);
 assert.match(data['click-to-star'], /marcar esti tableru/);
 assert.match(data['click-to-unstar'], /quitar esti tableru/);
 assert.match(data['click-to-star-page'], /esta páxina/);
+assert.match(data['comment-only-desc'], /^Solo puedes comentar nes tarxetes/);
+assert.match(data['close-board-pop'], /restaurar el tableru.*«Archivu».*cabecera/);
+assert.equal(data['createTemplateContainerPopup-title'], data['add-template-container']);
+const copiedCards = JSON.parse(data['copyManyCardsPopup-format']);
+assert.equal(copiedCards.length, 3);
+for (const card of copiedCards) {
+  assert.deepEqual(Object.keys(card), ['title', 'description']);
+  assert.match(card.title, /tarxeta/);
+  assert.match(card.description, /tarxeta/);
+}
