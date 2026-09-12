@@ -47983,5 +47983,61 @@
     "before": "Processi pianificati attivi",
     "after": "Lavurs planisadas activas",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "activity-checklist-completed",
+    "before": "%s di %s checklists completate",
+    "after": "terminà la glista da controlla %s da %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "activity-checklist-uncompleted-card",
+    "before": "La checklist %s no ie completa",
+    "after": "marcà la glista da controlla %s sco betg terminada",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "activity-customfield-created",
+    "before": "creato campo personalizzato/a %s ",
+    "after": "creà il champ persunalisà %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "activity-dueDate",
+    "before": "ha mudato la data di scadenza a %s di %s",
+    "after": "midà la data da scadenza en %s da %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "activity-endDate",
+    "before": "ha mudato la data di fine a %s di %s",
+    "after": "midà la data da fin en %s da %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "activity-moved",
+    "before": "ha spostato %s da %s a %s",
+    "after": "spustà %s da %s a %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "activity-receivedDate",
+    "before": "ha mudato la data di ricevuta a %s di %s",
+    "after": "midà la data da recepziun en %s da %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "activity-removed-label",
+    "before": "ha rimosso l'eticheta '%s' da %s",
+    "after": "allontanà l’etichetta '%s' da %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
