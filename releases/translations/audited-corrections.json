@@ -36405,5 +36405,75 @@
     "before": "Este cartão possui %s comentário.",
     "after": "Esta tarxeta ten %s comentario.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "card-delete-notice",
+    "before": "A remoção será permanente. Perderá todas as acções associadas a este cartão.",
+    "after": "A eliminación é permanente. Perderás todas as accións asociadas a esta tarxeta.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "card-delete-pop",
+    "before": "Todas as acções serão removidas do feed de atividade e não poderá reabrir o cartão. Não é reversível.",
+    "after": "Todas as accións eliminaranse do fluxo de actividade e non poderás reabrir a tarxeta. Non se pode desfacer.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "card-delete-suggest-archive",
+    "before": "Pode mover um cartão para o Arquivo para removê-lo do quadro e preservar a atividade.",
+    "after": "Podes mover unha tarxeta ao Arquivo para eliminala do taboleiro e conservar a actividade.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "card-members-title",
+    "before": "Acrescentar ou remover membros do quadro deste cartão.",
+    "after": "Engadir ou eliminar membros do taboleiro na tarxeta.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "card-show-lists-on-minicard",
+    "before": "Mostrar Listas no Mini cartão",
+    "after": "Mostrar as listas na minitarxeta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "card-sorting-by-number",
+    "before": "Ordenar cartões por número",
+    "after": "Ordenación de tarxetas por número",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "card-sorting-by-number-on-minicard",
+    "before": "Número de ordenação do cartão no mini cartão",
+    "after": "Ordenación de tarxetas por número na minitarxeta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "card_assignees",
+    "before": "Todos os administradores do cartão atual neste quadro",
+    "after": "Todos os responsables da tarxeta actual neste taboleiro",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "card_members",
+    "before": "Todos os membros atuais deste cartão",
+    "after": "Todos os membros da tarxeta actual neste taboleiro",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "checklistActionsPopup-title",
+    "before": "Ações da Lista de verificação",
+    "after": "Accións da lista de verificación",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

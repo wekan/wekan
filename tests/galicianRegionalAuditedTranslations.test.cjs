@@ -5,6 +5,13 @@ assert.match(data['accounts-lockout-known-users'], /usuarios coñecidos.*usuario
 assert.match(data['accounts-lockout-unknown-users'], /usuarios descoñecidos.*usuario inexistente/);
 for (const key of ['accounts-lockout-known-users', 'accounts-lockout-unknown-users']) assert.doesNotMatch(data[key], /usuários|senha|Configurações/);
 assert.match(data['act-addChecklist'], /engadiu a lista de verificación/);
+assert.match(data['card-delete-pop'], /Todas as accións.*non poderás reabrir.*Non se pode desfacer/);
+assert.match(data['card-delete-suggest-archive'], /Arquivo.*conservar a actividade/);
+assert.match(data.card_assignees, /responsables da tarxeta actual/);
+assert.doesNotMatch(data.card_assignees, /administradores/);
+assert.match(data.card_members, /neste taboleiro/);
+assert.match(data['card-sorting-by-number-on-minicard'], /por número na minitarxeta/);
+
 assert.match(data.board_assignees, /responsables de todas as tarxetas/);
 assert.doesNotMatch(data.board_assignees, /administradores/);
 assert.equal(data['boardInfoOnMyBoards-title'], data['board-info-on-my-boards']);
