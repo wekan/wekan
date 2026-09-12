@@ -127,3 +127,11 @@ for (const label of ['Azure Portal','Storage accounts','Security + networking','
 assert.match(data['azure-account-key-menu-path'], /a tuya cuenta/);
 assert.match(data['azure-account-name-description'], /nombre d’a tuya cuenta d’Azure Storage/);
 assert.equal(data['azure-blob-storage-description'], 'Microsoft Azure Blob Storage.');
+assert.match(data['azure-connection-string-menu-path'], /a tuya cuenta/);
+assert.ok(data['azure-connection-string-menu-path'].includes('Connection string → Show.'));
+assert.match(data['background-too-big'], /imachen de fondo ye masiau gran/);
+assert.ok(data['background-too-big'].includes('{{size}}'));
+assert.match(data['backup-day-of-week'], /Día d’a semana \(semanal\)/);
+assert.match(data['backup-scope'], /copia de seguranza/);
+assert.match(data['badge-attachment-on-minicard'], /Numero d’adchuntos en a minitarcheta/);
+assert.match(data['bidirectional-webhooks'], /doble sentiu/);

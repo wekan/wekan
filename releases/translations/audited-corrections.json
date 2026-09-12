@@ -44574,5 +44574,47 @@
     "before": "Almacenamiento Microsoft Azure Blob.",
     "after": "Microsoft Azure Blob Storage.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "azure-connection-string-menu-path",
+    "before": "Azure Portal → Storage accounts → tu cuenta → Security + networking → Access keys → key1 → Connection string → Show.",
+    "after": "Azure Portal → Storage accounts → a tuya cuenta → Security + networking → Access keys → key1 → Connection string → Show.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "background-too-big",
+    "before": "La imagen de fondo es demasiado grande (máximo {{size}}).",
+    "after": "A imachen de fondo ye masiau gran (Maximo {{size}}).",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "backup-day-of-week",
+    "before": "Día de la semana (semanal)",
+    "after": "Día d’a semana (semanal)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "backup-scope",
+    "before": "Alcance de la copia de seguridad",
+    "after": "Alcance d’a copia de seguranza",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "badge-attachment-on-minicard",
+    "before": "Contador de adjuntos en la minitarjeta",
+    "after": "Numero d’adchuntos en a minitarcheta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "bidirectional-webhooks",
+    "before": "Webhooks de doble sentido",
+    "after": "Webhooks de doble sentiu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
