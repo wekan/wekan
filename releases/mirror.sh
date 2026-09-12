@@ -34,6 +34,7 @@ mirror "gitlab" "git@gitlab.com:wekan/wekan"
 
 # https://bitbucket.org/wekan/wekan
 # https://bitbucket.org/wekan/wekan/src/main/
+# Workspaces: https://bitbucket.org/account/workspaces/
 mirror "bitbucket" "git@bitbucket.org:wekan/wekan.git"
 
 # https://codeberg.org/wekan/wekan
