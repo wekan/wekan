@@ -466,5 +466,17 @@
     "key": "azure-connection-string-menu-path",
     "value": "Azure Portal → Storage accounts → vaš račun → Security + networking → Access keys → key1 → Connection string → Show.",
     "reason": "Reviewed: vaš račun is correct Slovenian for your account. Azure menu names, key1 and navigation arrows remain literal labels; shared Croatian wording does not make this phrase incorrect."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "card-edit-custom-fields",
+    "value": "Editar campos personalizados",
+    "reason": "Reviewed against the English source and existing Galician terminology: Editar campos personalizados is correct Galician for Edit custom fields; shared Portuguese vocabulary is not a wrong-language error."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "cardCustomFieldsPopup-title",
+    "value": "Editar campos personalizados",
+    "reason": "Reviewed against the English source and existing Galician terminology: Editar campos personalizados is correct Galician for Edit custom fields; shared Portuguese vocabulary is not a wrong-language error."
   }
 ]

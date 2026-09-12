@@ -38687,5 +38687,201 @@
     "before": "Configurações de Armazenamento",
     "after": "Configuración do almacenamento",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "attachments-path-description",
+    "before": "Caminho onde os arquivos de anexos estão armazenados",
+    "after": "Ruta onde se gardan os ficheiros dos anexos",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "auto-list-width",
+    "before": "Largura de lista automática",
+    "after": "Largura automática das listas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "automatic-linked-url-schemes",
+    "before": "Esquema de URL personalizado que deve ser clicável automaticamente. Um Esquema de URL por linha",
+    "after": "Esquemas de URL personalizados que deben ser clicables automaticamente. Un esquema de URL por liña",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "avatar-too-big",
+    "before": "O avatar é muito grande (__size__ max)",
+    "after": "O avatar é demasiado grande (__size__ máx.)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "avatars-path-description",
+    "before": "Caminho onde arquivos de avatar estão armazenados",
+    "after": "Ruta onde se gardan os ficheiros dos avatares",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "below-selected-swimlane",
+    "before": "Abaixo da raia selecionada",
+    "after": "Debaixo do carril seleccionado",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "bidirectional-webhooks",
+    "before": "Webhooks de Dois Sentidos",
+    "after": "Webhooks bidireccionais",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "boardSubtaskSettingsPopup-title",
+    "before": "Configurações de Sub-tarefas",
+    "after": "Configuración das subtarefas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "bucket-example",
+    "before": "Como \"Lista de Desejos\", por exemplo",
+    "after": "Como \"Lista de desexos\", por exemplo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "cardStartPlanningPokerPopup-title",
+    "before": "Iniciar um Planning Poker",
+    "after": "Iniciar un Planning Poker",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "click-to-disable-auto-width",
+    "before": "Largura de lista automática habilitada. Clique para desabilitar.",
+    "after": "Largura automática das listas activada. Fai clic para desactivar.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "click-to-enable-auto-width",
+    "before": "Largura da lista automática desabilitada. Clique para habilitar.",
+    "after": "Largura automática das listas desactivada. Fai clic para activar.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "clipboard",
+    "before": "Área de Transferência ou arraste e solte",
+    "after": "Portapapeis ou arrastrar e soltar",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "close-edit-checklist-item",
+    "before": "Fechar formulário para editar um item do checklist",
+    "after": "Pechar o formulario para editar un elemento da lista de verificación",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "confirm-subtask-delete-popup",
+    "before": "Tem certeza que deseja apagar a sub-tarefa?",
+    "after": "Seguro que queres eliminar a subtarefa?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "copy-text-to-clipboard",
+    "before": "Copiar texto para a área de transferência",
+    "after": "Copiar o texto ao portapapeis",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "created-at-newest-first",
+    "before": "Criado Em (Recentes Primeiro)",
+    "after": "Data de creación (máis recentes primeiro)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "created-at-oldest-first",
+    "before": "Criado Em (Antigos Primeiro)",
+    "after": "Data de creación (máis antigos primeiro)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "cron-errors-cleared",
+    "before": "Todos os erros limpos com sucesso",
+    "after": "Limpáronse todos os erros correctamente",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "cron-job-delete-confirm",
+    "before": "Tem certeza de que deseja excluir este trabalho agendado?",
+    "after": "Está seguro de que quere eliminar este traballo programado?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "cron-job-delete-failed",
+    "before": "Falha ao excluir trabalho agendado",
+    "after": "Non se puido eliminar o traballo programado",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "cron-job-deleted",
+    "before": "Trabalho agendado excluído com sucesso",
+    "after": "Traballo programado eliminado correctamente",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "cron-job-pause-failed",
+    "before": "Falha ao parar trabalho agendado",
+    "after": "Non se puido pausar o traballo programado",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "cron-job-paused",
+    "before": "Agendamento de trabalho parado com sucesso",
+    "after": "Traballo programado pausado correctamente",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "cron-job-resume-failed",
+    "before": "Falha ao retomar trabalho agendado",
+    "after": "Non se puido retomar o traballo programado",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "cron-job-resumed",
+    "before": "Trabalho agendado retomado com sucesso",
+    "after": "Traballo programado retomado correctamente",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "cron-job-start-failed",
+    "before": "Falha ao iniciar trabalho agendado",
+    "after": "Non se puido iniciar o traballo programado",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "cron-job-started",
+    "before": "Trabalho agendado iniciado com sucesso",
+    "after": "Traballo programado iniciado correctamente",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

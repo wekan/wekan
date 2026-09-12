@@ -270,3 +270,13 @@ assert.match(data['admin-announcement-active'], /en todo o sistema/);
 assert.match(data.allowNonBoardMembers, /todos os usuarios con sesión iniciada/);
 assert.match(data['archive-swimlane'], /carril ao Arquivo/);
 assert.match(data['allboards.delete-workspace-confirm-check'], /Confirmar a eliminación do espazo de traballo/);
+
+assert.match(data['automatic-linked-url-schemes'], /Un esquema de URL por liña/);
+assert.match(data['click-to-disable-auto-width'], /activada.*desactivar/);
+assert.match(data['click-to-enable-auto-width'], /desactivada.*activar/);
+assert.equal(data['card-edit-custom-fields'], 'Editar campos personalizados');
+assert.equal(data['cardCustomFieldsPopup-title'], data['card-edit-custom-fields']);
+assert.match(data['created-at-newest-first'], /máis recentes primeiro/);
+assert.match(data['created-at-oldest-first'], /máis antigos primeiro/);
+for (const action of ['delete', 'pause', 'resume', 'start']) assert.match(data[`cron-job-${action}-failed`], /^Non se puido/);
+for (const action of ['deleted', 'paused', 'resumed', 'started']) assert.match(data[`cron-job-${action}`], /correctamente$/);
