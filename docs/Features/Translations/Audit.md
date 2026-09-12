@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Audit keys |
 | --- | ---: |
-| Explicitly corrected | 5,654 |
+| Explicitly corrected | 5,683 |
 | Original pull values restored to pre-pull local values | 4,061 |
-| Reviewed and retained unchanged | 84 |
-| Pending review or repair | 10,282 |
+| Reviewed and retained unchanged | 85 |
+| Pending review or repair | 10,252 |
 | Total tracked | 20,081 |
 
 **Translation repairs remain unfinished.** These counts cover flagged findings; unflagged strings and restored values are not certified as correct.
 
-Repairs cover wrong-language text, kanban terminology, omitted restrictions and warnings, JSON examples, placeholders, calendar names and search/date formatting. The correction history records **5,716 values**, including fixes outside the audit. Flagged Bosnian, Croatian, Macedonian, Slovenian (both locales), Latvian, Romanian and Slovak queues are complete.
+Repairs cover wrong-language text, kanban terminology, omitted restrictions and warnings, JSON examples, placeholders, calendar names and search/date formatting. The correction history records **5,745 values**, including fixes outside the audit. Flagged Bosnian, Croatian, Macedonian, Slovenian (both locales), Latvian, Romanian, Slovak and Galician regional queues are complete.
 
-Latest fix: [1b06f4cb7](https://github.com/wekan/wekan/commit/1b06f4cb7ef46e8946cddab01d7d4c612b5fa433), **2026-09-13** — 33 Galician regional S3, troubleshooting, shortcut and display corrections; two correct rule/example values retained unchanged. Repairs correct endpoint terminology and preserve MinIO support, commands, regions, task limits and ISO week labels. **30 regional findings remain.** Meaning, exact-value, unchanged-review, placeholder, key-order and idempotency checks pass; live Meteor browser verification remains unavailable.
+Latest fix: [3de5b15ca](https://github.com/wekan/wekan/commit/3de5b15ca2ffed5bc67b67cd786602b470e3f325), **2026-09-13** — 29 Galician regional setting, warning, advanced-filter and calendar corrections; one correct manual-entry instruction retained unchanged. **The flagged Galician regional queue is complete.** Repairs preserve filter examples, WIP restrictions and calendar distinctions. Meaning, exact-value, unchanged-review, placeholder, key-order and idempotency checks pass; live Meteor browser verification remains unavailable.
 
 **Provenance:** not all errors came from Transifex. The captured pull changed 4,061 values; the full-local audit added 16,020 findings. Bosnian errors came from the September 5 [local completion commit](https://github.com/wekan/wekan/commit/bdb3b15886a749b725b5290ba0109fcba955f983), with no Bosnian changes in the captured pull. Other ultimate origins remain unverified.
 
