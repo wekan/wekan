@@ -3491,5 +3491,3638 @@
     "before": "Republic of China",
     "after": "Minguo senenamasy",
     "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "ar",
+    "key": "act-moveCardToOtherBoard",
+    "before": "کارت __card__ را از لیست __oldList__ در مسیر __oldSwimlane__ در برد __oldBoard__ به لیست __list__ در مسیر __swimlane__ در برد __board__ منتقل کرد",
+    "after": "نقل البطاقة __card__ من القائمة __oldList__ في المسار __oldSwimlane__ على اللوحة __oldBoard__ إلى القائمة __list__ في المسار __swimlane__ على اللوحة __board__",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "act-removeBoardMember",
+    "before": "عضو __member__ را از برد __board__ حذف کرد",
+    "after": "أزال العضو __member__ من اللوحة __board__",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "act-restoredCard",
+    "before": "کارت __card__ را به لیست __list__ در مسیر __swimlane__ در برد __board__ بازگرداند",
+    "after": "استعاد البطاقة __card__ إلى القائمة __list__ في المسار __swimlane__ على اللوحة __board__",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "act-unjoinMember",
+    "before": "عضو __member__ را از کارت __card__ در لیست __list__ در مسیر __swimlane__ در برد __board__ حذف کرد",
+    "after": "أزال العضو __member__ من البطاقة __card__ في القائمة __list__ في المسار __swimlane__ على اللوحة __board__",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "activity-checked-item-card",
+    "before": "%s در چک‌لیست %s انتخاب‌شده",
+    "after": "حدد %s في قائمة التحقق %s",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "activity-checklist-completed",
+    "before": "چک‌لیست %s از %s کامل شده‌است",
+    "after": "أكمل قائمة التحقق %s من %s",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "activity-checklist-uncompleted-card",
+    "before": "چک‌لیست %s تمام نشده",
+    "after": "جعل قائمة التحقق %s غير مكتملة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "activity-unchecked-item-card",
+    "before": "%s در چک‌لیست %s از حالت انتخاب خارج شده",
+    "after": "ألغى تحديد %s في قائمة التحقق %s",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "add-existing-card-as-subtask-empty",
+    "before": "هیچ کارتی یافت نشد",
+    "after": "لم يتم العثور على بطاقات مطابقة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "always-field-on-card",
+    "before": "افزودن فیلد به همه کارت ها",
+    "after": "إضافة الحقل إلى جميع البطاقات",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "app-is-offline",
+    "before": "در حال بارگزاری لطفا منتظر بمانید. بازخوانی صفحه باعث از بین رفتن اطلاعات می شود. اگر بارگذاری کار نمی کند، لطفا بررسی کنید که این سرور متوقف نشده است.",
+    "after": "جارٍ التحميل، يرجى الانتظار. تحديث الصفحة سيؤدي إلى فقدان البيانات. إذا لم يعمل التحميل، يرجى التحقق من أن الخادم لم يتوقف.",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "automatically-field-on-card",
+    "before": "افزودن فیلد به کارت های جدید",
+    "after": "إضافة الحقل إلى البطاقات الجديدة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "board-delete-notice",
+    "before": "حذف دائمی است شما تمام لیست ها، کارت ها و اقدامات مرتبط با این برد را از دست خواهید داد.",
+    "after": "الحذف نهائي. ستفقد جميع القوائم والبطاقات والإجراءات المرتبطة بهذه اللوحة.",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "boardCardSettingsPopup-title",
+    "before": "تنظیمات کارت",
+    "after": "إعدادات البطاقات",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "boardCardTitlePopup-title",
+    "before": "فیلتر عنوان کارت",
+    "after": "تصفية عناوين البطاقات",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "boardSubtaskSettingsPopup-title",
+    "before": "تنظیمات زیروظایف",
+    "after": "إعدادات المهام الفرعية",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "broken-cards",
+    "before": "کارت های شکسته",
+    "after": "بطاقات معطوبة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "card-settings",
+    "before": "تنظیمات کارت",
+    "after": "إعدادات البطاقات",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "card-templates-swimlane",
+    "before": "قالب‌های کارت",
+    "after": "قوالب البطاقات",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "cardsSortPopup-title",
+    "before": "مرتب‌سازی کارت‌ها",
+    "after": "ترتيب البطاقات",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "change-card-parent",
+    "before": "تغییرخانواده کارت",
+    "after": "تغيير البطاقة الأصلية",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "comment-not-found",
+    "before": "کارتی که نظرتاش شمال باشد '%s' یافت نشد.",
+    "after": "لم يتم العثور على بطاقة بتعليق يحتوي على النص '%s'.",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "copyManyCardsPopup-instructions",
+    "before": "عنوان و توضیحات کارت مقصد در این قالب JSON",
+    "after": "عناوين البطاقات الوجهة وأوصافها بتنسيق JSON هذا",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "created-at-newest-first",
+    "before": "ساخته شده در تاریخ (با اولویت جدید تر)",
+    "after": "تاريخ الإنشاء (الأحدث أولاً)",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "created-at-oldest-first",
+    "before": "ساخته شده در تاریخ (با اولویت قدیمی تر)",
+    "after": "تاريخ الإنشاء (الأقدم أولاً)",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "custom-field-delete-pop",
+    "before": "این اقدام فیلد سفارشی را بهمراه تمامی تاریخچه آن از کارت ها پاک می کند و برگشت پذیر نمی باشد",
+    "after": "لا يمكن التراجع. سيؤدي هذا إلى إزالة الحقل المخصص من جميع البطاقات وحذف سجله.",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "custom-field-dropdown",
+    "before": "لیست افتادنی",
+    "after": "قائمة منسدلة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "custom-field-dropdown-options",
+    "before": "لیست امکانات",
+    "after": "خيارات القائمة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "delete-board-confirm-popup",
+    "before": "تمام لیست ها، کارت ها، لیبل ها و فعالیت ها حذف خواهند شد و شما نمی توانید محتوای برد را بازیابی کنید. هیچ واکنشی وجود ندارد",
+    "after": "ستُحذف جميع القوائم والبطاقات والتسميات والأنشطة، ولن تتمكن من استعادة محتويات اللوحة. لا يمكن التراجع.",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "delete-linked-card-before-this-card",
+    "before": "پیش از این‌که کارت‌های لینک شده به این کارت را حذف نکنید، نمی‌توانید این کارت را حذف کنید.",
+    "after": "لا يمكنك حذف هذه البطاقة قبل حذف البطاقة المرتبطة التي تحتوي على",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "delete-linked-cards-before-this-list",
+    "before": "پیش از حذف کارت‌هایی که به کارت‌های این لیست لینک شده‌اند نمی‌توانید این لیست را حذف کنید.",
+    "after": "لا يمكنك حذف هذه القائمة قبل حذف البطاقات المرتبطة التي تشير إلى بطاقات في هذه القائمة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "deposit-subtasks-list",
+    "before": "لیست برای ریزکار های افزوده شده",
+    "after": "قائمة استقبال المهام الفرعية المضافة هنا:",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "display-authentication-method",
+    "before": "نمایش نوع اعتبارسنجی",
+    "after": "عرض طريقة المصادقة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "displayName",
+    "before": "نام نمایشی",
+    "after": "الاسم المعروض",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "due-date",
+    "before": "تاریخ اجرا",
+    "after": "تاريخ الاستحقاق",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "dueCards-title",
+    "before": "کارتهای سررسید",
+    "after": "البطاقات المستحقة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "dueCardsViewChange-title",
+    "before": "نمایش کارتهای سررسید",
+    "after": "عرض البطاقات المستحقة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "dueCardsViewChangePopup-title",
+    "before": "نمایش کارتهای سررسید",
+    "after": "عرض البطاقات المستحقة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "duenow",
+    "before": "زمان سررسید فعلی %s امروز است",
+    "after": "وقت الاستحقاق الحالي %s هو اليوم",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "editCardEndDatePopup-title",
+    "before": "تغییر تاریخ پایان",
+    "after": "تغيير تاريخ الانتهاء",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "editCardReceivedDatePopup-title",
+    "before": "تغییر تاریخ رسید",
+    "after": "تغيير تاريخ الاستلام",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "editVoteEndDatePopup-title",
+    "before": "تغییر تاریخ پایان رای‌گیری",
+    "after": "تغيير تاريخ انتهاء التصويت",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "error-list-doesNotExist",
+    "before": "این لیست موجود نیست",
+    "after": "هذه القائمة غير موجودة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "error-user-notCreated",
+    "before": "این کاربر ایجاد نشده است",
+    "after": "لم يتم إنشاء هذا المستخدم",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "filter-assignee-label",
+    "before": "فیلتر کردن با مسئول",
+    "after": "تصفية حسب المكلّف",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "filter-by-unread",
+    "before": "فیلتر با خوانده نشده",
+    "after": "تصفية حسب غير المقروء",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "filter-cards",
+    "before": "فیلتر کارت‌ها یا لیست‌ها",
+    "after": "تصفية البطاقات أو القوائم",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "filter-dates-label",
+    "before": "فیلتر با تاریخ",
+    "after": "تصفية حسب التاريخ",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "filter-due-this-week",
+    "before": "مقتضی این هفته",
+    "after": "مستحقة هذا الأسبوع",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "filter-hide-empty",
+    "before": "مخفی کردن لیست‌های خالی",
+    "after": "إخفاء القوائم الفارغة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "filter-no-due-date",
+    "before": "بدون تاریخ مقرر",
+    "after": "بلا تاريخ استحقاق",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "filter-show-archive",
+    "before": "نمایش لیست‌های آرشیو شده",
+    "after": "عرض القوائم المؤرشفة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "hide-minicard-label-text",
+    "before": "مخفی کردن اسم لیبل مینی کارت",
+    "after": "إخفاء نص تسمية البطاقة المصغرة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "list",
+    "before": "لیست",
+    "after": "قائمة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "list-archive-cards",
+    "before": "انتقال تمامی کارت های این لیست به آرشیو",
+    "after": "أرشفة جميع البطاقات في هذه القائمة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "list-archive-cards-pop",
+    "before": "این کارتباعث حذف تمامی کارت های این لیست از برد می شود . برای مشاهده کارت ها در آرشیو و برگرداندن آنها به برد بر بروی \"Menu\">\"Archive\" کلیک نمایید",
+    "after": "سيؤدي هذا إلى إزالة جميع بطاقات هذه القائمة من اللوحة. لعرض البطاقات المؤرشفة وإعادتها إلى اللوحة، انقر على «القائمة» ثم «الأرشيف».",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "list-delete-suggest-archive",
+    "before": "شما می توانید لیست را به آرشیو انتقال دهید تا آن را از برد حذف نمایید و فعالیت های خود را حفظ نمایید",
+    "after": "يمكنك نقل القائمة إلى الأرشيف لإزالتها من اللوحة والاحتفاظ بالأنشطة.",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "list-filter-label",
+    "before": "فیلتر لیست بر اساس عنوان",
+    "after": "تصفية القائمة حسب العنوان",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "list-label-title",
+    "before": "نام لیست",
+    "after": "اسم القائمة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "list-sort-by",
+    "before": "مرتب سازی لیست بر اساس:",
+    "after": "ترتيب القائمة حسب:",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "list-templates-swimlane",
+    "before": "لیست قالب‌ها",
+    "after": "قوالب القوائم",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "listImportCardPopup-title",
+    "before": "وارد کردن کارت Trello",
+    "after": "استيراد بطاقة Trello",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "my-attachments",
+    "before": "کارت های المرفقات",
+    "after": "مرفقاتي",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "my-cards",
+    "before": "کارت های من",
+    "after": "بطاقاتي",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "myCardsSortChange-choice-dueat",
+    "before": "بر اساس تاریخ انجام",
+    "after": "حسب تاريخ الاستحقاق",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "myCardsSortChange-title",
+    "before": "نظم کارت های من",
+    "after": "ترتيب بطاقاتي",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "myCardsSortChangePopup-title",
+    "before": "نظم کارت های من",
+    "after": "ترتيب بطاقاتي",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "no-archived-cards",
+    "before": "هیچ کارتی در آرشیو موجود نمی باشد",
+    "after": "لا توجد بطاقات في الأرشيف.",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "no-archived-lists",
+    "before": "هیچ لیستی در آرشیو موجود نمی باشد",
+    "after": "لا توجد قوائم في الأرشيف.",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "no-cards-found",
+    "before": "هیچ کارتی یافت نشد",
+    "after": "لم يتم العثور على بطاقات",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "no-parent",
+    "before": "پدر را نمایش نده",
+    "after": "عدم عرض البطاقة الأصلية",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "not-accepted-yet",
+    "before": "دعوت نامه هنوز پذیرفته نشده است",
+    "after": "لم تُقبل الدعوة بعد",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "notify-watch",
+    "before": "اطلاع رسانی از هرگونه تغییر در بردها، لیست‌ها یا کارت‌هایی که از آنها دیده‌بانی می‌کنید",
+    "after": "تلقي تحديثات أي لوحات أو قوائم أو بطاقات تتابعها",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "one-card-found",
+    "before": "یک کارت یافت شد",
+    "after": "تم العثور على بطاقة واحدة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "operator-checklist-text",
+    "before": "چک‌لیست",
+    "after": "قائمة تحقق",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "parent-card",
+    "before": "کارت پدر",
+    "after": "البطاقة الأصلية",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "predicate-checklist",
+    "before": "چک‌لیست",
+    "after": "قائمة تحقق",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "preview",
+    "before": "پیش‌نمایش",
+    "after": "معاينة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "previewAttachedImagePopup-title",
+    "before": "پیش‌نمایش",
+    "after": "معاينة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "previewClipboardImagePopup-title",
+    "before": "پیش‌نمایش",
+    "after": "معاينة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "r-a-card",
+    "before": "کارت",
+    "after": "بطاقة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "r-add-checklist",
+    "before": "افزودن چک‌لیست",
+    "after": "إضافة قائمة تحقق",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "r-card",
+    "before": "کارت",
+    "after": "بطاقة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "r-checklist",
+    "before": "چک‌لیست",
+    "after": "قائمة تحقق",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "r-checklist-note",
+    "before": "نکته: چک‌لیست‌ها باید توسط کاما از یک‌دیگر جدا شوند.",
+    "after": "ملاحظة: يجب كتابة عناصر قائمة التحقق كقيم تفصل بينها فواصل.",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "r-create-card",
+    "before": "ساخت کارت جدید",
+    "after": "إنشاء بطاقة جديدة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "r-d-add-checklist",
+    "before": "افزودن چک‌لیست",
+    "after": "إضافة قائمة تحقق",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "r-d-archive",
+    "before": "انتقال کارت به آرشیو",
+    "after": "نقل البطاقة إلى الأرشيف",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "r-d-check-all",
+    "before": "انتخاب تمام آیتم های لیست",
+    "after": "تحديد جميع عناصر القائمة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "r-d-check-of-list",
+    "before": "از چک‌لیست",
+    "after": "من قائمة التحقق",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "r-d-move-to-bottom-gen",
+    "before": "انتقال کارت به انتهای لیست خود",
+    "after": "نقل البطاقة إلى نهاية قائمتها",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "r-d-move-to-bottom-spec",
+    "before": "انتقال کارت به انتهای لیست",
+    "after": "نقل البطاقة إلى نهاية القائمة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "r-d-move-to-top-gen",
+    "before": "انتقال کارت به ابتدای لیست خود",
+    "after": "نقل البطاقة إلى بداية قائمتها",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "r-d-move-to-top-spec",
+    "before": "انتقال کارت به ابتدای لیست",
+    "after": "نقل البطاقة إلى بداية القائمة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "r-d-remove-checklist",
+    "before": "حذف چک‌لیست",
+    "after": "إزالة قائمة التحقق",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "r-d-unarchive",
+    "before": "بازگردانی کارت از آرشیو",
+    "after": "استعادة البطاقة من الأرشيف",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "r-d-uncheck-all",
+    "before": "لغوانتخاب تمام آیتم های لیست",
+    "after": "إلغاء تحديد جميع عناصر القائمة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "r-datefield",
+    "before": "تاریخ",
+    "after": "حقل التاريخ",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "r-in-list",
+    "before": "در لیست",
+    "after": "في القائمة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "r-items-check",
+    "before": "آیتم‌های چک‌لیست",
+    "after": "عناصر قائمة التحقق",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "r-its-list",
+    "before": "لیست خود",
+    "after": "قائمتها",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "r-list-name",
+    "before": "نام لیست",
+    "after": "اسم القائمة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "r-made-incomplete",
+    "before": "تمام نشده",
+    "after": "جُعل غير مكتمل",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "r-move-card-to",
+    "before": "انتقال کارت به",
+    "after": "نقل البطاقة إلى",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "r-of-checklist",
+    "before": "از چک‌لیست",
+    "after": "من قائمة التحقق",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "r-remove-all",
+    "before": "حذف همه کاربران از کارت",
+    "after": "إزالة جميع الأعضاء من البطاقة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "r-to-current-datetime",
+    "before": "به تاریخ/زمان فعلی",
+    "after": "إلى التاريخ والوقت الحاليين",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "r-view-rule",
+    "before": "نمایش قاعده",
+    "after": "عرض القاعدة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "r-when-a-card",
+    "before": "زمانی که کارت",
+    "after": "عندما تكون البطاقة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "r-when-a-card-is-moved",
+    "before": "زمانی که یک کارت به لیست دیگری منتقل شد",
+    "after": "عندما تُنقل بطاقة إلى قائمة أخرى",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "r-when-a-checklist",
+    "before": "زمانی که چک‌لیست هست",
+    "after": "عندما تكون قائمة التحقق",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "r-when-a-item",
+    "before": "زمانی که آیتم چک‌لیست هست",
+    "after": "عندما يكون عنصر قائمة التحقق",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "r-when-the-checklist",
+    "before": "زمانی که چک‌لیست",
+    "after": "عندما تكون قائمة التحقق",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "r-when-the-item",
+    "before": "زمانی که آیتم چک‌لیست",
+    "after": "عندما يكون عنصر قائمة التحقق",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "search-cards",
+    "before": "جستجو در عناوین، توضیحات و فیلدهای سفارشیِ کارت‌ها/لیست‌ها در این برد",
+    "after": "البحث في عناوين البطاقات والقوائم وأوصافها والحقول المخصصة في هذه اللوحة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "settingsUserPopup-title",
+    "before": "تنظیمات کاربر",
+    "after": "إعدادات المستخدم",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "shortcut-add-self",
+    "before": "اضافه کردن خودتان به کارت",
+    "after": "إضافة نفسك إلى البطاقة الحالية",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "shortcut-assign-self",
+    "before": "انتصاب خود به کارت فعلی",
+    "after": "تكليف نفسك بالبطاقة الحالية",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "show-desktop-drag-handles",
+    "before": "نمایش دستگیره‌های درگ‌کردن دسکتاپ",
+    "after": "عرض مقابض السحب على سطح المكتب",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "show-field-on-card",
+    "before": "این فیلد را در کارت نمایش بده",
+    "after": "عرض هذا الحقل على البطاقة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "show-on-card",
+    "before": "نمایش در کارت",
+    "after": "عرض على البطاقة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "show-parent-in-minicard",
+    "before": "نمایش خانواده در ریز کارت",
+    "after": "عرض البطاقة الأصلية على البطاقة المصغرة:",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "showLabel-field-on-card",
+    "before": "نمایش لیبل فیلد در کارت‌های کوچک",
+    "after": "عرض تسمية الحقل على البطاقة المصغرة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "sort-cards",
+    "before": "مرتب‌سازی کارت‌ها",
+    "after": "ترتيب البطاقات",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "subtask-settings",
+    "before": "تنظیمات زیروظایف",
+    "after": "إعدادات المهام الفرعية",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "tracking-info",
+    "before": "شما از هرگونه تغییر در کارتهایی که بعنوان ایجاد کننده ویا عضو آن هستید، آگاه خواهید شد",
+    "after": "ستتلقى إشعارات بأي تغييرات على البطاقات التي تشارك فيها بصفتك منشئاً أو عضواً.",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "vote-public",
+    "before": "نمایش چه کسی به چه رای داده است",
+    "after": "عرض خيارات التصويت لكل شخص",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "warn-list-archived",
+    "before": "اخطار: این کارت در یک لیست در آرشیو موجود می‌باشد",
+    "after": "تحذير: هذه البطاقة موجودة في قائمة مؤرشفة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar",
+    "key": "worker-desc",
+    "before": "تنها می‌توانید کارت‌ها را جابجا کنید، آنها را به خود محول کنید و نظر دهید.",
+    "after": "يمكنه فقط نقل البطاقات وتكليف نفسه بالبطاقات وإضافة التعليقات.",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "act-moveCardToOtherBoard",
+    "before": "کارت __card__ را از لیست __oldList__ در مسیر __oldSwimlane__ در برد __oldBoard__ به لیست __list__ در مسیر __swimlane__ در برد __board__ منتقل کرد",
+    "after": "نقل البطاقة __card__ من القائمة __oldList__ في المسار __oldSwimlane__ على اللوحة __oldBoard__ إلى القائمة __list__ في المسار __swimlane__ على اللوحة __board__",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "act-removeBoardMember",
+    "before": "عضو __member__ را از برد __board__ حذف کرد",
+    "after": "أزال العضو __member__ من اللوحة __board__",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "act-restoredCard",
+    "before": "کارت __card__ را به لیست __list__ در مسیر __swimlane__ در برد __board__ بازگرداند",
+    "after": "استعاد البطاقة __card__ إلى القائمة __list__ في المسار __swimlane__ على اللوحة __board__",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "act-unjoinMember",
+    "before": "عضو __member__ را از کارت __card__ در لیست __list__ در مسیر __swimlane__ در برد __board__ حذف کرد",
+    "after": "أزال العضو __member__ من البطاقة __card__ في القائمة __list__ في المسار __swimlane__ على اللوحة __board__",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "activity-checked-item-card",
+    "before": "%s در چک‌لیست %s انتخاب‌شده",
+    "after": "حدد %s في قائمة التحقق %s",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "activity-checklist-completed",
+    "before": "چک‌لیست %s از %s کامل شده‌است",
+    "after": "أكمل قائمة التحقق %s من %s",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "activity-checklist-uncompleted-card",
+    "before": "چک‌لیست %s تمام نشده",
+    "after": "جعل قائمة التحقق %s غير مكتملة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "activity-unchecked-item-card",
+    "before": "%s در چک‌لیست %s از حالت انتخاب خارج شده",
+    "after": "ألغى تحديد %s في قائمة التحقق %s",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "add-existing-card-as-subtask-empty",
+    "before": "هیچ کارتی یافت نشد",
+    "after": "لم يتم العثور على بطاقات مطابقة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "always-field-on-card",
+    "before": "افزودن فیلد به همه کارت ها",
+    "after": "إضافة الحقل إلى جميع البطاقات",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "app-is-offline",
+    "before": "در حال بارگزاری لطفا منتظر بمانید. بازخوانی صفحه باعث از بین رفتن اطلاعات می شود. اگر بارگذاری کار نمی کند، لطفا بررسی کنید که این سرور متوقف نشده است.",
+    "after": "جارٍ التحميل، يرجى الانتظار. تحديث الصفحة سيؤدي إلى فقدان البيانات. إذا لم يعمل التحميل، يرجى التحقق من أن الخادم لم يتوقف.",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "automatically-field-on-card",
+    "before": "افزودن فیلد به کارت های جدید",
+    "after": "إضافة الحقل إلى البطاقات الجديدة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "board-delete-notice",
+    "before": "حذف دائمی است شما تمام لیست ها، کارت ها و اقدامات مرتبط با این برد را از دست خواهید داد.",
+    "after": "الحذف نهائي. ستفقد جميع القوائم والبطاقات والإجراءات المرتبطة بهذه اللوحة.",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "boardCardSettingsPopup-title",
+    "before": "تنظیمات کارت",
+    "after": "إعدادات البطاقات",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "boardCardTitlePopup-title",
+    "before": "فیلتر عنوان کارت",
+    "after": "تصفية عناوين البطاقات",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "boardSubtaskSettingsPopup-title",
+    "before": "تنظیمات زیروظایف",
+    "after": "إعدادات المهام الفرعية",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "broken-cards",
+    "before": "کارت های شکسته",
+    "after": "بطاقات معطوبة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "card-settings",
+    "before": "تنظیمات کارت",
+    "after": "إعدادات البطاقات",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "card-templates-swimlane",
+    "before": "قالب‌های کارت",
+    "after": "قوالب البطاقات",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "cardsSortPopup-title",
+    "before": "مرتب‌سازی کارت‌ها",
+    "after": "ترتيب البطاقات",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "change-card-parent",
+    "before": "تغییرخانواده کارت",
+    "after": "تغيير البطاقة الأصلية",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "comment-not-found",
+    "before": "کارتی که نظرتاش شمال باشد '%s' یافت نشد.",
+    "after": "لم يتم العثور على بطاقة بتعليق يحتوي على النص '%s'.",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "copyManyCardsPopup-instructions",
+    "before": "عنوان و توضیحات کارت مقصد در این قالب JSON",
+    "after": "عناوين البطاقات الوجهة وأوصافها بتنسيق JSON هذا",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "created-at-newest-first",
+    "before": "ساخته شده در تاریخ (با اولویت جدید تر)",
+    "after": "تاريخ الإنشاء (الأحدث أولاً)",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "created-at-oldest-first",
+    "before": "ساخته شده در تاریخ (با اولویت قدیمی تر)",
+    "after": "تاريخ الإنشاء (الأقدم أولاً)",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "custom-field-delete-pop",
+    "before": "این اقدام فیلد سفارشی را بهمراه تمامی تاریخچه آن از کارت ها پاک می کند و برگشت پذیر نمی باشد",
+    "after": "لا يمكن التراجع. سيؤدي هذا إلى إزالة الحقل المخصص من جميع البطاقات وحذف سجله.",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "custom-field-dropdown",
+    "before": "لیست افتادنی",
+    "after": "قائمة منسدلة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "custom-field-dropdown-options",
+    "before": "لیست امکانات",
+    "after": "خيارات القائمة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "delete-board-confirm-popup",
+    "before": "تمام لیست ها، کارت ها، لیبل ها و فعالیت ها حذف خواهند شد و شما نمی توانید محتوای برد را بازیابی کنید. هیچ واکنشی وجود ندارد",
+    "after": "ستُحذف جميع القوائم والبطاقات والتسميات والأنشطة، ولن تتمكن من استعادة محتويات اللوحة. لا يمكن التراجع.",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "delete-linked-card-before-this-card",
+    "before": "پیش از این‌که کارت‌های لینک شده به این کارت را حذف نکنید، نمی‌توانید این کارت را حذف کنید.",
+    "after": "لا يمكنك حذف هذه البطاقة قبل حذف البطاقة المرتبطة التي تحتوي على",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "delete-linked-cards-before-this-list",
+    "before": "پیش از حذف کارت‌هایی که به کارت‌های این لیست لینک شده‌اند نمی‌توانید این لیست را حذف کنید.",
+    "after": "لا يمكنك حذف هذه القائمة قبل حذف البطاقات المرتبطة التي تشير إلى بطاقات في هذه القائمة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "deposit-subtasks-list",
+    "before": "لیست برای ریزکار های افزوده شده",
+    "after": "قائمة استقبال المهام الفرعية المضافة هنا:",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "display-authentication-method",
+    "before": "نمایش نوع اعتبارسنجی",
+    "after": "عرض طريقة المصادقة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "displayName",
+    "before": "نام نمایشی",
+    "after": "الاسم المعروض",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "due-date",
+    "before": "تاریخ اجرا",
+    "after": "تاريخ الاستحقاق",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "dueCards-title",
+    "before": "کارتهای سررسید",
+    "after": "البطاقات المستحقة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "dueCardsViewChange-title",
+    "before": "نمایش کارتهای سررسید",
+    "after": "عرض البطاقات المستحقة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "dueCardsViewChangePopup-title",
+    "before": "نمایش کارتهای سررسید",
+    "after": "عرض البطاقات المستحقة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "duenow",
+    "before": "زمان سررسید فعلی %s امروز است",
+    "after": "وقت الاستحقاق الحالي %s هو اليوم",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "editCardEndDatePopup-title",
+    "before": "تغییر تاریخ پایان",
+    "after": "تغيير تاريخ الانتهاء",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "editCardReceivedDatePopup-title",
+    "before": "تغییر تاریخ رسید",
+    "after": "تغيير تاريخ الاستلام",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "editVoteEndDatePopup-title",
+    "before": "تغییر تاریخ پایان رای‌گیری",
+    "after": "تغيير تاريخ انتهاء التصويت",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "error-list-doesNotExist",
+    "before": "این لیست موجود نیست",
+    "after": "هذه القائمة غير موجودة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "error-user-notCreated",
+    "before": "این کاربر ایجاد نشده است",
+    "after": "لم يتم إنشاء هذا المستخدم",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "filter-assignee-label",
+    "before": "فیلتر کردن با مسئول",
+    "after": "تصفية حسب المكلّف",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "filter-by-unread",
+    "before": "فیلتر با خوانده نشده",
+    "after": "تصفية حسب غير المقروء",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "filter-cards",
+    "before": "فیلتر کارت‌ها یا لیست‌ها",
+    "after": "تصفية البطاقات أو القوائم",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "filter-dates-label",
+    "before": "فیلتر با تاریخ",
+    "after": "تصفية حسب التاريخ",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "filter-due-this-week",
+    "before": "مقتضی این هفته",
+    "after": "مستحقة هذا الأسبوع",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "filter-hide-empty",
+    "before": "مخفی کردن لیست‌های خالی",
+    "after": "إخفاء القوائم الفارغة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "filter-no-due-date",
+    "before": "بدون تاریخ مقرر",
+    "after": "بلا تاريخ استحقاق",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "filter-show-archive",
+    "before": "نمایش لیست‌های آرشیو شده",
+    "after": "عرض القوائم المؤرشفة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "hide-minicard-label-text",
+    "before": "مخفی کردن اسم لیبل مینی کارت",
+    "after": "إخفاء نص تسمية البطاقة المصغرة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "list",
+    "before": "لیست",
+    "after": "قائمة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "list-archive-cards",
+    "before": "انتقال تمامی کارت های این لیست به آرشیو",
+    "after": "أرشفة جميع البطاقات في هذه القائمة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "list-archive-cards-pop",
+    "before": "این کارتباعث حذف تمامی کارت های این لیست از برد می شود . برای مشاهده کارت ها در آرشیو و برگرداندن آنها به برد بر بروی \"Menu\">\"Archive\" کلیک نمایید",
+    "after": "سيؤدي هذا إلى إزالة جميع بطاقات هذه القائمة من اللوحة. لعرض البطاقات المؤرشفة وإعادتها إلى اللوحة، انقر على «القائمة» ثم «الأرشيف».",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "list-delete-suggest-archive",
+    "before": "شما می توانید لیست را به آرشیو انتقال دهید تا آن را از برد حذف نمایید و فعالیت های خود را حفظ نمایید",
+    "after": "يمكنك نقل القائمة إلى الأرشيف لإزالتها من اللوحة والاحتفاظ بالأنشطة.",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "list-filter-label",
+    "before": "فیلتر لیست بر اساس عنوان",
+    "after": "تصفية القائمة حسب العنوان",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "list-label-title",
+    "before": "نام لیست",
+    "after": "اسم القائمة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "list-sort-by",
+    "before": "مرتب سازی لیست بر اساس:",
+    "after": "ترتيب القائمة حسب:",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "list-templates-swimlane",
+    "before": "لیست قالب‌ها",
+    "after": "قوالب القوائم",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "listImportCardPopup-title",
+    "before": "وارد کردن کارت Trello",
+    "after": "استيراد بطاقة Trello",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "my-attachments",
+    "before": "کارت های المرفقات",
+    "after": "مرفقاتي",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "my-cards",
+    "before": "کارت های من",
+    "after": "بطاقاتي",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "myCardsSortChange-choice-dueat",
+    "before": "بر اساس تاریخ انجام",
+    "after": "حسب تاريخ الاستحقاق",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "myCardsSortChange-title",
+    "before": "نظم کارت های من",
+    "after": "ترتيب بطاقاتي",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "myCardsSortChangePopup-title",
+    "before": "نظم کارت های من",
+    "after": "ترتيب بطاقاتي",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "no-archived-cards",
+    "before": "هیچ کارتی در آرشیو موجود نمی باشد",
+    "after": "لا توجد بطاقات في الأرشيف.",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "no-archived-lists",
+    "before": "هیچ لیستی در آرشیو موجود نمی باشد",
+    "after": "لا توجد قوائم في الأرشيف.",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "no-cards-found",
+    "before": "هیچ کارتی یافت نشد",
+    "after": "لم يتم العثور على بطاقات",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "no-parent",
+    "before": "پدر را نمایش نده",
+    "after": "عدم عرض البطاقة الأصلية",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "not-accepted-yet",
+    "before": "دعوت نامه هنوز پذیرفته نشده است",
+    "after": "لم تُقبل الدعوة بعد",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "notify-watch",
+    "before": "اطلاع رسانی از هرگونه تغییر در بردها، لیست‌ها یا کارت‌هایی که از آنها دیده‌بانی می‌کنید",
+    "after": "تلقي تحديثات أي لوحات أو قوائم أو بطاقات تتابعها",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "one-card-found",
+    "before": "یک کارت یافت شد",
+    "after": "تم العثور على بطاقة واحدة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "operator-checklist-text",
+    "before": "چک‌لیست",
+    "after": "قائمة تحقق",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "parent-card",
+    "before": "کارت پدر",
+    "after": "البطاقة الأصلية",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "predicate-checklist",
+    "before": "چک‌لیست",
+    "after": "قائمة تحقق",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "preview",
+    "before": "پیش‌نمایش",
+    "after": "معاينة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "previewAttachedImagePopup-title",
+    "before": "پیش‌نمایش",
+    "after": "معاينة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "previewClipboardImagePopup-title",
+    "before": "پیش‌نمایش",
+    "after": "معاينة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "r-a-card",
+    "before": "کارت",
+    "after": "بطاقة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "r-add-checklist",
+    "before": "افزودن چک‌لیست",
+    "after": "إضافة قائمة تحقق",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "r-card",
+    "before": "کارت",
+    "after": "بطاقة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "r-checklist",
+    "before": "چک‌لیست",
+    "after": "قائمة تحقق",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "r-checklist-note",
+    "before": "نکته: چک‌لیست‌ها باید توسط کاما از یک‌دیگر جدا شوند.",
+    "after": "ملاحظة: يجب كتابة عناصر قائمة التحقق كقيم تفصل بينها فواصل.",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "r-create-card",
+    "before": "ساخت کارت جدید",
+    "after": "إنشاء بطاقة جديدة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "r-d-add-checklist",
+    "before": "افزودن چک‌لیست",
+    "after": "إضافة قائمة تحقق",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "r-d-archive",
+    "before": "انتقال کارت به آرشیو",
+    "after": "نقل البطاقة إلى الأرشيف",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "r-d-check-all",
+    "before": "انتخاب تمام آیتم های لیست",
+    "after": "تحديد جميع عناصر القائمة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "r-d-check-of-list",
+    "before": "از چک‌لیست",
+    "after": "من قائمة التحقق",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "r-d-move-to-bottom-gen",
+    "before": "انتقال کارت به انتهای لیست خود",
+    "after": "نقل البطاقة إلى نهاية قائمتها",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "r-d-move-to-bottom-spec",
+    "before": "انتقال کارت به انتهای لیست",
+    "after": "نقل البطاقة إلى نهاية القائمة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "r-d-move-to-top-gen",
+    "before": "انتقال کارت به ابتدای لیست خود",
+    "after": "نقل البطاقة إلى بداية قائمتها",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "r-d-move-to-top-spec",
+    "before": "انتقال کارت به ابتدای لیست",
+    "after": "نقل البطاقة إلى بداية القائمة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "r-d-remove-checklist",
+    "before": "حذف چک‌لیست",
+    "after": "إزالة قائمة التحقق",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "r-d-unarchive",
+    "before": "بازگردانی کارت از آرشیو",
+    "after": "استعادة البطاقة من الأرشيف",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "r-d-uncheck-all",
+    "before": "لغوانتخاب تمام آیتم های لیست",
+    "after": "إلغاء تحديد جميع عناصر القائمة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "r-datefield",
+    "before": "تاریخ",
+    "after": "حقل التاريخ",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "r-in-list",
+    "before": "در لیست",
+    "after": "في القائمة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "r-items-check",
+    "before": "آیتم‌های چک‌لیست",
+    "after": "عناصر قائمة التحقق",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "r-its-list",
+    "before": "لیست خود",
+    "after": "قائمتها",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "r-list-name",
+    "before": "نام لیست",
+    "after": "اسم القائمة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "r-made-incomplete",
+    "before": "تمام نشده",
+    "after": "جُعل غير مكتمل",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "r-move-card-to",
+    "before": "انتقال کارت به",
+    "after": "نقل البطاقة إلى",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "r-of-checklist",
+    "before": "از چک‌لیست",
+    "after": "من قائمة التحقق",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "r-remove-all",
+    "before": "حذف همه کاربران از کارت",
+    "after": "إزالة جميع الأعضاء من البطاقة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "r-to-current-datetime",
+    "before": "به تاریخ/زمان فعلی",
+    "after": "إلى التاريخ والوقت الحاليين",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "r-view-rule",
+    "before": "نمایش قاعده",
+    "after": "عرض القاعدة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "r-when-a-card",
+    "before": "زمانی که کارت",
+    "after": "عندما تكون البطاقة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "r-when-a-card-is-moved",
+    "before": "زمانی که یک کارت به لیست دیگری منتقل شد",
+    "after": "عندما تُنقل بطاقة إلى قائمة أخرى",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "r-when-a-checklist",
+    "before": "زمانی که چک‌لیست هست",
+    "after": "عندما تكون قائمة التحقق",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "r-when-a-item",
+    "before": "زمانی که آیتم چک‌لیست هست",
+    "after": "عندما يكون عنصر قائمة التحقق",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "r-when-the-checklist",
+    "before": "زمانی که چک‌لیست",
+    "after": "عندما تكون قائمة التحقق",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "r-when-the-item",
+    "before": "زمانی که آیتم چک‌لیست",
+    "after": "عندما يكون عنصر قائمة التحقق",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "search-cards",
+    "before": "جستجو در عناوین، توضیحات و فیلدهای سفارشیِ کارت‌ها/لیست‌ها در این برد",
+    "after": "البحث في عناوين البطاقات والقوائم وأوصافها والحقول المخصصة في هذه اللوحة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "settingsUserPopup-title",
+    "before": "تنظیمات کاربر",
+    "after": "إعدادات المستخدم",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "shortcut-add-self",
+    "before": "اضافه کردن خودتان به کارت",
+    "after": "إضافة نفسك إلى البطاقة الحالية",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "shortcut-assign-self",
+    "before": "انتصاب خود به کارت فعلی",
+    "after": "تكليف نفسك بالبطاقة الحالية",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "show-desktop-drag-handles",
+    "before": "نمایش دستگیره‌های درگ‌کردن دسکتاپ",
+    "after": "عرض مقابض السحب على سطح المكتب",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "show-field-on-card",
+    "before": "این فیلد را در کارت نمایش بده",
+    "after": "عرض هذا الحقل على البطاقة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "show-on-card",
+    "before": "نمایش در کارت",
+    "after": "عرض على البطاقة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "show-parent-in-minicard",
+    "before": "نمایش خانواده در ریز کارت",
+    "after": "عرض البطاقة الأصلية على البطاقة المصغرة:",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "showLabel-field-on-card",
+    "before": "نمایش لیبل فیلد در کارت‌های کوچک",
+    "after": "عرض تسمية الحقل على البطاقة المصغرة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "sort-cards",
+    "before": "مرتب‌سازی کارت‌ها",
+    "after": "ترتيب البطاقات",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "subtask-settings",
+    "before": "تنظیمات زیروظایف",
+    "after": "إعدادات المهام الفرعية",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "tracking-info",
+    "before": "شما از هرگونه تغییر در کارتهایی که بعنوان ایجاد کننده ویا عضو آن هستید، آگاه خواهید شد",
+    "after": "ستتلقى إشعارات بأي تغييرات على البطاقات التي تشارك فيها بصفتك منشئاً أو عضواً.",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "vote-public",
+    "before": "نمایش چه کسی به چه رای داده است",
+    "after": "عرض خيارات التصويت لكل شخص",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "warn-list-archived",
+    "before": "اخطار: این کارت در یک لیست در آرشیو موجود می‌باشد",
+    "after": "تحذير: هذه البطاقة موجودة في قائمة مؤرشفة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "worker-desc",
+    "before": "تنها می‌توانید کارت‌ها را جابجا کنید، آنها را به خود محول کنید و نظر دهید.",
+    "after": "يمكنه فقط نقل البطاقات وتكليف نفسه بالبطاقات وإضافة التعليقات.",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "act-moveCardToOtherBoard",
+    "before": "کارت __card__ را از لیست __oldList__ در مسیر __oldSwimlane__ در برد __oldBoard__ به لیست __list__ در مسیر __swimlane__ در برد __board__ منتقل کرد",
+    "after": "نقل البطاقة __card__ من القائمة __oldList__ في المسار __oldSwimlane__ على اللوحة __oldBoard__ إلى القائمة __list__ في المسار __swimlane__ على اللوحة __board__",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "act-removeBoardMember",
+    "before": "عضو __member__ را از برد __board__ حذف کرد",
+    "after": "أزال العضو __member__ من اللوحة __board__",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "act-restoredCard",
+    "before": "کارت __card__ را به لیست __list__ در مسیر __swimlane__ در برد __board__ بازگرداند",
+    "after": "استعاد البطاقة __card__ إلى القائمة __list__ في المسار __swimlane__ على اللوحة __board__",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "act-unjoinMember",
+    "before": "عضو __member__ را از کارت __card__ در لیست __list__ در مسیر __swimlane__ در برد __board__ حذف کرد",
+    "after": "أزال العضو __member__ من البطاقة __card__ في القائمة __list__ في المسار __swimlane__ على اللوحة __board__",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "activity-checked-item-card",
+    "before": "%s در چک‌لیست %s انتخاب‌شده",
+    "after": "حدد %s في قائمة التحقق %s",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "activity-checklist-completed",
+    "before": "چک‌لیست %s از %s کامل شده‌است",
+    "after": "أكمل قائمة التحقق %s من %s",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "activity-checklist-uncompleted-card",
+    "before": "چک‌لیست %s تمام نشده",
+    "after": "جعل قائمة التحقق %s غير مكتملة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "activity-unchecked-item-card",
+    "before": "%s در چک‌لیست %s از حالت انتخاب خارج شده",
+    "after": "ألغى تحديد %s في قائمة التحقق %s",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "add-existing-card-as-subtask-empty",
+    "before": "هیچ کارتی یافت نشد",
+    "after": "لم يتم العثور على بطاقات مطابقة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "always-field-on-card",
+    "before": "افزودن فیلد به همه کارت ها",
+    "after": "إضافة الحقل إلى جميع البطاقات",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "app-is-offline",
+    "before": "در حال بارگزاری لطفا منتظر بمانید. بازخوانی صفحه باعث از بین رفتن اطلاعات می شود. اگر بارگذاری کار نمی کند، لطفا بررسی کنید که این سرور متوقف نشده است.",
+    "after": "جارٍ التحميل، يرجى الانتظار. تحديث الصفحة سيؤدي إلى فقدان البيانات. إذا لم يعمل التحميل، يرجى التحقق من أن الخادم لم يتوقف.",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "automatically-field-on-card",
+    "before": "افزودن فیلد به کارت های جدید",
+    "after": "إضافة الحقل إلى البطاقات الجديدة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "board-delete-notice",
+    "before": "حذف دائمی است شما تمام لیست ها، کارت ها و اقدامات مرتبط با این برد را از دست خواهید داد.",
+    "after": "الحذف نهائي. ستفقد جميع القوائم والبطاقات والإجراءات المرتبطة بهذه اللوحة.",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "boardCardSettingsPopup-title",
+    "before": "تنظیمات کارت",
+    "after": "إعدادات البطاقات",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "boardCardTitlePopup-title",
+    "before": "فیلتر عنوان کارت",
+    "after": "تصفية عناوين البطاقات",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "boardSubtaskSettingsPopup-title",
+    "before": "تنظیمات زیروظایف",
+    "after": "إعدادات المهام الفرعية",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "broken-cards",
+    "before": "کارت های شکسته",
+    "after": "بطاقات معطوبة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "card-settings",
+    "before": "تنظیمات کارت",
+    "after": "إعدادات البطاقات",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "card-templates-swimlane",
+    "before": "قالب‌های کارت",
+    "after": "قوالب البطاقات",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "cardsSortPopup-title",
+    "before": "مرتب‌سازی کارت‌ها",
+    "after": "ترتيب البطاقات",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "change-card-parent",
+    "before": "تغییرخانواده کارت",
+    "after": "تغيير البطاقة الأصلية",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "comment-not-found",
+    "before": "کارتی که نظرتاش شمال باشد '%s' یافت نشد.",
+    "after": "لم يتم العثور على بطاقة بتعليق يحتوي على النص '%s'.",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "copyManyCardsPopup-instructions",
+    "before": "عنوان و توضیحات کارت مقصد در این قالب JSON",
+    "after": "عناوين البطاقات الوجهة وأوصافها بتنسيق JSON هذا",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "created-at-newest-first",
+    "before": "ساخته شده در تاریخ (با اولویت جدید تر)",
+    "after": "تاريخ الإنشاء (الأحدث أولاً)",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "created-at-oldest-first",
+    "before": "ساخته شده در تاریخ (با اولویت قدیمی تر)",
+    "after": "تاريخ الإنشاء (الأقدم أولاً)",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "custom-field-delete-pop",
+    "before": "این اقدام فیلد سفارشی را بهمراه تمامی تاریخچه آن از کارت ها پاک می کند و برگشت پذیر نمی باشد",
+    "after": "لا يمكن التراجع. سيؤدي هذا إلى إزالة الحقل المخصص من جميع البطاقات وحذف سجله.",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "custom-field-dropdown",
+    "before": "لیست افتادنی",
+    "after": "قائمة منسدلة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "custom-field-dropdown-options",
+    "before": "لیست امکانات",
+    "after": "خيارات القائمة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "delete-board-confirm-popup",
+    "before": "تمام لیست ها، کارت ها، لیبل ها و فعالیت ها حذف خواهند شد و شما نمی توانید محتوای برد را بازیابی کنید. هیچ واکنشی وجود ندارد",
+    "after": "ستُحذف جميع القوائم والبطاقات والتسميات والأنشطة، ولن تتمكن من استعادة محتويات اللوحة. لا يمكن التراجع.",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "delete-linked-card-before-this-card",
+    "before": "پیش از این‌که کارت‌های لینک شده به این کارت را حذف نکنید، نمی‌توانید این کارت را حذف کنید.",
+    "after": "لا يمكنك حذف هذه البطاقة قبل حذف البطاقة المرتبطة التي تحتوي على",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "delete-linked-cards-before-this-list",
+    "before": "پیش از حذف کارت‌هایی که به کارت‌های این لیست لینک شده‌اند نمی‌توانید این لیست را حذف کنید.",
+    "after": "لا يمكنك حذف هذه القائمة قبل حذف البطاقات المرتبطة التي تشير إلى بطاقات في هذه القائمة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "deposit-subtasks-list",
+    "before": "لیست برای ریزکار های افزوده شده",
+    "after": "قائمة استقبال المهام الفرعية المضافة هنا:",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "display-authentication-method",
+    "before": "نمایش نوع اعتبارسنجی",
+    "after": "عرض طريقة المصادقة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "displayName",
+    "before": "نام نمایشی",
+    "after": "الاسم المعروض",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "due-date",
+    "before": "تاریخ اجرا",
+    "after": "تاريخ الاستحقاق",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "dueCards-title",
+    "before": "کارتهای سررسید",
+    "after": "البطاقات المستحقة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "dueCardsViewChange-title",
+    "before": "نمایش کارتهای سررسید",
+    "after": "عرض البطاقات المستحقة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "dueCardsViewChangePopup-title",
+    "before": "نمایش کارتهای سررسید",
+    "after": "عرض البطاقات المستحقة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "duenow",
+    "before": "زمان سررسید فعلی %s امروز است",
+    "after": "وقت الاستحقاق الحالي %s هو اليوم",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "editCardEndDatePopup-title",
+    "before": "تغییر تاریخ پایان",
+    "after": "تغيير تاريخ الانتهاء",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "editCardReceivedDatePopup-title",
+    "before": "تغییر تاریخ رسید",
+    "after": "تغيير تاريخ الاستلام",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "editVoteEndDatePopup-title",
+    "before": "تغییر تاریخ پایان رای‌گیری",
+    "after": "تغيير تاريخ انتهاء التصويت",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "error-list-doesNotExist",
+    "before": "این لیست موجود نیست",
+    "after": "هذه القائمة غير موجودة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "error-user-notCreated",
+    "before": "این کاربر ایجاد نشده است",
+    "after": "لم يتم إنشاء هذا المستخدم",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "filter-assignee-label",
+    "before": "فیلتر کردن با مسئول",
+    "after": "تصفية حسب المكلّف",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "filter-by-unread",
+    "before": "فیلتر با خوانده نشده",
+    "after": "تصفية حسب غير المقروء",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "filter-cards",
+    "before": "فیلتر کارت‌ها یا لیست‌ها",
+    "after": "تصفية البطاقات أو القوائم",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "filter-dates-label",
+    "before": "فیلتر با تاریخ",
+    "after": "تصفية حسب التاريخ",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "filter-due-this-week",
+    "before": "مقتضی این هفته",
+    "after": "مستحقة هذا الأسبوع",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "filter-hide-empty",
+    "before": "مخفی کردن لیست‌های خالی",
+    "after": "إخفاء القوائم الفارغة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "filter-no-due-date",
+    "before": "بدون تاریخ مقرر",
+    "after": "بلا تاريخ استحقاق",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "filter-show-archive",
+    "before": "نمایش لیست‌های آرشیو شده",
+    "after": "عرض القوائم المؤرشفة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "hide-minicard-label-text",
+    "before": "مخفی کردن اسم لیبل مینی کارت",
+    "after": "إخفاء نص تسمية البطاقة المصغرة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "list",
+    "before": "لیست",
+    "after": "قائمة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "list-archive-cards",
+    "before": "انتقال تمامی کارت های این لیست به آرشیو",
+    "after": "أرشفة جميع البطاقات في هذه القائمة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "list-archive-cards-pop",
+    "before": "این کارتباعث حذف تمامی کارت های این لیست از برد می شود . برای مشاهده کارت ها در آرشیو و برگرداندن آنها به برد بر بروی \"Menu\">\"Archive\" کلیک نمایید",
+    "after": "سيؤدي هذا إلى إزالة جميع بطاقات هذه القائمة من اللوحة. لعرض البطاقات المؤرشفة وإعادتها إلى اللوحة، انقر على «القائمة» ثم «الأرشيف».",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "list-delete-suggest-archive",
+    "before": "شما می توانید لیست را به آرشیو انتقال دهید تا آن را از برد حذف نمایید و فعالیت های خود را حفظ نمایید",
+    "after": "يمكنك نقل القائمة إلى الأرشيف لإزالتها من اللوحة والاحتفاظ بالأنشطة.",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "list-filter-label",
+    "before": "فیلتر لیست بر اساس عنوان",
+    "after": "تصفية القائمة حسب العنوان",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "list-label-title",
+    "before": "نام لیست",
+    "after": "اسم القائمة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "list-sort-by",
+    "before": "مرتب سازی لیست بر اساس:",
+    "after": "ترتيب القائمة حسب:",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "list-templates-swimlane",
+    "before": "لیست قالب‌ها",
+    "after": "قوالب القوائم",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "listImportCardPopup-title",
+    "before": "وارد کردن کارت Trello",
+    "after": "استيراد بطاقة Trello",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "my-attachments",
+    "before": "کارت های المرفقات",
+    "after": "مرفقاتي",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "my-cards",
+    "before": "کارت های من",
+    "after": "بطاقاتي",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "myCardsSortChange-choice-dueat",
+    "before": "بر اساس تاریخ انجام",
+    "after": "حسب تاريخ الاستحقاق",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "myCardsSortChange-title",
+    "before": "نظم کارت های من",
+    "after": "ترتيب بطاقاتي",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "myCardsSortChangePopup-title",
+    "before": "نظم کارت های من",
+    "after": "ترتيب بطاقاتي",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "no-archived-cards",
+    "before": "هیچ کارتی در آرشیو موجود نمی باشد",
+    "after": "لا توجد بطاقات في الأرشيف.",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "no-archived-lists",
+    "before": "هیچ لیستی در آرشیو موجود نمی باشد",
+    "after": "لا توجد قوائم في الأرشيف.",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "no-cards-found",
+    "before": "هیچ کارتی یافت نشد",
+    "after": "لم يتم العثور على بطاقات",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "no-parent",
+    "before": "پدر را نمایش نده",
+    "after": "عدم عرض البطاقة الأصلية",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "not-accepted-yet",
+    "before": "دعوت نامه هنوز پذیرفته نشده است",
+    "after": "لم تُقبل الدعوة بعد",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "notify-watch",
+    "before": "اطلاع رسانی از هرگونه تغییر در بردها، لیست‌ها یا کارت‌هایی که از آنها دیده‌بانی می‌کنید",
+    "after": "تلقي تحديثات أي لوحات أو قوائم أو بطاقات تتابعها",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "one-card-found",
+    "before": "یک کارت یافت شد",
+    "after": "تم العثور على بطاقة واحدة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "operator-checklist-text",
+    "before": "چک‌لیست",
+    "after": "قائمة تحقق",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "parent-card",
+    "before": "کارت پدر",
+    "after": "البطاقة الأصلية",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "predicate-checklist",
+    "before": "چک‌لیست",
+    "after": "قائمة تحقق",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "preview",
+    "before": "پیش‌نمایش",
+    "after": "معاينة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "previewAttachedImagePopup-title",
+    "before": "پیش‌نمایش",
+    "after": "معاينة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "previewClipboardImagePopup-title",
+    "before": "پیش‌نمایش",
+    "after": "معاينة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "r-a-card",
+    "before": "کارت",
+    "after": "بطاقة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "r-add-checklist",
+    "before": "افزودن چک‌لیست",
+    "after": "إضافة قائمة تحقق",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "r-card",
+    "before": "کارت",
+    "after": "بطاقة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "r-checklist",
+    "before": "چک‌لیست",
+    "after": "قائمة تحقق",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "r-checklist-note",
+    "before": "نکته: چک‌لیست‌ها باید توسط کاما از یک‌دیگر جدا شوند.",
+    "after": "ملاحظة: يجب كتابة عناصر قائمة التحقق كقيم تفصل بينها فواصل.",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "r-create-card",
+    "before": "ساخت کارت جدید",
+    "after": "إنشاء بطاقة جديدة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "r-d-add-checklist",
+    "before": "افزودن چک‌لیست",
+    "after": "إضافة قائمة تحقق",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "r-d-archive",
+    "before": "انتقال کارت به آرشیو",
+    "after": "نقل البطاقة إلى الأرشيف",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "r-d-check-all",
+    "before": "انتخاب تمام آیتم های لیست",
+    "after": "تحديد جميع عناصر القائمة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "r-d-check-of-list",
+    "before": "از چک‌لیست",
+    "after": "من قائمة التحقق",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "r-d-move-to-bottom-gen",
+    "before": "انتقال کارت به انتهای لیست خود",
+    "after": "نقل البطاقة إلى نهاية قائمتها",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "r-d-move-to-bottom-spec",
+    "before": "انتقال کارت به انتهای لیست",
+    "after": "نقل البطاقة إلى نهاية القائمة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "r-d-move-to-top-gen",
+    "before": "انتقال کارت به ابتدای لیست خود",
+    "after": "نقل البطاقة إلى بداية قائمتها",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "r-d-move-to-top-spec",
+    "before": "انتقال کارت به ابتدای لیست",
+    "after": "نقل البطاقة إلى بداية القائمة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "r-d-remove-checklist",
+    "before": "حذف چک‌لیست",
+    "after": "إزالة قائمة التحقق",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "r-d-unarchive",
+    "before": "بازگردانی کارت از آرشیو",
+    "after": "استعادة البطاقة من الأرشيف",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "r-d-uncheck-all",
+    "before": "لغوانتخاب تمام آیتم های لیست",
+    "after": "إلغاء تحديد جميع عناصر القائمة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "r-datefield",
+    "before": "تاریخ",
+    "after": "حقل التاريخ",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "r-in-list",
+    "before": "در لیست",
+    "after": "في القائمة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "r-items-check",
+    "before": "آیتم‌های چک‌لیست",
+    "after": "عناصر قائمة التحقق",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "r-its-list",
+    "before": "لیست خود",
+    "after": "قائمتها",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "r-list-name",
+    "before": "نام لیست",
+    "after": "اسم القائمة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "r-made-incomplete",
+    "before": "تمام نشده",
+    "after": "جُعل غير مكتمل",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "r-move-card-to",
+    "before": "انتقال کارت به",
+    "after": "نقل البطاقة إلى",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "r-of-checklist",
+    "before": "از چک‌لیست",
+    "after": "من قائمة التحقق",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "r-remove-all",
+    "before": "حذف همه کاربران از کارت",
+    "after": "إزالة جميع الأعضاء من البطاقة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "r-to-current-datetime",
+    "before": "به تاریخ/زمان فعلی",
+    "after": "إلى التاريخ والوقت الحاليين",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "r-view-rule",
+    "before": "نمایش قاعده",
+    "after": "عرض القاعدة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "r-when-a-card",
+    "before": "زمانی که کارت",
+    "after": "عندما تكون البطاقة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "r-when-a-card-is-moved",
+    "before": "زمانی که یک کارت به لیست دیگری منتقل شد",
+    "after": "عندما تُنقل بطاقة إلى قائمة أخرى",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "r-when-a-checklist",
+    "before": "زمانی که چک‌لیست هست",
+    "after": "عندما تكون قائمة التحقق",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "r-when-a-item",
+    "before": "زمانی که آیتم چک‌لیست هست",
+    "after": "عندما يكون عنصر قائمة التحقق",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "r-when-the-checklist",
+    "before": "زمانی که چک‌لیست",
+    "after": "عندما تكون قائمة التحقق",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "r-when-the-item",
+    "before": "زمانی که آیتم چک‌لیست",
+    "after": "عندما يكون عنصر قائمة التحقق",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "search-cards",
+    "before": "جستجو در عناوین، توضیحات و فیلدهای سفارشیِ کارت‌ها/لیست‌ها در این برد",
+    "after": "البحث في عناوين البطاقات والقوائم وأوصافها والحقول المخصصة في هذه اللوحة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "settingsUserPopup-title",
+    "before": "تنظیمات کاربر",
+    "after": "إعدادات المستخدم",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "shortcut-add-self",
+    "before": "اضافه کردن خودتان به کارت",
+    "after": "إضافة نفسك إلى البطاقة الحالية",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "shortcut-assign-self",
+    "before": "انتصاب خود به کارت فعلی",
+    "after": "تكليف نفسك بالبطاقة الحالية",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "show-desktop-drag-handles",
+    "before": "نمایش دستگیره‌های درگ‌کردن دسکتاپ",
+    "after": "عرض مقابض السحب على سطح المكتب",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "show-field-on-card",
+    "before": "این فیلد را در کارت نمایش بده",
+    "after": "عرض هذا الحقل على البطاقة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "show-on-card",
+    "before": "نمایش در کارت",
+    "after": "عرض على البطاقة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "show-parent-in-minicard",
+    "before": "نمایش خانواده در ریز کارت",
+    "after": "عرض البطاقة الأصلية على البطاقة المصغرة:",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "showLabel-field-on-card",
+    "before": "نمایش لیبل فیلد در کارت‌های کوچک",
+    "after": "عرض تسمية الحقل على البطاقة المصغرة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "sort-cards",
+    "before": "مرتب‌سازی کارت‌ها",
+    "after": "ترتيب البطاقات",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "subtask-settings",
+    "before": "تنظیمات زیروظایف",
+    "after": "إعدادات المهام الفرعية",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "tracking-info",
+    "before": "شما از هرگونه تغییر در کارتهایی که بعنوان ایجاد کننده ویا عضو آن هستید، آگاه خواهید شد",
+    "after": "ستتلقى إشعارات بأي تغييرات على البطاقات التي تشارك فيها بصفتك منشئاً أو عضواً.",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "vote-public",
+    "before": "نمایش چه کسی به چه رای داده است",
+    "after": "عرض خيارات التصويت لكل شخص",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "warn-list-archived",
+    "before": "اخطار: این کارت در یک لیست در آرشیو موجود می‌باشد",
+    "after": "تحذير: هذه البطاقة موجودة في قائمة مؤرشفة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "worker-desc",
+    "before": "تنها می‌توانید کارت‌ها را جابجا کنید، آنها را به خود محول کنید و نظر دهید.",
+    "after": "يمكنه فقط نقل البطاقات وتكليف نفسه بالبطاقات وإضافة التعليقات.",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "act-moveCardToOtherBoard",
+    "before": "کارت __card__ را از لیست __oldList__ در مسیر __oldSwimlane__ در برد __oldBoard__ به لیست __list__ در مسیر __swimlane__ در برد __board__ منتقل کرد",
+    "after": "نقل البطاقة __card__ من القائمة __oldList__ في المسار __oldSwimlane__ على اللوحة __oldBoard__ إلى القائمة __list__ في المسار __swimlane__ على اللوحة __board__",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "act-removeBoardMember",
+    "before": "عضو __member__ را از برد __board__ حذف کرد",
+    "after": "أزال العضو __member__ من اللوحة __board__",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "act-restoredCard",
+    "before": "کارت __card__ را به لیست __list__ در مسیر __swimlane__ در برد __board__ بازگرداند",
+    "after": "استعاد البطاقة __card__ إلى القائمة __list__ في المسار __swimlane__ على اللوحة __board__",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "act-unjoinMember",
+    "before": "عضو __member__ را از کارت __card__ در لیست __list__ در مسیر __swimlane__ در برد __board__ حذف کرد",
+    "after": "أزال العضو __member__ من البطاقة __card__ في القائمة __list__ في المسار __swimlane__ على اللوحة __board__",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "activity-checked-item-card",
+    "before": "%s در چک‌لیست %s انتخاب‌شده",
+    "after": "حدد %s في قائمة التحقق %s",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "activity-checklist-completed",
+    "before": "چک‌لیست %s از %s کامل شده‌است",
+    "after": "أكمل قائمة التحقق %s من %s",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "activity-checklist-uncompleted-card",
+    "before": "چک‌لیست %s تمام نشده",
+    "after": "جعل قائمة التحقق %s غير مكتملة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "activity-unchecked-item-card",
+    "before": "%s در چک‌لیست %s از حالت انتخاب خارج شده",
+    "after": "ألغى تحديد %s في قائمة التحقق %s",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "add-existing-card-as-subtask-empty",
+    "before": "هیچ کارتی یافت نشد",
+    "after": "لم يتم العثور على بطاقات مطابقة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "always-field-on-card",
+    "before": "افزودن فیلد به همه کارت ها",
+    "after": "إضافة الحقل إلى جميع البطاقات",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "app-is-offline",
+    "before": "در حال بارگزاری لطفا منتظر بمانید. بازخوانی صفحه باعث از بین رفتن اطلاعات می شود. اگر بارگذاری کار نمی کند، لطفا بررسی کنید که این سرور متوقف نشده است.",
+    "after": "جارٍ التحميل، يرجى الانتظار. تحديث الصفحة سيؤدي إلى فقدان البيانات. إذا لم يعمل التحميل، يرجى التحقق من أن الخادم لم يتوقف.",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "automatically-field-on-card",
+    "before": "افزودن فیلد به کارت های جدید",
+    "after": "إضافة الحقل إلى البطاقات الجديدة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "board-delete-notice",
+    "before": "حذف دائمی است شما تمام لیست ها، کارت ها و اقدامات مرتبط با این برد را از دست خواهید داد.",
+    "after": "الحذف نهائي. ستفقد جميع القوائم والبطاقات والإجراءات المرتبطة بهذه اللوحة.",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "boardCardSettingsPopup-title",
+    "before": "تنظیمات کارت",
+    "after": "إعدادات البطاقات",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "boardCardTitlePopup-title",
+    "before": "فیلتر عنوان کارت",
+    "after": "تصفية عناوين البطاقات",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "boardSubtaskSettingsPopup-title",
+    "before": "تنظیمات زیروظایف",
+    "after": "إعدادات المهام الفرعية",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "broken-cards",
+    "before": "کارت های شکسته",
+    "after": "بطاقات معطوبة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "card-settings",
+    "before": "تنظیمات کارت",
+    "after": "إعدادات البطاقات",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "card-templates-swimlane",
+    "before": "قالب‌های کارت",
+    "after": "قوالب البطاقات",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "cardsSortPopup-title",
+    "before": "مرتب‌سازی کارت‌ها",
+    "after": "ترتيب البطاقات",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "change-card-parent",
+    "before": "تغییرخانواده کارت",
+    "after": "تغيير البطاقة الأصلية",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "comment-not-found",
+    "before": "کارتی که نظرتاش شمال باشد '%s' یافت نشد.",
+    "after": "لم يتم العثور على بطاقة بتعليق يحتوي على النص '%s'.",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "copyManyCardsPopup-instructions",
+    "before": "عنوان و توضیحات کارت مقصد در این قالب JSON",
+    "after": "عناوين البطاقات الوجهة وأوصافها بتنسيق JSON هذا",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "created-at-newest-first",
+    "before": "ساخته شده در تاریخ (با اولویت جدید تر)",
+    "after": "تاريخ الإنشاء (الأحدث أولاً)",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "created-at-oldest-first",
+    "before": "ساخته شده در تاریخ (با اولویت قدیمی تر)",
+    "after": "تاريخ الإنشاء (الأقدم أولاً)",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "custom-field-delete-pop",
+    "before": "این اقدام فیلد سفارشی را بهمراه تمامی تاریخچه آن از کارت ها پاک می کند و برگشت پذیر نمی باشد",
+    "after": "لا يمكن التراجع. سيؤدي هذا إلى إزالة الحقل المخصص من جميع البطاقات وحذف سجله.",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "custom-field-dropdown",
+    "before": "لیست افتادنی",
+    "after": "قائمة منسدلة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "custom-field-dropdown-options",
+    "before": "لیست امکانات",
+    "after": "خيارات القائمة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "delete-board-confirm-popup",
+    "before": "تمام لیست ها، کارت ها، لیبل ها و فعالیت ها حذف خواهند شد و شما نمی توانید محتوای برد را بازیابی کنید. هیچ واکنشی وجود ندارد",
+    "after": "ستُحذف جميع القوائم والبطاقات والتسميات والأنشطة، ولن تتمكن من استعادة محتويات اللوحة. لا يمكن التراجع.",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "delete-linked-card-before-this-card",
+    "before": "پیش از این‌که کارت‌های لینک شده به این کارت را حذف نکنید، نمی‌توانید این کارت را حذف کنید.",
+    "after": "لا يمكنك حذف هذه البطاقة قبل حذف البطاقة المرتبطة التي تحتوي على",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "delete-linked-cards-before-this-list",
+    "before": "پیش از حذف کارت‌هایی که به کارت‌های این لیست لینک شده‌اند نمی‌توانید این لیست را حذف کنید.",
+    "after": "لا يمكنك حذف هذه القائمة قبل حذف البطاقات المرتبطة التي تشير إلى بطاقات في هذه القائمة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "deposit-subtasks-list",
+    "before": "لیست برای ریزکار های افزوده شده",
+    "after": "قائمة استقبال المهام الفرعية المضافة هنا:",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "display-authentication-method",
+    "before": "نمایش نوع اعتبارسنجی",
+    "after": "عرض طريقة المصادقة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "displayName",
+    "before": "نام نمایشی",
+    "after": "الاسم المعروض",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "due-date",
+    "before": "تاریخ اجرا",
+    "after": "تاريخ الاستحقاق",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "dueCards-title",
+    "before": "کارتهای سررسید",
+    "after": "البطاقات المستحقة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "dueCardsViewChange-title",
+    "before": "نمایش کارتهای سررسید",
+    "after": "عرض البطاقات المستحقة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "dueCardsViewChangePopup-title",
+    "before": "نمایش کارتهای سررسید",
+    "after": "عرض البطاقات المستحقة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "duenow",
+    "before": "زمان سررسید فعلی %s امروز است",
+    "after": "وقت الاستحقاق الحالي %s هو اليوم",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "editCardEndDatePopup-title",
+    "before": "تغییر تاریخ پایان",
+    "after": "تغيير تاريخ الانتهاء",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "editCardReceivedDatePopup-title",
+    "before": "تغییر تاریخ رسید",
+    "after": "تغيير تاريخ الاستلام",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "editVoteEndDatePopup-title",
+    "before": "تغییر تاریخ پایان رای‌گیری",
+    "after": "تغيير تاريخ انتهاء التصويت",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "error-list-doesNotExist",
+    "before": "این لیست موجود نیست",
+    "after": "هذه القائمة غير موجودة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "error-user-notCreated",
+    "before": "این کاربر ایجاد نشده است",
+    "after": "لم يتم إنشاء هذا المستخدم",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "filter-assignee-label",
+    "before": "فیلتر کردن با مسئول",
+    "after": "تصفية حسب المكلّف",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "filter-by-unread",
+    "before": "فیلتر با خوانده نشده",
+    "after": "تصفية حسب غير المقروء",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "filter-cards",
+    "before": "فیلتر کارت‌ها یا لیست‌ها",
+    "after": "تصفية البطاقات أو القوائم",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "filter-dates-label",
+    "before": "فیلتر با تاریخ",
+    "after": "تصفية حسب التاريخ",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "filter-due-this-week",
+    "before": "مقتضی این هفته",
+    "after": "مستحقة هذا الأسبوع",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "filter-hide-empty",
+    "before": "مخفی کردن لیست‌های خالی",
+    "after": "إخفاء القوائم الفارغة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "filter-no-due-date",
+    "before": "بدون تاریخ مقرر",
+    "after": "بلا تاريخ استحقاق",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "filter-show-archive",
+    "before": "نمایش لیست‌های آرشیو شده",
+    "after": "عرض القوائم المؤرشفة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "hide-minicard-label-text",
+    "before": "مخفی کردن اسم لیبل مینی کارت",
+    "after": "إخفاء نص تسمية البطاقة المصغرة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "list",
+    "before": "لیست",
+    "after": "قائمة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "list-archive-cards",
+    "before": "انتقال تمامی کارت های این لیست به آرشیو",
+    "after": "أرشفة جميع البطاقات في هذه القائمة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "list-archive-cards-pop",
+    "before": "این کارتباعث حذف تمامی کارت های این لیست از برد می شود . برای مشاهده کارت ها در آرشیو و برگرداندن آنها به برد بر بروی \"Menu\">\"Archive\" کلیک نمایید",
+    "after": "سيؤدي هذا إلى إزالة جميع بطاقات هذه القائمة من اللوحة. لعرض البطاقات المؤرشفة وإعادتها إلى اللوحة، انقر على «القائمة» ثم «الأرشيف».",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "list-delete-suggest-archive",
+    "before": "شما می توانید لیست را به آرشیو انتقال دهید تا آن را از برد حذف نمایید و فعالیت های خود را حفظ نمایید",
+    "after": "يمكنك نقل القائمة إلى الأرشيف لإزالتها من اللوحة والاحتفاظ بالأنشطة.",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "list-filter-label",
+    "before": "فیلتر لیست بر اساس عنوان",
+    "after": "تصفية القائمة حسب العنوان",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "list-label-title",
+    "before": "نام لیست",
+    "after": "اسم القائمة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "list-sort-by",
+    "before": "مرتب سازی لیست بر اساس:",
+    "after": "ترتيب القائمة حسب:",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "list-templates-swimlane",
+    "before": "لیست قالب‌ها",
+    "after": "قوالب القوائم",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "listImportCardPopup-title",
+    "before": "وارد کردن کارت Trello",
+    "after": "استيراد بطاقة Trello",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "my-attachments",
+    "before": "کارت های المرفقات",
+    "after": "مرفقاتي",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "my-cards",
+    "before": "کارت های من",
+    "after": "بطاقاتي",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "myCardsSortChange-choice-dueat",
+    "before": "بر اساس تاریخ انجام",
+    "after": "حسب تاريخ الاستحقاق",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "myCardsSortChange-title",
+    "before": "نظم کارت های من",
+    "after": "ترتيب بطاقاتي",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "myCardsSortChangePopup-title",
+    "before": "نظم کارت های من",
+    "after": "ترتيب بطاقاتي",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "no-archived-cards",
+    "before": "هیچ کارتی در آرشیو موجود نمی باشد",
+    "after": "لا توجد بطاقات في الأرشيف.",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "no-archived-lists",
+    "before": "هیچ لیستی در آرشیو موجود نمی باشد",
+    "after": "لا توجد قوائم في الأرشيف.",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "no-cards-found",
+    "before": "هیچ کارتی یافت نشد",
+    "after": "لم يتم العثور على بطاقات",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "no-parent",
+    "before": "پدر را نمایش نده",
+    "after": "عدم عرض البطاقة الأصلية",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "not-accepted-yet",
+    "before": "دعوت نامه هنوز پذیرفته نشده است",
+    "after": "لم تُقبل الدعوة بعد",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "notify-watch",
+    "before": "اطلاع رسانی از هرگونه تغییر در بردها، لیست‌ها یا کارت‌هایی که از آنها دیده‌بانی می‌کنید",
+    "after": "تلقي تحديثات أي لوحات أو قوائم أو بطاقات تتابعها",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "one-card-found",
+    "before": "یک کارت یافت شد",
+    "after": "تم العثور على بطاقة واحدة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "operator-checklist-text",
+    "before": "چک‌لیست",
+    "after": "قائمة تحقق",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "parent-card",
+    "before": "کارت پدر",
+    "after": "البطاقة الأصلية",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "predicate-checklist",
+    "before": "چک‌لیست",
+    "after": "قائمة تحقق",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "preview",
+    "before": "پیش‌نمایش",
+    "after": "معاينة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "previewAttachedImagePopup-title",
+    "before": "پیش‌نمایش",
+    "after": "معاينة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "previewClipboardImagePopup-title",
+    "before": "پیش‌نمایش",
+    "after": "معاينة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "r-a-card",
+    "before": "کارت",
+    "after": "بطاقة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "r-add-checklist",
+    "before": "افزودن چک‌لیست",
+    "after": "إضافة قائمة تحقق",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "r-card",
+    "before": "کارت",
+    "after": "بطاقة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "r-checklist",
+    "before": "چک‌لیست",
+    "after": "قائمة تحقق",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "r-checklist-note",
+    "before": "نکته: چک‌لیست‌ها باید توسط کاما از یک‌دیگر جدا شوند.",
+    "after": "ملاحظة: يجب كتابة عناصر قائمة التحقق كقيم تفصل بينها فواصل.",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "r-create-card",
+    "before": "ساخت کارت جدید",
+    "after": "إنشاء بطاقة جديدة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "r-d-add-checklist",
+    "before": "افزودن چک‌لیست",
+    "after": "إضافة قائمة تحقق",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "r-d-archive",
+    "before": "انتقال کارت به آرشیو",
+    "after": "نقل البطاقة إلى الأرشيف",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "r-d-check-all",
+    "before": "انتخاب تمام آیتم های لیست",
+    "after": "تحديد جميع عناصر القائمة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "r-d-check-of-list",
+    "before": "از چک‌لیست",
+    "after": "من قائمة التحقق",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "r-d-move-to-bottom-gen",
+    "before": "انتقال کارت به انتهای لیست خود",
+    "after": "نقل البطاقة إلى نهاية قائمتها",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "r-d-move-to-bottom-spec",
+    "before": "انتقال کارت به انتهای لیست",
+    "after": "نقل البطاقة إلى نهاية القائمة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "r-d-move-to-top-gen",
+    "before": "انتقال کارت به ابتدای لیست خود",
+    "after": "نقل البطاقة إلى بداية قائمتها",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "r-d-move-to-top-spec",
+    "before": "انتقال کارت به ابتدای لیست",
+    "after": "نقل البطاقة إلى بداية القائمة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "r-d-remove-checklist",
+    "before": "حذف چک‌لیست",
+    "after": "إزالة قائمة التحقق",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "r-d-unarchive",
+    "before": "بازگردانی کارت از آرشیو",
+    "after": "استعادة البطاقة من الأرشيف",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "r-d-uncheck-all",
+    "before": "لغوانتخاب تمام آیتم های لیست",
+    "after": "إلغاء تحديد جميع عناصر القائمة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "r-datefield",
+    "before": "تاریخ",
+    "after": "حقل التاريخ",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "r-in-list",
+    "before": "در لیست",
+    "after": "في القائمة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "r-items-check",
+    "before": "آیتم‌های چک‌لیست",
+    "after": "عناصر قائمة التحقق",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "r-its-list",
+    "before": "لیست خود",
+    "after": "قائمتها",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "r-list-name",
+    "before": "نام لیست",
+    "after": "اسم القائمة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "r-made-incomplete",
+    "before": "تمام نشده",
+    "after": "جُعل غير مكتمل",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "r-move-card-to",
+    "before": "انتقال کارت به",
+    "after": "نقل البطاقة إلى",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "r-of-checklist",
+    "before": "از چک‌لیست",
+    "after": "من قائمة التحقق",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "r-remove-all",
+    "before": "حذف همه کاربران از کارت",
+    "after": "إزالة جميع الأعضاء من البطاقة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "r-to-current-datetime",
+    "before": "به تاریخ/زمان فعلی",
+    "after": "إلى التاريخ والوقت الحاليين",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "r-view-rule",
+    "before": "نمایش قاعده",
+    "after": "عرض القاعدة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "r-when-a-card",
+    "before": "زمانی که کارت",
+    "after": "عندما تكون البطاقة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "r-when-a-card-is-moved",
+    "before": "زمانی که یک کارت به لیست دیگری منتقل شد",
+    "after": "عندما تُنقل بطاقة إلى قائمة أخرى",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "r-when-a-checklist",
+    "before": "زمانی که چک‌لیست هست",
+    "after": "عندما تكون قائمة التحقق",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "r-when-a-item",
+    "before": "زمانی که آیتم چک‌لیست هست",
+    "after": "عندما يكون عنصر قائمة التحقق",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "r-when-the-checklist",
+    "before": "زمانی که چک‌لیست",
+    "after": "عندما تكون قائمة التحقق",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "r-when-the-item",
+    "before": "زمانی که آیتم چک‌لیست",
+    "after": "عندما يكون عنصر قائمة التحقق",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "search-cards",
+    "before": "جستجو در عناوین، توضیحات و فیلدهای سفارشیِ کارت‌ها/لیست‌ها در این برد",
+    "after": "البحث في عناوين البطاقات والقوائم وأوصافها والحقول المخصصة في هذه اللوحة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "settingsUserPopup-title",
+    "before": "تنظیمات کاربر",
+    "after": "إعدادات المستخدم",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "shortcut-add-self",
+    "before": "اضافه کردن خودتان به کارت",
+    "after": "إضافة نفسك إلى البطاقة الحالية",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "shortcut-assign-self",
+    "before": "انتصاب خود به کارت فعلی",
+    "after": "تكليف نفسك بالبطاقة الحالية",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "show-desktop-drag-handles",
+    "before": "نمایش دستگیره‌های درگ‌کردن دسکتاپ",
+    "after": "عرض مقابض السحب على سطح المكتب",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "show-field-on-card",
+    "before": "این فیلد را در کارت نمایش بده",
+    "after": "عرض هذا الحقل على البطاقة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "show-on-card",
+    "before": "نمایش در کارت",
+    "after": "عرض على البطاقة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "show-parent-in-minicard",
+    "before": "نمایش خانواده در ریز کارت",
+    "after": "عرض البطاقة الأصلية على البطاقة المصغرة:",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "showLabel-field-on-card",
+    "before": "نمایش لیبل فیلد در کارت‌های کوچک",
+    "after": "عرض تسمية الحقل على البطاقة المصغرة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "sort-cards",
+    "before": "مرتب‌سازی کارت‌ها",
+    "after": "ترتيب البطاقات",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "subtask-settings",
+    "before": "تنظیمات زیروظایف",
+    "after": "إعدادات المهام الفرعية",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "tracking-info",
+    "before": "شما از هرگونه تغییر در کارتهایی که بعنوان ایجاد کننده ویا عضو آن هستید، آگاه خواهید شد",
+    "after": "ستتلقى إشعارات بأي تغييرات على البطاقات التي تشارك فيها بصفتك منشئاً أو عضواً.",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "vote-public",
+    "before": "نمایش چه کسی به چه رای داده است",
+    "after": "عرض خيارات التصويت لكل شخص",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "warn-list-archived",
+    "before": "اخطار: این کارت در یک لیست در آرشیو موجود می‌باشد",
+    "after": "تحذير: هذه البطاقة موجودة في قائمة مؤرشفة",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "worker-desc",
+    "before": "تنها می‌توانید کارت‌ها را جابجا کنید، آنها را به خود محول کنید و نظر دهید.",
+    "after": "يمكنه فقط نقل البطاقات وتكليف نفسه بالبطاقات وإضافة التعليقات.",
+    "reason": "Replace inspected Persian seed text with Arabic UI terminology; Moroccan/Algerian/Egyptian phrasing may need dialect review."
+  },
+  {
+    "locale": "ary",
+    "key": "custom-field-dropdownMultiSelect",
+    "before": "لیست افتادنی (اختیار چندگانه)",
+    "after": "لائحة منسدلة (تقدر تختار كثر من واحد)",
+    "reason": "Replace remaining Persian fragments with Moroccan Arabic interface wording."
+  },
+  {
+    "locale": "ary",
+    "key": "error-watch-disabled",
+    "before": "دنبال‌کردن بردها و کارت‌ها توسط مدیر غیرفعال شده است",
+    "after": "المسؤول سدّ تتبّع اللوحات والبطاقات",
+    "reason": "Replace remaining Persian fragments with Moroccan Arabic interface wording."
+  },
+  {
+    "locale": "ary",
+    "key": "wip-limit-groups",
+    "before": "تفعيل حد العمل الجاري (WIP) (لیست)",
+    "after": "مجموعات الحدّ ديال الخدمة الجارية (WIP)",
+    "reason": "Replace remaining Persian fragments with Moroccan Arabic interface wording."
   }
 ]
