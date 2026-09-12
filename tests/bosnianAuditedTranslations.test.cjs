@@ -208,3 +208,15 @@ assert.match(data['globalSearch-instructions-operator-sort'], /opadajuće.*`-`/)
 assert.match(data['globalSearch-instructions-operator-modified'], /dana ili manje/);
 assert.match(data['globalSearch-instructions-status-all'], /arhivirane i nearhivirane/);
 console.log('bosnianAuditedTranslations: end-date status, private-board scope, assignment and descending sort passed');
+
+assert.match(data['globalSearch-instructions-status-public'], /samo na javnim pločama/);
+assert.doesNotMatch(data['globalSearch-instructions-status-public'], /Internet|internet/);
+assert.equal(data['gridfs-enabled-description'], 'Koristi MongoDB GridFS za pohranu datoteka');
+assert.equal(data['hide-finished-checklist'], 'Sakrij dovršenu kontrolnu listu');
+assert.equal(data.hideCheckedChecklistItems, 'Sakrij označene stavke kontrolne liste');
+assert.notEqual(data['hide-finished-checklist'], data.hideCheckedChecklistItems);
+assert.match(data['hide-list-on-minicard'], /listu na minikartici/);
+assert.match(data['hide-minicard-label-text'], /tekst oznake na minikartici/);
+assert.equal(data['if-you-already-have-an-account'], 'Ako već imate račun');
+assert.equal(data['impersonate-user'], 'Preuzmi identitet korisnika');
+console.log('bosnianAuditedTranslations: public-board scope, GridFS and checklist visibility passed');

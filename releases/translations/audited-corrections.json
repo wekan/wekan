@@ -28495,5 +28495,89 @@
     "before": "`__predicate_private__` - предмети видљиви искључиво сарадницима",
     "after": "`__predicate_private__` - kartice samo na privatnim pločama",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "globalSearch-instructions-status-public",
+    "before": "`__predicate_public__` - предмети видљиви свима на интернету",
+    "after": "`__predicate_public__` - kartice samo na javnim pločama",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "gridfs-attachments",
+    "before": "GridFS раздељена предметна грађа",
+    "after": "GridFS prilozi",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "gridfs-enabled",
+    "before": "GridFS ради и можете га користити",
+    "after": "GridFS omogućen",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "gridfs-enabled-description",
+    "before": "Можете користити MongoDB GridFS за складиште предметне грађе",
+    "after": "Koristi MongoDB GridFS za pohranu datoteka",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "hide-checked-items",
+    "before": "Сакриј обављене помоћне предметне радње",
+    "after": "Sakrij označene stavke",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "hide-finished-checklist",
+    "before": "Сакриј обављене предметне радње",
+    "after": "Sakrij dovršenu kontrolnu listu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "hide-list-on-minicard",
+    "before": "Сакриј део поступка са омота",
+    "after": "Sakrij listu na minikartici",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "hide-minicard-label-text",
+    "before": "Сакриј натпис на налепници",
+    "after": "Sakrij tekst oznake na minikartici",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "hideAllChecklistItems",
+    "before": "Сакриј све помоћне предметне радње",
+    "after": "Sakrij sve stavke kontrolne liste",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "hideCheckedChecklistItems",
+    "before": "Сакриј све обављене помоћне предметне радње",
+    "after": "Sakrij označene stavke kontrolne liste",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "if-you-already-have-an-account",
+    "before": "Ако већ поседујете налог ⇨ ",
+    "after": "Ako već imate račun",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "impersonate-user",
+    "before": "Увуци се у налог овог корисника",
+    "after": "Preuzmi identitet korisnika",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
