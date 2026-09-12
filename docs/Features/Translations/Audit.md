@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Audit keys |
 | --- | ---: |
-| Explicitly corrected | 6,696 |
+| Explicitly corrected | 6,698 |
 | Restored pre-pull values awaiting further validation | 4,059 |
 | Reviewed and retained unchanged | 174 |
-| Pending review or repair | 9,152 |
+| Pending review or repair | 9,150 |
 | Total tracked | 20,081 |
 
 **Translation repairs remain unfinished.** These counts cover flagged findings; unflagged strings and restored values are not certified as correct.
 
-Fixes cover wrong-language text, terminology, warnings, JSON examples, placeholders and calendar/search formatting. The correction history records **6,768 values**, including fixes outside the audit. Per-language remaining work is available through the command below.
+Fixes cover wrong-language text, terminology, warnings, JSON examples, placeholders and calendar/search formatting. The correction history records **6,770 values**, including fixes outside the audit. Per-language remaining work is available through the command below.
 
-Latest fix: [2f5954fd6](https://github.com/wekan/wekan/commit/2f5954fd689698ce2a47ede3e26a1bfe276e9014), **2026-09-13** — two Amharic Hijri labels translated, preserving sighting and astronomical-epoch distinctions; its flagged queue is complete. Exact-value, placeholder, key-order and idempotency checks pass. Epoch wording is low confidence and needs native-speaker review; live browser verification remains unavailable.
+Latest fix: [2ee492d03](https://github.com/wekan/wekan/commit/2ee492d031a5d758c154b55e9d99fed7d28925e8), **2026-09-13** — two Pashto calendar labels translated, preserving Indian national and Saudi moon-sighting meanings; its flagged queue is complete. Exact-value, placeholder, key-order and idempotency checks pass. Wording needs native-speaker review; live browser verification remains unavailable.
 
 **Provenance:** not all errors came from Transifex. The captured pull changed 4,061 values; the local audit added 16,020 findings. Bosnian errors predated that pull in a [local completion commit](https://github.com/wekan/wekan/commit/bdb3b15886a749b725b5290ba0109fcba955f983). Other ultimate origins remain unverified.
 
