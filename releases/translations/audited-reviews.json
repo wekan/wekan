@@ -802,5 +802,17 @@
     "key": "writable-path",
     "value": "Ruta con permiso de escritura",
     "reason": "Reviewed shared Aragonese path and write-permission terminology; preserves writable rather than readable path meaning."
+  },
+  {
+    "locale": "fur",
+    "key": "attachment-limits",
+    "value": "Limits",
+    "reason": "Reviewed Friulian plural limits, which coincides with English; names attachment limits rather than English prose."
+  },
+  {
+    "locale": "fur",
+    "key": "avatars",
+    "value": "Avatars",
+    "reason": "Reviewed conventional avatar terminology used for user images; shared loanword does not establish wrong-language prose."
   }
 ]

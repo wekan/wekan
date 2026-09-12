@@ -46114,5 +46114,33 @@
     "before": "Islamic",
     "after": "calendari Hijri",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "fur",
+    "key": "calendar-system-islamic-civil",
+    "before": "Islamic civil",
+    "after": "calendari Hijri (tabulâr, epoche civîl)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "fur",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "calendari Hijri (Arabie Saudite, osservazion)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "fur",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "calendari Hijri (tabulâr, epoche astronomiche)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "fur",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "calendari Hijri (Umm al-Qura)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
