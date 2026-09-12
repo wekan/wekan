@@ -558,6 +558,13 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/65042ef8d83d6209f6c238148314f90325168f23">Repair Slovenian S3 configuration and backup scheduling labels</a>. Thanks to xet7.</summary>
+
+Correct 20 values across both Slovenian locales. Preserve AWS S3/MinIO alternatives, endpoint and region examples, authentication, SSL/TLS and board-backup scope. Regression checks verify meanings, exact corrections, source tokens, key order and idempotent repairs. The short translation audit records current progress.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/7f3c3c618e145ac44c63b3e78bb511383c20262a">Repair Slovenian migration confirmations and S3 labels</a>. Thanks to xet7.</summary>
 
 Correct 20 values across both Slovenian locales. Preserve conversion/deletion order, duplicate-list conditions, restoration warnings and non-archived-item scope; restore generic S3 labels. Regression checks verify meanings, exact corrections, source tokens, key order and idempotent repairs. The short translation audit records current progress.

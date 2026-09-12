@@ -4,21 +4,21 @@ Audit date: **2026-09-12**. Last updated: **2026-09-12**.
 
 | Status | Audit keys |
 | --- | ---: |
-| Explicitly corrected | 4,897 |
+| Explicitly corrected | 4,917 |
 | Original pull values restored to pre-pull local values | 4,061 |
 | Reviewed and retained unchanged | 78 |
-| Pending review or repair | 11,045 |
+| Pending review or repair | 11,025 |
 | Total tracked | 20,081 |
 
 The full translation repair goal remains unfinished. Counts describe the tracked audit findings; unflagged strings are not individually certified. Restored pre-pull values are not automatically certified as correct translations.
 
 ## Fixes completed
 
-Repairs address wrong-language text, incorrect kanban terminology, missing restrictions and warnings, malformed JSON examples, translated placeholders, calendar names, search syntax and date/message argument order. The reviewed correction list contains **4,959 values**, including corrections outside the flagged audit rows.
+Repairs address wrong-language text, incorrect kanban terminology, missing restrictions and warnings, malformed JSON examples, translated placeholders, calendar names, search syntax and date/message argument order. The reviewed correction list contains **4,979 values**, including corrections outside the flagged audit rows.
 
 The flagged Bosnian, Croatian and Macedonian queues are complete. Other completed queues include Latvian, Romanian, Slovak and several smaller regional queues. **Bosnian has no remaining flagged findings**.
 
-Latest translation correction: [7f3c3c618](https://github.com/wekan/wekan/commit/7f3c3c618e145ac44c63b3e78bb511383c20262a), **2026-09-12**, fixes 20 Slovenian migration-confirmation and S3 values. Repairs preserve conversion/deletion order, duplicate-list conditions, restoration warnings, nearhivirane (non-archived) scope and literal identifiers. Each Slovenian queue has 65 findings remaining. Meaning, token, exact-value, key-order and idempotent repair checks pass.
+Latest translation correction: [65042ef8d](https://github.com/wekan/wekan/commit/65042ef8d83d6209f6c238148314f90325168f23), **2026-09-12**, fixes 20 Slovenian S3 configuration and board-backup values. Repairs preserve AWS S3/MinIO alternatives, literal endpoint and region examples, authentication and SSL/TLS meanings, and board scope for backup scheduling. Each Slovenian queue has 55 findings remaining. Meaning, token, exact-value, key-order and idempotent repair checks pass.
 
 ## Provenance
 
