@@ -48816,5 +48816,33 @@
     "before": "Muda limite Work In Progress",
     "after": "Modifitgar la limita WIP",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "editTranslationPopup-title",
+    "before": "Mudare stringa di traduzione personalizzata",
+    "after": "Modifitgar ina stringa da translaziun persunalisada",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "editVoteEndDatePopup-title",
+    "before": "Cambia data di termine voto",
+    "after": "Midar la data da fin da la votaziun",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "email-addresses",
+    "before": "Indirizzi posta eletronica",
+    "after": "Adressas dad e-mail",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "email-domain-allowed-to-invite",
+    "before": "Dominio posta eletronica autorizzato a invitare persone, quando l'autoresgistrazion ie disattivata",
+    "after": "Domain dad e-mail autorisà d’envidar persunas, sche l’autoregistraziun è deactivada",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
