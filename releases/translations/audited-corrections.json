@@ -29069,5 +29069,89 @@
     "before": "Има увид и пуна права само у оним предметима где има надлежност или је опуномоћен.",
     "after": "Vidljive su samo dodijeljene kartice. Može uređivati kao obični korisnik.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "not-accepted-yet",
+    "before": "Позив још увек није прихваћен",
+    "after": "Poziv još nije prihvaćen",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "notify-participate",
+    "before": "Примајте допунске извештаје при било којој измени предмета које сте сами завели или где сте сарадник",
+    "after": "Primajte ažuriranja svih kartica na kojima učestvujete kao autor ili član",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "oidc-button-text",
+    "before": "Измени OIDC текст на дугмету",
+    "after": "Prilagodi tekst OIDC dugmeta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "one-card-found",
+    "before": "Пронађен је један предмет",
+    "after": "Pronađena je jedna kartica",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "operator-debug-invalid",
+    "before": "%s уопште није исправан предикат",
+    "after": "%s nije ispravan predikat za otklanjanje grešaka",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "operator-has-invalid",
+    "before": "%s уопште није исправна провера постојања",
+    "after": "%s nije ispravna provjera postojanja",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "operator-limit-invalid",
+    "before": "%s уопште није исправно ограничење. Граница се задаје позитивним целим бројем.",
+    "after": "%s nije ispravno ograničenje. Ograničenje mora biti pozitivan cijeli broj.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "operator-number-expected",
+    "before": "оператор __operator__ је очекивао неки број а добио је '__value__'",
+    "after": "Operator __operator__ očekivao je broj, a dobio je '__value__'",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "operator-sort-invalid",
+    "before": "правило за преслагање '%s' није исправно",
+    "after": "Sortiranje po '%s' nije ispravno",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "org-name-not-found",
+    "before": "Странка по имену '%s' није пронађена.",
+    "after": "Organizacija '%s' nije pronađena.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "org-number",
+    "before": "Број евидентираних странака је:",
+    "after": "Broj organizacija je:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "page-maybe-private",
+    "before": "Ови списи су могуће под велом тајности. Можда ћете ипак моћи да их видите кад се <a href='%s'>пријавите овде</a>.",
+    "after": "Ova stranica je možda privatna. Možda je možete pregledati ako se <a href='%s'>prijavite</a>.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

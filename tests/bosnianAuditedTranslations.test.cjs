@@ -50,6 +50,8 @@ console.log('bosnianAuditedTranslations: account scope, credentials and lockout 
   assert.doesNotMatch(data['activity-unset-customfield'], /izbrisao polje/);
   assert.equal(translator.t('activity-set-customfield', { sprintf: ['FIELD', 'VALUE', 'CARD'] }), "postavio prilagođeno polje 'FIELD' na 'VALUE' u CARD");
   assert.equal(translator.t('n-cards-found', { sprintf: ['7'] }), 'Pronađeno je 7 kartica');
+  assert.equal(translator.t('operator-number-expected', { operator: 'LIMIT', value: 'BAD' }), "Operator LIMIT očekivao je broj, a dobio je 'BAD'");
+  assert.equal(translator.t('page-maybe-private', { sprintf: ['/login'] }), "Ova stranica je možda privatna. Možda je možete pregledati ako se <a href='/login'>prijavite</a>.");
   const invitation = translator.t('email-invite-text', { user: 'USER', inviter: 'INVITER', board: 'BOARD', url: 'LOCAL_URL' });
   for (const token of ['USER', 'INVITER', 'BOARD', 'LOCAL_URL']) assert.ok(invitation.includes(token));
   assert.match(invitation, /vas poziva da se pridružite/);
@@ -291,3 +293,10 @@ assert.match(data['normal-assigned-only-desc'], /samo dodijeljene kartice/);
 assert.match(data['normal-assigned-only-desc'], /kao obični korisnik/);
 assert.doesNotMatch(data['normal-assigned-only-desc'], /puna prava|sve kartice/);
 console.log('bosnianAuditedTranslations: My Cards labels, checklist ordering and role restrictions passed');
+
+assert.match(data['notify-participate'], /kao autor ili član/);
+assert.match(data['operator-debug-invalid'], /predikat za otklanjanje grešaka/);
+assert.match(data['operator-limit-invalid'], /pozitivan cijeli broj/);
+assert.match(data['oidc-button-text'], /OIDC dugmeta/);
+assert.equal(data['org-number'], 'Broj organizacija je:');
+console.log('bosnianAuditedTranslations: notification scope, debug predicates and numeric limits passed');
