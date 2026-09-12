@@ -4,21 +4,21 @@ Audit date: **2026-09-12**. Last updated: **2026-09-12**.
 
 | Status | Audit keys |
 | --- | ---: |
-| Explicitly corrected | 4,833 |
+| Explicitly corrected | 4,857 |
 | Original pull values restored to pre-pull local values | 4,061 |
 | Reviewed and retained unchanged | 78 |
-| Pending review or repair | 11,109 |
+| Pending review or repair | 11,085 |
 | Total tracked | 20,081 |
 
 The full translation repair goal remains unfinished. Counts describe the tracked audit findings; unflagged strings are not individually certified. Restored pre-pull values are not automatically certified as correct translations.
 
 ## Fixes completed
 
-Repairs address wrong-language text, incorrect kanban terminology, missing restrictions and warnings, malformed JSON examples, translated placeholders, calendar names, search syntax and date/message argument order. The reviewed correction list contains **4,895 values**, including corrections outside the flagged audit rows.
+Repairs address wrong-language text, incorrect kanban terminology, missing restrictions and warnings, malformed JSON examples, translated placeholders, calendar names, search syntax and date/message argument order. The reviewed correction list contains **4,919 values**, including corrections outside the flagged audit rows.
 
 The flagged Bosnian, Croatian and Macedonian queues are complete. Other completed queues include Latvian, Romanian, Slovak and several smaller regional queues. **Bosnian has no remaining flagged findings**.
 
-Latest translation correction: [2f1a6830c](https://github.com/wekan/wekan/commit/2f1a6830caaba6ba31e8ea8790dc527ebe89cfe3), **2026-09-12**, fixes 24 Slovenian permission, notification, OIDC, operator-validation and organization values. Repairs preserve assigned-card restrictions, comment visibility, creator/member alternatives, debug predicates and positive-integer limits. Actual operator/value message rendering preserves both placeholders. Each Slovenian queue has 97 findings remaining. Meaning, rendering, token, exact-value, key-order and idempotent repair checks pass.
+Latest translation correction: [1b638e378](https://github.com/wekan/wekan/commit/1b638e3781fcabd2c8c021cff6003b315d577628), **2026-09-12**, fixes 24 Slovenian read-permission, action, planning-poker, PDF and organization values. Repairs restore missing edit prohibitions, assigned-card scope, permanent-deletion warnings, label numbers 1-9 and empty-field matching semantics. Each Slovenian queue has 85 findings remaining. Meaning, token, exact-value, key-order and idempotent repair checks pass.
 
 ## Provenance
 

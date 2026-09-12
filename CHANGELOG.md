@@ -558,6 +558,13 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/1b638e3781fcabd2c8c021cff6003b315d577628">Repair Slovenian read permissions and action warnings</a>. Thanks to xet7.</summary>
+
+Correct 24 values across both Slovenian locales. Restore edit prohibitions, assigned-card visibility, permanent planning-poker deletion, label numbers and empty-field matching. Regression checks verify meanings, exact corrections, source tokens, key order and idempotent repairs. The short translation audit records current progress.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/2f1a6830caaba6ba31e8ea8790dc527ebe89cfe3">Repair Slovenian permission and search validation messages</a>. Thanks to xet7.</summary>
 
 Correct 24 values across both Slovenian locales. Restore permission restrictions, notification participation and search validation meanings. Regression checks verify actual operator/value rendering, meanings, exact corrections, source tokens, key order and idempotent repairs. The short translation audit records current progress.
