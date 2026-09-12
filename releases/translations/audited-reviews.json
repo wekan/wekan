@@ -502,5 +502,11 @@
     "key": "rulesImportExportPopup-title",
     "value": "Importar / Exportar regras",
     "reason": "Reviewed Galician is correct. The checklist placeholder demonstrates three comma-separated example elements in Galician; Importar / Exportar regras correctly names rule import/export. Shared Portuguese wording is not an error."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "twoFactorAuth-manual-entry",
+    "value": "Ou introduza este código manualmente: ",
+    "reason": "Reviewed instruction is correct Galician: Ou introduza este código manualmente. Trailing spaces and vocabulary shared with Portuguese do not make it a wrong-language translation."
   }
 ]

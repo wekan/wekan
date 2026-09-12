@@ -339,3 +339,12 @@ assert.match(data['server-error-troubleshooting'], /`sudo snap logs wekan.wekan`
 assert.match(data['set-wip-limit-value'], /número máximo de tarefas nesta lista/);
 assert.match(data['show-week-of-year'], /ISO 8601/);
 assert.match(data['showSum-field-on-list'], /suma.*parte superior da lista/);
+
+assert.match(data['swimlane-height-error-message'], /enteiro positivo/);
+assert.match(data['support-info-only-for-logged-in-users'], /só para usuarios con sesión iniciada/);
+assert.match(data['vote-delete-pop'], /permanente.*todas as accións/);
+assert.match(data['wipLimitErrorPopup-dialog-pt1'], /maior que o límite WIP/);
+assert.match(data['wipLimitErrorPopup-dialog-pt2'], /tarefas fóra desta lista ou.*límite WIP máis alto/);
+assert.match(data['calendar-system-islamic-rgsa'], /Arabia Saudita, observación da lúa/);
+assert.match(data['calendar-system-islamic-tbla'], /tabular, época astronómica/);
+for (const example of ["'Field 1' == 'Value 1'", "Field1 == I\\'m", 'F1 == V1 && ( F2 == V2 || F2 == V3 )', 'F1 == /Tes.*/i']) assert.ok(data['advanced-filter-description'].includes(example), example);
