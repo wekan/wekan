@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Audit keys |
 | --- | ---: |
-| Explicitly corrected | 5,916 |
+| Explicitly corrected | 5,926 |
 | Original pull values restored to pre-pull local values | 4,061 |
 | Reviewed and retained unchanged | 94 |
-| Pending review or repair | 10,012 |
+| Pending review or repair | 10,002 |
 | Total tracked | 20,081 |
 
 **Translation repairs remain unfinished.** These counts cover flagged findings; unflagged strings and restored values are not certified as correct.
 
-Repairs cover wrong-language text, kanban terminology, omitted restrictions and warnings, JSON examples, placeholders, calendar names and search/date formatting. The correction history records **5,978 values**, including fixes outside the audit. Flagged Bosnian, Croatian, Macedonian, Slovenian (both locales), Latvian, Romanian, Slovak and both Galician queues are complete.
+Repairs cover wrong-language text, kanban terminology, omitted restrictions and warnings, JSON examples, placeholders, calendar names and search/date formatting. The correction history records **5,988 values**, including fixes outside the audit. Flagged Bosnian, Croatian, Macedonian, Slovenian (both locales), Latvian, Romanian, Slovak and both Galician queues are complete.
 
-Latest fix: [f3661b123](https://github.com/wekan/wekan/commit/f3661b1232e1a87d2649dd04ebf3fb7873ac3444), **2026-09-13** — eight Asturian shortcut and card-count corrections. Repairs distinguish membership from assignment, restore the all-board page location and preserve strict count thresholds. **295 Asturian findings remain.** Meaning, exact-value, placeholder, key-order and idempotency checks pass; Asturian wording needs native-speaker review. Live Meteor browser verification remains unavailable.
+Latest fix: [06c625c1c](https://github.com/wekan/wekan/commit/06c625c1c1dc0932a75386345339ca79504403ec), **2026-09-13** — ten Asturian display, shortcut and text-trigger corrections. Repairs preserve case-insensitive creation/edit triggers, assignee ordering, multi-selection label additions and notification scope. **285 Asturian findings remain.** Meaning, exact-value, placeholder, key-order and idempotency checks pass; Asturian wording needs native-speaker review. Live Meteor browser verification remains unavailable.
 
 **Provenance:** not all errors came from Transifex. The captured pull changed 4,061 values; the full-local audit added 16,020 findings. Bosnian errors came from the September 5 [local completion commit](https://github.com/wekan/wekan/commit/bdb3b15886a749b725b5290ba0109fcba955f983), with no Bosnian changes in the captured pull. Other ultimate origins remain unverified.
 
