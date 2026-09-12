@@ -45008,5 +45008,47 @@
     "before": "Su CSV(Valores separados por coma)/TSV(Valores separados por tab) no incluyen la información apropiada en el formato correcto",
     "after": "O tuyo CSV (valors separaus por comas)/TSV (valors separaus por tabuladors) no incluye a información apropiada en o formato correcto ",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "error-invitation-code-not-exist",
+    "before": "El código de invitación no existe",
+    "after": "O codigo d’invitación no existe",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "error-json-malformed",
+    "before": "El texto no es un JSON válido",
+    "after": "O tuyo texto no ye JSON valido",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "error-json-schema",
+    "before": "Sus datos JSON no incluyen la información apropiada en el formato correcto",
+    "after": "Os tuyos datos JSON no incluyen a información apropiada en o formato correcto",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "error-org-domain-taken",
+    "before": "Ese dominio ya pertenece a otra organización:",
+    "after": "Ixe dominio ya perteneix a unatra organización:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "expand-checklist",
+    "before": "Expandir la lista de tareas",
+    "after": "Expandir a lista de comprobación",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "export-card-attachment-image-previews",
+    "before": "Vistas previas de imágenes",
+    "after": "Vistas previas d’imachens",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

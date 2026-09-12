@@ -211,3 +211,11 @@ assert.match(data['enable-vertical-scrollbars'], /^Activar barras de desplazamie
 assert.match(data['enter-zoom-level'], /livel de zoom \(50-300%\):$/);
 assert.match(data['error-csv-schema'], /CSV \(valors separaus por comas\)\/TSV \(valors separaus por tabuladors\)/);
 assert.match(data['error-csv-schema'], /no incluye a información apropiada en o formato correcto/);
+assert.match(data['error-invitation-code-not-exist'], /^O codigo d’invitación no existe$/);
+assert.match(data['error-json-malformed'], /texto no ye JSON valido$/);
+assert.match(data['error-json-schema'], /datos JSON no incluyen a información apropiada en o formato correcto$/);
+assert.notEqual(data['error-json-malformed'], data['error-json-schema']);
+assert.match(data['error-org-domain-taken'], /ya perteneix a unatra organización:$/);
+assert.equal(data['expand-checklist'], 'Expandir a lista de comprobación');
+assert.notEqual(data['expand-checklist'], data['collapse-checklist']);
+assert.equal(data['export-card-attachment-image-previews'], 'Vistas previas d’imachens');
