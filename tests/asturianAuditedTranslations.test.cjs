@@ -124,3 +124,8 @@ assert.match(data['public-desc'], /cualquiera.*en buscadores como Google.*Solo l
 assert.equal(data['push-invite-text'], data['email-invite-text']);
 assert.equal(data['r-add-checklist'], data['r-d-add-checklist']);
 assert.match(data['r-d-move-to-bottom-gen'], /final de la so llista/);
+assert.match(data['r-d-move-to-top-gen'], /principiu de la so llista/);
+assert.match(data['r-d-move-to-top-spec'], /principiu de la llista/);
+assert.match(data['r-when-a-card-is-moved'], /a otra llista/);
+assert.match(data['remove-member-pop'], /__name__ \(__username__\).*__boardTitle__.*toles tarxetes.*Va recibir una notificación/);
+assert.doesNotMatch(data['remove-member-pop'], /mostrará/);

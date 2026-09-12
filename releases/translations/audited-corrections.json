@@ -41662,5 +41662,75 @@
     "before": "Mover la tarjeta al final de su lista",
     "after": "Mover la tarxeta al final de la so llista",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "r-d-move-to-bottom-spec",
+    "before": "Mover la tarjeta al final de la lista",
+    "after": "Mover la tarxeta al final de la llista",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "r-d-move-to-top-gen",
+    "before": "Mover la tarjeta al inicio de su lista",
+    "after": "Mover la tarxeta al principiu de la so llista",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "r-d-move-to-top-spec",
+    "before": "Mover la tarjeta al inicio de la lista",
+    "after": "Mover la tarxeta al principiu de la llista",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "r-d-unarchive",
+    "before": "Restaurar tarjeta del Archivo",
+    "after": "Restaurar la tarxeta dende l'Archivu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "r-remove-all",
+    "before": "Eliminar todos los miembros de la tarjeta",
+    "after": "Quitar tolos miembros de la tarxeta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "r-when-a-card-is-moved",
+    "before": "Cuando una tarjeta es movida a otra lista",
+    "after": "Cuando una tarxeta se mueve a otra llista",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "r-when-a-card-title-or-description-contains",
+    "before": "Cuando el título o la descripción de la tarjeta contiene",
+    "after": "Cuando el títulu o la descripción de la tarxeta contién",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "remove-member-pop",
+    "before": "¿Eliminar __name__ (__username__) de __boardTitle__? El miembro será eliminado de todas las tarjetas de este tablero. En ellas se mostrará una notificación.",
+    "after": "¿Quitar a __name__ (__username__) de __boardTitle__? El miembru va quitase de toles tarxetes d'esti tableru. Va recibir una notificación.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "remove-organization-from-board",
+    "before": "¿Estás seguro de querer quitar esta organización del tablero?",
+    "after": "¿Tas seguru de querer quitar esta organización d'esti tableru?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "remove-team-from-table",
+    "before": "¿Estás seguro de que quieres eliminar a este equipo del tablero?",
+    "after": "¿Tas seguru de querer quitar esti equipu del tableru?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
