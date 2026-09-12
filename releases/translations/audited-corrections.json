@@ -38106,5 +38106,166 @@
     "before": "Utilizador não pode exportar cartão para PDF",
     "after": "O usuario non pode exportar a tarxeta a PDF",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "user-can-not-export-excel",
+    "before": "Utilizador não pode exportar Excel",
+    "after": "O usuario non pode exportar a Excel",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "user-username-not-found",
+    "before": "Utilizador '%s' não encontrado.",
+    "after": "Non se atopou o nome de usuario '%s'.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "username-password-required",
+    "before": "É necessário nome de usuário e senha",
+    "after": "Requírense o nome de usuario e o contrasinal",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "username-too-short",
+    "before": "O nome de usuário deve ter pelo menos 3 caracteres",
+    "after": "O nome de usuario debe ter polo menos 3 caracteres",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "warn-list-archived",
+    "before": "aviso: este cartão está numa lista no Arquivo",
+    "after": "aviso: esta tarxeta está nunha lista do Arquivo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "worker-desc",
+    "before": "Apenas pode mover cartões, atribuir-se a si próprio ao cartão e comentar.",
+    "after": "Só pode mover tarxetas, asignarse a si mesmo a unha tarxeta e comentar.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "MongoDB_storage_engine",
+    "before": "Versão do motor de armazenamento do MongoDB",
+    "after": "Motor de almacenamento de MongoDB",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "Mongo_sessions_count",
+    "before": "Contador de sessões do Mongo",
+    "after": "Número de sesións de Mongo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "Node_heap_does_zap_garbage",
+    "before": "Pilha do Node: elimina o lixo",
+    "after": "Memoria heap de Node: limpa o lixo (zap garbage)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "Node_heap_heap_size_limit",
+    "before": "Pilha do Node: limite de tamanho da pilha",
+    "after": "Memoria heap de Node: límite de tamaño do heap",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "Node_heap_malloced_memory",
+    "before": "Pilha do Node: memória alocada",
+    "after": "Memoria heap de Node: memoria asignada con malloc",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "Node_heap_number_of_detached_contexts",
+    "before": "Pilha do Node: número de contextos desanexados",
+    "after": "Memoria heap de Node: número de contextos desvinculados",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "Node_heap_number_of_native_contexts",
+    "before": "Pilha do Node: número de contextos nativos",
+    "after": "Memoria heap de Node: número de contextos nativos",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "Node_heap_peak_malloced_memory",
+    "before": "Pilha do Node: pico de memória alocada",
+    "after": "Memoria heap de Node: pico de memoria asignada con malloc",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "Node_heap_total_available_size",
+    "before": "Pilha do Node: tamanho total disponível",
+    "after": "Memoria heap de Node: tamaño total dispoñible",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "Node_heap_total_heap_size",
+    "before": "Pilha do Node: tamanho total da pilha",
+    "after": "Memoria heap de Node: tamaño total do heap",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "Node_heap_total_heap_size_executable",
+    "before": "Pilha do Node: tamanho total executável da pilha",
+    "after": "Memoria heap de Node: tamaño total executable do heap",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "Node_heap_total_physical_size",
+    "before": "Pilha do Node: tamanho físico total",
+    "after": "Memoria heap de Node: tamaño físico total",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "Node_heap_used_heap_size",
+    "before": "Pilha do Node: tamanho da pilha usado",
+    "after": "Memoria heap de Node: tamaño do heap usado",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "Node_memory_usage_external",
+    "before": "Uso de memória do Node: externa",
+    "after": "Uso de memoria de Node: externa",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "Node_memory_usage_heap_total",
+    "before": "Uso de memória do Node: tamanho total alocado da pilha",
+    "after": "Uso de memoria de Node: tamaño total do heap asignado",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "Node_memory_usage_heap_used",
+    "before": "Uso de memória do Node: memória atual utilizada",
+    "after": "Uso de memoria de Node: memoria realmente usada",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "Node_memory_usage_rss",
+    "before": "Uso de memória do Node: tamanho do conjunto residente",
+    "after": "Uso de memoria de Node: tamaño do conxunto residente",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

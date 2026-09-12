@@ -236,3 +236,15 @@ assert.match(data['toggle-labels'], /selección múltiple engade as etiquetas 1-
 assert.match(data['tracking-info'], /creador ou membro/);
 assert.match(data['user-can-not-export-card-to-excel'], /non pode exportar.*Excel/);
 assert.match(data['user-can-not-export-card-to-pdf'], /non pode exportar.*PDF/);
+
+assert.match(data['username-password-required'], /nome de usuario e o contrasinal/);
+assert.match(data['username-too-short'], /polo menos 3 caracteres/);
+assert.match(data['worker-desc'], /^Só pode mover tarxetas, asignarse a si mesmo a unha tarxeta e comentar/);
+assert.doesNotMatch(data.MongoDB_storage_engine, /Versión|Versão/);
+assert.match(data.Node_heap_heap_size_limit, /heap.*límite de tamaño do heap/);
+assert.doesNotMatch(data.Node_heap_total_heap_size, /Pilha|pila/);
+assert.match(data.Node_heap_malloced_memory, /memoria asignada con malloc/);
+assert.match(data.Node_heap_peak_malloced_memory, /pico de memoria asignada con malloc/);
+assert.match(data.Node_memory_usage_heap_total, /tamaño total do heap asignado/);
+assert.match(data.Node_memory_usage_heap_used, /memoria realmente usada/);
+assert.match(data.Node_memory_usage_rss, /tamaño do conxunto residente/);
