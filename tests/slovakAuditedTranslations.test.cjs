@@ -19,6 +19,11 @@ const data = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/sk.i1
     'zaškrtol(a) ITEM v kontrolnom zozname CHECKLIST na karte CARD');
   assert.equal(translator.t('activity-unchecked-item', { sprintf: ['ITEM', 'CHECKLIST', 'CARD'] }),
     'zrušil(a) zaškrtnutie ITEM v kontrolnom zozname CHECKLIST na karte CARD');
+  assert.match(data['globalSearch-instructions-notes-2'], /\*ALEBO\*/);
+  assert.match(data['globalSearch-instructions-notes-3'], /\*A\*/);
+  assert.match(data['globalSearch-instructions-notes-4'], /nerozlišuje veľké a malé písmená/);
+  assert.match(data['globalSearch-instructions-description'], /`__operator_list__:"To Review"`/);
+  assert.match(data['globalSearch-instructions-operator-has'], /`has:-due`/);
   assert.match(data['custom-field-stringtemplate-format'], /%\{value\}/);
   assert.match(data['custom-field-stringtemplate-separator'], /&#32;.*&nbsp;/);
   for (const card of JSON.parse(data['copyManyCardsPopup-format'])) {

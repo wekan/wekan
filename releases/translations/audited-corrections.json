@@ -18079,5 +18079,145 @@
     "before": "Filtrovat karty nebo seznamy",
     "after": "Filtrovať karty alebo zoznamy",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "filter-on-desc",
+    "before": "Filtrujete karty tohoto tabla. Pro úpravu filtru klikni sem.",
+    "after": "Filtrujete karty na tejto nástenke. Kliknite sem pre úpravu filtra.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "filter-show-archive",
+    "before": "Zobrazit archivované listy",
+    "after": "Zobraziť archivované zoznamy",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "globalSearch-instructions-description",
+    "before": "Vyhledávání lze za účelem zacílení doplnit o operátory. Operátory jsou zadávány napsáním názvu operátoru a hodnoty, které jsou odděleny dvojtečkou. Například specifikace operátoru `list:Blocked` omezí vyhledávání na karty obsažené ve sloupci *Blocked*. Pokud hodnota obsahuje mezerynebo speciální znaky, musí se nacházet v uvozovkách (např. `__operator_list__:\"To Review\"`).",
+    "after": "Vyhľadávanie možno spresniť pomocou operátorov. Operátory sa zadávajú napísaním názvu operátora a hodnoty oddelených dvojbodkou. Napríklad `list:Blocked` obmedzí vyhľadávanie na karty v zozname s názvom *Blocked*. Ak hodnota obsahuje medzery alebo špeciálne znaky, musí byť uzavretá v úvodzovkách (napríklad `__operator_list__:\"To Review\"`).",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "globalSearch-instructions-notes-1",
+    "before": "Lze zadat více operátorů současně.",
+    "after": "Možno zadať viacero operátorov.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "globalSearch-instructions-notes-2",
+    "before": "Podobné operátory jsou spojeny pomocí *OR*. Jsou zobrazeny karty odpovídající kterékoli v podmínek.\n`__operator_list__:Available __operator_list__:Blocked` zobrazí karty obsažené v jakémkoli sloupci s názvem *Blocked* nebo *Available*.",
+    "after": "Podobné operátory sa spájajú pomocou *ALEBO*. Zobrazia sa karty zodpovedajúce ktorejkoľvek podmienke.\n`__operator_list__:Available __operator_list__:Blocked` zobrazí karty zo zoznamov s názvom *Blocked* alebo *Available*.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "globalSearch-instructions-notes-3",
+    "before": "Odlišné operátory jsou spojeny pomocí *AND*. Jsou zobrazeny pouze karty, které odpovídají všem definovaným operátorům. `__operator_list__:Available __operator_label__:red` zobrazí pouze karty ve sloupci *Available* with a štítkem *red*.",
+    "after": "Odlišné operátory sa spájajú pomocou *A*. Zobrazia sa iba karty zodpovedajúce všetkým odlišným operátorom. `__operator_list__:Available __operator_label__:red` zobrazí iba karty v zozname *Available* so štítkom *red*.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "globalSearch-instructions-notes-3-2",
+    "before": "Dny mohou být specifikovány jako pozitivní nebo negativní číslic, nebo použitím  `__predicate_week__`, `__predicate_month__`, `__predicate_quarter__` or `__predicate_year__` for the current period.",
+    "after": "Dni možno zadať ako kladné alebo záporné celé číslo alebo pomocou `__predicate_week__`, `__predicate_month__`, `__predicate_quarter__` alebo `__predicate_year__` pre aktuálne obdobie.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "globalSearch-instructions-notes-4",
+    "before": "Vyhledávání rozlišuje velikost písmen.",
+    "after": "Vyhľadávanie textu nerozlišuje veľké a malé písmená.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "globalSearch-instructions-notes-5",
+    "before": "Ve výchozím zobrazení nejsou vyhledávány archivované položky.",
+    "after": "Predvolene sa archivované karty nevyhľadávajú.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "globalSearch-instructions-operator-assignee",
+    "before": "`__operator_assignee__:<username>` - karty, kde *<username>* je *assignee*",
+    "after": "`__operator_assignee__:<username>` — karty, na ktorých je *<username>* *zodpovednou osobou*",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "globalSearch-instructions-operator-at",
+    "before": "`__operator_user_abbrev__username` - zkratka pro `user:<username>`",
+    "after": "`__operator_user_abbrev__username` — skratka pre `user:<username>`",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "globalSearch-instructions-operator-board",
+    "before": "`__operator_board__:<title>` - karty v tablech odpovídajících zadanému *<title>*",
+    "after": "`__operator_board__:<title>` — karty na nástenkách zodpovedajúcich zadanému názvu *<title>*",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "globalSearch-instructions-operator-comment",
+    "before": "`__operator_comment__:<text>` - karty s komentářem obsahujícím *<text>*.",
+    "after": "`__operator_comment__:<text>` — karty s komentárom obsahujúcim *<text>*.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "globalSearch-instructions-operator-created",
+    "before": "`__operator_created__:<n>` - karty, které byly vytvořeny před *<n>* nebo méně dny",
+    "after": "`__operator_created__:<n>` — karty vytvorené pred najviac *<n>* dňami",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "globalSearch-instructions-operator-creator",
+    "before": "`__operator_creator__:<username>` - karty, kde *<username>* je tvůrcem",
+    "after": "`__operator_creator__:<username>` — karty, ktorých tvorcom je *<username>*",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "globalSearch-instructions-operator-due",
+    "before": "`__operator_due__:<n>` - karty, které jsou *<n>* dny před termínem.  `__operator_due__:__predicate_overdue__ zobrazí všechny karty po termínu.",
+    "after": "`__operator_due__:<n>` — karty s termínom najviac *<n>* dní odteraz. `__operator_due__:__predicate_overdue__` zobrazí všetky karty po termíne dokončenia.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "globalSearch-instructions-operator-has",
+    "before": "`__operator_has__:<field>` - kde *<field>* je jedno z `__predicate_attachment__`, `__predicate_checklist__`, `__predicate_description__`, `__predicate_start__`, `__predicate_due__`, `__predicate_end__`, `__predicate_assignee__` nebo `__predicate_member__`.  Zadáním `-` před *<field>* vyhledáte karty, které dané políčko nemají zadané (např. `has:-due` vyhledá karty bez zadaného termínu).",
+    "after": "`__operator_has__:<field>` — kde *<field>* je jedno z `__predicate_attachment__`, `__predicate_checklist__`, `__predicate_description__`, `__predicate_start__`, `__predicate_due__`, `__predicate_end__`, `__predicate_assignee__` alebo `__predicate_member__`. Zadaním `-` pred *<field>* vyhľadáte karty bez hodnoty v tomto poli (napríklad `has:-due` vyhľadá karty bez termínu dokončenia).",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "globalSearch-instructions-operator-hash",
+    "before": "`__operator_label_abbrev__<name|color>` - zkratka pro `__operator_label__:<color>` nebo `__operator_label__:<name>`",
+    "after": "`__operator_label_abbrev__<name|color>` — skratka pre `__operator_label__:<color>` alebo `__operator_label__:<name>`",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "globalSearch-instructions-operator-label",
+    "before": "`__operator_label__:<color>` `__operator_label__:<name>` - karty, které mají štítek *<color>* nebo *<name>",
+    "after": "`__operator_label__:<color>` `__operator_label__:<name>` — karty so štítkom zodpovedajúcim farbe *<color>* alebo názvu *<name>*",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "globalSearch-instructions-operator-limit",
+    "before": "`__operator_limit__:<n>` - kde *<n>* je kladné celé číslo vyjadřující počet karet zobrazených na jedné stránce.",
+    "after": "`__operator_limit__:<n>` — kde *<n>* je kladné celé číslo vyjadrujúce počet kariet zobrazených na stránke.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
