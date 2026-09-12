@@ -25,6 +25,14 @@ console.log('croatianAuditedTranslations: target script, V8 metrics and indicato
   await translator.init({ lng: 'hr', fallbackLng: false, keySeparator: false, interpolation: { prefix: '__', suffix: '__', escapeValue: false }, resources: { hr: { translation: data } }, postProcess: ['sprintf'] });
   assert.equal(translator.t('act-a-endAt', { timeValue: 'NEW', timeOldValue: 'OLD' }), 'promijenio vrijeme završetka na NEW s (OLD)');
   assert.equal(translator.t('activity-dueDate', { sprintf: ['DATE', 'CARD'] }), 'promijenio rok na DATE za karticu CARD');
+  for (const [key, date] of [['activity-endDate', 'završetka'], ['activity-receivedDate', 'primitka'], ['activity-startDate', 'početka']]) {
+    assert.equal(translator.t(key, { sprintf: ['DATE', 'CARD'] }), `promijenio datum ${date} na DATE za karticu CARD`);
+  }
+  assert.match(data['activity-unset-customfield'], /uklonio vrijednost/);
+  assert.doesNotMatch(data['admin-people-filter-inactive'], /plać|platn/);
+  assert.match(data['admin-desc'], /uklanjati članove/);
+  assert.ok(data['add-custom-html-after-body-start'].includes('<body>'));
+  assert.ok(data['add-custom-html-before-body-end'].includes('</body>'));
   assert.match(data['act-newDue'], /prvi podsjetnik/);
   assert.match(data['act-duenow'], /upravo sada/);
   assert.doesNotMatch(data['act-duenow'], /danas/);
