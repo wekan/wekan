@@ -574,6 +574,29 @@ review; the full roadmap implementation remains unfinished.
 
 </details>
 
+and fixes the following date-popup layout bug:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f23fa41dd9a09733c710c40750ad9302e447e116">Show full-width calendars directly in date popups</a>. Thanks to xet7.</summary>
+
+Date popups immediately show the selected calendar, including Gregorian,
+and keep the grid visible after selecting a day. The grid spans the popup
+width above the time controls. Scoped cell/button sizing prevents calendar
+days overflowing narrow cells. Only hour and minute dropdowns are visible;
+the combined time value remains hidden for the existing save handlers.
+Mouse selection, keyboard navigation and native date storage are preserved.
+The calendar systems documentation describes the revised popup behavior.
+
+Eighteen related Node suites pass, covering inline visibility, compact-field
+behavior, hidden time values, template compilation, font scaling and docs.
+Four Chromium popup/settings tests pass, including Gregorian and Buddhist
+layout checks and Jalali keyboard selection with native date/time saving.
+The existing month-view browser test fails in its navigation helper because
+that helper waits for list columns in a calendar view; it is not counted
+among the passing popup checks.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v11.72 2026-09-11 WeKan ® release
