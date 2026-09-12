@@ -211,3 +211,19 @@ test('Latvian Member Settings shows repaired calendar terminology', async ({ pag
   await expect(selector.locator('option[value="islamic-rgsa"]')).toHaveText('Hidžras kalendārs (Saūda Arābija, pēc novērojumiem)');
   await expect(selector.locator('option[value="islamic-tbla"]')).toHaveText('Hidžras kalendārs (tabulārs, astronomiskā epoha)');
 });
+
+for (const language of ['ro', 'ro-RO']) {
+  test(`${language} Member Settings distinguishes repaired Hijri calendar variants`, async ({ page, user, board }) => {
+    db.updateOne('users', { _id: user.id }, { $set: { 'profile.language': language } });
+    await loginWithToken(page, user.id, user.token);
+    await openBoard(page, board.boardId, board.slug);
+    await page.locator('.js-open-header-member-menu').first().click();
+    await page.locator('.js-pop-over .js-change-settings').click();
+    const selector = page.locator('.js-pop-over #calendar-system');
+    await expect(selector).toBeVisible();
+    await expect(selector.locator('option[value="islamic-rgsa"]')).toHaveText('Calendar Hijri (Arabia Saudită, observarea lunii)');
+    await expect(selector.locator('option[value="islamic-tbla"]')).toHaveText('Calendar Hijri (tabular, epocă astronomică)');
+    await expect(selector).not.toContainText('Islamic (Saudi Arabia)');
+    await expect(selector).not.toContainText('Islamic tabular');
+  });
+}
