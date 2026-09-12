@@ -558,6 +558,13 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/f98c708e6">Repair Macedonian storage migration and monitoring messages</a>. Thanks to xet7.</summary>
+
+Correct 29 reviewed values. Positive and negative checks verify numeric limits, CPU threshold semantics, background continuation, browser warnings, administrator restrictions and S3 labels. Source-token, exact-value, rendering, key-order and repair checks pass. Audit.md records dated fixes and remaining findings.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/9fdbf2017">Repair Macedonian list controls and deletion warnings</a>. Thanks to xet7.</summary>
 
 Correct 23 reviewed values. Regressions verify keyboard-toggle click instructions, irreversible list deletion, the last-administrator restriction and actual list-name sprintf rendering. Source-token, exact-value, key-order and repair checks pass. Audit.md records dated progress.

@@ -55,6 +55,16 @@ const data = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/mk.i1
   assert.match(data['list-delete-pop'], /не може да се поништи/);
   assert.match(data['last-admin-desc'], /барем еден администратор/);
   assert.equal(translator.t('list-title-not-found', { sprintf: ['LIST'] }), "Списокот 'LIST' не е пронајден.");
+  assert.match(data['migration-cpu-threshold-description'], /надмине овој процент \(10-90\)/);
+  assert.match(data['migration-batch-size-description'], /\(1-100\)/);
+  assert.match(data['migration-delay-ms-description'], /\(100-10000\)/);
+  assert.match(data['migration-info-text'], /продолжува во заднина дури и ако го затворите прелистувачот/);
+  assert.match(data['migration-warning-text'], /Не го затворајте прелистувачот/);
+  assert.match(data['migrations-admin-only'], /^Само администраторите на таблата/);
+  for (const key of ['migrate-all-to-s3', 'move-all-attachments-of-board-to-s3']) {
+    assert.match(data[key], /S3/);
+    assert.doesNotMatch(data[key], /Amazon|облак/);
+  }
   assert.equal(data.list, 'Список');
   assert.equal(data.swimlane, 'Лента');
   console.log('macedonianAuditedTranslations: actual date and label rendering, checklist removal meaning and native labels passed');
