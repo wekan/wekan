@@ -43783,5 +43783,47 @@
     "before": "Para crear equipos, por favor contacte con el administrador.",
     "after": "Pa crear equipos, ponte en contautu col alministrador, por favor.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "translation-number",
+    "before": "El número de cadenas de traducción personalizadas es:",
+    "after": "El númberu de cadenes de traducción personalizaes ye:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "vote-delete-pop",
+    "before": "El Borrado es permanente. Perderá todas las acciones asociadas con este voto.",
+    "after": "La eliminación ye permanente. Vas perder toles aiciones asociaes a esta votación.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "webhook-token",
+    "before": "Token (opcional para la autenticación)",
+    "after": "Token (opcional pa l’autenticación)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "wipLimitErrorPopup-dialog-pt1",
+    "before": "El número de tareas en esta lista es mayor que el límite del trabajo en proceso que has definido.",
+    "after": "El númberu de xeres nesta llista ye mayor que la llende del trabayu en cursu que definisti.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "wipLimitErrorPopup-dialog-pt2",
+    "before": "Por favor, mueve algunas tareas fuera de esta lista, o fija un límite del trabajo en proceso más alto.",
+    "after": "Mueve delles xeres fuera d’esta llista o establez una llende del trabayu en cursu más alta, por favor.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "wipLimitErrorPopup-title",
+    "before": "El límite del trabajo en proceso no es válido.",
+    "after": "Llende del trabayu en cursu inválida",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

@@ -457,3 +457,11 @@ assert.match(data['text-below-custom-login-logo'], /Testu debaxo.*aniciu de sesi
 assert.match(data['to-create-organizations-contact-admin'], /crear organizaciones.*col alministrador/);
 assert.match(data['to-create-teams-contact-admin'], /crear equipos.*col alministrador/);
 assert.notEqual(data['to-create-organizations-contact-admin'], data['to-create-teams-contact-admin']);
+
+assert.match(data['translation-number'], /númberu de cadenes de traducción personalizaes/);
+assert.match(data['vote-delete-pop'], /eliminación ye permanente.*perder toles aiciones.*votación/);
+assert.match(data['webhook-token'], /opcional pa l’autenticación/);
+assert.match(data['wipLimitErrorPopup-dialog-pt1'], /númberu de xeres nesta llista ye mayor que la llende/);
+assert.match(data['wipLimitErrorPopup-dialog-pt2'], /Mueve delles xeres fuera.*o establez.*más alta/);
+assert.match(data['wipLimitErrorPopup-title'], /Llende.*inválida/);
+assert.doesNotMatch(data['wipLimitErrorPopup-dialog-pt2'], /elimina|borra/);
