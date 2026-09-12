@@ -4,21 +4,21 @@ Audit date: **2026-09-12**. Last updated: **2026-09-12**.
 
 | Status | Audit keys |
 | --- | ---: |
-| Explicitly corrected | 4,591 |
+| Explicitly corrected | 4,627 |
 | Original pull values restored to pre-pull local values | 4,061 |
 | Reviewed and retained unchanged | 78 |
-| Pending review or repair | 11,351 |
+| Pending review or repair | 11,315 |
 | Total tracked | 20,081 |
 
 The full translation repair goal remains unfinished. Counts describe the tracked audit findings; unflagged strings are not individually certified. Restored pre-pull values are not automatically certified as correct translations.
 
 ## Fixes completed
 
-Repairs address wrong-language text, incorrect kanban terminology, missing restrictions and warnings, malformed JSON examples, translated placeholders, calendar names, search syntax and date/message argument order. The reviewed correction list contains **4,653 values**, including corrections outside the flagged audit rows.
+Repairs address wrong-language text, incorrect kanban terminology, missing restrictions and warnings, malformed JSON examples, translated placeholders, calendar names, search syntax and date/message argument order. The reviewed correction list contains **4,689 values**, including corrections outside the flagged audit rows.
 
 The flagged Bosnian, Croatian and Macedonian queues are complete. Other completed queues include Latvian, Romanian, Slovak and several smaller regional queues. **Bosnian has no remaining flagged findings**.
 
-Latest translation correction: [cd678af78](https://github.com/wekan/wekan/commit/cd678af78c4c71586bf37e7842bc0f50232ae2b2), **2026-09-12**, fixes 36 Slovenian due-card, voting-date, CSV/TSV, report, filesystem and filter values. Repairs preserve incomplete-card and board-permission restrictions, vote end dates, week distinctions and CSV/TSV separator meanings. Each Slovenian queue has 218 findings remaining. Meaning, token, exact-value, key-order and idempotent repair checks pass.
+Latest translation correction: [80a2e0f06](https://github.com/wekan/wekan/commit/80a2e0f063bb2fec6930ba42fdcac74ef29c7686), **2026-09-12**, fixes 36 Slovenian search and file/avatar URL migration values. Repairs preserve OR/AND conditions, archived-card defaults, exact search examples, operator/predicate tokens and both storage-backend and broken-reference repairs. Each Slovenian queue has 200 findings remaining. Meaning, token, exact-value, key-order and idempotent repair checks pass.
 
 ## Provenance
 

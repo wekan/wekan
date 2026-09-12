@@ -558,6 +558,13 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/80a2e0f063bb2fec6930ba42fdcac74ef29c7686">Repair Slovenian search instructions and file URL migration messages</a>. Thanks to xet7.</summary>
+
+Correct 36 values across both Slovenian locales. Preserve search OR/AND semantics, archived-card defaults, literal examples and source placeholders. Restore file/avatar storage-backend and broken-reference repair descriptions. Regression checks verify meanings, exact corrections, tokens, key order and idempotent repairs. The short translation audit records current progress.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/cd678af78c4c71586bf37e7842bc0f50232ae2b2">Repair Slovenian due card filters and vote date messages</a>. Thanks to xet7.</summary>
 
 Correct 36 values across both Slovenian locales. Restore due-card permission restrictions, vote end dates, CSV/TSV separator meanings, file reports and week filters. Regression checks verify meanings, exact corrections, source tokens, key order and idempotent repairs. The short translation audit records current progress.
