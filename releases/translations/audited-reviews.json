@@ -700,5 +700,11 @@
     "key": "export-monitoring",
     "value": "Monitorización de exportación",
     "reason": "Reviewed shared technical vocabulary for monitoring export operations; no foreign articles or missing source meaning."
+  },
+  {
+    "locale": "an",
+    "key": "label-default",
+    "value": "etiqueta %s (por defecto)",
+    "reason": "Reviewed shared Aragonese label terminology and por defecto default qualifier; exact percent placeholder preserved."
   }
 ]

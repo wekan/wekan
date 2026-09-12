@@ -45253,5 +45253,40 @@
     "before": "No se pudo leer el .zip subido.",
     "after": "No s’ha puesto leyer o .zip puyau.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "imported-member-no-account",
+    "before": "Miembro importado — sin cuenta coincidente todavía",
+    "after": "Miembro importau — encara sin cuenta coincident",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "invalid-domain",
+    "before": "Dominio no válido. Usa un dominio como example.com (sin @ ni espacios).",
+    "after": "Dominio no valido. Usa un dominio como example.com (sin @ ni espacios).",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "invite-people-success",
+    "before": "Invitación de registro enviada con éxito",
+    "after": "Invitación ta rechistrar-se ninviada correctament",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "label-color-not-found",
+    "before": "Color de etiqueta %s no encontrado.",
+    "after": "Color d’etiqueta %s no trobau.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "label-not-found",
+    "before": "Etiqueta '%s' no encontrada.",
+    "after": "Etiqueta '%s' no trobada.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
