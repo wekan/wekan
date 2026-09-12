@@ -46765,5 +46765,33 @@
     "before": "Islamic (Saudi Arabia)",
     "after": "ہجری کیلنڈر (سعودی عرب، چاند دیکھنے پر مبنی)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "vi",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "Lịch Hồi Giáo (Ả Rập Xê Út, quan sát trăng)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "vi",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "Lịch Hồi Giáo (dạng bảng, kỷ nguyên thiên văn)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "vi-VN",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "Lịch Hồi Giáo (Ả Rập Xê Út, quan sát trăng)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "vi-VN",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "Lịch Hồi Giáo (dạng bảng, kỷ nguyên thiên văn)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
