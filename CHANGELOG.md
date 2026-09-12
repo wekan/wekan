@@ -558,6 +558,13 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/24a1d388c">Repair Bosnian account lockout translations</a>. Thanks to xet7.</summary>
+
+Correct 18 flagged values. Positive and negative regressions verify credential distinctions, seconds, unlock-all scope and self-deletion. Source-token, target-script, exact-value, key-order and repair checks pass. Audit.md records dated progress and the correction commit.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/48b6b1bb2">Repair Bosnian memory, wait indicators and accessibility translations</a>. Thanks to xet7.</summary>
 
 Replace 21 flagged Serbian-seeded values and finish an older JSON sample repair while preserving literal field names. Positive and negative regressions verify memory metrics and wait indicators; source-token, exact-value, key-order and repair checks pass. Audit.md records the dated commit and remaining findings.
