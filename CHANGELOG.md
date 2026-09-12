@@ -558,6 +558,15 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/5fe2d75a23b35109ad184037a69208ad0793d05e">Fix Galician regional search and import translations</a></summary>
+
+Replace 29 Portuguese values with reviewed Galician and retain one correct integrity label. Restore label search arguments and valid-data instructions; preserve shortcut states, byte units and migration batch limits. Translation regression checks pass.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/427d86c04cd121936b14052398e5e50ba97c0cba">Fix Galician regional email and export translations</a></summary>
 
 Replace 29 Portuguese values with reviewed Galician and retain one correct filter label. Restore export assignee terminology and preserve account email instructions, date categories, filesystem labels and URL placeholders. Translation regression checks pass.
