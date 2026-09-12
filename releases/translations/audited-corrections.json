@@ -40570,5 +40570,75 @@
     "before": "eliminada la etiqueta __label__ de la tarjeta __card__ de la lista __list__ del carril __swimlane__ del tablero __board__",
     "after": "quitó la etiqueta __label__ de la tarxeta __card__ na llista __list__ del carril __swimlane__ del tableru __board__",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "act-restoredCard",
+    "before": "restaurada la tarjeta __card__ a la lista __list__ del carril __swimlane__ del tablero __board__",
+    "after": "restauró la tarxeta __card__ na llista __list__ del carril __swimlane__ del tableru __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "act-setCustomField",
+    "before": "editado el campo personalizado __customField__: __customFieldValue__ en la tarjeta __card__ de la lista __list__ del carril __swimlane__ del tablero __board__",
+    "after": "editó el campu personalizáu __customField__: __customFieldValue__ na tarxeta __card__ na llista __list__ del carril __swimlane__ del tableru __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "act-uncheckedItem",
+    "before": "desmarcado el elemento __checklistItem__ de la lista de verificación __checklist__ de la tarjeta __card__ de la lista __list__ del carril __swimlane__ del tablero __board__",
+    "after": "desmarcó l'elementu __checklistItem__ de la llista de comprobación __checklist__ de la tarxeta __card__ na llista __list__ del carril __swimlane__ del tableru __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "act-uncompleteChecklist",
+    "before": "no completada la lista de verificación __checklist__ de la tarjeta __card__ de la lista __list__ del carril __swimlane__ del tablero __board__",
+    "after": "marcó como incompleta la llista de comprobación __checklist__ de la tarxeta __card__ na llista __list__ del carril __swimlane__ del tableru __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "act-unjoinMember",
+    "before": "eliminado el miembro __member__ de la tarjeta __card__ de la lista __list__ del carril __swimlane__ del tablero __board__",
+    "after": "quitó al miembru __member__ de la tarxeta __card__ na llista __list__ del carril __swimlane__ del tableru __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "activity-checklist-completed-card",
+    "before": "completada la lista de verificación __checklist__ de la tarjeta __card__ de la lista __list__ del carril __swimlane__ del tablero __board__",
+    "after": "completó la llista de comprobación __checklist__ de la tarxeta __card__ na llista __list__ del carril __swimlane__ del tableru __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "activity-checklist-item-removed",
+    "before": "eliminado un elemento de la lista de verificación desde '%s' en %s",
+    "after": "quitó un elementu de la llista de comprobación '%s' en %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "activity-checklist-removed",
+    "before": "eliminada una lista de verificación desde %s",
+    "after": "quitó una llista de comprobación de %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "activity-delete-attach",
+    "before": "eliminado un adjunto desde %s",
+    "after": "eliminó un axuntu de %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "activity-removed-label",
+    "before": "eliminada etiqueta '%s' desde %s",
+    "after": "quitó la etiqueta '%s' de %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

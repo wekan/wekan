@@ -20,3 +20,9 @@ assert.match(data['act-moveCardToOtherBoard'], /dende la llista __oldList__.*__o
 assert.match(data['act-removeChecklistItem'], /__checklistItem__.*__checkList__/);
 assert.equal(data['act-removeLabel'], data['act-removedLabel']);
 assert.match(data['act-newDue'], /primer recordatoriu de vencimientu/);
+assert.match(data['act-uncheckedItem'], /desmarcó l'elementu/);
+assert.match(data['act-uncompleteChecklist'], /marcó como incompleta/);
+assert.notEqual(data['act-uncompleteChecklist'], data['act-completeChecklist']);
+assert.equal(data['activity-checklist-completed-card'], data['act-completeChecklist']);
+assert.match(data['act-setCustomField'], /__customField__: __customFieldValue__ na tarxeta __card__/);
+assert.match(data['activity-checklist-item-removed'], /un elementu.*'%s' en %s/);
