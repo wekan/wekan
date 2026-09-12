@@ -558,6 +558,13 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/f110128f6">Repair Croatian checklist visibility and board import instructions</a>. Thanks to xet7.</summary>
+
+Correct 15 reviewed values. Positive and negative regressions verify export direction, literal Trello menu names and checklist visibility wording. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/23bd5535a">Repair Croatian organization and status search operators</a>. Thanks to xet7.</summary>
 
 Correct 12 reviewed values. Positive and negative regressions verify end-date status, board visibility, organization assignment and descending-sort syntax. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.

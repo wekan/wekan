@@ -79,6 +79,10 @@ assert.match(data['globalSearch-instructions-status-private'], /samo na privatni
 assert.match(data['globalSearch-instructions-status-public'], /samo na javnim pločama/);
 assert.match(data['globalSearch-instructions-operator-sort'], /silazno.*`-`/);
 assert.match(data['globalSearch-instructions-operator-org'], /ploči dodijeljenoj organizaciji/);
+assert.match(data['import-board-instruction-wekan'], /'Izvezi ploču'/);
+assert.doesNotMatch(data['import-board-instruction-wekan'], /'Uvezi/);
+for (const menu of ['Menu', 'More', 'Print and Export', 'Export JSON']) assert.ok(data['import-board-instruction-trello'].includes("'" + menu + "'"));
+assert.match(data['hideCheckedChecklistItems'], /označene stavke kontrolnog popisa/);
 assert.equal(data.accessibility, 'Pristupačnost');
 assert.match(data['accounts-lockout-known-users'], /ispravno korisničko ime, pogrešna lozinka/);
 assert.match(data['accounts-lockout-failure-window'], /neuspjelih pokušaja \(sekunde\)/);
