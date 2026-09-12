@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Audit keys |
 | --- | ---: |
-| Explicitly corrected | 5,986 |
+| Explicitly corrected | 5,996 |
 | Restored pre-pull values awaiting further validation | 4,059 |
-| Reviewed and retained unchanged | 98 |
-| Pending review or repair | 9,938 |
+| Reviewed and retained unchanged | 99 |
+| Pending review or repair | 9,927 |
 | Total tracked | 20,081 |
 
 **Translation repairs remain unfinished.** These counts cover flagged findings; unflagged strings and restored values are not certified as correct.
 
-Fixes cover wrong-language text, terminology, missing warnings, JSON examples, placeholders and calendar/search formatting. The correction history records **6,048 values**, including fixes outside the audit. Flagged Bosnian, Croatian, Macedonian, Slovenian (both locales), Latvian, Romanian, Slovak and both Galician queues are complete.
+Fixes cover wrong-language text, terminology, missing warnings, JSON examples, placeholders and calendar/search formatting. The correction history records **6,058 values**, including fixes outside the audit. Flagged Bosnian, Croatian, Macedonian, Slovenian (both locales), Latvian, Romanian, Slovak and both Galician queues are complete.
 
-Latest fix: [dacbe7416](https://github.com/wekan/wekan/commit/dacbe7416fcc04afc1755d66a9b231b16fdc1e1e), **2026-09-13** — five Asturian attachment-storage, list-width, avatar-size and minicard attachment-count corrections. **221 Asturian findings remain.** Meaning, exact-value, placeholder, key-order and idempotency checks pass; Asturian wording needs native-speaker review. Live Meteor browser verification remains unavailable.
+Latest fix: [0b2904bdf](https://github.com/wekan/wekan/commit/0b2904bdf41a963c61bd96a4c9b340c0bdb4958f), **2026-09-13** — ten Asturian popup, background, URL-scheme and clipboard corrections; one valid monthly-backup label retained. **210 Asturian findings remain.** Meaning, exact-value, placeholder, key-order, review and idempotency checks pass; Asturian wording needs native-speaker review. Live Meteor browser verification remains unavailable.
 
 **Provenance:** not all errors came from Transifex. The captured pull changed 4,061 values; the full-local audit added 16,020 findings. Bosnian errors came from the September 5 [local completion commit](https://github.com/wekan/wekan/commit/bdb3b15886a749b725b5290ba0109fcba955f983), with no Bosnian changes in the captured pull. Other ultimate origins remain unverified.
 
