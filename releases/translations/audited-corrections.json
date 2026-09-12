@@ -43202,5 +43202,54 @@
     "before": "Establecer etiqueta para la selección",
     "after": "Establecer una etiqueta pa la selección",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "multi-selection-member",
+    "before": "Establecer miembro para la selección",
+    "after": "Establecer un miembru pa la selección",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "multi-selection-on",
+    "before": "Selección múltiple activada",
+    "after": "La selección múltiple ta activada",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "newLineNewItem",
+    "before": "Una línea de texto = un elemento de la lista de verificación",
+    "after": "Una llinia de testu = un elementu de la llista de comprobación",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "newlineBecomesNewChecklistItem",
+    "before": "Cada línea de texto se convierte en un nuevo elemento de la lista de verificación",
+    "after": "Cada llinia de testu conviértese nun elementu de la llista de comprobación",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "newlineBecomesNewChecklistItemOriginOrder",
+    "before": "Cada línea de texto se convierte en un nuevo elemento de la lista de verificación, orden original",
+    "after": "Cada llinia de testu conviértese nun elementu de la llista de comprobación, nel orde orixinal",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "no-archived-lists",
+    "before": "No hay listas archivadas.",
+    "after": "Nun hai llistes nel archivu.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "no-archived-swimlanes",
+    "before": "No hay carriles archivados.",
+    "after": "Nun hai carriles nel archivu.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

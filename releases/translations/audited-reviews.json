@@ -592,5 +592,11 @@
     "key": "backup-day-of-month",
     "value": "Día del mes (mensual, 1-28)",
     "reason": "Asturian shares día, mes and mensual with Spanish; the monthly backup label preserves the source range 1-28 and is valid unchanged."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "newTranslationPopup-title",
+    "value": "Nueva cadena de traducción personalizada",
+    "reason": "Nueva cadena de traducción personalizada is shared valid Asturian wording and correctly labels creation of a custom translation string; no change required."
   }
 ]

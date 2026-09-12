@@ -340,3 +340,12 @@ assert.match(data['move-all-attachments-to-fs'], /Mover tolos axuntos al sistema
 assert.match(data['move-all-attachments-to-gridfs'], /Mover tolos axuntos a GridFS/);
 assert.notEqual(data['move-all-attachments-to-fs'], data['move-all-attachments-to-gridfs']);
 assert.match(data['multi-selection-label'], /etiqueta pa la selección/);
+
+assert.match(data['multi-selection-member'], /miembru pa la selección/);
+assert.match(data['multi-selection-on'], /selección múltiple ta activada/);
+assert.match(data.newLineNewItem, /Una llinia de testu = un elementu/);
+assert.match(data.newlineBecomesNewChecklistItem, /Cada llinia de testu conviértese nun elementu/);
+assert.match(data.newlineBecomesNewChecklistItemOriginOrder, /nel orde orixinal$/);
+assert.notEqual(data.newlineBecomesNewChecklistItem, data.newlineBecomesNewChecklistItemOriginOrder);
+assert.match(data['no-archived-lists'], /Nun hai llistes nel archivu/);
+assert.match(data['no-archived-swimlanes'], /Nun hai carriles nel archivu/);
