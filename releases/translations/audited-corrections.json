@@ -48760,5 +48760,33 @@
     "before": "Trascina per ridimensionare il menu di sinistra",
     "after": "Trair per midar la grondezza dal menu a sanestra",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "drag-to-resize-sidebar",
+    "before": "Trascina per ridimensionare la barra laterale",
+    "after": "Trair per midar la grondezza da la barra laterala",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "due-date-changed-times",
+    "before": "Data di scadenza mudata %s volte",
+    "after": "La data da scadenza è vegnida midada %s giadas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "due-date-changes",
+    "before": "Modifiche ala data di scadenza",
+    "after": "Midadas da la data da scadenza",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "dueCards-noResults-description",
+    "before": "Al momento no hai ciartes cun date di scadenza.",
+    "after": "Ti n’has actualmain naginas cartas cun datas da scadenza.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
