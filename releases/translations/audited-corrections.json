@@ -47843,5 +47843,89 @@
     "before": "Impossibile creare l'cont",
     "after": "Il cont n’ha betg pudì vegnir creà",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "account-locked",
+    "before": "L'cont ie temporaneamente bloccato a causa di troppi tentativi di azes falliti. Riprova più tardi.",
+    "after": "Il cont è bloccà temporarmain pervia da memia bleras emprovas d’annunzia betg reussidas. Emprova per plaschair pli tard anc ina giada.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "accounts-allowEmailChange",
+    "before": "Permetti muda dell'posta eletronica",
+    "after": "Permetter da midar l’adressa dad e-mail",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "accounts-allowUserDelete",
+    "before": "Permetti agli utenc di cancellare il loro profilo",
+    "after": "Stizzar sez il cont d’utilisader",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "accounts-lockout-all-users-unlocked",
+    "before": "Duc gli utenc bloccati ie stati sbloccati",
+    "after": "Tut ils utilisaders bloccads èn vegnids debloccads",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "accounts-lockout-confirm-unlock",
+    "before": "Sei sicuro di voler sbloccare questo utent?",
+    "after": "Es ti segir che ti vuls debloccar quest utilisader?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "accounts-lockout-confirm-unlock-all",
+    "before": "Vuoi davvero sbloccare duc gli utenc bloccati?",
+    "after": "Es ti segir che ti vuls debloccar tut ils utilisaders bloccads?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "accounts-lockout-failure-window",
+    "before": "Finestra di fal (secuntes)",
+    "after": "Interval da las emprovas betg reussidas (secundas)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "accounts-lockout-locked-users-info",
+    "before": "Utenc attualmente bloccati a causa di troppi tentativi di azes no riusciti ",
+    "after": "Utilisaders actualmain bloccads pervia da memia bleras emprovas d’annunzia betg reussidas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "accounts-lockout-no-locked-users",
+    "before": "Al momento no ci ie utenc bloccati",
+    "after": "Actualmain n’èn nagins utilisaders bloccads",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "accounts-lockout-period",
+    "before": "Periodo di blocco (secuntes)",
+    "after": "Durada dal bloc (secundas)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "accounts-lockout-user-unlocked",
+    "before": "L'utent ie stato sbloccato cun successo",
+    "after": "L’utilisader è vegnì debloccà cun success",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "act-a-dueAt",
+    "before": "scadenza mudata\nQuando: __timeValue__\nDove: __card__\nla scadenza da dant era __timeOldValue__",
+    "after": "midà il temp da scadenza en\nCura: __timeValue__\nNua: __card__\nla scadenza precedenta era __timeOldValue__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
