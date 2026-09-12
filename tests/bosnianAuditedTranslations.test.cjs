@@ -160,3 +160,15 @@ assert.match(data['delete-linked-card-before-this-card'], /povezanu karticu koja
 assert.match(data['delete-user-confirm-popup'], /ovaj račun.*Poništavanje nije moguće/);
 assert.match(data['deposit-subtasks-list'], /lista za podzadatke/);
 console.log('bosnianAuditedTranslations: duplicate-list conditions, membership blockers and linked-card direction passed');
+
+assert.match(data['error-csv-schema'], /CSV.*zarezima.*TSV.*tabulatorima/);
+assert.doesNotMatch(data['error-teamname-taken'], /pravni/);
+assert.match(data['export-card-pdf'], /Izvezi karticu u PDF/);
+assert.equal(data['filter-due-next-week'], 'Rok sljedeće sedmice');
+assert.equal(data['filter-due-this-week'], 'Rok ove sedmice');
+assert.equal(data['filter-member-label'], 'Filtriraj po članu');
+assert.equal(data['filter-show-archive'], 'Prikaži arhivirane liste');
+assert.match(data['fix-all-file-urls-migration-description'], /svih datotečnih priloga na ovoj ploči/);
+assert.match(data['fix-all-file-urls-migration-description'], /odgovarajući sistem pohrane/);
+assert.match(data['fix-all-file-urls-migration-description'], /popravlja neispravne reference/);
+console.log('bosnianAuditedTranslations: file URL repair scope, CSV separators and week filters passed');
