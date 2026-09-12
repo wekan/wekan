@@ -23882,5 +23882,131 @@
     "before": "Сарадник више није на платном списку",
     "after": "Neaktivan",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "admin-people-filter-locked",
+    "before": "Налоге на мерама забране права приступа",
+    "after": "Samo zaključani korisnici",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "admin-people-user-active",
+    "before": "Сарадник је на платном списку - притисните да би прекинули сарадњу",
+    "after": "Korisnik je aktivan - kliknite za deaktivaciju",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "admin-people-user-inactive",
+    "before": "Сарадник није на платном списку - притисните да би га увели на платни списак",
+    "after": "Korisnik je neaktivan - kliknite za aktivaciju",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "allboards.edit-workspace",
+    "before": "Преименовање радног простора",
+    "after": "Uredi radni prostor",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "allboards.edit-workspace-icon",
+    "before": "Слика за радни простор (код)",
+    "after": "Ikona radnog prostora (markdown)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "allowNonBoardMembers",
+    "before": "Дај право гласа и онима који немају увид у ове списе",
+    "after": "Dopusti sve prijavljene korisnike",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "allowed-upload-filetypes",
+    "before": "Дозвољене врсте датотека за слање:",
+    "after": "Dopuštene vrste datoteka za prijenos:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "almostdue",
+    "before": "приближава се крајњи рок %s",
+    "after": "približava se trenutačni rok %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "always-field-on-card",
+    "before": "Придодај овакву рубрику и свим постојећим предметима",
+    "after": "Dodaj polje svim karticama",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "app-is-offline",
+    "before": "Исчитавам, молим да сачекате. Освежавање стране ће изазвати губитак података. Ако повлачење података не ради, молим да проверите да ли је сервер заустављен.",
+    "after": "Učitavanje, pričekajte. Osvježavanje stranice uzrokovat će gubitak podataka. Ako učitavanje ne radi, provjerite je li poslužitelj zaustavljen.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "app-try-reconnect",
+    "before": "Покушавам да се поново повежем.",
+    "after": "Pokušajte se ponovno povezati.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "archive-board-confirm",
+    "before": "Да ли сте сигурни да желите да спакујете ове списе у архив?",
+    "after": "Jeste li sigurni da želite arhivirati ovu ploču?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "attachment-migration",
+    "before": "Пресељење предметне грађе",
+    "after": "Migracija privitaka",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "attachment-monitoring",
+    "before": "Надзор над предметном грађом",
+    "after": "Nadzor privitaka",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "attachment-move-storage-fs",
+    "before": "Пренеси материјал у локални систем датотека",
+    "after": "Premjesti privitak u datotečni sustav",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "attachment-move-storage-gridfs",
+    "before": "Пренеси материјал у GridFS",
+    "after": "Premjesti privitak u GridFS",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "attachment-move-storage-s3",
+    "before": "Пренеси материјал у облак на Amazon S3",
+    "after": "Premjesti privitak u S3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "attachment-storage-configuration",
+    "before": "Поставка складишта предметне грађе",
+    "after": "Postavke pohrane privitaka",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
