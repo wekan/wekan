@@ -78,3 +78,17 @@ assert.doesNotMatch(data['automatically-field-on-card'], /sve kartice/);
 assert.match(data['autoAddUsersWithDomainName'], /Automatski dodaj korisnike/);
 assert.equal(data['avatar-too-big'], 'Avatar je prevelik (najviše __size__)');
 console.log('bosnianAuditedTranslations: storage destinations, URL schemes and new-card scope passed');
+
+for (const operation of ['archive', 'backup', 'cleanup']) {
+  assert.match(data[`board-${operation}-failed`], /Zakazivanje.*nije uspjelo/);
+  assert.match(data[`board-${operation}-scheduled`], /uspješno je zakazan/);
+}
+for (const key of ['board-info-on-my-boards', 'boardInfoOnMyBoards-title', 'boardInfoOnMyBoardsPopup-title']) assert.equal(data[key], 'Postavke svih ploča');
+assert.match(data['board-drag-drop-reorder-or-click-open'], /Kliknite ikonu ploče/);
+assert.doesNotMatch(data['board-drag-drop-reorder-or-click-open'], /delovodni|djelovodni/);
+assert.equal(data['board-migrations'], 'Migracije ploča');
+assert.match(data.board_assignees, /svih kartica na ovoj ploči/);
+assert.match(data['bucket-example'], /Lista životnih želja/);
+assert.doesNotMatch(data['bucket-example'], /4\/2025/);
+assert.match(data['card-archive-pop'], /više neće biti vidljiva u ovoj listi/);
+console.log('bosnianAuditedTranslations: scheduling results, board scope and archive visibility passed');

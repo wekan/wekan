@@ -27417,5 +27417,117 @@
     "before": "Путања где се складиште слике сарадника",
     "after": "Putanja na kojoj se pohranjuju datoteke avatara",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "board-archive-failed",
+    "before": "Није успело заказивање архивирања списа",
+    "after": "Zakazivanje arhiviranja ploče nije uspjelo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "board-archive-scheduled",
+    "before": "Заказано је паковање списа у архиву",
+    "after": "Arhiviranje ploče uspješno je zakazano",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "board-backup-failed",
+    "before": "Није успело заказивање израде резервног примерка списа",
+    "after": "Zakazivanje sigurnosne kopije ploče nije uspjelo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "board-backup-scheduled",
+    "before": "Заказана је израда резервног примерка списа",
+    "after": "Sigurnosna kopija ploče uspješno je zakazana",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "board-cleanup-failed",
+    "before": "Није успело заказивање чишћења списа",
+    "after": "Zakazivanje čišćenja ploče nije uspjelo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "board-cleanup-scheduled",
+    "before": "Заказано је чишћење списа",
+    "after": "Čišćenje ploče uspješno je zakazano",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "board-drag-drop-reorder-or-click-open",
+    "before": "Притисните и задржите, превуците па отпустите да би пресложили списе. Притисните на деловодни број да би отворили ове списе.",
+    "after": "Povucite i ispustite ikone ploča da promijenite njihov redoslijed. Kliknite ikonu ploče da otvorite ploču.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "board-info-on-my-boards",
+    "before": "Списи у мојој надлежности",
+    "after": "Postavke svih ploča",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "board-migrations",
+    "before": "Поступци обнове оштећених списа",
+    "after": "Migracije ploča",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "board-title-not-found",
+    "before": "Списи под деловодним бројем '%s' нису пронађени.",
+    "after": "Ploča '%s' nije pronađena.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "boardChangeBackgroundImagePopup-title",
+    "before": "Списи на осликаној подлози",
+    "after": "Promijeni pozadinsku sliku",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "boardInfoOnMyBoards-title",
+    "before": "Списи у мојој надлежности",
+    "after": "Postavke svih ploča",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "boardInfoOnMyBoardsPopup-title",
+    "before": "Списи у мојој надлежности",
+    "after": "Postavke svih ploča",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "board_assignees",
+    "before": "Сви пуномоћници из свих предмета у овим списима",
+    "after": "Svi zaduženi korisnici svih kartica na ovoj ploči",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "bucket-example",
+    "before": "Деловодни број (на пример 4/2025)",
+    "after": "Na primjer, „Lista životnih želja“",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "card-archive-pop",
+    "before": "Након архивирања, предмет више неће бити видљив у овом делу тока поступка.",
+    "after": "Nakon arhiviranja kartica više neće biti vidljiva u ovoj listi.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
