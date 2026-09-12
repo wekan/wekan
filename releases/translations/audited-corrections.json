@@ -17071,5 +17071,208 @@
     "before": "Advanced Filter allows to write a string containing following operators: == != <= >= && || ( ) A space is used as a separator between the Operators. You can filter for all Custom Fields by typing their names and values. For Example: Field1 == Value1. Note: If fields or values contains spaces, you need to encapsulate them into single quotes. For Example: 'Field 1' == 'Value 1'. For single control characters (' \\\\/) to be skipped, you can use \\\\. For example: Field1 == I\\\\'m. Also you can combine multiple conditions. For Example: F1 == V1 || F1 == V2. Normally all operators are interpreted from left to right. You can change the order by placing brackets. For Example: F1 == V1 && ( F2 == V2 || F2 == V3 ). Also you can search text fields using regex: F1 == /Tes.*/i",
     "after": "Το προηγμένο φίλτρο επιτρέπει τη σύνταξη μιας έκφρασης με τους ακόλουθους τελεστές: == != <= >= && || ( ) Οι τελεστές χωρίζονται με κενά. Μπορείτε να φιλτράρετε όλα τα προσαρμοσμένα πεδία πληκτρολογώντας τα ονόματα και τις τιμές τους. Για παράδειγμα: Field1 == Value1. Σημείωση: αν τα ονόματα των πεδίων ή οι τιμές περιέχουν κενά, πρέπει να περικλείονται σε μονά εισαγωγικά. Για παράδειγμα: 'Field 1' == 'Value 1'. Για να εξουδετερώσετε τους ειδικούς χαρακτήρες (' \\/), μπορείτε να χρησιμοποιήσετε \\. Για παράδειγμα: Field1 == I\\'m. Μπορείτε επίσης να συνδυάσετε πολλές συνθήκες. Για παράδειγμα: F1 == V1 || F1 == V2. Συνήθως οι τελεστές ερμηνεύονται από αριστερά προς τα δεξιά. Μπορείτε να αλλάξετε τη σειρά χρησιμοποιώντας παρενθέσεις. Για παράδειγμα: F1 == V1 && ( F2 == V2 || F2 == V3 ). Μπορείτε επίσης να αναζητήσετε σε πεδία κειμένου χρησιμοποιώντας κανονικές εκφράσεις: F1 == /Tes.*/i",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "a-dueAt",
+    "before": "Změnil(a) požadovaný termín dokončení",
+    "after": "zmenil(a) termín dokončenia na",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "accounts-allowUserDelete",
+    "before": "Dovolit uživatelům smazat vlastní účet",
+    "after": "Povoliť používateľom vymazať vlastný účet",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "accounts-allowUserNameChange",
+    "before": "Povolit změnu uživatelského jména",
+    "after": "Povoliť zmenu používateľského mena",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "act-a-dueAt",
+    "before": "změnil(a) termín dokončení\nKdy: __timeValue__\nKde: __card__\n předchozí termín dokončení byl __timeOldValue__",
+    "after": "zmenil(a) termín dokončenia na\nKedy: __timeValue__\nKde: __card__\n predchádzajúci termín bol __timeOldValue__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "act-a-endAt",
+    "before": "změnil(a) čas ukončení na __timeValue__ z (__timeOldValue__)",
+    "after": "zmenil(a) čas ukončenia na __timeValue__ z (__timeOldValue__)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "act-a-receivedAt",
+    "before": "změnil(a) čas přijetí na __timeValue__ z (__timeOldValue__)",
+    "after": "zmenil(a) čas prijatia na __timeValue__ z (__timeOldValue__)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "act-a-startAt",
+    "before": "změnil(a) čas zahájení na __timeValue__ z (__timeOldValue__)",
+    "after": "zmenil(a) čas začiatku na __timeValue__ z (__timeOldValue__)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "act-addBoardMember",
+    "before": "přidal(a) člena __member__ do tabla __board__",
+    "after": "pridal(a) člena __member__ na nástenku __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "act-addChecklist",
+    "before": "přidal(a) zaškrtávací seznam __checklist__ na kartu __card__ ve sloupci __list__ ve swimlane __swimlane__ na tablu __board__",
+    "after": "pridal(a) kontrolný zoznam __checklist__ na karte __card__ v zozname __list__ v dráhe __swimlane__ na nástenke __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "act-addChecklistItem",
+    "before": "přidal(a) položku zaškrtávacího seznamu __checklistItem__ do zaškrtávacího seznamu __checklist__ na kartě __card__ ve sloupci __list__ ve swimlane __swimlane__ na tablu __board__",
+    "after": "pridal(a) položku __checklistItem__ do kontrolného zoznamu __checklist__ na karte __card__ v zozname __list__ v dráhe __swimlane__ na nástenke __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "act-addComment",
+    "before": "přidal(a) komentář na kartě __card__: __comment__ ve sloupci __list__ ve swimlane __swimlane__ na tablu __board__",
+    "after": "pridal(a) komentár na karte __card__: __comment__ v zozname __list__ v dráhe __swimlane__ na nástenke __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "act-addLabel",
+    "before": "Přídán štítek __label__ na kartu __card__ ve sloupci __list__ ve swimlane __swimlane__ na tablu __board__",
+    "after": "pridal(a) štítok __label__ na karte __card__ v zozname __list__ v dráhe __swimlane__ na nástenke __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "act-addSubtask",
+    "before": "přidal(a) podúkol __subtask__ na kartu __card__ ve sloupci __list__ ve swimlane __swimlane__ na tablu __board__",
+    "after": "pridal(a) podúlohu __subtask__ na karte __card__ v zozname __list__ v dráhe __swimlane__ na nástenke __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "act-addedLabel",
+    "before": "Přídán štítek __label__ na kartu __card__ ve sloupci __list__ ve swimlane __swimlane__ na tablu __board__",
+    "after": "pridal(a) štítok __label__ na karte __card__ v zozname __list__ v dráhe __swimlane__ na nástenke __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "act-almostdue",
+    "before": "připomínal(a) , že stávající termín dokončení (__timeValue__)  __card__ se blíží",
+    "after": "pripomenul(a), že aktuálny termín (__timeValue__) karty __card__ sa blíži",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "act-archivedCard",
+    "before": "Karta __card__ ve sloupci __list__ ve swimlane __swimlane__ na tablu __board__ přesunuta do Archivu",
+    "after": "Karta __card__ v zozname __list__ v dráhe __swimlane__ na nástenke __board__ bola presunutá do archívu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "act-archivedList",
+    "before": "Sloupec __list__ ve swimlane __swimlane__ na tablu __board__ přesunut do Archivu",
+    "after": "Zoznam __list__ v dráhe __swimlane__ na nástenke __board__ bol presunutý do archívu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "act-archivedSwimlane",
+    "before": "Swimlane __swimlane__ na tablu __board__ přesunut do Archivu",
+    "after": "Dráha __swimlane__ na nástenke __board__ bola presunutá do archívu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "act-checkedItem",
+    "before": "zaškrtl(a) __checklistItem__ na zaškrtávacím seznamu __checklist__ na kartě __card__ ve sloupci __list__ ve swimlane __swimlane__ na tablu __board__",
+    "after": "zaškrtol(a) __checklistItem__ v kontrolnom zozname __checklist__ na karte __card__ v zozname __list__ v dráhe __swimlane__ na nástenke __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "act-completeChecklist",
+    "before": "dokončil(a) zaškrtávací seznam __checklist__ na kartě __card__ ve sloupci __list__ ve swimlane __swimlane__ na tablu __board__",
+    "after": "dokončil(a) kontrolný zoznam __checklist__ na karte __card__ v zozname __list__ v dráhe __swimlane__ na nástenke __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "act-createCard",
+    "before": "přidal(a) kartu __card__ do sloupce __list__ ve swimlane __swimlane__ na tablu __board__",
+    "after": "vytvoril(a) kartu __card__ v zozname __list__ v dráhe __swimlane__ na nástenke __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "act-createCustomField",
+    "before": "přidal(a) pole __customField__ na tablo __board__",
+    "after": "vytvoril(a) vlastné pole __customField__ na nástenke __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "act-createList",
+    "before": "přidal(a) sloupec __list__ do tabla __board__",
+    "after": "pridal(a) zoznam __list__ na nástenku __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "act-deleteAttachment",
+    "before": "smazal(a) přílohu __attachment__ na kartě __card__ ve sloupci __list__ ve swimlane __swimlane__ na tablu __board__",
+    "after": "vymazal(a) prílohu __attachment__ na karte __card__ v zozname __list__ v dráhe __swimlane__ na nástenke __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "act-deleteComment",
+    "before": "smazal(a) komentář na kartě __card__:__comment__ ve sloupci __list__ ve swimlane __swimlane__ na tablu __board__",
+    "after": "vymazal(a) komentár na karte __card__: __comment__ v zozname __list__ v dráhe __swimlane__ na nástenke __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "act-deleteCustomField",
+    "before": "odebral(a) pole __customField__ na tablu __board__",
+    "after": "vymazal(a) vlastné pole __customField__ na nástenke __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "act-duenow",
+    "before": "připomínal(a), že stávající termín dokončení (__timeValue__)  __card__ je teď",
+    "after": "pripomenul(a), že aktuálny termín (__timeValue__) karty __card__ je teraz",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "act-editComment",
+    "before": "editoval(a) komentář na kartě __card__:__comment__ ve sloupci __list__ ve swimlane __swimlane__ na tablu __board__",
+    "after": "upravil(a) komentár na karte __card__: __comment__ v zozname __list__ v dráhe __swimlane__ na nástenke __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "act-importCard",
+    "before": "importoval(a) karta __card__ do sloupce __list__ ve swimlane __swimlane__ na tablu __board__",
+    "after": "importoval(a) kartu __card__ do zoznamu __list__ v dráhe __swimlane__ na nástenke __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
