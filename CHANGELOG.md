@@ -574,7 +574,7 @@ review; the full roadmap implementation remains unfinished.
 
 </details>
 
-and fixes the following date-popup layout bug:
+and fixes the following date-popup layout bugs:
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/f23fa41dd9a09733c710c40750ad9302e447e116">Show full-width calendars directly in date popups</a>. Thanks to xet7.</summary>
@@ -594,6 +594,28 @@ layout checks and Jalali keyboard selection with native date/time saving.
 The existing month-view browser test fails in its navigation helper because
 that helper waits for list columns in a calendar view; it is not counted
 among the passing popup checks.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8f7879e14f302997f171967db1f5c2ca922b31ff">Fit date controls and add bottom-right popup resizing</a>. Thanks to xet7.</summary>
+
+Remove nested date-form scroll areas, viewport-height caps, excess padding
+and margins on calendar buttons. The selected calendar, hour/minute controls,
+Save and Delete fit together in the popup. A bottom-right handle resizes it
+with a mouse or keyboard arrow keys; pointer capture keeps a drag released
+outside from closing it. Content-height and viewport bounds keep controls
+reachable. Only unusually short viewports need scrolling in the outer shell.
+Update the calendar systems documentation and browser layout regressions.
+
+Eighteen related Node suites pass, including captured dragging, keyboard
+resizing, minimum sizes, viewport limits and actual template compilation.
+A standalone Chromium smoke check using the source CSS and resize handlers
+verifies six-week controls fit at 1280x720 and 390x844, and pointer/keyboard
+resizing works without closing the popup. Full-app browser tests are extended
+and registered; the local Meteor server became unavailable before validating
+the final handle implementation. Earlier native-handle attempts failed the
+browser drag test and were replaced with the captured handle.
 
 </details>
 
