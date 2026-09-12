@@ -46219,5 +46219,47 @@
     "before": "Coptic",
     "after": "Kalenda bilong ol Koptik",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "tpi",
+    "key": "calendar-system-dangi",
+    "before": "Dangi (Korean)",
+    "after": "Kalenda Dangi bilong Korea",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "tpi",
+    "key": "calendar-system-ethioaa",
+    "before": "Ethiopic Amete Alem",
+    "after": "Kalenda Amete Alem bilong Itiopia",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "tpi",
+    "key": "calendar-system-ethiopic",
+    "before": "Ethiopic",
+    "after": "Kalenda bilong Itiopia",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "tpi",
+    "key": "calendar-system-hebrew",
+    "before": "Hebrew",
+    "after": "Kalenda bilong ol Hibru",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "tpi",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "Kalenda bilong kantri India",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "tpi",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "Kalenda Hijri",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
