@@ -86,6 +86,11 @@ const data = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/mk.i1
   assert.match(data['remove-labels-multiselect'], /1-9/);
   assert.match(data['remove-member-pop'], /Ќе добие известување/);
   assert.doesNotMatch(data['remove-organization-from-board'], /забран|увид/);
+  assert.match(data['run-restore-lost-cards-migration-confirm'], /само неархивираните ставки/);
+  assert.match(data['run-restore-all-archived-migration-confirm'], /СИТЕ архивирани ленти, списоци и карти/);
+  assert.match(data['run-restore-all-archived-migration-confirm'], /не може лесно да се поништи/);
+  assert.match(data['run-delete-duplicate-empty-lists-migration-confirm'], /празните списоци што имаат дупликат со ист наслов што содржи карти/);
+  for (const field of ['swimlaneId', 'listId']) assert.ok(data['restore-lost-cards-migration-description'].includes(field));
   assert.equal(data.list, 'Список');
   assert.equal(data.swimlane, 'Лента');
   console.log('macedonianAuditedTranslations: actual date and label rendering, checklist removal meaning and native labels passed');
