@@ -1030,5 +1030,17 @@
     "key": "gcs-storage-description",
     "value": "Google Cloud Storage。",
     "reason": "Retain the official cloud-storage product name with valid Chinese sentence-ending punctuation; the source contains only a proper name, not explanatory prose."
+  },
+  {
+    "locale": "pa",
+    "key": "azure-blob-storage-description",
+    "value": "Microsoft Azure Blob Storage।",
+    "reason": "Retain the official cloud-storage product name with valid Punjabi danda punctuation; the source contains only a proper name."
+  },
+  {
+    "locale": "pa",
+    "key": "gcs-storage-description",
+    "value": "Google Cloud Storage।",
+    "reason": "Retain the official cloud-storage product name with valid Punjabi danda punctuation; the source contains only a proper name."
   }
 ]
