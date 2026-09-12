@@ -92,3 +92,18 @@ assert.match(data['bucket-example'], /Lista životnih želja/);
 assert.doesNotMatch(data['bucket-example'], /4\/2025/);
 assert.match(data['card-archive-pop'], /više neće biti vidljiva u ovoj listi/);
 console.log('bosnianAuditedTranslations: scheduling results, board scope and archive visibility passed');
+
+assert.equal(data['checklistDeletePopup-title'], 'Izbrisati kontrolnu listu?');
+assert.equal(data['checklistItemDeletePopup-title'], 'Izbrisati stavku kontrolne liste?');
+assert.notEqual(data['checklistDeletePopup-title'], data['checklistItemDeletePopup-title']);
+assert.match(data['comment-assigned-only-desc'], /samo dodijeljene kartice/);
+assert.match(data['comment-assigned-only-desc'], /samo komentarisati/);
+assert.doesNotMatch(data['comment-assigned-only-desc'], /uređivati|sve kartice/);
+assert.match(data['comment-not-found'], /^Kartica s komentarom/);
+assert.match(data['card-sorting-by-number-on-minicard'], /na minikartici/);
+assert.match(data.card_members, /Svi članovi trenutne kartice/);
+assert.match(data.card_assignees, /Svi zaduženi korisnici trenutne kartice/);
+assert.match(data['conversion-info-text'], /jednom po ploči/);
+assert.match(data['conversion-info-text'], /nastaviti normalno koristiti/);
+assert.match(data['comprehensive-board-migration-description'], /redoslijed lista, položaje kartica i strukturu staza/);
+console.log('bosnianAuditedTranslations: checklist entities, comment-only restrictions and conversion scope passed');

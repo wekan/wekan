@@ -27529,5 +27529,131 @@
     "before": "Након архивирања, предмет више неће бити видљив у овом делу тока поступка.",
     "after": "Nakon arhiviranja kartica više neće biti vidljiva u ovoj listi.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "card-archive-suggest-cancel",
+    "before": "Касније ипак можете извући и вратити предмет из архиве.",
+    "after": "Karticu kasnije možete vratiti iz arhive.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "card-sorting-by-number",
+    "before": "Бројчана ознака за редослед",
+    "after": "Sortiranje kartica po broju",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "card-sorting-by-number-on-minicard",
+    "before": "Бројчана ознака за редослед",
+    "after": "Sortiranje kartica po broju na minikartici",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "cardStartPlanningPokerPopup-title",
+    "before": "Започни договор за партију покера",
+    "after": "Pokreni poker za planiranje",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "card_assignees",
+    "before": "Сви пуномоћници текућег предмета у овим списима",
+    "after": "Svi zaduženi korisnici trenutne kartice na ovoj ploči",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "card_members",
+    "before": "Мрежа сарадника на овом предмету у овим списима",
+    "after": "Svi članovi trenutne kartice na ovoj ploči",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "cardsReportTitle",
+    "before": "Извештај везан за предмете",
+    "after": "Izvještaj o karticama",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "checklistActionsPopup-title",
+    "before": "Руковање списковима радњи",
+    "after": "Radnje s kontrolnom listom",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "checklistDeletePopup-title",
+    "before": "Избрисаћете предметну радњу?",
+    "after": "Izbrisati kontrolnu listu?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "checklistItemDeletePopup-title",
+    "before": "Избрисаћете ставку из предметне радње?",
+    "after": "Izbrisati stavku kontrolne liste?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "close-add-checklist-item",
+    "before": "Окончај додавање помоћних предметних радњи",
+    "after": "Zatvori obrazac za dodavanje stavke kontrolne liste",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "close-edit-checklist-item",
+    "before": "Прекини измену помоћне предметне радње",
+    "after": "Zatvori obrazac za uređivanje stavke kontrolne liste",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "comment-assigned-only-desc",
+    "before": "Једино може да има право увида и узме учешће у расправама у додељеним му предметима.",
+    "after": "Vidljive su samo dodijeljene kartice. Može samo komentarisati.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "comment-delete",
+    "before": "Да ли сте сигурни да желите да повучете изнешено мишљење?",
+    "after": "Jeste li sigurni da želite izbrisati komentar?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "comment-not-found",
+    "before": "Мишљење које садржи речи '%s' није пронађено.",
+    "after": "Kartica s komentarom koji sadrži tekst '%s' nije pronađena.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "comprehensive-board-migration-description",
+    "before": "Изводе се свеобухватне провера и врше поправке целовитости података у списима - што укључује провере и поправке редоследа делова поступака, места где се тачно предмети налазе и структуре поступака.",
+    "after": "Obavlja sveobuhvatne provjere i popravke integriteta podataka ploče, uključujući redoslijed lista, položaje kartica i strukturu staza.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "confirm-checklist-delete-popup",
+    "before": "Да ли сте сигурни да желите да избришете ову предметну радњу?",
+    "after": "Jeste li sigurni da želite izbrisati kontrolnu listu?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "conversion-info-text",
+    "before": "Ово преслагање се изводи само једном по спису и то после олакшава читање.  Без сметњи настављате да читате спис након тога.",
+    "after": "Ova konverzija obavlja se jednom po ploči i poboljšava performanse. Ploču možete nastaviti normalno koristiti.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
