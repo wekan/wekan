@@ -558,6 +558,13 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/189aad3f3">Repair Bosnian board visibility and rule guidance</a>. Thanks to xet7.</summary>
+
+Correct 12 flagged values. Positive and negative regressions verify board editing restrictions, invitation scope, permanent deletion and rule matching. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/e1033dc8c">Repair Bosnian query validation and notification messages</a>. Thanks to xet7.</summary>
 
 Correct 12 flagged values. Positive and negative regressions and real rendering verify notification scope, debug predicates, numeric limits and login links. Source-token, target-script, exact-value, key-order and repair checks pass. Audit.md records dated progress.
