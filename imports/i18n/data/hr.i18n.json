@@ -571,7 +571,7 @@
   "copyListPopup-title": "Kopiraj listu",
   "copyManyCardsPopup-title": "Расади попуњен образац",
   "copyManyCardsPopup-instructions": "Наслови и описи одредишних предмета треба да имају следећи JSON облик:",
-  "copyManyCardsPopup-format": "[{\"title\": \"Наслов првог предмета\",\"description\": \"Опис првог предмета\"},{\"title\": \"Наслов другог предмета\",\"description\": \"Опис другог предмета\"},{\"title\": \"Наслов последњег предмете\",\"description\": \"Опис последњег предмета\"}]",
+  "copyManyCardsPopup-format": "[{\"title\": \"Naslov prve kartice\",\"description\": \"Opis prve kartice\"},{\"title\": \"Naslov druge kartice\",\"description\": \"Opis druge kartice\"},{\"title\": \"Naslov posljednje kartice\",\"description\": \"Opis posljednje kartice\"}]",
   "create": "Dodaj",
   "createBoardPopup-title": "Dodaj ploču",
   "createTemplateContainerPopup-title": "Додај сандук са предлошцима",

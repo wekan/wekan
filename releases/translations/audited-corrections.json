@@ -73,7 +73,7 @@
     "locale": "hr",
     "key": "copyManyCardsPopup-format",
     "before": "[ {\"наслов\": \"Наслов првог предмета\", \"опис\":\"Опис првог предмета\"}, {\"наслов\":\"Наслов другог предмета\",\"опис\":\"Опис другог предмета\"},{\"наслов\":\"Наслов последњег предмете\",\"опис\":\"Опис последњег предмета\"} ]",
-    "after": "[{\"title\": \"Наслов првог предмета\",\"description\": \"Опис првог предмета\"},{\"title\": \"Наслов другог предмета\",\"description\": \"Опис другог предмета\"},{\"title\": \"Наслов последњег предмете\",\"description\": \"Опис последњег предмета\"}]",
+    "after": "[{\"title\": \"Naslov prve kartice\",\"description\": \"Opis prve kartice\"},{\"title\": \"Naslov druge kartice\",\"description\": \"Opis druge kartice\"},{\"title\": \"Naslov posljednje kartice\",\"description\": \"Opis posljednje kartice\"}]",
     "reason": "Restore literal JSON property names; preserve translated sample prose."
   },
   {
