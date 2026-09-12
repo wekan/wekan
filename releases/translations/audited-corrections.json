@@ -34851,5 +34851,145 @@
     "before": "Закажи израду резервног примерка",
     "after": "Načrtuj varnostno kopiranje table",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "scheduled-board-operations",
+    "before": "Заказане радње на списима",
+    "after": "Načrtovana opravila tabel",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "search-boards-or-operations",
+    "before": "Претрага списа или радњи...",
+    "after": "Išči table ali opravila...",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "search-cards",
+    "before": "Тражи у насловима предмета, делова поступака и рубрика у овим списима",
+    "after": "Išči po naslovih kartic in seznamov, opisih ter poljih po meri na tej tabli",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "search-example",
+    "before": "Укуцајте све што тражите и притисните ентер",
+    "after": "Vnesite iskano besedilo in pritisnite Enter",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "server-error-troubleshooting",
+    "before": "Молим да нам пошаљете извештај о грешци коју је изазвао сервер.\nАко је у питању snap инсталација, покрените: `sudo snap logs wekan.wekan`\nАко је у питању Docker инсталација, покрените: `sudo docker logs wekan-app`",
+    "after": "Pošljite napako, ki jo je ustvaril strežnik.\nZa namestitev snap zaženite: `sudo snap logs wekan.wekan`\nZa namestitev Docker zaženite: `sudo docker logs wekan-app`",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "set-swimlane-height",
+    "before": "Подеси висину овог поступка",
+    "after": "Nastavi višino steze",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "set-swimlane-height-value",
+    "before": "Висина ове врсте поступка (у тачкама)",
+    "after": "Višina steze (slikovne pike)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "setSwimlaneHeightPopup-title",
+    "before": "Подеси висину у овој врсти поступка",
+    "after": "Nastavi višino steze",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "settingsTranslationPopup-title",
+    "before": "Обриши ову исправку превода",
+    "after": "Izbrišem ta prevodni niz po meri?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "shortcut-filter-my-assigned-cards",
+    "before": "Издвој предмете где сам пуномоћник",
+    "after": "Filtriraj moje dodeljene kartice",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "scheduled-board-operations",
+    "before": "Заказане радње на списима",
+    "after": "Načrtovana opravila tabel",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "search-boards-or-operations",
+    "before": "Претрага списа или радњи...",
+    "after": "Išči table ali opravila...",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "search-cards",
+    "before": "Тражи у насловима предмета, делова поступака и рубрика у овим списима",
+    "after": "Išči po naslovih kartic in seznamov, opisih ter poljih po meri na tej tabli",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "search-example",
+    "before": "Укуцајте све што тражите и притисните ентер",
+    "after": "Vnesite iskano besedilo in pritisnite Enter",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "server-error-troubleshooting",
+    "before": "Молим да нам пошаљете извештај о грешци коју је изазвао сервер.\nАко је у питању snap инсталација, покрените: `sudo snap logs wekan.wekan`\nАко је у питању Docker инсталација, покрените: `sudo docker logs wekan-app`",
+    "after": "Pošljite napako, ki jo je ustvaril strežnik.\nZa namestitev snap zaženite: `sudo snap logs wekan.wekan`\nZa namestitev Docker zaženite: `sudo docker logs wekan-app`",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "set-swimlane-height",
+    "before": "Подеси висину овог поступка",
+    "after": "Nastavi višino steze",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "set-swimlane-height-value",
+    "before": "Висина ове врсте поступка (у тачкама)",
+    "after": "Višina steze (slikovne pike)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "setSwimlaneHeightPopup-title",
+    "before": "Подеси висину у овој врсти поступка",
+    "after": "Nastavi višino steze",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "settingsTranslationPopup-title",
+    "before": "Обриши ову исправку превода",
+    "after": "Izbrišem ta prevodni niz po meri?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "shortcut-filter-my-assigned-cards",
+    "before": "Издвој предмете где сам пуномоћник",
+    "after": "Filtriraj moje dodeljene kartice",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

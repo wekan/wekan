@@ -23,6 +23,12 @@ for (const locale of ['sl', 'sl_SI']) {
   assert.match(data['accounts-lockout-info'], /napadi z grobo silo/);
   assert.doesNotMatch(data['accounts-lockout-info'], /lozinkef/);
   assert.equal(data.MongoDB_storage_engine, 'Shranjevalni pogon MongoDB');
+  assert.match(data['search-cards'], /naslovih kartic in seznamov, opisih.*poljih po meri na tej tabli/);
+  assert.match(data['server-error-troubleshooting'], /`sudo snap logs wekan.wekan`/);
+  assert.match(data['server-error-troubleshooting'], /`sudo docker logs wekan-app`/);
+  assert.match(data['set-swimlane-height-value'], /slikovne pike/);
+  assert.equal(data['set-swimlane-height'], data['setSwimlaneHeightPopup-title']);
+
   assert.match(data['s3-enabled-description'], /AWS S3 ali MinIO.*shranjevanje datotek/);
   assert.match(data['s3-endpoint-description'], /URL.*s3.amazonaws.com ali minio.example.com/);
   assert.match(data['s3-region-description'], /us-east-1/);
