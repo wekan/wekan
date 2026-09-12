@@ -44693,5 +44693,47 @@
     "before": "¿Estás seguro que quieres borrar el comentario?",
     "after": "¿Yes seguro de querer eliminar o comentario?",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "copy-text-to-clipboard",
+    "before": "Copiar texto en el portapapeles",
+    "after": "Copiar texto en o portapapels",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "copyChecklistFromTemplate",
+    "before": "Copiar Lista de Tareas - Plantilla",
+    "after": "Copiar una lista de comprobación d’una plantilla",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "copyChecklistFromTemplatePopup-title",
+    "before": "Copiar Lista de Tareas - Plantilla",
+    "after": "Copiar una lista de comprobación d’una plantilla",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "cover-attachment-on-minicard",
+    "before": "Imagen de portada de la minitarjeta",
+    "after": "Imachen de portada en a minitarcheta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "created-at-newest-first",
+    "before": "Creación (Nuevos Primero)",
+    "after": "Calendata de creación (as mas nuevas primero)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "created-at-oldest-first",
+    "before": "Creación (Antiguos Primero)",
+    "after": "Calendata de creación (as mas antigas primero)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
