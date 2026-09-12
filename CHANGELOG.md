@@ -558,6 +558,13 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/17efcc8ea">Repair Macedonian status, storage and checklist controls</a>. Thanks to xet7.</summary>
+
+Correct 20 reviewed values, restoring end-date status, board visibility, GridFS attachments and checklist terminology. Positive and negative meaning, source-token, rendering, exact-value and key-order checks pass. Audit.md records dated progress and remaining findings.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/ba2501e59">Repair Macedonian search operator meanings and literal examples</a>. Thanks to xet7.</summary>
 
 Correct 12 search instructions, preserving query tokens and restoring `has:-due` and label color-or-name matching. Regression checks verify literal syntax, meaning, placeholders, exact values and key order. Translation Audit.md records dated fixes and remaining findings.

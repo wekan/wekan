@@ -37,6 +37,11 @@ const data = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/mk.i1
   assert.match(data['globalSearch-instructions-operator-has'], /`has:-due`/);
   assert.doesNotMatch(data['globalSearch-instructions-operator-has'], /има:-/);
   assert.match(data['globalSearch-instructions-operator-label'], /бојата .* или името/);
+  assert.match(data['globalSearch-instructions-status-ended'], /со датум на завршување/);
+  assert.doesNotMatch(data['globalSearch-instructions-status-ended'], /окончани|завршени карти/);
+  assert.match(data['globalSearch-instructions-status-private'], /само во приватни табли/);
+  assert.match(data['globalSearch-instructions-status-public'], /само во јавни табли/);
+  assert.match(data['hideCheckedChecklistItems'], /означените ставки/);
   assert.equal(data.list, 'Список');
   assert.equal(data.swimlane, 'Лента');
   console.log('macedonianAuditedTranslations: actual date and label rendering, checklist removal meaning and native labels passed');
