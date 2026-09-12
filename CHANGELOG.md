@@ -558,6 +558,13 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/d23bf515e6019085087b4b6a873550e563cbee05">Repair Galician regional lockout and activity translations</a>. Thanks to xet7.</summary>
+
+Replace 10 Portuguese values with individually reviewed existing Galician translations. Preserve credential distinctions and activity placeholders. Regression checks verify actual attachment rendering, meanings, exact corrections, tokens, key order and idempotent repairs. The short translation audit records current progress.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/69d61d5f4b61dc51a26d54be866e2a5563cb8b2a">Finish flagged Slovenian translation repairs</a>. Thanks to xet7.</summary>
 
 Correct the final six flagged values across both Slovenian locales, including who-voted-for-what visibility. Both flagged Slovenian queues are now complete. Regression checks verify meaning, exact corrections, tokens, key order, idempotent repairs and zero pending Slovenian findings. The short audit records 5,027 corrected findings and 10,915 pending findings across other languages.
