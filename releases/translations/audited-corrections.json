@@ -41452,5 +41452,61 @@
     "before": "Atajos de teclado habilitados. Haz clic para deshabilitarlos.",
     "after": "Atayos de tecláu activaos. Fai clic pa desactivalos.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "label-delete-pop",
+    "before": "Se eliminará esta etiqueta de todas las tarjetas y se destruirá su historial. Esta acción no puede deshacerse.",
+    "after": "Nun se puede desfacer. Esto va quitar esta etiqueta de toles tarxetes y destruyir el so historial.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "leave-board-pop",
+    "before": "¿Seguro que quieres abandonar __boardTitle__? Serás desvinculado de todas las tarjetas en este tablero.",
+    "after": "¿Tas seguru de querer salir de __boardTitle__? Van quitate de toles tarxetes d'esti tableru.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "list-archive-cards",
+    "before": "Archivar todas las tarjetas de esta lista",
+    "after": "Archivar toles tarxetes nesta llista",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "list-archive-cards-pop",
+    "before": "Esto eliminará del tablero todas las tarjetas en esta lista. Para ver las tarjetas en el Archivo y recuperarlas al tablero haga click en \"Menu\" > \"Archivo\"",
+    "after": "Esto va quitar del tableru toles tarxetes nesta llista. Pa ver les tarxetes nel Archivu y devolveles al tableru, fai clic en «Menú» > «Archivu».",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "list-delete-suggest-archive",
+    "before": "Puedes mover una lista al Archivo para quitarla del tablero y preservar la actividad.",
+    "after": "Puedes mover una llista al Archivu pa quitala del tableru y conservar l'actividá.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "list-move-cards",
+    "before": "Mover todas las tarjetas de esta lista",
+    "after": "Mover toles tarxetes nesta llista",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "list-select-cards",
+    "before": "Seleccionar todas las tarjetas de esta lista",
+    "after": "Seleicionar toles tarxetes nesta llista",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "listImportCardPopup-title",
+    "before": "Importar una tarjeta de Trello",
+    "after": "Importar una tarxeta de Trello",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

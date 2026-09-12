@@ -106,3 +106,8 @@ assert.match(data['import-members-map-note'], /ensin asociar.*usuariu actual/);
 assert.match(data['import-user-select'], /usuariu esistente/);
 assert.match(data['keyboard-shortcuts-disabled'], /desactivaos.*activalos/);
 assert.match(data['keyboard-shortcuts-enabled'], /activaos.*desactivalos/);
+assert.match(data['label-delete-pop'], /Nun se puede desfacer.*toles tarxetes.*historial/);
+assert.match(data['leave-board-pop'], /__boardTitle__.*toles tarxetes/);
+assert.match(data['list-archive-cards-pop'], /devolveles al tableru.*«Menú» > «Archivu»/);
+assert.match(data['list-delete-suggest-archive'], /conservar l'actividá/);
+assert.match(data['list-select-cards'], /toles tarxetes nesta llista/);
