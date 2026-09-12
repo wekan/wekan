@@ -48683,5 +48683,26 @@
     "before": "Migrazion di dati testuali completada.",
     "after": "La migraziun da las datas da text è terminada.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "default-authentication-method",
+    "before": "Metodo di autenccazion predefinito",
+    "after": "Metoda d’autentificaziun predefinida",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "default-save-storage",
+    "before": "Storage di salvataggio predefinito",
+    "after": "Memoria predefinida per memorisar",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "default-save-storage-description",
+    "before": "Scegli il backend di storage dove vengono salvati i nuovi injuntes ciaria suti.",
+    "after": "Tscherna il sistem da memoria nua che las agiuntas chargiadas si da nov vegnan memorisadas.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
