@@ -38267,5 +38267,215 @@
     "before": "Uso de memória do Node: tamanho do conjunto residente",
     "after": "Uso de memoria de Node: tamaño do conxunto residente",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "a-dueAt",
+    "before": "modificou a data limite para",
+    "after": "modificou a data e hora de vencemento a",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "a-endAt",
+    "before": "modificou a data de fim para",
+    "after": "modificou a data e hora de fin a",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "a-receivedAt",
+    "before": "modificou a data recebida para",
+    "after": "modificou a data e hora de recepción a",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "a-startAt",
+    "before": "modificou a data de início para",
+    "after": "modificou a data e hora de inicio a",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "above-selected-swimlane",
+    "before": "Acima da raia selecionada",
+    "after": "Enriba do carril seleccionado",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "acceptance_of_our_legalNotice",
+    "before": "Para continuar, você precisa aceitar nosso",
+    "after": "Ao continuar, acepta o noso",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "accessibility-content",
+    "before": "Conteúdo de acessibilidade",
+    "after": "Contido de accesibilidade",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "accessibility-page-enabled",
+    "before": "Página de acessibilidade habilitada",
+    "after": "Páxina de accesibilidade activada",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "account-created",
+    "before": "Conta criada! Agora você pode entrar.",
+    "after": "Conta creada! Xa pode iniciar sesión.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "account-locked",
+    "before": "A conta foi bloqueada temporariamente devido a um número excessivo de tentativas de login malsucedidas. Tente novamente mais tarde.",
+    "after": "A conta está bloqueada temporalmente por demasiados intentos de inicio de sesión fallidos. Ténteo de novo máis tarde.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "accounts-allowEmailChange",
+    "before": "Permitir Alteração do E-mail",
+    "after": "Permitir cambiar o correo electrónico",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "accounts-allowUserDelete",
+    "before": "Permitir aos utilizadores apagar as suas próprias contas",
+    "after": "Permitir aos usuarios eliminar a súa propia conta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "accounts-allowUserNameChange",
+    "before": "Permitir Alteração de Nome de Utilizador",
+    "after": "Permitir cambiar o nome de usuario",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "accounts-lockout-all-users-unlocked",
+    "before": "Todos os usuários bloqueados foram desbloqueados",
+    "after": "Desbloqueáronse todos os usuarios bloqueados",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "accounts-lockout-confirm-unlock-all",
+    "before": "Tem certeza de que deseja desbloquear todos os usuários bloqueados?",
+    "after": "Está seguro de que quere desbloquear todos os usuarios bloqueados?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "accounts-lockout-failure-window",
+    "before": "Janela de falha (segundos)",
+    "after": "Xanela de fallos (segundos)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "accounts-lockout-info",
+    "before": "Estas configurações controlam como as tentativas de login são protegidas contra ataques de brute force.",
+    "after": "Esta configuración controla como se protexen os intentos de inicio de sesión contra ataques de forza bruta.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "accounts-lockout-locked-users-info",
+    "before": "Usuários atualmente bloqueados devido a muitas tentativas de login malsucedidas",
+    "after": "Usuarios bloqueados actualmente por demasiados intentos de inicio de sesión fallidos",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "accounts-lockout-period",
+    "before": "Período de bloqueio (segundos)",
+    "after": "Período de bloqueo (segundos)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "accounts-lockout-settings",
+    "before": "Configurações de proteção contra Brute Force",
+    "after": "Configuración da protección contra forza bruta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "accounts-lockout-settings-updated",
+    "before": "As configurações de proteção contra Brute Force foram atualizadas",
+    "after": "Actualizouse a configuración da protección contra forza bruta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "accounts-lockout-show-locked-users",
+    "before": "Mostrar apenas usuários bloqueados",
+    "after": "Mostrar só os usuarios bloqueados",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "act-a-dueAt",
+    "before": "modificou a data limite para \nQuando: __timeValue__\nOnde: __card__\n a data limite anterior era __timeOldValue__",
+    "after": "modificou a data e hora de vencemento a \nCando: __timeValue__\nOnde: __card__\n o vencemento anterior era __timeOldValue__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "act-a-endAt",
+    "before": "modificou a data de fim para __timeValue__ de (__timeOldValue__)",
+    "after": "modificou a data e hora de fin a __timeValue__ desde (__timeOldValue__)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "act-a-receivedAt",
+    "before": "modificou a data recebida para __timeValue__ de (__timeOldValue__)",
+    "after": "modificou a data e hora de recepción a __timeValue__ desde (__timeOldValue__)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "act-a-startAt",
+    "before": "modificou a data de início para __timeValue__ de (__timeOldValue__)",
+    "after": "modificou a data e hora de inicio a __timeValue__ desde (__timeOldValue__)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "act-almostdue",
+    "before": "estava a lembrar que a data limite actual (__timeValue__) de __card__ está-se a aproximar",
+    "after": "estaba a lembrar que o vencemento actual (__timeValue__) de __card__ está a achegarse",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "act-duenow",
+    "before": "estava a lembrar que a data limite (__timeValue__) de __card__ é agora",
+    "after": "estaba a lembrar que o vencemento actual (__timeValue__) de __card__ é agora",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "act-newDue",
+    "before": "__list__/__card__ tem o 1º lembrete de prazo [__board__]",
+    "after": "__list__/__card__ ten o 1º recordatorio de vencemento [__board__]",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "act-pastdue",
+    "before": "estava a lembrar que a data limite (__timeValue__) de __card__ já passou",
+    "after": "estaba a lembrar que o vencemento actual (__timeValue__) de __card__ xa pasou",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

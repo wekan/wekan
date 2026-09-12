@@ -248,3 +248,15 @@ assert.match(data.Node_heap_peak_malloced_memory, /pico de memoria asignada con 
 assert.match(data.Node_memory_usage_heap_total, /tamaño total do heap asignado/);
 assert.match(data.Node_memory_usage_heap_used, /memoria realmente usada/);
 assert.match(data.Node_memory_usage_rss, /tamaño do conxunto residente/);
+
+assert.match(data.acceptance_of_our_legalNotice, /^Ao continuar, acepta o noso$/);
+assert.match(data['account-locked'], /bloqueada temporalmente.*demasiados intentos.*máis tarde/);
+assert.match(data['accounts-lockout-failure-window'], /\(segundos\)$/);
+assert.match(data['accounts-lockout-period'], /\(segundos\)$/);
+assert.match(data['accounts-lockout-show-locked-users'], /só os usuarios bloqueados/);
+for (const key of ['a-dueAt', 'a-endAt', 'a-receivedAt', 'a-startAt', 'act-a-dueAt', 'act-a-endAt', 'act-a-receivedAt', 'act-a-startAt']) assert.match(data[key], /data e hora/);
+for (const key of ['act-a-endAt', 'act-a-receivedAt', 'act-a-startAt']) assert.match(data[key], /__timeValue__ desde \(__timeOldValue__\)/);
+assert.match(data['act-almostdue'], /está a achegarse$/);
+assert.match(data['act-duenow'], /é agora$/);
+assert.match(data['act-pastdue'], /xa pasou$/);
+assert.match(data['act-newDue'], /1º recordatorio de vencemento/);
