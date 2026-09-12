@@ -20977,5 +20977,110 @@
     "before": "Недвосмислене радње на налепницама",
     "after": "Разјасни го дејството со ознаката",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "disambiguateMultiMemberPopup-title",
+    "before": "Недвосмислене радње са сарадницима",
+    "after": "Разјасни го дејството со членот",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "display-authentication-method",
+    "before": "Прикажи метод за утврђивање идентитета",
+    "after": "Прикажи го методот на автентикација",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "display-card-creator",
+    "before": "Прикажи ко је завео предмет",
+    "after": "Прикажи го создавачот на картата",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "dueCards-noResults-description",
+    "before": "Тренутно немате никакве предмете који има постављене рокове.",
+    "after": "Моментално немате карти со рокови.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "dueCards-noResults-title",
+    "before": "Није пронађен ниједан предмет са роком",
+    "after": "Не се пронајдени карти со рокови",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "dueCardsViewChange-choice-all-description",
+    "before": "Приказује све нерешене предмете који имају постављен рок решавања из оних списа за које корисник има одобрење.",
+    "after": "Ги прикажува сите незавршени карти со *рок* од таблите за кои корисникот има дозвола.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "editCardDueDatePopup-title",
+    "before": "Промени датата за готовност",
+    "after": "Промени го рокот",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "editCardEndDatePopup-title",
+    "before": "Промени датата на завършване",
+    "after": "Промени го датумот на завршување",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "editCardReceivedDatePopup-title",
+    "before": "Промени датата на получаване",
+    "after": "Промени го датумот на прием",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "editCardSortOrderPopup-title",
+    "before": "Промените редослед слагања предмета",
+    "after": "Промени го подредувањето",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "editCardSpentTimePopup-title",
+    "before": "Промени изработеното време",
+    "after": "Промени го потрошеното време",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "editPokerEndDatePopup-title",
+    "before": "Промени крајњи датум до кад траје гласање за партију покера",
+    "after": "Промени го датумот на завршување на гласањето за планирачки покер",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "editVoteEndDatePopup-title",
+    "before": "Када се гласачко место затвара",
+    "after": "Промени го датумот на завршување на гласањето",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "email-enrollAccount-subject",
+    "before": "Ваш профил беше създаден на __siteName__",
+    "after": "За вас е создадена сметка на __siteName__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "email-enrollAccount-text",
+    "before": "Здраво __user__,\n\nДа би почели да користите услугу, једноставно притисните на везу која је испод.\n\n__url__\n\nХвала.",
+    "after": "Здраво __user__,\n\nЗа да започнете да ја користите услугата, кликнете на врската подолу.\n\n__url__\n\nВи благодариме.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
