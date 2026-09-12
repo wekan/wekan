@@ -21782,5 +21782,166 @@
     "before": "Експортиране на Табло",
     "after": "Извези табла",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "keyboard-shortcuts",
+    "before": "Преки пътища с клавиатурата",
+    "after": "Кратенки на тастатурата",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "keyboard-shortcuts-disabled",
+    "before": "Пречице са тастатуре су искључене.",
+    "after": "Кратенките на тастатурата се оневозможени. Кликнете за да ги овозможите.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "keyboard-shortcuts-enabled",
+    "before": "Пречице са тастатуре су укључене.",
+    "after": "Кратенките на тастатурата се овозможени. Кликнете за да ги оневозможите.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "label-color-not-found",
+    "before": "%s налепница у боји није пронађена.",
+    "after": "Бојата на ознаката %s не е пронајдена.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "label-default",
+    "before": "%s етикет (по подразбиране)",
+    "after": "Ознака %s (стандардна)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "label-delete-pop",
+    "before": "Пажња. Опозив ове радње неће бити могућ! Изабрана налепница ће бити одлепљена/уклоњена из свих предмета и њена историја ће исчезнути.",
+    "after": "Оваа постапка не може да се поништи. Ознаката ќе биде отстранета од сите карти и нејзината историја ќе биде избришана.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "label-not-found",
+    "before": "Натпис на налепници '%s' није пронађен.",
+    "after": "Ознаката '%s' не е пронајдена.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "last-admin-desc",
+    "before": "Не можете да мењате задужења јер мора постојати барем један управник/администратор.",
+    "after": "Не можете да ги менувате улогите бидејќи мора да има барем еден администратор.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "leave-board-pop",
+    "before": "Да ли сте сигурни да желите да раздужите предмете из списа __boardTitle__? Бићете одстрањени са свих тих предмета.",
+    "after": "Дали сте сигурни дека сакате да ја напуштите __boardTitle__? Ќе бидете отстранети од сите карти на оваа табла.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "leaveBoardPopup-title",
+    "before": "Желаете ли да напуснете таблото?",
+    "after": "Напушти ја таблата?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "list-delete-pop",
+    "before": "Читав записник са овог дела поступка биће уклоњен и нећете га моћи опоравити. Опозив ове радње неће бити могућ.",
+    "after": "Сите дејства ќе бидат отстранети од дневникот на активности и нема да можете да го вратите списокот. Оваа постапка не може да се поништи.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "list-filter-label",
+    "before": "Издвој део поступка по наслову",
+    "after": "Филтрирај го списокот по наслов",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "list-move-cards",
+    "before": "Премести всички карти в този списък",
+    "after": "Премести ги сите карти во овој список",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "list-select-cards",
+    "before": "Избери всички карти в този списък",
+    "after": "Избери ги сите карти во овој список",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "list-sort-by",
+    "before": "Поређај делове поступка по:",
+    "after": "Подреди го списокот по:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "list-title-not-found",
+    "before": "Део поступка '%s' није пронађен.",
+    "after": "Списокот '%s' не е пронајден.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "listActionPopup-title",
+    "before": "Радње у овом делу поступка",
+    "after": "Дејства со списокот",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "listDeletePopup-title",
+    "before": "Желаете да изтриете списъка?",
+    "after": "Избриши го списокот?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "listImportCardPopup-title",
+    "before": "Импорт на карта от Trello",
+    "after": "Увези карта од Trello",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "loading",
+    "before": "Исчитавање, молим сачекајте.",
+    "after": "Се вчитува, почекајте.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "mark-all-as-unread",
+    "before": "Означи сва као непрочитана",
+    "after": "Означи ги сите како непрочитани",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "max-avatar-filesize",
+    "before": "Максимална величина слике (у бајтима):",
+    "after": "Максимална големина на датотеката за аватар во бајти:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "max-upload-filesize",
+    "before": "Максимална величина датотеке за слање (у бајтима):",
+    "after": "Максимална големина на датотеката за поставување во бајти:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
