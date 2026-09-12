@@ -30021,5 +30021,117 @@
     "before": "Advanced Filter allows to write a string containing following operators: == != <= >= && || ( ) A space is used as a separator between the Operators. You can filter for all Custom Fields by typing their names and values. For Example: Field1 == Value1. Note: If fields or values contains spaces, you need to encapsulate them into single quotes. For Example: 'Field 1' == 'Value 1'. For single control characters (' \\\\/) to be skipped, you can use \\\\. For example: Field1 == I\\\\'m. Also you can combine multiple conditions. For Example: F1 == V1 || F1 == V2. Normally all operators are interpreted from left to right. You can change the order by placing brackets. For Example: F1 == V1 && ( F2 == V2 || F2 == V3 ). Also you can search text fields using regex: F1 == /Tes.*/i",
     "after": "Napredni filtar omogućuje pisanje niza koji sadrži sljedeće operatore: == != <= >= && || ( ) Razmak služi kao razdjelnik između operatora. Možete filtrirati sva prilagođena polja upisivanjem njihovih naziva i vrijednosti. Na primjer: Field1 == Value1. Napomena: ako polja ili vrijednosti sadrže razmake, stavite ih u jednostruke navodnike. Na primjer: 'Field 1' == 'Value 1'. Za preskakanje pojedinačnih kontrolnih znakova (' \\/) možete koristiti \\. Na primjer: Field1 == I\\'m. Možete kombinovati i više uslova. Na primjer: F1 == V1 || F1 == V2. Svi se operatori u pravilu tumače slijeva nadesno. Redoslijed možete promijeniti dodavanjem zagrada. Na primjer: F1 == V1 && ( F2 == V2 || F2 == V3 ). Tekstualna polja možete pretraživati i regularnim izrazima: F1 == /Tes.*/i",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "Cube-Grid",
+    "before": "Исцртавај мрежу квадратића",
+    "after": "Kazalnik čakanja z mrežo kock",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "Double-Bounce",
+    "before": "Исцртавај дворед са три тачкице",
+    "after": "Kazalnik čakanja z dvojnim odskakovanjem",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "MongoDB_storage_engine",
+    "before": "MongoDB механизам за складиштење",
+    "after": "Shranjevalni pogon MongoDB",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "Node_heap_does_zap_garbage",
+    "before": "Node heap: купи zap смеће",
+    "after": "Kopica Node: prepisovanje zavrženega pomnilnika z bitnim vzorcem",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "Node_heap_heap_size_limit",
+    "before": "Node heap: вредност ограничења heap простора",
+    "after": "Kopica Node: omejitev velikosti kopice",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "Node_heap_malloced_memory",
+    "before": "Node heap: алоцирана меморија",
+    "after": "Kopica Node: pomnilnik, dodeljen s funkcijo malloc",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "Node_heap_number_of_detached_contexts",
+    "before": "Node heap: број одвојених  окружења",
+    "after": "Kopica Node: število ločenih kontekstov",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "Node_heap_number_of_native_contexts",
+    "before": "Node heap: број природних окружења",
+    "after": "Kopica Node: število izvornih kontekstov",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "Cube-Grid",
+    "before": "Исцртавај мрежу квадратића",
+    "after": "Kazalnik čakanja z mrežo kock",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "Double-Bounce",
+    "before": "Исцртавај дворед са три тачкице",
+    "after": "Kazalnik čakanja z dvojnim odskakovanjem",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "MongoDB_storage_engine",
+    "before": "MongoDB механизам за складиштење",
+    "after": "Shranjevalni pogon MongoDB",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "Node_heap_does_zap_garbage",
+    "before": "Node heap: купи zap смеће",
+    "after": "Kopica Node: prepisovanje zavrženega pomnilnika z bitnim vzorcem",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "Node_heap_heap_size_limit",
+    "before": "Node heap: вредност ограничења heap простора",
+    "after": "Kopica Node: omejitev velikosti kopice",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "Node_heap_malloced_memory",
+    "before": "Node heap: алоцирана меморија",
+    "after": "Kopica Node: pomnilnik, dodeljen s funkcijo malloc",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "Node_heap_number_of_detached_contexts",
+    "before": "Node heap: број одвојених  окружења",
+    "after": "Kopica Node: število ločenih kontekstov",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "Node_heap_number_of_native_contexts",
+    "before": "Node heap: број природних окружења",
+    "after": "Kopica Node: število izvornih kontekstov",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
