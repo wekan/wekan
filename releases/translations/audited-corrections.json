@@ -44035,5 +44035,47 @@
     "before": "Trabajo programado eliminado correctamente",
     "after": "Treballo programau eliminau correctament",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "error-user-notCreated",
+    "before": "El usuario no ha sido creado",
+    "after": "Iste usuario no s’ha creyau",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "home-board-badge",
+    "before": "Tablero de inicio (se abre tras iniciar sesión)",
+    "after": "Tablero d’inicio (s’ubre dimpués d’iniciar sesión)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "import-board-instruction-about-errors",
+    "before": "Aunque obtengas errores cuando importes el tablero, a veces la importación funciona igualmente, y el tablero se encontrará en la página de tableros.",
+    "after": "Si tiens errors en importar o tablero, a vegadas a importación funciona igualment y o tablero ye en a pachina de Todos os tableros.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "import-board-source",
+    "before": "Importar tablero (Trello, Jira, exportación de WeKan, CSV, Excel, …)",
+    "after": "Importar un tablero (Trello, Jira, exportación de WeKan, CSV, Excel, …)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "list-archive-pop",
+    "before": "La lista no será visible en el tablero después de archivarla.",
+    "after": "A lista no será visible en o tablero dimpués d’archivar-la.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "map-to-existing-user",
+    "before": "Asignar a un usuario existente",
+    "after": "Establir a correspondencia con un usuario existent",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
