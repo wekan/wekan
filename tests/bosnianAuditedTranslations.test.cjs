@@ -243,3 +243,14 @@ assert.match(data['leave-board-pop'], /sa svih kartica na ovoj ploči/);
 assert.equal(data['list-sort-by'], 'Sortiraj listu po:');
 assert.match(data['invalid-file'], /učitavanje ili preimenovanje se otkazuje/);
 console.log('bosnianAuditedTranslations: keyboard toggles, registration invitations and deletion scope passed');
+
+assert.match(data['max-avatar-filesize'], /avatara u bajtima/);
+assert.match(data['max-upload-filesize'], /učitavanje u bajtima/);
+assert.equal(data['migrate-all-to-s3'], 'Migriraj sve u S3');
+assert.doesNotMatch(data['migrate-all-to-s3'], /Amazon|oblak/);
+assert.match(data['migration-batch-size-description'], /\(1-100\)/);
+assert.match(data['migration-cpu-threshold-description'], /premaši ovaj procenat \(10-90\)/);
+assert.doesNotMatch(data['migration-cpu-threshold-description'], /dosegne|dostigne/);
+assert.match(data['migration-delay-ms-description'], /milisekundama \(100-10000\)/);
+assert.equal(data['mark-all-as-unread'], 'Označi sve kao nepročitano');
+console.log('bosnianAuditedTranslations: byte limits, S3 scope, CPU comparison and delay range passed');

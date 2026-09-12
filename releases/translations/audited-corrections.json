@@ -28733,5 +28733,89 @@
     "before": "Поређај делове поступка по:",
     "after": "Sortiraj listu po:",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "list-title-not-found",
+    "before": "Део поступка '%s' није пронађен.",
+    "after": "Lista '%s' nije pronađena.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "mark-all-as-unread",
+    "before": "Означи сва као непрочитана",
+    "after": "Označi sve kao nepročitano",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "max-avatar-filesize",
+    "before": "Максимална величина слике (у бајтима):",
+    "after": "Najveća veličina datoteke avatara u bajtima:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "max-upload-filesize",
+    "before": "Максимална величина датотеке за слање (у бајтима):",
+    "after": "Najveća veličina datoteke za učitavanje u bajtima:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "migrate-all-to-filesystem",
+    "before": "Пресели све у локално складиште",
+    "after": "Migriraj sve u sistem datoteka",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "migrate-all-to-gridfs",
+    "before": "Пресели све и издели у GridFS",
+    "after": "Migriraj sve u GridFS",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "migrate-all-to-s3",
+    "before": "Пресели све у Amazon S3 облак",
+    "after": "Migriraj sve u S3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "migrated-attachments",
+    "before": "Пресељена предметна грађа",
+    "after": "Migrirani prilozi",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "migration-batch-size-description",
+    "before": "Број јединица предметне грађе који ће бити обрађен при сваком пролазу (1-100)",
+    "after": "Broj priloga za obradu u svakoj grupi (1-100)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "migration-cpu-threshold",
+    "before": "Граница искоришћења процесора (%)",
+    "after": "CPU prag (%)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "migration-cpu-threshold-description",
+    "before": "Направи предах када заузеће процесора досегне ове проценте (10-90)",
+    "after": "Pauziraj migraciju kada upotreba CPU-a premaši ovaj procenat (10-90)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "migration-delay-ms-description",
+    "before": "Задршка између пролаза изражена у милисекундама (100-10000)",
+    "after": "Kašnjenje između grupa u milisekundama (100-10000)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
