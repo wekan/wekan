@@ -47227,5 +47227,12 @@
     "before": "calendrier hégirien (Umm al-Qura)",
     "after": "Kalandriye Hijri (Umm al-Qura)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sr",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "исламски календар (Саудијска Арабија, посматрање младог месеца)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
