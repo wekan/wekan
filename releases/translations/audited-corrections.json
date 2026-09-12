@@ -43090,5 +43090,61 @@
     "before": "Se eliminarán todas las acciones del historial de actividades y no se podrá volver a abrir la lista. Esta acción no puede deshacerse.",
     "after": "Van eliminase toles aiciones del historial d’actividá y nun vas poder recuperar la llista. Nun se puede desfacer.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "list-filter-label",
+    "before": "Filtrar listas por título",
+    "after": "Filtrar la llista por títulu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "list-title-not-found",
+    "before": "Lista  '%s' no encontrada.",
+    "after": "Nun s’alcontró la llista '%s'.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "loading",
+    "before": "Cargando. Por favor, espere.",
+    "after": "Cargando, espera por favor.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "max-avatar-filesize",
+    "before": "Máximo tamaño de archivo de avatar en bytes:",
+    "after": "Tamañu máximu del ficheru del avatar en bytes:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "max-upload-filesize",
+    "before": "Máximo tamaño de archivo para cargar en bytes:",
+    "after": "Tamañu máximu del ficheru pa xubir en bytes:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "migration-pause-failed",
+    "before": "Fallo al pausar las migraciones",
+    "after": "Falló la pausa de les migraciones",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "migration-start-failed",
+    "before": "Fallo al iniciar las migraciones",
+    "after": "Falló l’aniciu de les migraciones",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "migration-started",
+    "before": "Las migraciones se han iniciado correctamente",
+    "after": "Les migraciones aniciáronse correutamente",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

@@ -318,3 +318,14 @@ assert.match(data['label-not-found'], /Nun s’alcontró la etiqueta '%s'/);
 assert.match(data['last-admin-desc'], /Nun pues cambiar los roles.*polo menos un alministrador/);
 assert.match(data['list-delete-pop'], /toles aiciones del historial d’actividá.*nun vas poder recuperar la llista.*Nun se puede desfacer/);
 assert.doesNotMatch(data['list-delete-pop'], /archivar|volver a abrir/);
+
+assert.match(data['list-filter-label'], /Filtrar la llista por títulu/);
+assert.match(data['list-title-not-found'], /Nun s’alcontró la llista '%s'/);
+assert.match(data.loading, /Cargando, espera por favor/);
+assert.match(data['max-avatar-filesize'], /Tamañu máximu.*avatar en bytes/);
+assert.match(data['max-upload-filesize'], /Tamañu máximu.*pa xubir en bytes/);
+assert.match(data['migration-pause-failed'], /Falló la pausa/);
+assert.match(data['migration-start-failed'], /Falló l’aniciu/);
+assert.match(data['migration-started'], /aniciáronse correutamente/);
+assert.doesNotMatch(data['migration-started'], /Falló/);
+assert.notEqual(data['migration-pause-failed'], data['migration-start-failed']);
