@@ -20487,5 +20487,110 @@
     "before": "Избрисаћете ставку из предметне радње?",
     "after": "Избриши ја ставката од списокот за проверка?",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "click-to-star",
+    "before": "Означи звездицом ове списе.",
+    "after": "Кликнете за да ја означите оваа табла како омилена.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "click-to-unstar",
+    "before": "Натиснете, за да премахнете това табло от любими.",
+    "after": "Кликнете за да ја отстраните оваа табла од омилените.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "clipboard",
+    "before": "Клипборда или с драг & дроп",
+    "after": "Меѓумеморија или повлечи и пушти",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "close-add-checklist-item",
+    "before": "Окончај додавање помоћних предметних радњи",
+    "after": "Затвори го образецот за додавање ставка во списокот за проверка",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "close-edit-checklist-item",
+    "before": "Прекини измену помоћне предметне радње",
+    "after": "Затвори го образецот за уредување ставка во списокот за проверка",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "comment-assigned-only-desc",
+    "before": "Једино може да има право увида и узме учешће у расправама у додељеним му предметима.",
+    "after": "Видливи се само доделените карти. Може само да коментира.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "comment-delete",
+    "before": "Да ли сте сигурни да желите да повучете изнешено мишљење?",
+    "after": "Дали сте сигурни дека сакате да го избришете коментарот?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "comment-not-found",
+    "before": "Мишљење које садржи речи '%s' није пронађено.",
+    "after": "Не е пронајдена карта со коментар што го содржи текстот «%s».",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "comment-only-desc",
+    "before": "Може да коментира само в карти.",
+    "after": "Може само да коментира на карти.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "comprehensive-board-migration-description",
+    "before": "Изводе се свеобухватне провера и врше поправке целовитости података у списима - што укључује провере и поправке редоследа делова поступака, места где се тачно предмети налазе и структуре поступака.",
+    "after": "Врши сеопфатни проверки и поправки на интегритетот на податоците на таблата, вклучувајќи го редоследот на списоците, позициите на картите и структурата на лентите.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "confirm-checklist-delete-popup",
+    "before": "Да ли сте сигурни да желите да избришете ову предметну радњу?",
+    "after": "Дали сте сигурни дека сакате да го избришете списокот за проверка?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "conversion-info-text",
+    "before": "Ово преслагање се изводи само једном по спису и то после олакшава читање.  Без сметњи настављате да читате спис након тога.",
+    "after": "Оваа конверзија се врши еднаш за секоја табла и ги подобрува перформансите. Можете да продолжите нормално да ја користите таблата.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "convert-to-markdown",
+    "before": "Претвори у структуирани текст",
+    "after": "Претвори во Markdown",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "converting-board-description",
+    "before": "Преслагање списа олакшава употребу. Ово може потрајати неколико тренутака.",
+    "after": "Се претвора структурата на таблата за подобра функционалност. Ова може да потрае неколку моменти.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "copy-card-link-to-clipboard",
+    "before": "Копирай връзката на картата в клипборда",
+    "after": "Копирај ја врската на картата во меѓумеморијата",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
