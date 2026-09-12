@@ -384,3 +384,13 @@ assert.match(data.showChecklistAtMinicard, /kontrolnu listu na minikartici/);
 assert.equal(data['show-subtasks-field'], 'Prikaži polje podzadataka');
 assert.equal(data['sort-desc'], 'Kliknite da sortirate listu');
 console.log('bosnianAuditedTranslations: field sums, per-list counts and minicard display scope passed');
+
+assert.match(data['star-board-title'], /na vrhu vaše liste ploča/);
+assert.equal(data['start-day-of-week'], 'Postavi početni dan sedmice');
+assert.equal(data['step-delete-duplicate-empty-lists'], 'Izbriši prazne duplikate lista');
+assert.match(data['step-ensure-lost-cards-swimlane'], /stazu za izgubljene kartice/);
+assert.equal(data['step-fix-orphaned-cards'], 'Popravi kartice bez roditelja');
+assert.doesNotMatch(data['step-fix-orphaned-cards'], /odbačene/);
+assert.equal(data['step-restore-lists'], 'Vrati liste');
+assert.equal(data['step-restore-swimlanes'], 'Vrati staze');
+console.log('bosnianAuditedTranslations: starred-board ordering, week start and migration entity names passed');

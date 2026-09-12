@@ -29713,5 +29713,103 @@
     "before": "Притисните да би сложили делове поступка",
     "after": "Kliknite da sortirate listu",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "star-board-title",
+    "before": "Означите спис звездицом. Имаће већу тежину и биће постављен на чело.",
+    "after": "Kliknite da označite ovu ploču zvjezdicom. Pojavit će se na vrhu vaše liste ploča.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "start-day-of-week",
+    "before": "Постави који дан се рачуна за почетак недеље",
+    "after": "Postavi početni dan sedmice",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "step-convert-shared-lists",
+    "before": "Претварам дељене делове поступка",
+    "after": "Pretvori zajedničke liste",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "step-create-missing-lists",
+    "before": "Стварам недостајуће делове",
+    "after": "Kreiraj nedostajuće liste",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "step-delete-duplicate-empty-lists",
+    "before": "Бришем исте празне делове поступка",
+    "after": "Izbriši prazne duplikate lista",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "step-ensure-lost-cards-swimlane",
+    "before": "Правим место за загубљене предмете",
+    "after": "Osiguraj stazu za izgubljene kartice",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "step-ensure-per-swimlane-lists",
+    "before": "Осигуравам да је део поступка везан за поступак",
+    "after": "Osiguraj liste za pojedine staze",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "step-fix-attachment-urls",
+    "before": "Поправљам везе до складишта предметне грађе",
+    "after": "Popravi URL-ove priloga",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "step-fix-avatar-urls",
+    "before": "Поправљам везе до складишта слика за сараднике",
+    "after": "Popravi URL-ove avatara",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "step-fix-file-urls",
+    "before": "Поправљам везе до предметне грађе",
+    "after": "Popravljanje URL-ova datoteka",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "step-fix-missing-ids",
+    "before": "Поправљам недостајућа id поља",
+    "after": "Popravi nedostajuće identifikatore",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "step-fix-orphaned-cards",
+    "before": "Поправљам одбачене предмете",
+    "after": "Popravi kartice bez roditelja",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "step-restore-lists",
+    "before": "Опорављам делове поступка",
+    "after": "Vrati liste",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "step-restore-swimlanes",
+    "before": "Опорављам читав ток поступка",
+    "after": "Vrati staze",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
