@@ -35,7 +35,7 @@ export function classifyAuditRow(row, current, correction, review) {
   return 'pending';
 }
 export function repairProgress(repository = root) {
-  const audit = parseAudit(fs.readFileSync(path.join(repository, 'docs/Features/Translations/Audit.md'), 'utf8'));
+  const audit = parseAudit(fs.readFileSync(path.join(repository, 'docs/Features/Translations/Audit-Evidence.md'), 'utf8'));
   const corrections = JSON.parse(fs.readFileSync(path.join(repository, 'releases/translations/audited-corrections.json'), 'utf8'));
   const reviews = JSON.parse(fs.readFileSync(path.join(repository, 'releases/translations/audited-reviews.json'), 'utf8'));
   const corrected = new Map(corrections.map(row => [`${row.locale}:${row.key}`, row]));
