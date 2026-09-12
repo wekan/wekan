@@ -48445,5 +48445,40 @@
     "before": "Ciartes cun comenc contenenti il testo '%s' no trovate.",
     "after": "Nagina carta cun in commentari che cuntegna il text '%s' chattada.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "comment-only-desc",
+    "before": "Puoi commentare mé le ciartes.",
+    "after": "Po mo commentar las cartas.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "confirm-checklist-delete-popup",
+    "before": "Sicuro di voler cancellare la checklist?",
+    "after": "Es ti segir che ti vuls stizzar la glista da controlla?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "copy-link-to-clipboard",
+    "before": "Copia il link negli appunti",
+    "after": "Copiar la colliaziun en la memoria intermediara",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "copy-text-to-clipboard",
+    "before": "Copia il testo negli appunti",
+    "after": "Copiar il text en la memoria intermediara",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "copyManyCardsPopup-title",
+    "before": "Copia template su molte ciartes",
+    "after": "Copiar il model en bleras cartas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
