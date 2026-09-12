@@ -41074,5 +41074,61 @@
     "before": "añadir plantilla de contenedor",
     "after": "Añadir un contenedor de plantíes",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "custom-field-delete-pop",
+    "before": "Se eliminará este campo personalizado de todas las tarjetas y se destruirá su historial. Esta acción no puede deshacerse.",
+    "after": "Nun se puede desfacer. Esto va quitar esti campu personalizáu de toles tarxetes y destruyir el so historial.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "custom-field-dropdown-options-placeholder",
+    "before": "Pulsa Intro para añadir más opciones",
+    "after": "Primi Intro p'añadir más opciones",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "custom-field-stringtemplate-item-placeholder",
+    "before": "Pulsa intro para añadir más elementos",
+    "after": "Primi Intro p'añadir más elementos",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "default-subtasks-board",
+    "before": "Subtareas para el tablero __board__",
+    "after": "Subtarees pal tableru __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "delete-board-confirm-popup",
+    "before": "Se eliminarán todas las listas, tarjetas, etiquetas y actividades, y no podrás recuperar los contenidos del tablero. Esta acción no puede deshacerse.",
+    "after": "Toles llistes, tarxetes, etiquetes y actividaes van eliminase y nun vas poder recuperar el conteníu del tableru. Nun se puede desfacer.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "delete-linked-card-before-this-card",
+    "before": "No puede borrar esta tarjeta antes de borrar la tarjeta enlazada que tiene",
+    "after": "Nun puedes eliminar esta tarxeta ensin eliminar primero la tarxeta enllazada que tien",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "delete-linked-cards-before-this-list",
+    "before": "No puede borrar esta lista antes de borrar las tarjetas enlazadas que apuntan a tarjetas en esta lista",
+    "after": "Nun puedes eliminar esta llista ensin eliminar primero les tarxetes enllazaes qu'apunten a tarxetes nesta llista",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "delete-team-warning-message",
+    "before": "No se puede eliminar este equipo, hay al menos un usuario que pertenece a este equipo.",
+    "after": "Nun se puede eliminar esti equipu: hai polo menos un usuariu que pertenez a él.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

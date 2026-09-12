@@ -71,3 +71,7 @@ for (const card of copiedCards) {
   assert.match(card.title, /tarxeta/);
   assert.match(card.description, /tarxeta/);
 }
+assert.match(data['custom-field-delete-pop'], /Nun se puede desfacer.*toles tarxetes.*historial/);
+assert.match(data['delete-board-confirm-popup'], /Toles llistes, tarxetes, etiquetes y actividaes.*nun vas poder recuperar.*Nun se puede desfacer/);
+assert.match(data['delete-linked-cards-before-this-list'], /eliminar primero les tarxetes enllazaes.*nesta llista/);
+assert.match(data['delete-team-warning-message'], /polo menos un usuariu que pertenez/);
