@@ -387,3 +387,14 @@ assert.equal(data['upload-repository'], 'Puyar/Actualizar repositorio');
 assert.equal(data['version-check-failed'], 'No s’ha puesto comprobar o numero de versión.');
 assert.equal(data['writable-path'], 'Ruta con permiso de escritura');
 assert.equal(data['calendar-system-buddhist'], 'Calendario budista');
+for (const name of ['chinese','coptic','dangi','ethioaa','ethiopic','hebrew','indian','islamic','islamic-civil','islamic-rgsa','islamic-tbla','islamic-umalqura','japanese','roc']) {
+  assert.ok(data[`calendar-system-${name}`].startsWith('Calendario '), name);
+}
+assert.equal(data['calendar-system-ethioaa'], 'Calendario etiopico Amete Alem');
+assert.equal(data['calendar-system-dangi'], 'Calendario Dangi (coreano)');
+assert.match(data['calendar-system-islamic-civil'], /tabular, epoca civil/);
+assert.match(data['calendar-system-islamic-tbla'], /tabular, epoca astronomica/);
+assert.match(data['calendar-system-islamic-rgsa'], /Arabia Saudita, observación/);
+assert.match(data['calendar-system-islamic-umalqura'], /Umm al-Qura/);
+assert.equal(data['calendar-system-roc'], 'Calendario Minguo');
+assert.equal(new Set(['islamic','islamic-civil','islamic-tbla','islamic-rgsa','islamic-umalqura'].map(name => data[`calendar-system-${name}`])).size, 5);
