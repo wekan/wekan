@@ -48620,5 +48620,40 @@
     "before": "Formato (usa %{value} come segnaposto)",
     "after": "Format (utilisar %{value} sco plazzategnider)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "custom-field-stringtemplate-item-placeholder",
+    "before": "Premi Invio per aggiungere più elementi",
+    "after": "Smacca Enter per agiuntar ulteriurs elements",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "custom-head-link-tags",
+    "before": "Tag link personalizzati (HTML)",
+    "after": "Etichettas link persunalisadas (HTML)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "custom-head-meta-tags",
+    "before": "Tag meta personalizzati (HTML)",
+    "after": "Etichettas meta persunalisadas (HTML)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "custom-head-tags-enabled",
+    "before": "Ativea tag head personalizzati",
+    "after": "Activar etichettas persunalisadas en head",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "custom-help-link-url",
+    "before": "Link URL di aiut personalizzato",
+    "after": "URL da la colliaziun d’agid persunalisada",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
