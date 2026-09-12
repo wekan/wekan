@@ -51,6 +51,12 @@ for (const key of ['delete-org-confirm-popup', 'delete-team-confirm-popup', 'del
 for (const key of ['delete-org-warning-message', 'delete-team-warning-message']) assert.match(data[key], /barem jedan korisnik/);
 assert.match(data['deposit-subtasks-list'], /Odredišni popis za podzadatke/);
 assert.doesNotMatch(data['delete-team-confirm-popup'], /pravni/);
+assert.match(data['email-verifyEmail-text'], /adrese e-pošte svojeg računa/);
+assert.match(data['error-csv-schema'], /CSV.*TSV.*ispravnom formatu/);
+assert.match(data['filter-due-next-week'], /sljedeći tjedan/);
+assert.match(data['filter-due-this-week'], /ovaj tjedan/);
+assert.match(data['fix-all-file-urls-migration'], /URL-ove datoteka/);
+assert.doesNotMatch(data['error-teamname-taken'], /pravni/);
 assert.equal(data.accessibility, 'Pristupačnost');
 assert.match(data['accounts-lockout-known-users'], /ispravno korisničko ime, pogrešna lozinka/);
 assert.match(data['accounts-lockout-failure-window'], /neuspjelih pokušaja \(sekunde\)/);

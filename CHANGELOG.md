@@ -558,6 +558,13 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/5a9354543">Repair Croatian verification, errors and filter labels</a>. Thanks to xet7.</summary>
+
+Correct 16 reviewed values. Positive and negative regressions verify account-email verification, CSV requirements, week filters and URL repair meanings. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/00c8c7b1f">Repair Croatian account emails and due-card views</a>. Thanks to xet7.</summary>
 
 Correct 14 reviewed values. Positive and negative regressions verify invitation meaning, actual email interpolation and due-card permission scope. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
