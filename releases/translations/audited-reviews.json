@@ -790,5 +790,11 @@
     "key": "step-ensure-per-swimlane-lists",
     "value": "Asegurar listas por carril",
     "reason": "Reviewed shared Aragonese vocabulary for ensuring lists per lane; preserves per-swimlane rather than per-board scope."
+  },
+  {
+    "locale": "an",
+    "key": "subtext-with-full-path",
+    "value": "Subtexto con ruta completa",
+    "reason": "Reviewed shared Aragonese technical vocabulary for secondary text showing the full path; source meaning preserved."
   }
 ]

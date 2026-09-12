@@ -45862,5 +45862,40 @@
     "before": "Iniciar operación de prueba",
     "after": "Empecipiar operación de preba",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "step-fix-attachment-urls",
+    "before": "Corregir URLs de adjuntos",
+    "after": "Corregir URLs d’adchuntos",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "submit-on-enter",
+    "before": "Enviar editores con Enter",
+    "after": "Ninviar editors con Enter",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "support-page-enabled",
+    "before": "Página de soporte habilitada",
+    "after": "Pachina de soporte activada",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "swimlane-height-error-message",
+    "before": "La altura de carril debe ser un entero positivo",
+    "after": "L’altura d’o carril ha d’estar un entero positivo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "swimlane-title-not-found",
+    "before": "Carril '%s' no encontrado.",
+    "after": "Carril '%s' no trobau.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

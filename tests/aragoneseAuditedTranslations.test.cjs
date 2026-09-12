@@ -369,3 +369,9 @@ assert.equal(data['start-day-of-week'], 'Establir o día d’empecipio d’a sem
 assert.equal(data['start-test-operation'], 'Empecipiar operación de preba');
 assert.equal(data['step-convert-shared-lists'], 'Convertir listas compartidas');
 assert.equal(data['step-ensure-per-swimlane-lists'], 'Asegurar listas por carril');
+assert.equal(data['step-fix-attachment-urls'], 'Corregir URLs d’adchuntos');
+assert.equal(data['submit-on-enter'], 'Ninviar editors con Enter');
+assert.equal(data['subtext-with-full-path'], 'Subtexto con ruta completa');
+assert.equal(data['support-page-enabled'], 'Pachina de soporte activada');
+assert.equal(data['swimlane-height-error-message'], 'L’altura d’o carril ha d’estar un entero positivo');
+assert.equal(data['swimlane-title-not-found'], "Carril '%s' no trobau.");
