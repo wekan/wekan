@@ -558,6 +558,13 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/db4c2bdd9b211960fd3bd3f1734f7d02f5343e6a">Repair Galician regional invitations and board permission errors</a>. Thanks to xet7.</summary>
+
+Repair eight regional values with reviewed Galician wording. Preserve invitation codes/links, member/admin distinctions, CSV/TSV separators and due-card view aliases. Actual registration-email rendering, meaning, exact-value, placeholder, key-order and idempotency checks pass. The short translation audit records current progress.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/e80df7de02d1c1bc6a5ab06bdd73d41ba4a5dc00">Repair Galician regional due card permissions and account deletion warnings</a>. Thanks to xet7.</summary>
 
 Repair eight regional values with reviewed Galician wording, preserving membership safeguards, irreversible deletion and due-card permissions. Meaning, exact-value, placeholder, key-order and idempotency checks pass. The short translation audit records current progress.
