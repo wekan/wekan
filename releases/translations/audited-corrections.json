@@ -48410,5 +48410,40 @@
     "before": "Clicca per togliere questa pagina dai preferiti.",
     "after": "Clicca per allontanar la staila da questa pagina.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "close-dialog",
+    "before": "Chiudi finestra di dialogo",
+    "after": "Serrar il dialog",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "cloud-secret-set",
+    "before": "(salvato — lascia vuoto per mantenere)",
+    "after": "(memorisà — laschar vid per mantegnair)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "comment-assigned-only-desc",
+    "before": "Sono visibili mé le ciartes assegnate. Può mé commentare.",
+    "after": "Mo las cartas attribuidas èn visiblas. Po mo commentar.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "comment-delete",
+    "before": "Sei sicuro di voler cancellare il coment?",
+    "after": "Es ti segir che ti vuls stizzar il commentari?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "comment-not-found",
+    "before": "Ciartes cun comenc contenenti il testo '%s' no trovate.",
+    "after": "Nagina carta cun in commentari che cuntegna il text '%s' chattada.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
