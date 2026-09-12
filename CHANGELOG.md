@@ -558,6 +558,13 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/6f2e0a191">Repair Bosnian search operator translations</a>. Thanks to xet7.</summary>
+
+Correct 12 flagged values. Positive and negative regressions verify literal operator syntax, negation, label alternatives, creation bounds and integer page limits. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/221e790fe">Repair Bosnian migration and global search help</a>. Thanks to xet7.</summary>
 
 Correct 12 flagged values. Positive and negative regressions verify migration repair scope, Boolean search, literal query examples and archive exclusion. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
