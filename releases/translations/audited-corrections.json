@@ -40822,5 +40822,61 @@
     "before": "Configuración de todos los tableros",
     "after": "Preferencies de tolos tableros",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "board-private-info",
+    "before": "Este tablero será <strong>privado</strong>.",
+    "after": "Esti tableru va ser <strong>priváu</strong>.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "board-public-info",
+    "before": "Este tablero será <strong>público</strong>.",
+    "after": "Esti tableru va ser <strong>públicu</strong>.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "board-title-not-found",
+    "before": "Tablero '%s' no encontrado.",
+    "after": "Nun s'atopó el tableru '%s'.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "boardCardSettingsPopup-title",
+    "before": "Preferencias de la tarjeta",
+    "after": "Preferencies de la tarxeta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "boardCardTitlePopup-title",
+    "before": "Filtro de títulos de tarjeta",
+    "after": "Filtru de títulos de tarxeta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "boardChangeColorPopup-title",
+    "before": "Cambiar el fondo del tablero",
+    "after": "Cambiar el fondu del tableru",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "boardInfoOnMyBoards-title",
+    "before": "Configuración de todos los tableros",
+    "after": "Preferencies de tolos tableros",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "boardInfoOnMyBoardsPopup-title",
+    "before": "Configuración de todos los tableros",
+    "after": "Preferencies de tolos tableros",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
