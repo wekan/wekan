@@ -45897,5 +45897,47 @@
     "before": "Carril '%s' no encontrado.",
     "after": "Carril '%s' no trobau.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "team-name-not-found",
+    "before": "Equipo '%s' no encontrado.",
+    "after": "Equipo '%s' no trobau.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "theme-default",
+    "before": "Predeterminado (sin sobrescribir)",
+    "after": "Por defecto (sin sobreescribir)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "translation-number",
+    "before": "El número de cadenas de traducción personalizadas es:",
+    "after": "O numero de cadenas de traducción personalizadas ye:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "trello-api-credentials-required",
+    "before": "Introduce tanto la clave API como el token de Trello.",
+    "after": "Introduz tanto a clau API como o token de Trello.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "trello-api-token",
+    "before": "Token API de Trello (generado manualmente debajo de la clave API)",
+    "after": "Token API de Trello (chenerau manualment debaixo d’a clau API)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "trello-import-progress",
+    "before": "Progreso de la importación",
+    "after": "Progreso d’a importación",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
