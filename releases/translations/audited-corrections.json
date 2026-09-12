@@ -21530,5 +21530,145 @@
     "before": "`__operator_status__:<стање>` - где се под *<стањем>* подразумева једно од следећих:",
     "after": "`__operator_status__:<status>` — каде што *<status>* е една од следните вредности:",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "globalSearch-instructions-operator-swimlane",
+    "before": "`__operator_swimlane__:<врста>` - сви предмети који се налазе у задатој *<врсти>* поступка",
+    "after": "`__operator_swimlane__:<title>` — карти во ленти што одговараат на зададениот наслов *<title>*",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "globalSearch-instructions-operator-team",
+    "before": "`__operator_team__:<назив тима|скраћени назив>` - предмети које обрађује правни тим *<назив>*",
+    "after": "`__operator_team__:<display name|short name>` — карти што припаѓаат на табла доделена на тимот *<name>*",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "globalSearch-instructions-operator-user",
+    "before": "`__operator_user__:<неко>` - сви предмети где је *<неко>* или *сарадник* или *пуномоћник*",
+    "after": "`__operator_user__:<username>` — карти во кои *<username>* е *член* или *доделен корисник*",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "globalSearch-instructions-operators",
+    "before": "Оператори на располагању:",
+    "after": "Достапни оператори:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "globalSearch-instructions-status-all",
+    "before": "`__predicate_all__` - сви архивирани и неархивирани задаци",
+    "after": "`__predicate_all__` — сите архивирани и неархивирани карти",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "globalSearch-instructions-status-ended",
+    "before": "`__predicate_ended__` - сви окончани предмети",
+    "after": "`__predicate_ended__` — карти со датум на завршување",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "globalSearch-instructions-status-private",
+    "before": "`__predicate_private__` - предмети видљиви искључиво сарадницима",
+    "after": "`__predicate_private__` — карти само во приватни табли",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "globalSearch-instructions-status-public",
+    "before": "`__predicate_public__` - предмети видљиви свима на интернету",
+    "after": "`__predicate_public__` — карти само во јавни табли",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "gridfs-attachments",
+    "before": "GridFS раздељена предметна грађа",
+    "after": "Прилози во GridFS",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "gridfs-enabled",
+    "before": "GridFS ради и можете га користити",
+    "after": "GridFS е овозможен",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "gridfs-enabled-description",
+    "before": "Можете користити MongoDB GridFS за складиште предметне грађе",
+    "after": "Користете MongoDB GridFS за складирање датотеки",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "has-spenttime-cards",
+    "before": "Има карти с изработено време",
+    "after": "Има карти со потрошено време",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "hide-checked-items",
+    "before": "Сакриј обављене помоћне предметне радње",
+    "after": "Сокриј ги означените ставки",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "hide-finished-checklist",
+    "before": "Сакриј обављене предметне радње",
+    "after": "Сокриј го завршениот список за проверка",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "hide-list-on-minicard",
+    "before": "Сакриј део поступка са омота",
+    "after": "Сокриј го списокот на миникартата",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "hide-minicard-label-text",
+    "before": "Сакриј натпис на налепници",
+    "after": "Сокриј го текстот на ознаката на миникартата",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "hideAllChecklistItems",
+    "before": "Сакриј све помоћне предметне радње",
+    "after": "Сокриј ги сите ставки од списокот за проверка",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "hideCheckedChecklistItems",
+    "before": "Сакриј све обављене помоћне предметне радње",
+    "after": "Сокриј ги означените ставки од списокот за проверка",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "if-you-already-have-an-account",
+    "before": "Ако већ поседујете налог ⇨ ",
+    "after": "Ако веќе имате сметка",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "impersonate-user",
+    "before": "Увуци се у налог овог корисника",
+    "after": "Најави се како корисникот",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
