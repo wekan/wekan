@@ -26416,5 +26416,145 @@
     "before": "Притисните да би сложили делове поступка",
     "after": "Kliknite za razvrstavanje popisa",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "star-board-title",
+    "before": "Означите спис звездицом. Имаће већу тежину и биће постављен на чело.",
+    "after": "Kliknite da biste ovu ploču označili zvjezdicom. Pojavit će se na vrhu vašeg popisa ploča.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "start-day-of-week",
+    "before": "Постави који дан се рачуна за почетак недеље",
+    "after": "Postavi početni dan tjedna",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "step-convert-shared-lists",
+    "before": "Претварам дељене делове поступка",
+    "after": "Pretvori zajedničke popise",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "step-create-missing-lists",
+    "before": "Стварам недостајуће делове",
+    "after": "Stvori nedostajuće popise",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "step-delete-duplicate-empty-lists",
+    "before": "Бришем исте празне делове поступка",
+    "after": "Izbriši prazne duplikate popisa",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "step-ensure-lost-cards-swimlane",
+    "before": "Правим место за загубљене предмете",
+    "after": "Osiguraj stazu za izgubljene kartice",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "step-ensure-per-swimlane-lists",
+    "before": "Осигуравам да је део поступка везан за поступак",
+    "after": "Osiguraj popise za pojedine staze",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "step-fix-attachment-urls",
+    "before": "Поправљам везе до складишта предметне грађе",
+    "after": "Popravi URL-ove privitaka",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "step-fix-avatar-urls",
+    "before": "Поправљам везе до складишта слика за сараднике",
+    "after": "Popravi URL-ove avatara",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "step-fix-file-urls",
+    "before": "Поправљам везе до предметне грађе",
+    "after": "Popravljanje URL-ova datoteka",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "step-fix-missing-ids",
+    "before": "Поправљам недостајућа id поља",
+    "after": "Popravi nedostajuće identifikatore",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "step-fix-orphaned-cards",
+    "before": "Поправљам одбачене предмете",
+    "after": "Popravi kartice bez roditelja",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "step-restore-lists",
+    "before": "Опорављам делове поступка",
+    "after": "Vrati popise",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "step-restore-swimlanes",
+    "before": "Опорављам читав ток поступка",
+    "after": "Vrati staze",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "step-scan-files",
+    "before": "Проверавам предметну грађу",
+    "after": "Provjera privitaka datoteka ploče",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "step-scan-users",
+    "before": "Проверавам слике сарадника на списима",
+    "after": "Provjera avatara članova ploče",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "subtaskActionsPopup-title",
+    "before": "Радње на издвојеним пословима",
+    "after": "Radnje s podzadatkom",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "subtaskDeletePopup-title",
+    "before": "Избрисаћете издвојени посао?",
+    "after": "Izbrisati podzadatak?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "support-info-not-added-yet",
+    "before": "Информације о техничкој подршци још увек нису додате",
+    "after": "Informacije o podršci još nisu dodane",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "support-info-only-for-logged-in-users",
+    "before": "Информације о техничкој подршци се дају само пријављеним корисницима.",
+    "after": "Informacije o podršci dostupne su samo prijavljenim korisnicima.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
