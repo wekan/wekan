@@ -45834,5 +45834,33 @@
     "before": "Mostrar checklist en la minitarjeta",
     "after": "Amostrar a lista de comprobación en a minitarcheta",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "showLabel-field-on-card",
+    "before": "Mostrar etiquetas de campos en la minitarjeta.",
+    "after": "Amostrar a etiqueta d’o campo en a minitarcheta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "sort-boards-custom",
+    "before": "Personalizado (orden por arrastre)",
+    "after": "Personalizau (orden por arrocegamiento)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "start-day-of-week",
+    "before": "Establecer el dia de comienzo de la semana",
+    "after": "Establir o día d’empecipio d’a semana",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "start-test-operation",
+    "before": "Iniciar operación de prueba",
+    "after": "Empecipiar operación de preba",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

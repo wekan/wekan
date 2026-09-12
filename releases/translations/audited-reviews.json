@@ -778,5 +778,17 @@
     "key": "setSelectionColorPopup-title",
     "value": "Establecer color de selección",
     "reason": "Reviewed shared Aragonese action and selection-color terminology; correctly describes setting a selection color."
+  },
+  {
+    "locale": "an",
+    "key": "step-convert-shared-lists",
+    "value": "Convertir listas compartidas",
+    "reason": "Reviewed shared Aragonese vocabulary for converting shared lists; source action and shared scope remain explicit."
+  },
+  {
+    "locale": "an",
+    "key": "step-ensure-per-swimlane-lists",
+    "value": "Asegurar listas por carril",
+    "reason": "Reviewed shared Aragonese vocabulary for ensuring lists per lane; preserves per-swimlane rather than per-board scope."
   }
 ]
