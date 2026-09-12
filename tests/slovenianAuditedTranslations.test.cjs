@@ -23,6 +23,16 @@ for (const locale of ['sl', 'sl_SI']) {
   assert.match(data['accounts-lockout-info'], /napadi z grobo silo/);
   assert.doesNotMatch(data['accounts-lockout-info'], /lozinkef/);
   assert.equal(data.MongoDB_storage_engine, 'Shranjevalni pogon MongoDB');
+  assert.match(data['globalSearch-instructions-status-ended'], /z datumom konca/);
+  assert.doesNotMatch(data['globalSearch-instructions-status-ended'], /dokončane/);
+  assert.match(data['globalSearch-instructions-status-private'], /samo na zasebnih tablah/);
+  assert.match(data['globalSearch-instructions-status-public'], /samo na javnih tablah/);
+  assert.doesNotMatch(data['globalSearch-instructions-status-public'], /internet/);
+  assert.match(data['globalSearch-instructions-status-all'], /arhivirane in nearhivirane/);
+  assert.match(data['globalSearch-instructions-operator-user'], /član ali zadolženi uporabnik/);
+  assert.notEqual(data.hideAllChecklistItems, data.hideCheckedChecklistItems);
+  assert.match(data.hideCheckedChecklistItems, /označene postavke/);
+
   assert.match(data['globalSearch-instructions-operator-has'], /`has:-due`.*brez roka/);
   assert.match(data['globalSearch-instructions-operator-label'], /\*<color>\* ali \*<name>\*/);
   assert.match(data['globalSearch-instructions-operator-due'], /največ.*pretečenim rokom/);
