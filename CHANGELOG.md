@@ -558,6 +558,13 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/2144defbc8fd467ddd7eb4d24f017220ce880320">Repair Slovenian search status and checklist visibility messages</a>. Thanks to xet7.</summary>
+
+Correct 30 values across both Slovenian locales. Restore end-date presence, public/private board scope, member/assignee alternatives, GridFS storage labels and all/checked checklist distinctions. Regression checks verify meanings, exact corrections, source tokens, key order and idempotent repairs. The short translation audit records current progress.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/b5e8685e3020f35f1de9955d7c2b4be3b8dd9edb">Repair Slovenian search operator descriptions and examples</a>. Thanks to xet7.</summary>
 
 Correct 32 values across both Slovenian locales. Preserve exact search syntax, label alternatives, inclusive day limits, board-scoped organization/team matches, page limits and descending sorts. Regression checks verify meanings, exact corrections, source tokens, key order and idempotent repairs. The short translation audit records current progress.
