@@ -141,3 +141,10 @@ for (const key of ['globalSearch-instructions-operator-org', 'globalSearch-instr
 assert.match(data['globalSearch-instructions-operator-modified'], /días ou menos/);
 assert.match(data['globalSearch-instructions-operator-swimlane'], /tarxetas en carrís/);
 assert.match(data['globalSearch-instructions-operator-list'], /tarxetas en listas/);
+
+assert.match(data['globalSearch-instructions-operator-user'], /\*membro\* ou \*asignado\*/);
+assert.match(data['globalSearch-instructions-status-all'], /arquivadas e non arquivadas/);
+assert.match(data['globalSearch-instructions-status-ended'], /cunha data de fin/);
+assert.match(data['globalSearch-instructions-status-private'], /só en taboleiros privados/);
+assert.match(data['globalSearch-instructions-status-public'], /só en taboleiros públicos/);
+assert.match(data['globalSearch-title'], /todos os taboleiros/);

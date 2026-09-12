@@ -37105,5 +37105,47 @@
     "before": "`__operator_team__:<display name|short name>` - cartões pertencentes a um quadro atribuído ao time *<name>*",
     "after": "`__operator_team__:<display name|short name>` - tarxetas que pertencen a un taboleiro asignado ao equipo *<name>*",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "globalSearch-instructions-operator-user",
+    "before": "`__operator_user__:<username>` - cartões onde *<username>* é *member* ou *assignee*",
+    "after": "`__operator_user__:<username>` - tarxetas nas que *<username>* é *membro* ou *asignado*",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "globalSearch-instructions-status-all",
+    "before": "`__predicate_all__` - todos os cartões arquivados e não arquivados",
+    "after": "`__predicate_all__` - todas as tarxetas arquivadas e non arquivadas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "globalSearch-instructions-status-ended",
+    "before": "`__predicate_ended__` - cartões com uma data de fim",
+    "after": "`__predicate_ended__` - tarxetas cunha data de fin",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "globalSearch-instructions-status-private",
+    "before": "`__predicate_private__` - cartões apenas em quadros privados",
+    "after": "`__predicate_private__` - tarxetas só en taboleiros privados",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "globalSearch-instructions-status-public",
+    "before": "`__predicate_public__` - cartões apenas em quadros públicos",
+    "after": "`__predicate_public__` - tarxetas só en taboleiros públicos",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "globalSearch-title",
+    "before": "Pesquisa Todos os Cartões",
+    "after": "Procurar en todos os taboleiros",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
