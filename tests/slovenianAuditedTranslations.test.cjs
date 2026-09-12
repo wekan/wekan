@@ -23,6 +23,14 @@ for (const locale of ['sl', 'sl_SI']) {
   assert.match(data['accounts-lockout-info'], /napadi z grobo silo/);
   assert.doesNotMatch(data['accounts-lockout-info'], /lozinkef/);
   assert.equal(data.MongoDB_storage_engine, 'Shranjevalni pogon MongoDB');
+  assert.match(data['migration-info-text'], /enkrat.*zmogljivost sistema.*ozadju.*zaprete brskalnik/);
+  assert.match(data['migration-warning-text'], /ne zapirajte brskalnika.*ozadju.*traja dlje/);
+  assert.match(data['migration-progress-note'], /tablo na najnovejšo strukturo/);
+  assert.match(data['migration-stop-confirm'], /vse selitve/);
+  assert.match(data['migration-paused'], /začasno ustavljene/);
+  assert.doesNotMatch(data['migration-stopped'], /začasno/);
+  for (const key of ['migration-pause-failed', 'migration-resume-failed', 'migration-start-failed', 'migration-stop-failed']) assert.match(data[key], /ni uspe/);
+
   assert.match(data['migration-cpu-threshold-description'], /Začasno ustavi.*preseže.*\(10-90\)/);
   assert.doesNotMatch(data['migration-cpu-threshold-description'], /doseže/);
   assert.match(data['migration-batch-size-description'], /priponk.*vsakem paketu.*\(1-100\)/);
