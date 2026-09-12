@@ -558,6 +558,13 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/02e229d33">Repair Croatian read-only roles and recovery messages</a>. Thanks to xet7.</summary>
+
+Correct 14 reviewed values. Positive and negative regressions verify no-edit restrictions, label range, removal notifications and recovery entity types. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/58f0d7b06">Repair Croatian rule actions and public-board invitations</a>. Thanks to xet7.</summary>
 
 Correct 16 reviewed values. Positive and negative regressions verify public-board editing, invitation meaning, move direction and unchecking. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
