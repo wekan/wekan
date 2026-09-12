@@ -4,21 +4,21 @@ Audit date: **2026-09-12**. Last updated: **2026-09-12**.
 
 | Status | Audit keys |
 | --- | ---: |
-| Explicitly corrected | 4,389 |
+| Explicitly corrected | 4,455 |
 | Original pull values restored to pre-pull local values | 4,061 |
-| Reviewed and retained unchanged | 74 |
-| Pending review or repair | 11,557 |
+| Reviewed and retained unchanged | 78 |
+| Pending review or repair | 11,487 |
 | Total tracked | 20,081 |
 
 The full translation repair goal remains unfinished. Counts describe the tracked audit findings; unflagged strings are not individually certified. Restored pre-pull values are not automatically certified as correct translations.
 
 ## Fixes completed
 
-Repairs address wrong-language text, incorrect kanban terminology, missing restrictions and warnings, malformed JSON examples, translated placeholders, calendar names, search syntax and date/message argument order. The reviewed correction list contains **4,451 values**, including corrections outside the flagged audit rows.
+Repairs address wrong-language text, incorrect kanban terminology, missing restrictions and warnings, malformed JSON examples, translated placeholders, calendar names, search syntax and date/message argument order. The reviewed correction list contains **4,517 values**, including corrections outside the flagged audit rows.
 
 The flagged Bosnian, Croatian and Macedonian queues are complete. Other completed queues include Latvian, Romanian, Slovak and several smaller regional queues. **Bosnian has no remaining flagged findings**.
 
-Latest translation correction: [89bf9a05e](https://github.com/wekan/wekan/commit/89bf9a05e6d72b9823996ff595c3de5724b0ec02), **2026-09-12**, fixes 64 Slovenian user-status, permission, workspace, attachment and avatar values. Repairs remove invented payroll restrictions, preserve logged-in user scope and distinguish all/new cards; URL schemes and S3 storage retain their actual meanings. Each Slovenian queue has 321 findings remaining. Meaning, token, exact-value, key-order and idempotent repair checks pass.
+Latest translation correction: [02ffe74d2](https://github.com/wekan/wekan/commit/02ffe74d29d554ec0ff559642019099318d65c54), **2026-09-12**, fixes 66 Slovenian board, card, checklist and comment values. Repairs preserve scheduling success/failure, assigned-card visibility and comment-only permissions, checklist/item distinctions and mini-card sorting. Four correct Azure navigation values are retained after review. Each Slovenian queue has 286 findings remaining. Meaning, token, exact-value, unchanged-review, key-order and idempotent repair checks pass.
 
 ## Provenance
 
