@@ -44329,5 +44329,40 @@
     "before": "Página de accesibilidad habilitada",
     "after": "Pachina d’accesibilidat activada",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "accounts-lockout-period",
+    "before": "Período de bloqueo (segundos)",
+    "after": "Periodo de bloqueyo (segundos)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "act-withDue",
+    "before": "__list__/__card__ notificaciones de vencimiento [__board__]",
+    "after": "__list__/__card__ recordatorios de vencimiento [__board__]",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "active-cron-jobs",
+    "before": "Trabajos programados activos",
+    "after": "Treballos programaus activos",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "activity-changedDescription",
+    "before": "cambió la descripción de %s",
+    "after": "cambió a descripción de %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "activity-changedTitle",
+    "before": "cambió el título a %s de %s",
+    "after": "cambió o titol a %s de %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

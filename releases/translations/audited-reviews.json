@@ -628,5 +628,11 @@
     "key": "Node_memory_usage_heap_used",
     "value": "Uso de memoria de Node: memoria realmente usada",
     "reason": "Valid shared Aragonese memory terminology; Node remains a technical name and the external/actual-use distinction matches the English source."
+  },
+  {
+    "locale": "an",
+    "key": "accounts-lockout-failure-window",
+    "value": "Ventana de fallos (segundos)",
+    "reason": "Ventana de fallos (segundos) uses valid shared Aragonese terminology for the failure counting window and preserves the seconds unit."
   }
 ]
