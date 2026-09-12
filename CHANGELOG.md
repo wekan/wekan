@@ -557,6 +557,16 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/b00c7da30">Repair Macedonian storage and workspace translations</a>. Thanks to xet7.</summary>
+
+Correct 25 reviewed values, restoring source meanings for workspace editing,
+logged-in users, account status and URL schemes. Positive and negative
+rendering, exact-value, source-token, key-order and repair checks pass.
+Further locale findings remain under review.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/719ffbd7a">Repair Macedonian dates and administration labels</a>. Thanks to xet7.</summary>
 
 Correct 25 reviewed values, replacing payroll descriptions with active/inactive
