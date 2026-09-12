@@ -42754,5 +42754,61 @@
     "before": "__inviter__ te ha enviado una invitación",
     "after": "__inviter__ unvióte una invitación",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "email-resetPassword-subject",
+    "before": "Restablecer tu contraseña en __siteName__",
+    "after": "Restablecer la to contraseña en __siteName__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "email-smtp-test-text",
+    "before": "El correo se ha enviado correctamente",
+    "after": "Unviasti un corréu electrónicu correutamente",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "email-templates-activity-body",
+    "before": "Actividad Correo electrónico Texto",
+    "after": "Cuerpu del corréu electrónicu de notificación d’actividá",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "email-templates-activity-subject",
+    "before": "Actividad Correo electrónico Asunto",
+    "after": "Asuntu del corréu electrónicu de notificación d’actividá",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "email-templates-invite-body",
+    "before": "Invitar Correo electrónico Texto",
+    "after": "Cuerpu del corréu electrónicu d’invitación",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "email-templates-invite-subject",
+    "before": "Invitar Correo electrónico Asunto",
+    "after": "Asuntu del corréu electrónicu d’invitación",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "email-templates-title",
+    "before": "Correo electrónico Plantillas",
+    "after": "Plantíes de corréu electrónicu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "email-verifyEmail-subject",
+    "before": "Verifica tu dirección de correo en __siteName__",
+    "after": "Verifica la to direición de corréu electrónicu en __siteName__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

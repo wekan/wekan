@@ -255,3 +255,15 @@ assert.match(data['email-fail-text'], /Error al intentar unviar/);
 assert.match(data['email-invite'], /Invitar per corréu electrónicu/);
 assert.equal(data['email-invite-subject'], data['email-invite-register-subject']);
 assert.match(data['email-invite-subject'], /^__inviter__ unvióte una invitación$/);
+
+assert.match(data['email-resetPassword-subject'], /Restablecer la to contraseña en __siteName__/);
+assert.match(data['email-verifyEmail-subject'], /Verifica la to direición.*__siteName__/);
+assert.notEqual(data['email-resetPassword-subject'], data['email-verifyEmail-subject']);
+assert.match(data['email-smtp-test-text'], /Unviasti.*correutamente/);
+assert.match(data['email-templates-title'], /Plantíes de corréu electrónicu/);
+for (const kind of ['activity', 'invite']) {
+ assert.match(data[`email-templates-${kind}-body`], /^Cuerpu del corréu electrónicu/);
+ assert.match(data[`email-templates-${kind}-subject`], /^Asuntu del corréu electrónicu/);
+}
+assert.match(data['email-templates-activity-body'], /notificación d’actividá/);
+assert.match(data['email-templates-invite-body'], /d’invitación/);
