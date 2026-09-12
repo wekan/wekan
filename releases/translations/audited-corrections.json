@@ -25716,5 +25716,103 @@
     "before": "Редослед предмета где имам пуномоћ",
     "after": "Razvrstavanje mojih kartica",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "myCardsSortChangePopup-title",
+    "before": "Поређај предмете где имам пуномоћ",
+    "after": "Razvrstavanje mojih kartica",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "myCardsViewChangePopup-title",
+    "before": "Такви предмети треба да буду",
+    "after": "Prikaz mojih kartica",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "n-cards-found",
+    "before": "Број пронађених предмета: %s",
+    "after": "Pronađeno je %s kartica",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "newlineBecomesNewChecklistItem",
+    "before": "Сваки ред текста постаје ставка на списку",
+    "after": "Svaki redak teksta postaje stavka kontrolnog popisa",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "newlineBecomesNewChecklistItemOriginOrder",
+    "before": "Сваки ред текста постаје ставка на списку - по изворном редоследу уноса",
+    "after": "Svaki redak teksta postaje stavka kontrolnog popisa, izvornim redoslijedom",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "no-cards-found",
+    "before": "Није пронађен ни један предмет",
+    "after": "Nisu pronađene kartice",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "no-comments-desc",
+    "before": "Без права на расправу и права на увид у записник",
+    "after": "Ne može pregledavati komentare.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "normal-assigned-only-desc",
+    "before": "Има увид и пуна права само у оним предметима где има надлежност или је опуномоћен.",
+    "after": "Vidljive su samo dodijeljene kartice. Uređivanje kao običan korisnik.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "not-accepted-yet",
+    "before": "Позив још увек није прихваћен",
+    "after": "Poziv još nije prihvaćen",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "notify-participate",
+    "before": "Примајте допунске извештаје при било којој измени предмета које сте сами завели или где сте сарадник",
+    "after": "Primajte obavijesti o promjenama kartica na kojima sudjelujete kao autor ili član",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "oidc-button-text",
+    "before": "Измени OIDC текст на дугмету",
+    "after": "Prilagodite tekst gumba OIDC",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "one-card-found",
+    "before": "Пронађен је један предмет",
+    "after": "Pronađena je jedna kartica",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "operator-debug-invalid",
+    "before": "%s уопште није исправан предикат",
+    "after": "%s nije valjan predikat za otklanjanje pogrešaka",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "operator-has-invalid",
+    "before": "%s уопште није исправна провера постојања",
+    "after": "%s nije valjana provjera postojanja",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
