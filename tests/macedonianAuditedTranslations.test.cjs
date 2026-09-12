@@ -91,6 +91,14 @@ const data = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/mk.i1
   assert.match(data['run-restore-all-archived-migration-confirm'], /не може лесно да се поништи/);
   assert.match(data['run-delete-duplicate-empty-lists-migration-confirm'], /празните списоци што имаат дупликат со ист наслов што содржи карти/);
   for (const field of ['swimlaneId', 'listId']) assert.ok(data['restore-lost-cards-migration-description'].includes(field));
+  assert.match(data['s3-enabled-description'], /AWS S3 или MinIO/);
+  assert.doesNotMatch(data['s3-ssl-enabled-description'], /Amazon/);
+  assert.match(data['search-cards'], /описите и приспособените полиња/);
+  for (const command of ['sudo snap logs wekan.wekan', 'sudo docker logs wekan-app']) {
+    assert.ok(data['server-error-troubleshooting'].includes('`' + command + '`'));
+  }
+  for (const endpoint of ['s3.amazonaws.com', 'minio.example.com']) assert.ok(data['s3-endpoint-description'].includes(endpoint));
+  assert.match(data['set-swimlane-height-value'], /пиксели/);
   assert.equal(data.list, 'Список');
   assert.equal(data.swimlane, 'Лента');
   console.log('macedonianAuditedTranslations: actual date and label rendering, checklist removal meaning and native labels passed');

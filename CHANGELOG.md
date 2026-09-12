@@ -558,6 +558,13 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/b9da2ea97">Repair Macedonian S3 settings and search instructions</a>. Thanks to xet7.</summary>
+
+Correct 20 reviewed values. Regressions verify MinIO support, search scope, literal endpoint examples and troubleshooting commands, and pixel units. Source-token, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/c9fe9530a">Repair Macedonian recovery and migration confirmations</a>. Thanks to xet7.</summary>
 
 Correct 20 reviewed values. Regressions verify archived recovery, non-archived scope, undo warnings, duplicate-empty-list conditions and literal storage fields. Source-token, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
