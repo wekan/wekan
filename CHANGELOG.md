@@ -558,6 +558,14 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/c8c6d082daf1125d74d7846983d73c6c9e1e8fe3">Repair audited Aragonese translations</a></summary>
+
+Repair wrong-language calendar, account, card-activity, import/export, storage, backup and administration wording. Preserve placeholders, literal JSON examples, vendor names, warning scope and completion messages; retain reviewed shared vocabulary. Contextual meaning and correction-inventory regression checks pass. Aragonese wording needs native-speaker review; the audit remains unfinished. Live Meteor browser verification was unavailable.
+
+Thanks to xet7 !
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/dacbe7416fcc04afc1755d66a9b231b16fdc1e1e">Repair audited Asturian translations</a></summary>
 
 Replace audited Spanish wording with Asturian in account controls, card activities, permissions, filters, imports, dates, warnings and attachment settings. Preserve placeholders, JSON examples, storage destinations and irreversible-deletion warnings. The latest batch repairs attachment storage, automatic list width, avatar size and minicard attachment counts. Meaning and correction-inventory regression tests pass; native-speaker review is still needed. Live Meteor browser verification was unavailable.
