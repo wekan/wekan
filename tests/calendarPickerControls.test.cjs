@@ -62,6 +62,13 @@ rtl = true; key('ArrowLeft'); assert.equal(iso(tpl.focusedDate.get()), '2026-03-
 events['click .js-calendar-day']({ preventDefault() {}, currentTarget: { dataset: { date: '2026-03-22' } } }, tpl);
 assert.equal(nativeInput.value, '2026-03-22', 'selecting Jalali day 2 emits a native date for the existing save handler');
 assert.equal(tpl.expanded.get(), false);
+assert.equal(helpers.expanded(), false, 'compact inputs retain their toggle behavior');
+data.inline = true;
+assert.equal(helpers.expanded(), true, 'popup calendar is visible immediately');
+assert.equal(helpers.useNativeInput.call(data), false);
+events['click .js-calendar-day']({ preventDefault() {}, currentTarget: { dataset: { date: '2026-03-23' } } }, tpl);
+assert.equal(helpers.expanded(), true, 'popup selection keeps the calendar visible');
+assert.equal(nativeInput.value, '2026-03-23');
 
 let timeCreated, timeHelpers, timeEvents;
 const timeData = { value: '', defaultTime: '1970-01-01 17:00:00' };
@@ -84,6 +91,11 @@ timeEvents['change select']({}, timeTpl);
 assert.equal(timeInput.value, '13:45', 'mouse/dropdown selection supplies time without writing punctuation');
 assert.match(read('client/components/forms/calendarDateInput.jade'), /aria-label=title.*tabindex=tabIndex/);
 assert.match(read('client/components/forms/calendarDateInput.css'), /:focus-visible/);
+assert.match(read('client/components/forms/datepicker.jade'), /\+calendarDateInput\([^\n]*inline=true/);
+assert.match(read('client/components/forms/calendarTimeInput.jade'), /input\.js-calendar-native-time\(type="hidden"/);
+assert.doesNotMatch(read('client/components/forms/calendarTimeInput.jade'), /type="text"/);
+assert.match(read('client/components/forms/datepicker.css'), /flex-direction: column/);
+assert.match(read('client/components/main/popup.css'), /\.datepicker-container \.fields \{[^}]*flex-direction: column/);
 for (const file of ['client/components/forms/datepicker.jade', 'client/components/cards/labels.jade',
   'client/components/lists/listBody.jade', 'client/components/rules/triggers/scheduledTriggers.jade']) {
   assert.match(read(file), /\+calendarDateInput\(/);

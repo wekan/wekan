@@ -15,10 +15,10 @@ template(name="editDateForm")
     form.edit-date(class="{{#if customFieldControls}}custom-field-date-editor{{/if}}")
       .fields
         .left
-          label(for="date") {{_ 'date'}}
-          +calendarDateInput(inputId="date" inputName="date" fieldClass="js-date-field" value=showDate autofocus=true)
+          label {{_ 'date'}}
+          +calendarDateInput(inputId="date" inputName="date" fieldClass="js-date-field" value=showDate inline=true)
         .right
-          label(for="time") {{_ 'time'}}
+          label {{_ 'time'}}
           +calendarTimeInput(inputId="time" inputName="time" fieldClass="js-time-field" value=showTime defaultTime=datePicker.defaultTime)
         if customFieldControls
           .custom-field-date-copy

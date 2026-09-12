@@ -50,10 +50,10 @@ function writeValue(tpl, date) {
 }
 
 Template.calendarDateInput.helpers({
-  isGregorian() { return dateDisplayPreferences().calendarSystem === 'gregorian'; },
+  useNativeInput() { return !this.inline && dateDisplayPreferences().calendarSystem === 'gregorian'; },
   inputType() { return this.withTime ? 'datetime-local' : 'date'; },
   selectedDateText() { return formatDateForDisplay(Template.instance().selectedDate.get(), false); },
-  expanded() { return Template.instance().expanded.get(); },
+  expanded() { return !!Template.instance().data.inline || Template.instance().expanded.get(); },
   calendarName() { return TAPi18n.__(selectedSystem().labelKey); },
   monthLabel() {
     const date = Template.instance().shownDate.get();
@@ -114,8 +114,10 @@ Template.calendarDateInput.events({
   'click .js-calendar-day'(event, tpl) {
     event.preventDefault();
     writeValue(tpl, fromInput(event.currentTarget.dataset.date));
+    tpl.focusedDate.set(fromInput(event.currentTarget.dataset.date));
     tpl.expanded.set(false);
-    Tracker.afterFlush(() => tpl.find('.js-calendar-toggle')?.focus());
+    Tracker.afterFlush(() => tpl.find(tpl.data.inline
+      ? '.js-calendar-day[tabindex="0"]' : '.js-calendar-toggle')?.focus());
   },
   'keydown .js-calendar-day'(event, tpl) {
     const date = fromInput(event.currentTarget.dataset.date);
@@ -130,7 +132,7 @@ Template.calendarDateInput.events({
       const firstDay = user ? user.getStartDayOfWeek() : 1;
       const offset = (date.getDay() - firstDay + 7) % 7;
       next = shiftedDay(date, event.key === 'Home' ? -offset : 6 - offset);
-    } else if (event.key === 'Escape') {
+    } else if (event.key === 'Escape' && !tpl.data.inline) {
       event.preventDefault(); event.stopPropagation(); tpl.expanded.set(false);
       Tracker.afterFlush(() => tpl.find('.js-calendar-toggle')?.focus());
       return;

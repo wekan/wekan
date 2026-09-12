@@ -463,14 +463,16 @@
   max-height: 60vh !important;
 }
 
-/* Native HTML input styling */
+/* Date popup layout and native input styling */
 .pop-over[data-popup*='Date'] .datepicker-container {
+  box-sizing: border-box;
   width: 100% !important;
   padding: 15px !important;
 }
 
 .pop-over[data-popup*='Date'] .datepicker-container .fields {
   display: flex !important;
+  flex-direction: column;
   gap: 15px !important;
   margin-bottom: 15px !important;
 }

@@ -1,15 +1,19 @@
 template(name="calendarDateInput")
   .calendar-date-input
-    if isGregorian
+    if useNativeInput
       input(type=inputType id=inputId name=inputName class=fieldClass value=value autofocus=autofocus)
     else
       input.js-calendar-native-value(type="hidden" id=inputId name=inputName class=fieldClass value=value)
-      button.js-calendar-toggle(type="button" aria-label="{{_ 'date'}}" aria-expanded=expanded)
+      if inline
         if selectedDateText
-          | {{selectedDateText}}
-        else
-          | {{_ 'date'}}
-      button.js-calendar-clear(type="button" aria-label="{{_ 'delete'}}") ×
+          .selected-calendar-date {{selectedDateText}}
+      else
+        button.js-calendar-toggle(type="button" aria-label="{{_ 'date'}}" aria-expanded=expanded)
+          if selectedDateText
+            | {{selectedDateText}}
+          else
+            | {{_ 'date'}}
+        button.js-calendar-clear(type="button" aria-label="{{_ 'delete'}}") ×
       if withTime
         +calendarTimeInput(fieldClass="js-calendar-time" value=timeValue)
       if expanded

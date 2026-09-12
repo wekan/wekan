@@ -245,12 +245,13 @@ test('copy sits above the top-right corner of every custom field editor', () => 
   assert.match(datepickerTemplate,
     /\.right[\s\S]*?\+calendarTimeInput\([^\n]*fieldClass="js-time-field"[\s\S]*?customFieldControls[\s\S]*?\.custom-field-date-copy[\s\S]*?\+customFieldCopyButton/,
     'Date places Copy immediately after the Time field');
+  // Calendar popups now stack fields so the always-visible grid spans the popup.
   assert.match(datepickerCss,
-    /\.custom-field-date-copy \{[\s\S]*?align-items: center;[\s\S]*?padding-top: 24px;/,
-    'Copy aligns with the Time input instead of adding a row above Date and Time');
+    /\.custom-field-date-copy \{[\s\S]*?align-items: center;[\s\S]*?padding-top: 0;/,
+    'Copy follows the stacked calendar and time controls without extra top padding');
   assert.match(datepickerCss,
     /\.datepicker-container \.fields \{[\s\S]*?display: flex;[\s\S]*?gap: 15px;/,
-    'the shared datepicker keeps Date, Time and Copy in one row for every popup name');
+    'the shared datepicker spaces Date, Time and Copy for every popup name');
   assert.match(datepickerCss,
     /\.fields \.left \{[\s\S]*?flex: 1;[\s\S]*?min-width: 0;[\s\S]*?float: none;[\s\S]*?order: 1;[\s\S]*?width: auto;/,
     'Date is explicitly the first item in the row');

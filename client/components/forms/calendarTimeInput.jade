@@ -1,6 +1,6 @@
 template(name="calendarTimeInput")
   .calendar-time-input
-    input.js-calendar-native-time(type="text" inputmode="numeric" id=inputId name=inputName class=fieldClass value=nativeTime placeholder="HH:mm" aria-label="{{_ 'time'}}")
+    input.js-calendar-native-time(type="hidden" id=inputId name=inputName class=fieldClass value=nativeTime)
     select.js-calendar-hour(aria-label="{{_ 'hours'}}")
       each hours
         option(value=value selected=selected) {{value}}

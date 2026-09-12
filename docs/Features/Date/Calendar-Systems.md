@@ -24,14 +24,18 @@ the year; leap-month names are retained where applicable.
 
 Card date popups, date custom fields, checklist deadlines, label milestones,
 quick-add deadlines and scheduled-rule dates use the shared calendar input.
-For a non-Gregorian calendar, open the date button to see that calendar's
-month grid. Click a day to select it. Previous/next month and year buttons
-allow navigation without typing. The selected date replaces the grid when
-you choose a day. Gregorian uses the browser's native Gregorian date input.
+Date popups show the selected calendar's month grid immediately, across
+the popup's full width, including for Gregorian. Compact date fields outside
+these popups use the date button to open their grid. Click a day to select
+it. Previous/next month and year buttons
+allow navigation without typing. The popup grid stays visible after choosing
+a day. Compact Gregorian
+fields outside popups use the browser's native Gregorian date input.
 
 Time controls provide separate hour and minute lists, covering all 24 hours
-and all 60 minutes. Both can be selected with a mouse or keyboard. The
-existing time text field also remains available, but typing a date, colon or
+and all 60 minutes. Both can be selected with a mouse or keyboard. Only the
+hour and minute dropdowns are visible; the combined time value
+is hidden internally for the existing save handlers. Typing a date, colon or
 other punctuation is not required. Existing due-date defaults, including
 17:00 for a new due date, are preserved.
 
@@ -44,9 +48,10 @@ other punctuation is not required. Existing due-date defaults, including
 | Page Up / Page Down | Previous / next selected-calendar month |
 | Shift+Page Up / Shift+Page Down | Previous / next selected-calendar year |
 | Enter / Space | Select the focused day |
-| Escape | Close the grid and return focus to the date button |
+| Escape | Close a compact grid; popup grids remain visible |
 
-Changing focus alone does not save or select a date. Selecting a day returns
+Changing focus alone does not save or select a date. Selecting a day keeps
+focus on the popup grid; compact inputs return
 focus to the date button. Day buttons have full-date accessible names, the
 selected day exposes its state, month changes have a live announcement, and
 keyboard focus has a visible outline. Time lists support native arrow-key

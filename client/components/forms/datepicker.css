@@ -1,5 +1,6 @@
 .datepicker-container .fields {
   display: flex;
+  flex-direction: column;
   gap: 15px;
   margin-bottom: 15px;
 }
@@ -28,7 +29,7 @@
   display: flex;
   flex: 0 0 auto;
   order: 3;
-  padding-top: 24px;
+  padding-top: 0;
 }
 .datepicker-container .fields .custom-field-date-copy .custom-field-copy-control {
   inset: auto;

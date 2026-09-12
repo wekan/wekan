@@ -28,15 +28,23 @@ test('Jalali mouse and keyboard selection saves the same native instant in an En
   await cp.root.locator('.due-date .js-edit-date, a.due-date.js-edit-date').first().click();
   await expect(page.locator('.js-pop-over #date')).toHaveValue('2026-03-21');
   const popup = page.locator('.js-pop-over');
-  await expect(popup.locator('.js-calendar-toggle')).toContainText('1405-01-01');
-  await popup.locator('.js-calendar-toggle').click();
+  await expect(popup.locator('.selected-calendar-picker')).toBeVisible();
+  await expect(popup.locator('.js-calendar-toggle')).toHaveCount(0);
+  await expect(popup.locator('.selected-calendar-date')).toContainText('1405-01-01');
+  const calendarWidth = await popup.locator('.selected-calendar-picker').evaluate(el => el.getBoundingClientRect().width);
+  const fieldsWidth = await popup.locator('.fields').evaluate(el => el.getBoundingClientRect().width);
+  expect(Math.abs(calendarWidth - fieldsWidth)).toBeLessThan(2);
+  await expect(popup.locator('.calendar-time-input input')).toHaveAttribute('type', 'hidden');
+  await expect(popup.locator('.calendar-time-input select')).toHaveCount(2);
   const firstDay = popup.locator('.js-calendar-day[data-date="2026-03-21"]');
+  await firstDay.focus();
   await expect(firstDay).toBeFocused();
   await firstDay.press('ArrowRight');
   const nextDay = popup.locator('.js-calendar-day[data-date="2026-03-22"]');
   await expect(nextDay).toBeFocused();
   await nextDay.press('Enter');
-  await expect(popup.locator('.js-calendar-toggle')).toContainText('1405-01-02');
+  await expect(popup.locator('.selected-calendar-date')).toContainText('1405-01-02');
+  await expect(popup.locator('.selected-calendar-picker')).toBeVisible();
   await popup.locator('.js-calendar-hour').selectOption('15');
   await popup.locator('.js-calendar-minute').selectOption('30');
   const savedInstant = await page.evaluate(() => new Date(2026, 2, 22, 15, 30).toISOString());
@@ -87,3 +95,34 @@ test('Jalali month view has actual month boundaries and a single calendar title'
   await page.locator('#calendar-view .fc-next-button').click();
   await expect(page.locator('#calendar-view .fc-toolbar-title')).toContainText('1405-02-01');
 });
+
+for (const calendarSystem of ['gregorian', 'buddhist']) {
+  test(`${calendarSystem} popup opens a full-width calendar with only hour/minute controls`, async ({ page, user, board }) => {
+    db.updateOne('users', { _id: user.id }, { $set: { 'profile.calendarSystem': calendarSystem } });
+    const card = db.findOne('cards', { boardId: board.boardId, title: 'Alpha Card' });
+    db.updateOne('cards', { _id: card._id }, { $set: { dueAt: new Date('2026-03-21T12:00:00Z') } });
+    await loginWithToken(page, user.id, user.token);
+    await openBoard(page, board.boardId, board.slug);
+    await new BoardPage(page).clickCard(board.listIds[0], 'Alpha Card');
+    const cp = new CardPage(page);
+    await cp.waitForOpen();
+    await cp.root.locator('.due-date .js-edit-date, a.due-date.js-edit-date').first().click();
+    const popup = page.locator('.js-pop-over');
+    await expect(popup.locator('.selected-calendar-picker')).toBeVisible();
+    await expect(popup.locator('.js-calendar-toggle')).toHaveCount(0);
+    await expect(popup.locator('input[type="date"], input[type="text"]')).toHaveCount(0);
+    await expect(popup.locator('.js-calendar-hour')).toBeVisible();
+    await expect(popup.locator('.js-calendar-minute')).toBeVisible();
+    const dimensions = await popup.locator('.fields').evaluate(el => ({
+      fields: el.clientWidth,
+      grid: el.querySelector('.selected-calendar-picker').getBoundingClientRect().width,
+      overflow: el.scrollWidth - el.clientWidth,
+    }));
+    expect(Math.abs(dimensions.fields - dimensions.grid)).toBeLessThan(2);
+    expect(dimensions.overflow).toBeLessThan(2);
+    const nextDay = popup.locator('.js-calendar-day[data-date="2026-03-22"]');
+    await nextDay.click();
+    await expect(nextDay).toHaveAttribute('aria-pressed', 'true');
+    await expect(popup.locator('.selected-calendar-picker')).toBeVisible();
+  });
+}
