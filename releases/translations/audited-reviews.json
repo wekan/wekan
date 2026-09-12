@@ -562,5 +562,23 @@
     "key": "pomodoro",
     "value": "Pomodoro",
     "reason": "Contextual review confirms correct Galician wording or the established Pomodoro method name. Shared vocabulary with Portuguese or English is not an error. The checklist placeholder demonstrates three comma-separated native example elements."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "Database_commit",
+    "value": "Commit de la base de datos",
+    "reason": "Contextual review confirms valid Asturian shared vocabulary. Memoria libre/total del sistema correctly labels system memory; Commit is the retained technical identifier for a source revision. No wrong-language prose requires replacement."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "OS_Freemem",
+    "value": "Memoria libre del sistema",
+    "reason": "Contextual review confirms valid Asturian shared vocabulary. Memoria libre/total del sistema correctly labels system memory; Commit is the retained technical identifier for a source revision. No wrong-language prose requires replacement."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "OS_Totalmem",
+    "value": "Memoria total del sistema",
+    "reason": "Contextual review confirms valid Asturian shared vocabulary. Memoria libre/total del sistema correctly labels system memory; Commit is the retained technical identifier for a source revision. No wrong-language prose requires replacement."
   }
 ]

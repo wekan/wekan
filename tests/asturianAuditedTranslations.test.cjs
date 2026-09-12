@@ -149,3 +149,6 @@ assert.match(data['user-can-not-export-card-to-pdf'], /nun puede exportar la tar
 assert.match(data['user-username-not-found'], /nome d'usuariu '%s'/);
 assert.equal(data['wip-limit-group-select-swimlane'], 'Seleicionar un carril');
 assert.match(data['worker-desc'], /^Solo puede mover tarxetes, asignase a la tarxeta y comentar/);
+assert.match(data.OS_Uptime, /Tiempu de funcionamientu/);
+for (const key of ['a-dueAt', 'a-endAt', 'a-receivedAt', 'a-startAt']) assert.match(data[key], /fecha y hora/);
+assert.match(data.acceptance_of_our_legalNotice, /^Al siguir, aceptes/);

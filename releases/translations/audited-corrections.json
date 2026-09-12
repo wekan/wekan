@@ -41977,5 +41977,68 @@
     "before": "Oplog de MongoDB habilitado",
     "after": "Oplog de MongoDB activáu",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "MongoDB_storage_engine",
+    "before": "Motor de almacenamiento de MongoDB",
+    "after": "Motor d'almacenamientu de MongoDB",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "OS_Cpus",
+    "before": "Número de CPUs del sistema",
+    "after": "Númberu de CPU del sistema operativu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "OS_Uptime",
+    "before": "Tiempo activo del sistema",
+    "after": "Tiempu de funcionamientu del sistema operativu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "a-dueAt",
+    "before": "cambiada la hora de vencimiento a",
+    "after": "cambió la fecha y hora de vencimientu a",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "a-endAt",
+    "before": "cambiada la hora de finalización a",
+    "after": "cambió la fecha y hora de fin a",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "a-receivedAt",
+    "before": "cambiada la hora de recepción a",
+    "after": "cambió la fecha y hora de recepción a",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "a-startAt",
+    "before": "cambiada la hora de comienzo a",
+    "after": "cambió la fecha y hora d'aniciu a",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "acceptance_of_our_legalNotice",
+    "before": "Al continuar, usted acepta nuestra",
+    "after": "Al siguir, aceptes el nuestru",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "accessibility-content",
+    "before": "Contenido de accesibilidad",
+    "after": "Conteníu d'accesibilidá",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
