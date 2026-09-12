@@ -184,3 +184,16 @@ assert.ok(data['globalSearch-instructions-notes-3'].includes('`__operator_list__
 assert.match(data['globalSearch-instructions-notes-4'], /ne razlikuju velika i mala slova/);
 assert.match(data['globalSearch-instructions-notes-5'], /ne pretražuju/);
 console.log('bosnianAuditedTranslations: migration repair scope, Boolean search and literal examples passed');
+
+assert.ok(data['globalSearch-instructions-operator-at'].includes('`user:<username>`'));
+assert.ok(data['globalSearch-instructions-operator-has'].includes('`has:-due`'));
+assert.match(data['globalSearch-instructions-operator-has'], /odsustvo vrijednosti/);
+assert.match(data['globalSearch-instructions-operator-label'], /\*<color>\* ili \*<name>\*/);
+assert.doesNotMatch(data['globalSearch-instructions-operator-label'], / i \*<name>/);
+assert.match(data['globalSearch-instructions-operator-limit'], /pozitivan cijeli broj/);
+assert.match(data['globalSearch-instructions-operator-limit'], /po stranici/);
+assert.match(data['globalSearch-instructions-operator-created'], /dana ili manje/);
+assert.match(data['globalSearch-instructions-operator-due'], /rok prošao/);
+assert.match(data['globalSearch-instructions-operator-assignee'], /zaduženi korisnik/);
+assert.match(data['globalSearch-instructions-operator-creator'], /autor/);
+console.log('bosnianAuditedTranslations: search operator syntax, negation, label OR and integer limits passed');

@@ -28327,5 +28327,89 @@
     "before": "Ако нисте ништа дирали, претрагом неће бити обухваћени предмети из архиве.",
     "after": "Arhivirane kartice se prema zadanim postavkama ne pretražuju.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "globalSearch-instructions-operator-assignee",
+    "before": "`__operator_assignee__:<неко>` - предмети где је *<неко>* пуномоћник",
+    "after": "`__operator_assignee__:<username>` - kartice na kojima je *<username>* zaduženi korisnik",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "globalSearch-instructions-operator-at",
+    "before": "`__operator_user_abbrev__корисничко име` - скраћеница за `user:<корисничко име>`",
+    "after": "`__operator_user_abbrev__username` - skraćenica za `user:<username>`",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "globalSearch-instructions-operator-board",
+    "before": "`__operator_board__:<наслов>` - сви предмети у списима са задатим *<насловом>*",
+    "after": "`__operator_board__:<title>` - kartice na pločama koje odgovaraju navedenom *<title>*",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "globalSearch-instructions-operator-comment",
+    "before": "`__operator_comment__:<речи>` - сви предмети где су у расправи коришћене следеће *<речи>*.",
+    "after": "`__operator_comment__:<text>` - kartice s komentarom koji sadrži *<text>*.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "globalSearch-instructions-operator-created",
+    "before": "`__operator_created__:<n>` - предмети који су заведени у задњих *<n>* дана",
+    "after": "`__operator_created__:<n>` - kartice kreirane prije *<n>* dana ili manje",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "globalSearch-instructions-operator-creator",
+    "before": "`__operator_creator__:<неко>` - предмети које је завео *<неко>*",
+    "after": "`__operator_creator__:<username>` - kartice čiji je autor *<username>*",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "globalSearch-instructions-operator-due",
+    "before": "`__operator_due__:<n>` - предмети чији рок истиче за *<n>* дана.  `__operator_due__:__predicate_overdue__ предмети са истеклим роком.",
+    "after": "`__operator_due__:<n>` - kartice čiji rok ističe u narednih *<n>* dana. `__operator_due__:__predicate_overdue__` prikazuje sve kartice kojima je rok prošao.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "globalSearch-instructions-operator-has",
+    "before": "`__operator_has__:<поље>` - где је то *<поље>* једно од `__predicate_attachment__`, `__predicate_checklist__`, `__predicate_description__`, `__predicate_start__`, `__predicate_due__`, `__predicate_end__`, `__predicate_assignee__` или `__predicate_member__`.  Уколико уметнете знак минус `-` испред тог *<поља>* претражује се недостатак те вредности (нпр `има:-рок` претражује предмете без постављеног рока).",
+    "after": "`__operator_has__:<field>` - gdje je *<field>* jedno od `__predicate_attachment__`, `__predicate_checklist__`, `__predicate_description__`, `__predicate_start__`, `__predicate_due__`, `__predicate_end__`, `__predicate_assignee__` ili `__predicate_member__`. Znak `-` ispred *<field>* traži odsustvo vrijednosti u tom polju (npr. `has:-due` traži kartice bez roka).",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "globalSearch-instructions-operator-hash",
+    "before": "`__operator_label_abbrev__<име|боја>` - скраћеница за `__operator_label__:<боја>` или `__operator_label__:<име>`",
+    "after": "`__operator_label_abbrev__<name|color>` - skraćenica za `__operator_label__:<color>` ili `__operator_label__:<name>`",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "globalSearch-instructions-operator-label",
+    "before": "`__operator_label__:<боја>` `__operator_label__:<натпис>` - сви предмети на које је залепљена налепница следеће *<боје>* а која има *<натпис>",
+    "after": "`__operator_label__:<color>` `__operator_label__:<name>` - kartice s oznakom koja odgovara *<color>* ili *<name>*",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "globalSearch-instructions-operator-limit",
+    "before": "`__operator_limit__:<n>` - позитиван цео број *<n>* представља број предмета који се приказују по страни.",
+    "after": "`__operator_limit__:<n>` - gdje je *<n>* pozitivan cijeli broj koji određuje broj kartica prikazanih po stranici.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "globalSearch-instructions-operator-list",
+    "before": "`__operator_list__:<назив>` - сви предмети чији део поступка има следећи *<назив>*",
+    "after": "`__operator_list__:<title>` - kartice u listama koje odgovaraju navedenom *<title>*",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
