@@ -558,6 +558,13 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/ee0e85eda">Repair Bosnian invitation emails and due card controls</a>. Thanks to xet7.</summary>
+
+Correct 16 flagged values. Positive and negative regressions and real rendering verify invitation scope, email placeholders, due-card permissions and vote end dates. Source-token, target-script, exact-value, key-order and repair checks pass. Audit.md records dated progress.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/3a35470f7">Repair Bosnian duplicate list and deletion restrictions</a>. Thanks to xet7.</summary>
 
 Correct 16 flagged values. Positive and negative regressions verify empty-duplicate conditions, membership blockers, irreversible deletion and linked-card direction. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
