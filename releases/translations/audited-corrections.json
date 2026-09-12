@@ -46898,5 +46898,33 @@
     "before": "Islamic (Saudi Arabia)",
     "after": "伊斯兰历（沙特阿拉伯，观测新月）",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mr",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "हिजरी दिनदर्शिका (सौदी अरेबिया, चंद्रदर्शनावर आधारित)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mr",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "हिजरी दिनदर्शिका (सारणीबद्ध, खगोलीय कालगणनेचा प्रारंभ)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ne",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "हिजरी पात्रो (साउदी अरब, चन्द्रमा अवलोकनमा आधारित)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ne",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "हिजरी पात्रो (तालिकामा आधारित, खगोलीय कालगणनाको प्रारम्भ)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
