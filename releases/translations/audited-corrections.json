@@ -41508,5 +41508,61 @@
     "before": "Importar una tarjeta de Trello",
     "after": "Importar una tarxeta de Trello",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "map-to-existing-user-desc",
+    "before": "Elige el usuario real que en realidad es este miembro (virtual) importado. Sus tarjetas, comentarios y actividad pasan a ese usuario. Busca para encontrar a cualquiera; un usuario que aún no está en este tablero se añade con el propio rol del miembro importado, así que la asignación nunca puede conceder más permisos de los que concedió la importación.",
+    "after": "Escueyi l'usuariu real que ye esti miembru importáu (virtual). Les sos tarxetes, comentarios y actividá pasen a esi usuariu. Busca pa atopar a cualquiera; un usuariu qu'entá nun ta nesti tableru añádese col mesmu rol del miembru importáu, polo que l'asociación nunca puede conceder más permisos que la importación.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "map-to-existing-user-none",
+    "before": "Todavía no hay otros miembros reales en este tablero. Busca arriba para encontrar cualquier usuario.",
+    "after": "Entá nun hai otros miembros reales nesti tableru. Busca enriba pa atopar cualquier usuariu.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "minicard-settings",
+    "before": "Configuración de minitarjeta",
+    "after": "Preferencies de la minitarxeta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "move-all-attachments-of-board-to-fs",
+    "before": "Mover todos los adjuntos del tablero al sistema de archivos",
+    "after": "Mover tolos axuntos del tableru al sistema de ficheros",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "move-all-attachments-of-board-to-gridfs",
+    "before": "Mover todos los adjuntos del tablero a GridFS",
+    "after": "Mover tolos axuntos del tableru a GridFS",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "move-all-attachments-of-board-to-s3",
+    "before": "Mover todos los adjuntos del tablero a S3",
+    "after": "Mover tolos axuntos del tableru a S3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "muted-info",
+    "before": "No serás notificado de ningún cambio en este tablero",
+    "after": "Nunca vas recibir notificaciones de nengún cambéu nesti tableru.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "no-archived-boards",
+    "before": "No hay Tableros en el Archivo",
+    "after": "Nun hai tableros nel Archivu.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

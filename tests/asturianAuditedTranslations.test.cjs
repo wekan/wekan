@@ -111,3 +111,8 @@ assert.match(data['leave-board-pop'], /__boardTitle__.*toles tarxetes/);
 assert.match(data['list-archive-cards-pop'], /devolveles al tableru.*«Menú» > «Archivu»/);
 assert.match(data['list-delete-suggest-archive'], /conservar l'actividá/);
 assert.match(data['list-select-cards'], /toles tarxetes nesta llista/);
+assert.match(data['map-to-existing-user-desc'], /tarxetes, comentarios y actividá.*mesmu rol.*nunca puede conceder más permisos/);
+assert.match(data['map-to-existing-user-none'], /Busca enriba.*cualquier usuariu/);
+assert.match(data['move-all-attachments-of-board-to-gridfs'], /tolos axuntos.*a GridFS$/);
+assert.match(data['move-all-attachments-of-board-to-s3'], /tolos axuntos.*a S3$/);
+assert.match(data['muted-info'], /^Nunca.*nengún cambéu/);
