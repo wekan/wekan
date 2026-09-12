@@ -160,3 +160,7 @@ assert.notEqual(data.hideCheckedChecklistItems, data.hideAllChecklistItems);
 assert.match(data['import-board-instruction-about-errors'], /ás veces.*funciona igualmente.*Todos os taboleiros/);
 assert.match(data['import-board-zip'], /\.zip.*JSON.*subcartafoles.*anexos/);
 assert.match(data['import-members-map'], /Asocia os membros.*cos teus usuarios/);
+
+assert.match(data['import-members-map-note'], /membros sen asociar.*usuario actual/);
+assert.match(data['invalid-credentials'], /usuario ou contrasinal non válidos/);
+assert.match(data['label-delete-pop'], /Non se pode desfacer.*todas as tarxetas.*destruirá o seu historial/);

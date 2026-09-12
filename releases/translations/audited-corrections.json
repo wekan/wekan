@@ -37231,5 +37231,47 @@
     "before": "O seu quadro importado possui alguns membros. Por favor, mapeie os membros que deseja importar para seus utilizadores",
     "after": "O taboleiro importado ten algúns membros. Asocia os membros que queres importar cos teus usuarios",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "import-members-map-note",
+    "before": "Nota: Membros não atribuídos serão associados ao utilizador atual.",
+    "after": "Nota: os membros sen asociar asignaranse ao usuario actual.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "invalid-credentials",
+    "before": "Nome de usuário ou senha inválidos",
+    "after": "Nome de usuario ou contrasinal non válidos",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "just-invited",
+    "before": "Acabou de ser convidado para este quadro",
+    "after": "Acabas de ser convidado a este taboleiro",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "label-color-not-found",
+    "before": "Cor de Etiqueta %s não encontrada",
+    "after": "Non se atopou a cor de etiqueta %s.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "label-delete-pop",
+    "before": "Não é reversível. Isto irá remover esta etiqueta de todos os cartões e destruir o seu histórico.",
+    "after": "Non se pode desfacer. Isto eliminará esta etiqueta de todas as tarxetas e destruirá o seu historial.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "label-not-found",
+    "before": "Etiqueta '%s' não encontrada.",
+    "after": "Non se atopou a etiqueta '%s'.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
