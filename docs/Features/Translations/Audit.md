@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Audit keys |
 | --- | ---: |
-| Explicitly corrected | 6,893 |
+| Explicitly corrected | 6,897 |
 | Restored pre-pull values awaiting further validation | 4,059 |
 | Reviewed and retained unchanged | 175 |
-| Pending review or repair | 8,954 |
+| Pending review or repair | 8,950 |
 | Total tracked | 20,081 |
 
 **Translation repairs remain unfinished.** These counts cover flagged findings; unflagged strings and restored values are not certified as correct.
 
-Fixes cover wrong-language text, terminology, warnings, JSON examples, placeholders and calendar/search formatting. The correction history records **6,966 values**, including fixes outside the audit. Per-language remaining work is available through the command below.
+Fixes cover wrong-language text, terminology, warnings, JSON examples, placeholders and calendar/search formatting. The correction history records **6,970 values**, including fixes outside the audit. Per-language remaining work is available through the command below.
 
-Latest fix: [5f3d194b0](https://github.com/wekan/wekan/commit/5f3d194b047595b3f04771239efd95b6f8c10f3b), **2026-09-13** — four Romansh watch/action/menu-resize values repaired; **211 Romansh findings remain**. Exact-value, placeholder, key-order and idempotency checks pass. Wording needs native-speaker review; live browser verification remains unavailable.
+Latest fix: [ea5640973](https://github.com/wekan/wekan/commit/ea56409739ff3129a7524b341d8ecafbc435a3cf), **2026-09-13** — four Romansh due-date/sidebar values repaired; **207 Romansh findings remain**. Exact-value, placeholder, key-order and idempotency checks pass. Wording needs native-speaker review; live browser verification remains unavailable.
 
 **Provenance:** not all errors came from Transifex. The captured pull changed 4,061 values; the local audit added 16,020 findings. Bosnian errors predated that pull in a [local completion commit](https://github.com/wekan/wekan/commit/bdb3b15886a749b725b5290ba0109fcba955f983). Other ultimate origins remain unverified.
 
