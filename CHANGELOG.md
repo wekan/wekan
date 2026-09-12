@@ -557,6 +557,17 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/bd9043aa8">Finish all audited Slovak translation repairs</a>. Thanks to xet7.</summary>
+
+Correct the final 59 values and retain three individually reviewed valid
+strings. The Slovak audit queue is complete. Positive and negative tests
+verify native vocabulary, filter examples, troubleshooting commands, calendar
+labels, actual sprintf argument order, source placeholders and exact reviewed
+values. These checks pass. Other locale findings remain under review.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/550883b83">Repair Slovak list and notification translations</a>. Thanks to xet7.</summary>
 
 Correct 35 reviewed values while preserving source placeholders and link
