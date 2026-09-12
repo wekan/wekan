@@ -348,3 +348,6 @@ assert.match(data['wipLimitErrorPopup-dialog-pt2'], /tarefas fóra desta lista o
 assert.match(data['calendar-system-islamic-rgsa'], /Arabia Saudita, observación da lúa/);
 assert.match(data['calendar-system-islamic-tbla'], /tabular, época astronómica/);
 for (const example of ["'Field 1' == 'Value 1'", "Field1 == I\\'m", 'F1 == V1 && ( F2 == V2 || F2 == V3 )', 'F1 == /Tes.*/i']) assert.ok(data['advanced-filter-description'].includes(example), example);
+
+const baseGalician = require('../imports/i18n/data/gl.i18n.json');
+for (const key of ['advanced-filter-description', 'calendar-system-islamic-rgsa', 'calendar-system-islamic-tbla', 'globalSearch-instructions-operator-due', 'globalSearch-instructions-operator-label']) assert.equal(baseGalician[key], data[key]);

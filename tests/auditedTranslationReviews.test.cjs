@@ -24,7 +24,7 @@ const root = path.resolve(__dirname, '..');
   assert.equal(reviews.find(row => row.locale === 'gl-ES' && row.key === 'r-items-list').value, 'elemento1,elemento2,elemento3', 'correct Galician example remains unchanged');
   const placeholderTemplate = fs.readFileSync(path.join(root, 'client/components/rules/actions/checklistActions.jade'), 'utf8');
   assert.match(placeholderTemplate, /input\(id="checklist-items",type=text,placeholder="{{_'r-items-list'}}"\)/);
-  for (const review of reviews.filter(row => row.key === 'r-items-list' && !['sk', 'gl-ES'].includes(row.locale))) {
+  for (const review of reviews.filter(row => row.key === 'r-items-list' && !['sk', 'gl', 'gl-ES'].includes(row.locale))) {
     assert.deepEqual(review.value.split(',').map(value => value.trim().replace(/ /g, '')), ['item1', 'item2', 'item3']);
     assert.match(review.reason, /placeholder demonstrates/);
   }

@@ -508,5 +508,59 @@
     "key": "twoFactorAuth-manual-entry",
     "value": "Ou introduza este código manualmente: ",
     "reason": "Reviewed instruction is correct Galician: Ou introduza este código manualmente. Trailing spaces and vocabulary shared with Portuguese do not make it a wrong-language translation."
+  },
+  {
+    "locale": "gl",
+    "key": "card-edit-custom-fields",
+    "value": "Editar campos personalizados",
+    "reason": "Contextual review confirms correct Galician wording or the established Pomodoro method name. Shared vocabulary with Portuguese or English is not an error. The checklist placeholder demonstrates three comma-separated native example elements."
+  },
+  {
+    "locale": "gl",
+    "key": "cardCustomFieldsPopup-title",
+    "value": "Editar campos personalizados",
+    "reason": "Contextual review confirms correct Galician wording or the established Pomodoro method name. Shared vocabulary with Portuguese or English is not an error. The checklist placeholder demonstrates three comma-separated native example elements."
+  },
+  {
+    "locale": "gl",
+    "key": "filter-custom-fields-label",
+    "value": "Filtrar por campos personalizados",
+    "reason": "Contextual review confirms correct Galician wording or the established Pomodoro method name. Shared vocabulary with Portuguese or English is not an error. The checklist placeholder demonstrates three comma-separated native example elements."
+  },
+  {
+    "locale": "gl",
+    "key": "integrityReportTitle",
+    "value": "Integridade do sistema de ficheiros",
+    "reason": "Contextual review confirms correct Galician wording or the established Pomodoro method name. Shared vocabulary with Portuguese or English is not an error. The checklist placeholder demonstrates three comma-separated native example elements."
+  },
+  {
+    "locale": "gl",
+    "key": "r-items-list",
+    "value": "elemento1,elemento2,elemento3",
+    "reason": "Contextual review confirms correct Galician wording or the established Pomodoro method name. Shared vocabulary with Portuguese or English is not an error. The checklist placeholder demonstrates three comma-separated native example elements."
+  },
+  {
+    "locale": "gl",
+    "key": "rulesImportExportPopup-title",
+    "value": "Importar / Exportar regras",
+    "reason": "Contextual review confirms correct Galician wording or the established Pomodoro method name. Shared vocabulary with Portuguese or English is not an error. The checklist placeholder demonstrates three comma-separated native example elements."
+  },
+  {
+    "locale": "gl",
+    "key": "twoFactorAuth-manual-entry",
+    "value": "Ou introduza este código manualmente: ",
+    "reason": "Contextual review confirms correct Galician wording or the established Pomodoro method name. Shared vocabulary with Portuguese or English is not an error. The checklist placeholder demonstrates three comma-separated native example elements."
+  },
+  {
+    "locale": "gl",
+    "key": "board-view-control-chart",
+    "value": "Control",
+    "reason": "Contextual review confirms correct Galician wording or the established Pomodoro method name. Shared vocabulary with Portuguese or English is not an error. The checklist placeholder demonstrates three comma-separated native example elements."
+  },
+  {
+    "locale": "gl",
+    "key": "pomodoro",
+    "value": "Pomodoro",
+    "reason": "Contextual review confirms correct Galician wording or the established Pomodoro method name. Shared vocabulary with Portuguese or English is not an error. The checklist placeholder demonstrates three comma-separated native example elements."
   }
 ]
