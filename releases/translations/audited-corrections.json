@@ -18639,5 +18639,418 @@
     "before": "Toto tablo je soukromé. Pouze vybraní uživatelé ho mohou zobrazit a upravovat.",
     "after": "Táto nástenka je súkromná. Iba ľudia pridaní na nástenku ju môžu zobrazovať a upravovať.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "public-desc",
+    "before": "Toto tablo je veřejné. Je viditelné pro každého, kdo na něj má odkaz a bude zobrazeno ve vyhledávačích jako je Google. Pouze vybraní uživatelé ho mohou upravovat.",
+    "after": "Táto nástenka je verejná. Vidí ju každý s odkazom a zobrazí sa vo vyhľadávačoch, ako je Google. Upravovať ju môžu iba ľudia pridaní na nástenku.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "push-invite-text",
+    "before": "Ahoj __user__,\n\n__inviter__ tě přizval ke spolupráci na tablu \"__board__\".\n\nNásleduj prosím odkaz níže:\n\n__url__\n\nDěkujeme.",
+    "after": "Ahoj __user__,\n\n__inviter__ ťa pozýva na spoluprácu na nástenke «__board__».\n\nPrejdi na odkaz nižšie:\n\n__url__\n\nĎakujeme.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "r-add-checklist",
+    "before": "Přidat zaškrtávací seznam",
+    "after": "Pridať kontrolný zoznam",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "r-board-note",
+    "before": "Poznámka: ponechte pole prázdné, aby odpovídalo všem možným hodnotám.",
+    "after": "Poznámka: ponechajte pole prázdne, aby zodpovedalo každej možnej hodnote.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "r-d-archive",
+    "before": "Přesunout kartu do archivu",
+    "after": "Presunúť kartu do archívu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "r-d-check-all",
+    "before": "Označit všechny položky na seznamu",
+    "after": "Zaškrtnúť všetky položky zoznamu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "r-d-move-to-bottom-gen",
+    "before": "Přesunout kartu na konec sloupce",
+    "after": "Presunúť kartu na koniec jej zoznamu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "r-d-move-to-bottom-spec",
+    "before": "Přesunout kartu na konec sloupce",
+    "after": "Presunúť kartu na koniec zoznamu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "r-d-move-to-top-gen",
+    "before": "Přesunout kartu na začátek toho sloupce",
+    "after": "Presunúť kartu na začiatok jej zoznamu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "r-d-move-to-top-spec",
+    "before": "Přesunout kartu na začátek sloupce",
+    "after": "Presunúť kartu na začiatok zoznamu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "r-d-uncheck-all",
+    "before": "Odznačit všechny položky na seznamu",
+    "after": "Zrušiť zaškrtnutie všetkých položiek zoznamu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "r-items-check",
+    "before": "položky zaškrtávacího seznamu",
+    "after": "položky kontrolného zoznamu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "r-remove-all",
+    "before": "Odstranit všechny členy z této karty",
+    "after": "Odstrániť všetkých členov z karty",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "r-when-a-card-is-moved",
+    "before": "Když je karta přesunuta do jiného sloupce",
+    "after": "Keď sa karta presunie do iného zoznamu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "r-when-a-checklist",
+    "before": "Když zaškrtávací seznam je",
+    "after": "Keď je kontrolný zoznam",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "r-when-a-item",
+    "before": "Když položka zaškrtávacího seznamu je",
+    "after": "Keď je položka kontrolného zoznamu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "r-when-the-item",
+    "before": "Když položka zaškrtávacího seznamu",
+    "after": "Keď položka kontrolného zoznamu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "remove-background-image",
+    "before": "Odstranit obrázek z pozadí",
+    "after": "Odstrániť obrázok pozadia",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "remove-cover",
+    "before": "Odstranit titulní obrázek z minikarty",
+    "after": "Odstrániť titulný obrázok z minikarty",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "remove-member-pop",
+    "before": "Odstranit __name__ (__username__) z __boardTitle__? Uživatel bude odebrán ze všech karet na tomto tablu. Na tuto skutečnost bude upozorněn.",
+    "after": "Odstrániť __name__ (__username__) z __boardTitle__? Člen bude odstránený zo všetkých kariet na tejto nástenke. Dostane oznámenie.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "send-smtp-test",
+    "before": "Poslat si zkušební email.",
+    "after": "Poslať si skúšobný e-mail",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "server-error-troubleshooting",
+    "before": "Odešlete prosím chybu, kterou server vygeneroval.\nV případě instalace přes snap spusťte: `sudo snap logs wekan.wekan`\nV případě instalace přes Docker spusťte: `sudo docker logs wekan-app`",
+    "after": "Odošlite chybu vygenerovanú serverom.\nPri inštalácii cez snap spustite: `sudo snap logs wekan.wekan`\nPri inštalácii cez Docker spustite: `sudo docker logs wekan-app`",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "set-wip-limit-value",
+    "before": "Nastaví limit pro maximální počet úkolů ve sloupci.",
+    "after": "Nastaviť limit maximálneho počtu úloh v tomto zozname",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "settingsTranslationPopup-title",
+    "before": "Smazat tento vlastní překlad?",
+    "after": "Vymazať tento vlastný preklad?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "shortcut-assign-self",
+    "before": "Přiřadit sebe k aktuální kartě",
+    "after": "Priradiť sa k aktuálnej karte",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "shortcut-autocomplete-emoji",
+    "before": "Automatické dokončování emoji",
+    "after": "Automatické dopĺňanie emoji",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "shortcut-autocomplete-members",
+    "before": "Automatický výběr uživatel",
+    "after": "Automatické dopĺňanie členov",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "shortcut-show-shortcuts",
+    "before": "Otevřít tento seznam odkazů",
+    "after": "Otvoriť tento zoznam klávesových skratiek",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "shortcut-toggle-filterbar",
+    "before": "Přepnout lištu filtrování",
+    "after": "Zobraziť/skryť bočný panel filtrovania",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "shortcut-toggle-searchbar",
+    "before": "Přepnout lištu vyhledávání",
+    "after": "Zobraziť/skryť bočný panel vyhľadávania",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "show-cards-minimum-count",
+    "before": "Zobrazit počet karet pokud sloupec obsahuje více než",
+    "after": "Zobraziť počet kariet, ak zoznam obsahuje viac ako",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "show-desktop-drag-handles",
+    "before": "Zobrazit okraje pro přesun plochy",
+    "after": "Zobraziť úchyty na presúvanie na počítači",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "show-field-on-card",
+    "before": "Ukázat toto pole na kartě",
+    "after": "Zobraziť toto pole na karte",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "show-parent-in-minicard",
+    "before": "Ukázat předka na minikartě",
+    "after": "Zobraziť nadradenú kartu na minikarte:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "showLabel-field-on-card",
+    "before": "Ukázat štítek pole na minikartě",
+    "after": "Zobraziť štítok poľa na minikarte",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "smtp-host-description",
+    "before": "Adresa SMTP serveru, který zpracovává vaše emaily.",
+    "after": "Adresa servera SMTP, ktorý spracúva vaše e-maily.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "smtp-port-description",
+    "before": "Port, který používá Váš SMTP server pro odchozí emaily.",
+    "after": "Port, ktorý váš server SMTP používa na odosielanie e-mailov.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "smtp-tls-description",
+    "before": "Zapnout TLS podporu pro SMTP server",
+    "after": "Zapnúť podporu TLS pre server SMTP",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "sort-desc",
+    "before": "Kliknout pro třídění seznamu",
+    "after": "Kliknite pre zoradenie zoznamu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "star-board-title",
+    "before": "Kliknutím přidat tablu hvězdičku. Poté bude zobrazeno nahoře.",
+    "after": "Kliknutím pridáte nástenku medzi obľúbené. Zobrazí sa na začiatku vášho zoznamu násteniek.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "starred-boards-description",
+    "before": "Tabla s hvězdičkou jsou zobrazena nahoře.",
+    "after": "Obľúbené nástenky sa zobrazujú na začiatku vášho zoznamu násteniek.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "swimlane-height-error-message",
+    "before": "Výška swimlane musí být celé kladné číslo",
+    "after": "Výška dráhy musí byť kladné celé číslo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "swimlane-title-not-found",
+    "before": "Swimlane '%s' nenalezena.",
+    "after": "Dráha «%s» sa nenašla.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "tableVisibilityMode-allowPrivateOnly",
+    "before": "Viditelnost tabel: Povolit pouze soukromé tabla",
+    "after": "Viditeľnosť násteniek: povoliť iba súkromné nástenky",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "text-below-custom-login-logo",
+    "before": "Text pod vlastním logem přihlášení",
+    "after": "Text pod vlastným prihlasovacím logom",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "tracking-info",
+    "before": "Budete informováni o všech změnách v kartách, u kterých jste tvůrce nebo člen.",
+    "after": "Dostanete oznámenia o všetkých zmenách na kartách, na ktorých ste tvorcom alebo členom.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "translation-number",
+    "before": "Počet vlastní překladů je:",
+    "after": "Počet vlastných prekladov je:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "user-can-not-export-card-to-pdf",
+    "before": "Uživatel nemůže exportovat kartu do PDF",
+    "after": "Používateľ nemôže exportovať kartu do PDF",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "user-can-not-export-excel",
+    "before": "Uživatel nemůže exportovat do Excelu",
+    "after": "Používateľ nemôže exportovať do Excelu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "user-username-not-found",
+    "before": "Uživatelské jméno '%s' nenalezeno.",
+    "after": "Používateľské meno «%s» sa nenašlo.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "vote-delete-pop",
+    "before": "Smazání je nevratné. Ztratíte vše spojené s tímto hlasováním.",
+    "after": "Vymazanie je trvalé. Stratíte všetky akcie spojené s týmto hlasovaním.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "warn-list-archived",
+    "before": "varování: tato karta je v seznamu v Archivu",
+    "after": "upozornenie: táto karta je v zozname v archíve",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "webhook-token",
+    "before": "Token (Volitelné pro autentizaci)",
+    "after": "Token (voliteľný pre overenie totožnosti)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "wipLimitErrorPopup-dialog-pt1",
+    "before": "Počet úkolů v tomto sloupci je vyšší než definovaný WIP limit.",
+    "after": "Počet úloh v tomto zozname je vyšší ako limit rozpracovanosti, ktorý ste nastavili.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "wipLimitErrorPopup-dialog-pt2",
+    "before": "Přesuňte prosím některé úkoly mimo tento sloupec, nebo nastavte vyšší WIP limit.",
+    "after": "Presuňte niektoré úlohy mimo tohto zoznamu alebo nastavte vyšší limit rozpracovanosti.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "worker-desc",
+    "before": "Je možné pouze přesouvat karty, přiřazovat ke kartám a komentovat.",
+    "after": "Môže iba presúvať karty, priradiť sa ku karte a komentovať.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "advanced-filter-description",
+    "before": "Advanced Filter allows to write a string containing following operators: == != <= >= && || ( ) A space is used as a separator between the Operators. You can filter for all Custom Fields by typing their names and values. For Example: Field1 == Value1. Note: If fields or values contains spaces, you need to encapsulate them into single quotes. For Example: 'Field 1' == 'Value 1'. For single control characters (' \\\\/) to be skipped, you can use \\\\. For example: Field1 == I\\\\'m. Also you can combine multiple conditions. For Example: F1 == V1 || F1 == V2. Normally all operators are interpreted from left to right. You can change the order by placing brackets. For Example: F1 == V1 && ( F2 == V2 || F2 == V3 ). Also you can search text fields using regex: F1 == /Tes.*/i",
+    "after": "Rozšírený filter umožňuje napísať výraz s nasledujúcimi operátormi: == != <= >= && || ( ) Operátory sú oddelené medzerami. Môžete filtrovať podľa všetkých vlastných polí zadaním ich názvov a hodnôt. Napríklad: Field1 == Value1. Poznámka: ak názvy polí alebo hodnoty obsahujú medzery, musia byť uzavreté v jednoduchých úvodzovkách. Napríklad: 'Field 1' == 'Value 1'. Špeciálne znaky (' \\/) môžete neutralizovať pomocou \\. Napríklad: Field1 == I\\'m. Môžete tiež kombinovať viacero podmienok. Napríklad: F1 == V1 || F1 == V2. Operátory sa bežne vyhodnocujú zľava doprava. Poradie môžete zmeniť pomocou zátvoriek. Napríklad: F1 == V1 && ( F2 == V2 || F2 == V3 ). V textových poliach môžete vyhľadávať aj pomocou regulárnych výrazov: F1 == /Tes.*/i",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "Islamský kalendár (Saudská Arábia, pozorovanie Mesiaca)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "Islamský kalendár (tabuľkový, astronomická epocha)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

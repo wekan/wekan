@@ -370,5 +370,23 @@
     "key": "email-templates-invite-vars-hint",
     "value": "Dostupné značky: {email} {inviter} {user} {icode} {url}",
     "reason": "Individually reviewed: Dostupné značky is valid Slovak as well as Czech. Brace-delimited template variable names are literal code tokens and must remain unchanged."
+  },
+  {
+    "locale": "sk",
+    "key": "r-email-vars-hint",
+    "value": "Dostupné značky: {card}, {cardLink}, {list}, {board}, {member}",
+    "reason": "Individually reviewed: Dostupné značky is valid Slovak. Brace-delimited names are exact template variables and remain literal."
+  },
+  {
+    "locale": "sk",
+    "key": "r-items-list",
+    "value": "položka1,položka2,položka3",
+    "reason": "Individually reviewed: položka is the correct Slovak word for item. The comma-separated numbered example names are valid in Slovak and Czech."
+  },
+  {
+    "locale": "sk",
+    "key": "s3-region-menu-path",
+    "value": "AWS Console → S3 → Buckets → váš bucket → Properties → AWS Region.",
+    "reason": "Individually reviewed: váš bucket is valid Slovak technical wording. The AWS Console navigation labels are literal vendor menu names and remain unchanged."
   }
 ]

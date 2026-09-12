@@ -9,7 +9,7 @@ const examples = ['== != <= >= && || ( )', 'Field1 == Value1', "'Field 1' == 'Va
 (async () => {
   const { repairProgress } = await import('../releases/translations/audit-progress.mjs');
   const result = repairProgress();
-  for (const locale of ['ar', 'ar-DZ', 'ar-EG', 'lt', 'mn', 'el', 'el-GR']) {
+  for (const locale of ['ar', 'ar-DZ', 'ar-EG', 'lt', 'mn', 'el', 'el-GR', 'sk']) {
     const data = read(locale);
     const help = data['advanced-filter-description'];
     assert.notEqual(help, source, locale);
@@ -28,5 +28,5 @@ const examples = ['== != <= >= && || ( )', 'Field1 == Value1', "'Field 1' == 'Va
   assert.match(read('lt')['advanced-filter-description'], /Išplėstinis filtras/);
   assert.match(read('mn')['advanced-filter-description'], /Нарийвчилсан шүүлтүүр/);
   assert.match(read('el')['advanced-filter-description'], /προηγμένο φίλτρο/);
-  console.log('advancedFilterAuditedTranslations: seven native help texts, exact escaped examples and resolved queues verified');
+  console.log('advancedFilterAuditedTranslations: native help texts, exact escaped examples and resolved queues verified');
 })().catch(error => { console.error(error); process.exitCode = 1; });

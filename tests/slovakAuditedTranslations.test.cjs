@@ -7,6 +7,12 @@ const sprintf = require('i18next-sprintf-postprocessor');
 const root = path.resolve(__dirname, '..');
 const data = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/sk.i18n.json'), 'utf8'));
 (async () => {
+  const { repairProgress } = await import('../releases/translations/audit-progress.mjs');
+  assert.equal(repairProgress().pendingByLocale.sk, undefined, 'Slovak audit queue complete');
+  assert.match(data['calendar-system-islamic-rgsa'], /pozorovanie Mesiaca/);
+  assert.match(data['calendar-system-islamic-tbla'], /tabuľkový, astronomická epocha/);
+  assert.match(data['server-error-troubleshooting'], /`sudo snap logs wekan.wekan`/);
+  assert.match(data['server-error-troubleshooting'], /`sudo docker logs wekan-app`/);
   const translator = i18next.createInstance().use(sprintf);
   await translator.init({ lng: 'sk', fallbackLng: false, keySeparator: false,
     resources: { sk: { translation: data } }, postProcess: ['sprintf'] });

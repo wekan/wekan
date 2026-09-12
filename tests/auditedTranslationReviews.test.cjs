@@ -23,11 +23,12 @@ const root = path.resolve(__dirname, '..');
   assert.equal(reviews.find(row => row.locale === 'da' && row.key === 'DDP_transport').value, 'DDP-transport (DDP_TRANSPORT)', 'valid Danish technical vocabulary remains untouched');
   const placeholderTemplate = fs.readFileSync(path.join(root, 'client/components/rules/actions/checklistActions.jade'), 'utf8');
   assert.match(placeholderTemplate, /input\(id="checklist-items",type=text,placeholder="{{_'r-items-list'}}"\)/);
-  for (const review of reviews.filter(row => row.key === 'r-items-list')) {
+  for (const review of reviews.filter(row => row.key === 'r-items-list' && row.locale !== 'sk')) {
     assert.deepEqual(review.value.split(',').map(value => value.trim().replace(/ /g, '')), ['item1', 'item2', 'item3']);
     assert.match(review.reason, /placeholder demonstrates/);
   }
-  for (const locale of ['fr', 'fr-BE', 'fr-CA', 'fr-CH', 'fr-FR', 'cs', 'cs-CZ', 'hu', 'it', 'es', 'es-LA', 'pt', 'pt-BR', 'pt-PT', 'pt_PT', 'nl', 'nl-NL', 'nb', 'sv', 'vl-SS']) {
+  assert.equal(reviews.find(row => row.locale === 'sk' && row.key === 'r-items-list').value, 'položka1,položka2,položka3', 'valid Slovak example vocabulary remains unchanged');
+  for (const locale of ['sk', 'fr', 'fr-BE', 'fr-CA', 'fr-CH', 'fr-FR', 'cs', 'cs-CZ', 'hu', 'it', 'es', 'es-LA', 'pt', 'pt-BR', 'pt-PT', 'pt_PT', 'nl', 'nl-NL', 'nb', 'sv', 'vl-SS']) {
     assert.equal(result.pendingByLocale[locale], undefined, `${locale}: review queue resolved`);
   }
   console.log(`auditedTranslationReviews: ${reviews.length} explicit unchanged acceptances verified; Danish queue complete`);
