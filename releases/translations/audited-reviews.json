@@ -676,5 +676,11 @@
     "key": "database-migration-done",
     "value": "Migración de datos de texto completada.",
     "reason": "Valid shared Aragonese technical wording about migration of text data; preserves the source database destination/version or completion meaning without changing correct text."
+  },
+  {
+    "locale": "an",
+    "key": "editTranslationPopup-title",
+    "value": "Editar cadena de traducción personalizada",
+    "reason": "Reviewed shared Aragonese vocabulary: editing a personalized translation string; no foreign article or loss of source meaning."
   }
 ]

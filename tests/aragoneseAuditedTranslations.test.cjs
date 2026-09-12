@@ -197,3 +197,10 @@ assert.match(data['disambiguateMultiLabelPopup-title'], /^Desambiguar l’acció
 assert.match(data['disambiguateMultiMemberPopup-title'], /^Desambiguar l’acción de miembro$/);
 assert.match(data['display-authentication-method'], /^Amostrar o metodo d’autenticación$/);
 assert.notEqual(data['display-authentication-method'], data['default-authentication-method']);
+assert.match(data.duenow, /%s ye hue$/);
+assert.match(data['editCardSpentTimePopup-title'], /^Cambiar o tiempo consumiu$/);
+assert.equal(data['editTranslationPopup-title'], 'Editar cadena de traducción personalizada');
+assert.match(data['email-domain-allowed-to-invite'], /correu autorizau a invitar personas/);
+assert.match(data['email-domain-allowed-to-invite'], /quan l’autorregistro ye desactivau$/);
+assert.equal(data['email-invite-subject'], '__inviter__ t’ha ninviau una invitación');
+assert.equal(data['email-invite-register-subject'], data['email-invite-subject']);

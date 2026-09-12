@@ -44945,5 +44945,40 @@
     "before": "Mostrar el método de autenticación",
     "after": "Amostrar o metodo d’autenticación",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "duenow",
+    "before": "la hora de vencimiento actual %s es hoy",
+    "after": "a hora de vencimiento actual %s ye hue",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "editCardSpentTimePopup-title",
+    "before": "Cambiar el tiempo consumido",
+    "after": "Cambiar o tiempo consumiu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "email-domain-allowed-to-invite",
+    "before": "Dominio de correo autorizado a invitar personas, cuando el autorregistro está desactivado",
+    "after": "Dominio de correu autorizau a invitar personas, quan l’autorregistro ye desactivau",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "email-invite-register-subject",
+    "before": "__inviter__ te ha enviado una invitación",
+    "after": "__inviter__ t’ha ninviau una invitación",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "email-invite-subject",
+    "before": "__inviter__ te ha enviado una invitación",
+    "after": "__inviter__ t’ha ninviau una invitación",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
