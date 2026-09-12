@@ -42,6 +42,11 @@ for (const entity of ['&#32;', '&nbsp;']) assert.ok(data['custom-field-stringtem
 assert.match(data['custom-field-delete-pop'], /ne može poništiti/);
 assert.match(data['custom-field-delete-pop'], /sa svih kartica/);
 assert.match(data['custom-field-delete-pop'], /povijest biti izbrisana/);
+assert.match(data['custom-top-left-corner-logo-height'], /Zadano: 27/);
+assert.doesNotMatch(data['custom-login-logo-image-url'], /Internet/);
+assert.match(data['delete-all-notifications-confirm'], /ne može poništiti/);
+assert.match(data['delete-duplicate-empty-lists-migration-description'], /nemaju kartice I imaju drugi popis istog naslova koji sadrži kartice/);
+assert.match(data['delete-linked-cards-before-this-list'], /prije nego što izbrišete povezane kartice/);
 assert.equal(data.accessibility, 'Pristupačnost');
 assert.match(data['accounts-lockout-known-users'], /ispravno korisničko ime, pogrešna lozinka/);
 assert.match(data['accounts-lockout-failure-window'], /neuspjelih pokušaja \(sekunde\)/);
