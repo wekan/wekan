@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Audit keys |
 | --- | ---: |
-| Explicitly corrected | 6,615 |
+| Explicitly corrected | 6,616 |
 | Restored pre-pull values awaiting further validation | 4,059 |
 | Reviewed and retained unchanged | 153 |
-| Pending review or repair | 9,254 |
+| Pending review or repair | 9,253 |
 | Total tracked | 20,081 |
 
 **Translation repairs remain unfinished.** These counts cover flagged findings; unflagged strings and restored values are not certified as correct.
 
-Fixes cover wrong-language text, terminology, missing warnings, JSON examples, placeholders and calendar/search formatting. The correction history records **6,677 values**, including fixes outside the audit. Flagged queues are complete for Bosnian, Croatian, Macedonian, both Slovenian locales, Latvian, Romanian, Slovak, both Galician locales, Asturian, Aragonese, Friulian, Tok Pisin, Bulgarian and both Korean and both Afrikaans locales and all three Catalan locales Esperanto, Indonesian and both Malay locales Belarusian Icelandic and all three Azerbaijani locales Irish, Swahili and both Welsh locales Georgian, Armenian and both Hindi locales.
+Fixes cover wrong-language text, terminology, missing warnings, JSON examples, placeholders and calendar/search formatting. The correction history records **6,678 values**, including fixes outside the audit. Flagged queues are complete for Bosnian, Croatian, Macedonian, both Slovenian locales, Latvian, Romanian, Slovak, both Galician locales, Asturian, Aragonese, Friulian, Tok Pisin, Bulgarian and both Korean and both Afrikaans locales and all three Catalan locales Esperanto, Indonesian and both Malay locales Belarusian Icelandic and all three Azerbaijani locales Irish, Swahili and both Welsh locales Georgian, Armenian and both Hindi locales and Gujarati.
 
-Latest fix: [1fd5131fc](https://github.com/wekan/wekan/commit/1fd5131fc05887770d3c1f4b2a884124d01dc7a0), **2026-09-13** — four Hindi Hijri labels repaired; four vendor-name values retained with valid Hindi punctuation. **Both flagged Hindi queues are complete.** Exact-value, placeholder, key-order, review and idempotency checks pass; Hindi and earlier low-confidence technical wording need native-speaker review. Live Meteor browser verification remains unavailable.
+Latest fix: [acae5051e](https://github.com/wekan/wekan/commit/acae5051ed8787b04eb1cf9361bc296e1e5a3c99), **2026-09-13** — Gujarati advanced-filter help translated, preserving operators, quoted values, escaping and regex examples. **The flagged Gujarati queue is complete.** Exact-value, placeholder, key-order and idempotency checks pass; Gujarati and earlier low-confidence technical wording need native-speaker review. Live Meteor browser verification remains unavailable.
 
 **Provenance:** not all errors came from Transifex. The captured pull changed 4,061 values; the full-local audit added 16,020 findings. Bosnian errors came from the September 5 [local completion commit](https://github.com/wekan/wekan/commit/bdb3b15886a749b725b5290ba0109fcba955f983), with no Bosnian changes in the captured pull. Other ultimate origins remain unverified.
 
