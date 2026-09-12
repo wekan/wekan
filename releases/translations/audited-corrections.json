@@ -36615,5 +36615,75 @@
     "before": "Copiar Lista de verificação - Modelo",
     "after": "Copiar lista de verificación desde un modelo",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "copyChecklistFromTemplatePopup-title",
+    "before": "Copiar Lista de verificação - Modelo",
+    "after": "Copiar lista de verificación desde un modelo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "copyChecklistPopup-title",
+    "before": "Copiar Lista de verificação",
+    "after": "Copiar lista de verificación",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "copyManyCardsPopup-format",
+    "before": "[ {\"title\": \"Título do primeiro cartão\", \"description\":\"Descrição do primeiro cartão\"}, {\"title\":\"Título do segundo cartão\",\"description\":\"Descrição do segundo cartão\"},{\"title\":\"Título do último cartão\",\"description\":\"Descrição do último cartão\"} ]",
+    "after": "[ {\"title\": \"Título da primeira tarxeta\", \"description\":\"Descrición da primeira tarxeta\"}, {\"title\":\"Título da segunda tarxeta\",\"description\":\"Descrición da segunda tarxeta\"},{\"title\":\"Título da última tarxeta\",\"description\":\"Descrición da última tarxeta\"} ]",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "copyManyCardsPopup-instructions",
+    "before": "Títulos e Descrições de Cartões de Destino neste formato JSON",
+    "after": "Títulos e descricións das tarxetas de destino neste formato JSON",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "copyManyCardsPopup-title",
+    "before": "Copiar Modelo para Vários Cartões",
+    "after": "Copiar o modelo a varias tarxetas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "cover-attachment-on-minicard",
+    "before": "Imagem de capa no mini cartão",
+    "after": "Imaxe de portada na minitarxeta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "createTemplateContainerPopup-title",
+    "before": "Adicionar Contêiner de Modelo",
+    "after": "Engadir contedor de modelos",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "custom-field-delete-pop",
+    "before": "Não é reversível. Isto irá remover este campo personalizado de todos os cartões e destruir o seu histórico.",
+    "after": "Non se pode desfacer. Isto eliminará este campo personalizado de todas as tarxetas e destruirá o seu historial.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "custom-field-dropdown-options-placeholder",
+    "before": "Pressione enter para adicionar mais opções",
+    "after": "Preme Intro para engadir máis opcións",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "custom-field-stringtemplate-item-placeholder",
+    "before": "Pressione enter para adicionar mais itens",
+    "after": "Prema Intro para engadir máis elementos",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

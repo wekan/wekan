@@ -5,6 +5,15 @@ assert.match(data['accounts-lockout-known-users'], /usuarios coñecidos.*usuario
 assert.match(data['accounts-lockout-unknown-users'], /usuarios descoñecidos.*usuario inexistente/);
 for (const key of ['accounts-lockout-known-users', 'accounts-lockout-unknown-users']) assert.doesNotMatch(data[key], /usuários|senha|Configurações/);
 assert.match(data['act-addChecklist'], /engadiu a lista de verificación/);
+assert.equal(data.copyChecklistFromTemplate, data['copyChecklistFromTemplatePopup-title']);
+assert.equal(data.copyChecklist, data['copyChecklistPopup-title']);
+assert.match(data['custom-field-delete-pop'], /Non se pode desfacer.*todas as tarxetas.*destruirá o seu historial/);
+const examples = JSON.parse(data['copyManyCardsPopup-format']);
+assert.equal(examples.length, 3);
+for (const example of examples) assert.deepEqual(Object.keys(example), ['title', 'description']);
+assert.match(examples[0].description, /Descrición da primeira tarxeta/);
+assert.doesNotMatch(examples[0].description, /Descrição|cartão/);
+
 assert.match(data['conversion-info-text'], /unha vez por taboleiro.*mellora o rendemento.*seguir usando.*normalidade/);
 assert.match(data['comprehensive-board-migration-description'], /orde das listas.*posicións das tarxetas.*estrutura dos carrís/);
 assert.match(data['confirm-checklist-item-delete-popup'], /o elemento da lista/);
