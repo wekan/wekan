@@ -1,0 +1,23 @@
+'use strict';
+const assert = require('node:assert/strict');
+(async () => {
+  const { parseAudit, repairProgress, classifyAuditRow } = await import('../releases/translations/audit-progress.mjs');
+  const sample = '### Wrong language — current local values\n| lv.i18n.json | Latvian | example |  &#95;&#95;card&#95;&#95; &amp; x&#124;y<br>next  | Not available — not queried | Check. |';
+  const [row] = parseAudit(sample);
+  assert.equal(row.local, ' __card__ & x|y\nnext ');
+  assert.equal(row.originalPull, false);
+  assert.equal(classifyAuditRow(row, 'old', undefined, undefined), 'pending', 'untracked edits do not certify a repair');
+  assert.equal(classifyAuditRow(row, 'new', { after: 'new' }, undefined), 'corrected');
+  assert.equal(classifyAuditRow(row, 'new', { after: 'obsolete' }, undefined), 'pending', 'a future translation needs review');
+  assert.equal(classifyAuditRow(row, 'accepted', undefined, { value: 'accepted' }), 'reviewedUnchanged');
+  assert.equal(classifyAuditRow({ ...row, originalPull: true }, row.local), 'restoredPrePull');
+  assert.throws(() => parseAudit(sample + '\n' + sample.split('\n')[1]), /Duplicate audit key/);
+  const result = repairProgress();
+  const { summary } = result;
+  assert.equal(summary.auditedKeys, 20081, 'all original pull and full-local audit rows remain accounted for');
+  assert.equal(summary.auditedKeys, summary.corrected + summary.restoredPrePull + summary.reviewedUnchanged + summary.pending);
+  assert.equal(result.pendingByLocale.lv, undefined, 'every audited Latvian key was repaired');
+  assert.ok(result.rows.filter(row => row.locale === 'lv').every(row => row.status === 'corrected'));
+  assert.ok(summary.pending > 0, 'the report must not claim the unfinished wider audit is complete');
+  console.log(`translationAuditProgress: ${summary.auditedKeys} audit rows classified with exact values; uncertain work retained; Latvian queue complete`);
+})().catch(error => { console.error(error); process.exitCode = 1; });

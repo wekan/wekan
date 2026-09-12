@@ -199,3 +199,15 @@ test('Arabic Member Settings shows translated calendar options after the transla
   await expect(selector.locator('option[value="chinese"]')).not.toHaveText('Chinese');
   await expect(selector).not.toContainText('görünüşü');
 });
+
+test('Latvian Member Settings shows repaired calendar terminology', async ({ page, user, board }) => {
+  db.updateOne('users', { _id: user.id }, { $set: { 'profile.language': 'lv' } });
+  await loginWithToken(page, user.id, user.token);
+  await openBoard(page, board.boardId, board.slug);
+  await page.locator('.js-open-header-member-menu').first().click();
+  await page.locator('.js-pop-over .js-change-settings').click();
+  const selector = page.locator('.js-pop-over #calendar-system');
+  await expect(selector).toBeVisible();
+  await expect(selector.locator('option[value="islamic-rgsa"]')).toHaveText('Hidžras kalendārs (Saūda Arābija, pēc novērojumiem)');
+  await expect(selector.locator('option[value="islamic-tbla"]')).toHaveText('Hidžras kalendārs (tabulārs, astronomiskā epoha)');
+});

@@ -8104,5 +8104,2819 @@
     "before": "Количество пользовательских строк перевода:",
     "after": "Тусгай орчуулгын мөрийн тоо:",
     "reason": "Replace remaining audited Russian prose with Mongolian; preserve search operators, sample values and troubleshooting commands."
+  },
+  {
+    "locale": "lv",
+    "key": "above-selected-card",
+    "before": "Virš pasirinktos kortelės",
+    "after": "Virs atlasītās kartītes",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "accounts-lockout-info",
+    "before": "Šie nustatymai valdo, kaip bandymai prisijungti yra apsaugoti nuo žiaurios jėgos atakų.",
+    "after": "Šie iestatījumi nosaka, kā pieteikšanās mēģinājumi tiek aizsargāti pret paroļu minēšanas uzbrukumiem.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "accounts-lockout-known-users",
+    "before": "Nustatymai žinomiems vartotojams (teisingas vartotojo vardas, neteisingas slaptažodis)",
+    "after": "Iestatījumi zināmiem lietotājiem (pareizs lietotājvārds, nepareiza parole)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "accounts-lockout-settings",
+    "before": "Brute Force apsaugos nustatymai",
+    "after": "Aizsardzības pret paroļu minēšanu iestatījumi",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "accounts-lockout-settings-updated",
+    "before": "Atnaujinti brutalios jėgos apsaugos nustatymai",
+    "after": "Aizsardzības pret paroļu minēšanu iestatījumi ir atjaunināti",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "accounts-lockout-unknown-users",
+    "before": "Nežinomų naudotojų nustatymai (neegzistuojantis naudotojo vardas)",
+    "after": "Iestatījumi nezināmiem lietotājiem (neesošs lietotājvārds)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "accounts-lockout-user-unlocked",
+    "before": "Vartotojas sėkmingai atrakintas",
+    "after": "Lietotājs ir veiksmīgi atbloķēts",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "act-addAttachment",
+    "before": "pridėtas priedas __attachment__ prie kortelės __card__ sąraše __list__ plaukimo juostoje __swimlane__ prie lentos __board__",
+    "after": "pievienoja pielikumu __attachment__ kartītei __card__ sarakstā __list__, joslā __swimlane__, uz tāfeles __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "act-atUserComment",
+    "before": "paminėjo jus kortelėje __card__: __comment__ sąraše __list__ prie swimlane __swimlane__ prie lentos __board__",
+    "after": "pieminēja jūs kartītē __card__: __comment__ sarakstā __list__, joslā __swimlane__, uz tāfeles __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "add-cover",
+    "before": "Pridėkite viršelio vaizdą prie mini kortelės",
+    "after": "Pievienot vāka attēlu minikartītei",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "admin-desc",
+    "before": "Gali peržiūrėti ir redaguoti korteles, pašalinti narius ir keisti lentos nustatymus. Galima peržiūrėti veiklą.",
+    "after": "Var skatīt un rediģēt kartītes, noņemt dalībniekus un mainīt tāfeles iestatījumus. Var skatīt darbības.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "admin-people-user-active",
+    "before": "Vartotojas aktyvus – spustelėkite, kad išjungtumėte",
+    "after": "Lietotājs ir aktīvs — noklikšķiniet, lai deaktivizētu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "admin-people-user-inactive",
+    "before": "Vartotojas neaktyvus – spustelėkite, kad suaktyvintumėte",
+    "after": "Lietotājs ir neaktīvs — noklikšķiniet, lai aktivizētu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "board-archive-failed",
+    "before": "Nepavyko suplanuoti lentos archyvo",
+    "after": "Neizdevās ieplānot tāfeles arhivēšanu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "board-backup-failed",
+    "before": "Nepavyko suplanuoti lentos atsarginės kopijos",
+    "after": "Neizdevās ieplānot tāfeles dublēšanu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "board-cleanup-failed",
+    "before": "Nepavyko suplanuoti lentos valymo",
+    "after": "Neizdevās ieplānot tāfeles tīrīšanu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "board-cleanup-scheduled",
+    "before": "Sėkmingai suplanuotas lentos valymas",
+    "after": "Tāfeles tīrīšana ir veiksmīgi ieplānota",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "board-drag-drop-reorder-or-click-open",
+    "before": "Vilkite ir numeskite, kad pertvarkytumėte lentos piktogramas. Spustelėkite lentos piktogramą, kad atidarytumėte lentą.",
+    "after": "Velciet un nometiet tāfeļu ikonas, lai mainītu to secību. Noklikšķiniet uz tāfeles ikonas, lai to atvērtu.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "board-open-and-move-between-remaining-and-workspaces",
+    "before": "Spustelėkite norėdami atidaryti lentą. Naudokite vilkimo rankenėlę, kad priskirtumėte plokštę __workspaces__ (numeskite ant darbo vietos šoninėje juostoje).",
+    "after": "Noklikšķiniet, lai atvērtu tāfeli. Izmantojiet vilkšanas rokturi, lai piešķirtu tāfeli __workspaces__ (nometiet to uz darbvietas sānjoslā).",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "card-archive-pop",
+    "before": "Suarchyvavus kortelę, šiame sąraše kortelė nebus matoma.",
+    "after": "Pēc arhivēšanas kartīte šajā sarakstā vairs nebūs redzama.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "card_assignees",
+    "before": "Visi esamos kortelės gavėjai šioje lentoje",
+    "after": "Visi šīs tāfeles pašreizējās kartītes atbildīgie",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "card_members",
+    "before": "Visi esamos kortelės nariai šioje valdyboje",
+    "after": "Visi šīs tāfeles pašreizējās kartītes dalībnieki",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "comment-assigned-only-desc",
+    "before": "Matomos tik priskirtos kortelės. Galima tik komentuoti.",
+    "after": "Redzamas tikai piešķirtās kartītes. Var tikai komentēt.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "comprehensive-board-migration-description",
+    "before": "Atlieka išsamius lentos duomenų vientisumo patikrinimus ir pataisymus, įskaitant sąrašo išdėstymą, kortelių pozicijas ir plaukimo juostos struktūrą.",
+    "after": "Veic pilnu tāfeles datu integritātes pārbaudi un labošanu, tostarp pārbauda sarakstu secību, kartīšu pozīcijas un joslu struktūru.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "delete-org-warning-message",
+    "before": "Negalima ištrinti šios organizacijos, jai priklauso bent vienas vartotojas",
+    "after": "Šo organizāciju nevar izdzēst, jo tajā ir vismaz viens lietotājs",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "delete-team-warning-message",
+    "before": "Negalima ištrinti šios komandos, jai priklauso bent vienas vartotojas",
+    "after": "Šo komandu nevar izdzēst, jo tajā ir vismaz viens lietotājs",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "drag-board-to-workspace",
+    "before": "Vilkite lentą, kad priskirtumėte __workspaces__ (nukreipkite ant darbo srities šoninėje juostoje)",
+    "after": "Velciet tāfeli, lai to piešķirtu __workspaces__ (nometiet to uz darbvietas sānjoslā)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "dueCardsViewChange-choice-all-description",
+    "before": "Rodomos visos neužbaigtos kortelės su *Apmokėjimo data* iš lentų, kurioms vartotojas turi leidimą.",
+    "after": "Rāda visas nepabeigtās kartītes ar *izpildes termiņu* no tāfelēm, kurām lietotājam ir piekļuves tiesības.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "filter-card-title-label",
+    "before": "Filtruoti pagal kortelės pavadinimą",
+    "after": "Filtrēt pēc kartītes nosaukuma",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "fix-missing-lists-migration-description",
+    "before": "Aptinka ir taiso trūkstamus arba sugadintus sąrašus lentos struktūroje.",
+    "after": "Atrod un salabo trūkstošus vai bojātus sarakstus tāfeles struktūrā.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "force-board-scan",
+    "before": "Priverstinis lentos nuskaitymas",
+    "after": "Piespiedu tāfeles pārbaude",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "globalSearch-instructions-description",
+    "before": "Paieškos gali apimti operatorius, kad patikslintų paiešką.  Operatoriai nurodomi parašant operatoriaus pavadinimą ir reikšmę, atskirtą dvitaškiu.  Pavyzdžiui, operatoriaus specifikacija `list:Blocked` apribotų paiešką iki kortelių, kurios yra sąraše pavadinimu *Užblokuota*.  Jei reikšmėje yra tarpų arba specialiųjų simbolių, ji turi būti rašoma kabutėse (pvz., `__operator_list__:\"To Review\"`).",
+    "after": "Meklēšanu var precizēt ar operatoriem. Operatora nosaukumu un vērtību raksta, atdalot ar kolu. Piemēram, `list:Blocked` ierobežo meklēšanu līdz kartītēm sarakstā *Blocked*. Ja vērtībā ir atstarpes vai īpašas rakstzīmes, tā jāievieto pēdiņās (piemēram, `__operator_list__:\"To Review\"`).",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "globalSearch-instructions-notes-2",
+    "before": "Panašūs operatoriai *OR* sujungiami.  Kortelės, atitinkančios bet kurią iš sąlygų, bus grąžinamos.\n`__operator_list__:Available __operator_list__:Blocked` grąžintų korteles, esančias bet kuriame sąraše pavadinimu *Užblokuota* arba *Galima*.",
+    "after": "Vienādus operatorus apvieno ar nosacījumu *VAI*. Tiek atgrieztas kartītes, kas atbilst vismaz vienam nosacījumam.\n`__operator_list__:Available __operator_list__:Blocked` atgriež kartītes no sarakstiem ar nosaukumu *Blocked* vai *Available*.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "globalSearch-instructions-notes-3",
+    "before": "Skirtingi operatoriai *IR* sujungiami.  Grąžinamos tik tos kortelės, kurios atitinka visus skirtingus operatorius.  `__operator_list__:Available __operator_label__:red` pateikia tik sąrašo *Galima* korteles su *raudona* etikete.",
+    "after": "Dažādus operatorus apvieno ar nosacījumu *UN*. Tiek atgrieztas tikai kartītes, kas atbilst visiem operatoriem. `__operator_list__:Available __operator_label__:red` atgriež tikai kartītes sarakstā *Available* ar etiķeti *red*.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "globalSearch-instructions-operator-assignee",
+    "before": "`__operator_assignee__:<username>` – kortelės, kuriose *<username>* yra *perėmėjas*",
+    "after": "`__operator_assignee__:<username>` — kartītes, kurām *<username>* ir *atbildīgais*",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "globalSearch-instructions-operator-board",
+    "before": "`__operator_board__:<title>` - ​​kortelės lentose, atitinkančios nurodytą *<title>*",
+    "after": "`__operator_board__:<title>` — kartītes tāfelēs ar norādīto nosaukumu *<title>*",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "globalSearch-instructions-operator-comment",
+    "before": "`__operator_comment__:<text>` – kortelės su komentaru, kuriame yra *<text>*.",
+    "after": "`__operator_comment__:<text>` — kartītes ar komentāru, kurā ir teksts *<text>*.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "globalSearch-instructions-operator-created",
+    "before": "`__operator_created__:<n>` – kortelės, sukurtos prieš *<n>* dienų ar mažiau",
+    "after": "`__operator_created__:<n>` — kartītes, kas izveidotas pēdējo *<n>* dienu laikā",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "globalSearch-instructions-operator-creator",
+    "before": "`__operator_creator__:<username>` – kortelės, kuriose *<username>* yra kortelės kūrėjas",
+    "after": "`__operator_creator__:<username>` — kartītes, kuras izveidojis lietotājs *<username>*",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "globalSearch-instructions-operator-due",
+    "before": "`__operator_due__:<n>` – kortelės, kurios galioja iki *<n>* dienų nuo dabar.  `__operator_due__:__predicate_overdue__ pateikia visų kortelių sąrašą, pasibaigusį terminui.",
+    "after": "`__operator_due__:<n>` — kartītes, kuru termiņš ir nākamo *<n>* dienu laikā. `__operator_due__:__predicate_overdue__` rāda visas kavētās kartītes.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "globalSearch-instructions-operator-label",
+    "before": "`__operator_label__:<color>` `__operator_label__:<name>` – kortelės, kurių etiketė atitinka *<color>* arba *<name>",
+    "after": "`__operator_label__:<color>` `__operator_label__:<name>` — kartītes ar etiķeti, kas atbilst *<color>* vai *<name>*",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "globalSearch-instructions-operator-list",
+    "before": "`__operator_list__:<title>` - ​​kortelės sąrašuose, atitinkančiose nurodytą *<title>*",
+    "after": "`__operator_list__:<title>` — kartītes sarakstos ar norādīto nosaukumu *<title>*",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "globalSearch-instructions-operator-member",
+    "before": "`__operator_member__:<username>` – kortelės, kuriose *<username>* yra *narys*",
+    "after": "`__operator_member__:<username>` — kartītes, kurām *<username>* ir *dalībnieks*",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "globalSearch-instructions-operator-modified",
+    "before": "`__operator_modified__:<n>` – kortelės, kurios buvo modifikuotos prieš *<n>* dienų ar mažiau",
+    "after": "`__operator_modified__:<n>` — kartītes, kas mainītas pēdējo *<n>* dienu laikā",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "globalSearch-instructions-operator-org",
+    "before": "`__operator_org__:<display name|short name>` - ​​kortelės, priklausančios valdybai, priskirtai organizacijai *<name>*",
+    "after": "`__operator_org__:<display name|short name>` — kartītes no tāfelēm, kas piešķirtas organizācijai *<name>*",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "globalSearch-instructions-operator-swimlane",
+    "before": "`__operator_swimlane__:<title>` – kortelės plaukimo juostose, atitinkančiose nurodytą *<title>*",
+    "after": "`__operator_swimlane__:<title>` — kartītes joslās ar norādīto nosaukumu *<title>*",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "globalSearch-instructions-operator-team",
+    "before": "`__operator_team__:<display name|short name>` - ​​kortelės, priklausančios komandai *<name>*",
+    "after": "`__operator_team__:<display name|short name>` — kartītes no tāfelēm, kas piešķirtas komandai *<name>*",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "globalSearch-instructions-operator-user",
+    "before": "`__operator_user__:<username>` – kortelės, kuriose *<username>* yra *narys* arba *perėmėjas*",
+    "after": "`__operator_user__:<username>` — kartītes, kurām *<username>* ir *dalībnieks* vai *atbildīgais*",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "globalSearch-instructions-status-all",
+    "before": "`__predicate_all__` – visos suarchyvuotos ir nesuarchyvuotos kortelės",
+    "after": "`__predicate_all__` — visas arhivētās un nearhivētās kartītes",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "globalSearch-instructions-status-archived",
+    "before": "`__predicate_archived__` – archyvuotos kortelės",
+    "after": "`__predicate_archived__` — arhivētās kartītes",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "globalSearch-instructions-status-ended",
+    "before": "`__predicate_ended__` – kortelės su pabaigos data",
+    "after": "`__predicate_ended__` — kartītes ar beigu datumu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "globalSearch-instructions-status-private",
+    "before": "`__predicate_private__` - ​​kortelės tik privačiose lentose",
+    "after": "`__predicate_private__` — kartītes tikai privātās tāfelēs",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "globalSearch-instructions-status-public",
+    "before": "`__predicate_public__` - ​​kortelės tik viešose lentose",
+    "after": "`__predicate_public__` — kartītes tikai publiskās tāfelēs",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "migrations-admin-only",
+    "before": "Tik lentos administratoriai gali vykdyti perkėlimą",
+    "after": "Migrācijas var palaist tikai tāfeles administratori",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "normal-assigned-only-desc",
+    "before": "Matomos tik priskirtos kortelės. Redaguoti kaip įprastą vartotoją.",
+    "after": "Redzamas tikai piešķirtās kartītes. Var rediģēt kā parasts lietotājs.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "read-assigned-only-desc",
+    "before": "Matomos tik priskirtos kortelės. Negalima redaguoti.",
+    "after": "Redzamas tikai piešķirtās kartītes. Rediģēt nevar.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "remove-background-image",
+    "before": "Pašalinti fono paveikslėlį",
+    "after": "Noņemt fona attēlu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "remove-cover",
+    "before": "Pašalinkite viršelio vaizdą iš mini kortelės",
+    "after": "Noņemt vāka attēlu no minikartītes",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "remove-organization-from-board",
+    "before": "Ar tikrai norite pašalinti šią organizaciją iš šios lentos?",
+    "after": "Vai tiešām vēlaties noņemt šo organizāciju no tāfeles?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "remove-team-from-table",
+    "before": "Ar tikrai norite pašalinti šią komandą iš lentos?",
+    "after": "Vai tiešām vēlaties noņemt šo komandu no tāfeles?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "rescue-card-description-dialogue",
+    "before": "Perrašyti dabartinės kortelės aprašą atlikus pakeitimus?",
+    "after": "Vai pārrakstīt pašreizējo kartītes aprakstu ar jūsu izmaiņām?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "run-delete-duplicate-empty-lists-migration-confirm",
+    "before": "Pirmiausia visi bendrinami sąrašai bus konvertuojami į kiekvienos plaukimo juostos sąrašus, tada ištrinami tušti sąrašai, kuriuose yra pasikartojantis sąrašas su tuo pačiu pavadinimu ir kortelėmis. Bus pašalinti tik tikrai pertekliniai tušti sąrašai. Tęsti?",
+    "after": "Vispirms kopīgie saraksti tiks pārveidoti par atsevišķiem joslu sarakstiem. Pēc tam tiks izdzēsti tukšie saraksti, kuriem ir cits saraksts ar tādu pašu nosaukumu un kartītēm. Tiks noņemti tikai patiešām lieki tukšie saraksti. Vai turpināt?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "run-fix-missing-lists-migration-confirm",
+    "before": "Tai aptiks ir pataisys trūkstamus arba sugadintus sąrašus lentos struktūroje. Tęsti?",
+    "after": "Tiks atrasti un salaboti trūkstoši vai bojāti saraksti tāfeles struktūrā. Vai turpināt?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "run-restore-all-archived-migration-confirm",
+    "before": "Taip bus atkurtos VISOS archyvuotos plaukimo juostos, sąrašai ir kortelės, todėl jie vėl bus matomi. Visi elementai, kurių ID trūksta, bus automatiškai pataisyti. To negalima lengvai anuliuoti. Tęsti?",
+    "after": "Tiks atjaunotas VISAS arhivētās joslas, saraksti un kartītes, padarot tās atkal redzamas. Trūkstošie identifikatori tiks automātiski salaboti. Šo darbību nav viegli atsaukt. Vai turpināt?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "run-restore-lost-cards-migration-confirm",
+    "before": "Taip bus sukurta „Pamestų kortelių“ plaukimo juosta ir atkurtos visos kortelės bei sąrašai, kuriuose trūksta swimlaneId arba listId. Tai turi įtakos tik nesuarchyvuotiems elementams. Tęsti?",
+    "after": "Tiks izveidota josla «Pazudušās kartītes» un atjaunotas kartītes un saraksti, kuriem trūkst swimlaneId vai listId. Tas ietekmē tikai nearhivētus vienumus. Vai turpināt?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "s3-settings-saved",
+    "before": "S3 nustatymai sėkmingai išsaugoti",
+    "after": "S3 iestatījumi ir veiksmīgi saglabāti",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "schedule-board-archive",
+    "before": "Planavimo lentos archyvas",
+    "after": "Ieplānot tāfeles arhivēšanu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "schedule-board-backup",
+    "before": "Suplanuokite lentos atsarginę kopiją",
+    "after": "Ieplānot tāfeles dublēšanu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "schedule-board-cleanup",
+    "before": "Suplanuokite lentos valymą",
+    "after": "Ieplānot tāfeles tīrīšanu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "shortcut-add-self",
+    "before": "Pridėkite save prie dabartinės kortelės",
+    "after": "Pievienot sevi pašreizējai kartītei",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "show-at-all-boards-page",
+    "before": "Rodyti puslapyje Visos lentos",
+    "after": "Rādīt visu tāfeļu lapā",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "show-card-counter-per-list",
+    "before": "Rodyti kortelių skaičių sąraše",
+    "after": "Rādīt kartīšu skaitu katrā sarakstā",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "step-analyze-board-structure",
+    "before": "Išanalizuoti lentos struktūrą",
+    "after": "Analizēt tāfeles struktūru",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "step-scan-files",
+    "before": "Tikrina lentos failų priedus",
+    "after": "Pārbaudīt tāfeles failu pielikumus",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "toggle-assignees",
+    "before": "Perjungti kortelės gavėjus 1–9 (pagal pridėjimo prie lentos tvarką).",
+    "after": "Pārslēgt kartītes atbildīgos 1–9 (secībā, kādā tie pievienoti tāfelei).",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "toggle-labels",
+    "before": "Perjungti kortelės etiketes 1–9. Keletas pasirinkimas prideda 1–9 etiketes",
+    "after": "Pārslēgt kartītes etiķetes 1–9. Vairāku vienumu atlase pievieno etiķetes 1–9.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "user-can-not-export-card-to-excel",
+    "before": "Vartotojas negali eksportuoti kortelės į Excel",
+    "after": "Lietotājs nevar eksportēt kartīti uz Excel",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "user-can-not-export-card-to-pdf",
+    "before": "Vartotojas negali eksportuoti kortelės į PDF",
+    "after": "Lietotājs nevar eksportēt kartīti uz PDF",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "user-can-not-export-excel",
+    "before": "Vartotojas negali eksportuoti Excel",
+    "after": "Lietotājs nevar eksportēt uz Excel",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "Hidžras kalendārs (Saūda Arābija, pēc novērojumiem)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "Hidžras kalendārs (tabulārs, astronomiskā epoha)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "Cube-Grid",
+    "before": "Kubo tinklelio laukimo suktukas",
+    "after": "Kubu režģa gaidīšanas animācija",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "Mongo_sessions_count",
+    "before": "Mongo sesijos skaičiuojamos",
+    "after": "Mongo sesiju skaits",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "Node_heap_does_zap_garbage",
+    "before": "Mazgų krūva: iškrauna šiukšles",
+    "after": "Node kaudze: vai aizpilda atbrīvoto atmiņu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "Node_heap_heap_size_limit",
+    "before": "Mazgų krūva: krūvos dydžio apribojimas",
+    "after": "Node kaudze: lieluma ierobežojums",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "Node_heap_malloced_memory",
+    "before": "Mazgų krūva: sutrikusi atmintis",
+    "after": "Node kaudze: piešķirtā atmiņa",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "Node_heap_number_of_detached_contexts",
+    "before": "Mazgų krūva: atskirtų kontekstų skaičius",
+    "after": "Node kaudze: atdalīto kontekstu skaits",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "Node_heap_number_of_native_contexts",
+    "before": "Mazgų krūva: savųjų kontekstų skaičius",
+    "after": "Node kaudze: vietējo kontekstu skaits",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "Node_heap_peak_malloced_memory",
+    "before": "Mazgų krūva: didžiausia netinkama atmintis",
+    "after": "Node kaudze: maksimāli piešķirtā atmiņa",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "Node_heap_total_available_size",
+    "before": "Mazgų krūva: visas galimas dydis",
+    "after": "Node kaudze: kopējais pieejamais lielums",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "Node_heap_total_heap_size",
+    "before": "Mazgų krūva: bendras krūvos dydis",
+    "after": "Node kaudze: kopējais kaudzes lielums",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "Node_heap_total_heap_size_executable",
+    "before": "Mazgų krūva: viso krūvos dydžio vykdomasis failas",
+    "after": "Node kaudze: izpildāmā kaudzes daļas lielums",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "Node_heap_total_physical_size",
+    "before": "Mazgų krūva: bendras fizinis dydis",
+    "after": "Node kaudze: kopējais fiziskais lielums",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "Node_heap_used_heap_size",
+    "before": "Mazgų krūva: naudotas krūvos dydis",
+    "after": "Node kaudze: izmantotais lielums",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "Node_memory_usage_external",
+    "before": "Mazgo atminties naudojimas: išorinis",
+    "after": "Node atmiņa: ārējā atmiņa",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "Node_memory_usage_heap_total",
+    "before": "Mazgo atminties naudojimas: bendras paskirtos krūvos dydis",
+    "after": "Node atmiņa: piešķirtās kaudzes kopējais lielums",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "Node_memory_usage_heap_used",
+    "before": "Mazgo atminties naudojimas: faktiškai naudojama atmintis",
+    "after": "Node atmiņa: faktiski izmantotā atmiņa",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "Node_memory_usage_rss",
+    "before": "Mazgo atminties naudojimas: rezidento rinkinio dydis",
+    "after": "Node atmiņa: rezidentās atmiņas apjoms",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "above-selected-swimlane",
+    "before": "Virš pasirinktos plaukimo juostos",
+    "after": "Virs atlasītās joslas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "acceptance_of_our_legalNotice",
+    "before": "Tęsdami sutinkate su mūsų",
+    "after": "Turpinot jūs piekrītat mūsu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "accessibility-info-not-added-yet",
+    "before": "Pritaikymo neįgaliesiems informacija dar nepridėta",
+    "after": "Pieejamības informācija vēl nav pievienota",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "accessibility-page-enabled",
+    "before": "Prieinamumo puslapis įjungtas",
+    "after": "Pieejamības lapa ir iespējota",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "account-created",
+    "before": "Paskyra sukurta! Dabar galite prisijungti.",
+    "after": "Konts ir izveidots! Tagad varat pierakstīties.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "account-creation-failed",
+    "before": "Nepavyko sukurti paskyros",
+    "after": "Neizdevās izveidot kontu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "account-locked",
+    "before": "Paskyra laikinai užrakinta dėl per daug nesėkmingų bandymų prisijungti. Bandykite dar kartą vėliau.",
+    "after": "Konts ir īslaicīgi bloķēts pārāk daudzu neveiksmīgu pieteikšanās mēģinājumu dēļ. Lūdzu, mēģiniet vēlāk.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "accounts-lockout-all-users-unlocked",
+    "before": "Visi užrakinti vartotojai buvo atrakinti",
+    "after": "Visi bloķētie lietotāji ir atbloķēti",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "accounts-lockout-click-to-unlock",
+    "before": "Spustelėkite norėdami atrakinti šį vartotoją",
+    "after": "Noklikšķiniet, lai atbloķētu šo lietotāju",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "accounts-lockout-confirm-unlock",
+    "before": "Ar tikrai norite atrakinti šį naudotoją?",
+    "after": "Vai tiešām vēlaties atbloķēt šo lietotāju?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "accounts-lockout-confirm-unlock-all",
+    "before": "Ar tikrai norite atrakinti visus užrakintus vartotojus?",
+    "after": "Vai tiešām vēlaties atbloķēt visus bloķētos lietotājus?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "accounts-lockout-failure-window",
+    "before": "Gedimų langas (sekundėmis)",
+    "after": "Neveiksmīgo mēģinājumu uzskaites periods (sekundēs)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "accounts-lockout-locked-users-info",
+    "before": "Vartotojai šiuo metu užblokuoti dėl per daug nesėkmingų bandymų prisijungti",
+    "after": "Lietotāji, kuri pašlaik ir bloķēti pārāk daudzu neveiksmīgu pieteikšanās mēģinājumu dēļ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "accounts-lockout-no-locked-users",
+    "before": "Šiuo metu nėra užrakintų vartotojų",
+    "after": "Pašlaik nav bloķētu lietotāju",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "accounts-lockout-period",
+    "before": "Blokavimo laikotarpis (sekundėmis)",
+    "after": "Bloķēšanas ilgums (sekundēs)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "accounts-lockout-show-locked-users",
+    "before": "Rodyti tik užrakintus vartotojus",
+    "after": "Rādīt tikai bloķētos lietotājus",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "active-cron-jobs",
+    "before": "Aktyvūs suplanuoti darbai",
+    "after": "Aktīvie ieplānotie uzdevumi",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "activity-dueDate",
+    "before": "redaguota data iki %s iš %s",
+    "after": "mainīja izpildes termiņu uz %s kartītei %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "activity-endDate",
+    "before": "redaguota pabaigos data į %s iš %s",
+    "after": "mainīja beigu datumu uz %s kartītei %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "activity-receivedDate",
+    "before": "redaguota gavimo data %s iš %s",
+    "after": "mainīja saņemšanas datumu uz %s kartītei %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "activity-startDate",
+    "before": "redaguota pradžios data %s iš %s",
+    "after": "mainīja sākuma datumu uz %s kartītei %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "add-card-to-bottom-of-list",
+    "before": "Pridėti kortelę į sąrašo apačią",
+    "after": "Pievienot kartīti saraksta beigās",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "add-card-to-top-of-list",
+    "before": "Pridėti kortelę į sąrašo viršų",
+    "after": "Pievienot kartīti saraksta sākumā",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "add-cron-job-placeholder",
+    "before": "Netrukus pridėkite suplanuoto darbo funkciją",
+    "after": "Ieplānoto uzdevumu pievienošanas iespēja būs pieejama drīzumā",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "add-organizations-label",
+    "before": "Pridėtos organizacijos rodomos žemiau:",
+    "after": "Pievienotās organizācijas ir redzamas zemāk:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "add-teams-label",
+    "before": "Pridėtos komandos rodomos žemiau:",
+    "after": "Pievienotās komandas ir redzamas zemāk:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "add-template-container",
+    "before": "Pridėti šablono sudėtinį rodinį",
+    "after": "Pievienot veidņu konteineru",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "allboards.add-subworkspace",
+    "before": "Pridėti antrinę darbo sritį",
+    "after": "Pievienot apakšdarbvietu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "allboards.add-subworkspace-prompt",
+    "before": "Subdarbo srities pavadinimas",
+    "after": "Apakšdarbvietas nosaukums",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "allboards.add-workspace-prompt",
+    "before": "Darbo srities pavadinimas",
+    "after": "Darbvietas nosaukums",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "allboards.delete-workspace-confirm",
+    "before": "Ar tikrai norite ištrinti šią darbo sritį?",
+    "after": "Vai tiešām vēlaties izdzēst šo darbvietu?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "allboards.delete-workspace-confirm-check",
+    "before": "Patvirtinkite darbo srities ištrynimą",
+    "after": "Apstiprināt darbvietas dzēšanu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "allboards.edit-workspace-icon",
+    "before": "Darbo srities piktograma (mažinimas)",
+    "after": "Darbvietas ikona (Markdown)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "allboards.edit-workspace-name",
+    "before": "Darbo srities pavadinimas",
+    "after": "Darbvietas nosaukums",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "allowed-avatar-filetypes",
+    "before": "Leidžiami avatarų failų tipai:",
+    "after": "Atļautie profila attēlu failu tipi:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "allowed-upload-filetypes",
+    "before": "Leidžiami įkelti failų tipai:",
+    "after": "Atļautie augšupielādējamo failu tipi:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "already-account",
+    "before": "Jau turite paskyrą? Prisijunkite",
+    "after": "Jums jau ir konts? Pierakstieties",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "always-field-on-card",
+    "before": "Pridėkite lauką prie visų kortelių",
+    "after": "Pievienot lauku visām kartītēm",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "app-try-reconnect",
+    "before": "Pabandykite vėl prisijungti.",
+    "after": "Mēģināt atkārtoti izveidot savienojumu.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "archive-board-confirm",
+    "before": "Ar tikrai norite archyvuoti šią lentą?",
+    "after": "Vai tiešām vēlaties arhivēt šo tāfeli?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "attachment-move-storage-fs",
+    "before": "Perkelti priedą į failų sistemą",
+    "after": "Pārvietot pielikumu uz failu sistēmu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "attachment-storage-configuration",
+    "before": "Priedo saugyklos konfigūracija",
+    "after": "Pielikumu glabāšanas konfigurācija",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "attachments-path-description",
+    "before": "Kelias, kuriame saugomi priedų failai",
+    "after": "Ceļš, kurā tiek glabāti pielikumu faili",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "auto-list-width",
+    "before": "Automatinis sąrašo plotis",
+    "after": "Automātisks saraksta platums",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "autoAddUsersWithDomainName",
+    "before": "Automatiškai pridėti naudotojus su domeno pavadinimu",
+    "after": "Automātiski pievienot lietotājus ar šo domēna nosaukumu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "automatic-linked-url-schemes",
+    "before": "Tinkintos URL schemos, kurias turėtų būti galima spustelėti automatiškai. Viena URL schema eilutėje",
+    "after": "Pielāgotās URL shēmas, kurām automātiski jākļūst klikšķināmām. Viena URL shēma katrā rindā",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "automatically-field-on-card",
+    "before": "Pridėti lauką prie naujų kortelių",
+    "after": "Pievienot lauku jaunām kartītēm",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "avatar-too-big",
+    "before": "Avataras per didelis (__size__ max)",
+    "after": "Profila attēls ir pārāk liels (ne vairāk kā __size__)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "avatars-path-description",
+    "before": "Kelias, kuriame saugomi avataro failai",
+    "after": "Ceļš, kurā tiek glabāti profila attēlu faili",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "badge-attachment-on-minicard",
+    "before": "Minikortelėje esančių priedų skaičius",
+    "after": "Pielikumu skaits minikartītē",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "below-selected-card",
+    "before": "Žemiau pasirinkta kortelė",
+    "after": "Zem atlasītās kartītes",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "below-selected-swimlane",
+    "before": "Žemiau pasirinkta plaukimo juosta",
+    "after": "Zem atlasītās joslas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "board-archive-scheduled",
+    "before": "Valdybos archyvas sėkmingai suplanuotas",
+    "after": "Tāfeles arhivēšana ir veiksmīgi ieplānota",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "board-backup-scheduled",
+    "before": "Plokštės atsarginė kopija suplanuota sėkmingai",
+    "after": "Tāfeles dublēšana ir veiksmīgi ieplānota",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "board_assignees",
+    "before": "Visi visų kortelių gavėjai šioje lentoje",
+    "after": "Visi šīs tāfeles visu kartīšu atbildīgie",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "bucket-example",
+    "before": "Pavyzdžiui, „Bucket List“.",
+    "after": "Piemēram, vēlmju saraksts",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "card-archive-suggest-cancel",
+    "before": "Vėliau galėsite atkurti kortelę iš archyvo.",
+    "after": "Vēlāk varat atjaunot kartīti no arhīva.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "card-edit-planning-poker",
+    "before": "Redaguoti planavimo pokerį",
+    "after": "Rediģēt plānošanas pokeru",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "card-show-lists-on-minicard",
+    "before": "Rodyti sąrašus minikortelėje",
+    "after": "Rādīt sarakstus minikartītē",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "card-sorting-by-number",
+    "before": "Kortelių rūšiavimas pagal numerį",
+    "after": "Kartīšu kārtošana pēc numura",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "card-sorting-by-number-on-minicard",
+    "before": "Kortelių rūšiavimas pagal numerį minikortelėje",
+    "after": "Kartīšu kārtošana pēc numura minikartītē",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "cardStartPlanningPokerPopup-title",
+    "before": "Pradėkite planavimo pokerį",
+    "after": "Sākt plānošanas pokeru",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "checklistActionsPopup-title",
+    "before": "Kontrolinio sąrašo veiksmai",
+    "after": "Kontrolsaraksta darbības",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "checklistDeletePopup-title",
+    "before": "Ištrinti kontrolinį sąrašą?",
+    "after": "Vai dzēst kontrolsarakstu?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "checklistItemDeletePopup-title",
+    "before": "Ištrinti kontrolinio sąrašo elementą?",
+    "after": "Vai dzēst kontrolsaraksta vienumu?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "click-to-disable-auto-width",
+    "before": "Automatinis sąrašo plotis įjungtas. Spustelėkite, kad išjungtumėte.",
+    "after": "Automātisks saraksta platums ir iespējots. Noklikšķiniet, lai atspējotu.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "click-to-enable-auto-width",
+    "before": "Automatinis sąrašo plotis išjungtas. Spustelėkite, kad įgalintumėte.",
+    "after": "Automātisks saraksta platums ir atspējots. Noklikšķiniet, lai iespējotu.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "close-add-checklist-item",
+    "before": "Uždaryti pridėti elementą į kontrolinio sąrašo formą",
+    "after": "Aizvērt kontrolsaraksta vienuma pievienošanas veidlapu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "close-edit-checklist-item",
+    "before": "Uždarykite elemento redagavimą kontrolinio sąrašo formoje",
+    "after": "Aizvērt kontrolsaraksta vienuma rediģēšanas veidlapu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "comment-assigned-only",
+    "before": "Tik priskirtas komentaras",
+    "after": "Komentēt tikai piešķirtās kartītes",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "comment-delete",
+    "before": "Ar tikrai norite ištrinti komentarą?",
+    "after": "Vai tiešām vēlaties izdzēst šo komentāru?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "comment-not-found",
+    "before": "Kortelė su komentaru su tekstu „%s“ nerasta.",
+    "after": "Nav atrasta kartīte ar komentāru, kurā ir teksts '%s'.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "comprehensive-board-migration",
+    "before": "Išsamus valdybos perkėlimas",
+    "after": "Pilna tāfeles migrācija",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "confirm-checklist-delete-popup",
+    "before": "Ar tikrai norite ištrinti kontrolinį sąrašą?",
+    "after": "Vai tiešām vēlaties izdzēst šo kontrolsarakstu?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "confirm-checklist-item-delete-popup",
+    "before": "Ar tikrai norite ištrinti kontrolinio sąrašo elementą?",
+    "after": "Vai tiešām vēlaties izdzēst šo kontrolsaraksta vienumu?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "conversion-info-text",
+    "before": "Ši konversija atliekama vieną kartą vienoje plokštėje ir pagerina našumą. Galite toliau naudoti lentą įprastai.",
+    "after": "Šī pārveidošana tiek veikta vienreiz katrai tāfelei un uzlabo veiktspēju. Varat turpināt izmantot tāfeli kā parasti.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "converting-board-description",
+    "before": "Konvertuojama plokštės struktūra, siekiant pagerinti funkcionalumą. Tai gali užtrukti keletą akimirkų.",
+    "after": "Tāfeles struktūra tiek pārveidota, lai uzlabotu funkcionalitāti. Tas var aizņemt dažus mirkļus.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "copy-text-to-clipboard",
+    "before": "Nukopijuokite tekstą į mainų sritį",
+    "after": "Kopēt tekstu starpliktuvē",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "copyChecklist",
+    "before": "Kopijuoti kontrolinį sąrašą",
+    "after": "Kopēt kontrolsarakstu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "copyChecklistPopup-title",
+    "before": "Kopijuoti kontrolinį sąrašą",
+    "after": "Kopēt kontrolsarakstu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "copyManyCardsPopup-title",
+    "before": "Nukopijuokite šabloną į daugelį kortelių",
+    "after": "Kopēt veidni vairākās kartītēs",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "cover-attachment-on-minicard",
+    "before": "Viršelio vaizdas mini kortelėje",
+    "after": "Vāka attēls minikartītē",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "createTemplateContainerPopup-title",
+    "before": "Pridėti šablono sudėtinį rodinį",
+    "after": "Pievienot veidņu konteineru",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "created-at-newest-first",
+    "before": "Sukurta (pirmiausia naujausi)",
+    "after": "Izveides datums (jaunākās vispirms)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "created-at-oldest-first",
+    "before": "Sukurta (pirmiausia seniausia)",
+    "after": "Izveides datums (vecākās vispirms)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "cron-errors-cleared",
+    "before": "Visos klaidos sėkmingai pašalintos",
+    "after": "Visas kļūdas ir veiksmīgi notīrītas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "cron-job-delete-confirm",
+    "before": "Ar tikrai norite ištrinti šį suplanuotą darbą?",
+    "after": "Vai tiešām vēlaties izdzēst šo ieplānoto uzdevumu?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "cron-job-delete-failed",
+    "before": "Nepavyko ištrinti suplanuoto darbo",
+    "after": "Neizdevās izdzēst ieplānoto uzdevumu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "cron-job-deleted",
+    "before": "Suplanuotas darbas sėkmingai ištrintas",
+    "after": "Ieplānotais uzdevums ir veiksmīgi izdzēsts",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "cron-job-pause-failed",
+    "before": "Nepavyko pristabdyti suplanuoto darbo",
+    "after": "Neizdevās apturēt ieplānoto uzdevumu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "cron-job-paused",
+    "before": "Suplanuotas darbas sėkmingai pristabdytas",
+    "after": "Ieplānotais uzdevums ir veiksmīgi apturēts",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "cron-job-resume-failed",
+    "before": "Nepavyko atnaujinti suplanuoto darbo",
+    "after": "Neizdevās atsākt ieplānoto uzdevumu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "cron-job-resumed",
+    "before": "Suplanuotas darbas sėkmingai atnaujintas",
+    "after": "Ieplānotais uzdevums ir veiksmīgi atsākts",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "cron-job-start-failed",
+    "before": "Nepavyko pradėti suplanuoto darbo",
+    "after": "Neizdevās palaist ieplānoto uzdevumu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "cron-job-started",
+    "before": "Suplanuotas darbas sėkmingai pradėtas",
+    "after": "Ieplānotais uzdevums ir veiksmīgi palaists",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "cron-migration-warnings",
+    "before": "Perspėjimai apie migraciją",
+    "after": "Migrācijas brīdinājumi",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "cron-migrations-resumed",
+    "before": "Perkėlimas sėkmingai atnaujintas",
+    "after": "Migrācijas ir veiksmīgi atsāktas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "cron-migrations-retried",
+    "before": "Nepavykus perkelti perkėlimai sėkmingai bandomi iš naujo",
+    "after": "Neveiksmīgās migrācijas ir veiksmīgi atkārtotas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "cron-no-failed-migrations",
+    "before": "Nėra nepavykusių perkėlimų, kad būtų galima bandyti dar kartą",
+    "after": "Nav neveiksmīgu migrāciju, ko atkārtot",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "cron-no-paused-migrations",
+    "before": "Nėra pristabdytų perkėlimų, kuriuos būtų galima atnaujinti",
+    "after": "Nav apturētu migrāciju, ko atsākt",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "cron-resume-paused",
+    "before": "Tęsti pristabdytą perkėlimą",
+    "after": "Atsākt apturētās migrācijas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "cron-retry-failed",
+    "before": "Bandykite iš naujo atlikti nepavykusias migracijas",
+    "after": "Atkārtot neveiksmīgās migrācijas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "custom-assetlinks-content",
+    "before": "Tinkintas assetlinks.json turinys (JSON)",
+    "after": "Pielāgotais assetlinks.json saturs (JSON)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "custom-assetlinks-enabled",
+    "before": "Įgalinti tinkintą assetlinks.json",
+    "after": "Iespējot pielāgotu assetlinks.json",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "custom-field-stringtemplate-format",
+    "before": "Formatas (naudokite %{value} kaip rezervuotąją vietą)",
+    "after": "Formāts (izmantojiet %{value} kā vietturi)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "custom-field-stringtemplate-item-placeholder",
+    "before": "Paspauskite Enter, kad pridėtumėte daugiau elementų",
+    "after": "Nospiediet Enter, lai pievienotu vairāk vienumu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "custom-head-link-tags",
+    "before": "Tinkintos nuorodų žymos (HTML)",
+    "after": "Pielāgotie saišu tagi (HTML)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "custom-head-manifest-content",
+    "before": "Tinkintas žiniatinklio aprašo turinys (JSON)",
+    "after": "Pielāgotais tīmekļa manifesta saturs (JSON)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "custom-head-meta-tags",
+    "before": "Tinkintos metažymos (HTML)",
+    "after": "Pielāgotie metadatu tagi (HTML)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "custom-head-tags-enabled",
+    "before": "Įgalinti tinkintas galvos žymas",
+    "after": "Iespējot pielāgotus head tagus",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "custom-help-link-url",
+    "before": "Tinkintas pagalbos nuorodos URL",
+    "after": "Pielāgotās palīdzības saites URL",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "custom-legal-notice-link-url",
+    "before": "Priskirto teisinio pranešimo puslapio URL",
+    "after": "Pielāgotās juridiskās informācijas lapas URL",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "custom-manifest-enabled",
+    "before": "Įgalinti tinkintą žiniatinklio aprašą",
+    "after": "Iespējot pielāgotu tīmekļa manifestu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "custom-top-left-corner-logo-height",
+    "before": "Pasirinktinis viršutinio kairiojo kampo logotipo aukštis. Numatytasis: 27",
+    "after": "Pielāgotā logotipa augstums augšējā kreisajā stūrī. Noklusējums: 27",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "delete-all-notifications",
+    "before": "Ištrinti visus pranešimus",
+    "after": "Dzēst visus paziņojumus",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "delete-all-notifications-confirm",
+    "before": "Ar tikrai norite ištrinti visus pranešimus? Šio veiksmo anuliuoti negalima.",
+    "after": "Vai tiešām vēlaties izdzēst visus paziņojumus? Šo darbību nevar atsaukt.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "delete-avatar-confirm",
+    "before": "Ar tikrai norite ištrinti šį avatarą?",
+    "after": "Vai tiešām vēlaties izdzēst šo profila attēlu?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "delete-duplicate-empty-lists-migration",
+    "before": "Ištrinkite pasikartojančius tuščius sąrašus",
+    "after": "Dzēst tukšus sarakstu dublikātus",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "delete-duplicate-empty-lists-migration-description",
+    "before": "Saugiai ištrina tuščius pasikartojančius sąrašus. Pašalina tik sąrašus, kuriuose nėra kortelių, IR turi kitą sąrašą tokiu pačiu pavadinimu, kuriame yra kortelių.",
+    "after": "Droši izdzēš tukšus sarakstu dublikātus. Noņem tikai sarakstus, kuros nav kartīšu UN kuriem ir cits saraksts ar tādu pašu nosaukumu un kartītēm.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "delete-duplicate-lists",
+    "before": "Ištrinkite pasikartojančius sąrašus",
+    "after": "Dzēst sarakstu dublikātus",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "delete-duplicate-lists-confirm",
+    "before": "Ar esi tikras? Taip bus ištrinti visi pasikartojantys sąrašai, turintys tą patį pavadinimą ir kuriuose nėra kortelių.",
+    "after": "Vai esat pārliecināts? Tiks izdzēsti visi sarakstu dublikāti ar vienādu nosaukumu, kuros nav kartīšu.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "delete-org-confirm-popup",
+    "before": "Ar tikrai norite ištrinti šią organizaciją? Anuliuoti negalima.",
+    "after": "Vai tiešām vēlaties izdzēst šo organizāciju? Šo darbību nevar atsaukt.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "delete-team-confirm-popup",
+    "before": "Ar tikrai norite ištrinti šią komandą? Anuliuoti negalima.",
+    "after": "Vai tiešām vēlaties izdzēst šo komandu? Šo darbību nevar atsaukt.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "delete-translation-confirm-popup",
+    "before": "Ar tikrai norite ištrinti šią tinkintą vertimo eilutę? Anuliuoti negalima.",
+    "after": "Vai tiešām vēlaties izdzēst šo pielāgotā tulkojuma virkni? Šo darbību nevar atsaukt.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "deleteDuplicateListsPopup-title",
+    "before": "Ištrinkite pasikartojančius sąrašus",
+    "after": "Dzēst sarakstu dublikātus",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "deletePokerPopup-title",
+    "before": "Ištrinti planavimo pokerį?",
+    "after": "Vai dzēst plānošanas pokeru?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "dueCards-noResults-description",
+    "before": "Šiuo metu neturite kortelių su mokėjimo terminais.",
+    "after": "Pašlaik jums nav nevienas kartītes ar izpildes termiņu.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "dueCards-noResults-title",
+    "before": "Apmokėtų kortelių nerasta",
+    "after": "Nav atrasta neviena kartīte ar izpildes termiņu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "duplicate-board-confirm",
+    "before": "Ar tikrai norite kopijuoti šią lentą?",
+    "after": "Vai tiešām vēlaties dublēt šo tāfeli?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "editPokerEndDatePopup-title",
+    "before": "Pakeisti planavimo pokerio balsavimo pabaigos datą",
+    "after": "Mainīt plānošanas pokera balsošanas beigu datumu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "editTranslationPopup-title",
+    "before": "Redaguoti pasirinktinę vertimo eilutę",
+    "after": "Rediģēt pielāgotā tulkojuma virkni",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "enable-vertical-scrollbars",
+    "before": "Įgalinti vertikalias slinkties juostas",
+    "after": "Iespējot vertikālās ritjoslas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "enter-zoom-level",
+    "before": "Įveskite mastelio keitimo lygį (50–300%):",
+    "after": "Ievadiet tālummaiņas līmeni (50–300%):",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "error-csv-schema",
+    "before": "Jūsų CSV (kableliais atskirtos reikšmės) / TSV (skirtukais atskirtos reikšmės) neapima tinkamos informacijos tinkamu formatu",
+    "after": "Jūsu CSV (ar komatiem atdalītas vērtības) vai TSV (ar tabulatoriem atdalītas vērtības) failā nav nepieciešamās informācijas pareizajā formātā",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "error-orgname-taken",
+    "before": "Šis organizacijos pavadinimas jau užimtas",
+    "after": "Šis organizācijas nosaukums jau tiek izmantots",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "error-teamname-taken",
+    "before": "Šis komandos pavadinimas jau užimtas",
+    "after": "Šis komandas nosaukums jau tiek izmantots",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "export-card-excel",
+    "before": "Eksportuokite kortelę į Excel",
+    "after": "Eksportēt kartīti uz Excel",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "export-card-excel-fields",
+    "before": "Pasirinkite laukus, kuriuos norite įtraukti į „Excel“ eksportavimą:",
+    "after": "Atlasiet laukus, kurus iekļaut Excel eksportā:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "export-card-excel-no-disk-space",
+    "before": "Nepavyko eksportuoti į „Excel“: nepakanka laisvos vietos diske",
+    "after": "Nevar eksportēt uz Excel: nepietiek brīvas vietas diskā",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "export-card-field-board-info",
+    "before": "Informacija apie lentą (lenta, sąrašas, plaukimo juosta)",
+    "after": "Tāfeles informācija (tāfele, saraksts, josla)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "export-card-field-dates",
+    "before": "Datos (sukurta, gauta, pradžia, terminas, pabaiga)",
+    "after": "Datumi (izveide, saņemšana, sākums, termiņš, beigas)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "export-card-field-people",
+    "before": "Žmonės (kūrėjas, savininkas, nariai, įgaliotieji)",
+    "after": "Personas (izveidotājs, īpašnieks, dalībnieki, atbildīgie)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "export-card-pdf",
+    "before": "Eksportuoti kortelę į PDF",
+    "after": "Eksportēt kartīti uz PDF",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "filesystem-path-description",
+    "before": "Bazinis failų saugojimo kelias",
+    "after": "Failu glabāšanas pamatceļš",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "fix-all-file-urls-migration",
+    "before": "Pataisykite visus failų URL",
+    "after": "Salabot visus failu URL",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "fix-all-file-urls-migration-description",
+    "before": "Atnaujina visus šios plokštės failų priedų URL, kad būtų naudojama tinkama saugyklos programa, ir pataisomos sugadintos failų nuorodos.",
+    "after": "Atjaunina visus šīs tāfeles failu pielikumu URL, lai izmantotu pareizo glabāšanas sistēmu, un salabo bojātās failu atsauces.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "fix-avatar-urls-migration-description",
+    "before": "Atnaujina valdybos narių pseudoportretų URL, kad jie naudotų tinkamą saugyklos vidinę programą, ir pataiso neveikiančias avatarų nuorodas.",
+    "after": "Atjaunina tāfeles dalībnieku profila attēlu URL, lai izmantotu pareizo glabāšanas sistēmu, un salabo bojātās attēlu atsauces.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "fix-missing-lists-migration",
+    "before": "Ištaisykite trūkstamus sąrašus",
+    "after": "Salabot trūkstošos sarakstus",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "globalSearch-instructions-notes-1",
+    "before": "Gali būti nurodyti keli operatoriai.",
+    "after": "Var norādīt vairākus operatorus.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "globalSearch-instructions-notes-3-2",
+    "before": "Dienas galima nurodyti kaip teigiamą arba neigiamą sveikąjį skaičių arba naudojant `__predicate_week__`, `__predicate_month__`, `__predicate_quarter__` arba `__predicate_year__` esamam laikotarpiui.",
+    "after": "Dienas var norādīt kā pozitīvu vai negatīvu veselu skaitli vai izmantot `__predicate_week__`, `__predicate_month__`, `__predicate_quarter__` vai `__predicate_year__` pašreizējam periodam.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "globalSearch-instructions-notes-4",
+    "before": "Teksto paieškose neskiriamos didžiosios ir mažosios raidės.",
+    "after": "Teksta meklēšanā netiek ņemts vērā burtu lielums.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "globalSearch-instructions-notes-5",
+    "before": "Pagal numatytuosius nustatymus archyvuotose kortelėse neieškoma.",
+    "after": "Pēc noklusējuma arhivētās kartītes netiek meklētas.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "globalSearch-instructions-operator-at",
+    "before": "`__operator_user_abbrev__username` – `user:<username>` trumpinys",
+    "after": "`__operator_user_abbrev__username` — saīsinājums operatoram `user:<username>`",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "globalSearch-instructions-operator-has",
+    "before": "`__operator_has__:<field>` – kur *<field>* yra vienas iš `__predicate_attachment__`, `__predicate_checklist__`, `__predicate_description__`, `__predicate_start__`, `__predicate_due__`, `__predicate_end__`, `__predicate_assignee__` arba `__predicate_member__`.  Įdėjus `-` prieš *<field>*, ieškoma, ar tame lauke nėra reikšmės (pvz., `has:-due` ieško kortelių be termino).",
+    "after": "`__operator_has__:<field>` — *<field>* ir viens no `__predicate_attachment__`, `__predicate_checklist__`, `__predicate_description__`, `__predicate_start__`, `__predicate_due__`, `__predicate_end__`, `__predicate_assignee__` vai `__predicate_member__`. Ievietojot `-` pirms *<field>*, tiek meklētas kartītes, kurās šim laukam nav vērtības (piemēram, `has:-due` meklē kartītes bez izpildes termiņa).",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "globalSearch-instructions-operator-hash",
+    "before": "`__operator_label_abbrev__<name|color>` – `__operator_label__:<color>` arba `__operator_label__:<name>` trumpinys",
+    "after": "`__operator_label_abbrev__<name|color>` — saīsinājums operatoram `__operator_label__:<color>` vai `__operator_label__:<name>`",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "globalSearch-instructions-operator-limit",
+    "before": "`__operator_limit__:<n>` – kur *<n>* yra teigiamas sveikasis skaičius, išreiškiantis kortelių, kurios turi būti rodomos puslapyje, skaičių.",
+    "after": "`__operator_limit__:<n>` — *<n>* ir pozitīvs vesels skaitlis, kas norāda kartīšu skaitu vienā lapā.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "globalSearch-instructions-operator-sort",
+    "before": "`__operator_sort__:<sort-name>` – kur *<sort-name>* yra vienas iš `__predicate_due__`, `__predicate_created__` arba `__predicate_modified__`.  Jei norite rūšiuoti mažėjančia tvarka, prieš rūšiavimo pavadinimą įrašykite `-`.",
+    "after": "`__operator_sort__:<sort-name>` — *<sort-name>* ir viens no `__predicate_due__`, `__predicate_created__` vai `__predicate_modified__`. Dilstošai secībai ievietojiet `-` pirms kārtošanas nosaukuma.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "globalSearch-instructions-operator-status",
+    "before": "`__operator_status__:<status>` – kur *<status>* yra vienas iš šių:",
+    "after": "`__operator_status__:<status>` — *<status>* ir viena no šīm vērtībām:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "gridfs-enabled-description",
+    "before": "Failų saugojimui naudokite MongoDB GridFS",
+    "after": "Izmantot MongoDB GridFS failu glabāšanai",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "hide-finished-checklist",
+    "before": "Slėpti užbaigtą kontrolinį sąrašą",
+    "after": "Paslēpt pabeigto kontrolsarakstu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "hide-list-on-minicard",
+    "before": "Slėpti sąrašą Minikortelėje",
+    "after": "Paslēpt sarakstu minikartītē",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "hideAllChecklistItems",
+    "before": "Slėpti visus kontrolinio sąrašo elementus",
+    "after": "Paslēpt visus kontrolsaraksta vienumus",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "hideCheckedChecklistItems",
+    "before": "Slėpti pažymėtus kontrolinio sąrašo elementus",
+    "after": "Paslēpt atzīmētos kontrolsaraksta vienumus",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "import-board-zip",
+    "before": "Pridėkite .zip failą, kuriame yra plokštės JSON failai ir plokštės pavadinimų pakatalogiai su priedais",
+    "after": "Pievienojiet .zip failu ar tāfeļu JSON failiem un apakšmapēm, kurās ir pielikumi un kuru nosaukumi atbilst tāfeļu nosaukumiem",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "import-members-map-note",
+    "before": "Pastaba: nepriskirti nariai bus priskirti dabartiniam vartotojui.",
+    "after": "Piezīme: dalībnieki bez atbilstības tiks piešķirti pašreizējam lietotājam.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "import-usernames",
+    "before": "Importuoti naudotojų vardus",
+    "after": "Importēt lietotājvārdus",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "invalid-credentials",
+    "before": "Neteisingas vartotojo vardas arba slaptažodis",
+    "after": "Nepareizs lietotājvārds vai parole",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "invalid-file",
+    "before": "Jei failo pavadinimas neteisingas, įkėlimas arba pervadinimas atšaukiamas.",
+    "after": "Ja faila nosaukums ir nederīgs, augšupielāde vai pārdēvēšana tiek atcelta.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "invite-people-error",
+    "before": "Klaida siunčiant kvietimą registruotis",
+    "after": "Kļūda, nosūtot reģistrācijas uzaicinājumu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "invite-people-success",
+    "before": "Kvietimas registruotis išsiųstas sėkmingai",
+    "after": "Reģistrācijas uzaicinājums ir veiksmīgi nosūtīts",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "keyboard-shortcuts-disabled",
+    "before": "Spartieji klavišai išjungti. Spustelėkite, kad įgalintumėte.",
+    "after": "Tastatūras īsinājumtaustiņi ir atspējoti. Noklikšķiniet, lai iespējotu.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "keyboard-shortcuts-enabled",
+    "before": "Spartieji klavišai įjungti. Spustelėkite, kad išjungtumėte.",
+    "after": "Tastatūras īsinājumtaustiņi ir iespējoti. Noklikšķiniet, lai atspējotu.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "label-color-not-found",
+    "before": "Etiketės spalva %s nerasta.",
+    "after": "Etiķetes krāsa %s nav atrasta.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "last-modified",
+    "before": "Paskutinį kartą modifikuota",
+    "after": "Pēdējās izmaiņas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "left-of-list",
+    "before": "Pasirinkto sąrašo kairėje",
+    "after": "Pa kreisi no atlasītā saraksta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "list-archive-pop",
+    "before": "Po archyvavimo sąrašas nebus matomas lentoje.",
+    "after": "Pēc arhivēšanas saraksts tāfelē vairs nebūs redzams.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "list-archive-suggest",
+    "before": "Sąrašą vėliau galėsite atkurti iš archyvo, esančio Valdybos nustatymuose.",
+    "after": "Vēlāk varat atjaunot sarakstu no arhīva tāfeles iestatījumos.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "mark-all-as-unread",
+    "before": "Pažymėti viską kaip neskaitytus",
+    "after": "Atzīmēt visu kā nelasītu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "max-avatar-filesize",
+    "before": "Maksimalus avataro failo dydis baitais:",
+    "after": "Profila attēla faila maksimālais lielums baitos:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "max-upload-filesize",
+    "before": "Maksimalus įkeliamo failo dydis baitais:",
+    "after": "Augšupielādējamā faila maksimālais lielums baitos:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "migrate-all-to-filesystem",
+    "before": "Perkelti viską į failų sistemą",
+    "after": "Migrēt visu uz failu sistēmu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "migration-batch-size-description",
+    "before": "Kiekvienoje partijoje apdorotų priedų skaičius (1–100)",
+    "after": "Katrā paketē apstrādājamo pielikumu skaits (1–100)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "migration-cpu-threshold-description",
+    "before": "Pristabdyti perkėlimą, kai procesoriaus naudojimas viršija šį procentą (10–90)",
+    "after": "Apturēt migrāciju, ja centrālā procesora noslodze pārsniedz šo procentuālo vērtību (10–90)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "migration-delay-ms-description",
+    "before": "Vėlavimas tarp partijų milisekundėmis (100–10 000)",
+    "after": "Pauze starp paketēm milisekundēs (100–10000)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "migration-info-text",
+    "before": "Duomenų bazių perkėlimas atliekamas vieną kartą ir pagerina sistemos našumą. Procesas tęsiamas fone, net jei uždarote naršyklę.",
+    "after": "Datubāzes migrācijas tiek veiktas vienreiz un uzlabo sistēmas veiktspēju. Process turpinās fonā arī pēc pārlūkprogrammas aizvēršanas.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "migration-pause-failed",
+    "before": "Nepavyko pristabdyti perkėlimo",
+    "after": "Neizdevās apturēt migrācijas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "migration-paused",
+    "before": "Perkėlimai sėkmingai pristabdyti",
+    "after": "Migrācijas ir veiksmīgi apturētas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "migration-pausing",
+    "before": "Pristabdomas perkėlimas...",
+    "after": "Migrācijas tiek apturētas...",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "migration-progress-note",
+    "before": "Palaukite, kol perkelsime jūsų lentą į naujausią struktūrą...",
+    "after": "Lūdzu, uzgaidiet, kamēr jūsu tāfele tiek migrēta uz jaunāko struktūru...",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "migration-progress-title",
+    "before": "Vykdomas valdybos perkėlimas",
+    "after": "Notiek tāfeles migrācija",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "migration-resume-failed",
+    "before": "Nepavyko atnaujinti perkėlimo",
+    "after": "Neizdevās atsākt migrāciju",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "migration-start-failed",
+    "before": "Nepavyko pradėti perkėlimo",
+    "after": "Neizdevās palaist migrācijas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "migration-started",
+    "before": "Migracijos prasidėjo sėkmingai",
+    "after": "Migrācijas ir veiksmīgi palaistas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "migration-stop-confirm",
+    "before": "Ar tikrai norite sustabdyti visas migracijas?",
+    "after": "Vai tiešām vēlaties pārtraukt visas migrācijas?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "migration-stop-failed",
+    "before": "Nepavyko sustabdyti migracijos",
+    "after": "Neizdevās pārtraukt migrācijas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "migration-stopped",
+    "before": "Perkėlimas sėkmingai sustabdytas",
+    "after": "Migrācijas ir veiksmīgi pārtrauktas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "migration-stopping",
+    "before": "Sustabdomas perkėlimas...",
+    "after": "Migrācijas tiek pārtrauktas...",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "migration-successful",
+    "before": "Perkėlimas sėkmingai baigtas",
+    "after": "Migrācija ir veiksmīgi pabeigta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "migration-warning-text",
+    "before": "Perkėlimo metu neuždarykite naršyklės. Procesas tęsis fone, bet gali užtrukti ilgiau.",
+    "after": "Lūdzu, migrācijas laikā neaizveriet pārlūkprogrammu. Process turpināsies fonā, bet pabeigšana var aizņemt ilgāku laiku.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "migrations-description",
+    "before": "Vykdykite šios plokštės duomenų vientisumo patikras ir taisymą. Kiekvieną perkėlimą galima atlikti atskirai.",
+    "after": "Palaist šīs tāfeles datu integritātes pārbaudes un labošanu. Katru migrāciju var izpildīt atsevišķi.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "mobile-desktop-toggle",
+    "before": "Perjungti tarp mobiliojo ir darbalaukio režimo",
+    "after": "Pārslēgt mobilo vai darbvirsmas režīmu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "monitoring-export-failed",
+    "before": "Nepavyko eksportuoti stebėjimo duomenų",
+    "after": "Neizdevās eksportēt pārraudzības datus",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "monitoring-refresh-failed",
+    "before": "Nepavyko atnaujinti stebėjimo duomenų",
+    "after": "Neizdevās atjaunināt pārraudzības datus",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "move-all-attachments-of-board-to-fs",
+    "before": "Perkelkite visus plokštės priedus į failų sistemą",
+    "after": "Pārvietot visus tāfeles pielikumus uz failu sistēmu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "move-all-attachments-of-board-to-gridfs",
+    "before": "Perkelkite visus plokštės priedus į GridFS",
+    "after": "Pārvietot visus tāfeles pielikumus uz GridFS",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "move-all-attachments-of-board-to-s3",
+    "before": "Perkelkite visus plokštės priedus į S3",
+    "after": "Pārvietot visus tāfeles pielikumus uz S3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "move-all-attachments-to-fs",
+    "before": "Perkelkite visus priedus į failų sistemą",
+    "after": "Pārvietot visus pielikumus uz failu sistēmu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "move-all-attachments-to-gridfs",
+    "before": "Perkelkite visus priedus į GridFS",
+    "after": "Pārvietot visus pielikumus uz GridFS",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "move-all-attachments-to-s3",
+    "before": "Perkelkite visus priedus į S3",
+    "after": "Pārvietot visus pielikumus uz S3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "moveChecklist",
+    "before": "Perkelti kontrolinį sąrašą",
+    "after": "Pārvietot kontrolsarakstu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "moveChecklistPopup-title",
+    "before": "Perkelti kontrolinį sąrašą",
+    "after": "Pārvietot kontrolsarakstu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "multi-selection-active",
+    "before": "Spustelėkite žymimuosius laukelius, kad pasirinktumėte lentas",
+    "after": "Noklikšķiniet uz izvēles rūtiņām, lai atlasītu tāfeles",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "newLineNewItem",
+    "before": "Viena teksto eilutė = vienas kontrolinio sąrašo elementas",
+    "after": "Viena teksta rinda = viens kontrolsaraksta vienums",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "newTranslationPopup-title",
+    "before": "Nauja tinkinta vertimo eilutė",
+    "after": "Jauna pielāgotā tulkojuma virkne",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "newlineBecomesNewChecklistItem",
+    "before": "Kiekviena teksto eilutė tampa vienu iš kontrolinio sąrašo elementų",
+    "after": "Katra teksta rinda kļūst par kontrolsaraksta vienumu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "newlineBecomesNewChecklistItemOriginOrder",
+    "before": "Kiekviena teksto eilutė tampa vienu iš kontrolinio sąrašo elementų, pirminė tvarka",
+    "after": "Katra teksta rinda kļūst par kontrolsaraksta vienumu sākotnējā secībā",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "no-comments-desc",
+    "before": "Negaliu matyti komentarų.",
+    "after": "Nevar skatīt komentārus.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "notify-participate",
+    "before": "Gaukite naujienas apie visas korteles, kuriose dalyvaujate kaip kūrėjas ar narys",
+    "after": "Saņemt atjauninājumus par kartītēm, kurās esat izveidotājs vai dalībnieks",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "now-activities-of-all-boards-are-hidden",
+    "before": "Dabar visa visų lentų veikla paslėpta",
+    "after": "Tagad visu tāfeļu darbības ir paslēptas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "oidc-button-text",
+    "before": "Tinkinkite OIDC mygtuko tekstą",
+    "after": "Pielāgot OIDC pogas tekstu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "operator-debug-invalid",
+    "before": "%s nėra tinkamas derinimo predikatas",
+    "after": "%s nav derīgs atkļūdošanas predikāts",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "operator-has-invalid",
+    "before": "%s nėra galiojantis egzistavimo patikrinimas",
+    "after": "%s nav derīga esamības pārbaude",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "operator-limit-invalid",
+    "before": "%s negalioja riba.  Riba turi būti teigiamas sveikasis skaičius.",
+    "after": "%s nav derīgs ierobežojums. Ierobežojumam jābūt pozitīvam veselam skaitlim.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "operator-number-expected",
+    "before": "operatorius __operator__ tikėjosi skaičiaus, gavo __value__",
+    "after": "Operators __operator__ gaidīja skaitli, bet saņēma '__value__'",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "org-name-not-found",
+    "before": "Organizacija „%s“ nerasta.",
+    "after": "Organizācija '%s' nav atrasta.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "org-number",
+    "before": "Organizacijų skaičius yra:",
+    "after": "Organizāciju skaits: ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "overtime-hours",
+    "before": "Viršvalandžiai (valandos)",
+    "after": "Virsstundas (stundās)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "pause-all-migrations",
+    "before": "Pristabdyti visus perkėlimus",
+    "after": "Apturēt visas migrācijas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "poker-delete-pop",
+    "before": "Ištrynimas yra visam laikui. Prarasite visus su šiuo planavimo pokeriu susijusius veiksmus.",
+    "after": "Dzēšana ir neatgriezeniska. Jūs zaudēsiet visas ar šo plānošanas pokeru saistītās darbības.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "preview-pdf-not-supported",
+    "before": "Jūsų įrenginys nepalaiko PDF peržiūros. Vietoj to pabandykite atsisiųsti.",
+    "after": "Jūsu ierīce neatbalsta PDF priekšskatījumu. Mēģiniet failu lejupielādēt.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "r-board-note",
+    "before": "Pastaba: palikite lauką tuščią, kad atitiktų visas galimas reikšmes.",
+    "after": "Piezīme: atstājiet lauku tukšu, lai atbilstu jebkurai iespējamajai vērtībai. ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "read-only-desc",
+    "before": "Galima peržiūrėti tik korteles. Negalima redaguoti.",
+    "after": "Var tikai skatīt kartītes. Rediģēt nevar.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "remove-labels-multiselect",
+    "before": "Daugiafunkcinis pasirinkimas pašalina 1–9 etiketes",
+    "after": "Vairāku vienumu atlase noņem etiķetes 1–9",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "rescue-card-description",
+    "before": "Prieš uždarydami, parodykite neišsaugotų kortelių aprašų atkūrimo dialogą",
+    "after": "Pirms aizvēršanas rādīt nesaglabāta kartītes apraksta atkopšanas dialogu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "restore-all-archived-migration",
+    "before": "Atkurti visus archyvuotus",
+    "after": "Atjaunot visu arhivēto",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "restore-all-archived-migration-description",
+    "before": "Atkuria visus archyvuotus plaukimo takelius, sąrašus ir korteles. Automatiškai pataiso trūkstamą swimlaneId arba listId, kad elementai būtų matomi.",
+    "after": "Atjauno visas arhivētās joslas, sarakstus un kartītes. Automātiski salabo trūkstošos swimlaneId vai listId, lai vienumi kļūtu redzami.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "restore-lost-cards-migration",
+    "before": "Atkurti prarastas korteles",
+    "after": "Atjaunot pazudušās kartītes",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "restore-lost-cards-migration-description",
+    "before": "Suranda ir atkuria korteles ir sąrašus, kuriuose trūksta swimlaneId arba listId. Sukuria „Pamestų kortelių“ plaukimo juostą, kad visi pamesti daiktai vėl būtų matomi.",
+    "after": "Atrod un atjauno kartītes un sarakstus, kuriem trūkst swimlaneId vai listId. Izveido joslu «Pazudušās kartītes», lai visi pazudušie vienumi atkal būtu redzami.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "restore-lost-cards-nothing-to-restore",
+    "before": "Nereikia atkurti prarastų plaukimo juostų, sąrašų ar kortelių",
+    "after": "Nav pazudušu joslu, sarakstu vai kartīšu, ko atjaunot",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "right-of-list",
+    "before": "Pasirinkto sąrašo dešinėje",
+    "after": "Pa labi no atlasītā saraksta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "run-comprehensive-migration-confirm",
+    "before": "Tai atliks visapusišką perkėlimą, kad būtų patikrintas ir sutvarkytas plokštės duomenų vientisumas. Tai gali užtrukti keletą akimirkų. Tęsti?",
+    "after": "Tiks veikta pilna migrācija, lai pārbaudītu un salabotu tāfeles datu integritāti. Tas var aizņemt dažus mirkļus. Vai turpināt?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "run-fix-all-file-urls-migration-confirm",
+    "before": "Bus atnaujinti visi šios plokštės failų priedų URL, kad būtų naudojama tinkama saugyklos programa. Tęsti?",
+    "after": "Tiks atjaunināti visi šīs tāfeles failu pielikumu URL, lai izmantotu pareizo glabāšanas sistēmu. Vai turpināt?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "run-fix-avatar-urls-migration-confirm",
+    "before": "Bus atnaujinti valdybos narių pseudoportretų URL, kad jie galėtų naudoti tinkamą saugyklos vidinę programą. Tęsti?",
+    "after": "Tiks atjaunināti tāfeles dalībnieku profila attēlu URL, lai izmantotu pareizo glabāšanas sistēmu. Vai turpināt?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "s3-access-key-description",
+    "before": "AWS S3 prieigos raktas autentifikavimui",
+    "after": "AWS S3 piekļuves atslēga autentifikācijai",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "s3-access-key-placeholder",
+    "before": "Įveskite S3 prieigos raktą",
+    "after": "Ievadiet S3 piekļuves atslēgu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "s3-bucket-description",
+    "before": "S3 segmento pavadinimas failams saugoti",
+    "after": "S3 krātuves nosaukums failu glabāšanai",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "s3-enabled-description",
+    "before": "Failams saugoti naudokite AWS S3 arba MinIO",
+    "after": "Izmantot AWS S3 vai MinIO failu glabāšanai",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "s3-endpoint-description",
+    "before": "S3 galutinio taško URL (pvz., s3.amazonaws.com arba minio.example.com)",
+    "after": "S3 galapunkta URL (piemēram, s3.amazonaws.com vai minio.example.com)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "s3-port-description",
+    "before": "S3 galinio taško prievado numeris",
+    "after": "S3 galapunkta porta numurs",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "s3-region-description",
+    "before": "AWS S3 regionas (pvz., us-east-1)",
+    "after": "AWS S3 reģions (piemēram, us-east-1)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "s3-secret-key-description",
+    "before": "AWS S3 slaptasis raktas autentifikavimui",
+    "after": "AWS S3 slepenā atslēga autentifikācijai",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "s3-secret-key-placeholder",
+    "before": "Įveskite S3 slaptąjį raktą",
+    "after": "Ievadiet S3 slepeno atslēgu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "s3-secret-key-required",
+    "before": "Reikalingas S3 slaptasis raktas",
+    "after": "Nepieciešama S3 slepenā atslēga",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "s3-settings-save-failed",
+    "before": "Nepavyko išsaugoti S3 nustatymų",
+    "after": "Neizdevās saglabāt S3 iestatījumus",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "s3-ssl-enabled-description",
+    "before": "S3 ryšiams naudokite SSL/TLS",
+    "after": "Izmantot SSL/TLS S3 savienojumiem",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "save-s3-settings",
+    "before": "Išsaugokite S3 nustatymus",
+    "after": "Saglabāt S3 iestatījumus",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "scheduled-board-operations",
+    "before": "Suplanuotos valdybos operacijos",
+    "after": "Ieplānotās tāfeles darbības",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "search-boards-or-operations",
+    "before": "Ieškoti lentų arba operacijų...",
+    "after": "Meklēt tāfeles vai darbības...",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "server-error-troubleshooting",
+    "before": "Pateikite serverio sugeneruotą klaidą.\nNorėdami greitai įdiegti, paleiskite: `sudo snap logs wekan.wekan`\nNorėdami įdiegti „Docker“, paleiskite: `sudo docker logs wekan-app`",
+    "after": "Lūdzu, nosūtiet servera kļūdas informāciju.\nSnap instalācijai palaidiet: `sudo snap logs wekan.wekan`\nDocker instalācijai palaidiet: `sudo docker logs wekan-app`",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "set-swimlane-height",
+    "before": "Nustatykite plaukimo juostos aukštį",
+    "after": "Iestatīt joslas augstumu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "set-swimlane-height-value",
+    "before": "Plaukimo juostos aukštis (pikseliais)",
+    "after": "Joslas augstums (pikseļos)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "setSelectionColorPopup-title",
+    "before": "Nustatykite pasirinkimo spalvą",
+    "after": "Iestatīt atlases krāsu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "setSwimlaneHeightPopup-title",
+    "before": "Nustatykite plaukimo juostos aukštį",
+    "after": "Iestatīt joslas augstumu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "settingsTranslationPopup-title",
+    "before": "Ištrinti šią tinkintą vertimo eilutę?",
+    "after": "Vai dzēst šo pielāgotā tulkojuma virkni?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "shortcut-filter-my-assigned-cards",
+    "before": "Filtruoti man priskirtas korteles",
+    "after": "Filtrēt man piešķirtās kartītes",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "shortcut-toggle-searchbar",
+    "before": "Perjungti paieškos šoninę juostą",
+    "after": "Pārslēgt meklēšanas sānjoslu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "show-board_members-avatar",
+    "before": "Rodyti valdybos narių avatarus",
+    "after": "Rādīt tāfeles dalībnieku profila attēlus",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "show-list-on-minicard",
+    "before": "Rodyti sąrašą minikortelėje",
+    "after": "Rādīt sarakstu minikartītē",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "show-subtasks-field",
+    "before": "Rodyti papildomų užduočių lauką",
+    "after": "Rādīt apakšuzdevumu lauku",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "show-week-of-year",
+    "before": "Rodyti metų savaitę (ISO 8601)",
+    "after": "Rādīt gada nedēļas numuru (ISO 8601)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "showChecklistAtMinicard",
+    "before": "Rodyti kontrolinį sąrašą „Minicard“.",
+    "after": "Rādīt kontrolsarakstu minikartītē",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "showSum-field-on-list",
+    "before": "Rodyti laukų sumą sąrašo viršuje",
+    "after": "Rādīt lauku summu saraksta augšdaļā",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "sign-in-to-upload",
+    "before": "Prisijunkite, kad įkeltumėte saugyklas",
+    "after": "Pierakstieties, lai augšupielādētu repozitorijus",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "start-test-operation",
+    "before": "Pradėti bandomąją operaciją",
+    "after": "Sākt pārbaudes darbību",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "step-convert-shared-lists",
+    "before": "Konvertuoti bendrinamus sąrašus",
+    "after": "Pārveidot kopīgos sarakstus",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "step-create-missing-lists",
+    "before": "Sukurkite trūkstamų sąrašus",
+    "after": "Izveidot trūkstošos sarakstus",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "step-delete-duplicate-empty-lists",
+    "before": "Ištrinkite pasikartojančius tuščius sąrašus",
+    "after": "Dzēst tukšus sarakstu dublikātus",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "step-ensure-lost-cards-swimlane",
+    "before": "Užtikrinkite pamestas korteles „Swimlane“.",
+    "after": "Nodrošināt pazudušo kartīšu joslu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "step-ensure-per-swimlane-lists",
+    "before": "Užtikrinkite plaukimo juostų sąrašus",
+    "after": "Nodrošināt katras joslas sarakstus",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "step-fix-attachment-urls",
+    "before": "Pataisykite priedų URL adresus",
+    "after": "Salabot pielikumu URL",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "step-fix-missing-ids",
+    "before": "Pataisykite trūkstamus ID",
+    "after": "Salabot trūkstošos identifikatorus",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "step-fix-orphaned-cards",
+    "before": "Pataisykite našlaičių korteles",
+    "after": "Salabot kartītes bez saistītajiem datiem",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "step-scan-users",
+    "before": "Tikrinamos valdybos narių avatarai",
+    "after": "Pārbaudīt tāfeles dalībnieku profila attēlus",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "stop-all-migrations",
+    "before": "Sustabdyti visas migracijas",
+    "after": "Pārtraukt visas migrācijas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "storage-distribution",
+    "before": "Sandėliavimo paskirstymas",
+    "after": "Glabāšanas sadalījums",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "subtaskActionsPopup-title",
+    "before": "Papildomos užduoties veiksmai",
+    "after": "Apakšuzdevuma darbības",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "subtaskDeletePopup-title",
+    "before": "Ištrinti papildomą užduotį?",
+    "after": "Vai dzēst apakšuzdevumu?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "support-info-not-added-yet",
+    "before": "Palaikymo informacija dar nepridėta",
+    "after": "Atbalsta informācija vēl nav pievienota",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "support-info-only-for-logged-in-users",
+    "before": "Pagalbos informacija skirta tik prisijungusiems vartotojams.",
+    "after": "Atbalsta informācija ir pieejama tikai lietotājiem, kuri ir pierakstījušies.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "support-page-enabled",
+    "before": "Palaikymo puslapis įjungtas",
+    "after": "Atbalsta lapa ir iespējota",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "swimlane-archive-pop",
+    "before": "Suarchyvavus Swimlane nebus matomas lentoje.",
+    "after": "Pēc arhivēšanas josla tāfelē vairs nebūs redzama.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "swimlane-archive-suggest",
+    "before": "Vėliau galėsite atkurti plaukimo juostą iš archyvo lentų nustatymuose.",
+    "after": "Vēlāk varat atjaunot joslu no arhīva tāfeles iestatījumos.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "swimlane-height-error-message",
+    "before": "Plaukimo juostos aukštis turi būti teigiamas sveikasis skaičius",
+    "after": "Joslas augstumam jābūt pozitīvam veselam skaitlim",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "swimlane-title-not-found",
+    "before": "Plaukimo juosta „%s“ nerasta.",
+    "after": "Josla '%s' nav atrasta.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "tableVisibilityMode-allowPrivateOnly",
+    "before": "Lentų matomumas: leisti tik privačias lentas",
+    "after": "Tāfeļu redzamība: atļaut tikai privātas tāfeles",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "title-alphabetically",
+    "before": "Pavadinimas (abėcėlės tvarka)",
+    "after": "Nosaukums (alfabēta secībā)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "to-create-organizations-contact-admin",
+    "before": "Norėdami sukurti organizacijas, susisiekite su administratoriumi.",
+    "after": "Lai izveidotu organizācijas, lūdzu, sazinieties ar administratoru.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "to-create-teams-contact-admin",
+    "before": "Norėdami sukurti komandas, susisiekite su administratoriumi.",
+    "after": "Lai izveidotu komandas, lūdzu, sazinieties ar administratoru.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "translation-number",
+    "before": "Pasirinktinių vertimo eilučių skaičius yra:",
+    "after": "Pielāgotā tulkojuma virkņu skaits:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "upload-repository",
+    "before": "Įkelti / atnaujinti saugyklą",
+    "after": "Augšupielādēt vai atjaunināt repozitoriju",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "user-username-not-found",
+    "before": "Vartotojo vardas „%s“ nerastas.",
+    "after": "Lietotājvārds '%s' nav atrasts.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "username-password-required",
+    "before": "Reikalingas vartotojo vardas ir slaptažodis",
+    "after": "Nepieciešams lietotājvārds un parole",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "username-too-short",
+    "before": "Vartotojo vardą turi sudaryti bent 3 simboliai",
+    "after": "Lietotājvārdā jābūt vismaz 3 rakstzīmēm",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lv",
+    "key": "writable-path-description",
+    "before": "Bazinis katalogo kelias failams saugoti",
+    "after": "Failu glabāšanas pamatmapes ceļš",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

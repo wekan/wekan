@@ -5,7 +5,7 @@ const path = require('node:path');
 const root = path.resolve(__dirname, '..');
 const read = file => JSON.parse(fs.readFileSync(path.join(root, file), 'utf8'));
 const english = read('imports/i18n/data/en.i18n.json');
-const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%(?:\d+\$)?[A-Za-z]/g)].map(x => x[0]).sort();
+const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%(?:\d+\$)?[A-Za-z]|%\{[^}]+\}/g)].map(x => x[0]).sort();
 (async () => {
   const { corrections, repairLocale } = await import('../releases/translations/repair-audited-translations.mjs');
   const seen = new Set();
