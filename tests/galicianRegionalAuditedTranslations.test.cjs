@@ -125,3 +125,8 @@ assert.match(data['globalSearch-instructions-notes-2'], /\*OU\*.*calquera das co
 assert.match(data['globalSearch-instructions-description'], /`list:Blocked`.*`__operator_list__:"To Review"`/);
 for (const key of ['fix-all-file-urls-migration-description', 'fix-avatar-urls-migration-description']) assert.match(data[key], /almacenamento correcto.*referencias.*rotas/);
 assert.match(data['fix-missing-lists-migration-description'], /faltan ou están danadas.*estrutura do taboleiro/);
+
+assert.match(data['globalSearch-instructions-notes-3'], /\*E\*.*todos os operadores diferentes/);
+assert.match(data['globalSearch-instructions-notes-4'], /non distinguen maiúsculas de minúsculas/);
+assert.match(data['globalSearch-instructions-notes-5'], /predeterminada non se procura.*arquivadas/);
+assert.match(data['globalSearch-instructions-operator-comment'], /comentario que contén/);

@@ -36979,5 +36979,47 @@
     "before": "Operadores similares são unidos por *OU*. Cartões que igualem qualquer uma das condições serão devolvidos.\n`__operator_list__:Available __operator_list__:Blocked` deve devolver cartões de qualquer lista com o nome *Blocked* or *Available*.",
     "after": "Os operadores semellantes únense con *OU*. Devolveranse as tarxetas que cumpran calquera das condicións.\n`__operator_list__:Available __operator_list__:Blocked` devolvería as tarxetas contidas en calquera lista chamada *Blocked* ou *Available*.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "globalSearch-instructions-notes-3",
+    "before": "Diferentes operadores são unidos por *E*. Apenas os cartões que igualem todos os operadores serão devolvidos. `__operator_list__:Available __operator_label__:red` devolve apenas os cartões na lista *Available* com uma etiqueta *red*.",
+    "after": "Os operadores diferentes únense con *E*. Só se devolven as tarxetas que cumpran todos os operadores diferentes. `__operator_list__:Available __operator_label__:red` devolve só as tarxetas da lista *Available* cunha etiqueta *red*.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "globalSearch-instructions-notes-4",
+    "before": "Pesquisas de texto não diferenciam maiúsculas de minúsculas.",
+    "after": "As procuras de texto non distinguen maiúsculas de minúsculas.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "globalSearch-instructions-notes-5",
+    "before": "Por defeito os cartões arquivados não são pesquisados.",
+    "after": "De maneira predeterminada non se procura nas tarxetas arquivadas.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "globalSearch-instructions-operator-assignee",
+    "before": "`__operator_assignee__:<username>` - cartões onde *<username>* é *assignee*",
+    "after": "`__operator_assignee__:<username>` - tarxetas nas que *<username>* é *asignado*",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "globalSearch-instructions-operator-board",
+    "before": "`__operator_board__:<title>` - cartões em quadros que respeitam o filtro *<title>*",
+    "after": "`__operator_board__:<title>` - tarxetas en taboleiros que coinciden co *<title>* indicado",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "globalSearch-instructions-operator-comment",
+    "before": "`__operator_comment__:<text>` - cartões com um comentário que contem *<text>*.",
+    "after": "`__operator_comment__:<text>` - tarxetas cun comentario que contén *<text>*.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
