@@ -25814,5 +25814,89 @@
     "before": "%s уопште није исправна провера постојања",
     "after": "%s nije valjana provjera postojanja",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "operator-limit-invalid",
+    "before": "%s уопште није исправно ограничење. Граница се задаје позитивним целим бројем.",
+    "after": "%s nije valjano ograničenje. Ograničenje mora biti pozitivan cijeli broj.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "operator-number-expected",
+    "before": "оператор __operator__ је очекивао неки број а добио је '__value__'",
+    "after": "Operator __operator__ očekivao je broj, a dobio je '__value__'",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "operator-sort-invalid",
+    "before": "правило за преслагање '%s' није исправно",
+    "after": "Razvrstavanje '%s' nije valjano",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "org-name-not-found",
+    "before": "Странка по имену '%s' није пронађена.",
+    "after": "Organizacija '%s' nije pronađena.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "org-number",
+    "before": "Број евидентираних странака је:",
+    "after": "Broj organizacija je: ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "page-maybe-private",
+    "before": "Ови списи су могуће под велом тајности. Можда ћете ипак моћи да их видите кад се <a href='%s'>пријавите овде</a>.",
+    "after": "Ova je stranica možda privatna. Možda je možete pregledati ako se <a href='%s'>prijavite</a>.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "pastdue",
+    "before": "крајњи рок  %s је пробијен",
+    "after": "trenutačni rok %s je prošao",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "paste-or-dragdrop",
+    "before": " налепите/пренесите/испустите овде слику (важи само за слике)",
+    "after": "za lijepljenje ili povlačenje i ispuštanje slike u njega (samo slike)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "people-number",
+    "before": "Укупан број сарадника је:",
+    "after": "Broj osoba je: ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "poker-delete-pop",
+    "before": "Брисање има трајни карактер. Изгубићете све радње у вези овог плана за партију покера.",
+    "after": "Brisanje je trajno. Izgubit ćete sve radnje povezane s ovim pokerom za planiranje.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "preview-pdf-not-supported",
+    "before": "Ваш уређај не подржава приказивање pdf докумената. Пробајте да преузмете документ.",
+    "after": "Vaš uređaj ne podržava pretpregled PDF-a. Pokušajte preuzeti datoteku.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "private-desc",
+    "before": "Ови списи су тајни. Само одобрени сарадници могу да их читају и уређују.",
+    "after": "Ova je ploča privatna. Samo osobe dodane na ploču mogu je pregledavati i uređivati.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
