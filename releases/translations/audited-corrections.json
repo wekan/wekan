@@ -17778,5 +17778,306 @@
     "before": "Oddělovač (pro mezeru použijte &#32; nebo &nbsp;)",
     "after": "Oddeľovač (pre medzeru použite &#32; alebo &nbsp;)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "custom-login-logo-image-url",
+    "before": "URL vlastního loga přihlášení",
+    "after": "URL obrázka vlastného prihlasovacieho loga",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "custom-login-logo-link-url",
+    "before": "URL odkazu vlastního loga přihlášení",
+    "after": "URL odkazu vlastného prihlasovacieho loga",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "custom-top-left-corner-logo-height",
+    "before": "Výška vlastního loga v horním levém rohu. Defaultně: 27",
+    "after": "Výška vlastného loga v ľavom hornom rohu. Predvolená hodnota: 27",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "custom-top-left-corner-logo-image-url",
+    "before": "URL obrázku vlastního loga v levém horním rohu",
+    "after": "URL obrázka vlastného loga v ľavom hornom rohu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "custom-top-left-corner-logo-link-url",
+    "before": "URL odkazu vlastního loga v levém horním rohu",
+    "after": "URL odkazu vlastného loga v ľavom hornom rohu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "delete-board-confirm-popup",
+    "before": "Všechny sloupce, štítky a aktivity budou smazány a obsah tabla nebude možné obnovit. Toto nelze vrátit zpět.",
+    "after": "Všetky zoznamy, karty, štítky a aktivity sa vymažú a obsah nástenky nebude možné obnoviť. Nedá sa to vrátiť späť.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "delete-linked-card-before-this-card",
+    "before": "Tuto kratu nemůžete odstranit dokud nesmažete přiřazené karty",
+    "after": "Túto kartu nemôžete vymazať, kým najprv nevymažete prepojenú kartu, ktorá má",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "delete-linked-cards-before-this-list",
+    "before": "Tento sloupec nemůžete smazat dokud nesmažete propojené karty, které jsou navázány na karty v tomto sloupci",
+    "after": "Tento zoznam nemôžete vymazať, kým najprv nevymažete prepojené karty odkazujúce na karty v tomto zozname",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "delete-org-confirm-popup",
+    "before": "Jste si jisti, že chcete smazat tuto organizaci? Tuto akci nelze vrátit zpět.",
+    "after": "Naozaj chcete vymazať túto organizáciu? Nedá sa to vrátiť späť.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "delete-org-warning-message",
+    "before": "Tuto organizaci není možné smazat, protože do ní patří uživatel(é)",
+    "after": "Túto organizáciu nemožno vymazať, pretože do nej patrí aspoň jeden používateľ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "delete-team-confirm-popup",
+    "before": "Jste si jisti, že chcete smazat tento tým? Tuto akci nelze vrátit zpět.",
+    "after": "Naozaj chcete vymazať tento tím? Nedá sa to vrátiť späť.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "delete-team-warning-message",
+    "before": "Tento tým není možné smazat, protože do nej patří uživatel(é)",
+    "after": "Tento tím nemožno vymazať, pretože doň patrí aspoň jeden používateľ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "delete-translation-confirm-popup",
+    "before": "Opravdu chcete smazat tento vlastní překlad? Tuto akci nelze vrátit zpět.",
+    "after": "Naozaj chcete vymazať tento vlastný preklad? Nedá sa to vrátiť späť.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "delete-user-confirm-popup",
+    "before": "Jste si jisti, že chcete smazat tento účet? Tuto akci nelze vrátit zpět.",
+    "after": "Naozaj chcete vymazať tento účet? Nedá sa to vrátiť späť.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "deposit-subtasks-board",
+    "before": "Vložit podúkoly do tohoto tabla",
+    "after": "Vložiť podúlohy do tejto nástenky:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "dueCardsViewChange-choice-all-description",
+    "before": "Zobrazí všechny nedokončené karty s *Termínem dokončení* z každého tabla, ke kterému má uživatel oprávnění.",
+    "after": "Zobrazí všetky nedokončené karty s *termínom dokončenia* z násteniek, ku ktorým má používateľ oprávnenie.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "duenow",
+    "before": "Stávající termín dokončení %s je dnes",
+    "after": "Aktuálny termín dokončenia %s je dnes",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "editCardDueDatePopup-title",
+    "before": "Změnit datum dokončení úkolu",
+    "after": "Zmeniť termín dokončenia",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "editCardStartDatePopup-title",
+    "before": "Změnit datum startu úkolu",
+    "after": "Zmeniť dátum začiatku",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "editPokerEndDatePopup-title",
+    "before": "Změnit datum konce plánovacího pokeru",
+    "after": "Zmeniť dátum ukončenia hlasovania plánovacieho pokeru",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "editVoteEndDatePopup-title",
+    "before": "Změnit datum konce hlasování",
+    "after": "Zmeniť dátum ukončenia hlasovania",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "email-enrollAccount-text",
+    "before": "Ahoj __user__,\n\nMůžeš začít používat službu kliknutím na odkaz níže.\n\n__url__\n\nDěkujeme.",
+    "after": "Ahoj __user__,\n\nAk chceš začať používať službu, klikni na odkaz nižšie.\n\n__url__\n\nĎakujeme.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "email-fail-text",
+    "before": "Chyba při pokusu o odeslání emailu",
+    "after": "Chyba pri pokuse o odoslanie e-mailu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "email-invite-register-text",
+    "before": "Ahoj __user__,\n\n__inviter__ tě přizval do kanban boardu ke spolupráci.\n\nNásleduj prosím odkaz níže:\n\n__url__\n\nKód Tvé pozvánky je: __icode__\n\nDěkujeme.",
+    "after": "Ahoj __user__,\n\n__inviter__ ťa pozýva na kanbanovú nástenku na spoluprácu.\n\nPrejdi na odkaz nižšie:\n__url__\n\nKód tvojej pozvánky je: __icode__\n\nĎakujeme.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "email-invite-text",
+    "before": "Ahoj __user__,\n\n__inviter__ tě přizval ke spolupráci na tablu \"__board__\".\n\nNásleduj prosím odkaz níže:\n\n__url__\n\nDěkujeme.",
+    "after": "Ahoj __user__,\n\n__inviter__ ťa pozýva na spoluprácu na nástenke «__board__».\n\nPrejdi na odkaz nižšie:\n\n__url__\n\nĎakujeme.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "email-resetPassword-text",
+    "before": "Ahoj __user__,\n\nPro změnu hesla klikni na odkaz níže.\n\n__url__\n\nDěkujeme.",
+    "after": "Ahoj __user__,\n\nAk chceš obnoviť heslo, klikni na odkaz nižšie.\n\n__url__\n\nĎakujeme.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "email-smtp-test-text",
+    "before": "Email byl úspěšně odeslán",
+    "after": "E-mail bol úspešne odoslaný",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "email-verifyEmail-text",
+    "before": "Ahoj __user__,\n\nPro ověření emailové adresy klikni na odkaz níže.\n\n__url__\n\nDěkujeme.",
+    "after": "Ahoj __user__,\n\nAk chceš overiť e-mailovú adresu účtu, klikni na odkaz nižšie.\n\n__url__\n\nĎakujeme.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "error-board-notAMember",
+    "before": "K provedení změny musíš být členem tohoto tabla",
+    "after": "Na vykonanie tejto akcie musíš byť členom tejto nástenky",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "error-board-notAdmin",
+    "before": "K provedení změny musíš být administrátor tohoto tabla",
+    "after": "Na vykonanie tejto akcie musíš byť správcom tejto nástenky",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "error-csv-schema",
+    "before": "Váš CSV (Comma Separated Values)/TSV (Tab Separated Values) neobsahuje správné informace ve správném formátu.",
+    "after": "Údaje CSV (hodnoty oddelené čiarkami)/TSV (hodnoty oddelené tabulátormi) neobsahujú potrebné informácie v správnom formáte",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "error-email-taken",
+    "before": "Tento email byl již použit",
+    "after": "Táto e-mailová adresa sa už používa",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "error-json-malformed",
+    "before": "Tvůj text není validní JSON",
+    "after": "Tvoj text nie je platný JSON",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "error-json-schema",
+    "before": "Tato JSON data neobsahují správné informace v platném formátu",
+    "after": "Údaje JSON neobsahujú potrebné informácie v správnom formáte",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "error-ldap-login",
+    "before": "Během přihlašování nastala chyba",
+    "after": "Pri pokuse o prihlásenie nastala chyba",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "error-list-doesNotExist",
+    "before": "Tento sloupec ;neexistuje",
+    "after": "Tento zoznam neexistuje",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "error-notAuthorized",
+    "before": "Nejste autorizován k prohlížení této stránky.",
+    "after": "Nemáte oprávnenie zobraziť túto stránku.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "error-orgname-taken",
+    "before": "Jméno organizace již existuje",
+    "after": "Tento názov organizácie sa už používa",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "error-user-doesNotExist",
+    "before": "Tento uživatel neexistuje",
+    "after": "Tento používateľ neexistuje",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "error-user-notCreated",
+    "before": "Tento uživatel není vytvořen",
+    "after": "Tento používateľ nie je vytvorený",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "error-username-taken",
+    "before": "Toto uživatelské jméno již existuje",
+    "after": "Toto používateľské meno sa už používa",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "filter-card-title-label",
+    "before": "Filtrovat pomocí názvů karet",
+    "after": "Filtrovať podľa názvu karty",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "filter-cards",
+    "before": "Filtrovat karty nebo seznamy",
+    "after": "Filtrovať karty alebo zoznamy",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

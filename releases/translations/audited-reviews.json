@@ -358,5 +358,17 @@
     "key": "azure-connection-string-menu-path",
     "value": "Azure Portal → Storage accounts → váš účet → Security + networking → Access keys → key1 → Connection string → Show.",
     "reason": "Individually reviewed: váš účet is valid Slovak. The remaining Azure Portal navigation labels and key1 are literal vendor menu names or identifiers, so they remain unchanged."
+  },
+  {
+    "locale": "sk",
+    "key": "email-templates-activity-vars-hint",
+    "value": "Dostupné značky: {board} {card} {list} {username} {url} {comment} {action}",
+    "reason": "Individually reviewed: Dostupné značky is valid Slovak as well as Czech. Brace-delimited template variable names are literal code tokens and must remain unchanged."
+  },
+  {
+    "locale": "sk",
+    "key": "email-templates-invite-vars-hint",
+    "value": "Dostupné značky: {email} {inviter} {user} {icode} {url}",
+    "reason": "Individually reviewed: Dostupné značky is valid Slovak as well as Czech. Brace-delimited template variable names are literal code tokens and must remain unchanged."
   }
 ]
