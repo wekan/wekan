@@ -558,6 +558,13 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/78c5f9b42">Repair Croatian user status and attachment settings</a>. Thanks to xet7.</summary>
+
+Correct 18 reviewed values. Positive and negative regressions verify account activation, logged-in user scope, data-loss warnings and S3 wording. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/40db24a44">Repair Croatian administration and custom-field activities</a>. Thanks to xet7.</summary>
 
 Correct 16 reviewed values. Regressions verify date/card rendering, inactive-user and field-clearing meanings, administrator actions and literal HTML delimiters. Source-token, target-script, exact-value, key-order and repair checks pass. Audit.md records dated progress.
