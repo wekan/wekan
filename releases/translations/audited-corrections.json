@@ -29503,5 +29503,75 @@
     "before": "S3 bucket име где чувате предметну грађу",
     "after": "Naziv S3 spremnika za pohranu datoteka",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "s3-connection-success",
+    "before": "Управо је остварена веза до S3",
+    "after": "Veza sa S3 je uspješno uspostavljena",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "s3-enabled",
+    "before": "S3 ради и може да се користи",
+    "after": "S3 omogućen",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "s3-enabled-description",
+    "before": "Можете да користите AWS S3 или MinIO као складиште предметне грађе",
+    "after": "Koristi AWS S3 ili MinIO za pohranu datoteka",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "s3-endpoint-description",
+    "before": "S3 endpoint тачка (нпр. s3.amazonaws.com или minio.example.com)",
+    "after": "URL S3 krajnje tačke (npr. s3.amazonaws.com ili minio.example.com)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "s3-region-description",
+    "before": "AWS S3 регион (нпр. us-east-1)",
+    "after": "AWS S3 regija (npr. us-east-1)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "s3-secret-key-description",
+    "before": "AWS S3 тајни кључ за пријаву",
+    "after": "AWS S3 tajni ključ za autentifikaciju",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "s3-settings-save-failed",
+    "before": "Није могла бити сачувана S3 поставка",
+    "after": "Čuvanje S3 postavki nije uspjelo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "s3-ssl-enabled",
+    "before": "S3 SSL шифровање је укључено",
+    "after": "S3 SSL omogućen",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "s3-ssl-enabled-description",
+    "before": "Користи SSL/TLS за везу до Amazon S3 складишта",
+    "after": "Koristi SSL/TLS za S3 veze",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "schedule-board-backup",
+    "before": "Закажи израду резервног примерка",
+    "after": "Zakaži sigurnosnu kopiju ploče",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

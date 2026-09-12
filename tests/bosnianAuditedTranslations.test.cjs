@@ -355,3 +355,13 @@ assert.equal(data['s3-attachments'], 'S3 prilozi');
 assert.doesNotMatch(data['s3-attachments'], /Amazon|oblak/);
 assert.match(data['s3-access-key-description'], /AWS S3.*autentifikaciju/);
 console.log('bosnianAuditedTranslations: restoration warnings, non-archived scope and S3 authentication passed');
+
+assert.equal(data['s3-enabled-description'], 'Koristi AWS S3 ili MinIO za pohranu datoteka');
+for (const endpoint of ['s3.amazonaws.com', 'minio.example.com']) assert.ok(data['s3-endpoint-description'].includes(endpoint));
+assert.ok(data['s3-region-description'].includes('us-east-1'));
+assert.match(data['s3-secret-key-description'], /tajni ključ za autentifikaciju/);
+assert.equal(data['s3-ssl-enabled-description'], 'Koristi SSL/TLS za S3 veze');
+assert.doesNotMatch(data['s3-ssl-enabled-description'], /Amazon/);
+assert.match(data['s3-settings-save-failed'], /nije uspjelo/);
+assert.match(data['schedule-board-backup'], /kopiju ploče/);
+console.log('bosnianAuditedTranslations: MinIO choice, literal endpoints, TLS and board backup passed');
