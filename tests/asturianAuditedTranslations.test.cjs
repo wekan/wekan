@@ -449,3 +449,11 @@ assert.match(data['subtext-with-full-path'], /Sotestu cola ruta completa/);
 assert.match(data['swimlane-delete-pop'], /toles aiciones del historial d’actividá.*nun vas poder recuperar el carril.*Nun se puede desfacer/);
 assert.match(data['swimlane-height-error-message'], /altor del carril.*númberu enteru positivu/);
 assert.doesNotMatch(data['swimlane-height-error-message'], /anchor/);
+
+assert.match(data['swimlane-title-not-found'], /Nun s’alcontró el carril '%s'/);
+assert.match(data['swimlaneActionPopup-title'], /Aiciones del carril/);
+assert.match(data['swimlaneDeletePopup-title'], /Eliminar el carril/);
+assert.match(data['text-below-custom-login-logo'], /Testu debaxo.*aniciu de sesión/);
+assert.match(data['to-create-organizations-contact-admin'], /crear organizaciones.*col alministrador/);
+assert.match(data['to-create-teams-contact-admin'], /crear equipos.*col alministrador/);
+assert.notEqual(data['to-create-organizations-contact-admin'], data['to-create-teams-contact-admin']);

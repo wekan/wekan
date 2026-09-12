@@ -43741,5 +43741,47 @@
     "before": "La altura de carril debe ser un entero positivo",
     "after": "L’altor del carril tien de ser un númberu enteru positivu",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "swimlane-title-not-found",
+    "before": "Carril '%s' no encontrado.",
+    "after": "Nun s’alcontró el carril '%s'.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "swimlaneActionPopup-title",
+    "before": "Acciones del carril de flujo",
+    "after": "Aiciones del carril",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "swimlaneDeletePopup-title",
+    "before": "¿Eliminar el carril de flujo?",
+    "after": "¿Eliminar el carril?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "text-below-custom-login-logo",
+    "before": "Texto debajo del logo personalizado de inicio de sesión",
+    "after": "Testu debaxo del logotipu personalizáu d’aniciu de sesión",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "to-create-organizations-contact-admin",
+    "before": "Para crear organizaciones, póngase en contacto con el administrador.",
+    "after": "Pa crear organizaciones, ponte en contautu col alministrador, por favor.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "to-create-teams-contact-admin",
+    "before": "Para crear equipos, por favor contacte con el administrador.",
+    "after": "Pa crear equipos, ponte en contautu col alministrador, por favor.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
