@@ -558,6 +558,13 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/9771924ec">Repair Slovenian memory metrics and retain valid reactivity labels</a>. Thanks to xet7.</summary>
+
+Correct 22 flagged values and retain 2 reviewed correct labels. Regressions verify resident memory, executable-code and peak-malloc meanings. Source-token, exact-value, key-order and repair/review checks pass. Audit.md records current progress.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/2c8270747">Repair Slovenian wait indicators and memory labels</a>. Thanks to xet7.</summary>
 
 Correct 16 flagged values across both Slovenian locales. Positive and negative regressions verify target language, double-bounce, bit-pattern and malloc meanings. Source-token, exact-value, key-order and repair checks pass. Audit.md records current progress.
