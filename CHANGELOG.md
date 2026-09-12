@@ -558,6 +558,13 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/7f3c3c618e145ac44c63b3e78bb511383c20262a">Repair Slovenian migration confirmations and S3 labels</a>. Thanks to xet7.</summary>
+
+Correct 20 values across both Slovenian locales. Preserve conversion/deletion order, duplicate-list conditions, restoration warnings and non-archived-item scope; restore generic S3 labels. Regression checks verify meanings, exact corrections, source tokens, key order and idempotent repairs. The short translation audit records current progress.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/dd02c4f928fddd1050f6c2298dd5331ce51d8060">Repair Slovenian restoration and unsaved description messages</a>. Thanks to xet7.</summary>
 
 Correct 20 values across both Slovenian locales. Preserve restoration scope, literal identifiers, lost-item visibility and unsaved-description overwrite confirmation. Regression checks verify meanings, exact corrections, source tokens, key order and idempotent repairs. The short translation audit records current progress.
