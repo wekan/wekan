@@ -557,6 +557,16 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/bc71d8991">Repair Slovak search help and case-insensitivity wording</a>. Thanks to xet7.</summary>
+
+Correct 20 reviewed values, including the reversed meaning of case-insensitive
+searches. Preserve literal query examples and operators while translating
+Boolean explanations. Positive and negative vocabulary, meaning, placeholder,
+query and repair checks pass. Further findings remain under review.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/d0e89cb3e">Repair Slovak invitations and administration translations</a>. Thanks to xet7.</summary>
 
 Correct 43 reviewed values and retain two valid template-variable hints.
