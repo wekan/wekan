@@ -44840,5 +44840,26 @@
     "before": "Nombre de producto personalizado",
     "after": "Nombre d’o producto personalizau",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "database-migration",
+    "before": "Migración de base de datos",
+    "after": "Migración d’a base de datos",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "database-migrations",
+    "before": "Migraciones de base de datos",
+    "after": "Migracions d’a base de datos",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "databaseReportTitle",
+    "before": "Problemas de la base de datos",
+    "after": "Problemas d’a base de datos",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

@@ -658,5 +658,23 @@
     "key": "custom-head-meta-tags",
     "value": "Etiquetas meta personalizadas (HTML)",
     "reason": "Valid shared Aragonese feminine plural wording; meta and HTML identify literal technical elements and must remain unchanged."
+  },
+  {
+    "locale": "an",
+    "key": "database-migrate-to-ferretdb",
+    "value": "Migrar datos de texto a FerretDB v1 (SQLite)",
+    "reason": "Valid shared Aragonese technical wording about migration of text data; preserves the source database destination/version or completion meaning without changing correct text."
+  },
+  {
+    "locale": "an",
+    "key": "database-migrate-to-mongodb",
+    "value": "Migrar datos de texto a MongoDB",
+    "reason": "Valid shared Aragonese technical wording about migration of text data; preserves the source database destination/version or completion meaning without changing correct text."
+  },
+  {
+    "locale": "an",
+    "key": "database-migration-done",
+    "value": "Migración de datos de texto completada.",
+    "reason": "Valid shared Aragonese technical wording about migration of text data; preserves the source database destination/version or completion meaning without changing correct text."
   }
 ]
