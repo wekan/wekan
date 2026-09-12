@@ -36685,5 +36685,75 @@
     "before": "Pressione enter para adicionar mais itens",
     "after": "Prema Intro para engadir máis elementos",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "default-subtasks-board",
+    "before": "Sub-tarefas para o quadro __board__",
+    "after": "Subtarefas do taboleiro __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "delete-all-notifications-confirm",
+    "before": "Tem certeza de que deseja excluir todas notificações? Esta ação não pode ser desfeita.",
+    "after": "Estás seguro de que queres eliminar todas as notificacións? Esta acción non se pode desfacer.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "delete-board-confirm-popup",
+    "before": "Todas as listas, cartões, etiquetas e atividades serão apagadas e não poderá recuperar o conteúdo do quadro. Não é reversível.",
+    "after": "Eliminaranse todas as listas, tarxetas, etiquetas e actividades, e non poderás recuperar o contido do taboleiro. Non se pode desfacer.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "delete-duplicate-empty-lists-migration-description",
+    "before": "Exclui com segurança listas duplicadas vazias. Remove apenas listas que não contêm cartões E que possuem outra lista com o mesmo título que contém cartões.",
+    "after": "Elimina con seguridade as listas duplicadas baleiras. Só quita as listas que non teñen tarxetas E que teñen outra lista co mesmo título que contén tarxetas.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "delete-duplicate-lists-confirm",
+    "before": "Você tem certeza? Isso vai apagar todas as litas duplicadas que possuem o mesmo nome e que não possuem cartões",
+    "after": "Estás seguro? Isto eliminará todas as listas duplicadas que teñan o mesmo nome e non conteñan tarxetas.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "delete-linked-card-before-this-card",
+    "before": "Não pode apagar este cartão sem primeiro apagar o cartão ligado que tem",
+    "after": "Non podes eliminar esta tarxeta sen eliminar antes a tarxeta ligada que ten",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "delete-linked-cards-before-this-list",
+    "before": "Não pode apagar esta lista sem primeiro apagar cartões ligados que apontam para cartões nesta lista",
+    "after": "Non podes eliminar esta lista sen eliminar antes as tarxetas ligadas que apuntan a tarxetas desta lista",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "delete-org-confirm-popup",
+    "before": "Tem a certeza que pretende apagar esta organização? Não é reversível.",
+    "after": "Estás seguro de que queres eliminar esta organización? Non se pode desfacer.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "delete-org-warning-message",
+    "before": "Não pode apagar esta organização, tem no mínimo um utilizador associado",
+    "after": "Non se pode eliminar esta organización, hai polo menos un usuario que pertence a ela",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "delete-team-confirm-popup",
+    "before": "Tem a certeza que pretende apagar esta equipa? Não é reversível.",
+    "after": "Estás seguro de que queres eliminar este equipo? Non se pode desfacer.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

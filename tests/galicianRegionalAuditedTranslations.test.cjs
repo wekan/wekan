@@ -5,6 +5,12 @@ assert.match(data['accounts-lockout-known-users'], /usuarios coñecidos.*usuario
 assert.match(data['accounts-lockout-unknown-users'], /usuarios descoñecidos.*usuario inexistente/);
 for (const key of ['accounts-lockout-known-users', 'accounts-lockout-unknown-users']) assert.doesNotMatch(data[key], /usuários|senha|Configurações/);
 assert.match(data['act-addChecklist'], /engadiu a lista de verificación/);
+assert.match(data['delete-board-confirm-popup'], /todas as listas, tarxetas, etiquetas e actividades.*non poderás recuperar.*Non se pode desfacer/);
+assert.match(data['delete-duplicate-empty-lists-migration-description'], /non teñen tarxetas E.*mesmo título.*contén tarxetas/);
+assert.match(data['delete-linked-cards-before-this-list'], /eliminar antes.*apuntan a tarxetas desta lista/);
+assert.match(data['delete-org-warning-message'], /Non se pode eliminar.*polo menos un usuario/);
+for (const key of ['delete-all-notifications-confirm', 'delete-org-confirm-popup', 'delete-team-confirm-popup']) assert.match(data[key], /non se pode desfacer/i);
+
 assert.equal(data.copyChecklistFromTemplate, data['copyChecklistFromTemplatePopup-title']);
 assert.equal(data.copyChecklist, data['copyChecklistPopup-title']);
 assert.match(data['custom-field-delete-pop'], /Non se pode desfacer.*todas as tarxetas.*destruirá o seu historial/);
