@@ -558,6 +558,13 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/2019869c7">Repair Croatian migration steps and support access labels</a>. Thanks to xet7.</summary>
+
+Correct 20 reviewed values. Positive and negative regressions verify starred-board ordering, support access and migration entity names. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/13200137a">Repair Croatian swimlane and minicard display controls</a>. Thanks to xet7.</summary>
 
 Correct 16 reviewed values. Positive and negative regressions verify pixel units, field sums, All Boards wording and assignment filters. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
