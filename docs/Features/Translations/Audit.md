@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Audit keys |
 | --- | ---: |
-| Explicitly corrected | 6,526 |
+| Explicitly corrected | 6,530 |
 | Restored pre-pull values awaiting further validation | 4,059 |
-| Reviewed and retained unchanged | 134 |
-| Pending review or repair | 9,362 |
+| Reviewed and retained unchanged | 136 |
+| Pending review or repair | 9,356 |
 | Total tracked | 20,081 |
 
 **Translation repairs remain unfinished.** These counts cover flagged findings; unflagged strings and restored values are not certified as correct.
 
-Fixes cover wrong-language text, terminology, missing warnings, JSON examples, placeholders and calendar/search formatting. The correction history records **6,588 values**, including fixes outside the audit. Flagged queues are complete for Bosnian, Croatian, Macedonian, both Slovenian locales, Latvian, Romanian, Slovak, both Galician locales, Asturian and Aragonese.
+Fixes cover wrong-language text, terminology, missing warnings, JSON examples, placeholders and calendar/search formatting. The correction history records **6,592 values**, including fixes outside the audit. Flagged queues are complete for Bosnian, Croatian, Macedonian, both Slovenian locales, Latvian, Romanian, Slovak, both Galician locales, Asturian and Aragonese.
 
-Latest fix: [9a209e7e5](https://github.com/wekan/wekan/commit/9a209e7e5d0b117b93e1e8d13f52730108cc3d1f), **2026-09-13** — six Friulian calendar labels repaired, preserving Dangi and Amete Alem distinctions and identifying Jalali as Persian. **24 Friulian findings remain.** Exact-value, placeholder, key-order and idempotency checks pass. Calendar terminology follows existing translations and [ARLeF usage](https://arlef.it/comunicats-stampe); Friulian, Aragonese and Asturian wording need native-speaker review. Live Meteor browser verification remains unavailable.
+Latest fix: [0dcd3ea5a](https://github.com/wekan/wekan/commit/0dcd3ea5afa56f8ea9da576665cb75836b923494), **2026-09-13** — four Friulian Hijri variants repaired, preserving civil/astronomical epochs, Saudi observation and Umm al-Qura; two shared terms retained. **18 Friulian findings remain.** Exact-value, placeholder, key-order, review and idempotency checks pass; Friulian, Aragonese and Asturian wording need native-speaker review. Live Meteor browser verification remains unavailable.
 
 **Provenance:** not all errors came from Transifex. The captured pull changed 4,061 values; the full-local audit added 16,020 findings. Bosnian errors came from the September 5 [local completion commit](https://github.com/wekan/wekan/commit/bdb3b15886a749b725b5290ba0109fcba955f983), with no Bosnian changes in the captured pull. Other ultimate origins remain unverified.
 
