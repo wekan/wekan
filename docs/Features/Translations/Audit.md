@@ -4,21 +4,21 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Audit keys |
 | --- | ---: |
-| Explicitly corrected | 5,245 |
+| Explicitly corrected | 5,251 |
 | Original pull values restored to pre-pull local values | 4,061 |
 | Reviewed and retained unchanged | 78 |
-| Pending review or repair | 10,697 |
+| Pending review or repair | 10,691 |
 | Total tracked | 20,081 |
 
 The full translation repair goal remains unfinished. Counts describe the tracked audit findings; unflagged strings are not individually certified. Restored pre-pull values are not automatically certified as correct translations.
 
 ## Fixes completed
 
-Repairs address wrong-language text, incorrect kanban terminology, missing restrictions and warnings, malformed JSON examples, translated placeholders, calendar names, search syntax and date/message argument order. The reviewed correction list contains **5,307 values**, including corrections outside the flagged audit rows.
+Repairs address wrong-language text, incorrect kanban terminology, missing restrictions and warnings, malformed JSON examples, translated placeholders, calendar names, search syntax and date/message argument order. The reviewed correction list contains **5,313 values**, including corrections outside the flagged audit rows.
 
 The flagged Bosnian, Croatian, Macedonian and both Slovenian queues are complete. Other completed queues include Latvian, Romanian, Slovak and several smaller regional queues. **Bosnian has no remaining flagged findings**.
 
-Latest translation correction: [4b6fcaa8c](https://github.com/wekan/wekan/commit/4b6fcaa8c1713a69c9b191bdae4e96a047059506), **2026-09-13**, fixes six Galician regional user-operator and search-status/title values. Reviewed Galician wording preserves member/assignee alternatives, archived/unarchived scope, end-date presence and public/private board restrictions; restores all-board search intent. The regional queue has 445 findings remaining. Meaning, exact-value, placeholder, key-order and idempotency checks pass.
+Latest translation correction: [9100900db](https://github.com/wekan/wekan/commit/9100900db97f1945cfaaf17e7054eb46306e624e), **2026-09-13**, fixes six Galician regional time-filter and visibility values. Reviewed Galician wording distinguishes overtime from spent time, completed checklists from all checklist items and mini-card label text from labels. The regional queue has 439 findings remaining. Meaning, exact-value, placeholder, key-order and idempotency checks pass.
 
 ## Provenance
 

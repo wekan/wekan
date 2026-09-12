@@ -558,6 +558,13 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/9100900db97f1945cfaaf17e7054eb46306e624e">Repair Galician regional time filters and checklist visibility</a>. Thanks to xet7.</summary>
+
+Repair six regional values with reviewed Galician wording. Preserve overtime/spent-time distinctions, completed checklists, all checklist items and mini-card label text. Meaning, exact-value, placeholder, key-order and idempotency checks pass. The short translation audit records current progress.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/4b6fcaa8c1713a69c9b191bdae4e96a047059506">Repair Galician regional search status and all board search title</a>. Thanks to xet7.</summary>
 
 Repair six regional values with reviewed Galician wording. Preserve member/assignee alternatives, archived/unarchived scope, end-date presence and board visibility restrictions; restore all-board search intent. Meaning, exact-value, placeholder, key-order and idempotency checks pass. The short translation audit records current progress.
