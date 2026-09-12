@@ -558,6 +558,15 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/bb288913e090ab4e310b2762710412877fbe53ce">Fix Galician regional migration limits and monitoring messages</a></summary>
+
+Replace 35 Portuguese values with reviewed Galician. Distinguish paused from stopped migrations and preserve CPU thresholds, millisecond ranges, background continuation, monitoring errors and permanent-deletion warnings. Translation regression checks pass.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/5fe2d75a23b35109ad184037a69208ad0793d05e">Fix Galician regional search and import translations</a></summary>
 
 Replace 29 Portuguese values with reviewed Galician and retain one correct integrity label. Restore label search arguments and valid-data instructions; preserve shortcut states, byte units and migration batch limits. Translation regression checks pass.
