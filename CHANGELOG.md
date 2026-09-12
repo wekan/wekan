@@ -557,6 +557,16 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/538b8aca6">Repair Macedonian date and archive activity translations</a>. Thanks to xet7.</summary>
+
+Correct 20 reviewed values. Positive and negative checks verify actual
+i18next/sprintf rendering, checklist-removal meaning, native labels,
+source tokens, key order and idempotency. These checks pass. Further
+findings remain under review.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/f351a8a18">Repair Macedonian account protection and accessibility translations</a>. Thanks to xet7.</summary>
 
 Correct 24 reviewed values and retain a valid reactivity-mode label. Positive
