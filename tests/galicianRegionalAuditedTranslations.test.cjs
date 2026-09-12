@@ -120,3 +120,8 @@ assert.match(data['error-json-schema'], /datos JSON.*información axeitada.*form
 assert.match(data['error-notAuthorized'], /Non tes autorización/);
 assert.match(data['export-card-excel-no-disk-space'], /Non se pode exportar.*non hai espazo libre abondo/);
 assert.match(data['export-card-field-board-info'], /taboleiro, lista, carril/);
+
+assert.match(data['globalSearch-instructions-notes-2'], /\*OU\*.*calquera das condicións/);
+assert.match(data['globalSearch-instructions-description'], /`list:Blocked`.*`__operator_list__:"To Review"`/);
+for (const key of ['fix-all-file-urls-migration-description', 'fix-avatar-urls-migration-description']) assert.match(data[key], /almacenamento correcto.*referencias.*rotas/);
+assert.match(data['fix-missing-lists-migration-description'], /faltan ou están danadas.*estrutura do taboleiro/);
