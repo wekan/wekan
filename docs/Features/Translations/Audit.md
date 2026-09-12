@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Audit keys |
 | --- | ---: |
-| Explicitly corrected | 5,357 |
+| Explicitly corrected | 5,382 |
 | Original pull values restored to pre-pull local values | 4,061 |
 | Reviewed and retained unchanged | 78 |
-| Pending review or repair | 10,585 |
+| Pending review or repair | 10,560 |
 | Total tracked | 20,081 |
 
 **Translation repairs remain unfinished.** These counts cover flagged findings; unflagged strings and restored values are not certified as correct.
 
-Repairs cover wrong-language text, kanban terminology, omitted restrictions and warnings, JSON examples, placeholders, calendar names and search/date formatting. The correction history records **5,419 values**, including fixes outside the audit. Flagged Bosnian, Croatian, Macedonian, Slovenian (both locales), Latvian, Romanian and Slovak queues are complete.
+Repairs cover wrong-language text, kanban terminology, omitted restrictions and warnings, JSON examples, placeholders, calendar names and search/date formatting. The correction history records **5,444 values**, including fixes outside the audit. Flagged Bosnian, Croatian, Macedonian, Slovenian (both locales), Latvian, Romanian and Slovak queues are complete.
 
-Latest fix: [70864992f](https://github.com/wekan/wekan/commit/70864992f231ed50b36c6f98d0cbee34ee0b4759), **2026-09-13** — 20 Galician regional migration confirmation, scheduling, search and display corrections. Repairs preserve redundant-empty-list conditions, archived versus non-archived recovery scope, undo warnings and strict card-count thresholds. **333 regional findings remain.** Meaning, exact-value, placeholder, key-order and idempotency checks pass; live Meteor browser verification remains unavailable.
+Latest fix: [767bbcd84](https://github.com/wekan/wekan/commit/767bbcd84ef64c0c9956c1fe8f55ec3736003e7d), **2026-09-13** — 25 Galician regional display, swimlane, shortcut and export-permission corrections. Repairs restore assignees instead of administrators and preserve archive restoration, irreversible deletion, private-only visibility and export restrictions. **308 regional findings remain.** Meaning, exact-value, placeholder, key-order and idempotency checks pass; live Meteor browser verification remains unavailable.
 
 **Provenance:** not all errors came from Transifex. The captured pull changed 4,061 values; the full-local audit added 16,020 findings. Bosnian errors came from the September 5 [local completion commit](https://github.com/wekan/wekan/commit/bdb3b15886a749b725b5290ba0109fcba955f983), with no Bosnian changes in the captured pull. Other ultimate origins remain unverified.
 
