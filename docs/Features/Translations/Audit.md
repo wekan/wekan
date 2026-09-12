@@ -4,21 +4,21 @@ Audit date: **2026-09-12**. Last updated: **2026-09-12**.
 
 | Status | Audit keys |
 | --- | ---: |
-| Explicitly corrected | 4,857 |
+| Explicitly corrected | 4,877 |
 | Original pull values restored to pre-pull local values | 4,061 |
 | Reviewed and retained unchanged | 78 |
-| Pending review or repair | 11,085 |
+| Pending review or repair | 11,065 |
 | Total tracked | 20,081 |
 
 The full translation repair goal remains unfinished. Counts describe the tracked audit findings; unflagged strings are not individually certified. Restored pre-pull values are not automatically certified as correct translations.
 
 ## Fixes completed
 
-Repairs address wrong-language text, incorrect kanban terminology, missing restrictions and warnings, malformed JSON examples, translated placeholders, calendar names, search syntax and date/message argument order. The reviewed correction list contains **4,919 values**, including corrections outside the flagged audit rows.
+Repairs address wrong-language text, incorrect kanban terminology, missing restrictions and warnings, malformed JSON examples, translated placeholders, calendar names, search syntax and date/message argument order. The reviewed correction list contains **4,939 values**, including corrections outside the flagged audit rows.
 
 The flagged Bosnian, Croatian and Macedonian queues are complete. Other completed queues include Latvian, Romanian, Slovak and several smaller regional queues. **Bosnian has no remaining flagged findings**.
 
-Latest translation correction: [1b638e378](https://github.com/wekan/wekan/commit/1b638e3781fcabd2c8c021cff6003b315d577628), **2026-09-12**, fixes 24 Slovenian read-permission, action, planning-poker, PDF and organization values. Repairs restore missing edit prohibitions, assigned-card scope, permanent-deletion warnings, label numbers 1-9 and empty-field matching semantics. Each Slovenian queue has 85 findings remaining. Meaning, token, exact-value, key-order and idempotent repair checks pass.
+Latest translation correction: [dd02c4f92](https://github.com/wekan/wekan/commit/dd02c4f928fddd1050f6c2298dd5331ce51d8060), **2026-09-12**, fixes 20 Slovenian restoration, unsaved-description, team-removal and rule-report values. Repairs preserve swimlane/list/card scope, literal swimlaneId/listId identifiers, lost-item visibility and description overwrite confirmation. Each Slovenian queue has 75 findings remaining. Meaning, token, exact-value, key-order and idempotent repair checks pass.
 
 ## Provenance
 
