@@ -28,7 +28,7 @@ const root = path.resolve(__dirname, '..');
     assert.match(review.reason, /placeholder demonstrates/);
   }
   assert.equal(reviews.find(row => row.locale === 'sk' && row.key === 'r-items-list').value, 'položka1,položka2,položka3', 'valid Slovak example vocabulary remains unchanged');
-  for (const locale of ['sk', 'fr', 'fr-BE', 'fr-CA', 'fr-CH', 'fr-FR', 'cs', 'cs-CZ', 'hu', 'it', 'es', 'es-LA', 'pt', 'pt-BR', 'pt-PT', 'pt_PT', 'nl', 'nl-NL', 'nb', 'sv', 'vl-SS']) {
+  for (const locale of ['de', 'de-AT', 'de-CH', 'de_DE', 'sk', 'fr', 'fr-BE', 'fr-CA', 'fr-CH', 'fr-FR', 'cs', 'cs-CZ', 'hu', 'it', 'es', 'es-LA', 'pt', 'pt-BR', 'pt-PT', 'pt_PT', 'nl', 'nl-NL', 'nb', 'sv', 'vl-SS']) {
     assert.equal(result.pendingByLocale[locale], undefined, `${locale}: review queue resolved`);
   }
   console.log(`auditedTranslationReviews: ${reviews.length} explicit unchanged acceptances verified; Danish queue complete`);

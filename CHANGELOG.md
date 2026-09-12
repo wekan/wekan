@@ -557,6 +557,16 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/fc1026c82">Finish German translation audit queues</a>. Thanks to xet7.</summary>
+
+Correct four SMTP subject compounds and retain four individually reviewed
+valid soft WIP labels. Positive and negative correction and review checks
+verify exact values, source tokens, key order, idempotency and zero pending
+German findings. These checks pass. Other locale findings remain under review.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/bd9043aa8">Finish all audited Slovak translation repairs</a>. Thanks to xet7.</summary>
 
 Correct the final 59 values and retain three individually reviewed valid
