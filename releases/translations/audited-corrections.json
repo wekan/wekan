@@ -22909,5 +22909,131 @@
     "before": "Поставите границу дозвољеног броја предмета у овом делу поступка",
     "after": "Поставете ограничување за максималниот број задачи во овој список",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "setSwimlaneHeightPopup-title",
+    "before": "Подеси висину у овој врсти поступка",
+    "after": "Постави висина на лентата",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "settingsTranslationPopup-title",
+    "before": "Обриши ову исправку превода",
+    "after": "Избриши го овој приспособен превод?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "shortcut-clear-filters",
+    "before": "Изчистване на всички филтри",
+    "after": "Исчисти ги сите филтри",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "shortcut-filter-my-assigned-cards",
+    "before": "Издвој предмете где сам пуномоћник",
+    "after": "Филтрирај ги моите доделени карти",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "shortcut-show-shortcuts",
+    "before": "Прикажи овај подсетник са пречицама",
+    "after": "Прикажи го овој список со кратенки",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "shortcut-toggle-filterbar",
+    "before": "Отвори/затвори сайдбара с филтри",
+    "after": "Прикажи/сокриј ја страничната лента со филтри",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "show-at-all-boards-page",
+    "before": "Смести на полицу са списима",
+    "after": "Прикажи на страницата „Сите табли“",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "show-board_members-avatar",
+    "before": "Прикажи слике сарадника на омоту списа",
+    "after": "Прикажи ги аватарите на членовите на таблата",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "show-card-counter-per-list",
+    "before": "Прикажи бројач предмета на сваком делу тока поступка",
+    "after": "Прикажи го бројот на карти по список",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "show-cards-minimum-count",
+    "before": "Покажи бройката на картите, ако списъка съдържа повече от",
+    "after": "Прикажи го бројот на карти ако списокот содржи повеќе од",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "show-desktop-drag-handles",
+    "before": "Прикажи ручке за повлачење на радној површини",
+    "after": "Прикажи рачки за повлекување на десктоп",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "show-field-on-card",
+    "before": "Покажи това поле в картата",
+    "after": "Прикажи го ова поле на картата",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "show-list-on-minicard",
+    "before": "Прикажи део поступка на омоту",
+    "after": "Прикажи го списокот на миникартата",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "show-parent-in-minicard",
+    "before": "Покажи източника в мини-картата:",
+    "after": "Прикажи ја родителската карта на миникартата:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "show-subtasks-field",
+    "before": "Прикажи поље издвојени послови",
+    "after": "Прикажи го полето за подзадачи",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "showChecklistAtMinicard",
+    "before": "Прикажи предметну радњу на омоту",
+    "after": "Прикажи го списокот за проверка на миникартата",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "showLabel-field-on-card",
+    "before": "Покажи име на поле на мини-картата",
+    "after": "Прикажи ја ознаката на полето на миникартата",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "showSum-field-on-list",
+    "before": "Прикажи збирни број придружених рубрика на врху деонице",
+    "after": "Прикажи го збирот на полињата на врвот на списокот",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

@@ -418,5 +418,17 @@
     "key": "Reactivity_mode",
     "value": "Режим на реактивност (changeStreams / oplog / polling)",
     "reason": "Individually reviewed: Режим на реактивност is valid Macedonian. changeStreams, oplog and polling identify actual runtime modes and remain literal."
+  },
+  {
+    "locale": "mk",
+    "key": "sidebar-close",
+    "value": "Затворете страничната лента",
+    "reason": "Reviewed Macedonian imperative and sidebar terminology are correct. Shared wording with Bulgarian is not evidence of a wrong-language value; preserve the existing translation."
+  },
+  {
+    "locale": "mk",
+    "key": "sidebar-open",
+    "value": "Отворете страничната лента",
+    "reason": "Reviewed Macedonian imperative and sidebar terminology are correct. Shared wording with Bulgarian is not evidence of a wrong-language value; preserve the existing translation."
   }
 ]
