@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Audit keys |
 | --- | ---: |
-| Explicitly corrected | 6,642 |
+| Explicitly corrected | 6,658 |
 | Restored pre-pull values awaiting further validation | 4,059 |
 | Reviewed and retained unchanged | 172 |
-| Pending review or repair | 9,208 |
+| Pending review or repair | 9,192 |
 | Total tracked | 20,081 |
 
 **Translation repairs remain unfinished.** These counts cover flagged findings; unflagged strings and restored values are not certified as correct.
 
-Fixes cover wrong-language text, terminology, warnings, JSON examples, placeholders and calendar/search formatting. The correction history records **6,704 values**, including fixes outside the audit. Per-language remaining work is available through the command below.
+Fixes cover wrong-language text, terminology, warnings, JSON examples, placeholders and calendar/search formatting. The correction history records **6,720 values**, including fixes outside the audit. Per-language remaining work is available through the command below.
 
-Latest fix: [32eb90ec9](https://github.com/wekan/wekan/commit/32eb90ec9f6010ed76f233b84e6a6b38d612b802), **2026-09-13** — four Marathi/Nepali Hijri labels repaired, preserving moon-sighting and astronomical-epoch distinctions; both flagged queues are complete. Exact-value, placeholder, key-order and idempotency checks pass. Low-confidence wording needs native-speaker review; live browser verification remains unavailable.
+Latest fix: [04b394143](https://github.com/wekan/wekan/commit/04b3941431250b9080302ffb670a0a445986be4f), **2026-09-13** — sixteen Kyrgyz/Tajik calendar labels translated, retaining calendar identities and methods; both flagged queues are complete. Exact-value, placeholder, key-order and idempotency checks pass. Low-confidence wording needs native-speaker review; live browser verification remains unavailable.
 
 **Provenance:** not all errors came from Transifex. The captured pull changed 4,061 values; the local audit added 16,020 findings. Bosnian errors predated that pull in a [local completion commit](https://github.com/wekan/wekan/commit/bdb3b15886a749b725b5290ba0109fcba955f983). Other ultimate origins remain unverified.
 
