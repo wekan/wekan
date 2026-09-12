@@ -40416,5 +40416,89 @@
     "before": "La lista __list__ del carril __swimlane__ del tablero __board__ se ha archivado",
     "after": "La llista __list__ del carril __swimlane__ del tableru __board__ movióse al Archivu",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "act-archivedSwimlane",
+    "before": "El carril __swimlane__ del tablero __board__ se ha archivado",
+    "after": "El carril __swimlane__ del tableru __board__ movióse al Archivu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "act-checkedItem",
+    "before": "marcado el elemento __checklistItem__ de la lista de verificación __checklist__ de la tarjeta __card__ de la lista __list__ del carril __swimlane__ del tablero __board__",
+    "after": "marcó l'elementu __checklistItem__ de la llista de comprobación __checklist__ de la tarxeta __card__ na llista __list__ del carril __swimlane__ del tableru __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "act-completeChecklist",
+    "before": "completada la lista de verificación __checklist__ de la tarjeta __card__ de la lista __list__ del carril __swimlane__ del tablero __board__",
+    "after": "completó la llista de comprobación __checklist__ de la tarxeta __card__ na llista __list__ del carril __swimlane__ del tableru __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "act-createCard",
+    "before": "creada la tarjeta __card__ de la lista __list__ del carril __swimlane__ del tablero __board__",
+    "after": "creó la tarxeta __card__ na llista __list__ del carril __swimlane__ del tableru __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "act-createCustomField",
+    "before": "creado el campo personalizado __customField__ en el tablero __board__",
+    "after": "creó el campu personalizáu __customField__ nel tableru __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "act-createList",
+    "before": "añadida la lista __list__ al tablero __board__",
+    "after": "añadió la llista __list__ al tableru __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "act-createSwimlane",
+    "before": "creó el carril de flujo __swimlane__ en el tablero __board__",
+    "after": "creó el carril __swimlane__ nel tableru __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "act-deleteAttachment",
+    "before": "eliminado el adjunto __attachment__ de la tarjeta __card__ de la lista __list__ del carril __swimlane__ del tablero __board__",
+    "after": "eliminó l'axuntu __attachment__ de la tarxeta __card__ na llista __list__ del carril __swimlane__ del tableru __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "act-deleteComment",
+    "before": "ha borrado el comentario en la tarjeta __card__: __comment__ de la lista __list__ del carril __swimlane__ del tablero __board__",
+    "after": "eliminó el comentariu na tarxeta __card__: __comment__ na llista __list__ del carril __swimlane__ del tableru __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "act-deleteCustomField",
+    "before": "eliminado el campo personalizado __customField__ del tablero __board__",
+    "after": "eliminó el campu personalizáu __customField__ del tableru __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "act-editComment",
+    "before": "ha editado la tarjeta __card__: __comment__ de la lista __list__ del carril __swimlane__ del tablero __board__",
+    "after": "editó el comentariu na tarxeta __card__: __comment__ na llista __list__ del carril __swimlane__ del tableru __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "act-importCard",
+    "before": "importada la tarjeta __card__ a la lista __list__ del carrril __swimlane__ del tablero __board__",
+    "after": "importó la tarxeta __card__ na llista __list__ del carril __swimlane__ del tableru __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
