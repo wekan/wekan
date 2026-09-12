@@ -558,6 +558,13 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/56e7511ec">Repair Slovenian accessibility and account protection messages</a>. Thanks to xet7.</summary>
+
+Correct 20 flagged values across both Slovenian locales. Regressions verify accessibility status, unlock-all scope, seconds and failed-attempt thresholds. Meaning, source-token, exact-value, key-order and repair checks pass. Audit.md records current progress.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/9771924ec">Repair Slovenian memory metrics and retain valid reactivity labels</a>. Thanks to xet7.</summary>
 
 Correct 22 flagged values and retain 2 reviewed correct labels. Regressions verify resident memory, executable-code and peak-malloc meanings. Source-token, exact-value, key-order and repair/review checks pass. Audit.md records current progress.
