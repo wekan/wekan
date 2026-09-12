@@ -1,0 +1,24 @@
+'use strict';
+const assert = require('node:assert/strict');
+const data = require('../imports/i18n/data/bs.i18n.json');
+const corrections = require('../releases/translations/audited-corrections.json').filter(row => row.locale === 'bs');
+assert.ok(corrections.length >= 21);
+for (const row of corrections) {
+  assert.equal(data[row.key], row.after);
+  assert.doesNotMatch(row.after, /[А-Яа-яЁё]/, `${row.key}: Serbian seed must be replaced with reviewed Bosnian wording`);
+}
+assert.equal(data.accessibility, 'Pristupačnost');
+assert.match(data['accessibility-page-enabled'], /omogućena/);
+assert.match(data['accessibility-info-not-added-yet'], /još nisu dodane/);
+assert.match(data['Node_heap_does_zap_garbage'], /uzorkom bitova/);
+assert.doesNotMatch(data['Node_heap_does_zap_garbage'], /sakupljanje|skupljanje smeća/);
+assert.match(data['Node_memory_usage_rss'], /rezidentna veličina skupa/);
+assert.doesNotMatch(data['Node_memory_usage_rss'], /postavljena vrijednost/);
+assert.match(data['Node_heap_malloced_memory'], /funkcijom malloc/);
+assert.match(data['Node_heap_peak_malloced_memory'], /najveća količina/);
+assert.match(data['Node_heap_total_heap_size_executable'], /izvršni kod/);
+assert.match(data['Double-Bounce'], /dvostrukim poskakivanjem/);
+assert.doesNotMatch(data['Double-Bounce'], /tri tačk|tri točk/);
+assert.match(data['Cube-Grid'], /mrežom kockica/);
+assert.match(data.Rotateplane, /rotirajućom plohom/);
+console.log('bosnianAuditedTranslations: reviewed wording, metric meanings and indicators passed');
