@@ -557,7 +557,7 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/849f1e10c55b0d697e078bcd4e8ac87e71b62840">Restrict OAuth2 login by email domain</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/2fd461fa5582fcdca820cc2dcacaae0e605a66b8">Restrict OAuth2 login by email domain</a>. Thanks to xet7.</summary>
 
 Set `OAUTH2_ALLOWED_EMAIL_DOMAINS` to a comma-separated list of exact domains.
 The provider's mapped email is checked before account creation, merging or
@@ -577,7 +577,7 @@ review; the full roadmap implementation remains unfinished.
 and fixes the following date-popup layout bugs:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/f23fa41dd9a09733c710c40750ad9302e447e116">Show full-width calendars directly in date popups</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/236676ff53c58baaef0ff9484b727445400c6b79">Show full-width calendars directly in date popups</a>. Thanks to xet7.</summary>
 
 Date popups immediately show the selected calendar, including Gregorian,
 and keep the grid visible after selecting a day. The grid spans the popup
@@ -598,7 +598,7 @@ among the passing popup checks.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/8f7879e14f302997f171967db1f5c2ca922b31ff">Fit date controls and add bottom-right popup resizing</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/398d5f42d41f6c0cc49f425ea1703fa4a2d059fc">Fit date controls and add bottom-right popup resizing</a>. Thanks to xet7.</summary>
 
 Remove nested date-form scroll areas, viewport-height caps, excess padding
 and margins on calendar buttons. The selected calendar, hour/minute controls,
