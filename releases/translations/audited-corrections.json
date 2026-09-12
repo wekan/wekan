@@ -25002,5 +25002,61 @@
     "before": "Разлика између малих и великих слова се не узима у обзир.",
     "after": "Pretraživanje teksta ne razlikuje velika i mala slova.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "globalSearch-instructions-notes-5",
+    "before": "Ако нисте ништа дирали, претрагом неће бити обухваћени предмети из архиве.",
+    "after": "Arhivirane kartice prema zadanim postavkama nisu obuhvaćene pretraživanjem.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "globalSearch-instructions-operator-assignee",
+    "before": "`__operator_assignee__:<неко>` - предмети где је *<неко>* пуномоћник",
+    "after": "`__operator_assignee__:<username>` — kartice na kojima je *<username>* *zaduženi korisnik*",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "globalSearch-instructions-operator-at",
+    "before": "`__operator_user_abbrev__корисничко име` - скраћеница за `user:<корисничко име>`",
+    "after": "`__operator_user_abbrev__username` — kratica za `user:<username>`",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "globalSearch-instructions-operator-board",
+    "before": "`__operator_board__:<наслов>` - сви предмети у списима са задатим *<насловом>*",
+    "after": "`__operator_board__:<title>` — kartice na pločama koje odgovaraju zadanom naslovu *<title>*",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "globalSearch-instructions-operator-comment",
+    "before": "`__operator_comment__:<речи>` - сви предмети где су у расправи коришћене следеће *<речи>*.",
+    "after": "`__operator_comment__:<text>` — kartice s komentarom koji sadrži *<text>*.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "globalSearch-instructions-operator-created",
+    "before": "`__operator_created__:<n>` - предмети који су заведени у задњих *<n>* дана",
+    "after": "`__operator_created__:<n>` — kartice stvorene prije najviše *<n>* dana",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "globalSearch-instructions-operator-creator",
+    "before": "`__operator_creator__:<неко>` - предмети које је завео *<неко>*",
+    "after": "`__operator_creator__:<username>` — kartice čiji je autor *<username>*",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "globalSearch-instructions-operator-due",
+    "before": "`__operator_due__:<n>` - предмети чији рок истиче за *<n>* дана.  `__operator_due__:__predicate_overdue__ предмети са истеклим роком.",
+    "after": "`__operator_due__:<n>` — kartice kojima rok istječe u sljedećih najviše *<n>* dana. `__operator_due__:__predicate_overdue__` prikazuje sve kartice kojima je rok prošao.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
