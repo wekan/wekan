@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Audit keys |
 | --- | ---: |
-| Explicitly corrected | 6,339 |
+| Explicitly corrected | 6,344 |
 | Restored pre-pull values awaiting further validation | 4,059 |
-| Reviewed and retained unchanged | 109 |
-| Pending review or repair | 9,574 |
+| Reviewed and retained unchanged | 110 |
+| Pending review or repair | 9,568 |
 | Total tracked | 20,081 |
 
 **Translation repairs remain unfinished.** These counts cover flagged findings; unflagged strings and restored values are not certified as correct.
 
-Fixes cover wrong-language text, terminology, missing warnings, JSON examples, placeholders and calendar/search formatting. The correction history records **6,401 values**, including fixes outside the audit. Flagged Bosnian, Croatian, Macedonian, Slovenian (both locales), Latvian, Romanian, Slovak both Galician and Asturian queues are complete.
+Fixes cover wrong-language text, terminology, missing warnings, JSON examples, placeholders and calendar/search formatting. The correction history records **6,406 values**, including fixes outside the audit. Flagged Bosnian, Croatian, Macedonian, Slovenian (both locales), Latvian, Romanian, Slovak both Galician and Asturian queues are complete.
 
-Latest fix: [080a12bb5](https://github.com/wekan/wekan/commit/080a12bb59dd18cc91d5adf2ffd998a22e81dda6), **2026-09-13** — four Aragonese migration-control and assetlinks corrections; two valid format/HTML labels retained. **206 Aragonese findings remain.** Meaning, exact-value, placeholder, key-order, review and idempotency checks pass; Aragonese and Asturian wording need native-speaker review. Live Meteor browser verification remains unavailable.
+Latest fix: [b66425851](https://github.com/wekan/wekan/commit/b66425851bee192196c58bdb70239bd6b35de548), **2026-09-13** — five Aragonese customization-setting corrections; one valid HTML meta-label retained. Help/legal links, manifest activation and product names remain distinct. **200 Aragonese findings remain.** Meaning, exact-value, placeholder, key-order, review and idempotency checks pass; Aragonese and Asturian wording need native-speaker review. Live Meteor browser verification remains unavailable.
 
 **Provenance:** not all errors came from Transifex. The captured pull changed 4,061 values; the full-local audit added 16,020 findings. Bosnian errors came from the September 5 [local completion commit](https://github.com/wekan/wekan/commit/bdb3b15886a749b725b5290ba0109fcba955f983), with no Bosnian changes in the captured pull. Other ultimate origins remain unverified.
 
