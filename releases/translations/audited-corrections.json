@@ -29447,5 +29447,61 @@
     "before": "Овим ће бити исправљене све везе у списима да упућују на стварно складиште предметне грађе. Да ли сте сагласни?",
     "after": "Ovo će ažurirati URL-ove svih datotečnih priloga na ovoj ploči da koriste odgovarajući sistem pohrane. Nastaviti?",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "run-fix-avatar-urls-migration-confirm",
+    "before": "Овим се исправља веза до складишта са сликама сарадника из ових списа. Да ли сте сагласни?",
+    "after": "Ovo će ažurirati URL-ove avatara članova ploče da koriste odgovarajući sistem pohrane. Nastaviti?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "run-fix-missing-lists-migration-confirm",
+    "before": "Овим се откривају и поправљају они делови поступака који недостају или који су оштећени. Да ли сте сагласни?",
+    "after": "Ovo će otkriti i popraviti nedostajuće ili oštećene liste u strukturi ploče. Nastaviti?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "run-restore-all-archived-migration-confirm",
+    "before": "Овим се износи натраг из архиве све оно што сте до сада спаковали тамо. Поља где недостаје id биће поправљена. Упозорење! Да ли заиста то желите?",
+    "after": "Ovo će vratiti SVE arhivirane staze, liste i kartice da ponovo budu vidljive. Stavke s nedostajućim identifikatorima bit će automatski popravljene. Ovo nije lako poništiti. Nastaviti?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "run-restore-lost-cards-migration-confirm",
+    "before": "Овим се прави ток „Загубљени предмети“ и у њега смештају сви предмети и делови поступка којима недостају поља swimlaneId или listId. Мисли се на оно што је загубљено али није загубљено у архиви. Да ли сте сагласни? ",
+    "after": "Ovo će kreirati stazu „Izgubljene kartice“ i vratiti sve kartice i liste kojima nedostaje swimlaneId ili listId. Ovo utiče samo na nearhivirane stavke. Nastaviti?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "s3-access-key-description",
+    "before": "AWS S3 приступни кључ за пријаву",
+    "after": "AWS S3 pristupni ključ za autentifikaciju",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "s3-access-key-placeholder",
+    "before": "Унесите S3 приступни кључ",
+    "after": "Unesite S3 pristupni ključ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "s3-attachments",
+    "before": "Предметна грађа у Amazon S3 облаку",
+    "after": "S3 prilozi",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "s3-bucket-description",
+    "before": "S3 bucket име где чувате предметну грађу",
+    "after": "Naziv S3 spremnika za pohranu datoteka",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

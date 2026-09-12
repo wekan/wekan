@@ -344,3 +344,14 @@ assert.match(data['run-delete-duplicate-empty-lists-migration-confirm'], /prvo.*
 assert.match(data['run-delete-duplicate-empty-lists-migration-confirm'], /samo stvarno suvišne prazne liste/);
 assert.match(data['run-fix-all-file-urls-migration-confirm'], /svih datotečnih priloga na ovoj ploči/);
 console.log('bosnianAuditedTranslations: recovery entities, field identifiers and migration confirmation scope passed');
+
+assert.match(data['run-restore-all-archived-migration-confirm'], /SVE arhivirane staze, liste i kartice/);
+assert.match(data['run-restore-all-archived-migration-confirm'], /nije lako poništiti/);
+assert.match(data['run-restore-lost-cards-migration-confirm'], /samo na nearhivirane stavke/);
+assert.ok(data['run-restore-lost-cards-migration-confirm'].includes('swimlaneId ili listId'));
+assert.match(data['run-fix-avatar-urls-migration-confirm'], /članova ploče.*odgovarajući sistem pohrane/);
+assert.match(data['run-fix-missing-lists-migration-confirm'], /nedostajuće ili oštećene liste/);
+assert.equal(data['s3-attachments'], 'S3 prilozi');
+assert.doesNotMatch(data['s3-attachments'], /Amazon|oblak/);
+assert.match(data['s3-access-key-description'], /AWS S3.*autentifikaciju/);
+console.log('bosnianAuditedTranslations: restoration warnings, non-archived scope and S3 authentication passed');
