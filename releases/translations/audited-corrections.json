@@ -46072,5 +46072,47 @@
     "before": "Republic of China",
     "after": "Calendario Minguo",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "fur",
+    "key": "calendar-system-jalali",
+    "before": "Jalali (Fars)",
+    "after": "Jalali (persian)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "fur",
+    "key": "calendar-system-coptic",
+    "before": "Coptic",
+    "after": "calendari coptic",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "fur",
+    "key": "calendar-system-dangi",
+    "before": "Dangi (Korean)",
+    "after": "calendari Dangi (corean)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "fur",
+    "key": "calendar-system-ethioaa",
+    "before": "Ethiopic Amete Alem",
+    "after": "calendari etiopic Amete Alem",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "fur",
+    "key": "calendar-system-ethiopic",
+    "before": "Ethiopic",
+    "after": "calendari etiopic",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "fur",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "calendari Hijri",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
