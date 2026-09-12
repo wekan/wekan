@@ -346,5 +346,17 @@
     "key": "Reactivity_mode",
     "value": "Režim reaktivity (changeStreams / oplog / polling)",
     "reason": "Individually reviewed: Režim reaktivity is valid Slovak as well as Czech technical wording. changeStreams, oplog and polling name actual reactivity modes and remain literal."
+  },
+  {
+    "locale": "sk",
+    "key": "azure-account-key-menu-path",
+    "value": "Azure Portal → Storage accounts → váš účet → Security + networking → Access keys → key1 → Show → Key.",
+    "reason": "Individually reviewed: váš účet is valid Slovak. The remaining Azure Portal navigation labels and key1 are literal vendor menu names or identifiers, so they remain unchanged."
+  },
+  {
+    "locale": "sk",
+    "key": "azure-connection-string-menu-path",
+    "value": "Azure Portal → Storage accounts → váš účet → Security + networking → Access keys → key1 → Connection string → Show.",
+    "reason": "Individually reviewed: váš účet is valid Slovak. The remaining Azure Portal navigation labels and key1 are literal vendor menu names or identifiers, so they remain unchanged."
   }
 ]

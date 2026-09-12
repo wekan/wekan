@@ -19,6 +19,15 @@ const data = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/sk.i1
     'zaškrtol(a) ITEM v kontrolnom zozname CHECKLIST na karte CARD');
   assert.equal(translator.t('activity-unchecked-item', { sprintf: ['ITEM', 'CHECKLIST', 'CARD'] }),
     'zrušil(a) zaškrtnutie ITEM v kontrolnom zozname CHECKLIST na karte CARD');
+  assert.match(data['custom-field-stringtemplate-format'], /%\{value\}/);
+  assert.match(data['custom-field-stringtemplate-separator'], /&#32;.*&nbsp;/);
+  for (const card of JSON.parse(data['copyManyCardsPopup-format'])) {
+    assert.deepEqual(Object.keys(card), ['title', 'description']);
+    assert.match(card.title, /Názov/);
+    assert.match(card.description, /Popis/);
+  }
+  assert.match(data['card-delete-pop'], /nebude možné znovu otvoriť/);
+  assert.match(data['board-delete-notice'], /Vymazanie je trvalé/);
   assert.match(data['activity-checklist-uncompleted'], /zrušil\(a\) dokončenie/);
   const records = JSON.parse(fs.readFileSync(path.join(root, 'releases/translations/audited-corrections.json'), 'utf8'));
   for (const row of records.filter(row => row.locale === 'sk')) {

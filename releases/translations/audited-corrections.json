@@ -17512,5 +17512,271 @@
     "before": "Povolit všechny přihlášené uživatele",
     "after": "Povoliť všetkým prihláseným používateľom",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "allowed-upload-filetypes",
+    "before": "Povolené typy nahraných souborů:",
+    "after": "Povolené typy nahrávaných súborov:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "almostdue",
+    "before": "Stávající termín dokončení %s se blíží",
+    "after": "Aktuálny termín dokončenia %s sa blíži",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "always-field-on-card",
+    "before": "Přidat pole na všechny karty",
+    "after": "Pridať pole na všetky karty",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "app-is-offline",
+    "before": "Načítá se, prosím čekejte. Obnovení stránky způsobí ztrátu dat. Pokud se načítání nedaří, zkontrolujte prosím server.",
+    "after": "Načítava sa, prosím čakajte. Obnovenie stránky spôsobí stratu údajov. Ak načítavanie nefunguje, skontrolujte, či sa server nezastavil.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "archive-board",
+    "before": "Přesunout tablo do archivu",
+    "after": "Presunúť nástenku do archívu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "archive-card",
+    "before": "Přesunout kartu do archivu",
+    "after": "Presunúť kartu do archívu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "archive-list",
+    "before": "Přesunout seznam do archivu",
+    "after": "Presunúť zoznam do archívu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "archive-selection",
+    "before": "Přesunout výběr do archivu",
+    "after": "Presunúť výber do archívu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "archive-swimlane",
+    "before": "Přesunout swimlane do archivu",
+    "after": "Presunúť dráhu do archívu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "archiveBoardPopup-title",
+    "before": "Přesunout tablo do archivu?",
+    "after": "Presunúť nástenku do archívu?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "attachment-delete-pop",
+    "before": "Smazání přílohy je trvalé. Nejde vrátit zpět.",
+    "after": "Vymazanie prílohy je trvalé. Nedá sa vrátiť späť.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "auto-watch",
+    "before": "Automaticky sleduj tabla když jsou vytvořena",
+    "after": "Automaticky sledovať nástenky pri ich vytvorení",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "automatic-linked-url-schemes",
+    "before": "Vlastní URL schémata, která by automaticky měla být klikatelná.\nJedno schéma na řádek",
+    "after": "Vlastné schémy URL, ktoré majú byť automaticky klikateľné. Jedna schéma URL na riadok",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "automatically-field-on-card",
+    "before": "Přidat pole na nové karty",
+    "after": "Pridať pole na nové karty",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "avatar-too-big",
+    "before": "Avatar je příliš velký (__size__ max)",
+    "after": "Avatar je príliš veľký (maximum __size__)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "badge-attachment-on-minicard",
+    "before": "Počet příloh na minikartě",
+    "after": "Počet príloh na minikarte",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "board-delete-notice",
+    "before": "Smazání je trvalé. Přijdete o všechny sloupce, karty a akce spojené s tímto tablem.",
+    "after": "Vymazanie je trvalé. Stratíte všetky zoznamy, karty a akcie spojené s touto nástenkou.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "board-drag-drop-reorder-or-click-open",
+    "before": "Přetažením změníte pořadí ikon tabel. Kliknutím otevřete tablo.",
+    "after": "Presunutím zmeníte poradie ikon násteniek. Kliknutím na ikonu otvoríte nástenku.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "card-archived",
+    "before": "Karta byla přesunuta do archivu.",
+    "after": "Táto karta bola presunutá do archívu.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "card-comments-title",
+    "before": "Tato karta má %s komentářů.",
+    "after": "Táto karta má %s komentár.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "card-delete-notice",
+    "before": "Smazání je trvalé. Přijdete o všechny akce asociované s touto kartou.",
+    "after": "Vymazanie je trvalé. Stratíte všetky akcie spojené s touto kartou.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "card-delete-pop",
+    "before": "Všechny akce budou odstraněny z kanálu aktivity a nebude možné kartu obnovit. Toto nelze vrátit zpět.",
+    "after": "Všetky akcie sa odstránia z prehľadu aktivity a kartu nebude možné znovu otvoriť. Nedá sa to vrátiť späť.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "card-delete-suggest-archive",
+    "before": "Můžete přesunout kartu do archivu pro odstranění z tabla a zachovat aktivitu.",
+    "after": "Kartu môžete presunúť do archívu, aby ste ju odstránili z nástenky a zachovali jej aktivitu.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "card-sorting-by-number-on-minicard",
+    "before": "Řazení karet podle čísla na minikartě",
+    "after": "Zoradenie kariet podľa čísla na minikarte",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "clipboard",
+    "before": "Schránka nebo potáhnout a pustit",
+    "after": "Schránka alebo presunutie myšou",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "close-board-pop",
+    "before": "Budete moci obnovit tablo kliknutím na tlačítko \"Archiv\" v hlavním menu.",
+    "after": "Nástenku budete môcť obnoviť kliknutím na tlačidlo «Archív» v záhlaví hlavnej stránky.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "comment-not-found",
+    "before": "Karta s komentářem obsahujícím text '%s' nenalezena.",
+    "after": "Karta s komentárom obsahujúcim text «%s» sa nenašla.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "comment-only-desc",
+    "before": "Může přidávat komentáře pouze do karet.",
+    "after": "Môže iba pridávať komentáre ku kartám.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "confirm-subtask-delete-popup",
+    "before": "Opravdu chcete smazat tento podúkol?",
+    "after": "Naozaj chcete vymazať túto podúlohu?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "copy-card-link-to-clipboard",
+    "before": "Kopírovat adresu karty do mezipaměti",
+    "after": "Kopírovať odkaz na kartu do schránky",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "copyManyCardsPopup-format",
+    "before": "[ {\"title\": \"Nadpis první karty\", \"description\":\"Popis první karty\"}, {\"title\":\"Nadpis druhé karty\",\"description\":\"Popis druhé karty\"},{\"title\":\"Nadpis poslední kary\",\"description\":\"Popis poslední karty\"} ]",
+    "after": "[ {\"title\": \"Názov prvej karty\", \"description\":\"Popis prvej karty\"}, {\"title\":\"Názov druhej karty\",\"description\":\"Popis druhej karty\"},{\"title\":\"Názov poslednej karty\",\"description\":\"Popis poslednej karty\"} ]",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "copyManyCardsPopup-instructions",
+    "before": "Názvy a popisy cílové karty v tomto formátu JSON",
+    "after": "Názvy a popisy cieľových kariet v tomto formáte JSON",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "cover-attachment-on-minicard",
+    "before": "Titulní obrázek na minikartě",
+    "after": "Titulný obrázok na minikarte",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "custom-field-delete-pop",
+    "before": "Nelze vrátit zpět. Toto odebere toto vlastní pole ze všech karet a zničí jeho historii.",
+    "after": "Nedá sa to vrátiť späť. Toto vlastné pole sa odstráni zo všetkých kariet a jeho história sa zničí.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "custom-field-dropdown-options-placeholder",
+    "before": "Stiskněte enter pro přidání více možností",
+    "after": "Stlačte Enter pre pridanie ďalších možností",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "custom-field-stringtemplate-format",
+    "before": "Formát (jako placeholder použijte %{value})",
+    "after": "Formát (použite %{value} ako zástupný symbol)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "custom-field-stringtemplate-item-placeholder",
+    "before": "Stiskněte enter pro přidání více položek",
+    "after": "Stlačte Enter pre pridanie ďalších položiek",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "custom-field-stringtemplate-separator",
+    "before": "Oddělovač (pro mezeru použijte &#32; nebo &nbsp;)",
+    "after": "Oddeľovač (pre medzeru použite &#32; alebo &nbsp;)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
