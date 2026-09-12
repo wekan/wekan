@@ -405,3 +405,14 @@ assert.match(data['s3-connection-failed'], /Falló la conexón con S3/);
 assert.match(data['s3-enabled-description'], /AWS S3 o MinIO.*almacenamientu de ficheros/);
 assert.match(data['s3-endpoint-description'], /s3\.amazonaws\.com o minio\.example\.com/);
 assert.doesNotMatch(data['s3-bucket-description'], /contraseña|clave/);
+
+assert.match(data['s3-port-description'], /Númberu de puertu del endpoint S3/);
+assert.match(data['search-example'], /testu que busques y calca Intro/);
+assert.match(data['send-smtp-test'], /Unviate un corréu de prueba a ti mesmu/);
+assert.match(data['server-error-troubleshooting'], /error xeneráu pol servidor/);
+assert.ok(data['server-error-troubleshooting'].includes('`sudo snap logs wekan.wekan`'));
+assert.ok(data['server-error-troubleshooting'].includes('`sudo docker logs wekan-app`'));
+assert.equal(data['server-error-troubleshooting'].split('\n').length, 3);
+assert.match(data['set-swimlane-height'], /Establecer l’altor del carril/);
+assert.match(data['set-swimlane-height-value'], /Altor del carril \(píxeles\)/);
+assert.doesNotMatch(data['set-swimlane-height-value'], /anchor/);

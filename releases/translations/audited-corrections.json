@@ -43531,5 +43531,47 @@
     "before": "URL del Endpoint S3 (por ejemplo, s3.amazonaws.com o minio.example.com)",
     "after": "URL del endpoint S3 (por exemplu, s3.amazonaws.com o minio.example.com)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "s3-port-description",
+    "before": "Número de puerto del Endpoint S3",
+    "after": "Númberu de puertu del endpoint S3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "search-example",
+    "before": "Escriba el texto que busca y pulse Intro",
+    "after": "Escribi el testu que busques y calca Intro",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "send-smtp-test",
+    "before": "Enviarte un correo de prueba a ti mismo",
+    "after": "Unviate un corréu de prueba a ti mesmu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "server-error-troubleshooting",
+    "before": "Por favor, envíe el error generado por el servidor.\nPara la instalación con snap, ejecute: `sudo snap logs wekan.wekan`\nPara la instalación con docker, ejecute: `sudo docker logs wekan-app`",
+    "after": "Unvía l’error xeneráu pol servidor, por favor.\nPa una instalación con snap, executa: `sudo snap logs wekan.wekan`\nPa una instalación con Docker, executa: `sudo docker logs wekan-app`",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "set-swimlane-height",
+    "before": "Ajustar la altura del carril",
+    "after": "Establecer l’altor del carril",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "set-swimlane-height-value",
+    "before": "Altura de carril (píxeles)",
+    "after": "Altor del carril (píxeles)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
