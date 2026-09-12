@@ -24400,5 +24400,117 @@
     "before": "Није успело уклањање заказаног посла",
     "after": "Brisanje zakazanog posla nije uspjelo",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "cron-job-deleted",
+    "before": "Успешно је уклоњен заказани посао",
+    "after": "Zakazani posao uspješno je izbrisan",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "cron-job-pause-failed",
+    "before": "Није успело паузирање заказаног посла",
+    "after": "Pauziranje zakazanog posla nije uspjelo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "cron-job-paused",
+    "before": "Заказани посао је успешно паузиран",
+    "after": "Zakazani posao uspješno je pauziran",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "cron-migration-errors",
+    "before": "Грешке приликом обнове списа",
+    "after": "Pogreške migracije",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "cron-migration-warnings",
+    "before": "Упозорења приликом обнове списа",
+    "after": "Upozorenja migracije",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "cron-migrations",
+    "before": "Заказани поступци обнове оштећених списа",
+    "after": "Zakazane migracije",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "cron-migrations-resumed",
+    "before": "Обнове су успешно настављене",
+    "after": "Migracije su uspješno nastavljene",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "cron-migrations-retried",
+    "before": "Неуспеле обнове су управо поново покренуте",
+    "after": "Neuspjele migracije uspješno su ponovno pokrenute",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "cron-no-errors",
+    "before": "Нису се догодиле никакве грешке",
+    "after": "Nema pogrešaka za prikaz",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "cron-no-failed-migrations",
+    "before": "Нема понављања јер није ни било неуспешних обнова",
+    "after": "Nema neuspjelih migracija za ponovno pokretanje",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "cron-no-paused-migrations",
+    "before": "Нема настављања јер се није ни правио предах",
+    "after": "Nema pauziranih migracija za nastavak",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "cron-resume-paused",
+    "before": "Настави обнову након предаха",
+    "after": "Nastavi pauzirane migracije",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "custom-field-delete-pop",
+    "before": "Опозив ове радње неће бити могућ. Радњом се уклања ова придружена рубрика из свих предмета и уништива њена претходна историја употребе.",
+    "after": "Ova se radnja ne može poništiti. Prilagođeno polje bit će uklonjeno sa svih kartica i njegova će povijest biti izbrisana.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "custom-field-stringtemplate-format",
+    "before": "Облик (користите %{вредност} као основу/носач)",
+    "after": "Format (koristite %{value} kao rezervirano mjesto)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "custom-field-stringtemplate-item-placeholder",
+    "before": "Притисните ентер да додате још ставки",
+    "after": "Pritisnite Enter za dodavanje više stavki",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "custom-field-stringtemplate-separator",
+    "before": "Раздвајач (користите &#32; или &nbsp; за размак)",
+    "after": "Razdjelnik (koristite &#32; ili &nbsp; za razmak)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
