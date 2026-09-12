@@ -288,3 +288,12 @@ assert.match(data.filesReportTitle, /Informe de ficheros/);
 assert.match(data['filter-custom-fields-label'], /Filtrar por campos personalizaos/);
 assert.match(data['filter-hide-empty'], /Anubrir les llistes baleres/);
 assert.doesNotMatch(data['filter-hide-empty'], /Eliminar|tarxetes/);
+
+assert.match(data['filter-no-custom-fields'], /Ensin campos personalizaos/);
+assert.match(data['filter-show-archive'], /Amosar les llistes archivaes/);
+assert.match(data['globalSearch-instructions-heading'], /Instruiciones de busca/);
+assert.match(data['globalSearch-instructions-notes-1'], /dellos operadores/);
+assert.match(data['globalSearch-instructions-notes-4'], /nun distinguen ente mayúscules y minúscules/);
+assert.match(data['globalSearch-instructions-operator-at'], /`user:<username>`/);
+assert.match(data['globalSearch-instructions-operator-hash'], /<name\|color>/);
+assert.match(data['globalSearch-instructions-operator-sort'], /descendente.*`-` enantes del nome/);

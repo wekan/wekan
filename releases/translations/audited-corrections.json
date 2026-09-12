@@ -42922,5 +42922,61 @@
     "before": "Ocultar las listas vacías",
     "after": "Anubrir les llistes baleres",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "filter-no-custom-fields",
+    "before": "Sin campos personalizados",
+    "after": "Ensin campos personalizaos",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "filter-show-archive",
+    "before": "Mostrar las listas archivadas",
+    "after": "Amosar les llistes archivaes",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "globalSearch-instructions-heading",
+    "before": "Instrucciones de búsqueda",
+    "after": "Instruiciones de busca",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "globalSearch-instructions-notes-1",
+    "before": "Se pueden especificar múltiples operadores.",
+    "after": "Puédense especificar dellos operadores.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "globalSearch-instructions-notes-4",
+    "before": "Las búsquedas de texto no distinguen entre mayúsculas y minúsculas.",
+    "after": "Les busques de testu nun distinguen ente mayúscules y minúscules.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "globalSearch-instructions-operator-at",
+    "before": "`__operator_user_abbrev__username` - abreviatura para `user:<username>`",
+    "after": "`__operator_user_abbrev__username` - abreviatura pa `user:<username>`",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "globalSearch-instructions-operator-hash",
+    "before": "`__operator_label_abbrev__<name|color>` - abreviatura para `__operator_label__:<color>` o `__operator_label__:<name>`",
+    "after": "`__operator_label_abbrev__<name|color>` - abreviatura pa `__operator_label__:<color>` o `__operator_label__:<name>`",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "globalSearch-instructions-operator-sort",
+    "before": "`__operator_sort__:<sort-name>` - donde *<sort-name>* puede ser `__predicate_due__`, `__predicate_created__` o `__predicate_modified__`.  Para ordenar descendentemente, coloca un `-` delante del tipo de orden.",
+    "after": "`__operator_sort__:<sort-name>` - onde *<sort-name>* ye ún de `__predicate_due__`, `__predicate_created__` o `__predicate_modified__`. Pa ordenar de manera descendente, pon un `-` enantes del nome de la ordenación.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
