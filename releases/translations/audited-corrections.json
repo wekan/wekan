@@ -48263,5 +48263,40 @@
     "before": "Il container blob in cui memorizzare i file.",
     "after": "Il container da blobs nua che las datotecas duain vegnir memorisadas.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "background-too-big",
+    "before": "L'immagine di sfondo ie troppo grande (Massimo {{size}}).",
+    "after": "Il maletg da fund è memia grond (maximum {{size}}).",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "backup-restore-select-first",
+    "before": "Siel prima un backup dall'elenco.",
+    "after": "Tscherna l’emprim ina copia da segirezza da la glista.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "badge-attachment-on-minicard",
+    "before": "Conteggio degli injuntes sulla minicard",
+    "after": "Dumber d’agiuntas sin la minicarta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "board-background-image-url",
+    "before": "URL dell'immagine di sfondo",
+    "after": "URL dal maletg da fund",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "board-change-background-image",
+    "before": "Mudare immagine di sfondo",
+    "after": "Midar il maletg da fund",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
