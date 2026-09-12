@@ -724,5 +724,17 @@
     "key": "no-shared-templates",
     "value": "Sin plantillas compartidas",
     "reason": "Reviewed shared Aragonese vocabulary: absence of shared templates, without foreign articles or loss of source meaning."
+  },
+  {
+    "locale": "an",
+    "key": "prefix-with-full-path",
+    "value": "Prefijo con ruta completa",
+    "reason": "Reviewed shared technical vocabulary for a full-path prefix; no foreign article or loss of meaning."
+  },
+  {
+    "locale": "an",
+    "key": "r-drop-trigger",
+    "value": "suelta un disparador aquí",
+    "reason": "Reviewed shared Aragonese vocabulary for dropping an automation trigger here; action and location are preserved."
   }
 ]

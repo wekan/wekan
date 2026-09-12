@@ -45561,5 +45561,33 @@
     "before": "El número de personas es:",
     "after": "O numero de personas ye: ",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "personal-list-width",
+    "before": "Anchos de lista personales",
+    "after": "Amplarias de lista personals",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "preview-pdf-not-supported",
+    "before": "Tu dispositivo no permite previsualizar PDF. Intenta descargarlo.",
+    "after": "O tuyo dispositivo no permite previsualizar PDF. Intenta baixar-lo.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "push-invite-title",
+    "before": "__inviter__ te ha enviado una invitación",
+    "after": "__inviter__ t’ha ninviau una invitación",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "r-d-check-of-list",
+    "before": "de la lista de verificación",
+    "after": "d’a lista de comprobación",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
