@@ -120,3 +120,7 @@ assert.match(data['normal-desc'], /ver y editar tarxetes.*Nun puedes cambiar les
 assert.match(data['notify-participate'], /creador o miembru/);
 assert.match(data['notify-watch'], /tableru, llista o tarxeta.*siguiendo/);
 assert.match(data['private-desc'], /Solo les persones añadíes al tableru pueden velu y editalu/);
+assert.match(data['public-desc'], /cualquiera.*en buscadores como Google.*Solo les persones añadíes al tableru pueden editalu/);
+assert.equal(data['push-invite-text'], data['email-invite-text']);
+assert.equal(data['r-add-checklist'], data['r-d-add-checklist']);
+assert.match(data['r-d-move-to-bottom-gen'], /final de la so llista/);

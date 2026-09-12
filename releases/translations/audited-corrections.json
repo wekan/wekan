@@ -41620,5 +41620,47 @@
     "before": "Este tablero es privado. Sólo las personas añadidas al tablero pueden verlo y editarlo.",
     "after": "Esti tableru ye priváu. Solo les persones añadíes al tableru pueden velu y editalu.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "public-desc",
+    "before": "Este tablero es público. Es visible para cualquiera a través del enlace, y se mostrará en los buscadores como Google. Sólo las personas añadidas al tablero pueden editarlo.",
+    "after": "Esti tableru ye públicu. Ye visible pa cualquiera que tenga l'enllaz y va apaecer en buscadores como Google. Solo les persones añadíes al tableru pueden editalu.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "push-invite-text",
+    "before": "Estimado __user__,\n\n__inviter__ te invita a unirte al tablero '__board__' para colaborar.\n\nPor favor, haz clic en el siguiente enlace:\n\n__url__\n\nGracias.",
+    "after": "Estimáu/ada __user__,\n\n__inviter__ convídate a xunite al tableru \"__board__\" pa collaborar.\n\nSigue l'enllaz de baxo:\n\n__url__\n\nGracies.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "quick-access-description",
+    "before": "Destaca un tablero para añadir un acceso directo en esta barra.",
+    "after": "Marca un tableru como favoritu p'añadir un atayu nesta barra.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "r-add-checklist",
+    "before": "Añadir una lista de verificación",
+    "after": "Añadir una llista de comprobación",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "r-d-add-checklist",
+    "before": "Añadir una lista de verificación",
+    "after": "Añadir una llista de comprobación",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "r-d-move-to-bottom-gen",
+    "before": "Mover la tarjeta al final de su lista",
+    "after": "Mover la tarxeta al final de la so llista",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
