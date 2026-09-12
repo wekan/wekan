@@ -138,6 +138,11 @@ console.log('croatianAuditedTranslations: target script, V8 metrics and indicato
   assert.doesNotMatch(data['normal-assigned-only-desc'], /sve kartice|puna prava/);
   assert.match(data['notify-participate'], /autor ili član/);
   assert.match(data['newlineBecomesNewChecklistItemOriginOrder'], /izvornim redoslijedom/);
+  assert.equal(translator.t('operator-number-expected', { operator: 'LIMIT', value: 'BAD' }), "Operator LIMIT očekivao je broj, a dobio je 'BAD'");
+  assert.equal(translator.t('page-maybe-private', { sprintf: ['/login'] }), "Ova je stranica možda privatna. Možda je možete pregledati ako se <a href='/login'>prijavite</a>.");
+  assert.match(data['operator-limit-invalid'], /pozitivan cijeli broj/);
+  assert.match(data['private-desc'], /Samo osobe dodane na ploču/);
+  assert.doesNotMatch(data['private-desc'], /svi korisnici/);
   assert.match(data['act-newDue'], /prvi podsjetnik/);
   assert.match(data['act-duenow'], /upravo sada/);
   assert.doesNotMatch(data['act-duenow'], /danas/);

@@ -558,6 +558,13 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/38050f251">Repair Croatian query validation and private-board messages</a>. Thanks to xet7.</summary>
+
+Correct 12 reviewed values. Positive and negative regressions verify integer limits, private-board access and actual operator/login-link rendering. Source-token, target-script, exact-value, key-order and repair checks pass. Audit.md records dated progress.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/4004c2ebd">Repair Croatian card views and assigned-only permissions</a>. Thanks to xet7.</summary>
 
 Correct 14 reviewed values. Positive and negative regressions verify assigned-only visibility, notification scope, checklist order and actual count rendering. Source-token, target-script, exact-value, key-order and repair checks pass. Audit.md records dated progress.
