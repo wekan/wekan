@@ -2,9 +2,11 @@
 
 **Audit date: 2026-09-12. Correction date: 2026-09-12.**
 
+**Latest correction:** [a2639d319](https://github.com/wekan/wekan/commit/a2639d3195b7192fc5a30748309b1b3b6ab051cb) replaces **519 Persian-seeded values** in `ar.i18n.json`, `ar-DZ.i18n.json`, `ar-EG.i18n.json` and `ary.i18n.json` with Arabic wording. The three remaining Moroccan entries use Darija wording. Regional dialect phrasing in the shared formal Arabic corrections remains open to review. The correction list now covers **1,018 values**, with passing regression checks. All listed commits are local and have not been pushed.
+
 Translations were corrected in commit [7a23353ac](https://github.com/wekan/wekan/commit/7a23353acfa8f07c5f836f661a4d0b5f8999593e). This is a local commit; it has not been pushed.
 
-This batch addresses **499 audited values in 101 language files** (497 values required changes; two already matched the reviewed correction):
+The first batch addresses **499 audited values in 101 language files** (497 values required changes; two already matched the reviewed correction):
 
 - 45 JSON examples now use valid JSON and literal `title` and `description` property names, preserving translated sample prose where recoverable.
 - 128 Chinese-language strings use kanban terminology `看板` instead of the corporate board-of-directors term `董事会`.

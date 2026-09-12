@@ -557,6 +557,26 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/7a23353ac">Correct audited local translation problems</a>. Thanks to xet7.</summary>
+
+Correct malformed card-copy JSON examples and kanban board terminology,
+repair mixed-script fragments and calendar names, and replace Persian-seeded
+Arabic strings in <a href="https://github.com/wekan/wekan/commit/a2639d319">a2639d319</a>.
+The dated translation audit records these batches and the remaining review.
+Unicode calendar terminology is included with its license; there is no new
+runtime dependency or external translation service. Dzongkha, Quechua and
+Tonga examples and regional Arabic phrasing need native-speaker review.
+
+Regression checks verify 1,018 reviewed values, exact source placeholders,
+JSON examples, key order and idempotency. Applying the reviewed repair list
+preserves newer translations. Human-preference and calendar-display checks
+pass. The browser regression is registered and syntax-checked; the live
+Meteor UI was unavailable. The wider audit and English-remnant review remain
+unfinished; this entry does not claim every locale is now correct.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/9fda12cdd">Combine month and formatted date in the date popup heading</a>. Thanks to xet7.</summary>
 
 The calendar heading shows the month name and the member's formatted date.
