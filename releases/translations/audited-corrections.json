@@ -47738,5 +47738,110 @@
     "before": "Heap Node: dimenscion totale disponibile",
     "after": "Heap da Node: grondezza totala disponibla",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "Node_heap_total_heap_size",
+    "before": "Heap Node: dimenscion totale dell'heap",
+    "after": "Heap da Node: grondezza totala dal heap",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "Node_heap_total_heap_size_executable",
+    "before": "Heap Node: dimenscion totale dell'heap eseguibile",
+    "after": "Heap da Node: grondezza totala dal heap executabel",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "Node_heap_total_physical_size",
+    "before": "Heap Node: dimenscion fisica totale",
+    "after": "Heap da Node: grondezza fisica totala",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "Node_heap_used_heap_size",
+    "before": "Heap Node: dimenscion dell'heap utilizzata",
+    "after": "Heap da Node: grondezza utilisada dal heap",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "Node_memory_usage_heap_total",
+    "before": "Uso memoria Node: dimenscion totale dell'heap allocato",
+    "after": "Utilisaziun da memoria da Node: grondezza totala dal heap attribuì",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "Node_memory_usage_rss",
+    "before": "Uso memoria Node: resident set size",
+    "after": "Utilisaziun da memoria da Node: grondezza da la memoria residenta (RSS)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "Rotateplane",
+    "before": "Spinner di attesa Rotateplane",
+    "after": "Indicatur da spetga Rotateplane",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "Scaleout",
+    "before": "Spinner di attesa Scaleout",
+    "after": "Indicatur da spetga Scaleout",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "a-receivedAt",
+    "before": "orario di ricezione mudato in",
+    "after": "midà il temp da recepziun en",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "a-startAt",
+    "before": "orario iniziale mudato in",
+    "after": "midà il temp da cumenzament en",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "acceptance_of_our_legalNotice",
+    "before": "Continuando, accetti il nostro",
+    "after": "Cun cuntinuar acceptas ti noss",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "accessibility-content",
+    "before": "Contenuti di accessibilità",
+    "after": "Cuntegn davart l’accessibilitad",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "accessibility-page-enabled",
+    "before": "Pagina accessibilità ativeata",
+    "after": "Pagina davart l’accessibilitad activada",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "account-created",
+    "before": "Cont creato! Ora puoi accedere.",
+    "after": "Cont creà! Ti pos ussa t’annunziar.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "account-creation-failed",
+    "before": "Impossibile creare l'cont",
+    "after": "Il cont n’ha betg pudì vegnir creà",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
