@@ -24512,5 +24512,117 @@
     "before": "Раздвајач (користите &#32; или &nbsp; за размак)",
     "after": "Razdjelnik (koristite &#32; ili &nbsp; za razmak)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "custom-help-link-url",
+    "before": "Место на Интернету где се може затражити помоћ",
+    "after": "URL prilagođene poveznice za pomoć",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "custom-legal-notice-link-url",
+    "before": "Место на Интернету са условима/уговором за коришћење",
+    "after": "URL prilagođene stranice pravne obavijesti",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "custom-login-logo-image-url",
+    "before": "Веза до места на Интернету са ког се повлачи насловна слика код пријаве",
+    "after": "URL slike prilagođenog logotipa za prijavu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "custom-login-logo-link-url",
+    "before": "Слика изнад дела за пријаву води до следећег места на Интернету",
+    "after": "URL poveznice prilagođenog logotipa za prijavu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "custom-top-left-corner-logo-height",
+    "before": "Висина за Ваш лого у горњем левом углу. Уобичајена вредност: 27",
+    "after": "Visina prilagođenog logotipa u gornjem lijevom kutu. Zadano: 27",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "custom-top-left-corner-logo-image-url",
+    "before": "Веза до места на Интернету где се налази слика са Вашим логом за приказивање у горњем левом углу",
+    "after": "URL slike prilagođenog logotipa u gornjem lijevom kutu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "custom-top-left-corner-logo-link-url",
+    "before": "Веза до места на Интернету које се посећује када си кликне на Ваш лого у горњем левом углу",
+    "after": "URL poveznice prilagođenog logotipa u gornjem lijevom kutu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "default-authentication-method",
+    "before": "Уобичајени метод за утврђивање идентитета",
+    "after": "Zadani način autentifikacije",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "delete-all-notifications-confirm",
+    "before": "Да ли сте сигурни да желите да избришете сва обавештења? Опозив ове радње неће бити могућ.",
+    "after": "Jeste li sigurni da želite izbrisati sve obavijesti? Ova se radnja ne može poništiti.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "delete-avatar-confirm",
+    "before": "Да ли сте сигурни да желите да уклоните ову слику?",
+    "after": "Jeste li sigurni da želite izbrisati ovaj avatar?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "delete-duplicate-empty-lists-migration",
+    "before": "Брисање истоимених делова поступка",
+    "after": "Izbriši prazne duplikate popisa",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "delete-duplicate-empty-lists-migration-description",
+    "before": "На један безбедан начин брише празне истоимене делове поступка. Бришу се сви делови поступка у којима нема предмета ако постоји део поступка са истим тим насловом где већ постоје предмети.",
+    "after": "Sigurno briše prazne duplikate popisa. Uklanja samo popise koji nemaju kartice I imaju drugi popis istog naslova koji sadrži kartice.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "delete-duplicate-lists",
+    "before": "Уклоните истоимене делове поступка",
+    "after": "Izbriši duplikate popisa",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "delete-duplicate-lists-confirm",
+    "before": "Да ли сте сигурни? Овом радњом ће бити избрисани сви истоимени делови поступка где нема предмета.",
+    "after": "Jeste li sigurni? Ovo će izbrisati sve duplikate popisa koji imaju isti naziv i ne sadrže kartice.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "delete-linked-card-before-this-card",
+    "before": "Можете избрисати овај предмет тек кад, прво, избришете предмет у вези са њим",
+    "after": "Ovu karticu ne možete izbrisati prije nego što izbrišete povezanu karticu koja ima",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "delete-linked-cards-before-this-list",
+    "before": "Не можете избрисати овај део поступка - прво избришете предмете који су у вези са предметима у овом делу поступка",
+    "after": "Ovaj popis ne možete izbrisati prije nego što izbrišete povezane kartice koje upućuju na kartice u ovom popisu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
