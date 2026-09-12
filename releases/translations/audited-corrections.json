@@ -19080,5 +19080,159 @@
     "before": "SMTP Test-E-Mail",
     "after": "SMTP-Test-E-Mail",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "act-addAttachment",
+    "before": "добавен е прикачен файл __attachment__ към карта __card__ в списък __list__ в лента __swimlane__ към дъска __board__",
+    "after": "додаде прилог __attachment__ на картата __card__ во списокот __list__ во лентата __swimlane__ на таблата __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "act-addChecklist",
+    "before": "добавен списък със задачи __checklist__ към карта __card__ в списък __list__ в лента __swimlane__ към дъска __board__",
+    "after": "додаде список за проверка __checklist__ на картата __card__ во списокот __list__ во лентата __swimlane__ на таблата __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "act-addComment",
+    "before": "коментирано на карта __card__: __comment__ в списък __list__ от лента __swimlane__ към дъска __board__",
+    "after": "коментираше на картата __card__: __comment__ во списокот __list__ во лентата __swimlane__ на таблата __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "act-addLabel",
+    "before": "Добавено е име __label__ към карта __card__ в списък __list__ в лента __swimlane__ към дъска __board__",
+    "after": "додаде ознака __label__ на картата __card__ во списокот __list__ во лентата __swimlane__ на таблата __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "act-addSubtask",
+    "before": "добавена е под-задача __subtask__ към карта __card__ в списък __list__ в лента __swimlane__ към дъска __board__",
+    "after": "додаде подзадача __subtask__ на картата __card__ во списокот __list__ во лентата __swimlane__ на таблата __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "act-addedLabel",
+    "before": "Добавено е име __label__ към карта __card__ в списък __list__ в лента __swimlane__ към дъска __board__",
+    "after": "додаде ознака __label__ на картата __card__ во списокот __list__ во лентата __swimlane__ на таблата __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "act-checkedItem",
+    "before": "отметнат елемент __checklistItem__ от списък със задачи __checklist__ към карта __card__ в списък __list__ в лента __swimlane__ към дъска __board__",
+    "after": "ја означи ставката __checklistItem__ во списокот за проверка __checklist__ на картата __card__ во списокот __list__ во лентата __swimlane__ на таблата __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "act-completeChecklist",
+    "before": "изпълнен е списък със задачи __checklist__ към карта __card__ в списък __list__ в лента __swimlane__ към дъска __board__",
+    "after": "го заврши списокот за проверка __checklist__ на картата __card__ во списокот __list__ во лентата __swimlane__ на таблата __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "act-deleteAttachment",
+    "before": "изтрит е прикачен файл __attachment__ към карта __card__ в списък __list__ в лента __swimlane__ към дъска __board__",
+    "after": "го избриша прилогот __attachment__ на картата __card__ во списокот __list__ во лентата __swimlane__ на таблата __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "act-removeChecklist",
+    "before": "премахнат елемент от списък със задачи __checklist__ към карта __card__ в списък __list__ в лента __swimlane__ към дъска __board__",
+    "after": "го отстрани списокот за проверка __checklist__ од картата __card__ во списокот __list__ во лентата __swimlane__ на таблата __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "act-removeLabel",
+    "before": "Премахнато е име __label__ от карта __card__ в списък __list__ в лента __swimlane__ към дъска __board__",
+    "after": "ја отстрани ознаката __label__ од картата __card__ во списокот __list__ во лентата __swimlane__ на таблата __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "act-removedLabel",
+    "before": "Премахнато е име __label__ от карта __card__ в списък __list__ в лента __swimlane__ към дъска __board__",
+    "after": "ја отстрани ознаката __label__ од картата __card__ во списокот __list__ во лентата __swimlane__ на таблата __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "act-uncheckedItem",
+    "before": "неотметнат е елемент __checklistItem__ от списък със задачи __checklist__ към карта __card__ в списък __list__ в лента __swimlane__ към дъска __board__",
+    "after": "ја поништи ознаката на ставката __checklistItem__ во списокот за проверка __checklist__ на картата __card__ во списокот __list__ во лентата __swimlane__ на таблата __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "act-uncompleteChecklist",
+    "before": "неизпълнен списък със задачи __checklist__ към карта __card__ в списък __list__ в лента __swimlane__ към дъска __board__",
+    "after": "го поништи завршувањето на списокот за проверка __checklist__ на картата __card__ во списокот __list__ во лентата __swimlane__ на таблата __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "activity-added-label",
+    "before": "добави етикет '%s' към %s",
+    "after": "додаде ознака «%s» на %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "activity-checklist-added",
+    "before": "добави списък със задачи към %s",
+    "after": "додаде список за проверка на %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "activity-checklist-completed-card",
+    "before": "изпълнен е списък със задачи __checklist__ към карта __card__ в списък __list__ в лента __swimlane__ към дъска __board__",
+    "after": "го заврши списокот за проверка __checklist__ на картата __card__ во списокот __list__ во лентата __swimlane__ на таблата __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "activity-checklist-item-added",
+    "before": "добави точка към '%s' в/във %s",
+    "after": "додаде ставка во списокот за проверка «%s» на %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "auto-watch",
+    "before": "Автоматично наблюдаване на таблата, когато са създадени",
+    "after": "Автоматски следи ги таблите кога ќе се создадат",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "board-delete-notice",
+    "before": "Изтриването е перманентно. Ще загубите всички списъци, карти и действия асоциирани с тази дъска.",
+    "after": "Бришењето е трајно. Ќе ги изгубите сите списоци, карти и дејства поврзани со оваа табла.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "list",
+    "before": "Списък",
+    "after": "Список",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "swimlane",
+    "before": "Поступак",
+    "after": "Лента",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
