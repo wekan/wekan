@@ -21670,5 +21670,117 @@
     "before": "Увуци се у налог овог корисника",
     "after": "Најави се како корисникот",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "import-board-instruction-about-errors",
+    "before": "Ако се јаве грешке при уношењу списа то не значи да унос није успео!Проверите јел се спис појавио у одељку „Списи у мојој надлежности“.",
+    "after": "Ако добиете грешки при увоз на табла, понекогаш увозот сепак успева и таблата се наоѓа на страницата „Сите табли“.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "import-board-instruction-csv",
+    "before": "Овде залепите Ваше CSV податке (вредности раздвојене зарезом) односно TSV податке (вредности раздвојене табулатором) .",
+    "after": "Залепете ги вашите CSV податоци (вредности одделени со запирка) или TSV податоци (вредности одделени со табулатор).",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "import-board-instruction-trello",
+    "before": "У Вашоим Trello списима, идите у 'Menu', затим 'More', 'Print and Export', 'Export JSON', и умножите представљени текст.",
+    "after": "Во вашата табла во Trello, одете во 'Menu', потоа 'More', 'Print and Export', 'Export JSON' и копирајте го добиениот текст.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "import-board-instruction-wekan",
+    "before": "У Вашим списима, изаберите ставке 'Мени', затим 'Унеси списе' и на крају умножите сав садржај/текст из преузете датотеке.",
+    "after": "Во вашата табла, одете во 'Мени', потоа 'Извези табла' и копирајте го текстот од преземената датотека.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "import-board-zip",
+    "before": "Додај .zip архиву која има списе у json облику и фасцикле по имену списа где је предметна грађа",
+    "after": "Додајте .zip датотека што содржи JSON датотеки на табли и поддиректориуми со имињата на таблите и нивните прилози",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "import-csv-placeholder",
+    "before": "Овде сместите Ваше исправне CSV/TSV податке",
+    "after": "Залепете ги вашите валидни CSV/TSV податоци тука",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "import-json-placeholder",
+    "before": "Копирайте валидната Ви JSON информация тук",
+    "after": "Залепете ги вашите валидни JSON податоци тука",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "import-members-map",
+    "before": "Списи које сте унели имају постављену мрежу сарадника. Молим да мапирате сараднике из те мреже на Ваше сараднике",
+    "after": "Увезената табла има членови. Поврзете ги членовите што сакате да ги увезете со вашите корисници",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "import-members-map-note",
+    "before": "Белешка: Немапирани сарадници ће бити додељени на тренутног корисника.",
+    "after": "Забелешка: Членовите што не се поврзани ќе бидат доделени на тековниот корисник.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "import-show-user-mapping",
+    "before": "Испрегледај како су сарадници измапирани",
+    "after": "Прегледај ги поврзувањата на членовите",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "import-user-select",
+    "before": "Изаберите Вашег познатог сарадника којег желите да корисите као овог",
+    "after": "Изберете го постојниот корисник што сакате да го користите како овој член",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "invalid-file",
+    "before": "Ако са именом нешто није у реду тада ће и слање и преименовање бити отказано.",
+    "after": "Ако името на датотеката е невалидно, поставувањето или преименувањето се откажува.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "invite-people-error",
+    "before": "Догодила се грешка приликом слања позива за сарадњу",
+    "after": "Грешка при испраќање покана за регистрација",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "invite-people-success",
+    "before": "Позив за сарадњу је успешно послат",
+    "after": "Поканата за регистрација е успешно испратена",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "just-invited",
+    "before": "Бяхте поканени в това табло",
+    "after": "Поканети сте на оваа табла",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "export-board",
+    "before": "Експортиране на Табло",
+    "after": "Извези табла",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
