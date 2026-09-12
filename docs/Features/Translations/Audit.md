@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Audit keys |
 | --- | ---: |
-| Explicitly corrected | 5,493 |
+| Explicitly corrected | 5,528 |
 | Original pull values restored to pre-pull local values | 4,061 |
 | Reviewed and retained unchanged | 80 |
-| Pending review or repair | 10,447 |
+| Pending review or repair | 10,412 |
 | Total tracked | 20,081 |
 
 **Translation repairs remain unfinished.** These counts cover flagged findings; unflagged strings and restored values are not certified as correct.
 
-Repairs cover wrong-language text, kanban terminology, omitted restrictions and warnings, JSON examples, placeholders, calendar names and search/date formatting. The correction history records **5,555 values**, including fixes outside the audit. Flagged Bosnian, Croatian, Macedonian, Slovenian (both locales), Latvian, Romanian and Slovak queues are complete.
+Repairs cover wrong-language text, kanban terminology, omitted restrictions and warnings, JSON examples, placeholders, calendar names and search/date formatting. The correction history records **5,590 values**, including fixes outside the audit. Flagged Bosnian, Croatian, Macedonian, Slovenian (both locales), Latvian, Romanian and Slovak queues are complete.
 
-Latest fix: [b2cdec01e](https://github.com/wekan/wekan/commit/b2cdec01e9fafc410170b2482d80e64f9f59c3fd), **2026-09-13** — 28 Galician regional storage, display and scheduled-job corrections; two correct custom-field labels retained unchanged. Repairs preserve URL-scheme instructions, enable/disable states, sorting order and job success/failure distinctions. **195 regional findings remain.** Meaning, exact-value, unchanged-review, placeholder, key-order and idempotency checks pass; live Meteor browser verification remains unavailable.
+Latest fix: [415883c9f](https://github.com/wekan/wekan/commit/415883c9fab72986d6062aff690ecf366df54530), **2026-09-13** — 35 Galician regional customization, migration and deletion-control corrections. Repairs preserve HTML tag names, filenames, template placeholders, space entities and default logo height. **160 regional findings remain.** Meaning, exact-value, placeholder, key-order and idempotency checks pass; live Meteor browser verification remains unavailable.
 
 **Provenance:** not all errors came from Transifex. The captured pull changed 4,061 values; the full-local audit added 16,020 findings. Bosnian errors came from the September 5 [local completion commit](https://github.com/wekan/wekan/commit/bdb3b15886a749b725b5290ba0109fcba955f983), with no Bosnian changes in the captured pull. Other ultimate origins remain unverified.
 
