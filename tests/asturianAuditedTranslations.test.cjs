@@ -397,3 +397,11 @@ assert.match(data['remove-cover'], /Quitar la imaxe de portada de la minitarxeta
 assert.match(data['remove-labels-multiselect'], /quita les etiquetes 1-9/);
 assert.match(data['restoreArchivedListToSwimlanePopup-title'], /Restaurar la llista al carril/);
 assert.doesNotMatch(data['restoreArchivedListToSwimlanePopup-title'], /Eliminar/);
+
+assert.match(data['s3-access-key-description'], /Clave d’accesu d’AWS S3 pa l’autenticación/);
+assert.match(data['s3-access-key-placeholder'], /Introduz la clave d’accesu de S3/);
+assert.match(data['s3-bucket-description'], /Nome del bucket S3 pa guardar ficheros/);
+assert.match(data['s3-connection-failed'], /Falló la conexón con S3/);
+assert.match(data['s3-enabled-description'], /AWS S3 o MinIO.*almacenamientu de ficheros/);
+assert.match(data['s3-endpoint-description'], /s3\.amazonaws\.com o minio\.example\.com/);
+assert.doesNotMatch(data['s3-bucket-description'], /contraseña|clave/);

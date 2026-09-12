@@ -43489,5 +43489,47 @@
     "before": "Restaurar lista al carril",
     "after": "Restaurar la llista al carril",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "s3-access-key-description",
+    "before": "Clave de acceso de AWS S3 para autentificación",
+    "after": "Clave d’accesu d’AWS S3 pa l’autenticación",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "s3-access-key-placeholder",
+    "before": "Introduzca la clave de acceso de S3",
+    "after": "Introduz la clave d’accesu de S3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "s3-bucket-description",
+    "before": "Nombre del Bucket S3 para guardar los archivos",
+    "after": "Nome del bucket S3 pa guardar ficheros",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "s3-connection-failed",
+    "before": "La conexión S3 ha fallado",
+    "after": "Falló la conexón con S3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "s3-enabled-description",
+    "before": "Usar AWS S3 o MinIO para almacenamiento de archivos",
+    "after": "Usar AWS S3 o MinIO pal almacenamientu de ficheros",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "s3-endpoint-description",
+    "before": "URL del Endpoint S3 (por ejemplo, s3.amazonaws.com o minio.example.com)",
+    "after": "URL del endpoint S3 (por exemplu, s3.amazonaws.com o minio.example.com)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
