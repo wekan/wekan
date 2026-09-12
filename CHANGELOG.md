@@ -558,6 +558,15 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/97124a0d4ed051afc8688b9e7a4abd7ae8f82b3f">Fix Galician regional migration and attachment translations</a></summary>
+
+Replace 18 Portuguese values with reviewed Galician. Preserve migration permissions and browser warnings, attachment storage destinations, checklist controls and search-count placeholders. Translation meaning, placeholder, key-order and idempotency regression checks pass.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/c5429b159d82ee35810e014079c7c7ba5102e731">Fix Galician regional membership and list translations</a></summary>
 
 Replace ten Portuguese values with reviewed Galician. Preserve last-admin restrictions, board-exit consequences, archive restoration and irreversible list deletion warnings. Translation meaning, placeholder, key-order and idempotency regression checks pass.
