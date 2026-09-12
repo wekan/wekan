@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Audit keys |
 | --- | ---: |
-| Explicitly corrected | 5,788 |
+| Explicitly corrected | 5,798 |
 | Original pull values restored to pre-pull local values | 4,061 |
 | Reviewed and retained unchanged | 94 |
-| Pending review or repair | 10,140 |
+| Pending review or repair | 10,130 |
 | Total tracked | 20,081 |
 
 **Translation repairs remain unfinished.** These counts cover flagged findings; unflagged strings and restored values are not certified as correct.
 
-Repairs cover wrong-language text, kanban terminology, omitted restrictions and warnings, JSON examples, placeholders, calendar names and search/date formatting. The correction history records **5,850 values**, including fixes outside the audit. Flagged Bosnian, Croatian, Macedonian, Slovenian (both locales), Latvian, Romanian, Slovak and both Galician queues are complete.
+Repairs cover wrong-language text, kanban terminology, omitted restrictions and warnings, JSON examples, placeholders, calendar names and search/date formatting. The correction history records **5,860 values**, including fixes outside the audit. Flagged Bosnian, Croatian, Macedonian, Slovenian (both locales), Latvian, Romanian, Slovak and both Galician queues are complete.
 
-Latest fix: [f6e01322d](https://github.com/wekan/wekan/commit/f6e01322db39b21894bde82d44d7d2e3bd1832c1), **2026-09-13** — ten Asturian card archive, deletion, member and setting corrections. Repairs preserve recoverable archiving versus irreversible deletion, activity preservation and singular comment wording. **423 Asturian findings remain.** Meaning, exact-value, placeholder, key-order and idempotency checks pass; Asturian wording needs native-speaker review. Live Meteor browser verification remains unavailable.
+Latest fix: [ec2e3728b](https://github.com/wekan/wekan/commit/ec2e3728baaf66376b75e129d4ac1996b1e88333), **2026-09-13** — ten Asturian sorting, automatic-width and favorite-control corrections. Repairs preserve minicard sorting scope, enable/disable states and board versus page favorite actions. **413 Asturian findings remain.** Meaning, exact-value, placeholder, key-order and idempotency checks pass; Asturian wording needs native-speaker review. Live Meteor browser verification remains unavailable.
 
 **Provenance:** not all errors came from Transifex. The captured pull changed 4,061 values; the full-local audit added 16,020 findings. Bosnian errors came from the September 5 [local completion commit](https://github.com/wekan/wekan/commit/bdb3b15886a749b725b5290ba0109fcba955f983), with no Bosnian changes in the captured pull. Other ultimate origins remain unverified.
 
