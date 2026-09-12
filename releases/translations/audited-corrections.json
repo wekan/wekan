@@ -48193,5 +48193,40 @@
     "before": "Ripara le posizioni di file",
     "after": "Reparar ils lieus da las datotecas",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "attachment-transfer-limits-invalid-value",
+    "before": "Inserisci un valores limite positivo valido",
+    "after": "Endatescha per plaschair ina valur da limita positiva e valida",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "attachment-transfer-limits-save-failed",
+    "before": "Impossibile salvare i limiti di trasferimento injuntes",
+    "after": "Las limitas da transferiment d’agiuntas n’han betg pudì vegnir memorisadas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "attachment-transfer-limits-saved",
+    "before": "Limiti di trasferimento injuntes salvati.",
+    "after": "Las limitas da transferiment d’agiuntas èn memorisadas.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "attachments-path-description",
+    "before": "Troi in cui ie memorizzati i file degli injuntes",
+    "after": "Percurs nua che las datotecas d’agiuntas vegnan memorisadas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "automatic-linked-url-schemes",
+    "before": "Schemi URL personalizzati che devono essere automaticamente cliccabili. Uno schema URL per riga",
+    "after": "Schemas URL persunalisads che duain esser cliccabels automaticamain. In schema URL per lingia",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
