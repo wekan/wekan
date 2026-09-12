@@ -335,3 +335,12 @@ assert.match(data['rescue-card-description'], /nesačuvanih opisa kartica prije 
 assert.match(data['rescue-card-description-dialogue'], /Prepisati trenutni opis/);
 assert.equal(data['restore-all-archived-migration'], 'Vrati sve arhivirano');
 console.log('bosnianAuditedTranslations: read-only restriction, removal notification and description rescue passed');
+
+assert.match(data['restore-all-archived-migration-description'], /sve arhivirane staze, liste i kartice/);
+assert.ok(data['restore-all-archived-migration-description'].includes('swimlaneId ili listId'));
+assert.match(data['restore-lost-cards-migration-description'], /Kreira stazu/);
+assert.match(data['restore-lost-cards-nothing-to-restore'], /staza, lista ili kartica/);
+assert.match(data['run-delete-duplicate-empty-lists-migration-confirm'], /prvo.*liste po stazama.*zatim.*prazne liste.*istog naziva.*sadrži kartice/);
+assert.match(data['run-delete-duplicate-empty-lists-migration-confirm'], /samo stvarno suvišne prazne liste/);
+assert.match(data['run-fix-all-file-urls-migration-confirm'], /svih datotečnih priloga na ovoj ploči/);
+console.log('bosnianAuditedTranslations: recovery entities, field identifiers and migration confirmation scope passed');
