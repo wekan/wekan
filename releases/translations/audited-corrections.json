@@ -41914,5 +41914,68 @@
     "before": "Serás notificado de cualquier cambio en las tarjetas en las que participas como creador o miembro.",
     "after": "Vas recibir notificaciones de cualesquier cambéu nes tarxetes nes que participes como creador o miembru.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "unsaved-description",
+    "before": "Tienes una descripción por añadir.",
+    "after": "Tienes una descripción ensin guardar.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "user-can-not-export-card-to-pdf",
+    "before": "El usuario no puede exportar a PDF",
+    "after": "L'usuariu nun puede exportar la tarxeta a PDF",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "user-can-not-export-excel",
+    "before": "El usuario no puede exportar Excel",
+    "after": "L'usuariu nun puede exportar a Excel",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "user-username-not-found",
+    "before": "Usuario '%s' no encontrado.",
+    "after": "Nun s'atopó el nome d'usuariu '%s'.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "warn-list-archived",
+    "before": "advertencia: esta tarjeta está en una lista en el Archivo",
+    "after": "avisu: esta tarxeta ta nuna llista nel Archivu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "watching-info",
+    "before": "Serás notificado de cualquier cambio en este tablero",
+    "after": "Vas recibir notificaciones de cualesquier cambéu nesti tableru",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "wip-limit-group-select-swimlane",
+    "before": "Seleccionar tablero Carril",
+    "after": "Seleicionar un carril",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "worker-desc",
+    "before": "Solo puede mover tarjetas, asignarse a la tarjeta y comentar.",
+    "after": "Solo puede mover tarxetes, asignase a la tarxeta y comentar.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "MongoDB_Oplog_enabled",
+    "before": "Oplog de MongoDB habilitado",
+    "after": "Oplog de MongoDB activáu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

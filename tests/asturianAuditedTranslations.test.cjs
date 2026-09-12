@@ -144,3 +144,8 @@ assert.match(data['toggle-assignees'], /persones asignaes 1-9.*orde d'incorporac
 assert.doesNotMatch(data['toggle-assignees'], /alministrador/);
 assert.match(data['toggle-labels'], /seleición múltiple añade les etiquetes 1-9/);
 assert.match(data['tracking-info'], /creador o miembru/);
+assert.match(data['unsaved-description'], /ensin guardar/);
+assert.match(data['user-can-not-export-card-to-pdf'], /nun puede exportar la tarxeta a PDF/);
+assert.match(data['user-username-not-found'], /nome d'usuariu '%s'/);
+assert.equal(data['wip-limit-group-select-swimlane'], 'Seleicionar un carril');
+assert.match(data['worker-desc'], /^Solo puede mover tarxetes, asignase a la tarxeta y comentar/);
