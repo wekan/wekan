@@ -47388,5 +47388,33 @@
     "before": "Islamic (Saudi Arabia)",
     "after": "اسلامي جنتري (سعودي عربستان، د سپوږمۍ لیدل)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "si",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "ඉන්දියානු ජාතික දින දසුන",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "si",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "හිජ්රි දින දසුන (සෞදි අරාබිය, සඳ නිරීක්ෂණය)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "si",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "හිජ්රි දින දසුන (වගු මත පදනම් වූ, තාරකා විද්‍යාත්මක කාල ගණනයේ ආරම්භය)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "si",
+    "key": "calendar-system-islamic-civil",
+    "before": "හිජ්රි දින දසුන (වගුව, සිවිල් වීර කාව්‍යය)",
+    "after": "හිජ්රි දින දසුන (වගු මත පදනම් වූ, සිවිල් කාල ගණනයේ ආරම්භය)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
