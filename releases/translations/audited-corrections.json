@@ -26010,5 +26010,103 @@
     "before": "Када је предмет премештен у други део поступка",
     "after": "Kada se kartica premjesti u drugi popis",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "r-when-a-label-is",
+    "before": "Када је било која налепница",
+    "after": "Kada je oznaka",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "read-assigned-only-desc",
+    "before": "Има право увида само у додељене предмете.",
+    "after": "Vidljive su samo dodijeljene kartice. Ne može ih uređivati.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "read-only-desc",
+    "before": "Има право увида у све предмете.",
+    "after": "Može samo pregledavati kartice. Ne može ih uređivati.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "refresh-monitoring",
+    "before": "Најновији подаци са надзора",
+    "after": "Osvježi podatke nadzora",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "remaining-attachments",
+    "before": "Преостала предметна грађа",
+    "after": "Preostali privitci",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "remove-labels-multiselect",
+    "before": "Вишеструким избором одлепљујете налепнице",
+    "after": "Višestruki odabir uklanja oznake 1-9",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "remove-member-pop",
+    "before": "Изузећете __name__ (__username__) из списа __boardTitle__? Сарадник ће бити изузет са свих предмета у списима. Примиће обавештење о томе.",
+    "after": "Ukloniti __name__ (__username__) s ploče __boardTitle__? Član će biti uklonjen sa svih kartica na ovoj ploči. Primit će obavijest.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "remove-organization-from-board",
+    "before": "Да ли сте сигурни да желите да овој странци забраните увид у ове списе ?",
+    "after": "Jeste li sigurni da želite ukloniti ovu organizaciju s ove ploče?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "remove-team-from-table",
+    "before": "Да ли сте сигурни да желите да овом правном тиму укинете увид у ове списе ?",
+    "after": "Jeste li sigurni da želite ukloniti ovaj tim s ploče?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "rescue-card-description",
+    "before": "Понуди још једну прилику да се забележи несачувани опис предмета пре затварања",
+    "after": "Prikaži dijalog za spremanje nespremljenih opisa kartica prije zatvaranja",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "rescue-card-description-dialogue",
+    "before": "Преписаћете тренутни опис предмета са допуњеним?",
+    "after": "Prepisati trenutačni opis kartice vašim promjenama?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "restore-all-archived-migration",
+    "before": "Опоравак свих предмета из архиве",
+    "after": "Vrati sve arhivirano",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "restore-all-archived-migration-description",
+    "before": "Опоравља све архивиране делове поступака, поступке и предмете притом поправљајући недостајућа поља swimlaneId или listId.",
+    "after": "Vraća sve arhivirane staze, popise i kartice. Automatski popravlja nedostajuće swimlaneId ili listId kako bi stavke bile vidljive.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "restore-lost-cards-migration",
+    "before": "Опоравак загубљених предмета",
+    "after": "Vrati izgubljene kartice",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
