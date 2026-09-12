@@ -748,5 +748,11 @@
     "key": "refresh-monitoring",
     "value": "Actualizar monitorización",
     "reason": "Reviewed shared Aragonese technical vocabulary for refreshing monitoring; source action and object are preserved."
+  },
+  {
+    "locale": "an",
+    "key": "rulesImportExportPopup-title",
+    "value": "Importar / Exportar reglas",
+    "reason": "Reviewed shared Aragonese vocabulary for importing and exporting rules; both opposite operations remain explicit."
   }
 ]

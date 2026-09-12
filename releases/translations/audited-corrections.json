@@ -45701,5 +45701,40 @@
     "before": "Restaurar todo lo archivado",
     "after": "Restaurar tot o archivau",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "restore-list-swimlanes-done",
+    "before": "__restored__ lista(s) restaurada(s). No se pudieron restaurar __remaining__.",
+    "after": "__restored__ lista(s) restaurada(s). No s’han puesto restaurar __remaining__.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "right-of-list",
+    "before": "A la derecha de la lista seleccionada",
+    "after": "A la dreita d’a lista triada",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "s3-access-key-placeholder",
+    "before": "Introduzca la clave de acceso de S3",
+    "after": "Introduz a clau d’acceso de S3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "s3-bucket-menu-path",
+    "before": "AWS Console → S3 → Buckets → nombre de tu bucket (o Create bucket → Bucket name).",
+    "after": "AWS Console → S3 → Buckets → nombre d’o tuyo bucket (u Create bucket → Bucket name).",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "s3-connection-failed",
+    "before": "La conexión S3 ha fallado",
+    "after": "A connexión S3 ha fallau",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
