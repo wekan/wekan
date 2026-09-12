@@ -137,3 +137,17 @@ assert.equal(data['delete-duplicate-empty-lists-migration'], 'Izbriši prazne du
 assert.doesNotMatch(data['delete-duplicate-empty-lists-migration'], /istoimen/);
 assert.equal(data['cron-no-errors'], 'Nema grešaka za prikaz');
 console.log('bosnianAuditedTranslations: deletion scope, HTML entities and URL distinctions passed');
+
+assert.match(data['delete-duplicate-empty-lists-migration-description'], /nemaju kartice I.*druga lista istog naziva.*sadrži kartice/);
+assert.match(data['delete-duplicate-lists-confirm'], /isti naziv i ne sadrže kartice/);
+assert.equal(data['deleteDuplicateListsPopup-title'], data['delete-duplicate-lists']);
+for (const entity of ['org', 'team']) {
+  assert.match(data[`delete-${entity}-confirm-popup`], /Poništavanje nije moguće/);
+  assert.match(data[`delete-${entity}-warning-message`], /barem jedan korisnik/);
+}
+assert.doesNotMatch(data['delete-team-confirm-popup'], /pravni/);
+assert.match(data['delete-linked-cards-before-this-list'], /povezane kartice koje upućuju na kartice u ovoj listi/);
+assert.match(data['delete-linked-card-before-this-card'], /povezanu karticu koja ima$/);
+assert.match(data['delete-user-confirm-popup'], /ovaj račun.*Poništavanje nije moguće/);
+assert.match(data['deposit-subtasks-list'], /lista za podzadatke/);
+console.log('bosnianAuditedTranslations: duplicate-list conditions, membership blockers and linked-card direction passed');

@@ -27907,5 +27907,117 @@
     "before": "Брисање истоимених делова поступка",
     "after": "Izbriši prazne duplikate lista",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "delete-duplicate-empty-lists-migration-description",
+    "before": "На један безбедан начин брише празне истоимене делове поступка. Бришу се сви делови поступка у којима нема предмета ако постоји део поступка са истим тим насловом где већ постоје предмети.",
+    "after": "Sigurno briše prazne duplikate lista. Uklanja samo liste koje nemaju kartice I za koje postoji druga lista istog naziva koja sadrži kartice.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "delete-duplicate-lists",
+    "before": "Уклоните истоимене делове поступка",
+    "after": "Izbriši duplikate lista",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "delete-duplicate-lists-confirm",
+    "before": "Да ли сте сигурни? Овом радњом ће бити избрисани сви истоимени делови поступка где нема предмета.",
+    "after": "Jeste li sigurni? Ovo će izbrisati sve duplikate lista koje imaju isti naziv i ne sadrže kartice.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "delete-linked-card-before-this-card",
+    "before": "Можете избрисати овај предмет тек кад, прво, избришете предмет у вези са њим",
+    "after": "Ne možete izbrisati ovu karticu prije nego što izbrišete povezanu karticu koja ima",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "delete-linked-cards-before-this-list",
+    "before": "Не можете избрисати овај део поступка - прво избришете предмете који су у вези са предметима у овом делу поступка",
+    "after": "Ne možete izbrisati ovu listu prije nego što izbrišete povezane kartice koje upućuju na kartice u ovoj listi",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "delete-org-confirm-popup",
+    "before": "Да ли сте сигурни да желите да уклоните ову странку? Опозив ове радње неће бити могућ.",
+    "after": "Jeste li sigurni da želite izbrisati ovu organizaciju? Poništavanje nije moguće.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "delete-org-warning-message",
+    "before": "Не могу да избацим ову странку пошто постоји барем један везани сарадник",
+    "after": "Ovu organizaciju nije moguće izbrisati jer joj pripada barem jedan korisnik",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "delete-team-confirm-popup",
+    "before": "Да ли сте сигурни да желите да уклоните овај цео правни тим? Опозив ове радње неће бити могућ.",
+    "after": "Jeste li sigurni da želite izbrisati ovaj tim? Poništavanje nije moguće.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "delete-team-warning-message",
+    "before": "Не могу да распустим овај правни тим пошто постоји барем једно лице које му припада",
+    "after": "Ovaj tim nije moguće izbrisati jer mu pripada barem jedan korisnik",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "delete-translation-confirm-popup",
+    "before": "Да ли сте сигурни да желите да избришете ову исправку превода? Опозив ове радње неће бити могућ.",
+    "after": "Jeste li sigurni da želite izbrisati ovaj prilagođeni prijevodni niz? Poništavanje nije moguće.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "delete-user-confirm-popup",
+    "before": "Да ли сте сигурни да желите да уклоните овај појединачни кориснички налог сарадника? Опозив ове радње неће бити могућ.",
+    "after": "Jeste li sigurni da želite izbrisati ovaj račun? Poništavanje nije moguće.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "deleteDuplicateListsPopup-title",
+    "before": "Уклоните истоимене делове поступка",
+    "after": "Izbriši duplikate lista",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "deletePokerPopup-title",
+    "before": "Уклони договор за партију покера?",
+    "after": "Izbrisati poker za planiranje?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "deposit-subtasks-list",
+    "before": "Пријемно одељење кад овде депонују:",
+    "after": "Odredišna lista za podzadatke pohranjene ovdje:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "desktop-mode",
+    "before": "Приказ прилагођен за екран рачунара",
+    "after": "Način rada za računar",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "disambiguateMultiLabelPopup-title",
+    "before": "Недвосмислене радње на налепницама",
+    "after": "Razjasni radnju s oznakom",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
