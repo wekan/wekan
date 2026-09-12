@@ -47276,5 +47276,12 @@
     "before": "Islamic tabular",
     "after": "Calannariu slàmicu (tabulari, èpuca astrunòmica)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "so",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "Habeentiriska islaamka (Sacuudi Carabiya, aragtida bisha)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
