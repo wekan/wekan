@@ -360,3 +360,13 @@ assert.match(data['page-maybe-private'], /pue ser privada.*<a href='%s'>aniciar 
 assert.doesNotMatch(data['page-maybe-private'], /siempre|pública/);
 assert.match(data.pastdue, /actual %s yá pasó/);
 assert.notEqual(data.pastdue, data.duenow);
+
+assert.match(data['paste-or-dragdrop'], /arrastrar y soltar.*namái imaxes/);
+assert.match(data['pause-all-migrations'], /Pausar toles migraciones/);
+assert.match(data['people-number'], /númberu de persones ye: $/);
+assert.match(data['poker-delete-pop'], /eliminación ye permanente.*perder toles aiciones.*Planning Poker/);
+assert.match(data['prefix-with-full-path'], /ruta completa como prefixu/);
+assert.match(data['preview-pdf-not-supported'], /nun permite previsualizar PDF.*descargalu/);
+assert.equal(data['push-invite-title'], data['email-invite-subject']);
+assert.match(data['r-board-note'], /campu baleru.*tolos valores posibles/);
+assert.doesNotMatch(data['r-board-note'], /nun coincida/);

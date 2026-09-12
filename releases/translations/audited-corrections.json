@@ -43307,5 +43307,61 @@
     "before": "se sobrepasó la hora de vencimiento actual%s",
     "after": "La hora de vencimientu actual %s yá pasó",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "paste-or-dragdrop",
+    "before": "pegar o arrastrar y soltar un fichero de imagen (sólo imagen)",
+    "after": "pa apegar, o arrastrar y soltar un ficheru d’imaxe nél (namái imaxes)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "pause-all-migrations",
+    "before": "Pausar todas las migraciones",
+    "after": "Pausar toles migraciones",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "people-number",
+    "before": "El número de personas es:",
+    "after": "El númberu de persones ye: ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "poker-delete-pop",
+    "before": "El borrado es permanente. Perderás todas las acciones asociadas a este Planning Poker.",
+    "after": "La eliminación ye permanente. Vas perder toles aiciones asociaes a esti Planning Poker.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "prefix-with-full-path",
+    "before": "Prefijo con ruta completa",
+    "after": "Añadir la ruta completa como prefixu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "preview-pdf-not-supported",
+    "before": "Tu dispositivo no permite previsualizar PDF. Intenta descargarlo.",
+    "after": "El to dispositivu nun permite previsualizar PDF. Prueba a descargalu.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "push-invite-title",
+    "before": "__inviter__ te ha enviado una invitación",
+    "after": "__inviter__ unvióte una invitación",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "r-board-note",
+    "before": "Nota: deje un campo vacío para que coincida con todos los valores posibles",
+    "after": "Nota: dexa un campu baleru pa que coincida con tolos valores posibles. ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
