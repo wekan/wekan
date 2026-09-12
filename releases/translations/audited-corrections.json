@@ -37343,5 +37343,131 @@
     "before": "Seleccionar todos os cartões nesta lista",
     "after": "Seleccionar todas as tarxetas desta lista",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "list-title-not-found",
+    "before": "Lista '%s' não encontrada.",
+    "after": "Non se atopou a lista '%s'.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "listImportCardPopup-title",
+    "before": "Importe um cartão do Trello",
+    "after": "Importar unha tarxeta de Trello",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "mark-all-as-unread",
+    "before": "Marcar todas como não lidas",
+    "after": "Marcar todas como non lidas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "migration-progress-note",
+    "before": "Aguarde enquanto migramos seu quadro para a estrutura mais recente...",
+    "after": "Agarde mentres migramos o seu taboleiro á estrutura máis recente...",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "migration-progress-title",
+    "before": "Migração do Quadro em Andamento",
+    "after": "Migración do taboleiro en curso",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "migration-warning-text",
+    "before": "Não feche o navegador durante a migração. O processo continuará em segundo plano mas poderá levar mais tempo para concluir.",
+    "after": "Non peche o navegador durante a migración. O proceso continuará en segundo plano, pero pode tardar máis en completarse.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "migrations-admin-only",
+    "before": "Somente os administradores do quadro podem executar migrações.",
+    "after": "Só os administradores do taboleiro poden executar migracións",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "migrations-description",
+    "before": "Execute verificações de integridade de dados e reparos para este quadro. Cada migração pode ser executada individualmente.",
+    "after": "Execute comprobacións e reparacións da integridade dos datos deste taboleiro. Cada migración pode executarse individualmente.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "minicard-settings",
+    "before": "Configurações do Mini cartão",
+    "after": "Configuración da minitarxeta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "move-all-attachments-of-board-to-fs",
+    "before": "Mover todos os anexos do quadro para sistema de arquivos",
+    "after": "Mover todos os anexos do taboleiro ao sistema de ficheiros",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "move-all-attachments-of-board-to-gridfs",
+    "before": "Mover todos os anexos do quadro para GridFS",
+    "after": "Mover todos os anexos do taboleiro a GridFS",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "move-all-attachments-of-board-to-s3",
+    "before": "Mover todos os anexos do quadro para S3",
+    "after": "Mover todos os anexos do taboleiro a S3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "moveChecklist",
+    "before": "Mover Lista de verificação",
+    "after": "Mover lista de verificación",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "moveChecklistPopup-title",
+    "before": "Mover Lista de verificação",
+    "after": "Mover lista de verificación",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "multi-selection-active",
+    "before": "Clique nas caixas de seleção para selecionar os quadros",
+    "after": "Fai clic nas caixas de verificación para seleccionar taboleiros",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "muted-info",
+    "before": "Nunca será notificado de quaisquer alterações neste quadro",
+    "after": "Nunca se che notificará ningún cambio neste taboleiro",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "n-n-of-n-cards-found",
+    "before": "__start__-__end__ de __total__ Cartões Encontrados",
+    "after": "__start__-__end__ de __total__ tarxetas atopadas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "newLineNewItem",
+    "before": "Uma linha de texto = um item da lista de verificação",
+    "after": "Unha liña de texto = un elemento da lista de verificación",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

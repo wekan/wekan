@@ -175,3 +175,14 @@ assert.match(data['list-delete-suggest-archive'], /Arquivo.*conservar a activida
 assert.notEqual(data['list-delete-pop'], data['list-delete-suggest-archive']);
 assert.match(data['list-move-cards'], /todas as tarxetas desta lista/);
 assert.match(data['list-select-cards'], /todas as tarxetas desta lista/);
+
+assert.match(data['migration-warning-text'], /Non peche o navegador.*continuará en segundo plano.*pode tardar máis/);
+assert.match(data['migrations-admin-only'], /^Só os administradores do taboleiro poden executar migracións$/);
+assert.match(data['migrations-description'], /integridade dos datos deste taboleiro.*Cada migración pode executarse individualmente/);
+assert.match(data['move-all-attachments-of-board-to-fs'], /todos os anexos.*sistema de ficheiros/);
+assert.match(data['move-all-attachments-of-board-to-gridfs'], /todos os anexos.*a GridFS$/);
+assert.match(data['move-all-attachments-of-board-to-s3'], /todos os anexos.*a S3$/);
+assert.match(data['muted-info'], /Nunca.*ningún cambio neste taboleiro/);
+assert.equal(data.moveChecklist, data['moveChecklistPopup-title']);
+assert.match(data.newLineNewItem, /Unha liña de texto = un elemento/);
+assert.equal(data['n-n-of-n-cards-found'].replace('__start__', '11').replace('__end__', '20').replace('__total__', '57'), '11-20 de 57 tarxetas atopadas');
