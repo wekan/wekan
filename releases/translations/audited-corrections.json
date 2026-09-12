@@ -30133,5 +30133,159 @@
     "before": "Node heap: број природних окружења",
     "after": "Kopica Node: število izvornih kontekstov",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "Node_heap_peak_malloced_memory",
+    "before": "Node heap: вршна алоцирана меморија",
+    "after": "Kopica Node: največja količina pomnilnika, dodeljenega s funkcijo malloc",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "Node_heap_total_available_size",
+    "before": "Node heap: укупни доступни простор",
+    "after": "Kopica Node: skupna razpoložljiva velikost",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "Node_heap_total_heap_size",
+    "before": "Node heap: укупни heap простор",
+    "after": "Kopica Node: skupna velikost kopice",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "Node_heap_total_heap_size_executable",
+    "before": "Node heap: укупни извршни heap простор",
+    "after": "Kopica Node: velikost kopice za izvršljivo kodo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "Node_heap_total_physical_size",
+    "before": "Node heap: укупни физички простор",
+    "after": "Kopica Node: skupna fizična velikost",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "Node_heap_used_heap_size",
+    "before": "Node heap: искоришћени heap простор",
+    "after": "Kopica Node: uporabljena velikost kopice",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "Node_memory_usage_external",
+    "before": "Node искоришћење меморије: спољна",
+    "after": "Poraba pomnilnika v Node: zunanji pomnilnik",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "Node_memory_usage_heap_total",
+    "before": "Node искоришћење меморије: укупан простор који је алоциран за heap",
+    "after": "Poraba pomnilnika v Node: skupna velikost dodeljene kopice",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "Node_memory_usage_heap_used",
+    "before": "Node искоришћење меморије: колико заправо је искоришћено",
+    "after": "Poraba pomnilnika v Node: dejansko uporabljeni pomnilnik",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "Node_memory_usage_rss",
+    "before": "Node искоришћење меморије: постављена вредност",
+    "after": "Poraba pomnilnika v Node: velikost rezidentnega nabora",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "Rotateplane",
+    "before": "Исцртавај лист који се окреће",
+    "after": "Kazalnik čakanja z vrtečo se ravnino",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "Node_heap_peak_malloced_memory",
+    "before": "Node heap: вршна алоцирана меморија",
+    "after": "Kopica Node: največja količina pomnilnika, dodeljenega s funkcijo malloc",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "Node_heap_total_available_size",
+    "before": "Node heap: укупни доступни простор",
+    "after": "Kopica Node: skupna razpoložljiva velikost",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "Node_heap_total_heap_size",
+    "before": "Node heap: укупни heap простор",
+    "after": "Kopica Node: skupna velikost kopice",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "Node_heap_total_heap_size_executable",
+    "before": "Node heap: укупни извршни heap простор",
+    "after": "Kopica Node: velikost kopice za izvršljivo kodo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "Node_heap_total_physical_size",
+    "before": "Node heap: укупни физички простор",
+    "after": "Kopica Node: skupna fizična velikost",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "Node_heap_used_heap_size",
+    "before": "Node heap: искоришћени heap простор",
+    "after": "Kopica Node: uporabljena velikost kopice",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "Node_memory_usage_external",
+    "before": "Node искоришћење меморије: спољна",
+    "after": "Poraba pomnilnika v Node: zunanji pomnilnik",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "Node_memory_usage_heap_total",
+    "before": "Node искоришћење меморије: укупан простор који је алоциран за heap",
+    "after": "Poraba pomnilnika v Node: skupna velikost dodeljene kopice",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "Node_memory_usage_heap_used",
+    "before": "Node искоришћење меморије: колико заправо је искоришћено",
+    "after": "Poraba pomnilnika v Node: dejansko uporabljeni pomnilnik",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "Node_memory_usage_rss",
+    "before": "Node искоришћење меморије: постављена вредност",
+    "after": "Poraba pomnilnika v Node: velikost rezidentnega nabora",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "Rotateplane",
+    "before": "Исцртавај лист који се окреће",
+    "after": "Kazalnik čakanja z vrtečo se ravnino",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

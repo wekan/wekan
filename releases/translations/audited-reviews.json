@@ -430,5 +430,17 @@
     "key": "sidebar-open",
     "value": "Отворете страничната лента",
     "reason": "Reviewed Macedonian imperative and sidebar terminology are correct. Shared wording with Bulgarian is not evidence of a wrong-language value; preserve the existing translation."
+  },
+  {
+    "locale": "sl",
+    "key": "Reactivity_mode",
+    "value": "Način reaktivnosti (changeStreams / oplog / polling)",
+    "reason": "Reviewed Slovenian phrase Način reaktivnosti is correct; changeStreams, oplog and polling are literal implementation identifiers. Shared Croatian wording is not a language error."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "Reactivity_mode",
+    "value": "Način reaktivnosti (changeStreams / oplog / polling)",
+    "reason": "Reviewed Slovenian phrase Način reaktivnosti is correct; changeStreams, oplog and polling are literal implementation identifiers. Shared Croatian wording is not a language error."
   }
 ]

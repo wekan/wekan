@@ -10,6 +10,11 @@ for (const locale of ['sl', 'sl_SI']) {
   assert.match(data['Node_heap_malloced_memory'], /funkcijo malloc/);
   assert.match(data['Node_heap_number_of_detached_contexts'], /ločenih kontekstov/);
   assert.match(data['Node_heap_number_of_native_contexts'], /izvornih kontekstov/);
+  assert.match(data.Node_memory_usage_rss, /rezidentnega nabora/);
+  assert.doesNotMatch(data.Node_memory_usage_rss, /nastavljena vrednost/);
+  assert.match(data.Node_heap_total_heap_size_executable, /izvršljivo kodo/);
+  assert.match(data.Node_heap_peak_malloced_memory, /največja količina.*malloc/);
+  assert.equal(data.Reactivity_mode, 'Način reaktivnosti (changeStreams / oplog / polling)');
   assert.equal(data.MongoDB_storage_engine, 'Shranjevalni pogon MongoDB');
 }
 console.log('slovenianAuditedTranslations: both locales, spinner and memory meanings passed');
