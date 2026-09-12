@@ -4,21 +4,21 @@ Audit date: **2026-09-12**. Last updated: **2026-09-12**.
 
 | Status | Audit keys |
 | --- | ---: |
-| Explicitly corrected | 5,021 |
+| Explicitly corrected | 5,027 |
 | Original pull values restored to pre-pull local values | 4,061 |
 | Reviewed and retained unchanged | 78 |
-| Pending review or repair | 10,921 |
+| Pending review or repair | 10,915 |
 | Total tracked | 20,081 |
 
 The full translation repair goal remains unfinished. Counts describe the tracked audit findings; unflagged strings are not individually certified. Restored pre-pull values are not automatically certified as correct translations.
 
 ## Fixes completed
 
-Repairs address wrong-language text, incorrect kanban terminology, missing restrictions and warnings, malformed JSON examples, translated placeholders, calendar names, search syntax and date/message argument order. The reviewed correction list contains **5,083 values**, including corrections outside the flagged audit rows.
+Repairs address wrong-language text, incorrect kanban terminology, missing restrictions and warnings, malformed JSON examples, translated placeholders, calendar names, search syntax and date/message argument order. The reviewed correction list contains **5,089 values**, including corrections outside the flagged audit rows.
 
-The flagged Bosnian, Croatian and Macedonian queues are complete. Other completed queues include Latvian, Romanian, Slovak and several smaller regional queues. **Bosnian has no remaining flagged findings**.
+The flagged Bosnian, Croatian, Macedonian and both Slovenian queues are complete. Other completed queues include Latvian, Romanian, Slovak and several smaller regional queues. **Bosnian has no remaining flagged findings**.
 
-Latest translation correction: [b7d279613](https://github.com/wekan/wekan/commit/b7d279613d0be514b98a896332f16446013ae355), **2026-09-12**, fixes 20 Slovenian administrative, shortcut, export and voting values. Repairs restore shortcut numbers 1-9 and board-addition order, export prohibitions, custom-translation counts and permanent-vote-deletion warnings. Each Slovenian queue has 3 findings remaining. Meaning, token, exact-value, key-order and idempotent repair checks pass.
+Latest translation correction: [69d61d5f4](https://github.com/wekan/wekan/commit/69d61d5f4b61dc51a26d54be866e2a5563cb8b2a), **2026-09-12**, fixes the final six flagged Slovenian voting, website and storage-path values. Voting visibility explicitly shows who voted for what. Both Slovenian queues have no remaining flagged findings; regression coverage verifies that status. Meaning, token, exact-value, key-order and idempotent repair checks pass.
 
 ## Provenance
 

@@ -558,6 +558,13 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/69d61d5f4b61dc51a26d54be866e2a5563cb8b2a">Finish flagged Slovenian translation repairs</a>. Thanks to xet7.</summary>
+
+Correct the final six flagged values across both Slovenian locales, including who-voted-for-what visibility. Both flagged Slovenian queues are now complete. Regression checks verify meaning, exact corrections, tokens, key order, idempotent repairs and zero pending Slovenian findings. The short audit records 5,027 corrected findings and 10,915 pending findings across other languages.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/b7d279613d0be514b98a896332f16446013ae355">Repair Slovenian shortcut instructions and export restrictions</a>. Thanks to xet7.</summary>
 
 Correct 20 values across both Slovenian locales. Restore shortcut numbers and ordering, export prohibitions, administrative instructions and vote-deletion warnings. Regression checks verify meanings, exact corrections, source tokens, key order and idempotent repairs. The short translation audit records current progress.
