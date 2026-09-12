@@ -25492,5 +25492,145 @@
     "before": "Број јединица предметне грађе који ће бити обрађен при сваком пролазу (1-100)",
     "after": "Broj privitaka za obradu u svakoj skupini (1-100)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "migration-cpu-threshold",
+    "before": "Граница искоришћења процесора (%)",
+    "after": "Prag korištenja procesora (%)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "migration-cpu-threshold-description",
+    "before": "Направи предах када заузеће процесора досегне ове проценте (10-90)",
+    "after": "Pauziraj migraciju kada korištenje procesora premaši ovaj postotak (10-90)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "migration-delay-ms-description",
+    "before": "Задршка између пролаза изражена у милисекундама (100-10000)",
+    "after": "Odgoda između skupina u milisekundama (100-10000)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "migration-info-text",
+    "before": "Преслагање базе података се изводи само једном и то поправља брзину. Ова радња се изводи у позадини чак иако одете.",
+    "after": "Migracije baze podataka izvode se jednom i poboljšavaju učinkovitost sustava. Proces se nastavlja u pozadini čak i ako zatvorite preglednik.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "migration-pause-failed",
+    "before": "Није било могуће направити предах у поступку обнове оштећених списа",
+    "after": "Pauziranje migracija nije uspjelo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "migration-paused",
+    "before": "Направљен је предах у поступку обнове оштећених списа",
+    "after": "Migracije su uspješno pauzirane",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "migration-progress-note",
+    "before": "Молимо да будете стрпљиви док траје препакивање Ваших списа...",
+    "after": "Pričekajte dok migriramo vašu ploču na najnoviju strukturu...",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "migration-resume-failed",
+    "before": "Није успео наставак обнове",
+    "after": "Nastavak migracije nije uspio",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "migration-start-failed",
+    "before": "Није било могуће покренути обнову оштећених списа",
+    "after": "Pokretanje migracija nije uspjelo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "migration-started",
+    "before": "Обнова оштећених списа је започета",
+    "after": "Migracije su uspješno pokrenute",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "migration-stop-confirm",
+    "before": "Да ли сте сигурни да желите да зауставите све поступке обнове оштећених предметних списа?",
+    "after": "Jeste li sigurni da želite zaustaviti sve migracije?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "migration-stop-failed",
+    "before": "Није било могуће прекинути поступке обнове оштећених списа",
+    "after": "Zaustavljanje migracija nije uspjelo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "migration-stopped",
+    "before": "Поступци обнове оштећених списа су управо заустављени",
+    "after": "Migracije su uspješno zaustavljene",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "migration-successful",
+    "before": "Обнова је успешно окончана",
+    "after": "Migracija je uspješno dovršena",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "migration-warning-text",
+    "before": "Предлажемо да не затварате прозор током обнове. Чак и тада процес ће бити изведен у позадини али све може дуже да траје.",
+    "after": "Nemojte zatvarati preglednik tijekom migracije. Proces će se nastaviti u pozadini, ali dovršetak može potrajati dulje.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "migrations-admin-only",
+    "before": "За обнову ових списа надлежан је једино онај ко је њихов управник",
+    "after": "Samo administratori ploče mogu pokretati migracije",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "migrations-description",
+    "before": "Овде може да се изврши провера целовитости података и поправка оштећења. Сваки поступак обнове се може спровести независно један од другог",
+    "after": "Pokrenite provjere i popravke cjelovitosti podataka ove ploče. Svaka se migracija može izvršiti zasebno.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "mobile-desktop-toggle",
+    "before": "Замени приказ прилагођен за рачунар/мобилни",
+    "after": "Prebaci između načina rada za mobilne uređaje i računalo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "mobile-mode",
+    "before": "Приказ прилагођен за екран мобилног уређаја",
+    "after": "Način rada za mobilne uređaje",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "monitoring-export-failed",
+    "before": "Не могу да извезем надзорне податаке",
+    "after": "Izvoz podataka nadzora nije uspio",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
