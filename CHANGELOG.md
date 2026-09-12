@@ -558,6 +558,13 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/0c5a561c8">Finish flagged Croatian translation repairs</a>. Thanks to xet7.</summary>
+
+Correct the final 26 flagged Croatian values, including irreversible deletion warnings, keyboard toggles, voter identity, filter help and Hijri calendar distinctions. Positive and negative meaning, source-token, exact-value, rendering, key-order and repair checks pass; progress tests verify the Croatian audit queue is empty. Audit.md records the dated commit and updated overall totals.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/2019869c7">Repair Croatian migration steps and support access labels</a>. Thanks to xet7.</summary>
 
 Correct 20 reviewed values. Positive and negative regressions verify starred-board ordering, support access and migration entity names. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
