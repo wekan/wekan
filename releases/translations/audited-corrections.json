@@ -33255,5 +33255,173 @@
     "before": "Ако већ поседујете налог ⇨ ",
     "after": "Če že imate račun",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "impersonate-user",
+    "before": "Увуци се у налог овог корисника",
+    "after": "Prevzemi identiteto uporabnika",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "import-board-instruction-csv",
+    "before": "Овде залепите Ваше CSV податке (вредности раздвојене зарезом) односно TSV податке (вредности раздвојене табулатором) .",
+    "after": "Prilepite podatke CSV (vrednosti, ločene z vejicami)/TSV (vrednosti, ločene s tabulatorji).",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "import-board-zip",
+    "before": "Додај .zip архиву која има списе у json облику и фасцикле по имену списа где је предметна грађа",
+    "after": "Dodaj datoteko .zip z datotekami JSON tabel in podmapami z imeni tabel, ki vsebujejo priponke",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "import-csv-placeholder",
+    "before": "Овде сместите Ваше исправне CSV/TSV податке",
+    "after": "Tukaj prilepite veljavne podatke CSV/TSV",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "import-members-map-note",
+    "before": "Белешка: Немапирани сарадници ће бити додељени на тренутног корисника.",
+    "after": "Opomba: Nepreslikani člani bodo dodeljeni trenutnemu uporabniku.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "invalid-file",
+    "before": "Ако са именом нешто није у реду тада ће и слање и преименовање бити отказано.",
+    "after": "Če ime datoteke ni veljavno, se nalaganje ali preimenovanje prekliče.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "invite-people-error",
+    "before": "Догодила се грешка приликом слања позива за сарадњу",
+    "after": "Napaka pri pošiljanju vabila za registracijo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "invite-people-success",
+    "before": "Позив за сарадњу је успешно послат",
+    "after": "Vabilo za registracijo je uspešno poslano",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "keyboard-shortcuts-disabled",
+    "before": "Пречице са тастатуре су искључене.",
+    "after": "Bližnjice na tipkovnici so onemogočene. Kliknite, da jih omogočite.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "keyboard-shortcuts-enabled",
+    "before": "Пречице са тастатуре су укључене.",
+    "after": "Bližnjice na tipkovnici so omogočene. Kliknite, da jih onemogočite.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "label-color-not-found",
+    "before": "%s налепница у боји није пронађена.",
+    "after": "Barva oznake %s ni najdena.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "label-not-found",
+    "before": "Натпис на налепници '%s' није пронађен.",
+    "after": "Oznaka '%s' ni najdena.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "impersonate-user",
+    "before": "Увуци се у налог овог корисника",
+    "after": "Prevzemi identiteto uporabnika",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "import-board-instruction-csv",
+    "before": "Овде залепите Ваше CSV податке (вредности раздвојене зарезом) односно TSV податке (вредности раздвојене табулатором) .",
+    "after": "Prilepite podatke CSV (vrednosti, ločene z vejicami)/TSV (vrednosti, ločene s tabulatorji).",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "import-board-zip",
+    "before": "Додај .zip архиву која има списе у json облику и фасцикле по имену списа где је предметна грађа",
+    "after": "Dodaj datoteko .zip z datotekami JSON tabel in podmapami z imeni tabel, ki vsebujejo priponke",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "import-csv-placeholder",
+    "before": "Овде сместите Ваше исправне CSV/TSV податке",
+    "after": "Tukaj prilepite veljavne podatke CSV/TSV",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "import-members-map-note",
+    "before": "Белешка: Немапирани сарадници ће бити додељени на тренутног корисника.",
+    "after": "Opomba: Nepreslikani člani bodo dodeljeni trenutnemu uporabniku.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "invalid-file",
+    "before": "Ако са именом нешто није у реду тада ће и слање и преименовање бити отказано.",
+    "after": "Če ime datoteke ni veljavno, se nalaganje ali preimenovanje prekliče.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "invite-people-error",
+    "before": "Догодила се грешка приликом слања позива за сарадњу",
+    "after": "Napaka pri pošiljanju vabila za registracijo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "invite-people-success",
+    "before": "Позив за сарадњу је успешно послат",
+    "after": "Vabilo za registracijo je uspešno poslano",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "keyboard-shortcuts-disabled",
+    "before": "Пречице са тастатуре су искључене.",
+    "after": "Bližnjice na tipkovnici so onemogočene. Kliknite, da jih omogočite.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "keyboard-shortcuts-enabled",
+    "before": "Пречице са тастатуре су укључене.",
+    "after": "Bližnjice na tipkovnici so omogočene. Kliknite, da jih onemogočite.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "label-color-not-found",
+    "before": "%s налепница у боји није пронађена.",
+    "after": "Barva oznake %s ni najdena.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "label-not-found",
+    "before": "Натпис на налепници '%s' није пронађен.",
+    "after": "Oznaka '%s' ni najdena.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
