@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Audit keys |
 | --- | ---: |
-| Explicitly corrected | 6,602 |
+| Explicitly corrected | 6,604 |
 | Restored pre-pull values awaiting further validation | 4,059 |
 | Reviewed and retained unchanged | 149 |
-| Pending review or repair | 9,271 |
+| Pending review or repair | 9,269 |
 | Total tracked | 20,081 |
 
 **Translation repairs remain unfinished.** These counts cover flagged findings; unflagged strings and restored values are not certified as correct.
 
-Fixes cover wrong-language text, terminology, missing warnings, JSON examples, placeholders and calendar/search formatting. The correction history records **6,664 values**, including fixes outside the audit. Flagged queues are complete for Bosnian, Croatian, Macedonian, both Slovenian locales, Latvian, Romanian, Slovak, both Galician locales, Asturian, Aragonese, Friulian, Tok Pisin, Bulgarian and both Korean and both Afrikaans locales and all three Catalan locales Esperanto, Indonesian and both Malay locales Belarusian Icelandic and all three Azerbaijani locales Irish, Swahili and both Welsh locales.
+Fixes cover wrong-language text, terminology, missing warnings, JSON examples, placeholders and calendar/search formatting. The correction history records **6,666 values**, including fixes outside the audit. Flagged queues are complete for Bosnian, Croatian, Macedonian, both Slovenian locales, Latvian, Romanian, Slovak, both Galician locales, Asturian, Aragonese, Friulian, Tok Pisin, Bulgarian and both Korean and both Afrikaans locales and all three Catalan locales Esperanto, Indonesian and both Malay locales Belarusian Icelandic and all three Azerbaijani locales Irish, Swahili and both Welsh locales and Georgian.
 
-Latest fix: [c0000ea3c](https://github.com/wekan/wekan/commit/c0000ea3c307b4df31e34c58da2c6de75fb79edb), **2026-09-13** — advanced-filter help translated in both Welsh locales, preserving operators, quoted values, escaping and regex examples. **Both flagged Welsh queues are complete.** Exact-value, placeholder, key-order and idempotency checks pass; Welsh and earlier low-confidence technical wording need native-speaker review. Live Meteor browser verification remains unavailable.
+Latest fix: [308b7b389](https://github.com/wekan/wekan/commit/308b7b3897f263d10f527465a2890e3c668b16ed), **2026-09-13** — two Georgian Hijri labels repaired, preserving lunar observation and astronomical epoch. **The flagged Georgian queue is complete.** Exact-value, placeholder, key-order and idempotency checks pass; Georgian and earlier low-confidence technical wording need native-speaker review. Live Meteor browser verification remains unavailable.
 
 **Provenance:** not all errors came from Transifex. The captured pull changed 4,061 values; the full-local audit added 16,020 findings. Bosnian errors came from the September 5 [local completion commit](https://github.com/wekan/wekan/commit/bdb3b15886a749b725b5290ba0109fcba955f983), with no Bosnian changes in the captured pull. Other ultimate origins remain unverified.
 
