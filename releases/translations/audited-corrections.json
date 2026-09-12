@@ -45407,5 +45407,40 @@
     "before": "Desactivar la selección múltiple",
     "after": "Desactivar a selección multiple",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "multi-selection-on",
+    "before": "Selección múltiple activada",
+    "after": "A selección multiple ye activada",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "newLineNewItem",
+    "before": "Una línea de texto = un elemento de la lista de verificación",
+    "after": "Una linia de texto = un elemento d’a lista de comprobación",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "newlineBecomesNewChecklistItem",
+    "before": "Cada línea de texto se convierte en un nuevo elemento de la lista de verificación",
+    "after": "Cada linia de texto se convierte en un elemento d’a lista de comprobación",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "newlineBecomesNewChecklistItemOriginOrder",
+    "before": "Cada línea de texto se convierte en un nuevo elemento de la lista de verificación, orden original",
+    "after": "Cada linia de texto se convierte en un elemento d’a lista de comprobación, orden orichinal",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "no-issues-found",
+    "before": "No se encontraron problemas",
+    "after": "No s’han trobau problemas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

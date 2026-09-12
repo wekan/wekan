@@ -712,5 +712,11 @@
     "key": "login-allow",
     "value": "Inicio de sesión: permitir",
     "reason": "Reviewed shared Aragonese session and permission vocabulary; login allow remains distinct from denying login."
+  },
+  {
+    "locale": "an",
+    "key": "newTranslationPopup-title",
+    "value": "Nueva cadena de traducción personalizada",
+    "reason": "Reviewed shared Aragonese vocabulary for a new personalized translation string; correctly distinguishes creation from editing."
   }
 ]
