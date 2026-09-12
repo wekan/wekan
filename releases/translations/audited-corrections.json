@@ -41130,5 +41130,61 @@
     "before": "No se puede eliminar este equipo, hay al menos un usuario que pertenece a este equipo.",
     "after": "Nun se puede eliminar esti equipu: hai polo menos un usuariu que pertenez a él.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "deposit-subtasks-board",
+    "before": "Depositar subtareas en este tablero:",
+    "after": "Depositar subtarees nesti tableru:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "display-card-creator",
+    "before": "Mostrar Creador de la Tarjeta",
+    "after": "Mostrar el creador de la tarxeta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "dueCardsViewChange-title",
+    "before": "Vista de Tarjetas Vencidas",
+    "after": "Vista de tarxetes con vencimientu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "dueCardsViewChangePopup-title",
+    "before": "Vista de Tarjetas Vencidas",
+    "after": "Vista de tarxetes con vencimientu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "duplicate-board-confirm",
+    "before": "¿Estás seguro de querer duplicar este tablero?",
+    "after": "¿Tas seguru de querer duplicar esti tableru?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "email-enrollAccount-text",
+    "before": "Hola __user__,\n\nPara empezar a utilizar el servicio, simplemente haz clic en el siguiente enlace.\n\n__url__\n\nGracias.",
+    "after": "Hola __user__,\n\nPa empezar a usar el serviciu, fai clic nel enllaz de baxo.\n\n__url__\n\nGracies.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "email-invite-register-text",
+    "before": "Querido __user__,\n__inviter__ le invita al tablero kanban para colaborar.\n\nPor favor, siga el siguiente enlace:\n__url__\n\nY tu código de invitación es:  __icode__\n\nGracias.",
+    "after": "Estimáu/ada __user__,\n\n__inviter__ convídate a un tableru kanban pa collaborar.\n\nSigue l'enllaz de baxo:\n__url__\n\nEl to códigu d'invitación ye: __icode__\n\nGracies.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "email-invite-text",
+    "before": "Estimado __user__,\n\n__inviter__ te invita a unirte al tablero '__board__' para colaborar.\n\nPor favor, haz clic en el siguiente enlace:\n\n__url__\n\nGracias.",
+    "after": "Estimáu/ada __user__,\n\n__inviter__ convídate a xunite al tableru \"__board__\" pa collaborar.\n\nSigue l'enllaz de baxo:\n\n__url__\n\nGracies.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

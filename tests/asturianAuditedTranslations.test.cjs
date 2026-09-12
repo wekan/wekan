@@ -75,3 +75,8 @@ assert.match(data['custom-field-delete-pop'], /Nun se puede desfacer.*toles tarx
 assert.match(data['delete-board-confirm-popup'], /Toles llistes, tarxetes, etiquetes y actividaes.*nun vas poder recuperar.*Nun se puede desfacer/);
 assert.match(data['delete-linked-cards-before-this-list'], /eliminar primero les tarxetes enllazaes.*nesta llista/);
 assert.match(data['delete-team-warning-message'], /polo menos un usuariu que pertenez/);
+assert.equal(data['dueCardsViewChange-title'], data['dueCardsViewChangePopup-title']);
+assert.doesNotMatch(data['dueCardsViewChange-title'], /Vencidas/);
+assert.match(data['email-invite-register-text'], /__inviter__[\s\S]*__url__[\s\S]*__icode__/);
+assert.match(data['email-invite-text'], /tableru "__board__"/);
+assert.match(data['deposit-subtasks-board'], /nesti tableru:/);
