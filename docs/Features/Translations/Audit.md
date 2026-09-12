@@ -4,21 +4,21 @@ Audit date: **2026-09-12**. Last updated: **2026-09-12**.
 
 | Status | Audit keys |
 | --- | ---: |
-| Explicitly corrected | 4,305 |
+| Explicitly corrected | 4,325 |
 | Original pull values restored to pre-pull local values | 4,061 |
 | Reviewed and retained unchanged | 74 |
-| Pending review or repair | 11,641 |
+| Pending review or repair | 11,621 |
 | Total tracked | 20,081 |
 
 The full translation repair goal remains unfinished. Counts describe the tracked audit findings; unflagged strings are not individually certified. Restored pre-pull values are not automatically certified as correct translations.
 
 ## Fixes completed
 
-Repairs address wrong-language text, incorrect kanban terminology, missing restrictions and warnings, malformed JSON examples, translated placeholders, calendar names, search syntax and date/message argument order. The reviewed correction list contains **4,367 values**, including corrections outside the flagged audit rows.
+Repairs address wrong-language text, incorrect kanban terminology, missing restrictions and warnings, malformed JSON examples, translated placeholders, calendar names, search syntax and date/message argument order. The reviewed correction list contains **4,387 values**, including corrections outside the flagged audit rows.
 
 The flagged Bosnian, Croatian and Macedonian queues are complete. Other completed queues include Latvian, Romanian, Slovak and several smaller regional queues. **Bosnian has no remaining flagged findings**.
 
-Latest translation correction: [7af5de6e5](https://github.com/wekan/wekan/commit/7af5de6e5796e92dbc2489242e779d57fb19de3a), **2026-09-12**, fixes 20 Slovenian lockout/mention values. Repairs retain credential distinctions, locked-user scope, seconds and all five mention placeholders. Each Slovenian queue has 363 findings remaining. Actual mention rendering and meaning, token, exact-value, key-order and idempotent repair checks pass.
+Latest translation correction: [6f51e5c5a](https://github.com/wekan/wekan/commit/6f51e5c5a34090291df3b1e57727d25953599160), **2026-09-12**, fixes 20 Slovenian date-activity, checklist, background-image and scheduled-job values. Date messages preserve the date/card argument order; checklist messages preserve all five placeholders. Each Slovenian queue has 353 findings remaining. Actual date/card rendering and meaning, token, exact-value, key-order and idempotent repair checks pass.
 
 ## Provenance
 
