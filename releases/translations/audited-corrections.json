@@ -45323,5 +45323,47 @@
     "before": "Servicio de mapas predeterminado guardado.",
     "after": "Servicio de mapas por defecto alzau.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "mark-all-as-unread",
+    "before": "Marcar todo como no leído",
+    "after": "Marcar tot como no leyiu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "migration-batch-size-description",
+    "before": "Número de adjuntos a procesar en cada lote (1-100)",
+    "after": "Numero d’adchuntos a procesar en cada lote (1-100)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "migration-delay-ms-description",
+    "before": "Retraso entre lotes en milisegundos (100-10000)",
+    "after": "Retardo entre lotes en milisegundos (100-10000)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "migration-paused",
+    "before": "Migraciones pausadas correctamente",
+    "after": "Migracions pausadas correctament",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "migration-stopping",
+    "before": "Deteniendo migraciones...",
+    "after": "Aturando migracions...",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "migration-successful",
+    "before": "Migración completada correctamente",
+    "after": "Migración completada correctament",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
