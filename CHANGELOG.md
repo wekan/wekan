@@ -558,6 +558,13 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/55f51baf9">Repair Bosnian attachment movement and migration permissions</a>. Thanks to xet7.</summary>
+
+Correct 12 flagged values. Positive and negative regressions verify administrator restrictions, board-specific attachment scope, storage destinations and monitoring failures. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/65012ec18">Repair Bosnian migration outcomes and browser warnings</a>. Thanks to xet7.</summary>
 
 Correct 12 flagged values. Positive and negative regressions verify background continuation, browser warnings, stop-all scope and migration outcomes. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
