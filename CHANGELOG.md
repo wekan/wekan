@@ -557,6 +557,17 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/9fda12cdd">Combine month and formatted date in the date popup heading</a>. Thanks to xet7.</summary>
+
+The calendar heading shows the month name and the member's formatted date.
+The separate Date label and date summary above the calendar are removed.
+Calendar selection, heading formatting and empty-date fallback checks pass,
+as do popup movement and resize checks. The browser regression was extended
+and syntax-checked; the live Meteor UI was unavailable.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/3988ab5ea">Move date popups from the title bar and theme calendar buttons</a>. Thanks to xet7.</summary>
 
 Drag the date popup title bar to reposition it within the viewport. Calendar
