@@ -219,3 +219,10 @@ assert.match(data['error-org-domain-taken'], /ya perteneix a unatra organizació
 assert.equal(data['expand-checklist'], 'Expandir a lista de comprobación');
 assert.notEqual(data['expand-checklist'], data['collapse-checklist']);
 assert.equal(data['export-card-attachment-image-previews'], 'Vistas previas d’imachens');
+assert.equal(data['export-card-field-dates'], 'Calendatas (Creación, Recepción, Inicio, Vencimiento, Fin)');
+assert.equal(data['export-card-field-people'], 'Personas (Creador, Propietario, Miembros, Asignaus)');
+assert.equal(data['export-monitoring'], 'Monitorización de exportación');
+assert.equal(data['exportChecklistPopup-title'], 'Exportar a lista de comprobación');
+assert.equal(data['filter-custom-fields-label'], 'Filtrar por campos personalizaus');
+assert.equal(data['filter-no-custom-fields'], 'Sin campos personalizaus');
+assert.notEqual(data['filter-custom-fields-label'], data['filter-no-custom-fields']);

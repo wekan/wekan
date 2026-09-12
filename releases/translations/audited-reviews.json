@@ -694,5 +694,11 @@
     "key": "email-templates-invite-vars-hint",
     "value": "Etiquetas disponibles: {email} {inviter} {user} {icode} {url}",
     "reason": "Reviewed shared Aragonese vocabulary for available template tags; all literal brace-delimited variable names retain source spelling and order."
+  },
+  {
+    "locale": "an",
+    "key": "export-monitoring",
+    "value": "Monitorización de exportación",
+    "reason": "Reviewed shared technical vocabulary for monitoring export operations; no foreign articles or missing source meaning."
   }
 ]

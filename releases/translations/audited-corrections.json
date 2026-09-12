@@ -45050,5 +45050,40 @@
     "before": "Vistas previas de imágenes",
     "after": "Vistas previas d’imachens",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "export-card-field-dates",
+    "before": "Fechas (Creación, Recepción, Inicio, Vencimiento, Fin)",
+    "after": "Calendatas (Creación, Recepción, Inicio, Vencimiento, Fin)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "export-card-field-people",
+    "before": "Personas (Creador, Propietario, Miembros, Asignados)",
+    "after": "Personas (Creador, Propietario, Miembros, Asignaus)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "exportChecklistPopup-title",
+    "before": "Exportar la lista de verificación",
+    "after": "Exportar a lista de comprobación",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "filter-custom-fields-label",
+    "before": "Filtrar por campos personalizados",
+    "after": "Filtrar por campos personalizaus",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "filter-no-custom-fields",
+    "before": "Sin campos personalizados",
+    "after": "Sin campos personalizaus",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
