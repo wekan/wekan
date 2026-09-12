@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Audit keys |
 | --- | ---: |
-| Explicitly corrected | 6,633 |
+| Explicitly corrected | 6,638 |
 | Restored pre-pull values awaiting further validation | 4,059 |
-| Reviewed and retained unchanged | 159 |
-| Pending review or repair | 9,230 |
+| Reviewed and retained unchanged | 172 |
+| Pending review or repair | 9,212 |
 | Total tracked | 20,081 |
 
 **Translation repairs remain unfinished.** These counts cover flagged findings; unflagged strings and restored values are not certified as correct.
 
-Fixes cover wrong-language text, terminology, warnings, JSON examples, placeholders and calendar/search formatting. The correction history records **6,695 values**, including fixes outside the audit. Per-language remaining work is available through the command below.
+Fixes cover wrong-language text, terminology, warnings, JSON examples, placeholders and calendar/search formatting. The correction history records **6,700 values**, including fixes outside the audit. Per-language remaining work is available through the command below.
 
-Latest fix: [ac2ec5fbe](https://github.com/wekan/wekan/commit/ac2ec5fbe62e8caff85bf8707f5b4c91a6d2a098), **2026-09-13** — eight Thai/Japanese calendar labels repaired; six Japanese product-name values retained after review. These four flagged locale queues are complete. Exact-value, placeholder, key-order, review and idempotency checks pass. Low-confidence wording needs native-speaker review; live browser verification remains unavailable.
+Latest fix: [97ce8878f](https://github.com/wekan/wekan/commit/97ce8878fe7222ca95f52a7666340ac3e9a8acad), **2026-09-13** — five Chinese Saudi moon-sighting labels repaired; thirteen product-name values retained after review. These eight flagged locale queues are complete. Exact-value, placeholder, key-order, review and idempotency checks pass. Low-confidence wording needs native-speaker review; live browser verification remains unavailable.
 
 **Provenance:** not all errors came from Transifex. The captured pull changed 4,061 values; the local audit added 16,020 findings. Bosnian errors predated that pull in a [local completion commit](https://github.com/wekan/wekan/commit/bdb3b15886a749b725b5290ba0109fcba955f983). Other ultimate origins remain unverified.
 
