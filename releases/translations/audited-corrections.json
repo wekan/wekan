@@ -42866,5 +42866,61 @@
     "before": "Sus datos JSON no incluyen la información apropiada en el formato correcto",
     "after": "Los tos datos JSON nun inclúin la información afayadiza nel formatu correutu",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "error-ldap-login",
+    "before": "Ocurrió un error al intentar acceder",
+    "after": "Asocedió un error al intentar aniciar sesión",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "error-notAuthorized",
+    "before": "No estás autorizado a ver esta página.",
+    "after": "Nun tienes autorización pa ver esta páxina.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "error-orgname-taken",
+    "before": "Este nombre de organización ya está en uso",
+    "after": "Esti nome d’organización yá ta n’usu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "error-teamname-taken",
+    "before": "Este nombre de equipo ya está en uso",
+    "after": "Esti nome d’equipu yá ta n’usu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "error-user-notAllowSelf",
+    "before": "No puedes invitarte a ti mismo",
+    "after": "Nun pues convidate a ti mesmu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "filesReportTitle",
+    "before": "Informe sobre los archivos",
+    "after": "Informe de ficheros",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "filter-custom-fields-label",
+    "before": "Filtrar por campos personalizados",
+    "after": "Filtrar por campos personalizaos",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "filter-hide-empty",
+    "before": "Ocultar las listas vacías",
+    "after": "Anubrir les llistes baleres",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

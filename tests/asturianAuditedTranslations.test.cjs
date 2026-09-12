@@ -277,3 +277,14 @@ assert.match(data['error-invitation-code-not-exist'], /códigu d’invitación n
 assert.match(data['error-json-malformed'], /testu nun ye JSON válidu/);
 assert.match(data['error-json-schema'], /datos JSON nun inclúin.*formatu correutu/);
 assert.notEqual(data['error-json-malformed'], data['error-json-schema']);
+
+assert.match(data['error-ldap-login'], /error al intentar aniciar sesión/);
+assert.match(data['error-notAuthorized'], /Nun tienes autorización pa ver esta páxina/);
+assert.match(data['error-orgname-taken'], /nome d’organización yá ta n’usu/);
+assert.match(data['error-teamname-taken'], /nome d’equipu yá ta n’usu/);
+assert.notEqual(data['error-orgname-taken'], data['error-teamname-taken']);
+assert.match(data['error-user-notAllowSelf'], /Nun pues convidate a ti mesmu/);
+assert.match(data.filesReportTitle, /Informe de ficheros/);
+assert.match(data['filter-custom-fields-label'], /Filtrar por campos personalizaos/);
+assert.match(data['filter-hide-empty'], /Anubrir les llistes baleres/);
+assert.doesNotMatch(data['filter-hide-empty'], /Eliminar|tarxetes/);
