@@ -27011,5 +27011,145 @@
     "before": "Налог је успешно скинут са мера забране приступа",
     "after": "Korisnik je uspješno otključan",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "act-a-dueAt",
+    "before": "измењени крајњи рок \nРок:__timeValue__\nПредмет:__card__\nПретходни крајњи рок је био __timeOldValue__",
+    "after": "promijenio vrijeme roka na \nKada: __timeValue__\nGdje: __card__\n prethodni rok bio je __timeOldValue__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "act-a-endAt",
+    "before": "измењен датум и време окончања на __timeValue__ са претходно постављеног (__timeOldValue__)",
+    "after": "promijenio vrijeme završetka na __timeValue__ s (__timeOldValue__)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "act-a-receivedAt",
+    "before": "измењен датум и време пријема предмета на __timeValue__ са претходно постављеног (__timeOldValue__)",
+    "after": "promijenio vrijeme prijema na __timeValue__ s (__timeOldValue__)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "act-a-startAt",
+    "before": "измењен датум и време почетка рада на предмету на __timeValue__ са претходно постављеног (__timeOldValue__)",
+    "after": "promijenio vrijeme početka na __timeValue__ s (__timeOldValue__)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "act-almostdue",
+    "before": "подсећам да се приближавамо последњем року (__timeValue__) за завршетак задатка __card__",
+    "after": "podsjetio da se približava trenutni rok (__timeValue__) za karticu __card__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "act-atUserComment",
+    "before": "споменути сте у расправи у предмету __card__: __comment__ у делу __list__ поступка __swimlane__ у списима __board__",
+    "after": "spomenuo vas na kartici __card__: __comment__ u listi __list__ u stazi __swimlane__ na ploči __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "act-duenow",
+    "before": "подсећам да последњи рок (__timeValue__) задатка __card__ истиче данас",
+    "after": "podsjetio da je trenutni rok (__timeValue__) za karticu __card__ upravo sada",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "act-newDue",
+    "before": "__list__/__card__ има један подсетник за крајњи рок [__board__]",
+    "after": "__list__/__card__ ima prvi podsjetnik za rok [__board__]",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "act-pastdue",
+    "before": "подсећам да је последњи рок (__timeValue__) задатка __card__  пробијен",
+    "after": "podsjetio da je trenutni rok (__timeValue__) za karticu __card__ prošao",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "act-withDue",
+    "before": "__list__/__card__ подсетници за крајњи рок [__board__]",
+    "after": "__list__/__card__ podsjetnici za rok [__board__]",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "active-cron-jobs",
+    "before": "Већ унапред заказани послови:",
+    "after": "Aktivni zakazani poslovi",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "activity-changedListTitle",
+    "before": "је преименовао део поступка у %s",
+    "after": "preimenovao listu u %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "activity-dueDate",
+    "before": "је изменио крајњи рок на %s у предмету %s",
+    "after": "promijenio rok na %s za karticu %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "activity-endDate",
+    "before": "је изменио датум и време %s кад је окончао предмет %s",
+    "after": "promijenio datum završetka na %s za karticu %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "activity-receivedDate",
+    "before": "је изменио датум и време пријема на %s у предмету %s",
+    "after": "promijenio datum prijema na %s za karticu %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "activity-set-customfield",
+    "before": "придружена је рубрика '%s' на '%s' у %s",
+    "after": "postavio prilagođeno polje '%s' na '%s' u %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "activity-startDate",
+    "before": "је изменио датум и време %s кад почиње да ради на предмету %s",
+    "after": "promijenio datum početka na %s za karticu %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "activity-unset-customfield",
+    "before": "уклоњена је рубрика '%s' у %s",
+    "after": "uklonio vrijednost prilagođenog polja '%s' u %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "add-background-image",
+    "before": "Искористи слику као мотив за подлогу",
+    "after": "Dodaj pozadinsku sliku",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "add-cron-job-placeholder",
+    "before": "Ова функционалност биће ускоро додата",
+    "after": "Funkcionalnost dodavanja zakazanih poslova stiže uskoro",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
