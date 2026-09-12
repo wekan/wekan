@@ -4,21 +4,21 @@ Audit date: **2026-09-12**. Last updated: **2026-09-12**.
 
 | Status | Audit keys |
 | --- | ---: |
-| Explicitly corrected | 4,227 |
+| Explicitly corrected | 4,243 |
 | Original pull values restored to pre-pull local values | 4,061 |
 | Reviewed and retained unchanged | 72 |
-| Pending review or repair | 11,721 |
+| Pending review or repair | 11,705 |
 | Total tracked | 20,081 |
 
 The full translation repair goal remains unfinished. Counts describe the tracked audit findings; unflagged strings are not individually certified. Restored pre-pull values are not automatically certified as correct translations.
 
 ## Fixes completed
 
-Repairs address wrong-language text, incorrect kanban terminology, missing restrictions and warnings, malformed JSON examples, translated placeholders, calendar names, search syntax and date/message argument order. The reviewed correction list contains **4,289 values**, including corrections outside the flagged audit rows.
+Repairs address wrong-language text, incorrect kanban terminology, missing restrictions and warnings, malformed JSON examples, translated placeholders, calendar names, search syntax and date/message argument order. The reviewed correction list contains **4,305 values**, including corrections outside the flagged audit rows.
 
 The flagged Bosnian, Croatian and Macedonian queues are complete. Other completed queues include Latvian, Romanian, Slovak and several smaller regional queues. **Bosnian has no remaining flagged findings**.
 
-Latest translation correction: [3e693f7c2](https://github.com/wekan/wekan/commit/3e693f7c2a9d93156a387473b18fb5969d6c0338), **2026-09-12**, fixes the final 30 flagged Bosnian values. Repairs cover support, swimlanes, teams, keyboard ranges, exports, voting, WIP and advanced-filter help. Literal query examples and escapes are preserved. Meaning, token, exact-value, key-order, rendering and idempotent repair checks pass; progress tests confirm the Bosnian queue is empty.
+Latest translation correction: [2c8270747](https://github.com/wekan/wekan/commit/2c8270747b420f9b15e1c65ee70a6660781c233f), **2026-09-12**, fixes 16 values across Slovenian `sl` and `sl_SI`. Repairs replace Serbian seed text in wait indicators, MongoDB storage and Node memory labels, preserving double-bounce, bit-pattern and malloc meanings. Both Slovenian queues have 395 findings remaining. Meaning, token, exact-value, key-order and idempotent repair checks pass.
 
 ## Provenance
 
