@@ -557,6 +557,18 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/9c974f034">Repair Italian-seeded Romanian kanban labels and activity messages</a>. Thanks to xet7.</summary>
+
+Correct 160 values across the two Romanian locales, covering account protection,
+activity messages, archive actions and board settings. Remove the stray digit
+from subtask notifications. Positive and negative checks verify native labels,
+absence of Italian seed vocabulary, source tokens, key order and real sprintf
+rendering. Repair and audit-progress tests pass. Further Romanian and other
+locale findings remain under review.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/9631ff40d">Repair all audited Latvian translations and finish Danish review</a>. Thanks to xet7.</summary>
 
 Replace 402 Lithuanian-seeded Latvian strings with Latvian wording and preserve
