@@ -46793,5 +46793,19 @@
     "before": "Islamic tabular",
     "after": "Lịch Hồi Giáo (dạng bảng, kỷ nguyên thiên văn)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "tk_TM",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "Hindistanyň milli senenamasy",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "tk_TM",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "Hijri-kamary senenamasy (Saud Arabystany, Aýy synlamak)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
