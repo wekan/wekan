@@ -25898,5 +25898,117 @@
     "before": "Ови списи су тајни. Само одобрени сарадници могу да их читају и уређују.",
     "after": "Ova je ploča privatna. Samo osobe dodane na ploču mogu je pregledavati i uređivati.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "public-desc",
+    "before": "Ови списи су потпуно јавни. Видљиви су сваком ко има везу до њих и појавиће се и у google претрагама. Једино одобрени сарадници могу бити уредници.",
+    "after": "Ova je ploča javna. Vidljiva je svima koji imaju poveznicu i pojavljivat će se u tražilicama poput Googlea. Samo osobe dodane na ploču mogu je uređivati.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "push-invite-text",
+    "before": "Поштовани __user__,\n\n__inviter__ Вам је омогућио пун увид у \"__board__\" списе и нада се заједничкој сарадњи.\n\nМолим да испратите везу испод:\n\n__url__\n\nХвала.",
+    "after": "Poštovani __user__,\n\n__inviter__ vas poziva da se pridružite ploči \"__board__\" radi suradnje.\n\nSlijedite poveznicu ispod:\n\n__url__\n\nHvala.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "quick-access-description",
+    "before": "Означите списе звездицом да би овде стајала пречица.",
+    "after": "Označite ploču zvjezdicom da biste dodali prečac u ovu traku.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "r-board-note",
+    "before": "Белешка: Непопуњено поље одговара свакој могућој вредности.",
+    "after": "Napomena: Ostavite polje prazno za podudaranje sa svakom mogućom vrijednošću. ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "r-checklist-note",
+    "before": "Белешка: Ставке на списку морају да буду раздвојене зарезом.",
+    "after": "Napomena: Stavke kontrolnog popisa moraju biti napisane kao vrijednosti odvojene zarezima.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "r-d-check-all",
+    "before": "Означи све ставке са списка као обављене",
+    "after": "Označi sve stavke popisa",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "r-d-move-to-bottom-gen",
+    "before": "Помери предмет на дно тог дела поступка",
+    "after": "Premjesti karticu na dno njezina popisa",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "r-d-move-to-bottom-spec",
+    "before": "Помери предмет на дно дела поступка",
+    "after": "Premjesti karticu na dno popisa",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "r-d-move-to-top-gen",
+    "before": "Помери предмет на врх тог дела поступка",
+    "after": "Premjesti karticu na vrh njezina popisa",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "r-d-move-to-top-spec",
+    "before": "Помери предмет на врх дела поступка",
+    "after": "Premjesti karticu na vrh popisa",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "r-d-uncheck-all",
+    "before": "Означи све ставке са списка као необављене",
+    "after": "Ukloni oznake sa svih stavki popisa",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "r-datefield",
+    "before": "временску одредницу кад је предмет",
+    "after": "polje datuma",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "r-link-card",
+    "before": "Кад је предмет у вези са списима",
+    "after": "Poveži karticu s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "r-remove-value-from",
+    "before": "Уклони временску одредницу из поља",
+    "after": "Ukloni vrijednost iz",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "r-to-current-datetime",
+    "before": "на данашњи датум и тренутно време",
+    "after": "na trenutačni datum i vrijeme",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "r-when-a-card-is-moved",
+    "before": "Када је предмет премештен у други део поступка",
+    "after": "Kada se kartica premjesti u drugi popis",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
