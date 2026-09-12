@@ -46345,5 +46345,47 @@
     "before": "Islamic tabular",
     "after": "Календар Хиджра (табличен, астрономическа епоха)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ko",
+    "key": "advanced-filter-description",
+    "before": "Advanced Filter allows to write a string containing following operators: == != <= >= && || ( ) A space is used as a separator between the Operators. You can filter for all Custom Fields by typing their names and values. For Example: Field1 == Value1. Note: If fields or values contains spaces, you need to encapsulate them into single quotes. For Example: 'Field 1' == 'Value 1'. For single control characters (' \\\\/) to be skipped, you can use \\\\. For example: Field1 == I\\\\'m. Also you can combine multiple conditions. For Example: F1 == V1 || F1 == V2. Normally all operators are interpreted from left to right. You can change the order by placing brackets. For Example: F1 == V1 && ( F2 == V2 || F2 == V3 ). Also you can search text fields using regex: F1 == /Tes.*/i",
+    "after": "고급 필터에서는 다음 연산자가 포함된 식을 입력할 수 있습니다: == != <= >= && || ( ) 연산자는 공백으로 구분합니다. 사용자 지정 필드의 이름과 값을 입력하여 모든 사용자 지정 필드를 필터링할 수 있습니다. 예: Field1 == Value1. 참고: 필드 이름이나 값에 공백이 있으면 작은따옴표로 묶어야 합니다. 예: 'Field 1' == 'Value 1'. 특수 문자 (' \\\\/)를 이스케이프하려면 \\\\를 사용할 수 있습니다. 예: Field1 == I\\'m. 여러 조건을 조합할 수도 있습니다. 예: F1 == V1 || F1 == V2. 일반적으로 모든 연산자는 왼쪽에서 오른쪽으로 처리됩니다. 괄호를 사용하여 순서를 바꿀 수 있습니다. 예: F1 == V1 && ( F2 == V2 || F2 == V3 ). 정규 표현식으로 텍스트 필드를 검색할 수도 있습니다: F1 == /Tes.*/i",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ko",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "히즈라 달력 (사우디아라비아, 달 관측)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ko",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "히즈라 달력 (계산식, 천문학적 기원)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ko-KR",
+    "key": "advanced-filter-description",
+    "before": "Advanced Filter allows to write a string containing following operators: == != <= >= && || ( ) A space is used as a separator between the Operators. You can filter for all Custom Fields by typing their names and values. For Example: Field1 == Value1. Note: If fields or values contains spaces, you need to encapsulate them into single quotes. For Example: 'Field 1' == 'Value 1'. For single control characters (' \\\\/) to be skipped, you can use \\\\. For example: Field1 == I\\\\'m. Also you can combine multiple conditions. For Example: F1 == V1 || F1 == V2. Normally all operators are interpreted from left to right. You can change the order by placing brackets. For Example: F1 == V1 && ( F2 == V2 || F2 == V3 ). Also you can search text fields using regex: F1 == /Tes.*/i",
+    "after": "고급 필터에서는 다음 연산자가 포함된 식을 입력할 수 있습니다: == != <= >= && || ( ) 연산자는 공백으로 구분합니다. 사용자 지정 필드의 이름과 값을 입력하여 모든 사용자 지정 필드를 필터링할 수 있습니다. 예: Field1 == Value1. 참고: 필드 이름이나 값에 공백이 있으면 작은따옴표로 묶어야 합니다. 예: 'Field 1' == 'Value 1'. 특수 문자 (' \\\\/)를 이스케이프하려면 \\\\를 사용할 수 있습니다. 예: Field1 == I\\'m. 여러 조건을 조합할 수도 있습니다. 예: F1 == V1 || F1 == V2. 일반적으로 모든 연산자는 왼쪽에서 오른쪽으로 처리됩니다. 괄호를 사용하여 순서를 바꿀 수 있습니다. 예: F1 == V1 && ( F2 == V2 || F2 == V3 ). 정규 표현식으로 텍스트 필드를 검색할 수도 있습니다: F1 == /Tes.*/i",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ko-KR",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "히즈라 달력 (사우디아라비아, 달 관측)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ko-KR",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "히즈라 달력 (계산식, 천문학적 기원)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
