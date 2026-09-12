@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Audit keys |
 | --- | ---: |
-| Explicitly corrected | 6,579 |
+| Explicitly corrected | 6,581 |
 | Restored pre-pull values awaiting further validation | 4,059 |
 | Reviewed and retained unchanged | 149 |
-| Pending review or repair | 9,294 |
+| Pending review or repair | 9,292 |
 | Total tracked | 20,081 |
 
 **Translation repairs remain unfinished.** These counts cover flagged findings; unflagged strings and restored values are not certified as correct.
 
-Fixes cover wrong-language text, terminology, missing warnings, JSON examples, placeholders and calendar/search formatting. The correction history records **6,641 values**, including fixes outside the audit. Flagged queues are complete for Bosnian, Croatian, Macedonian, both Slovenian locales, Latvian, Romanian, Slovak, both Galician locales, Asturian, Aragonese, Friulian, Tok Pisin, Bulgarian and both Korean and both Afrikaans locales and all three Catalan locales Esperanto and Indonesian.
+Fixes cover wrong-language text, terminology, missing warnings, JSON examples, placeholders and calendar/search formatting. The correction history records **6,643 values**, including fixes outside the audit. Flagged queues are complete for Bosnian, Croatian, Macedonian, both Slovenian locales, Latvian, Romanian, Slovak, both Galician locales, Asturian, Aragonese, Friulian, Tok Pisin, Bulgarian and both Korean and both Afrikaans locales and all three Catalan locales Esperanto, Indonesian and both Malay locales.
 
-Latest fix: [e28225f7f](https://github.com/wekan/wekan/commit/e28225f7fe12220a415325817187ea1a81188b56), **2026-09-13** — Indonesian advanced-filter instructions translated, preserving operators, quoted values, escaping, evaluation order and regex examples. **The flagged Indonesian queue is complete.** Exact-value, placeholder, key-order and idempotency checks pass; earlier Tok Pisin, Friulian, Aragonese and Asturian wording need native-speaker review. Live Meteor browser verification remains unavailable.
+Latest fix: [85e32bb48](https://github.com/wekan/wekan/commit/85e32bb48f7d7c9667d62ef76379ed200b4b85c2), **2026-09-13** — advanced-filter instructions translated in both Malay locales, preserving operators, quotes, escaping, evaluation order and regex examples. **Both flagged Malay queues are complete.** Exact-value, placeholder, key-order and idempotency checks pass; earlier Tok Pisin, Friulian, Aragonese and Asturian wording need native-speaker review. Live Meteor browser verification remains unavailable.
 
 **Provenance:** not all errors came from Transifex. The captured pull changed 4,061 values; the full-local audit added 16,020 findings. Bosnian errors came from the September 5 [local completion commit](https://github.com/wekan/wekan/commit/bdb3b15886a749b725b5290ba0109fcba955f983), with no Bosnian changes in the captured pull. Other ultimate origins remain unverified.
 
