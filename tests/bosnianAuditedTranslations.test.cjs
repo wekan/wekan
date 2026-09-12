@@ -172,3 +172,15 @@ assert.match(data['fix-all-file-urls-migration-description'], /svih datotečnih 
 assert.match(data['fix-all-file-urls-migration-description'], /odgovarajući sistem pohrane/);
 assert.match(data['fix-all-file-urls-migration-description'], /popravlja neispravne reference/);
 console.log('bosnianAuditedTranslations: file URL repair scope, CSV separators and week filters passed');
+
+assert.match(data['fix-avatar-urls-migration-description'], /članova ploče.*odgovarajući sistem pohrane.*neispravne reference/);
+assert.match(data['fix-missing-lists-migration-description'], /nedostajuće ili oštećene liste/);
+assert.match(data['globalSearch-instructions-notes-2'], /logičkim \*ILI\*/);
+assert.match(data['globalSearch-instructions-notes-3'], /logičkim \*I\*/);
+assert.ok(data['globalSearch-instructions-description'].includes('`list:Blocked`'));
+assert.ok(data['globalSearch-instructions-description'].includes('`__operator_list__:"To Review"`'));
+assert.ok(data['globalSearch-instructions-notes-2'].includes('`__operator_list__:Available __operator_list__:Blocked`'));
+assert.ok(data['globalSearch-instructions-notes-3'].includes('`__operator_list__:Available __operator_label__:red`'));
+assert.match(data['globalSearch-instructions-notes-4'], /ne razlikuju velika i mala slova/);
+assert.match(data['globalSearch-instructions-notes-5'], /ne pretražuju/);
+console.log('bosnianAuditedTranslations: migration repair scope, Boolean search and literal examples passed');

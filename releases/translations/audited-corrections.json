@@ -28243,5 +28243,89 @@
     "before": "Преусмерава везу ка складишту где се стварно налази предметна грађа из ових списа.",
     "after": "Ažurira URL-ove svih datotečnih priloga na ovoj ploči da koriste odgovarajući sistem pohrane i popravlja neispravne reference na datoteke.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "fix-avatar-urls-migration",
+    "before": "Поправка кад се не виде слике сарадника",
+    "after": "Popravi URL-ove avatara",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "fix-avatar-urls-migration-description",
+    "before": "Исправља везу до складишта са сликама сарадника из ових списа.",
+    "after": "Ažurira URL-ove avatara članova ploče da koriste odgovarajući sistem pohrane i popravlja neispravne reference na avatare.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "fix-missing-lists-migration",
+    "before": "Поправка кад недостају делови поступка",
+    "after": "Popravi nedostajuće liste",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "fix-missing-lists-migration-description",
+    "before": "Открива и поправља сваки део поступка који недостаје или који је оштећен.",
+    "after": "Otkriva i popravlja nedostajuće ili oštećene liste u strukturi ploče.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "globalSearch-instructions-description",
+    "before": "Да би сте сузили резултате претраге предлажемо Вам да почнете да користите операнде. Операнд је математички појам којег овде дефинишемо као целину која се састоји од променљиве и њене припадајуће вредности који су међусобно раздвојени двотачком. На пример, ако задате операнд `део:одложено` то ће сузити претрагу само на оне предмете који су смештени у делу поступка под називом *одложено*. Уколико вредност садржи размак између речи или садржи посебне знакове вредност морате обухватити наводницима (нпр. `__operator_list__:\"у жалбеном поступку\"`).",
+    "after": "Pretrage mogu uključivati operatore radi preciznijeg pretraživanja. Operatori se navode pisanjem naziva operatora i vrijednosti razdvojenih dvotačkom. Na primjer, `list:Blocked` ograničava pretragu na kartice u listi naziva *Blocked*. Ako vrijednost sadrži razmake ili posebne znakove, mora biti u navodnicima (npr. `__operator_list__:\"To Review\"`).",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "globalSearch-instructions-heading",
+    "before": "Правилник за детаљно претраживање",
+    "after": "Upute za pretragu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "globalSearch-instructions-notes-1",
+    "before": "Можете истовремено задати више оператора.",
+    "after": "Možete navesti više operatora.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "globalSearch-instructions-notes-2",
+    "before": "Над сродним операторима се изводи операција логичко ИЛИ.  Биће приказани предмети који испуњавају било који од услова.\n`__operator_list__:Припрема  __operator_list__:Жалба`  као резултат приказује све предмете које су било у деоници *Припрема* било у деоници *Жалба*.",
+    "after": "Slični operatori povezuju se logičkim *ILI*. Vraćaju se kartice koje zadovoljavaju bilo koji uslov.\n`__operator_list__:Available __operator_list__:Blocked` vraća kartice iz bilo koje liste naziva *Blocked* ili *Available*.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "globalSearch-instructions-notes-3",
+    "before": "На несродним операторима се изводи операција логичко И.  Биће приказани само они задаци који испуњавају све услове.  `__operator_list__:Жалба __operator_label__:црвена` приказаће међу свим предметима у *жалбеном* делу поступка само оне са *црвеном* налепницом.",
+    "after": "Različiti operatori povezuju se logičkim *I*. Vraćaju se samo kartice koje zadovoljavaju sve različite operatore. `__operator_list__:Available __operator_label__:red` vraća samo kartice u listi *Available* s oznakom *red*.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "globalSearch-instructions-notes-3-2",
+    "before": "Дани се могу задати као позитивни или негативни цели бројеви или се користе `__predicate_week__`, `__predicate_month__`, `__predicate_quarter__` or `__predicate_year__` за текући период.",
+    "after": "Dani se mogu navesti kao pozitivni ili negativni cijeli brojevi ili pomoću `__predicate_week__`, `__predicate_month__`, `__predicate_quarter__` ili `__predicate_year__` za trenutni period.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "globalSearch-instructions-notes-4",
+    "before": "Разлика између малих и великих слова се не узима у обзир.",
+    "after": "Tekstualne pretrage ne razlikuju velika i mala slova.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "globalSearch-instructions-notes-5",
+    "before": "Ако нисте ништа дирали, претрагом неће бити обухваћени предмети из архиве.",
+    "after": "Arhivirane kartice se prema zadanim postavkama ne pretražuju.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
