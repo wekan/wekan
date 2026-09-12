@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Audit keys |
 | --- | ---: |
-| Explicitly corrected | 5,744 |
+| Explicitly corrected | 5,754 |
 | Original pull values restored to pre-pull local values | 4,061 |
 | Reviewed and retained unchanged | 94 |
-| Pending review or repair | 10,184 |
+| Pending review or repair | 10,174 |
 | Total tracked | 20,081 |
 
 **Translation repairs remain unfinished.** These counts cover flagged findings; unflagged strings and restored values are not certified as correct.
 
-Repairs cover wrong-language text, kanban terminology, omitted restrictions and warnings, JSON examples, placeholders, calendar names and search/date formatting. The correction history records **5,806 values**, including fixes outside the audit. Flagged Bosnian, Croatian, Macedonian, Slovenian (both locales), Latvian, Romanian, Slovak and both Galician queues are complete.
+Repairs cover wrong-language text, kanban terminology, omitted restrictions and warnings, JSON examples, placeholders, calendar names and search/date formatting. The correction history records **5,816 values**, including fixes outside the audit. Flagged Bosnian, Croatian, Macedonian, Slovenian (both locales), Latvian, Romanian, Slovak and both Galician queues are complete.
 
-Latest fix: [942ed9d1f](https://github.com/wekan/wekan/commit/942ed9d1ff6e14c6330890f551aa48a74fb880e1), **2026-09-13** — ten Asturian restoration, custom-field and checklist-state corrections. Repairs distinguish unchecked/incomplete states from completion and preserve card context and value placeholders. **467 Asturian findings remain.** Meaning, exact-value, placeholder, key-order and idempotency checks pass; Asturian wording needs native-speaker review. Live Meteor browser verification remains unavailable.
+Latest fix: [ee6e12bce](https://github.com/wekan/wekan/commit/ee6e12bced9043de6019dbc7508711d870005a8f), **2026-09-13** — ten Asturian card, checklist and template creation corrections. Repairs restore adding rather than moving cards, matching-card scope and template-container meaning. **457 Asturian findings remain.** Meaning, exact-value, placeholder, key-order and idempotency checks pass; Asturian wording needs native-speaker review. Live Meteor browser verification remains unavailable.
 
 **Provenance:** not all errors came from Transifex. The captured pull changed 4,061 values; the full-local audit added 16,020 findings. Bosnian errors came from the September 5 [local completion commit](https://github.com/wekan/wekan/commit/bdb3b15886a749b725b5290ba0109fcba955f983), with no Bosnian changes in the captured pull. Other ultimate origins remain unverified.
 
