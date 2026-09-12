@@ -41340,5 +41340,61 @@
     "before": "`__operator_team__:<display name|short name>` - las tarjetas pertenecientes al tablero asignadas al equipo *<name>*",
     "after": "`__operator_team__:<display name|short name>` - tarxetes que pertenecen a un tableru asignáu al equipu *<name>*",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "globalSearch-instructions-status-all",
+    "before": "`__predicate_all__` - todas las tarjetas archivadas o no archivadas",
+    "after": "`__predicate_all__` - toles tarxetes archivaes y ensin archivar",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "globalSearch-instructions-status-private",
+    "before": "`__predicate_private__` - solo tarjetas de tableros privados",
+    "after": "`__predicate_private__` - tarxetes solo en tableros privaos",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "globalSearch-title",
+    "before": "Buscar todas las tarjetas",
+    "after": "Buscar en tolos tableros",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "has-overtime-cards",
+    "before": "Hay tarjetas con el tiempo excedido",
+    "after": "Tien tarxetes con tiempu escedíu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "has-spenttime-cards",
+    "before": "Se ha excedido el tiempo de las tarjetas",
+    "after": "Tien tarxetes con tiempu emplegáu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "header-logo-title",
+    "before": "Volver a tu página de tableros",
+    "after": "Volver a la to páxina de tableros.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "import-board-instruction-about-errors",
+    "before": "Aunque obtengas errores cuando importes el tablero, a veces la importación funciona igualmente, y el tablero se encontrará en la página de tableros.",
+    "after": "Si apaecen errores al importar el tableru, dacuando la importación funciona igualmente y el tableru ta na páxina de tolos tableros.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "import-board-instruction-trello",
+    "before": "En tu tablero de Trello, ve a 'Menú', luego 'Más' > 'Imprimir y exportar' > 'Exportar JSON', y copia el texto resultante.",
+    "after": "Nel to tableru de Trello, ve a 'Menu', dempués a 'More', 'Print and Export', 'Export JSON', y copia el testu resultante.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

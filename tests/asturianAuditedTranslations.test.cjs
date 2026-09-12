@@ -94,3 +94,10 @@ assert.match(data['globalSearch-instructions-operator-due'], /hasta \*<n>\* díe
 assert.match(data['globalSearch-instructions-operator-has'], /`has:-due`.*ensin fecha de vencimientu/);
 assert.match(data['globalSearch-instructions-operator-limit'], /enteru positivu.*por páxina/);
 assert.match(data['globalSearch-instructions-operator-team'], /tableru asignáu al equipu/);
+assert.match(data['globalSearch-title'], /tolos tableros/);
+assert.doesNotMatch(data['globalSearch-title'], /tarxetes/);
+assert.match(data['globalSearch-instructions-status-all'], /archivaes y ensin archivar/);
+assert.match(data['globalSearch-instructions-status-private'], /solo en tableros privaos/);
+assert.notEqual(data['has-spenttime-cards'], data['has-overtime-cards']);
+assert.match(data['has-spenttime-cards'], /tiempu emplegáu/);
+assert.match(data['import-board-instruction-about-errors'], /dacuando.*funciona igualmente/);
