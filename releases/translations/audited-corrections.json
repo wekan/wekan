@@ -38883,5 +38883,250 @@
     "before": "Trabalho agendado iniciado com sucesso",
     "after": "Traballo programado iniciado correctamente",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "cron-migrations-resumed",
+    "before": "Migrações retomadas com sucesso",
+    "after": "Migracións retomadas correctamente",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "cron-migrations-retried",
+    "before": "Migrações com falha reexecutadas com sucesso",
+    "after": "Migracións fallidas reintentadas correctamente",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "cron-no-failed-migrations",
+    "before": "Sem migrações com falha para tentar novamente",
+    "after": "Non hai migracións fallidas que reintentar",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "cron-no-paused-migrations",
+    "before": "Nenhuma migração pausada a ser retomada",
+    "after": "Non hai migracións pausadas que retomar",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "cron-resume-paused",
+    "before": "Retomar Migrações Pausadas",
+    "after": "Retomar as migracións pausadas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "cron-retry-failed",
+    "before": "Tentar novamente migrações que falharam",
+    "after": "Reintentar as migracións fallidas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "custom-assetlinks-content",
+    "before": "Conteúdo personalizado do assetlinks.json (JSON)",
+    "after": "Contido personalizado de assetlinks.json (JSON)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "custom-assetlinks-enabled",
+    "before": "Ativar assetlinks.json personalizado",
+    "after": "Activar assetlinks.json personalizado",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "custom-field-stringtemplate-format",
+    "before": "Formato (use %{value} como substituto)",
+    "after": "Formato (use %{value} como marcador)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "custom-field-stringtemplate-separator",
+    "before": "Separador (use &#32; ou &nbsp; para um espaço)",
+    "after": "Separador (use &#32; ou &nbsp; para un espazo)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "custom-head-link-tags",
+    "before": "Tags de link personalizadas (HTML)",
+    "after": "Etiquetas link personalizadas (HTML)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "custom-head-manifest-content",
+    "before": "Conteúdo personalizado do manifesto da web (JSON)",
+    "after": "Contido personalizado do manifesto web (JSON)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "custom-head-meta-tags",
+    "before": "Meta tags personalizadas (HTML)",
+    "after": "Etiquetas meta personalizadas (HTML)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "custom-head-tags-enabled",
+    "before": "Ativar tags de cabeçalho personalizadas",
+    "after": "Activar etiquetas head personalizadas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "custom-help-link-url",
+    "before": "URL do link de ajuda customizado",
+    "after": "URL da ligazón de axuda personalizada",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "custom-legal-notice-link-url",
+    "before": "URL da página de aviso legal customizada",
+    "after": "URL da páxina de aviso legal personalizada",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "custom-login-logo-image-url",
+    "before": "URL da Imagem do Logo de Login Personalizado",
+    "after": "URL da imaxe do logotipo personalizado de inicio de sesión",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "custom-login-logo-link-url",
+    "before": "Link URL do Logo de Login Personalizado",
+    "after": "URL da ligazón do logotipo personalizado de inicio de sesión",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "custom-manifest-enabled",
+    "before": "Ativar manifesto web personalizado",
+    "after": "Activar manifesto web personalizado",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "custom-product-name",
+    "before": "Nome Personalizado do Produto",
+    "after": "Nome personalizado do produto",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "custom-top-left-corner-logo-height",
+    "before": "Altura do Logo Personalizado do Canto Superior Esquerdo. Por omissão: 27",
+    "after": "Altura do logotipo personalizado da esquina superior esquerda. Predeterminado: 27",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "custom-top-left-corner-logo-image-url",
+    "before": "URL da Imagem do Logo Personalizado do Canto Superior Esquerdo",
+    "after": "URL da imaxe do logotipo personalizado da esquina superior esquerda",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "custom-top-left-corner-logo-link-url",
+    "before": "URL do Link do Logo Personalizado do Canto Superior Esquerdo",
+    "after": "URL da ligazón do logotipo personalizado da esquina superior esquerda",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "database-migrations",
+    "before": "Migrações de Banco de Dados",
+    "after": "Migracións da base de datos",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "default-authentication-method",
+    "before": "Método de Autenticação por Omissão",
+    "after": "Método de autenticación predeterminado",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "delete-all-notifications",
+    "before": "Excluir Todas Notificações",
+    "after": "Eliminar todas as notificacións",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "delete-avatar-confirm",
+    "before": "Tem certeza de que deseja excluir este avatar?",
+    "after": "Seguro que queres eliminar este avatar?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "delete-duplicate-empty-lists-migration",
+    "before": "Apagar Listas Vazias Duplicadas",
+    "after": "Eliminar as listas baleiras duplicadas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "delete-duplicate-lists",
+    "before": "Excluir Listas Duplicadas",
+    "after": "Eliminar listas duplicadas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "deleteCustomFieldPopup-title",
+    "before": "Apagar o Campo Personalizado?",
+    "after": "Eliminar o campo personalizado?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "deleteDuplicateListsPopup-title",
+    "before": "Excluir Listas Duplicadas",
+    "after": "Eliminar as listas duplicadas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "deposit-subtasks-list",
+    "before": "Lista de destino para sub-tarefas depositadas aqui:",
+    "after": "Lista de destino das subtarefas depositadas aquí:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "disambiguateMultiLabelPopup-title",
+    "before": "Desambiguar Acção da Etiqueta",
+    "after": "Desambiguar a acción da etiqueta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "disambiguateMultiMemberPopup-title",
+    "before": "Desambiguar Acção do Membro",
+    "after": "Desambiguar a acción do membro",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "display-authentication-method",
+    "before": "Mostrar Método de Autenticação",
+    "after": "Mostrar o método de autenticación",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

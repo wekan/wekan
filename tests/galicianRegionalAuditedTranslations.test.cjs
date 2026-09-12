@@ -280,3 +280,15 @@ assert.match(data['created-at-newest-first'], /máis recentes primeiro/);
 assert.match(data['created-at-oldest-first'], /máis antigos primeiro/);
 for (const action of ['delete', 'pause', 'resume', 'start']) assert.match(data[`cron-job-${action}-failed`], /^Non se puido/);
 for (const action of ['deleted', 'paused', 'resumed', 'started']) assert.match(data[`cron-job-${action}`], /correctamente$/);
+
+assert.match(data['cron-no-failed-migrations'], /Non hai migracións fallidas que reintentar/);
+assert.match(data['cron-no-paused-migrations'], /Non hai migracións pausadas que retomar/);
+assert.match(data['custom-field-stringtemplate-format'], /%\{value\}/);
+assert.match(data['custom-field-stringtemplate-separator'], /&#32; ou &nbsp; para un espazo/);
+assert.match(data['custom-head-tags-enabled'], /etiquetas head/);
+assert.match(data['custom-assetlinks-content'], /assetlinks\.json.*\(JSON\)/);
+assert.match(data['custom-top-left-corner-logo-height'], /esquina superior esquerda.*Predeterminado: 27/);
+assert.match(data['custom-login-logo-image-url'], /URL da imaxe/);
+assert.match(data['custom-login-logo-link-url'], /URL da ligazón/);
+assert.match(data['delete-duplicate-empty-lists-migration'], /listas baleiras duplicadas/);
+assert.match(data['deposit-subtasks-list'], /Lista de destino.*aquí:/);
