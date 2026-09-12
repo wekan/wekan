@@ -26,3 +26,8 @@ assert.notEqual(data['act-uncompleteChecklist'], data['act-completeChecklist']);
 assert.equal(data['activity-checklist-completed-card'], data['act-completeChecklist']);
 assert.match(data['act-setCustomField'], /__customField__: __customFieldValue__ na tarxeta __card__/);
 assert.match(data['activity-checklist-item-removed'], /un elementu.*'%s' en %s/);
+assert.match(data['add-card-to-bottom-of-list'], /^Añadir.*al final de la llista/);
+assert.match(data['add-card-to-top-of-list'], /^Añadir.*al principiu de la llista/);
+assert.doesNotMatch(data['add-card-to-top-of-list'], /Subir|Mover/);
+assert.match(data['add-existing-card-as-subtask-empty'], /tarxetes que coincidan/);
+assert.match(data['add-template-container'], /contenedor de plantíes/);

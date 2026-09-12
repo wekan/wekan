@@ -40640,5 +40640,75 @@
     "before": "eliminada etiqueta '%s' desde %s",
     "after": "quitó la etiqueta '%s' de %s",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "activity-subtask-added",
+    "before": "ha añadido la subtarea a %s",
+    "after": "añadió una subtarea a %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "add-after-list",
+    "before": "Añadir después de la lista",
+    "after": "Añadir dempués de la llista",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "add-card-to-bottom-of-list",
+    "before": "Bajar la tarjeta al final de la lista",
+    "after": "Añadir una tarxeta al final de la llista",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "add-card-to-top-of-list",
+    "before": "Subir la tarjeta al principio de la lista",
+    "after": "Añadir una tarxeta al principiu de la llista",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "add-checklist",
+    "before": "Añadir una lista de verificación",
+    "after": "Añadir una llista de comprobación",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "add-checklist-item",
+    "before": "Añadir un elemento a la lista de verificación",
+    "after": "Añadir un elementu a la llista de comprobación",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "add-cover",
+    "before": "Añadir imagen de portada a la minitarjeta",
+    "after": "Añadir una imaxe de portada a la minitarxeta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "add-existing-card-as-subtask-empty",
+    "before": "Ninguna tarjeta encontrada",
+    "after": "Nun s'atoparon tarxetes que coincidan",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "add-swimlane",
+    "before": "Añadir un carril de flujo",
+    "after": "Añadir un carril",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "add-template-container",
+    "before": "añadir plantilla de contenedor",
+    "after": "Añadir un contenedor de plantíes",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
