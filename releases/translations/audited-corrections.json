@@ -21943,5 +21943,208 @@
     "before": "Максимална величина датотеке за слање (у бајтима):",
     "after": "Максимална големина на датотеката за поставување во бајти:",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "migrate-all-to-filesystem",
+    "before": "Пресели све у локално складиште",
+    "after": "Пренеси ги сите во датотечниот систем",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "migrate-all-to-gridfs",
+    "before": "Пресели све и издели у GridFS",
+    "after": "Пренеси ги сите во GridFS",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "migrate-all-to-s3",
+    "before": "Пресели све у Amazon S3 облак",
+    "after": "Пренеси ги сите во S3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "migrated-attachments",
+    "before": "Пресељена предметна грађа",
+    "after": "Пренесени прилози",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "migration-batch-size-description",
+    "before": "Број јединица предметне грађе који ће бити обрађен при сваком пролазу (1-100)",
+    "after": "Број на прилози што се обработуваат во секоја група (1-100)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "migration-cpu-threshold",
+    "before": "Граница искоришћења процесора (%)",
+    "after": "Праг на оптоварување на процесорот (%)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "migration-cpu-threshold-description",
+    "before": "Направи предах када заузеће процесора досегне ове проценте (10-90)",
+    "after": "Паузирај ја миграцијата кога користењето на процесорот ќе го надмине овој процент (10-90)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "migration-delay-ms-description",
+    "before": "Задршка између пролаза изражена у милисекундама (100-10000)",
+    "after": "Пауза меѓу групите во милисекунди (100-10000)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "migration-info-text",
+    "before": "Преслагање базе података се изводи само једном и то поправља брзину. Ова радња се изводи у позадини чак иако одете.",
+    "after": "Миграциите на базата на податоци се извршуваат еднаш и ги подобруваат перформансите на системот. Процесот продолжува во заднина дури и ако го затворите прелистувачот.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "migration-pause-failed",
+    "before": "Није било могуће направити предах у поступку обнове оштећених списа",
+    "after": "Миграциите не можеа да се паузираат",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "migration-paused",
+    "before": "Направљен је предах у поступку обнове оштећених списа",
+    "after": "Миграциите се успешно паузирани",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "migration-progress-note",
+    "before": "Молимо да будете стрпљиви док траје препакивање Ваших списа...",
+    "after": "Почекајте додека ја пренесуваме вашата табла во најновата структура...",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "migration-resume-failed",
+    "before": "Није успео наставак обнове",
+    "after": "Миграцијата не можеше да продолжи",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "migration-start-failed",
+    "before": "Није било могуће покренути обнову оштећених списа",
+    "after": "Миграциите не можеа да се започнат",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "migration-started",
+    "before": "Обнова оштећених списа је започета",
+    "after": "Миграциите се успешно започнати",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "migration-stop-confirm",
+    "before": "Да ли сте сигурни да желите да зауставите све поступке обнове оштећених предметних списа?",
+    "after": "Дали сте сигурни дека сакате да ги запрете сите миграции?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "migration-stop-failed",
+    "before": "Није било могуће прекинути поступке обнове оштећених списа",
+    "after": "Миграциите не можеа да се запрат",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "migration-stopped",
+    "before": "Поступци обнове оштећених списа су управо заустављени",
+    "after": "Миграциите се успешно запрени",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "migration-successful",
+    "before": "Обнова је успешно окончана",
+    "after": "Миграцијата е успешно завршена",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "migration-warning-text",
+    "before": "Предлажемо да не затварате прозор током обнове. Чак и тада процес ће бити изведен у позадини али све може дуже да траје.",
+    "after": "Не го затворајте прелистувачот за време на миграцијата. Процесот ќе продолжи во заднина, но може да потрае подолго.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "migrations-admin-only",
+    "before": "За обнову ових списа надлежан је једино онај ко је њихов управник",
+    "after": "Само администраторите на таблата можат да извршуваат миграции",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "migrations-description",
+    "before": "Овде може да се изврши провера целовитости података и поправка оштећења. Сваки поступак обнове се може спровести независно један од другог",
+    "after": "Извршете проверки на целосноста на податоците и поправки за оваа табла. Секоја миграција може да се изврши одделно.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "mobile-desktop-toggle",
+    "before": "Замени приказ прилагођен за рачунар/мобилни",
+    "after": "Префрли меѓу мобилен и десктоп режим",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "mobile-mode",
+    "before": "Приказ прилагођен за екран мобилног уређаја",
+    "after": "Мобилен режим",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "monitoring-export-failed",
+    "before": "Не могу да извезем надзорне податаке",
+    "after": "Податоците за надзор не можеа да се извезат",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "monitoring-refresh-failed",
+    "before": "Не могу да освежим надзорне податке",
+    "after": "Податоците за надзор не можеа да се освежат",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "move-all-attachments-of-board-to-fs",
+    "before": "Премести предметну грађу ових списа у локални систем датотека",
+    "after": "Премести ги сите прилози на таблата во датотечниот систем",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "move-all-attachments-of-board-to-gridfs",
+    "before": "Премести предметну грађу ових списа у MongoDB GridFS",
+    "after": "Премести ги сите прилози на таблата во GridFS",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "move-all-attachments-of-board-to-s3",
+    "before": "Премести предметну грађу ових списа у облак на Amazon S3",
+    "after": "Премести ги сите прилози на таблата во S3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
