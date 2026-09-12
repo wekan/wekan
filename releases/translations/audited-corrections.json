@@ -36195,5 +36195,75 @@
     "before": "Mover o Cartão para o Arquivo",
     "after": "Mover a tarxeta ao Arquivo",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "archiveBoardPopup-title",
+    "before": "Mover o Quadro para o Arquivo?",
+    "after": "Mover o taboleiro ao Arquivo?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "attachment-move-storage-fs",
+    "before": "Mover anexo para sistema de arquivos",
+    "after": "Mover o anexo ao sistema de ficheiros",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "attachment-storage-configuration",
+    "before": "Configuração de armazenamento de anexos",
+    "after": "Configuración do almacenamento de anexos",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "auto-watch",
+    "before": "Observar automaticamente os quadros quando são criados",
+    "after": "Vixiar automaticamente os taboleiros cando se crean",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "autoAddUsersWithDomainName",
+    "before": "Adicionar usuários com o nome de domínio automaticamente",
+    "after": "Engadir automaticamente os usuarios co nome de dominio",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "automatically-field-on-card",
+    "before": "Adicionar campo aos novos cartões",
+    "after": "Engadir o campo ás tarxetas novas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "badge-attachment-on-minicard",
+    "before": "Contador de anexos no mini cartão",
+    "after": "Reconto de anexos na minitarxeta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "board-archive-failed",
+    "before": "Falha ao agendar arquivamento de quadro",
+    "after": "Non se puido programar o arquivado do taboleiro",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "board-archive-scheduled",
+    "before": "Arquivamento de quadro agendado com sucesso",
+    "after": "Arquivado do taboleiro programado correctamente",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "board-archived",
+    "before": "Este quadro está no Arquivo.",
+    "after": "Este taboleiro moveuse ao Arquivo.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

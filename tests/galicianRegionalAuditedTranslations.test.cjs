@@ -5,6 +5,13 @@ assert.match(data['accounts-lockout-known-users'], /usuarios coñecidos.*usuario
 assert.match(data['accounts-lockout-unknown-users'], /usuarios descoñecidos.*usuario inexistente/);
 for (const key of ['accounts-lockout-known-users', 'accounts-lockout-unknown-users']) assert.doesNotMatch(data[key], /usuários|senha|Configurações/);
 assert.match(data['act-addChecklist'], /engadiu a lista de verificación/);
+assert.match(data['automatically-field-on-card'], /tarxetas novas/);
+assert.notEqual(data['automatically-field-on-card'], data['always-field-on-card']);
+assert.match(data['board-archive-failed'], /Non se puido programar/);
+assert.match(data['board-archive-scheduled'], /programado correctamente/);
+assert.match(data['badge-attachment-on-minicard'], /Reconto de anexos na minitarxeta/);
+assert.match(data['auto-watch'], /automaticamente.*cando se crean/);
+
 assert.match(data['admin-people-user-active'], /está activo.*desactivalo/);
 assert.match(data['admin-people-user-inactive'], /está inactivo.*activalo/);
 assert.match(data['always-field-on-card'], /todas as tarxetas/);
