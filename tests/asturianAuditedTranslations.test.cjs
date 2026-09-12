@@ -440,3 +440,12 @@ assert.match(data['smtp-port-description'], /puertu.*SMTP.*salientes/);
 assert.match(data['smtp-tls-description'], /Activar.*TLS pal servidor SMTP/);
 assert.match(data['soft-wip-limit'], /Llende flexible del trabayu en cursu/);
 assert.notEqual(data['soft-wip-limit'], data['setWipLimitPopup-title']);
+
+assert.match(data['sort-desc'], /Calca pa ordenar la llista/);
+assert.doesNotMatch(data['sort-desc'], /descendente/);
+assert.match(data['start-day-of-week'], /día d’aniciu de la selmana/);
+assert.equal(data['subtask-settings'], data['boardSubtaskSettingsPopup-title']);
+assert.match(data['subtext-with-full-path'], /Sotestu cola ruta completa/);
+assert.match(data['swimlane-delete-pop'], /toles aiciones del historial d’actividá.*nun vas poder recuperar el carril.*Nun se puede desfacer/);
+assert.match(data['swimlane-height-error-message'], /altor del carril.*númberu enteru positivu/);
+assert.doesNotMatch(data['swimlane-height-error-message'], /anchor/);

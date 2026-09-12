@@ -43699,5 +43699,47 @@
     "before": "Límite del trabajo en proceso flexible",
     "after": "Llende flexible del trabayu en cursu",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "sort-desc",
+    "before": "Clic para ordenar la lista",
+    "after": "Calca pa ordenar la llista",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "start-day-of-week",
+    "before": "Establecer el dia de comienzo de la semana",
+    "after": "Establecer el día d’aniciu de la selmana",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "subtask-settings",
+    "before": "Preferencias de las subtareas",
+    "after": "Preferencies de les subtarees",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "subtext-with-full-path",
+    "before": "Subtexto con ruta completa",
+    "after": "Sotestu cola ruta completa",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "swimlane-delete-pop",
+    "before": "Todas las acciones serán eliminadas del historial de actividades y no se podrá recuperar el carril de flujo. Esta acción no puede deshacerse.",
+    "after": "Van eliminase toles aiciones del historial d’actividá y nun vas poder recuperar el carril. Nun se puede desfacer.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "swimlane-height-error-message",
+    "before": "La altura de carril debe ser un entero positivo",
+    "after": "L’altor del carril tien de ser un númberu enteru positivu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
