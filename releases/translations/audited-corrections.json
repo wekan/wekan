@@ -19052,5 +19052,33 @@
     "before": "Islamic tabular",
     "after": "Islamský kalendár (tabuľkový, astronomická epocha)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "de",
+    "key": "email-smtp-test-subject",
+    "before": "SMTP Test-E-Mail",
+    "after": "SMTP-Test-E-Mail",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "de-AT",
+    "key": "email-smtp-test-subject",
+    "before": "SMTP Test-E-Mail",
+    "after": "SMTP-Test-E-Mail",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "de-CH",
+    "key": "email-smtp-test-subject",
+    "before": "SMTP Test-E-Mail",
+    "after": "SMTP-Test-E-Mail",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "de_DE",
+    "key": "email-smtp-test-subject",
+    "before": "SMTP Test-E-Mail",
+    "after": "SMTP-Test-E-Mail",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

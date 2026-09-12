@@ -388,5 +388,29 @@
     "key": "s3-region-menu-path",
     "value": "AWS Console → S3 → Buckets → váš bucket → Properties → AWS Region.",
     "reason": "Individually reviewed: váš bucket is valid Slovak technical wording. The AWS Console navigation labels are literal vendor menu names and remain unchanged."
+  },
+  {
+    "locale": "de",
+    "key": "soft-wip-limit",
+    "value": "Soft WIP-Limit",
+    "reason": "Individually reviewed: Soft WIP-Limit is established German technical wording for a non-blocking warning limit, contrasting with a hard limit. WIP is an acronym and Limit is a German word. The valid existing technical label is retained."
+  },
+  {
+    "locale": "de-AT",
+    "key": "soft-wip-limit",
+    "value": "Soft WIP-Limit",
+    "reason": "Individually reviewed: Soft WIP-Limit is established German technical wording for a non-blocking warning limit, contrasting with a hard limit. WIP is an acronym and Limit is a German word. The valid existing technical label is retained."
+  },
+  {
+    "locale": "de-CH",
+    "key": "soft-wip-limit",
+    "value": "Soft WIP-Limit",
+    "reason": "Individually reviewed: Soft WIP-Limit is established German technical wording for a non-blocking warning limit, contrasting with a hard limit. WIP is an acronym and Limit is a German word. The valid existing technical label is retained."
+  },
+  {
+    "locale": "de_DE",
+    "key": "soft-wip-limit",
+    "value": "Soft WIP-Limit",
+    "reason": "Individually reviewed: Soft WIP-Limit is established German technical wording for a non-blocking warning limit, contrasting with a hard limit. WIP is an acronym and Limit is a German word. The valid existing technical label is retained."
   }
 ]
