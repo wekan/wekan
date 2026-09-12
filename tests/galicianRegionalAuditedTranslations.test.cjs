@@ -148,3 +148,9 @@ assert.match(data['globalSearch-instructions-status-ended'], /cunha data de fin/
 assert.match(data['globalSearch-instructions-status-private'], /só en taboleiros privados/);
 assert.match(data['globalSearch-instructions-status-public'], /só en taboleiros públicos/);
 assert.match(data['globalSearch-title'], /todos os taboleiros/);
+
+assert.match(data['has-overtime-cards'], /horas extra/);
+assert.match(data['has-spenttime-cards'], /tempo empregado/);
+assert.match(data.hideAllChecklistItems, /todos os elementos/);
+assert.match(data['hide-finished-checklist'], /rematadas/);
+assert.match(data['hide-minicard-label-text'], /texto das etiquetas na minitarxeta/);

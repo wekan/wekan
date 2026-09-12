@@ -37147,5 +37147,47 @@
     "before": "Pesquisa Todos os Cartões",
     "after": "Procurar en todos os taboleiros",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "has-overtime-cards",
+    "before": "Tem cartões com horas extra",
+    "after": "Ten tarxetas con horas extra",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "has-spenttime-cards",
+    "before": "Tem cartões com tempo gasto",
+    "after": "Ten tarxetas con tempo empregado",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "hide-finished-checklist",
+    "before": "Esconder lista de verificação concluída",
+    "after": "Agochar as listas de verificación rematadas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "hide-list-on-minicard",
+    "before": "Esconder Lista no Mini cartão",
+    "after": "Agochar a lista na minitarxeta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "hide-minicard-label-text",
+    "before": "Ocultar texto da etiqueta dos mini-cartões",
+    "after": "Agochar o texto das etiquetas na minitarxeta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "hideAllChecklistItems",
+    "before": "Esconder todos os itens da lista de verificação",
+    "after": "Agochar todos os elementos da lista de verificación",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
