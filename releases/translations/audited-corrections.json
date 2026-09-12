@@ -48039,5 +48039,61 @@
     "before": "ha rimosso l'eticheta '%s' da %s",
     "after": "allontanà l’etichetta '%s' da %s",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "activity-removed-label-card",
+    "before": "L' eticheta '%s' ie stata rimossa.",
+    "after": "allontanà l’etichetta '%s'",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "activity-set-customfield",
+    "before": "imposta campo personalizzato '%s' a '%s' in %s",
+    "after": "mess il champ persunalisà '%s' sin '%s' en %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "activity-startDate",
+    "before": "ha mudato la data di inizio a %s di %s",
+    "after": "midà la data da cumenzament en %s da %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "activity-unset-customfield",
+    "before": "campo personalizzato no impostato '%s' in %s",
+    "after": "allontanà la valur dal champ persunalisà '%s' en %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "add-background-image",
+    "before": "Aggiungere immagine di sfondo",
+    "after": "Agiuntar in maletg da fund",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "add-custom-html-before-body-end",
+    "before": "Aggiunti il codice HTML prima di </body> fine",
+    "after": "Agiuntar HTML persunalisà avant la fin </body>",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "add-teams-label",
+    "before": "I team aggiunti ie i seguenti:",
+    "after": "Las equipas agiuntadas vegnan mussadas sutvart:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "admin-announcement-active",
+    "before": "Attiva annunci di sistema",
+    "after": "Annunzia activa per l’entir sistem",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
