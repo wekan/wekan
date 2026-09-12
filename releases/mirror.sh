@@ -29,6 +29,18 @@ mirror() {
   git -C "$mirror_dir" push
 }
 
+# https://gitlab.com/wekan/wekan
 mirror "gitlab" "git@gitlab.com:wekan/wekan"
+
+# https://bitbucket.org/wekan/wekan
+# https://bitbucket.org/wekan/wekan/src/main/
 mirror "bitbucket" "git@bitbucket.org:wekan/wekan.git"
+
+# https://codeberg.org/wekan/wekan
 mirror "codeberg" "git@codeberg.org:wekan/wekan"
+
+# SourceForge
+# https://sourceforge.net/projects/wekan/
+# git clone ssh://wekan@git.code.sf.net/p/wekan/code wekan-sourceforge
+# mirror "sourceforge" "wekan@git.code.sf.net/p/wekan/code"
+
