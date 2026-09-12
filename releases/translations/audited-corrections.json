@@ -46807,5 +46807,61 @@
     "before": "Islamic (Saudi Arabia)",
     "after": "Hijri-kamary senenamasy (Saud Arabystany, Aýy synlamak)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "th",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "ปฏิทินอิสลาม (ซาอุดีอาระเบีย, การสังเกตดวงจันทร์)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "th",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "ปฏิทินอิสลาม (แบบตาราง, จุดเริ่มนับเวลาทางดาราศาสตร์)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ja",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "イスラム暦（サウジアラビア、月の観測）",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ja",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "イスラム暦（定周期、天文学的紀元）",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ja-HI",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "イスラム暦（サウジアラビア、月の観測）",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ja-HI",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "イスラム暦（定周期、天文学的紀元）",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ja-JP",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "イスラム暦（サウジアラビア、月の観測）",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ja-JP",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "イスラム暦（定周期、天文学的紀元）",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

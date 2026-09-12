@@ -916,5 +916,41 @@
     "key": "gcs-storage-description",
     "value": "Google Cloud Storage।",
     "reason": "Preserve exact cloud-storage product name; Hindi sentence-ending danda punctuation is valid and does not make the vendor name wrong-language prose."
+  },
+  {
+    "locale": "ja",
+    "key": "azure-blob-storage-description",
+    "value": "Microsoft Azure Blob Storage。",
+    "reason": "Retain the official cloud-storage product name with valid Japanese sentence-ending punctuation; this is a proper name, not untranslated explanatory prose."
+  },
+  {
+    "locale": "ja",
+    "key": "gcs-storage-description",
+    "value": "Google Cloud Storage。",
+    "reason": "Retain the official cloud-storage product name with valid Japanese sentence-ending punctuation; this is a proper name, not untranslated explanatory prose."
+  },
+  {
+    "locale": "ja-HI",
+    "key": "azure-blob-storage-description",
+    "value": "Microsoft Azure Blob Storage。",
+    "reason": "Retain the official cloud-storage product name with valid Japanese sentence-ending punctuation; this is a proper name, not untranslated explanatory prose."
+  },
+  {
+    "locale": "ja-HI",
+    "key": "gcs-storage-description",
+    "value": "Google Cloud Storage。",
+    "reason": "Retain the official cloud-storage product name with valid Japanese sentence-ending punctuation; this is a proper name, not untranslated explanatory prose."
+  },
+  {
+    "locale": "ja-JP",
+    "key": "azure-blob-storage-description",
+    "value": "Microsoft Azure Blob Storage。",
+    "reason": "Retain the official cloud-storage product name with valid Japanese sentence-ending punctuation; this is a proper name, not untranslated explanatory prose."
+  },
+  {
+    "locale": "ja-JP",
+    "key": "gcs-storage-description",
+    "value": "Google Cloud Storage。",
+    "reason": "Retain the official cloud-storage product name with valid Japanese sentence-ending punctuation; this is a proper name, not untranslated explanatory prose."
   }
 ]
