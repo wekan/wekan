@@ -558,6 +558,13 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/60f647915">Repair Croatian migration status and operating limits</a>. Thanks to xet7.</summary>
+
+Correct 20 reviewed values. Positive and negative regressions verify CPU thresholds, timing ranges, background continuation, browser warnings and administrator restrictions. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/b238c35f2">Repair Croatian list warnings and storage migration controls</a>. Thanks to xet7.</summary>
 
 Correct 16 reviewed values. Positive and negative regressions verify irreversible list deletion, board-departure scope, byte units, batch limits and S3 wording. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
