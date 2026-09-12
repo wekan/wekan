@@ -29153,5 +29153,89 @@
     "before": "Ови списи су могуће под велом тајности. Можда ћете ипак моћи да их видите кад се <a href='%s'>пријавите овде</a>.",
     "after": "Ova stranica je možda privatna. Možda je možete pregledati ako se <a href='%s'>prijavite</a>.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "pastdue",
+    "before": "крајњи рок  %s је пробијен",
+    "after": "trenutni rok %s je prošao",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "paste-or-dragdrop",
+    "before": " налепите/пренесите/испустите овде слику (важи само за слике)",
+    "after": "da zalijepite ili povučete i ispustite slikovnu datoteku na njega (samo slike)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "people-number",
+    "before": "Укупан број сарадника је:",
+    "after": "Broj osoba je:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "poker-delete-pop",
+    "before": "Брисање има трајни карактер. Изгубићете све радње у вези овог плана за партију покера.",
+    "after": "Brisanje je trajno. Izgubit ćete sve radnje povezane s ovim pokerom za planiranje.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "preview-pdf-not-supported",
+    "before": "Ваш уређај не подржава приказивање pdf докумената. Пробајте да преузмете документ.",
+    "after": "Vaš uređaj ne podržava pregled PDF-a. Pokušajte preuzeti datoteku.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "private-desc",
+    "before": "Ови списи су тајни. Само одобрени сарадници могу да их читају и уређују.",
+    "after": "Ova ploča je privatna. Samo osobe dodane na ploču mogu je pregledati i uređivati.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "public-desc",
+    "before": "Ови списи су потпуно јавни. Видљиви су сваком ко има везу до њих и појавиће се и у google претрагама. Једино одобрени сарадници могу бити уредници.",
+    "after": "Ova ploča je javna. Vidljiva je svima koji imaju poveznicu i pojavit će se u pretraživačima poput Googlea. Samo osobe dodane na ploču mogu je uređivati.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "push-invite-text",
+    "before": "Поштовани __user__,\n\n__inviter__ Вам је омогућио пун увид у \"__board__\" списе и нада се заједничкој сарадњи.\n\nМолим да испратите везу испод:\n\n__url__\n\nХвала.",
+    "after": "Poštovani __user__,\n\n__inviter__ vas poziva da se pridružite ploči \"__board__\" radi saradnje.\n\nSlijedite poveznicu ispod:\n\n__url__\n\nHvala.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "quick-access-description",
+    "before": "Означите списе звездицом да би овде стајала пречица.",
+    "after": "Označite ploču zvjezdicom da dodate prečicu na ovu traku.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "r-board-note",
+    "before": "Белешка: Непопуњено поље одговара свакој могућој вредности.",
+    "after": "Napomena: ostavite polje prazno da odgovara svakoj mogućoj vrijednosti.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "r-checklist-note",
+    "before": "Белешка: Ставке на списку морају да буду раздвојене зарезом.",
+    "after": "Napomena: stavke kontrolne liste moraju biti napisane kao vrijednosti razdvojene zarezima.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "r-d-check-all",
+    "before": "Означи све ставке са списка као обављене",
+    "after": "Označi sve stavke liste",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

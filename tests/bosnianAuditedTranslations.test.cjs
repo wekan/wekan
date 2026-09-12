@@ -300,3 +300,14 @@ assert.match(data['operator-limit-invalid'], /pozitivan cijeli broj/);
 assert.match(data['oidc-button-text'], /OIDC dugmeta/);
 assert.equal(data['org-number'], 'Broj organizacija je:');
 console.log('bosnianAuditedTranslations: notification scope, debug predicates and numeric limits passed');
+
+assert.match(data['private-desc'], /Samo osobe dodane na ploču/);
+assert.match(data['public-desc'], /Samo osobe dodane na ploču mogu je uređivati/);
+assert.doesNotMatch(data['public-desc'], /Svi mogu.*uređivati/);
+assert.equal(data['push-invite-text'], data['email-invite-text']);
+assert.doesNotMatch(data['push-invite-text'], /pun uvid|potpun pristup/);
+assert.match(data['poker-delete-pop'], /Brisanje je trajno.*sve radnje/);
+assert.match(data['preview-pdf-not-supported'], /PDF.*preuzeti datoteku/);
+assert.match(data['r-board-note'], /polje prazno.*svakoj mogućoj vrijednosti/);
+assert.match(data['r-checklist-note'], /razdvojene zarezima/);
+console.log('bosnianAuditedTranslations: board permissions, invitation scope and rule matching passed');
