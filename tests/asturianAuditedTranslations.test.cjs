@@ -370,3 +370,12 @@ assert.match(data['preview-pdf-not-supported'], /nun permite previsualizar PDF.*
 assert.equal(data['push-invite-title'], data['email-invite-subject']);
 assert.match(data['r-board-note'], /campu baleru.*tolos valores posibles/);
 assert.doesNotMatch(data['r-board-note'], /nun coincida/);
+
+assert.match(data['r-checklist-note'], /comprobación.*valores separtaos por comes/);
+assert.match(data['r-d-check-all'], /^Marcar tolos elementos/);
+assert.match(data['r-d-uncheck-all'], /^Desmarcar tolos elementos/);
+assert.notEqual(data['r-d-check-all'], data['r-d-uncheck-all']);
+assert.match(data['r-d-check-of-list'], /de la llista de comprobación/);
+assert.match(data['r-d-remove-checklist'], /Eliminar la llista de comprobación/);
+assert.match(data['r-d-remove-all-member'], /Quitar tolos miembros/);
+assert.doesNotMatch(data['r-d-remove-all-member'], /cuenta|usuariu/);

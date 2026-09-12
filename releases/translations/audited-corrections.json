@@ -43363,5 +43363,47 @@
     "before": "Nota: deje un campo vacío para que coincida con todos los valores posibles",
     "after": "Nota: dexa un campu baleru pa que coincida con tolos valores posibles. ",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "r-checklist-note",
+    "before": "Nota: los elementos de la lista tienen que escribirse como valores separados por coma.",
+    "after": "Nota: los elementos de la llista de comprobación tienen d’escribise como valores separtaos por comes.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "r-d-check-all",
+    "before": "Marcar todos los elementos de una lista",
+    "after": "Marcar tolos elementos d’una llista",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "r-d-check-of-list",
+    "before": "de la lista de verificación",
+    "after": "de la llista de comprobación",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "r-d-remove-all-member",
+    "before": "Eliminar todos los miembros",
+    "after": "Quitar tolos miembros",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "r-d-remove-checklist",
+    "before": "Eliminar lista de verificación",
+    "after": "Eliminar la llista de comprobación",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "r-d-uncheck-all",
+    "before": "Desmarcar todos los elementos de una lista",
+    "after": "Desmarcar tolos elementos d’una llista",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
