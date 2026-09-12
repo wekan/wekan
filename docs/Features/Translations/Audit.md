@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Audit keys |
 | --- | ---: |
-| Explicitly corrected | 6,623 |
+| Explicitly corrected | 6,625 |
 | Restored pre-pull values awaiting further validation | 4,059 |
 | Reviewed and retained unchanged | 153 |
-| Pending review or repair | 9,246 |
+| Pending review or repair | 9,244 |
 | Total tracked | 20,081 |
 
 **Translation repairs remain unfinished.** These counts cover flagged findings; unflagged strings and restored values are not certified as correct.
 
-Fixes cover wrong-language text, terminology, warnings, JSON examples, placeholders and calendar/search formatting. The correction history records **6,685 values**, including fixes outside the audit. Per-language remaining work is available through the command below.
+Fixes cover wrong-language text, terminology, warnings, JSON examples, placeholders and calendar/search formatting. The correction history records **6,687 values**, including fixes outside the audit. Per-language remaining work is available through the command below.
 
-Latest fix: [889a4dadb](https://github.com/wekan/wekan/commit/889a4dadb2ce8d9587af9e286bd91b1885b25f84), **2026-09-13** — both Vietnamese locales now translate Saudi moon-sighting and tabular astronomical-epoch labels; their flagged queues are complete. Exact-value, placeholder, key-order and idempotency checks pass. Low-confidence wording needs native-speaker review; live browser verification remains unavailable.
+Latest fix: [7e97cd1dd](https://github.com/wekan/wekan/commit/7e97cd1ddb7c0470e5fbd9f90dec002a19e16bb4), **2026-09-13** — Turkmen Indian national and Saudi moon-sighting calendar labels translated; its flagged queue is complete. Exact-value, placeholder, key-order and idempotency checks pass. Low-confidence wording needs native-speaker review; live browser verification remains unavailable.
 
 **Provenance:** not all errors came from Transifex. The captured pull changed 4,061 values; the local audit added 16,020 findings. Bosnian errors predated that pull in a [local completion commit](https://github.com/wekan/wekan/commit/bdb3b15886a749b725b5290ba0109fcba955f983). Other ultimate origins remain unverified.
 
