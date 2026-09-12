@@ -46926,5 +46926,117 @@
     "before": "Islamic tabular",
     "after": "हिजरी पात्रो (तालिकामा आधारित, खगोलीय कालगणनाको प्रारम्भ)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ky",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "Индиянын улуттук жылнаамасы",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ky",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "Ислам жылнаамасы (Сауд Арабиясы, айды байкоо)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ky",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "Ислам жылнаамасы (жадыбал, астрономиялык эсептин башталышы)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "tg",
+    "key": "calendar-system-buddhist",
+    "before": "Buddhist",
+    "after": "Тақвими буддоӣ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "tg",
+    "key": "calendar-system-chinese",
+    "before": "Chinese",
+    "after": "Тақвими чинӣ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "tg",
+    "key": "calendar-system-coptic",
+    "before": "Coptic",
+    "after": "Тақвими қибтӣ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "tg",
+    "key": "calendar-system-dangi",
+    "before": "Dangi (Korean)",
+    "after": "Тақвими Данги (кореягӣ)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "tg",
+    "key": "calendar-system-ethioaa",
+    "before": "Ethiopic Amete Alem",
+    "after": "Тақвими эфиопии Амета Алем",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "tg",
+    "key": "calendar-system-ethiopic",
+    "before": "Ethiopic",
+    "after": "Тақвими эфиопӣ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "tg",
+    "key": "calendar-system-hebrew",
+    "before": "Hebrew",
+    "after": "Тақвими яҳудӣ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "tg",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "Тақвими миллии Ҳиндустон",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "tg",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "Тақвими ҳиҷрӣ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "tg",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "Тақвими ҳиҷрӣ (Арабистони Саудӣ, мушоҳидаи моҳ)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "tg",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "Тақвими ҳиҷрӣ (Умм ал-Қуро)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "tg",
+    "key": "calendar-system-japanese",
+    "before": "Japanese",
+    "after": "Тақвими ҷопонӣ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "tg",
+    "key": "calendar-system-roc",
+    "before": "Republic of China",
+    "after": "Тақвими Минго",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
