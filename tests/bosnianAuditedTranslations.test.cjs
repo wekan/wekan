@@ -230,3 +230,16 @@ assert.match(data['import-board-zip'], /\.zip.*JSON.*poddirektorijima.*priloge/)
 assert.match(data['import-members-map-note'], /nepovezani članovi.*trenutnom korisniku/);
 assert.match(data['import-user-select'], /postojećeg korisnika/);
 console.log('bosnianAuditedTranslations: export direction, vendor menu names, ZIP scope and member fallback passed');
+
+assert.match(data['keyboard-shortcuts-disabled'], /isključene.*Kliknite da ih uključite/);
+assert.match(data['keyboard-shortcuts-enabled'], /uključene.*Kliknite da ih isključite/);
+assert.match(data['invite-people-error'], /poziva za registraciju/);
+assert.match(data['invite-people-success'], /registraciju.*uspješno poslan/);
+assert.match(data['label-delete-pop'], /sa svih kartica.*uništiti njenu historiju/);
+assert.match(data['label-delete-pop'], /Poništavanje nije moguće/);
+assert.match(data['list-delete-pop'], /nećete moći oporaviti listu/);
+assert.match(data['list-delete-pop'], /Poništavanje nije moguće/);
+assert.match(data['leave-board-pop'], /sa svih kartica na ovoj ploči/);
+assert.equal(data['list-sort-by'], 'Sortiraj listu po:');
+assert.match(data['invalid-file'], /učitavanje ili preimenovanje se otkazuje/);
+console.log('bosnianAuditedTranslations: keyboard toggles, registration invitations and deletion scope passed');

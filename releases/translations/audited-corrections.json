@@ -28649,5 +28649,89 @@
     "before": "Изаберите Вашег познатог сарадника којег желите да корисите као овог",
     "after": "Odaberite postojećeg korisnika kojeg želite koristiti kao ovog člana",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "invalid-file",
+    "before": "Ако са именом нешто није у реду тада ће и слање и преименовање бити отказано.",
+    "after": "Ako naziv datoteke nije ispravan, učitavanje ili preimenovanje se otkazuje.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "invite-people-error",
+    "before": "Догодила се грешка приликом слања позива за сарадњу",
+    "after": "Greška prilikom slanja poziva za registraciju",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "invite-people-success",
+    "before": "Позив за сарадњу је успешно послат",
+    "after": "Poziv za registraciju je uspješno poslan",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "keyboard-shortcuts-disabled",
+    "before": "Пречице са тастатуре су искључене.",
+    "after": "Prečice na tastaturi su isključene. Kliknite da ih uključite.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "keyboard-shortcuts-enabled",
+    "before": "Пречице са тастатуре су укључене.",
+    "after": "Prečice na tastaturi su uključene. Kliknite da ih isključite.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "label-color-not-found",
+    "before": "%s налепница у боји није пронађена.",
+    "after": "Boja oznake %s nije pronađena.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "label-delete-pop",
+    "before": "Пажња. Опозив ове радње неће бити могућ! Изабрана налепница ће бити одлепљена/уклоњена из свих предмета и њена историја ће исчезнути.",
+    "after": "Poništavanje nije moguće. Ovo će ukloniti oznaku sa svih kartica i uništiti njenu historiju.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "label-not-found",
+    "before": "Натпис на налепници '%s' није пронађен.",
+    "after": "Oznaka '%s' nije pronađena.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "leave-board-pop",
+    "before": "Да ли сте сигурни да желите да раздужите предмете из списа __boardTitle__? Бићете одстрањени са свих тих предмета.",
+    "after": "Jeste li sigurni da želite napustiti __boardTitle__? Bit ćete uklonjeni sa svih kartica na ovoj ploči.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "list-delete-pop",
+    "before": "Читав записник са овог дела поступка биће уклоњен и нећете га моћи опоравити. Опозив ове радње неће бити могућ.",
+    "after": "Sve radnje će biti uklonjene iz zapisa aktivnosti i nećete moći oporaviti listu. Poništavanje nije moguće.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "list-filter-label",
+    "before": "Издвој део поступка по наслову",
+    "after": "Filtriraj listu po naslovu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "list-sort-by",
+    "before": "Поређај делове поступка по:",
+    "after": "Sortiraj listu po:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
