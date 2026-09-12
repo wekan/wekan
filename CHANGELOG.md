@@ -557,6 +557,15 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/f2db91a46">Repair Macedonian error, report and filter translations</a>. Thanks to xet7.</summary>
+
+Correct 20 reviewed values, restoring organization, team, file-report and
+filter meanings. Positive and negative exact-value, rendering, source-token,
+key-order and repair checks pass. Further findings remain under review.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/5a4931860">Repair Macedonian invitation email and permission translations</a>. Thanks to xet7.</summary>
 
 Correct 12 reviewed values, preserving account, board, URL and invitation-code
