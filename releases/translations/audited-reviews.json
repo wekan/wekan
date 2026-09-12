@@ -1,1 +1,116 @@
-[]
+[
+  {
+    "locale": "da",
+    "key": "MongoDB_version",
+    "value": "MongoDB-kompatibel version",
+    "reason": "Inspected Danish wording and meaning are correct. Shared Danish/Norwegian terminology or matching Swedish calendar terminology does not make this Danish string erroneous."
+  },
+  {
+    "locale": "da",
+    "key": "admin-only-field",
+    "value": "Kun synlig for tavleadministratorer",
+    "reason": "Inspected Danish wording and meaning are correct. Shared Danish/Norwegian terminology or matching Swedish calendar terminology does not make this Danish string erroneous."
+  },
+  {
+    "locale": "da",
+    "key": "azure-account-key-menu-path",
+    "value": "Azure Portal → Storage accounts → din konto → Security + networking → Access keys → key1 → Show → Key.",
+    "reason": "Danish din konto/din bucket localizes the instruction. English vendor menu names are literal navigation labels for the documented vendor interface, not untranslated WeKan prose."
+  },
+  {
+    "locale": "da",
+    "key": "azure-connection-string-menu-path",
+    "value": "Azure Portal → Storage accounts → din konto → Security + networking → Access keys → key1 → Connection string → Show.",
+    "reason": "Danish din konto/din bucket localizes the instruction. English vendor menu names are literal navigation labels for the documented vendor interface, not untranslated WeKan prose."
+  },
+  {
+    "locale": "da",
+    "key": "calendar-system",
+    "value": "Kalendersystem (datovisning)",
+    "reason": "Inspected Danish wording and meaning are correct. Shared Danish/Norwegian terminology or matching Swedish calendar terminology does not make this Danish string erroneous."
+  },
+  {
+    "locale": "da",
+    "key": "calendar-system-ethioaa",
+    "value": "etiopisk amete-alem-kalender",
+    "reason": "Inspected Danish wording and meaning are correct. Shared Danish/Norwegian terminology or matching Swedish calendar terminology does not make this Danish string erroneous."
+  },
+  {
+    "locale": "da",
+    "key": "card-comments-on-minicard",
+    "value": "Kommentarer på minikortet",
+    "reason": "Inspected Danish wording and meaning are correct. Shared Danish/Norwegian terminology or matching Swedish calendar terminology does not make this Danish string erroneous."
+  },
+  {
+    "locale": "da",
+    "key": "default-on-public-board",
+    "value": "Standard på offentlig tavle",
+    "reason": "Inspected Danish wording and meaning are correct. Shared Danish/Norwegian terminology or matching Swedish calendar terminology does not make this Danish string erroneous."
+  },
+  {
+    "locale": "da",
+    "key": "export-card-details",
+    "value": "Kortdetaljer (hvert kort som i korteksporten)",
+    "reason": "Inspected Danish wording and meaning are correct. Shared Danish/Norwegian terminology or matching Swedish calendar terminology does not make this Danish string erroneous."
+  },
+  {
+    "locale": "da",
+    "key": "filename-invisible-legend",
+    "value": "Rød: filnavnet har usynlige tegn",
+    "reason": "Inspected Danish wording and meaning are correct. Shared Danish/Norwegian terminology or matching Swedish calendar terminology does not make this Danish string erroneous."
+  },
+  {
+    "locale": "da",
+    "key": "fixed-list-width",
+    "value": "Samme bredde for alle lister",
+    "reason": "Inspected Danish wording and meaning are correct. Shared Danish/Norwegian terminology or matching Swedish calendar terminology does not make this Danish string erroneous."
+  },
+  {
+    "locale": "da",
+    "key": "r-export-json",
+    "value": "Eksporter regler til JSON",
+    "reason": "Inspected Danish wording and meaning are correct. Shared Danish/Norwegian terminology or matching Swedish calendar terminology does not make this Danish string erroneous."
+  },
+  {
+    "locale": "da",
+    "key": "r-remove-all",
+    "value": "Fjern alle medlemmer fra kortet",
+    "reason": "Inspected Danish wording and meaning are correct. Shared Danish/Norwegian terminology or matching Swedish calendar terminology does not make this Danish string erroneous."
+  },
+  {
+    "locale": "da",
+    "key": "r-remove-all-labels",
+    "value": "Fjern alle etiketter fra kortet",
+    "reason": "Inspected Danish wording and meaning are correct. Shared Danish/Norwegian terminology or matching Swedish calendar terminology does not make this Danish string erroneous."
+  },
+  {
+    "locale": "da",
+    "key": "s3-region-menu-path",
+    "value": "AWS Console → S3 → Buckets → din bucket → Properties → AWS Region.",
+    "reason": "Danish din konto/din bucket localizes the instruction. English vendor menu names are literal navigation labels for the documented vendor interface, not untranslated WeKan prose."
+  },
+  {
+    "locale": "da",
+    "key": "same-width-for-all-lists",
+    "value": "Samme bredde for alle lister (hele tavlen)",
+    "reason": "Inspected Danish wording and meaning are correct. Shared Danish/Norwegian terminology or matching Swedish calendar terminology does not make this Danish string erroneous."
+  },
+  {
+    "locale": "da",
+    "key": "sandstorm-raw-mongodb",
+    "value": "Rå MongoDB 3-databasefiler",
+    "reason": "Inspected Danish wording and meaning are correct. Shared Danish/Norwegian terminology or matching Swedish calendar terminology does not make this Danish string erroneous."
+  },
+  {
+    "locale": "da",
+    "key": "sandstorm-raw-mongodb-deleted",
+    "value": "Rå MongoDB-databasefiler slettet, frigjort",
+    "reason": "Inspected Danish wording and meaning are correct. Shared Danish/Norwegian terminology or matching Swedish calendar terminology does not make this Danish string erroneous."
+  },
+  {
+    "locale": "da",
+    "key": "DDP_transport",
+    "value": "DDP-transport (DDP_TRANSPORT)",
+    "reason": "Transport is also the Danish technical noun; DDP and DDP_TRANSPORT are protocol identifiers. The localized hyphenation is valid."
+  }
+]

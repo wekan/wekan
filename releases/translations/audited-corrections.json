@@ -10918,5 +10918,19 @@
     "before": "Bazinis katalogo kelias failams saugoti",
     "after": "Failu glabāšanas pamatmapes ceļš",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "da",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "Hijri-kalender (Saudi-Arabien, observation)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "da",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "Hijri-kalender (tabellarisk, astronomisk epoke)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
