@@ -15,6 +15,11 @@ const data = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/mk.i1
     'го промени времето на завршување во NEW_TIME од (OLD_TIME)');
   assert.equal(translator.t('activity-added-label', { sprintf: ['LABEL', 'CARD'] }),
     'додаде ознака «LABEL» на CARD');
+  assert.equal(translator.t('activity-dueDate', { sprintf: ['DATE', 'CARD'] }),
+    'го промени рокот во DATE на картата CARD');
+  assert.equal(translator.t('activity-checklist-uncompleted', { sprintf: ['CHECKLIST', 'CARD'] }),
+    'го поништи завршувањето на списокот за проверка CHECKLIST на CARD');
+  assert.match(data['act-newDue'], /првата потсетница/);
   assert.match(data['act-removeChecklist'], /го отстрани списокот за проверка/);
   assert.doesNotMatch(data['act-removeChecklist'], /елемент|ставка/);
   assert.match(data['act-atUserComment'], /ве спомена/);

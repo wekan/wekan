@@ -19717,5 +19717,145 @@
     "before": "допунио став у расправи у предмету __card__:__comment__ у делу __list__ поступка __swimlane__ у списима __board__",
     "after": "го уреди коментарот на картата __card__: __comment__ во списокот __list__ во лентата __swimlane__ на таблата __board__",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "act-importCard",
+    "before": "унео предмет __card__ у делу __list__ поступка __swimlane__ у списе __board__",
+    "after": "ја увезе картата __card__ во списокот __list__ во лентата __swimlane__ на таблата __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "act-importList",
+    "before": "унео део __list__ поступка __swimlane__ у списе __board__",
+    "after": "го увезе списокот __list__ во лентата __swimlane__ на таблата __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "act-joinMember",
+    "before": "примљен сарадник __member__ да ради на предмету __card__ у делу __list__ поступка __swimlane__ у списима __board__",
+    "after": "го додаде членот __member__ на картата __card__ во списокот __list__ во лентата __swimlane__ на таблата __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "act-moveCard",
+    "before": "преместио предмет __card__ из списа __board__ са старог дела __oldList__ поступка __oldSwimlane__ у нови део __list__ поступка __swimlane__",
+    "after": "ја премести картата __card__ на таблата __board__ од списокот __oldList__ во лентата __oldSwimlane__ во списокот __list__ во лентата __swimlane__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "act-moveCardToOtherBoard",
+    "before": "преместио предмет __card__ са старог дела __oldList__ поступка __oldSwimlane__ из старих списа __oldBoard__ у део __list__ поступка  __swimlane__ међу списе __board__",
+    "after": "ја премести картата __card__ од списокот __oldList__ во лентата __oldSwimlane__ на таблата __oldBoard__ во списокот __list__ во лентата __swimlane__ на таблата __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "act-newDue",
+    "before": "__list__/__card__ има један подсетник за крајњи рок [__board__]",
+    "after": "__list__/__card__ ја има првата потсетница за рокот [__board__]",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "act-pastdue",
+    "before": "подсећам да је последњи рок (__timeValue__) задатка __card__  пробијен",
+    "after": "потсети дека тековниот рок (__timeValue__) на картата __card__ е поминат",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "act-removeBoardMember",
+    "before": "изузео сарадника __member__ из списа __board__",
+    "after": "го отстрани членот __member__ од таблата __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "act-restoredCard",
+    "before": "опоравио предмет __card__ у делу поступка __list__ из поступка __swimlane__ из списа __board__",
+    "after": "ја врати картата __card__ во списокот __list__ во лентата __swimlane__ на таблата __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "act-unjoinMember",
+    "before": "изузео сарадника __member__ са предмета __card__ у делу поступка __list__ из поступка __swimlane__ из списа __board__",
+    "after": "го отстрани членот __member__ од картата __card__ во списокот __list__ во лентата __swimlane__ на таблата __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "act-withDue",
+    "before": "__list__/__card__ подсетници за крајњи рок [__board__]",
+    "after": "__list__/__card__ потсетници за рокот [__board__]",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "active-cron-jobs",
+    "before": "Већ унапред заказани послови:",
+    "after": "Активни закажани задачи",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "activity-changedListTitle",
+    "before": "је преименовао део поступка у %s",
+    "after": "го преименува списокот во %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "activity-checked-item",
+    "before": "отбеляза%s в списък със задачи %s на %s",
+    "after": "ја означи ставката %s во списокот за проверка %s на %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "activity-checklist-completed",
+    "before": "завършен списък със задачи %s на %s",
+    "after": "го заврши списокот за проверка %s на %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "activity-checklist-item-removed",
+    "before": "премахна точка от '%s' в %s",
+    "after": "отстрани ставка од списокот за проверка «%s» на %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "activity-checklist-removed",
+    "before": "премахна списък със задачи от %s",
+    "after": "отстрани список за проверка од %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "activity-checklist-uncompleted",
+    "before": "\"отзавърши\" чеклистта %s в %s",
+    "after": "го поништи завршувањето на списокот за проверка %s на %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "activity-customfield-created",
+    "before": "създаде собствено поле %s",
+    "after": "го создаде приспособеното поле %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "activity-dueDate",
+    "before": "је изменио крајњи рок на %s у предмету %s",
+    "after": "го промени рокот во %s на картата %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
