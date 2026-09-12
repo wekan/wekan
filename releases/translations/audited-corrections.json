@@ -30567,5 +30567,145 @@
     "before": "споменути сте у расправи у предмету __card__: __comment__ у делу __list__ поступка __swimlane__ у списима __board__",
     "after": "vas je omenil na kartici __card__: __comment__ na seznamu __list__ v stezi __swimlane__ na tabli __board__",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "act-completeChecklist",
+    "before": "završio/la je listu provjere __checklist__ na kartici __card__ na listi __list__ u traci __swimlane__ na ploči __board__",
+    "after": "je dokončal kontrolni seznam __checklist__ na kartici __card__ na seznamu __list__ v stezi __swimlane__ na tabli __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "activity-checklist-completed-card",
+    "before": "završio/la je listu provjere __checklist__ na kartici __card__ na listi __list__ u traci __swimlane__ na ploči __board__",
+    "after": "je dokončal kontrolni seznam __checklist__ na kartici __card__ na seznamu __list__ v stezi __swimlane__ na tabli __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "active-cron-jobs",
+    "before": "Већ унапред заказани послови:",
+    "after": "Aktivna načrtovana opravila",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "activity-changedListTitle",
+    "before": "је преименовао део поступка у %s",
+    "after": "je preimenoval seznam v %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "activity-dueDate",
+    "before": "је изменио крајњи рок на %s у предмету %s",
+    "after": "je spremenil rok na %s za kartico %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "activity-endDate",
+    "before": "је изменио датум и време %s кад је окончао предмет %s",
+    "after": "je spremenil datum konca na %s za kartico %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "activity-receivedDate",
+    "before": "је изменио датум и време пријема на %s у предмету %s",
+    "after": "je spremenil datum prejema na %s za kartico %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "activity-startDate",
+    "before": "је изменио датум и време %s кад почиње да ради на предмету %s",
+    "after": "je spremenil datum začetka na %s za kartico %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "add-background-image",
+    "before": "Искористи слику као мотив за подлогу",
+    "after": "Dodaj sliko ozadja",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "add-cron-job-placeholder",
+    "before": "Ова функционалност биће ускоро додата",
+    "after": "Možnost dodajanja načrtovanih opravil bo kmalu na voljo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "act-completeChecklist",
+    "before": "završio/la je listu provjere __checklist__ na kartici __card__ na listi __list__ u traci __swimlane__ na ploči __board__",
+    "after": "je dokončal kontrolni seznam __checklist__ na kartici __card__ na seznamu __list__ v stezi __swimlane__ na tabli __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "activity-checklist-completed-card",
+    "before": "završio/la je listu provjere __checklist__ na kartici __card__ na listi __list__ u traci __swimlane__ na ploči __board__",
+    "after": "je dokončal kontrolni seznam __checklist__ na kartici __card__ na seznamu __list__ v stezi __swimlane__ na tabli __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "active-cron-jobs",
+    "before": "Већ унапред заказани послови:",
+    "after": "Aktivna načrtovana opravila",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "activity-changedListTitle",
+    "before": "је преименовао део поступка у %s",
+    "after": "je preimenoval seznam v %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "activity-dueDate",
+    "before": "је изменио крајњи рок на %s у предмету %s",
+    "after": "je spremenil rok na %s za kartico %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "activity-endDate",
+    "before": "је изменио датум и време %s кад је окончао предмет %s",
+    "after": "je spremenil datum konca na %s za kartico %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "activity-receivedDate",
+    "before": "је изменио датум и време пријема на %s у предмету %s",
+    "after": "je spremenil datum prejema na %s za kartico %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "activity-startDate",
+    "before": "је изменио датум и време %s кад почиње да ради на предмету %s",
+    "after": "je spremenil datum začetka na %s za kartico %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "add-background-image",
+    "before": "Искористи слику као мотив за подлогу",
+    "after": "Dodaj sliko ozadja",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "add-cron-job-placeholder",
+    "before": "Ова функционалност биће ускоро додата",
+    "after": "Možnost dodajanja načrtovanih opravil bo kmalu na voljo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

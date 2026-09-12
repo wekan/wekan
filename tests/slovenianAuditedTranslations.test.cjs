@@ -34,8 +34,13 @@ console.log('slovenianAuditedTranslations: both locales, spinner and memory mean
     assert.match(data['accounts-lockout-period'], /\(sekunde\)/);
     assert.match(data['accounts-lockout-show-locked-users'], /samo zaklenjene uporabnike/);
     assert.match(data['accounts-lockout-user-unlocked'], /uspešno odklenjen/);
-    const translator = require('i18next').createInstance();
-    await translator.init({ lng: locale, fallbackLng: false, keySeparator: false, interpolation: { prefix: '__', suffix: '__', escapeValue: false }, resources: { [locale]: { translation: data } } });
+    const translator = require('i18next').createInstance().use(require('i18next-sprintf-postprocessor'));
+    await translator.init({ lng: locale, fallbackLng: false, keySeparator: false, interpolation: { prefix: '__', suffix: '__', escapeValue: false }, resources: { [locale]: { translation: data } }, postProcess: ['sprintf'] });
+    for (const [key, date] of [['activity-endDate', 'konca'], ['activity-receivedDate', 'prejema'], ['activity-startDate', 'začetka']]) assert.equal(translator.t(key, { sprintf: ['DATE', 'CARD'] }), `je spremenil datum ${date} na DATE za kartico CARD`);
+    assert.equal(translator.t('activity-dueDate', { sprintf: ['DATE', 'CARD'] }), 'je spremenil rok na DATE za kartico CARD');
+    assert.equal(data['act-completeChecklist'], data['activity-checklist-completed-card']);
+    assert.match(data['act-completeChecklist'], /dokončal kontrolni seznam/);
+    assert.doesNotMatch(data['act-completeChecklist'], /završio|provjere/);
     assert.equal(translator.t('act-atUserComment', { card: 'CARD', comment: 'COMMENT', list: 'LIST', swimlane: 'LANE', board: 'BOARD' }), 'vas je omenil na kartici CARD: COMMENT na seznamu LIST v stezi LANE na tabli BOARD');
   }
   console.log('slovenianAuditedTranslations: credential distinctions, seconds and real mention rendering passed');
