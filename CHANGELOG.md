@@ -558,6 +558,13 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/564bd800b">Repair Croatian organization and account deletion messages</a>. Thanks to xet7.</summary>
+
+Correct 12 reviewed values. Positive and negative regressions verify irreversible deletion, existing-member restrictions and subtask destinations. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/3b4f99d24">Repair Croatian custom URLs and deletion prompts</a>. Thanks to xet7.</summary>
 
 Correct 16 reviewed values. Positive and negative regressions verify URL scope, default logo height, irreversible deletion, duplicate-empty-list conditions and linked-card deletion order. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
