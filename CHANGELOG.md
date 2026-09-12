@@ -557,17 +557,33 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/5290ee727">Add explicit force upload of every local translation to Transifex</a>. Thanks to xet7.</summary>
+
+The maintainer-run script uploads English source strings and every local target,
+adds missing project languages individually, waits for asynchronous completion,
+and reports all failed languages with reasons and a saved JSON report. The
+existing language reconciliation uses the documented additive relationship API.
+An offline dry run checks 245 targets and the source without network requests.
+Mocked API regression tests cover mappings, registration, polling, unsupported
+languages, failure continuation and summaries, intentional empty source strings,
+placeholder errors and the API credential origin boundary. Tests pass; no live
+Transifex uploads were executed.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/7a23353ac">Correct audited local translation problems</a>. Thanks to xet7.</summary>
 
 Correct malformed card-copy JSON examples and kanban board terminology,
 repair mixed-script fragments and calendar names, and replace Persian-seeded
 Arabic strings in <a href="https://github.com/wekan/wekan/commit/a2639d319">a2639d319</a>.
+Additional Mongolian corrections in <a href="https://github.com/wekan/wekan/commit/6988a01bd">6988a01bd</a> and <a href="https://github.com/wekan/wekan/commit/a194b9741">a194b9741</a> replace Russian-seeded prose.
 The dated translation audit records these batches and the remaining review.
 Unicode calendar terminology is included with its license; there is no new
 runtime dependency or external translation service. Dzongkha, Quechua and
 Tonga examples and regional Arabic phrasing need native-speaker review.
 
-Regression checks verify 1,018 reviewed values, exact source placeholders,
+Regression checks verify 1,158 reviewed values, exact source placeholders,
 JSON examples, key order and idempotency. Applying the reviewed repair list
 preserves newer translations. Human-preference and calendar-display checks
 pass. The browser regression is registered and syntax-checked; the live

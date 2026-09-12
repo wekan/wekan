@@ -2,7 +2,11 @@
 
 **Audit date: 2026-09-12. Correction date: 2026-09-12.**
 
-**Latest correction:** [a2639d319](https://github.com/wekan/wekan/commit/a2639d3195b7192fc5a30748309b1b3b6ab051cb) replaces **519 Persian-seeded values** in `ar.i18n.json`, `ar-DZ.i18n.json`, `ar-EG.i18n.json` and `ary.i18n.json` with Arabic wording. The three remaining Moroccan entries use Darija wording. Regional dialect phrasing in the shared formal Arabic corrections remains open to review. The correction list now covers **1,018 values**, with passing regression checks. All listed commits are local and have not been pushed.
+**Mongolian corrections, 2026-09-12:** [6988a01bd](https://github.com/wekan/wekan/commit/6988a01bd641fc6ff8480c29df7106b58a9a571d) and [a194b9741](https://github.com/wekan/wekan/commit/a194b9741b2f6878330083f4afd66e7f117a6d3c) replace **140 audited Russian-language values** with Mongolian wording. These cover rules, dates, search operators, upload settings and administration. Source placeholders, query examples and troubleshooting commands are retained. The reviewed correction list now covers **1,158 values** with passing regression checks. These are local commits; the full audit remains unfinished.
+
+An explicit [force-upload script](Push-All.md) is available as `releases/translations/push-all-translations.sh`, committed in [5290ee727](https://github.com/wekan/wekan/commit/5290ee727). Its dry run and mocked API tests pass. It has not been run against Transifex.
+
+**Arabic correction batch:** [a2639d319](https://github.com/wekan/wekan/commit/a2639d3195b7192fc5a30748309b1b3b6ab051cb) replaces **519 Persian-seeded values** in `ar.i18n.json`, `ar-DZ.i18n.json`, `ar-EG.i18n.json` and `ary.i18n.json` with Arabic wording. The three remaining Moroccan entries use Darija wording. Regional dialect phrasing in the shared formal Arabic corrections remains open to review. The correction list now covers **1,018 values**, with passing regression checks. All listed commits are local and have not been pushed.
 
 Translations were corrected in commit [7a23353ac](https://github.com/wekan/wekan/commit/7a23353acfa8f07c5f836f661a4d0b5f8999593e). This is a local commit; it has not been pushed.
 
