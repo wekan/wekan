@@ -1042,5 +1042,11 @@
     "key": "gcs-storage-description",
     "value": "Google Cloud Storage।",
     "reason": "Retain the official cloud-storage product name with valid Punjabi danda punctuation; the source contains only a proper name."
+  },
+  {
+    "locale": "lb",
+    "key": "email-smtp-test-subject",
+    "value": "SMTP Test-E-Mail",
+    "reason": "Retain the technical acronym SMTP and the valid Luxembourgish compound Test-E-Mail; shared technical vocabulary is not wrong-language prose."
   }
 ]

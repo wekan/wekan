@@ -47507,5 +47507,47 @@
     "before": "Islamic (Saudi Arabia)",
     "after": "hijriy taqvim (Saudiya Arabistoni, oyni ko'rish)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lb",
+    "key": "soft-wip-limit",
+    "before": "Soft WIP-Limit",
+    "after": "Mëllt WIP-Limit",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lb",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "Islamesche Kalenner",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lb",
+    "key": "calendar-system-islamic-civil",
+    "before": "Islamic civil",
+    "after": "Islamesche Kalenner (tabellaresch, zivil Epoch)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lb",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "Islamesche Kalenner (Saudi-Arabien, Observatioun vum Mound)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lb",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "Islamesche Kalenner (tabellaresch, astronomesch Epoch)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lb",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "Islamesche Kalenner (Umm al-Qura)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
