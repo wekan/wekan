@@ -47444,5 +47444,12 @@
     "before": "Islamic tabular",
     "after": "အစ္စလာမ် ပြက္ခဒိန် (ဇယားအခြေပြု၊ နက္ခတ္တဗေဒဆိုင်ရာ အချိန်ရေတွက်မှု အစပြုချိန်)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sd",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "هجري ڪئلينڊر (سعودي عرب، چنڊ ڏسڻ)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
