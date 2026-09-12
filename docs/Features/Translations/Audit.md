@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Audit keys |
 | --- | ---: |
-| Explicitly corrected | 6,705 |
+| Explicitly corrected | 6,706 |
 | Restored pre-pull values awaiting further validation | 4,059 |
 | Reviewed and retained unchanged | 174 |
-| Pending review or repair | 9,143 |
+| Pending review or repair | 9,142 |
 | Total tracked | 20,081 |
 
 **Translation repairs remain unfinished.** These counts cover flagged findings; unflagged strings and restored values are not certified as correct.
 
-Fixes cover wrong-language text, terminology, warnings, JSON examples, placeholders and calendar/search formatting. The correction history records **6,778 values**, including fixes outside the audit. Per-language remaining work is available through the command below.
+Fixes cover wrong-language text, terminology, warnings, JSON examples, placeholders and calendar/search formatting. The correction history records **6,779 values**, including fixes outside the audit. Per-language remaining work is available through the command below.
 
-Latest fix: [c558a8f48](https://github.com/wekan/wekan/commit/c558a8f48503d5ee66bcb805769e61017bd057b9), **2026-09-13** — two Burmese Hijri labels translated, preserving sighting and astronomical-epoch distinctions; its flagged queue is complete. Exact-value, placeholder, key-order and idempotency checks pass. Epoch wording is low confidence and needs native-speaker review; live browser verification remains unavailable.
+Latest fix: [1da2bfcfc](https://github.com/wekan/wekan/commit/1da2bfcfc4d607b9abcca9f9c83b09a3fd0f43d9), **2026-09-13** — Sindhi Saudi Hijri label translated with moon-sighting meaning preserved; its flagged queue is complete. Exact-value, placeholder, key-order and idempotency checks pass. Wording needs native-speaker review; live browser verification remains unavailable.
 
 **Provenance:** not all errors came from Transifex. The captured pull changed 4,061 values; the local audit added 16,020 findings. Bosnian errors predated that pull in a [local completion commit](https://github.com/wekan/wekan/commit/bdb3b15886a749b725b5290ba0109fcba955f983). Other ultimate origins remain unverified.
 
