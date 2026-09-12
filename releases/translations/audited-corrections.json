@@ -44161,5 +44161,40 @@
     "before": "Usuario '%s' no encontrado.",
     "after": "No s’ha trobau o nombre d’usuario '%s'.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "wip-limit-group-select-swimlane",
+    "before": "Seleccionar tablero Carril",
+    "after": "Triar un carril",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "Bounce",
+    "before": "Indicador de espera Bounce",
+    "after": "Indicador d’aspera Bounce",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "Cube-Grid",
+    "before": "Indicador de espera Cube-Grid",
+    "after": "Indicador d’aspera Cube-Grid",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "Database_commit",
+    "before": "Commit de la base de datos",
+    "after": "Commit d’a base de datos",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "Double-Bounce",
+    "before": "Indicador de espera Double Bounce",
+    "after": "Indicador d’aspera Double Bounce",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

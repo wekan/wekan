@@ -598,5 +598,11 @@
     "key": "newTranslationPopup-title",
     "value": "Nueva cadena de traducción personalizada",
     "reason": "Nueva cadena de traducción personalizada is shared valid Asturian wording and correctly labels creation of a custom translation string; no change required."
+  },
+  {
+    "locale": "an",
+    "key": "DDP_transport",
+    "value": "Transporte DDP (DDP_TRANSPORT)",
+    "reason": "Transporte is valid shared Aragonese technical vocabulary; DDP and the literal configuration variable DDP_TRANSPORT must remain unchanged."
   }
 ]

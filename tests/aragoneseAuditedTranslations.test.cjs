@@ -54,3 +54,8 @@ assert.match(data['unsaved-description'], /descripción sin alzar/);
 assert.doesNotMatch(data['unsaved-description'], /adhibir/);
 assert.match(data['unset-selected-home'], /Deixar d’usar como tablero d’inicio/);
 assert.match(data['user-username-not-found'], /nombre d’usuario '%s'/);
+assert.equal(data['wip-limit-group-select-swimlane'], 'Triar un carril');
+assert.doesNotMatch(data['wip-limit-group-select-swimlane'], /tablero/);
+for (const [key, name] of [['Bounce','Bounce'],['Cube-Grid','Cube-Grid'],['Double-Bounce','Double Bounce']]) assert.equal(data[key], `Indicador d’aspera ${name}`);
+assert.equal(data.DDP_transport, 'Transporte DDP (DDP_TRANSPORT)');
+assert.equal(data.Database_commit, 'Commit d’a base de datos');
