@@ -36545,5 +36545,75 @@
     "before": "Cartão com comentários com o texto '%s' não encontrado.",
     "after": "Non se atopou ningunha tarxeta cun comentario que conteña o texto '%s'.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "comment-only-desc",
+    "before": "Pode comentar apenas em cartões.",
+    "after": "Só pode comentar nas tarxetas.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "comprehensive-board-migration",
+    "before": "Migração de Quadros abrangente",
+    "after": "Migración completa do taboleiro",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "comprehensive-board-migration-description",
+    "before": "Realiza verificações e correções abrangentes para a integridade dos dados do quadro, incluindo a ordem da lista, as posições dos cartões e a estrutura das raias.",
+    "after": "Realiza comprobacións e correccións completas da integridade dos datos do taboleiro, incluíndo a orde das listas, as posicións das tarxetas e a estrutura dos carrís.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "confirm-checklist-delete-popup",
+    "before": "Tem certeza de que deseja excluir a lista de verificação?",
+    "after": "Seguro que queres eliminar a lista de verificación?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "confirm-checklist-item-delete-popup",
+    "before": "Tem certeza de que deseja excluir o item da lista de verificação?",
+    "after": "Seguro que queres eliminar o elemento da lista de verificación?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "conversion-info-text",
+    "before": "Esta conversão é realizada uma vez por quadro e melhora o desempenho. Você pode continuar usando o quadro normalmente.",
+    "after": "Esta conversión realízase unha vez por taboleiro e mellora o rendemento. Pode seguir usando o taboleiro con normalidade.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "converting-board-description",
+    "before": "Convertendo estrutura do quadro para melhorar a funcionalidade. Isto pode levar alguns instantes.",
+    "after": "Convertendo a estrutura do taboleiro para mellorar a funcionalidade. Pode tardar uns instantes.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "copy-card-link-to-clipboard",
+    "before": "Copiar a ligação do cartão para a área de transferência",
+    "after": "Copiar a ligazón da tarxeta ao portapapeis",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "copyChecklist",
+    "before": "Copiar Lista de verificação",
+    "after": "Copiar lista de verificación",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "copyChecklistFromTemplate",
+    "before": "Copiar Lista de verificação - Modelo",
+    "after": "Copiar lista de verificación desde un modelo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
