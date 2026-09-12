@@ -171,3 +171,10 @@ assert.match(data['add-custom-html-before-body-end'], /enantes del final de <\/b
 assert.match(data['admin-announcement-active'], /Avisu activu pa tol sistema/);
 assert.match(data['app-is-offline'], /pérdida de datos.*servidor nun se paró/);
 assert.match(data['attachment-delete-pop'], /permanente.*Nun se puede desfacer/);
+
+assert.match(data['attachment-move-storage-fs'], /Mover.*axuntu al sistema de ficheros/);
+assert.match(data['attachment-move-storage-gridfs'], /Mover.*axuntu a GridFS/);
+assert.match(data['auto-list-width'], /Anchor automáticu de la llista/);
+assert.match(data['avatar-too-big'], /demasiáu grande.*__size__ como máximu/);
+assert.match(data['badge-attachment-on-minicard'], /Númberu.*axuntos na minitarxeta/);
+assert.doesNotMatch(data['badge-attachment-on-minicard'], /minitarjeta|adjuntos/);

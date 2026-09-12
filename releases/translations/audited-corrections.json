@@ -42299,5 +42299,40 @@
     "before": "La eliminación de un fichero adjunto es permanente. Esta acción no puede deshacerse.",
     "after": "Eliminar un axuntu ye permanente. Nun se puede desfacer.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "attachment-move-storage-fs",
+    "before": "Mover el archivo adjunto al sistema de archivos",
+    "after": "Mover l’axuntu al sistema de ficheros",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "attachment-move-storage-gridfs",
+    "before": "Mover el adjunto a GridFS",
+    "after": "Mover l’axuntu a GridFS",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "auto-list-width",
+    "before": "Ancho de lista automático",
+    "after": "Anchor automáticu de la llista",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "avatar-too-big",
+    "before": "El avatar es demasiado grande (__size__ máx)",
+    "after": "L’avatar ye demasiáu grande (__size__ como máximu)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "badge-attachment-on-minicard",
+    "before": "Contador de adjuntos en la minitarjeta",
+    "after": "Númberu d’axuntos na minitarxeta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
