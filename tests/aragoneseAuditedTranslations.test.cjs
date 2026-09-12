@@ -233,3 +233,10 @@ assert.match(data['gcs-credentials'], /Credencials d’a cuenta de servicio \(JS
 assert.match(data['gcs-project-id-description'], /ID d’o tuyo proyecto de Google Cloud/);
 assert.match(data['gcs-project-id-menu-path'], /en a parte superior → o ID d’o tuyo proyecto/);
 assert.ok(data['gcs-project-id-menu-path'].includes('Cloud overview → Dashboard → Project info → Project ID'));
+assert.equal(data['gcs-storage-description'], 'Google Cloud Storage.');
+assert.equal(data['globalSearch-instructions-heading'], 'Instruccions de busca');
+assert.match(data['globalSearch-instructions-notes-1'], /multiples operadors/);
+assert.equal(data['hide-checked-items'], 'Amagar elementos marcaus');
+assert.equal(data['hide-finished-checklist'], 'Amagar a lista de comprobación rematada');
+assert.equal(data['hide-list-on-minicard'], 'Amagar a lista en a minitarcheta');
+assert.notEqual(data['hide-checked-items'], data['hide-finished-checklist']);

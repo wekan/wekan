@@ -45127,5 +45127,47 @@
     "before": "Google Cloud Console → selector de proyecto en la parte superior → el ID de tu proyecto (Cloud overview → Dashboard → Project info → Project ID).",
     "after": "Google Cloud Console → selector de proyecto en a parte superior → o ID d’o tuyo proyecto (Cloud overview → Dashboard → Project info → Project ID).",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "gcs-storage-description",
+    "before": "Almacenamiento en Google Cloud.",
+    "after": "Google Cloud Storage.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "globalSearch-instructions-heading",
+    "before": "Instrucciones de búsqueda",
+    "after": "Instruccions de busca",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "globalSearch-instructions-notes-1",
+    "before": "Se pueden especificar múltiples operadores.",
+    "after": "Se pueden especificar multiples operadors.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "hide-checked-items",
+    "before": "Ocultar elementos marcados",
+    "after": "Amagar elementos marcaus",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "hide-finished-checklist",
+    "before": "Esconder la lista de tareas finalizada",
+    "after": "Amagar a lista de comprobación rematada",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "hide-list-on-minicard",
+    "before": "Ocultar lista en la minitarjeta",
+    "after": "Amagar a lista en a minitarcheta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
