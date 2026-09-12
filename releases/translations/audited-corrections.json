@@ -46632,5 +46632,19 @@
     "before": "Islamic tabular",
     "after": "Calendr Hijri (tabl, epoc seryddol)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "cy",
+    "key": "advanced-filter-description",
+    "before": "Advanced Filter allows to write a string containing following operators: == != <= >= && || ( ) A space is used as a separator between the Operators. You can filter for all Custom Fields by typing their names and values. For Example: Field1 == Value1. Note: If fields or values contains spaces, you need to encapsulate them into single quotes. For Example: 'Field 1' == 'Value 1'. For single control characters (' \\\\/) to be skipped, you can use \\\\. For example: Field1 == I\\\\'m. Also you can combine multiple conditions. For Example: F1 == V1 || F1 == V2. Normally all operators are interpreted from left to right. You can change the order by placing brackets. For Example: F1 == V1 && ( F2 == V2 || F2 == V3 ). Also you can search text fields using regex: F1 == /Tes.*/i",
+    "after": "Mae’r hidlydd uwch yn caniatáu ysgrifennu mynegiad sy’n cynnwys y gweithredyddion canlynol: == != <= >= && || ( ) Defnyddir bwlch i wahanu’r gweithredyddion. Gallwch hidlo pob maes personol drwy deipio ei enw a’i werth. Er enghraifft: Field1 == Value1. Nodyn: Os oes bylchau yn enwau’r meysydd neu’r gwerthoedd, rhaid eu hamgáu mewn dyfynodau sengl. Er enghraifft: 'Field 1' == 'Value 1'. I ddianc rhag nodau arbennig (' \\\\/), gallwch ddefnyddio \\\\. Er enghraifft: Field1 == I\\'m. Gallwch hefyd gyfuno sawl amod. Er enghraifft: F1 == V1 || F1 == V2. Fel arfer, dehonglir pob gweithredydd o’r chwith i’r dde. Gallwch newid y drefn drwy ddefnyddio cromfachau. Er enghraifft: F1 == V1 && ( F2 == V2 || F2 == V3 ). Gallwch hefyd chwilio meysydd testun gan ddefnyddio mynegiadau rheolaidd: F1 == /Tes.*/i",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "cy-GB",
+    "key": "advanced-filter-description",
+    "before": "Advanced Filter allows to write a string containing following operators: == != <= >= && || ( ) A space is used as a separator between the Operators. You can filter for all Custom Fields by typing their names and values. For Example: Field1 == Value1. Note: If fields or values contains spaces, you need to encapsulate them into single quotes. For Example: 'Field 1' == 'Value 1'. For single control characters (' \\\\/) to be skipped, you can use \\\\. For example: Field1 == I\\\\'m. Also you can combine multiple conditions. For Example: F1 == V1 || F1 == V2. Normally all operators are interpreted from left to right. You can change the order by placing brackets. For Example: F1 == V1 && ( F2 == V2 || F2 == V3 ). Also you can search text fields using regex: F1 == /Tes.*/i",
+    "after": "Mae’r hidlydd uwch yn caniatáu ysgrifennu mynegiad sy’n cynnwys y gweithredyddion canlynol: == != <= >= && || ( ) Defnyddir bwlch i wahanu’r gweithredyddion. Gallwch hidlo pob maes personol drwy deipio ei enw a’i werth. Er enghraifft: Field1 == Value1. Nodyn: Os oes bylchau yn enwau’r meysydd neu’r gwerthoedd, rhaid eu hamgáu mewn dyfynodau sengl. Er enghraifft: 'Field 1' == 'Value 1'. I ddianc rhag nodau arbennig (' \\\\/), gallwch ddefnyddio \\\\. Er enghraifft: Field1 == I\\'m. Gallwch hefyd gyfuno sawl amod. Er enghraifft: F1 == V1 || F1 == V2. Fel arfer, dehonglir pob gweithredydd o’r chwith i’r dde. Gallwch newid y drefn drwy ddefnyddio cromfachau. Er enghraifft: F1 == V1 && ( F2 == V2 || F2 == V3 ). Gallwch hefyd chwilio meysydd testun gan ddefnyddio mynegiadau rheolaidd: F1 == /Tes.*/i",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
