@@ -558,6 +558,13 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/26bcc241d1acd37908c2ee5a3701248741852f21">Repair Slovenian migration messages and string template placeholder</a>. Thanks to xet7.</summary>
+
+Correct 50 values across both Slovenian locales. Restore the literal `%{value}` custom-field placeholder, creation-time sorting and board conversion, scheduled-job and migration meanings. Regression checks cover meaning distinctions, exact corrections, source tokens, key order and idempotent repairs. The short audit records 4,505 corrected findings and 11,437 pending findings.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/02ffe74d29d554ec0ff559642019099318d65c54">Fix Slovenian board and checklist translations</a>. Thanks to xet7.</summary>
 
 Correct 66 values across both Slovenian locales and retain four correct Azure navigation values. Restore board scheduling statuses, assigned-card and comment-only restrictions, checklist/item distinctions and mini-card sorting. Regression checks verify meaning, exact corrections, retained reviews, source tokens, key order and idempotent repairs. The short audit records 4,455 corrected findings and 11,487 pending findings.
