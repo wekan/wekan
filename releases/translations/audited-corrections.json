@@ -18394,5 +18394,250 @@
     "before": "Importovat uživatelská jména",
     "after": "Importovať používateľské mená",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "invalid-file",
+    "before": "Pokud je název souboru neplatný, nahrávání nebo přejmenovávání se zruší.",
+    "after": "Ak je názov súboru neplatný, nahrávanie alebo premenovanie sa zruší.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "just-invited",
+    "before": "Právě jsi byl pozván(a) do tohoto tabla",
+    "after": "Práve ste boli pozvaní na túto nástenku",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "label-color-not-found",
+    "before": "Barva štítku %s nenalezena.",
+    "after": "Farba štítka %s sa nenašla.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "label-delete-pop",
+    "before": "Nelze vrátit zpět. Toto odebere tento štítek ze všech karet a zničí jeho historii.",
+    "after": "Nedá sa to vrátiť späť. Tento štítok sa odstráni zo všetkých kariet a jeho história sa zničí.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "last-admin-desc",
+    "before": "Nelze změnit role, protože musí existovat alespoň jeden administrátor.",
+    "after": "Role nemožno zmeniť, pretože musí existovať aspoň jeden správca.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "leave-board-pop",
+    "before": "Opravdu chcete opustit tablo __boardTitle__? Odstraníte se tím i ze všech karet v tomto tablu.",
+    "after": "Naozaj chcete opustiť nástenku __boardTitle__? Odstránite sa aj zo všetkých kariet na tejto nástenke.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "link-to-search",
+    "before": "Odkaz na toto vyhledávání",
+    "after": "Odkaz na toto vyhľadávanie",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "list-archive-cards",
+    "before": "Přesunout všechny karty v tomto seznamu do archivu.",
+    "after": "Archivovať všetky karty v tomto zozname",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "list-archive-cards-pop",
+    "before": "Toto odstraní z tabla všechny karty z tohoto seznamu. Pro zobrazení karet v Archivu a jejich opětovné obnovení, klikni v \"Menu\" > \"Archiv\".",
+    "after": "Týmto sa z nástenky odstránia všetky karty v tomto zozname. Ak chcete zobraziť karty v archíve a obnoviť ich na nástenku, kliknite na «Menu» > «Archív».",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "list-delete-pop",
+    "before": "Všechny akce budou odstraněny z kanálu aktivity a nebude možné sloupec obnovit. Toto nelze vrátit zpět.",
+    "after": "Všetky akcie sa odstránia z prehľadu aktivity a zoznam nebude možné obnoviť. Nedá sa to vrátiť späť.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "list-delete-suggest-archive",
+    "before": "Seznam můžete přesunout do archivu, abyste jej odstranili z tabla a zachovali si svou aktivitu.",
+    "after": "Zoznam môžete presunúť do archívu, aby ste ho odstránili z nástenky a zachovali jeho aktivitu.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "list-filter-label",
+    "before": "Filtrovat seznam podle názvu",
+    "after": "Filtrovať zoznam podľa názvu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "list-move-cards",
+    "before": "Přesunout všechny karty v tomto sloupci",
+    "after": "Presunúť všetky karty v tomto zozname",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "list-select-cards",
+    "before": "Vybrat všechny karty v tomto sloupci",
+    "after": "Vybrať všetky karty v tomto zozname",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "mark-all-as-read",
+    "before": "Označit vše jako přečtené",
+    "after": "Označiť všetko ako prečítané",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "max-avatar-filesize",
+    "before": "Maximální velikost avatara v bajtech:",
+    "after": "Maximálna veľkosť súboru avatara v bajtoch:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "max-upload-filesize",
+    "before": "Maximální velikost nahraného souboru v bajtech:",
+    "after": "Maximálna veľkosť nahrávaného súboru v bajtoch:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "muted-info",
+    "before": "Nikdy nedostanete oznámení o změně v tomto tablu.",
+    "after": "Nikdy nedostanete oznámenia o zmenách na tejto nástenke",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "no-archived-boards",
+    "before": "V archivu nejsou žádná tabla.",
+    "after": "V archíve nie sú žiadne nástenky.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "no-archived-cards",
+    "before": "V archivu nejsou žádné karty.",
+    "after": "V archíve nie sú žiadne karty.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "no-archived-lists",
+    "before": "V archivu nejsou žádné seznamy.",
+    "after": "V archíve nie sú žiadne zoznamy.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "no-archived-swimlanes",
+    "before": "V archivu nejsou žádné swimlanes.",
+    "after": "V archíve nie sú žiadne dráhy.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "no-cards-found",
+    "before": "Žádné karty nebyly nalezeny",
+    "after": "Nenašli sa žiadne karty",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "normal-desc",
+    "before": "Může zobrazovat a upravovat karty. Nemůže měnit nastavení.",
+    "after": "Môže zobrazovať a upravovať karty. Nemôže meniť nastavenia.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "not-accepted-yet",
+    "before": "Pozvánka ještě nebyla přijmuta",
+    "after": "Pozvánka ešte nebola prijatá",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "notify-participate",
+    "before": "Dostanete aktualizace o všech kartách, kterých se účastníte jako tvůrce nebo člen",
+    "after": "Dostávať aktualizácie o kartách, na ktorých sa podieľate ako tvorca alebo člen",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "notify-watch",
+    "before": "Dostane aktualizace o všech tabel, sloupců nebo karet, které sledujete",
+    "after": "Dostávať aktualizácie o nástenkách, zoznamoch alebo kartách, ktoré sledujete",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "operator-has-invalid",
+    "before": "'%s' není platná kontrola existence",
+    "after": "%s nie je platná kontrola existencie",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "operator-number-expected",
+    "before": "operátor __operator__ očekával číslo, ale dostal '__value__'",
+    "after": "operátor __operator__ očakával číslo, ale dostal «__value__»",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "page-maybe-private",
+    "before": "Tato stránka může být soukromá. Můžete ji zobrazit po <a href='%s'>přihlášení</a>.",
+    "after": "Táto stránka môže byť súkromná. Možno ju budete môcť zobraziť po <a href='%s'>prihlásení</a>.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "pastdue",
+    "before": "Stávající termín dokončení %s je v minulosti",
+    "after": "Aktuálny termín dokončenia %s už uplynul",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "paste-or-dragdrop",
+    "before": "vložit, nebo přetáhnout a pustit soubor obrázku (pouze obrázek)",
+    "after": "vložiť alebo presunúť súbor obrázka myšou (iba obrázky)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "poker-delete-pop",
+    "before": "Smazání je trvalé. Přijdete o všechny akce asociované s tímto plánovacím pokerem.",
+    "after": "Vymazanie je trvalé. Stratíte všetky akcie spojené s týmto plánovacím pokerom.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "preview-pdf-not-supported",
+    "before": "Vaše zařízení nepodporuje zobrazení PDF. Zkuste soubor stáhnout.",
+    "after": "Vaše zariadenie nepodporuje náhľad PDF. Skúste súbor stiahnuť.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "private-desc",
+    "before": "Toto tablo je soukromé. Pouze vybraní uživatelé ho mohou zobrazit a upravovat.",
+    "after": "Táto nástenka je súkromná. Iba ľudia pridaní na nástenku ju môžu zobrazovať a upravovať.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
