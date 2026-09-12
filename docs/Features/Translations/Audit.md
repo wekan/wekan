@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Audit keys |
 | --- | ---: |
-| Explicitly corrected | 6,878 |
+| Explicitly corrected | 6,882 |
 | Restored pre-pull values awaiting further validation | 4,059 |
 | Reviewed and retained unchanged | 175 |
-| Pending review or repair | 8,969 |
+| Pending review or repair | 8,965 |
 | Total tracked | 20,081 |
 
 **Translation repairs remain unfinished.** These counts cover flagged findings; unflagged strings and restored values are not certified as correct.
 
-Fixes cover wrong-language text, terminology, warnings, JSON examples, placeholders and calendar/search formatting. The correction history records **6,951 values**, including fixes outside the audit. Per-language remaining work is available through the command below.
+Fixes cover wrong-language text, terminology, warnings, JSON examples, placeholders and calendar/search formatting. The correction history records **6,955 values**, including fixes outside the audit. Per-language remaining work is available through the command below.
 
-Latest fix: [2feabc267](https://github.com/wekan/wekan/commit/2feabc26786241f53d3d2bf36a582a67ef978ca0), **2026-09-13** — five Romansh custom HTML/help/item-entry values repaired; **226 Romansh findings remain**. Exact-value, placeholder, key-order and idempotency checks pass. Technical wording needs native-speaker review; live browser verification remains unavailable.
+Latest fix: [e6d5afa6a](https://github.com/wekan/wekan/commit/e6d5afa6a727b5299de615e1668d3dc1786b3960), **2026-09-13** — four Romansh database/manifest values repaired; **222 Romansh findings remain**. Exact-value, placeholder, key-order and idempotency checks pass. Technical wording needs native-speaker review; live browser verification remains unavailable.
 
 **Provenance:** not all errors came from Transifex. The captured pull changed 4,061 values; the local audit added 16,020 findings. Bosnian errors predated that pull in a [local completion commit](https://github.com/wekan/wekan/commit/bdb3b15886a749b725b5290ba0109fcba955f983). Other ultimate origins remain unverified.
 
