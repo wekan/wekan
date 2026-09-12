@@ -557,6 +557,16 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/719ffbd7a">Repair Macedonian dates and administration labels</a>. Thanks to xet7.</summary>
+
+Correct 25 reviewed values, replacing payroll descriptions with active/inactive
+account meaning. Positive and negative checks verify actual rendering of all
+four date activity types, source tokens, exact values, key order and repair
+behavior. These checks pass. Further findings remain under review.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/08d622a8b">Repair Macedonian imports and checklist activity translations</a>. Thanks to xet7.</summary>
 
 Correct 20 reviewed values. Positive and negative checks verify first-reminder
