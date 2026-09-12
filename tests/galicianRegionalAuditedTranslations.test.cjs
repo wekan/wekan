@@ -154,3 +154,9 @@ assert.match(data['has-spenttime-cards'], /tempo empregado/);
 assert.match(data.hideAllChecklistItems, /todos os elementos/);
 assert.match(data['hide-finished-checklist'], /rematadas/);
 assert.match(data['hide-minicard-label-text'], /texto das etiquetas na minitarxeta/);
+
+assert.match(data.hideCheckedChecklistItems, /elementos marcados/);
+assert.notEqual(data.hideCheckedChecklistItems, data.hideAllChecklistItems);
+assert.match(data['import-board-instruction-about-errors'], /ás veces.*funciona igualmente.*Todos os taboleiros/);
+assert.match(data['import-board-zip'], /\.zip.*JSON.*subcartafoles.*anexos/);
+assert.match(data['import-members-map'], /Asocia os membros.*cos teus usuarios/);

@@ -37189,5 +37189,47 @@
     "before": "Esconder todos os itens da lista de verificação",
     "after": "Agochar todos os elementos da lista de verificación",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "hideCheckedChecklistItems",
+    "before": "Esconder itens concluídos da lista de verificação",
+    "after": "Agochar os elementos marcados da lista de verificación",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "import-board-instruction-about-errors",
+    "before": "Se receber erros ao importar o quadro, às vezes a importação ainda funciona e o quadro está na página Todos os Quadros.",
+    "after": "Se recibes erros ao importar o taboleiro, ás veces a importación funciona igualmente e o taboleiro está na páxina Todos os taboleiros.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "import-board-instruction-trello",
+    "before": "No seu quadro do Trello, vá em 'Menu', depois em 'Mais', 'Imprimir e Exportar', 'Exportar JSON', e copie o texto resultante.",
+    "after": "No teu taboleiro de Trello, vai a 'Menú', despois a 'Máis', 'Imprimir e exportar', 'Exportar JSON', e copia o texto resultante.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "import-board-instruction-wekan",
+    "before": "No seu quadro vá para 'Menu', depois 'Exportar quadro' e copie o texto no ficheiro descarregado.",
+    "after": "No teu taboleiro, vai a 'Menú', despois a 'Exportar taboleiro', e copia o texto do ficheiro descargado.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "import-board-zip",
+    "before": "Adicione o arquivo .zip que contém arquivos JSON do quadro e subdiretórios de nomes do quadro com anexos",
+    "after": "Engada un ficheiro .zip que conteña os ficheiros JSON do taboleiro e subcartafoles co nome do taboleiro cos anexos",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "import-members-map",
+    "before": "O seu quadro importado possui alguns membros. Por favor, mapeie os membros que deseja importar para seus utilizadores",
+    "after": "O taboleiro importado ten algúns membros. Asocia os membros que queres importar cos teus usuarios",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
