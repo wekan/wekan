@@ -182,3 +182,10 @@ assert.match(data['database-migrate-to-ferretdb'], /datos de texto a FerretDB v1
 assert.match(data['database-migrate-to-mongodb'], /datos de texto a MongoDB/);
 assert.match(data['database-migration-done'], /datos de texto completada/);
 assert.notEqual(data['database-migrate-to-ferretdb'], data['database-migrate-to-mongodb']);
+assert.match(data['default-authentication-method'], /autenticación por defecto/);
+assert.match(data['default-save-storage'], /^Almagazenamiento d’alzada por defecto$/);
+assert.match(data['default-save-storage-saved'], /por defecto alzau$/);
+assert.notEqual(data['default-save-storage'], data['default-save-storage-saved']);
+assert.match(data['deletePokerPopup-title'], /^Borrar o planning poker\?$/);
+assert.match(data['description-on-minicard'], /en a minitarcheta$/);
+assert.equal(data['disable-all-export'], 'Desactivar toda a exportación');

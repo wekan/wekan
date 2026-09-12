@@ -44861,5 +44861,47 @@
     "before": "Problemas de la base de datos",
     "after": "Problemas d’a base de datos",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "default-authentication-method",
+    "before": "Método de autenticación por defecto",
+    "after": "Metodo d’autenticación por defecto",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "default-save-storage",
+    "before": "Almacenamiento de guardado predeterminado",
+    "after": "Almagazenamiento d’alzada por defecto",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "default-save-storage-saved",
+    "before": "Almacenamiento de guardado predeterminado guardado",
+    "after": "Almagazenamiento d’alzada por defecto alzau",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "deletePokerPopup-title",
+    "before": "¿Borrar el Planning Poker?",
+    "after": "Borrar o planning poker?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "description-on-minicard",
+    "before": "Descripción en la minitarjeta",
+    "after": "Descripción en a minitarcheta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "disable-all-export",
+    "before": "Deshabilitar toda exportación",
+    "after": "Desactivar toda a exportación",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
