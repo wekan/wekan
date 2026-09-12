@@ -557,6 +557,20 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/7c1f9cc5a">Translate Hijri calendar variants and retain valid audited examples</a>. Thanks to xet7.</summary>
+
+Correct 37 labels across 21 locale files, distinguishing lunar-sighting and
+tabular astronomical-epoch calendars with regional Portuguese spelling.
+Retain 38 individually reviewed comma-separated input examples and protocol
+labels. Twenty additional locale audit queues are resolved. Positive and
+negative checks cover terminology, exact values, actual placeholder template
+usage, source tokens, key order and review classification. These checks pass;
+browser regressions are registered and syntax-checked, with live Meteor
+execution unavailable. Other locale findings remain under review.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/0432fb50a">Finish all audited Romanian translation repairs</a>. Thanks to xet7.</summary>
 
 Correct the final 670 audited values across both Romanian locales, including
