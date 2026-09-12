@@ -48550,5 +48550,40 @@
     "before": "Processo pianificato avviato cun successo",
     "after": "La lavur planisada è vegnida iniziada cun success",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "cron-migrations-resumed",
+    "before": "Migrazions riprese cun successo",
+    "after": "Las migraziuns èn vegnidas cuntinuadas cun success",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "cron-migrations-retried",
+    "before": "Migrazions no riuscite riprovate cun successo",
+    "after": "Las migraziuns betg reussidas èn vegnidas empruvadas anc ina giada cun success",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "cron-no-failed-migrations",
+    "before": "Deguna migrazion no riuscita da riprovare",
+    "after": "Naginas migraziuns betg reussidas per empruvar anc ina giada",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "cron-no-paused-migrations",
+    "before": "Deguna migrazion in pausa da riprendere",
+    "after": "Naginas migraziuns en pausa per cuntinuar",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "cron-resume-paused",
+    "before": "Riprendi le migrazions in pausa",
+    "after": "Cuntinuar las migraziuns en pausa",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
