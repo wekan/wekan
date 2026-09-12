@@ -4,21 +4,21 @@ Audit date: **2026-09-12**. Last updated: **2026-09-12**.
 
 | Status | Audit keys |
 | --- | ---: |
-| Explicitly corrected | 4,977 |
+| Explicitly corrected | 5,001 |
 | Original pull values restored to pre-pull local values | 4,061 |
 | Reviewed and retained unchanged | 78 |
-| Pending review or repair | 10,965 |
+| Pending review or repair | 10,941 |
 | Total tracked | 20,081 |
 
 The full translation repair goal remains unfinished. Counts describe the tracked audit findings; unflagged strings are not individually certified. Restored pre-pull values are not automatically certified as correct translations.
 
 ## Fixes completed
 
-Repairs address wrong-language text, incorrect kanban terminology, missing restrictions and warnings, malformed JSON examples, translated placeholders, calendar names, search syntax and date/message argument order. The reviewed correction list contains **5,039 values**, including corrections outside the flagged audit rows.
+Repairs address wrong-language text, incorrect kanban terminology, missing restrictions and warnings, malformed JSON examples, translated placeholders, calendar names, search syntax and date/message argument order. The reviewed correction list contains **5,063 values**, including corrections outside the flagged audit rows.
 
 The flagged Bosnian, Croatian and Macedonian queues are complete. Other completed queues include Latvian, Romanian, Slovak and several smaller regional queues. **Bosnian has no remaining flagged findings**.
 
-Latest translation correction: [d2b7a572f](https://github.com/wekan/wekan/commit/d2b7a572fa5f5ea63ea280913e9ba587051a8144), **2026-09-12**, fixes 20 Slovenian migration-step values. Repairs distinguish orphaned cards from discarded cards, lists from swimlanes, duplicate empty lists and per-swimlane structure, while retaining URL and ID terminology. Each Slovenian queue has 25 findings remaining. Meaning, token, exact-value, key-order and idempotent repair checks pass.
+Latest translation correction: [90b55bac6](https://github.com/wekan/wekan/commit/90b55bac66490094872d7f69872fdbc6f1930e34), **2026-09-12**, fixes 24 Slovenian support, swimlane validation, visibility, subtask and scan-step values. Repairs preserve logged-in-only support, enabled-page status, positive-integer height requirements and private-board-only scope. Each Slovenian queue has 13 findings remaining. Meaning, token, exact-value, key-order and idempotent repair checks pass.
 
 ## Provenance
 

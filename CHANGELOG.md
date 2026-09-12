@@ -558,6 +558,13 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/90b55bac66490094872d7f69872fdbc6f1930e34">Repair Slovenian support scope and swimlane validation messages</a>. Thanks to xet7.</summary>
+
+Correct 24 values across both Slovenian locales. Restore logged-in-only support, enabled-page status, positive-integer swimlane height and private-board-only visibility. Regression checks verify meanings, exact corrections, source tokens, key order and idempotent repairs. The short translation audit records current progress.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/d2b7a572fa5f5ea63ea280913e9ba587051a8144">Repair Slovenian migration step terminology</a>. Thanks to xet7.</summary>
 
 Correct 20 values across both Slovenian locales. Restore orphaned-card, duplicate-empty-list, per-swimlane structure and list/swimlane distinctions. Regression checks verify meanings, exact corrections, source tokens, key order and idempotent repairs. The short translation audit records current progress.
