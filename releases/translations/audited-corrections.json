@@ -29573,5 +29573,75 @@
     "before": "Закажи израду резервног примерка",
     "after": "Zakaži sigurnosnu kopiju ploče",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "scheduled-board-operations",
+    "before": "Заказане радње на списима",
+    "after": "Zakazane radnje na pločama",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "search-boards-or-operations",
+    "before": "Претрага списа или радњи...",
+    "after": "Pretraži ploče ili radnje...",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "search-cards",
+    "before": "Тражи у насловима предмета, делова поступака и рубрика у овим списима",
+    "after": "Pretraži naslove kartica i lista, opise i prilagođena polja na ovoj ploči",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "server-error-troubleshooting",
+    "before": "Молим да нам пошаљете извештај о грешци коју је изазвао сервер.\nАко је у питању snap инсталација, покрените: `sudo snap logs wekan.wekan`\nАко је у питању Docker инсталација, покрените: `sudo docker logs wekan-app`",
+    "after": "Pošaljite grešku koju je generisao server.\nZa snap instalaciju pokrenite: `sudo snap logs wekan.wekan`\nZa Docker instalaciju pokrenite: `sudo docker logs wekan-app`",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "set-swimlane-height",
+    "before": "Подеси висину овог поступка",
+    "after": "Postavi visinu staze",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "set-swimlane-height-value",
+    "before": "Висина ове врсте поступка (у тачкама)",
+    "after": "Visina staze (pikseli)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "set-wip-limit-value",
+    "before": "Поставите границу дозвољеног броја предмета у овом делу поступка",
+    "after": "Postavite ograničenje najvećeg broja zadataka u ovoj listi",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "setSwimlaneHeightPopup-title",
+    "before": "Подеси висину у овој врсти поступка",
+    "after": "Postavi visinu staze",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "settingsTranslationPopup-title",
+    "before": "Обриши ову исправку превода",
+    "after": "Izbrisati ovaj prilagođeni prijevodni niz?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "shortcut-filter-my-assigned-cards",
+    "before": "Издвој предмете где сам пуномоћник",
+    "after": "Filtriraj moje dodijeljene kartice",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

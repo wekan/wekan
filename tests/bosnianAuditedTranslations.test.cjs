@@ -365,3 +365,11 @@ assert.doesNotMatch(data['s3-ssl-enabled-description'], /Amazon/);
 assert.match(data['s3-settings-save-failed'], /nije uspjelo/);
 assert.match(data['schedule-board-backup'], /kopiju ploče/);
 console.log('bosnianAuditedTranslations: MinIO choice, literal endpoints, TLS and board backup passed');
+
+assert.match(data['search-cards'], /naslove kartica i lista, opise i prilagođena polja na ovoj ploči/);
+for (const command of ['sudo snap logs wekan.wekan', 'sudo docker logs wekan-app']) assert.ok(data['server-error-troubleshooting'].includes('`' + command + '`'));
+assert.equal(data['set-swimlane-height-value'], 'Visina staze (pikseli)');
+assert.equal(data['setSwimlaneHeightPopup-title'], data['set-swimlane-height']);
+assert.match(data['set-wip-limit-value'], /najvećeg broja zadataka u ovoj listi/);
+assert.equal(data['shortcut-filter-my-assigned-cards'], 'Filtriraj moje dodijeljene kartice');
+console.log('bosnianAuditedTranslations: search scope, literal commands, pixel units and assignment filter passed');
