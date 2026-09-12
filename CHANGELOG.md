@@ -558,6 +558,13 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/d98e80bb3055435858c111bddd2fb5197a1a71db">Repair Galician regional credentials and label deletion warnings</a>. Thanks to xet7.</summary>
+
+Repair six regional values with reviewed Galician wording. Preserve unmapped-member fallback, credential alternatives, irreversible label deletion and history loss. Meaning, exact-value, placeholder, key-order and idempotency checks pass. The short translation audit records current progress.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/5e89d53cf924b799a26db05f7c620b0711b9bef4">Repair Galician regional import and checked item instructions</a>. Thanks to xet7.</summary>
 
 Repair six regional values with reviewed Galician wording. Preserve checked/all-item distinctions, conditional import success, ZIP attachment structure and member mapping. Meaning, exact-value, placeholder, key-order and idempotency checks pass. The short translation audit records current progress.
