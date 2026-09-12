@@ -43251,5 +43251,61 @@
     "before": "No hay carriles archivados.",
     "after": "Nun hai carriles nel archivu.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "not-accepted-yet",
+    "before": "La invitación no ha sido aceptada aún",
+    "after": "La invitación entá nun s’aceptó",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "operator-has-invalid",
+    "before": "%s no es una comprobación de existencia válida",
+    "after": "%s nun ye una comprobación d’esistencia válida",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "operator-limit-invalid",
+    "before": "%s no es un límite válido. El límite ha de ser un entero positivo.",
+    "after": "%s nun ye una llende válida. La llende tien de ser un númberu enteru positivu.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "operator-status-invalid",
+    "before": "'%s' no es un estado válido",
+    "after": "'%s' nun ye un estáu válidu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "org-name-not-found",
+    "before": "Organización '%s' no encontrada.",
+    "after": "Nun s’alcontró la organización '%s'.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "org-number",
+    "before": "El número de organizaciones es:",
+    "after": "El númberu d’organizaciones ye: ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "page-maybe-private",
+    "before": "Esta página puede ser privada. Es posible que puedas verla al <a href='%s'>iniciar sesión</a>.",
+    "after": "Esta páxina pue ser privada. Pue que puedas vela al <a href='%s'>aniciar sesión</a>.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "pastdue",
+    "before": "se sobrepasó la hora de vencimiento actual%s",
+    "after": "La hora de vencimientu actual %s yá pasó",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

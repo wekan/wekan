@@ -349,3 +349,14 @@ assert.match(data.newlineBecomesNewChecklistItemOriginOrder, /nel orde orixinal$
 assert.notEqual(data.newlineBecomesNewChecklistItem, data.newlineBecomesNewChecklistItemOriginOrder);
 assert.match(data['no-archived-lists'], /Nun hai llistes nel archivu/);
 assert.match(data['no-archived-swimlanes'], /Nun hai carriles nel archivu/);
+
+assert.match(data['not-accepted-yet'], /entá nun s’aceptó/);
+assert.match(data['operator-has-invalid'], /%s nun ye.*d’esistencia válida/);
+assert.match(data['operator-limit-invalid'], /%s nun ye.*enteru positivu/);
+assert.match(data['operator-status-invalid'], /'%s' nun ye un estáu válidu/);
+assert.match(data['org-name-not-found'], /Nun s’alcontró la organización '%s'/);
+assert.match(data['org-number'], /númberu d’organizaciones ye: $/);
+assert.match(data['page-maybe-private'], /pue ser privada.*<a href='%s'>aniciar sesión<\/a>/);
+assert.doesNotMatch(data['page-maybe-private'], /siempre|pública/);
+assert.match(data.pastdue, /actual %s yá pasó/);
+assert.notEqual(data.pastdue, data.duenow);
