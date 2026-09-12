@@ -30427,5 +30427,145 @@
     "before": "Овим мерама се штитимо од насилних покушаја пријављивања погађањем лозинкеf.",
     "after": "Te nastavitve določajo zaščito poskusov prijave pred napadi z grobo silo.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "accounts-lockout-known-users",
+    "before": "Мере за познате налоге (где налог постоји али се лозинка не подудара)",
+    "after": "Nastavitve za znane uporabnike (pravilno uporabniško ime, napačno geslo)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "accounts-lockout-locked-users-info",
+    "before": "Сарадници којима је одузето право приступа због превеликог броја неуспешних покушаја пријаве",
+    "after": "Uporabniki, trenutno zaklenjeni zaradi preveč neuspelih poskusov prijave",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "accounts-lockout-no-locked-users",
+    "before": "Тренутно не постоје налози са мером забране права приступа",
+    "after": "Trenutno ni zaklenjenih uporabnikov",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "accounts-lockout-period",
+    "before": "Трајање мере забране (у секундама)",
+    "after": "Trajanje zaklepanja (sekunde)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "accounts-lockout-settings",
+    "before": "Заштитне мере од насилног упада",
+    "after": "Nastavitve zaščite pred napadi z grobo silo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "accounts-lockout-settings-updated",
+    "before": "Мере против насилног упада су допуњене",
+    "after": "Nastavitve zaščite pred napadi z grobo silo so posodobljene",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "accounts-lockout-show-locked-users",
+    "before": "Прикажи само налоге на мерама",
+    "after": "Prikaži samo zaklenjene uporabnike",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "accounts-lockout-unknown-users",
+    "before": "Мере за непознате налоге (где сарадник са таквим корисничким именом не постоји)",
+    "after": "Nastavitve za neznane uporabnike (neobstoječe uporabniško ime)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "accounts-lockout-user-unlocked",
+    "before": "Налог је успешно скинут са мера забране приступа",
+    "after": "Uporabnik je uspešno odklenjen",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "act-atUserComment",
+    "before": "споменути сте у расправи у предмету __card__: __comment__ у делу __list__ поступка __swimlane__ у списима __board__",
+    "after": "vas je omenil na kartici __card__: __comment__ na seznamu __list__ v stezi __swimlane__ na tabli __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "accounts-lockout-known-users",
+    "before": "Мере за познате налоге (где налог постоји али се лозинка не подудара)",
+    "after": "Nastavitve za znane uporabnike (pravilno uporabniško ime, napačno geslo)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "accounts-lockout-locked-users-info",
+    "before": "Сарадници којима је одузето право приступа због превеликог броја неуспешних покушаја пријаве",
+    "after": "Uporabniki, trenutno zaklenjeni zaradi preveč neuspelih poskusov prijave",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "accounts-lockout-no-locked-users",
+    "before": "Тренутно не постоје налози са мером забране права приступа",
+    "after": "Trenutno ni zaklenjenih uporabnikov",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "accounts-lockout-period",
+    "before": "Трајање мере забране (у секундама)",
+    "after": "Trajanje zaklepanja (sekunde)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "accounts-lockout-settings",
+    "before": "Заштитне мере од насилног упада",
+    "after": "Nastavitve zaščite pred napadi z grobo silo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "accounts-lockout-settings-updated",
+    "before": "Мере против насилног упада су допуњене",
+    "after": "Nastavitve zaščite pred napadi z grobo silo so posodobljene",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "accounts-lockout-show-locked-users",
+    "before": "Прикажи само налоге на мерама",
+    "after": "Prikaži samo zaklenjene uporabnike",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "accounts-lockout-unknown-users",
+    "before": "Мере за непознате налоге (где сарадник са таквим корисничким именом не постоји)",
+    "after": "Nastavitve za neznane uporabnike (neobstoječe uporabniško ime)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "accounts-lockout-user-unlocked",
+    "before": "Налог је успешно скинут са мера забране приступа",
+    "after": "Uporabnik je uspešno odklenjen",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "act-atUserComment",
+    "before": "споменути сте у расправи у предмету __card__: __comment__ у делу __list__ поступка __swimlane__ у списима __board__",
+    "after": "vas je omenil na kartici __card__: __comment__ na seznamu __list__ v stezi __swimlane__ na tabli __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

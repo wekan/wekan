@@ -25,3 +25,18 @@ for (const locale of ['sl', 'sl_SI']) {
   assert.equal(data.MongoDB_storage_engine, 'Shranjevalni pogon MongoDB');
 }
 console.log('slovenianAuditedTranslations: both locales, spinner and memory meanings passed');
+
+(async () => {
+  for (const locale of ['sl', 'sl_SI']) {
+    const data = require(`../imports/i18n/data/${locale}.i18n.json`);
+    assert.match(data['accounts-lockout-known-users'], /pravilno uporabniško ime, napačno geslo/);
+    assert.match(data['accounts-lockout-unknown-users'], /neobstoječe uporabniško ime/);
+    assert.match(data['accounts-lockout-period'], /\(sekunde\)/);
+    assert.match(data['accounts-lockout-show-locked-users'], /samo zaklenjene uporabnike/);
+    assert.match(data['accounts-lockout-user-unlocked'], /uspešno odklenjen/);
+    const translator = require('i18next').createInstance();
+    await translator.init({ lng: locale, fallbackLng: false, keySeparator: false, interpolation: { prefix: '__', suffix: '__', escapeValue: false }, resources: { [locale]: { translation: data } } });
+    assert.equal(translator.t('act-atUserComment', { card: 'CARD', comment: 'COMMENT', list: 'LIST', swimlane: 'LANE', board: 'BOARD' }), 'vas je omenil na kartici CARD: COMMENT na seznamu LIST v stezi LANE na tabli BOARD');
+  }
+  console.log('slovenianAuditedTranslations: credential distinctions, seconds and real mention rendering passed');
+})().catch(error => { console.error(error); process.exitCode = 1; });
