@@ -35915,5 +35915,75 @@
     "before": "editou o campo personalizado __customField__: __customFieldValue__ no cartão __card__ na lista __list__ na pista __swimlane__ no quadro __board__",
     "after": "editou o campo personalizado __customField__: __customFieldValue__ na tarxeta __card__ na lista __list__ no carril __swimlane__ no taboleiro __board__",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "act-uncheckedItem",
+    "before": "desmarcou __checklistItem__ na lista de verificação __checklist__ no cartão __card__ na lista __list__ na pista __swimlane__ no quadro __board__",
+    "after": "desmarcou __checklistItem__ na lista de verificación __checklist__ na tarxeta __card__ na lista __list__ no carril __swimlane__ no taboleiro __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "act-uncompleteChecklist",
+    "before": "descompletou a lista de verificação __checklist__ no cartão __card__ na lista __list__ na pista __swimlane__ no quadro __board__",
+    "after": "desmarcou como completada a lista de verificación __checklist__ na tarxeta __card__ na lista __list__ no carril __swimlane__ no taboleiro __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "act-unjoinMember",
+    "before": "removeu o membro __member__ do cartão __card__ na lista __list__ na pista __swimlane__ no quadro __board__",
+    "after": "eliminou o membro __member__ da tarxeta __card__ na lista __list__ no carril __swimlane__ no taboleiro __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "activity-added-label",
+    "before": "adicionou a etiqueta '%s' a %s",
+    "after": "engadiu a etiqueta '%s' a %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "activity-added-label-card",
+    "before": "adicionou a etiqueta '%s'",
+    "after": "engadiu a etiqueta '%s'",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "activity-checked-item",
+    "before": "marcou %s na lista de verificação %s de %s",
+    "after": "marcou %s na lista de verificación %s de %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "activity-checked-item-card",
+    "before": "marcou %s na lista de verificação %s",
+    "after": "marcou %s na lista de verificación %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "activity-checklist-added",
+    "before": "adicionou a lista de verificação a %s",
+    "after": "engadiu unha lista de verificación a %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "activity-checklist-completed",
+    "before": "completou a lista de verificação %s de %s",
+    "after": "completou a lista de verificación %s de %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "activity-checklist-completed-card",
+    "before": "completou a lista de verificação __checklist__ no cartão __card__ na lista __list__ na pista __swimlane__ no quadro __board__",
+    "after": "completou a lista de verificación __checklist__ na tarxeta __card__ na lista __list__ no carril __swimlane__ no taboleiro __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

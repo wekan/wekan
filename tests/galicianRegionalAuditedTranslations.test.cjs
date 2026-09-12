@@ -6,8 +6,8 @@ assert.match(data['accounts-lockout-unknown-users'], /usuarios descoñecidos.*us
 for (const key of ['accounts-lockout-known-users', 'accounts-lockout-unknown-users']) assert.doesNotMatch(data[key], /usuários|senha|Configurações/);
 assert.match(data['act-addChecklist'], /engadiu a lista de verificación/);
 (async () => {
-  const translator = require('i18next').createInstance();
-  await translator.init({ lng: 'gl-ES', fallbackLng: false, keySeparator: false, interpolation: { prefix: '__', suffix: '__', escapeValue: false }, resources: { 'gl-ES': { translation: data } } });
+  const translator = require('i18next').createInstance().use(require('i18next-sprintf-postprocessor'));
+  await translator.init({ postProcess: ['sprintf'], lng: 'gl-ES', fallbackLng: false, keySeparator: false, interpolation: { prefix: '__', suffix: '__', escapeValue: false }, resources: { 'gl-ES': { translation: data } } });
   assert.equal(translator.t('act-addAttachment', { attachment: 'FILE', card: 'CARD', list: 'LIST', swimlane: 'LANE', board: 'BOARD' }), 'engadiu o anexo FILE á tarxeta CARD na lista LIST no carril LANE no taboleiro BOARD');
   assert.equal(data['act-addLabel'], data['act-addedLabel']);
   assert.equal(translator.t('act-addChecklistItem', { checklistItem: 'ITEM', checklist: 'CHECK', card: 'CARD', list: 'LIST', swimlane: 'LANE', board: 'BOARD' }), 'engadiu o elemento ITEM á lista de verificación CHECK na tarxeta CARD na lista LIST no carril LANE no taboleiro BOARD');
@@ -22,5 +22,10 @@ assert.match(data['act-addChecklist'], /engadiu a lista de verificación/);
   assert.equal(data['act-removeLabel'], data['act-removedLabel']);
   assert.equal(translator.t('act-moveCardToOtherBoard', { card: 'CARD', oldList: 'OLDLIST', oldSwimlane: 'OLDLANE', oldBoard: 'OLDBOARD', list: 'LIST', swimlane: 'LANE', board: 'BOARD' }), 'moveu a tarxeta CARD da lista OLDLIST no carril OLDLANE no taboleiro OLDBOARD á lista LIST no carril LANE no taboleiro BOARD');
   assert.equal(translator.t('act-removeChecklistItem', { checklistItem: 'ITEM', checkList: 'CHECK', card: 'CARD', list: 'LIST', swimlane: 'LANE', board: 'BOARD' }), 'eliminou o elemento ITEM da lista de verificación CHECK na tarxeta CARD na lista LIST no carril LANE no taboleiro BOARD');
+  assert.equal(data['activity-checklist-completed-card'], data['act-completeChecklist']);
+  assert.match(data['act-uncompleteChecklist'], /desmarcou como completada/);
+  assert.notEqual(data['act-checkedItem'], data['act-uncheckedItem']);
+  assert.equal(translator.t('activity-checked-item', { sprintf: ['ITEM', 'CHECK', 'CARD'] }), 'marcou ITEM na lista de verificación CHECK de CARD');
+  assert.equal(translator.t('activity-checklist-completed', { sprintf: ['CHECK', 'CARD'] }), 'completou a lista de verificación CHECK de CARD');
   console.log('galicianRegionalAuditedTranslations: credential meanings and actual attachment rendering passed');
 })().catch(error => { console.error(error); process.exitCode = 1; });
