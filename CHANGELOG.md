@@ -558,6 +558,13 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/1c6281af5">Repair Macedonian rule actions and read-only permissions</a>. Thanks to xet7.</summary>
+
+Correct 24 reviewed values. Positive and negative regressions verify move direction, no-edit restrictions, label range and removal notification meanings. Source-token, exact-value, rendering, key-order and repair checks pass. Audit.md records dated fixes and remaining findings.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/3e099f4d5">Repair Macedonian validation, visibility and invitation messages</a>. Thanks to xet7.</summary>
 
 Correct 20 reviewed values. Positive and negative regressions verify positive-integer limits, invitation and editing restrictions, operator interpolation and login-link rendering. Source-token, exact-value, key-order and repair checks pass. Audit.md records dated fixes and remaining findings.
