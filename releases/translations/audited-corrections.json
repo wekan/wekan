@@ -43993,5 +43993,47 @@
     "before": "Configuración de almacenamiento de adjuntos",
     "after": "Configuración d’almagazenamiento d’adchuntos",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "attachment-storage-settings",
+    "before": "Configuración de almacenamiento",
+    "after": "Configuración d’almagazenamiento",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "backup-restore-select-first",
+    "before": "Selecciona primero un backup de la lista.",
+    "after": "Tría primero una copia de seguranza d’a lista.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "board-title-not-found",
+    "before": "Tablero '%s' no encontrado.",
+    "after": "No s’ha trobau o tablero '%s'.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "cloud-settings-saved",
+    "before": "Configuración de almacenamiento guardada",
+    "after": "Configuración d’almagazenamiento alzada",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "createTemplateContainerPopup-title",
+    "before": "añadir plantilla de contenedor",
+    "after": "Adhibir un contenedor de plantillas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "cron-job-deleted",
+    "before": "Trabajo programado eliminado correctamente",
+    "after": "Treballo programau eliminau correctament",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
