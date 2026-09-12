@@ -42978,5 +42978,61 @@
     "before": "`__operator_sort__:<sort-name>` - donde *<sort-name>* puede ser `__predicate_due__`, `__predicate_created__` o `__predicate_modified__`.  Para ordenar descendentemente, coloca un `-` delante del tipo de orden.",
     "after": "`__operator_sort__:<sort-name>` - onde *<sort-name>* ye ún de `__predicate_due__`, `__predicate_created__` o `__predicate_modified__`. Pa ordenar de manera descendente, pon un `-` enantes del nome de la ordenación.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "globalSearch-instructions-operator-status",
+    "before": "`__operator_status__:<status>` - donde *<status>* puede ser uno de los siguientes:",
+    "after": "`__operator_status__:<status>` - onde *<status>* ye ún de los siguientes:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "hide-checked-items",
+    "before": "Ocultar elementos marcados",
+    "after": "Anubrir los elementos marcaos",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "hide-finished-checklist",
+    "before": "Esconder la lista de tareas finalizada",
+    "after": "Anubrir la llista de comprobación completada",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "hide-minicard-label-text",
+    "before": "Ocultar el texto de la etiqueta de la minitarjeta",
+    "after": "Anubrir el testu de la etiqueta de la minitarxeta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "hideAllChecklistItems",
+    "before": "Ocultar todos los elementos de la lista de verificación",
+    "after": "Anubrir tolos elementos de la llista de comprobación",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "hideCheckedChecklistItems",
+    "before": "Ocultar elementos marcados de la lista de verificación",
+    "after": "Anubrir los elementos marcaos de la llista de comprobación",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "import-board-instruction-csv",
+    "before": "Pegue en sus Valores separados por coma(CSV)/Valores separados por tab(TSV).",
+    "after": "Apega los tos valores separtaos por comes (CSV)/valores separtaos por tabulaciones (TSV).",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "import-csv-placeholder",
+    "before": "Pega tus datos CSV/TSV válidos aquí",
+    "after": "Apega equí los tos datos CSV/TSV válidos",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

@@ -297,3 +297,14 @@ assert.match(data['globalSearch-instructions-notes-4'], /nun distinguen ente may
 assert.match(data['globalSearch-instructions-operator-at'], /`user:<username>`/);
 assert.match(data['globalSearch-instructions-operator-hash'], /<name\|color>/);
 assert.match(data['globalSearch-instructions-operator-sort'], /descendente.*`-` enantes del nome/);
+
+assert.match(data['globalSearch-instructions-operator-status'], /`__operator_status__:<status>`.*onde.*los siguientes/);
+assert.match(data['hide-checked-items'], /elementos marcaos/);
+assert.match(data['hide-finished-checklist'], /comprobación completada/);
+assert.match(data['hide-minicard-label-text'], /testu de la etiqueta de la minitarxeta/);
+assert.match(data.hideAllChecklistItems, /tolos elementos/);
+assert.match(data.hideCheckedChecklistItems, /elementos marcaos/);
+assert.notEqual(data.hideAllChecklistItems, data.hideCheckedChecklistItems);
+for (const key of ['hide-checked-items','hide-finished-checklist','hideAllChecklistItems','hideCheckedChecklistItems']) assert.doesNotMatch(data[key], /Eliminar|borrar/);
+assert.match(data['import-board-instruction-csv'], /comes \(CSV\).*tabulaciones \(TSV\)/);
+assert.match(data['import-csv-placeholder'], /Apega equí.*CSV\/TSV válidos/);
