@@ -254,3 +254,14 @@ assert.doesNotMatch(data['migration-cpu-threshold-description'], /dosegne|dostig
 assert.match(data['migration-delay-ms-description'], /milisekundama \(100-10000\)/);
 assert.equal(data['mark-all-as-unread'], 'Označi sve kao nepročitano');
 console.log('bosnianAuditedTranslations: byte limits, S3 scope, CPU comparison and delay range passed');
+
+assert.match(data['migration-info-text'], /obavljaju se jednom/);
+assert.match(data['migration-info-text'], /nastavlja u pozadini čak i ako zatvorite preglednik/);
+assert.match(data['migration-warning-text'], /Nemojte zatvarati preglednik/);
+assert.match(data['migration-warning-text'], /nastaviti u pozadini.*potrajati duže/);
+assert.match(data['migration-stop-confirm'], /zaustaviti sve migracije/);
+assert.match(data['migration-progress-note'], /najnoviju strukturu/);
+for (const key of ['migration-pause-failed', 'migration-start-failed', 'migration-stop-failed']) assert.match(data[key], /nije uspjelo/);
+for (const key of ['migration-paused', 'migration-started', 'migration-stopped', 'migration-successful']) assert.match(data[key], /uspješno/);
+assert.doesNotMatch(data['migration-started'], /oštećen.*spis/);
+console.log('bosnianAuditedTranslations: background continuation, browser warning and migration results passed');

@@ -28817,5 +28817,89 @@
     "before": "Задршка између пролаза изражена у милисекундама (100-10000)",
     "after": "Kašnjenje između grupa u milisekundama (100-10000)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "migration-info-text",
+    "before": "Преслагање базе података се изводи само једном и то поправља брзину. Ова радња се изводи у позадини чак иако одете.",
+    "after": "Migracije baze podataka obavljaju se jednom i poboljšavaju performanse sistema. Proces se nastavlja u pozadini čak i ako zatvorite preglednik.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "migration-pause-failed",
+    "before": "Није било могуће направити предах у поступку обнове оштећених списа",
+    "after": "Pauziranje migracija nije uspjelo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "migration-paused",
+    "before": "Направљен је предах у поступку обнове оштећених списа",
+    "after": "Migracije su uspješno pauzirane",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "migration-progress-note",
+    "before": "Молимо да будете стрпљиви док траје препакивање Ваших списа...",
+    "after": "Molimo pričekajte dok migriramo vašu ploču na najnoviju strukturu...",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "migration-resume-failed",
+    "before": "Није успео наставак обнове",
+    "after": "Nastavak migracije nije uspio",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "migration-start-failed",
+    "before": "Није било могуће покренути обнову оштећених списа",
+    "after": "Pokretanje migracija nije uspjelo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "migration-started",
+    "before": "Обнова оштећених списа је започета",
+    "after": "Migracije su uspješno pokrenute",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "migration-stop-confirm",
+    "before": "Да ли сте сигурни да желите да зауставите све поступке обнове оштећених предметних списа?",
+    "after": "Jeste li sigurni da želite zaustaviti sve migracije?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "migration-stop-failed",
+    "before": "Није било могуће прекинути поступке обнове оштећених списа",
+    "after": "Zaustavljanje migracija nije uspjelo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "migration-stopped",
+    "before": "Поступци обнове оштећених списа су управо заустављени",
+    "after": "Migracije su uspješno zaustavljene",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "migration-successful",
+    "before": "Обнова је успешно окончана",
+    "after": "Migracija je uspješno završena",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "migration-warning-text",
+    "before": "Предлажемо да не затварате прозор током обнове. Чак и тада процес ће бити изведен у позадини али све може дуже да траје.",
+    "after": "Nemojte zatvarati preglednik tokom migracije. Proces će se nastaviti u pozadini, ali završetak može potrajati duže.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
