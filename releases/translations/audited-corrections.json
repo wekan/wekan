@@ -43825,5 +43825,47 @@
     "before": "El límite del trabajo en proceso no es válido.",
     "after": "Llende del trabayu en cursu inválida",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "advanced-filter-description",
+    "before": "Advanced Filter allows to write a string containing following operators: == != <= >= && || ( ) A space is used as a separator between the Operators. You can filter for all Custom Fields by typing their names and values. For Example: Field1 == Value1. Note: If fields or values contains spaces, you need to encapsulate them into single quotes. For Example: 'Field 1' == 'Value 1'. For single control characters (' \\\\/) to be skipped, you can use \\\\. For example: Field1 == I\\\\'m. Also you can combine multiple conditions. For Example: F1 == V1 || F1 == V2. Normally all operators are interpreted from left to right. You can change the order by placing brackets. For Example: F1 == V1 && ( F2 == V2 || F2 == V3 ). Also you can search text fields using regex: F1 == /Tes.*/i",
+    "after": "El filtru avanzáu permite escribir una cadena con estos operadores: == != <= >= && || ( ) Úsase un espaciu pa separtar los operadores. Pues filtrar por tolos campos personalizaos escribiendo los sos nomes y valores. Por exemplu: Field1 == Value1. Nota: si los campos o valores contienen espacios, tienes de zarralos ente comines simples. Por exemplu: 'Field 1' == 'Value 1'. Pa escapar los carauteres especiales (' \\/), pues usar \\. Por exemplu: Field1 == I\\'m. Tamién pues combinar delles condiciones. Por exemplu: F1 == V1 || F1 == V2. Normalmente tolos operadores interprétense d’izquierda a derecha. Pues cambiar l’orde usando paréntesis. Por exemplu: F1 == V1 && ( F2 == V2 || F2 == V3 ). Tamién pues buscar nos campos de testu con espresiones regulares: F1 == /Tes.*/i",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "Calendariu de la Héxira",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "calendar-system-islamic-civil",
+    "before": "Islamic civil",
+    "after": "Calendariu de la Héxira (tabular, época civil)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "Calendariu de la Héxira (Arabia Saudita, observación)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "Calendariu de la Héxira (tabular, época astronómica)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "Calendariu de la Héxira (Umm al-Qura)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

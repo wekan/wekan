@@ -465,3 +465,12 @@ assert.match(data['wipLimitErrorPopup-dialog-pt1'], /númberu de xeres nesta lli
 assert.match(data['wipLimitErrorPopup-dialog-pt2'], /Mueve delles xeres fuera.*o establez.*más alta/);
 assert.match(data['wipLimitErrorPopup-title'], /Llende.*inválida/);
 assert.doesNotMatch(data['wipLimitErrorPopup-dialog-pt2'], /elimina|borra/);
+
+assert.match(data['advanced-filter-description'], /filtru avanzáu.*campos personalizaos/);
+for (const example of ["Field1 == Value1", "'Field 1' == 'Value 1'", "Field1 == I\\'m", 'F1 == V1 || F1 == V2', 'F1 == V1 && ( F2 == V2 || F2 == V3 )', 'F1 == /Tes.*/i']) assert.ok(data['advanced-filter-description'].includes(example));
+assert.match(data['advanced-filter-description'], /d’izquierda a derecha.*paréntesis/);
+for (const variant of ['', '-civil', '-rgsa', '-tbla', '-umalqura']) assert.match(data[`calendar-system-islamic${variant}`], /^Calendariu de la Héxira/);
+assert.match(data['calendar-system-islamic-civil'], /época civil/);
+assert.match(data['calendar-system-islamic-tbla'], /época astronómica/);
+assert.match(data['calendar-system-islamic-rgsa'], /Arabia Saudita, observación/);
+assert.match(data['calendar-system-islamic-umalqura'], /Umm al-Qura/);
