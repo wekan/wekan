@@ -557,6 +557,16 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/c1dbea086">Repair Macedonian Boolean search and operator examples</a>. Thanks to xet7.</summary>
+
+Correct 10 reviewed values. Positive and negative checks verify Boolean
+meanings, case-insensitivity, literal query examples, source tokens, exact
+values, key order and repair behavior. These checks pass. Further findings
+remain under review.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/b3d08cb3e">Repair Macedonian migration and search instructions</a>. Thanks to xet7.</summary>
 
 Correct 10 reviewed values, restoring literal search syntax and operator
