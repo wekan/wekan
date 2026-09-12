@@ -558,6 +558,13 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/0c34a2da5d5703a4705c6a5aea7e745602c153d4">Repair Slovenian search scope and troubleshooting instructions</a>. Thanks to xet7.</summary>
+
+Correct 20 values across both Slovenian locales. Restore full board-search scope, literal snap/Docker troubleshooting commands and pixel units for swimlane height. Regression checks verify meanings, exact corrections, source tokens, key order and idempotent repairs. The short translation audit records current progress.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/65042ef8d83d6209f6c238148314f90325168f23">Repair Slovenian S3 configuration and backup scheduling labels</a>. Thanks to xet7.</summary>
 
 Correct 20 values across both Slovenian locales. Preserve AWS S3/MinIO alternatives, endpoint and region examples, authentication, SSL/TLS and board-backup scope. Regression checks verify meanings, exact corrections, source tokens, key order and idempotent repairs. The short translation audit records current progress.
