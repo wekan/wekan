@@ -45169,5 +45169,47 @@
     "before": "Ocultar lista en la minitarjeta",
     "after": "Amagar a lista en a minitarcheta",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "hide-minicard-label-text",
+    "before": "Ocultar el texto de la etiqueta de la minitarjeta",
+    "after": "Amagar o texto d’a etiqueta d’a minitarcheta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "hideCheckedChecklistItems",
+    "before": "Ocultar elementos marcados de la lista de verificación",
+    "after": "Amagar elementos marcaus d’a lista de comprobación",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "import-attachments-zip",
+    "before": "ZIP de adjuntos de Trello (opcional, de Trello Card Attachments Downloader)",
+    "after": "ZIP d’adchuntos de Trello (opcional, de Trello Card Attachments Downloader)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "import-board-instruction-csv",
+    "before": "Pegue en sus Valores separados por coma(CSV)/Valores separados por tab(TSV).",
+    "after": "Apega os tuyos valors separaus por comas (CSV)/valors separaus por tabuladors (TSV).",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "import-csv-placeholder",
+    "before": "Pega tus datos CSV/TSV válidos aquí",
+    "after": "Apega os tuyos datos CSV/TSV validos aquí",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "import-dependencies-done",
+    "before": "__imported__ línea(s) importada(s), __unmatched__ sin coincidencia",
+    "after": "__imported__ linia(s) importada(s), __unmatched__ sin coincidencia",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
