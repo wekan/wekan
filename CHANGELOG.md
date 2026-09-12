@@ -558,6 +558,13 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/60d58a382">Repair Bosnian restoration warnings and S3 labels</a>. Thanks to xet7.</summary>
+
+Correct 8 flagged values. Regressions verify restoration warnings, non-archived scope, field identifiers and S3 authentication. Meaning, source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records current progress.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/3eca2e641">Repair Bosnian recovery and migration confirmations</a>. Thanks to xet7.</summary>
 
 Correct 8 flagged values. Regressions verify recovery entities, literal field identifiers and migration confirmation conditions. Meaning, source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records current progress.
