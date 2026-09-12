@@ -40710,5 +40710,61 @@
     "before": "añadir plantilla de contenedor",
     "after": "Añadir un contenedor de plantíes",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "addmore-detail",
+    "before": "Añadir una descripción detallada",
+    "after": "Añadir una descripción más detallada",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "admin-people-user-active",
+    "before": "El usuario está activo - haz clic para desactivarlo",
+    "after": "L'usuariu ta activu - fai clic pa desactivalu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "admin-people-user-inactive",
+    "before": "El usuario está inactivo - haz clic para activarlo",
+    "after": "L'usuariu ta inactivu - fai clic pa activalu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "allowNonBoardMembers",
+    "before": "Permitir todos los usuarios autentificados",
+    "after": "Permitir a tolos usuarios con sesión aniciada",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "always-field-on-card",
+    "before": "Añadir campo a todas las tarjetas",
+    "after": "Añadir el campu a toles tarxetes",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "archive-board-confirm",
+    "before": "¿Estás seguro que quieres archivar este tablero?",
+    "after": "¿Tas seguru de querer archivar esti tableru?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "attachment-storage-configuration",
+    "before": "Configuración de almacenamiento de adjuntos",
+    "after": "Configuración del almacenamientu d'axuntos",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "auto-watch",
+    "before": "Suscribirse automáticamente a los tableros cuando son creados",
+    "after": "Siguir automáticamente los tableros cuando se creen",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

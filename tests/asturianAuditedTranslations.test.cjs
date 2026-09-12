@@ -31,3 +31,8 @@ assert.match(data['add-card-to-top-of-list'], /^Añadir.*al principiu de la llis
 assert.doesNotMatch(data['add-card-to-top-of-list'], /Subir|Mover/);
 assert.match(data['add-existing-card-as-subtask-empty'], /tarxetes que coincidan/);
 assert.match(data['add-template-container'], /contenedor de plantíes/);
+assert.match(data['admin-people-user-active'], /ta activu.*desactivalu/);
+assert.match(data['admin-people-user-inactive'], /ta inactivu.*activalu/);
+assert.match(data.allowNonBoardMembers, /tolos usuarios con sesión aniciada/);
+assert.match(data['always-field-on-card'], /toles tarxetes/);
+assert.match(data['archive-board-confirm'], /archivar esti tableru/);
