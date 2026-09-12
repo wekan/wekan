@@ -191,3 +191,15 @@ assert.doesNotMatch(data['checklistDeletePopup-title'], /tareas/);
 assert.match(data.clipboard, /Portapapeles o arrastrar y soltar/);
 assert.match(data['automatic-linked-url-schemes'], /Un esquema d’URL per llinia/);
 assert.match(data['backup-day-of-month'], /mensual, 1-28/);
+
+assert.match(data['bidirectional-webhooks'], /doble sentíu/);
+assert.match(data['close-edit-checklist-item'], /Zarrar el formulariu.*elementu.*comprobación/);
+assert.doesNotMatch(data['close-edit-checklist-item'], /Eliminar/);
+assert.match(data['comment-delete'], /quies eliminar el comentariu/);
+assert.match(data['confirm-checklist-delete-popup'], /quies eliminar la llista de comprobación/);
+assert.match(data['confirm-subtask-delete-popup'], /quies eliminar la subtarea/);
+assert.match(data['copy-link-to-clipboard'], /Copiar.*enllaz al portapapeles/);
+assert.match(data['copy-text-to-clipboard'], /Copiar el testu al portapapeles/);
+assert.equal(data.copyChecklistFromTemplate, data['copyChecklistFromTemplatePopup-title']);
+assert.match(data.copyChecklistFromTemplate, /comprobación dende una plantía/);
+assert.match(data['cover-attachment-on-minicard'], /Imaxe de portada na minitarxeta/);

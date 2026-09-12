@@ -42404,5 +42404,75 @@
     "before": "el portapapeles o con arrastrar y soltar",
     "after": "Portapapeles o arrastrar y soltar",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "bidirectional-webhooks",
+    "before": "Webhooks de doble sentido",
+    "after": "Webhooks de doble sentíu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "close-edit-checklist-item",
+    "before": "Cerrar el formulario de edición de un elemento de la lista de verificación",
+    "after": "Zarrar el formulariu d’edición d’un elementu de la llista de comprobación",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "comment-delete",
+    "before": "¿Estás seguro que quieres borrar el comentario?",
+    "after": "¿De xuru que quies eliminar el comentariu?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "confirm-checklist-delete-popup",
+    "before": "¿Estás seguro de querer eliminar la lista de tareas?",
+    "after": "¿De xuru que quies eliminar la llista de comprobación?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "confirm-subtask-delete-popup",
+    "before": "¿Estás seguro que quieres eliminar la subtarea?",
+    "after": "¿De xuru que quies eliminar la subtarea?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "copy-link-to-clipboard",
+    "before": "Copiar el enlace al portapapeles",
+    "after": "Copiar l’enllaz al portapapeles",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "copy-text-to-clipboard",
+    "before": "Copiar texto en el portapapeles",
+    "after": "Copiar el testu al portapapeles",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "copyChecklistFromTemplate",
+    "before": "Copiar Lista de Tareas - Plantilla",
+    "after": "Copiar una llista de comprobación dende una plantía",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "copyChecklistFromTemplatePopup-title",
+    "before": "Copiar Lista de Tareas - Plantilla",
+    "after": "Copiar una llista de comprobación dende una plantía",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "cover-attachment-on-minicard",
+    "before": "Imagen de portada de la minitarjeta",
+    "after": "Imaxe de portada na minitarxeta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
