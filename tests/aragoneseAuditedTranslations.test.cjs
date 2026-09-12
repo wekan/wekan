@@ -64,3 +64,10 @@ assert.match(data.MongoDB_storage_engine, /Motor d’almagazenamiento de MongoDB
 assert.match(data.Mongo_sessions_count, /Recuento de sesions de Mongo/);
 assert.equal(data.MongoDB_version, 'Versión compatible con MongoDB');
 assert.equal(data.Node_heap_malloced_memory, 'Heap de Node: memoria reservada con malloc');
+assert.match(data.Node_heap_does_zap_garbage, /sobrescribe a memoria descartada/);
+assert.doesNotMatch(data.Node_heap_does_zap_garbage, /does zap garbage|elimina/);
+assert.match(data.Node_heap_number_of_detached_contexts, /contextos deseparaus/);
+assert.match(data.Node_heap_number_of_native_contexts, /contextos nativos/);
+assert.match(data.Node_heap_peak_malloced_memory, /maximo.*malloc/);
+assert.match(data.Node_heap_total_available_size, /grandaria total disponible/);
+assert.match(data.Node_heap_total_physical_size, /grandaria fisica total/);

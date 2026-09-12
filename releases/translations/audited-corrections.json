@@ -44217,5 +44217,47 @@
     "before": "Recuento de sesiones de Mongo",
     "after": "Recuento de sesions de Mongo",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "Node_heap_does_zap_garbage",
+    "before": "Heap de Node: does zap garbage",
+    "after": "Heap de Node: sobrescribe a memoria descartada",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "Node_heap_number_of_detached_contexts",
+    "before": "Heap de Node: número de contextos separados",
+    "after": "Heap de Node: numero de contextos deseparaus",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "Node_heap_number_of_native_contexts",
+    "before": "Heap de Node: número de contextos nativos",
+    "after": "Heap de Node: numero de contextos nativos",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "Node_heap_peak_malloced_memory",
+    "before": "Heap de Node: pico de memoria reservada con malloc",
+    "after": "Heap de Node: maximo de memoria reservada con malloc",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "Node_heap_total_available_size",
+    "before": "Heap de Node: tamaño total disponible",
+    "after": "Heap de Node: grandaria total disponible",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "Node_heap_total_physical_size",
+    "before": "Heap de Node: tamaño físico total",
+    "after": "Heap de Node: grandaria fisica total",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
