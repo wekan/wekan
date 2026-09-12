@@ -35621,5 +35621,75 @@
     "before": "Почетак путање према складишту предметне грађе",
     "after": "Pot osnovne mape za shranjevanje datotek",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "accessibility-info-not-added-yet",
+    "before": "As informações de acessibilidade ainda não foram adicionadas",
+    "after": "Aínda non se engadiu información de accesibilidade",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "accounts-lockout-click-to-unlock",
+    "before": "Clique para desbloquear este usuário",
+    "after": "Faga clic para desbloquear este usuario",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "accounts-lockout-confirm-unlock",
+    "before": "Tem certeza de que deseja desbloquear este usuário?",
+    "after": "Está seguro de que quere desbloquear este usuario?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "accounts-lockout-known-users",
+    "before": "Configurações para usuários conhecidos (nome de usuário correto, senha errada)",
+    "after": "Configuración para usuarios coñecidos (nome de usuario correcto, contrasinal incorrecto)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "accounts-lockout-no-locked-users",
+    "before": "Atualmente não há usuários bloqueados",
+    "after": "Actualmente non hai usuarios bloqueados",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "accounts-lockout-unknown-users",
+    "before": "Configurações para usuários desconhecidos (nome de usuário inexistente)",
+    "after": "Configuración para usuarios descoñecidos (nome de usuario inexistente)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "accounts-lockout-user-unlocked",
+    "before": "Usuário foi desbloqueado com sucesso",
+    "after": "O usuario desbloqueouse correctamente",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "act-addAttachment",
+    "before": "adicionou o anexo __attachment__ ao cartão __card__ na lista __list__ na pista __swimlane__ no quadro __board__",
+    "after": "engadiu o anexo __attachment__ á tarxeta __card__ na lista __list__ no carril __swimlane__ no taboleiro __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "act-addBoardMember",
+    "before": "adicionou o membro __member__ ao quadro __board__",
+    "after": "engadiu o membro __member__ ao taboleiro __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "act-addChecklist",
+    "before": "adicionoua lista de verificação __checklist__ ao cartão __card__ na lista __list__ na pista __swimlane__ no quadro __board__",
+    "after": "engadiu a lista de verificación __checklist__ á tarxeta __card__ na lista __list__ no carril __swimlane__ no taboleiro __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
