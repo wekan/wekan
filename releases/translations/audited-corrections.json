@@ -37581,5 +37581,215 @@
     "before": "Clique na estrela de um quadro para adicionar um atalho nesta barra.",
     "after": "Marca un taboleiro como favorito para engadir un atallo nesta barra.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "r-add-checklist",
+    "before": "Adicionar lista de verificação",
+    "after": "Engadir lista de verificación",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "r-checklist-note",
+    "before": "Nota: itens de listas de verificação devem ser escritos separados por vírgulas.",
+    "after": "Nota: os elementos da lista de verificación teñen que escribirse como valores separados por comas.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "r-d-add-checklist",
+    "before": "Adicionar lista de verificação",
+    "after": "Engadir lista de verificación",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "r-d-archive",
+    "before": "Mover cartão para o Arquivo",
+    "after": "Mover a tarxeta ao Arquivo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "r-d-move-to-bottom-gen",
+    "before": "Mover cartão para o fundo da sua lista",
+    "after": "Mover a tarxeta ao final da súa lista",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "r-d-move-to-bottom-spec",
+    "before": "Mover cartão para o fundo da lista",
+    "after": "Mover a tarxeta ao final da lista",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "r-d-move-to-top-gen",
+    "before": "Mover cartão para o topo da sua lista",
+    "after": "Mover a tarxeta ao principio da súa lista",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "r-d-move-to-top-spec",
+    "before": "Mover cartão para o topo da lista",
+    "after": "Mover a tarxeta ao principio da lista",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "r-d-remove-checklist",
+    "before": "Remover lista de verificação",
+    "after": "Quitar lista de verificación",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "r-d-unarchive",
+    "before": "Restaurar cartão do Arquivo",
+    "after": "Restaurar a tarxeta do Arquivo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "r-items-check",
+    "before": "itens da lista de verificação",
+    "after": "elementos da lista de verificación",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "r-move-all-cards",
+    "before": "Mover todos os cartões da lista",
+    "after": "Mover todas as tarxetas da lista",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "r-remove-all",
+    "before": "Remover todos os membros do cartão",
+    "after": "Quitar todos os membros da tarxeta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "r-when-a-card-is-moved",
+    "before": "Quando um cartão é movido de outra lista",
+    "after": "Cando unha tarxeta se move a outra lista",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "r-when-a-checklist",
+    "before": "Quando a lista de verificação é",
+    "after": "Cando unha lista de verificación é",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "r-when-a-item",
+    "before": "Quando um item de uma lista de verificação é",
+    "after": "Cando un elemento da lista de verificación é",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "r-when-the-checklist",
+    "before": "Quando a lista de verificação",
+    "after": "Cando a lista de verificación",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "r-when-the-item",
+    "before": "Quando o item da lista de verificação",
+    "after": "Cando o elemento da lista de verificación",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "read-assigned-only-desc",
+    "before": "Somente cartões atribuídos visível. Não pode editar.",
+    "after": "Só son visibles as tarxetas asignadas. Non pode editar.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "read-only-desc",
+    "before": "Pode somente ver cartões. Não pode editar.",
+    "after": "Só pode ver as tarxetas. Non pode editar.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "remove-cover",
+    "before": "Remover imagem de capa do mini cartão",
+    "after": "Eliminar a imaxe de portada da minitarxeta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "remove-member-pop",
+    "before": "Remover __name__ (__username__) de __boardTitle__? O membro será removido de todos os cartões neste quadro e será notificado.",
+    "after": "Eliminar a __name__ (__username__) de __boardTitle__? O membro será eliminado de todas as tarxetas deste taboleiro. Recibirá unha notificación.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "remove-organization-from-board",
+    "before": "Tem certeza de que deseja excluir esta organização do quadro?",
+    "after": "Está seguro de que quere quitar esta organización deste taboleiro?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "remove-team-from-table",
+    "before": "Tem certeza de que deseja excluir este time do quadro?",
+    "after": "Está seguro de que quere quitar este equipo do taboleiro?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "rescue-card-description",
+    "before": "Mostrar diálogo de recuperação antes de fechar para descrição de cartão não salva",
+    "after": "Mostrar un diálogo de rescate antes de pechar cando a descrición da tarxeta non está gardada",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "rescue-card-description-dialogue",
+    "before": "Sobrescrever atual descrição de cartão com suas alterações?",
+    "after": "Sobrescribir a descrición actual da tarxeta cos teus cambios?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "restore-all-archived-migration-description",
+    "before": "Restaura todas as raias, listas e cartões arquivados. Corrige automaticamente qualquer ID de raia ou ID de lista ausente para tornar os itens visíveis.",
+    "after": "Restaura todos os carrís, listas e tarxetas arquivados. Corrixe automaticamente calquera swimlaneId ou listId que falte para que os elementos sexan visibles.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "restore-lost-cards-migration",
+    "before": "Recuperar Cartões Perdidos",
+    "after": "Restaurar as tarxetas perdidas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "restore-lost-cards-migration-description",
+    "before": "Encontra e restaura cartões e listas com ID de raia ou ID de lista ausentes. Cria uma raia \"Cartões Perdidos\" para tornar todos os itens perdidos visíveis novamente.",
+    "after": "Busca e restaura as tarxetas e listas sen swimlaneId ou listId. Crea un carril \"Tarxetas perdidas\" para que todos os elementos perdidos volvan ser visibles.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "restore-lost-cards-nothing-to-restore",
+    "before": "Sem raias, listas ou cartões perdidos para restaurar.",
+    "after": "Non hai carrís, listas nin tarxetas perdidos que restaurar",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

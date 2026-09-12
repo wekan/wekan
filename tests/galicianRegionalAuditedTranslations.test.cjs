@@ -197,3 +197,18 @@ assert.doesNotMatch(data['operator-limit-invalid'], /não|Deve/);
 assert.match(data['private-desc'], /Só as persoas engadidas ao taboleiro poden velo e editalo/);
 assert.match(data['public-desc'], /calquera que teña a ligazón.*buscadores como Google.*Só as persoas engadidas ao taboleiro poden editalo/);
 assert.equal(data['push-invite-text'].replace('__user__', 'USER').replace('__inviter__', 'INVITER').replace('__board__', 'BOARD').replace('__url__', 'LINK'), 'Estimado/a USER,\n\nINVITER convídate a unirte ao taboleiro "BOARD" para colaborar.\n\nSegue a ligazón de abaixo:\n\nLINK\n\nGrazas.');
+
+assert.match(data['r-checklist-note'], /valores separados por comas/);
+assert.match(data['r-when-a-card-is-moved'], /se move a outra lista$/);
+assert.doesNotMatch(data['r-when-a-card-is-moved'], /de outra lista/);
+assert.match(data['r-d-move-to-bottom-gen'], /final da súa lista$/);
+assert.match(data['r-d-move-to-top-gen'], /principio da súa lista$/);
+assert.match(data['r-move-all-cards'], /todas as tarxetas da lista/);
+assert.match(data['r-remove-all'], /todos os membros da tarxeta/);
+assert.match(data['read-assigned-only-desc'], /Só son visibles as tarxetas asignadas.*Non pode editar/);
+assert.match(data['read-only-desc'], /Só pode ver as tarxetas.*Non pode editar/);
+assert.match(data['remove-member-pop'], /__name__ \(__username__\).*__boardTitle__.*todas as tarxetas deste taboleiro.*notificación/);
+assert.match(data['rescue-card-description-dialogue'], /Sobrescribir a descrición actual.*cos teus cambios/);
+assert.match(data['restore-all-archived-migration-description'], /todos os carrís, listas e tarxetas arquivados.*swimlaneId ou listId/);
+assert.match(data['restore-lost-cards-migration-description'], /tarxetas e listas sen swimlaneId ou listId.*Crea un carril "Tarxetas perdidas"/);
+assert.match(data['restore-lost-cards-nothing-to-restore'], /Non hai carrís, listas nin tarxetas perdidos/);
