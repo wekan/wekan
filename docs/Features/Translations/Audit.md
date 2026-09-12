@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Audit keys |
 | --- | ---: |
-| Explicitly corrected | 6,547 |
+| Explicitly corrected | 6,556 |
 | Restored pre-pull values awaiting further validation | 4,059 |
 | Reviewed and retained unchanged | 149 |
-| Pending review or repair | 9,326 |
+| Pending review or repair | 9,317 |
 | Total tracked | 20,081 |
 
 **Translation repairs remain unfinished.** These counts cover flagged findings; unflagged strings and restored values are not certified as correct.
 
-Fixes cover wrong-language text, terminology, missing warnings, JSON examples, placeholders and calendar/search formatting. The correction history records **6,609 values**, including fixes outside the audit. Flagged queues are complete for Bosnian, Croatian, Macedonian, both Slovenian locales, Latvian, Romanian, Slovak, both Galician locales, Asturian, Aragonese and Friulian.
+Fixes cover wrong-language text, terminology, missing warnings, JSON examples, placeholders and calendar/search formatting. The correction history records **6,618 values**, including fixes outside the audit. Flagged queues are complete for Bosnian, Croatian, Macedonian, both Slovenian locales, Latvian, Romanian, Slovak, both Galician locales, Asturian, Aragonese, Friulian and Tok Pisin.
 
-Latest fix: [cfcbd0340](https://github.com/wekan/wekan/commit/cfcbd0340f307da3a9f1ae5011dcba430477e893), **2026-09-13** — six Tok Pisin calendar labels repaired, preserving Dangi, Amete Alem, Hijri and national-calendar distinctions. **9 Tok Pisin findings remain.** Exact-value, placeholder, key-order and idempotency checks pass; Tok Pisin, Friulian, Aragonese and Asturian wording need native-speaker review. Live Meteor browser verification remains unavailable.
+Latest fix: [94eecaccb](https://github.com/wekan/wekan/commit/94eecaccb8ee75879ba93df1a2689f885d268b1b), **2026-09-13** — nine Tok Pisin calendar and appearance labels repaired, preserving tabular epochs, lunar sighting and named systems. **The flagged Tok Pisin queue is complete.** Exact-value, placeholder, key-order and idempotency checks pass; Tok Pisin, Friulian, Aragonese and Asturian wording need native-speaker review. Live Meteor browser verification remains unavailable.
 
 **Provenance:** not all errors came from Transifex. The captured pull changed 4,061 values; the full-local audit added 16,020 findings. Bosnian errors came from the September 5 [local completion commit](https://github.com/wekan/wekan/commit/bdb3b15886a749b725b5290ba0109fcba955f983), with no Bosnian changes in the captured pull. Other ultimate origins remain unverified.
 
