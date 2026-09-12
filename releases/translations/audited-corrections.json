@@ -31617,5 +31617,355 @@
     "before": "Изводе се свеобухватне провера и врше поправке целовитости података у списима - што укључује провере и поправке редоследа делова поступака, места где се тачно предмети налазе и структуре поступака.",
     "after": "Izvede celovite preglede in popravke celovitosti podatkov table, vključno z vrstnim redom seznamov, položaji kartic in strukturo stez.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "confirm-checklist-delete-popup",
+    "before": "Да ли сте сигурни да желите да избришете ову предметну радњу?",
+    "after": "Ali ste prepričani, da želite izbrisati kontrolni seznam?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "conversion-info-text",
+    "before": "Ово преслагање се изводи само једном по спису и то после олакшава читање.  Без сметњи настављате да читате спис након тога.",
+    "after": "Ta pretvorba se izvede enkrat na tablo in izboljša zmogljivost. Tablo lahko še naprej uporabljate kot običajno.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "convert-to-markdown",
+    "before": "Претвори у структуирани текст",
+    "after": "Pretvori v Markdown",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "converting-board-description",
+    "before": "Преслагање списа олакшава употребу. Ово може потрајати неколико тренутака.",
+    "after": "Pretvarjanje strukture table za izboljšano delovanje. To lahko traja nekaj trenutkov.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "createTemplateContainerPopup-title",
+    "before": "Додај сандук са предлошцима",
+    "after": "Dodaj vsebnik predlog",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "created-at-newest-first",
+    "before": "По најновијим запримљеним",
+    "after": "Čas ustvarjanja (najnovejše najprej)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "created-at-oldest-first",
+    "before": "По најстарије запримљеним",
+    "after": "Čas ustvarjanja (najstarejše najprej)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "cron-clear-errors",
+    "before": "Избриши све наведене грешке",
+    "after": "Počisti vse napake",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "cron-errors-cleared",
+    "before": "Све грешке су успешно очишћене",
+    "after": "Vse napake so uspešno počiščene",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "cron-job-delete-confirm",
+    "before": "Да ли сте сигурни да желите да уклоните заказано?",
+    "after": "Ali ste prepričani, da želite izbrisati to načrtovano opravilo?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "cron-job-delete-failed",
+    "before": "Није успело уклањање заказаног посла",
+    "after": "Brisanje načrtovanega opravila ni uspelo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "cron-job-deleted",
+    "before": "Успешно је уклоњен заказани посао",
+    "after": "Načrtovano opravilo je uspešno izbrisano",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "cron-job-pause-failed",
+    "before": "Није успело паузирање заказаног посла",
+    "after": "Začasna ustavitev načrtovanega opravila ni uspela",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "cron-job-paused",
+    "before": "Заказани посао је успешно паузиран",
+    "after": "Načrtovano opravilo je uspešno začasno ustavljeno",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "cron-migration-errors",
+    "before": "Грешке приликом обнове списа",
+    "after": "Napake pri selitvah",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "cron-migration-warnings",
+    "before": "Упозорења приликом обнове списа",
+    "after": "Opozorila pri selitvah",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "cron-migrations",
+    "before": "Заказани поступци обнове оштећених списа",
+    "after": "Načrtovane selitve",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "cron-migrations-resumed",
+    "before": "Обнове су успешно настављене",
+    "after": "Selitve so uspešno nadaljevane",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "cron-migrations-retried",
+    "before": "Неуспеле обнове су управо поново покренуте",
+    "after": "Neuspele selitve so uspešno znova zagnane",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "cron-no-errors",
+    "before": "Нису се догодиле никакве грешке",
+    "after": "Ni napak za prikaz",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "cron-no-failed-migrations",
+    "before": "Нема понављања јер није ни било неуспешних обнова",
+    "after": "Ni neuspelih selitev za ponovni poskus",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "cron-no-paused-migrations",
+    "before": "Нема настављања јер се није ни правио предах",
+    "after": "Ni začasno ustavljenih selitev za nadaljevanje",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "cron-resume-paused",
+    "before": "Настави обнову након предаха",
+    "after": "Nadaljuj začasno ustavljene selitve",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "custom-field-stringtemplate-format",
+    "before": "Облик (користите %{вредност} као основу/носач)",
+    "after": "Oblika (uporabite %{value} kot nadomestno oznako)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "custom-field-stringtemplate-item-placeholder",
+    "before": "Притисните ентер да додате још ставки",
+    "after": "Pritisnite Enter za dodajanje več postavk",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "confirm-checklist-delete-popup",
+    "before": "Да ли сте сигурни да желите да избришете ову предметну радњу?",
+    "after": "Ali ste prepričani, da želite izbrisati kontrolni seznam?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "conversion-info-text",
+    "before": "Ово преслагање се изводи само једном по спису и то после олакшава читање.  Без сметњи настављате да читате спис након тога.",
+    "after": "Ta pretvorba se izvede enkrat na tablo in izboljša zmogljivost. Tablo lahko še naprej uporabljate kot običajno.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "convert-to-markdown",
+    "before": "Претвори у структуирани текст",
+    "after": "Pretvori v Markdown",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "converting-board-description",
+    "before": "Преслагање списа олакшава употребу. Ово може потрајати неколико тренутака.",
+    "after": "Pretvarjanje strukture table za izboljšano delovanje. To lahko traja nekaj trenutkov.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "createTemplateContainerPopup-title",
+    "before": "Додај сандук са предлошцима",
+    "after": "Dodaj vsebnik predlog",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "created-at-newest-first",
+    "before": "По најновијим запримљеним",
+    "after": "Čas ustvarjanja (najnovejše najprej)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "created-at-oldest-first",
+    "before": "По најстарије запримљеним",
+    "after": "Čas ustvarjanja (najstarejše najprej)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "cron-clear-errors",
+    "before": "Избриши све наведене грешке",
+    "after": "Počisti vse napake",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "cron-errors-cleared",
+    "before": "Све грешке су успешно очишћене",
+    "after": "Vse napake so uspešno počiščene",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "cron-job-delete-confirm",
+    "before": "Да ли сте сигурни да желите да уклоните заказано?",
+    "after": "Ali ste prepričani, da želite izbrisati to načrtovano opravilo?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "cron-job-delete-failed",
+    "before": "Није успело уклањање заказаног посла",
+    "after": "Brisanje načrtovanega opravila ni uspelo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "cron-job-deleted",
+    "before": "Успешно је уклоњен заказани посао",
+    "after": "Načrtovano opravilo je uspešno izbrisano",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "cron-job-pause-failed",
+    "before": "Није успело паузирање заказаног посла",
+    "after": "Začasna ustavitev načrtovanega opravila ni uspela",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "cron-job-paused",
+    "before": "Заказани посао је успешно паузиран",
+    "after": "Načrtovano opravilo je uspešno začasno ustavljeno",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "cron-migration-errors",
+    "before": "Грешке приликом обнове списа",
+    "after": "Napake pri selitvah",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "cron-migration-warnings",
+    "before": "Упозорења приликом обнове списа",
+    "after": "Opozorila pri selitvah",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "cron-migrations",
+    "before": "Заказани поступци обнове оштећених списа",
+    "after": "Načrtovane selitve",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "cron-migrations-resumed",
+    "before": "Обнове су успешно настављене",
+    "after": "Selitve so uspešno nadaljevane",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "cron-migrations-retried",
+    "before": "Неуспеле обнове су управо поново покренуте",
+    "after": "Neuspele selitve so uspešno znova zagnane",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "cron-no-errors",
+    "before": "Нису се догодиле никакве грешке",
+    "after": "Ni napak za prikaz",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "cron-no-failed-migrations",
+    "before": "Нема понављања јер није ни било неуспешних обнова",
+    "after": "Ni neuspelih selitev za ponovni poskus",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "cron-no-paused-migrations",
+    "before": "Нема настављања јер се није ни правио предах",
+    "after": "Ni začasno ustavljenih selitev za nadaljevanje",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "cron-resume-paused",
+    "before": "Настави обнову након предаха",
+    "after": "Nadaljuj začasno ustavljene selitve",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "custom-field-stringtemplate-format",
+    "before": "Облик (користите %{вредност} као основу/носач)",
+    "after": "Oblika (uporabite %{value} kot nadomestno oznako)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "custom-field-stringtemplate-item-placeholder",
+    "before": "Притисните ентер да додате још ставки",
+    "after": "Pritisnite Enter za dodajanje več postavk",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

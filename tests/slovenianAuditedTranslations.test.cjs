@@ -23,6 +23,16 @@ for (const locale of ['sl', 'sl_SI']) {
   assert.match(data['accounts-lockout-info'], /napadi z grobo silo/);
   assert.doesNotMatch(data['accounts-lockout-info'], /lozinkef/);
   assert.equal(data.MongoDB_storage_engine, 'Shranjevalni pogon MongoDB');
+  assert.match(data['conversion-info-text'], /enkrat na tablo.*izboljša zmogljivost.*še naprej uporabljate/);
+  assert.match(data['created-at-newest-first'], /ustvarjanja.*najnovejše/);
+  assert.match(data['created-at-oldest-first'], /ustvarjanja.*najstarejše/);
+  assert.match(data['cron-no-errors'], /za prikaz/);
+  assert.doesNotMatch(data['cron-no-errors'], /nikoli|zgodile/);
+  assert.match(data['cron-no-failed-migrations'], /neuspelih selitev.*ponovni poskus/);
+  assert.match(data['cron-no-paused-migrations'], /začasno ustavljenih selitev.*nadaljevanje/);
+  assert.match(data['custom-field-stringtemplate-format'], /%\{value\}/);
+  assert.doesNotMatch(data['custom-field-stringtemplate-format'], /%\{вредност\}/);
+
   for (const action of ['archive', 'backup', 'cleanup']) {
     assert.match(data[`board-${action}-failed`], /Načrtovanje.*ni uspelo/);
     assert.match(data[`board-${action}-scheduled`], /uspešno načrtovano/);
