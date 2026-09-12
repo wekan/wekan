@@ -343,3 +343,10 @@ assert.equal(data['s3-access-key-placeholder'], 'Introduz a clau d’acceso de S
 assert.ok(data['s3-bucket-menu-path'].includes('AWS Console → S3 → Buckets'));
 assert.ok(data['s3-bucket-menu-path'].includes('Create bucket → Bucket name'));
 assert.equal(data['s3-connection-failed'], 'A connexión S3 ha fallau');
+assert.equal(data['s3-disabled'], 'Almagazenamiento S3/MinIO desactivau');
+assert.equal(data['s3-force-path-style'], 'Forzar URLs de estilo de ruta');
+assert.ok(data['s3-minio-storage-description'].includes('AWS S3, MinIO, Cloudflare R2, Backblaze B2, Wasabi, DigitalOcean Spaces'));
+assert.equal(data['s3-region-description'], 'Región de AWS S3 (p. ej., us-east-1)');
+assert.equal(data['s3-region-menu-path'], 'AWS Console → S3 → Buckets → o tuyo bucket → Properties → AWS Region.');
+assert.equal(data['s3-secret-key-placeholder'], 'Introduz a clau secreta de S3');
+assert.notEqual(data['s3-secret-key-placeholder'], data['s3-access-key-placeholder']);

@@ -754,5 +754,17 @@
     "key": "rulesImportExportPopup-title",
     "value": "Importar / Exportar reglas",
     "reason": "Reviewed shared Aragonese vocabulary for importing and exporting rules; both opposite operations remain explicit."
+  },
+  {
+    "locale": "an",
+    "key": "s3-force-path-style",
+    "value": "Forzar URLs de estilo de ruta",
+    "reason": "Reviewed shared technical vocabulary: force path-style URLs rather than host-style addressing; no source meaning omitted."
+  },
+  {
+    "locale": "an",
+    "key": "s3-region-description",
+    "value": "Región de AWS S3 (p. ej., us-east-1)",
+    "reason": "Reviewed shared regional terminology and preserved AWS S3 acronym and literal us-east-1 region example."
   }
 ]

@@ -45736,5 +45736,33 @@
     "before": "La conexión S3 ha fallado",
     "after": "A connexión S3 ha fallau",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "s3-disabled",
+    "before": "Almacenamiento S3/MinIO deshabilitado",
+    "after": "Almagazenamiento S3/MinIO desactivau",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "s3-minio-storage-description",
+    "before": "Almacenamiento de objetos compatible con S3: AWS S3, MinIO, Cloudflare R2, Backblaze B2, Wasabi, DigitalOcean Spaces y otros.",
+    "after": "Almagazenamiento d’obchectos compatible con S3: AWS S3, MinIO, Cloudflare R2, Backblaze B2, Wasabi, DigitalOcean Spaces y atros.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "s3-region-menu-path",
+    "before": "AWS Console → S3 → Buckets → tu bucket → Properties → AWS Region.",
+    "after": "AWS Console → S3 → Buckets → o tuyo bucket → Properties → AWS Region.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "s3-secret-key-placeholder",
+    "before": "Introduce la clave secreta de S3",
+    "after": "Introduz a clau secreta de S3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
