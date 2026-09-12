@@ -230,3 +230,16 @@ assert.match(data['deposit-subtasks-list'], /Llista de destín pa les subtarees 
 assert.match(data['disable-webhook'], /Desactivar esti Webhook/);
 assert.match(data['custom-top-left-corner-logo-link-url'], /URL del enllaz.*esquina superior izquierda/);
 assert.match(data['default-authentication-method'], /Métodu d’autenticación por defeutu/);
+
+assert.match(data['disambiguateMultiLabelPopup-title'], /aición de la etiqueta/);
+assert.match(data['disambiguateMultiMemberPopup-title'], /aición del miembru/);
+assert.match(data['display-authentication-method'], /Amosar el métodu d’autenticación/);
+assert.match(data.duenow, /vencimientu actual %s ye güei/);
+assert.match(data['edit-wip-limit'], /llende del trabayu en cursu/);
+assert.match(data['editCardDueDatePopup-title'], /data de vencimientu/);
+assert.match(data['editCardEndDatePopup-title'], /data de finalización/);
+assert.match(data['editCardReceivedDatePopup-title'], /data de recepción/);
+assert.match(data['editCardStartDatePopup-title'], /data d’aniciu/);
+assert.equal(new Set(['editCardDueDatePopup-title','editCardEndDatePopup-title','editCardReceivedDatePopup-title','editCardStartDatePopup-title'].map(key => data[key])).size, 4);
+assert.match(data['editCardSpentTimePopup-title'], /tiempu emplegáu/);
+assert.doesNotMatch(data['editCardSpentTimePopup-title'], /data|escedíu/);

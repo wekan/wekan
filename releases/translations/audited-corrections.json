@@ -42614,5 +42614,75 @@
     "before": "Deshabilitar este Webhook",
     "after": "Desactivar esti Webhook",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "disambiguateMultiLabelPopup-title",
+    "before": "Desambiguar la acción de etiqueta",
+    "after": "Desambiguar l’aición de la etiqueta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "disambiguateMultiMemberPopup-title",
+    "before": "Desambiguar la acción de miembro",
+    "after": "Desambiguar l’aición del miembru",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "display-authentication-method",
+    "before": "Mostrar el método de autenticación",
+    "after": "Amosar el métodu d’autenticación",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "duenow",
+    "before": "la hora de vencimiento actual %s es hoy",
+    "after": "La hora de vencimientu actual %s ye güei",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "edit-wip-limit",
+    "before": "Cambiar el límite del trabajo en proceso",
+    "after": "Editar la llende del trabayu en cursu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "editCardDueDatePopup-title",
+    "before": "Cambiar la fecha de vencimiento",
+    "after": "Cambiar la data de vencimientu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "editCardEndDatePopup-title",
+    "before": "Cambiar la fecha de finalización",
+    "after": "Cambiar la data de finalización",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "editCardReceivedDatePopup-title",
+    "before": "Cambiar la fecha de recepción",
+    "after": "Cambiar la data de recepción",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "editCardSpentTimePopup-title",
+    "before": "Cambiar el tiempo consumido",
+    "after": "Cambiar el tiempu emplegáu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "editCardStartDatePopup-title",
+    "before": "Cambiar la fecha de comienzo",
+    "after": "Cambiar la data d’aniciu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
