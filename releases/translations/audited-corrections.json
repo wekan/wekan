@@ -48585,5 +48585,40 @@
     "before": "Riprendi le migrazions in pausa",
     "after": "Cuntinuar las migraziuns en pausa",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "cron-retry-failed",
+    "before": "Riprova le migrazions no riuscite",
+    "after": "Empruvar anc ina giada las migraziuns betg reussidas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "custom-assetlinks-content",
+    "before": "Contenuto di assetlinks.json personalizzato (JSON)",
+    "after": "Cuntegn persunalisà dad assetlinks.json (JSON)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "custom-assetlinks-enabled",
+    "before": "Ativea assetlinks.json personalizzato",
+    "after": "Activar assetlinks.json persunalisà",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "custom-field-dropdown-options-placeholder",
+    "before": "Premi invio per aggiungere altre opzioni",
+    "after": "Smacca Enter per agiuntar ulteriuras opziuns",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "custom-field-stringtemplate-format",
+    "before": "Formato (usa %{value} come segnaposto)",
+    "after": "Format (utilisar %{value} sco plazzategnider)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
