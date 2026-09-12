@@ -766,5 +766,17 @@
     "key": "s3-region-description",
     "value": "Región de AWS S3 (p. ej., us-east-1)",
     "reason": "Reviewed shared regional terminology and preserved AWS S3 acronym and literal us-east-1 region example."
+  },
+  {
+    "locale": "an",
+    "key": "set-swimlane-height-value",
+    "value": "Altura de carril (píxeles)",
+    "reason": "Reviewed shared Aragonese height and lane terminology; pixel unit and source meaning preserved."
+  },
+  {
+    "locale": "an",
+    "key": "setSelectionColorPopup-title",
+    "value": "Establecer color de selección",
+    "reason": "Reviewed shared Aragonese action and selection-color terminology; correctly describes setting a selection color."
   }
 ]

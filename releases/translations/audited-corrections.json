@@ -45764,5 +45764,33 @@
     "before": "Introduce la clave secreta de S3",
     "after": "Introduz a clau secreta de S3",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "s3-secret-key-required",
+    "before": "Se requiere la clave secreta de S3",
+    "after": "Cal a clau secreta de S3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "search-example",
+    "before": "Escriba el texto que busca y pulse Intro",
+    "after": "Escribe o texto que buscas y preta Intro",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "send-smtp-test",
+    "before": "Enviarte un correo de prueba a ti mismo",
+    "after": "Ninviar-te un correu de preba a tu mesmo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "set-list-width-value",
+    "before": "Ancho de la lista (píxeles)",
+    "after": "Amplaria d’a lista (pixels)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

@@ -350,3 +350,9 @@ assert.equal(data['s3-region-description'], 'Región de AWS S3 (p. ej., us-east-
 assert.equal(data['s3-region-menu-path'], 'AWS Console → S3 → Buckets → o tuyo bucket → Properties → AWS Region.');
 assert.equal(data['s3-secret-key-placeholder'], 'Introduz a clau secreta de S3');
 assert.notEqual(data['s3-secret-key-placeholder'], data['s3-access-key-placeholder']);
+assert.equal(data['s3-secret-key-required'], 'Cal a clau secreta de S3');
+assert.equal(data['search-example'], 'Escribe o texto que buscas y preta Intro');
+assert.equal(data['send-smtp-test'], 'Ninviar-te un correu de preba a tu mesmo');
+assert.equal(data['set-list-width-value'], 'Amplaria d’a lista (pixels)');
+assert.equal(data['set-swimlane-height-value'], 'Altura de carril (píxeles)');
+assert.equal(data['setSelectionColorPopup-title'], 'Establecer color de selección');
