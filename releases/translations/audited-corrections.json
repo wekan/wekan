@@ -36867,5 +36867,61 @@
     "before": "O CSV(Comma Separated Values)/TSV (Tab Separated Values) não inclui a informação adequada no formato correto",
     "after": "O teu CSV (valores separados por comas)/TSV (valores separados por tabulacións) non inclúe a información axeitada no formato correcto ",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "error-invitation-code-not-exist",
+    "before": "O código do convite não existe",
+    "after": "O código de convite non existe",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "error-json-malformed",
+    "before": "O seu texto não é um JSON válido",
+    "after": "O teu texto non é un JSON válido",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "error-json-schema",
+    "before": "O seu JSON não inclui as informações apropriadas no formato correto",
+    "after": "Os teus datos JSON non inclúen a información axeitada no formato correcto",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "error-notAuthorized",
+    "before": "Não tem autorização para ver esta página.",
+    "after": "Non tes autorización para ver esta páxina.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "export-card-excel",
+    "before": "Exportar cartão para Excel",
+    "after": "Exportar a tarxeta a Excel",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "export-card-excel-no-disk-space",
+    "before": "Não foi possível exportar para o Excel: espaço livre em disco insuficiente.",
+    "after": "Non se pode exportar a Excel: non hai espazo libre abondo no disco",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "export-card-field-board-info",
+    "before": "Informação do Quadro (Quadro, Lista e Raia)",
+    "after": "Información do taboleiro (taboleiro, lista, carril)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "filter-card-title-label",
+    "before": "Filtrar por título do cartão",
+    "after": "Filtrar por título da tarxeta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

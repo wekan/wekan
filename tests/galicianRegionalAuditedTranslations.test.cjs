@@ -114,3 +114,9 @@ assert.equal(data['dueCardsViewChange-title'], data['dueCardsViewChangePopup-tit
 assert.match(data['error-board-notAMember'], /membro deste taboleiro/);
 assert.match(data['error-board-notAdmin'], /administrador deste taboleiro/);
 assert.match(data['error-csv-schema'], /separados por comas.*separados por tabulacións.*formato correcto/);
+
+assert.match(data['error-json-malformed'], /non é un JSON válido/);
+assert.match(data['error-json-schema'], /datos JSON.*información axeitada.*formato correcto/);
+assert.match(data['error-notAuthorized'], /Non tes autorización/);
+assert.match(data['export-card-excel-no-disk-space'], /Non se pode exportar.*non hai espazo libre abondo/);
+assert.match(data['export-card-field-board-info'], /taboleiro, lista, carril/);
