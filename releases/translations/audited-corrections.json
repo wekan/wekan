@@ -35579,5 +35579,47 @@
     "before": "Брисање има трајни карактер. Све у вези са овим гласањем ће бити неповратно избрисано.",
     "after": "Brisanje je trajno. Izgubili boste vsa dejanja, povezana s tem glasovanjem.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "vote-public",
+    "before": "Прикажи резултате јавног гласања",
+    "after": "Prikaži, kdo je glasoval za kaj",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "website",
+    "before": "Званична интернет страница",
+    "after": "Spletna stran",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "writable-path-description",
+    "before": "Почетак путање према складишту предметне грађе",
+    "after": "Pot osnovne mape za shranjevanje datotek",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "vote-public",
+    "before": "Прикажи резултате јавног гласања",
+    "after": "Prikaži, kdo je glasoval za kaj",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "website",
+    "before": "Званична интернет страница",
+    "after": "Spletna stran",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "writable-path-description",
+    "before": "Почетак путање према складишту предметне грађе",
+    "after": "Pot osnovne mape za shranjevanje datotek",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

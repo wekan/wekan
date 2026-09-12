@@ -18,6 +18,7 @@ const assert = require('node:assert/strict');
   assert.equal(summary.auditedKeys, summary.corrected + summary.restoredPrePull + summary.reviewedUnchanged + summary.pending);
   assert.equal(result.pendingByLocale.bs, undefined, 'every flagged Bosnian key has been repaired');
   assert.equal(result.pendingByLocale.hr, undefined, 'every flagged Croatian key has been repaired');
+  for (const locale of ['sl', 'sl_SI']) assert.equal(result.pendingByLocale[locale], undefined, 'every flagged Slovenian key has been repaired or reviewed');
   assert.equal(result.pendingByLocale.lv, undefined, 'every audited Latvian key was repaired');
   assert.ok(result.rows.filter(row => row.locale === 'lv').every(row => row.status === 'corrected'));
   assert.equal(summary.pending, result.rows.filter(row => row.status === 'pending').length, 'remaining work is derived from values rather than a completion claim');
