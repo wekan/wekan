@@ -652,5 +652,11 @@
     "key": "custom-head-link-tags",
     "value": "Etiquetas link personalizadas (HTML)",
     "reason": "Valid shared Aragonese technical wording; preserve the literal format placeholder or HTML link element name and the source meaning."
+  },
+  {
+    "locale": "an",
+    "key": "custom-head-meta-tags",
+    "value": "Etiquetas meta personalizadas (HTML)",
+    "reason": "Valid shared Aragonese feminine plural wording; meta and HTML identify literal technical elements and must remain unchanged."
   }
 ]

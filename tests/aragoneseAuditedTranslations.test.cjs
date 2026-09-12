@@ -169,3 +169,9 @@ assert.match(data['custom-assetlinks-content'], /Conteniu personalizau d’asset
 assert.match(data['custom-assetlinks-enabled'], /Activar assetlinks\.json personalizau/);
 assert.ok(data['custom-field-stringtemplate-format'].includes('%{value}'));
 assert.equal(data['custom-head-link-tags'], 'Etiquetas link personalizadas (HTML)');
+assert.equal(data['custom-head-meta-tags'], 'Etiquetas meta personalizadas (HTML)');
+assert.match(data['custom-head-tags-enabled'], /^Activar etiquetas head/);
+assert.match(data['custom-help-link-url'], /URL d’o vinclo d’aduya/);
+assert.match(data['custom-legal-notice-link-url'], /pachina d’aviso legal/);
+assert.match(data['custom-manifest-enabled'], /^Activar o manifiesto web personalizau/);
+assert.match(data['custom-product-name'], /Nombre d’o producto personalizau/);

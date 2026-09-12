@@ -44805,5 +44805,40 @@
     "before": "Habilitar assetlinks.json personalizado",
     "after": "Activar assetlinks.json personalizau",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "custom-head-tags-enabled",
+    "before": "Habilitar etiquetas head personalizadas",
+    "after": "Activar etiquetas head personalizadas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "custom-help-link-url",
+    "before": "Enlace URL de ayuda personalizada",
+    "after": "URL d’o vinclo d’aduya personalizau",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "custom-legal-notice-link-url",
+    "before": "URL personalizada de la página de aviso legal",
+    "after": "URL personalizada d’a pachina d’aviso legal",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "custom-manifest-enabled",
+    "before": "Habilitar manifiesto web personalizado",
+    "after": "Activar o manifiesto web personalizau",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "custom-product-name",
+    "before": "Nombre de producto personalizado",
+    "after": "Nombre d’o producto personalizau",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
