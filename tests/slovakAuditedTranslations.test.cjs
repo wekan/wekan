@@ -19,6 +19,10 @@ const data = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/sk.i1
     'zaškrtol(a) ITEM v kontrolnom zozname CHECKLIST na karte CARD');
   assert.equal(translator.t('activity-unchecked-item', { sprintf: ['ITEM', 'CHECKLIST', 'CARD'] }),
     'zrušil(a) zaškrtnutie ITEM v kontrolnom zozname CHECKLIST na karte CARD');
+  assert.match(data['globalSearch-instructions-status-ended'], /dátumom ukončenia/);
+  assert.match(data['globalSearch-instructions-operator-user'], /členom.*zodpovednou osobou/);
+  assert.match(data['import-board-instruction-trello'], /«Menu», potom «More», «Print and Export», «Export JSON»/);
+  assert.match(data['import-board-instruction-csv'], /CSV.*TSV/);
   assert.match(data['globalSearch-instructions-notes-2'], /\*ALEBO\*/);
   assert.match(data['globalSearch-instructions-notes-3'], /\*A\*/);
   assert.match(data['globalSearch-instructions-notes-4'], /nerozlišuje veľké a malé písmená/);

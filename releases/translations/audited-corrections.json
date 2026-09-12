@@ -18219,5 +18219,180 @@
     "before": "`__operator_limit__:<n>` - kde *<n>* je kladné celé číslo vyjadřující počet karet zobrazených na jedné stránce.",
     "after": "`__operator_limit__:<n>` — kde *<n>* je kladné celé číslo vyjadrujúce počet kariet zobrazených na stránke.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "globalSearch-instructions-operator-list",
+    "before": "`__operator_list__:<title>` - karty ve sloupcích odpovídajících zadanému *<title>*",
+    "after": "`__operator_list__:<title>` — karty v zoznamoch zodpovedajúcich zadanému názvu *<title>*",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "globalSearch-instructions-operator-member",
+    "before": "`__operator_member__:<username>` - karty, kde *<username>* je *member*",
+    "after": "`__operator_member__:<username>` — karty, na ktorých je *<username>* *členom*",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "globalSearch-instructions-operator-modified",
+    "before": "`__operator_modified__:<n>` - katry, které byly upraveny před *<n>* nebo méně dny",
+    "after": "`__operator_modified__:<n>` — karty upravené pred najviac *<n>* dňami",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "globalSearch-instructions-operator-sort",
+    "before": "`__operator_sort__:<sort-name>` - kde *<sort-name>* je jedno z `__predicate_due__`, `__predicate_created__` nebo `__predicate_modified__`.  Pro sestupné řazení zadejte před název `-`.",
+    "after": "`__operator_sort__:<sort-name>` — kde *<sort-name>* je jedno z `__predicate_due__`, `__predicate_created__` alebo `__predicate_modified__`. Pre zostupné zoradenie zadajte `-` pred názov zoradenia.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "globalSearch-instructions-operator-status",
+    "before": "`__operator_status__:<status>` - kde *<status>* je jedno z následujících:",
+    "after": "`__operator_status__:<status>` — kde *<status>* je jedna z nasledujúcich hodnôt:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "globalSearch-instructions-operator-swimlane",
+    "before": "`__operator_swimlane__:<title>` - karty v drahách odpovídajících zadanému *<title>*",
+    "after": "`__operator_swimlane__:<title>` — karty v dráhach zodpovedajúcich zadanému názvu *<title>*",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "globalSearch-instructions-operator-user",
+    "before": "`__operator_user__:<username>` - karty, kde *<username>* je *member* nebo *assignee*",
+    "after": "`__operator_user__:<username>` — karty, na ktorých je *<username>* *členom* alebo *zodpovednou osobou*",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "globalSearch-instructions-status-all",
+    "before": "`__predicate_all__` - všechny archivované a nearchivované karty",
+    "after": "`__predicate_all__` — všetky archivované a nearchivované karty",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "globalSearch-instructions-status-ended",
+    "before": "`__predicate_ended__` - karty s datem dokončení",
+    "after": "`__predicate_ended__` — karty s dátumom ukončenia",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "globalSearch-instructions-status-private",
+    "before": "`__predicate_private__` - karty jen na soukromých tablech",
+    "after": "`__predicate_private__` — karty iba na súkromných nástenkách",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "globalSearch-instructions-status-public",
+    "before": "`__predicate_public__` - karty na veřejných tablech",
+    "after": "`__predicate_public__` — karty iba na verejných nástenkách",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "has-overtime-cards",
+    "before": "Obsahuje karty s přesčasy",
+    "after": "Obsahuje karty s nadčasmi",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "has-spenttime-cards",
+    "before": "Obsahuje karty se stráveným časem",
+    "after": "Obsahuje karty so stráveným časom",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "header-logo-title",
+    "before": "Jit zpět na stránku s tably.",
+    "after": "Späť na stránku vašich násteniek.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "hide-minicard-label-text",
+    "before": "Skrýt text popisku minikarty",
+    "after": "Skryť text štítka minikarty",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "import-board-instruction-about-errors",
+    "before": "Někdy import funguje i přestože dostáváte chyby při importování tabla, které se zobrazí na stránce Všechna tabla.",
+    "after": "Ak sa pri importe nástenky objavia chyby, import niekedy napriek tomu funguje a nástenka je na stránke Všetky nástenky.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "import-board-instruction-csv",
+    "before": "Vložit do vašeho Comma Separated Values (CSV)/ Tab Separated Values (TSV).",
+    "after": "Vložte údaje CSV (hodnoty oddelené čiarkami)/TSV (hodnoty oddelené tabulátormi).",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "import-board-instruction-trello",
+    "before": "Na svém Trello tablu, otevři 'Menu', pak 'More', 'Print and Export', 'Export JSON', a zkopíruj výsledný text",
+    "after": "Na svojej nástenke Trello otvorte «Menu», potom «More», «Print and Export», «Export JSON» a skopírujte výsledný text.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "import-board-instruction-wekan",
+    "before": "Ve vašem tablu jděte do 'Menu', klikněte na 'Exportovat tablo' a zkopírujte text ze staženého souboru.",
+    "after": "Na svojej nástenke otvorte «Menu», potom «Exportovať nástenku» a skopírujte text zo stiahnutého súboru.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "import-csv-placeholder",
+    "before": "Zde vložte vaše platné CSV/TSV data",
+    "after": "Sem vložte platné údaje CSV/TSV",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "import-json-placeholder",
+    "before": "Sem vlož validní JSON data",
+    "after": "Sem vložte platné údaje JSON",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "import-members-map",
+    "before": "Toto importované tablo obsahuje několik osob. Prosím namapujte osoby z importu na místní uživatelské účty.",
+    "after": "Importovaná nástenka obsahuje členov. Priraďte členov, ktorých chcete importovať, k svojim používateľom",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "import-show-user-mapping",
+    "before": "Zkontrolovat namapování členů",
+    "after": "Skontrolovať priradenie členov",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "import-user-select",
+    "before": "Vyberte existující uživatelský účet, kterého chcete použít pro tuto osobu",
+    "after": "Vyberte existujúceho používateľa, ktorého chcete použiť ako tohto člena",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sk",
+    "key": "import-usernames",
+    "before": "Importovat uživatelská jména",
+    "after": "Importovať používateľské mená",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
