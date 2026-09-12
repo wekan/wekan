@@ -524,6 +524,33 @@ the Markdown commit as the template.
 </details>
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** On-premise **OAuth2/OIDC** login can now be restricted to
+specific email domains using the existing identity provider integration.
+
+This release adds the following login feature:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/849f1e10c55b0d697e078bcd4e8ac87e71b62840">Restrict OAuth2 login by email domain</a>. Thanks to xet7.</summary>
+
+Set `OAUTH2_ALLOWED_EMAIL_DOMAINS` to a comma-separated list of exact domains.
+The provider's mapped email is checked before account creation, merging or
+board/group membership changes. Existing sessions are not revoked. Unset or
+empty configuration preserves current behavior; malformed restrictions deny
+sign-in. The implementation uses no new dependencies or Internet lookup and
+works with an identity provider hosted on the local network.
+
+Positive and negative tests cover exact matching, malformed input, missing
+email and the actual OAuth callback with mocked provider responses. Ten
+related Node suites pass. A live identity-provider/browser login was not run.
+The roadmap export audit records completed checks and the remaining source
+review; the full roadmap implementation remains unfinished.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v11.72 2026-09-11 WeKan ® release
 
 **In short:** Board JSON exports now complete when cards contain HTML, with
