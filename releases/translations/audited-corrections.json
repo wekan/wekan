@@ -47451,5 +47451,61 @@
     "before": "Islamic (Saudi Arabia)",
     "after": "هجري ڪئلينڊر (سعودي عرب، چنڊ ڏسڻ)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "uz",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "Hindiston milliy taqvimi",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "uz",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "hijriy taqvim (Saudiya Arabistoni, oyni ko'rish)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "uz-AR",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "Hindiston milliy taqvimi",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "uz-AR",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "hijriy taqvim (Saudiya Arabistoni, oyni ko'rish)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "uz-LA",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "Hindiston milliy taqvimi",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "uz-LA",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "hijriy taqvim (Saudiya Arabistoni, oyni ko'rish)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "uz-UZ",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "Hindiston milliy taqvimi",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "uz-UZ",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "hijriy taqvim (Saudiya Arabistoni, oyni ko'rish)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
