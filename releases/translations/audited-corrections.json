@@ -46758,5 +46758,12 @@
     "before": "Islamic (Saudi Arabia)",
     "after": "ஹிஜ்ரி நாட்காட்டி (சவூதி அரேபியா, பிறை பார்த்தல்)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ur",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "ہجری کیلنڈر (سعودی عرب، چاند دیکھنے پر مبنی)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
