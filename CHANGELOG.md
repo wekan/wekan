@@ -557,6 +557,16 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/d9ac5a56f">Repair Czech-seeded Slovak activity translations</a>. Thanks to xet7.</summary>
+
+Correct 29 reviewed activity and account-setting values. Positive and negative
+repair checks verify exact values, source placeholders, key order, idempotency
+and preservation of newer wording. These checks pass. Further Slovak and other
+locale findings remain under review.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/2832477b7">Translate audited advanced-filter help in seven locales</a>. Thanks to xet7.</summary>
 
 Replace English filter instructions with Arabic, Lithuanian, Mongolian and
