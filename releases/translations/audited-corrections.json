@@ -19234,5 +19234,180 @@
     "before": "Поступак",
     "after": "Лента",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "deposit-subtasks-board",
+    "before": "Вложете под-задачи към тази дъска:",
+    "after": "Додади подзадачи на оваа табла:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "error-user-doesNotExist",
+    "before": "Този потребител не съществува",
+    "after": "Овој корисник не постои",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "error-user-notCreated",
+    "before": "Този потребител не е създаден",
+    "after": "Овој корисник не е создаден",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "header-logo-title",
+    "before": "Назад към страницата с Вашите табла.",
+    "after": "Назад на страницата со вашите табли.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "r-when-a-attach",
+    "before": "Когато някой прикачен файл",
+    "after": "Кога прилог",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "r-when-a-checklist",
+    "before": "Когато някой списък със задачи",
+    "after": "Кога список за проверка е",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "r-when-the-checklist",
+    "before": "Когато списъкът със задачи",
+    "after": "Кога списокот за проверка",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "shortcut-assign-self",
+    "before": "Добави себе си към тази карта",
+    "after": "Додели си ја тековната карта",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "worker-desc",
+    "before": "Може само да премества карти, да ги добавя към себе си и да коментира",
+    "after": "Може само да преместува карти, да си доделува карти и да коментира.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "Cube-Grid",
+    "before": "Исцртавај мрежу квадратића",
+    "after": "Индикатор за чекање со мрежа од коцки",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "Double-Bounce",
+    "before": "Исцртавај дворед са три тачкице",
+    "after": "Индикатор за чекање со двојно отскокнување",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "Node_heap_does_zap_garbage",
+    "before": "Node heap: купи zap смеће",
+    "after": "Мемориски куп на Node: препишување на отпадната меморија со битов образец",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "Node_heap_heap_size_limit",
+    "before": "Node heap: вредност ограничења heap простора",
+    "after": "Мемориски куп на Node: ограничување на големината на купот",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "Node_heap_malloced_memory",
+    "before": "Node heap: алоцирана меморија",
+    "after": "Мемориски куп на Node: меморија доделена преку malloc",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "Node_heap_number_of_detached_contexts",
+    "before": "Node heap: број одвојених  окружења",
+    "after": "Мемориски куп на Node: број на одвоени контексти",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "Node_heap_number_of_native_contexts",
+    "before": "Node heap: број природних окружења",
+    "after": "Мемориски куп на Node: број на изворни контексти",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "Node_heap_peak_malloced_memory",
+    "before": "Node heap: вршна алоцирана меморија",
+    "after": "Мемориски куп на Node: најголема количина меморија доделена преку malloc",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "Node_heap_total_available_size",
+    "before": "Node heap: укупни доступни простор",
+    "after": "Мемориски куп на Node: вкупна достапна големина",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "Node_heap_total_heap_size",
+    "before": "Node heap: укупни heap простор",
+    "after": "Мемориски куп на Node: вкупна големина на купот",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "Node_heap_total_heap_size_executable",
+    "before": "Node heap: укупни извршни heap простор",
+    "after": "Мемориски куп на Node: големина на делот од купот за извршлив код",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "Node_heap_total_physical_size",
+    "before": "Node heap: укупни физички простор",
+    "after": "Мемориски куп на Node: вкупна големина на физичката меморија",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "Node_heap_used_heap_size",
+    "before": "Node heap: искоришћени heap простор",
+    "after": "Мемориски куп на Node: искористена големина на купот",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "Node_memory_usage_external",
+    "before": "Node искоришћење меморије: спољна",
+    "after": "Искористеност на меморијата на Node: надворешна меморија",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "Node_memory_usage_heap_total",
+    "before": "Node искоришћење меморије: укупан простор који је алоциран за heap",
+    "after": "Искористеност на меморијата на Node: вкупна големина на доделениот мемориски куп",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "Node_memory_usage_heap_used",
+    "before": "Node искоришћење меморије: колико заправо је искоришћено",
+    "after": "Искористеност на меморијата на Node: навистина искористена меморија",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
