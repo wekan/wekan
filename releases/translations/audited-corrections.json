@@ -46457,5 +46457,26 @@
     "before": "Islamic tabular",
     "after": "Calendari de l’hègira (tabular, època astronòmica)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "eo",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "Barata nacia kalendaro",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "eo",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "Hiĝra kalendaro (Sauda Arabio, observado de la Luno)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "eo",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "Hiĝra kalendaro (tabela, astronomia epoko)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
