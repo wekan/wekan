@@ -27655,5 +27655,131 @@
     "before": "Ово преслагање се изводи само једном по спису и то после олакшава читање.  Без сметњи настављате да читате спис након тога.",
     "after": "Ova konverzija obavlja se jednom po ploči i poboljšava performanse. Ploču možete nastaviti normalno koristiti.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "convert-to-markdown",
+    "before": "Претвори у структуирани текст",
+    "after": "Pretvori u markdown",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "converting-board-description",
+    "before": "Преслагање списа олакшава употребу. Ово може потрајати неколико тренутака.",
+    "after": "Konverzija strukture ploče radi poboljšanja funkcionalnosti. Ovo može potrajati nekoliko trenutaka.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "copyManyCardsPopup-instructions",
+    "before": "Наслови и описи одредишних предмета треба да имају следећи JSON облик:",
+    "after": "Naslovi i opisi odredišnih kartica u ovom JSON formatu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "createTemplateContainerPopup-title",
+    "before": "Додај сандук са предлошцима",
+    "after": "Dodaj spremnik predložaka",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "created-at-newest-first",
+    "before": "По најновијим запримљеним",
+    "after": "Datum kreiranja (najnovije prvo)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "created-at-oldest-first",
+    "before": "По најстарије запримљеним",
+    "after": "Datum kreiranja (najstarije prvo)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "cron-clear-errors",
+    "before": "Избриши све наведене грешке",
+    "after": "Obriši sve greške",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "cron-errors-cleared",
+    "before": "Све грешке су успешно очишћене",
+    "after": "Sve greške su uspješno obrisane",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "cron-job-delete-confirm",
+    "before": "Да ли сте сигурни да желите да уклоните заказано?",
+    "after": "Jeste li sigurni da želite izbrisati ovaj zakazani posao?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "cron-job-delete-failed",
+    "before": "Није успело уклањање заказаног посла",
+    "after": "Brisanje zakazanog posla nije uspjelo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "cron-job-deleted",
+    "before": "Успешно је уклоњен заказани посао",
+    "after": "Zakazani posao je uspješno izbrisan",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "cron-job-pause-failed",
+    "before": "Није успело паузирање заказаног посла",
+    "after": "Pauziranje zakazanog posla nije uspjelo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "cron-job-paused",
+    "before": "Заказани посао је успешно паузиран",
+    "after": "Zakazani posao je uspješno pauziran",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "cron-migration-errors",
+    "before": "Грешке приликом обнове списа",
+    "after": "Greške migracije",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "cron-migration-warnings",
+    "before": "Упозорења приликом обнове списа",
+    "after": "Upozorenja migracije",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "cron-migrations",
+    "before": "Заказани поступци обнове оштећених списа",
+    "after": "Zakazane migracije",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "cron-migrations-resumed",
+    "before": "Обнове су успешно настављене",
+    "after": "Migracije su uspješno nastavljene",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "cron-migrations-retried",
+    "before": "Неуспеле обнове су управо поново покренуте",
+    "after": "Neuspjele migracije su uspješno ponovo pokrenute",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

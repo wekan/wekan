@@ -107,3 +107,18 @@ assert.match(data['conversion-info-text'], /jednom po ploči/);
 assert.match(data['conversion-info-text'], /nastaviti normalno koristiti/);
 assert.match(data['comprehensive-board-migration-description'], /redoslijed lista, položaje kartica i strukturu staza/);
 console.log('bosnianAuditedTranslations: checklist entities, comment-only restrictions and conversion scope passed');
+
+assert.equal(data['convert-to-markdown'], 'Pretvori u markdown');
+assert.match(data['copyManyCardsPopup-instructions'], /odredišnih kartica.*JSON/);
+assert.equal(data['createTemplateContainerPopup-title'], data['add-template-container']);
+assert.equal(data['created-at-newest-first'], 'Datum kreiranja (najnovije prvo)');
+assert.equal(data['created-at-oldest-first'], 'Datum kreiranja (najstarije prvo)');
+assert.doesNotMatch(data['created-at-newest-first'], /prijem|zaprim/);
+assert.match(data['cron-job-delete-confirm'], /ovaj zakazani posao/);
+assert.match(data['cron-job-delete-failed'], /nije uspjelo/);
+assert.match(data['cron-job-deleted'], /uspješno izbrisan/);
+assert.match(data['cron-job-pause-failed'], /nije uspjelo/);
+assert.match(data['cron-job-paused'], /uspješno pauziran/);
+assert.match(data['cron-migrations-retried'], /^Neuspjele migracije.*ponovo pokrenute/);
+assert.doesNotMatch(data['cron-migrations-retried'], /obnov.*spis/);
+console.log('bosnianAuditedTranslations: creation-date ordering, template identity and scheduled-job results passed');
