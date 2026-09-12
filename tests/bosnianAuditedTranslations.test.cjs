@@ -51,3 +51,18 @@ console.log('bosnianAuditedTranslations: account scope, credentials and lockout 
   assert.equal(translator.t('activity-set-customfield', { sprintf: ['FIELD', 'VALUE', 'CARD'] }), "postavio prilagođeno polje 'FIELD' na 'VALUE' u CARD");
   console.log('bosnianAuditedTranslations: activity rendering, argument order and reminder meanings passed');
 })().catch(error => { console.error(error); process.exitCode = 1; });
+
+assert.match(data['admin-desc'], /uklanjati članove/);
+assert.match(data['admin-desc'], /mijenjati postavke ploče/);
+assert.doesNotMatch(data['admin-people-filter-inactive'], /platn|plać/);
+assert.match(data['admin-people-user-active'], /aktivan.*deaktivirate/);
+assert.match(data['admin-people-user-inactive'], /neaktivan.*aktivirate/);
+assert.equal(data.allowNonBoardMembers, 'Dopusti sve prijavljene korisnike');
+assert.doesNotMatch(data.allowNonBoardMembers, /sve korisnike$/);
+assert.ok(data['add-custom-html-after-body-start'].includes('<body>'));
+assert.ok(data['add-custom-html-before-body-end'].includes('</body>'));
+assert.match(data['allboards.edit-workspace-icon'], /\(markdown\)/);
+assert.match(data['app-is-offline'], /Osvježavanje stranice uzrokovat će gubitak podataka/);
+assert.match(data['app-is-offline'], /server nije zaustavljen/);
+assert.equal(data['app-try-reconnect'], 'Pokušajte se ponovo povezati.');
+console.log('bosnianAuditedTranslations: administrator permissions, account status and refresh warning passed');

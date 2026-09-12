@@ -27151,5 +27151,145 @@
     "before": "Ова функционалност биће ускоро додата",
     "after": "Funkcionalnost dodavanja zakazanih poslova stiže uskoro",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "add-custom-html-after-body-start",
+    "before": "Уметни овај HTML код где почиње <body> деоница",
+    "after": "Dodaj prilagođeni HTML nakon početne oznake <body>",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "add-custom-html-before-body-end",
+    "before": "Уметни овај HTML код пред крај </body> деонице",
+    "after": "Dodaj prilagođeni HTML prije završne oznake </body>",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "add-existing-card-as-subtask-empty",
+    "before": "Није пронађен ни један предмет",
+    "after": "Nisu pronađene odgovarajuće kartice",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "add-organizations-label",
+    "before": "Странке које имају увид су приказана доле:",
+    "after": "Dodane organizacije prikazane su ispod:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "add-teams-label",
+    "before": "Додати тимови су приказани доле:",
+    "after": "Dodani timovi prikazani su ispod:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "add-template-container",
+    "before": "Додај сандук са обрасцима",
+    "after": "Dodaj spremnik predložaka",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "admin-desc",
+    "before": "Има увид и пун приступ у све предмете из ових списа. У овим списима може да бира сараднике, поставља правила рада и чита записник.",
+    "after": "Može pregledati i uređivati kartice, uklanjati članove i mijenjati postavke ploče. Može pregledati aktivnosti.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "admin-people-filter-all",
+    "before": "Обухвати све расположиве сараднике",
+    "after": "Svi korisnici",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "admin-people-filter-inactive",
+    "before": "Сарадник више није на платном списку",
+    "after": "Neaktivni",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "admin-people-filter-locked",
+    "before": "Налоге на мерама забране права приступа",
+    "after": "Samo zaključani korisnici",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "admin-people-user-active",
+    "before": "Сарадник је на платном списку - притисните да би прекинули сарадњу",
+    "after": "Korisnik je aktivan - kliknite da ga deaktivirate",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "admin-people-user-inactive",
+    "before": "Сарадник није на платном списку - притисните да би га увели на платни списак",
+    "after": "Korisnik je neaktivan - kliknite da ga aktivirate",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "allboards.edit-workspace",
+    "before": "Преименовање радног простора",
+    "after": "Uredi radni prostor",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "allboards.edit-workspace-icon",
+    "before": "Слика за радни простор (код)",
+    "after": "Ikona radnog prostora (markdown)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "allowNonBoardMembers",
+    "before": "Дај право гласа и онима који немају увид у ове списе",
+    "after": "Dopusti sve prijavljene korisnike",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "allowed-upload-filetypes",
+    "before": "Дозвољене врсте датотека за слање:",
+    "after": "Dozvoljene vrste datoteka za učitavanje:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "almostdue",
+    "before": "приближава се крајњи рок %s",
+    "after": "trenutni rok %s se približava",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "always-field-on-card",
+    "before": "Придодај овакву рубрику и свим постојећим предметима",
+    "after": "Dodaj polje na sve kartice",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "app-is-offline",
+    "before": "Исчитавам, молим да сачекате. Освежавање стране ће изазвати губитак података. Ако повлачење података не ради, молим да проверите да ли је сервер заустављен.",
+    "after": "Učitavanje, molimo pričekajte. Osvježavanje stranice uzrokovat će gubitak podataka. Ako učitavanje ne radi, provjerite da server nije zaustavljen.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "app-try-reconnect",
+    "before": "Покушавам да се поново повежем.",
+    "after": "Pokušajte se ponovo povezati.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
