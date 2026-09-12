@@ -24806,5 +24806,117 @@
     "before": "Потврдите Вашу адресу е-поште на страници __siteName__",
     "after": "Potvrdite svoju adresu e-pošte na __siteName__",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "email-verifyEmail-text",
+    "before": "Добар дан __user__,\n\nДа би сте потврдили ваш налог за е-пошту, једноставно притисните на везу испод.\n\n__url__\n\nХвала.",
+    "after": "Pozdrav __user__,\n\nZa potvrdu adrese e-pošte svojeg računa kliknite poveznicu ispod.\n\n__url__\n\nHvala.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "error-csv-schema",
+    "before": "Ваш CSV(Вредности раздвојене зарезом)/TSV (Вредности раздвојене табулатором) не укључује исправну информацију у предвиђеном облику",
+    "after": "Vaši CSV podaci (vrijednosti odvojene zarezima) ili TSV podaci (vrijednosti odvojene tabulatorima) ne sadrže potrebne informacije u ispravnom formatu ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "error-ldap-login",
+    "before": "Догодила се нека грешка приликом покушаја пријављивања",
+    "after": "Došlo je do pogreške pri pokušaju prijave",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "error-orgname-taken",
+    "before": "Ово (пословно) име странке је већ у употреби",
+    "after": "Ovaj naziv organizacije već je zauzet",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "error-teamname-taken",
+    "before": "Ово име правног тима је већ у употреби",
+    "after": "Ovaj naziv tima već je zauzet",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "estimated-time-remaining",
+    "before": "Процењено преостало време",
+    "after": "Procijenjeno preostalo vrijeme",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "export-card-pdf",
+    "before": "Претвори предмет у PDF облик",
+    "after": "Izvezi karticu u PDF",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "filesReportTitle",
+    "before": "Извештај везан за предметну грађу",
+    "after": "Izvješće o datotekama",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "filesystem-path-description",
+    "before": "Почетак пута до складишта предметне грађе",
+    "after": "Osnovna putanja za pohranu datoteka",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "filesystem-size",
+    "before": "Величина локалног складишта",
+    "after": "Veličina datotečnog sustava",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "filter-card-title-label",
+    "before": "Издвој по наслову предмета",
+    "after": "Filtriraj prema naslovu kartice",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "filter-due-next-week",
+    "before": "Где рок истиче следеће недеље",
+    "after": "Rok sljedeći tjedan",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "filter-due-this-week",
+    "before": "Где рок истиче ове недеље",
+    "after": "Rok ovaj tjedan",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "filter-member-label",
+    "before": "Издвој по надлежном сараднику",
+    "after": "Filtriraj prema članu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "filter-show-archive",
+    "before": "Прикажи архивиране делове поступка",
+    "after": "Prikaži arhivirane popise",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "fix-all-file-urls-migration",
+    "before": "Поправка кад ишчезне предметна грађа",
+    "after": "Popravi sve URL-ove datoteka",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
