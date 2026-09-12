@@ -35761,5 +35761,89 @@
     "before": "mencionou você no __card__: __comment__ da lista __list__ da raia __swimlane__ do quadro __board__",
     "after": "mencionoute na tarxeta __card__: __comment__ na lista __list__ no carril __swimlane__ no taboleiro __board__",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "act-checkedItem",
+    "before": "marcou __checklistItem__ na lista de verificação __checklist__ no cartão __card__ na lista __list__ na pista __swimlane__ no quadro __board__",
+    "after": "marcou __checklistItem__ na lista de verificación __checklist__ na tarxeta __card__ na lista __list__ no carril __swimlane__ no taboleiro __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "act-completeChecklist",
+    "before": "completou a lista de verificação __checklist__ no cartão __card__ na lista __list__ na pista __swimlane__ no quadro __board__",
+    "after": "completou a lista de verificación __checklist__ na tarxeta __card__ na lista __list__ no carril __swimlane__ no taboleiro __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "act-createCard",
+    "before": "criou o cartão __card__ na lista __list__ na pista __swimlane__ no quadro __board__",
+    "after": "creou a tarxeta __card__ na lista __list__ no carril __swimlane__ no taboleiro __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "act-createCustomField",
+    "before": "criou o campo personalizado __customField__ no quadro __board__",
+    "after": "creou o campo personalizado __customField__ no taboleiro __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "act-createList",
+    "before": "adicionou a lista __list__ ao quadro __board__",
+    "after": "engadiu a lista __list__ ao taboleiro __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "act-createSwimlane",
+    "before": "criou a pista __swimlane__ no quadro __board__",
+    "after": "creou o carril __swimlane__ no taboleiro __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "act-deleteAttachment",
+    "before": "apagou o anexo __attachment__ do cartão __card__ na lista __list__ na pista __swimlane__ no quadro __board__",
+    "after": "eliminou o anexo __attachment__ da tarxeta __card__ na lista __list__ no carril __swimlane__ no taboleiro __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "act-deleteComment",
+    "before": "apagou o comentário no cartão __card__: __comment__ na lista __list__ na pista __swimlane__ no quadro __board__",
+    "after": "eliminou o comentario na tarxeta __card__: __comment__ na lista __list__ no carril __swimlane__ no taboleiro __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "act-deleteCustomField",
+    "before": "apagou o campo personalizado __customField__ no quadro __board__",
+    "after": "eliminou o campo personalizado __customField__ no taboleiro __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "act-editComment",
+    "before": "editou o comentário no cartão __card__: __comment__ na lista __list__ na pista __swimlane__ no quadro __board__",
+    "after": "editou o comentario na tarxeta __card__: __comment__ na lista __list__ no carril __swimlane__ no taboleiro __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "act-importCard",
+    "before": "importou o cartão  __card__ para a lista __list__ na pista __swimlane__ no quadro __board__",
+    "after": "importou a tarxeta  __card__ á lista __list__ no carril __swimlane__ no taboleiro __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "act-importList",
+    "before": "importou a lista __list__ para pista __swimlane__ no quadro __board__",
+    "after": "importou a lista __list__ ao carril __swimlane__ no taboleiro __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
