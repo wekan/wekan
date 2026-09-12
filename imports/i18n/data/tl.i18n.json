@@ -571,7 +571,7 @@
   "copyListPopup-title": "Kopyahin listahan",
   "copyManyCardsPopup-title": "Kopyahin template sa Many kards",
   "copyManyCardsPopup-instructions": "Patutunguhan kard Titles at Descriptions sa ito JSON pormat",
-  "copyManyCardsPopup-format": "[ {\"pamagat\": \"Una kard pamagat\", \"paglalarawan\":\"Una kard paglalarawan\"}, {\"pamagat\":\"Second kard pamagat\",\"paglalarawan\":\"Second kard paglalarawan\"},{\"pamagat\":\"Huli kard pamagat\",\"paglalarawan\":\"Huli kard paglalarawan\"} ]",
+  "copyManyCardsPopup-format": "[{\"title\": \"Una kard pamagat\",\"description\": \"Una kard paglalarawan\"},{\"title\": \"Second kard pamagat\",\"description\": \"Second kard paglalarawan\"},{\"title\": \"Huli kard pamagat\",\"description\": \"Huli kard paglalarawan\"}]",
   "create": "Gumawa",
   "createBoardPopup-title": "Gumawa ng pisara",
   "createTemplateContainerPopup-title": "Magdagdag template Lalagyan",

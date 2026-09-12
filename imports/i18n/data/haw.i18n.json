@@ -571,7 +571,7 @@
   "copyListPopup-title": "kope papa inoa",
   "copyManyCardsPopup-title": "kope kumu hoʻohālike i manawa nā kāleka",
   "copyManyCardsPopup-instructions": "kekakinakiona kāleka kikaleka a kekakalipakionaka i kēia JSON polamaka",
-  "copyManyCardsPopup-format": "[ {\"inoa\": \"mua kāleka inoa\", \"wehewehe\":\"mua kāleka wehewehe\"}, {\"inoa\":\"kekona kāleka inoa\",\"wehewehe\":\"kekona kāleka wehewehe\"},{\"inoa\":\"hope kāleka inoa\",\"wehewehe\":\"hope kāleka wehewehe\"} ]",
+  "copyManyCardsPopup-format": "[{\"title\": \"mua kāleka inoa\",\"description\": \"mua kāleka wehewehe\"},{\"title\": \"kekona kāleka inoa\",\"description\": \"kekona kāleka wehewehe\"},{\"title\": \"hope kāleka inoa\",\"description\": \"hope kāleka wehewehe\"}]",
   "create": "Hana",
   "createBoardPopup-title": "Hana i papa",
   "createTemplateContainerPopup-title": "hoʻohui kumu hoʻohālike konakainela",

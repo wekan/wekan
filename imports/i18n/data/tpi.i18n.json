@@ -571,7 +571,7 @@
   "copyListPopup-title": "Kisim kopi lis",
   "copyManyCardsPopup-title": "Kisim kopi templet long Many ol kat",
   "copyManyCardsPopup-instructions": "Destination kat Titles na Descriptions in dispela JSON format",
-  "copyManyCardsPopup-format": "[ {\"nem\": \"First kat nem\", \"toksave\":\"First kat toksave\"}, {\"nem\":\"Second kat nem\",\"toksave\":\"Second kat toksave\"},{\"nem\":\"Last kat nem\",\"toksave\":\"Last kat toksave\"} ]",
+  "copyManyCardsPopup-format": "[{\"title\": \"First kat nem\",\"description\": \"First kat toksave\"},{\"title\": \"Second kat nem\",\"description\": \"Second kat toksave\"},{\"title\": \"Last kat nem\",\"description\": \"Last kat toksave\"}]",
   "create": "Wokim",
   "createBoardPopup-title": "Wokim wanpela bot",
   "createTemplateContainerPopup-title": "Putim templet Container",

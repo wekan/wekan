@@ -1138,7 +1138,7 @@
   "always-field-on-card": "新增欄位至所有卡片",
   "showLabel-field-on-card": "在迷你卡片中顯示欄位標籤",
   "showSum-field-on-list": "在清單頂端顯示欄位總合",
-  "admin-only-field": "仅董事会管理员可见",
+  "admin-only-field": "仅看板管理员可见",
   "yes": "是",
   "no": "否",
   "accounts": "帳號",

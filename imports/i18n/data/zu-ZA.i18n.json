@@ -571,7 +571,7 @@
   "copyListPopup-title": "Kopisha Uhlu",
   "copyManyCardsPopup-title": "Kopisha Isifanekiso Emakhadini Amaningi",
   "copyManyCardsPopup-instructions": "Izihloko Nezincazelo Zamakhadi Le fomethi ye-JSON",
-  "copyManyCardsPopup-format": "[ {\"title\": \"Isihloko sekhadi lokuqala\", \"incazelo\":\"Incazelo yekhadi lokuqala\"}, {\"isihloko\":\"Isihloko sekhadi lesibili\",\"incazelo\":\"Incazelo yekhadi lesibili\"},{\"isihloko\":\"Isihloko sekhadi lokugcina\",\"incazelo\":\"Incazelo yekhadi lokugcina\"} ]",
+  "copyManyCardsPopup-format": "[{\"title\": \"Isihloko sekhadi lokuqala\",\"description\": \"Incazelo yekhadi lokuqala\"},{\"title\": \"Isihloko sekhadi lesibili\",\"description\": \"Incazelo yekhadi lesibili\"},{\"title\": \"Isihloko sekhadi lokugcina\",\"description\": \"Incazelo yekhadi lokugcina\"}]",
   "create": "Dala",
   "createBoardPopup-title": "Dala Ibhodi",
   "createTemplateContainerPopup-title": "Engeza Isitsha Sesifanekiso",

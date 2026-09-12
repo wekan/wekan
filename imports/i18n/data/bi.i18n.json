@@ -571,7 +571,7 @@
   "copyListPopup-title": "Kopiem Lis",
   "copyManyCardsPopup-title": "Kopiem Template long Many Ol kad",
   "copyManyCardsPopup-instructions": "Destination Kad Titles mo Descriptions insaed long dispela JSON format",
-  "copyManyCardsPopup-format": "[ {\"taetol\": \"First kad taetol\", \"diskripsen\":\"First kad diskripsen\"}, {\"taetol\":\"Second kad taetol\",\"diskripsen\":\"Second kad diskripsen\"},{\"taetol\":\"Last kad taetol\",\"diskripsen\":\"Last kad diskripsen\"} ]",
+  "copyManyCardsPopup-format": "[{\"title\": \"First kad taetol\",\"description\": \"First kad diskripsen\"},{\"title\": \"Second kad taetol\",\"description\": \"Second kad diskripsen\"},{\"title\": \"Last kad taetol\",\"description\": \"Last kad diskripsen\"}]",
   "create": "Mekem",
   "createBoardPopup-title": "Mekem wan bod",
   "createTemplateContainerPopup-title": "Adem Template Container",

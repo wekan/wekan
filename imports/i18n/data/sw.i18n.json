@@ -571,7 +571,7 @@
   "copyListPopup-title": "Orodha ya Nakili",
   "copyManyCardsPopup-title": "Nakili Kiolezo kwa Kadi Nyingi",
   "copyManyCardsPopup-instructions": "Vichwa na Maelezo ya Kadi Lengwa katika umbizo hili la JSON",
-  "copyManyCardsPopup-format": "[ {\"title\": \"Jina la kadi ya kwanza\", \"maelezo\":\"Maelezo ya kadi ya kwanza\"}, {\"kichwa\":\"Jina la kadi ya pili\",\"maelezo\":\"Maelezo ya kadi ya pili\"},{\"title\":\"Jina la kadi ya mwisho\",\"description\":\"Maelezo ya kadi ya mwisho\"} ]",
+  "copyManyCardsPopup-format": "[{\"title\": \"Jina la kadi ya kwanza\",\"description\": \"Maelezo ya kadi ya kwanza\"},{\"title\": \"Jina la kadi ya pili\",\"description\": \"Maelezo ya kadi ya pili\"},{\"title\": \"Jina la kadi ya mwisho\",\"description\": \"Maelezo ya kadi ya mwisho\"}]",
   "create": "Unda",
   "createBoardPopup-title": "Unda Bodi",
   "createTemplateContainerPopup-title": "Ongeza Chombo cha Kiolezo",

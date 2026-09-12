@@ -571,7 +571,7 @@
   "copyListPopup-title": "కాపీ జాబితా",
   "copyManyCardsPopup-title": "అనేక కార్డ్‌లకు టెంప్లేట్‌ను కాపీ చేయండి",
   "copyManyCardsPopup-instructions": "ఈ JSON ఆకృతిలో డెస్టినేషన్ కార్డ్ శీర్షికలు మరియు వివరణలు",
-  "copyManyCardsPopup-format": "[ {\"title\": \"మొదటి కార్డ్ శీర్షిక\", \"వివరణ\":\"మొదటి కార్డ్ వివరణ\"}, {\"title\":\"రెండవ కార్డ్ శీర్షిక\",\"description\":\"రెండవ కార్డ్ వివరణ\"},{\"title\":\"చివరి కార్డ్ శీర్షిక\",\"వివరణ\":\"చివరి కార్డ్ వివరణ\"} ]",
+  "copyManyCardsPopup-format": "[{\"title\": \"మొదటి కార్డ్ శీర్షిక\",\"description\": \"మొదటి కార్డ్ వివరణ\"},{\"title\": \"రెండవ కార్డ్ శీర్షిక\",\"description\": \"రెండవ కార్డ్ వివరణ\"},{\"title\": \"చివరి కార్డ్ శీర్షిక\",\"description\": \"చివరి కార్డ్ వివరణ\"}]",
   "create": "సృష్టించు",
   "createBoardPopup-title": "బోర్డుని సృష్టించండి",
   "createTemplateContainerPopup-title": "టెంప్లేట్ కంటైనర్‌ను జోడించండి",

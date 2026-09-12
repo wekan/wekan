@@ -1,0 +1,3495 @@
+[
+  {
+    "locale": "ak",
+    "key": "copyManyCardsPopup-format",
+    "before": "[ {\"ti asɛm\": \"First kaad ti asɛm\", \"nkyerɛmu\":\"First kaad nkyerɛmu\"}, {\"ti asɛm\":\"Second kaad ti asɛm\",\"nkyerɛmu\":\"Second kaad nkyerɛmu\"},{\"ti asɛm\":\"Last kaad ti asɛm\",\"nkyerɛmu\":\"Last kaad nkyerɛmu\"} ]",
+    "after": "[{\"title\": \"First kaad ti asɛm\",\"description\": \"First kaad nkyerɛmu\"},{\"title\": \"Second kaad ti asɛm\",\"description\": \"Second kaad nkyerɛmu\"},{\"title\": \"Last kaad ti asɛm\",\"description\": \"Last kaad nkyerɛmu\"}]",
+    "reason": "Restore literal JSON property names; preserve translated sample prose."
+  },
+  {
+    "locale": "az-AZ",
+    "key": "copyManyCardsPopup-format",
+    "before": "[ {\"başlıq\": \"Birinci kartın başlığı\", \"təsviri\":\"Birinci kartın təsviri\"}, {\"başlıq\":\"İkinci kartın başlığı\",\"təsvir\":\"İkinci kartın təsviri\"},{\"başlıq\":\"Son kartın başlığı\",\"təsviri\":\"Son kartın təsviri\"} ]",
+    "after": "[{\"title\": \"Birinci kartın başlığı\",\"description\": \"Birinci kartın təsviri\"},{\"title\": \"İkinci kartın başlığı\",\"description\": \"İkinci kartın təsviri\"},{\"title\": \"Son kartın başlığı\",\"description\": \"Son kartın təsviri\"}]",
+    "reason": "Restore literal JSON property names; preserve translated sample prose."
+  },
+  {
+    "locale": "az-LA",
+    "key": "copyManyCardsPopup-format",
+    "before": "[ {\"başlıq\": \"Birinci kartın başlığı\", \"təsviri\":\"Birinci kartın təsviri\"}, {\"başlıq\":\"İkinci kartın başlığı\",\"təsvir\":\"İkinci kartın təsviri\"},{\"başlıq\":\"Son kartın başlığı\",\"təsviri\":\"Son kartın təsviri\"} ]",
+    "after": "[{\"title\": \"Birinci kartın başlığı\",\"description\": \"Birinci kartın təsviri\"},{\"title\": \"İkinci kartın başlığı\",\"description\": \"İkinci kartın təsviri\"},{\"title\": \"Son kartın başlığı\",\"description\": \"Son kartın təsviri\"}]",
+    "reason": "Restore literal JSON property names; preserve translated sample prose."
+  },
+  {
+    "locale": "az",
+    "key": "copyManyCardsPopup-format",
+    "before": "[ {\"başlıq\": \"Birinci kartın başlığı\", \"təsviri\":\"Birinci kartın təsviri\"}, {\"başlıq\":\"İkinci kartın başlığı\",\"təsvir\":\"İkinci kartın təsviri\"},{\"başlıq\":\"Son kartın başlığı\",\"təsviri\":\"Son kartın təsviri\"} ]",
+    "after": "[{\"title\": \"Birinci kartın başlığı\",\"description\": \"Birinci kartın təsviri\"},{\"title\": \"İkinci kartın başlığı\",\"description\": \"İkinci kartın təsviri\"},{\"title\": \"Son kartın başlığı\",\"description\": \"Son kartın təsviri\"}]",
+    "reason": "Restore literal JSON property names; preserve translated sample prose."
+  },
+  {
+    "locale": "bg",
+    "key": "copyManyCardsPopup-format",
+    "before": "[ {\"наслов\": \"Наслов првог предмета\", \"опис\":\"Опис првог предмета\"}, {\"наслов\":\"Наслов другог предмета\",\"опис\":\"Опис другог предмета\"},{\"наслов\":\"Наслов последњег предмете\",\"опис\":\"Опис последњег предмета\"} ]",
+    "after": "[{\"title\": \"Наслов првог предмета\",\"description\": \"Опис првог предмета\"},{\"title\": \"Наслов другог предмета\",\"description\": \"Опис другог предмета\"},{\"title\": \"Наслов последњег предмете\",\"description\": \"Опис последњег предмета\"}]",
+    "reason": "Restore literal JSON property names; preserve translated sample prose."
+  },
+  {
+    "locale": "bi",
+    "key": "copyManyCardsPopup-format",
+    "before": "[ {\"taetol\": \"First kad taetol\", \"diskripsen\":\"First kad diskripsen\"}, {\"taetol\":\"Second kad taetol\",\"diskripsen\":\"Second kad diskripsen\"},{\"taetol\":\"Last kad taetol\",\"diskripsen\":\"Last kad diskripsen\"} ]",
+    "after": "[{\"title\": \"First kad taetol\",\"description\": \"First kad diskripsen\"},{\"title\": \"Second kad taetol\",\"description\": \"Second kad diskripsen\"},{\"title\": \"Last kad taetol\",\"description\": \"Last kad diskripsen\"}]",
+    "reason": "Restore literal JSON property names; preserve translated sample prose."
+  },
+  {
+    "locale": "bs",
+    "key": "copyManyCardsPopup-format",
+    "before": "[ {\"наслов\": \"Наслов првог предмета\", \"опис\":\"Опис првог предмета\"}, {\"наслов\":\"Наслов другог предмета\",\"опис\":\"Опис другог предмета\"},{\"наслов\":\"Наслов последњег предмете\",\"опис\":\"Опис последњег предмета\"} ]",
+    "after": "[{\"title\": \"Наслов првог предмета\",\"description\": \"Опис првог предмета\"},{\"title\": \"Наслов другог предмета\",\"description\": \"Опис другог предмета\"},{\"title\": \"Наслов последњег предмете\",\"description\": \"Опис последњег предмета\"}]",
+    "reason": "Restore literal JSON property names; preserve translated sample prose."
+  },
+  {
+    "locale": "cy-GB",
+    "key": "copyManyCardsPopup-format",
+    "before": "[ { \" title \" : \" Teitl y cerdyn cyntaf \" , \" description \" : \" Disgrifiad cerdyn cyntaf \" }, { \" title \" : \" Teitl yr ail gerdyn \" , \" description \" : \" Disgrifiad o'r ail gerdyn \" }, { \" title \" : \" Teitl y cerdyn olaf \" , \" description \" : \" Disgrifiad o'r cerdyn diwethaf\" } ]",
+    "after": "[{\"title\": \" Teitl y cerdyn cyntaf \",\"description\": \" Disgrifiad cerdyn cyntaf \"},{\"title\": \" Teitl yr ail gerdyn \",\"description\": \" Disgrifiad o'r ail gerdyn \"},{\"title\": \" Teitl y cerdyn olaf \",\"description\": \" Disgrifiad o'r cerdyn diwethaf\"}]",
+    "reason": "Restore literal JSON property names; preserve translated sample prose."
+  },
+  {
+    "locale": "cy",
+    "key": "copyManyCardsPopup-format",
+    "before": "[ { \" title \" : \" Teitl y cerdyn cyntaf \" , \" description \" : \" Disgrifiad cerdyn cyntaf \" }, { \" title \" : \" Teitl yr ail gerdyn \" , \" description \" : \" Disgrifiad o'r ail gerdyn \" }, { \" title \" : \" Teitl y cerdyn olaf \" , \" description \" : \" Disgrifiad o'r cerdyn diwethaf\" } ]",
+    "after": "[{\"title\": \" Teitl y cerdyn cyntaf \",\"description\": \" Disgrifiad cerdyn cyntaf \"},{\"title\": \" Teitl yr ail gerdyn \",\"description\": \" Disgrifiad o'r ail gerdyn \"},{\"title\": \" Teitl y cerdyn olaf \",\"description\": \" Disgrifiad o'r cerdyn diwethaf\"}]",
+    "reason": "Restore literal JSON property names; preserve translated sample prose."
+  },
+  {
+    "locale": "haw",
+    "key": "copyManyCardsPopup-format",
+    "before": "[ {\"inoa\": \"mua kāleka inoa\", \"wehewehe\":\"mua kāleka wehewehe\"}, {\"inoa\":\"kekona kāleka inoa\",\"wehewehe\":\"kekona kāleka wehewehe\"},{\"inoa\":\"hope kāleka inoa\",\"wehewehe\":\"hope kāleka wehewehe\"} ]",
+    "after": "[{\"title\": \"mua kāleka inoa\",\"description\": \"mua kāleka wehewehe\"},{\"title\": \"kekona kāleka inoa\",\"description\": \"kekona kāleka wehewehe\"},{\"title\": \"hope kāleka inoa\",\"description\": \"hope kāleka wehewehe\"}]",
+    "reason": "Restore literal JSON property names; preserve translated sample prose."
+  },
+  {
+    "locale": "hr",
+    "key": "copyManyCardsPopup-format",
+    "before": "[ {\"наслов\": \"Наслов првог предмета\", \"опис\":\"Опис првог предмета\"}, {\"наслов\":\"Наслов другог предмета\",\"опис\":\"Опис другог предмета\"},{\"наслов\":\"Наслов последњег предмете\",\"опис\":\"Опис последњег предмета\"} ]",
+    "after": "[{\"title\": \"Наслов првог предмета\",\"description\": \"Опис првог предмета\"},{\"title\": \"Наслов другог предмета\",\"description\": \"Опис другог предмета\"},{\"title\": \"Наслов последњег предмете\",\"description\": \"Опис последњег предмета\"}]",
+    "reason": "Restore literal JSON property names; preserve translated sample prose."
+  },
+  {
+    "locale": "hsb",
+    "key": "copyManyCardsPopup-format",
+    "before": "[ {\"title\": \"Nadpiz první karty\", \"dezcription\":\"Wopizanje první karty\"}, {\"title\":\"Nadpiz druhé karty\",\"dezcription\":\"Wopizanje druhé karty\"},{\"title\":\"Nadpiz pozlední kary\",\"dezcription\":\"Wopizanje pozlední karty\"} ]",
+    "after": "[{\"title\": \"Nadpiz první karty\",\"description\": \"Wopizanje první karty\"},{\"title\": \"Nadpiz druhé karty\",\"description\": \"Wopizanje druhé karty\"},{\"title\": \"Nadpiz pozlední kary\",\"description\": \"Wopizanje pozlední karty\"}]",
+    "reason": "Restore literal JSON property names; preserve translated sample prose."
+  },
+  {
+    "locale": "ig",
+    "key": "copyManyCardsPopup-format",
+    "before": "[ {\" aha\": \"Aha kaadị mbụ\", \"nkọwa\":\"Nkọwa kaadị mbụ\"}, {\" aha\":\" aha kaadị nke abụọ\",\"nkọwa\":\"Nkọwa kaadị nke abụọ\"},{\" aha\":\"Aha kaadị ikpeazụ\",\"nkọwa\":\"Nkọwa kaadị ikpeazụ\"} ]",
+    "after": "[{\"title\": \"Aha kaadị mbụ\",\"description\": \"Nkọwa kaadị mbụ\"},{\"title\": \" aha kaadị nke abụọ\",\"description\": \"Nkọwa kaadị nke abụọ\"},{\"title\": \"Aha kaadị ikpeazụ\",\"description\": \"Nkọwa kaadị ikpeazụ\"}]",
+    "reason": "Restore literal JSON property names; preserve translated sample prose."
+  },
+  {
+    "locale": "ka",
+    "key": "copyManyCardsPopup-format",
+    "before": "[ {\"სათაური\": \"პირველი ბარათის სათაური\", \"აღწერა\":\"პირველი ბარათის აღწერა\"}, {\"სათაური\":\"მეორე ბარათის სათაური\",\"აღწერა\":\"მეორე ბარათის აღწერა\"},{\"სათაური\":\"ბოლო ბარათის სათაური\",\"აღწერა\":\"ბოლო ბარათის აღწერა\"} ]",
+    "after": "[{\"title\": \"პირველი ბარათის სათაური\",\"description\": \"პირველი ბარათის აღწერა\"},{\"title\": \"მეორე ბარათის სათაური\",\"description\": \"მეორე ბარათის აღწერა\"},{\"title\": \"ბოლო ბარათის სათაური\",\"description\": \"ბოლო ბარათის აღწერა\"}]",
+    "reason": "Restore literal JSON property names; preserve translated sample prose."
+  },
+  {
+    "locale": "km-KH",
+    "key": "copyManyCardsPopup-format",
+    "before": "[ {\"title\": \"ចំណងជើងកាតទីមួយ\", \"description\":\"ការពិពណ៌នាកាតទីមួយ\"}, {\"ចំណងជើង\":\"ចំណងជើងកាតទីពីរ\",\"description\":\"ការពិពណ៌នាកាតទីពីរ\"},{\"ចំណងជើង\":\"ចំណងជើងកាតចុងក្រោយ\",\"description\":\"ការពិពណ៌នាកាតចុងក្រោយ\"} ]",
+    "after": "[{\"title\": \"ចំណងជើងកាតទីមួយ\",\"description\": \"ការពិពណ៌នាកាតទីមួយ\"},{\"title\": \"ចំណងជើងកាតទីពីរ\",\"description\": \"ការពិពណ៌នាកាតទីពីរ\"},{\"title\": \"ចំណងជើងកាតចុងក្រោយ\",\"description\": \"ការពិពណ៌នាកាតចុងក្រោយ\"}]",
+    "reason": "Restore literal JSON property names; preserve translated sample prose."
+  },
+  {
+    "locale": "km",
+    "key": "copyManyCardsPopup-format",
+    "before": "[ {\"title\": \"ចំណងជើងកាតទីមួយ\", \"description\":\"ការពិពណ៌នាកាតទីមួយ\"}, {\"ចំណងជើង\":\"ចំណងជើងកាតទីពីរ\",\"description\":\"ការពិពណ៌នាកាតទីពីរ\"},{\"ចំណងជើង\":\"ចំណងជើងកាតចុងក្រោយ\",\"description\":\"ការពិពណ៌នាកាតចុងក្រោយ\"} ]",
+    "after": "[{\"title\": \"ចំណងជើងកាតទីមួយ\",\"description\": \"ការពិពណ៌នាកាតទីមួយ\"},{\"title\": \"ចំណងជើងកាតទីពីរ\",\"description\": \"ការពិពណ៌នាកាតទីពីរ\"},{\"title\": \"ចំណងជើងកាតចុងក្រោយ\",\"description\": \"ការពិពណ៌នាកាតចុងក្រោយ\"}]",
+    "reason": "Restore literal JSON property names; preserve translated sample prose."
+  },
+  {
+    "locale": "km_KH",
+    "key": "copyManyCardsPopup-format",
+    "before": "[ {\"title\": \"ចំណងជើងកាតទីមួយ\", \"description\":\"ការពិពណ៌នាកាតទីមួយ\"}, {\"ចំណងជើង\":\"ចំណងជើងកាតទីពីរ\",\"description\":\"ការពិពណ៌នាកាតទីពីរ\"},{\"ចំណងជើង\":\"ចំណងជើងកាតចុងក្រោយ\",\"description\":\"ការពិពណ៌នាកាតចុងក្រោយ\"} ]",
+    "after": "[{\"title\": \"ចំណងជើងកាតទីមួយ\",\"description\": \"ការពិពណ៌នាកាតទីមួយ\"},{\"title\": \"ចំណងជើងកាតទីពីរ\",\"description\": \"ការពិពណ៌នាកាតទីពីរ\"},{\"title\": \"ចំណងជើងកាតចុងក្រោយ\",\"description\": \"ការពិពណ៌នាកាតចុងក្រោយ\"}]",
+    "reason": "Restore literal JSON property names; preserve translated sample prose."
+  },
+  {
+    "locale": "lg",
+    "key": "copyManyCardsPopup-format",
+    "before": "[ {\"mutwe\": \"Kisooka kaadi mutwe\", \"kunnyonnyola\":\"Kisooka kaadi kunnyonnyola\"}, {\"mutwe\":\"Second kaadi mutwe\",\"kunnyonnyola\":\"Second kaadi kunnyonnyola\"},{\"mutwe\":\"Kisembayo kaadi mutwe\",\"kunnyonnyola\":\"Kisembayo kaadi kunnyonnyola\"} ]",
+    "after": "[{\"title\": \"Kisooka kaadi mutwe\",\"description\": \"Kisooka kaadi kunnyonnyola\"},{\"title\": \"Second kaadi mutwe\",\"description\": \"Second kaadi kunnyonnyola\"},{\"title\": \"Kisembayo kaadi mutwe\",\"description\": \"Kisembayo kaadi kunnyonnyola\"}]",
+    "reason": "Restore literal JSON property names; preserve translated sample prose."
+  },
+  {
+    "locale": "mk",
+    "key": "copyManyCardsPopup-format",
+    "before": "[ {\"наслов\": \"Наслов првог предмета\", \"опис\":\"Опис првог предмета\"}, {\"наслов\":\"Наслов другог предмета\",\"опис\":\"Опис другог предмета\"},{\"наслов\":\"Наслов последњег предмете\",\"опис\":\"Опис последњег предмета\"} ]",
+    "after": "[{\"title\": \"Наслов првог предмета\",\"description\": \"Опис првог предмета\"},{\"title\": \"Наслов другог предмета\",\"description\": \"Опис другог предмета\"},{\"title\": \"Наслов последњег предмете\",\"description\": \"Опис последњег предмета\"}]",
+    "reason": "Restore literal JSON property names; preserve translated sample prose."
+  },
+  {
+    "locale": "mt",
+    "key": "copyManyCardsPopup-format",
+    "before": "[ {\"titlu\": \"First kard titlu\", \"deskrizzjoni\":\"First kard deskrizzjoni\"}, {\"titlu\":\"Second kard titlu\",\"deskrizzjoni\":\"Second kard deskrizzjoni\"},{\"titlu\":\"Last kard titlu\",\"deskrizzjoni\":\"Last kard deskrizzjoni\"} ]",
+    "after": "[{\"title\": \"First kard titlu\",\"description\": \"First kard deskrizzjoni\"},{\"title\": \"Second kard titlu\",\"description\": \"Second kard deskrizzjoni\"},{\"title\": \"Last kard titlu\",\"description\": \"Last kard deskrizzjoni\"}]",
+    "reason": "Restore literal JSON property names; preserve translated sample prose."
+  },
+  {
+    "locale": "nb",
+    "key": "copyManyCardsPopup-format",
+    "before": "[ {\"Tittel\": \"Tittel første kort\", \"Beskrivelse\":\"Beskrivelse første kort\"}, {\"Tittel\":\"Tittel andre kort\",\"Beskrivelse\":\"Beskrivelse andre kort\"},{\"Tittel\":\"Tittel siste kort\",\"Beskrivelse\":\"Beskrivelse siste kort\"} ]",
+    "after": "[{\"title\": \"Tittel første kort\",\"description\": \"Beskrivelse første kort\"},{\"title\": \"Tittel andre kort\",\"description\": \"Beskrivelse andre kort\"},{\"title\": \"Tittel siste kort\",\"description\": \"Beskrivelse siste kort\"}]",
+    "reason": "Restore literal JSON property names; preserve translated sample prose."
+  },
+  {
+    "locale": "sl",
+    "key": "copyManyCardsPopup-format",
+    "before": "[ {\"naslov\": \"Naslov prve kartice\", \"opis\":\"Opis prve kartice\"}, {\"naslov\":\"Opis druge kartice\",\"opis\":\"Opis druge kartice\"},{\"naslov\":\"Naslov zadnje kartice\",\"opis\":\"Opis zadnje kartice\"} ]",
+    "after": "[{\"title\": \"Naslov prve kartice\",\"description\": \"Opis prve kartice\"},{\"title\": \"Opis druge kartice\",\"description\": \"Opis druge kartice\"},{\"title\": \"Naslov zadnje kartice\",\"description\": \"Opis zadnje kartice\"}]",
+    "reason": "Restore literal JSON property names; preserve translated sample prose."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "copyManyCardsPopup-format",
+    "before": "[ {\"naslov\": \"Naslov prve kartice\", \"opis\":\"Opis prve kartice\"}, {\"naslov\":\"Opis druge kartice\",\"opis\":\"Opis druge kartice\"},{\"naslov\":\"Naslov zadnje kartice\",\"opis\":\"Opis zadnje kartice\"} ]",
+    "after": "[{\"title\": \"Naslov prve kartice\",\"description\": \"Opis prve kartice\"},{\"title\": \"Opis druge kartice\",\"description\": \"Opis druge kartice\"},{\"title\": \"Naslov zadnje kartice\",\"description\": \"Opis zadnje kartice\"}]",
+    "reason": "Restore literal JSON property names; preserve translated sample prose."
+  },
+  {
+    "locale": "sr",
+    "key": "copyManyCardsPopup-format",
+    "before": "[ {\"наслов\": \"Наслов првог предмета\", \"опис\":\"Опис првог предмета\"}, {\"наслов\":\"Наслов другог предмета\",\"опис\":\"Опис другог предмета\"},{\"наслов\":\"Наслов последњег предмете\",\"опис\":\"Опис последњег предмета\"} ]",
+    "after": "[{\"title\": \"Наслов првог предмета\",\"description\": \"Опис првог предмета\"},{\"title\": \"Наслов другог предмета\",\"description\": \"Опис другог предмета\"},{\"title\": \"Наслов последњег предмете\",\"description\": \"Опис последњег предмета\"}]",
+    "reason": "Restore literal JSON property names; preserve translated sample prose."
+  },
+  {
+    "locale": "sw",
+    "key": "copyManyCardsPopup-format",
+    "before": "[ {\"title\": \"Jina la kadi ya kwanza\", \"maelezo\":\"Maelezo ya kadi ya kwanza\"}, {\"kichwa\":\"Jina la kadi ya pili\",\"maelezo\":\"Maelezo ya kadi ya pili\"},{\"title\":\"Jina la kadi ya mwisho\",\"description\":\"Maelezo ya kadi ya mwisho\"} ]",
+    "after": "[{\"title\": \"Jina la kadi ya kwanza\",\"description\": \"Maelezo ya kadi ya kwanza\"},{\"title\": \"Jina la kadi ya pili\",\"description\": \"Maelezo ya kadi ya pili\"},{\"title\": \"Jina la kadi ya mwisho\",\"description\": \"Maelezo ya kadi ya mwisho\"}]",
+    "reason": "Restore literal JSON property names; preserve translated sample prose."
+  },
+  {
+    "locale": "te-IN",
+    "key": "copyManyCardsPopup-format",
+    "before": "[ {\"title\": \"మొదటి కార్డ్ శీర్షిక\", \"వివరణ\":\"మొదటి కార్డ్ వివరణ\"}, {\"title\":\"రెండవ కార్డ్ శీర్షిక\",\"description\":\"రెండవ కార్డ్ వివరణ\"},{\"title\":\"చివరి కార్డ్ శీర్షిక\",\"వివరణ\":\"చివరి కార్డ్ వివరణ\"} ]",
+    "after": "[{\"title\": \"మొదటి కార్డ్ శీర్షిక\",\"description\": \"మొదటి కార్డ్ వివరణ\"},{\"title\": \"రెండవ కార్డ్ శీర్షిక\",\"description\": \"రెండవ కార్డ్ వివరణ\"},{\"title\": \"చివరి కార్డ్ శీర్షిక\",\"description\": \"చివరి కార్డ్ వివరణ\"}]",
+    "reason": "Restore literal JSON property names; preserve translated sample prose."
+  },
+  {
+    "locale": "tl",
+    "key": "copyManyCardsPopup-format",
+    "before": "[ {\"pamagat\": \"Una kard pamagat\", \"paglalarawan\":\"Una kard paglalarawan\"}, {\"pamagat\":\"Second kard pamagat\",\"paglalarawan\":\"Second kard paglalarawan\"},{\"pamagat\":\"Huli kard pamagat\",\"paglalarawan\":\"Huli kard paglalarawan\"} ]",
+    "after": "[{\"title\": \"Una kard pamagat\",\"description\": \"Una kard paglalarawan\"},{\"title\": \"Second kard pamagat\",\"description\": \"Second kard paglalarawan\"},{\"title\": \"Huli kard pamagat\",\"description\": \"Huli kard paglalarawan\"}]",
+    "reason": "Restore literal JSON property names; preserve translated sample prose."
+  },
+  {
+    "locale": "tpi",
+    "key": "copyManyCardsPopup-format",
+    "before": "[ {\"nem\": \"First kat nem\", \"toksave\":\"First kat toksave\"}, {\"nem\":\"Second kat nem\",\"toksave\":\"Second kat toksave\"},{\"nem\":\"Last kat nem\",\"toksave\":\"Last kat toksave\"} ]",
+    "after": "[{\"title\": \"First kat nem\",\"description\": \"First kat toksave\"},{\"title\": \"Second kat nem\",\"description\": \"Second kat toksave\"},{\"title\": \"Last kat nem\",\"description\": \"Last kat toksave\"}]",
+    "reason": "Restore literal JSON property names; preserve translated sample prose."
+  },
+  {
+    "locale": "uz-AR",
+    "key": "copyManyCardsPopup-format",
+    "before": "[ {\"title\": \"Birinchi karta nomi\", \"tavsif\":\"Birinchi karta tavsifi\"}, {\"title\":\"Ikkinchi karta sarlavhasi\",\"tavsif\":\"Ikkinchi karta tavsifi\"},{\"title\":\"Oxirgi karta nomi\",\"tavsif\":\"Oxirgi karta tavsifi\"} ]",
+    "after": "[{\"title\": \"Birinchi karta nomi\",\"description\": \"Birinchi karta tavsifi\"},{\"title\": \"Ikkinchi karta sarlavhasi\",\"description\": \"Ikkinchi karta tavsifi\"},{\"title\": \"Oxirgi karta nomi\",\"description\": \"Oxirgi karta tavsifi\"}]",
+    "reason": "Restore literal JSON property names; preserve translated sample prose."
+  },
+  {
+    "locale": "uz-LA",
+    "key": "copyManyCardsPopup-format",
+    "before": "[ {\"title\": \"Birinchi karta nomi\", \"tavsif\":\"Birinchi karta tavsifi\"}, {\"title\":\"Ikkinchi karta sarlavhasi\",\"tavsif\":\"Ikkinchi karta tavsifi\"},{\"title\":\"Oxirgi karta nomi\",\"tavsif\":\"Oxirgi karta tavsifi\"} ]",
+    "after": "[{\"title\": \"Birinchi karta nomi\",\"description\": \"Birinchi karta tavsifi\"},{\"title\": \"Ikkinchi karta sarlavhasi\",\"description\": \"Ikkinchi karta tavsifi\"},{\"title\": \"Oxirgi karta nomi\",\"description\": \"Oxirgi karta tavsifi\"}]",
+    "reason": "Restore literal JSON property names; preserve translated sample prose."
+  },
+  {
+    "locale": "uz-UZ",
+    "key": "copyManyCardsPopup-format",
+    "before": "[ {\"title\": \"Birinchi karta nomi\", \"tavsif\":\"Birinchi karta tavsifi\"}, {\"title\":\"Ikkinchi karta sarlavhasi\",\"tavsif\":\"Ikkinchi karta tavsifi\"},{\"title\":\"Oxirgi karta nomi\",\"tavsif\":\"Oxirgi karta tavsifi\"} ]",
+    "after": "[{\"title\": \"Birinchi karta nomi\",\"description\": \"Birinchi karta tavsifi\"},{\"title\": \"Ikkinchi karta sarlavhasi\",\"description\": \"Ikkinchi karta tavsifi\"},{\"title\": \"Oxirgi karta nomi\",\"description\": \"Oxirgi karta tavsifi\"}]",
+    "reason": "Restore literal JSON property names; preserve translated sample prose."
+  },
+  {
+    "locale": "uz",
+    "key": "copyManyCardsPopup-format",
+    "before": "[ {\"title\": \"Birinchi karta nomi\", \"tavsif\":\"Birinchi karta tavsifi\"}, {\"title\":\"Ikkinchi karta sarlavhasi\",\"tavsif\":\"Ikkinchi karta tavsifi\"},{\"title\":\"Oxirgi karta nomi\",\"tavsif\":\"Oxirgi karta tavsifi\"} ]",
+    "after": "[{\"title\": \"Birinchi karta nomi\",\"description\": \"Birinchi karta tavsifi\"},{\"title\": \"Ikkinchi karta sarlavhasi\",\"description\": \"Ikkinchi karta tavsifi\"},{\"title\": \"Oxirgi karta nomi\",\"description\": \"Oxirgi karta tavsifi\"}]",
+    "reason": "Restore literal JSON property names; preserve translated sample prose."
+  },
+  {
+    "locale": "ve",
+    "key": "copyManyCardsPopup-format",
+    "before": "[ {\"title\": \"Isihloko sekhadi lokuqala\", \"incazelo\":\"Incazelo yekhadi lokuqala\"}, {\"isihloko\":\"Isihloko sekhadi lesibili\",\"incazelo\":\"Incazelo yekhadi lesibili\"},{\"isihloko\":\"Isihloko sekhadi lokugcina\",\"incazelo\":\"Incazelo yekhadi lokugcina\"} ]",
+    "after": "[{\"title\": \"Isihloko sekhadi lokuqala\",\"description\": \"Incazelo yekhadi lokuqala\"},{\"title\": \"Isihloko sekhadi lesibili\",\"description\": \"Incazelo yekhadi lesibili\"},{\"title\": \"Isihloko sekhadi lokugcina\",\"description\": \"Incazelo yekhadi lokugcina\"}]",
+    "reason": "Restore literal JSON property names; preserve translated sample prose."
+  },
+  {
+    "locale": "xh",
+    "key": "copyManyCardsPopup-format",
+    "before": "[ {\"isihloko\": \"Isihloko sekhadi lokuqala\", \"inkcazo\":\"inkcazo yekhadi lokuqala\"}, {\"isihloko\":\"Isihloko sekhadi lesibini\",\"inkcazo\":\"inkcazo yekhadi lesibini\"},{\"isihloko\":\"Isihloko sekhadi lokugqibela\",\"inkcazo\":\"inkcazo yekhadi lokugqibela\"} ]",
+    "after": "[{\"title\": \"Isihloko sekhadi lokuqala\",\"description\": \"inkcazo yekhadi lokuqala\"},{\"title\": \"Isihloko sekhadi lesibini\",\"description\": \"inkcazo yekhadi lesibini\"},{\"title\": \"Isihloko sekhadi lokugqibela\",\"description\": \"inkcazo yekhadi lokugqibela\"}]",
+    "reason": "Restore literal JSON property names; preserve translated sample prose."
+  },
+  {
+    "locale": "yi",
+    "key": "copyManyCardsPopup-format",
+    "before": "[ {\"title\": \"ערשטער קאָרט טיטל\", \"description\":\"ערשטער קאָרט באַשרייַבונג\"}, {\"title\":\"צווייטע קאָרט טיטל\",\"description\":\"צווייטע קאָרט באַשרייַבונג\"},{\"title\":\"לעצטע קאָרט טיטל\",\"דיscription\":\"די לעצטע קאָרט באַשרייַבונג\"} ]",
+    "after": "[{\"title\": \"ערשטער קאָרט טיטל\",\"description\": \"ערשטער קאָרט באַשרייַבונג\"},{\"title\": \"צווייטע קאָרט טיטל\",\"description\": \"צווייטע קאָרט באַשרייַבונג\"},{\"title\": \"לעצטע קאָרט טיטל\",\"description\": \"די לעצטע קאָרט באַשרייַבונג\"}]",
+    "reason": "Restore literal JSON property names; preserve translated sample prose."
+  },
+  {
+    "locale": "yo",
+    "key": "copyManyCardsPopup-format",
+    "before": "[ {\"title\": \"Àkọlé káàdì àkọ́kọ́\", \"àpèjúwe\":\"Àpèjúwe káàdì àkọ́kọ́\"}, {\"akọle\":\"Àkọlé káàdì kejì\",\"àpèjúwe\":\"Àpèjúwe káàdì kejì\"},{\"akọle\":\"Àkọlé káàdì ìkẹyìn\",\"apejuwe\":\"Àpèjúwe káàdì ìkẹyìn\"} ]",
+    "after": "[{\"title\": \"Àkọlé káàdì àkọ́kọ́\",\"description\": \"Àpèjúwe káàdì àkọ́kọ́\"},{\"title\": \"Àkọlé káàdì kejì\",\"description\": \"Àpèjúwe káàdì kejì\"},{\"title\": \"Àkọlé káàdì ìkẹyìn\",\"description\": \"Àpèjúwe káàdì ìkẹyìn\"}]",
+    "reason": "Restore literal JSON property names; preserve translated sample prose."
+  },
+  {
+    "locale": "zu-ZA",
+    "key": "copyManyCardsPopup-format",
+    "before": "[ {\"title\": \"Isihloko sekhadi lokuqala\", \"incazelo\":\"Incazelo yekhadi lokuqala\"}, {\"isihloko\":\"Isihloko sekhadi lesibili\",\"incazelo\":\"Incazelo yekhadi lesibili\"},{\"isihloko\":\"Isihloko sekhadi lokugcina\",\"incazelo\":\"Incazelo yekhadi lokugcina\"} ]",
+    "after": "[{\"title\": \"Isihloko sekhadi lokuqala\",\"description\": \"Incazelo yekhadi lokuqala\"},{\"title\": \"Isihloko sekhadi lesibili\",\"description\": \"Incazelo yekhadi lesibili\"},{\"title\": \"Isihloko sekhadi lokugcina\",\"description\": \"Incazelo yekhadi lokugcina\"}]",
+    "reason": "Restore literal JSON property names; preserve translated sample prose."
+  },
+  {
+    "locale": "zu",
+    "key": "copyManyCardsPopup-format",
+    "before": "[ {\"title\": \"Isihloko sekhadi lokuqala\", \"incazelo\":\"Incazelo yekhadi lokuqala\"}, {\"isihloko\":\"Isihloko sekhadi lesibili\",\"incazelo\":\"Incazelo yekhadi lesibili\"},{\"isihloko\":\"Isihloko sekhadi lokugcina\",\"incazelo\":\"Incazelo yekhadi lokugcina\"} ]",
+    "after": "[{\"title\": \"Isihloko sekhadi lokuqala\",\"description\": \"Incazelo yekhadi lokuqala\"},{\"title\": \"Isihloko sekhadi lesibili\",\"description\": \"Incazelo yekhadi lesibili\"},{\"title\": \"Isihloko sekhadi lokugcina\",\"description\": \"Incazelo yekhadi lokugcina\"}]",
+    "reason": "Restore literal JSON property names; preserve translated sample prose."
+  },
+  {
+    "locale": "cmn",
+    "key": "act-addBoardMember",
+    "before": "将成员 __member__ 添加到董事会 __board__",
+    "after": "将成员 __member__ 添加到看板 __board__",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "cmn",
+    "key": "act-addChecklist",
+    "before": "将清单 __checklist__ 添加到卡片 __card__ 列表 __list__ 泳道 __swimlane__ 董事会 __board__",
+    "after": "将清单 __checklist__ 添加到卡片 __card__ 列表 __list__ 泳道 __swimlane__ 看板 __board__",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "cmn",
+    "key": "act-addComment",
+    "before": "对卡 __card__ 发表评论： __comment__ 位于列表 __list__ 位于泳道 __swimlane__ 位于董事会 __board__",
+    "after": "对卡 __card__ 发表评论： __comment__ 位于列表 __list__ 位于泳道 __swimlane__ 位于看板 __board__",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "cmn",
+    "key": "act-addLabel",
+    "before": "添加标签__label__到卡__card__在列表__list__在泳道__swimlane__在董事会__board__",
+    "after": "添加标签__label__到卡__card__在列表__list__在泳道__swimlane__在看板__board__",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "cmn",
+    "key": "act-addedLabel",
+    "before": "添加标签__label__到卡__card__在列表__list__在泳道__swimlane__在董事会__board__",
+    "after": "添加标签__label__到卡__card__在列表__list__在泳道__swimlane__在看板__board__",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "cmn",
+    "key": "act-archivedCard",
+    "before": "卡片 __card__ 位于列表 __list__ 位于泳道 __swimlane__ 位于董事会 __board__ 已移至存档",
+    "after": "卡片 __card__ 位于列表 __list__ 位于泳道 __swimlane__ 位于看板 __board__ 已移至存档",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "cmn",
+    "key": "act-atUserComment",
+    "before": "在卡片 __card__ 上提到了您： __comment__ 在列表 __list__ 在泳道 __swimlane__ 在董事会 __board__",
+    "after": "在卡片 __card__ 上提到了您： __comment__ 在列表 __list__ 在泳道 __swimlane__ 在看板 __board__",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "cmn",
+    "key": "act-createCustomField",
+    "before": "在董事会__board__创建了自定义字段__customField__",
+    "after": "在看板__board__创建了自定义字段__customField__",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "cmn",
+    "key": "act-createList",
+    "before": "添加列表__list__至董事会__board__",
+    "after": "添加列表__list__至看板__board__",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "cmn",
+    "key": "act-deleteComment",
+    "before": "已删除卡片 __card__ 上的评论： __comment__ 位于列表 __list__ 位于泳道 __swimlane__ 位于董事会 __board__",
+    "after": "已删除卡片 __card__ 上的评论： __comment__ 位于列表 __list__ 位于泳道 __swimlane__ 位于看板 __board__",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "cmn",
+    "key": "act-editComment",
+    "before": "卡片__card__ 上已编辑的评论： __comment__ 位于列表 __list__ 位于泳道 __swimlane__ 位于董事会 __board__",
+    "after": "卡片__card__ 上已编辑的评论： __comment__ 位于列表 __list__ 位于泳道 __swimlane__ 位于看板 __board__",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "cmn",
+    "key": "act-joinMember",
+    "before": "将成员 __member__ 添加到卡片 __card__ 列表 __list__ 泳道 __swimlane__ 董事会 __board__",
+    "after": "将成员 __member__ 添加到卡片 __card__ 列表 __list__ 泳道 __swimlane__ 看板 __board__",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "cmn",
+    "key": "act-removeBoardMember",
+    "before": "从董事会 __board__ 中删除成员 __member__",
+    "after": "从看板 __board__ 中删除成员 __member__",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "cmn",
+    "key": "act-removeChecklist",
+    "before": "从卡 __card__ 删除清单 __checklist__ 泳道 __swimlane__ 列表 __list__ 董事会 __board__",
+    "after": "从卡 __card__ 删除清单 __checklist__ 泳道 __swimlane__ 列表 __list__ 看板 __board__",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "cmn",
+    "key": "act-removeChecklistItem",
+    "before": "从清单 __checkList__ 删除了清单项目 __checklistItem__ 在卡 __card__ 在列表 __list__ 在泳道 __swimlane__ 在董事会 __board__",
+    "after": "从清单 __checkList__ 删除了清单项目 __checklistItem__ 在卡 __card__ 在列表 __list__ 在泳道 __swimlane__ 在看板 __board__",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "cmn",
+    "key": "act-unjoinMember",
+    "before": "从卡__card__、列表__list__、泳道__swimlane__、董事会__board__ 删除成员__member__",
+    "after": "从卡__card__、列表__list__、泳道__swimlane__、看板__board__ 删除成员__member__",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "cmn",
+    "key": "admin-only-field",
+    "before": "仅董事会管理员可见",
+    "after": "仅看板管理员可见",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "cmn",
+    "key": "board-archive-failed",
+    "before": "无法安排董事会存档",
+    "after": "无法安排看板存档",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "cmn",
+    "key": "board-archive-scheduled",
+    "before": "董事会存档已成功安排",
+    "after": "看板存档已成功安排",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "cmn",
+    "key": "board-migrations",
+    "before": "董事会迁移",
+    "after": "看板迁移",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "cmn",
+    "key": "board-operations",
+    "before": "董事会运作",
+    "after": "看板运作",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "cmn",
+    "key": "board-templates-swimlane",
+    "before": "董事会模板",
+    "after": "看板模板",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "cmn",
+    "key": "board-title",
+    "before": "董事会标题",
+    "after": "看板标题",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "cmn",
+    "key": "boardDeletePopup-title",
+    "before": "删除董事会？",
+    "after": "删除看板？",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "cmn",
+    "key": "board_members",
+    "before": "所有董事会成员",
+    "after": "所有看板成员",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "cmn",
+    "key": "boardsReportTitle",
+    "before": "董事会报告",
+    "after": "看板报告",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "cmn",
+    "key": "card-members-title",
+    "before": "从卡中添加或删除董事会成员。",
+    "after": "从卡中添加或删除看板成员。",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "cmn",
+    "key": "email-invite-text",
+    "before": "亲爱的__user__，\n\n__inviter__邀请您加入董事会“__board__”进行合作。\n\n请点击以下链接：\n\n__url__\n\n谢谢。",
+    "after": "亲爱的__user__，\n\n__inviter__邀请您加入看板“__board__”进行合作。\n\n请点击以下链接：\n\n__url__\n\n谢谢。",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "cmn",
+    "key": "export-card-field-board-info",
+    "before": "董事会信息（董事会、列表、泳道）",
+    "after": "看板信息（看板、列表、泳道）",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "cmn",
+    "key": "fix-avatar-urls-migration-description",
+    "before": "更新董事会成员的头像 URL，以使用正确的存储后端并修复损坏的头像引用。",
+    "after": "更新看板成员的头像 URL，以使用正确的存储后端并修复损坏的头像引用。",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "cmn",
+    "key": "globalSearch-instructions-operator-org",
+    "before": "`__operator_org__:<display name|short name>` - 属于分配给组织的董事会的卡 *<name>*",
+    "after": "`__operator_org__:<display name|short name>` - 属于分配给组织的看板的卡 *<name>*",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "cmn",
+    "key": "globalSearch-instructions-operator-team",
+    "before": "`__operator_team__:<display name|short name>` - 属于分配给团队的董事会的卡 *<name>*",
+    "after": "`__operator_team__:<display name|short name>` - 属于分配给团队的看板的卡 *<name>*",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "cmn",
+    "key": "go-to-board",
+    "before": "前往董事会",
+    "after": "前往看板",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "cmn",
+    "key": "import-members-map",
+    "before": "您导入的董事会有一些成员。请将您要导入的成员映射到您的用户",
+    "after": "您导入的看板有一些成员。请将您要导入的成员映射到您的用户",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "cmn",
+    "key": "leave-board",
+    "before": "离开董事会",
+    "after": "离开看板",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "cmn",
+    "key": "leaveBoardPopup-title",
+    "before": "离开董事会？",
+    "after": "离开看板？",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "cmn",
+    "key": "migrations-admin-only",
+    "before": "只有董事会管理员可以运行迁移",
+    "after": "只有看板管理员可以运行迁移",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "cmn",
+    "key": "myCardsSortChange-choice-board",
+    "before": "按董事会",
+    "after": "按看板",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "cmn",
+    "key": "push-invite-text",
+    "before": "亲爱的__user__，\n\n__inviter__邀请您加入董事会“__board__”进行合作。\n\n请点击以下链接：\n\n__url__\n\n谢谢。",
+    "after": "亲爱的__user__，\n\n__inviter__邀请您加入看板“__board__”进行合作。\n\n请点击以下链接：\n\n__url__\n\n谢谢。",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "cmn",
+    "key": "r-board-rules",
+    "before": "董事会规则",
+    "after": "看板规则",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "cmn",
+    "key": "r-the-board",
+    "before": "董事会",
+    "after": "看板",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "cmn",
+    "key": "remove-team-from-table",
+    "before": "您确定要从董事会中删除该团队吗？",
+    "after": "您确定要从看板中删除该团队吗？",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "cmn",
+    "key": "run-fix-avatar-urls-migration-confirm",
+    "before": "这将更新董事会成员的头像 URL，以使用正确的存储后端。继续？",
+    "after": "这将更新看板成员的头像 URL，以使用正确的存储后端。继续？",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "cmn",
+    "key": "scheduled-board-operations",
+    "before": "预定的董事会运作",
+    "after": "预定的看板运作",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "cmn",
+    "key": "show-board_members-avatar",
+    "before": "显示董事会成员头像",
+    "after": "显示看板成员头像",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "cmn",
+    "key": "step-analyze-board-structure",
+    "before": "分析董事会结构",
+    "after": "分析看板结构",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "cmn",
+    "key": "step-scan-users",
+    "before": "检查董事会成员头像",
+    "after": "检查看板成员头像",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "cmn",
+    "key": "tableVisibilityMode",
+    "before": "董事会可见性",
+    "after": "看板可见性",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "cmn",
+    "key": "tableVisibilityMode-allowPrivateOnly",
+    "before": "董事会可见性：仅允许私人董事会",
+    "after": "看板可见性：仅允许私人看板",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "cmn",
+    "key": "toggle-assignees",
+    "before": "切换卡的受让人 1-9（按添加到董事会的顺序）。",
+    "after": "切换卡的受让人 1-9（按添加到看板的顺序）。",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "act-addBoardMember",
+    "before": "将成员 __member__ 添加到董事会 __board__",
+    "after": "将成员 __member__ 添加到看板 __board__",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "act-addChecklist",
+    "before": "将清单 __checklist__ 添加到卡片 __card__ 列表 __list__ 泳道 __swimlane__ 董事会 __board__",
+    "after": "将清单 __checklist__ 添加到卡片 __card__ 列表 __list__ 泳道 __swimlane__ 看板 __board__",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "act-addComment",
+    "before": "对卡 __card__ 发表评论： __comment__ 位于列表 __list__ 位于泳道 __swimlane__ 位于董事会 __board__",
+    "after": "对卡 __card__ 发表评论： __comment__ 位于列表 __list__ 位于泳道 __swimlane__ 位于看板 __board__",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "act-addLabel",
+    "before": "添加标签__label__到卡__card__在列表__list__在泳道__swimlane__在董事会__board__",
+    "after": "添加标签__label__到卡__card__在列表__list__在泳道__swimlane__在看板__board__",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "act-addedLabel",
+    "before": "添加标签__label__到卡__card__在列表__list__在泳道__swimlane__在董事会__board__",
+    "after": "添加标签__label__到卡__card__在列表__list__在泳道__swimlane__在看板__board__",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "act-archivedCard",
+    "before": "卡片 __card__ 位于列表 __list__ 位于泳道 __swimlane__ 位于董事会 __board__ 已移至存档",
+    "after": "卡片 __card__ 位于列表 __list__ 位于泳道 __swimlane__ 位于看板 __board__ 已移至存档",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "act-atUserComment",
+    "before": "在卡片 __card__ 上提到了您： __comment__ 在列表 __list__ 在泳道 __swimlane__ 在董事会 __board__",
+    "after": "在卡片 __card__ 上提到了您： __comment__ 在列表 __list__ 在泳道 __swimlane__ 在看板 __board__",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "act-createCustomField",
+    "before": "在董事会__board__创建了自定义字段__customField__",
+    "after": "在看板__board__创建了自定义字段__customField__",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "act-createList",
+    "before": "添加列表__list__至董事会__board__",
+    "after": "添加列表__list__至看板__board__",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "act-deleteComment",
+    "before": "已删除卡片 __card__ 上的评论： __comment__ 位于列表 __list__ 位于泳道 __swimlane__ 位于董事会 __board__",
+    "after": "已删除卡片 __card__ 上的评论： __comment__ 位于列表 __list__ 位于泳道 __swimlane__ 位于看板 __board__",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "act-editComment",
+    "before": "卡片__card__ 上已编辑的评论： __comment__ 位于列表 __list__ 位于泳道 __swimlane__ 位于董事会 __board__",
+    "after": "卡片__card__ 上已编辑的评论： __comment__ 位于列表 __list__ 位于泳道 __swimlane__ 位于看板 __board__",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "act-joinMember",
+    "before": "将成员 __member__ 添加到卡片 __card__ 列表 __list__ 泳道 __swimlane__ 董事会 __board__",
+    "after": "将成员 __member__ 添加到卡片 __card__ 列表 __list__ 泳道 __swimlane__ 看板 __board__",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "act-removeBoardMember",
+    "before": "从董事会 __board__ 中删除成员 __member__",
+    "after": "从看板 __board__ 中删除成员 __member__",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "act-removeChecklist",
+    "before": "从卡 __card__ 删除清单 __checklist__ 泳道 __swimlane__ 列表 __list__ 董事会 __board__",
+    "after": "从卡 __card__ 删除清单 __checklist__ 泳道 __swimlane__ 列表 __list__ 看板 __board__",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "act-removeChecklistItem",
+    "before": "从清单 __checkList__ 删除了清单项目 __checklistItem__ 在卡 __card__ 在列表 __list__ 在泳道 __swimlane__ 在董事会 __board__",
+    "after": "从清单 __checkList__ 删除了清单项目 __checklistItem__ 在卡 __card__ 在列表 __list__ 在泳道 __swimlane__ 在看板 __board__",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "act-unjoinMember",
+    "before": "从卡__card__、列表__list__、泳道__swimlane__、董事会__board__ 删除成员__member__",
+    "after": "从卡__card__、列表__list__、泳道__swimlane__、看板__board__ 删除成员__member__",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "admin-only-field",
+    "before": "仅董事会管理员可见",
+    "after": "仅看板管理员可见",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "board-archive-failed",
+    "before": "无法安排董事会存档",
+    "after": "无法安排看板存档",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "board-archive-scheduled",
+    "before": "董事会存档已成功安排",
+    "after": "看板存档已成功安排",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "board-migrations",
+    "before": "董事会迁移",
+    "after": "看板迁移",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "board-operations",
+    "before": "董事会运作",
+    "after": "看板运作",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "board-templates-swimlane",
+    "before": "董事会模板",
+    "after": "看板模板",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "board-title",
+    "before": "董事会标题",
+    "after": "看板标题",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "boardDeletePopup-title",
+    "before": "删除董事会？",
+    "after": "删除看板？",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "board_members",
+    "before": "所有董事会成员",
+    "after": "所有看板成员",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "boardsReportTitle",
+    "before": "董事会报告",
+    "after": "看板报告",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "card-members-title",
+    "before": "从卡中添加或删除董事会成员。",
+    "after": "从卡中添加或删除看板成员。",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "email-invite-text",
+    "before": "亲爱的__user__，\n\n__inviter__邀请您加入董事会“__board__”进行合作。\n\n请点击以下链接：\n\n__url__\n\n谢谢。",
+    "after": "亲爱的__user__，\n\n__inviter__邀请您加入看板“__board__”进行合作。\n\n请点击以下链接：\n\n__url__\n\n谢谢。",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "export-card-field-board-info",
+    "before": "董事会信息（董事会、列表、泳道）",
+    "after": "看板信息（看板、列表、泳道）",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "fix-avatar-urls-migration-description",
+    "before": "更新董事会成员的头像 URL，以使用正确的存储后端并修复损坏的头像引用。",
+    "after": "更新看板成员的头像 URL，以使用正确的存储后端并修复损坏的头像引用。",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "globalSearch-instructions-operator-org",
+    "before": "`__operator_org__:<display name|short name>` - 属于分配给组织的董事会的卡 *<name>*",
+    "after": "`__operator_org__:<display name|short name>` - 属于分配给组织的看板的卡 *<name>*",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "globalSearch-instructions-operator-team",
+    "before": "`__operator_team__:<display name|short name>` - 属于分配给团队的董事会的卡 *<name>*",
+    "after": "`__operator_team__:<display name|short name>` - 属于分配给团队的看板的卡 *<name>*",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "go-to-board",
+    "before": "前往董事会",
+    "after": "前往看板",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "import-members-map",
+    "before": "您导入的董事会有一些成员。请将您要导入的成员映射到您的用户",
+    "after": "您导入的看板有一些成员。请将您要导入的成员映射到您的用户",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "leave-board",
+    "before": "离开董事会",
+    "after": "离开看板",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "leaveBoardPopup-title",
+    "before": "离开董事会？",
+    "after": "离开看板？",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "migrations-admin-only",
+    "before": "只有董事会管理员可以运行迁移",
+    "after": "只有看板管理员可以运行迁移",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "myCardsSortChange-choice-board",
+    "before": "按董事会",
+    "after": "按看板",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "push-invite-text",
+    "before": "亲爱的__user__，\n\n__inviter__邀请您加入董事会“__board__”进行合作。\n\n请点击以下链接：\n\n__url__\n\n谢谢。",
+    "after": "亲爱的__user__，\n\n__inviter__邀请您加入看板“__board__”进行合作。\n\n请点击以下链接：\n\n__url__\n\n谢谢。",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-board-rules",
+    "before": "董事会规则",
+    "after": "看板规则",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "r-the-board",
+    "before": "董事会",
+    "after": "看板",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "remove-team-from-table",
+    "before": "您确定要从董事会中删除该团队吗？",
+    "after": "您确定要从看板中删除该团队吗？",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "run-fix-avatar-urls-migration-confirm",
+    "before": "这将更新董事会成员的头像 URL，以使用正确的存储后端。继续？",
+    "after": "这将更新看板成员的头像 URL，以使用正确的存储后端。继续？",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "scheduled-board-operations",
+    "before": "预定的董事会运作",
+    "after": "预定的看板运作",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "show-board_members-avatar",
+    "before": "显示董事会成员头像",
+    "after": "显示看板成员头像",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "step-analyze-board-structure",
+    "before": "分析董事会结构",
+    "after": "分析看板结构",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "step-scan-users",
+    "before": "检查董事会成员头像",
+    "after": "检查看板成员头像",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "tableVisibilityMode",
+    "before": "董事会可见性",
+    "after": "看板可见性",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "tableVisibilityMode-allowPrivateOnly",
+    "before": "董事会可见性：仅允许私人董事会",
+    "after": "看板可见性：仅允许私人看板",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "toggle-assignees",
+    "before": "切换卡的受让人 1-9（按添加到董事会的顺序）。",
+    "after": "切换卡的受让人 1-9（按添加到看板的顺序）。",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "zh-CN",
+    "key": "act-archivedCard",
+    "before": "卡片 __card__ 位于列表 __list__ 位于泳道 __swimlane__ 位于董事会 __board__ 已移至存档",
+    "after": "卡片 __card__ 位于列表 __list__ 位于泳道 __swimlane__ 位于看板 __board__ 已移至存档",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "zh-CN",
+    "key": "act-deleteComment",
+    "before": "已删除卡片 __card__ 上的评论： __comment__ 位于列表 __list__ 位于泳道 __swimlane__ 位于董事会 __board__",
+    "after": "已删除卡片 __card__ 上的评论： __comment__ 位于列表 __list__ 位于泳道 __swimlane__ 位于看板 __board__",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "zh-CN",
+    "key": "act-editComment",
+    "before": "卡片__card__ 上已编辑的评论： __comment__ 位于列表 __list__ 位于泳道 __swimlane__ 位于董事会 __board__",
+    "after": "卡片__card__ 上已编辑的评论： __comment__ 位于列表 __list__ 位于泳道 __swimlane__ 位于看板 __board__",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "zh-CN",
+    "key": "act-removeChecklistItem",
+    "before": "从清单 __checkList__ 删除了清单项目 __checklistItem__ 在卡 __card__ 在列表 __list__ 在泳道 __swimlane__ 在董事会 __board__",
+    "after": "从清单 __checkList__ 删除了清单项目 __checklistItem__ 在卡 __card__ 在列表 __list__ 在泳道 __swimlane__ 在看板 __board__",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "zh-CN",
+    "key": "admin-only-field",
+    "before": "仅董事会管理员可见",
+    "after": "仅看板管理员可见",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "zh-GB",
+    "key": "act-archivedCard",
+    "before": "卡片 __card__ 位于列表 __list__ 位于泳道 __swimlane__ 位于董事会 __board__ 已移至存档",
+    "after": "卡片 __card__ 位于列表 __list__ 位于泳道 __swimlane__ 位于看板 __board__ 已移至存档",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "zh-GB",
+    "key": "act-deleteComment",
+    "before": "已删除卡片 __card__ 上的评论： __comment__ 位于列表 __list__ 位于泳道 __swimlane__ 位于董事会 __board__",
+    "after": "已删除卡片 __card__ 上的评论： __comment__ 位于列表 __list__ 位于泳道 __swimlane__ 位于看板 __board__",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "zh-GB",
+    "key": "act-editComment",
+    "before": "卡片__card__ 上已编辑的评论： __comment__ 位于列表 __list__ 位于泳道 __swimlane__ 位于董事会 __board__",
+    "after": "卡片__card__ 上已编辑的评论： __comment__ 位于列表 __list__ 位于泳道 __swimlane__ 位于看板 __board__",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "zh-GB",
+    "key": "act-removeChecklistItem",
+    "before": "从清单 __checkList__ 删除了清单项目 __checklistItem__ 在卡 __card__ 在列表 __list__ 在泳道 __swimlane__ 在董事会 __board__",
+    "after": "从清单 __checkList__ 删除了清单项目 __checklistItem__ 在卡 __card__ 在列表 __list__ 在泳道 __swimlane__ 在看板 __board__",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "zh-GB",
+    "key": "admin-only-field",
+    "before": "仅董事会管理员可见",
+    "after": "仅看板管理员可见",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "zh-HK",
+    "key": "admin-only-field",
+    "before": "仅董事会管理员可见",
+    "after": "仅看板管理员可见",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "zh-Hans",
+    "key": "act-archivedCard",
+    "before": "卡片 __card__ 位于列表 __list__ 位于泳道 __swimlane__ 位于董事会 __board__ 已移至存档",
+    "after": "卡片 __card__ 位于列表 __list__ 位于泳道 __swimlane__ 位于看板 __board__ 已移至存档",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "zh-Hans",
+    "key": "act-deleteComment",
+    "before": "已删除卡片 __card__ 上的评论： __comment__ 位于列表 __list__ 位于泳道 __swimlane__ 位于董事会 __board__",
+    "after": "已删除卡片 __card__ 上的评论： __comment__ 位于列表 __list__ 位于泳道 __swimlane__ 位于看板 __board__",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "zh-Hans",
+    "key": "act-editComment",
+    "before": "卡片__card__ 上已编辑的评论： __comment__ 位于列表 __list__ 位于泳道 __swimlane__ 位于董事会 __board__",
+    "after": "卡片__card__ 上已编辑的评论： __comment__ 位于列表 __list__ 位于泳道 __swimlane__ 位于看板 __board__",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "zh-Hans",
+    "key": "act-removeChecklistItem",
+    "before": "从清单 __checkList__ 删除了清单项目 __checklistItem__ 在卡 __card__ 在列表 __list__ 在泳道 __swimlane__ 在董事会 __board__",
+    "after": "从清单 __checkList__ 删除了清单项目 __checklistItem__ 在卡 __card__ 在列表 __list__ 在泳道 __swimlane__ 在看板 __board__",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "zh-Hans",
+    "key": "admin-only-field",
+    "before": "仅董事会管理员可见",
+    "after": "仅看板管理员可见",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "zh-Hant",
+    "key": "admin-only-field",
+    "before": "仅董事会管理员可见",
+    "after": "仅看板管理员可见",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "zh-TW",
+    "key": "admin-only-field",
+    "before": "仅董事会管理员可见",
+    "after": "仅看板管理员可见",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "zh",
+    "key": "act-archivedCard",
+    "before": "卡片 __card__ 位于列表 __list__ 位于泳道 __swimlane__ 位于董事会 __board__ 已移至存档",
+    "after": "卡片 __card__ 位于列表 __list__ 位于泳道 __swimlane__ 位于看板 __board__ 已移至存档",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "zh",
+    "key": "act-deleteComment",
+    "before": "已删除卡片 __card__ 上的评论： __comment__ 位于列表 __list__ 位于泳道 __swimlane__ 位于董事会 __board__",
+    "after": "已删除卡片 __card__ 上的评论： __comment__ 位于列表 __list__ 位于泳道 __swimlane__ 位于看板 __board__",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "zh",
+    "key": "act-editComment",
+    "before": "卡片__card__ 上已编辑的评论： __comment__ 位于列表 __list__ 位于泳道 __swimlane__ 位于董事会 __board__",
+    "after": "卡片__card__ 上已编辑的评论： __comment__ 位于列表 __list__ 位于泳道 __swimlane__ 位于看板 __board__",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "zh",
+    "key": "act-removeChecklistItem",
+    "before": "从清单 __checkList__ 删除了清单项目 __checklistItem__ 在卡 __card__ 在列表 __list__ 在泳道 __swimlane__ 在董事会 __board__",
+    "after": "从清单 __checkList__ 删除了清单项目 __checklistItem__ 在卡 __card__ 在列表 __list__ 在泳道 __swimlane__ 在看板 __board__",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "zh",
+    "key": "admin-only-field",
+    "before": "仅董事会管理员可见",
+    "after": "仅看板管理员可见",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "zh_SG",
+    "key": "act-archivedCard",
+    "before": "卡片 __card__ 位于列表 __list__ 位于泳道 __swimlane__ 位于董事会 __board__ 已移至存档",
+    "after": "卡片 __card__ 位于列表 __list__ 位于泳道 __swimlane__ 位于看板 __board__ 已移至存档",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "zh_SG",
+    "key": "act-deleteComment",
+    "before": "已删除卡片 __card__ 上的评论： __comment__ 位于列表 __list__ 位于泳道 __swimlane__ 位于董事会 __board__",
+    "after": "已删除卡片 __card__ 上的评论： __comment__ 位于列表 __list__ 位于泳道 __swimlane__ 位于看板 __board__",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "zh_SG",
+    "key": "act-editComment",
+    "before": "卡片__card__ 上已编辑的评论： __comment__ 位于列表 __list__ 位于泳道 __swimlane__ 位于董事会 __board__",
+    "after": "卡片__card__ 上已编辑的评论： __comment__ 位于列表 __list__ 位于泳道 __swimlane__ 位于看板 __board__",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "zh_SG",
+    "key": "act-removeChecklistItem",
+    "before": "从清单 __checkList__ 删除了清单项目 __checklistItem__ 在卡 __card__ 在列表 __list__ 在泳道 __swimlane__ 在董事会 __board__",
+    "after": "从清单 __checkList__ 删除了清单项目 __checklistItem__ 在卡 __card__ 在列表 __list__ 在泳道 __swimlane__ 在看板 __board__",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "zh_SG",
+    "key": "admin-only-field",
+    "before": "仅董事会管理员可见",
+    "after": "仅看板管理员可见",
+    "reason": "Use kanban board terminology instead of corporate board of directors."
+  },
+  {
+    "locale": "as",
+    "key": "ldap-test-connection-error",
+    "before": "সংযোগ విఫলল: %s",
+    "after": "সংযোগ বিফল: %s",
+    "reason": "Correct inspected mixed-script fragment or empty rule phrase in the target language."
+  },
+  {
+    "locale": "dz",
+    "key": "add-existing-card-as-subtask",
+    "before": "ཡོད་བཞིན་པའི་ཀարཌ་དེ་ལས་འགན་ཆུང་བ་བཞིububar་ཁ་སྣོན།",
+    "after": "ཡོད་པའི་བྱ་ཤོག་ཅིག་ལས་ཀ་ཆུང་ཀུ་སྦེ་ཁ་སྐོང་འབད།",
+    "reason": "Correct inspected mixed-script fragment or empty rule phrase in the target language."
+  },
+  {
+    "locale": "km",
+    "key": "calendar-system-jalali",
+    "before": "ចាឡាលី (ペ르시ア)",
+    "after": "ប្រតិទិនចាឡាលី (ពែរ្ស)",
+    "reason": "Correct inspected mixed-script fragment or empty rule phrase in the target language."
+  },
+  {
+    "locale": "km-KH",
+    "key": "calendar-system-jalali",
+    "before": "ចាឡាលី (ペ르시ア)",
+    "after": "ប្រតិទិនចាឡាលី (ពែរ្ស)",
+    "reason": "Correct inspected mixed-script fragment or empty rule phrase in the target language."
+  },
+  {
+    "locale": "km_KH",
+    "key": "calendar-system-jalali",
+    "before": "ចាឡាលី (ペ르시ア)",
+    "after": "ប្រតិទិនចាឡាលី (ពែរ្ស)",
+    "reason": "Correct inspected mixed-script fragment or empty rule phrase in the target language."
+  },
+  {
+    "locale": "mk",
+    "key": "text-contains-trigger-description",
+    "before": "Се совпаѓа кога картичка ќе се创ира, или нејзиниот наслов или опис се промени, а новиот текст го содржи ова (без разлика на големи/мали букви).",
+    "after": "Се совпаѓа кога ќе се создаде картичка или ќе се промени нејзиниот наслов или опис, а новиот текст го содржи ова (без разлика на големи и мали букви).",
+    "reason": "Correct inspected mixed-script fragment or empty rule phrase in the target language."
+  },
+  {
+    "locale": "ru",
+    "key": "r-is",
+    "before": " ",
+    "after": "равно",
+    "reason": "Correct inspected mixed-script fragment or empty rule phrase in the target language."
+  },
+  {
+    "locale": "et-EE",
+    "key": "copyManyCardsPopup-format",
+    "before": "[ {\"title\": {\"title\": \"First card title\", \"description\": \"First card description\"}, {\"title\": \"Second card title\", \"description\": \"Second card description\"},{\"title\": \"Last card title\", \"description\": \"Last card description\"}, {\"title\": \"Last card title\", \"description\": \"Last card description\"} ]",
+    "after": "[{\"title\": \"Esimese kaardi pealkiri\", \"description\": \"Esimese kaardi kirjeldus\"}]",
+    "reason": "Repair invalid JSON example with literal property names and target-language sample prose."
+  },
+  {
+    "locale": "la",
+    "key": "copyManyCardsPopup-format",
+    "before": "Latine: [ {\"titulus\": \"Primus scheda titulus\", \"descriptio\":\"Primus scheda descriptio\"}, {\"titulus\":\"Second scheda titulus\",\"descriptio\":\"Second scheda descriptio\"},{\"titulus\":\"Ultimus scheda titulus\",\"descriptio\":\"Ultimus scheda descriptio\"} ]",
+    "after": "[{\"title\": \"Titulus primae schedae\", \"description\": \"Descriptio primae schedae\"}]",
+    "reason": "Repair invalid JSON example with literal property names and target-language sample prose."
+  },
+  {
+    "locale": "lv",
+    "key": "copyManyCardsPopup-format",
+    "before": "[ {\"title\": \"Pirmās kartiņas virsraksts\", \"description\":\"Pirmās kartiņas apraksts}, {\"title\":\"Otrās kartiņas virsraksts\",\"description\":\"Otrās kartiņas apraksts\"},{\"title\":\"Pēdējās kartiņas virsraksts\",\"description\":\"Pēdējās kartiņas apraksts\"} ]",
+    "after": "[{\"title\": \"Pirmās kartītes virsraksts\", \"description\": \"Pirmās kartītes apraksts\"}]",
+    "reason": "Repair invalid JSON example with literal property names and target-language sample prose."
+  },
+  {
+    "locale": "or_IN",
+    "key": "copyManyCardsPopup-format",
+    "before": "[।",
+    "after": "[{\"title\": \"ପ୍ରଥମ କାର୍ଡର ଶୀର୍ଷକ\", \"description\": \"ପ୍ରଥମ କାର୍ଡର ବିବରଣୀ\"}]",
+    "reason": "Repair invalid JSON example with literal property names and target-language sample prose."
+  },
+  {
+    "locale": "qu",
+    "key": "copyManyCardsPopup-format",
+    "before": "Kay willaymi: [ {\"Umalliq\": \"Firstta Tarjeta Umalliq\", \"Willakuy\":\"Firstta Tarjeta Willakuy\"}, {\"Umalliq\":\"Secondta Tarjeta Umalliq\",\"Willakuy\":\"Secondta Tarjeta Willakuy\"},{\"Umalliq\":\"Lastta Tarjeta Umalliq\",\"Willakuy\":\"Lastta Tarjeta Willakuy\"} ]",
+    "after": "[{\"title\": \"Ñawpaq raphichap umalliqnin\", \"description\": \"Ñawpaq raphichap willakuynin\"}]",
+    "reason": "Repair invalid JSON example with literal property names and target-language sample prose."
+  },
+  {
+    "locale": "tk_TM",
+    "key": "copyManyCardsPopup-format",
+    "before": "[.",
+    "after": "[{\"title\": \"Birinji kartyň ady\", \"description\": \"Birinji kartyň beýany\"}]",
+    "reason": "Repair invalid JSON example with literal property names and target-language sample prose."
+  },
+  {
+    "locale": "to",
+    "key": "copyManyCardsPopup-format",
+    "before": "Faka-Tonga: [ {\"title\": \"First kaati title\", \"fakamatala\":\"First kaati fakamatala\"}, {\"title\":\"Second kaati title\",\"fakamatala\":\"Second kaati fakamatala\"},{\"title\":\"Last kaati title\",\"fakamatala\":\"Last kaati fakamatala\"} ]",
+    "after": "[{\"title\": \"Hingoa ʻo e ʻuluaki kaati\", \"description\": \"Fakamatala ʻo e ʻuluaki kaati\"}]",
+    "reason": "Repair invalid JSON example with literal property names and target-language sample prose."
+  },
+  {
+    "locale": "af_ZA",
+    "key": "calendar-system-buddhist",
+    "before": "Buddhist",
+    "after": "Boeddhistiese kalender",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "af_ZA",
+    "key": "calendar-system-chinese",
+    "before": "Chinese",
+    "after": "Chinese kalender",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "af_ZA",
+    "key": "calendar-system-coptic",
+    "before": "Coptic",
+    "after": "Koptiese kalender",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "af_ZA",
+    "key": "calendar-system-dangi",
+    "before": "Dangi (Korean)",
+    "after": "Dangi-kalender",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "af_ZA",
+    "key": "calendar-system-ethioaa",
+    "before": "Ethiopic Amete Alem",
+    "after": "Etiopiese Amete Alem-kalender",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "af_ZA",
+    "key": "calendar-system-ethiopic",
+    "before": "Ethiopic",
+    "after": "Etiopiese kalender",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "af_ZA",
+    "key": "calendar-system-hebrew",
+    "before": "Hebrew",
+    "after": "Hebreeuse kalender",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "af_ZA",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "Indiese nasionale kalender",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "af_ZA",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "Islamitiese kalender",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "af_ZA",
+    "key": "calendar-system-islamic-civil",
+    "before": "Islamic civil",
+    "after": "Islamitiese siviele kalender",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "af_ZA",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "Islamitiese kalender (Umm al-Qura)",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "af_ZA",
+    "key": "calendar-system-japanese",
+    "before": "Japanese",
+    "after": "Japannese kalender",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "af_ZA",
+    "key": "calendar-system-roc",
+    "before": "Republic of China",
+    "after": "Minguo-kalender",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "ak",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "Kalɛnna",
+    "reason": "Replace foreign calendar label with target-language Unicode CLDR 48.2 calendar terminology."
+  },
+  {
+    "locale": "ak",
+    "key": "calendar-system-gregorian",
+    "before": "Gregoriana",
+    "after": "Gregorian Kalɛnna",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "ak",
+    "key": "calendar-system-jalali",
+    "before": "Jalali (Fars)",
+    "after": "Pɛɛsiafoɔ Kalɛnda",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "as",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "কেলেণ্ডাৰ",
+    "reason": "Replace foreign calendar label with target-language Unicode CLDR 48.2 calendar terminology."
+  },
+  {
+    "locale": "as",
+    "key": "calendar-system-gregorian",
+    "before": "Gregoriana",
+    "after": "গ্ৰেগোৰিয়ান কেলেণ্ডাৰ",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "as",
+    "key": "calendar-system-jalali",
+    "before": "Jalali (Fars)",
+    "after": "ফাৰ্চী কেলেণ্ডাৰ",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "ba",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "календарь",
+    "reason": "Replace foreign calendar label with target-language Unicode CLDR 48.2 calendar terminology."
+  },
+  {
+    "locale": "ba",
+    "key": "calendar-system-gregorian",
+    "before": "Gregoriana",
+    "after": "григориан календары",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "ba",
+    "key": "calendar-system-jalali",
+    "before": "Jalali (Fars)",
+    "after": "фарсы календары",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "ca_ES",
+    "key": "calendar-system-buddhist",
+    "before": "Buddhist",
+    "after": "calendari budista",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "ca_ES",
+    "key": "calendar-system-chinese",
+    "before": "Chinese",
+    "after": "calendari xinès",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "ca_ES",
+    "key": "calendar-system-coptic",
+    "before": "Coptic",
+    "after": "calendari copte",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "ca_ES",
+    "key": "calendar-system-dangi",
+    "before": "Dangi (Korean)",
+    "after": "calendari dangi",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "ca_ES",
+    "key": "calendar-system-ethioaa",
+    "before": "Ethiopic Amete Alem",
+    "after": "calendari etíop amete-alem",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "ca_ES",
+    "key": "calendar-system-ethiopic",
+    "before": "Ethiopic",
+    "after": "calendari etíop",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "ca_ES",
+    "key": "calendar-system-hebrew",
+    "before": "Hebrew",
+    "after": "calendari hebreu",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "ca_ES",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "calendari hindú",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "ca_ES",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "calendari islàmic",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "ca_ES",
+    "key": "calendar-system-islamic-civil",
+    "before": "Islamic civil",
+    "after": "calendari civil islàmic",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "ca_ES",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "calendari islàmic (Umm al-Qura)",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "ca_ES",
+    "key": "calendar-system-japanese",
+    "before": "Japanese",
+    "after": "calendari japonès",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "ca_ES",
+    "key": "calendar-system-roc",
+    "before": "Republic of China",
+    "after": "calendari de la República de Xina",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "chr",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "ᏅᏙ ᏗᏎᏍᏗ",
+    "reason": "Replace foreign calendar label with target-language Unicode CLDR 48.2 calendar terminology."
+  },
+  {
+    "locale": "chr",
+    "key": "calendar-system-gregorian",
+    "before": "Gregoriana",
+    "after": "ᎩᎴᎪᎵᎠᏂ ᏅᏙ ᏗᏎᏍᏗ",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "chr",
+    "key": "calendar-system-jalali",
+    "before": "Jalali (Fars)",
+    "after": "ᏇᏏᎠᏂ ᏅᏙ ᏗᏎᏍᏗ",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "cmn",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "日历",
+    "reason": "Replace foreign calendar label with target-language Unicode CLDR 48.2 calendar terminology."
+  },
+  {
+    "locale": "cmn",
+    "key": "calendar-system-gregorian",
+    "before": "Gregoriana",
+    "after": "公历",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "cmn",
+    "key": "calendar-system-jalali",
+    "before": "Jalali (Fars)",
+    "after": "波斯历",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "cmn",
+    "key": "calendar-system-buddhist",
+    "before": "Buddhist",
+    "after": "佛历",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "cmn",
+    "key": "calendar-system-chinese",
+    "before": "Chinese",
+    "after": "农历",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "cmn",
+    "key": "calendar-system-coptic",
+    "before": "Coptic",
+    "after": "科普特历",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "cmn",
+    "key": "calendar-system-dangi",
+    "before": "Dangi (Korean)",
+    "after": "檀纪历",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "cmn",
+    "key": "calendar-system-ethioaa",
+    "before": "Ethiopic Amete Alem",
+    "after": "埃塞俄比亚阿米特阿莱姆日历",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "cmn",
+    "key": "calendar-system-ethiopic",
+    "before": "Ethiopic",
+    "after": "埃塞俄比亚历",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "cmn",
+    "key": "calendar-system-hebrew",
+    "before": "Hebrew",
+    "after": "希伯来历",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "cmn",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "印度国定历",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "cmn",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "伊斯兰历",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "cmn",
+    "key": "calendar-system-islamic-civil",
+    "before": "Islamic civil",
+    "after": "表格式伊斯兰历（民用纪元）",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "cmn",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "表格式伊斯兰历（天文纪元）",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "cmn",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "伊斯兰历（乌姆库拉）",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "cmn",
+    "key": "calendar-system-japanese",
+    "before": "Japanese",
+    "after": "和历",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "cmn",
+    "key": "calendar-system-roc",
+    "before": "Republic of China",
+    "after": "民国纪年",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "cv",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "календарь",
+    "reason": "Replace foreign calendar label with target-language Unicode CLDR 48.2 calendar terminology."
+  },
+  {
+    "locale": "cv",
+    "key": "calendar-system-gregorian",
+    "before": "Gregoriana",
+    "after": "грегориан календарӗ",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "cv",
+    "key": "calendar-system-jalali",
+    "before": "Jalali (Fars)",
+    "after": "перс календарӗ",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "de_DE",
+    "key": "calendar-system-buddhist",
+    "before": "Buddhist",
+    "after": "Buddhistischer Kalender",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "de_DE",
+    "key": "calendar-system-chinese",
+    "before": "Chinese",
+    "after": "Chinesischer Kalender",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "de_DE",
+    "key": "calendar-system-coptic",
+    "before": "Coptic",
+    "after": "Koptischer Kalender",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "de_DE",
+    "key": "calendar-system-dangi",
+    "before": "Dangi (Korean)",
+    "after": "Dangi-Kalender",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "de_DE",
+    "key": "calendar-system-ethioaa",
+    "before": "Ethiopic Amete Alem",
+    "after": "Äthiopischer Amätä-Aläm-Kalender",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "de_DE",
+    "key": "calendar-system-ethiopic",
+    "before": "Ethiopic",
+    "after": "Äthiopischer Kalender",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "de_DE",
+    "key": "calendar-system-hebrew",
+    "before": "Hebrew",
+    "after": "Jüdischer Kalender",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "de_DE",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "Indischer Nationalkalender",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "de_DE",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "Hidschra-Kalender",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "de_DE",
+    "key": "calendar-system-islamic-civil",
+    "before": "Islamic civil",
+    "after": "Hidschra-Kalender (tabellarisch, nicht-astronomisch)",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "de_DE",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "Hidschra-Kalender (Umm al-Qura)",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "de_DE",
+    "key": "calendar-system-japanese",
+    "before": "Japanese",
+    "after": "Japanischer Kalender",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "de_DE",
+    "key": "calendar-system-roc",
+    "before": "Republic of China",
+    "after": "Minguo-Kalender",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "dz",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "ཟླ་ཐོ",
+    "reason": "Replace foreign calendar label with target-language Unicode CLDR 48.2 calendar terminology."
+  },
+  {
+    "locale": "dz",
+    "key": "calendar-system-gregorian",
+    "before": "Gregoriana",
+    "after": "གྲེག་གོ་རི་ཡཱན་ཟླ་ཐོ",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "ee",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "kalenda",
+    "reason": "Replace foreign calendar label with target-language Unicode CLDR 48.2 calendar terminology."
+  },
+  {
+    "locale": "ee",
+    "key": "calendar-system-gregorian",
+    "before": "Gregoriana",
+    "after": "Gregorian kalenda",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "ee",
+    "key": "calendar-system-jalali",
+    "before": "Jalali (Fars)",
+    "after": "persiatɔwo ƒe kalenda",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "es_CO",
+    "key": "calendar-system-buddhist",
+    "before": "Buddhist",
+    "after": "calendario budista",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "es_CO",
+    "key": "calendar-system-chinese",
+    "before": "Chinese",
+    "after": "calendario chino",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "es_CO",
+    "key": "calendar-system-coptic",
+    "before": "Coptic",
+    "after": "calendario cóptico",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "es_CO",
+    "key": "calendar-system-dangi",
+    "before": "Dangi (Korean)",
+    "after": "calendario dangi",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "es_CO",
+    "key": "calendar-system-ethioaa",
+    "before": "Ethiopic Amete Alem",
+    "after": "calendario etíope Amete Alem",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "es_CO",
+    "key": "calendar-system-ethiopic",
+    "before": "Ethiopic",
+    "after": "calendario etíope",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "es_CO",
+    "key": "calendar-system-hebrew",
+    "before": "Hebrew",
+    "after": "calendario hebreo",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "es_CO",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "calendario nacional hindú",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "es_CO",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "calendario hijri",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "es_CO",
+    "key": "calendar-system-islamic-civil",
+    "before": "Islamic civil",
+    "after": "calendario hijri tabular",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "es_CO",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "calendario islámico (Arabia Saudita)",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "es_CO",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "calendario islámico tabular",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "es_CO",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "calendario hijri Umm al-Qura",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "es_CO",
+    "key": "calendar-system-japanese",
+    "before": "Japanese",
+    "after": "calendario japonés",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "es_CO",
+    "key": "calendar-system-roc",
+    "before": "Republic of China",
+    "after": "calendario de la República de China",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "fo",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "kalendari",
+    "reason": "Replace foreign calendar label with target-language Unicode CLDR 48.2 calendar terminology."
+  },
+  {
+    "locale": "fo",
+    "key": "calendar-system-gregorian",
+    "before": "Gregoriana",
+    "after": "gregorianskur kalendari",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "fo",
+    "key": "calendar-system-jalali",
+    "before": "Jalali (Fars)",
+    "after": "persiskur kalendari",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "fur",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "calendari",
+    "reason": "Replace foreign calendar label with target-language Unicode CLDR 48.2 calendar terminology."
+  },
+  {
+    "locale": "fur",
+    "key": "calendar-system-gregorian",
+    "before": "Gregoriana",
+    "after": "calendari gregorian",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "fy-NL",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "Kalender",
+    "reason": "Replace foreign calendar label with target-language Unicode CLDR 48.2 calendar terminology."
+  },
+  {
+    "locale": "fy-NL",
+    "key": "calendar-system-gregorian",
+    "before": "Gregoriana",
+    "after": "Gregoriaanske kalinder",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "fy-NL",
+    "key": "calendar-system-jalali",
+    "before": "Jalali (Fars)",
+    "after": "Perzyske kalinder",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "fy",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "Kalender",
+    "reason": "Replace foreign calendar label with target-language Unicode CLDR 48.2 calendar terminology."
+  },
+  {
+    "locale": "fy",
+    "key": "calendar-system-gregorian",
+    "before": "Gregoriana",
+    "after": "Gregoriaanske kalinder",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "fy",
+    "key": "calendar-system-jalali",
+    "before": "Jalali (Fars)",
+    "after": "Perzyske kalinder",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "hsb",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "protyka",
+    "reason": "Replace foreign calendar label with target-language Unicode CLDR 48.2 calendar terminology."
+  },
+  {
+    "locale": "hsb",
+    "key": "calendar-system-gregorian",
+    "before": "Gregoriana",
+    "after": "gregorianska protyka",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "hsb",
+    "key": "calendar-system-jalali",
+    "before": "Jalali (Fars)",
+    "after": "persiska protyka",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "ht",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "calendrier",
+    "reason": "Replace foreign calendar label with target-language Unicode CLDR 48.2 calendar terminology."
+  },
+  {
+    "locale": "ht",
+    "key": "calendar-system-gregorian",
+    "before": "Gregoriana",
+    "after": "calendrier grégorien",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "ht",
+    "key": "calendar-system-jalali",
+    "before": "Jalali (Fars)",
+    "after": "calendrier persan",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "id",
+    "key": "calendar-system-gregorian",
+    "before": "Gregoriana",
+    "after": "Kalender Gregorian",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "ig",
+    "key": "calendar-system-gregorian",
+    "before": "Gregoriana",
+    "after": "Kalenda Gregory",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "jv",
+    "key": "calendar-system-gregorian",
+    "before": "Gregoriana",
+    "after": "Tanggalan Gregorian",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "kok",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "दिनदर्शिका",
+    "reason": "Replace foreign calendar label with target-language Unicode CLDR 48.2 calendar terminology."
+  },
+  {
+    "locale": "kok",
+    "key": "calendar-system-gregorian",
+    "before": "Gregoriana",
+    "after": "ग्रेगोरियन कॅलॅण्डर",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "kok",
+    "key": "calendar-system-jalali",
+    "before": "Jalali (Fars)",
+    "after": "पर्शियन दिनदर्शिका",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "ks",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "کیلنڑر",
+    "reason": "Replace foreign calendar label with target-language Unicode CLDR 48.2 calendar terminology."
+  },
+  {
+    "locale": "ks",
+    "key": "calendar-system-gregorian",
+    "before": "Gregoriana",
+    "after": "گرگوریَن کیلنڑَر",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "lb",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "Kalenner",
+    "reason": "Replace foreign calendar label with target-language Unicode CLDR 48.2 calendar terminology."
+  },
+  {
+    "locale": "lb",
+    "key": "calendar-system-gregorian",
+    "before": "Gregoriana",
+    "after": "Gregorianesche Kalenner",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "lb",
+    "key": "calendar-system-jalali",
+    "before": "Jalali (Fars)",
+    "after": "Persesche Kalenner",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "lld",
+    "key": "calendar-system-gregorian",
+    "before": "Gregoriana",
+    "after": "Calënder gregorian",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "mai",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "कैलेंडर",
+    "reason": "Replace foreign calendar label with target-language Unicode CLDR 48.2 calendar terminology."
+  },
+  {
+    "locale": "mai",
+    "key": "calendar-system-gregorian",
+    "before": "Gregoriana",
+    "after": "ग्रेगोरियन कैलेंडर",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "mai",
+    "key": "calendar-system-jalali",
+    "before": "Jalali (Fars)",
+    "after": "फारसी कैलेंडर",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "mi",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "Maramataka",
+    "reason": "Replace foreign calendar label with target-language Unicode CLDR 48.2 calendar terminology."
+  },
+  {
+    "locale": "mi",
+    "key": "calendar-system-gregorian",
+    "before": "Gregoriana",
+    "after": "Maramataka Pākehā",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "mi",
+    "key": "calendar-system-jalali",
+    "before": "Jalali (Fars)",
+    "after": "Maramataka Pāhia",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "ms-MY",
+    "key": "calendar-system-gregorian",
+    "before": "Gregoriana",
+    "after": "Kalendar Gregory",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "ms",
+    "key": "calendar-system-gregorian",
+    "before": "Gregoriana",
+    "after": "Kalendar Gregory",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "mt",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "Kalendarju",
+    "reason": "Replace foreign calendar label with target-language Unicode CLDR 48.2 calendar terminology."
+  },
+  {
+    "locale": "mt",
+    "key": "calendar-system-gregorian",
+    "before": "Gregoriana",
+    "after": "Kalendarju Gregorjan",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "om",
+    "key": "calendar-system-gregorian",
+    "before": "Gregoriana",
+    "after": "Dhaha Baraa Gorgooriyaa",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "or_IN",
+    "key": "calendar-system-buddhist",
+    "before": "Buddhist",
+    "after": "ବୌଦ୍ଧ କ୍ୟାଲେଣ୍ଡର୍‌",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "or_IN",
+    "key": "calendar-system-chinese",
+    "before": "Chinese",
+    "after": "ଚାଇନିଜ୍‌ କ୍ୟାଲେଣ୍ଡର୍‌",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "or_IN",
+    "key": "calendar-system-coptic",
+    "before": "Coptic",
+    "after": "କପ୍ଟିକ୍ କ୍ୟାଲେଣ୍ଡର୍‌",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "or_IN",
+    "key": "calendar-system-dangi",
+    "before": "Dangi (Korean)",
+    "after": "ଦାଙ୍ଗି କ୍ୟାଲେଣ୍ଡର୍‌",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "or_IN",
+    "key": "calendar-system-ethioaa",
+    "before": "Ethiopic Amete Alem",
+    "after": "ଏଥିଓପିକ୍-ଆମେଟ୍-ଆଲେମ୍",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "or_IN",
+    "key": "calendar-system-ethiopic",
+    "before": "Ethiopic",
+    "after": "ଇଥିଓପିକ୍‌ କ୍ୟାଲେଣ୍ଡର୍‌",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "or_IN",
+    "key": "calendar-system-hebrew",
+    "before": "Hebrew",
+    "after": "ହିବୃ କ୍ୟାଲେଣ୍ଡର୍‌",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "or_IN",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "ଭାରତୀୟ ରାଷ୍ଟ୍ରୀୟ କ୍ୟାଲେଣ୍ଡର୍‌",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "or_IN",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "ହିଜ୍ରି କ୍ୟାଲେଣ୍ଡର",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "or_IN",
+    "key": "calendar-system-islamic-civil",
+    "before": "Islamic civil",
+    "after": "ହିଜ୍ରି କ୍ୟାଲେଣ୍ଡର (ଟାବୁଲାର୍, ନାଗରିକ ଯୁଗ)",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "or_IN",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "ହିଜ୍ରି କ୍ୟାଲେଣ୍ଡର (ଉମ୍ ଅଲ୍-କୁରା)",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "or_IN",
+    "key": "calendar-system-japanese",
+    "before": "Japanese",
+    "after": "ଜାପାନିଜ୍‌ କ୍ୟାଲେଣ୍ଡର୍‌",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "or_IN",
+    "key": "calendar-system-roc",
+    "before": "Republic of China",
+    "after": "ମିଙ୍ଗୋଓ କ୍ୟାଲେଣ୍ଡର୍‌",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "pt_PT",
+    "key": "calendar-system-buddhist",
+    "before": "Buddhist",
+    "after": "Calendário budista",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "pt_PT",
+    "key": "calendar-system-chinese",
+    "before": "Chinese",
+    "after": "Calendário chinês",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "pt_PT",
+    "key": "calendar-system-coptic",
+    "before": "Coptic",
+    "after": "Calendário copta",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "pt_PT",
+    "key": "calendar-system-dangi",
+    "before": "Dangi (Korean)",
+    "after": "Calendário dangi",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "pt_PT",
+    "key": "calendar-system-ethioaa",
+    "before": "Ethiopic Amete Alem",
+    "after": "Calendário etíope Amete Alem",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "pt_PT",
+    "key": "calendar-system-ethiopic",
+    "before": "Ethiopic",
+    "after": "Calendário etíope",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "pt_PT",
+    "key": "calendar-system-hebrew",
+    "before": "Hebrew",
+    "after": "Calendário hebraico",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "pt_PT",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "Calendário nacional indiano",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "pt_PT",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "Calendário hegírico",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "pt_PT",
+    "key": "calendar-system-islamic-civil",
+    "before": "Islamic civil",
+    "after": "Calendário hegírico (civil)",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "pt_PT",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "Calendário hegírico (Umm al-Qura)",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "pt_PT",
+    "key": "calendar-system-japanese",
+    "before": "Japanese",
+    "after": "Calendário japonês",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "pt_PT",
+    "key": "calendar-system-roc",
+    "before": "Republic of China",
+    "after": "Calendário da República da China",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "qu",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "Intiwatana",
+    "reason": "Replace foreign calendar label with target-language Unicode CLDR 48.2 calendar terminology."
+  },
+  {
+    "locale": "qu",
+    "key": "calendar-system-gregorian",
+    "before": "Gregoriana",
+    "after": "Gregoriano Intiwatana",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "qu",
+    "key": "calendar-system-jalali",
+    "before": "Jalali (Fars)",
+    "after": "Persa Intiwatana",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "rm",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "chalender",
+    "reason": "Replace foreign calendar label with target-language Unicode CLDR 48.2 calendar terminology."
+  },
+  {
+    "locale": "rm",
+    "key": "calendar-system-gregorian",
+    "before": "Gregoriana",
+    "after": "chalender gregorian",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "rm",
+    "key": "calendar-system-jalali",
+    "before": "Jalali (Fars)",
+    "after": "chalender persian",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "calendar-system-gregorian",
+    "before": "Gregoriana",
+    "after": "calendar gregorian",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "ro",
+    "key": "calendar-system-gregorian",
+    "before": "Gregoriana",
+    "after": "calendar gregorian",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "sah",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "Халандаар",
+    "reason": "Replace foreign calendar label with target-language Unicode CLDR 48.2 calendar terminology."
+  },
+  {
+    "locale": "scn",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "Calannariu",
+    "reason": "Replace foreign calendar label with target-language Unicode CLDR 48.2 calendar terminology."
+  },
+  {
+    "locale": "scn",
+    "key": "calendar-system-gregorian",
+    "before": "Gregoriana",
+    "after": "Calannariu grigurianu",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "scn",
+    "key": "calendar-system-jalali",
+    "before": "Jalali (Fars)",
+    "after": "Calannariu pirsianu",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "se",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "kaleandar",
+    "reason": "Replace foreign calendar label with target-language Unicode CLDR 48.2 calendar terminology."
+  },
+  {
+    "locale": "se",
+    "key": "calendar-system-gregorian",
+    "before": "Gregoriana",
+    "after": "gregoria kaleander",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "calendar-system-buddhist",
+    "before": "Buddhist",
+    "after": "budistični koledar",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "calendar-system-chinese",
+    "before": "Chinese",
+    "after": "kitajski koledar",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "calendar-system-coptic",
+    "before": "Coptic",
+    "after": "koptski koledar",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "calendar-system-dangi",
+    "before": "Dangi (Korean)",
+    "after": "stari korejski koledar",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "calendar-system-ethioaa",
+    "before": "Ethiopic Amete Alem",
+    "after": "etiopsko ametsko alemski koledar",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "calendar-system-ethiopic",
+    "before": "Ethiopic",
+    "after": "etiopski koledar",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "calendar-system-hebrew",
+    "before": "Hebrew",
+    "after": "hebrejski koledar",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "indijanski koledar",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "islamski koledar",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "calendar-system-islamic-civil",
+    "before": "Islamic civil",
+    "after": "islamski civilni koledar",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "islamski koledar ( Saudova Arabija, opazovalni)",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "islamski koledar (tabelarni, astronomska epoha)",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "islamski koledar Umm al-Qura",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "calendar-system-japanese",
+    "before": "Japanese",
+    "after": "japonski koledar",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "calendar-system-roc",
+    "before": "Republic of China",
+    "after": "koledar Minguo",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "so",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "Habeentiris",
+    "reason": "Replace foreign calendar label with target-language Unicode CLDR 48.2 calendar terminology."
+  },
+  {
+    "locale": "so",
+    "key": "calendar-system-gregorian",
+    "before": "Gregoriana",
+    "after": "Habeetiriska Geregoriyaan",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "so",
+    "key": "calendar-system-jalali",
+    "before": "Jalali (Fars)",
+    "after": "Habeentiriska Baarshiyaanka",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "sq",
+    "key": "calendar-system-gregorian",
+    "before": "Gregoriana",
+    "after": "kalendar gregorian",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "ti",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "ዓውደ-ኣዋርሕ",
+    "reason": "Replace foreign calendar label with target-language Unicode CLDR 48.2 calendar terminology."
+  },
+  {
+    "locale": "ti",
+    "key": "calendar-system-gregorian",
+    "before": "Gregoriana",
+    "after": "ጎርጎርዮሳዊ ዓውደ ኣዋርሕ",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "ti",
+    "key": "calendar-system-jalali",
+    "before": "Jalali (Fars)",
+    "after": "ናይ ፋርስ ዓውደ ኣዋርሕ",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "to",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "tohi māhina",
+    "reason": "Replace foreign calendar label with target-language Unicode CLDR 48.2 calendar terminology."
+  },
+  {
+    "locale": "to",
+    "key": "calendar-system-gregorian",
+    "before": "Gregoriana",
+    "after": "fakakelekolia",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "to",
+    "key": "calendar-system-jalali",
+    "before": "Jalali (Fars)",
+    "after": "fakapēsia",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "tt",
+    "key": "calendar-system-gregorian",
+    "before": "Gregoriana",
+    "after": "григориан ел исәбе",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "lunaro",
+    "reason": "Replace foreign calendar label with target-language Unicode CLDR 48.2 calendar terminology."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "calendar-system-gregorian",
+    "before": "Gregoriana",
+    "after": "lunaro gregorian",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "calendar-system-jalali",
+    "before": "Jalali (Fars)",
+    "after": "lunaro persian",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "calendar-system-buddhist",
+    "before": "Buddhist",
+    "after": "lunaro budista",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "calendar-system-chinese",
+    "before": "Chinese",
+    "after": "lunaro sineze",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "calendar-system-coptic",
+    "before": "Coptic",
+    "after": "lunaro còptego",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "calendar-system-dangi",
+    "before": "Dangi (Korean)",
+    "after": "lunaro dangi",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "calendar-system-ethioaa",
+    "before": "Ethiopic Amete Alem",
+    "after": "lunaro etiòpego (amete alem)",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "calendar-system-ethiopic",
+    "before": "Ethiopic",
+    "after": "lunaro etiòpego",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "calendar-system-hebrew",
+    "before": "Hebrew",
+    "after": "lunaro ebràego",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "lunaro izlàmego",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "calendar-system-islamic-civil",
+    "before": "Islamic civil",
+    "after": "lunaro izlàmego (tabular)",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "lunaro izlàmego (Umm al-Qura)",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "calendar-system-japanese",
+    "before": "Japanese",
+    "after": "lunaro japoneze",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "calendar-system-roc",
+    "before": "Republic of China",
+    "after": "lunaro mìnguo",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "vl-SS",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "kalender",
+    "reason": "Replace foreign calendar label with target-language Unicode CLDR 48.2 calendar terminology."
+  },
+  {
+    "locale": "vl-SS",
+    "key": "calendar-system-gregorian",
+    "before": "Gregoriana",
+    "after": "Gregoriaanse kalender",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "vl-SS",
+    "key": "calendar-system-jalali",
+    "before": "Jalali (Fars)",
+    "after": "Perzische kalender",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "vl-SS",
+    "key": "calendar-system-buddhist",
+    "before": "Buddhist",
+    "after": "Boeddhistische kalender",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "vl-SS",
+    "key": "calendar-system-chinese",
+    "before": "Chinese",
+    "after": "Chinese kalender",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "vl-SS",
+    "key": "calendar-system-coptic",
+    "before": "Coptic",
+    "after": "Koptische kalender",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "vl-SS",
+    "key": "calendar-system-dangi",
+    "before": "Dangi (Korean)",
+    "after": "Dangi-kalender",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "vl-SS",
+    "key": "calendar-system-ethioaa",
+    "before": "Ethiopic Amete Alem",
+    "after": "Ethiopische Amete Alem-kalender",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "vl-SS",
+    "key": "calendar-system-ethiopic",
+    "before": "Ethiopic",
+    "after": "Ethiopische kalender",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "vl-SS",
+    "key": "calendar-system-hebrew",
+    "before": "Hebrew",
+    "after": "Hebreeuwse kalender",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "vl-SS",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "Indiase nationale kalender",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "vl-SS",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "Islamitische kalender",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "vl-SS",
+    "key": "calendar-system-islamic-civil",
+    "before": "Islamic civil",
+    "after": "Islamitische kalender (cyclisch)",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "vl-SS",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "Islamitische kalender (Saudi–Arabië)",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "vl-SS",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "Islamitische kalender (epoche)",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "vl-SS",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "Islamitische kalender (Umm al-Qura)",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "vl-SS",
+    "key": "calendar-system-japanese",
+    "before": "Japanese",
+    "after": "Japanse kalender",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "vl-SS",
+    "key": "calendar-system-roc",
+    "before": "Republic of China",
+    "after": "Kalender van de Chinese Republiek",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "wo",
+    "key": "calendar-system-gregorian",
+    "before": "Gregoriana",
+    "after": "Arminaatu Gregoriyee",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "日历",
+    "reason": "Replace foreign calendar label with target-language Unicode CLDR 48.2 calendar terminology."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "calendar-system-gregorian",
+    "before": "Gregoriana",
+    "after": "公历",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "calendar-system-jalali",
+    "before": "Jalali (Fars)",
+    "after": "波斯历",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "calendar-system-buddhist",
+    "before": "Buddhist",
+    "after": "佛历",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "calendar-system-chinese",
+    "before": "Chinese",
+    "after": "农历",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "calendar-system-coptic",
+    "before": "Coptic",
+    "after": "科普特历",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "calendar-system-dangi",
+    "before": "Dangi (Korean)",
+    "after": "檀纪历",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "calendar-system-ethioaa",
+    "before": "Ethiopic Amete Alem",
+    "after": "埃塞俄比亚阿米特阿莱姆日历",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "calendar-system-ethiopic",
+    "before": "Ethiopic",
+    "after": "埃塞俄比亚历",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "calendar-system-hebrew",
+    "before": "Hebrew",
+    "after": "希伯来历",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "印度国定历",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "伊斯兰历",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "calendar-system-islamic-civil",
+    "before": "Islamic civil",
+    "after": "表格式伊斯兰历（民用纪元）",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "表格式伊斯兰历（天文纪元）",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "伊斯兰历（乌姆库拉）",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "calendar-system-japanese",
+    "before": "Japanese",
+    "after": "和历",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "calendar-system-roc",
+    "before": "Republic of China",
+    "after": "民国纪年",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "yi",
+    "key": "calendar-system-gregorian",
+    "before": "Gregoriana",
+    "after": "גרעגארישער קאַלענדאַר",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "yo",
+    "key": "calendar-system-gregorian",
+    "before": "Gregoriana",
+    "after": "Kàlẹ́ńdà Gregory",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "yue_CN",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "历法",
+    "reason": "Replace foreign calendar label with target-language Unicode CLDR 48.2 calendar terminology."
+  },
+  {
+    "locale": "yue_CN",
+    "key": "calendar-system-gregorian",
+    "before": "Gregoriana",
+    "after": "公历",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "yue_CN",
+    "key": "calendar-system-jalali",
+    "before": "Jalali (Fars)",
+    "after": "波斯历",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "yue_CN",
+    "key": "calendar-system-buddhist",
+    "before": "Buddhist",
+    "after": "佛历",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "yue_CN",
+    "key": "calendar-system-chinese",
+    "before": "Chinese",
+    "after": "农历",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "yue_CN",
+    "key": "calendar-system-coptic",
+    "before": "Coptic",
+    "after": "科普特历",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "yue_CN",
+    "key": "calendar-system-dangi",
+    "before": "Dangi (Korean)",
+    "after": "檀纪历",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "yue_CN",
+    "key": "calendar-system-ethioaa",
+    "before": "Ethiopic Amete Alem",
+    "after": "埃塞俄比亚阿美德阿莱姆历",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "yue_CN",
+    "key": "calendar-system-ethiopic",
+    "before": "Ethiopic",
+    "after": "埃塞俄比亚历",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "yue_CN",
+    "key": "calendar-system-hebrew",
+    "before": "Hebrew",
+    "after": "希伯来历",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "yue_CN",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "印度国历",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "yue_CN",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "伊斯兰历",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "yue_CN",
+    "key": "calendar-system-islamic-civil",
+    "before": "Islamic civil",
+    "after": "伊斯兰民用历 (表格式)",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "yue_CN",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "伊斯兰历 (乌姆库拉)",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "yue_CN",
+    "key": "calendar-system-japanese",
+    "before": "Japanese",
+    "after": "日本历",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "yue_CN",
+    "key": "calendar-system-roc",
+    "before": "Republic of China",
+    "after": "民国历",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "zgh",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "ⴰⵙⵎⵍⵓⵙⵙⴰⵏ",
+    "reason": "Replace foreign calendar label with target-language Unicode CLDR 48.2 calendar terminology."
+  },
+  {
+    "locale": "zgh",
+    "key": "calendar-system-gregorian",
+    "before": "Gregoriana",
+    "after": "ⴰⵙⵎⵍⵓⵙⵙⴰⵏ ⴰⴳⵔⵉⴳⵓⵔ",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "zh-HK",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "伊斯蘭新月曆",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "zh-TW",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "伊斯蘭新月曆",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "zh_SG",
+    "key": "calendar-system-buddhist",
+    "before": "Buddhist",
+    "after": "佛历",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "zh_SG",
+    "key": "calendar-system-chinese",
+    "before": "Chinese",
+    "after": "农历",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "zh_SG",
+    "key": "calendar-system-coptic",
+    "before": "Coptic",
+    "after": "科普特历",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "zh_SG",
+    "key": "calendar-system-dangi",
+    "before": "Dangi (Korean)",
+    "after": "檀纪历",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "zh_SG",
+    "key": "calendar-system-ethioaa",
+    "before": "Ethiopic Amete Alem",
+    "after": "埃塞俄比亚阿米特阿莱姆日历",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "zh_SG",
+    "key": "calendar-system-ethiopic",
+    "before": "Ethiopic",
+    "after": "埃塞俄比亚历",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "zh_SG",
+    "key": "calendar-system-hebrew",
+    "before": "Hebrew",
+    "after": "希伯来历",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "zh_SG",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "印度国定历",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "zh_SG",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "伊斯兰历",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "zh_SG",
+    "key": "calendar-system-islamic-civil",
+    "before": "Islamic civil",
+    "after": "表格式伊斯兰历（民用纪元）",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "zh_SG",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "表格式伊斯兰历（天文纪元）",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "zh_SG",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "伊斯兰历（乌姆库拉）",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "zh_SG",
+    "key": "calendar-system-japanese",
+    "before": "Japanese",
+    "after": "和历",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "zh_SG",
+    "key": "calendar-system-roc",
+    "before": "Republic of China",
+    "after": "民国纪年",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "calendariu",
+    "reason": "Replace foreign calendar label with target-language Unicode CLDR 48.2 calendar terminology."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "calendar-system-gregorian",
+    "before": "Gregoriana",
+    "after": "calendariu gregorianu",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "calendar-system-jalali",
+    "before": "Jalali (Fars)",
+    "after": "calendariu persa",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "br",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "deiziadur",
+    "reason": "Replace foreign calendar label with target-language Unicode CLDR 48.2 calendar terminology."
+  },
+  {
+    "locale": "br",
+    "key": "calendar-system-gregorian",
+    "before": "Gregoriana",
+    "after": "deiziadur gregorian",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "br",
+    "key": "calendar-system-jalali",
+    "before": "Jalali (Fars)",
+    "after": "deiziadur persek",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "calendar-system-buddhist",
+    "before": "Buddhist",
+    "after": "calendari budista",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "calendar-system-chinese",
+    "before": "Chinese",
+    "after": "calendari xinès",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "calendar-system-coptic",
+    "before": "Coptic",
+    "after": "calendari copte",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "calendar-system-dangi",
+    "before": "Dangi (Korean)",
+    "after": "calendari dangi",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "calendar-system-ethioaa",
+    "before": "Ethiopic Amete Alem",
+    "after": "calendari etíop amete-alem",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "calendar-system-ethiopic",
+    "before": "Ethiopic",
+    "after": "calendari etíop",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "calendar-system-hebrew",
+    "before": "Hebrew",
+    "after": "calendari hebreu",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "calendari hindú",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "calendari islàmic",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "calendar-system-islamic-civil",
+    "before": "Islamic civil",
+    "after": "calendari civil islàmic",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "calendari islàmic (Umm al-Qura)",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "calendar-system-japanese",
+    "before": "Japanese",
+    "after": "calendari japonès",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "calendar-system-roc",
+    "before": "Republic of China",
+    "after": "calendari de la República de Xina",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "tk_TM",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "Senenama",
+    "reason": "Replace foreign calendar label with target-language Unicode CLDR 48.2 calendar terminology."
+  },
+  {
+    "locale": "tk_TM",
+    "key": "calendar-system-gregorian",
+    "before": "Gregoriana",
+    "after": "Grigorian senenamasy",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "tk_TM",
+    "key": "calendar-system-jalali",
+    "before": "Jalali (Fars)",
+    "after": "Pars senenamasy",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "tk_TM",
+    "key": "calendar-system-buddhist",
+    "before": "Buddhist",
+    "after": "Buddist senenamasy",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "tk_TM",
+    "key": "calendar-system-chinese",
+    "before": "Chinese",
+    "after": "Hytaý senenamasy",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "tk_TM",
+    "key": "calendar-system-coptic",
+    "before": "Coptic",
+    "after": "Kopt senenamasy",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "tk_TM",
+    "key": "calendar-system-dangi",
+    "before": "Dangi (Korean)",
+    "after": "Dangi senenamasy",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "tk_TM",
+    "key": "calendar-system-ethioaa",
+    "before": "Ethiopic Amete Alem",
+    "after": "Efiopiýa Amete Alem senenamasy",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "tk_TM",
+    "key": "calendar-system-ethiopic",
+    "before": "Ethiopic",
+    "after": "Efiop senenamasy",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "tk_TM",
+    "key": "calendar-system-hebrew",
+    "before": "Hebrew",
+    "after": "Ýewreý senenamasy",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "tk_TM",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "Hijri-kamary senenamasy",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "tk_TM",
+    "key": "calendar-system-islamic-civil",
+    "before": "Islamic civil",
+    "after": "Hijri-kamary senenamasy (tablisaly, raýat eýýamy)",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "tk_TM",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "Hijri-kamary senenamasy (tablisaly, astronomik eýýam)",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "tk_TM",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "Hijri-kamary senenamasy (Umm al-Kura)",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "tk_TM",
+    "key": "calendar-system-japanese",
+    "before": "Japanese",
+    "after": "Ýapon senenamasy",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  },
+  {
+    "locale": "tk_TM",
+    "key": "calendar-system-roc",
+    "before": "Republic of China",
+    "after": "Minguo senenamasy",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+  }
+]

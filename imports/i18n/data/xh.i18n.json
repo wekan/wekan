@@ -571,7 +571,7 @@
   "copyListPopup-title": "Uluhlu lweekopi",
   "copyManyCardsPopup-title": "Khuphela isifanekiso kuMakhadi amaninzi",
   "copyManyCardsPopup-instructions": "Izihloko zeKhadi leNdalo kunye neeNkcazelo kule fomathi ye-JSON",
-  "copyManyCardsPopup-format": "[ {\"isihloko\": \"Isihloko sekhadi lokuqala\", \"inkcazo\":\"inkcazo yekhadi lokuqala\"}, {\"isihloko\":\"Isihloko sekhadi lesibini\",\"inkcazo\":\"inkcazo yekhadi lesibini\"},{\"isihloko\":\"Isihloko sekhadi lokugqibela\",\"inkcazo\":\"inkcazo yekhadi lokugqibela\"} ]",
+  "copyManyCardsPopup-format": "[{\"title\": \"Isihloko sekhadi lokuqala\",\"description\": \"inkcazo yekhadi lokuqala\"},{\"title\": \"Isihloko sekhadi lesibini\",\"description\": \"inkcazo yekhadi lesibini\"},{\"title\": \"Isihloko sekhadi lokugqibela\",\"description\": \"inkcazo yekhadi lokugqibela\"}]",
   "create": "Yenza",
   "createBoardPopup-title": "Yenza iBhodi",
   "createTemplateContainerPopup-title": "Yongeza iSikhongozeli Sesakhelo",

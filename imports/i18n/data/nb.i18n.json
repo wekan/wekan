@@ -571,7 +571,7 @@
   "copyListPopup-title": "Kopier liste",
   "copyManyCardsPopup-title": "Kopier mal til mange kort",
   "copyManyCardsPopup-instructions": "Mottakende korttitler og beskivelse i dette JSON-formatet",
-  "copyManyCardsPopup-format": "[ {\"Tittel\": \"Tittel første kort\", \"Beskrivelse\":\"Beskrivelse første kort\"}, {\"Tittel\":\"Tittel andre kort\",\"Beskrivelse\":\"Beskrivelse andre kort\"},{\"Tittel\":\"Tittel siste kort\",\"Beskrivelse\":\"Beskrivelse siste kort\"} ]",
+  "copyManyCardsPopup-format": "[{\"title\": \"Tittel første kort\",\"description\": \"Beskrivelse første kort\"},{\"title\": \"Tittel andre kort\",\"description\": \"Beskrivelse andre kort\"},{\"title\": \"Tittel siste kort\",\"description\": \"Beskrivelse siste kort\"}]",
   "create": "Opprett",
   "createBoardPopup-title": "Opprett Tavle",
   "createTemplateContainerPopup-title": "Legg til Malgruppe",

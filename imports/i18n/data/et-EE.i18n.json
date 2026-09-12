@@ -571,7 +571,7 @@
   "copyListPopup-title": "Kopeeri nimekiri",
   "copyManyCardsPopup-title": "Kopeeri mall paljudele kaartidele",
   "copyManyCardsPopup-instructions": "Sihtkaardi pealkirjad ja kirjeldused selles JSON-vormingus",
-  "copyManyCardsPopup-format": "[ {\"title\": {\"title\": \"First card title\", \"description\": \"First card description\"}, {\"title\": \"Second card title\", \"description\": \"Second card description\"},{\"title\": \"Last card title\", \"description\": \"Last card description\"}, {\"title\": \"Last card title\", \"description\": \"Last card description\"} ]",
+  "copyManyCardsPopup-format": "[{\"title\": \"Esimese kaardi pealkiri\", \"description\": \"Esimese kaardi kirjeldus\"}]",
   "create": "Loo",
   "createBoardPopup-title": "Loo juhatus",
   "createTemplateContainerPopup-title": "Malli konteineri lisamine",

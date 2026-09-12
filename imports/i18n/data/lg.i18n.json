@@ -571,7 +571,7 @@
   "copyListPopup-title": "Koppa Lukalala",
   "copyManyCardsPopup-title": "Koppa Kyakulabirako eri Many Kaadi",
   "copyManyCardsPopup-instructions": "Destination Kaadi Titles ne Descriptions mu kino JSON format",
-  "copyManyCardsPopup-format": "[ {\"mutwe\": \"Kisooka kaadi mutwe\", \"kunnyonnyola\":\"Kisooka kaadi kunnyonnyola\"}, {\"mutwe\":\"Second kaadi mutwe\",\"kunnyonnyola\":\"Second kaadi kunnyonnyola\"},{\"mutwe\":\"Kisembayo kaadi mutwe\",\"kunnyonnyola\":\"Kisembayo kaadi kunnyonnyola\"} ]",
+  "copyManyCardsPopup-format": "[{\"title\": \"Kisooka kaadi mutwe\",\"description\": \"Kisooka kaadi kunnyonnyola\"},{\"title\": \"Second kaadi mutwe\",\"description\": \"Second kaadi kunnyonnyola\"},{\"title\": \"Kisembayo kaadi mutwe\",\"description\": \"Kisembayo kaadi kunnyonnyola\"}]",
   "create": "Kola",
   "createBoardPopup-title": "Kola olubaawo",
   "createTemplateContainerPopup-title": "Yongerako Kyakulabirako Container",

@@ -571,7 +571,7 @@
   "copyListPopup-title": "Kopijuoti sąrašą",
   "copyManyCardsPopup-title": "Nukopijuokite šabloną į daugelį kortelių",
   "copyManyCardsPopup-instructions": "Mērķa kartiņu virsraksti un apraksti šajā JSON formātā",
-  "copyManyCardsPopup-format": "[ {\"title\": \"Pirmās kartiņas virsraksts\", \"description\":\"Pirmās kartiņas apraksts}, {\"title\":\"Otrās kartiņas virsraksts\",\"description\":\"Otrās kartiņas apraksts\"},{\"title\":\"Pēdējās kartiņas virsraksts\",\"description\":\"Pēdējās kartiņas apraksts\"} ]",
+  "copyManyCardsPopup-format": "[{\"title\": \"Pirmās kartītes virsraksts\", \"description\": \"Pirmās kartītes apraksts\"}]",
   "create": "Izveidot",
   "createBoardPopup-title": "Izveidot dēli",
   "createTemplateContainerPopup-title": "Pridėti šablono sudėtinį rodinį",

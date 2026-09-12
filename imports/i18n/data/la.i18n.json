@@ -571,7 +571,7 @@
   "copyListPopup-title": "Latine: Copia Index",
   "copyManyCardsPopup-title": "Latine: Copia Template ad Many Schedae",
   "copyManyCardsPopup-instructions": "Latine: Destinatio Scheda Titles et Descriptions in hoc JSON format",
-  "copyManyCardsPopup-format": "Latine: [ {\"titulus\": \"Primus scheda titulus\", \"descriptio\":\"Primus scheda descriptio\"}, {\"titulus\":\"Second scheda titulus\",\"descriptio\":\"Second scheda descriptio\"},{\"titulus\":\"Ultimus scheda titulus\",\"descriptio\":\"Ultimus scheda descriptio\"} ]",
+  "copyManyCardsPopup-format": "[{\"title\": \"Titulus primae schedae\", \"description\": \"Descriptio primae schedae\"}]",
   "create": "Crea",
   "createBoardPopup-title": "Tabulam crea",
   "createTemplateContainerPopup-title": "Latine: Adde Template Container",

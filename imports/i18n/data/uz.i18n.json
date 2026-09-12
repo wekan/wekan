@@ -571,7 +571,7 @@
   "copyListPopup-title": "Roʻyxatni nusxalash",
   "copyManyCardsPopup-title": "Shablonni ko'plab kartalarga nusxalash",
   "copyManyCardsPopup-instructions": "Ushbu JSON formatidagi manzil kartalari sarlavhalari va tavsiflari",
-  "copyManyCardsPopup-format": "[ {\"title\": \"Birinchi karta nomi\", \"tavsif\":\"Birinchi karta tavsifi\"}, {\"title\":\"Ikkinchi karta sarlavhasi\",\"tavsif\":\"Ikkinchi karta tavsifi\"},{\"title\":\"Oxirgi karta nomi\",\"tavsif\":\"Oxirgi karta tavsifi\"} ]",
+  "copyManyCardsPopup-format": "[{\"title\": \"Birinchi karta nomi\",\"description\": \"Birinchi karta tavsifi\"},{\"title\": \"Ikkinchi karta sarlavhasi\",\"description\": \"Ikkinchi karta tavsifi\"},{\"title\": \"Oxirgi karta nomi\",\"description\": \"Oxirgi karta tavsifi\"}]",
   "create": "Yaratish",
   "createBoardPopup-title": "Kengash yaratish",
   "createTemplateContainerPopup-title": "Shablon konteynerini qo'shing",

@@ -571,7 +571,7 @@
   "copyListPopup-title": "Kopiraj seznam",
   "copyManyCardsPopup-title": "Расади попуњен образац",
   "copyManyCardsPopup-instructions": "Naslovi ciljnih kartic in opisi v JSON formatu",
-  "copyManyCardsPopup-format": "[ {\"naslov\": \"Naslov prve kartice\", \"opis\":\"Opis prve kartice\"}, {\"naslov\":\"Opis druge kartice\",\"opis\":\"Opis druge kartice\"},{\"naslov\":\"Naslov zadnje kartice\",\"opis\":\"Opis zadnje kartice\"} ]",
+  "copyManyCardsPopup-format": "[{\"title\": \"Naslov prve kartice\",\"description\": \"Opis prve kartice\"},{\"title\": \"Opis druge kartice\",\"description\": \"Opis druge kartice\"},{\"title\": \"Naslov zadnje kartice\",\"description\": \"Opis zadnje kartice\"}]",
   "create": "Ustvari",
   "createBoardPopup-title": "Ustvari tablo",
   "createTemplateContainerPopup-title": "Додај сандук са предлошцима",

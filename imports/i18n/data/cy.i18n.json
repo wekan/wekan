@@ -571,7 +571,7 @@
   "copyListPopup-title": "Copi Rhestr",
   "copyManyCardsPopup-title": "Copïo Templed i lawer o gardiau",
   "copyManyCardsPopup-instructions": "Teitlau a Disgrifiadau Cerdyn Cyrchfan yn y fformat JSON hwn",
-  "copyManyCardsPopup-format": "[ { \" title \" : \" Teitl y cerdyn cyntaf \" , \" description \" : \" Disgrifiad cerdyn cyntaf \" }, { \" title \" : \" Teitl yr ail gerdyn \" , \" description \" : \" Disgrifiad o'r ail gerdyn \" }, { \" title \" : \" Teitl y cerdyn olaf \" , \" description \" : \" Disgrifiad o'r cerdyn diwethaf\" } ]",
+  "copyManyCardsPopup-format": "[{\"title\": \" Teitl y cerdyn cyntaf \",\"description\": \" Disgrifiad cerdyn cyntaf \"},{\"title\": \" Teitl yr ail gerdyn \",\"description\": \" Disgrifiad o'r ail gerdyn \"},{\"title\": \" Teitl y cerdyn olaf \",\"description\": \" Disgrifiad o'r cerdyn diwethaf\"}]",
   "create": "Creu",
   "createBoardPopup-title": "Creu Bwrdd",
   "createTemplateContainerPopup-title": "Ychwanegu Cynhwysydd Templed",

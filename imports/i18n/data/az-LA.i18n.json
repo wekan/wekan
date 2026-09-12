@@ -571,7 +571,7 @@
   "copyListPopup-title": "Siyahını kopyalayın",
   "copyManyCardsPopup-title": "Şablonu bir çox karta kopyalayın",
   "copyManyCardsPopup-instructions": "Bu JSON formatında Təyinat Kartı Başlıqları və Təsvirləri",
-  "copyManyCardsPopup-format": "[ {\"başlıq\": \"Birinci kartın başlığı\", \"təsviri\":\"Birinci kartın təsviri\"}, {\"başlıq\":\"İkinci kartın başlığı\",\"təsvir\":\"İkinci kartın təsviri\"},{\"başlıq\":\"Son kartın başlığı\",\"təsviri\":\"Son kartın təsviri\"} ]",
+  "copyManyCardsPopup-format": "[{\"title\": \"Birinci kartın başlığı\",\"description\": \"Birinci kartın təsviri\"},{\"title\": \"İkinci kartın başlığı\",\"description\": \"İkinci kartın təsviri\"},{\"title\": \"Son kartın başlığı\",\"description\": \"Son kartın təsviri\"}]",
   "create": "Yaradın",
   "createBoardPopup-title": "Şura yaradın",
   "createTemplateContainerPopup-title": "Şablon Konteyneri əlavə edin",
