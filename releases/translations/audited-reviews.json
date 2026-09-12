@@ -844,5 +844,53 @@
     "key": "move-progress-file",
     "value": "File",
     "reason": "Reviewed conventional technical file loanword; matches the file label in the locale."
+  },
+  {
+    "locale": "fur",
+    "key": "move-scope-avatars",
+    "value": "Avatars",
+    "reason": "Reviewed avatar scope loanword; matches the reviewed user-image labels."
+  },
+  {
+    "locale": "fur",
+    "key": "operator-debug",
+    "value": "debug",
+    "reason": "Preserve literal search operator spelling accepted by the search syntax; operator identifiers are code rather than prose."
+  },
+  {
+    "locale": "fur",
+    "key": "operator-limit",
+    "value": "limit",
+    "reason": "Preserve literal search operator spelling accepted by the search syntax; operator identifiers are code rather than prose."
+  },
+  {
+    "locale": "fur",
+    "key": "operator-team",
+    "value": "team",
+    "reason": "Preserve literal search operator spelling accepted by the search syntax; operator identifiers are code rather than prose."
+  },
+  {
+    "locale": "fur",
+    "key": "protocol",
+    "value": "Protocol",
+    "reason": "Reviewed conventional technical loanword or shared Friulian vocabulary; source label meaning preserved."
+  },
+  {
+    "locale": "fur",
+    "key": "recovery-event",
+    "value": "Event",
+    "reason": "Reviewed conventional technical loanword or shared Friulian vocabulary; source label meaning preserved."
+  },
+  {
+    "locale": "fur",
+    "key": "ticket",
+    "value": "Ticket",
+    "reason": "Reviewed conventional technical loanword or shared Friulian vocabulary; source label meaning preserved."
+  },
+  {
+    "locale": "fur",
+    "key": "tickets",
+    "value": "Tickets",
+    "reason": "Reviewed conventional technical loanword or shared Friulian vocabulary; source label meaning preserved."
   }
 ]

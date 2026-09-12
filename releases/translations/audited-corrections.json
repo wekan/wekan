@@ -46149,5 +46149,33 @@
     "before": "Pause",
     "after": "Met in pause",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "fur",
+    "key": "move-storage-fs",
+    "before": "Filesystem",
+    "after": "Sisteme di files",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "fur",
+    "key": "pause",
+    "before": "Pause",
+    "after": "Met in pause",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "fur",
+    "key": "step-finalize",
+    "before": "Finalize",
+    "after": "Complete",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "fur",
+    "key": "team",
+    "before": "Team",
+    "after": "Squadre",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
