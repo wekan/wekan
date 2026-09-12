@@ -21306,5 +21306,75 @@
     "before": "В момента филтрирате картите в това табло. Моля, натиснете тук, за да промените филтъра.",
     "after": "Ги филтрирате картите на оваа табла. Кликнете овде за да го уредите филтерот.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "filter-show-archive",
+    "before": "Прикажи архивиране делове поступка",
+    "after": "Прикажи архивирани списоци",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "fix-all-file-urls-migration",
+    "before": "Поправка кад ишчезне предметна грађа",
+    "after": "Поправи ги сите URL-адреси на датотеки",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "fix-all-file-urls-migration-description",
+    "before": "Преусмерава везу ка складишту где се стварно налази предметна грађа из ових списа.",
+    "after": "Ги ажурира URL-адресите на сите прилози на оваа табла за да го користат правилното складиште и ги поправа оштетените врски кон датотеки.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "fix-avatar-urls-migration",
+    "before": "Поправка кад се не виде слике сарадника",
+    "after": "Поправи ги URL-адресите на аватарите",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "fix-avatar-urls-migration-description",
+    "before": "Исправља везу до складишта са сликама сарадника из ових списа.",
+    "after": "Ги ажурира URL-адресите на аватарите на членовите на таблата за да го користат правилното складиште и ги поправа оштетените врски кон аватари.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "fix-missing-lists-migration",
+    "before": "Поправка кад недостају делови поступка",
+    "after": "Поправи ги списоците што недостасуваат",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "fix-missing-lists-migration-description",
+    "before": "Открива и поправља сваки део поступка који недостаје или који је оштећен.",
+    "after": "Ги открива и поправа списоците што недостасуваат или се оштетени во структурата на таблата.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "globalSearch-instructions-description",
+    "before": "Да би сте сузили резултате претраге предлажемо Вам да почнете да користите операнде. Операнд је математички појам којег овде дефинишемо као целину која се састоји од променљиве и њене припадајуће вредности који су међусобно раздвојени двотачком. На пример, ако задате операнд `део:одложено` то ће сузити претрагу само на оне предмете који су смештени у делу поступка под називом *одложено*. Уколико вредност садржи размак између речи или садржи посебне знакове вредност морате обухватити наводницима (нпр. `__operator_list__:\"у жалбеном поступку\"`).",
+    "after": "Пребарувањата можат да содржат оператори за попрецизни резултати. Операторите се задаваат со нивното име и вредност, разделени со две точки. На пример, `list:Blocked` го ограничува пребарувањето на карти во список со име *Blocked*. Ако вредноста содржи празни места или посебни знаци, мора да биде во наводници (на пример, `__operator_list__:\"To Review\"`).",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "globalSearch-instructions-heading",
+    "before": "Правилник за детаљно претраживање",
+    "after": "Упатства за пребарување",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "globalSearch-instructions-notes-1",
+    "before": "Можете истовремено задати више оператора.",
+    "after": "Може да се зададат повеќе оператори.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
