@@ -19409,5 +19409,173 @@
     "before": "Node искоришћење меморије: колико заправо је искоришћено",
     "after": "Искористеност на меморијата на Node: навистина искористена меморија",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "Node_memory_usage_rss",
+    "before": "Node искоришћење меморије: постављена вредност",
+    "after": "Искористеност на меморијата на Node: големина на резидентната меморија (RSS)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "Rotateplane",
+    "before": "Исцртавај лист који се окреће",
+    "after": "Индикатор за чекање со ротирачка рамнина",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "acceptance_of_our_legalNotice",
+    "before": "Ако наставите даље, сагласни сте да прихватате наше",
+    "after": "Со продолжување, ги прифаќате нашите",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "accessibility",
+    "before": "Особе са посебним потешкоћама",
+    "after": "Пристапност",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "accessibility-info-not-added-yet",
+    "before": "Информације намењене особама са посебним потешкоћама, за сада, нису додате",
+    "after": "Информациите за пристапност сè уште не се додадени",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "accessibility-page-enabled",
+    "before": "Омогући страницу за особе са посебним потешкоћама",
+    "after": "Страницата за пристапност е овозможена",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "accounts-allowEmailChange",
+    "before": "Разреши промяна на имейла",
+    "after": "Дозволи промена на е-поштата",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "accounts-allowUserDelete",
+    "before": "Дозволи сарадницима да сами испишу свој налог из јединственог регистра",
+    "after": "Самостојно бришење на корисничката сметка",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "accounts-allowUserNameChange",
+    "before": "Позволи смяна на потребителско име",
+    "after": "Промена на корисничкото име",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "accounts-lockout-all-users-unlocked",
+    "before": "Сви сарадници којима је претходно било одузето право пријаве су скинути са ове мере",
+    "after": "Сите блокирани корисници се одблокирани",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "accounts-lockout-click-to-unlock",
+    "before": "Притисните да налог добије право приступа",
+    "after": "Кликнете за да го одблокирате овој корисник",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "accounts-lockout-confirm-unlock",
+    "before": "Да ли сте сигурни да желите да скинете овај налог са мера?",
+    "after": "Дали сте сигурни дека сакате да го одблокирате овој корисник?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "accounts-lockout-confirm-unlock-all",
+    "before": "Да ли сте сигурни да желите да скинете све налоге са мера?",
+    "after": "Дали сте сигурни дека сакате да ги одблокирате сите блокирани корисници?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "accounts-lockout-failure-window",
+    "before": "Временски оквир у којем се одиграва насилан упад (у секундама)",
+    "after": "Временски прозорец за неуспешни обиди (секунди)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "accounts-lockout-failures-before",
+    "before": "Граница неуспешних покушаја пријаве (након које се сараднику одузима право приступа)",
+    "after": "Неуспешни обиди пред блокирање",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "accounts-lockout-info",
+    "before": "Овим мерама се штитимо од насилних покушаја пријављивања погађањем лозинкеf.",
+    "after": "Овие поставки контролираат како обидите за најавување се заштитени од напади со груба сила.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "accounts-lockout-known-users",
+    "before": "Мере за познате налоге (где налог постоји али се лозинка не подудара)",
+    "after": "Поставки за познати корисници (точно корисничко име, погрешна лозинка)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "accounts-lockout-locked-users-info",
+    "before": "Сарадници којима је одузето право приступа због превеликог броја неуспешних покушаја пријаве",
+    "after": "Корисници кои моментално се блокирани поради премногу неуспешни обиди за најавување",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "accounts-lockout-no-locked-users",
+    "before": "Тренутно не постоје налози са мером забране права приступа",
+    "after": "Моментално нема блокирани корисници",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "accounts-lockout-period",
+    "before": "Трајање мере забране (у секундама)",
+    "after": "Период на блокирање (секунди)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "accounts-lockout-settings",
+    "before": "Заштитне мере од насилног упада",
+    "after": "Поставки за заштита од напади со груба сила",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "accounts-lockout-settings-updated",
+    "before": "Мере против насилног упада су допуњене",
+    "after": "Поставките за заштита од напади со груба сила се ажурирани",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "accounts-lockout-show-locked-users",
+    "before": "Прикажи само налоге на мерама",
+    "after": "Прикажи ги само блокираните корисници",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "accounts-lockout-unknown-users",
+    "before": "Мере за непознате налоге (где сарадник са таквим корисничким именом не постоји)",
+    "after": "Поставки за непознати корисници (непостоечко корисничко име)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

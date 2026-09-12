@@ -412,5 +412,11 @@
     "key": "soft-wip-limit",
     "value": "Soft WIP-Limit",
     "reason": "Individually reviewed: Soft WIP-Limit is established German technical wording for a non-blocking warning limit, contrasting with a hard limit. WIP is an acronym and Limit is a German word. The valid existing technical label is retained."
+  },
+  {
+    "locale": "mk",
+    "key": "Reactivity_mode",
+    "value": "Режим на реактивност (changeStreams / oplog / polling)",
+    "reason": "Individually reviewed: Режим на реактивност is valid Macedonian. changeStreams, oplog and polling identify actual runtime modes and remain literal."
   }
 ]
