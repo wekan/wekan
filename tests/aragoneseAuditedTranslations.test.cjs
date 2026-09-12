@@ -120,3 +120,10 @@ for (const [key, name] of [['azure','Azure Blob Storage'],['gcs','Google Cloud S
 assert.match(data['attachment-transfer-limits-invalid-value'], /limite positivo valido/);
 assert.match(data['attachment-transfer-limits-saved'], /transferencia d’adchuntos alzaus/);
 assert.notEqual(data['attachment-transfer-limits-invalid-value'], data['attachment-transfer-limits-saved']);
+assert.match(data['auto-list-width'], /Amplaria automatica d’a lista/);
+assert.match(data['automatic-linked-url-schemes'], /personalizaus.*Un esquema d’URL por linia/);
+assert.match(data['avatar-too-big'], /masiau gran.*__size__ como maximo/);
+for (const label of ['Azure Portal','Storage accounts','Security + networking','Access keys','key1','Show','Key']) assert.ok(data['azure-account-key-menu-path'].includes(label));
+assert.match(data['azure-account-key-menu-path'], /a tuya cuenta/);
+assert.match(data['azure-account-name-description'], /nombre d’a tuya cuenta d’Azure Storage/);
+assert.equal(data['azure-blob-storage-description'], 'Microsoft Azure Blob Storage.');

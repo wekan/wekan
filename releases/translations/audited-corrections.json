@@ -44532,5 +44532,47 @@
     "before": "Límites de transferencia de adjuntos guardados.",
     "after": "Limites de transferencia d’adchuntos alzaus.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "auto-list-width",
+    "before": "Ancho de lista automático",
+    "after": "Amplaria automatica d’a lista",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "automatic-linked-url-schemes",
+    "before": "Esquemas de URL personalizados que deberían ser clicables automáticamente. Un esquema de URL por línea.",
+    "after": "Esquemas d’URL personalizaus que han de poder clicar-se automaticament. Un esquema d’URL por linia.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "avatar-too-big",
+    "before": "El avatar es demasiado grande (__size__ máx)",
+    "after": "L’avatar ye masiau gran (__size__ como maximo)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "azure-account-key-menu-path",
+    "before": "Azure Portal → Storage accounts → tu cuenta → Security + networking → Access keys → key1 → Show → Key.",
+    "after": "Azure Portal → Storage accounts → a tuya cuenta → Security + networking → Access keys → key1 → Show → Key.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "azure-account-name-description",
+    "before": "El nombre de tu cuenta de Azure Storage.",
+    "after": "O nombre d’a tuya cuenta d’Azure Storage.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "azure-blob-storage-description",
+    "before": "Almacenamiento Microsoft Azure Blob.",
+    "after": "Microsoft Azure Blob Storage.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
