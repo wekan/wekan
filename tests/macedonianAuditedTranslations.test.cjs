@@ -42,6 +42,13 @@ const data = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/mk.i1
   assert.match(data['globalSearch-instructions-status-private'], /само во приватни табли/);
   assert.match(data['globalSearch-instructions-status-public'], /само во јавни табли/);
   assert.match(data['hideCheckedChecklistItems'], /означените ставки/);
+  assert.match(data['import-board-instruction-wekan'], /'Извези табла'/);
+  assert.doesNotMatch(data['import-board-instruction-wekan'], /Унеси|Увези/);
+  for (const menu of ['Menu', 'More', 'Print and Export', 'Export JSON']) {
+    assert.ok(data['import-board-instruction-trello'].includes(`'${menu}'`));
+  }
+  assert.match(data['invite-people-success'], /регистрација/);
+  assert.match(data['import-members-map-note'], /тековниот корисник/);
   assert.equal(data.list, 'Список');
   assert.equal(data.swimlane, 'Лента');
   console.log('macedonianAuditedTranslations: actual date and label rendering, checklist removal meaning and native labels passed');

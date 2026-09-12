@@ -558,6 +558,13 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/f90ea9ac6">Repair Macedonian import and registration instructions</a>. Thanks to xet7.</summary>
+
+Correct 16 values, including export menu wording, member mapping and registration invitations. Positive and negative regressions verify the export action and literal Trello menu names, alongside source tokens, exact values, rendering and key order. Audit.md records dated progress.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/17efcc8ea">Repair Macedonian status, storage and checklist controls</a>. Thanks to xet7.</summary>
 
 Correct 20 reviewed values, restoring end-date status, board visibility, GridFS attachments and checklist terminology. Positive and negative meaning, source-token, rendering, exact-value and key-order checks pass. Audit.md records dated progress and remaining findings.
