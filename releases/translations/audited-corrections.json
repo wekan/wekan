@@ -28985,5 +28985,89 @@
     "before": "Премести целокупну предметну грађу из списа у облак на Amazon S3",
     "after": "Premjesti sve priloge u S3",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "multi-selection-active",
+    "before": "Штиклирајте да би изабрали списе",
+    "after": "Kliknite polja za potvrdu da odaberete ploče",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "multi-selection-label",
+    "before": "Залепите или одлепите налепнице на одабране предмете",
+    "after": "Postavi oznaku za odabrane stavke",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "myCardsSortChange-choice-board",
+    "before": "По деловодном броју списа",
+    "after": "Po ploči",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "myCardsSortChange-title",
+    "before": "Редослед предмета где имам пуномоћ",
+    "after": "Sortiranje mojih kartica",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "myCardsSortChangePopup-title",
+    "before": "Поређај предмете где имам пуномоћ",
+    "after": "Sortiranje mojih kartica",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "myCardsViewChangePopup-title",
+    "before": "Такви предмети треба да буду",
+    "after": "Prikaz mojih kartica",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "n-cards-found",
+    "before": "Број пронађених предмета: %s",
+    "after": "Pronađeno je %s kartica",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "newlineBecomesNewChecklistItem",
+    "before": "Сваки ред текста постаје ставка на списку",
+    "after": "Svaki red teksta postaje stavka kontrolne liste",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "newlineBecomesNewChecklistItemOriginOrder",
+    "before": "Сваки ред текста постаје ставка на списку - по изворном редоследу уноса",
+    "after": "Svaki red teksta postaje stavka kontrolne liste, izvornim redoslijedom",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "no-cards-found",
+    "before": "Није пронађен ни један предмет",
+    "after": "Nisu pronađene kartice",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "no-comments-desc",
+    "before": "Без права на расправу и права на увид у записник",
+    "after": "Ne može vidjeti komentare.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "normal-assigned-only-desc",
+    "before": "Има увид и пуна права само у оним предметима где има надлежност или је опуномоћен.",
+    "after": "Vidljive su samo dodijeljene kartice. Može uređivati kao obični korisnik.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

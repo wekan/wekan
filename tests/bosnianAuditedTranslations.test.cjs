@@ -49,6 +49,7 @@ console.log('bosnianAuditedTranslations: account scope, credentials and lockout 
   assert.match(data['activity-unset-customfield'], /uklonio vrijednost/);
   assert.doesNotMatch(data['activity-unset-customfield'], /izbrisao polje/);
   assert.equal(translator.t('activity-set-customfield', { sprintf: ['FIELD', 'VALUE', 'CARD'] }), "postavio prilagođeno polje 'FIELD' na 'VALUE' u CARD");
+  assert.equal(translator.t('n-cards-found', { sprintf: ['7'] }), 'Pronađeno je 7 kartica');
   const invitation = translator.t('email-invite-text', { user: 'USER', inviter: 'INVITER', board: 'BOARD', url: 'LOCAL_URL' });
   for (const token of ['USER', 'INVITER', 'BOARD', 'LOCAL_URL']) assert.ok(invitation.includes(token));
   assert.match(invitation, /vas poziva da se pridružite/);
@@ -279,3 +280,14 @@ assert.doesNotMatch(data['move-all-attachments-to-s3'], /Amazon|oblak/);
 assert.match(data['monitoring-export-failed'], /Izvoz.*nije uspio/);
 assert.match(data['monitoring-refresh-failed'], /Osvježavanje.*nije uspjelo/);
 console.log('bosnianAuditedTranslations: administrator restriction, per-board movement and monitoring failures passed');
+
+assert.equal(data['myCardsSortChange-title'], data['myCardsSortChangePopup-title']);
+assert.equal(data['myCardsSortChange-choice-board'], 'Po ploči');
+assert.match(data['multi-selection-active'], /polja za potvrdu.*ploče/);
+assert.match(data['newlineBecomesNewChecklistItemOriginOrder'], /izvornim redoslijedom/);
+assert.equal(data['no-comments-desc'], 'Ne može vidjeti komentare.');
+assert.doesNotMatch(data['no-comments-desc'], /aktivnosti|zapisnik/);
+assert.match(data['normal-assigned-only-desc'], /samo dodijeljene kartice/);
+assert.match(data['normal-assigned-only-desc'], /kao obični korisnik/);
+assert.doesNotMatch(data['normal-assigned-only-desc'], /puna prava|sve kartice/);
+console.log('bosnianAuditedTranslations: My Cards labels, checklist ordering and role restrictions passed');
