@@ -814,5 +814,35 @@
     "key": "avatars",
     "value": "Avatars",
     "reason": "Reviewed conventional avatar terminology used for user images; shared loanword does not establish wrong-language prose."
+  },
+  {
+    "locale": "fur",
+    "key": "avatars-upload-blocked-label",
+    "value": "Avatars",
+    "reason": "Reviewed conventional avatar loanword; matches the reviewed avatars label for user images."
+  },
+  {
+    "locale": "fur",
+    "key": "file",
+    "value": "File",
+    "reason": "Reviewed conventional technical file loanword; no foreign prose or omitted meaning."
+  },
+  {
+    "locale": "fur",
+    "key": "info",
+    "value": "Version",
+    "reason": "Reviewed Friulian version, identical to English spelling; the locale word correctly labels version information."
+  },
+  {
+    "locale": "fur",
+    "key": "map-region-europe",
+    "value": "Europe",
+    "reason": "Reviewed Friulian geographical name Europe, identical to English spelling."
+  },
+  {
+    "locale": "fur",
+    "key": "move-progress-file",
+    "value": "File",
+    "reason": "Reviewed conventional technical file loanword; matches the file label in the locale."
   }
 ]

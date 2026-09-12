@@ -46142,5 +46142,12 @@
     "before": "Islamic Umm al-Qura",
     "after": "calendari Hijri (Umm al-Qura)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "fur",
+    "key": "move-progress-pause",
+    "before": "Pause",
+    "after": "Met in pause",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
