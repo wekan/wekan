@@ -44651,5 +44651,47 @@
     "before": "Recuento de elementos de checklist (0/0)",
     "after": "Recuento d’elementos d’a lista de comprobación (0/0)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "checklist-count-on-minicard",
+    "before": "Recuento de elementos de checklist (0/0) en la minitarjeta",
+    "after": "Recuento d’elementos d’a lista de comprobación (0/0) en a minitarcheta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "checklistDeletePopup-title",
+    "before": "¿Borrar la lista de tareas?",
+    "after": "¿Eliminar a lista de comprobación?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "cleanup-old-jobs",
+    "before": "Limpiar trabajos antiguos",
+    "after": "Limpiar os treballos antigos",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "clipboard",
+    "before": "el portapapeles o con arrastrar y soltar",
+    "after": "Portapapels u arrastrar y soltar",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "collapse-checklist",
+    "before": "Contraer la lista de tareas",
+    "after": "Plegar a lista de comprobación",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "comment-delete",
+    "before": "¿Estás seguro que quieres borrar el comentario?",
+    "after": "¿Yes seguro de querer eliminar o comentario?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

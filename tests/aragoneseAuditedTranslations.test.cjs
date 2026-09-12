@@ -141,3 +141,10 @@ assert.match(data['card-show-lists-on-minicard'], /Amostrar listas en a minitarc
 assert.match(data['cardStartPlanningPokerPopup-title'], /Empecipiar un Planning Poker/);
 assert.match(data['checklist-count'], /lista de comprobación \(0\/0\)/);
 assert.equal(data['board-view-throughput-histogram'], 'Histograma de rendimiento');
+assert.match(data['checklist-count-on-minicard'], /comprobación \(0\/0\) en a minitarcheta/);
+assert.match(data['checklistDeletePopup-title'], /Eliminar a lista de comprobación/);
+assert.match(data['cleanup-old-jobs'], /Limpiar os treballos antigos/);
+assert.match(data.clipboard, /Portapapels u arrastrar y soltar/);
+assert.match(data['collapse-checklist'], /Plegar a lista de comprobación/);
+assert.doesNotMatch(data['collapse-checklist'], /Eliminar/);
+assert.match(data['comment-delete'], /Yes seguro.*eliminar o comentario/);
