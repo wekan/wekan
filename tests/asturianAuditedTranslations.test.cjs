@@ -16,3 +16,7 @@ assert.match(data['act-createCustomField'], /creó el campu personalizáu __cust
 assert.match(data['act-deleteCustomField'], /eliminó el campu personalizáu __customField__/);
 assert.match(data['act-checkedItem'], /marcó l'elementu __checklistItem__/);
 assert.match(data['act-completeChecklist'], /completó la llista de comprobación/);
+assert.match(data['act-moveCardToOtherBoard'], /dende la llista __oldList__.*__oldSwimlane__.*__oldBoard__ a la llista __list__.*__swimlane__.*__board__/);
+assert.match(data['act-removeChecklistItem'], /__checklistItem__.*__checkList__/);
+assert.equal(data['act-removeLabel'], data['act-removedLabel']);
+assert.match(data['act-newDue'], /primer recordatoriu de vencimientu/);

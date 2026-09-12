@@ -40500,5 +40500,75 @@
     "before": "importada la tarjeta __card__ a la lista __list__ del carrril __swimlane__ del tablero __board__",
     "after": "importó la tarxeta __card__ na llista __list__ del carril __swimlane__ del tableru __board__",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "act-importList",
+    "before": "importada la lista __list__ al carril __swimlane__ del tablero __board__",
+    "after": "importó la llista __list__ al carril __swimlane__ del tableru __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "act-joinMember",
+    "before": "añadido el miembro __member__ a la tarjeta __card__ de la lista __list__ del carril __swimlane__ del tablero __board__",
+    "after": "añadió al miembru __member__ a la tarxeta __card__ na llista __list__ del carril __swimlane__ del tableru __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "act-moveCard",
+    "before": "movida la tarjeta __card__ del tablero __board__ de la lista __oldList__ del carril __oldSwimlane__ a la lista __list__ del carril __swimlane__",
+    "after": "movió la tarxeta __card__ del tableru __board__ dende la llista __oldList__ del carril __oldSwimlane__ a la llista __list__ del carril __swimlane__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "act-moveCardToOtherBoard",
+    "before": "movida la tarjeta __card__ de la lista __oldList__ del carril __oldSwimlane__ del tablero __oldBoard__ a la lista __list__ del carril __swimlane__ del tablero __board__",
+    "after": "movió la tarxeta __card__ dende la llista __oldList__ del carril __oldSwimlane__ del tableru __oldBoard__ a la llista __list__ del carril __swimlane__ del tableru __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "act-newDue",
+    "before": "__list__/__card__ tiene una primera notificación de vencimiento [__board__]",
+    "after": "__list__/__card__ tien el primer recordatoriu de vencimientu [__board__]",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "act-removeBoardMember",
+    "before": "eliminado el miembro __member__ del tablero __board__",
+    "after": "quitó al miembru __member__ del tableru __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "act-removeChecklist",
+    "before": "eliminada la lista de verificación __checklist__ de la tarjeta __card__ de la lista __list__ del carril __swimlane__ del tablero __board__",
+    "after": "quitó la llista de comprobación __checklist__ de la tarxeta __card__ na llista __list__ del carril __swimlane__ del tableru __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "act-removeChecklistItem",
+    "before": "eliminado el elemento __checklistItem__ de la lista de verificación __checkList__ de la tarjeta __card__ de la lista __list__ del carril __swimlane__ del tablero __board__",
+    "after": "quitó l'elementu __checklistItem__ de la llista de comprobación __checkList__ de la tarxeta __card__ na llista __list__ del carril __swimlane__ del tableru __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "act-removeLabel",
+    "before": "eliminada la etiqueta __label__ de la tarjeta __card__ de la lista __list__ del carril __swimlane__ del tablero __board__",
+    "after": "quitó la etiqueta __label__ de la tarxeta __card__ na llista __list__ del carril __swimlane__ del tableru __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "act-removedLabel",
+    "before": "eliminada la etiqueta __label__ de la tarjeta __card__ de la lista __list__ del carril __swimlane__ del tablero __board__",
+    "after": "quitó la etiqueta __label__ de la tarxeta __card__ na llista __list__ del carril __swimlane__ del tableru __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
