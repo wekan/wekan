@@ -35691,5 +35691,75 @@
     "before": "adicionoua lista de verificação __checklist__ ao cartão __card__ na lista __list__ na pista __swimlane__ no quadro __board__",
     "after": "engadiu a lista de verificación __checklist__ á tarxeta __card__ na lista __list__ no carril __swimlane__ no taboleiro __board__",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "act-addChecklistItem",
+    "before": "adicionou o item __checklistItem__ à lista de verificação __checklist__ no cartão __card__ na lista __list__ na pista __swimlane__ no quadro __board__",
+    "after": "engadiu o elemento __checklistItem__ á lista de verificación __checklist__ na tarxeta __card__ na lista __list__ no carril __swimlane__ no taboleiro __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "act-addComment",
+    "before": "comentou no cartão __card__: __comment__ na lista __list__ na pista __swimlane__ no quadro __board__",
+    "after": "comentou na tarxeta __card__: __comment__ na lista __list__ no carril __swimlane__ no taboleiro __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "act-addLabel",
+    "before": "Adicionou a etiqueta __label__ ao cartão __card__ na lista __list__ na pista __swimlane__ no quadro __board__",
+    "after": "Engadiu a etiqueta __label__ á tarxeta __card__ na lista __list__ no carril __swimlane__ no taboleiro __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "act-addSubtask",
+    "before": "adicionou a sub-tarefa __subtask__ ao cartão __card__ na lista __list__ na pista __swimlane__ no quadro __board__",
+    "after": "engadiu a subtarefa __subtask__ á tarxeta __card__ na lista __list__ no carril __swimlane__ no taboleiro __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "act-addedLabel",
+    "before": "Adicionou a etiqueta __label__ ao cartão __card__ na lista __list__ na pista __swimlane__ no quadro __board__",
+    "after": "Engadiu a etiqueta __label__ á tarxeta __card__ na lista __list__ no carril __swimlane__ no taboleiro __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "act-archivedBoard",
+    "before": "O quadro __board__ foi movido para o Arquivo",
+    "after": "O taboleiro __board__ moveuse ao Arquivo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "act-archivedCard",
+    "before": "O cartão __card__ na lista __list__ na pista __swimlane__ no quadro __board__ foi movido para o Arquivo",
+    "after": "A tarxeta __card__ na lista __list__ no carril __swimlane__ no taboleiro __board__ moveuse ao Arquivo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "act-archivedList",
+    "before": "A lista __list__ na pista __swimlane__ no quadro __board__ foi movida para o Arquivo",
+    "after": "A lista __list__ no carril __swimlane__ no taboleiro __board__ moveuse ao Arquivo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "act-archivedSwimlane",
+    "before": "A pista __swimlane__ no quadro __board__ foi movida para o Arquivo",
+    "after": "O carril __swimlane__ no taboleiro __board__ moveuse ao Arquivo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "act-atUserComment",
+    "before": "mencionou você no __card__: __comment__ da lista __list__ da raia __swimlane__ do quadro __board__",
+    "after": "mencionoute na tarxeta __card__: __comment__ na lista __list__ no carril __swimlane__ no taboleiro __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
