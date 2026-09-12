@@ -25632,5 +25632,89 @@
     "before": "Не могу да извезем надзорне податаке",
     "after": "Izvoz podataka nadzora nije uspio",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "monitoring-refresh-failed",
+    "before": "Не могу да освежим надзорне податке",
+    "after": "Osvježavanje podataka nadzora nije uspjelo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "move-all-attachments-of-board-to-fs",
+    "before": "Премести предметну грађу ових списа у локални систем датотека",
+    "after": "Premjesti sve privitke ploče u datotečni sustav",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "move-all-attachments-of-board-to-gridfs",
+    "before": "Премести предметну грађу ових списа у MongoDB GridFS",
+    "after": "Premjesti sve privitke ploče u GridFS",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "move-all-attachments-of-board-to-s3",
+    "before": "Премести предметну грађу ових списа у облак на Amazon S3",
+    "after": "Premjesti sve privitke ploče u S3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "move-all-attachments-to-fs",
+    "before": "Премести целокупну предметну грађу у локални систем датотека",
+    "after": "Premjesti sve privitke u datotečni sustav",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "move-all-attachments-to-gridfs",
+    "before": "Премести целокупну предметну грађу у MongoDB GridFS",
+    "after": "Premjesti sve privitke u GridFS",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "move-all-attachments-to-s3",
+    "before": "Премести целокупну предметну грађу из списа у облак на Amazon S3",
+    "after": "Premjesti sve privitke u S3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "multi-selection-active",
+    "before": "Штиклирајте да би изабрали списе",
+    "after": "Kliknite potvrdne okvire za odabir ploča",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "multi-selection-label",
+    "before": "Залепите или одлепите налепнице на одабране предмете",
+    "after": "Postavi oznaku za odabrano",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "my-cards",
+    "before": "Предмети где имам надлежност",
+    "after": "Moje kartice",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "myCardsSortChange-choice-board",
+    "before": "По деловодном броју списа",
+    "after": "Prema ploči",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "myCardsSortChange-title",
+    "before": "Редослед предмета где имам пуномоћ",
+    "after": "Razvrstavanje mojih kartica",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
