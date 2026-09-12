@@ -558,6 +558,13 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/e1033dc8c">Repair Bosnian query validation and notification messages</a>. Thanks to xet7.</summary>
+
+Correct 12 flagged values. Positive and negative regressions and real rendering verify notification scope, debug predicates, numeric limits and login links. Source-token, target-script, exact-value, key-order and repair checks pass. Audit.md records dated progress.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/17554ae96">Repair Bosnian My Cards and role descriptions</a>. Thanks to xet7.</summary>
 
 Correct 12 flagged values. Positive and negative regressions and real count rendering verify My Cards labels, checklist ordering and role restrictions. Source-token, target-script, exact-value, key-order and repair checks pass. Audit.md records dated progress.
