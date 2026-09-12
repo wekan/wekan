@@ -42474,5 +42474,75 @@
     "before": "Imagen de portada de la minitarjeta",
     "after": "Imaxe de portada na minitarxeta",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "created-at-newest-first",
+    "before": "Creación (Nuevos Primero)",
+    "after": "Data de creación (les más nueves primero)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "created-at-oldest-first",
+    "before": "Creación (Antiguos Primero)",
+    "after": "Data de creación (les más antigües primero)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "cron-job-delete-confirm",
+    "before": "¿Estás seguro de querer borrar este Cron Job?",
+    "after": "¿De xuru que quies eliminar esti trabayu programáu?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "custom-help-link-url",
+    "before": "Enlace URL de ayuda personalizada",
+    "after": "URL del enllaz d’ayuda personalizáu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "custom-legal-notice-link-url",
+    "before": "URL personalizada de la página de aviso legal",
+    "after": "URL personalizada de la páxina d’avisu llegal",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "custom-login-logo-image-url",
+    "before": "URL de imagen del logo personalizado de inicio de sesión",
+    "after": "URL de la imaxe del logotipu personalizáu d’aniciu de sesión",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "custom-login-logo-link-url",
+    "before": "URL de enlace del logo personalizado de inicio de sesión",
+    "after": "URL del enllaz del logotipu personalizáu d’aniciu de sesión",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "custom-product-name",
+    "before": "Nombre de producto personalizado",
+    "after": "Nome personalizáu del productu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "custom-top-left-corner-logo-height",
+    "before": "Altura personalizada del logo de la esquina superior izquierda. Por defecto: 27",
+    "after": "Altor personalizáu del logotipu de la esquina superior izquierda. Por defeutu: 27",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "custom-top-left-corner-logo-image-url",
+    "before": "Personalizar la URL del logotipo en la esquina superior izquierda",
+    "after": "URL de la imaxe del logotipu personalizáu de la esquina superior izquierda",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

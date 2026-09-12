@@ -203,3 +203,16 @@ assert.match(data['copy-text-to-clipboard'], /Copiar el testu al portapapeles/);
 assert.equal(data.copyChecklistFromTemplate, data['copyChecklistFromTemplatePopup-title']);
 assert.match(data.copyChecklistFromTemplate, /comprobación dende una plantía/);
 assert.match(data['cover-attachment-on-minicard'], /Imaxe de portada na minitarxeta/);
+
+assert.match(data['created-at-newest-first'], /creación.*más nueves primero/);
+assert.match(data['created-at-oldest-first'], /creación.*más antigües primero/);
+assert.notEqual(data['created-at-newest-first'], data['created-at-oldest-first']);
+assert.match(data['cron-job-delete-confirm'], /eliminar esti trabayu programáu/);
+assert.match(data['custom-help-link-url'], /URL del enllaz d’ayuda/);
+assert.match(data['custom-legal-notice-link-url'], /páxina d’avisu llegal/);
+assert.match(data['custom-login-logo-image-url'], /URL de la imaxe.*aniciu de sesión/);
+assert.match(data['custom-login-logo-link-url'], /URL del enllaz.*aniciu de sesión/);
+assert.notEqual(data['custom-login-logo-image-url'], data['custom-login-logo-link-url']);
+assert.match(data['custom-product-name'], /Nome personalizáu del productu/);
+assert.match(data['custom-top-left-corner-logo-height'], /Altor.*Por defeutu: 27$/);
+assert.match(data['custom-top-left-corner-logo-image-url'], /URL de la imaxe.*esquina superior izquierda/);
