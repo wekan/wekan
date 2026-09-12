@@ -296,3 +296,10 @@ assert.equal(data['operator-has-invalid'], '%s no ye una comprobación d’exist
 assert.match(data['operator-limit-invalid'], /^%s no ye un limite valido\./);
 assert.match(data['operator-limit-invalid'], /O limite ha d’estar un entero positivo\.$/);
 assert.notEqual(data['operator-debug-invalid'], data['operator-has-invalid']);
+assert.equal(data['operator-number-expected'], "o operador __operator__ asperaba un numero, ha recibiu '__value__'");
+assert.equal(data['operator-sort-invalid'], "l’orden de '%s' no ye valido");
+assert.equal(data['operator-status-invalid'], "'%s' no ye un estau valido");
+assert.equal(data['org-admin'], 'Administrador d’a organización');
+assert.equal(data['org-admins'], 'Administradors d’a organización');
+assert.notEqual(data['org-admin'], data['org-admins']);
+assert.equal(data['org-name-not-found'], "Organización '%s' no trobada.");

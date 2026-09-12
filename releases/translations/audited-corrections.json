@@ -45477,5 +45477,47 @@
     "before": "%s no es un límite válido. El límite ha de ser un entero positivo.",
     "after": "%s no ye un limite valido. O limite ha d’estar un entero positivo.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "operator-number-expected",
+    "before": "el operador __operator__ esperaba un número, obtuvo '__value__'",
+    "after": "o operador __operator__ asperaba un numero, ha recibiu '__value__'",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "operator-sort-invalid",
+    "before": "el orden de '%s' no es válido",
+    "after": "l’orden de '%s' no ye valido",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "operator-status-invalid",
+    "before": "'%s' no es un estado válido",
+    "after": "'%s' no ye un estau valido",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "org-admin",
+    "before": "Administrador de la organización",
+    "after": "Administrador d’a organización",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "org-admins",
+    "before": "Administradores de la organización",
+    "after": "Administradors d’a organización",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "org-name-not-found",
+    "before": "Organización '%s' no encontrada.",
+    "after": "Organización '%s' no trobada.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
