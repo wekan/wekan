@@ -373,3 +373,14 @@ assert.equal(data['setSwimlaneHeightPopup-title'], data['set-swimlane-height']);
 assert.match(data['set-wip-limit-value'], /najvećeg broja zadataka u ovoj listi/);
 assert.equal(data['shortcut-filter-my-assigned-cards'], 'Filtriraj moje dodijeljene kartice');
 console.log('bosnianAuditedTranslations: search scope, literal commands, pixel units and assignment filter passed');
+
+assert.match(data['showSum-field-on-list'], /zbir vrijednosti polja na vrhu liste/);
+assert.doesNotMatch(data['showSum-field-on-list'], /broj polja/);
+assert.equal(data['show-at-all-boards-page'], 'Prikaži na stranici Sve ploče');
+assert.match(data['show-card-counter-per-list'], /broj kartica po listi/);
+assert.match(data['show-board_members-avatar'], /avatare članova ploče/);
+assert.match(data['show-list-on-minicard'], /listu na minikartici/);
+assert.match(data.showChecklistAtMinicard, /kontrolnu listu na minikartici/);
+assert.equal(data['show-subtasks-field'], 'Prikaži polje podzadataka');
+assert.equal(data['sort-desc'], 'Kliknite da sortirate listu');
+console.log('bosnianAuditedTranslations: field sums, per-list counts and minicard display scope passed');

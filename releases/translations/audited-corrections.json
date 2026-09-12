@@ -29643,5 +29643,75 @@
     "before": "Издвој предмете где сам пуномоћник",
     "after": "Filtriraj moje dodijeljene kartice",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "shortcut-show-shortcuts",
+    "before": "Прикажи овај подсетник са пречицама",
+    "after": "Prikaži ovu listu prečica",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "show-at-all-boards-page",
+    "before": "Смести на полицу са списима",
+    "after": "Prikaži na stranici Sve ploče",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "show-board_members-avatar",
+    "before": "Прикажи слике сарадника на омоту списа",
+    "after": "Prikaži avatare članova ploče",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "show-card-counter-per-list",
+    "before": "Прикажи бројач предмета на сваком делу тока поступка",
+    "after": "Prikaži broj kartica po listi",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "show-desktop-drag-handles",
+    "before": "Прикажи ручке за повлачење на радној површини",
+    "after": "Prikaži ručke za povlačenje u načinu rada za računar",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "show-list-on-minicard",
+    "before": "Прикажи део поступка на омоту",
+    "after": "Prikaži listu na minikartici",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "show-subtasks-field",
+    "before": "Прикажи поље издвојени послови",
+    "after": "Prikaži polje podzadataka",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "showChecklistAtMinicard",
+    "before": "Прикажи предметну радњу на омоту",
+    "after": "Prikaži kontrolnu listu na minikartici",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "showSum-field-on-list",
+    "before": "Прикажи збирни број придружених рубрика на врху деонице",
+    "after": "Prikaži zbir vrijednosti polja na vrhu liste",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "sort-desc",
+    "before": "Притисните да би сложили делове поступка",
+    "after": "Kliknite da sortirate listu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
