@@ -27781,5 +27781,131 @@
     "before": "Неуспеле обнове су управо поново покренуте",
     "after": "Neuspjele migracije su uspješno ponovo pokrenute",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "cron-no-errors",
+    "before": "Нису се догодиле никакве грешке",
+    "after": "Nema grešaka za prikaz",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "cron-no-failed-migrations",
+    "before": "Нема понављања јер није ни било неуспешних обнова",
+    "after": "Nema neuspjelih migracija za ponovno pokretanje",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "cron-no-paused-migrations",
+    "before": "Нема настављања јер се није ни правио предах",
+    "after": "Nema pauziranih migracija za nastavak",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "cron-resume-paused",
+    "before": "Настави обнову након предаха",
+    "after": "Nastavi pauzirane migracije",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "custom-field-delete-pop",
+    "before": "Опозив ове радње неће бити могућ. Радњом се уклања ова придружена рубрика из свих предмета и уништива њена претходна историја употребе.",
+    "after": "Poništavanje nije moguće. Ovo će ukloniti prilagođeno polje sa svih kartica i uništiti njegovu historiju.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "custom-field-stringtemplate-item-placeholder",
+    "before": "Притисните ентер да додате још ставки",
+    "after": "Pritisnite Enter da dodate još stavki",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "custom-field-stringtemplate-separator",
+    "before": "Раздвајач (користите &#32; или &nbsp; за размак)",
+    "after": "Razdjelnik (koristite &#32; ili &nbsp; za razmak)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "custom-help-link-url",
+    "before": "Место на Интернету где се може затражити помоћ",
+    "after": "URL prilagođene poveznice za pomoć",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "custom-legal-notice-link-url",
+    "before": "Место на Интернету са условима/уговором за коришћење",
+    "after": "URL prilagođene stranice s pravnim obavještenjem",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "custom-login-logo-image-url",
+    "before": "Веза до места на Интернету са ког се повлачи насловна слика код пријаве",
+    "after": "URL slike prilagođenog logotipa za prijavu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "custom-login-logo-link-url",
+    "before": "Слика изнад дела за пријаву води до следећег места на Интернету",
+    "after": "URL poveznice prilagođenog logotipa za prijavu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "custom-top-left-corner-logo-height",
+    "before": "Висина за Ваш лого у горњем левом углу. Уобичајена вредност: 27",
+    "after": "Visina prilagođenog logotipa u gornjem lijevom uglu. Zadano: 27",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "custom-top-left-corner-logo-image-url",
+    "before": "Веза до места на Интернету где се налази слика са Вашим логом за приказивање у горњем левом углу",
+    "after": "URL slike prilagođenog logotipa u gornjem lijevom uglu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "custom-top-left-corner-logo-link-url",
+    "before": "Веза до места на Интернету које се посећује када си кликне на Ваш лого у горњем левом углу",
+    "after": "URL poveznice prilagođenog logotipa u gornjem lijevom uglu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "default-authentication-method",
+    "before": "Уобичајени метод за утврђивање идентитета",
+    "after": "Zadana metoda autentifikacije",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "delete-all-notifications-confirm",
+    "before": "Да ли сте сигурни да желите да избришете сва обавештења? Опозив ове радње неће бити могућ.",
+    "after": "Jeste li sigurni da želite izbrisati sva obavještenja? Ova radnja se ne može poništiti.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "delete-avatar-confirm",
+    "before": "Да ли сте сигурни да желите да уклоните ову слику?",
+    "after": "Jeste li sigurni da želite izbrisati ovaj avatar?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "delete-duplicate-empty-lists-migration",
+    "before": "Брисање истоимених делова поступка",
+    "after": "Izbriši prazne duplikate lista",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

@@ -122,3 +122,18 @@ assert.match(data['cron-job-paused'], /uspješno pauziran/);
 assert.match(data['cron-migrations-retried'], /^Neuspjele migracije.*ponovo pokrenute/);
 assert.doesNotMatch(data['cron-migrations-retried'], /obnov.*spis/);
 console.log('bosnianAuditedTranslations: creation-date ordering, template identity and scheduled-job results passed');
+
+assert.match(data['custom-field-delete-pop'], /Poništavanje nije moguće/);
+assert.match(data['custom-field-delete-pop'], /sa svih kartica.*uništiti njegovu historiju/);
+assert.ok(data['custom-field-stringtemplate-separator'].includes('&#32;'));
+assert.ok(data['custom-field-stringtemplate-separator'].includes('&nbsp;'));
+assert.match(data['custom-field-stringtemplate-item-placeholder'], /Enter/);
+assert.match(data['custom-top-left-corner-logo-height'], /Zadano: 27$/);
+assert.match(data['custom-login-logo-image-url'], /URL slike/);
+assert.match(data['custom-login-logo-link-url'], /URL poveznice/);
+assert.match(data['delete-all-notifications-confirm'], /sva obavještenja/);
+assert.match(data['delete-all-notifications-confirm'], /ne može poništiti/);
+assert.equal(data['delete-duplicate-empty-lists-migration'], 'Izbriši prazne duplikate lista');
+assert.doesNotMatch(data['delete-duplicate-empty-lists-migration'], /istoimen/);
+assert.equal(data['cron-no-errors'], 'Nema grešaka za prikaz');
+console.log('bosnianAuditedTranslations: deletion scope, HTML entities and URL distinctions passed');
