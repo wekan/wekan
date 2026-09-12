@@ -47927,5 +47927,61 @@
     "before": "scadenza mudata\nQuando: __timeValue__\nDove: __card__\nla scadenza da dant era __timeOldValue__",
     "after": "midà il temp da scadenza en\nCura: __timeValue__\nNua: __card__\nla scadenza precedenta era __timeOldValue__",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "act-a-endAt",
+    "before": "orario finale mudato in __timeValue__ (da dantmente: __timeOldValue__)",
+    "after": "midà il temp da fin en __timeValue__ (avant: __timeOldValue__)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "act-a-receivedAt",
+    "before": "orario di ricezione mudato in __timeValue__ (da dantmente: __timeOldValue__)",
+    "after": "midà il temp da recepziun en __timeValue__ (avant: __timeOldValue__)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "act-a-startAt",
+    "before": "orario iniziale mudato in __timeValue__ (da dantmente: __timeOldValue__)",
+    "after": "midà il temp da cumenzament en __timeValue__ (avant: __timeOldValue__)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "act-almostdue",
+    "before": "sollecito inviato: la scadenza (__timeValue__) di __card__ ie vicina",
+    "after": "tramess in avis che la scadenza actuala (__timeValue__) da __card__ s’avischina",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "act-duenow",
+    "before": "sollecito inviato: la scadenza (__timeValue__) di __card__ ie adesso",
+    "after": "tramess in avis che la scadenza actuala (__timeValue__) da __card__ è ussa",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "act-pastdue",
+    "before": "sollecito inviato: la scadenza (__timeValue__) di __card__ ie già passata",
+    "after": "tramess in avis che la scadenza actuala (__timeValue__) da __card__ è passada",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "act-withDue",
+    "before": "sollecito relativo a __list__/__card__ [__board__]",
+    "after": "Avis da scadenza per __list__/__card__ [__board__]",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "active-cron-jobs",
+    "before": "Processi pianificati attivi",
+    "after": "Lavurs planisadas activas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
