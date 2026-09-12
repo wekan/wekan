@@ -29237,5 +29237,89 @@
     "before": "Означи све ставке са списка као обављене",
     "after": "Označi sve stavke liste",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "r-d-move-to-bottom-gen",
+    "before": "Помери предмет на дно тог дела поступка",
+    "after": "Premjesti karticu na dno njene liste",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "r-d-move-to-bottom-spec",
+    "before": "Помери предмет на дно дела поступка",
+    "after": "Premjesti karticu na dno liste",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "r-d-move-to-top-gen",
+    "before": "Помери предмет на врх тог дела поступка",
+    "after": "Premjesti karticu na vrh njene liste",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "r-d-move-to-top-spec",
+    "before": "Помери предмет на врх дела поступка",
+    "after": "Premjesti karticu na vrh liste",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "r-d-uncheck-all",
+    "before": "Означи све ставке са списка као необављене",
+    "after": "Ukloni oznaku sa svih stavki liste",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "r-datefield",
+    "before": "временску одредницу кад је предмет",
+    "after": "datumsko polje",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "r-link-card",
+    "before": "Кад је предмет у вези са списима",
+    "after": "Poveži karticu s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "r-remove-value-from",
+    "before": "Уклони временску одредницу из поља",
+    "after": "Ukloni vrijednost iz",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "r-to-current-datetime",
+    "before": "на данашњи датум и тренутно време",
+    "after": "na trenutni datum i vrijeme",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "r-when-a-card-is-moved",
+    "before": "Када је предмет премештен у други део поступка",
+    "after": "Kada se kartica premjesti u drugu listu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "r-when-a-label-is",
+    "before": "Када је било која налепница",
+    "after": "Kada je oznaka",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "read-assigned-only-desc",
+    "before": "Има право увида само у додељене предмете.",
+    "after": "Vidljive su samo dodijeljene kartice. Ne može uređivati.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

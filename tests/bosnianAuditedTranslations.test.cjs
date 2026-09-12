@@ -311,3 +311,16 @@ assert.match(data['preview-pdf-not-supported'], /PDF.*preuzeti datoteku/);
 assert.match(data['r-board-note'], /polje prazno.*svakoj mogućoj vrijednosti/);
 assert.match(data['r-checklist-note'], /razdvojene zarezima/);
 console.log('bosnianAuditedTranslations: board permissions, invitation scope and rule matching passed');
+
+assert.equal(data['r-d-move-to-bottom-gen'], 'Premjesti karticu na dno njene liste');
+assert.equal(data['r-d-move-to-top-gen'], 'Premjesti karticu na vrh njene liste');
+assert.equal(data['r-d-move-to-bottom-spec'], 'Premjesti karticu na dno liste');
+assert.equal(data['r-d-move-to-top-spec'], 'Premjesti karticu na vrh liste');
+assert.equal(data['r-d-uncheck-all'], 'Ukloni oznaku sa svih stavki liste');
+assert.doesNotMatch(data['r-d-uncheck-all'], /^Označi/);
+assert.equal(data['r-remove-value-from'], 'Ukloni vrijednost iz');
+assert.doesNotMatch(data['r-remove-value-from'], /vremensk/);
+assert.match(data['read-assigned-only-desc'], /samo dodijeljene kartice/);
+assert.match(data['read-assigned-only-desc'], /Ne može uređivati/);
+assert.equal(data['r-when-a-card-is-moved'], 'Kada se kartica premjesti u drugu listu');
+console.log('bosnianAuditedTranslations: rule direction, value clearing and assigned-only read restrictions passed');
