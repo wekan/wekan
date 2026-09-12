@@ -48298,5 +48298,40 @@
     "before": "Mudare immagine di sfondo",
     "after": "Midar il maletg da fund",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "board-status-cards-with-time",
+    "before": "Ciartes cun tempo impiegato",
+    "after": "Cartas cun temp impundì",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "board-status-time-summary",
+    "before": "Riepilogo tempo impiegato",
+    "after": "Resumaziun dal temp impundì",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "boardChangeBackgroundImagePopup-title",
+    "before": "Mudare immagine di sfondo",
+    "after": "Midar il maletg da fund",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "calculate-file-counts",
+    "before": "Calcola il numero di file",
+    "after": "Calcular il dumber da datotecas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "calculating-counts",
+    "before": "Calcolo di conteggi in corso...",
+    "after": "Il dumber vegn calculà...",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
