@@ -25296,5 +25296,89 @@
     "before": "Додај .zip архиву која има списе у json облику и фасцикле по имену списа где је предметна грађа",
     "after": "Dodajte .zip datoteku koja sadrži JSON datoteke ploča i poddirektorije s nazivima ploča i njihovim privitcima",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "import-csv-placeholder",
+    "before": "Овде сместите Ваше исправне CSV/TSV податке",
+    "after": "Ovdje zalijepite valjane CSV/TSV podatke",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "import-members-map",
+    "before": "Списи које сте унели имају постављену мрежу сарадника. Молим да мапирате сараднике из те мреже на Ваше сараднике",
+    "after": "Uvezena ploča ima članove. Povežite članove koje želite uvesti sa svojim korisnicima",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "import-members-map-note",
+    "before": "Белешка: Немапирани сарадници ће бити додељени на тренутног корисника.",
+    "after": "Napomena: Članovi koji nisu povezani bit će dodijeljeni trenutačnom korisniku.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "import-show-user-mapping",
+    "before": "Испрегледај како су сарадници измапирани",
+    "after": "Pregledaj povezivanje članova",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "import-user-select",
+    "before": "Изаберите Вашег познатог сарадника којег желите да корисите као овог",
+    "after": "Odaberite postojećeg korisnika kojeg želite koristiti kao ovog člana",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "invalid-file",
+    "before": "Ако са именом нешто није у реду тада ће и слање и преименовање бити отказано.",
+    "after": "Ako je naziv datoteke nevaljan, prijenos ili preimenovanje se otkazuje.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "invite-people-error",
+    "before": "Догодила се грешка приликом слања позива за сарадњу",
+    "after": "Pogreška pri slanju poziva za registraciju",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "invite-people-success",
+    "before": "Позив за сарадњу је успешно послат",
+    "after": "Poziv za registraciju uspješno je poslan",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "keyboard-shortcuts-disabled",
+    "before": "Пречице са тастатуре су искључене.",
+    "after": "Tipkovnički prečaci su onemogućeni. Kliknite za omogućavanje.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "keyboard-shortcuts-enabled",
+    "before": "Пречице са тастатуре су укључене.",
+    "after": "Tipkovnički prečaci su omogućeni. Kliknite za onemogućavanje.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "label-color-not-found",
+    "before": "%s налепница у боји није пронађена.",
+    "after": "Boja oznake %s nije pronađena.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "label-delete-pop",
+    "before": "Пажња. Опозив ове радње неће бити могућ! Изабрана налепница ће бити одлепљена/уклоњена из свих предмета и њена историја ће исчезнути.",
+    "after": "Ova se radnja ne može poništiti. Oznaka će biti uklonjena sa svih kartica i njezina će povijest biti izbrisana.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
