@@ -243,3 +243,15 @@ assert.match(data['editCardStartDatePopup-title'], /data d’aniciu/);
 assert.equal(new Set(['editCardDueDatePopup-title','editCardEndDatePopup-title','editCardReceivedDatePopup-title','editCardStartDatePopup-title'].map(key => data[key])).size, 4);
 assert.match(data['editCardSpentTimePopup-title'], /tiempu emplegáu/);
 assert.doesNotMatch(data['editCardSpentTimePopup-title'], /data|escedíu/);
+
+assert.equal(data['editNotificationPopup-title'], 'Editar la notificación');
+assert.match(data['editPokerEndDatePopup-title'], /finalización de la votación del Planning Poker/);
+assert.match(data['editVoteEndDatePopup-title'], /finalización de la votación$/);
+assert.notEqual(data['editPokerEndDatePopup-title'], data['editVoteEndDatePopup-title']);
+assert.match(data['editTranslationPopup-title'], /cadena de traducción personalizada/);
+assert.match(data['email-addresses'], /Direiciones de corréu electrónicu/);
+assert.match(data['email-fail'], /Falló.*unvíu del corréu electrónicu/);
+assert.match(data['email-fail-text'], /Error al intentar unviar/);
+assert.match(data['email-invite'], /Invitar per corréu electrónicu/);
+assert.equal(data['email-invite-subject'], data['email-invite-register-subject']);
+assert.match(data['email-invite-subject'], /^__inviter__ unvióte una invitación$/);

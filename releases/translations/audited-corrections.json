@@ -42684,5 +42684,75 @@
     "before": "Cambiar la fecha de comienzo",
     "after": "Cambiar la data d’aniciu",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "editNotificationPopup-title",
+    "before": "Editar las notificaciones",
+    "after": "Editar la notificación",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "editPokerEndDatePopup-title",
+    "before": "Cambiar la fecha final de voto del Planning Poker",
+    "after": "Cambiar la data de finalización de la votación del Planning Poker",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "editTranslationPopup-title",
+    "before": "Editar cadena de traducción personalizada",
+    "after": "Editar una cadena de traducción personalizada",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "editVoteEndDatePopup-title",
+    "before": "Cambie fecha de termino del voto",
+    "after": "Cambiar la data de finalización de la votación",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "email-addresses",
+    "before": "Direcciones de correo electrónico",
+    "after": "Direiciones de corréu electrónicu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "email-fail",
+    "before": "Error al enviar el correo",
+    "after": "Falló l’unvíu del corréu electrónicu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "email-fail-text",
+    "before": "Error al intentar enviar el correo",
+    "after": "Error al intentar unviar el corréu electrónicu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "email-invite",
+    "before": "Invitar vía correo electrónico",
+    "after": "Invitar per corréu electrónicu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "email-invite-register-subject",
+    "before": "__inviter__ te ha enviado una invitación",
+    "after": "__inviter__ unvióte una invitación",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "email-invite-subject",
+    "before": "__inviter__ te ha enviado una invitación",
+    "after": "__inviter__ unvióte una invitación",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
