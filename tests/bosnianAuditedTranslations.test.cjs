@@ -66,3 +66,15 @@ assert.match(data['app-is-offline'], /Osvježavanje stranice uzrokovat će gubit
 assert.match(data['app-is-offline'], /server nije zaustavljen/);
 assert.equal(data['app-try-reconnect'], 'Pokušajte se ponovo povezati.');
 console.log('bosnianAuditedTranslations: administrator permissions, account status and refresh warning passed');
+
+assert.equal(data['attachment-move-storage-s3'], 'Premjesti prilog u S3');
+assert.doesNotMatch(data['attachment-move-storage-s3'], /Amazon|oblak/);
+assert.equal(data['attachment-move-storage-gridfs'], 'Premjesti prilog u GridFS');
+assert.match(data['attachment-move-storage-fs'], /sistem datoteka/);
+assert.match(data['automatic-linked-url-schemes'], /Jedna URL shema po redu/);
+assert.doesNotMatch(data['automatic-linked-url-schemes'], /mjesta na Internetu/);
+assert.equal(data['automatically-field-on-card'], 'Dodaj polje na nove kartice');
+assert.doesNotMatch(data['automatically-field-on-card'], /sve kartice/);
+assert.match(data['autoAddUsersWithDomainName'], /Automatski dodaj korisnike/);
+assert.equal(data['avatar-too-big'], 'Avatar je prevelik (najviše __size__)');
+console.log('bosnianAuditedTranslations: storage destinations, URL schemes and new-card scope passed');

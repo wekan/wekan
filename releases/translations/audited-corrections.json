@@ -27291,5 +27291,131 @@
     "before": "Покушавам да се поново повежем.",
     "after": "Pokušajte se ponovo povezati.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "archive-board-confirm",
+    "before": "Да ли сте сигурни да желите да спакујете ове списе у архив?",
+    "after": "Jeste li sigurni da želite arhivirati ovu ploču?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "attachment-migration",
+    "before": "Пресељење предметне грађе",
+    "after": "Migracija priloga",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "attachment-monitoring",
+    "before": "Надзор над предметном грађом",
+    "after": "Praćenje priloga",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "attachment-move-storage-fs",
+    "before": "Пренеси материјал у локални систем датотека",
+    "after": "Premjesti prilog u sistem datoteka",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "attachment-move-storage-gridfs",
+    "before": "Пренеси материјал у GridFS",
+    "after": "Premjesti prilog u GridFS",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "attachment-move-storage-s3",
+    "before": "Пренеси материјал у облак на Amazon S3",
+    "after": "Premjesti prilog u S3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "attachment-storage-configuration",
+    "before": "Поставка складишта предметне грађе",
+    "after": "Konfiguracija pohrane priloga",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "attachment-storage-settings",
+    "before": "Складиште предметне грађе",
+    "after": "Postavke pohrane",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "attachmentActionsPopup-title",
+    "before": "Поступање са овим материјалом",
+    "after": "Radnje s prilogom",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "attachments-path-description",
+    "before": "Путања до складишта где се чува предметна грађа",
+    "after": "Putanja na kojoj se pohranjuju datoteke priloga",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "authentication-method",
+    "before": "Метод утврђивања идентитета",
+    "after": "Metoda autentifikacije",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "authentication-type",
+    "before": "Врста утврђивања идентитета",
+    "after": "Vrsta autentifikacije",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "autoAddUsersWithDomainName",
+    "before": "Повежи са оним сарадницима чији је домен е-поште",
+    "after": "Automatski dodaj korisnike s nazivom domene",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "automatic-linked-url-schemes",
+    "before": "Група места на Интернету која би могла да се посете. Једна група по линији",
+    "after": "Prilagođene URL sheme koje automatski trebaju biti poveznice na koje se može kliknuti. Jedna URL shema po redu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "automatically-field-on-card",
+    "before": "Сви будући предмети ће имати овакву рубрику",
+    "after": "Dodaj polje na nove kartice",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "avatar-too-big",
+    "before": "Слика је превелика (__size__ max)",
+    "after": "Avatar je prevelik (najviše __size__)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "avatars-path",
+    "before": "Путања до слика сарадника",
+    "after": "Putanja avatara",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "avatars-path-description",
+    "before": "Путања где се складиште слике сарадника",
+    "after": "Putanja na kojoj se pohranjuju datoteke avatara",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
