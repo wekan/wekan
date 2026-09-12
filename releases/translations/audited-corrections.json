@@ -39331,5 +39331,208 @@
     "before": "Mostrar listas arquivadas",
     "after": "Mostrar as listas arquivadas",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "fix-all-file-urls-migration",
+    "before": "Corrigir todas URLs de arquivos",
+    "after": "Corrixir todos os URL de ficheiros",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "fixed-list-width",
+    "before": "Mesma largura para todas as listas",
+    "after": "A mesma largura para todas as listas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "globalSearch-instructions-notes-1",
+    "before": "Vários operadores podem ser definidos.",
+    "after": "Pódense indicar varios operadores.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "globalSearch-instructions-notes-3-2",
+    "before": "Dias podem ser indicados por números positivos ou negativos ou usando `__predicate_week__`, `__predicate_month__`, `__predicate_quarter__` ou `__predicate_year__` para o período atual.",
+    "after": "Os días pódense indicar como un número enteiro positivo ou negativo, ou usando `__predicate_week__`, `__predicate_month__`, `__predicate_quarter__` ou `__predicate_year__` para o período actual.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "globalSearch-instructions-operator-at",
+    "before": "`__operator_user_abbrev__username` - abreviatura para `user:<username>`",
+    "after": "`__operator_user_abbrev__username` - abreviatura de `user:<username>`",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "globalSearch-instructions-operator-hash",
+    "before": "`__operator_label_abbrev__<name|color>` - abreviatura de  `__operator_label__:` ou `__operator_label__:`",
+    "after": "`__operator_label_abbrev__<name|color>` - abreviatura de `__operator_label__:<color>` ou `__operator_label__:<name>`",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "globalSearch-instructions-operator-sort",
+    "before": "`__operator_sort__:<sort-name>` - onde *<sort-name>* é um de `__predicate_due__`, `__predicate_created__` ou `__predicate_modified__`. Para ordenação descendente, coloque um `-` em frente ao campo de ordenação.",
+    "after": "`__operator_sort__:<sort-name>` - onde *<sort-name>* é un de `__predicate_due__`, `__predicate_created__` ou `__predicate_modified__`. Para unha ordenación descendente, pon un `-` diante do nome de ordenación.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "globalSearch-instructions-operator-status",
+    "before": "`__operator_status__:<status>` - onde *<status>* é um dos seguintes:",
+    "after": "`__operator_status__:<status>` - onde *<status>* é un dos seguintes:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "gridfs-enabled-description",
+    "before": "Use MongoDB GridFS para armazenamento de arquivos",
+    "after": "Usar MongoDB GridFS para o almacenamento de ficheiros",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "if-you-already-have-an-account",
+    "before": "Se você já tiver uma conta",
+    "after": "Se xa ten unha conta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "import-board-instruction-csv",
+    "before": "Cole o seu Comma Separated Values(CSV)/ Tab Separated Values (TSV) .",
+    "after": "Pega os teus valores separados por comas (CSV) / valores separados por tabulacións (TSV).",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "import-csv-placeholder",
+    "before": "Copie aqui os seus dados CSV/TSV",
+    "after": "Pega aquí os teus datos CSV/TSV válidos",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "import-json-placeholder",
+    "before": "Cole seus dados JSON válidos aqui",
+    "after": "Pega aquí os teus datos JSON válidos",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "import-show-user-mapping",
+    "before": "Rever mapeamento dos membros",
+    "after": "Revisar a asociación de membros",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "import-trello-zip-too-large",
+    "before": "O .zip é demasiado grande para importar.",
+    "after": "O .zip é demasiado grande para importalo.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "import-user-select",
+    "before": "Escolha um utilizador existente que deseja usar como esse membro",
+    "after": "Escolle o usuario existente que queres usar como este membro",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "import-usernames",
+    "before": "Importar Nomes de Utilizador",
+    "after": "Importar nomes de usuario",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "invalid-file",
+    "before": "Se nome do arquivo for inválido, o upload ou renomeação será cancelada.",
+    "after": "Se o nome do ficheiro non é válido, cancélase o envío ou o renomeado.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "invite-people-error",
+    "before": "Erro durante envio do convite para registrar-se",
+    "after": "Erro ao enviar o convite para rexistrarse",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "invite-people-success",
+    "before": "Convite para registrar-se enviado com sucesso",
+    "after": "Convite para rexistrarse enviado correctamente",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "keyboard-shortcuts-disabled",
+    "before": "Atalhos de teclado desabilitados. Clique para habilitar.",
+    "after": "Atallos de teclado desactivados. Fai clic para activar.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "keyboard-shortcuts-enabled",
+    "before": "Atalhos de teclado habilitado. Clique para desabilitar.",
+    "after": "Atallos de teclado activados. Fai clic para desactivar.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "last-modified-at",
+    "before": "Modificado pela última vez em",
+    "after": "Última modificación o",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "left-of-list",
+    "before": "À esquerda da lista selecionada",
+    "after": "Á esquerda da lista seleccionada",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "loading",
+    "before": "A carregar, por favor aguarde.",
+    "after": "Cargando, agarda por favor.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "max-avatar-filesize",
+    "before": "Tamanho máximo do arquivo do avatar em bytes:",
+    "after": "Tamaño máximo do ficheiro de avatar en bytes:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "max-upload-filesize",
+    "before": "Tamanho máximo do arquivo para upload em bytes:",
+    "after": "Tamaño máximo do ficheiro para enviar en bytes:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "migrate-all-to-filesystem",
+    "before": "Migrar Todo o Sistema de Arquivos",
+    "after": "Migrar todo ao sistema de ficheiros",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "migration-batch-size-description",
+    "before": "Número de anexos a processar em cada lote (1-100)",
+    "after": "Número de anexos que se procesan en cada lote (1-100)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

@@ -303,3 +303,15 @@ assert.match(data['export-card-field-people'], /creador, propietario, membros, a
 assert.doesNotMatch(data['export-card-field-people'], /administrador/i);
 assert.match(data['external-link-pattern-url'], /\{number\}/);
 assert.equal(data['filter-custom-fields-label'], 'Filtrar por campos personalizados');
+
+assert.match(data['globalSearch-instructions-notes-3-2'], /número enteiro positivo ou negativo/);
+assert.match(data['globalSearch-instructions-operator-hash'], /__operator_label__:<color>.*__operator_label__:<name>/);
+assert.match(data['globalSearch-instructions-operator-sort'], /descendente.*`-` diante do nome/);
+assert.match(data['import-board-instruction-csv'], /comas \(CSV\).*tabulacións \(TSV\)/);
+assert.match(data['import-csv-placeholder'], /^Pega.*válidos$/);
+assert.match(data['invalid-file'], /non é válido.*cancélase o envío ou o renomeado/);
+assert.match(data['keyboard-shortcuts-disabled'], /desactivados.*activar/);
+assert.match(data['keyboard-shortcuts-enabled'], /activados.*desactivar/);
+assert.match(data['max-avatar-filesize'], /en bytes:/);
+assert.match(data['max-upload-filesize'], /en bytes:/);
+assert.match(data['migration-batch-size-description'], /anexos.*cada lote \(1-100\)/);

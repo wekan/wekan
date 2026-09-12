@@ -484,5 +484,11 @@
     "key": "filter-custom-fields-label",
     "value": "Filtrar por campos personalizados",
     "reason": "Reviewed Galician wording correctly means Filter by Custom Fields. Shared Portuguese wording is valid Galician and must be preserved."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "integrityReportTitle",
+    "value": "Integridade do sistema de ficheiros",
+    "reason": "Inspected wording is correct Galician for Filesystem integrity. Shared Portuguese vocabulary does not justify changing the translation."
   }
 ]
