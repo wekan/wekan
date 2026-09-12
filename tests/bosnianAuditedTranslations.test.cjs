@@ -49,6 +49,15 @@ console.log('bosnianAuditedTranslations: account scope, credentials and lockout 
   assert.match(data['activity-unset-customfield'], /uklonio vrijednost/);
   assert.doesNotMatch(data['activity-unset-customfield'], /izbrisao polje/);
   assert.equal(translator.t('activity-set-customfield', { sprintf: ['FIELD', 'VALUE', 'CARD'] }), "postavio prilagođeno polje 'FIELD' na 'VALUE' u CARD");
+  const invitation = translator.t('email-invite-text', { user: 'USER', inviter: 'INVITER', board: 'BOARD', url: 'LOCAL_URL' });
+  for (const token of ['USER', 'INVITER', 'BOARD', 'LOCAL_URL']) assert.ok(invitation.includes(token));
+  assert.match(invitation, /vas poziva da se pridružite/);
+  assert.doesNotMatch(invitation, /pun uvid|potpun pristup/);
+  assert.equal(translator.t('email-resetPassword-subject', { siteName: 'SITE' }), 'Ponovo postavite lozinku na SITE');
+  assert.equal(translator.t('email-verifyEmail-subject', { siteName: 'SITE' }), 'Potvrdite adresu e-pošte na SITE');
+  assert.match(data['dueCardsViewChange-choice-all-description'], /sve nedovršene kartice/);
+  assert.match(data['dueCardsViewChange-choice-all-description'], /korisnik ima dozvolu/);
+  assert.match(data['editPokerEndDatePopup-title'], /završetka glasanja/);
   console.log('bosnianAuditedTranslations: activity rendering, argument order and reminder meanings passed');
 })().catch(error => { console.error(error); process.exitCode = 1; });
 

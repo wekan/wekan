@@ -28019,5 +28019,117 @@
     "before": "Недвосмислене радње на налепницама",
     "after": "Razjasni radnju s oznakom",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "disambiguateMultiMemberPopup-title",
+    "before": "Недвосмислене радње са сарадницима",
+    "after": "Razjasni radnju s članom",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "display-authentication-method",
+    "before": "Прикажи метод за утврђивање идентитета",
+    "after": "Prikaži metodu autentifikacije",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "display-card-creator",
+    "before": "Прикажи ко је завео предмет",
+    "after": "Prikaži autora kartice",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "dueCards-noResults-description",
+    "before": "Тренутно немате никакве предмете који има постављене рокове.",
+    "after": "Trenutno nemate kartica s rokovima.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "dueCards-noResults-title",
+    "before": "Није пронађен ниједан предмет са роком",
+    "after": "Nisu pronađene kartice s rokovima",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "dueCardsViewChange-choice-all-description",
+    "before": "Приказује све нерешене предмете који имају постављен рок решавања из оних списа за које корисник има одобрење.",
+    "after": "Prikazuje sve nedovršene kartice s *rokom* s ploča za koje korisnik ima dozvolu.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "editCardSortOrderPopup-title",
+    "before": "Промените редослед слагања предмета",
+    "after": "Promijeni sortiranje",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "editPokerEndDatePopup-title",
+    "before": "Промени крајњи датум до кад траје гласање за партију покера",
+    "after": "Promijeni datum završetka glasanja u pokeru za planiranje",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "editVoteEndDatePopup-title",
+    "before": "Када се гласачко место затвара",
+    "after": "Promijeni datum završetka glasanja",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "email-enrollAccount-text",
+    "before": "Здраво __user__,\n\nДа би почели да користите услугу, једноставно притисните на везу која је испод.\n\n__url__\n\nХвала.",
+    "after": "Zdravo __user__,\n\nDa počnete koristiti uslugu, jednostavno kliknite poveznicu ispod.\n\n__url__\n\nHvala.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "email-invite-register-text",
+    "before": "Поштовани __user__,\n\n__inviter__ Вас позива да користите kanban списе за заједнички рад.\n\nМолим испратите везу испод:\n__url__\n\nИ да, Ваш позивни код је: __icode__\n\nХвала.",
+    "after": "Poštovani __user__,\n\n__inviter__ vas poziva na kanban ploču radi saradnje.\n\nSlijedite poveznicu ispod:\n__url__\n\nVaš pozivni kod je: __icode__\n\nHvala.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "email-invite-text",
+    "before": "Поштовани __user__,\n\n__inviter__ Вам је омогућио пун увид у \"__board__\" списе и нада се заједничкој сарадњи.\n\nМолим да испратите везу испод:\n\n__url__\n\nХвала.",
+    "after": "Poštovani __user__,\n\n__inviter__ vas poziva da se pridružite ploči \"__board__\" radi saradnje.\n\nSlijedite poveznicu ispod:\n\n__url__\n\nHvala.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "email-resetPassword-subject",
+    "before": "Задајте поново вашу лозинку на страници __siteName__",
+    "after": "Ponovo postavite lozinku na __siteName__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "email-resetPassword-text",
+    "before": "Добар дан __user__,\n\nДа би сте поново задали вашу лозинку, једноставно притисните  на везу испод.\n\n__url__\n\nХвала.",
+    "after": "Zdravo __user__,\n\nDa ponovo postavite lozinku, jednostavno kliknite poveznicu ispod.\n\n__url__\n\nHvala.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "email-verifyEmail-subject",
+    "before": "Потврдите Вашу адресу е-поште на страници __siteName__",
+    "after": "Potvrdite adresu e-pošte na __siteName__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "email-verifyEmail-text",
+    "before": "Добар дан __user__,\n\nДа би сте потврдили ваш налог за е-пошту, једноставно притисните на везу испод.\n\n__url__\n\nХвала.",
+    "after": "Zdravo __user__,\n\nDa potvrdite adresu e-pošte svog računa, jednostavno kliknite poveznicu ispod.\n\n__url__\n\nHvala.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
