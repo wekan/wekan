@@ -21446,5 +21446,89 @@
     "before": "`__operator_created__:<n>` - предмети који су заведени у задњих *<n>* дана",
     "after": "`__operator_created__:<n>` — карти создадени пред најмногу *<n>* дена",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "globalSearch-instructions-operator-creator",
+    "before": "`__operator_creator__:<неко>` - предмети које је завео *<неко>*",
+    "after": "`__operator_creator__:<username>` — карти чиј создавач е *<username>*",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "globalSearch-instructions-operator-due",
+    "before": "`__operator_due__:<n>` - предмети чији рок истиче за *<n>* дана.  `__operator_due__:__predicate_overdue__ предмети са истеклим роком.",
+    "after": "`__operator_due__:<n>` — карти со рок во следните најмногу *<n>* дена. `__operator_due__:__predicate_overdue__` ги прикажува сите карти со поминат рок.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "globalSearch-instructions-operator-has",
+    "before": "`__operator_has__:<поље>` - где је то *<поље>* једно од `__predicate_attachment__`, `__predicate_checklist__`, `__predicate_description__`, `__predicate_start__`, `__predicate_due__`, `__predicate_end__`, `__predicate_assignee__` или `__predicate_member__`.  Уколико уметнете знак минус `-` испред тог *<поља>* претражује се недостатак те вредности (нпр `има:-рок` претражује предмете без постављеног рока).",
+    "after": "`__operator_has__:<field>` — каде што *<field>* е едно од `__predicate_attachment__`, `__predicate_checklist__`, `__predicate_description__`, `__predicate_start__`, `__predicate_due__`, `__predicate_end__`, `__predicate_assignee__` или `__predicate_member__`. Знакот `-` пред *<field>* пребарува отсуство на вредност во тоа поле (на пример, `has:-due` пребарува карти без рок).",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "globalSearch-instructions-operator-hash",
+    "before": "`__operator_label_abbrev__<име|боја>` - скраћеница за `__operator_label__:<боја>` или `__operator_label__:<име>`",
+    "after": "`__operator_label_abbrev__<name|color>` — кратенка за `__operator_label__:<color>` или `__operator_label__:<name>`",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "globalSearch-instructions-operator-label",
+    "before": "`__operator_label__:<боја>` `__operator_label__:<натпис>` - сви предмети на које је залепљена налепница следеће *<боје>* а која има *<натпис>",
+    "after": "`__operator_label__:<color>` `__operator_label__:<name>` — карти со ознака што одговара на бојата *<color>* или името *<name>*",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "globalSearch-instructions-operator-limit",
+    "before": "`__operator_limit__:<n>` - позитиван цео број *<n>* представља број предмета који се приказују по страни.",
+    "after": "`__operator_limit__:<n>` — каде што *<n>* е позитивен цел број што го одредува бројот на карти прикажани по страница.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "globalSearch-instructions-operator-list",
+    "before": "`__operator_list__:<назив>` - сви предмети чији део поступка има следећи *<назив>*",
+    "after": "`__operator_list__:<title>` — карти во списоци што одговараат на зададениот наслов *<title>*",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "globalSearch-instructions-operator-member",
+    "before": "`__operator_member__:<неко>` - предмети где је *<неко>* сарадник",
+    "after": "`__operator_member__:<username>` — карти каде што *<username>* е *член*",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "globalSearch-instructions-operator-modified",
+    "before": "`__operator_modified__:<n>` - предмети који су имали измене у задњих *<n>* дана",
+    "after": "`__operator_modified__:<n>` — карти изменети пред најмногу *<n>* дена",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "globalSearch-instructions-operator-org",
+    "before": "`__operator_org__:<име или пословно име|скраћено пословно име>` - предмети у вези са *<странком>*",
+    "after": "`__operator_org__:<display name|short name>` — карти што припаѓаат на табла доделена на организацијата *<name>*",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "globalSearch-instructions-operator-sort",
+    "before": "`__operator_sort__:<правило>` - где је *<правило>* једно од `__predicate_due__`, `__predicate_created__` или `__predicate_modified__`.  За опадајући редослед уметните минус `-` испред правила.",
+    "after": "`__operator_sort__:<sort-name>` — каде што *<sort-name>* е едно од `__predicate_due__`, `__predicate_created__` или `__predicate_modified__`. За опаѓачко подредување, ставете `-` пред името на подредувањето.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "globalSearch-instructions-operator-status",
+    "before": "`__operator_status__:<стање>` - где се под *<стањем>* подразумева једно од следећих:",
+    "after": "`__operator_status__:<status>` — каде што *<status>* е една од следните вредности:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
