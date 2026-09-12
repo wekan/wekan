@@ -143,6 +143,26 @@ assert.match(data['accounts-lockout-known-users'], /ispravno korisničko ime, po
 assert.match(data['accounts-lockout-failure-window'], /neuspjelih pokušaja \(sekunde\)/);
 assert.match(data['accounts-lockout-period'], /\(sekunde\)/);
 assert.doesNotMatch(data['accounts-lockout-info'], /lozinkef/);
+assert.equal(data['support-page-enabled'], 'Stranica podrške omogućena');
+assert.match(data['swimlane-delete-pop'], /nećete moći oporaviti stazu/);
+assert.match(data['swimlane-delete-pop'], /Poništavanje nije moguće/);
+assert.match(data['swimlane-height-error-message'], /pozitivan cijeli broj/);
+assert.doesNotMatch(data['team-name-not-found'], /pravni/);
+assert.match(data['toggle-assignees'], /1-9.*redoslijedu dodavanja na ploču/);
+assert.match(data['toggle-labels'], /Višestruki odabir dodaje oznake 1-9/);
+assert.equal(data['vote-public'], 'Prikaži tko je kako glasovao');
+assert.doesNotMatch(data['vote-public'], /rezultate/);
+assert.match(data['wipLimitErrorPopup-dialog-pt1'], /veći je od WIP ograničenja/);
+assert.match(data['calendar-system-islamic-rgsa'], /opažanje Mjeseca/);
+assert.match(data['calendar-system-islamic-tbla'], /tablični, astronomska epoha/);
+const english = require('../imports/i18n/data/en.i18n.json');
+for (const example of ['== != <= >= && || ( )', 'Field1 == Value1', "'Field 1' == 'Value 1'", 'F1 == V1 || F1 == V2', 'F1 == V1 && ( F2 == V2 || F2 == V3 )', 'F1 == /Tes.*/i']) {
+  assert.ok(data['advanced-filter-description'].includes(example), example);
+}
+const escapedExample = english['advanced-filter-description'].match(/Field1 == I.*?m/)[0];
+assert.ok(data['advanced-filter-description'].includes(escapedExample));
+assert.match(data['advanced-filter-description'], /slijeva nadesno/);
+assert.doesNotMatch(data['advanced-filter-description'], /Advanced Filter allows/);
 console.log('croatianAuditedTranslations: target script, V8 metrics and indicator meanings passed');
 
 (async () => {
@@ -165,6 +185,7 @@ console.log('croatianAuditedTranslations: target script, V8 metrics and indicato
   assert.doesNotMatch(invitation, /pun uvid|potpun pristup/);
   assert.match(data['dueCardsViewChange-choice-all-description'], /nedovršene kartice/);
   assert.match(data['dueCardsViewChange-choice-all-description'], /korisnik ima dopuštenje/);
+  assert.equal(translator.t('swimlane-title-not-found', { sprintf: ['LANE'] }), "Staza 'LANE' nije pronađena.");
   assert.equal(translator.t('n-cards-found', { sprintf: ['7'] }), 'Pronađeno je 7 kartica');
   assert.match(data['normal-assigned-only-desc'], /samo dodijeljene kartice/);
   assert.doesNotMatch(data['normal-assigned-only-desc'], /sve kartice|puna prava/);
