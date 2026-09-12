@@ -558,6 +558,13 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/e80df7de02d1c1bc6a5ab06bdd73d41ba4a5dc00">Repair Galician regional due card permissions and account deletion warnings</a>. Thanks to xet7.</summary>
+
+Repair eight regional values with reviewed Galician wording, preserving membership safeguards, irreversible deletion and due-card permissions. Meaning, exact-value, placeholder, key-order and idempotency checks pass. The short translation audit records current progress.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/377370367f512f8dc2c5ef1f7aee859614bc17ac">Repair Galician regional deletion safeguards and confirmations</a>. Thanks to xet7.</summary>
 
 Replace 10 Portuguese values with reviewed Galician wording. Preserve irreversible deletion, all-content scope, duplicate-list conditions, linked-card deletion order and membership safeguards. Regression checks verify meanings, exact corrections, source tokens, key order and idempotent repairs. The short translation audit records current progress.
