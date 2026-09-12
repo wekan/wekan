@@ -558,6 +558,13 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/10470a4cfbd1db871c1909fc02f85e967bb7d53e">Repair Slovenian import and invitation instructions</a>. Thanks to xet7.</summary>
+
+Correct 24 values across both Slovenian locales. Preserve import attachment structure, unmapped-member fallback, registration invitation meanings and keyboard-shortcut toggle instructions. Regression checks verify meanings, exact corrections, source tokens, key order and idempotent repairs. The short translation audit records current progress.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/2144defbc8fd467ddd7eb4d24f017220ce880320">Repair Slovenian search status and checklist visibility messages</a>. Thanks to xet7.</summary>
 
 Correct 30 values across both Slovenian locales. Restore end-date presence, public/private board scope, member/assignee alternatives, GridFS storage labels and all/checked checklist distinctions. Regression checks verify meanings, exact corrections, source tokens, key order and idempotent repairs. The short translation audit records current progress.
