@@ -53,6 +53,29 @@ https://wekan.fi/status/
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/316dbdf39fc5c9713925134587bf70bba37afa01">Add member-selected calendars and accessible date/time controls</a>. Thanks to mimZD and xet7.</summary>
+
+Member Settings offers Gregorian by default, Jalali and the additional
+calendars supported by the browser's built-in Unicode calendar conversion.
+Shared date displays, date popups and month views show the selected calendar.
+Mouse selection, Tab, arrow keys and month/year navigation select dates
+without typing; hour/minute lists select time. Native Date storage and ISO
+interchange values are preserved. No runtime dependency or Internet access
+is required. The calendar systems documentation explains available choices,
+keyboard controls and storage behavior.
+
+Twenty-one related Node suites pass, including positive/negative display,
+leap-month and keyboard tests, template compilation and UI font scaling.
+Three Playwright browser tests are registered and syntax-checked; the live
+Meteor server/database was unavailable, so those tests were not run.
+The broader run completed 969 suites with 18 failures before correcting
+three affected UI guards and the documentation link. Some new calendar-name
+translations remain English placeholders; translation completeness and
+unrelated baseline failures are not claimed resolved.
+
+</details>
+
+<details>
 <summary>TODO Later</summary>
 
 <details>
@@ -526,10 +549,12 @@ the Markdown commit as the template.
 
 # Upcoming WeKan ® release
 
-**In short:** On-premise **OAuth2/OIDC** login can now be restricted to
-specific email domains using the existing identity provider integration.
+**In short:** Members can choose one calendar independently of their
+interface language, with mouse and keyboard date/time selection and offline
+calendar conversion. On-premise **OAuth2/OIDC** login can also be restricted
+to specific email domains using the existing identity provider integration.
 
-This release adds the following login feature:
+This release adds the following features:
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/849f1e10c55b0d697e078bcd4e8ac87e71b62840">Restrict OAuth2 login by email domain</a>. Thanks to xet7.</summary>

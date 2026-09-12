@@ -72,7 +72,7 @@ or translation service is used. Additional calendar conversion uses the
 browser's built-in `Intl.DateTimeFormat`; the existing Jalali converter is
 retained. Calendar-name translations use static
 [Unicode CLDR locale data](https://github.com/unicode-org/cldr-json), with the
-[Unicode license](../../../../imports/i18n/calendar-labels-LICENSE.txt).
+[Unicode license](../../../imports/i18n/calendar-labels-LICENSE.txt).
 Locales without CLDR calendar-name translations retain English placeholders
 for the new names, ready for the normal translation workflow. Existing
 translations are preserved.
