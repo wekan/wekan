@@ -48095,5 +48095,61 @@
     "before": "Attiva annunci di sistema",
     "after": "Annunzia activa per l’entir sistem",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "allBoardsChangeBackgroundImagePopup-title",
+    "before": "Mudare immagine di sfondo",
+    "after": "Midar il maletg da fund",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "allboards.edit-workspace-icon",
+    "before": "Icona dello spazio di lavoro (markdown)",
+    "after": "Icona dal spazi da lavur (markdown)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "allowNonBoardMembers",
+    "before": "Consenti duc gli utenc registrati",
+    "after": "Permetter tut ils utilisaders annunziads",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "allowed-avatar-filetypes",
+    "before": "I tipi di file consentiti per l'avatar sono:",
+    "after": "Tips da datotecas permess per avatars:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "allowed-upload-filetypes",
+    "before": "I tipi di file consentiti per l'upload sono:",
+    "after": "Tips da datotecas permess per chargiar si:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "almostdue",
+    "before": "la data di scadenza attuale %s si sta avvicinando",
+    "after": "il temp da scadenza actual %s s’avischina",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "anonymize-account",
+    "before": "Anoimizza gli utenc in importazion",
+    "after": "Anonimisar il cont",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "anonymize-export-users",
+    "before": "Anoimizza gli utenc in esportazion",
+    "after": "Anonimisar ils utilisaders en l’export",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
