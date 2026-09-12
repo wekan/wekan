@@ -48872,5 +48872,26 @@
     "before": "Posta eletronica no valida",
     "after": "Adressa dad e-mail nunvalida",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "email-invite",
+    "before": "Invita via posta eletronica",
+    "after": "Envidar via e-mail",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "email-smtp-test-text",
+    "before": "E-mail inviata correttamente",
+    "after": "Ti has tramess in e-mail cun success",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "email-verifyEmail-subject",
+    "before": "Verifica il tuo indirizzo posta eletronica su __siteName__",
+    "after": "Verifitgescha tia adressa dad e-mail sin __siteName__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
