@@ -22629,5 +22629,145 @@
     "before": "Да ли сте сигурни да желите да овој странци забраните увид у ове списе ?",
     "after": "Дали сте сигурни дека сакате да ја отстраните оваа организација од оваа табла?",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "remove-team-from-table",
+    "before": "Да ли сте сигурни да желите да овом правном тиму укинете увид у ове списе ?",
+    "after": "Дали сте сигурни дека сакате да го отстраните овој тим од таблата?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "removeMemberPopup-title",
+    "before": "Желаете ли да премахнете членът?",
+    "after": "Отстрани член?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "rescue-card-description",
+    "before": "Понуди још једну прилику да се забележи несачувани опис предмета пре затварања",
+    "after": "Прикажи дијалог за зачувување на незачуваните описи на карти пред затворање",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "rescue-card-description-dialogue",
+    "before": "Преписаћете тренутни опис предмета са допуњеним?",
+    "after": "Да се замени тековниот опис на картата со вашите промени?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "restore-all-archived-migration",
+    "before": "Опоравак свих предмета из архиве",
+    "after": "Врати ги сите архивирани ставки",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "restore-all-archived-migration-description",
+    "before": "Опоравља све архивиране делове поступака, поступке и предмете притом поправљајући недостајућа поља swimlaneId или listId.",
+    "after": "Ги враќа сите архивирани ленти, списоци и карти. Автоматски ги поправа недостасувачките swimlaneId или listId за ставките да бидат видливи.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "restore-lost-cards-migration",
+    "before": "Опоравак загубљених предмета",
+    "after": "Врати ги изгубените карти",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "restore-lost-cards-migration-description",
+    "before": "Открива и опоравља предмете и делове поступака којима недостају поља swimlaneId или listId и смешта у „Опорављене предмете“.",
+    "after": "Ги наоѓа и враќа картите и списоците со недостасувачки swimlaneId или listId. Создава лента „Изгубени карти“ за сите изгубени ставки повторно да бидат видливи.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "restore-lost-cards-nothing-to-restore",
+    "before": "Нема нити загубљених поступака нити предмета за опоравак",
+    "after": "Нема изгубени ленти, списоци или карти за враќање",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "rulesReportTitle",
+    "before": "Извештај везан за правила",
+    "after": "Извештај за правила",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "run-comprehensive-migration-confirm",
+    "before": "Овим ће бити изведене свеобухватне провере и поправке целовитости података у списима. То би кратко трајало уколико сте сагласни?",
+    "after": "Ова ќе изврши сеопфатна миграција за проверка и поправка на целосноста на податоците на таблата. Може да потрае неколку моменти. Продолжи?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "run-delete-duplicate-empty-lists-migration-confirm",
+    "before": "Овим ће прво сви дељени делови поступака бити везани на саме поступке, затим ће бити избрисан сваки део поступка који је празан где постоји део поступка истог имена који има предмете. Да ли сте сагласни?",
+    "after": "Ова прво ќе ги претвори споделените списоци во списоци за секоја лента, а потоа ќе ги избрише празните списоци што имаат дупликат со ист наслов што содржи карти. Ќе бидат отстранети само навистина непотребните празни списоци. Продолжи?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "run-fix-all-file-urls-migration-confirm",
+    "before": "Овим ће бити исправљене све везе у списима да упућују на стварно складиште предметне грађе. Да ли сте сагласни?",
+    "after": "Ова ќе ги ажурира сите URL-адреси на приложените датотеки на оваа табла за да го користат правилниот систем за складирање. Продолжи?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "run-fix-avatar-urls-migration-confirm",
+    "before": "Овим се исправља веза до складишта са сликама сарадника из ових списа. Да ли сте сагласни?",
+    "after": "Ова ќе ги ажурира URL-адресите на аватарите на членовите на таблата за да го користат правилниот систем за складирање. Продолжи?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "run-fix-missing-lists-migration-confirm",
+    "before": "Овим се откривају и поправљају они делови поступака који недостају или који су оштећени. Да ли сте сагласни?",
+    "after": "Ова ќе ги открие и поправи недостасувачките или оштетените списоци во структурата на таблата. Продолжи?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "run-restore-all-archived-migration-confirm",
+    "before": "Овим се износи натраг из архиве све оно што сте до сада спаковали тамо. Поља где недостаје id биће поправљена. Упозорење! Да ли заиста то желите?",
+    "after": "Ова ќе ги врати СИТЕ архивирани ленти, списоци и карти, правејќи ги повторно видливи. Ставките со недостасувачки идентификатори ќе бидат автоматски поправени. Ова не може лесно да се поништи. Продолжи?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "run-restore-lost-cards-migration-confirm",
+    "before": "Овим се прави ток „Загубљени предмети“ и у њега смештају сви предмети и делови поступка којима недостају поља swimlaneId или listId. Мисли се на оно што је загубљено али није загубљено у архиви. Да ли сте сагласни? ",
+    "after": "Ова ќе создаде лента „Изгубени карти“ и ќе ги врати сите карти и списоци со недостасувачки swimlaneId или listId. Ова ги засега само неархивираните ставки. Продолжи?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "s3-access-key-description",
+    "before": "AWS S3 приступни кључ за пријаву",
+    "after": "Пристапен клуч AWS S3 за автентикација",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "s3-access-key-placeholder",
+    "before": "Унесите S3 приступни кључ",
+    "after": "Внесете пристапен клуч S3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "s3-attachments",
+    "before": "Предметна грађа у Amazon S3 облаку",
+    "after": "Прилози во S3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
