@@ -46702,5 +46702,12 @@
     "before": "Islamic tabular",
     "after": "Հիջրայի օրացույց (աղյուսակային, աստղագիտական սկզբնակետ)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hy",
+    "key": "advanced-filter-description",
+    "before": "Advanced Filter allows to write a string containing following operators: == != <= >= && || ( ) A space is used as a separator between the Operators. You can filter for all Custom Fields by typing their names and values. For Example: Field1 == Value1. Note: If fields or values contains spaces, you need to encapsulate them into single quotes. For Example: 'Field 1' == 'Value 1'. For single control characters (' \\\\/) to be skipped, you can use \\\\. For example: Field1 == I\\\\'m. Also you can combine multiple conditions. For Example: F1 == V1 || F1 == V2. Normally all operators are interpreted from left to right. You can change the order by placing brackets. For Example: F1 == V1 && ( F2 == V2 || F2 == V3 ). Also you can search text fields using regex: F1 == /Tes.*/i",
+    "after": "Ընդլայնված զտիչը թույլ է տալիս գրել հետևյալ օպերատորները պարունակող արտահայտություն՝ == != <= >= && || ( ) Օպերատորները բաժանվում են բացատով։ Կարող եք զտել բոլոր հատուկ դաշտերը՝ մուտքագրելով դրանց անուններն ու արժեքները։ Օրինակ՝ Field1 == Value1. Նշում․ եթե դաշտերի անունները կամ արժեքները պարունակում են բացատներ, դրանք պետք է առնել մեկական չակերտների մեջ։ Օրինակ՝ 'Field 1' == 'Value 1'. Հատուկ նիշերը (' \\\\/) էկրանավորելու համար կարող եք օգտագործել \\\\. Օրինակ՝ Field1 == I\\'m. Կարող եք նաև համատեղել մի քանի պայման։ Օրինակ՝ F1 == V1 || F1 == V2. Սովորաբար բոլոր օպերատորները մշակվում են ձախից աջ։ Կարող եք փոխել հերթականությունը՝ օգտագործելով փակագծեր։ Օրինակ՝ F1 == V1 && ( F2 == V2 || F2 == V3 ). Կարող եք նաև որոնել տեքստային դաշտերում կանոնավոր արտահայտություններով՝ F1 == /Tes.*/i",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
