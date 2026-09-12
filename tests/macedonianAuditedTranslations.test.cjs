@@ -109,6 +109,16 @@ const data = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/mk.i1
   assert.match(data['starred-boards-description'], /на врвот на вашиот список со табли/);
   assert.match(data['support-info-only-for-logged-in-users'], /само за најавени корисници/);
   assert.doesNotMatch(data['subtaskDeletePopup-title'], /посao|предмет/);
+  const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
+  for (const example of ["Field1 == Value1", "'Field 1' == 'Value 1'", "Field1 == I\\'m", "F1 == V1 || F1 == V2", "F1 == V1 && ( F2 == V2 || F2 == V3 )", "F1 == /Tes.*/i"]) {
+    assert.ok(english['advanced-filter-description'].includes(example));
+    assert.ok(data['advanced-filter-description'].includes(example));
+  }
+  assert.match(data['swimlane-height-error-message'], /позитивен цел број/);
+  assert.match(data['vote-public'], /кој за што гласал/);
+  assert.match(data['toggle-assignees'], /1-9/);
+  const { repairProgress } = await import('../releases/translations/audit-progress.mjs');
+  assert.equal(repairProgress().pendingByLocale.mk || 0, 0);
   assert.equal(data.list, 'Список');
   assert.equal(data.swimlane, 'Лента');
   console.log('macedonianAuditedTranslations: actual date and label rendering, checklist removal meaning and native labels passed');

@@ -558,6 +558,13 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/d3569c77e">Finish flagged Macedonian translation repairs</a>. Thanks to xet7.</summary>
+
+Correct the final 28 flagged values. Regressions verify executable filter examples, integer heights, shortcut ranges, voting visibility and zero remaining Macedonian audit findings. Source-token, exact-value, rendering, key-order and repair checks pass. Audit.md records completion of this locale queue and the remaining multilingual work.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/ece4315d2">Repair Macedonian SMTP, migration steps and subtask controls</a>. Thanks to xet7.</summary>
 
 Correct 25 reviewed values. Regressions verify outgoing-email, starred-board ordering, support access and subtask meanings. Source-token, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
