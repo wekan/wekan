@@ -4,21 +4,21 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Audit keys |
 | --- | ---: |
-| Explicitly corrected | 5,221 |
+| Explicitly corrected | 5,227 |
 | Original pull values restored to pre-pull local values | 4,061 |
 | Reviewed and retained unchanged | 78 |
-| Pending review or repair | 10,721 |
+| Pending review or repair | 10,715 |
 | Total tracked | 20,081 |
 
 The full translation repair goal remains unfinished. Counts describe the tracked audit findings; unflagged strings are not individually certified. Restored pre-pull values are not automatically certified as correct translations.
 
 ## Fixes completed
 
-Repairs address wrong-language text, incorrect kanban terminology, missing restrictions and warnings, malformed JSON examples, translated placeholders, calendar names, search syntax and date/message argument order. The reviewed correction list contains **5,283 values**, including corrections outside the flagged audit rows.
+Repairs address wrong-language text, incorrect kanban terminology, missing restrictions and warnings, malformed JSON examples, translated placeholders, calendar names, search syntax and date/message argument order. The reviewed correction list contains **5,289 values**, including corrections outside the flagged audit rows.
 
 The flagged Bosnian, Croatian, Macedonian and both Slovenian queues are complete. Other completed queues include Latvian, Romanian, Slovak and several smaller regional queues. **Bosnian has no remaining flagged findings**.
 
-Latest translation correction: [068f54dc2](https://github.com/wekan/wekan/commit/068f54dc2f191686f834f0bd3d3bace81f16a27f), **2026-09-13**, fixes eight Galician regional filter, migration and search values. Reviewed Galician wording preserves storage/reference repairs, missing/corrupt lists, exact search examples and OR conditions. The regional queue has 469 findings remaining. Meaning, exact-value, placeholder, key-order and idempotency checks pass.
+Latest translation correction: [0f299014c](https://github.com/wekan/wekan/commit/0f299014cb0b26cc57019c12d0f7f3b835d68cc9), **2026-09-13**, fixes six Galician regional search-condition and operator values. Reviewed Galician wording preserves AND conditions, case-insensitive searching, archived-card defaults and exact operator placeholders/examples. The regional queue has 463 findings remaining. Meaning, exact-value, placeholder, key-order and idempotency checks pass.
 
 ## Provenance
 

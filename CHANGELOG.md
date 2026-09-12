@@ -558,6 +558,13 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/0f299014cb0b26cc57019c12d0f7f3b835d68cc9">Repair Galician regional search conditions and operator descriptions</a>. Thanks to xet7.</summary>
+
+Repair six regional values with reviewed Galician wording. Preserve AND conditions, case-insensitive search, archived-card defaults and exact operator placeholders/examples. Meaning, exact-value, placeholder, key-order and idempotency checks pass. The short translation audit records current progress.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/068f54dc2f191686f834f0bd3d3bace81f16a27f">Repair Galician regional search and migration descriptions</a>. Thanks to xet7.</summary>
 
 Repair eight regional values with reviewed Galician wording. Preserve storage/reference repairs, missing/corrupt lists, exact search examples and OR conditions. Meaning, exact-value, placeholder, key-order and idempotency checks pass. The short translation audit records current progress.
