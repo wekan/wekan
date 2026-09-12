@@ -26108,5 +26108,89 @@
     "before": "Опоравак загубљених предмета",
     "after": "Vrati izgubljene kartice",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "restore-lost-cards-migration-description",
+    "before": "Открива и опоравља предмете и делове поступака којима недостају поља swimlaneId или listId и смешта у „Опорављене предмете“.",
+    "after": "Pronalazi i vraća kartice i popise kojima nedostaje swimlaneId ili listId. Stvara stazu „Izgubljene kartice“ kako bi sve izgubljene stavke ponovno bile vidljive.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "restore-lost-cards-nothing-to-restore",
+    "before": "Нема нити загубљених поступака нити предмета за опоравак",
+    "after": "Nema izgubljenih staza, popisa ili kartica za vraćanje",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "rulesReportTitle",
+    "before": "Извештај везан за правила",
+    "after": "Izvješće o pravilima",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "run-comprehensive-migration-confirm",
+    "before": "Овим ће бити изведене свеобухватне провере и поправке целовитости података у списима. То би кратко трајало уколико сте сагласни?",
+    "after": "Ovo će izvršiti sveobuhvatnu migraciju radi provjere i popravka cjelovitosti podataka ploče. To može potrajati nekoliko trenutaka. Nastaviti?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "run-delete-duplicate-empty-lists-migration-confirm",
+    "before": "Овим ће прво сви дељени делови поступака бити везани на саме поступке, затим ће бити избрисан сваки део поступка који је празан где постоји део поступка истог имена који има предмете. Да ли сте сагласни?",
+    "after": "Ovo će najprije pretvoriti zajedničke popise u popise za pojedine staze, a zatim izbrisati prazne popise koji imaju duplikat istog naslova s karticama. Uklonit će se samo doista suvišni prazni popisi. Nastaviti?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "run-fix-all-file-urls-migration-confirm",
+    "before": "Овим ће бити исправљене све везе у списима да упућују на стварно складиште предметне грађе. Да ли сте сагласни?",
+    "after": "Ovo će ažurirati sve URL-ove privitaka datoteka na ovoj ploči tako da koriste ispravan sustav pohrane. Nastaviti?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "run-fix-avatar-urls-migration-confirm",
+    "before": "Овим се исправља веза до складишта са сликама сарадника из ових списа. Да ли сте сагласни?",
+    "after": "Ovo će ažurirati URL-ove avatara članova ploče tako da koriste ispravan sustav pohrane. Nastaviti?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "run-fix-missing-lists-migration-confirm",
+    "before": "Овим се откривају и поправљају они делови поступака који недостају или који су оштећени. Да ли сте сагласни?",
+    "after": "Ovo će otkriti i popraviti nedostajuće ili oštećene popise u strukturi ploče. Nastaviti?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "run-restore-all-archived-migration-confirm",
+    "before": "Овим се износи натраг из архиве све оно што сте до сада спаковали тамо. Поља где недостаје id биће поправљена. Упозорење! Да ли заиста то желите?",
+    "after": "Ovo će vratiti SVE arhivirane staze, popise i kartice kako bi ponovno bili vidljivi. Stavke kojima nedostaju identifikatori automatski će se popraviti. Ovo nije lako poništiti. Nastaviti?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "run-restore-lost-cards-migration-confirm",
+    "before": "Овим се прави ток „Загубљени предмети“ и у њега смештају сви предмети и делови поступка којима недостају поља swimlaneId или listId. Мисли се на оно што је загубљено али није загубљено у архиви. Да ли сте сагласни? ",
+    "after": "Ovo će stvoriti stazu „Izgubljene kartice“ i vratiti sve kartice i popise kojima nedostaje swimlaneId ili listId. Ovo utječe samo na nearhivirane stavke. Nastaviti?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "s3-access-key-description",
+    "before": "AWS S3 приступни кључ за пријаву",
+    "after": "Pristupni ključ za autentifikaciju u AWS S3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "s3-access-key-placeholder",
+    "before": "Унесите S3 приступни кључ",
+    "after": "Unesite pristupni ključ za S3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
