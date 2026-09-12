@@ -23532,5 +23532,131 @@
     "before": "Исцртавај лист који се окреће",
     "after": "Pokazatelj čekanja s rotirajućom plohom",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "acceptance_of_our_legalNotice",
+    "before": "Ако наставите даље, сагласни сте да прихватате наше",
+    "after": "Nastavkom prihvaćate naše",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "accessibility",
+    "before": "Особе са посебним потешкоћама",
+    "after": "Pristupačnost",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "accessibility-info-not-added-yet",
+    "before": "Информације намењене особама са посебним потешкоћама, за сада, нису додате",
+    "after": "Informacije o pristupačnosti još nisu dodane",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "accessibility-page-enabled",
+    "before": "Омогући страницу за особе са посебним потешкоћама",
+    "after": "Stranica o pristupačnosti je omogućena",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "accounts-allowUserDelete",
+    "before": "Дозволи сарадницима да сами испишу свој налог из јединственог регистра",
+    "after": "Samostalno brisanje korisničkog računa",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "accounts-lockout-all-users-unlocked",
+    "before": "Сви сарадници којима је претходно било одузето право пријаве су скинути са ове мере",
+    "after": "Svi zaključani korisnici su otključani",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "accounts-lockout-click-to-unlock",
+    "before": "Притисните да налог добије право приступа",
+    "after": "Kliknite za otključavanje ovog korisnika",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "accounts-lockout-confirm-unlock",
+    "before": "Да ли сте сигурни да желите да скинете овај налог са мера?",
+    "after": "Jeste li sigurni da želite otključati ovog korisnika?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "accounts-lockout-confirm-unlock-all",
+    "before": "Да ли сте сигурни да желите да скинете све налоге са мера?",
+    "after": "Jeste li sigurni da želite otključati sve zaključane korisnike?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "accounts-lockout-failure-window",
+    "before": "Временски оквир у којем се одиграва насилан упад (у секундама)",
+    "after": "Vremenski okvir neuspjelih pokušaja (sekunde)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "accounts-lockout-failures-before",
+    "before": "Граница неуспешних покушаја пријаве (након које се сараднику одузима право приступа)",
+    "after": "Broj neuspjelih pokušaja prije zaključavanja",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "accounts-lockout-info",
+    "before": "Овим мерама се штитимо од насилних покушаја пријављивања погађањем лозинкеf.",
+    "after": "Ove postavke određuju zaštitu pokušaja prijave od napada grubom silom.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "accounts-lockout-known-users",
+    "before": "Мере за познате налоге (где налог постоји али се лозинка не подудара)",
+    "after": "Postavke za poznate korisnike (ispravno korisničko ime, pogrešna lozinka)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "accounts-lockout-locked-users-info",
+    "before": "Сарадници којима је одузето право приступа због превеликог броја неуспешних покушаја пријаве",
+    "after": "Korisnici trenutačno zaključani zbog previše neuspjelih pokušaja prijave",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "accounts-lockout-no-locked-users",
+    "before": "Тренутно не постоје налози са мером забране права приступа",
+    "after": "Trenutačno nema zaključanih korisnika",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "accounts-lockout-period",
+    "before": "Трајање мере забране (у секундама)",
+    "after": "Trajanje zaključavanja (sekunde)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "accounts-lockout-settings",
+    "before": "Заштитне мере од насилног упада",
+    "after": "Postavke zaštite od napada grubom silom",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "accounts-lockout-settings-updated",
+    "before": "Мере против насилног упада су допуњене",
+    "after": "Postavke zaštite od napada grubom silom su ažurirane",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
