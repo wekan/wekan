@@ -742,5 +742,11 @@
     "key": "r-email-vars-hint",
     "value": "Etiquetas disponibles: {card}, {cardLink}, {list}, {board}, {member}",
     "reason": "Reviewed shared Aragonese available-tag terminology; all case-sensitive literal template variables are preserved in source order."
+  },
+  {
+    "locale": "an",
+    "key": "refresh-monitoring",
+    "value": "Actualizar monitorización",
+    "reason": "Reviewed shared Aragonese technical vocabulary for refreshing monitoring; source action and object are preserved."
   }
 ]

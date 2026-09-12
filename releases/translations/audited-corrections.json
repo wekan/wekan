@@ -45666,5 +45666,40 @@
     "before": "Cuando un elemento de la lista de verificación es",
     "after": "Quan un elemento d’a lista de comprobación ye",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "r-when-the-checklist",
+    "before": "Cuando la lista de verificación",
+    "after": "Quan a lista de comprobación",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "r-when-the-item",
+    "before": "Cuando el elemento de la lista de verificación es",
+    "after": "Quan l’elemento d’a lista de comprobación",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "r-workflow-view",
+    "before": "Vista de flujo de trabajo",
+    "after": "Vista de fluxo de treballo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "remove-cover",
+    "before": "Quitar imagen de portada de la minitarjeta",
+    "after": "Sacar a imachen de portada d’a minitarcheta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "restore-all-archived-migration",
+    "before": "Restaurar todo lo archivado",
+    "after": "Restaurar tot o archivau",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
