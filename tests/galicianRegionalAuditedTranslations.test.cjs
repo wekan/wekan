@@ -102,9 +102,15 @@ assert.match(data['add-cover'], /imaxe de portada á minitarxeta/);
   assert.equal(translator.t('activity-unchecked-item', { sprintf: ['ITEM', 'CHECK', 'CARD'] }), 'desmarcou ITEM na lista de verificación CHECK de CARD');
   assert.match(data['add-card-to-bottom-of-list'], /ao final da lista/);
   assert.match(data['add-card-to-top-of-list'], /ao principio da lista/);
+  assert.equal(translator.t('email-invite-register-text', { user: 'USER', inviter: 'INVITER', url: 'LINK', icode: 'CODE' }), 'Estimado/a USER,\n\nINVITER convídate a un taboleiro kanban para colaborar.\n\nSegue a ligazón de abaixo:\nLINK\n\nE o teu código de convite é: CODE\n\nGrazas.');
   console.log('galicianRegionalAuditedTranslations: credential meanings and actual attachment rendering passed');
 })().catch(error => { console.error(error); process.exitCode = 1; });
 
 assert.match(data['delete-team-warning-message'], /Non se pode eliminar.*polo menos un usuario/);
 assert.match(data['dueCardsViewChange-choice-all-description'], /todas as tarxetas incompletas.*vencemento.*usuario ten permiso/);
 for (const key of ['delete-user-confirm-popup', 'delete-translation-confirm-popup']) assert.match(data[key], /Non se pode desfacer/);
+
+assert.equal(data['dueCardsViewChange-title'], data['dueCardsViewChangePopup-title']);
+assert.match(data['error-board-notAMember'], /membro deste taboleiro/);
+assert.match(data['error-board-notAdmin'], /administrador deste taboleiro/);
+assert.match(data['error-csv-schema'], /separados por comas.*separados por tabulacións.*formato correcto/);

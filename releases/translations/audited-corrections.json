@@ -36811,5 +36811,61 @@
     "before": "Mostra todos os cartões incompletos com data *Limite* de quadros onde o utilizador tem permissões.",
     "after": "Mostra todas as tarxetas incompletas con data de *vencemento* dos taboleiros para os que o usuario ten permiso.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "dueCardsViewChange-title",
+    "before": "Vista Cartões Data Limite",
+    "after": "Vista de tarxetas con vencemento",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "dueCardsViewChangePopup-title",
+    "before": "Vista Cartões Data Limite",
+    "after": "Vista de tarxetas con vencemento",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "duplicate-board-confirm",
+    "before": "Tem certeza de que deseja duplicar este quadro?",
+    "after": "Estás seguro de que queres duplicar este taboleiro?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "email-invite-register-text",
+    "before": "Caro __user__,\n\n__inviter__ convida-o para o quadro Kanban para colaborações.\n\nPor favor, siga a ligação abaixo:\n__url__ \n\nE seu código de convite é: __icode__\n\nObrigado.",
+    "after": "Estimado/a __user__,\n\n__inviter__ convídate a un taboleiro kanban para colaborar.\n\nSegue a ligazón de abaixo:\n__url__\n\nE o teu código de convite é: __icode__\n\nGrazas.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "email-invite-text",
+    "before": "Caro __user__\n__inviter__ convidou-o para se juntar ao quadro \"__board__\" para colaborar.\nPor favor prossiga através da ligação abaixo:\n__url__\nObrigado.",
+    "after": "Estimado/a __user__,\n\n__inviter__ convídate a unirte ao taboleiro \"__board__\" para colaborar.\n\nSegue a ligazón de abaixo:\n\n__url__\n\nGrazas.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "error-board-notAMember",
+    "before": "Precisa de ser um membro deste quadro para fazer isso",
+    "after": "Tes que ser membro deste taboleiro para facer iso",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "error-board-notAdmin",
+    "before": "Precisa de ser administrador deste quadro para fazer isso",
+    "after": "Tes que ser administrador deste taboleiro para facer iso",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "error-csv-schema",
+    "before": "O CSV(Comma Separated Values)/TSV (Tab Separated Values) não inclui a informação adequada no formato correto",
+    "after": "O teu CSV (valores separados por comas)/TSV (valores separados por tabulacións) non inclúe a información axeitada no formato correcto ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
