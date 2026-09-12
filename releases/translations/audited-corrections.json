@@ -41564,5 +41564,61 @@
     "before": "No hay Tableros en el Archivo",
     "after": "Nun hai tableros nel Archivu.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "no-archived-cards",
+    "before": "No hay tarjetas archivadas.",
+    "after": "Nun hai tarxetes nel Archivu.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "no-cards-found",
+    "before": "Ninguna tarjeta encontrada",
+    "after": "Nun s'atoparon tarxetes",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "no-parent",
+    "before": "No mostrar la tarjeta padre",
+    "after": "Nun mostrar la tarxeta padre",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "normal-desc",
+    "before": "Puedes ver y editar tarjetas. No puedes cambiar la configuración.",
+    "after": "Puedes ver y editar tarxetes. Nun puedes cambiar les preferencies.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "notify-participate",
+    "before": "Recibir actualizaciones de cualquier tarjeta en la que participes como creador o miembro",
+    "after": "Recibir actualizaciones de cualesquier tarxeta na que participes como creador o miembru",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "notify-watch",
+    "before": "Recibir actuaizaciones de cualquier tablero, lista o tarjeta que estés vigilando",
+    "after": "Recibir actualizaciones de cualesquier tableru, llista o tarxeta que teas siguiendo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "now-activities-of-all-boards-are-hidden",
+    "before": "Todas las actividades de todos los tableros están ahora ocultas",
+    "after": "Agora toles actividaes de tolos tableros tán anubríes",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "private-desc",
+    "before": "Este tablero es privado. Sólo las personas añadidas al tablero pueden verlo y editarlo.",
+    "after": "Esti tableru ye priváu. Solo les persones añadíes al tableru pueden velu y editalu.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

@@ -116,3 +116,7 @@ assert.match(data['map-to-existing-user-none'], /Busca enriba.*cualquier usuariu
 assert.match(data['move-all-attachments-of-board-to-gridfs'], /tolos axuntos.*a GridFS$/);
 assert.match(data['move-all-attachments-of-board-to-s3'], /tolos axuntos.*a S3$/);
 assert.match(data['muted-info'], /^Nunca.*nengún cambéu/);
+assert.match(data['normal-desc'], /ver y editar tarxetes.*Nun puedes cambiar les preferencies/);
+assert.match(data['notify-participate'], /creador o miembru/);
+assert.match(data['notify-watch'], /tableru, llista o tarxeta.*siguiendo/);
+assert.match(data['private-desc'], /Solo les persones añadíes al tableru pueden velu y editalu/);
