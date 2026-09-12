@@ -41732,5 +41732,61 @@
     "before": "¿Estás seguro de que quieres eliminar a este equipo del tablero?",
     "after": "¿Tas seguru de querer quitar esti equipu del tableru?",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "rescue-card-description",
+    "before": "Mostrar el diálogo de emergencia antes de cerrar las descripciones de las tarjetas no guardada",
+    "after": "Mostrar un diálogu de recuperación enantes de zarrar si hai descripciones de tarxetes ensin guardar",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "rescue-card-description-dialogue",
+    "before": "¿Sobreescribir la descripción actual de la tarjeta con sus cambios?",
+    "after": "¿Sobrescribir la descripción actual de la tarxeta colos tos cambios?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "restoreArchivedCardToListPopup-title",
+    "before": "Restaurar tarjeta a la lista",
+    "after": "Restaurar la tarxeta na llista",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "s3-settings-save-failed",
+    "before": "Fallo al guardar la configuración de S3",
+    "after": "Nun se pudo guardar la configuración de S3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "s3-settings-saved",
+    "before": "La configuración de S3 se ha guardado correctamente",
+    "after": "La configuración de S3 guardóse correutamente",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "save-s3-settings",
+    "before": "Guardar configuración de S3",
+    "after": "Guardar la configuración de S3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "search-cards",
+    "before": "Buscar entre los títulos, las descripciones de las tarjetas/listas y los campos personalizados en este tablero.",
+    "after": "Buscar nos títulos, descripciones y campos personalizaos de tarxetes/llistes nesti tableru",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "settingsOrgPopup-title",
+    "before": "Configuración de la Organización",
+    "after": "Preferencies de la organización",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

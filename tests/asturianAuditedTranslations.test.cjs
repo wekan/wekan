@@ -129,3 +129,8 @@ assert.match(data['r-d-move-to-top-spec'], /principiu de la llista/);
 assert.match(data['r-when-a-card-is-moved'], /a otra llista/);
 assert.match(data['remove-member-pop'], /__name__ \(__username__\).*__boardTitle__.*toles tarxetes.*Va recibir una notificación/);
 assert.doesNotMatch(data['remove-member-pop'], /mostrará/);
+assert.match(data['rescue-card-description'], /enantes de zarrar.*ensin guardar/);
+assert.match(data['rescue-card-description-dialogue'], /Sobrescribir.*colos tos cambios/);
+assert.match(data['s3-settings-save-failed'], /^Nun se pudo guardar/);
+assert.match(data['s3-settings-saved'], /guardóse correutamente/);
+assert.match(data['search-cards'], /títulos, descripciones y campos personalizaos.*nesti tableru/);
