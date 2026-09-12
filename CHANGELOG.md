@@ -557,6 +557,16 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/27256c348">Repair Slovak checklist activities and date messages</a>. Thanks to xet7.</summary>
+
+Correct 34 Czech-seeded strings and individually retain a valid technical
+label. Positive and negative checks verify checklist action meanings,
+Slovak vocabulary and real sprintf date/card argument order. Correction
+and unchanged-review checks pass. Further locale findings remain under review.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/d9ac5a56f">Repair Czech-seeded Slovak activity translations</a>. Thanks to xet7.</summary>
 
 Correct 29 reviewed activity and account-setting values. Positive and negative
