@@ -558,6 +558,13 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/95f1b2a53">Repair Croatian member mapping and keyboard toggles</a>. Thanks to xet7.</summary>
+
+Correct 12 reviewed values. Positive and negative regressions verify member fallback, registration wording, keyboard toggle direction and label history loss. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/f110128f6">Repair Croatian checklist visibility and board import instructions</a>. Thanks to xet7.</summary>
 
 Correct 15 reviewed values. Positive and negative regressions verify export direction, literal Trello menu names and checklist visibility wording. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
