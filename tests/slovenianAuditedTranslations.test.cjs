@@ -23,6 +23,12 @@ for (const locale of ['sl', 'sl_SI']) {
   assert.match(data['accounts-lockout-info'], /napadi z grobo silo/);
   assert.doesNotMatch(data['accounts-lockout-info'], /lozinkef/);
   assert.equal(data.MongoDB_storage_engine, 'Shranjevalni pogon MongoDB');
+  assert.equal(data['no-comments-desc'], 'Ne more videti komentarjev.');
+  assert.match(data['normal-assigned-only-desc'], /samo dodeljene kartice.*običajni uporabnik/);
+  assert.match(data['notify-participate'], /ustvarjalec ali član/);
+  assert.match(data['operator-debug-invalid'], /predikat za razhroščevanje/);
+  assert.match(data['operator-limit-invalid'], /pozitivno celo število/);
+
   assert.match(data['multi-selection-active'], /potrditvena polja.*izbiro tabel/);
   assert.equal(data['myCardsSortChange-choice-board'], 'Po tabli');
   assert.equal(data['myCardsSortChange-title'], data['myCardsSortChangePopup-title']);
@@ -149,6 +155,7 @@ console.log('slovenianAuditedTranslations: both locales, spinner and memory mean
     await translator.init({ lng: locale, fallbackLng: false, keySeparator: false, interpolation: { prefix: '__', suffix: '__', escapeValue: false }, resources: { [locale]: { translation: data } }, postProcess: ['sprintf'] });
     for (const [key, date] of [['activity-endDate', 'konca'], ['activity-receivedDate', 'prejema'], ['activity-startDate', 'začetka']]) assert.equal(translator.t(key, { sprintf: ['DATE', 'CARD'] }), `je spremenil datum ${date} na DATE za kartico CARD`);
     assert.equal(translator.t('activity-dueDate', { sprintf: ['DATE', 'CARD'] }), 'je spremenil rok na DATE za kartico CARD');
+    assert.equal(translator.t('operator-number-expected', { operator: 'OP', value: 'TEXT' }), "Operator OP je pričakoval število, prejel pa 'TEXT'");
     assert.equal(data['act-completeChecklist'], data['activity-checklist-completed-card']);
     assert.match(data['act-completeChecklist'], /dokončal kontrolni seznam/);
     assert.doesNotMatch(data['act-completeChecklist'], /završio|provjere/);
