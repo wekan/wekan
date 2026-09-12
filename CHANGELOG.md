@@ -557,6 +557,15 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/550883b83">Repair Slovak list and notification translations</a>. Thanks to xet7.</summary>
+
+Correct 35 reviewed values while preserving source placeholders and link
+markup. Positive and negative vocabulary, exact-value, key-order, idempotency
+and preservation checks pass. Further findings remain under review.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/c9ec4bb6a">Repair Slovak search operators and import instructions</a>. Thanks to xet7.</summary>
 
 Correct 25 reviewed values, preserving literal query syntax and vendor menu
