@@ -139,3 +139,8 @@ assert.match(data['shortcut-assign-self'], /^Asignate/);
 assert.notEqual(data['shortcut-add-self'], data['shortcut-assign-self']);
 assert.match(data['show-at-all-boards-page'], /na páxina de tolos tableros/);
 assert.match(data['show-cards-minimum-count'], /si la llista contién más de$/);
+assert.match(data['text-contains-trigger-description'], /se crea una tarxeta o se cambia.*testu nuevu.*ensin distinguir mayúscules y minúscules/);
+assert.match(data['toggle-assignees'], /persones asignaes 1-9.*orde d'incorporación/);
+assert.doesNotMatch(data['toggle-assignees'], /alministrador/);
+assert.match(data['toggle-labels'], /seleición múltiple añade les etiquetes 1-9/);
+assert.match(data['tracking-info'], /creador o miembru/);

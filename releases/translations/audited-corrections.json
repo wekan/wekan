@@ -41844,5 +41844,75 @@
     "before": "Mostrar recuento de tarjetas si la lista contiene más de",
     "after": "Mostrar el númberu de tarxetes si la llista contién más de",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "show-field-on-card",
+    "before": "Mostrar este campo en la tarjeta",
+    "after": "Mostrar esti campu na tarxeta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "star-board-title",
+    "before": "Haz clic para destacar este tablero. Se mostrará en la parte superior de tu lista de tableros.",
+    "after": "Fai clic pa marcar esti tableru como favoritu. Va apaecer enriba na to llista de tableros.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "starred-boards-description",
+    "before": "Los tableros destacados se mostrarán en la parte superior de tu lista de tableros.",
+    "after": "Los tableros favoritos apaecen enriba na to llista de tableros.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "step-analyze-board-structure",
+    "before": "Analizar la estructura del tablero",
+    "after": "Analizar la estructura del tableru",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "step-scan-users",
+    "before": "Comprobando los avatares de los miembros del tablero",
+    "after": "Comprobando los avatares de los miembros del tableru",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "swimlaneAddPopup-title",
+    "before": "Añadir un carril de flujo debajo",
+    "after": "Añadir un carril debaxo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "text-contains-trigger-description",
+    "before": "Coincide cuando se crea una tarjeta, o se cambia su título o descripción, y el nuevo texto contiene esto (sin distinguir mayúsculas y minúsculas).",
+    "after": "Coincide cuando se crea una tarxeta o se cambia el so títulu o descripción, y el testu nuevu contién esto (ensin distinguir mayúscules y minúscules).",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "toggle-assignees",
+    "before": "Alternar asignados 1-9 para la tarjeta (por orden de adición al tablero).",
+    "after": "Alternar les persones asignaes 1-9 de la tarxeta (por orde d'incorporación al tableru).",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "toggle-labels",
+    "before": "Alterna las etiquetas 1-9 para la tarjeta. La selección múltiple añade las etiquetas 1-9",
+    "after": "Alternar les etiquetes 1-9 de la tarxeta. La seleición múltiple añade les etiquetes 1-9",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "tracking-info",
+    "before": "Serás notificado de cualquier cambio en las tarjetas en las que participas como creador o miembro.",
+    "after": "Vas recibir notificaciones de cualesquier cambéu nes tarxetes nes que participes como creador o miembru.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
