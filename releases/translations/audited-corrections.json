@@ -20837,5 +20837,145 @@
     "before": "Да ли сте сигурни да желите да уклоните ову слику?",
     "after": "Дали сте сигурни дека сакате да го избришете овој аватар?",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "delete-board-confirm-popup",
+    "before": "Всички списъци, карти, имена и действия ще бъдат изтрити и няма да можете да възстановите съдържанието на дъската. Няма връщане назад.",
+    "after": "Сите списоци, карти, ознаки и активности ќе бидат избришани и нема да можете да ја вратите содржината на таблата. Ова не може да се поништи.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "delete-duplicate-empty-lists-migration",
+    "before": "Брисање истоимених делова поступка",
+    "after": "Избриши дупликатни празни списоци",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "delete-duplicate-empty-lists-migration-description",
+    "before": "На један безбедан начин брише празне истоимене делове поступка. Бришу се сви делови поступка у којима нема предмета ако постоји део поступка са истим тим насловом где већ постоје предмети.",
+    "after": "Безбедно ги брише празните дупликатни списоци. Ги отстранува само списоците што немаат карти И имаат друг список со ист наслов што содржи карти.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "delete-duplicate-lists",
+    "before": "Уклоните истоимене делове поступка",
+    "after": "Избриши дупликатни списоци",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "delete-duplicate-lists-confirm",
+    "before": "Да ли сте сигурни? Овом радњом ће бити избрисани сви истоимени делови поступка где нема предмета.",
+    "after": "Дали сте сигурни? Ова ќе ги избрише сите дупликатни списоци што имаат исто име и не содржат карти.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "delete-linked-card-before-this-card",
+    "before": "Можете избрисати овај предмет тек кад, прво, избришете предмет у вези са њим",
+    "after": "Не можете да ја избришете оваа карта пред прво да ја избришете поврзаната карта што има",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "delete-linked-cards-before-this-list",
+    "before": "Не можете избрисати овај део поступка - прво избришете предмете који су у вези са предметима у овом делу поступка",
+    "after": "Не можете да го избришете овој список пред прво да ги избришете поврзаните карти што упатуваат на карти во овој список",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "delete-org-confirm-popup",
+    "before": "Да ли сте сигурни да желите да уклоните ову странку? Опозив ове радње неће бити могућ.",
+    "after": "Дали сте сигурни дека сакате да ја избришете оваа организација? Ова не може да се поништи.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "delete-org-warning-message",
+    "before": "Не могу да избацим ову странку пошто постоји барем један везани сарадник",
+    "after": "Оваа организација не може да се избрише бидејќи ѝ припаѓа најмалку еден корисник",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "delete-team-confirm-popup",
+    "before": "Да ли сте сигурни да желите да уклоните овај цео правни тим? Опозив ове радње неће бити могућ.",
+    "after": "Дали сте сигурни дека сакате да го избришете овој тим? Ова не може да се поништи.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "delete-team-warning-message",
+    "before": "Не могу да распустим овај правни тим пошто постоји барем једно лице које му припада",
+    "after": "Овој тим не може да се избрише бидејќи му припаѓа најмалку еден корисник",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "delete-translation-confirm-popup",
+    "before": "Да ли сте сигурни да желите да избришете ову исправку превода? Опозив ове радње неће бити могућ.",
+    "after": "Дали сте сигурни дека сакате да го избришете овој приспособен превод? Ова не може да се поништи.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "delete-user-confirm-popup",
+    "before": "Да ли сте сигурни да желите да уклоните овај појединачни кориснички налог сарадника? Опозив ове радње неће бити могућ.",
+    "after": "Дали сте сигурни дека сакате да ја избришете оваа сметка? Ова не може да се поништи.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "deleteCustomFieldPopup-title",
+    "before": "Изтриване на Собственото поле?",
+    "after": "Избриши го приспособеното поле?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "deleteDuplicateListsPopup-title",
+    "before": "Уклоните истоимене делове поступка",
+    "after": "Избриши дупликатни списоци",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "deleteLabelPopup-title",
+    "before": "Желаете да изтриете етикета?",
+    "after": "Избриши ја ознаката?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "deletePokerPopup-title",
+    "before": "Уклони договор за партију покера?",
+    "after": "Избриши го планирачкиот покер?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "deposit-subtasks-list",
+    "before": "Пријемно одељење кад овде депонују:",
+    "after": "Одредишен список за подзадачите додадени овде:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "desktop-mode",
+    "before": "Приказ прилагођен за екран рачунара",
+    "after": "Режим за компјутер",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "disambiguateMultiLabelPopup-title",
+    "before": "Недвосмислене радње на налепницама",
+    "after": "Разјасни го дејството со ознаката",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
