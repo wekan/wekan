@@ -52,6 +52,8 @@ console.log('bosnianAuditedTranslations: account scope, credentials and lockout 
   assert.equal(translator.t('n-cards-found', { sprintf: ['7'] }), 'Pronađeno je 7 kartica');
   assert.equal(translator.t('operator-number-expected', { operator: 'LIMIT', value: 'BAD' }), "Operator LIMIT očekivao je broj, a dobio je 'BAD'");
   assert.equal(translator.t('page-maybe-private', { sprintf: ['/login'] }), "Ova stranica je možda privatna. Možda je možete pregledati ako se <a href='/login'>prijavite</a>.");
+  const removal = translator.t('remove-member-pop', { name: 'NAME', username: 'USER', boardTitle: 'BOARD' });
+  assert.equal(removal, 'Ukloniti NAME (USER) s ploče BOARD? Član će biti uklonjen sa svih kartica na ovoj ploči. Primit će obavještenje.');
   const invitation = translator.t('email-invite-text', { user: 'USER', inviter: 'INVITER', board: 'BOARD', url: 'LOCAL_URL' });
   for (const token of ['USER', 'INVITER', 'BOARD', 'LOCAL_URL']) assert.ok(invitation.includes(token));
   assert.match(invitation, /vas poziva da se pridružite/);
@@ -324,3 +326,12 @@ assert.match(data['read-assigned-only-desc'], /samo dodijeljene kartice/);
 assert.match(data['read-assigned-only-desc'], /Ne može uređivati/);
 assert.equal(data['r-when-a-card-is-moved'], 'Kada se kartica premjesti u drugu listu');
 console.log('bosnianAuditedTranslations: rule direction, value clearing and assigned-only read restrictions passed');
+
+assert.equal(data['read-only-desc'], 'Može samo pregledati kartice. Ne može uređivati.');
+assert.match(data['remove-labels-multiselect'], /uklanja oznake 1-9/);
+assert.match(data['remove-member-pop'], /sa svih kartica na ovoj ploči.*obavještenje/);
+assert.doesNotMatch(data['remove-team-from-table'], /pravni|ukinuti uvid/);
+assert.match(data['rescue-card-description'], /nesačuvanih opisa kartica prije zatvaranja/);
+assert.match(data['rescue-card-description-dialogue'], /Prepisati trenutni opis/);
+assert.equal(data['restore-all-archived-migration'], 'Vrati sve arhivirano');
+console.log('bosnianAuditedTranslations: read-only restriction, removal notification and description rescue passed');

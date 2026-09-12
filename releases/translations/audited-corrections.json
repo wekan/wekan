@@ -29321,5 +29321,75 @@
     "before": "Има право увида само у додељене предмете.",
     "after": "Vidljive su samo dodijeljene kartice. Ne može uređivati.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "read-only-desc",
+    "before": "Има право увида у све предмете.",
+    "after": "Može samo pregledati kartice. Ne može uređivati.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "refresh-monitoring",
+    "before": "Најновији подаци са надзора",
+    "after": "Osvježi praćenje",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "remaining-attachments",
+    "before": "Преостала предметна грађа",
+    "after": "Preostali prilozi",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "remove-labels-multiselect",
+    "before": "Вишеструким избором одлепљујете налепнице",
+    "after": "Višestruki odabir uklanja oznake 1-9",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "remove-member-pop",
+    "before": "Изузећете __name__ (__username__) из списа __boardTitle__? Сарадник ће бити изузет са свих предмета у списима. Примиће обавештење о томе.",
+    "after": "Ukloniti __name__ (__username__) s ploče __boardTitle__? Član će biti uklonjen sa svih kartica na ovoj ploči. Primit će obavještenje.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "remove-organization-from-board",
+    "before": "Да ли сте сигурни да желите да овој странци забраните увид у ове списе ?",
+    "after": "Jeste li sigurni da želite ukloniti ovu organizaciju s ove ploče?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "remove-team-from-table",
+    "before": "Да ли сте сигурни да желите да овом правном тиму укинете увид у ове списе ?",
+    "after": "Jeste li sigurni da želite ukloniti ovaj tim s ploče?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "rescue-card-description",
+    "before": "Понуди још једну прилику да се забележи несачувани опис предмета пре затварања",
+    "after": "Prikaži dijalog za spašavanje nesačuvanih opisa kartica prije zatvaranja",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "rescue-card-description-dialogue",
+    "before": "Преписаћете тренутни опис предмета са допуњеним?",
+    "after": "Prepisati trenutni opis kartice vašim izmjenama?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "restore-all-archived-migration",
+    "before": "Опоравак свих предмета из архиве",
+    "after": "Vrati sve arhivirano",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
