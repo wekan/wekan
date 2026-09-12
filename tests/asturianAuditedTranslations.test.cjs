@@ -90,3 +90,7 @@ assert.match(data['globalSearch-instructions-description'], /`list:Blocked`.*lli
 assert.match(data['globalSearch-instructions-notes-2'], /\*OR\*.*\n.*__operator_list__:Available __operator_list__:Blocked/);
 assert.match(data['globalSearch-instructions-notes-3'], /\*AND\*.*tolos operadores.*__operator_label__:red/);
 assert.match(data['globalSearch-instructions-notes-5'], /nun se busquen les tarxetes archivaes/);
+assert.match(data['globalSearch-instructions-operator-due'], /hasta \*<n>\* díes.*`__operator_due__:__predicate_overdue__`/);
+assert.match(data['globalSearch-instructions-operator-has'], /`has:-due`.*ensin fecha de vencimientu/);
+assert.match(data['globalSearch-instructions-operator-limit'], /enteru positivu.*por páxina/);
+assert.match(data['globalSearch-instructions-operator-team'], /tableru asignáu al equipu/);
