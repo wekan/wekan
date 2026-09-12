@@ -48515,5 +48515,40 @@
     "before": "Impossibile mettere in pausa il processo pianificato",
     "after": "La lavur planisada n’ha betg pudì vegnir messa en pausa",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "cron-job-paused",
+    "before": "Processo pianificato messo in pausa cun successo",
+    "after": "La lavur planisada è vegnida messa en pausa cun success",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "cron-job-resume-failed",
+    "before": "Impossibile riprendere il processo pianificato",
+    "after": "La lavur planisada n’ha betg pudì vegnir cuntinuada",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "cron-job-resumed",
+    "before": "Processo pianificato ripreso cun successo",
+    "after": "La lavur planisada è vegnida cuntinuada cun success",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "cron-job-start-failed",
+    "before": "Impossibile avviare il processo pianificato",
+    "after": "La lavur planisada n’ha betg pudì vegnir iniziada",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "cron-job-started",
+    "before": "Processo pianificato avviato cun successo",
+    "after": "La lavur planisada è vegnida iniziada cun success",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
