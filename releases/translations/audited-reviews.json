@@ -952,5 +952,83 @@
     "key": "gcs-storage-description",
     "value": "Google Cloud Storage。",
     "reason": "Retain the official cloud-storage product name with valid Japanese sentence-ending punctuation; this is a proper name, not untranslated explanatory prose."
+  },
+  {
+    "locale": "zh",
+    "key": "azure-blob-storage-description",
+    "value": "Microsoft Azure Blob Storage。",
+    "reason": "Retain the official cloud-storage product name with valid Chinese sentence-ending punctuation; the source contains only a proper name, not explanatory prose."
+  },
+  {
+    "locale": "zh",
+    "key": "gcs-storage-description",
+    "value": "Google Cloud Storage。",
+    "reason": "Retain the official cloud-storage product name with valid Chinese sentence-ending punctuation; the source contains only a proper name, not explanatory prose."
+  },
+  {
+    "locale": "zh-CN",
+    "key": "azure-blob-storage-description",
+    "value": "Microsoft Azure Blob Storage。",
+    "reason": "Retain the official cloud-storage product name with valid Chinese sentence-ending punctuation; the source contains only a proper name, not explanatory prose."
+  },
+  {
+    "locale": "zh-CN",
+    "key": "gcs-storage-description",
+    "value": "Google Cloud Storage。",
+    "reason": "Retain the official cloud-storage product name with valid Chinese sentence-ending punctuation; the source contains only a proper name, not explanatory prose."
+  },
+  {
+    "locale": "zh-GB",
+    "key": "azure-blob-storage-description",
+    "value": "Microsoft Azure Blob Storage。",
+    "reason": "Retain the official cloud-storage product name with valid Chinese sentence-ending punctuation; the source contains only a proper name, not explanatory prose."
+  },
+  {
+    "locale": "zh-GB",
+    "key": "gcs-storage-description",
+    "value": "Google Cloud Storage。",
+    "reason": "Retain the official cloud-storage product name with valid Chinese sentence-ending punctuation; the source contains only a proper name, not explanatory prose."
+  },
+  {
+    "locale": "zh-Hans",
+    "key": "azure-blob-storage-description",
+    "value": "Microsoft Azure Blob Storage。",
+    "reason": "Retain the official cloud-storage product name with valid Chinese sentence-ending punctuation; the source contains only a proper name, not explanatory prose."
+  },
+  {
+    "locale": "zh-Hans",
+    "key": "gcs-storage-description",
+    "value": "Google Cloud Storage。",
+    "reason": "Retain the official cloud-storage product name with valid Chinese sentence-ending punctuation; the source contains only a proper name, not explanatory prose."
+  },
+  {
+    "locale": "zh_SG",
+    "key": "azure-blob-storage-description",
+    "value": "Microsoft Azure Blob Storage。",
+    "reason": "Retain the official cloud-storage product name with valid Chinese sentence-ending punctuation; the source contains only a proper name, not explanatory prose."
+  },
+  {
+    "locale": "zh_SG",
+    "key": "gcs-storage-description",
+    "value": "Google Cloud Storage。",
+    "reason": "Retain the official cloud-storage product name with valid Chinese sentence-ending punctuation; the source contains only a proper name, not explanatory prose."
+  },
+  {
+    "locale": "zh-Hant",
+    "key": "gcs-storage-description",
+    "value": "Google Cloud Storage。",
+    "reason": "Retain the official cloud-storage product name with valid Chinese sentence-ending punctuation; the source contains only a proper name, not explanatory prose."
+  },
+  {
+    "locale": "zh-HK",
+    "key": "gcs-storage-description",
+    "value": "Google Cloud Storage。",
+    "reason": "Retain the official cloud-storage product name with valid Chinese sentence-ending punctuation; the source contains only a proper name, not explanatory prose."
+  },
+  {
+    "locale": "zh-TW",
+    "key": "gcs-storage-description",
+    "value": "Google Cloud Storage。",
+    "reason": "Retain the official cloud-storage product name with valid Chinese sentence-ending punctuation; the source contains only a proper name, not explanatory prose."
   }
 ]
