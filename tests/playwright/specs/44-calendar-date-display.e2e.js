@@ -227,3 +227,21 @@ for (const language of ['ro', 'ro-RO']) {
     await expect(selector).not.toContainText('Islamic tabular');
   });
 }
+
+for (const [language, sighting, tabular] of [
+  ['de', 'Hidschri-Kalender (Saudi-Arabien, Mondsichtung)', 'Hidschri-Kalender (tabellarisch, astronomische Epoche)'],
+  ['pt-BR', 'Calendário islâmico (Arábia Saudita, observação da Lua)', 'Calendário islâmico (tabular, época astronômica)'],
+]) {
+  test(`${language} Member Settings shows native Hijri variant labels`, async ({ page, user, board }) => {
+    db.updateOne('users', { _id: user.id }, { $set: { 'profile.language': language } });
+    await loginWithToken(page, user.id, user.token);
+    await openBoard(page, board.boardId, board.slug);
+    await page.locator('.js-open-header-member-menu').first().click();
+    await page.locator('.js-pop-over .js-change-settings').click();
+    const selector = page.locator('.js-pop-over #calendar-system');
+    await expect(selector).toBeVisible();
+    await expect(selector.locator('option[value="islamic-rgsa"]')).toHaveText(sighting);
+    await expect(selector.locator('option[value="islamic-tbla"]')).toHaveText(tabular);
+    await expect(selector).not.toContainText('Islamic (Saudi Arabia)');
+  });
+}

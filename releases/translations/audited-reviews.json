@@ -112,5 +112,233 @@
     "key": "DDP_transport",
     "value": "DDP-transport (DDP_TRANSPORT)",
     "reason": "Transport is also the Danish technical noun; DDP and DDP_TRANSPORT are protocol identifiers. The localized hyphenation is valid."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "DDP_transport",
+    "value": "Transporte DDP (DDP_TRANSPORT)",
+    "reason": "Reviewed local technical terminology: Transport/transport/transporte is valid in this locale. DDP is a protocol acronym and DDP_TRANSPORT is an exact configuration identifier; neither should be translated. Retain the correct existing label."
+  },
+  {
+    "locale": "gl",
+    "key": "DDP_transport",
+    "value": "Transporte DDP (DDP_TRANSPORT)",
+    "reason": "Reviewed local technical terminology: Transport/transport/transporte is valid in this locale. DDP is a protocol acronym and DDP_TRANSPORT is an exact configuration identifier; neither should be translated. Retain the correct existing label."
+  },
+  {
+    "locale": "ace",
+    "key": "r-items-list",
+    "value": "item1, item2, item3",
+    "reason": "Reviewed in client/components/rules/actions/checklistActions.jade:55: this input placeholder demonstrates three arbitrary comma-separated checklist item names, not English prose. Spaces do not alter the example separator. Retain the existing illustrative identifiers."
+  },
+  {
+    "locale": "br",
+    "key": "r-items-list",
+    "value": "item1, item2, item3",
+    "reason": "Reviewed in client/components/rules/actions/checklistActions.jade:55: this input placeholder demonstrates three arbitrary comma-separated checklist item names, not English prose. Spaces do not alter the example separator. Retain the existing illustrative identifiers."
+  },
+  {
+    "locale": "de-AT",
+    "key": "DDP_transport",
+    "value": "DDP-Transport (DDP_TRANSPORT)",
+    "reason": "Reviewed local technical terminology: Transport/transport/transporte is valid in this locale. DDP is a protocol acronym and DDP_TRANSPORT is an exact configuration identifier; neither should be translated. Retain the correct existing label."
+  },
+  {
+    "locale": "de-CH",
+    "key": "DDP_transport",
+    "value": "DDP-Transport (DDP_TRANSPORT)",
+    "reason": "Reviewed local technical terminology: Transport/transport/transporte is valid in this locale. DDP is a protocol acronym and DDP_TRANSPORT is an exact configuration identifier; neither should be translated. Retain the correct existing label."
+  },
+  {
+    "locale": "de",
+    "key": "DDP_transport",
+    "value": "DDP-Transport (DDP_TRANSPORT)",
+    "reason": "Reviewed local technical terminology: Transport/transport/transporte is valid in this locale. DDP is a protocol acronym and DDP_TRANSPORT is an exact configuration identifier; neither should be translated. Retain the correct existing label."
+  },
+  {
+    "locale": "de_DE",
+    "key": "DDP_transport",
+    "value": "DDP-Transport (DDP_TRANSPORT)",
+    "reason": "Reviewed local technical terminology: Transport/transport/transporte is valid in this locale. DDP is a protocol acronym and DDP_TRANSPORT is an exact configuration identifier; neither should be translated. Retain the correct existing label."
+  },
+  {
+    "locale": "fr-BE",
+    "key": "r-items-list",
+    "value": "item1, item2, item3",
+    "reason": "Reviewed in client/components/rules/actions/checklistActions.jade:55: this input placeholder demonstrates three arbitrary comma-separated checklist item names, not English prose. Spaces do not alter the example separator. Retain the existing illustrative identifiers."
+  },
+  {
+    "locale": "fr-CA",
+    "key": "r-items-list",
+    "value": "item1, item2, item3",
+    "reason": "Reviewed in client/components/rules/actions/checklistActions.jade:55: this input placeholder demonstrates three arbitrary comma-separated checklist item names, not English prose. Spaces do not alter the example separator. Retain the existing illustrative identifiers."
+  },
+  {
+    "locale": "fr-CH",
+    "key": "r-items-list",
+    "value": "item1, item2, item3",
+    "reason": "Reviewed in client/components/rules/actions/checklistActions.jade:55: this input placeholder demonstrates three arbitrary comma-separated checklist item names, not English prose. Spaces do not alter the example separator. Retain the existing illustrative identifiers."
+  },
+  {
+    "locale": "fr-FR",
+    "key": "r-items-list",
+    "value": "item1, item2, item3",
+    "reason": "Reviewed in client/components/rules/actions/checklistActions.jade:55: this input placeholder demonstrates three arbitrary comma-separated checklist item names, not English prose. Spaces do not alter the example separator. Retain the existing illustrative identifiers."
+  },
+  {
+    "locale": "fr",
+    "key": "r-items-list",
+    "value": "item1, item2, item3",
+    "reason": "Reviewed in client/components/rules/actions/checklistActions.jade:55: this input placeholder demonstrates three arbitrary comma-separated checklist item names, not English prose. Spaces do not alter the example separator. Retain the existing illustrative identifiers."
+  },
+  {
+    "locale": "fy-NL",
+    "key": "DDP_transport",
+    "value": "DDP-transport (DDP_TRANSPORT)",
+    "reason": "Reviewed local technical terminology: Transport/transport/transporte is valid in this locale. DDP is a protocol acronym and DDP_TRANSPORT is an exact configuration identifier; neither should be translated. Retain the correct existing label."
+  },
+  {
+    "locale": "fy-NL",
+    "key": "r-items-list",
+    "value": "item 1, item 2, item 3",
+    "reason": "Reviewed in client/components/rules/actions/checklistActions.jade:55: this input placeholder demonstrates three arbitrary comma-separated checklist item names, not English prose. Spaces do not alter the example separator. Retain the existing illustrative identifiers."
+  },
+  {
+    "locale": "fy",
+    "key": "DDP_transport",
+    "value": "DDP-transport (DDP_TRANSPORT)",
+    "reason": "Reviewed local technical terminology: Transport/transport/transporte is valid in this locale. DDP is a protocol acronym and DDP_TRANSPORT is an exact configuration identifier; neither should be translated. Retain the correct existing label."
+  },
+  {
+    "locale": "fy",
+    "key": "r-items-list",
+    "value": "item 1, item 2, item 3",
+    "reason": "Reviewed in client/components/rules/actions/checklistActions.jade:55: this input placeholder demonstrates three arbitrary comma-separated checklist item names, not English prose. Spaces do not alter the example separator. Retain the existing illustrative identifiers."
+  },
+  {
+    "locale": "id",
+    "key": "r-items-list",
+    "value": "item1, item2, item3",
+    "reason": "Reviewed in client/components/rules/actions/checklistActions.jade:55: this input placeholder demonstrates three arbitrary comma-separated checklist item names, not English prose. Spaces do not alter the example separator. Retain the existing illustrative identifiers."
+  },
+  {
+    "locale": "lb",
+    "key": "DDP_transport",
+    "value": "DDP-Transport (DDP_TRANSPORT)",
+    "reason": "Reviewed local technical terminology: Transport/transport/transporte is valid in this locale. DDP is a protocol acronym and DDP_TRANSPORT is an exact configuration identifier; neither should be translated. Retain the correct existing label."
+  },
+  {
+    "locale": "ms-MY",
+    "key": "r-items-list",
+    "value": "item1, item2, item3",
+    "reason": "Reviewed in client/components/rules/actions/checklistActions.jade:55: this input placeholder demonstrates three arbitrary comma-separated checklist item names, not English prose. Spaces do not alter the example separator. Retain the existing illustrative identifiers."
+  },
+  {
+    "locale": "ms",
+    "key": "r-items-list",
+    "value": "item1, item2, item3",
+    "reason": "Reviewed in client/components/rules/actions/checklistActions.jade:55: this input placeholder demonstrates three arbitrary comma-separated checklist item names, not English prose. Spaces do not alter the example separator. Retain the existing illustrative identifiers."
+  },
+  {
+    "locale": "nb",
+    "key": "DDP_transport",
+    "value": "DDP-transport (DDP_TRANSPORT)",
+    "reason": "Reviewed local technical terminology: Transport/transport/transporte is valid in this locale. DDP is a protocol acronym and DDP_TRANSPORT is an exact configuration identifier; neither should be translated. Retain the correct existing label."
+  },
+  {
+    "locale": "nl-NL",
+    "key": "DDP_transport",
+    "value": "DDP-transport (DDP_TRANSPORT)",
+    "reason": "Reviewed local technical terminology: Transport/transport/transporte is valid in this locale. DDP is a protocol acronym and DDP_TRANSPORT is an exact configuration identifier; neither should be translated. Retain the correct existing label."
+  },
+  {
+    "locale": "nl-NL",
+    "key": "r-items-list",
+    "value": "item1, item2, item3",
+    "reason": "Reviewed in client/components/rules/actions/checklistActions.jade:55: this input placeholder demonstrates three arbitrary comma-separated checklist item names, not English prose. Spaces do not alter the example separator. Retain the existing illustrative identifiers."
+  },
+  {
+    "locale": "nl",
+    "key": "DDP_transport",
+    "value": "DDP-transport (DDP_TRANSPORT)",
+    "reason": "Reviewed local technical terminology: Transport/transport/transporte is valid in this locale. DDP is a protocol acronym and DDP_TRANSPORT is an exact configuration identifier; neither should be translated. Retain the correct existing label."
+  },
+  {
+    "locale": "nl",
+    "key": "r-items-list",
+    "value": "item1, item2, item3",
+    "reason": "Reviewed in client/components/rules/actions/checklistActions.jade:55: this input placeholder demonstrates three arbitrary comma-separated checklist item names, not English prose. Spaces do not alter the example separator. Retain the existing illustrative identifiers."
+  },
+  {
+    "locale": "oc",
+    "key": "r-items-list",
+    "value": "item1, item2, item3",
+    "reason": "Reviewed in client/components/rules/actions/checklistActions.jade:55: this input placeholder demonstrates three arbitrary comma-separated checklist item names, not English prose. Spaces do not alter the example separator. Retain the existing illustrative identifiers."
+  },
+  {
+    "locale": "sv",
+    "key": "DDP_transport",
+    "value": "DDP-transport (DDP_TRANSPORT)",
+    "reason": "Reviewed local technical terminology: Transport/transport/transporte is valid in this locale. DDP is a protocol acronym and DDP_TRANSPORT is an exact configuration identifier; neither should be translated. Retain the correct existing label."
+  },
+  {
+    "locale": "th",
+    "key": "r-items-list",
+    "value": "item1, item2, item3",
+    "reason": "Reviewed in client/components/rules/actions/checklistActions.jade:55: this input placeholder demonstrates three arbitrary comma-separated checklist item names, not English prose. Spaces do not alter the example separator. Retain the existing illustrative identifiers."
+  },
+  {
+    "locale": "ug",
+    "key": "r-items-list",
+    "value": "item1, item2, item3",
+    "reason": "Reviewed in client/components/rules/actions/checklistActions.jade:55: this input placeholder demonstrates three arbitrary comma-separated checklist item names, not English prose. Spaces do not alter the example separator. Retain the existing illustrative identifiers."
+  },
+  {
+    "locale": "vi-VN",
+    "key": "r-items-list",
+    "value": "item1, item2, item3",
+    "reason": "Reviewed in client/components/rules/actions/checklistActions.jade:55: this input placeholder demonstrates three arbitrary comma-separated checklist item names, not English prose. Spaces do not alter the example separator. Retain the existing illustrative identifiers."
+  },
+  {
+    "locale": "vi",
+    "key": "r-items-list",
+    "value": "item1, item2, item3",
+    "reason": "Reviewed in client/components/rules/actions/checklistActions.jade:55: this input placeholder demonstrates three arbitrary comma-separated checklist item names, not English prose. Spaces do not alter the example separator. Retain the existing illustrative identifiers."
+  },
+  {
+    "locale": "vl-SS",
+    "key": "r-items-list",
+    "value": "item1, item2, item3",
+    "reason": "Reviewed in client/components/rules/actions/checklistActions.jade:55: this input placeholder demonstrates three arbitrary comma-separated checklist item names, not English prose. Spaces do not alter the example separator. Retain the existing illustrative identifiers."
+  },
+  {
+    "locale": "vo",
+    "key": "r-items-list",
+    "value": "item1, item2, item3",
+    "reason": "Reviewed in client/components/rules/actions/checklistActions.jade:55: this input placeholder demonstrates three arbitrary comma-separated checklist item names, not English prose. Spaces do not alter the example separator. Retain the existing illustrative identifiers."
+  },
+  {
+    "locale": "wa-RR",
+    "key": "r-items-list",
+    "value": "item1, item2, item3",
+    "reason": "Reviewed in client/components/rules/actions/checklistActions.jade:55: this input placeholder demonstrates three arbitrary comma-separated checklist item names, not English prose. Spaces do not alter the example separator. Retain the existing illustrative identifiers."
+  },
+  {
+    "locale": "wa",
+    "key": "r-items-list",
+    "value": "item1, item2, item3",
+    "reason": "Reviewed in client/components/rules/actions/checklistActions.jade:55: this input placeholder demonstrates three arbitrary comma-separated checklist item names, not English prose. Spaces do not alter the example separator. Retain the existing illustrative identifiers."
+  },
+  {
+    "locale": "wo",
+    "key": "r-items-list",
+    "value": "item1, item2, item3",
+    "reason": "Reviewed in client/components/rules/actions/checklistActions.jade:55: this input placeholder demonstrates three arbitrary comma-separated checklist item names, not English prose. Spaces do not alter the example separator. Retain the existing illustrative identifiers."
+  },
+  {
+    "locale": "zgh",
+    "key": "r-items-list",
+    "value": "item1, item2, item3",
+    "reason": "Reviewed in client/components/rules/actions/checklistActions.jade:55: this input placeholder demonstrates three arbitrary comma-separated checklist item names, not English prose. Spaces do not alter the example separator. Retain the existing illustrative identifiers."
   }
 ]
