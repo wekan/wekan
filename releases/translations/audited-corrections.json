@@ -48704,5 +48704,33 @@
     "before": "Scegli il backend di storage dove vengono salvati i nuovi injuntes ciaria suti.",
     "after": "Tscherna il sistem da memoria nua che las agiuntas chargiadas si da nov vegnan memorisadas.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "default-save-storage-save-failed",
+    "before": "Impossibile salvare lo storage predefinito",
+    "after": "La memoria predefinida n’ha betg pudì vegnir memorisada",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "default-save-storage-saved",
+    "before": "Storage di salvataggio predefinito salvato",
+    "after": "La memoria predefinida per memorisar è memorisada",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "disable-export-avatars",
+    "before": "Disativea l'esportazion degli avatar",
+    "after": "Deactivar l’export dad avatars",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "disable-import-avatars",
+    "before": "Disativea l'importazion degli avatar",
+    "after": "Deactivar l’import dad avatars",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
