@@ -558,6 +558,15 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/0fcfb0e59190f5213786a235dd7d55e14ee4495b">Finish flagged base Galician translation review</a></summary>
+
+Translate filter instructions and two calendar labels, repair two search-formatting defects and retain nine correct findings. Both flagged Galician queues are complete. Translation regression checks pass.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/3de5b15ca2ffed5bc67b67cd786602b470e3f325">Finish flagged Galician regional translation repairs</a></summary>
 
 Repair the final 29 flagged setting, warning, advanced-filter and calendar values, retaining one correct instruction. Preserve filter examples, WIP restrictions and calendar distinctions. Translation regression checks pass; the regional audit queue is complete.
