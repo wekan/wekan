@@ -46744,5 +46744,12 @@
     "before": "Advanced Filter allows to write a string containing following operators: == != <= >= && || ( ) A space is used as a separator between the Operators. You can filter for all Custom Fields by typing their names and values. For Example: Field1 == Value1. Note: If fields or values contains spaces, you need to encapsulate them into single quotes. For Example: 'Field 1' == 'Value 1'. For single control characters (' \\\\/) to be skipped, you can use \\\\. For example: Field1 == I\\\\'m. Also you can combine multiple conditions. For Example: F1 == V1 || F1 == V2. Normally all operators are interpreted from left to right. You can change the order by placing brackets. For Example: F1 == V1 && ( F2 == V2 || F2 == V3 ). Also you can search text fields using regex: F1 == /Tes.*/i",
     "after": "અદ્યતન ફિલ્ટર નીચેના ઓપરેટરો ધરાવતી અભિવ્યક્તિ લખવાની મંજૂરી આપે છે: == != <= >= && || ( ) ઓપરેટરોને અલગ કરવા માટે ખાલી જગ્યા વપરાય છે. તમે કસ્ટમ ક્ષેત્રોનાં નામ અને મૂલ્યો લખીને બધા કસ્ટમ ક્ષેત્રો પર ફિલ્ટર કરી શકો છો. ઉદાહરણ: Field1 == Value1. નોંધ: ક્ષેત્રોનાં નામ અથવા મૂલ્યોમાં ખાલી જગ્યા હોય તો તેમને એકલ અવતરણચિહ્નોમાં મૂકવા જરૂરી છે. ઉદાહરણ: 'Field 1' == 'Value 1'. વિશેષ અક્ષરો (' \\\\/)ને એસ્કેપ કરવા માટે \\\\ વાપરી શકો છો. ઉદાહરણ: Field1 == I\\'m. તમે અનેક શરતોને જોડીને પણ વાપરી શકો છો. ઉદાહરણ: F1 == V1 || F1 == V2. સામાન્ય રીતે બધા ઓપરેટરો ડાબેથી જમણે પ્રક્રિયા કરવામાં આવે છે. કૌંસ મૂકીને તમે ક્રમ બદલી શકો છો. ઉદાહરણ: F1 == V1 && ( F2 == V2 || F2 == V3 ). તમે નિયમિત અભિવ્યક્તિઓનો ઉપયોગ કરીને ટેક્સ્ટ ક્ષેત્રોમાં પણ શોધી શકો છો: F1 == /Tes.*/i",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "kn",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "ಹಿಜ್ರಿ ಕ್ಯಾಲೆಂಡರ್ (ಕೋಷ್ಟಕ ಆಧಾರಿತ, ಖಗೋಳಶಾಸ್ತ್ರೀಯ ಕಾಲಗಣನೆಯ ಆರಂಭ)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
