@@ -48375,5 +48375,40 @@
     "before": "Muda campi personalizzati",
     "after": "Modifitgar ils champs persunalisads",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "cards-loading-lazy",
+    "before": "Lazy (mé le ciartes visibili)",
+    "after": "Chargiar tenor basegn (mo cartas visiblas)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "checklist-count",
+    "before": "Conteggio elementi checklist (0/0)",
+    "after": "Dumber d’elements da la glista da controlla (0/0)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "cleanup-old-jobs",
+    "before": "Pulisci i processi vecchi",
+    "after": "Rumir las lavurs veglias",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "click-to-star-page",
+    "before": "Clicca per aggiungere questa pagina ai preferiti.",
+    "after": "Clicca per marcar questa pagina cun ina staila.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "click-to-unstar-page",
+    "before": "Clicca per togliere questa pagina dai preferiti.",
+    "after": "Clicca per allontanar la staila da questa pagina.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
