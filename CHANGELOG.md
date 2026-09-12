@@ -558,6 +558,13 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/bede4fb479a469d9d91d14d9254fdbc66cd987fd">Repair Galician regional attachment and board archive settings</a>. Thanks to xet7.</summary>
+
+Replace 10 Portuguese values with reviewed Galician wording. Preserve new/all-card field distinctions, automatic watching, archive scheduling statuses and mini-card attachment counts. Regression checks verify meanings, exact corrections, source tokens, key order and idempotent repairs. The short translation audit records current progress.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/99c252d3a34bd42723018bd68d55fb24df6191ef">Repair Galician regional user status and archive controls</a>. Thanks to xet7.</summary>
 
 Replace 10 Portuguese values with reviewed Galician wording. Restore archive intent, activation controls, all-card field scope and loading data-loss/server-check warnings. Regression checks verify meanings, exact corrections, source tokens, key order and idempotent repairs. The short translation audit records current progress.
