@@ -2,6 +2,8 @@
 
 **Audit date: 2026-09-12. Correction date: 2026-09-12.**
 
+**Macedonian comments and conversion help, 2026-09-12:** [e91e84557](https://github.com/wekan/wekan/commit/e91e845570d2423750a23ba6762b77a7f07e9b7e) corrects **15 values** covering comments, checklist forms, favorites and board conversion. Source meanings and interpolation tokens are preserved. Exact-value, rendering, source-token, key-order and repair checks pass. **403 Macedonian findings remain**; the correction list contains **2,942 values**.
+
 **Macedonian card and checklist controls, 2026-09-12:** [7e0ce1e47](https://github.com/wekan/wekan/commit/7e0ce1e473211dd94bf21163cd9f4d974eeeaa16) corrects **25 values**, restoring card, assignee, checklist, planning and report meanings where the old text used legal-file terminology. Source-token, exact-value, rendering, key-order, idempotency and preservation checks pass. **418 Macedonian findings remain**; the correction list contains **2,927 values**.
 
 **Macedonian board scheduling and backgrounds, 2026-09-12:** [f33aff4ed](https://github.com/wekan/wekan/commit/f33aff4ed2f7408a284ef6b8c30452a8927c5ce9) corrects **15 values** covering avatar paths, board scheduling, backup, cleanup, migrations, visibility and backgrounds. Source placeholders and strong markup are retained; exact-value, rendering, key-order and repair checks pass. **443 Macedonian findings remain**; the correction list contains **2,902 values**.
@@ -48,7 +50,7 @@
 
 **Repair progress, 2026-09-12:** all **402 remaining Latvian findings** were corrected in [9631ff40d](https://github.com/wekan/wekan/commit/9631ff40d7b8856fb9ec012c53a6daf6e36f7d4d). All **21 Danish findings** were resolved in [ad8c1170d](https://github.com/wekan/wekan/commit/ad8c1170db29f3d8bed47403c24cb8add0abd443): two calendar labels corrected and 19 valid entries retained after individual review. That batch brought the reviewed correction list to **1,562 values**.
 
-The reproducible audit progress is **20,081 keys accounted for: 2,866 explicitly corrected audit keys, 4,061 pre-pull values restored, 70 reviewed unchanged, and 13,084 still pending**. Corrections outside the audit's flagged rows also appear in the correction list, so its total differs from corrected audit keys. The goal of repairing all translations remains active and unfinished. No subagents or remote pushes were used.
+The reproducible audit progress is **20,081 keys accounted for: 2,881 explicitly corrected audit keys, 4,061 pre-pull values restored, 70 reviewed unchanged, and 13,069 still pending**. Corrections outside the audit's flagged rows also appear in the correction list, so its total differs from corrected audit keys. The goal of repairing all translations remains active and unfinished. No subagents or remote pushes were used.
 
 Run `node releases/translations/audit-progress.mjs` for current counts or add `--locale <tag>` for a locale's remaining source/current pairs. The tool reads the tables below directly, preserves exact escaped values, and does not treat an untracked edit as a certified repair. Valid shared vocabulary, protocol identifiers and vendor menu labels are documented in `releases/translations/audited-reviews.json`. Latvian regression tests verify actual sprintf date/card argument order, Boolean search meanings, placeholders and template tokens. The existing Latvian suite and repair/review/progress checks pass. The browser regression is syntax-checked; live Meteor UI execution remains unavailable.
 

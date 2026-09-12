@@ -557,6 +557,15 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/e91e84557">Repair Macedonian comments and conversion help</a>. Thanks to xet7.</summary>
+
+Correct 15 reviewed values in comments, checklist forms, favorites and board
+conversion instructions. Positive and negative exact-value, rendering,
+source-token, key-order and repair checks pass. Further findings remain under review.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/7e0ce1e47">Repair Macedonian card and checklist control translations</a>. Thanks to xet7.</summary>
 
 Correct 25 reviewed values, restoring kanban meanings in card, assignee,
