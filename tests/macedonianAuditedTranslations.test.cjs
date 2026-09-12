@@ -65,6 +65,12 @@ const data = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/mk.i1
     assert.match(data[key], /S3/);
     assert.doesNotMatch(data[key], /Amazon|облак/);
   }
+  assert.match(data['normal-assigned-only-desc'], /^Видливи се само доделените карти/);
+  assert.doesNotMatch(data['normal-assigned-only-desc'], /сите карти|пуна права/);
+  assert.match(data['normal-desc'], /Не може да ги менува поставките/);
+  assert.match(data['notify-participate'], /создавач или член/);
+  assert.equal(translator.t('n-cards-found', { sprintf: ['7'] }), 'Пронајдени се 7 карти');
+  assert.doesNotMatch(data['move-all-attachments-to-s3'], /Amazon|облак/);
   assert.equal(data.list, 'Список');
   assert.equal(data.swimlane, 'Лента');
   console.log('macedonianAuditedTranslations: actual date and label rendering, checklist removal meaning and native labels passed');
