@@ -557,6 +557,15 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/1c1fbdfb0">Repair Macedonian scheduled job and creation date translations</a>. Thanks to xet7.</summary>
+
+Correct 15 reviewed values, restoring creation-date sorting and migration
+meanings. Positive and negative exact-value, source-token, key-order and repair
+checks pass. Further locale findings remain under review.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/e91e84557">Repair Macedonian comments and conversion help</a>. Thanks to xet7.</summary>
 
 Correct 15 reviewed values in comments, checklist forms, favorites and board
