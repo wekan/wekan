@@ -45365,5 +45365,47 @@
     "before": "Migración completada correctamente",
     "after": "Migración completada correctament",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "mobile-desktop-toggle",
+    "before": "Alterna entre el Modo Móvil y el Modo de Escritorio",
+    "after": "Alternar entre o modo mobil y o modo d’escritorio",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "mongodb-compact-run",
+    "before": "Ejecutar Compactar MongoDB",
+    "after": "Executar compact de MongoDB",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "mongodb-compact-success",
+    "before": "Compactación completada. Colecciones compactadas:",
+    "after": "Compactación completada. Coleccions compactadas:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "mongodb-gridfs-storage",
+    "before": "Almacenamiento MongoDB GridFS",
+    "after": "Almagazenamiento MongoDB GridFS",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "move-list-left",
+    "before": "Mover lista a la izquierda",
+    "after": "Mover a lista a la cucha",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "multi-selection-off",
+    "before": "Desactivar la selección múltiple",
+    "after": "Desactivar a selección multiple",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
