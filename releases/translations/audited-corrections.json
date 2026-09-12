@@ -10932,5 +10932,1125 @@
     "before": "Islamic tabular",
     "after": "Hijri-kalender (tabellarisk, astronomisk epoke)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "accounts-allowEmailChange",
+    "before": "Permetti modifica dell'email",
+    "after": "Permite schimbarea adresei de e-mail",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "accounts-allowUserDelete",
+    "before": "Permetti agli utenti di cancellare il loro profilo",
+    "after": "Ștergerea propriului cont de utilizator",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "accounts-allowUserNameChange",
+    "before": "Consenti la modifica del nome utente",
+    "after": "Schimbarea numelui de utilizator",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "accounts-lockout-all-users-unlocked",
+    "before": "Tutti gli utenti bloccati sono stati sbloccati",
+    "after": "Toți utilizatorii blocați au fost deblocați",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "accounts-lockout-confirm-unlock-all",
+    "before": "Vuoi davvero sbloccare tutti gli utenti bloccati?",
+    "after": "Sigur doriți să deblocați toți utilizatorii blocați?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "accounts-lockout-info",
+    "before": "Queste impostazioni controllano il modo in cui i tentativi di accesso vengono protetti dagli attacchi di forza bruta.",
+    "after": "Aceste setări controlează protecția încercărilor de autentificare împotriva atacurilor prin forță brută.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "accounts-lockout-known-users",
+    "before": "Impostazioni per utenti noti (nome utente corretto, password errata)",
+    "after": "Setări pentru utilizatorii cunoscuți (nume de utilizator corect, parolă greșită)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "accounts-lockout-locked-users-info",
+    "before": "Utenti attualmente bloccati a causa di troppi tentativi di accesso non riusciti ",
+    "after": "Utilizatori blocați momentan din cauza prea multor încercări de autentificare nereușite",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "accounts-lockout-no-locked-users",
+    "before": "Al momento non ci sono utenti bloccati",
+    "after": "Momentan nu există utilizatori blocați",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "accounts-lockout-settings",
+    "before": "Impostazioni di protezione dalla forza bruta",
+    "after": "Setări de protecție împotriva atacurilor prin forță brută",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "accounts-lockout-settings-updated",
+    "before": "Le impostazioni di protezione dalla forza bruta sono state aggiornate",
+    "after": "Setările de protecție împotriva atacurilor prin forță brută au fost actualizate",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "accounts-lockout-show-locked-users",
+    "before": "Mostra solo gli utenti bloccati",
+    "after": "Afișează doar utilizatorii blocați",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "accounts-lockout-unknown-users",
+    "before": "Impostazioni per utenti sconosciuti (nome utente inesistente)",
+    "after": "Setări pentru utilizatorii necunoscuți (nume de utilizator inexistent)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "act-addBoardMember",
+    "before": "aggiunto membro __member__ alla bacheca __board__",
+    "after": "a adăugat membrul __member__ la panoul __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "act-addComment",
+    "before": "commento sulla scheda __card__: __comment__ nella lista __list__ della swimlane __swimlane__ della bacheca __board__",
+    "after": "a comentat la cardul __card__: __comment__ din lista __list__ din culoarul __swimlane__ din panoul __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "act-archivedCard",
+    "before": "Scheda __card__ della lista __list__ della swimlane __swimlane__ della bacheca __board__ archiviata",
+    "after": "Cardul __card__ din lista __list__ din culoarul __swimlane__ din panoul __board__ a fost mutat în arhivă",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "act-archivedList",
+    "before": "Lista __list__ della swimlane __swimlane__ della bacheca __board__ archiviata",
+    "after": "Lista __list__ din culoarul __swimlane__ din panoul __board__ a fost mutată în arhivă",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "act-archivedSwimlane",
+    "before": "Corsia __swimlane__ della bacheca __board__ archiviata",
+    "after": "Culoarul __swimlane__ din panoul __board__ a fost mutat în arhivă",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "act-checkedItem",
+    "before": "attivato __checklistItem__ nella lista di controllo __checklist__ della scheda __card__ della lista __list__ della swimlane __swimlane__ nella bacheca __board__",
+    "after": "a bifat __checklistItem__ din lista de verificare __checklist__ de pe cardul __card__ din lista __list__ din culoarul __swimlane__ din panoul __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "act-completeChecklist",
+    "before": "completata lista di controllo __checklist__  nella scheda __card__ della lista __list__ della swimlane __swimlane__ nella bacheca __board__",
+    "after": "a finalizat lista de verificare __checklist__ de pe cardul __card__ din lista __list__ din culoarul __swimlane__ din panoul __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "act-createCard",
+    "before": "scheda __card__ creata nella lista __list__ della swimlane __swimlane__ della bacheca __board__",
+    "after": "a creat cardul __card__ în lista __list__ din culoarul __swimlane__ din panoul __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "act-createList",
+    "before": "aggiunta lista __list__ alla bacheca __board__",
+    "after": "a adăugat lista __list__ la panoul __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "act-createSwimlane",
+    "before": "creata swimlane __swimlane__ alla bacheca __board__",
+    "after": "a creat culoarul __swimlane__ în panoul __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "act-deleteComment",
+    "before": "commento eliminato sulla scheda __card__: __comment__ nella lista __list__ nella swim lane __swimlane__ nella bacheca __board__",
+    "after": "a șters comentariul de pe cardul __card__: __comment__ din lista __list__ din culoarul __swimlane__ din panoul __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "act-editComment",
+    "before": "commento modificato sulla scheda __card__: __comment__ nella lista __list__ nella swim lane __swimlane__ nella bacheca __board__",
+    "after": "a modificat comentariul de pe cardul __card__: __comment__ din lista __list__ din culoarul __swimlane__ din panoul __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "act-importCard",
+    "before": "scheda importata  __card__ nella lista __list__ della swimlane __swimlane__ della bacheca __board__",
+    "after": "a importat cardul __card__ în lista __list__ din culoarul __swimlane__ din panoul __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "act-importList",
+    "before": "lista __list__ importata nella swimlane __swimlane__ della bacheca __board__",
+    "after": "a importat lista __list__ în culoarul __swimlane__ din panoul __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "act-joinMember",
+    "before": "aggiunto membro __member__  alla scheda __card__ della list __list__ nella swimlane __swimlane__ della bacheca __board__",
+    "after": "a adăugat membrul __member__ la cardul __card__ din lista __list__ din culoarul __swimlane__ din panoul __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "act-moveCard",
+    "before": "spostata scheda __card__ della bacheca __board__ dalla lista __oldList__ della swimlane  __oldSwimlane__ alla lista __list__ della swimlane __swimlane__",
+    "after": "a mutat cardul __card__ din panoul __board__ din lista __oldList__ din culoarul __oldSwimlane__ în lista __list__ din culoarul __swimlane__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "act-moveCardToOtherBoard",
+    "before": "postata scheda __card__ dalla lista __oldList__ della swimlane __oldSwimlane__ della bacheca __oldBoard__ alla lista __list__ nella swimlane __swimlane__ della bacheca __board__",
+    "after": "a mutat cardul __card__ din lista __oldList__ din culoarul __oldSwimlane__ din panoul __oldBoard__ în lista __list__ din culoarul __swimlane__ din panoul __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "act-removeBoardMember",
+    "before": "rimosso membro __member__ dalla bacheca __board__",
+    "after": "a eliminat membrul __member__ din panoul __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "act-removeChecklist",
+    "before": "rimossa lista di controllo __checklist__ dalla scheda __card__ della lista __list__ della swimlane __swimlane__  nella bacheca __board__",
+    "after": "a eliminat lista de verificare __checklist__ de pe cardul __card__ din lista __list__ din culoarul __swimlane__ din panoul __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "act-removeChecklistItem",
+    "before": "rimosso elemento __checklistItem__ dalla lista di controllo __checkList__ della scheda __card__ della lista __list__ della swimlane __swimlane__  nella bacheca __board__",
+    "after": "a eliminat elementul __checklistItem__ din lista de verificare __checkList__ de pe cardul __card__ din lista __list__ din culoarul __swimlane__ din panoul __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "act-restoredCard",
+    "before": "scheda ripristinata __card__ della lista __list__ nella swimlane __swimlane__ della bacheca __board__",
+    "after": "a restaurat cardul __card__ în lista __list__ din culoarul __swimlane__ din panoul __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "act-setCustomField",
+    "before": "campo personalizzato modificato __customField__: __customFieldValue__ sulla scheda __card__ sulla lista __list__ sulla swimlane __swimlane__ sulla bacheca __board__",
+    "after": "a modificat câmpul personalizat __customField__: __customFieldValue__ de pe cardul __card__ din lista __list__ din culoarul __swimlane__ din panoul __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "act-uncheckedItem",
+    "before": "disattivato __checklistItem__ della lista di controllo __checklist__ dalla scheda __card__ della lista __list__ della swimlane __swimlane__ nella bacheca __board__",
+    "after": "a debifat __checklistItem__ din lista de verificare __checklist__ de pe cardul __card__ din lista __list__ din culoarul __swimlane__ din panoul __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "act-uncompleteChecklist",
+    "before": "lista di controllo __checklist__ incompleta nella scheda __card__ della lista __list__ in swimlane __swimlane__ della bacheca __board__",
+    "after": "a anulat finalizarea listei de verificare __checklist__ de pe cardul __card__ din lista __list__ din culoarul __swimlane__ din panoul __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "act-unjoinMember",
+    "before": "rimosso membro __member__ dalla scheda __card__ della lista __list__ della swimlane __swimlane__ nella bacheca __board__",
+    "after": "a eliminat membrul __member__ de pe cardul __card__ din lista __list__ din culoarul __swimlane__ din panoul __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "activity-added-label",
+    "before": "ha aggiunto l'etichetta  '%s' a %s",
+    "after": "a adăugat eticheta «%s» la %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "activity-checked-item",
+    "before": "selezionata %s nella checklist %s di %s",
+    "after": "a bifat %s în lista de verificare %s de pe %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "activity-checked-item-card",
+    "before": "%s è stato selezionato nella checklist %s",
+    "after": "a bifat %s în lista de verificare %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "activity-checklist-added",
+    "before": "ha aggiunto una checklist a %s",
+    "after": "a adăugat o listă de verificare la %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "activity-checklist-completed-card",
+    "before": "completata lista di controllo __checklist__  nella scheda __card__ della lista __list__ della swimlane __swimlane__ nella bacheca __board__",
+    "after": "a finalizat lista de verificare __checklist__ de pe cardul __card__ din lista __list__ din culoarul __swimlane__ din panoul __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "activity-checklist-item-added",
+    "before": "Aggiunto l'elemento checklist a '%s' in %s",
+    "after": "a adăugat un element în lista de verificare «%s» de pe %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "activity-checklist-item-removed",
+    "before": "è stato rimosso un elemento della checklist da '%s' in %s",
+    "after": "a eliminat un element din lista de verificare «%s» de pe %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "activity-checklist-removed",
+    "before": "È stata rimossa una checklist da%s",
+    "after": "a eliminat o listă de verificare de pe %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "activity-delete-attach",
+    "before": "rimosso un allegato da %s",
+    "after": "a șters un atașament de pe %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "activity-removed-label",
+    "before": "ha rimosso l'etichetta '%s' da %s",
+    "after": "a eliminat eticheta «%s» de pe %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "activity-removed-label-card",
+    "before": "L' etichetta '%s' è stata rimossa.",
+    "after": "a eliminat eticheta «%s»",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "activity-subtask-added",
+    "before": "aggiunto il sottocompito a 1%s",
+    "after": "a adăugat o subsarcină la %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "activity-unchecked-item",
+    "before": "disattivato %s nella checklist %s di %s",
+    "after": "a debifat %s în lista de verificare %s de pe %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "activity-unchecked-item-card",
+    "before": "%s è stato deselezionato nella  checklist %s",
+    "after": "a debifat %s în lista de verificare %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "add-card-to-bottom-of-list",
+    "before": "Aggiungi Scheda in fondo alla Lista",
+    "after": "Adaugă un card la sfârșitul listei",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "add-card-to-top-of-list",
+    "before": "Aggiungi Scheda in cima alla Lista",
+    "after": "Adaugă un card la începutul listei",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "add-checklist-item",
+    "before": "Aggiungi un elemento alla checklist",
+    "after": "Adaugă un element în lista de verificare",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "add-cover",
+    "before": "Aggiungi immagine di copertina a minicard",
+    "after": "Adaugă o imagine de copertă pe minicard",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "add-custom-html-after-body-start",
+    "before": "Aggiungi codice HTML personalizzato dopo <body> inzio",
+    "after": "Adaugă HTML personalizat după începutul elementului <body>",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "add-template-container",
+    "before": "Aggiungi contenitore di Template",
+    "after": "Adaugă un container de șabloane",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "addmore-detail",
+    "before": "Aggiungi una descrizione più dettagliata",
+    "after": "Adaugă o descriere mai detaliată",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "allowNonBoardMembers",
+    "before": "Consenti tutti gli utenti registrati",
+    "after": "Permite tuturor utilizatorilor autentificați",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "always-field-on-card",
+    "before": "Aggiungi campo a tutte le schede",
+    "after": "Adaugă câmpul pe toate cardurile",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "archive-board",
+    "before": "Sposta la bacheca nell'archivio",
+    "after": "Mută panoul în arhivă",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "archive-board-confirm",
+    "before": "Sei sicuro di voler spostare questa bacheca nell'archivio?",
+    "after": "Sigur doriți să arhivați acest panou?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "archive-card",
+    "before": "Sposta scheda nell'archivio",
+    "after": "Mută cardul în arhivă",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "archiveBoardPopup-title",
+    "before": "Spostare bacheca nell'archivio?",
+    "after": "Mutați panoul în arhivă?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "attachment-move-storage-gridfs",
+    "before": "Sposta allegato su GridFS",
+    "after": "Mută atașamentul în GridFS",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "autoAddUsersWithDomainName",
+    "before": "Aggiungi automaticamente utenti con il nome di dominio",
+    "after": "Adaugă automat utilizatorii cu acest nume de domeniu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "automatically-field-on-card",
+    "before": "Aggiungi campo alle nuove schede",
+    "after": "Adaugă câmpul pe cardurile noi",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "board-archived",
+    "before": "Questa bacheca è stata spostata nell'archivio",
+    "after": "Acest panou a fost mutat în arhivă.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "board-delete-notice",
+    "before": "L'eliminazione è permanente. Tutte le azioni, liste e schede associate a questa bacheca andranno perse.",
+    "after": "Ștergerea este permanentă. Veți pierde toate listele, cardurile și acțiunile asociate acestui panou.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "board-info-on-my-boards",
+    "before": "Impostazioni di tutte le bacheche",
+    "after": "Setările tuturor panourilor",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "board-title-not-found",
+    "before": "Bacheca '%s' non trovata.",
+    "after": "Panoul «%s» nu a fost găsit.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "boardInfoOnMyBoards-title",
+    "before": "Impostazioni di tutte le bacheche",
+    "after": "Setările tuturor panourilor",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "boardInfoOnMyBoardsPopup-title",
+    "before": "Impostazioni di tutte le bacheche",
+    "after": "Setările tuturor panourilor",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "boardSubtaskSettingsPopup-title",
+    "before": "Impostazioni sotto-compiti",
+    "after": "Setările subsarcinilor",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "board",
+    "before": "Bacheca",
+    "after": "Panou",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "card",
+    "before": "Scheda",
+    "after": "Card",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "list",
+    "before": "Lista",
+    "after": "Listă",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "swimlane",
+    "before": "Carril",
+    "after": "Culoar",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro",
+    "key": "checklist",
+    "before": "Check-list",
+    "after": "Listă de verificare",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "accounts-allowEmailChange",
+    "before": "Permetti modifica dell'email",
+    "after": "Permite schimbarea adresei de e-mail",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "accounts-allowUserDelete",
+    "before": "Permetti agli utenti di cancellare il loro profilo",
+    "after": "Ștergerea propriului cont de utilizator",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "accounts-allowUserNameChange",
+    "before": "Consenti la modifica del nome utente",
+    "after": "Schimbarea numelui de utilizator",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "accounts-lockout-all-users-unlocked",
+    "before": "Tutti gli utenti bloccati sono stati sbloccati",
+    "after": "Toți utilizatorii blocați au fost deblocați",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "accounts-lockout-confirm-unlock-all",
+    "before": "Vuoi davvero sbloccare tutti gli utenti bloccati?",
+    "after": "Sigur doriți să deblocați toți utilizatorii blocați?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "accounts-lockout-info",
+    "before": "Queste impostazioni controllano il modo in cui i tentativi di accesso vengono protetti dagli attacchi di forza bruta.",
+    "after": "Aceste setări controlează protecția încercărilor de autentificare împotriva atacurilor prin forță brută.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "accounts-lockout-known-users",
+    "before": "Impostazioni per utenti noti (nome utente corretto, password errata)",
+    "after": "Setări pentru utilizatorii cunoscuți (nume de utilizator corect, parolă greșită)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "accounts-lockout-locked-users-info",
+    "before": "Utenti attualmente bloccati a causa di troppi tentativi di accesso non riusciti ",
+    "after": "Utilizatori blocați momentan din cauza prea multor încercări de autentificare nereușite",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "accounts-lockout-no-locked-users",
+    "before": "Al momento non ci sono utenti bloccati",
+    "after": "Momentan nu există utilizatori blocați",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "accounts-lockout-settings",
+    "before": "Impostazioni di protezione dalla forza bruta",
+    "after": "Setări de protecție împotriva atacurilor prin forță brută",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "accounts-lockout-settings-updated",
+    "before": "Le impostazioni di protezione dalla forza bruta sono state aggiornate",
+    "after": "Setările de protecție împotriva atacurilor prin forță brută au fost actualizate",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "accounts-lockout-show-locked-users",
+    "before": "Mostra solo gli utenti bloccati",
+    "after": "Afișează doar utilizatorii blocați",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "accounts-lockout-unknown-users",
+    "before": "Impostazioni per utenti sconosciuti (nome utente inesistente)",
+    "after": "Setări pentru utilizatorii necunoscuți (nume de utilizator inexistent)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "act-addBoardMember",
+    "before": "aggiunto membro __member__ alla bacheca __board__",
+    "after": "a adăugat membrul __member__ la panoul __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "act-addComment",
+    "before": "commento sulla scheda __card__: __comment__ nella lista __list__ della swimlane __swimlane__ della bacheca __board__",
+    "after": "a comentat la cardul __card__: __comment__ din lista __list__ din culoarul __swimlane__ din panoul __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "act-archivedCard",
+    "before": "Scheda __card__ della lista __list__ della swimlane __swimlane__ della bacheca __board__ archiviata",
+    "after": "Cardul __card__ din lista __list__ din culoarul __swimlane__ din panoul __board__ a fost mutat în arhivă",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "act-archivedList",
+    "before": "Lista __list__ della swimlane __swimlane__ della bacheca __board__ archiviata",
+    "after": "Lista __list__ din culoarul __swimlane__ din panoul __board__ a fost mutată în arhivă",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "act-archivedSwimlane",
+    "before": "Corsia __swimlane__ della bacheca __board__ archiviata",
+    "after": "Culoarul __swimlane__ din panoul __board__ a fost mutat în arhivă",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "act-checkedItem",
+    "before": "attivato __checklistItem__ nella lista di controllo __checklist__ della scheda __card__ della lista __list__ della swimlane __swimlane__ nella bacheca __board__",
+    "after": "a bifat __checklistItem__ din lista de verificare __checklist__ de pe cardul __card__ din lista __list__ din culoarul __swimlane__ din panoul __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "act-completeChecklist",
+    "before": "completata lista di controllo __checklist__  nella scheda __card__ della lista __list__ della swimlane __swimlane__ nella bacheca __board__",
+    "after": "a finalizat lista de verificare __checklist__ de pe cardul __card__ din lista __list__ din culoarul __swimlane__ din panoul __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "act-createCard",
+    "before": "scheda __card__ creata nella lista __list__ della swimlane __swimlane__ della bacheca __board__",
+    "after": "a creat cardul __card__ în lista __list__ din culoarul __swimlane__ din panoul __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "act-createList",
+    "before": "aggiunta lista __list__ alla bacheca __board__",
+    "after": "a adăugat lista __list__ la panoul __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "act-createSwimlane",
+    "before": "creata swimlane __swimlane__ alla bacheca __board__",
+    "after": "a creat culoarul __swimlane__ în panoul __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "act-deleteComment",
+    "before": "commento eliminato sulla scheda __card__: __comment__ nella lista __list__ nella swim lane __swimlane__ nella bacheca __board__",
+    "after": "a șters comentariul de pe cardul __card__: __comment__ din lista __list__ din culoarul __swimlane__ din panoul __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "act-editComment",
+    "before": "commento modificato sulla scheda __card__: __comment__ nella lista __list__ nella swim lane __swimlane__ nella bacheca __board__",
+    "after": "a modificat comentariul de pe cardul __card__: __comment__ din lista __list__ din culoarul __swimlane__ din panoul __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "act-importCard",
+    "before": "scheda importata  __card__ nella lista __list__ della swimlane __swimlane__ della bacheca __board__",
+    "after": "a importat cardul __card__ în lista __list__ din culoarul __swimlane__ din panoul __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "act-importList",
+    "before": "lista __list__ importata nella swimlane __swimlane__ della bacheca __board__",
+    "after": "a importat lista __list__ în culoarul __swimlane__ din panoul __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "act-joinMember",
+    "before": "aggiunto membro __member__  alla scheda __card__ della list __list__ nella swimlane __swimlane__ della bacheca __board__",
+    "after": "a adăugat membrul __member__ la cardul __card__ din lista __list__ din culoarul __swimlane__ din panoul __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "act-moveCard",
+    "before": "spostata scheda __card__ della bacheca __board__ dalla lista __oldList__ della swimlane  __oldSwimlane__ alla lista __list__ della swimlane __swimlane__",
+    "after": "a mutat cardul __card__ din panoul __board__ din lista __oldList__ din culoarul __oldSwimlane__ în lista __list__ din culoarul __swimlane__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "act-moveCardToOtherBoard",
+    "before": "postata scheda __card__ dalla lista __oldList__ della swimlane __oldSwimlane__ della bacheca __oldBoard__ alla lista __list__ nella swimlane __swimlane__ della bacheca __board__",
+    "after": "a mutat cardul __card__ din lista __oldList__ din culoarul __oldSwimlane__ din panoul __oldBoard__ în lista __list__ din culoarul __swimlane__ din panoul __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "act-removeBoardMember",
+    "before": "rimosso membro __member__ dalla bacheca __board__",
+    "after": "a eliminat membrul __member__ din panoul __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "act-removeChecklist",
+    "before": "rimossa lista di controllo __checklist__ dalla scheda __card__ della lista __list__ della swimlane __swimlane__  nella bacheca __board__",
+    "after": "a eliminat lista de verificare __checklist__ de pe cardul __card__ din lista __list__ din culoarul __swimlane__ din panoul __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "act-removeChecklistItem",
+    "before": "rimosso elemento __checklistItem__ dalla lista di controllo __checkList__ della scheda __card__ della lista __list__ della swimlane __swimlane__  nella bacheca __board__",
+    "after": "a eliminat elementul __checklistItem__ din lista de verificare __checkList__ de pe cardul __card__ din lista __list__ din culoarul __swimlane__ din panoul __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "act-restoredCard",
+    "before": "scheda ripristinata __card__ della lista __list__ nella swimlane __swimlane__ della bacheca __board__",
+    "after": "a restaurat cardul __card__ în lista __list__ din culoarul __swimlane__ din panoul __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "act-setCustomField",
+    "before": "campo personalizzato modificato __customField__: __customFieldValue__ sulla scheda __card__ sulla lista __list__ sulla swimlane __swimlane__ sulla bacheca __board__",
+    "after": "a modificat câmpul personalizat __customField__: __customFieldValue__ de pe cardul __card__ din lista __list__ din culoarul __swimlane__ din panoul __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "act-uncheckedItem",
+    "before": "disattivato __checklistItem__ della lista di controllo __checklist__ dalla scheda __card__ della lista __list__ della swimlane __swimlane__ nella bacheca __board__",
+    "after": "a debifat __checklistItem__ din lista de verificare __checklist__ de pe cardul __card__ din lista __list__ din culoarul __swimlane__ din panoul __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "act-uncompleteChecklist",
+    "before": "lista di controllo __checklist__ incompleta nella scheda __card__ della lista __list__ in swimlane __swimlane__ della bacheca __board__",
+    "after": "a anulat finalizarea listei de verificare __checklist__ de pe cardul __card__ din lista __list__ din culoarul __swimlane__ din panoul __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "act-unjoinMember",
+    "before": "rimosso membro __member__ dalla scheda __card__ della lista __list__ della swimlane __swimlane__ nella bacheca __board__",
+    "after": "a eliminat membrul __member__ de pe cardul __card__ din lista __list__ din culoarul __swimlane__ din panoul __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "activity-added-label",
+    "before": "ha aggiunto l'etichetta  '%s' a %s",
+    "after": "a adăugat eticheta «%s» la %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "activity-checked-item",
+    "before": "selezionata %s nella checklist %s di %s",
+    "after": "a bifat %s în lista de verificare %s de pe %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "activity-checked-item-card",
+    "before": "%s è stato selezionato nella checklist %s",
+    "after": "a bifat %s în lista de verificare %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "activity-checklist-added",
+    "before": "ha aggiunto una checklist a %s",
+    "after": "a adăugat o listă de verificare la %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "activity-checklist-completed-card",
+    "before": "completata lista di controllo __checklist__  nella scheda __card__ della lista __list__ della swimlane __swimlane__ nella bacheca __board__",
+    "after": "a finalizat lista de verificare __checklist__ de pe cardul __card__ din lista __list__ din culoarul __swimlane__ din panoul __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "activity-checklist-item-added",
+    "before": "Aggiunto l'elemento checklist a '%s' in %s",
+    "after": "a adăugat un element în lista de verificare «%s» de pe %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "activity-checklist-item-removed",
+    "before": "è stato rimosso un elemento della checklist da '%s' in %s",
+    "after": "a eliminat un element din lista de verificare «%s» de pe %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "activity-checklist-removed",
+    "before": "È stata rimossa una checklist da%s",
+    "after": "a eliminat o listă de verificare de pe %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "activity-delete-attach",
+    "before": "rimosso un allegato da %s",
+    "after": "a șters un atașament de pe %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "activity-removed-label",
+    "before": "ha rimosso l'etichetta '%s' da %s",
+    "after": "a eliminat eticheta «%s» de pe %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "activity-removed-label-card",
+    "before": "L' etichetta '%s' è stata rimossa.",
+    "after": "a eliminat eticheta «%s»",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "activity-subtask-added",
+    "before": "aggiunto il sottocompito a 1%s",
+    "after": "a adăugat o subsarcină la %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "activity-unchecked-item",
+    "before": "disattivato %s nella checklist %s di %s",
+    "after": "a debifat %s în lista de verificare %s de pe %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "activity-unchecked-item-card",
+    "before": "%s è stato deselezionato nella  checklist %s",
+    "after": "a debifat %s în lista de verificare %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "add-card-to-bottom-of-list",
+    "before": "Aggiungi Scheda in fondo alla Lista",
+    "after": "Adaugă un card la sfârșitul listei",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "add-card-to-top-of-list",
+    "before": "Aggiungi Scheda in cima alla Lista",
+    "after": "Adaugă un card la începutul listei",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "add-checklist-item",
+    "before": "Aggiungi un elemento alla checklist",
+    "after": "Adaugă un element în lista de verificare",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "add-cover",
+    "before": "Aggiungi immagine di copertina a minicard",
+    "after": "Adaugă o imagine de copertă pe minicard",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "add-custom-html-after-body-start",
+    "before": "Aggiungi codice HTML personalizzato dopo <body> inzio",
+    "after": "Adaugă HTML personalizat după începutul elementului <body>",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "add-template-container",
+    "before": "Aggiungi contenitore di Template",
+    "after": "Adaugă un container de șabloane",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "addmore-detail",
+    "before": "Aggiungi una descrizione più dettagliata",
+    "after": "Adaugă o descriere mai detaliată",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "allowNonBoardMembers",
+    "before": "Consenti tutti gli utenti registrati",
+    "after": "Permite tuturor utilizatorilor autentificați",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "always-field-on-card",
+    "before": "Aggiungi campo a tutte le schede",
+    "after": "Adaugă câmpul pe toate cardurile",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "archive-board",
+    "before": "Sposta la bacheca nell'archivio",
+    "after": "Mută panoul în arhivă",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "archive-board-confirm",
+    "before": "Sei sicuro di voler spostare questa bacheca nell'archivio?",
+    "after": "Sigur doriți să arhivați acest panou?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "archive-card",
+    "before": "Sposta scheda nell'archivio",
+    "after": "Mută cardul în arhivă",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "archiveBoardPopup-title",
+    "before": "Spostare bacheca nell'archivio?",
+    "after": "Mutați panoul în arhivă?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "attachment-move-storage-gridfs",
+    "before": "Sposta allegato su GridFS",
+    "after": "Mută atașamentul în GridFS",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "autoAddUsersWithDomainName",
+    "before": "Aggiungi automaticamente utenti con il nome di dominio",
+    "after": "Adaugă automat utilizatorii cu acest nume de domeniu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "automatically-field-on-card",
+    "before": "Aggiungi campo alle nuove schede",
+    "after": "Adaugă câmpul pe cardurile noi",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "board-archived",
+    "before": "Questa bacheca è stata spostata nell'archivio",
+    "after": "Acest panou a fost mutat în arhivă.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "board-delete-notice",
+    "before": "L'eliminazione è permanente. Tutte le azioni, liste e schede associate a questa bacheca andranno perse.",
+    "after": "Ștergerea este permanentă. Veți pierde toate listele, cardurile și acțiunile asociate acestui panou.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "board-info-on-my-boards",
+    "before": "Impostazioni di tutte le bacheche",
+    "after": "Setările tuturor panourilor",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "board-title-not-found",
+    "before": "Bacheca '%s' non trovata.",
+    "after": "Panoul «%s» nu a fost găsit.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "boardInfoOnMyBoards-title",
+    "before": "Impostazioni di tutte le bacheche",
+    "after": "Setările tuturor panourilor",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "boardInfoOnMyBoardsPopup-title",
+    "before": "Impostazioni di tutte le bacheche",
+    "after": "Setările tuturor panourilor",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "boardSubtaskSettingsPopup-title",
+    "before": "Impostazioni sotto-compiti",
+    "after": "Setările subsarcinilor",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "board",
+    "before": "Bacheca",
+    "after": "Panou",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "card",
+    "before": "Scheda",
+    "after": "Card",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "list",
+    "before": "Lista",
+    "after": "Listă",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "swimlane",
+    "before": "Carril",
+    "after": "Culoar",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "checklist",
+    "before": "Check-list",
+    "after": "Listă de verificare",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
