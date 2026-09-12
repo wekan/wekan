@@ -394,3 +394,16 @@ assert.doesNotMatch(data['step-fix-orphaned-cards'], /odbačene/);
 assert.equal(data['step-restore-lists'], 'Vrati liste');
 assert.equal(data['step-restore-swimlanes'], 'Vrati staze');
 console.log('bosnianAuditedTranslations: starred-board ordering, week start and migration entity names passed');
+
+assert.match(data['support-info-only-for-logged-in-users'], /samo prijavljenim korisnicima/);
+assert.match(data['swimlane-delete-pop'], /nećete moći oporaviti stazu.*Poništavanje nije moguće/);
+assert.match(data['swimlane-height-error-message'], /pozitivan cijeli broj/);
+assert.match(data['toggle-assignees'], /1-9.*redoslijedu dodavanja na ploču/);
+assert.match(data['toggle-labels'], /Višestruki odabir dodaje oznake 1-9/);
+assert.equal(data['vote-public'], 'Prikaži ko je kako glasao');
+assert.doesNotMatch(data['vote-public'], /rezultate/);
+const english = require('../imports/i18n/data/en.i18n.json');
+for (const example of ['== != <= >= && || ( )', 'Field1 == Value1', "'Field 1' == 'Value 1'", 'F1 == V1 || F1 == V2', 'F1 == V1 && ( F2 == V2 || F2 == V3 )', 'F1 == /Tes.*/i']) assert.ok(data['advanced-filter-description'].includes(example), example);
+assert.ok(data['advanced-filter-description'].includes(english['advanced-filter-description'].match(/Field1 == I.*?m/)[0]));
+assert.doesNotMatch(data['advanced-filter-description'], /Advanced Filter allows/);
+console.log('bosnianAuditedTranslations: final support, voting, keyboard and filter help checks passed');

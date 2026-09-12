@@ -29811,5 +29811,215 @@
     "before": "Опорављам читав ток поступка",
     "after": "Vrati staze",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "step-scan-files",
+    "before": "Проверавам предметну грађу",
+    "after": "Provjera datotečnih priloga ploče",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "step-scan-users",
+    "before": "Проверавам слике сарадника на списима",
+    "after": "Provjera avatara članova ploče",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "subtaskActionsPopup-title",
+    "before": "Радње на издвојеним пословима",
+    "after": "Radnje s podzadatkom",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "subtaskDeletePopup-title",
+    "before": "Избрисаћете издвојени посао?",
+    "after": "Izbrisati podzadatak?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "support-info-not-added-yet",
+    "before": "Информације о техничкој подршци још увек нису додате",
+    "after": "Informacije o podršci još nisu dodane",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "support-info-only-for-logged-in-users",
+    "before": "Информације о техничкој подршци се дају само пријављеним корисницима.",
+    "after": "Informacije o podršci namijenjene su samo prijavljenim korisnicima.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "support-page-enabled",
+    "before": "Неопходна ми је техничка подршка",
+    "after": "Stranica podrške omogućena",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "swimlane-delete-pop",
+    "before": "Све радње ће бити уклоњене из записника и нећете моћи да опоравите поступак. Нема поништавања.",
+    "after": "Sve radnje će biti uklonjene iz zapisa aktivnosti i nećete moći oporaviti stazu. Poništavanje nije moguće.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "swimlane-height-error-message",
+    "before": "Висина тока поступка мора бити позитиван број",
+    "after": "Visina staze mora biti pozitivan cijeli broj",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "swimlane-title-not-found",
+    "before": "Ток поступка '%s' није пронађен.",
+    "after": "Staza '%s' nije pronađena.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "swimlaneActionPopup-title",
+    "before": "Радње у овој врсти поступка",
+    "after": "Radnje sa stazom",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "swimlaneAddPopup-title",
+    "before": "Додаје испод врсту поступка",
+    "after": "Dodaj stazu ispod",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "swimlaneDeletePopup-title",
+    "before": "Избрисаћете овај поступак ?",
+    "after": "Izbrisati stazu?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "tableVisibilityMode-allowPrivateOnly",
+    "before": "Тајност списа: Дозволи приступ искључиво затвореном кругу сарадника",
+    "after": "Vidljivost ploča: dopusti samo privatne ploče",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "team-name-not-found",
+    "before": "Правни тим по имену '%s' није пронађен.",
+    "after": "Tim '%s' nije pronađen.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "text-below-custom-login-logo",
+    "before": "Порука испод насловне слике на страни за пријаву",
+    "after": "Tekst ispod prilagođenog logotipa za prijavu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "to-create-organizations-contact-admin",
+    "before": "Да би могли да додајете странке, молим да се обратите управнику/администратору.",
+    "after": "Za kreiranje organizacija obratite se administratoru.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "to-create-teams-contact-admin",
+    "before": "Молим да се обратите управнику уколико желите да образујете тимове.",
+    "after": "Za kreiranje timova obratite se administratoru.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "toggle-assignees",
+    "before": "Одабери пуномоћника на предмету по редоследу додавања у увид у списе.",
+    "after": "Uključi ili isključi zadužene korisnike 1-9 na kartici (prema redoslijedu dodavanja na ploču).",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "toggle-labels",
+    "before": "Лепите и одлепљујете налепнице по броју. Вишеструким избором можете само да лепите",
+    "after": "Uključi ili isključi oznake 1-9 na kartici. Višestruki odabir dodaje oznake 1-9.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "total-attachments",
+    "before": "Број јединица предметне грађе",
+    "after": "Ukupno priloga",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "translation-number",
+    "before": "Број исправки превода је:",
+    "after": "Broj prilagođenih prijevodnih nizova je:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "user-can-not-export-card-to-pdf",
+    "before": "Корисник не може да претвори садржај предмета у PDF облик",
+    "after": "Korisnik ne može izvesti karticu u PDF",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "user-can-not-export-excel",
+    "before": "Корисник не може да претвори списе у Excel облик",
+    "after": "Korisnik ne može izvesti u Excel",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "user-username-not-found",
+    "before": "Сарадник са корисничким налогом '%s' није пронађен.",
+    "after": "Korisničko ime '%s' nije pronađeno.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "vote-delete-pop",
+    "before": "Брисање има трајни карактер. Све у вези са овим гласањем ће бити неповратно избрисано.",
+    "after": "Brisanje je trajno. Izgubit ćete sve radnje povezane s ovim glasanjem.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "vote-public",
+    "before": "Прикажи резултате јавног гласања",
+    "after": "Prikaži ko je kako glasao",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "wipLimitErrorPopup-dialog-pt1",
+    "before": "Број предмета у овом делу поступка је већи него ограничење које сте поставили.",
+    "after": "Broj zadataka u ovoj listi veći je od WIP ograničenja koje ste postavili.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "writable-path-description",
+    "before": "Почетак путање према складишту предметне грађе",
+    "after": "Putanja osnovnog direktorija za pohranu datoteka",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bs",
+    "key": "advanced-filter-description",
+    "before": "Advanced Filter allows to write a string containing following operators: == != <= >= && || ( ) A space is used as a separator between the Operators. You can filter for all Custom Fields by typing their names and values. For Example: Field1 == Value1. Note: If fields or values contains spaces, you need to encapsulate them into single quotes. For Example: 'Field 1' == 'Value 1'. For single control characters (' \\\\/) to be skipped, you can use \\\\. For example: Field1 == I\\\\'m. Also you can combine multiple conditions. For Example: F1 == V1 || F1 == V2. Normally all operators are interpreted from left to right. You can change the order by placing brackets. For Example: F1 == V1 && ( F2 == V2 || F2 == V3 ). Also you can search text fields using regex: F1 == /Tes.*/i",
+    "after": "Napredni filtar omogućuje pisanje niza koji sadrži sljedeće operatore: == != <= >= && || ( ) Razmak služi kao razdjelnik između operatora. Možete filtrirati sva prilagođena polja upisivanjem njihovih naziva i vrijednosti. Na primjer: Field1 == Value1. Napomena: ako polja ili vrijednosti sadrže razmake, stavite ih u jednostruke navodnike. Na primjer: 'Field 1' == 'Value 1'. Za preskakanje pojedinačnih kontrolnih znakova (' \\/) možete koristiti \\. Na primjer: Field1 == I\\'m. Možete kombinovati i više uslova. Na primjer: F1 == V1 || F1 == V2. Svi se operatori u pravilu tumače slijeva nadesno. Redoslijed možete promijeniti dodavanjem zagrada. Na primjer: F1 == V1 && ( F2 == V2 || F2 == V3 ). Tekstualna polja možete pretraživati i regularnim izrazima: F1 == /Tes.*/i",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
