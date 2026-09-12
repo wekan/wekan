@@ -47339,5 +47339,26 @@
     "before": "Ikhalenda lesiHijri (Umm al-Qura))",
     "after": "Ikhalenda lesi-Hijri (Umm al-Qura)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hsb",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "indiska narodna protyka",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hsb",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "islamska protyka (Sawdiska Arabska, wobkedźbowanje měsaca)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hsb",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "islamska protyka (tabulowa, astronomiska epocha)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
