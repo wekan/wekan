@@ -100,3 +100,11 @@ assert.match(data['activity-checklist-item-added'], /adhibió un elemento.*'%s' 
 assert.match(data['activity-checklist-uncompleted'], /marcó como incompleta/);
 assert.doesNotMatch(data['activity-checklist-uncompleted'], /no completado/);
 assert.notEqual(data['activity-checklist-completed'], data['activity-checklist-uncompleted']);
+assert.match(data['activity-checklist-uncompleted-card'], /marcó como incompleta.*%s/);
+assert.doesNotMatch(data['activity-checklist-uncompleted-card'], /no completó/);
+assert.match(data['activity-customfield-created'], /creyó o campo personalizau %s/);
+assert.match(data['activity-set-customfield'], /establió.*'%s' a '%s' en %s/);
+assert.match(data['activity-unchecked-item'], /desmarcó %s.*comprobación %s de %s/);
+assert.match(data['activity-unchecked-item-card'], /desmarcó %s.*comprobación %s$/);
+assert.match(data['activity-unset-customfield'], /buidó o valor.*'%s' en %s/);
+assert.doesNotMatch(data['activity-unset-customfield'], /desmarcó|eliminó o campo/);

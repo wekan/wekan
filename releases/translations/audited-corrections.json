@@ -44406,5 +44406,47 @@
     "before": "no completado la lista %s de %s",
     "after": "marcó como incompleta a lista de comprobación %s de %s",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "activity-checklist-uncompleted-card",
+    "before": "no completó la lista de verificación %s",
+    "after": "marcó como incompleta a lista de comprobación %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "activity-customfield-created",
+    "before": "creó el campo personalizado %s",
+    "after": "creyó o campo personalizau %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "activity-set-customfield",
+    "before": "Cambiar el campo personalizado '%s' a '%s' en %s",
+    "after": "establió o campo personalizau '%s' a '%s' en %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "activity-unchecked-item",
+    "before": "desmarcado %s en lista  %s de %s",
+    "after": "desmarcó %s en a lista de comprobación %s de %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "activity-unchecked-item-card",
+    "before": "desmarcado %s en la lista de verificación %s",
+    "after": "desmarcó %s en a lista de comprobación %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "activity-unset-customfield",
+    "before": "Desmarcar el campo personalizado '%s' en %s",
+    "after": "buidó o valor d’o campo personalizau '%s' en %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
