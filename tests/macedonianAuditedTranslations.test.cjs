@@ -49,6 +49,12 @@ const data = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/mk.i1
   }
   assert.match(data['invite-people-success'], /регистрација/);
   assert.match(data['import-members-map-note'], /тековниот корисник/);
+  assert.match(data['keyboard-shortcuts-disabled'], /Кликнете за да ги овозможите/);
+  assert.match(data['keyboard-shortcuts-enabled'], /Кликнете за да ги оневозможите/);
+  assert.match(data['list-delete-pop'], /нема да можете да го вратите списокот/);
+  assert.match(data['list-delete-pop'], /не може да се поништи/);
+  assert.match(data['last-admin-desc'], /барем еден администратор/);
+  assert.equal(translator.t('list-title-not-found', { sprintf: ['LIST'] }), "Списокот 'LIST' не е пронајден.");
   assert.equal(data.list, 'Список');
   assert.equal(data.swimlane, 'Лента');
   console.log('macedonianAuditedTranslations: actual date and label rendering, checklist removal meaning and native labels passed');
