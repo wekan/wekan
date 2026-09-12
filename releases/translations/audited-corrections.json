@@ -19577,5 +19577,145 @@
     "before": "Мере за непознате налоге (где сарадник са таквим корисничким именом не постоји)",
     "after": "Поставки за непознати корисници (непостоечко корисничко име)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "accounts-lockout-user-unlocked",
+    "before": "Налог је успешно скинут са мера забране приступа",
+    "after": "Корисникот е успешно одблокиран",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "act-a-dueAt",
+    "before": "измењени крајњи рок \nРок:__timeValue__\nПредмет:__card__\nПретходни крајњи рок је био __timeOldValue__",
+    "after": "го промени рокот во\nКога: __timeValue__\nКаде: __card__\n претходниот рок беше __timeOldValue__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "act-a-endAt",
+    "before": "измењен датум и време окончања на __timeValue__ са претходно постављеног (__timeOldValue__)",
+    "after": "го промени времето на завршување во __timeValue__ од (__timeOldValue__)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "act-a-receivedAt",
+    "before": "измењен датум и време пријема предмета на __timeValue__ са претходно постављеног (__timeOldValue__)",
+    "after": "го промени времето на прием во __timeValue__ од (__timeOldValue__)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "act-a-startAt",
+    "before": "измењен датум и време почетка рада на предмету на __timeValue__ са претходно постављеног (__timeOldValue__)",
+    "after": "го промени времето на почеток во __timeValue__ од (__timeOldValue__)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "act-addBoardMember",
+    "before": "примљен сарадник __member__ за рад на списима __board__",
+    "after": "го додаде членот __member__ на таблата __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "act-almostdue",
+    "before": "подсећам да се приближавамо последњем року (__timeValue__) за завршетак задатка __card__",
+    "after": "потсети дека тековниот рок (__timeValue__) на картата __card__ се приближува",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "act-archivedBoard",
+    "before": "Таблото  __board__ е преместено в Архива.",
+    "after": "Таблата __board__ е преместена во архивата",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "act-archivedCard",
+    "before": "Предмет __card__ из дела __list__ поступка __swimlane__ из списа __board__ је спакован у архив",
+    "after": "Картата __card__ во списокот __list__ во лентата __swimlane__ на таблата __board__ е преместена во архивата",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "act-archivedList",
+    "before": "Део __list__ поступка __swimlane__ из списа __board__ је спакован у архив",
+    "after": "Списокот __list__ во лентата __swimlane__ на таблата __board__ е преместен во архивата",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "act-archivedSwimlane",
+    "before": "Врста поступка __swimlane__ из списа __board__ је спакована у архив",
+    "after": "Лентата __swimlane__ на таблата __board__ е преместена во архивата",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "act-atUserComment",
+    "before": "споменути сте у расправи у предмету __card__: __comment__ у делу __list__ поступка __swimlane__ у списима __board__",
+    "after": "ве спомена на картата __card__: __comment__ во списокот __list__ во лентата __swimlane__ на таблата __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "act-createCard",
+    "before": "је додао нови предмет __card__ у делу __list__ поступка __swimlane__ међу списе __board__",
+    "after": "ја создаде картата __card__ во списокот __list__ во лентата __swimlane__ на таблата __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "act-createCustomField",
+    "before": "је додао нову рубрику __customField__ међу списе __board__",
+    "after": "го создаде приспособеното поле __customField__ на таблата __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "act-createList",
+    "before": "је придодао део поступка __list__ међу списе __board__",
+    "after": "го додаде списокот __list__ на таблата __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "act-createSwimlane",
+    "before": "је додао нови предметни ток __swimlane__ међу списе __board__",
+    "after": "ја создаде лентата __swimlane__ на таблата __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "act-deleteComment",
+    "before": "повукао мишљење у предмету __card__:__comment__ у делу __list__ поступка __swimlane__ у списима __board__",
+    "after": "го избриша коментарот на картата __card__: __comment__ во списокот __list__ во лентата __swimlane__ на таблата __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "act-deleteCustomField",
+    "before": "је избрисао рубрику __customField__ из списа __board__",
+    "after": "го избриша приспособеното поле __customField__ на таблата __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "act-duenow",
+    "before": "подсећам да последњи рок (__timeValue__) задатка __card__ истиче данас",
+    "after": "потсети дека тековниот рок (__timeValue__) на картата __card__ е сега",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "act-editComment",
+    "before": "допунио став у расправи у предмету __card__:__comment__ у делу __list__ поступка __swimlane__ у списима __board__",
+    "after": "го уреди коментарот на картата __card__: __comment__ во списокот __list__ во лентата __swimlane__ на таблата __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
