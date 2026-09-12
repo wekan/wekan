@@ -133,6 +133,11 @@ console.log('croatianAuditedTranslations: target script, V8 metrics and indicato
   assert.doesNotMatch(invitation, /pun uvid|potpun pristup/);
   assert.match(data['dueCardsViewChange-choice-all-description'], /nedovršene kartice/);
   assert.match(data['dueCardsViewChange-choice-all-description'], /korisnik ima dopuštenje/);
+  assert.equal(translator.t('n-cards-found', { sprintf: ['7'] }), 'Pronađeno je 7 kartica');
+  assert.match(data['normal-assigned-only-desc'], /samo dodijeljene kartice/);
+  assert.doesNotMatch(data['normal-assigned-only-desc'], /sve kartice|puna prava/);
+  assert.match(data['notify-participate'], /autor ili član/);
+  assert.match(data['newlineBecomesNewChecklistItemOriginOrder'], /izvornim redoslijedom/);
   assert.match(data['act-newDue'], /prvi podsjetnik/);
   assert.match(data['act-duenow'], /upravo sada/);
   assert.doesNotMatch(data['act-duenow'], /danas/);
