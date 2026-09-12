@@ -23,6 +23,14 @@ for (const locale of ['sl', 'sl_SI']) {
   assert.match(data['accounts-lockout-info'], /napadi z grobo silo/);
   assert.doesNotMatch(data['accounts-lockout-info'], /lozinkef/);
   assert.equal(data.MongoDB_storage_engine, 'Shranjevalni pogon MongoDB');
+  assert.match(data['globalSearch-instructions-operator-has'], /`has:-due`.*brez roka/);
+  assert.match(data['globalSearch-instructions-operator-label'], /\*<color>\* ali \*<name>\*/);
+  assert.match(data['globalSearch-instructions-operator-due'], /največ.*pretečenim rokom/);
+  for (const key of ['globalSearch-instructions-operator-created', 'globalSearch-instructions-operator-modified']) assert.match(data[key], /največ/);
+  for (const key of ['globalSearch-instructions-operator-org', 'globalSearch-instructions-operator-team']) assert.match(data[key], /kartice na tabli, dodeljeni/);
+  assert.match(data['globalSearch-instructions-operator-limit'], /pozitivno celo število.*na stran/);
+  assert.match(data['globalSearch-instructions-operator-sort'], /padajoče.*`-`/);
+
   assert.match(data['fix-all-file-urls-migration-description'], /vseh datotečnih priponk.*pravilno zaledje.*poškodovane sklice/);
   assert.match(data['fix-avatar-urls-migration-description'], /članov table.*pravilno zaledje.*poškodovane sklice/);
   assert.match(data['globalSearch-instructions-notes-2'], /logičnim \*ALI\*.*katerega koli/);
