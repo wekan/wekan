@@ -189,3 +189,11 @@ assert.notEqual(data['default-save-storage'], data['default-save-storage-saved']
 assert.match(data['deletePokerPopup-title'], /^Borrar o planning poker\?$/);
 assert.match(data['description-on-minicard'], /en a minitarcheta$/);
 assert.equal(data['disable-all-export'], 'Desactivar toda a exportación');
+assert.equal(data['disable-all-import'], 'Desactivar toda a importación');
+assert.match(data['disable-export-avatars'], /exportación d’avatares$/);
+assert.match(data['disable-import-avatars'], /importación d’avatares$/);
+assert.notEqual(data['disable-export-avatars'], data['disable-import-avatars']);
+assert.match(data['disambiguateMultiLabelPopup-title'], /^Desambiguar l’acción d’etiqueta$/);
+assert.match(data['disambiguateMultiMemberPopup-title'], /^Desambiguar l’acción de miembro$/);
+assert.match(data['display-authentication-method'], /^Amostrar o metodo d’autenticación$/);
+assert.notEqual(data['display-authentication-method'], data['default-authentication-method']);

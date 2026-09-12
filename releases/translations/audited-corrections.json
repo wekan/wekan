@@ -44903,5 +44903,47 @@
     "before": "Deshabilitar toda exportación",
     "after": "Desactivar toda a exportación",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "disable-all-import",
+    "before": "Deshabilitar toda importación",
+    "after": "Desactivar toda a importación",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "disable-export-avatars",
+    "before": "Deshabilitar exportación de avatares",
+    "after": "Desactivar a exportación d’avatares",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "disable-import-avatars",
+    "before": "Deshabilitar importación de avatares",
+    "after": "Desactivar a importación d’avatares",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "disambiguateMultiLabelPopup-title",
+    "before": "Desambiguar la acción de etiqueta",
+    "after": "Desambiguar l’acción d’etiqueta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "disambiguateMultiMemberPopup-title",
+    "before": "Desambiguar la acción de miembro",
+    "after": "Desambiguar l’acción de miembro",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "display-authentication-method",
+    "before": "Mostrar el método de autenticación",
+    "after": "Amostrar o metodo d’autenticación",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
