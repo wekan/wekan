@@ -4,21 +4,21 @@ Audit date: **2026-09-12**. Last updated: **2026-09-12**.
 
 | Status | Audit keys |
 | --- | ---: |
-| Explicitly corrected | 4,809 |
+| Explicitly corrected | 4,833 |
 | Original pull values restored to pre-pull local values | 4,061 |
 | Reviewed and retained unchanged | 78 |
-| Pending review or repair | 11,133 |
+| Pending review or repair | 11,109 |
 | Total tracked | 20,081 |
 
 The full translation repair goal remains unfinished. Counts describe the tracked audit findings; unflagged strings are not individually certified. Restored pre-pull values are not automatically certified as correct translations.
 
 ## Fixes completed
 
-Repairs address wrong-language text, incorrect kanban terminology, missing restrictions and warnings, malformed JSON examples, translated placeholders, calendar names, search syntax and date/message argument order. The reviewed correction list contains **4,871 values**, including corrections outside the flagged audit rows.
+Repairs address wrong-language text, incorrect kanban terminology, missing restrictions and warnings, malformed JSON examples, translated placeholders, calendar names, search syntax and date/message argument order. The reviewed correction list contains **4,895 values**, including corrections outside the flagged audit rows.
 
 The flagged Bosnian, Croatian and Macedonian queues are complete. Other completed queues include Latvian, Romanian, Slovak and several smaller regional queues. **Bosnian has no remaining flagged findings**.
 
-Latest translation correction: [dafeae03e](https://github.com/wekan/wekan/commit/dafeae03e11cf9b808c9c91f5c07051b6c529936), **2026-09-12**, fixes 24 Slovenian card-view, multi-selection, checklist and search-result values. Repairs preserve board checkbox selection, view/sort distinctions, result-count placeholders and original checklist-item order. Each Slovenian queue has 109 findings remaining. Meaning, token, exact-value, key-order and idempotent repair checks pass.
+Latest translation correction: [2f1a6830c](https://github.com/wekan/wekan/commit/2f1a6830caaba6ba31e8ea8790dc527ebe89cfe3), **2026-09-12**, fixes 24 Slovenian permission, notification, OIDC, operator-validation and organization values. Repairs preserve assigned-card restrictions, comment visibility, creator/member alternatives, debug predicates and positive-integer limits. Actual operator/value message rendering preserves both placeholders. Each Slovenian queue has 97 findings remaining. Meaning, rendering, token, exact-value, key-order and idempotent repair checks pass.
 
 ## Provenance
 
