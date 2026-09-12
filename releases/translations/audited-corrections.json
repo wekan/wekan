@@ -44777,5 +44777,33 @@
     "before": "Migraciones fallidas reintentadas correctamente",
     "after": "Migracions fallidas tornadas a intentar correctament",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "cron-resume-paused",
+    "before": "Reanudar migraciones pausadas",
+    "after": "Reprener as migracions pausadas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "cron-retry-failed",
+    "before": "Reintentar migraciones fallidas",
+    "after": "Tornar a intentar as migracions fallidas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "custom-assetlinks-content",
+    "before": "Contenido de assetlinks.json personalizado (JSON)",
+    "after": "Conteniu personalizau d’assetlinks.json (JSON)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "custom-assetlinks-enabled",
+    "before": "Habilitar assetlinks.json personalizado",
+    "after": "Activar assetlinks.json personalizau",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

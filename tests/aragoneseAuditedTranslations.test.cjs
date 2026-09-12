@@ -162,3 +162,10 @@ assert.equal(new Set(['cron-job-paused','cron-job-resumed','cron-job-started'].m
 assert.match(data['cron-migration-warnings'], /Alvertencias de migración/);
 assert.match(data['cron-migrations-resumed'], /Migracions reprenidas correctament/);
 assert.match(data['cron-migrations-retried'], /Migracions fallidas tornadas a intentar correctament/);
+assert.match(data['cron-resume-paused'], /Reprener as migracions pausadas/);
+assert.match(data['cron-retry-failed'], /Tornar a intentar as migracions fallidas/);
+assert.notEqual(data['cron-resume-paused'], data['cron-retry-failed']);
+assert.match(data['custom-assetlinks-content'], /Conteniu personalizau d’assetlinks\.json \(JSON\)/);
+assert.match(data['custom-assetlinks-enabled'], /Activar assetlinks\.json personalizau/);
+assert.ok(data['custom-field-stringtemplate-format'].includes('%{value}'));
+assert.equal(data['custom-head-link-tags'], 'Etiquetas link personalizadas (HTML)');

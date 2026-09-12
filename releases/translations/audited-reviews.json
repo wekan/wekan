@@ -640,5 +640,17 @@
     "key": "board-view-throughput-histogram",
     "value": "Histograma de rendimiento",
     "reason": "Histograma de rendimiento is valid shared Aragonese chart terminology and describes the throughput histogram without changing its metric."
+  },
+  {
+    "locale": "an",
+    "key": "custom-field-stringtemplate-format",
+    "value": "Formato (usa %{value} como marcador)",
+    "reason": "Valid shared Aragonese technical wording; preserve the literal format placeholder or HTML link element name and the source meaning."
+  },
+  {
+    "locale": "an",
+    "key": "custom-head-link-tags",
+    "value": "Etiquetas link personalizadas (HTML)",
+    "reason": "Valid shared Aragonese technical wording; preserve the literal format placeholder or HTML link element name and the source meaning."
   }
 ]
