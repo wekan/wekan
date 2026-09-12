@@ -37021,5 +37021,47 @@
     "before": "`__operator_comment__:<text>` - cartões com um comentário que contem *<text>*.",
     "after": "`__operator_comment__:<text>` - tarxetas cun comentario que contén *<text>*.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "globalSearch-instructions-operator-created",
+    "before": "`__operator_created__:<n>` - cartões que foram criados há *<n>* dias ou menos",
+    "after": "`__operator_created__:<n>` - tarxetas creadas hai *<n>* días ou menos",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "globalSearch-instructions-operator-creator",
+    "before": "`__operator_creator__:<username>` - cartões onde *<username>* é o criador do cartão",
+    "after": "`__operator_creator__:<username>` - tarxetas nas que *<username>* é o creador da tarxeta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "globalSearch-instructions-operator-due",
+    "before": "`__operator_due__:<n>` - cartões que atingem a data limite em *<n>* dias a partir de hoje. `__operator_due__:__predicate_overdue__ lista todos os cartões que ultrapassaram as suas datas limite.",
+    "after": "`__operator_due__:<n>` - tarxetas que vencen en ata *<n>* días a partir de agora. `__operator_due__:__predicate_overdue__` lista todas as tarxetas que pasaron a súa data de vencemento.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "globalSearch-instructions-operator-has",
+    "before": "`__operator_has__:<field>` - onde *<field>* é um de `__predicate_attachment__`, `__predicate_checklist__`, `__predicate_description__`, `__predicate_start__`, `__predicate_due__`, `__predicate_end__`, `__predicate_assignee__` ou `__predicate_member__`. Ao colocar um `-` em frente a *<field>* pesquisa pela ausência de um valor naquele campo (ex. `has:-due` pesquisa por cartões sem uma data limite).",
+    "after": "`__operator_has__:<field>` - onde *<field>* é un de `__predicate_attachment__`, `__predicate_checklist__`, `__predicate_description__`, `__predicate_start__`, `__predicate_due__`, `__predicate_end__`, `__predicate_assignee__` ou `__predicate_member__`. Poñer un `-` diante de *<field>* procura a ausencia de valor nese campo (p. ex. `has:-due` procura tarxetas sen data de vencemento).",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "globalSearch-instructions-operator-label",
+    "before": "`__operator_label__:<color>` `__operator_label__:<name>` - cartões que tenham uma etiqueta igual a *<color>* ou *<name>",
+    "after": "`__operator_label__:<color>` `__operator_label__:<name>` - tarxetas que teñen unha etiqueta que coincide con *<color>* ou *<name>*",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "globalSearch-instructions-operator-limit",
+    "before": "`__operator_limit__:<n>` - onde *<n>* é um número positivo que indica o número de cartões a mostrar por página.",
+    "after": "`__operator_limit__:<n>` - onde *<n>* é un número enteiro positivo que indica o número de tarxetas que se mostran por páxina.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

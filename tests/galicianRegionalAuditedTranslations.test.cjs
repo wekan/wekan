@@ -130,3 +130,9 @@ assert.match(data['globalSearch-instructions-notes-3'], /\*E\*.*todos os operado
 assert.match(data['globalSearch-instructions-notes-4'], /non distinguen maiúsculas de minúsculas/);
 assert.match(data['globalSearch-instructions-notes-5'], /predeterminada non se procura.*arquivadas/);
 assert.match(data['globalSearch-instructions-operator-comment'], /comentario que contén/);
+
+assert.match(data['globalSearch-instructions-operator-created'], /días ou menos/);
+assert.match(data['globalSearch-instructions-operator-limit'], /enteiro positivo.*por páxina/);
+assert.match(data['globalSearch-instructions-operator-due'], /ata.*`__operator_due__:__predicate_overdue__`/);
+assert.match(data['globalSearch-instructions-operator-has'], /`has:-due`.*sen data de vencemento/);
+assert.match(data['globalSearch-instructions-operator-label'], /\*<color>\* ou \*<name>\*/);
