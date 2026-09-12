@@ -558,6 +558,13 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/89bf9a05e6d72b9823996ff595c3de5724b0ec02">Repair Slovenian user permissions and attachment translations</a>. Thanks to xet7.</summary>
+
+Correct 64 values across both Slovenian locales. Remove invented payroll restrictions and restore user permissions, workspace controls, attachment storage, URL schemes and avatar messages. Regression checks cover meaning distinctions, exact corrections, placeholders, key order and idempotent repairs. The short audit records 4,389 corrected findings and 11,557 pending findings.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/6f51e5c5a34090291df3b1e57727d25953599160">Fix Slovenian date activity and scheduled job translations</a>. Thanks to xet7.</summary>
 
 Correct 20 values across both Slovenian locales, including date/card argument order and checklist placeholders. Regression checks verify actual rendering, meanings, source tokens, exact corrections, key order and idempotent repairs. The short translation audit summary records 4,325 corrected findings and 11,621 pending findings.
