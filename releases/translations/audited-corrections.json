@@ -36335,5 +36335,75 @@
     "before": "Quadro '%s' não encontrado.",
     "after": "Non se atopou o taboleiro '%s'.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "boardCardTitlePopup-title",
+    "before": "Filtro do Título do Cartão",
+    "after": "Filtro do título da tarxeta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "boardChangeColorPopup-title",
+    "before": "Alterar Imagem de Fundo do Quadro",
+    "after": "Cambiar o fondo do taboleiro",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "boardInfoOnMyBoards-title",
+    "before": "Configurações de Todos os Quadros",
+    "after": "Configuración de Todos os taboleiros",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "boardInfoOnMyBoardsPopup-title",
+    "before": "Configurações de Todos os Quadros",
+    "after": "Configuración de Todos os taboleiros",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "boardMinicardSettingsPopup-title",
+    "before": "Configurações do Mini cartão",
+    "after": "Configuración da minitarxeta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "board_assignees",
+    "before": "Todos os administradores de todos os cartões neste quadro",
+    "after": "Todos os responsables de todas as tarxetas neste taboleiro",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "board_members",
+    "before": "Todos os membros do quadro",
+    "after": "Todos os membros do taboleiro",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "card-archive-pop",
+    "before": "O cartão não ficará visível nesta lista depois de arquivado.",
+    "after": "A tarxeta non será visible nesta lista despois de arquivala.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "card-archive-suggest-cancel",
+    "before": "Tu podes restaurar o cartão do arquivo posteriormente.",
+    "after": "Podes restaurar a tarxeta desde o Arquivo máis tarde.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "card-comments-title",
+    "before": "Este cartão possui %s comentário.",
+    "after": "Esta tarxeta ten %s comentario.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
