@@ -24008,5 +24008,131 @@
     "before": "Поставка складишта предметне грађе",
     "after": "Postavke pohrane privitaka",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "attachment-storage-settings",
+    "before": "Складиште предметне грађе",
+    "after": "Postavke pohrane",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "attachmentActionsPopup-title",
+    "before": "Поступање са овим материјалом",
+    "after": "Radnje s privitkom",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "attachments-path-description",
+    "before": "Путања до складишта где се чува предметна грађа",
+    "after": "Putanja na kojoj se pohranjuju datoteke privitaka",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "authentication-method",
+    "before": "Метод утврђивања идентитета",
+    "after": "Način autentifikacije",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "authentication-type",
+    "before": "Врста утврђивања идентитета",
+    "after": "Vrsta autentifikacije",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "autoAddUsersWithDomainName",
+    "before": "Повежи са оним сарадницима чији је домен е-поште",
+    "after": "Automatski dodaj korisnike s nazivom domene",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "automatic-linked-url-schemes",
+    "before": "Група места на Интернету која би могла да се посете. Једна група по линији",
+    "after": "Prilagođene URL sheme koje automatski postaju poveznice. Jedna URL shema po retku",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "automatically-field-on-card",
+    "before": "Сви будући предмети ће имати овакву рубрику",
+    "after": "Dodaj polje novim karticama",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "avatar-too-big",
+    "before": "Слика је превелика (__size__ max)",
+    "after": "Avatar je prevelik (najviše __size__)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "avatars-path",
+    "before": "Путања до слика сарадника",
+    "after": "Putanja avatara",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "avatars-path-description",
+    "before": "Путања где се складиште слике сарадника",
+    "after": "Putanja na kojoj se pohranjuju datoteke avatara",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "board-archive-failed",
+    "before": "Није успело заказивање архивирања списа",
+    "after": "Zakazivanje arhiviranja ploče nije uspjelo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "board-archive-scheduled",
+    "before": "Заказано је паковање списа у архиву",
+    "after": "Arhiviranje ploče uspješno je zakazano",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "board-backup-failed",
+    "before": "Није успело заказивање израде резервног примерка списа",
+    "after": "Zakazivanje sigurnosne kopije ploče nije uspjelo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "board-backup-scheduled",
+    "before": "Заказана је израда резервног примерка списа",
+    "after": "Sigurnosna kopija ploče uspješno je zakazana",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "board-cleanup-failed",
+    "before": "Није успело заказивање чишћења списа",
+    "after": "Zakazivanje čišćenja ploče nije uspjelo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "board-cleanup-scheduled",
+    "before": "Заказано је чишћење списа",
+    "after": "Čišćenje ploče uspješno je zakazano",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "board-drag-drop-reorder-or-click-open",
+    "before": "Притисните и задржите, превуците па отпустите да би пресложили списе. Притисните на деловодни број да би отворили ове списе.",
+    "after": "Povucite i ispustite za promjenu redoslijeda ikona ploča. Kliknite ikonu ploče da biste otvorili ploču.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
