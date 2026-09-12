@@ -48655,5 +48655,33 @@
     "before": "Link URL di aiut personalizzato",
     "after": "URL da la colliaziun d’agid persunalisada",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "custom-manifest-enabled",
+    "before": "Ativea web manifest personalizzato",
+    "after": "Activar il manifest web persunalisà",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "database-migrate-to-ferretdb",
+    "before": "Migra i dati testuali su FerretDB v1 (SQLite)",
+    "after": "Migrar las datas da text en FerretDB v1 (SQLite)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "database-migrate-to-mongodb",
+    "before": "Migra i dati testuali su MongoDB",
+    "after": "Migrar las datas da text en MongoDB",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "database-migration-done",
+    "before": "Migrazion di dati testuali completada.",
+    "after": "La migraziun da las datas da text è terminada.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
