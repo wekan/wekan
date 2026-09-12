@@ -616,5 +616,17 @@
     "key": "Node_heap_malloced_memory",
     "value": "Heap de Node: memoria reservada con malloc",
     "reason": "Heap de Node: memoria reservada con malloc is valid Aragonese technical wording; heap, Node and malloc are literal technical terms, and reserved memory is accurately described."
+  },
+  {
+    "locale": "an",
+    "key": "Node_memory_usage_external",
+    "value": "Uso de memoria de Node: externa",
+    "reason": "Valid shared Aragonese memory terminology; Node remains a technical name and the external/actual-use distinction matches the English source."
+  },
+  {
+    "locale": "an",
+    "key": "Node_memory_usage_heap_used",
+    "value": "Uso de memoria de Node: memoria realmente usada",
+    "reason": "Valid shared Aragonese memory terminology; Node remains a technical name and the external/actual-use distinction matches the English source."
   }
 ]

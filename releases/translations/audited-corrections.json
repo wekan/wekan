@@ -44259,5 +44259,33 @@
     "before": "Heap de Node: tamaño físico total",
     "after": "Heap de Node: grandaria fisica total",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "Reactivity_mode",
+    "before": "Modo de reactividad (changeStreams / oplog / polling)",
+    "after": "Modo de reactividat (changeStreams / oplog / polling)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "Reactivity_order",
+    "before": "Orden de reactividad (METEOR_REACTIVITY_ORDER)",
+    "after": "Orden de reactividat (METEOR_REACTIVITY_ORDER)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "Rotateplane",
+    "before": "Indicador de espera Rotateplane",
+    "after": "Indicador d’aspera Rotateplane",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "Scaleout",
+    "before": "Indicador de espera Scaleout",
+    "after": "Indicador d’aspera Scaleout",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
