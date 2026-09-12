@@ -15,7 +15,7 @@ template(name="scheduledTriggers")
       div.trigger-text
         | {{_'r-schedule-at-time'}}
       div.trigger-dropdown
-        input#schedule-time(type="time" value="09:00")
+        +calendarTimeInput(inputId="schedule-time" value="09:00")
       div.trigger-text
         | {{_'r-schedule-on-weekday'}}
       div.trigger-dropdown
@@ -34,7 +34,7 @@ template(name="scheduledTriggers")
       div.trigger-text
         | {{_'r-schedule-on-date'}}
       div.trigger-dropdown
-        input#schedule-date(type="date")
+        +calendarDateInput(inputId="schedule-date")
       div.trigger-text
         | {{_'r-of-cards-in-list'}}
       div.trigger-dropdown
@@ -58,7 +58,7 @@ template(name="scheduledTriggers")
       div.trigger-text
         | {{_'r-schedule-at-time'}}
       div.trigger-dropdown
-        input#due-time(type="time" value="09:00")
+        +calendarTimeInput(inputId="due-time" value="09:00")
     div.trigger-button.js-add-due-trigger.js-goto-action
       i.fa.fa-plus
 
@@ -75,6 +75,6 @@ template(name="scheduledTriggers")
       div.trigger-text
         | {{_'r-schedule-at-time'}}
       div.trigger-dropdown
-        input#aging-time(type="time" value="09:00")
+        +calendarTimeInput(inputId="aging-time" value="09:00")
     div.trigger-button.js-add-aging-trigger.js-goto-action
       i.fa.fa-plus

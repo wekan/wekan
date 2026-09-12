@@ -1125,6 +1125,10 @@ export const Utils = {
           .find('.trigger-text')
           .text()
           .toLowerCase()} ${username}`;
+      } else if (element.find('.js-calendar-toggle').length > 0) {
+        finalString += element.find('.js-calendar-toggle').text().trim();
+      } else if (element.find('.js-calendar-native-time').length > 0) {
+        finalString += element.find('.js-calendar-native-time').val();
       } else if (element.find('select').length > 0) {
         finalString += element
           .find('select option:selected')

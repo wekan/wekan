@@ -1,3 +1,8 @@
+import '/client/components/forms/calendarDateInput.jade';
+import '/client/components/forms/calendarTimeInput.jade';
+import '/client/components/forms/calendarTimeInput.js';
+import '/client/components/forms/calendarDateInput.js';
+import '/client/components/forms/calendarDateInput.css';
 import '/client/components/forms/datepicker.jade';
 import '/client/components/forms/inlinedform.jade';
 

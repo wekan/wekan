@@ -1,5 +1,8 @@
 ### Create card
 
+Choose the calendar in Member Settings. See
+[calendar systems and accessible date/time selection](./Calendar-Systems.md).
+
 At Calendar View, on Month when you click a date it will ask you if you want to create a new card and give its name. It then creates at first swimlane and at first list the card with the due date that it got from the date you clicked.
 
 Video demonstration:

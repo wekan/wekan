@@ -1,3 +1,4 @@
+import { formatDateForDisplay } from '/client/lib/dateDisplay';
 import { TAPi18n } from '/imports/i18n';
 import {
   setupDatePicker,
@@ -8,7 +9,6 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import {
   formatDateTime,
   formatDate,
-  formatDateByUserPreference,
   formatTime,
   getISOWeek,
   isValidDate,
@@ -347,9 +347,7 @@ Template['cardCustomField-date'].helpers({
     return user.isShowWeekOfYear();
   },
   showDate() {
-    const currentUser = ReactiveCache.getCurrentUser();
-    const dateFormat = currentUser ? currentUser.getDateFormat() : (window.localStorage.getItem('dateFormat') || 'YYYY-MM-DD');
-    return formatDateByUserPreference(Template.instance().date.get(), dateFormat, true);
+    return formatDateForDisplay(Template.instance().date.get(), true);
   },
   showISODate() {
     return Template.instance().date.get().toISOString();
@@ -365,7 +363,7 @@ Template['cardCustomField-date'].helpers({
     return '';
   },
   showTitle() {
-    return `${TAPi18n.__('card-start-on')} ${Template.instance().date.get().toLocaleString()}`;
+    return `${TAPi18n.__('card-start-on')} ${formatDateForDisplay(Template.instance().date.get(), true, date => date.toLocaleString())}`;
   },
 });
 

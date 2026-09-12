@@ -12,6 +12,7 @@ import { boardConverter } from '/client/lib/boardConverter';
 // Bring the swimlane or list a link named into view, once it has rendered.
 import { watchBoardItemReveals } from '/client/lib/revealBoardItem';
 import { formatDateByUserPreference } from '/imports/lib/dateUtils';
+import { calendarDateDisplayOptions } from '/client/lib/dateDisplay';
 import { toFullCalendarFirstDay } from '/client/lib/calendarFirstDay';
 import { weekNumberByFirstDay } from '/models/lib/weekStart';
 import Swimlanes from '/models/swimlanes';
@@ -1183,6 +1184,7 @@ Template.calendarView.helpers({
 
     return {
       id: 'calendar-view',
+      ...calendarDateDisplayOptions('calendar-view'),
       initialView: 'dayGridMonth',
       firstDay,
       editable: true,

@@ -12,7 +12,7 @@ template(name="formLabel")
     input.js-label-color-wheel#labelColorWheel(type="color" value=currentColorHex title="{{_ 'custom-color'}}")
 
   label(for="labelDueAt") {{_ 'due-date'}}
-  input.js-label-due-at#labelDueAt(type="date" value=dueAtValue)
+  +calendarDateInput(inputId="labelDueAt" fieldClass="js-label-due-at" value=dueAtValue)
 
 template(name="createLabelPopup")
   form.create-label

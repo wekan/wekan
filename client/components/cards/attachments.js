@@ -1,3 +1,4 @@
+import { formatDateForDisplay } from '/client/lib/dateDisplay';
 import { ReactiveCache } from '/imports/reactiveCache';
 import '/client/components/cards/attachments.jade';
 import { attachmentKind } from '/models/lib/attachmentKind';
@@ -408,12 +409,12 @@ Template.attachmentGallery.helpers({
   },
   uploadedAt() {
     if (this.uploadedAtOstrio) {
-      return formatDateTime(this.uploadedAtOstrio);
+      return formatDateForDisplay(this.uploadedAtOstrio, true, formatDateTime);
     }
     // Fall back to ObjectId timestamp (first 4 bytes = Unix seconds)
     try {
       const ts = parseInt(this._id.substring(0, 8), 16) * 1000;
-      if (!isNaN(ts)) return formatDateTime(new Date(ts));
+      if (!isNaN(ts)) return formatDateForDisplay(new Date(ts), true, formatDateTime);
     } catch (_) {}
     return '';
   },

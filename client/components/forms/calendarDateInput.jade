@@ -1,0 +1,34 @@
+template(name="calendarDateInput")
+  .calendar-date-input
+    if isGregorian
+      input(type=inputType id=inputId name=inputName class=fieldClass value=value autofocus=autofocus)
+    else
+      input.js-calendar-native-value(type="hidden" id=inputId name=inputName class=fieldClass value=value)
+      button.js-calendar-toggle(type="button" aria-label="{{_ 'date'}}" aria-expanded=expanded)
+        if selectedDateText
+          | {{selectedDateText}}
+        else
+          | {{_ 'date'}}
+      button.js-calendar-clear(type="button" aria-label="{{_ 'delete'}}") ×
+      if withTime
+        +calendarTimeInput(fieldClass="js-calendar-time" value=timeValue)
+      if expanded
+        .selected-calendar-picker
+          .selected-calendar-heading
+            button.js-calendar-year-previous(type="button" aria-label="{{_ 'previous'}} {{_ 'predicate-year'}}") «
+            button.js-calendar-previous(type="button" aria-label="{{_ 'previous'}} {{_ 'month'}}") ‹
+            span(aria-live="polite") {{monthLabel}}
+            button.js-calendar-next(type="button" aria-label="{{_ 'next'}} {{_ 'month'}}") ›
+            button.js-calendar-year-next(type="button" aria-label="{{_ 'next'}} {{_ 'predicate-year'}}") »
+          table
+            thead
+              tr
+                each weekdays
+                  th(scope="col") {{this}}
+            tbody
+              each weeks
+                tr
+                  each days
+                    td
+                      if this
+                        button.js-calendar-day(type="button" data-date=iso title=title aria-label=title aria-pressed=selected tabindex=tabIndex) {{label}}

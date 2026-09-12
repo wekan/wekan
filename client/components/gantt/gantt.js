@@ -1,3 +1,4 @@
+import { formatDateForDisplay } from '/client/lib/dateDisplay';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import Cards from '/models/cards';
 
@@ -69,9 +70,7 @@ Template.ganttView.helpers({
 		return TAPi18n.__(weekdayKeys[day.getDay() === 0 ? 6 : day.getDay() - 1]);
 	},
 	formattedDate(day) {
-		const currentUser = ReactiveCache.getCurrentUser && ReactiveCache.getCurrentUser();
-		const dateFormat = currentUser ? currentUser.getDateFormat() : 'YYYY-MM-DD';
-		return formatDateByUserPreference(day, dateFormat, false);
+		return formatDateForDisplay(day, false);
 	},
 	cardsInWeek(week) {
 		const board = Utils.getCurrentBoard();
@@ -216,5 +215,4 @@ Template.ganttView.onRendered(function() {
 });
 
 import { TAPi18n } from '/imports/i18n';
-import { formatDateByUserPreference } from '/imports/lib/dateUtils';
 import { ReactiveCache } from '/imports/reactiveCache';

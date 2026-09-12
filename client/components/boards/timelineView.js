@@ -1,3 +1,4 @@
+import { formatDateForDisplay } from '/client/lib/dateDisplay';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { Template } from 'meteor/templating';
@@ -46,7 +47,7 @@ function snippet(text, max = 160) {
 function formatTimestamp(date) {
   if (!date) return '';
   try {
-    return new Date(date).toLocaleString();
+    return formatDateForDisplay(date, true, value => value.toLocaleString());
   } catch (e) {
     return String(date);
   }

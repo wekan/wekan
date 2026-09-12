@@ -1,3 +1,4 @@
+import { formatDateForDisplay } from '/client/lib/dateDisplay';
 import { Meteor } from 'meteor/meteor';
 import { Session } from 'meteor/session';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
@@ -1320,8 +1321,8 @@ function formatDateTime(value) {
   const date = value instanceof Date ? value : new Date(value);
   if (isNaN(date.getTime())) return '';
   const p = n => String(n).padStart(2, '0');
-  return `${date.getFullYear()}-${p(date.getMonth() + 1)}-${p(date.getDate())} ` +
-    `${p(date.getHours())}:${p(date.getMinutes())}:${p(date.getSeconds())}`;
+  return formatDateForDisplay(date, true, () => `${date.getFullYear()}-${p(date.getMonth() + 1)}-${p(date.getDate())} ` +
+    `${p(date.getHours())}:${p(date.getMinutes())}:${p(date.getSeconds())}`);
 }
 
 Template.moveAttachments.helpers({

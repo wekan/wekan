@@ -1,3 +1,4 @@
+import { formatDateForDisplay } from '/client/lib/dateDisplay';
 import { ReactiveCache } from '/imports/reactiveCache';
 import Lists from '../../../models/lists';
 import { TAPi18n } from '/imports/i18n';
@@ -274,12 +275,11 @@ Template.listHeader.helpers({
 
   // A short "earliest – latest" badge label. Formatted here (rather than via
   // a nested Jade subexpression calling the shared `displayDate` helper) to
-  // keep the template simple - a plain YYYY-MM-DD is unambiguous in every
-  // locale and needs no new translatable text.
+  // keep the template simple and honor the selected calendar.
   dateFieldsRangeLabel(containerSwimlaneId) {
     const stats = dateFieldsRangeStats(containerSwimlaneId);
     if (!stats || stats.earliest === null) return '';
-    const iso = t => new Date(t).toISOString().slice(0, 10);
+    const iso = t => formatDateForDisplay(new Date(t), false);
     return stats.earliest === stats.latest
       ? iso(stats.earliest)
       : `${iso(stats.earliest)} – ${iso(stats.latest)}`;

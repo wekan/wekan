@@ -164,7 +164,7 @@ test('every custom field editor has a copy-to-clipboard control', () => {
   const stringAt = template.indexOf('template(name="cardCustomField-stringtemplate")');
   assert.match(template.slice(stringAt), /\+customFieldCopyButton\(value=/);
   assert.match(datepickerTemplate,
-    /\.right[\s\S]*input\.js-time-field[\s\S]*customFieldControls[\s\S]*\+customFieldCopyButton/);
+    /\.right[\s\S]*\+calendarTimeInput\([^\n]*fieldClass="js-time-field"[\s\S]*customFieldControls[\s\S]*\+customFieldCopyButton/);
 
   assert.match(client,
     /Template\.customFieldCopyButton\.events\([\s\S]*Utils\.copyTextToClipboard\(value\)/);
@@ -243,7 +243,7 @@ test('copy sits above the top-right corner of every custom field editor', () => 
   assert.match(formsCss,
     /form\.inlined-form \.custom-field-copy-control > a\.fa-copy[\s\S]*position: static;[\s\S]*top: auto;/);
   assert.match(datepickerTemplate,
-    /\.right[\s\S]*?input\.js-time-field[\s\S]*?customFieldControls[\s\S]*?\.custom-field-date-copy[\s\S]*?\+customFieldCopyButton/,
+    /\.right[\s\S]*?\+calendarTimeInput\([^\n]*fieldClass="js-time-field"[\s\S]*?customFieldControls[\s\S]*?\.custom-field-date-copy[\s\S]*?\+customFieldCopyButton/,
     'Date places Copy immediately after the Time field');
   assert.match(datepickerCss,
     /\.custom-field-date-copy \{[\s\S]*?align-items: center;[\s\S]*?padding-top: 24px;/,

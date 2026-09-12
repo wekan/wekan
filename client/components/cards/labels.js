@@ -1,3 +1,4 @@
+import { formatDateForDisplay } from '/client/lib/dateDisplay';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { LABEL_COLORS } from '/models/metadata/colors';
 import { isHexColor, toHex } from '/models/lib/contrastColor';
@@ -163,7 +164,7 @@ Template.cardLabelsPopup.helpers({
     if (!dueAt) return '';
     const date = dueAt instanceof Date ? dueAt : new Date(dueAt);
     if (isNaN(date.getTime())) return '';
-    return date.toLocaleDateString();
+    return formatDateForDisplay(date, false, value => value.toLocaleDateString());
   },
 });
 

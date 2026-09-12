@@ -1,3 +1,4 @@
+import { formatDateForDisplay } from '/client/lib/dateDisplay';
 import { ReactiveCache } from '/imports/reactiveCache';
 import {
   DEFAULT_ASSETLINKS,
@@ -147,7 +148,7 @@ Blaze.registerHelper('isTouchScreenOrShowDesktopDragHandles', () =>
 Blaze.registerHelper('displayDate', (...args) => {
   args.pop(); // hash
   const [date, formatStr] = args;
-  return format(new Date(date), formatStr ?? 'LLLL');
+  return formatDateForDisplay(date, true, value => format(value, formatStr ?? 'LLLL'));
 });
 
 Blaze.registerHelper('canModifyCard', function canModifyCard() {

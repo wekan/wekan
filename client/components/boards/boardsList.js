@@ -1,3 +1,4 @@
+import { formatDateForDisplay } from '/client/lib/dateDisplay';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { Session } from 'meteor/session';
 import { ReactiveVar } from 'meteor/reactive-var';
@@ -6,7 +7,6 @@ import { TAPi18n } from '/imports/i18n';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import getSlug from 'limax';
 // The archived-at line on a tile in the Archive, in the reader's own format.
-import { formatDateByUserPreference } from '/imports/lib/dateUtils';
 import { boardCreationAllowed } from '/client/lib/boardCreationAllowed';
 // The All Boards URLs, and the slug path of a workspace in the tree.
 // docs/Features/Page/All-Boards-URLs.md
@@ -1070,7 +1070,7 @@ Template.boardList.helpers({
   // later - so it answers an em dash rather than "Invalid Date".
   archivedAtText() {
     if (!this.archivedAt) return '—';
-    return formatDateByUserPreference(this.archivedAt);
+    return formatDateForDisplay(this.archivedAt);
   },
   // #2220: is this the user's Home board (the one opened after login)?
   isDefaultBoard() {

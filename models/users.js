@@ -1,3 +1,4 @@
+const { CALENDAR_SYSTEM_IDS } = require('/imports/lib/calendarSystems');
 import { Meteor } from 'meteor/meteor';
 import { ReactiveCache, ReactiveMiniMongoIndex } from '/imports/reactiveCache';
 import Boards from '/models/boards';
@@ -1057,15 +1058,12 @@ Users.attachSchema(
     },
     'profile.calendarSystem': {
       /**
-       * #4335: DISPLAY-ONLY calendar system used to render minicard and card
-       * detail dates (received/start/due/end). Dates are always stored as
-       * Gregorian `Date` objects; this only switches the rendered string to
-       * the Jalali (Persian/Solar Hijri) calendar for the viewing user. Date
-       * pickers/inputs are unaffected and stay Gregorian.
+       * Member-selected calendar for rendered dates and calendar inputs.
+       * Native Date storage and ISO interchange values are unchanged.
        */
       type: String,
       optional: true,
-      allowedValues: ['gregorian', 'jalali'],
+      allowedValues: CALENDAR_SYSTEM_IDS,
       defaultValue: 'gregorian',
     },
     'profile.mobileMode': {

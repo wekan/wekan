@@ -1,3 +1,4 @@
+import { formatDateForDisplay } from '/client/lib/dateDisplay';
 import { ReactiveDict } from 'meteor/reactive-dict';
 import { TAPi18n } from '/imports/i18n';
 import { Meteor } from 'meteor/meteor';
@@ -108,7 +109,7 @@ function summarise(row) {
   // every language, which a translated word would have needed 197 files to do.
   if (content.value === null) return '—';
   if (Array.isArray(content.value)) return content.value.join(', ');
-  if (content.isDate) return formatDateTime(content.value);
+  if (content.isDate) return formatDateForDisplay(content.value, true, formatDateTime);
   if (typeof content.value === 'number' || typeof content.value === 'boolean') {
     return String(content.value);
   }
@@ -163,7 +164,7 @@ Template.historyTable.helpers({
       changeTypeKey: changeTypeKey(row.changeType),
       groupKey: GROUP_KEYS[row.group] || null,
       contentSummary: summarise(row),
-      prettyWhen: formatDateTime(row.createdAt),
+      prettyWhen: formatDateForDisplay(row.createdAt, true, formatDateTime),
       isSelected: selected.includes(row._id),
       attachment: attachmentForRow(row),
     }));

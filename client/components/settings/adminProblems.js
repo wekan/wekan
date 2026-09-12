@@ -1,3 +1,4 @@
+import { formatDateForDisplay } from '/client/lib/dateDisplay';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { Session } from 'meteor/session';
 import { Tracker } from 'meteor/tracker';
@@ -614,7 +615,7 @@ function userName(userId) {
 }
 
 function formatDate(date) {
-  return date ? new Date(date).toLocaleString() : '';
+  return date ? formatDateForDisplay(date, true, value => value.toLocaleString()) : '';
 }
 
 // Every table on the Problems tab, keyed by its side-menu id. `docs` returns the
@@ -995,7 +996,7 @@ function columnsFor(stream) {
 
 function formatEventAt(at) {
   if (!at) return '';
-  try { return new Date(at).toISOString().replace('T', ' ').slice(0, 19); }
+  try { return formatDateForDisplay(at, true, value => value.toISOString().replace('T', ' ').slice(0, 19)); }
   catch (e) { return String(at); }
 }
 

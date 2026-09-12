@@ -63,7 +63,7 @@ template(name="addCardForm")
       .add-card-more-options.js-more-options
         textarea.js-more-options-description(placeholder="{{_ 'description'}}" dir="auto")
         label {{_ 'due-date'}}
-        input.js-more-options-due-at(type="datetime-local")
+        +calendarDateInput(fieldClass="js-more-options-due-at" withTime=true)
         if boardMembersForAssignees
           label {{_ 'assignees'}}
           .add-card-more-options-assignees

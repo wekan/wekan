@@ -68,7 +68,7 @@ test('editLabel unsets dueAt (rather than leaving a stale value) when none is su
 });
 
 test('the label popup form has a due-date input wired to the existing "due-date" i18n key', () => {
-  assert.match(labelsJadeSrc, /input\.js-label-due-at#labelDueAt\(type="date"/);
+  assert.match(labelsJadeSrc, /\+calendarDateInput\(inputId="labelDueAt" fieldClass="js-label-due-at"/);
   assert.match(labelsJadeSrc, /\{\{_ 'due-date'\}\}/);
 });
 

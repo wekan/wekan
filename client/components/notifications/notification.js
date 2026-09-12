@@ -1,5 +1,5 @@
+import { formatDateForDisplay } from '/client/lib/dateDisplay';
 import { ReactiveCache } from '/imports/reactiveCache';
-import { formatDateByUserPreference } from '/imports/lib/dateUtils';
 import Users from '/models/users';
 
 Template.notification.events({
@@ -43,8 +43,7 @@ Template.notification.helpers({
     const dateObj = new Date(activity.createdAt);
     if (Number.isNaN(dateObj.getTime())) return '';
 
-    const dateFormat = user.getDateFormat ? user.getDateFormat() : 'YYYY-MM-DD';
-    const datePart = formatDateByUserPreference(dateObj, dateFormat, false);
+    const datePart = formatDateForDisplay(dateObj, false);
     const timePart = dateObj.toLocaleTimeString([], {
       hour: 'numeric',
       minute: '2-digit',

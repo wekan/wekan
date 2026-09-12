@@ -1,3 +1,4 @@
+import { formatDateForDisplay } from '/client/lib/dateDisplay';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import { Filter } from '/client/lib/filter';
@@ -17,7 +18,6 @@ import {
   datePickerHelpers,
 } from '/client/lib/datepicker';
 import {
-  formatDateByUserPreference,
   isValidDate,
 } from '/imports/lib/dateUtils';
 import { dueDateClass } from '/client/lib/dueDateColor';
@@ -675,9 +675,7 @@ Template.checklistItemDueDate.helpers({
     return false;
   },
   showDate() {
-    const currentUser = ReactiveCache.getCurrentUser();
-    const dateFormat = currentUser ? currentUser.getDateFormat() : (window.localStorage.getItem('dateFormat') || 'YYYY-MM-DD');
-    return formatDateByUserPreference(Template.instance().date.get(), dateFormat, true);
+    return formatDateForDisplay(Template.instance().date.get(), true);
   },
   showISODate() {
     return Template.instance().date.get().toISOString();
@@ -688,9 +686,7 @@ Template.checklistItemDueDate.helpers({
   },
   showTitle() {
     const tpl = Template.instance();
-    const currentUser = ReactiveCache.getCurrentUser();
-    const dateFormat = currentUser ? currentUser.getDateFormat() : (window.localStorage.getItem('dateFormat') || 'YYYY-MM-DD');
-    const formattedDate = formatDateByUserPreference(tpl.date.get(), dateFormat, true);
+    const formattedDate = formatDateForDisplay(tpl.date.get(), true);
     return `${TAPi18n.__('card-due-on')} ${formattedDate}`;
   },
 });

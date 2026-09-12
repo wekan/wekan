@@ -1,0 +1,61 @@
+.calendar-date-input {
+  min-width: 0;
+}
+.calendar-date-input > input,
+.calendar-date-input > .js-calendar-toggle {
+  box-sizing: border-box;
+  max-width: 100%;
+}
+.selected-calendar-picker {
+  background: inherit;
+  color: inherit;
+  margin-block: 8px;
+}
+.selected-calendar-heading {
+  align-items: center;
+  display: flex;
+  gap: 3px;
+  justify-content: space-between;
+}
+.selected-calendar-heading span {
+  flex: 1;
+  text-align: center;
+}
+.selected-calendar-heading button,
+.selected-calendar-picker .js-calendar-day {
+  margin: 0;
+  min-width: 24px;
+  padding: 4px;
+}
+.selected-calendar-picker table {
+  table-layout: fixed;
+  width: 100%;
+}
+.selected-calendar-picker th {
+  font-size: calc(10px * var(--wekan-ui-font-scale, 1));
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.selected-calendar-picker td {
+  text-align: center;
+}
+.selected-calendar-picker .js-calendar-day[aria-pressed='true'] {
+  font-weight: bold;
+  outline: 2px solid currentColor;
+}
+.calendar-date-input button:focus-visible,
+.calendar-time-input select:focus-visible,
+.calendar-date-input input:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+.calendar-time-input {
+  align-items: center;
+  display: flex;
+  gap: 4px;
+}
+.calendar-time-input select {
+  min-width: 0;
+  margin-bottom: 0;
+  padding-inline: 4px;
+}

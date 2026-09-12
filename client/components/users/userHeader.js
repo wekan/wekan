@@ -1,3 +1,4 @@
+const { availableCalendarSystems } = require('/imports/lib/calendarSystems');
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
@@ -514,17 +515,15 @@ Template.changeSettingsPopup.helpers({
       return window.localStorage.getItem('startDayOfWeek');
     }
   },
-  // #4335: display-only Jalali (Persian/Solar Hijri) calendar toggle.
+  // Supported calendar choices are independent of the interface language.
   calendarSystems() {
     const currentUser = ReactiveCache.getCurrentUser();
     const current = currentUser
       ? currentUser.getCalendarSystem()
       : window.localStorage.getItem('calendarSystem') || 'gregorian';
-    return [
-      { name: TAPi18n.__('calendar-system-gregorian'), value: 'gregorian' },
-      { name: TAPi18n.__('calendar-system-jalali'), value: 'jalali' },
-    ].map(system => ({
+    return availableCalendarSystems().map(system => ({
       ...system,
+      name: TAPi18n.__(system.labelKey),
       isSelected: system.value === current,
     }));
   },

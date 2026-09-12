@@ -1,0 +1,10 @@
+template(name="calendarTimeInput")
+  .calendar-time-input
+    input.js-calendar-native-time(type="text" inputmode="numeric" id=inputId name=inputName class=fieldClass value=nativeTime placeholder="HH:mm" aria-label="{{_ 'time'}}")
+    select.js-calendar-hour(aria-label="{{_ 'hours'}}")
+      each hours
+        option(value=value selected=selected) {{value}}
+    span(aria-hidden="true") :
+    select.js-calendar-minute(aria-label="{{_ 'minutes'}}")
+      each minutes
+        option(value=value selected=selected) {{value}}

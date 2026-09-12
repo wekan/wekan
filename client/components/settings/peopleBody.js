@@ -1,3 +1,4 @@
+import { formatDateForDisplay } from '/client/lib/dateDisplay';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import { Session } from 'meteor/session';
@@ -603,9 +604,9 @@ const LOGIN_LOCATION_COLUMNS = [
   { labelKey: 'event-ipv4', nowrap: true, value: row => row.ipv4 },
   { labelKey: 'event-ipv6', nowrap: true, value: row => row.ipv6 },
   { labelKey: 'office-first-seen', nowrap: true,
-    value: row => (row.firstAt ? new Date(row.firstAt).toLocaleString() : '') },
+    value: row => (row.firstAt ? formatDateForDisplay(row.firstAt, true, value => value.toLocaleString()) : '') },
   { labelKey: 'office-last-seen', nowrap: true,
-    value: row => (row.at ? new Date(row.at).toLocaleString() : '') },
+    value: row => (row.at ? formatDateForDisplay(row.at, true, value => value.toLocaleString()) : '') },
 ];
 
 const TEAM_COLUMNS = [

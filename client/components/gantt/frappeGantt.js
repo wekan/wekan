@@ -1,3 +1,4 @@
+import { formatDateForDisplay, dateDisplayPreferences } from '/client/lib/dateDisplay';
 import { Template } from 'meteor/templating';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { ReactiveVar } from 'meteor/reactive-var';
@@ -49,7 +50,7 @@ function formatDate(value) {
   if (!value) return '';
   const date = value instanceof Date ? value : new Date(value);
   if (Number.isNaN(date.getTime())) return '';
-  return date.toISOString().slice(0, 10);
+  return formatDateForDisplay(date, false, value => value.toISOString().slice(0, 10));
 }
 
 // Turns a board's cards into Frappe Gantt's flat task list. A card needs a
@@ -117,12 +118,19 @@ const VIEW_MODE_KEYS = [
   ['YEAR', 'gantt-view-year'],
 ];
 export function translatedViewModes(GanttLib) {
+  const selectedCalendar = dateDisplayPreferences().calendarSystem;
   return VIEW_MODE_KEYS
     .filter(([key]) => GanttLib.VIEW_MODE && GanttLib.VIEW_MODE[key])
     .map(([key, i18nKey]) => ({
       ...GanttLib.VIEW_MODE[key],
       name: TAPi18n.__(i18nKey),
       _key: key,
+      ...(selectedCalendar !== 'gregorian' ? {
+        lower_text: ['HOUR', 'QUARTER_DAY', 'HALF_DAY'].includes(key)
+          ? GanttLib.VIEW_MODE[key].lower_text : date => formatDateForDisplay(date, false),
+        upper_text: ['HOUR', 'QUARTER_DAY', 'HALF_DAY'].includes(key)
+          ? date => formatDateForDisplay(date, false) : () => '',
+      } : {}),
     }));
 }
 

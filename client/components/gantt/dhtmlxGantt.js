@@ -1,3 +1,4 @@
+import { formatDateForDisplay, dateDisplayPreferences } from '/client/lib/dateDisplay';
 import { Template } from 'meteor/templating';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { ReactiveVar } from 'meteor/reactive-var';
@@ -42,7 +43,7 @@ function formatDate(value) {
   if (!value) return '';
   const date = value instanceof Date ? value : new Date(value);
   if (Number.isNaN(date.getTime())) return '';
-  return date.toISOString().slice(0, 10);
+  return formatDateForDisplay(date, false, value => value.toISOString().slice(0, 10));
 }
 
 // Turns a board's cards into DHTMLX Gantt's flat task list (its own shape:
@@ -180,6 +181,22 @@ Template.dhtmlxGanttView.onRendered(function() {
         gantt.templates.tooltip_text = (start, end, task) => tooltipHtml(task);
         gantt.init(container);
         templateInstance.ganttInitialized = true;
+      }
+      if (!templateInstance.nativeDateFormats) {
+        templateInstance.nativeDateFormats = {
+          scales: gantt.config.scales,
+          date_grid: gantt.templates.date_grid,
+          task_date: gantt.templates.task_date,
+        };
+      }
+      if (dateDisplayPreferences().calendarSystem !== 'gregorian') {
+        gantt.config.scales = [{ unit: 'day', step: 1, format: date => formatDateForDisplay(date, false) }];
+        gantt.templates.date_grid = date => formatDateForDisplay(date, false);
+        gantt.templates.task_date = date => formatDateForDisplay(date, false);
+      } else {
+        gantt.config.scales = templateInstance.nativeDateFormats.scales;
+        gantt.templates.date_grid = templateInstance.nativeDateFormats.date_grid;
+        gantt.templates.task_date = templateInstance.nativeDateFormats.task_date;
       }
       gantt.parse({ data: tasks, links: [] });
     });

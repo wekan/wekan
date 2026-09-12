@@ -1,3 +1,4 @@
+import { calendarDateDisplayOptions } from '/client/lib/dateDisplay';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import { ReactiveVar } from 'meteor/reactive-var';
@@ -60,6 +61,7 @@ Template.multiboardCalendarView.helpers({
 
     return {
       id: 'multiboard-calendar-view',
+      ...calendarDateDisplayOptions('multiboard-calendar-view'),
       initialView: 'dayGridMonth',
       firstDay,
       // #2469 scope: cross-board drag-to-reschedule is out of scope for

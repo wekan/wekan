@@ -8,7 +8,6 @@ import {
 import {
   formatDateTime,
   formatDate,
-  formatDateByUserPreference,
   formatTime,
   getISOWeek,
   isValidDate,
@@ -28,7 +27,7 @@ import {
 } from '/imports/lib/dateUtils';
 import { dueDateClass, dueCountdown } from '/client/lib/dueDateColor';
 import { subscribeDateNowTicker } from '/client/lib/dateNowTicker';
-import { formatJalaliDate } from '/imports/lib/jalaliDate';
+import { formatDateForDisplay as formatCardDateForDisplay } from '/client/lib/dateDisplay';
 
 // #2424: turn a due date's countdown into the badge's visible suffix, e.g.
 // "Jun 15 (3 days left)" / "Jun 15 (2 days overdue)" / "Jun 15 (Due today)".
@@ -41,26 +40,6 @@ function dueCountdownText(dueDate, nowVal) {
     return TAPi18n.__('due-today');
   }
   return TAPi18n.__(key, { sprintf: [days] });
-}
-
-// #4335: DISPLAY-ONLY per-user calendar-system toggle. Storage always stays
-// Gregorian (native `Date`); when the viewing user opted into
-// `profile.calendarSystem === 'jalali'`, minicard and card detail dates are
-// rendered in the Jalali (Persian/Solar Hijri) calendar instead. Date
-// pickers/inputs are untouched by this and remain Gregorian.
-function formatCardDateForDisplay(date, includeTime = true) {
-  const currentUser = ReactiveCache.getCurrentUser();
-  const dateFormat = currentUser
-    ? currentUser.getDateFormat()
-    : window.localStorage.getItem('dateFormat') || 'YYYY-MM-DD';
-  const calendarSystem = currentUser
-    ? currentUser.getCalendarSystem()
-    : window.localStorage.getItem('calendarSystem') || 'gregorian';
-
-  if (calendarSystem === 'jalali') {
-    return formatJalaliDate(date, dateFormat, includeTime);
-  }
-  return formatDateByUserPreference(date, dateFormat, includeTime);
 }
 
 // --- DatePicker popups (edit date forms) ---
@@ -358,7 +337,7 @@ Template.cardEndDate.helpers(cardDateHelpers({
   },
   showTitle() {
     const tpl = Template.instance();
-    return `${TAPi18n.__('card-end-on')} ${format(tpl.date.get(), 'LLLL')}`;
+    return `${TAPi18n.__('card-end-on')} ${formatCardDateForDisplay(tpl.date.get(), true, date => format(date, 'LLLL'))}`;
   },
 }));
 
@@ -378,12 +357,7 @@ Template.cardCustomFieldDate.onCreated(function () {
 Template.cardCustomFieldDate.helpers(cardDateHelpers({
   showDate() {
     const tpl = Template.instance();
-    // this will start working once mquandalle:moment
-    // is updated to at least moment.js 2.10.5
-    // until then, the date is displayed in the "L" format
-    return tpl.date.get().calendar(null, {
-      sameElse: 'llll',
-    });
+    return formatCardDateForDisplay(tpl.date.get(), true);
   },
   showTitle() {
     const tpl = Template.instance();
@@ -555,7 +529,7 @@ Template.minicardEndDate.helpers(cardDateHelpers({
   },
   showTitle() {
     const tpl = Template.instance();
-    return `${TAPi18n.__('card-end-on')} ${format(tpl.date.get(), 'LLLL')}`;
+    return `${TAPi18n.__('card-end-on')} ${formatCardDateForDisplay(tpl.date.get(), true, date => format(date, 'LLLL'))}`;
   },
   showDate() {
     return formatCardDateForDisplay(Template.instance().date.get(), true);
@@ -609,7 +583,7 @@ Template.voteEndDate.helpers(cardDateHelpers({
   },
   showTitle() {
     const tpl = Template.instance();
-    return `${TAPi18n.__('card-end-on')} ${tpl.date.get().toLocaleString()}`;
+    return `${TAPi18n.__('card-end-on')} ${formatCardDateForDisplay(tpl.date.get(), true, date => date.toLocaleString())}`;
   },
 }));
 
@@ -635,7 +609,7 @@ Template.pokerEndDate.helpers(cardDateHelpers({
   },
   showTitle() {
     const tpl = Template.instance();
-    return `${TAPi18n.__('card-end-on')} ${format(tpl.date.get(), 'LLLL')}`;
+    return `${TAPi18n.__('card-end-on')} ${formatCardDateForDisplay(tpl.date.get(), true, date => format(date, 'LLLL'))}`;
   },
 }));
 

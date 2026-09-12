@@ -1,3 +1,4 @@
+import { formatDateForDisplay } from '/client/lib/dateDisplay';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { TAPi18n } from '/imports/i18n';
@@ -57,7 +58,7 @@ Template.groupByAssigneeView.helpers({
     return translateGroupLabel(label, key => TAPi18n.__(key));
   },
   formatDueAt(dueAt) {
-    return dueAt ? moment(dueAt).format('llll') : '';
+    return dueAt ? formatDateForDisplay(dueAt, true, date => moment(date).format('llll')) : '';
   },
   cardUrl(cardId) {
     const boardId = Session.get('currentBoard');

@@ -40,7 +40,9 @@ console.log('dateTemplates:');
 test('the edit form is written once', () => {
   assert.ok(/template\(name="editDateForm"\)/.test(datepicker), 'one template');
   const copies = (cardDate + customFields + datepicker)
-    .match(/input\.js-date-field#date/g) || [];
+    // The field is now the shared selected-calendar input, with native ISO
+    // state behind it. Keep the guard against duplicating date forms.
+    .match(/\+calendarDateInput\(inputId="date"/g) || [];
   assert.strictEqual(copies.length, 1, 'and the date field exists in exactly one place');
   // All eight popups include it, and pass the three things it draws.
   for (const popup of ['editCardReceivedDatePopup', 'editCardStartDatePopup',

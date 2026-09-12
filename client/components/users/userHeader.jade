@@ -337,7 +337,7 @@ template(name="changeSettingsPopup")
           i.fa.fa-calendar-check-o
           | {{_ 'calendar-system'}}
         //- #4335: display-only toggle. Dates stay stored as Gregorian; this
-        //- only changes how minicard/card-detail dates are RENDERED.
+        //- only changes how dates are RENDERED.
         select#calendar-system.inline-input.left
           each system in calendarSystems
             if system.isSelected

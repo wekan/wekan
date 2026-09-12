@@ -1,3 +1,4 @@
+import { formatDateForDisplay } from '/client/lib/dateDisplay';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { Meteor } from 'meteor/meteor';
 
@@ -114,7 +115,7 @@ Template.originalPositionsView.helpers({
   },
 
   formatDate(date) {
-    return new Date(date).toLocaleString();
+    return formatDateForDisplay(date, true, value => value.toLocaleString());
   },
 });
 
