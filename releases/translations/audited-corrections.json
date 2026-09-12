@@ -20697,5 +20697,145 @@
     "before": "Обнове су успешно настављене",
     "after": "Миграциите се успешно продолжени",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "cron-migrations-retried",
+    "before": "Неуспеле обнове су управо поново покренуте",
+    "after": "Неуспешните миграции се успешно повторно започнати",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "cron-no-errors",
+    "before": "Нису се догодиле никакве грешке",
+    "after": "Нема грешки за прикажување",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "cron-no-failed-migrations",
+    "before": "Нема понављања јер није ни било неуспешних обнова",
+    "after": "Нема неуспешни миграции за повторен обид",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "cron-no-paused-migrations",
+    "before": "Нема настављања јер се није ни правио предах",
+    "after": "Нема паузирани миграции за продолжување",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "cron-resume-paused",
+    "before": "Настави обнову након предаха",
+    "after": "Продолжи ги паузираните миграции",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "custom-field-delete-pop",
+    "before": "Опозив ове радње неће бити могућ. Радњом се уклања ова придружена рубрика из свих предмета и уништива њена претходна историја употребе.",
+    "after": "Ова не може да се поништи. Приспособеното поле ќе биде отстрането од сите карти и неговата историја ќе биде уништена.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "custom-field-dropdown-options-placeholder",
+    "before": "Натиснете enter за добавяне на още опции",
+    "after": "Притиснете Enter за да додадете повеќе опции",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "custom-field-stringtemplate-format",
+    "before": "Облик (користите %{вредност} као основу/носач)",
+    "after": "Формат (користете %{value} како заменски знак)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "custom-field-stringtemplate-item-placeholder",
+    "before": "Притисните ентер да додате још ставки",
+    "after": "Притиснете Enter за да додадете повеќе ставки",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "custom-field-stringtemplate-separator",
+    "before": "Раздвајач (користите &#32; или &nbsp; за размак)",
+    "after": "Разделувач (користете &#32; или &nbsp; за празно место)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "custom-help-link-url",
+    "before": "Место на Интернету где се може затражити помоћ",
+    "after": "URL на приспособената врска за помош",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "custom-legal-notice-link-url",
+    "before": "Место на Интернету са условима/уговором за коришћење",
+    "after": "URL на приспособената страница со правно известување",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "custom-login-logo-image-url",
+    "before": "Веза до места на Интернету са ког се повлачи насловна слика код пријаве",
+    "after": "URL на приспособената слика на логото за најавување",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "custom-login-logo-link-url",
+    "before": "Слика изнад дела за пријаву води до следећег места на Интернету",
+    "after": "URL на врската на приспособеното лого за најавување",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "custom-top-left-corner-logo-height",
+    "before": "Висина за Ваш лого у горњем левом углу. Уобичајена вредност: 27",
+    "after": "Висина на приспособеното лого во горниот лев агол. Стандардно: 27",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "custom-top-left-corner-logo-image-url",
+    "before": "Веза до места на Интернету где се налази слика са Вашим логом за приказивање у горњем левом углу",
+    "after": "URL на сликата на приспособеното лого во горниот лев агол",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "custom-top-left-corner-logo-link-url",
+    "before": "Веза до места на Интернету које се посећује када си кликне на Ваш лого у горњем левом углу",
+    "after": "URL на врската на приспособеното лого во горниот лев агол",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "default-authentication-method",
+    "before": "Уобичајени метод за утврђивање идентитета",
+    "after": "Стандарден метод на автентикација",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "delete-all-notifications-confirm",
+    "before": "Да ли сте сигурни да желите да избришете сва обавештења? Опозив ове радње неће бити могућ.",
+    "after": "Дали сте сигурни дека сакате да ги избришете сите известувања? Ова дејство не може да се поништи.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "delete-avatar-confirm",
+    "before": "Да ли сте сигурни да желите да уклоните ову слику?",
+    "after": "Дали сте сигурни дека сакате да го избришете овој аватар?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
