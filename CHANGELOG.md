@@ -558,6 +558,13 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/e837380f5f5b1a961c2bb1bf32ddaf02da9c1ea1">Repair Galician regional conversion and checklist copy messages</a>. Thanks to xet7.</summary>
+
+Replace 10 Portuguese values with reviewed Galician wording. Preserve conversion timing and continued use, migration structural checks, checklist/item deletion distinctions and template-copy intent. Regression checks verify meanings, exact corrections, source tokens, key order and idempotent repairs. The short translation audit records current progress.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/b42daee352ff777ea83dd62630c44c79be2a72e3">Repair Galician regional checklist and comment permission controls</a>. Thanks to xet7.</summary>
 
 Replace 10 Portuguese values with reviewed Galician wording. Preserve checklist/item distinctions, assigned-card and comment-only restrictions and board restoration instructions. Regression checks verify meanings, exact corrections, source tokens, key order and idempotent repairs. The short translation audit records current progress.
