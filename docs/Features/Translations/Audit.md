@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Audit keys |
 | --- | ---: |
-| Explicitly corrected | 6,638 |
+| Explicitly corrected | 6,642 |
 | Restored pre-pull values awaiting further validation | 4,059 |
 | Reviewed and retained unchanged | 172 |
-| Pending review or repair | 9,212 |
+| Pending review or repair | 9,208 |
 | Total tracked | 20,081 |
 
 **Translation repairs remain unfinished.** These counts cover flagged findings; unflagged strings and restored values are not certified as correct.
 
-Fixes cover wrong-language text, terminology, warnings, JSON examples, placeholders and calendar/search formatting. The correction history records **6,700 values**, including fixes outside the audit. Per-language remaining work is available through the command below.
+Fixes cover wrong-language text, terminology, warnings, JSON examples, placeholders and calendar/search formatting. The correction history records **6,704 values**, including fixes outside the audit. Per-language remaining work is available through the command below.
 
-Latest fix: [97ce8878f](https://github.com/wekan/wekan/commit/97ce8878fe7222ca95f52a7666340ac3e9a8acad), **2026-09-13** — five Chinese Saudi moon-sighting labels repaired; thirteen product-name values retained after review. These eight flagged locale queues are complete. Exact-value, placeholder, key-order, review and idempotency checks pass. Low-confidence wording needs native-speaker review; live browser verification remains unavailable.
+Latest fix: [32eb90ec9](https://github.com/wekan/wekan/commit/32eb90ec9f6010ed76f233b84e6a6b38d612b802), **2026-09-13** — four Marathi/Nepali Hijri labels repaired, preserving moon-sighting and astronomical-epoch distinctions; both flagged queues are complete. Exact-value, placeholder, key-order and idempotency checks pass. Low-confidence wording needs native-speaker review; live browser verification remains unavailable.
 
 **Provenance:** not all errors came from Transifex. The captured pull changed 4,061 values; the local audit added 16,020 findings. Bosnian errors predated that pull in a [local completion commit](https://github.com/wekan/wekan/commit/bdb3b15886a749b725b5290ba0109fcba955f983). Other ultimate origins remain unverified.
 
