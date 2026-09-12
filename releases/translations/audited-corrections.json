@@ -44287,5 +44287,47 @@
     "before": "Indicador de espera Scaleout",
     "after": "Indicador d’aspera Scaleout",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "a-dueAt",
+    "before": "cambiada la hora de vencimiento a",
+    "after": "cambió a hora de vencimiento a",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "a-endAt",
+    "before": "cambiada la hora de finalización a",
+    "after": "cambió a hora de finalización a",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "a-receivedAt",
+    "before": "cambiada la hora de recepción a",
+    "after": "cambió a hora de recepción a",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "a-startAt",
+    "before": "cambiada la hora de comienzo a",
+    "after": "cambió a hora d’inicio a",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "accessibility-content",
+    "before": "Contenido de accesibilidad",
+    "after": "Conteniu d’accesibilidat",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "accessibility-page-enabled",
+    "before": "Página de accesibilidad habilitada",
+    "after": "Pachina d’accesibilidat activada",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
