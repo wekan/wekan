@@ -558,6 +558,13 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/a1a4930e8">Repair Bosnian migration steps and starred board help</a>. Thanks to xet7.</summary>
+
+Correct 14 flagged values. Regressions verify starred-board ordering, week start, empty duplicates and migration entity names. Meaning, source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records current progress.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/dd9047bcf">Repair Bosnian minicard display and field sum labels</a>. Thanks to xet7.</summary>
 
 Correct 10 flagged values. Regressions verify summed field values, per-list counts and minicard display scope. Meaning, source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records current progress.
