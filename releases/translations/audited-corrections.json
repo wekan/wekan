@@ -22146,5 +22146,180 @@
     "before": "Премести предметну грађу ових списа у облак на Amazon S3",
     "after": "Премести ги сите прилози на таблата во S3",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "move-all-attachments-to-fs",
+    "before": "Премести целокупну предметну грађу у локални систем датотека",
+    "after": "Премести ги сите прилози во датотечниот систем",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "move-all-attachments-to-gridfs",
+    "before": "Премести целокупну предметну грађу у MongoDB GridFS",
+    "after": "Премести ги сите прилози во GridFS",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "move-all-attachments-to-s3",
+    "before": "Премести целокупну предметну грађу из списа у облак на Amazon S3",
+    "after": "Премести ги сите прилози во S3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "multi-selection-active",
+    "before": "Штиклирајте да би изабрали списе",
+    "after": "Кликнете на полињата за избор за да изберете табли",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "multi-selection-label",
+    "before": "Залепите или одлепите налепнице на одабране предмете",
+    "after": "Постави ознака за избраното",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "multi-selection-on",
+    "before": "Множественият избор е приложен",
+    "after": "Повеќекратниот избор е вклучен",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "muted-info",
+    "before": "Нећете чути обавештења кад наступе било какве промене у овим списима",
+    "after": "Нема да добивате известувања за никакви промени на оваа табла",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "my-cards",
+    "before": "Предмети где имам надлежност",
+    "after": "Мои карти",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "myCardsSortChange-choice-board",
+    "before": "По деловодном броју списа",
+    "after": "По табла",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "myCardsSortChange-title",
+    "before": "Редослед предмета где имам пуномоћ",
+    "after": "Подредување на моите карти",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "myCardsSortChangePopup-title",
+    "before": "Поређај предмете где имам пуномоћ",
+    "after": "Подредување на моите карти",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "myCardsViewChangePopup-title",
+    "before": "Такви предмети треба да буду",
+    "after": "Приказ на моите карти",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "n-cards-found",
+    "before": "Број пронађених предмета: %s",
+    "after": "Пронајдени се %s карти",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "newlineBecomesNewChecklistItem",
+    "before": "Сваки ред текста постаје ставка на списку",
+    "after": "Секој ред текст станува ставка од списокот за проверка",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "newlineBecomesNewChecklistItemOriginOrder",
+    "before": "Сваки ред текста постаје ставка на списку - по изворном редоследу уноса",
+    "after": "Секој ред текст станува ставка од списокот за проверка, по изворниот редослед",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "no-cards-found",
+    "before": "Није пронађен ни један предмет",
+    "after": "Нема пронајдени карти",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "no-comments-desc",
+    "before": "Без права на расправу и права на увид у записник",
+    "after": "Не може да ги гледа коментарите.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "normal-assigned-only-desc",
+    "before": "Има увид и пуна права само у оним предметима где има надлежност или је опуномоћен.",
+    "after": "Видливи се само доделените карти. Уредување како обичен корисник.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "normal-desc",
+    "before": "Може да има и увид и пун приступ у све предмете из ових списа. Не може да поставља правила рада у овим списима.",
+    "after": "Може да гледа и уредува карти. Не може да ги менува поставките.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "not-accepted-yet",
+    "before": "Позив још увек није прихваћен",
+    "after": "Поканата сè уште не е прифатена",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "notify-participate",
+    "before": "Примајте допунске извештаје при било којој измени предмета које сте сами завели или где сте сарадник",
+    "after": "Добивајте известувања за промени на картите во кои учествувате како создавач или член",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "notify-watch",
+    "before": "Получавате информация за всички табла, списъци и карти, които наблюдавате",
+    "after": "Добивајте известувања за промени на таблите, списоците или картите што ги следите",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "oidc-button-text",
+    "before": "Измени OIDC текст на дугмету",
+    "after": "Приспособете го текстот на копчето OIDC",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "one-card-found",
+    "before": "Пронађен је један предмет",
+    "after": "Пронајдена е една карта",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "operator-debug-invalid",
+    "before": "%s уопште није исправан предикат",
+    "after": "%s не е валиден предикат за отстранување грешки",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
