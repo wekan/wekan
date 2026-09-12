@@ -46534,5 +46534,47 @@
     "before": "Islamic tabular",
     "after": "Hijri-dagatal (töflureiknað, stjarnfræðilegt upphaf tímatalningar)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "az",
+    "key": "advanced-filter-description",
+    "before": "Advanced Filter allows to write a string containing following operators: == != <= >= && || ( ) A space is used as a separator between the Operators. You can filter for all Custom Fields by typing their names and values. For Example: Field1 == Value1. Note: If fields or values contains spaces, you need to encapsulate them into single quotes. For Example: 'Field 1' == 'Value 1'. For single control characters (' \\\\/) to be skipped, you can use \\\\. For example: Field1 == I\\\\'m. Also you can combine multiple conditions. For Example: F1 == V1 || F1 == V2. Normally all operators are interpreted from left to right. You can change the order by placing brackets. For Example: F1 == V1 && ( F2 == V2 || F2 == V3 ). Also you can search text fields using regex: F1 == /Tes.*/i",
+    "after": "Təkmil filtr aşağıdakı operatorları ehtiva edən ifadə yazmağa imkan verir: == != <= >= && || ( ) Operatorlar boşluqla ayrılır. Xüsusi sahələrin adlarını və dəyərlərini yazaraq bütün xüsusi sahələr üzrə filtrləyə bilərsiniz. Məsələn: Field1 == Value1. Qeyd: Sahə adları və ya dəyərlər boşluq ehtiva edirsə, onları tək dırnaq arasına alın. Məsələn: 'Field 1' == 'Value 1'. Xüsusi simvolları (' \\\\/) qaçırmaq üçün \\\\ istifadə edə bilərsiniz. Məsələn: Field1 == I\\'m. Bir neçə şərti də birləşdirə bilərsiniz. Məsələn: F1 == V1 || F1 == V2. Adətən bütün operatorlar soldan sağa işlənir. Mötərizələrdən istifadə edərək ardıcıllığı dəyişə bilərsiniz. Məsələn: F1 == V1 && ( F2 == V2 || F2 == V3 ). Mətn sahələrində müntəzəm ifadələrlə də axtarış edə bilərsiniz: F1 == /Tes.*/i",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "az",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "Hicri təqvim (Səudiyyə Ərəbistanı, Ayın müşahidəsi)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "az-AZ",
+    "key": "advanced-filter-description",
+    "before": "Advanced Filter allows to write a string containing following operators: == != <= >= && || ( ) A space is used as a separator between the Operators. You can filter for all Custom Fields by typing their names and values. For Example: Field1 == Value1. Note: If fields or values contains spaces, you need to encapsulate them into single quotes. For Example: 'Field 1' == 'Value 1'. For single control characters (' \\\\/) to be skipped, you can use \\\\. For example: Field1 == I\\\\'m. Also you can combine multiple conditions. For Example: F1 == V1 || F1 == V2. Normally all operators are interpreted from left to right. You can change the order by placing brackets. For Example: F1 == V1 && ( F2 == V2 || F2 == V3 ). Also you can search text fields using regex: F1 == /Tes.*/i",
+    "after": "Təkmil filtr aşağıdakı operatorları ehtiva edən ifadə yazmağa imkan verir: == != <= >= && || ( ) Operatorlar boşluqla ayrılır. Xüsusi sahələrin adlarını və dəyərlərini yazaraq bütün xüsusi sahələr üzrə filtrləyə bilərsiniz. Məsələn: Field1 == Value1. Qeyd: Sahə adları və ya dəyərlər boşluq ehtiva edirsə, onları tək dırnaq arasına alın. Məsələn: 'Field 1' == 'Value 1'. Xüsusi simvolları (' \\\\/) qaçırmaq üçün \\\\ istifadə edə bilərsiniz. Məsələn: Field1 == I\\'m. Bir neçə şərti də birləşdirə bilərsiniz. Məsələn: F1 == V1 || F1 == V2. Adətən bütün operatorlar soldan sağa işlənir. Mötərizələrdən istifadə edərək ardıcıllığı dəyişə bilərsiniz. Məsələn: F1 == V1 && ( F2 == V2 || F2 == V3 ). Mətn sahələrində müntəzəm ifadələrlə də axtarış edə bilərsiniz: F1 == /Tes.*/i",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "az-AZ",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "Hicri təqvim (Səudiyyə Ərəbistanı, Ayın müşahidəsi)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "az-LA",
+    "key": "advanced-filter-description",
+    "before": "Advanced Filter allows to write a string containing following operators: == != <= >= && || ( ) A space is used as a separator between the Operators. You can filter for all Custom Fields by typing their names and values. For Example: Field1 == Value1. Note: If fields or values contains spaces, you need to encapsulate them into single quotes. For Example: 'Field 1' == 'Value 1'. For single control characters (' \\\\/) to be skipped, you can use \\\\. For example: Field1 == I\\\\'m. Also you can combine multiple conditions. For Example: F1 == V1 || F1 == V2. Normally all operators are interpreted from left to right. You can change the order by placing brackets. For Example: F1 == V1 && ( F2 == V2 || F2 == V3 ). Also you can search text fields using regex: F1 == /Tes.*/i",
+    "after": "Təkmil filtr aşağıdakı operatorları ehtiva edən ifadə yazmağa imkan verir: == != <= >= && || ( ) Operatorlar boşluqla ayrılır. Xüsusi sahələrin adlarını və dəyərlərini yazaraq bütün xüsusi sahələr üzrə filtrləyə bilərsiniz. Məsələn: Field1 == Value1. Qeyd: Sahə adları və ya dəyərlər boşluq ehtiva edirsə, onları tək dırnaq arasına alın. Məsələn: 'Field 1' == 'Value 1'. Xüsusi simvolları (' \\\\/) qaçırmaq üçün \\\\ istifadə edə bilərsiniz. Məsələn: Field1 == I\\'m. Bir neçə şərti də birləşdirə bilərsiniz. Məsələn: F1 == V1 || F1 == V2. Adətən bütün operatorlar soldan sağa işlənir. Mötərizələrdən istifadə edərək ardıcıllığı dəyişə bilərsiniz. Məsələn: F1 == V1 && ( F2 == V2 || F2 == V3 ). Mətn sahələrində müntəzəm ifadələrlə də axtarış edə bilərsiniz: F1 == /Tes.*/i",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "az-LA",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "Hicri təqvim (Səudiyyə Ərəbistanı, Ayın müşahidəsi)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
