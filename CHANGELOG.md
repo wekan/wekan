@@ -558,6 +558,13 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/1adf83fb1b1fc77ecf0a1801d7259b1348994d3b">Repair Galician regional board assignee and card archive messages</a>. Thanks to xet7.</summary>
+
+Replace 10 Portuguese values with reviewed Galician wording. Correct assignee terminology and preserve archive visibility/restoration and all-board-settings aliases. Regression checks verify meanings, exact corrections, source tokens, key order and idempotent repairs. The short translation audit records current progress.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/f23c732f0369bae47ff36cb41a595f43f3c0f5a7">Repair Galician regional board scheduling and deletion messages</a>. Thanks to xet7.</summary>
 
 Replace 10 Portuguese values with reviewed Galician wording. Preserve backup/cleanup scheduling outcomes, permanent deletion scope and public/private HTML emphasis. Regression checks verify meanings, exact corrections, source tokens, key order and idempotent repairs. The short translation audit records current progress.
