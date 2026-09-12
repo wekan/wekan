@@ -558,6 +558,13 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/b5e8685e3020f35f1de9955d7c2b4be3b8dd9edb">Repair Slovenian search operator descriptions and examples</a>. Thanks to xet7.</summary>
+
+Correct 32 values across both Slovenian locales. Preserve exact search syntax, label alternatives, inclusive day limits, board-scoped organization/team matches, page limits and descending sorts. Regression checks verify meanings, exact corrections, source tokens, key order and idempotent repairs. The short translation audit records current progress.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/80a2e0f063bb2fec6930ba42fdcac74ef29c7686">Repair Slovenian search instructions and file URL migration messages</a>. Thanks to xet7.</summary>
 
 Correct 36 values across both Slovenian locales. Preserve search OR/AND semantics, archived-card defaults, literal examples and source placeholders. Restore file/avatar storage-backend and broken-reference repair descriptions. Regression checks verify meanings, exact corrections, tokens, key order and idempotent repairs. The short translation audit records current progress.
