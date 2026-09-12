@@ -40948,5 +40948,75 @@
     "before": "Preferencias de la tarjeta",
     "after": "Preferencies de la tarxeta",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "card-show-lists",
+    "before": "Mostrar Listas de Tarjetas",
+    "after": "Mostrar les llistes de la tarxeta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "card-sorting-by-number",
+    "before": "Orden de tarjetas por número",
+    "after": "Ordenación de tarxetes por númberu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "card-sorting-by-number-on-minicard",
+    "before": "Orden de tarjetas por número de minitarjeta",
+    "after": "Ordenación de tarxetes por númberu na minitarxeta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "cardsReportTitle",
+    "before": "Informe sobre las Tarjetas",
+    "after": "Informe de les tarxetes",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "click-to-disable-auto-width",
+    "before": "Ancho de lista automático habilitado. Haz clic para deshabilitarlo.",
+    "after": "Anchor automáticu de les llistes activáu. Fai clic pa desactivalu.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "click-to-enable-auto-width",
+    "before": "Ancho de lista automático deshabilitado. Haz clic para habilitarlo.",
+    "after": "Anchor automáticu de les llistes desactiváu. Fai clic pa activalu.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "click-to-star",
+    "before": "Haz clic para destacar este tablero.",
+    "after": "Fai clic pa marcar esti tableru como favoritu.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "click-to-star-page",
+    "before": "Haz clic para destacar esta página.",
+    "after": "Fai clic pa marcar esta páxina como favorita.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "click-to-unstar",
+    "before": "Haz clic para dejar de destacar este tablero.",
+    "after": "Fai clic pa quitar esti tableru de los favoritos.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "click-to-unstar-page",
+    "before": "Haz clic para quitar la estrella de esta página.",
+    "after": "Fai clic pa quitar esta páxina de les favorites.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

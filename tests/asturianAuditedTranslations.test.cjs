@@ -55,3 +55,9 @@ assert.match(data['card-delete-suggest-archive'], /Archivu.*conservar l'activid�
 assert.match(data['card-archive-suggest-cancel'], /restaurar la tarxeta/);
 assert.notEqual(data['card-delete-pop'], data['card-archive-pop']);
 assert.equal(data['card-settings'], data['boardCardSettingsPopup-title']);
+assert.match(data['card-sorting-by-number-on-minicard'], /por númberu na minitarxeta/);
+assert.match(data['click-to-disable-auto-width'], /activáu.*desactivalu/);
+assert.match(data['click-to-enable-auto-width'], /desactiváu.*activalu/);
+assert.match(data['click-to-star'], /marcar esti tableru/);
+assert.match(data['click-to-unstar'], /quitar esti tableru/);
+assert.match(data['click-to-star-page'], /esta páxina/);
