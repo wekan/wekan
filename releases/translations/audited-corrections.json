@@ -44616,5 +44616,40 @@
     "before": "Webhooks de doble sentido",
     "after": "Webhooks de doble sentiu",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "board-background-image-url",
+    "before": "URL de la imagen de fondo",
+    "after": "URL d’a imachen de fondo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "calendar-system-jalali",
+    "before": "Jalali (Fars)",
+    "after": "Jalali (persa)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "card-show-lists-on-minicard",
+    "before": "Mostrar listas en la minitarjeta",
+    "after": "Amostrar listas en a minitarcheta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "cardStartPlanningPokerPopup-title",
+    "before": "Comenzar un Planning Poker",
+    "after": "Empecipiar un Planning Poker",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "checklist-count",
+    "before": "Recuento de elementos de checklist (0/0)",
+    "after": "Recuento d’elementos d’a lista de comprobación (0/0)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

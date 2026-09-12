@@ -634,5 +634,11 @@
     "key": "accounts-lockout-failure-window",
     "value": "Ventana de fallos (segundos)",
     "reason": "Ventana de fallos (segundos) uses valid shared Aragonese terminology for the failure counting window and preserves the seconds unit."
+  },
+  {
+    "locale": "an",
+    "key": "board-view-throughput-histogram",
+    "value": "Histograma de rendimiento",
+    "reason": "Histograma de rendimiento is valid shared Aragonese chart terminology and describes the throughput histogram without changing its metric."
   }
 ]
