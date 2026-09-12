@@ -557,6 +557,15 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/f351a8a18">Repair Macedonian account protection and accessibility translations</a>. Thanks to xet7.</summary>
+
+Correct 24 reviewed values and retain a valid reactivity-mode label. Positive
+and negative exact-value, source-token, key-order, idempotency and preservation
+checks pass. Further locale findings remain under review.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/47924c0f4">Repair Macedonian rule and memory statistic translations</a>. Thanks to xet7.</summary>
 
 Correct 25 reviewed values. Check V8 metric meanings against official Node
