@@ -222,3 +222,17 @@ assert.notEqual(data['shortcut-add-self'], data['shortcut-assign-self']);
 assert.match(data['shortcut-add-self'], /Engadirte/);
 assert.match(data['shortcut-assign-self'], /Asignarte/);
 assert.match(data['show-cards-minimum-count'], /se a lista contén máis de$/);
+
+assert.match(data['showLabel-field-on-card'], /etiqueta do campo na minitarxeta/);
+assert.match(data['star-board-title'], /parte superior da túa lista de taboleiros/);
+assert.match(data['step-scan-files'], /ficheiros anexos do taboleiro/);
+assert.match(data['step-scan-users'], /avatares dos membros do taboleiro/);
+assert.match(data['swimlane-archive-suggest'], /restaurar o carril.*Arquivo.*configuración/);
+assert.match(data['swimlane-delete-pop'], /Todas as accións.*fluxo de actividade.*non poderás recuperar o carril.*Non se pode desfacer/);
+assert.match(data['tableVisibilityMode-allowPrivateOnly'], /permitir só taboleiros privados/);
+assert.match(data['toggle-assignees'], /asignados 1-9.*orde de engadido ao taboleiro/);
+assert.doesNotMatch(data['toggle-assignees'], /administrador/);
+assert.match(data['toggle-labels'], /selección múltiple engade as etiquetas 1-9/);
+assert.match(data['tracking-info'], /creador ou membro/);
+assert.match(data['user-can-not-export-card-to-excel'], /non pode exportar.*Excel/);
+assert.match(data['user-can-not-export-card-to-pdf'], /non pode exportar.*PDF/);

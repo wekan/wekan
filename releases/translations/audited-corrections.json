@@ -37931,5 +37931,180 @@
     "before": "Mostrar contagem de cartões se a lista tiver mais de",
     "after": "Mostrar o reconto de tarxetas se a lista contén máis de",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "show-field-on-card",
+    "before": "Mostrar este campo no cartão",
+    "after": "Mostrar este campo na tarxeta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "show-list-on-minicard",
+    "before": "Mostrar Lista no Mini Cartão",
+    "after": "Mostrar a lista na minitarxeta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "show-parent-in-minicard",
+    "before": "Mostrar pai no mini-cartão:",
+    "after": "Mostrar o pai na minitarxeta:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "showChecklistAtMinicard",
+    "before": "Mostrar Lista de Verificação no Mini Cartão",
+    "after": "Mostrar a lista de verificación na minitarxeta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "showLabel-field-on-card",
+    "before": "Mostrar etiqueta do campo no mini-cartão",
+    "after": "Mostrar a etiqueta do campo na minitarxeta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "star-board-title",
+    "before": "Clique para marcar este quadro como favorito. O quadro irá aparecer no topo da sua lista de quadros.",
+    "after": "Fai clic para destacar este taboleiro. Aparecerá na parte superior da túa lista de taboleiros.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "starred-boards-description",
+    "before": "Os quadros favoritos aparecem no topo da sua lista de quadros.",
+    "after": "Os taboleiros destacados aparecen na parte superior da túa lista de taboleiros.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "step-analyze-board-structure",
+    "before": "Analisar a Estrutura do Quadro",
+    "after": "Analizar a estrutura do taboleiro",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "step-ensure-lost-cards-swimlane",
+    "before": "Garantir a Raia dos Cartões Perdidos",
+    "after": "Garantir o carril de tarxetas perdidas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "step-scan-files",
+    "before": "Verificando arquivos de anexos do quadro",
+    "after": "Comprobando os ficheiros anexos do taboleiro",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "step-scan-users",
+    "before": "Verificando os avatares dos membros do quadro",
+    "after": "Comprobando os avatares dos membros do taboleiro",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "support-info-not-added-yet",
+    "before": "As informações de suporte ainda não foram adicionadas.",
+    "after": "Aínda non se engadiu información de soporte",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "swimlane-archive-pop",
+    "before": "A raia não ficará visível no quadro após o arquivamento.",
+    "after": "O carril non será visible no taboleiro despois de arquivalo.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "swimlane-archive-suggest",
+    "before": "Você poderá restaurar a raia posteriormente a partir do Arquivo Morto nas Configurações do Quadro.",
+    "after": "Podes restaurar o carril máis tarde desde o Arquivo na configuración do taboleiro.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "swimlane-delete-pop",
+    "before": "Todas as acções serão removidas do feed de atividade e não será possível recuperar a pista. Não é reversível.",
+    "after": "Todas as accións eliminaranse do fluxo de actividade e non poderás recuperar o carril. Non se pode desfacer.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "swimlane-title-not-found",
+    "before": "Pista '%s' não encontrada.",
+    "after": "Non se atopou o carril '%s'.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "swimlaneAddPopup-title",
+    "before": "Adicionar uma Pista abaixo",
+    "after": "Engadir un carril debaixo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "tableVisibilityMode-allowPrivateOnly",
+    "before": "Visibilidade do Quadro: Permitir apenas quadros privados",
+    "after": "Visibilidade dos taboleiros: permitir só taboleiros privados",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "team-name-not-found",
+    "before": "Time '%s' não encontrado.",
+    "after": "Non se atopou o equipo '%s'.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "toggle-assignees",
+    "before": "Alternar administradores 1-9 para cartão (Por ordem de adição no quadro)",
+    "after": "Alternar os asignados 1-9 da tarxeta (por orde de engadido ao taboleiro).",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "toggle-labels",
+    "before": "Alternar etiquetas 1-9 para cartão. Multi-seleção adiciona etiquetas 1-9",
+    "after": "Alternar as etiquetas 1-9 da tarxeta. A selección múltiple engade as etiquetas 1-9",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "tracking-info",
+    "before": "Será notificado de quaisquer alterações em cartões em que é o criador ou membro.",
+    "after": "Recibirás notificacións de calquera cambio nas tarxetas nas que participes como creador ou membro.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "unsaved-description",
+    "before": "Possui uma descrição não guardada.",
+    "after": "Tes unha descrición sen gardar.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "user-can-not-export-card-to-excel",
+    "before": "O usuário não pode exportar o cartão para o Excel.",
+    "after": "O usuario non pode exportar a tarxeta a Excel",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "user-can-not-export-card-to-pdf",
+    "before": "Utilizador não pode exportar cartão para PDF",
+    "after": "O usuario non pode exportar a tarxeta a PDF",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
