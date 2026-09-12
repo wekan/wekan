@@ -32317,5 +32317,257 @@
     "before": "Прикажи ко је завео предмет",
     "after": "Prikaži ustvarjalca kartice",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "dueCards-noResults-description",
+    "before": "Тренутно немате никакве предмете који има постављене рокове.",
+    "after": "Trenutno nimate nobene kartice z rokom.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "dueCards-noResults-title",
+    "before": "Није пронађен ниједан предмет са роком",
+    "after": "Ni najdenih kartic z rokom",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "dueCardsViewChange-choice-all-description",
+    "before": "Приказује све нерешене предмете који имају постављен рок решавања из оних списа за које корисник има одобрење.",
+    "after": "Prikaže vse nedokončane kartice z datumom *roka* s tabel, za katere ima uporabnik dovoljenje.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "editCardSortOrderPopup-title",
+    "before": "Промените редослед слагања предмета",
+    "after": "Spremeni razvrščanje",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "editPokerEndDatePopup-title",
+    "before": "Промени крајњи датум до кад траје гласање за партију покера",
+    "after": "Spremeni datum konca glasovanja pri pokru načrtovanja",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "editVoteEndDatePopup-title",
+    "before": "Када се гласачко место затвара",
+    "after": "Spremeni datum konca glasovanja",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "error-csv-schema",
+    "before": "Ваш CSV(Вредности раздвојене зарезом)/TSV (Вредности раздвојене табулатором) не укључује исправну информацију у предвиђеном облику",
+    "after": "Vaša datoteka CSV (vrednosti, ločene z vejicami)/TSV (vrednosti, ločene s tabulatorji) ne vsebuje ustreznih podatkov v pravilni obliki",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "error-orgname-taken",
+    "before": "Ово (пословно) име странке је већ у употреби",
+    "after": "To ime organizacije je že zasedeno",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "error-teamname-taken",
+    "before": "Ово име правног тима је већ у употреби",
+    "after": "To ime ekipe je že zasedeno",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "estimated-time-remaining",
+    "before": "Процењено преостало време",
+    "after": "Ocenjeni preostali čas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "export-card-pdf",
+    "before": "Претвори предмет у PDF облик",
+    "after": "Izvozi kartico v PDF",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "filesReportTitle",
+    "before": "Извештај везан за предметну грађу",
+    "after": "Poročilo o datotekah",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "filesystem-path-description",
+    "before": "Почетак пута до складишта предметне грађе",
+    "after": "Osnovna pot za shranjevanje datotek",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "filesystem-size",
+    "before": "Величина локалног складишта",
+    "after": "Velikost datotečnega sistema",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "filter-card-title-label",
+    "before": "Издвој по наслову предмета",
+    "after": "Filtriraj po naslovu kartice",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "filter-due-next-week",
+    "before": "Где рок истиче следеће недеље",
+    "after": "Rok naslednji teden",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "filter-due-this-week",
+    "before": "Где рок истиче ове недеље",
+    "after": "Rok ta teden",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "filter-member-label",
+    "before": "Издвој по надлежном сараднику",
+    "after": "Filtriraj po članu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "dueCards-noResults-description",
+    "before": "Тренутно немате никакве предмете који има постављене рокове.",
+    "after": "Trenutno nimate nobene kartice z rokom.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "dueCards-noResults-title",
+    "before": "Није пронађен ниједан предмет са роком",
+    "after": "Ni najdenih kartic z rokom",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "dueCardsViewChange-choice-all-description",
+    "before": "Приказује све нерешене предмете који имају постављен рок решавања из оних списа за које корисник има одобрење.",
+    "after": "Prikaže vse nedokončane kartice z datumom *roka* s tabel, za katere ima uporabnik dovoljenje.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "editCardSortOrderPopup-title",
+    "before": "Промените редослед слагања предмета",
+    "after": "Spremeni razvrščanje",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "editPokerEndDatePopup-title",
+    "before": "Промени крајњи датум до кад траје гласање за партију покера",
+    "after": "Spremeni datum konca glasovanja pri pokru načrtovanja",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "editVoteEndDatePopup-title",
+    "before": "Када се гласачко место затвара",
+    "after": "Spremeni datum konca glasovanja",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "error-csv-schema",
+    "before": "Ваш CSV(Вредности раздвојене зарезом)/TSV (Вредности раздвојене табулатором) не укључује исправну информацију у предвиђеном облику",
+    "after": "Vaša datoteka CSV (vrednosti, ločene z vejicami)/TSV (vrednosti, ločene s tabulatorji) ne vsebuje ustreznih podatkov v pravilni obliki",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "error-orgname-taken",
+    "before": "Ово (пословно) име странке је већ у употреби",
+    "after": "To ime organizacije je že zasedeno",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "error-teamname-taken",
+    "before": "Ово име правног тима је већ у употреби",
+    "after": "To ime ekipe je že zasedeno",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "estimated-time-remaining",
+    "before": "Процењено преостало време",
+    "after": "Ocenjeni preostali čas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "export-card-pdf",
+    "before": "Претвори предмет у PDF облик",
+    "after": "Izvozi kartico v PDF",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "filesReportTitle",
+    "before": "Извештај везан за предметну грађу",
+    "after": "Poročilo o datotekah",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "filesystem-path-description",
+    "before": "Почетак пута до складишта предметне грађе",
+    "after": "Osnovna pot za shranjevanje datotek",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "filesystem-size",
+    "before": "Величина локалног складишта",
+    "after": "Velikost datotečnega sistema",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "filter-card-title-label",
+    "before": "Издвој по наслову предмета",
+    "after": "Filtriraj po naslovu kartice",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "filter-due-next-week",
+    "before": "Где рок истиче следеће недеље",
+    "after": "Rok naslednji teden",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "filter-due-this-week",
+    "before": "Где рок истиче ове недеље",
+    "after": "Rok ta teden",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "filter-member-label",
+    "before": "Издвој по надлежном сараднику",
+    "after": "Filtriraj po članu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
