@@ -37791,5 +37791,145 @@
     "before": "Sem raias, listas ou cartões perdidos para restaurar.",
     "after": "Non hai carrís, listas nin tarxetas perdidos que restaurar",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "run-comprehensive-migration-confirm",
+    "before": "Isso realizará uma migração completa para verificar e corrigir a integridade dos dados do quadro. Isso pode levar alguns instantes. Continuar?",
+    "after": "Isto realizará unha migración completa para comprobar e corrixir a integridade dos datos do taboleiro. Pode tardar uns instantes. Continuar?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "run-delete-duplicate-empty-lists-migration-confirm",
+    "before": "Primeiro, isso converterá todas as listas compartilhadas em listas por raia e, em seguida, excluirá as listas vazias que contêm listas duplicadas com o mesmo título e que possuem cartões. Somente as listas vazias realmente redundantes serão removidas. Continuar?",
+    "after": "Isto converterá primeiro as listas compartidas en listas por carril e despois eliminará as listas baleiras que teñan unha lista duplicada co mesmo título con tarxetas. Só se quitarán as listas baleiras realmente redundantes. Continuar?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "run-fix-all-file-urls-migration-confirm",
+    "before": "Isso atualizará todas URLs de arquivos de anexos neste quadro para usar o servidor de armazenamento correto. Continuar?",
+    "after": "Isto actualizará todos os URL dos ficheiros anexos deste taboleiro para que usen o almacenamento correcto. Continuar?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "run-fix-avatar-urls-migration-confirm",
+    "before": "Isso atualizará as URLs dos avatares dos membros do quadro para usar o backend de armazenamento correto. Continuar?",
+    "after": "Isto actualizará os URL dos avatares dos membros do taboleiro para que usen o almacenamento correcto. Continuar?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "run-fix-missing-lists-migration-confirm",
+    "before": "Isso detectará e corrigirá listas ausentes ou corrompidas na estrutura do quadro. Continuar?",
+    "after": "Isto detectará e reparará as listas que faltan ou están danadas na estrutura do taboleiro. Continuar?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "run-restore-all-archived-migration-confirm",
+    "before": "Isso restaurará TODAS as raias, listas e cartões arquivados, tornando-os visíveis novamente. Quaisquer itens com IDs ausentes serão corrigidos automaticamente. Esta ação não pode ser desfeita facilmente. Continuar?",
+    "after": "Isto restaurará TODOS os carrís, listas e tarxetas arquivados, facéndoos visibles de novo. Os elementos sen ID corrixiranse automaticamente. Isto non se pode desfacer facilmente. Continuar?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "run-restore-lost-cards-migration-confirm",
+    "before": "Isso criará uma raia \"Cartões Perdidos\" e restaurará todos os cartões e listas com ID de raia ou ID de lista ausentes. Isso afeta apenas itens não arquivados. Continuar?",
+    "after": "Isto creará un carril \"Tarxetas perdidas\" e restaurará todas as tarxetas e listas sen swimlaneId ou listId. Só afecta aos elementos non arquivados. Continuar?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "schedule-board-archive",
+    "before": "Agendar Arquivamento de Quadro",
+    "after": "Programar o arquivado do taboleiro",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "schedule-board-cleanup",
+    "before": "Agendar Limpeza de Quadro",
+    "after": "Programar a limpeza do taboleiro",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "scheduled-board-operations",
+    "before": "Agendar Operações de Quadro",
+    "after": "Operacións programadas do taboleiro",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "search-boards-or-operations",
+    "before": "Buscar quadros ou operações",
+    "after": "Buscar taboleiros ou operacións...",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "search-cards",
+    "before": "Procurar nos títulos, descrições e campos personalizados de cartões/listas neste quadro",
+    "after": "Procurar nos títulos, descricións e campos personalizados de tarxetas/listas neste taboleiro",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "shortcut-add-self",
+    "before": "Adicionar-me ao cartão atual",
+    "after": "Engadirte á tarxeta actual",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "shortcut-assign-self",
+    "before": "Atribuir a si o cartão actual",
+    "after": "Asignarte á tarxeta actual",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "shortcut-filter-my-assigned-cards",
+    "before": "Filtrar meus cartões atribuídos",
+    "after": "Filtrar as tarxetas asignadas a min",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "shortcut-toggle-sidebar",
+    "before": "Alternar a Barra Lateral do Quadro",
+    "after": "Alternar a barra lateral do taboleiro",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "show-at-all-boards-page",
+    "before": "Mostrar na página Todos os Quadros",
+    "after": "Mostrar na páxina Todos os taboleiros",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "show-board_members-avatar",
+    "before": "Mostrar avatar dos membros do quadro",
+    "after": "Mostrar os avatares dos membros do taboleiro",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "show-card-counter-per-list",
+    "before": "Mostrar contador de cartões por lista",
+    "after": "Mostrar o número de tarxetas por lista",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "show-cards-minimum-count",
+    "before": "Mostrar contagem de cartões se a lista tiver mais de",
+    "after": "Mostrar o reconto de tarxetas se a lista contén máis de",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

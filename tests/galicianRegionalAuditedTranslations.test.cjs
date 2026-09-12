@@ -212,3 +212,13 @@ assert.match(data['rescue-card-description-dialogue'], /Sobrescribir a descrici�
 assert.match(data['restore-all-archived-migration-description'], /todos os carrís, listas e tarxetas arquivados.*swimlaneId ou listId/);
 assert.match(data['restore-lost-cards-migration-description'], /tarxetas e listas sen swimlaneId ou listId.*Crea un carril "Tarxetas perdidas"/);
 assert.match(data['restore-lost-cards-nothing-to-restore'], /Non hai carrís, listas nin tarxetas perdidos/);
+
+assert.match(data['run-delete-duplicate-empty-lists-migration-confirm'], /primeiro as listas compartidas en listas por carril.*listas baleiras.*mesmo título con tarxetas.*Só.*realmente redundantes/);
+assert.match(data['run-restore-all-archived-migration-confirm'], /TODOS os carrís, listas e tarxetas arquivados.*non se pode desfacer facilmente/);
+assert.match(data['run-restore-lost-cards-migration-confirm'], /swimlaneId ou listId.*Só afecta aos elementos non arquivados/);
+assert.match(data['scheduled-board-operations'], /^Operacións programadas/);
+assert.match(data['search-cards'], /títulos, descricións e campos personalizados.*neste taboleiro/);
+assert.notEqual(data['shortcut-add-self'], data['shortcut-assign-self']);
+assert.match(data['shortcut-add-self'], /Engadirte/);
+assert.match(data['shortcut-assign-self'], /Asignarte/);
+assert.match(data['show-cards-minimum-count'], /se a lista contén máis de$/);
