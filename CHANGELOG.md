@@ -558,6 +558,13 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/4ff79d115">Repair Bosnian deletion warnings and custom URL translations</a>. Thanks to xet7.</summary>
+
+Correct 18 flagged values. Positive and negative regressions verify irreversible deletion scope, image/link URLs, empty duplicate lists, HTML entities and default height. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/3d3f70006">Repair Bosnian creation dates and scheduled job translations</a>. Thanks to xet7.</summary>
 
 Correct 18 flagged values. Positive and negative regressions verify creation-date ordering, template label identity and scheduled-job results. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
