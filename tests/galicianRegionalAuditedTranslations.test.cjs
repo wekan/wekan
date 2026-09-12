@@ -260,3 +260,13 @@ assert.match(data['act-almostdue'], /está a achegarse$/);
 assert.match(data['act-duenow'], /é agora$/);
 assert.match(data['act-pastdue'], /xa pasou$/);
 assert.match(data['act-newDue'], /1º recordatorio de vencemento/);
+
+assert.match(data['activity-checklist-item-removed'], /un elemento da lista de verificación '%s' en %s/);
+assert.match(data['activity-imported'], /%s en %s desde %s/);
+assert.match(data['activity-set-customfield'], /campo personalizado '%s' a '%s' en %s/);
+assert.match(data['activity-unset-customfield'], /baleirou o valor do campo personalizado/);
+assert.doesNotMatch(data['activity-unset-customfield'], /eliminou o campo/);
+assert.match(data['admin-announcement-active'], /en todo o sistema/);
+assert.match(data.allowNonBoardMembers, /todos os usuarios con sesión iniciada/);
+assert.match(data['archive-swimlane'], /carril ao Arquivo/);
+assert.match(data['allboards.delete-workspace-confirm-check'], /Confirmar a eliminación do espazo de traballo/);

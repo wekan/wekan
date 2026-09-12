@@ -38477,5 +38477,215 @@
     "before": "estava a lembrar que a data limite (__timeValue__) de __card__ já passou",
     "after": "estaba a lembrar que o vencemento actual (__timeValue__) de __card__ xa pasou",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "active-cron-jobs",
+    "before": "Trabalhos agendados ativos",
+    "after": "Traballos programados activos",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "activity-archived",
+    "before": "%s foi movido para o Arquivo",
+    "after": "%s moveuse ao Arquivo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "activity-checklist-item-removed",
+    "before": "removeu o item de '%s' na %s",
+    "after": "eliminou un elemento da lista de verificación '%s' en %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "activity-customfield-created",
+    "before": "criado o campo personalizado %s",
+    "after": "creou o campo personalizado %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "activity-dueDate",
+    "before": "editou a data limite para %s de %s",
+    "after": "editou a data de vencemento a %s de %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "activity-endDate",
+    "before": "editou a data de fim para %s de %s",
+    "after": "editou a data de fin a %s de %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "activity-imported",
+    "before": "importou %s para %s de %s",
+    "after": "importou %s en %s desde %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "activity-receivedDate",
+    "before": "editou a data recebida para %s de %s",
+    "after": "editou a data de recepción a %s de %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "activity-removed-label",
+    "before": "removeu a etiqueta '%s' de %s",
+    "after": "quitou a etiqueta '%s' de %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "activity-set-customfield",
+    "before": "definiu o campo personalizado '%s' para '%s' em %s",
+    "after": "estableceu o campo personalizado '%s' a '%s' en %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "activity-startDate",
+    "before": "editou a data de início para %s de %s",
+    "after": "editou a data de inicio a %s de %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "activity-unset-customfield",
+    "before": "removeu o campo personalizado '%s' de %s",
+    "after": "baleirou o valor do campo personalizado '%s' en %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "add-organizations-label",
+    "before": "Organizações adicionadas são exibidas abaixo:",
+    "after": "As organizacións engadidas móstranse a continuación:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "add-teams-label",
+    "before": "Times adicionados são exibidos abaixo:",
+    "after": "Os equipos engadidos móstranse a continuación:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "admin-announcement-active",
+    "before": "Anúncio Activo em Todo o Sistema",
+    "after": "Anuncio activo en todo o sistema",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "admin-people-filter-locked",
+    "before": "Apenas Usuários Bloqueados",
+    "after": "Só usuarios bloqueados",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "allboards.add-subworkspace-prompt",
+    "before": "Nome da Subárea de trabalho",
+    "after": "Nome do subespazo de traballo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "allboards.delete-workspace-confirm",
+    "before": "Tem certeza de que deseja excluir esta área de trabalho?",
+    "after": "Seguro que queres eliminar este espazo de traballo?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "allboards.delete-workspace-confirm-check",
+    "before": "Confirmar exclusão da área de trabalho",
+    "after": "Confirmar a eliminación do espazo de traballo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "allboards.edit-workspace-icon",
+    "before": "Ícone da Área de trabalho (markdown)",
+    "after": "Icona do espazo de traballo (markdown)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "allowNonBoardMembers",
+    "before": "Permitir todos os utilizadores com sessão iniciada",
+    "after": "Permitir a todos os usuarios con sesión iniciada",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "allowed-avatar-filetypes",
+    "before": "Tipos de arquivos permitidos para avatar:",
+    "after": "Tipos de ficheiro permitidos para o avatar:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "allowed-upload-filetypes",
+    "before": "Tipos de arquivos permitidos para upload:",
+    "after": "Tipos de ficheiro permitidos para enviar:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "almostdue",
+    "before": "a data limite actual %s está-se a aproximar",
+    "after": "a data de vencemento actual %s está a achegarse",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "already-account",
+    "before": "Já tem uma conta? Iniciar sessão",
+    "after": "Xa ten unha conta? Inicie sesión",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "archive-all",
+    "before": "Mover Tudo para o Arquivo",
+    "after": "Mover todo ao Arquivo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "archive-list",
+    "before": "Mover a Lista para o Arquivo",
+    "after": "Mover a lista ao Arquivo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "archive-selection",
+    "before": "Mover a selecção para o Arquivo",
+    "after": "Mover a selección ao Arquivo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "archive-swimlane",
+    "before": "Mover a Pista para o Arquivo",
+    "after": "Mover o carril ao Arquivo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "attachment-storage-settings",
+    "before": "Configurações de Armazenamento",
+    "after": "Configuración do almacenamento",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
