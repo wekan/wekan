@@ -48844,5 +48844,33 @@
     "before": "Dominio posta eletronica autorizzato a invitare persone, quando l'autoresgistrazion ie disattivata",
     "after": "Domain dad e-mail autorisà d’envidar persunas, sche l’autoregistraziun è deactivada",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "email-enrollAccount-text",
+    "before": "Ciao __user__,\n\nPer iniziare ad utilizzare il servizio, clicca sul link seguente:\n\n__url__\n\nGrazie.",
+    "after": "Hallo __user__,\n\nPer cumenzar ad utilisar il servetsch, clicca simplamain sin la colliaziun sutvart.\n\n__url__\n\nGrazia.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "email-fail",
+    "before": "Invio posta eletronica fallito",
+    "after": "Il trametter dad e-mail n’è betg reussì",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "email-fail-text",
+    "before": "Fal tl tentativo di invio posta eletronica",
+    "after": "Sbagl tar l’emprova da trametter in e-mail",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "email-invalid",
+    "before": "Posta eletronica no valida",
+    "after": "Adressa dad e-mail nunvalida",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
