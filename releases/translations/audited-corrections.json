@@ -33759,5 +33759,173 @@
     "before": "Предлажемо да не затварате прозор током обнове. Чак и тада процес ће бити изведен у позадини али све може дуже да траје.",
     "after": "Med selitvijo ne zapirajte brskalnika. Postopek se bo nadaljeval v ozadju, vendar lahko traja dlje, da se zaključi.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "migrations-admin-only",
+    "before": "За обнову ових списа надлежан је једино онај ко је њихов управник",
+    "after": "Selitve lahko izvajajo samo skrbniki table",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "migrations-description",
+    "before": "Овде може да се изврши провера целовитости података и поправка оштећења. Сваки поступак обнове се може спровести независно један од другог",
+    "after": "Izvedite preglede in popravke celovitosti podatkov te table. Vsako selitev lahko izvedete posebej.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "mobile-desktop-toggle",
+    "before": "Замени приказ прилагођен за рачунар/мобилни",
+    "after": "Preklopi med mobilnim in namiznim načinom",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "mobile-mode",
+    "before": "Приказ прилагођен за екран мобилног уређаја",
+    "after": "Mobilni način",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "monitoring-export-failed",
+    "before": "Не могу да извезем надзорне податаке",
+    "after": "Izvoz podatkov spremljanja ni uspel",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "monitoring-refresh-failed",
+    "before": "Не могу да освежим надзорне податке",
+    "after": "Osvežitev podatkov spremljanja ni uspela",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "move-all-attachments-of-board-to-fs",
+    "before": "Премести предметну грађу ових списа у локални систем датотека",
+    "after": "Premakni vse priponke table v datotečni sistem",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "move-all-attachments-of-board-to-gridfs",
+    "before": "Премести предметну грађу ових списа у MongoDB GridFS",
+    "after": "Premakni vse priponke table v GridFS",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "move-all-attachments-of-board-to-s3",
+    "before": "Премести предметну грађу ових списа у облак на Amazon S3",
+    "after": "Premakni vse priponke table v S3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "move-all-attachments-to-fs",
+    "before": "Премести целокупну предметну грађу у локални систем датотека",
+    "after": "Premakni vse priponke v datotečni sistem",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "move-all-attachments-to-gridfs",
+    "before": "Премести целокупну предметну грађу у MongoDB GridFS",
+    "after": "Premakni vse priponke v GridFS",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "move-all-attachments-to-s3",
+    "before": "Премести целокупну предметну грађу из списа у облак на Amazon S3",
+    "after": "Premakni vse priponke v S3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "migrations-admin-only",
+    "before": "За обнову ових списа надлежан је једино онај ко је њихов управник",
+    "after": "Selitve lahko izvajajo samo skrbniki table",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "migrations-description",
+    "before": "Овде може да се изврши провера целовитости података и поправка оштећења. Сваки поступак обнове се може спровести независно један од другог",
+    "after": "Izvedite preglede in popravke celovitosti podatkov te table. Vsako selitev lahko izvedete posebej.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "mobile-desktop-toggle",
+    "before": "Замени приказ прилагођен за рачунар/мобилни",
+    "after": "Preklopi med mobilnim in namiznim načinom",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "mobile-mode",
+    "before": "Приказ прилагођен за екран мобилног уређаја",
+    "after": "Mobilni način",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "monitoring-export-failed",
+    "before": "Не могу да извезем надзорне податаке",
+    "after": "Izvoz podatkov spremljanja ni uspel",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "monitoring-refresh-failed",
+    "before": "Не могу да освежим надзорне податке",
+    "after": "Osvežitev podatkov spremljanja ni uspela",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "move-all-attachments-of-board-to-fs",
+    "before": "Премести предметну грађу ових списа у локални систем датотека",
+    "after": "Premakni vse priponke table v datotečni sistem",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "move-all-attachments-of-board-to-gridfs",
+    "before": "Премести предметну грађу ових списа у MongoDB GridFS",
+    "after": "Premakni vse priponke table v GridFS",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "move-all-attachments-of-board-to-s3",
+    "before": "Премести предметну грађу ових списа у облак на Amazon S3",
+    "after": "Premakni vse priponke table v S3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "move-all-attachments-to-fs",
+    "before": "Премести целокупну предметну грађу у локални систем датотека",
+    "after": "Premakni vse priponke v datotečni sistem",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "move-all-attachments-to-gridfs",
+    "before": "Премести целокупну предметну грађу у MongoDB GridFS",
+    "after": "Premakni vse priponke v GridFS",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "move-all-attachments-to-s3",
+    "before": "Премести целокупну предметну грађу из списа у облак на Amazon S3",
+    "after": "Premakni vse priponke v S3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
