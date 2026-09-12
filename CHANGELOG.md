@@ -557,6 +557,18 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/3988ab5ea">Move date popups from the title bar and theme calendar buttons</a>. Thanks to xet7.</summary>
+
+Drag the date popup title bar to reposition it within the viewport. Calendar
+month/year navigation and day buttons use Save's active theme styling.
+Pointer capture, viewport limits, unrelated pointers and header control
+exclusions have passing regression checks. Calendar control checks pass.
+The browser regression is registered and syntax-checked; a live Meteor UI
+was unavailable for running it.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/2fd461fa5582fcdca820cc2dcacaae0e605a66b8">Restrict OAuth2 login by email domain</a>. Thanks to xet7.</summary>
 
 Set `OAUTH2_ALLOWED_EMAIL_DOMAINS` to a comma-separated list of exact domains.
