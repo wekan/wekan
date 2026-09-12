@@ -265,3 +265,17 @@ for (const key of ['migration-pause-failed', 'migration-start-failed', 'migratio
 for (const key of ['migration-paused', 'migration-started', 'migration-stopped', 'migration-successful']) assert.match(data[key], /uspješno/);
 assert.doesNotMatch(data['migration-started'], /oštećen.*spis/);
 console.log('bosnianAuditedTranslations: background continuation, browser warning and migration results passed');
+
+assert.equal(data['migrations-admin-only'], 'Samo administratori ploče mogu pokretati migracije');
+assert.match(data['migrations-description'], /ove ploče.*pojedinačno/);
+assert.match(data['mobile-desktop-toggle'], /mobilnog.*za računar/);
+for (const destination of ['fs', 'gridfs', 's3']) {
+  assert.match(data[`move-all-attachments-of-board-to-${destination}`], /sve priloge ploče/);
+  assert.match(data[`move-all-attachments-to-${destination}`], /sve priloge u/);
+  assert.notEqual(data[`move-all-attachments-of-board-to-${destination}`], data[`move-all-attachments-to-${destination}`]);
+}
+assert.doesNotMatch(data['move-all-attachments-of-board-to-s3'], /Amazon|oblak/);
+assert.doesNotMatch(data['move-all-attachments-to-s3'], /Amazon|oblak/);
+assert.match(data['monitoring-export-failed'], /Izvoz.*nije uspio/);
+assert.match(data['monitoring-refresh-failed'], /Osvježavanje.*nije uspjelo/);
+console.log('bosnianAuditedTranslations: administrator restriction, per-board movement and monitoring failures passed');
