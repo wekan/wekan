@@ -36265,5 +36265,75 @@
     "before": "Este quadro está no Arquivo.",
     "after": "Este taboleiro moveuse ao Arquivo.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "board-backup-failed",
+    "before": "Falha ao agendar backup de quadro",
+    "after": "Non se puido programar a copia de seguridade do taboleiro",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "board-backup-scheduled",
+    "before": "Backup de quadro agendado com sucesso",
+    "after": "Copia de seguridade do taboleiro programada correctamente",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "board-cleanup-failed",
+    "before": "Falha ao agendar limpeza de quadro",
+    "after": "Non se puido programar a limpeza do taboleiro",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "board-cleanup-scheduled",
+    "before": "Limpeza de quadro agendada com sucesso",
+    "after": "Limpeza do taboleiro programada correctamente",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "board-delete-notice",
+    "before": "Apagar é permanente. Irá perder todas as listas, cartões e acções associadas a este quadro.",
+    "after": "A eliminación é permanente. Perderás todas as listas, tarxetas e accións asociadas a este taboleiro.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "board-drag-drop-reorder-or-click-open",
+    "before": "Arraste e solte para reordenar os ícones do quadro. Clique no ícone do quadro para abri-lo.",
+    "after": "Arrastra e solta para reordenar as iconas dos taboleiros. Fai clic na icona dun taboleiro para abrilo.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "board-info-on-my-boards",
+    "before": "Configurações de Todos os Quadros",
+    "after": "Configuración de Todos os taboleiros",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "board-private-info",
+    "before": "Este quadro será <strong>privado</strong>.",
+    "after": "Este taboleiro será <strong>privado</strong>.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "board-public-info",
+    "before": "Este quadro será <strong>público</strong>.",
+    "after": "Este taboleiro será <strong>público</strong>.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "board-title-not-found",
+    "before": "Quadro '%s' não encontrado.",
+    "after": "Non se atopou o taboleiro '%s'.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

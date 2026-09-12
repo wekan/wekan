@@ -5,6 +5,14 @@ assert.match(data['accounts-lockout-known-users'], /usuarios coñecidos.*usuario
 assert.match(data['accounts-lockout-unknown-users'], /usuarios descoñecidos.*usuario inexistente/);
 for (const key of ['accounts-lockout-known-users', 'accounts-lockout-unknown-users']) assert.doesNotMatch(data[key], /usuários|senha|Configurações/);
 assert.match(data['act-addChecklist'], /engadiu a lista de verificación/);
+for (const action of ['backup', 'cleanup']) {
+  assert.match(data[`board-${action}-failed`], /Non se puido programar/);
+  assert.match(data[`board-${action}-scheduled`], /programad[ao] correctamente/);
+}
+assert.match(data['board-delete-notice'], /eliminación é permanente.*todas as listas, tarxetas e accións/);
+assert.match(data['board-private-info'], /<strong>privado<\/strong>/);
+assert.match(data['board-public-info'], /<strong>público<\/strong>/);
+
 assert.match(data['automatically-field-on-card'], /tarxetas novas/);
 assert.notEqual(data['automatically-field-on-card'], data['always-field-on-card']);
 assert.match(data['board-archive-failed'], /Non se puido programar/);
