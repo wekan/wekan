@@ -123,6 +123,11 @@ assert.match(data['run-restore-all-archived-migration-confirm'], /SVE arhivirane
 assert.match(data['run-restore-all-archived-migration-confirm'], /nije lako poništiti/);
 for (const field of ['swimlaneId', 'listId']) assert.ok(data['restore-lost-cards-migration-description'].includes(field));
 assert.doesNotMatch(data['run-restore-lost-cards-migration-confirm'], /samo na arhivirane/);
+assert.match(data['s3-enabled-description'], /AWS S3 ili MinIO/);
+assert.doesNotMatch(data['s3-ssl-enabled-description'], /Amazon/);
+assert.match(data['search-cards'], /opise i prilagođena polja/);
+for (const endpoint of ['s3.amazonaws.com', 'minio.example.com']) assert.ok(data['s3-endpoint-description'].includes(endpoint));
+for (const command of ['sudo snap logs wekan.wekan', 'sudo docker logs wekan-app']) assert.ok(data['server-error-troubleshooting'].includes('`' + command + '`'));
 assert.equal(data.accessibility, 'Pristupačnost');
 assert.match(data['accounts-lockout-known-users'], /ispravno korisničko ime, pogrešna lozinka/);
 assert.match(data['accounts-lockout-failure-window'], /neuspjelih pokušaja \(sekunde\)/);
