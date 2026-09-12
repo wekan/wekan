@@ -1,0 +1,16 @@
+'use strict';
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
+const root = path.resolve(__dirname, '..');
+const data = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/hr.i18n.json'), 'utf8'));
+const corrections = JSON.parse(fs.readFileSync(path.join(root, 'releases/translations/audited-corrections.json'), 'utf8')).filter(row => row.locale === 'hr');
+assert.ok(corrections.length >= 18);
+for (const row of corrections) assert.doesNotMatch(data[row.key], /[\p{Script=Cyrillic}]/u);
+assert.match(data.Node_heap_does_zap_garbage, /prepisivanje .* uzorkom bitova/);
+assert.doesNotMatch(data.Node_heap_does_zap_garbage, /skupljanje|kupи/);
+assert.match(data.Node_memory_usage_rss, /rezidentna/);
+assert.match(data.Node_heap_malloced_memory, /funkcijom malloc/);
+assert.match(data['Double-Bounce'], /dvostrukim poskakivanjem/);
+assert.doesNotMatch(data['Double-Bounce'], /tri točkice/);
+console.log('croatianAuditedTranslations: target script, V8 metrics and indicator meanings passed');
