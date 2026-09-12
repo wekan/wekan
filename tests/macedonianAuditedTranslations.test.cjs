@@ -17,6 +17,12 @@ const data = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/mk.i1
     'додаде ознака «LABEL» на CARD');
   assert.equal(translator.t('activity-dueDate', { sprintf: ['DATE', 'CARD'] }),
     'го промени рокот во DATE на картата CARD');
+  for (const [key, phrase] of [['activity-endDate', 'датумот на завршување'],
+    ['activity-receivedDate', 'датумот на прием'], ['activity-startDate', 'датумот на почеток']]) {
+    assert.equal(translator.t(key, { sprintf: ['DATE', 'CARD'] }), `го промени ${phrase} во DATE на картата CARD`);
+  }
+  assert.match(data['admin-people-filter-inactive'], /Неактивни/);
+  assert.doesNotMatch(data['admin-people-user-active'], /платном|платен/);
   assert.equal(translator.t('activity-checklist-uncompleted', { sprintf: ['CHECKLIST', 'CARD'] }),
     'го поништи завршувањето на списокот за проверка CHECKLIST на CARD');
   assert.match(data['act-newDue'], /првата потсетница/);

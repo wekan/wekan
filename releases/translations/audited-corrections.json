@@ -19857,5 +19857,180 @@
     "before": "је изменио крајњи рок на %s у предмету %s",
     "after": "го промени рокот во %s на картата %s",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "activity-endDate",
+    "before": "је изменио датум и време %s кад је окончао предмет %s",
+    "after": "го промени датумот на завршување во %s на картата %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "activity-imported",
+    "before": "импортира %s в/във %s от %s",
+    "after": "увезе %s во %s од %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "activity-moved",
+    "before": "премести %s от %s в/във %s",
+    "after": "премести %s од %s во %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "activity-receivedDate",
+    "before": "је изменио датум и време пријема на %s у предмету %s",
+    "after": "го промени датумот на прием во %s на картата %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "activity-removed-label",
+    "before": "премахна етикет '%s' от %s",
+    "after": "ја отстрани ознаката «%s» од %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "activity-set-customfield",
+    "before": "придружена је рубрика '%s' на '%s' у %s",
+    "after": "го постави приспособеното поле «%s» на «%s» во %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "activity-startDate",
+    "before": "је изменио датум и време %s кад почиње да ради на предмету %s",
+    "after": "го промени датумот на почеток во %s на картата %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "activity-unchecked-item",
+    "before": "размаркира %s от списък със задачи %s на %s",
+    "after": "ја поништи ознаката на ставката %s во списокот за проверка %s на %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "activity-unchecked-item-card",
+    "before": "размаркира %s в чеклист %s",
+    "after": "ја поништи ознаката на ставката %s во списокот за проверка %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "activity-unset-customfield",
+    "before": "уклоњена је рубрика '%s' у %s",
+    "after": "ја отстрани вредноста на приспособеното поле «%s» во %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "add-background-image",
+    "before": "Искористи слику као мотив за подлогу",
+    "after": "Додај слика за заднина",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "add-cron-job-placeholder",
+    "before": "Ова функционалност биће ускоро додата",
+    "after": "Функцијата за додавање закажана задача ќе биде достапна наскоро",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "add-custom-html-after-body-start",
+    "before": "Уметни овај HTML код где почиње <body> деоница",
+    "after": "Додај приспособен HTML по почетокот на <body>",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "add-custom-html-before-body-end",
+    "before": "Уметни овај HTML код пред крај </body> деонице",
+    "after": "Додај приспособен HTML пред крајот на </body>",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "add-existing-card-as-subtask-empty",
+    "before": "Није пронађен ни један предмет",
+    "after": "Не се пронајдени соодветни карти",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "add-organizations-label",
+    "before": "Странке које имају увид су приказана доле:",
+    "after": "Додадените организации се прикажани подолу:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "add-teams-label",
+    "before": "Додати тимови су приказани доле:",
+    "after": "Додадените тимови се прикажани подолу:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "add-template-container",
+    "before": "Додај сандук са обрасцима",
+    "after": "Додај контејнер за шаблони",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "admin-announcement-active",
+    "before": "Активно системно обявление",
+    "after": "Активно соопштение за целиот систем",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "admin-announcement-title",
+    "before": "Съобщение от администратора",
+    "after": "Соопштение од администраторот",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "admin-desc",
+    "before": "Има увид и пун приступ у све предмете из ових списа. У овим списима може да бира сараднике, поставља правила рада и чита записник.",
+    "after": "Може да ги прегледува и уредува картите, да отстранува членови и да ги менува поставките на таблата. Може да ги прегледува активностите.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "admin-people-filter-all",
+    "before": "Обухвати све расположиве сараднике",
+    "after": "Сите корисници",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "admin-people-filter-inactive",
+    "before": "Сарадник више није на платном списку",
+    "after": "Неактивни",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "admin-people-filter-locked",
+    "before": "Налоге на мерама забране права приступа",
+    "after": "Само блокирани корисници",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "admin-people-user-active",
+    "before": "Сарадник је на платном списку - притисните да би прекинули сарадњу",
+    "after": "Корисникот е активен — кликнете за да го деактивирате",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
