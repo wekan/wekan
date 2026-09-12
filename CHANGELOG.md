@@ -557,6 +557,16 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/d0e89cb3e">Repair Slovak invitations and administration translations</a>. Thanks to xet7.</summary>
+
+Correct 43 reviewed values and retain two valid template-variable hints.
+Positive and negative translation checks verify native wording, exact source
+placeholders, key order, idempotency and preservation of newer wording.
+Correction and unchanged-review suites pass. Further findings remain under review.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/af8df7608">Repair Slovak archive warnings and card controls</a>. Thanks to xet7.</summary>
 
 Correct 38 reviewed values and retain two valid Azure navigation instructions.
