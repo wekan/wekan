@@ -1,3 +1,23 @@
+# Translation audit status
+
+**Audit date: 2026-09-12. Correction date: 2026-09-12.**
+
+Translations were corrected in commit [7a23353ac](https://github.com/wekan/wekan/commit/7a23353acfa8f07c5f836f661a4d0b5f8999593e). This is a local commit; it has not been pushed.
+
+This batch addresses **499 audited values in 101 language files** (497 values required changes; two already matched the reviewed correction):
+
+- 45 JSON examples now use valid JSON and literal `title` and `description` property names, preserving translated sample prose where recoverable.
+- 128 Chinese-language strings use kanban terminology `看板` instead of the corporate board-of-directors term `董事会`.
+- Mixed-script fragments were corrected in Assamese, Dzongkha, Khmer and Macedonian; the empty Russian rule phrase was supplied.
+- Foreign or untranslated calendar labels were replaced with target-language terminology from [Unicode CLDR 48.2](https://github.com/unicode-org/cldr-json). Its license is retained in [Unicode-LICENSE.txt](Unicode-LICENSE.txt).
+- A reviewed correction list and repeatable local repair command preserve newer translations: `node releases/translations/repair-audited-translations.mjs --apply`.
+
+Correction regression checks pass for values, placeholders, JSON examples, key order, idempotency and preservation of newer wording. Human-preference checks and calendar-display checks also pass. The browser regression is syntax-checked; a live Meteor UI was unavailable. The repository-wide completeness check still reports existing English-valued candidates in six locales; the full audit is **not yet completely resolved**. Dzongkha, Quechua and Tonga sample wording has lower confidence and needs native-speaker review.
+
+The 4,061 original pulled replacements already match their pre-pull local values; this batch does not claim to have performed that restoration. The tables below remain the historical audit evidence, including uncertain review candidates. Unflagged strings are not certified as linguistically correct.
+
+---
+
 # Local and Transifex translation audit
 
 Audit date: 2026-09-12. This report covers the original uncommitted pull:
