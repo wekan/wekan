@@ -48788,5 +48788,33 @@
     "before": "Al momento no hai ciartes cun date di scadenza.",
     "after": "Ti n’has actualmain naginas cartas cun datas da scadenza.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "dueCardsViewChange-title",
+    "before": "Vista ciartes cun scadenza",
+    "after": "Vista da las cartas cun scadenza",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "dueCardsViewChangePopup-title",
+    "before": "Vista ciartes cun scadenza",
+    "after": "Vista da las cartas cun scadenza",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "duenow",
+    "before": "la data di scadenza attuale %s ie oggi",
+    "after": "il temp da scadenza actual %s è oz",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "edit-wip-limit",
+    "before": "Muda limite Work In Progress",
+    "after": "Modifitgar la limita WIP",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
