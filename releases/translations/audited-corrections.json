@@ -48333,5 +48333,47 @@
     "before": "Calcolo di conteggi in corso...",
     "after": "Il dumber vegn calculà...",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "card-aging",
+    "before": "Invecchiamento ciartes (sbiadisci le ciartes vecchie)",
+    "after": "Vegliadetgna da las cartas (far vegnir pli sblatgas las cartas veglias)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "card-aging-days",
+    "before": "Sbiadisci dopo dis (3 livelli):",
+    "after": "Far vegnir pli sblatg suenter dis (3 stgalims):",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "card-edit-custom-fields",
+    "before": "Muda campi personalizzati",
+    "after": "Modifitgar ils champs persunalisads",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "card-mark-complete",
+    "before": "Contrassegna come completada",
+    "after": "Marcar sco terminà",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "card-mark-incomplete",
+    "before": "Contrassegna come no completada",
+    "after": "Marcar sco betg terminà",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "cardCustomFieldsPopup-title",
+    "before": "Muda campi personalizzati",
+    "after": "Modifitgar ils champs persunalisads",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
