@@ -23035,5 +23035,180 @@
     "before": "Прикажи збирни број придружених рубрика на врху деонице",
     "after": "Прикажи го збирот на полињата на врвот на списокот",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "smtp-host-description",
+    "before": "Адресът на SMTP сървъра, който обслужва Вашите имейли.",
+    "after": "Адресата на серверот SMTP што ги обработува вашите е-пораки.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "smtp-port-description",
+    "before": "Портът, който Вашият SMTP сървър използва за изходящи имейли.",
+    "after": "Портата што ја користи вашиот сервер SMTP за излезни е-пораки.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "smtp-tls-description",
+    "before": "Разреши TLS поддръжка за SMTP сървъра",
+    "after": "Овозможи поддршка за TLS за серверот SMTP",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "sort-desc",
+    "before": "Притисните да би сложили делове поступка",
+    "after": "Кликнете за да го подредите списокот",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "star-board-title",
+    "before": "Означите спис звездицом. Имаће већу тежину и биће постављен на чело.",
+    "after": "Кликнете за да ја означите оваа табла со ѕвезда. Ќе се прикажува на врвот на вашиот список со табли.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "starred-boards-description",
+    "before": "Любимите табла се показват в началото на списъка Ви.",
+    "after": "Таблите означени со ѕвезда се прикажуваат на врвот на вашиот список со табли.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "start-day-of-week",
+    "before": "Постави који дан се рачуна за почетак недеље",
+    "after": "Постави го денот со кој започнува седмицата",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "step-convert-shared-lists",
+    "before": "Претварам дељене делове поступка",
+    "after": "Претвори ги споделените списоци",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "step-create-missing-lists",
+    "before": "Стварам недостајуће делове",
+    "after": "Создај ги недостасувачките списоци",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "step-delete-duplicate-empty-lists",
+    "before": "Бришем исте празне делове поступка",
+    "after": "Избриши ги дупликатите на празни списоци",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "step-ensure-lost-cards-swimlane",
+    "before": "Правим место за загубљене предмете",
+    "after": "Обезбеди лента за изгубени карти",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "step-ensure-per-swimlane-lists",
+    "before": "Осигуравам да је део поступка везан за поступак",
+    "after": "Обезбеди списоци за секоја лента",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "step-fix-attachment-urls",
+    "before": "Поправљам везе до складишта предметне грађе",
+    "after": "Поправи ги URL-адресите на прилозите",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "step-fix-avatar-urls",
+    "before": "Поправљам везе до складишта слика за сараднике",
+    "after": "Поправи ги URL-адресите на аватарите",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "step-fix-file-urls",
+    "before": "Поправљам везе до предметне грађе",
+    "after": "Поправање на URL-адресите на датотеките",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "step-fix-missing-ids",
+    "before": "Поправљам недостајућа id поља",
+    "after": "Поправи ги недостасувачките идентификатори",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "step-fix-orphaned-cards",
+    "before": "Поправљам одбачене предмете",
+    "after": "Поправи ги осиротените карти",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "step-restore-lists",
+    "before": "Опорављам делове поступка",
+    "after": "Врати ги списоците",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "step-restore-swimlanes",
+    "before": "Опорављам читав ток поступка",
+    "after": "Врати ги лентите",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "step-scan-files",
+    "before": "Проверавам предметну грађу",
+    "after": "Проверка на приложените датотеки на таблата",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "step-scan-users",
+    "before": "Проверавам слике сарадника на списима",
+    "after": "Проверка на аватарите на членовите на таблата",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "subtaskActionsPopup-title",
+    "before": "Радње на издвојеним пословима",
+    "after": "Дејства со подзадачата",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "subtaskDeletePopup-title",
+    "before": "Избрисаћете издвојени посао?",
+    "after": "Избриши ја подзадачата?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "support-info-not-added-yet",
+    "before": "Информације о техничкој подршци још увек нису додате",
+    "after": "Информациите за поддршка сè уште не се додадени",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "support-info-only-for-logged-in-users",
+    "before": "Информације о техничкој подршци се дају само пријављеним корисницима.",
+    "after": "Информациите за поддршка се достапни само за најавени корисници.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
