@@ -47640,5 +47640,19 @@
     "before": "Islamic tabular",
     "after": "Maramataka Hitiuri (tūtohi, tīmatanga tatau wā ā-arorangi)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ig",
+    "key": "OS_Cpus",
+    "before": "Os CPU Count",
+    "after": "Ọnụọgụ CPU nke OS",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ig",
+    "key": "advanced-filter-description",
+    "before": "Advanced Filter allows to write a string containing following operators: == != <= >= && || ( ) A space is used as a separator between the Operators. You can filter for all Custom Fields by typing their names and values. For Example: Field1 == Value1. Note: If fields or values contains spaces, you need to encapsulate them into single quotes. For Example: 'Field 1' == 'Value 1'. For single control characters (' \\\\/) to be skipped, you can use \\\\. For example: Field1 == I\\\\'m. Also you can combine multiple conditions. For Example: F1 == V1 || F1 == V2. Normally all operators are interpreted from left to right. You can change the order by placing brackets. For Example: F1 == V1 && ( F2 == V2 || F2 == V3 ). Also you can search text fields using regex: F1 == /Tes.*/i",
+    "after": "Nzacha dị elu na-enye gị ohere ide ahịrịokwu nwere ndị ọrụ ndị a: == != <= >= && || ( ) A na-eji oghere kewaa ndị ọrụ. Ị nwere ike nzacha mpaghara omenala niile site n'ide aha ha na uru ha. Dịka ọmụmaatụ: Field1 == Value1. Rịba ama: Ọ bụrụ na mpaghara ma ọ bụ uru nwere oghere, tinye ha n'ime akara nhota otu. Dịka ọmụmaatụ: 'Field 1' == 'Value 1'. Iji gafee mkpụrụedemede njikwa ndị a (' \\\\/), ị nwere ike iji \\\\. Dịka ọmụmaatụ: Field1 == I\\'m. Ị nwekwara ike ijikọ ọtụtụ ọnọdụ. Dịka ọmụmaatụ: F1 == V1 || F1 == V2. A na-akọwakarị ndị ọrụ niile site n'aka ekpe ruo n'aka nri. Ị nwere ike ịgbanwe usoro site n'itinye akara mgbachi. Dịka ọmụmaatụ: F1 == V1 && ( F2 == V2 || F2 == V3 ). Ị nwekwara ike ịchọ mpaghara ederede site na regex: F1 == /Tes.*/i",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
