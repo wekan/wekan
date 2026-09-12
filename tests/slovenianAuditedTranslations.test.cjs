@@ -23,6 +23,18 @@ for (const locale of ['sl', 'sl_SI']) {
   assert.match(data['accounts-lockout-info'], /napadi z grobo silo/);
   assert.doesNotMatch(data['accounts-lockout-info'], /lozinkef/);
   assert.equal(data.MongoDB_storage_engine, 'Shranjevalni pogon MongoDB');
+  for (const action of ['archive', 'backup', 'cleanup']) {
+    assert.match(data[`board-${action}-failed`], /Načrtovanje.*ni uspelo/);
+    assert.match(data[`board-${action}-scheduled`], /uspešno načrtovano/);
+  }
+  assert.match(data['comment-assigned-only-desc'], /samo dodeljene kartice.*samo komentira/);
+  assert.match(data['comment-not-found'], /Kartica s komentarjem/);
+  assert.match(data['card-sorting-by-number-on-minicard'], /mini kartici/);
+  assert.notEqual(data['checklistDeletePopup-title'], data['checklistItemDeletePopup-title']);
+  assert.match(data['checklistItemDeletePopup-title'], /postavko/);
+  assert.doesNotMatch(data['bucket-example'], /2025|delovod/);
+  for (const key of ['azure-account-key-menu-path', 'azure-connection-string-menu-path']) assert.match(data[key], /vaš račun.*key1/);
+
   assert.match(data['admin-desc'], /odstranjuje člane.*nastavitve table.*dejavnosti/);
   for (const key of ['admin-people-filter-inactive', 'admin-people-user-active', 'admin-people-user-inactive']) assert.doesNotMatch(data[key], /плат|plač|sodelovan/);
   assert.match(data['admin-people-user-active'], /aktiven.*deaktivacijo/);

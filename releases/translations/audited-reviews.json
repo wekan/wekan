@@ -442,5 +442,29 @@
     "key": "Reactivity_mode",
     "value": "Način reaktivnosti (changeStreams / oplog / polling)",
     "reason": "Reviewed Slovenian phrase Način reaktivnosti is correct; changeStreams, oplog and polling are literal implementation identifiers. Shared Croatian wording is not a language error."
+  },
+  {
+    "locale": "sl",
+    "key": "azure-account-key-menu-path",
+    "value": "Azure Portal → Storage accounts → vaš račun → Security + networking → Access keys → key1 → Show → Key.",
+    "reason": "Reviewed: vaš račun is correct Slovenian for your account. Azure menu names, key1 and navigation arrows remain literal labels; shared Croatian wording does not make this phrase incorrect."
+  },
+  {
+    "locale": "sl",
+    "key": "azure-connection-string-menu-path",
+    "value": "Azure Portal → Storage accounts → vaš račun → Security + networking → Access keys → key1 → Connection string → Show.",
+    "reason": "Reviewed: vaš račun is correct Slovenian for your account. Azure menu names, key1 and navigation arrows remain literal labels; shared Croatian wording does not make this phrase incorrect."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "azure-account-key-menu-path",
+    "value": "Azure Portal → Storage accounts → vaš račun → Security + networking → Access keys → key1 → Show → Key.",
+    "reason": "Reviewed: vaš račun is correct Slovenian for your account. Azure menu names, key1 and navigation arrows remain literal labels; shared Croatian wording does not make this phrase incorrect."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "azure-connection-string-menu-path",
+    "value": "Azure Portal → Storage accounts → vaš račun → Security + networking → Access keys → key1 → Connection string → Show.",
+    "reason": "Reviewed: vaš račun is correct Slovenian for your account. Azure menu names, key1 and navigation arrows remain literal labels; shared Croatian wording does not make this phrase incorrect."
   }
 ]

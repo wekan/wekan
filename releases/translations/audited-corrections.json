@@ -31155,5 +31155,467 @@
     "before": "Путања где се складиште слике сарадника",
     "after": "Pot, kjer so shranjene datoteke avatarjev",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "board-archive-failed",
+    "before": "Није успело заказивање архивирања списа",
+    "after": "Načrtovanje arhiviranja table ni uspelo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "board-archive-scheduled",
+    "before": "Заказано је паковање списа у архиву",
+    "after": "Arhiviranje table je uspešno načrtovano",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "board-backup-failed",
+    "before": "Није успело заказивање израде резервног примерка списа",
+    "after": "Načrtovanje varnostnega kopiranja table ni uspelo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "board-backup-scheduled",
+    "before": "Заказана је израда резервног примерка списа",
+    "after": "Varnostno kopiranje table je uspešno načrtovano",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "board-cleanup-failed",
+    "before": "Није успело заказивање чишћења списа",
+    "after": "Načrtovanje čiščenja table ni uspelo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "board-cleanup-scheduled",
+    "before": "Заказано је чишћење списа",
+    "after": "Čiščenje table je uspešno načrtovano",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "board-drag-drop-reorder-or-click-open",
+    "before": "Притисните и задржите, превуците па отпустите да би пресложили списе. Притисните на деловодни број да би отворили ове списе.",
+    "after": "Povlecite in spustite ikone tabel, da spremenite njihov vrstni red. Kliknite ikono table, da odprete tablo.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "board-info-on-my-boards",
+    "before": "Списи у мојој надлежности",
+    "after": "Nastavitve vseh tabel",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "board-migrations",
+    "before": "Поступци обнове оштећених списа",
+    "after": "Selitve tabel",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "board-title-not-found",
+    "before": "Списи под деловодним бројем '%s' нису пронађени.",
+    "after": "Tabla '%s' ni najdena.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "boardChangeBackgroundImagePopup-title",
+    "before": "Списи на осликаној подлози",
+    "after": "Spremeni sliko ozadja",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "boardInfoOnMyBoards-title",
+    "before": "Списи у мојој надлежности",
+    "after": "Nastavitve vseh tabel",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "boardInfoOnMyBoardsPopup-title",
+    "before": "Списи у мојој надлежности",
+    "after": "Nastavitve vseh tabel",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "board_assignees",
+    "before": "Сви пуномоћници из свих предмета у овим списима",
+    "after": "Vsi zadolženi uporabniki vseh kartic na tej tabli",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "broken-cards",
+    "before": "Предмети где је веза покидана",
+    "after": "Poškodovane kartice",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "bucket-example",
+    "before": "Деловодни број (на пример 4/2025)",
+    "after": "Na primer »Seznam življenjskih želja«",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "card-archive-pop",
+    "before": "Након архивирања, предмет више неће бити видљив у овом делу тока поступка.",
+    "after": "Po arhiviranju kartica ne bo več vidna na tem seznamu.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "card-archive-suggest-cancel",
+    "before": "Касније ипак можете извући и вратити предмет из архиве.",
+    "after": "Kartico lahko pozneje obnovite iz arhiva.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "card-sorting-by-number",
+    "before": "Бројчана ознака за редослед",
+    "after": "Razvrščanje kartic po številki",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "card-sorting-by-number-on-minicard",
+    "before": "Бројчана ознака за редослед",
+    "after": "Razvrščanje kartic po številki na mini kartici",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "cardStartPlanningPokerPopup-title",
+    "before": "Започни договор за партију покера",
+    "after": "Začni poker načrtovanja",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "card_assignees",
+    "before": "Сви пуномоћници текућег предмета у овим списима",
+    "after": "Vsi zadolženi uporabniki trenutne kartice na tej tabli",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "card_members",
+    "before": "Мрежа сарадника на овом предмету у овим списима",
+    "after": "Vsi člani trenutne kartice na tej tabli",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "cardsReportTitle",
+    "before": "Извештај везан за предмете",
+    "after": "Poročilo o karticah",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "checklistActionsPopup-title",
+    "before": "Руковање списковима радњи",
+    "after": "Dejanja s kontrolnim seznamom",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "checklistDeletePopup-title",
+    "before": "Избрисаћете предметну радњу?",
+    "after": "Izbriši kontrolni seznam?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "checklistItemDeletePopup-title",
+    "before": "Избрисаћете ставку из предметне радње?",
+    "after": "Izbriši postavko kontrolnega seznama?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "close-add-checklist-item",
+    "before": "Окончај додавање помоћних предметних радњи",
+    "after": "Zapri obrazec za dodajanje postavke na kontrolni seznam",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "close-edit-checklist-item",
+    "before": "Прекини измену помоћне предметне радње",
+    "after": "Zapri obrazec za urejanje postavke kontrolnega seznama",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "comment-assigned-only-desc",
+    "before": "Једино може да има право увида и узме учешће у расправама у додељеним му предметима.",
+    "after": "Vidne so samo dodeljene kartice. Lahko samo komentira.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "comment-delete",
+    "before": "Да ли сте сигурни да желите да повучете изнешено мишљење?",
+    "after": "Ali ste prepričani, da želite izbrisati komentar?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "comment-not-found",
+    "before": "Мишљење које садржи речи '%s' није пронађено.",
+    "after": "Kartica s komentarjem, ki vsebuje besedilo '%s', ni najdena.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "comprehensive-board-migration-description",
+    "before": "Изводе се свеобухватне провера и врше поправке целовитости података у списима - што укључује провере и поправке редоследа делова поступака, места где се тачно предмети налазе и структуре поступака.",
+    "after": "Izvede celovite preglede in popravke celovitosti podatkov table, vključno z vrstnim redom seznamov, položaji kartic in strukturo stez.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "board-archive-failed",
+    "before": "Није успело заказивање архивирања списа",
+    "after": "Načrtovanje arhiviranja table ni uspelo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "board-archive-scheduled",
+    "before": "Заказано је паковање списа у архиву",
+    "after": "Arhiviranje table je uspešno načrtovano",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "board-backup-failed",
+    "before": "Није успело заказивање израде резервног примерка списа",
+    "after": "Načrtovanje varnostnega kopiranja table ni uspelo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "board-backup-scheduled",
+    "before": "Заказана је израда резервног примерка списа",
+    "after": "Varnostno kopiranje table je uspešno načrtovano",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "board-cleanup-failed",
+    "before": "Није успело заказивање чишћења списа",
+    "after": "Načrtovanje čiščenja table ni uspelo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "board-cleanup-scheduled",
+    "before": "Заказано је чишћење списа",
+    "after": "Čiščenje table je uspešno načrtovano",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "board-drag-drop-reorder-or-click-open",
+    "before": "Притисните и задржите, превуците па отпустите да би пресложили списе. Притисните на деловодни број да би отворили ове списе.",
+    "after": "Povlecite in spustite ikone tabel, da spremenite njihov vrstni red. Kliknite ikono table, da odprete tablo.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "board-info-on-my-boards",
+    "before": "Списи у мојој надлежности",
+    "after": "Nastavitve vseh tabel",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "board-migrations",
+    "before": "Поступци обнове оштећених списа",
+    "after": "Selitve tabel",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "board-title-not-found",
+    "before": "Списи под деловодним бројем '%s' нису пронађени.",
+    "after": "Tabla '%s' ni najdena.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "boardChangeBackgroundImagePopup-title",
+    "before": "Списи на осликаној подлози",
+    "after": "Spremeni sliko ozadja",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "boardInfoOnMyBoards-title",
+    "before": "Списи у мојој надлежности",
+    "after": "Nastavitve vseh tabel",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "boardInfoOnMyBoardsPopup-title",
+    "before": "Списи у мојој надлежности",
+    "after": "Nastavitve vseh tabel",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "board_assignees",
+    "before": "Сви пуномоћници из свих предмета у овим списима",
+    "after": "Vsi zadolženi uporabniki vseh kartic na tej tabli",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "broken-cards",
+    "before": "Предмети где је веза покидана",
+    "after": "Poškodovane kartice",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "bucket-example",
+    "before": "Деловодни број (на пример 4/2025)",
+    "after": "Na primer »Seznam življenjskih želja«",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "card-archive-pop",
+    "before": "Након архивирања, предмет више неће бити видљив у овом делу тока поступка.",
+    "after": "Po arhiviranju kartica ne bo več vidna na tem seznamu.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "card-archive-suggest-cancel",
+    "before": "Касније ипак можете извући и вратити предмет из архиве.",
+    "after": "Kartico lahko pozneje obnovite iz arhiva.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "card-sorting-by-number",
+    "before": "Бројчана ознака за редослед",
+    "after": "Razvrščanje kartic po številki",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "card-sorting-by-number-on-minicard",
+    "before": "Бројчана ознака за редослед",
+    "after": "Razvrščanje kartic po številki na mini kartici",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "cardStartPlanningPokerPopup-title",
+    "before": "Започни договор за партију покера",
+    "after": "Začni poker načrtovanja",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "card_assignees",
+    "before": "Сви пуномоћници текућег предмета у овим списима",
+    "after": "Vsi zadolženi uporabniki trenutne kartice na tej tabli",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "card_members",
+    "before": "Мрежа сарадника на овом предмету у овим списима",
+    "after": "Vsi člani trenutne kartice na tej tabli",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "cardsReportTitle",
+    "before": "Извештај везан за предмете",
+    "after": "Poročilo o karticah",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "checklistActionsPopup-title",
+    "before": "Руковање списковима радњи",
+    "after": "Dejanja s kontrolnim seznamom",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "checklistDeletePopup-title",
+    "before": "Избрисаћете предметну радњу?",
+    "after": "Izbriši kontrolni seznam?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "checklistItemDeletePopup-title",
+    "before": "Избрисаћете ставку из предметне радње?",
+    "after": "Izbriši postavko kontrolnega seznama?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "close-add-checklist-item",
+    "before": "Окончај додавање помоћних предметних радњи",
+    "after": "Zapri obrazec za dodajanje postavke na kontrolni seznam",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "close-edit-checklist-item",
+    "before": "Прекини измену помоћне предметне радње",
+    "after": "Zapri obrazec za urejanje postavke kontrolnega seznama",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "comment-assigned-only-desc",
+    "before": "Једино може да има право увида и узме учешће у расправама у додељеним му предметима.",
+    "after": "Vidne so samo dodeljene kartice. Lahko samo komentira.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "comment-delete",
+    "before": "Да ли сте сигурни да желите да повучете изнешено мишљење?",
+    "after": "Ali ste prepričani, da želite izbrisati komentar?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "comment-not-found",
+    "before": "Мишљење које садржи речи '%s' није пронађено.",
+    "after": "Kartica s komentarjem, ki vsebuje besedilo '%s', ni najdena.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "comprehensive-board-migration-description",
+    "before": "Изводе се свеобухватне провера и врше поправке целовитости података у списима - што укључује провере и поправке редоследа делова поступака, места где се тачно предмети налазе и структуре поступака.",
+    "after": "Izvede celovite preglede in popravke celovitosti podatkov table, vključno z vrstnim redom seznamov, položaji kartic in strukturo stez.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
