@@ -558,6 +558,13 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/be37a2c32">Repair Croatian attachment movement and card sorting labels</a>. Thanks to xet7.</summary>
+
+Correct 12 reviewed values. Positive and negative regressions verify attachment scope, S3 wording, checkbox selection and My Cards sorting labels. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/60f647915">Repair Croatian migration status and operating limits</a>. Thanks to xet7.</summary>
 
 Correct 20 reviewed values. Positive and negative regressions verify CPU thresholds, timing ranges, background continuation, browser warnings and administrator restrictions. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
