@@ -101,3 +101,8 @@ assert.match(data['globalSearch-instructions-status-private'], /solo en tableros
 assert.notEqual(data['has-spenttime-cards'], data['has-overtime-cards']);
 assert.match(data['has-spenttime-cards'], /tiempu emplegáu/);
 assert.match(data['import-board-instruction-about-errors'], /dacuando.*funciona igualmente/);
+assert.match(data['import-board-zip'], /\.zip.*JSON.*subdirectorios col nome del tableru.*axuntos/);
+assert.match(data['import-members-map-note'], /ensin asociar.*usuariu actual/);
+assert.match(data['import-user-select'], /usuariu esistente/);
+assert.match(data['keyboard-shortcuts-disabled'], /desactivaos.*activalos/);
+assert.match(data['keyboard-shortcuts-enabled'], /activaos.*desactivalos/);

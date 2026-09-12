@@ -41396,5 +41396,61 @@
     "before": "En tu tablero de Trello, ve a 'Menú', luego 'Más' > 'Imprimir y exportar' > 'Exportar JSON', y copia el texto resultante.",
     "after": "Nel to tableru de Trello, ve a 'Menu', dempués a 'More', 'Print and Export', 'Export JSON', y copia el testu resultante.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "import-board-instruction-wekan",
+    "before": "En tu tablero, vete a 'Menú', luego 'Exportar tablero', y copia el texto en el archivo descargado.",
+    "after": "Nel to tableru, ve a 'Menú', dempués a 'Exportar tableru', y copia el testu del ficheru descargáu.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "import-board-zip",
+    "before": "Añadir archivo .zip que contenga los archivos JSON del tablero y los nombres de las subcarpetas con adjuntos del tablero",
+    "after": "Añadir un ficheru .zip con ficheros JSON de tableros y subdirectorios col nome del tableru que contienen axuntos",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "import-members-map",
+    "before": "Tu tablero importado tiene algunos miembros. Por favor, mapea los miembros que quieres importar con tus usuarios.",
+    "after": "El to tableru importáu tien dellos miembros. Asocia los miembros que quieras importar colos tos usuarios.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "import-members-map-note",
+    "before": "Nota: Los miembros no mapeados serán asignados al usuario actual.",
+    "after": "Nota: los miembros ensin asociar van asignase al usuariu actual.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "import-user-select",
+    "before": "Selecciona el miembro existe que quieres usar como este miembro.",
+    "after": "Escueyi el to usuariu esistente que quieras usar como esti miembru.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "just-invited",
+    "before": "Has sido invitado a este tablero",
+    "after": "Acaben de convidate a esti tableru.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "keyboard-shortcuts-disabled",
+    "before": "Atajos de teclado deshabilitados. Haz clic para habilitarlos.",
+    "after": "Atayos de tecláu desactivaos. Fai clic pa activalos.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "keyboard-shortcuts-enabled",
+    "before": "Atajos de teclado habilitados. Haz clic para deshabilitarlos.",
+    "after": "Atayos de tecláu activaos. Fai clic pa desactivalos.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
