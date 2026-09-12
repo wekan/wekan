@@ -557,6 +557,15 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/999de898d">Repair Macedonian date popup and enrollment translations</a>. Thanks to xet7.</summary>
+
+Correct 15 reviewed values, distinguishing date types and restoring sorting
+and card-creator meaning. Positive and negative exact-value, rendering,
+source-token, key-order and repair checks pass. Further findings remain under review.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/fb82ac133">Repair Macedonian deletion and duplicate-list help</a>. Thanks to xet7.</summary>
 
 Correct 20 reviewed values, preserving both duplicate-list deletion conditions
