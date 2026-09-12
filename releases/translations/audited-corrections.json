@@ -35131,5 +35131,145 @@
     "before": "Стварам недостајуће делове",
     "after": "Ustvari manjkajoče sezname",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "step-delete-duplicate-empty-lists",
+    "before": "Бришем исте празне делове поступка",
+    "after": "Izbriši podvojene prazne sezname",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "step-ensure-lost-cards-swimlane",
+    "before": "Правим место за загубљене предмете",
+    "after": "Zagotovi stezo za izgubljene kartice",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "step-ensure-per-swimlane-lists",
+    "before": "Осигуравам да је део поступка везан за поступак",
+    "after": "Zagotovi sezname za posamezne steze",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "step-fix-attachment-urls",
+    "before": "Поправљам везе до складишта предметне грађе",
+    "after": "Popravi URL-je priponk",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "step-fix-avatar-urls",
+    "before": "Поправљам везе до складишта слика за сараднике",
+    "after": "Popravi URL-je avatarjev",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "step-fix-file-urls",
+    "before": "Поправљам везе до предметне грађе",
+    "after": "Popravljanje URL-jev datotek",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "step-fix-missing-ids",
+    "before": "Поправљам недостајућа id поља",
+    "after": "Popravi manjkajoče ID-je",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "step-fix-orphaned-cards",
+    "before": "Поправљам одбачене предмете",
+    "after": "Popravi osirotele kartice",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "step-restore-lists",
+    "before": "Опорављам делове поступка",
+    "after": "Obnovi sezname",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "step-restore-swimlanes",
+    "before": "Опорављам читав ток поступка",
+    "after": "Obnovi steze",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "step-delete-duplicate-empty-lists",
+    "before": "Бришем исте празне делове поступка",
+    "after": "Izbriši podvojene prazne sezname",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "step-ensure-lost-cards-swimlane",
+    "before": "Правим место за загубљене предмете",
+    "after": "Zagotovi stezo za izgubljene kartice",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "step-ensure-per-swimlane-lists",
+    "before": "Осигуравам да је део поступка везан за поступак",
+    "after": "Zagotovi sezname za posamezne steze",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "step-fix-attachment-urls",
+    "before": "Поправљам везе до складишта предметне грађе",
+    "after": "Popravi URL-je priponk",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "step-fix-avatar-urls",
+    "before": "Поправљам везе до складишта слика за сараднике",
+    "after": "Popravi URL-je avatarjev",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "step-fix-file-urls",
+    "before": "Поправљам везе до предметне грађе",
+    "after": "Popravljanje URL-jev datotek",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "step-fix-missing-ids",
+    "before": "Поправљам недостајућа id поља",
+    "after": "Popravi manjkajoče ID-je",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "step-fix-orphaned-cards",
+    "before": "Поправљам одбачене предмете",
+    "after": "Popravi osirotele kartice",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "step-restore-lists",
+    "before": "Опорављам делове поступка",
+    "after": "Obnovi sezname",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "step-restore-swimlanes",
+    "before": "Опорављам читав ток поступка",
+    "after": "Obnovi steze",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

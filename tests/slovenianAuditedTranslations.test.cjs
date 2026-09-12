@@ -23,6 +23,12 @@ for (const locale of ['sl', 'sl_SI']) {
   assert.match(data['accounts-lockout-info'], /napadi z grobo silo/);
   assert.doesNotMatch(data['accounts-lockout-info'], /lozinkef/);
   assert.equal(data.MongoDB_storage_engine, 'Shranjevalni pogon MongoDB');
+  assert.match(data['step-delete-duplicate-empty-lists'], /podvojene prazne sezname/);
+  assert.match(data['step-ensure-per-swimlane-lists'], /posamezne steze/);
+  assert.match(data['step-fix-orphaned-cards'], /osirotele kartice/);
+  assert.doesNotMatch(data['step-fix-orphaned-cards'], /zavržene|odstranjene/);
+  assert.notEqual(data['step-restore-lists'], data['step-restore-swimlanes']);
+
   assert.match(data['showSum-field-on-list'], /vsoto polj na vrhu seznama/);
   assert.doesNotMatch(data['showSum-field-on-list'], /število polj/);
   assert.match(data['show-card-counter-per-list'], /število kartic na seznam/);
