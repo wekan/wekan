@@ -226,3 +226,10 @@ assert.equal(data['exportChecklistPopup-title'], 'Exportar a lista de comprobaci
 assert.equal(data['filter-custom-fields-label'], 'Filtrar por campos personalizaus');
 assert.equal(data['filter-no-custom-fields'], 'Sin campos personalizaus');
 assert.notEqual(data['filter-custom-fields-label'], data['filter-no-custom-fields']);
+assert.equal(data['fix-missing-lists-migration'], 'Corregir listas que faltan');
+assert.match(data['font-default'], /Por defecto \(sin fuent personalizada\)/);
+assert.match(data['font-preview-text'], /^A rabosa .* o can .* 0123456789$/);
+assert.match(data['gcs-credentials'], /Credencials d’a cuenta de servicio \(JSON\)/);
+assert.match(data['gcs-project-id-description'], /ID d’o tuyo proyecto de Google Cloud/);
+assert.match(data['gcs-project-id-menu-path'], /en a parte superior → o ID d’o tuyo proyecto/);
+assert.ok(data['gcs-project-id-menu-path'].includes('Cloud overview → Dashboard → Project info → Project ID'));

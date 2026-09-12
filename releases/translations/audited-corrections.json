@@ -45085,5 +45085,47 @@
     "before": "Sin campos personalizados",
     "after": "Sin campos personalizaus",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "fix-missing-lists-migration",
+    "before": "Corregir listas faltantes",
+    "after": "Corregir listas que faltan",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "font-default",
+    "before": "Predeterminada (sin fuente personalizada)",
+    "after": "Por defecto (sin fuent personalizada)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "font-preview-text",
+    "before": "El veloz murciélago hindú comía feliz cardillo y kiwi 0123456789",
+    "after": "A rabosa marrón rapida salta sobre o can perezoso 0123456789",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "gcs-credentials",
+    "before": "Credenciales de la cuenta de servicio (JSON)",
+    "after": "Credencials d’a cuenta de servicio (JSON)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "gcs-project-id-description",
+    "before": "El id de tu proyecto de Google Cloud.",
+    "after": "O ID d’o tuyo proyecto de Google Cloud.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "gcs-project-id-menu-path",
+    "before": "Google Cloud Console → selector de proyecto en la parte superior → el ID de tu proyecto (Cloud overview → Dashboard → Project info → Project ID).",
+    "after": "Google Cloud Console → selector de proyecto en a parte superior → o ID d’o tuyo proyecto (Cloud overview → Dashboard → Project info → Project ID).",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
