@@ -23406,5 +23406,131 @@
     "before": "Advanced Filter allows to write a string containing following operators: == != <= >= && || ( ) A space is used as a separator between the Operators. You can filter for all Custom Fields by typing their names and values. For Example: Field1 == Value1. Note: If fields or values contains spaces, you need to encapsulate them into single quotes. For Example: 'Field 1' == 'Value 1'. For single control characters (' \\\\/) to be skipped, you can use \\\\. For example: Field1 == I\\\\'m. Also you can combine multiple conditions. For Example: F1 == V1 || F1 == V2. Normally all operators are interpreted from left to right. You can change the order by placing brackets. For Example: F1 == V1 && ( F2 == V2 || F2 == V3 ). Also you can search text fields using regex: F1 == /Tes.*/i",
     "after": "Напредниот филтер овозможува да напишете израз со следните оператори: == != <= >= && || ( ) Операторите се одделуваат со празно место. Можете да филтрирате по сите приспособени полиња со внесување на нивните имиња и вредности. На пример: Field1 == Value1. Забелешка: Ако полињата или вредностите содржат празни места, ставете ги во единечни наводници. На пример: 'Field 1' == 'Value 1'. За да ги избегнете поединечните контролни знаци (' \\/), користете \\. На пример: Field1 == I\\'m. Можете и да комбинирате повеќе услови. На пример: F1 == V1 || F1 == V2. Операторите обично се обработуваат одлево надесно. Можете да го смените редоследот со загради. На пример: F1 == V1 && ( F2 == V2 || F2 == V3 ). Можете да пребарувате и текстуални полиња со регуларни изрази: F1 == /Tes.*/i",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "Cube-Grid",
+    "before": "Исцртавај мрежу квадратића",
+    "after": "Pokazatelj čekanja s mrežom kockica",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "Double-Bounce",
+    "before": "Исцртавај дворед са три тачкице",
+    "after": "Pokazatelj čekanja s dvostrukim poskakivanjem",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "Node_heap_does_zap_garbage",
+    "before": "Node heap: купи zap смеће",
+    "after": "Node heap: prepisivanje odbačene memorije uzorkom bitova",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "Node_heap_heap_size_limit",
+    "before": "Node heap: вредност ограничења heap простора",
+    "after": "Node heap: ograničenje veličine gomile",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "Node_heap_malloced_memory",
+    "before": "Node heap: алоцирана меморија",
+    "after": "Node heap: memorija dodijeljena funkcijom malloc",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "Node_heap_number_of_detached_contexts",
+    "before": "Node heap: број одвојених  окружења",
+    "after": "Node heap: broj odvojenih konteksta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "Node_heap_number_of_native_contexts",
+    "before": "Node heap: број природних окружења",
+    "after": "Node heap: broj izvornih konteksta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "Node_heap_peak_malloced_memory",
+    "before": "Node heap: вршна алоцирана меморија",
+    "after": "Node heap: najveća količina memorije dodijeljene funkcijom malloc",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "Node_heap_total_available_size",
+    "before": "Node heap: укупни доступни простор",
+    "after": "Node heap: ukupna dostupna veličina",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "Node_heap_total_heap_size",
+    "before": "Node heap: укупни heap простор",
+    "after": "Node heap: ukupna veličina gomile",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "Node_heap_total_heap_size_executable",
+    "before": "Node heap: укупни извршни heap простор",
+    "after": "Node heap: veličina gomile za izvršni kod",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "Node_heap_total_physical_size",
+    "before": "Node heap: укупни физички простор",
+    "after": "Node heap: ukupna fizička veličina",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "Node_heap_used_heap_size",
+    "before": "Node heap: искоришћени heap простор",
+    "after": "Node heap: iskorištena veličina gomile",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "Node_memory_usage_external",
+    "before": "Node искоришћење меморије: спољна",
+    "after": "Potrošnja memorije u Nodeu: vanjska memorija",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "Node_memory_usage_heap_total",
+    "before": "Node искоришћење меморије: укупан простор који је алоциран за heap",
+    "after": "Potrošnja memorije u Nodeu: ukupna veličina dodijeljene gomile",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "Node_memory_usage_heap_used",
+    "before": "Node искоришћење меморије: колико заправо је искоришћено",
+    "after": "Potrošnja memorije u Nodeu: stvarno iskorištena memorija",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "Node_memory_usage_rss",
+    "before": "Node искоришћење меморије: постављена вредност",
+    "after": "Potrošnja memorije u Nodeu: rezidentna veličina skupa",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "Rotateplane",
+    "before": "Исцртавај лист који се окреће",
+    "after": "Pokazatelj čekanja s rotirajućom plohom",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
