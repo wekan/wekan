@@ -43867,5 +43867,47 @@
     "before": "Islamic Umm al-Qura",
     "after": "Calendariu de la Héxira (Umm al-Qura)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "Sistema de calendario (visualización de calendatas)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "accounts-allowUserNameChange",
+    "before": "Permitir cambiar el nombre de usuario",
+    "after": "Cambio d'o nombre d'usuario",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "accounts-lockout-locked-users-info",
+    "before": "Usuarios actualmente bloqueados debido a demasiados intentos fallidos de inicio de sesión",
+    "after": "Usuarios blocaus actualment por masiaus intentos fallius d'iniciar sesión",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "accounts-lockout-no-locked-users",
+    "before": "Actualmente no hay usuarios bloqueados",
+    "after": "Actualment no i hai usuarios blocaus",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "accounts-lockout-settings",
+    "before": "Configuración de protección de ataques de fuerza bruta",
+    "after": "Configuración de protección contra ataques de fuerza bruta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "accounts-lockout-show-locked-users",
+    "before": "Mostrar solo usuarios bloqueados",
+    "after": "Amostrar nomás os usuarios blocaus",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

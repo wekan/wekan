@@ -1,0 +1,12 @@
+'use strict';
+const assert = require('node:assert/strict');
+const data = require('../imports/i18n/data/an.i18n.json');
+assert.match(data['calendar-system'], /Sistema de calendario.*calendatas/);
+assert.doesNotMatch(data['calendar-system'], /görünüşü|Kalendar sistem/);
+assert.match(data['accounts-allowUserNameChange'], /Cambio d'o nombre d'usuario/);
+assert.match(data['accounts-lockout-locked-users-info'], /blocaus.*masiaus intentos fallius/);
+assert.match(data['accounts-lockout-no-locked-users'], /no i hai usuarios blocaus/);
+assert.match(data['accounts-lockout-settings'], /protección contra ataques de fuerza bruta/);
+assert.match(data['accounts-lockout-show-locked-users'], /Amostrar nomás os usuarios blocaus/);
+assert.notEqual(data['accounts-lockout-locked-users-info'], data['accounts-lockout-no-locked-users']);
+console.log('Aragonese calendar and account-lockout meanings verified');
