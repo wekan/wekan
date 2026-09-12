@@ -44735,5 +44735,47 @@
     "before": "Creación (Antiguos Primero)",
     "after": "Calendata de creación (as mas antigas primero)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "cron-job-paused",
+    "before": "Trabajo programado pausado correctamente",
+    "after": "Treballo programau pausau correctament",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "cron-job-resumed",
+    "before": "Trabajo programado reanudado correctamente",
+    "after": "Treballo programau repreneu correctament",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "cron-job-started",
+    "before": "Trabajo programado iniciado correctamente",
+    "after": "Treballo programau empecipiau correctament",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "cron-migration-warnings",
+    "before": "Advertencias de migración",
+    "after": "Alvertencias de migración",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "cron-migrations-resumed",
+    "before": "Migraciones reanudadas correctamente",
+    "after": "Migracions reprenidas correctament",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "cron-migrations-retried",
+    "before": "Migraciones fallidas reintentadas correctamente",
+    "after": "Migracions fallidas tornadas a intentar correctament",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

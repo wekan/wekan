@@ -155,3 +155,10 @@ assert.match(data['cover-attachment-on-minicard'], /Imachen de portada en a mini
 assert.match(data['created-at-newest-first'], /Calendata de creación.*mas nuevas primero/);
 assert.match(data['created-at-oldest-first'], /Calendata de creación.*mas antigas primero/);
 assert.notEqual(data['created-at-newest-first'], data['created-at-oldest-first']);
+assert.match(data['cron-job-paused'], /pausau correctament/);
+assert.match(data['cron-job-resumed'], /repreneu correctament/);
+assert.match(data['cron-job-started'], /empecipiau correctament/);
+assert.equal(new Set(['cron-job-paused','cron-job-resumed','cron-job-started'].map(key => data[key])).size, 3);
+assert.match(data['cron-migration-warnings'], /Alvertencias de migración/);
+assert.match(data['cron-migrations-resumed'], /Migracions reprenidas correctament/);
+assert.match(data['cron-migrations-retried'], /Migracions fallidas tornadas a intentar correctament/);
