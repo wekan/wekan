@@ -20207,5 +20207,110 @@
     "before": "Слика је превелика (__size__ max)",
     "after": "Аватарот е преголем (максимум __size__)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "avatars-path",
+    "before": "Путања до слика сарадника",
+    "after": "Патека за аватари",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "avatars-path-description",
+    "before": "Путања где се складиште слике сарадника",
+    "after": "Патека каде што се складираат датотеките на аватарите",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "board-archive-failed",
+    "before": "Није успело заказивање архивирања списа",
+    "after": "Не успеа закажувањето на архивирањето на таблата",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "board-archive-scheduled",
+    "before": "Заказано је паковање списа у архиву",
+    "after": "Архивирањето на таблата е успешно закажано",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "board-backup-failed",
+    "before": "Није успело заказивање израде резервног примерка списа",
+    "after": "Не успеа закажувањето на резервната копија на таблата",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "board-backup-scheduled",
+    "before": "Заказана је израда резервног примерка списа",
+    "after": "Резервната копија на таблата е успешно закажана",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "board-cleanup-failed",
+    "before": "Није успело заказивање чишћења списа",
+    "after": "Не успеа закажувањето на чистењето на таблата",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "board-cleanup-scheduled",
+    "before": "Заказано је чишћење списа",
+    "after": "Чистењето на таблата е успешно закажано",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "board-drag-drop-reorder-or-click-open",
+    "before": "Притисните и задржите, превуците па отпустите да би пресложили списе. Притисните на деловодни број да би отворили ове списе.",
+    "after": "Повлечете и пуштете за да го промените редоследот на иконите на таблите. Кликнете на иконата за да ја отворите таблата.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "board-info-on-my-boards",
+    "before": "Списи у мојој надлежности",
+    "after": "Поставки за сите табли",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "board-migrations",
+    "before": "Поступци обнове оштећених списа",
+    "after": "Миграции на табли",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "board-public-info",
+    "before": "Това табло ще бъде <strong>публично</strong>",
+    "after": "Оваа табла ќе биде <strong>јавна</strong>.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "board-title-not-found",
+    "before": "Списи под деловодним бројем '%s' нису пронађени.",
+    "after": "Таблата «%s» не е пронајдена.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "boardChangeBackgroundImagePopup-title",
+    "before": "Списи на осликаној подлози",
+    "after": "Промени ја сликата за заднина",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "boardChangeColorPopup-title",
+    "before": "Променете фона на таблото",
+    "after": "Промени ја заднината на таблата",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
