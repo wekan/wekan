@@ -23,6 +23,11 @@ for (const locale of ['sl', 'sl_SI']) {
   assert.match(data['accounts-lockout-info'], /napadi z grobo silo/);
   assert.doesNotMatch(data['accounts-lockout-info'], /lozinkef/);
   assert.equal(data.MongoDB_storage_engine, 'Shranjevalni pogon MongoDB');
+  assert.match(data['toggle-assignees'], /1-9.*vrstnem redu dodajanja na tablo/);
+  assert.match(data['toggle-labels'], /1-9.*Večkratna izbira doda oznake 1-9/);
+  for (const key of ['user-can-not-export-card-to-pdf', 'user-can-not-export-excel']) assert.match(data[key], /Uporabnik ne more izvoziti/);
+  assert.match(data['vote-delete-pop'], /Brisanje je trajno.*vsa dejanja.*glasovanjem/);
+
   assert.match(data['support-info-only-for-logged-in-users'], /samo prijavljenim uporabnikom/);
   assert.match(data['support-page-enabled'], /je omogočena/);
   assert.doesNotMatch(data['support-page-enabled'], /potrebujem/);

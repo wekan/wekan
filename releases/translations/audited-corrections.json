@@ -35439,5 +35439,145 @@
     "before": "Порука испод насловне слике на страни за пријаву",
     "after": "Besedilo pod logotipom za prijavo po meri",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "to-create-organizations-contact-admin",
+    "before": "Да би могли да додајете странке, молим да се обратите управнику/администратору.",
+    "after": "Za ustvarjanje organizacij se obrnite na skrbnika.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "to-create-teams-contact-admin",
+    "before": "Молим да се обратите управнику уколико желите да образујете тимове.",
+    "after": "Za ustvarjanje ekip se obrnite na skrbnika.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "toggle-assignees",
+    "before": "Одабери пуномоћника на предмету по редоследу додавања у увид у списе.",
+    "after": "Preklopi zadolžene uporabnike 1-9 za kartico (po vrstnem redu dodajanja na tablo).",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "toggle-labels",
+    "before": "Лепите и одлепљујете налепнице по броју. Вишеструким избором можете само да лепите",
+    "after": "Preklopi oznake 1-9 za kartico. Večkratna izbira doda oznake 1-9",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "total-attachments",
+    "before": "Број јединица предметне грађе",
+    "after": "Skupno število priponk",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "translation-number",
+    "before": "Број исправки превода је:",
+    "after": "Število prevodnih nizov po meri je:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "user-can-not-export-card-to-pdf",
+    "before": "Корисник не може да претвори садржај предмета у PDF облик",
+    "after": "Uporabnik ne more izvoziti kartice v PDF",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "user-can-not-export-excel",
+    "before": "Корисник не може да претвори списе у Excel облик",
+    "after": "Uporabnik ne more izvoziti v Excel",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "user-username-not-found",
+    "before": "Сарадник са корисничким налогом '%s' није пронађен.",
+    "after": "Uporabniško ime '%s' ni najdeno.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "vote-delete-pop",
+    "before": "Брисање има трајни карактер. Све у вези са овим гласањем ће бити неповратно избрисано.",
+    "after": "Brisanje je trajno. Izgubili boste vsa dejanja, povezana s tem glasovanjem.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "to-create-organizations-contact-admin",
+    "before": "Да би могли да додајете странке, молим да се обратите управнику/администратору.",
+    "after": "Za ustvarjanje organizacij se obrnite na skrbnika.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "to-create-teams-contact-admin",
+    "before": "Молим да се обратите управнику уколико желите да образујете тимове.",
+    "after": "Za ustvarjanje ekip se obrnite na skrbnika.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "toggle-assignees",
+    "before": "Одабери пуномоћника на предмету по редоследу додавања у увид у списе.",
+    "after": "Preklopi zadolžene uporabnike 1-9 za kartico (po vrstnem redu dodajanja na tablo).",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "toggle-labels",
+    "before": "Лепите и одлепљујете налепнице по броју. Вишеструким избором можете само да лепите",
+    "after": "Preklopi oznake 1-9 za kartico. Večkratna izbira doda oznake 1-9",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "total-attachments",
+    "before": "Број јединица предметне грађе",
+    "after": "Skupno število priponk",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "translation-number",
+    "before": "Број исправки превода је:",
+    "after": "Število prevodnih nizov po meri je:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "user-can-not-export-card-to-pdf",
+    "before": "Корисник не може да претвори садржај предмета у PDF облик",
+    "after": "Uporabnik ne more izvoziti kartice v PDF",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "user-can-not-export-excel",
+    "before": "Корисник не може да претвори списе у Excel облик",
+    "after": "Uporabnik ne more izvoziti v Excel",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "user-username-not-found",
+    "before": "Сарадник са корисничким налогом '%s' није пронађен.",
+    "after": "Uporabniško ime '%s' ni najdeno.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "vote-delete-pop",
+    "before": "Брисање има трајни карактер. Све у вези са овим гласањем ће бити неповратно избрисано.",
+    "after": "Brisanje je trajno. Izgubili boste vsa dejanja, povezana s tem glasovanjem.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
