@@ -29,3 +29,5 @@
         .content(class="{{#unless $eq popupName ../popupName}}no-height{{/unless}}")
           +Template.dynamic(template=popupName data=dataContext)
       .clearfix
+  button.js-date-popup-resize(type="button" aria-label="{{_ 'size'}}" title="{{_ 'size'}}")
+    span(aria-hidden="true") ◢

@@ -96,6 +96,14 @@ assert.match(read('client/components/forms/calendarTimeInput.jade'), /input\.js-
 assert.doesNotMatch(read('client/components/forms/calendarTimeInput.jade'), /type="text"/);
 assert.match(read('client/components/forms/datepicker.css'), /flex-direction: column/);
 assert.match(read('client/components/main/popup.css'), /\.datepicker-container \.fields \{[^}]*flex-direction: column/);
+const popupCss = read('client/components/main/popup.css');
+assert.match(popupCss, /\.pop-over:has\(\.edit-date\) \{[^}]*overflow: auto;/);
+assert.match(read('client/components/main/popup.js'), /setPointerCapture\(evt.pointerId\)/);
+assert.match(read('client/components/main/popup.tpl.jade'), /button\.js-date-popup-resize\(type="button" aria-label=/);
+assert.match(popupCss, /\.pop-over:has\(\.edit-date\) \.content-wrapper \{[^}]*max-height: none !important;[^}]*overflow: visible !important;/);
+assert.doesNotMatch(popupCss, /max-height: (50|60)vh|padding-bottom: 100px/,
+  'date popups must not reintroduce the nested height limits from the screenshots');
+
 for (const file of ['client/components/forms/datepicker.jade', 'client/components/cards/labels.jade',
   'client/components/lists/listBody.jade', 'client/components/rules/triggers/scheduledTriggers.jade']) {
   assert.match(read(file), /\+calendarDateInput\(/);

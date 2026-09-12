@@ -97,7 +97,7 @@ test('Jalali month view has actual month boundaries and a single calendar title'
 });
 
 for (const calendarSystem of ['gregorian', 'buddhist']) {
-  test(`${calendarSystem} popup opens a full-width calendar with only hour/minute controls`, async ({ page, user, board }) => {
+  test(`${calendarSystem} popup opens a full-width calendar with only hour/minute controls`, async ({ page, user, board }, testInfo) => {
     db.updateOne('users', { _id: user.id }, { $set: { 'profile.calendarSystem': calendarSystem } });
     const card = db.findOne('cards', { boardId: board.boardId, title: 'Alpha Card' });
     db.updateOne('cards', { _id: card._id }, { $set: { dueAt: new Date('2026-03-21T12:00:00Z') } });
@@ -120,6 +120,46 @@ for (const calendarSystem of ['gregorian', 'buddhist']) {
     }));
     expect(Math.abs(dimensions.fields - dimensions.grid)).toBeLessThan(2);
     expect(dimensions.overflow).toBeLessThan(2);
+    const assertAllControlsFit = async () => {
+      const layout = await popup.evaluate(el => {
+        const shell = el.getBoundingClientRect();
+        const controls = [...el.querySelectorAll('.selected-calendar-heading button, .js-calendar-day, .calendar-time-input select, .edit-date > button')];
+        return {
+          overflow: el.scrollHeight - el.clientHeight,
+          bottom: shell.bottom,
+          viewport: innerHeight,
+          allVisible: controls.every(control => {
+            const bounds = control.getBoundingClientRect();
+            return bounds.top >= shell.top && bounds.bottom <= shell.bottom;
+          }),
+          nestedScroll: [...el.querySelectorAll('.content-wrapper, .content-container, .content, .datepicker-container')]
+            .some(child => /auto|scroll/.test(getComputedStyle(child).overflowY)),
+        };
+      });
+      expect(layout.overflow).toBeLessThan(2);
+      expect(layout.bottom).toBeLessThanOrEqual(layout.viewport);
+      expect(layout.allVisible).toBe(true);
+      expect(layout.nestedScroll).toBe(false);
+    };
+    await assertAllControlsFit();
+    await expect(popup.locator('.js-date-popup-resize')).toBeVisible();
+    const before = await popup.boundingBox();
+    await page.mouse.move(before.x + before.width - 3, before.y + before.height - 3);
+    await page.mouse.down();
+    await page.mouse.move(before.x + before.width + 40, before.y + before.height + 30, { steps: 8 });
+    await page.mouse.up();
+    const after = await popup.boundingBox();
+    expect(after.width).toBeGreaterThan(before.width + 10);
+    expect(after.height).toBeGreaterThan(before.height + 10);
+    await assertAllControlsFit();
+    await popup.locator('.js-date-popup-resize').focus();
+    await popup.locator('.js-date-popup-resize').press('ArrowRight');
+    await popup.locator('.js-date-popup-resize').press('ArrowDown');
+    const keyboardSize = await popup.boundingBox();
+    expect(keyboardSize.width).toBeGreaterThan(after.width);
+    expect(keyboardSize.height).toBeGreaterThan(after.height);
+    await assertAllControlsFit();
+    await popup.screenshot({ path: testInfo.outputPath('resized-date-popup.png') });
     const nextDay = popup.locator('.js-calendar-day[data-date="2026-03-22"]');
     await nextDay.click();
     await expect(nextDay).toHaveAttribute('aria-pressed', 'true');

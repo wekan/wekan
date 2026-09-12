@@ -2,7 +2,47 @@ import { CSSEvents } from '/client/lib/cssEvents';
 import { isMobileViewportNow } from '/client/lib/responsiveUtils';
 import { trapTabKey } from '/client/lib/accessibility';
 
+// Keep the popup anchored while resizing and retain every control at its
+// initial height. Pointer capture prevents releasing outside from closing it.
+function resizeDatePopup(element, width, height) {
+  const bounds = element.getBoundingClientRect();
+  const availableWidth = Math.max(0, window.innerWidth - bounds.left - 12);
+  const availableHeight = Math.max(0, window.innerHeight - bounds.top - 12);
+  const minimumHeight = Number(element.dataset.resizeMinimumHeight) || bounds.height;
+  element.dataset.resizeMinimumHeight = String(minimumHeight);
+  element.style.setProperty('width', `${Math.min(availableWidth, Math.max(Math.min(320, availableWidth), width))}px`, 'important');
+  element.style.setProperty('height', `${Math.min(availableHeight, Math.max(Math.min(minimumHeight, availableHeight), height))}px`, 'important');
+}
+
 Popup.template.events({
+  'pointerdown .js-date-popup-resize'(evt, tpl) {
+    if (evt.button !== 0) return;
+    evt.preventDefault(); evt.stopPropagation();
+    const element = evt.currentTarget.closest('.pop-over');
+    const bounds = element.getBoundingClientRect();
+    tpl._dateResize = { element, pointerId: evt.pointerId, x: evt.clientX, y: evt.clientY,
+      width: bounds.width, height: bounds.height };
+    evt.currentTarget.setPointerCapture(evt.pointerId);
+  },
+  'pointermove .js-date-popup-resize'(evt, tpl) {
+    const drag = tpl._dateResize;
+    if (!drag || drag.pointerId !== evt.pointerId) return;
+    evt.preventDefault(); evt.stopPropagation();
+    resizeDatePopup(drag.element, drag.width + evt.clientX - drag.x, drag.height + evt.clientY - drag.y);
+  },
+  'pointerup .js-date-popup-resize, pointercancel .js-date-popup-resize, lostpointercapture .js-date-popup-resize'(evt, tpl) {
+    tpl._dateResize = null;
+  },
+  'click .js-date-popup-resize'(evt) { evt.preventDefault(); evt.stopPropagation(); },
+  'keydown .js-date-popup-resize'(evt) {
+    const offsets = { ArrowLeft: [-20, 0], ArrowRight: [20, 0], ArrowUp: [0, -20], ArrowDown: [0, 20] };
+    if (!offsets[evt.key]) return;
+    evt.preventDefault(); evt.stopPropagation();
+    const element = evt.currentTarget.closest('.pop-over');
+    const bounds = element.getBoundingClientRect();
+    const [width, height] = offsets[evt.key];
+    resizeDatePopup(element, bounds.width + width, bounds.height + height);
+  },
   'click .js-back-view'() {
     Popup.back();
   },

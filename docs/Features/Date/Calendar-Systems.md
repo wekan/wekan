@@ -30,7 +30,12 @@ these popups use the date button to open their grid. Click a day to select
 it. Previous/next month and year buttons
 allow navigation without typing. The popup grid stays visible after choosing
 a day. Compact Gregorian
-fields outside popups use the browser's native Gregorian date input.
+fields outside popups use the browser's native Gregorian date input. The popup
+fits its controls without nested scroll areas. Drag its bottom-right resize
+corner to change width and height, or focus that handle with Tab and use
+arrow keys. The handle cannot shrink it below its initial content height.
+Its size is bounded by the viewport; on an unusually short window, the
+outer popup provides scrolling so controls remain reachable.
 
 Time controls provide separate hour and minute lists, covering all 24 hours
 and all 60 minutes. Both can be selected with a mouse or keyboard. Only the
