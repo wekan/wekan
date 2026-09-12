@@ -47192,5 +47192,40 @@
     "before": "Kalandar Musulunci (tabular, astronomical epoch)",
     "after": "Kalandar Musulunci (bisa jadawali, farkon ƙidayar lokacin ilimin taurari)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ht",
+    "key": "calendar-system-islamic",
+    "before": "calendrier hégirien",
+    "after": "Kalandriye Hijri",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ht",
+    "key": "calendar-system-islamic-civil",
+    "before": "calendrier hégirien (tabulaire, époque civile)",
+    "after": "Kalandriye Hijri (ki baze sou tablo, kòmansman sivil pou konte tan)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ht",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "Kalandriye Hijri (Arabi Sawoudit, obsèvasyon lalin)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ht",
+    "key": "calendar-system-islamic-tbla",
+    "before": "calendrier hégirien (tabulaire, époque astronomique)",
+    "after": "Kalandriye Hijri (ki baze sou tablo, kòmansman astwonomik pou konte tan)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ht",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "calendrier hégirien (Umm al-Qura)",
+    "after": "Kalandriye Hijri (Umm al-Qura)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
