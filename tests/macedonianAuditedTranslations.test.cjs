@@ -105,6 +105,10 @@ const data = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/mk.i1
   assert.match(data['show-at-all-boards-page'], /Сите табли/);
   assert.equal(data['sidebar-close'], 'Затворете страничната лента');
   assert.equal(data['sidebar-open'], 'Отворете страничната лента');
+  assert.match(data['smtp-port-description'], /излезни е-пораки/);
+  assert.match(data['starred-boards-description'], /на врвот на вашиот список со табли/);
+  assert.match(data['support-info-only-for-logged-in-users'], /само за најавени корисници/);
+  assert.doesNotMatch(data['subtaskDeletePopup-title'], /посao|предмет/);
   assert.equal(data.list, 'Список');
   assert.equal(data.swimlane, 'Лента');
   console.log('macedonianAuditedTranslations: actual date and label rendering, checklist removal meaning and native labels passed');
