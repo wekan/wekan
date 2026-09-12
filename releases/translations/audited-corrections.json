@@ -45939,5 +45939,40 @@
     "before": "Progreso de la importación",
     "after": "Progreso d’a importación",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "trello-import-results",
+    "before": "Resultados de la importación",
+    "after": "Resultaus d’a importación",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "trello-list-workspaces",
+    "before": "Listar espacios de trabajo de Trello",
+    "after": "Listar espacios de treballo de Trello",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "upload-repository",
+    "before": "Subir/Actualizar repositorio",
+    "after": "Puyar/Actualizar repositorio",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "version-check-failed",
+    "before": "No fue posible comprobar el número de versión.",
+    "after": "No s’ha puesto comprobar o numero de versión.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "calendar-system-buddhist",
+    "before": "Buddhist",
+    "after": "Calendario budista",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

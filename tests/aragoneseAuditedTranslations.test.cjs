@@ -381,3 +381,9 @@ assert.equal(data['translation-number'], 'O numero de cadenas de traducción per
 assert.equal(data['trello-api-credentials-required'], 'Introduz tanto a clau API como o token de Trello.');
 assert.match(data['trello-api-token'], /chenerau manualment debaixo d’a clau API/);
 assert.equal(data['trello-import-progress'], 'Progreso d’a importación');
+assert.equal(data['trello-import-results'], 'Resultaus d’a importación');
+assert.equal(data['trello-list-workspaces'], 'Listar espacios de treballo de Trello');
+assert.equal(data['upload-repository'], 'Puyar/Actualizar repositorio');
+assert.equal(data['version-check-failed'], 'No s’ha puesto comprobar o numero de versión.');
+assert.equal(data['writable-path'], 'Ruta con permiso de escritura');
+assert.equal(data['calendar-system-buddhist'], 'Calendario budista');

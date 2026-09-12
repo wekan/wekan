@@ -796,5 +796,11 @@
     "key": "subtext-with-full-path",
     "value": "Subtexto con ruta completa",
     "reason": "Reviewed shared Aragonese technical vocabulary for secondary text showing the full path; source meaning preserved."
+  },
+  {
+    "locale": "an",
+    "key": "writable-path",
+    "value": "Ruta con permiso de escritura",
+    "reason": "Reviewed shared Aragonese path and write-permission terminology; preserves writable rather than readable path meaning."
   }
 ]
