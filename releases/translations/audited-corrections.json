@@ -36055,5 +36055,75 @@
     "before": "Adicionar Lista de Verificação",
     "after": "Engadir lista de verificación",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "add-checklist-item",
+    "before": "Adicionar um item à lista de verificação",
+    "after": "Engadir un elemento á lista de verificación",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "add-cover",
+    "before": "Adicionar imagem de capa no mini cartão",
+    "after": "Engadir imaxe de portada á minitarxeta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "add-cron-job",
+    "before": "Adicionar trabalhos agendados",
+    "after": "Engadir traballo programado",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "add-cron-job-placeholder",
+    "before": "Funcionalidade para Adicionar Trabalhos Agendados virá em breve",
+    "after": "A función de engadir traballos programados estará dispoñible en breve",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "add-custom-html-after-body-start",
+    "before": "Adicionar HTML Personalizado depois do início do <body>",
+    "after": "Engadir HTML personalizado despois do inicio de <body>",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "add-custom-html-before-body-end",
+    "before": "Adicionar HTML Personalizado antes do fim do </body>",
+    "after": "Engadir HTML personalizado antes do fin de </body>",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "add-template-container",
+    "before": "Adicionar Contêiner de Modelo",
+    "after": "Engadir contedor de modelos",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "addWorkspacePopup-title",
+    "before": "Adicionar Área de trabalho",
+    "after": "Engadir espazo de traballo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "addmore-detail",
+    "before": "Adicionar uma descrição mais detalhada",
+    "after": "Engadir unha descrición máis detallada",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "admin-desc",
+    "before": "Pode ver e editar cartões, remover membros e alterar configurações do quadro. Pode ver atividades.",
+    "after": "Pode ver e editar tarxetas, eliminar membros e cambiar a configuración do taboleiro. Pode ver as actividades.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

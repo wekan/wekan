@@ -5,6 +5,12 @@ assert.match(data['accounts-lockout-known-users'], /usuarios coñecidos.*usuario
 assert.match(data['accounts-lockout-unknown-users'], /usuarios descoñecidos.*usuario inexistente/);
 for (const key of ['accounts-lockout-known-users', 'accounts-lockout-unknown-users']) assert.doesNotMatch(data[key], /usuários|senha|Configurações/);
 assert.match(data['act-addChecklist'], /engadiu a lista de verificación/);
+assert.match(data['admin-desc'], /editar tarxetas, eliminar membros.*configuración do taboleiro.*actividades/);
+assert.match(data['add-custom-html-after-body-start'], /despois do inicio de <body>/);
+assert.match(data['add-custom-html-before-body-end'], /antes do fin de <\/body>/);
+assert.match(data['add-cron-job-placeholder'], /estará dispoñible en breve/);
+assert.match(data['add-cover'], /imaxe de portada á minitarxeta/);
+
 (async () => {
   const translator = require('i18next').createInstance().use(require('i18next-sprintf-postprocessor'));
   await translator.init({ postProcess: ['sprintf'], lng: 'gl-ES', fallbackLng: false, keySeparator: false, interpolation: { prefix: '__', suffix: '__', escapeValue: false }, resources: { 'gl-ES': { translation: data } } });
