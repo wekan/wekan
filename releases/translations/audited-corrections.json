@@ -24134,5 +24134,145 @@
     "before": "Притисните и задржите, превуците па отпустите да би пресложили списе. Притисните на деловодни број да би отворили ове списе.",
     "after": "Povucite i ispustite za promjenu redoslijeda ikona ploča. Kliknite ikonu ploče da biste otvorili ploču.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "board-info-on-my-boards",
+    "before": "Списи у мојој надлежности",
+    "after": "Postavke svih ploča",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "board-migrations",
+    "before": "Поступци обнове оштећених списа",
+    "after": "Migracije ploče",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "board-title-not-found",
+    "before": "Списи под деловодним бројем '%s' нису пронађени.",
+    "after": "Ploča '%s' nije pronađena.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "boardChangeBackgroundImagePopup-title",
+    "before": "Списи на осликаној подлози",
+    "after": "Promijeni pozadinsku sliku",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "boardInfoOnMyBoards-title",
+    "before": "Списи у мојој надлежности",
+    "after": "Postavke svih ploča",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "boardInfoOnMyBoardsPopup-title",
+    "before": "Списи у мојој надлежности",
+    "after": "Postavke svih ploča",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "board_assignees",
+    "before": "Сви пуномоћници из свих предмета у овим списима",
+    "after": "Svi zaduženi korisnici svih kartica na ovoj ploči",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "broken-cards",
+    "before": "Предмети где је веза покидана",
+    "after": "Oštećene kartice",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "bucket-example",
+    "before": "Деловодни број (на пример 4/2025)",
+    "after": "Na primjer, „Popis želja“",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "card-archive-pop",
+    "before": "Након архивирања, предмет више неће бити видљив у овом делу тока поступка.",
+    "after": "Nakon arhiviranja kartica neće biti vidljiva u ovom popisu.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "card-archive-suggest-cancel",
+    "before": "Касније ипак можете извући и вратити предмет из архиве.",
+    "after": "Karticu kasnije možete vratiti iz arhive.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "card-sorting-by-number",
+    "before": "Бројчана ознака за редослед",
+    "after": "Razvrstavanje kartica prema broju",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "card-sorting-by-number-on-minicard",
+    "before": "Бројчана ознака за редослед",
+    "after": "Razvrstavanje kartica prema broju na minikartici",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "cardStartPlanningPokerPopup-title",
+    "before": "Започни договор за партију покера",
+    "after": "Pokreni poker za planiranje",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "card_assignees",
+    "before": "Сви пуномоћници текућег предмета у овим списима",
+    "after": "Svi zaduženi korisnici trenutačne kartice na ovoj ploči",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "card_members",
+    "before": "Мрежа сарадника на овом предмету у овим списима",
+    "after": "Svi članovi trenutačne kartice na ovoj ploči",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "cardsReportTitle",
+    "before": "Извештај везан за предмете",
+    "after": "Izvješće o karticama",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "checklistActionsPopup-title",
+    "before": "Руковање списковима радњи",
+    "after": "Radnje s kontrolnim popisom",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "checklistDeletePopup-title",
+    "before": "Избрисаћете предметну радњу?",
+    "after": "Izbriši kontrolni popis?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "checklistItemDeletePopup-title",
+    "before": "Избрисаћете ставку из предметне радње?",
+    "after": "Izbriši stavku kontrolnog popisa?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
