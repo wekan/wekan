@@ -95,3 +95,5 @@ language/preferences, date displays and native storage boundaries.
 click selection, keyboard/RTL navigation and time selection. The Playwright
 calendar-display spec covers rendered badges, popup selection and saving;
 it requires a running WeKan server and database.
+
+The date popup can be moved by dragging its title bar with a mouse or touch pointer. Movement keeps the popup inside the viewport; the Back and Close controls remain clickable. Calendar month/year navigation and day buttons use the same active theme styling as Save, with the selected day and keyboard focus still indicated. The bottom-right resize handle remains available after moving the popup.

@@ -36,6 +36,23 @@ test('Jalali mouse and keyboard selection saves the same native instant in an En
   expect(Math.abs(calendarWidth - fieldsWidth)).toBeLessThan(2);
   await expect(popup.locator('.calendar-time-input input')).toHaveAttribute('type', 'hidden');
   await expect(popup.locator('.calendar-time-input select')).toHaveCount(2);
+  const originalBounds = await popup.boundingBox();
+  const titleBounds = await popup.locator('.header-title').boundingBox();
+  await page.mouse.move(titleBounds.x + titleBounds.width / 2, titleBounds.y + titleBounds.height / 2);
+  await page.mouse.down();
+  await page.mouse.move(titleBounds.x + titleBounds.width / 2 - 60, titleBounds.y + titleBounds.height / 2 + 20);
+  await page.mouse.up();
+  const movedBounds = await popup.boundingBox();
+  expect(movedBounds.x).toBeCloseTo(originalBounds.x - 60, 0);
+  await expect(popup).toBeVisible();
+  const buttonStyles = await popup.evaluate(el => {
+    const save = getComputedStyle(el.querySelector('.js-submit-date'));
+    return [...el.querySelectorAll('.selected-calendar-heading button, .js-calendar-day')].every(button => {
+      const style = getComputedStyle(button);
+      return style.backgroundColor === save.backgroundColor && style.color === save.color;
+    });
+  });
+  expect(buttonStyles).toBe(true);
   const firstDay = popup.locator('.js-calendar-day[data-date="2026-03-21"]');
   await firstDay.focus();
   await expect(firstDay).toBeFocused();

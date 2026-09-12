@@ -15,6 +15,28 @@ function resizeDatePopup(element, width, height) {
 }
 
 Popup.template.events({
+  'pointerdown .header'(evt, tpl) {
+    const element = evt.currentTarget.closest('.pop-over');
+    if (evt.button !== 0 || !element.querySelector('.edit-date') ||
+        evt.target.closest('a, button, input, select')) return;
+    evt.preventDefault(); evt.stopPropagation();
+    const bounds = element.getBoundingClientRect();
+    tpl._dateMove = { element, pointerId: evt.pointerId, x: evt.clientX, y: evt.clientY,
+      left: bounds.left, top: bounds.top, width: bounds.width, height: bounds.height };
+    evt.currentTarget.setPointerCapture(evt.pointerId);
+  },
+  'pointermove .header'(evt, tpl) {
+    const drag = tpl._dateMove;
+    if (!drag || drag.pointerId !== evt.pointerId) return;
+    evt.preventDefault(); evt.stopPropagation();
+    const left = Math.max(12, Math.min(window.innerWidth - drag.width - 12, drag.left + evt.clientX - drag.x));
+    const top = Math.max(12, Math.min(window.innerHeight - drag.height - 12, drag.top + evt.clientY - drag.y));
+    drag.element.style.setProperty('left', `${left}px`, 'important');
+    drag.element.style.setProperty('top', `${top}px`, 'important');
+  },
+  'pointerup .header, pointercancel .header, lostpointercapture .header'(evt, tpl) {
+    tpl._dateMove = null;
+  },
   'pointerdown .js-date-popup-resize'(evt, tpl) {
     if (evt.button !== 0) return;
     evt.preventDefault(); evt.stopPropagation();

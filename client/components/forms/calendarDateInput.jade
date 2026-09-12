@@ -19,11 +19,11 @@ template(name="calendarDateInput")
       if expanded
         .selected-calendar-picker
           .selected-calendar-heading
-            button.js-calendar-year-previous(type="button" aria-label="{{_ 'previous'}} {{_ 'predicate-year'}}") «
-            button.js-calendar-previous(type="button" aria-label="{{_ 'previous'}} {{_ 'month'}}") ‹
+            button.primary.js-calendar-year-previous(type="button" aria-label="{{_ 'previous'}} {{_ 'predicate-year'}}") «
+            button.primary.js-calendar-previous(type="button" aria-label="{{_ 'previous'}} {{_ 'month'}}") ‹
             span(aria-live="polite") {{monthLabel}}
-            button.js-calendar-next(type="button" aria-label="{{_ 'next'}} {{_ 'month'}}") ›
-            button.js-calendar-year-next(type="button" aria-label="{{_ 'next'}} {{_ 'predicate-year'}}") »
+            button.primary.js-calendar-next(type="button" aria-label="{{_ 'next'}} {{_ 'month'}}") ›
+            button.primary.js-calendar-year-next(type="button" aria-label="{{_ 'next'}} {{_ 'predicate-year'}}") »
           table
             thead
               tr
@@ -35,4 +35,4 @@ template(name="calendarDateInput")
                   each days
                     td
                       if this
-                        button.js-calendar-day(type="button" data-date=iso title=title aria-label=title aria-pressed=selected tabindex=tabIndex) {{label}}
+                        button.primary.js-calendar-day(type="button" data-date=iso title=title aria-label=title aria-pressed=selected tabindex=tabIndex) {{label}}

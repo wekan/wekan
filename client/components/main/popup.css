@@ -445,7 +445,7 @@
   width: min(400px, calc(100vw - 24px)) !important;
   height: auto !important;
   min-width: min(320px, calc(100vw - 24px));
-  max-width: calc(100vw - max(12px, calc(50vw - 200px)) - 12px);
+  max-width: calc(100vw - 24px);
   max-height: calc(100dvh - 24px) !important;
   margin-top: 0;
   overflow: auto;
@@ -493,6 +493,9 @@
   margin: 0;
 }
 .pop-over:has(.edit-date) > .header {
+  cursor: move;
+  touch-action: none;
+  user-select: none;
   position: relative;
   top: auto;
   left: auto;
