@@ -267,3 +267,13 @@ for (const kind of ['activity', 'invite']) {
 }
 assert.match(data['email-templates-activity-body'], /notificación d’actividá/);
 assert.match(data['email-templates-invite-body'], /d’invitación/);
+
+assert.match(data['enable-vertical-scrollbars'], /barres de desplazamientu verticales/);
+assert.match(data['enable-wip-limit'], /Activar la llende del trabayu en cursu/);
+assert.match(data['enter-zoom-level'], /50-300%/);
+assert.match(data['error-csv-schema'], /CSV.*comes.*TSV.*tabulaciones.*nun inclúi.*formatu correutu/);
+assert.match(data['error-email-taken'], /yá ta n’usu/);
+assert.match(data['error-invitation-code-not-exist'], /códigu d’invitación nun existe/);
+assert.match(data['error-json-malformed'], /testu nun ye JSON válidu/);
+assert.match(data['error-json-schema'], /datos JSON nun inclúin.*formatu correutu/);
+assert.notEqual(data['error-json-malformed'], data['error-json-schema']);
