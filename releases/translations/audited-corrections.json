@@ -34711,5 +34711,145 @@
     "before": "S3 bucket име где чувате предметну грађу",
     "after": "Ime vsebnika S3 za shranjevanje datotek",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "s3-connection-success",
+    "before": "Управо је остварена веза до S3",
+    "after": "Povezava s S3 je uspešna",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "s3-enabled",
+    "before": "S3 ради и може да се користи",
+    "after": "S3 je omogočen",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "s3-enabled-description",
+    "before": "Можете да користите AWS S3 или MinIO као складиште предметне грађе",
+    "after": "Uporabi AWS S3 ali MinIO za shranjevanje datotek",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "s3-endpoint-description",
+    "before": "S3 endpoint тачка (нпр. s3.amazonaws.com или minio.example.com)",
+    "after": "URL končne točke S3 (npr. s3.amazonaws.com ali minio.example.com)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "s3-region-description",
+    "before": "AWS S3 регион (нпр. us-east-1)",
+    "after": "Območje AWS S3 (npr. us-east-1)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "s3-secret-key-description",
+    "before": "AWS S3 тајни кључ за пријаву",
+    "after": "Skrivni ključ AWS S3 za preverjanje pristnosti",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "s3-settings-save-failed",
+    "before": "Није могла бити сачувана S3 поставка",
+    "after": "Shranjevanje nastavitev S3 ni uspelo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "s3-ssl-enabled",
+    "before": "S3 SSL шифровање је укључено",
+    "after": "SSL za S3 je omogočen",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "s3-ssl-enabled-description",
+    "before": "Користи SSL/TLS за везу до Amazon S3 складишта",
+    "after": "Uporabi SSL/TLS za povezave s S3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "schedule-board-backup",
+    "before": "Закажи израду резервног примерка",
+    "after": "Načrtuj varnostno kopiranje table",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "s3-connection-success",
+    "before": "Управо је остварена веза до S3",
+    "after": "Povezava s S3 je uspešna",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "s3-enabled",
+    "before": "S3 ради и може да се користи",
+    "after": "S3 je omogočen",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "s3-enabled-description",
+    "before": "Можете да користите AWS S3 или MinIO као складиште предметне грађе",
+    "after": "Uporabi AWS S3 ali MinIO za shranjevanje datotek",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "s3-endpoint-description",
+    "before": "S3 endpoint тачка (нпр. s3.amazonaws.com или minio.example.com)",
+    "after": "URL končne točke S3 (npr. s3.amazonaws.com ali minio.example.com)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "s3-region-description",
+    "before": "AWS S3 регион (нпр. us-east-1)",
+    "after": "Območje AWS S3 (npr. us-east-1)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "s3-secret-key-description",
+    "before": "AWS S3 тајни кључ за пријаву",
+    "after": "Skrivni ključ AWS S3 za preverjanje pristnosti",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "s3-settings-save-failed",
+    "before": "Није могла бити сачувана S3 поставка",
+    "after": "Shranjevanje nastavitev S3 ni uspelo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "s3-ssl-enabled",
+    "before": "S3 SSL шифровање је укључено",
+    "after": "SSL za S3 je omogočen",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "s3-ssl-enabled-description",
+    "before": "Користи SSL/TLS за везу до Amazon S3 складишта",
+    "after": "Uporabi SSL/TLS za povezave s S3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "schedule-board-backup",
+    "before": "Закажи израду резервног примерка",
+    "after": "Načrtuj varnostno kopiranje table",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
