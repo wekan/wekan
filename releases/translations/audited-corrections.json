@@ -26192,5 +26192,117 @@
     "before": "Унесите S3 приступни кључ",
     "after": "Unesite pristupni ključ za S3",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "s3-attachments",
+    "before": "Предметна грађа у Amazon S3 облаку",
+    "after": "Privitci u S3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "s3-bucket-description",
+    "before": "S3 bucket име где чувате предметну грађу",
+    "after": "Naziv S3 spremnika za pohranu datoteka",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "s3-connection-success",
+    "before": "Управо је остварена веза до S3",
+    "after": "Povezivanje sa S3 je uspjelo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "s3-enabled",
+    "before": "S3 ради и може да се користи",
+    "after": "S3 je omogućen",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "s3-enabled-description",
+    "before": "Можете да користите AWS S3 или MinIO као складиште предметне грађе",
+    "after": "Koristite AWS S3 ili MinIO za pohranu datoteka",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "s3-endpoint-description",
+    "before": "S3 endpoint тачка (нпр. s3.amazonaws.com или minio.example.com)",
+    "after": "URL krajnje točke S3 (npr. s3.amazonaws.com ili minio.example.com)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "s3-region-description",
+    "before": "AWS S3 регион (нпр. us-east-1)",
+    "after": "Regija AWS S3 (npr. us-east-1)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "s3-secret-key-description",
+    "before": "AWS S3 тајни кључ за пријаву",
+    "after": "Tajni ključ za autentifikaciju u AWS S3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "s3-settings-save-failed",
+    "before": "Није могла бити сачувана S3 поставка",
+    "after": "Spremanje postavki S3 nije uspjelo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "s3-ssl-enabled",
+    "before": "S3 SSL шифровање је укључено",
+    "after": "SSL za S3 je omogućen",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "s3-ssl-enabled-description",
+    "before": "Користи SSL/TLS за везу до Amazon S3 складишта",
+    "after": "Koristite SSL/TLS za povezivanje sa S3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "schedule-board-backup",
+    "before": "Закажи израду резервног примерка",
+    "after": "Zakaži sigurnosnu kopiju ploče",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "scheduled-board-operations",
+    "before": "Заказане радње на списима",
+    "after": "Zakazane operacije ploče",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "search-boards-or-operations",
+    "before": "Претрага списа или радњи...",
+    "after": "Pretraži ploče ili operacije...",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "search-cards",
+    "before": "Тражи у насловима предмета, делова поступака и рубрика у овим списима",
+    "after": "Pretraži naslove kartica i popisa, opise i prilagođena polja na ovoj ploči",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "server-error-troubleshooting",
+    "before": "Молим да нам пошаљете извештај о грешци коју је изазвао сервер.\nАко је у питању snap инсталација, покрените: `sudo snap logs wekan.wekan`\nАко је у питању Docker инсталација, покрените: `sudo docker logs wekan-app`",
+    "after": "Pošaljite pogrešku koju je generirao poslužitelj.\nZa instalaciju putem snapa pokrenite: `sudo snap logs wekan.wekan`\nZa instalaciju putem Dockera pokrenite: `sudo docker logs wekan-app`",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
