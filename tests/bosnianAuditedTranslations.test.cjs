@@ -220,3 +220,13 @@ assert.match(data['hide-minicard-label-text'], /tekst oznake na minikartici/);
 assert.equal(data['if-you-already-have-an-account'], 'Ako već imate račun');
 assert.equal(data['impersonate-user'], 'Preuzmi identitet korisnika');
 console.log('bosnianAuditedTranslations: public-board scope, GridFS and checklist visibility passed');
+
+for (const menu of ['Menu', 'More', 'Print and Export', 'Export JSON']) assert.ok(data['import-board-instruction-trello'].includes(`'${menu}'`));
+assert.match(data['import-board-instruction-wekan'], /Izvezi ploču/);
+assert.doesNotMatch(data['import-board-instruction-wekan'], /Uvezi ploču/);
+assert.match(data['import-board-instruction-about-errors'], /ponekad ipak uspije/);
+assert.match(data['import-board-instruction-about-errors'], /Sve ploče/);
+assert.match(data['import-board-zip'], /\.zip.*JSON.*poddirektorijima.*priloge/);
+assert.match(data['import-members-map-note'], /nepovezani članovi.*trenutnom korisniku/);
+assert.match(data['import-user-select'], /postojećeg korisnika/);
+console.log('bosnianAuditedTranslations: export direction, vendor menu names, ZIP scope and member fallback passed');
