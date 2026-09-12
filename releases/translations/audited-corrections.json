@@ -42173,5 +42173,61 @@
     "before": "editada la fecha de vencimiento a %s de %s",
     "after": "cambió la fecha de vencimientu a %s de %s",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "activity-endDate",
+    "before": "editada la fecha de finalización a %s de %s",
+    "after": "cambió la fecha de fin a %s de %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "activity-imported",
+    "before": "ha importado %s en %s desde %s",
+    "after": "importó %s en %s dende %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "activity-receivedDate",
+    "before": "editada la fecha de recepción a %s de %s",
+    "after": "cambió la fecha de recepción a %s de %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "activity-set-customfield",
+    "before": "Cambiar el campo personalizado '%s' a '%s' en %s",
+    "after": "estableció el campu personalizáu '%s' a '%s' en %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "activity-startDate",
+    "before": "editada la fecha de inicio a %s de %s",
+    "after": "cambió la fecha d'aniciu a %s de %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "activity-unchecked-item",
+    "before": "desmarcado %s en lista  %s de %s",
+    "after": "desmarcó %s na llista de comprobación %s de %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "activity-unchecked-item-card",
+    "before": "desmarcado %s en la lista de verificación %s",
+    "after": "desmarcó %s na llista de comprobación %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "activity-unset-customfield",
+    "before": "Desmarcar el campo personalizado '%s' en %s",
+    "after": "baldó el valor del campu personalizáu '%s' en %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

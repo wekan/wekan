@@ -161,3 +161,8 @@ assert.match(data['activity-checklist-uncompleted'], /marcó como incompleta.*%s
 assert.match(data['activity-checklist-uncompleted-card'], /marcó como incompleta/);
 assert.notEqual(data['activity-checklist-completed'], data['activity-checklist-uncompleted']);
 assert.match(data['activity-checked-item'], /marcó %s.*comprobación %s de %s/);
+assert.match(data['activity-imported'], /%s en %s dende %s/);
+assert.match(data['activity-set-customfield'], /estableció.*'%s' a '%s' en %s/);
+assert.match(data['activity-unset-customfield'], /baldó el valor del campu/);
+assert.doesNotMatch(data['activity-unset-customfield'], /Desmarcar|eliminó el campu/);
+assert.match(data['activity-unchecked-item'], /desmarcó %s.*comprobación %s de %s/);
