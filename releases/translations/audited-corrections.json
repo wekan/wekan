@@ -45288,5 +45288,40 @@
     "before": "Etiqueta '%s' no encontrada.",
     "after": "Etiqueta '%s' no trobada.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "left-of-list",
+    "before": "A la izquierda de la lista seleccionada",
+    "after": "A la cucha d’a lista triada",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "list-filter-label",
+    "before": "Filtrar listas por título",
+    "after": "Filtrar a lista por titol",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "list-title-not-found",
+    "before": "Lista  '%s' no encontrada.",
+    "after": "Lista '%s' no trobada.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "list-width-error-message",
+    "before": "El ancho de la lista debe ser un entero mayor que 270",
+    "after": "L’amplaria d’a lista ha de estar un entero mayor que 270",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "map-provider-saved",
+    "before": "Servicio de mapas predeterminado guardado.",
+    "after": "Servicio de mapas por defecto alzau.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

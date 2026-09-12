@@ -706,5 +706,11 @@
     "key": "label-default",
     "value": "etiqueta %s (por defecto)",
     "reason": "Reviewed shared Aragonese label terminology and por defecto default qualifier; exact percent placeholder preserved."
+  },
+  {
+    "locale": "an",
+    "key": "login-allow",
+    "value": "Inicio de sesión: permitir",
+    "reason": "Reviewed shared Aragonese session and permission vocabulary; login allow remains distinct from denying login."
   }
 ]
