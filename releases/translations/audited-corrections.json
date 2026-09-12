@@ -36125,5 +36125,75 @@
     "before": "Pode ver e editar cartões, remover membros e alterar configurações do quadro. Pode ver atividades.",
     "after": "Pode ver e editar tarxetas, eliminar membros e cambiar a configuración do taboleiro. Pode ver as actividades.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "admin-people-user-active",
+    "before": "Usuário está ativo - clique para desativá-lo",
+    "after": "O usuario está activo - faga clic para desactivalo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "admin-people-user-inactive",
+    "before": "Usuário está inativo - clique para ativá-lo",
+    "after": "O usuario está inactivo - faga clic para activalo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "all-board-members",
+    "before": "Todos os membros do quadro",
+    "after": "Todos os membros do taboleiro",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "allboards.add-subworkspace",
+    "before": "Adicionar Subárea de trabalho",
+    "after": "Engadir subespazo de traballo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "allboards.add-workspace",
+    "before": "Adicionar Área de trabalho",
+    "after": "Engadir espazo de traballo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "always-field-on-card",
+    "before": "Adicionar campo a todos os cartões",
+    "after": "Engadir o campo a todas as tarxetas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "app-is-offline",
+    "before": "A carregar, por favor aguarde. Actualizar a página causará perda de dados. Se o carregamento não funcionar, por favor verifique se o servidor não parou.",
+    "after": "Cargando, agarda por favor. Actualizar a páxina causará perda de datos. Se a carga non funciona, comproba que o servidor non se detivese.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "archive-board",
+    "before": "Mover o Quadro para o Arquivo",
+    "after": "Mover o taboleiro ao Arquivo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "archive-board-confirm",
+    "before": "Tem certeza de que deseja excluir este quadro?",
+    "after": "Seguro que queres arquivar este taboleiro?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "archive-card",
+    "before": "Mover o Cartão para o Arquivo",
+    "after": "Mover a tarxeta ao Arquivo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

@@ -5,6 +5,13 @@ assert.match(data['accounts-lockout-known-users'], /usuarios coñecidos.*usuario
 assert.match(data['accounts-lockout-unknown-users'], /usuarios descoñecidos.*usuario inexistente/);
 for (const key of ['accounts-lockout-known-users', 'accounts-lockout-unknown-users']) assert.doesNotMatch(data[key], /usuários|senha|Configurações/);
 assert.match(data['act-addChecklist'], /engadiu a lista de verificación/);
+assert.match(data['admin-people-user-active'], /está activo.*desactivalo/);
+assert.match(data['admin-people-user-inactive'], /está inactivo.*activalo/);
+assert.match(data['always-field-on-card'], /todas as tarxetas/);
+assert.match(data['app-is-offline'], /causará perda de datos.*servidor non se detivese/);
+assert.match(data['archive-board-confirm'], /arquivar este taboleiro/);
+assert.doesNotMatch(data['archive-board-confirm'], /excluir|eliminar/);
+
 assert.match(data['admin-desc'], /editar tarxetas, eliminar membros.*configuración do taboleiro.*actividades/);
 assert.match(data['add-custom-html-after-body-start'], /despois do inicio de <body>/);
 assert.match(data['add-custom-html-before-body-end'], /antes do fin de <\/body>/);
