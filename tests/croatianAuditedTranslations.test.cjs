@@ -71,6 +71,13 @@ console.log('croatianAuditedTranslations: target script, V8 metrics and indicato
   assert.match(data['admin-desc'], /uklanjati članove/);
   assert.ok(data['add-custom-html-after-body-start'].includes('<body>'));
   assert.ok(data['add-custom-html-before-body-end'].includes('</body>'));
+  assert.equal(translator.t('email-resetPassword-subject', { siteName: 'SITE' }), 'Ponovno postavite lozinku na SITE');
+  const invitation = translator.t('email-invite-text', { user: 'USER', inviter: 'INVITER', board: 'BOARD', url: 'LOCAL_URL' });
+  for (const value of ['USER', 'INVITER', 'BOARD', 'LOCAL_URL']) assert.ok(invitation.includes(value));
+  assert.match(invitation, /vas poziva da se pridružite/);
+  assert.doesNotMatch(invitation, /pun uvid|potpun pristup/);
+  assert.match(data['dueCardsViewChange-choice-all-description'], /nedovršene kartice/);
+  assert.match(data['dueCardsViewChange-choice-all-description'], /korisnik ima dopuštenje/);
   assert.match(data['act-newDue'], /prvi podsjetnik/);
   assert.match(data['act-duenow'], /upravo sada/);
   assert.doesNotMatch(data['act-duenow'], /danas/);
