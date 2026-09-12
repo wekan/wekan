@@ -39779,5 +39779,236 @@
     "before": "Marcar todos os itens de uma lista",
     "after": "Marcar todos os elementos dunha lista",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "r-d-uncheck-all",
+    "before": "Desmarcar todos os itens de uma lista",
+    "after": "Desmarcar todos os elementos dunha lista",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "r-edit-rule-trigger-action",
+    "before": "Editar regra (Gatilho/Ação)",
+    "after": "Editar disparador/acción",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "read-assigned-only",
+    "before": "Somente Leitura Atribuída",
+    "after": "Só lectura das asignadas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "remove-labels-multiselect",
+    "before": "Multi-seleção remove etiquetas 1-9",
+    "after": "A selección múltiple quita as etiquetas 1-9",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "restore-all-archived-migration",
+    "before": "Recuperar Todos Arquivados",
+    "after": "Restaurar todo o arquivado",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "right-of-list",
+    "before": "À direita da lista selecionada",
+    "after": "Á dereita da lista seleccionada",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "s3-access-key-description",
+    "before": "Chaves de acesso do AWS S3 para autenticação",
+    "after": "Chave de acceso de AWS S3 para a autenticación",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "s3-access-key-placeholder",
+    "before": "Insira as chaves de acesso do S3",
+    "after": "Introduza a chave de acceso de S3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "s3-bucket-description",
+    "before": "Nome do S3 Bucket para armazenar arquivos",
+    "after": "Nome do bucket de S3 para gardar os ficheiros",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "s3-enabled-description",
+    "before": "Use AWS S3 ou MinIO para armazenamento de arquivos",
+    "after": "Usar AWS S3 ou MinIO para o almacenamento de ficheiros",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "s3-endpoint-description",
+    "before": "URL do dispositivo S3 (por exemplo: s3.amazonaws.com ou minio.example.com)",
+    "after": "URL do punto de acceso de S3 (p. ex., s3.amazonaws.com ou minio.example.com)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "s3-port-description",
+    "before": "Número da Porta do dispositivo S3",
+    "after": "Número de porto do punto de acceso de S3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "s3-region-description",
+    "before": "Região do AWS S3 (por exemplo: us-east-1)",
+    "after": "Rexión de AWS S3 (p. ex., us-east-1)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "s3-secret-key-description",
+    "before": "Chave secreta do AWS S3 para autenticação",
+    "after": "Chave secreta de AWS S3 para a autenticación",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "s3-secret-key-placeholder",
+    "before": "Insira a chave secreta do S3",
+    "after": "Introduza a chave secreta de S3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "s3-secret-key-required",
+    "before": "É necessária uma chave secreta S3",
+    "after": "Requírese a chave secreta de S3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "s3-settings-save-failed",
+    "before": "Falha ao salvar configurações do S3",
+    "after": "Non se puido gardar a configuración de S3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "s3-settings-saved",
+    "before": "Configurações do S3 salvas com sucesso",
+    "after": "Configuración de S3 gardada correctamente",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "s3-ssl-enabled-description",
+    "before": "Usar SSL/TLS para conexões do S3",
+    "after": "Usar SSL/TLS para as conexións con S3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "save-s3-settings",
+    "before": "Salvar Configurações do S3",
+    "after": "Gardar a configuración de S3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "search-example",
+    "before": "Escreva o texto a pesquisar e pressione Enter",
+    "after": "Escribe o texto que procuras e preme Intro",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "send-smtp-test",
+    "before": "Enviar um e-mail de teste para si mesmo",
+    "after": "Enviarte un correo electrónico de proba",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "server-error-troubleshooting",
+    "before": "Por favor submeta o erro gerado pelo servidor.\nPara uma instalação snap, execute: `sudo snap logs wekan.wekan`\nPara uma instalação Docker, execute: `sudo docker logs wekan-app`",
+    "after": "Por favor, envíe o erro xerado polo servidor.\nPara unha instalación snap, execute: `sudo snap logs wekan.wekan`\nPara unha instalación Docker, execute: `sudo docker logs wekan-app`",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "set-wip-limit-value",
+    "before": "Defina um limite máximo para o número de tarefas nesta lista",
+    "after": "Establecer un límite para o número máximo de tarefas nesta lista",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "settingsTranslationPopup-title",
+    "before": "Excluir este texto de tradução customizado?",
+    "after": "Eliminar esta cadea de tradución personalizada?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "settingsUserPopup-title",
+    "before": "Configurações do utilizador",
+    "after": "Configuración do usuario",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "shortcut-show-shortcuts",
+    "before": "Mostrar esta lista de atalhos",
+    "after": "Mostrar esta lista de atallos",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "shortcut-toggle-filterbar",
+    "before": "Alternar a Barra Lateral de Filtros",
+    "after": "Alternar a barra lateral de filtros",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "shortcut-toggle-searchbar",
+    "before": "Alternar a Barra Lateral de Pesquisa",
+    "after": "Alternar a barra lateral de procura",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "show-desktop-drag-handles",
+    "before": "Mostrar alças de arrasto do desktop",
+    "after": "Mostrar os tiradores de arrastre de escritorio",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "show-week-of-year",
+    "before": "Mostrar semana do ano (ISO8601)",
+    "after": "Mostrar a semana do ano (ISO 8601)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "showSum-field-on-list",
+    "before": "Mostrar soma dos campos no topo da lista",
+    "after": "Mostrar a suma dos campos na parte superior da lista",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "sign-in-to-upload",
+    "before": "Faça login para enviar repositórios",
+    "after": "Inicie sesión para enviar repositorios",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

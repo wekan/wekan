@@ -328,3 +328,14 @@ assert.match(data['operator-number-expected'], /__operator__.*número.*'__value_
 assert.match(data['page-maybe-private'], /Quizais.*<a href='%s'>iniciando sesión<\/a>/);
 assert.match(data['poker-delete-pop'], /permanente.*todas as accións/);
 assert.match(data['r-board-note'], /campo baleiro.*calquera valor posible/);
+
+assert.match(data['s3-enabled-description'], /AWS S3 ou MinIO/);
+assert.match(data['s3-endpoint-description'], /punto de acceso.*s3.amazonaws.com ou minio.example.com/);
+assert.match(data['s3-port-description'], /porto do punto de acceso/);
+assert.match(data['s3-region-description'], /us-east-1/);
+assert.match(data['s3-settings-save-failed'], /^Non se puido gardar/);
+assert.match(data['s3-settings-saved'], /gardada correctamente$/);
+assert.match(data['server-error-troubleshooting'], /`sudo snap logs wekan.wekan`.*\n.*`sudo docker logs wekan-app`/);
+assert.match(data['set-wip-limit-value'], /número máximo de tarefas nesta lista/);
+assert.match(data['show-week-of-year'], /ISO 8601/);
+assert.match(data['showSum-field-on-list'], /suma.*parte superior da lista/);

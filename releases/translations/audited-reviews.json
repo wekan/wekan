@@ -490,5 +490,17 @@
     "key": "integrityReportTitle",
     "value": "Integridade do sistema de ficheiros",
     "reason": "Inspected wording is correct Galician for Filesystem integrity. Shared Portuguese vocabulary does not justify changing the translation."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "r-items-list",
+    "value": "elemento1,elemento2,elemento3",
+    "reason": "Reviewed Galician is correct. The checklist placeholder demonstrates three comma-separated example elements in Galician; Importar / Exportar regras correctly names rule import/export. Shared Portuguese wording is not an error."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "rulesImportExportPopup-title",
+    "value": "Importar / Exportar regras",
+    "reason": "Reviewed Galician is correct. The checklist placeholder demonstrates three comma-separated example elements in Galician; Importar / Exportar regras correctly names rule import/export. Shared Portuguese wording is not an error."
   }
 ]
