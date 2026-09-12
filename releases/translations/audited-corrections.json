@@ -35845,5 +35845,75 @@
     "before": "importou a lista __list__ para pista __swimlane__ no quadro __board__",
     "after": "importou a lista __list__ ao carril __swimlane__ no taboleiro __board__",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "act-joinMember",
+    "before": "adicionou o membro __member__ ao cartão __card__ na lista __list__ na pista __swimlane__ no quadro __board__",
+    "after": "engadiu o membro __member__ á tarxeta __card__ na lista __list__ no carril __swimlane__ no taboleiro __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "act-moveCard",
+    "before": "moveu o cartão __card__ do quadro __board__ da pista  __oldSwimlane__ da lista __oldList__ para a pista __swimlane__ na lista __list__",
+    "after": "moveu a tarxeta __card__ no taboleiro __board__ da lista __oldList__ no carril __oldSwimlane__ á lista __list__ no carril __swimlane__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "act-moveCardToOtherBoard",
+    "before": "moveuo cartão __card__ da lista __oldList__ na pista __oldSwimlane__ no quadro __oldBoard__ para a lista __list__ na pista __swimlane__ no quadro __board__",
+    "after": "moveu a tarxeta __card__ da lista __oldList__ no carril __oldSwimlane__ no taboleiro __oldBoard__ á lista __list__ no carril __swimlane__ no taboleiro __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "act-removeBoardMember",
+    "before": "removeuo membro __member__ do quadro __board__",
+    "after": "eliminou o membro __member__ do taboleiro __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "act-removeChecklist",
+    "before": "removeu a lista de verificação __checklist__ do cartão __card__ na lista __list__ na pista __swimlane__ no quadro __board__",
+    "after": "eliminou a lista de verificación __checklist__ da tarxeta __card__ na lista __list__ no carril __swimlane__ no taboleiro __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "act-removeChecklistItem",
+    "before": "removeu o item __checklistItem__ da lista de verificação __checkList__ no cartão __card__ na lista __list__ na pista __swimlane__ no quadro __board__",
+    "after": "eliminou o elemento __checklistItem__ da lista de verificación __checkList__ na tarxeta __card__ na lista __list__ no carril __swimlane__ no taboleiro __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "act-removeLabel",
+    "before": "Removeu a etiqueta __label__ do cartão __card__ na lista __list__ na pista __swimlane__ no quadro __board__",
+    "after": "Eliminou a etiqueta __label__ da tarxeta __card__ na lista __list__ no carril __swimlane__ no taboleiro __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "act-removedLabel",
+    "before": "Removeu a etiqueta __label__ do cartão __card__ na lista __list__ na pista __swimlane__ no quadro __board__",
+    "after": "Eliminou a etiqueta __label__ da tarxeta __card__ na lista __list__ no carril __swimlane__ no taboleiro __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "act-restoredCard",
+    "before": "restaurou o cartão __card__ para a lista __list__ na pista __swimlane__ no quadro __board__",
+    "after": "restaurou a tarxeta __card__ na lista __list__ no carril __swimlane__ no taboleiro __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "act-setCustomField",
+    "before": "editou o campo personalizado __customField__: __customFieldValue__ no cartão __card__ na lista __list__ na pista __swimlane__ no quadro __board__",
+    "after": "editou o campo personalizado __customField__: __customFieldValue__ na tarxeta __card__ na lista __list__ no carril __swimlane__ no taboleiro __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

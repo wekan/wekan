@@ -19,5 +19,8 @@ assert.match(data['act-addChecklist'], /engadiu a lista de verificación/);
   assert.match(data['act-completeChecklist'], /completou a lista de verificación/);
   assert.match(data['act-deleteComment'], /eliminou o comentario/);
   assert.match(data['act-editComment'], /editou o comentario/);
+  assert.equal(data['act-removeLabel'], data['act-removedLabel']);
+  assert.equal(translator.t('act-moveCardToOtherBoard', { card: 'CARD', oldList: 'OLDLIST', oldSwimlane: 'OLDLANE', oldBoard: 'OLDBOARD', list: 'LIST', swimlane: 'LANE', board: 'BOARD' }), 'moveu a tarxeta CARD da lista OLDLIST no carril OLDLANE no taboleiro OLDBOARD á lista LIST no carril LANE no taboleiro BOARD');
+  assert.equal(translator.t('act-removeChecklistItem', { checklistItem: 'ITEM', checkList: 'CHECK', card: 'CARD', list: 'LIST', swimlane: 'LANE', board: 'BOARD' }), 'eliminou o elemento ITEM da lista de verificación CHECK na tarxeta CARD na lista LIST no carril LANE no taboleiro BOARD');
   console.log('galicianRegionalAuditedTranslations: credential meanings and actual attachment rendering passed');
 })().catch(error => { console.error(error); process.exitCode = 1; });
