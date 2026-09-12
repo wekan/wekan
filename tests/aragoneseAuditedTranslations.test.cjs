@@ -108,3 +108,10 @@ assert.match(data['activity-unchecked-item'], /desmarcó %s.*comprobación %s de
 assert.match(data['activity-unchecked-item-card'], /desmarcó %s.*comprobación %s$/);
 assert.match(data['activity-unset-customfield'], /buidó o valor.*'%s' en %s/);
 assert.doesNotMatch(data['activity-unset-customfield'], /desmarcó|eliminó o campo/);
+assert.match(data['add-custom-html-after-body-start'], /dimpués d’o inicio de <body>/);
+assert.match(data['add-custom-html-before-body-end'], /antes d’o final de <\/body>/);
+assert.doesNotMatch(data['add-custom-html-before-body-end'], /dimpués/);
+assert.match(data['allboards.edit-workspace'], /espacio de treballo/);
+assert.match(data.almostdue, /actual %s s’acerca/);
+assert.match(data['already-account'], /Ya tiens una cuenta.*Inicia sesión/);
+assert.match(data['always-show-code-as-text'], /Amostrar siempre tot o codigo como texto plano/);

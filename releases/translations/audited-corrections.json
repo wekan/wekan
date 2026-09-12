@@ -44448,5 +44448,47 @@
     "before": "Desmarcar el campo personalizado '%s' en %s",
     "after": "buidó o valor d’o campo personalizau '%s' en %s",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "add-custom-html-after-body-start",
+    "before": "Añade HTML personalizado después de <body>",
+    "after": "Adhibir HTML personalizau dimpués d’o inicio de <body>",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "add-custom-html-before-body-end",
+    "before": "Añade HTML personalizado después de </body>",
+    "after": "Adhibir HTML personalizau antes d’o final de </body>",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "allboards.edit-workspace",
+    "before": "Editar espacio de trabajo",
+    "after": "Editar o espacio de treballo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "almostdue",
+    "before": "está próxima la hora de vencimiento actual %s",
+    "after": "A hora de vencimiento actual %s s’acerca",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "already-account",
+    "before": "¿Ya tienes una cuenta? Inicia sesión",
+    "after": "¿Ya tiens una cuenta? Inicia sesión",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "always-show-code-as-text",
+    "before": "Mostrar siempre todo el código como texto plano",
+    "after": "Amostrar siempre tot o codigo como texto plano",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
