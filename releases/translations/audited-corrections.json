@@ -48480,5 +48480,40 @@
     "before": "Copia template su molte ciartes",
     "after": "Copiar il model en bleras cartas",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "cover-attachment-on-minicard",
+    "before": "Immagine di copertina su minicard",
+    "after": "Maletg da cuverta sin la minicarta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "created-at-newest-first",
+    "before": "Data di creazion (dalla più nuefa)",
+    "after": "Data da creaziun (las pli novas l’emprim)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "created-at-oldest-first",
+    "before": "Data di creazion (dalla più vecchia)",
+    "after": "Data da creaziun (las pli veglias l’emprim)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "cron-errors-cleared",
+    "before": "Duc gli errori cancellati cun successo",
+    "after": "Tut ils sbagls èn vegnids stizzads cun success",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "cron-job-pause-failed",
+    "before": "Impossibile mettere in pausa il processo pianificato",
+    "after": "La lavur planisada n’ha betg pudì vegnir messa en pausa",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
