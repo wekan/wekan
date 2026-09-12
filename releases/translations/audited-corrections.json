@@ -43405,5 +43405,47 @@
     "before": "Desmarcar todos los elementos de una lista",
     "after": "Desmarcar tolos elementos d’una llista",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "r-edit-rule-trigger-action",
+    "before": "Editar regla (disparador/acción)",
+    "after": "Editar el disparador o l’aición",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "r-items-check",
+    "before": "elementos de la lista de verificación",
+    "after": "elementos de la llista de comprobación",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "r-items-list",
+    "before": "elemento1,elemento2,elemento3",
+    "after": "elementu1,elementu2,elementu3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "r-of-checklist",
+    "before": "de la lista de verificación",
+    "after": "de la llista de comprobación",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "r-when-a-checklist",
+    "before": "Cuando una lista de verificación es",
+    "after": "Cuando una llista de comprobación ta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "r-when-a-item",
+    "before": "Cuando un elemento de la lista de verificación es",
+    "after": "Cuando un elementu de la llista de comprobación ta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

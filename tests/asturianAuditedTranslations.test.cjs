@@ -379,3 +379,12 @@ assert.match(data['r-d-check-of-list'], /de la llista de comprobación/);
 assert.match(data['r-d-remove-checklist'], /Eliminar la llista de comprobación/);
 assert.match(data['r-d-remove-all-member'], /Quitar tolos miembros/);
 assert.doesNotMatch(data['r-d-remove-all-member'], /cuenta|usuariu/);
+
+assert.match(data['r-edit-rule-trigger-action'], /disparador o l’aición/);
+assert.match(data['r-items-check'], /elementos de la llista de comprobación/);
+assert.equal(data['r-items-list'].split(',').length, 3);
+assert.equal(data['r-items-list'], 'elementu1,elementu2,elementu3');
+assert.match(data['r-of-checklist'], /de la llista de comprobación/);
+assert.match(data['r-when-a-checklist'], /Cuando una llista de comprobación ta$/);
+assert.match(data['r-when-a-item'], /Cuando un elementu de la llista de comprobación ta$/);
+assert.notEqual(data['r-when-a-checklist'], data['r-when-a-item']);
