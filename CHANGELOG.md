@@ -558,6 +558,13 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/7e77f4838870826fa9bd8bec424d10fe95e20968">Repair Galician regional checklist and card placement messages</a>. Thanks to xet7.</summary>
+
+Replace 10 Portuguese values with reviewed Galician wording. Preserve checklist-state arguments and top/bottom card placement. Regression checks verify actual checklist-state and item-addition rendering, meanings, exact corrections, source tokens, key order and idempotent repairs. The short translation audit records current progress.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/31110ecc580cc7736543845caa602c10f9a567d9">Repair Galician regional checklist state activity translations</a>. Thanks to xet7.</summary>
 
 Replace 10 Portuguese activity values with reviewed Galician wording. Preserve checklist-state distinctions. Regression checks verify actual item/checklist/card argument rendering, aliases, exact corrections, source tokens, key order and idempotent repairs. The short translation audit records current progress.
