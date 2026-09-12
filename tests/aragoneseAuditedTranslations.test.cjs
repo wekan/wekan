@@ -356,3 +356,10 @@ assert.equal(data['send-smtp-test'], 'Ninviar-te un correu de preba a tu mesmo')
 assert.equal(data['set-list-width-value'], 'Amplaria d’a lista (pixels)');
 assert.equal(data['set-swimlane-height-value'], 'Altura de carril (píxeles)');
 assert.equal(data['setSelectionColorPopup-title'], 'Establecer color de selección');
+assert.equal(data['shortcut-toggle-searchbar'], 'Alternar a barra lateral de busca');
+assert.equal(data['show-list-on-minicard'], 'Amostrar a lista en a minitarcheta');
+assert.notEqual(data['show-list-on-minicard'], data['hide-list-on-minicard']);
+assert.equal(data['show-on-minicard'], 'Amostrar en a minitarcheta');
+assert.equal(data['show-parent-in-minicard'], 'Amostrar a tarcheta may en a minitarcheta:');
+assert.equal(data['show-subtasks-field'], 'Amostrar o campo de subtareas');
+assert.equal(data.showChecklistAtMinicard, 'Amostrar a lista de comprobación en a minitarcheta');

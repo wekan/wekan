@@ -45792,5 +45792,47 @@
     "before": "Ancho de la lista (píxeles)",
     "after": "Amplaria d’a lista (pixels)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "shortcut-toggle-searchbar",
+    "before": "Conmutar la barra lateral de búsqueda",
+    "after": "Alternar a barra lateral de busca",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "show-list-on-minicard",
+    "before": "Mostrar lista en la minitarjeta",
+    "after": "Amostrar a lista en a minitarcheta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "show-on-minicard",
+    "before": "Mostrar en la minitarjeta",
+    "after": "Amostrar en a minitarcheta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "show-parent-in-minicard",
+    "before": "Mostrar el padre en una minitarjeta:",
+    "after": "Amostrar a tarcheta may en a minitarcheta:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "show-subtasks-field",
+    "before": "Mostrar campo de subtareas",
+    "after": "Amostrar o campo de subtareas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "showChecklistAtMinicard",
+    "before": "Mostrar checklist en la minitarjeta",
+    "after": "Amostrar a lista de comprobación en a minitarcheta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
