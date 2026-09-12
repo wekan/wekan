@@ -558,6 +558,13 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/dafeae03e11cf9b808c9c91f5c07051b6c529936">Repair Slovenian card views and multi selection messages</a>. Thanks to xet7.</summary>
+
+Correct 24 values across both Slovenian locales. Restore board checkbox selection, card view/sort distinctions, result counts and original checklist-item order. Regression checks verify meanings, exact corrections, source tokens, key order and idempotent repairs. The short translation audit records current progress.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/17f282cabeb8c6b4cc47eed8d2e1fa3f574c41d8">Repair Slovenian migration permissions and attachment move scope</a>. Thanks to xet7.</summary>
 
 Correct 24 values across both Slovenian locales. Preserve board-administrator migration restrictions, individual migration execution and board/all-attachment scope. Restore mobile-mode and monitoring messages and generic S3 storage labels. Regression checks verify meanings, exact corrections, source tokens, key order and idempotent repairs. The short translation audit records current progress.
