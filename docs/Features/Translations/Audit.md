@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Audit keys |
 | --- | ---: |
-| Explicitly corrected | 6,530 |
+| Explicitly corrected | 6,531 |
 | Restored pre-pull values awaiting further validation | 4,059 |
-| Reviewed and retained unchanged | 136 |
-| Pending review or repair | 9,356 |
+| Reviewed and retained unchanged | 141 |
+| Pending review or repair | 9,350 |
 | Total tracked | 20,081 |
 
 **Translation repairs remain unfinished.** These counts cover flagged findings; unflagged strings and restored values are not certified as correct.
 
-Fixes cover wrong-language text, terminology, missing warnings, JSON examples, placeholders and calendar/search formatting. The correction history records **6,592 values**, including fixes outside the audit. Flagged queues are complete for Bosnian, Croatian, Macedonian, both Slovenian locales, Latvian, Romanian, Slovak, both Galician locales, Asturian and Aragonese.
+Fixes cover wrong-language text, terminology, missing warnings, JSON examples, placeholders and calendar/search formatting. The correction history records **6,593 values**, including fixes outside the audit. Flagged queues are complete for Bosnian, Croatian, Macedonian, both Slovenian locales, Latvian, Romanian, Slovak, both Galician locales, Asturian and Aragonese.
 
-Latest fix: [0dcd3ea5a](https://github.com/wekan/wekan/commit/0dcd3ea5afa56f8ea9da576665cb75836b923494), **2026-09-13** — four Friulian Hijri variants repaired, preserving civil/astronomical epochs, Saudi observation and Umm al-Qura; two shared terms retained. **18 Friulian findings remain.** Exact-value, placeholder, key-order, review and idempotency checks pass; Friulian, Aragonese and Asturian wording need native-speaker review. Live Meteor browser verification remains unavailable.
+Latest fix: [2d092cc5b](https://github.com/wekan/wekan/commit/2d092cc5b237be2b35cfeb755d662fab1f266a07), **2026-09-13** — Friulian pause action clarified; five valid shared avatar, file, version and Europe labels retained. **12 Friulian findings remain.** Exact-value, placeholder, key-order, review and idempotency checks pass; Friulian, Aragonese and Asturian wording need native-speaker review. Live Meteor browser verification remains unavailable.
 
 **Provenance:** not all errors came from Transifex. The captured pull changed 4,061 values; the full-local audit added 16,020 findings. Bosnian errors came from the September 5 [local completion commit](https://github.com/wekan/wekan/commit/bdb3b15886a749b725b5290ba0109fcba955f983), with no Bosnian changes in the captured pull. Other ultimate origins remain unverified.
 
