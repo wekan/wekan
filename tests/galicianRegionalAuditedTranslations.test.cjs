@@ -136,3 +136,8 @@ assert.match(data['globalSearch-instructions-operator-limit'], /enteiro positivo
 assert.match(data['globalSearch-instructions-operator-due'], /ata.*`__operator_due__:__predicate_overdue__`/);
 assert.match(data['globalSearch-instructions-operator-has'], /`has:-due`.*sen data de vencemento/);
 assert.match(data['globalSearch-instructions-operator-label'], /\*<color>\* ou \*<name>\*/);
+
+for (const key of ['globalSearch-instructions-operator-org', 'globalSearch-instructions-operator-team']) assert.match(data[key], /pertencen a un taboleiro asignado/);
+assert.match(data['globalSearch-instructions-operator-modified'], /días ou menos/);
+assert.match(data['globalSearch-instructions-operator-swimlane'], /tarxetas en carrís/);
+assert.match(data['globalSearch-instructions-operator-list'], /tarxetas en listas/);
