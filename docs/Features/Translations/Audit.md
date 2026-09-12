@@ -4,21 +4,21 @@ Audit date: **2026-09-12**. Last updated: **2026-09-12**.
 
 | Status | Audit keys |
 | --- | ---: |
-| Explicitly corrected | 4,163 |
+| Explicitly corrected | 4,173 |
 | Original pull values restored to pre-pull local values | 4,061 |
 | Reviewed and retained unchanged | 72 |
-| Pending review or repair | 11,785 |
+| Pending review or repair | 11,775 |
 | Total tracked | 20,081 |
 
 The full translation repair goal remains unfinished. Counts describe the tracked audit findings; unflagged strings are not individually certified. Restored pre-pull values are not automatically certified as correct translations.
 
 ## Fixes completed
 
-Repairs address wrong-language text, incorrect kanban terminology, missing restrictions and warnings, malformed JSON examples, translated placeholders, calendar names, search syntax and date/message argument order. The reviewed correction list contains **4,225 values**, including corrections outside the flagged audit rows.
+Repairs address wrong-language text, incorrect kanban terminology, missing restrictions and warnings, malformed JSON examples, translated placeholders, calendar names, search syntax and date/message argument order. The reviewed correction list contains **4,235 values**, including corrections outside the flagged audit rows.
 
-The flagged Croatian and Macedonian queues are complete. Other completed queues include Latvian, Romanian, Slovak and several smaller regional queues. **Bosnian has 64 findings remaining**.
+The flagged Croatian and Macedonian queues are complete. Other completed queues include Latvian, Romanian, Slovak and several smaller regional queues. **Bosnian has 54 findings remaining**.
 
-Latest translation correction: [5858b3a1f](https://github.com/wekan/wekan/commit/5858b3a1f261782771a9055eff3b608a5d14e66b), **2026-09-12**, fixes 10 Bosnian S3 and backup values. Repairs retain the MinIO choice, literal endpoints and region, secret-key authentication, SSL/TLS scope and board-specific backup. Meaning, token, exact-value, key-order, rendering and idempotent repair checks pass.
+Latest translation correction: [40a7df239](https://github.com/wekan/wekan/commit/40a7df239a49b9332838b3327a664fe4ab11e18d), **2026-09-12**, fixes 10 Bosnian scheduling/search/display values. Repairs retain full search scope, literal troubleshooting commands, pixel units, WIP limits and the assigned-card filter. Meaning, token, exact-value, key-order, rendering and idempotent repair checks pass.
 
 ## Provenance
 
