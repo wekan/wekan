@@ -48732,5 +48732,33 @@
     "before": "Disativea l'importazion degli avatar",
     "after": "Deactivar l’import dad avatars",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "disable-watch",
+    "before": "Disativea il monitoraggio",
+    "after": "Deactivar l’observaziun",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "disambiguateMultiLabelPopup-title",
+    "before": "Disambiguare l'azion Eticheta",
+    "after": "Precisar l’acziun per l’etichetta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "disambiguateMultiMemberPopup-title",
+    "before": "Disambiguare l'azion Membr",
+    "after": "Precisar l’acziun per il commember",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "drag-to-resize-left-menu",
+    "before": "Trascina per ridimensionare il menu di sinistra",
+    "after": "Trair per midar la grondezza dal menu a sanestra",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
