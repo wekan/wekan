@@ -12,7 +12,7 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 **Translation repairs remain unfinished.** These counts cover flagged findings; unflagged strings and restored values are not certified as correct.
 
-Fixes cover wrong-language text, terminology, missing warnings, JSON examples, placeholders and calendar/search formatting. The correction history records **6,409 values**, including fixes outside the audit. Flagged Bosnian, Croatian, Macedonian, Slovenian (both locales), Latvian, Romanian, Slovak both Galician and Asturian queues are complete.
+Fixes cover wrong-language text, terminology, missing warnings, JSON examples, placeholders and calendar/search formatting. The correction history records **6,409 values**, including fixes outside the audit. Flagged queues are complete for Bosnian, Croatian, Macedonian, both Slovenian locales, Latvian, Romanian, Slovak, both Galician locales and Asturian.
 
 Latest fix: [c01f6acde](https://github.com/wekan/wekan/commit/c01f6acde5fb05712ebf2862dd93109572caf8e6), **2026-09-13** — three Aragonese database-label corrections; three valid text-migration labels retained, preserving destinations, versions and completion meaning. **194 Aragonese findings remain.** Meaning, exact-value, placeholder, key-order, review and idempotency checks pass; Aragonese and Asturian wording need native-speaker review. Live Meteor browser verification remains unavailable.
 
@@ -22,4 +22,4 @@ Latest fix: [c01f6acde](https://github.com/wekan/wekan/commit/c01f6acde5fb05712e
 - [Correction history](../../../releases/translations/audited-corrections.json): exact before/after values and reasons.
 - Current totals: `node releases/translations/audit-progress.mjs`; remaining findings: add `--locale <tag>`.
 
-Update this summary after each repair batch with verified counts, date, correction commit and checks. Keep detailed findings in the evidence file. No remote uploads have been performed; the force-upload script was tested offline only.
+Update this summary after each repair batch with verified counts, date, correction commit and checks. Replace the latest-fix paragraph rather than appending batch reports; keep detailed findings in the evidence file and before/after records in the correction history. No remote uploads have been performed; the force-upload script was tested offline only.
