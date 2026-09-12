@@ -4,21 +4,21 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Audit keys |
 | --- | ---: |
-| Explicitly corrected | 5,139 |
+| Explicitly corrected | 5,149 |
 | Original pull values restored to pre-pull local values | 4,061 |
 | Reviewed and retained unchanged | 78 |
-| Pending review or repair | 10,803 |
+| Pending review or repair | 10,793 |
 | Total tracked | 20,081 |
 
 The full translation repair goal remains unfinished. Counts describe the tracked audit findings; unflagged strings are not individually certified. Restored pre-pull values are not automatically certified as correct translations.
 
 ## Fixes completed
 
-Repairs address wrong-language text, incorrect kanban terminology, missing restrictions and warnings, malformed JSON examples, translated placeholders, calendar names, search syntax and date/message argument order. The reviewed correction list contains **5,201 values**, including corrections outside the flagged audit rows.
+Repairs address wrong-language text, incorrect kanban terminology, missing restrictions and warnings, malformed JSON examples, translated placeholders, calendar names, search syntax and date/message argument order. The reviewed correction list contains **5,211 values**, including corrections outside the flagged audit rows.
 
 The flagged Bosnian, Croatian, Macedonian and both Slovenian queues are complete. Other completed queues include Latvian, Romanian, Slovak and several smaller regional queues. **Bosnian has no remaining flagged findings**.
 
-Latest translation correction: [1adf83fb1](https://github.com/wekan/wekan/commit/1adf83fb1b1fc77ecf0a1801d7259b1348994d3b), **2026-09-13**, fixes 10 Galician regional board-control and card-archive values containing Portuguese. Reuses individually reviewed Galician wording, correcting assignees wrongly described as administrators and preserving archive visibility/restoration and all-board-settings aliases. The Galician regional queue has 551 findings remaining. Meaning, exact-value, token, key-order and idempotent repair checks pass.
+Latest translation correction: [378fa0d8f](https://github.com/wekan/wekan/commit/378fa0d8ff33ec25b31b02395f9f9711a1d2df35), **2026-09-13**, fixes 10 Galician regional card deletion, assignee, membership, mini-card sorting and checklist values containing Portuguese. Reuses individually reviewed Galician wording, preserving irreversible deletion, archive activity retention and board scope, and correcting assignees called administrators. The Galician regional queue has 541 findings remaining. Meaning, exact-value, token, key-order and idempotent repair checks pass.
 
 ## Provenance
 
