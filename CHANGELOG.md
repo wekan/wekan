@@ -557,6 +557,24 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/9631ff40d">Repair all audited Latvian translations and finish Danish review</a>. Thanks to xet7.</summary>
+
+Replace 402 Lithuanian-seeded Latvian strings with Latvian wording and preserve
+search syntax, source placeholders, template tokens and commands. Correct two
+Danish calendar labels in <a href="https://github.com/wekan/wekan/commit/ad8c1170d">ad8c1170d</a>; retain 19 inspected valid Danish strings with explicit reasons.
+The audit progress tool accounts for every historical audit row and keeps
+unreviewed work visible. The wider repair goal remains unfinished.
+
+Positive and negative regression checks cover vocabulary, exact values,
+key order, placeholders, actual sprintf argument order, Boolean search
+meaning, reviewed unchanged values and progress classification. These and
+the existing Latvian translation suite pass. The Latvian calendar-settings
+browser regression is registered and syntax-checked; live UI execution was
+unavailable.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/5290ee727">Add explicit force upload of every local translation to Transifex</a>. Thanks to xet7.</summary>
 
 The maintainer-run script uploads English source strings and every local target,

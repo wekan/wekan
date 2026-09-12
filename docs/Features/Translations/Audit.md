@@ -2,6 +2,12 @@
 
 **Audit date: 2026-09-12. Correction date: 2026-09-12.**
 
+**Repair progress, 2026-09-12:** all **402 remaining Latvian findings** were corrected in [9631ff40d](https://github.com/wekan/wekan/commit/9631ff40d7b8856fb9ec012c53a6daf6e36f7d4d). All **21 Danish findings** were resolved in [ad8c1170d](https://github.com/wekan/wekan/commit/ad8c1170db29f3d8bed47403c24cb8add0abd443): two calendar labels corrected and 19 valid entries retained after individual review. The reviewed correction list contains **1,562 values** in total.
+
+The reproducible audit progress is **20,081 keys accounted for: 1,513 explicitly corrected audit keys, 4,061 pre-pull values restored, 19 reviewed unchanged, and 14,488 still pending**. Corrections outside the audit's flagged rows also appear in the correction list, so its total differs from corrected audit keys. The goal of repairing all translations remains active and unfinished. No subagents or remote pushes were used.
+
+Run `node releases/translations/audit-progress.mjs` for current counts or add `--locale <tag>` for a locale's remaining source/current pairs. The tool reads the tables below directly, preserves exact escaped values, and does not treat an untracked edit as a certified repair. Valid shared vocabulary, protocol identifiers and vendor menu labels are documented in `releases/translations/audited-reviews.json`. Latvian regression tests verify actual sprintf date/card argument order, Boolean search meanings, placeholders and template tokens. The existing Latvian suite and repair/review/progress checks pass. The browser regression is syntax-checked; live Meteor UI execution remains unavailable.
+
 **Mongolian corrections, 2026-09-12:** [6988a01bd](https://github.com/wekan/wekan/commit/6988a01bd641fc6ff8480c29df7106b58a9a571d) and [a194b9741](https://github.com/wekan/wekan/commit/a194b9741b2f6878330083f4afd66e7f117a6d3c) replace **140 audited Russian-language values** with Mongolian wording. These cover rules, dates, search operators, upload settings and administration. Source placeholders, query examples and troubleshooting commands are retained. The reviewed correction list now covers **1,158 values** with passing regression checks. These are local commits; the full audit remains unfinished.
 
 An explicit [force-upload script](Push-All.md) is available as `releases/translations/push-all-translations.sh`, committed in [5290ee727](https://github.com/wekan/wekan/commit/5290ee727). Its dry run and mocked API tests pass. It has not been run against Transifex.
