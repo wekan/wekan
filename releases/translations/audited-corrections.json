@@ -35271,5 +35271,173 @@
     "before": "Опорављам читав ток поступка",
     "after": "Obnovi steze",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "step-scan-files",
+    "before": "Проверавам предметну грађу",
+    "after": "Preverjanje datotečnih priponk table",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "step-scan-users",
+    "before": "Проверавам слике сарадника на списима",
+    "after": "Preverjanje avatarjev članov table",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "subtaskActionsPopup-title",
+    "before": "Радње на издвојеним пословима",
+    "after": "Dejanja podopravila",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "subtaskDeletePopup-title",
+    "before": "Избрисаћете издвојени посао?",
+    "after": "Izbriši podopravilo?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "support-info-not-added-yet",
+    "before": "Информације о техничкој подршци још увек нису додате",
+    "after": "Informacije o podpori še niso dodane",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "support-info-only-for-logged-in-users",
+    "before": "Информације о техничкој подршци се дају само пријављеним корисницима.",
+    "after": "Informacije o podpori so na voljo samo prijavljenim uporabnikom.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "support-page-enabled",
+    "before": "Неопходна ми је техничка подршка",
+    "after": "Stran za podporo je omogočena",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "swimlane-height-error-message",
+    "before": "Висина тока поступка мора бити позитиван број",
+    "after": "Višina steze mora biti pozitivno celo število",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "swimlane-title-not-found",
+    "before": "Ток поступка '%s' није пронађен.",
+    "after": "Steza '%s' ni najdena.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "tableVisibilityMode-allowPrivateOnly",
+    "before": "Тајност списа: Дозволи приступ искључиво затвореном кругу сарадника",
+    "after": "Vidnost tabel: Dovoli samo zasebne table",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "team-name-not-found",
+    "before": "Правни тим по имену '%s' није пронађен.",
+    "after": "Ekipa '%s' ni najdena.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "text-below-custom-login-logo",
+    "before": "Порука испод насловне слике на страни за пријаву",
+    "after": "Besedilo pod logotipom za prijavo po meri",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "step-scan-files",
+    "before": "Проверавам предметну грађу",
+    "after": "Preverjanje datotečnih priponk table",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "step-scan-users",
+    "before": "Проверавам слике сарадника на списима",
+    "after": "Preverjanje avatarjev članov table",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "subtaskActionsPopup-title",
+    "before": "Радње на издвојеним пословима",
+    "after": "Dejanja podopravila",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "subtaskDeletePopup-title",
+    "before": "Избрисаћете издвојени посао?",
+    "after": "Izbriši podopravilo?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "support-info-not-added-yet",
+    "before": "Информације о техничкој подршци још увек нису додате",
+    "after": "Informacije o podpori še niso dodane",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "support-info-only-for-logged-in-users",
+    "before": "Информације о техничкој подршци се дају само пријављеним корисницима.",
+    "after": "Informacije o podpori so na voljo samo prijavljenim uporabnikom.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "support-page-enabled",
+    "before": "Неопходна ми је техничка подршка",
+    "after": "Stran za podporo je omogočena",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "swimlane-height-error-message",
+    "before": "Висина тока поступка мора бити позитиван број",
+    "after": "Višina steze mora biti pozitivno celo število",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "swimlane-title-not-found",
+    "before": "Ток поступка '%s' није пронађен.",
+    "after": "Steza '%s' ni najdena.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "tableVisibilityMode-allowPrivateOnly",
+    "before": "Тајност списа: Дозволи приступ искључиво затвореном кругу сарадника",
+    "after": "Vidnost tabel: Dovoli samo zasebne table",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "team-name-not-found",
+    "before": "Правни тим по имену '%s' није пронађен.",
+    "after": "Ekipa '%s' ni najdena.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "text-below-custom-login-logo",
+    "before": "Порука испод насловне слике на страни за пријаву",
+    "after": "Besedilo pod logotipom za prijavo po meri",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

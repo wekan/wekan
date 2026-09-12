@@ -23,6 +23,12 @@ for (const locale of ['sl', 'sl_SI']) {
   assert.match(data['accounts-lockout-info'], /napadi z grobo silo/);
   assert.doesNotMatch(data['accounts-lockout-info'], /lozinkef/);
   assert.equal(data.MongoDB_storage_engine, 'Shranjevalni pogon MongoDB');
+  assert.match(data['support-info-only-for-logged-in-users'], /samo prijavljenim uporabnikom/);
+  assert.match(data['support-page-enabled'], /je omogočena/);
+  assert.doesNotMatch(data['support-page-enabled'], /potrebujem/);
+  assert.match(data['swimlane-height-error-message'], /pozitivno celo število/);
+  assert.match(data['tableVisibilityMode-allowPrivateOnly'], /samo zasebne table/);
+
   assert.match(data['step-delete-duplicate-empty-lists'], /podvojene prazne sezname/);
   assert.match(data['step-ensure-per-swimlane-lists'], /posamezne steze/);
   assert.match(data['step-fix-orphaned-cards'], /osirotele kartice/);
