@@ -558,6 +558,13 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/3ace61f58">Repair Croatian board settings and checklist controls</a>. Thanks to xet7.</summary>
+
+Correct 20 reviewed values. Positive and negative regressions verify All Boards settings, checklist/item deletion, membership/assignment and archive restoration meanings. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/685e388ab">Repair Croatian storage paths and scheduled board operations</a>. Thanks to xet7.</summary>
 
 Correct 18 reviewed values. Positive and negative regressions verify URL-scheme instructions, new-card field scope, board-icon actions and scheduled results. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
