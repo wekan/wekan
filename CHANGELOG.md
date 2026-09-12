@@ -558,6 +558,13 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/5e89d53cf924b799a26db05f7c620b0711b9bef4">Repair Galician regional import and checked item instructions</a>. Thanks to xet7.</summary>
+
+Repair six regional values with reviewed Galician wording. Preserve checked/all-item distinctions, conditional import success, ZIP attachment structure and member mapping. Meaning, exact-value, placeholder, key-order and idempotency checks pass. The short translation audit records current progress.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/9100900db97f1945cfaaf17e7054eb46306e624e">Repair Galician regional time filters and checklist visibility</a>. Thanks to xet7.</summary>
 
 Repair six regional values with reviewed Galician wording. Preserve overtime/spent-time distinctions, completed checklists, all checklist items and mini-card label text. Meaning, exact-value, placeholder, key-order and idempotency checks pass. The short translation audit records current progress.
