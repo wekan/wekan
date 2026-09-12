@@ -166,3 +166,8 @@ assert.match(data['activity-set-customfield'], /estableció.*'%s' a '%s' en %s/)
 assert.match(data['activity-unset-customfield'], /baldó el valor del campu/);
 assert.doesNotMatch(data['activity-unset-customfield'], /Desmarcar|eliminó el campu/);
 assert.match(data['activity-unchecked-item'], /desmarcó %s.*comprobación %s de %s/);
+assert.match(data['add-custom-html-after-body-start'], /dempués del aniciu de <body>/);
+assert.match(data['add-custom-html-before-body-end'], /enantes del final de <\/body>/);
+assert.match(data['admin-announcement-active'], /Avisu activu pa tol sistema/);
+assert.match(data['app-is-offline'], /pérdida de datos.*servidor nun se paró/);
+assert.match(data['attachment-delete-pop'], /permanente.*Nun se puede desfacer/);

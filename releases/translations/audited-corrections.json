@@ -42229,5 +42229,75 @@
     "before": "Desmarcar el campo personalizado '%s' en %s",
     "after": "baldó el valor del campu personalizáu '%s' en %s",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "add-custom-html-after-body-start",
+    "before": "Añade HTML personalizado después de <body>",
+    "after": "Añadir HTML personalizáu dempués del aniciu de <body>",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "add-custom-html-before-body-end",
+    "before": "Añade HTML personalizado después de </body>",
+    "after": "Añadir HTML personalizáu enantes del final de </body>",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "add-teams-label",
+    "before": "Los equipos añadidos se muestran a continuación:",
+    "after": "Los equipos añadíos muéstrense debaxo:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "admin-announcement-active",
+    "before": "Activar el aviso para todo el sistema",
+    "after": "Avisu activu pa tol sistema",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "admin-announcement-title",
+    "before": "Anuncio del administrador",
+    "after": "Avisu del alministrador",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "allowed-avatar-filetypes",
+    "before": "Tipos de archivo permitidos para el avatar:",
+    "after": "Tipos de ficheru permitíos pal avatar:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "allowed-upload-filetypes",
+    "before": "Tipos de archivo permitidos para la carga:",
+    "after": "Tipos de ficheru permitíos pa xubir:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "almostdue",
+    "before": "está próxima la hora de vencimiento actual %s",
+    "after": "El vencimientu actual %s ta averándose",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "app-is-offline",
+    "before": "Cargando, espera por favor. Refrescar esta página causará la pérdida de datos. Si la carga no funciona, por favor comprueba que el servidor no se ha parado.",
+    "after": "Cargando, espera por favor. Recargar la páxina va causar pérdida de datos. Si la carga nun funciona, comprueba que el servidor nun se paró.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "attachment-delete-pop",
+    "before": "La eliminación de un fichero adjunto es permanente. Esta acción no puede deshacerse.",
+    "after": "Eliminar un axuntu ye permanente. Nun se puede desfacer.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
