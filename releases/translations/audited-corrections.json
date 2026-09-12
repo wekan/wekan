@@ -37469,5 +37469,117 @@
     "before": "Uma linha de texto = um item da lista de verificação",
     "after": "Unha liña de texto = un elemento da lista de verificación",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "newlineBecomesNewChecklistItem",
+    "before": "Cada linha de texto se tornará um item da lista de verificação",
+    "after": "Cada liña de texto convértese nun elemento da lista de verificación",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "newlineBecomesNewChecklistItemOriginOrder",
+    "before": "Cada linha de texto se tornará um item da lista de verificação em ordem original",
+    "after": "Cada liña de texto convértese nun elemento da lista de verificación, na orde orixinal",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "normal-assigned-only-desc",
+    "before": "Somente cartões atribuídos visível. Editar como usuário Normal.",
+    "after": "Só son visibles as tarxetas asignadas. Edita como usuario normal.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "notify-participate",
+    "before": "Receba atualizações de todos os cartões que você participa como criador ou membro",
+    "after": "Recibir actualizacións de todas as tarxetas nas que participas como creador ou membro",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "notify-watch",
+    "before": "Receber actualizações de qualquer quadro, lista ou cartões que estiver a observar",
+    "after": "Recibir actualizacións de todos os taboleiros, listas ou tarxetas que esteas a vixiar",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "now-activities-of-all-boards-are-hidden",
+    "before": "Agora todas as atividades de todos os quadros estão escondidas",
+    "after": "Agora todas as actividades de todos os taboleiros están agochadas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "operator-debug-invalid",
+    "before": "%s não é um predicado de debug válido",
+    "after": "%s non é un predicado de depuración válido",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "operator-has-invalid",
+    "before": "%s não é uma verificação válida",
+    "after": "%s non é unha comprobación de existencia válida",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "operator-limit-invalid",
+    "before": "%s não é um limite válido. Deve ser um número positivo.",
+    "after": "%s non é un límite válido. O límite debe ser un número enteiro positivo.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "operator-status-invalid",
+    "before": "'%s' não é um estado válido",
+    "after": "'%s' non é un estado válido",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "org-name-not-found",
+    "before": "Organização '%s' não encontrada.",
+    "after": "Non se atopou a organización '%s'.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "preview-pdf-not-supported",
+    "before": "Seu dispositivo não suporta a pré-visualização de PDF. Tente baixar o arquivo.",
+    "after": "O seu dispositivo non admite a previsualización de PDF. Probe a descargalo.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "private-desc",
+    "before": "Este quadro é privado. Apenas o membros do quadro o podem visualizar e editar.",
+    "after": "Este taboleiro é privado. Só as persoas engadidas ao taboleiro poden velo e editalo.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "public-desc",
+    "before": "Este quadro é público. Está visível para qualquer pessoa com a ligação e será exibido em motores de busca como o Google. Apenas os membros do quadro o podem editar.",
+    "after": "Este taboleiro é público. É visible para calquera que teña a ligazón e aparecerá en buscadores como Google. Só as persoas engadidas ao taboleiro poden editalo.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "push-invite-text",
+    "before": "Caro __user__\n__inviter__ convidou-o para se juntar ao quadro \"__board__\" para colaborar.\nPor favor prossiga através da ligação abaixo:\n__url__\nObrigado.",
+    "after": "Estimado/a __user__,\n\n__inviter__ convídate a unirte ao taboleiro \"__board__\" para colaborar.\n\nSegue a ligazón de abaixo:\n\n__url__\n\nGrazas.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "quick-access-description",
+    "before": "Clique na estrela de um quadro para adicionar um atalho nesta barra.",
+    "after": "Marca un taboleiro como favorito para engadir un atallo nesta barra.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

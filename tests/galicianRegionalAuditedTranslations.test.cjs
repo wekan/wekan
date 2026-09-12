@@ -186,3 +186,14 @@ assert.match(data['muted-info'], /Nunca.*ningún cambio neste taboleiro/);
 assert.equal(data.moveChecklist, data['moveChecklistPopup-title']);
 assert.match(data.newLineNewItem, /Unha liña de texto = un elemento/);
 assert.equal(data['n-n-of-n-cards-found'].replace('__start__', '11').replace('__end__', '20').replace('__total__', '57'), '11-20 de 57 tarxetas atopadas');
+
+assert.match(data.newlineBecomesNewChecklistItemOriginOrder, /Cada liña.*nun elemento.*na orde orixinal/);
+assert.match(data['normal-assigned-only-desc'], /Só son visibles as tarxetas asignadas.*usuario normal/);
+assert.match(data['notify-participate'], /tarxetas.*creador ou membro/);
+assert.match(data['notify-watch'], /taboleiros, listas ou tarxetas.*vixiar/);
+assert.match(data['operator-has-invalid'], /comprobación de existencia/);
+assert.match(data['operator-limit-invalid'], /número enteiro positivo/);
+assert.doesNotMatch(data['operator-limit-invalid'], /não|Deve/);
+assert.match(data['private-desc'], /Só as persoas engadidas ao taboleiro poden velo e editalo/);
+assert.match(data['public-desc'], /calquera que teña a ligazón.*buscadores como Google.*Só as persoas engadidas ao taboleiro poden editalo/);
+assert.equal(data['push-invite-text'].replace('__user__', 'USER').replace('__inviter__', 'INVITER').replace('__board__', 'BOARD').replace('__url__', 'LINK'), 'Estimado/a USER,\n\nINVITER convídate a unirte ao taboleiro "BOARD" para colaborar.\n\nSegue a ligazón de abaixo:\n\nLINK\n\nGrazas.');
