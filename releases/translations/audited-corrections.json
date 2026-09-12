@@ -47654,5 +47654,89 @@
     "before": "Advanced Filter allows to write a string containing following operators: == != <= >= && || ( ) A space is used as a separator between the Operators. You can filter for all Custom Fields by typing their names and values. For Example: Field1 == Value1. Note: If fields or values contains spaces, you need to encapsulate them into single quotes. For Example: 'Field 1' == 'Value 1'. For single control characters (' \\\\/) to be skipped, you can use \\\\. For example: Field1 == I\\\\'m. Also you can combine multiple conditions. For Example: F1 == V1 || F1 == V2. Normally all operators are interpreted from left to right. You can change the order by placing brackets. For Example: F1 == V1 && ( F2 == V2 || F2 == V3 ). Also you can search text fields using regex: F1 == /Tes.*/i",
     "after": "Nzacha dị elu na-enye gị ohere ide ahịrịokwu nwere ndị ọrụ ndị a: == != <= >= && || ( ) A na-eji oghere kewaa ndị ọrụ. Ị nwere ike nzacha mpaghara omenala niile site n'ide aha ha na uru ha. Dịka ọmụmaatụ: Field1 == Value1. Rịba ama: Ọ bụrụ na mpaghara ma ọ bụ uru nwere oghere, tinye ha n'ime akara nhota otu. Dịka ọmụmaatụ: 'Field 1' == 'Value 1'. Iji gafee mkpụrụedemede njikwa ndị a (' \\\\/), ị nwere ike iji \\\\. Dịka ọmụmaatụ: Field1 == I\\'m. Ị nwekwara ike ijikọ ọtụtụ ọnọdụ. Dịka ọmụmaatụ: F1 == V1 || F1 == V2. A na-akọwakarị ndị ọrụ niile site n'aka ekpe ruo n'aka nri. Ị nwere ike ịgbanwe usoro site n'itinye akara mgbachi. Dịka ọmụmaatụ: F1 == V1 && ( F2 == V2 || F2 == V3 ). Ị nwekwara ike ịchọ mpaghara ederede site na regex: F1 == /Tes.*/i",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "activity-checklist-item-added",
+    "before": "Aggiunto l'elemento checklist a '%s' in %s",
+    "after": "agiuntà in element da la glista da controlla a '%s' en %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "activity-checklist-removed",
+    "before": "È stata rimossa una checklist da%s",
+    "after": "stizzà ina glista da controlla da %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "Cube-Grid",
+    "before": "Spinner di attesa Cube-Grid",
+    "after": "Indicatur da spetga Cube-Grid",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "DDP_transport",
+    "before": "Trasporto DDP (DDP_TRANSPORT)",
+    "after": "Transport DDP (DDP_TRANSPORT)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "Double-Bounce",
+    "before": "Spinner di attesa Double Bounce",
+    "after": "Indicatur da spetga Double Bounce",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "Node_heap_does_zap_garbage",
+    "before": "Heap Node: does zap garbage",
+    "after": "Heap da Node: surscriva memoria nunutilisada",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "Node_heap_heap_size_limit",
+    "before": "Heap Node: limite di dimenscion dell'heap",
+    "after": "Heap da Node: limita da la grondezza dal heap",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "Node_heap_malloced_memory",
+    "before": "Heap Node: memoria allocata (malloc)",
+    "after": "Heap da Node: memoria attribuida (malloc)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "Node_heap_number_of_detached_contexts",
+    "before": "Heap Node: numero di contesti scollegati",
+    "after": "Heap da Node: dumber da contexts separads",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "Node_heap_number_of_native_contexts",
+    "before": "Heap Node: numero di contesti nativi",
+    "after": "Heap da Node: dumber da contexts nativs",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "Node_heap_peak_malloced_memory",
+    "before": "Heap Node: picco di memoria allocata (malloc)",
+    "after": "Heap da Node: maximum da memoria attribuida (malloc)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "Node_heap_total_available_size",
+    "before": "Heap Node: dimenscion totale disponibile",
+    "after": "Heap da Node: grondezza totala disponibla",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
