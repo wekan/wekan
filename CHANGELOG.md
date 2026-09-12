@@ -558,6 +558,13 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/0fe86a3fb">Repair Bosnian board import and member mapping help</a>. Thanks to xet7.</summary>
+
+Correct 10 flagged values. Positive and negative regressions verify export direction, literal Trello menus, ZIP attachment scope and member-mapping fallback. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/68a51da47">Repair Bosnian GridFS and checklist visibility translations</a>. Thanks to xet7.</summary>
 
 Correct 12 flagged values. Positive and negative regressions verify public-board scope, GridFS storage and checklist/minicard visibility distinctions. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
