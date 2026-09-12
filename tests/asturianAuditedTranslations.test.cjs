@@ -1,0 +1,12 @@
+'use strict';
+const assert = require('node:assert/strict');
+const data = require('../imports/i18n/data/ast-ES.i18n.json');
+assert.match(data['accounts-lockout-known-users'], /nome d'usuariu correutu, contraseña incorreuta/);
+assert.match(data['accounts-lockout-unknown-users'], /que nun esiste/);
+assert.match(data['accounts-lockout-confirm-unlock-all'], /tolos usuarios bloquiaos/);
+assert.match(data['act-addChecklistItem'], /__checklistItem__.*__checklist__.*__card__.*__list__.*__swimlane__.*__board__/);
+assert.match(data['act-addComment'], /tarxeta __card__: __comment__/);
+assert.equal(data['act-addLabel'], data['act-addedLabel']);
+assert.doesNotMatch(data['act-addAttachment'], /tarjeta|tablero|adjunto/);
+assert.match(data['act-archivedCard'], /movióse al Archivu/);
+console.log('Asturian account conditions and activity context verified');

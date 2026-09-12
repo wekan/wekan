@@ -40332,5 +40332,89 @@
     "before": "El usuario está bloqueado",
     "after": "L'usuariu ta bloquiáu",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "act-activity-notify",
+    "before": "Notificación de actividad",
+    "after": "Notificación d'actividá",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "act-addAttachment",
+    "before": "añadido el adjunto __attachment__ a la tarjeta __card__ de la lista __list__ del carril __swimlane__ del tablero __board__",
+    "after": "añadió l'axuntu __attachment__ a la tarxeta __card__ na llista __list__ del carril __swimlane__ del tableru __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "act-addBoardMember",
+    "before": "se ha añadido __member__ al tablero __board__",
+    "after": "añadió al miembru __member__ al tableru __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "act-addChecklist",
+    "before": "añadida la lista de verificación __checklist__ a la tarjeta __card__ de la lista __list__ del carril __swimlane__ del tablero __board__",
+    "after": "añadió la llista de comprobación __checklist__ a la tarxeta __card__ na llista __list__ del carril __swimlane__ del tableru __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "act-addChecklistItem",
+    "before": "añadido el elemento __checklistItem__ a la lista de verificación __checklist__ de la tarjeta __card__ de la lista __list__ del carril __swimlane__ del tablero __board__",
+    "after": "añadió l'elementu __checklistItem__ a la llista de comprobación __checklist__ de la tarxeta __card__ na llista __list__ del carril __swimlane__ del tableru __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "act-addComment",
+    "before": "ha comentado en la tarjeta__card__: __comment__ de la lista __list__ del carril __swimlane__ del tablero __board__",
+    "after": "comentó na tarxeta __card__: __comment__ na llista __list__ del carril __swimlane__ del tableru __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "act-addLabel",
+    "before": "añadida la etiqueta __label__ a la tarjeta __card__ de la lista __list__ del carril __swimlane__ del tablero __board__",
+    "after": "añadió la etiqueta __label__ a la tarxeta __card__ na llista __list__ del carril __swimlane__ del tableru __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "act-addSubtask",
+    "before": "añadida la subtarea __subtask__ a la tarjeta __card__ de la lista __list__ del carril __swimlane__ del tablero __board__",
+    "after": "añadió la subtarea __subtask__ a la tarxeta __card__ na llista __list__ del carril __swimlane__ del tableru __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "act-addedLabel",
+    "before": "añadida la etiqueta __label__ a la tarjeta __card__ de la lista __list__ del carril __swimlane__ del tablero __board__",
+    "after": "añadió la etiqueta __label__ a la tarxeta __card__ na llista __list__ del carril __swimlane__ del tableru __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "act-archivedBoard",
+    "before": "El tablero __board__ se ha archivado",
+    "after": "El tableru __board__ movióse al Archivu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "act-archivedCard",
+    "before": "La tarjeta __card__ de la lista __list__ del carril __swimlane__ del tablero __board__ se ha archivado",
+    "after": "La tarxeta __card__ na llista __list__ del carril __swimlane__ del tableru __board__ movióse al Archivu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "act-archivedList",
+    "before": "La lista __list__ del carril __swimlane__ del tablero __board__ se ha archivado",
+    "after": "La llista __list__ del carril __swimlane__ del tableru __board__ movióse al Archivu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
