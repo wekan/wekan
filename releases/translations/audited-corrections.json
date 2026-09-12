@@ -45624,5 +45624,47 @@
     "before": "elemento1,elemento2,elemento3",
     "after": "item1,item2,item3",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "r-of-checklist",
+    "before": "de la lista de verificación",
+    "after": "d’a lista de comprobación",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "r-schedule-weekday",
+    "before": "Cada día laborable (lun-vie)",
+    "after": "Cada día de lunes a viernes",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "r-w-label-added",
+    "before": "Se añade cualquier etiqueta",
+    "after": "S’adhibe qualsiquier etiqueta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "r-w-label-removed",
+    "before": "Se elimina cualquier etiqueta",
+    "after": "Se saca qualsiquier etiqueta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "r-when-a-checklist",
+    "before": "Cuando una lista de verificación es",
+    "after": "Quan una lista de comprobación ye",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "r-when-a-item",
+    "before": "Cuando un elemento de la lista de verificación es",
+    "after": "Quan un elemento d’a lista de comprobación ye",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

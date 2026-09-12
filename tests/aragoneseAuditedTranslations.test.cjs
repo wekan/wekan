@@ -322,3 +322,10 @@ assert.match(data['r-import-unmapped'], /correspondencia de __count__ linia\(s\)
 assert.equal(data['r-import-workflow'], 'Importar fluxo de treballo visual');
 assert.equal(data['r-items-check'], 'elementos d’a lista de comprobación');
 assert.equal(data['r-items-list'], 'item1,item2,item3');
+assert.equal(data['r-of-checklist'], data['r-d-check-of-list']);
+assert.equal(data['r-schedule-weekday'], 'Cada día de lunes a viernes');
+assert.equal(data['r-w-label-added'], 'S’adhibe qualsiquier etiqueta');
+assert.equal(data['r-w-label-removed'], 'Se saca qualsiquier etiqueta');
+assert.notEqual(data['r-w-label-added'], data['r-w-label-removed']);
+assert.equal(data['r-when-a-checklist'], 'Quan una lista de comprobación ye');
+assert.equal(data['r-when-a-item'], 'Quan un elemento d’a lista de comprobación ye');
