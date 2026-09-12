@@ -24274,5 +24274,131 @@
     "before": "Избрисаћете ставку из предметне радње?",
     "after": "Izbriši stavku kontrolnog popisa?",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "close-add-checklist-item",
+    "before": "Окончај додавање помоћних предметних радњи",
+    "after": "Zatvori obrazac za dodavanje stavke kontrolnom popisu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "close-edit-checklist-item",
+    "before": "Прекини измену помоћне предметне радње",
+    "after": "Zatvori obrazac za uređivanje stavke kontrolnog popisa",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "comment-assigned-only-desc",
+    "before": "Једино може да има право увида и узме учешће у расправама у додељеним му предметима.",
+    "after": "Vidljive su samo dodijeljene kartice. Može samo komentirati.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "comment-delete",
+    "before": "Да ли сте сигурни да желите да повучете изнешено мишљење?",
+    "after": "Jeste li sigurni da želite izbrisati komentar?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "comment-not-found",
+    "before": "Мишљење које садржи речи '%s' није пронађено.",
+    "after": "Kartica s komentarom koji sadrži tekst '%s' nije pronađena.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "comprehensive-board-migration-description",
+    "before": "Изводе се свеобухватне провера и врше поправке целовитости података у списима - што укључује провере и поправке редоследа делова поступака, места где се тачно предмети налазе и структуре поступака.",
+    "after": "Provodi sveobuhvatne provjere i popravke cjelovitosti podataka ploče, uključujući redoslijed popisa, položaje kartica i strukturu staza.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "confirm-checklist-delete-popup",
+    "before": "Да ли сте сигурни да желите да избришете ову предметну радњу?",
+    "after": "Jeste li sigurni da želite izbrisati kontrolni popis?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "conversion-info-text",
+    "before": "Ово преслагање се изводи само једном по спису и то после олакшава читање.  Без сметњи настављате да читате спис након тога.",
+    "after": "Ova se pretvorba izvodi jednom po ploči i poboljšava učinkovitost. Ploču možete nastaviti normalno koristiti.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "convert-to-markdown",
+    "before": "Претвори у структуирани текст",
+    "after": "Pretvori u markdown",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "converting-board-description",
+    "before": "Преслагање списа олакшава употребу. Ово може потрајати неколико тренутака.",
+    "after": "Pretvaranje strukture ploče radi poboljšanja funkcionalnosti. To može potrajati nekoliko trenutaka.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "copyManyCardsPopup-instructions",
+    "before": "Наслови и описи одредишних предмета треба да имају следећи JSON облик:",
+    "after": "Naslovi i opisi odredišnih kartica u ovom JSON formatu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "createTemplateContainerPopup-title",
+    "before": "Додај сандук са предлошцима",
+    "after": "Dodaj spremnik predložaka",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "created-at-newest-first",
+    "before": "По најновијим запримљеним",
+    "after": "Datum stvaranja (najnovije prvo)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "created-at-oldest-first",
+    "before": "По најстарије запримљеним",
+    "after": "Datum stvaranja (najstarije prvo)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "cron-clear-errors",
+    "before": "Избриши све наведене грешке",
+    "after": "Očisti sve pogreške",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "cron-errors-cleared",
+    "before": "Све грешке су успешно очишћене",
+    "after": "Sve pogreške uspješno su očišćene",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "cron-job-delete-confirm",
+    "before": "Да ли сте сигурни да желите да уклоните заказано?",
+    "after": "Jeste li sigurni da želite izbrisati ovaj zakazani posao?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "cron-job-delete-failed",
+    "before": "Није успело уклањање заказаног посла",
+    "after": "Brisanje zakazanog posla nije uspjelo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
