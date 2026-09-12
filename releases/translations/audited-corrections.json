@@ -25380,5 +25380,117 @@
     "before": "Пажња. Опозив ове радње неће бити могућ! Изабрана налепница ће бити одлепљена/уклоњена из свих предмета и њена историја ће исчезнути.",
     "after": "Ova se radnja ne može poništiti. Oznaka će biti uklonjena sa svih kartica i njezina će povijest biti izbrisana.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "label-not-found",
+    "before": "Натпис на налепници '%s' није пронађен.",
+    "after": "Oznaka '%s' nije pronađena.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "leave-board-pop",
+    "before": "Да ли сте сигурни да желите да раздужите предмете из списа __boardTitle__? Бићете одстрањени са свих тих предмета.",
+    "after": "Jeste li sigurni da želite napustiti __boardTitle__? Bit ćete uklonjeni sa svih kartica na ovoj ploči.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "list-delete-pop",
+    "before": "Читав записник са овог дела поступка биће уклоњен и нећете га моћи опоравити. Опозив ове радње неће бити могућ.",
+    "after": "Sve radnje bit će uklonjene iz dnevnika aktivnosti i nećete moći vratiti popis. Ova se radnja ne može poništiti.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "list-filter-label",
+    "before": "Издвој део поступка по наслову",
+    "after": "Filtriraj popis prema naslovu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "list-sort-by",
+    "before": "Поређај делове поступка по:",
+    "after": "Razvrstaj popis prema:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "list-title-not-found",
+    "before": "Део поступка '%s' није пронађен.",
+    "after": "Popis '%s' nije pronađen.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "listActionPopup-title",
+    "before": "Радње у овом делу поступка",
+    "after": "Radnje s popisom",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "loading",
+    "before": "Исчитавање, молим сачекајте.",
+    "after": "Učitavanje, pričekajte.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "mark-all-as-unread",
+    "before": "Означи сва као непрочитана",
+    "after": "Označi sve kao nepročitano",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "max-avatar-filesize",
+    "before": "Максимална величина слике (у бајтима):",
+    "after": "Najveća veličina datoteke avatara u bajtovima:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "max-upload-filesize",
+    "before": "Максимална величина датотеке за слање (у бајтима):",
+    "after": "Najveća veličina datoteke za prijenos u bajtovima:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "migrate-all-to-filesystem",
+    "before": "Пресели све у локално складиште",
+    "after": "Migriraj sve u datotečni sustav",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "migrate-all-to-gridfs",
+    "before": "Пресели све и издели у GridFS",
+    "after": "Migriraj sve u GridFS",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "migrate-all-to-s3",
+    "before": "Пресели све у Amazon S3 облак",
+    "after": "Migriraj sve u S3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "migrated-attachments",
+    "before": "Пресељена предметна грађа",
+    "after": "Migrirani privitci",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "migration-batch-size-description",
+    "before": "Број јединица предметне грађе који ће бити обрађен при сваком пролазу (1-100)",
+    "after": "Broj privitaka za obradu u svakoj skupini (1-100)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
