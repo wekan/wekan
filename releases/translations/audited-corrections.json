@@ -20032,5 +20032,180 @@
     "before": "Сарадник је на платном списку - притисните да би прекинули сарадњу",
     "after": "Корисникот е активен — кликнете за да го деактивирате",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "admin-people-user-inactive",
+    "before": "Сарадник није на платном списку - притисните да би га увели на платни списак",
+    "after": "Корисникот е неактивен — кликнете за да го активирате",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "allboards.edit-workspace",
+    "before": "Преименовање радног простора",
+    "after": "Уреди го работниот простор",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "allboards.edit-workspace-icon",
+    "before": "Слика за радни простор (код)",
+    "after": "Икона на работниот простор (Markdown)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "allowNonBoardMembers",
+    "before": "Дај право гласа и онима који немају увид у ове списе",
+    "after": "Дозволи ги сите најавени корисници",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "allowed-upload-filetypes",
+    "before": "Дозвољене врсте датотека за слање:",
+    "after": "Дозволени типови датотеки за прикачување:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "almostdue",
+    "before": "приближава се крајњи рок %s",
+    "after": "тековниот рок %s се приближува",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "always-field-on-card",
+    "before": "Придодај овакву рубрику и свим постојећим предметима",
+    "after": "Додај го полето на сите карти",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "app-is-offline",
+    "before": "Исчитавам, молим да сачекате. Освежавање стране ће изазвати губитак података. Ако повлачење података не ради, молим да проверите да ли је сервер заустављен.",
+    "after": "Се вчитува, ве молиме почекајте. Освежувањето на страницата ќе предизвика губење на податоците. Ако вчитувањето не функционира, проверете дали серверот е запрен.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "app-try-reconnect",
+    "before": "Покушавам да се поново повежем.",
+    "after": "Обидете се повторно да се поврзете.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "archive-board-confirm",
+    "before": "Да ли сте сигурни да желите да спакујете ове списе у архив?",
+    "after": "Дали сте сигурни дека сакате да ја архивирате оваа табла?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "attachment-migration",
+    "before": "Пресељење предметне грађе",
+    "after": "Миграција на прилозите",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "attachment-monitoring",
+    "before": "Надзор над предметном грађом",
+    "after": "Следење на прилозите",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "attachment-move-storage-fs",
+    "before": "Пренеси материјал у локални систем датотека",
+    "after": "Премести го прилогот во датотечниот систем",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "attachment-move-storage-gridfs",
+    "before": "Пренеси материјал у GridFS",
+    "after": "Премести го прилогот во GridFS",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "attachment-move-storage-s3",
+    "before": "Пренеси материјал у облак на Amazon S3",
+    "after": "Премести го прилогот во S3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "attachment-storage-configuration",
+    "before": "Поставка складишта предметне грађе",
+    "after": "Конфигурација на складиштето за прилози",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "attachment-storage-settings",
+    "before": "Складиште предметне грађе",
+    "after": "Поставки за складирање",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "attachmentActionsPopup-title",
+    "before": "Поступање са овим материјалом",
+    "after": "Дејства со прилогот",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "attachments-path-description",
+    "before": "Путања до складишта где се чува предметна грађа",
+    "after": "Патека каде што се складираат датотеките на прилозите",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "authentication-method",
+    "before": "Метод утврђивања идентитета",
+    "after": "Метод на автентикација",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "authentication-type",
+    "before": "Врста утврђивања идентитета",
+    "after": "Тип на автентикација",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "autoAddUsersWithDomainName",
+    "before": "Повежи са оним сарадницима чији је домен е-поште",
+    "after": "Автоматски додај корисници со името на доменот",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "automatic-linked-url-schemes",
+    "before": "Група места на Интернету која би могла да се посете. Једна група по линији",
+    "after": "Приспособени URL-шеми кои треба автоматски да може да се кликнат. Една URL-шема по ред",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "automatically-field-on-card",
+    "before": "Сви будући предмети ће имати овакву рубрику",
+    "after": "Додај го полето на новите карти",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "avatar-too-big",
+    "before": "Слика је превелика (__size__ max)",
+    "after": "Аватарот е преголем (максимум __size__)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
