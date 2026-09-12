@@ -40766,5 +40766,61 @@
     "before": "Suscribirse automáticamente a los tableros cuando son creados",
     "after": "Siguir automáticamente los tableros cuando se creen",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "autoAddUsersWithDomainName",
+    "before": "Añadir automáticamente usuarios con el nombre del dominio",
+    "after": "Añadir automáticamente usuarios col nome del dominiu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "automatically-field-on-card",
+    "before": "Añadir campo a las tarjetas nuevas",
+    "after": "Añadir el campu a les tarxetes nueves",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "board-archive-failed",
+    "before": "Fallo al programar el archivo del tablero",
+    "after": "Nun se pudo programar l'archiváu del tableru",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "board-backup-failed",
+    "before": "Fallo al programar la copia de respaldo del tablero",
+    "after": "Nun se pudo programar la copia de seguridá del tableru",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "board-cleanup-failed",
+    "before": "Fallo al programar el borrado del tablero",
+    "after": "Nun se pudo programar la llimpieza del tableru",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "board-delete-notice",
+    "before": "Se eliminarán todas las listas, tarjetas y acciones asociadas a este tablero. Esta acción no puede deshacerse.",
+    "after": "La eliminación ye permanente. Vas perder toles llistes, tarxetes y acciones asociaes a esti tableru.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "board-drag-drop-reorder-or-click-open",
+    "before": "Arrastra y suelta para reordenar los iconos del tablero. Click en el icono del tablero para abrirlo",
+    "after": "Arrastra y suelta pa reordenar les icones de los tableros. Fai clic na icona del tableru pa abrilu.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "board-info-on-my-boards",
+    "before": "Configuración de todos los tableros",
+    "after": "Preferencies de tolos tableros",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
