@@ -36755,5 +36755,61 @@
     "before": "Tem a certeza que pretende apagar esta equipa? Não é reversível.",
     "after": "Estás seguro de que queres eliminar este equipo? Non se pode desfacer.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "delete-team-warning-message",
+    "before": "Não pode apagar esta equipa, tem no mínimo um utilizador associado",
+    "after": "Non se pode eliminar este equipo, hai polo menos un usuario que pertence a el",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "delete-translation-confirm-popup",
+    "before": "Tem certeza de que deseja excluir este texto de tradução customizado? Não há como desfazer.",
+    "after": "Está seguro de que quere eliminar esta cadea de tradución personalizada? Non se pode desfacer.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "delete-user-confirm-popup",
+    "before": "Tem a certeza que pretende apagar esta conta? Não é reversível.",
+    "after": "Estás seguro de que queres eliminar esta conta? Non se pode desfacer.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "deposit-subtasks-board",
+    "before": "Depositar sub-tarefas neste quadro:",
+    "after": "Depositar as subtarefas neste taboleiro:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "display-card-creator",
+    "before": "Mostrar Criador de Cartões",
+    "after": "Mostrar o creador da tarxeta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "dueCards-noResults-description",
+    "before": "Você não possui cartões com prazo final neste momento",
+    "after": "Neste momento non tes ningunha tarxeta con data de vencemento.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "dueCards-noResults-title",
+    "before": "Sem Cartões com prazo final",
+    "after": "Non se atoparon tarxetas con vencemento",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "dueCardsViewChange-choice-all-description",
+    "before": "Mostra todos os cartões incompletos com data *Limite* de quadros onde o utilizador tem permissões.",
+    "after": "Mostra todas as tarxetas incompletas con data de *vencemento* dos taboleiros para os que o usuario ten permiso.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
