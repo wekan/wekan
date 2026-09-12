@@ -549,12 +549,20 @@ the Markdown commit as the template.
 
 # Upcoming WeKan ® release
 
+
 **In short:** Members can choose one calendar independently of their
 interface language, with mouse and keyboard date/time selection and offline
 calendar conversion. On-premise **OAuth2/OIDC** login can also be restricted
 to specific email domains using the existing identity provider integration.
 
 This release adds the following features:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ba2501e59">Repair Macedonian search operator meanings and literal examples</a>. Thanks to xet7.</summary>
+
+Correct 12 search instructions, preserving query tokens and restoring `has:-due` and label color-or-name matching. Regression checks verify literal syntax, meaning, placeholders, exact values and key order. Translation Audit.md records dated fixes and remaining findings.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/c1dbea086">Repair Macedonian Boolean search and operator examples</a>. Thanks to xet7.</summary>
