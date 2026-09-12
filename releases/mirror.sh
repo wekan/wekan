@@ -30,5 +30,5 @@ mirror() {
 }
 
 mirror "gitlab" "git@gitlab.com:wekan/wekan"
-mirror "bitbucket" "git@bitbucket.org:wekan/wekan"
+mirror "bitbucket" "git@bitbucket.org:wekan/wekan.git"
 mirror "codeberg" "git@codeberg.org:wekan/wekan"
