@@ -39534,5 +39534,250 @@
     "before": "Número de anexos a processar em cada lote (1-100)",
     "after": "Número de anexos que se procesan en cada lote (1-100)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "migration-cpu-threshold-description",
+    "before": "Migração para quando uso de CPU ultrapassa esta porcentagem (10-90)",
+    "after": "Pausar a migración cando o uso de CPU supere esta porcentaxe (10-90)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "migration-delay-ms-description",
+    "before": "Atraso entre lotes em milissegundos (100-10000)",
+    "after": "Atraso entre lotes en milisegundos (100-10000)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "migration-info-text",
+    "before": "Migração de banco de dados é realizada uma vez e melhora o desempenho do sistema. O processo continua em segundo plano mesmo se você fechar o navegador.",
+    "after": "As migracións da base de datos realízanse unha vez e melloran o rendemento do sistema. O proceso continúa en segundo plano aínda que peche o navegador.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "migration-not-needed",
+    "before": "Nenhuma migração necessária",
+    "after": "Non se necesita ningunha migración",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "migration-paused",
+    "before": "Migrações paradas com sucesso",
+    "after": "Migracións pausadas correctamente",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "migration-resume-failed",
+    "before": "Falha ao retomar migração",
+    "after": "Non se puido retomar a migración",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "migration-start-failed",
+    "before": "Falha ao iniciar migrações",
+    "after": "Non se puideron iniciar as migracións",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "migration-started",
+    "before": "Migrações iniciadas com sucesso",
+    "after": "Migracións iniciadas correctamente",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "migration-stop-confirm",
+    "before": "Tem certeza de que deseja parar todas as migrações?",
+    "after": "Está seguro de que quere deter todas as migracións?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "migration-stopped",
+    "before": "Migrações paradas com sucesso",
+    "after": "Migracións detidas correctamente",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "migration-successful",
+    "before": "Migração concluída com sucesso.",
+    "after": "Migración completada correctamente",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "mobile-desktop-toggle",
+    "before": "Alternar entre modo Celular e Desktop",
+    "after": "Alternar entre o modo móbil e o modo escritorio",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "mongodb-gridfs-storage",
+    "before": "Armazenamento MongoDB GridFS",
+    "after": "Almacenamento MongoDB GridFS",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "monitoring-export-failed",
+    "before": "Falha ao exportar dados de monitoramento",
+    "after": "Non se puideron exportar os datos de monitorización",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "monitoring-refresh-failed",
+    "before": "Falha ao atualizar das de monitoramento",
+    "after": "Non se puideron actualizar os datos de monitorización",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "move-all-attachments-to-fs",
+    "before": "Mover todos os anexos para sistema de arquivos",
+    "after": "Mover todos os anexos ao sistema de ficheiros",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "move-all-attachments-to-gridfs",
+    "before": "Mover todos os anexos para GridFS",
+    "after": "Mover todos os anexos a GridFS",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "move-all-attachments-to-s3",
+    "before": "Mover todos os anexos para S3",
+    "after": "Mover todos os anexos a S3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "multi-selection-label",
+    "before": "Definir etiqueta para seleção",
+    "after": "Definir a etiqueta da selección",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "multi-selection-member",
+    "before": "Defina membro para seleção",
+    "after": "Definir o membro da selección",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "multi-selection-on",
+    "before": "Selecção Múltipla está activa",
+    "after": "A selección múltiple está activada",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "newTranslationPopup-title",
+    "before": "Novo texto de tradução customizado",
+    "after": "Nova cadea de tradución personalizada",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "no-issues-found",
+    "before": "Nenhum problema encontrado",
+    "after": "Non se atoparon problemas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "no-repositories",
+    "before": "Nenhum repositório encontrado",
+    "after": "Non se atoparon repositorios",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "oidc-button-text",
+    "before": "Personalizar o texto do botão OIDC",
+    "after": "Personalizar o texto do botón OIDC",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "operator-number-expected",
+    "before": "operador __operator__ esperava um número, teve '__value__'",
+    "after": "o operador __operator__ esperaba un número, recibiu '__value__'",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "operator-sort-invalid",
+    "before": "ordenar por '%s' é inválido",
+    "after": "a ordenación por '%s' non é válida",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "org-number",
+    "before": "O número de organizações é:",
+    "after": "O número de organizacións é: ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "page-maybe-private",
+    "before": "Esta página pode ser privada. Poderá vê-la se <a href='%s'>iniciar a sessão</a>.",
+    "after": "Esta páxina pode ser privada. Quizais poidas vela <a href='%s'>iniciando sesión</a>.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "pastdue",
+    "before": "a data limite actual %s já passou",
+    "after": "a data de vencemento actual %s xa pasou",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "paste-or-dragdrop",
+    "before": "para colar, ou arrastar e soltar o ficheiro da imagem para lá (somente imagens)",
+    "after": "para pegar, ou arrastra e solta aquí o ficheiro de imaxe (só imaxes)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "poker-delete-pop",
+    "before": "A exclusão é permanente. Você perderá todas as ações associadas a este planning poker.",
+    "after": "A eliminación é permanente. Perderás todas as accións asociadas a este planning poker.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "prefix-with-full-path",
+    "before": "Prefixar com o caminho completo",
+    "after": "Prefixo coa ruta completa",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "r-board-note",
+    "before": "Nota: deixe o campo em branco para corresponder a todos os valores possíveis.",
+    "after": "Nota: deixa un campo baleiro para coincidir con calquera valor posible.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "r-d-check-all",
+    "before": "Marcar todos os itens de uma lista",
+    "after": "Marcar todos os elementos dunha lista",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

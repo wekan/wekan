@@ -315,3 +315,16 @@ assert.match(data['keyboard-shortcuts-enabled'], /activados.*desactivar/);
 assert.match(data['max-avatar-filesize'], /en bytes:/);
 assert.match(data['max-upload-filesize'], /en bytes:/);
 assert.match(data['migration-batch-size-description'], /anexos.*cada lote \(1-100\)/);
+
+assert.match(data['migration-cpu-threshold-description'], /Pausar.*supere esta porcentaxe \(10-90\)/);
+assert.match(data['migration-delay-ms-description'], /milisegundos \(100-10000\)/);
+assert.match(data['migration-info-text'], /unha vez.*segundo plano aínda que peche o navegador/);
+assert.notEqual(data['migration-paused'], data['migration-stopped']);
+assert.match(data['migration-paused'], /pausadas/);
+assert.match(data['migration-stopped'], /detidas/);
+assert.match(data['migration-stop-confirm'], /todas as migracións/);
+assert.match(data['monitoring-refresh-failed'], /^Non se puideron actualizar os datos/);
+assert.match(data['operator-number-expected'], /__operator__.*número.*'__value__'/);
+assert.match(data['page-maybe-private'], /Quizais.*<a href='%s'>iniciando sesión<\/a>/);
+assert.match(data['poker-delete-pop'], /permanente.*todas as accións/);
+assert.match(data['r-board-note'], /campo baleiro.*calquera valor posible/);
