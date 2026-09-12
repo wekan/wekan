@@ -558,6 +558,15 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/1b06f4cb7ef46e8946cddab01d7d4c612b5fa433">Fix Galician regional S3 and troubleshooting translations</a></summary>
+
+Replace 33 Portuguese values with reviewed Galician and retain two correct rule/example values. Correct S3 endpoint terminology and preserve MinIO support, troubleshooting commands, task limits and ISO week labels. Translation regression checks pass.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/bb288913e090ab4e310b2762710412877fbe53ce">Fix Galician regional migration limits and monitoring messages</a></summary>
 
 Replace 35 Portuguese values with reviewed Galician. Distinguish paused from stopped migrations and preserve CPU thresholds, millisecond ranges, background continuation, monitoring errors and permanent-deletion warnings. Translation regression checks pass.
