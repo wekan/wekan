@@ -246,3 +246,10 @@ assert.match(data['import-attachments-zip'], /ZIP d’adchuntos de Trello \(opci
 assert.match(data['import-board-instruction-csv'], /comas \(CSV\)\/valors separaus por tabuladors \(TSV\)/);
 assert.match(data['import-csv-placeholder'], /^Apega os tuyos datos CSV\/TSV validos aquí$/);
 assert.equal(data['import-dependencies-done'], '__imported__ linia(s) importada(s), __unmatched__ sin coincidencia');
+assert.match(data['import-dependencies-placeholder'], /^U apega aquí o JSON \/ SVG de dependencias$/);
+assert.match(data['import-here-instruction'], /WeKan \(\.json u \.zip\):$/);
+assert.match(data['import-json-placeholder'], /^Apega os tuyos datos JSON validos aquí$/);
+assert.equal(data['import-scoped-failed'], 'A importación ha fallau');
+assert.equal(data['import-show-user-mapping'], 'Revisar a correspondencia de miembros');
+assert.equal(data['import-trello-zip-read-failed'], 'No s’ha puesto leyer o .zip puyau.');
+assert.notEqual(data['import-trello-zip-read-failed'], data['import-scoped-failed']);

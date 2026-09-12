@@ -45211,5 +45211,47 @@
     "before": "__imported__ línea(s) importada(s), __unmatched__ sin coincidencia",
     "after": "__imported__ linia(s) importada(s), __unmatched__ sin coincidencia",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "import-dependencies-placeholder",
+    "before": "O pega aquí el JSON / SVG de dependencias",
+    "after": "U apega aquí o JSON / SVG de dependencias",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "import-here-instruction",
+    "before": "Importa aquí una exportación de WeKan (.json o .zip):",
+    "after": "Importa aquí una exportación de WeKan (.json u .zip):",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "import-json-placeholder",
+    "before": "Pega tus datos JSON válidos aquí",
+    "after": "Apega os tuyos datos JSON validos aquí",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "import-scoped-failed",
+    "before": "La importación ha fallado",
+    "after": "A importación ha fallau",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "import-show-user-mapping",
+    "before": "Revisión de la asignación de miembros",
+    "after": "Revisar a correspondencia de miembros",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "import-trello-zip-read-failed",
+    "before": "No se pudo leer el .zip subido.",
+    "after": "No s’ha puesto leyer o .zip puyau.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
