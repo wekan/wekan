@@ -892,5 +892,29 @@
     "key": "tickets",
     "value": "Tickets",
     "reason": "Reviewed conventional technical loanword or shared Friulian vocabulary; source label meaning preserved."
+  },
+  {
+    "locale": "hi",
+    "key": "azure-blob-storage-description",
+    "value": "Microsoft Azure Blob Storage।",
+    "reason": "Preserve exact cloud-storage product name; Hindi sentence-ending danda punctuation is valid and does not make the vendor name wrong-language prose."
+  },
+  {
+    "locale": "hi",
+    "key": "gcs-storage-description",
+    "value": "Google Cloud Storage।",
+    "reason": "Preserve exact cloud-storage product name; Hindi sentence-ending danda punctuation is valid and does not make the vendor name wrong-language prose."
+  },
+  {
+    "locale": "hi-IN",
+    "key": "azure-blob-storage-description",
+    "value": "Microsoft Azure Blob Storage।",
+    "reason": "Preserve exact cloud-storage product name; Hindi sentence-ending danda punctuation is valid and does not make the vendor name wrong-language prose."
+  },
+  {
+    "locale": "hi-IN",
+    "key": "gcs-storage-description",
+    "value": "Google Cloud Storage।",
+    "reason": "Preserve exact cloud-storage product name; Hindi sentence-ending danda punctuation is valid and does not make the vendor name wrong-language prose."
   }
 ]
