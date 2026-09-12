@@ -44119,5 +44119,47 @@
     "before": "Establecer como tablero de inicio (se abre tras iniciar sesión)",
     "after": "Establir como tablero d’inicio (s’ubre dimpués d’iniciar sesión)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "settingsOrgPopup-title",
+    "before": "Configuración de la Organización",
+    "after": "Configuración d’a organización",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "swimlane-archive-pop",
+    "before": "El carril no será visible en el tablero después de archivarlo.",
+    "after": "O carril no será visible en o tablero dimpués d’archivar-lo.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "trello-import-selected",
+    "before": "Importar tableros seleccionados",
+    "after": "Importar os tableros triaus",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "unsaved-description",
+    "before": "Tienes una descripción por añadir.",
+    "after": "Tiens una descripción sin alzar.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "unset-selected-home",
+    "before": "Dejar de usar como tablero de inicio",
+    "after": "Deixar d’usar como tablero d’inicio",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "user-username-not-found",
+    "before": "Usuario '%s' no encontrado.",
+    "after": "No s’ha trobau o nombre d’usuario '%s'.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
