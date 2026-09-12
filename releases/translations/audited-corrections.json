@@ -23658,5 +23658,117 @@
     "before": "Мере против насилног упада су допуњене",
     "after": "Postavke zaštite od napada grubom silom su ažurirane",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "accounts-lockout-show-locked-users",
+    "before": "Прикажи само налоге на мерама",
+    "after": "Prikaži samo zaključane korisnike",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "accounts-lockout-unknown-users",
+    "before": "Мере за непознате налоге (где сарадник са таквим корисничким именом не постоји)",
+    "after": "Postavke za nepoznate korisnike (nepostojeće korisničko ime)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "accounts-lockout-user-unlocked",
+    "before": "Налог је успешно скинут са мера забране приступа",
+    "after": "Korisnik je uspješno otključan",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "act-a-dueAt",
+    "before": "измењени крајњи рок \nРок:__timeValue__\nПредмет:__card__\nПретходни крајњи рок је био __timeOldValue__",
+    "after": "promijenio rok na \nKada: __timeValue__\nGdje: __card__\n prethodni rok bio je __timeOldValue__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "act-a-endAt",
+    "before": "измењен датум и време окончања на __timeValue__ са претходно постављеног (__timeOldValue__)",
+    "after": "promijenio vrijeme završetka na __timeValue__ s (__timeOldValue__)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "act-a-receivedAt",
+    "before": "измењен датум и време пријема предмета на __timeValue__ са претходно постављеног (__timeOldValue__)",
+    "after": "promijenio vrijeme primitka na __timeValue__ s (__timeOldValue__)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "act-a-startAt",
+    "before": "измењен датум и време почетка рада на предмету на __timeValue__ са претходно постављеног (__timeOldValue__)",
+    "after": "promijenio vrijeme početka na __timeValue__ s (__timeOldValue__)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "act-almostdue",
+    "before": "подсећам да се приближавамо последњем року (__timeValue__) за завршетак задатка __card__",
+    "after": "podsjetnik da se približava trenutačni rok (__timeValue__) za karticu __card__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "act-atUserComment",
+    "before": "споменути сте у расправи у предмету __card__: __comment__ у делу __list__ поступка __swimlane__ у списима __board__",
+    "after": "spomenuo vas je na kartici __card__: __comment__ u popisu __list__ u stazi __swimlane__ na ploči __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "act-duenow",
+    "before": "подсећам да последњи рок (__timeValue__) задатка __card__ истиче данас",
+    "after": "podsjetnik da je trenutačni rok (__timeValue__) za karticu __card__ upravo sada",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "act-newDue",
+    "before": "__list__/__card__ има један подсетник за крајњи рок [__board__]",
+    "after": "__list__/__card__ ima prvi podsjetnik za rok [__board__]",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "act-pastdue",
+    "before": "подсећам да је последњи рок (__timeValue__) задатка __card__  пробијен",
+    "after": "podsjetnik da je trenutačni rok (__timeValue__) za karticu __card__ prošao",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "act-withDue",
+    "before": "__list__/__card__ подсетници за крајњи рок [__board__]",
+    "after": "__list__/__card__ podsjetnici za rok [__board__]",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "active-cron-jobs",
+    "before": "Већ унапред заказани послови:",
+    "after": "Aktivni zakazani poslovi",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "activity-changedListTitle",
+    "before": "је преименовао део поступка у %s",
+    "after": "preimenovao popis u %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "activity-dueDate",
+    "before": "је изменио крајњи рок на %s у предмету %s",
+    "after": "promijenio rok na %s za karticu %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
