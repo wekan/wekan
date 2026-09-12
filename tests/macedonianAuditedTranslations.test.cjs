@@ -99,6 +99,12 @@ const data = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/mk.i1
   }
   for (const endpoint of ['s3.amazonaws.com', 'minio.example.com']) assert.ok(data['s3-endpoint-description'].includes(endpoint));
   assert.match(data['set-swimlane-height-value'], /пиксели/);
+  assert.match(data['show-parent-in-minicard'], /родителската карта/);
+  assert.match(data['showSum-field-on-list'], /збирот на полињата/);
+  assert.doesNotMatch(data['showSum-field-on-list'], /број придружени/);
+  assert.match(data['show-at-all-boards-page'], /Сите табли/);
+  assert.equal(data['sidebar-close'], 'Затворете страничната лента');
+  assert.equal(data['sidebar-open'], 'Отворете страничната лента');
   assert.equal(data.list, 'Список');
   assert.equal(data.swimlane, 'Лента');
   console.log('macedonianAuditedTranslations: actual date and label rendering, checklist removal meaning and native labels passed');
