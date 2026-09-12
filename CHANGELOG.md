@@ -558,6 +558,15 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/c5429b159d82ee35810e014079c7c7ba5102e731">Fix Galician regional membership and list translations</a></summary>
+
+Replace ten Portuguese values with reviewed Galician. Preserve last-admin restrictions, board-exit consequences, archive restoration and irreversible list deletion warnings. Translation meaning, placeholder, key-order and idempotency regression checks pass.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/d98e80bb3055435858c111bddd2fb5197a1a71db">Repair Galician regional credentials and label deletion warnings</a>. Thanks to xet7.</summary>
 
 Repair six regional values with reviewed Galician wording. Preserve unmapped-member fallback, credential alternatives, irreversible label deletion and history loss. Meaning, exact-value, placeholder, key-order and idempotency checks pass. The short translation audit records current progress.
