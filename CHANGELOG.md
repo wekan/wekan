@@ -558,6 +558,13 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/89b2b4802">Repair Croatian field and label search instructions</a>. Thanks to xet7.</summary>
+
+Correct seven reviewed values. Positive and negative regressions verify field query syntax, color-or-name matching and positive integer limits. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/11734e472">Repair Croatian date and user search operators</a>. Thanks to xet7.</summary>
 
 Correct eight reviewed values. Positive and negative regressions verify literal user syntax, at-most date ranges and assignment terminology. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.

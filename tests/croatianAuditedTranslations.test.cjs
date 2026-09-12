@@ -69,6 +69,10 @@ assert.match(data['globalSearch-instructions-operator-at'], /`user:<username>`/)
 assert.match(data['globalSearch-instructions-operator-created'], /prije najviše/);
 assert.match(data['globalSearch-instructions-operator-due'], /sljedećih najviše/);
 assert.doesNotMatch(data['globalSearch-instructions-operator-assignee'], /punomoć/);
+assert.match(data['globalSearch-instructions-operator-has'], /`has:-due`/);
+assert.doesNotMatch(data['globalSearch-instructions-operator-has'], /ima:-/);
+assert.match(data['globalSearch-instructions-operator-label'], /boji .* ili nazivu/);
+assert.match(data['globalSearch-instructions-operator-limit'], /pozitivan cijeli broj/);
 assert.equal(data.accessibility, 'Pristupačnost');
 assert.match(data['accounts-lockout-known-users'], /ispravno korisničko ime, pogrešna lozinka/);
 assert.match(data['accounts-lockout-failure-window'], /neuspjelih pokušaja \(sekunde\)/);
