@@ -5,6 +5,12 @@ assert.match(data['accounts-lockout-known-users'], /usuarios coñecidos.*usuario
 assert.match(data['accounts-lockout-unknown-users'], /usuarios descoñecidos.*usuario inexistente/);
 for (const key of ['accounts-lockout-known-users', 'accounts-lockout-unknown-users']) assert.doesNotMatch(data[key], /usuários|senha|Configurações/);
 assert.match(data['act-addChecklist'], /engadiu a lista de verificación/);
+assert.match(data['checklistItemDeletePopup-title'], /o elemento da lista/);
+assert.notEqual(data['checklistItemDeletePopup-title'], data['checklistDeletePopup-title']);
+assert.match(data['comment-assigned-only-desc'], /Só son visibles as tarxetas asignadas.*Só pode comentar/);
+assert.match(data['comment-not-found'], /tarxeta cun comentario/);
+assert.match(data['close-board-pop'], /restaurar o taboleiro.*botón «Arquivo».*cabeceira de inicio/);
+
 assert.match(data['card-delete-pop'], /Todas as accións.*non poderás reabrir.*Non se pode desfacer/);
 assert.match(data['card-delete-suggest-archive'], /Arquivo.*conservar a actividade/);
 assert.match(data.card_assignees, /responsables da tarxeta actual/);

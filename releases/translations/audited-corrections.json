@@ -36475,5 +36475,75 @@
     "before": "Ações da Lista de verificação",
     "after": "Accións da lista de verificación",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "checklistDeletePopup-title",
+    "before": "Eliminar lista de verificação?",
+    "after": "Eliminar a lista de verificación?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "checklistItemDeletePopup-title",
+    "before": "Excluir Item da Lista de Verificação?",
+    "after": "Eliminar o elemento da lista de verificación?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "click-to-star",
+    "before": "Clique para marcar este quadro como favorito.",
+    "after": "Fai clic para marcar este taboleiro como favorito.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "click-to-unstar",
+    "before": "Clique para remover este quadro dos favoritos.",
+    "after": "Fai clic para quitar este taboleiro dos favoritos.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "close-add-checklist-item",
+    "before": "Fechar formulário para adicionar um item ao checklist",
+    "after": "Pechar o formulario para engadir un elemento á lista de verificación",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "close-board-pop",
+    "before": "Poderá restaurar o quadro clicando no botão “Arquivo” a partir do cabeçalho do Início.",
+    "after": "Poderás restaurar o taboleiro premendo o botón «Arquivo» na cabeceira de inicio.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "comment-assigned-only",
+    "before": "Somente Comentário Atribuído",
+    "after": "Só comentar nas asignadas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "comment-assigned-only-desc",
+    "before": "Somente cartões atribuídos visível. Pode somente comentar.",
+    "after": "Só son visibles as tarxetas asignadas. Só pode comentar.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "comment-delete",
+    "before": "Tem certeza de que deseja excluir o comentário?",
+    "after": "Seguro que queres eliminar o comentario?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "comment-not-found",
+    "before": "Cartão com comentários com o texto '%s' não encontrado.",
+    "after": "Non se atopou ningunha tarxeta cun comentario que conteña o texto '%s'.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
