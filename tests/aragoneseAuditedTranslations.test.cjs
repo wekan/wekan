@@ -288,3 +288,11 @@ assert.notEqual(data['newTranslationPopup-title'], data['editTranslationPopup-ti
 assert.equal(data.newlineBecomesNewChecklistItem, 'Cada linia de texto se convierte en un elemento d’a lista de comprobación');
 assert.equal(data.newlineBecomesNewChecklistItemOriginOrder, `${data.newlineBecomesNewChecklistItem}, orden orichinal`);
 assert.equal(data['no-issues-found'], 'No s’han trobau problemas');
+assert.equal(data['no-repositories'], 'No s’han trobau repositorios');
+assert.equal(data['no-shared-templates'], 'Sin plantillas compartidas');
+assert.equal(data['not-accepted-yet'], 'A invitación encara no s’ha acceptau');
+assert.equal(data['operator-debug-invalid'], '%s no ye un predicau de depuración valido');
+assert.equal(data['operator-has-invalid'], '%s no ye una comprobación d’existencia valida');
+assert.match(data['operator-limit-invalid'], /^%s no ye un limite valido\./);
+assert.match(data['operator-limit-invalid'], /O limite ha d’estar un entero positivo\.$/);
+assert.notEqual(data['operator-debug-invalid'], data['operator-has-invalid']);

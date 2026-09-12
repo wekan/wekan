@@ -45442,5 +45442,40 @@
     "before": "No se encontraron problemas",
     "after": "No s’han trobau problemas",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "no-repositories",
+    "before": "No se encontraron repositorios",
+    "after": "No s’han trobau repositorios",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "not-accepted-yet",
+    "before": "La invitación no ha sido aceptada aún",
+    "after": "A invitación encara no s’ha acceptau",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "operator-debug-invalid",
+    "before": "%s no es un predicado de depuración válido",
+    "after": "%s no ye un predicau de depuración valido",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "operator-has-invalid",
+    "before": "%s no es una comprobación de existencia válida",
+    "after": "%s no ye una comprobación d’existencia valida",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "operator-limit-invalid",
+    "before": "%s no es un límite válido. El límite ha de ser un entero positivo.",
+    "after": "%s no ye un limite valido. O limite ha d’estar un entero positivo.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

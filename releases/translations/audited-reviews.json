@@ -718,5 +718,11 @@
     "key": "newTranslationPopup-title",
     "value": "Nueva cadena de traducción personalizada",
     "reason": "Reviewed shared Aragonese vocabulary for a new personalized translation string; correctly distinguishes creation from editing."
+  },
+  {
+    "locale": "an",
+    "key": "no-shared-templates",
+    "value": "Sin plantillas compartidas",
+    "reason": "Reviewed shared Aragonese vocabulary: absence of shared templates, without foreign articles or loss of source meaning."
   }
 ]
