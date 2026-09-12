@@ -44980,5 +44980,33 @@
     "before": "__inviter__ te ha enviado una invitación",
     "after": "__inviter__ t’ha ninviau una invitación",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "email-verifyEmail-subject",
+    "before": "Verifica tu dirección de correo en __siteName__",
+    "after": "Verifica a tuya adreza de correu en __siteName__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "enable-vertical-scrollbars",
+    "before": "Habilitar barras de desplazamiento verticales",
+    "after": "Activar barras de desplazamiento verticals",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "enter-zoom-level",
+    "before": "Introduzca el nivel de zoom (50-300%):",
+    "after": "Introduz o livel de zoom (50-300%):",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "error-csv-schema",
+    "before": "Su CSV(Valores separados por coma)/TSV(Valores separados por tab) no incluyen la información apropiada en el formato correcto",
+    "after": "O tuyo CSV (valors separaus por comas)/TSV (valors separaus por tabuladors) no incluye a información apropiada en o formato correcto ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

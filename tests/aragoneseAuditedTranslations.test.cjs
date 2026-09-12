@@ -204,3 +204,10 @@ assert.match(data['email-domain-allowed-to-invite'], /correu autorizau a invitar
 assert.match(data['email-domain-allowed-to-invite'], /quan l’autorregistro ye desactivau$/);
 assert.equal(data['email-invite-subject'], '__inviter__ t’ha ninviau una invitación');
 assert.equal(data['email-invite-register-subject'], data['email-invite-subject']);
+assert.equal(data['email-templates-activity-vars-hint'], 'Etiquetas disponibles: {board} {card} {list} {username} {url} {comment} {action}');
+assert.equal(data['email-templates-invite-vars-hint'], 'Etiquetas disponibles: {email} {inviter} {user} {icode} {url}');
+assert.match(data['email-verifyEmail-subject'], /a tuya adreza de correu en __siteName__$/);
+assert.match(data['enable-vertical-scrollbars'], /^Activar barras de desplazamiento verticals$/);
+assert.match(data['enter-zoom-level'], /livel de zoom \(50-300%\):$/);
+assert.match(data['error-csv-schema'], /CSV \(valors separaus por comas\)\/TSV \(valors separaus por tabuladors\)/);
+assert.match(data['error-csv-schema'], /no incluye a información apropiada en o formato correcto/);

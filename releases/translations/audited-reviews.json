@@ -682,5 +682,17 @@
     "key": "editTranslationPopup-title",
     "value": "Editar cadena de traducción personalizada",
     "reason": "Reviewed shared Aragonese vocabulary: editing a personalized translation string; no foreign article or loss of source meaning."
+  },
+  {
+    "locale": "an",
+    "key": "email-templates-activity-vars-hint",
+    "value": "Etiquetas disponibles: {board} {card} {list} {username} {url} {comment} {action}",
+    "reason": "Reviewed shared Aragonese vocabulary for available template tags; all literal brace-delimited variable names retain source spelling and order."
+  },
+  {
+    "locale": "an",
+    "key": "email-templates-invite-vars-hint",
+    "value": "Etiquetas disponibles: {email} {inviter} {user} {icode} {url}",
+    "reason": "Reviewed shared Aragonese vocabulary for available template tags; all literal brace-delimited variable names retain source spelling and order."
   }
 ]
