@@ -164,3 +164,14 @@ assert.match(data['import-members-map'], /Asocia os membros.*cos teus usuarios/)
 assert.match(data['import-members-map-note'], /membros sen asociar.*usuario actual/);
 assert.match(data['invalid-credentials'], /usuario ou contrasinal non válidos/);
 assert.match(data['label-delete-pop'], /Non se pode desfacer.*todas as tarxetas.*destruirá o seu historial/);
+
+assert.match(data['last-admin-desc'], /Non podes cambiar.*polo menos un administrador/);
+assert.match(data['leave-board-pop'], /__boardTitle__.*todas as tarxetas deste taboleiro/);
+assert.match(data['list-archive-cards-pop'], /todas as tarxetas.*devolvelas ao taboleiro.*«Menú» > «Arquivo»/);
+assert.match(data['list-archive-pop'], /non será visible.*despois de arquivala/);
+assert.match(data['list-archive-suggest'], /restaurar a lista.*Arquivo.*configuración do taboleiro/);
+assert.match(data['list-delete-pop'], /Todas as accións.*non poderás recuperar a lista.*Non se pode desfacer/);
+assert.match(data['list-delete-suggest-archive'], /Arquivo.*conservar a actividade/);
+assert.notEqual(data['list-delete-pop'], data['list-delete-suggest-archive']);
+assert.match(data['list-move-cards'], /todas as tarxetas desta lista/);
+assert.match(data['list-select-cards'], /todas as tarxetas desta lista/);

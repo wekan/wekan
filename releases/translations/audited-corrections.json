@@ -37273,5 +37273,75 @@
     "before": "Etiqueta '%s' não encontrada.",
     "after": "Non se atopou a etiqueta '%s'.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "last-admin-desc",
+    "before": "Não pode alterar funções porque deve existir pelo menos um administrador.",
+    "after": "Non podes cambiar os roles porque debe haber polo menos un administrador.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "leave-board-pop",
+    "before": "Tem a certeza de que pretende sair de __boardTitle__? Será removido de todos os cartões neste quadro.",
+    "after": "Seguro que queres saír de __boardTitle__? Serás eliminado de todas as tarxetas deste taboleiro.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "list-archive-cards",
+    "before": "Move todos os cartões nesta lista para o Arquivo",
+    "after": "Arquivar todas as tarxetas desta lista",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "list-archive-cards-pop",
+    "before": "Isto irá remover todos os cartões nesta lista do quadro. Para ver os cartões no Arquivo e trazê-los de volta para o quadro, clique em “Menu” > “Arquivo”.",
+    "after": "Isto eliminará todas as tarxetas desta lista do taboleiro. Para ver as tarxetas no Arquivo e devolvelas ao taboleiro, fai clic en «Menú» > «Arquivo».",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "list-archive-pop",
+    "before": "A lista não ficará visível no quadro após o arquivamento.",
+    "after": "A lista non será visible no taboleiro despois de arquivala.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "list-archive-suggest",
+    "before": "Você poderá restaurar a lista posteriormente a partir do Arquivo Morto nas Configurações do Quadro.",
+    "after": "Podes restaurar a lista máis tarde desde o Arquivo na configuración do taboleiro.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "list-delete-pop",
+    "before": "Todas as acções serão removidas do feed de atividade e não poderá recuperar a lista. Não é reversível.",
+    "after": "Todas as accións eliminaranse do fluxo de actividade e non poderás recuperar a lista. Non se pode desfacer.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "list-delete-suggest-archive",
+    "before": "Pode mover uma lista para o Arquivo para a remover do quadro e preservar a actividade.",
+    "after": "Podes mover unha lista ao Arquivo para eliminala do taboleiro e conservar a actividade.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "list-move-cards",
+    "before": "Mover todos os cartões nesta lista",
+    "after": "Mover todas as tarxetas desta lista",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "list-select-cards",
+    "before": "Seleccionar todos os cartões nesta lista",
+    "after": "Seleccionar todas as tarxetas desta lista",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
