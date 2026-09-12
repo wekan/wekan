@@ -44364,5 +44364,47 @@
     "before": "cambió el título a %s de %s",
     "after": "cambió o titol a %s de %s",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "activity-checked-item",
+    "before": "marcado %s en la lista de verificación %s de %s",
+    "after": "marcó %s en a lista de comprobación %s de %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "activity-checked-item-card",
+    "before": "marcado %s en la lista de verificación %s",
+    "after": "marcó %s en a lista de comprobación %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "activity-checklist-added",
+    "before": "ha agregado una lista de verificación a %s",
+    "after": "adhibió una lista de comprobación a %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "activity-checklist-completed",
+    "before": "lista de verificación completada %s de %s",
+    "after": "completó a lista de comprobación %s de %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "activity-checklist-item-added",
+    "before": "ha agregado el elemento de la lista de verificación a '%s' en %s",
+    "after": "adhibió un elemento a la lista de comprobación '%s' en %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "activity-checklist-uncompleted",
+    "before": "no completado la lista %s de %s",
+    "after": "marcó como incompleta a lista de comprobación %s de %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
