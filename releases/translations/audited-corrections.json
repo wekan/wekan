@@ -45519,5 +45519,47 @@
     "before": "Organización '%s' no encontrada.",
     "after": "Organización '%s' no trobada.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "org-number",
+    "before": "El número de organizaciones es:",
+    "after": "O numero d’organizacions ye: ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "orgAdminsPopup-title",
+    "before": "Administradores de la organización",
+    "after": "Administradors d’a organización",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "otp-required",
+    "before": "Se requiere el código OTP",
+    "after": "Cal o codigo OTP",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "pastdue",
+    "before": "se sobrepasó la hora de vencimiento actual%s",
+    "after": "a hora de vencimiento actual %s ya ha pasau",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "paste-or-dragdrop",
+    "before": "pegar o arrastrar y soltar un fichero de imagen (sólo imagen)",
+    "after": "ta apegar, u arrocegar y soltar un fichero d’imachen (nomás imachens)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "people-number",
+    "before": "El número de personas es:",
+    "after": "O numero de personas ye: ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
