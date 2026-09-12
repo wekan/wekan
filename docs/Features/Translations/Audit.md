@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Audit keys |
 | --- | ---: |
-| Explicitly corrected | 6,720 |
+| Explicitly corrected | 6,730 |
 | Restored pre-pull values awaiting further validation | 4,059 |
 | Reviewed and retained unchanged | 175 |
-| Pending review or repair | 9,127 |
+| Pending review or repair | 9,117 |
 | Total tracked | 20,081 |
 
 **Translation repairs remain unfinished.** These counts cover flagged findings; unflagged strings and restored values are not certified as correct.
 
-Fixes cover wrong-language text, terminology, warnings, JSON examples, placeholders and calendar/search formatting. The correction history records **6,793 values**, including fixes outside the audit. Per-language remaining work is available through the command below.
+Fixes cover wrong-language text, terminology, warnings, JSON examples, placeholders and calendar/search formatting. The correction history records **6,803 values**, including fixes outside the audit. Per-language remaining work is available through the command below.
 
-Latest fix: [18cde68eb](https://github.com/wekan/wekan/commit/18cde68eb4d6b0899d0c3f20c54c362dacc96b6a), **2026-09-13** — six Luxembourgish calendar/WIP values repaired; a valid SMTP subject retained after review. Its flagged queue is complete. Exact-value, placeholder, key-order, review and idempotency checks pass. Technical wording needs native-speaker review; live browser verification remains unavailable.
+Latest fix: [106abeb2c](https://github.com/wekan/wekan/commit/106abeb2c8c5cbe54fe249e18efa68eb11aed890), **2026-09-13** — ten Maltese calendar labels repaired, including Persian identification and calendar-method distinctions; its flagged queue is complete. Exact-value, placeholder, key-order and idempotency checks pass. Technical wording needs native-speaker review; live browser verification remains unavailable.
 
 **Provenance:** not all errors came from Transifex. The captured pull changed 4,061 values; the local audit added 16,020 findings. Bosnian errors predated that pull in a [local completion commit](https://github.com/wekan/wekan/commit/bdb3b15886a749b725b5290ba0109fcba955f983). Other ultimate origins remain unverified.
 
