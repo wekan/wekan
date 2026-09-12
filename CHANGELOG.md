@@ -558,6 +558,14 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/dacbe7416fcc04afc1755d66a9b231b16fdc1e1e">Repair audited Asturian translations</a></summary>
+
+Replace audited Spanish wording with Asturian in account controls, card activities, permissions, filters, imports, dates, warnings and attachment settings. Preserve placeholders, JSON examples, storage destinations and irreversible-deletion warnings. The latest batch repairs attachment storage, automatic list width, avatar size and minicard attachment counts. Meaning and correction-inventory regression tests pass; native-speaker review is still needed. Live Meteor browser verification was unavailable.
+
+Thanks to xet7 !
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/0fcfb0e59190f5213786a235dd7d55e14ee4495b">Finish flagged base Galician translation review</a></summary>
 
 Translate filter instructions and two calendar labels, repair two search-formatting defects and retain nine correct findings. Both flagged Galician queues are complete. Translation regression checks pass.
