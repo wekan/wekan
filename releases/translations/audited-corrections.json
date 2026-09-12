@@ -47374,5 +47374,19 @@
     "before": "Islamic tabular",
     "after": "የሂጅራ የቀን አቆጣጠር (በሰንጠረዥ የተመሠረተ፣ የሥነ ፈለክ ዘመን መነሻ)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ps",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "د هند ملي جنتري",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ps",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "اسلامي جنتري (سعودي عربستان، د سپوږمۍ لیدل)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
