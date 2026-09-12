@@ -20312,5 +20312,180 @@
     "before": "Променете фона на таблото",
     "after": "Промени ја заднината на таблата",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "boardInfoOnMyBoards-title",
+    "before": "Списи у мојој надлежности",
+    "after": "Поставки за сите табли",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "boardInfoOnMyBoardsPopup-title",
+    "before": "Списи у мојој надлежности",
+    "after": "Поставки за сите табли",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "board_assignees",
+    "before": "Сви пуномоћници из свих предмета у овим списима",
+    "after": "Сите одговорни лица на сите карти на оваа табла",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "broken-cards",
+    "before": "Предмети где је веза покидана",
+    "after": "Оштетени карти",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "bucket-example",
+    "before": "Деловодни број (на пример 4/2025)",
+    "after": "На пример, „Список на желби“",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "card-archive-pop",
+    "before": "Након архивирања, предмет више неће бити видљив у овом делу тока поступка.",
+    "after": "Картата нема да биде видлива во овој список по архивирањето.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "card-archive-suggest-cancel",
+    "before": "Касније ипак можете извући и вратити предмет из архиве.",
+    "after": "Подоцна можете да ја вратите картата од архивата.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "card-comments-title",
+    "before": "Тази карта има %s коментар.",
+    "after": "Оваа карта има %s коментар.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "card-delete-notice",
+    "before": "Брисање је трајно. Изгубићете све у вези са овим предметом.",
+    "after": "Бришењето е трајно. Ќе ги изгубите сите дејства поврзани со оваа карта.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "card-delete-pop",
+    "before": "Читав записник ће бити уклоњен и предмет неће моћи бити опорављен. Опозив ове радње неће бити могућ.",
+    "after": "Сите дејства ќе бидат отстранети од текот на активности и нема да можете повторно да ја отворите картата. Ова не може да се поништи.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "card-edit-custom-fields",
+    "before": "Промени собствените полета",
+    "after": "Уреди ги приспособените полиња",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "card-labels-title",
+    "before": "Промени етикетите за картата.",
+    "after": "Промени ги ознаките на картата.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "card-members-title",
+    "before": "Добави или премахни членове на Таблото от тази карта.",
+    "after": "Додај или отстрани членови на таблата од картата.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "card-sorting-by-number",
+    "before": "Бројчана ознака за редослед",
+    "after": "Подредување на карти по број",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "card-sorting-by-number-on-minicard",
+    "before": "Бројчана ознака за редослед",
+    "after": "Подредување на карти по бројот на миникартата",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "cardCustomFieldsPopup-title",
+    "before": "Промени собствените полета",
+    "after": "Уреди ги приспособените полиња",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "cardDeletePopup-title",
+    "before": "Желаете да изтриете картата?",
+    "after": "Избриши ја картата?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "cardStartPlanningPokerPopup-title",
+    "before": "Започни договор за партију покера",
+    "after": "Започни планирачки покер",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "card_assignees",
+    "before": "Сви пуномоћници текућег предмета у овим списима",
+    "after": "Сите одговорни лица на тековната карта на оваа табла",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "card_members",
+    "before": "Мрежа сарадника на овом предмету у овим списима",
+    "after": "Сите членови на тековната карта на оваа табла",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "cardsReportTitle",
+    "before": "Извештај везан за предмете",
+    "after": "Извештај за карти",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "change-card-parent",
+    "before": "Промени източника на картата",
+    "after": "Промени ја родителската карта",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "checklistActionsPopup-title",
+    "before": "Руковање списковима радњи",
+    "after": "Дејства со списокот за проверка",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "checklistDeletePopup-title",
+    "before": "Избрисаћете предметну радњу?",
+    "after": "Избриши го списокот за проверка?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "checklistItemDeletePopup-title",
+    "before": "Избрисаћете ставку из предметне радње?",
+    "after": "Избриши ја ставката од списокот за проверка?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
