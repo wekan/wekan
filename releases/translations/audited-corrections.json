@@ -21376,5 +21376,75 @@
     "before": "Можете истовремено задати више оператора.",
     "after": "Може да се зададат повеќе оператори.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "globalSearch-instructions-notes-2",
+    "before": "Над сродним операторима се изводи операција логичко ИЛИ.  Биће приказани предмети који испуњавају било који од услова.\n`__operator_list__:Припрема  __operator_list__:Жалба`  као резултат приказује све предмете које су било у деоници *Припрема* било у деоници *Жалба*.",
+    "after": "Сличните оператори се поврзуваат со логичко *ИЛИ*. Се враќаат картите што исполнуваат кој било од условите.\n`__operator_list__:Available __operator_list__:Blocked` ги враќа картите во кој било список со име *Blocked* или *Available*.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "globalSearch-instructions-notes-3",
+    "before": "На несродним операторима се изводи операција логичко И.  Биће приказани само они задаци који испуњавају све услове.  `__operator_list__:Жалба __operator_label__:црвена` приказаће међу свим предметима у *жалбеном* делу поступка само оне са *црвеном* налепницом.",
+    "after": "Различните оператори се поврзуваат со логичко *И*. Се враќаат само картите што ги исполнуваат сите различни оператори. `__operator_list__:Available __operator_label__:red` ги враќа само картите во списокот *Available* со ознака *red*.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "globalSearch-instructions-notes-3-2",
+    "before": "Дани се могу задати као позитивни или негативни цели бројеви или се користе `__predicate_week__`, `__predicate_month__`, `__predicate_quarter__` or `__predicate_year__` за текући период.",
+    "after": "Деновите може да се зададат како позитивен или негативен цел број или со `__predicate_week__`, `__predicate_month__`, `__predicate_quarter__` или `__predicate_year__` за тековниот период.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "globalSearch-instructions-notes-4",
+    "before": "Разлика између малих и великих слова се не узима у обзир.",
+    "after": "Пребарувањата на текст не разликуваат мали и големи букви.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "globalSearch-instructions-notes-5",
+    "before": "Ако нисте ништа дирали, претрагом неће бити обухваћени предмети из архиве.",
+    "after": "Стандардно, архивираните карти не се пребаруваат.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "globalSearch-instructions-operator-assignee",
+    "before": "`__operator_assignee__:<неко>` - предмети где је *<неко>* пуномоћник",
+    "after": "`__operator_assignee__:<username>` — карти каде што *<username>* е *одговорно лице*",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "globalSearch-instructions-operator-at",
+    "before": "`__operator_user_abbrev__корисничко име` - скраћеница за `user:<корисничко име>`",
+    "after": "`__operator_user_abbrev__username` — кратенка за `user:<username>`",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "globalSearch-instructions-operator-board",
+    "before": "`__operator_board__:<наслов>` - сви предмети у списима са задатим *<насловом>*",
+    "after": "`__operator_board__:<title>` — карти на табли што одговараат на зададениот наслов *<title>*",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "globalSearch-instructions-operator-comment",
+    "before": "`__operator_comment__:<речи>` - сви предмети где су у расправи коришћене следеће *<речи>*.",
+    "after": "`__operator_comment__:<text>` — карти со коментар што содржи *<text>*.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "globalSearch-instructions-operator-created",
+    "before": "`__operator_created__:<n>` - предмети који су заведени у задњих *<n>* дана",
+    "after": "`__operator_created__:<n>` — карти создадени пред најмногу *<n>* дена",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

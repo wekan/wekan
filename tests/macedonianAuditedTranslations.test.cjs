@@ -29,6 +29,11 @@ const data = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/mk.i1
   assert.match(data['act-removeChecklist'], /го отстрани списокот за проверка/);
   assert.doesNotMatch(data['act-removeChecklist'], /елемент|ставка/);
   assert.match(data['act-atUserComment'], /ве спомена/);
+  assert.match(data['globalSearch-instructions-notes-2'], /\*ИЛИ\*/);
+  assert.match(data['globalSearch-instructions-notes-3'], /\*И\*/);
+  assert.match(data['globalSearch-instructions-notes-4'], /не разликуваат мали и големи букви/);
+  assert.match(data['globalSearch-instructions-notes-3'], /`__operator_list__:Available __operator_label__:red`/);
+  assert.match(data['globalSearch-instructions-operator-at'], /`__operator_user_abbrev__username`/);
   assert.equal(data.list, 'Список');
   assert.equal(data.swimlane, 'Лента');
   console.log('macedonianAuditedTranslations: actual date and label rendering, checklist removal meaning and native labels passed');
