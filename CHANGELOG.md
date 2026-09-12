@@ -558,6 +558,13 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/d2b7a572fa5f5ea63ea280913e9ba587051a8144">Repair Slovenian migration step terminology</a>. Thanks to xet7.</summary>
+
+Correct 20 values across both Slovenian locales. Restore orphaned-card, duplicate-empty-list, per-swimlane structure and list/swimlane distinctions. Regression checks verify meanings, exact corrections, source tokens, key order and idempotent repairs. The short translation audit records current progress.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/53d16536e1689ec284bc90209098d9c269d4504f">Repair Slovenian board display and field sum controls</a>. Thanks to xet7.</summary>
 
 Correct 20 values across both Slovenian locales. Restore field sums, per-list card counts, mini-card display, board-member avatars, week start and migration steps. Regression checks verify meanings, exact corrections, source tokens, key order and idempotent repairs. The short translation audit records current progress.
