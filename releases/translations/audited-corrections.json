@@ -26304,5 +26304,117 @@
     "before": "Молим да нам пошаљете извештај о грешци коју је изазвао сервер.\nАко је у питању snap инсталација, покрените: `sudo snap logs wekan.wekan`\nАко је у питању Docker инсталација, покрените: `sudo docker logs wekan-app`",
     "after": "Pošaljite pogrešku koju je generirao poslužitelj.\nZa instalaciju putem snapa pokrenite: `sudo snap logs wekan.wekan`\nZa instalaciju putem Dockera pokrenite: `sudo docker logs wekan-app`",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "set-swimlane-height",
+    "before": "Подеси висину овог поступка",
+    "after": "Postavi visinu staze",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "set-swimlane-height-value",
+    "before": "Висина ове врсте поступка (у тачкама)",
+    "after": "Visina staze (pikseli)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "set-wip-limit-value",
+    "before": "Поставите границу дозвољеног броја предмета у овом делу поступка",
+    "after": "Postavite ograničenje najvećeg broja zadataka u ovom popisu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "setSwimlaneHeightPopup-title",
+    "before": "Подеси висину у овој врсти поступка",
+    "after": "Postavi visinu staze",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "settingsTranslationPopup-title",
+    "before": "Обриши ову исправку превода",
+    "after": "Izbrisati ovaj prilagođeni prijevod?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "shortcut-filter-my-assigned-cards",
+    "before": "Издвој предмете где сам пуномоћник",
+    "after": "Filtriraj kartice dodijeljene meni",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "shortcut-show-shortcuts",
+    "before": "Прикажи овај подсетник са пречицама",
+    "after": "Prikaži ovaj popis prečaca",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "show-at-all-boards-page",
+    "before": "Смести на полицу са списима",
+    "after": "Prikaži na stranici Sve ploče",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "show-board_members-avatar",
+    "before": "Прикажи слике сарадника на омоту списа",
+    "after": "Prikaži avatare članova ploče",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "show-card-counter-per-list",
+    "before": "Прикажи бројач предмета на сваком делу тока поступка",
+    "after": "Prikaži broj kartica po popisu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "show-desktop-drag-handles",
+    "before": "Прикажи ручке за повлачење на радној површини",
+    "after": "Prikaži ručke za povlačenje na računalu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "show-list-on-minicard",
+    "before": "Прикажи део поступка на омоту",
+    "after": "Prikaži popis na minikartici",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "show-subtasks-field",
+    "before": "Прикажи поље издвојени послови",
+    "after": "Prikaži polje podzadataka",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "showChecklistAtMinicard",
+    "before": "Прикажи предметну радњу на омоту",
+    "after": "Prikaži kontrolni popis na minikartici",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "showSum-field-on-list",
+    "before": "Прикажи збирни број придружених рубрика на врху деонице",
+    "after": "Prikaži zbroj polja na vrhu popisa",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "sort-desc",
+    "before": "Притисните да би сложили делове поступка",
+    "after": "Kliknite za razvrstavanje popisa",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
