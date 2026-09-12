@@ -45589,5 +45589,40 @@
     "before": "de la lista de verificación",
     "after": "d’a lista de comprobación",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "r-edit-rule-trigger-action",
+    "before": "Editar regla (disparador/acción)",
+    "after": "Editar disparador/acción",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "r-import-unmapped",
+    "before": "No se pudo mapear __count__ línea(s)",
+    "after": "No s’ha puesto establir a correspondencia de __count__ linia(s)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "r-import-workflow",
+    "before": "Importar flujo de trabajo visual",
+    "after": "Importar fluxo de treballo visual",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "r-items-check",
+    "before": "elementos de la lista de verificación",
+    "after": "elementos d’a lista de comprobación",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "r-items-list",
+    "before": "elemento1,elemento2,elemento3",
+    "after": "item1,item2,item3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

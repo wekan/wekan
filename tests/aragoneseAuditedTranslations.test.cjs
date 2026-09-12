@@ -316,3 +316,9 @@ assert.match(data['preview-pdf-not-supported'], /no permite previsualizar PDF\. 
 assert.equal(data['push-invite-title'], data['email-invite-subject']);
 assert.equal(data['r-d-check-of-list'], 'd’a lista de comprobación');
 assert.equal(data['r-drop-trigger'], 'suelta un disparador aquí');
+assert.equal(data['r-edit-rule-trigger-action'], 'Editar disparador/acción');
+assert.equal(data['r-email-vars-hint'], 'Etiquetas disponibles: {card}, {cardLink}, {list}, {board}, {member}');
+assert.match(data['r-import-unmapped'], /correspondencia de __count__ linia\(s\)/);
+assert.equal(data['r-import-workflow'], 'Importar fluxo de treballo visual');
+assert.equal(data['r-items-check'], 'elementos d’a lista de comprobación');
+assert.equal(data['r-items-list'], 'item1,item2,item3');

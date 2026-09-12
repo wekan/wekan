@@ -736,5 +736,11 @@
     "key": "r-drop-trigger",
     "value": "suelta un disparador aquí",
     "reason": "Reviewed shared Aragonese vocabulary for dropping an automation trigger here; action and location are preserved."
+  },
+  {
+    "locale": "an",
+    "key": "r-email-vars-hint",
+    "value": "Etiquetas disponibles: {card}, {cardLink}, {list}, {board}, {member}",
+    "reason": "Reviewed shared Aragonese available-tag terminology; all case-sensitive literal template variables are preserved in source order."
   }
 ]
