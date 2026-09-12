@@ -44196,5 +44196,26 @@
     "before": "Indicador de espera Double Bounce",
     "after": "Indicador d’aspera Double Bounce",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "MongoDB_Oplog_enabled",
+    "before": "Oplog de MongoDB habilitado",
+    "after": "Oplog de MongoDB activau",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "MongoDB_storage_engine",
+    "before": "Motor de almacenamiento de MongoDB",
+    "after": "Motor d’almagazenamiento de MongoDB",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "Mongo_sessions_count",
+    "before": "Recuento de sesiones de Mongo",
+    "after": "Recuento de sesions de Mongo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

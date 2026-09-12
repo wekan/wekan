@@ -59,3 +59,8 @@ assert.doesNotMatch(data['wip-limit-group-select-swimlane'], /tablero/);
 for (const [key, name] of [['Bounce','Bounce'],['Cube-Grid','Cube-Grid'],['Double-Bounce','Double Bounce']]) assert.equal(data[key], `Indicador d’aspera ${name}`);
 assert.equal(data.DDP_transport, 'Transporte DDP (DDP_TRANSPORT)');
 assert.equal(data.Database_commit, 'Commit d’a base de datos');
+assert.match(data.MongoDB_Oplog_enabled, /Oplog de MongoDB activau/);
+assert.match(data.MongoDB_storage_engine, /Motor d’almagazenamiento de MongoDB/);
+assert.match(data.Mongo_sessions_count, /Recuento de sesions de Mongo/);
+assert.equal(data.MongoDB_version, 'Versión compatible con MongoDB');
+assert.equal(data.Node_heap_malloced_memory, 'Heap de Node: memoria reservada con malloc');

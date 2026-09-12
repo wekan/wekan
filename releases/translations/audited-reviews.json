@@ -604,5 +604,17 @@
     "key": "DDP_transport",
     "value": "Transporte DDP (DDP_TRANSPORT)",
     "reason": "Transporte is valid shared Aragonese technical vocabulary; DDP and the literal configuration variable DDP_TRANSPORT must remain unchanged."
+  },
+  {
+    "locale": "an",
+    "key": "MongoDB_version",
+    "value": "Versión compatible con MongoDB",
+    "reason": "Versión compatible con MongoDB uses valid shared Aragonese technical vocabulary and preserves compatibility semantics."
+  },
+  {
+    "locale": "an",
+    "key": "Node_heap_malloced_memory",
+    "value": "Heap de Node: memoria reservada con malloc",
+    "reason": "Heap de Node: memoria reservada con malloc is valid Aragonese technical wording; heap, Node and malloc are literal technical terms, and reserved memory is accurately described."
   }
 ]
