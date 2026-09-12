@@ -4,21 +4,21 @@ Audit date: **2026-09-12**. Last updated: **2026-09-12**.
 
 | Status | Audit keys |
 | --- | ---: |
-| Explicitly corrected | 4,137 |
+| Explicitly corrected | 4,145 |
 | Original pull values restored to pre-pull local values | 4,061 |
 | Reviewed and retained unchanged | 72 |
-| Pending review or repair | 11,811 |
+| Pending review or repair | 11,803 |
 | Total tracked | 20,081 |
 
 The full translation repair goal remains unfinished. Counts describe the tracked audit findings; unflagged strings are not individually certified. Restored pre-pull values are not automatically certified as correct translations.
 
 ## Fixes completed
 
-Repairs address wrong-language text, incorrect kanban terminology, missing restrictions and warnings, malformed JSON examples, translated placeholders, calendar names, search syntax and date/message argument order. The reviewed correction list contains **4,199 values**, including corrections outside the flagged audit rows.
+Repairs address wrong-language text, incorrect kanban terminology, missing restrictions and warnings, malformed JSON examples, translated placeholders, calendar names, search syntax and date/message argument order. The reviewed correction list contains **4,207 values**, including corrections outside the flagged audit rows.
 
-The flagged Croatian and Macedonian queues are complete. Other completed queues include Latvian, Romanian, Slovak and several smaller regional queues. **Bosnian has 90 findings remaining**.
+The flagged Croatian and Macedonian queues are complete. Other completed queues include Latvian, Romanian, Slovak and several smaller regional queues. **Bosnian has 82 findings remaining**.
 
-Latest translation correction: [133049d1d](https://github.com/wekan/wekan/commit/133049d1ddcbac186df3afe59c8ecc1b530c13a2), **2026-09-12**, fixes 10 Bosnian values covering read-only editing restrictions, label ranges, member-removal scope and notifications, organization/team removal and unsaved-description recovery. Actual member-removal rendering and meaning/token/key-order/idempotent repair checks pass.
+Latest translation correction: [3eca2e641](https://github.com/wekan/wekan/commit/3eca2e64125d0ceb95765e218ecbfb85db53c9b7), **2026-09-12**, fixes 8 Bosnian recovery and migration-confirmation values. Recovery entity scope, literal `swimlaneId`/`listId`, conversion-before-deletion order and empty-duplicate conditions retain source meanings. Meaning, token, exact-value, key-order, rendering and idempotent repair checks pass.
 
 ## Provenance
 
