@@ -152,3 +152,8 @@ assert.match(data['worker-desc'], /^Solo puede mover tarxetes, asignase a la tar
 assert.match(data.OS_Uptime, /Tiempu de funcionamientu/);
 for (const key of ['a-dueAt', 'a-endAt', 'a-receivedAt', 'a-startAt']) assert.match(data[key], /fecha y hora/);
 assert.match(data.acceptance_of_our_legalNotice, /^Al siguir, aceptes/);
+for (const key of ['act-a-endAt', 'act-a-receivedAt', 'act-a-startAt']) assert.match(data[key], /__timeValue__ dende \(__timeOldValue__\)/);
+assert.match(data['act-almostdue'], /se ta averando/);
+assert.match(data['act-duenow'], /ye agora/);
+assert.match(data['act-pastdue'], /yá pasó/);
+assert.match(data['act-a-dueAt'], /__timeValue__.*\nÓnde: __card__.*\n.*__timeOldValue__/);

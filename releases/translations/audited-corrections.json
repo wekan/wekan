@@ -42040,5 +42040,68 @@
     "before": "Contenido de accesibilidad",
     "after": "Conteníu d'accesibilidá",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "accessibility-page-enabled",
+    "before": "Página de accesibilidad habilitada",
+    "after": "Páxina d'accesibilidá activada",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "accounts-allowEmailChange",
+    "before": "Permitir cambiar el correo electrónico",
+    "after": "Permitir cambiar el corréu electrónicu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "act-a-dueAt",
+    "before": "cambiada la hora de vencimiento a \nCuándo: __timeValue__\nDónde: __card__\n el vencimiento anterior fue __timeOldValue__",
+    "after": "cambió la fecha y hora de vencimientu a \nCuándo: __timeValue__\nÓnde: __card__\n el vencimientu anterior yera __timeOldValue__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "act-a-endAt",
+    "before": "cambiada la hora de finalización a __timeValue__ Fecha anterior: (__timeOldValue__)",
+    "after": "cambió la fecha y hora de fin a __timeValue__ dende (__timeOldValue__)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "act-a-receivedAt",
+    "before": "cambiada la fecha de recepción a __timeValue__ Fecha anterior: (__timeOldValue__)",
+    "after": "cambió la fecha y hora de recepción a __timeValue__ dende (__timeOldValue__)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "act-a-startAt",
+    "before": "cambiada la hora de comienzo a __timeValue__ Fecha anterior: (__timeOldValue__)",
+    "after": "cambió la fecha y hora d'aniciu a __timeValue__ dende (__timeOldValue__)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "act-almostdue",
+    "before": "se ha notificado que el vencimiento actual (__timeValue__) de __card__ está próximo",
+    "after": "recordaba que se ta averando el vencimientu actual (__timeValue__) de __card__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "act-duenow",
+    "before": "se ha notificado que el vencimiento actual (__timeValue__) de __card__ es ahora",
+    "after": "recordaba que el vencimientu actual (__timeValue__) de __card__ ye agora",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "act-pastdue",
+    "before": "se ha notificado que el vencimiento actual (__timeValue__) de __card__ se sobrepasó",
+    "after": "recordaba que el vencimientu actual (__timeValue__) de __card__ yá pasó",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

@@ -580,5 +580,11 @@
     "key": "OS_Totalmem",
     "value": "Memoria total del sistema",
     "reason": "Contextual review confirms valid Asturian shared vocabulary. Memoria libre/total del sistema correctly labels system memory; Commit is the retained technical identifier for a source revision. No wrong-language prose requires replacement."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "accounts-lockout-failure-window",
+    "value": "Ventana de fallos (segundos)",
+    "reason": "Reviewed wording is valid Asturian shared vocabulary and preserves the seconds unit. Similarity to Spanish alone is not an error."
   }
 ]
