@@ -558,6 +558,13 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/2275ea44d03955667e0e7596d6a65ad1c50de102">Repair Slovenian migration status and browser guidance</a>. Thanks to xet7.</summary>
+
+Correct 24 values across both Slovenian locales. Restore migration pause/stop and success/failure distinctions, latest-structure progress and background/browser timing guidance. Regression checks verify meanings, exact corrections, source tokens, key order and idempotent repairs. The short translation audit records current progress.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/cbd9fcadd5cf90ffb2b4efb926540d63dc43a282">Repair Slovenian storage migration limits and upload labels</a>. Thanks to xet7.</summary>
 
 Correct 24 values across both Slovenian locales. Preserve CPU threshold exceedance, batch-size and delay ranges, byte units and generic S3 storage. Regression checks verify meanings, exact corrections, source tokens, key order and idempotent repairs. The short translation audit records current progress.

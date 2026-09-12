@@ -4,21 +4,21 @@ Audit date: **2026-09-12**. Last updated: **2026-09-12**.
 
 | Status | Audit keys |
 | --- | ---: |
-| Explicitly corrected | 4,737 |
+| Explicitly corrected | 4,761 |
 | Original pull values restored to pre-pull local values | 4,061 |
 | Reviewed and retained unchanged | 78 |
-| Pending review or repair | 11,205 |
+| Pending review or repair | 11,181 |
 | Total tracked | 20,081 |
 
 The full translation repair goal remains unfinished. Counts describe the tracked audit findings; unflagged strings are not individually certified. Restored pre-pull values are not automatically certified as correct translations.
 
 ## Fixes completed
 
-Repairs address wrong-language text, incorrect kanban terminology, missing restrictions and warnings, malformed JSON examples, translated placeholders, calendar names, search syntax and date/message argument order. The reviewed correction list contains **4,799 values**, including corrections outside the flagged audit rows.
+Repairs address wrong-language text, incorrect kanban terminology, missing restrictions and warnings, malformed JSON examples, translated placeholders, calendar names, search syntax and date/message argument order. The reviewed correction list contains **4,823 values**, including corrections outside the flagged audit rows.
 
 The flagged Bosnian, Croatian and Macedonian queues are complete. Other completed queues include Latvian, Romanian, Slovak and several smaller regional queues. **Bosnian has no remaining flagged findings**.
 
-Latest translation correction: [cbd9fcadd](https://github.com/wekan/wekan/commit/cbd9fcadd5cf90ffb2b4efb926540d63dc43a282), **2026-09-12**, fixes 24 Slovenian storage migration, upload-limit, list and notification values. Repairs preserve CPU threshold exceedance, batch-size/delay ranges and byte units, and remove invented Amazon-cloud restrictions from S3 migration. Each Slovenian queue has 145 findings remaining. Meaning, token, exact-value, key-order and idempotent repair checks pass.
+Latest translation correction: [2275ea44d](https://github.com/wekan/wekan/commit/2275ea44d03955667e0e7596d6a65ad1c50de102), **2026-09-12**, fixes 24 Slovenian migration status and browser-guidance values. Repairs preserve pause/stop distinctions, success/failure, all-migration scope, latest board structure and background continuation/browser timing guidance. Each Slovenian queue has 133 findings remaining. Meaning, token, exact-value, key-order and idempotent repair checks pass.
 
 ## Provenance
 
