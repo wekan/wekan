@@ -557,6 +557,19 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/2832477b7">Translate audited advanced-filter help in seven locales</a>. Thanks to xet7.</summary>
+
+Replace English filter instructions with Arabic, Lithuanian, Mongolian and
+Greek prose, including regional Arabic and Greek files. Translate Arabic
+Trello instructions while preserving literal vendor menu names. All seven
+affected audit queues are resolved. Positive and negative regression checks
+verify native wording, exact query examples and escapes, Boolean operators,
+regular expressions, source tokens and progress classification. These checks
+pass. Other locale findings remain under review.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/7c1f9cc5a">Translate Hijri calendar variants and retain valid audited examples</a>. Thanks to xet7.</summary>
 
 Correct 37 labels across 21 locale files, distinguishing lunar-sighting and
