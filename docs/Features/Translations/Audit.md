@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Audit keys |
 | --- | ---: |
-| Explicitly corrected | 6,698 |
+| Explicitly corrected | 6,701 |
 | Restored pre-pull values awaiting further validation | 4,059 |
 | Reviewed and retained unchanged | 174 |
-| Pending review or repair | 9,150 |
+| Pending review or repair | 9,147 |
 | Total tracked | 20,081 |
 
 **Translation repairs remain unfinished.** These counts cover flagged findings; unflagged strings and restored values are not certified as correct.
 
-Fixes cover wrong-language text, terminology, warnings, JSON examples, placeholders and calendar/search formatting. The correction history records **6,770 values**, including fixes outside the audit. Per-language remaining work is available through the command below.
+Fixes cover wrong-language text, terminology, warnings, JSON examples, placeholders and calendar/search formatting. The correction history records **6,774 values**, including fixes outside the audit. Per-language remaining work is available through the command below.
 
-Latest fix: [2ee492d03](https://github.com/wekan/wekan/commit/2ee492d031a5d758c154b55e9d99fed7d28925e8), **2026-09-13** — two Pashto calendar labels translated, preserving Indian national and Saudi moon-sighting meanings; its flagged queue is complete. Exact-value, placeholder, key-order and idempotency checks pass. Wording needs native-speaker review; live browser verification remains unavailable.
+Latest fix: [775cd7f8f](https://github.com/wekan/wekan/commit/775cd7f8f88c5b877ceb69980e6776ff8f3e1723), **2026-09-13** — four Sinhala calendar labels repaired, including an adjacent mistranslation of civil epoch as an epic poem; its flagged queue is complete. Exact-value, placeholder, key-order and idempotency checks pass. Technical wording is low confidence and needs native-speaker review; live browser verification remains unavailable.
 
 **Provenance:** not all errors came from Transifex. The captured pull changed 4,061 values; the local audit added 16,020 findings. Bosnian errors predated that pull in a [local completion commit](https://github.com/wekan/wekan/commit/bdb3b15886a749b725b5290ba0109fcba955f983). Other ultimate origins remain unverified.
 
