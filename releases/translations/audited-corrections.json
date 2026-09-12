@@ -46660,5 +46660,47 @@
     "before": "Islamic tabular",
     "after": "ჰიჯრის კალენდარი (ცხრილური, ასტრონომიული ეპოქა)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hy",
+    "key": "azure-blob-storage-description",
+    "before": "Microsoft Azure Blob Storage:",
+    "after": "Microsoft Azure Blob Storage.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hy",
+    "key": "carbon-copy",
+    "before": "Carbon Copy (Cc :)",
+    "after": "Պատճեն (Cc:)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hy",
+    "key": "gcs-storage-description",
+    "before": "Google Cloud Storage:",
+    "after": "Google Cloud Storage.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hy",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "Հնդկական ազգային օրացույց",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hy",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "Հիջրայի օրացույց (Սաուդյան Արաբիա, Լուսնի դիտարկում)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hy",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "Հիջրայի օրացույց (աղյուսակային, աստղագիտական սկզբնակետ)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
