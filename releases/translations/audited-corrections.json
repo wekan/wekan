@@ -46177,5 +46177,47 @@
     "before": "Team",
     "after": "Squadre",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "tpi",
+    "key": "custom-help-link-url",
+    "before": "Custom Help link URL",
+    "after": "URL bilong link bilong helpim yu yet i makim",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "tpi",
+    "key": "custom-login-logo-link-url",
+    "before": "Custom Login Logo link URL",
+    "after": "URL bilong link bilong logo long pes bilong log in yu yet i makim",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "tpi",
+    "key": "custom-top-left-corner-logo-link-url",
+    "before": "Custom Top Left Corner Logo link URL",
+    "after": "URL bilong link bilong logo long kona antap long han kais yu yet i makim",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "tpi",
+    "key": "calendar-system-buddhist",
+    "before": "Buddhist",
+    "after": "Kalenda bilong ol Budis",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "tpi",
+    "key": "calendar-system-chinese",
+    "before": "Chinese",
+    "after": "Kalenda bilong Saina",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "tpi",
+    "key": "calendar-system-coptic",
+    "before": "Coptic",
+    "after": "Kalenda bilong ol Koptik",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
