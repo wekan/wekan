@@ -39128,5 +39128,208 @@
     "before": "Mostrar Método de Autenticação",
     "after": "Mostrar o método de autenticación",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "duenow",
+    "before": "a data limite actual %s é hoje",
+    "after": "a data de vencemento actual %s é hoxe",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "editCardReceivedDatePopup-title",
+    "before": "Alterar data de recebimento",
+    "after": "Cambiar a data de recepción",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "editPokerEndDatePopup-title",
+    "before": "Mudar data final do Planning Poker",
+    "after": "Cambiar a data de fin da votación do Planning Poker",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "editTranslationPopup-title",
+    "before": "Editar texto de tradução customizado",
+    "after": "Editar cadea de tradución personalizada",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "editVoteEndDatePopup-title",
+    "before": "Alterar data de fim da votação",
+    "after": "Cambiar a data de fin da votación",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "email-enrollAccount-subject",
+    "before": "Uma conta foi criada para si em __siteName__",
+    "after": "Creouse unha conta para ti en __siteName__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "email-enrollAccount-text",
+    "before": "Olá __user__\nPara começar a utilizar o serviço, basta clicar na ligação abaixo.\n__url__\nObrigado.",
+    "after": "Ola __user__,\n\nPara comezar a usar o servizo, simplemente fai clic na ligazón de abaixo.\n\n__url__\n\nGrazas.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "email-fail-text",
+    "before": "Erro a tentar enviar o e-mail",
+    "after": "Erro ao tentar enviar o correo electrónico",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "email-resetPassword-text",
+    "before": "Olá __user__\nPara redefinir a sua senha, por favor clique na ligação abaixo.\n__url__\nObrigado.",
+    "after": "Ola __user__,\n\nPara restablecer o teu contrasinal, simplemente fai clic na ligazón de abaixo.\n\n__url__\n\nGrazas.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "email-smtp-test-text",
+    "before": "Enviou um e-mail com sucesso",
+    "after": "Enviaches un correo electrónico correctamente",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "email-verifyEmail-subject",
+    "before": "Verifique o seu endereço de e-mail em __siteName__",
+    "after": "Verifica o teu enderezo de correo electrónico en __siteName__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "email-verifyEmail-text",
+    "before": "Olá __user__\nPara verificar a sua conta de e-mail, clique na ligação abaixo.\n__url__\nObrigado.",
+    "after": "Ola __user__,\n\nPara verificar o correo electrónico da túa conta, simplemente fai clic na ligazón de abaixo.\n\n__url__\n\nGrazas.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "enable-vertical-scrollbars",
+    "before": "Habilitar rolagem de tela vertical",
+    "after": "Activar as barras de desprazamento verticais",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "enter-zoom-level",
+    "before": "Definir nível de zoom (50-300%):",
+    "after": "Introduce o nivel de zoom (50-300%):",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "error-email-taken",
+    "before": "Endereço de e-mail já está em uso",
+    "after": "O correo electrónico xa está en uso",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "error-ldap-login",
+    "before": "Ocorreu um erro ocorreu enquanto tentava entrar",
+    "after": "Produciuse un erro ao tentar iniciar sesión",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "error-orgname-taken",
+    "before": "O nome desta organização já está em uso",
+    "after": "Este nome de organización xa está en uso",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "error-teamname-taken",
+    "before": "Este nome de equipa já está em uso.",
+    "after": "Este nome de equipo xa está en uso",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "export-card-attachment-image-previews",
+    "before": "Pré-visualizações de imagens",
+    "after": "Previsualizacións de imaxes",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "export-card-excel-fields",
+    "before": "Selecione os campos a serem incluídos na exportação para Excel:",
+    "after": "Selecciona os campos que se incluirán na exportación a Excel:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "export-card-field-dates",
+    "before": "Datas (Criado, Recebido, Iniciado, Prazo final e Concluído)",
+    "after": "Datas (creación, recepción, inicio, vencemento, fin)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "export-card-field-people",
+    "before": "Pessoas (Criador, Proprietário, Membros e Administradores )",
+    "after": "Persoas (creador, propietario, membros, asignados)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "external-link-pattern-url",
+    "before": "Modelo de URL (use {number})",
+    "after": "Modelo de URL (usa {number})",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "filesystem-attachments",
+    "before": "Anexos do Sistema de Arquivos",
+    "after": "Anexos no sistema de ficheiros",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "filesystem-path-description",
+    "before": "Caminho base para o armazenamento de arquivos",
+    "after": "Ruta base para o almacenamento de ficheiros",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "filesystem-size",
+    "before": "Tamanho do Sistema de Arquivos",
+    "after": "Tamaño do sistema de ficheiros",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "filesystem-storage",
+    "before": "Armazenamento do Sistema de Arquivos",
+    "after": "Almacenamento no sistema de ficheiros",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "filter-no-custom-fields",
+    "before": "Sem Campos Personalizados",
+    "after": "Sen campos personalizados",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "filter-show-archive",
+    "before": "Mostrar listas arquivadas",
+    "after": "Mostrar as listas arquivadas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

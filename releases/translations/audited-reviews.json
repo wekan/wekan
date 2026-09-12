@@ -478,5 +478,11 @@
     "key": "cardCustomFieldsPopup-title",
     "value": "Editar campos personalizados",
     "reason": "Reviewed against the English source and existing Galician terminology: Editar campos personalizados is correct Galician for Edit custom fields; shared Portuguese vocabulary is not a wrong-language error."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "filter-custom-fields-label",
+    "value": "Filtrar por campos personalizados",
+    "reason": "Reviewed Galician wording correctly means Filter by Custom Fields. Shared Portuguese wording is valid Galician and must be preserved."
   }
 ]

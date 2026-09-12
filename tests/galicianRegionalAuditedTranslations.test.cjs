@@ -292,3 +292,14 @@ assert.match(data['custom-login-logo-image-url'], /URL da imaxe/);
 assert.match(data['custom-login-logo-link-url'], /URL da ligazón/);
 assert.match(data['delete-duplicate-empty-lists-migration'], /listas baleiras duplicadas/);
 assert.match(data['deposit-subtasks-list'], /Lista de destino.*aquí:/);
+
+assert.match(data['editPokerEndDatePopup-title'], /fin da votación do Planning Poker/);
+assert.match(data['email-enrollAccount-text'], /Ola __user__,\n\n.*\n\n__url__\n\nGrazas\./);
+assert.match(data['email-resetPassword-text'], /restablecer o teu contrasinal/);
+assert.match(data['email-verifyEmail-text'], /correo electrónico da túa conta/);
+assert.match(data['enter-zoom-level'], /50-300%/);
+assert.match(data['export-card-field-dates'], /creación, recepción, inicio, vencemento, fin/);
+assert.match(data['export-card-field-people'], /creador, propietario, membros, asignados/);
+assert.doesNotMatch(data['export-card-field-people'], /administrador/i);
+assert.match(data['external-link-pattern-url'], /\{number\}/);
+assert.equal(data['filter-custom-fields-label'], 'Filtrar por campos personalizados');
