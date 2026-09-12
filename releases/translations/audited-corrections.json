@@ -41186,5 +41186,61 @@
     "before": "Estimado __user__,\n\n__inviter__ te invita a unirte al tablero '__board__' para colaborar.\n\nPor favor, haz clic en el siguiente enlace:\n\n__url__\n\nGracias.",
     "after": "Estimáu/ada __user__,\n\n__inviter__ convídate a xunite al tableru \"__board__\" pa collaborar.\n\nSigue l'enllaz de baxo:\n\n__url__\n\nGracies.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "email-resetPassword-text",
+    "before": "Hola __user__,\n\nPara restablecer tu contraseña, haz clic en el siguiente enlace.\n\n__url__\n\nGracias.",
+    "after": "Hola __user__,\n\nPa restablecer la to contraseña, fai clic nel enllaz de baxo.\n\n__url__\n\nGracies.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "email-verifyEmail-text",
+    "before": "Hola __user__,\n\nPara verificar tu cuenta de correo electrónico, haz clic en el siguiente enlace.\n\n__url__\n\nGracias.",
+    "after": "Hola __user__,\n\nPa verificar el corréu electrónicu de la to cuenta, fai clic nel enllaz de baxo.\n\n__url__\n\nGracies.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "error-board-notAMember",
+    "before": "Es necesario ser miembro de este tablero para hacer eso",
+    "after": "Tienes de ser miembru d'esti tableru pa facer eso",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "error-board-notAdmin",
+    "before": "Es necesario ser administrador de este tablero para hacer eso",
+    "after": "Tienes de ser alministrador d'esti tableru pa facer eso",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "error-user-notCreated",
+    "before": "El usuario no ha sido creado",
+    "after": "Esti usuariu nun ta creáu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "error-username-taken",
+    "before": "Este nombre de usuario ya está en uso",
+    "after": "Esti nome d'usuariu yá ta n'usu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "export-card-field-board-info",
+    "before": "Información del tablero (Tablero, Lista, Carril)",
+    "after": "Información del tableru (tableru, llista, carril)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "export-card-pdf",
+    "before": "Exportar la tarjeta a PDF",
+    "after": "Exportar la tarxeta a PDF",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
