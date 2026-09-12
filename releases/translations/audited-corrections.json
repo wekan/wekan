@@ -42334,5 +42334,75 @@
     "before": "Contador de adjuntos en la minitarjeta",
     "after": "Númberu d’axuntos na minitarxeta",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "automatic-linked-url-schemes",
+    "before": "Esquemas de URL personalizados que deberían ser clicables automáticamente. Un esquema de URL por línea.",
+    "after": "Esquemes d’URL personalizaos que tienen de poder calcase automáticamente. Un esquema d’URL per llinia.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "board-background-image-url",
+    "before": "URL de la imagen de fondo",
+    "after": "URL de la imaxe de fondu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "boardMinicardSettingsPopup-title",
+    "before": "Preferencias de minitarjetas",
+    "after": "Preferencies de les minitarxetes",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "boardSubtaskSettingsPopup-title",
+    "before": "Preferencias de las subtareas",
+    "after": "Preferencies de les subtarees",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "card-edit-custom-fields",
+    "before": "Editar los campos personalizados",
+    "after": "Editar los campos personalizaos",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "cardCustomFieldsPopup-title",
+    "before": "Editar los campos personalizados",
+    "after": "Editar los campos personalizaos",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "cardStartPlanningPokerPopup-title",
+    "before": "Comenzar un Planning Poker",
+    "after": "Entamar un Planning Poker",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "checklistActionsPopup-title",
+    "before": "Acciones de la Lista de Tareas",
+    "after": "Aiciones de la llista de comprobación",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "checklistDeletePopup-title",
+    "before": "¿Borrar la lista de tareas?",
+    "after": "¿Eliminar la llista de comprobación?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "clipboard",
+    "before": "el portapapeles o con arrastrar y soltar",
+    "after": "Portapapeles o arrastrar y soltar",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

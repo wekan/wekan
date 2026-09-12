@@ -586,5 +586,11 @@
     "key": "accounts-lockout-failure-window",
     "value": "Ventana de fallos (segundos)",
     "reason": "Reviewed wording is valid Asturian shared vocabulary and preserves the seconds unit. Similarity to Spanish alone is not an error."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "backup-day-of-month",
+    "value": "Día del mes (mensual, 1-28)",
+    "reason": "Asturian shares día, mes and mensual with Spanish; the monthly backup label preserves the source range 1-28 and is valid unchanged."
   }
 ]

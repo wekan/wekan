@@ -178,3 +178,16 @@ assert.match(data['auto-list-width'], /Anchor automáticu de la llista/);
 assert.match(data['avatar-too-big'], /demasiáu grande.*__size__ como máximu/);
 assert.match(data['badge-attachment-on-minicard'], /Númberu.*axuntos na minitarxeta/);
 assert.doesNotMatch(data['badge-attachment-on-minicard'], /minitarjeta|adjuntos/);
+
+assert.equal(data['card-edit-custom-fields'], data['cardCustomFieldsPopup-title']);
+assert.match(data['card-edit-custom-fields'], /Editar los campos personalizaos/);
+assert.match(data['boardMinicardSettingsPopup-title'], /minitarxetes/);
+assert.match(data['boardSubtaskSettingsPopup-title'], /subtarees/);
+assert.match(data['board-background-image-url'], /URL.*imaxe de fondu/);
+assert.match(data['cardStartPlanningPokerPopup-title'], /Entamar un Planning Poker/);
+assert.match(data['checklistActionsPopup-title'], /Aiciones.*comprobación/);
+assert.match(data['checklistDeletePopup-title'], /Eliminar.*comprobación/);
+assert.doesNotMatch(data['checklistDeletePopup-title'], /tareas/);
+assert.match(data.clipboard, /Portapapeles o arrastrar y soltar/);
+assert.match(data['automatic-linked-url-schemes'], /Un esquema d’URL per llinia/);
+assert.match(data['backup-day-of-month'], /mensual, 1-28/);
