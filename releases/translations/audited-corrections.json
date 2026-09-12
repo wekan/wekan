@@ -25191,5 +25191,110 @@
     "before": "GridFS раздељена предметна грађа",
     "after": "Privitci u GridFS-u",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "gridfs-enabled",
+    "before": "GridFS ради и можете га користити",
+    "after": "GridFS je omogućen",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "gridfs-enabled-description",
+    "before": "Можете користити MongoDB GridFS за складиште предметне грађе",
+    "after": "Koristite MongoDB GridFS za pohranu datoteka",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "hide-checked-items",
+    "before": "Сакриј обављене помоћне предметне радње",
+    "after": "Sakrij označene stavke",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "hide-finished-checklist",
+    "before": "Сакриј обављене предметне радње",
+    "after": "Sakrij dovršeni kontrolni popis",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "hide-list-on-minicard",
+    "before": "Сакриј део поступка са омота",
+    "after": "Sakrij popis na minikartici",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "hide-minicard-label-text",
+    "before": "Сакриј натпис на налепници",
+    "after": "Sakrij tekst oznake na minikartici",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "hideAllChecklistItems",
+    "before": "Сакриј све помоћне предметне радње",
+    "after": "Sakrij sve stavke kontrolnog popisa",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "hideCheckedChecklistItems",
+    "before": "Сакриј све обављене помоћне предметне радње",
+    "after": "Sakrij označene stavke kontrolnog popisa",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "if-you-already-have-an-account",
+    "before": "Ако већ поседујете налог ⇨ ",
+    "after": "Ako već imate račun",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "impersonate-user",
+    "before": "Увуци се у налог овог корисника",
+    "after": "Prijavi se kao korisnik",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "import-board-instruction-about-errors",
+    "before": "Ако се јаве грешке при уношењу списа то не значи да унос није успео!Проверите јел се спис појавио у одељку „Списи у мојој надлежности“.",
+    "after": "Ako dobijete pogreške pri uvozu ploče, uvoz ponekad ipak uspije i ploča se nalazi na stranici Sve ploče.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "import-board-instruction-csv",
+    "before": "Овде залепите Ваше CSV податке (вредности раздвојене зарезом) односно TSV податке (вредности раздвојене табулатором) .",
+    "after": "Zalijepite svoje CSV podatke (vrijednosti odvojene zarezima) ili TSV podatke (vrijednosti odvojene tabulatorima).",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "import-board-instruction-trello",
+    "before": "У Вашоим Trello списима, идите у 'Menu', затим 'More', 'Print and Export', 'Export JSON', и умножите представљени текст.",
+    "after": "Na svojoj ploči u Trellu otvorite 'Menu', zatim 'More', 'Print and Export', 'Export JSON' i kopirajte dobiveni tekst.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "import-board-instruction-wekan",
+    "before": "У Вашим списима, изаберите ставке 'Мени', затим 'Унеси списе' и на крају умножите сав садржај/текст из преузете датотеке.",
+    "after": "Na svojoj ploči otvorite 'Izbornik', zatim 'Izvezi ploču' i kopirajte tekst iz preuzete datoteke.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "import-board-zip",
+    "before": "Додај .zip архиву која има списе у json облику и фасцикле по имену списа где је предметна грађа",
+    "after": "Dodajte .zip datoteku koja sadrži JSON datoteke ploča i poddirektorije s nazivima ploča i njihovim privitcima",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
