@@ -23,6 +23,11 @@ for (const locale of ['sl', 'sl_SI']) {
   assert.match(data['accounts-lockout-info'], /napadi z grobo silo/);
   assert.doesNotMatch(data['accounts-lockout-info'], /lozinkef/);
   assert.equal(data.MongoDB_storage_engine, 'Shranjevalni pogon MongoDB');
+  assert.match(data['run-delete-duplicate-empty-lists-migration-confirm'], /najprej.*posamezne steze.*nato.*enakim naslovom.*vsebuje kartice.*samo odvečni prazni/);
+  assert.match(data['run-restore-all-archived-migration-confirm'], /VSE arhivirane steze, sezname in kartice.*samodejno.*ni mogoče zlahka razveljaviti/);
+  assert.match(data['run-restore-lost-cards-migration-confirm'], /swimlaneId ali listId.*samo na nearhivirane postavke/);
+  assert.doesNotMatch(data['s3-attachments'], /Amazon|oblak/);
+
   assert.match(data['restore-all-archived-migration-description'], /vse arhivirane steze, sezname in kartice.*swimlaneId ali listId.*vidne/);
   assert.match(data['restore-lost-cards-migration-description'], /kartice in sezname.*swimlaneId ali listId.*Ustvari stezo »Lost Cards«.*znova vidne/);
   assert.match(data['restore-lost-cards-nothing-to-restore'], /stez, seznamov ali kartic/);

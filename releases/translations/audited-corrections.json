@@ -34571,5 +34571,145 @@
     "before": "Овим ће бити изведене свеобухватне провере и поправке целовитости података у списима. То би кратко трајало уколико сте сагласни?",
     "after": "S tem boste izvedli celovito selitev za preverjanje in popravljanje celovitosti podatkov table. To lahko traja nekaj trenutkov. Želite nadaljevati?",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "run-delete-duplicate-empty-lists-migration-confirm",
+    "before": "Овим ће прво сви дељени делови поступака бити везани на саме поступке, затим ће бити избрисан сваки део поступка који је празан где постоји део поступка истог имена који има предмете. Да ли сте сагласни?",
+    "after": "S tem boste najprej pretvorili vse skupne sezname v sezname za posamezne steze, nato pa izbrisali prazne sezname, ki imajo podvojen seznam z enakim naslovom, ki vsebuje kartice. Odstranjeni bodo samo odvečni prazni seznami. Želite nadaljevati?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "run-fix-all-file-urls-migration-confirm",
+    "before": "Овим ће бити исправљене све везе у списима да упућују на стварно складиште предметне грађе. Да ли сте сагласни?",
+    "after": "S tem boste posodobili URL-je vseh datotečnih priponk na tej tabli, da uporabljajo pravilno zaledje za shranjevanje. Želite nadaljevati?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "run-fix-avatar-urls-migration-confirm",
+    "before": "Овим се исправља веза до складишта са сликама сарадника из ових списа. Да ли сте сагласни?",
+    "after": "S tem boste posodobili URL-je avatarjev članov table, da uporabljajo pravilno zaledje za shranjevanje. Želite nadaljevati?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "run-fix-missing-lists-migration-confirm",
+    "before": "Овим се откривају и поправљају они делови поступака који недостају или који су оштећени. Да ли сте сагласни?",
+    "after": "S tem boste zaznali in popravili manjkajoče ali poškodovane sezname v strukturi table. Želite nadaljevati?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "run-restore-all-archived-migration-confirm",
+    "before": "Овим се износи натраг из архиве све оно што сте до сада спаковали тамо. Поља где недостаје id биће поправљена. Упозорење! Да ли заиста то желите?",
+    "after": "S tem boste obnovili VSE arhivirane steze, sezname in kartice, da bodo znova vidni. Vse postavke z manjkajočimi ID-ji bodo samodejno popravljene. Tega ni mogoče zlahka razveljaviti. Želite nadaljevati?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "run-restore-lost-cards-migration-confirm",
+    "before": "Овим се прави ток „Загубљени предмети“ и у њега смештају сви предмети и делови поступка којима недостају поља swimlaneId или listId. Мисли се на оно што је загубљено али није загубљено у архиви. Да ли сте сагласни? ",
+    "after": "S tem boste ustvarili stezo »Lost Cards« in obnovili vse kartice in sezname z manjkajočimi vrednostmi swimlaneId ali listId. To vpliva samo na nearhivirane postavke. Želite nadaljevati?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "s3-access-key-description",
+    "before": "AWS S3 приступни кључ за пријаву",
+    "after": "Dostopni ključ AWS S3 za preverjanje pristnosti",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "s3-access-key-placeholder",
+    "before": "Унесите S3 приступни кључ",
+    "after": "Vnesite dostopni ključ S3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "s3-attachments",
+    "before": "Предметна грађа у Amazon S3 облаку",
+    "after": "Priponke v S3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "s3-bucket-description",
+    "before": "S3 bucket име где чувате предметну грађу",
+    "after": "Ime vsebnika S3 za shranjevanje datotek",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "run-delete-duplicate-empty-lists-migration-confirm",
+    "before": "Овим ће прво сви дељени делови поступака бити везани на саме поступке, затим ће бити избрисан сваки део поступка који је празан где постоји део поступка истог имена који има предмете. Да ли сте сагласни?",
+    "after": "S tem boste najprej pretvorili vse skupne sezname v sezname za posamezne steze, nato pa izbrisali prazne sezname, ki imajo podvojen seznam z enakim naslovom, ki vsebuje kartice. Odstranjeni bodo samo odvečni prazni seznami. Želite nadaljevati?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "run-fix-all-file-urls-migration-confirm",
+    "before": "Овим ће бити исправљене све везе у списима да упућују на стварно складиште предметне грађе. Да ли сте сагласни?",
+    "after": "S tem boste posodobili URL-je vseh datotečnih priponk na tej tabli, da uporabljajo pravilno zaledje za shranjevanje. Želite nadaljevati?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "run-fix-avatar-urls-migration-confirm",
+    "before": "Овим се исправља веза до складишта са сликама сарадника из ових списа. Да ли сте сагласни?",
+    "after": "S tem boste posodobili URL-je avatarjev članov table, da uporabljajo pravilno zaledje za shranjevanje. Želite nadaljevati?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "run-fix-missing-lists-migration-confirm",
+    "before": "Овим се откривају и поправљају они делови поступака који недостају или који су оштећени. Да ли сте сагласни?",
+    "after": "S tem boste zaznali in popravili manjkajoče ali poškodovane sezname v strukturi table. Želite nadaljevati?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "run-restore-all-archived-migration-confirm",
+    "before": "Овим се износи натраг из архиве све оно што сте до сада спаковали тамо. Поља где недостаје id биће поправљена. Упозорење! Да ли заиста то желите?",
+    "after": "S tem boste obnovili VSE arhivirane steze, sezname in kartice, da bodo znova vidni. Vse postavke z manjkajočimi ID-ji bodo samodejno popravljene. Tega ni mogoče zlahka razveljaviti. Želite nadaljevati?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "run-restore-lost-cards-migration-confirm",
+    "before": "Овим се прави ток „Загубљени предмети“ и у њега смештају сви предмети и делови поступка којима недостају поља swimlaneId или listId. Мисли се на оно што је загубљено али није загубљено у архиви. Да ли сте сагласни? ",
+    "after": "S tem boste ustvarili stezo »Lost Cards« in obnovili vse kartice in sezname z manjkajočimi vrednostmi swimlaneId ali listId. To vpliva samo na nearhivirane postavke. Želite nadaljevati?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "s3-access-key-description",
+    "before": "AWS S3 приступни кључ за пријаву",
+    "after": "Dostopni ključ AWS S3 za preverjanje pristnosti",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "s3-access-key-placeholder",
+    "before": "Унесите S3 приступни кључ",
+    "after": "Vnesite dostopni ključ S3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "s3-attachments",
+    "before": "Предметна грађа у Amazon S3 облаку",
+    "after": "Priponke v S3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "s3-bucket-description",
+    "before": "S3 bucket име где чувате предметну грађу",
+    "after": "Ime vsebnika S3 za shranjevanje datotek",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
