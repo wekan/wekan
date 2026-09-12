@@ -40878,5 +40878,75 @@
     "before": "Configuración de todos los tableros",
     "after": "Preferencies de tolos tableros",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "boardsReportTitle",
+    "before": "Informe sobre los Tableros",
+    "after": "Informe de los tableros",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "card-archive-pop",
+    "before": "La tarjeta no será visible en la lista despues de archivarla",
+    "after": "La tarxeta nun va ser visible nesta llista dempués d'archivala.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "card-archive-suggest-cancel",
+    "before": "Podrás restaurar la tarjeta desde Archivo",
+    "after": "Más tarde puedes restaurar la tarxeta dende l'Archivu.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "card-comments-title",
+    "before": "Esta tarjeta tiene %s comentarios.",
+    "after": "Esta tarxeta tien %s comentariu.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "card-delete-notice",
+    "before": "la eliminación es permanente. Perderás todas las acciones asociadas a esta tarjeta.",
+    "after": "La eliminación ye permanente. Vas perder toles acciones asociaes a esta tarxeta.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "card-delete-pop",
+    "before": "Se eliminarán todas las acciones del historial de actividades y no se podrá volver a abrir la tarjeta. Esta acción no puede deshacerse.",
+    "after": "Toles acciones van eliminase del historial d'actividá y nun vas poder volver abrir la tarxeta. Nun se puede desfacer.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "card-delete-suggest-archive",
+    "before": "Puedes mover una tarjeta al Archivo para quitarla del tablero y preservar la actividad.",
+    "after": "Puedes mover una tarxeta al Archivu pa quitala del tableru y conservar l'actividá.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "card-labels-title",
+    "before": "Cambia las etiquetas de la tarjeta",
+    "after": "Cambiar les etiquetes de la tarxeta.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "card-members-title",
+    "before": "Añadir o eliminar miembros del tablero desde la tarjeta.",
+    "after": "Añadir o quitar miembros del tableru de la tarxeta.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "card-settings",
+    "before": "Preferencias de la tarjeta",
+    "after": "Preferencies de la tarxeta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
