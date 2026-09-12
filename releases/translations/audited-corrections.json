@@ -23770,5 +23770,117 @@
     "before": "је изменио крајњи рок на %s у предмету %s",
     "after": "promijenio rok na %s za karticu %s",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "activity-endDate",
+    "before": "је изменио датум и време %s кад је окончао предмет %s",
+    "after": "promijenio datum završetka na %s za karticu %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "activity-receivedDate",
+    "before": "је изменио датум и време пријема на %s у предмету %s",
+    "after": "promijenio datum primitka na %s za karticu %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "activity-set-customfield",
+    "before": "придружена је рубрика '%s' на '%s' у %s",
+    "after": "postavio prilagođeno polje '%s' na '%s' u %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "activity-startDate",
+    "before": "је изменио датум и време %s кад почиње да ради на предмету %s",
+    "after": "promijenio datum početka na %s za karticu %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "activity-unset-customfield",
+    "before": "уклоњена је рубрика '%s' у %s",
+    "after": "uklonio vrijednost prilagođenog polja '%s' u %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "add-background-image",
+    "before": "Искористи слику као мотив за подлогу",
+    "after": "Dodaj pozadinsku sliku",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "add-cron-job-placeholder",
+    "before": "Ова функционалност биће ускоро додата",
+    "after": "Funkcionalnost dodavanja zakazanog posla stiže uskoro",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "add-custom-html-after-body-start",
+    "before": "Уметни овај HTML код где почиње <body> деоница",
+    "after": "Dodaj prilagođeni HTML nakon početka <body>",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "add-custom-html-before-body-end",
+    "before": "Уметни овај HTML код пред крај </body> деонице",
+    "after": "Dodaj prilagođeni HTML prije kraja </body>",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "add-existing-card-as-subtask-empty",
+    "before": "Није пронађен ни један предмет",
+    "after": "Nisu pronađene odgovarajuće kartice",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "add-organizations-label",
+    "before": "Странке које имају увид су приказана доле:",
+    "after": "Dodane organizacije prikazane su ispod:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "add-teams-label",
+    "before": "Додати тимови су приказани доле:",
+    "after": "Dodani timovi prikazani su ispod:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "add-template-container",
+    "before": "Додај сандук са обрасцима",
+    "after": "Dodaj spremnik predložaka",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "admin-desc",
+    "before": "Има увид и пун приступ у све предмете из ових списа. У овим списима може да бира сараднике, поставља правила рада и чита записник.",
+    "after": "Može pregledavati i uređivati kartice, uklanjati članove i mijenjati postavke ploče. Može pregledavati aktivnosti.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "admin-people-filter-all",
+    "before": "Обухвати све расположиве сараднике",
+    "after": "Svi korisnici",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "hr",
+    "key": "admin-people-filter-inactive",
+    "before": "Сарадник више није на платном списку",
+    "after": "Neaktivan",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
