@@ -17,3 +17,11 @@ assert.match(data['act-createSwimlane'], /creyó o carril __swimlane__.*__board_
 assert.match(data['act-newDue'], /__list__\/__card__.*primer recordatorio.*\[__board__\]/);
 assert.match(data['activity-subtask-added'], /adhibió una subtasca a %s/);
 assert.doesNotMatch(data['activity-subtask-added'], /eliminó/);
+assert.match(data['add-cron-job-placeholder'], /función d’adhibir treballos programaus plegará luego/);
+assert.match(data['add-template-container'], /contenedor de plantillas/);
+assert.doesNotMatch(data['add-template-container'], /plantilla de contenedor/);
+assert.match(data['anonymize-export-users'], /usuarios d’a exportación/);
+assert.match(data['anonymize-import-users'], /usuarios d’a importación/);
+assert.notEqual(data['anonymize-export-users'], data['anonymize-import-users']);
+assert.match(data['attachment-settings'], /Configuración d’adchuntos/);
+assert.match(data['attachment-storage-configuration'], /almagazenamiento d’adchuntos/);

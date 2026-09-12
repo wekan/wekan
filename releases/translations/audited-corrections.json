@@ -43951,5 +43951,47 @@
     "before": "ha añadido la subtarea a %s",
     "after": "adhibió una subtasca a %s",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "add-cron-job-placeholder",
+    "before": "La función de añadir trabajos programados llegará pronto",
+    "after": "A función d’adhibir treballos programaus plegará luego",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "add-template-container",
+    "before": "añadir plantilla de contenedor",
+    "after": "Adhibir un contenedor de plantillas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "anonymize-export-users",
+    "before": "Anonimizar usuarios de la exportación",
+    "after": "Anonimizar os usuarios d’a exportación",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "anonymize-import-users",
+    "before": "Anonimizar usuarios de la importación",
+    "after": "Anonimizar os usuarios d’a importación",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "attachment-settings",
+    "before": "Configuración de adjuntos",
+    "after": "Configuración d’adchuntos",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "attachment-storage-configuration",
+    "before": "Configuración de almacenamiento de adjuntos",
+    "after": "Configuración d’almagazenamiento d’adchuntos",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
