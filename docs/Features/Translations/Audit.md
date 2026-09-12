@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Audit keys |
 | --- | ---: |
-| Explicitly corrected | 6,559 |
+| Explicitly corrected | 6,565 |
 | Restored pre-pull values awaiting further validation | 4,059 |
 | Reviewed and retained unchanged | 149 |
-| Pending review or repair | 9,314 |
+| Pending review or repair | 9,308 |
 | Total tracked | 20,081 |
 
 **Translation repairs remain unfinished.** These counts cover flagged findings; unflagged strings and restored values are not certified as correct.
 
-Fixes cover wrong-language text, terminology, missing warnings, JSON examples, placeholders and calendar/search formatting. The correction history records **6,621 values**, including fixes outside the audit. Flagged queues are complete for Bosnian, Croatian, Macedonian, both Slovenian locales, Latvian, Romanian, Slovak, both Galician locales, Asturian, Aragonese, Friulian, Tok Pisin and Bulgarian.
+Fixes cover wrong-language text, terminology, missing warnings, JSON examples, placeholders and calendar/search formatting. The correction history records **6,627 values**, including fixes outside the audit. Flagged queues are complete for Bosnian, Croatian, Macedonian, both Slovenian locales, Latvian, Romanian, Slovak, both Galician locales, Asturian, Aragonese, Friulian, Tok Pisin, Bulgarian and both Korean locales.
 
-Latest fix: [462f5f5a9](https://github.com/wekan/wekan/commit/462f5f5a9895d7cf07f989eb556fbb2a336ba7a1), **2026-09-13** — Bulgarian advanced-filter help and two Hijri variant labels repaired, preserving operators, escaping and regex examples. **The flagged Bulgarian queue is complete.** Exact-value, placeholder, key-order and idempotency checks pass; earlier Tok Pisin, Friulian, Aragonese and Asturian wording need native-speaker review. Live Meteor browser verification remains unavailable.
+Latest fix: [9ee66fee4](https://github.com/wekan/wekan/commit/9ee66fee4b384ef0d58276d15aad1e27c42fc1e5), **2026-09-13** — six Korean advanced-filter/Hijri variant values repaired across both locales, preserving operators, escaping and regex examples. **Both flagged Korean queues are complete.** Exact-value, placeholder, key-order and idempotency checks pass; earlier Tok Pisin, Friulian, Aragonese and Asturian wording need native-speaker review. Live Meteor browser verification remains unavailable.
 
 **Provenance:** not all errors came from Transifex. The captured pull changed 4,061 values; the full-local audit added 16,020 findings. Bosnian errors came from the September 5 [local completion commit](https://github.com/wekan/wekan/commit/bdb3b15886a749b725b5290ba0109fcba955f983), with no Bosnian changes in the captured pull. Other ultimate origins remain unverified.
 
