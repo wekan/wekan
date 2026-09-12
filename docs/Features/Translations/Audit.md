@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Audit keys |
 | --- | ---: |
-| Explicitly corrected | 6,873 |
+| Explicitly corrected | 6,878 |
 | Restored pre-pull values awaiting further validation | 4,059 |
 | Reviewed and retained unchanged | 175 |
-| Pending review or repair | 8,974 |
+| Pending review or repair | 8,969 |
 | Total tracked | 20,081 |
 
 **Translation repairs remain unfinished.** These counts cover flagged findings; unflagged strings and restored values are not certified as correct.
 
-Fixes cover wrong-language text, terminology, warnings, JSON examples, placeholders and calendar/search formatting. The correction history records **6,946 values**, including fixes outside the audit. Per-language remaining work is available through the command below.
+Fixes cover wrong-language text, terminology, warnings, JSON examples, placeholders and calendar/search formatting. The correction history records **6,951 values**, including fixes outside the audit. Per-language remaining work is available through the command below.
 
-Latest fix: [d3f0bb04b](https://github.com/wekan/wekan/commit/d3f0bb04bf1435bdc8758857d862b23d45e5f174), **2026-09-13** — five Romansh migration/configuration/custom-field values repaired; **231 Romansh findings remain**. Exact-value, placeholder, key-order and idempotency checks pass. Technical wording needs native-speaker review; live browser verification remains unavailable.
+Latest fix: [2feabc267](https://github.com/wekan/wekan/commit/2feabc26786241f53d3d2bf36a582a67ef978ca0), **2026-09-13** — five Romansh custom HTML/help/item-entry values repaired; **226 Romansh findings remain**. Exact-value, placeholder, key-order and idempotency checks pass. Technical wording needs native-speaker review; live browser verification remains unavailable.
 
 **Provenance:** not all errors came from Transifex. The captured pull changed 4,061 values; the local audit added 16,020 findings. Bosnian errors predated that pull in a [local completion commit](https://github.com/wekan/wekan/commit/bdb3b15886a749b725b5290ba0109fcba955f983). Other ultimate origins remain unverified.
 
