@@ -558,6 +558,13 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/17f282cabeb8c6b4cc47eed8d2e1fa3f574c41d8">Repair Slovenian migration permissions and attachment move scope</a>. Thanks to xet7.</summary>
+
+Correct 24 values across both Slovenian locales. Preserve board-administrator migration restrictions, individual migration execution and board/all-attachment scope. Restore mobile-mode and monitoring messages and generic S3 storage labels. Regression checks verify meanings, exact corrections, source tokens, key order and idempotent repairs. The short translation audit records current progress.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/2275ea44d03955667e0e7596d6a65ad1c50de102">Repair Slovenian migration status and browser guidance</a>. Thanks to xet7.</summary>
 
 Correct 24 values across both Slovenian locales. Restore migration pause/stop and success/failure distinctions, latest-structure progress and background/browser timing guidance. Regression checks verify meanings, exact corrections, source tokens, key order and idempotent repairs. The short translation audit records current progress.
