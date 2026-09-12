@@ -86,3 +86,7 @@ assert.match(data['error-board-notAMember'], /miembru d'esti tableru/);
 assert.match(data['error-board-notAdmin'], /alministrador d'esti tableru/);
 assert.notEqual(data['error-board-notAMember'], data['error-board-notAdmin']);
 assert.match(data['export-card-field-board-info'], /tableru, llista, carril/);
+assert.match(data['globalSearch-instructions-description'], /`list:Blocked`.*llista llamada \*Blocked\*/);
+assert.match(data['globalSearch-instructions-notes-2'], /\*OR\*.*\n.*__operator_list__:Available __operator_list__:Blocked/);
+assert.match(data['globalSearch-instructions-notes-3'], /\*AND\*.*tolos operadores.*__operator_label__:red/);
+assert.match(data['globalSearch-instructions-notes-5'], /nun se busquen les tarxetes archivaes/);

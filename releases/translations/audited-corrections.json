@@ -41242,5 +41242,61 @@
     "before": "Exportar la tarjeta a PDF",
     "after": "Exportar la tarxeta a PDF",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "filter-card-title-label",
+    "before": "Filtrar por el título de la tarjeta",
+    "after": "Filtrar pol títulu de la tarxeta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "filter-cards",
+    "before": "Filtrar tarjetas o listas",
+    "after": "Filtrar tarxetes o llistes",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "filter-on-desc",
+    "before": "Estás filtrando tarjetas en este tablero. Haz clic aquí para editar el filtro.",
+    "after": "Tas filtrando tarxetes nesti tableru. Fai clic equí pa editar el filtru.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "globalSearch-instructions-description",
+    "before": "Se pueden usar operadores para refinar la búsqueda. Los operadores se especifican escribiendo el nombre del operador y su valor separado por dos puntos. Por ejemplo, especificar `lista:Bloqueada` limitaría la búsqueda a tarjetas que conengan una lista llamada *Bloqueada*. Si el valor contiene espacios o caracteres especiales, debe escribirse entre comillas (por ejemplo: `__operator_list__:\"To Review\"`).",
+    "after": "Les busques pueden incluyir operadores pa precisar la busca. Los operadores especifíquense escribiendo el nome y el valor separaos por dos puntos. Por exemplu, `list:Blocked` llenda la busca a tarxetes nuna llista llamada *Blocked*. Si el valor contién espacios o caracteres especiales, tien de dir ente comines (por exemplu, `__operator_list__:\"To Review\"`).",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "globalSearch-instructions-notes-2",
+    "before": "Múltiples condiciones de operadores parecidos se tratan internamente con el operador lógico OR. Es decir, la búsqueda devolverá las tarjetas que coincidan con alguna de las condiciones:\n`__operator_list__:Disponible __operator_list__:Bloqueada` devolverá tarjetas contenidas en cualquier lista nombrada *Bloqueada* o *Disponible*.",
+    "after": "Los operadores asemeyaos combínense con *OR*. Devuélvense les tarxetes que coincidan con cualesquier condición.\n`__operator_list__:Available __operator_list__:Blocked` devuelve tarxetes en cualesquier llista llamada *Blocked* o *Available*.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "globalSearch-instructions-notes-3",
+    "before": "Múltiples condiciones de operadores distintos se tratan internamente con el operador lógico AND. Es decir, la búsqueda devolverá las tarjetas que coincidan con TODAS las condiciones:\n`__operator_list__:Disponible __operator_label__:rojo` devuelve sólo las tarjetas en la lista *Disponible* con una etiqueta *roja*.",
+    "after": "Los operadores distintos combínense con *AND*. Solo se devuelven tarxetes que coincidan con tolos operadores distintos. `__operator_list__:Available __operator_label__:red` devuelve solo tarxetes na llista *Available* con una etiqueta *red*.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "globalSearch-instructions-notes-5",
+    "before": "Por defecto no se buscan las tarjetas archivadas.",
+    "after": "Por defeutu nun se busquen les tarxetes archivaes.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "globalSearch-instructions-operator-board",
+    "before": "`__operator_board__:<title>` - tarjetas en tableros que coincidan con *<title>*",
+    "after": "`__operator_board__:<title>` - tarxetes en tableros que coincidan col *<title>* indicáu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
