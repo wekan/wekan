@@ -388,3 +388,12 @@ assert.match(data['r-of-checklist'], /de la llista de comprobación/);
 assert.match(data['r-when-a-checklist'], /Cuando una llista de comprobación ta$/);
 assert.match(data['r-when-a-item'], /Cuando un elementu de la llista de comprobación ta$/);
 assert.notEqual(data['r-when-a-checklist'], data['r-when-a-item']);
+
+assert.match(data['r-when-the-checklist'], /Cuando la llista de comprobación$/);
+assert.match(data['r-when-the-item'], /Cuando l’elementu de la llista de comprobación$/);
+assert.doesNotMatch(data['r-when-the-item'], / es$/);
+assert.match(data['remove-all-read'], /Eliminar toles lleídes/);
+assert.match(data['remove-cover'], /Quitar la imaxe de portada de la minitarxeta/);
+assert.match(data['remove-labels-multiselect'], /quita les etiquetes 1-9/);
+assert.match(data['restoreArchivedListToSwimlanePopup-title'], /Restaurar la llista al carril/);
+assert.doesNotMatch(data['restoreArchivedListToSwimlanePopup-title'], /Eliminar/);

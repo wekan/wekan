@@ -43447,5 +43447,47 @@
     "before": "Cuando un elemento de la lista de verificación es",
     "after": "Cuando un elementu de la llista de comprobación ta",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "r-when-the-checklist",
+    "before": "Cuando la lista de verificación",
+    "after": "Cuando la llista de comprobación",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "r-when-the-item",
+    "before": "Cuando el elemento de la lista de verificación es",
+    "after": "Cuando l’elementu de la llista de comprobación",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "remove-all-read",
+    "before": "Eliminar todos los leídos",
+    "after": "Eliminar toles lleídes",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "remove-cover",
+    "before": "Quitar imagen de portada de la minitarjeta",
+    "after": "Quitar la imaxe de portada de la minitarxeta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "remove-labels-multiselect",
+    "before": "La selección múltiple elimina las etiquetas 1-9",
+    "after": "La selección múltiple quita les etiquetes 1-9",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "restoreArchivedListToSwimlanePopup-title",
+    "before": "Restaurar lista al carril",
+    "after": "Restaurar la llista al carril",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
