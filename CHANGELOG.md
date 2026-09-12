@@ -558,6 +558,13 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/3bbe73aa2e0a0c53701fc4580974be60482d1afb">Repair Slovenian deletion safeguards and custom logo translations</a>. Thanks to xet7.</summary>
+
+Correct 50 values across both Slovenian locales. Preserve irreversible-deletion warnings, membership safeguards, linked-card deletion order and empty-duplicate-list conditions. Restore custom-logo and URL labels while retaining literal space entities and default height. Regression checks verify meanings, exact corrections, source tokens, key order and idempotent repairs; the short translation audit records current progress.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/26bcc241d1acd37908c2ee5a3701248741852f21">Repair Slovenian migration messages and string template placeholder</a>. Thanks to xet7.</summary>
 
 Correct 50 values across both Slovenian locales. Restore the literal `%{value}` custom-field placeholder, creation-time sorting and board conversion, scheduled-job and migration meanings. Regression checks cover meaning distinctions, exact corrections, source tokens, key order and idempotent repairs. The short audit records 4,505 corrected findings and 11,437 pending findings.
