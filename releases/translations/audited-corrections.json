@@ -43615,5 +43615,47 @@
     "before": "Cerrar el cuadro de diálogo",
     "after": "Zarrar el cuadru de diálogu",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "shortcut-show-shortcuts",
+    "before": "Mostrar esta lista de atajos",
+    "after": "Amosar esta llista d’atayos",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "shortcut-toggle-filterbar",
+    "before": "Conmutar la barra lateral del filtro",
+    "after": "Amosar o anubrir la barra llateral de filtros",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "shortcut-toggle-searchbar",
+    "before": "Conmutar la barra lateral de búsqueda",
+    "after": "Amosar o anubrir la barra llateral de busca",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "show-desktop-drag-handles",
+    "before": "Mostrar los controles de arrastre del escritorio",
+    "after": "Amosar los controles d’arrastre del escritoriu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "show-parent-in-minicard",
+    "before": "Mostrar el padre en una minitarjeta:",
+    "after": "Amosar la tarxeta madre na minitarxeta:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "show-subtasks-field",
+    "before": "Mostrar campo de subtareas",
+    "after": "Amosar el campu de subtarees",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

@@ -424,3 +424,11 @@ assert.match(data['settingsTranslationPopup-title'], /Eliminar esta cadena de tr
 assert.match(data['shortcut-clear-filters'], /Llimpiar tolos filtros/);
 assert.match(data['shortcut-close-dialog'], /Zarrar el cuadru de diálogu/);
 assert.doesNotMatch(data['shortcut-close-dialog'], /Eliminar/);
+
+assert.match(data['shortcut-show-shortcuts'], /Amosar esta llista d’atayos/);
+assert.match(data['shortcut-toggle-filterbar'], /Amosar o anubrir.*filtros/);
+assert.match(data['shortcut-toggle-searchbar'], /Amosar o anubrir.*busca/);
+assert.notEqual(data['shortcut-toggle-filterbar'], data['shortcut-toggle-searchbar']);
+assert.match(data['show-desktop-drag-handles'], /controles d’arrastre del escritoriu/);
+assert.match(data['show-parent-in-minicard'], /tarxeta madre na minitarxeta:/);
+assert.match(data['show-subtasks-field'], /campu de subtarees/);
