@@ -48228,5 +48228,40 @@
     "before": "Schemi URL personalizzati che devono essere automaticamente cliccabili. Uno schema URL per riga",
     "after": "Schemas URL persunalisads che duain esser cliccabels automaticamain. In schema URL per lingia",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "avatar-too-big",
+    "before": "L'avatar ie troppo grande (__size__ max)",
+    "after": "L’avatar è memia grond (maximum __size__)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "avatars-path-description",
+    "before": "Troi in cui ie memorizzati i file degli avatar",
+    "after": "Percurs nua che las datotecas d’avatars vegnan memorisadas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "azure-account-key-menu-path",
+    "before": "Azure Portal → Storage conts → il tuo cont → Security + networking → Access keys → key1 → Show → Key.",
+    "after": "Azure Portal → Storage accounts → tes cont → Security + networking → Access keys → key1 → Show → Key.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "azure-connection-string-menu-path",
+    "before": "Azure Portal → Storage conts → il tuo cont → Security + networking → Access keys → key1 → Connection string → Show.",
+    "after": "Azure Portal → Storage accounts → tes cont → Security + networking → Access keys → key1 → Connection string → Show.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "azure-container-description",
+    "before": "Il container blob in cui memorizzare i file.",
+    "after": "Il container da blobs nua che las datotecas duain vegnir memorisadas.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
