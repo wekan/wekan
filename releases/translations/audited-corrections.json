@@ -34263,5 +34263,173 @@
     "before": "Број евидентираних странака је:",
     "after": "Število organizacij je:",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "people-number",
+    "before": "Укупан број сарадника је:",
+    "after": "Število oseb je:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "poker-delete-pop",
+    "before": "Брисање има трајни карактер. Изгубићете све радње у вези овог плана за партију покера.",
+    "after": "Brisanje je trajno. Izgubili boste vsa dejanja, povezana s tem pokrom načrtovanja.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "preview-pdf-not-supported",
+    "before": "Ваш уређај не подржава приказивање pdf докумената. Пробајте да преузмете документ.",
+    "after": "Vaša naprava ne podpira predogleda PDF. Poskusite datoteko prenesti.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "r-board-note",
+    "before": "Белешка: Непопуњено поље одговара свакој могућој вредности.",
+    "after": "Opomba: Pustite polje prazno, da se ujema z vsako možno vrednostjo.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "r-edit-rule-trigger-action",
+    "before": "Uredi pravilo (Окидач/Радња)",
+    "after": "Uredi sprožilec/dejanje",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "r-link-card",
+    "before": "Кад је предмет у вези са списима",
+    "after": "Poveži kartico z",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "read-assigned-only-desc",
+    "before": "Има право увида само у додељене предмете.",
+    "after": "Vidne so samo dodeljene kartice. Ne more urejati.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "read-only-desc",
+    "before": "Има право увида у све предмете.",
+    "after": "Lahko si samo ogleduje kartice. Ne more urejati.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "refresh-monitoring",
+    "before": "Најновији подаци са надзора",
+    "after": "Osveži spremljanje",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "remaining-attachments",
+    "before": "Преостала предметна грађа",
+    "after": "Preostale priponke",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "remove-labels-multiselect",
+    "before": "Вишеструким избором одлепљујете налепнице",
+    "after": "Večkratna izbira odstrani oznake 1-9",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "remove-organization-from-board",
+    "before": "Да ли сте сигурни да желите да овој странци забраните увид у ове списе ?",
+    "after": "Ali ste prepričani, da želite odstraniti to organizacijo s te table?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "people-number",
+    "before": "Укупан број сарадника је:",
+    "after": "Število oseb je:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "poker-delete-pop",
+    "before": "Брисање има трајни карактер. Изгубићете све радње у вези овог плана за партију покера.",
+    "after": "Brisanje je trajno. Izgubili boste vsa dejanja, povezana s tem pokrom načrtovanja.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "preview-pdf-not-supported",
+    "before": "Ваш уређај не подржава приказивање pdf докумената. Пробајте да преузмете документ.",
+    "after": "Vaša naprava ne podpira predogleda PDF. Poskusite datoteko prenesti.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "r-board-note",
+    "before": "Белешка: Непопуњено поље одговара свакој могућој вредности.",
+    "after": "Opomba: Pustite polje prazno, da se ujema z vsako možno vrednostjo.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "r-edit-rule-trigger-action",
+    "before": "Uredi pravilo (Окидач/Радња)",
+    "after": "Uredi sprožilec/dejanje",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "r-link-card",
+    "before": "Кад је предмет у вези са списима",
+    "after": "Poveži kartico z",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "read-assigned-only-desc",
+    "before": "Има право увида само у додељене предмете.",
+    "after": "Vidne so samo dodeljene kartice. Ne more urejati.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "read-only-desc",
+    "before": "Има право увида у све предмете.",
+    "after": "Lahko si samo ogleduje kartice. Ne more urejati.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "refresh-monitoring",
+    "before": "Најновији подаци са надзора",
+    "after": "Osveži spremljanje",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "remaining-attachments",
+    "before": "Преостала предметна грађа",
+    "after": "Preostale priponke",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "remove-labels-multiselect",
+    "before": "Вишеструким избором одлепљујете налепнице",
+    "after": "Večkratna izbira odstrani oznake 1-9",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "remove-organization-from-board",
+    "before": "Да ли сте сигурни да желите да овој странци забраните увид у ове списе ?",
+    "after": "Ali ste prepričani, da želite odstraniti to organizacijo s te table?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
