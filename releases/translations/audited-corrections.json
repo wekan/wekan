@@ -22461,5 +22461,173 @@
     "before": "Означи све ставке са списка као обављене",
     "after": "Означи ги сите ставки од списокот",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "r-d-move-to-bottom-gen",
+    "before": "Помери предмет на дно тог дела поступка",
+    "after": "Премести ја картата на дното на нејзиниот список",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "r-d-move-to-bottom-spec",
+    "before": "Помери предмет на дно дела поступка",
+    "after": "Премести ја картата на дното на списокот",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "r-d-move-to-top-gen",
+    "before": "Помери предмет на врх тог дела поступка",
+    "after": "Премести ја картата на врвот на нејзиниот список",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "r-d-move-to-top-spec",
+    "before": "Помери предмет на врх дела поступка",
+    "after": "Премести ја картата на врвот на списокот",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "r-d-unarchive",
+    "before": "Възстанови картата от Архива",
+    "after": "Врати ја картата од архивата",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "r-d-uncheck-all",
+    "before": "Означи све ставке са списка као необављене",
+    "after": "Отстрани ги ознаките од сите ставки во списокот",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "r-datefield",
+    "before": "временску одредницу кад је предмет",
+    "after": "поле за датум",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "r-link-card",
+    "before": "Кад је предмет у вези са списима",
+    "after": "Поврзи ја картата со",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "r-made-incomplete",
+    "before": "е зададен като незавършен",
+    "after": "Означено како незавршено",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "r-new-rule-name",
+    "before": "Заглавие за новото правило",
+    "after": "Наслов на новото правило",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "r-remove-all",
+    "before": "Премахнете всички членове от картата",
+    "after": "Отстрани ги сите членови од картата",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "r-remove-value-from",
+    "before": "Уклони временску одредницу из поља",
+    "after": "Отстрани ја вредноста од",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "r-to-current-datetime",
+    "before": "на данашњи датум и тренутно време",
+    "after": "на тековниот датум и време",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "r-uncheck",
+    "before": "Маркирай като незавършено",
+    "after": "Отстрани ја ознаката",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "r-uncheck-all",
+    "before": "Отмаркирай всички като незавършени",
+    "after": "Отстрани ги сите ознаки",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "r-when-a-card-is-moved",
+    "before": "Када је предмет премештен у други део поступка",
+    "after": "Кога карта е преместена во друг список",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "r-when-a-label-is",
+    "before": "Када је било која налепница",
+    "after": "Кога ознака е",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "read-assigned-only-desc",
+    "before": "Има право увида само у додељене предмете.",
+    "after": "Видливи се само доделените карти. Не може да ги уредува.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "read-only-desc",
+    "before": "Има право увида у све предмете.",
+    "after": "Може само да ги гледа картите. Не може да ги уредува.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "refresh-monitoring",
+    "before": "Најновији подаци са надзора",
+    "after": "Освежи ги податоците за надзор",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "remaining-attachments",
+    "before": "Преостала предметна грађа",
+    "after": "Преостанати прилози",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "remove-labels-multiselect",
+    "before": "Вишеструким избором одлепљујете налепнице",
+    "after": "Повеќекратниот избор ги отстранува ознаките 1-9",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "remove-member-pop",
+    "before": "Изузећете __name__ (__username__) из списа __boardTitle__? Сарадник ће бити изузет са свих предмета у списима. Примиће обавештење о томе.",
+    "after": "Отстрани го __name__ (__username__) од __boardTitle__? Членот ќе биде отстранет од сите карти на оваа табла. Ќе добие известување.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "remove-organization-from-board",
+    "before": "Да ли сте сигурни да желите да овој странци забраните увид у ове списе ?",
+    "after": "Дали сте сигурни дека сакате да ја отстраните оваа организација од оваа табла?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
