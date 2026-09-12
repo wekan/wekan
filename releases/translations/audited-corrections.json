@@ -21082,5 +21082,89 @@
     "before": "Здраво __user__,\n\nДа би почели да користите услугу, једноставно притисните на везу која је испод.\n\n__url__\n\nХвала.",
     "after": "Здраво __user__,\n\nЗа да започнете да ја користите услугата, кликнете на врската подолу.\n\n__url__\n\nВи благодариме.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "email-fail",
+    "before": "Неуспешно изпращане на имейла",
+    "after": "Испраќањето на е-поштата не успеа",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "email-fail-text",
+    "before": "Възникна грешка при изпращането на имейла",
+    "after": "Грешка при обидот за испраќање е-пошта",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "email-invite-register-text",
+    "before": "Поштовани __user__,\n\n__inviter__ Вас позива да користите kanban списе за заједнички рад.\n\nМолим испратите везу испод:\n__url__\n\nИ да, Ваш позивни код је: __icode__\n\nХвала.",
+    "after": "Почитуван __user__,\n\n__inviter__ ве поканува на канбан-табла за соработка.\n\nСледете ја врската подолу:\n__url__\n\nКодот на вашата покана е: __icode__\n\nВи благодариме.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "email-invite-text",
+    "before": "Поштовани __user__,\n\n__inviter__ Вам је омогућио пун увид у \"__board__\" списе и нада се заједничкој сарадњи.\n\nМолим да испратите везу испод:\n\n__url__\n\nХвала.",
+    "after": "Почитуван __user__,\n\n__inviter__ ве поканува да се придружите на таблата „__board__“ за соработка.\n\nСледете ја врската подолу:\n\n__url__\n\nВи благодариме.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "email-resetPassword-subject",
+    "before": "Задајте поново вашу лозинку на страници __siteName__",
+    "after": "Обновете ја лозинката на __siteName__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "email-resetPassword-text",
+    "before": "Добар дан __user__,\n\nДа би сте поново задали вашу лозинку, једноставно притисните  на везу испод.\n\n__url__\n\nХвала.",
+    "after": "Здраво __user__,\n\nЗа да ја обновите лозинката, кликнете на врската подолу.\n\n__url__\n\nВи благодариме.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "email-verifyEmail-subject",
+    "before": "Потврдите Вашу адресу е-поште на страници __siteName__",
+    "after": "Потврдете ја вашата адреса за е-пошта на __siteName__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "email-verifyEmail-text",
+    "before": "Добар дан __user__,\n\nДа би сте потврдили ваш налог за е-пошту, једноставно притисните на везу испод.\n\n__url__\n\nХвала.",
+    "after": "Здраво __user__,\n\nЗа да ја потврдите адресата за е-пошта на сметката, кликнете на врската подолу.\n\n__url__\n\nВи благодариме.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "error-board-notAMember",
+    "before": "За да направите това трябва да сте член на това табло",
+    "after": "За да го направите ова, треба да бидете член на оваа табла",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "error-board-notAdmin",
+    "before": "За да направите това трябва да сте администратор на това табло",
+    "after": "За да го направите ова, треба да бидете администратор на оваа табла",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "error-csv-schema",
+    "before": "Ваш CSV(Вредности раздвојене зарезом)/TSV (Вредности раздвојене табулатором) не укључује исправну информацију у предвиђеном облику",
+    "after": "Вашите податоци CSV (вредности разделени со запирка)/TSV (вредности разделени со табулатор) не ги содржат потребните информации во правилниот формат",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "error-invitation-code-not-exist",
+    "before": "Кода от покана не съществува",
+    "after": "Кодот на поканата не постои",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
