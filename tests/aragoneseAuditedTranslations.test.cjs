@@ -39,3 +39,10 @@ assert.ok(data['import-board-source'].includes('Trello, Jira, exportación de We
 assert.match(data['list-archive-pop'], /no será visible.*dimpués d’archivar-la/);
 assert.doesNotMatch(data['list-archive-pop'], /eliminar|permanent/);
 assert.match(data['map-to-existing-user'], /correspondencia con un usuario existent/);
+assert.match(data['map-to-existing-user-no-results'], /No s’han trobau usuarios coincidents/);
+assert.equal(data['mapImportedMemberPopup-title'], data['map-to-existing-user']);
+assert.match(data['no-boards-selected'], /No has triau garra tablero/);
+assert.match(data['select-only-one-board'], /Tría nomás un tablero/);
+assert.match(data['set-selected-home'], /tablero d’inicio.*dimpués d’iniciar sesión/);
+for (const label of ['AWS Console', 'IAM', 'Users', 'Security credentials', 'Access keys', 'Create access key', 'Application running outside AWS', 'Access key ID']) assert.ok(data['s3-access-key-menu-path'].includes(label));
+assert.match(data['s3-access-key-menu-path'], /tría o caso d’uso/);

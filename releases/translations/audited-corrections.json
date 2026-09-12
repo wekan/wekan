@@ -44077,5 +44077,47 @@
     "before": "Asignar a un usuario existente",
     "after": "Establir a correspondencia con un usuario existent",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "map-to-existing-user-no-results",
+    "before": "No se encontraron usuarios coincidentes.",
+    "after": "No s’han trobau usuarios coincidents.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "mapImportedMemberPopup-title",
+    "before": "Asignar a un usuario existente",
+    "after": "Establir a correspondencia con un usuario existent",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "no-boards-selected",
+    "before": "No has seleccionado ningún tablero.",
+    "after": "No has triau garra tablero.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "s3-access-key-menu-path",
+    "before": "AWS Console → IAM → Users → tu usuario → Security credentials → Access keys → Create access key → elige el caso de uso 'Application running outside AWS' → Create access key. Se muestra como 'Access key ID'.",
+    "after": "AWS Console → IAM → Users → o tuyo usuario → Security credentials → Access keys → Create access key → tría o caso d’uso 'Application running outside AWS' → Create access key. S’amuestra como 'Access key ID'.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "select-only-one-board",
+    "before": "Selecciona solo un tablero",
+    "after": "Tría nomás un tablero, por favor",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "set-selected-home",
+    "before": "Establecer como tablero de inicio (se abre tras iniciar sesión)",
+    "after": "Establir como tablero d’inicio (s’ubre dimpués d’iniciar sesión)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
