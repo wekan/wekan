@@ -35985,5 +35985,75 @@
     "before": "completou a lista de verificação __checklist__ no cartão __card__ na lista __list__ na pista __swimlane__ no quadro __board__",
     "after": "completou a lista de verificación __checklist__ na tarxeta __card__ na lista __list__ no carril __swimlane__ no taboleiro __board__",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "activity-checklist-item-added",
+    "before": "adicionou o item a '%s' em %s",
+    "after": "engadiu un elemento á lista de verificación '%s' en %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "activity-checklist-removed",
+    "before": "removeu a lista de verificação de %s",
+    "after": "eliminou unha lista de verificación de %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "activity-checklist-uncompleted",
+    "before": "descompletou a lista de verificação %s de %s",
+    "after": "desmarcou como completada a lista de verificación %s de %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "activity-checklist-uncompleted-card",
+    "before": "descompletou a lista de verificação %s",
+    "after": "desmarcou como completada a lista de verificación %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "activity-unchecked-item",
+    "before": "desmarcou %s na lista de verificação %s de %s",
+    "after": "desmarcou %s na lista de verificación %s de %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "activity-unchecked-item-card",
+    "before": "desmarcou %s na lista de verificação %s",
+    "after": "desmarcou %s na lista de verificación %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "add-background-image",
+    "before": "Adicionar Imagem de Fundo",
+    "after": "Engadir imaxe de fondo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "add-card-to-bottom-of-list",
+    "before": "Adicionar Cartão no Fundo da Lista",
+    "after": "Engadir tarxeta ao final da lista",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "add-card-to-top-of-list",
+    "before": "Adicionar Cartão no Topo da Lista",
+    "after": "Engadir tarxeta ao principio da lista",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "add-checklist",
+    "before": "Adicionar Lista de Verificação",
+    "after": "Engadir lista de verificación",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
