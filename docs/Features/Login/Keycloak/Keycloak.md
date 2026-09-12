@@ -64,6 +64,21 @@ sudo systemctl status snap.wekan.wekan
 - OAUTH2_EMAIL_MAP=email
 ```
 
+To restrict OAuth2/OIDC sign-in to specific email domains, set
+`OAUTH2_ALLOWED_EMAIL_DOMAINS=example.internal,other.internal`. This also works
+with an on-premise Keycloak server without Internet access and needs no DNS
+lookup or additional dependency. The domains are comma-separated, trimmed and
+compared without regard to case. Each domain matches exactly; subdomains must
+be listed separately. Leave the variable unset or empty to allow all domains.
+Malformed restrictions deny sign-in rather than disabling the restriction.
+
+The policy checks the provider's mapped email on every new OAuth2 handshake,
+for new and existing users, before any group or board memberships are changed.
+Configure the identity provider to supply an authoritative email that users
+cannot freely change. This setting does not revoke existing sessions or affect
+local password, LDAP, CAS or SAML sign-in. Sign out existing users when changing
+the policy if they must authenticate again immediately.
+
 ### Log Out redirects to the Keycloak home page (issue #6158)
 
 With autologin (`OIDC_REDIRECTION_ENABLED=true`), clicking **Log Out** used to

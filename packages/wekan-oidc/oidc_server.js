@@ -7,6 +7,7 @@ import fs from 'fs';
 import { resolveOidcEndpoint } from './endpoint';
 const { mergeWhitelistedClaims } = require('./serviceDataClaims');
 const { maybeGenerateOauth2ClientSecretJwt } = require('./oauth2ClientSecretJwt');
+const { isEmailDomainAllowed } = require('./emailDomainPolicy');
 
 // #2458 (Sign in with Apple): Apple's "client secret" is not a static string
 // like every other generic-OAuth2 provider's - it is a short-lived JWT the
@@ -174,6 +175,12 @@ OAuth.registerService('oidc', 2, null, async function (query) {
   if (token.refresh_token)
     serviceData.refreshToken = token.refresh_token;
   if (debug) console.log('XXX: serviceData:', serviceData);
+
+  // Apply to every handshake, including existing users, before group/board
+  // routines can change memberships or Meteor can create or merge an account.
+  if (!isEmailDomainAllowed(serviceData.email, process.env.OAUTH2_ALLOWED_EMAIL_DOMAINS)) {
+    throw new Meteor.Error(403, 'Login forbidden');
+  }
 
   profile.name = userinfo[process.env.OAUTH2_FULLNAME_MAP]; // || userinfo["displayName"];
   profile.email = userinfo[process.env.OAUTH2_EMAIL_MAP]; // || userinfo["email"];

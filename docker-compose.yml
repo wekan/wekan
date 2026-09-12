@@ -449,6 +449,8 @@ services:
       #- OAUTH2_FULLNAME_MAP=name
       # The claim name you want to map to the email field:
       #- OAUTH2_EMAIL_MAP=email
+      # Optional exact email domains for generic OAuth2/OIDC login (on-premise supported).
+      #- OAUTH2_ALLOWED_EMAIL_DOMAINS=example.internal,other.internal
       #-----------------------------------------------------------------
       # ==== OAUTH2 Nextcloud ====
       # 1) Register the application with Nextcloud: https://your.nextcloud/index.php/settings/admin/security
