@@ -1,0 +1,28 @@
+'use strict';
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
+const i18next = require('i18next');
+const sprintf = require('i18next-sprintf-postprocessor');
+const root = path.resolve(__dirname, '..');
+const data = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/sk.i18n.json'), 'utf8'));
+(async () => {
+  const translator = i18next.createInstance().use(sprintf);
+  await translator.init({ lng: 'sk', fallbackLng: false, keySeparator: false,
+    resources: { sk: { translation: data } }, postProcess: ['sprintf'] });
+  for (const [key, meaning] of [
+    ['activity-dueDate', 'termín dokončenia'], ['activity-endDate', 'dátum ukončenia'],
+    ['activity-receivedDate', 'dátum prijatia'], ['activity-startDate', 'dátum začiatku'],
+  ]) assert.equal(translator.t(key, { sprintf: ['DATE_SENTINEL', 'CARD_SENTINEL'] }),
+    `zmenil(a) ${meaning} na DATE_SENTINEL na karte CARD_SENTINEL`);
+  assert.equal(translator.t('activity-checked-item', { sprintf: ['ITEM', 'CHECKLIST', 'CARD'] }),
+    'zaškrtol(a) ITEM v kontrolnom zozname CHECKLIST na karte CARD');
+  assert.equal(translator.t('activity-unchecked-item', { sprintf: ['ITEM', 'CHECKLIST', 'CARD'] }),
+    'zrušil(a) zaškrtnutie ITEM v kontrolnom zozname CHECKLIST na karte CARD');
+  assert.match(data['activity-checklist-uncompleted'], /zrušil\(a\) dokončenie/);
+  const records = JSON.parse(fs.readFileSync(path.join(root, 'releases/translations/audited-corrections.json'), 'utf8'));
+  for (const row of records.filter(row => row.locale === 'sk')) {
+    assert.doesNotMatch(row.after, /[řěů]|\bpřidal|\bsloupc|\buživatel/i, row.key);
+  }
+  console.log('slovakAuditedTranslations: Slovak vocabulary, checklist action meaning and real sprintf date/card order passed');
+})().catch(error => { console.error(error); process.exitCode = 1; });

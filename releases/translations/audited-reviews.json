@@ -340,5 +340,11 @@
     "key": "r-items-list",
     "value": "item1, item2, item3",
     "reason": "Reviewed in client/components/rules/actions/checklistActions.jade:55: this input placeholder demonstrates three arbitrary comma-separated checklist item names, not English prose. Spaces do not alter the example separator. Retain the existing illustrative identifiers."
+  },
+  {
+    "locale": "sk",
+    "key": "Reactivity_mode",
+    "value": "Režim reaktivity (changeStreams / oplog / polling)",
+    "reason": "Individually reviewed: Režim reaktivity is valid Slovak as well as Czech technical wording. changeStreams, oplog and polling name actual reactivity modes and remain literal."
   }
 ]
