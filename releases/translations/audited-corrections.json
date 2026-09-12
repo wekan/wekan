@@ -21166,5 +21166,145 @@
     "before": "Кода от покана не съществува",
     "after": "Кодот на поканата не постои",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "error-json-malformed",
+    "before": "Текстът Ви не е валиден JSON",
+    "after": "Вашиот текст не е валиден JSON",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "error-json-schema",
+    "before": "JSON информацията Ви не съдържа информация във валиден формат",
+    "after": "Вашите JSON-податоци не ги содржат потребните информации во правилниот формат",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "error-ldap-login",
+    "before": "Догодила се нека грешка приликом покушаја пријављивања",
+    "after": "Се појави грешка при обидот за најавување",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "error-list-doesNotExist",
+    "before": "Този списък не съществува",
+    "after": "Овој список не постои",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "error-notAuthorized",
+    "before": "Нямате право да видите тази страница.",
+    "after": "Немате дозвола да ја видите оваа страница.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "error-orgname-taken",
+    "before": "Ово (пословно) име странке је већ у употреби",
+    "after": "Ова име на организација веќе се користи",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "error-teamname-taken",
+    "before": "Ово име правног тима је већ у употреби",
+    "after": "Ова име на тим веќе се користи",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "error-user-notAllowSelf",
+    "before": "Не можете да поканите себе си",
+    "after": "Не можете да се поканите себеси",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "error-username-taken",
+    "before": "Това потребителско име е вече заето",
+    "after": "Ова корисничко име веќе се користи",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "estimated-time-remaining",
+    "before": "Процењено преостало време",
+    "after": "Проценето преостанато време",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "export-card-pdf",
+    "before": "Претвори предмет у PDF облик",
+    "after": "Извези ја картата во PDF",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "filesReportTitle",
+    "before": "Извештај везан за предметну грађу",
+    "after": "Извештај за датотеки",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "filesystem-path-description",
+    "before": "Почетак пута до складишта предметне грађе",
+    "after": "Основна патека за складирање датотеки",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "filesystem-size",
+    "before": "Величина локалног складишта",
+    "after": "Големина на датотечниот систем",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "filter-card-title-label",
+    "before": "Издвој по наслову предмета",
+    "after": "Филтрирај по наслов на карта",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "filter-cards",
+    "before": "Филтрирай картите или списъците",
+    "after": "Филтрирај карти или списоци",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "filter-due-next-week",
+    "before": "Где рок истиче следеће недеље",
+    "after": "Со рок следната недела",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "filter-due-this-week",
+    "before": "Где рок истиче ове недеље",
+    "after": "Со рок оваа недела",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "filter-member-label",
+    "before": "Издвој по надлежном сараднику",
+    "after": "Филтрирај по член",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mk",
+    "key": "filter-on-desc",
+    "before": "В момента филтрирате картите в това табло. Моля, натиснете тук, за да промените филтъра.",
+    "after": "Ги филтрирате картите на оваа табла. Кликнете овде за да го уредите филтерот.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
