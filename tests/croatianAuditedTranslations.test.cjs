@@ -19,3 +19,14 @@ assert.match(data['accounts-lockout-failure-window'], /neuspjelih pokušaja \(se
 assert.match(data['accounts-lockout-period'], /\(sekunde\)/);
 assert.doesNotMatch(data['accounts-lockout-info'], /lozinkef/);
 console.log('croatianAuditedTranslations: target script, V8 metrics and indicator meanings passed');
+
+(async () => {
+  const translator = require('i18next').createInstance().use(require('i18next-sprintf-postprocessor'));
+  await translator.init({ lng: 'hr', fallbackLng: false, keySeparator: false, interpolation: { prefix: '__', suffix: '__', escapeValue: false }, resources: { hr: { translation: data } }, postProcess: ['sprintf'] });
+  assert.equal(translator.t('act-a-endAt', { timeValue: 'NEW', timeOldValue: 'OLD' }), 'promijenio vrijeme završetka na NEW s (OLD)');
+  assert.equal(translator.t('activity-dueDate', { sprintf: ['DATE', 'CARD'] }), 'promijenio rok na DATE za karticu CARD');
+  assert.match(data['act-newDue'], /prvi podsjetnik/);
+  assert.match(data['act-duenow'], /upravo sada/);
+  assert.doesNotMatch(data['act-duenow'], /danas/);
+  console.log('croatianAuditedTranslations: real activity rendering and reminder meanings passed');
+})().catch(error => { console.error(error); process.exitCode = 1; });

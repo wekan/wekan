@@ -558,6 +558,13 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/2df7a4d02">Repair Croatian lockout results and date activities</a>. Thanks to xet7.</summary>
+
+Correct 16 reviewed values. Positive and negative regressions verify first-reminder and due-now meanings, actual old/new time interpolation and date/card sprintf order. Source-token, target-script, exact-value, key-order and repair checks pass. Audit.md records dated progress.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/e2e15108e">Repair Croatian accessibility and account protection translations</a>. Thanks to xet7.</summary>
 
 Correct 18 reviewed values. Positive and negative regressions verify target script, accessibility terminology, credential meanings and timing units. Source-token, exact-value, key-order and repair checks pass. Audit.md records dated progress.
