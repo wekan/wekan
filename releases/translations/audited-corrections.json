@@ -7124,5 +7124,439 @@
     "before": "تفعيل حد العمل الجاري (WIP) (لیست)",
     "after": "مجموعات الحدّ ديال الخدمة الجارية (WIP)",
     "reason": "Replace remaining Persian fragments with Moroccan Arabic interface wording."
+  },
+  {
+    "locale": "mn",
+    "key": "r-when-a-item",
+    "before": "Когда пункт контрольного списка",
+    "after": "Шалгах хуудасны зүйл дараах үед",
+    "reason": "Replace inspected Russian seed with Mongolian wording and retain rule-builder meaning."
+  },
+  {
+    "locale": "mn",
+    "key": "r-when-the-item",
+    "before": "Когда пункт контрольного списка",
+    "after": "Шалгах хуудасны зүйл дараах үед",
+    "reason": "Replace inspected Russian seed with Mongolian wording and retain rule-builder meaning."
+  },
+  {
+    "locale": "mn",
+    "key": "r-remove-all",
+    "before": "Удалить всех участников из карточки",
+    "after": "Картаас бүх гишүүнийг хасах",
+    "reason": "Replace inspected Russian seed with Mongolian wording and retain rule-builder meaning."
+  },
+  {
+    "locale": "mn",
+    "key": "r-items-check",
+    "before": "пункты контрольного списка",
+    "after": "шалгах хуудасны зүйлүүд",
+    "reason": "Replace inspected Russian seed with Mongolian wording and retain rule-builder meaning."
+  },
+  {
+    "locale": "mn",
+    "key": "r-d-move-to-top-gen",
+    "before": "Переместить карточку в начало текущего списка",
+    "after": "Картыг өөрийн жагсаалтын дээд тал руу зөөх",
+    "reason": "Replace inspected Russian seed with Mongolian wording and retain rule-builder meaning."
+  },
+  {
+    "locale": "mn",
+    "key": "r-d-move-to-top-spec",
+    "before": "Переместить карточку в начало списка",
+    "after": "Картыг жагсаалтын дээд тал руу зөөх",
+    "reason": "Replace inspected Russian seed with Mongolian wording and retain rule-builder meaning."
+  },
+  {
+    "locale": "mn",
+    "key": "r-d-move-to-bottom-gen",
+    "before": "Переместить карточку в конец текущего списка",
+    "after": "Картыг өөрийн жагсаалтын доод тал руу зөөх",
+    "reason": "Replace inspected Russian seed with Mongolian wording and retain rule-builder meaning."
+  },
+  {
+    "locale": "mn",
+    "key": "r-d-move-to-bottom-spec",
+    "before": "Переместить карточку в конец списка",
+    "after": "Картыг жагсаалтын доод тал руу зөөх",
+    "reason": "Replace inspected Russian seed with Mongolian wording and retain rule-builder meaning."
+  },
+  {
+    "locale": "mn",
+    "key": "r-d-archive",
+    "before": "Переместить карточку в Архив",
+    "after": "Картыг архивт шилжүүлэх",
+    "reason": "Replace inspected Russian seed with Mongolian wording and retain rule-builder meaning."
+  },
+  {
+    "locale": "mn",
+    "key": "r-d-unarchive",
+    "before": "Восстановить карточку из Архива",
+    "after": "Картыг архиваас сэргээх",
+    "reason": "Replace inspected Russian seed with Mongolian wording and retain rule-builder meaning."
+  },
+  {
+    "locale": "mn",
+    "key": "r-d-check-all",
+    "before": "Отметить все пункты в списке",
+    "after": "Жагсаалтын бүх зүйлийг тэмдэглэх",
+    "reason": "Replace inspected Russian seed with Mongolian wording and retain rule-builder meaning."
+  },
+  {
+    "locale": "mn",
+    "key": "r-d-uncheck-all",
+    "before": "Снять все пункты в списке",
+    "after": "Жагсаалтын бүх зүйлийн тэмдэглэгээг арилгах",
+    "reason": "Replace inspected Russian seed with Mongolian wording and retain rule-builder meaning."
+  },
+  {
+    "locale": "mn",
+    "key": "r-board-note",
+    "before": "Примечание: пустое поле соответствует любым возможным значениям.",
+    "after": "Санамж: боломжит бүх утгатай тохируулахын тулд талбарыг хоосон үлдээнэ үү. ",
+    "reason": "Replace inspected Russian seed with Mongolian wording and retain rule-builder meaning."
+  },
+  {
+    "locale": "mn",
+    "key": "r-when-a-card-is-moved",
+    "before": "Когда карточка перемещена в другой список",
+    "after": "Карт өөр жагсаалт руу зөөгдөх үед",
+    "reason": "Replace inspected Russian seed with Mongolian wording and retain rule-builder meaning."
+  },
+  {
+    "locale": "mn",
+    "key": "r-to-current-datetime",
+    "before": "в соответствии с текущей датой/временем",
+    "after": "одоогийн огноо/цаг болгох",
+    "reason": "Replace inspected Russian seed with Mongolian wording and retain rule-builder meaning."
+  },
+  {
+    "locale": "mn",
+    "key": "add-custom-html-after-body-start",
+    "before": "Добавить HTML после начала <body>",
+    "after": "<body> эхлэлийн дараа тусгай HTML нэмэх",
+    "reason": "Replace inspected Russian seed with Mongolian wording and retain rule-builder meaning."
+  },
+  {
+    "locale": "mn",
+    "key": "add-custom-html-before-body-end",
+    "before": "Добавить HTML до завершения </body>",
+    "after": "</body> төгсгөлийн өмнө тусгай HTML нэмэх",
+    "reason": "Replace inspected Russian seed with Mongolian wording and retain rule-builder meaning."
+  },
+  {
+    "locale": "mn",
+    "key": "error-ldap-login",
+    "before": "Ошибка при попытке авторизации",
+    "after": "Нэвтрэх үед алдаа гарлаа",
+    "reason": "Replace inspected Russian seed with Mongolian wording and retain rule-builder meaning."
+  },
+  {
+    "locale": "mn",
+    "key": "display-authentication-method",
+    "before": "Показывать способ авторизации",
+    "after": "Баталгаажуулалтын аргыг харуулах",
+    "reason": "Replace inspected Russian seed with Mongolian wording and retain rule-builder meaning."
+  },
+  {
+    "locale": "mn",
+    "key": "oidc-button-text",
+    "before": "Изменить текст кнопки OIDC",
+    "after": "OIDC товчны текстийг өөрчлөх",
+    "reason": "Replace inspected Russian seed with Mongolian wording and retain rule-builder meaning."
+  },
+  {
+    "locale": "mn",
+    "key": "default-authentication-method",
+    "before": "Способ авторизации по умолчанию",
+    "after": "Анхдагч баталгаажуулалтын арга",
+    "reason": "Replace inspected Russian seed with Mongolian wording and retain rule-builder meaning."
+  },
+  {
+    "locale": "mn",
+    "key": "swimlane-delete-pop",
+    "before": "Все действия будут удалены из ленты активности участников, и вы не сможете восстановить дорожку. Данное действие необратимо.",
+    "after": "Бүх үйлдэл үйл ажиллагааны түүхээс устаж, ажлын эгнээг сэргээх боломжгүй болно. Буцаах боломжгүй.",
+    "reason": "Replace inspected Russian seed with Mongolian wording and retain rule-builder meaning."
+  },
+  {
+    "locale": "mn",
+    "key": "loading",
+    "before": "Идет загрузка, пожалуйста подождите",
+    "after": "Ачаалж байна, түр хүлээнэ үү.",
+    "reason": "Replace inspected Russian seed with Mongolian wording and retain rule-builder meaning."
+  },
+  {
+    "locale": "mn",
+    "key": "act-a-dueAt",
+    "before": "изменил срок выполнения \nСтало: __timeValue__\nВ карточке: __card__\nранее было __timeOldValue__",
+    "after": "дуусах хугацааг өөрчлөв \nХэзээ: __timeValue__\nХаана: __card__\n өмнөх дуусах хугацаа __timeOldValue__",
+    "reason": "Replace inspected Russian seed with Mongolian wording and retain rule-builder meaning."
+  },
+  {
+    "locale": "mn",
+    "key": "act-a-endAt",
+    "before": "изменил время завершения на __timeValue__, было (__timeOldValue__)",
+    "after": "дуусах цагийг __timeValue__ болгож өөрчлөв (өмнө нь __timeOldValue__)",
+    "reason": "Replace inspected Russian seed with Mongolian wording and retain rule-builder meaning."
+  },
+  {
+    "locale": "mn",
+    "key": "act-a-startAt",
+    "before": "изменил время начала на __timeValue__, было (__timeOldValue__)",
+    "after": "эхлэх цагийг __timeValue__ болгож өөрчлөв (өмнө нь __timeOldValue__)",
+    "reason": "Replace inspected Russian seed with Mongolian wording and retain rule-builder meaning."
+  },
+  {
+    "locale": "mn",
+    "key": "act-a-receivedAt",
+    "before": "изменил время получения на __timeValue__, было (__timeOldValue__)",
+    "after": "хүлээн авсан цагийг __timeValue__ болгож өөрчлөв (өмнө нь __timeOldValue__)",
+    "reason": "Replace inspected Russian seed with Mongolian wording and retain rule-builder meaning."
+  },
+  {
+    "locale": "mn",
+    "key": "a-dueAt",
+    "before": "изменил срок выполнения на",
+    "after": "дуусах хугацааг өөрчлөв:",
+    "reason": "Replace inspected Russian seed with Mongolian wording and retain rule-builder meaning."
+  },
+  {
+    "locale": "mn",
+    "key": "a-endAt",
+    "before": "изменил время завершения на",
+    "after": "дуусах цагийг өөрчлөв:",
+    "reason": "Replace inspected Russian seed with Mongolian wording and retain rule-builder meaning."
+  },
+  {
+    "locale": "mn",
+    "key": "a-startAt",
+    "before": "изменил время начала работы на",
+    "after": "эхлэх цагийг өөрчлөв:",
+    "reason": "Replace inspected Russian seed with Mongolian wording and retain rule-builder meaning."
+  },
+  {
+    "locale": "mn",
+    "key": "a-receivedAt",
+    "before": "изменил время получения на",
+    "after": "хүлээн авсан цагийг өөрчлөв:",
+    "reason": "Replace inspected Russian seed with Mongolian wording and retain rule-builder meaning."
+  },
+  {
+    "locale": "mn",
+    "key": "almostdue",
+    "before": "текущий срок выполнения %s приближается",
+    "after": "одоогийн дуусах хугацаа %s ойртож байна",
+    "reason": "Replace inspected Russian seed with Mongolian wording and retain rule-builder meaning."
+  },
+  {
+    "locale": "mn",
+    "key": "pastdue",
+    "before": "текущий срок выполнения %s прошел",
+    "after": "одоогийн дуусах хугацаа %s өнгөрсөн байна",
+    "reason": "Replace inspected Russian seed with Mongolian wording and retain rule-builder meaning."
+  },
+  {
+    "locale": "mn",
+    "key": "duenow",
+    "before": "текущий срок выполнения %s сегодня",
+    "after": "одоогийн дуусах хугацаа %s өнөөдөр байна",
+    "reason": "Replace inspected Russian seed with Mongolian wording and retain rule-builder meaning."
+  },
+  {
+    "locale": "mn",
+    "key": "act-newDue",
+    "before": "__list__/__card__ содержит 1-ое напоминание о сроке [__board__]",
+    "after": "__list__/__card__ анхны дуусах хугацааны сануулгатай [__board__]",
+    "reason": "Replace inspected Russian seed with Mongolian wording and retain rule-builder meaning."
+  },
+  {
+    "locale": "mn",
+    "key": "act-withDue",
+    "before": "__list__/__card__ напоминания о сроке выполнения [__board__]",
+    "after": "__list__/__card__ дуусах хугацааны сануулгууд [__board__]",
+    "reason": "Replace inspected Russian seed with Mongolian wording and retain rule-builder meaning."
+  },
+  {
+    "locale": "mn",
+    "key": "act-almostdue",
+    "before": "напомнил, что скоро завершается срок выполнения (__timeValue__) карточки __card__",
+    "after": "__card__ картын одоогийн дуусах хугацаа (__timeValue__) ойртож байгааг сануулав",
+    "reason": "Replace inspected Russian seed with Mongolian wording and retain rule-builder meaning."
+  },
+  {
+    "locale": "mn",
+    "key": "act-pastdue",
+    "before": "напомнил, что срок выполнения (__timeValue__) карточки __card__ прошел",
+    "after": "__card__ картын одоогийн дуусах хугацаа (__timeValue__) өнгөрснийг сануулав",
+    "reason": "Replace inspected Russian seed with Mongolian wording and retain rule-builder meaning."
+  },
+  {
+    "locale": "mn",
+    "key": "act-duenow",
+    "before": "напомнил, что срок выполнения (__timeValue__) карточки __card__ — это уже сейчас",
+    "after": "__card__ картын одоогийн дуусах хугацаа (__timeValue__) одоо болсныг сануулав",
+    "reason": "Replace inspected Russian seed with Mongolian wording and retain rule-builder meaning."
+  },
+  {
+    "locale": "mn",
+    "key": "delete-user-confirm-popup",
+    "before": "Вы уверены, что хотите удалить аккаунт? Данное действие необратимо.",
+    "after": "Энэ бүртгэлийг устгахдаа итгэлтэй байна уу? Буцаах боломжгүй.",
+    "reason": "Replace inspected Russian seed with Mongolian wording and retain rule-builder meaning."
+  },
+  {
+    "locale": "mn",
+    "key": "delete-team-confirm-popup",
+    "before": "Вы уверены, что хотите удалить эту команду? Эту операцию нельзя отменить.",
+    "after": "Энэ багийг устгахдаа итгэлтэй байна уу? Буцаах боломжгүй.",
+    "reason": "Replace inspected Russian seed with Mongolian wording and retain rule-builder meaning."
+  },
+  {
+    "locale": "mn",
+    "key": "delete-org-confirm-popup",
+    "before": "Вы уверены, что хотите удалить эту организацию? Эту операцию нельзя отменить.",
+    "after": "Энэ байгууллагыг устгахдаа итгэлтэй байна уу? Буцаах боломжгүй.",
+    "reason": "Replace inspected Russian seed with Mongolian wording and retain rule-builder meaning."
+  },
+  {
+    "locale": "mn",
+    "key": "accounts-allowUserDelete",
+    "before": "Разрешить пользователям удалять собственные аккаунты",
+    "after": "Хэрэглэгч өөрийн бүртгэлээ устгах",
+    "reason": "Replace inspected Russian seed with Mongolian wording and retain rule-builder meaning."
+  },
+  {
+    "locale": "mn",
+    "key": "show-desktop-drag-handles",
+    "before": "Показать ярлыки для перетаскивания",
+    "after": "Компьютер дээр чирэх бариулыг харуулах",
+    "reason": "Replace inspected Russian seed with Mongolian wording and retain rule-builder meaning."
+  },
+  {
+    "locale": "mn",
+    "key": "open-many-cards-at-once",
+    "before": "Открывать несколько карточек одновременно",
+    "after": "Олон картыг нэгэн зэрэг нээх",
+    "reason": "Replace inspected Russian seed with Mongolian wording and retain rule-builder meaning."
+  },
+  {
+    "locale": "mn",
+    "key": "open-many-cards-at-once-description",
+    "before": "Каждая карточка, на которую вы нажимаете, остаётся открытой в своём окне. Когда параметр выключен, нажатие на карточку закрывает ту, что была открыта.",
+    "after": "Дарсан карт бүрийг тус тусын цонхонд нээлттэй үлдээнэ. Үүнийг унтраасан үед карт дарахад нээлттэй байсан карт хаагдана.",
+    "reason": "Replace inspected Russian seed with Mongolian wording and retain rule-builder meaning."
+  },
+  {
+    "locale": "mn",
+    "key": "addmore-detail",
+    "before": "Добавить более детальное описание",
+    "after": "Илүү дэлгэрэнгүй тайлбар нэмэх",
+    "reason": "Replace inspected Russian seed with Mongolian wording and retain rule-builder meaning."
+  },
+  {
+    "locale": "mn",
+    "key": "editOrgPopup-title",
+    "before": "Редактировать организацию",
+    "after": "Байгууллага засах",
+    "reason": "Replace inspected Russian seed with Mongolian wording and retain rule-builder meaning."
+  },
+  {
+    "locale": "mn",
+    "key": "editUserPopup-title",
+    "before": "Редактировать пользователя",
+    "after": "Хэрэглэгч засах",
+    "reason": "Replace inspected Russian seed with Mongolian wording and retain rule-builder meaning."
+  },
+  {
+    "locale": "mn",
+    "key": "mark-all-as-read",
+    "before": "Отметить все как прочитанные",
+    "after": "Бүгдийг уншсан гэж тэмдэглэх",
+    "reason": "Replace inspected Russian seed with Mongolian wording and retain rule-builder meaning."
+  },
+  {
+    "locale": "mn",
+    "key": "start-day-of-week",
+    "before": "Установить день начала недели",
+    "after": "Долоо хоногийн эхлэх өдрийг тохируулах",
+    "reason": "Replace inspected Russian seed with Mongolian wording and retain rule-builder meaning."
+  },
+  {
+    "locale": "mn",
+    "key": "delete-linked-card-before-this-card",
+    "before": "Вы не можете удалить карточку, не удалив связанную c ней карточку, которая имеет",
+    "after": "Энэ картыг устгахын өмнө дараах зүйлтэй холбогдсон картыг эхлээд устгах шаардлагатай:",
+    "reason": "Replace inspected Russian seed with Mongolian wording and retain rule-builder meaning."
+  },
+  {
+    "locale": "mn",
+    "key": "delete-linked-cards-before-this-list",
+    "before": "Вы не можете удалить этот список, не удалив карточки, которые указывают на карточки в этом списке",
+    "after": "Энэ жагсаалтыг устгахын өмнө энэ жагсаалтын картууд руу заасан холбогдсон картуудыг эхлээд устгах шаардлагатай",
+    "reason": "Replace inspected Russian seed with Mongolian wording and retain rule-builder meaning."
+  },
+  {
+    "locale": "mn",
+    "key": "autoAddUsersWithDomainName",
+    "before": "Автоматически добавлять пользователей с доменным именем",
+    "after": "Домэйн нэртэй хэрэглэгчдийг автоматаар нэмэх",
+    "reason": "Replace inspected Russian seed with Mongolian wording and retain rule-builder meaning."
+  },
+  {
+    "locale": "mn",
+    "key": "dueCards-title",
+    "before": "Карточки с установленным сроком",
+    "after": "Хугацаа нь болсон картууд",
+    "reason": "Replace inspected Russian seed with Mongolian wording and retain rule-builder meaning."
+  },
+  {
+    "locale": "mn",
+    "key": "dueCardsViewChange-title",
+    "before": "Просмотр карточки с установленным сроком",
+    "after": "Хугацаа нь болсон картуудын харагдац",
+    "reason": "Replace inspected Russian seed with Mongolian wording and retain rule-builder meaning."
+  },
+  {
+    "locale": "mn",
+    "key": "dueCardsViewChangePopup-title",
+    "before": "Просмотр карточки с установленным сроком",
+    "after": "Хугацаа нь болсон картуудын харагдац",
+    "reason": "Replace inspected Russian seed with Mongolian wording and retain rule-builder meaning."
+  },
+  {
+    "locale": "mn",
+    "key": "dueCardsViewChange-choice-all-description",
+    "before": "Показать все незавершенные карточки с установленным сроком с досок для которых у пользователя есть разрешения.",
+    "after": "Хэрэглэгчийн эрхтэй самбаруудаас *дуусах хугацаатай* дуусаагүй бүх картыг харуулна.",
+    "reason": "Replace inspected Russian seed with Mongolian wording and retain rule-builder meaning."
+  },
+  {
+    "locale": "mn",
+    "key": "user-username-not-found",
+    "before": "Имя пользователя '%s' не найдено.",
+    "after": "'%s' хэрэглэгчийн нэр олдсонгүй.",
+    "reason": "Replace inspected Russian seed with Mongolian wording and retain rule-builder meaning."
+  },
+  {
+    "locale": "mn",
+    "key": "comment-not-found",
+    "before": "Карточка с комментарием, содержащим текст '%s', не найдена.",
+    "after": "'%s' текст агуулсан сэтгэгдэлтэй карт олдсонгүй.",
+    "reason": "Replace inspected Russian seed with Mongolian wording and retain rule-builder meaning."
+  },
+  {
+    "locale": "mn",
+    "key": "org-name-not-found",
+    "before": "Организация '%s' не найдена.",
+    "after": "'%s' байгууллага олдсонгүй.",
+    "reason": "Replace inspected Russian seed with Mongolian wording and retain rule-builder meaning."
+  },
+  {
+    "locale": "mn",
+    "key": "no-cards-found",
+    "before": "Ни одной карточки не найдено",
+    "after": "Карт олдсонгүй",
+    "reason": "Replace inspected Russian seed with Mongolian wording and retain rule-builder meaning."
   }
 ]
