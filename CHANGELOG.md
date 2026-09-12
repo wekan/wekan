@@ -557,6 +557,15 @@ to specific email domains using the existing identity provider integration.
 This release adds the following features:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/3c7b1a181">Repair Macedonian custom settings and template token</a>. Thanks to xet7.</summary>
+
+Correct 20 reviewed values and restore the literal %{value} template token.
+Positive and negative exact-value, rendering, source-token, key-order and
+repair checks pass. Further findings remain under review.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/1c1fbdfb0">Repair Macedonian scheduled job and creation date translations</a>. Thanks to xet7.</summary>
 
 Correct 15 reviewed values, restoring creation-date sorting and migration
