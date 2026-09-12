@@ -47234,5 +47234,26 @@
     "before": "Islamic (Saudi Arabia)",
     "after": "исламски календар (Саудијска Арабија, посматрање младог месеца)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "fo",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "indiskur tjóðarkalendari",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "fo",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "islamiskur kalendari (Saudiarabia, eygleiðing av mánanum)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "fo",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "islamiskur kalendari (talvuskapaður, stjørnufrøðilig byrjan á tíðarteljing)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
