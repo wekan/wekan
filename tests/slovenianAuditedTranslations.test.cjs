@@ -23,6 +23,17 @@ for (const locale of ['sl', 'sl_SI']) {
   assert.match(data['accounts-lockout-info'], /napadi z grobo silo/);
   assert.doesNotMatch(data['accounts-lockout-info'], /lozinkef/);
   assert.equal(data.MongoDB_storage_engine, 'Shranjevalni pogon MongoDB');
+  assert.match(data['admin-desc'], /odstranjuje člane.*nastavitve table.*dejavnosti/);
+  for (const key of ['admin-people-filter-inactive', 'admin-people-user-active', 'admin-people-user-inactive']) assert.doesNotMatch(data[key], /плат|plač|sodelovan/);
+  assert.match(data['admin-people-user-active'], /aktiven.*deaktivacijo/);
+  assert.match(data['admin-people-user-inactive'], /neaktiven.*aktivacijo/);
+  assert.match(data.allowNonBoardMembers, /vsem prijavljenim uporabnikom/);
+  assert.doesNotMatch(data.allowNonBoardMembers, /glas|član/);
+  assert.match(data['automatic-linked-url-schemes'], /Sheme URL.*Ena shema URL na vrstico/);
+  assert.doesNotMatch(data['attachment-move-storage-s3'], /Amazon|oblak/);
+  assert.match(data['always-field-on-card'], /vse kartice/);
+  assert.match(data['automatically-field-on-card'], /nove kartice/);
+
 }
 console.log('slovenianAuditedTranslations: both locales, spinner and memory meanings passed');
 

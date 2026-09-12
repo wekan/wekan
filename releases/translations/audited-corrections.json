@@ -30707,5 +30707,453 @@
     "before": "Ова функционалност биће ускоро додата",
     "after": "Možnost dodajanja načrtovanih opravil bo kmalu na voljo",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "add-existing-card-as-subtask-empty",
+    "before": "Није пронађен ни један предмет",
+    "after": "Ni najdenih ustreznih kartic",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "add-organizations-label",
+    "before": "Странке које имају увид су приказана доле:",
+    "after": "Dodane organizacije so prikazane spodaj:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "add-teams-label",
+    "before": "Додати тимови су приказани доле:",
+    "after": "Dodane ekipe so prikazane spodaj:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "add-template-container",
+    "before": "Додај сандук са обрасцима",
+    "after": "Dodaj vsebnik predlog",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "admin-desc",
+    "before": "Има увид и пун приступ у све предмете из ових списа. У овим списима може да бира сараднике, поставља правила рада и чита записник.",
+    "after": "Lahko si ogleduje in ureja kartice, odstranjuje člane ter spreminja nastavitve table. Lahko si ogleduje dejavnosti.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "admin-people-filter-all",
+    "before": "Обухвати све расположиве сараднике",
+    "after": "Vsi uporabniki",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "admin-people-filter-inactive",
+    "before": "Сарадник више није на платном списку",
+    "after": "Neaktivni",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "admin-people-filter-locked",
+    "before": "Налоге на мерама забране права приступа",
+    "after": "Samo zaklenjeni uporabniki",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "admin-people-user-active",
+    "before": "Сарадник је на платном списку - притисните да би прекинули сарадњу",
+    "after": "Uporabnik je aktiven – kliknite za deaktivacijo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "admin-people-user-inactive",
+    "before": "Сарадник није на платном списку - притисните да би га увели на платни списак",
+    "after": "Uporabnik je neaktiven – kliknite za aktivacijo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "allboards.edit-workspace",
+    "before": "Преименовање радног простора",
+    "after": "Uredi delovni prostor",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "allboards.edit-workspace-icon",
+    "before": "Слика за радни простор (код)",
+    "after": "Ikona delovnega prostora (Markdown)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "allowNonBoardMembers",
+    "before": "Дај право гласа и онима који немају увид у ове списе",
+    "after": "Dovoli vsem prijavljenim uporabnikom",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "allowed-upload-filetypes",
+    "before": "Дозвољене врсте датотека за слање:",
+    "after": "Dovoljene vrste datotek za nalaganje:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "always-field-on-card",
+    "before": "Придодај овакву рубрику и свим постојећим предметима",
+    "after": "Dodaj polje na vse kartice",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "app-try-reconnect",
+    "before": "Покушавам да се поново повежем.",
+    "after": "Poskusite se znova povezati.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "archive-board-confirm",
+    "before": "Да ли сте сигурни да желите да спакујете ове списе у архив?",
+    "after": "Ali ste prepričani, da želite arhivirati to tablo?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "attachment-migration",
+    "before": "Пресељење предметне грађе",
+    "after": "Selitev priponk",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "attachment-monitoring",
+    "before": "Надзор над предметном грађом",
+    "after": "Spremljanje priponk",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "attachment-move-storage-fs",
+    "before": "Пренеси материјал у локални систем датотека",
+    "after": "Premakni priponko v datotečni sistem",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "attachment-move-storage-gridfs",
+    "before": "Пренеси материјал у GridFS",
+    "after": "Premakni priponko v GridFS",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "attachment-move-storage-s3",
+    "before": "Пренеси материјал у облак на Amazon S3",
+    "after": "Premakni priponko v S3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "attachment-storage-configuration",
+    "before": "Поставка складишта предметне грађе",
+    "after": "Konfiguracija shranjevanja priponk",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "attachment-storage-settings",
+    "before": "Складиште предметне грађе",
+    "after": "Nastavitve shranjevanja",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "attachmentActionsPopup-title",
+    "before": "Поступање са овим материјалом",
+    "after": "Dejanja s priponko",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "attachments-path-description",
+    "before": "Путања до складишта где се чува предметна грађа",
+    "after": "Pot, kjer so shranjene datoteke priponk",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "autoAddUsersWithDomainName",
+    "before": "Повежи са оним сарадницима чији је домен е-поште",
+    "after": "Samodejno dodaj uporabnike z imenom domene",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "automatic-linked-url-schemes",
+    "before": "Група места на Интернету која би могла да се посете. Једна група по линији",
+    "after": "Sheme URL po meri, ki naj bodo samodejno klikljive. Ena shema URL na vrstico",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "automatically-field-on-card",
+    "before": "Сви будући предмети ће имати овакву рубрику",
+    "after": "Dodaj polje na nove kartice",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "avatar-too-big",
+    "before": "Слика је превелика (__size__ max)",
+    "after": "Avatar je prevelik (največ __size__)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "avatars-path",
+    "before": "Путања до слика сарадника",
+    "after": "Pot do avatarjev",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl",
+    "key": "avatars-path-description",
+    "before": "Путања где се складиште слике сарадника",
+    "after": "Pot, kjer so shranjene datoteke avatarjev",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "add-existing-card-as-subtask-empty",
+    "before": "Није пронађен ни један предмет",
+    "after": "Ni najdenih ustreznih kartic",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "add-organizations-label",
+    "before": "Странке које имају увид су приказана доле:",
+    "after": "Dodane organizacije so prikazane spodaj:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "add-teams-label",
+    "before": "Додати тимови су приказани доле:",
+    "after": "Dodane ekipe so prikazane spodaj:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "add-template-container",
+    "before": "Додај сандук са обрасцима",
+    "after": "Dodaj vsebnik predlog",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "admin-desc",
+    "before": "Има увид и пун приступ у све предмете из ових списа. У овим списима може да бира сараднике, поставља правила рада и чита записник.",
+    "after": "Lahko si ogleduje in ureja kartice, odstranjuje člane ter spreminja nastavitve table. Lahko si ogleduje dejavnosti.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "admin-people-filter-all",
+    "before": "Обухвати све расположиве сараднике",
+    "after": "Vsi uporabniki",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "admin-people-filter-inactive",
+    "before": "Сарадник више није на платном списку",
+    "after": "Neaktivni",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "admin-people-filter-locked",
+    "before": "Налоге на мерама забране права приступа",
+    "after": "Samo zaklenjeni uporabniki",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "admin-people-user-active",
+    "before": "Сарадник је на платном списку - притисните да би прекинули сарадњу",
+    "after": "Uporabnik je aktiven – kliknite za deaktivacijo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "admin-people-user-inactive",
+    "before": "Сарадник није на платном списку - притисните да би га увели на платни списак",
+    "after": "Uporabnik je neaktiven – kliknite za aktivacijo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "allboards.edit-workspace",
+    "before": "Преименовање радног простора",
+    "after": "Uredi delovni prostor",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "allboards.edit-workspace-icon",
+    "before": "Слика за радни простор (код)",
+    "after": "Ikona delovnega prostora (Markdown)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "allowNonBoardMembers",
+    "before": "Дај право гласа и онима који немају увид у ове списе",
+    "after": "Dovoli vsem prijavljenim uporabnikom",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "allowed-upload-filetypes",
+    "before": "Дозвољене врсте датотека за слање:",
+    "after": "Dovoljene vrste datotek za nalaganje:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "always-field-on-card",
+    "before": "Придодај овакву рубрику и свим постојећим предметима",
+    "after": "Dodaj polje na vse kartice",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "app-try-reconnect",
+    "before": "Покушавам да се поново повежем.",
+    "after": "Poskusite se znova povezati.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "archive-board-confirm",
+    "before": "Да ли сте сигурни да желите да спакујете ове списе у архив?",
+    "after": "Ali ste prepričani, da želite arhivirati to tablo?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "attachment-migration",
+    "before": "Пресељење предметне грађе",
+    "after": "Selitev priponk",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "attachment-monitoring",
+    "before": "Надзор над предметном грађом",
+    "after": "Spremljanje priponk",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "attachment-move-storage-fs",
+    "before": "Пренеси материјал у локални систем датотека",
+    "after": "Premakni priponko v datotečni sistem",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "attachment-move-storage-gridfs",
+    "before": "Пренеси материјал у GridFS",
+    "after": "Premakni priponko v GridFS",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "attachment-move-storage-s3",
+    "before": "Пренеси материјал у облак на Amazon S3",
+    "after": "Premakni priponko v S3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "attachment-storage-configuration",
+    "before": "Поставка складишта предметне грађе",
+    "after": "Konfiguracija shranjevanja priponk",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "attachment-storage-settings",
+    "before": "Складиште предметне грађе",
+    "after": "Nastavitve shranjevanja",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "attachmentActionsPopup-title",
+    "before": "Поступање са овим материјалом",
+    "after": "Dejanja s priponko",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "attachments-path-description",
+    "before": "Путања до складишта где се чува предметна грађа",
+    "after": "Pot, kjer so shranjene datoteke priponk",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "autoAddUsersWithDomainName",
+    "before": "Повежи са оним сарадницима чији је домен е-поште",
+    "after": "Samodejno dodaj uporabnike z imenom domene",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "automatic-linked-url-schemes",
+    "before": "Група места на Интернету која би могла да се посете. Једна група по линији",
+    "after": "Sheme URL po meri, ki naj bodo samodejno klikljive. Ena shema URL na vrstico",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "automatically-field-on-card",
+    "before": "Сви будући предмети ће имати овакву рубрику",
+    "after": "Dodaj polje na nove kartice",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "avatar-too-big",
+    "before": "Слика је превелика (__size__ max)",
+    "after": "Avatar je prevelik (največ __size__)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "avatars-path",
+    "before": "Путања до слика сарадника",
+    "after": "Pot do avatarjev",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "avatars-path-description",
+    "before": "Путања где се складиште слике сарадника",
+    "after": "Pot, kjer so shranjene datoteke avatarjev",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
