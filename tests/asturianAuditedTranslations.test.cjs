@@ -432,3 +432,11 @@ assert.notEqual(data['shortcut-toggle-filterbar'], data['shortcut-toggle-searchb
 assert.match(data['show-desktop-drag-handles'], /controles d’arrastre del escritoriu/);
 assert.match(data['show-parent-in-minicard'], /tarxeta madre na minitarxeta:/);
 assert.match(data['show-subtasks-field'], /campu de subtarees/);
+
+assert.match(data['show-week-of-year'], /selmana del añu \(ISO 8601\)/);
+assert.match(data['showLabel-field-on-card'], /etiqueta del campu na minitarxeta/);
+assert.match(data['smtp-host-description'], /direición del servidor SMTP.*xestiona/);
+assert.match(data['smtp-port-description'], /puertu.*SMTP.*salientes/);
+assert.match(data['smtp-tls-description'], /Activar.*TLS pal servidor SMTP/);
+assert.match(data['soft-wip-limit'], /Llende flexible del trabayu en cursu/);
+assert.notEqual(data['soft-wip-limit'], data['setWipLimitPopup-title']);

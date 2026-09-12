@@ -43657,5 +43657,47 @@
     "before": "Mostrar campo de subtareas",
     "after": "Amosar el campu de subtarees",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "show-week-of-year",
+    "before": "Mostrar semana del año (ISO 8601)",
+    "after": "Amosar la selmana del añu (ISO 8601)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "showLabel-field-on-card",
+    "before": "Mostrar etiquetas de campos en la minitarjeta.",
+    "after": "Amosar la etiqueta del campu na minitarxeta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "smtp-host-description",
+    "before": "Dirección del servidor SMTP para gestionar tus correos",
+    "after": "La direición del servidor SMTP que xestiona los tos correos electrónicos.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "smtp-port-description",
+    "before": "Puerto usado por el servidor SMTP para mandar correos",
+    "after": "El puertu que usa el to servidor SMTP pa los correos electrónicos salientes.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "smtp-tls-description",
+    "before": "Habilitar el soporte TLS para el servidor SMTP",
+    "after": "Activar la compatibilidá con TLS pal servidor SMTP",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "soft-wip-limit",
+    "before": "Límite del trabajo en proceso flexible",
+    "after": "Llende flexible del trabayu en cursu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
