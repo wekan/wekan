@@ -48151,5 +48151,47 @@
     "before": "Anoimizza gli utenc in esportazion",
     "after": "Anonimisar ils utilisaders en l’export",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "anonymize-import-users",
+    "before": "Anoimizza gli utenc in importazion",
+    "after": "Anonimisar ils utilisaders en l’import",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "api-no-calls",
+    "before": "No ie stata registrata alcuna chiamata REST API. L'API ie disattivata a meno che WITH_API=true.",
+    "after": "Nagins cloms da l’API REST èn vegnids registrads. L’API è deactivada, nun che WITH_API=true.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "attachment-move-storage-azure",
+    "before": "Sposta injunta su Azure Blob Storage",
+    "after": "Spustar l’agiunta en Azure Blob Storage",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "attachment-move-storage-fs",
+    "before": "Sposta injunta tl filesystem",
+    "after": "Spustar l’agiunta en il sistem da datotecas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "attachment-move-storage-gcs",
+    "before": "Sposta injunta su Google Cloud Storage",
+    "after": "Spustar l’agiunta en Google Cloud Storage",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "attachment-repair-locations",
+    "before": "Ripara le posizioni di file",
+    "after": "Reparar ils lieus da las datotecas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
