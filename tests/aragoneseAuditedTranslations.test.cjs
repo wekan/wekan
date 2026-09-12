@@ -115,3 +115,8 @@ assert.match(data['allboards.edit-workspace'], /espacio de treballo/);
 assert.match(data.almostdue, /actual %s s’acerca/);
 assert.match(data['already-account'], /Ya tiens una cuenta.*Inicia sesión/);
 assert.match(data['always-show-code-as-text'], /Amostrar siempre tot o codigo como texto plano/);
+assert.match(data['attachment-monitoring'], /Monitorización d’adchuntos/);
+for (const [key, name] of [['azure','Azure Blob Storage'],['gcs','Google Cloud Storage'],['gridfs','GridFS']]) assert.equal(data[`attachment-move-storage-${key}`], `Mover l’adchunto a ${name}`);
+assert.match(data['attachment-transfer-limits-invalid-value'], /limite positivo valido/);
+assert.match(data['attachment-transfer-limits-saved'], /transferencia d’adchuntos alzaus/);
+assert.notEqual(data['attachment-transfer-limits-invalid-value'], data['attachment-transfer-limits-saved']);

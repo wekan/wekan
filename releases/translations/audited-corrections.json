@@ -44490,5 +44490,47 @@
     "before": "Mostrar siempre todo el código como texto plano",
     "after": "Amostrar siempre tot o codigo como texto plano",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "attachment-monitoring",
+    "before": "Monitorización de adjuntos",
+    "after": "Monitorización d’adchuntos",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "attachment-move-storage-azure",
+    "before": "Mover adjunto a Azure Blob Storage",
+    "after": "Mover l’adchunto a Azure Blob Storage",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "attachment-move-storage-gcs",
+    "before": "Mover adjunto a Google Cloud Storage",
+    "after": "Mover l’adchunto a Google Cloud Storage",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "attachment-move-storage-gridfs",
+    "before": "Mover el adjunto a GridFS",
+    "after": "Mover l’adchunto a GridFS",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "attachment-transfer-limits-invalid-value",
+    "before": "Introduce un valor de límite positivo válido",
+    "after": "Introduz un valor de limite positivo valido, por favor",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "an",
+    "key": "attachment-transfer-limits-saved",
+    "before": "Límites de transferencia de adjuntos guardados.",
+    "after": "Limites de transferencia d’adchuntos alzaus.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
