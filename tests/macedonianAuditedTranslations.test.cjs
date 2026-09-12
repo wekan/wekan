@@ -71,6 +71,12 @@ const data = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/mk.i1
   assert.match(data['notify-participate'], /создавач или член/);
   assert.equal(translator.t('n-cards-found', { sprintf: ['7'] }), 'Пронајдени се 7 карти');
   assert.doesNotMatch(data['move-all-attachments-to-s3'], /Amazon|облак/);
+  assert.match(data['operator-limit-invalid'], /позитивен цел број/);
+  assert.equal(translator.t('operator-number-expected', { operator: 'LIMIT', value: 'BAD' }), "Операторот LIMIT очекуваше број, а доби 'BAD'");
+  assert.equal(translator.t('page-maybe-private', { sprintf: ['/login'] }), "Оваа страница можеби е приватна. Можеби ќе можете да ја видите ако <a href='/login'>се најавите</a>.");
+  assert.match(data['push-invite-text'], /ве поканува да се придружите/);
+  assert.doesNotMatch(data['push-invite-text'], /пун увид|целосен пристап/);
+  assert.match(data['public-desc'], /Само луѓето додадени на таблата можат да ја уредуваат/);
   assert.equal(data.list, 'Список');
   assert.equal(data.swimlane, 'Лента');
   console.log('macedonianAuditedTranslations: actual date and label rendering, checklist removal meaning and native labels passed');
