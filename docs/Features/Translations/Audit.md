@@ -14,14 +14,14 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,551** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `1e2fedf851c5bd4be2864c6b663169fede7c259e` — five French board/list/creator/member/comment search-help values repaired in Volapük using [Midgley vocabulary](https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf). Preserved operator tokens, exact example identifiers, Markdown and each filter’s meaning. Software senses and assembled relative clauses remain low confidence. Exact-value, token, example-identifier, JSON-example, key-order and idempotency checks pass; native-speaker and browser verification remain unavailable.
+Latest translation fix: **2026-09-13**, local commit `1e2fedf851c5bd4be2864c6b663169fede7c259e` — five Volapük search-help strings repaired. Tokens, examples and formatting preserved; assembled wording remains low confidence.
 
-**Review follow-up:** Silesian `sandstorm-raw-mongodb` remains pending because available evidence does not distinguish its wording sufficiently from Polish.
+**Verification:** exact values, placeholders, JSON examples, key order and progress-update checks pass. Native-speaker and browser verification remain unavailable.
 
-**Tigre follow-up:** `tig` has 17 pending calendar findings. Its existing `calendar` value, `ዓውደ ኣዋርሕ`, is attested as [Tigrinya terminology](https://www.geezexperience.com/?dr=0&searchkey=calendar); retrieved CLDR Tigre data supplies no translated calendar names. Validate Tigre vocabulary separately before using this existing term in repairs. This evidence does not yet prove the term is invalid in Tigre.
+**Unresolved reviews:** Silesian `sandstorm-raw-mongodb` needs vocabulary validation; 17 Tigre calendar findings need Tigre-specific terminology validation. The existing Tigre calendar term is attested in Tigrinya, which does not establish whether it is valid in Tigre.
 
 **Origin:** not all errors came from Transifex. The captured pull changed 4,061 values; the local audit added 16,020 findings. Bosnian errors already existed in local commit `bdb3b15886a749b725b5290ba0109fcba955f983`. Other ultimate origins remain unverified.
 
 [Detailed evidence](Audit-Evidence.md) preserves the original categorized tables.
 
-After each repair batch, run `node releases/translations/audit-progress.mjs --update-summary` to refresh dates and counts, then replace the latest fix commit and verification details above. Use `--locale <tag>` to list remaining findings. Keep batch details in the correction records. No remote uploads have been performed.
+After each repair batch, run `node releases/translations/audit-progress.mjs --update-summary`, then update the latest fix commit and verification above. Keep detailed findings in the evidence file and batch changes in the correction records. No remote uploads performed.
