@@ -83004,5 +83004,47 @@
     "before": "Sous-titre avec le parent",
     "after": "Mbind ci suuf ak karta bu mag bi",
     "reason": "Replace French with Wolof; correct swimlane warning from cannot use to cannot recover with all activity removal/no undo, preserve private-only boards, permanent planning-poker activity loss, support state, orphan-card repair and subtext path/parent distinctions. Visibility/orphan/subtext phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "tracking-info",
+    "before": "Vous serez notifié de toute modification concernant les cartes pour lesquelles vous êtes impliqué en tant que créateur ou participant.",
+    "after": "Dina nga jot yégle ci soppi bu nekk ci karta yi nga bokk ni ki leen sos walla bokkkat.",
+    "reason": "Replace French with Wolof; preserve creator-or-member notification scope, unsaved description, permanent vote activity loss, archived-list warning, task count exceeding configured WIP and end-date existence predicate. WIP/notification phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "unsaved-description",
+    "before": "Vous avez une description non sauvegardée",
+    "after": "Am nga leeral bu dencuwul.",
+    "reason": "Replace French with Wolof; preserve creator-or-member notification scope, unsaved description, permanent vote activity loss, archived-list warning, task count exceeding configured WIP and end-date existence predicate. WIP/notification phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "vote-delete-pop",
+    "before": "La suppression est définitive. Vous perdrez toutes les actions associées à ce vote.",
+    "after": "Far gi day sax. Dina nga ñàkk jëf yépp yi lëkkaloo ak wote bii.",
+    "reason": "Replace French with Wolof; preserve creator-or-member notification scope, unsaved description, permanent vote activity loss, archived-list warning, task count exceeding configured WIP and end-date existence predicate. WIP/notification phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "warn-list-archived",
+    "before": "attention : cette carte est dans une liste archivée",
+    "after": "artu: karta bii nekk na ci limu bu ñu denc ci àrsiw",
+    "reason": "Replace French with Wolof; preserve creator-or-member notification scope, unsaved description, permanent vote activity loss, archived-list warning, task count exceeding configured WIP and end-date existence predicate. WIP/notification phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "wipLimitErrorPopup-dialog-pt1",
+    "before": "Le nombre de cartes de cette liste est supérieur à la limite WIP que vous avez définie.",
+    "after": "Limu liggéey yi ci limu bii weesu na kemu WIP bi nga jekkal.",
+    "reason": "Replace French with Wolof; preserve creator-or-member notification scope, unsaved description, permanent vote activity loss, archived-list warning, task count exceeding configured WIP and end-date existence predicate. WIP/notification phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "globalSearch-instructions-status-ended",
+    "before": "`__predicate_ended__` - cartes ayant une date de fin.",
+    "after": "`__predicate_ended__` - karta yi am bisu jeex",
+    "reason": "Replace French with Wolof; preserve creator-or-member notification scope, unsaved description, permanent vote activity loss, archived-list warning, task count exceeding configured WIP and end-date existence predicate. WIP/notification phrasing and full grammar remain low confidence."
   }
 ]
