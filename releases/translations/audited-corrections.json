@@ -92860,5 +92860,26 @@
     "before": "Alle als gelesen markieren",
     "after": "Hoch laDlu'pu' 'e' yIper",
     "reason": "Replace three flagged German selection/read-marking controls with direct Klingon. Multi-selection active wording mirrors existing multi-selection-off (Doch law' wIvmeH jan) with enabled state chu'lu'. Selected objects receive a label using per yIcher; mark-all-as-read describes marking that all have been read (Hoch laDlu'pu' 'e' yIper). Existing wIv select, per label and cher configure vocabulary retained. Sentence-as-object and software-selection constructions are low confidence and need fluent-speaker validation; no placeholders changed."
+  },
+  {
+    "locale": "tlh",
+    "key": "shortcut-toggle-searchbar",
+    "before": "Such-Seitenleiste ein-/ausblenden",
+    "after": "nejmeH retlh tetlh yI'ang/yISo'",
+    "reason": "Replace three flagged German sidebar shortcut labels with direct Klingon. Sidebar described using retlh tetlh (side list/panel), as in existing drag-board-to-workspace. Toggle rendered explicitly as show/hide yI'ang/yISo'; distinguish search nejmeH, board raS, and filtering/selecting wIvmeH. Software meaning of selecting as filtering and the side-list description are low confidence and require fluent-speaker validation. No source placeholders changed."
+  },
+  {
+    "locale": "tlh",
+    "key": "shortcut-toggle-sidebar",
+    "before": "Seitenleiste ein-/ausblenden",
+    "after": "raS retlh tetlh yI'ang/yISo'",
+    "reason": "Replace three flagged German sidebar shortcut labels with direct Klingon. Sidebar described using retlh tetlh (side list/panel), as in existing drag-board-to-workspace. Toggle rendered explicitly as show/hide yI'ang/yISo'; distinguish search nejmeH, board raS, and filtering/selecting wIvmeH. Software meaning of selecting as filtering and the side-list description are low confidence and require fluent-speaker validation. No source placeholders changed."
+  },
+  {
+    "locale": "tlh",
+    "key": "shortcut-toggle-filterbar",
+    "before": "Filter-Seitenleiste ein-/ausblenden",
+    "after": "wIvmeH retlh tetlh yI'ang/yISo'",
+    "reason": "Replace three flagged German sidebar shortcut labels with direct Klingon. Sidebar described using retlh tetlh (side list/panel), as in existing drag-board-to-workspace. Toggle rendered explicitly as show/hide yI'ang/yISo'; distinguish search nejmeH, board raS, and filtering/selecting wIvmeH. Software meaning of selecting as filtering and the side-list description are low confidence and require fluent-speaker validation. No source placeholders changed."
   }
 ]
