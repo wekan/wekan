@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 12,582 |
+| Corrected | 12,585 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 3,264 |
+| Pending review or repair | 3,261 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Restored and unflagged values still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **13,164** exact before/after values, including repairs outside the audit.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **13,167** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `8f95ba52f1e3d0613498aa38e0db166791d98c96` — four Buryat calendar labels repaired, replacing Turkish/English text with direct Buryat wording. Proper-name renderings and assembled phrases remain low confidence and need native-speaker validation.
+Latest translation fix: **2026-09-13**, local commit `3678e27372742a87a6931ed93cf81ae8ea5d933b` — three Buryat Hijri variant labels repaired, restoring tabular, epoch and sighting distinctions. Flagged Buryat queue is empty; assembled wording and restored/unflagged values still need validation.
 
 **Verification:** correction and progress tests pass. Native-speaker and browser checks remain outstanding.
 
