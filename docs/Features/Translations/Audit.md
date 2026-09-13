@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 12,294 |
+| Corrected | 12,297 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 3,552 |
+| Pending review or repair | 3,549 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Restored and unflagged values still need validation.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,796** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,811** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `caec821998fc2ef8a3e2f14ea000ec72e79b8569` — five Volapük export/import strings repaired, replacing French/Esperanto instructions and labels. Preserved navigation order, matching local controls, downloaded-file copying and insufficient disk space; software adaptations and assembled wording remain low confidence.
+Latest translation fix: **2026-09-13**, local commit `362182f5a6f79bfa79c36df10edda5b97d23aeb1` — fifteen Volapük ZIP/CSV and rule-import strings repaired. Preserved formats/extensions, named Trello tool, board/attachment scope, wait instruction and size/failure conditions; folder/separator adaptations and assembled wording remain low confidence.
 
 **Verification:** correction and progress tests pass, covering exact values, placeholders, JSON examples and key order. Native-speaker and browser checks remain outstanding.
 
