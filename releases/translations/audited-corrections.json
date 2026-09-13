@@ -91719,5 +91719,33 @@
     "before": "Le nombre de cartes de cette liste est supérieur à la limite WIP que vous avez définie.",
     "after": "Mödot bligädas in lised at binon gretikum ka mied WIP, keli elonol.",
     "reason": "Replace French full-path display, PDF-preview, vote-deletion and WIP warning with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests paratül (device), büologed (preview), veg (path), lölik (whole), feapladön (download), laidik (permanent), vögod (vote), bligäd (task), mödot (quantity), and mied (limit). Minicard template shows parentString hierarchy before card text or in parent-subtext; preserve full hierarchy and before/below distinction. Preserve unsupported device preview and trying download instead, permanent vote deletion with all associated actions lost, and task count higher than user-defined WIP limit. PDF/WIP remain technical names; hierarchy-path/software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "calendar-system-chinese",
+    "before": "Chinese",
+    "after": "Kaled tsyinik",
+    "reason": "Replace English calendar labels with Volapük surrounding wording. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests kaled (calendar), tsyin (Chinese language), hebrey (Hebrew adjective) and vig (week). Tsyinik is an assembled adjective; Dangi remains the source proper calendar name. Preserve Gregorian calendar plus ISO 8601 weeks rather than retaining identifier alone; Gregoriälik follows existing locale label and is not independently validated by this lookup. Assembled calendar wording remains low confidence pending native review; do not treat dictionary vocabulary as full phrase validation."
+  },
+  {
+    "locale": "vo",
+    "key": "calendar-system-hebrew",
+    "before": "Hebrew",
+    "after": "Kaled hebrey",
+    "reason": "Replace English calendar labels with Volapük surrounding wording. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests kaled (calendar), tsyin (Chinese language), hebrey (Hebrew adjective) and vig (week). Tsyinik is an assembled adjective; Dangi remains the source proper calendar name. Preserve Gregorian calendar plus ISO 8601 weeks rather than retaining identifier alone; Gregoriälik follows existing locale label and is not independently validated by this lookup. Assembled calendar wording remains low confidence pending native review; do not treat dictionary vocabulary as full phrase validation."
+  },
+  {
+    "locale": "vo",
+    "key": "calendar-system-dangi",
+    "before": "Dangi (Korean)",
+    "after": "Kaled Dangi",
+    "reason": "Replace English calendar labels with Volapük surrounding wording. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests kaled (calendar), tsyin (Chinese language), hebrey (Hebrew adjective) and vig (week). Tsyinik is an assembled adjective; Dangi remains the source proper calendar name. Preserve Gregorian calendar plus ISO 8601 weeks rather than retaining identifier alone; Gregoriälik follows existing locale label and is not independently validated by this lookup. Assembled calendar wording remains low confidence pending native review; do not treat dictionary vocabulary as full phrase validation."
+  },
+  {
+    "locale": "vo",
+    "key": "calendar-system-iso8601",
+    "before": "ISO 8601",
+    "after": "Kaled Gregoriälik (vigs ISO 8601)",
+    "reason": "Replace English calendar labels with Volapük surrounding wording. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests kaled (calendar), tsyin (Chinese language), hebrey (Hebrew adjective) and vig (week). Tsyinik is an assembled adjective; Dangi remains the source proper calendar name. Preserve Gregorian calendar plus ISO 8601 weeks rather than retaining identifier alone; Gregoriälik follows existing locale label and is not independently validated by this lookup. Assembled calendar wording remains low confidence pending native review; do not treat dictionary vocabulary as full phrase validation."
   }
 ]
