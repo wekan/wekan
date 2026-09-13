@@ -67338,5 +67338,89 @@
     "before": "Peut seulement voir les cartes. Ne peut pas éditer.",
     "after": "Gallout a reer gwelet ar c’hartennoù hepken. Ne c’haller ket kemmañ anezho.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "remove-labels-multiselect",
+    "before": "La multi-sélection supprime les étiquettes 1-9",
+    "after": "An diuzad lies a denn an tikedennoù 1-9",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "rescue-card-description",
+    "before": "Afficher le dialogue de sauvegarde avant de fermer les descriptions de carte  en cours de modification",
+    "after": "Diskouez ur prenestr saveteiñ a-raok serriñ deskrivadurioù kartenn n’int ket enrollet",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "rescue-card-description-dialogue",
+    "before": "Réécrire la description de la carte courante avec vos changements ?",
+    "after": "Erlec’hiañ deskrivadur ar gartenn a-vremañ gant ho kemmoù?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "restore-all-archived-migration",
+    "before": "Tout restaurer depuis les archives",
+    "after": "Adsevel pep tra diellaouet",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "restore-all-archived-migration-description",
+    "before": "Restaure tous les couloirs, listes et cartes archivés. Corrige automatiquement les swimlaneId ou listId manquants pour rendre les éléments visibles.",
+    "after": "Adsevel a ra an holl drepasoù, rolloù ha kartennoù diellaouet. Reizhañ a ra ent emgefre ar swimlaneId pe listId a vank evit ma vo hewel an elfennoù.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "restore-lost-cards-migration",
+    "before": "Restaurer les cartes perdues",
+    "after": "Adsevel ar c’hartennoù kollet",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "restore-lost-cards-migration-description",
+    "before": "Recherche et restaure les cartes et listes avec un swimlaneId ou listId manquant. Crée un couloir 'Cartes perdues' pour rendre tous les éléments perdus à nouveau visibles.",
+    "after": "Kavout hag adsevel a ra kartennoù ha rolloù gant swimlaneId pe listId a vank. Krouiñ a ra un trepas « Lost Cards » evit ma vo hewel en-dro an holl elfennoù kollet.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "restore-lost-cards-nothing-to-restore",
+    "before": "Aucun couloir, liste ou carte perdu à restaurer",
+    "after": "N’eus trepas, roll na kartenn kollet ebet da adsevel",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "right-of-list",
+    "before": "À droite de la liste sélectionnée",
+    "after": "A-zehou d’ar roll diuzet",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "run-delete-duplicate-empty-lists-migration-confirm",
+    "before": "Cette opération convertira d'abord les listes partagées en listes par couloir, puis supprimera les listes vides qui ont une liste en double avec le même titre contenant des cartes. Seules les listes vides vraiment redondantes seront supprimées. Continuer ?",
+    "after": "Da gentañ e vo troet ar rolloù rannet e rolloù dre drepas; goude-se e vo dilamet ar rolloù goullo gant ur roll all heñvel e ditl ennañ kartennoù. Ne vo dilamet nemet ar rolloù goullo a zo e doubl da vat. Kenderc’hel?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "run-restore-all-archived-migration-confirm",
+    "before": "Cette opération restaurera TOUS les couloirs, listes et cartes archivés, les rendant à nouveau visibles. Les éléments avec des identifiants manquants seront automatiquement corrigés. Cette action ne peut pas être facilement annulée. Continuer ?",
+    "after": "Adsevel a raio an ober-mañ an HOLL drepasoù, rolloù ha kartennoù diellaouet evit ma vint hewel en-dro. Reizhet e vo ent emgefre an elfennoù gant IDoù a vank. N’haller ket nullañ an ober-mañ aes. Kenderc’hel?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "run-restore-lost-cards-migration-confirm",
+    "before": "Cette opération créera un couloir « Cartes perdues » et restaurera toutes les cartes et listes avec un swimlaneId ou listId manquant. Cela n'affecte que les éléments non archivés. Continuer ?",
+    "after": "Krouet e vo un trepas « Lost Cards » hag adsevet e vo an holl gartennoù ha rolloù gant swimlaneId pe listId a vank. Ne sell an ober-mañ nemet ouzh an elfennoù nann-diellaouet. Kenderc’hel?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
