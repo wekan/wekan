@@ -71216,5 +71216,131 @@
     "before": "Cari dari judul kartu/daftar, deskripsi dan bidang khusus di papan ini",
     "after": "Mita nibak judul kad/senarai, deskripsi ngon ruang khusus bak papan nyoe",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "search-example",
+    "before": "Tulis teks carian anda dan tekan \"Enter\"",
+    "after": "Tuleh teks nyang droeneueh mita ngon teugon Enter",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "send-smtp-test",
+    "before": "Hantar e-mel percubaan kepada diri sendiri",
+    "after": "Kirem emel uji u droe keudroe",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "server-error-troubleshooting",
+    "before": "Sila masukkan ralat yang diberikan oleh komputer pelayan. \nUntuk instalasi menggunakan snap, larikan: 'sudo snap logs wekan.wekan'\nUntuk Instalasi menggunakan Docker, larikan: 'sudo docker logs wekan-app'",
+    "after": "Neukirem pesan salah nyang geupeugot le server.\nKeu instalasi Snap, peujalan: `sudo snap logs wekan.wekan`\nKeu instalasi Docker, peujalan: `sudo docker logs wekan-app`",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "set-selected-unstarred",
+    "before": "Buang bintang daripada papan yang dipilih",
+    "after": "Hapus bintang nibak papan nyang geupileh",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "set-wip-limit-value",
+    "before": "Tetapkan batas untuk jumlah tugas maksimum dalam daftar ini",
+    "after": "Atô bataih jeumeulah tugas nyang paleng le bak senarai nyoe",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "settingsTranslationPopup-title",
+    "before": "Hapus teks terjemahan pesanan ini?",
+    "after": "Hapus teks teujeumah khusus nyoe?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "shortcut-add-self",
+    "before": "Tambah diri sendiri kepada kad ini",
+    "after": "Tamah droe keudroe u kad jinoe",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "shortcut-assign-self",
+    "before": "Masukkan diri anda sendiri ke kartu ini",
+    "after": "Bri tugas bak kad jinoe u droe keudroe",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "shortcut-show-shortcuts",
+    "before": "Angkat naik shortcut daftar ini",
+    "after": "Peuleumah senarai pintasan nyoe",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "shortcut-toggle-filterbar",
+    "before": "Toggle Filter Bilah Samping",
+    "after": "Peuleumah/som sidebar saringan",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "shortcut-toggle-sidebar",
+    "before": "Toggle Papan Bilah Samping",
+    "after": "Peuleumah/som sidebar papan",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "show-card-counter-per-list",
+    "before": "Papar jumlah Kad setiap Senarai",
+    "after": "Peuleumah jeumeulah kad bak tiep senarai",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "show-cards-minimum-count",
+    "before": "Tampilkan jumlah kartu jika daftar punya lebih dari",
+    "after": "Peuleumah jeumeulah kad meunyoe senarai na leubeh nibak",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "show-desktop-drag-handles",
+    "before": "Tampilkan gagang seret desktop",
+    "after": "Peuleumah gagang tarék bak desktop",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "show-field-on-card",
+    "before": "Papar ruangan ini pada kad",
+    "after": "Peuleumah ruang nyoe bak kad",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "show-parent-in-minicard",
+    "before": "Papar induk dalam kadmini:",
+    "after": "Peuleumah induk bak kad ubit:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "show-subtasks-field",
+    "before": "Tampilkan bagian tugas bidang",
+    "after": "Peuleumah ruang subtugas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "showLabel-field-on-card",
+    "before": "Papar label ruang pada kad mini",
+    "after": "Peuleumah label ruang bak kad ubit",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

@@ -63,5 +63,10 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
     assert.doesNotMatch(cache.ace[`r-d-move-to-top-${suffix}`], /miyup/, 'top must not mean bottom');
     assert.match(cache.ace[`r-d-move-to-bottom-${suffix}`], /u miyup/, 'move to bottom');
   }
+  for (const command of ['sudo snap logs wekan.wekan', 'sudo docker logs wekan-app']) {
+    assert.ok(cache.ace['server-error-troubleshooting'].includes(`\`${command}\``), `preserve diagnostic command: ${command}`);
+  }
+  assert.match(cache.ace['shortcut-assign-self'], /Bri tugas/, 'assigning oneself is distinct from joining');
+  assert.doesNotMatch(cache.ace['shortcut-add-self'], /Bri tugas/);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });
