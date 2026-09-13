@@ -100973,5 +100973,306 @@
     "before": "Nur ungelesene",
     "after": "laDlu'pu'be'bogh neH 'ang",
     "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "remove-all-read",
+    "before": "Alle gelesenen entfernen",
+    "after": "Hoch laDlu'pu'bogh teq",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "allow-rename",
+    "before": "Umbenennen erlauben",
+    "after": "pong choH 'e' chaw'",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "allowRenamePopup-title",
+    "before": "Umbenennen erlauben",
+    "after": "pong choH 'e' chaw'",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "roles-status-comment",
+    "before": "Kommentar speichern",
+    "after": "QInHom",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "monday",
+    "before": "Montag",
+    "after": "DaSjaj",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "tuesday",
+    "before": "Dienstag",
+    "after": "povjaj",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "wednesday",
+    "before": "Mittwoch",
+    "after": "ghItlhjaj",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "thursday",
+    "before": "Donnerstag",
+    "after": "loghjaj",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "friday",
+    "before": "Freitag",
+    "after": "buqjaj",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "saturday",
+    "before": "Samstag",
+    "after": "ghInjaj",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "sunday",
+    "before": "Sonntag",
+    "after": "jaj wa'",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "owner",
+    "before": "Eigentümer",
+    "after": "ghajwI'",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "last-modified-at",
+    "before": "Zuletzt geändert um",
+    "after": "choHlu'pu'meH poH Qav",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "last-activity",
+    "before": "Letzte Aktivität",
+    "after": "mIw Qav",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "voting",
+    "before": "Abstimunng",
+    "after": "wIvmeH ghogh",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "archived",
+    "before": "Archiviert",
+    "after": "polmeH DaqDaq vIHmoHlu'pu'",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "task",
+    "before": "Aufgabe",
+    "after": "Qu'",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "create-task",
+    "before": "Aufgabe erstellen",
+    "after": "Qu' chenmoH",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "displayName",
+    "before": "Anzeigename",
+    "after": "'angmeH pong",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "shortName",
+    "before": "Kurzname",
+    "after": "pong tIqHa'",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "website",
+    "before": "Webseite",
+    "after": "Internet Daq",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "my-attachments",
+    "before": "Meine Anhänge",
+    "after": "rarDochmeywIj",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "day",
+    "before": "Tag",
+    "after": "jaj",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "week",
+    "before": "Woche",
+    "after": "Hogh",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "month",
+    "before": "Monat",
+    "after": "jar",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "myCardsViewChange-title",
+    "before": "Meine Karten Ansicht",
+    "after": "'echletHommeywIj 'angmeH mIw",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "myCardsViewChangePopup-title",
+    "before": "Meine Karten Ansicht",
+    "after": "'echletHommeywIj 'angmeH mIw",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "myCardsViewChange-choice-table",
+    "before": "Tabelle",
+    "after": "wa'DIch tetlh",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "myCardsSortChange-title",
+    "before": "Meine Karten Sortierung",
+    "after": "'echletHommeywIj pat",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "myCardsSortChangePopup-title",
+    "before": "Meine Karten Sortierung",
+    "after": "'echletHommeywIj pat",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "myCardsSortChange-choice-board",
+    "before": "nach Board",
+    "after": "raS pab",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "myCardsSortChange-choice-dueat",
+    "before": "nach Fälligkeitsdatum",
+    "after": "qaSmeH poH pab",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "dueCards-title",
+    "before": "Fällige Karten",
+    "after": "qaSmeH poH ghajbogh 'echletHommey",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "dueCardsViewChange-title",
+    "before": "Fällige Karten Ansicht",
+    "after": "qaSmeH poH ghajbogh 'echletHommey 'angmeH mIw",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "dueCardsViewChangePopup-title",
+    "before": "Fällige Karten Ansicht",
+    "after": "qaSmeH poH ghajbogh 'echletHommey 'angmeH mIw",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "dueCardsViewChange-choice-me",
+    "before": "Ich",
+    "after": "jIH",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "dueCardsViewChange-choice-all",
+    "before": "alle Benutzer",
+    "after": "Hoch lo'wI'pu'",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "broken-cards",
+    "before": "Fehlerhafte Karten",
+    "after": "Qapbe'bogh 'echletHommey",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "globalSearch-title",
+    "before": "Alle Boards durchsuchen",
+    "after": "Hoch raSmeyDaq nej",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "no-cards-found",
+    "before": "Keine Karten gefunden",
+    "after": "'echletHommey tu'lu'be'",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "one-card-found",
+    "before": "Eine Karte gefunden",
+    "after": "wa' 'echletHom tu'lu'",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "n-cards-found",
+    "before": "%s Karten gefunden",
+    "after": "%s 'echletHommey tu'lu'",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "n-n-of-n-cards-found",
+    "before": "__start__–__end__ von __total__ Karten gefunden",
+    "after": "__total__ 'echletHommeyvo' __start__-__end__ tu'lu'",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
   }
 ]
