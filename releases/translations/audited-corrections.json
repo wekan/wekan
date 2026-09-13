@@ -1768,7 +1768,7 @@
     "key": "calendar-system-gregorian",
     "before": "Gregoriana",
     "after": "གྲེག་གོ་རི་ཡཱན་ཟླ་ཐོ",
-    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+    "reason": "Replace foreign Gregorian wording with exact Dzongkha CLDR calendar name གྲེག་གོ་རི་ཡཱན་ཟླ་ཐོ from https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/dz.xml . Full calendar term supplied by locale data; no independent native UI verification."
   },
   {
     "locale": "ee",
@@ -86196,5 +86196,12 @@
     "before": "Jalali (Fars)",
     "after": "Jalali ཟླ་ཐོ (པར་ཤི་ཡཱན)",
     "reason": "Replace generic foreign Fars label with assembled Dzongkha Jalali calendar and Persian designation. Calendar ཟླ་ཐོ and Persian language name པར་ཤི་ཡཱན་ཁ in https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/dz.xml ; adapt the Persian designation by removing language suffix ཁ. Preserve Jalali proper identifier. Adaptation and full phrase remain low confidence, not native-speaker verified."
+  },
+  {
+    "locale": "dz",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "རྒྱལ་ཁབ་ཀྱི་ཟླ་ཐོ (རྒྱ་གར)",
+    "reason": "Replace English Indian national using national adjective རྒྱལ་ཁབ་ཀྱི from indexed official pocket dictionary https://www.dzongkha.gov.bt/uploads/files/publications/English-Dzongkha_Pocket_Dictionary_fcbe977ea0f17fa3c90a8cd9a0b6c4f1.pdf and CLDR calendar/country terminology https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/dz.xml . Assembled label remains low confidence without native-speaker verification."
   }
 ]
