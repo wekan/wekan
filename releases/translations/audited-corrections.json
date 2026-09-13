@@ -50587,5 +50587,75 @@
     "before": "%s di %s checklists completate",
     "after": "hà compiu a lista di cuntrollu %s di %s",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "activity-checklist-uncompleted",
+    "before": "la lista di controllo %s di %s non è stata completata",
+    "after": "hà marcatu cum’è micca compia a lista di cuntrollu %s di %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "activity-checklist-uncompleted-card",
+    "before": "La checklist %s non è completa",
+    "after": "hà marcatu cum’è micca compia a lista di cuntrollu %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "activity-customfield-created",
+    "before": "creato campo personalizzato/a %s ",
+    "after": "hà creatu u campu persunalizatu %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "activity-moved",
+    "before": "ha spostato %s da %s a %s",
+    "after": "hà spiazzatu %s da %s à %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "activity-set-customfield",
+    "before": "imposta campo personalizzato '%s' a '%s' in %s",
+    "after": "hà definitu u campu persunalizatu '%s' à '%s' in %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "activity-unset-customfield",
+    "before": "campo personalizzato non impostato '%s' in %s",
+    "after": "hà cacciatu u valore di u campu persunalizatu '%s' in %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "add-background-image",
+    "before": "Aggiungere immagine di sfondo",
+    "after": "Aghjunghje un’imagine di fondu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "add-custom-html-before-body-end",
+    "before": "Aggiunti il codice HTML prima di </body> fine",
+    "after": "Aghjunghje HTML persunalizatu prima di a fine </body>",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "add-organizations-label",
+    "before": "Le organizzazioni aggiunte sono mostrate sotto:",
+    "after": "L’urganisazioni aghjunte sò affissate quì sottu:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "add-teams-label",
+    "before": "I team aggiunti sono i seguenti:",
+    "after": "E squadre aghjunte sò affissate quì sottu:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
