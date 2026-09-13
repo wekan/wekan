@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 11,743 |
+| Corrected | 11,750 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 4,103 |
+| Pending review or repair | 4,096 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,115** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,124** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `5c5989e63667b58b9723f2e3f47a02792afd043c` — 4 Sesotho calendar labels repaired: Ethiopic/Amete Alem, Indian national and Saudi Hijri moon sighting, preserving proper names and variant details. Complete assembled grammar and sighting adaptation remain low confidence. Coptic and tabular civil/astronomical epoch labels remain pending. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; live browser verification is unavailable.
+Latest translation fix: **2026-09-13**, local commit `4e315ae01cf14f4206405c5133da9fe40156d87c` — 9 Setswana calendar labels repaired: English filler, foreign-language setting, Chinese/Japanese/Dangi, Hijri/Umm al-Qura, Minguo and Gregorian ISO weeks. Published vocabulary supports calendar/country terms; complete assembled grammar remains low confidence. Remaining religious/country/national and Hijri variant labels need review. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; live browser verification is unavailable.
 
 **Review follow-up:** Silesian `sandstorm-raw-mongodb` remains pending: its wording overlaps Polish and existing Silesian technical strings, but dictionary searches did not establish the full phrase as correct Silesian. Keep the current value until stronger language evidence supports retaining or replacing it.
 
