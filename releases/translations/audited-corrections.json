@@ -55039,5 +55039,75 @@
     "before": "Non puoi cambiare i ruoli perché deve esserci almeno un admin.",
     "after": "Nu pots s-alãxezi rolurili, cã lipsea s-ari cel putsãn un administrator.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "label-delete-pop",
+    "before": "Non potrai tornare indietro. Procedendo, rimuoverai questa etichetta da tutte le schede e distruggerai la sua cronologia.",
+    "after": "Nu ari anulare. Aesta va s-scoatã eticheta di tuti cãrtsãli shi va s-distrugã istoria a ei.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "list-archive-cards",
+    "before": "Sposta tutte le schede in questa lista nell'archivio",
+    "after": "Arhiveadzã tuti cãrtsãli di aesta listã",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "list-delete-pop",
+    "before": "Tutte le azioni saranno rimosse dal flusso attività e non sarai in grado di recuperare la lista. Non potrai tornare indietro.",
+    "after": "Tuti actsiunili va s-hibã scoasi di fluxul di activitati shi nu va s-pots recuperedzi lista. Nu ari anulare.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "list-move-cards",
+    "before": "Sposta tutte le schede in questa lista",
+    "after": "Mutã tuti cãrtsãli di aesta listã",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "list-select-cards",
+    "before": "Seleziona tutte le schede in questa lista",
+    "after": "Aleadzi tuti cãrtsãli di aesta listã",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "max-avatar-filesize",
+    "before": "Max dimensione di caricamento dell'avatar in byte.",
+    "after": "Mãrimea maximã a fisierlui di avatar tu bytes:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "max-upload-filesize",
+    "before": "Max dimensione di caricamento del file in byte.",
+    "after": "Mãrimea maximã a fisierlui ti încãrcari tu bytes:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "move-selection",
+    "before": "Sposta elementi selezionati",
+    "after": "Mutã elementili aleadzi",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "moveSelectionPopup-title",
+    "before": "Sposta elementi selezionati",
+    "after": "Mutã elementili aleadzi",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "multi-selection-on",
+    "before": "Selezione multipla attiva",
+    "after": "Selectsia multiplã easti activã",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
