@@ -113755,5 +113755,82 @@
     "before": "Testaa S3 yhteys",
     "after": "Testirui S3 -ühtenzoitust",
     "reason": "Replace Finnish SMTP/S3 prose with Veps. Zaiceva/Mullonen (2007), Uz’ venä-vepsläine vajehnik: область aloveh, номер nomer, поддержка tugi, опознать tundištada, связь ühtenzoituz, вводить veda. Native MediaWiki Veps attests server/serveran, adres, peituzavadim and kävuta; existing reviewed Veps uses email-kirjeižid, kaičuz, kaita, valičused. Preserve SMTP, TLS, SSL/TLS, AWS S3, MinIO and literal region code us-east-1. Use technical loan port for a network port, not dictionary valdmad (seaport), and repair malformed STMP acronym. Source: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Low confidence: network loan endpoint/port, composed credential/authentication terminology and case/verb grammar need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "s3-access-key",
+    "before": "S3 käyttöavain",
+    "after": "S3 -päzundavadim",
+    "reason": "Replace Finnish with Veps using Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (päzund access, satusekaz successful, ühtenzoituz connection), and native MediaWiki vep.json (avadim, peituzavadim, kaičuz). Preserve S3/AWS/MongoDB GridFS and endpoint examples. Low confidence: composed access-key/authentication terminology, inflection and technical bucket/endpoint loans require fluent review; do not confuse access keys with secret keys or object-storage buckets with a physical scoop."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "s3-access-key-description",
+    "before": "AWS S3 käyttöavain tunnistautumiseen",
+    "after": "AWS S3 -päzundavadim ičen tundištamižen täht",
+    "reason": "Replace Finnish with Veps using Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (päzund access, satusekaz successful, ühtenzoituz connection), and native MediaWiki vep.json (avadim, peituzavadim, kaičuz). Preserve S3/AWS/MongoDB GridFS and endpoint examples. Low confidence: composed access-key/authentication terminology, inflection and technical bucket/endpoint loans require fluent review; do not confuse access keys with secret keys or object-storage buckets with a physical scoop."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "s3-access-key-placeholder",
+    "before": "Syötä S3 käyttöavain",
+    "after": "Vede S3 -päzundavadim",
+    "reason": "Replace Finnish with Veps using Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (päzund access, satusekaz successful, ühtenzoituz connection), and native MediaWiki vep.json (avadim, peituzavadim, kaičuz). Preserve S3/AWS/MongoDB GridFS and endpoint examples. Low confidence: composed access-key/authentication terminology, inflection and technical bucket/endpoint loans require fluent review; do not confuse access keys with secret keys or object-storage buckets with a physical scoop."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "s3-bucket",
+    "before": "S3 kauha",
+    "after": "S3 -bucket",
+    "reason": "Replace Finnish with Veps using Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (päzund access, satusekaz successful, ühtenzoituz connection), and native MediaWiki vep.json (avadim, peituzavadim, kaičuz). Preserve S3/AWS/MongoDB GridFS and endpoint examples. Low confidence: composed access-key/authentication terminology, inflection and technical bucket/endpoint loans require fluent review; do not confuse access keys with secret keys or object-storage buckets with a physical scoop."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "s3-bucket-description",
+    "before": "S3 kauhan nimi tiedostojen tallennukseen",
+    "after": "S3 -bucketan nimi failoiden kaičusen täht",
+    "reason": "Replace Finnish with Veps using Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (päzund access, satusekaz successful, ühtenzoituz connection), and native MediaWiki vep.json (avadim, peituzavadim, kaičuz). Preserve S3/AWS/MongoDB GridFS and endpoint examples. Low confidence: composed access-key/authentication terminology, inflection and technical bucket/endpoint loans require fluent review; do not confuse access keys with secret keys or object-storage buckets with a physical scoop."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "s3-connection-failed",
+    "before": "S3 yhteys epäonnistui",
+    "after": "S3 -ühtenzoituz ei ole satusekaz",
+    "reason": "Replace Finnish with Veps using Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (päzund access, satusekaz successful, ühtenzoituz connection), and native MediaWiki vep.json (avadim, peituzavadim, kaičuz). Preserve S3/AWS/MongoDB GridFS and endpoint examples. Low confidence: composed access-key/authentication terminology, inflection and technical bucket/endpoint loans require fluent review; do not confuse access keys with secret keys or object-storage buckets with a physical scoop."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "s3-connection-success",
+    "before": "S3 yhteys onnistui",
+    "after": "S3 -ühtenzoituz om satusekaz",
+    "reason": "Replace Finnish with Veps using Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (päzund access, satusekaz successful, ühtenzoituz connection), and native MediaWiki vep.json (avadim, peituzavadim, kaičuz). Preserve S3/AWS/MongoDB GridFS and endpoint examples. Low confidence: composed access-key/authentication terminology, inflection and technical bucket/endpoint loans require fluent review; do not confuse access keys with secret keys or object-storage buckets with a physical scoop."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "s3-enabled",
+    "before": "S3 käytössä",
+    "after": "S3 kävutuses",
+    "reason": "Replace Finnish with Veps using Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (päzund access, satusekaz successful, ühtenzoituz connection), and native MediaWiki vep.json (avadim, peituzavadim, kaičuz). Preserve S3/AWS/MongoDB GridFS and endpoint examples. Low confidence: composed access-key/authentication terminology, inflection and technical bucket/endpoint loans require fluent review; do not confuse access keys with secret keys or object-storage buckets with a physical scoop."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "s3-endpoint",
+    "before": "S3 päätepiste",
+    "after": "S3 -endpoint",
+    "reason": "Replace Finnish with Veps using Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (päzund access, satusekaz successful, ühtenzoituz connection), and native MediaWiki vep.json (avadim, peituzavadim, kaičuz). Preserve S3/AWS/MongoDB GridFS and endpoint examples. Low confidence: composed access-key/authentication terminology, inflection and technical bucket/endpoint loans require fluent review; do not confuse access keys with secret keys or object-storage buckets with a physical scoop."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "s3-endpoint-description",
+    "before": "S3 päätepisteen URL (esim. s3.amazonaws.com tai minio.example.com)",
+    "after": "S3 -endpointan URL (nä., s3.amazonaws.com libo minio.example.com)",
+    "reason": "Replace Finnish with Veps using Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (päzund access, satusekaz successful, ühtenzoituz connection), and native MediaWiki vep.json (avadim, peituzavadim, kaičuz). Preserve S3/AWS/MongoDB GridFS and endpoint examples. Low confidence: composed access-key/authentication terminology, inflection and technical bucket/endpoint loans require fluent review; do not confuse access keys with secret keys or object-storage buckets with a physical scoop."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "mongodb-gridfs-storage",
+    "before": "MongoDB GridFS tallennus",
+    "after": "MongoDB GridFS -kaičuz",
+    "reason": "Replace Finnish with Veps using Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (päzund access, satusekaz successful, ühtenzoituz connection), and native MediaWiki vep.json (avadim, peituzavadim, kaičuz). Preserve S3/AWS/MongoDB GridFS and endpoint examples. Low confidence: composed access-key/authentication terminology, inflection and technical bucket/endpoint loans require fluent review; do not confuse access keys with secret keys or object-storage buckets with a physical scoop."
   }
 ]

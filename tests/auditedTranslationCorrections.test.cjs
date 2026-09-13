@@ -523,5 +523,30 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   }
   assert.match(cache['ve-PP']['s3-region-description'],/us-east-1/);
   assert.match(cache['ve-PP']['s3-ssl-enabled-description'],/SSL\/TLS/);
+  const vepsS3Repairs = {
+  "s3-access-key": "S3 -päzundavadim",
+  "s3-access-key-description": "AWS S3 -päzundavadim ičen tundištamižen täht",
+  "s3-access-key-placeholder": "Vede S3 -päzundavadim",
+  "s3-bucket": "S3 -bucket",
+  "s3-bucket-description": "S3 -bucketan nimi failoiden kaičusen täht",
+  "s3-connection-failed": "S3 -ühtenzoituz ei ole satusekaz",
+  "s3-connection-success": "S3 -ühtenzoituz om satusekaz",
+  "s3-enabled": "S3 kävutuses",
+  "s3-endpoint": "S3 -endpoint",
+  "s3-endpoint-description": "S3 -endpointan URL (nä., s3.amazonaws.com libo minio.example.com)",
+  "mongodb-gridfs-storage": "MongoDB GridFS -kaičuz"
+};
+  for (const [key, value] of Object.entries(vepsS3Repairs)) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.equal(vepsTranslator.t(key), value, key);
+    assert.doesNotMatch(value, /käyttöavain|tunnistautumiseen|Syötä|kauha|tiedostojen|tallennukseen|yhteys|epäonnistui|onnistui|käytössä|päätepiste|esim\./, key);
+  }
+  assert.notEqual(cache['ve-PP']['s3-access-key'], cache['ve-PP']['s3-secret-key']);
+  assert.match(cache['ve-PP']['s3-access-key'], /päzundavadim/);
+  assert.match(cache['ve-PP']['s3-secret-key'], /peituzavadim/);
+  assert.match(cache['ve-PP']['s3-connection-failed'], /ei ole satusekaz/);
+  assert.match(cache['ve-PP']['s3-connection-success'], /om satusekaz/);
+  assert.match(cache['ve-PP']['s3-endpoint-description'], /s3\.amazonaws\.com libo minio\.example\.com/);
+  assert.match(cache['ve-PP']['mongodb-gridfs-storage'], /MongoDB GridFS/);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });
