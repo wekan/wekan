@@ -12,16 +12,16 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 **Repairs remain unfinished.** Restored and unflagged values still need validation.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,867** exact before/after values, including repairs outside the audit.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,867** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `9babfce9b44fb3fde3f0569d62cd47b199bddfbb` — nine French board access/membership/invitation and archive instructions replaced with Volapük. Preserved roles, confirmations, card-removal scope, email tokens/newlines and local navigation labels; assembled software wording remains low confidence.
+Latest translation fix: **2026-09-13**, local commit `9babfce9b44fb3fde3f0569d62cd47b199bddfbb` — nine Volapük access, membership, invitation and archive strings repaired; software wording remains low confidence.
 
-**Verification:** correction and progress tests pass, covering exact values, placeholders, JSON examples and key order. Native-speaker and browser checks remain outstanding.
+**Verification:** correction and progress tests pass. Native-speaker and browser checks remain outstanding.
 
 **Unresolved reviews:** Silesian database terminology and 17 Tigre calendar findings need language-specific validation.
 
-**Origin:** errors were not all introduced by the Transifex pull: 4,061 pulled changes and 16,020 additional local findings were audited. Bosnian errors predate the pull (`bdb3b15886a749b725b5290ba0109fcba955f983`); other origins remain unverified.
+**Origin:** not all errors came from Transifex. The audit covers 4,061 pulled changes and 16,020 additional local findings; Bosnian errors predate the pull (`bdb3b15886a749b725b5290ba0109fcba955f983`). Other origins remain unverified.
 
-[Detailed evidence](Audit-Evidence.md) preserves the original categorized tables; correction records preserve individual repairs and their sources.
+[Detailed evidence](Audit-Evidence.md) retains categorized tables; correction records retain repairs and sources.
 
 After each repair batch, run `node releases/translations/audit-progress.mjs --update-summary` and update the latest fix commit and verification. No remote uploads performed.
