@@ -114306,15 +114306,15 @@
     "locale": "ve-PP",
     "key": "checklist-count",
     "before": "Kontroll-listan elementoiden lugu (0/0)",
-    "after": "Kodvindlugetišen kohtoiden lugu (0/0)",
-    "reason": "Replace Finnish/Venda or mixed checklist text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kodvind (check), lugetiž (list), koht (document item), tegend (task), lopmatoi (unfinished), lopta (finish), znam (mark) and ližata. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests znamoitud (marked), tegendad, peitä, märitadud, and ala- in alalehtpol’ (subpage). Compose kodvindlugetiž/alategend for checklist/subtask; preserve add/remove, check/uncheck, completion/reopening, context and every case-sensitive placeholder, especially __checkList__. Preserve (0/0) counters and minicard context. Low confidence: composed kanban checklist/subtask terminology and UI inflection need fluent review."
+    "after": "Kodvindlugetišen kohtiden lugu (0/0)",
+    "reason": "Replace Finnish/Venda or mixed checklist text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kodvind (check), lugetiž (list), koht (document item), tegend (task), lopmatoi (unfinished), lopta (finish), znam (mark) and ližata. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests znamoitud (marked), tegendad, peitä, märitadud, and ala- in alalehtpol’ (subpage). Compose kodvindlugetiž/alategend for checklist/subtask; preserve add/remove, check/uncheck, completion/reopening, context and every case-sensitive placeholder, especially __checkList__. Preserve (0/0) counters and minicard context. Low confidence: composed kanban checklist/subtask terminology and UI inflection need fluent review. Refinement: Replace Finnish controls with reference Veps list/card/field/checklist/action/archive vocabulary. Preserve top/bottom and own/selected-list distinctions, checked/all/completed items, archive recovery versus irreversible deletion, activity preservation and archive-menu navigation. Dictionary distinguishes document item koht (-an,-id) from belly koht (-un,-uid); refine item plural stems without replacing original before records. Composed kanban UI inflections have low confidence and need fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
   },
   {
     "locale": "ve-PP",
     "key": "checklist-count-on-minicard",
     "before": "Kontroll-listan elementoiden lugu (0/0) minikartal",
-    "after": "Kodvindlugetišen kohtoiden lugu (0/0) minikartal",
-    "reason": "Replace Finnish/Venda or mixed checklist text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kodvind (check), lugetiž (list), koht (document item), tegend (task), lopmatoi (unfinished), lopta (finish), znam (mark) and ližata. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests znamoitud (marked), tegendad, peitä, märitadud, and ala- in alalehtpol’ (subpage). Compose kodvindlugetiž/alategend for checklist/subtask; preserve add/remove, check/uncheck, completion/reopening, context and every case-sensitive placeholder, especially __checkList__. Preserve (0/0) counters and minicard context. Low confidence: composed kanban checklist/subtask terminology and UI inflection need fluent review."
+    "after": "Kodvindlugetišen kohtiden lugu (0/0) minikartal",
+    "reason": "Replace Finnish/Venda or mixed checklist text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kodvind (check), lugetiž (list), koht (document item), tegend (task), lopmatoi (unfinished), lopta (finish), znam (mark) and ližata. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests znamoitud (marked), tegendad, peitä, märitadud, and ala- in alalehtpol’ (subpage). Compose kodvindlugetiž/alategend for checklist/subtask; preserve add/remove, check/uncheck, completion/reopening, context and every case-sensitive placeholder, especially __checkList__. Preserve (0/0) counters and minicard context. Low confidence: composed kanban checklist/subtask terminology and UI inflection need fluent review. Refinement: Replace Finnish controls with reference Veps list/card/field/checklist/action/archive vocabulary. Preserve top/bottom and own/selected-list distinctions, checked/all/completed items, archive recovery versus irreversible deletion, activity preservation and archive-menu navigation. Dictionary distinguishes document item koht (-an,-id) from belly koht (-un,-uid); refine item plural stems without replacing original before records. Composed kanban UI inflections have low confidence and need fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
   },
   {
     "locale": "ve-PP",
@@ -114537,8 +114537,8 @@
     "locale": "ve-PP",
     "key": "custom-field-stringtemplate-item-placeholder",
     "before": "Paina Enter lisätäksesi lisää kohtia",
-    "after": "Paina Enter, miše ližata enamba kohtoid",
-    "reason": "Replace Finnish/Venda custom-field text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests pöud (field), päivmär (date), nellik (square), valičuz (choice), nimidä, tundmatoi, lugu, tekst, simvol, jagoznam (separator), keskust (space) and sija (position). Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests kävutajan, märitadud, šablon, rivi, format, puhtasta, vajehtadud and heittud. Compose user-defined fields, selection controls and sijaznam placeholder terminology; preserve action kind, field value/context, all-card irreversible deletion/history loss, and literal %{value}/&#32;/&nbsp;/Enter. Low confidence: composed custom-field/control terminology and UI grammar/inflections require fluent review."
+    "after": "Paina Enter, miše ližata enamba kohtid",
+    "reason": "Replace Finnish/Venda custom-field text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests pöud (field), päivmär (date), nellik (square), valičuz (choice), nimidä, tundmatoi, lugu, tekst, simvol, jagoznam (separator), keskust (space) and sija (position). Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests kävutajan, märitadud, šablon, rivi, format, puhtasta, vajehtadud and heittud. Compose user-defined fields, selection controls and sijaznam placeholder terminology; preserve action kind, field value/context, all-card irreversible deletion/history loss, and literal %{value}/&#32;/&nbsp;/Enter. Low confidence: composed custom-field/control terminology and UI grammar/inflections require fluent review. Refinement: Replace Finnish controls with reference Veps list/card/field/checklist/action/archive vocabulary. Preserve top/bottom and own/selected-list distinctions, checked/all/completed items, archive recovery versus irreversible deletion, activity preservation and archive-menu navigation. Dictionary distinguishes document item koht (-an,-id) from belly koht (-un,-uid); refine item plural stems without replacing original before records. Composed kanban UI inflections have low confidence and need fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
   },
   {
     "locale": "ve-PP",
@@ -115134,5 +115134,257 @@
     "before": "Sinulla ei ole tällä hetkellä yhtään erääntyvää korttia.",
     "after": "Sinai ei ole nügüd' märaiganke kartoid.",
     "reason": "Replace Finnish/Venda date-filter wording or incorrect received/past terminology using Veps dictionary deadline/day/week/remaining/permission vocabulary and native MediaWiki UI references. Dictionary attests täl nedalil (this week), tulijal nedalil (next week), homen (tomorrow), jänu/jänuded (remaining), männu (past) and laskend (permission). Preserve countdown number, five export date types and incomplete-card/board-permission conditions. Composed UI inflections have low confidence and need fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "add-card-to-bottom-of-list",
+    "before": "Lisää kortti listan loppuun",
+    "after": "Ližada kart lugetišen lophu",
+    "reason": "Replace Finnish controls with reference Veps list/card/field/checklist/action/archive vocabulary. Preserve top/bottom and own/selected-list distinctions, checked/all/completed items, archive recovery versus irreversible deletion, activity preservation and archive-menu navigation. Dictionary distinguishes document item koht (-an,-id) from belly koht (-un,-uid); refine item plural stems without replacing original before records. Composed kanban UI inflections have low confidence and need fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "add-card-to-top-of-list",
+    "before": "Lisää kortti listan alkuun",
+    "after": "Ližada kart lugetišen augotišehe",
+    "reason": "Replace Finnish controls with reference Veps list/card/field/checklist/action/archive vocabulary. Preserve top/bottom and own/selected-list distinctions, checked/all/completed items, archive recovery versus irreversible deletion, activity preservation and archive-menu navigation. Dictionary distinguishes document item koht (-an,-id) from belly koht (-un,-uid); refine item plural stems without replacing original before records. Composed kanban UI inflections have low confidence and need fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "always-field-on-card",
+    "before": "Lisää kenttä kaikille korteille",
+    "after": "Ližada pöud kaikihe kartoihe",
+    "reason": "Replace Finnish controls with reference Veps list/card/field/checklist/action/archive vocabulary. Preserve top/bottom and own/selected-list distinctions, checked/all/completed items, archive recovery versus irreversible deletion, activity preservation and archive-menu navigation. Dictionary distinguishes document item koht (-an,-id) from belly koht (-un,-uid); refine item plural stems without replacing original before records. Composed kanban UI inflections have low confidence and need fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "automatically-field-on-card",
+    "before": "Lisää kenttä uusille korteille",
+    "after": "Ližada pöud uzihe kartoihe",
+    "reason": "Replace Finnish controls with reference Veps list/card/field/checklist/action/archive vocabulary. Preserve top/bottom and own/selected-list distinctions, checked/all/completed items, archive recovery versus irreversible deletion, activity preservation and archive-menu navigation. Dictionary distinguishes document item koht (-an,-id) from belly koht (-un,-uid); refine item plural stems without replacing original before records. Composed kanban UI inflections have low confidence and need fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "card-archived",
+    "before": "Tämä kortti on siirretty Arkistoon.",
+    "after": "Nece kart om sirttud arhivaha.",
+    "reason": "Replace Finnish controls with reference Veps list/card/field/checklist/action/archive vocabulary. Preserve top/bottom and own/selected-list distinctions, checked/all/completed items, archive recovery versus irreversible deletion, activity preservation and archive-menu navigation. Dictionary distinguishes document item koht (-an,-id) from belly koht (-un,-uid); refine item plural stems without replacing original before records. Composed kanban UI inflections have low confidence and need fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "card-labels-title",
+    "before": "Muokkaa kortin nimilappuja.",
+    "after": "Vajehta kartan znamad.",
+    "reason": "Replace Finnish controls with reference Veps list/card/field/checklist/action/archive vocabulary. Preserve top/bottom and own/selected-list distinctions, checked/all/completed items, archive recovery versus irreversible deletion, activity preservation and archive-menu navigation. Dictionary distinguishes document item koht (-an,-id) from belly koht (-un,-uid); refine item plural stems without replacing original before records. Composed kanban UI inflections have low confidence and need fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "cardCustomFieldsPopup-title",
+    "before": "Muokkaa mukautettuja kenttiä",
+    "after": "Vajehta kävutajan märitadud pöudoid",
+    "reason": "Replace Finnish controls with reference Veps list/card/field/checklist/action/archive vocabulary. Preserve top/bottom and own/selected-list distinctions, checked/all/completed items, archive recovery versus irreversible deletion, activity preservation and archive-menu navigation. Dictionary distinguishes document item koht (-an,-id) from belly koht (-un,-uid); refine item plural stems without replacing original before records. Composed kanban UI inflections have low confidence and need fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "close-add-checklist-item",
+    "before": "Sulje lisää kohde tarkistuslista lomakkeelle",
+    "after": "Saubata kodvindlugetišen kohtan ližadusen form",
+    "reason": "Replace Finnish controls with reference Veps list/card/field/checklist/action/archive vocabulary. Preserve top/bottom and own/selected-list distinctions, checked/all/completed items, archive recovery versus irreversible deletion, activity preservation and archive-menu navigation. Dictionary distinguishes document item koht (-an,-id) from belly koht (-un,-uid); refine item plural stems without replacing original before records. Composed kanban UI inflections have low confidence and need fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "close-edit-checklist-item",
+    "before": "Sulje muokkaa kohdetta tarkistuslista lomakkeella",
+    "after": "Saubata kodvindlugetišen kohtan vajehtusen form",
+    "reason": "Replace Finnish controls with reference Veps list/card/field/checklist/action/archive vocabulary. Preserve top/bottom and own/selected-list distinctions, checked/all/completed items, archive recovery versus irreversible deletion, activity preservation and archive-menu navigation. Dictionary distinguishes document item koht (-an,-id) from belly koht (-un,-uid); refine item plural stems without replacing original before records. Composed kanban UI inflections have low confidence and need fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "deleteCustomFieldPopup-title",
+    "before": "Poista mukautettu kenttä?",
+    "after": "Heitä kävutajan märitadud pöud?",
+    "reason": "Replace Finnish controls with reference Veps list/card/field/checklist/action/archive vocabulary. Preserve top/bottom and own/selected-list distinctions, checked/all/completed items, archive recovery versus irreversible deletion, activity preservation and archive-menu navigation. Dictionary distinguishes document item koht (-an,-id) from belly koht (-un,-uid); refine item plural stems without replacing original before records. Composed kanban UI inflections have low confidence and need fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "list-archive-pop",
+    "before": "Lista ei enää näy taululla arkistoinnin jälkeen.",
+    "after": "Lugetiž ei nägu laudal arhivaha sirdändan jäl'ghe.",
+    "reason": "Replace Finnish controls with reference Veps list/card/field/checklist/action/archive vocabulary. Preserve top/bottom and own/selected-list distinctions, checked/all/completed items, archive recovery versus irreversible deletion, activity preservation and archive-menu navigation. Dictionary distinguishes document item koht (-an,-id) from belly koht (-un,-uid); refine item plural stems without replacing original before records. Composed kanban UI inflections have low confidence and need fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-d-move-to-bottom-gen",
+    "before": "Siirrä kortti listansa loppuun",
+    "after": "Sirdä kart sen lugetišen lophu",
+    "reason": "Replace Finnish controls with reference Veps list/card/field/checklist/action/archive vocabulary. Preserve top/bottom and own/selected-list distinctions, checked/all/completed items, archive recovery versus irreversible deletion, activity preservation and archive-menu navigation. Dictionary distinguishes document item koht (-an,-id) from belly koht (-un,-uid); refine item plural stems without replacing original before records. Composed kanban UI inflections have low confidence and need fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-d-move-to-bottom-spec",
+    "before": "Siirrä kortti listan loppuun",
+    "after": "Sirdä kart lugetišen lophu",
+    "reason": "Replace Finnish controls with reference Veps list/card/field/checklist/action/archive vocabulary. Preserve top/bottom and own/selected-list distinctions, checked/all/completed items, archive recovery versus irreversible deletion, activity preservation and archive-menu navigation. Dictionary distinguishes document item koht (-an,-id) from belly koht (-un,-uid); refine item plural stems without replacing original before records. Composed kanban UI inflections have low confidence and need fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-d-move-to-top-gen",
+    "before": "Siirrä kortti listansa alkuun",
+    "after": "Sirdä kart sen lugetišen augotišehe",
+    "reason": "Replace Finnish controls with reference Veps list/card/field/checklist/action/archive vocabulary. Preserve top/bottom and own/selected-list distinctions, checked/all/completed items, archive recovery versus irreversible deletion, activity preservation and archive-menu navigation. Dictionary distinguishes document item koht (-an,-id) from belly koht (-un,-uid); refine item plural stems without replacing original before records. Composed kanban UI inflections have low confidence and need fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-d-move-to-top-spec",
+    "before": "Siirrä kortti listan alkuun",
+    "after": "Sirdä kart lugetišen augotišehe",
+    "reason": "Replace Finnish controls with reference Veps list/card/field/checklist/action/archive vocabulary. Preserve top/bottom and own/selected-list distinctions, checked/all/completed items, archive recovery versus irreversible deletion, activity preservation and archive-menu navigation. Dictionary distinguishes document item koht (-an,-id) from belly koht (-un,-uid); refine item plural stems without replacing original before records. Composed kanban UI inflections have low confidence and need fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-when-a-card-is-moved",
+    "before": "Kun kortti on siirretty toiseen listaan",
+    "after": "Konz kart om sirttud toižehe lugetišehe",
+    "reason": "Replace Finnish controls with reference Veps list/card/field/checklist/action/archive vocabulary. Preserve top/bottom and own/selected-list distinctions, checked/all/completed items, archive recovery versus irreversible deletion, activity preservation and archive-menu navigation. Dictionary distinguishes document item koht (-an,-id) from belly koht (-un,-uid); refine item plural stems without replacing original before records. Composed kanban UI inflections have low confidence and need fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "hide-finished-checklist",
+    "before": "Piilota valmistuneet tarkistuslistat",
+    "after": "Peitä loptud kodvindlugetiž",
+    "reason": "Replace Finnish controls with reference Veps list/card/field/checklist/action/archive vocabulary. Preserve top/bottom and own/selected-list distinctions, checked/all/completed items, archive recovery versus irreversible deletion, activity preservation and archive-menu navigation. Dictionary distinguishes document item koht (-an,-id) from belly koht (-un,-uid); refine item plural stems without replacing original before records. Composed kanban UI inflections have low confidence and need fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "hide-list-on-minicard",
+    "before": "Piilota lista minikortilta",
+    "after": "Peitä lugetiž minikartal",
+    "reason": "Replace Finnish controls with reference Veps list/card/field/checklist/action/archive vocabulary. Preserve top/bottom and own/selected-list distinctions, checked/all/completed items, archive recovery versus irreversible deletion, activity preservation and archive-menu navigation. Dictionary distinguishes document item koht (-an,-id) from belly koht (-un,-uid); refine item plural stems without replacing original before records. Composed kanban UI inflections have low confidence and need fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "hide-minicard-label-text",
+    "before": "Piilota minikortin nimilappu teksti",
+    "after": "Peitä minikartan znaman tekst",
+    "reason": "Replace Finnish controls with reference Veps list/card/field/checklist/action/archive vocabulary. Preserve top/bottom and own/selected-list distinctions, checked/all/completed items, archive recovery versus irreversible deletion, activity preservation and archive-menu navigation. Dictionary distinguishes document item koht (-an,-id) from belly koht (-un,-uid); refine item plural stems without replacing original before records. Composed kanban UI inflections have low confidence and need fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "hideAllChecklistItems",
+    "before": "Piilota kaikki tarkistuslistan kohdat",
+    "after": "Peitä kaik kodvindlugetišen kohtad",
+    "reason": "Replace Finnish controls with reference Veps list/card/field/checklist/action/archive vocabulary. Preserve top/bottom and own/selected-list distinctions, checked/all/completed items, archive recovery versus irreversible deletion, activity preservation and archive-menu navigation. Dictionary distinguishes document item koht (-an,-id) from belly koht (-un,-uid); refine item plural stems without replacing original before records. Composed kanban UI inflections have low confidence and need fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "hideCheckedChecklistItems",
+    "before": "Piilota ruksatut tarkistuslistan kohdat",
+    "after": "Peitä kaik znamoitud kodvindlugetišen kohtad",
+    "reason": "Replace Finnish controls with reference Veps list/card/field/checklist/action/archive vocabulary. Preserve top/bottom and own/selected-list distinctions, checked/all/completed items, archive recovery versus irreversible deletion, activity preservation and archive-menu navigation. Dictionary distinguishes document item koht (-an,-id) from belly koht (-un,-uid); refine item plural stems without replacing original before records. Composed kanban UI inflections have low confidence and need fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "list-archive-cards",
+    "before": "Siirrä kaikki tämän listan kortit Arkistoon",
+    "after": "Sirdä kaik kartad neciš lugetišes arhivaha",
+    "reason": "Replace Finnish controls with reference Veps list/card/field/checklist/action/archive vocabulary. Preserve top/bottom and own/selected-list distinctions, checked/all/completed items, archive recovery versus irreversible deletion, activity preservation and archive-menu navigation. Dictionary distinguishes document item koht (-an,-id) from belly koht (-un,-uid); refine item plural stems without replacing original before records. Composed kanban UI inflections have low confidence and need fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "list-archive-cards-pop",
+    "before": "Tämä poistaa kaikki tämän listan kortit taululta. Nähdäksesi Arkistossa olevat kortit ja tuodaksesi ne takaisin taululle, klikkaa “Valikko” > “Arkisto”.",
+    "after": "Nece heitäb kaik necen lugetišen kartad laudaspäi. Miše kacta kartoid arhivas da tuoda niid tagaze laudale, paina “Menülist” > “Arhiv”.",
+    "reason": "Replace Finnish controls with reference Veps list/card/field/checklist/action/archive vocabulary. Preserve top/bottom and own/selected-list distinctions, checked/all/completed items, archive recovery versus irreversible deletion, activity preservation and archive-menu navigation. Dictionary distinguishes document item koht (-an,-id) from belly koht (-un,-uid); refine item plural stems without replacing original before records. Composed kanban UI inflections have low confidence and need fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "list-archive-suggest",
+    "before": "Voit myöhemmin palauttaa listan Arkistosta.",
+    "after": "Sinä void möhemba endištada lugetiž arhivaspäi laudan sändoiš.",
+    "reason": "Replace Finnish controls with reference Veps list/card/field/checklist/action/archive vocabulary. Preserve top/bottom and own/selected-list distinctions, checked/all/completed items, archive recovery versus irreversible deletion, activity preservation and archive-menu navigation. Dictionary distinguishes document item koht (-an,-id) from belly koht (-un,-uid); refine item plural stems without replacing original before records. Composed kanban UI inflections have low confidence and need fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "list-delete-pop",
+    "before": "Kaikki toimet poistetaan toimintasyötteestä ja listan poistaminen on lopullista. Tätä ei pysty peruuttamaan.",
+    "after": "Nece heitäb kaik tegendad tegendoiden lugetišespäi. Ei sa endištada lugetiž. Ei sa pördutada.",
+    "reason": "Replace Finnish controls with reference Veps list/card/field/checklist/action/archive vocabulary. Preserve top/bottom and own/selected-list distinctions, checked/all/completed items, archive recovery versus irreversible deletion, activity preservation and archive-menu navigation. Dictionary distinguishes document item koht (-an,-id) from belly koht (-un,-uid); refine item plural stems without replacing original before records. Composed kanban UI inflections have low confidence and need fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "list-delete-suggest-archive",
+    "before": "Voit siirtää listan Arkistoon poistaaksesi sen taululta ja säilyttääksesi toimintalokin.",
+    "after": "Sinä void sirdä lugetiž arhivaha, miše heitä sidä laudaspäi da kaita tegendad.",
+    "reason": "Replace Finnish controls with reference Veps list/card/field/checklist/action/archive vocabulary. Preserve top/bottom and own/selected-list distinctions, checked/all/completed items, archive recovery versus irreversible deletion, activity preservation and archive-menu navigation. Dictionary distinguishes document item koht (-an,-id) from belly koht (-un,-uid); refine item plural stems without replacing original before records. Composed kanban UI inflections have low confidence and need fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "list-move-cards",
+    "before": "Siirrä kaikki kortit tässä listassa",
+    "after": "Sirdä kaik kartad neciš lugetišes",
+    "reason": "Replace Finnish controls with reference Veps list/card/field/checklist/action/archive vocabulary. Preserve top/bottom and own/selected-list distinctions, checked/all/completed items, archive recovery versus irreversible deletion, activity preservation and archive-menu navigation. Dictionary distinguishes document item koht (-an,-id) from belly koht (-un,-uid); refine item plural stems without replacing original before records. Composed kanban UI inflections have low confidence and need fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "list-select-cards",
+    "before": "Valitse kaikki kortit tässä listassa",
+    "after": "Valiče kaik kartad neciš lugetišes",
+    "reason": "Replace Finnish controls with reference Veps list/card/field/checklist/action/archive vocabulary. Preserve top/bottom and own/selected-list distinctions, checked/all/completed items, archive recovery versus irreversible deletion, activity preservation and archive-menu navigation. Dictionary distinguishes document item koht (-an,-id) from belly koht (-un,-uid); refine item plural stems without replacing original before records. Composed kanban UI inflections have low confidence and need fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "show-field-on-card",
+    "before": "Näytä tämä kenttä kortilla",
+    "after": "Ozuta nece pöud kartal",
+    "reason": "Replace Finnish controls with reference Veps list/card/field/checklist/action/archive vocabulary. Preserve top/bottom and own/selected-list distinctions, checked/all/completed items, archive recovery versus irreversible deletion, activity preservation and archive-menu navigation. Dictionary distinguishes document item koht (-an,-id) from belly koht (-un,-uid); refine item plural stems without replacing original before records. Composed kanban UI inflections have low confidence and need fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "showChecklistAtMinicard",
+    "before": "Näytä tarkistuslista minikortilla",
+    "after": "Ozuta kodvindlugetiž minikartal",
+    "reason": "Replace Finnish controls with reference Veps list/card/field/checklist/action/archive vocabulary. Preserve top/bottom and own/selected-list distinctions, checked/all/completed items, archive recovery versus irreversible deletion, activity preservation and archive-menu navigation. Dictionary distinguishes document item koht (-an,-id) from belly koht (-un,-uid); refine item plural stems without replacing original before records. Composed kanban UI inflections have low confidence and need fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "cards",
+    "before": "Korttia",
+    "after": "Kartad",
+    "reason": "Replace Finnish controls with reference Veps list/card/field/checklist/action/archive vocabulary. Preserve top/bottom and own/selected-list distinctions, checked/all/completed items, archive recovery versus irreversible deletion, activity preservation and archive-menu navigation. Dictionary distinguishes document item koht (-an,-id) from belly koht (-un,-uid); refine item plural stems without replacing original before records. Composed kanban UI inflections have low confidence and need fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "archive",
+    "before": "Siirrä Arkistoon",
+    "after": "Sirdä arhivaha",
+    "reason": "Replace Finnish controls with reference Veps list/card/field/checklist/action/archive vocabulary. Preserve top/bottom and own/selected-list distinctions, checked/all/completed items, archive recovery versus irreversible deletion, activity preservation and archive-menu navigation. Dictionary distinguishes document item koht (-an,-id) from belly koht (-un,-uid); refine item plural stems without replacing original before records. Composed kanban UI inflections have low confidence and need fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "restore",
+    "before": "Palauta",
+    "after": "Endišta",
+    "reason": "Replace Finnish controls with reference Veps list/card/field/checklist/action/archive vocabulary. Preserve top/bottom and own/selected-list distinctions, checked/all/completed items, archive recovery versus irreversible deletion, activity preservation and archive-menu navigation. Dictionary distinguishes document item koht (-an,-id) from belly koht (-un,-uid); refine item plural stems without replacing original before records. Composed kanban UI inflections have low confidence and need fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "menu",
+    "before": "Valikko",
+    "after": "Menülist",
+    "reason": "Replace Finnish controls with reference Veps list/card/field/checklist/action/archive vocabulary. Preserve top/bottom and own/selected-list distinctions, checked/all/completed items, archive recovery versus irreversible deletion, activity preservation and archive-menu navigation. Dictionary distinguishes document item koht (-an,-id) from belly koht (-un,-uid); refine item plural stems without replacing original before records. Composed kanban UI inflections have low confidence and need fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "archived-items",
+    "before": "Arkisto",
+    "after": "Arhiv",
+    "reason": "Replace Finnish Archive heading with dictionary Veps arhiv, matching archive-navigation warning text. Source: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "archives",
+    "before": "Arkisto",
+    "after": "Arhiv",
+    "reason": "Replace Finnish Archive heading with dictionary Veps arhiv, matching archive-navigation warning text. Source: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf"
   }
 ]

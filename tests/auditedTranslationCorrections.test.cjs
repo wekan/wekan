@@ -671,8 +671,8 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   "checklistDeletePopup-title": "Heitä kodvindlugetiž?",
   "checklistItemDeletePopup-title": "Heitä kodvindlugetišen koht?",
   "hide-checked-items": "Peitä znamoitud kohtad",
-  "checklist-count": "Kodvindlugetišen kohtoiden lugu (0/0)",
-  "checklist-count-on-minicard": "Kodvindlugetišen kohtoiden lugu (0/0) minikartal",
+  "checklist-count": "Kodvindlugetišen kohtiden lugu (0/0)",
+  "checklist-count-on-minicard": "Kodvindlugetišen kohtiden lugu (0/0) minikartal",
   "act-addSubtask": "Ližatud alategend __subtask__ kartale __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
   "act-addChecklist": "Ližatud kodvindlugetiž __checklist__ kartale __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
   "act-addChecklistItem": "Ližatud koht __checklistItem__ kodvindlugetišehe __checklist__ kartal __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
@@ -721,7 +721,7 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   "custom-field-stringtemplate": "Simvolrivin šablon",
   "custom-field-stringtemplate-format": "Format (kävuta %{value} sijaznamaks)",
   "custom-field-stringtemplate-separator": "Jagoznam (kävuta &#32; libo &nbsp; keskustan täht)",
-  "custom-field-stringtemplate-item-placeholder": "Paina Enter, miše ližata enamba kohtoid"
+  "custom-field-stringtemplate-item-placeholder": "Paina Enter, miše ližata enamba kohtid"
 };
   const customFieldSlots = { ...activitySlots, customField: 'FIELD', customFieldValue: 'VALUE' };
   for (const [key, value] of Object.entries(vepsCustomFieldRepairs)) {
@@ -883,6 +883,67 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.match(cache['ve-PP']['dueCardsViewChange-choice-all-description'], /kaik kartad.*ei ole loptud.*\*märaigan päivmär\*.*laudoilpäi.*kävutajale om laskend/);
   assert.equal(cache['ve-PP']['dueCardsViewChange-title'], cache['ve-PP']['dueCardsViewChangePopup-title']);
   assert.match(cache['ve-PP']['export-card-field-dates'], /Tehtud, Sadud, Augotiž, Märaig, Lop/);
+  const vepsListControlRepairs = {
+  "add-card-to-bottom-of-list": "Ližada kart lugetišen lophu",
+  "add-card-to-top-of-list": "Ližada kart lugetišen augotišehe",
+  "always-field-on-card": "Ližada pöud kaikihe kartoihe",
+  "automatically-field-on-card": "Ližada pöud uzihe kartoihe",
+  "card-archived": "Nece kart om sirttud arhivaha.",
+  "card-labels-title": "Vajehta kartan znamad.",
+  "cardCustomFieldsPopup-title": "Vajehta kävutajan märitadud pöudoid",
+  "close-add-checklist-item": "Saubata kodvindlugetišen kohtan ližadusen form",
+  "close-edit-checklist-item": "Saubata kodvindlugetišen kohtan vajehtusen form",
+  "deleteCustomFieldPopup-title": "Heitä kävutajan märitadud pöud?",
+  "list-archive-pop": "Lugetiž ei nägu laudal arhivaha sirdändan jäl'ghe.",
+  "r-d-move-to-bottom-gen": "Sirdä kart sen lugetišen lophu",
+  "r-d-move-to-bottom-spec": "Sirdä kart lugetišen lophu",
+  "r-d-move-to-top-gen": "Sirdä kart sen lugetišen augotišehe",
+  "r-d-move-to-top-spec": "Sirdä kart lugetišen augotišehe",
+  "r-when-a-card-is-moved": "Konz kart om sirttud toižehe lugetišehe",
+  "hide-finished-checklist": "Peitä loptud kodvindlugetiž",
+  "hide-list-on-minicard": "Peitä lugetiž minikartal",
+  "hide-minicard-label-text": "Peitä minikartan znaman tekst",
+  "hideAllChecklistItems": "Peitä kaik kodvindlugetišen kohtad",
+  "hideCheckedChecklistItems": "Peitä kaik znamoitud kodvindlugetišen kohtad",
+  "list-archive-cards": "Sirdä kaik kartad neciš lugetišes arhivaha",
+  "list-archive-cards-pop": "Nece heitäb kaik necen lugetišen kartad laudaspäi. Miše kacta kartoid arhivas da tuoda niid tagaze laudale, paina “Menülist” > “Arhiv”.",
+  "list-archive-suggest": "Sinä void möhemba endištada lugetiž arhivaspäi laudan sändoiš.",
+  "list-delete-pop": "Nece heitäb kaik tegendad tegendoiden lugetišespäi. Ei sa endištada lugetiž. Ei sa pördutada.",
+  "list-delete-suggest-archive": "Sinä void sirdä lugetiž arhivaha, miše heitä sidä laudaspäi da kaita tegendad.",
+  "list-move-cards": "Sirdä kaik kartad neciš lugetišes",
+  "list-select-cards": "Valiče kaik kartad neciš lugetišes",
+  "show-field-on-card": "Ozuta nece pöud kartal",
+  "showChecklistAtMinicard": "Ozuta kodvindlugetiž minikartal",
+  "cards": "Kartad",
+  "archive": "Sirdä arhivaha",
+  "restore": "Endišta",
+  "menu": "Menülist",
+  "checklist-count": "Kodvindlugetišen kohtiden lugu (0/0)",
+  "checklist-count-on-minicard": "Kodvindlugetišen kohtiden lugu (0/0) minikartal",
+  "custom-field-stringtemplate-item-placeholder": "Paina Enter, miše ližata enamba kohtid"
+};
+  for (const [key, value] of Object.entries(vepsListControlRepairs)) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.equal(vepsTranslator.t(key), value, key);
+    assert.doesNotMatch(value, /Lisää|kenttä|korteille|Muokkaa|mukautettu|Sulje|tarkistuslist|lomakke|Poista|Siirrä|listansa|listan alkuun|listan loppuun|Kun kortti|Piilota|nimilappu|Valitse|Nähdäksesi|palauttaa|toimintasyöt|lopullista|peruuttamaan|Korttia|Palauta|Valikko|kohtoiden|kohtoid/i, key);
+  }
+  for (const key of ['add-card-to-top-of-list', 'r-d-move-to-top-gen', 'r-d-move-to-top-spec']) assert.match(cache['ve-PP'][key], /augotišehe$/);
+  for (const key of ['add-card-to-bottom-of-list', 'r-d-move-to-bottom-gen', 'r-d-move-to-bottom-spec']) assert.match(cache['ve-PP'][key], /lophu$/);
+  for (const place of ['top', 'bottom']) {
+    assert.match(cache['ve-PP'][`r-d-move-to-${place}-gen`], /sen lugetišen/);
+    assert.doesNotMatch(cache['ve-PP'][`r-d-move-to-${place}-spec`], /sen lugetišen/);
+  }
+  assert.match(cache['ve-PP']['hideCheckedChecklistItems'], /kaik znamoitud/);
+  assert.doesNotMatch(cache['ve-PP']['hideAllChecklistItems'], /znamoitud/);
+  assert.match(cache['ve-PP']['list-delete-pop'], /heitäb kaik tegendad.*Ei sa endištada lugetiž\. Ei sa pördutada\.$/);
+  assert.match(cache['ve-PP']['list-delete-suggest-archive'], /arhivaha.*kaita tegendad/);
+  assert.match(cache['ve-PP']['list-archive-suggest'], /endištada lugetiž arhivaspäi laudan sändoiš/);
+  assert.match(cache['ve-PP']['list-archive-cards-pop'], /tagaze laudale.*“Menülist” > “Arhiv”/);
+  assert.equal(cache['ve-PP']['archives'], 'Arhiv');
+  assert.equal(cache['ve-PP']['archived-items'], cache['ve-PP']['archives']);
+  assert.match(cache['ve-PP']['list-archive-cards-pop'], new RegExp(`“${cache['ve-PP'].menu}” > “${cache['ve-PP'].archives}”`));
+  assert.match(cache['ve-PP']['always-field-on-card'], /kaikihe kartoihe$/);
+  assert.match(cache['ve-PP']['automatically-field-on-card'], /uzihe kartoihe$/);
   assert.equal(vepsTranslator.t('activity'), 'Tegendad');
   assert.equal(vepsTranslator.t('act-activity-notify'), 'Tegendoiden tedotuz');
   for (const key of ['activity', 'act-activity-notify']) {
