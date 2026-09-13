@@ -80,9 +80,9 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 14,519 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 1,325 pending review or repair.
-The correction inventory records 16,143 exact before/after values,
+findings: 14,520 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 1,324 pending review or repair.
+The correction inventory records 16,154 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
@@ -1123,6 +1123,17 @@ addition and full upload after support becomes available, then later uploads
 without duplicate registration. Each run refreshes project membership;
 previous failure reports never exclude languages. Document code mapping
 changes when Transifex uses a different identifier. No remote writes ran.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/812c2437a">Repair Veps email and active status controls</a>. Thanks to xet7.</summary>
+
+Replace eleven Finnish email and active/inactive labels with native software
+terms. Restore plural Email Addresses, retain SMTP and preserve send/sent,
+error and opposing active states. Low confidence: the composed SMTP subject
+needs fluent review. Vocabulary, rejected Finnish and full correction
+inventory checks pass; browser verification remains pending.
 
 </details>
 
