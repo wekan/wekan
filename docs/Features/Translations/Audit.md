@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 11,153 |
+| Corrected | 11,156 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 4,693 |
+| Pending review or repair | 4,690 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **11,329** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **11,334** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `c98997671855e5d4c5ec190782790cc918d89122` — 4 French joining, exclusion, attachment and mention activities replaced with Wolof. Source confirms attachment/card and member/board argument order; all location placeholders remain intact. Mention terminology and full grammar remain low confidence. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; live browser verification is unavailable.
+Latest translation fix: **2026-09-13**, local commit `2f3a4cb25f7e7518c5eaad6fc347eb9d5a203e94` — 5 French import activities/controls replaced with Wolof, reusing the existing import term. Templates confirm entity/destination/source argument order; long messages preserve destination locations. Full grammar and computing adaptation remain low confidence. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; live browser verification is unavailable.
 
 **Review follow-up:** Silesian `sandstorm-raw-mongodb` remains pending: its wording overlaps Polish and existing Silesian technical strings, but dictionary searches did not establish the full phrase as correct Silesian. Keep the current value until stronger language evidence supports retaining or replacing it.
 
