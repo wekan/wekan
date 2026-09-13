@@ -127,16 +127,11 @@ async function loginWithToken(page, userId, token) {
     }, ARM_KEY);
     await page.reload({ waitUntil: 'commit' });
     await waitForMeteor(page);
-    await page.evaluate(
-      () =>
-        new Promise(resolve => {
-          const deadline = Date.now() + 10000;
-          const waitEmpty = () => {
-            if (!Meteor.userId() || Date.now() > deadline) resolve();
-            else setTimeout(waitEmpty, 50);
-          };
-          waitEmpty();
-        }),
+    // The replacement cookie resumes the requested user on this fresh page.
+    // Waiting for an empty state races its asynchronous retrieval and can start
+    // a duplicate token login during navigation.
+    await page.waitForFunction(
+      id => Meteor.userId() === id && !Meteor.loggingIn(), userId, { timeout: 15_000 },
     );
   }
 
