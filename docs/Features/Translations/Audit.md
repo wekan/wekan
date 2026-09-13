@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 12,249 |
+| Corrected | 12,252 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 3,597 |
+| Pending review or repair | 3,594 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Restored and unflagged values still need validation.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,726** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,729** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `bbec32d4749cde298ce2e65e8a827ad08c58dbbb` — six French board/member and custom-HTML descriptions replaced with Volapük. Preserved permissions, membership scope/direction and exact body tags/placement; assembled wording remains low confidence.
+Latest translation fix: **2026-09-13**, local commit `ad8f23e9dd4b5b9564aaa4c226cfa5f06d273660` — three French account-protection messages replaced with Volapük and the failure-counting interval clarified. Preserved login-protection/update meanings and seconds; software paraphrases and assembled wording remain low confidence.
 
 **Verification:** correction and progress tests pass, covering exact values, placeholders, JSON examples and key order. Native-speaker and browser checks remain outstanding.
 
