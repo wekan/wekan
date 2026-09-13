@@ -94449,5 +94449,61 @@
     "before": "Hinweis: Die Elemente der Checkliste müssen als kommagetrennte Werte geschrieben werden.",
     "after": "De': ghItlhHommey tetlh ghItlhHommey DaghItlhDI', ghItlhHommey DachevmeH comma yIlo'.",
     "reason": "Replace audited German checklist completion/uncompletion, deletion confirmation and comma-separated item instruction with Klingon. Preserve completion versus declaring incomplete, checklist name before card-link percent substitutions, all board context tokens, and comma-separated values. Reuse existing ghItlhHommey tetlh terminology; incomplete status uses a sentence-as-object declaration without aspect or indefinite suffix on the second verb. Full software wording is assembled, low confidence, and needs fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "error-list-doesNotExist",
+    "before": "Diese Liste existiert nicht",
+    "after": "tetlhvam tu'lu'be'",
+    "reason": "Replace audited German existence, duplicate-name, login and malformed-JSON errors with Klingon. Preserve this list/board/user identity, user account not created, organization versus team name already in use, error during login attempt, and text not valid JSON. Reuse repaired account, organization/team and login terminology; keep JSON identifier unchanged. Full software wording is assembled, low confidence, and requires fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "error-board-doesNotExist",
+    "before": "Dieses Board existiert nicht",
+    "after": "raSvam tu'lu'be'",
+    "reason": "Replace audited German existence, duplicate-name, login and malformed-JSON errors with Klingon. Preserve this list/board/user identity, user account not created, organization versus team name already in use, error during login attempt, and text not valid JSON. Reuse repaired account, organization/team and login terminology; keep JSON identifier unchanged. Full software wording is assembled, low confidence, and requires fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "error-user-doesNotExist",
+    "before": "Dieser Nutzer existiert nicht",
+    "after": "lo'wI'vam tu'lu'be'",
+    "reason": "Replace audited German existence, duplicate-name, login and malformed-JSON errors with Klingon. Preserve this list/board/user identity, user account not created, organization versus team name already in use, error during login attempt, and text not valid JSON. Reuse repaired account, organization/team and login terminology; keep JSON identifier unchanged. Full software wording is assembled, low confidence, and requires fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "error-user-notCreated",
+    "before": "Dieser Nutzer ist nicht angelegt",
+    "after": "lo'wI'vam account chenmoHlu'be'",
+    "reason": "Replace audited German existence, duplicate-name, login and malformed-JSON errors with Klingon. Preserve this list/board/user identity, user account not created, organization versus team name already in use, error during login attempt, and text not valid JSON. Reuse repaired account, organization/team and login terminology; keep JSON identifier unchanged. Full software wording is assembled, low confidence, and requires fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "error-orgname-taken",
+    "before": "Dieser Organisationsname ist schon vergeben",
+    "after": "DaH yejHaq pongvam lo'lu'taH",
+    "reason": "Replace audited German existence, duplicate-name, login and malformed-JSON errors with Klingon. Preserve this list/board/user identity, user account not created, organization versus team name already in use, error during login attempt, and text not valid JSON. Reuse repaired account, organization/team and login terminology; keep JSON identifier unchanged. Full software wording is assembled, low confidence, and requires fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "error-teamname-taken",
+    "before": "Dieser Teamname ist schon vergeben",
+    "after": "DaH ghom pongvam lo'lu'taH",
+    "reason": "Replace audited German existence, duplicate-name, login and malformed-JSON errors with Klingon. Preserve this list/board/user identity, user account not created, organization versus team name already in use, error during login attempt, and text not valid JSON. Reuse repaired account, organization/team and login terminology; keep JSON identifier unchanged. Full software wording is assembled, low confidence, and requires fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "error-ldap-login",
+    "before": "Es ist ein Fehler beim Anmelden aufgetreten",
+    "after": "'elmeH Qu' nIDlu'taHvIS, Qagh tu'lu'pu'",
+    "reason": "Replace audited German existence, duplicate-name, login and malformed-JSON errors with Klingon. Preserve this list/board/user identity, user account not created, organization versus team name already in use, error during login attempt, and text not valid JSON. Reuse repaired account, organization/team and login terminology; keep JSON identifier unchanged. Full software wording is assembled, low confidence, and requires fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "error-json-malformed",
+    "before": "Ihre Eingabe ist kein gültiges JSON",
+    "after": "JSON lugh 'oHbe' ghItlhlIj'e'",
+    "reason": "Replace audited German existence, duplicate-name, login and malformed-JSON errors with Klingon. Preserve this list/board/user identity, user account not created, organization versus team name already in use, error during login attempt, and text not valid JSON. Reuse repaired account, organization/team and login terminology; keep JSON identifier unchanged. Full software wording is assembled, low confidence, and requires fluent-speaker validation."
   }
 ]
