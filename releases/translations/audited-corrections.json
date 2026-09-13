@@ -89570,5 +89570,110 @@
     "before": "Dans votre tableau Trello, allez sur 'Menu', puis sur 'Plus', 'Imprimer et exporter', 'Exporter en JSON' et copiez le texte du résultat",
     "after": "Su tab olik Trello, maifükolös «Menu», täno «More», «Print and Export», «Export JSON», e kopiedolös vödemi pegetöl.",
     "reason": "Repair French export/import instructions and Esperanto menu/export labels. Preserve insufficient-free-disk-space error, downloaded-file copy action and ordered navigation; WeKan instruction uses the exact repaired local menu/export labels, while Trello navigation names stay as supplied by the English source. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests feapladön (computer download) and existing copy/export/file vocabulary; https://www.xn--volapk-7ya.com/volapuk-vifik-04.html attests saidik. Descriptive menu adaptation, borrowed computer disk term and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "import-board-zip",
+    "before": "Ajouter un fichier .zip qui contient les fichiers JSON du tableau et les noms de sous-répertoires avec les pièces jointes",
+    "after": "Lüükön nünedi .zip, kel ninädon nünedis JSON tabas e donamapis me nems tabas e fimükots",
+    "reason": "Repair French CSV/ZIP import instructions and defective related ZIP/rule-import terminology. Preserve JSON/CSV/TSV/.json/.zip formats, one-or-more/all-boards scope, board-named subfolders/attachments, optional named Trello tool, wait/progress and failure/size/file-count limits. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests map (folder), teilön (separate), liunül (comma), stebedön (wait), and existing file/import/export/rule terms. Donamap subfolder derivation, Tab separator reference, software adaptations and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "import-board-instruction-csv",
+    "before": "Déposez vos données en CSV (valeurs séparées par des virgules) ou TSV (valeurs séparées par des tabulations).",
+    "after": "Nüseitolös völadis olik peteilöl me liunüls (CSV) u me mals Tab (TSV).",
+    "reason": "Repair French CSV/ZIP import instructions and defective related ZIP/rule-import terminology. Preserve JSON/CSV/TSV/.json/.zip formats, one-or-more/all-boards scope, board-named subfolders/attachments, optional named Trello tool, wait/progress and failure/size/file-count limits. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests map (folder), teilön (separate), liunül (comma), stebedön (wait), and existing file/import/export/rule terms. Donamap subfolder derivation, Tab separator reference, software adaptations and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "error-csv-schema",
+    "before": "Votre fichier CSV (valeurs séparées par des virgules) / TSV (valeurs séparées par des tabulations) ne contient pas d'informations au bon format",
+    "after": "Nünäds CSV (völads peteilöl me liunüls) / TSV (völads peteilöl me mals Tab) olik no ninädons nünis zesüdik in fom verätik",
+    "reason": "Repair French CSV/ZIP import instructions and defective related ZIP/rule-import terminology. Preserve JSON/CSV/TSV/.json/.zip formats, one-or-more/all-boards scope, board-named subfolders/attachments, optional named Trello tool, wait/progress and failure/size/file-count limits. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests map (folder), teilön (separate), liunül (comma), stebedön (wait), and existing file/import/export/rule terms. Donamap subfolder derivation, Tab separator reference, software adaptations and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "import-attachments-zip",
+    "before": "Trello keblünots ZIP (fakultatik, de Trello Card Attachments Downloader)",
+    "after": "ZIP fimükotas Trello (no zesüdik, de Trello Card Attachments Downloader)",
+    "reason": "Repair French CSV/ZIP import instructions and defective related ZIP/rule-import terminology. Preserve JSON/CSV/TSV/.json/.zip formats, one-or-more/all-boards scope, board-named subfolders/attachments, optional named Trello tool, wait/progress and failure/size/file-count limits. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests map (folder), teilön (separate), liunül (comma), stebedön (wait), and existing file/import/export/rule terms. Donamap subfolder derivation, Tab separator reference, software adaptations and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "import-trello-zip-file",
+    "before": "Trello .zip fil",
+    "after": "Nüned .zip Trello",
+    "reason": "Repair French CSV/ZIP import instructions and defective related ZIP/rule-import terminology. Preserve JSON/CSV/TSV/.json/.zip formats, one-or-more/all-boards scope, board-named subfolders/attachments, optional named Trello tool, wait/progress and failure/size/file-count limits. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests map (folder), teilön (separate), liunül (comma), stebedön (wait), and existing file/import/export/rule terms. Donamap subfolder derivation, Tab separator reference, software adaptations and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "import-trello-zip-file-hint",
+    "before": "Zip ko bal u mödikum tab .json fils e keblünots onas in tabanema sekasitads (de Trello Card Attachments Downloader). Valik tabs paimportons.",
+    "after": "Nüned .zip ko bal u mödikum nüneds .json tabas e fimükots onas in donamaps me nems tabas (de Trello Card Attachments Downloader). Tabs valik panüveigons.",
+    "reason": "Repair French CSV/ZIP import instructions and defective related ZIP/rule-import terminology. Preserve JSON/CSV/TSV/.json/.zip formats, one-or-more/all-boards scope, board-named subfolders/attachments, optional named Trello tool, wait/progress and failure/size/file-count limits. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests map (folder), teilön (separate), liunül (comma), stebedön (wait), and existing file/import/export/rule terms. Donamap subfolder derivation, Tab separator reference, software adaptations and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "import-trello-zip-no-boards",
+    "before": "Nö Trello-tab .json fils pesukons in .zip.",
+    "after": "Nüneds .json tabas Trello no petuvons in .zip.",
+    "reason": "Repair French CSV/ZIP import instructions and defective related ZIP/rule-import terminology. Preserve JSON/CSV/TSV/.json/.zip formats, one-or-more/all-boards scope, board-named subfolders/attachments, optional named Trello tool, wait/progress and failure/size/file-count limits. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests map (folder), teilön (separate), liunül (comma), stebedön (wait), and existing file/import/export/rule terms. Donamap subfolder derivation, Tab separator reference, software adaptations and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "import-trello-zip-progress",
+    "before": "Importön tabis de .zip, benö vobolöd…",
+    "after": "Tabs panüveigons de .zip. Begö! Stebedolös…",
+    "reason": "Repair French CSV/ZIP import instructions and defective related ZIP/rule-import terminology. Preserve JSON/CSV/TSV/.json/.zip formats, one-or-more/all-boards scope, board-named subfolders/attachments, optional named Trello tool, wait/progress and failure/size/file-count limits. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests map (folder), teilön (separate), liunül (comma), stebedön (wait), and existing file/import/export/rule terms. Donamap subfolder derivation, Tab separator reference, software adaptations and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "import-trello-zip-failed",
+    "before": "Import ela .zip emalsükon.",
+    "after": "Nüveigam nüneda .zip no eplöpon.",
+    "reason": "Repair French CSV/ZIP import instructions and defective related ZIP/rule-import terminology. Preserve JSON/CSV/TSV/.json/.zip formats, one-or-more/all-boards scope, board-named subfolders/attachments, optional named Trello tool, wait/progress and failure/size/file-count limits. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests map (folder), teilön (separate), liunül (comma), stebedön (wait), and existing file/import/export/rule terms. Donamap subfolder derivation, Tab separator reference, software adaptations and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "import-trello-zip-too-large",
+    "before": "Zip binon tu gretik ad importön.",
+    "after": "Nüned .zip binon tu gretik ad nüveigön.",
+    "reason": "Repair French CSV/ZIP import instructions and defective related ZIP/rule-import terminology. Preserve JSON/CSV/TSV/.json/.zip formats, one-or-more/all-boards scope, board-named subfolders/attachments, optional named Trello tool, wait/progress and failure/size/file-count limits. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests map (folder), teilön (separate), liunül (comma), stebedön (wait), and existing file/import/export/rule terms. Donamap subfolder derivation, Tab separator reference, software adaptations and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "import-trello-zip-too-many-files",
+    "before": "Zip labon tu mödik fils ad importön.",
+    "after": "Nüned .zip labon nünedis tumödik ad nüveigön.",
+    "reason": "Repair French CSV/ZIP import instructions and defective related ZIP/rule-import terminology. Preserve JSON/CSV/TSV/.json/.zip formats, one-or-more/all-boards scope, board-named subfolders/attachments, optional named Trello tool, wait/progress and failure/size/file-count limits. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests map (folder), teilön (separate), liunül (comma), stebedön (wait), and existing file/import/export/rule terms. Donamap subfolder derivation, Tab separator reference, software adaptations and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "import-trello-zip-file-too-large",
+    "before": "Fil ini .zip binon tu gretik ad importön.",
+    "after": "Nüned in .zip binon tu gretik ad nüveigön.",
+    "reason": "Repair French CSV/ZIP import instructions and defective related ZIP/rule-import terminology. Preserve JSON/CSV/TSV/.json/.zip formats, one-or-more/all-boards scope, board-named subfolders/attachments, optional named Trello tool, wait/progress and failure/size/file-count limits. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests map (folder), teilön (separate), liunül (comma), stebedön (wait), and existing file/import/export/rule terms. Donamap subfolder derivation, Tab separator reference, software adaptations and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "r-export-csv",
+    "before": "Eksportön reguls al CSV",
+    "after": "Seveigön nomis lü CSV",
+    "reason": "Repair French CSV/ZIP import instructions and defective related ZIP/rule-import terminology. Preserve JSON/CSV/TSV/.json/.zip formats, one-or-more/all-boards scope, board-named subfolders/attachments, optional named Trello tool, wait/progress and failure/size/file-count limits. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests map (folder), teilön (separate), liunül (comma), stebedön (wait), and existing file/import/export/rule terms. Donamap subfolder derivation, Tab separator reference, software adaptations and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "r-import-csv",
+    "before": "Importön reguls de CSV",
+    "after": "Nüveigön nomis de CSV",
+    "reason": "Repair French CSV/ZIP import instructions and defective related ZIP/rule-import terminology. Preserve JSON/CSV/TSV/.json/.zip formats, one-or-more/all-boards scope, board-named subfolders/attachments, optional named Trello tool, wait/progress and failure/size/file-count limits. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests map (folder), teilön (separate), liunül (comma), stebedön (wait), and existing file/import/export/rule terms. Donamap subfolder derivation, Tab separator reference, software adaptations and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "r-import-paste",
+    "before": "Letälolöd reguls peeksportöl (JSON u CSV) u Trello Butler-komandis is",
+    "after": "Nüseitolös is nomis peseveigöl (JSON u CSV) u büdis Trello Butler",
+    "reason": "Repair French CSV/ZIP import instructions and defective related ZIP/rule-import terminology. Preserve JSON/CSV/TSV/.json/.zip formats, one-or-more/all-boards scope, board-named subfolders/attachments, optional named Trello tool, wait/progress and failure/size/file-count limits. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests map (folder), teilön (separate), liunül (comma), stebedön (wait), and existing file/import/export/rule terms. Donamap subfolder derivation, Tab separator reference, software adaptations and assembled wording remain low confidence; no native-speaker verification."
   }
 ]
