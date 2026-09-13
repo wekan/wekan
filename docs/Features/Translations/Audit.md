@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Audit keys |
 | --- | ---: |
-| Explicitly corrected | 7,517 |
+| Explicitly corrected | 7,534 |
 | Restored pre-pull values awaiting further validation | 4,059 |
 | Reviewed and retained unchanged | 175 |
-| Pending review or repair | 8,330 |
+| Pending review or repair | 8,313 |
 | Total tracked | 20,081 |
 
 **Translation repairs remain unfinished.** These counts cover flagged findings; unflagged strings and restored values are not certified as correct.
 
-Fixes cover wrong-language text, terminology, warnings, JSON examples, placeholders and calendar/search formatting. The correction history records **7,590 values**, including fixes outside the audit. Per-language remaining work is available through the command below.
+Fixes cover wrong-language text, terminology, warnings, JSON examples, placeholders and calendar/search formatting. The correction history records **7,607 values**, including fixes outside the audit. Per-language remaining work is available through the command below.
 
-Latest fix: [ccc4b9d7e](https://github.com/wekan/wekan/commit/ccc4b9d7e69b0d97d832052f6512b0cf9cb6f254), **2026-09-13** — thirteen Ladin monitoring, selection and rule-import messages repaired with low confidence; **44 Ladin findings remain**. Exact-value, placeholder, key-order and idempotency checks pass. Wording needs native-speaker review; live browser verification remains unavailable.
+Latest fix: [70f7052ff](https://github.com/wekan/wekan/commit/70f7052ff17dbda69dbe16d2e062f377e163544a), **2026-09-13** — seventeen Ladin date-rule, storage and accessibility labels repaired with low confidence; **27 Ladin findings remain**. Exact-value, placeholder, key-order and idempotency checks pass. Wording needs native-speaker review; live browser verification remains unavailable.
 
 **Provenance:** not all errors came from Transifex. The captured pull changed 4,061 values; the local audit added 16,020 findings. Bosnian errors predated that pull in a [local completion commit](https://github.com/wekan/wekan/commit/bdb3b15886a749b725b5290ba0109fcba955f983). Other ultimate origins remain unverified.
 
