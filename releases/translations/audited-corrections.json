@@ -65378,5 +65378,61 @@
     "before": "Fenêtre des échecs (secondes)",
     "after": "Prantad kontañ ar c’hwitadennoù (eilennoù)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "accounts-lockout-failures-before",
+    "before": "Échecs avant verrouillage",
+    "after": "Niver ar c’hwitadennoù a-raok stankañ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "accounts-lockout-period",
+    "before": "Durée de verrouillage (secondes)",
+    "after": "Pad ar stankañ (eilennoù)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "act-a-endAt",
+    "before": "Modification de la date de fin de __timeOldValue__ à __timeValue__",
+    "after": "kemmet an eur echuiñ eus (__timeOldValue__) da __timeValue__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "act-a-receivedAt",
+    "before": "Modification de la date de réception de __timeOldValue__ à __timeValue__",
+    "after": "kemmet an eur degemer eus (__timeOldValue__) da __timeValue__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "act-a-startAt",
+    "before": "Modification de la date de début de __timeOldValue__ à __timeValue__",
+    "after": "kemmet an eur deroù eus (__timeOldValue__) da __timeValue__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "act-almostdue",
+    "before": "rappelle que l'échéance (__timeValue__) de __card__ approche",
+    "after": "degaset da soñj emañ termen (__timeValue__) __card__ o tostaat",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "act-duenow",
+    "before": "rappelle que l'échéance (__timeValue__) de __card__ est maintenant",
+    "after": "degaset da soñj eo bremañ termen (__timeValue__) __card__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "act-newDue",
+    "before": "__list__/__card__ a un 1er rappel d'échéance [__board__]",
+    "after": "__list__/__card__ he deus un degasadenn da soñj kentañ eus an termen [__board__]",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
