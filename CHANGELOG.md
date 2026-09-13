@@ -1004,6 +1004,23 @@ is in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2f1f1beac">Give template titles sole autofocus and wait for refreshed identity</a>. Thanks to xet7.</summary>
+
+Competing autofocus fields could send a newly typed template title to the
+search field in WebKit. Give the title sole autofocus and require the
+intended field to retain the text while the search field remains empty.
+Refresh tests wait for the exact expected Meteor user in the browser,
+which handles client initialization and replacement execution contexts.
+The refresh regression passes ten WebKit repetitions without retries.
+The first complete EVERYTHING run passes all four stages: 999 Node suites,
+527 Meteor server tests, import and Node E2E checks, three browsers,
+103 conformance cases on each of four databases and FerretDB unit/vet/
+integration. Its two WebKit retries exposed these repaired issues; fresh
+compiled verification is in progress.
+
+</details>
+
 **Source and test parity** - preserve current behavior and reject real regressions.
 
 <details>

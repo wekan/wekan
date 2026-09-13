@@ -68,15 +68,15 @@ test.describe('#4652 list and swimlane colors behind a URL path', () => {
     await expect.poll(() => boardPage.evaluate(() => Meteor.user()?.profile?.calendarSystem))
       .toBe('jalali');
     await boardPage.reload({ waitUntil: 'domcontentloaded' });
-    await expect.poll(() => boardPage.evaluate(() => ({
-      id: Meteor.userId(), fullname: Meteor.user()?.profile?.fullname,
-      calendar: Meteor.user()?.profile?.calendarSystem,
-    }))).toEqual({ id: user.id, fullname: 'E2E Test User', calendar: 'jalali' });
+    await boardPage.waitForFunction(id => typeof Meteor !== 'undefined' &&
+      Meteor.userId() === id && Meteor.user()?.profile?.fullname === 'E2E Test User' &&
+      Meteor.user()?.profile?.calendarSystem === 'jalali', user.id, { timeout: 15_000 });
 
     // Negative: the actual logout control clears the native HttpOnly cookie.
     await boardPage.locator('.js-open-header-member-menu').first().click();
     await boardPage.locator('.js-pop-over .js-logout').click();
-    await expect.poll(() => boardPage.evaluate(() => Meteor.userId())).toBeNull();
+    await boardPage.waitForFunction(() => typeof Meteor !== 'undefined' &&
+      Meteor.userId() === null, undefined, { timeout: 15_000 });
     await expect.poll(async () => {
       const cookies = await boardPage.context().cookies();
       return cookies.some(cookie => cookie.name === 'meteor_login_token');
