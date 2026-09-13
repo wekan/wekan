@@ -85902,5 +85902,19 @@
     "before": "Republic of China",
     "after": "Kalãdôrz Minguo",
     "reason": "Replace Polish-labelled filler / English calendar names with Kashubian kalãdôrz attested in https://www.muzeum-kaszubskie.pl/csb/ekspozycja-csb/714-gospodarstwo-domowe-parter-sala-ii-csb . Chinese/Hebrew adjectives chińsczi/hebrajsczi attested in indexed https://miesiecznikpomerania.pl/images/archiwum_pliki_pdf/pomerania/2019/POMERANIA_9_534_2019_net.pdf . Preserve named calendar identities. Assembled labels remain low confidence; no native-speaker review."
+  },
+  {
+    "locale": "csb",
+    "key": "week",
+    "before": "Tydzień — pò kaszëbskù",
+    "after": "Tidzéń",
+    "reason": "Replace Polish week filler with Kashubian Tidzéń, independently attested in author-published https://www.fopke.pl/media/tunefiles/piosenki-dla-dzieci/Tidze%C5%84_wk%C3%B3%C5%82_-_bd.pdf . Japanese adjective Japóńsczi follows Kashubian Language Council resolution https://rjk.org.pl/resolutions/uchwaly-2007/ . Calendar noun already verified from native museum text; assembled Japanese calendar label remains low confidence, not native-speaker reviewed."
+  },
+  {
+    "locale": "csb",
+    "key": "calendar-system-japanese",
+    "before": "Japanese",
+    "after": "Japóńsczi kalãdôrz",
+    "reason": "Replace Polish week filler with Kashubian Tidzéń, independently attested in author-published https://www.fopke.pl/media/tunefiles/piosenki-dla-dzieci/Tidze%C5%84_wk%C3%B3%C5%82_-_bd.pdf . Japanese adjective Japóńsczi follows Kashubian Language Council resolution https://rjk.org.pl/resolutions/uchwaly-2007/ . Calendar noun already verified from native museum text; assembled Japanese calendar label remains low confidence, not native-speaker reviewed."
   }
 ]
