@@ -16,7 +16,8 @@
  */
 
 const { test, expect } = require('../fixtures');
-const BoardPage = require('../pages/BoardPage');
+const db = require('../helpers/db');
+const { navigateInApp } = require('../helpers/auth');
 const CardPage = require('../pages/CardPage');
 
 // Returns a point that is over the board canvas but clearly OUTSIDE the card
@@ -58,18 +59,15 @@ test.describe('Checklist text selection (#5686)', () => {
     boardPage,
     board,
   }) => {
-    const bp = new BoardPage(boardPage);
     const cp = new CardPage(boardPage);
-    const [listA] = board.listIds;
 
-    await bp.clickCard(listA, 'Alpha Card');
+    const card = db.findOne('cards', { boardId: board.boardId, title: 'Alpha Card' });
+    await navigateInApp(boardPage, `/b/${board.boardId}/${board.slug}/${card._id}`);
+    await boardPage.waitForFunction(id => Package.session.Session.get('currentCard') === id, card._id);
     await cp.waitForOpen();
 
     const trigger = cp.root.locator('a.add-checklist.js-open-inlined-form');
-    if ((await trigger.count()) === 0) {
-      console.log('Note: checklists disabled on this board; skipping #5686 test');
-      return;
-    }
+    await expect(trigger).toBeVisible();
 
     await cp.addChecklist('Selectable List');
     await cp.addChecklistItem('Selectable List', 'Drag to select this checklist text');
@@ -117,24 +115,17 @@ test.describe('Checklist text selection (#5686)', () => {
     await expect(cp.root).toBeVisible({ timeout: 5_000 });
   });
 
-  // QUARANTINED: this auxiliary "control" asserts that a plain click outside the
-  // card closes it. The actual #5686 guard (the test above, "selecting … keeps the
-  // card open") passes, so the feature under test is covered. This control fails
-  // in the current build: the close routes through EscapeActions' document-click
-  // handler (detailsPane, enabledOnClick), and a synthetic mouse.click at the
-  // computed outside point does not trigger the close — either click-outside-close
-  // regressed or the click target is being filtered (a/button/.is-editable) /
-  // swallowed. Needs focused investigation before re-enabling; quarantined so it
-  // does not mask the rest of the (now green) suite. See CHANGELOG.
-  test.fixme('control: a plain click on the board outside the card closes it', async ({
+  // The close handler is active on card routes (currentCard), while independent
+  // desktop card popups remain open as the user works on the board.
+  test('control: a plain click on the board outside the card closes it', async ({
     boardPage,
     board,
   }) => {
-    const bp = new BoardPage(boardPage);
     const cp = new CardPage(boardPage);
-    const [listA] = board.listIds;
 
-    await bp.clickCard(listA, 'Alpha Card');
+    const card = db.findOne('cards', { boardId: board.boardId, title: 'Alpha Card' });
+    await navigateInApp(boardPage, `/b/${board.boardId}/${board.slug}/${card._id}`);
+    await boardPage.waitForFunction(id => Package.session.Session.get('currentCard') === id, card._id);
     await cp.waitForOpen();
 
     // Clear any leftover selection so the close guard does not engage.
