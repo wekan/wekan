@@ -72,7 +72,8 @@ if not defined NODE_OPTIONS set "NODE_OPTIONS=--max-old-space-size=%WEKAN_BUILD_
 
 REM Every log this script writes goes into the repo-local ignored .tools\log\.
 REM Create it up front so redirections never fail on a missing directory.
-if not exist ".tools\log" md ".tools\log"
+if not defined WEKAN_LOG_ROOT set "WEKAN_LOG_ROOT=%REPO%\.tools\log"
+if not exist "%WEKAN_LOG_ROOT%" md "%WEKAN_LOG_ROOT%"
 
 REM --- Platform detection (OS + CPU arch), like detect_platform in the .sh ---
 set "PLATFORM_OS=windows"
@@ -81,7 +82,7 @@ if /i "%PROCESSOR_ARCHITECTURE%"=="ARM64" set "PLATFORM_ARCH=arm64"
 if /i "%PROCESSOR_ARCHITEW6432%"=="ARM64" set "PLATFORM_ARCH=arm64"
 echo Platform: %PLATFORM_OS% %PLATFORM_ARCH%
 echo Repo: %REPO%
-echo Note: Dev-server console output is also logged to .tools\log\wekan-log.log
+echo Note: Logs use .tools\log\<operation>\YYYY-MM-DD\HH-MM-SS\.
 
 :menu
 echo.
@@ -825,6 +826,8 @@ REM Two entries, one build. :build adds what a RELEASE bundle is on top of
 REM :builddev, and both share :buildcommon - so the plain build cannot drift
 REM from the one the release steps run on.
 :builddev
+call :buildlog build-dev-bundle dev
+if errorlevel 1 goto end
 echo Building the WeKan DEVELOPMENT bundle ^(plain meteor build^).
 call :buildcommon
 if errorlevel 1 goto end
@@ -836,6 +839,8 @@ goto end
 
 REM ===========================================================================
 :build
+call :buildlog build-release-bundle release
+if errorlevel 1 goto end
 echo Building the WeKan RELEASE bundle.
 call :buildcommon
 if errorlevel 1 goto end
@@ -857,7 +862,8 @@ if errorlevel 1 (
   echo          bash comes with Git for Windows ^(Git Bash^) and with WSL.
   goto end
 )
-bash releases/build-release-bundle.sh .build/bundle
+call :build_logged bash releases/build-release-bundle.sh .build/bundle
+if errorlevel 1 goto end
 echo Done.
 goto end
 
@@ -865,15 +871,30 @@ REM ===========================================================================
 REM The part both build entries do: clear the rspack dev-build caches (_build and
 REM node_modules\.cache) so the next `meteor run` recompiles from scratch instead
 REM of serving stale modules, then build the bundle.
+:buildlog
+call :logdir %~1
+if errorlevel 1 exit /b 1
+set "WEKAN_BUILD_LOG=%LOG_DIRECTORY%\%~2.txt"
+echo Build log: %WEKAN_BUILD_LOG%
+exit /b 0
+
+:build_logged
+set "WEKAN_LOG_COMMAND=%*"
+echo Command: %*
+powershell -NoProfile -Command "& cmd /d /c $env:WEKAN_LOG_COMMAND 2>&1 | Tee-Object -FilePath $env:WEKAN_BUILD_LOG -Append; exit $LASTEXITCODE"
+exit /b %errorlevel%
+
 :buildcommon
-if exist "%REPO%\node_modules"        rmdir /s /q "%REPO%\node_modules"
-if exist "%REPO%\node_modules\.cache" rmdir /s /q "%REPO%\node_modules\.cache"
-if exist "%REPO%\.meteor\local"       rmdir /s /q "%REPO%\.meteor\local"
-if exist "%REPO%\.build"              rmdir /s /q "%REPO%\.build"
-if exist "%REPO%\_build"              rmdir /s /q "%REPO%\_build"
-call meteor update --npm
-call meteor npm install
-call meteor build .build --directory
+if exist "%REPO%\node_modules"        call :build_logged rmdir /s /q "%REPO%\node_modules"
+if exist "%REPO%\node_modules\.cache" call :build_logged rmdir /s /q "%REPO%\node_modules\.cache"
+if exist "%REPO%\.meteor\local"       call :build_logged rmdir /s /q "%REPO%\.meteor\local"
+if exist "%REPO%\.build"              call :build_logged rmdir /s /q "%REPO%\.build"
+if exist "%REPO%\_build"              call :build_logged rmdir /s /q "%REPO%\_build"
+call :build_logged meteor update --npm
+call :build_logged meteor npm install
+if errorlevel 1 exit /b 1
+call :build_logged meteor build .build --directory --verbose
+if errorlevel 1 exit /b 1
 if not exist "%REPO%\.build\bundle\main.js" (
   echo ERROR: the build produced no .build\bundle\main.js.
   exit /b 1
@@ -1022,12 +1043,14 @@ set "S_mocha=RUN" & set "S_unit=RUN" & set "S_import=RUN" & set "S_e2e=RUN"
 set "S_chromium=RUN" & set "S_firefox=RUN" & set "S_webkit=RUN"
 set "C_mocha=0" & set "C_unit=0" & set "C_import=0" & set "C_e2e=0"
 set "C_chromium=0" & set "C_firefox=0" & set "C_webkit=0"
-REM Each run gets its own .tools\log\<timestamp>\ dir (stamped once at run start), so
+REM Each run gets its own .tools\log\<operation>\YYYY-MM-DD\HH-MM-SS\ dir (stamped once at run start), so
 REM logs are never overwritten and previous runs are kept. PowerShell gives a
 REM locale-independent yyyy-MM-dd_HH-mm-ss; %RUN_LOGDIR% is absolute so it works
 REM from any job's working directory (e.g. the browser job runs in tests\playwright).
 for /f %%i in ('powershell -NoProfile -Command "Get-Date -Format yyyy-MM-dd_HH-mm-ss"') do set "RUN_TS=%%i"
-set "RUN_LOGDIR=%REPO%\.tools\log\%RUN_TS%"
+call :logdir test-all-parallel
+if errorlevel 1 goto end
+set "RUN_LOGDIR=%LOG_DIRECTORY%"
 if not exist "%RUN_LOGDIR%" md "%RUN_LOGDIR%"
 echo Logs for this run: %RUN_LOGDIR%\  - previous runs are kept
 REM Clear completion flags from any previous run.
@@ -1164,12 +1187,14 @@ set "S_mocha=RUN" & set "S_unit=RUN" & set "S_import=RUN" & set "S_e2e=RUN"
 set "S_chromium=RUN" & set "S_firefox=RUN" & set "S_webkit=RUN"
 set "C_mocha=0" & set "C_unit=0" & set "C_import=0" & set "C_e2e=0"
 set "C_chromium=0" & set "C_firefox=0" & set "C_webkit=0"
-REM Each run gets its own .tools\log\<timestamp>\ dir (stamped once at run start), so
+REM Each run gets its own .tools\log\<operation>\YYYY-MM-DD\HH-MM-SS\ dir (stamped once at run start), so
 REM logs are never overwritten and previous runs are kept. PowerShell gives a
 REM locale-independent yyyy-MM-dd_HH-mm-ss; %RUN_LOGDIR% is absolute so it works
 REM from any job's working directory (e.g. the browser job runs in tests\playwright).
 for /f %%i in ('powershell -NoProfile -Command "Get-Date -Format yyyy-MM-dd_HH-mm-ss"') do set "RUN_TS=%%i"
-set "RUN_LOGDIR=%REPO%\.tools\log\%RUN_TS%"
+call :logdir test-all-sequential
+if errorlevel 1 goto end
+set "RUN_LOGDIR=%LOG_DIRECTORY%"
 if not exist "%RUN_LOGDIR%" md "%RUN_LOGDIR%"
 echo Logs for this run: %RUN_LOGDIR%\  - previous runs are kept
 REM Clear completion flags from any previous run.
@@ -1455,17 +1480,27 @@ set "WITH_API=true"
 set "RICHER_CARD_COMMENT_EDITOR=false"
 exit /b 0
 
+:logdir
+set "LOG_DIRECTORY="
+for /f "usebackq delims=" %%D in (`node "%REPO%\tools\log-directory.cjs" "%~1"`) do set "LOG_DIRECTORY=%%D"
+if not defined LOG_DIRECTORY exit /b 1
+echo Log directory: %LOG_DIRECTORY%
+exit /b 0
+
 :onelog
-REM Set ONELOG to .tools\log\<datetime>\wekan-%1.log - the same place every other
+REM Set ONELOG to .tools\log\<operation>\YYYY-MM-DD\HH-MM-SS\wekan-%1.log - the same place every other
 REM test run writes, so "the newest test logs" is one directory whichever option
 REM produced them. A larger run (EVERYTHING) exports WEKAN_LOGDIR first, and then
 REM the whole run stays in that one directory. The Windows equivalent of build.sh's
 REM one_log().
 if defined WEKAN_LOGDIR (
 	set "ONELOGDIR=%WEKAN_LOGDIR%"
-) else (
-	for /f %%T in ('powershell -NoProfile -Command "Get-Date -Format yyyy-MM-dd_HH-mm-ss"') do set "ONELOGDIR=.tools\log\%%T"
+	goto onelog_ready
 )
+call :logdir test-%~1
+if errorlevel 1 exit /b 1
+set "ONELOGDIR=%LOG_DIRECTORY%"
+:onelog_ready
 if not exist "%ONELOGDIR%" md "%ONELOGDIR%" >nul 2>&1
 set "ONELOG=%ONELOGDIR%\wekan-%~1.log"
 echo Log: %ONELOG%
@@ -1489,8 +1524,13 @@ REM Callers always pass "--port <PORT>" first, so %2 is the port: kill any
 REM Meteor dev server already listening there before starting a new one.
 call :kill_meteor_on_port %2
 if errorlevel 1 exit /b 1
-if not exist ".tools\log" md ".tools\log"
-call meteor run %* 2>&1 | powershell -NoProfile -Command "$input | Tee-Object -FilePath '.tools\log\wekan-log.log'"
+if not defined WEKAN_LOG_ROOT set "WEKAN_LOG_ROOT=%REPO%\.tools\log"
+if not exist "%WEKAN_LOG_ROOT%" md "%WEKAN_LOG_ROOT%"
+call :logdir dev-server
+if errorlevel 1 exit /b 1
+set "WEKAN_SERVER_LOG=%LOG_DIRECTORY%\dev.txt"
+echo Log: %WEKAN_SERVER_LOG%
+call meteor run %* 2>&1 | powershell -NoProfile -Command "$input | Tee-Object -FilePath $env:WEKAN_SERVER_LOG"
 exit /b 0
 
 :kill_meteor_on_port
@@ -1844,7 +1884,7 @@ REM there, and installing Go and the module dependencies if they are
 REM missing), then run the whole FerretDB v1 query catalogue against every
 REM database that has a Docker image for THIS CPU - one at a time, because they
 REM all use the same FerretDB port - and compare that they all answered the same.
-REM Results go to .tools\log\<datetime>\ with every other test run's.
+REM Results go to .tools\log\<operation>\YYYY-MM-DD\HH-MM-SS\ with every other test run's.
 REM
 REM The orchestration is one bash script, shared with build.sh rather than
 REM rewritten here: a second implementation would drift, and Docker Desktop on
@@ -1867,7 +1907,7 @@ REM that .gitignore and .meteorignore already exclude, instead of one ignored
 REM subdirectory each at the repo root. It is cloned here when it is not there,
 REM the same as build.sh's ensure_tool_repo does, so neither script depends on
 REM the other having been run first. Its build.sh installs Go and the Go modules
-REM when they are missing, and writes its logs to .tools\log\<datetime>\ with every
+REM when they are missing, and writes its logs to .tools\log\<operation>\YYYY-MM-DD\HH-MM-SS\ with every
 REM other test run's.
 where bash >nul 2>&1
 if errorlevel 1 (
@@ -1913,7 +1953,7 @@ goto test_everything
 :test_everything
 REM Every test WeKan and FerretDB have, one stage at a time: WeKan's own suite,
 REM then the database conformance run for every database with an image for this
-REM CPU, then all of FerretDB's tests. One .tools\log\<datetime>\ directory for the
+REM CPU, then all of FerretDB's tests. One .tools\log\<operation>\YYYY-MM-DD\HH-MM-SS\ directory for the
 REM whole run, and nothing runs concurrently, which is what makes a failure
 REM readable.
 REM

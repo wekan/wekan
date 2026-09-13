@@ -258,3 +258,22 @@ local `tools/build-command-output.cjs` preload prints resolver subprocess comman
 and echoes their captured stdout and stderr while preserving exit codes and callback
 results. Both terminal and build log receive this output. Command arguments redact
 common credential fields; the tracer does not print the process environment.
+
+All logging managed by `build.sh` and `build.bat` uses
+`.tools/log/<operation>/YYYY-MM-DD/HH-MM-SS/`. Both honor `WEKAN_LOG_ROOT`.
+Same-second runs reserve a numeric suffix; previous run directories stay intact.
+
+| Operation | Directory type | Main log |
+| --- | --- | --- |
+| Development bundle | `build-dev-bundle` | `dev.txt` |
+| Release bundle | `build-release-bundle` | `release.txt` |
+| Development server | `dev-server` | `wekan-dev-server.log` (shell), `dev.txt` (Windows) |
+| Single test | `test-<test-name>` | `wekan-<test-name>.log` |
+| Full test matrix | `test-all-<mode>` | Existing per-job logs |
+| EVERYTHING (shell or Windows via Bash) | `test-everything-<mode>` | Existing per-stage logs |
+| All browsers (shell) | `test-playwright-all` | Existing per-browser logs |
+
+`WEKAN_LOGDIR` keeps child test jobs in the parent run directory. Windows build
+commands stream through PowerShell to the selected log; command exit status is
+retained. Native Windows execution was not available for this change; directory
+reservation logic and Windows menu/logger wiring are tested locally.

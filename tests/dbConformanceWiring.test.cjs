@@ -314,7 +314,7 @@ test('every Tests option writes its log to .tools/log/<datetime>/', () => {
   assert.ok(/^one_log\(\) \{/m.test(sh), 'build.sh has the one_log helper');
   // The root is WEKAN_LOG_ROOT, resolved once at startup to .tools/log unless
   // overridden. WEKAN_LOGDIR keeps a whole-suite run in one directory.
-  assert.ok(/dir="\$\{WEKAN_LOGDIR:-\$WEKAN_LOG_ROOT\/\$\(date/.test(sh),
+  assert.ok(sh.includes('dir="$WEKAN_LOGDIR"') && sh.includes('log_directory "test-$name"'),
     'which honours WEKAN_LOGDIR so a whole-suite run stays in one directory');
   for (const name of ['mocha', 'import', 'e2e', 'floating-promises', 'test-counts',
     '"playwright-$browser"']) {

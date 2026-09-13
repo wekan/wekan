@@ -6,8 +6,8 @@ const { spawnSync } = require('node:child_process');
 const { test } = require('node:test');
 const root = path.resolve(__dirname, '..');
 const source = fs.readFileSync(path.join(root, 'build.sh'), 'utf8');
-const start = source.indexOf('function build_log(){');
-const helper = source.slice(start, source.indexOf('\n}\n', start) + 3);
+const start = source.indexOf('function log_directory(){');
+const helper = source.slice(start, source.indexOf('\n}\n', source.indexOf('function build_log(){')) + 3);
 test('development and release logs use dated time directories and preserve earlier output', () => {
   const base = fs.mkdtempSync(path.join(root, '.tools/tmp/build-log-paths-'));
   try {
@@ -32,4 +32,26 @@ test('release preparation shares the chosen log and test runs retain their build
   assert.match(source, /build_type=build-release-bundle; build_name=release/);
   assert.match(source, /buildlogs\+=\("\$\(one_log build\)"\)/);
   assert.match(source, /Prepare release bundle[^\n]*tee -a "\$\{buildlogs\[@\]\}"/);
+});
+
+test('Node directory reservation for Windows separates simultaneous starts and rejects invalid types', () => {
+  const { reserve } = require('../tools/log-directory.cjs');
+  const base = fs.mkdtempSync(path.join(root, '.tools/tmp/log-reservation-'));
+  try {
+    const now = new Date(2026, 8, 14, 0, 1, 2);
+    const first = reserve(base, 'dev-server', now);
+    const second = reserve(base, 'dev-server', now);
+    assert.equal(path.relative(base, first), path.join('dev-server', '2026-09-14', '00-01-02'));
+    assert.equal(second, first + '-1');
+    assert.throws(() => reserve(base, '../escape', now), /Invalid log type/);
+  } finally { fs.rmSync(base, { recursive: true, force: true }); }
+});
+test('all logger entry points use operation/date/time directories on both platforms', () => {
+  const bat = fs.readFileSync(path.join(root, 'build.bat'), 'utf8');
+  assert.doesNotMatch(source, /RUN_LOGDIR="\$WEKAN_LOG_ROOT\//);
+  assert.doesNotMatch(source, /tee "\$WEKAN_LOG_ROOT\/wekan-log\.log"/);
+  assert.doesNotMatch(bat, /set "RUN_LOGDIR=%REPO%\\\.tools\\log\\%RUN_TS%"/);
+  for (const type of ['test-all-parallel', 'test-all-sequential', 'dev-server', 'build-dev-bundle', 'build-release-bundle']) assert.ok(bat.includes('call :logdir ' + type) || bat.includes('call :buildlog ' + type), type);
+  assert.match(bat, /call :logdir test-%~1/);
+  assert.match(bat, /call :build_logged meteor build/);
 });
