@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 12,650 |
+| Corrected | 12,653 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 177 |
-| Pending review or repair | 3,195 |
+| Pending review or repair | 3,192 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Restored and unflagged values still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **13,257** exact before/after values, including repairs outside the audit.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **13,260** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `1cf58d4d521bc505ae1e7e3e02a1ee27cb8efed3` — three flagged German checklist-item controls/example strings replaced with Klingon, preserving the deletion question and comma-separated example. Full phrases and software terminology are low confidence and need fluent-speaker validation.
+Latest translation fix: **2026-09-13**, local commit `b8aa21bbe5e42c09895d97633994848fde8ffb2f` — three flagged German export/email/S3 labels replaced with Klingon, retaining technical identifiers. Full software phrases are low confidence and need fluent-speaker validation.
 
 **Verification:** correction and progress tests pass. Native-speaker and browser checks remain outstanding.
 
