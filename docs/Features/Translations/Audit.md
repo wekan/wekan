@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 12,455 |
+| Corrected | 12,464 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 3,391 |
+| Pending review or repair | 3,382 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Restored and unflagged values still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **13,009** exact before/after values, including repairs outside the audit.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **13,019** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `ddda83b5d20aca9da6e9a827f886efc5a8cb52b5` — three Volapük duplicate-list warnings and the duplicate-board action repaired. Conjunctive deletion conditions and conversion-before-deletion order preserved; assembled wording remains low confidence.
+Latest translation fix: **2026-09-13**, local commit `dd192c23cda1a4adbb33d2f0cc403a6f68483438` — ten Volapük role, invitation, filter and setting strings repaired. Read-only/assigned-card limits, invitation placeholder, height and task-count meanings preserved; assembled wording remains low confidence.
 
 **Verification:** correction and progress tests pass. Native-speaker and browser checks remain outstanding.
 
