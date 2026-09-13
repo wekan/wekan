@@ -119824,5 +119824,19 @@
     "before": "Peru jäsenvalinta",
     "after": "Heitä ühtnik kartaspäi",
     "reason": "Replace Finnish multi-selection popup titles, action question and member-unassignment control with Veps. Source sidebarFilters.jade offers add/remove label and assign/unassign member for selected cards. Reuse Valiče, znam, ühtnik, tegend, Heitä and kartaspäi; existing wording supplies sinä tahtoid tehta. Low confidence: composed popup-title grammar needs fluent review. This translation repair does not verify the apparent reversed member click handlers."
+  },
+  {
+    "locale": "ff",
+    "key": "calendar-system-jalali",
+    "before": "Jalali (Fars)",
+    "after": "Haatumeere Jalali (Perseere)",
+    "reason": "Replace ambiguous Fars qualifier with locale-specific Persian language name from Unicode CLDR ff.xml language fa, reusing existing calendar noun and retaining Jalali proper name. https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/ff.xml Technical calendar-name composition needs native review."
+  },
+  {
+    "locale": "bm",
+    "key": "calendar-system-jalali",
+    "before": "Jalali (Fars)",
+    "after": "Jalali kalandiriye (perisanikan)",
+    "reason": "Replace ambiguous Fars qualifier with locale-specific Persian language name from Unicode CLDR bm.xml language fa, reusing existing calendar noun and retaining Jalali proper name. https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/bm.xml Technical calendar-name composition needs native review."
   }
 ]

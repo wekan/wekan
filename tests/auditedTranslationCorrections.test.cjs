@@ -2482,5 +2482,17 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.match(vepsTranslator.t('unassign-member'), /^Heitä ühtnik kartaspäi$/);
   assert.equal(cache['ve-PP']['assign-member'], 'Märiče ühtnik', 'retain existing correct assignment wording');
   assert.equal(cache['ve-PP']['remove-label'], 'Heitä znam', 'retain existing correct label-removal wording');
+  const localizedPersianCalendars = {
+  "ff": "Haatumeere Jalali (Perseere)",
+  "bm": "Jalali kalandiriye (perisanikan)"
+};
+  for (const [locale, value] of Object.entries(localizedPersianCalendars)) {
+    const translator = require('i18next').createInstance();
+    await translator.init({ lng: locale, fallbackLng: false, keySeparator: false, resources: { [locale]: { translation: cache[locale] } } });
+    assert.equal(translator.t('calendar-system-jalali'), value);
+    assert.match(value, /Jalali/);
+    assert.doesNotMatch(value, /Fars|Persian/);
+    assert.notEqual(translator.t('calendar-system-jalali'), translator.t('calendar-system-islamic'));
+  }
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });
