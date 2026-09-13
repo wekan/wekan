@@ -120384,5 +120384,33 @@
     "before": "Tietokannan siirrot suoritetaan kerran ja parantavat järjestelmän suorituskykyä. Prosessi jatkuu taustalla vaikka suljet selaimen.",
     "after": "Sistem tegeb kaikuččen andmbazan migracijan vaiše ühten kerdan. Nece paremboičeb sisteman radon tulotuzmärad. Process jatktase tagamal, eskai ku sinä sauptad brauzeran.",
     "reason": "Replace Finnish conversion/migration progress text with Veps. Preserve once-per-board versus once-per-database-migration scope, performance improvement, continued normal board use, brief duration and background continuation after closing the browser. Dictionary paremboita/tulotuzmär/jatkata/jatktase supports the wording. Low confidence: composed technical performance and structure clauses require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "step-ensure-per-swimlane-lists",
+    "before": "Varmista uimaratakohtaiset listat",
+    "after": "Kodvi da tege lugetišed kaikuččen ujundšoidun täht, ku niid ei ole",
+    "reason": "Replace Finnish recovery/migration step labels with Veps. Reuse existing kadonu kartad, Endištadud and azjad; preserve ensure-if-missing meaning and per-swimlane scope, distinct from recovered-item naming. Low confidence: expanded ensure clauses and case agreement require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "step-ensure-lost-cards-swimlane",
+    "before": "Varmistetaan hävinneiden korttien uimarata",
+    "after": "Kodvi da tege kadonu kartoiden ujundšoid, ku sidä ei ole",
+    "reason": "Replace Finnish recovery/migration step labels with Veps. Reuse existing kadonu kartad, Endištadud and azjad; preserve ensure-if-missing meaning and per-swimlane scope, distinct from recovered-item naming. Low confidence: expanded ensure clauses and case agreement require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "lost-cards",
+    "before": "Kadonneet kortit",
+    "after": "Kadonu kartad",
+    "reason": "Replace Finnish recovery/migration step labels with Veps. Reuse existing kadonu kartad, Endištadud and azjad; preserve ensure-if-missing meaning and per-swimlane scope, distinct from recovered-item naming. Low confidence: expanded ensure clauses and case agreement require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "lost-cards-list",
+    "before": "Palautetut kohteet",
+    "after": "Endištadud azjad",
+    "reason": "Replace Finnish recovery/migration step labels with Veps. Reuse existing kadonu kartad, Endištadud and azjad; preserve ensure-if-missing meaning and per-swimlane scope, distinct from recovered-item naming. Low confidence: expanded ensure clauses and case agreement require fluent review."
   }
 ]

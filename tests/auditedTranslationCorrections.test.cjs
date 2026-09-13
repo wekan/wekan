@@ -2705,5 +2705,20 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.match(vepsTranslator.t('conversion-info-text'), /kaikuččen laudan vaiše ühten kerdan.*void jatkata/);
   assert.match(vepsTranslator.t('migration-info-text'), /kaikuččen andmbazan migracijan vaiše ühten kerdan.*jatktase tagamal.*sauptad brauzeran/);
   assert.match(vepsTranslator.t('converting-board-description'), /paremboita sen funkcijoid.*voib otta vähän aigad/);
+  const vepsRecoverySteps = {
+  "step-ensure-per-swimlane-lists": "Kodvi da tege lugetišed kaikuččen ujundšoidun täht, ku niid ei ole",
+  "step-ensure-lost-cards-swimlane": "Kodvi da tege kadonu kartoiden ujundšoid, ku sidä ei ole",
+  "lost-cards": "Kadonu kartad",
+  "lost-cards-list": "Endištadud azjad"
+};
+  for (const [key, value] of Object.entries(vepsRecoverySteps)) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.equal(vepsTranslator.t(key), value, key);
+    assert.doesNotMatch(value, /Varmista|uimaratakohtaiset|hävinneiden|Kadonneet|Palautetut kohteet/, key);
+  }
+  assert.match(vepsTranslator.t('step-ensure-per-swimlane-lists'), /kaikuččen ujundšoidun.*ku niid ei ole/);
+  assert.match(vepsTranslator.t('step-ensure-lost-cards-swimlane'), /kadonu kartoiden ujundšoid.*ku sidä ei ole/);
+  assert.notEqual(vepsTranslator.t('lost-cards'), vepsTranslator.t('lost-cards-list'));
+  assert.equal(cache['ve-PP']['restore-lost-cards-migration'], 'Endišta kadonu kartad', 'retain existing recovery action');
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });
