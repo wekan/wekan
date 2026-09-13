@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 12,365 |
+| Corrected | 12,368 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 3,481 |
+| Pending review or repair | 3,478 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Restored and unflagged values still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,903** exact before/after values, including repairs outside the audit.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,908** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `a35d26ba0077d7e73cf58f09744f236c27e94bdd` — five Volapük card-access/role strings repaired, preserving assigned-only visibility, worker self-assignment and the last-administrator requirement. Assembled wording remains low confidence.
+Latest translation fix: **2026-09-13**, local commit `2a58d65e8d2512146601cfe810f0a0b0ffe8936d` — five Volapük board navigation/favorite controls repaired, preserving drag sorting, click-to-open and opposite star actions. Assembled wording remains low confidence.
 
 **Verification:** correction and progress tests pass. Native-speaker and browser checks remain outstanding.
 
