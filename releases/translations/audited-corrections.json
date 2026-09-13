@@ -66442,5 +66442,117 @@
     "before": "Vous n'êtes pas autorisé à accéder à cette page.",
     "after": "N’oc’h ket aotreet da welet ar bajenn-mañ.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "error-orgname-taken",
+    "before": "Ce nom d'organisation est déjà utilisé",
+    "after": "Implijet eo an anv aozadur-mañ dija",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "error-teamname-taken",
+    "before": "Ce nom d'équipe est déjà utilisé",
+    "after": "Implijet eo an anv skipailh-mañ dija",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "error-undefined",
+    "before": "Une erreur inconnue s'est produite",
+    "after": "Un dra bennak zo aet a-dreuz",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "error-user-notAllowSelf",
+    "before": "Vous ne pouvez pas vous inviter vous-même",
+    "after": "Ne c’hallit ket pediñ ac’hanoc’h hoc’h-unan",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "export-card-excel",
+    "before": "Exporter la carte vers Excel",
+    "after": "Ezporzhiañ ar gartenn da Excel",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "export-card-excel-fields",
+    "before": "Sélectionnez les champs à inclure dans l'export Excel :",
+    "after": "Diuzit ar maeziennoù da lakaat en ezporzh Excel:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "export-card-excel-no-disk-space",
+    "before": "Impossible d'exporter vers Excel : espace disque insuffisant",
+    "after": "Ne c’haller ket ezporzhiañ da Excel: n’eus ket a-walc’h a blas dieub war an disk",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "export-card-field-dates",
+    "before": "Dates (Création, Réception, Début, Échéance, Fin)",
+    "after": "Deiziadoù (Krouiñ, Degemer, Kregiñ, Termen, Dibenn)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "export-card-field-people",
+    "before": "Personnes (Créateur, Propriétaire, Participants, Intervenants)",
+    "after": "Tud (Krouer, Perc’henn, Izili, Tud karget)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "filesReportTitle",
+    "before": "Rapports sur les fichiers",
+    "after": "Danevell ar restroù",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "filter-assignee-label",
+    "before": "Filtrer par personne assignée",
+    "after": "Silañ dre zen karget",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "filter-card-title-label",
+    "before": "Filtrer par titre de carte",
+    "after": "Silañ dre ditl kartenn",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "filter-cards",
+    "before": "Filtrer les cartes ou listes",
+    "after": "Silañ ar c’hartennoù pe ar rolloù",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "filter-creator-label",
+    "before": "Filtrer par personne Créateur",
+    "after": "Silañ dre grouer",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "filter-custom-fields-label",
+    "before": "Filtrer par champs personnalisés",
+    "after": "Silañ dre vaeziennoù personelaet",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "filter-due-next-week",
+    "before": "Arrive à échéance semaine prochaine",
+    "after": "Termen ar sizhun a zeu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
