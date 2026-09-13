@@ -78881,5 +78881,61 @@
     "before": "Rapports sur les fichiers",
     "after": "Rapooru fiise yi",
     "reason": "Replace French upload/file-report controls with Wolof. Preserve maximum upload versus avatar file size, byte units and uploading versus completed status. Reuse fiise/yeb vocabulary; byte loan and full grammar remain low confidence. Existing file-count wording retained."
+  },
+  {
+    "locale": "wo",
+    "key": "act-addLabel",
+    "before": "a ajouté l'étiquette __label__ à la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "yokk etiket __label__ ci karta __card__ ci limu __list__ ci yoon __swimlane__ ci tablo __board__",
+    "reason": "Replace French activity text with Wolof, reusing existing etiket, karta, limu, yoon, tablo and input-field terminology. Preserve all location/member/label placeholders and creation versus deletion versus removal semantics. Janga Wolof dictionary supports génne (take out) and far (delete); full grammar and computing adaptations remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "act-addedLabel",
+    "before": "a ajouté l'étiquette __label__ à la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "yokk etiket __label__ ci karta __card__ ci limu __list__ ci yoon __swimlane__ ci tablo __board__",
+    "reason": "Replace French activity text with Wolof, reusing existing etiket, karta, limu, yoon, tablo and input-field terminology. Preserve all location/member/label placeholders and creation versus deletion versus removal semantics. Janga Wolof dictionary supports génne (take out) and far (delete); full grammar and computing adaptations remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "act-removeLabel",
+    "before": "a enlevé l'étiquette __label__ de la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "génne etiket __label__ ci karta __card__ ci limu __list__ ci yoon __swimlane__ ci tablo __board__",
+    "reason": "Replace French activity text with Wolof, reusing existing etiket, karta, limu, yoon, tablo and input-field terminology. Preserve all location/member/label placeholders and creation versus deletion versus removal semantics. Janga Wolof dictionary supports génne (take out) and far (delete); full grammar and computing adaptations remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "act-removedLabel",
+    "before": "a enlevé l'étiquette __label__ de la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "génne etiket __label__ ci karta __card__ ci limu __list__ ci yoon __swimlane__ ci tablo __board__",
+    "reason": "Replace French activity text with Wolof, reusing existing etiket, karta, limu, yoon, tablo and input-field terminology. Preserve all location/member/label placeholders and creation versus deletion versus removal semantics. Janga Wolof dictionary supports génne (take out) and far (delete); full grammar and computing adaptations remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "act-joinMember",
+    "before": "a ajouté le participant __member__ à la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "yokk bokkkat __member__ ci karta __card__ ci limu __list__ ci yoon __swimlane__ ci tablo __board__",
+    "reason": "Replace French activity text with Wolof, reusing existing etiket, karta, limu, yoon, tablo and input-field terminology. Preserve all location/member/label placeholders and creation versus deletion versus removal semantics. Janga Wolof dictionary supports génne (take out) and far (delete); full grammar and computing adaptations remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "act-unjoinMember",
+    "before": "a supprimé le participant __member__ de la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "génne bokkkat __member__ ci karta __card__ ci limu __list__ ci yoon __swimlane__ ci tablo __board__",
+    "reason": "Replace French activity text with Wolof, reusing existing etiket, karta, limu, yoon, tablo and input-field terminology. Preserve all location/member/label placeholders and creation versus deletion versus removal semantics. Janga Wolof dictionary supports génne (take out) and far (delete); full grammar and computing adaptations remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "act-createCustomField",
+    "before": "a créé le champ personnalisé __customField__ du tableau __board__",
+    "after": "sos wàllu dugal __customField__ bu ñu def ci soxla ci tablo __board__",
+    "reason": "Replace French activity text with Wolof, reusing existing etiket, karta, limu, yoon, tablo and input-field terminology. Preserve all location/member/label placeholders and creation versus deletion versus removal semantics. Janga Wolof dictionary supports génne (take out) and far (delete); full grammar and computing adaptations remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "act-deleteCustomField",
+    "before": "a supprimé le champ personnalisé __customField__ du tableau __board__",
+    "after": "far wàllu dugal __customField__ bu ñu def ci soxla ci tablo __board__",
+    "reason": "Replace French activity text with Wolof, reusing existing etiket, karta, limu, yoon, tablo and input-field terminology. Preserve all location/member/label placeholders and creation versus deletion versus removal semantics. Janga Wolof dictionary supports génne (take out) and far (delete); full grammar and computing adaptations remain low confidence."
   }
 ]
