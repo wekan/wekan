@@ -84159,5 +84159,61 @@
     "before": "ISO 8601",
     "after": "Kalendala ya Gregoriana (masabata a ISO 8601)",
     "reason": "Restore Gregorian calendar and ISO week information omitted from the Chichewa label. Week terminology checked against https://www.buildon.org/wp-content/uploads/2023/03/Malawi-New-Language-Book-2.4.19.pdf and https://files.eric.ed.gov/fulltext/ED206157.pdf; complete phrase grammar remains low confidence. Civil Hijri epoch terminology remains pending rather than treating government or civilian wording as established."
+  },
+  {
+    "locale": "haw",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "ʻŌnaehana ʻalemanaka (hōʻike lā)",
+    "reason": "Replace foreign-language calendar setting and English labels with Hawaiian; restore calendar identity, Minguo name and Gregorian ISO weeks. Reuse local ʻalemanaka/date/week vocabulary, supported by https://hilo.hawaii.edu/wehe/?tag=time; country adjectives checked in https://manoa.hawaii.edu/aplpj/wp-content/uploads/sites/120/2020/06/APLPJ_21.2_Gramberg.pdf. Proper calendar names retained; full phrase grammar remains low confidence. Remaining religious and Hijri epoch/sighting terminology requires further review."
+  },
+  {
+    "locale": "haw",
+    "key": "calendar-system-chinese",
+    "before": "Chinese",
+    "after": "ʻAlemanaka Pākē",
+    "reason": "Replace foreign-language calendar setting and English labels with Hawaiian; restore calendar identity, Minguo name and Gregorian ISO weeks. Reuse local ʻalemanaka/date/week vocabulary, supported by https://hilo.hawaii.edu/wehe/?tag=time; country adjectives checked in https://manoa.hawaii.edu/aplpj/wp-content/uploads/sites/120/2020/06/APLPJ_21.2_Gramberg.pdf. Proper calendar names retained; full phrase grammar remains low confidence. Remaining religious and Hijri epoch/sighting terminology requires further review."
+  },
+  {
+    "locale": "haw",
+    "key": "calendar-system-dangi",
+    "before": "Dangi (Korean)",
+    "after": "ʻAlemanaka Dangi (Kōlea)",
+    "reason": "Replace foreign-language calendar setting and English labels with Hawaiian; restore calendar identity, Minguo name and Gregorian ISO weeks. Reuse local ʻalemanaka/date/week vocabulary, supported by https://hilo.hawaii.edu/wehe/?tag=time; country adjectives checked in https://manoa.hawaii.edu/aplpj/wp-content/uploads/sites/120/2020/06/APLPJ_21.2_Gramberg.pdf. Proper calendar names retained; full phrase grammar remains low confidence. Remaining religious and Hijri epoch/sighting terminology requires further review."
+  },
+  {
+    "locale": "haw",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "ʻAlemanaka Hijri",
+    "reason": "Replace foreign-language calendar setting and English labels with Hawaiian; restore calendar identity, Minguo name and Gregorian ISO weeks. Reuse local ʻalemanaka/date/week vocabulary, supported by https://hilo.hawaii.edu/wehe/?tag=time; country adjectives checked in https://manoa.hawaii.edu/aplpj/wp-content/uploads/sites/120/2020/06/APLPJ_21.2_Gramberg.pdf. Proper calendar names retained; full phrase grammar remains low confidence. Remaining religious and Hijri epoch/sighting terminology requires further review."
+  },
+  {
+    "locale": "haw",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "ʻAlemanaka Hijri (Umm al-Qura)",
+    "reason": "Replace foreign-language calendar setting and English labels with Hawaiian; restore calendar identity, Minguo name and Gregorian ISO weeks. Reuse local ʻalemanaka/date/week vocabulary, supported by https://hilo.hawaii.edu/wehe/?tag=time; country adjectives checked in https://manoa.hawaii.edu/aplpj/wp-content/uploads/sites/120/2020/06/APLPJ_21.2_Gramberg.pdf. Proper calendar names retained; full phrase grammar remains low confidence. Remaining religious and Hijri epoch/sighting terminology requires further review."
+  },
+  {
+    "locale": "haw",
+    "key": "calendar-system-japanese",
+    "before": "Japanese",
+    "after": "ʻAlemanaka Kepanī",
+    "reason": "Replace foreign-language calendar setting and English labels with Hawaiian; restore calendar identity, Minguo name and Gregorian ISO weeks. Reuse local ʻalemanaka/date/week vocabulary, supported by https://hilo.hawaii.edu/wehe/?tag=time; country adjectives checked in https://manoa.hawaii.edu/aplpj/wp-content/uploads/sites/120/2020/06/APLPJ_21.2_Gramberg.pdf. Proper calendar names retained; full phrase grammar remains low confidence. Remaining religious and Hijri epoch/sighting terminology requires further review."
+  },
+  {
+    "locale": "haw",
+    "key": "calendar-system-roc",
+    "before": "Republic of China",
+    "after": "ʻAlemanaka Minguo",
+    "reason": "Replace foreign-language calendar setting and English labels with Hawaiian; restore calendar identity, Minguo name and Gregorian ISO weeks. Reuse local ʻalemanaka/date/week vocabulary, supported by https://hilo.hawaii.edu/wehe/?tag=time; country adjectives checked in https://manoa.hawaii.edu/aplpj/wp-content/uploads/sites/120/2020/06/APLPJ_21.2_Gramberg.pdf. Proper calendar names retained; full phrase grammar remains low confidence. Remaining religious and Hijri epoch/sighting terminology requires further review."
+  },
+  {
+    "locale": "haw",
+    "key": "calendar-system-iso8601",
+    "before": "ISO 8601",
+    "after": "ʻAlemanaka Gregoriana (nā pule ISO 8601)",
+    "reason": "Replace foreign-language calendar setting and English labels with Hawaiian; restore calendar identity, Minguo name and Gregorian ISO weeks. Reuse local ʻalemanaka/date/week vocabulary, supported by https://hilo.hawaii.edu/wehe/?tag=time; country adjectives checked in https://manoa.hawaii.edu/aplpj/wp-content/uploads/sites/120/2020/06/APLPJ_21.2_Gramberg.pdf. Proper calendar names retained; full phrase grammar remains low confidence. Remaining religious and Hijri epoch/sighting terminology requires further review."
   }
 ]
