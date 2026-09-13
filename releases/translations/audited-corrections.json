@@ -119845,5 +119845,19 @@
     "before": "Islamic civil",
     "after": "islam subɔlawo ƒe sivil kalenda",
     "reason": "Use Unicode CLDR Ewe calendar type islamic-civil instead of English Islamic civil. The locale-specific civil calendar name distinguishes the civil calendar identifier from other Hijri variants. https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/ee.xml CLDR marks this translation provisional, so native review remains required."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-board-note",
+    "before": "Huom: jätä kenttä tyhjäksi täsmätäksesi jokaiseen mahdolliseen arvoon.",
+    "after": "Homaiče: jäta pöud tühjaks. Tühj pöud sättub jogaha voimusižehe znamoičendaha.",
+    "reason": "Replace Finnish rule wildcard and quick-access guidance with Veps. Empty field matches every possible value, while starring adds a board link to this navigation bar. Dictionary tühj, jätta, voimusi(ne), znamoičend, sättuda with illative complement and šoid; native MediaWiki Znamoiče and existing laud/tähthanke/ližata. Low confidence: composed wildcard sentence and navigation-bar adaptation need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "quick-access-description",
+    "before": "Merkkaa taulu tähdellä lisätäksesi pikavalinta tähän palkkiin.",
+    "after": "Znamoiče laud tähthanke, miše ližata laudan link necile šoidule.",
+    "reason": "Replace Finnish rule wildcard and quick-access guidance with Veps. Empty field matches every possible value, while starring adds a board link to this navigation bar. Dictionary tühj, jätta, voimusi(ne), znamoičend, sättuda with illative complement and šoid; native MediaWiki Znamoiče and existing laud/tähthanke/ližata. Low confidence: composed wildcard sentence and navigation-bar adaptation need fluent review."
   }
 ]

@@ -2499,5 +2499,17 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.equal(eweCalendar.t('calendar-system-islamic-civil'), 'islam subɔlawo ƒe sivil kalenda');
   assert.doesNotMatch(eweCalendar.t('calendar-system-islamic-civil'), /Islamic civil/);
   assert.notEqual(eweCalendar.t('calendar-system-islamic-civil'), eweCalendar.t('calendar-system-islamic'));
+  const vepsWildcardAndShortcut = {
+  "r-board-note": "Homaiče: jäta pöud tühjaks. Tühj pöud sättub jogaha voimusižehe znamoičendaha.",
+  "quick-access-description": "Znamoiče laud tähthanke, miše ližata laudan link necile šoidule."
+};
+  for (const [key, value] of Object.entries(vepsWildcardAndShortcut)) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.equal(vepsTranslator.t(key), value, key);
+    assert.doesNotMatch(value, /Huom:|jätä kenttä|tyhjäksi|täsmätäksesi|mahdolliseen arvoon|Merkkaa taulu|tähdellä|pikavalinta|palkkiin/, key);
+  }
+  assert.match(vepsTranslator.t('r-board-note'), /jäta pöud tühjaks.*jogaha voimusižehe znamoičendaha/);
+  assert.match(vepsTranslator.t('quick-access-description'), /Znamoiče laud tähthanke.*ližata laudan link necile šoidule/);
+  assert.equal(cache['ve-PP']['click-to-star'], 'Painda, miše znamoita nece laud tähthanke.', 'preserve the existing star hint');
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });
