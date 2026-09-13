@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 11,887 |
+| Corrected | 11,888 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 3,959 |
+| Pending review or repair | 3,958 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,275** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,276** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `6ce1c7ffb08685d04ec0c46225e67fb9355cd38c` — Kashubian Jalali Persian descriptor repaired using persczi from indexed [Kashubian dictionary vocabulary](https://csb.wiktionary.org/wiki/Prz%C3%A9dn%C3%B4_starna). Assembled wording remains low confidence; settings and other calendar findings remain pending. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; native-speaker and live browser verification are unavailable.
+Latest translation fix: **2026-09-13**, local commit `3970158943f057dd8747fb334fcf0418fcc675a3` — Kashubian calendar setting replaced foreign seeded text using published system/date vocabulary and [official examination wording](https://lodz.oke.gov.pl/lodz.oke.gov.pl/wp-content/uploads/2022/10/Matura_Zbior_zadan_Jezyk_kaszubski.pdf). Derived genitives and assembled grammar remain low confidence; other calendar findings remain pending. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; native-speaker and live browser verification are unavailable.
 
 **Review follow-up:** Silesian `sandstorm-raw-mongodb` remains pending: its wording overlaps Polish and existing Silesian technical strings, but dictionary searches did not establish the full phrase as correct Silesian. Keep the current value until stronger language evidence supports retaining or replacing it.
 
