@@ -85013,5 +85013,33 @@
     "before": "Indian national",
     "after": "Khalendara ya tiko ra Indiya",
     "reason": "Replace English religious/country calendar labels and foreign Fars label with Tsonga; preserve Jalali and Amete Alem identifiers and national distinction. Mabudha attested at https://www.jw.org/ts/layiburari/timagazini/w20031201/Lexi-Susumetelaka-Vo-Tala-Ku-ya-eKerekeni/ ; Peresiya at https://wol.jw.org/ts/wol/bc/r84/lp-ts/1001060428/634 ; Etiyopiya at https://cfp2.jw-cdn.org/a/f18fbe/2/o/w_TS_202401.pdf ; Indiya at https://www.jw.org/ts/layiburari/timagazini/wp20151201/twisisa-bibele/ . Full assembled grammar remains low confidence; Coptic and Hijri variant descriptions still need review."
+  },
+  {
+    "locale": "ts",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "Khalendara ya Hijri (Saudi Arabia, ku vona n'weti)",
+    "reason": "Restore Hijri identity and omitted moon-sighting detail in Tsonga. ku vona and n'weti vocabulary attested in South African education department Tsonga teaching plan https://www.education.gov.za/LinkClick.aspx?fileticket=r7fqE75U2j4%3D&mid=14714&portalid=0&tabid=5589 . Complete adapted label remains low confidence; Coptic and tabular epoch variants still need review."
+  },
+  {
+    "locale": "ts",
+    "key": "date-format-yyyy-mm-dd",
+    "before": "Hi Xitsonga: mhaka-mhaka-mhaka",
+    "after": "YYYY-MM-DD",
+    "reason": "Restore exact date-format notation from English: YYYY, MM and DD are format syntax, not prose. The three prior identical generic filler values hid the distinct year/month/day orders."
+  },
+  {
+    "locale": "ts",
+    "key": "date-format-dd-mm-yyyy",
+    "before": "Hi Xitsonga: mhaka-mhaka-mhaka",
+    "after": "DD-MM-YYYY",
+    "reason": "Restore exact date-format notation from English: YYYY, MM and DD are format syntax, not prose. The three prior identical generic filler values hid the distinct year/month/day orders."
+  },
+  {
+    "locale": "ts",
+    "key": "date-format-mm-dd-yyyy",
+    "before": "Hi Xitsonga: mhaka-mhaka-mhaka",
+    "after": "MM-DD-YYYY",
+    "reason": "Restore exact date-format notation from English: YYYY, MM and DD are format syntax, not prose. The three prior identical generic filler values hid the distinct year/month/day orders."
   }
 ]
