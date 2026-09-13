@@ -59554,5 +59554,110 @@
     "before": "Supprimer toutes les notifications",
     "after": "Suprimir totas las notificacions",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "delete-all-notifications-confirm",
+    "before": "Êtes-vous sûr de vouloir supprimer toutes les notifications ? Cette action est irréversible.",
+    "after": "Volètz vertadièrament suprimir totas las notificacions ? Aquesta accion se pòt pas anullar.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "delete-avatar-confirm",
+    "before": "Êtes-vous sûr de vouloir supprimer cet avatar ?",
+    "after": "Volètz vertadièrament suprimir aqueste avatar ?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "delete-board-confirm-popup",
+    "before": "Toutes les listes, cartes, étiquettes et activités seront supprimées et vous ne pourrez pas retrouver le contenu du tableau. Cela est irréversible.",
+    "after": "Totas las listas, cartas, etiquetas e activitats seràn suprimidas e poiretz pas recuperar lo contengut del tablèu. La supression se pòt pas anullar.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "delete-duplicate-empty-lists-migration",
+    "before": "Supprimer les listes vides en doublon ? ",
+    "after": "Suprimir las listas voidas en doble",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "delete-duplicate-lists",
+    "before": "Supprimer les listes en doublon ? ",
+    "after": "Suprimir las listas en doble",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "delete-linked-card-before-this-card",
+    "before": "Vous ne pouvez pas supprimer cette carte avant d'avoir d'abord supprimé la carte liée qui a",
+    "after": "Podètz pas suprimir aquesta carta abans de suprimir la carta ligada qu’a",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "delete-linked-cards-before-this-list",
+    "before": "Vous ne pouvez pas supprimer cette liste avant d'avoir d'abord supprimé les cartes liées qui pointent vers des cartes de cette liste",
+    "after": "Podètz pas suprimir aquesta lista abans de suprimir las cartas ligadas que puntan cap a de cartas d’aquesta lista",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "delete-org-confirm-popup",
+    "before": "Êtes-vous sûr de vouloir supprimer cette organisation ? Cela est irréversible.",
+    "after": "Volètz vertadièrament suprimir aquesta organizacion ? La supression se pòt pas anullar.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "delete-org-warning-message",
+    "before": "Impossible de supprimer cette organisation, au moins un utilisateur lui appartient",
+    "after": "Impossible de suprimir aquesta organizacion : almens un utilizaire ne fa partida",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "delete-team-confirm-popup",
+    "before": "Êtes-vous sûr de vouloir supprimer cette équipe ? Cela est irréversible.",
+    "after": "Volètz vertadièrament suprimir aquesta equipa ? La supression se pòt pas anullar.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "delete-team-warning-message",
+    "before": "Impossible de supprimer cette équipe, au moins un utilisateur lui appartient",
+    "after": "Impossible de suprimir aquesta equipa : almens un utilizaire ne fa partida",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "delete-translation-confirm-popup",
+    "before": "Êtes-vous sûr de vouloir supprimer cette traduction personnalisée ? Cela est irréversible.",
+    "after": "Volètz vertadièrament suprimir aquesta stringa de traduccion personalizada ? La supression se pòt pas anullar.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "delete-user-confirm-popup",
+    "before": "Êtes-vous sûr de vouloir supprimer ce compte ? Cela est irréversible.",
+    "after": "Volètz vertadièrament suprimir aqueste compte ? La supression se pòt pas anullar.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "deleteCommentPopup-title",
+    "before": "Supprimer le commentaire ?",
+    "after": "Suprimir lo comentari ?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "deleteDuplicateListsPopup-title",
+    "before": "Supprimer les listes en doublon ? ",
+    "after": "Suprimir las listas en doble",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
