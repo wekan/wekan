@@ -72070,5 +72070,26 @@
     "before": "Coptic",
     "after": "Dhaha Baraa Kooptii",
     "reason": "Replace English calendar label using existing Dhaha Baraa and Kooptii, attested in Oromo religious author material https://telegram.me/s/Ortodoksiidhugaa?before=5197 . Low-confidence specialized name and grammar; not certified by a native reviewer."
+  },
+  {
+    "locale": "om",
+    "key": "calendar-system-islamic-civil",
+    "before": "Islamic civil",
+    "after": "Dhaha Baraa Hijraa (gabatee irratti hundaa’e, guyyaa jalqabaa sivilii)",
+    "reason": "Preserve Hijri variants: table-based computation, civil versus astronomical starting date, and Saudi moon sighting. Oromo vocabulary attested in primary educational text https://files.ethiopialearning.com/textbooks/Grade%2001/Grade_1_Subject_MATH_TEACHER_GUIDE_Language_OROMO_Retrieved_20150101.pdf, government Oromo text https://risala.prh.gov.sa/or/content/251 (moon sighting), Oromo research https://ju.edu.et/institute-of-oromo-studies/wp-content/uploads/sites/14/2018/04/GADAA-JOURNAL-BARRUULEE-GADAA.pdf (astronomii), and government translation https://www.dshs.wa.gov/sites/default/files/forms/pdf/03-387aom.pdf (sivilii). Specialized calendar grammar remains low confidence."
+  },
+  {
+    "locale": "om",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "Dhaha Baraa Hijraa (Saawudii Arabiyaa, addeessa arguu)",
+    "reason": "Preserve Hijri variants: table-based computation, civil versus astronomical starting date, and Saudi moon sighting. Oromo vocabulary attested in primary educational text https://files.ethiopialearning.com/textbooks/Grade%2001/Grade_1_Subject_MATH_TEACHER_GUIDE_Language_OROMO_Retrieved_20150101.pdf, government Oromo text https://risala.prh.gov.sa/or/content/251 (moon sighting), Oromo research https://ju.edu.et/institute-of-oromo-studies/wp-content/uploads/sites/14/2018/04/GADAA-JOURNAL-BARRUULEE-GADAA.pdf (astronomii), and government translation https://www.dshs.wa.gov/sites/default/files/forms/pdf/03-387aom.pdf (sivilii). Specialized calendar grammar remains low confidence."
+  },
+  {
+    "locale": "om",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "Dhaha Baraa Hijraa (gabatee irratti hundaa’e, guyyaa jalqabaa astronomii)",
+    "reason": "Preserve Hijri variants: table-based computation, civil versus astronomical starting date, and Saudi moon sighting. Oromo vocabulary attested in primary educational text https://files.ethiopialearning.com/textbooks/Grade%2001/Grade_1_Subject_MATH_TEACHER_GUIDE_Language_OROMO_Retrieved_20150101.pdf, government Oromo text https://risala.prh.gov.sa/or/content/251 (moon sighting), Oromo research https://ju.edu.et/institute-of-oromo-studies/wp-content/uploads/sites/14/2018/04/GADAA-JOURNAL-BARRUULEE-GADAA.pdf (astronomii), and government translation https://www.dshs.wa.gov/sites/default/files/forms/pdf/03-387aom.pdf (sivilii). Specialized calendar grammar remains low confidence."
   }
 ]

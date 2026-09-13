@@ -31,6 +31,13 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
     assert.deepEqual(Object.keys(data), Object.keys(english), locale);
     assert.equal(repairLocale(locale, data).changed, 0, 'idempotent after correction');
   }
+  // Oromo Hijri labels must distinguish the two epochs and moon sighting.
+  for (const [key, epoch] of [['calendar-system-islamic-civil', 'sivilii'], ['calendar-system-islamic-tbla', 'astronomii']]) {
+    assert.match(cache.om[key], /gabatee irratti hundaa’e/, 'preserve table-based computation');
+    assert.ok(cache.om[key].includes(`guyyaa jalqabaa ${epoch}`), 'preserve the starting-date distinction');
+  }
+  assert.notEqual(cache.om['calendar-system-islamic-civil'], cache.om['calendar-system-islamic-tbla']);
+  assert.match(cache.om['calendar-system-islamic-rgsa'], /Saawudii Arabiyaa, addeessa arguu/, 'preserve Saudi moon sighting');
   assert.match(cache.as['ldap-test-connection-error'], /বিফল/);
   assert.doesNotMatch(cache.as['ldap-test-connection-error'], /[\u0c00-\u0c7f]/);
   assert.doesNotMatch(cache.mk['text-contains-trigger-description'], /创/);
