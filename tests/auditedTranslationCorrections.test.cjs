@@ -2738,5 +2738,9 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.equal(vepsTranslator.t('zoom-out'), 'Penenda');
   assert.notEqual(vepsTranslator.t('zoom-in'), vepsTranslator.t('zoom-out'));
   assert.doesNotMatch(vepsTranslator.t('zoom-in') + vepsTranslator.t('zoom-out'), /Lähennä|Loitonna/);
+  assert.equal(vepsTranslator.t('zoom-level'), 'Kartmär');
+  assert.equal(vepsTranslator.t('enter-zoom-level'), 'Kirjuta kartmär (50-300%):');
+  assert.match(vepsTranslator.t('enter-zoom-level'), /\(50-300%\):$/);
+  assert.doesNotMatch(vepsTranslator.t('zoom-level') + vepsTranslator.t('enter-zoom-level'), /Zoomaus|Kirjoita|taso/);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });
