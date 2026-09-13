@@ -65035,5 +65035,61 @@
     "before": "Ajouter un couloir en dessous",
     "after": "Ouzhpennañ un trepas dindan",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "text-below-custom-login-logo",
+    "before": "Texte sous le logo de connexion personnalisé",
+    "after": "Testenn dindan al logo kennaskañ personelaet",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "to-create-organizations-contact-admin",
+    "before": "Pour créer des organisations, veuillez contacter l'administrateur.",
+    "after": "Evit krouiñ aozadurioù, kit e darempred gant ar merour.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "to-create-teams-contact-admin",
+    "before": "Pour créer des équipes, veuillez contacter l'administrateur.",
+    "after": "Evit krouiñ skipailhoù, kit e darempred gant ar merour.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "toggle-assignees",
+    "before": "Changer les intervenants 1-9 sur une carte (par ordre d'ajout au tableau)",
+    "after": "Lakaat/tennañ an dud karget 1-9 evit ar gartenn (en urzh o ouzhpennañ d’an daolenn).",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "user-can-not-export-card-to-excel",
+    "before": "L'utilisateur ne peut pas exporter la carte vers Excel",
+    "after": "Ne c’hall ket an implijer ezporzhiañ ar gartenn da Excel",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "user-can-not-export-card-to-pdf",
+    "before": "L'utilisateur ne peut pas exporter de carte en PDF",
+    "after": "Ne c’hall ket an implijer ezporzhiañ ar gartenn da PDF",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "user-can-not-export-excel",
+    "before": "L'utilisateur ne peut pas exporter vers Excel",
+    "after": "Ne c’hall ket an implijer ezporzhiañ da Excel",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "user-exists",
+    "before": "L'utilisateur existe déjà",
+    "after": "An implijer a zo anezhañ dija",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
