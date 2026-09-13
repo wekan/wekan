@@ -84530,5 +84530,33 @@
     "before": "Islamic (Saudi Arabia)",
     "after": "Feaillere Hijri (Saudi Arabia, baght ny heayst)",
     "reason": "Replace English Saudi Hijri label and restore missing moon-sighting detail in Manx. https://archive.gaelg.im/www.gaelg.iofm.net/DICTIONARY/engman.pdf attests observation baght (p378), moon eayst and genitive ny heayst in moonshine (p357), visual observation baght sooilley (p618). Complete adapted sighting phrase remains low confidence; Coptic and civil/astronomical tabular epoch labels remain pending."
+  },
+  {
+    "locale": "se",
+    "key": "calendar-system-dangi",
+    "before": "Dangi (Korean)",
+    "after": "Dangi kaleandar",
+    "reason": "Replace English calendar labels with Northern Sami kaleandar, preserving proper Dangi/Hijri/Umm al-Qura/Minguo identities. Calendar noun supported by https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/se.xml and existing locale setting. Complete adapted label grammar remains low confidence; religious/country qualifiers and tabular civil/astronomical epoch and Saudi sighting labels remain pending."
+  },
+  {
+    "locale": "se",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "Hijri kaleandar",
+    "reason": "Replace English calendar labels with Northern Sami kaleandar, preserving proper Dangi/Hijri/Umm al-Qura/Minguo identities. Calendar noun supported by https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/se.xml and existing locale setting. Complete adapted label grammar remains low confidence; religious/country qualifiers and tabular civil/astronomical epoch and Saudi sighting labels remain pending."
+  },
+  {
+    "locale": "se",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "Hijri kaleandar (Umm al-Qura)",
+    "reason": "Replace English calendar labels with Northern Sami kaleandar, preserving proper Dangi/Hijri/Umm al-Qura/Minguo identities. Calendar noun supported by https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/se.xml and existing locale setting. Complete adapted label grammar remains low confidence; religious/country qualifiers and tabular civil/astronomical epoch and Saudi sighting labels remain pending."
+  },
+  {
+    "locale": "se",
+    "key": "calendar-system-roc",
+    "before": "Republic of China",
+    "after": "Minguo kaleandar",
+    "reason": "Replace English calendar labels with Northern Sami kaleandar, preserving proper Dangi/Hijri/Umm al-Qura/Minguo identities. Calendar noun supported by https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/se.xml and existing locale setting. Complete adapted label grammar remains low confidence; religious/country qualifiers and tabular civil/astronomical epoch and Saudi sighting labels remain pending."
   }
 ]
