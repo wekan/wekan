@@ -177,6 +177,9 @@ export async function menu({ directory = root, ask, log = console.log, synchroni
         saveSettings(directory, { source: settings.source, mirrors }); settings = loadSettings(directory);
       } else log('Select an option from 1 to 8.');
     } catch (e) { log(`Failed: ${e.message}`); }
+    finally {
+      if (['1', '4', '5', '7'].includes(choice) && process.env.WEKAN_MIRROR_LOG_FILE) log(`Mirror log: ${process.env.WEKAN_MIRROR_LOG_FILE}`);
+    }
   }
 }
 

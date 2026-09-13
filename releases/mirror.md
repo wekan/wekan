@@ -494,4 +494,10 @@ without printing authentication headers or tokens. Rate-limit waits remain in ef
 
 The `releases/mirror.sh` launcher also saves stdout and stderr to
 `.tools/log/mirror/YYYY-MM-DD_HH-MM_SS/mirror-log.txt` while printing them
-to stdout. It prints the log path at startup and preserves command failure status.
+to stdout. It prints the log path at startup, after each sync/check menu operation (including
+failures), and on command exit, preserving command failure status.
+
+If a comment references a parent missing from the paginated issue inventory, the
+collector fetches that issue and any pull metadata through the same rate-limited
+API client, saves them directly to their issue/pull directory and continues. A
+failed parent fetch preserves the checkpoint so a subsequent run retries the page.

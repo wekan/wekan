@@ -153,3 +153,26 @@ test('destination restart reuses the completed source and skips completed mirror
     assert.equal(JSON.parse(fs.readFileSync(path.join(f.base,'sync-progress.json'))).complete,true);
   } finally {fs.rmSync(f.directory,{recursive:true,force:true});}
 });
+
+test('comments recover parents absent from the listing and preserve failed checkpoints for retry', async () => {
+  const m = await modulePromise, f = fixture();
+  const comment = { id: 99, issue_url: 'https://api.github.com/repos/wekan/wekan/issues/4227', html_url: 'https://github.com/wekan/wekan/issues/4227#issuecomment-99', body: 'Recovered comment' };
+  const api = async endpoint => {
+    if (endpoint.includes('/issues/comments?')) return endpoint.includes('page=1&') ? [comment] : [];
+    if (endpoint.endsWith('/issues/4227')) return { id: 4227, number: 4227, title: 'Missing parent', html_url: 'https://github.com/wekan/wekan/issues/4227' };
+    return f.api(endpoint);
+  };
+  try {
+    await assert.rejects(m.collectGithub({ ...f.options, cacheOnly: true, api: endpoint => {
+      if (endpoint.endsWith('/issues/4227')) throw Error('parent unavailable');
+      return api(endpoint);
+    } }), /parent unavailable/);
+    const checkpoint = JSON.parse(fs.readFileSync(path.join(f.base, 'source-manifest.json')));
+    assert.equal(checkpoint.pages['repos/wekan/wekan/issues/comments?sort=created&direction=asc'].next, 1);
+    const manifest = await m.collectGithub({ ...f.options, cacheOnly: true, api });
+    assert.equal(manifest.complete, true);
+    const parent = [...m.diskSnapshot(manifest).issues].find(item => item.number === 4227);
+    assert.equal(parent.commentsToMirror[0].body, 'Recovered comment');
+    assert.ok(fs.existsSync(path.join(f.base, 'issues/4227/99/source-comment.json')));
+  } finally { fs.rmSync(f.directory, { recursive: true, force: true }); }
+});

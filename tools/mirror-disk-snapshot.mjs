@@ -109,9 +109,21 @@ export async function collectGithub({ root, api, exportFile, downloadAsset, fetc
   save();
   const saveComment = async comment => {
     const number = Number((comment.issue_url || comment.pull_request_url)?.split('/').pop());
+    if (!Number.isSafeInteger(number) || number < 1) throw Error('Invalid comment parent identity');
+    if (!itemPaths.has(number)) {
+      log(`[archive] Fetching missing issue/pull #${number} referenced by a comment`);
+      const parent = await api(`${source}/issues/${number}`);
+      if (parent?.number !== number) throw Error(`Unexpected comment parent response for #${number}`);
+      await saveIssue(parent);
+      save();
+    }
     const relative = itemPaths.get(number);
-    if (!relative) throw Error(`Comment references unlisted issue/pull #${number}`);
     const dir = path.dirname(path.join(base, relative)), id = staticCommentIdentity(comment);
+    if (relative.startsWith('pulls/') && !fs.existsSync(path.join(dir, 'pull-request.json'))) {
+      const pull = await api(`${source}/pulls/${number}`);
+      if (pull?.number !== number) throw Error(`Unexpected pull response for #${number}`);
+      write(path.join(dir, 'pull-request.json'), pull);
+    }
     const commentDir = path.join(dir, id); fs.mkdirSync(commentDir, { recursive: true });
     write(path.join(commentDir, 'source-comment.json'), { ...comment, source_url: comment.html_url });
     writeBytes(path.join(commentDir, 'index.html'), Buffer.alloc(0), now);

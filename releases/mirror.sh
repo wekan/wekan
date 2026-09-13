@@ -30,7 +30,11 @@ mirror "sourceforge" "ssh://wekan@git.code.sf.net/p/wekan/code"
 MIRROR_LOG_DIR="$TOOLS_DIR/log/mirror/$(date +%Y-%m-%d_%H-%M_%S)"
 mkdir -p "$MIRROR_LOG_DIR"
 MIRROR_LOG_FILE="$MIRROR_LOG_DIR/mirror-log.txt"
+export WEKAN_MIRROR_LOG_FILE="$MIRROR_LOG_FILE"
 {
   printf 'Mirror log: %s\n' "$MIRROR_LOG_FILE"
-  node "$WEKAN_ROOT/tools/mirror-menu.mjs" "$@"
+  status=0
+  node "$WEKAN_ROOT/tools/mirror-menu.mjs" "$@" || status=$?
+  printf 'Mirror command finished (exit %s). Mirror log: %s\n' "$status" "$MIRROR_LOG_FILE"
+  exit "$status"
 } 2>&1 | tee -a "$MIRROR_LOG_FILE"

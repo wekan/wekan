@@ -33,6 +33,18 @@ const work = fs.mkdtempSync(path.join(temporary, 'mirror-menu-tests-'));
     assert.match(output.join('\n'), /5\. Check where data/);
     await m.menu({ directory: work, ask: async () => null, synchronize: async () => assert.fail('EOF must never sync'), log: () => {} });
   });
+  await test('menu reports the log after both successful and failed operations', async () => {
+    const old = process.env.WEKAN_MIRROR_LOG_FILE;
+    process.env.WEKAN_MIRROR_LOG_FILE = path.join(work, 'mirror-log.txt');
+    try {
+      const answers = ['1', '4', '6'], output = [];
+      await m.menu({ directory: work, ask: async () => answers.shift(), log: value => output.push(value),
+        synchronize: async () => {}, online: async () => { throw Error('offline fixture'); } });
+      assert.equal(output.filter(value => value === `Mirror log: ${process.env.WEKAN_MIRROR_LOG_FILE}`).length, 2);
+      const failed = output.indexOf('Failed: offline fixture');
+      assert.equal(output[failed + 1], `Mirror log: ${process.env.WEKAN_MIRROR_LOG_FILE}`);
+    } finally { if (old === undefined) delete process.env.WEKAN_MIRROR_LOG_FILE; else process.env.WEKAN_MIRROR_LOG_FILE = old; }
+  });
   await test('shared snapshot and per-target dispatch continue after failures; preview never applies', async () => {
     const settings = { source: 'gitlab', mirrors: ['github', 'codeberg', 'sourceforge'] };
     const calls = [];
@@ -94,6 +106,7 @@ const work = fs.mkdtempSync(path.join(temporary, 'mirror-menu-tests-'));
       encoding: 'utf8', env: { ...process.env, PATH: `${path.dirname(process.execPath)}${path.delimiter}${process.env.PATH}` },
     });
     assert.equal(result.status, 7);
+    assert.match(result.stdout.trim().split('\n').at(-1), /Mirror command finished \(exit 7\)\. Mirror log:/);
     assert.match(result.stdout, /stdout fixture/);
     assert.match(result.stdout, /stderr fixture/);
     const logRoot = path.join(launcherRoot, '.tools/log/mirror');
