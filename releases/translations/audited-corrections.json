@@ -62900,5 +62900,19 @@
     "before": "Republic of China",
     "after": "Kalènder Minguo",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ak",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "India ɔman kalɛnda",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ak",
+    "key": "calendar-system-islamic-civil",
+    "before": "Higyiri Kalɛnda (tabula, sivil epokyi",
+    "after": "Higyiri Kalɛnda (tabula, sivil epokyi)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
