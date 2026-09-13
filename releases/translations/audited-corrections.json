@@ -115806,5 +115806,166 @@
     "before": "Uimaradan korkeuden täytyy olla positiivinen kokonaisluku",
     "after": "Ujundšoidun korktuz’ pidab olda pozitivine täuz’ lugu",
     "reason": "Replace Finnish with Veps display-setting wording. Reference: Zaiceva/Mullonen 2007 Russian–Veps dictionary (http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf), height korktuz’, positive pozitivine, integer example täuded lugud, quantity lugumär, simultaneous ühten aigan; native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json (Ozuta, Peittud, rivi, pikselid). Preserve strict more-than, pixels, all-board scope and one-to-one item mapping. Low confidence: composed kanban terminology and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "above-selected-card",
+    "before": "Valitun kortin yläpuolelle",
+    "after": "Valitud kartan päl",
+    "reason": "Replace Finnish/Venda selection, sidebar and filter wording with Veps, including related unflagged controls. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary (http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf): above päl, under al, label znam, name nimi, side čura, excluding heitta; native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: Ozuta, peitä, Eci, menülist, Tegijan. Retain correct core Znamad, Puhtastim, Eci and Nimi; preserve distinct card/swimlane targets, OR, member/assignee/creator filters, field-name display and board search scope. Low confidence: composed sidebar terminology and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "below-selected-card",
+    "before": "Valitun kortin alapuolelle",
+    "after": "Valitud kartan al",
+    "reason": "Replace Finnish/Venda selection, sidebar and filter wording with Veps, including related unflagged controls. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary (http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf): above päl, under al, label znam, name nimi, side čura, excluding heitta; native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: Ozuta, peitä, Eci, menülist, Tegijan. Retain correct core Znamad, Puhtastim, Eci and Nimi; preserve distinct card/swimlane targets, OR, member/assignee/creator filters, field-name display and board search scope. Low confidence: composed sidebar terminology and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "above-selected-swimlane",
+    "before": "Valitun uimaradan yläpuolelle",
+    "after": "Valitud ujundšoidun päl",
+    "reason": "Replace Finnish/Venda selection, sidebar and filter wording with Veps, including related unflagged controls. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary (http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf): above päl, under al, label znam, name nimi, side čura, excluding heitta; native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: Ozuta, peitä, Eci, menülist, Tegijan. Retain correct core Znamad, Puhtastim, Eci and Nimi; preserve distinct card/swimlane targets, OR, member/assignee/creator filters, field-name display and board search scope. Low confidence: composed sidebar terminology and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "below-selected-swimlane",
+    "before": "Valitun uimaradan alapuolelle",
+    "after": "Valitud ujundšoidun al",
+    "reason": "Replace Finnish/Venda selection, sidebar and filter wording with Veps, including related unflagged controls. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary (http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf): above päl, under al, label znam, name nimi, side čura, excluding heitta; native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: Ozuta, peitä, Eci, menülist, Tegijan. Retain correct core Znamad, Puhtastim, Eci and Nimi; preserve distinct card/swimlane targets, OR, member/assignee/creator filters, field-name display and board search scope. Low confidence: composed sidebar terminology and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "filter-cards",
+    "before": "Suodata kortit tai listat",
+    "after": "Puhtasta kartoid libo lugetižid",
+    "reason": "Replace Finnish/Venda selection, sidebar and filter wording with Veps, including related unflagged controls. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary (http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf): above päl, under al, label znam, name nimi, side čura, excluding heitta; native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: Ozuta, peitä, Eci, menülist, Tegijan. Retain correct core Znamad, Puhtastim, Eci and Nimi; preserve distinct card/swimlane targets, OR, member/assignee/creator filters, field-name display and board search scope. Low confidence: composed sidebar terminology and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "filter-dates-label",
+    "before": "Suodata päivämäärä",
+    "after": "Puhtasta päivmäran mödhe",
+    "reason": "Replace Finnish/Venda selection, sidebar and filter wording with Veps, including related unflagged controls. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary (http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf): above päl, under al, label znam, name nimi, side čura, excluding heitta; native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: Ozuta, peitä, Eci, menülist, Tegijan. Retain correct core Znamad, Puhtastim, Eci and Nimi; preserve distinct card/swimlane targets, OR, member/assignee/creator filters, field-name display and board search scope. Low confidence: composed sidebar terminology and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "list-filter-label",
+    "before": "Suodata listan otsikko",
+    "after": "Puhtasta lugetiž nimen mödhe",
+    "reason": "Replace Finnish/Venda selection, sidebar and filter wording with Veps, including related unflagged controls. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary (http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf): above päl, under al, label znam, name nimi, side čura, excluding heitta; native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: Ozuta, peitä, Eci, menülist, Tegijan. Retain correct core Znamad, Puhtastim, Eci and Nimi; preserve distinct card/swimlane targets, OR, member/assignee/creator filters, field-name display and board search scope. Low confidence: composed sidebar terminology and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "filter-labels-label",
+    "before": "Suodata nimilappu",
+    "after": "Puhtasta znaman mödhe",
+    "reason": "Replace Finnish/Venda selection, sidebar and filter wording with Veps, including related unflagged controls. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary (http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf): above päl, under al, label znam, name nimi, side čura, excluding heitta; native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: Ozuta, peitä, Eci, menülist, Tegijan. Retain correct core Znamad, Puhtastim, Eci and Nimi; preserve distinct card/swimlane targets, OR, member/assignee/creator filters, field-name display and board search scope. Low confidence: composed sidebar terminology and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "filter-no-label",
+    "before": "Ei nimilappua",
+    "after": "Ei ole znamad",
+    "reason": "Replace Finnish/Venda selection, sidebar and filter wording with Veps, including related unflagged controls. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary (http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf): above päl, under al, label znam, name nimi, side čura, excluding heitta; native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: Ozuta, peitä, Eci, menülist, Tegijan. Retain correct core Znamad, Puhtastim, Eci and Nimi; preserve distinct card/swimlane targets, OR, member/assignee/creator filters, field-name display and board search scope. Low confidence: composed sidebar terminology and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "filter-member-label",
+    "before": "Suodata jäsen",
+    "after": "Puhtasta ühtnikan mödhe",
+    "reason": "Replace Finnish/Venda selection, sidebar and filter wording with Veps, including related unflagged controls. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary (http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf): above päl, under al, label znam, name nimi, side čura, excluding heitta; native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: Ozuta, peitä, Eci, menülist, Tegijan. Retain correct core Znamad, Puhtastim, Eci and Nimi; preserve distinct card/swimlane targets, OR, member/assignee/creator filters, field-name display and board search scope. Low confidence: composed sidebar terminology and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "filter-no-member",
+    "before": "Ei jäseniä",
+    "after": "Ei ole ühtnikad",
+    "reason": "Replace Finnish/Venda selection, sidebar and filter wording with Veps, including related unflagged controls. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary (http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf): above päl, under al, label znam, name nimi, side čura, excluding heitta; native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: Ozuta, peitä, Eci, menülist, Tegijan. Retain correct core Znamad, Puhtastim, Eci and Nimi; preserve distinct card/swimlane targets, OR, member/assignee/creator filters, field-name display and board search scope. Low confidence: composed sidebar terminology and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "filter-assignee-label",
+    "before": "Suodata käsittelijä",
+    "after": "Puhtasta märitud kävutajan mödhe",
+    "reason": "Replace Finnish/Venda selection, sidebar and filter wording with Veps, including related unflagged controls. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary (http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf): above päl, under al, label znam, name nimi, side čura, excluding heitta; native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: Ozuta, peitä, Eci, menülist, Tegijan. Retain correct core Znamad, Puhtastim, Eci and Nimi; preserve distinct card/swimlane targets, OR, member/assignee/creator filters, field-name display and board search scope. Low confidence: composed sidebar terminology and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "filter-creator-label",
+    "before": "Suodata Luoja",
+    "after": "Puhtasta tegijan mödhe",
+    "reason": "Replace Finnish/Venda selection, sidebar and filter wording with Veps, including related unflagged controls. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary (http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf): above päl, under al, label znam, name nimi, side čura, excluding heitta; native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: Ozuta, peitä, Eci, menülist, Tegijan. Retain correct core Znamad, Puhtastim, Eci and Nimi; preserve distinct card/swimlane targets, OR, member/assignee/creator filters, field-name display and board search scope. Low confidence: composed sidebar terminology and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "filter-no-assignee",
+    "before": "Ei käsittelijää",
+    "after": "Ei ole märitud kävutajad",
+    "reason": "Replace Finnish/Venda selection, sidebar and filter wording with Veps, including related unflagged controls. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary (http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf): above päl, under al, label znam, name nimi, side čura, excluding heitta; native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: Ozuta, peitä, Eci, menülist, Tegijan. Retain correct core Znamad, Puhtastim, Eci and Nimi; preserve distinct card/swimlane targets, OR, member/assignee/creator filters, field-name display and board search scope. Low confidence: composed sidebar terminology and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "filter-label-excluded",
+    "before": "U bviswa ha ḽitshini heli",
+    "after": "Nece znam om heittud",
+    "reason": "Replace Finnish/Venda selection, sidebar and filter wording with Veps, including related unflagged controls. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary (http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf): above päl, under al, label znam, name nimi, side čura, excluding heitta; native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: Ozuta, peitä, Eci, menülist, Tegijan. Retain correct core Znamad, Puhtastim, Eci and Nimi; preserve distinct card/swimlane targets, OR, member/assignee/creator filters, field-name display and board search scope. Low confidence: composed sidebar terminology and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "showLabel-field-on-card",
+    "before": "Näytä kentän nimilappu minikortilla",
+    "after": "Ozuta pöudon nimi minikartal",
+    "reason": "Replace Finnish/Venda selection, sidebar and filter wording with Veps, including related unflagged controls. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary (http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf): above päl, under al, label znam, name nimi, side čura, excluding heitta; native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: Ozuta, peitä, Eci, menülist, Tegijan. Retain correct core Znamad, Puhtastim, Eci and Nimi; preserve distinct card/swimlane targets, OR, member/assignee/creator filters, field-name display and board search scope. Low confidence: composed sidebar terminology and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "shortcut-toggle-filterbar",
+    "before": "Muokkaa suodatussivupalkin näkyvyyttä",
+    "after": "Ozuta libo peitä puhtastusen čuramenülist",
+    "reason": "Replace Finnish/Venda selection, sidebar and filter wording with Veps, including related unflagged controls. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary (http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf): above päl, under al, label znam, name nimi, side čura, excluding heitta; native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: Ozuta, peitä, Eci, menülist, Tegijan. Retain correct core Znamad, Puhtastim, Eci and Nimi; preserve distinct card/swimlane targets, OR, member/assignee/creator filters, field-name display and board search scope. Low confidence: composed sidebar terminology and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "shortcut-toggle-searchbar",
+    "before": "Muokkaa etsintäsivupalkin näkyvyyttä",
+    "after": "Ozuta libo peitä ecindan čuramenülist",
+    "reason": "Replace Finnish/Venda selection, sidebar and filter wording with Veps, including related unflagged controls. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary (http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf): above päl, under al, label znam, name nimi, side čura, excluding heitta; native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: Ozuta, peitä, Eci, menülist, Tegijan. Retain correct core Znamad, Puhtastim, Eci and Nimi; preserve distinct card/swimlane targets, OR, member/assignee/creator filters, field-name display and board search scope. Low confidence: composed sidebar terminology and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "shortcut-toggle-sidebar",
+    "before": "Muokkaa taulusivupalkin näkyvyyttä",
+    "after": "Ozuta libo peitä laudan čuramenülist",
+    "reason": "Replace Finnish/Venda selection, sidebar and filter wording with Veps, including related unflagged controls. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary (http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf): above päl, under al, label znam, name nimi, side čura, excluding heitta; native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: Ozuta, peitä, Eci, menülist, Tegijan. Retain correct core Znamad, Puhtastim, Eci and Nimi; preserve distinct card/swimlane targets, OR, member/assignee/creator filters, field-name display and board search scope. Low confidence: composed sidebar terminology and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "search-cards",
+    "before": "Etsi kortin/listan otsikoista, kuvauksista ja mukautetuista kentistä tällä taululla",
+    "after": "Eci necen laudan kartoiden/lugetižiden nimid, kirjutusid da kävutajan märitud pöudoid",
+    "reason": "Replace Finnish/Venda selection, sidebar and filter wording with Veps, including related unflagged controls. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary (http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf): above päl, under al, label znam, name nimi, side čura, excluding heitta; native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: Ozuta, peitä, Eci, menülist, Tegijan. Retain correct core Znamad, Puhtastim, Eci and Nimi; preserve distinct card/swimlane targets, OR, member/assignee/creator filters, field-name display and board search scope. Low confidence: composed sidebar terminology and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "label-names",
+    "before": "Nimilappujen nimet",
+    "after": "Znamoiden nimed",
+    "reason": "Replace Finnish/Venda selection, sidebar and filter wording with Veps, including related unflagged controls. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary (http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf): above päl, under al, label znam, name nimi, side čura, excluding heitta; native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: Ozuta, peitä, Eci, menülist, Tegijan. Retain correct core Znamad, Puhtastim, Eci and Nimi; preserve distinct card/swimlane targets, OR, member/assignee/creator filters, field-name display and board search scope. Low confidence: composed sidebar terminology and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "add-label",
+    "before": "Lisää nimilappu",
+    "after": "Ližada znam",
+    "reason": "Replace Finnish/Venda selection, sidebar and filter wording with Veps, including related unflagged controls. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary (http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf): above päl, under al, label znam, name nimi, side čura, excluding heitta; native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: Ozuta, peitä, Eci, menülist, Tegijan. Retain correct core Znamad, Puhtastim, Eci and Nimi; preserve distinct card/swimlane targets, OR, member/assignee/creator filters, field-name display and board search scope. Low confidence: composed sidebar terminology and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "remove-label",
+    "before": "Poista nimilappu",
+    "after": "Heitä znam",
+    "reason": "Replace Finnish/Venda selection, sidebar and filter wording with Veps, including related unflagged controls. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary (http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf): above päl, under al, label znam, name nimi, side čura, excluding heitta; native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: Ozuta, peitä, Eci, menülist, Tegijan. Retain correct core Znamad, Puhtastim, Eci and Nimi; preserve distinct card/swimlane targets, OR, member/assignee/creator filters, field-name display and board search scope. Low confidence: composed sidebar terminology and inflections require fluent-speaker review."
   }
 ]

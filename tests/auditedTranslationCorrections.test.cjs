@@ -1085,5 +1085,56 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.match(cache['ve-PP']['now-activities-of-all-boards-are-hidden'], /kaik tegendad kaikil laudoil oma peittud$/);
   assert.ok(cache['ve-PP']['show-at-all-boards-page'].includes(`“${cache['ve-PP']['all-boards']}”`));
   assert.match(cache['ve-PP']['open-many-cards-at-once'], /äi kartoid ühten aigan$/);
+  const vepsSelectionRepairs = {
+  "above-selected-card": "Valitud kartan päl",
+  "below-selected-card": "Valitud kartan al",
+  "above-selected-swimlane": "Valitud ujundšoidun päl",
+  "below-selected-swimlane": "Valitud ujundšoidun al",
+  "filter-cards": "Puhtasta kartoid libo lugetižid",
+  "filter-dates-label": "Puhtasta päivmäran mödhe",
+  "list-filter-label": "Puhtasta lugetiž nimen mödhe",
+  "filter-labels-label": "Puhtasta znaman mödhe",
+  "filter-no-label": "Ei ole znamad",
+  "filter-member-label": "Puhtasta ühtnikan mödhe",
+  "filter-no-member": "Ei ole ühtnikad",
+  "filter-assignee-label": "Puhtasta märitud kävutajan mödhe",
+  "filter-creator-label": "Puhtasta tegijan mödhe",
+  "filter-no-assignee": "Ei ole märitud kävutajad",
+  "filter-label-excluded": "Nece znam om heittud",
+  "showLabel-field-on-card": "Ozuta pöudon nimi minikartal",
+  "shortcut-toggle-filterbar": "Ozuta libo peitä puhtastusen čuramenülist",
+  "shortcut-toggle-searchbar": "Ozuta libo peitä ecindan čuramenülist",
+  "shortcut-toggle-sidebar": "Ozuta libo peitä laudan čuramenülist",
+  "search-cards": "Eci necen laudan kartoiden/lugetižiden nimid, kirjutusid da kävutajan märitud pöudoid",
+  "label-names": "Znamoiden nimed",
+  "add-label": "Ližada znam",
+  "remove-label": "Heitä znam"
+};
+  for (const [key, value] of Object.entries(vepsSelectionRepairs)) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.equal(vepsTranslator.t(key), value, key);
+    assert.doesNotMatch(value, /Valitun|kortin|uimaradan|yläpuolelle|alapuolelle|Suodata|kortit tai listat|päivämäärä|otsikko|nimilappu|jäseniä|käsittelij|Luoja|Näytä kentän|Muokkaa|sivupalkin|näkyvyyttä|Etsi kortin|kuvauksista|mukautetuista|tällä taululla|Lisää|Poista|U bviswa/i, key);
+  }
+  assert.equal(cache['ve-PP']['above-selected-card'], 'Valitud kartan päl');
+  assert.equal(cache['ve-PP']['below-selected-card'], 'Valitud kartan al');
+  assert.equal(cache['ve-PP']['above-selected-swimlane'], 'Valitud ujundšoidun päl');
+  assert.equal(cache['ve-PP']['below-selected-swimlane'], 'Valitud ujundšoidun al');
+  assert.match(cache['ve-PP']['filter-cards'], /kartoid libo lugetižid$/);
+  for (const key of ['shortcut-toggle-filterbar', 'shortcut-toggle-searchbar', 'shortcut-toggle-sidebar']) {
+    assert.match(cache['ve-PP'][key], /^Ozuta libo peitä /);
+  }
+  assert.match(cache['ve-PP']['shortcut-toggle-filterbar'], /puhtastusen/);
+  assert.match(cache['ve-PP']['shortcut-toggle-searchbar'], /ecindan/);
+  assert.match(cache['ve-PP']['shortcut-toggle-sidebar'], /laudan/);
+  assert.match(cache['ve-PP']['showLabel-field-on-card'], /pöudon nimi minikartal$/);
+  assert.doesNotMatch(cache['ve-PP']['showLabel-field-on-card'], /Ližada/);
+  assert.match(cache['ve-PP']['filter-assignee-label'], /märitud kävutajan/);
+  assert.doesNotMatch(cache['ve-PP']['filter-member-label'], /märitud/);
+  assert.match(cache['ve-PP']['filter-creator-label'], /tegijan/);
+  assert.match(cache['ve-PP']['search-cards'], /necen laudan.*kartoiden\/lugetižiden nimid.*kirjutusid.*kävutajan märitud pöudoid$/);
+  assert.equal(cache['ve-PP'].labels, 'Znamad');
+  assert.equal(cache['ve-PP'].filter, 'Puhtastim');
+  assert.equal(cache['ve-PP'].search, 'Eci');
+  assert.equal(cache['ve-PP'].title, 'Nimi');
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });
