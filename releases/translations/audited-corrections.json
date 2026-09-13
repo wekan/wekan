@@ -113832,5 +113832,110 @@
     "before": "MongoDB GridFS tallennus",
     "after": "MongoDB GridFS -kaičuz",
     "reason": "Replace Finnish with Veps using Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (päzund access, satusekaz successful, ühtenzoituz connection), and native MediaWiki vep.json (avadim, peituzavadim, kaičuz). Preserve S3/AWS/MongoDB GridFS and endpoint examples. Low confidence: composed access-key/authentication terminology, inflection and technical bucket/endpoint loans require fluent review; do not confuse access keys with secret keys or object-storage buckets with a physical scoop."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "migration-failed",
+    "before": "Siirto epäonnistui",
+    "after": "Migracii ei ole satusekaz",
+    "reason": "Replace Finnish with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests azotada/seižutada for pause/stop, augotada for start, jatkata (imperative jatkta) for continue, and satusekaz for successful. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests Vaumiž (done), status, hüvin, loptud and azotadud. Use the existing Veps migracii loan for schema/data migration rather than physical file transfer. Preserve all-migration scope and distinguish pause, stop, resume and completion/outcomes. Low confidence: technical loan inflection and composed UI grammar require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "migration-paused",
+    "before": "Siirrot keskeytetty onnistuneesti",
+    "after": "Migracijad oma hüvin azotadud.",
+    "reason": "Replace Finnish with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests azotada/seižutada for pause/stop, augotada for start, jatkata (imperative jatkta) for continue, and satusekaz for successful. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests Vaumiž (done), status, hüvin, loptud and azotadud. Use the existing Veps migracii loan for schema/data migration rather than physical file transfer. Preserve all-migration scope and distinguish pause, stop, resume and completion/outcomes. Low confidence: technical loan inflection and composed UI grammar require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "migration-running",
+    "before": "Suoritetaan...",
+    "after": "Radab...",
+    "reason": "Replace Finnish with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests azotada/seižutada for pause/stop, augotada for start, jatkata (imperative jatkta) for continue, and satusekaz for successful. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests Vaumiž (done), status, hüvin, loptud and azotadud. Use the existing Veps migracii loan for schema/data migration rather than physical file transfer. Preserve all-migration scope and distinguish pause, stop, resume and completion/outcomes. Low confidence: technical loan inflection and composed UI grammar require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "migration-stopped",
+    "before": "Siirrot pysäytetty onnistuneesti",
+    "after": "Migracijad oma hüvin seižutadud.",
+    "reason": "Replace Finnish with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests azotada/seižutada for pause/stop, augotada for start, jatkata (imperative jatkta) for continue, and satusekaz for successful. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests Vaumiž (done), status, hüvin, loptud and azotadud. Use the existing Veps migracii loan for schema/data migration rather than physical file transfer. Preserve all-migration scope and distinguish pause, stop, resume and completion/outcomes. Low confidence: technical loan inflection and composed UI grammar require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "pause-all-migrations",
+    "before": "Keskeytä kaikki siirrot",
+    "after": "Azota kaik migracijad",
+    "reason": "Replace Finnish with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests azotada/seižutada for pause/stop, augotada for start, jatkata (imperative jatkta) for continue, and satusekaz for successful. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests Vaumiž (done), status, hüvin, loptud and azotadud. Use the existing Veps migracii loan for schema/data migration rather than physical file transfer. Preserve all-migration scope and distinguish pause, stop, resume and completion/outcomes. Low confidence: technical loan inflection and composed UI grammar require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "start-all-migrations",
+    "before": "Aloita kaikki siirrot",
+    "after": "Augota kaik migracijad",
+    "reason": "Replace Finnish with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests azotada/seižutada for pause/stop, augotada for start, jatkata (imperative jatkta) for continue, and satusekaz for successful. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests Vaumiž (done), status, hüvin, loptud and azotadud. Use the existing Veps migracii loan for schema/data migration rather than physical file transfer. Preserve all-migration scope and distinguish pause, stop, resume and completion/outcomes. Low confidence: technical loan inflection and composed UI grammar require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "stop-all-migrations",
+    "before": "Pysäytä kaikki siirrot",
+    "after": "Seižuta kaik migracijad",
+    "reason": "Replace Finnish with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests azotada/seižutada for pause/stop, augotada for start, jatkata (imperative jatkta) for continue, and satusekaz for successful. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests Vaumiž (done), status, hüvin, loptud and azotadud. Use the existing Veps migracii loan for schema/data migration rather than physical file transfer. Preserve all-migration scope and distinguish pause, stop, resume and completion/outcomes. Low confidence: technical loan inflection and composed UI grammar require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "migration-pause-failed",
+    "before": "Siirtojen keskeyttäminen epäonnistui",
+    "after": "Ei voind azotada migracijoid.",
+    "reason": "Replace Finnish with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests azotada/seižutada for pause/stop, augotada for start, jatkata (imperative jatkta) for continue, and satusekaz for successful. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests Vaumiž (done), status, hüvin, loptud and azotadud. Use the existing Veps migracii loan for schema/data migration rather than physical file transfer. Preserve all-migration scope and distinguish pause, stop, resume and completion/outcomes. Low confidence: technical loan inflection and composed UI grammar require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "migration-stop-failed",
+    "before": "Siirtojen pysäyttäminen epäonnistui",
+    "after": "Ei voind seižutada migracijoid.",
+    "reason": "Replace Finnish with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests azotada/seižutada for pause/stop, augotada for start, jatkata (imperative jatkta) for continue, and satusekaz for successful. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests Vaumiž (done), status, hüvin, loptud and azotadud. Use the existing Veps migracii loan for schema/data migration rather than physical file transfer. Preserve all-migration scope and distinguish pause, stop, resume and completion/outcomes. Low confidence: technical loan inflection and composed UI grammar require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "migration-stop-confirm",
+    "before": "Haluatko varmasti pysäyttää kaikki siirrot?",
+    "after": "Tahtoid-ik sinä tozi seižutada kaik migracijad?",
+    "reason": "Replace Finnish with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests azotada/seižutada for pause/stop, augotada for start, jatkata (imperative jatkta) for continue, and satusekaz for successful. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests Vaumiž (done), status, hüvin, loptud and azotadud. Use the existing Veps migracii loan for schema/data migration rather than physical file transfer. Preserve all-migration scope and distinguish pause, stop, resume and completion/outcomes. Low confidence: technical loan inflection and composed UI grammar require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "migration-status",
+    "before": "Siirron tila",
+    "after": "Migracijan status",
+    "reason": "Replace Finnish with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests azotada/seižutada for pause/stop, augotada for start, jatkata (imperative jatkta) for continue, and satusekaz for successful. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests Vaumiž (done), status, hüvin, loptud and azotadud. Use the existing Veps migracii loan for schema/data migration rather than physical file transfer. Preserve all-migration scope and distinguish pause, stop, resume and completion/outcomes. Low confidence: technical loan inflection and composed UI grammar require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "migration-complete",
+    "before": "Valmis",
+    "after": "Vaumiž",
+    "reason": "Replace Finnish with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests azotada/seižutada for pause/stop, augotada for start, jatkata (imperative jatkta) for continue, and satusekaz for successful. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests Vaumiž (done), status, hüvin, loptud and azotadud. Use the existing Veps migracii loan for schema/data migration rather than physical file transfer. Preserve all-migration scope and distinguish pause, stop, resume and completion/outcomes. Low confidence: technical loan inflection and composed UI grammar require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "migration-successful",
+    "before": "Siirto valmistui onnistuneesti",
+    "after": "Migracii om hüvin loptud.",
+    "reason": "Replace Finnish with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests azotada/seižutada for pause/stop, augotada for start, jatkata (imperative jatkta) for continue, and satusekaz for successful. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests Vaumiž (done), status, hüvin, loptud and azotadud. Use the existing Veps migracii loan for schema/data migration rather than physical file transfer. Preserve all-migration scope and distinguish pause, stop, resume and completion/outcomes. Low confidence: technical loan inflection and composed UI grammar require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "migration-resume-failed",
+    "before": "Siirron jatkaminen epäonnistui",
+    "after": "Ei voind jatkata migracijad.",
+    "reason": "Replace Finnish with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests azotada/seižutada for pause/stop, augotada for start, jatkata (imperative jatkta) for continue, and satusekaz for successful. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests Vaumiž (done), status, hüvin, loptud and azotadud. Use the existing Veps migracii loan for schema/data migration rather than physical file transfer. Preserve all-migration scope and distinguish pause, stop, resume and completion/outcomes. Low confidence: technical loan inflection and composed UI grammar require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "migration-resumed",
+    "before": "Siirto jatkettu",
+    "after": "Migracii om jatktud.",
+    "reason": "Replace Finnish with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests azotada/seižutada for pause/stop, augotada for start, jatkata (imperative jatkta) for continue, and satusekaz for successful. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests Vaumiž (done), status, hüvin, loptud and azotadud. Use the existing Veps migracii loan for schema/data migration rather than physical file transfer. Preserve all-migration scope and distinguish pause, stop, resume and completion/outcomes. Low confidence: technical loan inflection and composed UI grammar require fluent review."
   }
 ]

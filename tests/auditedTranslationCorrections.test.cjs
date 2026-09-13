@@ -548,5 +548,35 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.match(cache['ve-PP']['s3-connection-success'], /om satusekaz/);
   assert.match(cache['ve-PP']['s3-endpoint-description'], /s3\.amazonaws\.com libo minio\.example\.com/);
   assert.match(cache['ve-PP']['mongodb-gridfs-storage'], /MongoDB GridFS/);
+  const vepsMigrationRepairs = {
+  "migration-failed": "Migracii ei ole satusekaz",
+  "migration-paused": "Migracijad oma hüvin azotadud.",
+  "migration-running": "Radab...",
+  "migration-stopped": "Migracijad oma hüvin seižutadud.",
+  "pause-all-migrations": "Azota kaik migracijad",
+  "start-all-migrations": "Augota kaik migracijad",
+  "stop-all-migrations": "Seižuta kaik migracijad",
+  "migration-pause-failed": "Ei voind azotada migracijoid.",
+  "migration-stop-failed": "Ei voind seižutada migracijoid.",
+  "migration-stop-confirm": "Tahtoid-ik sinä tozi seižutada kaik migracijad?",
+  "migration-status": "Migracijan status",
+  "migration-complete": "Vaumiž",
+  "migration-successful": "Migracii om hüvin loptud.",
+  "migration-resume-failed": "Ei voind jatkata migracijad.",
+  "migration-resumed": "Migracii om jatktud."
+};
+  for (const [key, value] of Object.entries(vepsMigrationRepairs)) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.equal(vepsTranslator.t(key), value, key);
+    assert.doesNotMatch(value, /Siirto|Siirron|Siirtojen|siirrot|epäonnistui|onnistuneesti|Suoritetaan|Keskeytä|Aloita|Pysäytä|Valmis|Haluatko/, key);
+  }
+  assert.match(cache['ve-PP']['pause-all-migrations'], /^Azota kaik migracijad$/);
+  assert.match(cache['ve-PP']['start-all-migrations'], /^Augota kaik migracijad$/);
+  assert.match(cache['ve-PP']['stop-all-migrations'], /^Seižuta kaik migracijad$/);
+  assert.match(cache['ve-PP']['migration-stop-confirm'], /seižutada kaik migracijad\?$/);
+  assert.notEqual(cache['ve-PP']['migration-paused'], cache['ve-PP']['migration-stopped']);
+  assert.notEqual(cache['ve-PP']['migration-stopped'], cache['ve-PP']['migration-successful']);
+  assert.match(cache['ve-PP']['migration-resumed'], /jatktud/);
+  assert.match(cache['ve-PP']['migration-resume-failed'], /^Ei voind jatkata/);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });
