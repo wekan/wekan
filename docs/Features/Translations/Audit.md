@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 8,613 |
+| Corrected | 8,623 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 175 |
-| Pending review or repair | 7,234 |
+| Pending review or repair | 7,224 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **8,686** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **8,696** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `aa25093e8f56d94c0d26b5b3b25c1fc824a5e170` — ten Occitan custom-field and workspace findings repaired; **283 Occitan findings remain**. Activity arguments are preserved; clearing a field value is distinguished from deleting the field. Regional terminology and earlier low-confidence batches need language review. Exact-value, placeholder, key-order and idempotency checks pass; live browser verification is unavailable.
+Latest translation fix: **2026-09-13**, local commit `e2c0b92a21f877f8e12200d7871ebf6d60cbe5ae` — ten Occitan workspace, attachment and authentication findings repaired; **273 Occitan findings remain**. Due-time token, file-type distinctions and URL-scheme instructions are preserved. Regional terminology and earlier low-confidence batches need language review. Exact-value, placeholder, key-order and idempotency checks pass; live browser verification is unavailable.
 
 **Origin:** not all errors came from Transifex. The captured pull changed 4,061 values; the local audit added 16,020 findings. Bosnian errors already existed in local commit `bdb3b15886a749b725b5290ba0109fcba955f983`. Other ultimate origins remain unverified.
 
