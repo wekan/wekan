@@ -78146,5 +78146,54 @@
     "before": "Confirmer la suppression de l'espace de travail",
     "after": "Dëggal far barabu liggéey bi",
     "reason": "Replace French workspace controls with Wolof, preserving workspace versus subordinate workspace, name/icon/settings/menu distinctions, markdown and deletion confirmation. Workspace hierarchy/settings terminology and full grammar remain low confidence; includes unflagged short headings."
+  },
+  {
+    "locale": "wo",
+    "key": "shortcut-close-dialog",
+    "before": "Fermer la boîte de dialogue",
+    "after": "Tëj palanteeru waxtaan bi",
+    "reason": "Replace French keyboard help with Wolof, preserving dialog closure, show/hide filter versus search sidebars, autocomplete distinction and 1-9 label/assignment keys. Multi-selection adds labels; assignment order follows addition to board. Autocomplete/window/keyboard terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "shortcut-toggle-filterbar",
+    "before": "Afficher/Masquer la barre latérale des filtres",
+    "after": "Wone walla nëbb pano fëltar yi ci wet",
+    "reason": "Replace French keyboard help with Wolof, preserving dialog closure, show/hide filter versus search sidebars, autocomplete distinction and 1-9 label/assignment keys. Multi-selection adds labels; assignment order follows addition to board. Autocomplete/window/keyboard terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "shortcut-toggle-searchbar",
+    "before": "Afficher/Masquer la barre latérale de recherche",
+    "after": "Wone walla nëbb pano seet bi ci wet",
+    "reason": "Replace French keyboard help with Wolof, preserving dialog closure, show/hide filter versus search sidebars, autocomplete distinction and 1-9 label/assignment keys. Multi-selection adds labels; assignment order follows addition to board. Autocomplete/window/keyboard terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "shortcut-autocomplete-emoji",
+    "before": "Auto-complétion des emoji",
+    "after": "Jeexal emoji ci boppam",
+    "reason": "Replace French keyboard help with Wolof, preserving dialog closure, show/hide filter versus search sidebars, autocomplete distinction and 1-9 label/assignment keys. Multi-selection adds labels; assignment order follows addition to board. Autocomplete/window/keyboard terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "shortcut-autocomplete-members",
+    "before": "Auto-complétion des participants",
+    "after": "Jeexal turu bokkkat yi ci boppam",
+    "reason": "Replace French keyboard help with Wolof, preserving dialog closure, show/hide filter versus search sidebars, autocomplete distinction and 1-9 label/assignment keys. Multi-selection adds labels; assignment order follows addition to board. Autocomplete/window/keyboard terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "toggle-labels",
+    "before": "Bascule les étiquettes 1-9 pour les cartes. La sélection multiple ajoute les étiquettes 1-9",
+    "after": "Yokk walla dindi etiket 1-9 ci karta bi. Tànn yu bari dafay yokk etiket 1-9",
+    "reason": "Replace French keyboard help with Wolof, preserving dialog closure, show/hide filter versus search sidebars, autocomplete distinction and 1-9 label/assignment keys. Multi-selection adds labels; assignment order follows addition to board. Autocomplete/window/keyboard terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "toggle-assignees",
+    "before": "Changer les intervenants 1-9 sur une carte (par ordre d'ajout au tableau)",
+    "after": "Yokk walla dindi ñi ñu sas karta bi ak tëju 1-9 (topp toftale gi ñu leen yokke ci tablo bi).",
+    "reason": "Replace French keyboard help with Wolof, preserving dialog closure, show/hide filter versus search sidebars, autocomplete distinction and 1-9 label/assignment keys. Multi-selection adds labels; assignment order follows addition to board. Autocomplete/window/keyboard terminology and full grammar remain low confidence."
   }
 ]
