@@ -50825,5 +50825,61 @@
     "before": "Modificare immagine di sfondo",
     "after": "Cambià l’imagine di fondu",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "board-status-time-summary",
+    "before": "Riepilogo tempo impiegato",
+    "after": "Riassuntu di u tempu passatu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "boardChangeBackgroundImagePopup-title",
+    "before": "Modificare immagine di sfondo",
+    "after": "Cambià l’imagine di fondu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "bucket-example",
+    "before": "Come \"Lista dei desideri\" per esempio",
+    "after": "Cum’è \"Lista di i desideri\", per esempiu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "calculating-counts",
+    "before": "Calcolo dei conteggi in corso...",
+    "after": "Calculu di i tutali in corsu...",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "calendar-system-jalali",
+    "before": "Jalali (Fars)",
+    "after": "Jalali (persianu)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "card-mark-complete",
+    "before": "Contrassegna come completata",
+    "after": "Marcà cum’è compia",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "card-mark-incomplete",
+    "before": "Contrassegna come non completata",
+    "after": "Marcà cum’è micca compia",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "checklist-count",
+    "before": "Conteggio elementi checklist (0/0)",
+    "after": "Numeru d’elementi di a lista di cuntrollu (0/0)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
