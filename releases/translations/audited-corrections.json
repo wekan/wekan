@@ -119782,5 +119782,19 @@
     "before": "Zwino",
     "after": "Nügüd’",
     "reason": "Replace Finnish and Venda board-view labels with Veps. Reuse existing calendar, lists, time and ujundšoid terminology. Dictionary nägo, tablic, peneta(-ndab) and nügüd’; retain multi-board distinction and current-time action. Low confidence: composed view-name grammar and UI adaptation of collapse require fluent review."
+  },
+  {
+    "locale": "nap",
+    "key": "r-item",
+    "before": "elemento",
+    "after": "alimento",
+    "reason": "Replace Italian elemento with dictionary-attested Neapolitan alimento in the rule item label and comma-separated example. Giuseppe Giacco, Repertorio Italiano-Napoletano, printed page 38, elemento: alimento. https://www.compagniacaffesospeso.it/files/VOCABO.....Italiano-Napoletano.pdf Preserve three comma-separated items and numeric suffixes. Technical checklist use needs native review."
+  },
+  {
+    "locale": "nap",
+    "key": "r-items-list",
+    "before": "elemento1,elemento2,elemento3",
+    "after": "alimento1,alimento2,alimento3",
+    "reason": "Replace Italian elemento with dictionary-attested Neapolitan alimento in the rule item label and comma-separated example. Giuseppe Giacco, Repertorio Italiano-Napoletano, printed page 38, elemento: alimento. https://www.compagniacaffesospeso.it/files/VOCABO.....Italiano-Napoletano.pdf Preserve three comma-separated items and numeric suffixes. Technical checklist use needs native review."
   }
 ]

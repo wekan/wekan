@@ -2461,5 +2461,11 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.notEqual(vepsTranslator.t('board-view-cal'), vepsTranslator.t('board-view-multiboard-cal'));
   assert.match(vepsTranslator.t('board-view-multiboard-cal'), /Äjiden laudoiden/);
   assert.equal(cache['ve-PP']['board-view-gantt'], 'Gantt', 'retain the chart proper name');
+  const neapolitanItems = require('i18next').createInstance();
+  await neapolitanItems.init({ lng: 'nap', fallbackLng: false, keySeparator: false, resources: { nap: { translation: cache.nap } } });
+  assert.equal(neapolitanItems.t('r-item'), 'alimento');
+  assert.equal(neapolitanItems.t('r-items-list'), 'alimento1,alimento2,alimento3');
+  assert.deepEqual(neapolitanItems.t('r-items-list').split(','), [1, 2, 3].map(n => neapolitanItems.t('r-item') + n));
+  assert.doesNotMatch(neapolitanItems.t('r-items-list'), /elemento/);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });
