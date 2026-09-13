@@ -65147,5 +65147,61 @@
     "before": "Paramètres de l'espace de travail",
     "after": "Arventennoù an egor labour",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "Cube-Grid",
+    "before": "Icône d'attente cube filaire",
+    "after": "Arlun gortoz gant ur gael kuboù",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "Double-Bounce",
+    "before": "Icône d'attente double rebond",
+    "after": "Arlun gortoz gant daou lamm",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "MongoDB_storage_engine",
+    "before": "Moteur de stockage MongoDB",
+    "after": "Lusker stokañ MongoDB",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "Node_heap_does_zap_garbage",
+    "before": "Tas de Node : Utilise l'option does_zap_garbage",
+    "after": "Bern Node : adskrivañ ur patrom bitoù war ar memor dilezet (does_zap_garbage)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "Node_heap_heap_size_limit",
+    "before": "Tas de Node : limite de taille du tas",
+    "after": "Bern Node : bevenn ment ar bern",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "Node_heap_malloced_memory",
+    "before": "Tas de Node : mémoire allouée par malloc",
+    "after": "Bern Node : memor derannet gant malloc",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "Node_heap_number_of_detached_contexts",
+    "before": "Tas de Node : nombre de contexte détachés",
+    "after": "Bern Node : niver ar c’henarzhioù distaget",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "Node_heap_number_of_native_contexts",
+    "before": "Tas de Node : nombre de contexte natifs",
+    "after": "Bern Node : niver ar c’henarzhioù genidik",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
