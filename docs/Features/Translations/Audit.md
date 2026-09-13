@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 14,257 |
+| Corrected | 14,277 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 178 |
-| Pending review or repair | 1,588 |
+| Pending review or repair | 1,568 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **828** repaired and **Cron** retained as a technical name. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **15,766** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **15,786** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-13**, local commit `d653f9771` — replaced 12 Italian-seeded Venetian date/custom-field activity and background labels, restoring completed/uncompleted and set/unset action meanings while preserving ordered placeholders. Direct wording remains low confidence pending fluent-speaker review. Venetian has **206** original findings remaining. Main Venda original findings are repaired in `180ca33c5`; restored and unflagged values still require validation. Wider repairs continue.
+Latest translation fix: **2026-09-13**, local commit `7a48f1a32` — replaced 20 Italian-seeded Venetian administration, archive and upload messages. Preserved active/inactive states, offline data-loss warning, HTML tags and size placeholders. Direct wording remains low confidence pending fluent-speaker review. Venetian has **186** original findings remaining. Main Venda original findings are repaired in `180ca33c5`; restored and unflagged values still require validation. Wider repairs continue.
 
 **Verification (2026-09-13):** **1,002 Node suites, zero failures**; the original 19 failures are resolved. The first complete EVERYTHING run passes all four stages: Meteor (**527**), import (**10**), Node E2E (**10**), three browsers, **103** conformance cases on each of SQLite/PostgreSQL/MySQL/MariaDB and FerretDB unit/vet/integration. Separate URL-prefix preference/logout/invalid-cookie checks pass in all browsers. Two WebKit retries exposed refresh readiness and competing template autofocus; both are repaired, and the refresh check passes ten repetitions without retries. #6691 partial-profile/impersonation regression passes in all three browsers without retries. Fresh EVERYTHING verification is running; an added Fossil script required menu registration, now fixed and checked. Fluent-speaker checks remain outstanding; translation repairs have resumed.
 
