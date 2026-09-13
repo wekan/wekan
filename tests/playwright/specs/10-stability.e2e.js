@@ -63,9 +63,10 @@ test.describe('Stability & connectivity', () => {
     // establish that the page is ready without waiting for network silence.
     await boardPage.reload({ waitUntil: 'domcontentloaded' });
 
-    await expect.poll(() => boardPage.evaluate(() => Meteor.userId()), {
-      timeout: 10_000,
-    }).toBe(user.id);
+    await boardPage.waitForFunction(
+      id => typeof Meteor !== 'undefined' && Meteor.userId() === id,
+      user.id, { timeout: 10_000 },
+    );
     await expect(boardPage.locator('.board-canvas')).toBeVisible();
     await expect(boardPage.locator('[name="username"]')).toHaveCount(0);
   });

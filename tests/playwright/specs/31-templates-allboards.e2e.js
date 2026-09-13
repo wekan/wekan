@@ -405,7 +405,11 @@ test.describe('#2339 #5850 All Boards / Templates redesign', () => {
       await expect(picker).not.toContainText('Deleted Template');
       await expect(picker).not.toContainText('Alpha Card');
 
-      await picker.locator('.js-element-title').fill(newTitle);
+      const titleInput = picker.locator('.js-element-title');
+      await expect(titleInput).toBeFocused();
+      await titleInput.fill(newTitle);
+      await expect(titleInput).toHaveValue(newTitle);
+      await expect(picker.locator('[name=searchTerm]')).toHaveValue('');
       await picker.locator('.js-minicard').click();
 
       await expect.poll(() => {
