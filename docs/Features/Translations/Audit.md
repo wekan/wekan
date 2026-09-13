@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Audit keys |
 | --- | ---: |
-| Explicitly corrected | 7,112 |
+| Explicitly corrected | 7,122 |
 | Restored pre-pull values awaiting further validation | 4,059 |
 | Reviewed and retained unchanged | 175 |
-| Pending review or repair | 8,735 |
+| Pending review or repair | 8,725 |
 | Total tracked | 20,081 |
 
 **Translation repairs remain unfinished.** These counts cover flagged findings; unflagged strings and restored values are not certified as correct.
 
-Fixes cover wrong-language text, terminology, warnings, JSON examples, placeholders and calendar/search formatting. The correction history records **7,185 values**, including fixes outside the audit. Per-language remaining work is available through the command below.
+Fixes cover wrong-language text, terminology, warnings, JSON examples, placeholders and calendar/search formatting. The correction history records **7,195 values**, including fixes outside the audit. Per-language remaining work is available through the command below.
 
-Latest fix: [e1a17fc67](https://github.com/wekan/wekan/commit/e1a17fc67c5e23cb02b98019e1b55aea9f862ef8), **2026-09-13** — eight Corsican calendar, account-protection and activity values repaired; **320 Corsican findings remain**. Exact-value, placeholder, key-order and idempotency checks pass. Wording needs native-speaker review; live browser verification remains unavailable.
+Latest fix: [5fae9dca2](https://github.com/wekan/wekan/commit/5fae9dca2d3b740f8ba43f1f9a700ec5deb7a0c5), **2026-09-13** — ten Corsican storage-setting and runtime values repaired with low-confidence runtime terminology; **310 Corsican findings remain**. Exact-value, placeholder, key-order and idempotency checks pass. Wording needs native-speaker review; live browser verification remains unavailable.
 
 **Provenance:** not all errors came from Transifex. The captured pull changed 4,061 values; the local audit added 16,020 findings. Bosnian errors predated that pull in a [local completion commit](https://github.com/wekan/wekan/commit/bdb3b15886a749b725b5290ba0109fcba955f983). Other ultimate origins remain unverified.
 
