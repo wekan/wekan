@@ -92615,5 +92615,47 @@
     "before": "hat Mitglied __member__ von Board __board__ entfernt",
     "after": "__board__ raSvo' __member__ jeSwI' teqlu'pu'",
     "reason": "Replace flagged German activity messages with direct Klingon using existing rarDoch attachment, raS board, jeSwI' participant/member, chel add, teq remove and Qaw' delete terminology. Subtask rendered Qu'Hom (minor/component task). Indefinite-subject completed-action forms -lu'pu' describe recorded activity. Placeholder roles manually checked: %s receives the subtask; __board__ is membership destination/origin; __member__ is the added/removed participant. Exact source token inventory preserved. Full software constructions and subtask term have low confidence and need fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "subtasks",
+    "before": "Teilaufgaben",
+    "after": "Qu'Hommey",
+    "reason": "Replace German subtask labels with directly assembled Klingon, consistently using Qu'Hom (minor/component task), as in the previously repaired activity-subtask-added. Configuration uses existing chermeH De'; add uses yIchel and delete confirmation preserves a question using Qaw'lu''a'. Covers flagged settings and unflagged related labels. Qu'Hom as a software hierarchy term and full phrases are low confidence and require fluent-speaker validation. No source tokens changed."
+  },
+  {
+    "locale": "tlh",
+    "key": "add-subtask",
+    "before": "Teilaufgabe hinzufügen",
+    "after": "Qu'Hom yIchel",
+    "reason": "Replace German subtask labels with directly assembled Klingon, consistently using Qu'Hom (minor/component task), as in the previously repaired activity-subtask-added. Configuration uses existing chermeH De'; add uses yIchel and delete confirmation preserves a question using Qaw'lu''a'. Covers flagged settings and unflagged related labels. Qu'Hom as a software hierarchy term and full phrases are low confidence and require fluent-speaker validation. No source tokens changed."
+  },
+  {
+    "locale": "tlh",
+    "key": "subtask-settings",
+    "before": "Einstellungen für Teilaufgaben",
+    "after": "Qu'Hommey chermeH De'",
+    "reason": "Replace German subtask labels with directly assembled Klingon, consistently using Qu'Hom (minor/component task), as in the previously repaired activity-subtask-added. Configuration uses existing chermeH De'; add uses yIchel and delete confirmation preserves a question using Qaw'lu''a'. Covers flagged settings and unflagged related labels. Qu'Hom as a software hierarchy term and full phrases are low confidence and require fluent-speaker validation. No source tokens changed."
+  },
+  {
+    "locale": "tlh",
+    "key": "boardSubtaskSettingsPopup-title",
+    "before": "Einstellungen für Teilaufgaben",
+    "after": "Qu'Hommey chermeH De'",
+    "reason": "Replace German subtask labels with directly assembled Klingon, consistently using Qu'Hom (minor/component task), as in the previously repaired activity-subtask-added. Configuration uses existing chermeH De'; add uses yIchel and delete confirmation preserves a question using Qaw'lu''a'. Covers flagged settings and unflagged related labels. Qu'Hom as a software hierarchy term and full phrases are low confidence and require fluent-speaker validation. No source tokens changed."
+  },
+  {
+    "locale": "tlh",
+    "key": "export-card-subtasks",
+    "before": "Teilaufgaben",
+    "after": "Qu'Hommey",
+    "reason": "Replace German subtask labels with directly assembled Klingon, consistently using Qu'Hom (minor/component task), as in the previously repaired activity-subtask-added. Configuration uses existing chermeH De'; add uses yIchel and delete confirmation preserves a question using Qaw'lu''a'. Covers flagged settings and unflagged related labels. Qu'Hom as a software hierarchy term and full phrases are low confidence and require fluent-speaker validation. No source tokens changed."
+  },
+  {
+    "locale": "tlh",
+    "key": "subtaskDeletePopup-title",
+    "before": "Teilaufgabe löschen?",
+    "after": "Qu'Hom Qaw'lu''a'?",
+    "reason": "Replace German subtask labels with directly assembled Klingon, consistently using Qu'Hom (minor/component task), as in the previously repaired activity-subtask-added. Configuration uses existing chermeH De'; add uses yIchel and delete confirmation preserves a question using Qaw'lu''a'. Covers flagged settings and unflagged related labels. Qu'Hom as a software hierarchy term and full phrases are low confidence and require fluent-speaker validation. No source tokens changed."
   }
 ]
