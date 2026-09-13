@@ -17,6 +17,7 @@ test.describe('#4652 list and swimlane colors behind a URL path', () => {
   test('the browser saves both colors without leaving the prefixed board URL', async ({
     boardPage,
     board,
+    user,
   }) => {
     const boardPath = `${PATH_PREFIX}/b/${board.boardId}/${board.slug}`;
     await expect(boardPage).toHaveURL(
@@ -59,5 +60,36 @@ test.describe('#4652 list and swimlane colors behind a URL path', () => {
     await expect(boardPage).toHaveURL(
       new RegExp(`${boardPath.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`),
     );
+
+    // Cookie resume must keep member preferences on the prefixed deployment.
+    db.updateOne('users', { _id: user.id }, { $set: {
+      'profile.calendarSystem': 'jalali',
+    } });
+    await expect.poll(() => boardPage.evaluate(() => Meteor.user()?.profile?.calendarSystem))
+      .toBe('jalali');
+    await boardPage.reload({ waitUntil: 'domcontentloaded' });
+    await expect.poll(() => boardPage.evaluate(() => ({
+      id: Meteor.userId(), fullname: Meteor.user()?.profile?.fullname,
+      calendar: Meteor.user()?.profile?.calendarSystem,
+    }))).toEqual({ id: user.id, fullname: 'E2E Test User', calendar: 'jalali' });
+
+    // Negative: the actual logout control clears the native HttpOnly cookie.
+    await boardPage.locator('.js-open-header-member-menu').first().click();
+    await boardPage.locator('.js-pop-over .js-logout').click();
+    await expect.poll(() => boardPage.evaluate(() => Meteor.userId())).toBeNull();
+    await expect.poll(async () => {
+      const cookies = await boardPage.context().cookies();
+      return cookies.some(cookie => cookie.name === 'meteor_login_token');
+    }).toBe(false);
+    const refresh = await boardPage.request.get(`${BASE_URL}/_accounts/cookie/refresh`);
+    expect(refresh.status()).toBe(204);
+    expect(await refresh.text()).toBe('');
+    await boardPage.context().addCookies([{
+      name: 'meteor_login_token', value: 'invalid-test-cookie', url: BASE_URL,
+      httpOnly: true, sameSite: 'Lax',
+    }]);
+    const invalid = await boardPage.request.get(`${BASE_URL}/_accounts/cookie/refresh`);
+    expect(invalid.status()).toBe(401);
+    expect(await invalid.json()).toEqual({ error: 'invalid_cookie' });
   });
 });
