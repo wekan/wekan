@@ -1095,6 +1095,24 @@ and updates the test dependency:
 - [Playwright 1.62.1 → 1.63.0](https://github.com/wekan/wekan/commit/a15b065b56c87f9538ea21cd78a385257e71bfee).
   Updates the browser-test runner and lockfile. Thanks to dependabot.
 
+**Meteor builds** - use the existing Express request parsers.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6cd193879">Fix undeclared body-parser import with Rspack 2</a>. Thanks to xet7.</summary>
+
+Reuse `WebApp.express` JSON and URL-encoded middleware, preserving the
+50 MB limit and simple form decoding without adding a dependency.
+Rspack 2 no longer supplies the app's undeclared body-parser import.
+Seven regressions exercise actual HTTP parsing, malformed/oversized JSON,
+compression, token handling and compilation with the installed Rspack.
+The website version test permits the canonical Meteor prerelease while
+rejecting the specific stale Docker fixture. Both version checks pass
+with Docker metadata synchronized to the local Meteor 3.6 beta upgrade.
+All 1,015 Node suites pass. The full Meteor bundle remains under
+verification; the local tool is still starting before compilation.
+
+</details>
+
 and updates maintainer tooling:
 
 **Maintenance scripts** - explicit translation uploads and repository mirrors.
