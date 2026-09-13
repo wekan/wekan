@@ -1102,6 +1102,15 @@ no mirroring or publishing commands were executed for this audit.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/0f5371247">Repair Tamazight date interface vocabulary</a>. Thanks to xet7.</summary>
+
+Replace Arabic and French Calendar, Time, Today, Day, Week and Month labels
+with Unicode CLDR-attested Tifinagh. Exact vocabulary and script checks pass
+with the full correction ledger. Broader translation repairs remain pending.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/56c02baca">Repair Standard Moroccan Tamazight core labels</a>. Thanks to xet7.</summary>
 
 Replace Arabic Title and Language values with IRCAM-attested native Tifinagh.
