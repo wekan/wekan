@@ -120473,7 +120473,7 @@
     "locale": "to",
     "key": "calendar-system-islamic-tbla",
     "before": "Islamic tabular",
-    "after": "tohi māhina fakamohameti -fakatēpile",
-    "reason": "Replace English calendar label with exact Unicode CLDR Tongan islamic-tbla display name from https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/to.xml (2026-09-14). Low confidence: CLDR marks this non-core label draft=unconfirmed; it identifies the tabular algorithm but omits the source astronomical-epoch wording. Fluent review and an explicit epoch qualifier remain required. Preserve the islamic-tbla calendar mapping and distinguish the existing civil and sighting variants."
+    "after": "tohi māhina fakamohameti (fakatēpile, ʻepoki fakaʻasitalōnoma)",
+    "reason": "Replace English tabular Hijri label with Tongan CLDR calendar terminology, explicitly preserving the astronomical-epoch qualifier omitted from the provisional CLDR label. Review 2026-09-14: https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/to.xml supports fakatēpile and adjective fakaʻasitalōnoma in astronomical-unit wording; https://tonganlex.vercel.app/ downloadable 4013-word lexicon records ʻepoki (epoch), dictionary page 178. Refine the existing correction, preserving its original English before value. Low confidence: CLDR calendar base is unconfirmed and the composed calendar-epoch phrase needs fluent technical review. Distinguish civil and sighting variants."
   }
 ]
