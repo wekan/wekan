@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 11,612 |
+| Corrected | 11,615 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 4,234 |
+| Pending review or repair | 4,231 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **11,959** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **11,962** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `a8c08ae0debe44bef642f78f93ec2e7c231bd7e8` — 4 English calendar labels replaced with descriptive Wolof framing for Ethiopic/Japanese/Chinese calendars and Hijri. Country-name spellings, calendar loanword and full grammar remain low confidence; religious/epoch variants remain pending. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; live browser verification is unavailable.
+Latest translation fix: **2026-09-13**, local commit `ced1e25bda140964adedf93fb357875683e9b9cc` — 3 English Hijri variant labels replaced with descriptive Wolof. Tabular calculation, civil versus astronomical epoch and Saudi Arabia moon sighting remain distinct. Civil/astronomical adaptations and full grammar remain low confidence. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; live browser verification is unavailable.
 
 **Review follow-up:** Silesian `sandstorm-raw-mongodb` remains pending: its wording overlaps Polish and existing Silesian technical strings, but dictionary searches did not establish the full phrase as correct Silesian. Keep the current value until stronger language evidence supports retaining or replacing it.
 
