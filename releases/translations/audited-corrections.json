@@ -80813,5 +80813,40 @@
     "before": "Ajouter un fichier .zip qui contient les fichiers JSON du tableau et les noms de sous-répertoires avec les pièces jointes",
     "after": "Yokk fiise .zip bu am fiise yu JSON yu tablo yi ak dencukaay yu ndaw yu am turu tablo yi te am takkaay yi",
     "reason": "Replace French import membership mapping and ZIP structure labels with Wolof. Preserve existing-user selection as imported member, username import, mapping/review/member selection and ZIP containing board JSON plus board-name attachment subdirectories. Preserve literal .zip/JSON. Directory/mapping terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "cardCustomFieldsPopup-title",
+    "before": "Éditer les champs personnalisés",
+    "after": "Soppi wàll yu dugal yi ñu def ci soxla",
+    "reason": "Replace French custom-field headings and popup titles with Wolof, reusing repaired wàllu dugal bu ñu def ci soxla terminology. Preserve create/edit/delete and plural card-field editing scopes. Existing date popup title retained. Field adaptation and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "createCustomFieldPopup-title",
+    "before": "Créer un champ personnalisé",
+    "after": "Sos wàllu dugal",
+    "reason": "Replace French custom-field headings and popup titles with Wolof, reusing repaired wàllu dugal bu ñu def ci soxla terminology. Preserve create/edit/delete and plural card-field editing scopes. Existing date popup title retained. Field adaptation and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "custom-fields",
+    "before": "Champs personnalisés",
+    "after": "Wàll yu dugal yi ñu def ci soxla",
+    "reason": "Replace French custom-field headings and popup titles with Wolof, reusing repaired wàllu dugal bu ñu def ci soxla terminology. Preserve create/edit/delete and plural card-field editing scopes. Existing date popup title retained. Field adaptation and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "deleteCustomFieldPopup-title",
+    "before": "Supprimer le champ personnalisé ?",
+    "after": "Far wàllu dugal bi ñu def ci soxla?",
+    "reason": "Replace French custom-field headings and popup titles with Wolof, reusing repaired wàllu dugal bu ñu def ci soxla terminology. Preserve create/edit/delete and plural card-field editing scopes. Existing date popup title retained. Field adaptation and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "editCustomFieldPopup-title",
+    "before": "Éditer le champ personnalisé",
+    "after": "Soppi wàllu dugal",
+    "reason": "Replace French custom-field headings and popup titles with Wolof, reusing repaired wàllu dugal bu ñu def ci soxla terminology. Preserve create/edit/delete and plural card-field editing scopes. Existing date popup title retained. Field adaptation and full grammar remain low confidence."
   }
 ]
