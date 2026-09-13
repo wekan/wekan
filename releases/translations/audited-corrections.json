@@ -82619,5 +82619,75 @@
     "before": "Le nombre d'organisations est de :",
     "after": "Limu kureel yi mooy: ",
     "reason": "Replace French with Wolof using existing boards, account, label, loading, member and organization terminology; preserve invalid-filename upload/rename cancellation, invitation status, irreversible all-card label/history removal and completed migration success. Registration/cancellation phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "import-board-instruction-csv",
+    "before": "Déposez vos données en CSV (valeurs séparées par des virgules) ou TSV (valeurs séparées par des tabulations).",
+    "after": "Tafal sa done yi ci CSV (dayo yi ñu séddale ak virgül) / TSV (dayo yi ñu séddale ak tab).",
+    "reason": "Replace French with Wolof; preserve CSV/TSV separator distinctions, valid pasted formats, unread marking, all-board activity hiding, separate card windows versus closing the previous one when disabled, OIDC and label/member action clarification. Paste/separator/window technical terminology and complete grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "import-csv-placeholder",
+    "before": "Déposez ici vos données valides CSV/TSV",
+    "after": "Tafal sa done CSV/TSV yi jub fii",
+    "reason": "Replace French with Wolof; preserve CSV/TSV separator distinctions, valid pasted formats, unread marking, all-board activity hiding, separate card windows versus closing the previous one when disabled, OIDC and label/member action clarification. Paste/separator/window technical terminology and complete grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "import-json-placeholder",
+    "before": "Collez ici les données JSON valides",
+    "after": "Tafal sa done JSON yi jub fii",
+    "reason": "Replace French with Wolof; preserve CSV/TSV separator distinctions, valid pasted formats, unread marking, all-board activity hiding, separate card windows versus closing the previous one when disabled, OIDC and label/member action clarification. Paste/separator/window technical terminology and complete grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "mark-all-as-unread",
+    "before": "Tout marquer comme non lu",
+    "after": "Màndargaal lépp ni lu ñu jàngul",
+    "reason": "Replace French with Wolof; preserve CSV/TSV separator distinctions, valid pasted formats, unread marking, all-board activity hiding, separate card windows versus closing the previous one when disabled, OIDC and label/member action clarification. Paste/separator/window technical terminology and complete grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "now-activities-of-all-boards-are-hidden",
+    "before": "Les activités de tous les tableaux seront dorénavant cachées",
+    "after": "Léegi jëf yépp ci tablo yépp dañu nëbbu",
+    "reason": "Replace French with Wolof; preserve CSV/TSV separator distinctions, valid pasted formats, unread marking, all-board activity hiding, separate card windows versus closing the previous one when disabled, OIDC and label/member action clarification. Paste/separator/window technical terminology and complete grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "open-many-cards-at-once",
+    "before": "Ouvrir plusieurs cartes à la fois",
+    "after": "Ubbi ay karta yu bari ci benn yoon",
+    "reason": "Replace French with Wolof; preserve CSV/TSV separator distinctions, valid pasted formats, unread marking, all-board activity hiding, separate card windows versus closing the previous one when disabled, OIDC and label/member action clarification. Paste/separator/window technical terminology and complete grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "open-many-cards-at-once-description",
+    "before": "Chaque carte sur laquelle vous cliquez reste ouverte dans sa propre fenêtre. Lorsque cette option est désactivée, cliquer sur une carte ferme celle qui était ouverte.",
+    "after": "Bàyyi karta bu nekk bi nga bës mu ubbeeku ci palanteeram. Bu lii doxul, bës karta day tëj bi ubbeeku woon.",
+    "reason": "Replace French with Wolof; preserve CSV/TSV separator distinctions, valid pasted formats, unread marking, all-board activity hiding, separate card windows versus closing the previous one when disabled, OIDC and label/member action clarification. Paste/separator/window technical terminology and complete grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "oidc-button-text",
+    "before": "Personnaliser le texte du bouton OIDC",
+    "after": "Soppi mbindu butoŋ OIDC bi ci sa soxla",
+    "reason": "Replace French with Wolof; preserve CSV/TSV separator distinctions, valid pasted formats, unread marking, all-board activity hiding, separate card windows versus closing the previous one when disabled, OIDC and label/member action clarification. Paste/separator/window technical terminology and complete grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "disambiguateMultiLabelPopup-title",
+    "before": "Préciser l'action sur l'étiquette",
+    "after": "Leeral jëf bi ci etiket bi",
+    "reason": "Replace French with Wolof; preserve CSV/TSV separator distinctions, valid pasted formats, unread marking, all-board activity hiding, separate card windows versus closing the previous one when disabled, OIDC and label/member action clarification. Paste/separator/window technical terminology and complete grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "disambiguateMultiMemberPopup-title",
+    "before": "Préciser l'action sur le participant",
+    "after": "Leeral jëf bi ci bokkkat bi",
+    "reason": "Replace French with Wolof; preserve CSV/TSV separator distinctions, valid pasted formats, unread marking, all-board activity hiding, separate card windows versus closing the previous one when disabled, OIDC and label/member action clarification. Paste/separator/window technical terminology and complete grammar remain low confidence."
   }
 ]
