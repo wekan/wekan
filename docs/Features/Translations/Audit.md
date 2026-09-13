@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 12,210 |
+| Corrected | 12,213 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 3,636 |
+| Pending review or repair | 3,633 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,671** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,674** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `30ffe4beae5715032e4c6012e44602b8c67f99b0` — seven French export/import labels repaired in Volapük using existing terminology and [Midgley vocabulary](https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf). Preserved permissions, card/field scope and Excel/PDF/Trello/CSV/TSV names; assembled software wording remains low confidence.
+Latest translation fix: **2026-09-13**, local commit `85a282681e6d037fca325721fbf8a860c6dcea0c` — three French import prompts/export-date label repaired in Volapük using existing terminology and [Midgley vocabulary](https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf). Preserved valid-data instructions, CSV/TSV/JSON names and date-type inventory; insert-to-paste adaptation and assembled wording remain low confidence.
 
 **Verification:** exact values, placeholders, JSON examples, key order and progress-update checks pass. Native-speaker and browser verification remain unavailable.
 
