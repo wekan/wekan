@@ -72056,5 +72056,19 @@
     "before": "Republic of China",
     "after": "Dhaha Baraa Minguo",
     "reason": "Use existing Oromo Dhaha Baraa terminology and preserve calendar proper names. Hijraa is attested in government publication https://www.oromiacommunication.gov.et/pages/Kallacha%20Oromiyaa%20Bara%2031%20Lakk.%2022.pdf ; Ibrootaa in publisher https://www.jw.org/om/laayibrarii/Viidiyoo/Viidiyoowwan-Kitaabota-Kitaaba-Qulqulluu-Beeksisan/kitaaba-ibrootaa/ ; Faaris in Oromo text https://iiit.org/wp-content/uploads/%D8%B1%D9%88%D8%AD-%D8%A7%D9%84%D8%AD%D8%B6%D8%A7%D8%B1%D8%A9-%D8%A7%D9%84%D8%A5%D8%B3%D9%84%D8%A7%D9%85%D9%8A%D8%A9-AO-w.pdf . Full calendar-label grammar still needs native review."
+  },
+  {
+    "locale": "om",
+    "key": "calendar-system-buddhist",
+    "before": "Buddhist",
+    "after": "Dhaha Baraa Budiizimii",
+    "reason": "Replace English calendar label with Oromo Dhaha Baraa and published Budiizimii terminology: https://www.jw.org/om/laayibrarii/barruulee/dammaqaa-lakk2-2020-ado-hag/rakkina-namoonni-tokko-tokko-maal-jedhanii-amanu/ . Full phrasing needs native review."
+  },
+  {
+    "locale": "om",
+    "key": "calendar-system-coptic",
+    "before": "Coptic",
+    "after": "Dhaha Baraa Kooptii",
+    "reason": "Replace English calendar label using existing Dhaha Baraa and Kooptii, attested in Oromo religious author material https://telegram.me/s/Ortodoksiidhugaa?before=5197 . Low-confidence specialized name and grammar; not certified by a native reviewer."
   }
 ]
