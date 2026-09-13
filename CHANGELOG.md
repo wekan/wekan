@@ -843,6 +843,18 @@ verification remains in progress.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/ebd45deb1">Own the actual test server processes</a>. Thanks to xet7.</summary>
+
+Background launchers recorded wrapper shells instead of their Node and
+MongoDB children. Replace those shells with the server processes using
+exec, so recorded PIDs remain valid and cleanup does not orphan servers.
+Executable checks launch both real harness fragments against mock
+servers and verify recorded and running PIDs match; reused MongoDB remains
+unowned. These checks and all 21 build-script parity checks pass.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/c1714d26e">Preserve the filter sidebar during query-only navigation</a>. Thanks to xet7.</summary>
 
 Updating label, member or assignee query parameters reran the board route
