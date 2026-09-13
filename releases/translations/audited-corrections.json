@@ -87624,5 +87624,33 @@
     "before": "Bonjour __user__,\n\nPour vérifier  le courriel de votre compte, il suffit de cliquer sur le lien ci-dessous.\n\n__url__\n\nMerci.",
     "after": "Glidis, o __user__,\n\nAd fümükön ladeti leäktronik kala olik, klikolös yümi dono.\n\n__url__\n\nDanö!",
     "reason": "Replace French account-enrollment/password-reset/email-verification bodies with Volapük. Primary MediaWiki source (https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json) supplies password-reset, account and link-instruction vocabulary; Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests primön ad (begin to), danö (thanks); Wiktionary https://en.wiktionary.org/wiki/glidis attests hello greeting. Preserve __user__, __url__, source paragraph separator representation and begin-service/reset-password/verify-account-email meanings. New assembled body grammar remains low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "email-invite",
+    "before": "Inviti per retpoŝto",
+    "after": "Vüdön me pened leäktronik",
+    "reason": "Replace French/Esperanto invitation action, subject/body and self-invitation error with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests vüd/vüdön (invitation/invite), löfik (dear), kevobön (co-operate), sökön (follow); reuse primary MediaWiki link instructions and checked email/send/thanks/join vocabulary. Preserve __inviter__, __user__, __board__, __url__, quoted board name and paragraph separator representation. Board-membership construction and assembled invitation/error grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "email-invite-subject",
+    "before": "__inviter__ vous a envoyé une invitation",
+    "after": "__inviter__ esedon ole vüdi",
+    "reason": "Replace French/Esperanto invitation action, subject/body and self-invitation error with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests vüd/vüdön (invitation/invite), löfik (dear), kevobön (co-operate), sökön (follow); reuse primary MediaWiki link instructions and checked email/send/thanks/join vocabulary. Preserve __inviter__, __user__, __board__, __url__, quoted board name and paragraph separator representation. Board-membership construction and assembled invitation/error grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "email-invite-text",
+    "before": "Cher/Chère __user__,\n\n__inviter__ vous invite à rejoindre le tableau \"__board__\" pour collaborer.\n\nVeuillez suivre le lien ci-dessous :\n\n__url__\n\nMerci.",
+    "after": "O __user__ löfik,\n\n__inviter__ vüdon oli ad yümön oli len tab: \"__board__\" ad kevobön.\n\nBegö! sökolös yümi dono:\n\n__url__\n\nDanö!",
+    "reason": "Replace French/Esperanto invitation action, subject/body and self-invitation error with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests vüd/vüdön (invitation/invite), löfik (dear), kevobön (co-operate), sökön (follow); reuse primary MediaWiki link instructions and checked email/send/thanks/join vocabulary. Preserve __inviter__, __user__, __board__, __url__, quoted board name and paragraph separator representation. Board-membership construction and assembled invitation/error grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "error-user-notAllowSelf",
+    "before": "Vous ne pouvez pas vous inviter vous-même",
+    "after": "No kanol vüdön oli",
+    "reason": "Replace French/Esperanto invitation action, subject/body and self-invitation error with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests vüd/vüdön (invitation/invite), löfik (dear), kevobön (co-operate), sökön (follow); reuse primary MediaWiki link instructions and checked email/send/thanks/join vocabulary. Preserve __inviter__, __user__, __board__, __url__, quoted board name and paragraph separator representation. Board-membership construction and assembled invitation/error grammar remain low confidence; no native-speaker validation."
   }
 ]
