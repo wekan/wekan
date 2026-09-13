@@ -551,10 +551,7 @@ function run_playwright_docker(){
 		echo "       Install Docker, or run this browser natively (set WEKAN_PLAYWRIGHT_DOCKER=0)."
 		return 127
 	fi
-	if [ ! -d "$pwdir/node_modules/@playwright/test" ]; then
-		echo "Installing Playwright test dependencies (the container reuses the mounted node_modules)."
-		( cd "$pwdir" && meteor npm install )
-	fi
+	ensure_playwright_test_dependencies || return 1
 	local pwver
 	pwver="$(node -e "console.log(require('$pwdir/node_modules/@playwright/test/package.json').version)" 2>/dev/null)"
 	[ -z "$pwver" ] && pwver="1.60.0"
@@ -599,10 +596,7 @@ function run_node_e2e_docker(){
 		echo "ERROR: Docker is required for Node E2E on this platform, but 'docker' was not found."
 		return 127
 	fi
-	if [ ! -d "$pwdir/node_modules/@playwright/test" ]; then
-		echo "Installing Playwright test dependencies for the browser container."
-		( cd "$pwdir" && meteor npm install ) || return 1
-	fi
+	ensure_playwright_test_dependencies || return 1
 	local pwver
 	pwver="$(node -e "console.log(require('$pwdir/node_modules/@playwright/test/package.json').version)" 2>/dev/null)"
 	[ -z "$pwver" ] && pwver="1.60.0"
@@ -633,10 +627,7 @@ function install_playwright_browsers(){
 	ORIG_HOME="$HOME"
 	local reporoot="$WEKAN_DIR"
 	local pwdir="$reporoot/tests/playwright"
-	if [ ! -d "$pwdir/node_modules/@playwright/test" ]; then
-		echo "Installing Playwright test dependencies (npm)..."
-		( cd "$pwdir" && meteor npm install )
-	fi
+	ensure_playwright_test_dependencies || return 1
 
 	# Native install for whichever browsers are NOT configured for Docker.
 	local nativeList=""

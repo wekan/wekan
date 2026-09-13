@@ -238,6 +238,8 @@ function seedBoard({ ownerId, title, listCount = 3, cardTitlesPerList = [] } = {
         allowsDependenciesOnMinicard: true,
         allowsVote: true, allowsVoteOnMinicard: true,
         allowsPoker: true, allowsPokerOnMinicard: true,
+        allowsFlowtime: true, allowsPomodoro: true, allowsTextNotes: true,
+        allowsCommentCountOnMinicard: true,
         allowsComments: true, allowsDescriptionTitle: true,
         allowsDescriptionText: true, allowsDescriptionTextOnMinicard: false,
         allowsCoverAttachmentOnMinicard: true, allowsBadgeAttachmentOnMinicard: false,
