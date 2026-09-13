@@ -303,5 +303,13 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
     assert.equal(cache['ve-PP'][key], `Kaikuččes ${interval} ${unit}`, key);
     assert.doesNotMatch(cache['ve-PP'][key], /Kerran|päivässä|tunnissa|minuut|tunnin|välein/, key);
   }
+  for (const [key, value] of Object.entries({
+    back: 'Tagaze', done: 'Vaumiž', error: 'Viga', errors: 'Vigad',
+    info: 'Versii', create: 'Tege',
+  })) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.doesNotMatch(cache['ve-PP'][key], /Takaisin|Valmis|Virhe|Versio|Luo/, key);
+  }
+  assert.notEqual(cache['ve-PP'].error, cache['ve-PP'].errors);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });

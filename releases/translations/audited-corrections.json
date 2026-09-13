@@ -112824,5 +112824,47 @@
     "before": "6 tunnin välein",
     "after": "Kaikuččes 6 časus",
     "reason": "Replace Finnish recurring interval labels with direct Veps compositions preserving every interval number/unit. Dictionary https://kaikki.org/dictionary/Veps/index.html confirms päiväs; VepKar corpus attests kaikuččes, minutas and časus (e.g. https://www.ruors.ru/en/corpus/text?page=47&search_lang%5B0%5D=1&search_text=S, https://artolela.krc.karelia.ru/en/corpus/text/70?page=145&search_lang%5B0%5D=1&search_text=T). LOW CONFIDENCE: composed every-N-unit frequency grammar needs fluent review. Scheduler values/behavior are unchanged."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "back",
+    "before": "Takaisin",
+    "after": "Tagaze",
+    "reason": "Replace Finnish Veps label with native MediaWiki Veps software terminology (https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json); errors plural vigad verified in Veps viga declension (https://kaikki.org/dictionary/Veps/index.html)."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "done",
+    "before": "Valmis",
+    "after": "Vaumiž",
+    "reason": "Replace Finnish Veps label with native MediaWiki Veps software terminology (https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json); errors plural vigad verified in Veps viga declension (https://kaikki.org/dictionary/Veps/index.html)."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "error",
+    "before": "Virhe",
+    "after": "Viga",
+    "reason": "Replace Finnish Veps label with native MediaWiki Veps software terminology (https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json); errors plural vigad verified in Veps viga declension (https://kaikki.org/dictionary/Veps/index.html)."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "errors",
+    "before": "Virheet",
+    "after": "Vigad",
+    "reason": "Replace Finnish Veps label with native MediaWiki Veps software terminology (https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json); errors plural vigad verified in Veps viga declension (https://kaikki.org/dictionary/Veps/index.html)."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "info",
+    "before": "Versio",
+    "after": "Versii",
+    "reason": "Replace Finnish Veps label with native MediaWiki Veps software terminology (https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json); errors plural vigad verified in Veps viga declension (https://kaikki.org/dictionary/Veps/index.html)."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "create",
+    "before": "Luo",
+    "after": "Tege",
+    "reason": "Replace Finnish Veps label with native MediaWiki Veps software terminology (https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json); errors plural vigad verified in Veps viga declension (https://kaikki.org/dictionary/Veps/index.html)."
   }
 ]
