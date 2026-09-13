@@ -69970,5 +69970,117 @@
     "before": "Kartu disaring dengan nomor pada kartu kecil",
     "after": "Peususon kad meunurot lumboi bak kad ubit",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "card-edit-planning-poker",
+    "before": "Ubah suai Poker Perancangan",
+    "after": "Sunting Planning Poker",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "card-members-title",
+    "before": "Tambah atau hapus partisipan di panel dari kartu",
+    "after": "Tamah atawa hapus anggota papan nibak kad.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "checklistItemDeletePopup-title",
+    "before": "Hapus item senarai semak?",
+    "after": "Hapus item checklist?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "click-to-disable-auto-width",
+    "before": "Lebar senarai lalai didayakan. Klik untuk tidak didayakan.",
+    "after": "Linteueng senarai otomatis ka aktif. Klik keu peumate.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "click-to-enable-auto-width",
+    "before": "Lebar senarai lalai tidak didayakan. Klik untuk dayakan.",
+    "after": "Linteueng senarai otomatis hana aktif. Klik keu peuhidop.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "click-to-star",
+    "before": "Klik untuk tandai bintang panel ini",
+    "after": "Klik keu boh bintang bak papan nyoe.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "click-to-unstar",
+    "before": "Klik untuk tidak memberi bintang pada panel ini",
+    "after": "Klik keu hapus bintang nibak papan nyoe.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "clipboard",
+    "before": "Clipboard atau drag & drop",
+    "after": "Clipboard atawa tarék ngon leupah",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "close-board-pop",
+    "before": "Anda akan boleh pulih semula papan dengan klik butang Arkib pada \"home header\"",
+    "after": "Droeneueh jeuet peuwoe papan ngon klik tombol “Arsip” bak kepala laman utama.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "comment-delete",
+    "before": "Anda pasti untuk hapus komen ini?",
+    "after": "Beutoi droeneueh keuneuk hapus komen nyoe?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "comment-only-desc",
+    "before": "Bisa komen hanya di kartu",
+    "after": "Jeuet komen bak kad mantong.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "confirm-checklist-delete-popup",
+    "before": "Anda pasti untuk hapus senarai semak?",
+    "after": "Beutoi droeneueh keuneuk hapus checklist?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "confirm-subtask-delete-popup",
+    "before": "Anda pasti untuk  hapus subtugas?",
+    "after": "Beutoi droeneueh keuneuk hapus subtugas?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "copyManyCardsPopup-instructions",
+    "before": "Destinasi Tajuk Kad dan Penerangan dalam format JSON ini",
+    "after": "Judul ngon deskripsi kad tujuan lam format JSON nyoe",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "copyManyCardsPopup-title",
+    "before": "Salin Templat kepada banyak Kad",
+    "after": "Salin template u le kad",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "cover-attachment-on-minicard",
+    "before": "Gambar sampul untuk kartu kecil",
+    "after": "Gamba sampul bak kad ubit",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
