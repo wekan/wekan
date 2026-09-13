@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 12,597 |
+| Corrected | 12,599 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 3,249 |
+| Pending review or repair | 3,247 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Restored and unflagged values still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **13,179** exact before/after values, including repairs outside the audit.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **13,181** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `95236d91aa92c178d09273ec499c65d93c271bf3` — Cornish Coptic calendar label translated directly. Adjective rendering remains low confidence and needs native-speaker validation; two Cornish Hijri findings remain pending.
+Latest translation fix: **2026-09-13**, local commit `2b2f08df94704e344b019352fd7d3389180d4918` — two Cornish Hijri labels repaired, restoring tabular and civil/astronomical starting-date distinctions. Flagged Cornish queue is empty; technical wording and restored/unflagged values still need validation.
 
 **Verification:** correction and progress tests pass. Native-speaker and browser checks remain outstanding.
 
