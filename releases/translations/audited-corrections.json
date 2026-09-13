@@ -88905,5 +88905,33 @@
     "before": "Action de la sous-tâche",
     "after": "Dunots donabligäda",
     "reason": "Replace French subtask interface text with Volapük consistent with show-subtasks-field. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests bligäd (task), dona- subordinate compounds; reuse existing add/settings/delete/action/move vocabulary. Preserve subtask hierarchy, deletion confirmation, export category, named board placeholder, deposit board and destination list. Donabligäd compound, destination phrasing and assembled grammar remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "custom-login-logo-image-url",
+    "before": "URL de l'image du logo de connexion personnalisé",
+    "after": "URL magoda sümbola lönik nunädama",
+    "reason": "Replace French custom login-logo/shortcut settings with Volapük. Reuse reviewed login/symbol/keyboard-command vocabulary; Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests donü (below), and MediaWiki Volapük https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json uses software nunädam and säjäfidükön. Preserve image URL versus link URL, text below custom logo, enabled shortcut state and click-to-disable. Logo-to-symbol adaptation, keyboard-command compound and assembled grammar remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "custom-login-logo-link-url",
+    "before": "Lien URL du logo de connexion personnalisé",
+    "after": "URL yüma sümbola lönik nunädama",
+    "reason": "Replace French custom login-logo/shortcut settings with Volapük. Reuse reviewed login/symbol/keyboard-command vocabulary; Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests donü (below), and MediaWiki Volapük https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json uses software nunädam and säjäfidükön. Preserve image URL versus link URL, text below custom logo, enabled shortcut state and click-to-disable. Logo-to-symbol adaptation, keyboard-command compound and assembled grammar remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "text-below-custom-login-logo",
+    "before": "Texte sous le logo de connexion personnalisé",
+    "after": "Vödem donü sümbol lönik nunädama",
+    "reason": "Replace French custom login-logo/shortcut settings with Volapük. Reuse reviewed login/symbol/keyboard-command vocabulary; Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests donü (below), and MediaWiki Volapük https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json uses software nunädam and säjäfidükön. Preserve image URL versus link URL, text below custom logo, enabled shortcut state and click-to-disable. Logo-to-symbol adaptation, keyboard-command compound and assembled grammar remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "keyboard-shortcuts-enabled",
+    "before": "Raccourcis clavier activés. Cliquer pour désactiver.",
+    "after": "Klavabüds pajäfidükons. Klikön ad säjäfidükön onis.",
+    "reason": "Replace French custom login-logo/shortcut settings with Volapük. Reuse reviewed login/symbol/keyboard-command vocabulary; Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests donü (below), and MediaWiki Volapük https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json uses software nunädam and säjäfidükön. Preserve image URL versus link URL, text below custom logo, enabled shortcut state and click-to-disable. Logo-to-symbol adaptation, keyboard-command compound and assembled grammar remain low confidence; native review unavailable."
   }
 ]
