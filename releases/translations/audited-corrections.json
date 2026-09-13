@@ -94743,5 +94743,19 @@
     "before": "Alle Aktivitäten von allen Boards sind nun verborgen",
     "after": "DaH Hoch raSmeyDaq Hoch ta'mey luSo'lu'",
     "reason": "Replace German visibility and duplicate-empty-list messages with Klingon. Reviewed checklist isFinished/hideCheckedChecklistItems usages in minicard.js and checklists.jade: checked means completed here. Preserve all-versus-completed distinction, all-board scope, and both duplicate and empty list conditions. Reuse previously repaired delete-duplicate-empty-lists-migration wording. Full software phrases are low confidence and require fluent-speaker validation; source token inventory preserved."
+  },
+  {
+    "locale": "tlh",
+    "key": "newlineBecomesNewChecklistItem",
+    "before": "Jede Textzeile wird in einen Checklisteneintrag umgewandelt",
+    "after": "ghItlhHommey tetlh ghItlhHom moj Hoch ghItlh tlhegh",
+    "reason": "Replace German checklist newline-conversion instructions. checklists.js splits text at newline and optionally reverses top-position entries; preserve each-line-to-one-item meaning and unchanged order variant. tlhegh has dictionary line/rope senses (The Klingon Dictionary, https://engineering.thetafleet.net/Journals/Other/Franchise%20-%20The%20Klingon%20Dictionary.pdf); ghItlh tlhegh is a low-confidence textual-line extension, not independently attested prose. Reuse patlh order (https://tlhingan.org/word/patlh). Full phrases need fluent-speaker validation; preserve tokens."
+  },
+  {
+    "locale": "tlh",
+    "key": "newlineBecomesNewChecklistItemOriginOrder",
+    "before": "Jede Textzeile wird in einen Checklisteneintrag umgewandelt, ursprüngliche Reihenfolge",
+    "after": "ghItlhHommey tetlh ghItlhHom moj Hoch ghItlh tlhegh; patlh choHlu'be'",
+    "reason": "Replace German checklist newline-conversion instructions. checklists.js splits text at newline and optionally reverses top-position entries; preserve each-line-to-one-item meaning and unchanged order variant. tlhegh has dictionary line/rope senses (The Klingon Dictionary, https://engineering.thetafleet.net/Journals/Other/Franchise%20-%20The%20Klingon%20Dictionary.pdf); ghItlh tlhegh is a low-confidence textual-line extension, not independently attested prose. Reuse patlh order (https://tlhingan.org/word/patlh). Full phrases need fluent-speaker validation; preserve tokens."
   }
 ]
