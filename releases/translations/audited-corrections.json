@@ -112236,5 +112236,47 @@
     "before": "لغة",
     "after": "ⵜⵓⵜⵍⴰⵢⵜ",
     "reason": "Replace Arabic core label with Standard Moroccan Tamazight in Tifinagh. IRCAM dictionary publication 177 attests ⴰⵣⵡⵍ titre; IRCAM native site and MOOC attest ⵜⵓⵜⵍⴰⵢⵜ langue. https://biblio.ircam.ma/pmb/uploads/publications/177.pdf https://mooc.ircam.ma/ . These Arabic values are not correct-language human translations for zgh."
+  },
+  {
+    "locale": "zgh",
+    "key": "calendar",
+    "before": "التقويم",
+    "after": "ⴰⵙⵎⵍⵓⵙⵙⴰⵏ",
+    "reason": "Replace Arabic/French date UI seed with Standard Moroccan Tamazight Tifinagh vocabulary attested in Unicode CLDR 47 zgh calendar key, day/week/month fields, today relative field and time-zone label (akud time). https://www.unicode.org/cldr/charts/47/summary/zgh.html . Preserve existing correct Gregorian calendar translation."
+  },
+  {
+    "locale": "zgh",
+    "key": "time",
+    "before": "الوقت",
+    "after": "ⴰⴽⵓⴷ",
+    "reason": "Replace Arabic/French date UI seed with Standard Moroccan Tamazight Tifinagh vocabulary attested in Unicode CLDR 47 zgh calendar key, day/week/month fields, today relative field and time-zone label (akud time). https://www.unicode.org/cldr/charts/47/summary/zgh.html . Preserve existing correct Gregorian calendar translation."
+  },
+  {
+    "locale": "zgh",
+    "key": "today",
+    "before": "Aujourd'hui",
+    "after": "ⴰⵙⵙⴰ",
+    "reason": "Replace Arabic/French date UI seed with Standard Moroccan Tamazight Tifinagh vocabulary attested in Unicode CLDR 47 zgh calendar key, day/week/month fields, today relative field and time-zone label (akud time). https://www.unicode.org/cldr/charts/47/summary/zgh.html . Preserve existing correct Gregorian calendar translation."
+  },
+  {
+    "locale": "zgh",
+    "key": "day",
+    "before": "Jour",
+    "after": "ⴰⵙⵙ",
+    "reason": "Replace Arabic/French date UI seed with Standard Moroccan Tamazight Tifinagh vocabulary attested in Unicode CLDR 47 zgh calendar key, day/week/month fields, today relative field and time-zone label (akud time). https://www.unicode.org/cldr/charts/47/summary/zgh.html . Preserve existing correct Gregorian calendar translation."
+  },
+  {
+    "locale": "zgh",
+    "key": "week",
+    "before": "Semaine",
+    "after": "ⵉⵎⴰⵍⴰⵙⵙ",
+    "reason": "Replace Arabic/French date UI seed with Standard Moroccan Tamazight Tifinagh vocabulary attested in Unicode CLDR 47 zgh calendar key, day/week/month fields, today relative field and time-zone label (akud time). https://www.unicode.org/cldr/charts/47/summary/zgh.html . Preserve existing correct Gregorian calendar translation."
+  },
+  {
+    "locale": "zgh",
+    "key": "month",
+    "before": "Moi",
+    "after": "ⴰⵢⵢⵓⵔ",
+    "reason": "Replace Arabic/French date UI seed with Standard Moroccan Tamazight Tifinagh vocabulary attested in Unicode CLDR 47 zgh calendar key, day/week/month fields, today relative field and time-zone label (akud time). https://www.unicode.org/cldr/charts/47/summary/zgh.html . Preserve existing correct Gregorian calendar translation."
   }
 ]
