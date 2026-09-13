@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 11,697 |
+| Corrected | 11,701 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 4,149 |
+| Pending review or repair | 4,145 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,064** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,068** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `22adf938aeace9e7b901b1a48f0ef94d7f700b5a` — 4 Manx calendar labels repaired: Dangi, Hijri, Umm al-Qura and Minguo now use attested Feaillere terminology. Adapted label grammar remains low confidence; remaining country/religious labels and Hijri epoch/sighting terminology need review. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; live browser verification is unavailable.
+Latest translation fix: **2026-09-13**, local commit `6bbdb85f4846260a3b56c47a2e8e3ab9f1aec1b8` — 4 Manx labels repaired: calendar-system/date-display setting, Chinese, Japanese and Jalali/Persian. Dictionary terms support the wording; assembled grammar remains low confidence. Remaining religious/country calendars and Hijri epoch/sighting details need review. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; live browser verification is unavailable.
 
 **Review follow-up:** Silesian `sandstorm-raw-mongodb` remains pending: its wording overlaps Polish and existing Silesian technical strings, but dictionary searches did not establish the full phrase as correct Silesian. Keep the current value until stronger language evidence supports retaining or replacing it.
 
