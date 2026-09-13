@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 12,720 |
+| Corrected | 12,725 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 177 |
-| Pending review or repair | 3,125 |
+| Pending review or repair | 3,120 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Restored and unflagged values still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **13,347** exact before/after values, including repairs outside the audit.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **13,352** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `bd275b310bf6a20df3c8f26edeedaeeef0f51775` — four flagged German search-sort instructions/errors replaced with Klingon, preserving executable syntax, descending order and placeholder roles. Full software wording is low confidence and needs fluent-speaker validation.
+Latest translation fix: **2026-09-13**, local commit `cecb82598b2f2b3dc39cb1908a16a5dee012b1e5` — five flagged German visibility/week-number controls replaced with Klingon, preserving each setting scope and ISO 8601. Full software wording is low confidence and needs fluent-speaker validation.
 
 **Verification:** correction and progress tests pass. Native-speaker and browser checks remain outstanding.
 
