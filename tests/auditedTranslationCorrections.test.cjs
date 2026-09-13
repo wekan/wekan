@@ -36,7 +36,7 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.doesNotMatch(cache.mk['text-contains-trigger-description'], /创/);
   // These messages render as HTML; a second opening tag leaves following UI bold.
   const htmlTags = value => value.match(/<\/?[A-Za-z][^>]*>/g) || [];
-  for (const key of ['board-private-info', 'board-public-info', 'add-custom-html-after-body-start', 'add-custom-html-before-body-end']) {
+  for (const key of ['board-private-info', 'board-public-info', 'page-maybe-private', 'add-custom-html-after-body-start', 'add-custom-html-before-body-end']) {
     assert.deepEqual(htmlTags(cache.ace[key]), htmlTags(english[key]), `Acehnese HTML: ${key}`);
   }
   assert.notDeepEqual(htmlTags('<strong>publik<strong'), htmlTags(english['board-public-info']));

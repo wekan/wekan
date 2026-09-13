@@ -70880,5 +70880,131 @@
     "before": "Anda tidak akan pernah dinotifikasi semua perubahan di panel ini",
     "after": "Droeneueh hana akan geubri notifikasi peue mantong perubahan bak papan nyoe",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "newTranslationPopup-title",
+    "before": "Teks terjemahan pesanan baru",
+    "after": "Teks teujeumah khusus baro",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "no-archived-boards",
+    "before": "Tidak ada Papan pada Arsip",
+    "after": "Hana papan lam Arsip.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "no-archived-cards",
+    "before": "Tidak ada kartu di arsip.",
+    "after": "Hana kad lam Arsip.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "no-archived-lists",
+    "before": "Tidak ada daftar di arsip.",
+    "after": "Hana senarai lam Arsip.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "no-archived-swimlanes",
+    "before": "Tiada Aliran Renang dalam Arkib",
+    "after": "Hana swimlane lam Arsip.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "normal-desc",
+    "before": "Bisa tampilkan dan edit kartu. Tidak bisa ubah setting",
+    "after": "Jeuet ngieng ngon sunting kad. Hana jeuet ubah setelan.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "notify-participate",
+    "before": "Terima maklumbalas daripada mana-mana kad yang anda sertai sebagai pencipta atau ahli.",
+    "after": "Teurimong perubahan kad nyang droeneueh ikot seubagoe nyang peugot atawa anggota",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "notify-watch",
+    "before": "Terima update dari semua panel, daftar atau kartu yang anda amati",
+    "after": "Teurimong perubahan papan, senarai atawa kad nyang droeneueh ngieng",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "oidc-button-text",
+    "before": "Ubahsuai teks pada butang OIDC",
+    "after": "Ubah teks tombol OIDC",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "open-many-cards-at-once",
+    "before": "Buka banyak kartu sekaligus",
+    "after": "Buka le kad meusajan",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "open-many-cards-at-once-description",
+    "before": "Setiap kartu yang Anda klik tetap terbuka di jendelanya sendiri. Bila ini dimatikan, mengeklik kartu akan menutup kartu yang sedang terbuka.",
+    "after": "Tiep kad nyang droeneueh klik teutap teubuka bak jendela jih keudroe. Meunyoe nyoe hana aktif, klik kad akan top kad nyang teubuka.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "org-name-not-found",
+    "before": "Organisasi '%s' tidak ditemui.",
+    "after": "Organisasi '%s' hana geuteumeung.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "page-maybe-private",
+    "before": "Halaman ini hanya untuk kalangan terbatas. Anda dapat melihatnya dengan <a href='%s'>masuk ke dalam sistem</a>.",
+    "after": "Laman nyoe kadang pribadi. Droeneueh kadang jeuet ngieng ngon <a href='%s'>login</a>.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "paste-or-dragdrop",
+    "before": "untuk menempelkan, atau drag& drop gambar pada ini (hanya gambar)",
+    "after": "keu tempel, atawa tarék ngon leupah fail gamba keunyan (gamba mantong)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "poker-delete-pop",
+    "before": "Hapus adalah kekal. Anda akan hilang semua tindakan yang berkaitan dengan Poker Perancangan ini.",
+    "after": "Meunyoe geuhapus, hana jeuet geupeuwoe lom. Mandum tindakan nyang na hubongan ngon Planning Poker nyoe akan gadeoh.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "preview-pdf-not-supported",
+    "before": "Perangkat anda tidak mendukung untuk menampilkan PDF. Coba mengunduhnya sebagai gantinya",
+    "after": "Perangkat droeneueh hana dukong pratinjau PDF. Neucuba download fail jih.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "private-desc",
+    "before": "Panel ini Pribadi. Hanya orang yang ditambahkan ke panel ini yang bisa melihat dan menyuntingnya",
+    "after": "Papan nyoe pribadi. Ureueng nyang geutamah u papan mantong jeuet ngieng ngon sunting jih.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "public-desc",
+    "before": "Panel ini publik. Akan terlihat oleh siapapun dengan link terkait dan muncul di mesin pencari seperti Google. Hanya orang yang ditambahkan di panel yang bisa sunting",
+    "after": "Papan nyoe publik. Soe mantong nyang na tautan jeuet ngieng jih, ngon jih akan deuh bak mesin pencarian lagee Google. Ureueng nyang geutamah u papan mantong jeuet sunting.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
