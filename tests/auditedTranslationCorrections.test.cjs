@@ -95,6 +95,12 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   }
   // Veps units differ from Finnish despite closely related vocabulary.
   const veps = cache['ve-PP'];
+  assert.equal(veps.language, 'Kelʹ');
+  assert.equal(veps.number, 'Lugu');
+  assert.equal(veps.title, 'Nimi');
+  assert.match(veps['set-default-board-title'], /^Paina,/);
+  assert.match(veps['unset-default-board-title'], / Paina,/);
+  assert.doesNotMatch(veps['set-default-board-title'] + veps['unset-default-board-title'], /Painda/);
   assert.equal(veps.time, 'Aig');
   assert.equal(veps.new, 'Uzʹ');
   assert.equal(veps.today, 'Tämbei');

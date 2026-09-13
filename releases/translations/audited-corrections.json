@@ -112068,5 +112068,40 @@
     "before": "Tänään",
     "after": "Tämbei",
     "reason": "Replace Finnish seed with attested Veps dictionary lemma (Kaikki Veps/Wiktionary): aig time, uzʹ new, tämbei today. Capitalization follows UI labels."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "language",
+    "before": "Kieli",
+    "after": "Kelʹ",
+    "reason": "Veps dictionary-attested vocabulary kelʹ (language), lugu (number/quantity), nimi (name/title); painda imperative is paina, not the infinitive-like Painda. Kaikki Veps dictionary and Wiktionary Veps entries."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "number",
+    "before": "Numero",
+    "after": "Lugu",
+    "reason": "Veps dictionary-attested vocabulary kelʹ (language), lugu (number/quantity), nimi (name/title); painda imperative is paina, not the infinitive-like Painda. Kaikki Veps dictionary and Wiktionary Veps entries."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "title",
+    "before": "Otsikko",
+    "after": "Nimi",
+    "reason": "Veps dictionary-attested vocabulary kelʹ (language), lugu (number/quantity), nimi (name/title); painda imperative is paina, not the infinitive-like Painda. Kaikki Veps dictionary and Wiktionary Veps entries."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "set-default-board-title",
+    "before": "Painda, miše nece laud avaidaškaze avtomatižešti jäl'ges sizälekirjutandad.",
+    "after": "Paina, miše nece laud avaidaškaze avtomatižešti jäl'ges sizälekirjutandad.",
+    "reason": "Veps dictionary-attested vocabulary kelʹ (language), lugu (number/quantity), nimi (name/title); painda imperative is paina, not the infinitive-like Painda. Kaikki Veps dictionary and Wiktionary Veps entries."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "unset-default-board-title",
+    "before": "Nece laud avaidase jäl'ges sizälekirjutandad. Painda, miše azotta sen avtomatine avaiduz.",
+    "after": "Nece laud avaidase jäl'ges sizälekirjutandad. Paina, miše azotta sen avtomatine avaiduz.",
+    "reason": "Veps dictionary-attested vocabulary kelʹ (language), lugu (number/quantity), nimi (name/title); painda imperative is paina, not the infinitive-like Painda. Kaikki Veps dictionary and Wiktionary Veps entries."
   }
 ]
