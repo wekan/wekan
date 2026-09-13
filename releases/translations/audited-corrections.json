@@ -113489,5 +113489,145 @@
     "before": "Ei tuloksia",
     "after": "Ei ole satusid",
     "reason": "Replace Finnish text with Veps list controls. Zaiceva/Mullonen, Uz’ venä-vepsläine vajehnik (2007): список lugetiž (genitive lugetišen, partitive lugetišt), ширина leveduz’, слева huralpäi, справа oiktalpäi, дубликат dublikat, выбирать valita, нажимать painda, пустой tühj. Native MediaWiki vep.json: sortirui, valitud, avtomatine, käzil, järgestuz, dublikatad, Ei ole satusid and Necidä lehtpol’t ei ole. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Preserve empty-only cleanup distinction, selected-list direction and all placeholders. Low confidence: composed UI grammar and derived plural genitive lugetišiden need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "attachment-move-storage-fs",
+    "before": "Siirrä liite tiedostojärjestelmään",
+    "after": "Sirdä tartutadud fail failoiden sistemaha",
+    "reason": "Replace Finnish attachment/storage text with Veps. Zaiceva/Mullonen, Uz’ venä-vepsläine vajehnik (2007): хранение kaičuz, хранить/сохранять kaita, система sistem, размер suruz’, необратимый pördutamatoi, распределение jago. Native MediaWiki vep.json attests failoiden, backend path te, kaitud, valičused, pördutada, peituzavadim, tarbhai, hüvin and Sirdä (move/movepagebtn; physical transfer, distinct from navigation Sirte). Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Preserve filesystem/GridFS/S3 destination distinctions, all-versus-single file scope, AWS/MinIO identifiers, and permanent deletion/no-undo warning. Low confidence: composed filesystem terminology failoiden sistem, base-path compound päte, attachment participle tartutadud and technical UI grammar need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "attachment-move-storage-gridfs",
+    "before": "Siirrä liite MongoDB GridFS:ään",
+    "after": "Sirdä tartutadud fail MongoDB GridFS -kaičusehe",
+    "reason": "Replace Finnish attachment/storage text with Veps. Zaiceva/Mullonen, Uz’ venä-vepsläine vajehnik (2007): хранение kaičuz, хранить/сохранять kaita, система sistem, размер suruz’, необратимый pördutamatoi, распределение jago. Native MediaWiki vep.json attests failoiden, backend path te, kaitud, valičused, pördutada, peituzavadim, tarbhai, hüvin and Sirdä (move/movepagebtn; physical transfer, distinct from navigation Sirte). Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Preserve filesystem/GridFS/S3 destination distinctions, all-versus-single file scope, AWS/MinIO identifiers, and permanent deletion/no-undo warning. Low confidence: composed filesystem terminology failoiden sistem, base-path compound päte, attachment participle tartutadud and technical UI grammar need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "attachment-delete-pop",
+    "before": "Liitetiedoston poistaminen on lopullista. Tätä ei pysty peruuttamaan.",
+    "after": "Tartutadud failan heitämine om pördutamatoi. Ei sa pördutada.",
+    "reason": "Replace Finnish attachment/storage text with Veps. Zaiceva/Mullonen, Uz’ venä-vepsläine vajehnik (2007): хранение kaičuz, хранить/сохранять kaita, система sistem, размер suruz’, необратимый pördutamatoi, распределение jago. Native MediaWiki vep.json attests failoiden, backend path te, kaitud, valičused, pördutada, peituzavadim, tarbhai, hüvin and Sirdä (move/movepagebtn; physical transfer, distinct from navigation Sirte). Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Preserve filesystem/GridFS/S3 destination distinctions, all-versus-single file scope, AWS/MinIO identifiers, and permanent deletion/no-undo warning. Low confidence: composed filesystem terminology failoiden sistem, base-path compound päte, attachment participle tartutadud and technical UI grammar need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "attachment-storage-configuration",
+    "before": "Liitteiden tallennuskonfiguraatio",
+    "after": "Tartutadud failoiden kaičusen valičused",
+    "reason": "Replace Finnish attachment/storage text with Veps. Zaiceva/Mullonen, Uz’ venä-vepsläine vajehnik (2007): хранение kaičuz, хранить/сохранять kaita, система sistem, размер suruz’, необратимый pördutamatoi, распределение jago. Native MediaWiki vep.json attests failoiden, backend path te, kaitud, valičused, pördutada, peituzavadim, tarbhai, hüvin and Sirdä (move/movepagebtn; physical transfer, distinct from navigation Sirte). Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Preserve filesystem/GridFS/S3 destination distinctions, all-versus-single file scope, AWS/MinIO identifiers, and permanent deletion/no-undo warning. Low confidence: composed filesystem terminology failoiden sistem, base-path compound päte, attachment participle tartutadud and technical UI grammar need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "attachments-path",
+    "before": "Liitteiden polku",
+    "after": "Tartutadud failoiden te",
+    "reason": "Replace Finnish attachment/storage text with Veps. Zaiceva/Mullonen, Uz’ venä-vepsläine vajehnik (2007): хранение kaičuz, хранить/сохранять kaita, система sistem, размер suruz’, необратимый pördutamatoi, распределение jago. Native MediaWiki vep.json attests failoiden, backend path te, kaitud, valičused, pördutada, peituzavadim, tarbhai, hüvin and Sirdä (move/movepagebtn; physical transfer, distinct from navigation Sirte). Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Preserve filesystem/GridFS/S3 destination distinctions, all-versus-single file scope, AWS/MinIO identifiers, and permanent deletion/no-undo warning. Low confidence: composed filesystem terminology failoiden sistem, base-path compound päte, attachment participle tartutadud and technical UI grammar need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "attachments-path-description",
+    "before": "Polku jossa liitetiedostot tallennetaan",
+    "after": "Te tartutadud failoiden kaičusen täht",
+    "reason": "Replace Finnish attachment/storage text with Veps. Zaiceva/Mullonen, Uz’ venä-vepsläine vajehnik (2007): хранение kaičuz, хранить/сохранять kaita, система sistem, размер suruz’, необратимый pördutamatoi, распределение jago. Native MediaWiki vep.json attests failoiden, backend path te, kaitud, valičused, pördutada, peituzavadim, tarbhai, hüvin and Sirdä (move/movepagebtn; physical transfer, distinct from navigation Sirte). Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Preserve filesystem/GridFS/S3 destination distinctions, all-versus-single file scope, AWS/MinIO identifiers, and permanent deletion/no-undo warning. Low confidence: composed filesystem terminology failoiden sistem, base-path compound päte, attachment participle tartutadud and technical UI grammar need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "filesystem-attachments",
+    "before": "Tiedostojärjestelmän liitteet",
+    "after": "Failoiden sisteman tartutadud failad",
+    "reason": "Replace Finnish attachment/storage text with Veps. Zaiceva/Mullonen, Uz’ venä-vepsläine vajehnik (2007): хранение kaičuz, хранить/сохранять kaita, система sistem, размер suruz’, необратимый pördutamatoi, распределение jago. Native MediaWiki vep.json attests failoiden, backend path te, kaitud, valičused, pördutada, peituzavadim, tarbhai, hüvin and Sirdä (move/movepagebtn; physical transfer, distinct from navigation Sirte). Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Preserve filesystem/GridFS/S3 destination distinctions, all-versus-single file scope, AWS/MinIO identifiers, and permanent deletion/no-undo warning. Low confidence: composed filesystem terminology failoiden sistem, base-path compound päte, attachment participle tartutadud and technical UI grammar need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "filesystem-path-description",
+    "before": "Peruspolku tiedostojen tallennukseen",
+    "after": "Failoiden kaičusen päte",
+    "reason": "Replace Finnish attachment/storage text with Veps. Zaiceva/Mullonen, Uz’ venä-vepsläine vajehnik (2007): хранение kaičuz, хранить/сохранять kaita, система sistem, размер suruz’, необратимый pördutamatoi, распределение jago. Native MediaWiki vep.json attests failoiden, backend path te, kaitud, valičused, pördutada, peituzavadim, tarbhai, hüvin and Sirdä (move/movepagebtn; physical transfer, distinct from navigation Sirte). Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Preserve filesystem/GridFS/S3 destination distinctions, all-versus-single file scope, AWS/MinIO identifiers, and permanent deletion/no-undo warning. Low confidence: composed filesystem terminology failoiden sistem, base-path compound päte, attachment participle tartutadud and technical UI grammar need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "filesystem-size",
+    "before": "Tiedostojärjestelmän koko",
+    "after": "Failoiden sisteman suruz’",
+    "reason": "Replace Finnish attachment/storage text with Veps. Zaiceva/Mullonen, Uz’ venä-vepsläine vajehnik (2007): хранение kaičuz, хранить/сохранять kaita, система sistem, размер suruz’, необратимый pördutamatoi, распределение jago. Native MediaWiki vep.json attests failoiden, backend path te, kaitud, valičused, pördutada, peituzavadim, tarbhai, hüvin and Sirdä (move/movepagebtn; physical transfer, distinct from navigation Sirte). Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Preserve filesystem/GridFS/S3 destination distinctions, all-versus-single file scope, AWS/MinIO identifiers, and permanent deletion/no-undo warning. Low confidence: composed filesystem terminology failoiden sistem, base-path compound päte, attachment participle tartutadud and technical UI grammar need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "gridfs-enabled-description",
+    "before": "Käytä MongoDB GridFS:ää tiedostojen tallennukseen",
+    "after": "Kävuta MongoDB GridFS failoiden kaičusen täht",
+    "reason": "Replace Finnish attachment/storage text with Veps. Zaiceva/Mullonen, Uz’ venä-vepsläine vajehnik (2007): хранение kaičuz, хранить/сохранять kaita, система sistem, размер suruz’, необратимый pördutamatoi, распределение jago. Native MediaWiki vep.json attests failoiden, backend path te, kaitud, valičused, pördutada, peituzavadim, tarbhai, hüvin and Sirdä (move/movepagebtn; physical transfer, distinct from navigation Sirte). Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Preserve filesystem/GridFS/S3 destination distinctions, all-versus-single file scope, AWS/MinIO identifiers, and permanent deletion/no-undo warning. Low confidence: composed filesystem terminology failoiden sistem, base-path compound päte, attachment participle tartutadud and technical UI grammar need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "migrate-all-to-filesystem",
+    "before": "Siirrä kaikki tiedostojärjestelmään",
+    "after": "Sirdä kaik failoiden sistemaha",
+    "reason": "Replace Finnish attachment/storage text with Veps. Zaiceva/Mullonen, Uz’ venä-vepsläine vajehnik (2007): хранение kaičuz, хранить/сохранять kaita, система sistem, размер suruz’, необратимый pördutamatoi, распределение jago. Native MediaWiki vep.json attests failoiden, backend path te, kaitud, valičused, pördutada, peituzavadim, tarbhai, hüvin and Sirdä (move/movepagebtn; physical transfer, distinct from navigation Sirte). Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Preserve filesystem/GridFS/S3 destination distinctions, all-versus-single file scope, AWS/MinIO identifiers, and permanent deletion/no-undo warning. Low confidence: composed filesystem terminology failoiden sistem, base-path compound päte, attachment participle tartutadud and technical UI grammar need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "move-all-attachments-to-fs",
+    "before": "Siirrä kaikki liitteet tiedostojärjestelmään",
+    "after": "Sirdä kaik tartutadud failad failoiden sistemaha",
+    "reason": "Replace Finnish attachment/storage text with Veps. Zaiceva/Mullonen, Uz’ venä-vepsläine vajehnik (2007): хранение kaičuz, хранить/сохранять kaita, система sistem, размер suruz’, необратимый pördutamatoi, распределение jago. Native MediaWiki vep.json attests failoiden, backend path te, kaitud, valičused, pördutada, peituzavadim, tarbhai, hüvin and Sirdä (move/movepagebtn; physical transfer, distinct from navigation Sirte). Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Preserve filesystem/GridFS/S3 destination distinctions, all-versus-single file scope, AWS/MinIO identifiers, and permanent deletion/no-undo warning. Low confidence: composed filesystem terminology failoiden sistem, base-path compound päte, attachment participle tartutadud and technical UI grammar need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "move-all-attachments-to-gridfs",
+    "before": "Siirrä kaikki liitteet MongoDB GridFS:ään",
+    "after": "Sirdä kaik tartutadud failad MongoDB GridFS -kaičusehe",
+    "reason": "Replace Finnish attachment/storage text with Veps. Zaiceva/Mullonen, Uz’ venä-vepsläine vajehnik (2007): хранение kaičuz, хранить/сохранять kaita, система sistem, размер suruz’, необратимый pördutamatoi, распределение jago. Native MediaWiki vep.json attests failoiden, backend path te, kaitud, valičused, pördutada, peituzavadim, tarbhai, hüvin and Sirdä (move/movepagebtn; physical transfer, distinct from navigation Sirte). Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Preserve filesystem/GridFS/S3 destination distinctions, all-versus-single file scope, AWS/MinIO identifiers, and permanent deletion/no-undo warning. Low confidence: composed filesystem terminology failoiden sistem, base-path compound päte, attachment participle tartutadud and technical UI grammar need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "move-all-attachments-to-s3",
+    "before": "Siirrä kaikki liitteet S3:een",
+    "after": "Sirdä kaik tartutadud failad S3 -kaičusehe",
+    "reason": "Replace Finnish attachment/storage text with Veps. Zaiceva/Mullonen, Uz’ venä-vepsläine vajehnik (2007): хранение kaičuz, хранить/сохранять kaita, система sistem, размер suruz’, необратимый pördutamatoi, распределение jago. Native MediaWiki vep.json attests failoiden, backend path te, kaitud, valičused, pördutada, peituzavadim, tarbhai, hüvin and Sirdä (move/movepagebtn; physical transfer, distinct from navigation Sirte). Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Preserve filesystem/GridFS/S3 destination distinctions, all-versus-single file scope, AWS/MinIO identifiers, and permanent deletion/no-undo warning. Low confidence: composed filesystem terminology failoiden sistem, base-path compound päte, attachment participle tartutadud and technical UI grammar need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "s3-enabled-description",
+    "before": "Käytä AWS S3:ää tai MinIO:ta tiedostojen tallennukseen",
+    "after": "Kävuta AWS S3 libo MinIO failoiden kaičusen täht",
+    "reason": "Replace Finnish attachment/storage text with Veps. Zaiceva/Mullonen, Uz’ venä-vepsläine vajehnik (2007): хранение kaičuz, хранить/сохранять kaita, система sistem, размер suruz’, необратимый pördutamatoi, распределение jago. Native MediaWiki vep.json attests failoiden, backend path te, kaitud, valičused, pördutada, peituzavadim, tarbhai, hüvin and Sirdä (move/movepagebtn; physical transfer, distinct from navigation Sirte). Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Preserve filesystem/GridFS/S3 destination distinctions, all-versus-single file scope, AWS/MinIO identifiers, and permanent deletion/no-undo warning. Low confidence: composed filesystem terminology failoiden sistem, base-path compound päte, attachment participle tartutadud and technical UI grammar need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "s3-secret-key-required",
+    "before": "S3 salainen avain vaaditaan",
+    "after": "S3 -peituzavadim om tarbhai.",
+    "reason": "Replace Finnish attachment/storage text with Veps. Zaiceva/Mullonen, Uz’ venä-vepsläine vajehnik (2007): хранение kaičuz, хранить/сохранять kaita, система sistem, размер suruz’, необратимый pördutamatoi, распределение jago. Native MediaWiki vep.json attests failoiden, backend path te, kaitud, valičused, pördutada, peituzavadim, tarbhai, hüvin and Sirdä (move/movepagebtn; physical transfer, distinct from navigation Sirte). Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Preserve filesystem/GridFS/S3 destination distinctions, all-versus-single file scope, AWS/MinIO identifiers, and permanent deletion/no-undo warning. Low confidence: composed filesystem terminology failoiden sistem, base-path compound päte, attachment participle tartutadud and technical UI grammar need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "s3-settings-saved",
+    "before": "S3 asetukset tallennettu onnistuneesti",
+    "after": "S3 -valičused oma hüvin kaitud.",
+    "reason": "Replace Finnish attachment/storage text with Veps. Zaiceva/Mullonen, Uz’ venä-vepsläine vajehnik (2007): хранение kaičuz, хранить/сохранять kaita, система sistem, размер suruz’, необратимый pördutamatoi, распределение jago. Native MediaWiki vep.json attests failoiden, backend path te, kaitud, valičused, pördutada, peituzavadim, tarbhai, hüvin and Sirdä (move/movepagebtn; physical transfer, distinct from navigation Sirte). Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Preserve filesystem/GridFS/S3 destination distinctions, all-versus-single file scope, AWS/MinIO identifiers, and permanent deletion/no-undo warning. Low confidence: composed filesystem terminology failoiden sistem, base-path compound päte, attachment participle tartutadud and technical UI grammar need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "s3-settings-save-failed",
+    "before": "S3 asetusten tallentaminen epäonnistui",
+    "after": "Ei voind kaita S3 -valičusid.",
+    "reason": "Replace Finnish attachment/storage text with Veps. Zaiceva/Mullonen, Uz’ venä-vepsläine vajehnik (2007): хранение kaičuz, хранить/сохранять kaita, система sistem, размер suruz’, необратимый pördutamatoi, распределение jago. Native MediaWiki vep.json attests failoiden, backend path te, kaitud, valičused, pördutada, peituzavadim, tarbhai, hüvin and Sirdä (move/movepagebtn; physical transfer, distinct from navigation Sirte). Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Preserve filesystem/GridFS/S3 destination distinctions, all-versus-single file scope, AWS/MinIO identifiers, and permanent deletion/no-undo warning. Low confidence: composed filesystem terminology failoiden sistem, base-path compound päte, attachment participle tartutadud and technical UI grammar need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "step-fix-attachment-urls",
+    "before": "Korjaa liitetiedosto URLit",
+    "after": "Oigenda tartutadud failoiden URL-adresad",
+    "reason": "Replace Finnish attachment/storage text with Veps. Zaiceva/Mullonen, Uz’ venä-vepsläine vajehnik (2007): хранение kaičuz, хранить/сохранять kaita, система sistem, размер suruz’, необратимый pördutamatoi, распределение jago. Native MediaWiki vep.json attests failoiden, backend path te, kaitud, valičused, pördutada, peituzavadim, tarbhai, hüvin and Sirdä (move/movepagebtn; physical transfer, distinct from navigation Sirte). Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Preserve filesystem/GridFS/S3 destination distinctions, all-versus-single file scope, AWS/MinIO identifiers, and permanent deletion/no-undo warning. Low confidence: composed filesystem terminology failoiden sistem, base-path compound päte, attachment participle tartutadud and technical UI grammar need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "storage-distribution",
+    "before": "Tallennuksen jakautuminen",
+    "after": "Kaičusen jago",
+    "reason": "Replace Finnish attachment/storage text with Veps. Zaiceva/Mullonen, Uz’ venä-vepsläine vajehnik (2007): хранение kaičuz, хранить/сохранять kaita, система sistem, размер suruz’, необратимый pördutamatoi, распределение jago. Native MediaWiki vep.json attests failoiden, backend path te, kaitud, valičused, pördutada, peituzavadim, tarbhai, hüvin and Sirdä (move/movepagebtn; physical transfer, distinct from navigation Sirte). Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Preserve filesystem/GridFS/S3 destination distinctions, all-versus-single file scope, AWS/MinIO identifiers, and permanent deletion/no-undo warning. Low confidence: composed filesystem terminology failoiden sistem, base-path compound päte, attachment participle tartutadud and technical UI grammar need fluent review."
   }
 ]

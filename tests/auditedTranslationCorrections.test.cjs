@@ -450,11 +450,47 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.equal(cache['ve-PP']['delete-duplicate-empty-lists-migration'], cache['ve-PP']['step-delete-duplicate-empty-lists']);
   assert.match(cache['ve-PP']['delete-duplicate-empty-lists-migration'], /tühjiden/);
   assert.doesNotMatch(cache['ve-PP']['delete-duplicate-lists'], /tühjiden/);
+  // Veps storage labels retain destination, all-file scope and destructive warning.
+  for (const [key, value] of Object.entries({
+    "attachment-move-storage-fs": "Sirdä tartutadud fail failoiden sistemaha",
+    "attachment-move-storage-gridfs": "Sirdä tartutadud fail MongoDB GridFS -kaičusehe",
+    "attachment-delete-pop": "Tartutadud failan heitämine om pördutamatoi. Ei sa pördutada.",
+    "attachment-storage-configuration": "Tartutadud failoiden kaičusen valičused",
+    "attachments-path": "Tartutadud failoiden te",
+    "attachments-path-description": "Te tartutadud failoiden kaičusen täht",
+    "filesystem-attachments": "Failoiden sisteman tartutadud failad",
+    "filesystem-path-description": "Failoiden kaičusen päte",
+    "filesystem-size": "Failoiden sisteman suruz’",
+    "gridfs-enabled-description": "Kävuta MongoDB GridFS failoiden kaičusen täht",
+    "migrate-all-to-filesystem": "Sirdä kaik failoiden sistemaha",
+    "move-all-attachments-to-fs": "Sirdä kaik tartutadud failad failoiden sistemaha",
+    "move-all-attachments-to-gridfs": "Sirdä kaik tartutadud failad MongoDB GridFS -kaičusehe",
+    "move-all-attachments-to-s3": "Sirdä kaik tartutadud failad S3 -kaičusehe",
+    "s3-enabled-description": "Kävuta AWS S3 libo MinIO failoiden kaičusen täht",
+    "s3-secret-key-required": "S3 -peituzavadim om tarbhai.",
+    "s3-settings-saved": "S3 -valičused oma hüvin kaitud.",
+    "s3-settings-save-failed": "Ei voind kaita S3 -valičusid.",
+    "step-fix-attachment-urls": "Oigenda tartutadud failoiden URL-adresad",
+    "storage-distribution": "Kaičusen jago"
+})) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.doesNotMatch(cache['ve-PP'][key], /Siirrä|Liitetiedoston|lopullista|peruuttamaan|tallennus|tiedostojärjestelm|Liitteiden|Tiedostojärjestelmän|Peruspolku|Käytä|salainen|vaaditaan|onnistuneesti|epäonnistui|Korjaa|jakautuminen/, key);
+  }
+  assert.match(cache['ve-PP']['attachment-delete-pop'], /pördutamatoi\. Ei sa pördutada\./);
+  assert.match(cache['ve-PP']['move-all-attachments-to-fs'], /kaik.*failoiden sistemaha/);
+  assert.match(cache['ve-PP']['move-all-attachments-to-gridfs'], /kaik.*MongoDB GridFS/);
+  assert.match(cache['ve-PP']['move-all-attachments-to-s3'], /kaik.*S3/);
+  assert.doesNotMatch(cache['ve-PP']['attachment-move-storage-fs'], /kaik/);
+  assert.notEqual(cache['ve-PP']['s3-settings-saved'], cache['ve-PP']['s3-settings-save-failed']);
+  assert.match(cache['ve-PP']['s3-enabled-description'], /AWS S3 libo MinIO/);
   const vepsTranslator = require('i18next').createInstance().use(require('i18next-sprintf-postprocessor'));
   await vepsTranslator.init({ lng: 've-PP', fallbackLng: false, keySeparator: false, resources: { 've-PP': { translation: cache['ve-PP'] } }, postProcess: ['sprintf'] });
   assert.equal(vepsTranslator.t('activity-moved', { sprintf: ['ITEM', 'SOURCE', 'DESTINATION'] }), 'Sirttud ITEM azjaspäi SOURCE azjaha DESTINATION');
   assert.equal(vepsTranslator.t('activity-imported', { sprintf: ['ITEM', 'DESTINATION', 'SOURCE'] }), 'Importiruitud ITEM azjaha DESTINATION azjaspäi SOURCE');
   assert.equal(vepsTranslator.t('activity-removed-label', { sprintf: ['LABEL', 'CARD'] }), "Heittud znam 'LABEL' azjaspäi CARD");
+  assert.equal(vepsTranslator.t('attachment-delete-pop'), 'Tartutadud failan heitämine om pördutamatoi. Ei sa pördutada.');
+  assert.equal(vepsTranslator.t('move-all-attachments-to-gridfs'), 'Sirdä kaik tartutadud failad MongoDB GridFS -kaičusehe');
+  assert.equal(vepsTranslator.t('s3-settings-save-failed'), 'Ei voind kaita S3 -valičusid.');
   assert.equal(vepsTranslator.t('left-of-list'), 'Valitud lugetišen huralpäi');
   assert.equal(vepsTranslator.t('delete-duplicate-empty-lists-migration'), 'Heitä tühjiden lugetišiden dublikatad');
   assert.equal(vepsTranslator.t('error-list-doesNotExist'), 'Necidä lugetišt ei ole.');
