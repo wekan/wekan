@@ -1530,7 +1530,7 @@
   "delete-user-confirm-popup": "Möchten Sie dieses Benutzerkonto wirklich löschen? Die Aktion kann nicht rückgängig gemacht werden.",
   "delete-team-confirm-popup": "Sind Sie sicher, daß Sie dieses Team löschen wollen? Es gibt keine Möglichkeit, das rückgängig zu machen.",
   "delete-org-confirm-popup": "Sind Sie sicher, daß Sie diese Organisation löschen wollen? Es gibt keine Möglichkeit, das rückgängig zu machen.",
-  "accounts-allowUserDelete": "Erlaube Benutzern ihr Benutzerkonto selbst zu löschen",
+  "accounts-allowUserDelete": "accountDaj Qaw' lo'wI' 'e' yIchaw'",
   "hide-minicard-label-text": "Labeltext auf Minikarte ausblenden",
   "show-desktop-drag-handles": "Desktop-Ziehpunkte anzeigen",
   "lock-list-width-resize": "tebHa' SIQ chaw'moH/chaw'Ha'moH tlhabmey botlh",
