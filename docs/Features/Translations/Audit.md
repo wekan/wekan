@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 11,864 |
+| Corrected | 11,867 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 3,982 |
+| Pending review or repair | 3,979 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,250** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,253** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `6ef6e535e6dac01c8a6541cf1a3e87c1f0fb76f7` — 6 Cornish calendar/settings labels repaired using [Akademi Kernewek vocabulary](https://www.cornishdictionary.org.uk/sites/default/files/GerlyverPDF_20190723.pdf). Assembled grammar and calendar-name renderings remain low confidence; Persian, Hebrew, Coptic, country and Hijri-variant findings still need review. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; live browser verification is unavailable.
+Latest translation fix: **2026-09-13**, local commit `b642a5f53bfbf9df4b646a17ab454130aa41c37c` — 3 Cornish Ethiopian/Amete Alem and Indian national calendar labels repaired using [Akademi vocabulary](https://www.cornishdictionary.org.uk/sites/default/files/GerlyverPDF_20190723.pdf) and [GeoNames country names](https://www.geonames.org/ET/other-names-for-ethiopia.html). Assembled grammar remains low confidence. Persian, Hebrew, Coptic and Hijri variants still need review. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; live browser verification is unavailable.
 
 **Review follow-up:** Silesian `sandstorm-raw-mongodb` remains pending: its wording overlaps Polish and existing Silesian technical strings, but dictionary searches did not establish the full phrase as correct Silesian. Keep the current value until stronger language evidence supports retaining or replacing it.
 
