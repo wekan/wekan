@@ -80,14 +80,14 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 14,851 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 993 pending review or repair.
-The correction inventory records 16,775 exact before/after values,
+findings: 14,855 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 989 pending review or repair.
+The correction inventory records 16,779 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
 German cron label, which now uses the actual tool name Cron.
-The largest original finding queues remain in Veps (252) and Standard Moroccan
+The largest original finding queues remain in Veps (248) and Standard Moroccan
 Tamazight (595). Silesian database terminology and 17 Tigre
 calendar findings need language-specific review. Restored and unflagged
 values, low-confidence wording and browser rendering remain unverified.
@@ -99,8 +99,8 @@ Transifex: the evidence includes 4,061 pulled changes and 16,020 additional
 local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
-changes are implemented in local commit 02383540a; translation repairs have resumed. Latest translation fix is bd1b57aac,
-covering notification scope, signed-in support and archive help;
+changes are implemented in local commit 02383540a; translation repairs have resumed. Latest translation fix is 1d93c1a86,
+covering search, worker permissions, unsaved state and deletion warnings;
 progress counts are updated above.
 All correction/rendering checks pass. Latest full Node verification before
 that batch: 1,015 suites, zero failures;
@@ -1166,6 +1166,18 @@ verification; the local tool is still starting before compilation.
 and updates maintainer tooling:
 
 **Maintenance scripts** - explicit translation uploads and repository mirrors.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1d93c1a86">Repair Veps search and permission warnings</a>. Thanks to xet7.</summary>
+
+Replace four Finnish values. Preserve the Enter key, worker-only movement,
+self-assignment and commenting, the unsaved description state, and irreversible
+loss of all swimlane actions. All 16,779 corrections and positive/negative
+runtime rendering and placeholder checks pass. There are 989 pending original
+findings, including 248 Veps findings. Composed grammar requires fluent-speaker
+review; browser and restored/unflagged validation remain outstanding.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/bd1b57aac">Repair Veps notification and archive help</a>. Thanks to xet7.</summary>
