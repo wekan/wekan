@@ -85426,5 +85426,19 @@
     "before": "Ethiopic Amete Alem",
     "after": "Ikirangamisi ca Amete Alem ca Etiyopiya",
     "reason": "Replace English country calendar labels and foreign Fars wording with Rundi, preserving Jalali/Amete Alem identities. Ubushinwa/Ubuyapani attested at https://wol.jw.org/run/wol/d/r82/lp-ru/2019482 ; Ubuperesi at https://www.jw.org/run/ivyasohowe/ibinyamakuru/wp20150501/bibiliya-ivyacukuwe/ ; Etiyopiya at https://www.jw.org/run/ivyabona-vya-yehova/Adrese/etiyopiya/ . Existing and published Ikirangamisi terminology retained. Complete assembled grammar remains low confidence; religious/national and Hijri variants remain pending."
+  },
+  {
+    "locale": "rn",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "Ikirangamisi c’igihugu c’Ubuhindi",
+    "reason": "Replace English Indian national calendar and Saudi Islamic labels with Rundi, preserving national and moon-sighting distinctions and Hijri identity. Ubuhindi and national c’igihugu terminology attested at https://www.jw.org/run/amakuru/akarere/ubuhindi/ ; kubona/ukwezi moon vocabulary at https://wol.jw.org/run/wol/d/r82/lp-ru/2007121 and https://www.jw.org/run/ivyasohowe/ibinyamakuru/umunara-wukwiga-ruheshi-2022/wari-ubizi-2022-2/ . Complete assembled grammar and retained Saudi Arabia spelling remain low confidence; Buddhist, Coptic and tabular epochs remain pending."
+  },
+  {
+    "locale": "rn",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "Ikirangamisi ca Hijri (Saudi Arabia, kubona ukwezi)",
+    "reason": "Replace English Indian national calendar and Saudi Islamic labels with Rundi, preserving national and moon-sighting distinctions and Hijri identity. Ubuhindi and national c’igihugu terminology attested at https://www.jw.org/run/amakuru/akarere/ubuhindi/ ; kubona/ukwezi moon vocabulary at https://wol.jw.org/run/wol/d/r82/lp-ru/2007121 and https://www.jw.org/run/ivyasohowe/ibinyamakuru/umunara-wukwiga-ruheshi-2022/wari-ubizi-2022-2/ . Complete assembled grammar and retained Saudi Arabia spelling remain low confidence; Buddhist, Coptic and tabular epochs remain pending."
   }
 ]
