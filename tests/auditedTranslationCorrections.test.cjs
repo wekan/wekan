@@ -214,5 +214,9 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.equal(cache['ve-PP']['calendar-system-islamic-umalqura'], "Islaman kalendar' (Hijri, Umm al-Qura)");
   assert.notEqual(cache['ve-PP']['calendar-system-islamic'], cache['ve-PP']['calendar-system-islamic-umalqura']);
   assert.doesNotMatch(cache['ve-PP']['calendar-system-buddhist'] + cache['ve-PP']['calendar-system-islamic'], /Buddhist|Islamic/);
+  assert.equal(cache['ve-PP']['calendar-system-indian'], "Indijan nacionaline kalendar'");
+  assert.equal(cache['ve-PP']['calendar-system-roc'], "Minguo (Kitain Tazovaldkundan kalendar')");
+  assert.notEqual(cache['ve-PP']['calendar-system-roc'], cache['ve-PP']['calendar-system-chinese']);
+  assert.doesNotMatch(cache['ve-PP']['calendar-system-indian'] + cache['ve-PP']['calendar-system-roc'], /Indian national|Republic of China/);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });

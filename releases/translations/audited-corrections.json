@@ -112397,5 +112397,19 @@
     "before": "Islamic Umm al-Qura",
     "after": "Islaman kalendar' (Hijri, Umm al-Qura)",
     "reason": "Replace English Buddhist/Islamic descriptors with Veps genitives buddizman/islaman, attested in indexed copies of the Veps Wikipedia Sidnei and Pnompen' articles; direct article fetches failed. Combine with dictionary-attested kalendar'. Preserve Hijri/Umm al-Qura identifiers and distinguish the variant. Composed calendar labels need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "Indijan nacionaline kalendar'",
+    "reason": "Replace English calendar descriptors with Veps vocabulary: Indijan nacionaline is attested in indexed copies of Veps Wikipedia Indii/Deli; Kitain Tazovaldkundan is attested in indexed Mongolii. Direct article fetches failed. Preserve National meaning and the Minguo identifier, using dictionary-attested kalendar'. Composed technical labels need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "calendar-system-roc",
+    "before": "Republic of China",
+    "after": "Minguo (Kitain Tazovaldkundan kalendar')",
+    "reason": "Replace English calendar descriptors with Veps vocabulary: Indijan nacionaline is attested in indexed copies of Veps Wikipedia Indii/Deli; Kitain Tazovaldkundan is attested in indexed Mongolii. Direct article fetches failed. Preserve National meaning and the Minguo identifier, using dictionary-attested kalendar'. Composed technical labels need fluent review."
   }
 ]
