@@ -73435,5 +73435,166 @@
     "before": "Vous pouvez archiver une liste pour l'enlever du tableau tout en conservant son activité.",
     "after": "Vos poloz bodjî ene djivêye ås årtchives po l' oister do tåvlea et wårder l' activité.",
     "reason": "Replace audited French card/board controls and destructive confirmations with Walloon, preserving top/bottom direction, archive alternative and no-undo warnings. Star vocabulary: https://dtw.walon.org/index.php?query=stoele ; undo verb: https://www.beljike.be/djw-fw-francais-wallon-frances-walon-d/ ; existing card/list/member terminology reused. Full sentence grammar remains low confidence; source placeholders retained."
+  },
+  {
+    "locale": "wa",
+    "key": "board-delete-notice",
+    "before": "La suppression est définitive. Vous perdrez toutes les listes, cartes et actions associées à ce tableau.",
+    "after": "Li disfaçaedje est po todi. Vos pièrdoz totes les djivêyes, les cåtes eyet les accions raloyeyes a ci tåvlea ci.",
+    "reason": "Replace audited French deletion/archive warnings with Walloon using existing vocabulary, retaining affected objects, permanent deletion, no undo and archive recovery. History vocabulary: https://dtw.walon.org/index.php?query=istwere ; undo verb https://www.beljike.be/djw-fw-francais-wallon-frances-walon-d/ . Full sentence grammar and technical history terminology remain low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "card-delete-notice",
+    "before": "La suppression est définitive. Vous perdrez toutes les actions associées à cette carte.",
+    "after": "Li disfaçaedje est po todi. Vos pièrdoz totes les accions raloyeyes a cisse cåte ci.",
+    "reason": "Replace audited French deletion/archive warnings with Walloon using existing vocabulary, retaining affected objects, permanent deletion, no undo and archive recovery. History vocabulary: https://dtw.walon.org/index.php?query=istwere ; undo verb https://www.beljike.be/djw-fw-francais-wallon-frances-walon-d/ . Full sentence grammar and technical history terminology remain low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "card-delete-pop",
+    "before": "Toutes les actions vont être supprimées du suivi d'activités et vous ne pourrez plus utiliser cette carte. Cela est irréversible.",
+    "after": "Totes les accions seront oistêyes del djivêye des activités, eyet vos n' pôroz nén ridrovî l' cåte. On n' pout nén disfé çoula.",
+    "reason": "Replace audited French deletion/archive warnings with Walloon using existing vocabulary, retaining affected objects, permanent deletion, no undo and archive recovery. History vocabulary: https://dtw.walon.org/index.php?query=istwere ; undo verb https://www.beljike.be/djw-fw-francais-wallon-frances-walon-d/ . Full sentence grammar and technical history terminology remain low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "delete-board-confirm-popup",
+    "before": "Toutes les listes, cartes, étiquettes et activités seront supprimées et vous ne pourrez pas retrouver le contenu du tableau. Cela est irréversible.",
+    "after": "Totes les djivêyes, les cåtes, les etikètes eyet les activités seront disfacêyes, eyet vos n' pôroz nén ravoir li contnou do tåvlea. On n' pout nén disfé çoula.",
+    "reason": "Replace audited French deletion/archive warnings with Walloon using existing vocabulary, retaining affected objects, permanent deletion, no undo and archive recovery. History vocabulary: https://dtw.walon.org/index.php?query=istwere ; undo verb https://www.beljike.be/djw-fw-francais-wallon-frances-walon-d/ . Full sentence grammar and technical history terminology remain low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "custom-field-delete-pop",
+    "before": "Cette action est irréversible. Elle supprimera ce champ personnalisé de toutes les cartes et détruira son historique.",
+    "after": "On n' pout nén disfé çoula. Çoula va oister ci tchamp da vosse ci di totes les cåtes et distrure si istwere.",
+    "reason": "Replace audited French deletion/archive warnings with Walloon using existing vocabulary, retaining affected objects, permanent deletion, no undo and archive recovery. History vocabulary: https://dtw.walon.org/index.php?query=istwere ; undo verb https://www.beljike.be/djw-fw-francais-wallon-frances-walon-d/ . Full sentence grammar and technical history terminology remain low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "label-delete-pop",
+    "before": "Cette action est irréversible. Elle supprimera cette étiquette de toutes les cartes ainsi que l'historique associé.",
+    "after": "On n' pout nén disfé çoula. Çoula va oister cisse etikète ci di totes les cåtes et distrure si istwere.",
+    "reason": "Replace audited French deletion/archive warnings with Walloon using existing vocabulary, retaining affected objects, permanent deletion, no undo and archive recovery. History vocabulary: https://dtw.walon.org/index.php?query=istwere ; undo verb https://www.beljike.be/djw-fw-francais-wallon-frances-walon-d/ . Full sentence grammar and technical history terminology remain low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "list-delete-pop",
+    "before": "Toutes les actions seront supprimées du fil d'activité et il ne sera plus possible de les récupérer. Cela est irréversible.",
+    "after": "Totes les accions seront oistêyes del djivêye des activités, eyet vos n' pôroz nén ravoir li djivêye. On n' pout nén disfé çoula.",
+    "reason": "Replace audited French deletion/archive warnings with Walloon using existing vocabulary, retaining affected objects, permanent deletion, no undo and archive recovery. History vocabulary: https://dtw.walon.org/index.php?query=istwere ; undo verb https://www.beljike.be/djw-fw-francais-wallon-frances-walon-d/ . Full sentence grammar and technical history terminology remain low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "swimlane-delete-pop",
+    "before": "Toutes les actions vont être supprimées du suivi d'activités et vous ne pourrez plus utiliser ce couloir. Cela est irréversible.",
+    "after": "Totes les accions seront oistêyes del djivêye des activités, eyet vos n' pôroz nén ravoir li coridôr. On n' pout nén disfé çoula.",
+    "reason": "Replace audited French deletion/archive warnings with Walloon using existing vocabulary, retaining affected objects, permanent deletion, no undo and archive recovery. History vocabulary: https://dtw.walon.org/index.php?query=istwere ; undo verb https://www.beljike.be/djw-fw-francais-wallon-frances-walon-d/ . Full sentence grammar and technical history terminology remain low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "vote-delete-pop",
+    "before": "La suppression est définitive. Vous perdrez toutes les actions associées à ce vote.",
+    "after": "Li disfaçaedje est po todi. Vos pièrdoz totes les accions raloyeyes a ci vôtaedje ci.",
+    "reason": "Replace audited French deletion/archive warnings with Walloon using existing vocabulary, retaining affected objects, permanent deletion, no undo and archive recovery. History vocabulary: https://dtw.walon.org/index.php?query=istwere ; undo verb https://www.beljike.be/djw-fw-francais-wallon-frances-walon-d/ . Full sentence grammar and technical history terminology remain low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "poker-delete-pop",
+    "before": "La suppression est définitive. Vous perdrez toutes les actions associées à ce planning poker.",
+    "after": "Li disfaçaedje est po todi. Vos pièrdoz totes les accions raloyeyes a ci planning poker ci.",
+    "reason": "Replace audited French deletion/archive warnings with Walloon using existing vocabulary, retaining affected objects, permanent deletion, no undo and archive recovery. History vocabulary: https://dtw.walon.org/index.php?query=istwere ; undo verb https://www.beljike.be/djw-fw-francais-wallon-frances-walon-d/ . Full sentence grammar and technical history terminology remain low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "deletePokerPopup-title",
+    "before": "Supprimer ce planning poker ?",
+    "after": "Disfacer li planning poker?",
+    "reason": "Replace audited French deletion/archive warnings with Walloon using existing vocabulary, retaining affected objects, permanent deletion, no undo and archive recovery. History vocabulary: https://dtw.walon.org/index.php?query=istwere ; undo verb https://www.beljike.be/djw-fw-francais-wallon-frances-walon-d/ . Full sentence grammar and technical history terminology remain low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "list-archive-cards",
+    "before": "Déplacer toutes les cartes de cette liste vers les archives",
+    "after": "Mete totes les cåtes di cisse djivêye ci ås årtchives",
+    "reason": "Replace audited French deletion/archive warnings with Walloon using existing vocabulary, retaining affected objects, permanent deletion, no undo and archive recovery. History vocabulary: https://dtw.walon.org/index.php?query=istwere ; undo verb https://www.beljike.be/djw-fw-francais-wallon-frances-walon-d/ . Full sentence grammar and technical history terminology remain low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "list-archive-pop",
+    "before": "La liste ne sera pas visible sur le tableau après archivage.",
+    "after": "Li djivêye ni serè nén veyåve sol tåvlea après l' metaedje ås årtchives.",
+    "reason": "Replace audited French deletion/archive warnings with Walloon using existing vocabulary, retaining affected objects, permanent deletion, no undo and archive recovery. History vocabulary: https://dtw.walon.org/index.php?query=istwere ; undo verb https://www.beljike.be/djw-fw-francais-wallon-frances-walon-d/ . Full sentence grammar and technical history terminology remain low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "list-archive-suggest",
+    "before": "Vous pourrez plus tard restaurer la liste depuis les archives dans les paramètres du tableau.",
+    "after": "Vos pôroz pus tård rimete li djivêye di l' årtchive dins les apontiaedjes do tåvlea.",
+    "reason": "Replace audited French deletion/archive warnings with Walloon using existing vocabulary, retaining affected objects, permanent deletion, no undo and archive recovery. History vocabulary: https://dtw.walon.org/index.php?query=istwere ; undo verb https://www.beljike.be/djw-fw-francais-wallon-frances-walon-d/ . Full sentence grammar and technical history terminology remain low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "swimlane-archive-pop",
+    "before": "Le couloir ne sera pas visible sur le tableau après archivage.",
+    "after": "Li coridôr ni serè nén veyåve sol tåvlea après l' metaedje ås årtchives.",
+    "reason": "Replace audited French deletion/archive warnings with Walloon using existing vocabulary, retaining affected objects, permanent deletion, no undo and archive recovery. History vocabulary: https://dtw.walon.org/index.php?query=istwere ; undo verb https://www.beljike.be/djw-fw-francais-wallon-frances-walon-d/ . Full sentence grammar and technical history terminology remain low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "swimlane-archive-suggest",
+    "before": "Vous pourrez plus tard restaurer le couloir depuis les archives dans les paramètres du tableau.",
+    "after": "Vos pôroz pus tård rimete li coridôr di l' årtchive dins les apontiaedjes do tåvlea.",
+    "reason": "Replace audited French deletion/archive warnings with Walloon using existing vocabulary, retaining affected objects, permanent deletion, no undo and archive recovery. History vocabulary: https://dtw.walon.org/index.php?query=istwere ; undo verb https://www.beljike.be/djw-fw-francais-wallon-frances-walon-d/ . Full sentence grammar and technical history terminology remain low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "card-archive-pop",
+    "before": "La carte ne sera plus visible dans cette liste après archivage.",
+    "after": "Li cåte ni serè nén veyåve dins cisse djivêye ci après l' metaedje del cåte ås årtchives.",
+    "reason": "Replace audited French deletion/archive warnings with Walloon using existing vocabulary, retaining affected objects, permanent deletion, no undo and archive recovery. History vocabulary: https://dtw.walon.org/index.php?query=istwere ; undo verb https://www.beljike.be/djw-fw-francais-wallon-frances-walon-d/ . Full sentence grammar and technical history terminology remain low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "card-archive-suggest-cancel",
+    "before": "Vous pouvez, plus tard, restaurer une carte depuis les archives.",
+    "after": "Vos pôroz pus tård rimete li cåte di l' årtchive.",
+    "reason": "Replace audited French deletion/archive warnings with Walloon using existing vocabulary, retaining affected objects, permanent deletion, no undo and archive recovery. History vocabulary: https://dtw.walon.org/index.php?query=istwere ; undo verb https://www.beljike.be/djw-fw-francais-wallon-frances-walon-d/ . Full sentence grammar and technical history terminology remain low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "filter-show-archive",
+    "before": "Montrer les listes archivées",
+    "after": "Mostrer les djivêyes metowes ås årtchives",
+    "reason": "Replace audited French deletion/archive warnings with Walloon using existing vocabulary, retaining affected objects, permanent deletion, no undo and archive recovery. History vocabulary: https://dtw.walon.org/index.php?query=istwere ; undo verb https://www.beljike.be/djw-fw-francais-wallon-frances-walon-d/ . Full sentence grammar and technical history terminology remain low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "r-d-unarchive",
+    "before": "Restaurer la carte depuis les archives",
+    "after": "Rimete li cåte di l' årtchive",
+    "reason": "Replace audited French deletion/archive warnings with Walloon using existing vocabulary, retaining affected objects, permanent deletion, no undo and archive recovery. History vocabulary: https://dtw.walon.org/index.php?query=istwere ; undo verb https://www.beljike.be/djw-fw-francais-wallon-frances-walon-d/ . Full sentence grammar and technical history terminology remain low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "r-unarchive",
+    "before": "Restaurer depuis les archives",
+    "after": "Rimete di l' årtchive",
+    "reason": "Replace audited French deletion/archive warnings with Walloon using existing vocabulary, retaining affected objects, permanent deletion, no undo and archive recovery. History vocabulary: https://dtw.walon.org/index.php?query=istwere ; undo verb https://www.beljike.be/djw-fw-francais-wallon-frances-walon-d/ . Full sentence grammar and technical history terminology remain low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "r-unarchived",
+    "before": "Restauré depuis les archives",
+    "after": "Rimetou di l' årtchive",
+    "reason": "Replace audited French deletion/archive warnings with Walloon using existing vocabulary, retaining affected objects, permanent deletion, no undo and archive recovery. History vocabulary: https://dtw.walon.org/index.php?query=istwere ; undo verb https://www.beljike.be/djw-fw-francais-wallon-frances-walon-d/ . Full sentence grammar and technical history terminology remain low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "warn-list-archived",
+    "before": "attention : cette carte est dans une liste archivée",
+    "after": "Asteme: cisse cåte ci est dins ene djivêye metowe ås årtchives",
+    "reason": "Replace audited French deletion/archive warnings with Walloon using existing vocabulary, retaining affected objects, permanent deletion, no undo and archive recovery. History vocabulary: https://dtw.walon.org/index.php?query=istwere ; undo verb https://www.beljike.be/djw-fw-francais-wallon-frances-walon-d/ . Full sentence grammar and technical history terminology remain low confidence; placeholders preserved."
   }
 ]
