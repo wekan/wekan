@@ -3,7 +3,7 @@
 Design updated: **2026-09-13**.
 
 With no arguments, `releases/mirror.sh` and `releases/mirror.bat` open the same
-six-action menu:
+eight-action menu:
 
 1. Sync newest data from source to destination mirrors.
 2. Select source.
@@ -11,6 +11,8 @@ six-action menu:
 4. Check source and mirror Git/API access.
 5. Check where data is not mirrored yet.
 6. Exit.
+7. Mirror every repository of the selected GitHub organization.
+8. Add, edit, remove or select organizations.
 
 GitHub is the default source; GitLab, Codeberg and SourceForge are the default
 mirrors. The source selector supports all four forges. Changing source removes
@@ -33,7 +35,8 @@ and `mirror-sourceforge` scripts (`.sh` on Unix, `.bat` on Windows).
 Build menu **Tools → Mirror repo to forges** opens this menu on both platforms.
 Shared implementations are `tools/mirror-menu.mjs`, `tools/mirror-settings.mjs`,
 `tools/mirror-active-forges.mjs` and `tools/mirror-archive.mjs`.
-Discussions, projects and wiki are excluded.
+Single-repository mode excludes Discussions, projects and wiki. Organization mode
+includes enabled wiki and Projects V2 data; Discussions remain excluded.
 
 Run these commands yourself from the checkout:
 
@@ -46,6 +49,10 @@ bash releases/mirror.sh --check-online
 bash releases/mirror.sh --check-missing
 # Unattended sync using saved settings:
 bash releases/mirror.sh --sync
+# Organization inventory without remote writes:
+bash releases/mirror.sh --preview-organization
+# Sync the selected organization using its saved destination namespaces:
+bash releases/mirror.sh --sync-organization
 # One active destination, using the selected source:
 bash releases/mirror-codeberg.sh
 ```
@@ -61,7 +68,8 @@ Temporary read-only Git repositories are removed after comparison.
 copies missing data and `--code` includes branches/tags. `--target` selects one
 active mirror. Git updates do not force changes or delete destination refs.
 When destination `main` has merge commits from older mirror runs, the tool
-merges destination and selected-source `main` in `.tools/wekan-<mirror>` and pushes the
+merges the source default branch in a repository-scoped `git/wekan-<mirror>`
+checkout and pushes the
 combined history. It inherits the root checkout's Git author identity, preserves
 local changes, and aborts conflicting merges. Other divergent branches/tags
 are reported for manual resolution.
@@ -88,7 +96,8 @@ set `CODEBERG_TOKEN` or `GITEA_TOKEN` with repository write permission; metadata
 uses the Tea login. `WEKAN_CODEBERG_LOGIN` optionally selects its login name.
 GitLab uploads use `GITLAB_TOKEN`, `GLAB_TOKEN`, `OAUTH_TOKEN` or the existing
 GitLab login through `glab api --form`. Use current versions of the forge CLIs.
-GitHub asset downloads use the authenticated `gh api` command and verify file
+GitHub asset downloads try the public release file URL, falling back to the
+optionally authenticated API for private binaries, and verify file
 size and the SHA-256 digest when GitHub provides one. File bodies stream to disk;
 uploads use Node's filesystem-backed Blob without loading the entire binary
 into memory. HTTP binary uploads default to a one-hour timeout; set
@@ -100,7 +109,8 @@ there are several, select its mount point with `WEKAN_SOURCEFORGE_TRACKER`.
 If no Tracker exists, apply mode tries the Allura admin API to install one at
 `github-issues` (or the configured mount), then verifies it exists before copying
 tickets. This needs project administrator permission. Preview only lists the
-planned tool. Existing tools are preserved; projects and wiki are never copied.
+planned tool. Existing tools are preserved. Organization wiki Git tools and project export
+branches are described below.
 Nonstandard
 tracker states can be selected with `WEKAN_SOURCEFORGE_OPEN_STATUS` and
 `WEKAN_SOURCEFORGE_CLOSED_STATUS` (defaults `open` and `closed`). SFTP needs working
@@ -156,11 +166,78 @@ SourceForge source selection therefore requires read access to FRS over SSH.
 Native SourceForge pull requests, reviews and milestones are unavailable; linked
 PR tickets retain their original PR identity where their marker supplies one.
 
-GitHub's existing archive paths below stay unchanged. Other sources use
-`.tools/mirror/sources/gitlab/`, `sources/codeberg/` or `sources/sourceforge/`, with
-the same `issues`, `pulls` and `releases` layout. Namespacing prevents equal issue
-numbers on different forges from overwriting or retiring each other's files.
-Switching source preserves every previous source archive.
+Archives are isolated by source host, organization and repository. For example,
+`.tools/mirror/github.com/wekan/wekan/` and
+`.tools/mirror/gitlab.com/wekan/wekan/` cannot overwrite one another. GitLab
+subgroup namespaces retain their path segments. Switching source preserves every
+previous source archive. The previous flat WeKan GitHub archive is migrated on an
+apply run: existing files are moved into the new namespace; collisions retain the
+new file and move the previous file under an `old-...` name. Manual files and
+historical versions are kept. Preview does not migrate or create archive files.
+
+## Organizations and destination namespaces
+
+Option 8 manages `.tools/mirror/organizations.json`; defaults select `wekan`.
+Adding or editing asks for a GitHub source organization and a destination GitLab
+namespace, Codeberg organization and SourceForge project. Blank destination
+answers keep the suggested value. GitLab supports subgroup paths. Selecting an
+organization changes option 7 and the organization command flags. Removing an
+organization removes its configuration only; its archived files remain.
+
+```json
+{
+  "version": 1,
+  "selected": "wekan",
+  "organizations": [
+    {
+      "source": "wekan",
+      "destinations": {
+        "gitlab": "wekan",
+        "codeberg": "wekan",
+        "sourceforge": "wekan"
+      }
+    }
+  ]
+}
+```
+
+Organization mode explicitly reads GitHub, even if the single-repository source
+setting is another forge. It uses enabled destinations from `settings.txt`,
+excluding GitHub. It discovers all accessible organization repositories on every
+run, including forks and archived repositories. Complete discovery happens before
+remote writes. Missing GitLab/Codeberg repositories are created without an initial
+README; SourceForge repositories use distinct Git tool mounts in the configured
+project. Groups/organizations/SourceForge projects must already exist and the
+maintainer needs permission to create repositories or tools. Authentication errors
+are not interpreted as missing repositories. Private sources require private
+mirrors; a public existing mirror or SourceForge public project is reported as
+unsupported rather than receiving private data.
+
+Each repository exports its issues, comments, labels, milestones, PR patches,
+reviews, releases and binaries through the existing engine. The source repository's
+actual default branch is used for merge recovery. Repositories with issues disabled
+still export PRs and their issue-style conversations. Errors in one repository or
+data category do not stop the remaining repositories. Reports and terminal output
+are saved under `.tools/log/mirror-organization-<timestamp>/`.
+
+Enabled wiki repositories are retained locally as `wiki.git` with files and Git
+history. GitLab/Codeberg use their native wiki Git repositories; empty native wikis
+are initialized through their API. Conflicting history is merged without forcing
+updates; conflicting edits are reported and the merge is aborted. SourceForge uses
+a dedicated wiki Git tool, preserving Markdown and history rather than pretending
+GitHub Markdown is a native Allura wiki. Disabled wikis have no wiki Git/API requests.
+Enabled but inaccessible/uninitialized Git repositories are reported and retried.
+
+Enabled Projects V2 export paginates projects, items, field values and nested
+labels/assignees/reviewers/PR links. JSON preserves project text, dates, draft items,
+field definitions/options/iterations, multi-select and issue fields, views and
+workflow/status metadata. GitLab, Codeberg and SourceForge receive portable project
+JSON on a separate `wekan-mirror-projects` branch. Native automation, permissions,
+accounts and interactive boards are not recreated. Project visibility is preserved:
+private projects linked to public repositories remain local and are reported,
+rather than published on a public branch. API/scope/redaction errors preserve the
+previous complete archive and retry later. Disabled projects are never queried.
+The retired Projects Classic API is not used.
 
 ## Persistent files, additions and history
 
@@ -168,12 +245,25 @@ Files live under the source issue number or release version, independently of
 the destination forge:
 
 ```text
-.tools/mirror/
+.tools/mirror/github.com/wekan/wekan/
+  index.html               # repository page
+  index.csv                # repository item inventory
+  issues/index.html        # issue listing
+  issues/index.csv
   issues/1234/
     issue.json
     README.md
     comments.json
-    attachment-<url-hash>-ORIGINALFILENAME
+    index.html             # issue plus all comments
+    index.csv              # comments and attachment identities
+    2000/                  # original comment ID
+      comment.json
+      index.html           # empty: suppress directory listing
+      index.csv            # attachment inventory
+      attachment-<url-hash>-ORIGINALFILENAME
+    body/                  # links in the issue description
+      index.html           # empty
+      attachment-<url-hash>-ORIGINALFILENAME
     mirror-index.json
     old-YYYY-MM-DD_HH-MM-SS-ORIGINALFILENAME
   pulls/1234/
@@ -210,10 +300,15 @@ available; common image types receive an extension when necessary.
 `mirror-index.json` records current file identities, names, source URLs, sizes,
 SHA-256 hashes, local timestamps and HTTP cache validators. Source metadata is
 saved as JSON with two-space indentation. Issue text and release notes are also
-readable in `README.md`. GitHub-hosted file/image attachments are found in issue
-bodies, issue comments and reviews. PR patch files and release source
+readable in `README.md`. All absolute HTTP/HTTPS links in issue bodies,
+comments and reviews are archived in the corresponding comment directory, including
+images, videos, other files and webpage HTML snapshots. PR patch files and release source
 archives are downloaded as well as uploaded release binaries. No files are
-unpacked or executed. External website links remain in the source JSON/Markdown.
+unpacked or executed. Original links remain in source JSON/Markdown; webpage HTML is an attachment,
+not recursively crawled. Requests carry no forge credentials/cookies to prose links.
+Public DNS addresses are checked and pinned for each request and redirect; local,
+private and credential-bearing URLs are rejected and reported. Content-Disposition
+and Content-Type select safe filenames, including `.html` for webpages.
 
 On every normal run, new source files are added and missing local files are
 retried. An unchanged immutable GitHub asset with matching local metadata is
@@ -281,8 +376,8 @@ API references: [GitHub source archives](https://docs.github.com/en/rest/repos/c
 [SourceForge file transfers](https://sourceforge.net/p/forge/documentation/Release%20Files%20for%20Download/).
 
 GitHub Discussions are disabled in WeKan and are never fetched or mirrored.
-Issue comments and pull request reviews are separate supported data. Projects
-and wiki are also excluded.
+Issue comments and pull request reviews are separate supported data. Enabled
+projects and wiki are included only in organization mode.
 
 Menu, settings, source-switch identity, native API shapes, read-only checks, Git
 ancestry, Windows dispatch, archive retention and interrupted retries are tested
@@ -290,3 +385,79 @@ with offline fixtures. Live remote synchronization is a maintainer-run operation
 API references: [GitHub CLI API](https://cli.github.com/manual/gh_api),
 [GitLab releases](https://docs.gitlab.com/api/releases/),
 [Gitea API](https://docs.gitea.com/api/1.24/).
+
+## Offline HTML and CSV
+
+Open `.tools/mirror/index.html` for the archive catalogue, then choose host,
+organization and repository. Each host and organization also has `index.html`
+and `index.csv`. A repository page is at
+`.tools/mirror/github.com/wekan/wekan/index.html`; its issue listing is at
+`issues/index.html`, and `issues/1000/index.html` displays the issue and comments.
+The corresponding CSV files list item identities, text, source URLs, relative
+paths and attachment hashes/sizes. Images and videos use local files; the pages
+need no CDN, JavaScript or Internet connection. When existing `markdown-it`
+dependencies are installed, prose renders as Markdown with raw HTML disabled;
+otherwise it remains readable escaped text. Linked images always use archived files.
+All comment attachment directories have an empty `index.html`; their contents are
+linked by the parent issue page rather than listed as a directory.
+
+Regenerate repository HTML from updated CSV without accessing any forge:
+
+```sh
+node tools/mirror-static-rebuild.mjs .tools/mirror/github.com/wekan/wekan
+```
+
+GitLab uploads files as project Markdown uploads and references them in the same
+mirrored comment; Codeberg attaches to the actual comment ID. SourceForge attaches
+to the discussion post. Description links use native issue/project uploads where
+supported. SourceForge description files remain archived locally. GitHub's public
+REST API does not support issue/comment file uploads; these are reported instead
+of inventing an endpoint. Unsupported API/size/authentication failures preserve
+local files and are retried. Existing comment prose is preserved; only missing
+attachment references are appended. Content hashes prevent duplicate uploads on a
+successful rerun and allow changed versions to be attached alongside older ones.
+
+Organization and linked-file regressions use offline Git/API/download fixtures;
+menu tests exercise actual prompts. No live remote writes are performed by tests.
+Additional references: [GitHub organization repository inventory](https://docs.github.com/en/rest/repos/repos#list-organization-repositories),
+[GitHub Projects GraphQL schema](https://docs.github.com/en/graphql/reference/projects),
+[GitLab wiki API](https://docs.gitlab.com/api/wikis/),
+[GitLab Markdown uploads](https://docs.gitlab.com/api/project_markdown_uploads/),
+[Gitea comment attachment API](https://docs.gitea.com/api/1.24/operations/issue-create-issue-comment-attachment/).
+
+## Rate limits and tokenless GitHub reads
+
+Every HTTP/API request is serialized per host and paced. GitHub reads use
+`GH_TOKEN`, `GITHUB_TOKEN` or an existing `gh` login if available. With none,
+public REST reads use direct HTTPS without requiring `gh`; an invalid token
+falls back to public reads. Private data and remote writes still require suitable
+authentication. GitHub's unauthenticated REST allowance is lower, so a large
+organization can take considerably longer to export without a token.
+
+The transports honor `Retry-After`, `X-RateLimit-Remaining`/`X-RateLimit-Reset` and
+`RateLimit-Remaining`/`RateLimit-Reset`, including GitHub primary/secondary limits.
+Repeated throttling waits progressively longer and stops after six attempts,
+retaining its cooldown for the next run. Waiting occurs in intervals of at most
+60 seconds and is logged. A timeout starts after the wait, rather than expiring
+while the request is queued. GitLab and Tea API commands include response headers;
+file uploads/downloads and SourceForge HTTP requests use the same limit handling.
+Git/SSH/SFTP commands respect saved cooldowns and retain a cooldown when their
+errors report throttling. Their protocols do not provide REST quota headers.
+
+Cooldowns persist in `.tools/mirror/rate-limits.json` and
+`.tools/mirror/github-rate-limit.json`. These contain host/resource timestamps,
+never tokens. GitHub GraphQL Projects requires authentication: without it,
+organization mode retains a public projects landing-page HTML attachment instead
+of claiming a complete structured project export. Public REST issue/comment data
+still produces the complete offline issue pages. A failed public page download is
+reported and retried; prior structured project archives are preserved.
+
+See [GitHub rate limits](https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api)
+and [GitHub API best practices](https://docs.github.com/en/rest/using-the-rest-api/best-practices-for-using-the-rest-api).
+
+Verification on 2026-09-13: all 1,014 Node suites pass; final targeted archive,
+organization, API and rate-limit checks pass. The static navigation/attachment
+browser regression passes in Chromium and Firefox. WebKit is registered and
+syntax-checked but cannot launch locally because ICU 74 is missing; Docker is
+unavailable for the documented container fallback. Live uploads and native remote
+wiki initialization still require maintainer-run verification.

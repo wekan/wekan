@@ -3,14 +3,19 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
-import { spawnSync, spawn } from 'node:child_process';
+import { spawnSync } from 'node:child_process';
+import { Readable } from 'node:stream';
 import { pipeline } from 'node:stream/promises';
 import { createHash } from 'node:crypto';
-import { archiveSnapshot, archivedAssets, downloadUrl, resolveFileLinks } from './mirror-archive.mjs';
-import { forges, loadSettings } from './mirror-settings.mjs';
+import { archiveSnapshot, archivedAssets, downloadUrl, resolveFileLinks, archivedCommentFiles } from './mirror-archive.mjs';
+import { limitedFetch, limitedCliJson, commandHost, waitCommand, noteCommandFailure } from './mirror-rate-limits.mjs';
+import { githubJson, githubRequest } from './mirror-github.mjs';
+import { loadSettings } from './mirror-settings.mjs';
 
+import { repository, organization, destinationNamespaces, repositoryForges, repositoryArchive, sourceForgeMount } from './mirror-repository.mjs';
+const forges = repositoryForges(repository);
 export const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const source = 'repos/wekan/wekan';
+const source = `repos/${organization}/${repository}`;
 const encode = encodeURIComponent;
 export const marker = url => `<!-- wekan-mirror:${url} -->`;
 export const provenance = item => `Mirrored from ${item.html_url}.\nOriginal author: ${item.user?.login || item.author?.login || 'unknown'}; created: ${item.created_at || 'unknown'}.${item.milestone ? `\nMilestone: [${item.milestone.title}](${item.milestone.html_url}).` : ''}${item.assignees?.length ? `\nSource assignees: ${item.assignees.map(a => `[${a.login}](${a.html_url})`).join(', ')}.` : ''}`;
@@ -33,10 +38,10 @@ export function activeMirrors(script) {
   return mirrors;
 }
 export function mirroredUrl(text) {
-  const marked = String(text || '').match(/<!-- wekan-mirror:(https:\/\/(?:github\.com\/wekan\/wekan|gitlab\.com\/wekan\/wekan|codeberg\.org\/wekan\/wekan|sourceforge\.net\/(?:p|projects)\/wekan)\/[^\s>]+) -->/);
+  const marked = String(text || '').match(/<!-- wekan-mirror:(https:\/\/(?:github\.com\/[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+|gitlab\.com\/[A-Za-z0-9_.-]+(?:\/[A-Za-z0-9_.-]+)*\/[A-Za-z0-9_.-]+|codeberg\.org\/[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+|sourceforge\.net\/(?:p|projects)\/[A-Za-z0-9_.-]+)\/[^\s>]+) -->/);
   if (marked) return marked[1];
   // Recognize the previous engine's footer; never deduplicate by title.
-  return String(text || '').match(/Mirrored from (https:\/\/github\.com\/wekan\/wekan\/(?:issues|pull)\/\d+)/i)?.[1];
+  return String(text || '').match(/Mirrored from (https:\/\/github\.com\/[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+\/(?:issues|pull)\/\d+)/i)?.[1];
 }
 export async function pages(request, endpoint, { key, start = 1, size = 100, pageKey = 'page', sizeKey = 'per_page' } = {}) {
   const all = [];
@@ -60,31 +65,30 @@ export async function pages(request, endpoint, { key, start = 1, size = 100, pag
   }
   return all;
 }
-export function command(tool, args, input) {
-  const p = spawnSync(tool, args, { cwd: root, input, encoding: 'utf8', maxBuffer: 128 * 1024 * 1024, shell: false, windowsHide: true });
-  if (p.error || p.status !== 0) throw new Error(`${tool} failed: ${p.error?.message || p.stderr?.trim() || `exit ${p.status}`}`);
+export function command(tool, args, input, options = {}) {
+  waitCommand(commandHost(tool,args));
+  const p = spawnSync(tool, args, { cwd: root, input, encoding: 'utf8', maxBuffer: 128 * 1024 * 1024, shell: false, windowsHide: true, ...options });
+  if (p.error || p.status !== 0) { const message=`${tool} failed: ${p.error?.message || p.stderr?.trim() || `exit ${p.status}`}`;noteCommandFailure(commandHost(tool,args),message);throw new Error(message); }
   return p.stdout;
 }
-function jsonCommand(tool, args, input) {
-  const result = command(tool, args, input);
-  return result.trim() ? JSON.parse(result) : {};
-}
 export function cliApi(kind, endpoint, method = 'GET', data) {
-  if (kind === 'github') return jsonCommand('gh', ['api', '--method', method, ...(data ? ['--input', '-'] : []), endpoint], data && JSON.stringify(data));
-  if (kind === 'gitlab') return jsonCommand('glab', ['api', '--hostname', 'gitlab.com', '--method', method, ...(data ? ['--input', '-'] : []), endpoint], data && JSON.stringify(data));
-  return jsonCommand('tea', ['api', '--repo', 'https://codeberg.org/wekan/wekan', ...(process.env.WEKAN_CODEBERG_LOGIN ? ['--login', process.env.WEKAN_CODEBERG_LOGIN] : []), '--method', method, ...(data ? ['--data', '@-'] : []), endpoint], data && JSON.stringify(data));
+  if (kind === 'github') return githubJson(endpoint,method,data);
+  if (kind === 'gitlab') return limitedCliJson('gitlab.com','glab', ['api', '--hostname', 'gitlab.com', '--method', method, ...(data ? ['--input', '-'] : []), endpoint], data && JSON.stringify(data));
+  return limitedCliJson('codeberg.org','tea', ['api', '--repo', forges.codeberg.url, ...(process.env.WEKAN_CODEBERG_LOGIN ? ['--login', process.env.WEKAN_CODEBERG_LOGIN] : []), '--method', method, ...(data ? ['--data', '@-'] : []), endpoint], data && JSON.stringify(data));
 }
 export async function httpJson(url, options = {}) {
-  const response = await fetch(url, { ...options, signal: options.signal || AbortSignal.timeout(120000) });
+  const response = await limitedFetch(url, { ...options, signal: options.signal || AbortSignal.timeout(120000) });
   if (!response.ok) throw new Error(`HTTP ${response.status} at ${new URL(url).origin}${new URL(url).pathname}`);
   const text = await response.text();
   return text ? JSON.parse(text) : {};
 }
 export async function sourceSnapshot(api = cliApi) {
   const get = endpoint => api('github', endpoint);
-  const issues = await pages(get, `${source}/issues?state=all&sort=created&direction=asc`);
-  const comments = await pages(get, `${source}/issues/comments?sort=created&direction=asc`);
+  const issuesEnabled = process.env.WEKAN_MIRROR_HAS_ISSUES !== 'false';
   const pulls = await pages(get, `${source}/pulls?state=all&sort=created&direction=asc`);
+  const issues = issuesEnabled ? await pages(get, `${source}/issues?state=all&sort=created&direction=asc`) : pulls.map(p => ({ ...p, pull_request: { patch_url: p.patch_url } }));
+  const comments = issuesEnabled ? await pages(get, `${source}/issues/comments?sort=created&direction=asc`) : [];
+  if (!issuesEnabled) for (const pull of pulls) for (const comment of await pages(get, `${source}/issues/${pull.number}/comments`)) comments.push({ ...comment, issue_url: `${source}/${pull.number}` });
   const inline = await pages(get, `${source}/pulls/comments?sort=created&direction=asc`);
   const grouped = new Map();
   for (const comment of [...comments, ...inline]) {
@@ -110,7 +114,7 @@ export async function sourceSnapshot(api = cliApi) {
   }
   const releases = await pages(get, `${source}/releases`);
   for (const release of releases) release.assets = await pages(get, `${source}/releases/${release.id}/assets`);
-  return { issues, releases, labels: await pages(get, `${source}/labels`), milestones: await pages(get, `${source}/milestones?state=all`), capturedAt: new Date().toISOString() };
+  return { issues, releases, labels: issuesEnabled ? await pages(get, `${source}/labels`) : [...new Map(issues.flatMap(i => i.labels || []).map(l => [l.name, l])).values()], milestones: issuesEnabled ? await pages(get, `${source}/milestones?state=all`) : [...new Map(issues.map(i => i.milestone).filter(Boolean).map(m => [m.title, m])).values()], repository, organization, capturedAt: new Date().toISOString() };
 }
 export async function selectedSnapshot(kind = 'github', api = cliApi, sourceForge = new SourceForgeAdapter()) {
   if (kind === 'github') {
@@ -164,14 +168,14 @@ export async function selectedSnapshot(kind = 'github', api = cliApi, sourceForg
     release.tarball_url = gitlab ? `${forges[kind].url}/-/archive/${ref}/wekan-${ref}.tar.gz` : `${forges[kind].url}/archive/${ref}.tar.gz`;
     releases.push(release);
   }
-  return { issues, releases, labels, milestones, sourceName: kind, sourceUrl: forges[kind].url, capturedAt: new Date().toISOString() };
+  return { issues, releases, labels, milestones, sourceName: kind, sourceUrl: forges[kind].url, repository, organization, capturedAt: new Date().toISOString() };
 }
 export async function sourceForgeSnapshot(adapter, { run = command, fetchFile = downloadUrl, directory = path.join(root, '.tools/tmp/mirror-sourceforge') } = {}) {
   fs.mkdirSync(directory, { recursive: true });
   await adapter.prepare({ labels: [], milestones: [] }, false);
   const issues = [], labels = new Map();
   for (const raw of await adapter.issues()) {
-    const sourceUrl = raw.url ? new URL(raw.url, 'https://sourceforge.net').href : `https://sourceforge.net/p/wekan/${adapter.tracker}/${raw.ticket_num}/`;
+    const sourceUrl = raw.url ? new URL(raw.url, 'https://sourceforge.net').href : `https://sourceforge.net/p/${destinationNamespaces.sourceforge}/${adapter.tracker}/${raw.ticket_num}/`;
     const issue = { sourceMetadata: raw, number: raw.ticket_num, title: raw.summary, body: raw.description, html_url: mirroredUrl(raw.description) || sourceUrl, source_url: sourceUrl, state: adapter.isClosed(raw) ? 'closed' : 'open', user: { login: raw.reported_by || raw.created_by || 'unknown' }, created_at: raw.created_date, labels: (raw.labels || []).map(name => ({ name, color: '808080' })) };
     for (const label of issue.labels) labels.set(label.name, label);
     if (/\/pull\/\d+$/.test(issue.html_url)) issue.pull_request = { patch_url: `${issue.html_url}.patch` };
@@ -180,7 +184,7 @@ export async function sourceForgeSnapshot(adapter, { run = command, fetchFile = 
   }
   const user = process.env.WEKAN_SOURCEFORGE_USER || 'wekan';
   if (!/^[a-zA-Z0-9_-]+$/.test(user)) throw new Error('Invalid SourceForge SSH username');
-  const groups = new Map(), remoteRoot = '/home/frs/project/wekan';
+  const groups = new Map(), remoteRoot = `/home/frs/project/${destinationNamespaces.sourceforge}`;
   const visit = relative => {
     const output = run('sftp', ['-oBatchMode=yes', '-oConnectTimeout=30', '-b', '-', `${user}@frs.sourceforge.net`], `ls -l "${remoteRoot}${relative ? `/${relative}` : ''}"\n`);
     for (const line of output.split(/\r?\n/)) {
@@ -194,7 +198,7 @@ export async function sourceForgeSnapshot(adapter, { run = command, fetchFile = 
       const filePath = relative ? `${relative}/${name}` : name;
       if (type === 'd') { visit(filePath); continue; }
       const list = groups.get(relative) || [];
-      list.push({ id: `sourceforge:${filePath}`, name, size: Number(size), sourceName: 'sourceforge', browser_download_url: `https://downloads.sourceforge.net/project/wekan/${filePath.split('/').map(encode).join('/')}` }); groups.set(relative, list);
+      list.push({ id: `sourceforge:${filePath}`, name, size: Number(size), sourceName: 'sourceforge', browser_download_url: `https://downloads.sourceforge.net/project/${destinationNamespaces.sourceforge}/${filePath.split('/').map(encode).join('/')}` }); groups.set(relative, list);
     }
   };
   visit('');
@@ -217,7 +221,7 @@ export async function sourceForgeSnapshot(adapter, { run = command, fetchFile = 
     }
     releases.push({ tag_name: manifest?.tag || `sourceforge-${safeSegment(relative || 'root')}`, name: manifest?.tag || relative || 'SourceForge root files', body: notes, html_url: manifest?.source || sourceUrl, source_url: sourceUrl, published_at: manifest?.published_at, target_commitish: 'main', assets, sourceMetadata: manifest || { directory: relative, syntheticRelease: true } });
   }
-  return { issues, releases, labels: [...labels.values()], milestones: [], sourceName: 'sourceforge', sourceUrl: forges.sourceforge.url, capturedAt: new Date().toISOString() };
+  return { issues, releases, labels: [...labels.values()], milestones: [], sourceName: 'sourceforge', sourceUrl: forges.sourceforge.url, repository, organization, capturedAt: new Date().toISOString() };
 }
 async function sourceComments(adapter, item, pull) {
   const gitlab = adapter.kind === 'gitlab', id = item.iid || item.number;
@@ -235,10 +239,10 @@ async function sourceComments(adapter, item, pull) {
 const commentBody = c => `${marker(c.html_url)}\n\n${c.review_state ? `Source review: ${c.review_state}.\n\n` : ''}${c.path ? `Review comment at ${c.path}${c.line ? `:${c.line}` : ''}:\n\n` : ''}${body(c)}`;
 
 export class ForgeAdapter {
-  constructor(kind, api = cliApi, uploadMultipart = (endpoint, file) => jsonCommand('glab', ['api', '--hostname', 'gitlab.com', '--method', 'POST', '--form', `file=@${file}`, endpoint]), uploadGithub = (release, asset, file) => jsonCommand('gh', ['api', '--method', 'POST', '--header', 'Content-Type: application/octet-stream', '--input', file, `https://uploads.github.com/repos/wekan/wekan/releases/${release.id}/assets?name=${encode(asset.name)}`])) {
+  constructor(kind, api = cliApi, uploadMultipart = (endpoint, file) => limitedCliJson('gitlab.com','glab', ['api', '--hostname', 'gitlab.com', '--method', 'POST', '--form', `file=@${file}`, endpoint]), uploadGithub = (release, asset, file) => limitedCliJson('github.com','gh', ['api', '--method', 'POST', '--header', 'Content-Type: application/octet-stream', '--input', file, `https://uploads.github.com/repos/${organization}/${repository}/releases/${release.id}/assets?name=${encode(asset.name)}`])) {
     this.kind = kind; this.api = api;
     this.uploadMultipart = uploadMultipart; this.uploadGithub = uploadGithub;
-    this.base = kind === 'gitlab' ? 'projects/wekan%2Fwekan' : 'repos/wekan/wekan';
+    this.base = kind === 'gitlab' ? `projects/${encode(destinationNamespaces.gitlab + '/' + repository)}` : `repos/${kind === 'github' ? organization : destinationNamespaces.codeberg}/${repository}`;
     this.labels = new Map(); this.milestones = new Map();
   }
   request(endpoint, method, data) { return this.api(this.kind, `${this.base}/${endpoint}`, method, data); }
@@ -276,6 +280,25 @@ export class ForgeAdapter {
   }
   async comments(issue) { return this.list(`issues/${this.id(issue)}/${this.kind === 'gitlab' ? 'notes' : 'comments'}`); }
   async addComment(issue, comment) { return this.request(`issues/${this.id(issue)}/${this.kind === 'gitlab' ? 'notes' : 'comments'}`, 'POST', { body: commentBody(comment) }); }
+  async editComment(issue, comment, text) {
+    if (comment.mirrorDescription) return this.request(`issues/${this.id(issue)}`,this.kind==='gitlab'?'PUT':'PATCH',this.kind==='gitlab'?{description:text}:{body:text});
+    const endpoint = this.kind === 'gitlab' ? `issues/${this.id(issue)}/notes/${comment.id}` : `issues/comments/${comment.id}`;
+    return this.request(endpoint,this.kind === 'gitlab' ? 'PUT':'PATCH',{body:text});
+  }
+  async uploadCommentAttachment(issue, comment, attachment) {
+    if (this.kind === 'github') throw new Error('GitHub has no public REST issue/comment attachment upload endpoint');
+    const endpoint = this.kind === 'gitlab' ? `${this.base}/uploads` : comment.mirrorDescription ? `${this.base}/issues/${this.id(issue)}/assets` : `${this.base}/issues/comments/${comment.id}/assets`;
+    let uploaded;
+    if (this.kind === 'gitlab') uploaded = await this.uploadMultipart(endpoint,attachment.local);
+    else {
+      const token = await this.assetAccess();
+      const form = new FormData(); form.append('attachment',await fs.openAsBlob(attachment.local),attachment.name);
+      uploaded = await httpJson(`https://codeberg.org/api/v1/${endpoint}`,{method:'POST',headers:{Authorization:`token ${token}`},body:form,signal:AbortSignal.timeout(3600000)});
+    }
+    const url = this.kind === 'gitlab' ? new URL(uploaded.full_path || uploaded.url,forges.gitlab.url + '/').href : uploaded.browser_download_url;
+    if (!url || !/^https:\/\//.test(url)) throw new Error('Attachment upload returned no download URL');
+    return `[${attachment.name.replace(/[\[\]\\]/g,'_')}](${url})`;
+  }
   async close(issue) { return this.request(`issues/${this.id(issue)}`, this.kind === 'gitlab' ? 'PUT' : 'PATCH', this.kind === 'gitlab' ? { state_event: 'close' } : { state: 'closed' }); }
   async releases() { return this.list('releases'); }
   releaseText(r) { return this.kind === 'gitlab' ? r.description : r.body; }
@@ -309,14 +332,14 @@ export class ForgeAdapter {
     }
     if (this.kind === 'gitlab') {
       if (!uploaded.full_path && !uploaded.url) throw new Error('GitLab upload did not return a file URL');
-      const url = uploaded.full_path ? `https://gitlab.com${uploaded.full_path}` : `https://gitlab.com/wekan/wekan${uploaded.url}`;
+      const url = uploaded.full_path ? `https://gitlab.com${uploaded.full_path}` : `${forges.gitlab.url}${uploaded.url}`;
       await this.request(`releases/${encode(release.tag_name)}/assets/links`, 'POST', { name: asset.name, url, link_type: 'package' });
     }
   }
 }
 
 export class SourceForgeAdapter {
-  constructor(request = httpJson) { this.kind = 'sourceforge'; this.http = request; this.base = 'https://sourceforge.net/rest/p/wekan'; }
+  constructor(request = httpJson, upload = fetch) { this.kind = 'sourceforge'; this.nativeCommentAttachments = true; this.upload = upload===fetch?limitedFetch:upload; this.http = request; this.base = `https://sourceforge.net/rest/p/${destinationNamespaces.sourceforge}`; }
   async request(endpoint, method = 'GET', data) {
     const token = process.env.SOURCEFORGE_TOKEN;
     if (method !== 'GET' && !token) throw new Error('Set SOURCEFORGE_TOKEN to a SourceForge OAuth bearer token to copy tracker data');
@@ -326,9 +349,9 @@ export class SourceForgeAdapter {
     if (apply && !process.env.SOURCEFORGE_TOKEN) throw new Error('Set SOURCEFORGE_TOKEN to copy SourceForge tracker data');
     let project = await this.request('');
     const trackers = (project.tools || []).filter(t => t.name === 'tickets');
-    const wanted = process.env.WEKAN_SOURCEFORGE_TRACKER;
+    const wanted = repository !== 'wekan' || destinationNamespaces.sourceforge !== 'wekan' ? sourceForgeMount(repository, '-issues') : process.env.WEKAN_SOURCEFORGE_TRACKER;
     let tracker = wanted ? trackers.find(t => t.mount_point === wanted) : trackers.length === 1 ? trackers[0] : null;
-    if (!trackers.length) {
+    if (!trackers.length || (wanted && !tracker)) {
       const mount = wanted || 'github-issues';
       if (!/^[a-zA-Z0-9_-]+$/.test(mount) || (project.tools || []).some(t => t.mount_point === mount)) throw new Error('SourceForge tracker mount is invalid or occupied');
       if (!apply) {
@@ -373,7 +396,18 @@ export class SourceForgeAdapter {
     issue.threadId = id;
     return pages(async p => (await this.request(p)).thread, `${this.tracker}/_discuss/thread/${encode(id)}`, { key: 'posts', start: 0, sizeKey: 'limit' });
   }
-  async addComment(issue, comment) { return this.request(`${this.tracker}/_discuss/thread/${encode(issue.threadId)}/new`, 'POST', { text: commentBody(comment) }); }
+  async addComment(issue, comment) { const result = await this.request(`${this.tracker}/_discuss/thread/${encode(issue.threadId)}/new`, 'POST', { text: commentBody(comment) }); return result.post || result; }
+  async uploadCommentAttachment(issue,comment,attachment) {
+    if (!process.env.SOURCEFORGE_TOKEN) throw new Error('Set SOURCEFORGE_TOKEN for SourceForge comment attachments');
+    const slug = comment.slug;
+    if (typeof slug!=='string' || !/^[A-Za-z0-9_/-]+$/.test(slug)) throw new Error('SourceForge comment has no valid post slug');
+    const form = new FormData(); form.append('file_info',await fs.openAsBlob(attachment.local),attachment.name);
+    const url = `${this.base}/${this.tracker}/_discuss/thread/${encode(issue.threadId)}/${slug}/attach`;
+    const response = await this.upload(url,{method:'POST',headers:{Authorization:`Bearer ${process.env.SOURCEFORGE_TOKEN}`},body:form,redirect:'manual',signal:AbortSignal.timeout(3600000)});
+    await response.body?.cancel();
+    if (!response.ok && response.status!==302 && response.status!==303) throw new Error(`SourceForge comment attachment HTTP ${response.status}`);
+    return `[${attachment.name}](${url.replace('/rest/','/').replace(/attach$/,'attachment/')}${encode(attachment.name)})`;
+  }
   async close(issue) {
     const full = await this.detail(issue);
     if (!full) throw new Error('SourceForge returned no ticket to close');
@@ -385,6 +419,26 @@ export class SourceForgeAdapter {
   }
 }
 
+export async function syncCommentAttachments(adapter,snapshot,issue,target,comment,destination,apply,record,localRoot=root) {
+  const attachments = archivedCommentFiles(localRoot,snapshot,issue,comment);
+  let text = destination.body || destination.text || '';
+  for (const attachment of attachments) {
+    const identity = `<!-- wekan-mirror-file:${createHash('sha256').update(attachment.source).digest('hex')}:${attachment.sha256} -->`;
+    if (text.includes(identity)) continue;
+    const uploadedName = `${attachment.sha256.slice(0,12)}-${attachment.name}`;
+    if (adapter.nativeCommentAttachments && (destination.attachments || []).some(a=>a.url?.endsWith('/'+encode(uploadedName)))) continue;
+    record('planned',`comment attachment ${comment.html_url || issue.html_url}: ${attachment.name}`);
+    if (!apply) continue;
+    try {
+      if (!adapter.uploadCommentAttachment || (!adapter.editComment && !adapter.nativeCommentAttachments)) throw new Error(`${adapter.kind} has no implemented comment attachment API; local file retained`);
+      const markdown = await adapter.uploadCommentAttachment(target,destination,{...attachment,name:uploadedName});
+      text += `\n\n${identity}\n${markdown}`;
+      if (adapter.editComment) await adapter.editComment(target,destination,text);
+      destination.body = text;
+      record('copied',`comment attachment ${attachment.name}`);
+    } catch(error) { record('failed',`comment attachment ${attachment.name}: ${error.message}`); }
+  }
+}
 export async function syncIssues(adapter, snapshot, apply, record) {
   await adapter.prepare(snapshot, apply, record);
   const targets = await adapter.issues(); // A failed inventory must never mean empty.
@@ -393,7 +447,7 @@ export async function syncIssues(adapter, snapshot, apply, record) {
     const url = mirroredUrl(adapter.text(target));
     if (url && existing.has(url)) throw new Error(`Duplicate existing mirror identity ${url}; resolve before synchronization`);
     if (url) existing.set(url, target);
-    const ownUrl = target.html_url || target.web_url || target.url || (adapter.kind === 'sourceforge' ? `https://sourceforge.net/p/wekan/${adapter.tracker}/${target.ticket_num}/` : undefined);
+    const ownUrl = target.html_url || target.web_url || target.url || (adapter.kind === 'sourceforge' ? `https://sourceforge.net/p/${destinationNamespaces.sourceforge}/${adapter.tracker}/${target.ticket_num}/` : undefined);
     if (ownUrl && !existing.has(ownUrl)) existing.set(ownUrl, target);
   }
   for (const issue of snapshot.issues) {
@@ -406,13 +460,18 @@ export async function syncIssues(adapter, snapshot, apply, record) {
         target = await adapter.create(issue); existing.set(issue.html_url, target);
         record('copied', `issue ${issue.html_url}`);
       }
+      if (adapter.kind!=='sourceforge') await syncCommentAttachments(adapter,snapshot,issue,target,{...issue,id:'body'},{...target,mirrorDescription:true,body:adapter.text(target)},apply,record);
       if (issue.commentsToMirror?.length) {
         const comments = await adapter.comments(target);
         const urls = new Set(comments.flatMap(c => [mirroredUrl(c.body || c.text), c.html_url || c.web_url || c.url || (adapter.kind === 'gitlab' ? `${target.web_url}#note_${c.id}` : undefined)]).filter(Boolean));
         for (const comment of issue.commentsToMirror) {
-          if (urls.has(comment.html_url)) continue;
+          if (urls.has(comment.html_url)) {
+            const destination = comments.find(c=>mirroredUrl(c.body || c.text) === comment.html_url || c.html_url === comment.html_url);
+            if (destination) await syncCommentAttachments(adapter,snapshot,issue,target,comment,destination,apply,record);
+            continue;
+          }
           record('planned', `comment ${comment.html_url}`);
-          if (apply) { await adapter.addComment(target, comment); urls.add(comment.html_url); record('copied', `comment ${comment.html_url}`); }
+          if (apply) { const destination = await adapter.addComment(target, comment); if (destination) await syncCommentAttachments(adapter,snapshot,issue,target,comment,destination,apply,record); urls.add(comment.html_url); record('copied', `comment ${comment.html_url}`); }
         }
       }
       // Repair an interrupted first import without changing source-open tickets
@@ -467,11 +526,17 @@ async function downloadAsset(asset, directory) {
   const file = path.join(directory, `${asset.id}-${safeSegment(asset.name)}`);
   if (fs.existsSync(file) && fs.statSync(file).size === asset.size && (!asset.digest || await digestMatches(file, asset.digest))) return file;
   const part = `${file}.part`;
-  const child = spawn('gh', ['api', `${source}/releases/assets/${asset.id}`, '--header', 'Accept: application/octet-stream'], { cwd: root, shell: false, windowsHide: true });
-  let stderr = '';
-  child.stderr.on('data', c => { stderr = (stderr + c).slice(-2000); });
-  const exited = new Promise((resolve, reject) => { child.once('error', reject); child.once('exit', code => code === 0 ? resolve() : reject(new Error(`gh asset download failed: ${stderr || code}`))); });
-  await Promise.all([pipeline(child.stdout, fs.createWriteStream(part)), exited]);
+  let downloaded;
+  try { downloaded = await downloadUrl(asset.browser_download_url,{temporary:directory}); } catch(error) {
+    if(!/HTTP (?:401|403|404)/.test(error.message))throw error;
+  }
+  if(downloaded?.file && !downloaded.missing) {
+    fs.copyFileSync(downloaded.file,part);
+    if(path.resolve(downloaded.file).startsWith(path.resolve(directory)+path.sep))fs.rmSync(downloaded.file);
+  } else {
+    const response=await githubRequest(`${source}/releases/assets/${asset.id}`,{headers:{Accept:'application/octet-stream'}});
+    await pipeline(Readable.fromWeb(response.body),fs.createWriteStream(part));
+  }
   if (fs.statSync(part).size !== asset.size || (asset.digest && !await digestMatches(part, asset.digest))) throw new Error(`Size/digest mismatch downloading ${asset.name}`);
   fs.renameSync(part, file); return file;
 }
@@ -481,11 +546,15 @@ async function digestMatches(file, digest) {
   for await (const chunk of fs.createReadStream(file)) hash.update(chunk);
   return `sha256:${hash.digest('hex')}`.toLowerCase() === digest.toLowerCase();
 }
-export function syncGit(mirror, run = command, exists = fs.existsSync, tools = path.join(root, '.tools')) {
+export function syncGit(mirror, run = command, exists = fs.existsSync, tools) {
   const sourceName = mirror.sourceName || 'github', sourceUrl = forges[sourceName].git;
+  tools ||= path.join(repositoryArchive(root,repository,sourceName==='github'?organization:destinationNamespaces[sourceName],{github:'github.com',gitlab:'gitlab.com',codeberg:'codeberg.org',sourceforge:'sourceforge.net'}[sourceName]),'git');
+  const defaultBranch = mirror.defaultBranch || process.env.WEKAN_MIRROR_DEFAULT_BRANCH || 'main';
   const gitdir = path.join(tools, `wekan-${sourceName}-mirror.git`);
+  fs.mkdirSync(tools, { recursive: true });
   if (!exists(gitdir)) run('git', ['clone', '--mirror', sourceUrl, gitdir]);
   else run('git', ['-C', gitdir, 'fetch', 'origin']);
+  if(!run('git',['-C',gitdir,'for-each-ref','--format=%(refname)','refs/heads','refs/tags']).trim()) return false;
   try {
     run('git', ['-C', gitdir, 'push', mirror.url, 'refs/heads/*:refs/heads/*', 'refs/tags/*:refs/tags/*']);
   } catch (original) {
@@ -493,24 +562,24 @@ export function syncGit(mirror, run = command, exists = fs.existsSync, tools = p
     // is no longer an ancestor of GitHub main; preserve those merge commits.
     const checkout = path.join(tools, `wekan-${mirror.name}`);
     try {
-      if (!exists(checkout)) run('git', ['clone', '--branch', 'main', mirror.url, checkout]);
+      if (!exists(checkout)) run('git', ['clone', '--branch', defaultBranch, mirror.url, checkout]);
       if (run('git', ['-C', checkout, 'status', '--porcelain']).trim()) throw new Error('Mirror checkout has local changes; preserved');
-      if (run('git', ['-C', checkout, 'symbolic-ref', '--short', 'HEAD']).trim() !== 'main') throw new Error('Mirror checkout is not on main; preserved');
+      if (run('git', ['-C', checkout, 'symbolic-ref', '--short', 'HEAD']).trim() !== defaultBranch) throw new Error('Mirror checkout is not on main; preserved');
       for (const key of ['user.name', 'user.email']) {
         const identity = run('git', ['-C', root, 'config', key]).trim();
         if (!identity) throw new Error(`Configure ${key} in the WeKan checkout for mirror merge commits`);
         run('git', ['-C', checkout, 'config', key, identity]);
       }
       for (const url of [mirror.url, sourceUrl]) {
-        run('git', ['-C', checkout, 'fetch', url, 'main']);
+        run('git', ['-C', checkout, 'fetch', url, defaultBranch]);
         try { run('git', ['-C', checkout, 'merge', '--no-edit', 'FETCH_HEAD']); }
         catch (error) {
           try { run('git', ['-C', checkout, 'merge', '--abort']); } catch { /* Original error is reported. */ }
           throw error;
         }
       }
-      run('git', ['-C', checkout, 'push', mirror.url, 'HEAD:refs/heads/main']);
-      const other = run('git', ['-C', gitdir, 'for-each-ref', '--format=%(refname)', 'refs/heads', 'refs/tags']).trim().split(/\r?\n/).filter(ref => ref && ref !== 'refs/heads/main');
+      run('git', ['-C', checkout, 'push', mirror.url, `HEAD:refs/heads/${defaultBranch}`]);
+      const other = run('git', ['-C', gitdir, 'for-each-ref', '--format=%(refname)', 'refs/heads', 'refs/tags']).trim().split(/\r?\n/).filter(ref => ref && ref !== `refs/heads/${defaultBranch}`);
       if (other.some(ref => !/^refs\/(heads|tags)\//.test(ref))) throw new Error('Unexpected Git ref in branch/tag inventory');
       if (other.length) run('git', ['-C', gitdir, 'push', mirror.url, ...other.map(ref => `${ref}:${ref}`)]);
     } catch (error) { throw new Error(`${original.message}; merge-preserving retry: ${error.message}`); }
@@ -521,7 +590,8 @@ export async function sourceForgeReleases(snapshot, apply, download, record, run
   if (!/^[a-zA-Z0-9_-]+$/.test(user)) throw new Error('Invalid SourceForge SSH username');
   const remote = `${user}@frs.sourceforge.net`;
   for (const release of snapshot.releases) {
-    const dir = `/home/frs/project/wekan/GitHub-releases/${safeSegment(release.tag_name)}`;
+    const parent = `/home/frs/project/${destinationNamespaces.sourceforge}/GitHub-releases${repository === 'wekan' ? '' : `/${repository}`}`;
+    const dir = `${parent}/${safeSegment(release.tag_name)}`;
     try {
       if (release.draft) { record('unsupported', `SourceForge draft release ${release.tag_name}: kept private at GitHub`); continue; }
       const listed = run('sftp', ['-oBatchMode=yes', '-oConnectTimeout=30', '-b', '-', remote], `-ls -1 "${dir}"
@@ -545,7 +615,7 @@ export async function sourceForgeReleases(snapshot, apply, download, record, run
           // retried rather than mistaken for completed assets on the next run.
           const local = file.replace(/\\/g, '/');
           if (/["\r\n]/.test(local)) throw new Error('SFTP cannot safely encode this checkout path');
-          run('sftp', ['-oBatchMode=yes', '-oConnectTimeout=30', '-b', '-', remote], `-mkdir "/home/frs/project/wekan/GitHub-releases"\n-mkdir "${dir}"\nput "${local}" "${dir}/${f.name}.part"\nrename "${dir}/${f.name}.part" "${dir}/${f.name}"\n`);
+          run('sftp', ['-oBatchMode=yes', '-oConnectTimeout=30', '-b', '-', remote], `-mkdir "/home/frs/project/${destinationNamespaces.sourceforge}/GitHub-releases"\n-mkdir "${parent}"\n-mkdir "${dir}"\nput "${local}" "${dir}/${f.name}.part"\nrename "${dir}/${f.name}.part" "${dir}/${f.name}"\n`);
           record('copied', `SourceForge ${release.tag_name}/${f.name}`);
         } catch (error) { record('failed', `SourceForge ${release.tag_name}/${f.name}: ${error.message}`); }
       }
@@ -590,7 +660,7 @@ export async function main(args = process.argv.slice(2)) {
   fs.mkdirSync(logdir, { recursive: true }); fs.mkdirSync(temporary, { recursive: true });
   process.env.TMPDIR = temporary;
   if (process.platform === 'win32') { process.env.TMP = temporary; process.env.TEMP = temporary; }
-  const report = { started: new Date().toISOString(), apply, source: forges[selectedSource].url, archive: [], mirrors: {}, limitations: ['PRs become linked issues; issue comments, review summaries and inline review comments are copied. Review states, authors and timestamps appear as provenance; accounts, votes and reactions are not recreated.', 'GitHub issue attachments/images are archived locally; destination Markdown retains original URLs. External website links are preserved in JSON/Markdown rather than downloaded.', 'Actions workflow files are mirrored with Git; execution logs, secrets and cross-forge executable CI configuration are not copied.', 'SourceForge release notes and binaries use File Release System directories, not native GitLab/Gitea release objects. SourceForge milestones remain in source issue provenance.', 'GitHub Discussions, projects and wiki are excluded. Draft releases are archived locally but not published to destinations. Existing destination text is preserved; only missing items/comments/assets are copied.'] };
+  const report = { started: new Date().toISOString(), apply, source: forges[selectedSource].url, archive: [], mirrors: {}, limitations: ['PRs become linked issues; issue comments, review summaries and inline review comments are copied. Review states, authors and timestamps appear as provenance; accounts, votes and reactions are not recreated.', 'Public linked files and webpage HTML are archived per comment with offline HTML/CSV indexes. GitLab and Codeberg comments receive uploaded attachments. Unsupported attachment APIs and inaccessible links are reported; original URLs and local files remain available.', 'Actions workflow files are mirrored with Git; execution logs, secrets and cross-forge executable CI configuration are not copied.', 'SourceForge release notes and binaries use File Release System directories, not native GitLab/Gitea release objects. SourceForge milestones remain in source issue provenance.', 'GitHub Discussions, projects and wiki are excluded. Draft releases are archived locally but not published to destinations. Existing destination text is preserved; only missing items/comments/assets are copied.'] };
   const log = line => { console.log(line); fs.appendFileSync(path.join(logdir, 'status.txt'), `${line}\n`); };
   let lastSave = 0;
   const save = (force = true) => {
@@ -602,6 +672,8 @@ export async function main(args = process.argv.slice(2)) {
   try {
     snapshot = snapshotFile ? JSON.parse(fs.readFileSync(snapshotFile, 'utf8')) : await selectedSnapshot(selectedSource);
     if (!Array.isArray(snapshot.issues) || !Array.isArray(snapshot.releases) || !Array.isArray(snapshot.labels) || !Array.isArray(snapshot.milestones) || !snapshot.capturedAt) throw new Error('Invalid GitHub snapshot');
+    if ((snapshot.organization || 'wekan') !== organization) throw new Error('Snapshot does not match selected organization');
+    if ((snapshot.repository || 'wekan') !== repository) throw new Error('Snapshot does not match selected repository');
     if ((snapshot.sourceName || 'github') !== selectedSource) throw new Error('Snapshot does not match selected source');
     fs.writeFileSync(path.join(logdir, 'source.json'), JSON.stringify(snapshot));
   }
@@ -618,7 +690,7 @@ export async function main(args = process.argv.slice(2)) {
     return;
   }
   let archive = { assets: new Map(), sources: new Map() };
-  try { archive = archivedAssets(root, snapshot.releases, selectedSource); } catch (error) { archiveRecord('failed', error.message); }
+  try { archive = archivedAssets(root, snapshot.releases, selectedSource, repository); } catch (error) { archiveRecord('failed', error.message); }
   for (const release of snapshot.releases) {
     release.sourceFiles = (archive.sources.get(release.tag_name) || []).map(({ local, ...file }) => {
       const id = `archive:${release.tag_name}:${file.name}`;
@@ -632,8 +704,9 @@ export async function main(args = process.argv.slice(2)) {
     if (args.includes('--code')) {
       try {
         if (apply) {
-          syncGit(mirror);
-          record('copied', 'Git branches and tags (preserving destination main merges; no forced updates or deletions)');
+          const populated=syncGit(mirror);
+          if(populated===false) record('checked','Empty source Git repository: no branches or tags to push');
+          else record('copied', 'Git branches and tags (preserving destination main merges; no forced updates or deletions)');
         } else record('planned', 'Git branches and tags');
       } catch (error) { record('failed', `Git: ${error.message}`); }
     }

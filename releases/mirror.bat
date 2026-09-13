@@ -1,5 +1,6 @@
 @echo off
 setlocal
+REM Shared menu supports organization management, linked files and offline HTML/CSV.
 REM The documented Windows checkout is %USERPROFILE%\Downloads\repos\wekan.
 REM Resolve this script so other checkout locations also work.
 for %%I in ("%~dp0..") do set "WEKAN_ROOT=%%~fI"

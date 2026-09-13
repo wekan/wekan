@@ -46,7 +46,7 @@ const hash = text => createHash('sha256').update(text).digest('hex');
         return write(url, temporary);
       },
     };
-    return { root, bodies, records, requests, snapshot, options, asset, attachment, issueDir: path.join(root, '.tools/mirror/issues/1234'), releaseDir: path.join(root, '.tools/mirror/releases/10.00') };
+    return { root, bodies, records, requests, snapshot, options, asset, attachment, issueDir: path.join(root, '.tools/mirror/github.com/wekan/wekan/issues/1234'), releaseDir: path.join(root, '.tools/mirror/github.com/wekan/wekan/releases/10.00') };
   }
   const read = (dir, file) => fs.readFileSync(path.join(dir, file), 'utf8');
   const oldFiles = (dir, name) => fs.readdirSync(dir).filter(f => f.startsWith('old-') && f.includes(name));
@@ -135,7 +135,7 @@ const hash = text => createHash('sha256').update(text).digest('hex');
     f.bodies.set(i.pullMetadata.patch_url, 'diff patch');
     f.snapshot.releases[0].assets.push(f.asset(2, 'readme asset', 'readme.md'), f.asset(3, 'safe asset', '../CON:bad.zip'));
     await m.archiveSnapshot(f.snapshot, f.options);
-    const pullDir = path.join(f.root, '.tools/mirror/pulls/1234');
+    const pullDir = path.join(f.root, '.tools/mirror/github.com/wekan/wekan/pulls/1234');
     assert.ok(!fs.existsSync(f.issueDir));
     assert.equal(read(pullDir, 'pull-request.patch'), 'diff patch');
     assert.deepEqual(JSON.parse(read(pullDir, 'reviews.json')), i.reviews);
@@ -173,7 +173,7 @@ const hash = text => createHash('sha256').update(text).digest('hex');
     const asset = f.snapshot.releases[0].assets[0]; asset.sourceName = 'gitlab'; delete asset.size;
     f.bodies.set(asset.browser_download_url, 'first');
     await m.archiveSnapshot(f.snapshot, f.options);
-    const nativeDir = path.join(f.root, '.tools/mirror/sources/gitlab/issues/1234');
+    const nativeDir = path.join(f.root, '.tools/mirror/gitlab.com/wekan/wekan/issues/1234');
     assert.equal(JSON.parse(read(nativeDir, 'issue.json')).title, 'GitLab issue');
     assert.equal(read(f.issueDir, 'issue.json'), original);
     assert.equal(m.archivedAssets(f.root, f.snapshot.releases, 'gitlab').assets.size, 1);

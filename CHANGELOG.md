@@ -98,8 +98,9 @@ retains the categorized findings. Not all wrong translations originated on
 Transifex: the evidence includes 4,061 pulled changes and 16,020 additional
 local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
-The requested mirror-menu interruption is completed; translation repairs have
-resumed with Veps list and attachment/storage fixes; latest local fix dbf214bda. Latest full Node verification: 1,011 suites, zero failures;
+The requested organization, linked-file/static-archive and rate-limit mirror
+changes are implemented; translation repairs resume next. Latest translation
+fix remains dbf214bda; counts are unchanged. Latest full Node verification: 1,014 suites, zero failures;
 the final mirror retry adjustment also passes its targeted regression.
 
 Node regressions resolved on 2026-09-13: the original audit ran 986 suites

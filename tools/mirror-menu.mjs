@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createInterface } from 'node:readline/promises';
+import { loadOrganizations, saveOrganizations } from './mirror-organizations.mjs';
 import { forges, loadSettings, saveSettings } from './mirror-settings.mjs';
 import { root, command, cliApi, httpJson, activeMirrors } from './mirror-active-forges.mjs';
 
@@ -16,17 +17,17 @@ export function changeSource(settings, source) {
 }
 
 // All external commands are injectable: tests never contact or write to a forge.
-export async function sync(settings, { preview = false, run = command, directory = root, log = console.log, platform = process.platform } = {}) {
+export async function sync(settings, { preview = false, run = command, directory = root, log = console.log, platform = process.platform, environment = {}, sourceSnapshotFile } = {}) {
   if (!settings.mirrors.length) throw new Error('No active destination mirrors. Select mirrors first.');
   const temporary = path.join(directory, '.tools/tmp');
   fs.mkdirSync(temporary, { recursive: true });
   const work = fs.mkdtempSync(path.join(temporary, 'mirror-menu-'));
   const engine = path.join(directory, 'tools/mirror-active-forges.mjs');
-  const snapshot = path.join(work, 'source.json');
-  const execute = (tool, args) => { const output = run(tool, args); if (output) log(output.trimEnd()); };
+  const snapshot = sourceSnapshotFile || path.join(work, 'source.json');
+  const execute = (tool, args) => { const output = Object.keys(environment).length ? run(tool, args, undefined, { env: { ...process.env, ...environment } }) : run(tool, args); if (output) log(output.trimEnd()); };
   let failed = false;
   try {
-    execute(process.execPath, [engine, '--source', settings.source, '--export-source', snapshot]);
+    if (!sourceSnapshotFile) execute(process.execPath, [engine, '--source', settings.source, '--export-source', snapshot]);
     try { execute(process.execPath, [engine, '--source', settings.source, '--archive-only', ...(preview ? [] : ['--apply']), '--snapshot', snapshot]); }
     catch (error) { failed = true; log(`[archive] failed: ${error.message}`); }
     for (const target of settings.mirrors) {
@@ -98,15 +99,19 @@ export async function checkMissing(settings, options = {}) {
   return git && data;
 }
 
-export async function menu({ directory = root, ask, log = console.log, synchronize = sync, online = checkOnline, missing = checkMissing } = {}) {
+export async function menu({ directory = root, ask, log = console.log, synchronize = sync, online = checkOnline, missing = checkMissing, organizations = manageOrganizations, organization = async (settings) => (await import('./mirror-organization.mjs')).syncOrganization(settings,{directory}) } = {}) {
   let settings = currentSettings(directory);
   saveSettings(directory, settings);
+  saveOrganizations(directory,loadOrganizations(directory));
   for (;;) {
-    log(`\nSource: ${forges[settings.source].name}; mirrors: ${settings.mirrors.map(m => forges[m].name).join(', ') || 'none'}\nSettings: ${path.join(directory, '.tools/mirror/settings.txt')}\n1. Sync newest data from source to destination mirrors\n2. Select source\n3. Select what mirrors are active\n4. Check whether source and mirrors are online\n5. Check where data is not mirrored yet\n6. Exit`);
+    const registry=loadOrganizations(directory);
+    log(`\nSelected GitHub organization: ${registry.selected || 'none'}\nSource: ${forges[settings.source].name}; mirrors: ${settings.mirrors.map(m => forges[m].name).join(', ') || 'none'}\nSettings: ${path.join(directory, '.tools/mirror/settings.txt')}\n1. Sync newest data from source to destination mirrors\n2. Select source\n3. Select what mirrors are active\n4. Check whether source and mirrors are online\n5. Check where data is not mirrored yet\n6. Exit\n7. Mirror all repositories of selected GitHub organization\n8. Add, edit, remove or select organizations`);
     const choice = await ask('Choice: ');
     if (choice === null || choice === '6') return;
     try {
-      if (choice === '1') await synchronize(settings);
+      if (choice === '8') await organizations({directory,ask,log});
+      else if (choice === '7') await organization(settings);
+      else if (choice === '1') await synchronize(settings);
       else if (choice === '4') await online(settings);
       else if (choice === '5') await missing(settings);
       else if (choice === '2') {
@@ -125,7 +130,7 @@ export async function menu({ directory = root, ask, log = console.log, synchroni
         if (!answer.trim()) continue;
         const mirrors = answer.trim() === 'none' ? [] : answer.split(',').map(n => names[Number(n.trim()) - 1]);
         saveSettings(directory, { source: settings.source, mirrors }); settings = loadSettings(directory);
-      } else log('Select an option from 1 to 6.');
+      } else log('Select an option from 1 to 8.');
     } catch (e) { log(`Failed: ${e.message}`); }
   }
 }
@@ -133,7 +138,8 @@ export async function menu({ directory = root, ask, log = console.log, synchroni
 export async function main(args = process.argv.slice(2)) {
   if (args.length > 1) throw new Error('Expected one mirror operation');
   const settings = currentSettings(root);
-  if (args[0] === '--help' || args[0] === '-h') { console.log('mirror.sh / mirror.bat [--sync | --preview | --check-online | --check-missing]\nWithout arguments: interactive menu. Settings: .tools/mirror/settings.txt.'); return; }
+  if (args[0] === '--help' || args[0] === '-h') { console.log('mirror.sh / mirror.bat [--sync | --preview | --check-online | --check-missing | --sync-organization | --preview-organization]\nWithout arguments: interactive menu. Settings: .tools/mirror/settings.txt.'); return; }
+  if (args[0] === '--sync-organization' || args[0] === '--preview-organization') { if (!await (await import('./mirror-organization.mjs')).syncOrganization(settings,{preview:args[0] === '--preview-organization'})) process.exitCode=1; return; }
   if (args[0] === '--sync') { if (!await sync(settings)) process.exitCode = 1; return; }
   if (args[0] === '--preview' || args[0] === '--check-missing') { if (!await checkMissing(settings)) process.exitCode = 1; return; }
   if (args[0] === '--check-online') { if (!await checkOnline(settings)) process.exitCode = 1; return; }
@@ -144,3 +150,29 @@ export async function main(args = process.argv.slice(2)) {
   finally { input.close(); }
 }
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) main().catch(e => { console.error(e.message); process.exitCode = 1; });
+
+export async function manageOrganizations({directory=root,ask,log=console.log}={}) {
+  const {loadOrganizations,saveOrganizations,setOrganization,removeOrganization}=await import('./mirror-organizations.mjs');
+  let value=loadOrganizations(directory);saveOrganizations(directory,value);
+  for (;;) {
+    log(`Organizations: ${value.organizations.map((o,i)=>`${i+1}. ${o.source}${o.source===value.selected?' (selected)':''}`).join('; ') || 'none'}\n1. Select organization\n2. Add organization\n3. Edit organization\n4. Remove organization (keep archived files)\n5. Back`);
+    const choice=await ask('Organization action: ');if(choice===null||choice==='5')return;
+    try {
+      let item;
+      if (['1','3','4'].includes(choice)) {
+        const answer=await ask('Organization number: ');if(answer===null)return;
+        item=value.organizations[Number(answer)-1];if(!item)throw Error('Invalid organization number');
+        if(choice==='1'){value.selected=item.source;saveOrganizations(directory,value);continue;}
+        if(choice==='4'){value=removeOrganization(value,item.source);saveOrganizations(directory,value);continue;}
+      } else if(choice!=='2')throw Error('Select an action from 1 to 5');
+      const answer=await ask(`GitHub source organization${item?` [${item.source}]`:''}: `);if(answer===null)return;
+      const source=answer.trim()||item?.source;if(!source)throw Error('Source organization is required');
+      const destinations={};
+      for(const kind of ['gitlab','codeberg','sourceforge']){
+        const fallback=item?.destinations[kind] || source;
+        const answer=await ask(`${kind} destination organization/project [${fallback}]: `);if(answer===null)return;destinations[kind]=answer.trim()||fallback;
+      }
+      value=setOrganization(value,{source,destinations},item?.source);saveOrganizations(directory,value);
+    }catch(error){log(`Failed: ${error.message}`);}
+  }
+}

@@ -1,6 +1,8 @@
 #!/bin/bash
 
-# Mirror changes from https://github.com/wekan/wekan to
+# Mirror one repository or all repositories of a configured GitHub organization.
+# Shared menu manages source/destination organizations and offline archives.
+# Default repository: https://github.com/wekan/wekan to
 # GitLab, Codeberg and SourceForge.
 # Not to Bitbucket, it has Unauthorized errors.
 

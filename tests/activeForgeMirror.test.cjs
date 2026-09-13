@@ -305,7 +305,7 @@ const work = fs.mkdtempSync(path.join(process.env.TMPDIR, 'mirror-fixtures-'));
     const bin = path.join(work, 'mock-main'); fs.mkdirSync(bin);
     const recorder = path.join(work, 'git.txt');
     for (const [name, contents] of [
-      ['git', '#!/bin/bash\nprintf "%s\\n" "$*" >> "$MIRROR_GIT_RECORDER"\n'],
+      ['git', '#!/bin/bash\nif [[ "$*" == *for-each-ref* ]]; then printf "refs/heads/main\\n"; fi\nprintf "%s\\n" "$*" >> "$MIRROR_GIT_RECORDER"\n'],
       ['glab', '#!/bin/bash\nprintf "[]"\n'],
     ]) {
       const file = path.join(bin, name); fs.writeFileSync(file, contents); fs.chmodSync(file, 0o755);
