@@ -51,6 +51,37 @@ const work = fs.mkdtempSync(path.join(temporary, 'mirror-menu-tests-'));
     assert.equal(await m.sync(settings, { directory: work, log: () => {}, run: (tool, args) => { archiveFailure.push(args); if (args.includes('--archive-only')) throw new Error('disk failure'); return ''; } }), false);
     assert.equal(archiveFailure.length, 5, 'archive failures are reported while every destination still runs');
   });
+  await test('progress precedes asynchronous work and failures do not report success', async () => {
+    const output = [];
+    const ok = await m.sync({ source: 'github', mirrors: ['gitlab'] }, {
+      directory: work, log: line => output.push(line),
+      run: async (_, args) => {
+        if (args.includes('--export-source')) assert.match(output.at(-1), /Reading source/);
+        if (args.includes('--archive-only')) assert.match(output.at(-1), /Updating local archive/);
+        if (args.some(a => a.endsWith('mirror-gitlab.sh'))) {
+          assert.match(output.at(-1), /Syncing GitLab/);
+          throw new Error('async fixture failure');
+        }
+        await Promise.resolve();
+        return 'live fixture output';
+      },
+    });
+    assert.equal(ok, false);
+    assert.match(output.join('\n'), /async fixture failure/);
+    assert.match(output.at(-1), /Finished with failures/);
+    assert.ok(!output.includes('[mirror] Finished successfully'));
+    const waiting = [];
+    await m.sync({ source: 'github', mirrors: ['gitlab'] }, {
+      directory: work, heartbeatMs: 5, log: line => waiting.push(line),
+      run: async () => { await new Promise(resolve => setTimeout(resolve, 20)); return ''; },
+    });
+    assert.ok(waiting.some(line => /Still running this stage/.test(line)));
+    const finishedLength = waiting.length;
+    await new Promise(resolve => setTimeout(resolve, 20));
+    assert.equal(waiting.length, finishedLength, 'heartbeat timers stop after commands finish');
+    assert.equal(await m.streamCommand(process.execPath, ['-e', 'process.exit(0)']), '');
+    await assert.rejects(m.streamCommand(process.execPath, ['-e', 'process.exit(7)']), /failed \(7\)/);
+  });
   await test('Windows dispatch quotes paths and uses each native batch wrapper', async () => {
     const calls = [];
     await m.sync({ source: 'gitlab', mirrors: ['github'] }, { platform: 'win32', directory: work, run: (tool, args) => { calls.push([tool, args]); return ''; }, log: () => {} });

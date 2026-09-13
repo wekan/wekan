@@ -36,6 +36,7 @@ export function createGithubClient({fetcher=fetch,sleep=pause,now=Date.now,log=c
     let redirects=0;
     for(let attempt=0;attempt<6;attempt++) {
       await wait(load()[resource]||0);
+      log(`[github] ${method} ${url.hostname}${url.pathname}${url.searchParams.has('page') ? ` page ${url.searchParams.get('page')}` : ''} (attempt ${attempt + 1}/6)`);
       const response=await fetcher(url.href,{method,headers,body,redirect:'manual',signal:AbortSignal.timeout(3600000)});
       if(response.headers.get('x-ratelimit-remaining')==='0') {
         const reset=Number(response.headers.get('x-ratelimit-reset'))*1000;

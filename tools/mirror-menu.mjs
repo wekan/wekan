@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import { spawn } from 'node:child_process';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createInterface } from 'node:readline/promises';
@@ -17,31 +18,51 @@ export function changeSource(settings, source) {
 }
 
 // All external commands are injectable: tests never contact or write to a forge.
-export async function sync(settings, { preview = false, run = command, directory = root, log = console.log, platform = process.platform, environment = {}, sourceSnapshotFile } = {}) {
+export function streamCommand(tool, args, input, options = {}) {
+  return new Promise((resolve, reject) => {
+    const child = spawn(tool, args, { ...options, shell: false, windowsHide: true, stdio: ['ignore', 'inherit', 'inherit'] });
+    child.once('error', reject);
+    child.once('close', (code, signal) => code === 0 ? resolve('') : reject(new Error(`Mirror command failed (${signal || code})`)));
+  });
+}
+
+export async function sync(settings, { preview = false, run = streamCommand, directory = root, log = console.log, platform = process.platform, environment = {}, sourceSnapshotFile, heartbeatMs = 15000 } = {}) {
   if (!settings.mirrors.length) throw new Error('No active destination mirrors. Select mirrors first.');
   const temporary = path.join(directory, '.tools/tmp');
   fs.mkdirSync(temporary, { recursive: true });
   const work = fs.mkdtempSync(path.join(temporary, 'mirror-menu-'));
   const engine = path.join(directory, 'tools/mirror-active-forges.mjs');
   const snapshot = sourceSnapshotFile || path.join(work, 'source.json');
-  const execute = (tool, args) => { const output = Object.keys(environment).length ? run(tool, args, undefined, { env: { ...process.env, ...environment } }) : run(tool, args); if (output) log(output.trimEnd()); };
+  const execute = async (tool, args) => {
+    const started = Date.now();
+    const timer = setInterval(() => log(`[mirror] Still running this stage (${Math.floor((Date.now() - started) / 1000)} seconds elapsed)`), heartbeatMs);
+    try {
+      const output = await run(tool, args, undefined, { env: { ...process.env, ...environment } });
+      if (output) log(output.trimEnd());
+    } finally { clearInterval(timer); }
+  };
   let failed = false;
   try {
-    if (!sourceSnapshotFile) execute(process.execPath, [engine, '--source', settings.source, '--export-source', snapshot]);
-    try { execute(process.execPath, [engine, '--source', settings.source, '--archive-only', ...(preview ? [] : ['--apply']), '--snapshot', snapshot]); }
+    log(`[mirror] ${preview ? 'Checking' : 'Starting sync'} from ${forges[settings.source].name} to ${settings.mirrors.map(m => forges[m].name).join(', ')}`);
+    log(`[mirror] Reading source issues, pull requests, comments and releases`);
+    if (!sourceSnapshotFile) await execute(process.execPath, [engine, '--source', settings.source, '--export-source', snapshot]);
+    log('[mirror] Updating local archive and static pages');
+    try { await execute(process.execPath, [engine, '--source', settings.source, '--archive-only', ...(preview ? [] : ['--apply']), '--snapshot', snapshot]); }
     catch (error) { failed = true; log(`[archive] failed: ${error.message}`); }
     for (const target of settings.mirrors) {
+      log(`[mirror] ${preview ? 'Checking' : 'Syncing'} ${forges[target].name}`);
       try {
         const args = [...(preview ? ['--preview'] : []), '--source', settings.source, '--snapshot', snapshot, '--skip-archive'];
         if (platform === 'win32') {
           const batch = path.join(directory, `releases/mirror-${target}.bat`);
           const parts = [batch, ...args];
           if (parts.some(p => /["%!\r\n]/.test(p))) throw new Error('Unsupported command characters in checkout path');
-          execute('cmd.exe', ['/d', '/s', '/c', `call ${parts.map(p => `"${p}"`).join(' ')}`]);
-        } else execute('bash', [path.join(directory, `releases/mirror-${target}.sh`), ...args]);
+          await execute('cmd.exe', ['/d', '/s', '/c', `call ${parts.map(p => `"${p}"`).join(' ')}`]);
+        } else await execute('bash', [path.join(directory, `releases/mirror-${target}.sh`), ...args]);
       } catch (error) { failed = true; log(`[${target}] failed: ${error.message}`); }
     }
   } finally { fs.rmSync(work, { recursive: true, force: true }); }
+  log(`[mirror] ${failed ? 'Finished with failures' : 'Finished successfully'}`);
   return !failed;
 }
 

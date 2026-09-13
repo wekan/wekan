@@ -461,3 +461,9 @@ browser regression passes in Chromium and Firefox. WebKit is registered and
 syntax-checked but cannot launch locally because ICU 74 is missing; Docker is
 unavailable for the documented container fallback. Live uploads and native remote
 wiki initialization still require maintainer-run verification.
+
+Sync progress is printed immediately before source inventory, local archive and
+each destination stage. Child-process stdout and stderr are streamed directly to
+the terminal; a 15-second elapsed-time message remains visible during long stages.
+GitHub API requests identify the endpoint, page and retry attempt before fetching,
+without printing authentication headers or tokens. Rate-limit waits remain in effect.
