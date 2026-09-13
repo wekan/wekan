@@ -15,6 +15,7 @@
 function buildCopiedSubtaskFields(subtask, { newParentId, boardId, swimlaneId, listId } = {}) {
   const fields = Object.assign({}, subtask);
   delete fields._id;
+  delete fields.__id;
   fields.parentId = newParentId;
   fields.boardId = boardId;
   fields.swimlaneId = swimlaneId;

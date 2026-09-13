@@ -181,22 +181,14 @@ test.describe('Fixed-bug regressions', () => {
     expect(crashes, `guest render must not throw on a null user:\n${crashes.join('\n')}`).toEqual([]);
   });
 
-  // QUARANTINED on CI. The #5798 PRODUCT fix is committed and verified locally
-  // (client/components/lists/listBody.js derives the target board from the list
-  // that owns the "add card" opener, so a template instantiates into the current
-  // board). This end-to-end flow, however, is unstable specifically on the CI
-  // production bundle (polling reactivity, no oplog): across runs the template
-  // search returned no results (profile not yet propagated — since fixed) and the
-  // card was intermittently not created at all (boardId poll → null), none of
-  // which reproduce against a local dev server. Rather than keep cycling CI, this
-  // is quarantined pending a more deterministic harness (drive the instantiation
-  // via a direct method call, or capture CI-side console/network diagnostics).
-  // The fix itself is covered manually; the other spec-36 regressions still run.
-  test.fixme('#5798 a card created from a template belongs to the current board', async ({
+  // Rendered template cards carry getRealId()'s __id cache. Copying must
+  // exclude it from the inserted document and preserve the source placement.
+  test('#5798 a card created from a template belongs to the current board', async ({
     loggedInPage,
     user,
     board,
   }) => {
+    const createdTitle = `Instantiated ${board.boardId}`;
     // Give the user a templates board (type template-container) with a
     // card-templates swimlane and one card template.
     const tplBoard = db.uid('tplboard');
@@ -250,7 +242,7 @@ test.describe('Fixed-bug regressions', () => {
       // search re-renders the popup, which can clear an earlier value on the slower
       // CI bundle. The click handler reads .js-element-title and creates nothing if
       // it is empty, which previously left the card uncreated (boardId poll → null).
-      await loggedInPage.locator('.js-element-title').fill('Instantiated Card');
+      await loggedInPage.locator('.js-element-title').fill(createdTitle);
       await loggedInPage.locator('.search-card-results .js-minicard').first().click();
 
       // The new card must belong to the CURRENT board (#5798), not the templates board.
@@ -258,14 +250,19 @@ test.describe('Fixed-bug regressions', () => {
       await expect
         .poll(
           async () => {
-            const c = db.findOne('cards', { title: 'Instantiated Card' }, { boardId: 1 });
+            const c = db.findOne('cards', { boardId: board.boardId, title: createdTitle }, { boardId: 1 });
             return c ? c.boardId : null;
           },
           { timeout: 30_000 },
         )
         .toBe(board.boardId);
+      await expect(loggedInPage.locator('.pop-over')).toBeHidden();
+      const originalTemplate = db.findOne('cards', { boardId: tplBoard, title: 'My Card Template' });
+      expect(originalTemplate).not.toBeNull();
+      expect(originalTemplate.listId).toBe(tplList);
+      expect(originalTemplate.swimlaneId).toBe(cardSwim);
       expect(
-        db.findOne('cards', { boardId: tplBoard, title: 'Instantiated Card' }, { _id: 1 }),
+        db.findOne('cards', { boardId: tplBoard, title: createdTitle }, { _id: 1 }),
         'the new card must NOT be created on the templates board',
       ).toBeNull();
     } finally {

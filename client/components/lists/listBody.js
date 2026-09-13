@@ -1338,9 +1338,10 @@ Template.searchElementPopup.onCreated(function () {
       this.listId = listData._id;
   }
   this.term = new ReactiveVar('');
+  this.position = Template.currentData()?.position;
 
   this.getSortIndex = () => {
-    const position = Template.currentData().position;
+    const position = this.position;
     let ret;
     if (position === 'top') {
       const firstCardDom = this.list.find('.js-minicard:first')[0];

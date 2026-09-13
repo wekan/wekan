@@ -1078,6 +1078,8 @@ Cards.helpers({
     // Work on a shallow copy to avoid mutating the source card in ReactiveCache
     const cardData = { ...this };
     delete cardData._id;
+    // getRealId() caches __id on rendered cards; it is not a schema field.
+    delete cardData.__id;
 
     // Normalize customFields to ensure it's always an array
     if (!Array.isArray(cardData.customFields)) {
@@ -1103,21 +1105,16 @@ Cards.helpers({
       // skip unnamed labels, otherwise every unnamed destination label would be
       // wrongly selected (mirrors the guard used by Cards.move()).
       const newCardLabels = filterCopiedLabelIds((newBoard && newBoard.labels) || [], oldCardLabels);
-      // Assign onto `this` (the document actually inserted below), not the
-      // shallow `cardData` copy, so the remapped labels are persisted — the
-      // same way customFields is handled just below.
       cardData.labelIds = newCardLabels;
-      this.labelIds = newCardLabels;
 
-      this.customFields = await this.mapCustomFieldsToBoard(newBoard._id);
+      cardData.customFields = await this.mapCustomFieldsToBoard(newBoard._id);
     }
 
-    delete this._id;
-    this.boardId = boardId;
+    cardData.boardId = boardId;
     const board = await ReactiveCache.getBoard(boardId);
-    this.cardNumber = await board.getNextCardNumber();
-    this.swimlaneId = swimlaneId;
-    this.listId = listId;
+    cardData.cardNumber = await board.getNextCardNumber();
+    cardData.swimlaneId = swimlaneId;
+    cardData.listId = listId;
 
     // #3392: PI Program Board "Red Strings". For a single-card copy keep only
     // dependencies whose target card is also present on the destination board,
@@ -1134,13 +1131,13 @@ Cards.helpers({
           keptDeps.push(dep);
         }
       }
-      this.cardDependencies = keptDeps;
+      cardData.cardDependencies = keptDeps;
     } else {
       // Normalize so the post-copy remap (board/swimlane copy) sees objects.
-      this.cardDependencies = normalizeDependencies(this.cardDependencies);
+      cardData.cardDependencies = normalizeDependencies(this.cardDependencies);
     }
 
-    const _id = await Cards.insertAsync(this);
+    const _id = await Cards.insertAsync(cardData);
 
     // #3392: record old->new id so a whole-board/swimlane copy can remap
     // cardDependencies (Red Strings) after every card has been copied.
@@ -1224,8 +1221,6 @@ Cards.helpers({
     for (const cmt of comments) {
       await cmt.copy(_id, boardId);
     }
-    // restore the id, otherwise new copies will fail
-    this._id = oldId;
 
     return _id;
   },
@@ -1240,6 +1235,7 @@ Cards.helpers({
     linkCard.listId = listId;
     linkCard.type = 'cardType-linkedCard';
     delete linkCard._id;
+    delete linkCard.__id;
     // TODO shall we copy the labels for a linked card?!
     delete linkCard.labelIds;
     return await Cards.insertAsync(linkCard);

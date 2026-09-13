@@ -49,6 +49,14 @@ test('drops _id so a NEW subtask document is inserted', () => {
   assert.ok(!('_id' in buildCopiedSubtaskFields(SUBTASK, TARGET)));
 });
 
+test('drops the rendered-card ID cache without changing the source', () => {
+  const source = { ...SUBTASK, __id: SUBTASK._id };
+  const copy = buildCopiedSubtaskFields(source, TARGET);
+  assert.ok(!('__id' in copy));
+  assert.strictEqual(source.__id, SUBTASK._id);
+  assert.strictEqual(source._id, SUBTASK._id);
+});
+
 test('preserves other fields (title, sort)', () => {
   const f = buildCopiedSubtaskFields(SUBTASK, TARGET);
   assert.strictEqual(f.title, 'a subtask');
