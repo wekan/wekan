@@ -79721,5 +79721,54 @@
     "before": "Déplacer toutes les pièces jointes du tableau vers S3",
     "after": "Yóbbu takkaay yi yépp ci tablo bi ci S3",
     "reason": "Replace French attachment controls with Wolof, reusing existing takkaay and storage-move terminology. Preserve all-attachments versus board-only scopes, filesystem/GridFS/S3 destinations, minicard attachment count and rename action. Full grammar and computing adaptations remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "export-card-attachment-filename",
+    "before": "Nom du fichier",
+    "after": "Turu fiise bi",
+    "reason": "Replace French export attachment metadata and disk-space qualifiers with Wolof. Reuse fiise/yeb/Réyaay vocabulary; distinguish uploader from upload time and retain image preview meaning. Free disk space means available space, not gratuit (no price). Existing Xeet file type retained. Preview/space terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "export-card-attachment-size",
+    "before": "Taille",
+    "after": "Réyaay",
+    "reason": "Replace French export attachment metadata and disk-space qualifiers with Wolof. Reuse fiise/yeb/Réyaay vocabulary; distinguish uploader from upload time and retain image preview meaning. Free disk space means available space, not gratuit (no price). Existing Xeet file type retained. Preview/space terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "export-card-attachment-uploaded-by",
+    "before": "Téléversé par",
+    "after": "Ki ko yeb",
+    "reason": "Replace French export attachment metadata and disk-space qualifiers with Wolof. Reuse fiise/yeb/Réyaay vocabulary; distinguish uploader from upload time and retain image preview meaning. Free disk space means available space, not gratuit (no price). Existing Xeet file type retained. Preview/space terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "export-card-attachment-uploaded-at",
+    "before": "Téléversé le",
+    "after": "Waxtu wi ñu ko yeb",
+    "reason": "Replace French export attachment metadata and disk-space qualifiers with Wolof. Reuse fiise/yeb/Réyaay vocabulary; distinguish uploader from upload time and retain image preview meaning. Free disk space means available space, not gratuit (no price). Existing Xeet file type retained. Preview/space terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "export-card-attachment-image-previews",
+    "before": "Aperçus des images",
+    "after": "Wone nataal yi bala ubbi",
+    "reason": "Replace French export attachment metadata and disk-space qualifiers with Wolof. Reuse fiise/yeb/Réyaay vocabulary; distinguish uploader from upload time and retain image preview meaning. Free disk space means available space, not gratuit (no price). Existing Xeet file type retained. Preview/space terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "export-card-excel-free",
+    "before": "gratuit",
+    "after": "bu féex",
+    "reason": "Replace French export attachment metadata and disk-space qualifiers with Wolof. Reuse fiise/yeb/Réyaay vocabulary; distinguish uploader from upload time and retain image preview meaning. Free disk space means available space, not gratuit (no price). Existing Xeet file type retained. Preview/space terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "export-card-excel-needed",
+    "before": "requis",
+    "after": "bi ñu soxla",
+    "reason": "Replace French export attachment metadata and disk-space qualifiers with Wolof. Reuse fiise/yeb/Réyaay vocabulary; distinguish uploader from upload time and retain image preview meaning. Free disk space means available space, not gratuit (no price). Existing Xeet file type retained. Preview/space terminology and full grammar remain low confidence."
   }
 ]
