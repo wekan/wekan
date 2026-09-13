@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 12,659 |
+| Corrected | 12,662 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 177 |
-| Pending review or repair | 3,186 |
+| Pending review or repair | 3,183 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Restored and unflagged values still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **13,266** exact before/after values, including repairs outside the audit.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **13,269** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `92042753161a5aad29bdb6885e1b9b2575cc09a2` — three flagged German selection/read controls replaced with Klingon using existing vocabulary. Full constructions are low confidence and need fluent-speaker validation.
+Latest translation fix: **2026-09-13**, local commit `9390995857ebb54ba83a22deb2029ebf894d3ce6` — three flagged German sidebar shortcut labels replaced with Klingon, distinguishing search, board and filter panels and expressing show/hide toggles. Software descriptions are low confidence and need fluent-speaker validation.
 
 **Verification:** correction and progress tests pass. Native-speaker and browser checks remain outstanding.
 
