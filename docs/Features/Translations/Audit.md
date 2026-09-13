@@ -12,9 +12,9 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **11,571** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **11,579** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `ceef17470eb2fcae621cdb2973d76f591f5fb243` — 10 due-card/date-change labels repaired in Wolof. Due dates are distinguished from overdue-only cards; incomplete-card/board-permission conditions, me/all users and change counts remain explicit. Full grammar and due-card terminology remain low confidence. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; live browser verification is unavailable.
+Latest translation fix: **2026-09-13**, local commit `3947c767063180bfa2a0204b4fd6d7d53f003e74` — 8 French general-action/settings labels replaced with Wolof. Existing Save/Cancel/Delete/Add/Search/Actions wording is retained; navigation and opposite open/close actions stay distinct. Navigation terminology remains low confidence. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; live browser verification is unavailable.
 
 **Review follow-up:** Silesian `sandstorm-raw-mongodb` remains pending: its wording overlaps Polish and existing Silesian technical strings, but dictionary searches did not establish the full phrase as correct Silesian. Keep the current value until stronger language evidence supports retaining or replacing it.
 
