@@ -94057,5 +94057,54 @@
     "before": "Sind Sie sicher, das Sie dieses Team vom Board entfernen möchten?",
     "after": "raSvamvo' ghomvam Dateq DaneHbej'a'?",
     "reason": "Replace audited German add/remove controls with Klingon. Preserve card placement at list top versus bottom, checklist-item addition, adding/removing the minicard cover image, scheduled-job addition, and confirmation before removing this organization/team from this board. Use teq removal rather than Qaw deletion. Reuse repaired terms; scheduled job is a task with execution time and cover image a velmeH mIllogh descriptive compound. Full software wording is assembled, low confidence, and requires fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "user-can-not-export-excel",
+    "before": "Benutzer kann nicht nach Excel exportieren",
+    "after": "Excel-vaD ngeHlaHbe' lo'wI'",
+    "reason": "Replace German/French export controls with Klingon. Preserve inability to export Excel versus the card-export action, fields selected for inclusion in Excel data, board versus card popup titles, and monitoring-data export versus failed export. Reuse repaired ngeH export and field/card/board terminology. Monitoring data is described as data for observing the system. Full software wording and monitoring metaphor are assembled, low confidence, and need fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "monitoring-export-failed",
+    "before": "Export der Beobachtungsdaten misslungen",
+    "after": "pat bejmeH De' ngeHmeH Qu' lujpu'",
+    "reason": "Replace German/French export controls with Klingon. Preserve inability to export Excel versus the card-export action, fields selected for inclusion in Excel data, board versus card popup titles, and monitoring-data export versus failed export. Reuse repaired ngeH export and field/card/board terminology. Monitoring data is described as data for observing the system. Full software wording and monitoring metaphor are assembled, low confidence, and need fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "export-monitoring",
+    "before": "Exportüberwachung",
+    "after": "pat bejmeH De' yIngeH",
+    "reason": "Replace German/French export controls with Klingon. Preserve inability to export Excel versus the card-export action, fields selected for inclusion in Excel data, board versus card popup titles, and monitoring-data export versus failed export. Reuse repaired ngeH export and field/card/board terminology. Monitoring data is described as data for observing the system. Full software wording and monitoring metaphor are assembled, low confidence, and need fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "export-card-excel",
+    "before": "Exporter la carte vers Excel",
+    "after": "Excel-vaD 'echletHom yIngeH",
+    "reason": "Replace German/French export controls with Klingon. Preserve inability to export Excel versus the card-export action, fields selected for inclusion in Excel data, board versus card popup titles, and monitoring-data export versus failed export. Reuse repaired ngeH export and field/card/board terminology. Monitoring data is described as data for observing the system. Full software wording and monitoring metaphor are assembled, low confidence, and need fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "export-card-excel-fields",
+    "before": "Sélectionnez les champs à inclure dans l'export Excel :",
+    "after": "Excel-vaD ngeHlu'bogh De'Daq chelmeH De' 'ay'mey tIwIv:",
+    "reason": "Replace German/French export controls with Klingon. Preserve inability to export Excel versus the card-export action, fields selected for inclusion in Excel data, board versus card popup titles, and monitoring-data export versus failed export. Reuse repaired ngeH export and field/card/board terminology. Monitoring data is described as data for observing the system. Full software wording and monitoring metaphor are assembled, low confidence, and need fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "exportBoardPopup-title",
+    "before": "Board exportieren",
+    "after": "raS yIngeH",
+    "reason": "Replace German/French export controls with Klingon. Preserve inability to export Excel versus the card-export action, fields selected for inclusion in Excel data, board versus card popup titles, and monitoring-data export versus failed export. Reuse repaired ngeH export and field/card/board terminology. Monitoring data is described as data for observing the system. Full software wording and monitoring metaphor are assembled, low confidence, and need fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "exportCardPopup-title",
+    "before": "Karte exportieren",
+    "after": "'echletHom yIngeH",
+    "reason": "Replace German/French export controls with Klingon. Preserve inability to export Excel versus the card-export action, fields selected for inclusion in Excel data, board versus card popup titles, and monitoring-data export versus failed export. Reuse repaired ngeH export and field/card/board terminology. Monitoring data is described as data for observing the system. Full software wording and monitoring metaphor are assembled, low confidence, and need fluent-speaker validation."
   }
 ]
