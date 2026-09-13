@@ -81387,5 +81387,40 @@
     "before": "Ne pas afficher le parent",
     "after": "Bul wone karta bu mag bi",
     "reason": "Replace French username/organization missing-record messages and parent-card display choice with Wolof. Preserve %s placeholders, username rather than generic user, organization identity and do-not-show parent-card behavior. Reuse repaired terminology; full grammar remains low confidence. Migration messages remain pending."
+  },
+  {
+    "locale": "wo",
+    "key": "people-number",
+    "before": "Le nombre d'utilisateurs est de :",
+    "after": "Limu nit ñi mooy:",
+    "reason": "Replace French people count, invalid credentials, comment-delete popup and card membership controls with Wolof. Preserve username OR password failure, all members removed from card and adding yourself to current card. Reuse established wording. Current-card adaptation and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "invalid-credentials",
+    "before": "Nom d'utilisateur ou mot de passe invalide",
+    "after": "Turu jëfandikukat bi walla baatu jall bi baaxul",
+    "reason": "Replace French people count, invalid credentials, comment-delete popup and card membership controls with Wolof. Preserve username OR password failure, all members removed from card and adding yourself to current card. Reuse established wording. Current-card adaptation and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "deleteCommentPopup-title",
+    "before": "Supprimer le commentaire ?",
+    "after": "Far xalaat bi?",
+    "reason": "Replace French people count, invalid credentials, comment-delete popup and card membership controls with Wolof. Preserve username OR password failure, all members removed from card and adding yourself to current card. Reuse established wording. Current-card adaptation and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "r-remove-all",
+    "before": "Supprimer tous les membres de la carte",
+    "after": "Génne bokkkat yi yépp ci karta bi",
+    "reason": "Replace French people count, invalid credentials, comment-delete popup and card membership controls with Wolof. Preserve username OR password failure, all members removed from card and adding yourself to current card. Reuse established wording. Current-card adaptation and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "shortcut-add-self",
+    "before": "S'ajouter à la carte courante",
+    "after": "Yokk sa bopp ci karta bi ñu ubbi",
+    "reason": "Replace French people count, invalid credentials, comment-delete popup and card membership controls with Wolof. Preserve username OR password failure, all members removed from card and adding yourself to current card. Reuse established wording. Current-card adaptation and full grammar remain low confidence."
   }
 ]
