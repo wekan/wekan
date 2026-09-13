@@ -80,14 +80,14 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,027 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 817 pending review or repair.
-The correction inventory records 17,058 exact before/after values,
+findings: 15,031 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 813 pending review or repair.
+The correction inventory records 17,070 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
 German cron label, which now uses the actual tool name Cron.
-The largest original finding queues remain in Veps (76) and Standard Moroccan
+The largest original finding queues remain in Veps (72) and Standard Moroccan
 Tamazight (595). Silesian database terminology and 17 Tigre
 calendar findings need language-specific review. Restored and unflagged
 values, low-confidence wording and browser rendering remain unverified.
@@ -100,8 +100,8 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383540a; translation repairs have resumed.
-Latest translation fix is 036ea09e2 (2026-09-14), covering sixteen Veps board
-scheduling and cleanup messages. All correction/rendering checks
+Latest translation fixes are 2879c1321 and 3ab93c555 (2026-09-14), covering
+twelve Veps presence/Boolean search values. All correction/rendering checks
 pass; low-confidence technical terminology remains explicitly tracked.
 The 1,015-suite Node result is historical and predates the latest batches.
 
@@ -1256,6 +1256,20 @@ preparation uses the same reporting. Offline positive and negative fixtures
 verify immediate output, periodic progress and failure propagation; build-menu
 parity and release workflow checks pass. A full Meteor build was not rerun
 for this change.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3ab93c555">Repair Veps presence and Boolean search instructions</a>. Thanks to xet7.</summary>
+
+Together with <a href="https://github.com/wekan/wekan/commit/2879c1321">presence-search repairs</a>,
+replace twelve Finnish values, resolving four original findings and eight
+unflagged errors. Keep all eight presence fields, negative searches, working
+single-word keywords and ANY versus ALL meanings. Actual Query tests cover
+field presence/absence, invalid-field rejection and example grouping; all
+17,070 correction regressions pass. Database-result and live browser checks
+were not run. Composed Veps grammar remains low confidence and needs review.
+The original queue has 813 pending findings; restored/unflagged work remains.
 
 </details>
 
