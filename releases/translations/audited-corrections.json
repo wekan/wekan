@@ -85321,5 +85321,26 @@
     "before": "Ethiopic Amete Alem",
     "after": "Ikhalenda ye-Amete Alem yaseEthiopia",
     "reason": "Replace English country calendar labels and foreign Fars wording with Northern Ndebele descriptions, preserving Jalali and Amete Alem identities. Phesiya/yasePhesiya attested at https://www.jw.org/nd/izinto-ezikhona/amabhuku/okufundiswa-libhayibhili/liyini-ibhayibhili-ilizwi-likankulunkulu/ . Existing local Ikhalenda terminology retained. Other country searches returned English rather than native attestation; retained China/Japan/Ethiopia spellings and complete assembled grammar remain low confidence. Religious/national and Hijri variants remain pending."
+  },
+  {
+    "locale": "nd",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "Ikhalenda yesizwe yaseIndia",
+    "reason": "Replace English national calendar/Saudi Islamic labels and bare ISO identifier with Northern Ndebele descriptions, preserving India/Saudi Arabia/Hijri identities and national, moon-sighting and Gregorian ISO week distinctions. Existing Ikhalenda/Iviki terminology retained. Moon inyanga and calendar discussion attested at https://www.jw.org/nd/izinto-ezikhona/omagazini/inqabayokulinda-efundwayo-kajune-2022/ubukwazi-yini-june-2022-2/ . Country spelling, national descriptor, derived week plural and assembled grammar remain low confidence; Buddhist, Coptic and tabular epochs still need review."
+  },
+  {
+    "locale": "nd",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "Ikhalenda ye-Hijri (Saudi Arabia, ukubonwa kwenyanga)",
+    "reason": "Replace English national calendar/Saudi Islamic labels and bare ISO identifier with Northern Ndebele descriptions, preserving India/Saudi Arabia/Hijri identities and national, moon-sighting and Gregorian ISO week distinctions. Existing Ikhalenda/Iviki terminology retained. Moon inyanga and calendar discussion attested at https://www.jw.org/nd/izinto-ezikhona/omagazini/inqabayokulinda-efundwayo-kajune-2022/ubukwazi-yini-june-2022-2/ . Country spelling, national descriptor, derived week plural and assembled grammar remain low confidence; Buddhist, Coptic and tabular epochs still need review."
+  },
+  {
+    "locale": "nd",
+    "key": "calendar-system-iso8601",
+    "before": "ISO 8601",
+    "after": "Ikhalenda ye-Gregoriana (amaviki e-ISO 8601)",
+    "reason": "Replace English national calendar/Saudi Islamic labels and bare ISO identifier with Northern Ndebele descriptions, preserving India/Saudi Arabia/Hijri identities and national, moon-sighting and Gregorian ISO week distinctions. Existing Ikhalenda/Iviki terminology retained. Moon inyanga and calendar discussion attested at https://www.jw.org/nd/izinto-ezikhona/omagazini/inqabayokulinda-efundwayo-kajune-2022/ubukwazi-yini-june-2022-2/ . Country spelling, national descriptor, derived week plural and assembled grammar remain low confidence; Buddhist, Coptic and tabular epochs still need review."
   }
 ]
