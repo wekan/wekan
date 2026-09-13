@@ -90109,5 +90109,47 @@
     "before": "Êtes-vous sûr de vouloir supprimer cette traduction personnalisée ? Cela est irréversible.",
     "after": "Fümol-li, das vilol radön vödemi tradutoda lönik at? Sädunam binon nemögik.",
     "reason": "Replace French or malformed linked-card/subtask and custom-translation wording with Volapük; Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests yümön (connect), bligäd (task), tradutod (translated text), radön (erase). cardDetails.js appends linkedId to the card-warning fragment; listHeader.js requires deleting links to cards in this list first. Preserve blocking order and confirmation/no-undo meaning. Derived donabligäd and assembled software phrases remain low confidence; native review outstanding."
+  },
+  {
+    "locale": "vo",
+    "key": "translation-number",
+    "before": "Le nombre de traductions personnalisées est de :",
+    "after": "Mödot vödemas tradutoda lönik binon:",
+    "reason": "Replace French translation-management controls and Esperanto Traduko with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf distinguishes tradutod (translated text) from tradut (act of translating), attests mödot (quantity), vödem (text), lönik (own), nulik (new), votükön (alter), radön (erase). Preserve custom-string scope, count colon and deletion question. Software application of lönik and assembled phrases remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "newTranslationPopup-title",
+    "before": "Nouvelle traduction personnalisée",
+    "after": "Vödem nulik tradutoda lönik",
+    "reason": "Replace French translation-management controls and Esperanto Traduko with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf distinguishes tradutod (translated text) from tradut (act of translating), attests mödot (quantity), vödem (text), lönik (own), nulik (new), votükön (alter), radön (erase). Preserve custom-string scope, count colon and deletion question. Software application of lönik and assembled phrases remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "editTranslationPopup-title",
+    "before": "Éditer la traduction personnalisée",
+    "after": "Votükön vödemi tradutoda lönik",
+    "reason": "Replace French translation-management controls and Esperanto Traduko with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf distinguishes tradutod (translated text) from tradut (act of translating), attests mödot (quantity), vödem (text), lönik (own), nulik (new), votükön (alter), radön (erase). Preserve custom-string scope, count colon and deletion question. Software application of lönik and assembled phrases remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "settingsTranslationPopup-title",
+    "before": "Supprimer cette traduction personnalisée ?",
+    "after": "Radön vödemi tradutoda lönik at?",
+    "reason": "Replace French translation-management controls and Esperanto Traduko with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf distinguishes tradutod (translated text) from tradut (act of translating), attests mödot (quantity), vödem (text), lönik (own), nulik (new), votükön (alter), radön (erase). Preserve custom-string scope, count colon and deletion question. Software application of lönik and assembled phrases remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "translation",
+    "before": "Traduko",
+    "after": "Tradutod",
+    "reason": "Replace French translation-management controls and Esperanto Traduko with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf distinguishes tradutod (translated text) from tradut (act of translating), attests mödot (quantity), vödem (text), lönik (own), nulik (new), votükön (alter), radön (erase). Preserve custom-string scope, count colon and deletion question. Software application of lönik and assembled phrases remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "translation-text",
+    "before": "Texte traduit",
+    "after": "Vödem tradutoda",
+    "reason": "Replace French translation-management controls and Esperanto Traduko with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf distinguishes tradutod (translated text) from tradut (act of translating), attests mödot (quantity), vödem (text), lönik (own), nulik (new), votükön (alter), radön (erase). Preserve custom-string scope, count colon and deletion question. Software application of lönik and assembled phrases remain low confidence pending native review."
   }
 ]
