@@ -119796,5 +119796,33 @@
     "before": "elemento1,elemento2,elemento3",
     "after": "alimento1,alimento2,alimento3",
     "reason": "Replace Italian elemento with dictionary-attested Neapolitan alimento in the rule item label and comma-separated example. Giuseppe Giacco, Repertorio Italiano-Napoletano, printed page 38, elemento: alimento. https://www.compagniacaffesospeso.it/files/VOCABO.....Italiano-Napoletano.pdf Preserve three comma-separated items and numeric suffixes. Technical checklist use needs native review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "disambiguateMultiLabelPopup-title",
+    "before": "Yksikäsitteistä nimilapputoiminta",
+    "after": "Valiče znaman tegend",
+    "reason": "Replace Finnish multi-selection popup titles, action question and member-unassignment control with Veps. Source sidebarFilters.jade offers add/remove label and assign/unassign member for selected cards. Reuse Valiče, znam, ühtnik, tegend, Heitä and kartaspäi; existing wording supplies sinä tahtoid tehta. Low confidence: composed popup-title grammar needs fluent review. This translation repair does not verify the apparent reversed member click handlers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "disambiguateMultiMemberPopup-title",
+    "before": "Yksikäsitteistä jäsentoiminta",
+    "after": "Valiče ühtnikan tegend",
+    "reason": "Replace Finnish multi-selection popup titles, action question and member-unassignment control with Veps. Source sidebarFilters.jade offers add/remove label and assign/unassign member for selected cards. Reuse Valiče, znam, ühtnik, tegend, Heitä and kartaspäi; existing wording supplies sinä tahtoid tehta. Low confidence: composed popup-title grammar needs fluent review. This translation repair does not verify the apparent reversed member click handlers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "what-to-do",
+    "before": "Mitä haluat tehdä?",
+    "after": "Midä sinä tahtoid tehta?",
+    "reason": "Replace Finnish multi-selection popup titles, action question and member-unassignment control with Veps. Source sidebarFilters.jade offers add/remove label and assign/unassign member for selected cards. Reuse Valiče, znam, ühtnik, tegend, Heitä and kartaspäi; existing wording supplies sinä tahtoid tehta. Low confidence: composed popup-title grammar needs fluent review. This translation repair does not verify the apparent reversed member click handlers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "unassign-member",
+    "before": "Peru jäsenvalinta",
+    "after": "Heitä ühtnik kartaspäi",
+    "reason": "Replace Finnish multi-selection popup titles, action question and member-unassignment control with Veps. Source sidebarFilters.jade offers add/remove label and assign/unassign member for selected cards. Reuse Valiče, znam, ühtnik, tegend, Heitä and kartaspäi; existing wording supplies sinä tahtoid tehta. Low confidence: composed popup-title grammar needs fluent review. This translation repair does not verify the apparent reversed member click handlers."
   }
 ]

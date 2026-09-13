@@ -2467,5 +2467,20 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.equal(neapolitanItems.t('r-items-list'), 'alimento1,alimento2,alimento3');
   assert.deepEqual(neapolitanItems.t('r-items-list').split(','), [1, 2, 3].map(n => neapolitanItems.t('r-item') + n));
   assert.doesNotMatch(neapolitanItems.t('r-items-list'), /elemento/);
+  const vepsActionChoice = {
+  "disambiguateMultiLabelPopup-title": "Valiče znaman tegend",
+  "disambiguateMultiMemberPopup-title": "Valiče ühtnikan tegend",
+  "what-to-do": "Midä sinä tahtoid tehta?",
+  "unassign-member": "Heitä ühtnik kartaspäi"
+};
+  for (const [key, value] of Object.entries(vepsActionChoice)) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.equal(vepsTranslator.t(key), value, key);
+    assert.doesNotMatch(value, /Yksikäsitteistä|nimilapputoiminta|jäsentoiminta|Mitä haluat|Peru jäsenvalinta/, key);
+  }
+  assert.notEqual(vepsTranslator.t('disambiguateMultiLabelPopup-title'), vepsTranslator.t('disambiguateMultiMemberPopup-title'));
+  assert.match(vepsTranslator.t('unassign-member'), /^Heitä ühtnik kartaspäi$/);
+  assert.equal(cache['ve-PP']['assign-member'], 'Märiče ühtnik', 'retain existing correct assignment wording');
+  assert.equal(cache['ve-PP']['remove-label'], 'Heitä znam', 'retain existing correct label-removal wording');
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });
