@@ -60730,5 +60730,75 @@
     "before": "date de réception éditée de %s à %s",
     "after": "a modificat la data de recepcion per %s de %s",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "activity-set-customfield",
+    "before": "a défini le champ personnalisé '%s' à '%s' dans %s",
+    "after": "a definit lo camp personalizat '%s' a '%s' dins %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "activity-startDate",
+    "before": "date de début éditée de %s à %s",
+    "after": "a modificat la data de començament per %s de %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "activity-unset-customfield",
+    "before": "a effacé le champ personnalisé '%s' dans %s",
+    "after": "a escafat la valor del camp personalizat '%s' dins %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "add-organizations-label",
+    "before": "Les organisations ajoutées sont affichées ci-dessous :",
+    "after": "Las organizacions apondudas son afichadas çaijós :",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "add-teams-label",
+    "before": "Les équipes ajoutées sont affichées ci-dessous :",
+    "after": "Las equipas apondudas son afichadas çaijós :",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "allboards.add-subworkspace-prompt",
+    "before": "Nom du sous-espace de travail",
+    "after": "Nom del sosespaci de trabalh",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "allboards.add-workspace-prompt",
+    "before": "Nom de l'espace de travail",
+    "after": "Nom de l’espaci de trabalh",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "allboards.delete-workspace-confirm-check",
+    "before": "Confirmer la suppression de l'espace de travail",
+    "after": "Confirmar la supression de l’espaci de trabalh",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "allboards.edit-workspace",
+    "before": "Modifier l'espace de travail",
+    "after": "Modificar l’espaci de trabalh",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "allboards.edit-workspace-icon",
+    "before": "Icône d'espace de travail (markdown)",
+    "after": "Icòna de l’espaci de trabalh (markdown)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
