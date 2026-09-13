@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,117 |
+| Corrected | 15,118 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 727 |
+| Pending review or repair | 726 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,298** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,300** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `b5db9509e` — replaced the French Tamazight account-creation failure message with the attested native MediaWiki clause, omitting only its upstream detail suffix to match the source. All **17,298** correction/rendering checks pass. **727** originals remain pending, including **584** Tamazight. Wider restored/unflagged/low-confidence validation, earlier composed number/user/export wording, Greenlandic CLDR-unconfirmed terminology and twelve Quechua color wrappers remain open. Live browser verification was not run; no translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `acafc7951` — replaced the French Tamazight create-account command and user-not-created error. The command is directly attested; the error adapts a native negative-creation clause and remains **low confidence** pending fluent review. All **17,300** correction/rendering checks pass. **726** originals remain pending, including **583** Tamazight. Wider restored/unflagged/low-confidence validation, earlier number/user/export compositions, Greenlandic CLDR-unconfirmed terminology and twelve Quechua color wrappers remain open. Live browser verification was not run; no translations were pushed.
 
 **Language validation (2026-09-14), local commit `e4e3aa590`:** Wiktionary’s Veps transitive inflection tables confirm `surenda` (make larger) and `penenda` (make smaller) as second-person singular commands. Their imperative morphology is now reference-supported; screen-zoom usage remains open. The original keyboard findings remain unresolved: searches and the cached dictionary did not establish reliable keyboard-shortcut terminology. Counts are unchanged. References and the remaining scope are recorded per key in the correction ledger.
 
