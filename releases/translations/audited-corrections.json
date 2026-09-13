@@ -94652,5 +94652,68 @@
     "before": "Beobachten neuladen",
     "after": "pat bejmeH De' yISuqqa'",
     "reason": "Replace German monitoring/refresh text after reviewing attachmentSettings.jade monitoring section. Reuse existing pat bejmeH De' terminology; Suqqa' describes retrieving data again, rarDochmey identifies attachments. Software metaphors and complete phrasing are low confidence; fluent-speaker validation remains required. Preserve source token inventory."
+  },
+  {
+    "locale": "tlh",
+    "key": "upload-avatar",
+    "before": "Profilbild hochladen",
+    "after": "avatar yIngeH",
+    "reason": "Replace German/French upload, download and loading wording with Klingon after reviewing English source and upload UI usages. Distinguish ongoing transfer, failed transfer and completed transfer; retain avatar technical borrowing. De' ghItlhmey describes data documents rather than physical rasp teywI'. Software terminology and full phrases are low confidence, requiring fluent-speaker validation. Preserve source tokens."
+  },
+  {
+    "locale": "tlh",
+    "key": "uploaded-avatar",
+    "before": "Profilbild hochgeladen",
+    "after": "avatar ngeHlu'pu'",
+    "reason": "Replace German/French upload, download and loading wording with Klingon after reviewing English source and upload UI usages. Distinguish ongoing transfer, failed transfer and completed transfer; retain avatar technical borrowing. De' ghItlhmey describes data documents rather than physical rasp teywI'. Software terminology and full phrases are low confidence, requiring fluent-speaker validation. Preserve source tokens."
+  },
+  {
+    "locale": "tlh",
+    "key": "uploading-files",
+    "before": "Dateien hochladen",
+    "after": "De' ghItlhmey lungeHlu'taH",
+    "reason": "Replace German/French upload, download and loading wording with Klingon after reviewing English source and upload UI usages. Distinguish ongoing transfer, failed transfer and completed transfer; retain avatar technical borrowing. De' ghItlhmey describes data documents rather than physical rasp teywI'. Software terminology and full phrases are low confidence, requiring fluent-speaker validation. Preserve source tokens."
+  },
+  {
+    "locale": "tlh",
+    "key": "upload-failed",
+    "before": "Hochladen fehlgeschlagen",
+    "after": "De' ngeHmeH Qu' lujpu'",
+    "reason": "Replace German/French upload, download and loading wording with Klingon after reviewing English source and upload UI usages. Distinguish ongoing transfer, failed transfer and completed transfer; retain avatar technical borrowing. De' ghItlhmey describes data documents rather than physical rasp teywI'. Software terminology and full phrases are low confidence, requiring fluent-speaker validation. Preserve source tokens."
+  },
+  {
+    "locale": "tlh",
+    "key": "upload-completed",
+    "before": "Hochladen ist abgeschlossen",
+    "after": "De' ngeHmeH Qu' rInpu'",
+    "reason": "Replace German/French upload, download and loading wording with Klingon after reviewing English source and upload UI usages. Distinguish ongoing transfer, failed transfer and completed transfer; retain avatar technical borrowing. De' ghItlhmey describes data documents rather than physical rasp teywI'. Software terminology and full phrases are low confidence, requiring fluent-speaker validation. Preserve source tokens."
+  },
+  {
+    "locale": "tlh",
+    "key": "uploading",
+    "before": "Hochladen",
+    "after": "De' ngeHlu'taH",
+    "reason": "Replace German/French upload, download and loading wording with Klingon after reviewing English source and upload UI usages. Distinguish ongoing transfer, failed transfer and completed transfer; retain avatar technical borrowing. De' ghItlhmey describes data documents rather than physical rasp teywI'. Software terminology and full phrases are low confidence, requiring fluent-speaker validation. Preserve source tokens."
+  },
+  {
+    "locale": "tlh",
+    "key": "loading",
+    "before": "Laden, bitte warten.",
+    "after": "De' Suqlu'taH. yIloS.",
+    "reason": "Replace German/French upload, download and loading wording with Klingon after reviewing English source and upload UI usages. Distinguish ongoing transfer, failed transfer and completed transfer; retain avatar technical borrowing. De' ghItlhmey describes data documents rather than physical rasp teywI'. Software terminology and full phrases are low confidence, requiring fluent-speaker validation. Preserve source tokens."
+  },
+  {
+    "locale": "tlh",
+    "key": "download",
+    "before": "Herunterladen",
+    "after": "De' yISuq",
+    "reason": "Replace German/French upload, download and loading wording with Klingon after reviewing English source and upload UI usages. Distinguish ongoing transfer, failed transfer and completed transfer; retain avatar technical borrowing. De' ghItlhmey describes data documents rather than physical rasp teywI'. Software terminology and full phrases are low confidence, requiring fluent-speaker validation. Preserve source tokens."
+  },
+  {
+    "locale": "tlh",
+    "key": "upload",
+    "before": "Télécharger",
+    "after": "De' yIngeH",
+    "reason": "Replace German/French upload, download and loading wording with Klingon after reviewing English source and upload UI usages. Distinguish ongoing transfer, failed transfer and completed transfer; retain avatar technical borrowing. De' ghItlhmey describes data documents rather than physical rasp teywI'. Software terminology and full phrases are low confidence, requiring fluent-speaker validation. Preserve source tokens."
   }
 ]
