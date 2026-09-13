@@ -91684,5 +91684,40 @@
     "before": "URL de la page des mentions légales personnalisées",
     "after": "URL pada nuna gitavik lönik",
     "reason": "Replace French legal-notice and acceptance text with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nun (notice/information), gitavik (legal/juridical), dasumön (accept), progedön (proceed) and lönik (own). Source layouts.jade and layouts.js join acceptance_of_our_legalNotice span to legalNotice link; translation keeps combined continuing->accepting our legal notice semantics, moves our possessive into linked noun phrase and uses accusative nuni as object of dasumol. Source search found no other translated legalNotice uses. Custom legal-notice page URL remains distinct. Assembled legal-notice wording and phrase inflection remain low confidence pending native review; no legal-policy behavior changed."
+  },
+  {
+    "locale": "vo",
+    "key": "prefix-with-full-path",
+    "before": "Préfixer avec le chemin complet",
+    "after": "Lüükön vegi lölik bü vödem kada",
+    "reason": "Replace French full-path display, PDF-preview, vote-deletion and WIP warning with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests paratül (device), büologed (preview), veg (path), lölik (whole), feapladön (download), laidik (permanent), vögod (vote), bligäd (task), mödot (quantity), and mied (limit). Minicard template shows parentString hierarchy before card text or in parent-subtext; preserve full hierarchy and before/below distinction. Preserve unsupported device preview and trying download instead, permanent vote deletion with all associated actions lost, and task count higher than user-defined WIP limit. PDF/WIP remain technical names; hierarchy-path/software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "subtext-with-full-path",
+    "before": "Sous-titre avec le chemin complet",
+    "after": "Vödem donik ko veg lölik",
+    "reason": "Replace French full-path display, PDF-preview, vote-deletion and WIP warning with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests paratül (device), büologed (preview), veg (path), lölik (whole), feapladön (download), laidik (permanent), vögod (vote), bligäd (task), mödot (quantity), and mied (limit). Minicard template shows parentString hierarchy before card text or in parent-subtext; preserve full hierarchy and before/below distinction. Preserve unsupported device preview and trying download instead, permanent vote deletion with all associated actions lost, and task count higher than user-defined WIP limit. PDF/WIP remain technical names; hierarchy-path/software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "preview-pdf-not-supported",
+    "before": "Votre périphérique ne supporte pas la prévisualisation de PDF. Essayer plutôt le téléchargement.",
+    "after": "Paratül olik no kanon jonön büologedi PDF. Steifülolös ad feapladön pla atos.",
+    "reason": "Replace French full-path display, PDF-preview, vote-deletion and WIP warning with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests paratül (device), büologed (preview), veg (path), lölik (whole), feapladön (download), laidik (permanent), vögod (vote), bligäd (task), mödot (quantity), and mied (limit). Minicard template shows parentString hierarchy before card text or in parent-subtext; preserve full hierarchy and before/below distinction. Preserve unsupported device preview and trying download instead, permanent vote deletion with all associated actions lost, and task count higher than user-defined WIP limit. PDF/WIP remain technical names; hierarchy-path/software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "vote-delete-pop",
+    "before": "La suppression est définitive. Vous perdrez toutes les actions associées à ce vote.",
+    "after": "Radam binon laidik. Operol dunotis valik peyümöl ko vögod at.",
+    "reason": "Replace French full-path display, PDF-preview, vote-deletion and WIP warning with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests paratül (device), büologed (preview), veg (path), lölik (whole), feapladön (download), laidik (permanent), vögod (vote), bligäd (task), mödot (quantity), and mied (limit). Minicard template shows parentString hierarchy before card text or in parent-subtext; preserve full hierarchy and before/below distinction. Preserve unsupported device preview and trying download instead, permanent vote deletion with all associated actions lost, and task count higher than user-defined WIP limit. PDF/WIP remain technical names; hierarchy-path/software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "wipLimitErrorPopup-dialog-pt1",
+    "before": "Le nombre de cartes de cette liste est supérieur à la limite WIP que vous avez définie.",
+    "after": "Mödot bligädas in lised at binon gretikum ka mied WIP, keli elonol.",
+    "reason": "Replace French full-path display, PDF-preview, vote-deletion and WIP warning with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests paratül (device), büologed (preview), veg (path), lölik (whole), feapladön (download), laidik (permanent), vögod (vote), bligäd (task), mödot (quantity), and mied (limit). Minicard template shows parentString hierarchy before card text or in parent-subtext; preserve full hierarchy and before/below distinction. Preserve unsupported device preview and trying download instead, permanent vote deletion with all associated actions lost, and task count higher than user-defined WIP limit. PDF/WIP remain technical names; hierarchy-path/software wording remains low confidence pending native review."
   }
 ]
