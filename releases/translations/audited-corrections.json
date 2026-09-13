@@ -85818,5 +85818,33 @@
     "before": "Republic of China",
     "after": "Ullorsiut Minguo",
     "reason": "Replace English calendar descriptors using existing Greenlandic Ullorsiut, independently attested in https://www.bibelselskabet.dk/sites/default/files/files/110x210_bib_groenlandsk_2025-26.pdf and CLDR kl calendar key. Preserve Dangi/Hijri/Umm al-Qura/Minguo calendar identities. Noun/name combination remains low confidence and not native-speaker verified; proper-name Greenlandic renderings still need review."
+  },
+  {
+    "locale": "kl",
+    "key": "calendar-system-chinese",
+    "before": "Chinese",
+    "after": "Ullorsiut Kina",
+    "reason": "Replace English calendar names with existing Greenlandic Ullorsiut and country names Kina/Japani/Ethiopia documented (draft unconfirmed) in https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/kl.xml . Preserve Amete Alem identity. Assembled noun/country wording remains low confidence, not native-speaker verified; country genitive/adjectival usage needs further review."
+  },
+  {
+    "locale": "kl",
+    "key": "calendar-system-japanese",
+    "before": "Japanese",
+    "after": "Ullorsiut Japani",
+    "reason": "Replace English calendar names with existing Greenlandic Ullorsiut and country names Kina/Japani/Ethiopia documented (draft unconfirmed) in https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/kl.xml . Preserve Amete Alem identity. Assembled noun/country wording remains low confidence, not native-speaker verified; country genitive/adjectival usage needs further review."
+  },
+  {
+    "locale": "kl",
+    "key": "calendar-system-ethiopic",
+    "before": "Ethiopic",
+    "after": "Ullorsiut Ethiopia",
+    "reason": "Replace English calendar names with existing Greenlandic Ullorsiut and country names Kina/Japani/Ethiopia documented (draft unconfirmed) in https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/kl.xml . Preserve Amete Alem identity. Assembled noun/country wording remains low confidence, not native-speaker verified; country genitive/adjectival usage needs further review."
+  },
+  {
+    "locale": "kl",
+    "key": "calendar-system-ethioaa",
+    "before": "Ethiopic Amete Alem",
+    "after": "Ullorsiut Amete Alem Ethiopia",
+    "reason": "Replace English calendar names with existing Greenlandic Ullorsiut and country names Kina/Japani/Ethiopia documented (draft unconfirmed) in https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/kl.xml . Preserve Amete Alem identity. Assembled noun/country wording remains low confidence, not native-speaker verified; country genitive/adjectival usage needs further review."
   }
 ]
