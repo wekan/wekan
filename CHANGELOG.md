@@ -80,9 +80,9 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 14,520 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 1,324 pending review or repair.
-The correction inventory records 16,154 exact before/after values,
+findings: 14,524 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 1,320 pending review or repair.
+The correction inventory records 16,161 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
@@ -1149,6 +1149,18 @@ addition and full upload after support becomes available, then later uploads
 without duplicate registration. Each run refreshes project membership;
 previous failure reports never exclude languages. Document code mapping
 changes when Transifex uses a different identifier. No remote writes ran.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/96b75531a">Repair Veps avatar controls and size warnings</a>. Thanks to xet7.</summary>
+
+Replace seven Finnish avatar controls and size/type warnings with native
+user-image vocabulary, resolving four original findings. Preserve upload
+states, deletion confirmation, maximum sizes, bytes and the size placeholder.
+Low confidence: composed avatar phrasing and byte-unit inflection need
+fluent review. Vocabulary, rejected Finnish and full correction inventory
+checks pass; browser verification remains pending.
 
 </details>
 
@@ -11403,7 +11415,7 @@ transfer limits, registration, SMTP invitation emails and outgoing webhooks.
 All values required translation, with low confidence in some explanatory
 grammar pending human refinement. Tests retain WIP, API, SMTP and TLS names and
 every invitation placeholder. This leaves 68,768 actionable values across 32
-languages, including 1,324 in Tigre.
+languages, including 1,320 in Tigre.
 
 </details>
 
@@ -11928,7 +11940,7 @@ transfer limits, avatar blocking, registration, SMTP invitations and outgoing
 webhooks. All values required translation. Tests preserve invitation
 placeholders and API, SMTP, TLS and Webhook terms; the script audit also keeps
 every interface value in the Ethiopic script. This leaves 70,942 actionable
-values across 33 languages, including 1,324 in Tigrinya.
+values across 33 languages, including 1,320 in Tigrinya.
 
 </details>
 
@@ -12454,7 +12466,7 @@ transfer limits, avatar upload blocking, registration, SMTP and TLS settings and
 test mail and outgoing and bidirectional webhooks. All values required
 translation. Tests retain API, SMTP and TLS names, every registration-invite
 placeholder and representative database and webhook terms. This leaves 73,116
-actionable values across 34 languages, including 1,324 in Tajik.
+actionable values across 34 languages, including 1,320 in Tajik.
 
 </details>
 
@@ -13081,7 +13093,7 @@ The sixteenth 50-value Southern Sotho batch adds WIP warnings, attachment and
 API transfer limits, avatar upload blocking, registration, SMTP/TLS, invitation
 email, authorization errors, webhooks and database labels. All values required
 translation. Tests retain every invitation token and protocol name. This leaves
-75,290 actionable values across 35 languages, including 1,324 in Southern
+75,290 actionable values across 35 languages, including 1,320 in Southern
 Sotho.
 
 </details>
