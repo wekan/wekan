@@ -82,7 +82,7 @@ Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
 findings: 15,105 corrected, 4,058 restored pre-pull values awaiting
 validation, 179 reviewed and retained, and 739 pending review or repair.
-The correction inventory records 17,224 exact before/after values,
+The correction inventory records 17,227 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
@@ -100,12 +100,12 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383540a; translation repairs have resumed.
-Latest translation fix is 4cd629494 (2026-09-14), replacing French Tamazight
-notification deletion wording and preserving the all-notifications scope.
-There are 593 Tamazight findings remaining. Read/unread controls and the
-irreversible confirmation remain unresolved; composed wording needs review.
-Aromanian magenta and four Bambara calendar findings remain pending.
-All correction/rendering checks pass; low-confidence wording remains tracked.
+Latest translation fix is b7b810c1b (2026-09-14), repairing three unflagged
+Quechua black/red/white labels using dictionary-attested standalone words.
+Other Quechua color wrappers and two original calendar variants need review.
+There are 593 Tamazight findings remaining; notification read/unread controls
+and irreversible confirmation remain unresolved. Wider language validation
+remains open. All correction/rendering checks pass.
 Member assignment popup handlers need separate review for apparent reversed
 operations. The 1,015-suite Node result is historical and predates the latest batches.
 
@@ -643,6 +643,17 @@ The audit records 749 pending original findings and wider unfinished validation.
 This release adds the following translation improvements:
 
 **Translations** - Locale wording repairs and remaining audit progress.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b7b810c1b">Repair Quechua basic color wording</a>. Thanks to xet7.</summary>
+
+Replace English black/red/white names wrapped in unrelated message prose
+with dictionary-attested standalone adjectives. All 17,227 correction checks
+pass. These three unflagged repairs leave original pending counts unchanged
+at 739. Other color wrappers and two Quechua calendar findings need review.
+Live browser verification was not run.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/4cd629494">Repair Tamazight notification deletion wording</a>. Thanks to xet7.</summary>
