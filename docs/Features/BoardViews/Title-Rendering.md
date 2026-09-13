@@ -2,7 +2,10 @@
 
 List headers, minicards, table rows and group headings, timeline list/card
 names, assignee cards, Bigboard names, original titles and Roadmap headings
-use the shared viewer for Markdown, emoji and sanitized HTML.
+use the shared viewer for Markdown, emoji and sanitized HTML. Cumulative
+flow, Control chart and other report charts also render headings and table headers/cells
+through this viewer. Canvas labels retain rendered text and emoji, with
+HTML formatting available in the adjacent table.
 
 Admin Panel / Problems / Security settings apply consistently:
 
@@ -17,5 +20,8 @@ settings. No Internet connection or new dependency is required.
 
 Verification on 2026-09-14: focused Node tests, assignee helper execution and
 all Jade template compilation passed. Browser tests cover timeline, assignee
-and DHTMLX titles with formatted, plain-link and literal-source policies;
+DHTMLX, cumulative-flow and Control chart titles with formatted, plain-link and
+literal-source policies;
 they were syntax-checked but have not been run against a live application.
+The combined focused run passed all 33 Node test entries, including avatar
+routing, HTTP authentication and safe attachment responses.

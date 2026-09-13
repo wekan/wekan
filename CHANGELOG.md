@@ -638,6 +638,43 @@ unverified. See docs/Features/BoardViews/Title-Rendering.md.
 
 </details>
 
+**Bug fixes** - Report titles and legacy avatar routing.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5ca16f32e">Render cumulative flow and report titles through the shared viewer</a>. Thanks to xet7.</summary>
+
+Use Markdown, emoji and sanitized HTML in report headings and table headers
+and cells, including cumulative-flow list titles. Canvas labels retain
+viewer text and emoji. Observe plain-link and literal-source policies
+before afterFlush so changes refresh the chart. Extend Node guards and add
+cumulative-flow browser policy cases; live UI remains unverified.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c2a390928">Restore authenticated CollectionFS avatar fallback in prefix routes</a>. Thanks to xet7.</summary>
+
+The earlier universal avatar handler returned 404 before the narrower legacy
+handler could run. Handle authenticated legacy avatars in both prefix
+routes, including versioned URLs. Preserve safe headers, close unused
+streams on conditional responses and reject anonymous public-board claims.
+Missing records or binaries still return 404. The production attachment
+404 has not been diagnosed from server data. Focused tests pass; a browser
+image test was added and syntax-checked but not run live.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ca8d59978">Cover Control chart heading and card-title policies</a>. Thanks to xet7.</summary>
+
+Confirm Control chart uses the shared report viewer for its heading and
+card-title cells. Add completed-card fixtures for all three security modes
+and check cumulative-flow headings too. Focused Node checks pass. All 15
+board-view browser policy cases are syntax-checked; live UI remains
+unverified.
+
+</details>
+
 This release fixes the following mirror problems:
 
 **Bug fixes** - Missing comment parents and mirror log visibility.
