@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 12,732 |
+| Corrected | 12,739 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 177 |
-| Pending review or repair | 3,113 |
+| Pending review or repair | 3,106 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Restored and unflagged values still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **13,359** exact before/after values, including repairs outside the audit.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **13,366** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `999a94f7377faf4c7c1fd3828cccf36c6eaac2f3` — seven German label/team/organization controls replaced with Klingon, preserving action scopes, label/card substitution order and display position. Full software wording is low confidence and needs fluent-speaker validation.
+Latest translation fix: **2026-09-13**, local commit `69b5875476b86503f527afaa2cbc86709c93e3fa` — seven German card-membership/count and deletion-warning controls replaced with Klingon, preserving confirmation, irreversibility, restrictions and placeholders. Full software wording is low confidence and needs fluent-speaker validation.
 
 **Verification:** correction and progress tests pass. Native-speaker and browser checks remain outstanding.
 
