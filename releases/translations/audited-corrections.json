@@ -49362,5 +49362,89 @@
     "before": "Membr importato — nessun cont corrispondente ancora",
     "after": "Commember importà — anc nagin cont correspundent",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "invalid-domain",
+    "before": "Dominio no valido. Usa un dominio come esempio.com (senza @ o spazi).",
+    "after": "Domina betg valida. Utilisescha ina domina sco example.com (senza @ u spazis).",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "invite-people-error",
+    "before": "Fal durante l'invio degli inviti di registrazion",
+    "after": "Errur durant il trametter da l’invitaziun da sa registrar",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "invite-people-success",
+    "before": "Inviti di registrazion inviati correttamente",
+    "after": "Invitaziun da sa registrar tramessa cun success",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "label-color-not-found",
+    "before": "Culer eticheta %s no trovato.",
+    "after": "Colur d’etichetta %s betg chattada.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "label-not-found",
+    "before": "Eticheta '%s' no trovata.",
+    "after": "Etichetta '%s' betg chattada.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "last-admin-desc",
+    "before": "No puoi cambiare i ruoli perché deve esserci almeno un admin.",
+    "after": "Ti na pos betg midar las rollas, perquai ch’i sto dar almain in administratur.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "location-detect-from-map",
+    "before": "Rileva la posizione da qualsiasi link di mappa",
+    "after": "Identifitgar il lieu a partir d’ina colliaziun a ina charta geografica",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "location-detect-none",
+    "before": "Impossibile rilevare una posizione da questo link.",
+    "after": "Impussibel dad identifitgar in lieu a partir da questa colliaziun.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "map-provider-saved",
+    "before": "Servizio di mappe predefinito salvato.",
+    "after": "Servetsch standard da chartas geograficas memorisà.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "map-to-existing-user",
+    "before": "Associa a un utent esistente",
+    "after": "Attribuir ad in utilisader existent",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "map-to-existing-user-no-results",
+    "before": "Nessun utent corrispondente trovato.",
+    "after": "Nagins utilisaders correspundents chattads.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "mapImportedMemberPopup-title",
+    "before": "Associa a un utent esistente",
+    "after": "Attribuir ad in utilisader existent",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
