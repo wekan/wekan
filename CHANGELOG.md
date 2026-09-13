@@ -99,7 +99,7 @@ Transifex: the evidence includes 4,061 pulled changes and 16,020 additional
 local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
-changes are implemented; translation repairs resume next. Latest translation
+changes are implemented in local commit 02383540a; translation repairs resume next. Latest translation
 fix remains dbf214bda; counts are unchanged. Latest full Node verification: 1,014 suites, zero failures;
 the final mirror retry adjustment also passes its targeted regression.
 
@@ -578,7 +578,8 @@ resizable date popups. On-premise **OAuth2/OIDC** login gains email-domain
 restrictions. Local translation repairs preserve placeholders and warning
 meanings; the remaining audit has resumed and is tracked under **TODO Later**.
 Translation upload tooling and repository mirrors are updated, along with
-the Playwright test dependency.
+the Playwright test dependency. Organization mirrors add configured namespaces,
+linked comment attachments and offline HTML/CSV archives.
 
 This release adds the following calendar and login features:
 
@@ -1120,6 +1121,43 @@ cleanup from all duplicate-list cleanup. Exact correction, source token,
 key-order and actual i18next rendering regressions pass. Composed UI grammar
 and derived plural genitives need fluent review. Audit progress records
 14,555 corrected findings, 1,289 pending and 16,213 exact repair records.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/02383540a">Mirror configured organizations with linked attachments and offline HTML/CSV indexes</a>. Thanks to xet7.</summary>
+
+Extend the shared Unix/Windows menu with organization-wide synchronization and
+add/edit/remove/select organization settings. Map GitHub source organizations to
+separate GitLab namespaces, Codeberg organizations and SourceForge projects.
+Discover all accessible repositories on each run, create missing repositories or
+Git tools, retain PR conversations when issues are disabled, and handle empty
+repositories and source default branches. Enabled wikis retain Git history;
+Projects V2 retains portable project/item/field/view/workflow/status data on a
+separate branch. Disabled wiki/projects are not queried. Preserve private source
+visibility and report unsupported native conversions instead of publishing it.
+
+Archive files under .tools/mirror/host/organization/repository, migrating the
+previous flat WeKan archive without overwriting existing or manual files.
+Download linked images, videos, other files and webpage HTML per comment, retain
+removed/replaced versions with timestamped old names, and attach files to the same
+GitLab/Codeberg/SourceForge comments where supported. Comment directories have
+empty index.html files. Host, organization, repository, issue and release pages
+have offline HTML and CSV indexes; repository HTML can be rebuilt from CSV.
+
+Serialize and pace API/file requests, obey rate-limit/reset/retry headers on
+GitHub and each destination, persist cooldowns across processes, and bound
+retries. Git/SSH/SFTP respect saved cooldowns. Public GitHub REST reads work without
+a token or logged-in gh; unauthenticated Projects falls back to a public webpage
+snapshot while retaining earlier structured exports. Never forward API credentials
+to arbitrary prose links; linked downloads check and pin public DNS addresses.
+
+All 1,014 Node suites pass; final targeted regressions and 15 project query
+variants checked against GitHub's public schema pass. Static navigation and local
+images pass in Chromium and Firefox. WebKit is registered and syntax-checked but
+cannot launch locally because ICU 74 is missing and Docker is unavailable.
+Native remote uploads/wiki initialization remain maintainer-run verification.
+Design, settings, paths and commands are documented in releases/mirror.md.
 
 </details>
 
