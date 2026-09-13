@@ -87820,5 +87820,40 @@
     "before": "`__predicate_all__` -  toutes les cartes : archivées et non archivées.",
     "after": "`__predicate_all__` - kads valik in ragiv e no in ragiv",
     "reason": "Replace French search heading/link and private/public/archive predicate descriptions with Volapük. Primary MediaWiki source (https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json) attests Suk/Sukön search vocabulary; Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests lejonod (instruction), privatik (restricted/private), notidik (public with general access). Reuse checked kad/tab/ragiv/yüm/te/valik vocabulary. Preserve predicate code tokens and Markdown and only-private/only-public/archived-plus-unarchived scope. Archive/board software senses and assembled grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "globalSearch-instructions-operator-board",
+    "before": "`__operator_board__:<titre>` - cartes dont le tableau correspond à *<titre>*",
+    "after": "`__operator_board__:<title>` - kads in tabs, kels baiädons bai *<title>*",
+    "reason": "Replace French board/list/creator/member/comment search help with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests jafan (creator/maker), ninädön (contain), baiädön bai (correspond to); reuse checked card/list/board/user/member/comment vocabulary. Preserve underscore operator tokens, exact English angle-bracket example identifiers and Markdown code/emphasis. Preserve matching-title, creator, member and containing-comment meanings. Software senses and assembled relative-clause grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "globalSearch-instructions-operator-list",
+    "before": "`__operator_list__:<titre>` - cartes dont les listes correspondent à *<titre>*",
+    "after": "`__operator_list__:<title>` - kads in liseds, kels baiädons bai *<title>*",
+    "reason": "Replace French board/list/creator/member/comment search help with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests jafan (creator/maker), ninädön (contain), baiädön bai (correspond to); reuse checked card/list/board/user/member/comment vocabulary. Preserve underscore operator tokens, exact English angle-bracket example identifiers and Markdown code/emphasis. Preserve matching-title, creator, member and containing-comment meanings. Software senses and assembled relative-clause grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "globalSearch-instructions-operator-creator",
+    "before": "`__operator_creator__:<utilisateur>` - cartes dont le créateur est *<utilisateur>*",
+    "after": "`__operator_creator__:<username>` - kads, kelas jafan binon geban: *<username>*",
+    "reason": "Replace French board/list/creator/member/comment search help with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests jafan (creator/maker), ninädön (contain), baiädön bai (correspond to); reuse checked card/list/board/user/member/comment vocabulary. Preserve underscore operator tokens, exact English angle-bracket example identifiers and Markdown code/emphasis. Preserve matching-title, creator, member and containing-comment meanings. Software senses and assembled relative-clause grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "globalSearch-instructions-operator-member",
+    "before": "`__operator_member__:<nom>` - cartes pour lesquelles l'utilisateur *<nom>* est *participant*",
+    "after": "`__operator_member__:<username>` - kads, in kels geban: *<username>* binon *liman*",
+    "reason": "Replace French board/list/creator/member/comment search help with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests jafan (creator/maker), ninädön (contain), baiädön bai (correspond to); reuse checked card/list/board/user/member/comment vocabulary. Preserve underscore operator tokens, exact English angle-bracket example identifiers and Markdown code/emphasis. Preserve matching-title, creator, member and containing-comment meanings. Software senses and assembled relative-clause grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "globalSearch-instructions-operator-comment",
+    "before": "`__operator_comment__:<texte>` - cartes dont le commentaire contient *<texte>*.",
+    "after": "`__operator_comment__:<text>` - kads ko noet, kel ninädon *<text>*.",
+    "reason": "Replace French board/list/creator/member/comment search help with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests jafan (creator/maker), ninädön (contain), baiädön bai (correspond to); reuse checked card/list/board/user/member/comment vocabulary. Preserve underscore operator tokens, exact English angle-bracket example identifiers and Markdown code/emphasis. Preserve matching-title, creator, member and containing-comment meanings. Software senses and assembled relative-clause grammar remain low confidence; no native-speaker validation."
   }
 ]
