@@ -55,3 +55,55 @@ test('all logger entry points use operation/date/time directories on both platfo
   assert.match(bat, /call :logdir test-%~1/);
   assert.match(bat, /call :build_logged meteor build/);
 });
+
+test('completed builds print the selected log path after compilation and release preparation', () => {
+  const bat = fs.readFileSync(path.join(root, 'build.bat'), 'utf8');
+  const flow = source.slice(source.indexOf('function build_wekan(){'), source.indexOf('# Detect OS'));
+  assert.match(flow, /echo "Done\. Build log: \$buildlog" \| tee -a "\$\{buildlogs\[@\]\}"/);
+  assert.ok(flow.lastIndexOf('Done. Build log:') > flow.indexOf('Prepare release bundle'));
+  for (const name of ['builddev', 'build']) {
+    const section = bat.slice(bat.indexOf('\n:' + name + '\n'), bat.indexOf('\ngoto end', bat.indexOf('\n:' + name + '\n')));
+    assert.match(section, /echo Build log: %WEKAN_BUILD_LOG%/);
+  }
+});
+
+test('build completion retains the log path and distinguishes compilation and preparation failures', () => {
+  const base = fs.mkdtempSync(path.join(root, '.tools/tmp/build-completion-'));
+  const stageStart = source.indexOf('function build_stage(){');
+  const stage = source.slice(stageStart, source.indexOf('\n}\n', stageStart) + 3);
+  const buildStart = source.indexOf('function build_wekan(){');
+  const build = source.slice(buildStart, source.indexOf('\n}\n', buildStart) + 3);
+  try {
+    for (const mode of ['dev', 'compile-failure', 'release-failure']) {
+      const cwd = path.join(base, mode); fs.mkdirSync(cwd);
+      const script = helper + '\n' + stage + '\n' + build + `
+_heap_mb=512
+meteor() {
+  if [ "$1" = build ]; then
+    if [ "$FIXTURE_MODE" = compile-failure ]; then echo compilation-failed >&2; return 7; fi
+    mkdir -p .build/bundle
+  fi
+  return 0
+}
+bash() { echo preparation-failed >&2; return 8; }
+build_wekan
+`;
+      const result = spawnSync('bash', ['-c', script], {
+        cwd, encoding: 'utf8', env: { ...process.env, WEKAN_LOG_ROOT: path.join(base, 'logs'), WEKAN_LOGDIR: '', FIXTURE_MODE: mode, WEKAN_BUILD_RELEASE_BUNDLE: mode === 'release-failure' ? '1' : '0' },
+      });
+      const log = result.stdout.match(/^Build log: (.+)$/m)?.[1];
+      assert.ok(log, result.stdout + result.stderr);
+      assert.ok(fs.existsSync(log));
+      if (mode === 'dev') {
+        assert.equal(result.status, 0, result.stderr);
+        assert.ok(result.stdout.trim().endsWith('Done. Build log: ' + log));
+        assert.ok(fs.readFileSync(log, 'utf8').trim().endsWith('Done. Build log: ' + log));
+      } else {
+        assert.notEqual(result.status, 0);
+        assert.ok(result.stdout.includes('Its output is in ' + log));
+        assert.doesNotMatch(result.stdout, /Done\. Build log:/);
+        assert.match(fs.readFileSync(log, 'utf8'), mode === 'compile-failure' ? /compilation-failed/ : /preparation-failed/);
+      }
+    }
+  } finally { fs.rmSync(base, { recursive: true, force: true }); }
+});

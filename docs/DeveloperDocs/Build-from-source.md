@@ -238,12 +238,16 @@ dependencies, dependency installation and compilation before each starts.
 Each stage streams its output to the terminal and the printed build log:
 `.tools/log/build-dev-bundle/YYYY-MM-DD/HH-MM-SS/dev.txt` for development bundles and
 `.tools/log/build-release-bundle/YYYY-MM-DD/HH-MM-SS/release.txt` for release bundles.
+Both scripts print the selected build log path again when the build finishes, including
+failed builds. Successful shell builds also append that completion message to the log.
 Each build gets its own time directory, keeping earlier runs separate. Same-second
 builds reserve a directory with a numeric suffix to avoid collisions. EVERYTHING also keeps its existing run-level `wekan-build.log`. Quiet stages report elapsed time and their process ID every
 15 seconds; this indicates that the command is running, rather than a percentage
 of completion. Required cache removal or dependency installation failures stop
 the build. Meteor plugin npm dependency compilation remains best effort and reports a warning
-when it fails. Release bundle preparation uses the same progress reporting.
+when it fails. Release bundle preparation uses the same progress reporting and makes
+Meteor’s read-only server package manifest writable before updating node-gyp and
+installing the server dependencies, matching the release workflow.
 
 Build stages print the exact command before it starts. npm uses verbose logging
 and runs dependency lifecycle scripts in the foreground so their output is

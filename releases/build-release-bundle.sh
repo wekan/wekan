@@ -138,6 +138,9 @@ say "1/6  bump-bundle-node-gyp + npm install + prune-build-only + bump-bundle-np
 # BEFORE the install, as in the workflow: Meteor pins programs/server's
 # node-gyp to the tool's own (10.2.0), which cannot see Visual Studio 2026, and
 # the pin is only consulted by this first npm install.
+# Meteor writes package.json read-only. Match the workflow before updating
+# the pin and installing the server modules.
+chmod u+w "$BUNDLE/programs/server/package.json" || fail "cannot make server package.json writable."
 node "$ROOT/releases/bump-bundle-node-gyp.mjs" "$BUNDLE" || fail "bump-bundle-node-gyp failed."
 (
     cd "$BUNDLE/programs/server" || exit 1

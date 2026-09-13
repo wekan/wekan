@@ -162,4 +162,32 @@ test('build.bat does the same, through the same script (negative)', () => {
     'build.bat must not run the release steps itself');
 });
 
+test('local release preparation updates a read-only Meteor server manifest before npm installation', () => {
+  const { spawnSync } = require('node:child_process');
+  const base = fs.mkdtempSync(path.join(ROOT, '.tools/tmp/release-readonly-'));
+  const server = path.join(base, 'programs/server');
+  fs.mkdirSync(server, { recursive: true });
+  const pkgPath = path.join(server, 'package.json');
+  const untouched = path.join(server, 'boot.js');
+  fs.writeFileSync(pkgPath, JSON.stringify({ dependencies: { 'node-gyp': '10.2.0' }, private: true }));
+  fs.writeFileSync(untouched, 'unchanged');
+  fs.chmodSync(pkgPath, 0o444); fs.chmodSync(untouched, 0o444);
+  try {
+    const begin = script.indexOf('chmod u+w "$BUNDLE/programs/server/package.json"');
+    const end = script.indexOf('\n(\n', begin);
+    assert.ok(begin > 0 && end > begin, 'permission repair precedes node-gyp and npm installation');
+    const commands = script.slice(begin, end);
+    assert.ok(commands.indexOf('chmod u+w') < commands.indexOf('bump-bundle-node-gyp.mjs'));
+    const result = spawnSync('bash', ['-c', 'fail() { echo "$*" >&2; exit 1; };\n' + commands], {
+      encoding: 'utf8', env: { ...process.env, ROOT, BUNDLE: base, PATH: path.dirname(process.execPath) + path.delimiter + process.env.PATH },
+    });
+    assert.equal(result.status, 0, result.stderr);
+    assert.match(result.stdout, /node-gyp 10\.2\.0 ->/);
+    assert.notEqual(JSON.parse(fs.readFileSync(pkgPath, 'utf8')).dependencies['node-gyp'], '10.2.0');
+    assert.equal(JSON.parse(fs.readFileSync(pkgPath, 'utf8')).private, true);
+    assert.equal(fs.readFileSync(untouched, 'utf8'), 'unchanged');
+    assert.equal(fs.statSync(untouched).mode & 0o777, 0o444, 'do not loosen unrelated bundle files');
+  } finally { fs.rmSync(base, { recursive: true, force: true }); }
+});
+
 console.log(`\nreleaseBundleMatchesWorkflow: ${passed} tests passed`);

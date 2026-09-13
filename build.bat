@@ -830,11 +830,15 @@ call :buildlog build-dev-bundle dev
 if errorlevel 1 goto end
 echo Building the WeKan DEVELOPMENT bundle ^(plain meteor build^).
 call :buildcommon
-if errorlevel 1 goto end
+if errorlevel 1 (
+  echo Build log: %WEKAN_BUILD_LOG%
+  goto end
+)
 echo.
 echo Done. This is NOT what a release ships: it still has the legacy client, the
 echo source maps and uWebSockets.js, and no Node.js, FerretDB or launcher of its
 echo own. Use "Build WeKan release bundle" to find out whether a release starts.
+echo Build log: %WEKAN_BUILD_LOG%
 goto end
 
 REM ===========================================================================
@@ -843,7 +847,10 @@ call :buildlog build-release-bundle release
 if errorlevel 1 goto end
 echo Building the WeKan RELEASE bundle.
 call :buildcommon
-if errorlevel 1 goto end
+if errorlevel 1 (
+  echo Build log: %WEKAN_BUILD_LOG%
+  goto end
+)
 REM THE REST OF WHAT A RELEASE BUNDLE IS - the same steps as the Release All
 REM workflow for this platform, minus the .zip: the server's npm modules, the
 REM three prunes, the sockjs / legacy-client / source-map trim, a verified
@@ -860,11 +867,16 @@ if errorlevel 1 (
   echo WARNING: bash was not found, so .build\bundle is a plain `meteor build`
   echo          bundle - no Node.js, no FerretDB, no launcher, nothing trimmed.
   echo          bash comes with Git for Windows ^(Git Bash^) and with WSL.
+  echo Build log: %WEKAN_BUILD_LOG%
   goto end
 )
 call :build_logged bash releases/build-release-bundle.sh .build/bundle
-if errorlevel 1 goto end
+if errorlevel 1 (
+  echo Build log: %WEKAN_BUILD_LOG%
+  goto end
+)
 echo Done.
+echo Build log: %WEKAN_BUILD_LOG%
 goto end
 
 REM ===========================================================================

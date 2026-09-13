@@ -541,7 +541,7 @@ function build_wekan(){
 			return 1
 		fi
 	fi
-	echo Done.
+	echo "Done. Build log: $buildlog" | tee -a "${buildlogs[@]}"
 }
 
 # Detect OS (linux/macos) and CPU arch (amd64/arm64) so tests run on
