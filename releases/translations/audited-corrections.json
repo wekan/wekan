@@ -94155,5 +94155,33 @@
     "before": "entfernte eine Checkliste von %s",
     "after": "ghItlhHommey tetlh teqlu'pu' (%s-vo')",
     "reason": "Replace audited German watching/notification controls and removal activities with Klingon. Preserve administrator disabling board/card watching, updates for watched boards/lists/cards, automatic watching on board creation, any board change notification, and attachment deletion versus checklist removal with source percent placeholders. Reuse repaired alert-message, attachment and checklist terminology; watching is described using bej observe. Full software clauses are assembled, low confidence, and require fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "activity-checklist-item-added",
+    "before": "hat einen Checklisteneintrag zu '%s' in %s hinzugefügt",
+    "after": "'%s' ghItlhHommey tetlhvaD ghItlhHom chellu'pu' (%s-Daq)",
+    "reason": "Replace audited German checklist-item and custom-field activities with Klingon. activities.jade passes checklist/field name before cardLink; preserve percent-token order and destination/origin/card context. Preserve field creation versus unsetting its data, matching the models/cards.js customFields $unset activity hook rather than implying global field deletion. Reuse existing checklist and repaired customized-field terminology. Full software phrases and noun chains are assembled, low confidence, and need fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "activity-checklist-item-removed",
+    "before": "hat einen Checklisteneintrag von '%s' in %s entfernt",
+    "after": "'%s' ghItlhHommey tetlhvo' ghItlhHom teqlu'pu' (%s-Daq)",
+    "reason": "Replace audited German checklist-item and custom-field activities with Klingon. activities.jade passes checklist/field name before cardLink; preserve percent-token order and destination/origin/card context. Preserve field creation versus unsetting its data, matching the models/cards.js customFields $unset activity hook rather than implying global field deletion. Reuse existing checklist and repaired customized-field terminology. Full software phrases and noun chains are assembled, low confidence, and need fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "activity-customfield-created",
+    "before": "hat das benutzerdefinierte Feld %s erstellt",
+    "after": "%s De' 'ay' cherbogh lo'wI' chenmoHlu'pu'",
+    "reason": "Replace audited German checklist-item and custom-field activities with Klingon. activities.jade passes checklist/field name before cardLink; preserve percent-token order and destination/origin/card context. Preserve field creation versus unsetting its data, matching the models/cards.js customFields $unset activity hook rather than implying global field deletion. Reuse existing checklist and repaired customized-field terminology. Full software phrases and noun chains are assembled, low confidence, and need fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "activity-unset-customfield",
+    "before": "entferne benutzerdefiniertes Feld '%s' in %s",
+    "after": "'%s' De' 'ay' cherbogh lo'wI' De' teqlu'pu' (%s-Daq)",
+    "reason": "Replace audited German checklist-item and custom-field activities with Klingon. activities.jade passes checklist/field name before cardLink; preserve percent-token order and destination/origin/card context. Preserve field creation versus unsetting its data, matching the models/cards.js customFields $unset activity hook rather than implying global field deletion. Reuse existing checklist and repaired customized-field terminology. Full software phrases and noun chains are assembled, low confidence, and need fluent-speaker validation."
   }
 ]
