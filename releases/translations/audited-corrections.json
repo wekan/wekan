@@ -85692,5 +85692,19 @@
     "before": "Buddhist",
     "after": "Буддын шажанай литэ",
     "reason": "Replace English Ethiopian/Amete Alem, Indian national and Buddhist calendar labels with Buryat; retain Amete Alem identity and national distinction. Эфиопи attested at https://burunen.ru/bur/news/culture/75219-buryaad-ulasay-tsirkyn-altan-amzhalta/ ; Энэдхэгэй and буддын шажанай at https://burunen.ru/bur/news/politics/100750-khuraldaan-tukhay-anamzhanuud/ ; үндэһэн at https://burunen.ru/bur/news/society/104021-ekhe-khelen-araday-kh-sen/ . Calendar литэ previously attested. Derived Ethiopian genitive, national descriptor and full assembled calendar grammar remain low confidence; setting, Persian/Hebrew/Coptic and Hijri variants remain pending."
+  },
+  {
+    "locale": "kw",
+    "key": "calendar-system-chinese",
+    "before": "Chinese",
+    "after": "Kalender China",
+    "reason": "Replace English calendar labels using existing Cornish Kalender and country names China/Japan from https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/kw.xml (draft unconfirmed). Assembled calendar wording remains low confidence; not native-speaker validated."
+  },
+  {
+    "locale": "kw",
+    "key": "calendar-system-japanese",
+    "before": "Japanese",
+    "after": "Kalender Japan",
+    "reason": "Replace English calendar labels using existing Cornish Kalender and country names China/Japan from https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/kw.xml (draft unconfirmed). Assembled calendar wording remains low confidence; not native-speaker validated."
   }
 ]
