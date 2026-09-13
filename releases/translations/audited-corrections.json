@@ -62081,5 +62081,145 @@
     "before": "La suppression est définitive. Vous perdrez toutes les actions associées à ce planning poker.",
     "after": "La supression es definitiva. Perdretz totas las accions associadas a aqueste planning poker.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "prefix-with-full-path",
+    "before": "Préfixer avec le chemin complet",
+    "after": "Prefixar amb lo camin complet",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "preview-pdf-not-supported",
+    "before": "Votre périphérique ne supporte pas la prévisualisation de PDF. Essayer plutôt le téléchargement.",
+    "after": "Vòstre aparelh permet pas de previsualizar los PDF. Ensajatz de telecargar lo fichièr.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "r-board-note",
+    "before": "Note : laisser le champ vide pour correspondre à toutes les valeurs possibles.",
+    "after": "Nòta : daissatz un camp void per correspondre a totas las valors possiblas.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "r-d-check-all",
+    "before": "Cocher tous les éléments d'une liste",
+    "after": "Marcar totes los elements d’una lista",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "r-d-unarchive",
+    "before": "Restaurer la carte depuis les archives",
+    "after": "Restablir la carta dempuèi los archius",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "r-d-uncheck-all",
+    "before": "Décocher tous les éléments d'une liste",
+    "after": "Desmarcar totes los elements d’una lista",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "r-new-rule-name",
+    "before": "Titre de la nouvelle règle",
+    "after": "Títol de la novèla règla",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "r-unarchive",
+    "before": "Restaurer depuis les archives",
+    "after": "Restablir dempuèi los archius",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "r-unarchived",
+    "before": "Restauré depuis les archives",
+    "after": "Restablit dempuèi los archius",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "read-assigned-only",
+    "before": "Lecture uniquement pour les cartes assignées",
+    "after": "Lectura, solament las cartas assignadas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "read-assigned-only-desc",
+    "before": "Seules les cartes assignées sont visibles. Modification impossible.",
+    "after": "Solament las cartas assignadas son visiblas. Se pòdon pas modificar.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "read-only-desc",
+    "before": "Peut seulement voir les cartes. Ne peut pas éditer.",
+    "after": "Pòt solament veire las cartas. Las pòt pas modificar.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "remove-labels-multiselect",
+    "before": "La multi-sélection supprime les étiquettes 1-9",
+    "after": "La seleccion multipla suprimís las etiquetas 1-9",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "rescue-card-description",
+    "before": "Afficher le dialogue de sauvegarde avant de fermer les descriptions de carte  en cours de modification",
+    "after": "Mostrar lo dialòg de recuperacion abans de tampar las descripcions de carta pas enregistradas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "rescue-card-description-dialogue",
+    "before": "Réécrire la description de la carte courante avec vos changements ?",
+    "after": "Remplaçar la descripcion de la carta actuala per vòstras modificacions ?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "restore-all-archived-migration",
+    "before": "Tout restaurer depuis les archives",
+    "after": "Restablir totes los elements archivats",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "restore-all-archived-migration-description",
+    "before": "Restaure tous les couloirs, listes et cartes archivés. Corrige automatiquement les swimlaneId ou listId manquants pour rendre les éléments visibles.",
+    "after": "Restablís totes los corredors, listas e cartas archivats. Corrigís automaticament los swimlaneId o listId mancants per rendre los elements visibles.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "restore-lost-cards-migration",
+    "before": "Restaurer les cartes perdues",
+    "after": "Restablir las cartas perdudas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "restore-lost-cards-migration-description",
+    "before": "Recherche et restaure les cartes et listes avec un swimlaneId ou listId manquant. Crée un couloir 'Cartes perdues' pour rendre tous les éléments perdus à nouveau visibles.",
+    "after": "Cèrca e restablís las cartas e listas amb un swimlaneId o listId mancant. Crèa un corredor « Lost Cards » per rendre tornamai visibles totes los elements perduts.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "restore-lost-cards-nothing-to-restore",
+    "before": "Aucun couloir, liste ou carte perdu à restaurer",
+    "after": "Cap de corredor, lista o carta perdut de restablir",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
