@@ -77313,5 +77313,33 @@
     "before": "OS Durée de fonctionnement",
     "after": "Tins d' alaedje do sistinme d' operåcion",
     "reason": "Replace French remaining heap/context/resident-memory and OS uptime diagnostics with Walloon. Preserve native versus detached contexts, executable-code heap portion, physical memory and process resident memory versus heap distinction. Technical definitions: https://nodejs.org/api/v8.html#v8getheapstatistics and https://nodejs.org/api/process.html#processmemoryusage ; reuse Walloon memwere/alaedje/grandeu terminology. Context/technical loan vocabulary and full grammar remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "authentication-method",
+    "before": "Méthode d'authentification",
+    "after": "Manire d' otintifiaedje",
+    "reason": "Replace French authentication method/type/display/default labels with Walloon. Native otintifiaedje computing term appears in historical KDE authentication error/requirement translations: https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve authentication rather than reducing it to login; default wording and full grammar remain low confidence. Includes unflagged authentication type."
+  },
+  {
+    "locale": "wa",
+    "key": "authentication-type",
+    "before": "Type d'authentification",
+    "after": "Sôre d' otintifiaedje",
+    "reason": "Replace French authentication method/type/display/default labels with Walloon. Native otintifiaedje computing term appears in historical KDE authentication error/requirement translations: https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve authentication rather than reducing it to login; default wording and full grammar remain low confidence. Includes unflagged authentication type."
+  },
+  {
+    "locale": "wa",
+    "key": "default-authentication-method",
+    "before": "Méthode d'authentification par défaut",
+    "after": "Manire d' otintifiaedje tchoezeye a l' avance",
+    "reason": "Replace French authentication method/type/display/default labels with Walloon. Native otintifiaedje computing term appears in historical KDE authentication error/requirement translations: https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve authentication rather than reducing it to login; default wording and full grammar remain low confidence. Includes unflagged authentication type."
+  },
+  {
+    "locale": "wa",
+    "key": "display-authentication-method",
+    "before": "Afficher la méthode d'authentification",
+    "after": "Mostrer l' manire d' otintifiaedje",
+    "reason": "Replace French authentication method/type/display/default labels with Walloon. Native otintifiaedje computing term appears in historical KDE authentication error/requirement translations: https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve authentication rather than reducing it to login; default wording and full grammar remain low confidence. Includes unflagged authentication type."
   }
 ]
