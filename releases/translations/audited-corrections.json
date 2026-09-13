@@ -81961,5 +81961,68 @@
     "before": "Migrations échouées réessayées avec succès",
     "after": "Jéemaat migration yi antuwul antu na",
     "reason": "Replace French with Wolof using existing migration, error, warning, scheduling, retry and resume terminology; distinguish failed migrations to retry from paused migrations to resume and successful retry initiation from migration completion. Scheduling and complete sentence grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "account-created",
+    "before": "Compte créé ! Vous pouvez maintenant vous connecter.",
+    "after": "Sos nañu kont bi! Man nga dugg léegi.",
+    "reason": "Replace French with Wolof using existing account, login, lock, duration and date terminology; preserve seconds units, failures counted before lockout, old/new time token roles and received/start/end distinctions. Lockout technical phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "account-creation-failed",
+    "before": "Échec de la création du compte",
+    "after": "Sos kont bi antuwul",
+    "reason": "Replace French with Wolof using existing account, login, lock, duration and date terminology; preserve seconds units, failures counted before lockout, old/new time token roles and received/start/end distinctions. Lockout technical phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "accounts-lockout-failure-window",
+    "before": "Fenêtre des échecs (secondes)",
+    "after": "Diir bi ñuy lim njuumte yi (segond)",
+    "reason": "Replace French with Wolof using existing account, login, lock, duration and date terminology; preserve seconds units, failures counted before lockout, old/new time token roles and received/start/end distinctions. Lockout technical phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "accounts-lockout-failures-before",
+    "before": "Échecs avant verrouillage",
+    "after": "Njuumte yi bala ñuy tëj kont bi",
+    "reason": "Replace French with Wolof using existing account, login, lock, duration and date terminology; preserve seconds units, failures counted before lockout, old/new time token roles and received/start/end distinctions. Lockout technical phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "accounts-lockout-period",
+    "before": "Durée de verrouillage (secondes)",
+    "after": "Diir bi kont bi tëju (segond)",
+    "reason": "Replace French with Wolof using existing account, login, lock, duration and date terminology; preserve seconds units, failures counted before lockout, old/new time token roles and received/start/end distinctions. Lockout technical phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "act-a-endAt",
+    "before": "Modification de la date de fin de __timeOldValue__ à __timeValue__",
+    "after": "soppi waxtu jeex bi ci __timeValue__ jóge ci (__timeOldValue__)",
+    "reason": "Replace French with Wolof using existing account, login, lock, duration and date terminology; preserve seconds units, failures counted before lockout, old/new time token roles and received/start/end distinctions. Lockout technical phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "act-a-receivedAt",
+    "before": "Modification de la date de réception de __timeOldValue__ à __timeValue__",
+    "after": "soppi waxtu jot bi ci __timeValue__ jóge ci (__timeOldValue__)",
+    "reason": "Replace French with Wolof using existing account, login, lock, duration and date terminology; preserve seconds units, failures counted before lockout, old/new time token roles and received/start/end distinctions. Lockout technical phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "act-a-startAt",
+    "before": "Modification de la date de début de __timeOldValue__ à __timeValue__",
+    "after": "soppi waxtu tambali bi ci __timeValue__ jóge ci (__timeOldValue__)",
+    "reason": "Replace French with Wolof using existing account, login, lock, duration and date terminology; preserve seconds units, failures counted before lockout, old/new time token roles and received/start/end distinctions. Lockout technical phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "a-receivedAt",
+    "before": "Date de réception modifiée à",
+    "after": "soppi waxtu jot bi ngir mu doon",
+    "reason": "Replace French with Wolof using existing account, login, lock, duration and date terminology; preserve seconds units, failures counted before lockout, old/new time token roles and received/start/end distinctions. Lockout technical phrasing and full grammar remain low confidence."
   }
 ]
