@@ -54010,5 +54010,75 @@
     "before": "Caro __user__,\n\n__inviter__ ti ha invitato ad unirti alla bacheca \"__board__\" per collaborare.\n\nPer favore clicca sul link seguente:\n\n__url__\n\nGrazie.",
     "after": "Dragã __user__,\\n\\n__inviter__ ti invitã s-intri tu tabela \"__board__\" ti colaborari.\\n\\nTi pãrãcãlsescu s-urmeadzi ligãtura di ma njos:\\n\\n__url__\\n\\nHaristo.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "r-d-move-to-bottom-gen",
+    "before": "Sposta la scheda in fondo alla sua lista",
+    "after": "Mutã carta la fundu a listãljei a ei",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "r-d-move-to-bottom-spec",
+    "before": "Muovi la scheda in fondo alla lista",
+    "after": "Mutã carta la fundu a listãljei",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "r-d-move-to-top-gen",
+    "before": "Sposta la scheda in cima alla sua lista",
+    "after": "Mutã carta la ahurhita a listãljei a ei",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "r-d-move-to-top-spec",
+    "before": "Sposta la scheda in cima alla lista",
+    "after": "Mutã carta la ahurhita a listãljei",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "r-d-unarchive",
+    "before": "Ripristina la scheda dall'archivio",
+    "after": "Adutsi carta napoi di Arhivã",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "r-remove-all",
+    "before": "Rimuovi tutti i membri dalla scheda",
+    "after": "Scoati tuts membrilji di cartã",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "r-when-a-card-is-moved",
+    "before": "Quando una scheda viene spostata in un'altra lista",
+    "after": "Cãndu unã cartã easti mutatã la altã listã",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "r-when-a-item",
+    "before": "Quando un elemento della checklist è",
+    "after": "Cãndu un element di lista di control easti",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "r-when-the-item",
+    "before": "Quando un elemento della checklist",
+    "after": "Cãndu elementul di lista di control",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "remove-all-read",
+    "before": "Rimuovi tutti i già letti",
+    "after": "Scoati tuti tsi furã dghivãsiti",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
