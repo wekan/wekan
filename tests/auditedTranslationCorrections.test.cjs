@@ -2661,5 +2661,22 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.match(vepsTranslator.t('fix-missing-lists-migration-description'), /ei ole libo oma travitud/);
   assert.equal(vepsTranslator.t('run-fix-missing-lists-migration-confirm'), 'Nece '+vepsTranslator.t('fix-missing-lists-migration-description').replace(/^L/, 'l')+' Jatkta?');
   assert.equal(cache['ve-PP']['step-analyze-lists'], 'Tarkištele lugetišid', 'retain existing analysis terminology');
+  const vepsMigrationIntegrity = {
+  "back-to-settings": "Pörte valičusihe",
+  "board-migration": "Laudan migracii",
+  "board-migrations": "Laudan migracijad",
+  "comprehensive-board-migration-description": "Kaikenpoližešti kodvib da kohendab laudan andmusid, mugažo lugetišiden jäl’gendust, kartoiden sijoid da ujundšoidoiden strukturad, miše niil ei oliži vigoid.",
+  "migrations-description": "Kodvi da kohenda necen laudan andmused, miše niil ei oliži vigoid. Kaikuččen migracijan voib tehta eriži.",
+  "run-comprehensive-migration-confirm": "Nece tegeb kaikenpoline migracii, miše kodvda da kohendada laudan andmusid, miše niil ei oliži vigoid. Nece voib otta vähän aigad. Jatkta?"
+};
+  for (const [key, value] of Object.entries(vepsMigrationIntegrity)) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.equal(vepsTranslator.t(key), value, key);
+    assert.doesNotMatch(value, /Takaisin|asetuksiin|Taulun siirto|Taulu siirrot|Suorittaa|tarkistuksia|eheyden|varmistamiseksi|Jokainen|erikseen|kestää hetken|Jatketaanko/, key);
+  }
+  assert.match(vepsTranslator.t('comprehensive-board-migration-description'), /lugetišiden jäl’gendust.*kartoiden sijoid.*ujundšoidoiden strukturad/);
+  assert.match(vepsTranslator.t('migrations-description'), /Kaikuččen migracijan voib tehta eriži/);
+  assert.match(vepsTranslator.t('run-comprehensive-migration-confirm'), /voib otta vähän aigad.*Jatkta\?$/);
+  assert.notEqual(vepsTranslator.t('board-migration'), vepsTranslator.t('board-migrations'));
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });

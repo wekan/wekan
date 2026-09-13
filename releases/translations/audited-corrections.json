@@ -120293,5 +120293,47 @@
     "before": "Tämä havaitsee ja korjaa puuttuvat tai vioittuneet listat taulun rakenteessa. Jatketaanko?",
     "after": "Nece löudab da kohendab laudan strukturas lugetišid, miččid ei ole libo oma travitud. Jatkta?",
     "reason": "Replace Finnish board-migration controls with Veps. Dictionary kaikenpoline, löuta, koheta and travitud preserve comprehensive scope and missing/corrupt alternatives; reuse existing migration/analysis/continue vocabulary. Low confidence: technical struktur loan/inflection and absent-list repair clause composition require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "back-to-settings",
+    "before": "Takaisin asetuksiin",
+    "after": "Pörte valičusihe",
+    "reason": "Replace Finnish migration/settings messages with Veps. Dictionary kodvda/koheta, eriži and vähän aigad preserve integrity repair, independent migrations and brief operation duration; retain list order, card positions and swimlane structure. Low confidence: composed integrity-purpose clauses, case agreement and technical structure borrowing require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "board-migration",
+    "before": "Taulun siirto",
+    "after": "Laudan migracii",
+    "reason": "Replace Finnish migration/settings messages with Veps. Dictionary kodvda/koheta, eriži and vähän aigad preserve integrity repair, independent migrations and brief operation duration; retain list order, card positions and swimlane structure. Low confidence: composed integrity-purpose clauses, case agreement and technical structure borrowing require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "board-migrations",
+    "before": "Taulu siirrot",
+    "after": "Laudan migracijad",
+    "reason": "Replace Finnish migration/settings messages with Veps. Dictionary kodvda/koheta, eriži and vähän aigad preserve integrity repair, independent migrations and brief operation duration; retain list order, card positions and swimlane structure. Low confidence: composed integrity-purpose clauses, case agreement and technical structure borrowing require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "comprehensive-board-migration-description",
+    "before": "Suorittaa kattavia tarkistuksia ja korjauksia taulun tietojen eheyden varmistamiseksi, mukaan lukien listajärjestyksen, korttien sijainnit ja uimaratarakenteen.",
+    "after": "Kaikenpoližešti kodvib da kohendab laudan andmusid, mugažo lugetišiden jäl’gendust, kartoiden sijoid da ujundšoidoiden strukturad, miše niil ei oliži vigoid.",
+    "reason": "Replace Finnish migration/settings messages with Veps. Dictionary kodvda/koheta, eriži and vähän aigad preserve integrity repair, independent migrations and brief operation duration; retain list order, card positions and swimlane structure. Low confidence: composed integrity-purpose clauses, case agreement and technical structure borrowing require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "migrations-description",
+    "before": "Suorita tietojen eheystarkistukset ja korjaukset tälle taululle. Jokainen siirto voidaan suorittaa erikseen.",
+    "after": "Kodvi da kohenda necen laudan andmused, miše niil ei oliži vigoid. Kaikuččen migracijan voib tehta eriži.",
+    "reason": "Replace Finnish migration/settings messages with Veps. Dictionary kodvda/koheta, eriži and vähän aigad preserve integrity repair, independent migrations and brief operation duration; retain list order, card positions and swimlane structure. Low confidence: composed integrity-purpose clauses, case agreement and technical structure borrowing require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "run-comprehensive-migration-confirm",
+    "before": "Tämä suorittaa kattavan siirron, jolla tarkistetaan ja korjataan taulun tietojen eheys. Tämä voi kestää hetken. Jatketaanko?",
+    "after": "Nece tegeb kaikenpoline migracii, miše kodvda da kohendada laudan andmusid, miše niil ei oliži vigoid. Nece voib otta vähän aigad. Jatkta?",
+    "reason": "Replace Finnish migration/settings messages with Veps. Dictionary kodvda/koheta, eriži and vähän aigad preserve integrity repair, independent migrations and brief operation duration; retain list order, card positions and swimlane structure. Low confidence: composed integrity-purpose clauses, case agreement and technical structure borrowing require fluent review."
   }
 ]
