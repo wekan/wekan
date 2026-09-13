@@ -81497,7 +81497,21 @@
     "locale": "wo",
     "key": "setSelectionColorPopup-title",
     "before": "Définir la couleur de sélection",
-    "after": "Def melo yi ñu tànn",
-    "reason": "Replace French selection label/member/color controls with Wolof. Preserve selected-item scope and literal label shortcuts 1-9 with removal direction. Reuse etiket/bokkkat/melo terminology. Selection/color phrasing and full grammar remain low confidence; clipboard and migration controls remain pending."
+    "after": "Def melo ci yi ñu tànn",
+    "reason": "Review selection color title against sidebarFilters.jade: applies color to selected items, not selected colors. Clarify with ci selected-item scope. Replace French choose/unset color controls with Wolof, preserving choose versus remove color. Existing Done retained. Full grammar remains low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "setSwimlaneColorPopup-title",
+    "before": "Choisissez une couleur",
+    "after": "Tànn melo",
+    "reason": "Review selection color title against sidebarFilters.jade: applies color to selected items, not selected colors. Clarify with ci selected-item scope. Replace French choose/unset color controls with Wolof, preserving choose versus remove color. Existing Done retained. Full grammar remains low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "unset-color",
+    "before": "Enlever",
+    "after": "Dindi melo bi",
+    "reason": "Review selection color title against sidebarFilters.jade: applies color to selected items, not selected colors. Clarify with ci selected-item scope. Replace French choose/unset color controls with Wolof, preserving choose versus remove color. Existing Done retained. Full grammar remains low confidence."
   }
 ]
