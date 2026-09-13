@@ -89934,5 +89934,75 @@
     "before": "`__operator_due__:<n>` - cartes qui arrive à échéance dans moins de *<n>* jours à partir d'aujourd'hui.\n`__operator_due__:__predicate_overdue__` liste toutes les cartes ayant passé la date d'échéance.",
     "after": "`__operator_due__:<n>` - kads labü tüp bü u tü dels *<n>* pos nu. `__operator_due__:__predicate_overdue__` jonon kadis valik labü tüp ya pepasöl.",
     "reason": "Repair French due-date search/help/reminder messages in Volapük. Preserve all-incomplete-with-due-date versus overdue distinction, permitted-board scope, approaching/now/today/past states and exact date/card placeholders. Due operator remains inclusive up to N days from now with overdue predicate; close its missing source backtick locally for rendering without changing operator text. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nilikön (approach), mebön (remind), däl (permission) and existing date/card vocabulary. Temporal/software adaptations and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "card-spent",
+    "before": "Temps passé",
+    "after": "Tim pegeböl",
+    "reason": "Repair French time-tracking labels and inconsistent related board summaries in Volapük. Preserve spent-time versus overtime flag, hour units, presence conditions, edit action, whole-board total and OS time-since-start meaning. Models/cards.js defines spentTime/isOvertime independently; cardDetails.jade/cardTime.js select matching labels. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests düp (hour), läyümik (additional), and existing tim/gebön/votükön/prim vocabulary. Overtime/uptime software paraphrases and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "editCardSpentTimePopup-title",
+    "before": "Modifier le temps passé",
+    "after": "Votükön timi pegeböl",
+    "reason": "Repair French time-tracking labels and inconsistent related board summaries in Volapük. Preserve spent-time versus overtime flag, hour units, presence conditions, edit action, whole-board total and OS time-since-start meaning. Models/cards.js defines spentTime/isOvertime independently; cardDetails.jade/cardTime.js select matching labels. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests düp (hour), läyümik (additional), and existing tim/gebön/votükön/prim vocabulary. Overtime/uptime software paraphrases and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "spent-time-hours",
+    "before": "Temps passé (heures)",
+    "after": "Tim pegeböl (düps)",
+    "reason": "Repair French time-tracking labels and inconsistent related board summaries in Volapük. Preserve spent-time versus overtime flag, hour units, presence conditions, edit action, whole-board total and OS time-since-start meaning. Models/cards.js defines spentTime/isOvertime independently; cardDetails.jade/cardTime.js select matching labels. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests düp (hour), läyümik (additional), and existing tim/gebön/votükön/prim vocabulary. Overtime/uptime software paraphrases and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "overtime-hours",
+    "before": "Temps supplémentaire (heures)",
+    "after": "Tim läyümik (düps)",
+    "reason": "Repair French time-tracking labels and inconsistent related board summaries in Volapük. Preserve spent-time versus overtime flag, hour units, presence conditions, edit action, whole-board total and OS time-since-start meaning. Models/cards.js defines spentTime/isOvertime independently; cardDetails.jade/cardTime.js select matching labels. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests düp (hour), läyümik (additional), and existing tim/gebön/votükön/prim vocabulary. Overtime/uptime software paraphrases and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "overtime",
+    "before": "Temps supplémentaire",
+    "after": "Tim läyümik",
+    "reason": "Repair French time-tracking labels and inconsistent related board summaries in Volapük. Preserve spent-time versus overtime flag, hour units, presence conditions, edit action, whole-board total and OS time-since-start meaning. Models/cards.js defines spentTime/isOvertime independently; cardDetails.jade/cardTime.js select matching labels. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests düp (hour), läyümik (additional), and existing tim/gebön/votükön/prim vocabulary. Overtime/uptime software paraphrases and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "has-overtime-cards",
+    "before": "A des cartes avec du temps supplémentaire",
+    "after": "Labon kadis labü tim läyümik",
+    "reason": "Repair French time-tracking labels and inconsistent related board summaries in Volapük. Preserve spent-time versus overtime flag, hour units, presence conditions, edit action, whole-board total and OS time-since-start meaning. Models/cards.js defines spentTime/isOvertime independently; cardDetails.jade/cardTime.js select matching labels. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests düp (hour), läyümik (additional), and existing tim/gebön/votükön/prim vocabulary. Overtime/uptime software paraphrases and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "has-spenttime-cards",
+    "before": "A des cartes avec du temps passé",
+    "after": "Labon kadis labü tim pegeböl",
+    "reason": "Repair French time-tracking labels and inconsistent related board summaries in Volapük. Preserve spent-time versus overtime flag, hour units, presence conditions, edit action, whole-board total and OS time-since-start meaning. Models/cards.js defines spentTime/isOvertime independently; cardDetails.jade/cardTime.js select matching labels. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests düp (hour), läyümik (additional), and existing tim/gebön/votükön/prim vocabulary. Overtime/uptime software paraphrases and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "OS_Uptime",
+    "before": "OS Durée de fonctionnement",
+    "after": "Tim sis prim OS",
+    "reason": "Repair French time-tracking labels and inconsistent related board summaries in Volapük. Preserve spent-time versus overtime flag, hour units, presence conditions, edit action, whole-board total and OS time-since-start meaning. Models/cards.js defines spentTime/isOvertime independently; cardDetails.jade/cardTime.js select matching labels. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests düp (hour), läyümik (additional), and existing tim/gebön/votükön/prim vocabulary. Overtime/uptime software paraphrases and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "board-status-time-spent-total",
+    "before": "Tim lölöfik pegeböl",
+    "after": "Tim pegeböl lölik",
+    "reason": "Repair French time-tracking labels and inconsistent related board summaries in Volapük. Preserve spent-time versus overtime flag, hour units, presence conditions, edit action, whole-board total and OS time-since-start meaning. Models/cards.js defines spentTime/isOvertime independently; cardDetails.jade/cardTime.js select matching labels. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests düp (hour), läyümik (additional), and existing tim/gebön/votükön/prim vocabulary. Overtime/uptime software paraphrases and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "board-status-overtime-cards",
+    "before": "Kads plu tima",
+    "after": "Kads labü tim läyümik",
+    "reason": "Repair French time-tracking labels and inconsistent related board summaries in Volapük. Preserve spent-time versus overtime flag, hour units, presence conditions, edit action, whole-board total and OS time-since-start meaning. Models/cards.js defines spentTime/isOvertime independently; cardDetails.jade/cardTime.js select matching labels. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests düp (hour), läyümik (additional), and existing tim/gebön/votükön/prim vocabulary. Overtime/uptime software paraphrases and assembled wording remain low confidence; no native-speaker verification."
   }
 ]
