@@ -78573,5 +78573,26 @@
     "before": "a restauré la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
     "after": "delloo karta __card__ ci limu __list__ ci yoon __swimlane__ ci tablo __board__",
     "reason": "Replace French attachment add/delete and card-restoration activity with Wolof. Preserve attachment/card/list/swimlane/board placeholders and restored-to-list direction; reuse existing takkaay/karta/limu/yoon/tablo vocabulary. Full grammar remains low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "act-createCard",
+    "before": "a créé la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "sos karta __card__ ci limu __list__ ci yoon __swimlane__ ci tablo __board__",
+    "reason": "Replace French card/list/board creation activity with Wolof, preserving creation versus list-addition meaning and all object placeholders. Reuse existing karta/limu/yoon/tablo/sos/yokk vocabulary. Full grammar remains low confidence; existing Wolof card deletion activity is retained."
+  },
+  {
+    "locale": "wo",
+    "key": "act-createList",
+    "before": "a ajouté la liste __list__ au tableau __board__",
+    "after": "yokk limu __list__ ci tablo __board__",
+    "reason": "Replace French card/list/board creation activity with Wolof, preserving creation versus list-addition meaning and all object placeholders. Reuse existing karta/limu/yoon/tablo/sos/yokk vocabulary. Full grammar remains low confidence; existing Wolof card deletion activity is retained."
+  },
+  {
+    "locale": "wo",
+    "key": "act-createBoard",
+    "before": "a créé le tableau __board__",
+    "after": "sos tablo __board__",
+    "reason": "Replace French card/list/board creation activity with Wolof, preserving creation versus list-addition meaning and all object placeholders. Reuse existing karta/limu/yoon/tablo/sos/yokk vocabulary. Full grammar remains low confidence; existing Wolof card deletion activity is retained."
   }
 ]
