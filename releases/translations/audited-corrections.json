@@ -90564,5 +90564,33 @@
     "before": "Supprimer ce planning poker ?",
     "after": "Radön eli «planning poker»?",
     "reason": "Replace audited French loading warning, scheduled-job action and planning-poker deletion title with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests disinön (plan/schedule), dünädian (computer server), lodön (load), stebedön (wait), per (loss), stopön (stop). Preserve waiting instruction, refresh-causes-data-loss warning and checking whether server stopped when loading fails. Preserve scheduled status and deletion question; retain planning poker as the feature name. Derived dönulodam for reload and assembled software phrases remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "fix-all-file-urls-migration-description",
+    "before": "Met à jour toutes les URL des pièces jointes de ce tableau pour utiliser le bon backend de stockage et corrige les références de fichiers cassées.",
+    "after": "Nulükon URLis valik nünedas pefimüköl su tab at ad gebön siti verätik kipedama e verätükon jonis dämik nünedas.",
+    "reason": "Replace audited French file/avatar migration descriptions and confirmations with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests kiped (storage), sit (system), jon (reference), dämik (damaged), nulükön (renew), nüned (computer file), liman (member). Preserve all board attachment URLs versus board-member avatar URLs, correct storage system, broken references in descriptions only, and continuation questions. URL and avatar remain technical borrowings; storage-backend paraphrase and assembled software wording remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "fix-avatar-urls-migration-description",
+    "before": "Mets à jour les URLs d'avatar des participants du tableau pour utiliser le bon gestionnaire de stockage et corriger les références défaillantes d'avatar ",
+    "after": "Nulükon URLis avataras limanas taba ad gebön siti verätik kipedama e verätükon jonis dämik avataras.",
+    "reason": "Replace audited French file/avatar migration descriptions and confirmations with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests kiped (storage), sit (system), jon (reference), dämik (damaged), nulükön (renew), nüned (computer file), liman (member). Preserve all board attachment URLs versus board-member avatar URLs, correct storage system, broken references in descriptions only, and continuation questions. URL and avatar remain technical borrowings; storage-backend paraphrase and assembled software wording remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "run-fix-all-file-urls-migration-confirm",
+    "before": "Cette opération mettra à jour toutes les URL des pièces jointes de ce tableau pour utiliser le bon backend de stockage. Continuer ?",
+    "after": "At onulükon URLis valik nünedas pefimüköl su tab at ad gebön siti verätik kipedama. Progedön-li?",
+    "reason": "Replace audited French file/avatar migration descriptions and confirmations with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests kiped (storage), sit (system), jon (reference), dämik (damaged), nulükön (renew), nüned (computer file), liman (member). Preserve all board attachment URLs versus board-member avatar URLs, correct storage system, broken references in descriptions only, and continuation questions. URL and avatar remain technical borrowings; storage-backend paraphrase and assembled software wording remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "run-fix-avatar-urls-migration-confirm",
+    "before": "Cette opération mettra à jour les URL des avatars des participants du tableau pour utiliser le bon backend de stockage. Continuer ?",
+    "after": "At onulükon URLis avataras limanas taba ad gebön siti verätik kipedama. Progedön-li?",
+    "reason": "Replace audited French file/avatar migration descriptions and confirmations with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests kiped (storage), sit (system), jon (reference), dämik (damaged), nulükön (renew), nüned (computer file), liman (member). Preserve all board attachment URLs versus board-member avatar URLs, correct storage system, broken references in descriptions only, and continuation questions. URL and avatar remain technical borrowings; storage-backend paraphrase and assembled software wording remain low confidence pending native review."
   }
 ]
