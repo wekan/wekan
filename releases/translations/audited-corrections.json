@@ -77964,5 +77964,54 @@
     "before": "Filtrer par titre de carte",
     "after": "Fëltar ci turu karta bi",
     "reason": "Replace French filter-control labels with Wolof using existing Fëltar terminology. Preserve date/list title/card title/label/member/assignee/creator/custom-field criteria and advanced versus other filters. Date/custom-field/advanced wording and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "globalSearch-instructions-operator-board",
+    "before": "`__operator_board__:<titre>` - cartes dont le tableau correspond à *<titre>*",
+    "after": "`__operator_board__:<title>` - karta yi ci tablo yi dëppoo ak *<title>* bi ñu wax",
+    "reason": "Replace French search operator descriptions with Wolof and restore literal source title/text/color/name/username examples. Preserve board/list/comment/label/user criteria, member-or-assignee semantics and shorthand alternatives. Comment/matching terminology and full grammar remain low confidence; includes revision of unflagged shorthand example."
+  },
+  {
+    "locale": "wo",
+    "key": "globalSearch-instructions-operator-list",
+    "before": "`__operator_list__:<titre>` - cartes dont les listes correspondent à *<titre>*",
+    "after": "`__operator_list__:<title>` - karta yi ci limu yi dëppoo ak *<title>* bi ñu wax",
+    "reason": "Replace French search operator descriptions with Wolof and restore literal source title/text/color/name/username examples. Preserve board/list/comment/label/user criteria, member-or-assignee semantics and shorthand alternatives. Comment/matching terminology and full grammar remain low confidence; includes revision of unflagged shorthand example."
+  },
+  {
+    "locale": "wo",
+    "key": "globalSearch-instructions-operator-comment",
+    "before": "`__operator_comment__:<texte>` - cartes dont le commentaire contient *<texte>*.",
+    "after": "`__operator_comment__:<text>` - karta yi am xalaat bu am *<text>*.",
+    "reason": "Replace French search operator descriptions with Wolof and restore literal source title/text/color/name/username examples. Preserve board/list/comment/label/user criteria, member-or-assignee semantics and shorthand alternatives. Comment/matching terminology and full grammar remain low confidence; includes revision of unflagged shorthand example."
+  },
+  {
+    "locale": "wo",
+    "key": "globalSearch-instructions-operator-label",
+    "before": "`__operator_label__:<couleur>` `__operator_label__:<nom>` - cartes qui ont une étiquette correspondant à *<couleur>* ou à *<nom>*.",
+    "after": "`__operator_label__:<color>` `__operator_label__:<name>` - karta yi am etiket bu dëppoo ak *<color>* walla *<name>*",
+    "reason": "Replace French search operator descriptions with Wolof and restore literal source title/text/color/name/username examples. Preserve board/list/comment/label/user criteria, member-or-assignee semantics and shorthand alternatives. Comment/matching terminology and full grammar remain low confidence; includes revision of unflagged shorthand example."
+  },
+  {
+    "locale": "wo",
+    "key": "globalSearch-instructions-operator-hash",
+    "before": "`__operator_label_abbrev__<nom|couleur>` - raccourci pour `__operator_label__:<couleur>` ou `__operator_label__:<nom>`",
+    "after": "`__operator_label_abbrev__<name|color>` - gàttal bu `__operator_label__:<color>` walla `__operator_label__:<name>`",
+    "reason": "Replace French search operator descriptions with Wolof and restore literal source title/text/color/name/username examples. Preserve board/list/comment/label/user criteria, member-or-assignee semantics and shorthand alternatives. Comment/matching terminology and full grammar remain low confidence; includes revision of unflagged shorthand example."
+  },
+  {
+    "locale": "wo",
+    "key": "globalSearch-instructions-operator-user",
+    "before": "`__operator_user__:<nom>` - cartes où l'utilisateur <nom> est *assigné* ou est un *participant*.",
+    "after": "`__operator_user__:<username>` - karta yi *<username>* di *bokkkat* walla ki ñu *sas*",
+    "reason": "Replace French search operator descriptions with Wolof and restore literal source title/text/color/name/username examples. Preserve board/list/comment/label/user criteria, member-or-assignee semantics and shorthand alternatives. Comment/matching terminology and full grammar remain low confidence; includes revision of unflagged shorthand example."
+  },
+  {
+    "locale": "wo",
+    "key": "globalSearch-instructions-operator-at",
+    "before": "`__operator_user_abbrev__tur` - gàttal bu `user:<tur>`",
+    "after": "`__operator_user_abbrev__username` - gàttal bu `user:<username>`",
+    "reason": "Replace French search operator descriptions with Wolof and restore literal source title/text/color/name/username examples. Preserve board/list/comment/label/user criteria, member-or-assignee semantics and shorthand alternatives. Comment/matching terminology and full grammar remain low confidence; includes revision of unflagged shorthand example."
   }
 ]
