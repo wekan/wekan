@@ -115545,8 +115545,8 @@
     "locale": "ve-PP",
     "key": "shortcut-filter-my-assigned-cards",
     "before": "Suodata käsittelijä korttini",
-    "after": "Puhtasta sinei märitud kartad",
-    "reason": "Replace Finnish member/role/selection wording with reference Veps vocabulary. Preserve read-only versus comment-only versus normal editing, assigned-only current-user card visibility, board/card member and assignee scopes, add versus assign, all-card member removal plus notification, selection and 1-9 key ranges. Refine malformed märitadud to dictionary/native MediaWiki and inflection-table märitud, retaining original before records. Composed role/UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json ; https://en.wiktionary.org/wiki/m%C3%A4rita"
+    "after": "Puhtasta minei märitud kartad",
+    "reason": "Replace Finnish remaining-time label with Veps dictionary arvostelda/jänu/aig, and correct the assigned-to-me shortcut from sinei (to you) to minei (to me). Preserve distinct self-assignment/filter meanings. Low confidence: estimated-time participle composition requires fluent review."
   },
   {
     "locale": "ve-PP",
@@ -120076,5 +120076,12 @@
     "before": "Kokodza u shandukisa vhuhulwane ha bara ya thungo",
     "after": "Vedä, miše vajehtada čuramenülistan suruz’",
     "reason": "Replace Finnish/Venda drag and sidebar instructions with Veps. Reuse existing vedä da pästa and čuramenülist; dictionary pidim, avaida, jäl’genduz and suruz’. Preserve workspace placeholders and distinct click/drag/drop/resize actions. Low confidence: icon declension and composed desktop drag-handle terminology need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "estimated-time-remaining",
+    "before": "Arvioitu jäljellä oleva aika",
+    "after": "Arvosteldud jänu aig",
+    "reason": "Replace Finnish remaining-time label with Veps dictionary arvostelda/jänu/aig, and correct the assigned-to-me shortcut from sinei (to you) to minei (to me). Preserve distinct self-assignment/filter meanings. Low confidence: estimated-time participle composition requires fluent review."
   }
 ]

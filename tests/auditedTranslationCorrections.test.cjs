@@ -967,7 +967,7 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   "remove-member-pop": "Heitä __name__ (__username__) laudaspäi __boardTitle__? Ühtnik linneb heittud kaikiš necen laudan kartoišpäi. Hän sab tedotuz.",
   "shortcut-add-self": "Ližada ičtaze nügüdläižele kartale",
   "shortcut-assign-self": "Märiče ičtaze nügüdläižele kartale",
-  "shortcut-filter-my-assigned-cards": "Puhtasta sinei märitud kartad",
+  "shortcut-filter-my-assigned-cards": "Puhtasta minei märitud kartad",
   "multi-selection-active": "Paina valičuznellikid, miše valita laudoid",
   "multi-selection-label": "Pane znam valičusele",
   "remove-labels-multiselect": "Äjiden valičuz heitäb znamad 1-9",
@@ -1567,7 +1567,7 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.match(cache['ve-PP']['to-create-teams-contact-admin'], /^Joukuiden.*kosketusiš administratoranke/);
   assert.equal(cache['ve-PP']['shortcut-filter-my-cards'], 'Puhtasta minun kartad');
   assert.doesNotMatch(cache['ve-PP']['shortcut-filter-my-cards'], /märitud/);
-  assert.equal(cache['ve-PP']['shortcut-filter-my-assigned-cards'], 'Puhtasta sinei märitud kartad');
+  assert.equal(cache['ve-PP']['shortcut-filter-my-assigned-cards'], 'Puhtasta minei märitud kartad');
   const vepsArchiveRecoveryRepairs = {
   "archive-board-confirm": "Oled-ik sinä tozi mugošt mel’t, miše tahtoid sirtta necen laudan Arhivaha?",
   "archive-swimlane": "Sirdä ujundšoid Arhivaha",
@@ -2579,5 +2579,11 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.notEqual(vepsTranslator.t('sidebar-open'), vepsTranslator.t('sidebar-close'));
   assert.match(vepsTranslator.t('drag-to-resize-sidebar'), /^Vedä.*suruz’$/);
   assert.equal(cache['ve-PP']['shortcut-toggle-sidebar'], 'Ozuta libo peitä laudan čuramenülist', 'retain existing sidebar terminology');
+  assert.equal(vepsTranslator.t('estimated-time-remaining'), 'Arvosteldud jänu aig');
+  assert.doesNotMatch(vepsTranslator.t('estimated-time-remaining'), /Arvioitu|jäljellä oleva aika/);
+  assert.equal(vepsTranslator.t('shortcut-filter-my-assigned-cards'), 'Puhtasta minei märitud kartad');
+  assert.doesNotMatch(vepsTranslator.t('shortcut-filter-my-assigned-cards'), /sinei/);
+  assert.equal(cache['ve-PP']['shortcut-filter-my-cards'], 'Puhtasta minun kartad', 'retain distinct own-card filter');
+  assert.equal(cache['ve-PP']['shortcut-assign-self'], 'Märiče ičtaze nügüdläižele kartale', 'retain distinct self-assignment action');
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });
