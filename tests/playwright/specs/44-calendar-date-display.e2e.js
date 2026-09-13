@@ -6,6 +6,39 @@ const { loginWithToken, openBoard } = require('../helpers/auth');
 const BoardPage = require('../pages/BoardPage');
 const CardPage = require('../pages/CardPage');
 
+test('RTL date popup keeps its bottom-right grip and moves with physical pointer coordinates', async ({ page, user, board }) => {
+  const card = db.findOne('cards', { boardId: board.boardId, title: 'Alpha Card' });
+  db.updateOne('users', { _id: user.id }, { $set: {
+    'profile.language': 'ar', 'profile.calendarSystem': 'jalali',
+  } });
+  db.updateOne('cards', { _id: card._id }, { $set: {
+    dueAt: new Date('2026-03-21T12:00:00.000Z'),
+  } });
+  await loginWithToken(page, user.id, user.token);
+  await openBoard(page, board.boardId, board.slug);
+  await expect(page.locator('html')).toHaveAttribute('dir', 'rtl');
+  const bp = new BoardPage(page);
+  await bp.clickCard(board.listIds[0], 'Alpha Card');
+  const cp = new CardPage(page);
+  await cp.waitForOpen();
+  await cp.root.locator('.due-date .js-edit-date, a.due-date.js-edit-date').first().click();
+  const popup = page.locator('.js-pop-over');
+  await expect(popup.locator('.selected-calendar-picker')).toBeVisible();
+  const original = await popup.boundingBox();
+  const grip = await popup.locator('.js-date-popup-resize').boundingBox();
+  expect(Math.abs(grip.x + grip.width - original.x - original.width)).toBeLessThan(2);
+  expect(Math.abs(grip.y + grip.height - original.y - original.height)).toBeLessThan(2);
+  const title = await popup.locator('.header-title').boundingBox();
+  await page.mouse.move(title.x + title.width / 2, title.y + title.height / 2);
+  await page.mouse.down();
+  await page.mouse.move(title.x + title.width / 2 + 30, title.y + title.height / 2 + 20);
+  await page.mouse.up();
+  const moved = await popup.boundingBox();
+  expect(moved.x).toBeCloseTo(original.x + 30, 0);
+  expect(moved.y).toBeCloseTo(original.y + 20, 0);
+  expect(moved.width).toBeCloseTo(original.width, 0);
+});
+
 test('Jalali mouse and keyboard selection saves the same native instant in an English UI', async ({ page, user, board }) => {
   const dueAt = new Date('2026-03-21T12:00:00.000Z');
   const card = db.findOne('cards', { boardId: board.boardId, title: 'Alpha Card' });
