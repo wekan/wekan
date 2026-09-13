@@ -1963,7 +1963,7 @@
   "Node_heap_total_physical_size": "Sterta Node: cołki fizyczny rozmiar",
   "Node_heap_total_available_size": "Sterta Node: cołki dostympny rozmiar",
   "Node_heap_used_heap_size": "Sterta Node: używanŏ pamiyńć sterty",
-  "Node_heap_heap_size_limit": "Sterta Node: limit rozmiaru sterty",
+  "Node_heap_heap_size_limit": "Sterta Node: nojwiynkszy dozwolōny rozmiar sterty",
   "Node_heap_malloced_memory": "Sterta Node: przidzielōnŏ pamiyńć (malloc)",
   "Node_heap_peak_malloced_memory": "Sterta Node: nojwiynkszŏ przidzielōnŏ pamiyńć (malloc)",
   "Node_heap_does_zap_garbage": "Sterta Node: nadpisanie niyużywanyj pamiyńci bitowym wzorym (zap garbage)",

@@ -69543,5 +69543,12 @@
     "before": "`__predicate_archived__` - karty zarchiwizowane",
     "after": "`__predicate_archived__` - karty we archiwum",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "Node_heap_heap_size_limit",
+    "before": "Sterta Node: limit rozmiaru sterty",
+    "after": "Sterta Node: nojwiynkszy dozwolōny rozmiar sterty",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
