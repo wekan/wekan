@@ -111836,7 +111836,7 @@
     "key": "days",
     "before": "päivää",
     "after": "päiväd",
-    "reason": "Replace Finnish-seeded basic date units with Veps vocabulary. Source: https://fi.wikibooks.org/wiki/Veps%C3%A4n_kieli/Sanasto (päiv, nedalin päiväd, kud). Plural days uses Veps nominative plural; inflection in composed UI requires review."
+    "reason": "Replace Finnish päivää with Veps päiväd. Actual uptime code composes a number followed by this unit; päiväd is both Veps nominative plural and partitive singular. Verified inflection: https://en.wiktionary.org/wiki/päiv . Runtime context: client/components/settings/informationBody.js. Broader Veps grammar review remains outstanding."
   },
   {
     "locale": "ve-PP",

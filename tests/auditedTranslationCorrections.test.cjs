@@ -93,5 +93,15 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
       assert.ok(filterHelp.includes(example), `${locale}: preserve filter example: ${example}`);
     }
   }
+  // Veps units differ from Finnish despite closely related vocabulary.
+  const veps = cache['ve-PP'];
+  assert.equal(veps.day, 'Päiv');
+  assert.equal(veps.days, 'päiväd'); // Also the singular partitive for counted duration.
+  assert.equal(veps.week, 'Nedal');
+  assert.equal(veps.month, 'Ku');
+  assert.equal(veps.calendar, "Kalendar'");
+  assert.doesNotMatch(veps.days, /päivää/);
+  assert.doesNotMatch(veps.week, /Viikko/);
+  assert.doesNotMatch(veps.month, /Kuukausi/);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });
