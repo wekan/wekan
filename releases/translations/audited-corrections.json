@@ -92342,5 +92342,26 @@
     "before": "Islamic tabular",
     "after": "Khalendara ea Hijri (ho bala ka tafole, letsatsi la qalo ho latela bolepi ba linaleli)",
     "reason": "Replace English Islamic tabular with direct Southern Sotho wording for the tabular Hijri calendar and astronomical starting date. Existing Khalendara ea Hijri retained. https://glosbe.com/en/st/astronomy attests bolepi ba linaleli in a human parallel-text example; https://www.dsac.gov.za/sites/default/files/2023-11/Multilingual%20Mathematics%20Dictionary.pdf attests Sesotho tafole for rows-and-columns table. Full phrasing and starting-date terminology are assembled, not independently validated: low confidence, native-speaker review required. No tokens changed."
+  },
+  {
+    "locale": "tlh",
+    "key": "accounts-allowUserNameChange",
+    "before": "Ändern des Benutzernamens erlauben",
+    "after": "lo'wI' pong choH",
+    "reason": "Replace German with directly assembled Klingon: username change, passwords not matching, or something failing. Existing locale lo'wI', pong and choH vocabulary retained; pegh mu' secret-word terminology is attested at https://www.kli.org/tlhIngan-Hol/1998/July/msg00808.html and https://tlhingan.org/grammar/the-tale-of-i (Password game, not a software-domain validation). Case and apostrophes are significant. Full software phrases and Qapbe' vay' paraphrase need fluent-speaker validation; low confidence. No source placeholders present."
+  },
+  {
+    "locale": "tlh",
+    "key": "password-mismatch",
+    "before": "Die Passwörter stimmen nicht überein",
+    "after": "rapbe' pegh mu'mey",
+    "reason": "Replace German with directly assembled Klingon: username change, passwords not matching, or something failing. Existing locale lo'wI', pong and choH vocabulary retained; pegh mu' secret-word terminology is attested at https://www.kli.org/tlhIngan-Hol/1998/July/msg00808.html and https://tlhingan.org/grammar/the-tale-of-i (Password game, not a software-domain validation). Case and apostrophes are significant. Full software phrases and Qapbe' vay' paraphrase need fluent-speaker validation; low confidence. No source placeholders present."
+  },
+  {
+    "locale": "tlh",
+    "key": "error-undefined",
+    "before": "Etwas ist schief gelaufen",
+    "after": "Qapbe' vay'",
+    "reason": "Replace German with directly assembled Klingon: username change, passwords not matching, or something failing. Existing locale lo'wI', pong and choH vocabulary retained; pegh mu' secret-word terminology is attested at https://www.kli.org/tlhIngan-Hol/1998/July/msg00808.html and https://tlhingan.org/grammar/the-tale-of-i (Password game, not a software-domain validation). Case and apostrophes are significant. Full software phrases and Qapbe' vay' paraphrase need fluent-speaker validation; low confidence. No source placeholders present."
   }
 ]
