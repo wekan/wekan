@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 10,215 |
+| Corrected | 10,218 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 5,631 |
+| Pending review or repair | 5,628 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **10,296** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **10,299** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `2f2b7f06fb1d2f19d6f3a295577ebbd17aad3392` — Oromo Buddhist and Coptic calendar labels translated; **3 Oromo Hijri-variant findings remain**. This follows six repaired religious calendar and era labels. Published sources are recorded with each correction; Coptic terminology and full grammar remain low confidence. Exact-value, placeholder, JSON example, HTML-tag/entity, key-order and idempotency checks pass; live browser verification is unavailable.
+Latest translation fix: **2026-09-13**, local commit `9620b3321276168002ca815788f7dc34b585aaa3` — three Oromo Hijri variants translated with distinct civil/astronomical starting dates and Saudi moon sighting; **no flagged Oromo findings remain**. Vocabulary sources are recorded with corrections; specialized grammar still needs native review. Regression checks cover variant distinctions alongside exact values, placeholders, JSON examples, HTML-tags/entities, key order and idempotency; all pass. Live browser verification is unavailable.
 
 **Origin:** not all errors came from Transifex. The captured pull changed 4,061 values; the local audit added 16,020 findings. Bosnian errors already existed in local commit `bdb3b15886a749b725b5290ba0109fcba955f983`. Other ultimate origins remain unverified.
 
