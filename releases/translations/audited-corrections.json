@@ -64545,5 +64545,75 @@
     "before": "Sélectionnez l'utilisateur existant que vous voulez associer à ce participant",
     "after": "Dibabit an implijer a zo anezhañ dija a fell deoc’h implijout evel an ezel-mañ",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "import-usernames",
+    "before": "Importer les noms d'utilisateurs",
+    "after": "Enporzhiañ anvioù implijer",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "invalid-credentials",
+    "before": "Nom d'utilisateur ou mot de passe invalide",
+    "after": "Anv implijer pe ger-tremen direizh",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "just-invited",
+    "before": "Vous venez d'être invité à ce tableau",
+    "after": "Pedet oc’h bet d’an daolenn-mañ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "leave-board-pop",
+    "before": "Êtes-vous sur de vouloir quitter __boardTitle__ ? Vous ne serez plus associé aux cartes de ce tableau.",
+    "after": "Ha sur oc’h e fell deoc’h kuitaat __boardTitle__ ? Tennet e viot eus holl gartennoù an daolenn-mañ.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "list-archive-cards",
+    "before": "Déplacer toutes les cartes de cette liste vers les archives",
+    "after": "Diellañ holl gartennoù ar roll-mañ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "list-archive-cards-pop",
+    "before": "Cela supprimera du tableau toutes les cartes de cette liste. Pour voir les cartes archivées et les renvoyer vers le tableau, cliquez sur « Menu » puis « Archives ».",
+    "after": "Tennet e vo holl gartennoù ar roll-mañ eus an daolenn. Evit gwelout ar c’hartennoù en dielloù ha kas anezho en-dro d’an daolenn, klikit war « Lañser » > « Dielloù ».",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "list-archive-pop",
+    "before": "La liste ne sera pas visible sur le tableau après archivage.",
+    "after": "Ne vo ket ar roll gwelet war an daolenn goude bezañ bet diellaouet.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "list-archive-suggest",
+    "before": "Vous pourrez plus tard restaurer la liste depuis les archives dans les paramètres du tableau.",
+    "after": "Gallout a reot adkas ar roll diwezhatoc’h eus an dielloù en arventennoù an daolenn.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "list-delete-suggest-archive",
+    "before": "Vous pouvez archiver une liste pour l'enlever du tableau tout en conservant son activité.",
+    "after": "Gallout a rit kas ur roll d’an dielloù evit e dennañ eus an daolenn ha mirout an obererezh.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "list-move-cards",
+    "before": "Déplacer toutes les cartes de cette liste",
+    "after": "Dilec’hiañ holl gartennoù ar roll-mañ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
