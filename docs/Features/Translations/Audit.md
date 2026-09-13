@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 12,489 |
+| Corrected | 12,494 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 3,357 |
+| Pending review or repair | 3,352 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Restored and unflagged values still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **13,047** exact before/after values, including repairs outside the audit.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **13,052** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `cbde57c3a81b8f05f755a8dfc7da6626762b6f97` — eight Volapük custom page, manifest, assetlinks and help-link strings repaired. Technical filenames, HTML names, JSON/HTML types and URL labels preserved; adaptations remain low confidence.
+Latest translation fix: **2026-09-13**, local commit `f1202a96d6a19002c2282cd3f9deeb5d4284dae8` — five Volapük logo, OIDC and zoom strings repaired. Top-left position, distinct URLs, default 27 and zoom range preserved; software adaptations remain low confidence.
 
 **Verification:** correction and progress tests pass. Native-speaker and browser checks remain outstanding.
 
