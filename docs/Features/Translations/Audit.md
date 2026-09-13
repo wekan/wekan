@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 12,585 |
+| Corrected | 12,589 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 3,261 |
+| Pending review or repair | 3,257 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Restored and unflagged values still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **13,167** exact before/after values, including repairs outside the audit.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **13,171** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `3678e27372742a87a6931ed93cf81ae8ea5d933b` — three Buryat Hijri variant labels repaired, restoring tabular, epoch and sighting distinctions. Flagged Buryat queue is empty; assembled wording and restored/unflagged values still need validation.
+Latest translation fix: **2026-09-13**, local commit `bc2f3ba1bf1125ec547168f357b8e65a23fb4684` — four Kashubian calendar labels translated directly, preserving Amete Alem. Adjective forms and full labels remain low confidence and need native-speaker validation.
 
 **Verification:** correction and progress tests pass. Native-speaker and browser checks remain outstanding.
 
