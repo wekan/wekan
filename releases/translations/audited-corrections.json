@@ -84474,5 +84474,33 @@
     "before": "Jalali (Fars)",
     "after": "Feaillere Jalali (Pershish)",
     "reason": "Replace foreign-language calendar setting and English/foreign Chinese Japanese Persian labels with Manx dictionary vocabulary. https://archive.gaelg.im/www.gaelg.iofm.net/DICTIONARY/engman.pdf attests system corys, display taishbyney, Chinese lantern londeyr Sheenagh, Japanese Shapaanagh/Shapaanish, Persian Pershish; existing date dait/calendar feaillere reused. Individual terms do not certify assembled label grammar, which remains low confidence. Remaining religious/country calendars and Hijri epoch/sighting require review."
+  },
+  {
+    "locale": "gv",
+    "key": "calendar-system-buddhist",
+    "before": "Buddhist",
+    "after": "Feaillere Buddhagh",
+    "reason": "Replace English Buddhist/Ethiopic/Amete Alem/Hebrew calendar labels with Manx vocabulary, retaining Amete Alem identifier. https://archive.gaelg.im/www.gaelg.iofm.net/DICTIONARY/engman.pdf attests Buddhist Buddhagh (p78), Ethiopian Ethiopagh (p196), Hebrew Ew/Ewagh/Ewnish (p260). Complete label grammar remains low confidence; Coptic, Indian national and Hijri epoch/sighting labels remain pending."
+  },
+  {
+    "locale": "gv",
+    "key": "calendar-system-ethiopic",
+    "before": "Ethiopic",
+    "after": "Feaillere Ethiopagh",
+    "reason": "Replace English Buddhist/Ethiopic/Amete Alem/Hebrew calendar labels with Manx vocabulary, retaining Amete Alem identifier. https://archive.gaelg.im/www.gaelg.iofm.net/DICTIONARY/engman.pdf attests Buddhist Buddhagh (p78), Ethiopian Ethiopagh (p196), Hebrew Ew/Ewagh/Ewnish (p260). Complete label grammar remains low confidence; Coptic, Indian national and Hijri epoch/sighting labels remain pending."
+  },
+  {
+    "locale": "gv",
+    "key": "calendar-system-ethioaa",
+    "before": "Ethiopic Amete Alem",
+    "after": "Feaillere Ethiopagh Amete Alem",
+    "reason": "Replace English Buddhist/Ethiopic/Amete Alem/Hebrew calendar labels with Manx vocabulary, retaining Amete Alem identifier. https://archive.gaelg.im/www.gaelg.iofm.net/DICTIONARY/engman.pdf attests Buddhist Buddhagh (p78), Ethiopian Ethiopagh (p196), Hebrew Ew/Ewagh/Ewnish (p260). Complete label grammar remains low confidence; Coptic, Indian national and Hijri epoch/sighting labels remain pending."
+  },
+  {
+    "locale": "gv",
+    "key": "calendar-system-hebrew",
+    "before": "Hebrew",
+    "after": "Feaillere Ewagh",
+    "reason": "Replace English Buddhist/Ethiopic/Amete Alem/Hebrew calendar labels with Manx vocabulary, retaining Amete Alem identifier. https://archive.gaelg.im/www.gaelg.iofm.net/DICTIONARY/engman.pdf attests Buddhist Buddhagh (p78), Ethiopian Ethiopagh (p196), Hebrew Ew/Ewagh/Ewnish (p260). Complete label grammar remains low confidence; Coptic, Indian national and Hijri epoch/sighting labels remain pending."
   }
 ]
