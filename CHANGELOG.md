@@ -1245,6 +1245,18 @@ for this change.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/201162037">Repair Veps card copying, sorting and permissions</a>. Thanks to xet7.</summary>
+
+The <a href="https://github.com/wekan/wekan/commit/2d7a83106">nine-value repair</a>
+removes originally flagged Finnish text. Preserve JSON title/description fields,
+first/second/last examples, checklist-template source, minicard placement and
+member permission restrictions. Dictionary review uses nomeran for card numbers.
+All 16,952 exact correction checks pass. Technical grammar needs fluent review;
+896 original findings and restored-value validation remain unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/1a44f6acc">Repair Veps search validation errors and limit operator</a>. Thanks to xet7.</summary>
 
 Replace eight Finnish values, resolving six original findings and two unflagged
