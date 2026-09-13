@@ -79035,5 +79035,33 @@
     "before": "La suppression est définitive. Vous perdrez toutes les listes, cartes et actions associées à ce tableau.",
     "after": "Far gi dafay sax. Dinga ñàkk limu yi, karta yi ak jëf yi yépp yu bokk ci tablo bii.",
     "reason": "Replace French archive confirmation, permanent deletion warnings and attachment storage destinations with Wolof. Reuse existing takkaay, fiise, Yóbbu and Mëneesul delloo jëf jii; preserve GridFS and all board content loss. Permanence phrasing, filesystem adaptation and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "add-custom-html-after-body-start",
+    "before": "Ajouter le HTML personnalisé après le début du <body>",
+    "after": "Yokk HTML bu ñu def ci soxla gannaaw tambalite <body>",
+    "reason": "Replace French HTML insertion and card insertion/cover controls with Wolof. Preserve literal <body> and </body> tags and after-start versus before-end positions; retain bottom-of-list and minicard cover scopes. Cover adaptation and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "add-custom-html-before-body-end",
+    "before": "Ajouter le HTML personnalisé avant la fin du </body>",
+    "after": "Yokk HTML bu ñu def ci soxla bala jeexital </body>",
+    "reason": "Replace French HTML insertion and card insertion/cover controls with Wolof. Preserve literal <body> and </body> tags and after-start versus before-end positions; retain bottom-of-list and minicard cover scopes. Cover adaptation and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "add-card-to-bottom-of-list",
+    "before": "Ajouter la carte en bas de la liste",
+    "after": "Yokk karta ci suufu limu bi",
+    "reason": "Replace French HTML insertion and card insertion/cover controls with Wolof. Preserve literal <body> and </body> tags and after-start versus before-end positions; retain bottom-of-list and minicard cover scopes. Cover adaptation and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "add-cover",
+    "before": "Ajouter la vignette sur la mini-carte",
+    "after": "Yokk nataalu muur ci karta bu ndaw bi",
+    "reason": "Replace French HTML insertion and card insertion/cover controls with Wolof. Preserve literal <body> and </body> tags and after-start versus before-end positions; retain bottom-of-list and minicard cover scopes. Cover adaptation and full grammar remain low confidence."
   }
 ]
