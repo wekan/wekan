@@ -90235,5 +90235,40 @@
     "before": "Peut voir et modifier les cartes. Ne peut pas changer les paramètres.",
     "after": "Kanon logön e votükön kadis. No kanon votükön välis.",
     "reason": "Replace audited French invitation, notification, checklist-line and normal-role descriptions with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests vüdön (invite), neai (never), nunäd (notification), lien (line), vödem (text), notet (item), votükön (alter). Preserve no-notifications scope, one-line-to-one-item relation and card-edit permission without settings permission. Reuse local Väls settings terminology. Assembled software phrases remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "migrations-admin-only",
+    "before": "Seuls les administrateurs du tableau peuvent exécuter les migrations",
+    "after": "Te guvans taba kanons dunön migradis",
+    "reason": "Replace audited French migration descriptions with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nät (integrity/intactness), dämik (damaged/defective), verätükön (correct), kontrolön (check), binod (structure), sotam (sorting). Preserve board-admin-only permission, individual execution, missing/damaged lists and comprehensive list/card/swimlane scope. Reuse Migrads and Dil horitätik terminology. Migrad borrowing and assembled software wording remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "migrations-description",
+    "before": "Exécute les vérifications d'intégrité des données et les réparations pour ce tableau. Chaque migration peut être exécutée individuellement.",
+    "after": "Dunön kontrolis e verätükamis tefü nät nunädas taba at. Migrad alik kanon pedunön soeliko.",
+    "reason": "Replace audited French migration descriptions with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nät (integrity/intactness), dämik (damaged/defective), verätükön (correct), kontrolön (check), binod (structure), sotam (sorting). Preserve board-admin-only permission, individual execution, missing/damaged lists and comprehensive list/card/swimlane scope. Reuse Migrads and Dil horitätik terminology. Migrad borrowing and assembled software wording remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "fix-missing-lists-migration-description",
+    "before": "Détecte et répare les listes manquantes ou corrompues dans la structure du tableau.",
+    "after": "Tuvon e verätükon lisedis no dabinöl u dämik in binod taba.",
+    "reason": "Replace audited French migration descriptions with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nät (integrity/intactness), dämik (damaged/defective), verätükön (correct), kontrolön (check), binod (structure), sotam (sorting). Preserve board-admin-only permission, individual execution, missing/damaged lists and comprehensive list/card/swimlane scope. Reuse Migrads and Dil horitätik terminology. Migrad borrowing and assembled software wording remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "comprehensive-board-migration",
+    "before": "Migration complète de tableau",
+    "after": "Migrad stäänik taba",
+    "reason": "Replace audited French migration descriptions with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nät (integrity/intactness), dämik (damaged/defective), verätükön (correct), kontrolön (check), binod (structure), sotam (sorting). Preserve board-admin-only permission, individual execution, missing/damaged lists and comprehensive list/card/swimlane scope. Reuse Migrads and Dil horitätik terminology. Migrad borrowing and assembled software wording remain low confidence pending native review. Dictionary directly attests stäänik (comprehensive); enumerate included repairs after a colon."
+  },
+  {
+    "locale": "vo",
+    "key": "comprehensive-board-migration-description",
+    "before": "Effectue des vérifications complètes et des corrections pour l'intégrité des données du tableau, y compris l'ordre des listes, les positions des cartes et la structure des couloirs.",
+    "after": "Dunon kontrolis e verätükamis stäänik tefü nät nunädas taba: sotam lisedas, tops kadas e binod dilas horitätik.",
+    "reason": "Replace audited French migration descriptions with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nät (integrity/intactness), dämik (damaged/defective), verätükön (correct), kontrolön (check), binod (structure), sotam (sorting). Preserve board-admin-only permission, individual execution, missing/damaged lists and comprehensive list/card/swimlane scope. Reuse Migrads and Dil horitätik terminology. Migrad borrowing and assembled software wording remain low confidence pending native review. Dictionary directly attests stäänik (comprehensive); enumerate included repairs after a colon."
   }
 ]
