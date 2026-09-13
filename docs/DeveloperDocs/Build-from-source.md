@@ -249,3 +249,9 @@ visible. Meteor bundle compilation uses its supported `--verbose` option;
 plugin npm dependencies. `METEOR_PROFILE` defaults to 100 milliseconds, exposing
 Meteor tool timing diagnostics when available. Profiling output may appear only
 when a measured operation finishes; elapsed status still appears while it is quiet.
+
+During builds, Node module debugging prints module resolution as it happens. The
+local `tools/build-command-output.cjs` preload prints resolver subprocess commands
+and echoes their captured stdout and stderr while preserving exit codes and callback
+results. Both terminal and build log receive this output. Command arguments redact
+common credential fields; the tracer does not print the process environment.
