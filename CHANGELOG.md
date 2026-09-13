@@ -82,7 +82,7 @@ Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
 findings: 14,651 corrected, 4,058 restored pre-pull values awaiting
 validation, 179 reviewed and retained, and 1,193 pending review or repair.
-The correction inventory records 16,386 exact before/after values,
+The correction inventory records 16,388 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
@@ -1116,6 +1116,18 @@ verification; the local tool is still starting before compilation.
 and updates maintainer tooling:
 
 **Maintenance scripts** - explicit translation uploads and repository mirrors.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6d8c63866">Repair Veps activity and notification labels</a>. Thanks to xet7.</summary>
+
+Replace two unflagged Finnish labels with native Veps action and
+notification vocabulary. Actual locale rendering and a negative Finnish
+regression pass, along with all 16,388 exact correction records.
+The composed notification wording needs fluent-speaker review.
+Original findings remain 14,651 corrected and 1,193 pending; Veps has 452.
+Translation repairs continue, including restored/unflagged validation.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ad1ebcca9">Repair Veps checklist activity and added participles</a>. Thanks to xet7.</summary>
