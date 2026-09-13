@@ -86532,5 +86532,26 @@
     "before": "a supprimé une check-list de '%s' dans %s",
     "after": "emoükon noteti de kontrolalised '%s' in %s",
     "reason": "Replace foreign checklist labels and French addition/removal activities with directly assembled Volapük. Dictionary https://en.wikibooks.org/wiki/Volap%C3%BCk/English-Volap%C3%BCk_dictionary attests kontrolön (check/make sure), lised (list), notet (written item), lüükön (add), moükön (remove). Form kontrolalised as checklist compound. Preserve distinction between checklist and checklist item, source quotes and %s argument order. Compound, inflections and complete activity grammar remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "activity-checklist-completed",
+    "before": "a complété la check-list %s de %s",
+    "after": "efimekon kontrolalisedi %s ela %s",
+    "reason": "Replace French checklist completion/uncompletion activities with directly assembled Volapük. Dictionary https://en.wikibooks.org/wiki/Volap%C3%BCk/English-Volap%C3%BCk_dictionary attests fimekön (finish/complete), fiduin (completion), sädunön (undo). Reuse kontrolalised checklist compound from repaired labels; translate uncompletion explicitly as undo completion. Perfect forms follow existing activity pattern. Complete grammar and compound remain low confidence pending native review. Preserve all %s tokens in source argument order."
+  },
+  {
+    "locale": "vo",
+    "key": "activity-checklist-uncompleted",
+    "before": "a rendu incomplète la check-list %s de %s",
+    "after": "esädunon fiduini kontrolaliseda %s ela %s",
+    "reason": "Replace French checklist completion/uncompletion activities with directly assembled Volapük. Dictionary https://en.wikibooks.org/wiki/Volap%C3%BCk/English-Volap%C3%BCk_dictionary attests fimekön (finish/complete), fiduin (completion), sädunön (undo). Reuse kontrolalised checklist compound from repaired labels; translate uncompletion explicitly as undo completion. Perfect forms follow existing activity pattern. Complete grammar and compound remain low confidence pending native review. Preserve all %s tokens in source argument order."
+  },
+  {
+    "locale": "vo",
+    "key": "activity-checklist-uncompleted-card",
+    "before": "a décoché la check-list %s",
+    "after": "esädunon fiduini kontrolaliseda %s",
+    "reason": "Replace French checklist completion/uncompletion activities with directly assembled Volapük. Dictionary https://en.wikibooks.org/wiki/Volap%C3%BCk/English-Volap%C3%BCk_dictionary attests fimekön (finish/complete), fiduin (completion), sädunön (undo). Reuse kontrolalised checklist compound from repaired labels; translate uncompletion explicitly as undo completion. Perfect forms follow existing activity pattern. Complete grammar and compound remain low confidence pending native review. Preserve all %s tokens in source argument order."
   }
 ]
