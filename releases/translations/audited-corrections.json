@@ -63439,5 +63439,75 @@
     "before": "a ajouté la checklist __checklist__ à la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
     "after": "ouzhpennet ar roll kontroll __checklist__ d’ar gartenn __card__ er roll __list__ en trepas __swimlane__ en daolenn __board__",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "act-addChecklistItem",
+    "before": "a ajouté l'élément __checklistItem__ à la checklist __checklist__ de la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "ouzhpennet an elfenn __checklistItem__ d’ar roll kontroll __checklist__ er gartenn __card__ er roll __list__ en trepas __swimlane__ en daolenn __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "act-addComment",
+    "before": "a commenté la carte __card__ : __comment__ dans la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "skrivet un evezhiadenn war ar gartenn __card__ : __comment__ er roll __list__ en trepas __swimlane__ en daolenn __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "act-addLabel",
+    "before": "a ajouté l'étiquette __label__ à la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "ouzhpennet an dikedenn __label__ d’ar gartenn __card__ er roll __list__ en trepas __swimlane__ en daolenn __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "act-addedLabel",
+    "before": "a ajouté l'étiquette __label__ à la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "ouzhpennet an dikedenn __label__ d’ar gartenn __card__ er roll __list__ en trepas __swimlane__ en daolenn __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "act-archivedBoard",
+    "before": "Le tableau __board__ a été déplacé vers les archives",
+    "after": "Kaset eo bet an daolenn __board__ d’an dielloù",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "act-archivedCard",
+    "before": "Carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__ archivée",
+    "after": "Kaset eo bet ar gartenn __card__ er roll __list__ en trepas __swimlane__ en daolenn __board__ d’an dielloù",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "act-archivedList",
+    "before": "Liste __list__ du couloir __swimlane__ du tableau __board__ archivée",
+    "after": "Kaset eo bet ar roll __list__ en trepas __swimlane__ en daolenn __board__ d’an dielloù",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "act-archivedSwimlane",
+    "before": "Couloir __swimlane__ du tableau __board__ archivé",
+    "after": "Kaset eo bet an trepas __swimlane__ en daolenn __board__ d’an dielloù",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "act-atUserComment",
+    "before": "vous a mentionné sur la carte __card__ : __comment__ dans la liste __list__ dans le couloir __swimlane__ dans le tableau __board__",
+    "after": "meneget ac’hanoc’h war ar gartenn __card__ : __comment__ er roll __list__ en trepas __swimlane__ en daolenn __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "act-checkedItem",
+    "before": "a coché __checklistItem__ de la checklist __checklist__ de la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "merket an elfenn __checklistItem__ eus ar roll kontroll __checklist__ er gartenn __card__ er roll __list__ en trepas __swimlane__ en daolenn __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
