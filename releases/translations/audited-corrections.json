@@ -92839,5 +92839,26 @@
     "before": "Karten-Ersteller anzeigen",
     "after": "'echletHom chenmoHwI' yI'ang",
     "reason": "Replace three flagged German formatting/display labels with direct Klingon: change to use markdown, explanatory data on the small card, and show the card creator. Keep markdown as a format identifier; use existing 'echletHom card, mach small, De' data, choH change, 'ang show and chenmoH create vocabulary. Description is rendered descriptively as QIjmeH De' (data for explaining), creator as chenmoHwI'. Software-domain compounds and full phrases are low confidence and need fluent-speaker validation; no placeholders changed."
+  },
+  {
+    "locale": "tlh",
+    "key": "multi-selection-on",
+    "before": "Mehrfachauswahl ist aktiv",
+    "after": "Doch law' wIvmeH jan chu'lu'",
+    "reason": "Replace three flagged German selection/read-marking controls with direct Klingon. Multi-selection active wording mirrors existing multi-selection-off (Doch law' wIvmeH jan) with enabled state chu'lu'. Selected objects receive a label using per yIcher; mark-all-as-read describes marking that all have been read (Hoch laDlu'pu' 'e' yIper). Existing wIv select, per label and cher configure vocabulary retained. Sentence-as-object and software-selection constructions are low confidence and need fluent-speaker validation; no placeholders changed."
+  },
+  {
+    "locale": "tlh",
+    "key": "multi-selection-label",
+    "before": "Label für die Auswahl setzen",
+    "after": "Dochmey wIvlu'bogh per yIcher",
+    "reason": "Replace three flagged German selection/read-marking controls with direct Klingon. Multi-selection active wording mirrors existing multi-selection-off (Doch law' wIvmeH jan) with enabled state chu'lu'. Selected objects receive a label using per yIcher; mark-all-as-read describes marking that all have been read (Hoch laDlu'pu' 'e' yIper). Existing wIv select, per label and cher configure vocabulary retained. Sentence-as-object and software-selection constructions are low confidence and need fluent-speaker validation; no placeholders changed."
+  },
+  {
+    "locale": "tlh",
+    "key": "mark-all-as-read",
+    "before": "Alle als gelesen markieren",
+    "after": "Hoch laDlu'pu' 'e' yIper",
+    "reason": "Replace three flagged German selection/read-marking controls with direct Klingon. Multi-selection active wording mirrors existing multi-selection-off (Doch law' wIvmeH jan) with enabled state chu'lu'. Selected objects receive a label using per yIcher; mark-all-as-read describes marking that all have been read (Hoch laDlu'pu' 'e' yIper). Existing wIv select, per label and cher configure vocabulary retained. Sentence-as-object and software-selection constructions are low confidence and need fluent-speaker validation; no placeholders changed."
   }
 ]
