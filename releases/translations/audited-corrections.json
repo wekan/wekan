@@ -92433,5 +92433,75 @@
     "before": "Nom du webhook",
     "after": "webhook pong",
     "reason": "Replace German webhook action/direction labels and French webhook title with directly assembled Klingon. Keep webhook as a software technical borrowing, localizing this (-vam), plural (-mey), new (chu'), name (pong) and sending purpose (ngeHmeH). Existing locale ngeH/pong terminology retained. https://www.kli.org/tlhIngan-Hol/1997/May/msg00733.html attests chu'Ha' deactivate/disengage a device. Full software phrases and borrowed-noun suffix use are low confidence and require fluent-speaker validation; no placeholders changed."
+  },
+  {
+    "locale": "tlh",
+    "key": "settings",
+    "before": "Einstellungen",
+    "after": "chermeH De'",
+    "reason": "Replace German settings labels with direct Klingon, using chermeH De' (data for setting up/configuring) consistently. Includes unflagged generic settings labels for consistency. Existing vumDaq workspace, raS board, yejHaq organization and De' data terms retained. https://klingonska.org/academic/canfield-2010-machine_translation_of_klingon.pdf attests cher establish and pol save; this supports vocabulary, not full software-domain phrases. Assembled noun/purpose constructions and existing specialized nouns are low confidence and require fluent-speaker validation. S3 retained exactly; no placeholders changed."
+  },
+  {
+    "locale": "tlh",
+    "key": "change-settings",
+    "before": "Einstellungen ändern",
+    "after": "chermeH De' yIchoH",
+    "reason": "Replace German settings labels with direct Klingon, using chermeH De' (data for setting up/configuring) consistently. Includes unflagged generic settings labels for consistency. Existing vumDaq workspace, raS board, yejHaq organization and De' data terms retained. https://klingonska.org/academic/canfield-2010-machine_translation_of_klingon.pdf attests cher establish and pol save; this supports vocabulary, not full software-domain phrases. Assembled noun/purpose constructions and existing specialized nouns are low confidence and require fluent-speaker validation. S3 retained exactly; no placeholders changed."
+  },
+  {
+    "locale": "tlh",
+    "key": "workspace-settings",
+    "before": "Arbeitsplatz-Einstellungen",
+    "after": "vumDaq chermeH De'",
+    "reason": "Replace German settings labels with direct Klingon, using chermeH De' (data for setting up/configuring) consistently. Includes unflagged generic settings labels for consistency. Existing vumDaq workspace, raS board, yejHaq organization and De' data terms retained. https://klingonska.org/academic/canfield-2010-machine_translation_of_klingon.pdf attests cher establish and pol save; this supports vocabulary, not full software-domain phrases. Assembled noun/purpose constructions and existing specialized nouns are low confidence and require fluent-speaker validation. S3 retained exactly; no placeholders changed."
+  },
+  {
+    "locale": "tlh",
+    "key": "workspaceActionsPopup-title",
+    "before": "Arbeitsplatz-Einstellungen",
+    "after": "vumDaq chermeH De'",
+    "reason": "Replace German settings labels with direct Klingon, using chermeH De' (data for setting up/configuring) consistently. Includes unflagged generic settings labels for consistency. Existing vumDaq workspace, raS board, yejHaq organization and De' data terms retained. https://klingonska.org/academic/canfield-2010-machine_translation_of_klingon.pdf attests cher establish and pol save; this supports vocabulary, not full software-domain phrases. Assembled noun/purpose constructions and existing specialized nouns are low confidence and require fluent-speaker validation. S3 retained exactly; no placeholders changed."
+  },
+  {
+    "locale": "tlh",
+    "key": "board-info-on-my-boards",
+    "before": "Einstellungen für Alle Boards",
+    "after": "raSmey Hoch chermeH De'",
+    "reason": "Replace German settings labels with direct Klingon, using chermeH De' (data for setting up/configuring) consistently. Includes unflagged generic settings labels for consistency. Existing vumDaq workspace, raS board, yejHaq organization and De' data terms retained. https://klingonska.org/academic/canfield-2010-machine_translation_of_klingon.pdf attests cher establish and pol save; this supports vocabulary, not full software-domain phrases. Assembled noun/purpose constructions and existing specialized nouns are low confidence and require fluent-speaker validation. S3 retained exactly; no placeholders changed."
+  },
+  {
+    "locale": "tlh",
+    "key": "boardInfoOnMyBoardsPopup-title",
+    "before": "Einstellungen für Alle Boards",
+    "after": "raSmey Hoch chermeH De'",
+    "reason": "Replace German settings labels with direct Klingon, using chermeH De' (data for setting up/configuring) consistently. Includes unflagged generic settings labels for consistency. Existing vumDaq workspace, raS board, yejHaq organization and De' data terms retained. https://klingonska.org/academic/canfield-2010-machine_translation_of_klingon.pdf attests cher establish and pol save; this supports vocabulary, not full software-domain phrases. Assembled noun/purpose constructions and existing specialized nouns are low confidence and require fluent-speaker validation. S3 retained exactly; no placeholders changed."
+  },
+  {
+    "locale": "tlh",
+    "key": "boardInfoOnMyBoards-title",
+    "before": "Einstellungen für Alle Boards",
+    "after": "raSmey Hoch chermeH De'",
+    "reason": "Replace German settings labels with direct Klingon, using chermeH De' (data for setting up/configuring) consistently. Includes unflagged generic settings labels for consistency. Existing vumDaq workspace, raS board, yejHaq organization and De' data terms retained. https://klingonska.org/academic/canfield-2010-machine_translation_of_klingon.pdf attests cher establish and pol save; this supports vocabulary, not full software-domain phrases. Assembled noun/purpose constructions and existing specialized nouns are low confidence and require fluent-speaker validation. S3 retained exactly; no placeholders changed."
+  },
+  {
+    "locale": "tlh",
+    "key": "settingsOrgPopup-title",
+    "before": "Organisations-Einstellungen",
+    "after": "yejHaq chermeH De'",
+    "reason": "Replace German settings labels with direct Klingon, using chermeH De' (data for setting up/configuring) consistently. Includes unflagged generic settings labels for consistency. Existing vumDaq workspace, raS board, yejHaq organization and De' data terms retained. https://klingonska.org/academic/canfield-2010-machine_translation_of_klingon.pdf attests cher establish and pol save; this supports vocabulary, not full software-domain phrases. Assembled noun/purpose constructions and existing specialized nouns are low confidence and require fluent-speaker validation. S3 retained exactly; no placeholders changed."
+  },
+  {
+    "locale": "tlh",
+    "key": "save-s3-settings",
+    "before": "S3 Einstellungen speichern",
+    "after": "S3 chermeH De' yIpol",
+    "reason": "Replace German settings labels with direct Klingon, using chermeH De' (data for setting up/configuring) consistently. Includes unflagged generic settings labels for consistency. Existing vumDaq workspace, raS board, yejHaq organization and De' data terms retained. https://klingonska.org/academic/canfield-2010-machine_translation_of_klingon.pdf attests cher establish and pol save; this supports vocabulary, not full software-domain phrases. Assembled noun/purpose constructions and existing specialized nouns are low confidence and require fluent-speaker validation. S3 retained exactly; no placeholders changed."
+  },
+  {
+    "locale": "tlh",
+    "key": "back-to-settings",
+    "before": "Zurück zu den Einstellungen",
+    "after": "chermeH De'Daq yIchegh",
+    "reason": "Replace German settings labels with direct Klingon, using chermeH De' (data for setting up/configuring) consistently. Includes unflagged generic settings labels for consistency. Existing vumDaq workspace, raS board, yejHaq organization and De' data terms retained. https://klingonska.org/academic/canfield-2010-machine_translation_of_klingon.pdf attests cher establish and pol save; this supports vocabulary, not full software-domain phrases. Assembled noun/purpose constructions and existing specialized nouns are low confidence and require fluent-speaker validation. S3 retained exactly; no placeholders changed."
   }
 ]
