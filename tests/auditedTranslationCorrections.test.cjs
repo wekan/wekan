@@ -2322,5 +2322,24 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   invalidPresence.buildParams('om:nonexistent-field');
   assert.equal(invalidPresence.hasErrors(), true);
   assert.match(vepsTranslator.t('globalSearch-instructions-operator-has'), /`om:-märaig`.*ilma märaigata/);
+  const vepsBooleanNotes = {
+  "globalSearch-instructions-notes-2": "Ühtejiččed operatorad ühtenzoitadas *LIBO*-kodvindanke. Näguba kartad, miččil om hot' üks neciš kodvindiš.\n`__operator_list__:Joudai __operator_list__:Seižutadud` ozutab kartoid lugetišiš *Joudai* libo *Seižutadud*.",
+  "globalSearch-instructions-notes-3": "Erazvuiččed operatorad ühtenzoitadas *DA*-kodvindanke. Näguba vaiše kartad, miččil oma kaik neced kodvindad. `__operator_list__:Joudai __operator_label__:rusked` ozutab vaiše kartoid lugetišes *Joudai* *rusked*-znamanke."
+};
+  for (const [key, value] of Object.entries(vepsBooleanNotes)) {
+    assert.equal(vepsTranslator.t(key), value);
+    assert.doesNotMatch(value, /Samankaltaiset|operaattorit|TAI|Kortit|Eri operaattorit|Saatavilla|Blokattu|punainen/);
+  }
+  assert.match(vepsTranslator.t('globalSearch-instructions-notes-2'), /LIBO.*hot' üks/s);
+  assert.match(vepsTranslator.t('globalSearch-instructions-notes-3'), /DA.*vaiše.*kaik/s);
+  const sameOperatorExample = new visibilityContext.Query();
+  sameOperatorExample.buildParams(`${cache['ve-PP']['operator-list']}:Joudai ${cache['ve-PP']['operator-list']}:Seižutadud`);
+  assert.equal(sameOperatorExample.hasErrors(), false);
+  assert.deepEqual(Array.from(sameOperatorExample.getQueryParams().getPredicates('list')), ['Joudai', 'Seižutadud']);
+  const mixedOperatorExample = new visibilityContext.Query();
+  mixedOperatorExample.buildParams(`${cache['ve-PP']['operator-list']}:Joudai ${cache['ve-PP']['operator-label']}:rusked`);
+  assert.equal(mixedOperatorExample.hasErrors(), false);
+  assert.equal(mixedOperatorExample.getQueryParams().getPredicate('list'), 'Joudai');
+  assert.equal(mixedOperatorExample.getQueryParams().getPredicate('label'), 'rusked');
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });

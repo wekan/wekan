@@ -119474,5 +119474,19 @@
     "before": "`__operator_has__:<field>` - jossa *<field>* on yksi näistä: `__predicate_attachment__`, `__predicate_checklist__`, `__predicate_description__`, `__predicate_start__`, `__predicate_due__`, `__predicate_end__`, `__predicate_assignee__` tai `__predicate_member__`.  Laittamalla `-` eteen *<field>* etsii niistä joissa puuttuu se arvo siitä kentästä (esim. `sisältää:-erääntyy` etsii korteista joilla ei ole erääntymispäivää).",
     "after": "`__operator_has__:<field>` - *<field>* om üks neciš: `__predicate_attachment__`, `__predicate_checklist__`, `__predicate_description__`, `__predicate_start__`, `__predicate_due__`, `__predicate_end__`, `__predicate_assignee__` libo `__predicate_member__`. Pane `-` *<field>* edele, miše ecta kartoid, miččil ei ole necen pöudon znamoičendad (näute: `om:-märaig` ecib kartoid ilma märaigata).",
     "reason": "Replace Finnish presence-search terminology with Veps; reuse existing description/checklist/attachment/member/assignee labels. Dictionary: augotiž (beginning), lop (end), and om (is/has possession). Keep single-word parser keywords, exact placeholder inventory and working localized negative due-date example. Low confidence: composed presence/absence instruction grammar needs fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "globalSearch-instructions-notes-2",
+    "before": "Samankaltaiset operaattorit on *TAI* yhteen. Kortit jotka täsmää mihin tahansa ehtoon palautetaan.\n`__operator_list__:Saatavilla __operator_list__:Blokattu` palauttaisi kortit jotka sisältää minkä tahansa listan nimeltä *Blokattu* tai *Saatavilla*.",
+    "after": "Ühtejiččed operatorad ühtenzoitadas *LIBO*-kodvindanke. Näguba kartad, miččil om hot' üks neciš kodvindiš.\n`__operator_list__:Joudai __operator_list__:Seižutadud` ozutab kartoid lugetišiš *Joudai* libo *Seižutadud*.",
+    "reason": "Replace Finnish Boolean-search instructions with Veps, preserving ANY condition for similar operators versus ALL conditions for differing operators and exact placeholders. Dictionary: ühtejiččed (same), erazvuitte (different), rusked (red), ühtenzoitta (combine). Localized sample list names and color use working parser keywords. Low confidence: composed logical instruction syntax needs fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "globalSearch-instructions-notes-3",
+    "before": "Eri operaattorit ovat *JA* yhteen. Vain kortit jotka täsmää kaikkiin eri operaattoreihin palautetaan.  `__operator_list__:Saatavilla __operator_label__:punainen` palauttaa vain kortit listasta *Saatavilla* joilla on *punainen* nimilappu.",
+    "after": "Erazvuiččed operatorad ühtenzoitadas *DA*-kodvindanke. Näguba vaiše kartad, miččil oma kaik neced kodvindad. `__operator_list__:Joudai __operator_label__:rusked` ozutab vaiše kartoid lugetišes *Joudai* *rusked*-znamanke.",
+    "reason": "Replace Finnish Boolean-search instructions with Veps, preserving ANY condition for similar operators versus ALL conditions for differing operators and exact placeholders. Dictionary: ühtejiččed (same), erazvuitte (different), rusked (red), ühtenzoitta (combine). Localized sample list names and color use working parser keywords. Low confidence: composed logical instruction syntax needs fluent review."
   }
 ]
