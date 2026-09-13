@@ -91747,5 +91747,33 @@
     "before": "ISO 8601",
     "after": "Kaled Gregoriälik (vigs ISO 8601)",
     "reason": "Replace English calendar labels with Volapük surrounding wording. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests kaled (calendar), tsyin (Chinese language), hebrey (Hebrew adjective) and vig (week). Tsyinik is an assembled adjective; Dangi remains the source proper calendar name. Preserve Gregorian calendar plus ISO 8601 weeks rather than retaining identifier alone; Gregoriälik follows existing locale label and is not independently validated by this lookup. Assembled calendar wording remains low confidence pending native review; do not treat dictionary vocabulary as full phrase validation."
+  },
+  {
+    "locale": "vo",
+    "key": "comment-assigned-only",
+    "before": "Commentaire assigné uniquement",
+    "after": "Te küpetön kadis pejonidüköl",
+    "reason": "Replace French comment-only role labels, webhook token hint and auto-linked URL scheme instruction with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests küpetön (comment), nemütik (optional), skemat (scheme), dientif (identity), lien (line) and jonidükön (assign); MediaWiki uses klikön for software clicking. Preserve comment-only versus assigned-card-only comment roles without rewriting already-correct-language descriptions, optional token for authentication/identity check, custom URL schemes automatically clickable and one scheme per line. Token remains a technical borrowing; klikovik is an assembled capability adjective. Software adaptations remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "comment-only",
+    "before": "Commentaire uniquement",
+    "after": "Te küpetön",
+    "reason": "Replace French comment-only role labels, webhook token hint and auto-linked URL scheme instruction with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests küpetön (comment), nemütik (optional), skemat (scheme), dientif (identity), lien (line) and jonidükön (assign); MediaWiki uses klikön for software clicking. Preserve comment-only versus assigned-card-only comment roles without rewriting already-correct-language descriptions, optional token for authentication/identity check, custom URL schemes automatically clickable and one scheme per line. Token remains a technical borrowing; klikovik is an assembled capability adjective. Software adaptations remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "webhook-token",
+    "before": "Jeton (optionnel pour l'authentification)",
+    "after": "Token (nemütik pro kontrol dientifa)",
+    "reason": "Replace French comment-only role labels, webhook token hint and auto-linked URL scheme instruction with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests küpetön (comment), nemütik (optional), skemat (scheme), dientif (identity), lien (line) and jonidükön (assign); MediaWiki uses klikön for software clicking. Preserve comment-only versus assigned-card-only comment roles without rewriting already-correct-language descriptions, optional token for authentication/identity check, custom URL schemes automatically clickable and one scheme per line. Token remains a technical borrowing; klikovik is an assembled capability adjective. Software adaptations remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "automatic-linked-url-schemes",
+    "before": "Schémas d'URL personnalisés qui devraient être automatiquement cliquables. Un schéma d'URL par ligne",
+    "after": "Skemats URL lönik, kels mutonsöv binön itjäfidiko klikovik. Skemat URL bal pro lien alik",
+    "reason": "Replace French comment-only role labels, webhook token hint and auto-linked URL scheme instruction with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests küpetön (comment), nemütik (optional), skemat (scheme), dientif (identity), lien (line) and jonidükön (assign); MediaWiki uses klikön for software clicking. Preserve comment-only versus assigned-card-only comment roles without rewriting already-correct-language descriptions, optional token for authentication/identity check, custom URL schemes automatically clickable and one scheme per line. Token remains a technical borrowing; klikovik is an assembled capability adjective. Software adaptations remain low confidence pending native review. Conditional mutonsöv preserves should rather than an unconditional must."
   }
 ]
