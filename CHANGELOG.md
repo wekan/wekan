@@ -642,6 +642,16 @@ This release adds the following translation improvements:
 **Translations** - Locale wording repairs and remaining audit progress.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/e4e3aa590">Validate Veps zoom imperative morphology</a>. Thanks to xet7.</summary>
+
+Confirm the transitive increase/decrease commands against Veps inflection
+tables and distinguish the intransitive forms. Record references per key;
+technical screen-zoom usage and keyboard terminology remain open. All 17,210
+correction/rendering checks pass. Original pending findings remain at 747.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/bc84ca78b">Repair Veps zoom scale and range prompt</a>. Thanks to xet7.</summary>
 
 Replace two Finnish values with dictionary-based scale terminology and existing
