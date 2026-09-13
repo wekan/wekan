@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 12,503 |
+| Corrected | 12,506 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 3,343 |
+| Pending review or repair | 3,340 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Restored and unflagged values still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **13,061** exact before/after values, including repairs outside the audit.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **13,071** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `61da5551c56a62a13d738ec97f58c0d9a1bf0303` — nine Volapük support, tracking, visibility and card-control strings repaired. Deletion warning, label add/remove and creator/member tracking preserved; assembled wording remains low confidence.
+Latest translation fix: **2026-09-13**, local commit `7ee8552e2c36d1549157f7ca944b076ae99d194a` — ten retained Volapük migration-step labels repaired. Analysis/validation/conversion/update and separate recovery targets preserved; obsolete workflows remain removed and wording remains low confidence.
 
 **Verification:** correction and progress tests pass. Native-speaker and browser checks remain outstanding.
 
