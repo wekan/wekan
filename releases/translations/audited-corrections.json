@@ -84887,5 +84887,33 @@
     "before": "Jalali (Fars)",
     "after": "Khalendara ya Jalali (ya Peresia)",
     "reason": "Replace English/foreign Hebrew Buddhist Jalali/Persian labels with Setswana, preserving Jalali identity. Exact Hebrew calendar wording attested at https://www.jw.org/tn/laeborari/baebele/nwt/dintlha-tse-di-oketsegileng-b/khalendara-sehebera-baebele/; Babuda at https://www.jw.org/tn/laeborari/dimakasine/g201101/Bothata-Jwa-Bodumedi/; Peresia at https://www.jw.org/tn/laeborari/diborout%C5%A1hara/Bona-Lefatshe-le-le-Molemo/Batho-ba-Modimo-ba-Boela-Kwa-Lefatsheng-la-Bone/. Adapted complete grammar remains low confidence; remaining Coptic/Ethiopic/national and Hijri variant labels need review."
+  },
+  {
+    "locale": "tn",
+    "key": "calendar-system-ethiopic",
+    "before": "Ethiopic",
+    "after": "Khalendara ya Ethiopia",
+    "reason": "Replace English-only calendar labels with Setswana calendar and national/sighting descriptions; retain Ethiopia, India, Saudi Arabia and Amete Alem identifiers. Setswana naga and ngwedi vocabulary appears at https://www.jw.org/tn/laeborari/dimakasine/g20020908/Fa-go-Nna-Bosigo-go-le-Motshegare/ . Full assembled grammar and country spellings remain low confidence; country lookup did not establish localized names. Coptic and tabular epoch variants remain pending."
+  },
+  {
+    "locale": "tn",
+    "key": "calendar-system-ethioaa",
+    "before": "Ethiopic Amete Alem",
+    "after": "Khalendara ya Amete Alem ya Ethiopia",
+    "reason": "Replace English-only calendar labels with Setswana calendar and national/sighting descriptions; retain Ethiopia, India, Saudi Arabia and Amete Alem identifiers. Setswana naga and ngwedi vocabulary appears at https://www.jw.org/tn/laeborari/dimakasine/g20020908/Fa-go-Nna-Bosigo-go-le-Motshegare/ . Full assembled grammar and country spellings remain low confidence; country lookup did not establish localized names. Coptic and tabular epoch variants remain pending."
+  },
+  {
+    "locale": "tn",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "Khalendara ya naga ya India",
+    "reason": "Replace English-only calendar labels with Setswana calendar and national/sighting descriptions; retain Ethiopia, India, Saudi Arabia and Amete Alem identifiers. Setswana naga and ngwedi vocabulary appears at https://www.jw.org/tn/laeborari/dimakasine/g20020908/Fa-go-Nna-Bosigo-go-le-Motshegare/ . Full assembled grammar and country spellings remain low confidence; country lookup did not establish localized names. Coptic and tabular epoch variants remain pending."
+  },
+  {
+    "locale": "tn",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "Khalendara ya Hijri (Saudi Arabia, go bona ngwedi)",
+    "reason": "Replace English-only calendar labels with Setswana calendar and national/sighting descriptions; retain Ethiopia, India, Saudi Arabia and Amete Alem identifiers. Setswana naga and ngwedi vocabulary appears at https://www.jw.org/tn/laeborari/dimakasine/g20020908/Fa-go-Nna-Bosigo-go-le-Motshegare/ . Full assembled grammar and country spellings remain low confidence; country lookup did not establish localized names. Coptic and tabular epoch variants remain pending."
   }
 ]
