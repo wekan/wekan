@@ -112341,5 +112341,26 @@
     "before": "Dangi (Korean)",
     "after": "Dangi (Korejan kalendar')",
     "reason": "Preserve Dangi identifier; replace English Korean descriptor using attested Korejan at https://vep.wikipedia.org/wiki/Korejan_kel%27 and dictionary-attested kalendar'. Composed calendar name needs fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "search",
+    "before": "Etsi",
+    "after": "Eci",
+    "reason": "Replace Finnish Etsi/Muokkaa with native Veps imperative Eci (search) or Vajehta (edit/change). Both are actual Veps Wikipedia interface commands at https://vep.wikipedia.org/wiki/Efiopii; dictionary ectä and vajehtada imperative inflections confirm the forms at https://kaikki.org/dictionary/Veps/index.html."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "searchElementPopup-title",
+    "before": "Etsi",
+    "after": "Eci",
+    "reason": "Replace Finnish Etsi/Muokkaa with native Veps imperative Eci (search) or Vajehta (edit/change). Both are actual Veps Wikipedia interface commands at https://vep.wikipedia.org/wiki/Efiopii; dictionary ectä and vajehtada imperative inflections confirm the forms at https://kaikki.org/dictionary/Veps/index.html."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "edit",
+    "before": "Muokkaa",
+    "after": "Vajehta",
+    "reason": "Replace Finnish Etsi/Muokkaa with native Veps imperative Eci (search) or Vajehta (edit/change). Both are actual Veps Wikipedia interface commands at https://vep.wikipedia.org/wiki/Efiopii; dictionary ectä and vajehtada imperative inflections confirm the forms at https://kaikki.org/dictionary/Veps/index.html."
   }
 ]

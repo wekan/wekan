@@ -201,5 +201,9 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.equal(cache['ve-PP']['calendar-system-dangi'], "Dangi (Korejan kalendar')");
   assert.doesNotMatch(cache['ve-PP']['calendar-system-dangi'], /Korean/);
   assert.notEqual(cache['ve-PP']['calendar-system-ethiopic'], 'Ethiopic');
+  assert.equal(cache['ve-PP'].search, 'Eci');
+  assert.equal(cache['ve-PP']['searchElementPopup-title'], cache['ve-PP'].search);
+  assert.equal(cache['ve-PP'].edit, 'Vajehta');
+  assert.doesNotMatch(cache['ve-PP'].search + cache['ve-PP'].edit, /Etsi|Muokkaa/);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });
