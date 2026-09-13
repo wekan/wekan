@@ -78440,5 +78440,61 @@
     "before": "Êtes-vous sûr de vouloir supprimer ce compte ? Cela est irréversible.",
     "after": "Wóor na la ne bëgg nga far kont bii? Mëneesul delloo jëf jii.",
     "reason": "Replace French deletion confirmations with Wolof; preserve permanent/no-undo warnings, card reopening prohibition, list recovery prohibition and loss of associated activity. Distinguish account, avatar and all-notification scopes. Full grammar and activity/notification/account terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "accounts-lockout-user-locked",
+    "before": "L'utilisateur est verrouillé",
+    "after": "Tëj nañu kontu jëfandikukat bi",
+    "reason": "Replace French account-lockout controls/statuses with Wolof, describing user account locking/unlocking rather than deletion. Preserve single versus all locked users, successful unlock, none currently locked and locked-only filtering. Full grammar and account lock/unlock terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "accounts-lockout-user-unlocked",
+    "before": "L'utilisateur a été déverrouillé avec succès",
+    "after": "Ubbil nañu kontu jëfandikukat bi ci lu baax",
+    "reason": "Replace French account-lockout controls/statuses with Wolof, describing user account locking/unlocking rather than deletion. Preserve single versus all locked users, successful unlock, none currently locked and locked-only filtering. Full grammar and account lock/unlock terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "accounts-lockout-no-locked-users",
+    "before": "Il n'y a actuellement aucun utilisateur verrouillé",
+    "after": "Amul jëfandikukat bu ñu tëj kontam fi mu nekk",
+    "reason": "Replace French account-lockout controls/statuses with Wolof, describing user account locking/unlocking rather than deletion. Preserve single versus all locked users, successful unlock, none currently locked and locked-only filtering. Full grammar and account lock/unlock terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "accounts-lockout-show-locked-users",
+    "before": "Afficher les utilisateurs verrouillés seulement",
+    "after": "Wone rekk jëfandikukat yi ñu tëj seeni kont",
+    "reason": "Replace French account-lockout controls/statuses with Wolof, describing user account locking/unlocking rather than deletion. Preserve single versus all locked users, successful unlock, none currently locked and locked-only filtering. Full grammar and account lock/unlock terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "accounts-lockout-click-to-unlock",
+    "before": "Cliquer pour déverrouiller cet utilisateur",
+    "after": "Bësal ngir ubbil kontu jëfandikukat bii",
+    "reason": "Replace French account-lockout controls/statuses with Wolof, describing user account locking/unlocking rather than deletion. Preserve single versus all locked users, successful unlock, none currently locked and locked-only filtering. Full grammar and account lock/unlock terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "accounts-lockout-confirm-unlock",
+    "before": "Êtes-vous sûr de vouloir déverrouiller cet utilisateur ?",
+    "after": "Wóor na la ne bëgg nga ubbil kontu jëfandikukat bii?",
+    "reason": "Replace French account-lockout controls/statuses with Wolof, describing user account locking/unlocking rather than deletion. Preserve single versus all locked users, successful unlock, none currently locked and locked-only filtering. Full grammar and account lock/unlock terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "accounts-lockout-confirm-unlock-all",
+    "before": "Êtes-vous sûr de vouloir déverrouiller tous les utilisateurs verrouillés ?",
+    "after": "Wóor na la ne bëgg nga ubbil konti jëfandikukat yi ñu tëj yépp?",
+    "reason": "Replace French account-lockout controls/statuses with Wolof, describing user account locking/unlocking rather than deletion. Preserve single versus all locked users, successful unlock, none currently locked and locked-only filtering. Full grammar and account lock/unlock terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "accounts-lockout-all-users-unlocked",
+    "before": "Tous les utilisateurs bloqués ont été déverrouillés",
+    "after": "Ubbil nañu konti jëfandikukat yi ñu tëj yépp",
+    "reason": "Replace French account-lockout controls/statuses with Wolof, describing user account locking/unlocking rather than deletion. Preserve single versus all locked users, successful unlock, none currently locked and locked-only filtering. Full grammar and account lock/unlock terminology remain low confidence."
   }
 ]
