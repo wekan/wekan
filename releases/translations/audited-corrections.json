@@ -94414,5 +94414,40 @@
     "before": "Team bearbeiten",
     "after": "ghom yIchoH",
     "reason": "Replace German organization/team counts, edit titles, organization category and administrator-contact instruction with Klingon. Preserve organization versus team distinctions, count-label trailing space for following number, editing action, and contact administrator to create organizations. Reuse repaired yejHaq and ghom terminology and rI hail/contact. Full software wording is assembled, low confidence, and requires fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "activity-checklist-completed-card",
+    "before": "hat Checkliste __checklist__ der Karte __card__ auf der Liste __list__ in Swimlane __swimlane__ in Board __board__ vervollständigt",
+    "after": "__board__ raSDaq __swimlane__ HeDaq __list__ tetlhDaq __card__ 'echletHomDaq __checklist__ ghItlhHommey tetlh rInmoHlu'pu'",
+    "reason": "Replace audited German checklist completion/uncompletion, deletion confirmation and comma-separated item instruction with Klingon. Preserve completion versus declaring incomplete, checklist name before card-link percent substitutions, all board context tokens, and comma-separated values. Reuse existing ghItlhHommey tetlh terminology; incomplete status uses a sentence-as-object declaration without aspect or indefinite suffix on the second verb. Full software wording is assembled, low confidence, and needs fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "confirm-checklist-delete-popup",
+    "before": "Wollen Sie diese Checkliste wirklich löschen?",
+    "after": "ghItlhHommey tetlh DaQaw' DaneHbej'a'?",
+    "reason": "Replace audited German checklist completion/uncompletion, deletion confirmation and comma-separated item instruction with Klingon. Preserve completion versus declaring incomplete, checklist name before card-link percent substitutions, all board context tokens, and comma-separated values. Reuse existing ghItlhHommey tetlh terminology; incomplete status uses a sentence-as-object declaration without aspect or indefinite suffix on the second verb. Full software wording is assembled, low confidence, and needs fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "activity-checklist-uncompleted",
+    "before": "unvervollständigte die Checkliste %s von %s",
+    "after": "rInbe' %s ghItlhHommey tetlh 'e' maq (%s 'echletHom)",
+    "reason": "Replace audited German checklist completion/uncompletion, deletion confirmation and comma-separated item instruction with Klingon. Preserve completion versus declaring incomplete, checklist name before card-link percent substitutions, all board context tokens, and comma-separated values. Reuse existing ghItlhHommey tetlh terminology; incomplete status uses a sentence-as-object declaration without aspect or indefinite suffix on the second verb. Full software wording is assembled, low confidence, and needs fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "activity-checklist-uncompleted-card",
+    "before": "unvervollständigte die Checkliste %s",
+    "after": "rInbe' %s ghItlhHommey tetlh 'e' maq",
+    "reason": "Replace audited German checklist completion/uncompletion, deletion confirmation and comma-separated item instruction with Klingon. Preserve completion versus declaring incomplete, checklist name before card-link percent substitutions, all board context tokens, and comma-separated values. Reuse existing ghItlhHommey tetlh terminology; incomplete status uses a sentence-as-object declaration without aspect or indefinite suffix on the second verb. Full software wording is assembled, low confidence, and needs fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "r-checklist-note",
+    "before": "Hinweis: Die Elemente der Checkliste müssen als kommagetrennte Werte geschrieben werden.",
+    "after": "De': ghItlhHommey tetlh ghItlhHommey DaghItlhDI', ghItlhHommey DachevmeH comma yIlo'.",
+    "reason": "Replace audited German checklist completion/uncompletion, deletion confirmation and comma-separated item instruction with Klingon. Preserve completion versus declaring incomplete, checklist name before card-link percent substitutions, all board context tokens, and comma-separated values. Reuse existing ghItlhHommey tetlh terminology; incomplete status uses a sentence-as-object declaration without aspect or indefinite suffix on the second verb. Full software wording is assembled, low confidence, and needs fluent-speaker validation."
   }
 ]
