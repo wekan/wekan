@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 11,224 |
+| Corrected | 11,232 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 4,622 |
+| Pending review or repair | 4,614 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **11,483** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **11,491** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `a12cd204f73d929f3cf3bc91d0af9a8a8e99c8cd` — 16 checklist controls/item-count labels repaired in Wolof. Add/remove/copy/move/conversion actions, item-count notation and minicard scope remain distinct. Full grammar and computing terminology remain low confidence. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; live browser verification is unavailable.
+Latest translation fix: **2026-09-13**, local commit `78b4df2fd0c5cb138e25523de6cfcad661c27ad0` — 8 French list controls replaced with Wolof. Same-name/empty-list deletion, selecting all cards, Trello import and preserving history through archival retain their scopes. Duplicate terminology and full grammar remain low confidence. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; live browser verification is unavailable.
 
 **Review follow-up:** Silesian `sandstorm-raw-mongodb` remains pending: its wording overlaps Polish and existing Silesian technical strings, but dictionary searches did not establish the full phrase as correct Silesian. Keep the current value until stronger language evidence supports retaining or replacing it.
 
