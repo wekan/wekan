@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 12,747 |
+| Corrected | 12,751 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 177 |
-| Pending review or repair | 3,098 |
+| Pending review or repair | 3,094 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Restored and unflagged values still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **13,375** exact before/after values, including repairs outside the audit.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **13,382** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `c48c9984ccba08a8b3885001ca3ccf24a6e9df9d` — five German card-window/checklist-form controls and board lookup text replaced with Klingon, preserving both window modes, form actions and the board placeholder. Full software wording is low confidence and needs fluent-speaker validation.
+Latest translation fix: **2026-09-13**, local commit `51735012ead239bec090d715a214ec23f3e2f10c` — seven German starred-board controls (four flagged findings) replaced with Klingon, preserving marker actions, star count and top-of-list display. Full software wording is low confidence and needs fluent-speaker validation.
 
 **Verification:** correction and progress tests pass. Native-speaker and browser checks remain outstanding.
 
