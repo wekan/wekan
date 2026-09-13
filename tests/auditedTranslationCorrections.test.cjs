@@ -1062,5 +1062,28 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
     assert.doesNotMatch(cache['ve-PP'][key], /Toiminta|ilmoitus/i, key);
   }
   for (const value of Object.values(cache['ve-PP'])) assert.doesNotMatch(value, /ližadud/i);
+  const vepsDisplayRepairs = {
+  "badge-attachment-on-minicard": "Tartutadud failoiden lugumär minikartal",
+  "newLineNewItem": "Üks’ tekstin rivi = üks’ kodvindlugetišen koht",
+  "now-activities-of-all-boards-are-hidden": "Nügüd’ kaik tegendad kaikil laudoil oma peittud",
+  "open-many-cards-at-once": "Avaida äi kartoid ühten aigan",
+  "set-swimlane-height-value": "Ujundšoidun korktuz’ (pikselid)",
+  "show-at-all-boards-page": "Ozuta “Kaik laudad” -lehtpolel",
+  "show-card-counter-per-list": "Ozuta kartoiden lugumär kaikes lugetišes",
+  "show-cards-minimum-count": "Ozuta kartoiden lugumär, ku lugetišes om enamba ku",
+  "swimlane-height-error-message": "Ujundšoidun korktuz’ pidab olda pozitivine täuz’ lugu"
+};
+  for (const [key, value] of Object.entries(vepsDisplayRepairs)) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.equal(vepsTranslator.t(key), value, key);
+    assert.doesNotMatch(value, /Liitteiden|määrä|Yksi|tekstiä|tarkistuslistan|Nyt kaikki|toimet|piilotettu|Avaa monta|kerralla|Uimaradan|korkeus|Näytä|Kaikki taulut|korttien|lukumäärä|sisältää|enemmän kuin|täytyy|positiivinen|kokonaisluku/i, key);
+  }
+  assert.match(cache['ve-PP']['show-cards-minimum-count'], /ku lugetišes om enamba ku$/);
+  assert.match(cache['ve-PP']['swimlane-height-error-message'], /pozitivine täuz’ lugu$/);
+  assert.match(cache['ve-PP']['set-swimlane-height-value'], /\(pikselid\)$/);
+  assert.match(cache['ve-PP']['newLineNewItem'], /^Üks’.*rivi = üks’.*koht$/);
+  assert.match(cache['ve-PP']['now-activities-of-all-boards-are-hidden'], /kaik tegendad kaikil laudoil oma peittud$/);
+  assert.ok(cache['ve-PP']['show-at-all-boards-page'].includes(`“${cache['ve-PP']['all-boards']}”`));
+  assert.match(cache['ve-PP']['open-many-cards-at-once'], /äi kartoid ühten aigan$/);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });

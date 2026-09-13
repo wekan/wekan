@@ -115743,5 +115743,68 @@
     "before": "Tauluasetukset",
     "after": "Laudan sändod",
     "reason": "Replace Finnish import/member/shortcut text with reference Veps vocabulary and native MediaWiki tomine/todud/To, kopirui, registriruind, oigetud and sändod. Preserve unmapped-member current-user fallback, existing-user selection, ZIP JSON/board-named attachment directories, CSV/TSV separators, conditional import-error guidance and menu navigation. Assignee shortcut toggles assignment rather than visibility; retain 1-9 and board-addition order. Invitation states remain distinct; otta table confirms passive ottud. Keep Trello interface labels and JSON/CSV/TSV/.zip literals. Composed technical phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json ; https://en.wiktionary.org/wiki/otta"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "badge-attachment-on-minicard",
+    "before": "Liitteiden määrä minikortilla",
+    "after": "Tartutadud failoiden lugumär minikartal",
+    "reason": "Replace Finnish with Veps display-setting wording. Reference: Zaiceva/Mullonen 2007 Russian–Veps dictionary (http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf), height korktuz’, positive pozitivine, integer example täuded lugud, quantity lugumär, simultaneous ühten aigan; native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json (Ozuta, Peittud, rivi, pikselid). Preserve strict more-than, pixels, all-board scope and one-to-one item mapping. Low confidence: composed kanban terminology and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "newLineNewItem",
+    "before": "Yksi rivi tekstiä = yksi tarkistuslistan kohta",
+    "after": "Üks’ tekstin rivi = üks’ kodvindlugetišen koht",
+    "reason": "Replace Finnish with Veps display-setting wording. Reference: Zaiceva/Mullonen 2007 Russian–Veps dictionary (http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf), height korktuz’, positive pozitivine, integer example täuded lugud, quantity lugumär, simultaneous ühten aigan; native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json (Ozuta, Peittud, rivi, pikselid). Preserve strict more-than, pixels, all-board scope and one-to-one item mapping. Low confidence: composed kanban terminology and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "now-activities-of-all-boards-are-hidden",
+    "before": "Nyt kaikki toimet kaikilla tauluilla on piilotettu",
+    "after": "Nügüd’ kaik tegendad kaikil laudoil oma peittud",
+    "reason": "Replace Finnish with Veps display-setting wording. Reference: Zaiceva/Mullonen 2007 Russian–Veps dictionary (http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf), height korktuz’, positive pozitivine, integer example täuded lugud, quantity lugumär, simultaneous ühten aigan; native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json (Ozuta, Peittud, rivi, pikselid). Preserve strict more-than, pixels, all-board scope and one-to-one item mapping. Low confidence: composed kanban terminology and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "open-many-cards-at-once",
+    "before": "Avaa monta korttia kerralla",
+    "after": "Avaida äi kartoid ühten aigan",
+    "reason": "Replace Finnish with Veps display-setting wording. Reference: Zaiceva/Mullonen 2007 Russian–Veps dictionary (http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf), height korktuz’, positive pozitivine, integer example täuded lugud, quantity lugumär, simultaneous ühten aigan; native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json (Ozuta, Peittud, rivi, pikselid). Preserve strict more-than, pixels, all-board scope and one-to-one item mapping. Low confidence: composed kanban terminology and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "set-swimlane-height-value",
+    "before": "Uimaradan korkeus (pikseliä)",
+    "after": "Ujundšoidun korktuz’ (pikselid)",
+    "reason": "Replace Finnish with Veps display-setting wording. Reference: Zaiceva/Mullonen 2007 Russian–Veps dictionary (http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf), height korktuz’, positive pozitivine, integer example täuded lugud, quantity lugumär, simultaneous ühten aigan; native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json (Ozuta, Peittud, rivi, pikselid). Preserve strict more-than, pixels, all-board scope and one-to-one item mapping. Low confidence: composed kanban terminology and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "show-at-all-boards-page",
+    "before": "Näytä Kaikki taulut sivulla",
+    "after": "Ozuta “Kaik laudad” -lehtpolel",
+    "reason": "Replace Finnish with Veps display-setting wording. Reference: Zaiceva/Mullonen 2007 Russian–Veps dictionary (http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf), height korktuz’, positive pozitivine, integer example täuded lugud, quantity lugumär, simultaneous ühten aigan; native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json (Ozuta, Peittud, rivi, pikselid). Preserve strict more-than, pixels, all-board scope and one-to-one item mapping. Low confidence: composed kanban terminology and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "show-card-counter-per-list",
+    "before": "Näytä korttien määrä per lista",
+    "after": "Ozuta kartoiden lugumär kaikes lugetišes",
+    "reason": "Replace Finnish with Veps display-setting wording. Reference: Zaiceva/Mullonen 2007 Russian–Veps dictionary (http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf), height korktuz’, positive pozitivine, integer example täuded lugud, quantity lugumär, simultaneous ühten aigan; native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json (Ozuta, Peittud, rivi, pikselid). Preserve strict more-than, pixels, all-board scope and one-to-one item mapping. Low confidence: composed kanban terminology and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "show-cards-minimum-count",
+    "before": "Näytä korttien lukumäärä jos lista sisältää enemmän kuin",
+    "after": "Ozuta kartoiden lugumär, ku lugetišes om enamba ku",
+    "reason": "Replace Finnish with Veps display-setting wording. Reference: Zaiceva/Mullonen 2007 Russian–Veps dictionary (http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf), height korktuz’, positive pozitivine, integer example täuded lugud, quantity lugumär, simultaneous ühten aigan; native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json (Ozuta, Peittud, rivi, pikselid). Preserve strict more-than, pixels, all-board scope and one-to-one item mapping. Low confidence: composed kanban terminology and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "swimlane-height-error-message",
+    "before": "Uimaradan korkeuden täytyy olla positiivinen kokonaisluku",
+    "after": "Ujundšoidun korktuz’ pidab olda pozitivine täuz’ lugu",
+    "reason": "Replace Finnish with Veps display-setting wording. Reference: Zaiceva/Mullonen 2007 Russian–Veps dictionary (http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf), height korktuz’, positive pozitivine, integer example täuded lugud, quantity lugumär, simultaneous ühten aigan; native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json (Ozuta, Peittud, rivi, pikselid). Preserve strict more-than, pixels, all-board scope and one-to-one item mapping. Low confidence: composed kanban terminology and inflections require fluent-speaker review."
   }
 ]
