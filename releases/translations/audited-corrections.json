@@ -89808,5 +89808,68 @@
     "before": "`__operator_sort__:<tri>` - où *<tri>* est une méthode parmi `__predicate_due__`, `__predicate_created__` ou `__predicate_modified__`.  Pour un tri descendant, préfixez la méthode par `-`.",
     "after": "`__operator_sort__:<sort-name>` - *<sort-name>* binon bal se `__predicate_due__`, `__predicate_created__` u `__predicate_modified__`. Pro sotam de gretikum lü smalikum, pladolös `-` fo nem sotama.",
     "reason": "Repair French search-combination/syntax explanations in Volapük, describing operators as search constraints. Preserve exact code examples, colon delimiter and quoted values, similar-operator OR/any versus differing-operator AND/all, positive/negative integer day periods and descending-sort leading minus. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests stip (condition), saitamalül (quotation mark) and negatik; use literal colon rather than anatomical krasum. Software constraint/descending-order paraphrases and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "assignee",
+    "before": "Intervenant",
+    "after": "Geban pejonidüköl",
+    "reason": "Replace French assignee labels, user/organization/team search explanations and people export groups with Volapük. Distinguish ordinary members from assigned users; preserve member-or-assignee alternative, all/current-card scope, board organization/team relationship and exact operator syntax/angle tokens. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests jonidükön (assign/designate), dalaban (owner), kvip (team) and existing user/member/create vocabulary. Assigned-user/organization software adaptations and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "assignees",
+    "before": "Intervenants",
+    "after": "Gebans pejonidüköl",
+    "reason": "Replace French assignee labels, user/organization/team search explanations and people export groups with Volapük. Distinguish ordinary members from assigned users; preserve member-or-assignee alternative, all/current-card scope, board organization/team relationship and exact operator syntax/angle tokens. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests jonidükön (assign/designate), dalaban (owner), kvip (team) and existing user/member/create vocabulary. Assigned-user/organization software adaptations and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "globalSearch-instructions-operator-assignee",
+    "before": "`__operator_assignee__:<nom>` - cartes *attribuées* à l'utilisateur *<nom>*",
+    "after": "`__operator_assignee__:<username>` - kads, kö *<username>* binon *geban pejonidüköl*",
+    "reason": "Replace French assignee labels, user/organization/team search explanations and people export groups with Volapük. Distinguish ordinary members from assigned users; preserve member-or-assignee alternative, all/current-card scope, board organization/team relationship and exact operator syntax/angle tokens. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests jonidükön (assign/designate), dalaban (owner), kvip (team) and existing user/member/create vocabulary. Assigned-user/organization software adaptations and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "globalSearch-instructions-operator-user",
+    "before": "`__operator_user__:<nom>` - cartes où l'utilisateur <nom> est *participant* ou *intervenant*.",
+    "after": "`__operator_user__:<username>` - kads, kö *<username>* binon *liman* u *geban pejonidüköl*",
+    "reason": "Replace French assignee labels, user/organization/team search explanations and people export groups with Volapük. Distinguish ordinary members from assigned users; preserve member-or-assignee alternative, all/current-card scope, board organization/team relationship and exact operator syntax/angle tokens. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests jonidükön (assign/designate), dalaban (owner), kvip (team) and existing user/member/create vocabulary. Assigned-user/organization software adaptations and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "globalSearch-instructions-operator-org",
+    "before": "`__operator_org__:<display name|short name>` - cartes appartenant à un tableau attribué à l'organisation *<name>*",
+    "after": "`__operator_org__:<display name|short name>` - kads, kels dutons lü tab pejonidüköl lü klubäd *<name>*",
+    "reason": "Replace French assignee labels, user/organization/team search explanations and people export groups with Volapük. Distinguish ordinary members from assigned users; preserve member-or-assignee alternative, all/current-card scope, board organization/team relationship and exact operator syntax/angle tokens. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests jonidükön (assign/designate), dalaban (owner), kvip (team) and existing user/member/create vocabulary. Assigned-user/organization software adaptations and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "globalSearch-instructions-operator-team",
+    "before": "`__operator_team__:<display name|short name>` - cartes appartenant à un tableau attribué à l'équipe *<name>*",
+    "after": "`__operator_team__:<display name|short name>` - kads, kels dutons lü tab pejonidüköl lü kvip *<name>*",
+    "reason": "Replace French assignee labels, user/organization/team search explanations and people export groups with Volapük. Distinguish ordinary members from assigned users; preserve member-or-assignee alternative, all/current-card scope, board organization/team relationship and exact operator syntax/angle tokens. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests jonidükön (assign/designate), dalaban (owner), kvip (team) and existing user/member/create vocabulary. Assigned-user/organization software adaptations and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "export-card-field-people",
+    "before": "Personnes (Créateur, Propriétaire, Participants, Intervenants)",
+    "after": "Mens (Jafan, Dalaban, Limans, Gebans pejonidüköl)",
+    "reason": "Replace French assignee labels, user/organization/team search explanations and people export groups with Volapük. Distinguish ordinary members from assigned users; preserve member-or-assignee alternative, all/current-card scope, board organization/team relationship and exact operator syntax/angle tokens. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests jonidükön (assign/designate), dalaban (owner), kvip (team) and existing user/member/create vocabulary. Assigned-user/organization software adaptations and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "board_assignees",
+    "before": "Tous les intervenants de toutes les cartes de ce tableau",
+    "after": "Gebans pejonidüköl valik kadas valik su tab at",
+    "reason": "Replace French assignee labels, user/organization/team search explanations and people export groups with Volapük. Distinguish ordinary members from assigned users; preserve member-or-assignee alternative, all/current-card scope, board organization/team relationship and exact operator syntax/angle tokens. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests jonidükön (assign/designate), dalaban (owner), kvip (team) and existing user/member/create vocabulary. Assigned-user/organization software adaptations and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "card_assignees",
+    "before": "Tous les intervenants de la carte actuelle de ce tableau",
+    "after": "Gebans pejonidüköl valik kada nuik su tab at",
+    "reason": "Replace French assignee labels, user/organization/team search explanations and people export groups with Volapük. Distinguish ordinary members from assigned users; preserve member-or-assignee alternative, all/current-card scope, board organization/team relationship and exact operator syntax/angle tokens. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests jonidükön (assign/designate), dalaban (owner), kvip (team) and existing user/member/create vocabulary. Assigned-user/organization software adaptations and assembled wording remain low confidence; no native-speaker verification."
   }
 ]
