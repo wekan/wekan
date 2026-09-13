@@ -3162,6 +3162,16 @@ The Fossil guide documents repeat exports and invalid interrupted repositories.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0026390bb">Parse localized search keywords containing apostrophes</a>. Thanks to xet7.</summary>
+
+Accept straight and curly apostrophes in search operator names, enabling
+Klingon keywords. Runtime regressions verify translated names, quoted values,
+ordinary operators, quoted text and unknown-name errors. Card-number checks
+pass. Localized browser coverage and keyword replacement remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 
