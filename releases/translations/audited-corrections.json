@@ -88779,5 +88779,47 @@
     "before": "Note : laisser le champ vide pour correspondre à toutes les valeurs possibles.",
     "after": "Noet: leadolös feli vagik ad baiädön bai völad alik mögik. ",
     "reason": "Replace French rule-trigger wording with Volapük using existing card/list/checklist terminology. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests ven (when conjunction), völad (value), topätükön (move). Inspect checklistTriggers.jade:90/108 and boardTriggers.jade:103 for composed trigger fragments and empty-field matching note. Preserve fragment boundaries, another-list destination and empty-field matches-any-possible-value meaning. Software value adaptation, checklist compound and assembled wording remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "no-parent",
+    "before": "Ne pas afficher le parent",
+    "after": "No jonön kadi löpikum",
+    "reason": "Replace French card visibility settings with Volapük using existing card/count/field terminology and Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf bligäd (task), löpik (higher), dona- subordinate compounds, vig (week). Express hierarchical parent as higher card, avoiding biological pal. Preserve minicard parent display, subtext context, subtask field, ISO 8601 week and strict more-than count threshold. Hierarchy/task compounds and assembled wording remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "show-parent-in-minicard",
+    "before": "Voir la carte parente dans la mini-carte :",
+    "after": "Jonön kadi löpikum su kadil:",
+    "reason": "Replace French card visibility settings with Volapük using existing card/count/field terminology and Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf bligäd (task), löpik (higher), dona- subordinate compounds, vig (week). Express hierarchical parent as higher card, avoiding biological pal. Preserve minicard parent display, subtext context, subtask field, ISO 8601 week and strict more-than count threshold. Hierarchy/task compounds and assembled wording remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "subtext-with-parent",
+    "before": "Sous-titre avec le parent",
+    "after": "Vödem donik ko kad löpikum",
+    "reason": "Replace French card visibility settings with Volapük using existing card/count/field terminology and Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf bligäd (task), löpik (higher), dona- subordinate compounds, vig (week). Express hierarchical parent as higher card, avoiding biological pal. Preserve minicard parent display, subtext context, subtask field, ISO 8601 week and strict more-than count threshold. Hierarchy/task compounds and assembled wording remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "show-subtasks-field",
+    "before": "Afficher le champ des sous-tâches",
+    "after": "Jonön feli donabligädas",
+    "reason": "Replace French card visibility settings with Volapük using existing card/count/field terminology and Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf bligäd (task), löpik (higher), dona- subordinate compounds, vig (week). Express hierarchical parent as higher card, avoiding biological pal. Preserve minicard parent display, subtext context, subtask field, ISO 8601 week and strict more-than count threshold. Hierarchy/task compounds and assembled wording remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "show-week-of-year",
+    "before": "Afficher la semaine de l'année (ISO 8601)",
+    "after": "Jonön vigi yela (ISO 8601)",
+    "reason": "Replace French card visibility settings with Volapük using existing card/count/field terminology and Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf bligäd (task), löpik (higher), dona- subordinate compounds, vig (week). Express hierarchical parent as higher card, avoiding biological pal. Preserve minicard parent display, subtext context, subtask field, ISO 8601 week and strict more-than count threshold. Hierarchy/task compounds and assembled wording remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "show-cards-minimum-count",
+    "before": "Afficher le nombre de cartes si la liste en contient plus de",
+    "after": "Jonön mödoti kadas, üf lised ninädon mödikumi ka",
+    "reason": "Replace French card visibility settings with Volapük using existing card/count/field terminology and Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf bligäd (task), löpik (higher), dona- subordinate compounds, vig (week). Express hierarchical parent as higher card, avoiding biological pal. Preserve minicard parent display, subtext context, subtask field, ISO 8601 week and strict more-than count threshold. Hierarchy/task compounds and assembled wording remain low confidence; native review unavailable."
   }
 ]
