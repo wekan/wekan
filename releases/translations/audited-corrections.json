@@ -118249,5 +118249,75 @@
     "before": "Pysäytä",
     "after": "Seižuta",
     "reason": "Replace Finnish migration control/status/detail wording with dictionary-attested Veps and existing migration terminology. Distinguish pause, resume and stop; composed technical labels need fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "step-restore-lists",
+    "before": "Palauta listat",
+    "after": "Endišta lugetišed",
+    "reason": "Replace Finnish migration-step wording with Veps dictionary verbs and existing restore/update terminology. Preserve lists, cards and swimlanes as distinct objects. Composed technical morphology needs fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "step-restore-cards",
+    "before": "Palauta kortit",
+    "after": "Endišta kartad",
+    "reason": "Replace Finnish migration-step wording with Veps dictionary verbs and existing restore/update terminology. Preserve lists, cards and swimlanes as distinct objects. Composed technical morphology needs fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "step-restore-swimlanes",
+    "before": "Palauta uimaradat",
+    "after": "Endišta ujundšoidud",
+    "reason": "Replace Finnish migration-step wording with Veps dictionary verbs and existing restore/update terminology. Preserve lists, cards and swimlanes as distinct objects. Composed technical morphology needs fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "step-update-cards",
+    "before": "Päivitä kortit",
+    "after": "Udišta kartad",
+    "reason": "Replace Finnish migration-step wording with Veps dictionary verbs and existing restore/update terminology. Preserve lists, cards and swimlanes as distinct objects. Composed technical morphology needs fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "step-finalize",
+    "before": "Viimeistellään",
+    "after": "Lopta",
+    "reason": "Replace Finnish migration-step wording with Veps dictionary verbs and existing restore/update terminology. Preserve lists, cards and swimlanes as distinct objects. Composed technical morphology needs fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "step-analyze-lists",
+    "before": "Analysoidaan listoja",
+    "after": "Tarkištele lugetišid",
+    "reason": "Replace Finnish migration-step wording with Veps dictionary verbs and existing restore/update terminology. Preserve lists, cards and swimlanes as distinct objects. Composed technical morphology needs fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "step-fix-file-urls",
+    "before": "Korjataan tiedosto URLit",
+    "after": "Kohenda failoiden URL-adresad",
+    "reason": "Replace Finnish migration-step wording with Veps dictionary verbs and existing restore/update terminology. Preserve lists, cards and swimlanes as distinct objects. Composed technical morphology needs fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "step-validate-migration",
+    "before": "Varmistetaan siirto",
+    "after": "Kodvi migracii",
+    "reason": "Replace Finnish migration-step wording with Veps dictionary verbs and existing restore/update terminology. Preserve lists, cards and swimlanes as distinct objects. Composed technical morphology needs fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "no-issues-found",
+    "before": "Ei löytynyt ongelmia",
+    "after": "Ei ole löutud problemoid",
+    "reason": "Replace Finnish migration-step wording with Veps dictionary verbs and existing restore/update terminology. Preserve lists, cards and swimlanes as distinct objects. Composed technical morphology needs fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "migration-warning-text",
+    "before": "Älä sulje selainta siirron aikana. Prosessi jatkuu taustalla mutta voi kestää kauemmin valmistuakseen.",
+    "after": "Ala saupta brauzerad migracijan aigan. Process jatkub tagamal, no loptamižen täht voib olda tarbiž enamba aigad.",
+    "reason": "Replace flagged Finnish migration warning with Veps. Preserve do-not-close instruction, continuing background processing and possible longer completion time. Dictionary saubata/saupta, jatku-da and tagama; composed technical prose remains low confidence."
   }
 ]

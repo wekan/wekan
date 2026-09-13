@@ -1857,5 +1857,31 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.notEqual(cache['ve-PP']['resume-migration'], cache['ve-PP']['stop-migration']);
   assert.equal(cache['ve-PP']['migration-progress-status'], cache['ve-PP']['status']);
   assert.equal(cache['ve-PP']['migration-progress-details'], cache['ve-PP']['details']);
+  const vepsMigrationSteps = {
+  "step-restore-lists": "Endišta lugetišed",
+  "step-restore-cards": "Endišta kartad",
+  "step-restore-swimlanes": "Endišta ujundšoidud",
+  "step-update-cards": "Udišta kartad",
+  "step-finalize": "Lopta",
+  "step-analyze-lists": "Tarkištele lugetišid",
+  "step-fix-file-urls": "Kohenda failoiden URL-adresad",
+  "step-validate-migration": "Kodvi migracii",
+  "no-issues-found": "Ei ole löutud problemoid"
+};
+  for (const [key, value] of Object.entries(vepsMigrationSteps)) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.equal(vepsTranslator.t(key), value, key);
+    assert.doesNotMatch(value, /Palauta|Päivitä|Viimeistellään|Analysoidaan|Korjataan|Varmistetaan|Ei löytynyt|ongelmia/, key);
+  }
+  assert.equal(cache['ve-PP']['step-restore-cards'], cache['ve-PP']['restore'] + ' kartad');
+  assert.notEqual(cache['ve-PP']['step-restore-cards'], cache['ve-PP']['step-restore-lists']);
+  assert.notEqual(cache['ve-PP']['step-restore-swimlanes'], cache['ve-PP']['step-restore-lists']);
+  assert.match(cache['ve-PP']['step-fix-file-urls'], /failoiden URL-adresad/);
+  assert.doesNotMatch(cache['ve-PP']['no-issues-found'], /on löutud/);
+  assert.equal(vepsTranslator.t('migration-warning-text'), "Ala saupta brauzerad migracijan aigan. Process jatkub tagamal, no loptamižen täht voib olda tarbiž enamba aigad.");
+  assert.match(cache['ve-PP']['migration-warning-text'], /^Ala saupta/);
+  assert.match(cache['ve-PP']['migration-warning-text'], /jatkub tagamal/);
+  assert.match(cache['ve-PP']['migration-warning-text'], /voib olda tarbiž enamba aigad/);
+  assert.doesNotMatch(cache['ve-PP']['migration-warning-text'], /Älä sulje|Prosessi jatkuu|kestää kauemmin/);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });
