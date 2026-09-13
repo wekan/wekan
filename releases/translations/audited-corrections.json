@@ -109751,5 +109751,145 @@
     "before": "Aggiungi il file .zip contenente i file JSON della bacheca, i nomi bacheca delle sottodirectory con gli allegati",
     "after": "Zonta un file .zip co i file JSON dei quadri e sotocartełe col nome del quadro che łe gà i file łigài",
     "reason": "Replace Italian-seeded search and import instructions with Venetian; preserve literal search examples, predicate placeholders, descending minus sign and external menu labels. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "import-members-map",
+    "before": "La bacheca che hai importato contiene alcuni membri. Per favore scegli i membri che vuoi importare tra i tuoi utenti",
+    "after": "El quadro inportà el gà dei membri. Asocia i membri che te vol inportar ai to utenti",
+    "reason": "Replace Italian-seeded membership, list and visibility messages with Venetian; preserve access restrictions, archive recovery, newline/comma behavior and invitation placeholders. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "just-invited",
+    "before": "Sei stato appena invitato a questa bacheca",
+    "after": "Te si pena stà invità a sto quadro",
+    "reason": "Replace Italian-seeded membership, list and visibility messages with Venetian; preserve access restrictions, archive recovery, newline/comma behavior and invitation placeholders. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "leave-board-pop",
+    "before": "Sei sicuro di voler abbandonare __boardTitle__? Sarai rimosso da tutte le schede in questa bacheca.",
+    "after": "Sito seguro de vołer łasar __boardTitle__? Te vegnarè cavà da tute łe schede de sto quadro.",
+    "reason": "Replace Italian-seeded membership, list and visibility messages with Venetian; preserve access restrictions, archive recovery, newline/comma behavior and invitation placeholders. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "list-archive-cards-pop",
+    "before": "Questo rimuoverà tutte le schede nell'elenco dalla bacheca. Per vedere le schede nell'archivio e portarle dov'erano  nella bacheca, clicca su \"Menu\"  > \"Archivio\".",
+    "after": "Sto comando el cavarà dal quadro tute łe schede de sta lista. Par védar łe schede inte el archivio e rimetarle inte el quadro, clica “Menu” > “Archivio”.",
+    "reason": "Replace Italian-seeded membership, list and visibility messages with Venetian; preserve access restrictions, archive recovery, newline/comma behavior and invitation placeholders. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "list-delete-suggest-archive",
+    "before": "Puoi spostare un elenco nell'archivio per rimuoverlo dalla bacheca e mantentere la sua attività.",
+    "after": "Te pol spostar na lista inte el archivio par cavarła dal quadro e conservar ła so atività.",
+    "reason": "Replace Italian-seeded membership, list and visibility messages with Venetian; preserve access restrictions, archive recovery, newline/comma behavior and invitation placeholders. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "listImportCardPopup-title",
+    "before": "Importa una scheda di Trello",
+    "after": "Inporta na scheda Trello",
+    "reason": "Replace Italian-seeded membership, list and visibility messages with Venetian; preserve access restrictions, archive recovery, newline/comma behavior and invitation placeholders. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "muted-info",
+    "before": "Non sarai mai notificato delle modifiche in questa bacheca",
+    "after": "No te ricevarè mai notifiche dei canbiamenti de sto quadro",
+    "reason": "Replace Italian-seeded membership, list and visibility messages with Venetian; preserve access restrictions, archive recovery, newline/comma behavior and invitation placeholders. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "newLineNewItem",
+    "before": "Una riga di testo = un elemento della lista di controllo",
+    "after": "Na riga de testo = na voze de ła lista de controło",
+    "reason": "Replace Italian-seeded membership, list and visibility messages with Venetian; preserve access restrictions, archive recovery, newline/comma behavior and invitation placeholders. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "newlineBecomesNewChecklistItem",
+    "before": "Ogni riga di testo diventa uno degli elementi della lista di controllo",
+    "after": "Ogni riga de testo ła diventa na voze de ła lista de controło",
+    "reason": "Replace Italian-seeded membership, list and visibility messages with Venetian; preserve access restrictions, archive recovery, newline/comma behavior and invitation placeholders. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "newlineBecomesNewChecklistItemOriginOrder",
+    "before": "Ogni riga di testo diventa uno degli elementi della lista di controllo, ordine originale",
+    "after": "Ogni riga de testo ła diventa na voze de ła lista de controło, inte el òrdine originałe",
+    "reason": "Replace Italian-seeded membership, list and visibility messages with Venetian; preserve access restrictions, archive recovery, newline/comma behavior and invitation placeholders. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "no-archived-boards",
+    "before": "Nessuna bacheca presente nell'archivio.",
+    "after": "No ghe xe quadri inte el archivio.",
+    "reason": "Replace Italian-seeded membership, list and visibility messages with Venetian; preserve access restrictions, archive recovery, newline/comma behavior and invitation placeholders. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "normal-desc",
+    "before": "Può visionare e modificare le schede. Non può cambiare le impostazioni.",
+    "after": "El pol védar e canbiar łe schede. No el pol canbiar łe inpostasion.",
+    "reason": "Replace Italian-seeded membership, list and visibility messages with Venetian; preserve access restrictions, archive recovery, newline/comma behavior and invitation placeholders. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "open-many-cards-at-once-description",
+    "before": "Ogni scheda su cui fai clic resta aperta in una finestra propria. Quando questa opzione è disattivata, fare clic su una scheda chiude quella che era aperta.",
+    "after": "Ogni scheda che te cliche ła resta verta inte ła so finestra. Co sta opsion ła xe disativà, clicar na scheda el sera queła che ła jera verta.",
+    "reason": "Replace Italian-seeded membership, list and visibility messages with Venetian; preserve access restrictions, archive recovery, newline/comma behavior and invitation placeholders. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "private-desc",
+    "before": "Questa bacheca è privata. Solo le persone aggiunte alla bacheca possono vederla e modificarla.",
+    "after": "Sto quadro el xe privà. Soło łe parsone zontà al quadro łe pol védarlo e canbiarlo.",
+    "reason": "Replace Italian-seeded membership, list and visibility messages with Venetian; preserve access restrictions, archive recovery, newline/comma behavior and invitation placeholders. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "public-desc",
+    "before": "Questa bacheca è pubblica. È visibile a chiunque abbia il link e sarà mostrata dai motori di ricerca come Google. Solo le persone aggiunte alla bacheca possono modificarla.",
+    "after": "Sto quadro el xe pùblico. Chiunque col łigamento el pol védarlo e el vegnarà mostrà dai motori de serca come Google. Soło łe parsone zontà al quadro łe pol canbiarlo.",
+    "reason": "Replace Italian-seeded membership, list and visibility messages with Venetian; preserve access restrictions, archive recovery, newline/comma behavior and invitation placeholders. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "quick-access-description",
+    "before": "Stella una bacheca per aggiungere una scorciatoia in questa barra.",
+    "after": "Zonta na steła a un quadro par meter un acesso ràpido in sta bara.",
+    "reason": "Replace Italian-seeded membership, list and visibility messages with Venetian; preserve access restrictions, archive recovery, newline/comma behavior and invitation placeholders. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "r-checklist-note",
+    "before": "Nota: Gli elementi della checklist devono essere scritti come valori separati dalla virgola",
+    "after": "Nota: łe vozi de ła lista de controło łe gà da èsar scrite come vałori separài da vìrgołe.",
+    "reason": "Replace Italian-seeded membership, list and visibility messages with Venetian; preserve access restrictions, archive recovery, newline/comma behavior and invitation placeholders. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "r-d-archive",
+    "before": "Sposta scheda nell'archivio",
+    "after": "Sposta ła scheda inte el archivio",
+    "reason": "Replace Italian-seeded membership, list and visibility messages with Venetian; preserve access restrictions, archive recovery, newline/comma behavior and invitation placeholders. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "r-d-move-to-bottom-gen",
+    "before": "Sposta la scheda in fondo alla sua lista",
+    "after": "Sposta ła scheda in fondo a ła so lista",
+    "reason": "Replace Italian-seeded membership, list and visibility messages with Venetian; preserve access restrictions, archive recovery, newline/comma behavior and invitation placeholders. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "push-invite-text",
+    "before": "Caro __user__,\n\n__inviter__ ti ha invitato ad unirti alla bacheca \"__board__\" per collaborare.\n\nPer favore clicca sul link seguente:\n\n__url__\n\nGrazie.",
+    "after": "Caro __user__,\n\n__inviter__ te invita a intrar inte el quadro \"__board__\" par łavorar insieme.\n\nSegui el łigamento qua soto:\n\n__url__\n\nGrasie.",
+    "reason": "Replace Italian-seeded membership, list and visibility messages with Venetian; preserve access restrictions, archive recovery, newline/comma behavior and invitation placeholders. Low-confidence wording; fluent-speaker validation outstanding."
   }
 ]
