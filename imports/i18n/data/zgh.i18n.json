@@ -631,7 +631,7 @@
   "email-enrollAccount-text": "Bonjour __user__,\n\nPour commencer à utiliser ce service, il suffit de cliquer sur le lien ci-dessous.\n\n__url__\n\nMerci.",
   "email-fail": "Échec de l'envoi du courriel.",
   "email-fail-text": "Une erreur est survenue en tentant d'envoyer l'email",
-  "email-invalid": "Adresse e-mail incorrecte.",
+  "email-invalid": "ⴰⵏⵙⴰ ⵏ ⵉⵎⴰⵢⵍ ⴰⵔⵓⵖⵣⵉⵏ",
   "email-invite": "Inviter par e-mail",
   "email-invite-subject": "__inviter__ أرسل دعوة لك",
   "email-invite-text": "Cher/Chère __user__,\n\n__inviter__ vous invite à rejoindre le tableau \"__board__\" pour collaborer.\n\nVeuillez suivre le lien ci-dessous :\n\n__url__\n\nMerci.",

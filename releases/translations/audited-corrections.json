@@ -120937,5 +120937,12 @@
     "before": "Jalali (Fars)",
     "after": "Jalali (persiskisut)",
     "reason": "Reviewed 2026-09-14: replace Fars qualifier with Greenlandic Persian language name persiskisut, attested in Unicode CLDR kl language-fa: https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/kl.xml . CLDR marks this language name unconfirmed. Preserve Jalali proper name; qualifier localization and full calendar technical usage require fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "email-invalid",
+    "before": "Adresse e-mail incorrecte.",
+    "after": "ⴰⵏⵙⴰ ⵏ ⵉⵎⴰⵢⵍ ⴰⵔⵓⵖⵣⵉⵏ",
+    "reason": "Replace wrong-language French with the exact native Standard Moroccan Tamazight MediaWiki passwordreset-invalidemail label (Invalid email address): https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve the email-address validation meaning; this is a reference-attested complete label, not a composed calendar phrase."
   }
 ]
