@@ -93462,5 +93462,54 @@
     "before": "Kalenderwoche anzeigen (ISO 8601)",
     "after": "DIS Hogh mI' yI'ang (ISO 8601)",
     "reason": "Replace audited German visibility controls with Klingon. Preserve card count per list, hiding only minicard label text, All Boards page destination, board-member avatar images, and week-of-year number with unchanged ISO 8601. Reuse repaired card/list/label/member/image terminology and distinguish singular yI- from plural tI- imperative objects. Full software wording is assembled, low confidence, and needs fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "card-labels-title",
+    "before": "Labels für diese Karten ändern.",
+    "after": "'echletHom permey tIchoH.",
+    "reason": "Replace audited German label and added-team/organization display controls with Klingon. Preserve change versus removal, all-label scope, minicard field-label scope, and below-display position. The activity template passes label text first and cardLink second: keep that percent-token order, with card destination/origin in parentheses. Reuse per, field, yejHaq and ghom terminology; lu-anglu marks plural indefinite objects. Full software phrasing is assembled, low confidence, and requires fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "r-remove-all-labels",
+    "before": "Entferne alle Labeler von der Karte",
+    "after": "'echletHomvo' Hoch permey tIteq",
+    "reason": "Replace audited German label and added-team/organization display controls with Klingon. Preserve change versus removal, all-label scope, minicard field-label scope, and below-display position. The activity template passes label text first and cardLink second: keep that percent-token order, with card destination/origin in parentheses. Reuse per, field, yejHaq and ghom terminology; lu-anglu marks plural indefinite objects. Full software phrasing is assembled, low confidence, and requires fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "showLabel-field-on-card",
+    "before": " Label Feld auf Minikarte anzeigen",
+    "after": "'echletHom machDaq De' 'ay' per yI'ang",
+    "reason": "Replace audited German label and added-team/organization display controls with Klingon. Preserve change versus removal, all-label scope, minicard field-label scope, and below-display position. The activity template passes label text first and cardLink second: keep that percent-token order, with card destination/origin in parentheses. Reuse per, field, yejHaq and ghom terminology; lu-anglu marks plural indefinite objects. Full software phrasing is assembled, low confidence, and requires fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "activity-added-label",
+    "before": "fügte Label '%s' zu %s hinzu",
+    "after": "'%s' per chellu'pu' (%s-vaD)",
+    "reason": "Replace audited German label and added-team/organization display controls with Klingon. Preserve change versus removal, all-label scope, minicard field-label scope, and below-display position. The activity template passes label text first and cardLink second: keep that percent-token order, with card destination/origin in parentheses. Reuse per, field, yejHaq and ghom terminology; lu-anglu marks plural indefinite objects. Full software phrasing is assembled, low confidence, and requires fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "activity-removed-label",
+    "before": "entfernte Label '%s' von %s",
+    "after": "'%s' per teqlu'pu' (%s-vo')",
+    "reason": "Replace audited German label and added-team/organization display controls with Klingon. Preserve change versus removal, all-label scope, minicard field-label scope, and below-display position. The activity template passes label text first and cardLink second: keep that percent-token order, with card destination/origin in parentheses. Reuse per, field, yejHaq and ghom terminology; lu-anglu marks plural indefinite objects. Full software phrasing is assembled, low confidence, and requires fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "add-organizations-label",
+    "before": "Hinzugefügte Organisationen werden nachfolgend angezeigt:",
+    "after": "bIngDaq luchellu'bogh yejHaqmey lu'anglu':",
+    "reason": "Replace audited German label and added-team/organization display controls with Klingon. Preserve change versus removal, all-label scope, minicard field-label scope, and below-display position. The activity template passes label text first and cardLink second: keep that percent-token order, with card destination/origin in parentheses. Reuse per, field, yejHaq and ghom terminology; lu-anglu marks plural indefinite objects. Full software phrasing is assembled, low confidence, and requires fluent-speaker validation. Both adding and displaying use plural-object agreement, following https://www.kli.org/duolingo/use-unknown-subjects/."
+  },
+  {
+    "locale": "tlh",
+    "key": "add-teams-label",
+    "before": "Zugewiesene Teams werden darunter angezeigt:",
+    "after": "bIngDaq luchellu'bogh ghommey lu'anglu':",
+    "reason": "Replace audited German label and added-team/organization display controls with Klingon. Preserve change versus removal, all-label scope, minicard field-label scope, and below-display position. The activity template passes label text first and cardLink second: keep that percent-token order, with card destination/origin in parentheses. Reuse per, field, yejHaq and ghom terminology; lu-anglu marks plural indefinite objects. Full software phrasing is assembled, low confidence, and requires fluent-speaker validation. Both adding and displaying use plural-object agreement, following https://www.kli.org/duolingo/use-unknown-subjects/."
   }
 ]
