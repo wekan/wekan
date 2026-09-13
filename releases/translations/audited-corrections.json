@@ -91943,5 +91943,19 @@
     "before": "Indian national",
     "after": "Kaled netik Lindänik",
     "reason": "Replace English calendar labels with Volapük calendar and country adjectives. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests Lätiopänik (Ethiopian), Lindänik (of India), and netik (national); follow existing Kaled calendar terminology. Preserve the Amete Alem variant name as a proper name. Vocabulary attestation does not validate the full assembled phrase; native-speaker review remains outstanding."
+  },
+  {
+    "locale": "vo",
+    "key": "show-desktop-drag-handles",
+    "before": "Voir les poignées de déplacement du bureau",
+    "after": "Jonön gleipedis pro tränön pö mod ela Desktop",
+    "reason": "Replace French drag-handle label after inspecting header.jade and userHeader.jade. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests gleiped (handle); jonön and tränön follow dictionary-based local show/drag terminology. Desktop and mod are technical borrowings. Physical handle adapted to GUI control with low confidence; native-speaker review required."
+  },
+  {
+    "locale": "vo",
+    "key": "MongoDB_storage_engine",
+    "before": "Moteur de stockage MongoDB",
+    "after": "Sit kipeda ela MongoDB",
+    "reason": "Replace French storage-engine label with Volapük storage-system wording, retaining MongoDB proper name. Sit and kiped follow dictionary-based local system/storage terminology; full assembled technical phrase and proper-name inflection remain low confidence and require native-speaker review."
   }
 ]
