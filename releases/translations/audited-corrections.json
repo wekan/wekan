@@ -120944,5 +120944,96 @@
     "before": "Adresse e-mail incorrecte.",
     "after": "ⴰⵏⵙⴰ ⵏ ⵉⵎⴰⵢⵍ ⴰⵔⵓⵖⵣⵉⵏ",
     "reason": "Replace wrong-language French with the exact native Standard Moroccan Tamazight MediaWiki passwordreset-invalidemail label (Invalid email address): https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve the email-address validation meaning; this is a reference-attested complete label, not a composed calendar phrase."
+  },
+  {
+    "locale": "zgh",
+    "key": "template",
+    "before": "نموذج",
+    "after": "ⴰⵍⴱⵓⴹ",
+    "reason": "Replace wrong-language French/Arabic label with exact native Standard Moroccan Tamazight MediaWiki nstab-template wording: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Match the English interface meaning; file/template/preview and watch commands reuse established native UI terms. No proper names, placeholders or valid existing Tamazight alternatives are replaced."
+  },
+  {
+    "locale": "zgh",
+    "key": "custom-field-dropdown-none",
+    "before": "(aucun)",
+    "after": "(ⵓⵍⴰ ⵢⴰⵏ)",
+    "reason": "Replace wrong-language French/Arabic label with exact native Standard Moroccan Tamazight MediaWiki changeemail-none wording: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Match the English interface meaning; file/template/preview and watch commands reuse established native UI terms. No proper names, placeholders or valid existing Tamazight alternatives are replaced."
+  },
+  {
+    "locale": "zgh",
+    "key": "export-card-attachment-filename",
+    "before": "Nom du fichier",
+    "after": "ⵉⵙⵎ ⵏ ⵓⴼⴰⵍⵢⵓ",
+    "reason": "Replace wrong-language French/Arabic label with exact native Standard Moroccan Tamazight MediaWiki redirect-file wording: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Match the English interface meaning; file/template/preview and watch commands reuse established native UI terms. No proper names, placeholders or valid existing Tamazight alternatives are replaced."
+  },
+  {
+    "locale": "zgh",
+    "key": "preview",
+    "before": "Prévisualiser",
+    "after": "ⵜⴰⵎⵓⵖⵍⵉ ⵜⴰⵎⵣⵡⴰⵔⵓⵜ",
+    "reason": "Replace wrong-language French/Arabic label with exact native Standard Moroccan Tamazight MediaWiki preview wording: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Match the English interface meaning; file/template/preview and watch commands reuse established native UI terms. No proper names, placeholders or valid existing Tamazight alternatives are replaced."
+  },
+  {
+    "locale": "zgh",
+    "key": "previewAttachedImagePopup-title",
+    "before": "Prévisualiser",
+    "after": "ⵜⴰⵎⵓⵖⵍⵉ ⵜⴰⵎⵣⵡⴰⵔⵓⵜ",
+    "reason": "Replace wrong-language French/Arabic label with exact native Standard Moroccan Tamazight MediaWiki preview wording: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Match the English interface meaning; file/template/preview and watch commands reuse established native UI terms. No proper names, placeholders or valid existing Tamazight alternatives are replaced."
+  },
+  {
+    "locale": "zgh",
+    "key": "previewClipboardImagePopup-title",
+    "before": "Prévisualiser",
+    "after": "ⵜⴰⵎⵓⵖⵍⵉ ⵜⴰⵎⵣⵡⴰⵔⵓⵜ",
+    "reason": "Replace wrong-language French/Arabic label with exact native Standard Moroccan Tamazight MediaWiki preview wording: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Match the English interface meaning; file/template/preview and watch commands reuse established native UI terms. No proper names, placeholders or valid existing Tamazight alternatives are replaced."
+  },
+  {
+    "locale": "zgh",
+    "key": "unwatch",
+    "before": "غير مُشاهد",
+    "after": "ⴽⴽⵙ ⴰⴹⴼⴼⵓⵔ",
+    "reason": "Replace wrong-language French/Arabic label with exact native Standard Moroccan Tamazight MediaWiki unwatch wording: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Match the English interface meaning; file/template/preview and watch commands reuse established native UI terms. No proper names, placeholders or valid existing Tamazight alternatives are replaced."
+  },
+  {
+    "locale": "zgh",
+    "key": "watch",
+    "before": "مُشاهد",
+    "after": "ⵎⴰⵜⵔ",
+    "reason": "Replace wrong-language French/Arabic label with exact native Standard Moroccan Tamazight MediaWiki watch wording: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Match the English interface meaning; file/template/preview and watch commands reuse established native UI terms. No proper names, placeholders or valid existing Tamazight alternatives are replaced."
+  },
+  {
+    "locale": "zgh",
+    "key": "welcome-list2",
+    "before": "متقدم",
+    "after": "ⵓⵜⵜⵉⵢ",
+    "reason": "Replace wrong-language French/Arabic label with exact native Standard Moroccan Tamazight MediaWiki searchprofile-advanced wording: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Match the English interface meaning; file/template/preview and watch commands reuse established native UI terms. No proper names, placeholders or valid existing Tamazight alternatives are replaced."
+  },
+  {
+    "locale": "zgh",
+    "key": "roles-status-comment",
+    "before": "تعليق",
+    "after": "ⴰⵖⴼⴰⵡⴰⵍ",
+    "reason": "Replace wrong-language French/Arabic label with exact native Standard Moroccan Tamazight MediaWiki filehist-comment wording: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Match the English interface meaning; file/template/preview and watch commands reuse established native UI terms. No proper names, placeholders or valid existing Tamazight alternatives are replaced."
+  },
+  {
+    "locale": "zgh",
+    "key": "move-progress-file",
+    "before": "Fichier",
+    "after": "ⴰⴼⴰⵢⵍⵓ",
+    "reason": "Replace wrong-language French/Arabic label with exact native Standard Moroccan Tamazight MediaWiki file-anchor-link wording: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Match the English interface meaning; file/template/preview and watch commands reuse established native UI terms. No proper names, placeholders or valid existing Tamazight alternatives are replaced."
+  },
+  {
+    "locale": "zgh",
+    "key": "file",
+    "before": "Fichier",
+    "after": "ⴰⴼⴰⵢⵍⵓ",
+    "reason": "Replace wrong-language French/Arabic label with exact native Standard Moroccan Tamazight MediaWiki file-anchor-link wording: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Match the English interface meaning; file/template/preview and watch commands reuse established native UI terms. No proper names, placeholders or valid existing Tamazight alternatives are replaced."
+  },
+  {
+    "locale": "zgh",
+    "key": "view",
+    "before": "Vue",
+    "after": "ⵙⴽⵏ",
+    "reason": "Replace wrong-language French/Arabic label with exact native Standard Moroccan Tamazight MediaWiki view wording: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Match the English interface meaning; file/template/preview and watch commands reuse established native UI terms. No proper names, placeholders or valid existing Tamazight alternatives are replaced."
   }
 ]
