@@ -111802,5 +111802,12 @@
     "before": "Islamic tabular",
     "after": "Całendario Hijri (a tabełe, epoca astronòmica)",
     "reason": "Replace remaining originally flagged Italian/English Venetian labels; preserve private-only access, SMTP/TLS, irreversible vote loss, WIP direction and calendar identities. Low-confidence wording and specialized calendar terminology; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "cron",
+    "before": "Zeitplan",
+    "after": "Cron",
+    "reason": "Correct mistaken retained-review decision: Zeitplan is German prose, not the shared tool name Cron. Preserve the actual technical name Cron without inventing a Klingon product name."
   }
 ]

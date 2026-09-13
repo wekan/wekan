@@ -27,3 +27,7 @@ assert.equal(data.saturday, 'ghInjaj');
 assert.equal(data.sunday, "jaj wa'");
 assert.notEqual(data.saturday, data.sunday, 'Sunday must not reuse the Saturday synonym');
 console.log(`klingonAuditedTranslations: ${records.length} recorded values, security states and destructive warnings verified`);
+
+// A technical-name retention decision must retain the actual tool name.
+assert.equal(data.cron, "Cron");
+assert.doesNotMatch(data.cron, /Zeitplan/);

@@ -1066,11 +1066,5 @@
     "key": "r-items-list",
     "value": "elemento1,elemento2,elemento3",
     "reason": "Restore original Aragonese elemento examples: identical Romance spelling did not justify replacing them with English item examples. Three numbered comma-separated native elements are preserved. Supersedes the mistaken correction inventory row; the regression introduced by item1 is repaired, not hidden. Aragonario uses elemento in native definitions: https://aragonario.aragon.es/words/1372614/."
-  },
-  {
-    "locale": "tlh",
-    "key": "cron",
-    "value": "Zeitplan",
-    "reason": "Cron names the scheduling tool. This shared technical name is valid in the Klingon interface and is retained rather than treating German-identical spelling as wrong-language prose."
   }
 ]
