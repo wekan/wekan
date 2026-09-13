@@ -103626,5 +103626,145 @@
     "before": "uhlu lokuhlola olugcwalisiwe __checklist__ ekhadini __card__ ohlwini __list__ ku-swimlane __swimlane__ ebhodini __board__",
     "after": "o fhedza mutevhe wa u sedza __checklist__ kha khadi __card__ kha mutevhe __list__ kha ḽaini __swimlane__ kha bodo ya Kanban __board__",
     "reason": "Replace Zulu-seeded activity prose directly with Tshivenda; preserve movement endpoints, removal versus restoration and source placeholders. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "activity-checklist-item-added",
+    "before": "wengeze into yohlu lokuhlola kokuthi '%s' kokuthi %s",
+    "after": "o engedza tshithu kha mutevhe wa u sedza '%s' kha %s",
+    "reason": "Replace Zulu-seeded interface prose directly with Tshivenda. Preserve source placeholders, permission capabilities and permanent/no-undo warning. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "activity-delete-attach",
+    "before": "ususe okunamathiselwe kwi-imeyili kokuthi %s",
+    "after": "o susa ṱumetshedzo kha %s",
+    "reason": "Replace Zulu-seeded interface prose directly with Tshivenda. Preserve source placeholders, permission capabilities and permanent/no-undo warning. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "activity-delete-attach-card",
+    "before": "usule okunamathiselwe kwi-imeyili",
+    "after": "o susa ṱumetshedzo",
+    "reason": "Replace Zulu-seeded interface prose directly with Tshivenda. Preserve source placeholders, permission capabilities and permanent/no-undo warning. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "activity-subtask-added",
+    "before": "wengeze umsebenzi ongaphansi kokuthi %s",
+    "after": "o engedza mushumo muṱuku kha %s",
+    "reason": "Replace Zulu-seeded interface prose directly with Tshivenda. Preserve source placeholders, permission capabilities and permanent/no-undo warning. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "activity-unchecked-item",
+    "before": "akumakiwe %s ohlwini lokuhlola %s luka-%s",
+    "after": "o bvisa luswayo kha %s kha mutevhe wa u sedza %s wa %s",
+    "reason": "Replace Zulu-seeded interface prose directly with Tshivenda. Preserve source placeholders, permission capabilities and permanent/no-undo warning. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "activity-unchecked-item-card",
+    "before": "akumakiwe %s ohlwini lokuhlola %s",
+    "after": "o bvisa luswayo kha %s kha mutevhe wa u sedza %s",
+    "reason": "Replace Zulu-seeded interface prose directly with Tshivenda. Preserve source placeholders, permission capabilities and permanent/no-undo warning. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "add-card-to-bottom-of-list",
+    "before": "Engeza Ikhadi Phansi Kohlu",
+    "after": "Engedza khadi magumoni a mutevhe",
+    "reason": "Replace Zulu-seeded interface prose directly with Tshivenda. Preserve source placeholders, permission capabilities and permanent/no-undo warning. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "add-card-to-top-of-list",
+    "before": "Engeza Ikhadi phezulu ohlwini",
+    "after": "Engedza khadi mathomoni a mutevhe",
+    "reason": "Replace Zulu-seeded interface prose directly with Tshivenda. Preserve source placeholders, permission capabilities and permanent/no-undo warning. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "add-checklist-item",
+    "before": "Engeza into ohlwini lokuhlola",
+    "after": "Engedza tshithu kha mutevhe wa u sedza",
+    "reason": "Replace Zulu-seeded interface prose directly with Tshivenda. Preserve source placeholders, permission capabilities and permanent/no-undo warning. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "add-cover",
+    "before": "Engeza isithombe sekhava ekhadini elincane",
+    "after": "Engedza tshifanyiso tsha khavara kha khadi ḽiṱuku",
+    "reason": "Replace Zulu-seeded interface prose directly with Tshivenda. Preserve source placeholders, permission capabilities and permanent/no-undo warning. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "admin-desc",
+    "before": "Angakwazi ukubuka futhi ahlele amakhadi, asuse amalungu, futhi ashintshe izilungiselelo zebhodi. Angakwazi ukubuka imisebenzi.",
+    "after": "A nga vhona na u khwinisa makhadi, u susa miraḓo na u shandula nzudzanyo dza bodo ya Kanban. A nga vhona nyito.",
+    "reason": "Replace Zulu-seeded interface prose directly with Tshivenda. Preserve source placeholders, permission capabilities and permanent/no-undo warning. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "always-field-on-card",
+    "before": "Engeza inkambu kuwo wonke amakhadi",
+    "after": "Engedza fhethu ha data kha makhadi oṱhe",
+    "reason": "Replace Zulu-seeded interface prose directly with Tshivenda. Preserve source placeholders, permission capabilities and permanent/no-undo warning. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "archive-board",
+    "before": "Hambisa Ibhodi Kungobo yomlando",
+    "after": "Isa bodo ya Kanban fhethu ha u vhulunga",
+    "reason": "Replace Zulu-seeded interface prose directly with Tshivenda. Preserve source placeholders, permission capabilities and permanent/no-undo warning. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "archive-card",
+    "before": "Hambisa ikhadi kungobo yomlando",
+    "after": "Isa khadi fhethu ha u vhulunga",
+    "reason": "Replace Zulu-seeded interface prose directly with Tshivenda. Preserve source placeholders, permission capabilities and permanent/no-undo warning. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "archiveBoardPopup-title",
+    "before": "Hambisa Ibhodi Kungobo yomlando?",
+    "after": "Isa bodo ya Kanban fhethu ha u vhulunga?",
+    "reason": "Replace Zulu-seeded interface prose directly with Tshivenda. Preserve source placeholders, permission capabilities and permanent/no-undo warning. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "attachment-delete-pop",
+    "before": "Ukususa okunamathiselwe kungunaphakade. Akukho ukuhlehlisa.",
+    "after": "U susa ṱumetshedzo ndi ha tshoṱhe. A zwi koni u humiselwa murahu.",
+    "reason": "Replace Zulu-seeded interface prose directly with Tshivenda. Preserve source placeholders, permission capabilities and permanent/no-undo warning. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "attachment-migration",
+    "before": "Ukuthutha Okunamathiselwe",
+    "after": "U pfulusa ṱumetshedzo",
+    "reason": "Replace Zulu-seeded interface prose directly with Tshivenda. Preserve source placeholders, permission capabilities and permanent/no-undo warning. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "attachment-move-storage-fs",
+    "before": "Hambisa okunamathiselwe kusistimu yefayela",
+    "after": "Pfulusela ṱumetshedzo kha sisiteme ya faela",
+    "reason": "Replace Zulu-seeded interface prose directly with Tshivenda. Preserve source placeholders, permission capabilities and permanent/no-undo warning. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "attachment-move-storage-gridfs",
+    "before": "Hambisa okunamathiselwe ku-GridFS",
+    "after": "Pfulusela ṱumetshedzo kha GridFS",
+    "reason": "Replace Zulu-seeded interface prose directly with Tshivenda. Preserve source placeholders, permission capabilities and permanent/no-undo warning. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "attachment-move-storage-s3",
+    "before": "Hambisa okunamathiselwe ku-S3",
+    "after": "Pfulusela ṱumetshedzo kha S3",
+    "reason": "Replace Zulu-seeded interface prose directly with Tshivenda. Preserve source placeholders, permission capabilities and permanent/no-undo warning. Low-confidence wording; fluent-speaker validation outstanding."
   }
 ]
