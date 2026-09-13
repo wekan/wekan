@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 12,785 |
+| Corrected | 12,793 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 177 |
-| Pending review or repair | 3,060 |
+| Pending review or repair | 3,052 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Restored and unflagged values still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **13,429** exact before/after values, including repairs outside the audit.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **13,437** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `433fb2dce7a7b4073638afcb8e22f257df6cda32` — seven German account-validation/name controls (five flagged findings) replaced with Klingon, preserving duplicate-field checks, required credentials and minimum three characters. Full software wording is low confidence and needs fluent-speaker validation.
+Latest translation fix: **2026-09-13**, local commit `5c36b83811fa9d4163df91b5e707bc10bc4a4327` — eight German add/remove controls replaced with Klingon, preserving placement, cover actions, job addition and team/organization removal confirmation. Full software wording is low confidence and needs fluent-speaker validation.
 
 **Verification:** correction and progress tests pass. Native-speaker and browser checks remain outstanding.
 
