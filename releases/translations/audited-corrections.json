@@ -85104,5 +85104,26 @@
     "before": "ISO 8601",
     "after": "Khalentara ya Gregoriana (dibeke tša ISO 8601)",
     "reason": "Replace foreign-language setting and English calendar names with Northern Sotho; preserve Dangi, Hijri, Umm al-Qura, Minguo and ISO identities and restore ISO week detail. Exact Khalentara ya Seheberu and dibeke attested at https://www.jw.org/nso/laeprari/beibele/nwt/ditaba-t%C5%A1a-tlalelet%C5%A1o-b/khalentara-ya-seheberu-ya-ka-beibeleng/ ; China and Japane at https://www.jw.org/nso/laeprari/dimakasine/g201403/madireng-a-lefase/ . Existing local date terminology retained. Full assembled setting/other label grammar remains low confidence; religious/country/tabular calendar variants still need review."
+  },
+  {
+    "locale": "nso",
+    "key": "calendar-system-buddhist",
+    "before": "Buddhist",
+    "after": "Khalentara ya Mabuddha",
+    "reason": "Replace English religious labels and foreign Fars identifier with Northern Sotho; preserve Jalali and Hijri identities and restore Saudi moon-sighting detail. Mabuddha attested at https://www.jw.org/nso/laeprari/dimakasine/phafoga-no2-2020-jul-aug/go-welwa-ke-mathata-seo-batho-ba-bangwe-ba-se-dumelago/ ; Peresia at https://wol.jw.org/nso/wol/b/r165/lp-se/nwt/15/4 ; ngwedi calendar vocabulary at https://www.jw.org/nso/laeprari/dimakasine/morokami-kgati%C5%A1o-e-ithutwago-june-2022/na-o-be-o-tseba-june-2022-2/ . Complete adapted label grammar remains low confidence; Coptic, national/Ethiopic and tabular epoch variants remain pending."
+  },
+  {
+    "locale": "nso",
+    "key": "calendar-system-jalali",
+    "before": "Jalali (Fars)",
+    "after": "Khalentara ya Jalali (ya Peresia)",
+    "reason": "Replace English religious labels and foreign Fars identifier with Northern Sotho; preserve Jalali and Hijri identities and restore Saudi moon-sighting detail. Mabuddha attested at https://www.jw.org/nso/laeprari/dimakasine/phafoga-no2-2020-jul-aug/go-welwa-ke-mathata-seo-batho-ba-bangwe-ba-se-dumelago/ ; Peresia at https://wol.jw.org/nso/wol/b/r165/lp-se/nwt/15/4 ; ngwedi calendar vocabulary at https://www.jw.org/nso/laeprari/dimakasine/morokami-kgati%C5%A1o-e-ithutwago-june-2022/na-o-be-o-tseba-june-2022-2/ . Complete adapted label grammar remains low confidence; Coptic, national/Ethiopic and tabular epoch variants remain pending."
+  },
+  {
+    "locale": "nso",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "Khalentara ya Hijri (Saudi Arabia, go bona ngwedi)",
+    "reason": "Replace English religious labels and foreign Fars identifier with Northern Sotho; preserve Jalali and Hijri identities and restore Saudi moon-sighting detail. Mabuddha attested at https://www.jw.org/nso/laeprari/dimakasine/phafoga-no2-2020-jul-aug/go-welwa-ke-mathata-seo-batho-ba-bangwe-ba-se-dumelago/ ; Peresia at https://wol.jw.org/nso/wol/b/r165/lp-se/nwt/15/4 ; ngwedi calendar vocabulary at https://www.jw.org/nso/laeprari/dimakasine/morokami-kgati%C5%A1o-e-ithutwago-june-2022/na-o-be-o-tseba-june-2022-2/ . Complete adapted label grammar remains low confidence; Coptic, national/Ethiopic and tabular epoch variants remain pending."
   }
 ]
