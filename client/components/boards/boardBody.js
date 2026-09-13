@@ -1243,7 +1243,7 @@ Template.calendarView.helpers({
         end: '18:00',
       },
       locale: TAPi18n.getLanguage(),
-      isRTL: TAPi18n.isRTL(),
+      direction: TAPi18n.isRTL() ? 'rtl' : 'ltr',
       events(fetchInfo, callback) {
         const currentBoard = Utils.getCurrentBoard();
         // #5656: apply the active board Filter (member / assignee / due-date /

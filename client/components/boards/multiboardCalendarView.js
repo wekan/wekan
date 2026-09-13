@@ -106,7 +106,7 @@ Template.multiboardCalendarView.helpers({
       navLinks: false,
       nowIndicator: true,
       locale: TAPi18n.getLanguage(),
-      isRTL: TAPi18n.isRTL(),
+      direction: TAPi18n.isRTL() ? 'rtl' : 'ltr',
       events(fetchInfo, callback) {
         const filterSelector = Filter.isActive()
           ? Filter._getMongoSelector()

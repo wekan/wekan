@@ -16,6 +16,21 @@ async function expectCalendarOption(page, selector, calendar, label) {
   if (supported) await expect(option).toHaveText(label);
 }
 
+for (const [language, direction] of [['en', 'ltr'], ['ar', 'rtl']]) {
+  test(`board calendar uses supported ${direction} direction without legacy option warnings`, async ({ page, user, board }) => {
+    const warnings = [];
+    page.on('console', message => {
+      if (/Unknown option ['"]isRTL['"]/.test(message.text())) warnings.push(message.text());
+    });
+    db.updateOne('users', { _id: user.id }, { $set: { 'profile.language': language } });
+    await loginWithToken(page, user.id, user.token);
+    await openBoard(page, board.boardId, board.slug);
+    await page.locator('.js-open-cal-view').first().click();
+    await expect(page.locator(`.fc.fc-direction-${direction}`).first()).toBeVisible();
+    expect(warnings).toEqual([]);
+  });
+}
+
 test('RTL date popup keeps its bottom-right grip and moves with physical pointer coordinates', async ({ page, user, board }) => {
   const card = db.findOne('cards', { boardId: board.boardId, title: 'Alpha Card' });
   db.updateOne('users', { _id: user.id }, { $set: {

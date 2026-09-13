@@ -7,7 +7,7 @@ const file = fs.readFileSync(path.join(__dirname, '../client/components/boards/m
 // Resolve the real module's imports explicitly; no Filter/FlowRouter globals.
 const source = file.replace(/^import\s+\{([^}]+)\}\s+from\s+(['"])([^'"]+)\2;/gm,
   (_, names, quote, specifier) => `const {${names}} = require(${JSON.stringify(specifier)});`);
-let created, helpers, active = false, ready = true, instance;
+let created, helpers, active = false, ready = true, rtl = false, instance;
 const start = new Date('2026-03-21T12:00:00Z'), end = new Date('2026-03-22T12:00:00Z');
 const boards = ['a', 'b'].map(id => ({
   _id: id, title: `Board ${id}`, slug: id,
@@ -29,7 +29,7 @@ const dependencies = {
     getBoards(query) { assert.equal(query['members.userId'], 'member'); assert.equal(query.archived, false); assert.equal(query.type, 'board'); return boards; },
     getCurrentUser: () => null,
   } },
-  '/imports/i18n': { TAPi18n: { __: key => key, getLanguage: () => 'en', isRTL: () => false } },
+  '/imports/i18n': { TAPi18n: { __: key => key, getLanguage: () => 'en', isRTL: () => rtl } },
   'meteor/reactive-var': { ReactiveVar: class { constructor(value) { this.value = value; } get() { return this.value; } set(value) { this.value = value; } } },
   '/client/lib/calendarFirstDay': { toFullCalendarFirstDay: value => value },
   '/models/lib/weekStart': { weekNumberByFirstDay: () => 1 },
@@ -47,6 +47,15 @@ instance = { autorun(callback) { callback(); }, subscribe(name, id, lazy) {
 created.call(instance); assert.equal(helpers.isLoading(), false);
 const options = helpers.multiboardCalendarOptions();
 assert.equal(options.initialView, 'selectedCalendarMonth');
+assert.equal(options.direction, 'ltr');
+assert.equal(Object.hasOwn(options, 'isRTL'), false, 'FullCalendar 5 rejects the legacy isRTL option');
+rtl = true;
+assert.equal(helpers.multiboardCalendarOptions().direction, 'rtl');
+rtl = false;
+const boardSource = fs.readFileSync(path.join(__dirname, '../client/components/boards/boardBody.js'), 'utf8');
+assert.match(boardSource, /direction: TAPi18n\.isRTL\(\) \? 'rtl' : 'ltr'/);
+assert.doesNotMatch(boardSource, /isRTL\s*:/);
+
 let events;
 options.events({ start, end }, result => { events = result; });
 assert.equal(events.length, 4);
