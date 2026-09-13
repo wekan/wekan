@@ -65203,5 +65203,61 @@
     "before": "Tas de Node : nombre de contexte natifs",
     "after": "Bern Node : niver ar c’henarzhioù genidik",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "Node_heap_peak_malloced_memory",
+    "before": "Tas de Node : mémoire maximale allouée par malloc",
+    "after": "Bern Node : uhelañ memor derannet gant malloc",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "Node_heap_total_available_size",
+    "before": "Tas de Node : taille totale disponible",
+    "after": "Bern Node : ment hegerz a-bezh",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "Node_heap_total_heap_size",
+    "before": "Tas de Node : taille totale du tas",
+    "after": "Bern Node : ment ar bern a-bezh",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "Node_heap_total_heap_size_executable",
+    "before": "Tas de Node : taille totale du tas exécutable",
+    "after": "Bern Node : ment ar bern sevenadus a-bezh",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "Node_heap_total_physical_size",
+    "before": "Tas de Node : taille totale physique",
+    "after": "Bern Node : ment fizikel a-bezh",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "Node_heap_used_heap_size",
+    "before": "Tas de Node : taille du tas utilisé",
+    "after": "Bern Node : ment implijet ar bern",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "Node_memory_usage_external",
+    "before": "Utilisation mémoire de Node: externe",
+    "after": "Implij memor Node : diavaez",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "Node_memory_usage_heap_total",
+    "before": "Utilisation mémoire de Node : taille totale du tas alloué",
+    "after": "Implij memor Node : ment ar bern derannet a-bezh",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
