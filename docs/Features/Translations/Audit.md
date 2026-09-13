@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 11,971 |
+| Corrected | 11,975 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 3,875 |
+| Pending review or repair | 3,871 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,374** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,379** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `43c13e40ac5a83cfcb39e7dbec4a52bd840bad1c` — three earlier Volapük settings repairs refined using computer-specific `väls` terminology in the [Midgley dictionary](https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf), PDF page 265. Original before-values preserved; no additional audit findings closed. Complete labels and workspace compound remain low confidence. Exact-value, token, JSON-example, key-order and idempotency checks pass; native-speaker and browser verification remain unavailable.
+Latest translation fix: **2026-09-13**, local commit `07cd633dcdf33f9b17ff315f7734ef23386941d7` — five French attachment labels/activities and label-color error replaced with Volapük using [Midgley dictionary vocabulary](https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf), preserving error meaning and placeholders. Derived attachment noun and assembled grammar remain low confidence. Exact-value, token, JSON-example, key-order and idempotency checks pass; native-speaker and browser verification remain unavailable.
 
 **Review follow-up:** Silesian `sandstorm-raw-mongodb` remains pending because available evidence does not distinguish its wording sufficiently from Polish.
 
