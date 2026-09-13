@@ -109373,5 +109373,12 @@
     "before": "Questa bacheca sarà <strong>pubblica</strong>.",
     "after": "Sto quadro el sarà <strong>pùblico</strong>.",
     "reason": "Replace Italian-seeded labels with Venetian; preserve irreversible loss warnings, logged-in access meaning and HTML tags. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "advanced-filter-description",
+    "before": "Il filtro avanzato permette di scrivere una stringa contenente i seguenti operatori: == != <= >= && || ( ) Uno spazio è usato come separatore tra gli operatori. Si può filtrare per tutti i campi personalizzati, scrivendo i loro nomi e valori. Per esempio: Campo1 == Valore1. Nota: Se i campi o i valori contengono spazi, è necessario incapsularli all'interno di apici singoli. Per esempio: 'Campo 1' == 'Valore 1'. Per i singoli caratteri di controllo (' \\\\/) che devono essere ignorati, si può usare \\\\. Per esempio: C1 == Campo1 == L'\\\\ho. Si possono anche combinare condizioni multiple. Per esempio: C1 == V1 || C1 ==V2. Di norma tutti gli operatori vengono letti da sinistra a destra. Si può cambiare l'ordine posizionando delle parentesi. Per esempio: C1 == V1 && ( C2 == V2 || C2 == V3) . Inoltre è possibile cercare nei campi di testo usando le espressioni regolari (n.d.t. regex): F1 ==/Tes.*/i",
+    "after": "El filtro avansà el permete de scrìvar na stringa co sti operatori: == != <= >= && || ( ) Un spàsio el separa i operatori. Te pol filtrar tuti i canpi personałizài scrivendo i so nomi e vałori. Par esenpio: Field1 == Value1. Nota: se i canpi o i vałori i gà spàsi, metełi tra virgołete singołe. Par esenpio: 'Field 1' == 'Value 1'. Par saltar i caràteri de controło singołi (' \\/), te pol doparar \\. Par esenpio: Field1 == I\\'m. Te pol anca conbinar pì condision. Par esenpio: F1 == V1 || F1 == V2. De sołito i operatori i vien łeti da sinistra a destra. Te pol canbiar el òrdine metendo parèntesi. Par esenpio: F1 == V1 && ( F2 == V2 || F2 == V3 ). Te pol anca sercar inte i canpi de testo co espresion regołari: F1 == /Tes.*/i",
+    "reason": "Replace Italian filter prose with Venetian and restore exact English executable examples, single backslash escapes, quote delimiters and operator spacing. Low-confidence prose; fluent-speaker validation outstanding."
   }
 ]
