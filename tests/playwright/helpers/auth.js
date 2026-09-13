@@ -347,11 +347,14 @@ async function openBoard(page, boardId, slug) {
  * still allowing tests to address a precise route.
  */
 async function navigateInApp(page, path) {
+  const prefix = new URL(BASE_URL).pathname.replace(/\/+$/, '');
+  const nextPath = prefix && path.startsWith('/') && path !== prefix &&
+    !path.startsWith(`${prefix}/`) ? prefix + path : path;
   await waitForMeteor(page);
   await page.evaluate(nextPath => {
     window.history.pushState({}, '', nextPath);
     window.dispatchEvent(new PopStateEvent('popstate'));
-  }, path);
+  }, nextPath);
 }
 
 module.exports = {

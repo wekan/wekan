@@ -76,6 +76,9 @@ import { Utils } from '/client/lib/utils';
 // (#6677). Keep the poller's token in sync and let the native endpoint validate
 // the token when creating the HttpOnly cookie. An in-flight initial login still
 // finishes through Accounts' normal callback.
+const { installAccountsCookiePaths } = require('/imports/lib/accountsCookiePaths');
+installAccountsCookiePaths(Accounts, Meteor.absoluteUrl(), (...args) => fetch(...args));
+
 const legacyResumeToken = Accounts._storedLoginToken();
 const legacyUserId = Accounts._storedUserId();
 const legacyTokenExpires = Accounts._storedLoginTokenExpires();
