@@ -110500,5 +110500,145 @@
     "before": "L'avatar è troppo grande (__size__ max)",
     "after": "El avatar el xe massa grando (__size__ al màsimo)",
     "reason": "Replace Italian-seeded admin, archive and upload labels with Venetian; preserve active/inactive states, offline data-loss warning, HTML and size placeholders. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "badge-attachment-on-minicard",
+    "before": "Conteggio degli allegati sulla minicard",
+    "after": "Nùmaro de file łigài so ła scheda picenina",
+    "reason": "Replace Italian-seeded Venetian controls; preserve comment-only role, singular not-found meaning, irreversible custom-field history loss and image/link URL distinction. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "board-background-image-url",
+    "before": "URL dell'immagine di sfondo",
+    "after": "URL de ła imàjine de sfondo",
+    "reason": "Replace Italian-seeded Venetian controls; preserve comment-only role, singular not-found meaning, irreversible custom-field history loss and image/link URL distinction. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "board-change-background-image",
+    "before": "Modificare immagine di sfondo",
+    "after": "Canbia ła imàjine de sfondo",
+    "reason": "Replace Italian-seeded Venetian controls; preserve comment-only role, singular not-found meaning, irreversible custom-field history loss and image/link URL distinction. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "board-view-multiboard-cal",
+    "before": "Calendario (Tutte le bacheche)",
+    "after": "Całendario de pì quadri",
+    "reason": "Replace Italian-seeded Venetian controls; preserve comment-only role, singular not-found meaning, irreversible custom-field history loss and image/link URL distinction. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "boardChangeBackgroundImagePopup-title",
+    "before": "Modificare immagine di sfondo",
+    "after": "Canbia ła imàjine de sfondo",
+    "reason": "Replace Italian-seeded Venetian controls; preserve comment-only role, singular not-found meaning, irreversible custom-field history loss and image/link URL distinction. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "click-to-enable-auto-width",
+    "before": "Larghezza lista automatica disabilitata. Fai clic per abilitarla.",
+    "after": "Łarghesa automàtica de ła lista disativà. Clica par ativarła.",
+    "reason": "Replace Italian-seeded Venetian controls; preserve comment-only role, singular not-found meaning, irreversible custom-field history loss and image/link URL distinction. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "comment-delete",
+    "before": "Sei sicuro di voler cancellare il commento?",
+    "after": "Sito seguro de vołer scancełar el comento?",
+    "reason": "Replace Italian-seeded Venetian controls; preserve comment-only role, singular not-found meaning, irreversible custom-field history loss and image/link URL distinction. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "comment-not-found",
+    "before": "Schede con commenti contenenti il testo '%s' non trovate.",
+    "after": "No xe stà trovà na scheda co un comento che el gà el testo '%s'.",
+    "reason": "Replace Italian-seeded Venetian controls; preserve comment-only role, singular not-found meaning, irreversible custom-field history loss and image/link URL distinction. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "comment-only-desc",
+    "before": "Puoi commentare solo le schede.",
+    "after": "El pol soło comentar łe schede.",
+    "reason": "Replace Italian-seeded Venetian controls; preserve comment-only role, singular not-found meaning, irreversible custom-field history loss and image/link URL distinction. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "confirm-checklist-delete-popup",
+    "before": "Sicuro di voler cancellare la checklist?",
+    "after": "Sito seguro de vołer scancełar ła lista de controło?",
+    "reason": "Replace Italian-seeded Venetian controls; preserve comment-only role, singular not-found meaning, irreversible custom-field history loss and image/link URL distinction. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "confirm-subtask-delete-popup",
+    "before": "Sei sicuro di voler eliminare il sotto-compito?",
+    "after": "Sito seguro de vołer scancełar el sotoconpito?",
+    "reason": "Replace Italian-seeded Venetian controls; preserve comment-only role, singular not-found meaning, irreversible custom-field history loss and image/link URL distinction. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "copy-text-to-clipboard",
+    "before": "Copia il testo negli appunti",
+    "after": "Copia el testo inte i aponti",
+    "reason": "Replace Italian-seeded Venetian controls; preserve comment-only role, singular not-found meaning, irreversible custom-field history loss and image/link URL distinction. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "cover-attachment-on-minicard",
+    "before": "Immagine di copertina su minicard",
+    "after": "Imàjine de covertina so ła scheda picenina",
+    "reason": "Replace Italian-seeded Venetian controls; preserve comment-only role, singular not-found meaning, irreversible custom-field history loss and image/link URL distinction. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "cron-resume-paused",
+    "before": "Riprendi le migrazioni in pausa",
+    "after": "Riprendi łe migrasion in pausa",
+    "reason": "Replace Italian-seeded Venetian controls; preserve comment-only role, singular not-found meaning, irreversible custom-field history loss and image/link URL distinction. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "custom-field-delete-pop",
+    "before": "Non potrai tornare indietro. Questa azione rimuoverà questo campo personalizzato da tutte le schede ed eliminerà ogni sua traccia.",
+    "after": "No se po tornar indrìo. Sto comando el cavarà sto canpo personałizà da tute łe schede e el distrujarà ła so storia.",
+    "reason": "Replace Italian-seeded Venetian controls; preserve comment-only role, singular not-found meaning, irreversible custom-field history loss and image/link URL distinction. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "custom-field-dropdown-options-placeholder",
+    "before": "Premi invio per aggiungere altre opzioni",
+    "after": "Struca Invio par zontar altre opsion",
+    "reason": "Replace Italian-seeded Venetian controls; preserve comment-only role, singular not-found meaning, irreversible custom-field history loss and image/link URL distinction. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "custom-field-stringtemplate-item-placeholder",
+    "before": "Premi Invio per aggiungere più elementi",
+    "after": "Struca Invio par zontar altre vozi",
+    "reason": "Replace Italian-seeded Venetian controls; preserve comment-only role, singular not-found meaning, irreversible custom-field history loss and image/link URL distinction. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "custom-help-link-url",
+    "before": "Link URL di aiuto personalizzato",
+    "after": "URL del łigamento de juto personałizà",
+    "reason": "Replace Italian-seeded Venetian controls; preserve comment-only role, singular not-found meaning, irreversible custom-field history loss and image/link URL distinction. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "custom-login-logo-image-url",
+    "before": "URL dell'immagine del logo personalizzato per il login",
+    "after": "URL de ła imàjine del logo de acesso personałizà",
+    "reason": "Replace Italian-seeded Venetian controls; preserve comment-only role, singular not-found meaning, irreversible custom-field history loss and image/link URL distinction. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "custom-login-logo-link-url",
+    "before": "Link dell'immagine del logo personalizzato per il login",
+    "after": "URL del łigamento del logo de acesso personałizà",
+    "reason": "Replace Italian-seeded Venetian controls; preserve comment-only role, singular not-found meaning, irreversible custom-field history loss and image/link URL distinction. Low-confidence wording; fluent-speaker validation outstanding."
   }
 ]
