@@ -50993,5 +50993,61 @@
     "before": "Impossibile riprendere il processo pianificato",
     "after": "Ùn hè statu pussibule di ripiglià u travagliu pianificatu",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "cron-job-start-failed",
+    "before": "Impossibile avviare il processo pianificato",
+    "after": "Ùn hè statu pussibule d’avvià u travagliu pianificatu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "cron-no-errors",
+    "before": "Nessun errore da mostrare",
+    "after": "Nisun errore da affissà",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "cron-no-failed-migrations",
+    "before": "Nessuna migrazione non riuscita da riprovare",
+    "after": "Nisuna migrazione fiascata da pruvà torna",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "cron-no-paused-migrations",
+    "before": "Nessuna migrazione in pausa da riprendere",
+    "after": "Nisuna migrazione in pausa da ripiglià",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "cron-resume-paused",
+    "before": "Riprendi le migrazioni in pausa",
+    "after": "Ripiglià e migrazioni in pausa",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "cron-retry-failed",
+    "before": "Riprova le migrazioni non riuscite",
+    "after": "Pruvà torna e migrazioni fiascate",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "custom-assetlinks-content",
+    "before": "Contenuto di assetlinks.json personalizzato (JSON)",
+    "after": "Cuntenutu persunalizatu di assetlinks.json (JSON)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "custom-field-dropdown-options-placeholder",
+    "before": "Premi invio per aggiungere altre opzioni",
+    "after": "Appughjate Enter per aghjunghje altre ozzioni",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
