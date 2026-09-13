@@ -53723,5 +53723,68 @@
     "before": "Ordinamento scheda per numero",
     "after": "Arãndari a cãrtsãlor dupã numir",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "board-delete-notice",
+    "before": "L'eliminazione è permanente. Tutte le azioni, liste e schede associate a questa bacheca andranno perse.",
+    "after": "Ashtirdzeari easti permanentã. Va s-perdzi tuti listili, cãrtsãli shi actsiunili ligati di aesta tabelã.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "boardSubtaskSettingsPopup-title",
+    "before": "Impostazioni sotto-compiti",
+    "after": "Sitãri ti sublucrãri",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "change-card-parent",
+    "before": "Cambia la scheda genitore",
+    "after": "Alãxea carta pãrinti",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "created-at-newest-first",
+    "before": "Data di creazione (dalla più nuova)",
+    "after": "Data di creare (ma noauã protã)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "created-at-oldest-first",
+    "before": "Data di creazione (dalla più vecchia)",
+    "after": "Data di creare (ma veaclji protã)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "default-subtasks-board",
+    "before": "Sottocompiti per la bacheca __board__",
+    "after": "Sublucrãri ti tabela __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "delete-board-confirm-popup",
+    "before": "Tutte le liste, schede, etichette e azioni saranno rimosse e non sarai più in grado di recuperare il contenuto della bacheca. L'azione non è annullabile.",
+    "after": "Tuti listili, cãrtsãli, etichetili shi activitãtsli va s-ashtardzã shi nu va s-pots recuperedzi contsinutul a tabelãljei. Nu ari anulare.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "deposit-subtasks-board",
+    "before": "Deposita i sotto compiti in questa bacheca",
+    "after": "Puni sublucrãrili tu aesta tabelã:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "duplicate-board-confirm",
+    "before": "Sei sicuro di voler duplicare questa bacheca?",
+    "after": "Esht sigur cã vrei s-duplichedzi aesta tabelã?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
