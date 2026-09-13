@@ -92552,5 +92552,40 @@
     "before": "Datei anhängen",
     "after": "rarDoch yIchel",
     "reason": "Replace German card/attachment settings and related attachment labels with direct Klingon using existing locale terms: card 'echletHom (cards), attachment rarDoch (export-board-without-attachments), and configuration chermeH De'. Storage described as De' polmeH pat (system for storing data), minicard as small card. Generic attachment/predicate/add labels included for consistency beyond flagged findings. These software noun compounds and full constructions have low confidence and need fluent-speaker validation; no source tokens changed."
+  },
+  {
+    "locale": "tlh",
+    "key": "add-background-image",
+    "before": "Hintergrundbild hinzufügen",
+    "after": "raS 'em mIllogh yIchel",
+    "reason": "Replace flagged German background-image and minicard-list display actions with direct Klingon. Reuse raS 'em mIllogh from boardBackgroundsPopup-title, tetlh list, 'echletHom card, mach small, chel add, teq remove, So' hide and 'ang show already present in the locale. Plural list display uses tI- imperative object prefix, singular uses yI-. Software-domain compounds and assembled action phrases are low confidence and need fluent-speaker validation. No source placeholders changed."
+  },
+  {
+    "locale": "tlh",
+    "key": "remove-background-image",
+    "before": "Hintergrundbild entfernen",
+    "after": "raS 'em mIllogh yIteq",
+    "reason": "Replace flagged German background-image and minicard-list display actions with direct Klingon. Reuse raS 'em mIllogh from boardBackgroundsPopup-title, tetlh list, 'echletHom card, mach small, chel add, teq remove, So' hide and 'ang show already present in the locale. Plural list display uses tI- imperative object prefix, singular uses yI-. Software-domain compounds and assembled action phrases are low confidence and need fluent-speaker validation. No source placeholders changed."
+  },
+  {
+    "locale": "tlh",
+    "key": "hide-list-on-minicard",
+    "before": "Verberge Liste auf der Minikarte",
+    "after": "'echletHom machDaq tetlh yISo'",
+    "reason": "Replace flagged German background-image and minicard-list display actions with direct Klingon. Reuse raS 'em mIllogh from boardBackgroundsPopup-title, tetlh list, 'echletHom card, mach small, chel add, teq remove, So' hide and 'ang show already present in the locale. Plural list display uses tI- imperative object prefix, singular uses yI-. Software-domain compounds and assembled action phrases are low confidence and need fluent-speaker validation. No source placeholders changed."
+  },
+  {
+    "locale": "tlh",
+    "key": "show-list-on-minicard",
+    "before": "Zeige Liste auf der Minikarte",
+    "after": "'echletHom machDaq tetlh yI'ang",
+    "reason": "Replace flagged German background-image and minicard-list display actions with direct Klingon. Reuse raS 'em mIllogh from boardBackgroundsPopup-title, tetlh list, 'echletHom card, mach small, chel add, teq remove, So' hide and 'ang show already present in the locale. Plural list display uses tI- imperative object prefix, singular uses yI-. Software-domain compounds and assembled action phrases are low confidence and need fluent-speaker validation. No source placeholders changed."
+  },
+  {
+    "locale": "tlh",
+    "key": "card-show-lists-on-minicard",
+    "before": "Zeige Listen auf der Minikarte",
+    "after": "'echletHom machDaq tetlhmey tI'ang",
+    "reason": "Replace flagged German background-image and minicard-list display actions with direct Klingon. Reuse raS 'em mIllogh from boardBackgroundsPopup-title, tetlh list, 'echletHom card, mach small, chel add, teq remove, So' hide and 'ang show already present in the locale. Plural list display uses tI- imperative object prefix, singular uses yI-. Software-domain compounds and assembled action phrases are low confidence and need fluent-speaker validation. No source placeholders changed."
   }
 ]
