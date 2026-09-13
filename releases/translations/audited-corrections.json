@@ -93819,5 +93819,54 @@
     "before": "Board importieren",
     "after": "raS yIqem",
     "reason": "Replace German list/card movement, selection, addition and import controls with Klingon. Preserve all cards of this list versus a single added list/card, retain Trello as the card import source, and distinguish board import. Reuse repaired vIHmoH, wIv, qem, tetlh, card and board terminology with appropriate plural/singular imperatives. Full software phrasing and import metaphor are assembled, low confidence, and need fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "s3-settings-saved",
+    "before": "S3 Einstellungen erfolgreich gespeichert",
+    "after": "S3 chermeH De' pollu'pu'",
+    "reason": "Replace audited German S3 save confirmation and email test/invitation/account subject messages with Klingon. Preserve save/send completion versus failed sending, sending a test to yourself, inviter as actor and user as recipient, and account creation for the user at the named site. Reuse repaired QIn pat, waHmeH QIn, configuration and account terminology; keep all underscore placeholders exact. Full software/email wording is assembled, low confidence, and requires fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "email-fail-text",
+    "before": "Fehler beim Senden der E-Mail",
+    "after": "QIn pat lo'lu'taHvIS QIn ngeHmeH Qu' lujpu'",
+    "reason": "Replace audited German S3 save confirmation and email test/invitation/account subject messages with Klingon. Preserve save/send completion versus failed sending, sending a test to yourself, inviter as actor and user as recipient, and account creation for the user at the named site. Reuse repaired QIn pat, waHmeH QIn, configuration and account terminology; keep all underscore placeholders exact. Full software/email wording is assembled, low confidence, and requires fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "email-smtp-test-text",
+    "before": "Sie haben erfolgreich eine E-Mail versandt",
+    "after": "QIn pat Dalo'taHvIS QIn DangeHpu'",
+    "reason": "Replace audited German S3 save confirmation and email test/invitation/account subject messages with Klingon. Preserve save/send completion versus failed sending, sending a test to yourself, inviter as actor and user as recipient, and account creation for the user at the named site. Reuse repaired QIn pat, waHmeH QIn, configuration and account terminology; keep all underscore placeholders exact. Full software/email wording is assembled, low confidence, and requires fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "send-smtp-test",
+    "before": "Test-E-Mail an sich selbst schicken",
+    "after": "SoHvaD waHmeH QIn yIngeH",
+    "reason": "Replace audited German S3 save confirmation and email test/invitation/account subject messages with Klingon. Preserve save/send completion versus failed sending, sending a test to yourself, inviter as actor and user as recipient, and account creation for the user at the named site. Reuse repaired QIn pat, waHmeH QIn, configuration and account terminology; keep all underscore placeholders exact. Full software/email wording is assembled, low confidence, and requires fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "email-invite-register-subject",
+    "before": "__inviter__ hat Ihnen eine Einladung geschickt",
+    "after": "SoHvaD rItmeH QIn ngeHpu' __inviter__",
+    "reason": "Replace audited German S3 save confirmation and email test/invitation/account subject messages with Klingon. Preserve save/send completion versus failed sending, sending a test to yourself, inviter as actor and user as recipient, and account creation for the user at the named site. Reuse repaired QIn pat, waHmeH QIn, configuration and account terminology; keep all underscore placeholders exact. Full software/email wording is assembled, low confidence, and requires fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "email-invite-subject",
+    "before": "__inviter__ hat Ihnen eine Einladung geschickt",
+    "after": "SoHvaD rItmeH QIn ngeHpu' __inviter__",
+    "reason": "Replace audited German S3 save confirmation and email test/invitation/account subject messages with Klingon. Preserve save/send completion versus failed sending, sending a test to yourself, inviter as actor and user as recipient, and account creation for the user at the named site. Reuse repaired QIn pat, waHmeH QIn, configuration and account terminology; keep all underscore placeholders exact. Full software/email wording is assembled, low confidence, and requires fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "email-enrollAccount-subject",
+    "before": "Ihr Benutzerkonto auf __siteName__ wurde erstellt",
+    "after": "__siteName__-Daq SoHvaD account chenmoHlu'pu'",
+    "reason": "Replace audited German S3 save confirmation and email test/invitation/account subject messages with Klingon. Preserve save/send completion versus failed sending, sending a test to yourself, inviter as actor and user as recipient, and account creation for the user at the named site. Reuse repaired QIn pat, waHmeH QIn, configuration and account terminology; keep all underscore placeholders exact. Full software/email wording is assembled, low confidence, and requires fluent-speaker validation."
   }
 ]
