@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 14,973 |
+| Corrected | 14,981 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 871 |
+| Pending review or repair | 863 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **16,980** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **16,990** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `fc6c780dc` — repaired **15** original Veps customization findings. Correct the mistaken top-right logo wording to **top left**; preserve image/link distinctions, URL/HTML/JSON, head/link/meta tags, assetlinks.json and default height 27. All **16,980** exact corrections pass runtime rendering, placeholder, JSON, key-order and human-preference checks. The original queue has **871** pending findings, including **130** Veps findings. **Low confidence:** adapted technical loans and composed grammar/case, relative clauses and scheduling/migration wording need fluent-speaker review. Restored/unflagged values, wrong-language/script checks, keyboard shortcuts and remaining migration/search messages remain unfinished. No translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `53775ffba` — repaired **10** Veps OS/memory metric values, resolving **eight** original findings and **two** unflagged errors. Preserve OS/CPU identifiers and distinct architecture, platform, release, free/total memory, load average, CPU count and uptime metrics. All **16,990** exact corrections pass runtime rendering, placeholder, JSON, key-order and human-preference checks. The original queue has **863** pending findings, including **122** Veps findings. **Low confidence:** technical memory/load adaptations and composed grammar/case, relative clauses and scheduling/migration wording need fluent-speaker review. Restored/unflagged values, wrong-language/script checks, keyboard shortcuts and remaining migration/search messages remain unfinished. No translations were pushed.
 
 **Build logging update (2026-09-14):** `5f8f22f8c` unifies all logger entry points managed by build.sh/build.bat under operation/date/time directories. Repeated runs stay separate; same-second starts reserve numeric suffixes. Twelve targeted test entries pass; native Windows execution was unavailable. Translation counts and remaining review work are unchanged; translation repairs remain unfinished.
 

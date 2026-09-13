@@ -1245,6 +1245,17 @@ for this change.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/53775ffba">Repair Veps OS and memory metric labels</a>. Thanks to xet7.</summary>
+
+Replace ten Finnish values, resolving eight original findings and two unflagged
+errors. Preserve OS/CPU identifiers, free versus total memory, load average,
+CPU count and uptime. All 16,990 exact correction checks and positive/negative
+runtime assertions pass. Technical adaptations need fluent review; 863 original
+findings and restored-value validation remain unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/fc6c780dc">Repair Veps customization labels and logo direction</a>. Thanks to xet7.</summary>
 
 Replace fifteen original Finnish findings. Correct top-right wording to top
