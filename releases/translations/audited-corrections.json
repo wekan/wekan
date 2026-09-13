@@ -111382,5 +111382,110 @@
     "before": "Apri più schede contemporaneamente",
     "after": "Verzi pì schede insieme",
     "reason": "Replace Italian-seeded Venetian selection and notification labels; preserve byte units, archive entity distinctions, invitation acceptance and watched-item notification scope. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "operator-debug-invalid",
+    "before": "%s non è un valido predicato di debug",
+    "after": "%s no el xe un predicato de debug vàłido",
+    "reason": "Replace Italian-seeded Venetian validation/help values; preserve positive-integer limit, login-link HTML, blank-field wildcard and image-only restriction. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "operator-has-invalid",
+    "before": "%s non è un controllo di esistenza valido",
+    "after": "%s no el xe un controło de esistensa vàłido",
+    "reason": "Replace Italian-seeded Venetian validation/help values; preserve positive-integer limit, login-link HTML, blank-field wildcard and image-only restriction. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "operator-limit-invalid",
+    "before": "%s non è un limite valido.  Il limite dovrebbe essere un numero intero positivo.",
+    "after": "%s no el xe un łimite vàłido. El łimite el gà da èsar un nùmaro intero pì grando de zero.",
+    "reason": "Replace Italian-seeded Venetian validation/help values; preserve positive-integer limit, login-link HTML, blank-field wildcard and image-only restriction. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "operator-number-expected",
+    "before": "l'operatore __operator__ prevede un numero, invece è stato fornito '__value__'",
+    "after": "El operator __operator__ el spetava un nùmaro, ma el gà ricevuò '__value__'",
+    "reason": "Replace Italian-seeded Venetian validation/help values; preserve positive-integer limit, login-link HTML, blank-field wildcard and image-only restriction. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "operator-sort-invalid",
+    "before": "L'ordinamento di '%s' non è valido",
+    "after": "El òrdine '%s' no el xe vàłido",
+    "reason": "Replace Italian-seeded Venetian validation/help values; preserve positive-integer limit, login-link HTML, blank-field wildcard and image-only restriction. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "operator-status-invalid",
+    "before": "'%s' non è uno stato valido",
+    "after": "'%s' no el xe un stato vàłido",
+    "reason": "Replace Italian-seeded Venetian validation/help values; preserve positive-integer limit, login-link HTML, blank-field wildcard and image-only restriction. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "org-name-not-found",
+    "before": "Organizzazione '%s' non trovata",
+    "after": "Organisasion '%s' no trovà.",
+    "reason": "Replace Italian-seeded Venetian validation/help values; preserve positive-integer limit, login-link HTML, blank-field wildcard and image-only restriction. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "org-number",
+    "before": "Il numero di organizzazioni è:",
+    "after": "El nùmaro de organisasion el xe: ",
+    "reason": "Replace Italian-seeded Venetian validation/help values; preserve positive-integer limit, login-link HTML, blank-field wildcard and image-only restriction. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "page-maybe-private",
+    "before": "Questa pagina potrebbe essere privata. Potresti essere in grado di vederla <a href='%s'>facendo il log-in</a>.",
+    "after": "Sta pàjina ła podarìa èsar privata. Te podarìa védarla <a href='%s'>fasendo el acesso</a>.",
+    "reason": "Replace Italian-seeded Venetian validation/help values; preserve positive-integer limit, login-link HTML, blank-field wildcard and image-only restriction. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "pastdue",
+    "before": "la data di scadenza attuale %s è scaduta",
+    "after": "ła scadensa corente %s ła xe pasà",
+    "reason": "Replace Italian-seeded Venetian validation/help values; preserve positive-integer limit, login-link HTML, blank-field wildcard and image-only restriction. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "paste-or-dragdrop",
+    "before": "per incollare, oppure trascina & rilascia il file immagine (solo immagini)",
+    "after": "par incołar, o strasinar e mołar qua un file imàjine (soło imàjini)",
+    "reason": "Replace Italian-seeded Venetian validation/help values; preserve positive-integer limit, login-link HTML, blank-field wildcard and image-only restriction. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "prefix-with-full-path",
+    "before": "Prefisso con percorso completo",
+    "after": "Prefisso col percorso conpleto",
+    "reason": "Replace Italian-seeded Venetian validation/help values; preserve positive-integer limit, login-link HTML, blank-field wildcard and image-only restriction. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "preview-pdf-not-supported",
+    "before": "Il vostro dispositivo non supporta l'anteprima PDF. In alternativa provate a scaricare il file.",
+    "after": "El to dispositivo no el suporta ła anteprima PDF. Prova a descargar el file.",
+    "reason": "Replace Italian-seeded Venetian validation/help values; preserve positive-integer limit, login-link HTML, blank-field wildcard and image-only restriction. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "r-board-note",
+    "before": "Nota: Lascia un campo vuoto per abbinare ogni possibile valore.",
+    "after": "Nota: łasa un canpo vodo par corispondar a tuti i vałori posìbiłi. ",
+    "reason": "Replace Italian-seeded Venetian validation/help values; preserve positive-integer limit, login-link HTML, blank-field wildcard and image-only restriction. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "r-d-check-all",
+    "before": "Seleziona tutti gli item di una lista",
+    "after": "Segna tute łe vozi de na lista",
+    "reason": "Replace Italian-seeded Venetian validation/help values; preserve positive-integer limit, login-link HTML, blank-field wildcard and image-only restriction. Low-confidence wording; fluent-speaker validation outstanding."
   }
 ]
