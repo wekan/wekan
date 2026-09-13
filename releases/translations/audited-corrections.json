@@ -106650,5 +106650,180 @@
     "before": "Uthumele ngempumelelo i-imeyili",
     "after": "No rumela imeiḽi nga nḓila yo bvelelaho",
     "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, email line breaks, Planning Poker/SMTP names and due/end/received/spent-time distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "email-templates-activity-body",
+    "before": "Umsebenzi I-imeyili Umbhalo",
+    "after": "Maipfi a imeiḽi ya nḓivhadzo ya nyito",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, email line breaks, format names, zoom bounds and authorization requirements. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "email-templates-activity-subject",
+    "before": "Umsebenzi I-imeyili Isihloko",
+    "after": "Ṱhoho ya imeiḽi ya nḓivhadzo ya nyito",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, email line breaks, format names, zoom bounds and authorization requirements. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "email-verifyEmail-subject",
+    "before": "Qinisekisa ikheli lakho le-imeyili kokuthi __siteName__",
+    "after": "Khwaṱhisedzani ḓiresi yaṋu ya imeiḽi kha __siteName__",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, email line breaks, format names, zoom bounds and authorization requirements. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "email-verifyEmail-text",
+    "before": "Sawubona __user__,\n\nUkuze uqinisekise i-imeyili ye-akhawunti yakho, mane uchofoze isixhumanisi esingezansi.\n\n__url__\n\nNgiyabonga.",
+    "after": "Ndaa __user__,\n\nU khwaṱhisedza imeiḽi ya akhaunthu yaṋu, kiḽikani ḽinki i re afho fhasi.\n\n__url__\n\nRo livhuwa.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, email line breaks, format names, zoom bounds and authorization requirements. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "enable-vertical-scrollbars",
+    "before": "Nika amandla amabha wokuskrola aqondile",
+    "after": "Tendela bara dza u sikiroḽa dzi yaho nṱha na fhasi",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, email line breaks, format names, zoom bounds and authorization requirements. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "enable-wip-limit",
+    "before": "Nika amandla umkhawulo we-WIP",
+    "after": "Tendela mukano wa WIP",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, email line breaks, format names, zoom bounds and authorization requirements. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "enter-zoom-level",
+    "before": "Faka ileveli yokusondeza (50-300%):",
+    "after": "Ṅwalani tshikalo tsha u hulisa (50-300%):",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, email line breaks, format names, zoom bounds and authorization requirements. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "error-board-notAMember",
+    "before": "Udinga ukuba yilungu laleli bhodi ukuze wenze lokho",
+    "after": "Ni fanela u vha muraḓo wa bodo iyi ya Kanban u ita izwo",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, email line breaks, format names, zoom bounds and authorization requirements. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "error-board-notAdmin",
+    "before": "Kudingeka ube admin waleli bhodi ukuze wenze lokho",
+    "after": "Ni fanela u vha mulanguli wa bodo iyi ya Kanban u ita izwo",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, email line breaks, format names, zoom bounds and authorization requirements. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "error-csv-schema",
+    "before": "I-CSV(Amanani Ahlukaniswe Ngokhefana)/TSV (Amanani Ahlukaniswe Ngethebhu) ayifaki ulwazi olufanele ngefomethi efanele.",
+    "after": "CSV (ndeme dzo fhambanywaho nga khoma)/TSV (ndeme dzo fhambanywaho nga thebe) yaṋu a i na mafhungo o teaho nga tshivhumbeo tsho teaho",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, email line breaks, format names, zoom bounds and authorization requirements. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "error-email-taken",
+    "before": "I-imeyili isivele ithathiwe",
+    "after": "Imeiḽi yo no shumiswa",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, email line breaks, format names, zoom bounds and authorization requirements. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "error-json-malformed",
+    "before": "Umbhalo wakho awuvumelekile i-JSON",
+    "after": "Maipfi aṋu a si JSON yo teaho",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, email line breaks, format names, zoom bounds and authorization requirements. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "error-json-schema",
+    "before": "Idatha yakho ye-JSON ayifaki ulwazi olufanele ngefomethi elungile",
+    "after": "Data yaṋu ya JSON a i na mafhungo o teaho nga tshivhumbeo tsho teaho",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, email line breaks, format names, zoom bounds and authorization requirements. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "error-ldap-login",
+    "before": "Kwenzeke iphutha ngesikhathi sizama ukungena",
+    "after": "Ho vha na vhukhakhi musi hu tshi lingedzwa u dzhena",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, email line breaks, format names, zoom bounds and authorization requirements. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "error-notAuthorized",
+    "before": "Awugunyaziwe ukubuka leli khasi.",
+    "after": "A ni na thendelo ya u vhona siaṱari iḽi.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, email line breaks, format names, zoom bounds and authorization requirements. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "error-orgname-taken",
+    "before": "Leli gama lenhlangano selithathiwe",
+    "after": "Dzina iḽi ḽa dzangano ḽo no shumiswa",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, email line breaks, format names, zoom bounds and authorization requirements. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "error-teamname-taken",
+    "before": "Leli gama leqembu selithathiwe",
+    "after": "Dzina iḽi ḽa tshigwada ḽo no shumiswa",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, email line breaks, format names, zoom bounds and authorization requirements. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "error-undefined",
+    "before": "Kukhona into engahambanga kahle",
+    "after": "Hu na zwe zwa tshimbila zwo khakhea",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, email line breaks, format names, zoom bounds and authorization requirements. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "error-user-notCreated",
+    "before": "Lo msebenzisi akadalwanga",
+    "after": "Mushumisi uyu ha ngo sikiwa",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, email line breaks, format names, zoom bounds and authorization requirements. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "error-username-taken",
+    "before": "Leli gama lomsebenzisi selithathiwe",
+    "after": "Dzina iḽi ḽa mushumisi ḽo no shumiswa",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, email line breaks, format names, zoom bounds and authorization requirements. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "error-watch-disabled",
+    "before": "Ukubuka amabhodi namakhadi kuvaliwe ngumlawuli",
+    "after": "U tevhela bodo dza Kanban na makhadi ho dzimwa nga mulanguli",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, email line breaks, format names, zoom bounds and authorization requirements. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "estimated-time-remaining",
+    "before": "Isikhathi esilinganiselwe esisele",
+    "after": "Tshifhinga tsho anganywaho tshi salaho",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, email line breaks, format names, zoom bounds and authorization requirements. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "every-1-minute",
+    "before": "Njalo ngeminithi elingu-1",
+    "after": "Nga murahu ha minetse muṅwe na muṅwe",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, email line breaks, format names, zoom bounds and authorization requirements. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "every-30-minutes",
+    "before": "Njalo ngemizuzu engama-30",
+    "after": "Nga murahu ha minetse ya 30 iṅwe na iṅwe",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, email line breaks, format names, zoom bounds and authorization requirements. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "export-card-excel-fields",
+    "before": "Khetha izinkambu ozozifaka ekuthekeni kwe-Excel:",
+    "after": "Nangani fhethu ha data ha u katela kha u bvisa Excel:",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, email line breaks, format names, zoom bounds and authorization requirements. Low-confidence wording; fluent-speaker validation outstanding."
   }
 ]
