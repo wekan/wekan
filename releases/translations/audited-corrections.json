@@ -80162,5 +80162,54 @@
     "before": "Afficher la semaine de l'année (ISO 8601)",
     "after": "Wone ayu-bés bi ci at mi (ISO 8601)",
     "reason": "Replace French card-display and week-of-year controls with Wolof. Preserve hiding list on minicard, per-list card count and more-than threshold, parent card display and literal ISO 8601. Reuse existing karta bu mag parent and Wone/Nëbb terminology. Full grammar and week/threshold adaptations remain low confidence; drag-handle label left pending."
+  },
+  {
+    "locale": "wo",
+    "key": "watch",
+    "before": "Suivre",
+    "after": "Topp",
+    "reason": "Replace French watch/notification controls with Wolof using existing yégle terminology. Preserve automatic watch on creation, all notification deletion, every board change, creator-or-member participation and watched board/list/card scopes. Watching as following and full grammar remain low confidence; existing deletion confirmation retained."
+  },
+  {
+    "locale": "wo",
+    "key": "watching",
+    "before": "Suivi",
+    "after": "Topp gi",
+    "reason": "Replace French watch/notification controls with Wolof using existing yégle terminology. Preserve automatic watch on creation, all notification deletion, every board change, creator-or-member participation and watched board/list/card scopes. Watching as following and full grammar remain low confidence; existing deletion confirmation retained."
+  },
+  {
+    "locale": "wo",
+    "key": "auto-watch",
+    "before": "Surveiller automatiquement les tableaux quand ils sont créés",
+    "after": "Topp tablo yi ci boppam bu ñu leen sos",
+    "reason": "Replace French watch/notification controls with Wolof using existing yégle terminology. Preserve automatic watch on creation, all notification deletion, every board change, creator-or-member participation and watched board/list/card scopes. Watching as following and full grammar remain low confidence; existing deletion confirmation retained."
+  },
+  {
+    "locale": "wo",
+    "key": "delete-all-notifications",
+    "before": "Supprimer toutes les notifications",
+    "after": "Far yégle yi yépp",
+    "reason": "Replace French watch/notification controls with Wolof using existing yégle terminology. Preserve automatic watch on creation, all notification deletion, every board change, creator-or-member participation and watched board/list/card scopes. Watching as following and full grammar remain low confidence; existing deletion confirmation retained."
+  },
+  {
+    "locale": "wo",
+    "key": "watching-info",
+    "before": "Vous serez notifié de toute modification dans ce tableau",
+    "after": "Dinañu la yégle bépp coppite ci tablo bii",
+    "reason": "Replace French watch/notification controls with Wolof using existing yégle terminology. Preserve automatic watch on creation, all notification deletion, every board change, creator-or-member participation and watched board/list/card scopes. Watching as following and full grammar remain low confidence; existing deletion confirmation retained."
+  },
+  {
+    "locale": "wo",
+    "key": "notify-participate",
+    "before": "Recevoir les mises à jour de toutes les cartes auxquelles vous participez en tant que créateur ou que participant",
+    "after": "Jot yégle coppite yi ci karta yépp yi nga sos walla nga bokk ci",
+    "reason": "Replace French watch/notification controls with Wolof using existing yégle terminology. Preserve automatic watch on creation, all notification deletion, every board change, creator-or-member participation and watched board/list/card scopes. Watching as following and full grammar remain low confidence; existing deletion confirmation retained."
+  },
+  {
+    "locale": "wo",
+    "key": "notify-watch",
+    "before": "Recevoir les mises à jour de tous les tableaux, listes ou cartes que vous suivez",
+    "after": "Jot yégle coppite yi ci tablo yi, limu yi walla karta yi ngay topp",
+    "reason": "Replace French watch/notification controls with Wolof using existing yégle terminology. Preserve automatic watch on creation, all notification deletion, every board change, creator-or-member participation and watched board/list/card scopes. Watching as following and full grammar remain low confidence; existing deletion confirmation retained."
   }
 ]
