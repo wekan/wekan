@@ -106300,5 +106300,180 @@
     "before": "Okuqukethwe kwe-web manifest yangokwezifiso (JSON)",
     "after": "Mafhungo a web manifest o dzudzanywaho (JSON)",
     "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, JSON filenames, HTML entities and scheduled-job success/failure and pause/resume distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "custom-head-meta-tags",
+    "before": "Amathegi e-meta angokwezifiso (HTML)",
+    "after": "Thege dza meta dzo dzudzanywaho (HTML)",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, default numeric values, technical markup terms and no-undo/deletion-blocking conditions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "custom-head-tags-enabled",
+    "before": "Nika amandla amathegi ekhanda angokwezifiso",
+    "after": "Tendela thege dza head dzo dzudzanywaho",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, default numeric values, technical markup terms and no-undo/deletion-blocking conditions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "custom-help-link-url",
+    "before": "I-URL Yesixhumanisi Sosizo Ngokwezifiso",
+    "after": "URL ya ḽinki ya thuso yo dzudzanywaho",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, default numeric values, technical markup terms and no-undo/deletion-blocking conditions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "custom-legal-notice-link-url",
+    "before": "I-URL yekhasi lesaziso somthetho ngokwezifiso",
+    "after": "URL ya siaṱari ḽa nḓivhadzo ya mulayo yo dzudzanywaho",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, default numeric values, technical markup terms and no-undo/deletion-blocking conditions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "custom-login-logo-image-url",
+    "before": "I-URL yesithombe selogo yokungena ngokwezifiso",
+    "after": "URL ya tshifanyiso tsha ḽogo ya u dzhena yo dzudzanywaho",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, default numeric values, technical markup terms and no-undo/deletion-blocking conditions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "custom-login-logo-link-url",
+    "before": "I-URL Yesixhumanisi Selogo Yokungena Ngokwezifiso",
+    "after": "URL ya ḽinki ya ḽogo ya u dzhena yo dzudzanywaho",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, default numeric values, technical markup terms and no-undo/deletion-blocking conditions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "custom-manifest-enabled",
+    "before": "Nika amandla i-manifest yewebhu yangokwezifiso",
+    "after": "Tendela web manifest yo dzudzanywaho",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, default numeric values, technical markup terms and no-undo/deletion-blocking conditions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "custom-product-name",
+    "before": "Igama Lomkhiqizo Ngokwezifiso",
+    "after": "Dzina ḽa tshibveledzwa ḽo dzudzanywaho",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, default numeric values, technical markup terms and no-undo/deletion-blocking conditions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "custom-top-left-corner-logo-height",
+    "before": "Ngokwezifiso Ubude belogo yekhona kwesokunxele eliphezulu. Okuzenzakalelayo: 27",
+    "after": "Vhulapfu ha ḽogo yo dzudzanywaho kha khona ya nṱha tsha monde. Ya u thoma: 27",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, default numeric values, technical markup terms and no-undo/deletion-blocking conditions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "custom-top-left-corner-logo-image-url",
+    "before": "I-URL Yesithombe Selogo Yangokwezifiso Esekhoneni Lesinxele",
+    "after": "URL ya tshifanyiso tsha ḽogo yo dzudzanywaho kha khona ya nṱha tsha monde",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, default numeric values, technical markup terms and no-undo/deletion-blocking conditions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "custom-top-left-corner-logo-link-url",
+    "before": "I-URL Yesixhumanisi Selogo Engaphezulu Kwesokunxele Ngokwezifiso",
+    "after": "URL ya ḽinki ya ḽogo yo dzudzanywaho kha khona ya nṱha tsha monde",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, default numeric values, technical markup terms and no-undo/deletion-blocking conditions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "database-migrations",
+    "before": "Ukufuduka Kwesizindalwazi",
+    "after": "U pfulusa database",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, default numeric values, technical markup terms and no-undo/deletion-blocking conditions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "default-authentication-method",
+    "before": "Indlela Yokuqinisekisa Okuzenzakalelayo",
+    "after": "Nḓila ya u thoma ya u khwaṱhisedza mushumisi",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, default numeric values, technical markup terms and no-undo/deletion-blocking conditions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "default-avatar",
+    "before": "Isithombe esizenzakalelayo",
+    "after": "Tshifanyiso tsha mushumisi tsha u thoma",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, default numeric values, technical markup terms and no-undo/deletion-blocking conditions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "default-subtasks-board",
+    "before": "Imisebenzi engaphansi yebhodi le-__board__",
+    "after": "Mishumo miṱuku ya bodo ya Kanban __board__",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, default numeric values, technical markup terms and no-undo/deletion-blocking conditions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "delete-all-notifications-confirm",
+    "before": "Uqinisekile ukuthi ufuna ukususa zonke izaziso? Lesi senzo asikwazi ukuhlehliswa.",
+    "after": "Ni na vhuṱanzi ha uri ni ṱoḓa u susa nḓivhadzo dzoṱhe? Nyito iyi a i koni u humiselwa murahu.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, default numeric values, technical markup terms and no-undo/deletion-blocking conditions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "delete-avatar-confirm",
+    "before": "Uqinisekile ukuthi ufuna ukususa lesi sithombe?",
+    "after": "Ni na vhuṱanzi ha uri ni ṱoḓa u susa tshifanyiso itshi tsha mushumisi?",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, default numeric values, technical markup terms and no-undo/deletion-blocking conditions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "delete-duplicate-empty-lists-migration",
+    "before": "Susa Uhlu Olungenalutho Oluyimpinda",
+    "after": "Susa mitevhe yo dovhololwaho i si na tshithu",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, default numeric values, technical markup terms and no-undo/deletion-blocking conditions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "delete-org-confirm-popup",
+    "before": "Uqinisekile ukuthi ufuna ukususa le nhlangano? Akukho ukuhlehlisa.",
+    "after": "Ni na vhuṱanzi ha uri ni ṱoḓa u susa dzangano iḽi? A zwi koni u humiselwa murahu.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, default numeric values, technical markup terms and no-undo/deletion-blocking conditions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "delete-org-warning-message",
+    "before": "Ayikwazi ukususa le nhlangano, kukhona okungenani umsebenzisi oyedwa okungowayo",
+    "after": "A zwi koni u susa dzangano iḽi; hu na mushumisi muthihi kana vhanzhi vhane vha vha khaḽo",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, default numeric values, technical markup terms and no-undo/deletion-blocking conditions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "delete-team-confirm-popup",
+    "before": "Uqinisekile ukuthi ufuna ukususa leli qembu? Akukho ukuhlehlisa.",
+    "after": "Ni na vhuṱanzi ha uri ni ṱoḓa u susa tshigwada itshi? A zwi koni u humiselwa murahu.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, default numeric values, technical markup terms and no-undo/deletion-blocking conditions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "delete-team-warning-message",
+    "before": "Ayikwazi ukususa leli qembu, kukhona okungenani umsebenzisi oyedwa okungowalo",
+    "after": "A zwi koni u susa tshigwada itshi; hu na mushumisi muthihi kana vhanzhi vhane vha vha khatsho",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, default numeric values, technical markup terms and no-undo/deletion-blocking conditions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "delete-translation-confirm-popup",
+    "before": "Ingabe uqinisekile ukuthi ufuna ukususa lolu chungechunge lokuhumusha ngokwezifiso? Akukho ukuhlehlisa.",
+    "after": "Ni na vhuṱanzi ha uri ni ṱoḓa u susa maipfi aya a ṱhalutshedzo ya luambo yo dzudzanywaho? A zwi koni u humiselwa murahu.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, default numeric values, technical markup terms and no-undo/deletion-blocking conditions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "delete-user-confirm-popup",
+    "before": "Uqinisekile ukuthi ufuna ukususa le akhawunti? Akukho ukuhlehlisa.",
+    "after": "Ni na vhuṱanzi ha uri ni ṱoḓa u susa akhaunthu iyi? A zwi koni u humiselwa murahu.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, default numeric values, technical markup terms and no-undo/deletion-blocking conditions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "deleteCustomFieldPopup-title",
+    "before": "Susa Inkambu Yangokwezifiso?",
+    "after": "Susa fhethu ha data ho dzudzanywaho?",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, default numeric values, technical markup terms and no-undo/deletion-blocking conditions. Low-confidence wording; fluent-speaker validation outstanding."
   }
 ]
