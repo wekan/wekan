@@ -53961,5 +53961,54 @@
     "before": "Questo rimuoverà tutte le schede nell'elenco dalla bacheca. Per vedere le schede nell'archivio e portarle dov'erano  nella bacheca, clicca su \"Menu\"  > \"Archivio\".",
     "after": "Aesta va s-scoatã tuti cãrtsãli di aesta listã di tabelã. Ti s-vedzi cãrtsãli tu Arhivã shi s-li adutsi napoi la tabelã, clicã “Meniu” > “Arhivã”.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "newlineBecomesNewChecklistItem",
+    "before": "Ogni riga di testo diventa uno degli elementi della lista di controllo",
+    "after": "Cathi linie di text s-fatsi un element di lista di control",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "newlineBecomesNewChecklistItemOriginOrder",
+    "before": "Ogni riga di testo diventa uno degli elementi della lista di controllo, ordine originale",
+    "after": "Cathi linie di text s-fatsi un element di lista di control, tu arãndarea originalã",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "normal-desc",
+    "before": "Può visionare e modificare le schede. Non può cambiare le impostazioni.",
+    "after": "Poati s-vedzã shi s-alãxeascã cãrtsãli. Nu poati s-alãxeascã sitãrili.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "private-desc",
+    "before": "Questa bacheca è privata. Solo le persone aggiunte alla bacheca possono vederla e modificarla.",
+    "after": "Aesta tabelã easti privatã. Mash persoanili adãvgati la tabelã pot s-u vedzã shi s-u alãxeascã.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "r-checklist-note",
+    "before": "Nota: Gli elementi della checklist devono essere scritti come valori separati dalla virgola",
+    "after": "Notã: elementili di lista di control lipsea s-hibã scriati ca valori separati di virguli.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "r-d-archive",
+    "before": "Sposta scheda nell'archivio",
+    "after": "Mutã carta tu Arhivã",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "push-invite-text",
+    "before": "Caro __user__,\n\n__inviter__ ti ha invitato ad unirti alla bacheca \"__board__\" per collaborare.\n\nPer favore clicca sul link seguente:\n\n__url__\n\nGrazie.",
+    "after": "Dragã __user__,\\n\\n__inviter__ ti invitã s-intri tu tabela \"__board__\" ti colaborari.\\n\\nTi pãrãcãlsescu s-urmeadzi ligãtura di ma njos:\\n\\n__url__\\n\\nHaristo.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
