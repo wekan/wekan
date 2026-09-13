@@ -70670,5 +70670,103 @@
     "before": "Ralat semasa mengantar jemputan pendaftaran",
     "after": "Na salah watee geukirem undangan keu daftar",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "invite-people-success",
+    "before": "Jemputan untuk pendaftaran telah berjaya dihantar",
+    "after": "Undangan keu daftar ka meuhase geukirem",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "just-invited",
+    "before": "Anda baru diundang di panel ini",
+    "after": "Droeneueh ban geuundang u papan nyoe",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "keyboard-shortcuts-disabled",
+    "before": "Pintasan papan kekunci didayakan. Klik untuk batal.",
+    "after": "Pintasan keyboard hana aktif. Klik keu peuhidop.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "keyboard-shortcuts-enabled",
+    "before": "Pintasan papan kekunci didayakan. Klik untuk batal.",
+    "after": "Pintasan keyboard ka aktif. Klik keu peumate.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "label-delete-pop",
+    "before": "Ini tidak bisa dikembalikan, akan menghapus label ini dari semua kartu dan menghapus semua riwayatnya",
+    "after": "Hana undo. Nyoe akan hapus label nibak mandum kad ngon peuhilang riwayat jih.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "last-admin-desc",
+    "before": "Anda tidak dapat mengubah aturan karena harus ada minimal seorang Admin.",
+    "after": "Droeneueh hana jeuet ubah peran, sabab haroh mantong na admin.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "leave-board-pop",
+    "before": "Anda pasti anda mahu tinggalkan __boardTitle__? Anda akan dibuang daripada semua kan pada Papan ini.",
+    "after": "Beutoi droeneueh keuneuk tinggai __boardTitle__? Droeneueh akan geuhapus nibak mandum kad bak papan nyoe.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "link-list",
+    "before": "Pautan kepada senarai ini",
+    "after": "Tautan u senarai nyoe",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "list-archive-cards",
+    "before": "Pindah semua kad dalam senarai ini ke Arkib.",
+    "after": "Arsip mandum kad bak senarai nyoe",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "list-archive-cards-pop",
+    "before": "Ini akan menghapuskan semua kad dalam senarai ini daripada papan. Untuk papar kad dalam Arkib dan pindah semula ke papan, klik \"Menu\" > \"Arkib\".",
+    "after": "Nyoe akan peuhilang mandum kad bak senarai nyoe nibak papan. Keu ngieng kad lam Arsip ngon peuwoe u papan, klik “Menu” > “Arsip”.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "list-delete-pop",
+    "before": "Semua tindakan akan dibuang daripada suapan aktiviti dan anda tidak akan dapat pulihkan semula senarai tersebut. Tidak boleh undur semula.",
+    "after": "Mandum tindakan akan geuhapus nibak daftar aktivitas, ngon droeneueh hana jeuet peuwoe senarai lom. Hana undo.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "list-delete-suggest-archive",
+    "before": "Anda boleh pindahkan senarai ke Arkib untuk membuangnya daripada papan bagi memelihara aktivitinya.",
+    "after": "Droeneueh jeuet pinah senarai u Arsip keu peuhilang nibak papan, tapi aktivitas teutap geukeuneubah.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "list-filter-label",
+    "before": "Tapis senarai mengikut tajuk",
+    "after": "Saring senarai meunurot judul",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "list-move-cards",
+    "before": "Pindah semua kartu ke daftar ini",
+    "after": "Pinah mandum kad bak senarai nyoe",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
