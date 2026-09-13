@@ -51049,5 +51049,61 @@
     "before": "Premi invio per aggiungere altre opzioni",
     "after": "Appughjate Enter per aghjunghje altre ozzioni",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "custom-field-stringtemplate-format",
+    "before": "Formato (usa %{value} come segnaposto)",
+    "after": "Furmatu (aduprate %{value} cum’è segnapostu)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "custom-field-stringtemplate-item-placeholder",
+    "before": "Premi Invio per aggiungere più elementi",
+    "after": "Appughjate Enter per aghjunghje altri elementi",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "custom-head-link-tags",
+    "before": "Tag link personalizzati (HTML)",
+    "after": "Tag link persunalizati (HTML)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "custom-head-manifest-content",
+    "before": "Contenuto del web manifest personalizzato (JSON)",
+    "after": "Cuntenutu di u manifestu web persunalizatu (JSON)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "custom-head-meta-tags",
+    "before": "Tag meta personalizzati (HTML)",
+    "after": "Tag meta persunalizati (HTML)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "custom-help-link-url",
+    "before": "Link URL di aiuto personalizzato",
+    "after": "URL di u ligame d’aiutu persunalizatu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "custom-login-logo-image-url",
+    "before": "URL dell'immagine del logo personalizzato per il login",
+    "after": "URL di l’imagine di u logò di cunnessione persunalizatu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "custom-login-logo-link-url",
+    "before": "Link dell'immagine del logo personalizzato per il login",
+    "after": "URL di u ligame di u logò di cunnessione persunalizatu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
