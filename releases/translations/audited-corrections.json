@@ -83683,5 +83683,33 @@
     "before": "Décoché",
     "after": "dindi màndargaam",
     "reason": "Replace French checklist rule fragments with Wolof after inspecting checklistTriggers.jade; preserve general versus named item and checked versus unchecked actions. Full composed grammar remains low confidence; shared r-is across board/card/checklist triggers still needs review."
+  },
+  {
+    "locale": "wo",
+    "key": "calendar-system-ethiopic",
+    "before": "Ethiopic",
+    "after": "Kalandriye bu Etiyopi",
+    "reason": "Replace English calendar adjectives with descriptive Wolof calendar framing and country/proper names; restore Hijri rather than broad Islamic label. Country-name spellings, calendar loanword and complete grammar remain low confidence; religious/epoch variants remain pending."
+  },
+  {
+    "locale": "wo",
+    "key": "calendar-system-japanese",
+    "before": "Japanese",
+    "after": "Kalandriye bu Japon",
+    "reason": "Replace English calendar adjectives with descriptive Wolof calendar framing and country/proper names; restore Hijri rather than broad Islamic label. Country-name spellings, calendar loanword and complete grammar remain low confidence; religious/epoch variants remain pending."
+  },
+  {
+    "locale": "wo",
+    "key": "calendar-system-chinese",
+    "before": "Chinese",
+    "after": "Kalandriye bu China",
+    "reason": "Replace English calendar adjectives with descriptive Wolof calendar framing and country/proper names; restore Hijri rather than broad Islamic label. Country-name spellings, calendar loanword and complete grammar remain low confidence; religious/epoch variants remain pending."
+  },
+  {
+    "locale": "wo",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "Kalandriye Hijri",
+    "reason": "Replace English calendar adjectives with descriptive Wolof calendar framing and country/proper names; restore Hijri rather than broad Islamic label. Country-name spellings, calendar loanword and complete grammar remain low confidence; religious/epoch variants remain pending."
   }
 ]
