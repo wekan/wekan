@@ -48914,5 +48914,75 @@
     "before": "Attiva limite Work In Progress",
     "after": "Activar la limita WIP",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "enter-zoom-level",
+    "before": "Inserisci il livello di zoom (50-300%):",
+    "after": "Endatescha il nivel da zoom (50-300%):",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "error-email-taken",
+    "before": "L'posta eletronica ie già stata presa",
+    "after": "Questa adressa dad e-mail vegn gia utilisada",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "error-invitation-code-not-exist",
+    "before": "Il codice d'invito no esiste",
+    "after": "Il code d’invitaziun n’exista betg",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "error-json-malformed",
+    "before": "Il testo no ie in un formato JSON valido",
+    "after": "Tes text n’è betg JSON valid",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "error-ldap-login",
+    "before": "C'è stato un fal mentre provavi ad effettuare il login",
+    "after": "Ina errur è succedida durant l’emprova dad annunziar",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "error-notAuthorized",
+    "before": "No sei autorizzato ad accedere a questa pagina.",
+    "after": "Ti n’es betg autorisà da guardar questa pagina.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "error-undefined",
+    "before": "Qualcosa ie andato storto",
+    "after": "Insatge è ì mal",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "error-user-disabled",
+    "before": "Questo cont utent ie disativeato",
+    "after": "Quest cont d’utilisader è deactivà",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "error-user-notCreated",
+    "before": "L'utent no ie stato creato",
+    "after": "Quest utilisader n’è betg vegnì creà",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "error-username-taken",
+    "before": "Questo username ie già utilizzato",
+    "after": "Quest num d’utilisader vegn gia utilisà",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
