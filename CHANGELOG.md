@@ -567,24 +567,9 @@ the Markdown commit as the template.
 interface language, with accessible offline date/time controls and movable,
 resizable date popups. On-premise **OAuth2/OIDC** login gains email-domain
 restrictions. Local translation repairs preserve placeholders and warning
-meanings; the remaining audit is paused and tracked under **TODO Later**.
+meanings; the remaining audit has resumed and is tracked under **TODO Later**.
 Translation upload tooling and repository mirrors are updated, along with
 the Playwright test dependency.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/4a6738330">Keep shared-list cards scoped during partial-profile loading and impersonation</a>. Thanks to gleneindre and xet7.</summary>
-
-Fixes [#6691](https://github.com/wekan/wekan/issues/6691). Board content and
-list selectors share the existing view resolver. Missing or invalid profile
-preferences now fall back to the browser preference and Swimlanes without
-reloading. A private current-user publication supplies the board-view
-preference after admin impersonation without exposing other members’ settings.
-Regression tests cover fallback precedence, pending choices, board visibility,
-list scoping and publication isolation; the browser test checks shared lists
-in two swimlanes before and after impersonation. Fresh EVERYTHING verification
-is running against this change.
-
-</details>
 
 This release adds the following calendar and login features:
 
@@ -924,6 +909,21 @@ exec, so recorded PIDs remain valid and cleanup does not orphan servers.
 Executable checks launch both real harness fragments against mock
 servers and verify recorded and running PIDs match; reused MongoDB remains
 unowned. These checks and all 21 build-script parity checks pass.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4a6738330">Keep shared-list cards scoped during partial-profile loading and impersonation</a>. Thanks to gleneindre and xet7.</summary>
+
+Fixes [#6691](https://github.com/wekan/wekan/issues/6691). Board content and
+list selectors share the existing view resolver. Missing or invalid profile
+preferences now fall back to the browser preference and Swimlanes without
+reloading. A private current-user publication supplies the board-view
+preference after admin impersonation without exposing other members’ settings.
+Regression tests cover fallback precedence, pending choices, board visibility,
+list scoping and publication isolation; the browser test checks shared lists
+in two swimlanes before and after impersonation. Fresh EVERYTHING verification
+is running against this change.
 
 </details>
 
@@ -3102,6 +3102,19 @@ preserves newer translations. Human-preference and calendar-display checks
 pass. The browser regression is registered and syntax-checked; the live
 Meteor UI was unavailable. The wider audit and English-remnant review remain
 unfinished; this entry does not claim every locale is now correct.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/17ca32a0d">Resume repairs with 90 Klingon translation corrections</a>. Thanks to xet7.</summary>
+
+Replace German and English security states, activity messages, deletion warnings
+and search help with Klingon. Preserve source placeholders, JSON property names
+and executable query examples. Correction inventory, security-state, warning,
+key-order, idempotency and newer-translation protection checks pass. Wording is
+low confidence and remains subject to fluent-speaker review. Audit.md and
+TODO Later record 12,956 corrected findings and 2,889 pending, including 271
+Klingon findings.
 
 </details>
 
