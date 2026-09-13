@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 12,270 |
+| Corrected | 12,274 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 3,576 |
+| Pending review or repair | 3,572 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Restored and unflagged values still need validation.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,759** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,772** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `75ccb4973da43b2a10034dfdb52aa1203cbfec56` — thirty Volapük swimlane labels/activity messages repaired. Replaced spectacles-derived terminology consistently with “horizontal part”; preserved placeholders, movement directions and checklist/field/label actions. Software adaptation and assembled wording remain low confidence.
+Latest translation fix: **2026-09-13**, local commit `15d98e2bed69ba395c5fb6e46081c54a8b00af64` — thirteen Volapük comment/card activities repaired, replacing French/Esperanto and voice-derived swimlane wording. Preserved entities, mention recipient, full locations and add/remove/delete distinctions; software adaptations and assembled wording remain low confidence.
 
 **Verification:** correction and progress tests pass, covering exact values, placeholders, JSON examples and key order. Native-speaker and browser checks remain outstanding.
 
