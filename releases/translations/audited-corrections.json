@@ -52239,5 +52239,61 @@
     "before": "Clicca per ordinare la lista",
     "after": "Cliccate per urdinà a lista",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "start-all-migrations",
+    "before": "Avvia tutte le migrazioni",
+    "after": "Avvià tutte e migrazioni",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "step-ensure-per-swimlane-lists",
+    "before": "Garantisci liste per swimlane",
+    "after": "Assicurà liste per ogni swimlane",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "step-progress",
+    "before": "Avanzamento del passaggio",
+    "after": "Prugressu di a tappa",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "stop-all-migrations",
+    "before": "Arresta tutte le migrazioni",
+    "after": "Piantà tutte e migrazioni",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "support-page-enabled",
+    "before": "Pagina di supporto abilitata",
+    "after": "Pagina d’aiutu attivata",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "swimlane-delete-pop",
+    "before": "Tutte le azioni verranno rimosse dal registro attività e non potrai recuperare la swimlane. Non è possibile annullare.",
+    "after": "Tutte l’azzioni seranu cacciate da u filu d’attività è ùn puderete micca ricuperà a swimlane. Ùn si pò annullà.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "swimlane-title-not-found",
+    "before": "Swimlane '%s' non trovata.",
+    "after": "Swimlane '%s' micca truvata.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "team-sync-members-from-auth",
+    "before": "Sincronizza i membri dal provider di autenticazione",
+    "after": "Sincrunizà i membri da u furnitore d’autentificazione",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
