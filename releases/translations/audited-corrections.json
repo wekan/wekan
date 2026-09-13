@@ -84152,5 +84152,12 @@
     "before": "ISO 8601",
     "after": "Karenda yeGregorian (mavhiki eISO 8601)",
     "reason": "Replace English with Shona using existing Hijri table/starting-date phrasing; preserve civil epoch versus astronomical epoch and restore Gregorian ISO weeks omitted from local label. Civil-epoch adaptation and complete grammar remain low confidence."
+  },
+  {
+    "locale": "ny",
+    "key": "calendar-system-iso8601",
+    "before": "ISO 8601",
+    "after": "Kalendala ya Gregoriana (masabata a ISO 8601)",
+    "reason": "Restore Gregorian calendar and ISO week information omitted from the Chichewa label. Week terminology checked against https://www.buildon.org/wp-content/uploads/2023/03/Malawi-New-Language-Book-2.4.19.pdf and https://files.eric.ed.gov/fulltext/ED206157.pdf; complete phrase grammar remains low confidence. Civil Hijri epoch terminology remains pending rather than treating government or civilian wording as established."
   }
 ]
