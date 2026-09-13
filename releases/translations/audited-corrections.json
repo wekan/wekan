@@ -65658,5 +65658,117 @@
     "before": "Actions sur les pièces jointes",
     "after": "Oberoù ar stagadennoù",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "authentication-method",
+    "before": "Méthode d'authentification",
+    "after": "Doare dilesadur",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "automatic-linked-url-schemes",
+    "before": "Schémas d'URL personnalisés qui devraient être automatiquement cliquables. Un schéma d'URL par ligne",
+    "after": "Steuñvioù URL personelaet a rank bezañ klikadus ent emgefre. Ur steuñv URL dre linenn",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "avatar-too-big",
+    "before": "La taille du fichier de l'avatar est trop importante (__size__ au maximum)",
+    "after": "Re vras eo ar skeudennig (__size__ d’ar muiañ)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "badge-attachment-on-minicard",
+    "before": "Compteur de pièces jointes sur la mini-carte",
+    "after": "Niver a stagadennoù war ar gartennig",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "below-selected-card",
+    "before": "En dessous de la carte sélectionnée",
+    "after": "Dindan ar gartenn diuzet",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "below-selected-swimlane",
+    "before": "En dessous du couloir sélectionné",
+    "after": "Dindan an trepas diuzet",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "board-view-multiboard-cal",
+    "before": "Calendrier (Tous les tableaux)",
+    "after": "Deiziadur meur a daolenn",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "boardCardTitlePopup-title",
+    "before": "Filtre par titre de carte",
+    "after": "Sil titl ar gartenn",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "bucket-example",
+    "before": "Comme « Liste d'envies  » par exemple",
+    "after": "Evel « Roll ar c’hoantoù » da skouer",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "card-archive-pop",
+    "before": "La carte ne sera plus visible dans cette liste après archivage.",
+    "after": "Ne vo ket mui ar gartenn hewel er roll-mañ goude bezañ bet diellaouet.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "card-archive-suggest-cancel",
+    "before": "Vous pouvez, plus tard, restaurer une carte depuis les archives.",
+    "after": "Gallout a rit adsevel ar gartenn diwezhatoc’h eus an dielloù.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "card-comments-title",
+    "before": "Cette carte a %s commentaires.",
+    "after": "%s evezhiadenn zo gant ar gartenn-mañ.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "card-delete-notice",
+    "before": "La suppression est définitive. Vous perdrez toutes les actions associées à cette carte.",
+    "after": "Peurbad eo an dilemel. Koll a reot an holl oberoù stag ouzh ar gartenn-mañ.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "card-delete-pop",
+    "before": "Toutes les actions vont être supprimées du suivi d'activités et vous ne pourrez plus utiliser cette carte. Cela est irréversible.",
+    "after": "Dilamet e vo an holl oberoù eus ar red oberiantiz ha ne c’hallot ket digeriñ ar gartenn en-dro. N’haller ket nullañ an dilemel.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "card-edit-attachments",
+    "before": "Modifier les pièces jointes",
+    "after": "Kemmañ ar stagadennoù",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "card-edit-custom-fields",
+    "before": "Éditer les champs personnalisés",
+    "after": "Kemmañ ar maeziennoù personelaet",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
