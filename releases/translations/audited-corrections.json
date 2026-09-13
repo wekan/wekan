@@ -65770,5 +65770,117 @@
     "before": "Éditer les champs personnalisés",
     "after": "Kemmañ ar maeziennoù personelaet",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "card-labels-title",
+    "before": "Modifier les étiquettes de la carte.",
+    "after": "Kemmañ tikedennoù ar gartenn.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "card-show-lists",
+    "before": "Afficher les listes sur la carte",
+    "after": "Diskouez ar rolloù war ar gartenn",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "card-show-lists-on-minicard",
+    "before": "Afficher les listes sur la mini-carte",
+    "after": "Diskouez ar rolloù war ar gartennig",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "card-sorting-by-number-on-minicard",
+    "before": "Tri numérique des cartes sur la mini-carte",
+    "after": "Urzhiañ ar c’hartennoù dre an niver war ar gartennig",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "cardCustomFieldsPopup-title",
+    "before": "Éditer les champs personnalisés",
+    "after": "Kemmañ ar maeziennoù personelaet",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "cardStartPlanningPokerPopup-title",
+    "before": "Démarrer un planning poker",
+    "after": "Kregiñ gant ur Planning Poker",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "change-card-parent",
+    "before": "Changer le parent de la carte",
+    "after": "Kemmañ kartenn c’henidik ar gartenn",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "click-to-disable-auto-width",
+    "before": "Largeur de liste auto. activée. Cliquer pour désactiver.",
+    "after": "Gweredekaet eo ledander emgefre ar roll. Klikit evit diweredekaat.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "click-to-enable-auto-width",
+    "before": "Largeur de liste auto. désactivée. Cliquer pour activer.",
+    "after": "Diweredekaet eo ledander emgefre ar roll. Klikit evit gweredekaat.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "clipboard",
+    "before": "Presse-papier ou glisser-déposer",
+    "after": "Golver pe riklañ-ha-leuskel",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "close-edit-checklist-item",
+    "before": "Fermer éditer un élément du formulaire checklist",
+    "after": "Serriñ furmskrid kemmañ un elfenn ar roll kontroll",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "comment-assigned-only",
+    "before": "Commentaire assigné uniquement",
+    "after": "Evezhiadennoù hepken war ar c’hartennoù deverket",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "comment-assigned-only-desc",
+    "before": "Seules les cartes assignées sont visibles. Commentaire uniquement.",
+    "after": "N’eo hewel nemet ar c’hartennoù deverket. Gallout a reer skrivañ evezhiadennoù hepken.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "comment-not-found",
+    "before": "Carte dont le commentaire contient '%s' non trouvée",
+    "after": "N’eo ket bet kavet kartenn gant un evezhiadenn enni an destenn « %s ».",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "comment-only-desc",
+    "before": "Ne peut que commenter des cartes.",
+    "after": "Gallout a reer skrivañ evezhiadennoù war ar c’hartennoù hepken.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "copy-card-link-to-clipboard",
+    "before": "Copier le lien de la carte dans le presse-papier",
+    "after": "Eilañ liamm ar gartenn er golver",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
