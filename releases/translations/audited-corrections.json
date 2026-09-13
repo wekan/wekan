@@ -86490,5 +86490,47 @@
     "before": "sur %s",
     "after": "su %s",
     "reason": "Replace French movement/membership activity wording with directly assembled Volapük. Dictionary https://en.wikibooks.org/wiki/Volap%C3%BCk/English-Volap%C3%BCk_dictionary attests topätükön (move something between places), fakipön (exclude), yümön (join), lüvön (leave), su (on). Perfect forms follow existing local evotükon activity pattern; reflexive join construction, foreign-name article, prepositions and complete UI grammar remain low confidence pending native review. Preserve every source %s and argument order."
+  },
+  {
+    "locale": "vo",
+    "key": "checklist",
+    "before": "Check-list",
+    "after": "Kontrolalised",
+    "reason": "Replace foreign checklist labels and French addition/removal activities with directly assembled Volapük. Dictionary https://en.wikibooks.org/wiki/Volap%C3%BCk/English-Volap%C3%BCk_dictionary attests kontrolön (check/make sure), lised (list), notet (written item), lüükön (add), moükön (remove). Form kontrolalised as checklist compound. Preserve distinction between checklist and checklist item, source quotes and %s argument order. Compound, inflections and complete activity grammar remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "checklists",
+    "before": "Check-lists",
+    "after": "Kontrolaliseds",
+    "reason": "Replace foreign checklist labels and French addition/removal activities with directly assembled Volapük. Dictionary https://en.wikibooks.org/wiki/Volap%C3%BCk/English-Volap%C3%BCk_dictionary attests kontrolön (check/make sure), lised (list), notet (written item), lüükön (add), moükön (remove). Form kontrolalised as checklist compound. Preserve distinction between checklist and checklist item, source quotes and %s argument order. Compound, inflections and complete activity grammar remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "activity-checklist-added",
+    "before": "a ajouté une check-list à %s",
+    "after": "elüükon kontrolalisedi lü %s",
+    "reason": "Replace foreign checklist labels and French addition/removal activities with directly assembled Volapük. Dictionary https://en.wikibooks.org/wiki/Volap%C3%BCk/English-Volap%C3%BCk_dictionary attests kontrolön (check/make sure), lised (list), notet (written item), lüükön (add), moükön (remove). Form kontrolalised as checklist compound. Preserve distinction between checklist and checklist item, source quotes and %s argument order. Compound, inflections and complete activity grammar remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "activity-checklist-removed",
+    "before": "a supprimé une check-list de %s",
+    "after": "emoükon kontrolalisedi de %s",
+    "reason": "Replace foreign checklist labels and French addition/removal activities with directly assembled Volapük. Dictionary https://en.wikibooks.org/wiki/Volap%C3%BCk/English-Volap%C3%BCk_dictionary attests kontrolön (check/make sure), lised (list), notet (written item), lüükön (add), moükön (remove). Form kontrolalised as checklist compound. Preserve distinction between checklist and checklist item, source quotes and %s argument order. Compound, inflections and complete activity grammar remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "activity-checklist-item-added",
+    "before": "a ajouté un élément à la check-list '%s' dans %s",
+    "after": "elüükon noteti lü kontrolalised '%s' in %s",
+    "reason": "Replace foreign checklist labels and French addition/removal activities with directly assembled Volapük. Dictionary https://en.wikibooks.org/wiki/Volap%C3%BCk/English-Volap%C3%BCk_dictionary attests kontrolön (check/make sure), lised (list), notet (written item), lüükön (add), moükön (remove). Form kontrolalised as checklist compound. Preserve distinction between checklist and checklist item, source quotes and %s argument order. Compound, inflections and complete activity grammar remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "activity-checklist-item-removed",
+    "before": "a supprimé une check-list de '%s' dans %s",
+    "after": "emoükon noteti de kontrolalised '%s' in %s",
+    "reason": "Replace foreign checklist labels and French addition/removal activities with directly assembled Volapük. Dictionary https://en.wikibooks.org/wiki/Volap%C3%BCk/English-Volap%C3%BCk_dictionary attests kontrolön (check/make sure), lised (list), notet (written item), lüükön (add), moükön (remove). Form kontrolalised as checklist compound. Preserve distinction between checklist and checklist item, source quotes and %s argument order. Compound, inflections and complete activity grammar remain low confidence pending native review."
   }
 ]
