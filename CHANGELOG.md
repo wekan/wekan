@@ -80,9 +80,9 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,055 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 789 pending review or repair.
-The correction inventory records 17,120 exact before/after values,
+findings: 15,056 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 788 pending review or repair.
+The correction inventory records 17,121 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
@@ -100,8 +100,8 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383540a; translation repairs have resumed.
-Latest translation fix is 99cea5fb4 (2026-09-14), covering Fulah and Bambara
-Jalali qualifiers. The original Neapolitan queue is empty. All correction/rendering checks
+Latest translation fix is 6e4343f86 (2026-09-14), covering the Ewe civil
+Hijri calendar name. The original Neapolitan queue is empty. All correction/rendering checks
 pass; low-confidence technical terminology remains explicitly tracked.
 Member assignment popup handlers need separate review for apparent reversed
 operations. The 1,015-suite Node result is historical and predates the latest batches.
@@ -583,6 +583,20 @@ Fulah and Bambara Persian calendar qualifiers use Unicode locale terminology.
 The audit records verified repairs and remaining language reviews.
 
 This release adds the following translation improvements:
+
+**Translations** - Locale wording repairs and remaining audit progress.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6e4343f86">Localize Ewe civil Hijri calendar name</a>. Thanks to xet7.</summary>
+
+Replace the English civil-calendar label with Unicode CLDR Ewe terminology.
+Actual locale rendering and all 17,121 correction checks pass, including
+tokens, JSON, key order and newer correct translations. CLDR marks the name
+provisional; native validation remains required. Live browser checks were not
+run. The original queue has 788 pending findings, including two in Ewe.
+Other calendar variants and wider translation validation remain unfinished.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/99cea5fb4">Localize Persian calendar qualifiers in Fulah and Bambara</a>. Thanks to xet7.</summary>
