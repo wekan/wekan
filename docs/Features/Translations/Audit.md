@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 9,078 |
+| Corrected | 9,088 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 175 |
-| Pending review or repair | 6,769 |
+| Pending review or repair | 6,759 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **9,153** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **9,163** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `3f0957df4c53a4849380febf02211ccc1aab8ee9` — ten Breton board-setting and membership findings repaired; **548 Breton findings remain**. Board-wide/current-card scopes, member/assignee distinctions and archive activity preservation are retained. Specialized terminology and grammatical wording need language review. Exact-value, placeholder, key-order and idempotency checks pass; live browser verification is unavailable.
+Latest translation fix: **2026-09-13**, local commit `f25115fa0d3771805c9e126ae7f6201b79ab37c2` — ten Breton checklist-confirmation, favorite and migration findings repaired; **538 Breton findings remain**. Checklist/item distinctions, favorite toggles and data-integrity checks are preserved. Specialized terminology and grammatical wording need language review. Exact-value, placeholder, key-order and idempotency checks pass; live browser verification is unavailable.
 
 **Origin:** not all errors came from Transifex. The captured pull changed 4,061 values; the local audit added 16,020 findings. Bosnian errors already existed in local commit `bdb3b15886a749b725b5290ba0109fcba955f983`. Other ultimate origins remain unverified.
 
