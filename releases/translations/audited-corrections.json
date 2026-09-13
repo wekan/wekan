@@ -66330,5 +66330,117 @@
     "before": "Une erreur est survenue en tentant d'envoyer l'email",
     "after": "Ur fazi zo bet en ur glask kas ar postel",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "email-invalid",
+    "before": "Adresse e-mail incorrecte.",
+    "after": "Chomlec’h postel didalvoudek",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "email-invite-register-subject",
+    "before": "__inviter__ vous a envoyé une invitation",
+    "after": "Kaset en deus __inviter__ ur bedadenn deoc’h",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "email-invite-subject",
+    "before": "__inviter__ vous a envoyé une invitation",
+    "after": "Kaset en deus __inviter__ ur bedadenn deoc’h",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "email-resetPassword-subject",
+    "before": "Réinitialiser votre mot de passe sur __siteName__",
+    "after": "Adderaouekaat ho ker-tremen war __siteName__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "email-resetPassword-text",
+    "before": "Bonjour __user__,\n\nPour réinitialiser votre mot de passe, cliquez sur le lien ci-dessous.\n\n__url__\n\nMerci.",
+    "after": "Demat __user__,\n\nEvit adderaouekaat ho ker-tremen, klikit war al liamm amañ dindan.\n\n__url__\n\nTrugarez.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "email-smtp-test-text",
+    "before": "Vous avez envoyé un mail avec succès",
+    "after": "Kaset hoc’h eus ur postel gant berzh",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "email-verifyEmail-subject",
+    "before": "Vérifier votre adresse de courriel sur __siteName__",
+    "after": "Gwiriañ ho chomlec’h postel war __siteName__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "email-verifyEmail-text",
+    "before": "Bonjour __user__,\n\nPour vérifier votre compte courriel, il suffit de cliquer sur le lien ci-dessous.\n\n__url__\n\nMerci.",
+    "after": "Demat __user__,\n\nEvit gwiriañ chomlec’h postel ho kont, klikit war al liamm amañ dindan.\n\n__url__\n\nTrugarez.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "enable-vertical-scrollbars",
+    "before": "Activer les barres de défilement verticales",
+    "after": "Gweredekaat ar barrennoù dibunañ a-serzh",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "enter-zoom-level",
+    "before": "Entrer le niveau d'agrandissement (50-300%) :",
+    "after": "Lakait al live zoum (50-300%):",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "error-csv-schema",
+    "before": "Votre fichier CSV (valeurs séparées par des virgules) / TSV (valeurs séparées par des tabulations) ne contient pas d'informations au bon format",
+    "after": "N’emañ ket an titouroù dereat er stumm reizh en ho roadennoù CSV (talvoudoù dispartiet gant skejoù)/TSV (talvoudoù dispartiet gant taolennata).",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "error-email-taken",
+    "before": "Cette adresse mail est déjà utilisée",
+    "after": "Implijet eo ar chomlec’h postel-mañ dija",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "error-invitation-code-not-exist",
+    "before": "Ce code d'invitation n'existe pas.",
+    "after": "N’eus ket eus ar c’hod pedadenn",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "error-json-malformed",
+    "before": "Votre texte JSON n'est pas valide",
+    "after": "N’eo ket ho testenn JSON talvoudek",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "error-json-schema",
+    "before": "Vos données JSON ne contiennent pas l'information appropriée dans un format correct",
+    "after": "N’emañ ket an titouroù dereat er stumm reizh en ho roadennoù JSON",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "error-notAuthorized",
+    "before": "Vous n'êtes pas autorisé à accéder à cette page.",
+    "after": "N’oc’h ket aotreet da welet ar bajenn-mañ.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
