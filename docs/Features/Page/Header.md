@@ -12,8 +12,15 @@ leaving it in painted a tall empty strip under the first bar.
 
 ## What the bar says
 
-Beside the house icon is **the page you are on**. It used to read "All Boards" on
-every page, so the one bar that is always on screen named a place you were not.
+The header starts with the **Home icon**, the **collapse control**, then
+**the page you are on**. The collapse control sits immediately to the right of
+Home in left-to-right languages, before the page or board title. It hides the
+icons from the mobile/desktop toggle through the notification bell; Home, the
+collapse control and the title remain visible. The order follows the writing
+direction in right-to-left languages.
+
+The title used to read "All Boards" on every page, so the one bar that is
+always on screen named a place you were not.
 
 `models/lib/pageTitles.js` maps a route name to a translation key. Three sources,
 in order:

@@ -18,6 +18,46 @@ const BoardPage = require('../pages/BoardPage');
 const CardPage = require('../pages/CardPage');
 
 test.describe('Board-level actions', () => {
+  test('header collapse sits beside Home and keeps Home and title visible', async ({ boardPage }) => {
+    const header = boardPage.locator('#header-quick-access');
+    const home = header.locator('.header-home-link');
+    const toggle = header.locator('.js-toggle-header-icons-collapsed');
+    const title = header.locator('.header-page-title');
+    const originalViewport = boardPage.viewportSize();
+    try {
+      for (const width of [1280, 375]) {
+        await boardPage.setViewportSize({ width, height: 900 });
+        await expect(home).toBeVisible();
+        await expect(toggle).toHaveCount(1);
+        await expect(toggle).toBeVisible();
+        await expect(title).toBeVisible();
+        expect(await home.evaluate(el =>
+          el.nextElementSibling?.classList.contains('js-toggle-header-icons-collapsed') &&
+          el.nextElementSibling.nextElementSibling?.classList.contains('header-page-title'),
+        )).toBe(true);
+        const [homeBox, toggleBox] = await Promise.all([home.boundingBox(), toggle.boundingBox()]);
+        expect(Math.abs(homeBox.y - toggleBox.y)).toBeLessThan(12);
+        const rtl = await header.evaluate(el => getComputedStyle(el).direction === 'rtl');
+        if (rtl) expect(toggleBox.x + toggleBox.width).toBeLessThanOrEqual(homeBox.x + 1);
+        else expect(toggleBox.x).toBeGreaterThanOrEqual(homeBox.x + homeBox.width - 1);
+        if (await header.getAttribute('data-header-icons-collapsed') === 'true') await toggle.click();
+        const mode = header.locator('.mobile-mode-toggle');
+        await expect(mode).toBeVisible();
+        await toggle.click();
+        await expect(header).toHaveAttribute('data-header-icons-collapsed', 'true');
+        await expect(mode).not.toBeVisible();
+        await expect(home).toBeVisible();
+        await expect(toggle).toBeVisible();
+        await expect(title).toBeVisible();
+        await toggle.click();
+        await expect(header).toHaveAttribute('data-header-icons-collapsed', 'false');
+        await expect(mode).toBeVisible();
+      }
+    } finally {
+      if (originalViewport) await boardPage.setViewportSize(originalViewport);
+    }
+  });
+
   test('board settings (board menu) opens from the right sidebar', async ({ boardPage, board }) => {
     // The header Board Settings cog was removed (it is already in the right
     // sidebar). Open the sidebar from the header hamburger if needed, then open

@@ -1,11 +1,11 @@
 'use strict';
 
-// #6680 follow-up: a collapse button beside the board title hides every icon
+// #6680 follow-up: a collapse button beside the Home icon hides every icon
 // from the mobile/desktop toggle through the notification bell, so a viewer
 // who does not need them can get the whole run out of the way at once.
 //
 // This is a static wiring test (no Meteor runtime here), pinning:
-//   - the toggle button sits right after the board title, inside the same
+//   - the toggle button sits right after Home and before the title, inside the same
 //     .home-icon wrapper, with an icon that swaps by state;
 //   - headerIconsCollapsed()/the click handler use a plain per-session
 //     Session var, the same shape as mobileMode() beside it - not a board
@@ -35,11 +35,16 @@ const jade = read('client/components/main/header.jade');
 const js = read('client/components/main/header.js');
 const css = read('client/components/main/header.css');
 
-test('the toggle button sits right after the board title, inside .home-icon', () => {
+test('the toggle button sits immediately after Home and before the title', () => {
+  // The maintainer moved this control beside Home; keep its ordering pinned.
+  const homeAt = jade.indexOf('a.header-home-link');
   const titleAt = jade.indexOf('span.header-page-title');
   const toggleAt = jade.indexOf('a.board-header-btn.js-toggle-header-icons-collapsed');
   assert.ok(titleAt !== -1 && toggleAt !== -1, 'both elements exist');
-  assert.ok(toggleAt > titleAt, 'the toggle comes after the title');
+  assert.ok(homeAt !== -1 && homeAt < toggleAt && toggleAt < titleAt,
+    'the order is Home, collapse, then title');
+  assert.strictEqual(jade.match(/a\.board-header-btn\.js-toggle-header-icons-collapsed/g).length, 1,
+    'no duplicate toggle remains after the title');
   // Both are 8-space-indented children of "span.home-icon.allBoards" (6
   // spaces): the toggle line itself must be indented exactly like the title.
   const titleIndent = jade.slice(0, titleAt).match(/( *)$/)[1].length;
@@ -49,7 +54,7 @@ test('the toggle button sits right after the board title, inside .home-icon', ()
   // And no OTHER top-level element (e.g. "// Logo", a comment at the same
   // indent as span.home-icon itself) sits between them.
   const homeIconIndent = titleIndent - 2;
-  const betweenLines = jade.slice(titleAt, toggleAt).split('\n').slice(1, -1);
+  const betweenLines = jade.slice(homeAt, titleAt).split('\n').slice(1, -1);
   for (const l of betweenLines) {
     if (!l.trim()) continue;
     const indent = l.match(/^ */)[0].length;

@@ -471,7 +471,7 @@ body.mobile-mode #header-quick-access .allBoards {
 }
 /* #6680 follow-up: collapse every icon from the mobile/desktop toggle
    through the notification bell into one .js-toggle-header-icons-collapsed
-   button beside the title. Some marked elements are pre-existing div
+   button beside Home. Some marked elements are pre-existing div
    wrappers with their own box styling (.mobile-mode-toggle,
    .header-star-group) and keep their normal display outside the collapsed
    state; the plain `span.js-header-collapsible-icon` wrappers added around

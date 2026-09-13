@@ -449,7 +449,7 @@ Template.header.events({
     }
   },
   // #6680 follow-up: collapse every icon from the mobile/desktop toggle
-  // through the notification bell, right beside the board title. Purely
+  // through the notification bell, right beside the Home icon. Purely
   // visual and per-session, like mobileMode() - see headerIconsCollapsed().
   'click .js-toggle-header-icons-collapsed'() {
     Session.set('wekan-header-icons-collapsed', !Session.get('wekan-header-icons-collapsed'));

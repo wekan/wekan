@@ -21,6 +21,17 @@ template(name="header")
           its icon to nothing. They name the link itself now.
         a.header-home-link(href="{{pathFor 'home'}}" title="{{_ 'all-boards'}}")
           i.fa.fa-home
+        //- Collapse every icon from the mobile/desktop toggle through the
+          notification bell (everything given the .js-header-collapsible-icon
+          class below), immediately after Home and before the page title.
+          A purely visual, per-viewer preference - not persisted server-side,
+          the same way mobileMode() itself is read - so it is a plain
+          Session var, read/written in header.js exactly like mobileMode.
+        a.board-header-btn.js-toggle-header-icons-collapsed(title="{{_ 'toggle-header-icons-collapsed'}}")
+          if headerIconsCollapsed
+            i.fa.fa-angle-double-right
+          else
+            i.fa.fa-angle-double-left
         //- The ROOT only - "All Boards", "Admin Panel" - with the whole path
           in the tooltip. The path is what the page is, but it grows: a
           workspace nests as deep as its tree does, and this bar is the one
@@ -40,18 +51,6 @@ template(name="header")
           else
             = headerTitleText
 
-        //- Collapse every icon from the mobile/desktop toggle through the
-          notification bell (everything given the .js-header-collapsible-icon
-          class below), right beside the title they clutter up next to. A
-          purely visual, per-viewer preference - not persisted server-side,
-          the same way mobileMode() itself is read - so it is a plain
-          Session var, read/written in header.js exactly like mobileMode.
-        a.board-header-btn.js-toggle-header-icons-collapsed(title="{{_ 'toggle-header-icons-collapsed'}}")
-          if headerIconsCollapsed
-            i.fa.fa-angle-double-right
-          else
-            i.fa.fa-angle-double-left
-
       // Logo - visible; on mobile constrained by CSS
       unless currentSetting.hideLogo
         if currentSetting.customTopLeftCornerLogoImageUrl
@@ -69,7 +68,7 @@ template(name="header")
 
       // Mobile/desktop mode toggle (swapped with zoom)
       // #6680 follow-up: .js-header-collapsible-icon marks every icon the new
-      // .js-toggle-header-icons-collapsed button (by the title) hides as a
+      // .js-toggle-header-icons-collapsed button (beside Home) hides as a
       // group - see header.css. This is the FIRST one of that range.
       .mobile-mode-toggle.js-header-collapsible-icon
         a.board-header-btn.js-mobile-mode-toggle(title="{{_ 'mobile-desktop-toggle'}}" class="{{#if mobileMode}}mobile-active{{else}}desktop-active{{/if}}")
