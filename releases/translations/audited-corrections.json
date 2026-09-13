@@ -93672,5 +93672,47 @@
     "before": "%s Sterne",
     "after": "%s Hovmey",
     "reason": "Replace German starred-board controls with Klingon, describing the favorite marker as Hov per (star label). Preserve click instructions for adding/removing the marker, starred-board categories, star count placeholder, and display at the top of the user board list. Use plural indefinite lu-anglu for displayed boards and existing card/board terminology. Full software phrase and favorite-marker metaphor are assembled, low confidence, and require fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "comment-not-found",
+    "before": "Keine Karte gefunden, die „%s“ in einem Kommentar enthält.",
+    "after": "'%s' ghajbogh QInHom ghajbogh 'echletHom tu'lu'be'.",
+    "reason": "Replace audited German lookup/save/deletion errors with Klingon. Preserve comment text contained by a comment on the missing card, scheduled-job deletion failure, S3 configuration save failure, and organization/swimlane/username lookup identities. Scheduled job is described as a task with a time for execution. Reuse repaired QInHom, card, settings, yejHaq, He and username terms; every percent token is preserved. Full software clauses are assembled, low confidence, and require fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "cron-job-delete-failed",
+    "before": "Löschen der geplanten Aufgabe fehlgeschlagen",
+    "after": "ta'meH poH ghajbogh Qu' Qaw'meH Qu' lujpu'",
+    "reason": "Replace audited German lookup/save/deletion errors with Klingon. Preserve comment text contained by a comment on the missing card, scheduled-job deletion failure, S3 configuration save failure, and organization/swimlane/username lookup identities. Scheduled job is described as a task with a time for execution. Reuse repaired QInHom, card, settings, yejHaq, He and username terms; every percent token is preserved. Full software clauses are assembled, low confidence, and require fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "s3-settings-save-failed",
+    "before": "Speicherung der S3 Einstellungen fehlgeschlagen",
+    "after": "S3 chermeH De' polmeH Qu' lujpu'",
+    "reason": "Replace audited German lookup/save/deletion errors with Klingon. Preserve comment text contained by a comment on the missing card, scheduled-job deletion failure, S3 configuration save failure, and organization/swimlane/username lookup identities. Scheduled job is described as a task with a time for execution. Reuse repaired QInHom, card, settings, yejHaq, He and username terms; every percent token is preserved. Full software clauses are assembled, low confidence, and require fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "org-name-not-found",
+    "before": "Organisation '%s' nicht gefunden.",
+    "after": "'%s' yejHaq tu'lu'be'.",
+    "reason": "Replace audited German lookup/save/deletion errors with Klingon. Preserve comment text contained by a comment on the missing card, scheduled-job deletion failure, S3 configuration save failure, and organization/swimlane/username lookup identities. Scheduled job is described as a task with a time for execution. Reuse repaired QInHom, card, settings, yejHaq, He and username terms; every percent token is preserved. Full software clauses are assembled, low confidence, and require fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "swimlane-title-not-found",
+    "before": "Swimlane „%s“ nicht gefunden.",
+    "after": "'%s' He tu'lu'be'.",
+    "reason": "Replace audited German lookup/save/deletion errors with Klingon. Preserve comment text contained by a comment on the missing card, scheduled-job deletion failure, S3 configuration save failure, and organization/swimlane/username lookup identities. Scheduled job is described as a task with a time for execution. Reuse repaired QInHom, card, settings, yejHaq, He and username terms; every percent token is preserved. Full software clauses are assembled, low confidence, and require fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "user-username-not-found",
+    "before": "Nutzername „%s“ nicht gefunden.",
+    "after": "'%s' lo'wI' pong tu'lu'be'.",
+    "reason": "Replace audited German lookup/save/deletion errors with Klingon. Preserve comment text contained by a comment on the missing card, scheduled-job deletion failure, S3 configuration save failure, and organization/swimlane/username lookup identities. Scheduled job is described as a task with a time for execution. Reuse repaired QInHom, card, settings, yejHaq, He and username terms; every percent token is preserved. Full software clauses are assembled, low confidence, and require fluent-speaker validation."
   }
 ]
