@@ -83515,5 +83515,61 @@
     "before": "Jeton (optionnel pour l'authentification)",
     "after": "Token (warul ngir saytu ki dugg)",
     "reason": "Replace French with Wolof framing; preserve spinner style names, waiting indicator meaning, MongoDB storage engine rather than ordinary motor and optional authentication token. Technical framing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "delete-team-confirm-popup",
+    "before": "Êtes-vous sûr de vouloir supprimer cette équipe ? Cela est irréversible.",
+    "after": "Ndax wóor na la ne bëgg nga far ékip bii? Amul neenal.",
+    "reason": "Replace French with Wolof; team loan ékip attested at https://jangawolof.org/dictionary/. Preserve irreversible deletion, blocking any remaining member, board-only removal, administrator contact, duplicate name and literal search syntax. Full sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "delete-team-warning-message",
+    "before": "Impossible de supprimer cette équipe, au moins un utilisateur lui appartient",
+    "after": "Manul a far ékip bii, am na benn jëfandikukat walla lu ëpp bu ci bokk",
+    "reason": "Replace French with Wolof; team loan ékip attested at https://jangawolof.org/dictionary/. Preserve irreversible deletion, blocking any remaining member, board-only removal, administrator contact, duplicate name and literal search syntax. Full sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "globalSearch-instructions-operator-team",
+    "before": "`__operator_team__:<display name|short name>` - cartes appartenant à un tableau assigné à l'équipe *<name>*",
+    "after": "`__operator_team__:<display name|short name>` - karta yi nekk ci tablo bu ñu sas ékip *<name>*",
+    "reason": "Replace French with Wolof; team loan ékip attested at https://jangawolof.org/dictionary/. Preserve irreversible deletion, blocking any remaining member, board-only removal, administrator contact, duplicate name and literal search syntax. Full sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "remove-team-from-table",
+    "before": "Voulez-vous vraiment supprimer cette équipe du tableau ?",
+    "after": "Ndax wóor na la ne bëgg nga dindi ékip bii ci tablo bi?",
+    "reason": "Replace French with Wolof; team loan ékip attested at https://jangawolof.org/dictionary/. Preserve irreversible deletion, blocking any remaining member, board-only removal, administrator contact, duplicate name and literal search syntax. Full sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "to-create-teams-contact-admin",
+    "before": "Pour créer des équipes, veuillez contacter l'administrateur.",
+    "after": "Ngir sos ay ékip, waxal ak saytukat bi.",
+    "reason": "Replace French with Wolof; team loan ékip attested at https://jangawolof.org/dictionary/. Preserve irreversible deletion, blocking any remaining member, board-only removal, administrator contact, duplicate name and literal search syntax. Full sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "add-teams-label",
+    "before": "Les équipes ajoutées sont affichées ci-dessous :",
+    "after": "Ékip yi ñu yokk ñu ngi feeñ ci suuf:",
+    "reason": "Replace French with Wolof; team loan ékip attested at https://jangawolof.org/dictionary/. Preserve irreversible deletion, blocking any remaining member, board-only removal, administrator contact, duplicate name and literal search syntax. Full sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "error-teamname-taken",
+    "before": "Ce nom d'équipe est déjà utilisé",
+    "after": "Turu ékip bii ñu ngi ko jëfandikoo ba noppi",
+    "reason": "Replace French with Wolof; team loan ékip attested at https://jangawolof.org/dictionary/. Preserve irreversible deletion, blocking any remaining member, board-only removal, administrator contact, duplicate name and literal search syntax. Full sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "team-number",
+    "before": "Le nombre d'équipes est de :",
+    "after": "Limu ékip yi mooy: ",
+    "reason": "Replace French with Wolof; team loan ékip attested at https://jangawolof.org/dictionary/. Preserve irreversible deletion, blocking any remaining member, board-only removal, administrator contact, duplicate name and literal search syntax. Full sentence grammar remains low confidence."
   }
 ]
