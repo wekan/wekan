@@ -85041,5 +85041,68 @@
     "before": "Hi Xitsonga: mhaka-mhaka-mhaka",
     "after": "MM-DD-YYYY",
     "reason": "Restore exact date-format notation from English: YYYY, MM and DD are format syntax, not prose. The three prior identical generic filler values hid the distinct year/month/day orders."
+  },
+  {
+    "locale": "nso",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "Mokgwa wa khalentara (go bontšha letšatšikgwedi)",
+    "reason": "Replace foreign-language setting and English calendar names with Northern Sotho; preserve Dangi, Hijri, Umm al-Qura, Minguo and ISO identities and restore ISO week detail. Exact Khalentara ya Seheberu and dibeke attested at https://www.jw.org/nso/laeprari/beibele/nwt/ditaba-t%C5%A1a-tlalelet%C5%A1o-b/khalentara-ya-seheberu-ya-ka-beibeleng/ ; China and Japane at https://www.jw.org/nso/laeprari/dimakasine/g201403/madireng-a-lefase/ . Existing local date terminology retained. Full assembled setting/other label grammar remains low confidence; religious/country/tabular calendar variants still need review."
+  },
+  {
+    "locale": "nso",
+    "key": "calendar-system-hebrew",
+    "before": "Hebrew",
+    "after": "Khalentara ya Seheberu",
+    "reason": "Replace foreign-language setting and English calendar names with Northern Sotho; preserve Dangi, Hijri, Umm al-Qura, Minguo and ISO identities and restore ISO week detail. Exact Khalentara ya Seheberu and dibeke attested at https://www.jw.org/nso/laeprari/beibele/nwt/ditaba-t%C5%A1a-tlalelet%C5%A1o-b/khalentara-ya-seheberu-ya-ka-beibeleng/ ; China and Japane at https://www.jw.org/nso/laeprari/dimakasine/g201403/madireng-a-lefase/ . Existing local date terminology retained. Full assembled setting/other label grammar remains low confidence; religious/country/tabular calendar variants still need review."
+  },
+  {
+    "locale": "nso",
+    "key": "calendar-system-chinese",
+    "before": "Chinese",
+    "after": "Khalentara ya China",
+    "reason": "Replace foreign-language setting and English calendar names with Northern Sotho; preserve Dangi, Hijri, Umm al-Qura, Minguo and ISO identities and restore ISO week detail. Exact Khalentara ya Seheberu and dibeke attested at https://www.jw.org/nso/laeprari/beibele/nwt/ditaba-t%C5%A1a-tlalelet%C5%A1o-b/khalentara-ya-seheberu-ya-ka-beibeleng/ ; China and Japane at https://www.jw.org/nso/laeprari/dimakasine/g201403/madireng-a-lefase/ . Existing local date terminology retained. Full assembled setting/other label grammar remains low confidence; religious/country/tabular calendar variants still need review."
+  },
+  {
+    "locale": "nso",
+    "key": "calendar-system-japanese",
+    "before": "Japanese",
+    "after": "Khalentara ya Japane",
+    "reason": "Replace foreign-language setting and English calendar names with Northern Sotho; preserve Dangi, Hijri, Umm al-Qura, Minguo and ISO identities and restore ISO week detail. Exact Khalentara ya Seheberu and dibeke attested at https://www.jw.org/nso/laeprari/beibele/nwt/ditaba-t%C5%A1a-tlalelet%C5%A1o-b/khalentara-ya-seheberu-ya-ka-beibeleng/ ; China and Japane at https://www.jw.org/nso/laeprari/dimakasine/g201403/madireng-a-lefase/ . Existing local date terminology retained. Full assembled setting/other label grammar remains low confidence; religious/country/tabular calendar variants still need review."
+  },
+  {
+    "locale": "nso",
+    "key": "calendar-system-dangi",
+    "before": "Dangi (Korean)",
+    "after": "Khalentara ya Dangi",
+    "reason": "Replace foreign-language setting and English calendar names with Northern Sotho; preserve Dangi, Hijri, Umm al-Qura, Minguo and ISO identities and restore ISO week detail. Exact Khalentara ya Seheberu and dibeke attested at https://www.jw.org/nso/laeprari/beibele/nwt/ditaba-t%C5%A1a-tlalelet%C5%A1o-b/khalentara-ya-seheberu-ya-ka-beibeleng/ ; China and Japane at https://www.jw.org/nso/laeprari/dimakasine/g201403/madireng-a-lefase/ . Existing local date terminology retained. Full assembled setting/other label grammar remains low confidence; religious/country/tabular calendar variants still need review."
+  },
+  {
+    "locale": "nso",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "Khalentara ya Hijri",
+    "reason": "Replace foreign-language setting and English calendar names with Northern Sotho; preserve Dangi, Hijri, Umm al-Qura, Minguo and ISO identities and restore ISO week detail. Exact Khalentara ya Seheberu and dibeke attested at https://www.jw.org/nso/laeprari/beibele/nwt/ditaba-t%C5%A1a-tlalelet%C5%A1o-b/khalentara-ya-seheberu-ya-ka-beibeleng/ ; China and Japane at https://www.jw.org/nso/laeprari/dimakasine/g201403/madireng-a-lefase/ . Existing local date terminology retained. Full assembled setting/other label grammar remains low confidence; religious/country/tabular calendar variants still need review."
+  },
+  {
+    "locale": "nso",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "Khalentara ya Hijri (Umm al-Qura)",
+    "reason": "Replace foreign-language setting and English calendar names with Northern Sotho; preserve Dangi, Hijri, Umm al-Qura, Minguo and ISO identities and restore ISO week detail. Exact Khalentara ya Seheberu and dibeke attested at https://www.jw.org/nso/laeprari/beibele/nwt/ditaba-t%C5%A1a-tlalelet%C5%A1o-b/khalentara-ya-seheberu-ya-ka-beibeleng/ ; China and Japane at https://www.jw.org/nso/laeprari/dimakasine/g201403/madireng-a-lefase/ . Existing local date terminology retained. Full assembled setting/other label grammar remains low confidence; religious/country/tabular calendar variants still need review."
+  },
+  {
+    "locale": "nso",
+    "key": "calendar-system-roc",
+    "before": "Republic of China",
+    "after": "Khalentara ya Minguo",
+    "reason": "Replace foreign-language setting and English calendar names with Northern Sotho; preserve Dangi, Hijri, Umm al-Qura, Minguo and ISO identities and restore ISO week detail. Exact Khalentara ya Seheberu and dibeke attested at https://www.jw.org/nso/laeprari/beibele/nwt/ditaba-t%C5%A1a-tlalelet%C5%A1o-b/khalentara-ya-seheberu-ya-ka-beibeleng/ ; China and Japane at https://www.jw.org/nso/laeprari/dimakasine/g201403/madireng-a-lefase/ . Existing local date terminology retained. Full assembled setting/other label grammar remains low confidence; religious/country/tabular calendar variants still need review."
+  },
+  {
+    "locale": "nso",
+    "key": "calendar-system-iso8601",
+    "before": "ISO 8601",
+    "after": "Khalentara ya Gregoriana (dibeke tša ISO 8601)",
+    "reason": "Replace foreign-language setting and English calendar names with Northern Sotho; preserve Dangi, Hijri, Umm al-Qura, Minguo and ISO identities and restore ISO week detail. Exact Khalentara ya Seheberu and dibeke attested at https://www.jw.org/nso/laeprari/beibele/nwt/ditaba-t%C5%A1a-tlalelet%C5%A1o-b/khalentara-ya-seheberu-ya-ka-beibeleng/ ; China and Japane at https://www.jw.org/nso/laeprari/dimakasine/g201403/madireng-a-lefase/ . Existing local date terminology retained. Full assembled setting/other label grammar remains low confidence; religious/country/tabular calendar variants still need review."
   }
 ]
