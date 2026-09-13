@@ -67590,5 +67590,89 @@
     "before": "Afficher sur la minicarte",
     "after": "Diskouez war ar gartennig",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "show-parent-in-minicard",
+    "before": "Voir la carte parente dans la mini-carte :",
+    "after": "Diskouez ar gartenn c’henidik war ar gartennig:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "show-subtasks-field",
+    "before": "Afficher le champ des sous-tâches",
+    "after": "Diskouez maezienn an istrevelloù",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "show-week-of-year",
+    "before": "Afficher la semaine de l'année (ISO 8601)",
+    "after": "Diskouez sizhun ar bloaz (ISO 8601)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "showLabel-field-on-card",
+    "before": "Indiquer l'étiquette du champ sur la mini-carte",
+    "after": "Diskouez tikedenn ar maezienn war ar gartennig",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "showSum-field-on-list",
+    "before": "Afficher le total des champs en haut de liste",
+    "after": "Diskouez sammad ar maeziennoù e laez ar roll",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "sign-in-to-upload",
+    "before": "Connectez-vous pour téléverser des dépôts",
+    "after": "Kevreit evit enkargañ mirlec’hioù",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "smtp-host-description",
+    "before": "L'adresse du serveur SMTP qui gère vos mails.",
+    "after": "Chomlec’h ar servijer SMTP a ra war-dro ho posteloù.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "smtp-port-description",
+    "before": "Le port des mails sortants du serveur SMTP.",
+    "after": "Ar porzh a implij ho servijer SMTP evit ar posteloù a gasit.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "smtp-tls-description",
+    "before": "Activer la gestion de TLS sur le serveur SMTP",
+    "after": "Gweredekaat skor TLS evit ar servijer SMTP",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "sort-desc",
+    "before": "Cliquez pour trier la liste",
+    "after": "Klikit evit urzhiañ ar roll",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "starred-boards-description",
+    "before": "Les tableaux favoris s'affichent en tête de votre liste de tableaux.",
+    "after": "Diskouezet e vez an taolennoù merket gant ur steredenn e laez roll ho taolennoù.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "start-day-of-week",
+    "before": "Définir le jour de début de semaine",
+    "after": "Lakaat devezh kentañ ar sizhun",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
