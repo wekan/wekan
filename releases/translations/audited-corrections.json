@@ -78615,5 +78615,26 @@
     "before": "a supprimé le commentaire de la carte __card__ : __comment__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
     "after": "far xalaat ci karta __card__: __comment__ ci limu __list__ ci yoon __swimlane__ ci tablo __board__",
     "reason": "Replace French comment creation/edit/deletion activity with Wolof. Preserve comment content and card/list/swimlane/board placeholders while distinguishing add/edit/delete actions. Comment terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "act-addChecklist",
+    "before": "a ajouté la checklist __checklist__ à la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "yokk limu bu seetlu __checklist__ ci karta __card__ ci limu __list__ ci yoon __swimlane__ ci tablo __board__",
+    "reason": "Replace French checklist addition/removal and checklist-item addition activity with Wolof. Distinguish checklist versus item and preserve all source placeholders, including exact case. Existing Wolof item-removal wording retained. Checklist terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "act-removeChecklist",
+    "before": "a supprimé la checklist __checklist__ de la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "dindi limu bu seetlu __checklist__ ci karta __card__ ci limu __list__ ci yoon __swimlane__ ci tablo __board__",
+    "reason": "Replace French checklist addition/removal and checklist-item addition activity with Wolof. Distinguish checklist versus item and preserve all source placeholders, including exact case. Existing Wolof item-removal wording retained. Checklist terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "act-addChecklistItem",
+    "before": "a ajouté l'élément __checklistItem__ à la checklist __checklist__ de la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "yokk mbir __checklistItem__ ci limu bu seetlu __checklist__ ci karta __card__ ci limu __list__ ci yoon __swimlane__ ci tablo __board__",
+    "reason": "Replace French checklist addition/removal and checklist-item addition activity with Wolof. Distinguish checklist versus item and preserve all source placeholders, including exact case. Existing Wolof item-removal wording retained. Checklist terminology and full grammar remain low confidence."
   }
 ]
