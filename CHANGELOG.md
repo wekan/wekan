@@ -82,10 +82,11 @@ Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
 findings: 13,227 corrected, 4,058 restored pre-pull values awaiting
 validation, 178 reviewed and retained, and 2,618 pending review or repair.
-The correction inventory records 13,905 exact before/after values across
+The correction inventory records 14,065 exact before/after values across
 201 locale identifiers, including repairs outside the original findings.
-All 361 originally flagged Klingon findings are repaired. Another 829
-German-identical Klingon values need individual review; technical names and
+All 361 originally flagged Klingon findings are repaired. Another 669
+German-identical Klingon values need individual review after 160 further
+repairs; technical names and
 formats are not presumed wrong. Other substantial queues remain in Venda and regional
 locale files and Tamazight. Silesian database terminology and 17 Tigre
 calendar findings need language-specific review. Restored and unflagged
