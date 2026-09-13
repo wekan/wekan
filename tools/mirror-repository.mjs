@@ -32,8 +32,9 @@ export function repositoryForges(name, owner = organization, destinations = dest
     sourceforge: { name: 'SourceForge', url: `https://sourceforge.net/projects/${destinations.sourceforge}/`, git: `https://git.code.sf.net/p/${destinations.sourceforge}/${name === 'wekan' && destinations.sourceforge === 'wekan' ? 'code' : sourceForgeMount(name)}`, push: `ssh://${destinations.sourceforge}@git.code.sf.net/p/${destinations.sourceforge}/${name === 'wekan' && destinations.sourceforge === 'wekan' ? 'code' : sourceForgeMount(name)}` },
   };
 }
+const archiveHosts = new Set(['github.com', 'gitlab.com', 'codeberg.org', 'sourceforge.net']);
 export function repositoryArchive(root, name = 'wekan', owner = organization, host = 'github.com') {
   namespace(owner);
-  if (!['github.com','gitlab.com','codeberg.org','sourceforge.net'].includes(host)) throw new Error('Unknown archive host');
+  if (typeof host !== 'string' || !archiveHosts.has(host)) throw new Error('Unknown archive host');
   return path.join(root,'.tools/mirror',host,...owner.split('/'),repositorySegment(name));
 }

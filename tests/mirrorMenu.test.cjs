@@ -102,12 +102,33 @@ const work = fs.mkdtempSync(path.join(temporary, 'mirror-menu-tests-'));
     assert.match(directories[0], /^\d{4}-\d{2}-\d{2}_\d{2}-\d{2}_\d{2}$/);
     assert.equal(fs.readFileSync(path.join(logRoot, directories[0], 'mirror-log.txt'), 'utf8'), result.stdout);
   });
-  await test('Windows dispatch quotes paths and uses each native batch wrapper', async () => {
+  await test('Windows dispatch passes paths literally to Node without a command shell', async () => {
     const calls = [];
-    await m.sync({ source: 'gitlab', mirrors: ['github'] }, { platform: 'win32', directory: work, run: (tool, args) => { calls.push([tool, args]); return ''; }, log: () => {} });
-    assert.equal(calls[2][0], 'cmd.exe');
-    assert.match(calls[2][1][3], /call "[^\"]+mirror-github\.bat"/);
-    assert.match(calls[2][1][3], /"--source" "gitlab"/);
+    const directory = path.join(work, 'checkout spaces & %PATH% !value');
+    await m.sync({ source: 'gitlab', mirrors: ['github'] }, { platform: 'win32', directory, run: (tool, args) => { calls.push([tool, args]); return ''; }, log: () => {} });
+    assert.ok(calls.every(([tool]) => tool === process.execPath));
+    assert.deepEqual(calls[2][1].slice(0, 5), [path.join(directory, 'tools/mirror-active-forges.mjs'), '--target', 'github', '--code', '--apply']);
+    assert.ok(calls[2][1].includes('gitlab'));
+    const previews = [];
+    await m.sync({ source: 'gitlab', mirrors: ['github'] }, { platform: 'win32', directory, preview: true, run: (tool, args) => { previews.push([tool, args]); return ''; }, log: () => {} });
+    assert.ok(previews.every(([, args]) => !args.includes('--apply')));
+    for (const tool of ['cmd.exe', 'node & echo injected', path.join(directory, 'evil.exe')]) {
+      await assert.rejects(m.streamCommand(tool, []), /Unsupported mirror executable/);
+    }
+    const argument = 'spaces ; & %PATH% !value $(touch injected) `echo injected`';
+    await m.streamCommand(process.execPath, ['-e', 'require("node:assert/strict").equal(process.argv[1], process.env.MIRROR_EXPECTED)', argument], undefined, { shell: true, env: { ...process.env, MIRROR_EXPECTED: argument } });
+    const repositories = await import('../tools/mirror-repository.mjs');
+    for (const host of ['github.com', 'gitlab.com', 'codeberg.org', 'sourceforge.net']) {
+      assert.equal(repositories.repositoryArchive(directory, 'wekan', 'wekan', host), path.join(directory, '.tools/mirror', host, 'wekan', 'wekan'));
+    }
+    for (const host of ['evilgithub.com', 'github.com.evil', 'https://github.com', '../github.com', 'github.com/../evil', 'evil/?github.com', { toString: () => 'github.com' }]) {
+      assert.throws(() => repositories.repositoryArchive(directory, 'wekan', 'wekan', host), /Unknown archive host/);
+    }
+    // Cover every mirror implementation, including future duplicated dispatch.
+    for (const file of fs.readdirSync(path.join(root, 'tools')).filter(name => /^mirror.*\.mjs$/.test(name))) {
+      const source = fs.readFileSync(path.join(root, 'tools', file), 'utf8');
+      assert.doesNotMatch(source, /spawn\(\s*tool\s*,|shell:\s*true|execute\(\s*['"]cmd\.exe['"]/, file);
+    }
   });
   await test('online checks continue after API failures using only HTTPS Git reads and API GETs', async () => {
     const calls = [], output = [];

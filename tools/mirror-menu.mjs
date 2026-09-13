@@ -21,7 +21,11 @@ export function changeSource(settings, source) {
 // All external commands are injectable: tests never contact or write to a forge.
 export function streamCommand(tool, args, input, options = {}) {
   return new Promise((resolve, reject) => {
-    const child = spawn(tool, args, { ...options, shell: false, windowsHide: true, stdio: ['ignore', 'inherit', 'inherit'] });
+    // Only the running Node executable and the fixed Unix wrapper interpreter
+    // are needed. Checkout paths always remain arguments, never shell source.
+    if (tool !== process.execPath && tool !== 'bash') throw new Error('Unsupported mirror executable');
+    const spawnOptions = { ...options, shell: false, windowsHide: true, stdio: ['ignore', 'inherit', 'inherit'] };
+    const child = tool === 'bash' ? spawn('bash', args, spawnOptions) : spawn(process.execPath, args, spawnOptions);
     child.once('error', reject);
     child.once('close', (code, signal) => code === 0 ? resolve('') : reject(new Error(`Mirror command failed (${signal || code})`)));
   });
@@ -73,10 +77,9 @@ export async function sync(settings, { preview = false, run = streamCommand, dir
       try {
         const args = [...(preview ? ['--preview'] : []), '--source', settings.source, '--snapshot', snapshot, '--skip-archive'];
         if (platform === 'win32') {
-          const batch = path.join(directory, `releases/mirror-${target}.bat`);
-          const parts = [batch, ...args];
-          if (parts.some(p => /["%!\r\n]/.test(p))) throw new Error('Unsupported command characters in checkout path');
-          await execute('cmd.exe', ['/d', '/s', '/c', `call ${parts.map(p => `"${p}"`).join(' ')}`]);
+          // Native batches require cmd.exe, which parses paths as commands.
+          // Run their existing engine with the same flags as separate argv.
+          await execute(process.execPath, [engine, '--target', target, '--code', ...(preview ? [] : ['--apply']), ...args.filter(arg => arg !== '--preview')]);
         } else await execute('bash', [path.join(directory, `releases/mirror-${target}.sh`), ...args]);
         progress.targetsDone.push(target); saveProgress();
       } catch (error) { failed = true; log(`[${target}] failed: ${error.message}`); }

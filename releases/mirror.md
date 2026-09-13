@@ -30,8 +30,14 @@ The source cannot also be a mirror. Invalid, duplicate or unknown settings fail
 instead of silently choosing another destination. All mirrors may be disabled;
 sync then asks for an active destination. The uncommented registry in
 `releases/mirror.sh` supplies defaults until settings exist. Bitbucket is inactive.
-The menu delegates to separate `mirror-github`, `mirror-gitlab`, `mirror-codeberg`
-and `mirror-sourceforge` scripts (`.sh` on Unix, `.bat` on Windows).
+On Unix the menu delegates to separate `mirror-github`, `mirror-gitlab`,
+`mirror-codeberg` and `mirror-sourceforge` `.sh` scripts. On Windows it invokes
+their shared Node engine directly with the same target/code/apply flags; paths
+remain separate arguments rather than command-shell text. The `.bat` wrappers
+remain available for direct human use. Preview never includes `--apply`.
+The menu command runner permits only its current Node executable and fixed
+`bash` interpreter, always with `shell: false`. Archive hosts use an exact
+string allowlist; URLs, lookalike domains and path components are rejected.
 Build menu **Tools → Mirror repo to forges** opens this menu on both platforms.
 Shared implementations are `tools/mirror-menu.mjs`, `tools/mirror-settings.mjs`,
 `tools/mirror-active-forges.mjs` and `tools/mirror-archive.mjs`.
