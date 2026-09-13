@@ -87267,5 +87267,61 @@
     "before": "Déplacer toutes les pièces jointes vers S3",
     "after": "Topätükön fimükotis valik lü S3",
     "reason": "Replace French attachment-storage move labels with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests topätükön (move an object from place to place), nüned (computer file), sit (system); reuse checked fimükön-derived fimükot attachment term. Preserve filesystem/GridFS/S3 destinations exactly, singular attachment versus all attachments and board-specific scope. Assembled sit nünedas filesystem phrase, attachment derivative, board software sense and grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "add-background-image",
+    "before": "Ajouter une image de fond",
+    "after": "Lüükön magodi pödagluna",
+    "reason": "Replace French board background, minicard cover and selection-colour labels with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests pödaglun (background), magod (image), teg (general cover); reuse previously checked köl (colour), väl/välön (selection/choose), lonön (set), kadil and add/remove/change verbs. Preserve background versus minicard cover scope and choose versus set-colour action. Cover and board software sense adaptations and assembled grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "remove-background-image",
+    "before": "Supprimer l'image de fond",
+    "after": "Moükön magodi pödagluna",
+    "reason": "Replace French board background, minicard cover and selection-colour labels with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests pödaglun (background), magod (image), teg (general cover); reuse previously checked köl (colour), väl/välön (selection/choose), lonön (set), kadil and add/remove/change verbs. Preserve background versus minicard cover scope and choose versus set-colour action. Cover and board software sense adaptations and assembled grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "add-cover",
+    "before": "Ajouter la vignette sur la mini-carte",
+    "after": "Lüükön magodi as teg su kadil",
+    "reason": "Replace French board background, minicard cover and selection-colour labels with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests pödaglun (background), magod (image), teg (general cover); reuse previously checked köl (colour), väl/välön (selection/choose), lonön (set), kadil and add/remove/change verbs. Preserve background versus minicard cover scope and choose versus set-colour action. Cover and board software sense adaptations and assembled grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "remove-cover",
+    "before": "Supprimer la vignette de la mini-carte",
+    "after": "Moükön magodi tega de kadil",
+    "reason": "Replace French board background, minicard cover and selection-colour labels with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests pödaglun (background), magod (image), teg (general cover); reuse previously checked köl (colour), väl/välön (selection/choose), lonön (set), kadil and add/remove/change verbs. Preserve background versus minicard cover scope and choose versus set-colour action. Cover and board software sense adaptations and assembled grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "cover-attachment-on-minicard",
+    "before": "Vignette sur la mini-carte",
+    "after": "Magod tega su kadil",
+    "reason": "Replace French board background, minicard cover and selection-colour labels with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests pödaglun (background), magod (image), teg (general cover); reuse previously checked köl (colour), väl/välön (selection/choose), lonön (set), kadil and add/remove/change verbs. Preserve background versus minicard cover scope and choose versus set-colour action. Cover and board software sense adaptations and assembled grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "boardChangeColorPopup-title",
+    "before": "Change la couleur de fond du tableau",
+    "after": "Votükön pödagluni taba",
+    "reason": "Replace French board background, minicard cover and selection-colour labels with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests pödaglun (background), magod (image), teg (general cover); reuse previously checked köl (colour), väl/välön (selection/choose), lonön (set), kadil and add/remove/change verbs. Preserve background versus minicard cover scope and choose versus set-colour action. Cover and board software sense adaptations and assembled grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "setSelectionColorPopup-title",
+    "before": "Définir la couleur de sélection",
+    "after": "Lonön köli väla",
+    "reason": "Replace French board background, minicard cover and selection-colour labels with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests pödaglun (background), magod (image), teg (general cover); reuse previously checked köl (colour), väl/välön (selection/choose), lonön (set), kadil and add/remove/change verbs. Preserve background versus minicard cover scope and choose versus set-colour action. Cover and board software sense adaptations and assembled grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "select-color",
+    "before": "Sélectionner une couleur",
+    "after": "Välön köli",
+    "reason": "Replace French board background, minicard cover and selection-colour labels with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests pödaglun (background), magod (image), teg (general cover); reuse previously checked köl (colour), väl/välön (selection/choose), lonön (set), kadil and add/remove/change verbs. Preserve background versus minicard cover scope and choose versus set-colour action. Cover and board software sense adaptations and assembled grammar remain low confidence; no native-speaker validation."
   }
 ]
