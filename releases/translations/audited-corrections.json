@@ -70460,5 +70460,110 @@
     "before": "Sembunyikan Senarai Kosong",
     "after": "Som senarai kosong",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "filter-assignee-label",
+    "before": "Tapis mengikut penerima tugasan",
+    "after": "Saring meunurot nyang geubri tugas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "filter-creator-label",
+    "before": "Tapis mengikut penerima Pencipta",
+    "after": "Saring meunurot nyang peugot",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "filter-custom-fields-label",
+    "before": "Tapis mengikut ruangan khas",
+    "after": "Saring meunurot ruang khusus",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "filter-on-desc",
+    "before": "Anda memfilter kartu di panel ini. Klik di sini untuk menyunting filter",
+    "after": "Droeneueh teungoh saring kad bak papan nyoe. Klik keunoe keu sunting saringan.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "filter-to-selection",
+    "before": "Saring berdasarkan yang dipilih",
+    "after": "Saring meunurot nyang geupileh",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "globalSearch-instructions-notes-4",
+    "before": "Teks carian adalah sensitif-huruf",
+    "after": "Pencarian teks hana beda huruf rayek ngon huruf ubit.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "globalSearch-instructions-notes-5",
+    "before": "Secara lalai, kad dalam Arkib tidak akan dicari.",
+    "after": "Ngon setelan awai, kad lam Arsip hana geumita.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "globalSearch-instructions-operator-number",
+    "before": "`__operator_number__:<number>` - kad yang nombor kadnya *<number>*",
+    "after": "`__operator_number__:<number>` - kad nyang lumboi kad jih *<number>*",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "header-logo-title",
+    "before": "Kembali ke laman panel anda",
+    "after": "Woe u laman papan droeneueh.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "hide-checked-items",
+    "before": "Sembunyikan item yang dicentang",
+    "after": "Som item nyang ka geucek",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "hide-finished-checklist",
+    "before": "Sembunyikan senarai semak yang telah selesai",
+    "after": "Som checklist nyang ka seuleusoe",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "hide-minicard-label-text",
+    "before": "Sembunyikan teks label kartu mini",
+    "after": "Som teks label kad ubit",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "home-board-empty",
+    "before": "Seret papan ke sini untuk membukanya selepas log masuk",
+    "after": "Tarék saboh papan mantong keunoe keu buka lheueh login",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "home-board-remove-confirm",
+    "before": "Buang papan ini dari Laman Utama? Papan itu sendiri tidak dipadam.",
+    "after": "Hapus papan nyoe nibak Laman Utama? Papan jih hana geuhapus.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "if-you-already-have-an-account",
+    "before": "Jika anda sudah ada akaun",
+    "after": "Meunyoe droeneueh ka na akun",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
