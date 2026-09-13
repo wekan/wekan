@@ -110941,5 +110941,117 @@
     "before": "Filtra secondo l'assegnatario",
     "after": "Filtra par asegnatario",
     "reason": "Replace Italian-seeded Venetian validation and access labels; preserve CSV/TSV separator meanings, malformed/schema distinction, authorization denial and uniqueness errors. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "filter-custom-fields-label",
+    "before": "Filtra secondo campi personalizzati",
+    "after": "Filtra par canpi personałizài",
+    "reason": "Replace Italian-seeded Venetian search help; preserve query syntax, OR behavior, case insensitivity and negated-field meaning. Correct created-date direction to days ago or less. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "filter-due-next-week",
+    "before": "Scadenza prossima settimana",
+    "after": "Scadensa ła setimana che vien",
+    "reason": "Replace Italian-seeded Venetian search help; preserve query syntax, OR behavior, case insensitivity and negated-field meaning. Correct created-date direction to days ago or less. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "filter-labels-label",
+    "before": "Filtra secondo l'etichetta",
+    "after": "Filtra par eticheta",
+    "reason": "Replace Italian-seeded Venetian search help; preserve query syntax, OR behavior, case insensitivity and negated-field meaning. Correct created-date direction to days ago or less. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "filter-no-custom-fields",
+    "before": "Nessun campo personalizzato",
+    "after": "Nisun canpo personałizà",
+    "reason": "Replace Italian-seeded Venetian search help; preserve query syntax, OR behavior, case insensitivity and negated-field meaning. Correct created-date direction to days ago or less. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "globalSearch-instructions-notes-1",
+    "before": "È possibile specificare più operatori.",
+    "after": "Se pol indicar pì operatori.",
+    "reason": "Replace Italian-seeded Venetian search help; preserve query syntax, OR behavior, case insensitivity and negated-field meaning. Correct created-date direction to days ago or less. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "globalSearch-instructions-notes-2",
+    "before": "Valori diversi dello stesso criterio di ricerca vengono combinati tramite *OR*. Vengono quindi selezionate tutte le schede che soddisfano almeno uno dei criteri. `__operator_list__:Available __operator_list__:Blocked` selezionerà le schede contenute in qualsiasi lista chiamata *Blocked* o *Available*.",
+    "after": "Operatori del stesso tipo i se conbina co *OR*. Vien mostrà łe schede che łe sodisfa almanco na condision.\n`__operator_list__:Available __operator_list__:Blocked` el mostra łe schede inte na lista ciamà *Blocked* o *Available*.",
+    "reason": "Replace Italian-seeded Venetian search help; preserve query syntax, OR behavior, case insensitivity and negated-field meaning. Correct created-date direction to days ago or less. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "globalSearch-instructions-notes-3-2",
+    "before": "I giorni possono essere specificati come numeri interi positivi/negativi oppure utilizzando `__predicate_week__`, `__predicate_month__`, `__predicate_quarter__` oppure `__predicate_year__` per il periodo corrente.",
+    "after": "I dì i se pol indicar co un nùmaro intero positivo o negativo, o doparando `__predicate_week__`, `__predicate_month__`, `__predicate_quarter__` o `__predicate_year__` par el periodo corente.",
+    "reason": "Replace Italian-seeded Venetian search help; preserve query syntax, OR behavior, case insensitivity and negated-field meaning. Correct created-date direction to days ago or less. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "globalSearch-instructions-notes-4",
+    "before": "La distinzione tra maiuscole e minuscole non viene effettuata nelle ricerche di testo.",
+    "after": "Łe serche de testo no łe distingue maiùscołe e minùscołe.",
+    "reason": "Replace Italian-seeded Venetian search help; preserve query syntax, OR behavior, case insensitivity and negated-field meaning. Correct created-date direction to days ago or less. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "globalSearch-instructions-operator-assignee",
+    "before": "`__operator_assignee__:<username>` - schede dove *<username>* è un *assegnatario*",
+    "after": "`__operator_assignee__:<username>` - schede dove *<username>* el xe un *asegnatario*",
+    "reason": "Replace Italian-seeded Venetian search help; preserve query syntax, OR behavior, case insensitivity and negated-field meaning. Correct created-date direction to days ago or less. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "globalSearch-instructions-operator-at",
+    "before": "`__operator_user_abbrev__username` - abbreviazione per `user:<username>`",
+    "after": "`__operator_user_abbrev__username` - forma curta de `user:<username>`",
+    "reason": "Replace Italian-seeded Venetian search help; preserve query syntax, OR behavior, case insensitivity and negated-field meaning. Correct created-date direction to days ago or less. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "globalSearch-instructions-operator-board",
+    "before": "`__operator_board__:<title>` - schede nelle bacheche corrispondenti a *<title>*",
+    "after": "`__operator_board__:<title>` - schede inte quadri che i corisponde al *<title>* indicà",
+    "reason": "Replace Italian-seeded Venetian search help; preserve query syntax, OR behavior, case insensitivity and negated-field meaning. Correct created-date direction to days ago or less. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "globalSearch-instructions-operator-comment",
+    "before": "`__operator_comment__:<text>` - schede con commenti contenenti *<text>*.",
+    "after": "`__operator_comment__:<text>` - schede co un comento che el gà *<text>*.",
+    "reason": "Replace Italian-seeded Venetian search help; preserve query syntax, OR behavior, case insensitivity and negated-field meaning. Correct created-date direction to days ago or less. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "globalSearch-instructions-operator-created",
+    "before": "`__operator_created__:<n>` - schede create *<n>* giorni fa o prima",
+    "after": "`__operator_created__:<n>` - schede creà *<n>* dì fa o manco",
+    "reason": "Replace Italian-seeded Venetian search help; preserve query syntax, OR behavior, case insensitivity and negated-field meaning. Correct created-date direction to days ago or less. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "globalSearch-instructions-operator-has",
+    "before": "`__operator_has__:<field>` - dove *<field>* è uno di `__predicate_attachment__`, `__predicate_checklist__`, `__predicate_description__`, `__predicate_start__`, `__predicate_due__`, `__predicate_end__`, `__predicate_assignee__` oppure `__predicate_member__`.  Inserendo `-` davanti a *<field>* cerca per l'assenza di un valore nel campo (per esempio `has:-due` cerca per schede senza una data di scadenza).",
+    "after": "`__operator_has__:<field>` - *<field>* el xe uno tra `__predicate_attachment__`, `__predicate_checklist__`, `__predicate_description__`, `__predicate_start__`, `__predicate_due__`, `__predicate_end__`, `__predicate_assignee__` o `__predicate_member__`. Meter un `-` davanti a *<field>* el serca ła mancansa de un vałor inte quel canpo (par esenpio `has:-due` el serca schede sensa data de scadensa).",
+    "reason": "Replace Italian-seeded Venetian search help; preserve query syntax, OR behavior, case insensitivity and negated-field meaning. Correct created-date direction to days ago or less. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "globalSearch-instructions-operator-label",
+    "before": "`__operator_label__:<color>` `__operator_label__:<name>` - schede aventi un'etichetta corrispondente a *<color>* oppure *<name>*",
+    "after": "`__operator_label__:<color>` `__operator_label__:<name>` - schede co na eticheta che ła corisponde a *<color>* o *<name>*",
+    "reason": "Replace Italian-seeded Venetian search help; preserve query syntax, OR behavior, case insensitivity and negated-field meaning. Correct created-date direction to days ago or less. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "globalSearch-instructions-operator-list",
+    "before": "`__operator_list__:<title>` - schede nelle liste corrispondenti a *<title>*",
+    "after": "`__operator_list__:<title>` - schede inte liste che łe corisponde al *<title>* indicà",
+    "reason": "Replace Italian-seeded Venetian search help; preserve query syntax, OR behavior, case insensitivity and negated-field meaning. Correct created-date direction to days ago or less. Low-confidence wording; fluent-speaker validation outstanding."
   }
 ]
