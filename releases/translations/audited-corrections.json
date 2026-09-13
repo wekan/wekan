@@ -56012,5 +56012,117 @@
     "before": "Spinner di attesa Scaleout",
     "after": "Indicatore 'e attesa Scaleout",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "above-selected-swimlane",
+    "before": "Sopra la swimlane selezionata",
+    "after": "Ncopp'a swimlane scigliuta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "accessibility-content",
+    "before": "Contenuti di accessibilità",
+    "after": "Cuntenuto 'e accessibbilità",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "accessibility-page-enabled",
+    "before": "Pagina accessibilità abilitata",
+    "after": "Pàggina 'e accessibbilità attivata",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "account-creation-failed",
+    "before": "Impossibile creare l'account",
+    "after": "Nun s'è pututo crià ll'account",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "account-locked",
+    "before": "L'account è temporaneamente bloccato a causa di troppi tentativi di accesso falliti. Riprova più tardi.",
+    "after": "Ll'account è bluccato pe nu poco pecché ce so' troppi tentative fallute 'e trasì. Pròva n'ata vota cchiù tarde.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "accounts-lockout-failure-window",
+    "before": "Finestra di errore (secondi)",
+    "after": "Intervallo 'e tiempo pe ll'errore (secunne)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "accounts-lockout-period",
+    "before": "Periodo di blocco (secondi)",
+    "after": "Durata d'o blocco (secunne)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "act-almostdue",
+    "before": "sollecito inviato: la scadenza (__timeValue__) di __card__ è vicina",
+    "after": "ha mannato 'n'avviso: 'a scadenza attuale (__timeValue__) 'e __card__ s'avvicina",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "act-pastdue",
+    "before": "sollecito inviato: la scadenza (__timeValue__) di __card__ è già passata",
+    "after": "ha mannato 'n'avviso: 'a scadenza attuale (__timeValue__) 'e __card__ è già passata",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "act-withDue",
+    "before": "sollecito relativo a __list__/__card__ [__board__]",
+    "after": "Avvise 'e scadenza pe __list__/__card__ [__board__]",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "active-cron-jobs",
+    "before": "Processi pianificati attivi",
+    "after": "Fatiche prugrammate attive",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "activity-archived",
+    "before": "%s spostato nell'archivio",
+    "after": "%s spustato dint'a ll'archivio",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "activity-checklist-completed",
+    "before": "%s di %s checklists completate",
+    "after": "ha cumpletato 'a lista 'e cuntrollo %s 'e %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "activity-customfield-created",
+    "before": "creato campo personalizzato/a %s ",
+    "after": "ha criato 'o campo personalizzato %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "activity-moved",
+    "before": "ha spostato %s da %s a %s",
+    "after": "ha spustato %s da %s a %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "activity-set-customfield",
+    "before": "imposta campo personalizzato '%s' a '%s' in %s",
+    "after": "ha mpustato 'o campo personalizzato '%s' a '%s' dint'a %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
