@@ -320,5 +320,16 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   }
   assert.notEqual(cache['ve-PP'].export, cache['ve-PP'].import);
   assert.notEqual(cache['ve-PP'].close, cache['ve-PP'].delete);
+  assert.equal(cache['ve-PP']['allow-rename'], "Laske anda uz' nimi");
+  assert.equal(cache['ve-PP']['allowRenamePopup-title'], cache['ve-PP']['allow-rename']);
+  assert.equal(cache['ve-PP']['accounts-allowUserNameChange'], 'Kävutajan nimen vajehtamine');
+  assert.equal(cache['ve-PP']['accounts-allowEmailChange'], 'Laske vajehtada email-počtan adresad');
+  assert.equal(cache['ve-PP']['shortcut-clear-filters'], 'Heitä kaik puhtastimed');
+  assert.equal(cache['ve-PP'].filter, 'Puhtastim');
+  assert.equal(cache['ve-PP']['cron-no-errors'], 'Ei ole vigoid ozutamižen täht');
+  for (const key of ['allow-rename', 'allowRenamePopup-title', 'accounts-allowUserNameChange',
+    'accounts-allowEmailChange', 'shortcut-clear-filters', 'filter', 'cron-no-errors']) {
+    assert.doesNotMatch(cache['ve-PP'][key], /Salli|uudelleennimeä|käyttäjätunn|sähköposti|suodatt|Suodata|virheitä|näyttää/, key);
+  }
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });

@@ -112901,5 +112901,54 @@
     "before": "Nimeä uudelleen",
     "after": "Anda uz' nimi",
     "reason": "Replace Finnish/Zulu seed with native Veps software action: MediaWiki Veps edit/protect_change, collapsible-collapse and window-close prose, export-submit, import-interwiki-submit and rcfilters-savedqueries-rename; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Preserve action distinctions."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "allow-rename",
+    "before": "Salli uudelleennimeäminen",
+    "after": "Laske anda uz' nimi",
+    "reason": "Replace Finnish seed with Veps. Native software attests puhtastim/puhtastimed, rename Anda uz' nimi, vajehtamine and email-počtan adres; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Dictionary laskta imperative laske and viga plural-partitive vigoid: https://kaikki.org/dictionary/Veps/index.html. LOW CONFIDENCE: composed permission and no-errors phrase grammar needs fluent review; Username Change follows source meaning without adding permission."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "allowRenamePopup-title",
+    "before": "Salli uudelleennimeäminen",
+    "after": "Laske anda uz' nimi",
+    "reason": "Replace Finnish seed with Veps. Native software attests puhtastim/puhtastimed, rename Anda uz' nimi, vajehtamine and email-počtan adres; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Dictionary laskta imperative laske and viga plural-partitive vigoid: https://kaikki.org/dictionary/Veps/index.html. LOW CONFIDENCE: composed permission and no-errors phrase grammar needs fluent review; Username Change follows source meaning without adding permission."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "accounts-allowUserNameChange",
+    "before": "Salli käyttäjätunnuksen muuttaminen",
+    "after": "Kävutajan nimen vajehtamine",
+    "reason": "Replace Finnish seed with Veps. Native software attests puhtastim/puhtastimed, rename Anda uz' nimi, vajehtamine and email-počtan adres; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Dictionary laskta imperative laske and viga plural-partitive vigoid: https://kaikki.org/dictionary/Veps/index.html. LOW CONFIDENCE: composed permission and no-errors phrase grammar needs fluent review; Username Change follows source meaning without adding permission."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "accounts-allowEmailChange",
+    "before": "Salli sähköpostiosoitteen muuttaminen",
+    "after": "Laske vajehtada email-počtan adresad",
+    "reason": "Replace Finnish seed with Veps. Native software attests puhtastim/puhtastimed, rename Anda uz' nimi, vajehtamine and email-počtan adres; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Dictionary laskta imperative laske and viga plural-partitive vigoid: https://kaikki.org/dictionary/Veps/index.html. LOW CONFIDENCE: composed permission and no-errors phrase grammar needs fluent review; Username Change follows source meaning without adding permission."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "shortcut-clear-filters",
+    "before": "Poista kaikki suodattimet",
+    "after": "Heitä kaik puhtastimed",
+    "reason": "Replace Finnish seed with Veps. Native software attests puhtastim/puhtastimed, rename Anda uz' nimi, vajehtamine and email-počtan adres; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Dictionary laskta imperative laske and viga plural-partitive vigoid: https://kaikki.org/dictionary/Veps/index.html. LOW CONFIDENCE: composed permission and no-errors phrase grammar needs fluent review; Username Change follows source meaning without adding permission."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "filter",
+    "before": "Suodata",
+    "after": "Puhtastim",
+    "reason": "Replace Finnish seed with Veps. Native software attests puhtastim/puhtastimed, rename Anda uz' nimi, vajehtamine and email-počtan adres; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Dictionary laskta imperative laske and viga plural-partitive vigoid: https://kaikki.org/dictionary/Veps/index.html. LOW CONFIDENCE: composed permission and no-errors phrase grammar needs fluent review; Username Change follows source meaning without adding permission."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "cron-no-errors",
+    "before": "Ei virheitä joita näyttää",
+    "after": "Ei ole vigoid ozutamižen täht",
+    "reason": "Replace Finnish seed with Veps. Native software attests puhtastim/puhtastimed, rename Anda uz' nimi, vajehtamine and email-počtan adres; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Dictionary laskta imperative laske and viga plural-partitive vigoid: https://kaikki.org/dictionary/Veps/index.html. LOW CONFIDENCE: composed permission and no-errors phrase grammar needs fluent review; Username Change follows source meaning without adding permission."
   }
 ]
