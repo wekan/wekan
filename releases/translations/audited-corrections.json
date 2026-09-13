@@ -120510,5 +120510,54 @@
     "before": "indigo",
     "after": "lulachi",
     "reason": "Replace English-valued Aromanian indigo label with directly attested color vocabulary. Alexandra Chivarzina, Orbis Linguarum 21(2), 2023, pages 61–66, explicitly lists lulachi as indigo: https://ezikovsvyat.swu.bg/images/stories/issue%2021.2_2023/8.%20A.Chivarzina_61_66.pdf. Full publisher PDF downloaded and extracted for review 2026-09-14. Preserve lowercase standalone color labeling. Exact color gloss is reference-supported; dialect preference and UI palette usage remain open. Magenta remains pending: Romanian matches alone do not establish Aromanian correctness."
+  },
+  {
+    "locale": "zgh",
+    "key": "username",
+    "before": "اسم المستخدم",
+    "after": "ⵉⵙⵎ ⵏ ⵓⵏⵙⵙⵎⵔⵙ",
+    "reason": "Replace wrong-language Arabic/French core account wording using matching Standard Moroccan Tamazight MediaWiki message userlogin-yourname at https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json. Compare English source message semantics; review 2026-09-14. Preserve correct local labels outside this batch. Native-script wording is reference-supported; broader restored/unflagged Tamazight and composed technical messages remain open."
+  },
+  {
+    "locale": "zgh",
+    "key": "password",
+    "before": "كلمة المرور",
+    "after": "ⵜⴰⴳⵓⵔⵉ ⵏ ⵓⵣⵔⴰⵢ",
+    "reason": "Replace wrong-language Arabic/French core account wording using matching Standard Moroccan Tamazight MediaWiki message userlogin-yourpassword at https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json. Compare English source message semantics; review 2026-09-14. Preserve correct local labels outside this batch. Native-script wording is reference-supported; broader restored/unflagged Tamazight and composed technical messages remain open."
+  },
+  {
+    "locale": "zgh",
+    "key": "edit",
+    "before": "تعديل",
+    "after": "ⵙⵏⴼⵍ",
+    "reason": "Replace wrong-language Arabic/French core account wording using matching Standard Moroccan Tamazight MediaWiki message edit at https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json. Compare English source message semantics; review 2026-09-14. Preserve correct local labels outside this batch. Native-script wording is reference-supported; broader restored/unflagged Tamazight and composed technical messages remain open."
+  },
+  {
+    "locale": "zgh",
+    "key": "email",
+    "before": "البريد الإلكتروني",
+    "after": "ⵉⵎⴰⵢⵍ",
+    "reason": "Replace wrong-language Arabic/French core account wording using matching Standard Moroccan Tamazight MediaWiki message email at https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json. Compare English source message semantics; review 2026-09-14. Preserve correct local labels outside this batch. Native-script wording is reference-supported; broader restored/unflagged Tamazight and composed technical messages remain open."
+  },
+  {
+    "locale": "zgh",
+    "key": "login",
+    "before": "Connexion",
+    "after": "ⴽⵛⵎ",
+    "reason": "Replace wrong-language Arabic/French core account wording using matching Standard Moroccan Tamazight MediaWiki message login at https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json. Compare English source message semantics; review 2026-09-14. Preserve correct local labels outside this batch. Native-script wording is reference-supported; broader restored/unflagged Tamazight and composed technical messages remain open."
+  },
+  {
+    "locale": "zgh",
+    "key": "logout",
+    "before": "Déconnexion",
+    "after": "ⴼⴼⵖ",
+    "reason": "Replace wrong-language Arabic/French core account wording using matching Standard Moroccan Tamazight MediaWiki message logout at https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json. Compare English source message semantics; review 2026-09-14. Preserve correct local labels outside this batch. Native-script wording is reference-supported; broader restored/unflagged Tamazight and composed technical messages remain open."
+  },
+  {
+    "locale": "zgh",
+    "key": "password-mismatch",
+    "before": "Les mots de passe ne correspondent pas",
+    "after": "ⵜⴰⴳⵓⵔⵉ ⵏ ⵓⵣⵔⴰⵢ ⵏⵏⴰ ⵜⵙⴽⵛⵎⴷ ⵓⵔ ⵜⵎⵙⴰⵙⴰ",
+    "reason": "Replace wrong-language Arabic/French core account wording using matching Standard Moroccan Tamazight MediaWiki message badretype at https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json. Compare English source message semantics; review 2026-09-14. Preserve correct local labels outside this batch. Native-script wording is reference-supported; broader restored/unflagged Tamazight and composed technical messages remain open."
   }
 ]

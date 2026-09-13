@@ -2763,5 +2763,20 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.equal(cache.rup['color-indigo'], 'lulachi');
   assert.notEqual(cache.rup['color-indigo'], 'indigo');
   assert.notEqual(cache.rup['color-indigo'], cache.rup['color-blue']);
+  const tamazightAccountLabels = {
+  "username": "ⵉⵙⵎ ⵏ ⵓⵏⵙⵙⵎⵔⵙ",
+  "password": "ⵜⴰⴳⵓⵔⵉ ⵏ ⵓⵣⵔⴰⵢ",
+  "edit": "ⵙⵏⴼⵍ",
+  "email": "ⵉⵎⴰⵢⵍ",
+  "login": "ⴽⵛⵎ",
+  "logout": "ⴼⴼⵖ",
+  "password-mismatch": "ⵜⴰⴳⵓⵔⵉ ⵏ ⵓⵣⵔⴰⵢ ⵏⵏⴰ ⵜⵙⴽⵛⵎⴷ ⵓⵔ ⵜⵎⵙⴰⵙⴰ"
+};
+  for (const [key, value] of Object.entries(tamazightAccountLabels)) {
+    assert.equal(cache.zgh[key], value, key);
+    assert.match(value, /[\u2D30-\u2D7F]/, key);
+    assert.doesNotMatch(value, /[\u0600-\u06FF]|Connexion|Déconnexion|Les mots/, key);
+  }
+  assert.notEqual(cache.zgh.login, cache.zgh.logout);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });
