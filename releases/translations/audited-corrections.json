@@ -65315,5 +65315,68 @@
     "before": "Au-dessus du couloir sélectionné",
     "after": "A-us d’an trepas dibabet",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "acceptance_of_our_legalNotice",
+    "before": "En continuant, vous acceptez nos",
+    "after": "En ur genderc’hel, e tegemerit hor",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "legalNotice",
+    "before": "mentions légales",
+    "after": "menegoù lezennel",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "accessibility-info-not-added-yet",
+    "before": "L'information d'accessibilité n'a pas encore été ajoutée",
+    "after": "N’eo ket bet ouzhpennet titouroù haeziñ c’hoazh",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "accessibility-page-enabled",
+    "before": "Page d'accessibilité activée",
+    "after": "Pajenn haeziñ gweredekaet",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "account-created",
+    "before": "Compte créé ! Vous pouvez maintenant vous connecter.",
+    "after": "Krouet eo ar gont ! Gallout a rit kennaskañ bremañ.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "account-creation-failed",
+    "before": "Échec de la création du compte",
+    "after": "C’hwitet eo krouiñ ar gont",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "accounts-allowEmailChange",
+    "before": "Autoriser le changement d'adresse mail",
+    "after": "Aotren kemmañ ar chomlec’h postel",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "accounts-allowUserNameChange",
+    "before": "Autoriser le changement d'identifiant",
+    "after": "Kemmañ an anv implijer",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "accounts-lockout-failure-window",
+    "before": "Fenêtre des échecs (secondes)",
+    "after": "Prantad kontañ ar c’hwitadennoù (eilennoù)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
