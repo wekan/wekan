@@ -85510,5 +85510,19 @@
     "before": "ISO 8601",
     "after": "Gregoriana kalandiriye (ISO 8601 dɔgɔkunw)",
     "reason": "Replace foreign calendar setting and English calendar labels with Bambara descriptions using existing kalandiriye vocabulary; preserve Dangi/Hijri/Umm al-Qura/Minguo/Amete Alem/ISO identifiers and Gregorian ISO week detail. Siniwajamana, Zapɔn, Etiopi, don and dɔgɔkun attested in Unicode CLDR https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/bm.xml . Assembled setting/label grammar and existing kalandiriye loan remain low confidence; religious/national and Hijri epoch/sighting variants remain pending."
+  },
+  {
+    "locale": "bm",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "Ɛndujamana ka jamana kalandiriye",
+    "reason": "Replace English national calendar and Saudi Islamic labels with Bambara; restore national distinction, Hijri identity and moon-sighting detail. Ɛndujamana and Arabiya Sawudiya country names attested in https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/bm.xml ; jamana ka national construction in indexed https://mooreburkina.com/sites/www.mooreburkina.com/files/pdf-files/Bambara%20Lexicon.pdf (full PDF fetch failed due size); kalo moon attested at https://doniso.eu/dictionnaire-bambara-francais . Assembled national description and derived yeli sighting grammar remain low confidence; religious and tabular epoch labels remain pending."
+  },
+  {
+    "locale": "bm",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "Hijri kalandiriye (Arabiya Sawudiya, kalo yeli)",
+    "reason": "Replace English national calendar and Saudi Islamic labels with Bambara; restore national distinction, Hijri identity and moon-sighting detail. Ɛndujamana and Arabiya Sawudiya country names attested in https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/bm.xml ; jamana ka national construction in indexed https://mooreburkina.com/sites/www.mooreburkina.com/files/pdf-files/Bambara%20Lexicon.pdf (full PDF fetch failed due size); kalo moon attested at https://doniso.eu/dictionnaire-bambara-francais . Assembled national description and derived yeli sighting grammar remain low confidence; religious and tabular epoch labels remain pending."
   }
 ]
