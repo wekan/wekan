@@ -54514,5 +54514,61 @@
     "before": "Metodo di autenticazione predefinito",
     "after": "Metodã di autentificari di ahurhitã",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "search-cards",
+    "before": "Ricerca per titolo, descrizione scheda/lista e campi personalizzati su questa bacheca",
+    "after": "Cautã tu titluri di cãrtsã/listi, descrieri shi cãmpuri personalizati di aesta tabelã",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "toggle-assignees",
+    "before": "Alterna gli assegnatari da 1-9 per la scheda (in base all'ordine di aggiunta alla bacheca).",
+    "after": "Adavgã/scoati persoanili atribuiti 1-9 ti cartã (dupã arãndarea di adãvgari la tabelã).",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "delete-linked-cards-before-this-list",
+    "before": "Non puoi eliminare questa lista prima di avere eliminato le schede collegate che puntano su schede in questa lista",
+    "after": "Nu pots s-ashtardzi aesta listã ninti s-ashtardzi cãrtsãli ligati tsi trimit la cãrtsã di aesta listã",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "delete-org-warning-message",
+    "before": "Non posso cancellare questa organizzazione: c'è almeno un utente che gli appartiene",
+    "after": "Nu pots s-ashtardzi aesta organizatsie, ari cel putsãn un ufilisitor tsi easti membru a ei",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "delete-translation-confirm-popup",
+    "before": "Sei sicuro di voler eliminare questa stringa di traduzione personalizzata? Non sarà possibile ripristinarla.",
+    "after": "Esht sigur cã vrei s-ashtardzi aesta stringã di traducere personalizatã? Nu ari anulare.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "delete-user-confirm-popup",
+    "before": "Sei sicuro di voler eliminare questo profilo? Non sarà possibile ripristinarlo.",
+    "after": "Esht sigur cã vrei s-ashtardzi aestu contu? Nu ari anulare.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "deposit-subtasks-list",
+    "before": "Lista di destinaizoni per questi sotto-compiti",
+    "after": "Lista di destinatsie ti sublucrãrili pusi aua:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "display-authentication-method",
+    "before": "Mostra il metodo di autenticazione",
+    "after": "Aratã metoda di autentificari",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
