@@ -94624,5 +94624,33 @@
     "before": "ist %s beigetreten",
     "after": "%s-Daq jeSchoH",
     "reason": "Replace German generic movement/import/membership activity fragments with Klingon. Verify activities.jade percent-token roles: movement object/source/destination, import object/destination/source, exclusion member/board, and board import board/source. Preserve exact argument order with explicit parenthesized origin -vo- and destination -vaD; retain creation, addition and joining actions. Reuse repaired operation terminology. Full software phrasing is assembled, low confidence, and needs fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "attachment-monitoring",
+    "before": "Anhangüberwachung",
+    "after": "rarDochmey bejmeH De'",
+    "reason": "Replace German monitoring/refresh text after reviewing attachmentSettings.jade monitoring section. Reuse existing pat bejmeH De' terminology; Suqqa' describes retrieving data again, rarDochmey identifies attachments. Software metaphors and complete phrasing are low confidence; fluent-speaker validation remains required. Preserve source token inventory."
+  },
+  {
+    "locale": "tlh",
+    "key": "monitoring-refresh-failed",
+    "before": "Neuladen der Beobachtungsdaten misslungen",
+    "after": "pat bejmeH De' Suqqa'meH Qu' lujpu'",
+    "reason": "Replace German monitoring/refresh text after reviewing attachmentSettings.jade monitoring section. Reuse existing pat bejmeH De' terminology; Suqqa' describes retrieving data again, rarDochmey identifies attachments. Software metaphors and complete phrasing are low confidence; fluent-speaker validation remains required. Preserve source token inventory."
+  },
+  {
+    "locale": "tlh",
+    "key": "refresh",
+    "before": "Neuladen",
+    "after": "De' yISuqqa'",
+    "reason": "Replace German monitoring/refresh text after reviewing attachmentSettings.jade monitoring section. Reuse existing pat bejmeH De' terminology; Suqqa' describes retrieving data again, rarDochmey identifies attachments. Software metaphors and complete phrasing are low confidence; fluent-speaker validation remains required. Preserve source token inventory."
+  },
+  {
+    "locale": "tlh",
+    "key": "refresh-monitoring",
+    "before": "Beobachten neuladen",
+    "after": "pat bejmeH De' yISuqqa'",
+    "reason": "Replace German monitoring/refresh text after reviewing attachmentSettings.jade monitoring section. Reuse existing pat bejmeH De' terminology; Suqqa' describes retrieving data again, rarDochmey identifies attachments. Software metaphors and complete phrasing are low confidence; fluent-speaker validation remains required. Preserve source token inventory."
   }
 ]
