@@ -73743,5 +73743,110 @@
     "before": "Mois suivant",
     "after": "Moes ki vént",
     "reason": "Replace French date controls/activity with Walloon; retain positional date/card arguments and distinguish due, end, received and start. Month/week vocabulary https://dtw.walon.org/index.php?query=moes and https://dtw.walon.org/index.php?query=samwinne . Two adjacent unflagged month controls also repaired. Complete grammar, received-date terminology and deadline loan remain low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "always-field-on-card",
+    "before": "Ajouter le champ à toutes les cartes",
+    "after": "Radjouter li tchamp a totes les cåtes",
+    "reason": "Replace audited French custom-field, HTML and description controls with Walloon using existing field/label/description vocabulary. Choice vocabulary family: https://dtw.walon.org/index.php?query=tchoezi . Preserve %{value}, HTML tags and whitespace entities exactly; Enter retained as keyboard key name. Complete grammar and template-placeholder terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "automatically-field-on-card",
+    "before": "Ajouter le champ aux cartes nouvellement créées",
+    "after": "Radjouter li tchamp ås noveles cåtes",
+    "reason": "Replace audited French custom-field, HTML and description controls with Walloon using existing field/label/description vocabulary. Choice vocabulary family: https://dtw.walon.org/index.php?query=tchoezi . Preserve %{value}, HTML tags and whitespace entities exactly; Enter retained as keyboard key name. Complete grammar and template-placeholder terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "custom-field-dropdown-options-placeholder",
+    "before": "Appuyez sur Entrée pour ajouter d'autres options",
+    "after": "Tchôkîz so Enter po radjouter d' ôtès tchuzes",
+    "reason": "Replace audited French custom-field, HTML and description controls with Walloon using existing field/label/description vocabulary. Choice vocabulary family: https://dtw.walon.org/index.php?query=tchoezi . Preserve %{value}, HTML tags and whitespace entities exactly; Enter retained as keyboard key name. Complete grammar and template-placeholder terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "custom-field-stringtemplate-item-placeholder",
+    "before": "Appuyez sur Entrée pour ajouter plus d'éléments",
+    "after": "Tchôkîz so Enter po radjouter d' ôtes cayets",
+    "reason": "Replace audited French custom-field, HTML and description controls with Walloon using existing field/label/description vocabulary. Choice vocabulary family: https://dtw.walon.org/index.php?query=tchoezi . Preserve %{value}, HTML tags and whitespace entities exactly; Enter retained as keyboard key name. Complete grammar and template-placeholder terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "custom-field-stringtemplate-format",
+    "before": "Format (utiliser %{value} pour marquer un emplacement)",
+    "after": "Format (eployî %{value} come tchamp a rimpli)",
+    "reason": "Replace audited French custom-field, HTML and description controls with Walloon using existing field/label/description vocabulary. Choice vocabulary family: https://dtw.walon.org/index.php?query=tchoezi . Preserve %{value}, HTML tags and whitespace entities exactly; Enter retained as keyboard key name. Complete grammar and template-placeholder terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "custom-field-stringtemplate-separator",
+    "before": "Séparateur (utiliser &#32; ou &nbsp; pour un espace)",
+    "after": "Separateu (eployî &#32; ou &nbsp; po èn espåce)",
+    "reason": "Replace audited French custom-field, HTML and description controls with Walloon using existing field/label/description vocabulary. Choice vocabulary family: https://dtw.walon.org/index.php?query=tchoezi . Preserve %{value}, HTML tags and whitespace entities exactly; Enter retained as keyboard key name. Complete grammar and template-placeholder terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "filter-custom-fields-label",
+    "before": "Filtrer par champs personnalisés",
+    "after": "Passer sol tchamps da vosse",
+    "reason": "Replace audited French custom-field, HTML and description controls with Walloon using existing field/label/description vocabulary. Choice vocabulary family: https://dtw.walon.org/index.php?query=tchoezi . Preserve %{value}, HTML tags and whitespace entities exactly; Enter retained as keyboard key name. Complete grammar and template-placeholder terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "filter-no-custom-fields",
+    "before": "Pas de champs personnalisés",
+    "after": "Pont d' tchamps da vosse",
+    "reason": "Replace audited French custom-field, HTML and description controls with Walloon using existing field/label/description vocabulary. Choice vocabulary family: https://dtw.walon.org/index.php?query=tchoezi . Preserve %{value}, HTML tags and whitespace entities exactly; Enter retained as keyboard key name. Complete grammar and template-placeholder terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "show-field-on-card",
+    "before": "Afficher ce champ sur la carte",
+    "after": "Mostrer ci tchamp ci sol cåte",
+    "reason": "Replace audited French custom-field, HTML and description controls with Walloon using existing field/label/description vocabulary. Choice vocabulary family: https://dtw.walon.org/index.php?query=tchoezi . Preserve %{value}, HTML tags and whitespace entities exactly; Enter retained as keyboard key name. Complete grammar and template-placeholder terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "showLabel-field-on-card",
+    "before": "Indiquer l'étiquette du champ sur la mini-carte",
+    "after": "Mostrer l' etikète do tchamp sol minicåte",
+    "reason": "Replace audited French custom-field, HTML and description controls with Walloon using existing field/label/description vocabulary. Choice vocabulary family: https://dtw.walon.org/index.php?query=tchoezi . Preserve %{value}, HTML tags and whitespace entities exactly; Enter retained as keyboard key name. Complete grammar and template-placeholder terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "add-custom-html-after-body-start",
+    "before": "Ajouter le HTML personnalisé après le début du <body>",
+    "after": "Radjouter do HTML da vosse après l' cmince di <body>",
+    "reason": "Replace audited French custom-field, HTML and description controls with Walloon using existing field/label/description vocabulary. Choice vocabulary family: https://dtw.walon.org/index.php?query=tchoezi . Preserve %{value}, HTML tags and whitespace entities exactly; Enter retained as keyboard key name. Complete grammar and template-placeholder terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "add-custom-html-before-body-end",
+    "before": "Ajouter le HTML personnalisé avant la fin du </body>",
+    "after": "Radjouter do HTML da vosse divant l' fén di </body>",
+    "reason": "Replace audited French custom-field, HTML and description controls with Walloon using existing field/label/description vocabulary. Choice vocabulary family: https://dtw.walon.org/index.php?query=tchoezi . Preserve %{value}, HTML tags and whitespace entities exactly; Enter retained as keyboard key name. Complete grammar and template-placeholder terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "addmore-detail",
+    "before": "Ajouter une description plus détaillée",
+    "after": "Radjouter on discrijhaedje pus detaeyî",
+    "reason": "Replace audited French custom-field, HTML and description controls with Walloon using existing field/label/description vocabulary. Choice vocabulary family: https://dtw.walon.org/index.php?query=tchoezi . Preserve %{value}, HTML tags and whitespace entities exactly; Enter retained as keyboard key name. Complete grammar and template-placeholder terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "unsaved-description",
+    "before": "Vous avez une description non sauvegardée",
+    "after": "Vos avoz on discrijhaedje ki n' est nén schapé.",
+    "reason": "Replace audited French custom-field, HTML and description controls with Walloon using existing field/label/description vocabulary. Choice vocabulary family: https://dtw.walon.org/index.php?query=tchoezi . Preserve %{value}, HTML tags and whitespace entities exactly; Enter retained as keyboard key name. Complete grammar and template-placeholder terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "rescue-card-description-dialogue",
+    "before": "Réécrire la description de la carte courante avec vos changements ?",
+    "after": "Rimplacer li discrijhaedje do moumint del cåte avou vos candjmints?",
+    "reason": "Replace audited French custom-field, HTML and description controls with Walloon using existing field/label/description vocabulary. Choice vocabulary family: https://dtw.walon.org/index.php?query=tchoezi . Preserve %{value}, HTML tags and whitespace entities exactly; Enter retained as keyboard key name. Complete grammar and template-placeholder terminology remain low confidence."
   }
 ]
