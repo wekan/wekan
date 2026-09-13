@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 11,348 |
+| Corrected | 11,354 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 4,498 |
+| Pending review or repair | 4,492 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **11,673** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **11,679** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `98cf839392bf2bb21ace1cf520d7e38f7c71b65a` — 7 French board navigation/search messages replaced with Wolof: drag/drop, starred shortcut, private/public/organization search, automatic domain-based membership and login error. Literal search operators, argument examples and Markdown are preserved. Technical phrasing and full grammar remain low confidence. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; live browser verification is unavailable.
+Latest translation fix: **2026-09-13**, local commit `8949339a58c39d99cd990acf21b31172a116977f` — 6 French board migration messages replaced with Wolof. Admin-only execution, individual runs, progress toward the latest structure and list/card/swimlane integrity scope are preserved. Migration/integrity technical phrasing and full grammar remain low confidence. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; live browser verification is unavailable.
 
 **Review follow-up:** Silesian `sandstorm-raw-mongodb` remains pending: its wording overlaps Polish and existing Silesian technical strings, but dictionary searches did not establish the full phrase as correct Silesian. Keep the current value until stronger language evidence supports retaining or replacing it.
 
