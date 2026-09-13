@@ -85790,5 +85790,33 @@
     "before": "Islamic (Saudi Arabia)",
     "after": "Kalender Hijri (Arabi an Saud, gweles an loor)",
     "reason": "Restore missing lunar-sighting distinction using Cornish kalender, gweles (see), loor (moon) documented in https://www.cornishdictionary.org.uk/sites/default/files/GerlyverPDF_20190723.pdf and Saudi Arabia name https://en.wiktionary.org/wiki/Arabi_an_Saud . Hijri identity preserved; assembled sighting phrase remains low confidence, not native-speaker verified."
+  },
+  {
+    "locale": "kl",
+    "key": "calendar-system-dangi",
+    "before": "Dangi (Korean)",
+    "after": "Ullorsiut Dangi",
+    "reason": "Replace English calendar descriptors using existing Greenlandic Ullorsiut, independently attested in https://www.bibelselskabet.dk/sites/default/files/files/110x210_bib_groenlandsk_2025-26.pdf and CLDR kl calendar key. Preserve Dangi/Hijri/Umm al-Qura/Minguo calendar identities. Noun/name combination remains low confidence and not native-speaker verified; proper-name Greenlandic renderings still need review."
+  },
+  {
+    "locale": "kl",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "Ullorsiut Hijri",
+    "reason": "Replace English calendar descriptors using existing Greenlandic Ullorsiut, independently attested in https://www.bibelselskabet.dk/sites/default/files/files/110x210_bib_groenlandsk_2025-26.pdf and CLDR kl calendar key. Preserve Dangi/Hijri/Umm al-Qura/Minguo calendar identities. Noun/name combination remains low confidence and not native-speaker verified; proper-name Greenlandic renderings still need review."
+  },
+  {
+    "locale": "kl",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "Ullorsiut Hijri (Umm al-Qura)",
+    "reason": "Replace English calendar descriptors using existing Greenlandic Ullorsiut, independently attested in https://www.bibelselskabet.dk/sites/default/files/files/110x210_bib_groenlandsk_2025-26.pdf and CLDR kl calendar key. Preserve Dangi/Hijri/Umm al-Qura/Minguo calendar identities. Noun/name combination remains low confidence and not native-speaker verified; proper-name Greenlandic renderings still need review."
+  },
+  {
+    "locale": "kl",
+    "key": "calendar-system-roc",
+    "before": "Republic of China",
+    "after": "Ullorsiut Minguo",
+    "reason": "Replace English calendar descriptors using existing Greenlandic Ullorsiut, independently attested in https://www.bibelselskabet.dk/sites/default/files/files/110x210_bib_groenlandsk_2025-26.pdf and CLDR kl calendar key. Preserve Dangi/Hijri/Umm al-Qura/Minguo calendar identities. Noun/name combination remains low confidence and not native-speaker verified; proper-name Greenlandic renderings still need review."
   }
 ]
