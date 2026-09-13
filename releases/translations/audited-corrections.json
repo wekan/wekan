@@ -69165,5 +69165,82 @@
     "before": "AWS: pozostaw puste (używa punktu końcowego regionu). Zgodne z S3: URL punktu końcowego z konsoli MinIO / Cloudflare R2 / Backblaze B2 / Wasabi / DigitalOcean Spaces.",
     "after": "AWS: ôstŏw puste (używŏ kōńcowego punktu regiōnu). Zgŏdne z S3: Endpoint URL ze kōnsoli MinIO / Cloudflare R2 / Backblaze B2 / Wasabi / DigitalOcean Spaces.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "s3-force-path-style-description",
+    "before": "Wymagane przez MinIO i większość serwerów zgodnych z S3 niebędących AWS.",
+    "after": "Wymŏgane bez MinIO i wiynkszość serwerōw zgŏdnych z S3 inkszych jak AWS.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "s3-minio-storage-description",
+    "before": "Magazyn obiektowy zgodny z S3: AWS S3, MinIO, Cloudflare R2, Backblaze B2, Wasabi, DigitalOcean Spaces i inne.",
+    "after": "Magazyn ôbiektōw zgŏdny z S3: AWS S3, MinIO, Cloudflare R2, Backblaze B2, Wasabi, DigitalOcean Spaces i inksze.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "s3-port-description",
+    "before": "Numer portu punktu końcowego S3",
+    "after": "Numer portu kōńcowego punktu S3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "s3-region-description",
+    "before": "Region AWS S3 (np. us-east-1)",
+    "after": "Regiōn AWS S3 (na przikłŏd us-east-1)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "s3-secret-key-description",
+    "before": "Tajny klucz AWS S3 do uwierzytelniania",
+    "after": "Tajny klucz AWS S3 do uwierzytelniyniŏ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "s3-ssl-enabled-description",
+    "before": "Użyj SSL/TLS do połączeń S3",
+    "after": "Użyj SSL/TLS do połōnczyń S3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "sandstorm-raw-mongodb-deleted",
+    "before": "Surowe pliki bazy danych MongoDB usunięte, zwolniono",
+    "after": "Surowe pliki bazy danych MongoDB wyciepane, uwolniōno",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "search-example",
+    "before": "Wpisz tekst do wyszukania i wciśnij Enter",
+    "after": "Wpisz tekst do szukaniŏ i wciśnij Enter",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "set-list-width-value",
+    "before": "Szerokość listy (piksele)",
+    "after": "Szyrokość listy (piksele)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "set-wip-limit-value",
+    "before": "Ustaw maksymalny limit kart na tej liście",
+    "after": "Ustŏw limit nojwiynkszyj wielości zadań we tyj liście",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "setWipLimitPopup-title",
+    "before": "Ustaw limit kart na liście",
+    "after": "Ustŏw limit WIP",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
