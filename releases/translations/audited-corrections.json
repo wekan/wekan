@@ -93714,5 +93714,68 @@
     "before": "Nutzername „%s“ nicht gefunden.",
     "after": "'%s' lo'wI' pong tu'lu'be'.",
     "reason": "Replace audited German lookup/save/deletion errors with Klingon. Preserve comment text contained by a comment on the missing card, scheduled-job deletion failure, S3 configuration save failure, and organization/swimlane/username lookup identities. Scheduled job is described as a task with a time for execution. Reuse repaired QInHom, card, settings, yejHaq, He and username terms; every percent token is preserved. Full software clauses are assembled, low confidence, and require fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "comment-assigned-only-desc",
+    "before": "Nur zugewiesene Karten sichtbar. Nur Kommentar möglich.",
+    "after": "lo'wI'vaD lunoblu'bogh 'echletHommey neH leghlaH. QInHommey chellaH neH.",
+    "reason": "Replace German/French read/comment permission labels and descriptions with Klingon. Preserve viewing versus commenting, inability to edit, assigned-card-only visibility, and inability to see comments. Reuse repaired QInHom and card terms; assignment is described as cards given to the user, with plural indefinite lu-noblu agreement. Full role/software wording and assignment metaphor are assembled, low confidence, and need fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "comment-only-desc",
+    "before": "Kann Karten nur kommentieren.",
+    "after": "'echletHommeyDaq QInHommey chellaH neH.",
+    "reason": "Replace German/French read/comment permission labels and descriptions with Klingon. Preserve viewing versus commenting, inability to edit, assigned-card-only visibility, and inability to see comments. Reuse repaired QInHom and card terms; assignment is described as cards given to the user, with plural indefinite lu-noblu agreement. Full role/software wording and assignment metaphor are assembled, low confidence, and need fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "read-assigned-only-desc",
+    "before": "Nur zugewiesene Karten sichtbar. Keine Änderung.",
+    "after": "lo'wI'vaD lunoblu'bogh 'echletHommey neH leghlaH. choHlaHbe'.",
+    "reason": "Replace German/French read/comment permission labels and descriptions with Klingon. Preserve viewing versus commenting, inability to edit, assigned-card-only visibility, and inability to see comments. Reuse repaired QInHom and card terms; assignment is described as cards given to the user, with plural indefinite lu-noblu agreement. Full role/software wording and assignment metaphor are assembled, low confidence, and need fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "read-only-desc",
+    "before": "Kann Karten nur sehen, nicht bearbeiten.",
+    "after": "'echletHommey leghlaH neH. choHlaHbe'.",
+    "reason": "Replace German/French read/comment permission labels and descriptions with Klingon. Preserve viewing versus commenting, inability to edit, assigned-card-only visibility, and inability to see comments. Reuse repaired QInHom and card terms; assignment is described as cards given to the user, with plural indefinite lu-noblu agreement. Full role/software wording and assignment metaphor are assembled, low confidence, and need fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "comment-assigned-only",
+    "before": "Nur zugewiesener Kommentar",
+    "after": "lunoblu'bogh 'echletHommeyDaq QInHommey chel neH",
+    "reason": "Replace German/French read/comment permission labels and descriptions with Klingon. Preserve viewing versus commenting, inability to edit, assigned-card-only visibility, and inability to see comments. Reuse repaired QInHom and card terms; assignment is described as cards given to the user, with plural indefinite lu-noblu agreement. Full role/software wording and assignment metaphor are assembled, low confidence, and need fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "comment-only",
+    "before": "Nur Kommentare",
+    "after": "QInHommey chel neH",
+    "reason": "Replace German/French read/comment permission labels and descriptions with Klingon. Preserve viewing versus commenting, inability to edit, assigned-card-only visibility, and inability to see comments. Reuse repaired QInHom and card terms; assignment is described as cards given to the user, with plural indefinite lu-noblu agreement. Full role/software wording and assignment metaphor are assembled, low confidence, and need fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "read-only",
+    "before": "Nur lesen",
+    "after": "laD neH",
+    "reason": "Replace German/French read/comment permission labels and descriptions with Klingon. Preserve viewing versus commenting, inability to edit, assigned-card-only visibility, and inability to see comments. Reuse repaired QInHom and card terms; assignment is described as cards given to the user, with plural indefinite lu-noblu agreement. Full role/software wording and assignment metaphor are assembled, low confidence, and need fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "read-assigned-only",
+    "before": "Nur Zugewiesene lesen.",
+    "after": "lunoblu'bogh 'echletHommey laD neH",
+    "reason": "Replace German/French read/comment permission labels and descriptions with Klingon. Preserve viewing versus commenting, inability to edit, assigned-card-only visibility, and inability to see comments. Reuse repaired QInHom and card terms; assignment is described as cards given to the user, with plural indefinite lu-noblu agreement. Full role/software wording and assignment metaphor are assembled, low confidence, and need fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "no-comments-desc",
+    "before": "Impossible de voir les commentaires.",
+    "after": "QInHommey leghlaHbe'.",
+    "reason": "Replace German/French read/comment permission labels and descriptions with Klingon. Preserve viewing versus commenting, inability to edit, assigned-card-only visibility, and inability to see comments. Reuse repaired QInHom and card terms; assignment is described as cards given to the user, with plural indefinite lu-noblu agreement. Full role/software wording and assignment metaphor are assembled, low confidence, and need fluent-speaker validation."
   }
 ]
