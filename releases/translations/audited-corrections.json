@@ -103906,5 +103906,110 @@
     "before": "Yenza ukuhlola okuphelele nokulungiswa kobuqotho bedatha yebhodi, okuhlanganisa ukuhleleka kohlu, ukuma kwamakhadi, nesakhiwo sokubhukuda.",
     "after": "I sedza na u lugisa vhungoho ha data ya bodo ya Kanban nga vhuḓalo, hu tshi katelwa mutevhe wa mitevhe, fhethu ha makhadi na nzudzanyo ya dziḽaini.",
     "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, archive versus deletion, permanent data-loss warnings and permission boundaries. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "conversion-info-text",
+    "before": "Lokhu kuguqulwa kwenziwa kanye ebhodini ngalinye futhi kuthuthukisa ukusebenza. Ungaqhubeka nokusebenzisa ibhodi ngokujwayelekile.",
+    "after": "Tshanduko iyi i itwa luthihi kha bodo iṅwe na iṅwe ya Kanban nahone i khwinisa kushumele. Ni nga bvela phanḓa ni tshi shumisa bodo nga nḓila ya nga misi.",
+    "reason": "Replace Zulu-seeded interface prose directly with Tshivenda; preserve source placeholders, permanent-loss warnings and both empty-list deletion conditions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "copy-card-link-to-clipboard",
+    "before": "Kopisha isixhumanisi sekhadi ebhodini lokunamathisela",
+    "after": "Kopani ḽinki ya khadi kha fhethu ha u kopa",
+    "reason": "Replace Zulu-seeded interface prose directly with Tshivenda; preserve source placeholders, permanent-loss warnings and both empty-list deletion conditions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "copy-link-to-clipboard",
+    "before": "Kopisha isixhumanisi ebhodini lokunamathisela",
+    "after": "Kopani ḽinki kha fhethu ha u kopa",
+    "reason": "Replace Zulu-seeded interface prose directly with Tshivenda; preserve source placeholders, permanent-loss warnings and both empty-list deletion conditions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "copy-text-to-clipboard",
+    "before": "Kopisha umbhalo ebhodini lokunamathisela",
+    "after": "Kopani maipfi kha fhethu ha u kopa",
+    "reason": "Replace Zulu-seeded interface prose directly with Tshivenda; preserve source placeholders, permanent-loss warnings and both empty-list deletion conditions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "cover-attachment-on-minicard",
+    "before": "Isithombe sekhava ekhadini elincane",
+    "after": "Tshifanyiso tsha khavara kha khadi ḽiṱuku",
+    "reason": "Replace Zulu-seeded interface prose directly with Tshivenda; preserve source placeholders, permanent-loss warnings and both empty-list deletion conditions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "custom-field-delete-pop",
+    "before": "Akukho ukuhlehlisa. Lokhu kuzosusa le nkambu yangokwezifiso kuwo wonke amakhadi futhi kucekele phansi umlando wayo.",
+    "after": "A zwi koni u humiselwa murahu. Izwi zwi ḓo bvisa fhethu ha data ho dzudzanywaho kha makhadi oṱhe zwa fhelisa ḓivhazwakale yaho.",
+    "reason": "Replace Zulu-seeded interface prose directly with Tshivenda; preserve source placeholders, permanent-loss warnings and both empty-list deletion conditions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "custom-field-dropdown-options-placeholder",
+    "before": "Cindezela u-enter ukuze wengeze ezinye izinketho",
+    "after": "Puṱedzani Enter u engedza dziṅwe khetho",
+    "reason": "Replace Zulu-seeded interface prose directly with Tshivenda; preserve source placeholders, permanent-loss warnings and both empty-list deletion conditions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "custom-field-stringtemplate-item-placeholder",
+    "before": "Cindezela u-enter ukuze wengeze ezinye izinto",
+    "after": "Puṱedzani Enter u engedza zwiṅwe zwithu",
+    "reason": "Replace Zulu-seeded interface prose directly with Tshivenda; preserve source placeholders, permanent-loss warnings and both empty-list deletion conditions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "delete-board-confirm-popup",
+    "before": "Lonke uhlu, amakhadi, amalebula, nemisebenzi izosuswa futhi ngeke ukwazi ukubuyisela okuqukethwe kwebhodi. Akukho ukuhlehlisa.",
+    "after": "Mitevhe yoṱhe, makhadi, dziḽeibuḽu na nyito zwi ḓo suswa, nahone a ni tsha ḓo kona u vhuyedzedza data ya bodo ya Kanban. A zwi koni u humiselwa murahu.",
+    "reason": "Replace Zulu-seeded interface prose directly with Tshivenda; preserve source placeholders, permanent-loss warnings and both empty-list deletion conditions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "delete-duplicate-empty-lists-migration-description",
+    "before": "Isusa ngokuphephile izinhlu eziyimpinda ezingenalutho. Isusa kuphela izinhlu ezingenawo amakhadi FUTHI ibe nolunye uhlu olunesihloko esifanayo esiqukethe amakhadi.",
+    "after": "I susa mitevhe yo dovhololwaho i si na tshithu nga nḓila yo tsireledzeaho. I bvisa fhedzi mitevhe i si na makhadi NA ine ya vha na muṅwe mutevhe wa dzina ḽithihi une wa vha na makhadi.",
+    "reason": "Replace Zulu-seeded interface prose directly with Tshivenda; preserve source placeholders, permanent-loss warnings and both empty-list deletion conditions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "delete-duplicate-lists-confirm",
+    "before": "Uqinisekile? Lokhu kuzosusa zonke izinhlu eziyimpinda ezinegama elifanayo futhi ezingenawo amakhadi.",
+    "after": "Ni na vhuṱanzi? Izwi zwi ḓo susa mitevhe yoṱhe yo dovhololwaho ya dzina ḽithihi i si na makhadi.",
+    "reason": "Replace Zulu-seeded interface prose directly with Tshivenda; preserve source placeholders, permanent-loss warnings and both empty-list deletion conditions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "delete-linked-card-before-this-card",
+    "before": "Awukwazi ukususa leli khadi ngaphambi kokuthi uqale ngokususa ikhadi elixhunyiwe elinalo",
+    "after": "A ni koni u susa khadi iḽi ni sa athu susa khadi ḽo ṱumanywaho ḽine ḽa vha na",
+    "reason": "Replace Zulu-seeded interface prose directly with Tshivenda; preserve source placeholders, permanent-loss warnings and both empty-list deletion conditions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "delete-linked-cards-before-this-list",
+    "before": "Awukwazi ukususa lolu hlu ngaphambi kokuthi uqale ngokususa amakhadi axhunyiwe akhomba amakhadi akulolu hlu",
+    "after": "A ni koni u susa mutevhe uyu ni sa athu susa makhadi o ṱumanywaho a sumba kha makhadi a mutevhe uyu",
+    "reason": "Replace Zulu-seeded interface prose directly with Tshivenda; preserve source placeholders, permanent-loss warnings and both empty-list deletion conditions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "drag-board-to-workspace",
+    "before": "Hudula ibhodi ukuze unikeze u-__workspaces__ (yehlisa indawo yokusebenza kubha eseceleni)",
+    "after": "Kokodzani bodo ya Kanban u i avhela kha __workspaces__ (i litsheni kha fhethu ha mushumo kha phanele ya thungo)",
+    "reason": "Replace Zulu-seeded interface prose directly with Tshivenda; preserve source placeholders, permanent-loss warnings and both empty-list deletion conditions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "dueCards-noResults-description",
+    "before": "Awunawo amakhadi anezinsuku eziwumnqamulajuqu okwamanje.",
+    "after": "Zwino a ni na makhadi a re na maḓuvha a u fhedza mushumo.",
+    "reason": "Replace Zulu-seeded interface prose directly with Tshivenda; preserve source placeholders, permanent-loss warnings and both empty-list deletion conditions. Low-confidence wording; fluent-speaker validation outstanding."
   }
 ]
