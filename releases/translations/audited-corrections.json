@@ -83179,5 +83179,47 @@
     "before": "`__predicate_archived__` - cartes qui ont été archivées.",
     "after": "`__predicate_archived__` - karta yi ñu denc ci àrsiw",
     "reason": "Replace French with Wolof; preserve start versus vote/poker end-date controls, newly created account enrollment and exact tokens/layout, CSV/TSV required information and separator format, archived predicate. Enrollment/schema phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "Sistemu kalandriye (wone bis yi)",
+    "reason": "Replace Turkish/English calendar labels with Wolof framing and retain proper calendar names Dangi/Amete Alem/Umm al-Qura/Minguo; restore Gregorian ISO 8601 week meaning. Calendar loanword and complete grammar remain low confidence; other epoch/religion/adjective labels remain pending."
+  },
+  {
+    "locale": "wo",
+    "key": "calendar-system-dangi",
+    "before": "Dangi (Korean)",
+    "after": "Kalandriye Dangi",
+    "reason": "Replace Turkish/English calendar labels with Wolof framing and retain proper calendar names Dangi/Amete Alem/Umm al-Qura/Minguo; restore Gregorian ISO 8601 week meaning. Calendar loanword and complete grammar remain low confidence; other epoch/religion/adjective labels remain pending."
+  },
+  {
+    "locale": "wo",
+    "key": "calendar-system-ethioaa",
+    "before": "Ethiopic Amete Alem",
+    "after": "Kalandriye Amete Alem bu Etiyopi",
+    "reason": "Replace Turkish/English calendar labels with Wolof framing and retain proper calendar names Dangi/Amete Alem/Umm al-Qura/Minguo; restore Gregorian ISO 8601 week meaning. Calendar loanword and complete grammar remain low confidence; other epoch/religion/adjective labels remain pending."
+  },
+  {
+    "locale": "wo",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "Kalandriye Hijri (Umm al-Qura)",
+    "reason": "Replace Turkish/English calendar labels with Wolof framing and retain proper calendar names Dangi/Amete Alem/Umm al-Qura/Minguo; restore Gregorian ISO 8601 week meaning. Calendar loanword and complete grammar remain low confidence; other epoch/religion/adjective labels remain pending."
+  },
+  {
+    "locale": "wo",
+    "key": "calendar-system-roc",
+    "before": "Republic of China",
+    "after": "Kalandriye Minguo",
+    "reason": "Replace Turkish/English calendar labels with Wolof framing and retain proper calendar names Dangi/Amete Alem/Umm al-Qura/Minguo; restore Gregorian ISO 8601 week meaning. Calendar loanword and complete grammar remain low confidence; other epoch/religion/adjective labels remain pending."
+  },
+  {
+    "locale": "wo",
+    "key": "calendar-system-iso8601",
+    "before": "ISO-8601 Calendar",
+    "after": "Kalandriye Gregoriyee (ayu-bés yu ISO 8601)",
+    "reason": "Replace Turkish/English calendar labels with Wolof framing and retain proper calendar names Dangi/Amete Alem/Umm al-Qura/Minguo; restore Gregorian ISO 8601 week meaning. Calendar loanword and complete grammar remain low confidence; other epoch/religion/adjective labels remain pending."
   }
 ]
