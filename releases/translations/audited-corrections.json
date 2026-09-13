@@ -70082,5 +70082,89 @@
     "before": "Gambar sampul untuk kartu kecil",
     "after": "Gamba sampul bak kad ubit",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "created-at-newest-first",
+    "before": "Tarikh dicipta (dari yang terbaru)",
+    "after": "Watee geupeugot (nyang paleng baro di keue)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "created-at-oldest-first",
+    "before": "Tarikh dicipta (dari yang terawal)",
+    "after": "Watee geupeugot (nyang paleng trep di keue)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "custom-field-delete-pop",
+    "before": "Tidak boleh undur semula. Ianya akan menghapuskan ruangan khas daripada semua kad dan padamkan sejarahnya.",
+    "after": "Hana undo. Nyoe akan hapus ruang khusus nibak mandum kad ngon peuhilang riwayat jih.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "custom-field-dropdown-options-placeholder",
+    "before": "Tekan \"Enter\" untuk masukkan pilihan lain",
+    "after": "Teugon Enter keu tamah pilehan lom",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "custom-field-stringtemplate-format",
+    "before": "Format (guna %{value} sebagai pemegang tempat)",
+    "after": "Format (ngui %{value} keu placeholder)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "custom-field-stringtemplate-item-placeholder",
+    "before": "Tekan 'enter' untuk tambah lagi item",
+    "after": "Teugon Enter keu tamah item lom",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "custom-field-stringtemplate-separator",
+    "before": "Pemisah (guna &#32; atau &nbsp; untuk senggang)",
+    "after": "Pemisah (ngui &#32; atawa &nbsp; keu spasi)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "custom-login-logo-image-url",
+    "before": "URL khas bagi Imej Logo Log Masuk",
+    "after": "URL gamba logo login khusus",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "custom-login-logo-link-url",
+    "before": "URL khas bagi Pautan Logo Log Masuk",
+    "after": "URL tautan logo login khusus",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "custom-top-left-corner-logo-height",
+    "before": "Tinggi khas logo penjuru atas kiri. (lalai: 27)",
+    "after": "Manyang logo khusus bak sudot ateueh wie. Nilai awai: 27",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "custom-top-left-corner-logo-image-url",
+    "before": "URL khas Gambar Logo Penjuru Atas Kiri",
+    "after": "URL gamba logo khusus bak sudot ateueh wie",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "custom-top-left-corner-logo-link-url",
+    "before": "URL khas pautan logo penjuru atas kiri",
+    "after": "URL tautan logo khusus bak sudot ateueh wie",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
