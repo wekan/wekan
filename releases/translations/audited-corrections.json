@@ -118858,5 +118858,75 @@
     "before": "Muokatun oikeudellisen huomautuksen sivun URL",
     "after": "Kävutajan märitud juridižen homaičusen lehtpolen URL",
     "reason": "Replace flagged Finnish customization labels with Veps dictionary hura, ülähäine, čoga, korktuz, südäimuz, juridi-ne and existing terminology. Correct top-right mistranslation to top-left. Preserve URL/HTML/JSON, head/link/meta distinctions, assetlinks.json and default height 27. Adapted technical loans and composed morphology remain low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "OS_Arch",
+    "before": "Käyttöjärjestelmän arkkitehtuuri",
+    "after": "OS: arhitektur",
+    "reason": "Replace Finnish OS/memory metric labels with Veps dictionary arhitektur, mušt (genitive mušton), joudai, keskmäine radmär, platform, versii, tip and radon aig. Preserve OS/CPU identifiers and free/total/load/count/duration distinctions. Technical memory/load adaptations remain low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "OS_Cpus",
+    "before": "Käyttöjärjestelmän CPU-määrä",
+    "after": "OS: CPU lugumär",
+    "reason": "Replace Finnish OS/memory metric labels with Veps dictionary arhitektur, mušt (genitive mušton), joudai, keskmäine radmär, platform, versii, tip and radon aig. Preserve OS/CPU identifiers and free/total/load/count/duration distinctions. Technical memory/load adaptations remain low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "OS_Freemem",
+    "before": "Käyttöjärjestelmän vapaa muisti",
+    "after": "OS: joudai mušt",
+    "reason": "Replace Finnish OS/memory metric labels with Veps dictionary arhitektur, mušt (genitive mušton), joudai, keskmäine radmär, platform, versii, tip and radon aig. Preserve OS/CPU identifiers and free/total/load/count/duration distinctions. Technical memory/load adaptations remain low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "OS_Loadavg",
+    "before": "Käyttöjärjestelmän kuorman keskiarvo",
+    "after": "OS: keskmäine radmär",
+    "reason": "Replace Finnish OS/memory metric labels with Veps dictionary arhitektur, mušt (genitive mušton), joudai, keskmäine radmär, platform, versii, tip and radon aig. Preserve OS/CPU identifiers and free/total/load/count/duration distinctions. Technical memory/load adaptations remain low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "OS_Platform",
+    "before": "Käyttöjärjestelmäalusta",
+    "after": "OS: platform",
+    "reason": "Replace Finnish OS/memory metric labels with Veps dictionary arhitektur, mušt (genitive mušton), joudai, keskmäine radmär, platform, versii, tip and radon aig. Preserve OS/CPU identifiers and free/total/load/count/duration distinctions. Technical memory/load adaptations remain low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "OS_Release",
+    "before": "Käyttöjärjestelmän julkaisu",
+    "after": "OS: versii",
+    "reason": "Replace Finnish OS/memory metric labels with Veps dictionary arhitektur, mušt (genitive mušton), joudai, keskmäine radmär, platform, versii, tip and radon aig. Preserve OS/CPU identifiers and free/total/load/count/duration distinctions. Technical memory/load adaptations remain low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "OS_Totalmem",
+    "before": "Käyttöjärjestelmän muistin kokonaismäärä",
+    "after": "OS: kaik mušt",
+    "reason": "Replace Finnish OS/memory metric labels with Veps dictionary arhitektur, mušt (genitive mušton), joudai, keskmäine radmär, platform, versii, tip and radon aig. Preserve OS/CPU identifiers and free/total/load/count/duration distinctions. Technical memory/load adaptations remain low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "OS_Type",
+    "before": "Käyttöjärjestelmän tyyppi",
+    "after": "OS: tip",
+    "reason": "Replace Finnish OS/memory metric labels with Veps dictionary arhitektur, mušt (genitive mušton), joudai, keskmäine radmär, platform, versii, tip and radon aig. Preserve OS/CPU identifiers and free/total/load/count/duration distinctions. Technical memory/load adaptations remain low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "OS_Uptime",
+    "before": "Käyttöjärjestelmä ollut käynnissä",
+    "after": "OS: radon aig",
+    "reason": "Replace Finnish OS/memory metric labels with Veps dictionary arhitektur, mušt (genitive mušton), joudai, keskmäine radmär, platform, versii, tip and radon aig. Preserve OS/CPU identifiers and free/total/load/count/duration distinctions. Technical memory/load adaptations remain low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "memory-usage",
+    "before": "Muistin käyttö",
+    "after": "Mušton kävutand",
+    "reason": "Replace Finnish OS/memory metric labels with Veps dictionary arhitektur, mušt (genitive mušton), joudai, keskmäine radmär, platform, versii, tip and radon aig. Preserve OS/CPU identifiers and free/total/load/count/duration distinctions. Technical memory/load adaptations remain low confidence pending fluent review."
   }
 ]

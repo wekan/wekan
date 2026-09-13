@@ -2093,5 +2093,28 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.match(cache['ve-PP']['custom-head-meta-tags'], /meta-tagad.*HTML/);
   assert.match(cache['ve-PP']['text-below-custom-login-logo'], /logon al$/);
   assert.notEqual(cache['ve-PP']['custom-login-logo-image-url'], cache['ve-PP']['custom-login-logo-link-url']);
+  const vepsSystemMetrics = {
+  "OS_Arch": "OS: arhitektur",
+  "OS_Cpus": "OS: CPU lugumär",
+  "OS_Freemem": "OS: joudai mušt",
+  "OS_Loadavg": "OS: keskmäine radmär",
+  "OS_Platform": "OS: platform",
+  "OS_Release": "OS: versii",
+  "OS_Totalmem": "OS: kaik mušt",
+  "OS_Type": "OS: tip",
+  "OS_Uptime": "OS: radon aig",
+  "memory-usage": "Mušton kävutand"
+};
+  for (const [key, value] of Object.entries(vepsSystemMetrics)) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.equal(vepsTranslator.t(key), value, key);
+    assert.doesNotMatch(value, /Käyttöjärjestelmä|vapaa muisti|kuorman keskiarvo|julkaisu|kokonaismäärä|ollut käynnissä|Muistin käyttö/, key);
+  }
+  assert.notEqual(cache['ve-PP']['OS_Freemem'], cache['ve-PP']['OS_Totalmem']);
+  assert.match(cache['ve-PP']['OS_Freemem'], /joudai mušt/);
+  assert.match(cache['ve-PP']['OS_Totalmem'], /kaik mušt/);
+  assert.match(cache['ve-PP']['OS_Cpus'], /CPU lugumär/);
+  assert.match(cache['ve-PP']['OS_Loadavg'], /keskmäine radmär/);
+  assert.match(cache['ve-PP']['OS_Uptime'], /radon aig/);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });
