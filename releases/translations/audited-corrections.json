@@ -80008,5 +80008,68 @@
     "before": "Waxtu wees ba noppi bés",
     "after": "Diir bi des bala bis bi ñu war a jeexal",
     "reason": "Replace French time-tracking labels with Wolof and repair unflagged remaining-until-due wording that used elapsed/past language. Preserve hours units, spent versus overtime and estimate versus remaining-until-due. Existing total-time wording retained. Duration/hour phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "search-cards",
+    "before": "Rechercher parmi les titres, descriptions et champs personnalisés des cartes/listes de ce tableau",
+    "after": "Seet ci tur yi, melokaan yi ak wàll yu dugal yu ñu def ci soxla ci karta yi ak limu yi ci tablo bii",
+    "reason": "Replace French search controls and operator errors with Wolof. Preserve Enter key name, positive integer requirement, expected number versus received value and all percent/underscore tokens. Distinguish debug predicate, existence check, sort, status and unknown operator. Technical vocabulary and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "search-example",
+    "before": "Écrivez le texte que vous recherchez et appuyez sur Entrée",
+    "after": "Bindal mbind mi ngay seet te bës Enter",
+    "reason": "Replace French search controls and operator errors with Wolof. Preserve Enter key name, positive integer requirement, expected number versus received value and all percent/underscore tokens. Distinguish debug predicate, existence check, sort, status and unknown operator. Technical vocabulary and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "operator-debug-invalid",
+    "before": "%s n'est pas un prédicat de debug valide",
+    "after": "%s du sart bu baax ngir debug",
+    "reason": "Replace French search controls and operator errors with Wolof. Preserve Enter key name, positive integer requirement, expected number versus received value and all percent/underscore tokens. Distinguish debug predicate, existence check, sort, status and unknown operator. Technical vocabulary and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "operator-has-invalid",
+    "before": "%s n'est pas un test valide d'existence",
+    "after": "%s du seetlu bu baax ngir xam ndax am na",
+    "reason": "Replace French search controls and operator errors with Wolof. Preserve Enter key name, positive integer requirement, expected number versus received value and all percent/underscore tokens. Distinguish debug predicate, existence check, sort, status and unknown operator. Technical vocabulary and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "operator-limit-invalid",
+    "before": "%s n'est pas une limite valide. La limite doit être un entier positif.",
+    "after": "%s du dig bu baax. Dig bi war na nekk lim bu mat te ëpp zero.",
+    "reason": "Replace French search controls and operator errors with Wolof. Preserve Enter key name, positive integer requirement, expected number versus received value and all percent/underscore tokens. Distinguish debug predicate, existence check, sort, status and unknown operator. Technical vocabulary and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "operator-number-expected",
+    "before": "L'opérateur __operator__ n'attend pas '__value__' mais un nombre",
+    "after": "Operatëer __operator__ xaaroon na lim, jot na '__value__'",
+    "reason": "Replace French search controls and operator errors with Wolof. Preserve Enter key name, positive integer requirement, expected number versus received value and all percent/underscore tokens. Distinguish debug predicate, existence check, sort, status and unknown operator. Technical vocabulary and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "operator-sort-invalid",
+    "before": "'%s' n'est pas valide pour le tri",
+    "after": "Tëral '%s' baaxul",
+    "reason": "Replace French search controls and operator errors with Wolof. Preserve Enter key name, positive integer requirement, expected number versus received value and all percent/underscore tokens. Distinguish debug predicate, existence check, sort, status and unknown operator. Technical vocabulary and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "operator-status-invalid",
+    "before": "'%s' n'est pas un statut valide",
+    "after": "'%s' du anam bu baax",
+    "reason": "Replace French search controls and operator errors with Wolof. Preserve Enter key name, positive integer requirement, expected number versus received value and all percent/underscore tokens. Distinguish debug predicate, existence check, sort, status and unknown operator. Technical vocabulary and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "operator-unknown-error",
+    "before": "'%s' n'est pas un opérateur",
+    "after": "%s du operatëer",
+    "reason": "Replace French search controls and operator errors with Wolof. Preserve Enter key name, positive integer requirement, expected number versus received value and all percent/underscore tokens. Distinguish debug predicate, existence check, sort, status and unknown operator. Technical vocabulary and full grammar remain low confidence."
   }
 ]
