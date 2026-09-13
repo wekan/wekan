@@ -110031,5 +110031,145 @@
     "before": "Visualizza questo campo sulla scheda",
     "after": "Mostra sto canpo so ła scheda",
     "reason": "Replace Italian-seeded Venetian rule, membership and display labels; preserve top/bottom placement, add/assign distinction, removal notification and numeric threshold. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "show-subtasks-field",
+    "before": "Mostra campo delle sottoattività",
+    "after": "Mostra el canpo dei sotoconpiti",
+    "reason": "Replace Italian-seeded Venetian date, display and role values; preserve positive-integer validation, keyboard range, worker-only capabilities and Node/MongoDB identities. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "star-board-title",
+    "before": "Clicca per stellare questa bacheca. Sarà mostrata all'inizio della tua lista bacheche.",
+    "after": "Clica par zontar na steła a sto quadro. El vegnarà mostrà in sima a ła lista dei to quadri.",
+    "reason": "Replace Italian-seeded Venetian date, display and role values; preserve positive-integer validation, keyboard range, worker-only capabilities and Node/MongoDB identities. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "starred-boards-description",
+    "before": "Le bacheche stellate vengono mostrate in cima alla lista delle bacheche.",
+    "after": "I quadri co ła steła i vien mostrài in sima a ła lista dei to quadri.",
+    "reason": "Replace Italian-seeded Venetian date, display and role values; preserve positive-integer validation, keyboard range, worker-only capabilities and Node/MongoDB identities. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "start-day-of-week",
+    "before": "Imposta l'inizio del giorno della settimana",
+    "after": "Inposta el primo dì de ła setimana",
+    "reason": "Replace Italian-seeded Venetian date, display and role values; preserve positive-integer validation, keyboard range, worker-only capabilities and Node/MongoDB identities. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "subtask-settings",
+    "before": "Impostazioni sotto-compiti",
+    "after": "Inpostasion dei sotoconpiti",
+    "reason": "Replace Italian-seeded Venetian date, display and role values; preserve positive-integer validation, keyboard range, worker-only capabilities and Node/MongoDB identities. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "swimlane-height-error-message",
+    "before": "L'altezza della corsia deve essere un intero positivo",
+    "after": "Ła altesa de ła corsia ła gà da èsar un nùmaro intero pì grando de zero",
+    "reason": "Replace Italian-seeded Venetian date, display and role values; preserve positive-integer validation, keyboard range, worker-only capabilities and Node/MongoDB identities. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "toggle-assignees",
+    "before": "Alterna gli assegnatari da 1-9 per la scheda (in base all'ordine di aggiunta alla bacheca).",
+    "after": "Zonta o cava i asegnatari 1-9 de ła scheda (inte el òrdine che i xe stà zontài al quadro).",
+    "reason": "Replace Italian-seeded Venetian date, display and role values; preserve positive-integer validation, keyboard range, worker-only capabilities and Node/MongoDB identities. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "tracking-info",
+    "before": "Sarai notificato per tutte le modifiche alle schede delle quali sei creatore o membro.",
+    "after": "Te ricevarè notifiche de tuti i canbiamenti de łe schede dove te si creador o membro.",
+    "reason": "Replace Italian-seeded Venetian date, display and role values; preserve positive-integer validation, keyboard range, worker-only capabilities and Node/MongoDB identities. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "user-can-not-export-card-to-pdf",
+    "before": "L'utente non può esportare la scheda in PDF",
+    "after": "El utente no el pol esportar ła scheda in PDF",
+    "reason": "Replace Italian-seeded Venetian date, display and role values; preserve positive-integer validation, keyboard range, worker-only capabilities and Node/MongoDB identities. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "warn-list-archived",
+    "before": "attenzione: questa scheda si trova in una lista nell'archivio",
+    "after": "atension: sta scheda ła xe inte na lista del archivio",
+    "reason": "Replace Italian-seeded Venetian date, display and role values; preserve positive-integer validation, keyboard range, worker-only capabilities and Node/MongoDB identities. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "watching-info",
+    "before": "Sarai notificato per tutte le modifiche in questa bacheca",
+    "after": "Te ricevarè notifiche de ogni canbiamento de sto quadro",
+    "reason": "Replace Italian-seeded Venetian date, display and role values; preserve positive-integer validation, keyboard range, worker-only capabilities and Node/MongoDB identities. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "worker-desc",
+    "before": "Può solo spostare schede, assegnarsi una scheda e commentare.",
+    "after": "El pol soło spostar łe schede, asegnarse na scheda e comentar.",
+    "reason": "Replace Italian-seeded Venetian date, display and role values; preserve positive-integer validation, keyboard range, worker-only capabilities and Node/MongoDB identities. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "MongoDB_storage_engine",
+    "before": "Storage engine di MongoDB",
+    "after": "Motor de memorisasion de MongoDB",
+    "reason": "Replace Italian-seeded Venetian date, display and role values; preserve positive-integer validation, keyboard range, worker-only capabilities and Node/MongoDB identities. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "Node_memory_usage_external",
+    "before": "Uttilizzo memoria del nodo: esterna",
+    "after": "Dòparo de memoria de Node: esterna",
+    "reason": "Replace Italian-seeded Venetian date, display and role values; preserve positive-integer validation, keyboard range, worker-only capabilities and Node/MongoDB identities. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "Node_memory_usage_heap_used",
+    "before": "Utilizzo memoria del nodo: memoria effettivamente usata",
+    "after": "Dòparo de memoria de Node: memoria efetivamente doparà",
+    "reason": "Replace Italian-seeded Venetian date, display and role values; preserve positive-integer validation, keyboard range, worker-only capabilities and Node/MongoDB identities. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "a-endAt",
+    "before": "orario finale modificato in",
+    "after": "canbià el orario de fine a",
+    "reason": "Replace Italian-seeded Venetian date, display and role values; preserve positive-integer validation, keyboard range, worker-only capabilities and Node/MongoDB identities. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "a-receivedAt",
+    "before": "orario di ricezione modificato in",
+    "after": "canbià el orario de ricevimento a",
+    "reason": "Replace Italian-seeded Venetian date, display and role values; preserve positive-integer validation, keyboard range, worker-only capabilities and Node/MongoDB identities. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "a-startAt",
+    "before": "orario iniziale modificato in",
+    "after": "canbià el orario de inisio a",
+    "reason": "Replace Italian-seeded Venetian date, display and role values; preserve positive-integer validation, keyboard range, worker-only capabilities and Node/MongoDB identities. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "acceptance_of_our_legalNotice",
+    "before": "Continuando, accetti il nostro",
+    "after": "Continuando, te asete el nostro",
+    "reason": "Replace Italian-seeded Venetian date, display and role values; preserve positive-integer validation, keyboard range, worker-only capabilities and Node/MongoDB identities. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "accessibility-content",
+    "before": "Contenuti di accessibilità",
+    "after": "Contenuto de acesibiłità",
+    "reason": "Replace Italian-seeded Venetian date, display and role values; preserve positive-integer validation, keyboard range, worker-only capabilities and Node/MongoDB identities. Low-confidence wording; fluent-speaker validation outstanding."
   }
 ]
