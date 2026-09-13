@@ -80,9 +80,9 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,110 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 734 pending review or repair.
-The correction inventory records 17,276 exact before/after values,
+findings: 15,111 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 733 pending review or repair.
+The correction inventory records 17,277 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
@@ -102,8 +102,9 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383540a; translation repairs have resumed.
-Latest translation fix is 114c5d992 (2026-09-14), repairing the unflagged
-Quechua crimson wrapper; twelve color wrappers and exact-hue review remain. Composed headings
+Latest translation fix is b373e0734 (2026-09-14), localizing Greenlandic
+Jalali Persian wording with an unconfirmed CLDR name. Twelve Quechua color
+wrappers and exact-hue review remain. Composed headings
 need fluent review.
 Tamazight calendar review dd2aaa19a (2026-09-14) records provisional
 Islamic naming and missing variant terminology; no values changed.
@@ -651,6 +652,16 @@ The audit records 749 pending original findings and wider unfinished validation.
 This release adds the following translation improvements:
 
 **Translations** - Locale wording repairs and remaining audit progress.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b373e0734">Repair Greenlandic Jalali qualifier</a>. Thanks to xet7.</summary>
+
+Localize Persian as persiskisut while retaining Jalali. CLDR marks the name
+unconfirmed; fluent technical review remains open. All 17,277 correction
+checks pass; 733 original findings and broader linguistic validation remain
+unfinished. Live browser verification was not run.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/669be8895">Record Manx calendar terminology review</a>. Thanks to xet7.</summary>
