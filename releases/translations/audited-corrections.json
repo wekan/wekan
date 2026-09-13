@@ -58385,5 +58385,124 @@
     "before": "Islamic Umm al-Qura",
     "after": "Hidjra-kalinder (Umm al-Qura)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ary",
+    "key": "calendar-system-buddhist",
+    "before": "Buddhist",
+    "after": "التقويم البوذي",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ary",
+    "key": "calendar-system-chinese",
+    "before": "Chinese",
+    "after": "التقويم الصيني",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ary",
+    "key": "calendar-system-coptic",
+    "before": "Coptic",
+    "after": "التقويم القبطي",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ary",
+    "key": "calendar-system-dangi",
+    "before": "Dangi (Korean)",
+    "after": "تقويم دانغي (كوري)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ary",
+    "key": "calendar-system-ethioaa",
+    "before": "Ethiopic Amete Alem",
+    "after": "التقويم الإثيوبي أميتي أليم",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ary",
+    "key": "calendar-system-ethiopic",
+    "before": "Ethiopic",
+    "after": "التقويم الإثيوبي",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ary",
+    "key": "calendar-system-hebrew",
+    "before": "Hebrew",
+    "after": "التقويم العبري",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ary",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "التقويم الوطني ديال الهند",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ary",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "التقويم الهجري",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ary",
+    "key": "calendar-system-islamic-civil",
+    "before": "Islamic civil",
+    "after": "التقويم الهجري (بالحساب الجدولي، البداية المدنية)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ary",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "التقويم الهجري (السعودية، على حساب رؤية الهلال)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ary",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "التقويم الهجري (بالحساب الجدولي، البداية الفلكية)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ary",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "التقويم الهجري (أم القرى)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ary",
+    "key": "calendar-system-japanese",
+    "before": "Japanese",
+    "after": "التقويم الياباني",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ary",
+    "key": "calendar-system-roc",
+    "before": "Republic of China",
+    "after": "تقويم مينغو",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ary",
+    "key": "import-board-instruction-trello",
+    "before": "In your Trello board, go to 'Menu', then 'More', 'Print and Export', 'Export JSON', and copy the resulting text",
+    "after": "فالبورد ديالك فـ Trello، سير لـ 'Menu'، ومن بعد 'More'، 'Print and Export'، 'Export JSON'، ونسخ النص اللي خرج.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ary",
+    "key": "import-board-instruction-markdown",
+    "before": "Sers tabdart n twuriwin s markdown (tanila i seqdacen ifecka n markdown-kanban am Obsidian Kanban): iɣwan \"## Isem n tebdart\", s iferdisen \"- [ ]\"/\"- [x]\" ddaw-s. Iɣwan ad ttuɣalen d tibdarin, iferdisen ad ttuɣalen d tikarḍiwin.",
+    "after": "لصق ليستة ديال المهام بـ markdown (بحال الطريقة اللي كتستعملها أدوات markdown-kanban بحال Obsidian Kanban): عناوين \"## List name\"، وتحت منها عناصر \"- [ ]\"/\"- [x]\". العناوين كيولّيو ليستات والعناصر كيولّيو كارتات؛ حتى ليستة بالنقط بلا خانات التأشير كتدخل، ككارتات مفتوحة.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
