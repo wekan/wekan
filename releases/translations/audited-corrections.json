@@ -78846,5 +78846,40 @@
     "before": "Types de fichier autorisés pour l'upload :",
     "after": "Xeeti fiise yi ñu may ngir yeb:",
     "reason": "Replace French account permission/invitation/filetype labels with Wolof. Preserve logged-in-only scope, email versus username change, self-invitation prohibition and allowed avatar versus upload filetypes. Reuse fiise/yeb terminology; full grammar and invitation terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "max-upload-filesize",
+    "before": "Taille maximum du fichier à uploader en octets : ",
+    "after": "Réyaayu fiise bi gën a mag ngir yeb, ci bayt:",
+    "reason": "Replace French upload/file-report controls with Wolof. Preserve maximum upload versus avatar file size, byte units and uploading versus completed status. Reuse fiise/yeb vocabulary; byte loan and full grammar remain low confidence. Existing file-count wording retained."
+  },
+  {
+    "locale": "wo",
+    "key": "max-avatar-filesize",
+    "before": "Taille maximum du fichier de l'avatar en octets :",
+    "after": "Réyaayu fiise bi gën a mag ngir nataalu kont bi, ci bayt:",
+    "reason": "Replace French upload/file-report controls with Wolof. Preserve maximum upload versus avatar file size, byte units and uploading versus completed status. Reuse fiise/yeb vocabulary; byte loan and full grammar remain low confidence. Existing file-count wording retained."
+  },
+  {
+    "locale": "wo",
+    "key": "upload-completed",
+    "before": "Le chargement est terminé",
+    "after": "Yeb gi jeex na",
+    "reason": "Replace French upload/file-report controls with Wolof. Preserve maximum upload versus avatar file size, byte units and uploading versus completed status. Reuse fiise/yeb vocabulary; byte loan and full grammar remain low confidence. Existing file-count wording retained."
+  },
+  {
+    "locale": "wo",
+    "key": "uploading-files",
+    "before": "Chargement des fichiers",
+    "after": "Yeb fiise yi",
+    "reason": "Replace French upload/file-report controls with Wolof. Preserve maximum upload versus avatar file size, byte units and uploading versus completed status. Reuse fiise/yeb vocabulary; byte loan and full grammar remain low confidence. Existing file-count wording retained."
+  },
+  {
+    "locale": "wo",
+    "key": "filesReportTitle",
+    "before": "Rapports sur les fichiers",
+    "after": "Rapooru fiise yi",
+    "reason": "Replace French upload/file-report controls with Wolof. Preserve maximum upload versus avatar file size, byte units and uploading versus completed status. Reuse fiise/yeb vocabulary; byte loan and full grammar remain low confidence. Existing file-count wording retained."
   }
 ]
