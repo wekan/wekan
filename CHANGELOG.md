@@ -80,14 +80,14 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,122 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 722 pending review or repair.
-The correction inventory records 17,309 exact before/after values,
+findings: 15,126 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 718 pending review or repair.
+The correction inventory records 17,313 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
 German cron label, which now uses the actual tool name Cron.
-The largest original queues are Standard Moroccan Tamazight (579) and
+The largest original queues are Standard Moroccan Tamazight (575) and
 Inuktitut (50); Veps retains 10 original findings. Silesian database terminology and 17 Tigre
 calendar findings need language-specific review. Restored and unflagged
 values, low-confidence wording and browser rendering remain unverified.
@@ -102,10 +102,10 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383540a; translation repairs have resumed.
-Latest translation fix is 1d4ad977d (2026-09-14), replacing French lookup
-errors and Arabic label/search text. Composed errors/create-label wording,
-color/tag morphology, credentials and earlier number/user/export wording
-remain low confidence; three repaired values were outside the original queue.
+Latest translation fix is c6ee67cb1 (2026-09-14), replacing four French
+label activity messages and refining native filename wording. Activity
+clauses/addition inflection, prior errors/create-label wording, color/tag
+morphology, credentials and number/user/export wording remain low confidence.
 Greenlandic CLDR-unconfirmed wording and twelve Quechua color wrappers
 still need review, alongside the wider restored and unflagged values.
 Tamazight calendar review dd2aaa19a (2026-09-14) records provisional
@@ -115,7 +115,7 @@ names and unresolved Coptic/tabular/epoch terminology; no values changed. Previo
 Cherokee Hijri labels with exact native-script CLDR variant names. Cherokee’s
 original queue is empty. Compact tabular epoch wording still needs fluent
 technical review. Quechua palette compounds and remaining color wrappers
-remain open. There are 579 Tamazight findings remaining.
+remain open. There are 575 Tamazight findings remaining.
 Silesian reference review (2026-09-14) confirms shared database/file terms
 in native MediaWiki messages; the full raw-file label remains pending.
 No translation value or finding count changed in that review.
@@ -752,6 +752,20 @@ The audit records 749 pending original findings and wider unfinished validation.
 This release adds the following translation improvements:
 
 **Translations** - Locale wording repairs and remaining audit progress.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c6ee67cb1">Repair Tamazight label activity text and refine filename wording</a>. Thanks to xet7.</summary>
+
+Replace four French label add/remove activity messages with native tag and
+directional wording. Preserve label/card percent placeholders and keep
+addition-to-card distinct from removal-from-card. Complete clauses,
+active-addition inflection and default actor form remain low confidence
+pending fluent review. Refine the earlier filename correction with native
+upload-form wording, retaining its original before value. All 17,313
+correction/rendering checks pass. The original queue has 718 pending
+findings; wider language validation and live UI remain open.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/1d4ad977d">Repair Tamazight label/search text and lookup errors</a>. Thanks to xet7.</summary>
