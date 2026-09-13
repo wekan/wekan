@@ -59659,5 +59659,131 @@
     "before": "Supprimer les listes en doublon ? ",
     "after": "Suprimir las listas en doble",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "deletePokerPopup-title",
+    "before": "Supprimer ce planning poker ?",
+    "after": "Suprimir aqueste planning poker ?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "deposit-subtasks-board",
+    "before": "Déposer des sous-tâches dans ce tableau :",
+    "after": "Depausar las sostascas dins aqueste tablèu :",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "dueCardsViewChange-choice-all-description",
+    "before": "Visualise toutes les cartes incomplètes avec une date *échue* pour lesquelles l'utilisateur possède les droits",
+    "after": "Aficha totas las cartas incompletas amb una data d’*escasença* dels tablèus pels quals l’utilizaire a una autorizacion.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "duplicate-board-confirm",
+    "before": "Êtes-vous sûr de vouloir dupliquer ce tableau ?",
+    "after": "Volètz vertadièrament duplicar aqueste tablèu ?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "email-invite-register-text",
+    "before": "Cher/Chère __user__,\n\n__inviter__ vous invite à le rejoindre sur le tableau kanban pour collaborer.\n\nVeuillez suivre le lien ci-dessous :\n__url__\n\nVotre code d'invitation est : __icode__\n\nMerci.",
+    "after": "Car __user__,\n\n__inviter__ vos convida a un tablèu kanban per collaborar.\n\nSeguissètz lo ligam çaijós :\n__url__\n\nVòstre còdi d’invitacion es : __icode__\n\nMercés.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "error-ldap-login",
+    "before": "Une erreur s'est produite lors de la tentative de connexion",
+    "after": "Una error s’es producha pendent l’ensag de connexion",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "export-card-field-board-info",
+    "before": "Informations du tableau (Tableau, Liste, Couloir)",
+    "after": "Informacions del tablèu (Tablèu, Lista, Corredor)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "fix-all-file-urls-migration-description",
+    "before": "Met à jour toutes les URL des pièces jointes de ce tableau pour utiliser le bon backend de stockage et corrige les références de fichiers cassées.",
+    "after": "Actualiza totas las URL de las pèças juntas d’aqueste tablèu per utilizar lo sistèma de conservacion corrècte e corregís las referéncias de fichièrs copadas.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "fix-avatar-urls-migration-description",
+    "before": "Mets à jour les URLs d'avatar des participants du tableau pour utiliser le bon gestionnaire de stockage et corriger les références défaillantes d'avatar ",
+    "after": "Actualiza las URL dels avatars dels membres del tablèu per utilizar lo sistèma de conservacion corrècte e corregís las referéncias d’avatars copadas.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "fix-missing-lists-migration-description",
+    "before": "Détecte et répare les listes manquantes ou corrompues dans la structure du tableau.",
+    "after": "Detecta e repara las listas mancantas o corrompudas dins l’estructura del tablèu.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "globalSearch-instructions-operator-assignee",
+    "before": "`__operator_assignee__:<nom>` - cartes *attribuées* à l'utilisateur *<nom>*",
+    "after": "`__operator_assignee__:<username>` - cartas ont *<username>* es un *assignatari*",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "globalSearch-instructions-operator-board",
+    "before": "`__operator_board__:<titre>` - cartes dont le tableau correspond à *<titre>*",
+    "after": "`__operator_board__:<title>` - cartas dels tablèus que correspondon al *<title>* indicat",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "globalSearch-instructions-operator-creator",
+    "before": "`__operator_creator__:<utilisateur>` - cartes dont le créateur est *<utilisateur>*",
+    "after": "`__operator_creator__:<username>` - cartas ont *<username>* es lo creator de la carta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "globalSearch-instructions-operator-member",
+    "before": "`__operator_member__:<nom>` - cartes pour lesquelles l'utilisateur *<nom>* est *participant*",
+    "after": "`__operator_member__:<username>` - cartas ont *<username>* es un *membre*",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "globalSearch-instructions-operator-org",
+    "before": "`__operator_org__:<display name|short name>` - cartes appartenant à un tableau attribué à l'organisation *<name>*",
+    "after": "`__operator_org__:<display name|short name>` - cartas d’un tablèu assignat a l’organizacion *<name>*",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "globalSearch-instructions-operator-team",
+    "before": "`__operator_team__:<display name|short name>` - cartes appartenant à un tableau attribué à l'équipe *<name>*",
+    "after": "`__operator_team__:<display name|short name>` - cartas d’un tablèu assignat a l’equipa *<name>*",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "globalSearch-instructions-operator-user",
+    "before": "`__operator_user__:<nom>` - cartes où l'utilisateur <nom> est *participant* ou *intervenant*.",
+    "after": "`__operator_user__:<username>` - cartas ont *<username>* es un *membre* o un *assignatari*",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "globalSearch-instructions-status-private",
+    "before": "`__predicate_private__` - uniquement les cartes qui sont dans un tableau privé.",
+    "after": "`__predicate_private__` - cartas solament dins los tablèus privats",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
