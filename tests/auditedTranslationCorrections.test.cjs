@@ -1270,5 +1270,43 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.equal(cache['ve-PP']['r-items-list'].split(',').length, 3);
   assert.equal(cache['ve-PP']['r-items-list'], 'koht1,koht2,koht3');
   assert.match(cache['ve-PP']['r-checklist-note'], /katkimel erigoittud/);
+  const vepsAccountMailRepairs = {
+  "email-enrollAccount-text": "Tervhen __user__,\n\nMiše zavodita kävutada holitest, paina alemba anttud tarkendust.\n\n__url__\n\nSpasib.",
+  "email-invite-text": "Tervhen __user__,\n\n__inviter__ kucub sindai ühteta laudale \"__board__\" ühthižtön täht.\n\nOle hüvä, paina alemba anttud tarkendust:\n\n__url__\n\nSpasib.",
+  "push-invite-text": "Tervhen __user__,\n\n__inviter__ kucub sindai ühteta laudale \"__board__\" ühthižtön täht.\n\nOle hüvä, paina alemba anttud tarkendust:\n\n__url__\n\nSpasib.",
+  "email-invite-register-text": "Tervhen __user__,\n\n__inviter__ kucub sindai kanban-laudale ühthižtön täht.\n\nOle hüvä, paina alemba anttud tarkendust:\n__url__\n\nSinun kucundan kod om: __icode__\n\nSpasib.",
+  "email-resetPassword-text": "Tervhen __user__,\n\nPeitsanan heitändan täht paina alemba anttud tarkendust.\n\n__url__\n\nSpasib.",
+  "email-verifyEmail-text": "Tervhen __user__,\n\nMiše vahvištoitta sinun akkauntan email-počtan adresad, paina alemba anttud tarkendust.\n\n__url__\n\nSpasib.",
+  "email-templates-activity-body": "Tegendoiden tedotusen email-kirjeižen tekst",
+  "error-email-taken": "Email-počtan adres om jo kävutuses",
+  "account-creation-failed": "Akkauntan tegemižen viga",
+  "account-created": "Akkaunt om tehtud! Nügüd’ sinä void tulda sistemaha.",
+  "accounts": "Akkauntad",
+  "create-account": "Tege akkaunt",
+  "already-account": "Sinul om jo akkaunt? Tule sistemaha",
+  "accounts-allowUserDelete": "Laske kävutajile heitta ičeze akkauntad",
+  "delete-all-notifications-confirm": "Oled-ik sinä tozi mugošt mel’t, miše tahtoid heitta kaik tedotuzed? Necidä tegendad ei sa pördutada."
+};
+  const mailSlots = { user: 'USER', inviter: 'INVITER', board: 'BOARD', url: 'https://on-premise.example/invite?token=TOKEN', icode: 'CODE' };
+  for (const [key, value] of Object.entries(vepsAccountMailRepairs)) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    const rendered = vepsTranslator.t(key, mailSlots);
+    assert.equal(rendered, value.replace(/__([A-Za-z]+)__/g, (_, name) => mailSlots[name]), key);
+    assert.doesNotMatch(rendered, /__user__|__url__|__icode__|__board__|__inviter__/, key);
+    assert.doesNotMatch(value, /Hei |Hyvä |Klikkaa|aloittaaksesi|palvelun käytön|Kiitos|kutsuu sinut|liittymään taululle|yhteistyötä varten|seuraa alla|Kutsukoodisi|Nollataksesi|salasanasi|vahvistaaksesi|sähköpostiosoite|Tilin luominen|epäonnistui|Onko sinulla|Kirjaudu|Salli käyttäjien|Oletko varma|ilmoitukset|toimintoa ei voi perua|luodud|voit kirjutadas/i, key);
+  }
+  assert.match(vepsTranslator.t('email-invite-text', mailSlots), /INVITER.*laudale "BOARD".*ühthižtön/);
+  assert.match(vepsTranslator.t('email-invite-register-text', mailSlots), /kucundan kod om: CODE/);
+  assert.match(vepsTranslator.t('email-resetPassword-text', mailSlots), /Peitsanan heitändan täht/);
+  assert.doesNotMatch(cache['ve-PP']['email-resetPassword-text'], /vahvištoitta/);
+  assert.match(vepsTranslator.t('email-verifyEmail-text', mailSlots), /vahvištoitta.*email-počtan adresad/);
+  for (const key of ['email-enrollAccount-text', 'email-invite-text', 'push-invite-text', 'email-invite-register-text', 'email-resetPassword-text', 'email-verifyEmail-text']) {
+    assert.ok(vepsTranslator.t(key, mailSlots).includes(mailSlots.url), key);
+    assert.match(cache['ve-PP'][key], /Spasib\.$/);
+  }
+  assert.match(cache['ve-PP']['delete-all-notifications-confirm'], /kaik tedotuzed.*ei sa pördutada/);
+  assert.match(cache['ve-PP']['accounts-allowUserDelete'], /ičeze akkauntad$/);
+  assert.match(cache['ve-PP']['account-created'], /tehtud!.*tulda sistemaha/);
+  assert.match(cache['ve-PP']['error-email-taken'], /jo kävutuses$/);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });
