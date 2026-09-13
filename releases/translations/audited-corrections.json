@@ -62781,5 +62781,124 @@
     "before": "Advanced Filter allows to write a string containing following operators: == != <= >= && || ( ) A space is used as a separator between the Operators. You can filter for all Custom Fields by typing their names and values. For Example: Field1 == Value1. Note: If fields or values contains spaces, you need to encapsulate them into single quotes. For Example: 'Field 1' == 'Value 1'. For single control characters (' \\\\/) to be skipped, you can use \\\\. For example: Field1 == I\\\\'m. Also you can combine multiple conditions. For Example: F1 == V1 || F1 == V2. Normally all operators are interpreted from left to right. You can change the order by placing brackets. For Example: F1 == V1 && ( F2 == V2 || F2 == V3 ). Also you can search text fields using regex: F1 == /Tes.*/i",
     "after": "Lo filtre avançat permet d’escriure una cadena amb los operadors seguents : == != <= >= && || ( ) Un espaci servís de separador entre los operadors. Podètz filtrar totes los camps personalizats en escrivent lors noms e valors. Per exemple : Field1 == Value1. Nòta : se los camps o las valors contenon d’espacis, los devètz metre entre verguetas simplas. Per exemple : 'Field 1' == 'Value 1'. Per escapar los caractèrs de contraròtle (' \\/) podètz utilizar \\. Per exemple : Field1 == I\\'m. Podètz tanben combinar mantuna condicion. Per exemple : F1 == V1 || F1 == V2. Normalament, totes los operadors son interpretats d’esquèrra a drecha. Podètz cambiar l’òrdre en apondent de parentèsis. Per exemple : F1 == V1 && ( F2 == V2 || F2 == V3 ). Podètz tanben cercar dins los camps de tèxt amb d’expressions regularas : F1 == /Tes.*/i",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "pap",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "Sistema di kalènder (presentashon di fecha)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "pap",
+    "key": "calendar-system-jalali",
+    "before": "Jalali (Fars)",
+    "after": "Jalali (persa)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "pap",
+    "key": "calendar-system-buddhist",
+    "before": "Buddhist",
+    "after": "Kalènder budista",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "pap",
+    "key": "calendar-system-chinese",
+    "before": "Chinese",
+    "after": "Kalènder chines",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "pap",
+    "key": "calendar-system-coptic",
+    "before": "Coptic",
+    "after": "Kalènder kòptiko",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "pap",
+    "key": "calendar-system-dangi",
+    "before": "Dangi (Korean)",
+    "after": "Kalènder Dangi (koreano)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "pap",
+    "key": "calendar-system-ethioaa",
+    "before": "Ethiopic Amete Alem",
+    "after": "Kalènder etiopio Amete Alem",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "pap",
+    "key": "calendar-system-ethiopic",
+    "before": "Ethiopic",
+    "after": "Kalènder etiopio",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "pap",
+    "key": "calendar-system-hebrew",
+    "before": "Hebrew",
+    "after": "Kalènder hudiu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "pap",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "Kalènder nashonal indio",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "pap",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "Kalènder Hijri",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "pap",
+    "key": "calendar-system-islamic-civil",
+    "before": "Islamic civil",
+    "after": "Kalènder Hijri (tabular, époka sivil)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "pap",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "Kalènder Hijri (Arabia Saudita, observashon di luna)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "pap",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "Kalènder Hijri (tabular, époka astronómiko)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "pap",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "Kalènder Hijri (Umm al-Qura)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "pap",
+    "key": "calendar-system-japanese",
+    "before": "Japanese",
+    "after": "Kalènder hapones",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "pap",
+    "key": "calendar-system-roc",
+    "before": "Republic of China",
+    "after": "Kalènder Minguo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
