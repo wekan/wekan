@@ -84110,5 +84110,19 @@
     "before": "Higyiri Kalɛnda (Ummm al-Kura)",
     "after": "Higyiri Kalɛnda (Umm al-Qura)",
     "reason": "Replace English with Akan and restore omitted calendar identities and qualifiers; preserve moon sighting, table calculation with astronomical starting date, Gregorian ISO weeks, Jalali, exact Umm al-Qura name and date-display setting. Epoch technical phrasing and complete grammar remain low confidence."
+  },
+  {
+    "locale": "ay",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "Pachachimpu wakichäwi (uru uñachayaña)",
+    "reason": "Replace Turkish date-display setting with Aymara using existing pachachimpu terminology and restore Gregorian calendar/ISO 8601 weeks omitted from local label. Complete grammar remains low confidence; Hijri epoch/sighting labels remain pending."
+  },
+  {
+    "locale": "ay",
+    "key": "calendar-system-iso8601",
+    "before": "ISO 8601",
+    "after": "Gregoriana pachachimpu (ISO 8601 simananaka)",
+    "reason": "Replace Turkish date-display setting with Aymara using existing pachachimpu terminology and restore Gregorian calendar/ISO 8601 weeks omitted from local label. Complete grammar remains low confidence; Hijri epoch/sighting labels remain pending."
   }
 ]
