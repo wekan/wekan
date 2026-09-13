@@ -84250,5 +84250,19 @@
     "before": "Indian national",
     "after": "ʻAlemanaka aupuni o ʻĪnia",
     "reason": "Replace foreign-language and English calendar labels with Hawaiian, retaining Jalali/Amete Alem identifiers and Indian national qualifier. Peresia/Aitiopa attested at https://ebible.org/haw1868/EST01.htm and https://ebible.org/study/content/texts/haw1868/IS18.html; Hebera at https://bridwell.omeka.net/exhibits/show/harrison/worldvernacular/hawaiian; ʻĪnia at https://en.wiktionary.org/wiki/%CA%BB%C4%AAnia. These attest individual terms, not modern complete-label grammar, which remains low confidence. Religious loanwords and Hijri epoch/sighting labels remain pending."
+  },
+  {
+    "locale": "haw",
+    "key": "calendar-system-buddhist",
+    "before": "Buddhist",
+    "after": "ʻAlemanaka Buda",
+    "reason": "Replace English Buddhist calendar label using Hawaiian Buda attested in the native title at https://www.hawaiijodo.net/ and https://www.wahinebudafilm.com/; restore calendar noun consistently for Gregorian. Individual terminology is attested, but complete label grammar remains low confidence. Coptic and civil/astronomical/sighting Hijri terminology remain unresolved."
+  },
+  {
+    "locale": "haw",
+    "key": "calendar-system-gregorian",
+    "before": "Gregoriana",
+    "after": "ʻAlemanaka Gregoriana",
+    "reason": "Replace English Buddhist calendar label using Hawaiian Buda attested in the native title at https://www.hawaiijodo.net/ and https://www.wahinebudafilm.com/; restore calendar noun consistently for Gregorian. Individual terminology is attested, but complete label grammar remains low confidence. Coptic and civil/astronomical/sighting Hijri terminology remain unresolved."
   }
 ]
