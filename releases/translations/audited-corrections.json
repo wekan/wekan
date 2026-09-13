@@ -111998,5 +111998,33 @@
     "before": "Hora",
     "after": "Tiempo",
     "reason": "Colombian Spanish alias semantic review: preserve Gregorian calendar and ISO-week distinctions from English; Time names a duration/time-spent board view, not clock hour. Seven other differing values are valid Spanish alternatives and remain unchanged."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "username",
+    "before": "Käyttäjätunnus",
+    "after": "Kävutajan nimi",
+    "reason": "Replace Finnish-seeded Veps board/user controls. Dictionary attests laud/board (genitive laudan), nimi/name or title, painda/push button (imperative paina), avaita/unlock (imperative avaida), nece/this; https://kaikki.org/dictionary/Veps/ . Kävutai/user is attested in Veps MediaWiki. Composed username and purpose-clause wording has low confidence and requires fluent-speaker review. Existing shared Nimi remains unchanged."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "board",
+    "before": "Taulu",
+    "after": "Laud",
+    "reason": "Replace Finnish-seeded Veps board/user controls. Dictionary attests laud/board (genitive laudan), nimi/name or title, painda/push button (imperative paina), avaita/unlock (imperative avaida), nece/this; https://kaikki.org/dictionary/Veps/ . Kävutai/user is attested in Veps MediaWiki. Composed username and purpose-clause wording has low confidence and requires fluent-speaker review. Existing shared Nimi remains unchanged."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "board-title",
+    "before": "Taulun otsikko",
+    "after": "Laudan nimi",
+    "reason": "Replace Finnish-seeded Veps board/user controls. Dictionary attests laud/board (genitive laudan), nimi/name or title, painda/push button (imperative paina), avaita/unlock (imperative avaida), nece/this; https://kaikki.org/dictionary/Veps/ . Kävutai/user is attested in Veps MediaWiki. Composed username and purpose-clause wording has low confidence and requires fluent-speaker review. Existing shared Nimi remains unchanged."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "accounts-lockout-click-to-unlock",
+    "before": "Napsauta avataksesi tämän käyttäjän lukituksen",
+    "after": "Paina, miše avaida nece kävutai",
+    "reason": "Replace Finnish-seeded Veps board/user controls. Dictionary attests laud/board (genitive laudan), nimi/name or title, painda/push button (imperative paina), avaita/unlock (imperative avaida), nece/this; https://kaikki.org/dictionary/Veps/ . Kävutai/user is attested in Veps MediaWiki. Composed username and purpose-clause wording has low confidence and requires fluent-speaker review. Existing shared Nimi remains unchanged."
   }
 ]

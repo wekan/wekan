@@ -131,5 +131,11 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
     assert.equal(cache[locale]['board-view-time'], 'Tiempo');
     assert.notEqual(cache[locale]['calendar-system-iso8601'], 'ISO 8601');
   }
+  assert.equal(veps.board, 'Laud');
+  assert.equal(veps['board-title'], 'Laudan nimi');
+  assert.equal(veps.username, 'Kävutajan nimi');
+  assert.doesNotMatch(veps.username, /Käyttäjätunnus/);
+  assert.match(veps['accounts-lockout-click-to-unlock'], /avaida nece kävutai$/);
+  assert.equal(veps.name, 'Nimi', 'valid shared vocabulary is preserved');
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });
