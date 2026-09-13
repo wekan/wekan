@@ -121035,5 +121035,19 @@
     "before": "Vue",
     "after": "ⵙⴽⵏ",
     "reason": "Replace wrong-language French/Arabic label with exact native Standard Moroccan Tamazight MediaWiki view wording: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Match the English interface meaning; file/template/preview and watch commands reuse established native UI terms. No proper names, placeholders or valid existing Tamazight alternatives are replaced."
+  },
+  {
+    "locale": "zgh",
+    "key": "error-user-doesNotExist",
+    "before": "Cet utilisateur n'existe pas",
+    "after": "ⴰⵏⵙⵙⵎⵔⵙ ⴰⴷ ⵓⵔ ⵉⵍⵍⴰ",
+    "reason": "Replace French with directly composed Standard Moroccan Tamazight. Native MediaWiki passwordreset-nosuchcaller attests masculine negative existence ur illa; filehist-user attests the user noun; login-userblocked attests user + ad (this), and userexists attests yad (already). Preserve the distinction between a nonexistent user and an already existing user, without adding username-only restrictions or extra instructions. LOW CONFIDENCE: complete composed sentences and affirmative existence wording still require fluent-speaker review. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "user-exists",
+    "before": "L'utilisateur existe déjà",
+    "after": "ⴰⵏⵙⵙⵎⵔⵙ ⵉⵍⵍⴰ ⵢⴰⴷ",
+    "reason": "Replace French with directly composed Standard Moroccan Tamazight. Native MediaWiki passwordreset-nosuchcaller attests masculine negative existence ur illa; filehist-user attests the user noun; login-userblocked attests user + ad (this), and userexists attests yad (already). Preserve the distinction between a nonexistent user and an already existing user, without adding username-only restrictions or extra instructions. LOW CONFIDENCE: complete composed sentences and affirmative existence wording still require fluent-speaker review. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
   }
 ]
