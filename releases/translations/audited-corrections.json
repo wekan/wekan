@@ -112362,5 +112362,19 @@
     "before": "Muokkaa",
     "after": "Vajehta",
     "reason": "Replace Finnish Etsi/Muokkaa with native Veps imperative Eci (search) or Vajehta (edit/change). Both are actual Veps Wikipedia interface commands at https://vep.wikipedia.org/wiki/Efiopii; dictionary ectä and vajehtada imperative inflections confirm the forms at https://kaikki.org/dictionary/Veps/index.html."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "calendar-system-ethioaa",
+    "before": "Ethiopic Amete Alem",
+    "after": "Efiopijan kalendar' (Amete Alem)",
+    "reason": "Replace English Ethiopic descriptor using attested Efiopijan genitive at https://vep.wikipedia.org/wiki/Efiopii and dictionary kalendar'; retain Amete Alem to distinguish the era from the ordinary Ethiopic calendar. Composed technical label needs fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "calendar-system-hebrew",
+    "before": "Hebrew",
+    "after": "Evrejalaižiden kalendar'",
+    "reason": "Render Hebrew/Jewish calendar with native Veps evrejalaižiden genitive plural, attested in https://vep.wikipedia.org/wiki/Judaizm, plus dictionary kalendar'. This names the Jewish calendar, not the country Israel or a different calendar. Composed label needs fluent review."
   }
 ]

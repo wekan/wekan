@@ -205,5 +205,9 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.equal(cache['ve-PP']['searchElementPopup-title'], cache['ve-PP'].search);
   assert.equal(cache['ve-PP'].edit, 'Vajehta');
   assert.doesNotMatch(cache['ve-PP'].search + cache['ve-PP'].edit, /Etsi|Muokkaa/);
+  assert.equal(cache['ve-PP']['calendar-system-ethioaa'], "Efiopijan kalendar' (Amete Alem)");
+  assert.notEqual(cache['ve-PP']['calendar-system-ethioaa'], cache['ve-PP']['calendar-system-ethiopic']);
+  assert.equal(cache['ve-PP']['calendar-system-hebrew'], "Evrejalaižiden kalendar'");
+  assert.doesNotMatch(cache['ve-PP']['calendar-system-hebrew'], /Hebrew|Izraili/);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });
