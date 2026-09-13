@@ -86182,5 +86182,12 @@
     "before": "Pomodoro alsdayvdi",
     "after": "Pomodoro ᎠᏂᎩᏍᏗ",
     "reason": "Replace unverified romanized alsdayvdi with attested Start Anigisdi from https://www.thepeoplespaths.net/Cherokee/CherokeeWordLists/WordList-S.htm , rendered ᎠᏂᎩᏍᏗ. Preserve Pomodoro proper name. Syllabary rendering and action-button phrase remain low confidence; not native-speaker verified."
+  },
+  {
+    "locale": "chr",
+    "key": "pomodoro-completed",
+    "before": "%s alenisgi",
+    "after": "%s ᎠᏍᏆᏙᏅᎯ",
+    "reason": "Replace alenisgi (indexed dictionary amateur) with asgwatonvhi (completed/perfection), indexed Cherokee Nation dictionary https://language.cherokee.org/media/ausnrxe1/oudictionaryutana.pdf . Direct syllabary rendering ᎠᏍᏆᏙᏅᎯ preserves %s. Rendering and counted completion grammar remain low confidence; indexed lexical evidence is not native UI validation."
   }
 ]
