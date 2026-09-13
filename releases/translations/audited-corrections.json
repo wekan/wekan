@@ -86397,22 +86397,22 @@
     "locale": "vo",
     "key": "workspace-settings",
     "before": "Paramètres de l'espace de travail",
-    "after": "Nomükams vobaspada",
-    "reason": "Replace French workspace/user-settings labels with directly assembled Volapük. Dictionary https://en.wikibooks.org/wiki/Volap%C3%BCk/English-Volap%C3%BCk_dictionary attests vob (work), spad (space), nomükam (adjustment), geban in computer user-profile term. Use workspace compound vobaspad consistently with previously repaired actions; plural adjustments used for settings. Software-settings sense, compound and inflected phrases remain low confidence pending native review; searches did not independently attest complete software terminology. Preserve source tokens."
+    "after": "Väls vobaspada",
+    "reason": "Replace French workspace/user-settings labels with Volapük and refine earlier nomükams (adjustments) fill using computer-specific dictionary evidence. Ralph Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf PDF page 265, Volapük-English section explicitly gives computer väls ad stad kösömik = default settings. Use väls for settings; retain existing repaired workspace compound vobaspad and geban user stem. Full labels and workspace compound remain low confidence pending native review. Original foreign-language before values retained; preserve source tokens."
   },
   {
     "locale": "vo",
     "key": "workspaceActionsPopup-title",
     "before": "Paramètres de l'espace de travail",
-    "after": "Nomükams vobaspada",
-    "reason": "Replace French workspace/user-settings labels with directly assembled Volapük. Dictionary https://en.wikibooks.org/wiki/Volap%C3%BCk/English-Volap%C3%BCk_dictionary attests vob (work), spad (space), nomükam (adjustment), geban in computer user-profile term. Use workspace compound vobaspad consistently with previously repaired actions; plural adjustments used for settings. Software-settings sense, compound and inflected phrases remain low confidence pending native review; searches did not independently attest complete software terminology. Preserve source tokens."
+    "after": "Väls vobaspada",
+    "reason": "Replace French workspace/user-settings labels with Volapük and refine earlier nomükams (adjustments) fill using computer-specific dictionary evidence. Ralph Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf PDF page 265, Volapük-English section explicitly gives computer väls ad stad kösömik = default settings. Use väls for settings; retain existing repaired workspace compound vobaspad and geban user stem. Full labels and workspace compound remain low confidence pending native review. Original foreign-language before values retained; preserve source tokens."
   },
   {
     "locale": "vo",
     "key": "settingsUserPopup-title",
     "before": "Paramètres de l'utilisateur",
-    "after": "Nomükams gebana",
-    "reason": "Replace French workspace/user-settings labels with directly assembled Volapük. Dictionary https://en.wikibooks.org/wiki/Volap%C3%BCk/English-Volap%C3%BCk_dictionary attests vob (work), spad (space), nomükam (adjustment), geban in computer user-profile term. Use workspace compound vobaspad consistently with previously repaired actions; plural adjustments used for settings. Software-settings sense, compound and inflected phrases remain low confidence pending native review; searches did not independently attest complete software terminology. Preserve source tokens."
+    "after": "Väls gebana",
+    "reason": "Replace French workspace/user-settings labels with Volapük and refine earlier nomükams (adjustments) fill using computer-specific dictionary evidence. Ralph Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf PDF page 265, Volapük-English section explicitly gives computer väls ad stad kösömik = default settings. Use väls for settings; retain existing repaired workspace compound vobaspad and geban user stem. Full labels and workspace compound remain low confidence pending native review. Original foreign-language before values retained; preserve source tokens."
   },
   {
     "locale": "vo",
