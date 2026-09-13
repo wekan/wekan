@@ -82521,5 +82521,103 @@
     "before": "Activer les barres de défilement verticales",
     "after": "Doxal rëdd yi ngir dem ci kaw ak suuf",
     "reason": "Replace French with Wolof; preserve signed whole-day values/current-period predicates, inclusive up-to due range and overdue distinction, URL repair scope, invitation code error, zoom range and vertical direction. Close the English overdue example backtick for readable Markdown. Numeric/search/scroll technical phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "globalSearch-title",
+    "before": "Chercher dans tous les tableaux",
+    "after": "Seet ci tablo yépp",
+    "reason": "Replace French with Wolof using existing boards, account, label, loading, member and organization terminology; preserve invalid-filename upload/rename cancellation, invitation status, irreversible all-card label/history removal and completed migration success. Registration/cancellation phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "header-logo-title",
+    "before": "Retourner à la page des tableaux",
+    "after": "Dellu ci xët wi sa tablo yi nekk.",
+    "reason": "Replace French with Wolof using existing boards, account, label, loading, member and organization terminology; preserve invalid-filename upload/rename cancellation, invitation status, irreversible all-card label/history removal and completed migration success. Registration/cancellation phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "if-you-already-have-an-account",
+    "before": "Si vous avez déjà un compte",
+    "after": "Bu nga am kont ba noppi",
+    "reason": "Replace French with Wolof using existing boards, account, label, loading, member and organization terminology; preserve invalid-filename upload/rename cancellation, invitation status, irreversible all-card label/history removal and completed migration success. Registration/cancellation phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "invalid-file",
+    "before": "Si le nom de fichier est invalide, le téléchargement ou le renommage sera annulé.",
+    "after": "Bu turu fiise bi jubul, dinañu bàyyi yónnee fiise bi walla soppi turam.",
+    "reason": "Replace French with Wolof using existing boards, account, label, loading, member and organization terminology; preserve invalid-filename upload/rename cancellation, invitation status, irreversible all-card label/history removal and completed migration success. Registration/cancellation phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "invite-people-error",
+    "before": "Une erreur s'est produite lors de l'envoi de l'invitation à s'enregistrer",
+    "after": "Am na njuumte bi ñuy yónnee woote ngir bindu",
+    "reason": "Replace French with Wolof using existing boards, account, label, loading, member and organization terminology; preserve invalid-filename upload/rename cancellation, invitation status, irreversible all-card label/history removal and completed migration success. Registration/cancellation phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "invite-people-success",
+    "before": "Invitation à s'enregistrer envoyée avec succès",
+    "after": "Yónnee woote ngir bindu antu na",
+    "reason": "Replace French with Wolof using existing boards, account, label, loading, member and organization terminology; preserve invalid-filename upload/rename cancellation, invitation status, irreversible all-card label/history removal and completed migration success. Registration/cancellation phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "label-delete-pop",
+    "before": "Cette action est irréversible. Elle supprimera cette étiquette de toutes les cartes ainsi que l'historique associé.",
+    "after": "Amul neenal. Lii dina dindi etiket bii ci karta yépp te far jaar-jaaram.",
+    "reason": "Replace French with Wolof using existing boards, account, label, loading, member and organization terminology; preserve invalid-filename upload/rename cancellation, invitation status, irreversible all-card label/history removal and completed migration success. Registration/cancellation phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "link-to-search",
+    "before": "Lien vers cette recherche",
+    "after": "Lëkkalekaay bu seet bii",
+    "reason": "Replace French with Wolof using existing boards, account, label, loading, member and organization terminology; preserve invalid-filename upload/rename cancellation, invitation status, irreversible all-card label/history removal and completed migration success. Registration/cancellation phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "loading",
+    "before": "Chargement, merci de patienter.",
+    "after": "Mi ngi yeb, xaaral.",
+    "reason": "Replace French with Wolof using existing boards, account, label, loading, member and organization terminology; preserve invalid-filename upload/rename cancellation, invitation status, irreversible all-card label/history removal and completed migration success. Registration/cancellation phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "memberMenuPopup-title",
+    "before": "Préférence du participant",
+    "after": "Jekkal yi ci bokkkat bi",
+    "reason": "Replace French with Wolof using existing boards, account, label, loading, member and organization terminology; preserve invalid-filename upload/rename cancellation, invitation status, irreversible all-card label/history removal and completed migration success. Registration/cancellation phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "memberPopup-title",
+    "before": "Préférence du participant",
+    "after": "Jekkal yi ci bokkkat bi",
+    "reason": "Replace French with Wolof using existing boards, account, label, loading, member and organization terminology; preserve invalid-filename upload/rename cancellation, invitation status, irreversible all-card label/history removal and completed migration success. Registration/cancellation phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "migration-successful",
+    "before": "Migration terminée avec succès",
+    "after": "Migration bi jeex na te antu na",
+    "reason": "Replace French with Wolof using existing boards, account, label, loading, member and organization terminology; preserve invalid-filename upload/rename cancellation, invitation status, irreversible all-card label/history removal and completed migration success. Registration/cancellation phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "not-accepted-yet",
+    "before": "L'invitation n'a pas encore été acceptée",
+    "after": "Nanguwuñu woote bi ba léegi",
+    "reason": "Replace French with Wolof using existing boards, account, label, loading, member and organization terminology; preserve invalid-filename upload/rename cancellation, invitation status, irreversible all-card label/history removal and completed migration success. Registration/cancellation phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "org-number",
+    "before": "Le nombre d'organisations est de :",
+    "after": "Limu kureel yi mooy: ",
+    "reason": "Replace French with Wolof using existing boards, account, label, loading, member and organization terminology; preserve invalid-filename upload/rename cancellation, invitation status, irreversible all-card label/history removal and completed migration success. Registration/cancellation phrasing and full grammar remain low confidence."
   }
 ]
