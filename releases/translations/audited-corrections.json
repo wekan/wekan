@@ -116975,5 +116975,110 @@
     "before": "Poistaminen on lopullista. Menetät kaikki tähän suunnittelupokeriin liitetyt toimet.",
     "after": "Heitämine om igäks. Kaik necen planan pokeran tegendad linneba heittud.",
     "reason": "Replace Finnish or Finnish-derived voting/planning-poker/custom-translation/cover/OIDC text with Veps, including related unflagged controls. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (änestamine voting, änestada/änesti vote, än’ voice/vote, kändand translation, kor’/koren cover, plan planning noun, toštta repeat); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests kändmižid, painim, Ozuta, Vajehta and Zavodi. Preserve minicard add/remove directions, exact OIDC protocol name, custom-string delete confirmation and irreversibility, vote/poker separate entities, end-date role, who-voted-what and irreversible all-action deletion. Low confidence: composed technical terms, planning-poker loan and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "open-many-cards-at-once-description",
+    "before": "Jokainen klikkaamasi kortti jää auki omaan ikkunaansa. Kun tämä ei ole käytössä, kortin klikkaaminen sulkee aiemmin avatun kortin.",
+    "after": "Jäta kaikuččen kartan, mittušt sinä painad, avoimeks ičeze iknas. Ku nece ei ole aktivine, kartan painand sauptab aigemba avaitud kartan.",
+    "reason": "Replace Finnish/Venda template, window, admin and loading text with Veps, including related unflagged labels. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (template vilitez, copy kopiruida, close saubata/sauptab, window ikun, loss kadotuz, refresh udištamine); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests Jäta, kaikuččen, ičeze, iknas, server, varasta and Kaiče. Preserve each clicked card's own open window versus off-mode closing the previous card, all administrator permissions, loading refresh-causes-data-loss warning and server-running check; distinguish card/list/board templates, add versus save and many-card copying. Low confidence: composed technical grammar and container loan require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "admin-desc",
+    "before": "Voi nähdä ja muokata kortteja, poistaa jäseniä, ja muuttaa taulun asetuksia. Voi nähdä taulun toiminnot.",
+    "after": "Voib kacta da vajehtada kartoid, heitta ühtnikoid da vajehtada laudan sändoid. Voib kacta tegendoid.",
+    "reason": "Replace Finnish/Venda template, window, admin and loading text with Veps, including related unflagged labels. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (template vilitez, copy kopiruida, close saubata/sauptab, window ikun, loss kadotuz, refresh udištamine); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests Jäta, kaikuččen, ičeze, iknas, server, varasta and Kaiče. Preserve each clicked card's own open window versus off-mode closing the previous card, all administrator permissions, loading refresh-causes-data-loss warning and server-running check; distinguish card/list/board templates, add versus save and many-card copying. Low confidence: composed technical grammar and container loan require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "app-is-offline",
+    "before": "Ladataan, odota. Sivun uudelleenlataus aiheuttaa tietojen menettämisen. Jos lataaminen ei toimi, tarkista että palvelin ei ole pysähtynyt.",
+    "after": "Tedod tuluba, ole hüvä, varasta. Lehtpolen udištamine sündutab tedoiden kadotusen. Ku tedod ei tule, kodvi, miše server völ radab.",
+    "reason": "Replace Finnish/Venda template, window, admin and loading text with Veps, including related unflagged labels. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (template vilitez, copy kopiruida, close saubata/sauptab, window ikun, loss kadotuz, refresh udištamine); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests Jäta, kaikuččen, ičeze, iknas, server, varasta and Kaiče. Preserve each clicked card's own open window versus off-mode closing the previous card, all administrator permissions, loading refresh-causes-data-loss warning and server-running check; distinguish card/list/board templates, add versus save and many-card copying. Low confidence: composed technical grammar and container loan require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "copyManyCardsPopup-title",
+    "before": "Kopioi malli monelle kortille",
+    "after": "Kopirui vilitez äjile kartoile",
+    "reason": "Replace Finnish/Venda template, window, admin and loading text with Veps, including related unflagged labels. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (template vilitez, copy kopiruida, close saubata/sauptab, window ikun, loss kadotuz, refresh udištamine); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests Jäta, kaikuččen, ičeze, iknas, server, varasta and Kaiče. Preserve each clicked card's own open window versus off-mode closing the previous card, all administrator permissions, loading refresh-causes-data-loss warning and server-running check; distinguish card/list/board templates, add versus save and many-card copying. Low confidence: composed technical grammar and container loan require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "allboards.templates",
+    "before": "Mallit",
+    "after": "Vilitesed",
+    "reason": "Replace Finnish/Venda template, window, admin and loading text with Veps, including related unflagged labels. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (template vilitez, copy kopiruida, close saubata/sauptab, window ikun, loss kadotuz, refresh udištamine); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests Jäta, kaikuččen, ičeze, iknas, server, varasta and Kaiče. Preserve each clicked card's own open window versus off-mode closing the previous card, all administrator permissions, loading refresh-causes-data-loss warning and server-running check; distinguish card/list/board templates, add versus save and many-card copying. Low confidence: composed technical grammar and container loan require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "add-template",
+    "before": "Lisää malli",
+    "after": "Ližada vilitez",
+    "reason": "Replace Finnish/Venda template, window, admin and loading text with Veps, including related unflagged labels. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (template vilitez, copy kopiruida, close saubata/sauptab, window ikun, loss kadotuz, refresh udištamine); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests Jäta, kaikuččen, ičeze, iknas, server, varasta and Kaiče. Preserve each clicked card's own open window versus off-mode closing the previous card, all administrator permissions, loading refresh-causes-data-loss warning and server-running check; distinguish card/list/board templates, add versus save and many-card copying. Low confidence: composed technical grammar and container loan require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "template",
+    "before": "Malli",
+    "after": "Vilitez",
+    "reason": "Replace Finnish/Venda template, window, admin and loading text with Veps, including related unflagged labels. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (template vilitez, copy kopiruida, close saubata/sauptab, window ikun, loss kadotuz, refresh udištamine); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests Jäta, kaikuččen, ičeze, iknas, server, varasta and Kaiče. Preserve each clicked card's own open window versus off-mode closing the previous card, all administrator permissions, loading refresh-causes-data-loss warning and server-running check; distinguish card/list/board templates, add versus save and many-card copying. Low confidence: composed technical grammar and container loan require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "templates",
+    "before": "Mallit",
+    "after": "Vilitesed",
+    "reason": "Replace Finnish/Venda template, window, admin and loading text with Veps, including related unflagged labels. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (template vilitez, copy kopiruida, close saubata/sauptab, window ikun, loss kadotuz, refresh udištamine); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests Jäta, kaikuččen, ičeze, iknas, server, varasta and Kaiče. Preserve each clicked card's own open window versus off-mode closing the previous card, all administrator permissions, loading refresh-causes-data-loss warning and server-running check; distinguish card/list/board templates, add versus save and many-card copying. Low confidence: composed technical grammar and container loan require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "template-container",
+    "before": "Mallikontti",
+    "after": "Vilitez-konteiner",
+    "reason": "Replace Finnish/Venda template, window, admin and loading text with Veps, including related unflagged labels. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (template vilitez, copy kopiruida, close saubata/sauptab, window ikun, loss kadotuz, refresh udištamine); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests Jäta, kaikuččen, ičeze, iknas, server, varasta and Kaiče. Preserve each clicked card's own open window versus off-mode closing the previous card, all administrator permissions, loading refresh-causes-data-loss warning and server-running check; distinguish card/list/board templates, add versus save and many-card copying. Low confidence: composed technical grammar and container loan require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "add-template-container",
+    "before": "Lisää mallikontti",
+    "after": "Ližada vilitez-konteiner",
+    "reason": "Replace Finnish/Venda template, window, admin and loading text with Veps, including related unflagged labels. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (template vilitez, copy kopiruida, close saubata/sauptab, window ikun, loss kadotuz, refresh udištamine); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests Jäta, kaikuččen, ičeze, iknas, server, varasta and Kaiče. Preserve each clicked card's own open window versus off-mode closing the previous card, all administrator permissions, loading refresh-causes-data-loss warning and server-running check; distinguish card/list/board templates, add versus save and many-card copying. Low confidence: composed technical grammar and container loan require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "save-card-as-template",
+    "before": "Bulukanya sa Tshifanyiso",
+    "after": "Kaiče kut vilitez",
+    "reason": "Replace Finnish/Venda template, window, admin and loading text with Veps, including related unflagged labels. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (template vilitez, copy kopiruida, close saubata/sauptab, window ikun, loss kadotuz, refresh udištamine); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests Jäta, kaikuččen, ičeze, iknas, server, varasta and Kaiče. Preserve each clicked card's own open window versus off-mode closing the previous card, all administrator permissions, loading refresh-causes-data-loss warning and server-running check; distinguish card/list/board templates, add versus save and many-card copying. Low confidence: composed technical grammar and container loan require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "card-templates-swimlane",
+    "before": "Korttimallit",
+    "after": "Kartoiden vilitesed",
+    "reason": "Replace Finnish/Venda template, window, admin and loading text with Veps, including related unflagged labels. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (template vilitez, copy kopiruida, close saubata/sauptab, window ikun, loss kadotuz, refresh udištamine); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests Jäta, kaikuččen, ičeze, iknas, server, varasta and Kaiče. Preserve each clicked card's own open window versus off-mode closing the previous card, all administrator permissions, loading refresh-causes-data-loss warning and server-running check; distinguish card/list/board templates, add versus save and many-card copying. Low confidence: composed technical grammar and container loan require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "list-templates-swimlane",
+    "before": "Listamallit",
+    "after": "Lugetižiden vilitesed",
+    "reason": "Replace Finnish/Venda template, window, admin and loading text with Veps, including related unflagged labels. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (template vilitez, copy kopiruida, close saubata/sauptab, window ikun, loss kadotuz, refresh udištamine); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests Jäta, kaikuččen, ičeze, iknas, server, varasta and Kaiče. Preserve each clicked card's own open window versus off-mode closing the previous card, all administrator permissions, loading refresh-causes-data-loss warning and server-running check; distinguish card/list/board templates, add versus save and many-card copying. Low confidence: composed technical grammar and container loan require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "board-templates-swimlane",
+    "before": "Taulumallit",
+    "after": "Laudoiden vilitesed",
+    "reason": "Replace Finnish/Venda template, window, admin and loading text with Veps, including related unflagged labels. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (template vilitez, copy kopiruida, close saubata/sauptab, window ikun, loss kadotuz, refresh udištamine); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests Jäta, kaikuččen, ičeze, iknas, server, varasta and Kaiče. Preserve each clicked card's own open window versus off-mode closing the previous card, all administrator permissions, loading refresh-causes-data-loss warning and server-running check; distinguish card/list/board templates, add versus save and many-card copying. Low confidence: composed technical grammar and container loan require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "server",
+    "before": "Palvelin",
+    "after": "Server",
+    "reason": "Replace Finnish/Venda template, window, admin and loading text with Veps, including related unflagged labels. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (template vilitez, copy kopiruida, close saubata/sauptab, window ikun, loss kadotuz, refresh udištamine); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests Jäta, kaikuččen, ičeze, iknas, server, varasta and Kaiče. Preserve each clicked card's own open window versus off-mode closing the previous card, all administrator permissions, loading refresh-causes-data-loss warning and server-running check; distinguish card/list/board templates, add versus save and many-card copying. Low confidence: composed technical grammar and container loan require fluent-speaker review."
   }
 ]

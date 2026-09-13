@@ -1384,5 +1384,38 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.match(cache['ve-PP']['poker-delete-pop'], /igäks.*Kaik.*pokeran tegendad.*heittud/);
   assert.notEqual(cache['ve-PP']['vote-delete-pop'], cache['ve-PP']['poker-delete-pop']);
   for (const key of ['poker-one', 'poker-two', 'poker-three', 'poker-five', 'poker-eight', 'poker-thirteen', 'poker-twenty', 'poker-forty', 'poker-oneHundred', 'poker-unsure']) assert.equal(cache['ve-PP'][key], english[key], key);
+  const vepsWindowTemplateRepairs = {
+  "open-many-cards-at-once-description": "Jäta kaikuččen kartan, mittušt sinä painad, avoimeks ičeze iknas. Ku nece ei ole aktivine, kartan painand sauptab aigemba avaitud kartan.",
+  "admin-desc": "Voib kacta da vajehtada kartoid, heitta ühtnikoid da vajehtada laudan sändoid. Voib kacta tegendoid.",
+  "app-is-offline": "Tedod tuluba, ole hüvä, varasta. Lehtpolen udištamine sündutab tedoiden kadotusen. Ku tedod ei tule, kodvi, miše server völ radab.",
+  "copyManyCardsPopup-title": "Kopirui vilitez äjile kartoile",
+  "allboards.templates": "Vilitesed",
+  "add-template": "Ližada vilitez",
+  "template": "Vilitez",
+  "templates": "Vilitesed",
+  "template-container": "Vilitez-konteiner",
+  "add-template-container": "Ližada vilitez-konteiner",
+  "save-card-as-template": "Kaiče kut vilitez",
+  "card-templates-swimlane": "Kartoiden vilitesed",
+  "list-templates-swimlane": "Lugetižiden vilitesed",
+  "board-templates-swimlane": "Laudoiden vilitesed",
+  "server": "Server"
+};
+  for (const [key, value] of Object.entries(vepsWindowTemplateRepairs)) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.equal(vepsTranslator.t(key), value, key);
+    assert.doesNotMatch(value, /Jokainen klikkaamasi|kortti jää|ikkunaansa|Kun tämä|klikkaaminen sulkee|aiemmin avatun|Voi nähdä|muokata kortteja|poistaa jäseniä|muuttaa taulun|Ladataan|Sivun uudelleenlataus|tietojen menettämisen|lataaminen ei toimi|palvelin ei ole|Kopioi malli|monelle kortille|Mallit|Malli|Lisää malli|Mallikontti|Bulukanya|Korttimallit|Listamallit|Taulumallit|Palvelin/i, key);
+  }
+  assert.match(cache['ve-PP']['open-many-cards-at-once-description'], /kaikuččen kartan.*avoimeks ičeze iknas/);
+  assert.match(cache['ve-PP']['open-many-cards-at-once-description'], /Ku nece ei ole aktivine.*sauptab aigemba avaitud kartan/);
+  assert.match(cache['ve-PP']['admin-desc'], /kacta da vajehtada kartoid.*heitta ühtnikoid.*vajehtada laudan sändoid.*kacta tegendoid/);
+  assert.match(cache['ve-PP']['app-is-offline'], /varasta.*udištamine sündutab tedoiden kadotusen.*Ku tedod ei tule.*server völ radab/);
+  assert.match(cache['ve-PP']['copyManyCardsPopup-title'], /vilitez äjile kartoile$/);
+  assert.equal(cache['ve-PP']['allboards.templates'], cache['ve-PP'].templates);
+  assert.match(cache['ve-PP']['save-card-as-template'], /^Kaiče/);
+  assert.doesNotMatch(cache['ve-PP']['save-card-as-template'], /^Ližada/);
+  assert.match(cache['ve-PP']['card-templates-swimlane'], /^Kartoiden/);
+  assert.match(cache['ve-PP']['list-templates-swimlane'], /^Lugetižiden/);
+  assert.match(cache['ve-PP']['board-templates-swimlane'], /^Laudoiden/);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });
