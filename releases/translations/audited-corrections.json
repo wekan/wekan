@@ -52750,5 +52750,47 @@
     "before": "Calcola il numero di file",
     "after": "Calcolé l numer de files",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "calendar-system-jalali",
+    "before": "Jalali (Fars)",
+    "after": "Jalali (persian)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "checklist-count",
+    "before": "Conteggio elementi checklist (0/0)",
+    "after": "Numer de elemenc dla lista de control (0/0)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "cleanup-old-jobs",
+    "before": "Pulisci i processi vecchi",
+    "after": "Neté i laures vec",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "close-dialog",
+    "before": "Chiudi finestra di dialogo",
+    "after": "Stlüje la finestra de dialog",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "collapse-checklist",
+    "before": "Comprimi la lista di controllo",
+    "after": "Seré la lista de control",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "confirm-checklist-delete-popup",
+    "before": "Sicuro di voler cancellare la checklist?",
+    "after": "Es tu segur de ulé scancelé la lista de control?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
