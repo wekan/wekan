@@ -58539,5 +58539,124 @@
     "before": "Islamic tabular",
     "after": "हिजरी पंचांग (तक्ट्या प्रमाणें, खगोलशास्त्रीय सुरवातीचो काळ)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bho",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "कैलेंडर प्रणाली (तारीख देखावे खातिर)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bho",
+    "key": "calendar-system-jalali",
+    "before": "Jalali (Fars)",
+    "after": "जलाली कैलेंडर (फारसी)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bho",
+    "key": "calendar-system-buddhist",
+    "before": "Buddhist",
+    "after": "बौद्ध कैलेंडर",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bho",
+    "key": "calendar-system-chinese",
+    "before": "Chinese",
+    "after": "चीनी कैलेंडर",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bho",
+    "key": "calendar-system-coptic",
+    "before": "Coptic",
+    "after": "कॉप्टिक कैलेंडर",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bho",
+    "key": "calendar-system-dangi",
+    "before": "Dangi (Korean)",
+    "after": "डांगी कैलेंडर (कोरियाई)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bho",
+    "key": "calendar-system-ethioaa",
+    "before": "Ethiopic Amete Alem",
+    "after": "इथियोपियाई अमेते अलेम कैलेंडर",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bho",
+    "key": "calendar-system-ethiopic",
+    "before": "Ethiopic",
+    "after": "इथियोपियाई कैलेंडर",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bho",
+    "key": "calendar-system-hebrew",
+    "before": "Hebrew",
+    "after": "हिब्रू कैलेंडर",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bho",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "भारत के राष्ट्रीय कैलेंडर",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bho",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "हिजरी कैलेंडर",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bho",
+    "key": "calendar-system-islamic-civil",
+    "before": "Islamic civil",
+    "after": "हिजरी कैलेंडर (सारणी के हिसाब से, नागरिक शुरुआत के समय)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bho",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "हिजरी कैलेंडर (सऊदी अरब, चाँद देखला के आधार पर)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bho",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "हिजरी कैलेंडर (सारणी के हिसाब से, खगोलीय शुरुआत के समय)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bho",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "हिजरी कैलेंडर (उम्म अल-कुरा)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bho",
+    "key": "calendar-system-japanese",
+    "before": "Japanese",
+    "after": "जापानी कैलेंडर",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bho",
+    "key": "calendar-system-roc",
+    "before": "Republic of China",
+    "after": "मिंगुओ कैलेंडर",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
