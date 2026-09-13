@@ -1092,6 +1092,19 @@ and updates maintainer tooling:
 **Maintenance scripts** - explicit translation uploads and repository mirrors.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/23eda3ea3">Fix Forge and Tea CLI installation paths</a>. Thanks to xet7.</summary>
+
+The Tools installer previously attempted to install Forge's library root,
+which fails with "is not a main package", and fetched obsolete Tea sources.
+Use Forge's cmd/forge package and Tea's maintained gitea.dev module on Unix
+and Windows. Unix Tea/Forge Go failures return nonzero status while later
+tools are still attempted. Existing commands remain skipped. Offline
+regressions cover Fedora detection, install paths, skips and failures;
+Windows paths are checked from source. No real packages were installed.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/29408a863">Update repository mirrors</a>. Thanks to xet7.</summary>
 
 The human-run mirror script targets GitLab, Codeberg and SourceForge.
