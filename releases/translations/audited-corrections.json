@@ -53128,5 +53128,124 @@
     "before": "elemento1,elemento2,elemento3",
     "after": "element1,element2,element3",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "r-set-date-relative",
+    "before": "Imposta data relativa ad adesso",
+    "after": "Meter la data relativa a sëgn",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "r-w-set-received-now",
+    "before": "Imposta la data di ricezione ad adesso",
+    "after": "Meter la data de azetazion a sëgn",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "remove-background-image",
+    "before": "Rimuovere immagine di sfondo",
+    "after": "Cavé l imagine de sfond",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "remove-cover",
+    "before": "Rimuovere immagine di copertina da minicard",
+    "after": "Cavé l imagine de cuertina da la miniciarta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "render-links-as-plain-text",
+    "before": "Mostra i link come testo semplice",
+    "after": "Mustre i links coche test sempl",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "s3-access-key-placeholder",
+    "before": "Inserisci l'access key S3",
+    "after": "Inserì la clé de acess S3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "s3-endpoint-description",
+    "before": "URL dell'endpoint S3 (es. s3.amazonaws.com o minio.example.com)",
+    "after": "URL dl endpoint S3 (per ej., s3.amazonaws.com o minio.example.com)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "s3-port-description",
+    "before": "Numero di porta dell'endpoint S3",
+    "after": "Numer de porta dl endpoint S3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "s3-region-description",
+    "before": "Regione AWS S3 (es. us-east-1)",
+    "after": "Region AWS S3 (per ej., us-east-1)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "s3-region-menu-path",
+    "before": "AWS Console → S3 → Buckets → il tuo bucket → Properties → AWS Region.",
+    "after": "AWS Console → S3 → Buckets → l to bucket → Properties → AWS Region.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "s3-secret-key-placeholder",
+    "before": "Inserisci la secret key S3",
+    "after": "Inserì la clé secreta S3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "setWipLimitPopup-title",
+    "before": "Imposta limite Work In Progress",
+    "after": "Meter l limit di laures en curs (WIP)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "settingsTranslationPopup-title",
+    "before": "Rimuovere stringa di traduzione personalizzata?",
+    "after": "Scancelé chësta stringa de traduzion personalisada?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "shortcut-close-dialog",
+    "before": "Chiudi finestra di dialogo",
+    "after": "Stlüje la finestra de dialog",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "shortcut-filter-my-assigned-cards",
+    "before": "Filtro le carte assegnate",
+    "after": "Filtré les ciartes enciariades a mé",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "shortcut-show-shortcuts",
+    "before": "Apri questa lista di scorciatoie",
+    "after": "Davèrje chësta lista de scurciadoies",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "skip-to-content",
+    "before": "Vai al contenuto principale",
+    "after": "Jì al contegn prinzipal",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
