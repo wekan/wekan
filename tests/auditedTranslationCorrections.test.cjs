@@ -95,6 +95,10 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   }
   // Veps units differ from Finnish despite closely related vocabulary.
   const veps = cache['ve-PP'];
+  assert.equal(veps.time, 'Aig');
+  assert.equal(veps.new, 'Uzʹ');
+  assert.equal(veps.today, 'Tämbei');
+  assert.doesNotMatch(`${veps.time} ${veps.new} ${veps.today}`, /Aika|Uusi|Tänään/);
   assert.equal(veps.day, 'Päiv');
   assert.equal(veps.days, 'päiväd'); // Also the singular partitive for counted duration.
   assert.equal(veps.week, 'Nedal');

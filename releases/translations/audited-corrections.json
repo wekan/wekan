@@ -112047,5 +112047,26 @@
     "before": "Google Cloud Console → IAM & Admin → Service accounts → akun layanan droeneueh → Keys → Add key → Create new key → JSON → Create (geuunggah file). Tempel isi jih keunoe, atawa simpan file dan atur jalur jih di ateuh.",
     "after": "Google Cloud Console → IAM & Admin → Service accounts → akun peulayanan droeneueh → Keys → Add key → Create new key → JSON → Create (geuunggah file). Tempel isi jih keunoe, atawa simpan file dan atur jalur jih di ateuh.",
     "reason": "Replace Indonesian layanan in Acehnese GCS account wording with attested peulayanan/service; keu is existing native for/to wording. Sources: https://ppid.pidiekab.go.id/news/post/pj-bupati-pidie-resmikan-program-peurumoh-rsud-tas-beureunuen and https://www.wordproject.org/bibles/ace/28/2.htm . Keep literal Google Cloud navigation labels and JSON. Composed technical terminology is low confidence; wider mixed Acehnese wording still needs review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "time",
+    "before": "Aika",
+    "after": "Aig",
+    "reason": "Replace Finnish seed with attested Veps dictionary lemma (Kaikki Veps/Wiktionary): aig time, uzʹ new, tämbei today. Capitalization follows UI labels."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "new",
+    "before": "Uusi",
+    "after": "Uzʹ",
+    "reason": "Replace Finnish seed with attested Veps dictionary lemma (Kaikki Veps/Wiktionary): aig time, uzʹ new, tämbei today. Capitalization follows UI labels."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "today",
+    "before": "Tänään",
+    "after": "Tämbei",
+    "reason": "Replace Finnish seed with attested Veps dictionary lemma (Kaikki Veps/Wiktionary): aig time, uzʹ new, tämbei today. Capitalization follows UI labels."
   }
 ]
