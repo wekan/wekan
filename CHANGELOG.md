@@ -80,9 +80,9 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 14,491 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 1,353 pending review or repair.
-The correction inventory records 16,047 exact before/after values,
+findings: 14,493 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 1,351 pending review or repair.
+The correction inventory records 16,049 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
@@ -1099,6 +1099,15 @@ Bitbucket was tried during development and is now disabled because of
 Unauthorized errors. Repository paths remain resolved from the script's
 checkout. Syntax validation does not contact or certify remote mirrors;
 no mirroring or publishing commands were executed for this audit.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/94b5e33ef">Repair Veps Ethiopic and Dangi calendar labels</a>. Thanks to xet7.</summary>
+
+Replace English seeds with attested Veps country forms and calendar vocabulary;
+preserve Dangi's identifier. Composed calendar names need fluent review.
+Exact vocabulary, rejected English descriptors and all correction records pass.
 
 </details>
 
