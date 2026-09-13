@@ -27,7 +27,8 @@ export async function sync(settings, { preview = false, run = command, directory
   let failed = false;
   try {
     execute(process.execPath, [engine, '--source', settings.source, '--export-source', snapshot]);
-    execute(process.execPath, [engine, '--source', settings.source, '--archive-only', ...(preview ? [] : ['--apply']), '--snapshot', snapshot]);
+    try { execute(process.execPath, [engine, '--source', settings.source, '--archive-only', ...(preview ? [] : ['--apply']), '--snapshot', snapshot]); }
+    catch (error) { failed = true; log(`[archive] failed: ${error.message}`); }
     for (const target of settings.mirrors) {
       try {
         const args = [...(preview ? ['--preview'] : []), '--source', settings.source, '--snapshot', snapshot, '--skip-archive'];

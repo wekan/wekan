@@ -47,6 +47,9 @@ const work = fs.mkdtempSync(path.join(temporary, 'mirror-menu-tests-'));
     let invoked = 0;
     await assert.rejects(m.sync(settings, { directory: work, run: () => { invoked++; throw new Error('source offline'); } }), /source offline/);
     assert.equal(invoked, 1, 'failed source inventory stops before destination operations');
+    const archiveFailure = [];
+    assert.equal(await m.sync(settings, { directory: work, log: () => {}, run: (tool, args) => { archiveFailure.push(args); if (args.includes('--archive-only')) throw new Error('disk failure'); return ''; } }), false);
+    assert.equal(archiveFailure.length, 5, 'archive failures are reported while every destination still runs');
   });
   await test('Windows dispatch quotes paths and uses each native batch wrapper', async () => {
     const calls = [];
