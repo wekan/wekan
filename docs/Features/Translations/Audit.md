@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 14,473 |
+| Corrected | 14,474 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 1,371 |
+| Pending review or repair | 1,370 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **16,004** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **16,007** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-13**, local commit `d5363a26b` — repaired three unflagged Veps board/username labels and one flagged unlock instruction using dictionary forms; preserved valid shared Nimi. Positive/negative regressions pass; composed wording has low confidence. Original findings and restored/unflagged values remain under review.
+Latest translation fix: **2026-09-13**, local commit `c6e76522d` — repaired the remaining flagged Acehnese GCS credentials label and service terminology in two related instructions, using attested **peulayanan** and preserving literal vendor menu labels. Positive/negative regressions pass. Composed technical wording has low confidence; wider mixed Acehnese wording still needs review. Neapolitan/Aromanian/Sardinian short queues remain uncertain: restaurant names, untranslated WordPress descriptions and Italian prose do not prove native vocabulary.
 
 **Upload workflow repair (2026-09-13):** local commit `27a566a0d` maps Colombian Spanish `es-CO` to supported Transifex `es_CO`, reports the legacy `es_CO` alias and uploads each distinct target once. Offline regressions pass; no upload was run. All nine differences were reviewed in `6db460891`; seven valid wording alternatives remain intentionally distinct.
 
