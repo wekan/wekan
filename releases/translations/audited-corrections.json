@@ -90207,5 +90207,33 @@
     "before": "Ajouter une check-list",
     "after": "Lüükön kontrolalisedi",
     "reason": "Replace French card/task/add controls and malformed checklist conversion wording with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests votafomön (transform), bligäd (task), kad (card), lised (list), lüükön (add), ninädapenäd (label). Preserve card versus subtask conversion and individual add-action objects; reuse existing kontrolalised terminology. Software adaptation and derived donabligäd remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "just-invited",
+    "before": "Vous venez d'être invité à ce tableau",
+    "after": "Pevüdol lü tab at",
+    "reason": "Replace audited French invitation, notification, checklist-line and normal-role descriptions with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests vüdön (invite), neai (never), nunäd (notification), lien (line), vödem (text), notet (item), votükön (alter). Preserve no-notifications scope, one-line-to-one-item relation and card-edit permission without settings permission. Reuse local Väls settings terminology. Assembled software phrases remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "newLineNewItem",
+    "before": "Une ligne de texte = un élément de la check-list",
+    "after": "Lien bal vödema = notet bal kontrolaliseda",
+    "reason": "Replace audited French invitation, notification, checklist-line and normal-role descriptions with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests vüdön (invite), neai (never), nunäd (notification), lien (line), vödem (text), notet (item), votükön (alter). Preserve no-notifications scope, one-line-to-one-item relation and card-edit permission without settings permission. Reuse local Väls settings terminology. Assembled software phrases remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "muted-info",
+    "before": "Vous ne serez jamais averti des modifications effectuées dans ce tableau",
+    "after": "Neai pogivon ole nunäd tefü votükams in tab at",
+    "reason": "Replace audited French invitation, notification, checklist-line and normal-role descriptions with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests vüdön (invite), neai (never), nunäd (notification), lien (line), vödem (text), notet (item), votükön (alter). Preserve no-notifications scope, one-line-to-one-item relation and card-edit permission without settings permission. Reuse local Väls settings terminology. Assembled software phrases remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "normal-desc",
+    "before": "Peut voir et modifier les cartes. Ne peut pas changer les paramètres.",
+    "after": "Kanon logön e votükön kadis. No kanon votükön välis.",
+    "reason": "Replace audited French invitation, notification, checklist-line and normal-role descriptions with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests vüdön (invite), neai (never), nunäd (notification), lien (line), vödem (text), notet (item), votükön (alter). Preserve no-notifications scope, one-line-to-one-item relation and card-edit permission without settings permission. Reuse local Väls settings terminology. Assembled software phrases remain low confidence pending native review."
   }
 ]
