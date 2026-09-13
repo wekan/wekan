@@ -69081,5 +69081,89 @@
     "before": "Zostanie dodana dowolna etykieta",
     "after": "Dowolnŏ etyketa je dōdanŏ",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "r-w-label-removed",
+    "before": "Zostanie usunięta dowolna etykieta",
+    "after": "Dowolnŏ etyketa je wyciepanŏ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "r-when-due",
+    "before": "Gdy termin wykonania karty",
+    "after": "Jak termin karty",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "recovery-maintenance-title",
+    "before": "Odzyskiwanie Twoich danych",
+    "after": "Ôdzyskiwanie twojich danych",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "recovery-report-desc",
+    "before": "Automatyczne działania dotyczące bezpieczeństwa i naprawy danych: wykrywanie uszkodzeń, kopie zapasowe danych tekstowych, przywracanie, ponowna migracja z MongoDB i automatyczna naprawa rozdętej bazy danych.",
+    "after": "Automatyczne działaniŏ do ôchrōny i naprawy danych: wykrywanie uszkodzyń, kopije zapasowe danych tekstowych, przwrŏcanie, ponownŏ migracyjŏ ze MongoDB i automatycznŏ naprawa nadmiernie rozrośniyntyj bazy danych.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "remove-labels-multiselect",
+    "before": "Wielokrotne zaznaczenie usuwa etykiety 1-9",
+    "after": "Wielokrotne zaznaczynie wyciepuje etykety 1-9",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "render-links-as-plain-text",
+    "before": "Renderuj łącza jako zwykły tekst",
+    "after": "Pokazuj linki jako prosty tekst",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "right-of-list",
+    "before": "Na prawo od zaznaczonej listy",
+    "after": "Na prawo ôd zaznaczōnyj listy",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "rulesImportExportPopup-title",
+    "before": "Importuj / Eksportuj reguły",
+    "after": "Import / eksport reguł",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "s3-access-key-description",
+    "before": "Klucz dostępu AWS S3 do uwierzytelniania",
+    "after": "Klucz dostympu AWS S3 do uwierzytelniyniŏ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "s3-access-key-placeholder",
+    "before": "Wprowadź klucz dostępu S3",
+    "after": "Wpisz klucz dostympu S3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "s3-disabled",
+    "before": "Magazyn S3/MinIO wyłączony",
+    "after": "Magazyn S3/MinIO wyłōnczōny",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "s3-endpoint-menu-path",
+    "before": "AWS: pozostaw puste (używa punktu końcowego regionu). Zgodne z S3: URL punktu końcowego z konsoli MinIO / Cloudflare R2 / Backblaze B2 / Wasabi / DigitalOcean Spaces.",
+    "after": "AWS: ôstŏw puste (używŏ kōńcowego punktu regiōnu). Zgŏdne z S3: Endpoint URL ze kōnsoli MinIO / Cloudflare R2 / Backblaze B2 / Wasabi / DigitalOcean Spaces.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
