@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 11,550 |
+| Corrected | 11,564 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 4,296 |
+| Pending review or repair | 4,282 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **11,889** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **11,903** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `e01b34b28236ec737f182fe5249cde227524958f` — 6 Turkish/English calendar labels replaced with Wolof framing. Date-display selection, Dangi/Amete Alem/Umm al-Qura/Minguo names and Gregorian ISO 8601 weeks are preserved. Calendar loanword and full grammar remain low confidence; other epoch/religion/adjective labels remain pending. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; live browser verification is unavailable.
+Latest translation fix: **2026-09-13**, local commit `ab65f697d65be973c329a96abd2d70e44aef7c53` — 14 French archive/access/settings messages replaced with Wolof. Starred ordering, migration scan scopes, logged-in support, archive recovery, custom logo text, admin creation, Excel restriction, username minimum, WIP alternatives and worker permissions are preserved. Recovery/role phrasing and full grammar remain low confidence. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; live browser verification is unavailable.
 
 **Review follow-up:** Silesian `sandstorm-raw-mongodb` remains pending: its wording overlaps Polish and existing Silesian technical strings, but dictionary searches did not establish the full phrase as correct Silesian. Keep the current value until stronger language evidence supports retaining or replacing it.
 
