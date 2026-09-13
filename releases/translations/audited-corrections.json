@@ -56306,5 +56306,215 @@
     "before": "Calcolo dei conteggi in corso...",
     "after": "Sta calculanno 'e cunte...",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "card-aging-days",
+    "before": "Sbiadisci dopo giorni (3 livelli):",
+    "after": "Sbiadisce doppo juorne (3 livello):",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "checklist-count",
+    "before": "Conteggio elementi checklist (0/0)",
+    "after": "Nummero 'e elemente d'a lista 'e cuntrollo (0/0)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "cleanup-old-jobs",
+    "before": "Pulisci i processi vecchi",
+    "after": "Pulisce 'e fatiche viecchie",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "collapse-checklist",
+    "before": "Comprimi la lista di controllo",
+    "after": "Chiude 'a lista 'e cuntrollo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "comment-delete",
+    "before": "Sei sicuro di voler cancellare il commento?",
+    "after": "Si' sicuro ca vuó scancellà 'o cummento?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "confirm-checklist-delete-popup",
+    "before": "Sicuro di voler cancellare la checklist?",
+    "after": "Si' sicuro ca vuó scancellà 'a lista 'e cuntrollo?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "confirm-subtask-delete-popup",
+    "before": "Sei sicuro di voler eliminare il sotto-compito?",
+    "after": "Si' sicuro ca vuó scancellà 'a sottoattività?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "cover-attachment-on-minicard",
+    "before": "Immagine di copertina su minicard",
+    "after": "Immaggine 'e cupertina ncopp'a minicarta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "cron-job-delete-failed",
+    "before": "Impossibile eliminare il processo pianificato",
+    "after": "Nun s'è pututo scancellà 'a fatica prugrammata",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "cron-job-pause-failed",
+    "before": "Impossibile mettere in pausa il processo pianificato",
+    "after": "Nun s'è pututo mettere 'a fatica prugrammata 'n pausa",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "cron-job-resume-failed",
+    "before": "Impossibile riprendere il processo pianificato",
+    "after": "Nun s'è pututo ripiglià 'a fatica prugrammata",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "cron-job-start-failed",
+    "before": "Impossibile avviare il processo pianificato",
+    "after": "Nun s'è pututo avvià 'a fatica prugrammata",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "cron-no-errors",
+    "before": "Nessun errore da mostrare",
+    "after": "Nun ce stanno errore da mustrà",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "cron-no-paused-migrations",
+    "before": "Nessuna migrazione in pausa da riprendere",
+    "after": "Nun ce stanno migrazzione 'n pausa da ripiglià",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "cron-resume-paused",
+    "before": "Riprendi le migrazioni in pausa",
+    "after": "Ripiglia 'e migrazzione 'n pausa",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "custom-assetlinks-content",
+    "before": "Contenuto di assetlinks.json personalizzato (JSON)",
+    "after": "Cuntenuto personalizzato 'e assetlinks.json (JSON)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "custom-assetlinks-enabled",
+    "before": "Abilita assetlinks.json personalizzato",
+    "after": "Attiva assetlinks.json personalizzato",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "custom-head-link-tags",
+    "before": "Tag link personalizzati (HTML)",
+    "after": "Tag link personalizzate (HTML)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "custom-head-meta-tags",
+    "before": "Tag meta personalizzati (HTML)",
+    "after": "Tag meta personalizzate (HTML)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "custom-head-tags-enabled",
+    "before": "Abilita tag head personalizzati",
+    "after": "Attiva 'e tag head personalizzate",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "custom-help-link-url",
+    "before": "Link URL di aiuto personalizzato",
+    "after": "URL d'o cullegamento 'e aiuto personalizzato",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "custom-manifest-enabled",
+    "before": "Abilita web manifest personalizzato",
+    "after": "Attiva 'o manifesto web personalizzato",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "database-migrate-to-ferretdb",
+    "before": "Migra i dati testuali su FerretDB v1 (SQLite)",
+    "after": "Trasferisce 'e date 'e testo a FerretDB v1 (SQLite)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "database-migrate-to-mongodb",
+    "before": "Migra i dati testuali su MongoDB",
+    "after": "Trasferisce 'e date 'e testo a MongoDB",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "database-migration-done",
+    "before": "Migrazione dei dati testuali completata.",
+    "after": "Trasferimento d'e date 'e testo cumpletato.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "default-authentication-method",
+    "before": "Metodo di autenticazione predefinito",
+    "after": "Metodo 'e autenticazzione predefinito",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "default-save-storage",
+    "before": "Storage di salvataggio predefinito",
+    "after": "Memorizzazzione predefinita pe sarvà",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "default-save-storage-description",
+    "before": "Scegli il backend di storage dove vengono salvati i nuovi allegati caricati.",
+    "after": "Sciglie 'o sistema 'e memorizzazzione addó sarvà 'e allegati appena caricati.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "default-save-storage-save-failed",
+    "before": "Impossibile salvare lo storage predefinito",
+    "after": "Nun s'è pututo sarvà 'a memorizzazzione predefinita",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "default-save-storage-saved",
+    "before": "Storage di salvataggio predefinito salvato",
+    "after": "Memorizzazzione predefinita pe sarvà sarvata",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
