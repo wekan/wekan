@@ -1192,6 +1192,18 @@ including interruption, retry, attachment navigation and a bounded-heap fixture.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/002e6faa7">Group build logs by build type and day</a>. Thanks to xet7.</summary>
+
+Development bundles stream to stdout and
+.tools/log/build-dev-bundle/YYYY-MM-DD/dev.txt. Release bundles use
+.tools/log/build-release-bundle/YYYY-MM-DD/release.txt. Append subsequent runs;
+EVERYTHING also retains its existing run-level log. Heap failure diagnostics
+inspect the current build's lines. Eight targeted test entries pass; the
+maintainer's development build completed successfully before this logging change.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/df4c049d5">Show dependency resolver commands and captured build output</a>. Thanks to xet7.</summary>
 
 Builds print Node module resolution and captured subprocess stdout/stderr to the
