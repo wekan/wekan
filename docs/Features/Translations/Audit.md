@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 12,623 |
+| Corrected | 12,628 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 177 |
-| Pending review or repair | 3,222 |
+| Pending review or repair | 3,217 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Restored and unflagged values still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **13,222** exact before/after values, including repairs outside the audit.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **13,227** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `033c374e5e8520c92953733d71d3e83764960eeb` — seven German card/attachment settings and related attachment labels replaced with Klingon, including unflagged labels. Software compounds and full phrases are low confidence and need fluent-speaker validation.
+Latest translation fix: **2026-09-13**, local commit `76323796cd7aa5b0094c056098b066a4b93ae3ab` — five flagged German background-image and minicard-list display actions replaced with Klingon using existing vocabulary. Assembled UI phrases are low confidence and need fluent-speaker validation.
 
 **Verification:** correction and progress tests pass. Native-speaker and browser checks remain outstanding.
 
