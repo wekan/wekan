@@ -91495,5 +91495,33 @@
     "before": "Restaurer les couloirs",
     "after": "Jonön dönu dilis horitätik",
     "reason": "Replace French retained migration-step labels with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests diletön (analyze), finükön (conclude), kontrolön (check/make sure), lonöf (validity), nulükön (renew), jonön (show), and votükön (alter). Preserve analyze versus validate versus update versus finalize, shared-list conversion, per-swimlane existence and separate list/card/swimlane recovery. Follow preceding retained recovery labels by paraphrasing restoration as showing again and preserving literal Lost Cards column name. Source server/imports.js documents obsolete workflows removed; no executable migration restored. Horizontal-part swimlane paraphrase, software update adaptation and existing migrad borrowing remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "operator-unknown-error",
+    "before": "'%s' n'est pas un opérateur",
+    "after": "%s no binon operator",
+    "reason": "Replace French search errors with Volapük surrounding prose. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests spetön (expect), getön (receive), dabin (existence), kontrol (check), stip (condition), lonöfik (valid), and num (number). Reviewed config/query-classes.js error tags. Preserve exact %s and __operator__/__value__ tokens, operator expecting a number versus value actually received, existence check versus debug predicate and unknown operator semantics. Operator/debug remain technical borrowings because dictionary dunan denotes a human operator and predikat denotes grammatical predicate; stip is a software predicate paraphrase. Assembled technical wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "operator-number-expected",
+    "before": "L'opérateur __operator__ n'attend pas '__value__' mais un nombre",
+    "after": "Operator __operator__ äspeton numi, egeton '__value__'",
+    "reason": "Replace French search errors with Volapük surrounding prose. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests spetön (expect), getön (receive), dabin (existence), kontrol (check), stip (condition), lonöfik (valid), and num (number). Reviewed config/query-classes.js error tags. Preserve exact %s and __operator__/__value__ tokens, operator expecting a number versus value actually received, existence check versus debug predicate and unknown operator semantics. Operator/debug remain technical borrowings because dictionary dunan denotes a human operator and predikat denotes grammatical predicate; stip is a software predicate paraphrase. Assembled technical wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "operator-has-invalid",
+    "before": "%s n'est pas un test valide d'existence",
+    "after": "%s no binon kontrol dabina lonöfik",
+    "reason": "Replace French search errors with Volapük surrounding prose. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests spetön (expect), getön (receive), dabin (existence), kontrol (check), stip (condition), lonöfik (valid), and num (number). Reviewed config/query-classes.js error tags. Preserve exact %s and __operator__/__value__ tokens, operator expecting a number versus value actually received, existence check versus debug predicate and unknown operator semantics. Operator/debug remain technical borrowings because dictionary dunan denotes a human operator and predikat denotes grammatical predicate; stip is a software predicate paraphrase. Assembled technical wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "operator-debug-invalid",
+    "before": "%s n'est pas un prédicat de debug valide",
+    "after": "%s no binon stip pro debug lonöfik",
+    "reason": "Replace French search errors with Volapük surrounding prose. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests spetön (expect), getön (receive), dabin (existence), kontrol (check), stip (condition), lonöfik (valid), and num (number). Reviewed config/query-classes.js error tags. Preserve exact %s and __operator__/__value__ tokens, operator expecting a number versus value actually received, existence check versus debug predicate and unknown operator semantics. Operator/debug remain technical borrowings because dictionary dunan denotes a human operator and predikat denotes grammatical predicate; stip is a software predicate paraphrase. Assembled technical wording remains low confidence pending native review."
   }
 ]
