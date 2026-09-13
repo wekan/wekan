@@ -86126,5 +86126,12 @@
     "before": "Ethiopic Amete Alem",
     "after": "ཨི་ཐི་ཡོ་པི་ཡ་གི་ཟླ་ཐོ (Amete Alem)",
     "reason": "Replace English country calendar labels with Dzongkha country names CN/JP/ET and calendar term ཟླ་ཐོ from https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/dz.xml . Preserve proper variant Amete Alem. Assembled possessive calendar grammar is low confidence; full labels not separately attested or native-speaker verified."
+  },
+  {
+    "locale": "dz",
+    "key": "calendar-system-buddhist",
+    "before": "Buddhist",
+    "after": "ནང་པའི་ཟླ་ཐོ",
+    "reason": "Replace English Buddhist with Dzongkha ནང་པའི་ཟླ་ཐོ. Indexed official English-Dzongkha Dictionary 2023 gives Buddhist ནང་པ and Buddhism ནང་པའི་ཆོས་ལུགས: https://www.dzongkha.gov.bt/uploads/files/publications/Eng-Dzo_Dictionary_2023_3ead53caad0798894c3908a9aedceb84.pdf . Calendar ཟླ་ཐོ from https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/dz.xml . Assembled calendar phrase remains low confidence; indexed lexical evidence is not native-speaker validation."
   }
 ]
