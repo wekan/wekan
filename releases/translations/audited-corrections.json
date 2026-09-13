@@ -90543,5 +90543,26 @@
     "before": "Lancer la migration",
     "after": "Dunön migradi",
     "reason": "Replace French migration confirmations, run action and analysis/file-check stages with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests diletön (analyze), timül (moment), dulön (last), progedön (proceed), stäänik (comprehensive), nät (integrity), nüned (computer file), fimükön (attach). Preserve comprehensive integrity check/repair, duration caution, missing/damaged lists, board-file attachment scope and continuation questions. Reuse local Migrads terminology; migration borrowing and assembled software phrases remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "app-is-offline",
+    "before": "Chargement en cours, veuillez patienter. Vous risquez de perdre des données si vous rechargez la page. Si le chargement échoue, veuillez vérifier que le serveur n'est pas arrêté.",
+    "after": "Palodon; begö! Stebedolös. Dönulodam pada okodon peri nunädas. If lodam no jäfidon, kontrololös, das dünädian no estopon.",
+    "reason": "Replace audited French loading warning, scheduled-job action and planning-poker deletion title with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests disinön (plan/schedule), dünädian (computer server), lodön (load), stebedön (wait), per (loss), stopön (stop). Preserve waiting instruction, refresh-causes-data-loss warning and checking whether server stopped when loading fails. Preserve scheduled status and deletion question; retain planning poker as the feature name. Derived dönulodam for reload and assembled software phrases remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "add-cron-job",
+    "before": "Ajouter un travail planifié",
+    "after": "Lüükön vobi pedisinöl",
+    "reason": "Replace audited French loading warning, scheduled-job action and planning-poker deletion title with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests disinön (plan/schedule), dünädian (computer server), lodön (load), stebedön (wait), per (loss), stopön (stop). Preserve waiting instruction, refresh-causes-data-loss warning and checking whether server stopped when loading fails. Preserve scheduled status and deletion question; retain planning poker as the feature name. Derived dönulodam for reload and assembled software phrases remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "deletePokerPopup-title",
+    "before": "Supprimer ce planning poker ?",
+    "after": "Radön eli «planning poker»?",
+    "reason": "Replace audited French loading warning, scheduled-job action and planning-poker deletion title with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests disinön (plan/schedule), dünädian (computer server), lodön (load), stebedön (wait), per (loss), stopön (stop). Preserve waiting instruction, refresh-causes-data-loss warning and checking whether server stopped when loading fails. Preserve scheduled status and deletion question; retain planning poker as the feature name. Derived dönulodam for reload and assembled software phrases remain low confidence pending native review."
   }
 ]
