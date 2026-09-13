@@ -51959,5 +51959,61 @@
     "before": "Nota: Lascia un campo vuoto per abbinare ogni possibile valore.",
     "after": "Nota: lasciate un campu viotu per currisponde à ogni valore pussibule. ",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "r-d-uncheck-all",
+    "before": "Deseleziona tutti gli items di una lista",
+    "after": "Caccià a marca di tutti l’elementi d’una lista",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "r-import-paste",
+    "before": "Incolla qui le regole esportate (JSON o CSV) o i comandi di Trello Butler",
+    "after": "Incollate e regule espurtate (JSON o CSV) o i cumandi di Trello Butler quì",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "r-import-unmapped",
+    "before": "Impossibile mappare __count__ riga/e",
+    "after": "Ùn hè statu pussibule di fà currisponde __count__ linea(e)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "r-items-list",
+    "before": "elemento1,elemento2,elemento3",
+    "after": "elementu1,elementu2,elementu3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "r-set-date-relative",
+    "before": "Imposta data relativa ad adesso",
+    "after": "Definisce a data relativamente à avà",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "r-w-set-received-now",
+    "before": "Imposta la data di ricezione ad adesso",
+    "after": "Definisce a data di ricezzione à avà",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "r-when-a-label-is",
+    "before": "Quando un'etichetta viene",
+    "after": "Quandu un’etichetta hè",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "r-when-scheduled",
+    "before": "Secondo una pianificazione",
+    "after": "Secondu una pianificazione",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
