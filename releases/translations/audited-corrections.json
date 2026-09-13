@@ -57832,5 +57832,47 @@
     "before": "Islamic Umm al-Qura",
     "after": "ھىجرىيە كالېندارى (ئۇممۇل قۇرا)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "km",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "ប្រតិទិនជាតិឥណ្ឌា",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "km",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "ប្រតិទិនហ៊ីជ្រី (អារ៉ាប៊ីសាអូឌីត តាមការមើលឃើញព្រះចន្ទ)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "km",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "ប្រតិទិនហ៊ីជ្រី (តាមតារាង ចំណុចចាប់ផ្តើមតាមតារាសាស្ត្រ)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "km-KH",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "ប្រតិទិនជាតិឥណ្ឌា",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "km-KH",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "ប្រតិទិនហ៊ីជ្រី (អារ៉ាប៊ីសាអូឌីត តាមការមើលឃើញព្រះចន្ទ)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "km-KH",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "ប្រតិទិនហ៊ីជ្រី (តាមតារាង ចំណុចចាប់ផ្តើមតាមតារាសាស្ត្រ)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
