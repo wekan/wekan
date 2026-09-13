@@ -64755,5 +64755,61 @@
     "before": "Ce tableau est public. Il est accessible par toutes les personnes disposant du lien et apparaîtra dans les résultats des moteurs de recherche tels que Google. Seuls les membres peuvent le modifier.",
     "after": "Foran eo an daolenn-mañ. Gallout a ra kement den en deus al liamm he gwelout, ha diskouezet e vo e luskerioù enklask evel Google. An dud ouzhpennet d’an daolenn hepken a c’hall he c’hemmañ.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "push-invite-text",
+    "before": "Cher/Chère __user__,\n\n__inviter__ vous invite à rejoindre le tableau \"__board__\" pour collaborer.\n\nVeuillez suivre le lien ci-dessous :\n\n__url__\n\nMerci.",
+    "after": "__user__ ker,\n\n__inviter__ a bed ac’hanoc’h da vont en daolenn \"__board__\" evit kenlabourat.\n\nHeuilhit al liamm amañ dindan :\n\n__url__\n\nTrugarez.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "quick-access-description",
+    "before": "Ajouter un tableau à vos favoris pour créer un raccourci dans cette barre.",
+    "after": "Merkit un daolenn gant ur steredenn evit ouzhpennañ ur verradenn er varrenn-mañ.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "r-d-move-to-bottom-gen",
+    "before": "Déplacer la carte en bas de sa liste",
+    "after": "Dilec’hiañ ar gartenn e traoñ he roll",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "r-d-move-to-bottom-spec",
+    "before": "Déplacer la carte en bas de la liste",
+    "after": "Dilec’hiañ ar gartenn e traoñ ar roll",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "r-d-move-to-top-gen",
+    "before": "Déplacer la carte en haut de sa liste",
+    "after": "Dilec’hiañ ar gartenn e krec’h he roll",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "r-d-move-to-top-spec",
+    "before": "Déplacer la carte en haut de la liste",
+    "after": "Dilec’hiañ ar gartenn e krec’h ar roll",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "r-d-remove-all-member",
+    "before": "Supprimer tous les participants",
+    "after": "Tennañ an holl izili",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "r-remove-all",
+    "before": "Supprimer tous les membres de la carte",
+    "after": "Tennañ an holl izili eus ar gartenn",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
