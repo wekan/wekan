@@ -80,14 +80,14 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 14,792 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 1,052 pending review or repair.
-The correction inventory records 16,670 exact before/after values,
+findings: 14,798 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 1,046 pending review or repair.
+The correction inventory records 16,684 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
 German cron label, which now uses the actual tool name Cron.
-The largest original finding queues remain in Veps (311) and Standard Moroccan
+The largest original finding queues remain in Veps (305) and Standard Moroccan
 Tamazight (595). Silesian database terminology and 17 Tigre
 calendar findings need language-specific review. Restored and unflagged
 values, low-confidence wording and browser rendering remain unverified.
@@ -99,8 +99,8 @@ Transifex: the evidence includes 4,061 pulled changes and 16,020 additional
 local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
-changes are implemented in local commit 02383540a; translation repairs have resumed. Latest translation fix is 3a4196abb,
-covering account mail and notification deletion text; progress counts are updated above.
+changes are implemented in local commit 02383540a; translation repairs have resumed. Latest translation fix is b233c7fda,
+covering login protection and lockout settings; progress counts are updated above.
 All correction/rendering checks pass. Latest full Node verification before
 that batch: 1,015 suites, zero failures;
 the final mirror retry adjustment also passes its targeted regression.
@@ -1165,6 +1165,21 @@ verification; the local tool is still starting before compilation.
 and updates maintainer tooling:
 
 **Maintenance scripts** - explicit translation uploads and repository mirrors.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b233c7fda">Repair Veps login-protection and lockout settings</a>. Thanks to xet7.</summary>
+
+Replace 14 Finnish values, including eight related unflagged controls. Describe
+password-variant checking attacks, preserve excessive failed-login cause,
+temporary lockout and retry-later guidance, failure-count window in seconds,
+remaining time and only-locked/all-user distinctions.
+
+All 16,684 exact corrections and positive/negative rendering checks pass.
+The audit now has 14,798 corrected and 1,046 pending original findings, including
+305 Veps findings. Composed security terminology and inflections need
+fluent-speaker review; restored/unflagged and browser verification remain open.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/3a4196abb">Repair Veps account emails and notification text</a>. Thanks to xet7.</summary>
