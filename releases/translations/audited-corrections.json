@@ -105600,5 +105600,180 @@
     "before": "Iyalayisha, sicela ulinde. Ukuvuselela ikhasi kuzodala ukulahleka kwedatha. Uma ukulayisha kungasebenzi, sicela uhlole ukuthi iseva ayimile yini.",
     "after": "I khou ḽouda, lindelani. U ḽouda siaṱari hafhu zwi ḓo ita uri data i xele. Arali u ḽouda hu sa shumi, sedzani uri seva a yo ngo ima.",
     "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal advanced-filter syntax, left-to-right evaluation and offline refresh data-loss warning. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "archive-all",
+    "before": "Hambisa Konke Kungobo yomlando",
+    "after": "Isa zwoṱhe fhethu ha u vhulunga",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, URL scheme syntax, archive scheduling states and above/below directions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "archive-board-confirm",
+    "before": "Uqinisekile ukuthi ufuna ukufaka kungobo yomlando leli bhodi?",
+    "after": "Ni na vhuṱanzi ha uri ni ṱoḓa u isa bodo iyi ya Kanban fhethu ha u vhulunga?",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, URL scheme syntax, archive scheduling states and above/below directions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "archive-list",
+    "before": "Hambisa Uhlu Kungobo yomlando",
+    "after": "Isa mutevhe fhethu ha u vhulunga",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, URL scheme syntax, archive scheduling states and above/below directions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "archive-selection",
+    "before": "Hambisa okukhethiwe kungobo yomlando",
+    "after": "Isa zwo nangwaho fhethu ha u vhulunga",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, URL scheme syntax, archive scheduling states and above/below directions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "archive-swimlane",
+    "before": "Hambisa i-Swimlane Kungobo yomlando",
+    "after": "Isa ḽaini fhethu ha u vhulunga",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, URL scheme syntax, archive scheduling states and above/below directions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "archived-at",
+    "before": "ifakwe kungobo yomlando ku",
+    "after": "yo vhulungwa nga",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, URL scheme syntax, archive scheduling states and above/below directions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "archived-boards",
+    "before": "Amabhodi Kungobo yomlando",
+    "after": "Bodo dza Kanban dzi re fhethu ha u vhulunga",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, URL scheme syntax, archive scheduling states and above/below directions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "attachment-settings",
+    "before": "Izilungiselelo zokunamathisela",
+    "after": "Nzudzanyo dza ṱumetshedzo",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, URL scheme syntax, archive scheduling states and above/below directions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "attachment-storage-configuration",
+    "before": "Ukucushwa Kwesitoreji Esinamathiselwe",
+    "after": "Nzudzanyo ya u vhulunga ṱumetshedzo",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, URL scheme syntax, archive scheduling states and above/below directions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "attachment-storage-settings",
+    "before": "Izilungiselelo Zesitoreji",
+    "after": "Nzudzanyo dza u vhulunga",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, URL scheme syntax, archive scheduling states and above/below directions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "authentication-type",
+    "before": "Uhlobo lokufakazela ubuqiniso",
+    "after": "Nḓila ya u khwaṱhisedza mushumisi",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, URL scheme syntax, archive scheduling states and above/below directions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "auto-list-width",
+    "before": "Ububanzi bohlu oluzenzakalelayo",
+    "after": "Vhuphara ha mutevhe vhu ḓilangaho",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, URL scheme syntax, archive scheduling states and above/below directions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "auto-watch",
+    "before": "Buka amabhodi ngokuzenzakalelayo uma edalwa",
+    "after": "Tevhela bodo dza Kanban nga yoṱhe musi dzi tshi sikiwa",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, URL scheme syntax, archive scheduling states and above/below directions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "autoAddUsersWithDomainName",
+    "before": "Ngeza ngokuzenzakalelayo abasebenzisi abanegama lesizinda",
+    "after": "Engedza vhashumisi vha dzina ḽa domeni nga yoṱhe",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, URL scheme syntax, archive scheduling states and above/below directions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "automatic-linked-url-schemes",
+    "before": "Izikimu ze-URL yangokwezifiso okufanele zichofozeke ngokuzenzakalelayo. Isikimu se-URL esisodwa ngomugqa ngamunye",
+    "after": "Zwikimu zwa URL zwo dzudzanywaho zwi fanela u kiḽikea nga zwoṱhe. Tshikimu tshithihi tsha URL kha mutaladzi muṅwe na muṅwe",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, URL scheme syntax, archive scheduling states and above/below directions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "automatic-migration",
+    "before": "Ukufuduka Okuzenzakalelayo",
+    "after": "U pfulusa nga yoṱhe",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, URL scheme syntax, archive scheduling states and above/below directions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "automatically-field-on-card",
+    "before": "Engeza inkambu emakhadini amasha",
+    "after": "Engedza fhethu ha data kha makhadi maswa",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, URL scheme syntax, archive scheduling states and above/below directions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "avatar-too-big",
+    "before": "Isithombe sikhulu kakhulu (__size__ ubuningi)",
+    "after": "Tshifanyiso tsha mushumisi ndi tshihulwane nga maanḓa (mukano ndi __size__)",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, URL scheme syntax, archive scheduling states and above/below directions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "avatars-path-description",
+    "before": "Indlela lapho amafayela e-avatar agcinwa khona",
+    "after": "Nḓila ine faela dza zwifanyiso zwa vhashumisi dza vhulungwa khayo",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, URL scheme syntax, archive scheduling states and above/below directions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "badge-attachment-on-minicard",
+    "before": "Isibalo sokunamathiselwe kwi-minicard",
+    "after": "Tshivhalo tsha ṱumetshedzo kha khadi ḽiṱuku",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, URL scheme syntax, archive scheduling states and above/below directions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "below-selected-card",
+    "before": "Ngezansi kwekhadi elikhethiwe",
+    "after": "Nga fhasi ha khadi ḽo nangwaho",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, URL scheme syntax, archive scheduling states and above/below directions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "below-selected-swimlane",
+    "before": "Ngezansi kwe-swimlane ekhethiwe",
+    "after": "Nga fhasi ha ḽaini ḽo nangwaho",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, URL scheme syntax, archive scheduling states and above/below directions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "bidirectional-webhooks",
+    "before": "Ama-Webhook Anezindlela ezimbili",
+    "after": "Webhooks dza nḓila mbili",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, URL scheme syntax, archive scheduling states and above/below directions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "board-archive-failed",
+    "before": "Yehlulekile ukuhlela ingobo yomlando yebhodi",
+    "after": "U dzudzanya u vhulunga bodo ya Kanban zwo kundelwa",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, URL scheme syntax, archive scheduling states and above/below directions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "board-archive-scheduled",
+    "before": "Ingobo yomlando yebhodi ishejulwe ngempumelelo",
+    "after": "U vhulunga bodo ya Kanban ho dzudzanywa nga nḓila yo bvelelaho",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, URL scheme syntax, archive scheduling states and above/below directions. Low-confidence wording; fluent-speaker validation outstanding."
   }
 ]
