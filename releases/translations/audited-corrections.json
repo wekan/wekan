@@ -104151,5 +104151,89 @@
     "before": "`__operator_due__:<n>` - ​​amakhadi okumele akhokhe kufike ezinsukwini *<n>* kusukela manje.  `__operator_due__:__predicate_overdue__ ubala wonke amakhadi adlule usuku lwawo lomnqamulajuqu.",
     "after": "`__operator_due__:<n>` - makhadi a fanela u fhedzwa hu sa athu fhira maḓuvha a *<n>* u bva zwino. `__operator_due__:__predicate_overdue__ i tevhekanya makhadi oṱhe o fhiraho ḓuvha ḽa u fhedzwa.",
     "reason": "Replace Zulu-seeded search help directly with Tshivenda. Preserve query examples, angle-bracket arguments, underscore placeholders and OR versus AND semantics. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "globalSearch-instructions-operator-has",
+    "before": "`__operator_has__:<field>` - ​​lapho *<field>* ingenye ye-`__predicate_attachment__`, `__predicate_checklist__`, `__predicate_description__`, `__predicate_start__`, `__predicate_due__`, `__predicate_end__`, `__predicate_assignee__` noma `__predicate_member__`.  Ukubeka okuthi `-` ngaphambi kokuthi *<field>* kusesha ukungabikho kwevelu kuleyo nkambu (isb. `has:-due` usesha amakhadi ngaphandle kwedethi yamanqamu).",
+    "after": "`__operator_has__:<field>` - hune *<field>* ya vha iṅwe ya `__predicate_attachment__`, `__predicate_checklist__`, `__predicate_description__`, `__predicate_start__`, `__predicate_due__`, `__predicate_end__`, `__predicate_assignee__` kana `__predicate_member__`. U vhea `-` phanḓa ha *<field>* hu ṱoḓa u sa vha na ndeme kha fhethu honoho (sa `has:-due` i ṱoḓa makhadi a si na ḓuvha ḽa u fhedzwa).",
+    "reason": "Replace Zulu-seeded search help directly with Tshivenda; preserve literal query syntax, source placeholders, negation and archived-status distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "globalSearch-instructions-operator-label",
+    "before": "`__operator_label__:<color>` `__operator_label__:<name>` - amakhadi anelebula ehambisanayo *<color>* noma *<name>",
+    "after": "`__operator_label__:<color>` `__operator_label__:<name>` - makhadi a re na ḽeibuḽu i elanaho na *<color>* kana *<name>*",
+    "reason": "Replace Zulu-seeded search help directly with Tshivenda; preserve literal query syntax, source placeholders, negation and archived-status distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "globalSearch-instructions-operator-list",
+    "before": "`__operator_list__:<title>` - ​​amakhadi ohlwini olufana nalokhu okushiwo *<title>*",
+    "after": "`__operator_list__:<title>` - makhadi kha mitevhe i elanaho na *<title>* yo ṅwalwaho",
+    "reason": "Replace Zulu-seeded search help directly with Tshivenda; preserve literal query syntax, source placeholders, negation and archived-status distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "globalSearch-instructions-operator-member",
+    "before": "`__operator_member__:<username>` - ​​amakhadi lapho *<username>* *iyilungu*",
+    "after": "`__operator_member__:<username>` - makhadi ane *<username>* a vha *muraḓo* wao",
+    "reason": "Replace Zulu-seeded search help directly with Tshivenda; preserve literal query syntax, source placeholders, negation and archived-status distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "globalSearch-instructions-operator-modified",
+    "before": "`__operator_modified__:<n>` - ​​amakhadi alungiswe *<n>* ezinsukwini ezedlule noma ngaphansi",
+    "after": "`__operator_modified__:<n>` - makhadi o shandulwaho maḓuvha a *<n>* o fhiraho kana a si gathi",
+    "reason": "Replace Zulu-seeded search help directly with Tshivenda; preserve literal query syntax, source placeholders, negation and archived-status distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "globalSearch-instructions-operator-number",
+    "before": "`__operator_number__:<number>` - amakhadi anenombolo yekhadi engu-*<number>*",
+    "after": "`__operator_number__:<number>` - makhadi ane nomboro ya khadi ya vha *<number>*",
+    "reason": "Replace Zulu-seeded search help directly with Tshivenda; preserve literal query syntax, source placeholders, negation and archived-status distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "globalSearch-instructions-operator-org",
+    "before": "`__operator_org__:<display name|short name>` - ​​amakhadi ebhodi abelwe inhlangano *<name>*",
+    "after": "`__operator_org__:<display name|short name>` - makhadi a bodo ya Kanban yo avhelwaho dzangano *<name>*",
+    "reason": "Replace Zulu-seeded search help directly with Tshivenda; preserve literal query syntax, source placeholders, negation and archived-status distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "globalSearch-instructions-operator-swimlane",
+    "before": "`__operator_swimlane__:<title>` - ​​amakhadi ezinkundleni zokubhukuda afana nokushiwo *<title>*",
+    "after": "`__operator_swimlane__:<title>` - makhadi kha dziḽaini dzi elanaho na *<title>* yo ṅwalwaho",
+    "reason": "Replace Zulu-seeded search help directly with Tshivenda; preserve literal query syntax, source placeholders, negation and archived-status distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "globalSearch-instructions-operator-team",
+    "before": "`__operator_team__:<display name|short name>` - ​​amakhadi ebhodi abelwe iqembu *<name>*",
+    "after": "`__operator_team__:<display name|short name>` - makhadi a bodo ya Kanban yo avhelwaho tshigwada *<name>*",
+    "reason": "Replace Zulu-seeded search help directly with Tshivenda; preserve literal query syntax, source placeholders, negation and archived-status distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "globalSearch-instructions-operator-user",
+    "before": "`__operator_user__:<username>` - ​​amakhadi lapho *<username>* *eyilungu* noma *onikezwayo*",
+    "after": "`__operator_user__:<username>` - makhadi ane *<username>* a vha *muraḓo* kana *o avhelwa mushumo* wao",
+    "reason": "Replace Zulu-seeded search help directly with Tshivenda; preserve literal query syntax, source placeholders, negation and archived-status distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "globalSearch-instructions-status-all",
+    "before": "`__predicate_all__` - ​​wonke amakhadi afakwe kungobo yomlando nangafakwanga kungobo yomlando",
+    "after": "`__predicate_all__` - makhadi oṱhe o vhulungwaho na a sa athu vhulungwa",
+    "reason": "Replace Zulu-seeded search help directly with Tshivenda; preserve literal query syntax, source placeholders, negation and archived-status distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "globalSearch-instructions-status-archived",
+    "before": "`__predicate_archived__` - ​​amakhadi afakwe kungobo yomlando",
+    "after": "`__predicate_archived__` - makhadi o vhulungwaho",
+    "reason": "Replace Zulu-seeded search help directly with Tshivenda; preserve literal query syntax, source placeholders, negation and archived-status distinctions. Low-confidence wording; fluent-speaker validation outstanding."
   }
 ]
