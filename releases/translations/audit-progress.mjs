@@ -34,6 +34,18 @@ export function classifyAuditRow(row, current, correction, review) {
   if (row.originalPull && current === row.local) return 'restoredPrePull';
   return 'pending';
 }
+export function updateAuditSummary(text, summary, correctionCount, date) {
+  const labels = { Corrected: 'corrected', 'Restored pre-pull; awaiting validation': 'restoredPrePull',
+    'Reviewed; retained unchanged': 'reviewedUnchanged', 'Pending review or repair': 'pending', 'Total tracked': 'auditedKeys' };
+  for (const [label, key] of Object.entries(labels)) {
+    const row = `| ${label} |`;
+    if (!text.includes(row)) throw new Error(`Missing summary row: ${label}`);
+    text = text.split('\n').map(line => line.startsWith(row)
+      ? `${row} ${summary[key].toLocaleString('en-US')} |` : line).join('\n');
+  }
+  return text.replace(/Last updated: \*\*\d{4}-\d{2}-\d{2}\*\*/, `Last updated: **${date}**`)
+    .replace(/contain \*\*[\d,]+\*\* exact/, `contain **${correctionCount.toLocaleString('en-US')}** exact`);
+}
 export function repairProgress(repository = root) {
   const audit = parseAudit(fs.readFileSync(path.join(repository, 'docs/Features/Translations/Audit-Evidence.md'), 'utf8'));
   const corrections = JSON.parse(fs.readFileSync(path.join(repository, 'releases/translations/audited-corrections.json'), 'utf8'));
@@ -56,6 +68,12 @@ export function repairProgress(repository = root) {
 }
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   const result = repairProgress();
+  if (process.argv.includes('--update-summary')) {
+    const summaryPath = path.join(root, 'docs/Features/Translations/Audit.md');
+    const corrections = JSON.parse(fs.readFileSync(path.join(root, 'releases/translations/audited-corrections.json'), 'utf8'));
+    const date = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Helsinki', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
+    fs.writeFileSync(summaryPath, updateAuditSummary(fs.readFileSync(summaryPath, 'utf8'), result.summary, corrections.length, date));
+  }
   const localeIndex = process.argv.indexOf('--locale');
   if (localeIndex !== -1) {
     const locale = process.argv[localeIndex + 1];

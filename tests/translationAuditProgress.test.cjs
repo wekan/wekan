@@ -1,7 +1,7 @@
 'use strict';
 const assert = require('node:assert/strict');
 (async () => {
-  const { parseAudit, repairProgress, classifyAuditRow } = await import('../releases/translations/audit-progress.mjs');
+  const { parseAudit, repairProgress, classifyAuditRow, updateAuditSummary } = await import('../releases/translations/audit-progress.mjs');
   const sample = '### Wrong language — current local values\n| lv.i18n.json | Latvian | example |  &#95;&#95;card&#95;&#95; &amp; x&#124;y<br>next  | Not available — not queried | Check. |';
   const [row] = parseAudit(sample);
   assert.equal(row.local, ' __card__ & x|y\nnext ');
@@ -14,6 +14,15 @@ const assert = require('node:assert/strict');
   assert.throws(() => parseAudit(sample + '\n' + sample.split('\n')[1]), /Duplicate audit key/);
   const result = repairProgress();
   const { summary } = result;
+  const fs = require('node:fs');
+  const path = require('node:path');
+  const report = fs.readFileSync(path.join(__dirname, '../docs/Features/Translations/Audit.md'), 'utf8');
+  const updated = updateAuditSummary(report, summary, 12345, '2026-09-13');
+  assert.ok(updated.includes('contain **12,345** exact'));
+  assert.ok(updated.includes(`| Pending review or repair | ${summary.pending.toLocaleString('en-US')} |`));
+  assert.equal(updateAuditSummary(updated, summary, 12345, '2026-09-13'), updated, 'refresh is idempotent');
+  assert.ok(updated.includes(report.match(/Latest translation fix:.*$/m)[0]), 'refresh preserves reviewed fix details and commit hash');
+  assert.throws(() => updateAuditSummary('', summary, 0, '2026-09-13'), /Missing summary row/);
   assert.equal(summary.auditedKeys, 20081, 'all original pull and full-local audit rows remain accounted for');
   assert.equal(summary.auditedKeys, summary.corrected + summary.restoredPrePull + summary.reviewedUnchanged + summary.pending);
   assert.equal(result.pendingByLocale.bs, undefined, 'every flagged Bosnian key has been repaired');
