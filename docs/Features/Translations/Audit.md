@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 12,299 |
+| Corrected | 12,308 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 3,547 |
+| Pending review or repair | 3,538 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Restored and unflagged values still need validation.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,815** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,824** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `d99c198f5b0b4ff664a30740ea342e0f4293b2da` — six Volapük import/path/separator strings repaired, including two earlier folder adaptations improved using software-attested terminology. Preserved upload/rejection meanings, image-only restriction and HTML entities; derived/software wording remains low confidence.
+Latest translation fix: **2026-09-13**, local commit `55b125b403484f606ba3b098b852b34e8717b72c` — nine French search-help strings replaced with Volapük. Exact operator examples/angle tokens, date ranges, per-page limits, case-insensitivity and archive defaults preserved; software adaptations and assembled wording remain low confidence.
 
 **Verification:** correction and progress tests pass, covering exact values, placeholders, JSON examples and key order. Native-speaker and browser checks remain outstanding.
 
