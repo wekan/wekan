@@ -78013,5 +78013,40 @@
     "before": "`__operator_user_abbrev__tur` - gàttal bu `user:<tur>`",
     "after": "`__operator_user_abbrev__username` - gàttal bu `user:<username>`",
     "reason": "Replace French search operator descriptions with Wolof and restore literal source title/text/color/name/username examples. Preserve board/list/comment/label/user criteria, member-or-assignee semantics and shorthand alternatives. Comment/matching terminology and full grammar remain low confidence; includes revision of unflagged shorthand example."
+  },
+  {
+    "locale": "wo",
+    "key": "globalSearch-instructions-operator-creator",
+    "before": "`__operator_creator__:<utilisateur>` - cartes dont le créateur est *<utilisateur>*",
+    "after": "`__operator_creator__:<username>` - karta yi *<username>* sos",
+    "reason": "Replace French creator/creation/modification/sort/limit search help with Wolof. Preserve literal username/n/sort-name variables, all operator/predicate tokens, days-ago-or-less interval, minus-prefix descending sorting and strictly positive integer per-page card limit. Full grammar and numerical/sort terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "globalSearch-instructions-operator-created",
+    "before": "`__operator_created__:<n>` - cartes qui ont été créées il y a *<n>* jours ou moins",
+    "after": "`__operator_created__:<n>` - karta yi ñu sos ci *<n>* fan yi weesu walla lu ëppul loolu",
+    "reason": "Replace French creator/creation/modification/sort/limit search help with Wolof. Preserve literal username/n/sort-name variables, all operator/predicate tokens, days-ago-or-less interval, minus-prefix descending sorting and strictly positive integer per-page card limit. Full grammar and numerical/sort terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "globalSearch-instructions-operator-modified",
+    "before": "`__operator_modified__:<n>` - cartes qui ont été modifiées il y a *<n>* jours ou moins",
+    "after": "`__operator_modified__:<n>` - karta yi ñu soppi ci *<n>* fan yi weesu walla lu ëppul loolu",
+    "reason": "Replace French creator/creation/modification/sort/limit search help with Wolof. Preserve literal username/n/sort-name variables, all operator/predicate tokens, days-ago-or-less interval, minus-prefix descending sorting and strictly positive integer per-page card limit. Full grammar and numerical/sort terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "globalSearch-instructions-operator-sort",
+    "before": "`__operator_sort__:<tri>` - où *<tri>* est une méthode parmi `__predicate_due__`, `__predicate_created__` ou `__predicate_modified__`.  Pour un tri descendant, préfixez la méthode par `-`.",
+    "after": "`__operator_sort__:<sort-name>` - *<sort-name>* dafay doon `__predicate_due__`, `__predicate_created__` walla `__predicate_modified__`. Ngir toftale bu wàññiku, teg `-` ci kanamu turu toftale bi.",
+    "reason": "Replace French creator/creation/modification/sort/limit search help with Wolof. Preserve literal username/n/sort-name variables, all operator/predicate tokens, days-ago-or-less interval, minus-prefix descending sorting and strictly positive integer per-page card limit. Full grammar and numerical/sort terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "globalSearch-instructions-operator-limit",
+    "before": "`__operator_limit__:<n>` - où *<n>* est un entier positif exprimant le nombre de cartes à afficher par page.",
+    "after": "`__operator_limit__:<n>` - *<n>* mooy lim bu mat te ëpp 0, di limu karta yi ñuy wone ci xët wu nekk.",
+    "reason": "Replace French creator/creation/modification/sort/limit search help with Wolof. Preserve literal username/n/sort-name variables, all operator/predicate tokens, days-ago-or-less interval, minus-prefix descending sorting and strictly positive integer per-page card limit. Full grammar and numerical/sort terminology remain low confidence."
   }
 ]
