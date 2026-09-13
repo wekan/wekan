@@ -85230,5 +85230,19 @@
     "before": "Jalali (Fars)",
     "after": "Likhalenda le-Jalali (lasePersia)",
     "reason": "Replace English Hebrew calendar and foreign Fars label with Swati descriptions using existing Likhalenda terminology. ema Hebheru vocabulary appears in Swati Exodus at https://doc-files.bibleineverylanguage.org/ss-reg-exo_lbo_1c_chapter.pdf . Retain Jalali and Persia identities; no native Persian country spelling established by searches. Complete assembled grammar and retained Persia spelling remain low confidence; Buddhist, Coptic, Indian national and Hijri variant labels remain pending."
+  },
+  {
+    "locale": "ss",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "Likhalenda lesive laseIndia",
+    "reason": "Replace English Indian national calendar and Saudi Islamic label with Swati descriptions; preserve India/Saudi Arabia/Hijri identities, national distinction and omitted moon-sighting detail. Existing Likhalenda terminology retained. Swati moon inyanga appears in https://glosbe.com/zu/ss/inyanga ; this lexical evidence does not validate full grammar. Retained country spellings, national descriptor and complete sighting grammar remain low confidence. Buddhist, Coptic and tabular epoch variants remain pending."
+  },
+  {
+    "locale": "ss",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "Likhalenda le-Hijri (Saudi Arabia, kubonwa kwenyanga)",
+    "reason": "Replace English Indian national calendar and Saudi Islamic label with Swati descriptions; preserve India/Saudi Arabia/Hijri identities, national distinction and omitted moon-sighting detail. Existing Likhalenda terminology retained. Swati moon inyanga appears in https://glosbe.com/zu/ss/inyanga ; this lexical evidence does not validate full grammar. Retained country spellings, national descriptor and complete sighting grammar remain low confidence. Buddhist, Coptic and tabular epoch variants remain pending."
   }
 ]
