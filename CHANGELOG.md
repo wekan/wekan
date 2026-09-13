@@ -1192,14 +1192,16 @@ including interruption, retry, attachment navigation and a bounded-heap fixture.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/002e6faa7">Group build logs by build type and day</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/0fdda91de">Separate build logs by build type, date and time</a>. Thanks to xet7.</summary>
 
 Development bundles stream to stdout and
-.tools/log/build-dev-bundle/YYYY-MM-DD/dev.txt. Release bundles use
-.tools/log/build-release-bundle/YYYY-MM-DD/release.txt. Append subsequent runs;
-EVERYTHING also retains its existing run-level log. Heap failure diagnostics
-inspect the current build's lines. Eight targeted test entries pass; the
-maintainer's development build completed successfully before this logging change.
+.tools/log/build-dev-bundle/YYYY-MM-DD/HH-MM-SS/dev.txt. Release bundles use
+.tools/log/build-release-bundle/YYYY-MM-DD/HH-MM-SS/release.txt. Every build gets
+a separate directory; same-second runs reserve a numeric suffix. EVERYTHING
+also retains its existing run-level log. Extends the
+<a href="https://github.com/wekan/wekan/commit/002e6faa7">build-type logging change</a>.
+Directory/repeat-run tests and build parity/release checks pass. The maintainer
+reported a successful development build before these logging changes.
 
 </details>
 
