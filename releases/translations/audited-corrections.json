@@ -112509,5 +112509,47 @@
     "before": "Ohje",
     "after": "Abu",
     "reason": "Replace Finnish UI labels with software-attested Veps vocabulary in the current MediaWiki Veps translation file, https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: userlogin-yourpassword Peitsana, mypreferences Valičused, savearticle Kaiče lehtpol’, delete/cancel Heitä, help Abu. Save is the native imperative without the unrelated page noun. Preserve other correct-language values."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "change-password",
+    "before": "Vaihda salasana",
+    "after": "Vajehta peitsana",
+    "reason": "Replace Finnish account terminology with native Veps vocabulary from https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json (changepassword, userlogin-yourname, createacct-yourpasswordagain-ph, userlogin-resetpassword-link, badretype). Preserve the specific instruction; password-again uses native völ kerdan for again."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "smtp-username",
+    "before": "Käyttäjätunnus",
+    "after": "Kävutajan nimi",
+    "reason": "Replace Finnish account terminology with native Veps vocabulary from https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json (changepassword, userlogin-yourname, createacct-yourpasswordagain-ph, userlogin-resetpassword-link, badretype). Preserve the specific instruction; password-again uses native völ kerdan for again."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "password-again",
+    "before": "Salasana (uudelleen)",
+    "after": "Peitsana (völ kerdan)",
+    "reason": "Replace Finnish account terminology with native Veps vocabulary from https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json (changepassword, userlogin-yourname, createacct-yourpasswordagain-ph, userlogin-resetpassword-link, badretype). Preserve the specific instruction; password-again uses native völ kerdan for again."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "forgot-password",
+    "before": "Unohtuiko salasana",
+    "after": "Unohtid ičeiž peitsanan?",
+    "reason": "Replace Finnish account terminology with native Veps vocabulary from https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json (changepassword, userlogin-yourname, createacct-yourpasswordagain-ph, userlogin-resetpassword-link, badretype). Preserve the specific instruction; password-again uses native völ kerdan for again."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "password-mismatch",
+    "before": "Salasanat eivät täsmää",
+    "after": "Kirjutadud peitsanad ei olgoi ühtejiččed.",
+    "reason": "Replace Finnish account terminology with native Veps vocabulary from https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json (changepassword, userlogin-yourname, createacct-yourpasswordagain-ph, userlogin-resetpassword-link, badretype). Preserve the specific instruction; password-again uses native völ kerdan for again."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "username-password-required",
+    "before": "Käyttäjätunnus ja salasana vaaditaan",
+    "after": "Kävutajan nimi da peitsana oma tarbiž.",
+    "reason": "Replace Finnish account terminology with native Veps vocabulary from https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json (changepassword, userlogin-yourname, createacct-yourpasswordagain-ph, userlogin-resetpassword-link, badretype). Preserve the specific instruction; password-again uses native völ kerdan for again. Direct composed requirement using existing Veps tarbiž vocabulary; LOW CONFIDENCE grammar/required terminology needs fluent review."
   }
 ]

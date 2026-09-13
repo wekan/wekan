@@ -240,5 +240,15 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
     assert.equal(cache['ve-PP'][key], value, key);
     assert.doesNotMatch(cache['ve-PP'][key], /Salasana|Asetukset|Tallenna|Poista|Peruuta|Ohje/, key);
   }
+  for (const [key, value] of Object.entries({
+    'change-password': 'Vajehta peitsana', 'smtp-username': 'Kävutajan nimi',
+    'password-again': 'Peitsana (völ kerdan)',
+    'forgot-password': 'Unohtid ičeiž peitsanan?',
+    'password-mismatch': 'Kirjutadud peitsanad ei olgoi ühtejiččed.',
+    'username-password-required': 'Kävutajan nimi da peitsana oma tarbiž.',
+  })) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.doesNotMatch(cache['ve-PP'][key], /salasana|Salasana|Salasanat|Käyttäjätunnus|uudelleen|Vaihda/, key);
+  }
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });
