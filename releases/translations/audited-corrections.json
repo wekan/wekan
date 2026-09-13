@@ -81205,5 +81205,68 @@
     "before": "En dessous du couloir sélectionné",
     "after": "Ci suufu yoon bi ñu tànn",
     "reason": "Replace French list/swimlane action headings with Wolof using existing Limu/Yoon terminology. Preserve adding, archival versus deletion, moving versus copying and above/below selected swimlane. Full grammar and kanban adaptations remain low confidence; original local noun labels retained."
+  },
+  {
+    "locale": "wo",
+    "key": "setSwimlaneHeightPopup-title",
+    "before": "Définir la hauteur du couloir",
+    "after": "Def kawewaayu yoon bi",
+    "reason": "Replace French swimlane sizing/search controls with Wolof and align mixed height-error noun with Yoon. Preserve pixels, positive integer requirement, list versus swimlane search placeholders, no archived swimlanes and has-swimlanes condition. Height adaptation and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "set-swimlane-height",
+    "before": "Définir la hauteur du couloir",
+    "after": "Def kawewaayu yoon bi",
+    "reason": "Replace French swimlane sizing/search controls with Wolof and align mixed height-error noun with Yoon. Preserve pixels, positive integer requirement, list versus swimlane search placeholders, no archived swimlanes and has-swimlanes condition. Height adaptation and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "set-swimlane-height-value",
+    "before": "Hauteur du couloir (pixels)",
+    "after": "Kawewaayu yoon bi (pixels)",
+    "reason": "Replace French swimlane sizing/search controls with Wolof and align mixed height-error noun with Yoon. Preserve pixels, positive integer requirement, list versus swimlane search placeholders, no archived swimlanes and has-swimlanes condition. Height adaptation and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "swimlane-height-error-message",
+    "before": "La hauteur du couloir doit être un entier positif",
+    "after": "Kawewaayu yoon bi war na nekk lim bu mat te ëpp zero",
+    "reason": "Replace French swimlane sizing/search controls with Wolof and align mixed height-error noun with Yoon. Preserve pixels, positive integer requirement, list versus swimlane search placeholders, no archived swimlanes and has-swimlanes condition. Height adaptation and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "swimlaneHeightErrorPopup-title",
+    "before": "Njumte bu kawe bu kanal",
+    "after": "Njuumte ci kawewaayu yoon bi",
+    "reason": "Replace French swimlane sizing/search controls with Wolof and align mixed height-error noun with Yoon. Preserve pixels, positive integer requirement, list versus swimlane search placeholders, no archived swimlanes and has-swimlanes condition. Height adaptation and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "swimlane-title-not-found",
+    "before": "Couloir '%s' non trouvé.",
+    "after": "Giseesul yoon '%s'.",
+    "reason": "Replace French swimlane sizing/search controls with Wolof and align mixed height-error noun with Yoon. Preserve pixels, positive integer requirement, list versus swimlane search placeholders, no archived swimlanes and has-swimlanes condition. Height adaptation and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "list-title-not-found",
+    "before": "Liste '%s' non trouvée.",
+    "after": "Giseesul limu '%s'.",
+    "reason": "Replace French swimlane sizing/search controls with Wolof and align mixed height-error noun with Yoon. Preserve pixels, positive integer requirement, list versus swimlane search placeholders, no archived swimlanes and has-swimlanes condition. Height adaptation and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "no-archived-swimlanes",
+    "before": "Aucun couloir archivé.",
+    "after": "Amul yoon ci àrsiw bi.",
+    "reason": "Replace French swimlane sizing/search controls with Wolof and align mixed height-error noun with Yoon. Preserve pixels, positive integer requirement, list versus swimlane search placeholders, no archived swimlanes and has-swimlanes condition. Height adaptation and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "has-swimlanes",
+    "before": "A des couloirs",
+    "after": "Am na yoon yi",
+    "reason": "Replace French swimlane sizing/search controls with Wolof and align mixed height-error noun with Yoon. Preserve pixels, positive integer requirement, list versus swimlane search placeholders, no archived swimlanes and has-swimlanes condition. Height adaptation and full grammar remain low confidence."
   }
 ]
