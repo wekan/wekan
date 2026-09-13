@@ -79301,5 +79301,40 @@
     "before": "vous a mentionné sur la carte __card__ : __comment__ dans la liste __list__ dans le couloir __swimlane__ dans le tableau __board__",
     "after": "tudd sa tur ci karta __card__: __comment__ ci limu __list__ ci yoon __swimlane__ ci tablo __board__",
     "reason": "Replace French joining, exclusion, attachment and mention activities with Wolof. activities.jade confirms attachment/card and member/board argument order. Mention uses naming your name adaptation; tudd naming attested in Senegal education terminology https://senprof.education.sn/PROGRAMME%20LECTURE%20POUR%20TOUS/documentation/Terminologies/Terminologie%20wolof%20fusion.pdf . Preserve all placeholders. Mention adaptation and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "act-importCard",
+    "before": "a importé la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "dugal karta __card__ ci limu __list__ ci yoon __swimlane__ ci tablo __board__",
+    "reason": "Replace French import activities and board-import label with Wolof, reusing existing Dugal import control. activities.jade confirms entity/destination/source argument order and board/source pair. Long activities retain destination list/swimlane/board rather than French source-like wording. Preserve all placeholders. Full grammar and computing adaptation remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "act-importList",
+    "before": "a importé la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "dugal limu __list__ ci yoon __swimlane__ ci tablo __board__",
+    "reason": "Replace French import activities and board-import label with Wolof, reusing existing Dugal import control. activities.jade confirms entity/destination/source argument order and board/source pair. Long activities retain destination list/swimlane/board rather than French source-like wording. Preserve all placeholders. Full grammar and computing adaptation remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "activity-imported",
+    "before": "a importé %s vers %s depuis %s",
+    "after": "dugal %s ci %s jóge ci %s",
+    "reason": "Replace French import activities and board-import label with Wolof, reusing existing Dugal import control. activities.jade confirms entity/destination/source argument order and board/source pair. Long activities retain destination list/swimlane/board rather than French source-like wording. Preserve all placeholders. Full grammar and computing adaptation remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "activity-imported-board",
+    "before": "a importé %s depuis %s",
+    "after": "dugal %s jóge ci %s",
+    "reason": "Replace French import activities and board-import label with Wolof, reusing existing Dugal import control. activities.jade confirms entity/destination/source argument order and board/source pair. Long activities retain destination list/swimlane/board rather than French source-like wording. Preserve all placeholders. Full grammar and computing adaptation remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "import-board",
+    "before": "importer un tableau",
+    "after": "dugal tablo",
+    "reason": "Replace French import activities and board-import label with Wolof, reusing existing Dugal import control. activities.jade confirms entity/destination/source argument order and board/source pair. Long activities retain destination list/swimlane/board rather than French source-like wording. Preserve all placeholders. Full grammar and computing adaptation remain low confidence."
   }
 ]
