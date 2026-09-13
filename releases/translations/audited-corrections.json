@@ -83599,5 +83599,54 @@
     "before": "Téléverser/Mettre à jour le dépôt",
     "after": "Yónnee/Yeesal dencukaayu",
     "reason": "Replace French with consistent descriptive Wolof repository/storage-place terminology; preserve singular/plural, sign-in prerequisite and upload versus update without assuming stored content is code. Derived repository term and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "accessibility",
+    "before": "Accessibilité",
+    "after": "Yombal jëfandikoo ngir ñépp",
+    "reason": "Replace French with consistent descriptive Wolof accessibility (ease of use for everyone) and legal-notice terminology; preserve page enabled versus information missing, title/content labels and continuing acceptance prefix. Accessibility/legal phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "accessibility-page-enabled",
+    "before": "Page d'accessibilité activée",
+    "after": "Xëtu yombal jëfandikoo ngir ñépp wi mi ngi dox",
+    "reason": "Replace French with consistent descriptive Wolof accessibility (ease of use for everyone) and legal-notice terminology; preserve page enabled versus information missing, title/content labels and continuing acceptance prefix. Accessibility/legal phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "accessibility-info-not-added-yet",
+    "before": "L'information d'accessibilité n'a pas encore été ajoutée",
+    "after": "Yokkaguñu xibaaru yombal jëfandikoo ngir ñépp ba léegi",
+    "reason": "Replace French with consistent descriptive Wolof accessibility (ease of use for everyone) and legal-notice terminology; preserve page enabled versus information missing, title/content labels and continuing acceptance prefix. Accessibility/legal phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "accessibility-title",
+    "before": "Titre d'accessibilité",
+    "after": "Turu yombal jëfandikoo ngir ñépp",
+    "reason": "Replace French with consistent descriptive Wolof accessibility (ease of use for everyone) and legal-notice terminology; preserve page enabled versus information missing, title/content labels and continuing acceptance prefix. Accessibility/legal phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "accessibility-content",
+    "before": "Contenu d'accessibilité",
+    "after": "Li nekk ci yombal jëfandikoo ngir ñépp",
+    "reason": "Replace French with consistent descriptive Wolof accessibility (ease of use for everyone) and legal-notice terminology; preserve page enabled versus information missing, title/content labels and continuing acceptance prefix. Accessibility/legal phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "legalNotice",
+    "before": "mentions légales",
+    "after": "yégle yu yoon",
+    "reason": "Replace French with consistent descriptive Wolof accessibility (ease of use for everyone) and legal-notice terminology; preserve page enabled versus information missing, title/content labels and continuing acceptance prefix. Accessibility/legal phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "acceptance_of_our_legalNotice",
+    "before": "En continuant, vous acceptez nos",
+    "after": "Bu nga wéy, nangu nga sunu",
+    "reason": "Replace French with consistent descriptive Wolof accessibility (ease of use for everyone) and legal-notice terminology; preserve page enabled versus information missing, title/content labels and continuing acceptance prefix. Accessibility/legal phrasing and full grammar remain low confidence."
   }
 ]
