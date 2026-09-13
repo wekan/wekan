@@ -80,9 +80,9 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 14,533 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 1,311 pending review or repair.
-The correction inventory records 16,174 exact before/after values,
+findings: 14,545 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 1,299 pending review or repair.
+The correction inventory records 16,201 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
@@ -1093,6 +1093,17 @@ and updates the test dependency:
 and updates maintainer tooling:
 
 **Maintenance scripts** - explicit translation uploads and repository mirrors.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ba375ac7d">Repair Veps activity, list, label and attachment terminology</a>. Thanks to xet7.</summary>
+
+Replace 27 Finnish values with Veps, resolving 12 original findings. Preserve
+move/import source and destination roles and percent placeholders. Actual
+i18next/sprintf rendering and exact correction/token checks pass. Composed
+kanban grammar and derived forms need fluent review. The audit now records
+14,545 corrected findings, 1,299 pending and 16,201 exact repair records.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/b7eca83d9">Translate remaining Veps Coptic and Hijri labels</a>. Thanks to xet7.</summary>

@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 14,533 |
+| Corrected | 14,545 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 1,311 |
+| Pending review or repair | 1,299 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **16,174** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **16,201** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-13**, local commit `b7eca83d9` (initial repairs `c6204ffd4`) — replaced the four remaining English Veps Coptic/Hijri labels. Tabular civil and astronomical origins of time reckoning remain distinct; Saudi moon observation uses the attested lunar noun. All **16,174** correction records and vocabulary/token checks pass. Vocabulary and page references were checked in the [2007 Russian–Veps dictionary](http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf); the Saudi name is attested on [Veps Wikipedia](https://vep.wikipedia.org/wiki/Saudan_Arabii). **Low confidence:** composed technical calendar wording and Coptic proper-name adaptation need fluent review, as do earlier account/email compositions (`6d071f6cb`, `88220b7a0`). Veps has **570** pending original findings; invitation terminology, broader wrong-language/script values and restored translations remain outstanding.
+Latest translation fix: **2026-09-13**, local commit `ba375ac7d` — replaced **27** Finnish Veps activity, list, label and attachment values, resolving **12** original findings. Source/destination roles and placeholder order pass actual i18next/sprintf rendering checks; all **16,201** correction records pass. Native dictionary and MediaWiki vocabulary sources are recorded per key. **Low confidence:** composed kanban grammar, derived participles, list plural and earlier calendar/account/email wording need fluent review. Veps has **558** pending original findings. Translation repairs are temporarily paused for the requested mirror settings/menu work; broader wrong-language/script and restored-value validation remain outstanding.
 
 **Language workflow (2026-09-13):** all 245 popup locales are wired and country-then-language flags are checked (`8549b6c4c`). Browser preference ordering, legacy/script aliases, delayed saved profiles and no automatic profile writes pass runtime checks (`1666a2012`, `37ae64fa8`); actual browser execution remains pending. Uzbek Arabic (`uz-AR`) still contains Latin core labels and needs repair.
 
