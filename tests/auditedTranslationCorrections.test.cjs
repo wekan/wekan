@@ -95,6 +95,9 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   }
   // Veps units differ from Finnish despite closely related vocabulary.
   const veps = cache['ve-PP'];
+  assert.equal(veps['user-username-not-found'], "Kävutajan nimi '%s' ei ole löutud.");
+  assert.equal(veps['board-title-not-found'], "Laud '%s' ei ole löutud.");
+  assert.doesNotMatch(veps['user-username-not-found'] + veps['board-title-not-found'], /Käyttäjänimeä|Taulua|löytynyt/);
   assert.equal(veps.organizations, 'Sebrad');
   assert.equal(veps['org-number'], 'Sebroiden lugu om: ');
   assert.equal(veps['org-name-not-found'], "Sebr '%s' ei ole löutud.");

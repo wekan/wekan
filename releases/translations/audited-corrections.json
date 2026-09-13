@@ -112208,5 +112208,19 @@
     "before": "Organisaatiota '%s' ei löydy.",
     "after": "Sebr '%s' ei ole löutud.",
     "reason": "Replace Finnish organization seed with attested Veps sebr organization, dictionary nominative plural and genitive plural sebroiden, lugu count, olda third-person om/connegative ole, and löuta passive past participle löutud. Kaikki Veps dictionary/Wiktionary inflection tables. Preserve %s placeholder. Composed diagnostic wording requires fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "user-username-not-found",
+    "before": "Käyttäjänimeä '%s' ei löytynyt.",
+    "after": "Kävutajan nimi '%s' ei ole löutud.",
+    "reason": "Replace Finnish not-found diagnostic with Veps kävutai user (MediaWiki namespace), genitive kävutajan, nimi name and laud board (Kaikki Veps), ei ole negative existential and dictionary löutud passive past participle of löuta find. Preserve quoted %s. Composed diagnostic wording needs fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "board-title-not-found",
+    "before": "Taulua '%s' ei löytynyt.",
+    "after": "Laud '%s' ei ole löutud.",
+    "reason": "Replace Finnish not-found diagnostic with Veps kävutai user (MediaWiki namespace), genitive kävutajan, nimi name and laud board (Kaikki Veps), ei ole negative existential and dictionary löutud passive past participle of löuta find. Preserve quoted %s. Composed diagnostic wording needs fluent review."
   }
 ]
