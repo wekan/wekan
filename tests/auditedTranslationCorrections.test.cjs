@@ -1754,5 +1754,46 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.doesNotMatch(cache['ve-PP']['confirm-subtask-delete-popup'], /kodvindlugetišen/);
   assert.match(cache['ve-PP']['comment-delete'], /sel’genzoitusen/);
   assert.notEqual(cache['ve-PP']['card-delete-pop'], cache['ve-PP']['card-archive-pop']);
+  const vepsValidationRepairs = {
+  "error-board-notAdmin": "Sinun pidab olda necen laudan administrator, miše tehta necidä.",
+  "error-board-notAMember": "Sinun pidab olda necen laudan ühtnik, miše tehta necidä.",
+  "error-notAuthorized": "Sinai ei ole oiktusid kacta necidä lehtpol’t.",
+  "error-json-malformed": "Sinun tekst ei ole JSON oiktas formatas.",
+  "error-json-schema": "Sinun JSON-tedoiš ei ole tarbhaižid tedoid oiktas formatas.",
+  "error-csv-schema": "Sinun CSV (katkimel erigoittud znamoičendad)/TSV (Tab-simvolanke erigoittud znamoičendad) -tedoiš ei ole tarbhaižid tedoid oiktas formatas ",
+  "invalid-credentials": "Vär kävutajan nimi libo peitsana",
+  "invalid-date": "Vär päivmär",
+  "invalid-user": "Vär kävutai",
+  "error-invitation-code-not-exist": "Kucundan kod ei ole",
+  "invitation-code": "Kucundan kod",
+  "error-user-notAllowSelf": "Sinä ed voi kucta ičtaiž",
+  "error-username-taken": "Nece kävutajan nimi om jo kävutuses",
+  "error-ldap-login": "Tegihe viga sistemaha tulendan aigan",
+  "error-undefined": "Tegihe viga",
+  "error-org-domain-taken": "Nece domen om jo toižen sebran oma:"
+};
+  for (const [key, value] of Object.entries(vepsValidationRepairs)) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.equal(vepsTranslator.t(key), value, key);
+    assert.doesNotMatch(value, /Tehdäksesi|täytyy|ylläpitäjä|jäsen|Tekstisi|kelvollisessa|JSON-tietosi|sisällä oikeaa|Sinulla|tarkastella|Virheellinen|Kutsukood|Et voi kutsua|käyttäjätunnus|kirjautua|Jotain meni|Yeneyo|tshiimiswa/, key);
+  }
+  assert.match(cache['ve-PP']['error-board-notAdmin'], /laudan administrator/);
+  assert.doesNotMatch(cache['ve-PP']['error-board-notAdmin'], /ühtnik/);
+  assert.match(cache['ve-PP']['error-board-notAMember'], /laudan ühtnik/);
+  assert.doesNotMatch(cache['ve-PP']['error-board-notAMember'], /administrator/);
+  assert.match(cache['ve-PP']['invalid-credentials'], /kävutajan nimi libo peitsana/);
+  assert.match(cache['ve-PP']['error-notAuthorized'], /ei ole oiktusid kacta/);
+  assert.match(cache['ve-PP']['error-json-malformed'], /tekst ei ole JSON oiktas formatas/);
+  assert.match(cache['ve-PP']['error-json-schema'], /JSON-tedoiš.*tarbhaižid tedoid oiktas formatas/);
+  assert.notEqual(cache['ve-PP']['error-json-malformed'], cache['ve-PP']['error-json-schema']);
+  assert.match(cache['ve-PP']['error-csv-schema'], /CSV \(katkimel erigoittud znamoičendad\)\/TSV \(Tab-simvolanke erigoittud znamoičendad\)/);
+  assert.match(cache['ve-PP']['error-csv-schema'], /tarbhaižid tedoid oiktas formatas/);
+  assert.equal(cache['ve-PP']['invitation-code'], 'Kucundan kod');
+  assert.match(cache['ve-PP']['error-invitation-code-not-exist'], /^Kucundan kod ei ole$/);
+  assert.match(cache['ve-PP']['email-invite-register-text'], /kucundan kod om: __icode__/);
+  assert.match(cache['ve-PP']['error-user-notAllowSelf'], /ed voi kucta ičtaiž/);
+  assert.match(cache['ve-PP']['error-org-domain-taken'], /jo toižen sebran oma:$/);
+  assert.match(cache['ve-PP']['error-ldap-login'], /sistemaha tulendan aigan/);
+  assert.doesNotMatch(cache['ve-PP']['error-undefined'], /sistemaha/);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });

@@ -117983,5 +117983,117 @@
     "before": "Haluatko varmasti poistaa alitehtävän?",
     "after": "Oled-ik sinä tozi mugošt mel’t, miše tahtoid heitta necen alategendan?",
     "reason": "Replace Finnish destructive confirmation/warning text with Veps. Preserve irreversible deletion, activity/history loss, inability to reopen cards or restore board contents, and specific checklist/item/subtask targets. Native confirmation framing and terms follow https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json and the 2007 Zaiceva/Mullonen dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf; existing correct Veps deletion and activity values supply consistent terminology. Low confidence: composed board-content and definite-object case grammar needs fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "error-board-notAdmin",
+    "before": "Tehdäksesi tämän sinun täytyy olla tämän taulun ylläpitäjä",
+    "after": "Sinun pidab olda necen laudan administrator, miše tehta necidä.",
+    "reason": "Replace Finnish/Venda permission, authentication and import-validation text with Veps; align invitation-code label with existing correct Veps registration email. Preserve administrator/member distinction, invalid username OR password, JSON format versus missing schema information, comma/Tab separators, self-invitation restriction and domain ownership. Native permissions, format, invalid-name and reflexive forms follow https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json; katkimel erigoitta (comma separation) is attested in the 2007 Zaiceva/Mullonen dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf. Low confidence: composed import-schema, login-event, domain ownership and case grammar need fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "error-board-notAMember",
+    "before": "Tehdäksesi tämän sinun täytyy olla tämän taulun jäsen",
+    "after": "Sinun pidab olda necen laudan ühtnik, miše tehta necidä.",
+    "reason": "Replace Finnish/Venda permission, authentication and import-validation text with Veps; align invitation-code label with existing correct Veps registration email. Preserve administrator/member distinction, invalid username OR password, JSON format versus missing schema information, comma/Tab separators, self-invitation restriction and domain ownership. Native permissions, format, invalid-name and reflexive forms follow https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json; katkimel erigoitta (comma separation) is attested in the 2007 Zaiceva/Mullonen dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf. Low confidence: composed import-schema, login-event, domain ownership and case grammar need fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "error-notAuthorized",
+    "before": "Sinulla ei ole oikeutta tarkastella tätä sivua.",
+    "after": "Sinai ei ole oiktusid kacta necidä lehtpol’t.",
+    "reason": "Replace Finnish/Venda permission, authentication and import-validation text with Veps; align invitation-code label with existing correct Veps registration email. Preserve administrator/member distinction, invalid username OR password, JSON format versus missing schema information, comma/Tab separators, self-invitation restriction and domain ownership. Native permissions, format, invalid-name and reflexive forms follow https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json; katkimel erigoitta (comma separation) is attested in the 2007 Zaiceva/Mullonen dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf. Low confidence: composed import-schema, login-event, domain ownership and case grammar need fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "error-json-malformed",
+    "before": "Tekstisi ei ole kelvollisessa JSON-muodossa",
+    "after": "Sinun tekst ei ole JSON oiktas formatas.",
+    "reason": "Replace Finnish/Venda permission, authentication and import-validation text with Veps; align invitation-code label with existing correct Veps registration email. Preserve administrator/member distinction, invalid username OR password, JSON format versus missing schema information, comma/Tab separators, self-invitation restriction and domain ownership. Native permissions, format, invalid-name and reflexive forms follow https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json; katkimel erigoitta (comma separation) is attested in the 2007 Zaiceva/Mullonen dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf. Low confidence: composed import-schema, login-event, domain ownership and case grammar need fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "error-json-schema",
+    "before": "JSON-tietosi ei sisällä oikeaa tietoa oikeassa muodossa",
+    "after": "Sinun JSON-tedoiš ei ole tarbhaižid tedoid oiktas formatas.",
+    "reason": "Replace Finnish/Venda permission, authentication and import-validation text with Veps; align invitation-code label with existing correct Veps registration email. Preserve administrator/member distinction, invalid username OR password, JSON format versus missing schema information, comma/Tab separators, self-invitation restriction and domain ownership. Native permissions, format, invalid-name and reflexive forms follow https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json; katkimel erigoitta (comma separation) is attested in the 2007 Zaiceva/Mullonen dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf. Low confidence: composed import-schema, login-event, domain ownership and case grammar need fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "error-csv-schema",
+    "before": "Sinun CSV(pilkulla erotetut arvot)/TSV(tabilla erotetut arvot) ei sisällä oikeita tietoja oikeassa muodossa",
+    "after": "Sinun CSV (katkimel erigoittud znamoičendad)/TSV (Tab-simvolanke erigoittud znamoičendad) -tedoiš ei ole tarbhaižid tedoid oiktas formatas ",
+    "reason": "Replace Finnish/Venda permission, authentication and import-validation text with Veps; align invitation-code label with existing correct Veps registration email. Preserve administrator/member distinction, invalid username OR password, JSON format versus missing schema information, comma/Tab separators, self-invitation restriction and domain ownership. Native permissions, format, invalid-name and reflexive forms follow https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json; katkimel erigoitta (comma separation) is attested in the 2007 Zaiceva/Mullonen dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf. Low confidence: composed import-schema, login-event, domain ownership and case grammar need fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "invalid-credentials",
+    "before": "Virheellinen käyttäjätunnus tai salasana",
+    "after": "Vär kävutajan nimi libo peitsana",
+    "reason": "Replace Finnish/Venda permission, authentication and import-validation text with Veps; align invitation-code label with existing correct Veps registration email. Preserve administrator/member distinction, invalid username OR password, JSON format versus missing schema information, comma/Tab separators, self-invitation restriction and domain ownership. Native permissions, format, invalid-name and reflexive forms follow https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json; katkimel erigoitta (comma separation) is attested in the 2007 Zaiceva/Mullonen dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf. Low confidence: composed import-schema, login-event, domain ownership and case grammar need fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "invalid-date",
+    "before": "Virheellinen päivämäärä",
+    "after": "Vär päivmär",
+    "reason": "Replace Finnish/Venda permission, authentication and import-validation text with Veps; align invitation-code label with existing correct Veps registration email. Preserve administrator/member distinction, invalid username OR password, JSON format versus missing schema information, comma/Tab separators, self-invitation restriction and domain ownership. Native permissions, format, invalid-name and reflexive forms follow https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json; katkimel erigoitta (comma separation) is attested in the 2007 Zaiceva/Mullonen dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf. Low confidence: composed import-schema, login-event, domain ownership and case grammar need fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "invalid-user",
+    "before": "Virheellinen käyttäjä",
+    "after": "Vär kävutai",
+    "reason": "Replace Finnish/Venda permission, authentication and import-validation text with Veps; align invitation-code label with existing correct Veps registration email. Preserve administrator/member distinction, invalid username OR password, JSON format versus missing schema information, comma/Tab separators, self-invitation restriction and domain ownership. Native permissions, format, invalid-name and reflexive forms follow https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json; katkimel erigoitta (comma separation) is attested in the 2007 Zaiceva/Mullonen dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf. Low confidence: composed import-schema, login-event, domain ownership and case grammar need fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "error-invitation-code-not-exist",
+    "before": "Kutsukoodia ei ole olemassa",
+    "after": "Kucundan kod ei ole",
+    "reason": "Replace Finnish/Venda permission, authentication and import-validation text with Veps; align invitation-code label with existing correct Veps registration email. Preserve administrator/member distinction, invalid username OR password, JSON format versus missing schema information, comma/Tab separators, self-invitation restriction and domain ownership. Native permissions, format, invalid-name and reflexive forms follow https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json; katkimel erigoitta (comma separation) is attested in the 2007 Zaiceva/Mullonen dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf. Low confidence: composed import-schema, login-event, domain ownership and case grammar need fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "invitation-code",
+    "before": "Kutsukoodi",
+    "after": "Kucundan kod",
+    "reason": "Replace Finnish/Venda permission, authentication and import-validation text with Veps; align invitation-code label with existing correct Veps registration email. Preserve administrator/member distinction, invalid username OR password, JSON format versus missing schema information, comma/Tab separators, self-invitation restriction and domain ownership. Native permissions, format, invalid-name and reflexive forms follow https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json; katkimel erigoitta (comma separation) is attested in the 2007 Zaiceva/Mullonen dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf. Low confidence: composed import-schema, login-event, domain ownership and case grammar need fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "error-user-notAllowSelf",
+    "before": "Et voi kutsua itseäsi",
+    "after": "Sinä ed voi kucta ičtaiž",
+    "reason": "Replace Finnish/Venda permission, authentication and import-validation text with Veps; align invitation-code label with existing correct Veps registration email. Preserve administrator/member distinction, invalid username OR password, JSON format versus missing schema information, comma/Tab separators, self-invitation restriction and domain ownership. Native permissions, format, invalid-name and reflexive forms follow https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json; katkimel erigoitta (comma separation) is attested in the 2007 Zaiceva/Mullonen dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf. Low confidence: composed import-schema, login-event, domain ownership and case grammar need fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "error-username-taken",
+    "before": "Tämä käyttäjätunnus on jo käytössä",
+    "after": "Nece kävutajan nimi om jo kävutuses",
+    "reason": "Replace Finnish/Venda permission, authentication and import-validation text with Veps; align invitation-code label with existing correct Veps registration email. Preserve administrator/member distinction, invalid username OR password, JSON format versus missing schema information, comma/Tab separators, self-invitation restriction and domain ownership. Native permissions, format, invalid-name and reflexive forms follow https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json; katkimel erigoitta (comma separation) is attested in the 2007 Zaiceva/Mullonen dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf. Low confidence: composed import-schema, login-event, domain ownership and case grammar need fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "error-ldap-login",
+    "before": "Virhe tapahtui yrittäessä kirjautua sisään",
+    "after": "Tegihe viga sistemaha tulendan aigan",
+    "reason": "Replace Finnish/Venda permission, authentication and import-validation text with Veps; align invitation-code label with existing correct Veps registration email. Preserve administrator/member distinction, invalid username OR password, JSON format versus missing schema information, comma/Tab separators, self-invitation restriction and domain ownership. Native permissions, format, invalid-name and reflexive forms follow https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json; katkimel erigoitta (comma separation) is attested in the 2007 Zaiceva/Mullonen dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf. Low confidence: composed import-schema, login-event, domain ownership and case grammar need fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "error-undefined",
+    "before": "Jotain meni pieleen",
+    "after": "Tegihe viga",
+    "reason": "Replace Finnish/Venda permission, authentication and import-validation text with Veps; align invitation-code label with existing correct Veps registration email. Preserve administrator/member distinction, invalid username OR password, JSON format versus missing schema information, comma/Tab separators, self-invitation restriction and domain ownership. Native permissions, format, invalid-name and reflexive forms follow https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json; katkimel erigoitta (comma separation) is attested in the 2007 Zaiceva/Mullonen dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf. Low confidence: composed import-schema, login-event, domain ownership and case grammar need fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "error-org-domain-taken",
+    "before": "Yeneyo domeni i no vha ya tshiṅwe tshiimiswa:",
+    "after": "Nece domen om jo toižen sebran oma:",
+    "reason": "Replace Finnish/Venda permission, authentication and import-validation text with Veps; align invitation-code label with existing correct Veps registration email. Preserve administrator/member distinction, invalid username OR password, JSON format versus missing schema information, comma/Tab separators, self-invitation restriction and domain ownership. Native permissions, format, invalid-name and reflexive forms follow https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json; katkimel erigoitta (comma separation) is attested in the 2007 Zaiceva/Mullonen dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf. Low confidence: composed import-schema, login-event, domain ownership and case grammar need fluent-speaker review."
   }
 ]
