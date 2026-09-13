@@ -92363,5 +92363,47 @@
     "before": "Etwas ist schief gelaufen",
     "after": "Qapbe' vay'",
     "reason": "Replace German with directly assembled Klingon: username change, passwords not matching, or something failing. Existing locale lo'wI', pong and choH vocabulary retained; pegh mu' secret-word terminology is attested at https://www.kli.org/tlhIngan-Hol/1998/July/msg00808.html and https://tlhingan.org/grammar/the-tale-of-i (Password game, not a software-domain validation). Case and apostrophes are significant. Full software phrases and Qapbe' vay' paraphrase need fluent-speaker validation; low confidence. No source placeholders present."
+  },
+  {
+    "locale": "tlh",
+    "key": "password",
+    "before": "Passwort",
+    "after": "pegh mu'",
+    "reason": "Replace German password, SMTP-test or error-clearing wording with direct Klingon. Includes unflagged German password labels found during contextual review. pegh mu' follows reviewed password-mismatch terminology (secret-word expression attested in KLI Password-game discussion https://www.kli.org/tlhIngan-Hol/1998/July/msg00808.html); https://klingonska.org/klo/ordlista-01.html attests waH for test and choH for change. Reuse existing QIn and Qaghmey terminology. Full software phrases and imperative constructions are assembled and low confidence; fluent-speaker validation remains required. SMTP identifier retained, no placeholders changed."
+  },
+  {
+    "locale": "tlh",
+    "key": "smtp-password",
+    "before": "Passwort",
+    "after": "pegh mu'",
+    "reason": "Replace German password, SMTP-test or error-clearing wording with direct Klingon. Includes unflagged German password labels found during contextual review. pegh mu' follows reviewed password-mismatch terminology (secret-word expression attested in KLI Password-game discussion https://www.kli.org/tlhIngan-Hol/1998/July/msg00808.html); https://klingonska.org/klo/ordlista-01.html attests waH for test and choH for change. Reuse existing QIn and Qaghmey terminology. Full software phrases and imperative constructions are assembled and low confidence; fluent-speaker validation remains required. SMTP identifier retained, no placeholders changed."
+  },
+  {
+    "locale": "tlh",
+    "key": "change-password",
+    "before": "Passwort ändern",
+    "after": "pegh mu' yIchoH",
+    "reason": "Replace German password, SMTP-test or error-clearing wording with direct Klingon. Includes unflagged German password labels found during contextual review. pegh mu' follows reviewed password-mismatch terminology (secret-word expression attested in KLI Password-game discussion https://www.kli.org/tlhIngan-Hol/1998/July/msg00808.html); https://klingonska.org/klo/ordlista-01.html attests waH for test and choH for change. Reuse existing QIn and Qaghmey terminology. Full software phrases and imperative constructions are assembled and low confidence; fluent-speaker validation remains required. SMTP identifier retained, no placeholders changed."
+  },
+  {
+    "locale": "tlh",
+    "key": "password-again",
+    "before": "Passwort (wiederholen)",
+    "after": "pegh mu' (yIghItlhqa')",
+    "reason": "Replace German password, SMTP-test or error-clearing wording with direct Klingon. Includes unflagged German password labels found during contextual review. pegh mu' follows reviewed password-mismatch terminology (secret-word expression attested in KLI Password-game discussion https://www.kli.org/tlhIngan-Hol/1998/July/msg00808.html); https://klingonska.org/klo/ordlista-01.html attests waH for test and choH for change. Reuse existing QIn and Qaghmey terminology. Full software phrases and imperative constructions are assembled and low confidence; fluent-speaker validation remains required. SMTP identifier retained, no placeholders changed."
+  },
+  {
+    "locale": "tlh",
+    "key": "email-smtp-test-subject",
+    "before": "SMTP Test-E-Mail",
+    "after": "SMTP waHmeH QIn",
+    "reason": "Replace German password, SMTP-test or error-clearing wording with direct Klingon. Includes unflagged German password labels found during contextual review. pegh mu' follows reviewed password-mismatch terminology (secret-word expression attested in KLI Password-game discussion https://www.kli.org/tlhIngan-Hol/1998/July/msg00808.html); https://klingonska.org/klo/ordlista-01.html attests waH for test and choH for change. Reuse existing QIn and Qaghmey terminology. Full software phrases and imperative constructions are assembled and low confidence; fluent-speaker validation remains required. SMTP identifier retained, no placeholders changed."
+  },
+  {
+    "locale": "tlh",
+    "key": "cron-clear-errors",
+    "before": "Alle Fehlermeldungen löschen",
+    "after": "Qaghmey Hoch yIQaw'",
+    "reason": "Replace German password, SMTP-test or error-clearing wording with direct Klingon. Includes unflagged German password labels found during contextual review. pegh mu' follows reviewed password-mismatch terminology (secret-word expression attested in KLI Password-game discussion https://www.kli.org/tlhIngan-Hol/1998/July/msg00808.html); https://klingonska.org/klo/ordlista-01.html attests waH for test and choH for change. Reuse existing QIn and Qaghmey terminology. Full software phrases and imperative constructions are assembled and low confidence; fluent-speaker validation remains required. SMTP identifier retained, no placeholders changed."
   }
 ]
