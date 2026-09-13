@@ -2559,5 +2559,25 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.notEqual(vepsTranslator.t('allboards.add-workspace-prompt'), vepsTranslator.t('allboards.add-subworkspace-prompt'));
   assert.match(vepsTranslator.t('allboards.edit-workspace-icon'), /\(markdown\)$/);
   assert.equal(cache['ve-PP']['allboards.delete-workspace-confirm'], 'Tahod-ik heitta necen tötilan?', 'preserve existing Veps confirmation');
+  const vepsDragControls = {
+  "board-drag-drop-reorder-or-click-open": "Vajehta laudoiden ikonoiden jäl’genduz: vedä da pästa. Painda laudan ikon, miše avaita laud.",
+  "board-open-and-move-between-remaining-and-workspaces": "Painda, miše avaita laud. Vedä pidim, miše panda laud __workspaces__ (pästa tötilaha čuramenülistas).",
+  "drag-board-to-workspace": "Vedä laud, miše panda se __workspaces__ (pästa tötilaha čuramenülistas)",
+  "drag-board": "Vedä laud",
+  "show-desktop-drag-handles": "Ozuta radpöudon vedändan pidimed",
+  "sidebar-open": "Avaida čuramenülist",
+  "sidebar-close": "Saupta čuramenülist",
+  "drag-to-resize-sidebar": "Vedä, miše vajehtada čuramenülistan suruz’"
+};
+  for (const [key, value] of Object.entries(vepsDragControls)) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.equal(vepsTranslator.t(key, { workspaces: 'WORKSPACES' }), value.replace('__workspaces__', 'WORKSPACES'), key);
+    assert.doesNotMatch(value, /Järjestele|taulu|Klikkaa|Avaa|kahvaa|pudota|työtila|sivupalk|Sulje|Näytä|Kokodza|shandukisa/, key);
+  }
+  assert.match(vepsTranslator.t('board-drag-drop-reorder-or-click-open'), /vedä da pästa.*Painda/);
+  assert.match(vepsTranslator.t('board-open-and-move-between-remaining-and-workspaces', { workspaces: 'WORKSPACES' }), /Painda.*Vedä pidim.*WORKSPACES.*pästa tötilaha/);
+  assert.notEqual(vepsTranslator.t('sidebar-open'), vepsTranslator.t('sidebar-close'));
+  assert.match(vepsTranslator.t('drag-to-resize-sidebar'), /^Vedä.*suruz’$/);
+  assert.equal(cache['ve-PP']['shortcut-toggle-sidebar'], 'Ozuta libo peitä laudan čuramenülist', 'retain existing sidebar terminology');
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });

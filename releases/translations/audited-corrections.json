@@ -120020,5 +120020,61 @@
     "before": "Varmista työtilan poisto",
     "after": "Vahvištoita tötilan heittand",
     "reason": "Replace Finnish workspace controls with Veps; reuse existing tötila, Vajehta, Ližada, menülist and valičused, with dictionary-attested confirmation/deletion. Low confidence: composed subworkspace and technical icon terminology require native review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "board-drag-drop-reorder-or-click-open",
+    "before": "Järjestele taulu ikoneita vetämällä ja pudottamalla. Klikkaa taulu ikonia avataksesi taulun.",
+    "after": "Vajehta laudoiden ikonoiden jäl’genduz: vedä da pästa. Painda laudan ikon, miše avaita laud.",
+    "reason": "Replace Finnish/Venda drag and sidebar instructions with Veps. Reuse existing vedä da pästa and čuramenülist; dictionary pidim, avaida, jäl’genduz and suruz’. Preserve workspace placeholders and distinct click/drag/drop/resize actions. Low confidence: icon declension and composed desktop drag-handle terminology need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "board-open-and-move-between-remaining-and-workspaces",
+    "before": "Avaa taulu napsauttamalla. Vedä kahvaa määrittääksesi taulun __workspaces__ (pudota työtilaan sivupalkissa).",
+    "after": "Painda, miše avaita laud. Vedä pidim, miše panda laud __workspaces__ (pästa tötilaha čuramenülistas).",
+    "reason": "Replace Finnish/Venda drag and sidebar instructions with Veps. Reuse existing vedä da pästa and čuramenülist; dictionary pidim, avaida, jäl’genduz and suruz’. Preserve workspace placeholders and distinct click/drag/drop/resize actions. Low confidence: icon declension and composed desktop drag-handle terminology need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "drag-board-to-workspace",
+    "before": "Vedä taulu liittääksesi sen __workspaces__ (pudota se työtilaan sivupalkissa)",
+    "after": "Vedä laud, miše panda se __workspaces__ (pästa tötilaha čuramenülistas)",
+    "reason": "Replace Finnish/Venda drag and sidebar instructions with Veps. Reuse existing vedä da pästa and čuramenülist; dictionary pidim, avaida, jäl’genduz and suruz’. Preserve workspace placeholders and distinct click/drag/drop/resize actions. Low confidence: icon declension and composed desktop drag-handle terminology need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "drag-board",
+    "before": "Vedä taulua",
+    "after": "Vedä laud",
+    "reason": "Replace Finnish/Venda drag and sidebar instructions with Veps. Reuse existing vedä da pästa and čuramenülist; dictionary pidim, avaida, jäl’genduz and suruz’. Preserve workspace placeholders and distinct click/drag/drop/resize actions. Low confidence: icon declension and composed desktop drag-handle terminology need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "show-desktop-drag-handles",
+    "before": "Näytä työpöydän vedon kahvat",
+    "after": "Ozuta radpöudon vedändan pidimed",
+    "reason": "Replace Finnish/Venda drag and sidebar instructions with Veps. Reuse existing vedä da pästa and čuramenülist; dictionary pidim, avaida, jäl’genduz and suruz’. Preserve workspace placeholders and distinct click/drag/drop/resize actions. Low confidence: icon declension and composed desktop drag-handle terminology need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "sidebar-open",
+    "before": "Avaa sivupalkki",
+    "after": "Avaida čuramenülist",
+    "reason": "Replace Finnish/Venda drag and sidebar instructions with Veps. Reuse existing vedä da pästa and čuramenülist; dictionary pidim, avaida, jäl’genduz and suruz’. Preserve workspace placeholders and distinct click/drag/drop/resize actions. Low confidence: icon declension and composed desktop drag-handle terminology need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "sidebar-close",
+    "before": "Sulje sivupalkki",
+    "after": "Saupta čuramenülist",
+    "reason": "Replace Finnish/Venda drag and sidebar instructions with Veps. Reuse existing vedä da pästa and čuramenülist; dictionary pidim, avaida, jäl’genduz and suruz’. Preserve workspace placeholders and distinct click/drag/drop/resize actions. Low confidence: icon declension and composed desktop drag-handle terminology need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "drag-to-resize-sidebar",
+    "before": "Kokodza u shandukisa vhuhulwane ha bara ya thungo",
+    "after": "Vedä, miše vajehtada čuramenülistan suruz’",
+    "reason": "Replace Finnish/Venda drag and sidebar instructions with Veps. Reuse existing vedä da pästa and čuramenülist; dictionary pidim, avaida, jäl’genduz and suruz’. Preserve workspace placeholders and distinct click/drag/drop/resize actions. Low confidence: icon declension and composed desktop drag-handle terminology need fluent review."
   }
 ]
