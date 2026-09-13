@@ -53247,5 +53247,187 @@
     "before": "Vai al contenuto principale",
     "after": "Jì al contegn prinzipal",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "soft-wip-limit",
+    "before": "Limite Work in progress soft",
+    "after": "Limit flescibel di laures en curs (WIP)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "sort-boards-custom",
+    "before": "Personalizzato (ordine di trascinamento)",
+    "after": "Personalisà (orden cun strasciné)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "step-fix-avatar-urls",
+    "before": "Correggi URL degli avatar",
+    "after": "Coreje i URL di avatar",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "storage-distribution",
+    "before": "Distribuzione dello storage",
+    "after": "Distribuzion dla memorisazion",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "translation-number",
+    "before": "Il numero di stringhe di traduzione personalizzate è:",
+    "after": "L numer de stringhes de traduzion personalisades ie:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "trello-api-credentials-required",
+    "before": "Inserisci sia la chiave API sia il token di Trello.",
+    "after": "Inserì tant la clé API coche l token de Trello.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "trello-api-key",
+    "before": "Chiave API di Trello (da https://trello.com/app-key)",
+    "after": "Clé API de Trello (da https://trello.com/app-key)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "trello-api-token",
+    "before": "Token API di Trello (generato manualmente sotto la chiave API)",
+    "after": "Token API de Trello (generà a man dessot la clé API)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "trello-list-workspaces",
+    "before": "Elenca gli spazi di lavoro di Trello",
+    "after": "Mustre i spazi de laur de Trello",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "username-too-short",
+    "before": "L'username deve contenere almeno 3 caratteri",
+    "after": "L inom dl utent mëss avëi almanco 3 caraters",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "vote-public",
+    "before": "Mostrare chi ha votato cosa",
+    "after": "Mustre chi à votà ce",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "calendar-system-buddhist",
+    "before": "Buddhist",
+    "after": "Calendèr budist",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "calendar-system-chinese",
+    "before": "Chinese",
+    "after": "Calendèr cinëis",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "calendar-system-coptic",
+    "before": "Coptic",
+    "after": "Calendèr copt",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "calendar-system-dangi",
+    "before": "Dangi (Korean)",
+    "after": "Calendèr Dangi (corean)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "calendar-system-ethioaa",
+    "before": "Ethiopic Amete Alem",
+    "after": "Calendèr etiopic Amete Alem",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "calendar-system-ethiopic",
+    "before": "Ethiopic",
+    "after": "Calendèr etiopic",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "calendar-system-hebrew",
+    "before": "Hebrew",
+    "after": "Calendèr ebraich",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "Calendèr nazional indian",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "Calendèr Hijri",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "calendar-system-islamic-civil",
+    "before": "Islamic civil",
+    "after": "Calendèr Hijri (tabular, epoca zivila)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "Calendèr Hijri (Arabia Saudita, osservazion dla luna)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "Calendèr Hijri (tabular, epoca astronomica)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "Calendèr Hijri (Umm al-Qura)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "calendar-system-japanese",
+    "before": "Japanese",
+    "after": "Calendèr giaponeis",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "calendar-system-roc",
+    "before": "Republic of China",
+    "after": "Calendèr Minguo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
