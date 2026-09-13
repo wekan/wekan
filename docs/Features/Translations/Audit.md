@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 11,925 |
+| Corrected | 11,926 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 3,921 |
+| Pending review or repair | 3,920 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,315** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,316** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `3e6c1780406621e9781a45e23d69f3fbe02fcbeb` — Dzongkha Indian national calendar label repaired using official dictionary national terminology and CLDR country/calendar names. Assembled wording remains low confidence. Exact-value, token, JSON-example, key-order and idempotency checks pass; native-speaker and browser verification remain unavailable.
+Latest translation fix: **2026-09-13**, local commit `4c24a8fa834ec174096235d70acf30636ab5dad3` — Northern Sami Indian national calendar label repaired using documented national/calendar vocabulary and the CLDR country name. Assembled wording remains low confidence. Exact-value, token, JSON-example, key-order and idempotency checks pass; native-speaker and browser verification remain unavailable.
 
 **Review follow-up:** Silesian `sandstorm-raw-mongodb` remains pending because available evidence does not distinguish its wording sufficiently from Polish.
 
