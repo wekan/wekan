@@ -54388,5 +54388,75 @@
     "before": "I team aggiunti sono i seguenti:",
     "after": "Echipili adãvgati suntu arãtati ma njos:",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "admin-people-user-active",
+    "before": "L'utente è attivo - clicca per disattivarlo",
+    "after": "Ufilisitorlu easti activ - clicã ti s-l dezactivezi",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "admin-people-user-inactive",
+    "before": "L'utente è inattivo: clicca per attivarlo",
+    "after": "Ufilisitorlu easti inactiv - clicã ti s-l activezi",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "allowed-avatar-filetypes",
+    "before": "I tipi di file consentiti per l'avatar sono:",
+    "after": "Tipuri di fisieri permisi ti avatar:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "allowed-upload-filetypes",
+    "before": "I tipi di file consentiti per l'upload sono:",
+    "after": "Tipuri di fisieri permisi ti încãrcari:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "almostdue",
+    "before": "la data di scadenza attuale %s si sta avvicinando",
+    "after": "Termenlu curentu %s s-aproachi",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "badge-attachment-on-minicard",
+    "before": "Conteggio degli allegati sulla minicard",
+    "after": "Numir di atashamenti pi minicartã",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "board-status-cards-with-time",
+    "before": "Schede con tempo impiegato",
+    "after": "Cãrtsã cu timp cheltuit",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "comment-not-found",
+    "before": "Schede con commenti contenenti il testo '%s' non trovate.",
+    "after": "Carta cu comentariu tsi ari textul '%s' nu fu aflatã.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "cover-attachment-on-minicard",
+    "before": "Immagine di copertina su minicard",
+    "after": "Imaghinã di cupertã pi minicartã",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "custom-field-stringtemplate-item-placeholder",
+    "before": "Premi Invio per aggiungere più elementi",
+    "after": "Apasã Enter ti s-adãvghi ma multi elementi",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
