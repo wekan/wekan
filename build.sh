@@ -612,7 +612,7 @@ function run_node_e2e_docker(){
 		-e WEKAN_MONGO_URL="${WEKAN_MONGO_URL:-mongodb://127.0.0.1:3001/meteor}" \
 		-v "$reporoot":/repo -w /repo \
 		"$image" \
-		sh -c 'browser_path="$(find /ms-playwright -type f \( -path "*/chrome-linux/chrome" -o -path "*/chrome-linux64/chrome" \) -perm -111 | sort -r | head -n 1)"; test -n "$browser_path" || { echo "No Chromium executable found in Playwright image" >&2; exit 127; }; CHROMIUM_PATH="$browser_path" exec node tests/e2e/list-regressions.js'
+		sh -c 'browser_path="$(find /ms-playwright -type f -path "*/chrome-linux*/chrome" -perm -111 | sort -r | head -n 1)"; test -n "$browser_path" || { echo "No Chromium executable found in Playwright image" >&2; exit 127; }; CHROMIUM_PATH="$browser_path" exec node tests/e2e/list-regressions.js'
 }
 
 # Back-compat wrapper: run the WebKit project in Docker.
