@@ -91803,5 +91803,19 @@
     "before": "Icône d'attente mise à l'échelle",
     "after": "Jonian stebeda (Scaleout)",
     "reason": "Replace French wait-spinner labels with Volapük indicator-of-waiting wording; preserve the exact selectable animation style identifier. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests jonian (indicator) and stebed (waiting); software phrase assembled with low confidence, requiring native-speaker review."
+  },
+  {
+    "locale": "vo",
+    "key": "database-migrations",
+    "before": "Migrations base de données",
+    "after": "Nünodema migrads",
+    "reason": "Replace French with plural of existing Volapük database-migration label. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nünodem (database); migrad is existing software borrowing, low confidence, requiring native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "upload",
+    "before": "Alŝuti",
+    "after": "Löpükön",
+    "reason": "Replace unflagged Esperanto Alŝuti with Volapük Löpükön, following the upload action in MediaWiki Volapük https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/messages/MessagesVo.php and existing local upload terminology."
   }
 ]
