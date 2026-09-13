@@ -50419,5 +50419,68 @@
     "before": "Heap Node: dimensione dell'heap utilizzata",
     "after": "Heap Node: dimensione aduprata di u heap",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "Node_memory_usage_external",
+    "before": "Uttilizzo memoria del nodo: esterna",
+    "after": "Usu di memoria Node: esterna",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "Node_memory_usage_heap_total",
+    "before": "Uso memoria Node: dimensione totale dell'heap allocato",
+    "after": "Usu di memoria Node: dimensione tutale di u heap attribuitu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "Node_memory_usage_heap_used",
+    "before": "Utilizzo memoria del nodo: memoria effettivamente usata",
+    "after": "Usu di memoria Node: memoria aduprata veramente",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "Node_memory_usage_rss",
+    "before": "Uso memoria Node: resident set size",
+    "after": "Usu di memoria Node: dimensione di a memoria residente (RSS)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "Reactivity_mode",
+    "before": "Modalità di reattività (changeStreams / oplog / polling)",
+    "after": "Modu di reattività (changeStreams / oplog / polling)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "Rotateplane",
+    "before": "Spinner di attesa Rotateplane",
+    "after": "Indicatore d’attesa Rotateplane",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "Scaleout",
+    "before": "Spinner di attesa Scaleout",
+    "after": "Indicatore d’attesa Scaleout",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "above-selected-swimlane",
+    "before": "Sopra la swimlane selezionata",
+    "after": "Sopra à a swimlane scelta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "acceptance_of_our_legalNotice",
+    "before": "Continuando, accetti il nostro",
+    "after": "Cuntinuendu, accetti a nostra",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
