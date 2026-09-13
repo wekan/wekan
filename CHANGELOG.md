@@ -574,6 +574,7 @@ the Markdown commit as the template.
 
 # Upcoming WeKan ® release
 
+
 **In short:** Members can select one calendar independently of their
 interface language, with accessible offline date/time controls and movable,
 resizable date popups. On-premise **OAuth2/OIDC** login gains email-domain
@@ -1096,6 +1097,29 @@ the translation audit.
 and updates the Meteor build dependencies:
 
 **Build toolchain** - Meteor 3.6 beta and Rspack 2.2.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9e331e409">Show immediate mirror synchronization progress</a>. Thanks to xet7.</summary>
+
+Mirror synchronization announces source inventory, local archive and destination
+stages before starting work. Child stdout and stderr stream to the terminal, with
+elapsed-time messages every 15 seconds during long stages. GitHub requests show
+the endpoint, page and retry attempt without exposing authentication headers.
+Existing rate-limit waits and bounded retries remain in effect.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5d1f23c89">Save mirror console output to timestamped logs</a>. Thanks to xet7.</summary>
+
+`releases/mirror.sh` prints and saves stdout and stderr to
+`.tools/log/mirror/YYYY-MM-DD_HH-MM_SS/mirror-log.txt`, announces the log path
+at startup and preserves failed command exit status. Offline regression tests
+cover stage announcements, asynchronous failures, heartbeat cleanup, streamed
+command status, log contents and timestamped directories. Mirror menu and
+rate-limit suites pass; no live synchronization or remote writes were run.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/35082f7d7">Upgrade Meteor and Rspack build dependencies</a>. Thanks to xet7.</summary>
