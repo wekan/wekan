@@ -2116,5 +2116,41 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.match(cache['ve-PP']['OS_Cpus'], /CPU lugumär/);
   assert.match(cache['ve-PP']['OS_Loadavg'], /keskmäine radmär/);
   assert.match(cache['ve-PP']['OS_Uptime'], /radon aig/);
+  const vepsDateSearch = {
+  "operator-created": "tehtud",
+  "operator-modified": "vajehtadud",
+  "predicate-created": "tehtud",
+  "predicate-modified": "vajehtadud",
+  "operator-sort": "järgenduz",
+  "predicate-week": "nedal’",
+  "predicate-month": "ku",
+  "predicate-quarter": "voz’nelländez",
+  "globalSearch-instructions-operator-created": "`__operator_created__:<n>` - kartad, miččed oma tehtud *<n>* päiväd tagaze libo vähemba",
+  "globalSearch-instructions-operator-modified": "`__operator_modified__:<n>` - kartad, miččed oma vajehtadud *<n>* päiväd tagaze libo vähemba",
+  "globalSearch-instructions-notes-3-2": "Päividen lugun voi märita pozitivine libo negativine kogonaine lugu, libo kävutada `__predicate_week__`, `__predicate_month__`, `__predicate_quarter__` libo `__predicate_year__` nügüdläižen aigkeskustan täht.",
+  "globalSearch-instructions-notes-4": "Tekstan ecind ei erištele surid da penid kirjamid."
+};
+  for (const [key, value] of Object.entries(vepsDateSearch)) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.doesNotMatch(value, /luotu|muokattu|lajittele|viikko|kuukausi|kvartaali|kortit jotka|kortit joita|Päivät voidaan|Tekstihaut ovat/, key);
+  }
+  for (const [key, name] of [['predicate-created', 'createdAt'], ['predicate-modified', 'modifiedAt']]) {
+    const sorted = new visibilityContext.Query();
+    sorted.buildParams(`${cache['ve-PP']['operator-sort']}:${cache['ve-PP'][key]}`);
+    assert.equal(sorted.hasErrors(), false, key);
+    assert.equal(sorted.getQueryParams().getPredicate('sort').name, name, key);
+  }
+  for (const operator of ['created', 'modified']) {
+    const invalidDate = new visibilityContext.Query();
+    invalidDate.buildParams(`${cache['ve-PP'][`operator-${operator}`]}:NONNUMERIC`);
+    assert.equal(invalidDate.hasErrors(), true, operator);
+    const key = `globalSearch-instructions-operator-${operator}`;
+    assert.match(vepsTranslator.t(key, { [`operator_${operator}`]: cache['ve-PP'][`operator-${operator}`] }), /päiväd tagaze libo vähemba/);
+  }
+  const periods = Object.fromEntries(['week', 'month', 'quarter', 'year'].map(period => [`predicate_${period}`, cache['ve-PP'][`predicate-${period}`]]));
+  const periodText = vepsTranslator.t('globalSearch-instructions-notes-3-2', periods);
+  for (const value of Object.values(periods)) assert.ok(periodText.includes(value));
+  assert.match(periodText, /pozitivine libo negativine kogonaine lugu/);
+  assert.match(cache['ve-PP']['globalSearch-instructions-notes-4'], /ei erištele surid da penid kirjamid/);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });

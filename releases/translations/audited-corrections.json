@@ -118928,5 +118928,89 @@
     "before": "Muistin käyttö",
     "after": "Mušton kävutand",
     "reason": "Replace Finnish OS/memory metric labels with Veps dictionary arhitektur, mušt (genitive mušton), joudai, keskmäine radmär, platform, versii, tip and radon aig. Preserve OS/CPU identifiers and free/total/load/count/duration distinctions. Technical memory/load adaptations remain low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "operator-created",
+    "before": "luotu",
+    "after": "tehtud",
+    "reason": "Replace Finnish date-search/sort/period/case wording with Veps dictionary nedal, ku, voz-nelländez, aigkeskust, erištelda and existing technical terms. Preserve days-ago-or-less bounds, positive/negative integers, all period placeholders and case insensitivity. Technical grammar remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "operator-modified",
+    "before": "muokattu",
+    "after": "vajehtadud",
+    "reason": "Replace Finnish date-search/sort/period/case wording with Veps dictionary nedal, ku, voz-nelländez, aigkeskust, erištelda and existing technical terms. Preserve days-ago-or-less bounds, positive/negative integers, all period placeholders and case insensitivity. Technical grammar remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "predicate-created",
+    "before": "luotu",
+    "after": "tehtud",
+    "reason": "Replace Finnish date-search/sort/period/case wording with Veps dictionary nedal, ku, voz-nelländez, aigkeskust, erištelda and existing technical terms. Preserve days-ago-or-less bounds, positive/negative integers, all period placeholders and case insensitivity. Technical grammar remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "predicate-modified",
+    "before": "muokattu",
+    "after": "vajehtadud",
+    "reason": "Replace Finnish date-search/sort/period/case wording with Veps dictionary nedal, ku, voz-nelländez, aigkeskust, erištelda and existing technical terms. Preserve days-ago-or-less bounds, positive/negative integers, all period placeholders and case insensitivity. Technical grammar remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "operator-sort",
+    "before": "lajittele",
+    "after": "järgenduz",
+    "reason": "Replace Finnish date-search/sort/period/case wording with Veps dictionary nedal, ku, voz-nelländez, aigkeskust, erištelda and existing technical terms. Preserve days-ago-or-less bounds, positive/negative integers, all period placeholders and case insensitivity. Technical grammar remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "predicate-week",
+    "before": "viikko",
+    "after": "nedal’",
+    "reason": "Replace Finnish date-search/sort/period/case wording with Veps dictionary nedal, ku, voz-nelländez, aigkeskust, erištelda and existing technical terms. Preserve days-ago-or-less bounds, positive/negative integers, all period placeholders and case insensitivity. Technical grammar remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "predicate-month",
+    "before": "kuukausi",
+    "after": "ku",
+    "reason": "Replace Finnish date-search/sort/period/case wording with Veps dictionary nedal, ku, voz-nelländez, aigkeskust, erištelda and existing technical terms. Preserve days-ago-or-less bounds, positive/negative integers, all period placeholders and case insensitivity. Technical grammar remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "predicate-quarter",
+    "before": "kvartaali",
+    "after": "voz’nelländez",
+    "reason": "Replace Finnish date-search/sort/period/case wording with Veps dictionary nedal, ku, voz-nelländez, aigkeskust, erištelda and existing technical terms. Preserve days-ago-or-less bounds, positive/negative integers, all period placeholders and case insensitivity. Technical grammar remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "globalSearch-instructions-operator-created",
+    "before": "`__operator_created__:<n>` - kortit jotka on luotu *<n>* päivää sitten tai vähemmän",
+    "after": "`__operator_created__:<n>` - kartad, miččed oma tehtud *<n>* päiväd tagaze libo vähemba",
+    "reason": "Replace Finnish date-search/sort/period/case wording with Veps dictionary nedal, ku, voz-nelländez, aigkeskust, erištelda and existing technical terms. Preserve days-ago-or-less bounds, positive/negative integers, all period placeholders and case insensitivity. Technical grammar remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "globalSearch-instructions-operator-modified",
+    "before": "`__operator_modified__:<n>` - kortit joita on muokattu *<n>* päivää sitten tai vähemmän",
+    "after": "`__operator_modified__:<n>` - kartad, miččed oma vajehtadud *<n>* päiväd tagaze libo vähemba",
+    "reason": "Replace Finnish date-search/sort/period/case wording with Veps dictionary nedal, ku, voz-nelländez, aigkeskust, erištelda and existing technical terms. Preserve days-ago-or-less bounds, positive/negative integers, all period placeholders and case insensitivity. Technical grammar remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "globalSearch-instructions-notes-3-2",
+    "before": "Päivät voidaan määrittää positiivisena tai negatiivisena kokonaislukuna tai käyttäen `__predicate_week__`, `__predicate_month__`, `__predicate_quarter__` tai `__predicate_year__` nykyiselle jaksolle.",
+    "after": "Päividen lugun voi märita pozitivine libo negativine kogonaine lugu, libo kävutada `__predicate_week__`, `__predicate_month__`, `__predicate_quarter__` libo `__predicate_year__` nügüdläižen aigkeskustan täht.",
+    "reason": "Replace Finnish date-search/sort/period/case wording with Veps dictionary nedal, ku, voz-nelländez, aigkeskust, erištelda and existing technical terms. Preserve days-ago-or-less bounds, positive/negative integers, all period placeholders and case insensitivity. Technical grammar remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "globalSearch-instructions-notes-4",
+    "before": "Tekstihaut ovat kirjainkoosta riippumattomia.",
+    "after": "Tekstan ecind ei erištele surid da penid kirjamid.",
+    "reason": "Replace Finnish date-search/sort/period/case wording with Veps dictionary nedal, ku, voz-nelländez, aigkeskust, erištelda and existing technical terms. Preserve days-ago-or-less bounds, positive/negative integers, all period placeholders and case insensitivity. Technical grammar remains low confidence pending fluent review."
   }
 ]
