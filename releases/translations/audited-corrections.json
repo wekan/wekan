@@ -72343,5 +72343,89 @@
     "before": "Islamic tabular",
     "after": "Karenda yeHijri (kuverenga uchishandisa tafura, zuva rekutanga zvinoenderana nesainzi yezvinhu zviri muchadenga)",
     "reason": "Replace English description while retaining table-based calculation and an astronomical starting date. Astronomy vocabulary informed by primary Shona publisher https://www.jw.org/sn/Raibhurari/magazini/mukai-nhamba3-2021-nov-dec/zviri-muchadenga-zvinotidzidzisei-nezvezvakasikwa/ . Direct specialized phrasing and table terminology are low confidence and require native review."
+  },
+  {
+    "locale": "sm",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "Faiga o le kalena (fa'aaliga o le aso)",
+    "reason": "Replace Azerbaijani/English calendar wording using existing Samoan Kalena terminology, translating country descriptions and preserving proper calendar names. Published Samoan sources: https://www.jw.org/sm/lomiga-ma-isi-mea/tusi-paia/nwt/faaopoopoga-e/kalena-faa-eperu-tusi-paia/ (Hebrew calendar), https://wol.jw.org/sm/wol/d/r173/lp-sm/1994323 (Initia/Saina/Iapani/Korea), https://wol.jw.org/sgn-WS/wol/d/r555/lp-sms/1001060427 (written Samoan Peresia/Aitiope). Full specialized label grammar remains subject to native review."
+  },
+  {
+    "locale": "sm",
+    "key": "calendar-system-jalali",
+    "before": "Jalali (Fars)",
+    "after": "Kalena Jalali (Peresia)",
+    "reason": "Replace Azerbaijani/English calendar wording using existing Samoan Kalena terminology, translating country descriptions and preserving proper calendar names. Published Samoan sources: https://www.jw.org/sm/lomiga-ma-isi-mea/tusi-paia/nwt/faaopoopoga-e/kalena-faa-eperu-tusi-paia/ (Hebrew calendar), https://wol.jw.org/sm/wol/d/r173/lp-sm/1994323 (Initia/Saina/Iapani/Korea), https://wol.jw.org/sgn-WS/wol/d/r555/lp-sms/1001060427 (written Samoan Peresia/Aitiope). Full specialized label grammar remains subject to native review."
+  },
+  {
+    "locale": "sm",
+    "key": "calendar-system-chinese",
+    "before": "Chinese",
+    "after": "Kalena faa-Saina",
+    "reason": "Replace Azerbaijani/English calendar wording using existing Samoan Kalena terminology, translating country descriptions and preserving proper calendar names. Published Samoan sources: https://www.jw.org/sm/lomiga-ma-isi-mea/tusi-paia/nwt/faaopoopoga-e/kalena-faa-eperu-tusi-paia/ (Hebrew calendar), https://wol.jw.org/sm/wol/d/r173/lp-sm/1994323 (Initia/Saina/Iapani/Korea), https://wol.jw.org/sgn-WS/wol/d/r555/lp-sms/1001060427 (written Samoan Peresia/Aitiope). Full specialized label grammar remains subject to native review."
+  },
+  {
+    "locale": "sm",
+    "key": "calendar-system-dangi",
+    "before": "Dangi (Korean)",
+    "after": "Kalena Dangi (Korea)",
+    "reason": "Replace Azerbaijani/English calendar wording using existing Samoan Kalena terminology, translating country descriptions and preserving proper calendar names. Published Samoan sources: https://www.jw.org/sm/lomiga-ma-isi-mea/tusi-paia/nwt/faaopoopoga-e/kalena-faa-eperu-tusi-paia/ (Hebrew calendar), https://wol.jw.org/sm/wol/d/r173/lp-sm/1994323 (Initia/Saina/Iapani/Korea), https://wol.jw.org/sgn-WS/wol/d/r555/lp-sms/1001060427 (written Samoan Peresia/Aitiope). Full specialized label grammar remains subject to native review."
+  },
+  {
+    "locale": "sm",
+    "key": "calendar-system-ethioaa",
+    "before": "Ethiopic Amete Alem",
+    "after": "Kalena a Aitiope Amete Alem",
+    "reason": "Replace Azerbaijani/English calendar wording using existing Samoan Kalena terminology, translating country descriptions and preserving proper calendar names. Published Samoan sources: https://www.jw.org/sm/lomiga-ma-isi-mea/tusi-paia/nwt/faaopoopoga-e/kalena-faa-eperu-tusi-paia/ (Hebrew calendar), https://wol.jw.org/sm/wol/d/r173/lp-sm/1994323 (Initia/Saina/Iapani/Korea), https://wol.jw.org/sgn-WS/wol/d/r555/lp-sms/1001060427 (written Samoan Peresia/Aitiope). Full specialized label grammar remains subject to native review."
+  },
+  {
+    "locale": "sm",
+    "key": "calendar-system-ethiopic",
+    "before": "Ethiopic",
+    "after": "Kalena a Aitiope",
+    "reason": "Replace Azerbaijani/English calendar wording using existing Samoan Kalena terminology, translating country descriptions and preserving proper calendar names. Published Samoan sources: https://www.jw.org/sm/lomiga-ma-isi-mea/tusi-paia/nwt/faaopoopoga-e/kalena-faa-eperu-tusi-paia/ (Hebrew calendar), https://wol.jw.org/sm/wol/d/r173/lp-sm/1994323 (Initia/Saina/Iapani/Korea), https://wol.jw.org/sgn-WS/wol/d/r555/lp-sms/1001060427 (written Samoan Peresia/Aitiope). Full specialized label grammar remains subject to native review."
+  },
+  {
+    "locale": "sm",
+    "key": "calendar-system-hebrew",
+    "before": "Hebrew",
+    "after": "Kalena faa-Eperu",
+    "reason": "Replace Azerbaijani/English calendar wording using existing Samoan Kalena terminology, translating country descriptions and preserving proper calendar names. Published Samoan sources: https://www.jw.org/sm/lomiga-ma-isi-mea/tusi-paia/nwt/faaopoopoga-e/kalena-faa-eperu-tusi-paia/ (Hebrew calendar), https://wol.jw.org/sm/wol/d/r173/lp-sm/1994323 (Initia/Saina/Iapani/Korea), https://wol.jw.org/sgn-WS/wol/d/r555/lp-sms/1001060427 (written Samoan Peresia/Aitiope). Full specialized label grammar remains subject to native review."
+  },
+  {
+    "locale": "sm",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "Kalena a le atunuu o Initia",
+    "reason": "Replace Azerbaijani/English calendar wording using existing Samoan Kalena terminology, translating country descriptions and preserving proper calendar names. Published Samoan sources: https://www.jw.org/sm/lomiga-ma-isi-mea/tusi-paia/nwt/faaopoopoga-e/kalena-faa-eperu-tusi-paia/ (Hebrew calendar), https://wol.jw.org/sm/wol/d/r173/lp-sm/1994323 (Initia/Saina/Iapani/Korea), https://wol.jw.org/sgn-WS/wol/d/r555/lp-sms/1001060427 (written Samoan Peresia/Aitiope). Full specialized label grammar remains subject to native review."
+  },
+  {
+    "locale": "sm",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "Kalena Hijri",
+    "reason": "Replace Azerbaijani/English calendar wording using existing Samoan Kalena terminology, translating country descriptions and preserving proper calendar names. Published Samoan sources: https://www.jw.org/sm/lomiga-ma-isi-mea/tusi-paia/nwt/faaopoopoga-e/kalena-faa-eperu-tusi-paia/ (Hebrew calendar), https://wol.jw.org/sm/wol/d/r173/lp-sm/1994323 (Initia/Saina/Iapani/Korea), https://wol.jw.org/sgn-WS/wol/d/r555/lp-sms/1001060427 (written Samoan Peresia/Aitiope). Full specialized label grammar remains subject to native review."
+  },
+  {
+    "locale": "sm",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "Kalena Hijri (Umm al-Qura)",
+    "reason": "Replace Azerbaijani/English calendar wording using existing Samoan Kalena terminology, translating country descriptions and preserving proper calendar names. Published Samoan sources: https://www.jw.org/sm/lomiga-ma-isi-mea/tusi-paia/nwt/faaopoopoga-e/kalena-faa-eperu-tusi-paia/ (Hebrew calendar), https://wol.jw.org/sm/wol/d/r173/lp-sm/1994323 (Initia/Saina/Iapani/Korea), https://wol.jw.org/sgn-WS/wol/d/r555/lp-sms/1001060427 (written Samoan Peresia/Aitiope). Full specialized label grammar remains subject to native review."
+  },
+  {
+    "locale": "sm",
+    "key": "calendar-system-japanese",
+    "before": "Japanese",
+    "after": "Kalena faa-Iapani",
+    "reason": "Replace Azerbaijani/English calendar wording using existing Samoan Kalena terminology, translating country descriptions and preserving proper calendar names. Published Samoan sources: https://www.jw.org/sm/lomiga-ma-isi-mea/tusi-paia/nwt/faaopoopoga-e/kalena-faa-eperu-tusi-paia/ (Hebrew calendar), https://wol.jw.org/sm/wol/d/r173/lp-sm/1994323 (Initia/Saina/Iapani/Korea), https://wol.jw.org/sgn-WS/wol/d/r555/lp-sms/1001060427 (written Samoan Peresia/Aitiope). Full specialized label grammar remains subject to native review."
+  },
+  {
+    "locale": "sm",
+    "key": "calendar-system-roc",
+    "before": "Republic of China",
+    "after": "Kalena Minguo",
+    "reason": "Replace Azerbaijani/English calendar wording using existing Samoan Kalena terminology, translating country descriptions and preserving proper calendar names. Published Samoan sources: https://www.jw.org/sm/lomiga-ma-isi-mea/tusi-paia/nwt/faaopoopoga-e/kalena-faa-eperu-tusi-paia/ (Hebrew calendar), https://wol.jw.org/sm/wol/d/r173/lp-sm/1994323 (Initia/Saina/Iapani/Korea), https://wol.jw.org/sgn-WS/wol/d/r555/lp-sms/1001060427 (written Samoan Peresia/Aitiope). Full specialized label grammar remains subject to native review."
   }
 ]
