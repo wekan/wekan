@@ -86581,5 +86581,40 @@
     "before": "a décoché %s dans la check-list %s",
     "after": "esädunon mäkami ela %s in kontrolalised %s",
     "reason": "Replace French checklist checking/unchecking activity messages with directly assembled Volapük. Dictionary https://en.wikibooks.org/wiki/Volap%C3%BCk/English-Volap%C3%BCk_dictionary attests mäkön (mark) and sädunön (undo). Express checkbox checking as marking, unchecking as undoing marking; avoid dictionary unchecked entry meaning uncontrolled. Reuse kontrolalised compound and local perfect-tense pattern. Derived mäkam, foreign-name articles and complete UI grammar remain low confidence pending native review. Preserve source %s count and argument order."
+  },
+  {
+    "locale": "vo",
+    "key": "labels",
+    "before": "Etikedoj",
+    "after": "Ninädapenäds",
+    "reason": "Replace Esperanto labels noun and French label activities with directly assembled Volapük. Ralph Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf page 70 attests ninädapenäd (label); dictionary add/remove vocabulary lüükön/moükön and local perfect-tense activity pattern reused. Software-label sense, inflections and complete grammar remain low confidence pending native review. Preserve quoted label names and all %s arguments in source order."
+  },
+  {
+    "locale": "vo",
+    "key": "activity-added-label",
+    "before": "a ajouté l'étiquette '%s' à %s",
+    "after": "elüükon ninädapenädi '%s' lü %s",
+    "reason": "Replace Esperanto labels noun and French label activities with directly assembled Volapük. Ralph Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf page 70 attests ninädapenäd (label); dictionary add/remove vocabulary lüükön/moükön and local perfect-tense activity pattern reused. Software-label sense, inflections and complete grammar remain low confidence pending native review. Preserve quoted label names and all %s arguments in source order."
+  },
+  {
+    "locale": "vo",
+    "key": "activity-removed-label",
+    "before": "a supprimé l'étiquette '%s' de %s",
+    "after": "emoükon ninädapenädi '%s' de %s",
+    "reason": "Replace Esperanto labels noun and French label activities with directly assembled Volapük. Ralph Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf page 70 attests ninädapenäd (label); dictionary add/remove vocabulary lüükön/moükön and local perfect-tense activity pattern reused. Software-label sense, inflections and complete grammar remain low confidence pending native review. Preserve quoted label names and all %s arguments in source order."
+  },
+  {
+    "locale": "vo",
+    "key": "activity-added-label-card",
+    "before": "a ajouté l'étiquette '%s'",
+    "after": "elüükon ninädapenädi '%s'",
+    "reason": "Replace Esperanto labels noun and French label activities with directly assembled Volapük. Ralph Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf page 70 attests ninädapenäd (label); dictionary add/remove vocabulary lüükön/moükön and local perfect-tense activity pattern reused. Software-label sense, inflections and complete grammar remain low confidence pending native review. Preserve quoted label names and all %s arguments in source order."
+  },
+  {
+    "locale": "vo",
+    "key": "activity-removed-label-card",
+    "before": "a supprimé l'étiquette '%s'",
+    "after": "emoükon ninädapenädi '%s'",
+    "reason": "Replace Esperanto labels noun and French label activities with directly assembled Volapük. Ralph Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf page 70 attests ninädapenäd (label); dictionary add/remove vocabulary lüükön/moükön and local perfect-tense activity pattern reused. Software-label sense, inflections and complete grammar remain low confidence pending native review. Preserve quoted label names and all %s arguments in source order."
   }
 ]
