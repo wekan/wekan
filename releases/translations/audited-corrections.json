@@ -75911,8 +75911,8 @@
     "locale": "wa",
     "key": "clipboard",
     "before": "Presse-papier ou glisser-déposer",
-    "after": "Tchapea emacralé ou haetchî et laechî",
-    "reason": "Replace audited French field/card/display controls with Walloon using existing native terminology and computing vocabulary https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve avatar size token, top/bottom selection, enabled/disabled width actions, creation-sort order and clipboard behavior. Full grammar and specialized calendar/clipboard terminology remain low confidence; source tokens retained."
+    "after": "Presse-papî ou haetchî et laechî",
+    "reason": "Correct unsupported literal magic-hat wording previously reused for clipboard. Authored KDE Walloon source explicitly uses presse-papî for Clipboard Actions: https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Match existing copy-to-clipboard terminology, preserve source tokens and drag/drop meaning. Full surrounding grammar remains low confidence."
   },
   {
     "locale": "wa",
@@ -75932,15 +75932,15 @@
     "locale": "wa",
     "key": "copy-card-link-to-clipboard",
     "before": "Copier le lien de la carte dans le presse-papier",
-    "after": "Copyî l' hårdêye del cåte e tchapea emacralé",
-    "reason": "Replace audited French field/card/display controls with Walloon using existing native terminology and computing vocabulary https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve avatar size token, top/bottom selection, enabled/disabled width actions, creation-sort order and clipboard behavior. Full grammar and specialized calendar/clipboard terminology remain low confidence; source tokens retained."
+    "after": "Copyî l' hårdêye del cåte e presse-papî",
+    "reason": "Correct unsupported literal magic-hat wording previously reused for clipboard. Authored KDE Walloon source explicitly uses presse-papî for Clipboard Actions: https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Match existing copy-to-clipboard terminology, preserve source tokens and drag/drop meaning. Full surrounding grammar remains low confidence."
   },
   {
     "locale": "wa",
     "key": "copy-text-to-clipboard",
     "before": "Copier le texte dans le presse-papier",
-    "after": "Copyî l' tecse e tchapea emacralé",
-    "reason": "Replace audited French field/card/display controls with Walloon using existing native terminology and computing vocabulary https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve avatar size token, top/bottom selection, enabled/disabled width actions, creation-sort order and clipboard behavior. Full grammar and specialized calendar/clipboard terminology remain low confidence; source tokens retained."
+    "after": "Copyî l' tecse e presse-papî",
+    "reason": "Correct unsupported literal magic-hat wording previously reused for clipboard. Authored KDE Walloon source explicitly uses presse-papî for Clipboard Actions: https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Match existing copy-to-clipboard terminology, preserve source tokens and drag/drop meaning. Full surrounding grammar remains low confidence."
   },
   {
     "locale": "wa",
@@ -75990,5 +75990,12 @@
     "before": "Créateur sur la mini-carte",
     "after": "Askepieu sol minicåte",
     "reason": "Replace audited French field/card/display controls with Walloon using existing native terminology and computing vocabulary https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve avatar size token, top/bottom selection, enabled/disabled width actions, creation-sort order and clipboard behavior. Full grammar and specialized calendar/clipboard terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "copy-link-to-clipboard",
+    "before": "Copyî l' hårdêye e tchapea emacralé",
+    "after": "Copyî l' hårdêye e presse-papî",
+    "reason": "Correct unsupported literal magic-hat wording previously reused for clipboard. Authored KDE Walloon source explicitly uses presse-papî for Clipboard Actions: https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Match existing copy-to-clipboard terminology, preserve source tokens and drag/drop meaning. Full surrounding grammar remains low confidence."
   }
 ]
