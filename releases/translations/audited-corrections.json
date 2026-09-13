@@ -54255,5 +54255,75 @@
     "before": "Sei sicuro di voler sbloccare questo utente?",
     "after": "Esht sigur cã vrei s-deblochezi aestu ufilisitor?",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "accessibility-content",
+    "before": "Contenuti di accessibilità",
+    "after": "Contsinut di accesibilitati",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "accessibility-info-not-added-yet",
+    "before": "Le informazioni sull'accessibilità non sono ancora state aggiunte ",
+    "after": "Informatsiili di accesibilitati nu furã adãvgati încã",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "accessibility-page-enabled",
+    "before": "Pagina accessibilità abilitata",
+    "after": "Pagina di accesibilitati activatã",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "accounts-lockout-failure-window",
+    "before": "Finestra di errore (secondi)",
+    "after": "Interval di probi fãrã sucses (secundi)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "accounts-lockout-failures-before",
+    "before": "Fallimenti prima del blocco",
+    "after": "Probi fãrã sucses ninti di blocare",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "accounts-lockout-period",
+    "before": "Periodo di blocco (secondi)",
+    "after": "Durata di blocare (secundi)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "accounts-lockout-user-unlocked",
+    "before": "L'utente è stato sbloccato con successo",
+    "after": "Ufilisitorlu fu deblocat cu sucses",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "act-a-endAt",
+    "before": "orario finale modificato in __timeValue__ (precedentemente: __timeOldValue__)",
+    "after": "alãxã timpul di bitisiri la __timeValue__ di (__timeOldValue__)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "act-a-receivedAt",
+    "before": "orario di ricezione modificato in __timeValue__ (precedentemente: __timeOldValue__)",
+    "after": "alãxã timpul di primiri la __timeValue__ di (__timeOldValue__)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "act-a-startAt",
+    "before": "orario iniziale modificato in __timeValue__ (precedentemente: __timeOldValue__)",
+    "after": "alãxã timpul di ahurhiri la __timeValue__ di (__timeOldValue__)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
