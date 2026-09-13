@@ -51273,5 +51273,61 @@
     "before": "Dominio email autorizzato a invitare persone, quando l'autoregistrazione è disattivata",
     "after": "Duminiu email auturizatu à invità persone quandu l’autoregistrazione hè disattivata",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "email-enrollAccount-subject",
+    "before": "Creato un account per te su __siteName__",
+    "after": "Un contu hè statu creatu per voi nant’à __siteName__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "email-smtp-test-text",
+    "before": "E-mail inviata correttamente",
+    "after": "Avete mandatu un email cun successu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "email-templates-activity-body",
+    "before": "Attività Posta elettronica Testo",
+    "after": "Testu di l’email di nutificazione d’attività",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "email-templates-activity-subject",
+    "before": "Attività Posta elettronica Soggetto",
+    "after": "Ughjettu di l’email di nutificazione d’attività",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "email-templates-invite-body",
+    "before": "Invita Posta elettronica Testo",
+    "after": "Testu di l’email d’invitu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "email-templates-invite-subject",
+    "before": "Invita Posta elettronica Soggetto",
+    "after": "Ughjettu di l’email d’invitu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "email-verifyEmail-subject",
+    "before": "Verifica il tuo indirizzo email su __siteName__",
+    "after": "Verificate u vostru indirizzu email nant’à __siteName__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "enable-wip-limit",
+    "before": "Attiva limite Work In Progress",
+    "after": "Attivà a limita WIP",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
