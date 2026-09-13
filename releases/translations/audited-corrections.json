@@ -88646,5 +88646,54 @@
     "before": "L'invitation n'a pas encore été acceptée",
     "after": "Vüd no nog pedasumon",
     "reason": "Replace French permission/invitation/error wording with Volapük. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests dasumön (accept), vüd (invitation), kot (code). Reuse existing login and permission terminology. Preserve all-logged-in-users permission, nonexistent invitation code, not-yet-accepted status and generic error without adding an unknown-error claim. Assembled software login-state wording remains low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "user-can-not-export-card-to-excel",
+    "before": "L'utilisateur ne peut pas exporter la carte vers Excel",
+    "after": "Geban no kanon seveigön kadi lü Excel",
+    "reason": "Replace French export/import interface labels with Volapük. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests seveigön (export), nüveigön (import); reuse existing user/card/field terminology. Preserve cannot-export permissions, card scope, field inclusion and unchanged Excel, PDF, Trello, CSV/TSV product/format names. Data-transfer adaptation and assembled wording remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "user-can-not-export-card-to-pdf",
+    "before": "L'utilisateur ne peut pas exporter de carte en PDF",
+    "after": "Geban no kanon seveigön kadi lü PDF",
+    "reason": "Replace French export/import interface labels with Volapük. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests seveigön (export), nüveigön (import); reuse existing user/card/field terminology. Preserve cannot-export permissions, card scope, field inclusion and unchanged Excel, PDF, Trello, CSV/TSV product/format names. Data-transfer adaptation and assembled wording remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "user-can-not-export-excel",
+    "before": "L'utilisateur ne peut pas exporter vers Excel",
+    "after": "Geban no kanon seveigön lü Excel",
+    "reason": "Replace French export/import interface labels with Volapük. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests seveigön (export), nüveigön (import); reuse existing user/card/field terminology. Preserve cannot-export permissions, card scope, field inclusion and unchanged Excel, PDF, Trello, CSV/TSV product/format names. Data-transfer adaptation and assembled wording remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "export-card-excel",
+    "before": "Exporter la carte vers Excel",
+    "after": "Seveigön kadi lü Excel",
+    "reason": "Replace French export/import interface labels with Volapük. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests seveigön (export), nüveigön (import); reuse existing user/card/field terminology. Preserve cannot-export permissions, card scope, field inclusion and unchanged Excel, PDF, Trello, CSV/TSV product/format names. Data-transfer adaptation and assembled wording remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "export-card-excel-fields",
+    "before": "Sélectionnez les champs à inclure dans l'export Excel :",
+    "after": "Välön felis ad keninädön in seveig lü Excel:",
+    "reason": "Replace French export/import interface labels with Volapük. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests seveigön (export), nüveigön (import); reuse existing user/card/field terminology. Preserve cannot-export permissions, card scope, field inclusion and unchanged Excel, PDF, Trello, CSV/TSV product/format names. Data-transfer adaptation and assembled wording remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "listImportCardPopup-title",
+    "before": "Importer une carte Trello",
+    "after": "Nüveigön kadi Trello",
+    "reason": "Replace French export/import interface labels with Volapük. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests seveigön (export), nüveigön (import); reuse existing user/card/field terminology. Preserve cannot-export permissions, card scope, field inclusion and unchanged Excel, PDF, Trello, CSV/TSV product/format names. Data-transfer adaptation and assembled wording remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "listImportCardsTsvPopup-title",
+    "before": "Importer un fichier Excel CSV/TSV",
+    "after": "Nüveigön Excel CSV/TSV",
+    "reason": "Replace French export/import interface labels with Volapük. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests seveigön (export), nüveigön (import); reuse existing user/card/field terminology. Preserve cannot-export permissions, card scope, field inclusion and unchanged Excel, PDF, Trello, CSV/TSV product/format names. Data-transfer adaptation and assembled wording remain low confidence; native review unavailable."
   }
 ]
