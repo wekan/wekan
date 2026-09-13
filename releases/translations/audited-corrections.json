@@ -85216,5 +85216,19 @@
     "before": "ISO 8601",
     "after": "Likhalenda le-Gregoriana (emaviki e-ISO 8601)",
     "reason": "Replace English calendar labels with Swati descriptions using existing local Likhalenda and Liviki terminology; retain China, Japan, Ethiopia, Amete Alem and ISO identifiers and restore Gregorian ISO week detail. Swati vocabulary searches did not establish native country/complete phrase attestation, so retained country spellings, derived week plural and assembled grammar are explicitly low confidence. Search results in Xhosa/Zulu are not Swati validation. Religious, national and Hijri variant labels remain pending."
+  },
+  {
+    "locale": "ss",
+    "key": "calendar-system-hebrew",
+    "before": "Hebrew",
+    "after": "Likhalenda lemaHebheru",
+    "reason": "Replace English Hebrew calendar and foreign Fars label with Swati descriptions using existing Likhalenda terminology. ema Hebheru vocabulary appears in Swati Exodus at https://doc-files.bibleineverylanguage.org/ss-reg-exo_lbo_1c_chapter.pdf . Retain Jalali and Persia identities; no native Persian country spelling established by searches. Complete assembled grammar and retained Persia spelling remain low confidence; Buddhist, Coptic, Indian national and Hijri variant labels remain pending."
+  },
+  {
+    "locale": "ss",
+    "key": "calendar-system-jalali",
+    "before": "Jalali (Fars)",
+    "after": "Likhalenda le-Jalali (lasePersia)",
+    "reason": "Replace English Hebrew calendar and foreign Fars label with Swati descriptions using existing Likhalenda terminology. ema Hebheru vocabulary appears in Swati Exodus at https://doc-files.bibleineverylanguage.org/ss-reg-exo_lbo_1c_chapter.pdf . Retain Jalali and Persia identities; no native Persian country spelling established by searches. Complete assembled grammar and retained Persia spelling remain low confidence; Buddhist, Coptic, Indian national and Hijri variant labels remain pending."
   }
 ]
