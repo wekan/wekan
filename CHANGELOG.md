@@ -80,15 +80,15 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,107 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 737 pending review or repair.
-The correction inventory records 17,269 exact before/after values,
+findings: 15,108 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 736 pending review or repair.
+The correction inventory records 17,270 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
 German cron label, which now uses the actual tool name Cron.
 The largest original finding queues remain in Veps (10) and Standard Moroccan
-Tamazight (593). Silesian database terminology and 17 Tigre
+Tamazight (592). Silesian database terminology and 17 Tigre
 calendar findings need language-specific review. Restored and unflagged
 values, low-confidence wording and browser rendering remain unverified.
 Kashmiri reference review 0db69cf6c (2026-09-14) identifies provisional
@@ -102,8 +102,8 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383540a; translation repairs have resumed.
-Latest translation fix is 0b006e44d (2026-09-14), repairing four unflagged
-Arabic Tamazight Remove, Clear-all-filters and user-fallback labels. Previous fix e07d2be5f replaced two English
+Latest translation fix is 852beaa44 (2026-09-14), repairing the flagged
+French Tamazight comment-deletion prompt; full grammar needs fluent review. Previous fix e07d2be5f replaced two English
 Cherokee Hijri labels with exact native-script CLDR variant names. Cherokee’s
 original queue is empty. Compact tabular epoch wording still needs fluent
 technical review. Quechua palette compounds and remaining color wrappers
@@ -646,6 +646,16 @@ The audit records 749 pending original findings and wider unfinished validation.
 This release adds the following translation improvements:
 
 **Translations** - Locale wording repairs and remaining audit progress.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/852beaa44">Repair Tamazight comment deletion prompt</a>. Thanks to xet7.</summary>
+
+Replace French with native delete/comment terminology and question marking.
+Full prompt grammar remains low confidence and needs fluent review. All
+17,270 correction checks pass; 736 original findings and broader language
+validation remain unfinished. Live browser verification was not run.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/0b006e44d">Repair Tamazight removal and filter wording</a>. Thanks to xet7.</summary>
