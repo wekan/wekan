@@ -53436,5 +53436,75 @@
     "before": "Heap Node: does zap garbage",
     "after": "Heap Node: soverscrive la memoria no plù adorada cun n model de bits",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "calendar-system-gregorian",
+    "before": "Gregorian",
+    "after": "Calindar grigurian",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "calendar-system-buddhist",
+    "before": "Buddhist",
+    "after": "Calindar budist",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "calendar-system-chinese",
+    "before": "Chinese",
+    "after": "Calindar chinezu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "calendar-system-coptic",
+    "before": "Coptic",
+    "after": "Calindar coptu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "calendar-system-dangi",
+    "before": "Dangi (Korean)",
+    "after": "Calindar Dangi (coreanu)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "calendar-system-ethioaa",
+    "before": "Ethiopic Amete Alem",
+    "after": "Calindar etiopicu Amete Alem",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "calendar-system-ethiopic",
+    "before": "Ethiopic",
+    "after": "Calindar etiopicu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "calendar-system-hebrew",
+    "before": "Hebrew",
+    "after": "Calindar evreu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "calendar-system-japanese",
+    "before": "Japanese",
+    "after": "Calindar japonezu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "calendar-system-roc",
+    "before": "Republic of China",
+    "after": "Calindar Minguo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
