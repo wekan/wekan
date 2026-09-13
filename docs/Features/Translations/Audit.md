@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 8,350 |
+| Corrected | 8,366 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 175 |
-| Pending review or repair | 7,497 |
+| Pending review or repair | 7,481 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **8,423** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **8,439** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `062d9ab9ff53acbb607bf5f38d767114d56fa403` — seventeen Bislama calendar findings repaired; **no flagged Bislama findings remain**. Proper names and civil, astronomical and lunar-observation distinctions are preserved. Low-confidence terminology needs native-speaker review. Exact-value, placeholder, key-order and idempotency checks pass; live browser verification is unavailable.
+Latest translation fix: **2026-09-13**, local commit `5d9008e84d553fe5cba37fedc7f222a50e63bba8` — sixteen Occitan account-lockout findings repaired; **530 Occitan findings remain**. Known/unknown user distinctions and unlock confirmation scope are preserved. Regional terminology and earlier low-confidence batches need language review. Exact-value, placeholder, key-order and idempotency checks pass; live browser verification is unavailable.
 
 **Origin:** not all errors came from Transifex. The captured pull changed 4,061 values; the local audit added 16,020 findings. Bosnian errors already existed in local commit `bdb3b15886a749b725b5290ba0109fcba955f983`. Other ultimate origins remain unverified.
 
