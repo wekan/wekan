@@ -79420,5 +79420,61 @@
     "before": "Seules les cartes assignées sont visibles. Modifier en tant qu'utilisateur normal.",
     "after": "Karta yi ñu ko sas rekk la mën a gis. Mën na soppi ni jëfandikukat bu yoon.",
     "reason": "Replace French permission descriptions with Wolof. Preserve view/edit/comment distinctions, assigned-only visibility, settings restriction, member removal and minimum one administrator. Reuse jekkal/xalaat/karta/bokkkat/sas terminology. Ordinary-user adaptation, role vocabulary and full grammar remain low confidence; no permission behavior changed."
+  },
+  {
+    "locale": "wo",
+    "key": "activities",
+    "before": "Activités",
+    "after": "Jëf yi",
+    "reason": "Replace French activity headings and board-selection hint with Wolof, unify show/hide terminology with existing jëf activity-history usage. Fix unflagged tabax (construction) referring to kanban board to tablo. Preserve checkbox selection and notification scope. Checkbox adaptation and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "activity",
+    "before": "Activité",
+    "after": "Jëf",
+    "reason": "Replace French activity headings and board-selection hint with Wolof, unify show/hide terminology with existing jëf activity-history usage. Fix unflagged tabax (construction) referring to kanban board to tablo. Preserve checkbox selection and notification scope. Checkbox adaptation and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "show-activities",
+    "before": "Afficher les activités",
+    "after": "Wone jëf yi",
+    "reason": "Replace French activity headings and board-selection hint with Wolof, unify show/hide terminology with existing jëf activity-history usage. Fix unflagged tabax (construction) referring to kanban board to tablo. Preserve checkbox selection and notification scope. Checkbox adaptation and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "hide-activities",
+    "before": "Nëbb Aktiwite yi",
+    "after": "Nëbb jëf yi",
+    "reason": "Replace French activity headings and board-selection hint with Wolof, unify show/hide terminology with existing jëf activity-history usage. Fix unflagged tabax (construction) referring to kanban board to tablo. Preserve checkbox selection and notification scope. Checkbox adaptation and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "board-activities",
+    "before": "Jëf yu tabax bi",
+    "after": "Jëf yi ci tablo bi",
+    "reason": "Replace French activity headings and board-selection hint with Wolof, unify show/hide terminology with existing jëf activity-history usage. Fix unflagged tabax (construction) referring to kanban board to tablo. Preserve checkbox selection and notification scope. Checkbox adaptation and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "last-activity",
+    "before": "Dernière activité",
+    "after": "Jëf bu mujj",
+    "reason": "Replace French activity headings and board-selection hint with Wolof, unify show/hide terminology with existing jëf activity-history usage. Fix unflagged tabax (construction) referring to kanban board to tablo. Preserve checkbox selection and notification scope. Checkbox adaptation and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "multi-selection-active",
+    "before": "Cliquez sur les cases à cocher pour sélectionner les tableaux",
+    "after": "Bësal ci wàll yu màndarga yi ngir tànn tablo yi",
+    "reason": "Replace French activity headings and board-selection hint with Wolof, unify show/hide terminology with existing jëf activity-history usage. Fix unflagged tabax (construction) referring to kanban board to tablo. Preserve checkbox selection and notification scope. Checkbox adaptation and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "act-activity-notify",
+    "before": "Notification d'activité",
+    "after": "Yégle jëf",
+    "reason": "Replace French activity headings and board-selection hint with Wolof, unify show/hide terminology with existing jëf activity-history usage. Fix unflagged tabax (construction) referring to kanban board to tablo. Preserve checkbox selection and notification scope. Checkbox adaptation and full grammar remain low confidence."
   }
 ]
