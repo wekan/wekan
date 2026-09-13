@@ -53681,5 +53681,47 @@
     "before": "Aggiungi una descrizione più dettagliata",
     "after": "Adavgã unã descriari cu ma multi detalii",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "always-field-on-card",
+    "before": "Aggiungi campo a tutte le schede",
+    "after": "Adavgã cãmpu la tuti cãrtsãli",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "attachment-move-storage-gridfs",
+    "before": "Sposta allegato su GridFS",
+    "after": "Mutã atashamentu la GridFS",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "autoAddUsersWithDomainName",
+    "before": "Aggiungi automaticamente utenti con il nome di dominio",
+    "after": "Adavgã automat ufilisitori cu numa di domeniu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "automatically-field-on-card",
+    "before": "Aggiungi campo alle nuove schede",
+    "after": "Adavgã cãmpu la cãrtsãli noauã",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "board-title-not-found",
+    "before": "Bacheca '%s' non trovata.",
+    "after": "Tabela '%s' nu fu aflatã.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "card-sorting-by-number",
+    "before": "Ordinamento scheda per numero",
+    "after": "Arãndari a cãrtsãlor dupã numir",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
