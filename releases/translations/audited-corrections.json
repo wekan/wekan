@@ -55578,5 +55578,40 @@
     "before": "Special",
     "after": "Spetsial",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "paste-or-dragdrop",
+    "before": "per incollare, oppure trascina & rilascia il file immagine (solo immagini)",
+    "after": "ti s-lipeshti, icã tragi shi lashã fisierlu di imaghinã aua (mash imaghini)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "import-board-instruction-trello",
+    "before": "In your Trello board, go to 'Menu', then 'More', 'Print and Export', 'Export JSON', and copy the resulting text",
+    "after": "Tu tabela Trello a ta, du-ti la 'Menu', dupã la 'More', 'Print and Export', 'Export JSON', shi copiadzã textul rezultat.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "board-view-burndown",
+    "before": "Burndown",
+    "after": "Grafic di lucru arãmas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "board-view-burnup",
+    "before": "Burnup",
+    "after": "Grafic di lucru bitisit",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "computer",
+    "before": "Computer",
+    "after": "Calculatoru",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
