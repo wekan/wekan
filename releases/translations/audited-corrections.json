@@ -105180,5 +105180,145 @@
     "before": "kulungiswe isikhathi esamukelwe ku-__timeValue__ kusuka ku-(__timeOldValue__)",
     "after": "o shandula tshifhinga tsha u ṱanganedza tsha vha __timeValue__ u bva kha (__timeOldValue__)",
     "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, locked versus unlocked states, known versus unknown users and old/new time values. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "act-a-startAt",
+    "before": "kulungiswe isikhathi sokuqala saba ngu-__timeValue__ kusuka ku-(__timeOldValue__)",
+    "after": "o shandula tshifhinga tsha u thoma tsha vha __timeValue__ u bva kha (__timeOldValue__)",
+    "reason": "Replace Zulu-seeded activity prose directly with Tshivenda. Preserve source token inventory, due-soon/now/past distinctions and checklist completion states. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "act-almostdue",
+    "before": "ibikhumbuza isikhathi samanje esifunekayo (__timeValue__) sokuthi __card__ siyeza",
+    "after": "o humbudza uri tshifhinga tsha u fhedza (__timeValue__) tsha __card__ tshi khou sendela",
+    "reason": "Replace Zulu-seeded activity prose directly with Tshivenda. Preserve source token inventory, due-soon/now/past distinctions and checklist completion states. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "act-createList",
+    "before": "ungeze uhlu __list__ ukuze ugibele __board__",
+    "after": "o engedza mutevhe __list__ kha bodo ya Kanban __board__",
+    "reason": "Replace Zulu-seeded activity prose directly with Tshivenda. Preserve source token inventory, due-soon/now/past distinctions and checklist completion states. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "act-createSwimlane",
+    "before": "idale i-swimlane __swimlane__ ukuze igibele __board__",
+    "after": "o sika ḽaini __swimlane__ kha bodo ya Kanban __board__",
+    "reason": "Replace Zulu-seeded activity prose directly with Tshivenda. Preserve source token inventory, due-soon/now/past distinctions and checklist completion states. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "act-duenow",
+    "before": "ibikhumbuza isikhathi samanje esifunekayo (__timeValue__) sika-__card__ manje",
+    "after": "o humbudza uri tshifhinga tsha u fhedza (__timeValue__) tsha __card__ ndi zwino",
+    "reason": "Replace Zulu-seeded activity prose directly with Tshivenda. Preserve source token inventory, due-soon/now/past distinctions and checklist completion states. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "act-newDue",
+    "before": "__list__/__card__ unesikhumbuzi sokuqala esifunekayo [__board__]",
+    "after": "__list__/__card__ i na khumbudzo ya u thoma ya tshifhinga tsha u fhedza [__board__]",
+    "reason": "Replace Zulu-seeded activity prose directly with Tshivenda. Preserve source token inventory, due-soon/now/past distinctions and checklist completion states. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "act-pastdue",
+    "before": "ibikhumbuza isikhathi samanje (__timeValue__) sokuthi __card__ sidlulile",
+    "after": "o humbudza uri tshifhinga tsha u fhedza (__timeValue__) tsha __card__ tsho fhira",
+    "reason": "Replace Zulu-seeded activity prose directly with Tshivenda. Preserve source token inventory, due-soon/now/past distinctions and checklist completion states. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "act-withDue",
+    "before": "__list__/__card__ izikhumbuzi ezifunekayo [__board__]",
+    "after": "__list__/__card__ khumbudzo dza tshifhinga tsha u fhedza [__board__]",
+    "reason": "Replace Zulu-seeded activity prose directly with Tshivenda. Preserve source token inventory, due-soon/now/past distinctions and checklist completion states. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "active-cron-jobs",
+    "before": "Imisebenzi Ehleliwe Esebenzayo",
+    "after": "Mishumo yo dzudzanywaho i shumaho",
+    "reason": "Replace Zulu-seeded activity prose directly with Tshivenda. Preserve source token inventory, due-soon/now/past distinctions and checklist completion states. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "activity-archived",
+    "before": "%s uyiswe kungobo yomlando",
+    "after": "%s yo iswa fhethu ha u vhulunga",
+    "reason": "Replace Zulu-seeded activity prose directly with Tshivenda. Preserve source token inventory, due-soon/now/past distinctions and checklist completion states. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "activity-changedListTitle",
+    "before": "uhlu oluqanjwe kabusha kwaba ngu-%s",
+    "after": "o shandula dzina ḽa mutevhe ḽa vha %s",
+    "reason": "Replace Zulu-seeded activity prose directly with Tshivenda. Preserve source token inventory, due-soon/now/past distinctions and checklist completion states. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "activity-checklist-completed",
+    "before": "uhlu lokuhlola oluqediwe %s lwe-%s",
+    "after": "o fhedza mutevhe wa u sedza %s wa %s",
+    "reason": "Replace Zulu-seeded activity prose directly with Tshivenda. Preserve source token inventory, due-soon/now/past distinctions and checklist completion states. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "activity-checklist-item-removed",
+    "before": "ususe into yohlu lokuhlola kokuthi '%s' kokuthi %s",
+    "after": "o susa tshithu kha mutevhe wa u sedza '%s' kha %s",
+    "reason": "Replace Zulu-seeded activity prose directly with Tshivenda. Preserve source token inventory, due-soon/now/past distinctions and checklist completion states. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "activity-checklist-removed",
+    "before": "ususe uhlu lokuhlola ku-%s",
+    "after": "o susa mutevhe wa u sedza kha %s",
+    "reason": "Replace Zulu-seeded activity prose directly with Tshivenda. Preserve source token inventory, due-soon/now/past distinctions and checklist completion states. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "activity-checklist-uncompleted",
+    "before": "akaqedanga uhlu lokuhlola %s luka-%s",
+    "after": "o swaya mutevhe wa u sedza %s wa %s sa u sa athu fhela",
+    "reason": "Replace Zulu-seeded activity prose directly with Tshivenda. Preserve source token inventory, due-soon/now/past distinctions and checklist completion states. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "activity-checklist-uncompleted-card",
+    "before": "akaqedanga uhlu lokuhlola %s",
+    "after": "o swaya mutevhe wa u sedza %s sa u sa athu fhela",
+    "reason": "Replace Zulu-seeded activity prose directly with Tshivenda. Preserve source token inventory, due-soon/now/past distinctions and checklist completion states. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "activity-customfield-created",
+    "before": "udale inkambu yangokwezifiso %s",
+    "after": "o sika fhethu ha data ho dzudzanywaho %s",
+    "reason": "Replace Zulu-seeded activity prose directly with Tshivenda. Preserve source token inventory, due-soon/now/past distinctions and checklist completion states. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "activity-dueDate",
+    "before": "ihlelwe idethi yamanqamu yaba ngu-%s ka-%s",
+    "after": "o shandula ḓuvha ḽa u fhedza ḽa vha %s ḽa %s",
+    "reason": "Replace Zulu-seeded activity prose directly with Tshivenda. Preserve source token inventory, due-soon/now/past distinctions and checklist completion states. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "activity-endDate",
+    "before": "idethi yokugcina ehleliwe yaba ngu-%s ka-%s",
+    "after": "o shandula ḓuvha ḽa u guma ḽa vha %s ḽa %s",
+    "reason": "Replace Zulu-seeded activity prose directly with Tshivenda. Preserve source token inventory, due-soon/now/past distinctions and checklist completion states. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "activity-excluded",
+    "before": "kukhishiwe ku-%s kusuka ku-%s",
+    "after": "o bvisa %s kha %s",
+    "reason": "Replace Zulu-seeded activity prose directly with Tshivenda. Preserve source token inventory, due-soon/now/past distinctions and checklist completion states. Low-confidence wording; fluent-speaker validation outstanding."
   }
 ]
