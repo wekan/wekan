@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 12,605 |
+| Corrected | 12,607 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 177 |
-| Pending review or repair | 3,240 |
+| Pending review or repair | 3,238 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Restored and unflagged values still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **13,189** exact before/after values, including repairs outside the audit.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **13,191** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `2044c8a2662f3a1fdfb0624c41f33da328b202e3` — Chichewa civil Hijri calendar label translated using existing tabular/starting-date wording. The civil-domain term and full phrase are low confidence and need native-speaker validation.
+Latest translation fix: **2026-09-13**, local commit `d99b0242944d328e41a39dc412d14f3517b12441` — two Setswana tabular Hijri calendar labels translated, preserving civil versus astronomical starting-date distinctions. Full phrases and calendar-domain terminology are low confidence and need native-speaker validation.
 
 **Verification:** correction and progress tests pass. Native-speaker and browser checks remain outstanding.
 
