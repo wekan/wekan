@@ -1245,6 +1245,18 @@ for this change.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/69582cb2c">Repair Veps user, creator and ended-status search wording</a>. Thanks to xet7.</summary>
+
+Replace ten Finnish values, resolving five original findings and five unflagged
+errors. Preserve member OR assignee, creator distinction, end-date status and
+default archive exclusion. Production Query and runtime tests verify localized
+terms and placeholders. All 16,935 exact correction checks pass. Technical
+grammar needs fluent review; 911 original findings and restored-value validation
+remain unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/1fe3558be">Repair Veps search operators and entity instructions</a>. Thanks to xet7.</summary>
 
 Replace eleven Finnish/mixed-language values, resolving six original findings
