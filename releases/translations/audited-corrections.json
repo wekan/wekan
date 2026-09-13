@@ -50713,5 +50713,61 @@
     "before": "Inserisci un valore limite positivo valido",
     "after": "Inserite un valore di limita pusitivu validu",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "attachment-transfer-limits-save-failed",
+    "before": "Impossibile salvare i limiti di trasferimento allegati",
+    "after": "Ùn hè statu pussibule d’arregistrà e limite di trasferimentu di l’allegati",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "attachment-transfer-limits-saved",
+    "before": "Limiti di trasferimento allegati salvati.",
+    "after": "Limite di trasferimentu di l’allegati arregistrate.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "auto-list-width",
+    "before": "Larghezza lista automatica ",
+    "after": "Larghezza autumatica di a lista",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "automatic-linked-url-schemes",
+    "before": "Schemi URL personalizzati che devono essere automaticamente cliccabili. Uno schema URL per riga",
+    "after": "Schemi URL persunalizati chì devenu esse clicchevuli autumaticamente. Un schema URL per linea",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "avatar-too-big",
+    "before": "L'avatar è troppo grande (__size__ max)",
+    "after": "L’avatar hè troppu grande (__size__ massimu)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "azure-account-key-menu-path",
+    "before": "Azure Portal → Storage accounts → il tuo account → Security + networking → Access keys → key1 → Show → Key.",
+    "after": "Azure Portal → Storage accounts → u vostru contu → Security + networking → Access keys → key1 → Show → Key.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "azure-account-name-description",
+    "before": "Il nome del tuo account Azure Storage.",
+    "after": "U nome di u vostru contu Azure Storage.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "azure-account-name-menu-path",
+    "before": "Azure Portal → Storage accounts → il tuo account → nome mostrato in alto (anche in Security + networking → Access keys → Storage account name).",
+    "after": "Azure Portal → Storage accounts → u vostru contu → nome affissatu in cima (ancu sottu Security + networking → Access keys → Storage account name).",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
