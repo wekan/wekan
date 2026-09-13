@@ -63369,5 +63369,75 @@
     "before": "Il n'y a actuellement aucun utilisateur verrouillé",
     "after": "N’eus implijer stanket ebet evit ar mare",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "accounts-lockout-settings",
+    "before": "Paramètres de protection contre la force brute",
+    "after": "Arventennoù gwareziñ ouzh an nerzh kriz",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "accounts-lockout-settings-updated",
+    "before": "Les paramètres de protection contre la force brute ont été mis à jour",
+    "after": "Hizivaet eo bet an arventennoù gwareziñ ouzh an nerzh kriz",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "accounts-lockout-show-locked-users",
+    "before": "Afficher les utilisateurs verrouillés seulement",
+    "after": "Diskouez an implijerien stanket hepken",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "accounts-lockout-unknown-users",
+    "before": "Paramètres pour les utilisateurs inconnus (utilisateur inexistant)",
+    "after": "Arventennoù evit an implijerien dianav (anv implijer n’eus ket anezhañ)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "accounts-lockout-user-locked",
+    "before": "L'utilisateur est verrouillé",
+    "after": "Stanket eo an implijer",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "accounts-lockout-user-unlocked",
+    "before": "L'utilisateur a été déverrouillé avec succès",
+    "after": "Distanket eo bet an implijer gant berzh",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "act-a-dueAt",
+    "before": "Echéance modifiée à\nQuand: __timeValue__\nOù: __card__\n L'échéance précédente était __timeOldValue__",
+    "after": "kemmet an eur termen da\nPegoulz : __timeValue__\nPelec’h : __card__\nAn eur termen a-raok a oa __timeOldValue__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "act-addAttachment",
+    "before": "a ajouté la pièce jointe __attachment__ à la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "ouzhpennet ar stagadenn __attachment__ d’ar gartenn __card__ er roll __list__ en trepas __swimlane__ en daolenn __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "act-addBoardMember",
+    "before": "a ajouté le participant __member__ au tableau __board__",
+    "after": "ouzhpennet an ezel __member__ d’an daolenn __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "act-addChecklist",
+    "before": "a ajouté la checklist __checklist__ à la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "ouzhpennet ar roll kontroll __checklist__ d’ar gartenn __card__ er roll __list__ en trepas __swimlane__ en daolenn __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
