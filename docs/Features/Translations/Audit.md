@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 12,148 |
+| Corrected | 12,153 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 3,698 |
+| Pending review or repair | 3,693 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,603** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,609** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `0112eb12a7d09dae0d62bb1148a07f042dc5ec79` — six French archive/restoration and membership messages repaired in Volapük using existing terminology and [Midgley vocabulary](https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf). Preserved activity retention, restoration location, deletion block, all-card member removal, notification and tokens; assembled wording remains low confidence.
+Latest translation fix: **2026-09-13**, local commit `307e1c8d052c1b0ab07271708660313cd90a4354` — six French history/permanent-deletion strings repaired in Volapük using [Midgley vocabulary](https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) and existing terminology. Preserved history destruction, all-object removal, inability to reopen/recover and absence of undo; activity-feed adaptation and assembled grammar remain low confidence.
 
 **Verification:** exact values, placeholders, JSON examples, key order and progress-update checks pass. Native-speaker and browser verification remain unavailable.
 
