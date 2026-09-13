@@ -90004,5 +90004,68 @@
     "before": "Kads plu tima",
     "after": "Kads labü tim läyümik",
     "reason": "Repair French time-tracking labels and inconsistent related board summaries in Volapük. Preserve spent-time versus overtime flag, hour units, presence conditions, edit action, whole-board total and OS time-since-start meaning. Models/cards.js defines spentTime/isOvertime independently; cardDetails.jade/cardTime.js select matching labels. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests düp (hour), läyümik (additional), and existing tim/gebön/votükön/prim vocabulary. Overtime/uptime software paraphrases and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "error-board-notAMember",
+    "before": "Vous devez être participant de ce tableau pour faire cela",
+    "after": "Mutol binön liman taba at ad dunön atosi",
+    "reason": "Repair audited French board access/membership, invitation email, dropdown and archive navigation messages in Volapük. Preserve required member/admin roles, login error, leave/all-card removal, duplication confirmation, Enter/add-more action, invitation placeholders/newlines and current localized menu/archive controls. Existing Volapük terminology and Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf (vüdön invite, kevobön cooperate, sökön follow, lüvön leave, guvan administrator). Archive-header/control and assembled software wording remain low confidence; no native-speaker/browser verification."
+  },
+  {
+    "locale": "vo",
+    "key": "error-board-notAdmin",
+    "before": "Vous devez être administrateur de ce tableau pour faire cela",
+    "after": "Mutol binön guvan taba at ad dunön atosi",
+    "reason": "Repair audited French board access/membership, invitation email, dropdown and archive navigation messages in Volapük. Preserve required member/admin roles, login error, leave/all-card removal, duplication confirmation, Enter/add-more action, invitation placeholders/newlines and current localized menu/archive controls. Existing Volapük terminology and Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf (vüdön invite, kevobön cooperate, sökön follow, lüvön leave, guvan administrator). Archive-header/control and assembled software wording remain low confidence; no native-speaker/browser verification."
+  },
+  {
+    "locale": "vo",
+    "key": "error-ldap-login",
+    "before": "Une erreur s'est produite lors de la tentative de connexion",
+    "after": "Pöl ejenon dü steifül ad nunädön oki",
+    "reason": "Repair audited French board access/membership, invitation email, dropdown and archive navigation messages in Volapük. Preserve required member/admin roles, login error, leave/all-card removal, duplication confirmation, Enter/add-more action, invitation placeholders/newlines and current localized menu/archive controls. Existing Volapük terminology and Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf (vüdön invite, kevobön cooperate, sökön follow, lüvön leave, guvan administrator). Archive-header/control and assembled software wording remain low confidence; no native-speaker/browser verification."
+  },
+  {
+    "locale": "vo",
+    "key": "leave-board-pop",
+    "before": "Êtes-vous sur de vouloir quitter __boardTitle__ ? Vous ne serez plus associé aux cartes de ce tableau.",
+    "after": "Fümol-li, das vilol lüvön __boardTitle__? Pomoükol de kads valik su tab at.",
+    "reason": "Repair audited French board access/membership, invitation email, dropdown and archive navigation messages in Volapük. Preserve required member/admin roles, login error, leave/all-card removal, duplication confirmation, Enter/add-more action, invitation placeholders/newlines and current localized menu/archive controls. Existing Volapük terminology and Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf (vüdön invite, kevobön cooperate, sökön follow, lüvön leave, guvan administrator). Archive-header/control and assembled software wording remain low confidence; no native-speaker/browser verification."
+  },
+  {
+    "locale": "vo",
+    "key": "duplicate-board-confirm",
+    "before": "Êtes-vous sûr de vouloir dupliquer ce tableau ?",
+    "after": "Fümol-li, das vilol kopiedön tabi at?",
+    "reason": "Repair audited French board access/membership, invitation email, dropdown and archive navigation messages in Volapük. Preserve required member/admin roles, login error, leave/all-card removal, duplication confirmation, Enter/add-more action, invitation placeholders/newlines and current localized menu/archive controls. Existing Volapük terminology and Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf (vüdön invite, kevobön cooperate, sökön follow, lüvön leave, guvan administrator). Archive-header/control and assembled software wording remain low confidence; no native-speaker/browser verification."
+  },
+  {
+    "locale": "vo",
+    "key": "custom-field-dropdown-options-placeholder",
+    "before": "Appuyez sur Entrée pour ajouter d'autres options",
+    "after": "Gebön klavi: Enter ad lüükön välis pluik",
+    "reason": "Repair audited French board access/membership, invitation email, dropdown and archive navigation messages in Volapük. Preserve required member/admin roles, login error, leave/all-card removal, duplication confirmation, Enter/add-more action, invitation placeholders/newlines and current localized menu/archive controls. Existing Volapük terminology and Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf (vüdön invite, kevobön cooperate, sökön follow, lüvön leave, guvan administrator). Archive-header/control and assembled software wording remain low confidence; no native-speaker/browser verification."
+  },
+  {
+    "locale": "vo",
+    "key": "email-invite-register-text",
+    "before": "Cher/Chère __user__,\n\n__inviter__ vous invite à le rejoindre sur le tableau kanban pour collaborer.\n\nVeuillez suivre le lien ci-dessous :\n__url__\n\nVotre code d'invitation est : __icode__\n\nMerci.",
+    "after": "Löfik __user__,\n\n__inviter__ vüdon oli lü tab kanban ad kevobön.\n\nBegö! Sökolös yümi dono:\n__url__\n\nKot vüda olik binon: __icode__\n\nDanö.",
+    "reason": "Repair audited French board access/membership, invitation email, dropdown and archive navigation messages in Volapük. Preserve required member/admin roles, login error, leave/all-card removal, duplication confirmation, Enter/add-more action, invitation placeholders/newlines and current localized menu/archive controls. Existing Volapük terminology and Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf (vüdön invite, kevobön cooperate, sökön follow, lüvön leave, guvan administrator). Archive-header/control and assembled software wording remain low confidence; no native-speaker/browser verification."
+  },
+  {
+    "locale": "vo",
+    "key": "list-archive-cards-pop",
+    "before": "Cela supprimera du tableau toutes les cartes de cette liste. Pour voir les cartes archivées et les renvoyer vers le tableau, cliquez sur « Menu » puis « Archives ».",
+    "after": "Kads valik in lised at pomoükons de tab. Ad logön kadis in ragiv e topätükön onis dönu lü tab, klikolös «Lised välas» > «Topätükön lü ragiv».",
+    "reason": "Repair audited French board access/membership, invitation email, dropdown and archive navigation messages in Volapük. Preserve required member/admin roles, login error, leave/all-card removal, duplication confirmation, Enter/add-more action, invitation placeholders/newlines and current localized menu/archive controls. Existing Volapük terminology and Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf (vüdön invite, kevobön cooperate, sökön follow, lüvön leave, guvan administrator). Archive-header/control and assembled software wording remain low confidence; no native-speaker/browser verification."
+  },
+  {
+    "locale": "vo",
+    "key": "close-board-pop",
+    "before": "Vous pouvez restaurer le tableau en cliquant sur le bouton « Archives » depuis le menu en entête.",
+    "after": "Okanol sädunön ragivami taba me klikön su «Topätükön lü ragiv» in tiäd pada primik.",
+    "reason": "Repair audited French board access/membership, invitation email, dropdown and archive navigation messages in Volapük. Preserve required member/admin roles, login error, leave/all-card removal, duplication confirmation, Enter/add-more action, invitation placeholders/newlines and current localized menu/archive controls. Existing Volapük terminology and Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf (vüdön invite, kevobön cooperate, sökön follow, lüvön leave, guvan administrator). Archive-header/control and assembled software wording remain low confidence; no native-speaker/browser verification."
   }
 ]
