@@ -843,6 +843,18 @@ verification remains in progress.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/98d473caf">Find current ARM64 Chrome in Node E2E containers</a>. Thanks to xet7.</summary>
+
+Playwright 1.63.0 names its ARM64 Chrome directory chrome-linux-arm64.
+Discover executable Chrome in that directory and the previous Linux and
+Linux64 layouts, instead of failing before Node E2E tests can start.
+Executable filesystem regressions cover all three layouts and reject
+missing browsers, non-executable files and crashpad helpers. They pass;
+full Node E2E verification remains in progress.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/ebd45deb1">Own the actual test server processes</a>. Thanks to xet7.</summary>
 
 Background launchers recorded wrapper shells instead of their Node and
