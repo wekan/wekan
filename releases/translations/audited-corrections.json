@@ -103409,5 +103409,110 @@
     "before": "Ikhadi elithi __card__ ohlwini __list__ ku-swimlane __swimlane__ ebhodini __board__ liyiswe kungobo yomlando",
     "after": "Khadi __card__ kha mutevhe __list__ kha ḽaini __swimlane__ kha bodo ya Kanban __board__ ḽo iswa fhethu ha u vhulunga",
     "reason": "Replace Zulu-seeded activity prose directly with Tshivenda; preserve source placeholders and kanban context. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "act-archivedList",
+    "before": "Uhlu okuthi __list__ ku-swimlane __swimlane__ ebhodini __board__ luyiswe kungobo yomlando",
+    "after": "Mutevhe __list__ kha ḽaini __swimlane__ kha bodo ya Kanban __board__ wo iswa fhethu ha u vhulunga",
+    "reason": "Replace Zulu-seeded activity prose directly with Tshivenda; preserve completed actions, board/list/lane context and source placeholders. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "act-archivedSwimlane",
+    "before": "I-Swimlane __swimlane__ ebhodini __board__ ihanjiswe Kungobo yomlando",
+    "after": "Ḽaini __swimlane__ kha bodo ya Kanban __board__ ḽo iswa fhethu ha u vhulunga",
+    "reason": "Replace Zulu-seeded activity prose directly with Tshivenda; preserve completed actions, board/list/lane context and source placeholders. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "act-atUserComment",
+    "before": "ukhulume ngawe ekhadini elithi __card__: __comment__ ohlwini __list__ ku-swimlane __swimlane__ ebhodini __board__",
+    "after": "o amba nga inwi kha khadi __card__: __comment__ kha mutevhe __list__ kha ḽaini __swimlane__ kha bodo ya Kanban __board__",
+    "reason": "Replace Zulu-seeded activity prose directly with Tshivenda; preserve completed actions, board/list/lane context and source placeholders. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "act-checkedItem",
+    "before": "kuhlolwe u-__checklistItem__ wohlu lokuhlola __checklist__ ekhadini __card__ ohlwini __list__ ku-swimlane __swimlane__ ebhodini __board__",
+    "after": "o swaya __checklistItem__ kha mutevhe wa u sedza __checklist__ kha khadi __card__ kha mutevhe __list__ kha ḽaini __swimlane__ kha bodo ya Kanban __board__",
+    "reason": "Replace Zulu-seeded activity prose directly with Tshivenda; preserve completed actions, board/list/lane context and source placeholders. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "act-completeChecklist",
+    "before": "uhlu lokuhlola olugcwalisiwe __checklist__ ekhadini __card__ ohlwini __list__ ku-swimlane __swimlane__ ebhodini __board__",
+    "after": "o fhedza mutevhe wa u sedza __checklist__ kha khadi __card__ kha mutevhe __list__ kha ḽaini __swimlane__ kha bodo ya Kanban __board__",
+    "reason": "Replace Zulu-seeded activity prose directly with Tshivenda; preserve completed actions, board/list/lane context and source placeholders. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "act-createCard",
+    "before": "udale ikhadi __card__ ukuze ufake ohlwini __list__ ku-swimlane __swimlane__ ebhodini __board__",
+    "after": "o sika khadi __card__ kha mutevhe __list__ kha ḽaini __swimlane__ kha bodo ya Kanban __board__",
+    "reason": "Replace Zulu-seeded activity prose directly with Tshivenda; preserve completed actions, board/list/lane context and source placeholders. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "act-createCustomField",
+    "before": "udale inkambu yangokwezifiso __customField__ ebhodini __board__",
+    "after": "o sika fhethu ha data ho dzudzanywaho __customField__ kha bodo ya Kanban __board__",
+    "reason": "Replace Zulu-seeded activity prose directly with Tshivenda; preserve completed actions, board/list/lane context and source placeholders. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "act-deleteAttachment",
+    "before": "okunamathiselwe kususiwe __attachment__ ekhadini __card__ ohlwini __list__ ku-swimlane __swimlane__ ebhodini __board__",
+    "after": "o susa ṱumetshedzo __attachment__ kha khadi __card__ kha mutevhe __list__ kha ḽaini __swimlane__ kha bodo ya Kanban __board__",
+    "reason": "Replace Zulu-seeded activity prose directly with Tshivenda; preserve completed actions, board/list/lane context and source placeholders. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "act-deleteComment",
+    "before": "ususiwe amazwana ekhadini __card__: __comment__ ohlwini __list__ ku-swimlane __swimlane__ ebhodini __board__",
+    "after": "o susa muhumbulo kha khadi __card__: __comment__ kha mutevhe __list__ kha ḽaini __swimlane__ kha bodo ya Kanban __board__",
+    "reason": "Replace Zulu-seeded activity prose directly with Tshivenda; preserve completed actions, board/list/lane context and source placeholders. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "act-deleteCustomField",
+    "before": "kususwe inkambu yangokwezifiso __customField__ ebhodini __board__",
+    "after": "o susa fhethu ha data ho dzudzanywaho __customField__ kha bodo ya Kanban __board__",
+    "reason": "Replace Zulu-seeded activity prose directly with Tshivenda; preserve completed actions, board/list/lane context and source placeholders. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "act-editComment",
+    "before": "amazwana ahleliwe ekhadini __card__: __comment__ ohlwini __list__ ku-swimlane __swimlane__ ebhodini __board__",
+    "after": "o khwinisa muhumbulo kha khadi __card__: __comment__ kha mutevhe __list__ kha ḽaini __swimlane__ kha bodo ya Kanban __board__",
+    "reason": "Replace Zulu-seeded activity prose directly with Tshivenda; preserve completed actions, board/list/lane context and source placeholders. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "act-importCard",
+    "before": "ikhadi elingenisiwe __card__ ukufaka ohlwini __list__ ku-swimlane __swimlane__ ebhodini __board__",
+    "after": "o dzhenisa khadi __card__ kha mutevhe __list__ kha ḽaini __swimlane__ kha bodo ya Kanban __board__",
+    "reason": "Replace Zulu-seeded activity prose directly with Tshivenda; preserve completed actions, board/list/lane context and source placeholders. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "act-importList",
+    "before": "uhlu olungenisiwe __list__ ku-swimlane __swimlane__ ebhodini __board__",
+    "after": "o dzhenisa mutevhe __list__ kha ḽaini __swimlane__ kha bodo ya Kanban __board__",
+    "reason": "Replace Zulu-seeded activity prose directly with Tshivenda; preserve completed actions, board/list/lane context and source placeholders. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "act-joinMember",
+    "before": "wengeze ilungu elithi __member__ ekhadini elithi __card__ ohlwini __list__ ku-swimlane __swimlane__ ebhodini __board__",
+    "after": "o engedza muraḓo __member__ kha khadi __card__ kha mutevhe __list__ kha ḽaini __swimlane__ kha bodo ya Kanban __board__",
+    "reason": "Replace Zulu-seeded activity prose directly with Tshivenda; preserve completed actions, board/list/lane context and source placeholders. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "act-moveCard",
+    "before": "kuhanjiswe ikhadi __card__ ebhodini __board__ ohlwini __oldList__ ku-swimlane __oldSwimlane__ ukuze kufakwe ohlwini __list__ ku-swimlane __swimlane__",
+    "after": "o pfulusa khadi __card__ kha bodo ya Kanban __board__ u bva kha mutevhe __oldList__ kha ḽaini __oldSwimlane__ u ya kha mutevhe __list__ kha ḽaini __swimlane__",
+    "reason": "Replace Zulu-seeded activity prose directly with Tshivenda; preserve completed actions, board/list/lane context and source placeholders. Low-confidence wording; fluent-speaker validation outstanding."
   }
 ]
