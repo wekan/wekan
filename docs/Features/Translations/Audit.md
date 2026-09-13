@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,101 |
+| Corrected | 15,102 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 743 |
+| Pending review or repair | 742 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,214** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,215** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `2ec5ad0e3` — replaced the English Sakha Saudi sighting-calendar label, preserving the country and moon-observation qualifiers. All **17,214** exact correction/rendering checks pass. The original queue has **743** pending findings; Sakha’s original queue is empty. **Low confidence:** composed moon-observation wording, its case and adaptation to crescent sighting need fluent technical review; CLDR’s Islamic base is provisional. Wider restored, unflagged and low-confidence validation remains unfinished. Live browser verification was not run; no translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `160e02ae3` — replaced the English Bambara Hebrew-calendar label with dictionary-attested Jewish terminology and existing calendar wording. All **17,215** exact correction/rendering checks pass. The original queue has **742** pending findings, including four Bambara calendar labels. **Low confidence:** the composed Jewish-calendar name needs fluent technical review. Sakha’s original queue is empty, but its composed calendar wording remains under review. Wider restored, unflagged and low-confidence validation remains unfinished. Live browser verification was not run; no translations were pushed.
 
 **Language validation (2026-09-14), local commit `e4e3aa590`:** Wiktionary’s Veps transitive inflection tables confirm `surenda` (make larger) and `penenda` (make smaller) as second-person singular commands. Their imperative morphology is now reference-supported; screen-zoom usage remains open. The original keyboard findings remain unresolved: searches and the cached dictionary did not establish reliable keyboard-shortcut terminology. Counts are unchanged. References and the remaining scope are recorded per key in the correction ledger.
 

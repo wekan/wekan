@@ -80,9 +80,9 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,101 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 743 pending review or repair.
-The correction inventory records 17,214 exact before/after values,
+findings: 15,102 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 742 pending review or repair.
+The correction inventory records 17,215 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
@@ -100,11 +100,12 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383540a; translation repairs have resumed.
-Latest translation fix is 2ec5ad0e3 (2026-09-14), replacing the English Sakha
-Saudi sighting label with country and moon-observation qualifiers. Sakha’s
-original queue is empty; fluent technical review of its composed calendar
-terminology remains required. The original Neapolitan queue is empty.
-All correction/rendering checks pass; low-confidence wording remains tracked.
+Latest translation fix is 160e02ae3 (2026-09-14), replacing the English Bambara
+Hebrew-calendar label using dictionary-attested Jewish terminology. Four
+Bambara calendar findings remain. Sakha’s original queue is empty; fluent
+technical review of composed terminology remains required. The original
+Neapolitan queue is empty. All correction/rendering checks pass;
+low-confidence wording remains tracked.
 Member assignment popup handlers need separate review for apparent reversed
 operations. The 1,015-suite Node result is historical and predates the latest batches.
 
@@ -642,6 +643,17 @@ The audit records 749 pending original findings and wider unfinished validation.
 This release adds the following translation improvements:
 
 **Translations** - Locale wording repairs and remaining audit progress.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/160e02ae3">Repair Bambara Hebrew-calendar wording</a>. Thanks to xet7.</summary>
+
+Replace the English label using dictionary-attested Jewish terminology and
+existing Bambara calendar wording. All 17,215 correction checks pass.
+The composed calendar name needs fluent technical review. Four original
+Bambara findings and 742 original findings overall remain pending.
+Live browser verification was not run.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/2ec5ad0e3">Repair Sakha Saudi sighting-calendar wording</a>. Thanks to xet7.</summary>
