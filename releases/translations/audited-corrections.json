@@ -85286,5 +85286,40 @@
     "before": "Republic of China",
     "after": "Ikhalenda ye-Minguo",
     "reason": "Replace foreign setting and English calendar labels with Northern Ndebele, using existing Ikhalenda/Ilanga terminology and preserving Dangi/Hijri/Umm al-Qura/Minguo identities. Exact Ikhalenda YamaHebheru attested at https://wol.jw.org/nd/wol/d/r357/lp-nbz/1001061237 . Other assembled setting/label grammar remains low confidence; religious/country/tabular variant labels remain pending. nd is Northern Ndebele, not Southern Ndebele nr."
+  },
+  {
+    "locale": "nd",
+    "key": "calendar-system-jalali",
+    "before": "Jalali (Fars)",
+    "after": "Ikhalenda ye-Jalali (yasePhesiya)",
+    "reason": "Replace English country calendar labels and foreign Fars wording with Northern Ndebele descriptions, preserving Jalali and Amete Alem identities. Phesiya/yasePhesiya attested at https://www.jw.org/nd/izinto-ezikhona/amabhuku/okufundiswa-libhayibhili/liyini-ibhayibhili-ilizwi-likankulunkulu/ . Existing local Ikhalenda terminology retained. Other country searches returned English rather than native attestation; retained China/Japan/Ethiopia spellings and complete assembled grammar remain low confidence. Religious/national and Hijri variants remain pending."
+  },
+  {
+    "locale": "nd",
+    "key": "calendar-system-chinese",
+    "before": "Chinese",
+    "after": "Ikhalenda yaseChina",
+    "reason": "Replace English country calendar labels and foreign Fars wording with Northern Ndebele descriptions, preserving Jalali and Amete Alem identities. Phesiya/yasePhesiya attested at https://www.jw.org/nd/izinto-ezikhona/amabhuku/okufundiswa-libhayibhili/liyini-ibhayibhili-ilizwi-likankulunkulu/ . Existing local Ikhalenda terminology retained. Other country searches returned English rather than native attestation; retained China/Japan/Ethiopia spellings and complete assembled grammar remain low confidence. Religious/national and Hijri variants remain pending."
+  },
+  {
+    "locale": "nd",
+    "key": "calendar-system-japanese",
+    "before": "Japanese",
+    "after": "Ikhalenda yaseJapan",
+    "reason": "Replace English country calendar labels and foreign Fars wording with Northern Ndebele descriptions, preserving Jalali and Amete Alem identities. Phesiya/yasePhesiya attested at https://www.jw.org/nd/izinto-ezikhona/amabhuku/okufundiswa-libhayibhili/liyini-ibhayibhili-ilizwi-likankulunkulu/ . Existing local Ikhalenda terminology retained. Other country searches returned English rather than native attestation; retained China/Japan/Ethiopia spellings and complete assembled grammar remain low confidence. Religious/national and Hijri variants remain pending."
+  },
+  {
+    "locale": "nd",
+    "key": "calendar-system-ethiopic",
+    "before": "Ethiopic",
+    "after": "Ikhalenda yaseEthiopia",
+    "reason": "Replace English country calendar labels and foreign Fars wording with Northern Ndebele descriptions, preserving Jalali and Amete Alem identities. Phesiya/yasePhesiya attested at https://www.jw.org/nd/izinto-ezikhona/amabhuku/okufundiswa-libhayibhili/liyini-ibhayibhili-ilizwi-likankulunkulu/ . Existing local Ikhalenda terminology retained. Other country searches returned English rather than native attestation; retained China/Japan/Ethiopia spellings and complete assembled grammar remain low confidence. Religious/national and Hijri variants remain pending."
+  },
+  {
+    "locale": "nd",
+    "key": "calendar-system-ethioaa",
+    "before": "Ethiopic Amete Alem",
+    "after": "Ikhalenda ye-Amete Alem yaseEthiopia",
+    "reason": "Replace English country calendar labels and foreign Fars wording with Northern Ndebele descriptions, preserving Jalali and Amete Alem identities. Phesiya/yasePhesiya attested at https://www.jw.org/nd/izinto-ezikhona/amabhuku/okufundiswa-libhayibhili/liyini-ibhayibhili-ilizwi-likankulunkulu/ . Existing local Ikhalenda terminology retained. Other country searches returned English rather than native attestation; retained China/Japan/Ethiopia spellings and complete assembled grammar remain low confidence. Religious/national and Hijri variants remain pending."
   }
 ]
