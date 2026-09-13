@@ -80267,5 +80267,117 @@
     "before": "Supprimer le participant",
     "after": "Génne bokkkat bi",
     "reason": "Replace French role/member/assignee labels with Wolof using established bokkkat/sas/saytukat terminology. Preserve read-only and assigned-only scopes and member removal rather than deletion. Retain existing Ordineer Normal role label; revise earlier uncertain bu yoon description to reference this actual label. Full grammar and role terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "add-checklist",
+    "before": "Ajouter une checklist",
+    "after": "Yokk limu bu seetlu",
+    "reason": "Replace French checklist controls and mixed-language item counts with Wolof using existing limu bu seetlu terminology. Preserve adding/removing/copying/moving/converting actions, checklist versus item counts, literal (0/0) and minicard scope. Full grammar and computing adaptations remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "checklist",
+    "before": "Check-list",
+    "after": "Limu bu seetlu",
+    "reason": "Replace French checklist controls and mixed-language item counts with Wolof using existing limu bu seetlu terminology. Preserve adding/removing/copying/moving/converting actions, checklist versus item counts, literal (0/0) and minicard scope. Full grammar and computing adaptations remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "checklists",
+    "before": "Check-lists",
+    "after": "Limu yu seetlu yi",
+    "reason": "Replace French checklist controls and mixed-language item counts with Wolof using existing limu bu seetlu terminology. Preserve adding/removing/copying/moving/converting actions, checklist versus item counts, literal (0/0) and minicard scope. Full grammar and computing adaptations remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "checklistDeletePopup-title",
+    "before": "Supprimer la checklist ?",
+    "after": "Far limu bu seetlu bi?",
+    "reason": "Replace French checklist controls and mixed-language item counts with Wolof using existing limu bu seetlu terminology. Preserve adding/removing/copying/moving/converting actions, checklist versus item counts, literal (0/0) and minicard scope. Full grammar and computing adaptations remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "checklistActionsPopup-title",
+    "before": "Actions sur la checklist",
+    "after": "Jëf yi ci limu bu seetlu bi",
+    "reason": "Replace French checklist controls and mixed-language item counts with Wolof using existing limu bu seetlu terminology. Preserve adding/removing/copying/moving/converting actions, checklist versus item counts, literal (0/0) and minicard scope. Full grammar and computing adaptations remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "moveChecklist",
+    "before": "Déplacer la checklist",
+    "after": "Yóbbu limu bu seetlu bi",
+    "reason": "Replace French checklist controls and mixed-language item counts with Wolof using existing limu bu seetlu terminology. Preserve adding/removing/copying/moving/converting actions, checklist versus item counts, literal (0/0) and minicard scope. Full grammar and computing adaptations remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "moveChecklistPopup-title",
+    "before": "Déplacer la checklist",
+    "after": "Yóbbu limu bu seetlu bi",
+    "reason": "Replace French checklist controls and mixed-language item counts with Wolof using existing limu bu seetlu terminology. Preserve adding/removing/copying/moving/converting actions, checklist versus item counts, literal (0/0) and minicard scope. Full grammar and computing adaptations remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "copyChecklist",
+    "before": "Copier la checklist",
+    "after": "Sotti limu bu seetlu bi",
+    "reason": "Replace French checklist controls and mixed-language item counts with Wolof using existing limu bu seetlu terminology. Preserve adding/removing/copying/moving/converting actions, checklist versus item counts, literal (0/0) and minicard scope. Full grammar and computing adaptations remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "copyChecklistPopup-title",
+    "before": "Copier la checklist",
+    "after": "Sotti limu bu seetlu bi",
+    "reason": "Replace French checklist controls and mixed-language item counts with Wolof using existing limu bu seetlu terminology. Preserve adding/removing/copying/moving/converting actions, checklist versus item counts, literal (0/0) and minicard scope. Full grammar and computing adaptations remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "convertChecklistItemToCardPopup-title",
+    "before": "Convertir en carte",
+    "after": "Soppi mu nekk karta",
+    "reason": "Replace French checklist controls and mixed-language item counts with Wolof using existing limu bu seetlu terminology. Preserve adding/removing/copying/moving/converting actions, checklist versus item counts, literal (0/0) and minicard scope. Full grammar and computing adaptations remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "r-d-add-checklist",
+    "before": "Ajouter une checklist",
+    "after": "Yokk limu bu seetlu",
+    "reason": "Replace French checklist controls and mixed-language item counts with Wolof using existing limu bu seetlu terminology. Preserve adding/removing/copying/moving/converting actions, checklist versus item counts, literal (0/0) and minicard scope. Full grammar and computing adaptations remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "r-add-checklist",
+    "before": "Ajouter une checklist",
+    "after": "Yokk limu bu seetlu",
+    "reason": "Replace French checklist controls and mixed-language item counts with Wolof using existing limu bu seetlu terminology. Preserve adding/removing/copying/moving/converting actions, checklist versus item counts, literal (0/0) and minicard scope. Full grammar and computing adaptations remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "r-d-remove-checklist",
+    "before": "Supprimer la checklist",
+    "after": "Far limu bu seetlu bi",
+    "reason": "Replace French checklist controls and mixed-language item counts with Wolof using existing limu bu seetlu terminology. Preserve adding/removing/copying/moving/converting actions, checklist versus item counts, literal (0/0) and minicard scope. Full grammar and computing adaptations remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "r-w-checklist-added",
+    "before": "Ñu yokk benn checklist",
+    "after": "Ñu yokk benn limu bu seetlu",
+    "reason": "Replace French checklist controls and mixed-language item counts with Wolof using existing limu bu seetlu terminology. Preserve adding/removing/copying/moving/converting actions, checklist versus item counts, literal (0/0) and minicard scope. Full grammar and computing adaptations remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "checklist-count",
+    "before": "Limu items yu checklist (0/0)",
+    "after": "Limu mbiri limu bu seetlu bi (0/0)",
+    "reason": "Replace French checklist controls and mixed-language item counts with Wolof using existing limu bu seetlu terminology. Preserve adding/removing/copying/moving/converting actions, checklist versus item counts, literal (0/0) and minicard scope. Full grammar and computing adaptations remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "checklist-count-on-minicard",
+    "before": "Limu items yu checklist (0/0) ci mini-kart",
+    "after": "Limu mbiri limu bu seetlu bi (0/0) ci karta bu ndaw bi",
+    "reason": "Replace French checklist controls and mixed-language item counts with Wolof using existing limu bu seetlu terminology. Preserve adding/removing/copying/moving/converting actions, checklist versus item counts, literal (0/0) and minicard scope. Full grammar and computing adaptations remain low confidence."
   }
 ]
