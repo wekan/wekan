@@ -66,6 +66,49 @@ const root = path.resolve(__dirname, '..');
   assert.match(result.failures[0].reason, /Could not add language/);
   assert.match(result.failures[1].reason, /Parser failure/);
   assert.ok(calls.find(row => row.url.endsWith('/relationships/languages') && row.body.data[0].id === 'l:unknown'), 'unsupported catalogue code was attempted');
+  // A prior unsupported result must never exclude a target from later runs.
+  const retryCodes = ['gv', 'lld', 'rup', 'tig', 'wal'];
+  const retryLanguages = retryCodes.map(code => ({file: code, code}));
+  const registered = new Set();
+  let catalogueAvailable = false;
+  let additions = [], uploads = [];
+  const retryRequest = async (method, url, body) => {
+    if (method === 'GET' && url === '/projects/o:wekan:p:wekan/languages') {
+      return {data: [...registered].map(code => ({id: `l:${code}`}))};
+    }
+    if (url.endsWith('/relationships/languages')) {
+      const code = body.data[0].id.replace(/^l:/, '');
+      additions.push(code);
+      if (!catalogueAvailable) throw Object.assign(Error('No Language resource found'), {status: 404});
+      registered.add(code);
+      return null;
+    }
+    if (url === '/resource_strings_async_uploads') return {data: {attributes: {status: 'succeeded'}}};
+    if (url === '/resource_translations_async_uploads') {
+      uploads.push(body.data.relationships.language.data.id.replace(/^l:/, ''));
+      assert.equal(body.data.attributes.content, content);
+      return {data: {attributes: {status: 'succeeded'}}};
+    }
+    throw Error(`Unexpected retry request ${method} ${url}`);
+  };
+  const retryRun = () => pushTranslations({config, languages: retryLanguages,
+    request: retryRequest, readContent: () => content, sleep: async () => {}, log() {}});
+  const unsupportedRun = await retryRun();
+  assert.deepEqual(unsupportedRun.failures.map(row => row.code), retryCodes);
+  assert.deepEqual(additions, retryCodes);
+  assert.deepEqual(uploads, [], 'failed registration prevents that upload');
+  catalogueAvailable = true;
+  additions = []; uploads = [];
+  const supportedRun = await retryRun();
+  assert.deepEqual(supportedRun.failures, []);
+  assert.deepEqual(additions, retryCodes, 'retry every formerly unsupported language once support is added');
+  assert.deepEqual(uploads, retryCodes, 'newly added targets receive their full local translations');
+  assert.deepEqual(supportedRun.succeeded.map(row => row.code), ['en', ...retryCodes]);
+  additions = []; uploads = [];
+  const existingRun = await retryRun();
+  assert.deepEqual(existingRun.failures, []);
+  assert.deepEqual(additions, [], 'already registered targets are retained');
+  assert.deepEqual(uploads, retryCodes, 'later runs still overwrite all existing targets');
   const none = await pushTranslations({ config, languages: [{ file: 'fi', code: 'fi_FI' }], request: async () => { throw Error('source failure'); }, readContent: () => content, sleep: async () => {}, log() {} });
   assert.equal(none.failures.length, 2, 'source failure reports every unpushed language');
   await assert.rejects(uploadFile({ request: async () => ({ data: { id: 'pending', attributes: { status: 'pending' } } }), resource: 'r', content, source: true, maxPolls: 2, sleep: async () => {} }), /polling limit/);

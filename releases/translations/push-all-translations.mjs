@@ -63,6 +63,7 @@ export async function pushTranslations({ config, languages, request, readContent
     for (const language of languages) failures.push({ ...language, reason: 'Not uploaded because the source upload failed' });
     return { succeeded, failures };
   }
+  // Refresh on every invocation; prior failure reports never suppress retries.
   const existing = new Set();
   try {
     let url = `/projects/${project}/languages`;

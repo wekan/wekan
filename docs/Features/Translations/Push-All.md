@@ -46,7 +46,13 @@ Missing project targets are added using the additive language-relationship API;
 existing project languages are retained. The supported Transifex API cannot create
 an arbitrary new language in its global language catalogue. Unknown codes are
 still attempted as project additions, then reported if Transifex rejects them.
-Correct their mapping or request catalogue support from Transifex and rerun.
+Correct their mapping or request catalogue support from Transifex and rerun. Each run
+fetches current project languages and attempts every local target again. Previous
+failure reports are output only; they are never read as a skip list. Once Transifex
+supports a previously missing code, the next run adds it to the project and uploads
+its full local translation. Already-added languages are uploaded again without
+another registration. If Transifex chooses a different code, update `.tx/config`
+to that supported code before rerunning. No background retries occur between runs.
 
 The upload implementation follows the [Transifex API v3 documentation](https://transifex.github.io/openapi/).
 It bypasses the CLI's timestamp skip rather than using an undocumented force
