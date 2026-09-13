@@ -89101,5 +89101,215 @@
     "before": "Les paramètres de protection contre la force brute ont été mis à jour",
     "after": "Väls jela ta tataks me blufs letavödas mödik penulükons",
     "reason": "Repair French account-protection descriptions and clarify the failure-counting time window. Explain brute-force login attacks as testing many passwords rather than literal physical force. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests jel/jelön, tatak, bluf, vio, nulükön and vütim; retain existing login/password/settings terminology. Software paraphrase, update adaptation and assembled wording remain low confidence; no native-speaker verification. Failure-window context inspected in server/accounts-lockout-config.js and client/components/settings/peopleBody.jade."
+  },
+  {
+    "locale": "vo",
+    "key": "swimlane",
+    "before": "Svimalün",
+    "after": "Dil horitätik",
+    "reason": "Repair swimlane labels/activity messages and replace Svimalün consistently with descriptive dil horitätik (horizontal part). Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests horitätik (horizontal), dil (part), lün (spectacles), and existing create/add/remove/mark/complete/move/archive/import/export vocabulary. Preserve source placeholders, entity identities, old/new movement directions, completed/undo-mark/undo-completion distinctions and field/label actions. Descriptive software terminology and assembled phrases remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "swimlanes",
+    "before": "Svimalüns",
+    "after": "Dils horitätik",
+    "reason": "Repair swimlane labels/activity messages and replace Svimalün consistently with descriptive dil horitätik (horizontal part). Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests horitätik (horizontal), dil (part), lün (spectacles), and existing create/add/remove/mark/complete/move/archive/import/export vocabulary. Preserve source placeholders, entity identities, old/new movement directions, completed/undo-mark/undo-completion distinctions and field/label actions. Descriptive software terminology and assembled phrases remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "add-swimlane",
+    "before": "Ajouter un couloir",
+    "after": "Lüükön dili horitätik",
+    "reason": "Repair swimlane labels/activity messages and replace Svimalün consistently with descriptive dil horitätik (horizontal part). Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests horitätik (horizontal), dil (part), lün (spectacles), and existing create/add/remove/mark/complete/move/archive/import/export vocabulary. Preserve source placeholders, entity identities, old/new movement directions, completed/undo-mark/undo-completion distinctions and field/label actions. Descriptive software terminology and assembled phrases remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "act-createCard",
+    "before": "a créé la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "ejafon kadi __card__ in lised __list__ in dil horitätik __swimlane__ su tab __board__",
+    "reason": "Repair swimlane labels/activity messages and replace Svimalün consistently with descriptive dil horitätik (horizontal part). Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests horitätik (horizontal), dil (part), lün (spectacles), and existing create/add/remove/mark/complete/move/archive/import/export vocabulary. Preserve source placeholders, entity identities, old/new movement directions, completed/undo-mark/undo-completion distinctions and field/label actions. Descriptive software terminology and assembled phrases remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "act-createSwimlane",
+    "before": "a créé le couloir __swimlane__ dans le tableau __board__",
+    "after": "ejafon dili horitätik __swimlane__ su tab __board__",
+    "reason": "Repair swimlane labels/activity messages and replace Svimalün consistently with descriptive dil horitätik (horizontal part). Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests horitätik (horizontal), dil (part), lün (spectacles), and existing create/add/remove/mark/complete/move/archive/import/export vocabulary. Preserve source placeholders, entity identities, old/new movement directions, completed/undo-mark/undo-completion distinctions and field/label actions. Descriptive software terminology and assembled phrases remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "act-joinMember",
+    "before": "a ajouté le participant __member__ à la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "elüükon limani __member__ lü kad __card__ in lised __list__ in dil horitätik __swimlane__ su tab __board__",
+    "reason": "Repair swimlane labels/activity messages and replace Svimalün consistently with descriptive dil horitätik (horizontal part). Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests horitätik (horizontal), dil (part), lün (spectacles), and existing create/add/remove/mark/complete/move/archive/import/export vocabulary. Preserve source placeholders, entity identities, old/new movement directions, completed/undo-mark/undo-completion distinctions and field/label actions. Descriptive software terminology and assembled phrases remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "act-unjoinMember",
+    "before": "a supprimé le participant __member__ de la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "emoükon limani __member__ de kad __card__ in lised __list__ in dil horitätik __swimlane__ su tab __board__",
+    "reason": "Repair swimlane labels/activity messages and replace Svimalün consistently with descriptive dil horitätik (horizontal part). Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests horitätik (horizontal), dil (part), lün (spectacles), and existing create/add/remove/mark/complete/move/archive/import/export vocabulary. Preserve source placeholders, entity identities, old/new movement directions, completed/undo-mark/undo-completion distinctions and field/label actions. Descriptive software terminology and assembled phrases remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "act-checkedItem",
+    "before": "a coché __checklistItem__ de la check-list __checklist__ de la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "emäkon noteti __checklistItem__ kontrolaliseda __checklist__ su kad __card__ in lised __list__ in dil horitätik __swimlane__ su tab __board__",
+    "reason": "Repair swimlane labels/activity messages and replace Svimalün consistently with descriptive dil horitätik (horizontal part). Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests horitätik (horizontal), dil (part), lün (spectacles), and existing create/add/remove/mark/complete/move/archive/import/export vocabulary. Preserve source placeholders, entity identities, old/new movement directions, completed/undo-mark/undo-completion distinctions and field/label actions. Descriptive software terminology and assembled phrases remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "act-uncheckedItem",
+    "before": "a décoché __checklistItem__ de la check-list __checklist__ de la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "esädunon mäkami noteta __checklistItem__ kontrolaliseda __checklist__ su kad __card__ in lised __list__ in dil horitätik __swimlane__ su tab __board__",
+    "reason": "Repair swimlane labels/activity messages and replace Svimalün consistently with descriptive dil horitätik (horizontal part). Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests horitätik (horizontal), dil (part), lün (spectacles), and existing create/add/remove/mark/complete/move/archive/import/export vocabulary. Preserve source placeholders, entity identities, old/new movement directions, completed/undo-mark/undo-completion distinctions and field/label actions. Descriptive software terminology and assembled phrases remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "act-completeChecklist",
+    "before": "a complété la check-list __checklist__ de la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "efimekon kontrolalisedi __checklist__ su kad __card__ in lised __list__ in dil horitätik __swimlane__ su tab __board__",
+    "reason": "Repair swimlane labels/activity messages and replace Svimalün consistently with descriptive dil horitätik (horizontal part). Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests horitätik (horizontal), dil (part), lün (spectacles), and existing create/add/remove/mark/complete/move/archive/import/export vocabulary. Preserve source placeholders, entity identities, old/new movement directions, completed/undo-mark/undo-completion distinctions and field/label actions. Descriptive software terminology and assembled phrases remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "activity-checklist-completed-card",
+    "before": "a complété la check-list __checklist__ de la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "efimekon kontrolalisedi __checklist__ su kad __card__ in lised __list__ in dil horitätik __swimlane__ su tab __board__",
+    "reason": "Repair swimlane labels/activity messages and replace Svimalün consistently with descriptive dil horitätik (horizontal part). Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests horitätik (horizontal), dil (part), lün (spectacles), and existing create/add/remove/mark/complete/move/archive/import/export vocabulary. Preserve source placeholders, entity identities, old/new movement directions, completed/undo-mark/undo-completion distinctions and field/label actions. Descriptive software terminology and assembled phrases remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "act-uncompleteChecklist",
+    "before": "a rendu incomplet la check-list __checklist__ de la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "esädunon fimekami kontrolaliseda __checklist__ su kad __card__ in lised __list__ in dil horitätik __swimlane__ su tab __board__",
+    "reason": "Repair swimlane labels/activity messages and replace Svimalün consistently with descriptive dil horitätik (horizontal part). Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests horitätik (horizontal), dil (part), lün (spectacles), and existing create/add/remove/mark/complete/move/archive/import/export vocabulary. Preserve source placeholders, entity identities, old/new movement directions, completed/undo-mark/undo-completion distinctions and field/label actions. Descriptive software terminology and assembled phrases remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "act-importCard",
+    "before": "a importé la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "enüveigon kadi __card__ lü lised __list__ in dil horitätik __swimlane__ su tab __board__",
+    "reason": "Repair swimlane labels/activity messages and replace Svimalün consistently with descriptive dil horitätik (horizontal part). Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests horitätik (horizontal), dil (part), lün (spectacles), and existing create/add/remove/mark/complete/move/archive/import/export vocabulary. Preserve source placeholders, entity identities, old/new movement directions, completed/undo-mark/undo-completion distinctions and field/label actions. Descriptive software terminology and assembled phrases remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "act-importList",
+    "before": "a importé la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "enüveigon lisedi __list__ lü dil horitätik __swimlane__ su tab __board__",
+    "reason": "Repair swimlane labels/activity messages and replace Svimalün consistently with descriptive dil horitätik (horizontal part). Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests horitätik (horizontal), dil (part), lün (spectacles), and existing create/add/remove/mark/complete/move/archive/import/export vocabulary. Preserve source placeholders, entity identities, old/new movement directions, completed/undo-mark/undo-completion distinctions and field/label actions. Descriptive software terminology and assembled phrases remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "act-archivedCard",
+    "before": "Carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__ archivée",
+    "after": "Kad __card__ in lised __list__ in dil horitätik __swimlane__ su tab __board__ petopätükon lü ragiv",
+    "reason": "Repair swimlane labels/activity messages and replace Svimalün consistently with descriptive dil horitätik (horizontal part). Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests horitätik (horizontal), dil (part), lün (spectacles), and existing create/add/remove/mark/complete/move/archive/import/export vocabulary. Preserve source placeholders, entity identities, old/new movement directions, completed/undo-mark/undo-completion distinctions and field/label actions. Descriptive software terminology and assembled phrases remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "act-archivedList",
+    "before": "Liste __list__ du couloir __swimlane__ du tableau __board__ archivée",
+    "after": "Lised __list__ in dil horitätik __swimlane__ su tab __board__ petopätükon lü ragiv",
+    "reason": "Repair swimlane labels/activity messages and replace Svimalün consistently with descriptive dil horitätik (horizontal part). Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests horitätik (horizontal), dil (part), lün (spectacles), and existing create/add/remove/mark/complete/move/archive/import/export vocabulary. Preserve source placeholders, entity identities, old/new movement directions, completed/undo-mark/undo-completion distinctions and field/label actions. Descriptive software terminology and assembled phrases remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "act-archivedSwimlane",
+    "before": "Couloir __swimlane__ du tableau __board__ archivé",
+    "after": "Dil horitätik __swimlane__ su tab __board__ petopätükon lü ragiv",
+    "reason": "Repair swimlane labels/activity messages and replace Svimalün consistently with descriptive dil horitätik (horizontal part). Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests horitätik (horizontal), dil (part), lün (spectacles), and existing create/add/remove/mark/complete/move/archive/import/export vocabulary. Preserve source placeholders, entity identities, old/new movement directions, completed/undo-mark/undo-completion distinctions and field/label actions. Descriptive software terminology and assembled phrases remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "act-restoredCard",
+    "before": "a restauré la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "etopätükon kadi __card__ de ragiv dönu lü lised __list__ in dil horitätik __swimlane__ su tab __board__",
+    "reason": "Repair swimlane labels/activity messages and replace Svimalün consistently with descriptive dil horitätik (horizontal part). Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests horitätik (horizontal), dil (part), lün (spectacles), and existing create/add/remove/mark/complete/move/archive/import/export vocabulary. Preserve source placeholders, entity identities, old/new movement directions, completed/undo-mark/undo-completion distinctions and field/label actions. Descriptive software terminology and assembled phrases remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "act-removeChecklist",
+    "before": "a supprimé la check-list __checklist__ de la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "emoükon kontrolalisedi __checklist__ de kad __card__ in lised __list__ in dil horitätik __swimlane__ su tab __board__",
+    "reason": "Repair swimlane labels/activity messages and replace Svimalün consistently with descriptive dil horitätik (horizontal part). Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests horitätik (horizontal), dil (part), lün (spectacles), and existing create/add/remove/mark/complete/move/archive/import/export vocabulary. Preserve source placeholders, entity identities, old/new movement directions, completed/undo-mark/undo-completion distinctions and field/label actions. Descriptive software terminology and assembled phrases remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "act-moveCard",
+    "before": "a déplacé la carte __card__ du tableau __board__ de la liste __oldList__ du couloir __oldSwimlane__ vers la liste __list__ du couloir __swimlane__",
+    "after": "etopätükon kadi __card__ su tab __board__ de lised __oldList__ in dil horitätik __oldSwimlane__ lü lised __list__ in dil horitätik __swimlane__",
+    "reason": "Repair swimlane labels/activity messages and replace Svimalün consistently with descriptive dil horitätik (horizontal part). Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests horitätik (horizontal), dil (part), lün (spectacles), and existing create/add/remove/mark/complete/move/archive/import/export vocabulary. Preserve source placeholders, entity identities, old/new movement directions, completed/undo-mark/undo-completion distinctions and field/label actions. Descriptive software terminology and assembled phrases remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "act-moveCardToOtherBoard",
+    "before": "a déplacé la carte __card__ de la liste __oldList__ du couloir __oldSwimlane__ du tableau __oldBoard__ vers la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "etopätükon kadi __card__ de lised __oldList__ in dil horitätik __oldSwimlane__ su tab __oldBoard__ lü lised __list__ in dil horitätik __swimlane__ su tab __board__",
+    "reason": "Repair swimlane labels/activity messages and replace Svimalün consistently with descriptive dil horitätik (horizontal part). Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests horitätik (horizontal), dil (part), lün (spectacles), and existing create/add/remove/mark/complete/move/archive/import/export vocabulary. Preserve source placeholders, entity identities, old/new movement directions, completed/undo-mark/undo-completion distinctions and field/label actions. Descriptive software terminology and assembled phrases remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "act-addLabel",
+    "before": "lebat __label__ pelüükon lü kad __card__ in lised __list__ in svimalün __swimlane__ su bod __board__",
+    "after": "elüükon ninädapenädi __label__ lü kad __card__ in lised __list__ in dil horitätik __swimlane__ su tab __board__",
+    "reason": "Repair swimlane labels/activity messages and replace Svimalün consistently with descriptive dil horitätik (horizontal part). Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests horitätik (horizontal), dil (part), lün (spectacles), and existing create/add/remove/mark/complete/move/archive/import/export vocabulary. Preserve source placeholders, entity identities, old/new movement directions, completed/undo-mark/undo-completion distinctions and field/label actions. Descriptive software terminology and assembled phrases remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "act-addedLabel",
+    "before": "lebat __label__ pelüükon lü kad __card__ in lised __list__ in svimalün __swimlane__ su bod __board__",
+    "after": "elüükon ninädapenädi __label__ lü kad __card__ in lised __list__ in dil horitätik __swimlane__ su tab __board__",
+    "reason": "Repair swimlane labels/activity messages and replace Svimalün consistently with descriptive dil horitätik (horizontal part). Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests horitätik (horizontal), dil (part), lün (spectacles), and existing create/add/remove/mark/complete/move/archive/import/export vocabulary. Preserve source placeholders, entity identities, old/new movement directions, completed/undo-mark/undo-completion distinctions and field/label actions. Descriptive software terminology and assembled phrases remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "act-removeChecklistItem",
+    "before": "yeg __checklistItem__ pämoükon se kontrolalised __checkList__ de kad __card__ in lised __list__ in svimalün __swimlane__ su bod __board__",
+    "after": "emoükon noteti __checklistItem__ de kontrolalised __checkList__ su kad __card__ in lised __list__ in dil horitätik __swimlane__ su tab __board__",
+    "reason": "Repair swimlane labels/activity messages and replace Svimalün consistently with descriptive dil horitätik (horizontal part). Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests horitätik (horizontal), dil (part), lün (spectacles), and existing create/add/remove/mark/complete/move/archive/import/export vocabulary. Preserve source placeholders, entity identities, old/new movement directions, completed/undo-mark/undo-completion distinctions and field/label actions. Descriptive software terminology and assembled phrases remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "act-setCustomField",
+    "before": "fel kösömik __customField__: __customFieldValue__ pevotükon pö kad __card__ in lised __list__ in svimalün __swimlane__ su bod __board__",
+    "after": "evotükon feli lönik __customField__: __customFieldValue__ su kad __card__ in lised __list__ in dil horitätik __swimlane__ su tab __board__",
+    "reason": "Repair swimlane labels/activity messages and replace Svimalün consistently with descriptive dil horitätik (horizontal part). Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests horitätik (horizontal), dil (part), lün (spectacles), and existing create/add/remove/mark/complete/move/archive/import/export vocabulary. Preserve source placeholders, entity identities, old/new movement directions, completed/undo-mark/undo-completion distinctions and field/label actions. Descriptive software terminology and assembled phrases remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "exportSwimlanePopup-title",
+    "before": "Svimalüni ekavön",
+    "after": "Seveigön dili horitätik",
+    "reason": "Repair swimlane labels/activity messages and replace Svimalün consistently with descriptive dil horitätik (horizontal part). Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests horitätik (horizontal), dil (part), lün (spectacles), and existing create/add/remove/mark/complete/move/archive/import/export vocabulary. Preserve source placeholders, entity identities, old/new movement directions, completed/undo-mark/undo-completion distinctions and field/label actions. Descriptive software terminology and assembled phrases remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "importSwimlanePopup-title",
+    "before": "Svimalüni inkavön",
+    "after": "Nüveigön dili horitätik",
+    "reason": "Repair swimlane labels/activity messages and replace Svimalün consistently with descriptive dil horitätik (horizontal part). Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests horitätik (horizontal), dil (part), lün (spectacles), and existing create/add/remove/mark/complete/move/archive/import/export vocabulary. Preserve source placeholders, entity identities, old/new movement directions, completed/undo-mark/undo-completion distinctions and field/label actions. Descriptive software terminology and assembled phrases remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "export-swimlane",
+    "before": "Svimalüni ekavön",
+    "after": "Seveigön dili horitätik",
+    "reason": "Repair swimlane labels/activity messages and replace Svimalün consistently with descriptive dil horitätik (horizontal part). Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests horitätik (horizontal), dil (part), lün (spectacles), and existing create/add/remove/mark/complete/move/archive/import/export vocabulary. Preserve source placeholders, entity identities, old/new movement directions, completed/undo-mark/undo-completion distinctions and field/label actions. Descriptive software terminology and assembled phrases remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "wip-limit-group-select-swimlane",
+    "before": "Sélectionner le tableau Svimalün",
+    "after": "Välön dili horitätik",
+    "reason": "Repair swimlane labels/activity messages and replace Svimalün consistently with descriptive dil horitätik (horizontal part). Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests horitätik (horizontal), dil (part), lün (spectacles), and existing create/add/remove/mark/complete/move/archive/import/export vocabulary. Preserve source placeholders, entity identities, old/new movement directions, completed/undo-mark/undo-completion distinctions and field/label actions. Descriptive software terminology and assembled phrases remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "wip-limit-group-apply-swimlane",
+    "before": "Apliki Svimalün",
+    "after": "Gebükön pro dil horitätik",
+    "reason": "Repair swimlane labels/activity messages and replace Svimalün consistently with descriptive dil horitätik (horizontal part). Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests horitätik (horizontal), dil (part), lün (spectacles), and existing create/add/remove/mark/complete/move/archive/import/export vocabulary. Preserve source placeholders, entity identities, old/new movement directions, completed/undo-mark/undo-completion distinctions and field/label actions. Descriptive software terminology and assembled phrases remain low confidence; no native-speaker verification."
   }
 ]
