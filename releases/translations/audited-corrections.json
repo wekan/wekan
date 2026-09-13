@@ -78398,5 +78398,47 @@
     "before": "Archiver",
     "after": "Yóbbu ci àrsiw bi",
     "reason": "Replace French card/list archive action and recovery instructions with Wolof. Preserve all-card scope, post-archive invisibility and later restoration through board settings. Archive loan àrsiw, recovery phrasing and full grammar remain low confidence; includes unflagged archive heading/action."
+  },
+  {
+    "locale": "wo",
+    "key": "card-delete-pop",
+    "before": "Toutes les actions vont être supprimées du suivi d'activités et vous ne pourrez plus utiliser cette carte. Cela est irréversible.",
+    "after": "Dañuy dindi jëf yi yépp ci limu jëf yi te dootoo mën a ubbiwaat karta bi. Mëneesul delloo jëf jii.",
+    "reason": "Replace French deletion confirmations with Wolof; preserve permanent/no-undo warnings, card reopening prohibition, list recovery prohibition and loss of associated activity. Distinguish account, avatar and all-notification scopes. Full grammar and activity/notification/account terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "card-delete-notice",
+    "before": "La suppression est définitive. Vous perdrez toutes les actions associées à cette carte.",
+    "after": "Far gi dañu koy def ba fàww. Dinga ñàkk jëf yi yépp yu lëkkaloo ak karta bii.",
+    "reason": "Replace French deletion confirmations with Wolof; preserve permanent/no-undo warnings, card reopening prohibition, list recovery prohibition and loss of associated activity. Distinguish account, avatar and all-notification scopes. Full grammar and activity/notification/account terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "list-delete-pop",
+    "before": "Toutes les actions seront supprimées du fil d'activité et il ne sera plus possible de les récupérer. Cela est irréversible.",
+    "after": "Dañuy dindi jëf yi yépp ci limu jëf yi te dootoo mën a delloo limu bi. Mëneesul delloo jëf jii.",
+    "reason": "Replace French deletion confirmations with Wolof; preserve permanent/no-undo warnings, card reopening prohibition, list recovery prohibition and loss of associated activity. Distinguish account, avatar and all-notification scopes. Full grammar and activity/notification/account terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "delete-avatar-confirm",
+    "before": "Êtes-vous sûr de vouloir supprimer cet avatar ?",
+    "after": "Wóor na la ne bëgg nga far nataal bii?",
+    "reason": "Replace French deletion confirmations with Wolof; preserve permanent/no-undo warnings, card reopening prohibition, list recovery prohibition and loss of associated activity. Distinguish account, avatar and all-notification scopes. Full grammar and activity/notification/account terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "delete-all-notifications-confirm",
+    "before": "Êtes-vous sûr de vouloir supprimer toutes les notifications ? Cette action est irréversible.",
+    "after": "Wóor na la ne bëgg nga far yégle yi yépp? Mëneesul delloo jëf jii.",
+    "reason": "Replace French deletion confirmations with Wolof; preserve permanent/no-undo warnings, card reopening prohibition, list recovery prohibition and loss of associated activity. Distinguish account, avatar and all-notification scopes. Full grammar and activity/notification/account terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "delete-user-confirm-popup",
+    "before": "Êtes-vous sûr de vouloir supprimer ce compte ? Cela est irréversible.",
+    "after": "Wóor na la ne bëgg nga far kont bii? Mëneesul delloo jëf jii.",
+    "reason": "Replace French deletion confirmations with Wolof; preserve permanent/no-undo warnings, card reopening prohibition, list recovery prohibition and loss of associated activity. Distinguish account, avatar and all-notification scopes. Full grammar and activity/notification/account terminology remain low confidence."
   }
 ]
