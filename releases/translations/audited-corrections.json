@@ -121077,5 +121077,12 @@
     "before": "رقم",
     "after": "ⴰⵎⴹⴰⵏ",
     "reason": "Replace Arabic number with the Standard Moroccan Tamazight numeric noun. MediaWiki recentchanges-label-plusminus uses the bound form umdan for number of bytes; use free-state amdan as the standalone Number field-type label. LOW CONFIDENCE: free-state adaptation and this numeric field-type usage require fluent review; do not substitute a count-specific label or translate numeric values. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "account-creation-failed",
+    "before": "Échec de la création du compte",
+    "after": "ⵓⵔ ⵢⴰⵍⵍⴼⵓⵙ ⵓⵙⴽⴽⵉⵔ ⵏ ⵓⵎⵉⴹⴰⵏ",
+    "reason": "Replace French with the native Standard Moroccan Tamazight MediaWiki createaccounterror clause (Could not create account), removing only the colon and its upstream error-detail placeholder because the WeKan source has no detail placeholder. Preserve failed-account-creation semantics. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
   }
 ]

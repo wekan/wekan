@@ -2593,7 +2593,7 @@
   "username-too-short": "Le nom d'utilisateur doit comporter au moins 3 caractères",
   "user-exists": "ⴰⵏⵙⵙⵎⵔⵙ ⵉⵍⵍⴰ ⵢⴰⴷ",
   "account-created": "Compte créé ! Vous pouvez maintenant vous connecter.",
-  "account-creation-failed": "Échec de la création du compte",
+  "account-creation-failed": "ⵓⵔ ⵢⴰⵍⵍⴼⵓⵙ ⵓⵙⴽⴽⵉⵔ ⵏ ⵓⵎⵉⴹⴰⵏ",
   "login": "ⴽⵛⵎ",
   "login-allow": "ⴰⴽⵛⵛⵓⵎ: ⵙⵔⵃ",
   "confirm": "تأكيد",
