@@ -120566,5 +120566,26 @@
     "before": "Supprimer toutes les notifications",
     "after": "ⴽⴽⵙ ⵉⵍⵖⴰ ⴰⴽⴽ",
     "reason": "Replace French delete-all-notifications action with Tamazight. Reuse existing notifications noun ⵉⵍⵖⴰ; Standard Moroccan Tamazight MediaWiki delete=ⴽⴽⵙ and allpages uses ⴰⴽⴽ for all at https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json. Review 2026-09-14. Low confidence: composed action and existing notifications terminology need fluent regional/technical review. Preserve all-notifications scope; unread/read actions and irreversible confirmation remain unresolved."
+  },
+  {
+    "locale": "qu",
+    "key": "color-black",
+    "before": "Kay willaymi: blackta",
+    "after": "yana",
+    "reason": "Repair unflagged English color wrapped in unrelated Quechua message prose. Quechua adjective directly attested at https://en.wiktionary.org/wiki/yana; review 2026-09-14. Use standalone lowercase color word, preserving color distinction. Broader locale and two original calendar findings remain unresolved; dictionary gloss does not prove whole-locale fluency."
+  },
+  {
+    "locale": "qu",
+    "key": "color-red",
+    "before": "Kay willaymi: redta",
+    "after": "puka",
+    "reason": "Repair unflagged English color wrapped in unrelated Quechua message prose. Quechua adjective directly attested at https://en.wiktionary.org/wiki/puka; review 2026-09-14. Use standalone lowercase color word, preserving color distinction. Broader locale and two original calendar findings remain unresolved; dictionary gloss does not prove whole-locale fluency."
+  },
+  {
+    "locale": "qu",
+    "key": "color-white",
+    "before": "Kay willaymi: whiteta",
+    "after": "yuraq",
+    "reason": "Repair unflagged English color wrapped in unrelated Quechua message prose. Quechua adjective directly attested at https://en.wiktionary.org/wiki/yuraq; review 2026-09-14. Use standalone lowercase color word, preserving color distinction. Broader locale and two original calendar findings remain unresolved; dictionary gloss does not prove whole-locale fluency."
   }
 ]
