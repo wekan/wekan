@@ -120489,5 +120489,12 @@
     "before": "Islamic tabular",
     "after": "Ислаам халандаара (табылыысса, астрономия ээрэтэ)",
     "reason": "Replace English tabular Hijri label preserving the table and astronomical-epoch qualifiers. Reuse Sakha табылыысса and CLDR provisional Ислаам халандаара/contributed era Ээрэ from https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/sah.xml. Native astronomy loan usage: https://sakha.ysia.ru/bes-yjyn-20-k-ne-k-n-turuuta-bikipiedije/ and https://yaguo.ru/node/15059. Review 2026-09-14. Low confidence: composed астрономия ээрэтэ and era-to-calendar-epoch adaptation need fluent technical review. Preserve distinction from civil variant; sighting remains unresolved."
+  },
+  {
+    "locale": "sah",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "Ислаам халандаара (Сауд Арабията, ыйы кэтээн көрүү)",
+    "reason": "Replace English Saudi sighting calendar label preserving both country and observation qualifiers. Review 2026-09-14: Sakha country sitelink Сауд Арабията at https://www.wikidata.org/wiki/Q851; moon ый and observation кэтээн көрүү at https://sakhatyla.ru/translate?q=луна and https://sakhatyla.ru/translate?q=көрүү. Existing Islamic base follows provisional Unicode CLDR sah.xml. Low confidence: moon accusative/composed observation phrase and adaptation to crescent sighting require fluent technical review. Preserve distinction from civil, astronomical and Umm al-Qura variants."
   }
 ]
