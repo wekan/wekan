@@ -64979,5 +64979,61 @@
     "before": "Supprimer les listes vides en doublon ? ",
     "after": "Dilemel ar rolloù goullo e doubl",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "step-scan-files",
+    "before": "Vérification des pièces jointes du tableau",
+    "after": "O wiriañ stagadennoù restroù an daolenn",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "step-scan-users",
+    "before": "Vérification des avatars du participant du tableau",
+    "after": "O wiriañ avatarioù izili an daolenn",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "subtask-settings",
+    "before": "Paramètres des sous-tâches",
+    "after": "Arventennoù an is-trevelloù",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "subtaskDeletePopup-title",
+    "before": "Supprimer la sous-tâche ?",
+    "after": "Dilemel an is-trevell ?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "support-info-only-for-logged-in-users",
+    "before": "Les informations d'assistance sont réservées aux utilisateurs connectés.",
+    "after": "Titouroù skoazell evit an implijerien kennasket hepken.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "swimlane-archive-pop",
+    "before": "Le couloir ne sera pas visible sur le tableau après archivage.",
+    "after": "Ne vo ket an trepas gwelet war an daolenn goude bezañ bet diellaouet.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "swimlane-archive-suggest",
+    "before": "Vous pourrez plus tard restaurer le couloir depuis les archives dans les paramètres du tableau.",
+    "after": "Gallout a reot adkas an trepas diwezhatoc’h eus an dielloù en arventennoù an daolenn.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "swimlaneAddPopup-title",
+    "before": "Ajouter un couloir en dessous",
+    "after": "Ouzhpennañ un trepas dindan",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
