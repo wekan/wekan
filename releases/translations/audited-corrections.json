@@ -59953,5 +59953,103 @@
     "before": "Déplacer toutes les pièces jointes vers GridFS",
     "after": "Desplaçar totas las pèças juntas cap a GridFS",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "move-all-attachments-to-s3",
+    "before": "Déplacer toutes les pièces jointes vers S3",
+    "after": "Desplaçar totas las pèças juntas cap a S3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "muted-info",
+    "before": "Vous ne serez jamais averti des modifications effectuées dans ce tableau",
+    "after": "Seretz pas jamai notificat de las modificacions d’aqueste tablèu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "newLineNewItem",
+    "before": "Une ligne de texte = un élément de la check-list",
+    "after": "Una linha de tèxte = un element de lista de contraròtle",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "newlineBecomesNewChecklistItem",
+    "before": "Chaque ligne de texte devient un élément de la check-list",
+    "after": "Cada linha de tèxte ven un element de la lista de contraròtle",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "newlineBecomesNewChecklistItemOriginOrder",
+    "before": "Chaque ligne de texte devient un élément de la check-list, l'ordre est respecté",
+    "after": "Cada linha de tèxte ven un element de la lista de contraròtle, dins l’òrdre original",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "normal-assigned-only-desc",
+    "before": "Seules les cartes assignées sont visibles. Modifier en tant qu'utilisateur normal.",
+    "after": "Solament las cartas assignadas son visiblas. Modificacion coma utilizaire normal.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "normal-desc",
+    "before": "Peut voir et modifier les cartes. Ne peut pas changer les paramètres.",
+    "after": "Pòt veire e modificar las cartas. Pòt pas cambiar los paramètres.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "people-number",
+    "before": "Le nombre d'utilisateurs est de :",
+    "after": "Lo nombre de personas es :",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "public-desc",
+    "before": "Ce tableau est public. Il est accessible par toutes les personnes disposant du lien et apparaîtra dans les résultats des moteurs de recherche tels que Google. Seuls les membres peuvent le modifier.",
+    "after": "Aqueste tablèu es public. Es visible per tota persona que ten lo ligam e apareisserà dins los motors de recèrca coma Google. Solament las personas apondudas al tablèu pòdon lo modificar.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "quick-access-description",
+    "before": "Ajouter un tableau à vos favoris pour créer un raccourci dans cette barre.",
+    "after": "Marcatz un tablèu amb una estela per apondre un acorchi dins aquesta barra.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "r-checklist-note",
+    "before": "Note : les éléments de la check-list doivent être séparés par des virgules.",
+    "after": "Nòta : los elements de la lista de contraròtle devon èsser escriches coma de valors separadas per de virgulas.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "r-d-move-to-bottom-gen",
+    "before": "Déplacer la carte en bas de sa liste",
+    "after": "Desplaçar la carta en bas de sa lista",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "r-d-move-to-bottom-spec",
+    "before": "Déplacer la carte en bas de la liste",
+    "after": "Desplaçar la carta en bas de la lista",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "r-d-move-to-top-gen",
+    "before": "Déplacer la carte en haut de sa liste",
+    "after": "Desplaçar la carta en naut de sa lista",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
