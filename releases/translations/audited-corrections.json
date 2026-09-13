@@ -72525,5 +72525,243 @@
     "before": "L'utilisateur a été déverrouillé avec succès",
     "after": "L' uzeu a stî disbloké",
     "reason": "Replace audited French with Walloon. Native computing terminology uzeu, no d' uzeu, sicret, apontiaedje: https://berdelaedje.walon.org/faq.php and https://berdelaedje.walon.org/index.php ; block/unblock vocabulary: https://dtw.walon.org/index.php?query=bloker and https://dtw.walon.org/index.php?query=li%C3%A5rds&type=artike . Complete sentence grammar remains low confidence; source meanings and tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "attachment-move-storage-fs",
+    "before": "Déplacer la pièce jointe vers le système de fichier",
+    "after": "Bodjî l' pîce djondowe viè l' sistinme di fitchîs",
+    "reason": "Replace audited French with Walloon using existing native attachment/storage, card/list, label and comment terminology. Movement meaning attested: https://dtw.walon.org/index.php?query=bodj%C3%AE ; deletion vocabulary https://denee.walon.org/~lucyin/diccionairaedje/wf/R13.pdf . Preserve storage names, source placeholders and destructive confirmation questions; complete sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "attachment-move-storage-gridfs",
+    "before": "Déplacer la pièce jointe vers GridFS",
+    "after": "Bodjî l' pîce djondowe viè GridFS",
+    "reason": "Replace audited French with Walloon using existing native attachment/storage, card/list, label and comment terminology. Movement meaning attested: https://dtw.walon.org/index.php?query=bodj%C3%AE ; deletion vocabulary https://denee.walon.org/~lucyin/diccionairaedje/wf/R13.pdf . Preserve storage names, source placeholders and destructive confirmation questions; complete sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "attachment-move-storage-s3",
+    "before": "Déplacer la pièce jointe vers S3",
+    "after": "Bodjî l' pîce djondowe viè S3",
+    "reason": "Replace audited French with Walloon using existing native attachment/storage, card/list, label and comment terminology. Movement meaning attested: https://dtw.walon.org/index.php?query=bodj%C3%AE ; deletion vocabulary https://denee.walon.org/~lucyin/diccionairaedje/wf/R13.pdf . Preserve storage names, source placeholders and destructive confirmation questions; complete sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "move-all-attachments-of-board-to-fs",
+    "before": "Déplacer toutes les pièces jointes du tableau vers le système de fichier",
+    "after": "Bodjî totes les pîces djondowes do tåvlea viè l' sistinme di fitchîs",
+    "reason": "Replace audited French with Walloon using existing native attachment/storage, card/list, label and comment terminology. Movement meaning attested: https://dtw.walon.org/index.php?query=bodj%C3%AE ; deletion vocabulary https://denee.walon.org/~lucyin/diccionairaedje/wf/R13.pdf . Preserve storage names, source placeholders and destructive confirmation questions; complete sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "move-all-attachments-of-board-to-gridfs",
+    "before": "Déplacer toutes les pièces jointes du tableau vers GridFS",
+    "after": "Bodjî totes les pîces djondowes do tåvlea viè GridFS",
+    "reason": "Replace audited French with Walloon using existing native attachment/storage, card/list, label and comment terminology. Movement meaning attested: https://dtw.walon.org/index.php?query=bodj%C3%AE ; deletion vocabulary https://denee.walon.org/~lucyin/diccionairaedje/wf/R13.pdf . Preserve storage names, source placeholders and destructive confirmation questions; complete sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "move-all-attachments-of-board-to-s3",
+    "before": "Déplacer toutes les pièces jointes du tableau vers S3",
+    "after": "Bodjî totes les pîces djondowes do tåvlea viè S3",
+    "reason": "Replace audited French with Walloon using existing native attachment/storage, card/list, label and comment terminology. Movement meaning attested: https://dtw.walon.org/index.php?query=bodj%C3%AE ; deletion vocabulary https://denee.walon.org/~lucyin/diccionairaedje/wf/R13.pdf . Preserve storage names, source placeholders and destructive confirmation questions; complete sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "move-all-attachments-to-fs",
+    "before": "Déplacer toutes les pièces jointes vers le système de fichier",
+    "after": "Bodjî totes les pîces djondowes viè l' sistinme di fitchîs",
+    "reason": "Replace audited French with Walloon using existing native attachment/storage, card/list, label and comment terminology. Movement meaning attested: https://dtw.walon.org/index.php?query=bodj%C3%AE ; deletion vocabulary https://denee.walon.org/~lucyin/diccionairaedje/wf/R13.pdf . Preserve storage names, source placeholders and destructive confirmation questions; complete sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "move-all-attachments-to-gridfs",
+    "before": "Déplacer toutes les pièces jointes vers GridFS",
+    "after": "Bodjî totes les pîces djondowes viè GridFS",
+    "reason": "Replace audited French with Walloon using existing native attachment/storage, card/list, label and comment terminology. Movement meaning attested: https://dtw.walon.org/index.php?query=bodj%C3%AE ; deletion vocabulary https://denee.walon.org/~lucyin/diccionairaedje/wf/R13.pdf . Preserve storage names, source placeholders and destructive confirmation questions; complete sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "move-all-attachments-to-s3",
+    "before": "Déplacer toutes les pièces jointes vers S3",
+    "after": "Bodjî totes les pîces djondowes viè S3",
+    "reason": "Replace audited French with Walloon using existing native attachment/storage, card/list, label and comment terminology. Movement meaning attested: https://dtw.walon.org/index.php?query=bodj%C3%AE ; deletion vocabulary https://denee.walon.org/~lucyin/diccionairaedje/wf/R13.pdf . Preserve storage names, source placeholders and destructive confirmation questions; complete sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "attachmentDeletePopup-title",
+    "before": "Supprimer la pièce jointe ?",
+    "after": "Disfacer l' pîce djondowe?",
+    "reason": "Replace audited French with Walloon using existing native attachment/storage, card/list, label and comment terminology. Movement meaning attested: https://dtw.walon.org/index.php?query=bodj%C3%AE ; deletion vocabulary https://denee.walon.org/~lucyin/diccionairaedje/wf/R13.pdf . Preserve storage names, source placeholders and destructive confirmation questions; complete sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "card-edit-attachments",
+    "before": "Modifier les pièces jointes",
+    "after": "Candjî les pîces djondowes",
+    "reason": "Replace audited French with Walloon using existing native attachment/storage, card/list, label and comment terminology. Movement meaning attested: https://dtw.walon.org/index.php?query=bodj%C3%AE ; deletion vocabulary https://denee.walon.org/~lucyin/diccionairaedje/wf/R13.pdf . Preserve storage names, source placeholders and destructive confirmation questions; complete sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "attachmentActionsPopup-title",
+    "before": "Actions sur les pièces jointes",
+    "after": "Accions so les pîces djondowes",
+    "reason": "Replace audited French with Walloon using existing native attachment/storage, card/list, label and comment terminology. Movement meaning attested: https://dtw.walon.org/index.php?query=bodj%C3%AE ; deletion vocabulary https://denee.walon.org/~lucyin/diccionairaedje/wf/R13.pdf . Preserve storage names, source placeholders and destructive confirmation questions; complete sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "badge-attachment-on-minicard",
+    "before": "Compteur de pièces jointes sur la mini-carte",
+    "after": "Nombe di pîces djondowes sol minicåte",
+    "reason": "Replace audited French with Walloon using existing native attachment/storage, card/list, label and comment terminology. Movement meaning attested: https://dtw.walon.org/index.php?query=bodj%C3%AE ; deletion vocabulary https://denee.walon.org/~lucyin/diccionairaedje/wf/R13.pdf . Preserve storage names, source placeholders and destructive confirmation questions; complete sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "cover-attachment-on-minicard",
+    "before": "Vignette sur la mini-carte",
+    "after": "Imådje di coviete sol minicåte",
+    "reason": "Replace audited French with Walloon using existing native attachment/storage, card/list, label and comment terminology. Movement meaning attested: https://dtw.walon.org/index.php?query=bodj%C3%AE ; deletion vocabulary https://denee.walon.org/~lucyin/diccionairaedje/wf/R13.pdf . Preserve storage names, source placeholders and destructive confirmation questions; complete sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "description-on-minicard",
+    "before": "Description sur la mini-carte",
+    "after": "Discrijhaedje sol minicåte",
+    "reason": "Replace audited French with Walloon using existing native attachment/storage, card/list, label and comment terminology. Movement meaning attested: https://dtw.walon.org/index.php?query=bodj%C3%AE ; deletion vocabulary https://denee.walon.org/~lucyin/diccionairaedje/wf/R13.pdf . Preserve storage names, source placeholders and destructive confirmation questions; complete sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "card-show-lists-on-minicard",
+    "before": "Afficher les listes sur la mini-carte",
+    "after": "Mostrer les djivêyes sol minicåte",
+    "reason": "Replace audited French with Walloon using existing native attachment/storage, card/list, label and comment terminology. Movement meaning attested: https://dtw.walon.org/index.php?query=bodj%C3%AE ; deletion vocabulary https://denee.walon.org/~lucyin/diccionairaedje/wf/R13.pdf . Preserve storage names, source placeholders and destructive confirmation questions; complete sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "hide-list-on-minicard",
+    "before": "Masquer la liste sur la mini-carte",
+    "after": "Catchî l' djivêye sol minicåte",
+    "reason": "Replace audited French with Walloon using existing native attachment/storage, card/list, label and comment terminology. Movement meaning attested: https://dtw.walon.org/index.php?query=bodj%C3%AE ; deletion vocabulary https://denee.walon.org/~lucyin/diccionairaedje/wf/R13.pdf . Preserve storage names, source placeholders and destructive confirmation questions; complete sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "show-list-on-minicard",
+    "before": "Afficher la liste sur la mini-carte",
+    "after": "Mostrer l' djivêye sol minicåte",
+    "reason": "Replace audited French with Walloon using existing native attachment/storage, card/list, label and comment terminology. Movement meaning attested: https://dtw.walon.org/index.php?query=bodj%C3%AE ; deletion vocabulary https://denee.walon.org/~lucyin/diccionairaedje/wf/R13.pdf . Preserve storage names, source placeholders and destructive confirmation questions; complete sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "show-on-minicard",
+    "before": "Afficher sur la minicarte",
+    "after": "Mostrer sol minicåte",
+    "reason": "Replace audited French with Walloon using existing native attachment/storage, card/list, label and comment terminology. Movement meaning attested: https://dtw.walon.org/index.php?query=bodj%C3%AE ; deletion vocabulary https://denee.walon.org/~lucyin/diccionairaedje/wf/R13.pdf . Preserve storage names, source placeholders and destructive confirmation questions; complete sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "comment-delete",
+    "before": "Êtes-vous sûr de vouloir supprimer le commentaire ?",
+    "after": "Estoz vs seur di voleur disfacer li rimåke?",
+    "reason": "Replace audited French with Walloon using existing native attachment/storage, card/list, label and comment terminology. Movement meaning attested: https://dtw.walon.org/index.php?query=bodj%C3%AE ; deletion vocabulary https://denee.walon.org/~lucyin/diccionairaedje/wf/R13.pdf . Preserve storage names, source placeholders and destructive confirmation questions; complete sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "delete-avatar-confirm",
+    "before": "Êtes-vous sûr de vouloir supprimer cet avatar ?",
+    "after": "Estoz vs seur di voleur disfacer ci avatår ci?",
+    "reason": "Replace audited French with Walloon using existing native attachment/storage, card/list, label and comment terminology. Movement meaning attested: https://dtw.walon.org/index.php?query=bodj%C3%AE ; deletion vocabulary https://denee.walon.org/~lucyin/diccionairaedje/wf/R13.pdf . Preserve storage names, source placeholders and destructive confirmation questions; complete sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "archive-board-confirm",
+    "before": "Êtes-vous sûr de vouloir archiver ce tableau ?",
+    "after": "Estoz vs seur di voleur mete ci tåvlea ci ås årtchives?",
+    "reason": "Replace audited French with Walloon using existing native attachment/storage, card/list, label and comment terminology. Movement meaning attested: https://dtw.walon.org/index.php?query=bodj%C3%AE ; deletion vocabulary https://denee.walon.org/~lucyin/diccionairaedje/wf/R13.pdf . Preserve storage names, source placeholders and destructive confirmation questions; complete sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "boardMinicardSettingsPopup-title",
+    "before": "Paramètres de la minicarte",
+    "after": "Apontiaedjes del minicåte",
+    "reason": "Replace audited French with Walloon using existing native attachment/storage, card/list, label and comment terminology. Movement meaning attested: https://dtw.walon.org/index.php?query=bodj%C3%AE ; deletion vocabulary https://denee.walon.org/~lucyin/diccionairaedje/wf/R13.pdf . Preserve storage names, source placeholders and destructive confirmation questions; complete sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "board-info-on-my-boards",
+    "before": "Paramètres de tous les tableaux",
+    "after": "Apontiaedjes di tos les tåvleas",
+    "reason": "Replace audited French with Walloon using existing native attachment/storage, card/list, label and comment terminology. Movement meaning attested: https://dtw.walon.org/index.php?query=bodj%C3%AE ; deletion vocabulary https://denee.walon.org/~lucyin/diccionairaedje/wf/R13.pdf . Preserve storage names, source placeholders and destructive confirmation questions; complete sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "boardInfoOnMyBoards-title",
+    "before": "Paramètres de tous les tableaux",
+    "after": "Apontiaedjes di tos les tåvleas",
+    "reason": "Replace audited French with Walloon using existing native attachment/storage, card/list, label and comment terminology. Movement meaning attested: https://dtw.walon.org/index.php?query=bodj%C3%AE ; deletion vocabulary https://denee.walon.org/~lucyin/diccionairaedje/wf/R13.pdf . Preserve storage names, source placeholders and destructive confirmation questions; complete sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "boardInfoOnMyBoardsPopup-title",
+    "before": "Paramètres de tous les tableaux",
+    "after": "Apontiaedjes di tos les tåvleas",
+    "reason": "Replace audited French with Walloon using existing native attachment/storage, card/list, label and comment terminology. Movement meaning attested: https://dtw.walon.org/index.php?query=bodj%C3%AE ; deletion vocabulary https://denee.walon.org/~lucyin/diccionairaedje/wf/R13.pdf . Preserve storage names, source placeholders and destructive confirmation questions; complete sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "link-to-search",
+    "before": "Lien vers cette recherche",
+    "after": "Hårdêye viè ci cweraedje ci",
+    "reason": "Replace audited French with Walloon using existing native attachment/storage, card/list, label and comment terminology. Movement meaning attested: https://dtw.walon.org/index.php?query=bodj%C3%AE ; deletion vocabulary https://denee.walon.org/~lucyin/diccionairaedje/wf/R13.pdf . Preserve storage names, source placeholders and destructive confirmation questions; complete sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "activity-added-label",
+    "before": "a ajouté l'étiquette '%s' à %s",
+    "after": "a radjouté l' etikète '%s' a %s",
+    "reason": "Replace audited French with Walloon using existing native attachment/storage, card/list, label and comment terminology. Movement meaning attested: https://dtw.walon.org/index.php?query=bodj%C3%AE ; deletion vocabulary https://denee.walon.org/~lucyin/diccionairaedje/wf/R13.pdf . Preserve storage names, source placeholders and destructive confirmation questions; complete sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "activity-added-label-card",
+    "before": "a ajouté l'étiquette '%s'",
+    "after": "a radjouté l' etikète '%s'",
+    "reason": "Replace audited French with Walloon using existing native attachment/storage, card/list, label and comment terminology. Movement meaning attested: https://dtw.walon.org/index.php?query=bodj%C3%AE ; deletion vocabulary https://denee.walon.org/~lucyin/diccionairaedje/wf/R13.pdf . Preserve storage names, source placeholders and destructive confirmation questions; complete sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "activity-removed-label",
+    "before": "a supprimé l'étiquette '%s' de %s",
+    "after": "a oisté l' etikète '%s' di %s",
+    "reason": "Replace audited French with Walloon using existing native attachment/storage, card/list, label and comment terminology. Movement meaning attested: https://dtw.walon.org/index.php?query=bodj%C3%AE ; deletion vocabulary https://denee.walon.org/~lucyin/diccionairaedje/wf/R13.pdf . Preserve storage names, source placeholders and destructive confirmation questions; complete sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "activity-removed-label-card",
+    "before": "a supprimé l'étiquette '%s'",
+    "after": "a oisté l' etikète '%s'",
+    "reason": "Replace audited French with Walloon using existing native attachment/storage, card/list, label and comment terminology. Movement meaning attested: https://dtw.walon.org/index.php?query=bodj%C3%AE ; deletion vocabulary https://denee.walon.org/~lucyin/diccionairaedje/wf/R13.pdf . Preserve storage names, source placeholders and destructive confirmation questions; complete sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "activity-delete-attach",
+    "before": "a supprimé une pièce jointe de %s",
+    "after": "a disfacé ene pîce djondowe di %s",
+    "reason": "Replace audited French with Walloon using existing native attachment/storage, card/list, label and comment terminology. Movement meaning attested: https://dtw.walon.org/index.php?query=bodj%C3%AE ; deletion vocabulary https://denee.walon.org/~lucyin/diccionairaedje/wf/R13.pdf . Preserve storage names, source placeholders and destructive confirmation questions; complete sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "activity-delete-attach-card",
+    "before": "a supprimé une pièce jointe",
+    "after": "a disfacé ene pîce djondowe",
+    "reason": "Replace audited French with Walloon using existing native attachment/storage, card/list, label and comment terminology. Movement meaning attested: https://dtw.walon.org/index.php?query=bodj%C3%AE ; deletion vocabulary https://denee.walon.org/~lucyin/diccionairaedje/wf/R13.pdf . Preserve storage names, source placeholders and destructive confirmation questions; complete sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "activity-moved",
+    "before": "a déplacé %s de %s vers %s",
+    "after": "a bodjî %s di %s viè %s",
+    "reason": "Replace audited French with Walloon using existing native attachment/storage, card/list, label and comment terminology. Movement meaning attested: https://dtw.walon.org/index.php?query=bodj%C3%AE ; deletion vocabulary https://denee.walon.org/~lucyin/diccionairaedje/wf/R13.pdf . Preserve storage names, source placeholders and destructive confirmation questions; complete sentence grammar remains low confidence."
   }
 ]
