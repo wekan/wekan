@@ -1072,6 +1072,20 @@ compiled verification is in progress.
 **Source and test parity** - preserve current behavior and reject real regressions.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/cc2833cd0">Restore first-user CSS and hide unrequested 2FA prompts</a>. Thanks to xet7.</summary>
+
+Meteor's native CSS module type prevented the existing style loaders from
+injecting WeKan's styles after the Rspack upgrade. Override that type for
+client CSS. Initialize the 2FA form with a literal native hidden attribute;
+only the existing challenge/cancel paths toggle visibility. Empty installations
+show styled sign-in and sign-up pages without a code request.
+Meteor bundle compilation and four Node test entries pass. Chromium and
+Firefox checks pass against an isolated database confirmed to have zero users,
+including keyboard focus and visibility after removing the hide class.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/8ae15efff">Fix Node suite failures after calendar and translation updates</a>. Thanks to xet7.</summary>
 
 Resolve the reported Node failures by carrying OAuth2 email-domain settings
