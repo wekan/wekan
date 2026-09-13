@@ -86336,5 +86336,33 @@
     "before": "Autoriser le changement d'identifiant",
     "after": "Votanemükam gebananema",
     "reason": "Replace French deletion, error clearing and username labels with directly assembled Volapük. Dictionary https://en.wikibooks.org/wiki/Volap%C3%BCk/English-Volap%C3%BCk_dictionary attests radön (erase), noet (remark in text), moükön (remove), liman (member), pöl (error), valik (all), nüveigön (import goods), nem (name), geban in computer user-profile term, votanemükam (renaming). Import applied to data, username compound, inflections and complete UI phrasing remain low confidence pending native review. Preserve source tokens."
+  },
+  {
+    "locale": "vo",
+    "key": "delete-duplicate-lists",
+    "before": "Supprimer les listes en doublon ? ",
+    "after": "Radön lisedis telik",
+    "reason": "Replace French duplicate-list deletion labels with directly assembled Volapük. Dictionary https://en.wikibooks.org/wiki/Volap%C3%BCk/English-Volap%C3%BCk_dictionary attests radön (erase), lised (list), telik (double), vagik (empty). Existing local lists uses Liseds. Applying double to duplicate software records and complete inflected UI labels remains low confidence pending native review. Preserve empty-list qualifier and source token inventory."
+  },
+  {
+    "locale": "vo",
+    "key": "deleteDuplicateListsPopup-title",
+    "before": "Supprimer les listes en doublon ? ",
+    "after": "Radön lisedis telik",
+    "reason": "Replace French duplicate-list deletion labels with directly assembled Volapük. Dictionary https://en.wikibooks.org/wiki/Volap%C3%BCk/English-Volap%C3%BCk_dictionary attests radön (erase), lised (list), telik (double), vagik (empty). Existing local lists uses Liseds. Applying double to duplicate software records and complete inflected UI labels remains low confidence pending native review. Preserve empty-list qualifier and source token inventory."
+  },
+  {
+    "locale": "vo",
+    "key": "delete-duplicate-empty-lists-migration",
+    "before": "Supprimer les listes vides en doublon ? ",
+    "after": "Radön lisedis telik vagik",
+    "reason": "Replace French duplicate-list deletion labels with directly assembled Volapük. Dictionary https://en.wikibooks.org/wiki/Volap%C3%BCk/English-Volap%C3%BCk_dictionary attests radön (erase), lised (list), telik (double), vagik (empty). Existing local lists uses Liseds. Applying double to duplicate software records and complete inflected UI labels remains low confidence pending native review. Preserve empty-list qualifier and source token inventory."
+  },
+  {
+    "locale": "vo",
+    "key": "step-delete-duplicate-empty-lists",
+    "before": "Supprimer les listes vides en doublon ? ",
+    "after": "Radön lisedis telik vagik",
+    "reason": "Replace French duplicate-list deletion labels with directly assembled Volapük. Dictionary https://en.wikibooks.org/wiki/Volap%C3%BCk/English-Volap%C3%BCk_dictionary attests radön (erase), lised (list), telik (double), vagik (empty). Existing local lists uses Liseds. Applying double to duplicate software records and complete inflected UI labels remains low confidence pending native review. Preserve empty-list qualifier and source token inventory."
   }
 ]
