@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 12,607 |
+| Corrected | 12,608 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 177 |
-| Pending review or repair | 3,238 |
+| Pending review or repair | 3,237 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Restored and unflagged values still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **13,191** exact before/after values, including repairs outside the audit.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **13,192** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `d99b0242944d328e41a39dc412d14f3517b12441` — two Setswana tabular Hijri calendar labels translated, preserving civil versus astronomical starting-date distinctions. Full phrases and calendar-domain terminology are low confidence and need native-speaker validation.
+Latest translation fix: **2026-09-13**, local commit `50d414c1905fc687d30d8533982272a68b27e44d` — Sesotho astronomical Hijri calendar label translated, preserving table-based calculation and astronomical starting-date distinctions. Full phrase is low confidence and needs native-speaker validation.
 
 **Verification:** correction and progress tests pass. Native-speaker and browser checks remain outstanding.
 
