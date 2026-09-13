@@ -153,7 +153,7 @@ test.describe('Stability & connectivity', () => {
   test('login link is visible on 5 consecutive fresh page loads', async ({ page }) => {
     for (let i = 0; i < 5; i++) {
       await page.goto(`${BASE_URL}/sign-in`, { waitUntil: 'networkidle' });
-      const usernameInput = page.locator('[name="username"], input[type="text"]').first();
+      const usernameInput = page.locator('#at-field-username_and_email');
       await expect(usernameInput).toBeVisible({ timeout: 10_000 });
     }
   });

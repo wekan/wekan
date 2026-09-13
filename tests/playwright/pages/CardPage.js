@@ -408,16 +408,37 @@ class CardPage {
     await this.page.locator('.js-pop-over').waitFor({ timeout: 8_000 });
   }
 
-  /**
-   * Set the due date. isoDate should be 'YYYY-MM-DD'.
-   * Opens the editor, fills the date field, and submits.
-   */
+  /** Select a Gregorian date through the visible popup controls. */
+  async selectDateInPopup(isoDate) {
+    const pop = this.page.locator('.js-pop-over');
+    const days = pop.locator('.js-calendar-day');
+    await days.first().waitFor({ state: 'visible' });
+    const [year, month] = (await days.first().getAttribute('data-date')).split('-').map(Number);
+    const [targetYear, targetMonth] = isoDate.split('-').map(Number);
+    const yearStep = Math.sign(targetYear - year);
+    for (let current = year; current !== targetYear; current += yearStep) {
+      await pop.locator(yearStep > 0 ? '.js-calendar-year-next' : '.js-calendar-year-previous').click();
+      await this.page.waitForFunction(expected =>
+        Number(document.querySelector('.js-pop-over .js-calendar-day')?.dataset.date.split('-')[0]) === expected,
+      current + yearStep);
+    }
+    const monthStep = Math.sign(targetMonth - month);
+    for (let current = month; current !== targetMonth; current += monthStep) {
+      await pop.locator(monthStep > 0 ? '.js-calendar-next' : '.js-calendar-previous').click();
+      await this.page.waitForFunction(expected =>
+        Number(document.querySelector('.js-pop-over .js-calendar-day')?.dataset.date.split('-')[1]) === expected,
+      current + monthStep);
+    }
+    await pop.locator(`.js-calendar-day[data-date="${isoDate}"]`).click();
+  }
+
+  /** Set the due date using the calendar, then save it. */
   async setDueDate(isoDate) {
     await this.openDueDateEditor();
+    await this.selectDateInPopup(isoDate);
     const pop = this.page.locator('.js-pop-over');
-    await pop.locator('input.js-date-field, input[type=date]').first().fill(isoDate);
     await pop.locator('button.js-submit-date').click();
-    await this.page.waitForTimeout(500);
+    await pop.waitFor({ state: 'hidden' });
   }
 
   /** Clear the due date by opening the editor and clicking Delete. */

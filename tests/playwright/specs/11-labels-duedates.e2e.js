@@ -220,8 +220,10 @@ test.describe('Labels & due dates', () => {
       await addDueDateBtn.first().click();
       const pop = boardPage.locator('.js-pop-over');
       await expect(pop).toBeVisible({ timeout: 8_000 });
-      // Popup should have a date input
-      await expect(pop.locator('input.js-date-field, input[type=date]').first()).toBeVisible({ timeout: 5_000 });
+      await expect(pop.locator('.selected-calendar-picker')).toBeVisible();
+      await expect(pop.locator('.js-calendar-day').first()).toBeVisible();
+      await expect(pop.locator('.js-calendar-hour')).toBeVisible();
+      await expect(pop.locator('.js-calendar-minute')).toBeVisible();
     } else {
       // Board may not allow due dates or user is a worker — skip interaction
       console.log('Note: .js-due-date button not found; board may not allow due dates');
@@ -361,7 +363,7 @@ test.describe('Labels & due dates', () => {
       const pop = page.locator('.js-pop-over');
       const date = pop.locator('input.js-date-field, input[type=date]').first();
       await expect(date).toHaveValue('2098-01-15', { timeout: 5_000 });
-      await date.fill('2099-12-30');
+      await new CardPage(page).selectDateInPopup('2099-12-30');
       await expect(date).toHaveValue('2099-12-30');
       await pop.locator('button.js-submit-date').click();
 
