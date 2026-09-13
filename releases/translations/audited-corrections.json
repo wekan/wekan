@@ -89402,5 +89402,82 @@
     "before": "aldonita kontrolliston __checklistItem__ al kontrololisto __checklist__ en la karto __card__ en la listo __list__ en la naĝotubo __swimlane__ en la tabulo __board__",
     "after": "elüükon noteti __checklistItem__ lü kontrolalised __checklist__ su kad __card__ in lised __list__ in dil horitätik __swimlane__ su tab __board__",
     "reason": "Repair French/Esperanto card comment, attachment, label, subtask and checklist activities; correct voice-derived swimlane terminology and deletion/remove distinction. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests mäniotön (mention), noet (textual remark), radön (erase), moükön (remove), and existing vocabulary. Preserve all placeholders and their entities, second-person mention, comment text, full card/list/swimlane/board locations and add/remove/delete semantics. Horizontal-section/subtask/attachment software adaptations and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "export-card-field-board-info",
+    "before": "Informations du tableau (Tableau, Liste, Couloir)",
+    "after": "Nüns taba (Tab, Lised, Dil horitätik)",
+    "reason": "Repair French swimlane controls, archive/delete warnings, Excel board-info group and search help in Volapük. Preserve above/below/selected placement, invisibility-after-archive and later-restore behavior, permanent action removal/no undo, strict positive-integer height, and exact <title> search syntax. Use px as international pixel unit. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests geilot (measured height), valodanum (whole number), positik, löpü and donü; existing descriptive horizontal-part and archive terminology. Software adaptations and assembled phrases remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "swimlane-archive-pop",
+    "before": "Le couloir ne sera pas visible sur le tableau après archivage.",
+    "after": "Dil horitätik no pojonon su tab pos ragivam.",
+    "reason": "Repair French swimlane controls, archive/delete warnings, Excel board-info group and search help in Volapük. Preserve above/below/selected placement, invisibility-after-archive and later-restore behavior, permanent action removal/no undo, strict positive-integer height, and exact <title> search syntax. Use px as international pixel unit. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests geilot (measured height), valodanum (whole number), positik, löpü and donü; existing descriptive horizontal-part and archive terminology. Software adaptations and assembled phrases remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "swimlane-archive-suggest",
+    "before": "Vous pourrez plus tard restaurer le couloir depuis les archives dans les paramètres du tableau.",
+    "after": "Kanol poso topätükön dili horitätik de ragiv dönu lü tab in väls taba.",
+    "reason": "Repair French swimlane controls, archive/delete warnings, Excel board-info group and search help in Volapük. Preserve above/below/selected placement, invisibility-after-archive and later-restore behavior, permanent action removal/no undo, strict positive-integer height, and exact <title> search syntax. Use px as international pixel unit. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests geilot (measured height), valodanum (whole number), positik, löpü and donü; existing descriptive horizontal-part and archive terminology. Software adaptations and assembled phrases remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "swimlaneAddPopup-title",
+    "before": "Ajouter un couloir en dessous",
+    "after": "Lüükön dili horitätik dono",
+    "reason": "Repair French swimlane controls, archive/delete warnings, Excel board-info group and search help in Volapük. Preserve above/below/selected placement, invisibility-after-archive and later-restore behavior, permanent action removal/no undo, strict positive-integer height, and exact <title> search syntax. Use px as international pixel unit. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests geilot (measured height), valodanum (whole number), positik, löpü and donü; existing descriptive horizontal-part and archive terminology. Software adaptations and assembled phrases remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "above-selected-swimlane",
+    "before": "Au-dessus du couloir sélectionné",
+    "after": "Löpü dil horitätik pevälöl",
+    "reason": "Repair French swimlane controls, archive/delete warnings, Excel board-info group and search help in Volapük. Preserve above/below/selected placement, invisibility-after-archive and later-restore behavior, permanent action removal/no undo, strict positive-integer height, and exact <title> search syntax. Use px as international pixel unit. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests geilot (measured height), valodanum (whole number), positik, löpü and donü; existing descriptive horizontal-part and archive terminology. Software adaptations and assembled phrases remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "below-selected-swimlane",
+    "before": "En dessous du couloir sélectionné",
+    "after": "Donü dil horitätik pevälöl",
+    "reason": "Repair French swimlane controls, archive/delete warnings, Excel board-info group and search help in Volapük. Preserve above/below/selected placement, invisibility-after-archive and later-restore behavior, permanent action removal/no undo, strict positive-integer height, and exact <title> search syntax. Use px as international pixel unit. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests geilot (measured height), valodanum (whole number), positik, löpü and donü; existing descriptive horizontal-part and archive terminology. Software adaptations and assembled phrases remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "set-swimlane-height",
+    "before": "Définir la hauteur du couloir",
+    "after": "Lonön geiloti dila horitätik",
+    "reason": "Repair French swimlane controls, archive/delete warnings, Excel board-info group and search help in Volapük. Preserve above/below/selected placement, invisibility-after-archive and later-restore behavior, permanent action removal/no undo, strict positive-integer height, and exact <title> search syntax. Use px as international pixel unit. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests geilot (measured height), valodanum (whole number), positik, löpü and donü; existing descriptive horizontal-part and archive terminology. Software adaptations and assembled phrases remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "set-swimlane-height-value",
+    "before": "Hauteur du couloir (pixels)",
+    "after": "Geilot dila horitätik (px)",
+    "reason": "Repair French swimlane controls, archive/delete warnings, Excel board-info group and search help in Volapük. Preserve above/below/selected placement, invisibility-after-archive and later-restore behavior, permanent action removal/no undo, strict positive-integer height, and exact <title> search syntax. Use px as international pixel unit. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests geilot (measured height), valodanum (whole number), positik, löpü and donü; existing descriptive horizontal-part and archive terminology. Software adaptations and assembled phrases remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "swimlane-height-error-message",
+    "before": "La hauteur du couloir doit être un entier positif",
+    "after": "Geilot dila horitätik muton binön valodanum positik",
+    "reason": "Repair French swimlane controls, archive/delete warnings, Excel board-info group and search help in Volapük. Preserve above/below/selected placement, invisibility-after-archive and later-restore behavior, permanent action removal/no undo, strict positive-integer height, and exact <title> search syntax. Use px as international pixel unit. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests geilot (measured height), valodanum (whole number), positik, löpü and donü; existing descriptive horizontal-part and archive terminology. Software adaptations and assembled phrases remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "swimlane-delete-pop",
+    "before": "Toutes les actions vont être supprimées du suivi d'activités et vous ne pourrez plus utiliser ce couloir. Cela est irréversible.",
+    "after": "Dunots valik pomoükons de lised dunotas, e no okanol getön dönu dili horitätik. Sädunam binon nemögik.",
+    "reason": "Repair French swimlane controls, archive/delete warnings, Excel board-info group and search help in Volapük. Preserve above/below/selected placement, invisibility-after-archive and later-restore behavior, permanent action removal/no undo, strict positive-integer height, and exact <title> search syntax. Use px as international pixel unit. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests geilot (measured height), valodanum (whole number), positik, löpü and donü; existing descriptive horizontal-part and archive terminology. Software adaptations and assembled phrases remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "globalSearch-instructions-operator-swimlane",
+    "before": "`__operator_swimlane__:<titre>` - cartes dans les couloirs correspondant au *<titre>* spécifié",
+    "after": "`__operator_swimlane__:<title>` - kads in dils horitätik, kels baiädons bai *<title>* pelonöl",
+    "reason": "Repair French swimlane controls, archive/delete warnings, Excel board-info group and search help in Volapük. Preserve above/below/selected placement, invisibility-after-archive and later-restore behavior, permanent action removal/no undo, strict positive-integer height, and exact <title> search syntax. Use px as international pixel unit. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests geilot (measured height), valodanum (whole number), positik, löpü and donü; existing descriptive horizontal-part and archive terminology. Software adaptations and assembled phrases remain low confidence; no native-speaker verification."
   }
 ]
