@@ -50937,5 +50937,61 @@
     "before": "(salvato — lascia vuoto per mantenere)",
     "after": "(arregistratu — lasciate viotu per mantene)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "collapse-checklist",
+    "before": "Comprimi la lista di controllo",
+    "after": "Ripiegà a lista di cuntrollu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "confirm-checklist-delete-popup",
+    "before": "Sicuro di voler cancellare la checklist?",
+    "after": "Site sicuru di vulè squassà a lista di cuntrollu?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "confirm-subtask-delete-popup",
+    "before": "Sei sicuro di voler eliminare il sotto-compito?",
+    "after": "Site sicuru di vulè squassà u sottucompitu?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "cover-attachment-on-minicard",
+    "before": "Immagine di copertina su minicard",
+    "after": "Imagine di cupertina nant’à a minicarta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "cron-clear-errors",
+    "before": "Cancella tutti gli errori",
+    "after": "Squassà tutti l’errori",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "cron-job-delete-failed",
+    "before": "Impossibile eliminare il processo pianificato",
+    "after": "Ùn hè statu pussibule di squassà u travagliu pianificatu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "cron-job-pause-failed",
+    "before": "Impossibile mettere in pausa il processo pianificato",
+    "after": "Ùn hè statu pussibule di mette in pausa u travagliu pianificatu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "cron-job-resume-failed",
+    "before": "Impossibile riprendere il processo pianificato",
+    "after": "Ùn hè statu pussibule di ripiglià u travagliu pianificatu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
