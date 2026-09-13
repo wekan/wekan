@@ -1502,5 +1502,24 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.match(cache['ve-PP']['migration-starting'], /^Zavoditas/);
   assert.match(cache['ve-PP']['migration-pausing'], /^Azotadas/);
   assert.match(cache['ve-PP']['migration-stopping'], /^Seižutadas/);
+  const vepsNotificationHelpRepairs = {
+  "support-info-only-for-logged-in-users": "Tugen tedod oma vaiše sistemaha tulnuded kävutajile.",
+  "watching-info": "Sinä sad tedotuzid kaikiš necen laudan vajehtusišpäi.",
+  "tracking-info": "Sinä sad tedotuzid kaikiš nende kartaden vajehtusišpäi, kus sinä oled tegija libo ühtnik.",
+  "swimlane-archive-suggest": "Sinä void möhemba endištada ujundšoidun Arhivaspäi Laudan sändoiš.",
+  "step-fix-avatar-urls": "Kohenda avataroiden URL-adresad",
+  "swimlane-title-not-found": "Ujundšoid '%s' ei ole löutud."
+};
+  for (const [key, value] of Object.entries(vepsNotificationHelpRepairs)) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.doesNotMatch(value, /Tuki tiedot|kirjautuneille|Sinulle ilmoitetaan|muutoksista|korteissa|Voit myöhemmin|palauttaa uimaradan|Korjaa avatar|Uimarataa|ei löytynyt/i, key);
+    if (key !== 'swimlane-title-not-found') assert.equal(vepsTranslator.t(key), value, key);
+  }
+  assert.equal(vepsTranslator.t('swimlane-title-not-found', { sprintf: ['SWIMLANE'] }), "Ujundšoid 'SWIMLANE' ei ole löutud.");
+  assert.match(cache['ve-PP']['watching-info'], /kaikiš necen laudan vajehtusišpäi/);
+  assert.match(cache['ve-PP']['tracking-info'], /kartaden vajehtusišpäi.*tegija libo ühtnik/);
+  assert.doesNotMatch(cache['ve-PP']['tracking-info'], /tegija da ühtnik/);
+  assert.match(cache['ve-PP']['support-info-only-for-logged-in-users'], /vaiše sistemaha tulnuded kävutajile/);
+  assert.match(cache['ve-PP']['swimlane-archive-suggest'], /möhemba.*Arhivaspäi Laudan sändoiš/);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });

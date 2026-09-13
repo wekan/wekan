@@ -117381,5 +117381,47 @@
     "before": "Palauta kaikki arkistoidut",
     "after": "Endišta kaik arhivaha sirttud azjad",
     "reason": "Replace Finnish board attachment/URL/scan/migration text with Veps, including related unflagged controls. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (fix kohetta/kohenda, continue jatkata/jatkta, start zavodita, stop seižutada, check kodvda, administrator); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests fail, tarkendus, radmatoi, udištada and Endišta. Reuse reviewed storage terms and preserve board/all-attachment scope, exact MongoDB GridFS/S3/URL backend names, correct storage-backend and broken-reference repair, avatar/member versus file distinctions, confirmation, administrator-only access and start/pause/stop states. Low confidence: composed storage/migration terminology and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "support-info-only-for-logged-in-users",
+    "before": "Tuki tiedot on vain kirjautuneille käyttäjille.",
+    "after": "Tugen tedod oma vaiše sistemaha tulnuded kävutajile.",
+    "reason": "Replace Finnish with Veps; preserve board-wide versus creator/member notification scope, signed-in-only support, archive location in Board Settings, avatar URL terminology and the exact %s name token. Lexical reference: Zaiceva/Mullonen 2007 Russian–Veps dictionary (vajehtuz, tedotuz, möhemba, koheta); native usage: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json . Low confidence: composed notification and archive-help grammar/inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "watching-info",
+    "before": "Sinulle ilmoitetaan tämän taulun muutoksista",
+    "after": "Sinä sad tedotuzid kaikiš necen laudan vajehtusišpäi.",
+    "reason": "Replace Finnish with Veps; preserve board-wide versus creator/member notification scope, signed-in-only support, archive location in Board Settings, avatar URL terminology and the exact %s name token. Lexical reference: Zaiceva/Mullonen 2007 Russian–Veps dictionary (vajehtuz, tedotuz, möhemba, koheta); native usage: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json . Low confidence: composed notification and archive-help grammar/inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "tracking-info",
+    "before": "Sinulle ilmoitetaan muutoksista korteissa joihin olet osallistunut luojana tai jäsenenä.",
+    "after": "Sinä sad tedotuzid kaikiš nende kartaden vajehtusišpäi, kus sinä oled tegija libo ühtnik.",
+    "reason": "Replace Finnish with Veps; preserve board-wide versus creator/member notification scope, signed-in-only support, archive location in Board Settings, avatar URL terminology and the exact %s name token. Lexical reference: Zaiceva/Mullonen 2007 Russian–Veps dictionary (vajehtuz, tedotuz, möhemba, koheta); native usage: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json . Low confidence: composed notification and archive-help grammar/inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "swimlane-archive-suggest",
+    "before": "Voit myöhemmin palauttaa uimaradan Arkistosta.",
+    "after": "Sinä void möhemba endištada ujundšoidun Arhivaspäi Laudan sändoiš.",
+    "reason": "Replace Finnish with Veps; preserve board-wide versus creator/member notification scope, signed-in-only support, archive location in Board Settings, avatar URL terminology and the exact %s name token. Lexical reference: Zaiceva/Mullonen 2007 Russian–Veps dictionary (vajehtuz, tedotuz, möhemba, koheta); native usage: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json . Low confidence: composed notification and archive-help grammar/inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "step-fix-avatar-urls",
+    "before": "Korjaa avatar-URL-osoitteet",
+    "after": "Kohenda avataroiden URL-adresad",
+    "reason": "Replace Finnish with Veps; preserve board-wide versus creator/member notification scope, signed-in-only support, archive location in Board Settings, avatar URL terminology and the exact %s name token. Lexical reference: Zaiceva/Mullonen 2007 Russian–Veps dictionary (vajehtuz, tedotuz, möhemba, koheta); native usage: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json . Low confidence: composed notification and archive-help grammar/inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "swimlane-title-not-found",
+    "before": "Uimarataa '%s' ei löytynyt.",
+    "after": "Ujundšoid '%s' ei ole löutud.",
+    "reason": "Replace Finnish with Veps; preserve board-wide versus creator/member notification scope, signed-in-only support, archive location in Board Settings, avatar URL terminology and the exact %s name token. Lexical reference: Zaiceva/Mullonen 2007 Russian–Veps dictionary (vajehtuz, tedotuz, möhemba, koheta); native usage: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json . Low confidence: composed notification and archive-help grammar/inflections require fluent-speaker review."
   }
 ]
