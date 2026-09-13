@@ -91362,5 +91362,68 @@
     "before": "Entrer le niveau d'agrandissement (50-300%) :",
     "after": "Nüseitolös völadi gretükama (50-300%):",
     "reason": "Replace French logo position/URL/height, OIDC button customization and zoom-entry wording with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests gul (corner), geilot (height), nedetik (left), löpik (upper), magod (image), knop (clothing button), gretükön (magnify), völad (value), vil (wish). Preserve top-left location, image-versus-link URL distinction, default height 27, OIDC and exact zoom range 50-300%. Logo is a technical borrowing, knop adapted to GUI button, and default paraphrased as value without change. Assembled software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "poker-delete-pop",
+    "before": "La suppression est définitive. Vous perdrez toutes les actions associées à ce planning poker.",
+    "after": "Radam binon laidik. Operol dunotis valik peyümöl ko Planning Poker at.",
+    "reason": "Replace audited French support, tracking, visibility, label-toggle, description and week-start wording with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests laidik (permanent), perön (lose), vig (week), del (day), stel (star), löp (top), jafan (creator), liman (member), yuf (help), nun (information), and dakipön (save). Preserve permanent Planning Poker deletion and loss of associated actions, no support info yet, support-page enablement, private-only boards, toggle as add/remove rather than show/hide, multiselection adds labels 1-9, all changes for creator/member cards, unsaved description, starred-board list-top placement and week-start day. Assembled software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "support-info-not-added-yet",
+    "before": "Les informations d'assistance n'ont pas encore été ajoutées",
+    "after": "Nuns yufa no pelüükons nog",
+    "reason": "Replace audited French support, tracking, visibility, label-toggle, description and week-start wording with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests laidik (permanent), perön (lose), vig (week), del (day), stel (star), löp (top), jafan (creator), liman (member), yuf (help), nun (information), and dakipön (save). Preserve permanent Planning Poker deletion and loss of associated actions, no support info yet, support-page enablement, private-only boards, toggle as add/remove rather than show/hide, multiselection adds labels 1-9, all changes for creator/member cards, unsaved description, starred-board list-top placement and week-start day. Assembled software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "support-page-enabled",
+    "before": "Page d'assistance activée",
+    "after": "Pad yufa pagebon",
+    "reason": "Replace audited French support, tracking, visibility, label-toggle, description and week-start wording with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests laidik (permanent), perön (lose), vig (week), del (day), stel (star), löp (top), jafan (creator), liman (member), yuf (help), nun (information), and dakipön (save). Preserve permanent Planning Poker deletion and loss of associated actions, no support info yet, support-page enablement, private-only boards, toggle as add/remove rather than show/hide, multiselection adds labels 1-9, all changes for creator/member cards, unsaved description, starred-board list-top placement and week-start day. Assembled software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "tableVisibilityMode-allowPrivateOnly",
+    "before": "Visibilité des tableaux: N'autoriser que des tableaux privés",
+    "after": "Logäd tabs: dälön te tabis privatik",
+    "reason": "Replace audited French support, tracking, visibility, label-toggle, description and week-start wording with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests laidik (permanent), perön (lose), vig (week), del (day), stel (star), löp (top), jafan (creator), liman (member), yuf (help), nun (information), and dakipön (save). Preserve permanent Planning Poker deletion and loss of associated actions, no support info yet, support-page enablement, private-only boards, toggle as add/remove rather than show/hide, multiselection adds labels 1-9, all changes for creator/member cards, unsaved description, starred-board list-top placement and week-start day. Assembled software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "toggle-labels",
+    "before": "Afficher/Masquer les étiquettes 1-9 sur les cartes. La sélection multiple ajoute les étiquettes 1-9",
+    "after": "Lüükön u moükön ninädapenädis 1-9 pro kad. Väl mödik lüükon ninädapenädis 1-9",
+    "reason": "Replace audited French support, tracking, visibility, label-toggle, description and week-start wording with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests laidik (permanent), perön (lose), vig (week), del (day), stel (star), löp (top), jafan (creator), liman (member), yuf (help), nun (information), and dakipön (save). Preserve permanent Planning Poker deletion and loss of associated actions, no support info yet, support-page enablement, private-only boards, toggle as add/remove rather than show/hide, multiselection adds labels 1-9, all changes for creator/member cards, unsaved description, starred-board list-top placement and week-start day. Assembled software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "tracking-info",
+    "before": "Vous serez notifié de toute modification concernant les cartes pour lesquelles vous êtes impliqué en tant que créateur ou participant.",
+    "after": "Panunädol tefü votükams alik kadas, pö kels binol jafan u liman.",
+    "reason": "Replace audited French support, tracking, visibility, label-toggle, description and week-start wording with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests laidik (permanent), perön (lose), vig (week), del (day), stel (star), löp (top), jafan (creator), liman (member), yuf (help), nun (information), and dakipön (save). Preserve permanent Planning Poker deletion and loss of associated actions, no support info yet, support-page enablement, private-only boards, toggle as add/remove rather than show/hide, multiselection adds labels 1-9, all changes for creator/member cards, unsaved description, starred-board list-top placement and week-start day. Assembled software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "unsaved-description",
+    "before": "Vous avez une description non sauvegardée",
+    "after": "Labol bepenami no pedakipöl.",
+    "reason": "Replace audited French support, tracking, visibility, label-toggle, description and week-start wording with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests laidik (permanent), perön (lose), vig (week), del (day), stel (star), löp (top), jafan (creator), liman (member), yuf (help), nun (information), and dakipön (save). Preserve permanent Planning Poker deletion and loss of associated actions, no support info yet, support-page enablement, private-only boards, toggle as add/remove rather than show/hide, multiselection adds labels 1-9, all changes for creator/member cards, unsaved description, starred-board list-top placement and week-start day. Assembled software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "starred-boards-description",
+    "before": "Les tableaux favoris s'affichent en tête de votre liste de tableaux.",
+    "after": "Tabs pemäköl me stel pajonons pö löp liseda tabas olik.",
+    "reason": "Replace audited French support, tracking, visibility, label-toggle, description and week-start wording with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests laidik (permanent), perön (lose), vig (week), del (day), stel (star), löp (top), jafan (creator), liman (member), yuf (help), nun (information), and dakipön (save). Preserve permanent Planning Poker deletion and loss of associated actions, no support info yet, support-page enablement, private-only boards, toggle as add/remove rather than show/hide, multiselection adds labels 1-9, all changes for creator/member cards, unsaved description, starred-board list-top placement and week-start day. Assembled software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "start-day-of-week",
+    "before": "Définir le jour de début de semaine",
+    "after": "Lonön deli prima viga",
+    "reason": "Replace audited French support, tracking, visibility, label-toggle, description and week-start wording with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests laidik (permanent), perön (lose), vig (week), del (day), stel (star), löp (top), jafan (creator), liman (member), yuf (help), nun (information), and dakipön (save). Preserve permanent Planning Poker deletion and loss of associated actions, no support info yet, support-page enablement, private-only boards, toggle as add/remove rather than show/hide, multiselection adds labels 1-9, all changes for creator/member cards, unsaved description, starred-board list-top placement and week-start day. Assembled software wording remains low confidence pending native review."
   }
 ]
