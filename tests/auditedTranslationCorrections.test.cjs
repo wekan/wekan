@@ -2262,5 +2262,36 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.notEqual(vepsTranslator.t('Node_heap_total_heap_size'), vepsTranslator.t('Node_heap_total_heap_size_executable'));
   assert.notEqual(vepsTranslator.t('Node_heap_total_available_size'), vepsTranslator.t('Node_heap_used_heap_size'));
   assert.match(vepsTranslator.t('Node_heap_number_of_detached_contexts'), /erigoittud kontekstoiden lugumär/);
+  const vepsBoardScheduling = {
+  "add-cron-job": "Liža märitud aiganke radod",
+  "add-cron-job-placeholder": "Märitud aiganke radon ližandan funkcii tuleb pigai",
+  "schedule-board-archive": "Märita laudan arhivaha sirttandan aig",
+  "schedule-board-backup": "Märita laudan varmkopijan tegendan aig",
+  "schedule-board-cleanup": "Märita laudan puhtastandan aig",
+  "board-archive-failed": "Ei voind märita laudan arhivaha sirttandan aigad",
+  "board-archive-scheduled": "Laudan arhivaha sirttandan aig om hüvin märitud",
+  "board-backup-failed": "Ei voind märita laudan varmkopijan tegendan aigad",
+  "board-backup-scheduled": "Laudan varmkopijan tegendan aig om hüvin märitud",
+  "board-cleanup-failed": "Ei voind märita laudan puhtastandan aigad",
+  "board-cleanup-scheduled": "Laudan puhtastandan aig om hüvin märitud",
+  "scheduled-board-operations": "Märitud aiganke laudan radod",
+  "search-boards-or-operations": "Eci laudoid libo radoid...",
+  "cleanup": "Puhtastand",
+  "cleanup-old-jobs": "Puhtasta vanhad radod",
+  "operation-type": "Radon tip"
+};
+  for (const [key, value] of Object.entries(vepsBoardScheduling)) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.equal(vepsTranslator.t(key), value, key);
+    assert.doesNotMatch(value, /Ajastetun|ajastettu|Aikatauluta|Taulun|epäonnistui|onnistuneesti|Siivous|Siivoa|Toiminnon|Etsi tauluja|Lisää ajastettu/, key);
+  }
+  for (const operation of ['archive', 'backup', 'cleanup']) {
+    assert.match(vepsTranslator.t('board-' + operation + '-failed'), /^Ei voind märita .* aigad$/);
+    assert.match(vepsTranslator.t('board-' + operation + '-scheduled'), /aig om hüvin märitud$/);
+    assert.notEqual(vepsTranslator.t('board-' + operation + '-failed'), vepsTranslator.t('board-' + operation + '-scheduled'));
+  }
+  assert.match(vepsTranslator.t('add-cron-job-placeholder'), /funkcii tuleb pigai$/);
+  assert.match(vepsTranslator.t('search-boards-or-operations'), /laudoid libo radoid/);
+  assert.notEqual(vepsTranslator.t('schedule-board-backup'), vepsTranslator.t('schedule-board-cleanup'));
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });

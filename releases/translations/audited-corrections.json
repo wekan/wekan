@@ -119292,5 +119292,117 @@
     "before": "Node keko: irrotettujen kontekstien määrä",
     "after": "Node mušton kogo: erigoittud kontekstoiden lugumär",
     "reason": "Replace Finnish with Veps heap metric wording. Dictionary: kogo, suruz’, mušt, erigoitta, jagada and röun; reuse maksimaline. Node V8 definitions: peak malloc allocation is not erroneous memory; does_zap_garbage reports --zap_code_space, not garbage collection. Low confidence: technical compounds and inflection (kodan, fizikaline, nativkontekstoiden) need fluent review. https://nodejs.org/api/v8.html#v8getheapstatistics"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "add-cron-job",
+    "before": "Lisää ajastettu työ",
+    "after": "Liža märitud aiganke radod",
+    "reason": "Replace Finnish scheduling text with Veps. Preserve failure to schedule, successful scheduling and coming-soon functionality; reuse märitud aiganke rad and varmkopii. Dictionary: rad(-on,-oid), puhtastand(-an), funkcii(-jan), pigai/tuleb and tip. Low confidence: composed scheduling syntax and varmkopijan/sirttandan inflection need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "add-cron-job-placeholder",
+    "before": "Ajastetun työn lisääminen tulossa pian",
+    "after": "Märitud aiganke radon ližandan funkcii tuleb pigai",
+    "reason": "Replace Finnish scheduling text with Veps. Preserve failure to schedule, successful scheduling and coming-soon functionality; reuse märitud aiganke rad and varmkopii. Dictionary: rad(-on,-oid), puhtastand(-an), funkcii(-jan), pigai/tuleb and tip. Low confidence: composed scheduling syntax and varmkopijan/sirttandan inflection need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "schedule-board-archive",
+    "before": "Aikatauluta taulun arkistointi",
+    "after": "Märita laudan arhivaha sirttandan aig",
+    "reason": "Replace Finnish scheduling text with Veps. Preserve failure to schedule, successful scheduling and coming-soon functionality; reuse märitud aiganke rad and varmkopii. Dictionary: rad(-on,-oid), puhtastand(-an), funkcii(-jan), pigai/tuleb and tip. Low confidence: composed scheduling syntax and varmkopijan/sirttandan inflection need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "schedule-board-backup",
+    "before": "Aikatauluta taulun varmuuskopiointi",
+    "after": "Märita laudan varmkopijan tegendan aig",
+    "reason": "Replace Finnish scheduling text with Veps. Preserve failure to schedule, successful scheduling and coming-soon functionality; reuse märitud aiganke rad and varmkopii. Dictionary: rad(-on,-oid), puhtastand(-an), funkcii(-jan), pigai/tuleb and tip. Low confidence: composed scheduling syntax and varmkopijan/sirttandan inflection need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "schedule-board-cleanup",
+    "before": "Aikatauluta taulun siivous",
+    "after": "Märita laudan puhtastandan aig",
+    "reason": "Replace Finnish scheduling text with Veps. Preserve failure to schedule, successful scheduling and coming-soon functionality; reuse märitud aiganke rad and varmkopii. Dictionary: rad(-on,-oid), puhtastand(-an), funkcii(-jan), pigai/tuleb and tip. Low confidence: composed scheduling syntax and varmkopijan/sirttandan inflection need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "board-archive-failed",
+    "before": "Taulun arkistointi epäonnistui",
+    "after": "Ei voind märita laudan arhivaha sirttandan aigad",
+    "reason": "Replace Finnish scheduling text with Veps. Preserve failure to schedule, successful scheduling and coming-soon functionality; reuse märitud aiganke rad and varmkopii. Dictionary: rad(-on,-oid), puhtastand(-an), funkcii(-jan), pigai/tuleb and tip. Low confidence: composed scheduling syntax and varmkopijan/sirttandan inflection need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "board-archive-scheduled",
+    "before": "Taulun arkistointi ajastettu onnistuneesti",
+    "after": "Laudan arhivaha sirttandan aig om hüvin märitud",
+    "reason": "Replace Finnish scheduling text with Veps. Preserve failure to schedule, successful scheduling and coming-soon functionality; reuse märitud aiganke rad and varmkopii. Dictionary: rad(-on,-oid), puhtastand(-an), funkcii(-jan), pigai/tuleb and tip. Low confidence: composed scheduling syntax and varmkopijan/sirttandan inflection need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "board-backup-failed",
+    "before": "Taulun varmuuskopiointi epäonnistui",
+    "after": "Ei voind märita laudan varmkopijan tegendan aigad",
+    "reason": "Replace Finnish scheduling text with Veps. Preserve failure to schedule, successful scheduling and coming-soon functionality; reuse märitud aiganke rad and varmkopii. Dictionary: rad(-on,-oid), puhtastand(-an), funkcii(-jan), pigai/tuleb and tip. Low confidence: composed scheduling syntax and varmkopijan/sirttandan inflection need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "board-backup-scheduled",
+    "before": "Taulun varmuuskopiointi ajastettu onnistuneesti",
+    "after": "Laudan varmkopijan tegendan aig om hüvin märitud",
+    "reason": "Replace Finnish scheduling text with Veps. Preserve failure to schedule, successful scheduling and coming-soon functionality; reuse märitud aiganke rad and varmkopii. Dictionary: rad(-on,-oid), puhtastand(-an), funkcii(-jan), pigai/tuleb and tip. Low confidence: composed scheduling syntax and varmkopijan/sirttandan inflection need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "board-cleanup-failed",
+    "before": "Taulun siivous epäonnistui",
+    "after": "Ei voind märita laudan puhtastandan aigad",
+    "reason": "Replace Finnish scheduling text with Veps. Preserve failure to schedule, successful scheduling and coming-soon functionality; reuse märitud aiganke rad and varmkopii. Dictionary: rad(-on,-oid), puhtastand(-an), funkcii(-jan), pigai/tuleb and tip. Low confidence: composed scheduling syntax and varmkopijan/sirttandan inflection need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "board-cleanup-scheduled",
+    "before": "Taulun siivous ajastettu onnistuneesti",
+    "after": "Laudan puhtastandan aig om hüvin märitud",
+    "reason": "Replace Finnish scheduling text with Veps. Preserve failure to schedule, successful scheduling and coming-soon functionality; reuse märitud aiganke rad and varmkopii. Dictionary: rad(-on,-oid), puhtastand(-an), funkcii(-jan), pigai/tuleb and tip. Low confidence: composed scheduling syntax and varmkopijan/sirttandan inflection need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "scheduled-board-operations",
+    "before": "Aikataulutetut taulun toiminnot",
+    "after": "Märitud aiganke laudan radod",
+    "reason": "Replace Finnish scheduling text with Veps. Preserve failure to schedule, successful scheduling and coming-soon functionality; reuse märitud aiganke rad and varmkopii. Dictionary: rad(-on,-oid), puhtastand(-an), funkcii(-jan), pigai/tuleb and tip. Low confidence: composed scheduling syntax and varmkopijan/sirttandan inflection need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "search-boards-or-operations",
+    "before": "Etsi tauluja tai toimintoja...",
+    "after": "Eci laudoid libo radoid...",
+    "reason": "Replace Finnish scheduling text with Veps. Preserve failure to schedule, successful scheduling and coming-soon functionality; reuse märitud aiganke rad and varmkopii. Dictionary: rad(-on,-oid), puhtastand(-an), funkcii(-jan), pigai/tuleb and tip. Low confidence: composed scheduling syntax and varmkopijan/sirttandan inflection need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "cleanup",
+    "before": "Siivous",
+    "after": "Puhtastand",
+    "reason": "Replace Finnish scheduling text with Veps. Preserve failure to schedule, successful scheduling and coming-soon functionality; reuse märitud aiganke rad and varmkopii. Dictionary: rad(-on,-oid), puhtastand(-an), funkcii(-jan), pigai/tuleb and tip. Low confidence: composed scheduling syntax and varmkopijan/sirttandan inflection need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "cleanup-old-jobs",
+    "before": "Siivoa vanhat työt",
+    "after": "Puhtasta vanhad radod",
+    "reason": "Replace Finnish scheduling text with Veps. Preserve failure to schedule, successful scheduling and coming-soon functionality; reuse märitud aiganke rad and varmkopii. Dictionary: rad(-on,-oid), puhtastand(-an), funkcii(-jan), pigai/tuleb and tip. Low confidence: composed scheduling syntax and varmkopijan/sirttandan inflection need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "operation-type",
+    "before": "Toiminnon tyyppi",
+    "after": "Radon tip",
+    "reason": "Replace Finnish scheduling text with Veps. Preserve failure to schedule, successful scheduling and coming-soon functionality; reuse märitud aiganke rad and varmkopii. Dictionary: rad(-on,-oid), puhtastand(-an), funkcii(-jan), pigai/tuleb and tip. Low confidence: composed scheduling syntax and varmkopijan/sirttandan inflection need fluent review."
   }
 ]
