@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 10,769 |
+| Corrected | 10,801 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 5,077 |
+| Pending review or repair | 5,045 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **10,857** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **10,889** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `010cc88fc30ec92bb283f1be18c77d2655632ca0` — corrected four Walloon clipboard values previously using unsupported “magic hat” wording to attested “presse-papî”, with positive/negative terminology regression coverage. This revises earlier repairs; pending flagged totals are unchanged. Native source is recorded with the corrections; full surrounding grammar remains low confidence. Exact-value, placeholder, JSON example, HTML-tag/entity, key-order, terminology and idempotency checks pass; live browser verification is unavailable.
+Latest translation fix: **2026-09-13**, local commit `e125e16bf9d6f0926f2d272f2cc61239c735cd1b` — 32 French customization/job/error values replaced with Walloon, retaining web identifiers, default logo height, authorization restrictions and success/failure states; **142 flagged Walloon findings remain**. Sources are recorded with the corrections; full grammar and specialized web terminology remain low confidence. Exact-value, placeholder, JSON example, HTML-tag/entity, key-order and idempotency checks pass; live browser verification is unavailable.
 
 **Origin:** not all errors came from Transifex. The captured pull changed 4,061 values; the local audit added 16,020 findings. Bosnian errors already existed in local commit `bdb3b15886a749b725b5290ba0109fcba955f983`. Other ultimate origins remain unverified.
 
