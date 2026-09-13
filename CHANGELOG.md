@@ -963,6 +963,19 @@ The fresh complete EVERYTHING rerun remains in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9ed2fc540">Prevent navigation when clearing board filters</a>. Thanks to xet7.</summary>
+
+Cancel the header reset link's default navigation before clearing filters.
+Firefox otherwise reloads before the query update and restores the old
+label filter. Executable handler tests cover both available and missing
+sidebars; the browser regression requires the reset control and verifies
+the document and board stay mounted while the label query is removed.
+Four isolated Firefox probes retain the document and clear the URL when
+the default action is prevented. Fresh compiled verification is pending.
+
+</details>
+
 **Source and test parity** - preserve current behavior and reject real regressions.
 
 <details>
