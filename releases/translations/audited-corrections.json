@@ -80645,5 +80645,68 @@
     "before": "Les mots de passe ne correspondent pas",
     "after": "Baatu jall yi bokkul",
     "reason": "Replace French username/password labels and validation messages with Wolof. Reuse existing turu jëfandikukat and baatu jall terminology in repaired account protection strings. Preserve both credentials required and plural password mismatch meanings. Full grammar and credential terminology remain low confidence; login-logo controls remain pending."
+  },
+  {
+    "locale": "wo",
+    "key": "error-board-notAdmin",
+    "before": "Vous devez être administrateur de ce tableau pour faire cela",
+    "after": "War nga nekk saytukatu tablo bii ngir def loolu",
+    "reason": "Replace French permission/account/JSON errors with Wolof. Distinguish nonexistent versus uncreated user, taken username/email/organization name, board administrator requirement, denied page viewing, malformed JSON versus missing schema information. Preserve JSON technical name. Technical loans and full grammar remain low confidence; login/CSV errors remain pending."
+  },
+  {
+    "locale": "wo",
+    "key": "error-user-doesNotExist",
+    "before": "Cet utilisateur n'existe pas",
+    "after": "Jëfandikukat bii amul",
+    "reason": "Replace French permission/account/JSON errors with Wolof. Distinguish nonexistent versus uncreated user, taken username/email/organization name, board administrator requirement, denied page viewing, malformed JSON versus missing schema information. Preserve JSON technical name. Technical loans and full grammar remain low confidence; login/CSV errors remain pending."
+  },
+  {
+    "locale": "wo",
+    "key": "error-user-notCreated",
+    "before": "Cet utilisateur n'a pas encore été créé",
+    "after": "Soseesul jëfandikukat bii",
+    "reason": "Replace French permission/account/JSON errors with Wolof. Distinguish nonexistent versus uncreated user, taken username/email/organization name, board administrator requirement, denied page viewing, malformed JSON versus missing schema information. Preserve JSON technical name. Technical loans and full grammar remain low confidence; login/CSV errors remain pending."
+  },
+  {
+    "locale": "wo",
+    "key": "error-username-taken",
+    "before": "Ce nom d'utilisateur est déjà utilisé",
+    "after": "Turu jëfandikukat bii jëfandikoo nañu ko ba noppi",
+    "reason": "Replace French permission/account/JSON errors with Wolof. Distinguish nonexistent versus uncreated user, taken username/email/organization name, board administrator requirement, denied page viewing, malformed JSON versus missing schema information. Preserve JSON technical name. Technical loans and full grammar remain low confidence; login/CSV errors remain pending."
+  },
+  {
+    "locale": "wo",
+    "key": "error-email-taken",
+    "before": "Cette adresse mail est déjà utilisée",
+    "after": "Adreesu email bii jëfandikoo nañu ko ba noppi",
+    "reason": "Replace French permission/account/JSON errors with Wolof. Distinguish nonexistent versus uncreated user, taken username/email/organization name, board administrator requirement, denied page viewing, malformed JSON versus missing schema information. Preserve JSON technical name. Technical loans and full grammar remain low confidence; login/CSV errors remain pending."
+  },
+  {
+    "locale": "wo",
+    "key": "error-json-malformed",
+    "before": "Votre texte JSON n'est pas valide",
+    "after": "Sa mbind mi du JSON bu baax",
+    "reason": "Replace French permission/account/JSON errors with Wolof. Distinguish nonexistent versus uncreated user, taken username/email/organization name, board administrator requirement, denied page viewing, malformed JSON versus missing schema information. Preserve JSON technical name. Technical loans and full grammar remain low confidence; login/CSV errors remain pending."
+  },
+  {
+    "locale": "wo",
+    "key": "error-json-schema",
+    "before": "Vos données JSON ne contiennent pas l'information appropriée dans un format correct",
+    "after": "Sa done yu JSON amul xibaar yi ñu soxla ci anam bi war",
+    "reason": "Replace French permission/account/JSON errors with Wolof. Distinguish nonexistent versus uncreated user, taken username/email/organization name, board administrator requirement, denied page viewing, malformed JSON versus missing schema information. Preserve JSON technical name. Technical loans and full grammar remain low confidence; login/CSV errors remain pending."
+  },
+  {
+    "locale": "wo",
+    "key": "error-notAuthorized",
+    "before": "Vous n'êtes pas autorisé à accéder à cette page.",
+    "after": "Amuloo ndigal ngir gis xët wii.",
+    "reason": "Replace French permission/account/JSON errors with Wolof. Distinguish nonexistent versus uncreated user, taken username/email/organization name, board administrator requirement, denied page viewing, malformed JSON versus missing schema information. Preserve JSON technical name. Technical loans and full grammar remain low confidence; login/CSV errors remain pending."
+  },
+  {
+    "locale": "wo",
+    "key": "error-orgname-taken",
+    "before": "Ce nom d'organisation est déjà utilisé",
+    "after": "Turu kureel gii jëfandikoo nañu ko ba noppi",
+    "reason": "Replace French permission/account/JSON errors with Wolof. Distinguish nonexistent versus uncreated user, taken username/email/organization name, board administrator requirement, denied page viewing, malformed JSON versus missing schema information. Preserve JSON technical name. Technical loans and full grammar remain low confidence; login/CSV errors remain pending."
   }
 ]
