@@ -79245,5 +79245,33 @@
     "before": "Echéance modifiée à\nQuand: __timeValue__\nOù: __card__\n L'échéance précédente était __timeOldValue__",
     "after": "soppi waxtu wi ñu war a jeexal mu nekk\nWaxtu: __timeValue__\nFan: __card__\nWaxtu wi ñu war a jeexal woon mooy __timeOldValue__",
     "reason": "Replace French date-change activity text with Wolof. Source template activities.jade passes date first and cardLink second; repair French wording that suggested old/new dates instead. Distinguish received/start/due/end and preserve old due time separately in rule activity. Reuse Bis and due-date terminology. Full grammar and received/end date adaptations remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "activity-customfield-created",
+    "before": "a créé le champ personnalisé %s",
+    "after": "sos wàllu dugal %s bu ñu def ci soxla",
+    "reason": "Replace French custom-field activity text with Wolof and repair unflagged tool (agricultural field) in act-setCustomField. Reuse wàllu dugal bu ñu def ci soxla. activities.jade confirms field/value/card argument order; unset describes clearing field content rather than deleting the custom field. Preserve all tokens. Computing adaptation and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "activity-set-customfield",
+    "before": "a défini le champ personnalisé '%s' à '%s' dans %s",
+    "after": "def wàllu dugal '%s' bu ñu def ci soxla mu am '%s' ci karta %s",
+    "reason": "Replace French custom-field activity text with Wolof and repair unflagged tool (agricultural field) in act-setCustomField. Reuse wàllu dugal bu ñu def ci soxla. activities.jade confirms field/value/card argument order; unset describes clearing field content rather than deleting the custom field. Preserve all tokens. Computing adaptation and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "activity-unset-customfield",
+    "before": "a effacé le champ personnalisé '%s' dans %s",
+    "after": "dindi li am ci wàllu dugal '%s' bu ñu def ci soxla ci karta %s",
+    "reason": "Replace French custom-field activity text with Wolof and repair unflagged tool (agricultural field) in act-setCustomField. Reuse wàllu dugal bu ñu def ci soxla. activities.jade confirms field/value/card argument order; unset describes clearing field content rather than deleting the custom field. Preserve all tokens. Computing adaptation and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "act-setCustomField",
+    "before": "mu soppi tool bi ñu jagleel __customField__: __customFieldValue__ ci karta __card__ ci limu __list__ ci yoon __swimlane__ ci tablo __board__",
+    "after": "soppi wàllu dugal __customField__ bu ñu def ci soxla: __customFieldValue__ ci karta __card__ ci limu __list__ ci yoon __swimlane__ ci tablo __board__",
+    "reason": "Replace French custom-field activity text with Wolof and repair unflagged tool (agricultural field) in act-setCustomField. Reuse wàllu dugal bu ñu def ci soxla. activities.jade confirms field/value/card argument order; unset describes clearing field content rather than deleting the custom field. Preserve all tokens. Computing adaptation and full grammar remain low confidence."
   }
 ]
