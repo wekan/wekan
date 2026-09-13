@@ -57076,5 +57076,180 @@
     "before": "Selezione multipla attiva",
     "after": "'A selezzione multipla è attiva",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "no-repositories",
+    "before": "Nessun repository trovato",
+    "after": "Nun s'è truvato nisciun repository",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "no-shared-templates",
+    "before": "Nessun template condiviso",
+    "after": "Nun ce stanno mudelle cunnivise",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "operator-number-expected",
+    "before": "l'operatore __operator__ prevede un numero, invece è stato fornito '__value__'",
+    "after": "ll'operatore __operator__ aspettava 'n nummero, ha ricevuto '__value__'",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "org-number",
+    "before": "Il numero di organizzazioni è:",
+    "after": "'O nummero 'e urganizzazzione è:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "pastdue",
+    "before": "la data di scadenza attuale %s è scaduta",
+    "after": "'a scadenza attuale %s è passata",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "pause-all-migrations",
+    "before": "Metti in pausa tutte le migrazioni",
+    "after": "Miette tutte 'e migrazzione 'n pausa",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "pause-migration",
+    "before": "Metti in pausa la migrazione",
+    "after": "Miette 'a migrazzione 'n pausa",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "problems-none-in-progress",
+    "before": "Nessuna migrazione o riparazione in corso.",
+    "after": "Nun ce stanno migrazzione o riparazzione 'n corso.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "r-import-unmapped",
+    "before": "Impossibile mappare __count__ riga/e",
+    "after": "Nun s'è pututo assucià __count__ riga/e",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "r-schedule-weekday",
+    "before": "Ogni giorno feriale (Lun–Ven)",
+    "after": "Ogni juorno 'e lavoro (Lun–Ven)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "r-unarchived",
+    "before": "Ripristinato/a dall'archivio",
+    "after": "Ripristinato da ll'archivio",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "r-w-checklist-added",
+    "before": "Viene aggiunta una checklist",
+    "after": "Se aggiunge 'na lista 'e cuntrollo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "r-w-label-added",
+    "before": "Viene aggiunta una qualsiasi etichetta",
+    "after": "Se aggiunge 'n'etichetta qualunque",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "r-when-scheduled",
+    "before": "Secondo una pianificazione",
+    "after": "Secunno 'na prugrammazzione",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "recovery-no-events",
+    "before": "Nessun evento di ripristino registrato. Il database è integro.",
+    "after": "Nun ce stanno evente 'e ripristino registrate. 'O database sta buono.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "remove-background-image",
+    "before": "Rimuovere immagine di sfondo",
+    "after": "Leva ll'immaggine 'e sfondo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "remove-cover",
+    "before": "Rimuovere immagine di copertina da minicard",
+    "after": "Leva ll'immaggine 'e cupertina d'a minicarta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "remove-labels-multiselect",
+    "before": "La multi-selezione rimuove le etichette 1-9",
+    "after": "'A selezzione multipla leva ll'etichette 1-9",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "s3-access-key-placeholder",
+    "before": "Inserisci l'access key S3",
+    "after": "Miette 'a chiave 'e accesso S3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "s3-disabled",
+    "before": "Storage S3/MinIO disabilitato",
+    "after": "Memorizzazzione S3/MinIO disattivata",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "s3-endpoint-description",
+    "before": "URL dell'endpoint S3 (es. s3.amazonaws.com o minio.example.com)",
+    "after": "URL 'e ll'endpoint S3 (pe esempio, s3.amazonaws.com o minio.example.com)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "s3-port-description",
+    "before": "Numero di porta dell'endpoint S3",
+    "after": "Nummero 'e porta 'e ll'endpoint S3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "s3-region-description",
+    "before": "Regione AWS S3 (es. us-east-1)",
+    "after": "Reggione AWS S3 (pe esempio, us-east-1)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "s3-region-menu-path",
+    "before": "AWS Console → S3 → Buckets → il tuo bucket → Properties → AWS Region.",
+    "after": "AWS Console → S3 → Buckets → 'o cuntenitore tuojo → Properties → AWS Region.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "s3-secret-key-placeholder",
+    "before": "Inserisci la secret key S3",
+    "after": "Miette 'a chiave segreta S3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
