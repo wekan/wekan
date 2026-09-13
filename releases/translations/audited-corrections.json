@@ -61178,5 +61178,89 @@
     "before": "Balises lien personnalisées (HTML)",
     "after": "Balizas link personalizadas (HTML)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "custom-head-manifest-content",
+    "before": "Contenu du manifeste web personnalisé (JSON)",
+    "after": "Contengut del manifèst web personalizat (JSON)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "custom-head-meta-tags",
+    "before": "Balises meta personnalisées (HTML)",
+    "after": "Balizas meta personalizadas (HTML)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "custom-head-tags-enabled",
+    "before": "Activer les balises personnalisées",
+    "after": "Activar las balizas head personalizadas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "custom-help-link-url",
+    "before": "Lien URL vers l'aide personnalisée",
+    "after": "URL del ligam d’ajuda personalizat",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "custom-legal-notice-link-url",
+    "before": "URL de la page des mentions légales personnalisées",
+    "after": "URL de la pagina d’informacions legalas personalizadas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "custom-manifest-enabled",
+    "before": "Activer le manifeste web personnalisé",
+    "after": "Activar lo manifèst web personalizat",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "custom-top-left-corner-logo-height",
+    "before": "Hauteur du logo personnalisé dans le coin supérieur gauche. Défaut : 27",
+    "after": "Nautor del lògo personalizat dins lo canton superior esquèrre. Per defaut : 27",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "custom-top-left-corner-logo-image-url",
+    "before": "URL de l'Image du logo personnalisé dans le coin supérieur gauche",
+    "after": "URL de l’imatge del lògo personalizat dins lo canton superior esquèrre",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "custom-top-left-corner-logo-link-url",
+    "before": "Lien URL du logo personnalisé dans le coin supérieur gauche",
+    "after": "URL del ligam del lògo personalizat dins lo canton superior esquèrre",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "database-migrations",
+    "before": "Migrations base de données",
+    "after": "Migracions de la basa de donadas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "default-authentication-method",
+    "before": "Méthode d'authentification par défaut",
+    "after": "Metòde d’autentificacion per defaut",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "delete-duplicate-empty-lists-migration-description",
+    "before": "Supprime en toute sécurité les listes vides en double. Supprime uniquement les listes qui n'ont aucune carte ET qui ont une autre liste avec le même titre contenant des cartes.",
+    "after": "Suprimís en seguretat las listas voidas en doble. Leva solament las listas sens cap de carta E qu’an una autra lista amb lo meteis títol que conten de cartas.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
