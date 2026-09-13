@@ -86168,5 +86168,12 @@
     "before": "Gohiyuhi",
     "after": "ᏗᎦᎸᏫᏍᏓᏁᏗ",
     "reason": "Correct wrong word as well as writing script: Gohiyuhi means respect/loyalty/obedience in indexed Cherokee Nation dictionary https://language.cherokee.org/media/ykahxw4v/oudictionaryeuglutan.pdf (full retrieval failed after redirect). Work Digalvwisdanedi attested https://www.thepeoplespaths.net/Cherokee/CherokeeWordLists/WordList-W.htm ; syllabary ᏗᎦᎸᏫᏍᏓᏁᏗ also attested https://www.cherokeedictionary.net/cnt/0611.html . Pomodoro noun usage remains low confidence without native UI review."
+  },
+  {
+    "locale": "chr",
+    "key": "pomodoro-break",
+    "before": "Digalvquodi",
+    "after": "ᎠᏣᏪᏐᎸᏍᏙᏗ",
+    "reason": "Replace Digalvquodi, associated with sacred/holiday texts, with rest terminology Atsawesolvsdodi from https://www.thepeoplespaths.net/Cherokee/CherokeeWordLists/WordList-R.htm . Write syllabary ᎠᏣᏪᏐᎸᏍᏙᏗ directly. Syllabary rendering and Pomodoro rest-period noun usage remain low confidence; not native-speaker verified."
   }
 ]
