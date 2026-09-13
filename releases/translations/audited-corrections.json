@@ -81562,5 +81562,19 @@
     "before": "Échec de la reprise de la tâche planifiée",
     "after": "Wéyal liggéey bi ñu jekkal waxtu wi antuwul",
     "reason": "Replace French scheduled-job/error-clearing controls with Wolof. Preserve scheduled time, adding versus starting versus resuming, success versus failure and clearing all error records. Reuse liggéey/waxtu/njuumte/tambali/antuwul terminology. Scheduling adaptation and full grammar remain low confidence; migration controls remain pending."
+  },
+  {
+    "locale": "wo",
+    "key": "app-is-offline",
+    "before": "Chargement en cours, veuillez patienter. Vous risquez de perdre des données si vous rechargez la page. Si le chargement échoue, veuillez vérifier que le serveur n'est pas arrêté.",
+    "after": "Mi ngi yeb, xaaral. Bu nga yeesalaat xët wi, dinañu ñàkk ay done. Bu yeb bi doxul, seetal ndax serwëër bi taxawul.",
+    "reason": "Replace French with Wolof; retain loading wait, refresh data loss, server-stopped check and possible successful import despite errors with All Boards recovery. Technical loanwords and full sentence grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "import-board-instruction-about-errors",
+    "before": "Si une erreur survient en important le tableau, il se peut que l'import ait fonctionné, et que le tableau se trouve sur la page \"Tous les tableaux\".",
+    "after": "Bu nga am ay njuumte bi ngay dugal tablo, yenn saa yi dugal gi dox na ba tey, te tablo bi nekk ci xët «Tablo yi yépp».",
+    "reason": "Replace French with Wolof; retain loading wait, refresh data loss, server-stopped check and possible successful import despite errors with All Boards recovery. Technical loanwords and full sentence grammar remain low confidence."
   }
 ]
