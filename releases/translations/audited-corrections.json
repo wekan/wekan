@@ -63859,5 +63859,75 @@
     "before": "L'utilisateur est activé - Cliquer pour le désactiver",
     "after": "Oberiant eo an implijer — klikit evit e ziweredekaat",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "admin-people-user-inactive",
+    "before": "L'utilisateur est désactivé - Cliquer pour l'activer",
+    "after": "Dioberiant eo an implijer — klikit evit e weredekaat",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "allboards.add-subworkspace",
+    "before": "Ajouter un sous-espace de travail",
+    "after": "Ouzhpennañ un is-egor labour",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "allboards.add-workspace",
+    "before": "Ajouter un espace de travail",
+    "after": "Ouzhpennañ un egor labour",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "allboards.delete-workspace-confirm",
+    "before": "Êtes-vous sûr de vouloir supprimer cet espace de travail ?",
+    "after": "Ha sur oc’h e fell deoc’h dilemel an egor labour-mañ ?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "allowNonBoardMembers",
+    "before": "Autoriser tous les utilisateurs authentifiés",
+    "after": "Aotren an holl implijerien kennasket",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "always-field-on-card",
+    "before": "Ajouter le champ à toutes les cartes",
+    "after": "Ouzhpennañ ar maezienn d’an holl gartennoù",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "app-is-offline",
+    "before": "Chargement en cours, veuillez patienter. Vous risquez de perdre des données si vous rechargez la page. Si le chargement échoue, veuillez vérifier que le serveur n'est pas arrêté.",
+    "after": "O kargañ, gortozit mar plij. Koll roadennoù a vo ma adkargit ar bajenn. Ma ne ya ket ar c’hargañ en-dro, gwiriit n’eo ket paouezet ar servijer.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "archive-board-confirm",
+    "before": "Êtes-vous sûr de vouloir archiver ce tableau ?",
+    "after": "Ha sur oc’h e fell deoc’h diellañ an daolenn-mañ ?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "attachment-delete-pop",
+    "before": "La suppression d'une pièce jointe est définitive. Cela est irréversible.",
+    "after": "Dilemel ur stagadenn zo da vat. N’haller ket dizober an ober-mañ.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "attachment-move-storage-fs",
+    "before": "Déplacer la pièce jointe vers le système de fichier",
+    "after": "Dilec’hiañ ar stagadenn d’ar reizhiad restroù",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
