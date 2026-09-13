@@ -54325,5 +54325,68 @@
     "before": "orario iniziale modificato in __timeValue__ (precedentemente: __timeOldValue__)",
     "after": "alãxã timpul di ahurhiri la __timeValue__ di (__timeOldValue__)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "act-almostdue",
+    "before": "sollecito inviato: la scadenza (__timeValue__) di __card__ è vicina",
+    "after": "aminti cã termenlu curentu (__timeValue__) a __card__ s-aproachi",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "act-duenow",
+    "before": "sollecito inviato: la scadenza (__timeValue__) di __card__ è adesso",
+    "after": "aminti cã termenlu curentu (__timeValue__) a __card__ easti tora",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "act-pastdue",
+    "before": "sollecito inviato: la scadenza (__timeValue__) di __card__ è già passata",
+    "after": "aminti cã termenlu curentu (__timeValue__) a __card__ trecu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "act-withDue",
+    "before": "sollecito relativo a __list__/__card__ [__board__]",
+    "after": "Amintiri di termen ti __list__/__card__ [__board__]",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "activity-set-customfield",
+    "before": "imposta campo personalizzato '%s' a '%s' in %s",
+    "after": "pusi cãmpul personalizat '%s' la '%s' tu %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "activity-unset-customfield",
+    "before": "campo personalizzato non impostato '%s' in %s",
+    "after": "scoasi valoarea a cãmpului personalizat '%s' tu %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "add-custom-html-before-body-end",
+    "before": "Aggiunti il codice HTML prima di </body> fine",
+    "after": "Adavgã HTML personalizat ninti di bitisirea </body>",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "add-organizations-label",
+    "before": "Le organizzazioni aggiunte sono mostrate sotto:",
+    "after": "Organizatsiili adãvgati suntu arãtati ma njos:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "add-teams-label",
+    "before": "I team aggiunti sono i seguenti:",
+    "after": "Echipili adãvgati suntu arãtati ma njos:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
