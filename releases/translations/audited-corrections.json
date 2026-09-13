@@ -57251,5 +57251,194 @@
     "before": "Inserisci la secret key S3",
     "after": "Miette 'a chiave segreta S3",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "s3-secret-key-required",
+    "before": "La secret key S3 è obbligatoria",
+    "after": "Serve 'a chiave segreta S3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "search-example",
+    "before": "Scrivere il testo da ricercare e premere Invio",
+    "after": "Scrive 'o testo ca vuó cercà e premme Invio",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "setWipLimitPopup-title",
+    "before": "Imposta limite Work In Progress",
+    "after": "Mpòsta 'o limite WIP",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "settingsTranslationPopup-title",
+    "before": "Rimuovere stringa di traduzione personalizzata?",
+    "after": "Scancellà chesta stringa 'e traduzzione personalizzata?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "shortcut-filter-my-assigned-cards",
+    "before": "Filtro le carte assegnate",
+    "after": "Filtra 'e carte assegnate a mme",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "show-week-of-year",
+    "before": "Mostra la settimana dell'anno (ISO 8601)",
+    "after": "Mostra 'a semmana 'e ll'anno (ISO 8601)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "showLabel-field-on-card",
+    "before": "Mostra l'etichetta di campo su minischeda",
+    "after": "Mostra ll'etichetta d'o campo ncopp'a minicarta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "showSum-field-on-list",
+    "before": "Mostra la somma dei campi in cima alla lista",
+    "after": "Mostra 'a somma d'e campe ncopp'a lista",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "skip-to-content",
+    "before": "Vai al contenuto principale",
+    "after": "Va ô cuntenuto principale",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "soft-wip-limit",
+    "before": "Limite Work in progress soft",
+    "after": "Limite WIP nun vincolante",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "sort-boards-custom",
+    "before": "Personalizzato (ordine di trascinamento)",
+    "after": "Personalizzato (ordine 'e trascinamento)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "start-all-migrations",
+    "before": "Avvia tutte le migrazioni",
+    "after": "Avvia tutte 'e migrazzione",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "step-fix-attachment-urls",
+    "before": "Correggi URL degli allegati",
+    "after": "Accuncia ll'URL d'e allegati",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "step-fix-avatar-urls",
+    "before": "Correggi URL degli avatar",
+    "after": "Accuncia ll'URL d'e avatar",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "step-fix-file-urls",
+    "before": "Correzione degli URL dei file",
+    "after": "Sta accuncianno ll'URL d'e file",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "stop-all-migrations",
+    "before": "Arresta tutte le migrazioni",
+    "after": "Ferma tutte 'e migrazzione",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "support-page-enabled",
+    "before": "Pagina di supporto abilitata",
+    "after": "Pàggina 'e supporto attivata",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "theme-default",
+    "before": "Predefinito (nessuna personalizzazione)",
+    "after": "Predefinito (senza cagnamente)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "translation-number",
+    "before": "Il numero di stringhe di traduzione personalizzate è:",
+    "after": "'O nummero 'e stringhe 'e traduzzione personalizzate è:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "trello-api-credentials-required",
+    "before": "Inserisci sia la chiave API sia il token di Trello.",
+    "after": "Miette sia 'a chiave API sia 'o token 'e Trello.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "trello-api-key",
+    "before": "Chiave API di Trello (da https://trello.com/app-key)",
+    "after": "Chiave API 'e Trello (da https://trello.com/app-key)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "trello-api-token",
+    "before": "Token API di Trello (generato manualmente sotto la chiave API)",
+    "after": "Token API 'e Trello (criato a mano sott'a chiave API)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "trello-import-results",
+    "before": "Risultati dell'importazione",
+    "after": "Risultate 'e ll'importazzione",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "trello-list-workspaces",
+    "before": "Elenca gli spazi di lavoro di Trello",
+    "after": "Elenca 'e spazie 'e lavoro 'e Trello",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "uploading-files",
+    "before": "Caricamento file in corso",
+    "after": "Sta caricanno 'e file",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "username-too-short",
+    "before": "L'username deve contenere almeno 3 caratteri",
+    "after": "'O nomme utente adda tené almeno 3 carattere",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "vote-public",
+    "before": "Mostrare chi ha votato cosa",
+    "after": "Mostra chi ha vutato che cosa",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
