@@ -69550,5 +69550,89 @@
     "before": "Sterta Node: limit rozmiaru sterty",
     "after": "Sterta Node: nojwiynkszy dozwolōny rozmiar sterty",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "act-addChecklistItem",
+    "before": "menambah item cek __checklistItem__ ke daftar cek __checklist__ di kartu __card__ pada daftar __list__ pada jalur __swimlane__ dalam papan __board__",
+    "after": "geutamah item checklist __checklistItem__ u checklist __checklist__ bak kad __card__ bak senarai __list__ bak swimlane __swimlane__ bak papan __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "act-addLabel",
+    "before": "Menambah label __label__ ke kartu __card__ pada daftar __list__ pada jalur __swimlane__ dalam papan __board__",
+    "after": "Geutamah label __label__ u kad __card__ bak senarai __list__ bak swimlane __swimlane__ bak papan __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "act-addedLabel",
+    "before": "Menambah label __label__ ke kartu __card__ pada daftar __list__ pada jalur __swimlane__ dalam papan __board__",
+    "after": "Geutamah label __label__ u kad __card__ bak senarai __list__ bak swimlane __swimlane__ bak papan __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "act-addSubtask",
+    "before": "menambah tugas __subtask__ ke kartu __card__ pada daftar __list__ pada jalur __swimlane__ dalam papan __board__",
+    "after": "geutamah subtugas __subtask__ u kad __card__ bak senarai __list__ bak swimlane __swimlane__ bak papan __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "act-archivedBoard",
+    "before": "Papan __board__ telah dipindahkan ke arkib",
+    "after": "Papan __board__ geupindah u Arsip",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "act-createCard",
+    "before": "kartu yang dibuat __card__ daftar __list__ jalur __swimlane__ papan __board__",
+    "after": "geupeugot kad __card__ u senarai __list__ bak swimlane __swimlane__ bak papan __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "act-createList",
+    "before": "ditambahkan daftar __list__ pada papan __board__",
+    "after": "geutamah senarai __list__ u papan __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "act-createSwimlane",
+    "before": "jalur yang dibuat __swimlane__ papan __board__",
+    "after": "geupeugot swimlane __swimlane__ u papan __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "act-deleteAttachment",
+    "before": "menghapus lampiran __attachment__ di kartu __card__ pada daftar __list__ pada jalur __swimlane__ dalam papan __board__",
+    "after": "geuhapus lampiran __attachment__ bak kad __card__ bak senarai __list__ bak swimlane __swimlane__ bak papan __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "act-removeLabel",
+    "before": "Menghapus label __label__ dari kartu__card__ pada daftar __list__ pada jalur __swimlane__ dalam papan __board__",
+    "after": "Geuhapus label __label__ nibak kad __card__ bak senarai __list__ bak swimlane __swimlane__ bak papan __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "act-removedLabel",
+    "before": "Menghapus label __label__ dari kartu__card__ pada daftar __list__ pada jalur __swimlane__ dalam papan __board__",
+    "after": "Geuhapus label __label__ nibak kad __card__ bak senarai __list__ bak swimlane __swimlane__ bak papan __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "activity-moved",
+    "before": "dipindahkan %s dari %s ke %s",
+    "after": "geupindah %s nibak %s u %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
