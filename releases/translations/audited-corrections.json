@@ -79418,8 +79418,8 @@
     "locale": "wo",
     "key": "normal-assigned-only-desc",
     "before": "Seules les cartes assignées sont visibles. Modifier en tant qu'utilisateur normal.",
-    "after": "Karta yi ñu ko sas rekk la mën a gis. Mën na soppi ni jëfandikukat bu yoon.",
-    "reason": "Replace French permission descriptions with Wolof. Preserve view/edit/comment distinctions, assigned-only visibility, settings restriction, member removal and minimum one administrator. Reuse jekkal/xalaat/karta/bokkkat/sas terminology. Ordinary-user adaptation, role vocabulary and full grammar remain low confidence; no permission behavior changed."
+    "after": "Karta yi ñu ko sas rekk la mën a gis. Mën na soppi ni jëfandikukat Ordineer.",
+    "reason": "Replace French role/member/assignee labels with Wolof using established bokkkat/sas/saytukat terminology. Preserve read-only and assigned-only scopes and member removal rather than deletion. Retain existing Ordineer Normal role label; revise earlier uncertain bu yoon description to reference this actual label. Full grammar and role terminology remain low confidence."
   },
   {
     "locale": "wo",
@@ -80211,5 +80211,61 @@
     "before": "Recevoir les mises à jour de tous les tableaux, listes ou cartes que vous suivez",
     "after": "Jot yégle coppite yi ci tablo yi, limu yi walla karta yi ngay topp",
     "reason": "Replace French watch/notification controls with Wolof using existing yégle terminology. Preserve automatic watch on creation, all notification deletion, every board change, creator-or-member participation and watched board/list/card scopes. Watching as following and full grammar remain low confidence; existing deletion confirmation retained."
+  },
+  {
+    "locale": "wo",
+    "key": "admin",
+    "before": "Administrateur",
+    "after": "Saytukat",
+    "reason": "Replace French role/member/assignee labels with Wolof using established bokkkat/sas/saytukat terminology. Preserve read-only and assigned-only scopes and member removal rather than deletion. Retain existing Ordineer Normal role label; revise earlier uncertain bu yoon description to reference this actual label. Full grammar and role terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "read-only",
+    "before": "Lecture seule",
+    "after": "Jàng rekk",
+    "reason": "Replace French role/member/assignee labels with Wolof using established bokkkat/sas/saytukat terminology. Preserve read-only and assigned-only scopes and member removal rather than deletion. Retain existing Ordineer Normal role label; revise earlier uncertain bu yoon description to reference this actual label. Full grammar and role terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "read-assigned-only",
+    "before": "Lecture uniquement pour les cartes assignées",
+    "after": "Jàng karta yi ñu sas rekk",
+    "reason": "Replace French role/member/assignee labels with Wolof using established bokkkat/sas/saytukat terminology. Preserve read-only and assigned-only scopes and member removal rather than deletion. Retain existing Ordineer Normal role label; revise earlier uncertain bu yoon description to reference this actual label. Full grammar and role terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "normal-assigned-only",
+    "before": "Assigné uniquement Normal",
+    "after": "Ordineer ci karta yi ñu sas rekk",
+    "reason": "Replace French role/member/assignee labels with Wolof using established bokkkat/sas/saytukat terminology. Preserve read-only and assigned-only scopes and member removal rather than deletion. Retain existing Ordineer Normal role label; revise earlier uncertain bu yoon description to reference this actual label. Full grammar and role terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "members",
+    "before": "Participants",
+    "after": "Bokkkat yi",
+    "reason": "Replace French role/member/assignee labels with Wolof using established bokkkat/sas/saytukat terminology. Preserve read-only and assigned-only scopes and member removal rather than deletion. Retain existing Ordineer Normal role label; revise earlier uncertain bu yoon description to reference this actual label. Full grammar and role terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "assignee",
+    "before": "Personne assignée",
+    "after": "Ki ñu sas",
+    "reason": "Replace French role/member/assignee labels with Wolof using established bokkkat/sas/saytukat terminology. Preserve read-only and assigned-only scopes and member removal rather than deletion. Retain existing Ordineer Normal role label; revise earlier uncertain bu yoon description to reference this actual label. Full grammar and role terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "assignees",
+    "before": "Intervenants",
+    "after": "Ñi ñu sas",
+    "reason": "Replace French role/member/assignee labels with Wolof using established bokkkat/sas/saytukat terminology. Preserve read-only and assigned-only scopes and member removal rather than deletion. Retain existing Ordineer Normal role label; revise earlier uncertain bu yoon description to reference this actual label. Full grammar and role terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "remove-member",
+    "before": "Supprimer le participant",
+    "after": "Génne bokkkat bi",
+    "reason": "Replace French role/member/assignee labels with Wolof using established bokkkat/sas/saytukat terminology. Preserve read-only and assigned-only scopes and member removal rather than deletion. Retain existing Ordineer Normal role label; revise earlier uncertain bu yoon description to reference this actual label. Full grammar and role terminology remain low confidence."
   }
 ]
