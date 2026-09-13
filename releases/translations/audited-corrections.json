@@ -51455,5 +51455,61 @@
     "before": "Stessa larghezza per tutte le liste",
     "after": "A listessa larghezza per tutte e liste",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "font-default",
+    "before": "Predefinito (nessun font personalizzato)",
+    "after": "Predefinitu (nisuna pulizza persunalizata)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "font-preview-text",
+    "before": "Ma la volpe, col suo balzo, ha raggiunto il quieto Fido 0123456789",
+    "after": "A volpe bruna è lestra salta sopra à u cane pigru 0123456789",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "gcs-bucket",
+    "before": "Contenitore di archiviazione",
+    "after": "Cuntainer d’arregistramentu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "gcs-bucket-menu-path",
+    "before": "Google Cloud Console → Cloud Storage → Buckets → il nome del tuo bucket (o Create per crearne uno).",
+    "after": "Google Cloud Console → Cloud Storage → Buckets → u nome di u vostru bucket (o Create per creà ne unu).",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "gcs-credentials",
+    "before": "Credenziali dell'account di servizio (JSON)",
+    "after": "Dati d’accessu di u contu di serviziu (JSON)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "gcs-project-id-description",
+    "before": "L'id del tuo progetto Google Cloud.",
+    "after": "L’ID di u vostru prugettu Google Cloud.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "gcs-project-id-menu-path",
+    "before": "Google Cloud Console → selettore del progetto in alto → l'ID del tuo progetto (Cloud overview → Dashboard → Project info → Project ID).",
+    "after": "Google Cloud Console → selettore di prugettu in cima → l’ID di u vostru prugettu (Cloud overview → Dashboard → Project info → Project ID).",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "gcs-storage-description",
+    "before": "Archiviazione Google Cloud.",
+    "after": "Arregistramentu Google Cloud.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
