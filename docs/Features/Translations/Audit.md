@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 11,753 |
+| Corrected | 11,757 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 4,093 |
+| Pending review or repair | 4,089 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,127** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,131** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `426050ee94f59e3b45faa2f65f98acdb91eb9621` — 3 Setswana calendar labels repaired: Hebrew, Buddhist and Jalali/Persian. Published wording and religion/country vocabulary support the replacements; adapted grammar remains low confidence. Remaining calendar labels need review. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; live browser verification is unavailable.
+Latest translation fix: **2026-09-13**, local commit `d0044f13a194cba33d9818987cfc2d6fa35394a3` — 4 Setswana labels repaired: Ethiopic/Amete Alem, Indian national calendar and Saudi Hijri moon sighting. Published vocabulary supports calendar, country and moon descriptions; assembled grammar and retained country spellings remain low confidence. Coptic and tabular epoch variants remain pending. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; live browser verification is unavailable.
 
 **Review follow-up:** Silesian `sandstorm-raw-mongodb` remains pending: its wording overlaps Polish and existing Silesian technical strings, but dictionary searches did not establish the full phrase as correct Silesian. Keep the current value until stronger language evidence supports retaining or replacing it.
 
