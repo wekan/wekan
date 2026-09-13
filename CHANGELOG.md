@@ -98,6 +98,9 @@ retains the categorized findings. Not all wrong translations originated on
 Transifex: the evidence includes 4,061 pulled changes and 16,020 additional
 local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
+The requested mirror-menu interruption is completed; translation repairs are
+ready to continue. Latest full Node verification: 1,011 suites, zero failures;
+the final mirror retry adjustment also passes its targeted regression.
 
 Node regressions resolved on 2026-09-13: the original audit ran 986 suites
 with 19 failures. After the recorded source and guard repairs and one new
@@ -1093,6 +1096,30 @@ and updates the test dependency:
 and updates maintainer tooling:
 
 **Maintenance scripts** - explicit translation uploads and repository mirrors.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/675ca5d95">Add saved mirror menu and selectable forge sources</a>. Thanks to xet7.</summary>
+
+Add six menu actions for synchronization, source selection, active mirrors,
+online checks, missing-data checks and exit on Unix and Windows. Default to
+GitHub as source and GitLab, Codeberg and SourceForge as destinations; save
+choices in .tools/mirror/settings.txt. Support the other forges as sources and
+GitHub as a destination. Preserve original provenance when switching sources
+and isolate their persistent archives to prevent issue-number collisions.
+
+Compare Git ancestry and missing metadata without remote writes in check mode.
+Unattended synchronization uses --sync. SourceForge native file directories
+without release metadata become explicitly synthetic releases. Offline menu,
+API, archive, retry, settings and platform regressions pass. The full Node run
+passes 1,011 suites with zero failures. Native relative attachment links are
+resolved against their original forge
+([083a28c4f](https://github.com/wekan/wekan/commit/083a28c4f)); local archive
+failures still allow every destination to attempt supported data
+([63f41589d](https://github.com/wekan/wekan/commit/63f41589d)), with the final
+retry regression also passing. Design and commands
+are documented in releases/mirror.md. No live synchronization was run.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ba375ac7d">Repair Veps activity, list, label and attachment terminology</a>. Thanks to xet7.</summary>
