@@ -1245,6 +1245,18 @@ for this change.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/c2a8c9b2e">Repair Veps monitoring and server-error instructions</a>. Thanks to xet7.</summary>
+
+Replace seven Finnish values, resolving four original findings and three
+unflagged errors. Preserve export/refresh failure distinctions, attachment
+monitoring and reconnect retry. Snap/Docker command strings remain exact.
+All 17,017 exact correction checks and positive/negative runtime assertions
+pass. Technical grammar needs fluent review; 850 original findings and
+restored-value validation remain unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/50337aea3">Repair Veps label, status, sort and limit instructions</a>. Thanks to xet7.</summary>
 
 Replace eight Finnish values, resolving five original findings and three
