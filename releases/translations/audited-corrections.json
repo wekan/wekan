@@ -86014,5 +86014,12 @@
     "before": "Hebrew",
     "after": "Haatumeere Yahuud-en",
     "reason": "Replace English Hebrew calendar label using Fulah calendar Haatumeere independently verified in Pulaar publication and Jewish people Yahuud-en attested in indexed native https://binndipulaar.com/2019/07/13/quraan-e-%C9%97emngal-pulaar/ (variant yahuud en in https://pulaar.org/hol-ko-saabii-hare-israayiil-e-palestiin-nde-siltataa/). Full assembled calendar phrase remains low confidence and not native-speaker verified."
+  },
+  {
+    "locale": "ff",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "Haatumeere leydi (Enndo)",
+    "reason": "Replace English Indian national label with Fulah calendar terminology. National noun constructions use leydi in Fulfulde English index pp.126–127: https://www.mooreburkina.com/sites/www.mooreburkina.com/files/pdf-files/03%20Fulfulde%20-%20Index%20(anglais).pdf ; Enndo is India in https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/ff.xml . Haatumeere follows attested Pulaar Islamic calendar usage already recorded. Assembled national calendar grammar is low confidence; no native-speaker verification."
   }
 ]
