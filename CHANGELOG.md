@@ -843,6 +843,19 @@ verification remains in progress.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/ddb43f09f">Run both checklist selection close controls</a>. Thanks to xet7.</summary>
+
+The outside-click control opened an independent desktop card popup, but
+the close handler is enabled for a card route with currentCard set.
+Open that route in both tests so selection genuinely exercises the close
+guard, and a plain outside click exercises its opposite. Require the
+checklist control instead of silently returning when it is missing.
+Both checks pass in a targeted Chromium run; the quarantined control is
+registered again. Complete browser matrix verification remains in progress.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/98d473caf">Find current ARM64 Chrome in Node E2E containers</a>. Thanks to xet7.</summary>
 
 Playwright 1.63.0 names its ARM64 Chrome directory chrome-linux-arm64.
