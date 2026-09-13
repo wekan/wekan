@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 14,845 |
+| Corrected | 14,851 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 999 |
+| Pending review or repair | 993 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **16,769** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **16,775** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-13**, local commit `bc06fade8` — repaired **20** Veps board-attachment/URL/scan/migration values, resolving **16** original findings and **four** related unflagged errors. Preserve board/all-attachment scope, filesystem/GridFS/S3 destinations, correct storage-backend and broken-reference repair, avatar/member versus file distinctions, continue confirmations, administrator-only access and start/pause/stop states. All **16,769** exact corrections and actual positive/negative rendering/placeholder checks pass. Structure-related progress wording remains pending terminology research. **Low confidence:** composed storage/migration grammar and inflections need fluent-speaker review; browser verification remains outstanding. Veps has **258** pending original findings. Translation repairs remain active, including restored/unflagged and wrong-language/script validation.
+Latest translation fix: **2026-09-13**, local commit `bd1b57aac` — repaired **six** Veps notification/support/archive/avatar/swimlane-name values, resolving **six** original findings. Preserve board-wide versus creator-or-member notifications, signed-in-only support, the archive location in Board Settings and the exact `%s` name token. All **16,775** exact corrections and positive/negative runtime rendering/placeholder checks pass. **Low confidence:** composed notification and archive-help grammar/inflections need fluent-speaker review; browser verification remains outstanding. Veps has **252** pending original findings. Structure-related migration wording and restored/unflagged and wrong-language/script validation remain pending. Translation repairs remain active.
 
 **Build interruption (2026-09-13):** local commit `6cd193879` repairs the Meteor 3.6/Rspack 2 build's undeclared body-parser import using Meteor's existing Express parsers. Seven HTTP/build regressions pass. Meteor 3.6-beta.0/Rspack 2.2 and matching Docker metadata are committed locally (`35082f7d7`), and both previously failing version checks pass. All **1,015** Node suites pass. The actual Meteor bundle build remains under verification: the local beta tool is still starting before compilation. Translation counts and the latest translation commit remain unchanged.
 
