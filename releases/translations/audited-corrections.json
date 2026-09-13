@@ -120559,5 +120559,12 @@
     "before": "Les mots de passe ne correspondent pas",
     "after": "ⵜⴰⴳⵓⵔⵉ ⵏ ⵓⵣⵔⴰⵢ ⵏⵏⴰ ⵜⵙⴽⵛⵎⴷ ⵓⵔ ⵜⵎⵙⴰⵙⴰ",
     "reason": "Replace wrong-language Arabic/French core account wording using matching Standard Moroccan Tamazight MediaWiki message badretype at https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json. Compare English source message semantics; review 2026-09-14. Preserve correct local labels outside this batch. Native-script wording is reference-supported; broader restored/unflagged Tamazight and composed technical messages remain open."
+  },
+  {
+    "locale": "zgh",
+    "key": "delete-all-notifications",
+    "before": "Supprimer toutes les notifications",
+    "after": "ⴽⴽⵙ ⵉⵍⵖⴰ ⴰⴽⴽ",
+    "reason": "Replace French delete-all-notifications action with Tamazight. Reuse existing notifications noun ⵉⵍⵖⴰ; Standard Moroccan Tamazight MediaWiki delete=ⴽⴽⵙ and allpages uses ⴰⴽⴽ for all at https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json. Review 2026-09-14. Low confidence: composed action and existing notifications terminology need fluent regional/technical review. Preserve all-notifications scope; unread/read actions and irreversible confirmation remain unresolved."
   }
 ]
