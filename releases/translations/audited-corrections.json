@@ -120482,5 +120482,12 @@
     "before": "Islamic civil",
     "after": "Ислаам халандаара (табылыысса, гражданскай ээрэ)",
     "reason": "Replace English civil Hijri label preserving tabular and civil-epoch qualifiers. Reuse existing Sakha table term табылыысса; Unicode CLDR sah.xml supports Ислаам халандаара (provisional) and era field Ээрэ (contributed): https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/sah.xml. Native civil-adjective usage: https://www.sakhaparliament.ru/obshchestvo/32860-iskeni-utary-seretiitten-nejrotrenazherga-dieri. Review 2026-09-14. Low confidence: composition and era-to-calendar-epoch adaptation need fluent technical review. Sighting and astronomical variants remain unresolved."
+  },
+  {
+    "locale": "sah",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "Ислаам халандаара (табылыысса, астрономия ээрэтэ)",
+    "reason": "Replace English tabular Hijri label preserving the table and astronomical-epoch qualifiers. Reuse Sakha табылыысса and CLDR provisional Ислаам халандаара/contributed era Ээрэ from https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/sah.xml. Native astronomy loan usage: https://sakha.ysia.ru/bes-yjyn-20-k-ne-k-n-turuuta-bikipiedije/ and https://yaguo.ru/node/15059. Review 2026-09-14. Low confidence: composed астрономия ээрэтэ and era-to-calendar-epoch adaptation need fluent technical review. Preserve distinction from civil variant; sighting remains unresolved."
   }
 ]
