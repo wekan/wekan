@@ -1674,13 +1674,31 @@ everything_pid_running() {
 	[ -n "$state" ] && [ "${state#Z}" = "$state" ]
 }
 
+# A shell launcher can contain the test command in its -c argument. It is
+# part of this run's ancestry, never an abandoned previous test process.
+everything_ancestor_pids() {
+	local pid="${1:-$$}" parent pids=""
+	while [ "$pid" -gt 0 ] 2>/dev/null; do
+		case " $pids " in *" $pid "*) break ;; esac
+		pids="$pids $pid"
+		parent="$(ps -o ppid= -p "$pid" 2>/dev/null)"
+		parent="${parent//[[:space:]]/}"
+		case "$parent" in ''|*[!0-9]*) break ;; esac
+		pid="$parent"
+	done
+	printf "%s\n" "$pids"
+}
+
 cleanup_everything_processes() {
 	local scope="${1:-all}" pid pids="" survivors="" containers=""
+	local ancestors="$(everything_ancestor_pids)"
 	if [ "$scope" != own ] && command -v pgrep >/dev/null 2>&1; then
 		for pid in $(pgrep -f "[b]uild\.sh --run-everything" 2>/dev/null); do
+			case " $ancestors " in *" $pid "*) continue ;; esac
 			[ "$pid" = "$$" ] || pids="$pids $pid"
 		done
 		for pid in $(pgrep -f "$WEKAN_DIR/(tests|\.build/bundle|releases/db-conformance)" 2>/dev/null); do
+			case " $ancestors " in *" $pid "*) continue ;; esac
 			[ "$pid" = "$$" ] || pids="$pids $pid"
 		done
 	fi
