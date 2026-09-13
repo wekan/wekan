@@ -83571,5 +83571,33 @@
     "before": "Le nombre d'équipes est de :",
     "after": "Limu ékip yi mooy: ",
     "reason": "Replace French with Wolof; team loan ékip attested at https://jangawolof.org/dictionary/. Preserve irreversible deletion, blocking any remaining member, board-only removal, administrator contact, duplicate name and literal search syntax. Full sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "repository",
+    "before": "Dépôt",
+    "after": "Dencukaayu",
+    "reason": "Replace French with consistent descriptive Wolof repository/storage-place terminology; preserve singular/plural, sign-in prerequisite and upload versus update without assuming stored content is code. Derived repository term and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "repositories",
+    "before": "Dépôts",
+    "after": "Dencukaayi",
+    "reason": "Replace French with consistent descriptive Wolof repository/storage-place terminology; preserve singular/plural, sign-in prerequisite and upload versus update without assuming stored content is code. Derived repository term and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "sign-in-to-upload",
+    "before": "Connectez-vous pour téléverser des dépôts",
+    "after": "Dugg ngir yónnee dencukaayi",
+    "reason": "Replace French with consistent descriptive Wolof repository/storage-place terminology; preserve singular/plural, sign-in prerequisite and upload versus update without assuming stored content is code. Derived repository term and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "upload-repository",
+    "before": "Téléverser/Mettre à jour le dépôt",
+    "after": "Yónnee/Yeesal dencukaayu",
+    "reason": "Replace French with consistent descriptive Wolof repository/storage-place terminology; preserve singular/plural, sign-in prerequisite and upload versus update without assuming stored content is code. Derived repository term and full grammar remain low confidence."
   }
 ]
