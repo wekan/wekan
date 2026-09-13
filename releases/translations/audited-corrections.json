@@ -89703,5 +89703,68 @@
     "before": "pour coller, ou glissez-déposez une image ici (seulement une image)",
     "after": "ad nüseitön, u tränön e pladön nünedi magoda is (te magods)",
     "reason": "Repair unreadable uploaded ZIP and unsafe-file-path rejection; replace French separator/paste help preserving exact &#32;/&nbsp; entities and image-only condition. Improve two folder instructions using software-attested ragiviär rather than physical folder map. MediaWiki official Volapük https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json uses löpükön for upload and ragiviär in upload_directory_missing/read_only. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests sefik, refudön, reidön, teil and tränön. Subdirectory derivation, software drag/place/paste/path adaptations and assembled wording remain low confidence; no native-speaker verification. Preserve original correction before-values."
+  },
+  {
+    "locale": "vo",
+    "key": "globalSearch-instructions-operator-hash",
+    "before": "`__operator_label_abbrev__<nom|couleur>` - raccourci pour `__operator_label__:<couleur>` ou `__operator_label__:<nom>`",
+    "after": "`__operator_label_abbrev__<name|color>` - brefükam pro `__operator_label__:<color>` u `__operator_label__:<name>`",
+    "reason": "Repair French search-help prose and translated angle-bracket identifiers in Volapük. Preserve exact backtick operator examples and angle tokens, name/color alternative, created/modified within N days, positive whole-number per-page limit, status choice/end-date existence, case-insensitive text and default archive exclusion. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests brefükam (abbreviation), valodanum, positik and distidön (distinguish); existing search/card/date/archive vocabulary. Software adaptations and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "globalSearch-instructions-operator-label",
+    "before": "`__operator_label__:<couleur>` `__operator_label__:<nom>` - cartes qui ont une étiquette correspondant à *<couleur>* ou à *<nom>*.",
+    "after": "`__operator_label__:<color>` `__operator_label__:<name>` - kads labü ninädapenäd, kel baiädon bai *<color>* u *<name>",
+    "reason": "Repair French search-help prose and translated angle-bracket identifiers in Volapük. Preserve exact backtick operator examples and angle tokens, name/color alternative, created/modified within N days, positive whole-number per-page limit, status choice/end-date existence, case-insensitive text and default archive exclusion. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests brefükam (abbreviation), valodanum, positik and distidön (distinguish); existing search/card/date/archive vocabulary. Software adaptations and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "globalSearch-instructions-operator-limit",
+    "before": "`__operator_limit__:<n>` - où *<n>* est un entier positif exprimant le nombre de cartes à afficher par page.",
+    "after": "`__operator_limit__:<n>` - *<n>* binon valodanum positik, kel lonon mödoti kadas pojonöl pro pad alik.",
+    "reason": "Repair French search-help prose and translated angle-bracket identifiers in Volapük. Preserve exact backtick operator examples and angle tokens, name/color alternative, created/modified within N days, positive whole-number per-page limit, status choice/end-date existence, case-insensitive text and default archive exclusion. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests brefükam (abbreviation), valodanum, positik and distidön (distinguish); existing search/card/date/archive vocabulary. Software adaptations and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "globalSearch-instructions-operator-created",
+    "before": "`__operator_created__:<n>` - cartes qui ont été créées il y a *<n>* jours ou moins",
+    "after": "`__operator_created__:<n>` - kads pejaföl bü dels *<n>* u nemödikum",
+    "reason": "Repair French search-help prose and translated angle-bracket identifiers in Volapük. Preserve exact backtick operator examples and angle tokens, name/color alternative, created/modified within N days, positive whole-number per-page limit, status choice/end-date existence, case-insensitive text and default archive exclusion. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests brefükam (abbreviation), valodanum, positik and distidön (distinguish); existing search/card/date/archive vocabulary. Software adaptations and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "globalSearch-instructions-operator-modified",
+    "before": "`__operator_modified__:<n>` - cartes qui ont été modifiées il y a *<n>* jours ou moins",
+    "after": "`__operator_modified__:<n>` - kads pevotüköl bü dels *<n>* u nemödikum",
+    "reason": "Repair French search-help prose and translated angle-bracket identifiers in Volapük. Preserve exact backtick operator examples and angle tokens, name/color alternative, created/modified within N days, positive whole-number per-page limit, status choice/end-date existence, case-insensitive text and default archive exclusion. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests brefükam (abbreviation), valodanum, positik and distidön (distinguish); existing search/card/date/archive vocabulary. Software adaptations and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "globalSearch-instructions-operator-status",
+    "before": "`__operator_status__:<état>` - où *<état>* est l'un des choix suivants :",
+    "after": "`__operator_status__:<status>` - *<status>* binon bal se väls sököl:",
+    "reason": "Repair French search-help prose and translated angle-bracket identifiers in Volapük. Preserve exact backtick operator examples and angle tokens, name/color alternative, created/modified within N days, positive whole-number per-page limit, status choice/end-date existence, case-insensitive text and default archive exclusion. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests brefükam (abbreviation), valodanum, positik and distidön (distinguish); existing search/card/date/archive vocabulary. Software adaptations and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "globalSearch-instructions-status-ended",
+    "before": "`__predicate_ended__` - cartes ayant une date de fin.",
+    "after": "`__predicate_ended__` - kads labü dät fina",
+    "reason": "Repair French search-help prose and translated angle-bracket identifiers in Volapük. Preserve exact backtick operator examples and angle tokens, name/color alternative, created/modified within N days, positive whole-number per-page limit, status choice/end-date existence, case-insensitive text and default archive exclusion. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests brefükam (abbreviation), valodanum, positik and distidön (distinguish); existing search/card/date/archive vocabulary. Software adaptations and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "globalSearch-instructions-notes-4",
+    "before": "Les recherches textuelles ne sont pas sensibles à la casse.",
+    "after": "Suks vödema no distidons tonatis gretik e smalik.",
+    "reason": "Repair French search-help prose and translated angle-bracket identifiers in Volapük. Preserve exact backtick operator examples and angle tokens, name/color alternative, created/modified within N days, positive whole-number per-page limit, status choice/end-date existence, case-insensitive text and default archive exclusion. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests brefükam (abbreviation), valodanum, positik and distidön (distinguish); existing search/card/date/archive vocabulary. Software adaptations and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "globalSearch-instructions-notes-5",
+    "before": "Par défaut, les cartes archivées ne sont pas recherchées.",
+    "after": "Ma väls kösömik, kads in ragiv no pasukons.",
+    "reason": "Repair French search-help prose and translated angle-bracket identifiers in Volapük. Preserve exact backtick operator examples and angle tokens, name/color alternative, created/modified within N days, positive whole-number per-page limit, status choice/end-date existence, case-insensitive text and default archive exclusion. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests brefükam (abbreviation), valodanum, positik and distidön (distinguish); existing search/card/date/archive vocabulary. Software adaptations and assembled wording remain low confidence; no native-speaker verification."
   }
 ]
