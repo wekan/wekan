@@ -89871,5 +89871,68 @@
     "before": "Tous les intervenants de la carte actuelle de ce tableau",
     "after": "Gebans pejonidüköl valik kada nuik su tab at",
     "reason": "Replace French assignee labels, user/organization/team search explanations and people export groups with Volapük. Distinguish ordinary members from assigned users; preserve member-or-assignee alternative, all/current-card scope, board organization/team relationship and exact operator syntax/angle tokens. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests jonidükön (assign/designate), dalaban (owner), kvip (team) and existing user/member/create vocabulary. Assigned-user/organization software adaptations and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "dueCardsViewChange-choice-all-description",
+    "before": "Visualise toutes les cartes incomplètes avec une date *échue* pour lesquelles l'utilisateur possède les droits",
+    "after": "Jonon kadis valik no pefimeköl labü *tüp*, de tabs, pro kels geban labon däli.",
+    "reason": "Repair French due-date search/help/reminder messages in Volapük. Preserve all-incomplete-with-due-date versus overdue distinction, permitted-board scope, approaching/now/today/past states and exact date/card placeholders. Due operator remains inclusive up to N days from now with overdue predicate; close its missing source backtick locally for rendering without changing operator text. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nilikön (approach), mebön (remind), däl (permission) and existing date/card vocabulary. Temporal/software adaptations and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "act-almostdue",
+    "before": "rappelle que l'échéance (__timeValue__) de __card__ approche",
+    "after": "mebon, das tüp nuik (__timeValue__) kada __card__ nilikon",
+    "reason": "Repair French due-date search/help/reminder messages in Volapük. Preserve all-incomplete-with-due-date versus overdue distinction, permitted-board scope, approaching/now/today/past states and exact date/card placeholders. Due operator remains inclusive up to N days from now with overdue predicate; close its missing source backtick locally for rendering without changing operator text. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nilikön (approach), mebön (remind), däl (permission) and existing date/card vocabulary. Temporal/software adaptations and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "act-duenow",
+    "before": "rappelle que l'échéance (__timeValue__) de __card__ est maintenant",
+    "after": "mebon, das tüp nuik (__timeValue__) kada __card__ binon anu",
+    "reason": "Repair French due-date search/help/reminder messages in Volapük. Preserve all-incomplete-with-due-date versus overdue distinction, permitted-board scope, approaching/now/today/past states and exact date/card placeholders. Due operator remains inclusive up to N days from now with overdue predicate; close its missing source backtick locally for rendering without changing operator text. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nilikön (approach), mebön (remind), däl (permission) and existing date/card vocabulary. Temporal/software adaptations and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "act-pastdue",
+    "before": "rappelle que l'échéance (__timeValue__) de __card__  est passée",
+    "after": "mebon, das tüp nuik (__timeValue__) kada __card__ ya epason",
+    "reason": "Repair French due-date search/help/reminder messages in Volapük. Preserve all-incomplete-with-due-date versus overdue distinction, permitted-board scope, approaching/now/today/past states and exact date/card placeholders. Due operator remains inclusive up to N days from now with overdue predicate; close its missing source backtick locally for rendering without changing operator text. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nilikön (approach), mebön (remind), däl (permission) and existing date/card vocabulary. Temporal/software adaptations and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "almostdue",
+    "before": "La date d'échéance %s approche",
+    "after": "Tüp nuik %s nilikon",
+    "reason": "Repair French due-date search/help/reminder messages in Volapük. Preserve all-incomplete-with-due-date versus overdue distinction, permitted-board scope, approaching/now/today/past states and exact date/card placeholders. Due operator remains inclusive up to N days from now with overdue predicate; close its missing source backtick locally for rendering without changing operator text. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nilikön (approach), mebön (remind), däl (permission) and existing date/card vocabulary. Temporal/software adaptations and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "duenow",
+    "before": "La date d'échéance %s est aujourd'hui",
+    "after": "Tüp nuik %s binon adelo",
+    "reason": "Repair French due-date search/help/reminder messages in Volapük. Preserve all-incomplete-with-due-date versus overdue distinction, permitted-board scope, approaching/now/today/past states and exact date/card placeholders. Due operator remains inclusive up to N days from now with overdue predicate; close its missing source backtick locally for rendering without changing operator text. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nilikön (approach), mebön (remind), däl (permission) and existing date/card vocabulary. Temporal/software adaptations and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "dueCards-noResults-description",
+    "before": "Vous n'avez aucune carte avec échéance en ce moment.",
+    "after": "Nu no labol kadis labü tüps.",
+    "reason": "Repair French due-date search/help/reminder messages in Volapük. Preserve all-incomplete-with-due-date versus overdue distinction, permitted-board scope, approaching/now/today/past states and exact date/card placeholders. Due operator remains inclusive up to N days from now with overdue predicate; close its missing source backtick locally for rendering without changing operator text. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nilikön (approach), mebön (remind), däl (permission) and existing date/card vocabulary. Temporal/software adaptations and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "dueCards-noResults-title",
+    "before": "Aucune carte avec échéance trouvée",
+    "after": "Kads labü tüps no petuvons",
+    "reason": "Repair French due-date search/help/reminder messages in Volapük. Preserve all-incomplete-with-due-date versus overdue distinction, permitted-board scope, approaching/now/today/past states and exact date/card placeholders. Due operator remains inclusive up to N days from now with overdue predicate; close its missing source backtick locally for rendering without changing operator text. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nilikön (approach), mebön (remind), däl (permission) and existing date/card vocabulary. Temporal/software adaptations and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "globalSearch-instructions-operator-due",
+    "before": "`__operator_due__:<n>` - cartes qui arrive à échéance dans moins de *<n>* jours à partir d'aujourd'hui.\n`__operator_due__:__predicate_overdue__` liste toutes les cartes ayant passé la date d'échéance.",
+    "after": "`__operator_due__:<n>` - kads labü tüp bü u tü dels *<n>* pos nu. `__operator_due__:__predicate_overdue__` jonon kadis valik labü tüp ya pepasöl.",
+    "reason": "Repair French due-date search/help/reminder messages in Volapük. Preserve all-incomplete-with-due-date versus overdue distinction, permitted-board scope, approaching/now/today/past states and exact date/card placeholders. Due operator remains inclusive up to N days from now with overdue predicate; close its missing source backtick locally for rendering without changing operator text. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nilikön (approach), mebön (remind), däl (permission) and existing date/card vocabulary. Temporal/software adaptations and assembled wording remain low confidence; no native-speaker verification."
   }
 ]
