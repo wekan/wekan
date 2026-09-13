@@ -2389,5 +2389,21 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.ok((vepsTranslator.t('delete-linked-card-before-this-card') + ' linkedId: CARD_ID').endsWith('kudambal om linkedId: CARD_ID'));
   assert.notEqual(vepsTranslator.t('archive-card'), vepsTranslator.t('archive-list'));
   assert.ok(vepsTranslator.t('archiveBoardPopup-title').endsWith('?'));
+  const vepsMemoryUsage = {
+  "Node_memory_usage_rss": "Node mušton kävutand: RAM-as kävutadud mušton suruz’ (RSS)",
+  "Node_memory_usage_heap_total": "Node mušton kävutand: jagatud mušton kogon kaik suruz’",
+  "Node_memory_usage_heap_used": "Node mušton kävutand: todesine kävutadud mušt",
+  "Node_memory_usage_external": "Node mušton kävutand: irdpoline mušt"
+};
+  for (const [key, value] of Object.entries(vepsMemoryUsage)) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.equal(vepsTranslator.t(key), value, key);
+    assert.doesNotMatch(value, /muistin käyttö|pysyväksi asetettu|varattu keon|kokonaiskoko|todellinen käytetty|ulkoinen/, key);
+  }
+  assert.match(vepsTranslator.t('Node_memory_usage_rss'), /RAM-as.*\(RSS\)/);
+  assert.match(vepsTranslator.t('Node_memory_usage_heap_total'), /jagatud.*kogon kaik suruz’/);
+  assert.match(vepsTranslator.t('Node_memory_usage_heap_used'), /todesine kävutadud mušt/);
+  assert.match(vepsTranslator.t('Node_memory_usage_external'), /irdpoline mušt/);
+  assert.equal(new Set(Object.values(vepsMemoryUsage)).size, 4, 'all four metrics remain distinct');
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });

@@ -119628,5 +119628,33 @@
     "before": "Et voi poistaa tätä listaa ennenkuin poistat linkitetyt kortit jotka osoittavat kortteihin tässä listassa",
     "after": "Sinä ed voi heitta necen lugetišen edel sidä, ku heitad ühtenzoittud kartad, miččed ozutaba kartoihe neces lugetišes",
     "reason": "Replace Finnish archive/linked-deletion wording with Veps. Reuse Sirdä arhivaha, Endišta and ühtenzoittud; dictionary valičuz, saubata(-ptab), ozutada. Preserve restore-from-home-header instruction, deletion order, inbound linked-card direction and fragment preceding linkedId. Low confidence: composed restoration/deletion grammar and UI button/home-header adaptations need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "Node_memory_usage_rss",
+    "before": "Node muistin käyttö: pysyväksi asetettu koko",
+    "after": "Node mušton kävutand: RAM-as kävutadud mušton suruz’ (RSS)",
+    "reason": "Replace Finnish Node memory labels with Veps. Preserve allocated heap versus actual use and external memory; RSS is process memory resident in RAM, not permanently assigned size. Dictionary: mušt, kogo, suruz’, jagada, todesine and irdpoline; reuse mušton kävutand. Low confidence: composed technical metric grammar needs fluent review. Node24 definitions: https://nodejs.org/download/release/v24.11.0/docs/api/process.html#processmemoryusage"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "Node_memory_usage_heap_total",
+    "before": "Node muistin käyttö: varattu keon kokonaiskoko",
+    "after": "Node mušton kävutand: jagatud mušton kogon kaik suruz’",
+    "reason": "Replace Finnish Node memory labels with Veps. Preserve allocated heap versus actual use and external memory; RSS is process memory resident in RAM, not permanently assigned size. Dictionary: mušt, kogo, suruz’, jagada, todesine and irdpoline; reuse mušton kävutand. Low confidence: composed technical metric grammar needs fluent review. Node24 definitions: https://nodejs.org/download/release/v24.11.0/docs/api/process.html#processmemoryusage"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "Node_memory_usage_heap_used",
+    "before": "Node muistin käyttö: todellinen käytetty muisti",
+    "after": "Node mušton kävutand: todesine kävutadud mušt",
+    "reason": "Replace Finnish Node memory labels with Veps. Preserve allocated heap versus actual use and external memory; RSS is process memory resident in RAM, not permanently assigned size. Dictionary: mušt, kogo, suruz’, jagada, todesine and irdpoline; reuse mušton kävutand. Low confidence: composed technical metric grammar needs fluent review. Node24 definitions: https://nodejs.org/download/release/v24.11.0/docs/api/process.html#processmemoryusage"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "Node_memory_usage_external",
+    "before": "Node muistin käyttö: ulkoinen",
+    "after": "Node mušton kävutand: irdpoline mušt",
+    "reason": "Replace Finnish Node memory labels with Veps. Preserve allocated heap versus actual use and external memory; RSS is process memory resident in RAM, not permanently assigned size. Dictionary: mušt, kogo, suruz’, jagada, todesine and irdpoline; reuse mušton kävutand. Low confidence: composed technical metric grammar needs fluent review. Node24 definitions: https://nodejs.org/download/release/v24.11.0/docs/api/process.html#processmemoryusage"
   }
 ]
