@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,087 |
+| Corrected | 15,091 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 757 |
+| Pending review or repair | 753 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,194** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,198** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `760c4d65e` — repaired **three** Veps duplicate-list warnings, resolving **three** original findings. Preserve empty-list AND populated-same-name-duplicate conditions, initial shared-list conversion to per-swimlane lists and redundant-only deletion; checked the migration source. All **17,194** exact corrections pass runtime rendering, placeholder, JSON, key-order and human-preference checks. The original queue has **757** pending findings, including **20** Veps findings. **Low confidence:** composed safety/duplicate clauses and case agreement need fluent review. Live browser verification was not run; no translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `f1a6a1d08` — repaired **four** Veps conversion/progress messages, resolving **four** original findings. Preserve once-per-board/database-migration scope, performance improvement, normal continued board use, brief duration and background continuation after browser closure. All **17,198** exact corrections pass runtime rendering, placeholder, JSON, key-order and human-preference checks. The original queue has **753** pending findings, including **16** Veps findings. **Low confidence:** composed technical performance/structure clauses need fluent review. Live browser verification was not run; no translations were pushed.
 
 **Remaining validation:** all restored/unflagged values and low-confidence replacements remain open. Detailed per-key caveats are retained in the correction ledger and source commits. These include Veps composed UI, card, notification, calendar, timing, file/archive, metric and legal terminology/inflection; Neapolitan technical checklist usage; Fulah/Bambara calendar composition; and CLDR-provisional Ewe civil-calendar wording. Field sums, parent-card terminology, keyboard shortcuts, remaining migration/search messages and other calendar variants need further language research. Wrong-language/script and fluent-speaker checks remain unfinished.
 
