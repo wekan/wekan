@@ -91327,5 +91327,40 @@
     "before": "Lien URL vers l'aide personnalisée",
     "after": "URL yüma yufa lönik",
     "reason": "Replace French custom head/manifest/assetlinks/help-link settings with Volapük surrounding prose. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests ninäd (contents), lönik (own), gebön (use), mal (sign), resodatoped (web site), yuf (help), yüm (connection). Preserve assetlinks.json, JSON/HTML, URL and HTML link/meta/head names; manifest remains a technical borrowing, not prose mistakenly retained from French. Setting template/source reviewed for separate enablement and content fields. Custom uses lönik, HTML tags use descriptive mals, web manifest is paraphrased for website; software adaptations and proper-name inflection remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "custom-top-left-corner-logo-height",
+    "before": "Hauteur du logo personnalisé dans le coin supérieur gauche. Défaut : 27",
+    "after": "Geilot logo lönik pö gul löpik nedetik. Völad nen votükam: 27",
+    "reason": "Replace French logo position/URL/height, OIDC button customization and zoom-entry wording with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests gul (corner), geilot (height), nedetik (left), löpik (upper), magod (image), knop (clothing button), gretükön (magnify), völad (value), vil (wish). Preserve top-left location, image-versus-link URL distinction, default height 27, OIDC and exact zoom range 50-300%. Logo is a technical borrowing, knop adapted to GUI button, and default paraphrased as value without change. Assembled software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "custom-top-left-corner-logo-image-url",
+    "before": "URL de l'Image du logo personnalisé dans le coin supérieur gauche",
+    "after": "URL magoda logo lönik pö gul löpik nedetik",
+    "reason": "Replace French logo position/URL/height, OIDC button customization and zoom-entry wording with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests gul (corner), geilot (height), nedetik (left), löpik (upper), magod (image), knop (clothing button), gretükön (magnify), völad (value), vil (wish). Preserve top-left location, image-versus-link URL distinction, default height 27, OIDC and exact zoom range 50-300%. Logo is a technical borrowing, knop adapted to GUI button, and default paraphrased as value without change. Assembled software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "custom-top-left-corner-logo-link-url",
+    "before": "Lien URL du logo personnalisé dans le coin supérieur gauche",
+    "after": "URL yüma logo lönik pö gul löpik nedetik",
+    "reason": "Replace French logo position/URL/height, OIDC button customization and zoom-entry wording with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests gul (corner), geilot (height), nedetik (left), löpik (upper), magod (image), knop (clothing button), gretükön (magnify), völad (value), vil (wish). Preserve top-left location, image-versus-link URL distinction, default height 27, OIDC and exact zoom range 50-300%. Logo is a technical borrowing, knop adapted to GUI button, and default paraphrased as value without change. Assembled software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "oidc-button-text",
+    "before": "Personnaliser le texte du bouton OIDC",
+    "after": "Votükön vödemi knopa OIDC ma vil olik",
+    "reason": "Replace French logo position/URL/height, OIDC button customization and zoom-entry wording with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests gul (corner), geilot (height), nedetik (left), löpik (upper), magod (image), knop (clothing button), gretükön (magnify), völad (value), vil (wish). Preserve top-left location, image-versus-link URL distinction, default height 27, OIDC and exact zoom range 50-300%. Logo is a technical borrowing, knop adapted to GUI button, and default paraphrased as value without change. Assembled software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "enter-zoom-level",
+    "before": "Entrer le niveau d'agrandissement (50-300%) :",
+    "after": "Nüseitolös völadi gretükama (50-300%):",
+    "reason": "Replace French logo position/URL/height, OIDC button customization and zoom-entry wording with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests gul (corner), geilot (height), nedetik (left), löpik (upper), magod (image), knop (clothing button), gretükön (magnify), völad (value), vil (wish). Preserve top-left location, image-versus-link URL distinction, default height 27, OIDC and exact zoom range 50-300%. Logo is a technical borrowing, knop adapted to GUI button, and default paraphrased as value without change. Assembled software wording remains low confidence pending native review."
   }
 ]
