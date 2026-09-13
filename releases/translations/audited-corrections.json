@@ -87603,5 +87603,26 @@
     "before": "Un compte a été créé pour vous sur __siteName__",
     "after": "Kal pejafon pro ol su __siteName__",
     "reason": "Replace French/Esperanto email status labels and account/password/verification subjects with Volapük using primary MediaWiki source (https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json): mailmypassword/passwordreset Dönuvälön letavödi, eauthentsent Pened leäktronik pesedon and fümükön, mailerror Pöl dü sedam, invalidemailaddress no lonöfon, virus-scanfailed no eplöpon, accountcreated Kal pejafon. Preserve __siteName__ exactly and your-password/address/account-for-you scope. New assembled subject/error grammar remains low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "email-enrollAccount-text",
+    "before": "Bonjour __user__,\n\nPour commencer à utiliser ce service, il suffit de cliquer sur le lien ci-dessous.\n\n__url__\n\nMerci.",
+    "after": "Glidis, o __user__,\n\nAd primön ad gebön dünoti, klikolös yümi dono.\n\n__url__\n\nDanö!",
+    "reason": "Replace French account-enrollment/password-reset/email-verification bodies with Volapük. Primary MediaWiki source (https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json) supplies password-reset, account and link-instruction vocabulary; Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests primön ad (begin to), danö (thanks); Wiktionary https://en.wiktionary.org/wiki/glidis attests hello greeting. Preserve __user__, __url__, source paragraph separator representation and begin-service/reset-password/verify-account-email meanings. New assembled body grammar remains low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "email-resetPassword-text",
+    "before": "Bonjour __user__,\n\nPour réinitialiser votre mot de passe, cliquez sur le lien ci-dessous.\n\n__url__\n\nMerci.",
+    "after": "Glidis, o __user__,\n\nAd dönuvälön letavödi olik, klikolös yümi dono.\n\n__url__\n\nDanö!",
+    "reason": "Replace French account-enrollment/password-reset/email-verification bodies with Volapük. Primary MediaWiki source (https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json) supplies password-reset, account and link-instruction vocabulary; Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests primön ad (begin to), danö (thanks); Wiktionary https://en.wiktionary.org/wiki/glidis attests hello greeting. Preserve __user__, __url__, source paragraph separator representation and begin-service/reset-password/verify-account-email meanings. New assembled body grammar remains low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "email-verifyEmail-text",
+    "before": "Bonjour __user__,\n\nPour vérifier  le courriel de votre compte, il suffit de cliquer sur le lien ci-dessous.\n\n__url__\n\nMerci.",
+    "after": "Glidis, o __user__,\n\nAd fümükön ladeti leäktronik kala olik, klikolös yümi dono.\n\n__url__\n\nDanö!",
+    "reason": "Replace French account-enrollment/password-reset/email-verification bodies with Volapük. Primary MediaWiki source (https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json) supplies password-reset, account and link-instruction vocabulary; Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests primön ad (begin to), danö (thanks); Wiktionary https://en.wiktionary.org/wiki/glidis attests hello greeting. Preserve __user__, __url__, source paragraph separator representation and begin-service/reset-password/verify-account-email meanings. New assembled body grammar remains low confidence; no native-speaker validation."
   }
 ]
