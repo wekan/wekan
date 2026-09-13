@@ -121049,5 +121049,19 @@
     "before": "L'utilisateur existe déjà",
     "after": "ⴰⵏⵙⵙⵎⵔⵙ ⵉⵍⵍⴰ ⵢⴰⴷ",
     "reason": "Replace French with directly composed Standard Moroccan Tamazight. Native MediaWiki passwordreset-nosuchcaller attests masculine negative existence ur illa; filehist-user attests the user noun; login-userblocked attests user + ad (this), and userexists attests yad (already). Preserve the distinction between a nonexistent user and an already existing user, without adding username-only restrictions or extra instructions. LOW CONFIDENCE: complete composed sentences and affirmative existence wording still require fluent-speaker review. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "calendar-system-jalali",
+    "before": "Jalali (Fars)",
+    "after": "Jalali (ⵜⴰⴼⵓⵔⵙⵉⵜ)",
+    "reason": "Localize the Persian qualifier with exact CLDR Standard Moroccan Tamazight language-fa wording, without a draft marker; preserve the Jalali proper name. Reference: https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/zgh.xml ."
+  },
+  {
+    "locale": "zgh",
+    "key": "export-card-excel",
+    "before": "Exporter la carte vers Excel",
+    "after": "ⵙⵙⵓⴼⵖ Takarḍa ⵖⵔ Excel",
+    "reason": "Replace French with a direct Standard Moroccan Tamazight composition. Native MediaWiki export attests ssufgh (export) and filecopyerror attests ghr (to); preserve the existing local card noun Takarḍa and Excel product name. LOW CONFIDENCE: complete export-card phrase and mixed-script presentation require fluent technical review. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
   }
 ]
