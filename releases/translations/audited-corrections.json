@@ -68584,5 +68584,89 @@
     "before": "Wyświetl metodę logowania",
     "after": "Pokŏż metodã uwierzytelniyniŏ",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "drag-to-connect",
+    "before": "Przeciągnij, aby połączyć z inną kartą",
+    "after": "Przeciōngnij, coby połōnczyć z inkszŏ kartōm",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "drag-to-resize-left-menu",
+    "before": "Przeciągnij, aby zmienić rozmiar lewego menu",
+    "after": "Przeciōngnij, coby zmiynić rozmiar lewygo menu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "drag-to-resize-sidebar",
+    "before": "Przeciągnij, aby zmienić rozmiar paska bocznego",
+    "after": "Przeciōngnij, coby zmiynić rozmiar bocznygo paska",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "due-date-changed-times",
+    "before": "Termin wykonania zmieniono %s razy",
+    "after": "Termin zmiyniōno %s razy",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "email-verifyEmail-subject",
+    "before": "Zweryfikuj swój adres email na __siteName__",
+    "after": "Sprawdź swōj adres email na __siteName__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "enter-zoom-level",
+    "before": "Wprowadź poziom powiększenia (50-300%):",
+    "after": "Wpisz poziōm powiynkszyniŏ (50-300%):",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "exportChecklistPopup-title",
+    "before": "Eksportuj listę kontrolną",
+    "after": "Eksportuj listã kōntrolnŏ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "filter-assignee-label",
+    "before": "Filtruj wg osoby przypisanej",
+    "after": "Filtruj podug przipisanyj ôsoby",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "filter-card-title-label",
+    "before": "Filtruj według tytułu karty",
+    "after": "Filtruj podug tytułu karty",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "filter-custom-fields-label",
+    "before": "Filtruj wg niestandardowych pól",
+    "after": "Filtruj podug włŏsnych pōl",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "filter-dependencies-label",
+    "before": "Filtruj według zależności",
+    "after": "Filtruj podug zŏleżności",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "filter-no-custom-fields",
+    "before": "Brak niestandardowych pól",
+    "after": "Niy ma włŏsnych pōl",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
