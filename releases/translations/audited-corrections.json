@@ -113200,21 +113200,21 @@
     "locale": "ve-PP",
     "key": "calendar-system-islamic-civil",
     "before": "Islamic civil",
-    "after": "Islaman kalendar' (Hijri, tablican abul, rahvahaline aug)",
-    "reason": "Replace English calendar name with Veps; preserve Hijri tabular/civil/astronomical and Saudi moon-observation distinctions. Zaiceva/Mullonen, Uz’ venä-vepsläine vajehnik (2007), entries гражданский (rahvahaline), таблица (tablic), наблюдение (tarkištelend), астрономический (tähtaztedoline), начало (aug), месяц/луна (ku), календарь (kalendar’). Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf and https://vep.wikipedia.org/wiki/Saudan_Arabii. Low confidence: composed calendar labels, epoch expressed as aug (origin), and adapted Coptic proper name require fluent terminology review."
+    "after": "Islaman kalendar' (Hijri, tablican abul, rahvahaline aiganlugun augotiž)",
+    "reason": "Replace English with Veps, preserving tabular civil/astronomical epoch and Saudi moon observation distinctions. Zaiceva/Mullonen (2007), Uz’ venä-vepsläine vajehnik, pp. 105 (rahvahaline), 218 (aiganlugu; uden aiganlugun augotiž), 225 (kudmaine), 244 (tarkištelend), 258 (augotiž), 453 (tablic), and entry астрономический (tähtaztedoline). Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf and https://vep.wikipedia.org/wiki/Saudan_Arabii. Low confidence: composed technical labels need fluent terminology review; epoch is expressed as the origin of time reckoning, and kudmaižen is the moon noun’s genitive."
   },
   {
     "locale": "ve-PP",
     "key": "calendar-system-islamic-rgsa",
     "before": "Islamic (Saudi Arabia)",
-    "after": "Islaman kalendar' (Hijri, Saudan Arabii, kun tarkištelend)",
-    "reason": "Replace English calendar name with Veps; preserve Hijri tabular/civil/astronomical and Saudi moon-observation distinctions. Zaiceva/Mullonen, Uz’ venä-vepsläine vajehnik (2007), entries гражданский (rahvahaline), таблица (tablic), наблюдение (tarkištelend), астрономический (tähtaztedoline), начало (aug), месяц/луна (ku), календарь (kalendar’). Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf and https://vep.wikipedia.org/wiki/Saudan_Arabii. Low confidence: composed calendar labels, epoch expressed as aug (origin), and adapted Coptic proper name require fluent terminology review."
+    "after": "Islaman kalendar' (Hijri, Saudan Arabii, kudmaižen tarkištelend)",
+    "reason": "Replace English with Veps, preserving tabular civil/astronomical epoch and Saudi moon observation distinctions. Zaiceva/Mullonen (2007), Uz’ venä-vepsläine vajehnik, pp. 105 (rahvahaline), 218 (aiganlugu; uden aiganlugun augotiž), 225 (kudmaine), 244 (tarkištelend), 258 (augotiž), 453 (tablic), and entry астрономический (tähtaztedoline). Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf and https://vep.wikipedia.org/wiki/Saudan_Arabii. Low confidence: composed technical labels need fluent terminology review; epoch is expressed as the origin of time reckoning, and kudmaižen is the moon noun’s genitive."
   },
   {
     "locale": "ve-PP",
     "key": "calendar-system-islamic-tbla",
     "before": "Islamic tabular",
-    "after": "Islaman kalendar' (Hijri, tablican abul, tähtaztedoline aug)",
-    "reason": "Replace English calendar name with Veps; preserve Hijri tabular/civil/astronomical and Saudi moon-observation distinctions. Zaiceva/Mullonen, Uz’ venä-vepsläine vajehnik (2007), entries гражданский (rahvahaline), таблица (tablic), наблюдение (tarkištelend), астрономический (tähtaztedoline), начало (aug), месяц/луна (ku), календарь (kalendar’). Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf and https://vep.wikipedia.org/wiki/Saudan_Arabii. Low confidence: composed calendar labels, epoch expressed as aug (origin), and adapted Coptic proper name require fluent terminology review."
+    "after": "Islaman kalendar' (Hijri, tablican abul, tähtaztedoline aiganlugun augotiž)",
+    "reason": "Replace English with Veps, preserving tabular civil/astronomical epoch and Saudi moon observation distinctions. Zaiceva/Mullonen (2007), Uz’ venä-vepsläine vajehnik, pp. 105 (rahvahaline), 218 (aiganlugu; uden aiganlugun augotiž), 225 (kudmaine), 244 (tarkištelend), 258 (augotiž), 453 (tablic), and entry астрономический (tähtaztedoline). Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf and https://vep.wikipedia.org/wiki/Saudan_Arabii. Low confidence: composed technical labels need fluent terminology review; epoch is expressed as the origin of time reckoning, and kudmaižen is the moon noun’s genitive."
   }
 ]
