@@ -58196,5 +58196,33 @@
     "before": "Islamic (Saudi Arabia)",
     "after": "伊斯兰历（沙特阿拉伯，观测新月）",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "yue_CN",
+    "key": "azure-blob-storage-description",
+    "before": "Microsoft Azure Blob Storage。",
+    "after": "Microsoft Azure Blob 数据储存服务。",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "yue_CN",
+    "key": "gcs-storage-description",
+    "before": "Google Cloud Storage。",
+    "after": "Google Cloud 数据储存服务。",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "yue_CN",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "伊斯兰历（沙特阿拉伯，按观测新月）",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "yue_CN",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "伊斯兰历（按表格计算，天文纪元）",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
