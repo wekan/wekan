@@ -80,14 +80,14 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 14,777 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 1,067 pending review or repair.
-The correction inventory records 16,601 exact before/after values,
+findings: 14,780 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 1,064 pending review or repair.
+The correction inventory records 16,655 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
 German cron label, which now uses the actual tool name Cron.
-The largest original finding queues remain in Veps (326) and Standard Moroccan
+The largest original finding queues remain in Veps (323) and Standard Moroccan
 Tamazight (595). Silesian database terminology and 17 Tigre
 calendar findings need language-specific review. Restored and unflagged
 values, low-confidence wording and browser rendering remain unverified.
@@ -99,8 +99,8 @@ Transifex: the evidence includes 4,061 pulled changes and 16,020 additional
 local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
-changes are implemented in local commit 02383540a; translation repairs have resumed. Latest translation fix is 627b94378,
-covering archive warnings, checklist rules and label assignment; progress counts are updated above.
+changes are implemented in local commit 02383540a; translation repairs have resumed. Latest translation fix is 320a8ae1a,
+covering rule trigger fragments and action labels; progress counts are updated above.
 All correction/rendering checks pass. Latest full Node verification before
 that batch: 1,015 suites, zero failures;
 the final mirror retry adjustment also passes its targeted regression.
@@ -1165,6 +1165,22 @@ verification; the local tool is still starting before compilation.
 and updates maintainer tooling:
 
 **Maintenance scripts** - explicit translation uploads and repository mirrors.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/320a8ae1a">Repair Veps rule trigger fragments and action labels</a>. Thanks to xet7.</summary>
+
+Replace 54 Finnish values, including 51 related unflagged controls. Preserve
+trigger subjects, member/assignee distinctions, added/removed and source/
+destination directions, archive/restore, completed/incomplete states, all-member
+removal and comma-separated three-item examples. Runtime tests check joined
+trigger fragments as well as individual labels.
+
+All 16,655 exact corrections and positive/negative runtime rendering checks pass.
+The audit now has 14,780 corrected and 1,064 pending original findings, including
+323 Veps findings. Composed UI grammar and derived participles need fluent-speaker
+review; restored/unflagged review and browser verification remain outstanding.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/627b94378">Repair Veps archive warnings and checklist rules</a>. Thanks to xet7.</summary>
