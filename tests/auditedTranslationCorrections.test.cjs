@@ -2806,5 +2806,13 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
     assert.doesNotMatch(value, /Kay willaymi|gold|silver/);
   }
   assert.notEqual(cache.qu['color-gold'], cache.qu['color-silver']);
+  const cherokeeHijriVariants = {"calendar-system-islamic-rgsa": "ᎢᏌᎳᎻᎩ, ᏌᏗ ᎠᎳᏈᎠ ᎠᎪᏩᏘᎭ", "calendar-system-islamic-tbla": "ᎢᏌᎳᎻᎩ (ᏅᏯ, ᏃᏈᏏ ᎢᏳᏍᏗ)"};
+  for (const [key, value] of Object.entries(cherokeeHijriVariants)) {
+    assert.equal(cache.chr[key], value, key);
+    assert.doesNotMatch(value, /Islamic|Saudi|tabular/);
+    assert.match(value, /[\u13A0-\u13FF]/);
+    assert.notEqual(value, cache.chr['calendar-system-islamic-civil']);
+  }
+  assert.notEqual(cache.chr['calendar-system-islamic-rgsa'], cache.chr['calendar-system-islamic-tbla']);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });

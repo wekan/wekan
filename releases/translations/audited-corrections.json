@@ -120636,5 +120636,19 @@
     "before": "Kay willaymi: silverta",
     "after": "qullqi llimpi",
     "reason": "Replace unflagged English metallic-color name wrapped in unrelated prose with Quechua material-plus-color wording. Material nouns at https://en.wiktionary.org/wiki/quri and https://en.wiktionary.org/wiki/qullqi; color term llimpi at https://en.wiktionary.org/wiki/llimpi and https://en.wiktionary.org/wiki/llimphi. Review 2026-09-14. Low confidence: composed metallic-color label and UI palette adaptation require fluent technical review. Preserve gold/silver distinction; do not claim noun entry alone attests color adjective. Pink/panti shade distinction remains unresolved."
+  },
+  {
+    "locale": "chr",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "ᎢᏌᎳᎻᎩ, ᏌᏗ ᎠᎳᏈᎠ ᎠᎪᏩᏘᎭ",
+    "reason": "Replace English calendar variant with exact Cherokee Unicode CLDR core type name at https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/chr.xml; review 2026-09-14. Source entry has no draft marker. Preserve exact native-script variant qualifiers and distinct civil/sighting/tabular/Umm al-Qura names. Further fluent technical review must establish how compact CLDR tabular wording conveys WeKan astronomical-epoch qualifier; do not claim whole-locale validation complete."
+  },
+  {
+    "locale": "chr",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "ᎢᏌᎳᎻᎩ (ᏅᏯ, ᏃᏈᏏ ᎢᏳᏍᏗ)",
+    "reason": "Replace English calendar variant with exact Cherokee Unicode CLDR core type name at https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/chr.xml; review 2026-09-14. Source entry has no draft marker. Preserve exact native-script variant qualifiers and distinct civil/sighting/tabular/Umm al-Qura names. Further fluent technical review must establish how compact CLDR tabular wording conveys WeKan astronomical-epoch qualifier; do not claim whole-locale validation complete."
   }
 ]
