@@ -64867,5 +64867,61 @@
     "before": "Voulez-vous vraiment supprimer cette équipe du tableau ?",
     "after": "Ha sur oc’h e fell deoc’h tennañ ar skipailh-mañ eus an daolenn ?",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "removeMemberPopup-title",
+    "before": "Supprimer le participant ?",
+    "after": "Tennañ an ezel ?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "run-comprehensive-migration-confirm",
+    "before": "Cette opération effectuera une migration complète pour vérifier et corriger l'intégrité des données du tableau. Cela peut prendre quelques instants. Continuer ?",
+    "after": "Seveniñ a raio an ober-mañ un treuzkas roadennoù klok evit gwiriañ ha reizhañ anterinded roadennoù an daolenn. Un nebeud amzer a c’hall kemer. Kenderc’hel ?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "run-fix-all-file-urls-migration-confirm",
+    "before": "Cette opération mettra à jour toutes les URL des pièces jointes de ce tableau pour utiliser le bon backend de stockage. Continuer ?",
+    "after": "Hizivaat a raio an ober-mañ holl URLoù stagadennoù restroù an daolenn-mañ evit implijout ar reizhiad stokañ reizh. Kenderc’hel ?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "run-fix-avatar-urls-migration-confirm",
+    "before": "Cette opération mettra à jour les URL des avatars des participants du tableau pour utiliser le bon backend de stockage. Continuer ?",
+    "after": "Hizivaat a raio an ober-mañ URLoù avatarioù izili an daolenn evit implijout ar reizhiad stokañ reizh. Kenderc’hel ?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "run-fix-missing-lists-migration-confirm",
+    "before": "Cette opération détectera et réparera les listes manquantes ou corrompues dans la structure du tableau. Continuer ?",
+    "after": "Dinoiñ ha reizhañ a raio an ober-mañ ar rolloù a vank pe a zo breinet e framm an daolenn. Kenderc’hel ?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "search-cards",
+    "before": "Rechercher parmi les titres, descriptions et champs personnalisés des cartes/listes de ce tableau",
+    "after": "Klask e titloù ar c’hartennoù/rolloù, an deskrivadurioù hag ar maeziennoù personelaet en daolenn-mañ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "settingsOrgPopup-title",
+    "before": "Paramètres de l'organisation",
+    "after": "Arventennoù an aozadur",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "settingsTranslationPopup-title",
+    "before": "Supprimer cette traduction personnalisée ?",
+    "after": "Dilemel ar steudad treiñ personelaet-mañ ?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
