@@ -541,9 +541,17 @@ FlowRouter.route('/b/:id/:slug', {
     Utils.manageCustomUI();
     Utils.manageMatomo();
 
-    this.render('defaultLayout', {
-      content: 'board',
-    });
+    // setQueryParams reruns the route. Rendering the same layout data again
+    // recreates Template.board and closes its filter sidebar. Keep that board
+    // mounted for query-only navigation; other pages and boards still render.
+    const currentPath = FlowRouter.current().path;
+    const queryOnlyNavigation = previousBoard === currentBoard && previousPath &&
+      previousPath.split('?')[0] === currentPath.split('?')[0];
+    if (!queryOnlyNavigation) {
+      this.render('defaultLayout', {
+        content: 'board',
+      });
+    }
   },
 });
 
