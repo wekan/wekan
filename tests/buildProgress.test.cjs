@@ -39,7 +39,19 @@ test('stage failures preserve stderr and prevent subsequent required stages', as
 test('all expensive build stages share the timestamped log stream', () => {
   const at = source.indexOf('===== wekan build started');
   const flow = source.slice(at, source.indexOf('local rc="${PIPESTATUS[0]}"', at));
-  for (const label of ['Remove dependencies and build caches', 'Update Meteor npm metadata', 'Install npm dependencies', 'Compile Meteor development bundle']) assert.ok(flow.includes(label));
+  for (const label of ['Remove dependencies and build caches', 'Compile app to resolve Meteor plugin npm dependencies', 'Install npm dependencies', 'Compile Meteor development bundle']) assert.ok(flow.includes(label));
   assert.match(flow, /2>&1 \| tee "\$buildlog"/);
   assert.match(flow, /meteor npm install \|\| return \$\?/);
+});
+
+test('build prints exact commands and enables supported npm and Meteor diagnostics', async () => {
+  const result = await run('build_stage "Output fixture" bash -c "echo stdout; echo stderr >&2"');
+  assert.equal(result.code, 0);
+  assert.match(result.output, /Command: bash -c/);
+  assert.match(result.output, /stdout/);
+  assert.match(result.output, /stderr/);
+  assert.match(source, /export npm_config_loglevel=verbose npm_config_foreground_scripts=true/);
+  assert.match(source, /export METEOR_PROFILE=/);
+  assert.match(source, /meteor build \.build --directory --verbose/);
+  assert.doesNotMatch(source, /meteor update --npm --verbose/, 'update has no supported verbose option');
 });

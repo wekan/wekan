@@ -332,6 +332,7 @@ function build_stage(){
 		local label="$1"; shift
 		local started=$SECONDS command_pid status elapsed
 		echo "==> $label"
+		printf '    Command:'; printf ' %q' "$@"; printf '\n'
 		"$@" <&0 &
 		command_pid=$!
 		trap 'kill "$command_pid" 2>/dev/null; exit 130' INT
@@ -415,11 +416,14 @@ function build_wekan(){
 	fi
 	{
 		echo "===== wekan build started $(date '+%F %T') ====="
+		export npm_config_loglevel=verbose npm_config_foreground_scripts=true
+		export METEOR_PROFILE="${METEOR_PROFILE:-100}"
+		echo "Build diagnostics: npm verbose output, foreground install scripts, METEOR_PROFILE=$METEOR_PROFILE (milliseconds)."
 		build_stage "1/4 Remove dependencies and build caches" rm -rf node_modules node_modules/.cache .meteor/local .build _build || return $?
 		# Updating npm metadata has historically been best effort; installation is required.
-		build_stage "2/4 Update Meteor npm metadata" meteor update --npm || echo "WARNING: npm metadata update failed; trying dependency installation."
+		build_stage "2/4 Compile app to resolve Meteor plugin npm dependencies" meteor update --npm || echo "WARNING: Meteor plugin npm dependency compilation failed; trying dependency installation."
 		build_stage "3/4 Install npm dependencies" meteor npm install || return $?
-		build_stage "4/4 Compile Meteor development bundle" meteor build .build --directory
+		build_stage "4/4 Compile Meteor development bundle" meteor build .build --directory --verbose
 		local rc=$?
 		echo "===== wekan build finished $(date '+%F %T') (exit $rc) ====="
 		return $rc

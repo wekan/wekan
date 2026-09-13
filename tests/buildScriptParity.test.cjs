@@ -54,7 +54,7 @@ test('build.sh builds before the tests, every time', () => {
 });
 
 test('build.sh keeps dependency-install errors visible in the console and log', () => {
-  assert.ok(sh.includes('build_stage "2/4 Update Meteor npm metadata" meteor update --npm') &&
+  assert.ok(sh.includes('build_stage "2/4 Compile app to resolve Meteor plugin npm dependencies" meteor update --npm') &&
     sh.includes('build_stage "3/4 Install npm dependencies" meteor npm install || return $?'),
     'meteor update and npm install must remain inside the build log stream');
   assert.ok(!sh.includes('meteor update --npm 2>/dev/null'),
