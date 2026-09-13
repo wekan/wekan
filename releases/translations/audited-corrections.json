@@ -86847,5 +86847,47 @@
     "before": "Utilisateurs verrouillés seulement",
     "after": "Te gebans pefäilököl",
     "reason": "Replace French account-lock status and filtering labels with directly assembled Volapük. Ralph Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests fäilökön (lock), mailökön (unlock), klikön (click; dictionary physical/tongue sense), jonön (show), te (only); use existing geban computer-user stem. Preserve locked versus unlock and only-locked-users scope. Applying physical lock/click vocabulary to accounts, passive participle and complete phrases remain low confidence pending native review. Preserve source tokens."
+  },
+  {
+    "locale": "vo",
+    "key": "show-on-minicard",
+    "before": "Afficher sur la mini-carte",
+    "after": "Jonön su kadil",
+    "reason": "Replace French card/minicard field display labels with directly assembled Volapük. Ralph Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests kadil (small card, PDF page584), kad (card), jonön (show), fel (general field), ninädapenäd (label), lüükön (add), valik (all), nulik (new). Preserve card/minicard destination and all-cards versus new-cards scope. Applying small card to minicard and software-field sense, inflections and full phrases remain low confidence pending native review; preserve source tokens."
+  },
+  {
+    "locale": "vo",
+    "key": "show-list-on-minicard",
+    "before": "Afficher la liste sur la mini-carte",
+    "after": "Jonön lisedi su kadil",
+    "reason": "Replace French card/minicard field display labels with directly assembled Volapük. Ralph Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests kadil (small card, PDF page584), kad (card), jonön (show), fel (general field), ninädapenäd (label), lüükön (add), valik (all), nulik (new). Preserve card/minicard destination and all-cards versus new-cards scope. Applying small card to minicard and software-field sense, inflections and full phrases remain low confidence pending native review; preserve source tokens."
+  },
+  {
+    "locale": "vo",
+    "key": "show-field-on-card",
+    "before": "Afficher ce champ sur la carte",
+    "after": "Jonön feli at su kad",
+    "reason": "Replace French card/minicard field display labels with directly assembled Volapük. Ralph Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests kadil (small card, PDF page584), kad (card), jonön (show), fel (general field), ninädapenäd (label), lüükön (add), valik (all), nulik (new). Preserve card/minicard destination and all-cards versus new-cards scope. Applying small card to minicard and software-field sense, inflections and full phrases remain low confidence pending native review; preserve source tokens."
+  },
+  {
+    "locale": "vo",
+    "key": "showLabel-field-on-card",
+    "before": "Indiquer l'étiquette du champ sur la mini-carte",
+    "after": "Jonön ninädapenädi fela su kadil",
+    "reason": "Replace French card/minicard field display labels with directly assembled Volapük. Ralph Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests kadil (small card, PDF page584), kad (card), jonön (show), fel (general field), ninädapenäd (label), lüükön (add), valik (all), nulik (new). Preserve card/minicard destination and all-cards versus new-cards scope. Applying small card to minicard and software-field sense, inflections and full phrases remain low confidence pending native review; preserve source tokens."
+  },
+  {
+    "locale": "vo",
+    "key": "always-field-on-card",
+    "before": "Ajouter le champ à toutes les cartes",
+    "after": "Lüükön feli lü kads valik",
+    "reason": "Replace French card/minicard field display labels with directly assembled Volapük. Ralph Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests kadil (small card, PDF page584), kad (card), jonön (show), fel (general field), ninädapenäd (label), lüükön (add), valik (all), nulik (new). Preserve card/minicard destination and all-cards versus new-cards scope. Applying small card to minicard and software-field sense, inflections and full phrases remain low confidence pending native review; preserve source tokens."
+  },
+  {
+    "locale": "vo",
+    "key": "automatically-field-on-card",
+    "before": "Ajouter le champ aux cartes nouvellement créées",
+    "after": "Lüükön feli lü kads nulik",
+    "reason": "Replace French card/minicard field display labels with directly assembled Volapük. Ralph Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests kadil (small card, PDF page584), kad (card), jonön (show), fel (general field), ninädapenäd (label), lüükön (add), valik (all), nulik (new). Preserve card/minicard destination and all-cards versus new-cards scope. Applying small card to minicard and software-field sense, inflections and full phrases remain low confidence pending native review; preserve source tokens."
   }
 ]
