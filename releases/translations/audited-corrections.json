@@ -52127,5 +52127,61 @@
     "before": "Secret key AWS S3 per l'autenticazione",
     "after": "Chjave secreta AWS S3 per l’autentificazione",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "s3-secret-key-placeholder",
+    "before": "Inserisci la secret key S3",
+    "after": "Inserite a chjave secreta S3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "s3-secret-key-required",
+    "before": "La secret key S3 è obbligatoria",
+    "after": "A chjave secreta S3 hè necessaria",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "s3-ssl-enabled-description",
+    "before": "Usa SSL/TLS per le connessioni S3",
+    "after": "Aduprà SSL/TLS per e cunnessioni S3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "search-example",
+    "before": "Scrivere il testo da ricercare e premere Invio",
+    "after": "Scrivite u testu da circà è appughjate Enter",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "send-smtp-test",
+    "before": "Invia un'email di test a te stesso",
+    "after": "Mandà un email di prova à voi stessu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "server-error-troubleshooting",
+    "before": "Invia l'errore generato dal server.\nPer un'installazione snap, esegui: `sudo snap logs wekan.wekan`\nPer un'installazione Docker, esegui: `sudo docker logs wekan-app`",
+    "after": "Mandate l’errore generatu da u servitore.\nPer un’installazione snap, eseguite: `sudo snap logs wekan.wekan`\nPer un’installazione Docker, eseguite: `sudo docker logs wekan-app`",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "setWipLimitPopup-title",
+    "before": "Imposta limite Work In Progress",
+    "after": "Definisce a limita WIP",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "settingsTranslationPopup-title",
+    "before": "Rimuovere stringa di traduzione personalizzata?",
+    "after": "Squassà sta stringa di traduzzione persunalizata?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
