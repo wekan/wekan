@@ -115568,5 +115568,180 @@
     "before": "Monivalinta poistaa nimilaput 1-9",
     "after": "Äjiden valičuz heitäb znamad 1-9",
     "reason": "Replace Finnish member/role/selection wording with reference Veps vocabulary. Preserve read-only versus comment-only versus normal editing, assigned-only current-user card visibility, board/card member and assignee scopes, add versus assign, all-card member removal plus notification, selection and 1-9 key ranges. Refine malformed märitadud to dictionary/native MediaWiki and inflection-table märitud, retaining original before records. Composed role/UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json ; https://en.wiktionary.org/wiki/m%C3%A4rita"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "admin-people-user-active",
+    "before": "Käyttäjä on aktiivinen - napsauttamalla ei-aktiiviseksi",
+    "after": "Kävutai om aktivine – paina, miše vajehtada ei-aktivižeks",
+    "reason": "Replace Finnish import/member/shortcut text with reference Veps vocabulary and native MediaWiki tomine/todud/To, kopirui, registriruind, oigetud and sändod. Preserve unmapped-member current-user fallback, existing-user selection, ZIP JSON/board-named attachment directories, CSV/TSV separators, conditional import-error guidance and menu navigation. Assignee shortcut toggles assignment rather than visibility; retain 1-9 and board-addition order. Invitation states remain distinct; otta table confirms passive ottud. Keep Trello interface labels and JSON/CSV/TSV/.zip literals. Composed technical phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json ; https://en.wiktionary.org/wiki/otta"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "admin-people-user-inactive",
+    "before": "Käyttäjä ei ole aktiivinen - napsauta aktivoidaksesi",
+    "after": "Kävutai ei ole aktivine – paina, miše vajehtada aktivižeks",
+    "reason": "Replace Finnish import/member/shortcut text with reference Veps vocabulary and native MediaWiki tomine/todud/To, kopirui, registriruind, oigetud and sändod. Preserve unmapped-member current-user fallback, existing-user selection, ZIP JSON/board-named attachment directories, CSV/TSV separators, conditional import-error guidance and menu navigation. Assignee shortcut toggles assignment rather than visibility; retain 1-9 and board-addition order. Invitation states remain distinct; otta table confirms passive ottud. Keep Trello interface labels and JSON/CSV/TSV/.zip literals. Composed technical phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json ; https://en.wiktionary.org/wiki/otta"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "allowNonBoardMembers",
+    "before": "Salli kaikki kirjautuneet käyttäjät",
+    "after": "Laske kaik sistemaha tulnuded kävutajile",
+    "reason": "Replace Finnish import/member/shortcut text with reference Veps vocabulary and native MediaWiki tomine/todud/To, kopirui, registriruind, oigetud and sändod. Preserve unmapped-member current-user fallback, existing-user selection, ZIP JSON/board-named attachment directories, CSV/TSV separators, conditional import-error guidance and menu navigation. Assignee shortcut toggles assignment rather than visibility; retain 1-9 and board-addition order. Invitation states remain distinct; otta table confirms passive ottud. Keep Trello interface labels and JSON/CSV/TSV/.zip literals. Composed technical phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json ; https://en.wiktionary.org/wiki/otta"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "import-board-zip",
+    "before": "Lisää .zip tiedosto jossa on taulu JSON tiedostot, ja taulu nimi alihakemistot liitteineen",
+    "after": "Ližada .zip fail, miččes oma laudoiden JSON-failad da laudoiden nimiden alahodrad tartutadud failoidenke",
+    "reason": "Replace Finnish import/member/shortcut text with reference Veps vocabulary and native MediaWiki tomine/todud/To, kopirui, registriruind, oigetud and sändod. Preserve unmapped-member current-user fallback, existing-user selection, ZIP JSON/board-named attachment directories, CSV/TSV separators, conditional import-error guidance and menu navigation. Assignee shortcut toggles assignment rather than visibility; retain 1-9 and board-addition order. Invitation states remain distinct; otta table confirms passive ottud. Keep Trello interface labels and JSON/CSV/TSV/.zip literals. Composed technical phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json ; https://en.wiktionary.org/wiki/otta"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "import-members-map",
+    "before": "Tuomallasi taululla on muutamia jäseniä. Ole hyvä ja valitse tuomiasi jäseniä vastaavat käyttäjäsi",
+    "after": "Sinun todud laudal oma erased ühtnikad. Ole hüvä, valiče ičeze kävutajad ühtnikoiden täht, kudambid tahtoid toda.",
+    "reason": "Replace Finnish import/member/shortcut text with reference Veps vocabulary and native MediaWiki tomine/todud/To, kopirui, registriruind, oigetud and sändod. Preserve unmapped-member current-user fallback, existing-user selection, ZIP JSON/board-named attachment directories, CSV/TSV separators, conditional import-error guidance and menu navigation. Assignee shortcut toggles assignment rather than visibility; retain 1-9 and board-addition order. Invitation states remain distinct; otta table confirms passive ottud. Keep Trello interface labels and JSON/CSV/TSV/.zip literals. Composed technical phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json ; https://en.wiktionary.org/wiki/otta"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "import-members-map-note",
+    "before": "Huom: Valitsemattomille jäsenille valitaan nykyinen käyttäjä.",
+    "after": "Homaičuz: ühtnikad, kudambihe ei ole valitud kävutajad, linneba märitud nügüdläižele kävutajale.",
+    "reason": "Replace Finnish import/member/shortcut text with reference Veps vocabulary and native MediaWiki tomine/todud/To, kopirui, registriruind, oigetud and sändod. Preserve unmapped-member current-user fallback, existing-user selection, ZIP JSON/board-named attachment directories, CSV/TSV separators, conditional import-error guidance and menu navigation. Assignee shortcut toggles assignment rather than visibility; retain 1-9 and board-addition order. Invitation states remain distinct; otta table confirms passive ottud. Keep Trello interface labels and JSON/CSV/TSV/.zip literals. Composed technical phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json ; https://en.wiktionary.org/wiki/otta"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "import-user-select",
+    "before": "Valitse olemassaoleva käyttäjä jota haluat käyttää tänä käyttäjänä",
+    "after": "Valiče kävutajan, kudamb jo om, necen ühtnikan täht",
+    "reason": "Replace Finnish import/member/shortcut text with reference Veps vocabulary and native MediaWiki tomine/todud/To, kopirui, registriruind, oigetud and sändod. Preserve unmapped-member current-user fallback, existing-user selection, ZIP JSON/board-named attachment directories, CSV/TSV separators, conditional import-error guidance and menu navigation. Assignee shortcut toggles assignment rather than visibility; retain 1-9 and board-addition order. Invitation states remain distinct; otta table confirms passive ottud. Keep Trello interface labels and JSON/CSV/TSV/.zip literals. Composed technical phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json ; https://en.wiktionary.org/wiki/otta"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "toggle-assignees",
+    "before": "Muokkaa käsittelijöiden 1-9 näkyvyyttä kortilla (Taululle lisäys järjestyksessä).",
+    "after": "Ližada kartale libo heitä kartaspäi märitud kävutajad 1-9 (Laudale ližadusen jäl'gendusen mödhe).",
+    "reason": "Replace Finnish import/member/shortcut text with reference Veps vocabulary and native MediaWiki tomine/todud/To, kopirui, registriruind, oigetud and sändod. Preserve unmapped-member current-user fallback, existing-user selection, ZIP JSON/board-named attachment directories, CSV/TSV separators, conditional import-error guidance and menu navigation. Assignee shortcut toggles assignment rather than visibility; retain 1-9 and board-addition order. Invitation states remain distinct; otta table confirms passive ottud. Keep Trello interface labels and JSON/CSV/TSV/.zip literals. Composed technical phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json ; https://en.wiktionary.org/wiki/otta"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "import-board-instruction-about-errors",
+    "before": "Jos virheitä tulee taulua tuotaessa, joskus tuonti silti toimii, ja taulu on Kaikki taulut sivulla.",
+    "after": "Ku laudan tomižen aigan oma vigad, tomine konz-se radab völ, da laud om “Kaik laudad” -lehtpolel.",
+    "reason": "Replace Finnish import/member/shortcut text with reference Veps vocabulary and native MediaWiki tomine/todud/To, kopirui, registriruind, oigetud and sändod. Preserve unmapped-member current-user fallback, existing-user selection, ZIP JSON/board-named attachment directories, CSV/TSV separators, conditional import-error guidance and menu navigation. Assignee shortcut toggles assignment rather than visibility; retain 1-9 and board-addition order. Invitation states remain distinct; otta table confirms passive ottud. Keep Trello interface labels and JSON/CSV/TSV/.zip literals. Composed technical phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json ; https://en.wiktionary.org/wiki/otta"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "import-board-instruction-csv",
+    "before": "Liitä pilkulla erotellut arvot (CSV)/ tabilla erotetut arvot (TSV).",
+    "after": "Pane CSV (katkimel erigoittud znamoičendad) libo TSV (Tab-znamal erigoittud znamoičendad).",
+    "reason": "Replace Finnish import/member/shortcut text with reference Veps vocabulary and native MediaWiki tomine/todud/To, kopirui, registriruind, oigetud and sändod. Preserve unmapped-member current-user fallback, existing-user selection, ZIP JSON/board-named attachment directories, CSV/TSV separators, conditional import-error guidance and menu navigation. Assignee shortcut toggles assignment rather than visibility; retain 1-9 and board-addition order. Invitation states remain distinct; otta table confirms passive ottud. Keep Trello interface labels and JSON/CSV/TSV/.zip literals. Composed technical phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json ; https://en.wiktionary.org/wiki/otta"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "import-board-instruction-trello",
+    "before": "Mene Trello-taulullasi 'Menu', sitten 'More', 'Print and Export', 'Export JSON', ja kopioi tuloksena saamasi teksti",
+    "after": "Ičeze Trello-laudal mäne 'Menu', siš 'More', 'Print and Export', 'Export JSON', da kopirui sadud tekst.",
+    "reason": "Replace Finnish import/member/shortcut text with reference Veps vocabulary and native MediaWiki tomine/todud/To, kopirui, registriruind, oigetud and sändod. Preserve unmapped-member current-user fallback, existing-user selection, ZIP JSON/board-named attachment directories, CSV/TSV separators, conditional import-error guidance and menu navigation. Assignee shortcut toggles assignment rather than visibility; retain 1-9 and board-addition order. Invitation states remain distinct; otta table confirms passive ottud. Keep Trello interface labels and JSON/CSV/TSV/.zip literals. Composed technical phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json ; https://en.wiktionary.org/wiki/otta"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "import-board-instruction-wekan",
+    "before": "Taulullasi, mene 'Valikko', sitten 'Vie taulu', ja kopioi teksti ladatusta tiedostosta.",
+    "after": "Ičeze laudal mäne “Menülist”, siš “Vedä laud”, da kopirui sadud failan tekst.",
+    "reason": "Replace Finnish import/member/shortcut text with reference Veps vocabulary and native MediaWiki tomine/todud/To, kopirui, registriruind, oigetud and sändod. Preserve unmapped-member current-user fallback, existing-user selection, ZIP JSON/board-named attachment directories, CSV/TSV separators, conditional import-error guidance and menu navigation. Assignee shortcut toggles assignment rather than visibility; retain 1-9 and board-addition order. Invitation states remain distinct; otta table confirms passive ottud. Keep Trello interface labels and JSON/CSV/TSV/.zip literals. Composed technical phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json ; https://en.wiktionary.org/wiki/otta"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "import-csv-placeholder",
+    "before": "Liitä kelvollinen CSV/TSV tietosi tähän",
+    "after": "Pane tänna oiged CSV/TSV tedod",
+    "reason": "Replace Finnish import/member/shortcut text with reference Veps vocabulary and native MediaWiki tomine/todud/To, kopirui, registriruind, oigetud and sändod. Preserve unmapped-member current-user fallback, existing-user selection, ZIP JSON/board-named attachment directories, CSV/TSV separators, conditional import-error guidance and menu navigation. Assignee shortcut toggles assignment rather than visibility; retain 1-9 and board-addition order. Invitation states remain distinct; otta table confirms passive ottud. Keep Trello interface labels and JSON/CSV/TSV/.zip literals. Composed technical phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json ; https://en.wiktionary.org/wiki/otta"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "import-json-placeholder",
+    "before": "Liitä kelvollinen JSON-tietosi tähän",
+    "after": "Pane tänna oiged JSON tedod",
+    "reason": "Replace Finnish import/member/shortcut text with reference Veps vocabulary and native MediaWiki tomine/todud/To, kopirui, registriruind, oigetud and sändod. Preserve unmapped-member current-user fallback, existing-user selection, ZIP JSON/board-named attachment directories, CSV/TSV separators, conditional import-error guidance and menu navigation. Assignee shortcut toggles assignment rather than visibility; retain 1-9 and board-addition order. Invitation states remain distinct; otta table confirms passive ottud. Keep Trello interface labels and JSON/CSV/TSV/.zip literals. Composed technical phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json ; https://en.wiktionary.org/wiki/otta"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "import-show-user-mapping",
+    "before": "Tarkasta vastaavat jäsenet",
+    "after": "Tarkišta ühtnikoiden da kävutajiden vastatesid",
+    "reason": "Replace Finnish import/member/shortcut text with reference Veps vocabulary and native MediaWiki tomine/todud/To, kopirui, registriruind, oigetud and sändod. Preserve unmapped-member current-user fallback, existing-user selection, ZIP JSON/board-named attachment directories, CSV/TSV separators, conditional import-error guidance and menu navigation. Assignee shortcut toggles assignment rather than visibility; retain 1-9 and board-addition order. Invitation states remain distinct; otta table confirms passive ottud. Keep Trello interface labels and JSON/CSV/TSV/.zip literals. Composed technical phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json ; https://en.wiktionary.org/wiki/otta"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "invite-people-error",
+    "before": "Virhe lähetettäessä kutsua rekisteröityä",
+    "after": "Viga registriruindan kucundan oigendamižen aigan",
+    "reason": "Replace Finnish import/member/shortcut text with reference Veps vocabulary and native MediaWiki tomine/todud/To, kopirui, registriruind, oigetud and sändod. Preserve unmapped-member current-user fallback, existing-user selection, ZIP JSON/board-named attachment directories, CSV/TSV separators, conditional import-error guidance and menu navigation. Assignee shortcut toggles assignment rather than visibility; retain 1-9 and board-addition order. Invitation states remain distinct; otta table confirms passive ottud. Keep Trello interface labels and JSON/CSV/TSV/.zip literals. Composed technical phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json ; https://en.wiktionary.org/wiki/otta"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "invite-people-success",
+    "before": "Kutsu rekisteröityä lähetetty onnistuneesti",
+    "after": "Registriruindan kucund om oigetud.",
+    "reason": "Replace Finnish import/member/shortcut text with reference Veps vocabulary and native MediaWiki tomine/todud/To, kopirui, registriruind, oigetud and sändod. Preserve unmapped-member current-user fallback, existing-user selection, ZIP JSON/board-named attachment directories, CSV/TSV separators, conditional import-error guidance and menu navigation. Assignee shortcut toggles assignment rather than visibility; retain 1-9 and board-addition order. Invitation states remain distinct; otta table confirms passive ottud. Keep Trello interface labels and JSON/CSV/TSV/.zip literals. Composed technical phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json ; https://en.wiktionary.org/wiki/otta"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "just-invited",
+    "before": "Sinut on juuri kutsuttu tälle taululle",
+    "after": "Sinei om ani nügüd' antud kucund necile laudale",
+    "reason": "Replace Finnish import/member/shortcut text with reference Veps vocabulary and native MediaWiki tomine/todud/To, kopirui, registriruind, oigetud and sändod. Preserve unmapped-member current-user fallback, existing-user selection, ZIP JSON/board-named attachment directories, CSV/TSV separators, conditional import-error guidance and menu navigation. Assignee shortcut toggles assignment rather than visibility; retain 1-9 and board-addition order. Invitation states remain distinct; otta table confirms passive ottud. Keep Trello interface labels and JSON/CSV/TSV/.zip literals. Composed technical phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json ; https://en.wiktionary.org/wiki/otta"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "not-accepted-yet",
+    "before": "Kutsua ei ole hyväksytty vielä",
+    "after": "Kucund ei ole völ ottud",
+    "reason": "Replace Finnish import/member/shortcut text with reference Veps vocabulary and native MediaWiki tomine/todud/To, kopirui, registriruind, oigetud and sändod. Preserve unmapped-member current-user fallback, existing-user selection, ZIP JSON/board-named attachment directories, CSV/TSV separators, conditional import-error guidance and menu navigation. Assignee shortcut toggles assignment rather than visibility; retain 1-9 and board-addition order. Invitation states remain distinct; otta table confirms passive ottud. Keep Trello interface labels and JSON/CSV/TSV/.zip literals. Composed technical phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json ; https://en.wiktionary.org/wiki/otta"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "shortcut-autocomplete-emoji",
+    "before": "Automaattinen täydennys emojille",
+    "after": "Täuta emoji avtomatižesti",
+    "reason": "Replace Finnish import/member/shortcut text with reference Veps vocabulary and native MediaWiki tomine/todud/To, kopirui, registriruind, oigetud and sändod. Preserve unmapped-member current-user fallback, existing-user selection, ZIP JSON/board-named attachment directories, CSV/TSV separators, conditional import-error guidance and menu navigation. Assignee shortcut toggles assignment rather than visibility; retain 1-9 and board-addition order. Invitation states remain distinct; otta table confirms passive ottud. Keep Trello interface labels and JSON/CSV/TSV/.zip literals. Composed technical phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json ; https://en.wiktionary.org/wiki/otta"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "shortcut-autocomplete-members",
+    "before": "Automaattinen täydennys jäsenille",
+    "after": "Täuta ühtnikoiden nimed avtomatižesti",
+    "reason": "Replace Finnish import/member/shortcut text with reference Veps vocabulary and native MediaWiki tomine/todud/To, kopirui, registriruind, oigetud and sändod. Preserve unmapped-member current-user fallback, existing-user selection, ZIP JSON/board-named attachment directories, CSV/TSV separators, conditional import-error guidance and menu navigation. Assignee shortcut toggles assignment rather than visibility; retain 1-9 and board-addition order. Invitation states remain distinct; otta table confirms passive ottud. Keep Trello interface labels and JSON/CSV/TSV/.zip literals. Composed technical phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json ; https://en.wiktionary.org/wiki/otta"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "show-board_members-avatar",
+    "before": "Näytä taulun jäsenien profiilikuvat",
+    "after": "Ozuta laudan ühtnikoiden avatarad",
+    "reason": "Replace Finnish import/member/shortcut text with reference Veps vocabulary and native MediaWiki tomine/todud/To, kopirui, registriruind, oigetud and sändod. Preserve unmapped-member current-user fallback, existing-user selection, ZIP JSON/board-named attachment directories, CSV/TSV separators, conditional import-error guidance and menu navigation. Assignee shortcut toggles assignment rather than visibility; retain 1-9 and board-addition order. Invitation states remain distinct; otta table confirms passive ottud. Keep Trello interface labels and JSON/CSV/TSV/.zip literals. Composed technical phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json ; https://en.wiktionary.org/wiki/otta"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "export-board",
+    "before": "Vie taulu",
+    "after": "Vedä laud",
+    "reason": "Replace Finnish import/member/shortcut text with reference Veps vocabulary and native MediaWiki tomine/todud/To, kopirui, registriruind, oigetud and sändod. Preserve unmapped-member current-user fallback, existing-user selection, ZIP JSON/board-named attachment directories, CSV/TSV separators, conditional import-error guidance and menu navigation. Assignee shortcut toggles assignment rather than visibility; retain 1-9 and board-addition order. Invitation states remain distinct; otta table confirms passive ottud. Keep Trello interface labels and JSON/CSV/TSV/.zip literals. Composed technical phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json ; https://en.wiktionary.org/wiki/otta"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "all-boards",
+    "before": "Kaikki taulut",
+    "after": "Kaik laudad",
+    "reason": "Replace Finnish import/member/shortcut text with reference Veps vocabulary and native MediaWiki tomine/todud/To, kopirui, registriruind, oigetud and sändod. Preserve unmapped-member current-user fallback, existing-user selection, ZIP JSON/board-named attachment directories, CSV/TSV separators, conditional import-error guidance and menu navigation. Assignee shortcut toggles assignment rather than visibility; retain 1-9 and board-addition order. Invitation states remain distinct; otta table confirms passive ottud. Keep Trello interface labels and JSON/CSV/TSV/.zip literals. Composed technical phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json ; https://en.wiktionary.org/wiki/otta"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "boardMenuPopup-title",
+    "before": "Tauluasetukset",
+    "after": "Laudan sändod",
+    "reason": "Replace Finnish import/member/shortcut text with reference Veps vocabulary and native MediaWiki tomine/todud/To, kopirui, registriruind, oigetud and sändod. Preserve unmapped-member current-user fallback, existing-user selection, ZIP JSON/board-named attachment directories, CSV/TSV separators, conditional import-error guidance and menu navigation. Assignee shortcut toggles assignment rather than visibility; retain 1-9 and board-addition order. Invitation states remain distinct; otta table confirms passive ottud. Keep Trello interface labels and JSON/CSV/TSV/.zip literals. Composed technical phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json ; https://en.wiktionary.org/wiki/otta"
   }
 ]

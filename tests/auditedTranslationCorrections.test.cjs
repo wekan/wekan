@@ -1007,6 +1007,55 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.match(cache['ve-PP']['shortcut-assign-self'], /^Märiče/);
   assert.match(cache['ve-PP']['remove-labels-multiselect'], /1-9$/);
   for (const value of Object.values(cache['ve-PP'])) assert.doesNotMatch(value, /märitadud/i);
+  const vepsImportControlRepairs = {
+  "admin-people-user-active": "Kävutai om aktivine – paina, miše vajehtada ei-aktivižeks",
+  "admin-people-user-inactive": "Kävutai ei ole aktivine – paina, miše vajehtada aktivižeks",
+  "allowNonBoardMembers": "Laske kaik sistemaha tulnuded kävutajile",
+  "import-board-zip": "Ližada .zip fail, miččes oma laudoiden JSON-failad da laudoiden nimiden alahodrad tartutadud failoidenke",
+  "import-members-map": "Sinun todud laudal oma erased ühtnikad. Ole hüvä, valiče ičeze kävutajad ühtnikoiden täht, kudambid tahtoid toda.",
+  "import-members-map-note": "Homaičuz: ühtnikad, kudambihe ei ole valitud kävutajad, linneba märitud nügüdläižele kävutajale.",
+  "import-user-select": "Valiče kävutajan, kudamb jo om, necen ühtnikan täht",
+  "toggle-assignees": "Ližada kartale libo heitä kartaspäi märitud kävutajad 1-9 (Laudale ližadusen jäl'gendusen mödhe).",
+  "import-board-instruction-about-errors": "Ku laudan tomižen aigan oma vigad, tomine konz-se radab völ, da laud om “Kaik laudad” -lehtpolel.",
+  "import-board-instruction-csv": "Pane CSV (katkimel erigoittud znamoičendad) libo TSV (Tab-znamal erigoittud znamoičendad).",
+  "import-board-instruction-trello": "Ičeze Trello-laudal mäne 'Menu', siš 'More', 'Print and Export', 'Export JSON', da kopirui sadud tekst.",
+  "import-board-instruction-wekan": "Ičeze laudal mäne “Menülist”, siš “Vedä laud”, da kopirui sadud failan tekst.",
+  "import-csv-placeholder": "Pane tänna oiged CSV/TSV tedod",
+  "import-json-placeholder": "Pane tänna oiged JSON tedod",
+  "import-show-user-mapping": "Tarkišta ühtnikoiden da kävutajiden vastatesid",
+  "invite-people-error": "Viga registriruindan kucundan oigendamižen aigan",
+  "invite-people-success": "Registriruindan kucund om oigetud.",
+  "just-invited": "Sinei om ani nügüd' antud kucund necile laudale",
+  "not-accepted-yet": "Kucund ei ole völ ottud",
+  "shortcut-autocomplete-emoji": "Täuta emoji avtomatižesti",
+  "shortcut-autocomplete-members": "Täuta ühtnikoiden nimed avtomatižesti",
+  "show-board_members-avatar": "Ozuta laudan ühtnikoiden avatarad",
+  "export-board": "Vedä laud",
+  "all-boards": "Kaik laudad",
+  "boardMenuPopup-title": "Laudan sändod"
+};
+  for (const [key, value] of Object.entries(vepsImportControlRepairs)) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.equal(vepsTranslator.t(key), value, key);
+    assert.doesNotMatch(value, /Käyttäjä|napsauta|aktiivinen|kirjautuneet|Lisää|tiedosto jossa|alihakemistot|Tuomallasi|muutamia|vastaavat käyttäjäsi|Valitsemattomille|nykyinen käyttäjä|olemassaoleva|käsittelij|näkyvyyttä|Taululle lisäys|Jos virheitä|tuotaessa|Liitä|erotellut|erotetut|Mene|Taulullasi|ladatusta|kelvollinen|Tarkasta|Virhe lähetettäessä|onnistuneesti|Sinut|kutsuttu|hyväksytty|Automaattinen|profiilikuvat|Vie taulu|Kaikki taulut|Tauluasetukset/i, key);
+  }
+  assert.match(cache['ve-PP']['import-members-map-note'], /ei ole valitud kävutajad.*linneba märitud nügüdläižele kävutajale/);
+  assert.match(cache['ve-PP']['import-user-select'], /kävutajan, kudamb jo om.*ühtnikan täht/);
+  assert.match(cache['ve-PP']['toggle-assignees'], /Ližada kartale libo heitä kartaspäi.*1-9.*Laudale ližadusen jäl'gendusen mödhe/);
+  assert.doesNotMatch(cache['ve-PP']['toggle-assignees'], /Ozuta|Peitä|nägu/);
+  assert.match(cache['ve-PP']['import-board-zip'], /\.zip.*JSON-failad.*laudoiden nimiden alahodrad.*tartutadud failoidenke/);
+  assert.match(cache['ve-PP']['import-board-instruction-csv'], /CSV.*katkimel.*TSV.*Tab-znamal/);
+  assert.match(cache['ve-PP']['import-board-instruction-about-errors'], /Ku.*vigad.*konz-se.*radab völ/);
+  assert.match(cache['ve-PP']['import-board-instruction-about-errors'], new RegExp(`“${cache['ve-PP']['all-boards']}”`));
+  assert.match(cache['ve-PP']['import-board-instruction-wekan'], new RegExp(`“${cache['ve-PP'].menu}”, siš “${cache['ve-PP']['export-board']}”`));
+  for (const label of ['Menu', 'More', 'Print and Export', 'Export JSON']) assert.ok(cache['ve-PP']['import-board-instruction-trello'].includes(`'${label}'`));
+  assert.match(cache['ve-PP']['invite-people-error'], /^Viga/);
+  assert.match(cache['ve-PP']['invite-people-success'], /om oigetud/);
+  assert.match(cache['ve-PP']['not-accepted-yet'], /ei ole völ ottud$/);
+  assert.match(cache['ve-PP']['just-invited'], /ani nügüd'/);
+  assert.match(cache['ve-PP']['admin-people-user-active'], /om aktivine.*ei-aktivižeks$/);
+  assert.match(cache['ve-PP']['admin-people-user-inactive'], /ei ole aktivine.*vajehtada aktivižeks$/);
+  assert.match(cache['ve-PP']['allowNonBoardMembers'], /kaik sistemaha tulnuded kävutajile$/);
   assert.equal(vepsTranslator.t('activity'), 'Tegendad');
   assert.equal(vepsTranslator.t('act-activity-notify'), 'Tegendoiden tedotuz');
   for (const key of ['activity', 'act-activity-notify']) {
