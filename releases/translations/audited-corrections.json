@@ -55179,5 +55179,68 @@
     "before": "%s non è un limite valido.  Il limite dovrebbe essere un numero intero positivo.",
     "after": "%s nu easti unã limitã validã. Limita lipsea s-hibã un numir întreg pozitiv.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "operator-number-expected",
+    "before": "l'operatore __operator__ prevede un numero, invece è stato fornito '__value__'",
+    "after": "Operatorlu __operator__ ashteaptã un numir, primi '__value__'",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "operator-sort-invalid",
+    "before": "L'ordinamento di '%s' non è valido",
+    "after": "Arãndarea '%s' nu easti validã",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "operator-status-invalid",
+    "before": "'%s' non è uno stato valido",
+    "after": "'%s' nu easti un status valid",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "org-name-not-found",
+    "before": "Organizzazione '%s' non trovata",
+    "after": "Organizatsia '%s' nu fu aflatã.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "org-number",
+    "before": "Il numero di organizzazioni è:",
+    "after": "Numirlu di organizatsii easti:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "page-maybe-private",
+    "before": "Questa pagina potrebbe essere privata. Potresti essere in grado di vederla <a href='%s'>facendo il log-in</a>.",
+    "after": "Aesta paginã poati s-hibã privatã. Poati s-pots s-u vedzi cu <a href='%s'>intrari tu contu</a>.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "pastdue",
+    "before": "la data di scadenza attuale %s è scaduta",
+    "after": "Termenlu curentu %s trecu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "prefix-with-full-path",
+    "before": "Prefisso con percorso completo",
+    "after": "Prefix cu calea completã",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "preview-pdf-not-supported",
+    "before": "Il vostro dispositivo non supporta l'anteprima PDF. In alternativa provate a scaricare il file.",
+    "after": "Dispozitivlu a tãu nu suportã previzualizarea PDF. Probeadzã s-discãrtsi fisierlu.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
