@@ -85846,5 +85846,12 @@
     "before": "Ethiopic Amete Alem",
     "after": "Ullorsiut Amete Alem Ethiopia",
     "reason": "Replace English calendar names with existing Greenlandic Ullorsiut and country names Kina/Japani/Ethiopia documented (draft unconfirmed) in https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/kl.xml . Preserve Amete Alem identity. Assembled noun/country wording remains low confidence, not native-speaker verified; country genitive/adjectival usage needs further review."
+  },
+  {
+    "locale": "kl",
+    "key": "calendar-system-hebrew",
+    "before": "Hebrew",
+    "after": "Juutit ullorsiutaat",
+    "reason": "Replace English Hebrew calendar label with Greenlandic phrase juutit ullorsiutaat directly attested for Jewish calendar months Kislev and Passover in https://www.jw.org/kl/biibililersaarutit/atuakkat/Inuk-inuit-inuusimasut-pingaarnerpaartaat/Savanik-paarsisoq-savallu-inaat/ . Capitalize initial label character and remove publisher discretionary soft hyphens; no assembled grammar introduced. Evidence is indexed article text returned by search; separate full-page fetch timed out. No native-speaker review performed."
   }
 ]
