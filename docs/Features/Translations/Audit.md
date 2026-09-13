@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 11,856 |
+| Corrected | 11,858 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 3,990 |
+| Pending review or repair | 3,988 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,242** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,244** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `56dc809bc1675f70679f8af94ee0d171f5a50449` — 4 Buryat labels repaired: Ethiopic/Amete Alem, Indian national and Buddhist calendar. Published Buryat supports country/religion vocabulary; derived Ethiopian genitive, national descriptor and assembled grammar remain low confidence. Setting, Persian/Hebrew/Coptic and Hijri variants still need review. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; live browser verification is unavailable.
+Latest translation fix: **2026-09-13**, local commit `bbdba94b119a7e949eb4ee1a9092e01e2e2ea5c5` — 2 Cornish calendar labels repaired. Country names follow [Cornish CLDR data](https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/kw.xml), marked draft/unconfirmed; assembled wording remains low confidence. Other Cornish calendar findings remain pending. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; live browser verification is unavailable.
 
 **Review follow-up:** Silesian `sandstorm-raw-mongodb` remains pending: its wording overlaps Polish and existing Silesian technical strings, but dictionary searches did not establish the full phrase as correct Silesian. Keep the current value until stronger language evidence supports retaining or replacing it.
 
