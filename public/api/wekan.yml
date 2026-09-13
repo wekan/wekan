@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v11.72
+  version: v11.73
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -8318,15 +8318,28 @@ definitions:
           - mm-dd-yyyy
       calendarSystem:
         description: |
-           #4335: DISPLAY-ONLY calendar system used to render minicard and card
-           detail dates (received/start/due/end). Dates are always stored as
-           Gregorian `Date` objects; this only switches the rendered string to
-           the Jalali (Persian/Solar Hijri) calendar for the viewing user. Date
-           pickers/inputs are unaffected and stay Gregorian.
+           Member-selected calendar for rendered dates and calendar inputs.
+           Native Date storage and ISO interchange values are unchanged.
         type: string
         enum:
           - gregorian
           - jalali
+          - buddhist
+          - chinese
+          - coptic
+          - dangi
+          - ethioaa
+          - ethiopic
+          - hebrew
+          - indian
+          - islamic
+          - islamic-civil
+          - islamic-rgsa
+          - islamic-tbla
+          - islamic-umalqura
+          - iso8601
+          - japanese
+          - roc
       mobileMode:
         description: |
            User-specified mobile/desktop mode toggle.
