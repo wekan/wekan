@@ -80,8 +80,8 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 14,487 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 1,357 pending review or repair.
+findings: 14,488 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 1,356 pending review or repair.
 The correction inventory records 16,007 exact before/after values across
 201 locale identifiers, including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
@@ -1098,6 +1098,15 @@ Bitbucket was tried during development and is now disabled because of
 Unauthorized errors. Repository paths remain resolved from the script's
 checkout. Syntax validation does not contact or certify remote mirrors;
 no mirroring or publishing commands were executed for this audit.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/389dc28e5">Repair Veps user and board not-found diagnostics</a>. Thanks to xet7.</summary>
+
+Replace Finnish seed text with attested Veps vocabulary, preserving quoted
+format placeholders. Positive/negative vocabulary and correction tests pass.
+Composed diagnostic wording needs fluent review.
 
 </details>
 
