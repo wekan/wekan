@@ -105950,5 +105950,180 @@
     "before": "Hlela izinkambu zangokwezifiso",
     "after": "Khwinisa fhethu ha data ho dzudzanywaho",
     "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, strong HTML markup, private/public distinctions and permanent card-action loss. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "card_members",
+    "before": "Wonke amalungu ekhadi lamanje kuleli bhodi",
+    "after": "Miraḓo yoṱhe ya khadi ḽa zwino kha bodo iyi ya Kanban",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, enable/disable distinctions and confirmation questions. Blue term lutombo is supported by the Tshivenda South African Constitution flag legend. Other wording has low confidence; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "checklistItemDeletePopup-title",
+    "before": "Susa Into Yohlu Lokuhlola?",
+    "after": "Susa tshithu tsha mutevhe wa u sedza?",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, enable/disable distinctions and confirmation questions. Blue term lutombo is supported by the Tshivenda South African Constitution flag legend. Other wording has low confidence; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "cleanup-old-jobs",
+    "before": "Hlanza Imisebenzi Emidala",
+    "after": "Kunakisa mishumo ya kale",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, enable/disable distinctions and confirmation questions. Blue term lutombo is supported by the Tshivenda South African Constitution flag legend. Other wording has low confidence; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "click-to-disable-auto-width",
+    "before": "Ububanzi bohlu oluzenzakalelayo buvunyelwe. Chofoza ukuze ukhubaze.",
+    "after": "Vhuphara ha mutevhe vhu ḓilangaho ho tendelwa. Kiḽikani u dzima.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, enable/disable distinctions and confirmation questions. Blue term lutombo is supported by the Tshivenda South African Constitution flag legend. Other wording has low confidence; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "click-to-enable-auto-width",
+    "before": "Ububanzi bohlu oluzenzakalelayo bukhutshaziwe. Chofoza ukuze unike amandla.",
+    "after": "Vhuphara ha mutevhe vhu ḓilangaho ho dzimwa. Kiḽikani u tendela.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, enable/disable distinctions and confirmation questions. Blue term lutombo is supported by the Tshivenda South African Constitution flag legend. Other wording has low confidence; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "click-to-star",
+    "before": "Chofoza ukuze ufake inkanyezi leli bhodi.",
+    "after": "Kiḽikani u vhea ṋaledzi kha bodo iyi ya Kanban.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, enable/disable distinctions and confirmation questions. Blue term lutombo is supported by the Tshivenda South African Constitution flag legend. Other wording has low confidence; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "click-to-star-page",
+    "before": "Chofoza ukuze ufake inkanyezi kuleli khasi.",
+    "after": "Kiḽikani u vhea ṋaledzi kha siaṱari iḽi.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, enable/disable distinctions and confirmation questions. Blue term lutombo is supported by the Tshivenda South African Constitution flag legend. Other wording has low confidence; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "click-to-unstar",
+    "before": "Chofoza ukuze ususe inkanyezi kuleli bhodi.",
+    "after": "Kiḽikani u bvisa ṋaledzi kha bodo iyi ya Kanban.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, enable/disable distinctions and confirmation questions. Blue term lutombo is supported by the Tshivenda South African Constitution flag legend. Other wording has low confidence; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "click-to-unstar-page",
+    "before": "Chofoza ukuze ususe inkanyezi kuleli khasi.",
+    "after": "Kiḽikani u bvisa ṋaledzi kha siaṱari iḽi.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, enable/disable distinctions and confirmation questions. Blue term lutombo is supported by the Tshivenda South African Constitution flag legend. Other wording has low confidence; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "close-add-checklist-item",
+    "before": "Vala ukwengeza into efomini lokuhlola",
+    "after": "Vala fomo ya u engedza tshithu kha mutevhe wa u sedza",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, enable/disable distinctions and confirmation questions. Blue term lutombo is supported by the Tshivenda South African Constitution flag legend. Other wording has low confidence; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "close-edit-checklist-item",
+    "before": "Vala ukuhlela into efomini lokuhlola",
+    "after": "Vala fomo ya u khwinisa tshithu kha mutevhe wa u sedza",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, enable/disable distinctions and confirmation questions. Blue term lutombo is supported by the Tshivenda South African Constitution flag legend. Other wording has low confidence; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "color-blue",
+    "before": "eluhlaza okwesibhakabhaka",
+    "after": "lutombo",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, enable/disable distinctions and confirmation questions. Blue term lutombo is supported by the Tshivenda South African Constitution flag legend. Other wording has low confidence; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "comment-delete",
+    "before": "Uqinisekile ukuthi ufuna ukususa amazwana?",
+    "after": "Ni na vhuṱanzi ha uri ni ṱoḓa u susa muhumbulo?",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, enable/disable distinctions and confirmation questions. Blue term lutombo is supported by the Tshivenda South African Constitution flag legend. Other wording has low confidence; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "comment-only-desc",
+    "before": "Angabeka amazwana emakhadini kuphela.",
+    "after": "A nga ṅwala mihumbulo kha makhadi fhedzi.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, enable/disable distinctions and confirmation questions. Blue term lutombo is supported by the Tshivenda South African Constitution flag legend. Other wording has low confidence; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "comprehensive-board-migration",
+    "before": "Ukufuduka Kwebhodi Eliphelele",
+    "after": "U pfulusa bodo ya Kanban nga vhuḓalo",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, enable/disable distinctions and confirmation questions. Blue term lutombo is supported by the Tshivenda South African Constitution flag legend. Other wording has low confidence; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "confirm-checklist-delete-popup",
+    "before": "Uqinisekile ukuthi ufuna ukususa uhlu lokuhlola?",
+    "after": "Ni na vhuṱanzi ha uri ni ṱoḓa u susa mutevhe wa u sedza?",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, enable/disable distinctions and confirmation questions. Blue term lutombo is supported by the Tshivenda South African Constitution flag legend. Other wording has low confidence; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "confirm-checklist-item-delete-popup",
+    "before": "Uqinisekile ukuthi ufuna ukususa into yohlu lokuhlola?",
+    "after": "Ni na vhuṱanzi ha uri ni ṱoḓa u susa tshithu tsha mutevhe wa u sedza?",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, enable/disable distinctions and confirmation questions. Blue term lutombo is supported by the Tshivenda South African Constitution flag legend. Other wording has low confidence; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "confirm-subtask-delete-popup",
+    "before": "Uqinisekile ukuthi ufuna ukususa umsebenzi ongaphansi?",
+    "after": "Ni na vhuṱanzi ha uri ni ṱoḓa u susa mushumo muṱuku?",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, enable/disable distinctions and confirmation questions. Blue term lutombo is supported by the Tshivenda South African Constitution flag legend. Other wording has low confidence; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "convert-to-markdown",
+    "before": "Guqulela ekubekeni phansi",
+    "after": "Shandula u ya kha markdown",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, enable/disable distinctions and confirmation questions. Blue term lutombo is supported by the Tshivenda South African Constitution flag legend. Other wording has low confidence; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "converting-board-description",
+    "before": "Ukuguqula isakhiwo sebhodi ukuze kusebenze okuthuthukisiwe. Lokhu kungase kuthathe isikhashana.",
+    "after": "I khou shandula nzudzanyo ya bodo ya Kanban u khwinisa kushumele. Izwi zwi nga dzhia tshifhinganyana.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, enable/disable distinctions and confirmation questions. Blue term lutombo is supported by the Tshivenda South African Constitution flag legend. Other wording has low confidence; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "copyChecklistFromTemplate",
+    "before": "Kopisha Uhlu Lokuhlola - Isifanekiso",
+    "after": "Kopa mutevhe wa u sedza kha themphuḽeithi",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, enable/disable distinctions and confirmation questions. Blue term lutombo is supported by the Tshivenda South African Constitution flag legend. Other wording has low confidence; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "copyChecklistFromTemplatePopup-title",
+    "before": "Kopisha Uhlu Lokuhlola - Isifanekiso",
+    "after": "Kopa mutevhe wa u sedza kha themphuḽeithi",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, enable/disable distinctions and confirmation questions. Blue term lutombo is supported by the Tshivenda South African Constitution flag legend. Other wording has low confidence; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "copyManyCardsPopup-instructions",
+    "before": "Izihloko Nezincazelo Zamakhadi Le fomethi ye-JSON",
+    "after": "Madzina na ṱhaluso dza makhadi a fhethu hu yiwaho nga tshivhumbeo itshi tsha JSON",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, enable/disable distinctions and confirmation questions. Blue term lutombo is supported by the Tshivenda South African Constitution flag legend. Other wording has low confidence; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "copyManyCardsPopup-title",
+    "before": "Kopisha Isifanekiso Emakhadini Amaningi",
+    "after": "Kopa themphuḽeithi kha makhadi manzhi",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, enable/disable distinctions and confirmation questions. Blue term lutombo is supported by the Tshivenda South African Constitution flag legend. Other wording has low confidence; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "createTemplateContainerPopup-title",
+    "before": "Engeza Isitsha Sesifanekiso",
+    "after": "Engedza tshifaredzi tsha themphuḽeithi",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, enable/disable distinctions and confirmation questions. Blue term lutombo is supported by the Tshivenda South African Constitution flag legend. Other wording has low confidence; fluent-speaker validation outstanding."
   }
 ]
