@@ -51903,5 +51903,61 @@
     "before": "'%s' non è uno stato valido",
     "after": "'%s' ùn hè micca un statu validu",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "org-number",
+    "before": "Il numero di organizzazioni è:",
+    "after": "U numeru d’urganisazioni hè: ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "org-sync-members-from-auth",
+    "before": "Sincronizza i membri dal provider di autenticazione",
+    "after": "Sincrunizà i membri da u furnitore d’autentificazione",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "page-maybe-private",
+    "before": "Questa pagina potrebbe essere privata. Potresti essere in grado di vederla <a href='%s'>facendo il log-in</a>.",
+    "after": "Sta pagina pò esse privata. Puderete forse vede la <a href='%s'>cunnettendu vi</a>.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "pastdue",
+    "before": "la data di scadenza attuale %s è scaduta",
+    "after": "A scadenza attuale %s hè passata",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "pause-all-migrations",
+    "before": "Metti in pausa tutte le migrazioni",
+    "after": "Mette in pausa tutte e migrazioni",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "pause-migration",
+    "before": "Metti in pausa la migrazione",
+    "after": "Mette in pausa a migrazione",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "problems-none-in-progress",
+    "before": "Nessuna migrazione o riparazione in corso.",
+    "after": "Nisuna migrazione o riparazione in corsu.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "r-board-note",
+    "before": "Nota: Lascia un campo vuoto per abbinare ogni possibile valore.",
+    "after": "Nota: lasciate un campu viotu per currisponde à ogni valore pussibule. ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
