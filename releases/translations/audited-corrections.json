@@ -62361,5 +62361,145 @@
     "before": "Afficher le nombre de cartes par liste",
     "after": "Mostrar lo nombre de cartas per lista",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "show-cards-minimum-count",
+    "before": "Afficher le nombre de cartes si la liste en contient plus de",
+    "after": "Mostrar lo nombre de cartas se la lista ne conten mai de",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "show-desktop-drag-handles",
+    "before": "Voir les poignées de déplacement du bureau",
+    "after": "Mostrar las ponhadas de desplaçament en mòde burèu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "show-field-on-card",
+    "before": "Afficher ce champ sur la carte",
+    "after": "Mostrar aqueste camp sus la carta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "show-list-on-minicard",
+    "before": "Afficher la liste sur la mini-carte",
+    "after": "Mostrar la lista sus la minicarta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "show-on-minicard",
+    "before": "Afficher sur la mini-carte",
+    "after": "Mostrar sus la minicarta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "show-parent-in-minicard",
+    "before": "Voir la carte parente dans la mini-carte :",
+    "after": "Mostrar lo parent dins la minicarta :",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "show-subtasks-field",
+    "before": "Afficher le champ des sous-tâches",
+    "after": "Mostrar lo camp dels sosprètzfaches",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "show-week-of-year",
+    "before": "Afficher la semaine de l'année (ISO 8601)",
+    "after": "Mostrar la setmana de l’annada (ISO 8601)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "showLabel-field-on-card",
+    "before": "Indiquer l'étiquette du champ sur la mini-carte",
+    "after": "Mostrar l’etiqueta del camp sus la minicarta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "showSum-field-on-list",
+    "before": "Afficher le total des champs en haut de liste",
+    "after": "Mostrar la soma dels camps en naut de la lista",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "sign-in-to-upload",
+    "before": "Connectez-vous pour téléverser des dépôts",
+    "after": "Connectatz-vos per mandar de depauses",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "smtp-host-description",
+    "before": "L'adresse du serveur SMTP qui gère vos courriels.",
+    "after": "L’adreça del servidor SMTP que gerís vòstres corrièls.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "smtp-port-description",
+    "before": "Le port du serveur SMTP utilisé pour les courriels sortants.",
+    "after": "Lo pòrt qu’utiliza vòstre servidor SMTP pels corrièls sortents.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "smtp-tls-description",
+    "before": "Activer la gestion de TLS sur le serveur SMTP",
+    "after": "Activar lo supòrt TLS pel servidor SMTP",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "sort-desc",
+    "before": "Cliquez pour trier la liste",
+    "after": "Clicatz per triar la lista",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "starred-boards-description",
+    "before": "Les tableaux favoris s'affichent en tête de votre liste de tableaux.",
+    "after": "Los tablèus favorits apareisson en naut de vòstra lista de tablèus.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "start-day-of-week",
+    "before": "Définir le jour de début de semaine",
+    "after": "Definir lo primièr jorn de la setmana",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "step-convert-shared-lists",
+    "before": "Convertir les listes partagées",
+    "after": "Convertir las listas partejadas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "step-create-missing-lists",
+    "before": "Créer les listes manquantes",
+    "after": "Crear las listas mancantas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "step-ensure-lost-cards-swimlane",
+    "before": "Assurer le couloir des cartes perdues",
+    "after": "Assegurar l’existéncia del corredor de las cartas perdudas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
