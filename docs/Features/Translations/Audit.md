@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 9,264 |
+| Corrected | 9,272 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 175 |
-| Pending review or repair | 6,583 |
+| Pending review or repair | 6,575 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **9,340** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **9,348** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `d5c9a4d9b620e6f6d5fb4221af31e2b973f2e8a2` — eight flagged Breton account/accessibility findings and the unflagged legal-notice label repaired; **362 Breton findings remain**. Legal-notice prefix and label are translated together; failure-window seconds and account options are preserved. Specialized terminology and grammatical wording need language review. Exact-value, placeholder, key-order and idempotency checks pass; live browser verification is unavailable.
+Latest translation fix: **2026-09-13**, local commit `d20a7d8f215be6902b613f5854e20a85094fba55` — eight Breton lockout, time-change and reminder findings repaired; **354 Breton findings remain**. Seconds, failure counts, old/new timestamps and approaching/current deadline distinctions are preserved. Specialized terminology and grammatical wording need language review. Exact-value, placeholder, key-order and idempotency checks pass; live browser verification is unavailable.
 
 **Origin:** not all errors came from Transifex. The captured pull changed 4,061 values; the local audit added 16,020 findings. Bosnian errors already existed in local commit `bdb3b15886a749b725b5290ba0109fcba955f983`. Other ultimate origins remain unverified.
 
