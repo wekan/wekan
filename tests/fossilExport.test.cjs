@@ -56,7 +56,7 @@ const args = process.argv.slice(2);
 if (args[0] === 'ui') { fs.writeFileSync(process.env.FOSSIL_UI_CAPTURE, JSON.stringify(args)); process.exit(0); }
 const input = fs.readFileSync(0, 'utf8');
 if (process.env.FOSSIL_MOCK_FAIL) { console.error('fossil import failed'); process.exit(23); }
-fs.writeFileSync(args[2], JSON.stringify({ args, input }));
+fs.writeFileSync(args[args.length - 1], JSON.stringify({ args, input }));
 `);
   fs.writeFileSync(path.join(bin, 'fossil'), `#!/bin/sh\nexec ${quote(process.execPath)} ${quote(mock)} "$@"\n`, { mode: 0o755 });
   const destination = 'output with spaces/history.fossil';
@@ -84,12 +84,11 @@ fs.writeFileSync(args[2], JSON.stringify({ args, input }));
   assert.match(missingUi.stderr, /repository not found/);
   console.log('  ok - UI opens the selected local file and diagnoses a missing repository');
 
-  const before = fs.readFileSync(path.join(task, destination), 'utf8');
   const existing = run(destination);
-  assert.notEqual(existing.status, 0);
-  assert.match(existing.stderr, /destination already exists/);
-  assert.equal(fs.readFileSync(path.join(task, destination), 'utf8'), before);
-  console.log('  ok - an existing or interrupted destination is preserved');
+  assert.equal(existing.status, 0, existing.stderr);
+  assert.deepEqual(JSON.parse(fs.readFileSync(path.join(task, destination), 'utf8')).args,
+    ['import', '--git', '--incremental', path.join(task, destination)]);
+  console.log('  ok - existing repositories use incremental import without force overwrite');
 
   const failedImport = run('failed-import.fossil', { FOSSIL_MOCK_FAIL: '1' });
   assert.notEqual(failedImport.status, 0);
@@ -122,7 +121,18 @@ fs.writeFileSync(args[2], JSON.stringify({ args, input }));
     assert.doesNotMatch(timeline, /internal-only history/);
     const tags = execFileSync(fossilBin, ['tag', 'list', '-R', filename], { encoding: 'utf8' });
     assert.match(tags, /v1/);
-    console.log('  ok - real Fossil imports history and the annotated release tag');
+    fs.appendFileSync(path.join(repo, 'history.txt'), 'new history\n');
+    git('add', 'history.txt'); git('commit', '-qm', 'new incremental commit');
+    const updated = run('real-history.fossil');
+    assert.equal(updated.status, 0, updated.stderr);
+    const latest = execFileSync(fossilBin, ['timeline', '-R', filename, '-n', '20', '-t', 'ci'], { encoding: 'utf8' });
+    assert.match(latest, /new incremental commit/);
+    assert.match(latest, /main history/);
+    assert.equal(run('real-history.fossil').status, 0);
+    const repeated = execFileSync(fossilBin, ['timeline', '-R', filename, '-n', '20', '-t', 'ci'], { encoding: 'utf8' });
+    assert.equal((repeated.match(/new incremental commit/g) || []).length, 1);
+    assert.equal((repeated.match(/main history/g) || []).length, 1);
+    console.log('  ok - real Fossil imports new commits and repeated runs do not duplicate history');
   } else {
     console.log('  skip - real Fossil import (install Fossil or set WEKAN_TEST_FOSSIL_BIN)');
   }

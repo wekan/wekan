@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Export WeKan branches and tags to a new local Fossil repository.
+# Export WeKan branches and tags to a local Fossil repository; extend it on subsequent runs.
 # Usage: bash releases/fossil.sh [destination.fossil]
 set -euo pipefail
 
@@ -22,10 +22,9 @@ for tool in git fossil; do
     exit 1
   fi
 done
+IMPORT_OPTIONS=(--git)
 if [ -e "$FOSSIL_FILE" ]; then
-  echo "Error: destination already exists: $FOSSIL_FILE" >&2
-  echo "Choose a new destination filename; the existing repository will not be overwritten." >&2
-  exit 1
+  IMPORT_OPTIONS+=(--incremental)
 fi
 
 mkdir -p "$WEKAN_ROOT/.tools/tmp"
@@ -38,8 +37,8 @@ mkdir -p -- "$(dirname -- "$FOSSIL_FILE")"
 # producing "unexpected object of type tree" warnings. Export the real history
 # namespaces explicitly, without deleting refs or hiding diagnostic output.
 if ! git fast-export --branches --tags --remotes --reencode=yes |
-  fossil import --git "$FOSSIL_FILE"; then
+  fossil import "${IMPORT_OPTIONS[@]}" "$FOSSIL_FILE"; then
   echo "Error: Git-to-Fossil export failed. See the diagnostics above." >&2
   exit 1
 fi
-echo "Created local Fossil repository: $FOSSIL_FILE"
+echo "Updated local Fossil repository: $FOSSIL_FILE"

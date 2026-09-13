@@ -26,9 +26,12 @@ causes the reported `unexpected object of type tree` warnings. The script
 selects the history namespaces explicitly, preserving diagnostic output and
 leaving Git refs intact. See [Git fast-export](https://git-scm.com/docs/git-fast-export).
 
-An existing destination is preserved. If an interrupted import left a file,
-choose a new filename and check the resulting repository before deciding what
-to do with the old one. The script does not force an overwrite. Git and Fossil
+Run the export again with the same filename to add new Git commits. Existing
+repositories use Fossil's `--incremental` import; repeated runs do not duplicate
+commits. The script re-exports the selected Git history, so updating a large
+repository may take time. It never forces an overwrite. If an interrupted import
+left an invalid repository, Fossil reports the error; choose a new filename.
+Git and Fossil
 failures return a failing status. See [Fossil import](https://fossil-scm.org/home/help/import).
 
 The copy and its UI work on-premise without Internet access or a remote mirror.
