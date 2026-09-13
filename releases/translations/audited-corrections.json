@@ -85146,5 +85146,40 @@
     "before": "Indian national",
     "after": "Khalentara ya setšhaba ya India",
     "reason": "Replace English country calendar labels with Northern Sotho descriptions using existing/published khalentara vocabulary; retain Ethiopia, India and Amete Alem proper identifiers and national distinction. Khalentara attested at https://www.jw.org/nso/laeprari/beibele/nwt/ditaba-t%C5%A1a-tlalelet%C5%A1o-b/khalentara-ya-seheberu-ya-ka-beibeleng/ . Country dictionary searches returned other languages, so retained country spellings are not claimed as attested Northern Sotho. Full assembled grammar, especially national descriptor, remains low confidence; Coptic and tabular epochs remain pending."
+  },
+  {
+    "locale": "ss",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "Luhlelo lwelikhalenda (kuboniswa kwelusuku)",
+    "reason": "Replace foreign-language setting and English calendar labels with Swati using existing local Likhalenda/Lusuku terminology; retain Dangi, Hijri, Umm al-Qura and Minguo identities. Assembled Swati grammar remains low confidence. Searches for Swati calendar/country wording did not provide native attestation; https://en.wiktionary.org/wiki/ikhalenda covers Zulu and Southern Ndebele only and is explicitly not evidence for Swati. Other religious/country/calendar variant labels remain pending."
+  },
+  {
+    "locale": "ss",
+    "key": "calendar-system-dangi",
+    "before": "Dangi (Korean)",
+    "after": "Likhalenda le-Dangi",
+    "reason": "Replace foreign-language setting and English calendar labels with Swati using existing local Likhalenda/Lusuku terminology; retain Dangi, Hijri, Umm al-Qura and Minguo identities. Assembled Swati grammar remains low confidence. Searches for Swati calendar/country wording did not provide native attestation; https://en.wiktionary.org/wiki/ikhalenda covers Zulu and Southern Ndebele only and is explicitly not evidence for Swati. Other religious/country/calendar variant labels remain pending."
+  },
+  {
+    "locale": "ss",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "Likhalenda le-Hijri",
+    "reason": "Replace foreign-language setting and English calendar labels with Swati using existing local Likhalenda/Lusuku terminology; retain Dangi, Hijri, Umm al-Qura and Minguo identities. Assembled Swati grammar remains low confidence. Searches for Swati calendar/country wording did not provide native attestation; https://en.wiktionary.org/wiki/ikhalenda covers Zulu and Southern Ndebele only and is explicitly not evidence for Swati. Other religious/country/calendar variant labels remain pending."
+  },
+  {
+    "locale": "ss",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "Likhalenda le-Hijri (Umm al-Qura)",
+    "reason": "Replace foreign-language setting and English calendar labels with Swati using existing local Likhalenda/Lusuku terminology; retain Dangi, Hijri, Umm al-Qura and Minguo identities. Assembled Swati grammar remains low confidence. Searches for Swati calendar/country wording did not provide native attestation; https://en.wiktionary.org/wiki/ikhalenda covers Zulu and Southern Ndebele only and is explicitly not evidence for Swati. Other religious/country/calendar variant labels remain pending."
+  },
+  {
+    "locale": "ss",
+    "key": "calendar-system-roc",
+    "before": "Republic of China",
+    "after": "Likhalenda le-Minguo",
+    "reason": "Replace foreign-language setting and English calendar labels with Swati using existing local Likhalenda/Lusuku terminology; retain Dangi, Hijri, Umm al-Qura and Minguo identities. Assembled Swati grammar remains low confidence. Searches for Swati calendar/country wording did not provide native attestation; https://en.wiktionary.org/wiki/ikhalenda covers Zulu and Southern Ndebele only and is explicitly not evidence for Swati. Other religious/country/calendar variant labels remain pending."
   }
 ]
