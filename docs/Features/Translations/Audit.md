@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 11,316 |
+| Corrected | 11,320 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 4,530 |
+| Pending review or repair | 4,526 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **11,639** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **11,643** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `6be6a010077ebfc1ccdf64d6a5213fb7592b6103` — 7 French move/image/sidebar controls replaced with Wolof. Top/bottom and own/specified-list destinations, background/cover removal and sidebar show/hide remain distinct. Sidebar/cover terminology and full grammar remain low confidence. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; live browser verification is unavailable.
+Latest translation fix: **2026-09-13**, local commit `18e508eda65ea52aa02d6388fd8298481587b76f` — 4 French selection label/member/color controls replaced with Wolof. Selected-item scope and label removal shortcuts 1-9 remain intact. Selection/color terminology and full grammar remain low confidence; clipboard controls remain pending. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; live browser verification is unavailable.
 
 **Review follow-up:** Silesian `sandstorm-raw-mongodb` remains pending: its wording overlaps Polish and existing Silesian technical strings, but dictionary searches did not establish the full phrase as correct Silesian. Keep the current value until stronger language evidence supports retaining or replacing it.
 
