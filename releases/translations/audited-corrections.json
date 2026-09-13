@@ -78664,5 +78664,47 @@
     "before": "a rendu incomplet la checklist __checklist__ de la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
     "after": "defaat limu bu seetlu __checklist__ ni lu jeexul ci karta __card__ ci limu __list__ ci yoon __swimlane__ ci tablo __board__",
     "reason": "Replace French checklist state activity with Wolof. Distinguish marking/unmarking an item from completing/making incomplete an entire checklist, preserving every card/list/swimlane/board/item placeholder. Marking terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "hideCheckedChecklistItems",
+    "before": "Cacher les éléments cochés de la check-list",
+    "after": "Nëbb mbiri limu bu seetlu yi ñu màndargaal",
+    "reason": "Replace French checked-item visibility and short activity messages with Wolof using marking/unmarking terminology. Preserve checked-only hiding, item/checklist/card %s ordering and short versus card-context activity. Full grammar and marking terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "hide-checked-items",
+    "before": "Cacher les éléments cochés",
+    "after": "Nëbb mbir yi ñu màndargaal",
+    "reason": "Replace French checked-item visibility and short activity messages with Wolof using marking/unmarking terminology. Preserve checked-only hiding, item/checklist/card %s ordering and short versus card-context activity. Full grammar and marking terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "activity-checked-item",
+    "before": "a coché %s dans la checklist %s de %s",
+    "after": "màndargaal %s ci limu bu seetlu %s bu %s",
+    "reason": "Replace French checked-item visibility and short activity messages with Wolof using marking/unmarking terminology. Preserve checked-only hiding, item/checklist/card %s ordering and short versus card-context activity. Full grammar and marking terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "activity-unchecked-item",
+    "before": "a décoché %s dans la checklist %s de %s",
+    "after": "dindi màndarga bi ci %s ci limu bu seetlu %s bu %s",
+    "reason": "Replace French checked-item visibility and short activity messages with Wolof using marking/unmarking terminology. Preserve checked-only hiding, item/checklist/card %s ordering and short versus card-context activity. Full grammar and marking terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "activity-checked-item-card",
+    "before": "a coché %s dans la checklist %s",
+    "after": "màndargaal %s ci limu bu seetlu %s",
+    "reason": "Replace French checked-item visibility and short activity messages with Wolof using marking/unmarking terminology. Preserve checked-only hiding, item/checklist/card %s ordering and short versus card-context activity. Full grammar and marking terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "activity-unchecked-item-card",
+    "before": "a décoché %s dans la checklist %s",
+    "after": "dindi màndarga bi ci %s ci limu bu seetlu %s",
+    "reason": "Replace French checked-item visibility and short activity messages with Wolof using marking/unmarking terminology. Preserve checked-only hiding, item/checklist/card %s ordering and short versus card-context activity. Full grammar and marking terminology remain low confidence."
   }
 ]
