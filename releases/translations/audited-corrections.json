@@ -84502,5 +84502,26 @@
     "before": "Hebrew",
     "after": "Feaillere Ewagh",
     "reason": "Replace English Buddhist/Ethiopic/Amete Alem/Hebrew calendar labels with Manx vocabulary, retaining Amete Alem identifier. https://archive.gaelg.im/www.gaelg.iofm.net/DICTIONARY/engman.pdf attests Buddhist Buddhagh (p78), Ethiopian Ethiopagh (p196), Hebrew Ew/Ewagh/Ewnish (p260). Complete label grammar remains low confidence; Coptic, Indian national and Hijri epoch/sighting labels remain pending."
+  },
+  {
+    "locale": "gv",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "Feaillere ashoonagh Injinagh",
+    "reason": "Restore Manx Indian national calendar and Gregorian ISO week identity omitted from existing labels; replace Gregorian foreign-style name. https://archive.gaelg.im/www.gaelg.iofm.net/DICTIONARY/engman.pdf attests Indian Injinagh (p286), national ashoonagh (p365), Gregorian Gregoiragh (p246), week shiaghtin (p629). Complete label grammar and derived week plural remain low confidence; Coptic and Hijri epoch/sighting details remain pending."
+  },
+  {
+    "locale": "gv",
+    "key": "calendar-system-gregorian",
+    "before": "Gregoriana",
+    "after": "Feaillere Gregoiragh",
+    "reason": "Restore Manx Indian national calendar and Gregorian ISO week identity omitted from existing labels; replace Gregorian foreign-style name. https://archive.gaelg.im/www.gaelg.iofm.net/DICTIONARY/engman.pdf attests Indian Injinagh (p286), national ashoonagh (p365), Gregorian Gregoiragh (p246), week shiaghtin (p629). Complete label grammar and derived week plural remain low confidence; Coptic and Hijri epoch/sighting details remain pending."
+  },
+  {
+    "locale": "gv",
+    "key": "calendar-system-iso8601",
+    "before": "ISO 8601",
+    "after": "Feaillere Gregoiragh (shiaghtinyn ISO 8601)",
+    "reason": "Restore Manx Indian national calendar and Gregorian ISO week identity omitted from existing labels; replace Gregorian foreign-style name. https://archive.gaelg.im/www.gaelg.iofm.net/DICTIONARY/engman.pdf attests Indian Injinagh (p286), national ashoonagh (p365), Gregorian Gregoiragh (p246), week shiaghtin (p629). Complete label grammar and derived week plural remain low confidence; Coptic and Hijri epoch/sighting details remain pending."
   }
 ]
