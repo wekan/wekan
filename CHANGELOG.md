@@ -80,14 +80,14 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 14,635 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 1,209 pending review or repair.
-The correction inventory records 16,363 exact before/after values,
+findings: 14,651 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 1,193 pending review or repair.
+The correction inventory records 16,386 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
 German cron label, which now uses the actual tool name Cron.
-The largest original finding queues remain in Veps (468) and Standard Moroccan
+The largest original finding queues remain in Veps (452) and Standard Moroccan
 Tamazight (595). Silesian database terminology and 17 Tigre
 calendar findings need language-specific review. Restored and unflagged
 values, low-confidence wording and browser rendering remain unverified.
@@ -1098,6 +1098,20 @@ and updates the test dependency:
 and updates maintainer tooling:
 
 **Maintenance scripts** - explicit translation uploads and repository mirrors.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ad1ebcca9">Repair Veps checklist activity and added participles</a>. Thanks to xet7.</summary>
+
+Repair/refine 32 values, resolving 16 original findings: 23 new correction
+records and nine refinements preserving original before values. Replace all
+erroneous ližadud forms with dictionary/inflection-table and native MediaWiki
+ližatud. Preserve checkbox/completion/reopening, add/remove directions and field
+clearing versus deletion. Exact correction, source token, key-order and actual
+underscore/sprintf argument-order regressions pass. Composed kanban terminology
+and remaining UI inflections need further review. Audit and TODO Later now
+record 14,651 corrected findings, 1,193 pending and 16,386 correction records.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/f24401739">Repair Veps custom field labels and template help</a>. Thanks to xet7.</summary>

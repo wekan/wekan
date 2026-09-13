@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 14,635 |
+| Corrected | 14,651 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 1,209 |
+| Pending review or repair | 1,193 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **16,363** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **16,386** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-13**, local commit `f24401739` — repaired **23** Finnish/Venda Veps custom-field controls/help/activity values and the generic date label, resolving **10** original findings. Preserve field types, multi-select, field value/activity contexts and all-card irreversible deletion with history loss. Restore literal `%{value}`, preserve `&#32;`/`&nbsp;` and align generic/custom-field date labels. All **16,363** correction records, placeholders, HTML entities, key order and actual i18next underscore interpolation pass. **Low confidence:** composed custom-field/control terminology and UI inflections need fluent review, alongside earlier checklist/card/swimlane/migration/authentication/network/list/storage/calendar/account wording. Veps has **468** pending original findings. Translation repairs continue; broader wrong-language/script and restored-value validation remain outstanding.
+Latest translation fix: **2026-09-13**, local commit `ad1ebcca9` — repaired/refined **32** Veps checklist/custom-field/comment activity and rule values (**23** new records, **nine** refinements), resolving **16** original findings. Native MediaWiki and the Veps inflection table confirm past passive `ližatud`; all erroneous `ližadud` occurrences are corrected, preserving original before values in existing records. Preserve checkbox/completion/reopening, add/remove directions and field clearing versus deletion. All **16,386** correction records, placeholders, key order and actual underscore/sprintf argument-order checks pass. **Low confidence:** composed kanban terminology and remaining UI inflections need further review. Veps has **452** pending original findings. Translation repairs remain active; broader wrong-language/script and restored-value validation remain outstanding.
 
 **Mirror interruption completed (2026-09-13):** local commit `02383540a` adds organization management, destination namespaces, host/organization/repository archives, linked comment attachments/webpage HTML, static HTML/CSV indexes and rate limits for all forges with tokenless public GitHub reads. Full Node verification: **1,014 suites, zero failures**; final targeted checks and Chromium/Firefox static checks pass. WebKit is unavailable locally (ICU 74/Docker). Translation repairs subsequently resumed; current counts and latest fix are above.
 
