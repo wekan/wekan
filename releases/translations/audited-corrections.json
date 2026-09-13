@@ -61010,5 +61010,89 @@
     "before": "Copier le texte dans le presse-papier",
     "after": "Copiar lo tèxte dins lo quichapapièrs",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "copyManyCardsPopup-title",
+    "before": "Copier le modèle vers plusieurs cartes",
+    "after": "Copiar lo modèl cap a mantuna carta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "cover-attachment-on-minicard",
+    "before": "Vignette sur la mini-carte",
+    "after": "Imatge de cobertura sus la minicarta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "created-at-newest-first",
+    "before": "Date de création (Plus récentes en premier)",
+    "after": "Data de creacion (mai recentas primièr)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "created-at-oldest-first",
+    "before": "Date de création (Plus anciennes en premier)",
+    "after": "Data de creacion (mai ancianas primièr)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "creator-on-minicard",
+    "before": "Créateur sur la mini-carte",
+    "after": "Creator sus la minicarta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "cron-clear-errors",
+    "before": "Effacer toutes les erreurs",
+    "after": "Escafar totas las errors",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "cron-errors-cleared",
+    "before": "Toutes les erreurs ont été effacées avec succès",
+    "after": "Totas las errors son estadas escafadas amb succès",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "cron-job-resume-failed",
+    "before": "Échec de la reprise de la tâche planifiée",
+    "after": "Fracàs de la represa del trabalh planificat",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "cron-job-resumed",
+    "before": "Tâche planifiée reprise avec succès",
+    "after": "Trabalh planificat représ amb succès",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "cron-job-start-failed",
+    "before": "Échec du démarrage de la tâche planifiée",
+    "after": "Fracàs del començament del trabalh planificat",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "cron-job-started",
+    "before": "Tâche planifiée démarrée avec succès",
+    "after": "Trabalh planificat començat amb succès",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "cron-migration-warnings",
+    "before": "Avertissements de migration",
+    "after": "Avertiments de migracion",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
