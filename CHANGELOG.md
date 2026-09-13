@@ -603,6 +603,22 @@ unverified. Details are in docs/Security/WeKanSec20.md.
 
 </details>
 
+This release fixes the following mirror problems:
+
+**Bug fixes** - Missing comment parents and mirror log visibility.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b53d81cea">Recover missing mirror comment parents and print final log paths</a>. Thanks to xet7.</summary>
+
+Fetch an issue or pull request referenced by a comment when it is absent from
+an earlier paginated inventory. Save responses directly to the archive and
+preserve checkpoints when a parent fetch fails. Reuse the existing rate-limited
+API client. Print the mirror log path after sync/check menu commands, including
+failures, and at shell command exit, preserving the exit status. Offline disk
+collection, checkpoint, menu and launcher tests pass; no live remote sync was run.
+
+</details>
+
 This release adds the following translation improvements:
 
 **Translations** - Locale wording repairs and remaining audit progress.
