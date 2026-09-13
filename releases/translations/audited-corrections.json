@@ -60380,5 +60380,117 @@
     "before": "Vous serez notifié de toute modification dans ce tableau",
     "after": "Seretz notificat de tota modificacion d’aqueste tablèu",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "wip-limit-group-select-swimlane",
+    "before": "Sélectionner le tableau Couloir",
+    "after": "Seleccionar un corredor",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "wipLimitErrorPopup-dialog-pt2",
+    "before": "Veuillez enlever des cartes de cette liste, ou définir une limite WIP plus importante.",
+    "after": "Desplaçatz qualques tascas fòra d’aquesta lista, o definissètz un limit WIP mai naut.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "worker-desc",
+    "before": "Peut seulement déplacer des cartes, s'attribuer une carte et la commenter.",
+    "after": "Pòt solament desplaçar las cartas, se las assignar e comentar.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "workspace-settings",
+    "before": "Paramètres de l'espace de travail",
+    "after": "Paramètres de l’espaci de trabalh",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "workspaceActionsPopup-title",
+    "before": "Paramètres de l'espace de travail",
+    "after": "Paramètres de l’espaci de trabalh",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "Cube-Grid",
+    "before": "Icône d'attente cube filaire",
+    "after": "Indicador d’espèra Cube-Grid",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "Double-Bounce",
+    "before": "Icône d'attente double rebond",
+    "after": "Indicador d’espèra Double Bounce",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "MongoDB_storage_engine",
+    "before": "Moteur de stockage MongoDB",
+    "after": "Motor de conservacion MongoDB",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "Node_heap_heap_size_limit",
+    "before": "Tas de Node : limite de taille du tas",
+    "after": "Heap Node : limit de talha del heap",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "Node_heap_malloced_memory",
+    "before": "Tas de Node : mémoire allouée par malloc",
+    "after": "Heap Node : memòria alocada per malloc",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "Node_heap_number_of_detached_contexts",
+    "before": "Tas de Node : nombre de contexte détachés",
+    "after": "Heap Node : nombre de contèxtes destacats",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "Node_heap_number_of_native_contexts",
+    "before": "Tas de Node : nombre de contexte natifs",
+    "after": "Heap Node : nombre de contèxtes natius",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "Node_heap_peak_malloced_memory",
+    "before": "Tas de Node : mémoire maximale allouée par malloc",
+    "after": "Heap Node : memòria maximala alocada per malloc",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "Node_heap_total_available_size",
+    "before": "Tas de Node : taille totale disponible",
+    "after": "Heap Node : talha totala disponibla",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "Node_heap_total_heap_size",
+    "before": "Tas de Node : taille totale du tas",
+    "after": "Heap Node : talha totala del heap",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "Node_heap_total_heap_size_executable",
+    "before": "Tas de Node : taille totale du tas exécutable",
+    "after": "Heap Node : talha totala del heap executable",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
