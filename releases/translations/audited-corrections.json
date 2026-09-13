@@ -91817,5 +91817,33 @@
     "before": "Alŝuti",
     "after": "Löpükön",
     "reason": "Replace unflagged Esperanto Alŝuti with Volapük Löpükön, following the upload action in MediaWiki Volapük https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/messages/MessagesVo.php and existing local upload terminology."
+  },
+  {
+    "locale": "vo",
+    "key": "Node_heap_heap_size_limit",
+    "before": "Tas de Node : limite de taille du tas",
+    "after": "Heap ela Node: mied gretota",
+    "reason": "Replace French Node memory-statistic label with Volapük; retain Node and Heap as technical names. Preserve distinctions between size limit, total heap size, external memory and memory actually used. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests mem, plödik, valodik; gretot, mied, gebön and jenöfik follow dictionary-based local terminology. Assembled technical wording and proper-name inflection remain low confidence; native-speaker review required."
+  },
+  {
+    "locale": "vo",
+    "key": "Node_heap_total_heap_size",
+    "before": "Tas de Node : taille totale du tas",
+    "after": "Heap ela Node: gretot valodik",
+    "reason": "Replace French Node memory-statistic label with Volapük; retain Node and Heap as technical names. Preserve distinctions between size limit, total heap size, external memory and memory actually used. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests mem, plödik, valodik; gretot, mied, gebön and jenöfik follow dictionary-based local terminology. Assembled technical wording and proper-name inflection remain low confidence; native-speaker review required."
+  },
+  {
+    "locale": "vo",
+    "key": "Node_memory_usage_external",
+    "before": "Utilisation mémoire de Node: externe",
+    "after": "Geb mema ela Node: plödik",
+    "reason": "Replace French Node memory-statistic label with Volapük; retain Node and Heap as technical names. Preserve distinctions between size limit, total heap size, external memory and memory actually used. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests mem, plödik, valodik; gretot, mied, gebön and jenöfik follow dictionary-based local terminology. Assembled technical wording and proper-name inflection remain low confidence; native-speaker review required."
+  },
+  {
+    "locale": "vo",
+    "key": "Node_memory_usage_heap_used",
+    "before": "Utilisation mémoire de Node : mémoire réellement utilisée",
+    "after": "Geb mema ela Node: mem jenöfiko pegeböl",
+    "reason": "Replace French Node memory-statistic label with Volapük; retain Node and Heap as technical names. Preserve distinctions between size limit, total heap size, external memory and memory actually used. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests mem, plödik, valodik; gretot, mied, gebön and jenöfik follow dictionary-based local terminology. Assembled technical wording and proper-name inflection remain low confidence; native-speaker review required."
   }
 ]
