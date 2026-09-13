@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,103 |
+| Corrected | 15,104 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 741 |
+| Pending review or repair | 740 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,216** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,223** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `02ef178a5` — replaced Aromanian’s English-valued indigo label with `lulachi`, explicitly glossed as indigo in a publisher linguistic paper. All **17,216** exact correction/rendering checks pass. The original queue has **741** pending findings; Aromanian magenta remains pending. The indigo gloss is reference-supported, while dialect preference and UI palette usage remain open. Four Bambara calendar findings remain; its composed Jewish-calendar wording needs fluent technical review. Wider restored, unflagged and low-confidence validation remains unfinished. Live browser verification was not run; no translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `123d7a531` — replaced seven Arabic/French Tamazight core account values using matching native-script MediaWiki reference messages: username, password, edit, email, login/logout and password mismatch. One original finding and six unflagged values are repaired. All **17,223** exact correction/rendering checks pass. The original queue has **740** pending findings, including **594** Tamazight findings. Wider restored, unflagged and low-confidence validation remains unfinished. Live browser verification was not run; no translations were pushed.
 
 **Language validation (2026-09-14), local commit `e4e3aa590`:** Wiktionary’s Veps transitive inflection tables confirm `surenda` (make larger) and `penenda` (make smaller) as second-person singular commands. Their imperative morphology is now reference-supported; screen-zoom usage remains open. The original keyboard findings remain unresolved: searches and the cached dictionary did not establish reliable keyboard-shortcut terminology. Counts are unchanged. References and the remaining scope are recorded per key in the correction ledger.
 
