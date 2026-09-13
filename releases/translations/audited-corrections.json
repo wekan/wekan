@@ -63649,5 +63649,75 @@
     "before": "a décoché __checklistItem__ de la checklist __checklist__ de la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
     "after": "diverket an elfenn __checklistItem__ eus ar roll kontroll __checklist__ er gartenn __card__ er roll __list__ en trepas __swimlane__ en daolenn __board__",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "act-uncompleteChecklist",
+    "before": "a rendu incomplet la checklist __checklist__ de la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "lakaet ar roll kontroll __checklist__ da vezañ diechu er gartenn __card__ er roll __list__ en trepas __swimlane__ en daolenn __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "act-unjoinMember",
+    "before": "a supprimé le participant __member__ de la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "tennet an ezel __member__ eus ar gartenn __card__ er roll __list__ en trepas __swimlane__ en daolenn __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "activity-added-label",
+    "before": "a ajouté l'étiquette '%s' à %s",
+    "after": "ouzhpennet an dikedenn '%s' da %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "activity-added-label-card",
+    "before": "a ajouté l'étiquette '%s'",
+    "after": "ouzhpennet an dikedenn '%s'",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "activity-checklist-added",
+    "before": "a ajouté une checklist à %s",
+    "after": "ouzhpennet ur roll kontroll da %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "activity-checklist-completed-card",
+    "before": "a complété la checklist __checklist__ de la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "echuet ar roll kontroll __checklist__ er gartenn __card__ er roll __list__ en trepas __swimlane__ en daolenn __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "activity-checklist-item-added",
+    "before": "a ajouté un élément à la checklist '%s' dans %s",
+    "after": "ouzhpennet un elfenn d’ar roll kontroll '%s' e %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "activity-checklist-item-removed",
+    "before": "a supprimé une checklist de '%s' dans %s",
+    "after": "tennet un elfenn eus ar roll kontroll '%s' e %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "activity-checklist-removed",
+    "before": "a supprimé une checklist de %s",
+    "after": "tennet ur roll kontroll eus %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "activity-delete-attach",
+    "before": "a supprimé une pièce jointe de %s",
+    "after": "dilamet ur stagadenn eus %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
