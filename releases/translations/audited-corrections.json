@@ -51567,5 +51567,61 @@
     "before": "Incolla dei dati CSV/TSV validi qui",
     "after": "Incollate i vostri dati CSV/TSV validi quì",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "import-dependencies-done",
+    "before": "Importate __imported__ riga/e, __unmatched__ non corrispondenti",
+    "after": "__imported__ linea(e) impurtata(e), __unmatched__ senza currispundenza",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "import-json-placeholder",
+    "before": "Incolla dei dati JSON validi qui",
+    "after": "Incollate i vostri dati JSON validi quì",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "import-scoped-failed",
+    "before": "Importazione non riuscita",
+    "after": "Impurtazione fiascata",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "import-show-user-mapping",
+    "before": "Rivedi la mappatura dei membri",
+    "after": "Verificà a currispundenza di i membri",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "import-trello-failed",
+    "before": "Importazione da Trello non riuscita.",
+    "after": "L’impurtazione da Trello hè fiascata.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "import-trello-zip-failed",
+    "before": "Importazione del .zip non riuscita.",
+    "after": "L’impurtazione di u .zip hè fiascata.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "import-trello-zip-read-failed",
+    "before": "Impossibile leggere il .zip caricato.",
+    "after": "Ùn hè statu pussibule di leghje u .zip caricatu.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "import-trello-zip-too-large",
+    "before": "Il .zip è troppo grande per essere importato.",
+    "after": "U .zip hè troppu grande per esse impurtatu.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
