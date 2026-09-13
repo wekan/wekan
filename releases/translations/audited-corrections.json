@@ -94505,5 +94505,47 @@
     "before": "Ihre Eingabe ist kein gültiges JSON",
     "after": "JSON lugh 'oHbe' ghItlhlIj'e'",
     "reason": "Replace audited German existence, duplicate-name, login and malformed-JSON errors with Klingon. Preserve this list/board/user identity, user account not created, organization versus team name already in use, error during login attempt, and text not valid JSON. Reuse repaired account, organization/team and login terminology; keep JSON identifier unchanged. Full software wording is assembled, low confidence, and requires fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "error-board-notAMember",
+    "before": "Um das zu tun, müssen Sie Mitglied dieses Boards sein",
+    "after": "raSvam jeSwI' SoHbe'chugh, Qu'vetlh Data'laHbe'",
+    "reason": "Replace audited German authorization/invitation/schema errors with Klingon. Preserve board member versus board administrator requirements through cannot-do-action-if-not-role conditions, lack of permission to view this page, inability to invite oneself, absent invitation code, and missing proper JSON information or format. Reuse repaired role, invitation and JSON terminology. Full software wording is assembled, low confidence, and needs fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "error-board-notAdmin",
+    "before": "Um das zu tun, müssen Sie Administrator dieses Boards sein",
+    "after": "raSvam che'wI' SoHbe'chugh, Qu'vetlh Data'laHbe'",
+    "reason": "Replace audited German authorization/invitation/schema errors with Klingon. Preserve board member versus board administrator requirements through cannot-do-action-if-not-role conditions, lack of permission to view this page, inability to invite oneself, absent invitation code, and missing proper JSON information or format. Reuse repaired role, invitation and JSON terminology. Full software wording is assembled, low confidence, and needs fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "error-notAuthorized",
+    "before": "Sie sind nicht berechtigt diese Seite zu sehen.",
+    "after": "navvam DaleghmeH chaw' Daghajbe'.",
+    "reason": "Replace audited German authorization/invitation/schema errors with Klingon. Preserve board member versus board administrator requirements through cannot-do-action-if-not-role conditions, lack of permission to view this page, inability to invite oneself, absent invitation code, and missing proper JSON information or format. Reuse repaired role, invitation and JSON terminology. Full software wording is assembled, low confidence, and needs fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "error-user-notAllowSelf",
+    "before": "Sie können sich nicht selbst einladen.",
+    "after": "bIrIt'eghlaHbe'",
+    "reason": "Replace audited German authorization/invitation/schema errors with Klingon. Preserve board member versus board administrator requirements through cannot-do-action-if-not-role conditions, lack of permission to view this page, inability to invite oneself, absent invitation code, and missing proper JSON information or format. Reuse repaired role, invitation and JSON terminology. Full software wording is assembled, low confidence, and needs fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "error-invitation-code-not-exist",
+    "before": "Ungültiger Einladungscode",
+    "after": "rItmeH ngoq tu'lu'be'",
+    "reason": "Replace audited German authorization/invitation/schema errors with Klingon. Preserve board member versus board administrator requirements through cannot-do-action-if-not-role conditions, lack of permission to view this page, inability to invite oneself, absent invitation code, and missing proper JSON information or format. Reuse repaired role, invitation and JSON terminology. Full software wording is assembled, low confidence, and needs fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "error-json-schema",
+    "before": "Ihre JSON-Daten enthalten nicht die gewünschten Informationen im richtigen Format",
+    "after": "JSON De'lIjDaq De' lugh tu'lu'be' qoj ghItlhmeH mIw lugh lo'be' De'lIj",
+    "reason": "Replace audited German authorization/invitation/schema errors with Klingon. Preserve board member versus board administrator requirements through cannot-do-action-if-not-role conditions, lack of permission to view this page, inability to invite oneself, absent invitation code, and missing proper JSON information or format. Reuse repaired role, invitation and JSON terminology. Full software wording is assembled, low confidence, and needs fluent-speaker validation."
   }
 ]
