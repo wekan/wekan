@@ -80995,5 +80995,61 @@
     "before": "Date bu àpp soppiku na %s yoon",
     "after": "Bis bi ñu war a jeexal soppiku na %s yoon",
     "reason": "Replace French due-card controls and align mixed due-date-change labels with Wolof due-date terminology. Due cards means cards with due dates, not only overdue. Preserve incomplete-card requirement, permitted boards, me/all-user choices and %s change count. Full grammar and due-card adaptation remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "edit",
+    "before": "Modifier",
+    "after": "Soppi",
+    "reason": "Replace French general action/settings labels with Wolof using existing Soppi/Tëj/Ubbi/Dëggal/Jekkal terminology and navigation wording. Preserve edit/open/close/back/next/previous/confirm distinctions. Correct local Save/Cancel/Delete/Add/Search/Actions retained. Navigation adaptation remains low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "close",
+    "before": "Fermer",
+    "after": "Tëj",
+    "reason": "Replace French general action/settings labels with Wolof using existing Soppi/Tëj/Ubbi/Dëggal/Jekkal terminology and navigation wording. Preserve edit/open/close/back/next/previous/confirm distinctions. Correct local Save/Cancel/Delete/Add/Search/Actions retained. Navigation adaptation remains low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "open",
+    "before": "Ouvert",
+    "after": "Ubbi",
+    "reason": "Replace French general action/settings labels with Wolof using existing Soppi/Tëj/Ubbi/Dëggal/Jekkal terminology and navigation wording. Preserve edit/open/close/back/next/previous/confirm distinctions. Correct local Save/Cancel/Delete/Add/Search/Actions retained. Navigation adaptation remains low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "back",
+    "before": "Retour",
+    "after": "Dellu",
+    "reason": "Replace French general action/settings labels with Wolof using existing Soppi/Tëj/Ubbi/Dëggal/Jekkal terminology and navigation wording. Preserve edit/open/close/back/next/previous/confirm distinctions. Correct local Save/Cancel/Delete/Add/Search/Actions retained. Navigation adaptation remains low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "next",
+    "before": "Suivant",
+    "after": "Bi di ñëw",
+    "reason": "Replace French general action/settings labels with Wolof using existing Soppi/Tëj/Ubbi/Dëggal/Jekkal terminology and navigation wording. Preserve edit/open/close/back/next/previous/confirm distinctions. Correct local Save/Cancel/Delete/Add/Search/Actions retained. Navigation adaptation remains low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "previous",
+    "before": "Précédent",
+    "after": "Bi weesu",
+    "reason": "Replace French general action/settings labels with Wolof using existing Soppi/Tëj/Ubbi/Dëggal/Jekkal terminology and navigation wording. Preserve edit/open/close/back/next/previous/confirm distinctions. Correct local Save/Cancel/Delete/Add/Search/Actions retained. Navigation adaptation remains low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "confirm",
+    "before": "Confirmer",
+    "after": "Dëggal",
+    "reason": "Replace French general action/settings labels with Wolof using existing Soppi/Tëj/Ubbi/Dëggal/Jekkal terminology and navigation wording. Preserve edit/open/close/back/next/previous/confirm distinctions. Correct local Save/Cancel/Delete/Add/Search/Actions retained. Navigation adaptation remains low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "settings",
+    "before": "Paramètres",
+    "after": "Jekkal yi",
+    "reason": "Replace French general action/settings labels with Wolof using existing Soppi/Tëj/Ubbi/Dëggal/Jekkal terminology and navigation wording. Preserve edit/open/close/back/next/previous/confirm distinctions. Correct local Save/Cancel/Delete/Add/Search/Actions retained. Navigation adaptation remains low confidence."
   }
 ]
