@@ -66106,5 +66106,117 @@
     "before": "Contenu du manifeste web personnalisé (JSON)",
     "after": "Endalc’had personelaet ar manifest web (JSON)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "custom-head-meta-tags",
+    "before": "Balises meta personnalisées (HTML)",
+    "after": "Balizennoù meta personelaet (HTML)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "custom-head-tags-enabled",
+    "before": "Activer les balises personnalisées",
+    "after": "Gweredekaat balizennoù head personelaet",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "custom-help-link-url",
+    "before": "Lien URL vers l'aide personnalisée",
+    "after": "URL al liamm skoazell personelaet",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "custom-legal-notice-link-url",
+    "before": "URL de la page des mentions légales personnalisées",
+    "after": "URL pajenn personelaet ar menegoù lezennel",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "custom-manifest-enabled",
+    "before": "Activer le manifeste web personnalisé",
+    "after": "Gweredekaat ar manifest web personelaet",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "custom-top-left-corner-logo-height",
+    "before": "Hauteur du logo personnalisé dans le coin supérieur gauche. Défaut : 27",
+    "after": "Uhelder al logo personelaet er c’horn kleiz uhel. Dre ziouer: 27",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "custom-top-left-corner-logo-image-url",
+    "before": "URL de l'Image du logo personnalisé dans le coin supérieur gauche",
+    "after": "URL skeudenn al logo personelaet er c’horn kleiz uhel",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "custom-top-left-corner-logo-link-url",
+    "before": "Lien URL du logo personnalisé dans le coin supérieur gauche",
+    "after": "URL liamm al logo personelaet er c’horn kleiz uhel",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "database-migrations",
+    "before": "Migrations base de données",
+    "after": "Treuzkasoù roadennoù an diaz roadennoù",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "default-authentication-method",
+    "before": "Méthode d'authentification par défaut",
+    "after": "Doare dilesadur dre ziouer",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "delete-duplicate-empty-lists-migration-description",
+    "before": "Supprime en toute sécurité les listes vides en double. Supprime uniquement les listes qui n'ont aucune carte ET qui ont une autre liste avec le même titre contenant des cartes.",
+    "after": "Dilemel a ra ar rolloù goullo e doubl en un doare sur. Ne zilemel nemet rolloù hep kartenn ebet HA gant ur roll all heñvel e ditl ennañ kartennoù.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "delete-duplicate-lists-confirm",
+    "before": "Êtes-vous sûr ? Cela supprimera toutes les listes en doublon qui ont le même nom et qui ne contiennent aucune carte.",
+    "after": "Ha sur oc’h? Dilamet e vo an holl rolloù e doubl gant an hevelep anv ha hep kartenn ebet enno.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "deposit-subtasks-list",
+    "before": "Liste de destination pour les sous-tâches déposées ici :",
+    "after": "Roll pal evit an istrevelloù lakaet amañ:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "description-on-minicard",
+    "before": "Description sur la mini-carte",
+    "after": "Deskrivadur war ar gartennig",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "disambiguateMultiLabelPopup-title",
+    "before": "Préciser l'action sur l'étiquette",
+    "after": "Resisaat an ober war an dikedenn",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "disambiguateMultiMemberPopup-title",
+    "before": "Préciser l'action sur le participant",
+    "after": "Resisaat an ober war an ezel",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
