@@ -123,5 +123,8 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.notEqual(veps['error-user-doesNotExist'], veps['error-user-notCreated']);
   assert.equal(veps['show-week-of-year'], 'Ozuta voden nedal (ISO 8601)');
   assert.doesNotMatch(veps['show-week-of-year'], /Näytä|vuoden|viikko/);
+  assert.equal(veps['calendar-system-chinese'], "Kitain kalendar'");
+  assert.equal(veps['calendar-system-japanese'], "Japonijan kalendar'");
+  assert.doesNotMatch(veps['calendar-system-japanese'], /Japanese|Japoniin/);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });
