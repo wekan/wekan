@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 8,553 |
+| Corrected | 8,569 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 175 |
-| Pending review or repair | 7,294 |
+| Pending review or repair | 7,278 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **8,626** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **8,642** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `1fed8f2b14fb87be0e22425086093b293331d570` — ten Occitan account and export-permission findings repaired; **343 Occitan findings remain**. Username token, minimum length, assignee order and permission scopes are preserved. Regional terminology and earlier low-confidence batches need language review. Exact-value, placeholder, key-order and idempotency checks pass; live browser verification is unavailable.
+Latest translation fix: **2026-09-13**, local commit `5bdac26e5cd32ee5e424a6618512cc8bd7e57a9c` — sixteen Occitan WIP, workspace and diagnostic findings repaired; **327 Occitan findings remain**. Swimlane selection scope is corrected; worker permissions, WIP guidance and diagnostic identifiers are preserved. Specialized terminology and earlier low-confidence batches need language review. Exact-value, placeholder, key-order and idempotency checks pass; live browser verification is unavailable.
 
 **Origin:** not all errors came from Transifex. The captured pull changed 4,061 values; the local audit added 16,020 findings. Bosnian errors already existed in local commit `bdb3b15886a749b725b5290ba0109fcba955f983`. Other ultimate origins remain unverified.
 
