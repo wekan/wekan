@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 12,525 |
+| Corrected | 12,527 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 3,321 |
+| Pending review or repair | 3,319 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Restored and unflagged values still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **13,095** exact before/after values, including repairs outside the audit.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **13,098** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `c6a343b5185ec68960d6973eae6f3fb97d4c110a` — five Volapük accessibility labels repaired. Heading/title/content, enabled page and missing information remain distinct; software adaptation of dictionary terminology remains low confidence.
+Latest translation fix: **2026-09-13**, local commit `5e9f4148c7afc27e2b64642f817215b41d289dd2` — three Volapük legal-notice strings repaired. Joined acceptance/link sentence retains continuing and accepting our notice; assembled wording remains low confidence.
 
 **Verification:** correction and progress tests pass. Native-speaker and browser checks remain outstanding.
 
