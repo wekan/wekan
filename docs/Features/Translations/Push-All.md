@@ -54,4 +54,11 @@ of that remote target. The explicit mapping selects `es-CO.i18n.json`, and the
 script reports the alias instead of uploading the same target twice. Both local
 files remain available; all nine differences were reviewed, with three erroneous values repaired and
 seven valid wording alternatives retained.
-The offline dry run reports 244 distinct targets and the English source.
+The offline dry run reports 243 distinct targets and the English source.
+
+French Belgium/Canada use `fr_BE`/`fr_CA`, Khmer Cambodia uses `km_KH`,
+and Guarani uses Transifex's `gug_PY`. The Khmer hyphen/underscore files
+share one target. Transifex's public catalogue currently lists no Manx (`gv`)
+or Ladin (`lld`); these failures remain visible. Ladin must not be mapped to
+Ladino (`lad`), which is a different language. Catalogue reference:
+https://explore.transifex.com/languages/
