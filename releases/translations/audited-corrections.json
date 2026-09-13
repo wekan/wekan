@@ -86413,5 +86413,47 @@
     "before": "Paramètres de l'utilisateur",
     "after": "Nomükams gebana",
     "reason": "Replace French workspace/user-settings labels with directly assembled Volapük. Dictionary https://en.wikibooks.org/wiki/Volap%C3%BCk/English-Volap%C3%BCk_dictionary attests vob (work), spad (space), nomükam (adjustment), geban in computer user-profile term. Use workspace compound vobaspad consistently with previously repaired actions; plural adjustments used for settings. Software-settings sense, compound and inflected phrases remain low confidence pending native review; searches did not independently attest complete software terminology. Preserve source tokens."
+  },
+  {
+    "locale": "vo",
+    "key": "activity-attached",
+    "before": "a attaché %s à %s",
+    "after": "efimükon eli %s len %s",
+    "reason": "Replace French activity messages with directly assembled Volapük. Dictionary https://en.wikibooks.org/wiki/Volap%C3%BCk/English-Volap%C3%BCk_dictionary attests fimükön (attach), moükön (remove), nüveigön (import goods), votükön (alter), radön (erase), noet (remark in text). Perfect-tense forms follow existing local evotükon activity pattern. Data-import sense, foreign-name article and complete activity phrasing remain low confidence pending native review; preserve every %s token and its source order."
+  },
+  {
+    "locale": "vo",
+    "key": "activity-removed",
+    "before": "a supprimé %s de %s",
+    "after": "emoükon eli %s de %s",
+    "reason": "Replace French activity messages with directly assembled Volapük. Dictionary https://en.wikibooks.org/wiki/Volap%C3%BCk/English-Volap%C3%BCk_dictionary attests fimükön (attach), moükön (remove), nüveigön (import goods), votükön (alter), radön (erase), noet (remark in text). Perfect-tense forms follow existing local evotükon activity pattern. Data-import sense, foreign-name article and complete activity phrasing remain low confidence pending native review; preserve every %s token and its source order."
+  },
+  {
+    "locale": "vo",
+    "key": "activity-imported",
+    "before": "a importé %s vers %s depuis %s",
+    "after": "enüveigon eli %s ini %s de %s",
+    "reason": "Replace French activity messages with directly assembled Volapük. Dictionary https://en.wikibooks.org/wiki/Volap%C3%BCk/English-Volap%C3%BCk_dictionary attests fimükön (attach), moükön (remove), nüveigön (import goods), votükön (alter), radön (erase), noet (remark in text). Perfect-tense forms follow existing local evotükon activity pattern. Data-import sense, foreign-name article and complete activity phrasing remain low confidence pending native review; preserve every %s token and its source order."
+  },
+  {
+    "locale": "vo",
+    "key": "activity-imported-board",
+    "before": "a importé %s depuis %s",
+    "after": "enüveigon eli %s de %s",
+    "reason": "Replace French activity messages with directly assembled Volapük. Dictionary https://en.wikibooks.org/wiki/Volap%C3%BCk/English-Volap%C3%BCk_dictionary attests fimükön (attach), moükön (remove), nüveigön (import goods), votükön (alter), radön (erase), noet (remark in text). Perfect-tense forms follow existing local evotükon activity pattern. Data-import sense, foreign-name article and complete activity phrasing remain low confidence pending native review; preserve every %s token and its source order."
+  },
+  {
+    "locale": "vo",
+    "key": "activity-editComment",
+    "before": "commentaire modifié %s",
+    "after": "evotükon noeti %s",
+    "reason": "Replace French activity messages with directly assembled Volapük. Dictionary https://en.wikibooks.org/wiki/Volap%C3%BCk/English-Volap%C3%BCk_dictionary attests fimükön (attach), moükön (remove), nüveigön (import goods), votükön (alter), radön (erase), noet (remark in text). Perfect-tense forms follow existing local evotükon activity pattern. Data-import sense, foreign-name article and complete activity phrasing remain low confidence pending native review; preserve every %s token and its source order."
+  },
+  {
+    "locale": "vo",
+    "key": "activity-deleteComment",
+    "before": "commentaire supprimé %s",
+    "after": "eradon noeti %s",
+    "reason": "Replace French activity messages with directly assembled Volapük. Dictionary https://en.wikibooks.org/wiki/Volap%C3%BCk/English-Volap%C3%BCk_dictionary attests fimükön (attach), moükön (remove), nüveigön (import goods), votükön (alter), radön (erase), noet (remark in text). Perfect-tense forms follow existing local evotükon activity pattern. Data-import sense, foreign-name article and complete activity phrasing remain low confidence pending native review; preserve every %s token and its source order."
   }
 ]
