@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 12,637 |
+| Corrected | 12,641 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 177 |
-| Pending review or repair | 3,208 |
+| Pending review or repair | 3,204 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Restored and unflagged values still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **13,242** exact before/after values, including repairs outside the audit.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **13,246** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `5f24d549a4b7fd53c300c290b7464590feb2c390` — three flagged German missing-list/label/team messages and two related French team labels replaced with Klingon, preserving missing-name placeholders. Full phrases and software terminology are low confidence and need fluent-speaker validation.
+Latest translation fix: **2026-09-13**, local commit `12552afa838b53a600f682d8ce2ca8b7902c564b` — four German custom-field labels replaced with consistent descriptive Klingon user-configured data-field wording. Software terminology and full clauses are low confidence and need fluent-speaker validation.
 
 **Verification:** correction and progress tests pass. Native-speaker and browser checks remain outstanding.
 
