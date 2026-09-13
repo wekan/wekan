@@ -67254,5 +67254,89 @@
     "before": "Votre périphérique ne supporte pas la prévisualisation de PDF. Essayer plutôt le téléchargement.",
     "after": "Ne skor ket ho trevnad rakwelet PDF. Klaskit pellgargañ ar restr.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "push-invite-title",
+    "before": "__inviter__ vous a envoyé une invitation",
+    "after": "Kaset en deus __inviter__ ur bedadenn deoc’h",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "r-board-note",
+    "before": "Note : laisser le champ vide pour correspondre à toutes les valeurs possibles.",
+    "after": "Notenn: laoskit ur maezienn goullo evit klotañ gant pep talvoud posupl. ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "r-checklist-note",
+    "before": "Note : les items de la checklist doivent être séparés par des virgules.",
+    "after": "Notenn: ret eo skrivañ elfennoù ar roll kontroll evel talvoudoù dispartiet gant skejoù.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "r-d-check-all",
+    "before": "Cocher tous les éléments d'une liste",
+    "after": "Kevaskañ holl elfennoù ur roll",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "r-d-unarchive",
+    "before": "Restaurer la carte depuis les archives",
+    "after": "Adsevel ar gartenn eus an dielloù",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "r-d-uncheck-all",
+    "before": "Décocher tous les éléments d'une liste",
+    "after": "Digevaskañ holl elfennoù ur roll",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "r-new-rule-name",
+    "before": "Titre de la nouvelle règle",
+    "after": "Titl ar reolenn nevez",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "r-unarchive",
+    "before": "Restaurer depuis les archives",
+    "after": "Adsevel eus an dielloù",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "r-unarchived",
+    "before": "Restauré depuis les archives",
+    "after": "Adsevet eus an dielloù",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "read-assigned-only",
+    "before": "Lecture uniquement pour les cartes assignées",
+    "after": "Lenn ar c’hartennoù deverket hepken",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "read-assigned-only-desc",
+    "before": "Seules les cartes assignées sont visibles. Modification impossible.",
+    "after": "N’eo hewel nemet ar c’hartennoù deverket. Ne c’haller ket kemmañ anezho.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "read-only-desc",
+    "before": "Peut seulement voir les cartes. Ne peut pas éditer.",
+    "after": "Gallout a reer gwelet ar c’hartennoù hepken. Ne c’haller ket kemmañ anezho.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
