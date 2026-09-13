@@ -78706,5 +78706,54 @@
     "before": "a décoché %s dans la checklist %s",
     "after": "dindi màndarga bi ci %s ci limu bu seetlu %s",
     "reason": "Replace French checked-item visibility and short activity messages with Wolof using marking/unmarking terminology. Preserve checked-only hiding, item/checklist/card %s ordering and short versus card-context activity. Full grammar and marking terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "board-info-on-my-boards",
+    "before": "Paramètres de tous les tableaux",
+    "after": "Jekkal yi ci tablo yi yépp",
+    "reason": "Replace French board display settings with Wolof. Preserve all-boards/minicard/subtask scope, background change rather than only color change, and background-image insertion. Full grammar and background/subtask/settings terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "boardInfoOnMyBoards-title",
+    "before": "Paramètres de tous les tableaux",
+    "after": "Jekkal yi ci tablo yi yépp",
+    "reason": "Replace French board display settings with Wolof. Preserve all-boards/minicard/subtask scope, background change rather than only color change, and background-image insertion. Full grammar and background/subtask/settings terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "boardInfoOnMyBoardsPopup-title",
+    "before": "Paramètres de tous les tableaux",
+    "after": "Jekkal yi ci tablo yi yépp",
+    "reason": "Replace French board display settings with Wolof. Preserve all-boards/minicard/subtask scope, background change rather than only color change, and background-image insertion. Full grammar and background/subtask/settings terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "boardMinicardSettingsPopup-title",
+    "before": "Paramètres de la minicarte",
+    "after": "Jekkal yi ci karta bu ndaw bi",
+    "reason": "Replace French board display settings with Wolof. Preserve all-boards/minicard/subtask scope, background change rather than only color change, and background-image insertion. Full grammar and background/subtask/settings terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "boardSubtaskSettingsPopup-title",
+    "before": "Paramètres des sous-tâches",
+    "after": "Jekkal yi ci sas yu ndaw yi",
+    "reason": "Replace French board display settings with Wolof. Preserve all-boards/minicard/subtask scope, background change rather than only color change, and background-image insertion. Full grammar and background/subtask/settings terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "boardChangeColorPopup-title",
+    "before": "Change la couleur de fond du tableau",
+    "after": "Soppi gannaawu tablo bi",
+    "reason": "Replace French board display settings with Wolof. Preserve all-boards/minicard/subtask scope, background change rather than only color change, and background-image insertion. Full grammar and background/subtask/settings terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "add-background-image",
+    "before": "Ajouter une image de fond",
+    "after": "Yokk nataal ci gannaaw",
+    "reason": "Replace French board display settings with Wolof. Preserve all-boards/minicard/subtask scope, background change rather than only color change, and background-image insertion. Full grammar and background/subtask/settings terminology remain low confidence."
   }
 ]
