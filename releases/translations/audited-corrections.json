@@ -53891,5 +53891,54 @@
     "before": "Sei sicuro di voler abbandonare __boardTitle__? Sarai rimosso da tutte le schede in questa bacheca.",
     "after": "Esht sigur cã vrei s-lashi __boardTitle__? Va s-hii scos di tuti cãrtsãli di aesta tabelã.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "import-board-instruction-about-errors",
+    "before": "Se hai degli errori quando importi una bacheca, qualche volta l'importazione funziona comunque, e la bacheca si trova nella pagina \"Tutte le bacheche\"",
+    "after": "Dacã ari erori cãndu importi unã tabelã, cãteodatã importarea tot lucreadzã shi tabela easti tu pagina Tuti tabelili.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "import-board-instruction-wekan",
+    "before": "Nella tua bacheca vai su \"Menu\", poi \"Esporta bacheca\" e copia il testo nel file scaricato.",
+    "after": "Tu tabela a ta, du-ti la 'Meniu', dupã la 'Exportã tabela', shi copiadzã textul di fisierlu discãrcat.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "import-board-zip",
+    "before": "Aggiungi il file .zip contenente i file JSON della bacheca, i nomi bacheca delle sottodirectory con gli allegati",
+    "after": "Adavgã fisier .zip cu fisieri JSON di tabeli shi subdirectoari cu numili tabelilor shi atashamenti",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "list-delete-suggest-archive",
+    "before": "Puoi spostare un elenco nell'archivio per rimuoverlo dalla bacheca e mantentere la sua attività.",
+    "after": "Pots s-muti unã listã tu Arhivã ti s-u scotsi di tabelã shi s-pãstrezi activitatea.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "listImportCardPopup-title",
+    "before": "Importa una scheda di Trello",
+    "after": "Importã unã cartã di Trello",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "muted-info",
+    "before": "Non sarai mai notificato delle modifiche in questa bacheca",
+    "after": "Nu va s-hii notificat ti nitsiunã alãxeari tu aesta tabelã",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "newLineNewItem",
+    "before": "Una riga di testo = un elemento della lista di controllo",
+    "after": "Unã linie di text = un element di lista di control",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
