@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 12,695 |
+| Corrected | 12,698 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 177 |
-| Pending review or repair | 3,150 |
+| Pending review or repair | 3,147 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Restored and unflagged values still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **13,313** exact before/after values, including repairs outside the audit.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **13,321** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `2aa937a036361c84b4dec41edc8bfa8233956bf4` — six German import/movement/label-removal activities (five flagged findings) replaced with Klingon, preserving all source and destination placeholder roles. Full software wording is low confidence and needs fluent-speaker validation.
+Latest translation fix: **2026-09-13**, local commit `494ed5d0f690769d1c8b65f2f6dcda23706be8e7` — eight German comment activities/controls (three flagged findings) replaced with Klingon, preserving comment-text placeholders and addition/edit/deletion distinctions. Full software wording is low confidence and needs fluent-speaker validation.
 
 **Verification:** correction and progress tests pass. Native-speaker and browser checks remain outstanding.
 
