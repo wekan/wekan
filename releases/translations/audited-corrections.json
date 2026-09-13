@@ -80925,5 +80925,75 @@
     "before": "Vignette sur la mini-carte",
     "after": "Nataalu muur ci karta bu ndaw bi",
     "reason": "Replace French card action/display labels with Wolof. Preserve other-list move trigger, denied Excel/PDF exports, above/below selected card, title filtering, parent-card changes and minicard creator/description/cover scopes. Reuse existing terms. Cover/parent adaptations and full grammar remain low confidence; clipboard/poker labels pending."
+  },
+  {
+    "locale": "wo",
+    "key": "dueCards-title",
+    "before": "Cartes Échues",
+    "after": "Karta yi am bis bi ñu war a jeexal",
+    "reason": "Replace French due-card controls and align mixed due-date-change labels with Wolof due-date terminology. Due cards means cards with due dates, not only overdue. Preserve incomplete-card requirement, permitted boards, me/all-user choices and %s change count. Full grammar and due-card adaptation remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "dueCardsViewChange-title",
+    "before": "Vue des Cartes Échues",
+    "after": "Anamu wone karta yi am bis bi ñu war a jeexal",
+    "reason": "Replace French due-card controls and align mixed due-date-change labels with Wolof due-date terminology. Due cards means cards with due dates, not only overdue. Preserve incomplete-card requirement, permitted boards, me/all-user choices and %s change count. Full grammar and due-card adaptation remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "dueCardsViewChangePopup-title",
+    "before": "Vue des Cartes Échues",
+    "after": "Anamu wone karta yi am bis bi ñu war a jeexal",
+    "reason": "Replace French due-card controls and align mixed due-date-change labels with Wolof due-date terminology. Due cards means cards with due dates, not only overdue. Preserve incomplete-card requirement, permitted boards, me/all-user choices and %s change count. Full grammar and due-card adaptation remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "dueCardsViewChange-choice-me",
+    "before": "Moi",
+    "after": "Man",
+    "reason": "Replace French due-card controls and align mixed due-date-change labels with Wolof due-date terminology. Due cards means cards with due dates, not only overdue. Preserve incomplete-card requirement, permitted boards, me/all-user choices and %s change count. Full grammar and due-card adaptation remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "dueCardsViewChange-choice-all",
+    "before": "Tous les utilisateurs",
+    "after": "Jëfandikukat yi yépp",
+    "reason": "Replace French due-card controls and align mixed due-date-change labels with Wolof due-date terminology. Due cards means cards with due dates, not only overdue. Preserve incomplete-card requirement, permitted boards, me/all-user choices and %s change count. Full grammar and due-card adaptation remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "dueCardsViewChange-choice-all-description",
+    "before": "Visualise toutes les cartes incomplètes avec une date *échue* pour lesquelles l'utilisateur possède les droits",
+    "after": "Wone karta yi yépp yu jeexul te am bis bi ñu war a *jeexal* ci tablo yi jëfandikukat bi am ndigal ci.",
+    "reason": "Replace French due-card controls and align mixed due-date-change labels with Wolof due-date terminology. Due cards means cards with due dates, not only overdue. Preserve incomplete-card requirement, permitted boards, me/all-user choices and %s change count. Full grammar and due-card adaptation remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "dueCards-noResults-title",
+    "before": "Aucune carte avec échéance trouvée",
+    "after": "Giseesul karta bu am bis bi ñu war a jeexal",
+    "reason": "Replace French due-card controls and align mixed due-date-change labels with Wolof due-date terminology. Due cards means cards with due dates, not only overdue. Preserve incomplete-card requirement, permitted boards, me/all-user choices and %s change count. Full grammar and due-card adaptation remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "dueCards-noResults-description",
+    "before": "Vous n'avez aucune carte avec échéance en ce moment.",
+    "after": "Amuloo karta bu am bis bi ñu war a jeexal ci léegi.",
+    "reason": "Replace French due-card controls and align mixed due-date-change labels with Wolof due-date terminology. Due cards means cards with due dates, not only overdue. Preserve incomplete-card requirement, permitted boards, me/all-user choices and %s change count. Full grammar and due-card adaptation remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "due-date-changes",
+    "before": "Coppite yu date bu àpp",
+    "after": "Coppite yi ci bis bi ñu war a jeexal",
+    "reason": "Replace French due-card controls and align mixed due-date-change labels with Wolof due-date terminology. Due cards means cards with due dates, not only overdue. Preserve incomplete-card requirement, permitted boards, me/all-user choices and %s change count. Full grammar and due-card adaptation remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "due-date-changed-times",
+    "before": "Date bu àpp soppiku na %s yoon",
+    "after": "Bis bi ñu war a jeexal soppiku na %s yoon",
+    "reason": "Replace French due-card controls and align mixed due-date-change labels with Wolof due-date terminology. Due cards means cards with due dates, not only overdue. Preserve incomplete-card requirement, permitted boards, me/all-user choices and %s change count. Full grammar and due-card adaptation remain low confidence."
   }
 ]
