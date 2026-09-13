@@ -2646,5 +2646,20 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.equal(new Set(Object.values(vepsWaitIndicators)).size, 9, 'preserve all wait-indicator distinctions');
   assert.notEqual(vepsTranslator.t('Bounce'), vepsTranslator.t('Double-Bounce'));
   assert.notEqual(vepsTranslator.t('Cube'), vepsTranslator.t('Cube-Grid'));
+  const vepsStructureMigration = {
+  "comprehensive-board-migration": "Kaikenpoline laudan migracii",
+  "step-analyze-board-structure": "Tarkištele laudan struktur",
+  "fix-missing-lists-migration": "Kohenda lugetišed, miččid ei ole",
+  "fix-missing-lists-migration-description": "Löudab da kohendab laudan strukturas lugetišid, miččid ei ole libo oma travitud.",
+  "run-fix-missing-lists-migration-confirm": "Nece löudab da kohendab laudan strukturas lugetišid, miččid ei ole libo oma travitud. Jatkta?"
+};
+  for (const [key, value] of Object.entries(vepsStructureMigration)) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.equal(vepsTranslator.t(key), value, key);
+    assert.doesNotMatch(value, /Perusteellinen|taulu|Analysoi|rakennetta|Korjaa|puuttuvat|Havaitsee|korjaa|vioittuneet|Jatketaanko/, key);
+  }
+  assert.match(vepsTranslator.t('fix-missing-lists-migration-description'), /ei ole libo oma travitud/);
+  assert.equal(vepsTranslator.t('run-fix-missing-lists-migration-confirm'), 'Nece '+vepsTranslator.t('fix-missing-lists-migration-description').replace(/^L/, 'l')+' Jatkta?');
+  assert.equal(cache['ve-PP']['step-analyze-lists'], 'Tarkištele lugetišid', 'retain existing analysis terminology');
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });

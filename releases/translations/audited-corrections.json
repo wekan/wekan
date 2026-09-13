@@ -120258,5 +120258,40 @@
     "before": "Aalto odotus pyörijä",
     "after": "Laineh – varastusen znam",
     "reason": "Replace Finnish wait-spinner controls with Veps. Dictionary varastuz, hüpke, verk, čokim, kaks’kerdaine, taza/punond, kazvand and laineh preserve distinct visual animation descriptions. Animation identifiers/templates remain unchanged. Low confidence: technical kub loan/declension and composed wait-indicator terminology require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "comprehensive-board-migration",
+    "before": "Perusteellinen taulu siirto",
+    "after": "Kaikenpoline laudan migracii",
+    "reason": "Replace Finnish board-migration controls with Veps. Dictionary kaikenpoline, löuta, koheta and travitud preserve comprehensive scope and missing/corrupt alternatives; reuse existing migration/analysis/continue vocabulary. Low confidence: technical struktur loan/inflection and absent-list repair clause composition require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "step-analyze-board-structure",
+    "before": "Analysoi taulun rakennetta",
+    "after": "Tarkištele laudan struktur",
+    "reason": "Replace Finnish board-migration controls with Veps. Dictionary kaikenpoline, löuta, koheta and travitud preserve comprehensive scope and missing/corrupt alternatives; reuse existing migration/analysis/continue vocabulary. Low confidence: technical struktur loan/inflection and absent-list repair clause composition require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "fix-missing-lists-migration",
+    "before": "Korjaa puuttuvat listat",
+    "after": "Kohenda lugetišed, miččid ei ole",
+    "reason": "Replace Finnish board-migration controls with Veps. Dictionary kaikenpoline, löuta, koheta and travitud preserve comprehensive scope and missing/corrupt alternatives; reuse existing migration/analysis/continue vocabulary. Low confidence: technical struktur loan/inflection and absent-list repair clause composition require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "fix-missing-lists-migration-description",
+    "before": "Havaitsee ja korjaa puuttuvat tai vioittuneet listat taulun rakenteessa.",
+    "after": "Löudab da kohendab laudan strukturas lugetišid, miččid ei ole libo oma travitud.",
+    "reason": "Replace Finnish board-migration controls with Veps. Dictionary kaikenpoline, löuta, koheta and travitud preserve comprehensive scope and missing/corrupt alternatives; reuse existing migration/analysis/continue vocabulary. Low confidence: technical struktur loan/inflection and absent-list repair clause composition require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "run-fix-missing-lists-migration-confirm",
+    "before": "Tämä havaitsee ja korjaa puuttuvat tai vioittuneet listat taulun rakenteessa. Jatketaanko?",
+    "after": "Nece löudab da kohendab laudan strukturas lugetišid, miččid ei ole libo oma travitud. Jatkta?",
+    "reason": "Replace Finnish board-migration controls with Veps. Dictionary kaikenpoline, löuta, koheta and travitud preserve comprehensive scope and missing/corrupt alternatives; reuse existing migration/analysis/continue vocabulary. Low confidence: technical struktur loan/inflection and absent-list repair clause composition require fluent review."
   }
 ]
