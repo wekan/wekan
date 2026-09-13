@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 12,471 |
+| Corrected | 12,475 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 3,375 |
+| Pending review or repair | 3,371 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Restored and unflagged values still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **13,026** exact before/after values, including repairs outside the audit.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **13,033** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `f5a7da3849dc261b89470fd9c2554a41ca5744af` — seven retained Volapük recovery-migration strings repaired. Technical names, non-archived scope and difficult-to-undo warning preserved; migrations remain removed and assembled wording remains low confidence.
+Latest translation fix: **2026-09-13**, local commit `3be81305acb67a4ed44abf6df911f0b3eca37576` — seven Volapük SMTP and troubleshooting strings repaired. Technical names, outgoing-port meaning, diagnostic commands and line breaks preserved; assembled wording remains low confidence.
 
 **Verification:** correction and progress tests pass. Native-speaker and browser checks remain outstanding.
 
