@@ -61346,5 +61346,75 @@
     "before": "Modifier la date de fin de vote",
     "after": "Cambiar la data de fin del vòte",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "enable-vertical-scrollbars",
+    "before": "Activer les barres de défilement verticales",
+    "after": "Activar las barras de desfilament verticalas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "enter-zoom-level",
+    "before": "Entrer le niveau d'agrandissement (50-300%) :",
+    "after": "Indicatz lo nivèl de zoom (50-300%) :",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "error-csv-schema",
+    "before": "Votre fichier CSV (valeurs séparées par des virgules) / TSV (valeurs séparées par des tabulations) ne contient pas d'informations au bon format",
+    "after": "Vòstre CSV (valors separadas per de virgulas)/TSV (valors separadas per de tabulacions) conten pas las informacions necessàrias dins lo format corrècte",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "error-orgname-taken",
+    "before": "Ce nom d'organisation est déjà utilisé",
+    "after": "Aqueste nom d’organizacion es ja utilizat",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "error-teamname-taken",
+    "before": "Ce nom d'équipe est déjà utilisé",
+    "after": "Aqueste nom d’equipa es ja utilizat",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "error-undefined",
+    "before": "Une erreur inconnue s'est produite",
+    "after": "Quicòm a pas foncionat",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "export-card-excel",
+    "before": "Exporter la carte vers Excel",
+    "after": "Exportar la carta cap a Excel",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "export-card-excel-fields",
+    "before": "Sélectionnez les champs à inclure dans l'export Excel :",
+    "after": "Seleccionatz los camps d’inclure dins l’exportacion Excel :",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "export-card-excel-no-disk-space",
+    "before": "Impossible d'exporter vers Excel : espace disque insuffisant",
+    "after": "Impossible d’exportar cap a Excel : pas pro d’espaci liure sul disc",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "export-card-field-dates",
+    "before": "Dates (Création, Réception, Début, Échéance, Fin)",
+    "after": "Datas (Creacion, Recepcion, Començament, Escasença, Fin)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
