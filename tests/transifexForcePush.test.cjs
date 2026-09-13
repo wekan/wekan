@@ -17,7 +17,7 @@ const root = path.resolve(__dirname, '..');
   assert.equal(colombian[0].file, 'es-CO', 'explicit mapping chooses canonical local file');
   assert.deepEqual(colombian[0].aliases, ['es_CO']);
   assert.ok(!localLanguages(config).some(row => row.code === 'es-CO'), 'never register an unsupported hyphenated code');
-  for (const [file, code] of [['fr-BE','fr_BE'], ['fr-CA','fr_CA'], ['km-KH','km_KH'], ['gn','gug_PY']]) {
+  for (const [file, code] of [['fr-BE','fr_BE'], ['fr-CA','fr_CA'], ['km-KH','km_KH'], ['gn','gug_PY'], ['pt-PT','pt_PT']]) {
     assert.equal(localLanguages(config).find(row => row.file === file).code, code);
     assert.ok(!localLanguages(config).some(row => row.code === file));
   }
@@ -75,6 +75,6 @@ const root = path.resolve(__dirname, '..');
   assert.equal(network, 0, 'pagination cannot send credentials to another origin');
   const dry = cp.spawnSync('sh', [path.join(root, 'releases/translations/push-all-translations.sh'), '--dry-run'], { cwd: path.join(root, '.tools/tmp'), env: { ...process.env, NODE_BIN: process.execPath }, encoding: 'utf8' });
   assert.equal(dry.status, 0, dry.stderr);
-  assert.match(dry.stdout, /243 targets and source en; no network requests/);
+  assert.match(dry.stdout, /242 targets and source en; no network requests/);
   console.log('transifexForcePush: full uploads, polling, mapped languages, additive registration, failure continuation and summary, token origin boundary and offline wrapper passed');
 })().catch(error => { console.error(error); process.exitCode = 1; });

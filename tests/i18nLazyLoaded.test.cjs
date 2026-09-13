@@ -172,6 +172,15 @@ test('a Transifex pull writes the file the app loads, for every language', () =>
   for (const [, tag, file] of entries) {
     const written = mapping[tag] || tag;
     if (written === file) continue;
+    // Deliberate local variants share one remote target. The canonical mapped
+    // file MUST have its own registered loader; the alias keeps valid local
+    // wording and is not claimed to round-trip independently through Transifex.
+    const localVariants = { es_CO: 'es-CO', pt_PT: 'pt-PT' };
+    if (localVariants[tag] === written && file === tag) {
+      assert.ok(entries.some(([, , loadedFile]) => loadedFile === written),
+        `canonical variant ${written} receives the pull and is loaded`);
+      continue;
+    }
     const a = real(written);
     // Only a real, separate file proves the pull lands somewhere unread. A
     // symlink makes both names the same file, and a name with no file at all
