@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Audit keys |
 | --- | ---: |
-| Explicitly corrected | 7,146 |
+| Explicitly corrected | 7,154 |
 | Restored pre-pull values awaiting further validation | 4,059 |
 | Reviewed and retained unchanged | 175 |
-| Pending review or repair | 8,701 |
+| Pending review or repair | 8,693 |
 | Total tracked | 20,081 |
 
 **Translation repairs remain unfinished.** These counts cover flagged findings; unflagged strings and restored values are not certified as correct.
 
-Fixes cover wrong-language text, terminology, warnings, JSON examples, placeholders and calendar/search formatting. The correction history records **7,219 values**, including fixes outside the audit. Per-language remaining work is available through the command below.
+Fixes cover wrong-language text, terminology, warnings, JSON examples, placeholders and calendar/search formatting. The correction history records **7,227 values**, including fixes outside the audit. Per-language remaining work is available through the command below.
 
-Latest fix: [2c7a7444c](https://github.com/wekan/wekan/commit/2c7a7444c4782cbd91d1458f6826b0c744342b21), **2026-09-13** — seven Corsican accessibility/account values repaired; uncertain shared reactivity wording remains pending. **286 Corsican findings remain**. Exact-value, placeholder, key-order and idempotency checks pass. Wording needs native-speaker review; live browser verification remains unavailable.
+Latest fix: [9580ab05e](https://github.com/wekan/wekan/commit/9580ab05ec281a7b0ff8d743e489ff4359fd72b4), **2026-09-13** — eight Corsican due-reminder, lockout and activity values repaired; **278 Corsican findings remain**. Exact-value, placeholder, key-order and idempotency checks pass. Wording needs native-speaker review; live browser verification remains unavailable.
 
 **Provenance:** not all errors came from Transifex. The captured pull changed 4,061 values; the local audit added 16,020 findings. Bosnian errors predated that pull in a [local completion commit](https://github.com/wekan/wekan/commit/bdb3b15886a749b725b5290ba0109fcba955f983). Other ultimate origins remain unverified.
 
