@@ -49614,5 +49614,103 @@
     "before": "Duc gli storage ativeati in lettura",
     "after": "Tut ils sistems da memorisaziun cun lectura activada",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "multi-selection-off",
+    "before": "Disattiva la selezione multipla",
+    "after": "Deactivar la selecziun multipla",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "multi-selection-on",
+    "before": "Selezione multipla attiva",
+    "after": "La selecziun multipla è activada",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "newTranslationPopup-title",
+    "before": "Nuefa stringa di traduzione personalizzata",
+    "after": "Nova stringa da translaziun persunalisada",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "no-repositories",
+    "before": "Nessun repository trovato",
+    "after": "Nagins repositaris chattads",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "no-shared-templates",
+    "before": "Nessun template condiviso",
+    "after": "Nagins models cundividids",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "normal-assigned-only-desc",
+    "before": "Sono visibili mé le ciartes assegnate. Muda come utent normale.",
+    "after": "Mo las cartas attribuidas èn visiblas. Modifitgar sco utilisader normal.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "not-accepted-yet",
+    "before": "Invitato no ancora azetato",
+    "after": "Invitaziun anc betg acceptada",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "office-no-results",
+    "before": "Degun ha ancora effettuato l'azes o no ie stato registrato alcun azes.",
+    "after": "Anc nagin n’è s’annunzià, u naginas annunzias èn vegnidas registradas.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "open-many-cards-at-once",
+    "before": "Apri più ciartes contemporaneamente",
+    "after": "Avrir pliras cartas a medem temp",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "operator-debug-invalid",
+    "before": "%s no ie un valido predicato di debug",
+    "after": "%s n’è betg in predicat da debug valid",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "operator-has-invalid",
+    "before": "%s no ie un controllo di esistenza valido",
+    "after": "%s n’è betg ina verificaziun d’existenza valida",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "operator-limit-invalid",
+    "before": "%s no ie un limite valido.  Il limite dovrebbe essere un numero intero positivo.",
+    "after": "%s n’è betg ina limita valida. La limita sto esser in dumber entir positiv.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "operator-number-expected",
+    "before": "l'operatores __operator__ prevede un numero, invece ie stato fornito '__value__'",
+    "after": "L’operatur __operator__ spetgava in dumber, ma ha survegnì '__value__'",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "operator-sort-invalid",
+    "before": "L'ordinamento di '%s' no ie valido",
+    "after": "La sortaziun da '%s' n’è betg valida",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
