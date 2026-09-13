@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Audit keys |
 | --- | ---: |
-| Explicitly corrected | 7,678 |
+| Explicitly corrected | 7,688 |
 | Restored pre-pull values awaiting further validation | 4,059 |
 | Reviewed and retained unchanged | 175 |
-| Pending review or repair | 8,169 |
+| Pending review or repair | 8,159 |
 | Total tracked | 20,081 |
 
 **Translation repairs remain unfinished.** These counts cover flagged findings; unflagged strings and restored values are not certified as correct.
 
-Fixes cover wrong-language text, terminology, warnings, JSON examples, placeholders and calendar/search formatting. The correction history records **7,751 values**, including fixes outside the audit. Per-language remaining work is available through the command below.
+Fixes cover wrong-language text, terminology, warnings, JSON examples, placeholders and calendar/search formatting. The correction history records **7,761 values**, including fixes outside the audit. Per-language remaining work is available through the command below.
 
-Latest fix: [fc8666fcc](https://github.com/wekan/wekan/commit/fc8666fcc4f5f1c2a56f4932280eef8fd2b6e1c7), **2026-09-13** — seven Aromanian memory, time and unlock labels repaired with low confidence; **199 Aromanian findings remain**. Exact-value, placeholder, key-order and idempotency checks pass. Wording needs native-speaker review; live browser verification remains unavailable.
+Latest fix: [67c3928f7](https://github.com/wekan/wekan/commit/67c3928f75dfdf42eb3c610091a280c369924720), **2026-09-13** — ten Aromanian accessibility, login-limit and time messages repaired with low confidence; **189 Aromanian findings remain**. Exact-value, placeholder, key-order and idempotency checks pass. Wording needs native-speaker review; live browser verification remains unavailable.
 
 **Provenance:** not all errors came from Transifex. The captured pull changed 4,061 values; the local audit added 16,020 findings. Bosnian errors predated that pull in a [local completion commit](https://github.com/wekan/wekan/commit/bdb3b15886a749b725b5290ba0109fcba955f983). Other ultimate origins remain unverified.
 
