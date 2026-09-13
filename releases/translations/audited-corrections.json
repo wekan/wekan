@@ -58959,5 +58959,117 @@
     "before": "Republic of China",
     "after": "Kalenda Minguo",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "account-locked",
+    "before": "Le compte est temporairement verrouillé en raison de trop de tentatives de connexion échouées. Veuillez réessayer plus tard.",
+    "after": "Lo compte es blocat temporàriament per tròp d'ensages de connexion fracassats. Tornatz ensajar pus tard.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "accounts-allowUserDelete",
+    "before": "Autoriser les utilisateurs à supprimer leur compte",
+    "after": "Supression de son pròpri compte",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "accounts-lockout-all-users-unlocked",
+    "before": "Tous les utilisateurs bloqués ont été déverrouillés",
+    "after": "Totes los utilizaires blocats son estats desblocats",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "accounts-lockout-click-to-unlock",
+    "before": "Cliquer pour déverrouiller cet utilisateur",
+    "after": "Clicatz per desblocar aqueste utilizaire",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "accounts-lockout-confirm-unlock",
+    "before": "Êtes-vous sûr de vouloir déverrouiller cet utilisateur ?",
+    "after": "Volètz vertadièrament desblocar aqueste utilizaire ?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "accounts-lockout-confirm-unlock-all",
+    "before": "Êtes-vous sûr de vouloir déverrouiller tous les utilisateurs verrouillés ?",
+    "after": "Volètz vertadièrament desblocar totes los utilizaires blocats ?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "accounts-lockout-info",
+    "before": "Ces paramètres contrôlent comment les tentatives de connexion sont protégés des attaques par force brute.",
+    "after": "Aquestes paramètres contraròtlan la proteccion dels ensages de connexion contra los atacs per fòrça bruta.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "accounts-lockout-known-users",
+    "before": "Paramètres pour les utilisateurs connus (utilisateur existant, mot de passe incorrect)",
+    "after": "Paramètres pels utilizaires coneguts (nom d'utilizaire corrècte, senhal incorrècte)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "accounts-lockout-locked-users-info",
+    "before": "Utilisateurs actuellement verrouillés pour trop de tentatives de connexion en échec",
+    "after": "Utilizaires actualament blocats per tròp d'ensages de connexion fracassats",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "accounts-lockout-no-locked-users",
+    "before": "Il n'y a actuellement aucun utilisateur verrouillé",
+    "after": "Actualament i a pas cap d’utilizaire blocat",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "accounts-lockout-settings",
+    "before": "Paramètres de protection contre la force brute",
+    "after": "Paramètres de proteccion contra la fòrça bruta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "accounts-lockout-settings-updated",
+    "before": "Les paramètres de protection contre la force brute ont été mis à jour",
+    "after": "Los paramètres de proteccion contra la fòrça bruta son estats actualizats",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "accounts-lockout-show-locked-users",
+    "before": "Afficher les utilisateurs verrouillés seulement",
+    "after": "Afichar solament los utilizaires blocats",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "accounts-lockout-unknown-users",
+    "before": "Paramètres pour les utilisateurs inconnus (utilisateur inexistant)",
+    "after": "Paramètres pels utilizaires desconeguts (nom d'utilizaire inexistent)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "accounts-lockout-user-locked",
+    "before": "L'utilisateur est verrouillé",
+    "after": "L’utilizaire es blocat",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "accounts-lockout-user-unlocked",
+    "before": "L'utilisateur a été déverrouillé avec succès",
+    "after": "L’utilizaire es estat desblocat amb succès",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
