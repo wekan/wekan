@@ -1308,5 +1308,35 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.match(cache['ve-PP']['accounts-allowUserDelete'], /ičeze akkauntad$/);
   assert.match(cache['ve-PP']['account-created'], /tehtud!.*tulda sistemaha/);
   assert.match(cache['ve-PP']['error-email-taken'], /jo kävutuses$/);
+  const vepsLoginProtectionRepairs = {
+  "accounts-lockout-settings": "Kaičusen sändod peitsanavariantoiden kodvindan tacmusišpäi",
+  "accounts-lockout-info": "Neced sändod ohjandaba sistemaha tulendan rohkaidusiden kaičust peitsanavariantoiden kodvindan tacmusišpäi.",
+  "accounts-lockout-settings-updated": "Kaičusen sändod peitsanavariantoiden kodvindan tacmusišpäi oma udištadud",
+  "accounts-lockout-failures-before": "Rohkaidused vigoidenke edel saubatust",
+  "accounts-lockout-failure-window": "Vigoiden lugendan aig (sekundad)",
+  "accounts-lockout-failed-attempts": "Rohkaidused vigoidenke",
+  "accounts-lockout-remaining-time": "Jänu aig",
+  "accounts-lockout-locked-users-info": "Kävutajad, kudambad oma nügüd’ saubatud, sikš miše oma olnuded lujas äi vigoidenke sistemaha tulendan rohkaidusid",
+  "account-locked": "Akkauntal om keskaigaine saubatuz, sikš miše oma olnuded lujas äi vigoidenke sistemaha tulendan rohkaidusid. Ole hüvä, ladi möst möhemba.",
+  "accounts-lockout-status": "Olo",
+  "admin-people-filter-show": "Ozuta:",
+  "admin-people-filter-all": "Kaik kävutajad",
+  "admin-people-filter-locked": "Vaiše saubatud kävutajad",
+  "admin-people-active-status": "Aktivine olo"
+};
+  for (const [key, value] of Object.entries(vepsLoginProtectionRepairs)) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.equal(vepsTranslator.t(key), value, key);
+    assert.doesNotMatch(value, /Raaka voima|suojausasetukset|Nämä asetukset|kirjautumisyritykset|hyökkäyksiltä|Epäonnistumiset|ennen lukitusta|Virheikkuna|sekuntia|Epäonnistuneet yritykset|Jäljellä oleva|Käyttäjät jotka|lukittuina ulos|epäonnistuneen|Tili on tilapäisesti|Yritä myöhemmin|Tilanne|Näytä|Kaikki käyttäjät|Vain lukitut|Aktiivisuus tila/i, key);
+  }
+  for (const key of ['accounts-lockout-settings', 'accounts-lockout-info', 'accounts-lockout-settings-updated']) assert.match(cache['ve-PP'][key], /peitsanavariantoiden kodvindan tacmusišpäi/);
+  assert.match(cache['ve-PP']['accounts-lockout-settings-updated'], /oma udištadud$/);
+  assert.match(cache['ve-PP']['account-locked'], /keskaigaine saubatuz.*lujas äi vigoidenke.*tulendan rohkaidusid.*ladi möst möhemba/);
+  assert.match(cache['ve-PP']['accounts-lockout-locked-users-info'], /nügüd’ saubatud.*lujas äi vigoidenke.*tulendan rohkaidusid/);
+  assert.match(cache['ve-PP']['accounts-lockout-failure-window'], /lugendan aig \(sekundad\)$/);
+  assert.match(cache['ve-PP']['accounts-lockout-failures-before'], /edel saubatust$/);
+  assert.match(cache['ve-PP']['admin-people-filter-locked'], /^Vaiše saubatud/);
+  assert.match(cache['ve-PP']['admin-people-filter-all'], /^Kaik kävutajad$/);
+  assert.doesNotMatch(cache['ve-PP']['admin-people-filter-all'], /Vaiše|saubatud/);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });

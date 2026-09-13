@@ -116688,5 +116688,103 @@
     "before": "Oletko varma että haluat poistaa kaikki ilmoitukset? Tätä toimintoa ei voi perua.",
     "after": "Oled-ik sinä tozi mugošt mel’t, miše tahtoid heitta kaik tedotuzed? Necidä tegendad ei sa pördutada.",
     "reason": "Replace Finnish account/email/push/notification prose with Veps. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (tervhen greeting, kucta/kucub invite, ühthižtö collaboration, holitez service, vahvištoitta confirm, peitsana password); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests Spasib, peitsanan heitändan for password reset, email-počtan adres, tule sistemaha and Oled-ik sinä tozi mugošt mel’t. Preserve exact __user__/__inviter__/__board__/__url__/__icode__ and line breaks; distinguish password reset from email verification; retain all/irreversible notification deletion and self-account deletion. Low confidence: composed mail/account grammar and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "accounts-lockout-settings",
+    "before": "Raaka voima suojausasetukset",
+    "after": "Kaičusen sändod peitsanavariantoiden kodvindan tacmusišpäi",
+    "reason": "Replace Finnish login-lockout/protection labels and descriptions with Veps; related unflagged admin controls included. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (kaičuz protection, kodvind checking, tacmuz attack, rohkaiduz attempt, keskaigaine temporary, möhemba later, ohjata/ohjandab control, saubatuz lockout, tulend entering); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests peitsana, variantad, saubatud, ladi, Ozuta and vaiše. Explain brute force as password-variant checking attacks; retain excessive failed-login cause, temporary lockout and retry-later guidance, counting window in seconds, remaining time and only-locked/all-user distinction. Low confidence: composed security terminology and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "accounts-lockout-info",
+    "before": "Nämä asetukset määrittävät, miten kirjautumisyritykset suojataan raaka voima hyökkäyksiltä.",
+    "after": "Neced sändod ohjandaba sistemaha tulendan rohkaidusiden kaičust peitsanavariantoiden kodvindan tacmusišpäi.",
+    "reason": "Replace Finnish login-lockout/protection labels and descriptions with Veps; related unflagged admin controls included. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (kaičuz protection, kodvind checking, tacmuz attack, rohkaiduz attempt, keskaigaine temporary, möhemba later, ohjata/ohjandab control, saubatuz lockout, tulend entering); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests peitsana, variantad, saubatud, ladi, Ozuta and vaiše. Explain brute force as password-variant checking attacks; retain excessive failed-login cause, temporary lockout and retry-later guidance, counting window in seconds, remaining time and only-locked/all-user distinction. Low confidence: composed security terminology and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "accounts-lockout-settings-updated",
+    "before": "Raaka voima suojausasetukset on päivitetty",
+    "after": "Kaičusen sändod peitsanavariantoiden kodvindan tacmusišpäi oma udištadud",
+    "reason": "Replace Finnish login-lockout/protection labels and descriptions with Veps; related unflagged admin controls included. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (kaičuz protection, kodvind checking, tacmuz attack, rohkaiduz attempt, keskaigaine temporary, möhemba later, ohjata/ohjandab control, saubatuz lockout, tulend entering); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests peitsana, variantad, saubatud, ladi, Ozuta and vaiše. Explain brute force as password-variant checking attacks; retain excessive failed-login cause, temporary lockout and retry-later guidance, counting window in seconds, remaining time and only-locked/all-user distinction. Low confidence: composed security terminology and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "accounts-lockout-failures-before",
+    "before": "Epäonnistumiset ennen lukitusta",
+    "after": "Rohkaidused vigoidenke edel saubatust",
+    "reason": "Replace Finnish login-lockout/protection labels and descriptions with Veps; related unflagged admin controls included. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (kaičuz protection, kodvind checking, tacmuz attack, rohkaiduz attempt, keskaigaine temporary, möhemba later, ohjata/ohjandab control, saubatuz lockout, tulend entering); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests peitsana, variantad, saubatud, ladi, Ozuta and vaiše. Explain brute force as password-variant checking attacks; retain excessive failed-login cause, temporary lockout and retry-later guidance, counting window in seconds, remaining time and only-locked/all-user distinction. Low confidence: composed security terminology and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "accounts-lockout-failure-window",
+    "before": "Virheikkuna (sekuntia)",
+    "after": "Vigoiden lugendan aig (sekundad)",
+    "reason": "Replace Finnish login-lockout/protection labels and descriptions with Veps; related unflagged admin controls included. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (kaičuz protection, kodvind checking, tacmuz attack, rohkaiduz attempt, keskaigaine temporary, möhemba later, ohjata/ohjandab control, saubatuz lockout, tulend entering); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests peitsana, variantad, saubatud, ladi, Ozuta and vaiše. Explain brute force as password-variant checking attacks; retain excessive failed-login cause, temporary lockout and retry-later guidance, counting window in seconds, remaining time and only-locked/all-user distinction. Low confidence: composed security terminology and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "accounts-lockout-failed-attempts",
+    "before": "Epäonnistuneet yritykset",
+    "after": "Rohkaidused vigoidenke",
+    "reason": "Replace Finnish login-lockout/protection labels and descriptions with Veps; related unflagged admin controls included. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (kaičuz protection, kodvind checking, tacmuz attack, rohkaiduz attempt, keskaigaine temporary, möhemba later, ohjata/ohjandab control, saubatuz lockout, tulend entering); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests peitsana, variantad, saubatud, ladi, Ozuta and vaiše. Explain brute force as password-variant checking attacks; retain excessive failed-login cause, temporary lockout and retry-later guidance, counting window in seconds, remaining time and only-locked/all-user distinction. Low confidence: composed security terminology and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "accounts-lockout-remaining-time",
+    "before": "Jäljellä oleva aika",
+    "after": "Jänu aig",
+    "reason": "Replace Finnish login-lockout/protection labels and descriptions with Veps; related unflagged admin controls included. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (kaičuz protection, kodvind checking, tacmuz attack, rohkaiduz attempt, keskaigaine temporary, möhemba later, ohjata/ohjandab control, saubatuz lockout, tulend entering); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests peitsana, variantad, saubatud, ladi, Ozuta and vaiše. Explain brute force as password-variant checking attacks; retain excessive failed-login cause, temporary lockout and retry-later guidance, counting window in seconds, remaining time and only-locked/all-user distinction. Low confidence: composed security terminology and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "accounts-lockout-locked-users-info",
+    "before": "Käyttäjät jotka ovat tällä hetkellä lukittuina ulos liian monen epäonnistuneen kirjautumisyrityksen vuoksi",
+    "after": "Kävutajad, kudambad oma nügüd’ saubatud, sikš miše oma olnuded lujas äi vigoidenke sistemaha tulendan rohkaidusid",
+    "reason": "Replace Finnish login-lockout/protection labels and descriptions with Veps; related unflagged admin controls included. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (kaičuz protection, kodvind checking, tacmuz attack, rohkaiduz attempt, keskaigaine temporary, möhemba later, ohjata/ohjandab control, saubatuz lockout, tulend entering); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests peitsana, variantad, saubatud, ladi, Ozuta and vaiše. Explain brute force as password-variant checking attacks; retain excessive failed-login cause, temporary lockout and retry-later guidance, counting window in seconds, remaining time and only-locked/all-user distinction. Low confidence: composed security terminology and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "account-locked",
+    "before": "Tili on tilapäisesti lukittu liian monen epäonnistuneen kirjautumisyrityksen vuoksi. Yritä myöhemmin uudelleen.",
+    "after": "Akkauntal om keskaigaine saubatuz, sikš miše oma olnuded lujas äi vigoidenke sistemaha tulendan rohkaidusid. Ole hüvä, ladi möst möhemba.",
+    "reason": "Replace Finnish login-lockout/protection labels and descriptions with Veps; related unflagged admin controls included. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (kaičuz protection, kodvind checking, tacmuz attack, rohkaiduz attempt, keskaigaine temporary, möhemba later, ohjata/ohjandab control, saubatuz lockout, tulend entering); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests peitsana, variantad, saubatud, ladi, Ozuta and vaiše. Explain brute force as password-variant checking attacks; retain excessive failed-login cause, temporary lockout and retry-later guidance, counting window in seconds, remaining time and only-locked/all-user distinction. Low confidence: composed security terminology and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "accounts-lockout-status",
+    "before": "Tilanne",
+    "after": "Olo",
+    "reason": "Replace Finnish login-lockout/protection labels and descriptions with Veps; related unflagged admin controls included. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (kaičuz protection, kodvind checking, tacmuz attack, rohkaiduz attempt, keskaigaine temporary, möhemba later, ohjata/ohjandab control, saubatuz lockout, tulend entering); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests peitsana, variantad, saubatud, ladi, Ozuta and vaiše. Explain brute force as password-variant checking attacks; retain excessive failed-login cause, temporary lockout and retry-later guidance, counting window in seconds, remaining time and only-locked/all-user distinction. Low confidence: composed security terminology and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "admin-people-filter-show",
+    "before": "Näytä:",
+    "after": "Ozuta:",
+    "reason": "Replace Finnish login-lockout/protection labels and descriptions with Veps; related unflagged admin controls included. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (kaičuz protection, kodvind checking, tacmuz attack, rohkaiduz attempt, keskaigaine temporary, möhemba later, ohjata/ohjandab control, saubatuz lockout, tulend entering); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests peitsana, variantad, saubatud, ladi, Ozuta and vaiše. Explain brute force as password-variant checking attacks; retain excessive failed-login cause, temporary lockout and retry-later guidance, counting window in seconds, remaining time and only-locked/all-user distinction. Low confidence: composed security terminology and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "admin-people-filter-all",
+    "before": "Kaikki käyttäjät",
+    "after": "Kaik kävutajad",
+    "reason": "Replace Finnish login-lockout/protection labels and descriptions with Veps; related unflagged admin controls included. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (kaičuz protection, kodvind checking, tacmuz attack, rohkaiduz attempt, keskaigaine temporary, möhemba later, ohjata/ohjandab control, saubatuz lockout, tulend entering); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests peitsana, variantad, saubatud, ladi, Ozuta and vaiše. Explain brute force as password-variant checking attacks; retain excessive failed-login cause, temporary lockout and retry-later guidance, counting window in seconds, remaining time and only-locked/all-user distinction. Low confidence: composed security terminology and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "admin-people-filter-locked",
+    "before": "Vain lukitut käyttäjät",
+    "after": "Vaiše saubatud kävutajad",
+    "reason": "Replace Finnish login-lockout/protection labels and descriptions with Veps; related unflagged admin controls included. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (kaičuz protection, kodvind checking, tacmuz attack, rohkaiduz attempt, keskaigaine temporary, möhemba later, ohjata/ohjandab control, saubatuz lockout, tulend entering); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests peitsana, variantad, saubatud, ladi, Ozuta and vaiše. Explain brute force as password-variant checking attacks; retain excessive failed-login cause, temporary lockout and retry-later guidance, counting window in seconds, remaining time and only-locked/all-user distinction. Low confidence: composed security terminology and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "admin-people-active-status",
+    "before": "Aktiivisuus tila",
+    "after": "Aktivine olo",
+    "reason": "Replace Finnish login-lockout/protection labels and descriptions with Veps; related unflagged admin controls included. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (kaičuz protection, kodvind checking, tacmuz attack, rohkaiduz attempt, keskaigaine temporary, möhemba later, ohjata/ohjandab control, saubatuz lockout, tulend entering); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests peitsana, variantad, saubatud, ladi, Ozuta and vaiše. Explain brute force as password-variant checking attacks; retain excessive failed-login cause, temporary lockout and retry-later guidance, counting window in seconds, remaining time and only-locked/all-user distinction. Low confidence: composed security terminology and inflections require fluent-speaker review."
   }
 ]
