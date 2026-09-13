@@ -82332,5 +82332,75 @@
     "before": "Lien URL du logo de connexion personnalisé",
     "after": "URL bu lëkkalekaayu logo bu dugg bu ñu def ci soxla",
     "reason": "Replace French with Wolof using existing customization, height and left/top terminology; preserve assetlinks.json, HTML/JSON, link/meta/head element names, default 27 and image versus target URLs for login versus top-left logos. Tag/manifest/legal-notice terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "email-fail",
+    "before": "Échec de l'envoi du courriel.",
+    "after": "Yónnee bataaxalu imeel bi antuwul",
+    "reason": "Replace French email messages with Wolof; retain delivery success/failure, invalid address, invitation sender, password reset versus email verification, exact site/user/URL tokens and multiline layout. Email/reset terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "email-fail-text",
+    "before": "Une erreur est survenue en tentant d'envoyer l'email",
+    "after": "Am na njuumte bi ñuy jéem a yónnee bataaxalu imeel",
+    "reason": "Replace French email messages with Wolof; retain delivery success/failure, invalid address, invitation sender, password reset versus email verification, exact site/user/URL tokens and multiline layout. Email/reset terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "email-invalid",
+    "before": "Adresse e-mail incorrecte.",
+    "after": "Adreesu imeel bi jubul",
+    "reason": "Replace French email messages with Wolof; retain delivery success/failure, invalid address, invitation sender, password reset versus email verification, exact site/user/URL tokens and multiline layout. Email/reset terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "email-invite-register-subject",
+    "before": "__inviter__ vous a envoyé une invitation",
+    "after": "__inviter__ yónnee na la woote",
+    "reason": "Replace French email messages with Wolof; retain delivery success/failure, invalid address, invitation sender, password reset versus email verification, exact site/user/URL tokens and multiline layout. Email/reset terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "email-invite-subject",
+    "before": "__inviter__ vous a envoyé une invitation",
+    "after": "__inviter__ yónnee na la woote",
+    "reason": "Replace French email messages with Wolof; retain delivery success/failure, invalid address, invitation sender, password reset versus email verification, exact site/user/URL tokens and multiline layout. Email/reset terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "email-resetPassword-subject",
+    "before": "Réinitialiser votre mot de passe sur __siteName__",
+    "after": "Jekkalat sa baatu jàll ci __siteName__",
+    "reason": "Replace French email messages with Wolof; retain delivery success/failure, invalid address, invitation sender, password reset versus email verification, exact site/user/URL tokens and multiline layout. Email/reset terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "email-resetPassword-text",
+    "before": "Bonjour __user__,\n\nPour réinitialiser votre mot de passe, cliquez sur le lien ci-dessous.\n\n__url__\n\nMerci.",
+    "after": "Nanga def __user__,\n\nNgir jekkalat sa baatu jàll, bësal lëkkalekaay bi ci suuf rekk.\n\n__url__\n\nJërëjëf.",
+    "reason": "Replace French email messages with Wolof; retain delivery success/failure, invalid address, invitation sender, password reset versus email verification, exact site/user/URL tokens and multiline layout. Email/reset terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "email-smtp-test-text",
+    "before": "Vous avez envoyé un mail avec succès",
+    "after": "Yónnee nga bataaxalu imeel bi te antu na",
+    "reason": "Replace French email messages with Wolof; retain delivery success/failure, invalid address, invitation sender, password reset versus email verification, exact site/user/URL tokens and multiline layout. Email/reset terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "email-verifyEmail-subject",
+    "before": "Vérifier votre adresse de courriel sur __siteName__",
+    "after": "Saytu sa adreesu imeel ci __siteName__",
+    "reason": "Replace French email messages with Wolof; retain delivery success/failure, invalid address, invitation sender, password reset versus email verification, exact site/user/URL tokens and multiline layout. Email/reset terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "email-verifyEmail-text",
+    "before": "Bonjour __user__,\n\nPour vérifier votre compte courriel, il suffit de cliquer sur le lien ci-dessous.\n\n__url__\n\nMerci.",
+    "after": "Nanga def __user__,\n\nNgir saytu imeelu sa kont, bësal lëkkalekaay bi ci suuf rekk.\n\n__url__\n\nJërëjëf.",
+    "reason": "Replace French email messages with Wolof; retain delivery success/failure, invalid address, invitation sender, password reset versus email verification, exact site/user/URL tokens and multiline layout. Email/reset terminology and full grammar remain low confidence."
   }
 ]
