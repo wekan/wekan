@@ -12,9 +12,9 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **16,049** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **16,052** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-13**, local commit `94b5e33ef` — replaced English Veps Ethiopic/Dangi calendar labels using attested country forms and calendar vocabulary. Composed names need fluent review. All **16,049** correction records and vocabulary/token checks pass. Veps has 610 original findings remaining. Broader wrong-language/script values, restored translations and browser verification remain outstanding.
+Latest translation fix: **2026-09-13**, local commit `0f3be9458` — replaced Finnish Veps search/edit commands with native Eci/Vajehta, matching dictionary imperatives and the Veps Wikipedia interface. Search popup and command labels agree. All **16,052** correction records and vocabulary/token checks pass. Original pending counts are unchanged. Veps/Tamazight calendar compositions need fluent review; broader wrong-language/script values, restored translations and browser verification remain outstanding.
 
 **Language workflow (2026-09-13):** all 245 popup locales are wired and country-then-language flags are checked (`8549b6c4c`). Browser preference ordering, legacy/script aliases, delayed saved profiles and no automatic profile writes pass runtime checks (`1666a2012`, `37ae64fa8`); actual browser execution remains pending. Uzbek Arabic (`uz-AR`) still contains Latin core labels and needs repair.
 

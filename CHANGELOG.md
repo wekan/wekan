@@ -82,7 +82,7 @@ Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
 findings: 14,493 corrected, 4,058 restored pre-pull values awaiting
 validation, 179 reviewed and retained, and 1,351 pending review or repair.
-The correction inventory records 16,049 exact before/after values,
+The correction inventory records 16,052 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
@@ -1099,6 +1099,15 @@ Bitbucket was tried during development and is now disabled because of
 Unauthorized errors. Repository paths remain resolved from the script's
 checkout. Syntax validation does not contact or certify remote mirrors;
 no mirroring or publishing commands were executed for this audit.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0f3be9458">Repair Veps search and edit commands</a>. Thanks to xet7.</summary>
+
+Replace Finnish commands with native Veps imperatives used by the Veps
+Wikipedia interface. Search popup and command labels agree. Vocabulary,
+wrong-language negatives and the full correction inventory pass.
 
 </details>
 
