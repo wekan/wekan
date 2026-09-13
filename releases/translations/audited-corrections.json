@@ -67758,5 +67758,89 @@
     "before": "Les informations d'assistance n'ont pas encore été ajoutées",
     "after": "N’eo ket bet ouzhpennet an titouroù skoazell c’hoazh",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "support-page-enabled",
+    "before": "Page d'assistance activée",
+    "after": "Gweredekaet eo ar bajenn skoazell",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "swimlane-delete-pop",
+    "before": "Toutes les actions vont être supprimées du suivi d'activités et vous ne pourrez plus utiliser ce couloir. Cela est irréversible.",
+    "after": "Dilamet e vo an holl oberoù eus ar red oberiantiz ha ne c’hallot ket adkavout an trepas. N’haller ket nullañ an dilemel.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "swimlane-height-error-message",
+    "before": "La hauteur du couloir doit être un entier positif",
+    "after": "Ret eo da uhelder an trepas bezañ un niver anterin pozitivel",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "tableVisibilityMode-allowPrivateOnly",
+    "before": "Visibilité des tableaux: N'autoriser que des tableaux privés",
+    "after": "Hewelded an taolennoù: aotren taolennoù prevez hepken",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "team-number",
+    "before": "Le nombre d'équipes est de :",
+    "after": "Setu an niver a skipailhoù: ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "toggle-labels",
+    "before": "Bascule les étiquettes 1-9 pour les cartes. La sélection multiple ajoute les étiquettes 1-9",
+    "after": "Ouzhpennañ/tennañ an tikedennoù 1-9 evit ar gartenn. An diuzad lies a ouzhpenn an tikedennoù 1-9",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "tracking-info",
+    "before": "Vous serez notifié de toute modification concernant les cartes pour lesquelles vous êtes impliqué en tant que créateur ou participant.",
+    "after": "Kemennet e vo deoc’h pep kemm war ar c’hartennoù ma kemerit perzh evel krouer pe ezel.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "translation-number",
+    "before": "Le nombre de traductions personnalisées est de :",
+    "after": "Setu an niver a chadennoù testenn troet personelaet:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "unsaved-description",
+    "before": "Vous avez une description non sauvegardée",
+    "after": "Un deskrivadur n’eo ket enrollet zo ganeoc’h.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "upload-completed",
+    "before": "Le chargement est terminé",
+    "after": "Echuet eo an enkargañ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "upload-repository",
+    "before": "Téléverser/Mettre à jour le dépôt",
+    "after": "Enkargañ/hizivaat ar mirlec’h",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "vote-delete-pop",
+    "before": "La suppression est définitive. Vous perdrez toutes les actions associées à ce vote.",
+    "after": "Peurbad eo an dilemel. Koll a reot an holl oberoù stag ouzh ar vot-mañ.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
