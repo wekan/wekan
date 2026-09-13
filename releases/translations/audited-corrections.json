@@ -55312,5 +55312,82 @@
     "before": "Seleziona un limite per il massimo numero di attività in questa lista",
     "after": "Puni unã limitã ti numirlu maxim di lucrãri tu aesta listã",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "setWipLimitPopup-title",
+    "before": "Imposta limite Work In Progress",
+    "after": "Puni limita di lucru tu progres (WIP)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "settingsTranslationPopup-title",
+    "before": "Rimuovere stringa di traduzione personalizzata?",
+    "after": "Ashtardzi aesta stringã di traducere personalizatã?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "shortcut-close-dialog",
+    "before": "Chiudi finestra di dialogo",
+    "after": "Încljidi dialogul",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "shortcut-filter-my-assigned-cards",
+    "before": "Filtro le carte assegnate",
+    "after": "Filtreadzã cãrtsãli atribuiti la mini",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "shortcut-show-shortcuts",
+    "before": "Apri questa lista di scorciatoie",
+    "after": "Dishcljidi aesta listã di scurtãturi",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "shortcut-toggle-filterbar",
+    "before": "Apri/chiudi la barra laterale dei filtri",
+    "after": "Dishcljidi/încljidi bara lateralã di filtri",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "shortcut-toggle-searchbar",
+    "before": "Apri/chiudi la barra laterale di ricerca",
+    "after": "Dishcljidi/încljidi bara lateralã di cãutari",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "show-desktop-drag-handles",
+    "before": "Mostra maniglie di trascinamento del desktop",
+    "after": "Aratã mãnerili di tragiri pi desktop",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "show-parent-in-minicard",
+    "before": "Mostra genirotri nelle mini schede:",
+    "after": "Aratã carta pãrinti pi minicartã:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "show-week-of-year",
+    "before": "Mostra la settimana dell'anno (ISO 8601)",
+    "after": "Aratã sãptãmãna di an (ISO 8601)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "showLabel-field-on-card",
+    "before": "Mostra l'etichetta di campo su minischeda",
+    "after": "Aratã eticheta a cãmpului pi minicartã",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
