@@ -1102,6 +1102,16 @@ no mirroring or publishing commands were executed for this audit.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/27a566a0d">Fix Colombian Spanish upload mapping and duplicate targets</a>. Thanks to xet7.</summary>
+
+Map the local es-CO locale to Transifex es_CO. Explicit mappings select the
+canonical file when a legacy alias shares its remote target, and the uploader
+reports that alias instead of uploading twice. Offline positive and negative
+mapping checks and force-upload regressions pass. No remote uploads were run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/5290ee727">Add explicit force upload of every local translation to Transifex</a>. Thanks to xet7.</summary>
 
 The maintainer-run script uploads English source strings and every local target,
