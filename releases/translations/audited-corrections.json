@@ -68080,5 +68080,89 @@
     "before": "Powiadomienie o aktywności",
     "after": "Powiadōmiynie ô aktywności",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "act-duenow",
+    "before": "przypominał o mijającej właśnie dacie wykonania (__timeValue__) karty __card__",
+    "after": "przipōminŏł, że termin (__timeValue__) karty __card__ je terŏz",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "act-newDue",
+    "before": "__list__/__card__ pierwszy raz przypomina o dacie wykonania [__board__]",
+    "after": "__list__/__card__ mŏ piyrsze przipōmniynie ô terminie [__board__]",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "act-pastdue",
+    "before": "przypominał o upłynięciu daty wykonania (__timeValue__) karty __card__",
+    "after": "przipōminŏł, że termin (__timeValue__) karty __card__ już minōł",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "act-withDue",
+    "before": "__list__/__card__ ma przypomnienia o dacie wykonania [__board__]",
+    "after": "__list__/__card__ mŏ przipōmniynia ô terminie [__board__]",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "active-cron-jobs",
+    "before": "Aktywne zaplanowane zadania",
+    "after": "Aktywne zaplanowane zadaniŏ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "activity-added-label",
+    "before": "dodał etykietę '%s' z '%s'",
+    "after": "dōdŏł etyketã « %s » do %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "activity-checklist-completed",
+    "before": "ukończył czeklistę %s z %s",
+    "after": "skōńczōł listã kōntrolnŏ %s karty %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "activity-checklist-uncompleted",
+    "before": "cofnął ukończenie czeklisty %s z %s",
+    "after": "cofnōł skōńczenie listy kōntrolnyj %s karty %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "activity-checklist-uncompleted-card",
+    "before": "wycofano ukończenie czeklisty %s",
+    "after": "cofnōł skōńczenie listy kōntrolnyj %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "activity-dueDate",
+    "before": "zmienił datę wykonania na %s z %s",
+    "after": "zmiyniōł termin na %s karty %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "activity-endDate",
+    "before": "zmienił datę zakończenia na %s z %s",
+    "after": "zmiyniōł datã skōńczeniŏ na %s karty %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "activity-imported",
+    "before": "zaimportowano %s to %s z %s",
+    "after": "zaimportowŏł %s do %s ze %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
