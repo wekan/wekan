@@ -12,9 +12,9 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **11,389** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **11,396** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `59084b61ffe35a3ab8d7f670bb1ffd8b881e1cda` — 13 French attachment controls replaced with Wolof. Global/board-only move scopes, filesystem/GridFS/S3 destinations, attachment count and rename actions are retained. Full grammar and computing terminology remain low confidence. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; live browser verification is unavailable.
+Latest translation fix: **2026-09-13**, local commit `1856605c97dd814786a1e8c9183fb305d34dd470` — 7 French export metadata/space labels replaced with Wolof. Uploader and upload time stay distinct; free disk space now means available space. Existing file-type wording is retained. Preview/space terminology and full grammar remain low confidence. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; live browser verification is unavailable.
 
 **Review follow-up:** Silesian `sandstorm-raw-mongodb` remains pending: its wording overlaps Polish and existing Silesian technical strings, but dictionary searches did not establish the full phrase as correct Silesian. Keep the current value until stronger language evidence supports retaining or replacing it.
 
