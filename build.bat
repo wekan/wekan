@@ -227,7 +227,7 @@ echo   3^) Bundles ^(10 entries^)
 echo   4^) Docker images ^(5 entries^)
 echo   5^) Sandstorm ^(5 entries^)
 echo   6^) Translations ^(9 entries^)
-echo   7^) Git and repo ^(8 entries^)
+echo   7^) Git and repo ^(10 entries^)
 echo   8^) Server and VM ^(4 entries^)
 set "choice="
 set /p "choice=Choose: "
@@ -438,6 +438,8 @@ echo   5^) Convert the remaining Stylus to CSS
 echo   6^) Update Node.js everywhere in the sources
 echo   7^) Update the local Node.js version
 echo   8^) Migrate a MongoDB database to FerretDB ^(--help first^)
+echo   9^) Export local Git history to a new Fossil repository
+echo   10^) Open the local Fossil repository UI
 set "choice="
 set /p "choice=Choose: "
 if "%choice%"=="1" call :rel_run "releases/commit.sh" ""
@@ -448,6 +450,8 @@ if "%choice%"=="5" call :rel_run "releases/stylus-to-css.sh" ""
 if "%choice%"=="6" call :rel_run "releases/node-update.sh" ""
 if "%choice%"=="7" call :rel_run "releases/node-update-local.sh" ""
 if "%choice%"=="8" call :rel_run "releases/migrate-mongodb-to-ferretdb.mjs" "Arguments, e.g. --help"
+if "%choice%"=="9" call :rel_run "releases/fossil.sh" ""
+if "%choice%"=="10" call :rel_run "releases/fossil-ui.sh" ""
 if "%choice%"=="0" goto menu_releases
 goto rel_gitandrepo
 
@@ -620,6 +624,8 @@ echo   stylus-to-css                      Convert the remaining Stylus to CSS
 echo   node-update                        Update Node.js everywhere in the sources
 echo   node-update-local                  Update the local Node.js version
 echo   migrate-mongodb-to-ferretdb        Migrate a MongoDB database to FerretDB ^(--help first^)   ^<Arguments, e.g. --help^>
+echo   fossil-export                    Export local Git history to a new Fossil repository
+echo   fossil-ui                        Open the local Fossil repository UI
 echo   ipaddress                          Show the VirtualBox VM's IP address
 echo   node-allow-port-80                 Let Node.js bind port 80 in the VM
 echo   start-wekan                        Start WeKan in the VirtualBox VM
@@ -710,6 +716,8 @@ if /I "%K%"=="stylus-to-css" (set "CMD=bash releases/stylus-to-css.sh" ^& goto c
 if /I "%K%"=="node-update" (set "CMD=bash releases/node-update.sh" ^& goto cli_go)
 if /I "%K%"=="node-update-local" (set "CMD=bash releases/node-update-local.sh" ^& goto cli_go)
 if /I "%K%"=="migrate-mongodb-to-ferretdb" (set "CMD=node releases/migrate-mongodb-to-ferretdb.mjs" ^& goto cli_go)
+if /I "%K%"=="fossil-export" (set "CMD=bash releases/fossil.sh" ^& goto cli_go)
+if /I "%K%"=="fossil-ui" (set "CMD=bash releases/fossil-ui.sh" ^& goto cli_go)
 if /I "%K%"=="ipaddress" (set "CMD=bash releases/virtualbox/ipaddress.sh" ^& goto cli_go)
 if /I "%K%"=="node-allow-port-80" (set "CMD=bash releases/virtualbox/node-allow-port-80.sh" ^& goto cli_go)
 if /I "%K%"=="start-wekan" (set "CMD=bash releases/virtualbox/start-wekan.sh" ^& goto cli_go)

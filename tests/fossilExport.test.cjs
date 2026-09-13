@@ -4,6 +4,10 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const { spawnSync, execFileSync } = require('node:child_process');
+if (process.platform === 'win32') {
+  console.log('fossilExport: Bash integration requires the Unix test runner; scripts are available through Git Bash');
+  process.exit(0);
+}
 const root = path.resolve(__dirname, '..');
 const tmp = path.join(root, '.tools/tmp');
 fs.mkdirSync(tmp, { recursive: true });
@@ -25,6 +29,7 @@ try {
   fs.mkdirSync(path.join(repo, 'releases'), { recursive: true });
   fs.mkdirSync(bin);
   fs.copyFileSync(path.join(root, 'releases/fossil.sh'), path.join(repo, 'releases/fossil.sh'));
+  fs.copyFileSync(path.join(root, 'releases/fossil-ui.sh'), path.join(repo, 'releases/fossil-ui.sh'));
   git('init', '-q', '--initial-branch=main');
   git('config', 'user.name', 'Regression Test');
   git('config', 'user.email', 'regression@example.invalid');
@@ -48,6 +53,7 @@ try {
   const mock = path.join(task, 'fossil-mock.cjs');
   fs.writeFileSync(mock, `const fs = require('node:fs');
 const args = process.argv.slice(2);
+if (args[0] === 'ui') { fs.writeFileSync(process.env.FOSSIL_UI_CAPTURE, JSON.stringify(args)); process.exit(0); }
 const input = fs.readFileSync(0, 'utf8');
 if (process.env.FOSSIL_MOCK_FAIL) { console.error('fossil import failed'); process.exit(23); }
 fs.writeFileSync(args[2], JSON.stringify({ args, input }));
@@ -65,6 +71,18 @@ fs.writeFileSync(args[2], JSON.stringify({ args, input }));
   assert.match(output.input, /tag v1\n/);
   assert.doesNotMatch(output.input, /refs\/codex\/|refs\/checkpoints\/|internal-only history/);
   console.log('  ok - real Git history exports branches, tags and remote branches without internal-ref warnings');
+
+  const uiCapture = path.join(task, 'ui.json');
+  const runUi = filename => spawnSync('/bin/bash', [path.join(repo, 'releases/fossil-ui.sh'), filename], {
+    cwd: task, encoding: 'utf8', env: { ...process.env, PATH: `${bin}:${process.env.PATH}`, FOSSIL_UI_CAPTURE: uiCapture },
+  });
+  const ui = runUi(destination);
+  assert.equal(ui.status, 0, ui.stderr);
+  assert.deepEqual(JSON.parse(fs.readFileSync(uiCapture, 'utf8')), ['ui', path.join(task, destination)]);
+  const missingUi = runUi('absent.fossil');
+  assert.notEqual(missingUi.status, 0);
+  assert.match(missingUi.stderr, /repository not found/);
+  console.log('  ok - UI opens the selected local file and diagnoses a missing repository');
 
   const before = fs.readFileSync(path.join(task, destination), 'utf8');
   const existing = run(destination);
@@ -108,7 +126,7 @@ fs.writeFileSync(args[2], JSON.stringify({ args, input }));
   } else {
     console.log('  skip - real Fossil import (install Fossil or set WEKAN_TEST_FOSSIL_BIN)');
   }
-  console.log('fossilExport: 5 tests passed (real Git export; mocked Fossil import)');
+  console.log('fossilExport: 6 tests passed (real Git export; mocked Fossil failures and UI)');
 } finally {
   fs.rmSync(task, { recursive: true, force: true });
 }

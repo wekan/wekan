@@ -2450,6 +2450,8 @@ RELEASE_SCRIPTS=(	"Release|Release ALL platforms: push CHANGELOG, trigger releas
 	"Git and repo|Update Node.js everywhere in the sources|releases/node-update.sh|||"
 	"Git and repo|Update the local Node.js version|releases/node-update-local.sh|||"
 	"Git and repo|Migrate a MongoDB database to FerretDB (--help first)|releases/migrate-mongodb-to-ferretdb.mjs|Arguments, e.g. --help||"
+	"Git and repo|Export local Git history to a new Fossil repository|releases/fossil.sh|||fossil-export"
+	"Git and repo|Open the local Fossil repository UI|releases/fossil-ui.sh|||fossil-ui"
 	"Server and VM|Enable and start the SSH server|!sudo systemctl enable ssh && sudo systemctl start ssh||linux|ssh-start"
 	"Server and VM|Disable and stop the SSH server|!sudo systemctl disable ssh && sudo systemctl stop ssh||linux|ssh-stop"
 	"Server and VM|Enable the ufw firewall|!sudo ufw enable||linux|ufw-enable"
