@@ -92167,5 +92167,33 @@
     "before": "Islamic (Saudi Arabia)",
     "after": "Хиджрын литэ (Саудай Арави, һара ажаглалта)",
     "reason": "Replace English Hijri calendar variants directly with Buryat following existing литэ calendar, һара moon/month, and эхин start terminology. Restore tabular and civil/astronomical epoch distinctions, paraphrasing epoch as starting date, and sighting as observing the moon. Cyrillic scientific borrowings, country/genitive renderings and assembled phrases are low confidence and not independently vocabulary-attested in this batch. Native-speaker validation required; structural checks alone are insufficient."
+  },
+  {
+    "locale": "csb",
+    "key": "calendar-system-buddhist",
+    "before": "Buddhist",
+    "after": "Bùddijsczi kalãdôrz",
+    "reason": "Replace English calendar labels directly with Kashubian, following existing kalãdôrz and -sczi masculine adjective terminology. Preserve Amete Alem proper variant name. Buddhist, Coptic and Ethiopian adjective forms assembled with low confidence; searches did not independently attest them, which is not proof of invalidity. Native-speaker vocabulary and phrase validation required; structural tests do not establish language correctness."
+  },
+  {
+    "locale": "csb",
+    "key": "calendar-system-coptic",
+    "before": "Coptic",
+    "after": "Kòptijsczi kalãdôrz",
+    "reason": "Replace English calendar labels directly with Kashubian, following existing kalãdôrz and -sczi masculine adjective terminology. Preserve Amete Alem proper variant name. Buddhist, Coptic and Ethiopian adjective forms assembled with low confidence; searches did not independently attest them, which is not proof of invalidity. Native-speaker vocabulary and phrase validation required; structural tests do not establish language correctness."
+  },
+  {
+    "locale": "csb",
+    "key": "calendar-system-ethiopic",
+    "before": "Ethiopic",
+    "after": "Etiopsczi kalãdôrz",
+    "reason": "Replace English calendar labels directly with Kashubian, following existing kalãdôrz and -sczi masculine adjective terminology. Preserve Amete Alem proper variant name. Buddhist, Coptic and Ethiopian adjective forms assembled with low confidence; searches did not independently attest them, which is not proof of invalidity. Native-speaker vocabulary and phrase validation required; structural tests do not establish language correctness."
+  },
+  {
+    "locale": "csb",
+    "key": "calendar-system-ethioaa",
+    "before": "Ethiopic Amete Alem",
+    "after": "Etiopsczi kalãdôrz Amete Alem",
+    "reason": "Replace English calendar labels directly with Kashubian, following existing kalãdôrz and -sczi masculine adjective terminology. Preserve Amete Alem proper variant name. Buddhist, Coptic and Ethiopian adjective forms assembled with low confidence; searches did not independently attest them, which is not proof of invalidity. Native-speaker vocabulary and phrase validation required; structural tests do not establish language correctness."
   }
 ]
