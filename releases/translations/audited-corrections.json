@@ -111977,5 +111977,26 @@
     "before": "Japanese",
     "after": "Japonijan kalendar'",
     "reason": "Replace English calendar names with Veps country genitives Kitain and Japonijan, attested in https://kaikki.org/dictionary/Veps/ and the Zajceva/Mullonen dictionary, plus kalendarʹ attested in Veps Kodima publications. Composed calendar terminology needs fluent-speaker review; do not infer the Japanese genitive as Japoniin."
+  },
+  {
+    "locale": "es-CO",
+    "key": "calendar-system-iso8601",
+    "before": "calendario ISO-8601",
+    "after": "Calendario gregoriano (semanas ISO 8601)",
+    "reason": "Colombian Spanish alias semantic review: preserve Gregorian calendar and ISO-week distinctions from English; Time names a duration/time-spent board view, not clock hour. Seven other differing values are valid Spanish alternatives and remain unchanged."
+  },
+  {
+    "locale": "es_CO",
+    "key": "calendar-system-iso8601",
+    "before": "ISO 8601",
+    "after": "Calendario gregoriano (semanas ISO 8601)",
+    "reason": "Colombian Spanish alias semantic review: preserve Gregorian calendar and ISO-week distinctions from English; Time names a duration/time-spent board view, not clock hour. Seven other differing values are valid Spanish alternatives and remain unchanged."
+  },
+  {
+    "locale": "es_CO",
+    "key": "board-view-time",
+    "before": "Hora",
+    "after": "Tiempo",
+    "reason": "Colombian Spanish alias semantic review: preserve Gregorian calendar and ISO-week distinctions from English; Time names a duration/time-spent board view, not clock hour. Seven other differing values are valid Spanish alternatives and remain unchanged."
   }
 ]

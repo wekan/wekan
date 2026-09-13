@@ -126,5 +126,10 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.equal(veps['calendar-system-chinese'], "Kitain kalendar'");
   assert.equal(veps['calendar-system-japanese'], "Japonijan kalendar'");
   assert.doesNotMatch(veps['calendar-system-japanese'], /Japanese|Japoniin/);
+  for (const locale of ['es-CO', 'es_CO']) {
+    assert.equal(cache[locale]['calendar-system-iso8601'], 'Calendario gregoriano (semanas ISO 8601)');
+    assert.equal(cache[locale]['board-view-time'], 'Tiempo');
+    assert.notEqual(cache[locale]['calendar-system-iso8601'], 'ISO 8601');
+  }
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });
