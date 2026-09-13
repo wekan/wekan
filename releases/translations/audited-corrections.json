@@ -87407,5 +87407,82 @@
     "before": "organisation",
     "after": "klubäd",
     "reason": "Replace French organization labels and warnings with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests klubäd (body of people/corporation), distinct from noganükam (act of organizing); reuse checked team-label grammar/vocabulary for settings, quantity, creation, administrator contact, name already used and no-undo warning. Preserve %s lookup token, organization entity scope and count separator. Software sense adaptation and assembled grammar remain low confidence; no native-speaker validation. Other existing organization wording is not certified or overwritten merely for terminology variation."
+  },
+  {
+    "locale": "vo",
+    "key": "settingsTeamPopup-title",
+    "before": "Paramètres de l'équipe",
+    "after": "Väls kvipa",
+    "reason": "Replace French/Esperanto member-control and common labels with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests geban (user), nem (name), kal (account, originally financial); reuse checked kvip/klubäd, väls, nulik and confirmation/delete/remove vocabulary. Correct username warning to name rather than user, preserve %s and irreversible account deletion versus organization board-removal meaning. Derived gebananem, financial-account-to-software adaptation, board sense and assembled grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "editTeamPopup-title",
+    "before": "Éditer l'Équipe",
+    "after": "Votükön kvipi",
+    "reason": "Replace French/Esperanto member-control and common labels with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests geban (user), nem (name), kal (account, originally financial); reuse checked kvip/klubäd, väls, nulik and confirmation/delete/remove vocabulary. Correct username warning to name rather than user, preserve %s and irreversible account deletion versus organization board-removal meaning. Derived gebananem, financial-account-to-software adaptation, board sense and assembled grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "newTeamPopup-title",
+    "before": "Nouvelle Équipe",
+    "after": "Kvip nulik",
+    "reason": "Replace French/Esperanto member-control and common labels with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests geban (user), nem (name), kal (account, originally financial); reuse checked kvip/klubäd, väls, nulik and confirmation/delete/remove vocabulary. Correct username warning to name rather than user, preserve %s and irreversible account deletion versus organization board-removal meaning. Derived gebananem, financial-account-to-software adaptation, board sense and assembled grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "editUserPopup-title",
+    "before": "Éditer l'utilisateur",
+    "after": "Votükön gebani",
+    "reason": "Replace French/Esperanto member-control and common labels with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests geban (user), nem (name), kal (account, originally financial); reuse checked kvip/klubäd, väls, nulik and confirmation/delete/remove vocabulary. Correct username warning to name rather than user, preserve %s and irreversible account deletion versus organization board-removal meaning. Derived gebananem, financial-account-to-software adaptation, board sense and assembled grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "newUserPopup-title",
+    "before": "Nouvel utilisateur",
+    "after": "Geban nulik",
+    "reason": "Replace French/Esperanto member-control and common labels with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests geban (user), nem (name), kal (account, originally financial); reuse checked kvip/klubäd, väls, nulik and confirmation/delete/remove vocabulary. Correct username warning to name rather than user, preserve %s and irreversible account deletion versus organization board-removal meaning. Derived gebananem, financial-account-to-software adaptation, board sense and assembled grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "remove-organization-from-board",
+    "before": "Voulez-vous vraiment supprimer cette organisation de ce tableau ?",
+    "after": "Fümol-li, das vilol moükön klubädi at de tab at?",
+    "reason": "Replace French/Esperanto member-control and common labels with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests geban (user), nem (name), kal (account, originally financial); reuse checked kvip/klubäd, väls, nulik and confirmation/delete/remove vocabulary. Correct username warning to name rather than user, preserve %s and irreversible account deletion versus organization board-removal meaning. Derived gebananem, financial-account-to-software adaptation, board sense and assembled grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "delete-user-confirm-popup",
+    "before": "Êtes-vous sûr de vouloir supprimer ce compte ? Cela est irréversible.",
+    "after": "Fümol-li, das vilol radön kali gebana at? Sädunam binon nemögik.",
+    "reason": "Replace French/Esperanto member-control and common labels with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests geban (user), nem (name), kal (account, originally financial); reuse checked kvip/klubäd, väls, nulik and confirmation/delete/remove vocabulary. Correct username warning to name rather than user, preserve %s and irreversible account deletion versus organization board-removal meaning. Derived gebananem, financial-account-to-software adaptation, board sense and assembled grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "user-username-not-found",
+    "before": "Utilisateur '%s' non trouvé.",
+    "after": "Gebananem '%s' no petuvon.",
+    "reason": "Replace French/Esperanto member-control and common labels with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests geban (user), nem (name), kal (account, originally financial); reuse checked kvip/klubäd, väls, nulik and confirmation/delete/remove vocabulary. Correct username warning to name rather than user, preserve %s and irreversible account deletion versus organization board-removal meaning. Derived gebananem, financial-account-to-software adaptation, board sense and assembled grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "username",
+    "before": "Uzantnomo",
+    "after": "Gebananem",
+    "reason": "Replace French/Esperanto member-control and common labels with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests geban (user), nem (name), kal (account, originally financial); reuse checked kvip/klubäd, väls, nulik and confirmation/delete/remove vocabulary. Correct username warning to name rather than user, preserve %s and irreversible account deletion versus organization board-removal meaning. Derived gebananem, financial-account-to-software adaptation, board sense and assembled grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "settings",
+    "before": "Agordoj",
+    "after": "Väls",
+    "reason": "Replace French/Esperanto member-control and common labels with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests geban (user), nem (name), kal (account, originally financial); reuse checked kvip/klubäd, väls, nulik and confirmation/delete/remove vocabulary. Correct username warning to name rather than user, preserve %s and irreversible account deletion versus organization board-removal meaning. Derived gebananem, financial-account-to-software adaptation, board sense and assembled grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "new",
+    "before": "Nouveau",
+    "after": "Nulik",
+    "reason": "Replace French/Esperanto member-control and common labels with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests geban (user), nem (name), kal (account, originally financial); reuse checked kvip/klubäd, väls, nulik and confirmation/delete/remove vocabulary. Correct username warning to name rather than user, preserve %s and irreversible account deletion versus organization board-removal meaning. Derived gebananem, financial-account-to-software adaptation, board sense and assembled grammar remain low confidence; no native-speaker validation."
   }
 ]
