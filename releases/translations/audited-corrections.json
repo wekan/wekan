@@ -54668,5 +54668,75 @@
     "before": "L'email è già stata presa",
     "after": "Adresa di email easti deagi ufilisitã",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "enable-vertical-scrollbars",
+    "before": "Abilita le barre di scorrimento verticali",
+    "after": "Activeadzã barili di derulare verticali",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "enable-wip-limit",
+    "before": "Attiva limite Work In Progress",
+    "after": "Activeadzã limita di lucru tu progres (WIP)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "error-csv-schema",
+    "before": "Il tuo file CSV (Comma Separated Values) / TSV (Tab Separated Values) non contiene le giuste informazioni nel formato corretto",
+    "after": "Fisierlu CSV (valori separati di virguli) / TSV (valori separati di tabulatsii) nu ari informatsiili necesari tu formatul corect",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "error-invitation-code-not-exist",
+    "before": "Il codice d'invito non esiste",
+    "after": "Codul di invitatsie nu existã",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "error-json-malformed",
+    "before": "Il testo non è in un formato JSON valido",
+    "after": "Textul a tãu nu easti JSON valid",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "error-json-schema",
+    "before": "Il tuo file JSON non contiene le giuste informazioni nel formato corretto",
+    "after": "Datili JSON a tali nu au informatsiili necesari tu formatul corect",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "error-ldap-login",
+    "before": "C'è stato un errore mentre provavi ad effettuare il login",
+    "after": "Apari unã eroari la proba di intrari",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "error-notAuthorized",
+    "before": "Non sei autorizzato ad accedere a questa pagina.",
+    "after": "Nu esht autorizat s-vedzi aesta paginã.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "error-orgname-taken",
+    "before": "Il nome di questa organizzazione è già stato scelto",
+    "after": "Numa a organizatsiei easti deagi ufilisitã",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "error-teamname-taken",
+    "before": "Il nome di questo team è già stato preso",
+    "after": "Numa a echipãljei easti deagi ufilisitã",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
