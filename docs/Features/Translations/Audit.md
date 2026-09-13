@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 9,838 |
+| Corrected | 9,853 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 6,008 |
+| Pending review or repair | 5,993 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **9,916** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **9,931** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `e352ac470a4ebc17a12ade99cebb14a26ce1dfd0` — twelve Silesian credential, validation and editor findings repaired; **21 Silesian findings remain**. API/URL/WIP names are preserved; integer height and authentication meanings are restored. Specialized terminology and grammar need review. Exact-value, placeholder, JSON example, key-order and idempotency checks pass; live browser verification is unavailable.
+Latest translation fix: **2026-09-13**, local commit `91f0d401d789959ff33a557e89eec8782665540a` — fifteen Silesian calendar findings repaired; **6 Silesian findings remain**. Calendar names, civil/astronomical epochs and Saudi lunar-sighting distinctions are preserved. Specialized terminology and grammar need review. Exact-value, placeholder, JSON example, key-order and idempotency checks pass; live browser verification is unavailable.
 
 **Origin:** not all errors came from Transifex. The captured pull changed 4,061 values; the local audit added 16,020 findings. Bosnian errors already existed in local commit `bdb3b15886a749b725b5290ba0109fcba955f983`. Other ultimate origins remain unverified.
 
