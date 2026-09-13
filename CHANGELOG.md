@@ -80,14 +80,14 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,095 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 749 pending review or repair.
-The correction inventory records 17,205 exact before/after values,
+findings: 15,096 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 748 pending review or repair.
+The correction inventory records 17,206 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
 German cron label, which now uses the actual tool name Cron.
-The largest original finding queues remain in Veps (12) and Standard Moroccan
+The largest original finding queues remain in Veps (11) and Standard Moroccan
 Tamazight (595). Silesian database terminology and 17 Tigre
 calendar findings need language-specific review. Restored and unflagged
 values, low-confidence wording and browser rendering remain unverified.
@@ -100,8 +100,8 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383540a; translation repairs have resumed.
-Latest translation fix is 6b0bf168e (2026-09-14), covering three Veps search
-values and recognition of translated overdue predicates. The original Neapolitan queue is empty. All correction/rendering checks
+Latest translation fix is 55c197366 (2026-09-14), replacing the Finnish MongoDB
+storage-engine label with Veps terminology. The original Neapolitan queue is empty. All correction/rendering checks
 pass; low-confidence technical terminology remains explicitly tracked.
 Member assignment popup handlers need separate review for apparent reversed
 operations. The 1,015-suite Node result is historical and predates the latest batches.
@@ -640,6 +640,17 @@ The audit records 749 pending original findings and wider unfinished validation.
 This release adds the following translation improvements:
 
 **Translations** - Locale wording repairs and remaining audit progress.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/55c197366">Repair Veps MongoDB storage-engine terminology</a>. Thanks to xet7.</summary>
+
+Replace the Finnish label using Veps dictionary words for storage and engine,
+preserving the MongoDB name. All 17,206 exact correction/rendering checks pass.
+The composed technical label needs fluent review; live browser verification
+was not run. There are 748 pending original findings and wider validation remains
+unfinished.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/a2929974e">Repair Veps recovery labels and migration step names</a>. Thanks to xet7.</summary>

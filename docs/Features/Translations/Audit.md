@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,095 |
+| Corrected | 15,096 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 749 |
+| Pending review or repair | 748 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,205** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,206** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `6b0bf168e` — repaired **three** Veps search values, resolving **two** original findings and **one** unflagged Finnish predicate. Preserve operator examples, quoted list names, date bounds and translation tokens. The actual Query parser now recognizes translated overdue predicates while retaining the English alias. All **17,205** exact correction checks and actual parser regressions pass. A browser regression is added and syntax-checked; live execution remains pending. The original queue has **749** pending findings, including **12** Veps findings. **Low confidence:** composed operator/date-bound grammar and the late-to-overdue terminology adaptation need fluent review. No translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `55c197366` — replaced the Finnish MongoDB storage-engine label with Veps dictionary-based storage and engine terminology, preserving MongoDB. All **17,206** exact correction/rendering checks pass, including placeholders, JSON, key order and human preference. The original queue has **748** pending findings, including **11** Veps findings. **Low confidence:** the composed database-engine label needs fluent technical review. Live browser verification was not run; no translations were pushed. The preceding search repair (`6b0bf168e`) also fixes translated overdue predicates; its browser regression remains pending live execution.
 
 **Remaining validation:** all restored/unflagged values and low-confidence replacements remain open. Detailed per-key caveats are retained in the correction ledger and source commits. These include Veps composed UI, card, notification, calendar, timing, file/archive, metric and legal terminology/inflection; Neapolitan technical checklist usage; Fulah/Bambara calendar composition; and CLDR-provisional Ewe civil-calendar wording. Field sums, parent-card terminology, keyboard shortcuts, remaining migration/search messages and other calendar variants need further language research. Wrong-language/script and fluent-speaker checks remain unfinished.
 
