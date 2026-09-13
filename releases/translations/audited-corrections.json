@@ -91845,5 +91845,82 @@
     "before": "Utilisation mémoire de Node : mémoire réellement utilisée",
     "after": "Geb mema ela Node: mem jenöfiko pegeböl",
     "reason": "Replace French Node memory-statistic label with Volapük; retain Node and Heap as technical names. Preserve distinctions between size limit, total heap size, external memory and memory actually used. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests mem, plödik, valodik; gretot, mied, gebön and jenöfik follow dictionary-based local terminology. Assembled technical wording and proper-name inflection remain low confidence; native-speaker review required."
+  },
+  {
+    "locale": "vo",
+    "key": "Node_heap_total_heap_size_executable",
+    "before": "Tas de Node : taille totale du tas exécutable",
+    "after": "Heap ela Node: gretot valodik dadunovik",
+    "reason": "Replace French Node memory-statistic wording after checking informationBody.jade and https://nodejs.org/api/v8.html. Retain technical heap, malloc, does_zap_garbage, RSS and native/detached context terms as borrowings, preserving metric distinctions. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests gebidik (available); existing dictionary-based local terminology supplies size, quantity, maximum, use and assignment. Physical size paraphrased as memory actually used, consistent with Node documentation. Context borrowing, executable derivation and assembled technical phrasing remain low confidence and need native-speaker review."
+  },
+  {
+    "locale": "vo",
+    "key": "Node_heap_total_physical_size",
+    "before": "Tas de Node : taille totale physique",
+    "after": "Heap ela Node: gretot valodik mema jenöfiko pegeböl",
+    "reason": "Replace French Node memory-statistic wording after checking informationBody.jade and https://nodejs.org/api/v8.html. Retain technical heap, malloc, does_zap_garbage, RSS and native/detached context terms as borrowings, preserving metric distinctions. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests gebidik (available); existing dictionary-based local terminology supplies size, quantity, maximum, use and assignment. Physical size paraphrased as memory actually used, consistent with Node documentation. Context borrowing, executable derivation and assembled technical phrasing remain low confidence and need native-speaker review."
+  },
+  {
+    "locale": "vo",
+    "key": "Node_heap_total_available_size",
+    "before": "Tas de Node : taille totale disponible",
+    "after": "Heap ela Node: gretot valodik gebidik",
+    "reason": "Replace French Node memory-statistic wording after checking informationBody.jade and https://nodejs.org/api/v8.html. Retain technical heap, malloc, does_zap_garbage, RSS and native/detached context terms as borrowings, preserving metric distinctions. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests gebidik (available); existing dictionary-based local terminology supplies size, quantity, maximum, use and assignment. Physical size paraphrased as memory actually used, consistent with Node documentation. Context borrowing, executable derivation and assembled technical phrasing remain low confidence and need native-speaker review."
+  },
+  {
+    "locale": "vo",
+    "key": "Node_heap_used_heap_size",
+    "before": "Tas de Node : taille du tas utilisé",
+    "after": "Heap ela Node: gretot pegeböl",
+    "reason": "Replace French Node memory-statistic wording after checking informationBody.jade and https://nodejs.org/api/v8.html. Retain technical heap, malloc, does_zap_garbage, RSS and native/detached context terms as borrowings, preserving metric distinctions. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests gebidik (available); existing dictionary-based local terminology supplies size, quantity, maximum, use and assignment. Physical size paraphrased as memory actually used, consistent with Node documentation. Context borrowing, executable derivation and assembled technical phrasing remain low confidence and need native-speaker review."
+  },
+  {
+    "locale": "vo",
+    "key": "Node_heap_malloced_memory",
+    "before": "Tas de Node : mémoire allouée par malloc",
+    "after": "Heap ela Node: mem pejonidüköl me malloc",
+    "reason": "Replace French Node memory-statistic wording after checking informationBody.jade and https://nodejs.org/api/v8.html. Retain technical heap, malloc, does_zap_garbage, RSS and native/detached context terms as borrowings, preserving metric distinctions. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests gebidik (available); existing dictionary-based local terminology supplies size, quantity, maximum, use and assignment. Physical size paraphrased as memory actually used, consistent with Node documentation. Context borrowing, executable derivation and assembled technical phrasing remain low confidence and need native-speaker review."
+  },
+  {
+    "locale": "vo",
+    "key": "Node_heap_peak_malloced_memory",
+    "before": "Tas de Node : mémoire maximale allouée par malloc",
+    "after": "Heap ela Node: mödot muik mema pejonidüköl me malloc",
+    "reason": "Replace French Node memory-statistic wording after checking informationBody.jade and https://nodejs.org/api/v8.html. Retain technical heap, malloc, does_zap_garbage, RSS and native/detached context terms as borrowings, preserving metric distinctions. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests gebidik (available); existing dictionary-based local terminology supplies size, quantity, maximum, use and assignment. Physical size paraphrased as memory actually used, consistent with Node documentation. Context borrowing, executable derivation and assembled technical phrasing remain low confidence and need native-speaker review."
+  },
+  {
+    "locale": "vo",
+    "key": "Node_heap_does_zap_garbage",
+    "before": "Tas de Node : Utilise l'option does_zap_garbage",
+    "after": "Heap ela Node: geb ela does_zap_garbage",
+    "reason": "Replace French Node memory-statistic wording after checking informationBody.jade and https://nodejs.org/api/v8.html. Retain technical heap, malloc, does_zap_garbage, RSS and native/detached context terms as borrowings, preserving metric distinctions. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests gebidik (available); existing dictionary-based local terminology supplies size, quantity, maximum, use and assignment. Physical size paraphrased as memory actually used, consistent with Node documentation. Context borrowing, executable derivation and assembled technical phrasing remain low confidence and need native-speaker review."
+  },
+  {
+    "locale": "vo",
+    "key": "Node_heap_number_of_native_contexts",
+    "before": "Tas de Node : nombre de contexte natifs",
+    "after": "Heap ela Node: mödot konteksatas native",
+    "reason": "Replace French Node memory-statistic wording after checking informationBody.jade and https://nodejs.org/api/v8.html. Retain technical heap, malloc, does_zap_garbage, RSS and native/detached context terms as borrowings, preserving metric distinctions. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests gebidik (available); existing dictionary-based local terminology supplies size, quantity, maximum, use and assignment. Physical size paraphrased as memory actually used, consistent with Node documentation. Context borrowing, executable derivation and assembled technical phrasing remain low confidence and need native-speaker review."
+  },
+  {
+    "locale": "vo",
+    "key": "Node_heap_number_of_detached_contexts",
+    "before": "Tas de Node : nombre de contexte détachés",
+    "after": "Heap ela Node: mödot konteksatas detached",
+    "reason": "Replace French Node memory-statistic wording after checking informationBody.jade and https://nodejs.org/api/v8.html. Retain technical heap, malloc, does_zap_garbage, RSS and native/detached context terms as borrowings, preserving metric distinctions. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests gebidik (available); existing dictionary-based local terminology supplies size, quantity, maximum, use and assignment. Physical size paraphrased as memory actually used, consistent with Node documentation. Context borrowing, executable derivation and assembled technical phrasing remain low confidence and need native-speaker review."
+  },
+  {
+    "locale": "vo",
+    "key": "Node_memory_usage_rss",
+    "before": "Utilisation mémoire de Node : taille de l'ensemble résident",
+    "after": "Geb mema ela Node: gretot ela RSS",
+    "reason": "Replace French Node memory-statistic wording after checking informationBody.jade and https://nodejs.org/api/v8.html. Retain technical heap, malloc, does_zap_garbage, RSS and native/detached context terms as borrowings, preserving metric distinctions. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests gebidik (available); existing dictionary-based local terminology supplies size, quantity, maximum, use and assignment. Physical size paraphrased as memory actually used, consistent with Node documentation. Context borrowing, executable derivation and assembled technical phrasing remain low confidence and need native-speaker review."
+  },
+  {
+    "locale": "vo",
+    "key": "Node_memory_usage_heap_total",
+    "before": "Utilisation mémoire de Node : taille totale du tas alloué",
+    "after": "Geb mema ela Node: gretot valodik ela heap pejonidüköl",
+    "reason": "Replace French Node memory-statistic wording after checking informationBody.jade and https://nodejs.org/api/v8.html. Retain technical heap, malloc, does_zap_garbage, RSS and native/detached context terms as borrowings, preserving metric distinctions. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests gebidik (available); existing dictionary-based local terminology supplies size, quantity, maximum, use and assignment. Physical size paraphrased as memory actually used, consistent with Node documentation. Context borrowing, executable derivation and assembled technical phrasing remain low confidence and need native-speaker review."
   }
 ]
