@@ -88114,5 +88114,68 @@
     "before": "Impossible de voir les commentaires.",
     "after": "Kanon no logön noetis.",
     "reason": "Replace French attachment/comment interface text with Volapük using existing noet/fimükot/kadil terminology. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests noet (textual remark), laidik (permanent), and existing action/count vocabulary. Preserve irreversible deletion, confirmation, comment count/search placeholder and comment-only/no-comment permissions. Attachment noun adaptation, relative clause and assembled wording remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "allboards.delete-workspace-confirm",
+    "before": "Êtes-vous sûr de vouloir supprimer cet espace de travail ?",
+    "after": "Fümol-li, das vilol radön vobaspadi at?",
+    "reason": "Replace French workspace deletion and board/card/list archive warnings with Volapük using existing terminology. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests fümükön (confirm), perön (lose), laidik (permanent), ragiv (archive). Preserve permanent data loss, all-object scope, archive destination and post-archive invisibility. Workspace compound, software archive adaptation and assembled wording remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "allboards.delete-workspace-confirm-check",
+    "before": "Confirmer la suppression de l'espace de travail",
+    "after": "Fümükön radami vobaspada",
+    "reason": "Replace French workspace deletion and board/card/list archive warnings with Volapük using existing terminology. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests fümükön (confirm), perön (lose), laidik (permanent), ragiv (archive). Preserve permanent data loss, all-object scope, archive destination and post-archive invisibility. Workspace compound, software archive adaptation and assembled wording remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "archive-board-confirm",
+    "before": "Êtes-vous sûr de vouloir archiver ce tableau ?",
+    "after": "Fümol-li, das vilol topätükön tabi at lü ragiv?",
+    "reason": "Replace French workspace deletion and board/card/list archive warnings with Volapük using existing terminology. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests fümükön (confirm), perön (lose), laidik (permanent), ragiv (archive). Preserve permanent data loss, all-object scope, archive destination and post-archive invisibility. Workspace compound, software archive adaptation and assembled wording remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "board-delete-notice",
+    "before": "La suppression est définitive. Vous perdrez toutes les listes, cartes et actions associées à ce tableau.",
+    "after": "Radam binon laidik. Operol lisedis, kadis e dunotis valik, kels dutons lü tab at.",
+    "reason": "Replace French workspace deletion and board/card/list archive warnings with Volapük using existing terminology. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests fümükön (confirm), perön (lose), laidik (permanent), ragiv (archive). Preserve permanent data loss, all-object scope, archive destination and post-archive invisibility. Workspace compound, software archive adaptation and assembled wording remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "card-delete-notice",
+    "before": "La suppression est définitive. Vous perdrez toutes les actions associées à cette carte.",
+    "after": "Radam binon laidik. Operol dunotis valik, kels dutons lü kad at.",
+    "reason": "Replace French workspace deletion and board/card/list archive warnings with Volapük using existing terminology. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests fümükön (confirm), perön (lose), laidik (permanent), ragiv (archive). Preserve permanent data loss, all-object scope, archive destination and post-archive invisibility. Workspace compound, software archive adaptation and assembled wording remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "list-archive-pop",
+    "before": "La liste ne sera pas visible sur le tableau après archivage.",
+    "after": "Lised no pojonon su tab pos ragivam.",
+    "reason": "Replace French workspace deletion and board/card/list archive warnings with Volapük using existing terminology. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests fümükön (confirm), perön (lose), laidik (permanent), ragiv (archive). Preserve permanent data loss, all-object scope, archive destination and post-archive invisibility. Workspace compound, software archive adaptation and assembled wording remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "card-archive-pop",
+    "before": "La carte ne sera plus visible dans cette liste après archivage.",
+    "after": "Kad no pojonon in lised at pos ragivam kada.",
+    "reason": "Replace French workspace deletion and board/card/list archive warnings with Volapük using existing terminology. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests fümükön (confirm), perön (lose), laidik (permanent), ragiv (archive). Preserve permanent data loss, all-object scope, archive destination and post-archive invisibility. Workspace compound, software archive adaptation and assembled wording remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "filter-show-archive",
+    "before": "Montrer les listes archivées",
+    "after": "Jonön lisedis in ragiv",
+    "reason": "Replace French workspace deletion and board/card/list archive warnings with Volapük using existing terminology. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests fümükön (confirm), perön (lose), laidik (permanent), ragiv (archive). Preserve permanent data loss, all-object scope, archive destination and post-archive invisibility. Workspace compound, software archive adaptation and assembled wording remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "warn-list-archived",
+    "before": "attention : cette carte est dans une liste archivée",
+    "after": "Nuned: kad at binon in lised in ragiv",
+    "reason": "Replace French workspace deletion and board/card/list archive warnings with Volapük using existing terminology. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests fümükön (confirm), perön (lose), laidik (permanent), ragiv (archive). Preserve permanent data loss, all-object scope, archive destination and post-archive invisibility. Workspace compound, software archive adaptation and assembled wording remain low confidence; native review unavailable."
   }
 ]
