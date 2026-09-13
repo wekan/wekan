@@ -51161,5 +51161,61 @@
     "before": "Metodo di autenticazione predefinito",
     "after": "Metudu d’autentificazione predefinitu",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "default-save-storage",
+    "before": "Storage di salvataggio predefinito",
+    "after": "Arregistramentu predefinitu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "default-save-storage-description",
+    "before": "Scegli il backend di storage dove vengono salvati i nuovi allegati caricati.",
+    "after": "Sceglite u sistema d’arregistramentu induve sò arregistrati i novi allegati caricati.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "default-save-storage-save-failed",
+    "before": "Impossibile salvare lo storage predefinito",
+    "after": "Ùn hè statu pussibule d’arregistrà u sistema predefinitu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "default-save-storage-saved",
+    "before": "Storage di salvataggio predefinito salvato",
+    "after": "Sistema d’arregistramentu predefinitu arregistratu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "delete-translation-confirm-popup",
+    "before": "Sei sicuro di voler eliminare questa stringa di traduzione personalizzata? Non sarà possibile ripristinarla.",
+    "after": "Site sicuru di vulè squassà sta stringa di traduzzione persunalizata? Ùn si pò annullà.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "deletePokerPopup-title",
+    "before": "Eliminare il planning poker?",
+    "after": "Squassà u planning poker?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "deposit-subtasks-list",
+    "before": "Lista di destinaizoni per questi sotto-compiti",
+    "after": "Lista di destinazione per i sottucompiti dipusitati quì:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "disambiguateMultiLabelPopup-title",
+    "before": "Disambiguare l'azione Etichetta",
+    "after": "Chjarificà l’azzione di l’etichetta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
