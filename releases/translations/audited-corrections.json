@@ -65882,5 +65882,117 @@
     "before": "Copier le lien de la carte dans le presse-papier",
     "after": "Eilañ liamm ar gartenn er golver",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "copy-text-to-clipboard",
+    "before": "Copier le texte dans le presse-papier",
+    "after": "Eilañ an destenn er golver",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "copyChecklistFromTemplate",
+    "before": "Copier la checklist - Modèle",
+    "after": "Eilañ ur roll kontroll eus ur patrom",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "copyChecklistFromTemplatePopup-title",
+    "before": "Copier la checklist - Modèle",
+    "after": "Eilañ ur roll kontroll eus ur patrom",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "copyManyCardsPopup-format",
+    "before": "[ {\"title\": \"Titre de la première carte\", \"description\":\"Description de la première carte\"}, {\"title\":\"Titre de la seconde carte\",\"description\":\"Description de la seconde carte\"},{\"title\":\"Titre de la dernière carte\",\"description\":\"Description de la dernière carte\"} ]",
+    "after": "[{\"title\": \"Titl ar gartenn gentañ\", \"description\": \"Deskrivadur ar gartenn gentañ\"}, {\"title\": \"Titl an eil kartenn\", \"description\": \"Deskrivadur an eil kartenn\"}, {\"title\": \"Titl ar gartenn ziwezhañ\", \"description\": \"Deskrivadur ar gartenn ziwezhañ\"}]",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "copyManyCardsPopup-instructions",
+    "before": "Titres et descriptions des cartes de destination dans ce format JSON",
+    "after": "Titloù ha deskrivadurioù ar c’hartennoù pal er stumm JSON-mañ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "copyManyCardsPopup-title",
+    "before": "Copier le modèle vers plusieurs cartes",
+    "after": "Eilañ ar patrom da veur a gartenn",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "cover-attachment-on-minicard",
+    "before": "Vignette sur la mini-carte",
+    "after": "Skeudenn golo war ar gartennig",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "createCustomField",
+    "before": "Créer un champ personnalisé",
+    "after": "Krouiñ ur maezienn",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "createCustomFieldPopup-title",
+    "before": "Créer un champ personnalisé",
+    "after": "Krouiñ ur maezienn",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "created-at-newest-first",
+    "before": "Date de création (Plus récentes en premier)",
+    "after": "Deiziad krouiñ (ar re nevesañ da gentañ)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "created-at-oldest-first",
+    "before": "Date de création (Plus anciennes en premier)",
+    "after": "Deiziad krouiñ (ar re goshañ da gentañ)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "creator-on-minicard",
+    "before": "Créateur sur la mini-carte",
+    "after": "Krouer war ar gartennig",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "cron-clear-errors",
+    "before": "Effacer toutes les erreurs",
+    "after": "Dilemel an holl fazioù",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "cron-errors-cleared",
+    "before": "Toutes les erreurs ont été effacées avec succès",
+    "after": "Dilamet eo bet an holl fazioù gant berzh",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "cron-job-resume-failed",
+    "before": "Échec de la reprise de la tâche planifiée",
+    "after": "C’hwitet eo adkregiñ gant an trevell steuñviet",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "cron-job-resumed",
+    "before": "Tâche planifiée reprise avec succès",
+    "after": "Adkroget eo bet gant an trevell steuñviet gant berzh",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
