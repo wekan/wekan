@@ -77103,5 +77103,26 @@
     "before": "Archiver la carte",
     "after": "Mete li cåte el årtchive",
     "reason": "Replace French archive labels/recovery instructions and linked-card deletion restrictions with Walloon. Preserve archive recovery menu labels and linked-card-first deletion requirement, including the source trailing fragment. Native archive terminology: https://dtw.walon.org/index.php?query=%C3%A5rtchive . Full grammar remains low confidence; includes unflagged archive labels."
+  },
+  {
+    "locale": "wa",
+    "key": "multi-selection-active",
+    "before": "Cliquez sur les cases à cocher pour sélectionner les tableaux",
+    "after": "Clitchîz so les cåzes a marker po tchoezi les tåvleas",
+    "reason": "Replace French selection/import member mapping instructions with Walloon. Preserve checkbox selection, assignment toggle 1-9 in board addition order, transfer of cards/comments/activity and imported-role permission ceiling for newly added users. Native user/search vocabulary: https://berdelaedje.walon.org/index.php ; full grammar and mapping terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "toggle-assignees",
+    "before": "Changer les intervenants 1-9 sur une carte (par ordre d'ajout au tableau)",
+    "after": "Radjouter ou oister les djins dnés al cåte avou les touches 1-9 (dins l' ôre di leu radjout å tåvlea).",
+    "reason": "Replace French selection/import member mapping instructions with Walloon. Preserve checkbox selection, assignment toggle 1-9 in board addition order, transfer of cards/comments/activity and imported-role permission ceiling for newly added users. Native user/search vocabulary: https://berdelaedje.walon.org/index.php ; full grammar and mapping terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "map-to-existing-user-desc",
+    "before": "Choisissez l'utilisateur réel que ce membre (virtuel) importé est en réalité. Ses cartes, commentaires et activités passent à cet utilisateur. Cherchez pour trouver n'importe qui ; un utilisateur qui n'est pas encore sur ce tableau est ajouté avec le rôle propre du membre importé, si bien que la correspondance ne peut jamais accorder plus de droits que l'import n'en a donnés.",
+    "after": "Tchoezixhoz li vraiy uzeu ki ci mimbe abagué (virtuwel) ci est po do bon. Ses cåtes, comintaires eyet accions sont dnés a ç' uzeu la. Cwerîz po trover tot l' minme kî; on uzeu ki n' est nén co so ci tåvlea ci est radjouté avou l' rôle do mimbe abagué. Insi, li raployaedje ni pout måy dner pus di droets ki l' abagaedje n' end a dné.",
+    "reason": "Replace French selection/import member mapping instructions with Walloon. Preserve checkbox selection, assignment toggle 1-9 in board addition order, transfer of cards/comments/activity and imported-role permission ceiling for newly added users. Native user/search vocabulary: https://berdelaedje.walon.org/index.php ; full grammar and mapping terminology remain low confidence."
   }
 ]
