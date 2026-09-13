@@ -73596,5 +73596,152 @@
     "before": "attention : cette carte est dans une liste archivée",
     "after": "Asteme: cisse cåte ci est dins ene djivêye metowe ås årtchives",
     "reason": "Replace audited French deletion/archive warnings with Walloon using existing vocabulary, retaining affected objects, permanent deletion, no undo and archive recovery. History vocabulary: https://dtw.walon.org/index.php?query=istwere ; undo verb https://www.beljike.be/djw-fw-francais-wallon-frances-walon-d/ . Full sentence grammar and technical history terminology remain low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "activity-dueDate",
+    "before": "date d'échéance éditée de %s à %s",
+    "after": "a candjî l' date limite po %s di %s",
+    "reason": "Replace French date controls/activity with Walloon; retain positional date/card arguments and distinguish due, end, received and start. Month/week vocabulary https://dtw.walon.org/index.php?query=moes and https://dtw.walon.org/index.php?query=samwinne . Two adjacent unflagged month controls also repaired. Complete grammar, received-date terminology and deadline loan remain low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "activity-endDate",
+    "before": "date de fin éditée de %s à %s",
+    "after": "a candjî l' date di fén po %s di %s",
+    "reason": "Replace French date controls/activity with Walloon; retain positional date/card arguments and distinguish due, end, received and start. Month/week vocabulary https://dtw.walon.org/index.php?query=moes and https://dtw.walon.org/index.php?query=samwinne . Two adjacent unflagged month controls also repaired. Complete grammar, received-date terminology and deadline loan remain low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "activity-receivedDate",
+    "before": "date de réception éditée de %s à %s",
+    "after": "a candjî l' date di rçuvaedje po %s di %s",
+    "reason": "Replace French date controls/activity with Walloon; retain positional date/card arguments and distinguish due, end, received and start. Month/week vocabulary https://dtw.walon.org/index.php?query=moes and https://dtw.walon.org/index.php?query=samwinne . Two adjacent unflagged month controls also repaired. Complete grammar, received-date terminology and deadline loan remain low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "activity-startDate",
+    "before": "date de début éditée de %s à %s",
+    "after": "a candjî l' date di cmince po %s di %s",
+    "reason": "Replace French date controls/activity with Walloon; retain positional date/card arguments and distinguish due, end, received and start. Month/week vocabulary https://dtw.walon.org/index.php?query=moes and https://dtw.walon.org/index.php?query=samwinne . Two adjacent unflagged month controls also repaired. Complete grammar, received-date terminology and deadline loan remain low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "editCardDueDatePopup-title",
+    "before": "Modifier la date d'échéance",
+    "after": "Candjî l' date limite",
+    "reason": "Replace French date controls/activity with Walloon; retain positional date/card arguments and distinguish due, end, received and start. Month/week vocabulary https://dtw.walon.org/index.php?query=moes and https://dtw.walon.org/index.php?query=samwinne . Two adjacent unflagged month controls also repaired. Complete grammar, received-date terminology and deadline loan remain low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "editCardReceivedDatePopup-title",
+    "before": "Modifier la date de réception",
+    "after": "Candjî l' date di rçuvaedje",
+    "reason": "Replace French date controls/activity with Walloon; retain positional date/card arguments and distinguish due, end, received and start. Month/week vocabulary https://dtw.walon.org/index.php?query=moes and https://dtw.walon.org/index.php?query=samwinne . Two adjacent unflagged month controls also repaired. Complete grammar, received-date terminology and deadline loan remain low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "editCardStartDatePopup-title",
+    "before": "Modifier la date de début",
+    "after": "Candjî l' date di cmince",
+    "reason": "Replace French date controls/activity with Walloon; retain positional date/card arguments and distinguish due, end, received and start. Month/week vocabulary https://dtw.walon.org/index.php?query=moes and https://dtw.walon.org/index.php?query=samwinne . Two adjacent unflagged month controls also repaired. Complete grammar, received-date terminology and deadline loan remain low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "editVoteEndDatePopup-title",
+    "before": "Modifier la date de fin de vote",
+    "after": "Candjî l' date di fén do vôtaedje",
+    "reason": "Replace French date controls/activity with Walloon; retain positional date/card arguments and distinguish due, end, received and start. Month/week vocabulary https://dtw.walon.org/index.php?query=moes and https://dtw.walon.org/index.php?query=samwinne . Two adjacent unflagged month controls also repaired. Complete grammar, received-date terminology and deadline loan remain low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "editPokerEndDatePopup-title",
+    "before": "Changer la date de fin de vote du planning poker",
+    "after": "Candjî l' date di fén do vôtaedje Planning Poker",
+    "reason": "Replace French date controls/activity with Walloon; retain positional date/card arguments and distinguish due, end, received and start. Month/week vocabulary https://dtw.walon.org/index.php?query=moes and https://dtw.walon.org/index.php?query=samwinne . Two adjacent unflagged month controls also repaired. Complete grammar, received-date terminology and deadline loan remain low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "filter-due-next-week",
+    "before": "Arrive à échéance semaine prochaine",
+    "after": "Date limite li samwinne ki vént",
+    "reason": "Replace French date controls/activity with Walloon; retain positional date/card arguments and distinguish due, end, received and start. Month/week vocabulary https://dtw.walon.org/index.php?query=moes and https://dtw.walon.org/index.php?query=samwinne . Two adjacent unflagged month controls also repaired. Complete grammar, received-date terminology and deadline loan remain low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "filter-due-this-week",
+    "before": "Arrive à échéance cette semaine",
+    "after": "Date limite cisse samwinne ci",
+    "reason": "Replace French date controls/activity with Walloon; retain positional date/card arguments and distinguish due, end, received and start. Month/week vocabulary https://dtw.walon.org/index.php?query=moes and https://dtw.walon.org/index.php?query=samwinne . Two adjacent unflagged month controls also repaired. Complete grammar, received-date terminology and deadline loan remain low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "filter-due-today",
+    "before": "Arrive à échéance aujourd'hui",
+    "after": "Date limite ouy",
+    "reason": "Replace French date controls/activity with Walloon; retain positional date/card arguments and distinguish due, end, received and start. Month/week vocabulary https://dtw.walon.org/index.php?query=moes and https://dtw.walon.org/index.php?query=samwinne . Two adjacent unflagged month controls also repaired. Complete grammar, received-date terminology and deadline loan remain low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "show-week-of-year",
+    "before": "Afficher la semaine de l'année (ISO 8601)",
+    "after": "Mostrer l' samwinne di l' anêye (ISO 8601)",
+    "reason": "Replace French date controls/activity with Walloon; retain positional date/card arguments and distinguish due, end, received and start. Month/week vocabulary https://dtw.walon.org/index.php?query=moes and https://dtw.walon.org/index.php?query=samwinne . Two adjacent unflagged month controls also repaired. Complete grammar, received-date terminology and deadline loan remain low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "start-day-of-week",
+    "before": "Définir le jour de début de semaine",
+    "after": "Defini l' djoû di cmince del samwinne",
+    "reason": "Replace French date controls/activity with Walloon; retain positional date/card arguments and distinguish due, end, received and start. Month/week vocabulary https://dtw.walon.org/index.php?query=moes and https://dtw.walon.org/index.php?query=samwinne . Two adjacent unflagged month controls also repaired. Complete grammar, received-date terminology and deadline loan remain low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "dueCards-noResults-description",
+    "before": "Vous n'avez aucune carte avec échéance en ce moment.",
+    "after": "Vos n' avoz pont d' cåtes avou ene date limite pol moumint.",
+    "reason": "Replace French date controls/activity with Walloon; retain positional date/card arguments and distinguish due, end, received and start. Month/week vocabulary https://dtw.walon.org/index.php?query=moes and https://dtw.walon.org/index.php?query=samwinne . Two adjacent unflagged month controls also repaired. Complete grammar, received-date terminology and deadline loan remain low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "dueCards-noResults-title",
+    "before": "Aucune carte avec échéance trouvée",
+    "after": "Pont d' cåtes avou ene date limite di trovêyes",
+    "reason": "Replace French date controls/activity with Walloon; retain positional date/card arguments and distinguish due, end, received and start. Month/week vocabulary https://dtw.walon.org/index.php?query=moes and https://dtw.walon.org/index.php?query=samwinne . Two adjacent unflagged month controls also repaired. Complete grammar, received-date terminology and deadline loan remain low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "almostdue",
+    "before": "La date d'échéance %s approche",
+    "after": "L' eure limite do moumint %s si raprotche",
+    "reason": "Replace French date controls/activity with Walloon; retain positional date/card arguments and distinguish due, end, received and start. Month/week vocabulary https://dtw.walon.org/index.php?query=moes and https://dtw.walon.org/index.php?query=samwinne . Two adjacent unflagged month controls also repaired. Complete grammar, received-date terminology and deadline loan remain low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "duenow",
+    "before": "La date d'échéance %s est aujourd'hui",
+    "after": "L' eure limite do moumint %s est ouy",
+    "reason": "Replace French date controls/activity with Walloon; retain positional date/card arguments and distinguish due, end, received and start. Month/week vocabulary https://dtw.walon.org/index.php?query=moes and https://dtw.walon.org/index.php?query=samwinne . Two adjacent unflagged month controls also repaired. Complete grammar, received-date terminology and deadline loan remain low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "pastdue",
+    "before": "La date d'échéance %s est passée",
+    "after": "L' eure limite do moumint %s est passêye",
+    "reason": "Replace French date controls/activity with Walloon; retain positional date/card arguments and distinguish due, end, received and start. Month/week vocabulary https://dtw.walon.org/index.php?query=moes and https://dtw.walon.org/index.php?query=samwinne . Two adjacent unflagged month controls also repaired. Complete grammar, received-date terminology and deadline loan remain low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "calendar-previous-month-label",
+    "before": "Mois précédent",
+    "after": "Moes di dvant",
+    "reason": "Replace French date controls/activity with Walloon; retain positional date/card arguments and distinguish due, end, received and start. Month/week vocabulary https://dtw.walon.org/index.php?query=moes and https://dtw.walon.org/index.php?query=samwinne . Two adjacent unflagged month controls also repaired. Complete grammar, received-date terminology and deadline loan remain low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "calendar-next-month-label",
+    "before": "Mois suivant",
+    "after": "Moes ki vént",
+    "reason": "Replace French date controls/activity with Walloon; retain positional date/card arguments and distinguish due, end, received and start. Month/week vocabulary https://dtw.walon.org/index.php?query=moes and https://dtw.walon.org/index.php?query=samwinne . Two adjacent unflagged month controls also repaired. Complete grammar, received-date terminology and deadline loan remain low confidence; placeholders preserved."
   }
 ]
