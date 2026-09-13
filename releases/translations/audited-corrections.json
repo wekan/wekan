@@ -84026,5 +84026,33 @@
     "before": "Kàlẹ́ńdà ISO-8601",
     "after": "Kàlẹ́ńdà Gregory (àwọn ọ̀sẹ̀ ISO 8601)",
     "reason": "Replace English and correct Yoruba calendar semantics including unflagged language-versus-calendar and malformed Amete Alem labels; restore national Indian, Hijri variant identities, moon sighting, civil/astronomical tabular epochs and Gregorian ISO weeks. Epoch technical terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "xh",
+    "key": "calendar-system-islamic-civil",
+    "before": "Islamic civil",
+    "after": "Ikhalenda yeHijri (ibalwa ngeetheyibhile, umhla wokuqala woluntu)",
+    "reason": "Replace English with Xhosa using existing Hijri/Gregorian calendar terminology; retain tabular calculation, civil versus astronomical starting epoch, Saudi moon sighting and restore omitted ISO 8601 weeks. Epoch technical adaptations and complete grammar remain low confidence."
+  },
+  {
+    "locale": "xh",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "Ikhalenda yeHijri (eSaudi Arabia, ukubonwa kwenyanga)",
+    "reason": "Replace English with Xhosa using existing Hijri/Gregorian calendar terminology; retain tabular calculation, civil versus astronomical starting epoch, Saudi moon sighting and restore omitted ISO 8601 weeks. Epoch technical adaptations and complete grammar remain low confidence."
+  },
+  {
+    "locale": "xh",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "Ikhalenda yeHijri (ibalwa ngeetheyibhile, umhla wokuqala ngokweenkwenkwezi)",
+    "reason": "Replace English with Xhosa using existing Hijri/Gregorian calendar terminology; retain tabular calculation, civil versus astronomical starting epoch, Saudi moon sighting and restore omitted ISO 8601 weeks. Epoch technical adaptations and complete grammar remain low confidence."
+  },
+  {
+    "locale": "xh",
+    "key": "calendar-system-iso8601",
+    "before": "Ikhalenda kaGregorian",
+    "after": "Ikhalenda kaGregorian (iiveki ze-ISO 8601)",
+    "reason": "Replace English with Xhosa using existing Hijri/Gregorian calendar terminology; retain tabular calculation, civil versus astronomical starting epoch, Saudi moon sighting and restore omitted ISO 8601 weeks. Epoch technical adaptations and complete grammar remain low confidence."
   }
 ]
