@@ -58658,5 +58658,19 @@
     "before": "Republic of China",
     "after": "मिंगुओ कैलेंडर",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ti",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "ሃገራዊ ዓውደ ኣዋርሕ ህንዲ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ti",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "ዓውደ ኣዋርሕ ሂጅራ (ስዑዲ ዓረብ፣ ብምርኣይ ሃላል ወርሒ)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
