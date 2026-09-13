@@ -2691,5 +2691,19 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.match(vepsTranslator.t('delete-duplicate-empty-lists-migration-description'), /ei ole kartoid DA.*ühtejiččen nimenke.*om kartoid/);
   assert.match(vepsTranslator.t('run-delete-duplicate-empty-lists-migration-confirm'), /ezmäi.*ühthižed lugetišed.*kaikuččen ujundšoidun.*sid’ heittäb.*kartoidenke.*vaiše.*tarbhatomad.*Jatkta\?$/);
   assert.match(vepsTranslator.t('delete-duplicate-lists-confirm'), /ühtejiččen nimi.*ei ole kartoid/);
+  const vepsConversionProgress = {
+  "migration-progress-note": "Ole hüvä, varasta, kuni mö vajehtam sinun laudan strukturan jäl’gmäižele strukturale...",
+  "conversion-info-text": "Nece vajehtab kaikuččen laudan vaiše ühten kerdan da paremboičeb radon tulotuzmärad. Sinä void jatkata laudan kävutandad kut aigemba.",
+  "converting-board-description": "Vajehtadas laudan strukturan, miše paremboita sen funkcijoid. Nece voib otta vähän aigad.",
+  "migration-info-text": "Sistem tegeb kaikuččen andmbazan migracijan vaiše ühten kerdan. Nece paremboičeb sisteman radon tulotuzmärad. Process jatktase tagamal, eskai ku sinä sauptad brauzeran."
+};
+  for (const [key, value] of Object.entries(vepsConversionProgress)) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.equal(vepsTranslator.t(key), value, key);
+    assert.doesNotMatch(value, /Odota hetki|siirrämme|uusimpaan rakenteeseen|muunnos suoritetaan|parantaa suorituskykyä|normaalisti|Muunnetaan|Tietokannan|Prosessi jatkuu|suljet selaimen/, key);
+  }
+  assert.match(vepsTranslator.t('conversion-info-text'), /kaikuččen laudan vaiše ühten kerdan.*void jatkata/);
+  assert.match(vepsTranslator.t('migration-info-text'), /kaikuččen andmbazan migracijan vaiše ühten kerdan.*jatktase tagamal.*sauptad brauzeran/);
+  assert.match(vepsTranslator.t('converting-board-description'), /paremboita sen funkcijoid.*voib otta vähän aigad/);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });

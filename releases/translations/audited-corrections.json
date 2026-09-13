@@ -120356,5 +120356,33 @@
     "before": "Tämä muuntaa ensin kaikki jaetut listat uimaratakohtaisiksi listoiksi ja poistaa sitten tyhjät listat, joissa on samanniminen kaksoiskappale, joka sisältää kortteja. Vain todella tarpeettomat tyhjät listat poistetaan. Jatketaanko?",
     "after": "Nece vajehtab ezmäi kaik ühthižed lugetišed eriližihe lugetišihe kaikuččen ujundšoidun täht, sid’ heittäb tühjad lugetišed, kudambil om toine ühtejiččen nimenke lugetiž kartoidenke. Heittas vaiše todesižešti tarbhatomad tühjad lugetišed. Jatkta?",
     "reason": "Replace Finnish duplicate-list warnings with Veps. Preserve empty-list AND same-name populated-duplicate conditions, initial shared-list conversion to per-swimlane lists and removal of only redundant lists. Current migration source confirms the order and populated-duplicate guard. Low confidence: composed safety/duplicate/assignment clauses and case agreement require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "migration-progress-note",
+    "before": "Odota hetki, siirrämme taulusi uusimpaan rakenteeseen...",
+    "after": "Ole hüvä, varasta, kuni mö vajehtam sinun laudan strukturan jäl’gmäižele strukturale...",
+    "reason": "Replace Finnish conversion/migration progress text with Veps. Preserve once-per-board versus once-per-database-migration scope, performance improvement, continued normal board use, brief duration and background continuation after closing the browser. Dictionary paremboita/tulotuzmär/jatkata/jatktase supports the wording. Low confidence: composed technical performance and structure clauses require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "conversion-info-text",
+    "before": "Tämä muunnos suoritetaan kerran per taulu ja parantaa suorituskykyä. Voit jatkaa taulun käyttöä normaalisti.",
+    "after": "Nece vajehtab kaikuččen laudan vaiše ühten kerdan da paremboičeb radon tulotuzmärad. Sinä void jatkata laudan kävutandad kut aigemba.",
+    "reason": "Replace Finnish conversion/migration progress text with Veps. Preserve once-per-board versus once-per-database-migration scope, performance improvement, continued normal board use, brief duration and background continuation after closing the browser. Dictionary paremboita/tulotuzmär/jatkata/jatktase supports the wording. Low confidence: composed technical performance and structure clauses require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "converting-board-description",
+    "before": "Muunnetaan taulun rakennetta parantamaan toiminnallisuutta. Tämä voi kestää hetken.",
+    "after": "Vajehtadas laudan strukturan, miše paremboita sen funkcijoid. Nece voib otta vähän aigad.",
+    "reason": "Replace Finnish conversion/migration progress text with Veps. Preserve once-per-board versus once-per-database-migration scope, performance improvement, continued normal board use, brief duration and background continuation after closing the browser. Dictionary paremboita/tulotuzmär/jatkata/jatktase supports the wording. Low confidence: composed technical performance and structure clauses require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "migration-info-text",
+    "before": "Tietokannan siirrot suoritetaan kerran ja parantavat järjestelmän suorituskykyä. Prosessi jatkuu taustalla vaikka suljet selaimen.",
+    "after": "Sistem tegeb kaikuččen andmbazan migracijan vaiše ühten kerdan. Nece paremboičeb sisteman radon tulotuzmärad. Process jatktase tagamal, eskai ku sinä sauptad brauzeran.",
+    "reason": "Replace Finnish conversion/migration progress text with Veps. Preserve once-per-board versus once-per-database-migration scope, performance improvement, continued normal board use, brief duration and background continuation after closing the browser. Dictionary paremboita/tulotuzmär/jatkata/jatktase supports the wording. Low confidence: composed technical performance and structure clauses require fluent review."
   }
 ]
