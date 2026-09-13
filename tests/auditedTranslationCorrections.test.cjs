@@ -375,5 +375,12 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.equal(cache['ve-PP']['email-invite'], 'Kucu email-počtan abul');
   assert.equal(cache['ve-PP']['email-smtp-test-text'], 'Sinä oled oigenu email-kirjeižen hüvin');
   assert.doesNotMatch(cache['ve-PP']['email-invite'] + cache['ve-PP']['email-smtp-test-text'], /Kutsu|sähköpost|Olet|onnistuneesti|lähettänyt/);
+  assert.equal(cache['ve-PP']['username-too-short'], "Pidab, miše kävutajan nimen piduz' oliži hot' 3 simvolad.");
+  assert.match(cache['ve-PP']['username-too-short'], /hot' 3 simvolad/);
+  assert.doesNotMatch(cache['ve-PP']['username-too-short'], /Käyttäjätunnuksen|vähintään|merkkiä|enamba 3/);
+  assert.equal(cache['ve-PP']['send-smtp-test'], 'Oigenda ičeleiž test-email-kirjeine');
+  assert.doesNotMatch(cache['ve-PP']['send-smtp-test'], /Lähetä|sähköposti|itsellesi/);
+  assert.equal(cache['ve-PP'].text, 'Tekst');
+  assert.notEqual(cache['ve-PP'].text, 'Teksti');
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });

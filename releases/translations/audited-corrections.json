@@ -113167,5 +113167,26 @@
     "before": "Thumela ngaphandle",
     "after": "Ve",
     "reason": "Replace the unflagged Zulu chart-export title with native Veps Ve, matching the repaired export label and MediaWiki Veps export-submit terminology."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "username-too-short",
+    "before": "Käyttäjätunnuksen on oltava vähintään 3 merkkiä pitkä",
+    "after": "Pidab, miše kävutajan nimen piduz' oliži hot' 3 simvolad.",
+    "reason": "Replace Finnish with Veps. Native MediaWiki vep.json attests kävutajan nimi, piduz', hot' minimum requirements, simvolad, email-kirjeine/oigenda and tekst; reuse the existing WeKan ičeleiž reflexive. Preserve the inclusive minimum of 3. Low confidence: composed username warning and test-email compound need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "send-smtp-test",
+    "before": "Lähetä testisähköposti itsellesi",
+    "after": "Oigenda ičeleiž test-email-kirjeine",
+    "reason": "Replace Finnish with Veps. Native MediaWiki vep.json attests kävutajan nimi, piduz', hot' minimum requirements, simvolad, email-kirjeine/oigenda and tekst; reuse the existing WeKan ičeleiž reflexive. Preserve the inclusive minimum of 3. Low confidence: composed username warning and test-email compound need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "text",
+    "before": "Teksti",
+    "after": "Tekst",
+    "reason": "Replace Finnish Teksti with native Veps Tekst, attested by MediaWiki viewsourceold/viewsourcelink and other source-text messages. Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
   }
 ]
