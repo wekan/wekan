@@ -91628,5 +91628,40 @@
     "before": "Méthode d'authentification par défaut",
     "after": "Metod kontrola dientifa pevälöl nen votükam",
     "reason": "Replace French authentication-method labels with consistent descriptive Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests dientif (identity), metod (method), kontrol (check), jonön (show), välön (choose) and votükön (alter). Authentication paraphrased as checking identity; default as selected without changing the setting. Setting template distinguishes generic method, display-method toggle and default-method selector; preserve all three functions rather than conflating authentication with account creation or authorization. Assembled software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "accessibility",
+    "before": "Accessibilité",
+    "after": "Begolov",
+    "reason": "Replace French accessibility page/setting labels with consistent Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests begolov (accessibility; example accessibility of a path), tiäd (title), ninäd (contents), nun (information), gebön (use), lüükön (add), and nog (yet). Preserve accessibility heading, title versus content, enabled page and information not added yet. Extending physical accessibility terminology to software accessibility and assembled wording remain low confidence pending native review; dictionary attestation is not complete phrase validation."
+  },
+  {
+    "locale": "vo",
+    "key": "accessibility-title",
+    "before": "Titre d'accessibilité",
+    "after": "Tiäd begolova",
+    "reason": "Replace French accessibility page/setting labels with consistent Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests begolov (accessibility; example accessibility of a path), tiäd (title), ninäd (contents), nun (information), gebön (use), lüükön (add), and nog (yet). Preserve accessibility heading, title versus content, enabled page and information not added yet. Extending physical accessibility terminology to software accessibility and assembled wording remain low confidence pending native review; dictionary attestation is not complete phrase validation."
+  },
+  {
+    "locale": "vo",
+    "key": "accessibility-content",
+    "before": "Contenu d'accessibilité",
+    "after": "Ninäd begolova",
+    "reason": "Replace French accessibility page/setting labels with consistent Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests begolov (accessibility; example accessibility of a path), tiäd (title), ninäd (contents), nun (information), gebön (use), lüükön (add), and nog (yet). Preserve accessibility heading, title versus content, enabled page and information not added yet. Extending physical accessibility terminology to software accessibility and assembled wording remain low confidence pending native review; dictionary attestation is not complete phrase validation."
+  },
+  {
+    "locale": "vo",
+    "key": "accessibility-page-enabled",
+    "before": "Page d'accessibilité activée",
+    "after": "Pad begolova pagebon",
+    "reason": "Replace French accessibility page/setting labels with consistent Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests begolov (accessibility; example accessibility of a path), tiäd (title), ninäd (contents), nun (information), gebön (use), lüükön (add), and nog (yet). Preserve accessibility heading, title versus content, enabled page and information not added yet. Extending physical accessibility terminology to software accessibility and assembled wording remain low confidence pending native review; dictionary attestation is not complete phrase validation."
+  },
+  {
+    "locale": "vo",
+    "key": "accessibility-info-not-added-yet",
+    "before": "L'information d'accessibilité n'a pas encore été ajoutée",
+    "after": "Nuns begolova no pelüükons nog",
+    "reason": "Replace French accessibility page/setting labels with consistent Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests begolov (accessibility; example accessibility of a path), tiäd (title), ninäd (contents), nun (information), gebön (use), lüükön (add), and nog (yet). Preserve accessibility heading, title versus content, enabled page and information not added yet. Extending physical accessibility terminology to software accessibility and assembled wording remain low confidence pending native review; dictionary attestation is not complete phrase validation."
   }
 ]
