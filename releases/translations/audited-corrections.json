@@ -83879,5 +83879,19 @@
     "before": "OS Durée de fonctionnement",
     "after": "Kadugayon han pagdalagan han OS",
     "reason": "Replace French with Waray (registry-declared language); retain named waiting spinner styles, MongoDB storage meaning, Node heap option does_zap_garbage and OS running duration. Technical noun phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wa-RR",
+    "key": "map-to-existing-user-desc",
+    "before": "Choisissez l'utilisateur réel que ce membre (virtuel) importé est en réalité. Ses cartes, commentaires et activités passent à cet utilisateur. Cherchez pour trouver n'importe qui ; un utilisateur qui n'est pas encore sur ce tableau est ajouté avec le rôle propre du membre importé, si bien que la correspondance ne peut jamais accorder plus de droits que l'import n'en a donnés.",
+    "after": "Pilia an tinuod nga gumaramit nga ginrirepresentar hini nga gin-import nga (virtual) miyembro. An iya mga kard, komento ngan aktibidad ibabalhin ngadto hito nga gumaramit. Pamiling basi makita an bisan hin-o; an gumaramit nga waray pa hini nga board idudugang nga may amo la nga papel han gin-import nga miyembro, salit an pagpares diri makakahatag hin mas damu nga pagtugot kay han ginhatag han pag-import.",
+    "reason": "Replace French with Waray; preserve virtual-member/real-user distinction, card/comment/activity transfer, anyone search, imported role for newly added board user and no increased permissions. Technical role/pairing terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wa-RR",
+    "key": "map-to-existing-user-none",
+    "before": "Il n'y a pas encore d'autres membres réels sur ce tableau. Cherchez ci-dessus pour trouver n'importe quel utilisateur.",
+    "after": "Waray pa iba nga tinuod nga miyembro hini nga board. Pamiling ha igbaw basi makita an bisan hin-o nga gumaramit.",
+    "reason": "Replace French with Waray; preserve virtual-member/real-user distinction, card/comment/activity transfer, anyone search, imported role for newly added board user and no increased permissions. Technical role/pairing terminology and full grammar remain low confidence."
   }
 ]
