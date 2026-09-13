@@ -120181,5 +120181,19 @@
     "before": "Laitteesi ei tue PDF-esikatselua. Yritä sen sijaan ladata.",
     "after": "Sinun ladeh ei voi ozutada PDF-ezikacundad. Ladi sen sijas panda fail muštho.",
     "reason": "Replace Finnish PDF-preview and device-mode values with Veps. Dictionary ladeh/matk- and native MediaWiki ezikacund/radpöud combine with existing režim/Vajehta and save-to-memory download wording. Preserve mode switching and alternative download action. Low confidence: composed mobile-device mode and PDF-preview inflection need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "has-spenttime-cards",
+    "before": "Sisältää käytetty aika -kortteja",
+    "after": "Om kartoid kävutadud aiganke",
+    "reason": "Replace Finnish spent-time labels with Veps, reusing existing kävutadud, aig, kartoid and časud. Preserve the distinction between a board containing time-tracked cards and the hours field. Low confidence: composed time-tracked-card instrumental phrase needs fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "spent-time-hours",
+    "before": "Käytetty aika (tuntia)",
+    "after": "Kävutadud aig (časud)",
+    "reason": "Replace Finnish spent-time labels with Veps, reusing existing kävutadud, aig, kartoid and časud. Preserve the distinction between a board containing time-tracked cards and the hours field. Low confidence: composed time-tracked-card instrumental phrase needs fluent review."
   }
 ]

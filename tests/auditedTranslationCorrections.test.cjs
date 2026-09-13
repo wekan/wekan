@@ -2621,5 +2621,11 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.match(vepsTranslator.t('mobile-desktop-toggle'), /matkladehen režiman.*radpöudon režiman/);
   assert.match(vepsTranslator.t('preview-pdf-not-supported'), /ei voi ozutada PDF-ezikacundad.*sen sijas panda fail muštho/);
   assert.equal(cache['ve-PP'].download, 'Pane muštho kut fail', 'retain existing download action');
+  assert.equal(vepsTranslator.t('has-spenttime-cards'), 'Om kartoid kävutadud aiganke');
+  assert.doesNotMatch(vepsTranslator.t('has-spenttime-cards'), /Sisältää|käytetty aika|kortteja/);
+  assert.equal(vepsTranslator.t('spent-time-hours'), 'Kävutadud aig (časud)');
+  assert.doesNotMatch(vepsTranslator.t('spent-time-hours'), /Käytetty|tuntia/);
+  assert.notEqual(vepsTranslator.t('has-spenttime-cards'), vepsTranslator.t('has-overtime-cards'));
+  assert.equal(cache['ve-PP'].hours, 'časud', 'retain existing hours terminology');
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });
