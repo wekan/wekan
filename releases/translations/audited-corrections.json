@@ -85923,5 +85923,12 @@
     "before": "Jalali (Fars)",
     "after": "Persczi kalãdôrz Jalali",
     "reason": "Replace foreign Fars descriptor with Kashubian Persian adjective persczi attested in https://csb.wiktionary.org/wiki/Prz%C3%A9dn%C3%B4_starna and https://kaikki.org/plwiktionary/j%C4%99zyk%20kaszubski/pos-adj/nowi--pi%C4%85ti.html ; calendar noun kalãdôrz verified from native museum text. Preserve Jalali identity. Assembled calendar phrase remains low confidence, not native-speaker reviewed."
+  },
+  {
+    "locale": "csb",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "System kalãdôrza (pòkôzywanié datë)",
+    "reason": "Replace Turkic seeded calendar-setting label with Kashubian wording. Native system attested in https://naszekaszuby.pl/modules/artykuly/print.php?articleid=179 ; pòkôzywanié attested in indexed official examination materials https://lodz.oke.gov.pl/lodz.oke.gov.pl/wp-content/uploads/2022/10/Matura_Zbior_zadan_Jezyk_kaszubski.pdf ; date vocabulary in https://naszekaszuby.pl/modules/newbb/viewtopic.php?forum=1&order=DESC&topic_id=44&viewmode=flat . Calendar noun established in native museum text. Derived genitives kalãdôrza/datë and assembled grammar remain low confidence, not native-speaker reviewed."
   }
 ]
