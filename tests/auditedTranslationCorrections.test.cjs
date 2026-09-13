@@ -2606,5 +2606,20 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.match(vepsTranslator.t('upload-repository'), /^Sa\/Udišta/);
   assert.match(vepsTranslator.t('sign-in-to-upload'), /^Tule sistemaha.*sada repoid$/);
   assert.equal(cache['ve-PP'].repository, 'Repo', 'retain the existing technical repository noun');
+  const vepsDeviceControls = {
+  "desktop-mode": "Radpöudon režim",
+  "mobile-mode": "Matkladehen režim",
+  "mobile-desktop-toggle": "Vajehta matkladehen režiman da radpöudon režiman keskes",
+  "preview-pdf-not-supported": "Sinun ladeh ei voi ozutada PDF-ezikacundad. Ladi sen sijas panda fail muštho."
+};
+  for (const [key, value] of Object.entries(vepsDeviceControls)) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.equal(vepsTranslator.t(key), value, key);
+    assert.doesNotMatch(value, /Työpöytätila|Mobiilitila|Vaihda|mobiili-|työpöytätilan|Laitteesi|esikatselua|Yritä|ladata/, key);
+  }
+  assert.notEqual(vepsTranslator.t('desktop-mode'), vepsTranslator.t('mobile-mode'));
+  assert.match(vepsTranslator.t('mobile-desktop-toggle'), /matkladehen režiman.*radpöudon režiman/);
+  assert.match(vepsTranslator.t('preview-pdf-not-supported'), /ei voi ozutada PDF-ezikacundad.*sen sijas panda fail muštho/);
+  assert.equal(cache['ve-PP'].download, 'Pane muštho kut fail', 'retain existing download action');
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });

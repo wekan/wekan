@@ -120153,5 +120153,33 @@
     "before": "Kirjaudu sisään upataksesi repoja",
     "after": "Tule sistemaha, miše sada repoid",
     "reason": "Replace Finnish announcement and repository controls with Veps. Use dictionary tedotuz/aktivine and existing Tege/Udišta/system-login wording; MediaWiki Veps supports Sa and sada for upload. Retain the technical repo loan, inflected for Veps. Low confidence: repo inflection and system-wide qualifier composition need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "desktop-mode",
+    "before": "Työpöytätila",
+    "after": "Radpöudon režim",
+    "reason": "Replace Finnish PDF-preview and device-mode values with Veps. Dictionary ladeh/matk- and native MediaWiki ezikacund/radpöud combine with existing režim/Vajehta and save-to-memory download wording. Preserve mode switching and alternative download action. Low confidence: composed mobile-device mode and PDF-preview inflection need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "mobile-mode",
+    "before": "Mobiilitila",
+    "after": "Matkladehen režim",
+    "reason": "Replace Finnish PDF-preview and device-mode values with Veps. Dictionary ladeh/matk- and native MediaWiki ezikacund/radpöud combine with existing režim/Vajehta and save-to-memory download wording. Preserve mode switching and alternative download action. Low confidence: composed mobile-device mode and PDF-preview inflection need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "mobile-desktop-toggle",
+    "before": "Vaihda mobiili- ja työpöytätilan välillä",
+    "after": "Vajehta matkladehen režiman da radpöudon režiman keskes",
+    "reason": "Replace Finnish PDF-preview and device-mode values with Veps. Dictionary ladeh/matk- and native MediaWiki ezikacund/radpöud combine with existing režim/Vajehta and save-to-memory download wording. Preserve mode switching and alternative download action. Low confidence: composed mobile-device mode and PDF-preview inflection need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "preview-pdf-not-supported",
+    "before": "Laitteesi ei tue PDF-esikatselua. Yritä sen sijaan ladata.",
+    "after": "Sinun ladeh ei voi ozutada PDF-ezikacundad. Ladi sen sijas panda fail muštho.",
+    "reason": "Replace Finnish PDF-preview and device-mode values with Veps. Dictionary ladeh/matk- and native MediaWiki ezikacund/radpöud combine with existing režim/Vajehta and save-to-memory download wording. Preserve mode switching and alternative download action. Low confidence: composed mobile-device mode and PDF-preview inflection need fluent review."
   }
 ]
