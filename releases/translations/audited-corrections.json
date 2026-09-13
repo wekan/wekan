@@ -113076,5 +113076,54 @@
     "before": "Ei aktiivinen",
     "after": "Ei-aktivine",
     "reason": "Replace Finnish Veps seed using native software terminology: MediaWiki Veps email, passwordreset-email, cannotchangeemail, emailsent, mailerror, emailsend/email-legend and tags-active-header; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Existing native inactive-member attests Ei-aktivine. Preserve plural addresses and SMTP acronym. LOW CONFIDENCE: composed SMTP test subject needs fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "change-avatar",
+    "before": "Muokkaa profiilikuvaa",
+    "after": "Vajehta kävutajan kuvad",
+    "reason": "Replace Finnish Veps avatar controls with composed native user-image wording. MediaWiki Veps attests kävutajan, Vajehta, upload Sa, sadud, confirmation Tozi-ik sinä tahtoid, heitta, lujas/sur', maksimaline failan suruz', lasktud/tipad and baitad; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Veps kuva image genitive kuvan and partitive kuvad verified in dictionary: https://kaikki.org/dictionary/Veps/index.html. LOW CONFIDENCE: composed avatar/user-image phrases and byte-unit inflection need fluent review. Preserve __size__ token and maximum/type/confirmation meanings."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "delete-avatar-confirm",
+    "before": "Haluatko varmasti poistaa tämän profiilikuvan?",
+    "after": "Tozi-ik sinä tahtoid heitta necen kävutajan kuvan?",
+    "reason": "Replace Finnish Veps avatar controls with composed native user-image wording. MediaWiki Veps attests kävutajan, Vajehta, upload Sa, sadud, confirmation Tozi-ik sinä tahtoid, heitta, lujas/sur', maksimaline failan suruz', lasktud/tipad and baitad; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Veps kuva image genitive kuvan and partitive kuvad verified in dictionary: https://kaikki.org/dictionary/Veps/index.html. LOW CONFIDENCE: composed avatar/user-image phrases and byte-unit inflection need fluent review. Preserve __size__ token and maximum/type/confirmation meanings."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "upload-avatar",
+    "before": "Lähetä profiilikuva",
+    "after": "Sa kävutajan kuvad",
+    "reason": "Replace Finnish Veps avatar controls with composed native user-image wording. MediaWiki Veps attests kävutajan, Vajehta, upload Sa, sadud, confirmation Tozi-ik sinä tahtoid, heitta, lujas/sur', maksimaline failan suruz', lasktud/tipad and baitad; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Veps kuva image genitive kuvan and partitive kuvad verified in dictionary: https://kaikki.org/dictionary/Veps/index.html. LOW CONFIDENCE: composed avatar/user-image phrases and byte-unit inflection need fluent review. Preserve __size__ token and maximum/type/confirmation meanings."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "uploaded-avatar",
+    "before": "Profiilikuva lähetetty",
+    "after": "Kävutajan kuva om sadud",
+    "reason": "Replace Finnish Veps avatar controls with composed native user-image wording. MediaWiki Veps attests kävutajan, Vajehta, upload Sa, sadud, confirmation Tozi-ik sinä tahtoid, heitta, lujas/sur', maksimaline failan suruz', lasktud/tipad and baitad; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Veps kuva image genitive kuvan and partitive kuvad verified in dictionary: https://kaikki.org/dictionary/Veps/index.html. LOW CONFIDENCE: composed avatar/user-image phrases and byte-unit inflection need fluent review. Preserve __size__ token and maximum/type/confirmation meanings."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "avatar-too-big",
+    "before": "Profiilikuva on liian suuri (enintään __size__)",
+    "after": "Kävutajan kuva om lujas sur' (maksimaline __size__)",
+    "reason": "Replace Finnish Veps avatar controls with composed native user-image wording. MediaWiki Veps attests kävutajan, Vajehta, upload Sa, sadud, confirmation Tozi-ik sinä tahtoid, heitta, lujas/sur', maksimaline failan suruz', lasktud/tipad and baitad; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Veps kuva image genitive kuvan and partitive kuvad verified in dictionary: https://kaikki.org/dictionary/Veps/index.html. LOW CONFIDENCE: composed avatar/user-image phrases and byte-unit inflection need fluent review. Preserve __size__ token and maximum/type/confirmation meanings."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "max-avatar-filesize",
+    "before": "Maksimi profiilikuvan tiedostokoko bytes:",
+    "after": "Maksimaline kävutajan kuvan failan suruz’ baitoiš:",
+    "reason": "Replace Finnish Veps avatar controls with composed native user-image wording. MediaWiki Veps attests kävutajan, Vajehta, upload Sa, sadud, confirmation Tozi-ik sinä tahtoid, heitta, lujas/sur', maksimaline failan suruz', lasktud/tipad and baitad; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Veps kuva image genitive kuvan and partitive kuvad verified in dictionary: https://kaikki.org/dictionary/Veps/index.html. LOW CONFIDENCE: composed avatar/user-image phrases and byte-unit inflection need fluent review. Preserve __size__ token and maximum/type/confirmation meanings."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "allowed-avatar-filetypes",
+    "before": "Sallitut profiilikuva tiedostotyypit:",
+    "after": "Lasktud kävutajan kuvan failoiden tipad:",
+    "reason": "Replace Finnish Veps avatar controls with composed native user-image wording. MediaWiki Veps attests kävutajan, Vajehta, upload Sa, sadud, confirmation Tozi-ik sinä tahtoid, heitta, lujas/sur', maksimaline failan suruz', lasktud/tipad and baitad; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Veps kuva image genitive kuvan and partitive kuvad verified in dictionary: https://kaikki.org/dictionary/Veps/index.html. LOW CONFIDENCE: composed avatar/user-image phrases and byte-unit inflection need fluent review. Preserve __size__ token and maximum/type/confirmation meanings."
   }
 ]

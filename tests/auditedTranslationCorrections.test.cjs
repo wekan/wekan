@@ -356,5 +356,15 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   }
   assert.notEqual(cache['ve-PP']['email-address'], cache['ve-PP']['email-addresses']);
   assert.notEqual(cache['ve-PP']['admin-people-filter-active'], cache['ve-PP']['admin-people-filter-inactive']);
+  for (const key of ['change-avatar', 'delete-avatar-confirm', 'upload-avatar',
+    'uploaded-avatar', 'avatar-too-big', 'max-avatar-filesize', 'allowed-avatar-filetypes']) {
+    assert.match(cache['ve-PP'][key], /kävutajan|Kävutajan/, key);
+    assert.match(cache['ve-PP'][key], /kuva|kuvan|kuvad/, key);
+    assert.doesNotMatch(cache['ve-PP'][key], /profiilikuva|Profiilikuva|Haluatko|varmasti|Muokkaa|Lähetä|lähetetty|enintään|Maksimi|tiedostokoko|Sallitut|tiedostotyypit/, key);
+  }
+  assert.match(cache['ve-PP']['delete-avatar-confirm'], /^Tozi-ik.*heitta.*\?$/);
+  assert.match(cache['ve-PP']['avatar-too-big'], /maksimaline __size__/);
+  assert.match(cache['ve-PP']['max-avatar-filesize'], /baitoiš/);
+  assert.notEqual(cache['ve-PP']['upload-avatar'], cache['ve-PP']['uploaded-avatar']);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });
