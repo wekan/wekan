@@ -1103,6 +1103,17 @@ no mirroring or publishing commands were executed for this audit.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/ad294f707">Verify uploads after Transifex adds language support</a>. Thanks to xet7.</summary>
+
+Offline regression covers all five missing languages: failed registration,
+addition and full upload after support becomes available, then later uploads
+without duplicate registration. Each run refreshes project membership;
+previous failure reports never exclude languages. Document code mapping
+changes when Transifex uses a different identifier. No remote writes ran.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/a14b0ffc4">Repair Veps navigation and error labels</a>. Thanks to xet7.</summary>
 
 Replace six Finnish labels with native software terminology, including the
