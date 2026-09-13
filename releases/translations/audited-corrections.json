@@ -70166,5 +70166,96 @@
     "before": "URL khas pautan logo penjuru atas kiri",
     "after": "URL tautan logo khusus bak sudot ateueh wie",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "delete-board-confirm-popup",
+    "before": "Semua senarai, kad, label dan aktiviti akan dihapus dan anda tidak akan dapat pulihkan semula kandungan papan. Tiada undur semula",
+    "after": "Mandum senarai, kad, label ngon aktivitas akan geuhapus, ngon droeneueh hana jeuet peuwoe asoe papan lom. Hana undo.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "delete-linked-card-before-this-card",
+    "before": "Kamu tidak dapat menghapus kartu ini sebelum menghapus kartu tertaut yang telah",
+    "after": "Droeneueh hana jeuet hapus kad nyoe sigohlom geuhapus kad teuhubong nyang na",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "delete-linked-cards-before-this-list",
+    "before": "Kamu tidak dapat menghapus daftar ini sebelum menghapus kartu tertaut yang mengarah ke kartu dalam daftar ini",
+    "after": "Droeneueh hana jeuet hapus senarai nyoe sigohlom geuhapus kad teuhubong nyang meuara u kad bak senarai nyoe.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "delete-org-warning-message",
+    "before": "Tidak boleh buang organisasi ini. Masih ada sekurang-kurangnya seorang pengguna dalam organisasi ini.",
+    "after": "Hana jeuet hapus organisasi nyoe, mantong na ureueng ngui nyang jeuet keu anggota jih.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "delete-team-warning-message",
+    "before": "Tidak boleh buang pasukan ini. Masih lagi ada sekurang-kurangnya seorang pengguna yang berada dalam pasukan ini",
+    "after": "Hana jeuet hapus tim nyoe, mantong na ureueng ngui nyang jeuet keu anggota jih.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "delete-translation-confirm-popup",
+    "before": "Apakah kamu yakin ingin menghapus teks terjemahan pesanan? Tidak akan pengembalian.",
+    "after": "Beutoi droeneueh keuneuk hapus teks teujeumah khusus nyoe? Hana undo.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "deleteBoardBackgroundPopup-title",
+    "before": "Padam imej latar belakang",
+    "after": "Hapus gamba latar likot",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "deposit-subtasks-board",
+    "before": "Masukkan subtugas kepada papan ini:",
+    "after": "Peutamong subtugas u papan nyoe:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "deposit-subtasks-list",
+    "before": "senarai subtugas dimasukkan di sini:",
+    "after": "Senarai tujuan subtugas nyang geupeutamong keunoe:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "disable-webhook",
+    "before": "Lumpuhkan Cangkuk Web Ini",
+    "after": "Peumate webhook nyoe",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "duplicate-board-confirm",
+    "before": "Anda pasti untuk menduplikasi papan ini?",
+    "after": "Beutoi droeneueh keuneuk peugot salinan papan nyoe?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "editPokerEndDatePopup-title",
+    "before": "Ubah tarikh akhir undian Poker Planning",
+    "after": "Ubah tanggai akhé voting Planning Poker",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "editTranslationPopup-title",
+    "before": "Sunting teks terjemahan pesanan",
+    "after": "Sunting teks teujeumah khusus",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
