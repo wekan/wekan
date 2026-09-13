@@ -1,11 +1,18 @@
 import { Template } from 'meteor/templating';
 
 const FullCalendarCore = require('@fullcalendar/core/main.cjs.js');
+const FullCalendarCommon = require('@fullcalendar/common/main.cjs.js');
+const { monthRangeProfile } = require('./monthRange');
 const FullCalendarDayGrid = require('@fullcalendar/daygrid/main.cjs.js');
 const FullCalendarInteraction = require('@fullcalendar/interaction/main.cjs.js');
 const FullCalendarList = require('@fullcalendar/list/main.cjs.js');
 const FullCalendarTimeGrid = require('@fullcalendar/timegrid/main.cjs.js');
 const FullCalendarLocalesAll = require('@fullcalendar/core/locales-all.js');
+
+const SelectedMonthProfile = monthRangeProfile(
+  FullCalendarDayGrid.default.views.dayGrid.dateProfileGeneratorClass,
+  FullCalendarCommon.addWeeks,
+);
 
 Template.fullcalendar.onRendered(function () {
   const instance = this;
@@ -26,6 +33,15 @@ Template.fullcalendar.onRendered(function () {
     const options = { ...data };
     delete options.id;
     delete options.class;
+    if (options.views?.selectedCalendarMonth) {
+      options.views = {
+        ...options.views,
+        selectedCalendarMonth: {
+          ...options.views.selectedCalendarMonth,
+          dateProfileGeneratorClass: SelectedMonthProfile,
+        },
+      };
+    }
     if (options.defaultView && !options.initialView) {
       options.initialView = options.defaultView;
     }

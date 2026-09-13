@@ -23,6 +23,7 @@ Package.onUse(function(api) {
       '.npm/package/node_modules/@fullcalendar/timegrid/main.min.css',
       '.npm/package/node_modules/@fullcalendar/list/main.min.css',
       'template.html',
+      'monthRange.js',
       'template.js',
     ],
     'client',

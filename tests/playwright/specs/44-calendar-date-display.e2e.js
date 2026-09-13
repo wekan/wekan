@@ -155,6 +155,13 @@ test('Jalali month view has actual month boundaries and a single calendar title'
   expect(boundaries).toEqual({ start: [2026, 3, 21], end: [2026, 4, 21] });
   await page.locator('#calendar-view .fc-next-button').click();
   await expect(page.locator('#calendar-view .fc-toolbar-title')).toContainText('1405-02-01');
+  // Ordibehesht's 31 days cross Gregorian month boundaries. Its first day
+  // must occupy Tuesday's column rather than the first weekday column.
+  const firstCell = page.locator('#calendar-view td[data-date="2026-04-21"]');
+  await expect(firstCell.locator('.fc-daygrid-day-number')).toHaveText('1');
+  const column = await firstCell.evaluate(cell => cell.cellIndex);
+  const headerClass = await page.locator('#calendar-view th.fc-col-header-cell').nth(column).getAttribute('class');
+  expect(headerClass).toContain('fc-day-tue');
   await page.locator('#calendar-view .fc-listMonth-button').click();
   await expect(page.locator('#calendar-view .fc-toolbar-title')).toContainText('1405-02-01');
   await page.locator('#calendar-view .fc-prev-button').click();
