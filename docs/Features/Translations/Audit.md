@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 12,397 |
+| Corrected | 12,403 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 3,449 |
+| Pending review or repair | 3,443 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Restored and unflagged values still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,945** exact before/after values, including repairs outside the audit.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,951** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `6047a6f848b957d1a8bbcd0af84521fa8fd85b9d` — three Volapük member-mapping/domain/assignee strings repaired. Imported-role permission safeguards and numbered toggle order preserved; technical wording remains low confidence.
+Latest translation fix: **2026-09-13**, local commit `7581e0a69d931b75054a331d53adfa65acff4a84` — six Volapük date activities and account/admin notices repaired. Old/new time roles and date/card-link arguments preserved; assembled wording remains low confidence.
 
 **Verification:** correction and progress tests pass. Native-speaker and browser checks remain outstanding.
 
