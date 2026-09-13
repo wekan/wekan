@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 11,765 |
+| Corrected | 11,770 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 4,081 |
+| Pending review or repair | 4,076 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,140** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,145** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `61e0cdef1a93be23aae2c0c7e68984ab539bd1a4` — 9 Tsonga calendar labels repaired: setting, Hebrew/Chinese/Japanese, Dangi, Hijri/Umm al-Qura, Minguo and Gregorian ISO weeks. Hebrew wording is directly attested; assembled grammar remains low confidence. Religious/country/tabular variants and unflagged date-format/navigation text still need review. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; live browser verification is unavailable.
+Latest translation fix: **2026-09-13**, local commit `aa6f5024ac0e85c09ca17a0d43f5e2ecaf57b8f5` — 5 Tsonga labels repaired: Buddhist, Jalali/Persian, Ethiopic/Amete Alem and Indian national calendar. Published vocabulary supports religion/country names; assembled grammar remains low confidence. Coptic, Hijri variants and unflagged date-format/navigation text still need review. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; live browser verification is unavailable.
 
 **Review follow-up:** Silesian `sandstorm-raw-mongodb` remains pending: its wording overlaps Polish and existing Silesian technical strings, but dictionary searches did not establish the full phrase as correct Silesian. Keep the current value until stronger language evidence supports retaining or replacing it.
 
