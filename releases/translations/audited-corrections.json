@@ -79959,5 +79959,54 @@
     "before": "ci date",
     "after": "ci bis",
     "reason": "Replace French or mixed-language rule date labels with Wolof. Restore both setting and changing trigger cases, distinguish due/start/end/received dates, current date/time and date field. Reuse established Bis/Waxtu terminology; normalize unflagged ci date scheduling fragment. Full grammar and rule/date adaptations remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "spent-time-hours",
+    "before": "Temps passé (heures)",
+    "after": "Diir bi ñu jëfandikoo (waxtu)",
+    "reason": "Replace French time-tracking labels with Wolof and repair unflagged remaining-until-due wording that used elapsed/past language. Preserve hours units, spent versus overtime and estimate versus remaining-until-due. Existing total-time wording retained. Duration/hour phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "overtime-hours",
+    "before": "Temps supplémentaire (heures)",
+    "after": "Diir bi weesu (waxtu)",
+    "reason": "Replace French time-tracking labels with Wolof and repair unflagged remaining-until-due wording that used elapsed/past language. Preserve hours units, spent versus overtime and estimate versus remaining-until-due. Existing total-time wording retained. Duration/hour phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "overtime",
+    "before": "Temps supplémentaire",
+    "after": "Diir bi weesu",
+    "reason": "Replace French time-tracking labels with Wolof and repair unflagged remaining-until-due wording that used elapsed/past language. Preserve hours units, spent versus overtime and estimate versus remaining-until-due. Existing total-time wording retained. Duration/hour phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "has-overtime-cards",
+    "before": "A des cartes avec du temps supplémentaire",
+    "after": "Am na karta yu am diir bu weesu",
+    "reason": "Replace French time-tracking labels with Wolof and repair unflagged remaining-until-due wording that used elapsed/past language. Preserve hours units, spent versus overtime and estimate versus remaining-until-due. Existing total-time wording retained. Duration/hour phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "has-spenttime-cards",
+    "before": "A des cartes avec du temps passé",
+    "after": "Am na karta yu am diir bu ñu jëfandikoo",
+    "reason": "Replace French time-tracking labels with Wolof and repair unflagged remaining-until-due wording that used elapsed/past language. Preserve hours units, spent versus overtime and estimate versus remaining-until-due. Existing total-time wording retained. Duration/hour phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "estimated-time-remaining",
+    "before": "Temps restant estimé",
+    "after": "Diir bi ñu xayma ne des na",
+    "reason": "Replace French time-tracking labels with Wolof and repair unflagged remaining-until-due wording that used elapsed/past language. Preserve hours units, spent versus overtime and estimate versus remaining-until-due. Existing total-time wording retained. Duration/hour phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "board-status-remaining-time-total",
+    "before": "Waxtu wees ba noppi bés",
+    "after": "Diir bi des bala bis bi ñu war a jeexal",
+    "reason": "Replace French time-tracking labels with Wolof and repair unflagged remaining-until-due wording that used elapsed/past language. Preserve hours units, spent versus overtime and estimate versus remaining-until-due. Existing total-time wording retained. Duration/hour phrasing and full grammar remain low confidence."
   }
 ]
