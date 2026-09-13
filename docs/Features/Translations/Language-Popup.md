@@ -29,3 +29,8 @@ updates the display while preserving a saved profile preference.
 
 Browser language tags and their ordered preference list are documented by
 [MDN](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/languages).
+
+Bare `yue` and `wuu` resolve to the existing Cantonese and Wu variants.
+`zh-MO` resolves to Traditional Chinese, consistent with Unicode CLDR's
+[likely-subtag data](https://www.unicode.org/reports/tr35/tr35-78/tr35.html).
+Actual startup checks cover delayed profiles and browser preference changes.

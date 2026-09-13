@@ -1102,6 +1102,16 @@ no mirroring or publishing commands were executed for this audit.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/37ae64fa8">Complete browser language aliases and startup regression checks</a>. Thanks to xet7.</summary>
+
+Map bare Cantonese and Wu to existing variants and Macau Chinese to Traditional
+Chinese. Actual startup checks verify delayed profile preferences, browser
+languagechange and no automatic profile writes. Locale and startup tests pass;
+browser execution remains pending.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/e6aed7a8c">Fix Russian Russia translation upload identifier</a>. Thanks to xet7.</summary>
 
 Use supported ru_RU for the local ru-RU locale and report its alias instead of
