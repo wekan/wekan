@@ -80484,5 +80484,40 @@
     "before": "Vous ne pouvez pas supprimer cette liste avant d'avoir d'abord supprimé les cartes liées qui pointent vers des cartes de cette liste",
     "after": "Mënuloo far limu bii bala nga far karta yi lëkkaloo te jublu ci karta yi ci limu bii",
     "reason": "Replace French archive recovery guidance and linked-card deletion prerequisites with Wolof. Preserve all cards in current list, menu/archive recovery and incoming links to cards in list. Card warning remains a fragment before literal linkedId appended by cardDetails.js. Full grammar and linked-card terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "custom-field-dropdown-options-placeholder",
+    "before": "Appuyez sur Entrée pour ajouter d'autres options",
+    "after": "Bësal Enter ngir yokk yeneen tànneef",
+    "reason": "Replace French dropdown/item prompts, template-container labels and board deletion warning with Wolof. Preserve Enter key, options versus items, template container and deletion of lists/cards/labels/activities with no recovery/undo. Reuse existing ndab/royukaay and irreversible-warning terminology. Container adaptation and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "custom-field-stringtemplate-item-placeholder",
+    "before": "Appuyez sur Entrée pour ajouter plus d'éléments",
+    "after": "Bësal Enter ngir yokk yeneen mbir",
+    "reason": "Replace French dropdown/item prompts, template-container labels and board deletion warning with Wolof. Preserve Enter key, options versus items, template container and deletion of lists/cards/labels/activities with no recovery/undo. Reuse existing ndab/royukaay and irreversible-warning terminology. Container adaptation and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "createTemplateContainerPopup-title",
+    "before": "Ajouter un conteneur de modèles",
+    "after": "Yokk ndabu royukaay",
+    "reason": "Replace French dropdown/item prompts, template-container labels and board deletion warning with Wolof. Preserve Enter key, options versus items, template container and deletion of lists/cards/labels/activities with no recovery/undo. Reuse existing ndab/royukaay and irreversible-warning terminology. Container adaptation and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "template-container",
+    "before": "Conteneur de modèles",
+    "after": "Ndabu royukaay",
+    "reason": "Replace French dropdown/item prompts, template-container labels and board deletion warning with Wolof. Preserve Enter key, options versus items, template container and deletion of lists/cards/labels/activities with no recovery/undo. Reuse existing ndab/royukaay and irreversible-warning terminology. Container adaptation and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "delete-board-confirm-popup",
+    "before": "Toutes les listes, cartes, étiquettes et activités seront supprimées et vous ne pourrez pas retrouver le contenu du tableau. Cela est irréversible.",
+    "after": "Dinañu far limu yi, karta yi, etiket yi ak jëf yi yépp te dootoo mën a delloo li am ci tablo bi. Mëneesul delloo jëf jii.",
+    "reason": "Replace French dropdown/item prompts, template-container labels and board deletion warning with Wolof. Preserve Enter key, options versus items, template container and deletion of lists/cards/labels/activities with no recovery/undo. Reuse existing ndab/royukaay and irreversible-warning terminology. Container adaptation and full grammar remain low confidence."
   }
 ]
