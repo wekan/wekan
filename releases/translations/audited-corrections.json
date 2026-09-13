@@ -86077,5 +86077,12 @@
     "before": "Ethiopic Amete Alem",
     "after": "Эфиопия халандаара (Amete Alem)",
     "reason": "Replace English Ethiopic wording with assembled Sakha Эфиопия халандаара; country name attested in indexed native education administration article https://www.yaguo.ru/node/4942 and calendar construction in https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/sah.xml . Preserve source Amete Alem identifier. Full assembled labels remain low confidence; not native-speaker verified. Separate full article retrieval timed out; indexed vocabulary is not full-document validation."
+  },
+  {
+    "locale": "qu",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "Mamallaqta intiwatana (India)",
+    "reason": "Replace English Indian national with Quechua assembled Mamallaqta intiwatana (India). National terminology attested in Quechua national park names https://mapcarta.com/Cerros_de_Amotape_National_Park ; calendar and country in https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/qu.xml . Do not copy Spanish Indio Nacional merely because CLDR contains it. Full assembled phrase remains low confidence; no native-speaker verification."
   }
 ]
