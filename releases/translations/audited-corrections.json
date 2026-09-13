@@ -70348,5 +70348,117 @@
     "before": "Teks Anda bukan JSON yang sah",
     "after": "Teks droeneueh kon JSON nyang sah",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "enable-vertical-scrollbars",
+    "before": "Dayakan bar skrol melintang",
+    "after": "Peuhidop bar gulông ateueh–miyup",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "enter-zoom-level",
+    "before": "Masukkan aras zum (50-300%)",
+    "after": "Peutamong tingkat zoom (50-300%):",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "error-csv-schema",
+    "before": "CSV anda(Nilai yang dipisahkan koma)/TSV (Nilai yang dipisahkan tab) tidak termasuk informasi yang tepat dalam format yang benar",
+    "after": "Fail CSV (nilai geupisah ngon koma)/TSV (nilai geupisah ngon Tab) droeneueh hana na informasi nyang teupat lam format nyang beutoi ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "error-json-schema",
+    "before": "Data JSON Anda tidak mengikutsertakan informasi yang sesuai format",
+    "after": "Data JSON droeneueh hana na informasi nyang teupat lam format nyang beutoi",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "error-ldap-login",
+    "before": "Terjadi kesalahan saat mencoba masuk",
+    "after": "Na salah watee geucuba login",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "error-notAuthorized",
+    "before": "Anda tidak ada kebenaran untuk melihat laman ini",
+    "after": "Droeneueh hana izin keu ngieng laman nyoe.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "error-orgname-taken",
+    "before": "Nama organisasi itu sudah wujud",
+    "after": "Nan organisasi nyoe ka geungui",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "error-teamname-taken",
+    "before": "Nama kumpulan itu sudah wujud",
+    "after": "Nan tim nyoe ka geungui",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "error-user-doesNotExist",
+    "before": "Nama pengguna ini tidak ada",
+    "after": "Ureueng ngui nyoe hana",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "error-user-notAllowSelf",
+    "before": "Anda tidak bisa mengundang diri sendiri",
+    "after": "Droeneueh hana jeuet undang droe keudroe",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "error-user-notCreated",
+    "before": "Nama pengguna ini tidak dibuat",
+    "after": "Ureueng ngui nyoe hana geupeugot",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "error-username-taken",
+    "before": "Nama pengguna ini sudah dipakai",
+    "after": "Nan ureueng ngui nyoe ka geungui",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "error-watch-disabled",
+    "before": "Pemantauan papan dan kartu dimatikan oleh administrator",
+    "after": "Ngieng papan ngon kad ka geupeumate le admin",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "export-card-details",
+    "before": "Butiran kad (setiap kad seperti dalam eksport kad)",
+    "after": "Rincian kad (tiep kad lagee lam ekspor kad)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "export-select-what-to-include",
+    "before": "Pilih apa yang hendak disertakan:",
+    "after": "Pileh peue nyang keuneuk geupeutamong:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "filter-hide-empty",
+    "before": "Sembunyikan Senarai Kosong",
+    "after": "Som senarai kosong",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
