@@ -66750,5 +66750,89 @@
     "before": "`__predicate_archived__` - cartes qui ont été archivées.",
     "after": "`__predicate_archived__` - kartennoù diellaouet",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "globalSearch-instructions-status-ended",
+    "before": "`__predicate_ended__` - cartes ayant une date de fin.",
+    "after": "`__predicate_ended__` - kartennoù gant un deiziad dibenn",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "globalSearch-title",
+    "before": "Chercher dans tous les tableaux",
+    "after": "Enklask en holl daolennoù",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "has-overtime-cards",
+    "before": "A des cartes avec du temps supplémentaire",
+    "after": "Gant kartennoù o deus amzer ouzhpenn",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "has-spenttime-cards",
+    "before": "A des cartes avec du temps passé",
+    "after": "Gant kartennoù o deus amzer tremenet",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "header-logo-title",
+    "before": "Retourner à la page des tableaux",
+    "after": "Distreiñ da bajenn ho taolennoù.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "hide-checked-items",
+    "before": "Cacher les éléments cochés",
+    "after": "Kuzhat an elfennoù kevasket",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "hide-list-on-minicard",
+    "before": "Masquer la liste sur la mini-carte",
+    "after": "Kuzhat ar roll war ar gartennig",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "hide-minicard-label-text",
+    "before": "Cacher l'étiquette de la mini-carte",
+    "after": "Kuzhat testenn tikedenn ar gartennig",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "if-you-already-have-an-account",
+    "before": "Si vous avez déjà un compte",
+    "after": "Ma’z eus ur gont ganeoc’h dija",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "import-board-instruction-csv",
+    "before": "Déposez vos données en CSV (valeurs séparées par des virgules) ou TSV (valeurs séparées par des tabulations).",
+    "after": "Pegit ho roadennoù CSV (talvoudoù dispartiet gant skejoù)/TSV (talvoudoù dispartiet gant taolennata).",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "import-csv-placeholder",
+    "before": "Déposez ici vos données valides CSV/TSV",
+    "after": "Pegit ho roadennoù CSV/TSV talvoudek amañ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "import-json-placeholder",
+    "before": "Collez ici les données JSON valides",
+    "after": "Pegit ho roadennoù JSON talvoudek amañ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
