@@ -40,7 +40,7 @@ test('all expensive build stages share the timestamped log stream', () => {
   const at = source.indexOf('===== wekan build started');
   const flow = source.slice(at, source.indexOf('local rc="${PIPESTATUS[0]}"', at));
   for (const label of ['Remove dependencies and build caches', 'Compile app to resolve Meteor plugin npm dependencies', 'Install npm dependencies', 'Compile Meteor development bundle']) assert.ok(flow.includes(label));
-  assert.match(flow, /2>&1 \| tee "\$buildlog"/);
+  assert.match(flow, /2>&1 \| tee -a "\$\{buildlogs\[@\]\}"/);
   assert.match(flow, /meteor npm install \|\| return \$\?/);
 });
 

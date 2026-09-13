@@ -6,7 +6,7 @@ echo "Note1: If you use other locale than en_US.UTF-8 , you need to additionally
 echo "       with 'sudo dpkg-reconfigure locales' , so that MongoDB works correctly."
 echo "       You can still use any other locale as your main locale."
 echo "Note2: Console output is also logged to <logs>/wekan-log.log"
-echo "Note3: All logs this script produces go into a log/<datetime>/ directory -"
+echo "Note3: Build logs use .tools/log/build-<type>/YYYY-MM-DD/; tests use dated run directories."
 echo "       .tools/log/ inside this repository. The path is printed when a run"
 echo "       starts."
 echo "Note4: Two build directories, and they are not the same thing:"
@@ -357,6 +357,18 @@ function build_stage(){
 # Used by menu option 2 and auto-invoked by option 9 when .build is missing.
 # Also clears the rspack dev-build caches (_build and node_modules/.cache) so the
 # next `meteor run` recompiles from scratch instead of serving stale modules.
+# Daily build logs append subsequent runs, preserving their dated start/end markers.
+function build_log(){
+	local type="$1" name="$2" dir
+	case "$type/$name" in
+		build-dev-bundle/dev|build-release-bundle/release) ;;
+		*) echo "ERROR: unknown build log type: $type/$name" >&2; return 1 ;;
+	esac
+	dir="${WEKAN_LOG_ROOT:-.tools/log}/$type/$(date '+%Y-%m-%d')"
+	mkdir -p "$dir" || return $?
+	printf '%s/%s.txt' "$(cd "$dir" && pwd)" "$name"
+}
+
 function build_wekan(){
 	echo "Building WeKan."
 	# The build's output goes to the run's log directory, not only to the
@@ -370,7 +382,20 @@ function build_wekan(){
 	# snapshot mode below caps it. The failure message quoted the computed one
 	# either way, which read as "allowed 15542 MB and reached 4280 MB".
 	_effective_heap_mb="$_heap_mb"
-	buildlog="$(one_log build)"
+	local build_type=build-dev-bundle build_name=dev
+	if [ "${WEKAN_BUILD_RELEASE_BUNDLE:-0}" = "1" ]; then
+		build_type=build-release-bundle; build_name=release
+	fi
+	buildlog="$(build_log "$build_type" "$build_name")" || return $?
+	local buildlog_start_line=1
+	if [ -f "$buildlog" ]; then
+		buildlog_start_line=$(( $(wc -l < "$buildlog") + 1 ))
+	fi
+	local buildlogs=("$buildlog")
+	# EVERYTHING retains its existing run-level build log as well.
+	if [ -n "${WEKAN_LOGDIR:-}" ]; then
+		buildlogs+=("$(one_log build)")
+	fi
 	echo "Build log: $buildlog"
 
 	# WEKAN_BUILD_HEAP_SNAPSHOT=1 makes the build write a heap snapshot just
@@ -430,7 +455,7 @@ function build_wekan(){
 		local rc=$?
 		echo "===== wekan build finished $(date '+%F %T') (exit $rc) ====="
 		return $rc
-	} 2>&1 | tee "$buildlog"
+	} 2>&1 | tee -a "${buildlogs[@]}"
 	# The exit status of the pipeline is tee's; take the build's.
 	local rc="${PIPESTATUS[0]}"
 	if [ "$rc" -ne 0 ] || [ ! -d .build/bundle ]; then
@@ -438,9 +463,9 @@ function build_wekan(){
 		# Name the failure when it is one we can recognise, rather than leaving
 		# a V8 stack trace as the last word. Running out of heap and failing to
 		# compile look identical at this level and have nothing in common.
-		if grep -q "JavaScript heap out of memory" "$buildlog" 2>/dev/null; then
+		if tail -n +"$buildlog_start_line" "$buildlog" 2>/dev/null | grep -q "JavaScript heap out of memory"; then
 			local peak
-			peak="$(grep -ao 'Mark-Compact ([a-z ]*) [0-9.]*' "$buildlog" \
+			peak="$(tail -n +"$buildlog_start_line" "$buildlog" | grep -ao 'Mark-Compact ([a-z ]*) [0-9.]*' \
 				| tail -1 | awk '{print $NF}')"
 			# Appended to the log as well as printed. The whole point of the
 			# build log is that "check the newest test logs" answers the
@@ -490,7 +515,7 @@ function build_wekan(){
 	# hundred megabytes of binaries it will not use to test WeKan's source is
 	# the wrong trade.
 	if [ "${WEKAN_BUILD_RELEASE_BUNDLE:-0}" = "1" ]; then
-		build_stage "Prepare release bundle" bash releases/build-release-bundle.sh .build/bundle 2>&1 | tee -a "$buildlog"
+		build_stage "Prepare release bundle" bash releases/build-release-bundle.sh .build/bundle 2>&1 | tee -a "${buildlogs[@]}"
 		local rrc="${PIPESTATUS[0]}"
 		if [ "$rrc" -ne 0 ]; then
 			echo "ERROR: the bundle built, but the release post-processing failed. Its output is in $buildlog"

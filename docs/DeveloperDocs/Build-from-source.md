@@ -235,8 +235,11 @@ Or alternatively, delete wekan repo (if you did not need any changes you made), 
 
 The `build.sh` development bundle option announces cache removal, compilation to resolve Meteor plugin npm
 dependencies, dependency installation and compilation before each starts.
-Each stage streams its output to the terminal and the printed timestamped
-`wekan-build.log`. Quiet stages report elapsed time and their process ID every
+Each stage streams its output to the terminal and the printed daily build log:
+`.tools/log/build-dev-bundle/YYYY-MM-DD/dev.txt` for development bundles and
+`.tools/log/build-release-bundle/YYYY-MM-DD/release.txt` for release bundles.
+Subsequent builds append dated start/end markers instead of overwriting earlier
+output. EVERYTHING also keeps its existing run-level `wekan-build.log`. Quiet stages report elapsed time and their process ID every
 15 seconds; this indicates that the command is running, rather than a percentage
 of completion. Required cache removal or dependency installation failures stop
 the build. Meteor plugin npm dependency compilation remains best effort and reports a warning
