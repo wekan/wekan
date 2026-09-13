@@ -2799,5 +2799,12 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
     assert.doesNotMatch(cache.qu[key], /Kay willaymi|gray|purple/, key);
     assert.notEqual(value, cache.qu['color-blue']);
   }
+  const quechuaMetalColors = {"color-gold": "quri llimpi", "color-silver": "qullqi llimpi"};
+  for (const [key, value] of Object.entries(quechuaMetalColors)) {
+    assert.equal(cache.qu[key], value, key);
+    assert.match(value, / llimpi$/);
+    assert.doesNotMatch(value, /Kay willaymi|gold|silver/);
+  }
+  assert.notEqual(cache.qu['color-gold'], cache.qu['color-silver']);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });
