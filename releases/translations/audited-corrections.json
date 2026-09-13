@@ -83046,5 +83046,61 @@
     "before": "`__predicate_ended__` - cartes ayant une date de fin.",
     "after": "`__predicate_ended__` - karta yi am bisu jeex",
     "reason": "Replace French with Wolof; preserve creator-or-member notification scope, unsaved description, permanent vote activity loss, archived-list warning, task count exceeding configured WIP and end-date existence predicate. WIP/notification phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "keyboard-shortcuts",
+    "before": "Raccourcis clavier",
+    "after": "Yooni gaaw yu klawiye",
+    "reason": "Replace French with Wolof; preserve keyboard-shortcut enabled/disabled actions and list display, check versus uncheck all, mobile/desktop mode toggle and desktop dragging controls. Keyboard/handle loanwords and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "keyboard-shortcuts-disabled",
+    "before": "Raccourcis clavier désactivés. Cliquer pour activer.",
+    "after": "Yooni gaaw yu klawiye yi doxuñu. Bësal ngir doxal leen.",
+    "reason": "Replace French with Wolof; preserve keyboard-shortcut enabled/disabled actions and list display, check versus uncheck all, mobile/desktop mode toggle and desktop dragging controls. Keyboard/handle loanwords and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "keyboard-shortcuts-enabled",
+    "before": "Raccourcis clavier activés. Cliquer pour désactiver.",
+    "after": "Yooni gaaw yu klawiye yi dañuy dox. Bësal ngir taxawal leen.",
+    "reason": "Replace French with Wolof; preserve keyboard-shortcut enabled/disabled actions and list display, check versus uncheck all, mobile/desktop mode toggle and desktop dragging controls. Keyboard/handle loanwords and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "shortcut-show-shortcuts",
+    "before": "Afficher cette liste de raccourcis",
+    "after": "Wone limu yooni gaaw bii",
+    "reason": "Replace French with Wolof; preserve keyboard-shortcut enabled/disabled actions and list display, check versus uncheck all, mobile/desktop mode toggle and desktop dragging controls. Keyboard/handle loanwords and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "r-d-check-all",
+    "before": "Cocher tous les éléments d'une liste",
+    "after": "Màndargaal mbir yépp ci limu bi",
+    "reason": "Replace French with Wolof; preserve keyboard-shortcut enabled/disabled actions and list display, check versus uncheck all, mobile/desktop mode toggle and desktop dragging controls. Keyboard/handle loanwords and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "r-d-uncheck-all",
+    "before": "Décocher tous les éléments d'une liste",
+    "after": "Dindi màndarga yi ci mbir yépp ci limu bi",
+    "reason": "Replace French with Wolof; preserve keyboard-shortcut enabled/disabled actions and list display, check versus uncheck all, mobile/desktop mode toggle and desktop dragging controls. Keyboard/handle loanwords and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "mobile-desktop-toggle",
+    "before": "Basculer entre le mode mobile et le mode bureau",
+    "after": "Soppi diggante doxinu telefon ak doxinu ordineer",
+    "reason": "Replace French with Wolof; preserve keyboard-shortcut enabled/disabled actions and list display, check versus uncheck all, mobile/desktop mode toggle and desktop dragging controls. Keyboard/handle loanwords and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "show-desktop-drag-handles",
+    "before": "Voir les poignées de déplacement du bureau",
+    "after": "Wone jàppukaay yi ngir xëcc ci doxinu ordineer",
+    "reason": "Replace French with Wolof; preserve keyboard-shortcut enabled/disabled actions and list display, check versus uncheck all, mobile/desktop mode toggle and desktop dragging controls. Keyboard/handle loanwords and full grammar remain low confidence."
   }
 ]
