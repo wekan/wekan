@@ -1102,6 +1102,19 @@ no mirroring or publishing commands were executed for this audit.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/1666a2012">Match browser languages when no member language is saved</a>. Thanks to xet7.</summary>
+
+Check browser preferences in order, including standard tags for legacy Veps,
+Venetian, Flemish, Waray, Latin American Spanish and Uzbek script locales.
+A supported saved profile choice wins; unsupported preferences fall back to
+English. Browser languagechange updates the display without saving a choice.
+All 245 locale and preference checks pass; UI coverage is syntax-checked with
+execution pending. Also fix Portuguese Portugal upload mapping in
+<a href="https://github.com/wekan/wekan/commit/0c0adb48b">the Portuguese mapping repair</a>; offline upload and loader checks pass.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/8549b6c4c">Show country and language flags in the language popup</a>. Thanks to xet7.</summary>
 
 Check all 245 popup locales and every translation file. Regional entries show

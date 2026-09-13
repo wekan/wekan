@@ -23,15 +23,15 @@ test('language popup lists every locale and orders country before language flags
 
 test('missing profile language follows browser preferences; saved choice wins', async ({ boardPage, user }) => {
   const db = require('../helpers/db');
-  db.updateOne('users', {_id:user._id}, {$unset:{'profile.language':''}});
+  db.updateOne('users', {_id:user.id}, {$unset:{'profile.language':''}});
   await boardPage.addInitScript(() => {
     Object.defineProperty(navigator, 'languages', {configurable:true, get:() => ['zz-ZZ', 'vep']});
     Object.defineProperty(navigator, 'language', {configurable:true, get:() => 'zz-ZZ'});
   });
   await boardPage.reload();
   await expect(boardPage.locator('html')).toHaveAttribute('lang','ve-PP');
-  expect(db.findOne('users',{_id:user._id}).profile?.language).toBeUndefined();
-  db.updateOne('users', {_id:user._id}, {$set:{'profile.language':'de'}});
+  expect(db.findOne('users',{_id:user.id}).profile?.language).toBeUndefined();
+  db.updateOne('users', {_id:user.id}, {$set:{'profile.language':'de'}});
   await boardPage.reload();
   await expect(boardPage.locator('html')).toHaveAttribute('lang','de');
 });
