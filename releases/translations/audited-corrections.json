@@ -112446,5 +112446,68 @@
     "before": "Unyaka ongavumelekile. Thayipha zonke izinombolo ezine, isibonelo 2026.",
     "after": "Vär vozʹ. Kirjuta kaik nelʹlʹ cifrad, ozutesikš 2026.",
     "reason": "Replace the unrelated Zulu year warning with a direct Veps composition. Dictionary at https://kaikki.org/dictionary/Veps/index.html confirms vär, vozʹ, kirjuta, kaik, nelʹlʹ; ozutesikš is attested in the Veps Wikipedia Korean-language article. Keep all-four-digit instruction and 2026 example. LOW CONFIDENCE: cifrad digit terminology and sentence grammar lack independent verification and require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "password",
+    "before": "Salasana",
+    "after": "Peitsana",
+    "reason": "Replace Finnish UI labels with software-attested Veps vocabulary in the current MediaWiki Veps translation file, https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: userlogin-yourpassword Peitsana, mypreferences Valičused, savearticle Kaiče lehtpol’, delete/cancel Heitä, help Abu. Save is the native imperative without the unrelated page noun. Preserve other correct-language values."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "smtp-password",
+    "before": "Salasana",
+    "after": "Peitsana",
+    "reason": "Replace Finnish UI labels with software-attested Veps vocabulary in the current MediaWiki Veps translation file, https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: userlogin-yourpassword Peitsana, mypreferences Valičused, savearticle Kaiče lehtpol’, delete/cancel Heitä, help Abu. Save is the native imperative without the unrelated page noun. Preserve other correct-language values."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "settings",
+    "before": "Asetukset",
+    "after": "Valičused",
+    "reason": "Replace Finnish UI labels with software-attested Veps vocabulary in the current MediaWiki Veps translation file, https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: userlogin-yourpassword Peitsana, mypreferences Valičused, savearticle Kaiče lehtpol’, delete/cancel Heitä, help Abu. Save is the native imperative without the unrelated page noun. Preserve other correct-language values."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "allBoardsMenuPopup-title",
+    "before": "Asetukset",
+    "after": "Valičused",
+    "reason": "Replace Finnish UI labels with software-attested Veps vocabulary in the current MediaWiki Veps translation file, https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: userlogin-yourpassword Peitsana, mypreferences Valičused, savearticle Kaiče lehtpol’, delete/cancel Heitä, help Abu. Save is the native imperative without the unrelated page noun. Preserve other correct-language values."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "save",
+    "before": "Tallenna",
+    "after": "Kaiče",
+    "reason": "Replace Finnish UI labels with software-attested Veps vocabulary in the current MediaWiki Veps translation file, https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: userlogin-yourpassword Peitsana, mypreferences Valičused, savearticle Kaiče lehtpol’, delete/cancel Heitä, help Abu. Save is the native imperative without the unrelated page noun. Preserve other correct-language values."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "delete",
+    "before": "Poista",
+    "after": "Heitä",
+    "reason": "Replace Finnish UI labels with software-attested Veps vocabulary in the current MediaWiki Veps translation file, https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: userlogin-yourpassword Peitsana, mypreferences Valičused, savearticle Kaiče lehtpol’, delete/cancel Heitä, help Abu. Save is the native imperative without the unrelated page noun. Preserve other correct-language values."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "cancel",
+    "before": "Peruuta",
+    "after": "Heitä",
+    "reason": "Replace Finnish UI labels with software-attested Veps vocabulary in the current MediaWiki Veps translation file, https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: userlogin-yourpassword Peitsana, mypreferences Valičused, savearticle Kaiče lehtpol’, delete/cancel Heitä, help Abu. Save is the native imperative without the unrelated page noun. Preserve other correct-language values."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "move-progress-cancel",
+    "before": "Peruuta",
+    "after": "Heitä",
+    "reason": "Replace Finnish UI labels with software-attested Veps vocabulary in the current MediaWiki Veps translation file, https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: userlogin-yourpassword Peitsana, mypreferences Valičused, savearticle Kaiče lehtpol’, delete/cancel Heitä, help Abu. Save is the native imperative without the unrelated page noun. Preserve other correct-language values."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "help",
+    "before": "Ohje",
+    "after": "Abu",
+    "reason": "Replace Finnish UI labels with software-attested Veps vocabulary in the current MediaWiki Veps translation file, https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: userlogin-yourpassword Peitsana, mypreferences Valičused, savearticle Kaiče lehtpol’, delete/cancel Heitä, help Abu. Save is the native imperative without the unrelated page noun. Preserve other correct-language values."
   }
 ]

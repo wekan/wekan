@@ -231,5 +231,14 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.equal(cache['ve-PP']['invalid-year'], 'Vär vozʹ. Kirjuta kaik nelʹlʹ cifrad, ozutesikš 2026.');
   assert.match(cache['ve-PP']['invalid-year'], /Kirjuta kaik nelʹlʹ.*2026/);
   assert.doesNotMatch(cache['ve-PP']['invalid-year'], /Unyaka|Thayipha|izinombolo/);
+  for (const [key, value] of Object.entries({
+    password: 'Peitsana', 'smtp-password': 'Peitsana',
+    settings: 'Valičused', 'allBoardsMenuPopup-title': 'Valičused',
+    save: 'Kaiče', delete: 'Heitä', cancel: 'Heitä',
+    'move-progress-cancel': 'Heitä', help: 'Abu',
+  })) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.doesNotMatch(cache['ve-PP'][key], /Salasana|Asetukset|Tallenna|Poista|Peruuta|Ohje/, key);
+  }
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });
