@@ -84915,5 +84915,68 @@
     "before": "Islamic (Saudi Arabia)",
     "after": "Khalendara ya Hijri (Saudi Arabia, go bona ngwedi)",
     "reason": "Replace English-only calendar labels with Setswana calendar and national/sighting descriptions; retain Ethiopia, India, Saudi Arabia and Amete Alem identifiers. Setswana naga and ngwedi vocabulary appears at https://www.jw.org/tn/laeborari/dimakasine/g20020908/Fa-go-Nna-Bosigo-go-le-Motshegare/ . Full assembled grammar and country spellings remain low confidence; country lookup did not establish localized names. Coptic and tabular epoch variants remain pending."
+  },
+  {
+    "locale": "ts",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "Maendlelo ya khalendara (ku kombisiwa ka siku)",
+    "reason": "Replace foreign-language setting and English calendar labels with Tsonga; preserve Dangi, Hijri, Umm al-Qura, Minguo and ISO identifiers and restore ISO week detail. Exact Khalendara ya Xiheveru attested at https://www.jw.org/ts/layiburari/bibele/nwt/xiengetelo-b/khalendara-ya-xiheveru-ya-le-bibeleni/ ; Chayina and Japani at https://www.jw.org/ts/layiburari/timagazini/g201310/ta-rivala/ ; vhiki and mavhiki supported by the calendar page and https://cfp2.jw-cdn.org/a/ee416b/1/o/ay_TS.pdf . Setting and other assembled grammar remain low confidence; religious/country/tabular epoch labels and unflagged date controls need review."
+  },
+  {
+    "locale": "ts",
+    "key": "calendar-system-hebrew",
+    "before": "Hebrew",
+    "after": "Khalendara ya Xiheveru",
+    "reason": "Replace foreign-language setting and English calendar labels with Tsonga; preserve Dangi, Hijri, Umm al-Qura, Minguo and ISO identifiers and restore ISO week detail. Exact Khalendara ya Xiheveru attested at https://www.jw.org/ts/layiburari/bibele/nwt/xiengetelo-b/khalendara-ya-xiheveru-ya-le-bibeleni/ ; Chayina and Japani at https://www.jw.org/ts/layiburari/timagazini/g201310/ta-rivala/ ; vhiki and mavhiki supported by the calendar page and https://cfp2.jw-cdn.org/a/ee416b/1/o/ay_TS.pdf . Setting and other assembled grammar remain low confidence; religious/country/tabular epoch labels and unflagged date controls need review."
+  },
+  {
+    "locale": "ts",
+    "key": "calendar-system-chinese",
+    "before": "Chinese",
+    "after": "Khalendara ya Chayina",
+    "reason": "Replace foreign-language setting and English calendar labels with Tsonga; preserve Dangi, Hijri, Umm al-Qura, Minguo and ISO identifiers and restore ISO week detail. Exact Khalendara ya Xiheveru attested at https://www.jw.org/ts/layiburari/bibele/nwt/xiengetelo-b/khalendara-ya-xiheveru-ya-le-bibeleni/ ; Chayina and Japani at https://www.jw.org/ts/layiburari/timagazini/g201310/ta-rivala/ ; vhiki and mavhiki supported by the calendar page and https://cfp2.jw-cdn.org/a/ee416b/1/o/ay_TS.pdf . Setting and other assembled grammar remain low confidence; religious/country/tabular epoch labels and unflagged date controls need review."
+  },
+  {
+    "locale": "ts",
+    "key": "calendar-system-japanese",
+    "before": "Japanese",
+    "after": "Khalendara ya Japani",
+    "reason": "Replace foreign-language setting and English calendar labels with Tsonga; preserve Dangi, Hijri, Umm al-Qura, Minguo and ISO identifiers and restore ISO week detail. Exact Khalendara ya Xiheveru attested at https://www.jw.org/ts/layiburari/bibele/nwt/xiengetelo-b/khalendara-ya-xiheveru-ya-le-bibeleni/ ; Chayina and Japani at https://www.jw.org/ts/layiburari/timagazini/g201310/ta-rivala/ ; vhiki and mavhiki supported by the calendar page and https://cfp2.jw-cdn.org/a/ee416b/1/o/ay_TS.pdf . Setting and other assembled grammar remain low confidence; religious/country/tabular epoch labels and unflagged date controls need review."
+  },
+  {
+    "locale": "ts",
+    "key": "calendar-system-dangi",
+    "before": "Dangi (Korean)",
+    "after": "Khalendara ya Dangi",
+    "reason": "Replace foreign-language setting and English calendar labels with Tsonga; preserve Dangi, Hijri, Umm al-Qura, Minguo and ISO identifiers and restore ISO week detail. Exact Khalendara ya Xiheveru attested at https://www.jw.org/ts/layiburari/bibele/nwt/xiengetelo-b/khalendara-ya-xiheveru-ya-le-bibeleni/ ; Chayina and Japani at https://www.jw.org/ts/layiburari/timagazini/g201310/ta-rivala/ ; vhiki and mavhiki supported by the calendar page and https://cfp2.jw-cdn.org/a/ee416b/1/o/ay_TS.pdf . Setting and other assembled grammar remain low confidence; religious/country/tabular epoch labels and unflagged date controls need review."
+  },
+  {
+    "locale": "ts",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "Khalendara ya Hijri",
+    "reason": "Replace foreign-language setting and English calendar labels with Tsonga; preserve Dangi, Hijri, Umm al-Qura, Minguo and ISO identifiers and restore ISO week detail. Exact Khalendara ya Xiheveru attested at https://www.jw.org/ts/layiburari/bibele/nwt/xiengetelo-b/khalendara-ya-xiheveru-ya-le-bibeleni/ ; Chayina and Japani at https://www.jw.org/ts/layiburari/timagazini/g201310/ta-rivala/ ; vhiki and mavhiki supported by the calendar page and https://cfp2.jw-cdn.org/a/ee416b/1/o/ay_TS.pdf . Setting and other assembled grammar remain low confidence; religious/country/tabular epoch labels and unflagged date controls need review."
+  },
+  {
+    "locale": "ts",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "Khalendara ya Hijri (Umm al-Qura)",
+    "reason": "Replace foreign-language setting and English calendar labels with Tsonga; preserve Dangi, Hijri, Umm al-Qura, Minguo and ISO identifiers and restore ISO week detail. Exact Khalendara ya Xiheveru attested at https://www.jw.org/ts/layiburari/bibele/nwt/xiengetelo-b/khalendara-ya-xiheveru-ya-le-bibeleni/ ; Chayina and Japani at https://www.jw.org/ts/layiburari/timagazini/g201310/ta-rivala/ ; vhiki and mavhiki supported by the calendar page and https://cfp2.jw-cdn.org/a/ee416b/1/o/ay_TS.pdf . Setting and other assembled grammar remain low confidence; religious/country/tabular epoch labels and unflagged date controls need review."
+  },
+  {
+    "locale": "ts",
+    "key": "calendar-system-roc",
+    "before": "Republic of China",
+    "after": "Khalendara ya Minguo",
+    "reason": "Replace foreign-language setting and English calendar labels with Tsonga; preserve Dangi, Hijri, Umm al-Qura, Minguo and ISO identifiers and restore ISO week detail. Exact Khalendara ya Xiheveru attested at https://www.jw.org/ts/layiburari/bibele/nwt/xiengetelo-b/khalendara-ya-xiheveru-ya-le-bibeleni/ ; Chayina and Japani at https://www.jw.org/ts/layiburari/timagazini/g201310/ta-rivala/ ; vhiki and mavhiki supported by the calendar page and https://cfp2.jw-cdn.org/a/ee416b/1/o/ay_TS.pdf . Setting and other assembled grammar remain low confidence; religious/country/tabular epoch labels and unflagged date controls need review."
+  },
+  {
+    "locale": "ts",
+    "key": "calendar-system-iso8601",
+    "before": "ISO 8601",
+    "after": "Khalendara ya Gregoriana (mavhiki ya ISO 8601)",
+    "reason": "Replace foreign-language setting and English calendar labels with Tsonga; preserve Dangi, Hijri, Umm al-Qura, Minguo and ISO identifiers and restore ISO week detail. Exact Khalendara ya Xiheveru attested at https://www.jw.org/ts/layiburari/bibele/nwt/xiengetelo-b/khalendara-ya-xiheveru-ya-le-bibeleni/ ; Chayina and Japani at https://www.jw.org/ts/layiburari/timagazini/g201310/ta-rivala/ ; vhiki and mavhiki supported by the calendar page and https://cfp2.jw-cdn.org/a/ee416b/1/o/ay_TS.pdf . Setting and other assembled grammar remain low confidence; religious/country/tabular epoch labels and unflagged date controls need review."
   }
 ]
