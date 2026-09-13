@@ -91180,5 +91180,54 @@
     "before": "Cette opération restaurera TOUS les couloirs, listes et cartes archivés, les rendant à nouveau visibles. Les éléments avec des identifiants manquants seront automatiquement corrigés. Cette action ne peut pas être facilement annulée. Continuer ?",
     "after": "At osädunon ragivi dilas horitätik, lisedas e kadas VALIK, e ojonon onis dönu. Notets ko IDs nedabinöl itjäfidiko peverätükons. No kanoy fasilo sädunön atosi. Progedön-li?",
     "reason": "Replace French legacy recovery-migration strings with Volapük; server/imports.js documents these migrations were removed, so this changes retained translations only, not migration behavior. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests peperöl (lost), fasilo (easily), sädunön (undo), tuvön (find), jonön (show), ragiv (archive), jafön (create), verätükön (correct), and itjäfidik (automatic). Unarchive is paraphrased as undoing archiving; restore lost items as making them visible again. Preserve swimlaneId/listId/IDs technical names, literal Lost Cards recovery-column name, all swimlanes/lists/cards versus cards/lists, non-archived-only scope, automatic missing-ID repairs and difficult-to-undo warning. Nedabinöl and peragivöl are derived software wording; assembled translations remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "smtp-host",
+    "before": "Hôte SMTP",
+    "after": "Dünädian SMTP",
+    "reason": "Replace French SMTP/troubleshooting values and Esperanto SMTP username with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests ladet (address), guvön (administer), stitön (install), sedön (send), dunön (do) and pöl (error); MediaWiki Volapük and existing local terminology attest dünädian (computer server), geban (user), nem (name) and pened leäktronik (email). Port remains a technical borrowing, not translated as harbor. Preserve SMTP/TLS, server address, outgoing email port, TLS enablement and both exact sudo diagnostic commands, snap versus Docker and two actual source line breaks. Assembled software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "smtp-username",
+    "before": "Uzantnomo",
+    "after": "Gebananem",
+    "reason": "Replace French SMTP/troubleshooting values and Esperanto SMTP username with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests ladet (address), guvön (administer), stitön (install), sedön (send), dunön (do) and pöl (error); MediaWiki Volapük and existing local terminology attest dünädian (computer server), geban (user), nem (name) and pened leäktronik (email). Port remains a technical borrowing, not translated as harbor. Preserve SMTP/TLS, server address, outgoing email port, TLS enablement and both exact sudo diagnostic commands, snap versus Docker and two actual source line breaks. Assembled software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "smtp-tls",
+    "before": "Prise en charge de TLS",
+    "after": "Geb TLS",
+    "reason": "Replace French SMTP/troubleshooting values and Esperanto SMTP username with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests ladet (address), guvön (administer), stitön (install), sedön (send), dunön (do) and pöl (error); MediaWiki Volapük and existing local terminology attest dünädian (computer server), geban (user), nem (name) and pened leäktronik (email). Port remains a technical borrowing, not translated as harbor. Preserve SMTP/TLS, server address, outgoing email port, TLS enablement and both exact sudo diagnostic commands, snap versus Docker and two actual source line breaks. Assembled software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "smtp-host-description",
+    "before": "L'adresse du serveur SMTP qui gère vos courriels.",
+    "after": "Ladet dünädiana SMTP, kel guvon penedis leäktronik olik.",
+    "reason": "Replace French SMTP/troubleshooting values and Esperanto SMTP username with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests ladet (address), guvön (administer), stitön (install), sedön (send), dunön (do) and pöl (error); MediaWiki Volapük and existing local terminology attest dünädian (computer server), geban (user), nem (name) and pened leäktronik (email). Port remains a technical borrowing, not translated as harbor. Preserve SMTP/TLS, server address, outgoing email port, TLS enablement and both exact sudo diagnostic commands, snap versus Docker and two actual source line breaks. Assembled software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "smtp-port-description",
+    "before": "Le port du serveur SMTP utilisé pour les courriels sortants.",
+    "after": "Port, keli dünädian SMTP olik gebon ad sedön penedis leäktronik.",
+    "reason": "Replace French SMTP/troubleshooting values and Esperanto SMTP username with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests ladet (address), guvön (administer), stitön (install), sedön (send), dunön (do) and pöl (error); MediaWiki Volapük and existing local terminology attest dünädian (computer server), geban (user), nem (name) and pened leäktronik (email). Port remains a technical borrowing, not translated as harbor. Preserve SMTP/TLS, server address, outgoing email port, TLS enablement and both exact sudo diagnostic commands, snap versus Docker and two actual source line breaks. Assembled software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "smtp-tls-description",
+    "before": "Activer la gestion de TLS sur le serveur SMTP",
+    "after": "Gebön TLS pro dünädian SMTP",
+    "reason": "Replace French SMTP/troubleshooting values and Esperanto SMTP username with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests ladet (address), guvön (administer), stitön (install), sedön (send), dunön (do) and pöl (error); MediaWiki Volapük and existing local terminology attest dünädian (computer server), geban (user), nem (name) and pened leäktronik (email). Port remains a technical borrowing, not translated as harbor. Preserve SMTP/TLS, server address, outgoing email port, TLS enablement and both exact sudo diagnostic commands, snap versus Docker and two actual source line breaks. Assembled software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "server-error-troubleshooting",
+    "before": "Merci de soumettre l'erreur générée par le serveur. Pour une installation snap, lancer `sudo snap logs wekan.wekan`. Pour une installation docker, lancer `sudo docker logs wekan-app`",
+    "after": "Begö, sedolös pöli pejaföl fa dünädian.\nPro stitam snap, dunolös: `sudo snap logs wekan.wekan`\nPro stitam Docker, dunolös: `sudo docker logs wekan-app`",
+    "reason": "Replace French SMTP/troubleshooting values and Esperanto SMTP username with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests ladet (address), guvön (administer), stitön (install), sedön (send), dunön (do) and pöl (error); MediaWiki Volapük and existing local terminology attest dünädian (computer server), geban (user), nem (name) and pened leäktronik (email). Port remains a technical borrowing, not translated as harbor. Preserve SMTP/TLS, server address, outgoing email port, TLS enablement and both exact sudo diagnostic commands, snap versus Docker and two actual source line breaks. Assembled software wording remains low confidence pending native review."
   }
 ]
