@@ -2511,5 +2511,8 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.match(vepsTranslator.t('r-board-note'), /jäta pöud tühjaks.*jogaha voimusižehe znamoičendaha/);
   assert.match(vepsTranslator.t('quick-access-description'), /Znamoiče laud tähthanke.*ližata laudan link necile šoidule/);
   assert.equal(cache['ve-PP']['click-to-star'], 'Painda, miše znamoita nece laud tähthanke.', 'preserve the existing star hint');
+  assert.equal(vepsTranslator.t('act-atUserComment', { card: 'CARD', comment: 'COMMENT', list: 'LIST', swimlane: 'SWIMLANE', board: 'BOARD' }),
+    'Nimiti sinud kartal CARD: COMMENT lugetišes LIST ujundšoidul SWIMLANE laudal BOARD');
+  assert.doesNotMatch(cache['ve-PP']['act-atUserComment'], /mainitsi sinut|kortilla|listalla|uimaradalla|taululla/);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });

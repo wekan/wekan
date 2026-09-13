@@ -119859,5 +119859,12 @@
     "before": "Merkkaa taulu tähdellä lisätäksesi pikavalinta tähän palkkiin.",
     "after": "Znamoiče laud tähthanke, miše ližata laudan link necile šoidule.",
     "reason": "Replace Finnish rule wildcard and quick-access guidance with Veps. Empty field matches every possible value, while starring adds a board link to this navigation bar. Dictionary tühj, jätta, voimusi(ne), znamoičend, sättuda with illative complement and šoid; native MediaWiki Znamoiče and existing laud/tähthanke/ližata. Low confidence: composed wildcard sentence and navigation-bar adaptation need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "act-atUserComment",
+    "before": "mainitsi sinut kortilla __card__: __comment__ listalla __list__ uimaradalla __swimlane__ taululla __board__",
+    "after": "Nimiti sinud kartal __card__: __comment__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
+    "reason": "Replace Finnish mention notification with Veps, using dictionary nimitada(-ab,-i) for naming/mentioning and existing kartal, lugetišes, ujundšoidul and laudal. Preserve all five exact placeholders and comment position. Low confidence: UI mention adaptation and composed notification grammar require fluent review."
   }
 ]

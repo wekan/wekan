@@ -1526,7 +1526,7 @@
   "act-almostdue": "Johtuti: kartan __card__ nügüdläine märaig (__timeValue__) läheneb",
   "act-pastdue": "Johtuti: kartan __card__ nügüdläine märaig (__timeValue__) om männu",
   "act-duenow": "Johtuti: kartan __card__ nügüdläine märaig (__timeValue__) om nügüd'",
-  "act-atUserComment": "mainitsi sinut kortilla __card__: __comment__ listalla __list__ uimaradalla __swimlane__ taululla __board__",
+  "act-atUserComment": "Nimiti sinud kartal __card__: __comment__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
   "delete-user-confirm-popup": "Oled-ik sinä tozi mugošt mel’t, miše tahtoid heitta necen akkauntan? Necidä ei sa pördutada.",
   "delete-team-confirm-popup": "Oled-ik sinä tozi mugošt mel’t, miše tahtoid heitta necidä joukud? Necidä ei sa pördutada.",
   "delete-org-confirm-popup": "Oled-ik sinä tozi mugošt mel’t, miše tahtoid heitta necidä sebrad? Necidä ei sa pördutada.",
