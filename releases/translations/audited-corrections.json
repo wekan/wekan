@@ -84264,5 +84264,82 @@
     "before": "Gregoriana",
     "after": "ʻAlemanaka Gregoriana",
     "reason": "Replace English Buddhist calendar label using Hawaiian Buda attested in the native title at https://www.hawaiijodo.net/ and https://www.wahinebudafilm.com/; restore calendar noun consistently for Gregorian. Individual terminology is attested, but complete label grammar remains low confidence. Coptic and civil/astronomical/sighting Hijri terminology remain unresolved."
+  },
+  {
+    "locale": "fj",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "iVakarau ni ivolanivula (vakaraitaki ni siga)",
+    "reason": "Replace foreign-language setting and English calendar labels with Fijian, preserving proper calendar identities and national/ISO week qualifiers. iVolanivula vakaIperiu attested at https://www.jw.org/fj/ka-e-vakarautaki/ivolatabu/nwt/ikuri-b/iperiu-ivolanivula-ivolatabu/; country/religion terms attested at https://www.jw.org/fj/ka-e-vakarautaki/ivola/ivolaniyabaki-2016/idonisia/ivakamacala-lekaleka/ and https://www.jw.org/fj/ka-e-vakarautaki/mekesini/g201310/digovi-vuravura/. Complete adapted label grammar remains low confidence; remaining Coptic/Ethiopic/Dangi and Hijri epoch/sighting labels need review."
+  },
+  {
+    "locale": "fj",
+    "key": "calendar-system-jalali",
+    "before": "Jalali (Fars)",
+    "after": "iVolanivula Jalali (vakaPerisia)",
+    "reason": "Replace foreign-language setting and English calendar labels with Fijian, preserving proper calendar identities and national/ISO week qualifiers. iVolanivula vakaIperiu attested at https://www.jw.org/fj/ka-e-vakarautaki/ivolatabu/nwt/ikuri-b/iperiu-ivolanivula-ivolatabu/; country/religion terms attested at https://www.jw.org/fj/ka-e-vakarautaki/ivola/ivolaniyabaki-2016/idonisia/ivakamacala-lekaleka/ and https://www.jw.org/fj/ka-e-vakarautaki/mekesini/g201310/digovi-vuravura/. Complete adapted label grammar remains low confidence; remaining Coptic/Ethiopic/Dangi and Hijri epoch/sighting labels need review."
+  },
+  {
+    "locale": "fj",
+    "key": "calendar-system-buddhist",
+    "before": "Buddhist",
+    "after": "iVolanivula vakaBuda",
+    "reason": "Replace foreign-language setting and English calendar labels with Fijian, preserving proper calendar identities and national/ISO week qualifiers. iVolanivula vakaIperiu attested at https://www.jw.org/fj/ka-e-vakarautaki/ivolatabu/nwt/ikuri-b/iperiu-ivolanivula-ivolatabu/; country/religion terms attested at https://www.jw.org/fj/ka-e-vakarautaki/ivola/ivolaniyabaki-2016/idonisia/ivakamacala-lekaleka/ and https://www.jw.org/fj/ka-e-vakarautaki/mekesini/g201310/digovi-vuravura/. Complete adapted label grammar remains low confidence; remaining Coptic/Ethiopic/Dangi and Hijri epoch/sighting labels need review."
+  },
+  {
+    "locale": "fj",
+    "key": "calendar-system-chinese",
+    "before": "Chinese",
+    "after": "iVolanivula vakaJaina",
+    "reason": "Replace foreign-language setting and English calendar labels with Fijian, preserving proper calendar identities and national/ISO week qualifiers. iVolanivula vakaIperiu attested at https://www.jw.org/fj/ka-e-vakarautaki/ivolatabu/nwt/ikuri-b/iperiu-ivolanivula-ivolatabu/; country/religion terms attested at https://www.jw.org/fj/ka-e-vakarautaki/ivola/ivolaniyabaki-2016/idonisia/ivakamacala-lekaleka/ and https://www.jw.org/fj/ka-e-vakarautaki/mekesini/g201310/digovi-vuravura/. Complete adapted label grammar remains low confidence; remaining Coptic/Ethiopic/Dangi and Hijri epoch/sighting labels need review."
+  },
+  {
+    "locale": "fj",
+    "key": "calendar-system-hebrew",
+    "before": "Hebrew",
+    "after": "iVolanivula vakaIperiu",
+    "reason": "Replace foreign-language setting and English calendar labels with Fijian, preserving proper calendar identities and national/ISO week qualifiers. iVolanivula vakaIperiu attested at https://www.jw.org/fj/ka-e-vakarautaki/ivolatabu/nwt/ikuri-b/iperiu-ivolanivula-ivolatabu/; country/religion terms attested at https://www.jw.org/fj/ka-e-vakarautaki/ivola/ivolaniyabaki-2016/idonisia/ivakamacala-lekaleka/ and https://www.jw.org/fj/ka-e-vakarautaki/mekesini/g201310/digovi-vuravura/. Complete adapted label grammar remains low confidence; remaining Coptic/Ethiopic/Dangi and Hijri epoch/sighting labels need review."
+  },
+  {
+    "locale": "fj",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "iVolanivula vakamatanitu ni Idia",
+    "reason": "Replace foreign-language setting and English calendar labels with Fijian, preserving proper calendar identities and national/ISO week qualifiers. iVolanivula vakaIperiu attested at https://www.jw.org/fj/ka-e-vakarautaki/ivolatabu/nwt/ikuri-b/iperiu-ivolanivula-ivolatabu/; country/religion terms attested at https://www.jw.org/fj/ka-e-vakarautaki/ivola/ivolaniyabaki-2016/idonisia/ivakamacala-lekaleka/ and https://www.jw.org/fj/ka-e-vakarautaki/mekesini/g201310/digovi-vuravura/. Complete adapted label grammar remains low confidence; remaining Coptic/Ethiopic/Dangi and Hijri epoch/sighting labels need review."
+  },
+  {
+    "locale": "fj",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "iVolanivula Hijri",
+    "reason": "Replace foreign-language setting and English calendar labels with Fijian, preserving proper calendar identities and national/ISO week qualifiers. iVolanivula vakaIperiu attested at https://www.jw.org/fj/ka-e-vakarautaki/ivolatabu/nwt/ikuri-b/iperiu-ivolanivula-ivolatabu/; country/religion terms attested at https://www.jw.org/fj/ka-e-vakarautaki/ivola/ivolaniyabaki-2016/idonisia/ivakamacala-lekaleka/ and https://www.jw.org/fj/ka-e-vakarautaki/mekesini/g201310/digovi-vuravura/. Complete adapted label grammar remains low confidence; remaining Coptic/Ethiopic/Dangi and Hijri epoch/sighting labels need review."
+  },
+  {
+    "locale": "fj",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "iVolanivula Hijri (Umm al-Qura)",
+    "reason": "Replace foreign-language setting and English calendar labels with Fijian, preserving proper calendar identities and national/ISO week qualifiers. iVolanivula vakaIperiu attested at https://www.jw.org/fj/ka-e-vakarautaki/ivolatabu/nwt/ikuri-b/iperiu-ivolanivula-ivolatabu/; country/religion terms attested at https://www.jw.org/fj/ka-e-vakarautaki/ivola/ivolaniyabaki-2016/idonisia/ivakamacala-lekaleka/ and https://www.jw.org/fj/ka-e-vakarautaki/mekesini/g201310/digovi-vuravura/. Complete adapted label grammar remains low confidence; remaining Coptic/Ethiopic/Dangi and Hijri epoch/sighting labels need review."
+  },
+  {
+    "locale": "fj",
+    "key": "calendar-system-japanese",
+    "before": "Japanese",
+    "after": "iVolanivula vakaJapani",
+    "reason": "Replace foreign-language setting and English calendar labels with Fijian, preserving proper calendar identities and national/ISO week qualifiers. iVolanivula vakaIperiu attested at https://www.jw.org/fj/ka-e-vakarautaki/ivolatabu/nwt/ikuri-b/iperiu-ivolanivula-ivolatabu/; country/religion terms attested at https://www.jw.org/fj/ka-e-vakarautaki/ivola/ivolaniyabaki-2016/idonisia/ivakamacala-lekaleka/ and https://www.jw.org/fj/ka-e-vakarautaki/mekesini/g201310/digovi-vuravura/. Complete adapted label grammar remains low confidence; remaining Coptic/Ethiopic/Dangi and Hijri epoch/sighting labels need review."
+  },
+  {
+    "locale": "fj",
+    "key": "calendar-system-roc",
+    "before": "Republic of China",
+    "after": "iVolanivula Minguo",
+    "reason": "Replace foreign-language setting and English calendar labels with Fijian, preserving proper calendar identities and national/ISO week qualifiers. iVolanivula vakaIperiu attested at https://www.jw.org/fj/ka-e-vakarautaki/ivolatabu/nwt/ikuri-b/iperiu-ivolanivula-ivolatabu/; country/religion terms attested at https://www.jw.org/fj/ka-e-vakarautaki/ivola/ivolaniyabaki-2016/idonisia/ivakamacala-lekaleka/ and https://www.jw.org/fj/ka-e-vakarautaki/mekesini/g201310/digovi-vuravura/. Complete adapted label grammar remains low confidence; remaining Coptic/Ethiopic/Dangi and Hijri epoch/sighting labels need review."
+  },
+  {
+    "locale": "fj",
+    "key": "calendar-system-iso8601",
+    "before": "ISO 8601",
+    "after": "iVolanivula Gregoriana (macawa ni ISO 8601)",
+    "reason": "Replace foreign-language setting and English calendar labels with Fijian, preserving proper calendar identities and national/ISO week qualifiers. iVolanivula vakaIperiu attested at https://www.jw.org/fj/ka-e-vakarautaki/ivolatabu/nwt/ikuri-b/iperiu-ivolanivula-ivolatabu/; country/religion terms attested at https://www.jw.org/fj/ka-e-vakarautaki/ivola/ivolaniyabaki-2016/idonisia/ivakamacala-lekaleka/ and https://www.jw.org/fj/ka-e-vakarautaki/mekesini/g201310/digovi-vuravura/. Complete adapted label grammar remains low confidence; remaining Coptic/Ethiopic/Dangi and Hijri epoch/sighting labels need review."
   }
 ]
