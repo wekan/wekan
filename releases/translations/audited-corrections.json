@@ -94372,5 +94372,47 @@
     "before": "Migration erfolgreich abgeschlossen",
     "after": "rInpu' De' choHmeH Qu'",
     "reason": "Replace German migration state messages with Klingon, describing data migration as a data-changing task. Preserve no migration needed, pause/resume/start/stop distinctions, success versus failure, all-migrations stop confirmation, and completed migration. Reuse repaired operation verbs and plural indefinite lu- agreement. Full technical migration metaphor and assembled phrases are low confidence and require fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "org-number",
+    "before": "Die Anzahl der Organisationen ist:",
+    "after": "yejHaqmey mI': ",
+    "reason": "Replace German organization/team counts, edit titles, organization category and administrator-contact instruction with Klingon. Preserve organization versus team distinctions, count-label trailing space for following number, editing action, and contact administrator to create organizations. Reuse repaired yejHaq and ghom terminology and rI hail/contact. Full software wording is assembled, low confidence, and requires fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "team-number",
+    "before": "Die Anzahl der Teams ist:",
+    "after": "ghommey mI': ",
+    "reason": "Replace German organization/team counts, edit titles, organization category and administrator-contact instruction with Klingon. Preserve organization versus team distinctions, count-label trailing space for following number, editing action, and contact administrator to create organizations. Reuse repaired yejHaq and ghom terminology and rI hail/contact. Full software wording is assembled, low confidence, and requires fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "to-create-organizations-contact-admin",
+    "before": "Um Organisationen anzulegen, wende dich bitte an den Administrator.",
+    "after": "yejHaqmey DachenmoHmeH, che'wI' yIrI'.",
+    "reason": "Replace German organization/team counts, edit titles, organization category and administrator-contact instruction with Klingon. Preserve organization versus team distinctions, count-label trailing space for following number, editing action, and contact administrator to create organizations. Reuse repaired yejHaq and ghom terminology and rI hail/contact. Full software wording is assembled, low confidence, and requires fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "organizations",
+    "before": "Organisationen",
+    "after": "yejHaqmey",
+    "reason": "Replace German organization/team counts, edit titles, organization category and administrator-contact instruction with Klingon. Preserve organization versus team distinctions, count-label trailing space for following number, editing action, and contact administrator to create organizations. Reuse repaired yejHaq and ghom terminology and rI hail/contact. Full software wording is assembled, low confidence, and requires fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "editOrgPopup-title",
+    "before": "Organisation bearbeiten",
+    "after": "yejHaq yIchoH",
+    "reason": "Replace German organization/team counts, edit titles, organization category and administrator-contact instruction with Klingon. Preserve organization versus team distinctions, count-label trailing space for following number, editing action, and contact administrator to create organizations. Reuse repaired yejHaq and ghom terminology and rI hail/contact. Full software wording is assembled, low confidence, and requires fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "editTeamPopup-title",
+    "before": "Team bearbeiten",
+    "after": "ghom yIchoH",
+    "reason": "Replace German organization/team counts, edit titles, organization category and administrator-contact instruction with Klingon. Preserve organization versus team distinctions, count-label trailing space for following number, editing action, and contact administrator to create organizations. Reuse repaired yejHaq and ghom terminology and rI hail/contact. Full software wording is assembled, low confidence, and requires fluent-speaker validation."
   }
 ]
