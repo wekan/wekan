@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 12,542 |
+| Corrected | 12,543 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 3,304 |
+| Pending review or repair | 3,303 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Restored and unflagged values still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **13,115** exact before/after values, including repairs outside the audit.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **13,117** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `0db24a3eaf362d9d99b338eea96c5b8b401e345b` — four Volapük wait-spinner labels repaired, preserving animation style identifiers. Dictionary-based software wording remains low confidence and requires native-speaker review.
+Latest translation fix: **2026-09-13**, local commit `bec13dc5a3805dbc512e467dbd444a4d35e2fe9b` — Volapük database-migrations and upload labels repaired, including an unflagged Esperanto value. Upload terminology follows MediaWiki; existing migration borrowing remains low confidence.
 
 **Verification:** correction and progress tests pass. Native-speaker and browser checks remain outstanding.
 
