@@ -228,6 +228,7 @@ Template.boardHeaderButtons.events({
   },
   */
   'click .js-filter-reset'(event) {
+    event.preventDefault();
     event.stopPropagation();
     const sidebar = getSidebarInstance();
     if (sidebar) {

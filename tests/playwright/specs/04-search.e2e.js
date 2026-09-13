@@ -197,7 +197,9 @@ test.describe('Search', () => {
     await expect(boardPage.locator('.js-minicard').filter({ hasText: 'Beta Card' })).not.toBeVisible({ timeout: 10_000 });
     await expect(boardPage.locator('.js-minicard').filter({ hasText: 'Gamma Card' })).not.toBeVisible({ timeout: 10_000 });
 
+    await boardPage.evaluate(() => { window._wekanFilterResetDocument = true; });
     await sp.clearFilters();
+    await expect.poll(() => boardPage.evaluate(() => window._wekanFilterResetDocument)).toBe(true);
     await expect.poll(() => new URL(boardPage.url()).searchParams.get('label'))
       .toBeNull();
     await expect.poll(() => boardPage.evaluate(() =>

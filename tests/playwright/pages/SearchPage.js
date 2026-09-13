@@ -124,7 +124,8 @@ class SearchPage {
 
   async clearFilters() {
     const clearBtn = this.page.locator('.js-filter-reset, .js-clear-all');
-    if (await clearBtn.count() > 0) await clearBtn.first().click();
+    await clearBtn.first().waitFor({ state: 'visible', timeout: 10_000 });
+    await clearBtn.first().click();
   }
 }
 
