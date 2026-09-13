@@ -120503,5 +120503,12 @@
     "before": "Hebrew",
     "after": "Yahudiya ka kalandiriye",
     "reason": "Replace English Hebrew calendar label with Bambara Jewish-calendar wording. Bamadaba reference-corpus dictionary attests yahudiya for Juif: https://bamadaba.coastsystems.net/index-french/j/ (review 2026-09-14). Reuse existing ka kalandiriye construction. Low confidence: composed calendar name needs fluent technical review; dictionary attests the noun, not this calendar compound. Other four original Bambara calendar findings remain unresolved."
+  },
+  {
+    "locale": "rup",
+    "key": "color-indigo",
+    "before": "indigo",
+    "after": "lulachi",
+    "reason": "Replace English-valued Aromanian indigo label with directly attested color vocabulary. Alexandra Chivarzina, Orbis Linguarum 21(2), 2023, pages 61–66, explicitly lists lulachi as indigo: https://ezikovsvyat.swu.bg/images/stories/issue%2021.2_2023/8.%20A.Chivarzina_61_66.pdf. Full publisher PDF downloaded and extracted for review 2026-09-14. Preserve lowercase standalone color labeling. Exact color gloss is reference-supported; dialect preference and UI palette usage remain open. Magenta remains pending: Romanian matches alone do not establish Aromanian correctness."
   }
 ]
