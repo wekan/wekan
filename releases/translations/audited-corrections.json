@@ -87085,5 +87085,75 @@
     "before": "Ajouter un modèle",
     "after": "Lüükön roti",
     "reason": "Replace French checklist controls, minicard settings and template labels with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests rot (computer template), kopiedön (copy), klänedön (hide), dunot (action), kadil (small card); reuse previously checked väls (settings), fimekön (complete), mäkön (mark), notet and kontrolalised. Preserve all-items versus marked-items filtering and completed-checklist distinction. Derived checklist compound, software sense adaptations and assembled grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "template-container",
+    "before": "Conteneur de modèles",
+    "after": "Gef rotas",
+    "reason": "Replace French template-container, copy and template-type labels and malformed save-as-template wording with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests gef (general container), rot (computer template), kopiedön (copy), dakipön (hold); reuse existing save button Dakipön and checked kad/lised/tab/mödik vocabulary. Preserve card/list/board type and many-card destination meaning. Container/save/board software sense adaptations and assembled grammar remain low confidence; no native-speaker validation. Literal JSON examples are outside this batch."
+  },
+  {
+    "locale": "vo",
+    "key": "add-template-container",
+    "before": "Ajouter un conteneur de modèles",
+    "after": "Lüükön gefi rotas",
+    "reason": "Replace French template-container, copy and template-type labels and malformed save-as-template wording with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests gef (general container), rot (computer template), kopiedön (copy), dakipön (hold); reuse existing save button Dakipön and checked kad/lised/tab/mödik vocabulary. Preserve card/list/board type and many-card destination meaning. Container/save/board software sense adaptations and assembled grammar remain low confidence; no native-speaker validation. Literal JSON examples are outside this batch."
+  },
+  {
+    "locale": "vo",
+    "key": "createTemplateContainerPopup-title",
+    "before": "Ajouter un conteneur de modèles",
+    "after": "Lüükön gefi rotas",
+    "reason": "Replace French template-container, copy and template-type labels and malformed save-as-template wording with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests gef (general container), rot (computer template), kopiedön (copy), dakipön (hold); reuse existing save button Dakipön and checked kad/lised/tab/mödik vocabulary. Preserve card/list/board type and many-card destination meaning. Container/save/board software sense adaptations and assembled grammar remain low confidence; no native-speaker validation. Literal JSON examples are outside this batch."
+  },
+  {
+    "locale": "vo",
+    "key": "copyCardPopup-title",
+    "before": "Copier la carte",
+    "after": "Kopiedön kadi",
+    "reason": "Replace French template-container, copy and template-type labels and malformed save-as-template wording with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests gef (general container), rot (computer template), kopiedön (copy), dakipön (hold); reuse existing save button Dakipön and checked kad/lised/tab/mödik vocabulary. Preserve card/list/board type and many-card destination meaning. Container/save/board software sense adaptations and assembled grammar remain low confidence; no native-speaker validation. Literal JSON examples are outside this batch."
+  },
+  {
+    "locale": "vo",
+    "key": "copyListPopup-title",
+    "before": "Copier la liste",
+    "after": "Kopiedön lisedi",
+    "reason": "Replace French template-container, copy and template-type labels and malformed save-as-template wording with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests gef (general container), rot (computer template), kopiedön (copy), dakipön (hold); reuse existing save button Dakipön and checked kad/lised/tab/mödik vocabulary. Preserve card/list/board type and many-card destination meaning. Container/save/board software sense adaptations and assembled grammar remain low confidence; no native-speaker validation. Literal JSON examples are outside this batch."
+  },
+  {
+    "locale": "vo",
+    "key": "copyManyCardsPopup-title",
+    "before": "Copier le modèle vers plusieurs cartes",
+    "after": "Kopiedön roti lü kads mödik",
+    "reason": "Replace French template-container, copy and template-type labels and malformed save-as-template wording with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests gef (general container), rot (computer template), kopiedön (copy), dakipön (hold); reuse existing save button Dakipön and checked kad/lised/tab/mödik vocabulary. Preserve card/list/board type and many-card destination meaning. Container/save/board software sense adaptations and assembled grammar remain low confidence; no native-speaker validation. Literal JSON examples are outside this batch."
+  },
+  {
+    "locale": "vo",
+    "key": "save-card-as-template",
+    "before": "Sav äs Timplad",
+    "after": "Dakipön as rot",
+    "reason": "Replace French template-container, copy and template-type labels and malformed save-as-template wording with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests gef (general container), rot (computer template), kopiedön (copy), dakipön (hold); reuse existing save button Dakipön and checked kad/lised/tab/mödik vocabulary. Preserve card/list/board type and many-card destination meaning. Container/save/board software sense adaptations and assembled grammar remain low confidence; no native-speaker validation. Literal JSON examples are outside this batch."
+  },
+  {
+    "locale": "vo",
+    "key": "card-templates-swimlane",
+    "before": "Modèles de cartes",
+    "after": "Rots kadas",
+    "reason": "Replace French template-container, copy and template-type labels and malformed save-as-template wording with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests gef (general container), rot (computer template), kopiedön (copy), dakipön (hold); reuse existing save button Dakipön and checked kad/lised/tab/mödik vocabulary. Preserve card/list/board type and many-card destination meaning. Container/save/board software sense adaptations and assembled grammar remain low confidence; no native-speaker validation. Literal JSON examples are outside this batch."
+  },
+  {
+    "locale": "vo",
+    "key": "list-templates-swimlane",
+    "before": "Modèles de listes",
+    "after": "Rots lisedas",
+    "reason": "Replace French template-container, copy and template-type labels and malformed save-as-template wording with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests gef (general container), rot (computer template), kopiedön (copy), dakipön (hold); reuse existing save button Dakipön and checked kad/lised/tab/mödik vocabulary. Preserve card/list/board type and many-card destination meaning. Container/save/board software sense adaptations and assembled grammar remain low confidence; no native-speaker validation. Literal JSON examples are outside this batch."
+  },
+  {
+    "locale": "vo",
+    "key": "board-templates-swimlane",
+    "before": "Modèles de tableaux",
+    "after": "Rots tabas",
+    "reason": "Replace French template-container, copy and template-type labels and malformed save-as-template wording with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests gef (general container), rot (computer template), kopiedön (copy), dakipön (hold); reuse existing save button Dakipön and checked kad/lised/tab/mödik vocabulary. Preserve card/list/board type and many-card destination meaning. Container/save/board software sense adaptations and assembled grammar remain low confidence; no native-speaker validation. Literal JSON examples are outside this batch."
   }
 ]
