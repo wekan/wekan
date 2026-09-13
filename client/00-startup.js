@@ -97,6 +97,7 @@ Meteor.startup(() => {
   Tracker.autorun(() => {
     if (Meteor.userId()) {
       Meteor.subscribe('userDesktopDragHandles');
+      Meteor.subscribe('userBoardView');
     }
   });
 

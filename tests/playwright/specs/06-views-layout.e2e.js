@@ -16,6 +16,54 @@ const db = require('../helpers/db');
 const BoardPage = require('../pages/BoardPage');
 
 test.describe('Views & layout', () => {
+  test('#6691: partial profiles and impersonation keep shared-list cards scoped', async ({
+    boardPage, board, user, adminUser,
+  }) => {
+    const { loginWithToken, navigateInApp } = require('../helpers/auth');
+    const secondLaneId = db.uid('swim');
+    const now = new Date();
+    db.insertOne('swimlanes', {
+      ...db.findOne('swimlanes', { _id: board.swimlaneId }),
+      _id: secondLaneId, title: 'Other swimlane', sort: 1,
+      createdAt: now, modifiedAt: now,
+    });
+    db.updateOne('lists', { _id: board.listIds[0] }, { $set: { swimlaneId: '' } });
+    db.insertOne('cards', {
+      ...db.findOne('cards', { boardId: board.boardId, title: 'Alpha Card' }),
+      _id: db.uid('card'), title: 'Other lane card', swimlaneId: secondLaneId,
+      sort: 200, createdAt: now, modifiedAt: now,
+    });
+    const assertScoped = async () => {
+      const first = boardPage.locator(`#swimlane-${board.swimlaneId}`);
+      const second = boardPage.locator(`#swimlane-${secondLaneId}`);
+      await expect(first.getByText('Alpha Card', { exact: true })).toBeVisible();
+      await expect(second.getByText('Other lane card', { exact: true })).toBeVisible();
+      await expect(second.getByText('Alpha Card', { exact: true })).toHaveCount(0);
+      await expect(first.getByText('Other lane card', { exact: true })).toHaveCount(0);
+    };
+    await boardPage.evaluate(() => localStorage.removeItem('boardView'));
+    db.updateOne('users', { _id: user.id }, { $unset: { 'profile.boardView': '' } });
+    await boardPage.waitForFunction(() => Meteor.user() && !Meteor.user().profile?.boardView);
+    await assertScoped();
+
+    db.updateOne('users', { _id: user.id }, { $set: { 'profile.boardView': 'board-view-swimlanes' } });
+    await loginWithToken(boardPage, adminUser.id, adminUser.token);
+    await boardPage.evaluate(() => localStorage.setItem('boardView', 'board-view-lists'));
+    await boardPage.evaluate(id => new Promise((resolve, reject) => {
+      Meteor.call('impersonate', id, error => {
+        if (error) return reject(error);
+        Meteor.connection.setUserId(id);
+        resolve();
+      });
+    }), user.id);
+    await boardPage.waitForFunction(id => Meteor.userId() === id &&
+      Meteor.user()?.profile?.boardView === 'board-view-swimlanes', user.id);
+    await navigateInApp(boardPage, `/b/${board.boardId}/${board.slug}`);
+    await assertScoped();
+    expect(db.findOne('users', { _id: user.id }).profile.boardView).toBe('board-view-swimlanes');
+    db.deleteMany('impersonatedUsers', { adminId: adminUser.id, userId: user.id });
+  });
+
   test('#6659 and #6660: view changes persist and cards stay in their swimlane', async ({
     boardPage,
     board,

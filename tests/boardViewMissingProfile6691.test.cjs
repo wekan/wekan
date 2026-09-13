@@ -1,0 +1,63 @@
+'use strict';
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const vm = require('node:vm');
+const settings = require('../models/lib/boardViewSettings');
+const source = fs.readFileSync('client/lib/utils.js', 'utf8');
+const methods = source.slice(source.indexOf('  boardView() {'), source.indexOf('  // `swimlaneId` scopes'));
+let user, browserView, pending = null, board = null;
+const context = {
+  ...settings,
+  pendingBoardView: { get: () => pending, set: value => { pending = value; } },
+  ReactiveCache: { getCurrentUser: () => user },
+  window: { localStorage: { getItem: () => browserView,
+    setItem: () => { throw Error('Reading a view must not write storage'); } } },
+};
+vm.createContext(context);
+vm.runInContext(`var Utils = {${methods} getCurrentBoard() { return currentBoard(); }, reload() { throw Error('Reading a view must not reload'); } };`,
+  Object.assign(context, { currentBoard: () => board }));
+const Utils = context.Utils;
+for (const profile of [undefined, {}, { boardView: undefined }, { boardView: '' }, { boardView: 'invalid' }]) {
+  user = { _id: 'member', profile };
+  for (const stored of [null, '', 'invalid', 'board-view-swimlanes', 'board-view-lists', 'board-view-cal']) {
+    browserView = stored;
+    assert.equal(Utils.storedBoardView(), settings.isKnownBoardView(stored) ? stored : settings.DEFAULT_BOARD_VIEW);
+    assert.equal(Utils.boardView(), Utils.storedBoardView());
+  }
+}
+user = { profile: { boardView: 'board-view-lists' } };
+browserView = 'board-view-cal';
+assert.equal(Utils.boardView(), 'board-view-lists', 'published preference wins');
+pending = 'board-view-swimlanes';
+assert.equal(Utils.boardView(), pending, 'pending choice wins until publication catches up');
+user.profile.boardView = pending;
+assert.equal(Utils.boardView(), 'board-view-swimlanes');
+assert.equal(pending, null);
+user = { profile: {} }; browserView = null;
+board = { permission: 'private', defaultPrivateBoardView: 'board-view-lists', boardViewSettings: { 'board-view-swimlanes': { showOnPrivate: false } } };
+assert.equal(Utils.boardView(), 'board-view-lists', 'board default is honored');
+board = null;
+const listSource = fs.readFileSync('client/components/lists/listBody.js', 'utf8');
+const scope = listSource.slice(listSource.indexOf('  this.idOrNull ='), listSource.indexOf('  this.addCard ='));
+context.instance = { data: { board: () => ({ isTemplatesBoard: () => false }) } };
+vm.runInContext(`(function() { ${scope} }).call(instance);`, context);
+assert.equal(context.instance.idOrNull('lane-A'), 'lane-A', 'partial profile retains swimlane scope');
+assert.equal(context.instance.idOrNull('lane-B'), 'lane-B');
+browserView = 'board-view-lists';
+assert.equal(context.instance.idOrNull('lane-A'), undefined, 'list view stays unscoped');
+context.instance.data = null;
+assert.equal(context.instance.idOrNull('lane-A'), undefined);
+let publish;
+vm.runInNewContext(fs.readFileSync('server/publications/userBoardView.js', 'utf8').replace(/^import .*;\n/m, ''), {
+  Meteor: { publish: (name, handler) => { assert.equal(name, 'userBoardView'); publish = handler; },
+    users: { find: (selector, options) => JSON.parse(JSON.stringify({ selector, options })) } },
+});
+assert.equal(publish.call({ userId: null, ready: () => 'ready' }, 'victim'), 'ready');
+for (const id of ['admin', 'impersonated-member']) {
+  assert.deepEqual(publish.call({ userId: id }, 'victim'), {
+    selector: { _id: id }, options: { fields: { 'profile.boardView': 1 } },
+  }, 'publication ignores supplied user IDs and follows authenticated identity');
+}
+assert.match(fs.readFileSync('server/imports.js', 'utf8'), /import '\/server\/publications\/userBoardView'/);
+assert.match(fs.readFileSync('client/00-startup.js', 'utf8'), /Meteor\.subscribe\('userBoardView'\)/);
+console.log('boardViewMissingProfile6691: fallback, scoping, defaults and private publication passed');

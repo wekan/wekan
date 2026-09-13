@@ -1,7 +1,7 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { headerPathVar } from '/client/lib/headerPathVar';
 const { pageDocumentTitle } = require('/models/lib/starredPages');
-const { resolveBoardView } = require('/models/lib/boardViewSettings');
+const { resolveBoardView, isKnownBoardView, DEFAULT_BOARD_VIEW } = require('/models/lib/boardViewSettings');
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { Tracker } from 'meteor/tracker';
 import { ReactiveVar } from 'meteor/reactive-var';
@@ -363,9 +363,13 @@ export const Utils = {
       }
       return pending;
     }
-    if (currentUser) {
-      return (currentUser.profile || {}).boardView;
-    } else if (
+    // #6691: impersonation and subscriptions still loading can expose a partial
+    // profile. Fall back to the browser preference, then the normal default.
+    const profileView = (currentUser?.profile || {}).boardView;
+    if (isKnownBoardView(profileView)) {
+      return profileView;
+    }
+    if (
       window.localStorage.getItem('boardView') === 'board-view-swimlanes'
     ) {
       return 'board-view-swimlanes';
@@ -404,9 +408,7 @@ export const Utils = {
     ) {
       return window.localStorage.getItem('boardView');
     } else {
-      window.localStorage.setItem('boardView', 'board-view-swimlanes'); //true
-      Utils.reload();
-      return 'board-view-swimlanes';
+      return DEFAULT_BOARD_VIEW;
     }
   },
 
