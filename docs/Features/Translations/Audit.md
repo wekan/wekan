@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 11,674 |
+| Corrected | 11,675 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 4,172 |
+| Pending review or repair | 4,171 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,036** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,038** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `0622242b9036c7ab942ee547830275ba89b69889` — 5 Hawaiian calendar labels repaired: Jalali/Persian, Ethiopic/Amete Alem, Hebrew and Indian national. Sources attest individual language terms; full modern label grammar remains low confidence. Buddhist/Coptic and Hijri epoch/sighting labels remain pending. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; live browser verification is unavailable.
+Latest translation fix: **2026-09-13**, local commit `c35eaa8a2ab1a79ba07115bddc5116ad87e27bc5` — Hawaiian Buddhist label now uses attested Buda terminology; Gregorian label includes the calendar noun. Full phrase grammar remains low confidence. Coptic and Hijri civil/astronomical epoch and sighting labels remain pending. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; live browser verification is unavailable.
 
 **Review follow-up:** Silesian `sandstorm-raw-mongodb` remains pending: its wording overlaps Polish and existing Silesian technical strings, but dictionary searches did not establish the full phrase as correct Silesian. Keep the current value until stronger language evidence supports retaining or replacing it.
 
