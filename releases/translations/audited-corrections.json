@@ -92748,5 +92748,33 @@
     "before": "Füge Feld neuen Karten hinzu",
     "after": "'echletHommey chu'Daq De' 'ay' yIchel",
     "reason": "Replace four flagged German field controls with direct Klingon. Reuse descriptive De' 'ay' cherbogh lo'wI' user-configured data field and 'echletHom card terminology established in the preceding batch. Preserve deletion as a question, this field (-vam), all cards (Hoch), and new cards (chu') distinctions. Add/display actions use existing chel and 'ang. Full software phrases and field terminology have low confidence and need fluent-speaker validation; no source tokens changed."
+  },
+  {
+    "locale": "tlh",
+    "key": "checklist",
+    "before": "Check-list",
+    "after": "ghItlhHommey tetlh",
+    "reason": "Replace German/English checklist labels with direct Klingon, reusing ghItlhHommey tetlh (list of small writings/entries) from act-addChecklistItem and activity-checklist-completed. Add uses yIchel; completed-checklist hiding uses rInbogh and yISo'. In activity-checklist-added, %s remains the destination receiving the checklist and keeps its exact spelling. This descriptive checklist term and full software phrases are low confidence and require fluent-speaker validation; generic labels repaired for contextual consistency beyond flagged findings."
+  },
+  {
+    "locale": "tlh",
+    "key": "add-checklist",
+    "before": "Checkliste hinzufügen",
+    "after": "ghItlhHommey tetlh yIchel",
+    "reason": "Replace German/English checklist labels with direct Klingon, reusing ghItlhHommey tetlh (list of small writings/entries) from act-addChecklistItem and activity-checklist-completed. Add uses yIchel; completed-checklist hiding uses rInbogh and yISo'. In activity-checklist-added, %s remains the destination receiving the checklist and keeps its exact spelling. This descriptive checklist term and full software phrases are low confidence and require fluent-speaker validation; generic labels repaired for contextual consistency beyond flagged findings."
+  },
+  {
+    "locale": "tlh",
+    "key": "activity-checklist-added",
+    "before": "hat eine Checkliste zu %s hinzugefügt",
+    "after": "%s-vaD ghItlhHommey tetlh chellu'pu'",
+    "reason": "Replace German/English checklist labels with direct Klingon, reusing ghItlhHommey tetlh (list of small writings/entries) from act-addChecklistItem and activity-checklist-completed. Add uses yIchel; completed-checklist hiding uses rInbogh and yISo'. In activity-checklist-added, %s remains the destination receiving the checklist and keeps its exact spelling. This descriptive checklist term and full software phrases are low confidence and require fluent-speaker validation; generic labels repaired for contextual consistency beyond flagged findings."
+  },
+  {
+    "locale": "tlh",
+    "key": "hide-finished-checklist",
+    "before": "Abgeschlossene Checkliste ausblenden",
+    "after": "rInbogh ghItlhHommey tetlh yISo'",
+    "reason": "Replace German/English checklist labels with direct Klingon, reusing ghItlhHommey tetlh (list of small writings/entries) from act-addChecklistItem and activity-checklist-completed. Add uses yIchel; completed-checklist hiding uses rInbogh and yISo'. In activity-checklist-added, %s remains the destination receiving the checklist and keeps its exact spelling. This descriptive checklist term and full software phrases are low confidence and require fluent-speaker validation; generic labels repaired for contextual consistency beyond flagged findings."
   }
 ]
