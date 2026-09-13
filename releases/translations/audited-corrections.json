@@ -116786,5 +116786,194 @@
     "before": "Aktiivisuus tila",
     "after": "Aktivine olo",
     "reason": "Replace Finnish login-lockout/protection labels and descriptions with Veps; related unflagged admin controls included. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (kaičuz protection, kodvind checking, tacmuz attack, rohkaiduz attempt, keskaigaine temporary, möhemba later, ohjata/ohjandab control, saubatuz lockout, tulend entering); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests peitsana, variantad, saubatud, ladi, Ozuta and vaiše. Explain brute force as password-variant checking attacks; retain excessive failed-login cause, temporary lockout and retry-later guidance, counting window in seconds, remaining time and only-locked/all-user distinction. Low confidence: composed security terminology and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "add-cover",
+    "before": "Lisää kansikuva minikortille",
+    "after": "Ližada koren kuva minikartale",
+    "reason": "Replace Finnish or Finnish-derived voting/planning-poker/custom-translation/cover/OIDC text with Veps, including related unflagged controls. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (änestamine voting, änestada/änesti vote, än’ voice/vote, kändand translation, kor’/koren cover, plan planning noun, toštta repeat); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests kändmižid, painim, Ozuta, Vajehta and Zavodi. Preserve minicard add/remove directions, exact OIDC protocol name, custom-string delete confirmation and irreversibility, vote/poker separate entities, end-date role, who-voted-what and irreversible all-action deletion. Low confidence: composed technical terms, planning-poker loan and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "remove-cover",
+    "before": "Poista kansikuva minikortilta",
+    "after": "Heitä koren kuva minikartaspäi",
+    "reason": "Replace Finnish or Finnish-derived voting/planning-poker/custom-translation/cover/OIDC text with Veps, including related unflagged controls. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (änestamine voting, änestada/änesti vote, än’ voice/vote, kändand translation, kor’/koren cover, plan planning noun, toštta repeat); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests kändmižid, painim, Ozuta, Vajehta and Zavodi. Preserve minicard add/remove directions, exact OIDC protocol name, custom-string delete confirmation and irreversibility, vote/poker separate entities, end-date role, who-voted-what and irreversible all-action deletion. Low confidence: composed technical terms, planning-poker loan and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "cover-attachment-on-minicard",
+    "before": "Kansikuva minikortilla",
+    "after": "Koren kuva minikartal",
+    "reason": "Replace Finnish or Finnish-derived voting/planning-poker/custom-translation/cover/OIDC text with Veps, including related unflagged controls. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (änestamine voting, änestada/änesti vote, än’ voice/vote, kändand translation, kor’/koren cover, plan planning noun, toštta repeat); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests kändmižid, painim, Ozuta, Vajehta and Zavodi. Preserve minicard add/remove directions, exact OIDC protocol name, custom-string delete confirmation and irreversibility, vote/poker separate entities, end-date role, who-voted-what and irreversible all-action deletion. Low confidence: composed technical terms, planning-poker loan and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "cover-image",
+    "before": "Kanzikuva",
+    "after": "Koren kuva",
+    "reason": "Replace Finnish or Finnish-derived voting/planning-poker/custom-translation/cover/OIDC text with Veps, including related unflagged controls. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (änestamine voting, änestada/änesti vote, än’ voice/vote, kändand translation, kor’/koren cover, plan planning noun, toštta repeat); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests kändmižid, painim, Ozuta, Vajehta and Zavodi. Preserve minicard add/remove directions, exact OIDC protocol name, custom-string delete confirmation and irreversibility, vote/poker separate entities, end-date role, who-voted-what and irreversible all-action deletion. Low confidence: composed technical terms, planning-poker loan and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "oidc-button-text",
+    "before": "Muokkaa OIDC kirjautumispainikkeen tekstiä",
+    "after": "Vajehta OIDC sistemaha tulendan painimen tekst",
+    "reason": "Replace Finnish or Finnish-derived voting/planning-poker/custom-translation/cover/OIDC text with Veps, including related unflagged controls. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (änestamine voting, änestada/änesti vote, än’ voice/vote, kändand translation, kor’/koren cover, plan planning noun, toštta repeat); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests kändmižid, painim, Ozuta, Vajehta and Zavodi. Preserve minicard add/remove directions, exact OIDC protocol name, custom-string delete confirmation and irreversibility, vote/poker separate entities, end-date role, who-voted-what and irreversible all-action deletion. Low confidence: composed technical terms, planning-poker loan and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "editTranslationPopup-title",
+    "before": "Muokkaa mukautettua käännöstä",
+    "after": "Vajehta kävutajan märitud kändandan simvolrivi",
+    "reason": "Replace Finnish or Finnish-derived voting/planning-poker/custom-translation/cover/OIDC text with Veps, including related unflagged controls. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (änestamine voting, änestada/änesti vote, än’ voice/vote, kändand translation, kor’/koren cover, plan planning noun, toštta repeat); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests kändmižid, painim, Ozuta, Vajehta and Zavodi. Preserve minicard add/remove directions, exact OIDC protocol name, custom-string delete confirmation and irreversibility, vote/poker separate entities, end-date role, who-voted-what and irreversible all-action deletion. Low confidence: composed technical terms, planning-poker loan and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "newTranslationPopup-title",
+    "before": "Uusi mukautettu käännös",
+    "after": "Uz’ kävutajan märitud kändandan simvolrivi",
+    "reason": "Replace Finnish or Finnish-derived voting/planning-poker/custom-translation/cover/OIDC text with Veps, including related unflagged controls. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (änestamine voting, änestada/änesti vote, än’ voice/vote, kändand translation, kor’/koren cover, plan planning noun, toštta repeat); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests kändmižid, painim, Ozuta, Vajehta and Zavodi. Preserve minicard add/remove directions, exact OIDC protocol name, custom-string delete confirmation and irreversibility, vote/poker separate entities, end-date role, who-voted-what and irreversible all-action deletion. Low confidence: composed technical terms, planning-poker loan and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "settingsTranslationPopup-title",
+    "before": "Poista tämä mukautettu käännös?",
+    "after": "Heitä nece kävutajan märitud kändandan simvolrivi?",
+    "reason": "Replace Finnish or Finnish-derived voting/planning-poker/custom-translation/cover/OIDC text with Veps, including related unflagged controls. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (änestamine voting, änestada/änesti vote, än’ voice/vote, kändand translation, kor’/koren cover, plan planning noun, toštta repeat); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests kändmižid, painim, Ozuta, Vajehta and Zavodi. Preserve minicard add/remove directions, exact OIDC protocol name, custom-string delete confirmation and irreversibility, vote/poker separate entities, end-date role, who-voted-what and irreversible all-action deletion. Low confidence: composed technical terms, planning-poker loan and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "delete-translation-confirm-popup",
+    "before": "Haluatko varmasti poistaa tämän mukautetun käännöksen? Tätä ei voi peruuttaa.",
+    "after": "Oled-ik sinä tozi mugošt mel’t, miše tahtoid heitta necen kävutajan märitud kändandan simvolrivin? Necidä ei sa pördutada.",
+    "reason": "Replace Finnish or Finnish-derived voting/planning-poker/custom-translation/cover/OIDC text with Veps, including related unflagged controls. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (änestamine voting, änestada/änesti vote, än’ voice/vote, kändand translation, kor’/koren cover, plan planning noun, toštta repeat); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests kändmižid, painim, Ozuta, Vajehta and Zavodi. Preserve minicard add/remove directions, exact OIDC protocol name, custom-string delete confirmation and irreversibility, vote/poker separate entities, end-date role, who-voted-what and irreversible all-action deletion. Low confidence: composed technical terms, planning-poker loan and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "translation-number",
+    "before": "Mukautettujen käännösten määrä on:",
+    "after": "Kävutajan märitud kändandan simvolrivoiden lugumär om:",
+    "reason": "Replace Finnish or Finnish-derived voting/planning-poker/custom-translation/cover/OIDC text with Veps, including related unflagged controls. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (änestamine voting, änestada/änesti vote, än’ voice/vote, kändand translation, kor’/koren cover, plan planning noun, toštta repeat); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests kändmižid, painim, Ozuta, Vajehta and Zavodi. Preserve minicard add/remove directions, exact OIDC protocol name, custom-string delete confirmation and irreversibility, vote/poker separate entities, end-date role, who-voted-what and irreversible all-action deletion. Low confidence: composed technical terms, planning-poker loan and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "cardStartVotingPopup-title",
+    "before": "Äänestä",
+    "after": "Zavodi änestamine",
+    "reason": "Replace Finnish or Finnish-derived voting/planning-poker/custom-translation/cover/OIDC text with Veps, including related unflagged controls. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (änestamine voting, änestada/änesti vote, än’ voice/vote, kändand translation, kor’/koren cover, plan planning noun, toštta repeat); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests kändmižid, painim, Ozuta, Vajehta and Zavodi. Preserve minicard add/remove directions, exact OIDC protocol name, custom-string delete confirmation and irreversibility, vote/poker separate entities, end-date role, who-voted-what and irreversible all-action deletion. Low confidence: composed technical terms, planning-poker loan and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "card-edit-voting",
+    "before": "Muokkaa äänestystä",
+    "after": "Vajehta änestamine",
+    "reason": "Replace Finnish or Finnish-derived voting/planning-poker/custom-translation/cover/OIDC text with Veps, including related unflagged controls. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (änestamine voting, änestada/änesti vote, än’ voice/vote, kändand translation, kor’/koren cover, plan planning noun, toštta repeat); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests kändmižid, painim, Ozuta, Vajehta and Zavodi. Preserve minicard add/remove directions, exact OIDC protocol name, custom-string delete confirmation and irreversibility, vote/poker separate entities, end-date role, who-voted-what and irreversible all-action deletion. Low confidence: composed technical terms, planning-poker loan and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "editVoteEndDatePopup-title",
+    "before": "Muokkaa äänestyksen loppumispäivää",
+    "after": "Vajehta änestamižen lopun päivmär",
+    "reason": "Replace Finnish or Finnish-derived voting/planning-poker/custom-translation/cover/OIDC text with Veps, including related unflagged controls. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (änestamine voting, änestada/änesti vote, än’ voice/vote, kändand translation, kor’/koren cover, plan planning noun, toštta repeat); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests kändmižid, painim, Ozuta, Vajehta and Zavodi. Preserve minicard add/remove directions, exact OIDC protocol name, custom-string delete confirmation and irreversibility, vote/poker separate entities, end-date role, who-voted-what and irreversible all-action deletion. Low confidence: composed technical terms, planning-poker loan and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "vote-question",
+    "before": "Äänestys kysymys",
+    "after": "Änestamižen küzund",
+    "reason": "Replace Finnish or Finnish-derived voting/planning-poker/custom-translation/cover/OIDC text with Veps, including related unflagged controls. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (änestamine voting, änestada/änesti vote, än’ voice/vote, kändand translation, kor’/koren cover, plan planning noun, toštta repeat); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests kändmižid, painim, Ozuta, Vajehta and Zavodi. Preserve minicard add/remove directions, exact OIDC protocol name, custom-string delete confirmation and irreversibility, vote/poker separate entities, end-date role, who-voted-what and irreversible all-action deletion. Low confidence: composed technical terms, planning-poker loan and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "vote-public",
+    "before": "Näytä kuka äänesti mitäkin",
+    "after": "Ozuta, ken änesti da midä",
+    "reason": "Replace Finnish or Finnish-derived voting/planning-poker/custom-translation/cover/OIDC text with Veps, including related unflagged controls. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (änestamine voting, änestada/änesti vote, än’ voice/vote, kändand translation, kor’/koren cover, plan planning noun, toštta repeat); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests kändmižid, painim, Ozuta, Vajehta and Zavodi. Preserve minicard add/remove directions, exact OIDC protocol name, custom-string delete confirmation and irreversibility, vote/poker separate entities, end-date role, who-voted-what and irreversible all-action deletion. Low confidence: composed technical terms, planning-poker loan and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "deleteVotePopup-title",
+    "before": "Poista ääni?",
+    "after": "Heitä änestamine?",
+    "reason": "Replace Finnish or Finnish-derived voting/planning-poker/custom-translation/cover/OIDC text with Veps, including related unflagged controls. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (änestamine voting, änestada/änesti vote, än’ voice/vote, kändand translation, kor’/koren cover, plan planning noun, toštta repeat); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests kändmižid, painim, Ozuta, Vajehta and Zavodi. Preserve minicard add/remove directions, exact OIDC protocol name, custom-string delete confirmation and irreversibility, vote/poker separate entities, end-date role, who-voted-what and irreversible all-action deletion. Low confidence: composed technical terms, planning-poker loan and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "vote-delete-pop",
+    "before": "Poistaminen on lopullista. Menetät kaikki tähän äänestykseen liitetyt toimet.",
+    "after": "Heitämine om igäks. Kaik necen änestamižen tegendad linneba heittud.",
+    "reason": "Replace Finnish or Finnish-derived voting/planning-poker/custom-translation/cover/OIDC text with Veps, including related unflagged controls. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (änestamine voting, änestada/änesti vote, än’ voice/vote, kändand translation, kor’/koren cover, plan planning noun, toštta repeat); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests kändmižid, painim, Ozuta, Vajehta and Zavodi. Preserve minicard add/remove directions, exact OIDC protocol name, custom-string delete confirmation and irreversibility, vote/poker separate entities, end-date role, who-voted-what and irreversible all-action deletion. Low confidence: composed technical terms, planning-poker loan and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "cardStartPlanningPokerPopup-title",
+    "before": "Aloita suunnittelupokeri",
+    "after": "Zavodi planan poker",
+    "reason": "Replace Finnish or Finnish-derived voting/planning-poker/custom-translation/cover/OIDC text with Veps, including related unflagged controls. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (änestamine voting, änestada/änesti vote, än’ voice/vote, kändand translation, kor’/koren cover, plan planning noun, toštta repeat); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests kändmižid, painim, Ozuta, Vajehta and Zavodi. Preserve minicard add/remove directions, exact OIDC protocol name, custom-string delete confirmation and irreversibility, vote/poker separate entities, end-date role, who-voted-what and irreversible all-action deletion. Low confidence: composed technical terms, planning-poker loan and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "card-edit-planning-poker",
+    "before": "Muokkaa suunnittelupokeria",
+    "after": "Vajehta planan poker",
+    "reason": "Replace Finnish or Finnish-derived voting/planning-poker/custom-translation/cover/OIDC text with Veps, including related unflagged controls. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (änestamine voting, änestada/änesti vote, än’ voice/vote, kändand translation, kor’/koren cover, plan planning noun, toštta repeat); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests kändmižid, painim, Ozuta, Vajehta and Zavodi. Preserve minicard add/remove directions, exact OIDC protocol name, custom-string delete confirmation and irreversibility, vote/poker separate entities, end-date role, who-voted-what and irreversible all-action deletion. Low confidence: composed technical terms, planning-poker loan and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "editPokerEndDatePopup-title",
+    "before": "Muuta suunnittelupokerin loppumispäivää",
+    "after": "Vajehta planan pokeran änestamižen lopun päivmär",
+    "reason": "Replace Finnish or Finnish-derived voting/planning-poker/custom-translation/cover/OIDC text with Veps, including related unflagged controls. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (änestamine voting, änestada/änesti vote, än’ voice/vote, kändand translation, kor’/koren cover, plan planning noun, toštta repeat); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests kändmižid, painim, Ozuta, Vajehta and Zavodi. Preserve minicard add/remove directions, exact OIDC protocol name, custom-string delete confirmation and irreversibility, vote/poker separate entities, end-date role, who-voted-what and irreversible all-action deletion. Low confidence: composed technical terms, planning-poker loan and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "poker-question",
+    "before": "Suunnittelupokeri",
+    "after": "Planan poker",
+    "reason": "Replace Finnish or Finnish-derived voting/planning-poker/custom-translation/cover/OIDC text with Veps, including related unflagged controls. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (änestamine voting, änestada/änesti vote, än’ voice/vote, kändand translation, kor’/koren cover, plan planning noun, toštta repeat); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests kändmižid, painim, Ozuta, Vajehta and Zavodi. Preserve minicard add/remove directions, exact OIDC protocol name, custom-string delete confirmation and irreversibility, vote/poker separate entities, end-date role, who-voted-what and irreversible all-action deletion. Low confidence: composed technical terms, planning-poker loan and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "poker-finish",
+    "before": "Lopeta",
+    "after": "Lopta",
+    "reason": "Replace Finnish or Finnish-derived voting/planning-poker/custom-translation/cover/OIDC text with Veps, including related unflagged controls. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (änestamine voting, änestada/änesti vote, än’ voice/vote, kändand translation, kor’/koren cover, plan planning noun, toštta repeat); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests kändmižid, painim, Ozuta, Vajehta and Zavodi. Preserve minicard add/remove directions, exact OIDC protocol name, custom-string delete confirmation and irreversibility, vote/poker separate entities, end-date role, who-voted-what and irreversible all-action deletion. Low confidence: composed technical terms, planning-poker loan and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "poker-result-votes",
+    "before": "Äänet",
+    "after": "Äned",
+    "reason": "Replace Finnish or Finnish-derived voting/planning-poker/custom-translation/cover/OIDC text with Veps, including related unflagged controls. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (änestamine voting, änestada/änesti vote, än’ voice/vote, kändand translation, kor’/koren cover, plan planning noun, toštta repeat); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests kändmižid, painim, Ozuta, Vajehta and Zavodi. Preserve minicard add/remove directions, exact OIDC protocol name, custom-string delete confirmation and irreversibility, vote/poker separate entities, end-date role, who-voted-what and irreversible all-action deletion. Low confidence: composed technical terms, planning-poker loan and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "poker-result-who",
+    "before": "Kuka",
+    "after": "Ken",
+    "reason": "Replace Finnish or Finnish-derived voting/planning-poker/custom-translation/cover/OIDC text with Veps, including related unflagged controls. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (änestamine voting, änestada/änesti vote, än’ voice/vote, kändand translation, kor’/koren cover, plan planning noun, toštta repeat); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests kändmižid, painim, Ozuta, Vajehta and Zavodi. Preserve minicard add/remove directions, exact OIDC protocol name, custom-string delete confirmation and irreversibility, vote/poker separate entities, end-date role, who-voted-what and irreversible all-action deletion. Low confidence: composed technical terms, planning-poker loan and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "poker-replay",
+    "before": "Toista",
+    "after": "Tošta",
+    "reason": "Replace Finnish or Finnish-derived voting/planning-poker/custom-translation/cover/OIDC text with Veps, including related unflagged controls. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (änestamine voting, änestada/änesti vote, än’ voice/vote, kändand translation, kor’/koren cover, plan planning noun, toštta repeat); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests kändmižid, painim, Ozuta, Vajehta and Zavodi. Preserve minicard add/remove directions, exact OIDC protocol name, custom-string delete confirmation and irreversibility, vote/poker separate entities, end-date role, who-voted-what and irreversible all-action deletion. Low confidence: composed technical terms, planning-poker loan and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "deletePokerPopup-title",
+    "before": "Poista suunnittelupokeri?",
+    "after": "Heitä planan poker?",
+    "reason": "Replace Finnish or Finnish-derived voting/planning-poker/custom-translation/cover/OIDC text with Veps, including related unflagged controls. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (änestamine voting, änestada/änesti vote, än’ voice/vote, kändand translation, kor’/koren cover, plan planning noun, toštta repeat); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests kändmižid, painim, Ozuta, Vajehta and Zavodi. Preserve minicard add/remove directions, exact OIDC protocol name, custom-string delete confirmation and irreversibility, vote/poker separate entities, end-date role, who-voted-what and irreversible all-action deletion. Low confidence: composed technical terms, planning-poker loan and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "poker-delete-pop",
+    "before": "Poistaminen on lopullista. Menetät kaikki tähän suunnittelupokeriin liitetyt toimet.",
+    "after": "Heitämine om igäks. Kaik necen planan pokeran tegendad linneba heittud.",
+    "reason": "Replace Finnish or Finnish-derived voting/planning-poker/custom-translation/cover/OIDC text with Veps, including related unflagged controls. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (änestamine voting, änestada/änesti vote, än’ voice/vote, kändand translation, kor’/koren cover, plan planning noun, toštta repeat); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests kändmižid, painim, Ozuta, Vajehta and Zavodi. Preserve minicard add/remove directions, exact OIDC protocol name, custom-string delete confirmation and irreversibility, vote/poker separate entities, end-date role, who-voted-what and irreversible all-action deletion. Low confidence: composed technical terms, planning-poker loan and inflections require fluent-speaker review."
   }
 ]

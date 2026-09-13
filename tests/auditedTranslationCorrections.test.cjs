@@ -1338,5 +1338,51 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.match(cache['ve-PP']['admin-people-filter-locked'], /^Vaiše saubatud/);
   assert.match(cache['ve-PP']['admin-people-filter-all'], /^Kaik kävutajad$/);
   assert.doesNotMatch(cache['ve-PP']['admin-people-filter-all'], /Vaiše|saubatud/);
+  const vepsVotingTranslationRepairs = {
+  "add-cover": "Ližada koren kuva minikartale",
+  "remove-cover": "Heitä koren kuva minikartaspäi",
+  "cover-attachment-on-minicard": "Koren kuva minikartal",
+  "cover-image": "Koren kuva",
+  "oidc-button-text": "Vajehta OIDC sistemaha tulendan painimen tekst",
+  "editTranslationPopup-title": "Vajehta kävutajan märitud kändandan simvolrivi",
+  "newTranslationPopup-title": "Uz’ kävutajan märitud kändandan simvolrivi",
+  "settingsTranslationPopup-title": "Heitä nece kävutajan märitud kändandan simvolrivi?",
+  "delete-translation-confirm-popup": "Oled-ik sinä tozi mugošt mel’t, miše tahtoid heitta necen kävutajan märitud kändandan simvolrivin? Necidä ei sa pördutada.",
+  "translation-number": "Kävutajan märitud kändandan simvolrivoiden lugumär om:",
+  "cardStartVotingPopup-title": "Zavodi änestamine",
+  "card-edit-voting": "Vajehta änestamine",
+  "editVoteEndDatePopup-title": "Vajehta änestamižen lopun päivmär",
+  "vote-question": "Änestamižen küzund",
+  "vote-public": "Ozuta, ken änesti da midä",
+  "deleteVotePopup-title": "Heitä änestamine?",
+  "vote-delete-pop": "Heitämine om igäks. Kaik necen änestamižen tegendad linneba heittud.",
+  "cardStartPlanningPokerPopup-title": "Zavodi planan poker",
+  "card-edit-planning-poker": "Vajehta planan poker",
+  "editPokerEndDatePopup-title": "Vajehta planan pokeran änestamižen lopun päivmär",
+  "poker-question": "Planan poker",
+  "poker-finish": "Lopta",
+  "poker-result-votes": "Äned",
+  "poker-result-who": "Ken",
+  "poker-replay": "Tošta",
+  "deletePokerPopup-title": "Heitä planan poker?",
+  "poker-delete-pop": "Heitämine om igäks. Kaik necen planan pokeran tegendad linneba heittud."
+};
+  for (const [key, value] of Object.entries(vepsVotingTranslationRepairs)) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.equal(vepsTranslator.t(key), value, key);
+    assert.doesNotMatch(value, /Lisää|Poista|kansikuva|Kanzikuva|Muokkaa|mukautettu|käännös|Haluatko varmasti|peruuttaa|Mukautettujen|Aloita|äänestys|äänestyksen|Näytä kuka|äänesti mitäkin|Poistaminen|lopullista|Menetät|suunnittelupoker|Muuta|loppumispäiv|Lopeta|Äänet|Kuka|Toista|kirjautumispainikkeen/i, key);
+  }
+  assert.match(cache['ve-PP']['add-cover'], /minikartale$/);
+  assert.match(cache['ve-PP']['remove-cover'], /minikartaspäi$/);
+  assert.match(cache['ve-PP']['oidc-button-text'], /OIDC.*tulendan painimen tekst$/);
+  assert.match(cache['ve-PP']['delete-translation-confirm-popup'], /kändandan simvolrivin.*ei sa pördutada/);
+  assert.match(cache['ve-PP']['translation-number'], /simvolrivoiden lugumär om:$/);
+  assert.match(cache['ve-PP']['editVoteEndDatePopup-title'], /änestamižen lopun päivmär$/);
+  assert.match(cache['ve-PP']['editPokerEndDatePopup-title'], /pokeran änestamižen lopun päivmär$/);
+  assert.match(cache['ve-PP']['vote-public'], /ken änesti da midä$/);
+  assert.match(cache['ve-PP']['vote-delete-pop'], /igäks.*Kaik.*änestamižen tegendad.*heittud/);
+  assert.match(cache['ve-PP']['poker-delete-pop'], /igäks.*Kaik.*pokeran tegendad.*heittud/);
+  assert.notEqual(cache['ve-PP']['vote-delete-pop'], cache['ve-PP']['poker-delete-pop']);
+  for (const key of ['poker-one', 'poker-two', 'poker-three', 'poker-five', 'poker-eight', 'poker-thirteen', 'poker-twenty', 'poker-forty', 'poker-oneHundred', 'poker-unsure']) assert.equal(cache['ve-PP'][key], english[key], key);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });
