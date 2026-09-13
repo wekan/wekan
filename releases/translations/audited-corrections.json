@@ -120440,5 +120440,19 @@
     "before": "MongoDB tallennusmoottori",
     "after": "MongoDB kaičusen motor",
     "reason": "Replace Finnish storage-engine terminology using Zaiceva/Mullonen dictionary kaičuz (storage; genitive kaičusen) and motor (engine). Preserve MongoDB. Low confidence: composed database-engine terminology needs fluent technical review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "zoom-in",
+    "before": "Lähennä",
+    "after": "Surenda",
+    "reason": "Replace unflagged Finnish zoom action using Zaiceva/Mullonen Veps sureta (-ndab) increase and peneta (-ndab) decrease. Actual card zoom handlers increase/decrease by 0.1 and retain bounds 0.5–3.0. Low confidence: technical zoom usage and imperative forms need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "zoom-out",
+    "before": "Loitonna",
+    "after": "Penenda",
+    "reason": "Replace unflagged Finnish zoom action using Zaiceva/Mullonen Veps sureta (-ndab) increase and peneta (-ndab) decrease. Actual card zoom handlers increase/decrease by 0.1 and retain bounds 0.5–3.0. Low confidence: technical zoom usage and imperative forms need fluent review."
   }
 ]
