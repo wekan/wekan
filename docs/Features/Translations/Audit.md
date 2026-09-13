@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 11,239 |
+| Corrected | 11,243 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 4,607 |
+| Pending review or repair | 4,603 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **11,498** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **11,503** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `77b0797cbd93a1d2e35187c2c421e2c9c7784c19` — 3 French archive-recovery/linked-card warnings replaced with Wolof. Recovery steps and incoming-link deletion prerequisites are preserved; card warning remains compatible with the appended linkedId. Linked-card terminology and full grammar remain low confidence. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; live browser verification is unavailable.
+Latest translation fix: **2026-09-13**, local commit `5795cb840c1c983e95f1fedade745b35753266de` — 5 French dropdown/template-container/deletion messages replaced with Wolof. Enter key, options/items and all deleted board-content categories remain explicit, including no recovery or undo. Container terminology and full grammar remain low confidence. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; live browser verification is unavailable.
 
 **Review follow-up:** Silesian `sandstorm-raw-mongodb` remains pending: its wording overlaps Polish and existing Silesian technical strings, but dictionary searches did not establish the full phrase as correct Silesian. Keep the current value until stronger language evidence supports retaining or replacing it.
 
