@@ -52015,5 +52015,61 @@
     "before": "Secondo una pianificazione",
     "after": "Secondu una pianificazione",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "recovery-maintenance-note",
+    "before": "Attendi — questa pagina proseguirà automaticamente al termine del ripristino.",
+    "after": "Aspettate — sta pagina cuntinuerà autumaticamente quandu a ricuperazione serà compia.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "recovery-no-events",
+    "before": "Nessun evento di ripristino registrato. Il database è integro.",
+    "after": "Nisun evenimentu di ricuperazione arregistratu. A basa di dati hè sana.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "remove-background-image",
+    "before": "Rimuovere immagine di sfondo",
+    "after": "Caccià l’imagine di fondu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "remove-cover",
+    "before": "Rimuovere immagine di copertina da minicard",
+    "after": "Caccià l’imagine di cupertina da a minicarta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "remove-labels-multiselect",
+    "before": "La multi-selezione rimuove le etichette 1-9",
+    "after": "A selezzione multipla caccia l’etichette 1-9",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "restore-list-swimlanes-done",
+    "before": "__restored__ lista/e ripristinate. Non è stato possibile ripristinarne __remaining__.",
+    "after": "__restored__ lista(e) ricuperata(e). __remaining__ ùn anu pussutu esse ricuperate.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "s3-access-key-description",
+    "before": "Access key AWS S3 per l'autenticazione",
+    "after": "Chjave d’accessu AWS S3 per l’autentificazione",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "s3-access-key-placeholder",
+    "before": "Inserisci l'access key S3",
+    "after": "Inserite a chjave d’accessu S3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
