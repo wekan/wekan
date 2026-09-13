@@ -58,5 +58,10 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.match(cache.ace['keyboard-shortcuts-enabled'], /ka aktif.*peumate/, 'enabled shortcuts offer disabling');
   assert.notEqual(cache.ace['keyboard-shortcuts-disabled'], cache.ace['keyboard-shortcuts-enabled']);
   assert.match(cache.ace['last-admin-desc'], /ubah peran/, 'last-admin restriction concerns roles, not rules');
+  for (const suffix of ['gen', 'spec']) {
+    assert.match(cache.ace[`r-d-move-to-top-${suffix}`], /u ateueh/, 'move to top');
+    assert.doesNotMatch(cache.ace[`r-d-move-to-top-${suffix}`], /miyup/, 'top must not mean bottom');
+    assert.match(cache.ace[`r-d-move-to-bottom-${suffix}`], /u miyup/, 'move to bottom');
+  }
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });

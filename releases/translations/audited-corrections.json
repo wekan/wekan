@@ -71006,5 +71006,117 @@
     "before": "Panel ini publik. Akan terlihat oleh siapapun dengan link terkait dan muncul di mesin pencari seperti Google. Hanya orang yang ditambahkan di panel yang bisa sunting",
     "after": "Papan nyoe publik. Soe mantong nyang na tautan jeuet ngieng jih, ngon jih akan deuh bak mesin pencarian lagee Google. Ureueng nyang geutamah u papan mantong jeuet sunting.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "push-invite-title",
+    "before": "__inviter__ menhantar jemputan untuk anda",
+    "after": "__inviter__ geukirem undangan keu droeneueh",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "quick-access-description",
+    "before": "Beri bintang panel untuk menambah shortcut di papan ini",
+    "after": "Boh bintang bak papan keu tamah pintasan bak bar nyoe.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "r-board-note",
+    "before": "Catatan : tinggalkan setiap bidang yang kosong agar cocok untuk setiap nilai yang memungkinkan",
+    "after": "Catatan: Tinggai ruang kosong keu peupadan peue mantong nilai. ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "r-checklist-note",
+    "before": "Nota: item-item senaraisemak perlu ditulis sebagai nilai terpisah antara tanda koma",
+    "after": "Catatan: Item checklist haroh geutuleh seubagoe nilai nyang geupisah ngon koma.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "r-d-check-all",
+    "before": "Periksa semua item dalam senarai",
+    "after": "Cek mandum item bak senarai",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "r-d-move-to-bottom-gen",
+    "before": "Pindah kad ke bawah senarainya",
+    "after": "Pinah kad u miyup senarai jih",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "r-d-move-to-bottom-spec",
+    "before": "Pindah kad ke bawah senarai",
+    "after": "Pinah kad u miyup senarai",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "r-d-move-to-top-gen",
+    "before": "Pindah kad ke atas senarainya",
+    "after": "Pinah kad u ateueh senarai jih",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "r-d-move-to-top-spec",
+    "before": "Pindah kad ke bawah senarai",
+    "after": "Pinah kad u ateueh senarai",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "r-d-unarchive",
+    "before": "Pulihkan kartu dari Arsip",
+    "after": "Peuwoe kad nibak Arsip",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "r-d-uncheck-all",
+    "before": "Tidak periksa semua item dalam senarai",
+    "after": "Batai cek mandum item bak senarai",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "r-edit-rule-trigger-action",
+    "before": "Sunting aturan (Picu/Tindakan)",
+    "after": "Sunting pemicu/tindakan",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "r-remove-all",
+    "before": "Hapus semua anggota dari kartu",
+    "after": "Hapus mandum anggota nibak kad",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "r-to-current-datetime",
+    "before": "ke tanggal/waktu sekarang",
+    "after": "u tanggai/watee jinoe",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "r-when-a-card-is-moved",
+    "before": "Apabila kad dipindah ke senarai lain",
+    "after": "Watee kad geupinah u senarai laen",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "r-when-a-checklist",
+    "before": "Apabila senaraisemak  adalah",
+    "after": "Watee checklist",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
