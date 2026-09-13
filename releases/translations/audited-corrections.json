@@ -111137,5 +111137,145 @@
     "before": "Nascondi articoli controllati",
     "after": "Scondi łe vozi segnà",
     "reason": "Replace Italian-seeded Venetian search labels; correct modified-date direction, preserve member/assignee union and public/private-only scope, translate checked items as checklist entries. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "hide-finished-checklist",
+    "before": "Nascondi la lista di controllo completata",
+    "after": "Scondi ła lista de controło finìa",
+    "reason": "Replace Italian-seeded Venetian import/list controls; preserve unmapped-member fallback, keyboard enabled/disabled states, last-admin guard and irreversible label/list loss. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "hide-minicard-label-text",
+    "before": "Nascondi etichetta minicard",
+    "after": "Scondi el testo de łe etichete so ła scheda picenina",
+    "reason": "Replace Italian-seeded Venetian import/list controls; preserve unmapped-member fallback, keyboard enabled/disabled states, last-admin guard and irreversible label/list loss. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "import-board-instruction-csv",
+    "before": "Incolla in Comma Separated Values (CSV) / Tab Separated Values (TSV) .",
+    "after": "Incoła i to vałori separài da vìrgołe (CSV) o da tabułasion (TSV).",
+    "reason": "Replace Italian-seeded Venetian import/list controls; preserve unmapped-member fallback, keyboard enabled/disabled states, last-admin guard and irreversible label/list loss. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "import-csv-placeholder",
+    "before": "Incolla dei dati CSV/TSV validi qui",
+    "after": "Incoła qua i to dati CSV/TSV vàłidi",
+    "reason": "Replace Italian-seeded Venetian import/list controls; preserve unmapped-member fallback, keyboard enabled/disabled states, last-admin guard and irreversible label/list loss. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "import-json-placeholder",
+    "before": "Incolla dei dati JSON validi qui",
+    "after": "Incoła qua i to dati JSON vàłidi",
+    "reason": "Replace Italian-seeded Venetian import/list controls; preserve unmapped-member fallback, keyboard enabled/disabled states, last-admin guard and irreversible label/list loss. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "import-members-map-note",
+    "before": "Nota: I membri non mappati verranno assegnati all'utente corrente.",
+    "after": "Nota: i membri no asociài i vegnarà asegnài al utente corente.",
+    "reason": "Replace Italian-seeded Venetian import/list controls; preserve unmapped-member fallback, keyboard enabled/disabled states, last-admin guard and irreversible label/list loss. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "import-show-user-mapping",
+    "before": "Rivedi la mappatura dei membri",
+    "after": "Controła ła asociasion dei membri",
+    "reason": "Replace Italian-seeded Venetian import/list controls; preserve unmapped-member fallback, keyboard enabled/disabled states, last-admin guard and irreversible label/list loss. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "import-user-select",
+    "before": "Scegli l'utente che vuoi venga utilizzato come questo membro",
+    "after": "Scełi el to utente esistente da doparar par sto membro",
+    "reason": "Replace Italian-seeded Venetian import/list controls; preserve unmapped-member fallback, keyboard enabled/disabled states, last-admin guard and irreversible label/list loss. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "invalid-file",
+    "before": "Se il nome del file non è valido, il caricamento o la ridenominazione viene annullata.",
+    "after": "Se el nome del file no el xe vàłido, el caricamento o el canbio de nome el vien anułà.",
+    "reason": "Replace Italian-seeded Venetian import/list controls; preserve unmapped-member fallback, keyboard enabled/disabled states, last-admin guard and irreversible label/list loss. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "invite-people-error",
+    "before": "Errore durante l'invio degli inviti di registrazione",
+    "after": "Eror mandando el invito a registrarse",
+    "reason": "Replace Italian-seeded Venetian import/list controls; preserve unmapped-member fallback, keyboard enabled/disabled states, last-admin guard and irreversible label/list loss. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "invite-people-success",
+    "before": "Inviti di registrazione inviati correttamente",
+    "after": "Invito a registrarse mandà co suceso",
+    "reason": "Replace Italian-seeded Venetian import/list controls; preserve unmapped-member fallback, keyboard enabled/disabled states, last-admin guard and irreversible label/list loss. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "keyboard-shortcuts-disabled",
+    "before": "Scorciatoie da tastiera disabilitate. Clicca per abilitarle.",
+    "after": "Scurtatoie de tastiera disativà. Clica par ativarle.",
+    "reason": "Replace Italian-seeded Venetian import/list controls; preserve unmapped-member fallback, keyboard enabled/disabled states, last-admin guard and irreversible label/list loss. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "keyboard-shortcuts-enabled",
+    "before": "Scorciatoie da tastiera abilitate. Clicca per disabilitarle.",
+    "after": "Scurtatoie de tastiera ativà. Clica par disativarle.",
+    "reason": "Replace Italian-seeded Venetian import/list controls; preserve unmapped-member fallback, keyboard enabled/disabled states, last-admin guard and irreversible label/list loss. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "label-color-not-found",
+    "before": "Colore etichetta %s non trovato.",
+    "after": "Cołor de ła eticheta %s no trovà.",
+    "reason": "Replace Italian-seeded Venetian import/list controls; preserve unmapped-member fallback, keyboard enabled/disabled states, last-admin guard and irreversible label/list loss. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "label-delete-pop",
+    "before": "Non potrai tornare indietro. Procedendo, rimuoverai questa etichetta da tutte le schede e distruggerai la sua cronologia.",
+    "after": "No se po tornar indrìo. Sto comando el cavarà sta eticheta da tute łe schede e el distrujarà ła so storia.",
+    "reason": "Replace Italian-seeded Venetian import/list controls; preserve unmapped-member fallback, keyboard enabled/disabled states, last-admin guard and irreversible label/list loss. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "label-not-found",
+    "before": "Etichetta '%s' non trovata.",
+    "after": "Eticheta '%s' no trovà.",
+    "reason": "Replace Italian-seeded Venetian import/list controls; preserve unmapped-member fallback, keyboard enabled/disabled states, last-admin guard and irreversible label/list loss. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "last-admin-desc",
+    "before": "Non puoi cambiare i ruoli perché deve esserci almeno un admin.",
+    "after": "No te pol canbiar i ruòli parché ghe gà da èsar almanco un aministrador.",
+    "reason": "Replace Italian-seeded Venetian import/list controls; preserve unmapped-member fallback, keyboard enabled/disabled states, last-admin guard and irreversible label/list loss. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "list-archive-cards",
+    "before": "Sposta tutte le schede in questa lista nell'archivio",
+    "after": "Mete inte el archivio tute łe schede de sta lista",
+    "reason": "Replace Italian-seeded Venetian import/list controls; preserve unmapped-member fallback, keyboard enabled/disabled states, last-admin guard and irreversible label/list loss. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "list-delete-pop",
+    "before": "Tutte le azioni saranno rimosse dal flusso attività e non sarai in grado di recuperare la lista. Non potrai tornare indietro.",
+    "after": "Tute łe asion łe vegnarà cavà dal elenco de atività e no te podarè recuperar ła lista. No se po tornar indrìo.",
+    "reason": "Replace Italian-seeded Venetian import/list controls; preserve unmapped-member fallback, keyboard enabled/disabled states, last-admin guard and irreversible label/list loss. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "list-move-cards",
+    "before": "Sposta tutte le schede in questa lista",
+    "after": "Sposta tute łe schede de sta lista",
+    "reason": "Replace Italian-seeded Venetian import/list controls; preserve unmapped-member fallback, keyboard enabled/disabled states, last-admin guard and irreversible label/list loss. Low-confidence wording; fluent-speaker validation outstanding."
   }
 ]
