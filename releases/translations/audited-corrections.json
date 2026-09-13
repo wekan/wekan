@@ -52624,5 +52624,47 @@
     "before": "Spinner di attesa Scaleout",
     "after": "Indicadour de atesa Scaleout",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "acceptance_of_our_legalNotice",
+    "before": "Continuando, accetti il nostro",
+    "after": "Cun continué, tu azetes nost",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "accessibility-content",
+    "before": "Contenuti di accessibilità",
+    "after": "Contegn de acessibilità",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "act-withDue",
+    "before": "sollecito relativo a __list__/__card__ [__board__]",
+    "after": "__list__/__card__ recordanzes de scadenza [__board__]",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "active-cron-jobs",
+    "before": "Processi pianificati attivi",
+    "after": "Laures planificà ativi",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "activity-checklist-completed",
+    "before": "%s di %s checklists completate",
+    "after": "à completà la lista de control %s de %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "activity-customfield-created",
+    "before": "creato campo personalizzato/a %s ",
+    "after": "à creà l ciamp personalisà %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
