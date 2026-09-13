@@ -352,15 +352,56 @@ test('every Tests option writes its log to .tools/log/<datetime>/', () => {
   assert.ok(fs.existsSync(path.join(ROOT, 'releases/run-everything.sh')));
 
   // FerretDB is expected inside this repo, and its own runner writes beside ours.
-  const fdb = path.join(ROOT, 'FerretDB', 'build.sh');
+  const fdb = path.join(ROOT, '.tools', 'FerretDB', 'build.sh');
   if (fs.existsSync(fdb)) {
     const src = fs.readFileSync(fdb, 'utf8');
     assert.ok(/test-all\)\s*act_test_all/.test(src), 'FerretDB: the test-all command');
     assert.ok(/Run all FerretDB tests/.test(src), 'FerretDB: the menu entry');
-    assert.ok(/WEKAN_LOGDIR/.test(src) && /log\/\$\(date/.test(src),
+    assert.ok(/WEKAN_LOGDIR/.test(src) && /\.tools\/log\/\$stamp/.test(src),
       'FerretDB: logs to .tools/log/<datetime>/, shared when WeKan drives the run');
     assert.ok(/act_unit/.test(src) && /act_lint/.test(src) && /act_test seq/.test(src),
       'FerretDB: unit, vet and the integration suite');
+  }
+});
+
+test('backend and build failures cannot be hidden by successful comparisons or stale binaries', () => {
+  const { spawnSync } = require('node:child_process');
+  const parent = path.join(ROOT, '.tools/tmp');
+  fs.mkdirSync(parent, { recursive: true });
+  const fixture = fs.mkdtempSync(path.join(parent, 'conformance-result-'));
+  try {
+    const sh = read('releases/db-conformance.sh');
+    const resultHelper = sh.slice(sh.indexOf('conformance_result() {'),
+      sh.indexOf('\nnode tests/dbConformance/compare.cjs'));
+    const summary = path.join(fixture, 'summary');
+    for (const [content, comparison, expected] of [
+      ['RAN   sqlite\nRAN   postgresql\nSKIP  sap-hana not requested\n', 0, 0],
+      ['RAN   sqlite\nSKIP  mysql no linux/arm64\n', 0, 0],
+      ['RAN   sqlite\nERROR mysql database never ready\n', 0, 1],
+      ['RAN   sqlite\n', 1, 1],
+    ]) {
+      fs.writeFileSync(summary, content);
+      const result = spawnSync('bash', ['-c', `${resultHelper}\nconformance_result "$1"`, '_', String(comparison)],
+        { env: { ...process.env, SUMMARY: summary, TMPDIR: parent }, encoding: 'utf8' });
+      assert.equal(result.status, expected, result.stderr);
+    }
+    fs.unlinkSync(summary);
+    assert.equal(spawnSync('bash', ['-c', `${resultHelper}\nconformance_result 0`],
+      { env: { ...process.env, SUMMARY: summary } }).status, 1);
+    const buildCheck = sh.slice(sh.indexOf('( cd "$FERRET_DIR" && ./build.sh build )'),
+      sh.indexOf('echo "Built:'));
+    const staleBinary = path.join(fixture, 'ferretdb');
+    fs.writeFileSync(staleBinary, '#!/bin/sh\nexit 0\n', { mode: 0o755 });
+    for (const status of [0, 7]) {
+      fs.writeFileSync(path.join(fixture, 'build.sh'), `#!/bin/sh\nexit ${status}\n`, { mode: 0o755 });
+      const result = spawnSync('bash', ['-c', buildCheck], { encoding: 'utf8', env: {
+        ...process.env, FERRET_DIR: fixture, FERRET_BIN: staleBinary, LOGDIR: fixture, TMPDIR: parent,
+      } });
+      assert.equal(result.status, status === 0 ? 0 : 1, result.stderr);
+    }
+    assert.match(sh, /ERROR \$name  could not inspect/);
+  } finally {
+    fs.rmSync(fixture, { recursive: true, force: true });
   }
 });
 

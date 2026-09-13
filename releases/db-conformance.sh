@@ -179,6 +179,10 @@ echo
 echo "---- Building FerretDB v1 from source ----"
 ( cd "$FERRET_DIR" && ./build.sh build ) 2>&1 \
   | tee -a "$LOGDIR/db-conformance-build.log"
+if [ "${PIPESTATUS[0]}" -ne 0 ]; then
+  echo "ERROR: FerretDB build failed - see $LOGDIR/db-conformance-build.log" >&2
+  exit 1
+fi
 if [ ! -x "$FERRET_BIN" ]; then
   echo "ERROR: the build produced no $FERRET_BIN - see $LOGDIR/db-conformance-build.log" >&2
   exit 1
@@ -285,9 +289,8 @@ for entry in "${BACKENDS[@]}"; do
   if [ -n "$service" ]; then
     image="$(image_of "$file" "$service")"
     if [ -z "$image" ]; then
-      echo "SKIP  $name  (no image found for service '$service' in $file)"
-      echo "SKIP  $name  no image in $file" >> "$SUMMARY"
-      skipped=$((skipped + 1))
+      echo "ERROR $name  no image found for service '$service' in $file"
+      echo "ERROR $name  no image in $file" >> "$SUMMARY"
       continue
     fi
     printf 'Checking %-12s %-45s ' "$name" "$image"
@@ -297,9 +300,9 @@ for entry in "${BACKENDS[@]}"; do
       1) echo "NO linux/$PLATFORM - skipping"
          echo "SKIP  $name  $image has no linux/$PLATFORM" >> "$SUMMARY"
          skipped=$((skipped + 1)); continue ;;
-      *) echo "could not ask the registry - skipping"
-         echo "SKIP  $name  could not inspect $image (network? docker login?)" >> "$SUMMARY"
-         skipped=$((skipped + 1)); continue ;;
+      *) echo "could not ask the registry - failing this backend"
+         echo "ERROR $name  could not inspect $image (network? docker login?)" >> "$SUMMARY"
+         continue ;;
     esac
   else
     echo "Checking sqlite       embedded in FerretDB                       always available"
@@ -481,6 +484,17 @@ if [ "$ran" -eq 0 ]; then
   exit 1
 fi
 
+# Comparing the available results cannot detect a backend that never ran.
+conformance_result() {
+  local comparison_rc="$1"
+  [ -r "$SUMMARY" ] || { echo "ERROR: missing backend summary." >&2; return 1; }
+  if grep -q '^ERROR ' "$SUMMARY"; then
+    echo "ERROR: one or more backends could not be tested; see $SUMMARY." >&2
+    return 1
+  fi
+  return "$comparison_rc"
+}
+
 node tests/dbConformance/compare.cjs --dir "$LOGDIR" --reference sqlite 2>&1 | tee -a "$SUMMARY"
 rc=${PIPESTATUS[0]}
 
@@ -490,4 +504,5 @@ echo "  db-conformance-build.log        cloning and building FerretDB"
 echo "  db-conformance-<backend>.json   what each backend answered"
 echo "  db-conformance-<backend>.log    that backend's database + FerretDB output"
 echo "  db-conformance-report.md        where they agree and where they do not"
-exit "$rc"
+conformance_result "$rc"
+exit $?
