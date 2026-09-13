@@ -1447,7 +1447,7 @@ where /q tea
 if %errorlevel%==0 (
 	echo OK: tea present
 ) else (
-	if defined HASGO ( go install code.gitea.io/tea@latest ) else ( echo Install tea manually: https://gitea.com/gitea/tea/releases )
+	if defined HASGO ( go install gitea.dev/tea@latest ) else ( echo Install tea manually: https://gitea.com/gitea/tea/releases )
 )
 where /q git-bug
 if %errorlevel%==0 (
@@ -1459,7 +1459,7 @@ where /q forge
 if %errorlevel%==0 (
 	echo OK: forge present
 ) else (
-	if defined HASGO ( go install github.com/git-pkgs/forge@latest ) else ( echo Install forge manually ^(needs Go^): https://github.com/git-pkgs/forge )
+	if defined HASGO ( go install github.com/git-pkgs/forge/cmd/forge@latest ) else ( echo Install forge manually ^(needs Go^): https://github.com/git-pkgs/forge )
 )
 echo.
 echo Authenticate before mirroring: gh auth login ^| glab auth login ^| tea login add

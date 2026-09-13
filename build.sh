@@ -1802,6 +1802,7 @@ function install_forge_tools(){
 	echo "Installing gh-like forge CLIs: gh, glab, tea, git-bug, forge (git-pkgs/forge)."
 	echo "Already-installed tools are skipped. Package manager is auto-detected."
 	local PM=""
+	local forge_install_status=0
 	if command -v brew >/dev/null 2>&1; then PM=brew
 	elif command -v apt  >/dev/null 2>&1; then PM=apt
 	elif command -v dnf  >/dev/null 2>&1; then PM=dnf
@@ -1821,7 +1822,11 @@ function install_forge_tools(){
 	# tea - Gitea/Forgejo CLI (covers Codeberg, Forgejo, Gitea)
 	if command -v tea >/dev/null 2>&1; then echo "OK: tea present"
 	elif [ "$PM" = brew ]; then brew install tea
-	elif command -v go >/dev/null 2>&1; then go install code.gitea.io/tea@latest
+	elif command -v go >/dev/null 2>&1; then
+		go install gitea.dev/tea@latest || {
+			echo "tea installation failed; see https://gitea.com/gitea/tea#installation"
+			forge_install_status=1
+		}
 	else echo "Install tea manually: https://gitea.com/gitea/tea/releases (or 'brew install tea')"; fi
 
 	# git-bug - distributed issue tracker / bridges
@@ -1833,13 +1838,16 @@ function install_forge_tools(){
 	# forge - git-pkgs/forge unified multi-forge CLI
 	if command -v forge >/dev/null 2>&1; then echo "OK: forge present"
 	elif command -v go >/dev/null 2>&1; then
-		go install github.com/git-pkgs/forge@latest \
-			|| echo "go install failed; see https://github.com/git-pkgs/forge for the current install path"
+		go install github.com/git-pkgs/forge/cmd/forge@latest || {
+			echo "forge installation failed; see https://github.com/git-pkgs/forge#cli"
+			forge_install_status=1
+		}
 	else echo "Install forge manually (needs Go): https://github.com/git-pkgs/forge"; fi
 
 	echo
 	echo "Authenticate before mirroring:  gh auth login | glab auth login | tea login add"
-	command -v go >/dev/null 2>&1 && echo "Note: Go tools install to \$(go env GOPATH)/bin — ensure it is on your PATH."
+	command -v go >/dev/null 2>&1 && echo "Note: Go tools install to GOBIN, or \$(go env GOPATH)/bin when GOBIN is unset — ensure it is on your PATH."
+	return "$forge_install_status"
 }
 
 function mirror_forge(){
