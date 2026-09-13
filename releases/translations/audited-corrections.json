@@ -118473,5 +118473,75 @@
     "before": "`__predicate_all__` - kaikki arkistoidut ja arkistoimattomat kortit",
     "after": "`__predicate_all__` - kaik arhivaha sirttud kartad da kaik toižed kartad",
     "reason": "Replace Finnish/mixed search wording with Veps using existing board/list/swimlane and assigned-user labels. Preserve operator placeholders, title/user examples and all archived/unarchived cards. Technical relative-clause/case morphology remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "operator-user",
+    "before": "käyttäjä",
+    "after": "kävutai",
+    "reason": "Replace Finnish Veps search/creator wording using dictionary tegii and existing kävutai, lopun päivmär and sanumata terminology. Preserve member OR assignee, creator distinction, end-date status and default exclusion of archived cards. Technical grammar remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "operator-creator",
+    "before": "luoja",
+    "after": "tegii",
+    "reason": "Replace Finnish Veps search/creator wording using dictionary tegii and existing kävutai, lopun päivmär and sanumata terminology. Preserve member OR assignee, creator distinction, end-date status and default exclusion of archived cards. Technical grammar remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "creator",
+    "before": "Luoja",
+    "after": "Tegii",
+    "reason": "Replace Finnish Veps search/creator wording using dictionary tegii and existing kävutai, lopun päivmär and sanumata terminology. Preserve member OR assignee, creator distinction, end-date status and default exclusion of archived cards. Technical grammar remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "creator-on-minicard",
+    "before": "Luoja minikortilla",
+    "after": "Tegii minikartal",
+    "reason": "Replace Finnish Veps search/creator wording using dictionary tegii and existing kävutai, lopun päivmär and sanumata terminology. Preserve member OR assignee, creator distinction, end-date status and default exclusion of archived cards. Technical grammar remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "predicate-ended",
+    "before": "päättyi",
+    "after": "loptud",
+    "reason": "Replace Finnish Veps search/creator wording using dictionary tegii and existing kävutai, lopun päivmär and sanumata terminology. Preserve member OR assignee, creator distinction, end-date status and default exclusion of archived cards. Technical grammar remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "globalSearch-instructions-operator-user",
+    "before": "`__operator_user__:<username>` - kortit joilla *<username>* on *jäsen* tai *käsittelijä*",
+    "after": "`__operator_user__:<username>` - kartad, miččil *<username>* om *ühtnik* libo *märitud kävutai*",
+    "reason": "Replace Finnish Veps search/creator wording using dictionary tegii and existing kävutai, lopun päivmär and sanumata terminology. Preserve member OR assignee, creator distinction, end-date status and default exclusion of archived cards. Technical grammar remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "globalSearch-instructions-operator-creator",
+    "before": "`__operator_creator__:<username>` - kortit joissa *<username>* on kortin luoja",
+    "after": "`__operator_creator__:<username>` - kartad, miččil *<username>* om kartan tegii",
+    "reason": "Replace Finnish Veps search/creator wording using dictionary tegii and existing kävutai, lopun päivmär and sanumata terminology. Preserve member OR assignee, creator distinction, end-date status and default exclusion of archived cards. Technical grammar remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "globalSearch-instructions-status-ended",
+    "before": "`__predicate_ended__` - kortit joilla on loppumispäivä",
+    "after": "`__predicate_ended__` - kartad lopun päivmäranke",
+    "reason": "Replace Finnish Veps search/creator wording using dictionary tegii and existing kävutai, lopun päivmär and sanumata terminology. Preserve member OR assignee, creator distinction, end-date status and default exclusion of archived cards. Technical grammar remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "globalSearch-instructions-notes-1",
+    "before": "On mahdollista määritellä useita operaattoreita.",
+    "after": "Voib märita äi operatoroid.",
+    "reason": "Replace Finnish Veps search/creator wording using dictionary tegii and existing kävutai, lopun päivmär and sanumata terminology. Preserve member OR assignee, creator distinction, end-date status and default exclusion of archived cards. Technical grammar remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "globalSearch-instructions-notes-5",
+    "before": "Oletuksena arkistoiduista korteista ei etsitä.",
+    "after": "Sanumata ecind om ilma arhivaha sirttud kartoid.",
+    "reason": "Replace Finnish Veps search/creator wording using dictionary tegii and existing kävutai, lopun päivmär and sanumata terminology. Preserve member OR assignee, creator distinction, end-date status and default exclusion of archived cards. Technical grammar remains low confidence pending fluent review."
   }
 ]

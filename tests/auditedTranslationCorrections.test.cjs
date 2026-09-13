@@ -1943,7 +1943,38 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.notEqual(cache['ve-PP']['operator-member'], cache['ve-PP']['operator-assignee']);
   assert.match(cache['ve-PP']['globalSearch-instructions-status-all'], /kaik arhivaha sirttud kartad da kaik toižed kartad/);
   const invalidSpacedOperator = new visibilityContext.Query();
-  invalidSpacedOperator.buildParams('märitud kävutai:SEARCH_TEXT');
+  invalidSpacedOperator.buildParams('märitud nonexistentoperator:SEARCH_TEXT');
   assert.equal(invalidSpacedOperator.hasErrors(), true);
+  const vepsSearchRoles = {
+  "operator-user": "kävutai",
+  "operator-creator": "tegii",
+  "creator": "Tegii",
+  "creator-on-minicard": "Tegii minikartal",
+  "predicate-ended": "loptud",
+  "globalSearch-instructions-operator-user": "`__operator_user__:<username>` - kartad, miččil *<username>* om *ühtnik* libo *märitud kävutai*",
+  "globalSearch-instructions-operator-creator": "`__operator_creator__:<username>` - kartad, miččil *<username>* om kartan tegii",
+  "globalSearch-instructions-status-ended": "`__predicate_ended__` - kartad lopun päivmäranke",
+  "globalSearch-instructions-notes-1": "Voib märita äi operatoroid.",
+  "globalSearch-instructions-notes-5": "Sanumata ecind om ilma arhivaha sirttud kartoid."
+};
+  for (const [key, value] of Object.entries(vepsSearchRoles)) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.doesNotMatch(value, /käyttäjä|luoja|Luoja|minikortilla|päättyi|kortit joilla|kortit joissa|jäsen|käsittelijä|On mahdollista|Oletuksena/, key);
+  }
+  for (const [key, predicate] of [['operator-user', 'user'], ['operator-creator', 'userId']]) {
+    const parsed = new visibilityContext.Query();
+    parsed.buildParams(`${cache['ve-PP'][key]}:SEARCH_USER`);
+    assert.equal(parsed.hasErrors(), false, key);
+    assert.equal(parsed.getQueryParams().getPredicate(predicate), 'SEARCH_USER', key);
+    const instruction = `globalSearch-instructions-${key}`;
+    assert.equal(vepsTranslator.t(instruction, { [key.replace('-', '_')]: cache['ve-PP'][key] }), cache['ve-PP'][instruction].replace(`__${key.replace('-', '_')}__`, cache['ve-PP'][key]));
+  }
+  const endedSearch = new visibilityContext.Query();
+  endedSearch.buildParams(`${cache['ve-PP']['operator-status']}:${cache['ve-PP']['predicate-ended']}`);
+  assert.equal(endedSearch.hasErrors(), false);
+  assert.equal(endedSearch.getQueryParams().getPredicate('status'), 'ended');
+  assert.match(cache['ve-PP']['globalSearch-instructions-operator-user'], /ühtnik.*libo.*märitud kävutai/);
+  assert.match(cache['ve-PP']['globalSearch-instructions-notes-5'], /Sanumata.*ilma arhivaha sirttud kartoid/);
+  assert.notEqual(cache['ve-PP']['operator-creator'], cache['ve-PP']['operator-assignee']);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });
