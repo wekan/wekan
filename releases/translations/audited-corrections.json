@@ -52792,5 +52792,47 @@
     "before": "Sicuro di voler cancellare la checklist?",
     "after": "Es tu segur de ulé scancelé la lista de control?",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "copy-link-to-clipboard",
+    "before": "Copia il link negli appunti",
+    "after": "Copié l link tla memoria provisoria",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "copy-text-to-clipboard",
+    "before": "Copia il testo negli appunti",
+    "after": "Copié l test tla memoria provisoria",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "cover-attachment-on-minicard",
+    "before": "Immagine di copertina su minicard",
+    "after": "Imagine de cuertina sun la miniciarta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "cron-job-pause-failed",
+    "before": "Impossibile mettere in pausa il processo pianificato",
+    "after": "No ie stat meso meter en pausa l laur planificà",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "cron-job-resume-failed",
+    "before": "Impossibile riprendere il processo pianificato",
+    "after": "No ie stat meso reprënder l laur planificà",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "cron-job-start-failed",
+    "before": "Impossibile avviare il processo pianificato",
+    "after": "No ie stat meso envié l laur planificà",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
