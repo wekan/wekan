@@ -84138,5 +84138,19 @@
     "before": "ISO 8601",
     "after": "Kalena Gregoriana (vaiaso ISO 8601)",
     "reason": "Replace English with Samoan using existing Hijri tabular/starting-date terminology; preserve civil epoch rather than astronomical epoch and restore Gregorian ISO weeks omitted from local label. Civil-epoch adaptation and complete grammar remain low confidence."
+  },
+  {
+    "locale": "sn",
+    "key": "calendar-system-islamic-civil",
+    "before": "Islamic civil",
+    "after": "Karenda yeHijri (kuverenga uchishandisa tafura, zuva rekutanga rehurongwa hwevanhu)",
+    "reason": "Replace English with Shona using existing Hijri table/starting-date phrasing; preserve civil epoch versus astronomical epoch and restore Gregorian ISO weeks omitted from local label. Civil-epoch adaptation and complete grammar remain low confidence."
+  },
+  {
+    "locale": "sn",
+    "key": "calendar-system-iso8601",
+    "before": "ISO 8601",
+    "after": "Karenda yeGregorian (mavhiki eISO 8601)",
+    "reason": "Replace English with Shona using existing Hijri table/starting-date phrasing; preserve civil epoch versus astronomical epoch and restore Gregorian ISO weeks omitted from local label. Civil-epoch adaptation and complete grammar remain low confidence."
   }
 ]
