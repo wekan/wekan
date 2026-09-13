@@ -72308,5 +72308,26 @@
     "before": "Republic of China",
     "after": "Karenda yeMinguo",
     "reason": "Replace foreign calendar descriptions using Shona Karenda and retained proper names. Published usage supports chiBuddha/Korea https://www.jw.org/sn/Raibhurari/magazini/w20031201/Chavanoendera-Kuchechi/ ; China/India/Japan https://www.jw.org/sn/Raibhurari/magazini/wp20151201/kunzwisisa-bhaibheri/ ; Persia https://www.jw.org/sn/Raibhurari/magazini/w20041215/Pakatadza-Kuwirirana-Kunamata-Kwechokwadi-Nechihedheni/ . Full specialized calendar-label grammar remains subject to native review."
+  },
+  {
+    "locale": "sn",
+    "key": "calendar-system-coptic",
+    "before": "Coptic",
+    "after": "Karenda yechiCoptic",
+    "reason": "Replace English calendar description with Shona Karenda yechiCoptic. Published chiCoptic usage: https://www.jw.org/sn/Raibhurari/mabhuku/bhuku-regore-ra2017/georgia/bhaibheri-muchigeorgian/ . Full phrasing needs native review."
+  },
+  {
+    "locale": "sn",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "Karenda yeHijri",
+    "reason": "Replace English calendar description using previously verified Shona Karenda terminology and preserve Hijri/Umm al-Qura proper names. Calendar identity matches en.i18n.json; specialized full phrasing still needs native review."
+  },
+  {
+    "locale": "sn",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "Karenda yeHijri (Umm al-Qura)",
+    "reason": "Replace English calendar description using previously verified Shona Karenda terminology and preserve Hijri/Umm al-Qura proper names. Calendar identity matches en.i18n.json; specialized full phrasing still needs native review."
   }
 ]
