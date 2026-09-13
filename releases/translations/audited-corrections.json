@@ -79140,5 +79140,75 @@
     "before": "L'utilisateur est désactivé - Cliquer pour l'activer",
     "after": "Kontu jëfandikukat bi doxul - bësal ngir def ko mu dox",
     "reason": "Replace French account-state filters and activation/deactivation tooltips with Wolof. Express functional account state rather than energetic human activity, keep locked-only filter distinct and preserve opposite click actions. Reuse kont/jëfandikukat; taxawal stop attested in Peace Corps Wolof trainee manual (https://publish.illinois.edu/wolof201fall14/files/2014/08/NEW_WOLOF_BOOK.pdf). Full grammar and account-state adaptation remain low confidence; failed suqali search not treated as activation evidence."
+  },
+  {
+    "locale": "wo",
+    "key": "activity-editComment",
+    "before": "commentaire modifié %s",
+    "after": "soppi xalaat %s",
+    "reason": "Replace French short activity/comment messages with Wolof, reusing existing action terminology. Preserve %s count and argument order; remove erroneous literal 1 before renamed-list placeholder. Keep comment edit/delete, generic removal, sending, leaving and archival distinct. Full grammar and generic entity prepositions remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "activity-deleteComment",
+    "before": "commentaire supprimé %s",
+    "after": "far xalaat %s",
+    "reason": "Replace French short activity/comment messages with Wolof, reusing existing action terminology. Preserve %s count and argument order; remove erroneous literal 1 before renamed-list placeholder. Keep comment edit/delete, generic removal, sending, leaving and archival distinct. Full grammar and generic entity prepositions remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "activity-changedListTitle",
+    "before": "a renommé la liste en 1%s",
+    "after": "soppi turu limu bi mu nekk %s",
+    "reason": "Replace French short activity/comment messages with Wolof, reusing existing action terminology. Preserve %s count and argument order; remove erroneous literal 1 before renamed-list placeholder. Keep comment edit/delete, generic removal, sending, leaving and archival distinct. Full grammar and generic entity prepositions remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "activity-added",
+    "before": "a ajouté %s à %s",
+    "after": "yokk %s ci %s",
+    "reason": "Replace French short activity/comment messages with Wolof, reusing existing action terminology. Preserve %s count and argument order; remove erroneous literal 1 before renamed-list placeholder. Keep comment edit/delete, generic removal, sending, leaving and archival distinct. Full grammar and generic entity prepositions remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "activity-created",
+    "before": "a créé %s",
+    "after": "sos %s",
+    "reason": "Replace French short activity/comment messages with Wolof, reusing existing action terminology. Preserve %s count and argument order; remove erroneous literal 1 before renamed-list placeholder. Keep comment edit/delete, generic removal, sending, leaving and archival distinct. Full grammar and generic entity prepositions remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "activity-removed",
+    "before": "a supprimé %s de %s",
+    "after": "génne %s ci %s",
+    "reason": "Replace French short activity/comment messages with Wolof, reusing existing action terminology. Preserve %s count and argument order; remove erroneous literal 1 before renamed-list placeholder. Keep comment edit/delete, generic removal, sending, leaving and archival distinct. Full grammar and generic entity prepositions remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "activity-on",
+    "before": "sur %s",
+    "after": "ci %s",
+    "reason": "Replace French short activity/comment messages with Wolof, reusing existing action terminology. Preserve %s count and argument order; remove erroneous literal 1 before renamed-list placeholder. Keep comment edit/delete, generic removal, sending, leaving and archival distinct. Full grammar and generic entity prepositions remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "activity-archived",
+    "before": "%s a été archivé",
+    "after": "%s yóbbu nañu ko ci àrsiw bi",
+    "reason": "Replace French short activity/comment messages with Wolof, reusing existing action terminology. Preserve %s count and argument order; remove erroneous literal 1 before renamed-list placeholder. Keep comment edit/delete, generic removal, sending, leaving and archival distinct. Full grammar and generic entity prepositions remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "activity-sent",
+    "before": "a envoyé %s vers %s",
+    "after": "yónnee %s ci %s",
+    "reason": "Replace French short activity/comment messages with Wolof, reusing existing action terminology. Preserve %s count and argument order; remove erroneous literal 1 before renamed-list placeholder. Keep comment edit/delete, generic removal, sending, leaving and archival distinct. Full grammar and generic entity prepositions remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "activity-unjoined",
+    "before": "a quitté %s",
+    "after": "génn %s",
+    "reason": "Replace French short activity/comment messages with Wolof, reusing existing action terminology. Preserve %s count and argument order; remove erroneous literal 1 before renamed-list placeholder. Keep comment edit/delete, generic removal, sending, leaving and archival distinct. Full grammar and generic entity prepositions remain low confidence."
   }
 ]
