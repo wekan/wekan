@@ -57573,5 +57573,124 @@
     "before": "Republic of China",
     "after": "Calendarium Minguo",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "tt",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "Календарь системасы (датаны күрсәтү)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "tt",
+    "key": "calendar-system-jalali",
+    "before": "Jalali (Fars)",
+    "after": "Җәлали календаре (фарсы)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "tt",
+    "key": "calendar-system-buddhist",
+    "before": "Buddhist",
+    "after": "Будда календаре",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "tt",
+    "key": "calendar-system-chinese",
+    "before": "Chinese",
+    "after": "Кытай календаре",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "tt",
+    "key": "calendar-system-coptic",
+    "before": "Coptic",
+    "after": "Копт календаре",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "tt",
+    "key": "calendar-system-dangi",
+    "before": "Dangi (Korean)",
+    "after": "Данги календаре (Корея)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "tt",
+    "key": "calendar-system-ethioaa",
+    "before": "Ethiopic Amete Alem",
+    "after": "Эфиопиянең Аметә Алем календаре",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "tt",
+    "key": "calendar-system-ethiopic",
+    "before": "Ethiopic",
+    "after": "Эфиопия календаре",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "tt",
+    "key": "calendar-system-hebrew",
+    "before": "Hebrew",
+    "after": "Яһүд календаре",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "tt",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "Һиндстанның милли календаре",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "tt",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "Һиҗри календарь",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "tt",
+    "key": "calendar-system-islamic-civil",
+    "before": "Islamic civil",
+    "after": "Һиҗри календарь (таблица буенча, гражданлык дәвере)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "tt",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "Һиҗри календарь (Согуд Гарәбстаны, айны күзәтү буенча)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "tt",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "Һиҗри календарь (таблица буенча, астрономик дәвер)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "tt",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "Һиҗри календарь (Умм әл-Кура)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "tt",
+    "key": "calendar-system-japanese",
+    "before": "Japanese",
+    "after": "Япония календаре",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "tt",
+    "key": "calendar-system-roc",
+    "before": "Republic of China",
+    "after": "Миньго календаре",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
