@@ -59449,5 +59449,110 @@
     "before": "Tous les participants de la carte actuelle dans ce tableau",
     "after": "Totes los membres de la carta actuala d’aqueste tablèu",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "checklistActionsPopup-title",
+    "before": "Actions sur la check-list",
+    "after": "Accions de la lista de contraròtle",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "checklistDeletePopup-title",
+    "before": "Supprimer la check-list ?",
+    "after": "Suprimir la lista de contraròtle ?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "checklistItemDeletePopup-title",
+    "before": "Supprimer l'élément de la check-list ?",
+    "after": "Suprimir l’element de la lista de contraròtle ?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "close-add-checklist-item",
+    "before": "Fermer ajouter un élément du formulaire check-list",
+    "after": "Tampar lo formulari d’apondon d’un element a la lista de contraròtle",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "close-edit-checklist-item",
+    "before": "Fermer éditer un élément du formulaire check-list",
+    "after": "Tampar lo formulari de modificacion d’un element de la lista de contraròtle",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "comment-delete",
+    "before": "Êtes-vous sûr de vouloir supprimer le commentaire ?",
+    "after": "Volètz vertadièrament suprimir lo comentari ?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "comprehensive-board-migration",
+    "before": "Migration complète de tableau",
+    "after": "Migracion completa del tablèu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "comprehensive-board-migration-description",
+    "before": "Effectue des vérifications complètes et des corrections pour l'intégrité des données du tableau, y compris l'ordre des listes, les positions des cartes et la structure des couloirs.",
+    "after": "Verifica e corregís l’integritat de las donadas del tablèu, en comprenent l’òrdre de las listas, las posicions de las cartas e l’estructura dels corredors.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "confirm-checklist-delete-popup",
+    "before": "Êtes-vous sûr de vouloir supprimer la check-list ?",
+    "after": "Volètz vertadièrament suprimir la lista de contraròtle ?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "confirm-checklist-item-delete-popup",
+    "before": "Êtes-vous sûr de vouloir supprimer l'élément de la check-list ?",
+    "after": "Volètz vertadièrament suprimir l’element de la lista de contraròtle ?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "createTemplateContainerPopup-title",
+    "before": "Ajouter un conteneur de modèles",
+    "after": "Apondre un contenidor de modèls",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "custom-field-stringtemplate-item-placeholder",
+    "before": "Appuyez sur Entrée pour ajouter plus d'éléments",
+    "after": "Quichatz Entrada per apondre mai d’elements",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "custom-login-logo-image-url",
+    "before": "URL de l'image du logo de connexion personnalisé",
+    "after": "URL de l’imatge del lògo de connexion personalizat",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "custom-login-logo-link-url",
+    "before": "Lien URL du logo de connexion personnalisé",
+    "after": "URL del ligam del lògo de connexion personalizat",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "delete-all-notifications",
+    "before": "Supprimer toutes les notifications",
+    "after": "Suprimir totas las notificacions",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
