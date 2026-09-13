@@ -484,7 +484,7 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.notEqual(cache['ve-PP']['s3-settings-saved'], cache['ve-PP']['s3-settings-save-failed']);
   assert.match(cache['ve-PP']['s3-enabled-description'], /AWS S3 libo MinIO/);
   const vepsTranslator = require('i18next').createInstance().use(require('i18next-sprintf-postprocessor'));
-  await vepsTranslator.init({ lng: 've-PP', fallbackLng: false, keySeparator: false, resources: { 've-PP': { translation: cache['ve-PP'] } }, postProcess: ['sprintf'] });
+  await vepsTranslator.init({ lng: 've-PP', fallbackLng: false, keySeparator: false, interpolation: { prefix: '__', suffix: '__', escapeValue: false }, resources: { 've-PP': { translation: cache['ve-PP'] } }, postProcess: ['sprintf'] });
   assert.equal(vepsTranslator.t('activity-moved', { sprintf: ['ITEM', 'SOURCE', 'DESTINATION'] }), 'Sirttud ITEM azjaspäi SOURCE azjaha DESTINATION');
   assert.equal(vepsTranslator.t('activity-imported', { sprintf: ['ITEM', 'DESTINATION', 'SOURCE'] }), 'Importiruitud ITEM azjaha DESTINATION azjaspäi SOURCE');
   assert.equal(vepsTranslator.t('activity-removed-label', { sprintf: ['LABEL', 'CARD'] }), "Heittud znam 'LABEL' azjaspäi CARD");
@@ -607,5 +607,58 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.match(cache['ve-PP']['migration-cpu-threshold-description'], /^Azota migracii, konz CPU -kävutuz ülitab/);
   assert.match(cache['ve-PP']['migration-delay-ms'], /\(ms\)/);
   assert.match(cache['ve-PP']['migration-delay-ms-description'], /paketoiden keskes millisekundoiš/);
+  const vepsActivityMessageRepairs = {
+  "card": "Kart",
+  "swimlane": "Ujundšoid",
+  "comment": "Sel’genzoituz",
+  "act-addAttachment": "Ližadud tartutadud fail __attachment__ kartale __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
+  "act-deleteAttachment": "Heittud tartutadud fail __attachment__ kartal __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
+  "act-addLabel": "Ližadud znam __label__ kartale __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
+  "act-addedLabel": "Ližadud znam __label__ kartale __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
+  "act-removeLabel": "Heittud znam __label__ kartaspäi __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
+  "act-removedLabel": "Heittud znam __label__ kartaspäi __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
+  "act-addComment": "Sel’genzoittud kartal __card__: __comment__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
+  "act-editComment": "Vajehtadud sel’genzoituz kartal __card__: __comment__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
+  "act-deleteComment": "Heittud sel’genzoituz kartal __card__: __comment__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
+  "act-createBoard": "Tehtud laud __board__",
+  "act-createSwimlane": "Tehtud ujundšoid __swimlane__ laudale __board__",
+  "act-createCard": "Tehtud kart __card__ lugetišehe __list__ ujundšoidul __swimlane__ laudal __board__",
+  "act-createList": "Ližadud lugetiž __list__ laudale __board__",
+  "act-addBoardMember": "Ližadud ühtnik __member__ laudale __board__",
+  "act-archivedBoard": "Laud __board__ om sirttud arhivaha",
+  "act-archivedCard": "Kart __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__ om sirttud arhivaha",
+  "act-archivedList": "Lugetiž __list__ ujundšoidul __swimlane__ laudal __board__ om sirttud arhivaha",
+  "act-archivedSwimlane": "Ujundšoid __swimlane__ laudal __board__ om sirttud arhivaha",
+  "act-importBoard": "Importiruitud laud __board__",
+  "act-importCard": "Importiruitud kart __card__ lugetišehe __list__ ujundšoidul __swimlane__ laudal __board__",
+  "act-importList": "Importiruitud lugetiž __list__ ujundšoidule __swimlane__ laudal __board__",
+  "act-joinMember": "Ližadud ühtnik __member__ kartale __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
+  "act-unjoinMember": "Heittud ühtnik __member__ kartaspäi __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
+  "act-removeBoardMember": "Heittud ühtnik __member__ laudaspäi __board__",
+  "act-moveCard": "Sirttud kart __card__ laudal __board__ lugetišespäi __oldList__ ujundšoidul __oldSwimlane__ lugetišehe __list__ ujundšoidule __swimlane__",
+  "act-moveCardToOtherBoard": "Sirttud kart __card__ lugetišespäi __oldList__ ujundšoidul __oldSwimlane__ laudaspäi __oldBoard__ lugetišehe __list__ ujundšoidul __swimlane__ laudale __board__",
+  "act-restoredCard": "Udištadud kart __card__ lugetišehe __list__ ujundšoidul __swimlane__ laudal __board__",
+  "act-deleteCard": "häviti kartan __card__ listaspäi __list__ ujundšoidul __swimlane__ laudal __board__",
+  "act-removeSwimlane": "häviti ujundšoidun __swimlane__ laudal __board__"
+};
+  const activitySlots = {
+    card: 'CARD', list: 'LIST', swimlane: 'SWIMLANE', board: 'BOARD',
+    oldList: 'SOURCE_LIST', oldSwimlane: 'SOURCE_SWIMLANE', oldBoard: 'SOURCE_BOARD',
+    attachment: 'ATTACHMENT', label: 'LABEL', member: 'MEMBER', comment: 'COMMENT'
+  };
+  for (const [key, value] of Object.entries(vepsActivityMessageRepairs)) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.equal(vepsTranslator.t(key, activitySlots), value.replace(/__([A-Za-z]+)__/g, (_, name) => activitySlots[name]), key);
+    assert.doesNotMatch(value, /lisätty|poistettu|nimilappu|kortill|kortilt|kortti|listall|listalle|uimarad|taulull|taululle|muokkasi|kommenttia|palautettu|siirretty|siirsi|luotu|jäsen|Arkistoon|uindrad/, key);
+  }
+  assert.equal(cache['ve-PP']['act-addLabel'], cache['ve-PP']['act-addedLabel']);
+  assert.equal(cache['ve-PP']['act-removeLabel'], cache['ve-PP']['act-removedLabel']);
+  assert.match(vepsTranslator.t('act-moveCard', activitySlots), /lugetišespäi SOURCE_LIST ujundšoidul SOURCE_SWIMLANE lugetišehe LIST ujundšoidule SWIMLANE/);
+  assert.match(vepsTranslator.t('act-moveCardToOtherBoard', activitySlots), /laudaspäi SOURCE_BOARD.*laudale BOARD$/);
+  assert.match(vepsTranslator.t('act-addAttachment', activitySlots), /ATTACHMENT kartale CARD/);
+  assert.match(vepsTranslator.t('act-joinMember', activitySlots), /^Ližadud ühtnik MEMBER kartale CARD/);
+  assert.match(vepsTranslator.t('act-unjoinMember', activitySlots), /^Heittud ühtnik MEMBER kartaspäi CARD/);
+  assert.match(vepsTranslator.t('act-archivedCard', activitySlots), /om sirttud arhivaha$/);
+  assert.doesNotMatch(vepsTranslator.t('act-restoredCard', activitySlots), /arhivaha/);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });

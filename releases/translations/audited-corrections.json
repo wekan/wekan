@@ -114007,5 +114007,229 @@
     "before": "Siirto tarvitaan",
     "after": "Migracii om tarbiž",
     "reason": "Replace Finnish with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests paket, suruz’, lugumär, pidätand, keskes, procent, etap, znam and tarbiž. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests ülimär/ülitanu, aigkirj and käta; existing Veps WeKan uses kätand and migracii. Preserve CPU, %, ms, attachment-count batch scope, pause when usage exceeds the limit and numeric ranges 1-100/10-90/100-10000. Low confidence: technical batch terminology, millisecond inflection and composed UI grammar need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "card",
+    "before": "Kortti",
+    "after": "Kart",
+    "reason": "Replace Finnish activity text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kart, laud, lugetiž, znam, ühtnik, sel’genzoituz/sel’genzoitta, ujund (swimming), šoid (strip), arhiv, ližata, importiruida and udištada. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests tehtud, heittud, sirttud, vajehtadud and udištadud. Compose ujundšoid for the kanban swimlane metaphor instead of the unsupported uindrada stem; keep action kind, entity/context, source/destination and every case-sensitive placeholder. Low confidence: kanban card/swimlane metaphors, compound terminology and composed UI grammar/inflections require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "swimlane",
+    "before": "Uimarata",
+    "after": "Ujundšoid",
+    "reason": "Replace Finnish activity text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kart, laud, lugetiž, znam, ühtnik, sel’genzoituz/sel’genzoitta, ujund (swimming), šoid (strip), arhiv, ližata, importiruida and udištada. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests tehtud, heittud, sirttud, vajehtadud and udištadud. Compose ujundšoid for the kanban swimlane metaphor instead of the unsupported uindrada stem; keep action kind, entity/context, source/destination and every case-sensitive placeholder. Low confidence: kanban card/swimlane metaphors, compound terminology and composed UI grammar/inflections require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "comment",
+    "before": "Kommentti",
+    "after": "Sel’genzoituz",
+    "reason": "Replace Finnish activity text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kart, laud, lugetiž, znam, ühtnik, sel’genzoituz/sel’genzoitta, ujund (swimming), šoid (strip), arhiv, ližata, importiruida and udištada. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests tehtud, heittud, sirttud, vajehtadud and udištadud. Compose ujundšoid for the kanban swimlane metaphor instead of the unsupported uindrada stem; keep action kind, entity/context, source/destination and every case-sensitive placeholder. Low confidence: kanban card/swimlane metaphors, compound terminology and composed UI grammar/inflections require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "act-addAttachment",
+    "before": "lisätty liite __attachment__ kortille __card__ listalla __list__ uimaradalla __swimlane__ taululla __board__",
+    "after": "Ližadud tartutadud fail __attachment__ kartale __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
+    "reason": "Replace Finnish activity text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kart, laud, lugetiž, znam, ühtnik, sel’genzoituz/sel’genzoitta, ujund (swimming), šoid (strip), arhiv, ližata, importiruida and udištada. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests tehtud, heittud, sirttud, vajehtadud and udištadud. Compose ujundšoid for the kanban swimlane metaphor instead of the unsupported uindrada stem; keep action kind, entity/context, source/destination and every case-sensitive placeholder. Low confidence: kanban card/swimlane metaphors, compound terminology and composed UI grammar/inflections require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "act-deleteAttachment",
+    "before": "poistettu liite __attachment__ kortilla __card__ listalla __list__ uimaradalla  __swimlane__ taululla __board__",
+    "after": "Heittud tartutadud fail __attachment__ kartal __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
+    "reason": "Replace Finnish activity text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kart, laud, lugetiž, znam, ühtnik, sel’genzoituz/sel’genzoitta, ujund (swimming), šoid (strip), arhiv, ližata, importiruida and udištada. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests tehtud, heittud, sirttud, vajehtadud and udištadud. Compose ujundšoid for the kanban swimlane metaphor instead of the unsupported uindrada stem; keep action kind, entity/context, source/destination and every case-sensitive placeholder. Low confidence: kanban card/swimlane metaphors, compound terminology and composed UI grammar/inflections require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "act-addLabel",
+    "before": "Lisätty nimilappu __label__ kortille __card__ listalla __list__ uimaradalla __swimlane__ taululla __board__",
+    "after": "Ližadud znam __label__ kartale __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
+    "reason": "Replace Finnish activity text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kart, laud, lugetiž, znam, ühtnik, sel’genzoituz/sel’genzoitta, ujund (swimming), šoid (strip), arhiv, ližata, importiruida and udištada. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests tehtud, heittud, sirttud, vajehtadud and udištadud. Compose ujundšoid for the kanban swimlane metaphor instead of the unsupported uindrada stem; keep action kind, entity/context, source/destination and every case-sensitive placeholder. Low confidence: kanban card/swimlane metaphors, compound terminology and composed UI grammar/inflections require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "act-addedLabel",
+    "before": "Lisätty nimilappu __label__ kortille __card__ listalla __list__ uimaradalla __swimlane__ taululla __board__",
+    "after": "Ližadud znam __label__ kartale __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
+    "reason": "Replace Finnish activity text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kart, laud, lugetiž, znam, ühtnik, sel’genzoituz/sel’genzoitta, ujund (swimming), šoid (strip), arhiv, ližata, importiruida and udištada. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests tehtud, heittud, sirttud, vajehtadud and udištadud. Compose ujundšoid for the kanban swimlane metaphor instead of the unsupported uindrada stem; keep action kind, entity/context, source/destination and every case-sensitive placeholder. Low confidence: kanban card/swimlane metaphors, compound terminology and composed UI grammar/inflections require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "act-removeLabel",
+    "before": "Poistettu nimilappu __label__ kortilta __card__ listalla __list__ uimaradalla __swimlane__ taululla __board__",
+    "after": "Heittud znam __label__ kartaspäi __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
+    "reason": "Replace Finnish activity text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kart, laud, lugetiž, znam, ühtnik, sel’genzoituz/sel’genzoitta, ujund (swimming), šoid (strip), arhiv, ližata, importiruida and udištada. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests tehtud, heittud, sirttud, vajehtadud and udištadud. Compose ujundšoid for the kanban swimlane metaphor instead of the unsupported uindrada stem; keep action kind, entity/context, source/destination and every case-sensitive placeholder. Low confidence: kanban card/swimlane metaphors, compound terminology and composed UI grammar/inflections require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "act-removedLabel",
+    "before": "Poistettu nimilappu __label__ kortilta __card__ listalla __list__ uimaradalla __swimlane__ taululla __board__",
+    "after": "Heittud znam __label__ kartaspäi __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
+    "reason": "Replace Finnish activity text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kart, laud, lugetiž, znam, ühtnik, sel’genzoituz/sel’genzoitta, ujund (swimming), šoid (strip), arhiv, ližata, importiruida and udištada. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests tehtud, heittud, sirttud, vajehtadud and udištadud. Compose ujundšoid for the kanban swimlane metaphor instead of the unsupported uindrada stem; keep action kind, entity/context, source/destination and every case-sensitive placeholder. Low confidence: kanban card/swimlane metaphors, compound terminology and composed UI grammar/inflections require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "act-addComment",
+    "before": "kommentoitu kortilla __card__: __comment__ listalla __list__ uimaradalla __swimlane__ taululla __board__",
+    "after": "Sel’genzoittud kartal __card__: __comment__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
+    "reason": "Replace Finnish activity text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kart, laud, lugetiž, znam, ühtnik, sel’genzoituz/sel’genzoitta, ujund (swimming), šoid (strip), arhiv, ližata, importiruida and udištada. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests tehtud, heittud, sirttud, vajehtadud and udištadud. Compose ujundšoid for the kanban swimlane metaphor instead of the unsupported uindrada stem; keep action kind, entity/context, source/destination and every case-sensitive placeholder. Low confidence: kanban card/swimlane metaphors, compound terminology and composed UI grammar/inflections require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "act-editComment",
+    "before": "muokkasi kommenttia kortilla __card__: __comment__ listalla __list__ uimaradalla __swimlane__ at taululla __board__",
+    "after": "Vajehtadud sel’genzoituz kartal __card__: __comment__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
+    "reason": "Replace Finnish activity text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kart, laud, lugetiž, znam, ühtnik, sel’genzoituz/sel’genzoitta, ujund (swimming), šoid (strip), arhiv, ližata, importiruida and udištada. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests tehtud, heittud, sirttud, vajehtadud and udištadud. Compose ujundšoid for the kanban swimlane metaphor instead of the unsupported uindrada stem; keep action kind, entity/context, source/destination and every case-sensitive placeholder. Low confidence: kanban card/swimlane metaphors, compound terminology and composed UI grammar/inflections require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "act-deleteComment",
+    "before": "poisti kommentin kortilla __card__: __comment__ listalla __list__ uimaradalla __swimlane__ taululla __board__",
+    "after": "Heittud sel’genzoituz kartal __card__: __comment__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
+    "reason": "Replace Finnish activity text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kart, laud, lugetiž, znam, ühtnik, sel’genzoituz/sel’genzoitta, ujund (swimming), šoid (strip), arhiv, ližata, importiruida and udištada. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests tehtud, heittud, sirttud, vajehtadud and udištadud. Compose ujundšoid for the kanban swimlane metaphor instead of the unsupported uindrada stem; keep action kind, entity/context, source/destination and every case-sensitive placeholder. Low confidence: kanban card/swimlane metaphors, compound terminology and composed UI grammar/inflections require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "act-createBoard",
+    "before": "luotu taulu __board__",
+    "after": "Tehtud laud __board__",
+    "reason": "Replace Finnish activity text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kart, laud, lugetiž, znam, ühtnik, sel’genzoituz/sel’genzoitta, ujund (swimming), šoid (strip), arhiv, ližata, importiruida and udištada. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests tehtud, heittud, sirttud, vajehtadud and udištadud. Compose ujundšoid for the kanban swimlane metaphor instead of the unsupported uindrada stem; keep action kind, entity/context, source/destination and every case-sensitive placeholder. Low confidence: kanban card/swimlane metaphors, compound terminology and composed UI grammar/inflections require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "act-createSwimlane",
+    "before": "loi uimaradan __swimlane__ taululle __board__",
+    "after": "Tehtud ujundšoid __swimlane__ laudale __board__",
+    "reason": "Replace Finnish activity text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kart, laud, lugetiž, znam, ühtnik, sel’genzoituz/sel’genzoitta, ujund (swimming), šoid (strip), arhiv, ližata, importiruida and udištada. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests tehtud, heittud, sirttud, vajehtadud and udištadud. Compose ujundšoid for the kanban swimlane metaphor instead of the unsupported uindrada stem; keep action kind, entity/context, source/destination and every case-sensitive placeholder. Low confidence: kanban card/swimlane metaphors, compound terminology and composed UI grammar/inflections require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "act-createCard",
+    "before": "luotu kortti __card__ listalle __list__ uimaradalla __swimlane__ taululla __board__",
+    "after": "Tehtud kart __card__ lugetišehe __list__ ujundšoidul __swimlane__ laudal __board__",
+    "reason": "Replace Finnish activity text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kart, laud, lugetiž, znam, ühtnik, sel’genzoituz/sel’genzoitta, ujund (swimming), šoid (strip), arhiv, ližata, importiruida and udištada. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests tehtud, heittud, sirttud, vajehtadud and udištadud. Compose ujundšoid for the kanban swimlane metaphor instead of the unsupported uindrada stem; keep action kind, entity/context, source/destination and every case-sensitive placeholder. Low confidence: kanban card/swimlane metaphors, compound terminology and composed UI grammar/inflections require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "act-createList",
+    "before": "lisätty lista __list__ taululle __board__",
+    "after": "Ližadud lugetiž __list__ laudale __board__",
+    "reason": "Replace Finnish activity text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kart, laud, lugetiž, znam, ühtnik, sel’genzoituz/sel’genzoitta, ujund (swimming), šoid (strip), arhiv, ližata, importiruida and udištada. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests tehtud, heittud, sirttud, vajehtadud and udištadud. Compose ujundšoid for the kanban swimlane metaphor instead of the unsupported uindrada stem; keep action kind, entity/context, source/destination and every case-sensitive placeholder. Low confidence: kanban card/swimlane metaphors, compound terminology and composed UI grammar/inflections require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "act-addBoardMember",
+    "before": "lisätty jäsen __member__ taululle __board__",
+    "after": "Ližadud ühtnik __member__ laudale __board__",
+    "reason": "Replace Finnish activity text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kart, laud, lugetiž, znam, ühtnik, sel’genzoituz/sel’genzoitta, ujund (swimming), šoid (strip), arhiv, ližata, importiruida and udištada. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests tehtud, heittud, sirttud, vajehtadud and udištadud. Compose ujundšoid for the kanban swimlane metaphor instead of the unsupported uindrada stem; keep action kind, entity/context, source/destination and every case-sensitive placeholder. Low confidence: kanban card/swimlane metaphors, compound terminology and composed UI grammar/inflections require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "act-archivedBoard",
+    "before": "Taulu __board__ siirretty Arkistoon",
+    "after": "Laud __board__ om sirttud arhivaha",
+    "reason": "Replace Finnish activity text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kart, laud, lugetiž, znam, ühtnik, sel’genzoituz/sel’genzoitta, ujund (swimming), šoid (strip), arhiv, ližata, importiruida and udištada. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests tehtud, heittud, sirttud, vajehtadud and udištadud. Compose ujundšoid for the kanban swimlane metaphor instead of the unsupported uindrada stem; keep action kind, entity/context, source/destination and every case-sensitive placeholder. Low confidence: kanban card/swimlane metaphors, compound terminology and composed UI grammar/inflections require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "act-archivedCard",
+    "before": "Kortti __card__ listalla __list__ uimaradalla __swimlane__ taululla __board__ siirretty Arkistoon",
+    "after": "Kart __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__ om sirttud arhivaha",
+    "reason": "Replace Finnish activity text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kart, laud, lugetiž, znam, ühtnik, sel’genzoituz/sel’genzoitta, ujund (swimming), šoid (strip), arhiv, ližata, importiruida and udištada. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests tehtud, heittud, sirttud, vajehtadud and udištadud. Compose ujundšoid for the kanban swimlane metaphor instead of the unsupported uindrada stem; keep action kind, entity/context, source/destination and every case-sensitive placeholder. Low confidence: kanban card/swimlane metaphors, compound terminology and composed UI grammar/inflections require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "act-archivedList",
+    "before": "Lista __list__ uimaradalla __swimlane__ taululla __board__ siirretty Arkistoon",
+    "after": "Lugetiž __list__ ujundšoidul __swimlane__ laudal __board__ om sirttud arhivaha",
+    "reason": "Replace Finnish activity text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kart, laud, lugetiž, znam, ühtnik, sel’genzoituz/sel’genzoitta, ujund (swimming), šoid (strip), arhiv, ližata, importiruida and udištada. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests tehtud, heittud, sirttud, vajehtadud and udištadud. Compose ujundšoid for the kanban swimlane metaphor instead of the unsupported uindrada stem; keep action kind, entity/context, source/destination and every case-sensitive placeholder. Low confidence: kanban card/swimlane metaphors, compound terminology and composed UI grammar/inflections require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "act-archivedSwimlane",
+    "before": "Uimarata __swimlane__ taululla __board__ siirretty Arkistoon",
+    "after": "Ujundšoid __swimlane__ laudal __board__ om sirttud arhivaha",
+    "reason": "Replace Finnish activity text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kart, laud, lugetiž, znam, ühtnik, sel’genzoituz/sel’genzoitta, ujund (swimming), šoid (strip), arhiv, ližata, importiruida and udištada. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests tehtud, heittud, sirttud, vajehtadud and udištadud. Compose ujundšoid for the kanban swimlane metaphor instead of the unsupported uindrada stem; keep action kind, entity/context, source/destination and every case-sensitive placeholder. Low confidence: kanban card/swimlane metaphors, compound terminology and composed UI grammar/inflections require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "act-importBoard",
+    "before": "tuotu taulu __board__",
+    "after": "Importiruitud laud __board__",
+    "reason": "Replace Finnish activity text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kart, laud, lugetiž, znam, ühtnik, sel’genzoituz/sel’genzoitta, ujund (swimming), šoid (strip), arhiv, ližata, importiruida and udištada. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests tehtud, heittud, sirttud, vajehtadud and udištadud. Compose ujundšoid for the kanban swimlane metaphor instead of the unsupported uindrada stem; keep action kind, entity/context, source/destination and every case-sensitive placeholder. Low confidence: kanban card/swimlane metaphors, compound terminology and composed UI grammar/inflections require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "act-importCard",
+    "before": "tuotu kortti  __card__ listalle __list__ uimaradalla __swimlane__ taululla __board__",
+    "after": "Importiruitud kart __card__ lugetišehe __list__ ujundšoidul __swimlane__ laudal __board__",
+    "reason": "Replace Finnish activity text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kart, laud, lugetiž, znam, ühtnik, sel’genzoituz/sel’genzoitta, ujund (swimming), šoid (strip), arhiv, ližata, importiruida and udištada. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests tehtud, heittud, sirttud, vajehtadud and udištadud. Compose ujundšoid for the kanban swimlane metaphor instead of the unsupported uindrada stem; keep action kind, entity/context, source/destination and every case-sensitive placeholder. Low confidence: kanban card/swimlane metaphors, compound terminology and composed UI grammar/inflections require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "act-importList",
+    "before": "tuotu lista __list__ uimaradalle __swimlane__ taululla __board__",
+    "after": "Importiruitud lugetiž __list__ ujundšoidule __swimlane__ laudal __board__",
+    "reason": "Replace Finnish activity text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kart, laud, lugetiž, znam, ühtnik, sel’genzoituz/sel’genzoitta, ujund (swimming), šoid (strip), arhiv, ližata, importiruida and udištada. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests tehtud, heittud, sirttud, vajehtadud and udištadud. Compose ujundšoid for the kanban swimlane metaphor instead of the unsupported uindrada stem; keep action kind, entity/context, source/destination and every case-sensitive placeholder. Low confidence: kanban card/swimlane metaphors, compound terminology and composed UI grammar/inflections require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "act-joinMember",
+    "before": "lisätty jäsen __member__ kortille __card__ listalla __list__ uimaradalla __swimlane__ taululla __board__",
+    "after": "Ližadud ühtnik __member__ kartale __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
+    "reason": "Replace Finnish activity text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kart, laud, lugetiž, znam, ühtnik, sel’genzoituz/sel’genzoitta, ujund (swimming), šoid (strip), arhiv, ližata, importiruida and udištada. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests tehtud, heittud, sirttud, vajehtadud and udištadud. Compose ujundšoid for the kanban swimlane metaphor instead of the unsupported uindrada stem; keep action kind, entity/context, source/destination and every case-sensitive placeholder. Low confidence: kanban card/swimlane metaphors, compound terminology and composed UI grammar/inflections require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "act-unjoinMember",
+    "before": "poistettu jäsen __member__ kortilta __card__ listalla __list__ uimaradalla __swimlane__ taululla __board__",
+    "after": "Heittud ühtnik __member__ kartaspäi __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
+    "reason": "Replace Finnish activity text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kart, laud, lugetiž, znam, ühtnik, sel’genzoituz/sel’genzoitta, ujund (swimming), šoid (strip), arhiv, ližata, importiruida and udištada. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests tehtud, heittud, sirttud, vajehtadud and udištadud. Compose ujundšoid for the kanban swimlane metaphor instead of the unsupported uindrada stem; keep action kind, entity/context, source/destination and every case-sensitive placeholder. Low confidence: kanban card/swimlane metaphors, compound terminology and composed UI grammar/inflections require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "act-removeBoardMember",
+    "before": "poistettu jäsen __member__ taululta __board__",
+    "after": "Heittud ühtnik __member__ laudaspäi __board__",
+    "reason": "Replace Finnish activity text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kart, laud, lugetiž, znam, ühtnik, sel’genzoituz/sel’genzoitta, ujund (swimming), šoid (strip), arhiv, ližata, importiruida and udištada. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests tehtud, heittud, sirttud, vajehtadud and udištadud. Compose ujundšoid for the kanban swimlane metaphor instead of the unsupported uindrada stem; keep action kind, entity/context, source/destination and every case-sensitive placeholder. Low confidence: kanban card/swimlane metaphors, compound terminology and composed UI grammar/inflections require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "act-moveCard",
+    "before": "siirsi kortin __card__ taululla __board__ listasta __oldList__ uimaradalta __oldSwimlane__ listalle __list__ uimaradalle __swimlane__",
+    "after": "Sirttud kart __card__ laudal __board__ lugetišespäi __oldList__ ujundšoidul __oldSwimlane__ lugetišehe __list__ ujundšoidule __swimlane__",
+    "reason": "Replace Finnish activity text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kart, laud, lugetiž, znam, ühtnik, sel’genzoituz/sel’genzoitta, ujund (swimming), šoid (strip), arhiv, ližata, importiruida and udištada. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests tehtud, heittud, sirttud, vajehtadud and udištadud. Compose ujundšoid for the kanban swimlane metaphor instead of the unsupported uindrada stem; keep action kind, entity/context, source/destination and every case-sensitive placeholder. Low confidence: kanban card/swimlane metaphors, compound terminology and composed UI grammar/inflections require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "act-moveCardToOtherBoard",
+    "before": "siirretty kortti __card__ listasta __oldList__ uimaradalla __oldSwimlane__ taululla __oldBoard__ listalle __list__ uimaradalla __swimlane__ taululla __board__",
+    "after": "Sirttud kart __card__ lugetišespäi __oldList__ ujundšoidul __oldSwimlane__ laudaspäi __oldBoard__ lugetišehe __list__ ujundšoidul __swimlane__ laudale __board__",
+    "reason": "Replace Finnish activity text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kart, laud, lugetiž, znam, ühtnik, sel’genzoituz/sel’genzoitta, ujund (swimming), šoid (strip), arhiv, ližata, importiruida and udištada. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests tehtud, heittud, sirttud, vajehtadud and udištadud. Compose ujundšoid for the kanban swimlane metaphor instead of the unsupported uindrada stem; keep action kind, entity/context, source/destination and every case-sensitive placeholder. Low confidence: kanban card/swimlane metaphors, compound terminology and composed UI grammar/inflections require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "act-restoredCard",
+    "before": "palautettu kortti __card__ listalle __list__ uimaradalla __swimlane__ taululla __board__",
+    "after": "Udištadud kart __card__ lugetišehe __list__ ujundšoidul __swimlane__ laudal __board__",
+    "reason": "Replace Finnish activity text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kart, laud, lugetiž, znam, ühtnik, sel’genzoituz/sel’genzoitta, ujund (swimming), šoid (strip), arhiv, ližata, importiruida and udištada. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests tehtud, heittud, sirttud, vajehtadud and udištadud. Compose ujundšoid for the kanban swimlane metaphor instead of the unsupported uindrada stem; keep action kind, entity/context, source/destination and every case-sensitive placeholder. Low confidence: kanban card/swimlane metaphors, compound terminology and composed UI grammar/inflections require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "act-deleteCard",
+    "before": "häviti kartan __card__ listaspäi __list__ uindradal __swimlane__ laudal __board__",
+    "after": "häviti kartan __card__ listaspäi __list__ ujundšoidul __swimlane__ laudal __board__",
+    "reason": "Replace Finnish activity text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kart, laud, lugetiž, znam, ühtnik, sel’genzoituz/sel’genzoitta, ujund (swimming), šoid (strip), arhiv, ližata, importiruida and udištada. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests tehtud, heittud, sirttud, vajehtadud and udištadud. Compose ujundšoid for the kanban swimlane metaphor instead of the unsupported uindrada stem; keep action kind, entity/context, source/destination and every case-sensitive placeholder. Low confidence: kanban card/swimlane metaphors, compound terminology and composed UI grammar/inflections require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "act-removeSwimlane",
+    "before": "häviti uindradan __swimlane__ laudal __board__",
+    "after": "häviti ujundšoidun __swimlane__ laudal __board__",
+    "reason": "Replace Finnish activity text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kart, laud, lugetiž, znam, ühtnik, sel’genzoituz/sel’genzoitta, ujund (swimming), šoid (strip), arhiv, ližata, importiruida and udištada. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests tehtud, heittud, sirttud, vajehtadud and udištadud. Compose ujundšoid for the kanban swimlane metaphor instead of the unsupported uindrada stem; keep action kind, entity/context, source/destination and every case-sensitive placeholder. Low confidence: kanban card/swimlane metaphors, compound terminology and composed UI grammar/inflections require fluent review."
   }
 ]
