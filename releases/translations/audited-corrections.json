@@ -60660,5 +60660,75 @@
     "before": "Modification de la date de fin de __timeOldValue__ à __timeValue__",
     "after": "a modificat la data de fin per __timeValue__ dempuèi (__timeOldValue__)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "act-a-receivedAt",
+    "before": "Modification de la date de réception de __timeOldValue__ à __timeValue__",
+    "after": "a modificat la data de recepcion per __timeValue__ dempuèi (__timeOldValue__)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "act-a-startAt",
+    "before": "Modification de la date de début de __timeOldValue__ à __timeValue__",
+    "after": "a modificat la data de començament per __timeValue__ dempuèi (__timeOldValue__)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "act-almostdue",
+    "before": "rappelle que l'échéance (__timeValue__) de __card__ approche",
+    "after": "a remembrat que l’escasença actuala (__timeValue__) de __card__ s’apròcha",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "act-duenow",
+    "before": "rappelle que l'échéance (__timeValue__) de __card__ est maintenant",
+    "after": "a remembrat que l’escasença actuala (__timeValue__) de __card__ es ara",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "act-newDue",
+    "before": "__list__/__card__ a un 1er rappel d'échéance [__board__]",
+    "after": "__list__/__card__ a son primièr remembre d’escasença [__board__]",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "act-pastdue",
+    "before": "rappelle que l'échéance (__timeValue__) de __card__  est passée",
+    "after": "a remembrat que l’escasença actuala (__timeValue__) de __card__ es passada",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "activity-changedListTitle",
+    "before": "a renommé la liste en 1%s",
+    "after": "a renomenat la lista en %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "activity-dueDate",
+    "before": "date d'échéance éditée de %s à %s",
+    "after": "a modificat la data d’escasença per %s de %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "activity-endDate",
+    "before": "date de fin éditée de %s à %s",
+    "after": "a modificat la data de fin per %s de %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "activity-receivedDate",
+    "before": "date de réception éditée de %s à %s",
+    "after": "a modificat la data de recepcion per %s de %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
