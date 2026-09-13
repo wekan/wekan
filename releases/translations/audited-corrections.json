@@ -73281,5 +73281,159 @@
     "before": "Afficher les avatars des participants du tableau.",
     "after": "Mostrer les avatårs des mimbes do tåvlea",
     "reason": "Replace audited French permission/member wording with Walloon, retaining visibility restrictions, editing prohibitions and administrator-only actions. Assignment vocabulary diner (allouer/attribuer): https://theatrewallon.be/onewebmedia/DICTIONNAIRE%20POPULAIRE.pdf ; user/login terminology https://berdelaedje.walon.org/faq.php . Existing card/board/settings vocabulary reused. Full sentence grammar and specialized assignment phrasing remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "add-card-to-bottom-of-list",
+    "before": "Ajouter la carte en bas de la liste",
+    "after": "Radjouter ene cåte al valeye del djivêye",
+    "reason": "Replace audited French card/board controls and destructive confirmations with Walloon, preserving top/bottom direction, archive alternative and no-undo warnings. Star vocabulary: https://dtw.walon.org/index.php?query=stoele ; undo verb: https://www.beljike.be/djw-fw-francais-wallon-frances-walon-d/ ; existing card/list/member terminology reused. Full sentence grammar remains low confidence; source placeholders retained."
+  },
+  {
+    "locale": "wa",
+    "key": "add-card-to-top-of-list",
+    "before": "Ajouter la carte en haut de la liste",
+    "after": "Radjouter ene cåte al copete del djivêye",
+    "reason": "Replace audited French card/board controls and destructive confirmations with Walloon, preserving top/bottom direction, archive alternative and no-undo warnings. Star vocabulary: https://dtw.walon.org/index.php?query=stoele ; undo verb: https://www.beljike.be/djw-fw-francais-wallon-frances-walon-d/ ; existing card/list/member terminology reused. Full sentence grammar remains low confidence; source placeholders retained."
+  },
+  {
+    "locale": "wa",
+    "key": "click-to-star",
+    "before": "Cliquez pour ajouter ce tableau aux favoris.",
+    "after": "Clitchîz po mete ene stoele a ci tåvlea ci.",
+    "reason": "Replace audited French card/board controls and destructive confirmations with Walloon, preserving top/bottom direction, archive alternative and no-undo warnings. Star vocabulary: https://dtw.walon.org/index.php?query=stoele ; undo verb: https://www.beljike.be/djw-fw-francais-wallon-frances-walon-d/ ; existing card/list/member terminology reused. Full sentence grammar remains low confidence; source placeholders retained."
+  },
+  {
+    "locale": "wa",
+    "key": "click-to-unstar",
+    "before": "Cliquez pour retirer ce tableau des favoris.",
+    "after": "Clitchîz po oister li stoele di ci tåvlea ci.",
+    "reason": "Replace audited French card/board controls and destructive confirmations with Walloon, preserving top/bottom direction, archive alternative and no-undo warnings. Star vocabulary: https://dtw.walon.org/index.php?query=stoele ; undo verb: https://www.beljike.be/djw-fw-francais-wallon-frances-walon-d/ ; existing card/list/member terminology reused. Full sentence grammar remains low confidence; source placeholders retained."
+  },
+  {
+    "locale": "wa",
+    "key": "star-board-title",
+    "before": "Cliquer pour ajouter ce tableau aux favoris. Il sera affiché en tête de votre liste de tableaux.",
+    "after": "Clitchîz po mete ene stoele a ci tåvlea ci. I serè mostrê al copete di vosse djivêye di tåvleas.",
+    "reason": "Replace audited French card/board controls and destructive confirmations with Walloon, preserving top/bottom direction, archive alternative and no-undo warnings. Star vocabulary: https://dtw.walon.org/index.php?query=stoele ; undo verb: https://www.beljike.be/djw-fw-francais-wallon-frances-walon-d/ ; existing card/list/member terminology reused. Full sentence grammar remains low confidence; source placeholders retained."
+  },
+  {
+    "locale": "wa",
+    "key": "starred-boards-description",
+    "before": "Les tableaux favoris s'affichent en tête de votre liste de tableaux.",
+    "after": "Les tåvleas avou ene stoele sont mostrés al copete di vosse djivêye di tåvleas.",
+    "reason": "Replace audited French card/board controls and destructive confirmations with Walloon, preserving top/bottom direction, archive alternative and no-undo warnings. Star vocabulary: https://dtw.walon.org/index.php?query=stoele ; undo verb: https://www.beljike.be/djw-fw-francais-wallon-frances-walon-d/ ; existing card/list/member terminology reused. Full sentence grammar remains low confidence; source placeholders retained."
+  },
+  {
+    "locale": "wa",
+    "key": "show-card-counter-per-list",
+    "before": "Afficher le nombre de cartes par liste",
+    "after": "Mostrer li nombe di cåtes pa djivêye",
+    "reason": "Replace audited French card/board controls and destructive confirmations with Walloon, preserving top/bottom direction, archive alternative and no-undo warnings. Star vocabulary: https://dtw.walon.org/index.php?query=stoele ; undo verb: https://www.beljike.be/djw-fw-francais-wallon-frances-walon-d/ ; existing card/list/member terminology reused. Full sentence grammar remains low confidence; source placeholders retained."
+  },
+  {
+    "locale": "wa",
+    "key": "show-cards-minimum-count",
+    "before": "Afficher le nombre de cartes si la liste en contient plus de",
+    "after": "Mostrer li nombe di cåtes si l' djivêye nd a pus ki",
+    "reason": "Replace audited French card/board controls and destructive confirmations with Walloon, preserving top/bottom direction, archive alternative and no-undo warnings. Star vocabulary: https://dtw.walon.org/index.php?query=stoele ; undo verb: https://www.beljike.be/djw-fw-francais-wallon-frances-walon-d/ ; existing card/list/member terminology reused. Full sentence grammar remains low confidence; source placeholders retained."
+  },
+  {
+    "locale": "wa",
+    "key": "card-show-lists",
+    "before": "Afficher les listes sur la carte",
+    "after": "Mostrer les djivêyes del cåte",
+    "reason": "Replace audited French card/board controls and destructive confirmations with Walloon, preserving top/bottom direction, archive alternative and no-undo warnings. Star vocabulary: https://dtw.walon.org/index.php?query=stoele ; undo verb: https://www.beljike.be/djw-fw-francais-wallon-frances-walon-d/ ; existing card/list/member terminology reused. Full sentence grammar remains low confidence; source placeholders retained."
+  },
+  {
+    "locale": "wa",
+    "key": "card-edit-custom-fields",
+    "before": "Éditer les champs personnalisés",
+    "after": "Candjî les tchamps da vosse",
+    "reason": "Replace audited French card/board controls and destructive confirmations with Walloon, preserving top/bottom direction, archive alternative and no-undo warnings. Star vocabulary: https://dtw.walon.org/index.php?query=stoele ; undo verb: https://www.beljike.be/djw-fw-francais-wallon-frances-walon-d/ ; existing card/list/member terminology reused. Full sentence grammar remains low confidence; source placeholders retained."
+  },
+  {
+    "locale": "wa",
+    "key": "deleteCommentPopup-title",
+    "before": "Supprimer le commentaire ?",
+    "after": "Disfacer li rimåke?",
+    "reason": "Replace audited French card/board controls and destructive confirmations with Walloon, preserving top/bottom direction, archive alternative and no-undo warnings. Star vocabulary: https://dtw.walon.org/index.php?query=stoele ; undo verb: https://www.beljike.be/djw-fw-francais-wallon-frances-walon-d/ ; existing card/list/member terminology reused. Full sentence grammar remains low confidence; source placeholders retained."
+  },
+  {
+    "locale": "wa",
+    "key": "deleteCustomFieldPopup-title",
+    "before": "Supprimer le champ personnalisé ?",
+    "after": "Disfacer li tchamp da vosse?",
+    "reason": "Replace audited French card/board controls and destructive confirmations with Walloon, preserving top/bottom direction, archive alternative and no-undo warnings. Star vocabulary: https://dtw.walon.org/index.php?query=stoele ; undo verb: https://www.beljike.be/djw-fw-francais-wallon-frances-walon-d/ ; existing card/list/member terminology reused. Full sentence grammar remains low confidence; source placeholders retained."
+  },
+  {
+    "locale": "wa",
+    "key": "deleteDuplicateListsPopup-title",
+    "before": "Supprimer les listes en doublon ? ",
+    "after": "Disfacer les djivêyes e dobe",
+    "reason": "Replace audited French card/board controls and destructive confirmations with Walloon, preserving top/bottom direction, archive alternative and no-undo warnings. Star vocabulary: https://dtw.walon.org/index.php?query=stoele ; undo verb: https://www.beljike.be/djw-fw-francais-wallon-frances-walon-d/ ; existing card/list/member terminology reused. Full sentence grammar remains low confidence; source placeholders retained."
+  },
+  {
+    "locale": "wa",
+    "key": "delete-duplicate-lists",
+    "before": "Supprimer les listes en doublon ? ",
+    "after": "Disfacer les djivêyes e dobe",
+    "reason": "Replace audited French card/board controls and destructive confirmations with Walloon, preserving top/bottom direction, archive alternative and no-undo warnings. Star vocabulary: https://dtw.walon.org/index.php?query=stoele ; undo verb: https://www.beljike.be/djw-fw-francais-wallon-frances-walon-d/ ; existing card/list/member terminology reused. Full sentence grammar remains low confidence; source placeholders retained."
+  },
+  {
+    "locale": "wa",
+    "key": "attachment-delete-pop",
+    "before": "La suppression d'une pièce jointe est définitive. Cela est irréversible.",
+    "after": "Disfacer ene pîce djondowe, c' est po todi. On n' pout nén disfé çoula.",
+    "reason": "Replace audited French card/board controls and destructive confirmations with Walloon, preserving top/bottom direction, archive alternative and no-undo warnings. Star vocabulary: https://dtw.walon.org/index.php?query=stoele ; undo verb: https://www.beljike.be/djw-fw-francais-wallon-frances-walon-d/ ; existing card/list/member terminology reused. Full sentence grammar remains low confidence; source placeholders retained."
+  },
+  {
+    "locale": "wa",
+    "key": "delete-user-confirm-popup",
+    "before": "Êtes-vous sûr de vouloir supprimer ce compte ? Cela est irréversible.",
+    "after": "Estoz vs seur di voleur disfacer ci conte ci? On n' pout nén disfé çoula.",
+    "reason": "Replace audited French card/board controls and destructive confirmations with Walloon, preserving top/bottom direction, archive alternative and no-undo warnings. Star vocabulary: https://dtw.walon.org/index.php?query=stoele ; undo verb: https://www.beljike.be/djw-fw-francais-wallon-frances-walon-d/ ; existing card/list/member terminology reused. Full sentence grammar remains low confidence; source placeholders retained."
+  },
+  {
+    "locale": "wa",
+    "key": "delete-org-confirm-popup",
+    "before": "Êtes-vous sûr de vouloir supprimer cette organisation ? Cela est irréversible.",
+    "after": "Estoz vs seur di voleur disfacer cisse organizåcion ci? On n' pout nén disfé çoula.",
+    "reason": "Replace audited French card/board controls and destructive confirmations with Walloon, preserving top/bottom direction, archive alternative and no-undo warnings. Star vocabulary: https://dtw.walon.org/index.php?query=stoele ; undo verb: https://www.beljike.be/djw-fw-francais-wallon-frances-walon-d/ ; existing card/list/member terminology reused. Full sentence grammar remains low confidence; source placeholders retained."
+  },
+  {
+    "locale": "wa",
+    "key": "delete-team-confirm-popup",
+    "before": "Êtes-vous sûr de vouloir supprimer cette équipe ? Cela est irréversible.",
+    "after": "Estoz vs seur di voleur disfacer cisse ekipe ci? On n' pout nén disfé çoula.",
+    "reason": "Replace audited French card/board controls and destructive confirmations with Walloon, preserving top/bottom direction, archive alternative and no-undo warnings. Star vocabulary: https://dtw.walon.org/index.php?query=stoele ; undo verb: https://www.beljike.be/djw-fw-francais-wallon-frances-walon-d/ ; existing card/list/member terminology reused. Full sentence grammar remains low confidence; source placeholders retained."
+  },
+  {
+    "locale": "wa",
+    "key": "delete-org-warning-message",
+    "before": "Impossible de supprimer cette organisation, au moins un utilisateur lui appartient",
+    "after": "On n' pout nén disfacer cisse organizåcion ci: i gn a å moens on uzeu ki nd est mimbe",
+    "reason": "Replace audited French card/board controls and destructive confirmations with Walloon, preserving top/bottom direction, archive alternative and no-undo warnings. Star vocabulary: https://dtw.walon.org/index.php?query=stoele ; undo verb: https://www.beljike.be/djw-fw-francais-wallon-frances-walon-d/ ; existing card/list/member terminology reused. Full sentence grammar remains low confidence; source placeholders retained."
+  },
+  {
+    "locale": "wa",
+    "key": "delete-team-warning-message",
+    "before": "Impossible de supprimer cette équipe, au moins un utilisateur lui appartient",
+    "after": "On n' pout nén disfacer cisse ekipe ci: i gn a å moens on uzeu ki nd est mimbe",
+    "reason": "Replace audited French card/board controls and destructive confirmations with Walloon, preserving top/bottom direction, archive alternative and no-undo warnings. Star vocabulary: https://dtw.walon.org/index.php?query=stoele ; undo verb: https://www.beljike.be/djw-fw-francais-wallon-frances-walon-d/ ; existing card/list/member terminology reused. Full sentence grammar remains low confidence; source placeholders retained."
+  },
+  {
+    "locale": "wa",
+    "key": "card-delete-suggest-archive",
+    "before": "Vous pouvez déplacer une carte vers les archives afin de l'enlever du tableau tout en préservant l'activité.",
+    "after": "Vos poloz bodjî ene cåte ås årtchives po l' oister do tåvlea et wårder l' activité.",
+    "reason": "Replace audited French card/board controls and destructive confirmations with Walloon, preserving top/bottom direction, archive alternative and no-undo warnings. Star vocabulary: https://dtw.walon.org/index.php?query=stoele ; undo verb: https://www.beljike.be/djw-fw-francais-wallon-frances-walon-d/ ; existing card/list/member terminology reused. Full sentence grammar remains low confidence; source placeholders retained."
+  },
+  {
+    "locale": "wa",
+    "key": "list-delete-suggest-archive",
+    "before": "Vous pouvez archiver une liste pour l'enlever du tableau tout en conservant son activité.",
+    "after": "Vos poloz bodjî ene djivêye ås årtchives po l' oister do tåvlea et wårder l' activité.",
+    "reason": "Replace audited French card/board controls and destructive confirmations with Walloon, preserving top/bottom direction, archive alternative and no-undo warnings. Star vocabulary: https://dtw.walon.org/index.php?query=stoele ; undo verb: https://www.beljike.be/djw-fw-francais-wallon-frances-walon-d/ ; existing card/list/member terminology reused. Full sentence grammar remains low confidence; source placeholders retained."
   }
 ]
