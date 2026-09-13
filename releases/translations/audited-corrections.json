@@ -76844,5 +76844,75 @@
     "before": "Le nombre de traductions personnalisées est de :",
     "after": "Li nombe di chinnes di ratournaedje da vosse est:",
     "reason": "Replace audited French layout/upload/control wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve vertical direction, label range 1-9, multi-selection add/remove behavior, empty same-name duplicate deletion and WIP threshold. Full grammar and specialized path/authentication terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "act-checkedItem",
+    "before": "a coché __checklistItem__ de la checklist __checklist__ de la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "a marké __checklistItem__ del djivêye di verifiaedje __checklist__ del cåte __card__ del djivêye __list__ do coridôr __swimlane__ do tåvlea __board__",
+    "reason": "Replace French checkbox activity/control wording with Walloon, distinguishing marking from removing a mark and preserving checklist/card/list/swimlane/board scopes and source tokens. Native marker/marké terminology: https://dtw.walon.org/index.php?query=marker ; reuse existing Walloon checklist terms. Full sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "act-uncheckedItem",
+    "before": "a décoché __checklistItem__ de la checklist __checklist__ de la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "a oisté li marke di __checklistItem__ del djivêye di verifiaedje __checklist__ del cåte __card__ del djivêye __list__ do coridôr __swimlane__ do tåvlea __board__",
+    "reason": "Replace French checkbox activity/control wording with Walloon, distinguishing marking from removing a mark and preserving checklist/card/list/swimlane/board scopes and source tokens. Native marker/marké terminology: https://dtw.walon.org/index.php?query=marker ; reuse existing Walloon checklist terms. Full sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "activity-checked-item",
+    "before": "a coché %s dans la checklist %s de %s",
+    "after": "a marké %s dins l' djivêye di verifiaedje %s di %s",
+    "reason": "Replace French checkbox activity/control wording with Walloon, distinguishing marking from removing a mark and preserving checklist/card/list/swimlane/board scopes and source tokens. Native marker/marké terminology: https://dtw.walon.org/index.php?query=marker ; reuse existing Walloon checklist terms. Full sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "activity-checked-item-card",
+    "before": "a coché %s dans la checklist %s",
+    "after": "a marké %s dins l' djivêye di verifiaedje %s",
+    "reason": "Replace French checkbox activity/control wording with Walloon, distinguishing marking from removing a mark and preserving checklist/card/list/swimlane/board scopes and source tokens. Native marker/marké terminology: https://dtw.walon.org/index.php?query=marker ; reuse existing Walloon checklist terms. Full sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "activity-unchecked-item",
+    "before": "a décoché %s dans la checklist %s de %s",
+    "after": "a oisté li marke di %s dins l' djivêye di verifiaedje %s di %s",
+    "reason": "Replace French checkbox activity/control wording with Walloon, distinguishing marking from removing a mark and preserving checklist/card/list/swimlane/board scopes and source tokens. Native marker/marké terminology: https://dtw.walon.org/index.php?query=marker ; reuse existing Walloon checklist terms. Full sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "activity-unchecked-item-card",
+    "before": "a décoché %s dans la checklist %s",
+    "after": "a oisté li marke di %s dins l' djivêye di verifiaedje %s",
+    "reason": "Replace French checkbox activity/control wording with Walloon, distinguishing marking from removing a mark and preserving checklist/card/list/swimlane/board scopes and source tokens. Native marker/marké terminology: https://dtw.walon.org/index.php?query=marker ; reuse existing Walloon checklist terms. Full sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "hide-checked-items",
+    "before": "Cacher les éléments cochés",
+    "after": "Catchî les cayets markés",
+    "reason": "Replace French checkbox activity/control wording with Walloon, distinguishing marking from removing a mark and preserving checklist/card/list/swimlane/board scopes and source tokens. Native marker/marké terminology: https://dtw.walon.org/index.php?query=marker ; reuse existing Walloon checklist terms. Full sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "hideCheckedChecklistItems",
+    "before": "Cacher les éléments cochés de la check-list",
+    "after": "Catchî les cayets markés del djivêye di verifiaedje",
+    "reason": "Replace French checkbox activity/control wording with Walloon, distinguishing marking from removing a mark and preserving checklist/card/list/swimlane/board scopes and source tokens. Native marker/marké terminology: https://dtw.walon.org/index.php?query=marker ; reuse existing Walloon checklist terms. Full sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "r-d-check-all",
+    "before": "Cocher tous les éléments d'une liste",
+    "after": "Marker tos les cayets d' ene djivêye",
+    "reason": "Replace French checkbox activity/control wording with Walloon, distinguishing marking from removing a mark and preserving checklist/card/list/swimlane/board scopes and source tokens. Native marker/marké terminology: https://dtw.walon.org/index.php?query=marker ; reuse existing Walloon checklist terms. Full sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "r-d-uncheck-all",
+    "before": "Décocher tous les éléments d'une liste",
+    "after": "Oister les markes di tos les cayets d' ene djivêye",
+    "reason": "Replace French checkbox activity/control wording with Walloon, distinguishing marking from removing a mark and preserving checklist/card/list/swimlane/board scopes and source tokens. Native marker/marké terminology: https://dtw.walon.org/index.php?query=marker ; reuse existing Walloon checklist terms. Full sentence grammar remains low confidence."
   }
 ]
