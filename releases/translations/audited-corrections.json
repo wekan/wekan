@@ -76977,5 +76977,131 @@
     "before": "[ {\"title\": \"Titre de la première carte\", \"description\":\"Description de la première carte\"}, {\"title\":\"Titre de la seconde carte\",\"description\":\"Description de la seconde carte\"},{\"title\":\"Titre de la dernière carte\",\"description\":\"Description de la dernière carte\"} ]",
     "after": "[{\"title\": \"Tite del prumire cåte\", \"description\": \"Discrijhaedje del prumire cåte\"}, {\"title\": \"Tite del deujhinme cåte\", \"description\": \"Discrijhaedje del deujhinme cåte\"}, {\"title\": \"Tite del dierinne cåte\", \"description\": \"Discrijhaedje del dierinne cåte\"}]",
     "reason": "Replace French workspace labels and card-copy JSON prose with Walloon using existing locale workspace/card terminology; preserve markdown name and literal JSON title/description property names. Includes unflagged workspace headings. Full grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "close-board-pop",
+    "before": "Vous pouvez restaurer le tableau en cliquant sur le bouton « Archives » depuis le menu en entête.",
+    "after": "Vos pôroz rimete li tåvlea e clitchant sol boton « Årtchive » dins l' tiestire di l' acueil.",
+    "reason": "Replace French archive labels/recovery instructions and linked-card deletion restrictions with Walloon. Preserve archive recovery menu labels and linked-card-first deletion requirement, including the source trailing fragment. Native archive terminology: https://dtw.walon.org/index.php?query=%C3%A5rtchive . Full grammar remains low confidence; includes unflagged archive labels."
+  },
+  {
+    "locale": "wa",
+    "key": "delete-linked-card-before-this-card",
+    "before": "Vous ne pouvez pas supprimer cette carte avant d'avoir d'abord supprimé la carte liée qui a",
+    "after": "Vos n' poloz nén disfacer cisse cåte ci divant d' aveur disfacé li cåte raloyeye k' a",
+    "reason": "Replace French archive labels/recovery instructions and linked-card deletion restrictions with Walloon. Preserve archive recovery menu labels and linked-card-first deletion requirement, including the source trailing fragment. Native archive terminology: https://dtw.walon.org/index.php?query=%C3%A5rtchive . Full grammar remains low confidence; includes unflagged archive labels."
+  },
+  {
+    "locale": "wa",
+    "key": "delete-linked-cards-before-this-list",
+    "before": "Vous ne pouvez pas supprimer cette liste avant d'avoir d'abord supprimé les cartes liées qui pointent vers des cartes de cette liste",
+    "after": "Vos n' poloz nén disfacer cisse djivêye ci divant d' aveur disfacé les cåtes raloyeyes ki pwintèt viè les cåtes di cisse djivêye ci",
+    "reason": "Replace French archive labels/recovery instructions and linked-card deletion restrictions with Walloon. Preserve archive recovery menu labels and linked-card-first deletion requirement, including the source trailing fragment. Native archive terminology: https://dtw.walon.org/index.php?query=%C3%A5rtchive . Full grammar remains low confidence; includes unflagged archive labels."
+  },
+  {
+    "locale": "wa",
+    "key": "list-archive-cards-pop",
+    "before": "Cela supprimera du tableau toutes les cartes de cette liste. Pour voir les cartes archivées et les renvoyer vers le tableau, cliquez sur « Menu » puis « Archives ».",
+    "after": "Çouchal va oister totes les cåtes di cisse djivêye ci do tåvlea. Po vey les cåtes el årtchive eyet les rimete sol tåvlea, clitchîz so « Dressêye des tchuzes » > « Årtchive ».",
+    "reason": "Replace French archive labels/recovery instructions and linked-card deletion restrictions with Walloon. Preserve archive recovery menu labels and linked-card-first deletion requirement, including the source trailing fragment. Native archive terminology: https://dtw.walon.org/index.php?query=%C3%A5rtchive . Full grammar remains low confidence; includes unflagged archive labels."
+  },
+  {
+    "locale": "wa",
+    "key": "archive",
+    "before": "Archiver",
+    "after": "Mete el årtchive",
+    "reason": "Replace French archive labels/recovery instructions and linked-card deletion restrictions with Walloon. Preserve archive recovery menu labels and linked-card-first deletion requirement, including the source trailing fragment. Native archive terminology: https://dtw.walon.org/index.php?query=%C3%A5rtchive . Full grammar remains low confidence; includes unflagged archive labels."
+  },
+  {
+    "locale": "wa",
+    "key": "archive-board",
+    "before": "Archiver le tableau",
+    "after": "Mete li tåvlea el årtchive",
+    "reason": "Replace French archive labels/recovery instructions and linked-card deletion restrictions with Walloon. Preserve archive recovery menu labels and linked-card-first deletion requirement, including the source trailing fragment. Native archive terminology: https://dtw.walon.org/index.php?query=%C3%A5rtchive . Full grammar remains low confidence; includes unflagged archive labels."
+  },
+  {
+    "locale": "wa",
+    "key": "archive-card",
+    "before": "Archiver la carte",
+    "after": "Mete li cåte el årtchive",
+    "reason": "Replace French archive labels/recovery instructions and linked-card deletion restrictions with Walloon. Preserve archive recovery menu labels and linked-card-first deletion requirement, including the source trailing fragment. Native archive terminology: https://dtw.walon.org/index.php?query=%C3%A5rtchive . Full grammar remains low confidence; includes unflagged archive labels."
+  },
+  {
+    "locale": "wa",
+    "key": "archive-list",
+    "before": "Archiver la liste",
+    "after": "Mete li djivêye el årtchive",
+    "reason": "Replace French archive labels/recovery instructions and linked-card deletion restrictions with Walloon. Preserve archive recovery menu labels and linked-card-first deletion requirement, including the source trailing fragment. Native archive terminology: https://dtw.walon.org/index.php?query=%C3%A5rtchive . Full grammar remains low confidence; includes unflagged archive labels."
+  },
+  {
+    "locale": "wa",
+    "key": "archive-swimlane",
+    "before": "Archiver le couloir",
+    "after": "Mete li coridôr el årtchive",
+    "reason": "Replace French archive labels/recovery instructions and linked-card deletion restrictions with Walloon. Preserve archive recovery menu labels and linked-card-first deletion requirement, including the source trailing fragment. Native archive terminology: https://dtw.walon.org/index.php?query=%C3%A5rtchive . Full grammar remains low confidence; includes unflagged archive labels."
+  },
+  {
+    "locale": "wa",
+    "key": "archive-selection",
+    "before": "Archiver la sélection",
+    "after": "Mete li tchoes el årtchive",
+    "reason": "Replace French archive labels/recovery instructions and linked-card deletion restrictions with Walloon. Preserve archive recovery menu labels and linked-card-first deletion requirement, including the source trailing fragment. Native archive terminology: https://dtw.walon.org/index.php?query=%C3%A5rtchive . Full grammar remains low confidence; includes unflagged archive labels."
+  },
+  {
+    "locale": "wa",
+    "key": "archiveBoardPopup-title",
+    "before": "Archiver le tableau ?",
+    "after": "Mete li tåvlea el årtchive?",
+    "reason": "Replace French archive labels/recovery instructions and linked-card deletion restrictions with Walloon. Preserve archive recovery menu labels and linked-card-first deletion requirement, including the source trailing fragment. Native archive terminology: https://dtw.walon.org/index.php?query=%C3%A5rtchive . Full grammar remains low confidence; includes unflagged archive labels."
+  },
+  {
+    "locale": "wa",
+    "key": "archived-items",
+    "before": "Archives",
+    "after": "Årtchive",
+    "reason": "Replace French archive labels/recovery instructions and linked-card deletion restrictions with Walloon. Preserve archive recovery menu labels and linked-card-first deletion requirement, including the source trailing fragment. Native archive terminology: https://dtw.walon.org/index.php?query=%C3%A5rtchive . Full grammar remains low confidence; includes unflagged archive labels."
+  },
+  {
+    "locale": "wa",
+    "key": "archives",
+    "before": "Archives",
+    "after": "Årtchive",
+    "reason": "Replace French archive labels/recovery instructions and linked-card deletion restrictions with Walloon. Preserve archive recovery menu labels and linked-card-first deletion requirement, including the source trailing fragment. Native archive terminology: https://dtw.walon.org/index.php?query=%C3%A5rtchive . Full grammar remains low confidence; includes unflagged archive labels."
+  },
+  {
+    "locale": "wa",
+    "key": "listArchivePopup-title",
+    "before": "Archiver la liste ?",
+    "after": "Mete li djivêye el årtchive?",
+    "reason": "Replace French archive labels/recovery instructions and linked-card deletion restrictions with Walloon. Preserve archive recovery menu labels and linked-card-first deletion requirement, including the source trailing fragment. Native archive terminology: https://dtw.walon.org/index.php?query=%C3%A5rtchive . Full grammar remains low confidence; includes unflagged archive labels."
+  },
+  {
+    "locale": "wa",
+    "key": "swimlaneArchivePopup-title",
+    "before": "Archiver le couloir ?",
+    "after": "Mete li coridôr el årtchive?",
+    "reason": "Replace French archive labels/recovery instructions and linked-card deletion restrictions with Walloon. Preserve archive recovery menu labels and linked-card-first deletion requirement, including the source trailing fragment. Native archive terminology: https://dtw.walon.org/index.php?query=%C3%A5rtchive . Full grammar remains low confidence; includes unflagged archive labels."
+  },
+  {
+    "locale": "wa",
+    "key": "cardArchivePopup-title",
+    "before": "Archiver la carte ?",
+    "after": "Mete li cåte el årtchive?",
+    "reason": "Replace French archive labels/recovery instructions and linked-card deletion restrictions with Walloon. Preserve archive recovery menu labels and linked-card-first deletion requirement, including the source trailing fragment. Native archive terminology: https://dtw.walon.org/index.php?query=%C3%A5rtchive . Full grammar remains low confidence; includes unflagged archive labels."
+  },
+  {
+    "locale": "wa",
+    "key": "r-archive",
+    "before": "Archiver",
+    "after": "Mete el årtchive",
+    "reason": "Replace French archive labels/recovery instructions and linked-card deletion restrictions with Walloon. Preserve archive recovery menu labels and linked-card-first deletion requirement, including the source trailing fragment. Native archive terminology: https://dtw.walon.org/index.php?query=%C3%A5rtchive . Full grammar remains low confidence; includes unflagged archive labels."
+  },
+  {
+    "locale": "wa",
+    "key": "r-d-archive",
+    "before": "Archiver la carte",
+    "after": "Mete li cåte el årtchive",
+    "reason": "Replace French archive labels/recovery instructions and linked-card deletion restrictions with Walloon. Preserve archive recovery menu labels and linked-card-first deletion requirement, including the source trailing fragment. Native archive terminology: https://dtw.walon.org/index.php?query=%C3%A5rtchive . Full grammar remains low confidence; includes unflagged archive labels."
   }
 ]
