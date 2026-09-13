@@ -79476,5 +79476,96 @@
     "before": "Notification d'activité",
     "after": "Yégle jëf",
     "reason": "Replace French activity headings and board-selection hint with Wolof, unify show/hide terminology with existing jëf activity-history usage. Fix unflagged tabax (construction) referring to kanban board to tablo. Preserve checkbox selection and notification scope. Checkbox adaptation and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "activity-subtask-added",
+    "before": "a ajouté une sous-tâche à %s",
+    "after": "yokk liggéey bu ndaw ci %s",
+    "reason": "Replace French subtask controls and empty card search result with Wolof. Reuse existing Ligeey ndaw linked-subtask terminology with standardized liggéey spelling. Preserve task/card distinction, destination board/list, delete confirmation and __board__/%s placeholders. Subtask adaptation and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "add-subtask",
+    "before": "Ajouter une sous-tâche",
+    "after": "Yokk liggéey bu ndaw",
+    "reason": "Replace French subtask controls and empty card search result with Wolof. Reuse existing Ligeey ndaw linked-subtask terminology with standardized liggéey spelling. Preserve task/card distinction, destination board/list, delete confirmation and __board__/%s placeholders. Subtask adaptation and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "subtasks",
+    "before": "Sous-tâches",
+    "after": "Liggéey yu ndaw yi",
+    "reason": "Replace French subtask controls and empty card search result with Wolof. Reuse existing Ligeey ndaw linked-subtask terminology with standardized liggéey spelling. Preserve task/card distinction, destination board/list, delete confirmation and __board__/%s placeholders. Subtask adaptation and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "confirm-subtask-delete-popup",
+    "before": "Êtes-vous sûr de vouloir supprimer la sous-tâche ?",
+    "after": "Ndax wóor na la ne bëgg nga far liggéey bu ndaw bi?",
+    "reason": "Replace French subtask controls and empty card search result with Wolof. Reuse existing Ligeey ndaw linked-subtask terminology with standardized liggéey spelling. Preserve task/card distinction, destination board/list, delete confirmation and __board__/%s placeholders. Subtask adaptation and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "subtaskDeletePopup-title",
+    "before": "Supprimer la sous-tâche ?",
+    "after": "Far liggéey bu ndaw bi?",
+    "reason": "Replace French subtask controls and empty card search result with Wolof. Reuse existing Ligeey ndaw linked-subtask terminology with standardized liggéey spelling. Preserve task/card distinction, destination board/list, delete confirmation and __board__/%s placeholders. Subtask adaptation and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "export-card-subtasks",
+    "before": "Sous-tâches",
+    "after": "Liggéey yu ndaw yi",
+    "reason": "Replace French subtask controls and empty card search result with Wolof. Reuse existing Ligeey ndaw linked-subtask terminology with standardized liggéey spelling. Preserve task/card distinction, destination board/list, delete confirmation and __board__/%s placeholders. Subtask adaptation and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "default-subtasks-board",
+    "before": "Sous-tâches du tableau __board__",
+    "after": "Liggéey yu ndaw yi ci tablo __board__",
+    "reason": "Replace French subtask controls and empty card search result with Wolof. Reuse existing Ligeey ndaw linked-subtask terminology with standardized liggéey spelling. Preserve task/card distinction, destination board/list, delete confirmation and __board__/%s placeholders. Subtask adaptation and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "subtask-settings",
+    "before": "Paramètres des sous-tâches",
+    "after": "Jekkal yi ci liggéey yu ndaw yi",
+    "reason": "Replace French subtask controls and empty card search result with Wolof. Reuse existing Ligeey ndaw linked-subtask terminology with standardized liggéey spelling. Preserve task/card distinction, destination board/list, delete confirmation and __board__/%s placeholders. Subtask adaptation and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "deposit-subtasks-board",
+    "before": "Déposer des sous-tâches dans ce tableau :",
+    "after": "Teg liggéey yu ndaw yi ci tablo bii:",
+    "reason": "Replace French subtask controls and empty card search result with Wolof. Reuse existing Ligeey ndaw linked-subtask terminology with standardized liggéey spelling. Preserve task/card distinction, destination board/list, delete confirmation and __board__/%s placeholders. Subtask adaptation and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "deposit-subtasks-list",
+    "before": "Liste de destination pour les sous-tâches déposées ici :",
+    "after": "Limu bi ñuy teg liggéey yu ndaw yi ci:",
+    "reason": "Replace French subtask controls and empty card search result with Wolof. Reuse existing Ligeey ndaw linked-subtask terminology with standardized liggéey spelling. Preserve task/card distinction, destination board/list, delete confirmation and __board__/%s placeholders. Subtask adaptation and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "subtaskActionsPopup-title",
+    "before": "Action de la sous-tâche",
+    "after": "Jëf ci liggéey bu ndaw bi",
+    "reason": "Replace French subtask controls and empty card search result with Wolof. Reuse existing Ligeey ndaw linked-subtask terminology with standardized liggéey spelling. Preserve task/card distinction, destination board/list, delete confirmation and __board__/%s placeholders. Subtask adaptation and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "show-subtasks-field",
+    "before": "Afficher le champ des sous-tâches",
+    "after": "Wone wàllu liggéey yu ndaw yi",
+    "reason": "Replace French subtask controls and empty card search result with Wolof. Reuse existing Ligeey ndaw linked-subtask terminology with standardized liggéey spelling. Preserve task/card distinction, destination board/list, delete confirmation and __board__/%s placeholders. Subtask adaptation and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "add-existing-card-as-subtask-empty",
+    "before": "Aucune carte trouvée",
+    "after": "Giseesul benn karta",
+    "reason": "Replace French subtask controls and empty card search result with Wolof. Reuse existing Ligeey ndaw linked-subtask terminology with standardized liggéey spelling. Preserve task/card distinction, destination board/list, delete confirmation and __board__/%s placeholders. Subtask adaptation and full grammar remain low confidence."
   }
 ]
