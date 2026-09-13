@@ -634,6 +634,20 @@ collection, checkpoint, menu and launcher tests pass; no live remote sync was ru
 
 </details>
 
+and fixes the following calendar compatibility problem:
+
+**Calendars** - FullCalendar direction options.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ef12548a9">Use the supported calendar direction option</a>. Thanks to xet7.</summary>
+
+Single-board and multiple-board calendars passed legacy isRTL to FullCalendar
+5, producing repeated unknown-option warnings. Pass direction as rtl or ltr
+according to the active language. Four focused calendar test entries pass;
+RTL/LTR browser checks are added and syntax-checked, but not run live.
+
+</details>
+
 This release fixes the following localized search problem:
 
 **Bug fixes** - Translated overdue search predicates and Veps help.
