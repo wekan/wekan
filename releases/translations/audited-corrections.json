@@ -84978,5 +84978,40 @@
     "before": "ISO 8601",
     "after": "Khalendara ya Gregoriana (mavhiki ya ISO 8601)",
     "reason": "Replace foreign-language setting and English calendar labels with Tsonga; preserve Dangi, Hijri, Umm al-Qura, Minguo and ISO identifiers and restore ISO week detail. Exact Khalendara ya Xiheveru attested at https://www.jw.org/ts/layiburari/bibele/nwt/xiengetelo-b/khalendara-ya-xiheveru-ya-le-bibeleni/ ; Chayina and Japani at https://www.jw.org/ts/layiburari/timagazini/g201310/ta-rivala/ ; vhiki and mavhiki supported by the calendar page and https://cfp2.jw-cdn.org/a/ee416b/1/o/ay_TS.pdf . Setting and other assembled grammar remain low confidence; religious/country/tabular epoch labels and unflagged date controls need review."
+  },
+  {
+    "locale": "ts",
+    "key": "calendar-system-buddhist",
+    "before": "Buddhist",
+    "after": "Khalendara ya Mabudha",
+    "reason": "Replace English religious/country calendar labels and foreign Fars label with Tsonga; preserve Jalali and Amete Alem identifiers and national distinction. Mabudha attested at https://www.jw.org/ts/layiburari/timagazini/w20031201/Lexi-Susumetelaka-Vo-Tala-Ku-ya-eKerekeni/ ; Peresiya at https://wol.jw.org/ts/wol/bc/r84/lp-ts/1001060428/634 ; Etiyopiya at https://cfp2.jw-cdn.org/a/f18fbe/2/o/w_TS_202401.pdf ; Indiya at https://www.jw.org/ts/layiburari/timagazini/wp20151201/twisisa-bibele/ . Full assembled grammar remains low confidence; Coptic and Hijri variant descriptions still need review."
+  },
+  {
+    "locale": "ts",
+    "key": "calendar-system-jalali",
+    "before": "Jalali (Fars)",
+    "after": "Khalendara ya Jalali (ya Peresiya)",
+    "reason": "Replace English religious/country calendar labels and foreign Fars label with Tsonga; preserve Jalali and Amete Alem identifiers and national distinction. Mabudha attested at https://www.jw.org/ts/layiburari/timagazini/w20031201/Lexi-Susumetelaka-Vo-Tala-Ku-ya-eKerekeni/ ; Peresiya at https://wol.jw.org/ts/wol/bc/r84/lp-ts/1001060428/634 ; Etiyopiya at https://cfp2.jw-cdn.org/a/f18fbe/2/o/w_TS_202401.pdf ; Indiya at https://www.jw.org/ts/layiburari/timagazini/wp20151201/twisisa-bibele/ . Full assembled grammar remains low confidence; Coptic and Hijri variant descriptions still need review."
+  },
+  {
+    "locale": "ts",
+    "key": "calendar-system-ethiopic",
+    "before": "Ethiopic",
+    "after": "Khalendara ya Etiyopiya",
+    "reason": "Replace English religious/country calendar labels and foreign Fars label with Tsonga; preserve Jalali and Amete Alem identifiers and national distinction. Mabudha attested at https://www.jw.org/ts/layiburari/timagazini/w20031201/Lexi-Susumetelaka-Vo-Tala-Ku-ya-eKerekeni/ ; Peresiya at https://wol.jw.org/ts/wol/bc/r84/lp-ts/1001060428/634 ; Etiyopiya at https://cfp2.jw-cdn.org/a/f18fbe/2/o/w_TS_202401.pdf ; Indiya at https://www.jw.org/ts/layiburari/timagazini/wp20151201/twisisa-bibele/ . Full assembled grammar remains low confidence; Coptic and Hijri variant descriptions still need review."
+  },
+  {
+    "locale": "ts",
+    "key": "calendar-system-ethioaa",
+    "before": "Ethiopic Amete Alem",
+    "after": "Khalendara ya Amete Alem ya Etiyopiya",
+    "reason": "Replace English religious/country calendar labels and foreign Fars label with Tsonga; preserve Jalali and Amete Alem identifiers and national distinction. Mabudha attested at https://www.jw.org/ts/layiburari/timagazini/w20031201/Lexi-Susumetelaka-Vo-Tala-Ku-ya-eKerekeni/ ; Peresiya at https://wol.jw.org/ts/wol/bc/r84/lp-ts/1001060428/634 ; Etiyopiya at https://cfp2.jw-cdn.org/a/f18fbe/2/o/w_TS_202401.pdf ; Indiya at https://www.jw.org/ts/layiburari/timagazini/wp20151201/twisisa-bibele/ . Full assembled grammar remains low confidence; Coptic and Hijri variant descriptions still need review."
+  },
+  {
+    "locale": "ts",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "Khalendara ya tiko ra Indiya",
+    "reason": "Replace English religious/country calendar labels and foreign Fars label with Tsonga; preserve Jalali and Amete Alem identifiers and national distinction. Mabudha attested at https://www.jw.org/ts/layiburari/timagazini/w20031201/Lexi-Susumetelaka-Vo-Tala-Ku-ya-eKerekeni/ ; Peresiya at https://wol.jw.org/ts/wol/bc/r84/lp-ts/1001060428/634 ; Etiyopiya at https://cfp2.jw-cdn.org/a/f18fbe/2/o/w_TS_202401.pdf ; Indiya at https://www.jw.org/ts/layiburari/timagazini/wp20151201/twisisa-bibele/ . Full assembled grammar remains low confidence; Coptic and Hijri variant descriptions still need review."
   }
 ]
