@@ -2747,5 +2747,8 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.doesNotMatch(cache.to['calendar-system-islamic-tbla'], /Islamic tabular/);
   assert.notEqual(cache.to['calendar-system-islamic-tbla'], cache.to['calendar-system-islamic-civil']);
   assert.notEqual(cache.to['calendar-system-islamic-tbla'], cache.to['calendar-system-islamic-rgsa']);
+  assert.equal(cache.sah['calendar-system-islamic-civil'], 'Ислаам халандаара (табылыысса, гражданскай ээрэ)');
+  assert.doesNotMatch(cache.sah['calendar-system-islamic-civil'], /Islamic civil/);
+  assert.notEqual(cache.sah['calendar-system-islamic-civil'], cache.sah['calendar-system-islamic']);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });

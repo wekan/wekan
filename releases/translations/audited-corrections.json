@@ -120475,5 +120475,12 @@
     "before": "Islamic tabular",
     "after": "tohi māhina fakamohameti (fakatēpile, ʻepoki fakaʻasitalōnoma)",
     "reason": "Replace English tabular Hijri label with Tongan CLDR calendar terminology, explicitly preserving the astronomical-epoch qualifier omitted from the provisional CLDR label. Review 2026-09-14: https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/to.xml supports fakatēpile and adjective fakaʻasitalōnoma in astronomical-unit wording; https://tonganlex.vercel.app/ downloadable 4013-word lexicon records ʻepoki (epoch), dictionary page 178. Refine the existing correction, preserving its original English before value. Low confidence: CLDR calendar base is unconfirmed and the composed calendar-epoch phrase needs fluent technical review. Distinguish civil and sighting variants."
+  },
+  {
+    "locale": "sah",
+    "key": "calendar-system-islamic-civil",
+    "before": "Islamic civil",
+    "after": "Ислаам халандаара (табылыысса, гражданскай ээрэ)",
+    "reason": "Replace English civil Hijri label preserving tabular and civil-epoch qualifiers. Reuse existing Sakha table term табылыысса; Unicode CLDR sah.xml supports Ислаам халандаара (provisional) and era field Ээрэ (contributed): https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/sah.xml. Native civil-adjective usage: https://www.sakhaparliament.ru/obshchestvo/32860-iskeni-utary-seretiitten-nejrotrenazherga-dieri. Review 2026-09-14. Low confidence: composition and era-to-calendar-epoch adaptation need fluent technical review. Sighting and astronomical variants remain unresolved."
   }
 ]
