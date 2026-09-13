@@ -72336,5 +72336,12 @@
     "before": "Islamic (Saudi Arabia)",
     "after": "Karenda yeHijri (Saudi Arabia, kuona kugara kwemwedzi)",
     "reason": "Restore explicit moon sighting in Saudi Hijri label. Shona kuona kugara kwemwedzi is attested in published discussion of calendar moon observations: https://www.jw.org/sn/Raibhurari/magazini/nharireyomurindi-yekudzidza-june-2022/waizviziva-here-june-2022-2/ . Retain Saudi Arabia proper name; full specialized label needs native review."
+  },
+  {
+    "locale": "sn",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "Karenda yeHijri (kuverenga uchishandisa tafura, zuva rekutanga zvinoenderana nesainzi yezvinhu zviri muchadenga)",
+    "reason": "Replace English description while retaining table-based calculation and an astronomical starting date. Astronomy vocabulary informed by primary Shona publisher https://www.jw.org/sn/Raibhurari/magazini/mukai-nhamba3-2021-nov-dec/zviri-muchadenga-zvinotidzidzisei-nezvezvakasikwa/ . Direct specialized phrasing and table terminology are low confidence and require native review."
   }
 ]
