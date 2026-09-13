@@ -81471,5 +81471,33 @@
     "before": "Afficher/Masquer la barre latérale du tableau",
     "after": "Wone walla nëbb wetu tablo bi",
     "reason": "Replace French card movement/image removal/sidebar controls with Wolof. Preserve top versus bottom and own versus specified list; remove background versus minicard cover image; toggle means show/hide sidebar. Reuse established terms. Sidebar/cover adaptations and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "multi-selection-label",
+    "before": "Définir l'étiquette pour la sélection",
+    "after": "Def etiket ci yi ñu tànn",
+    "reason": "Replace French selection label/member/color controls with Wolof. Preserve selected-item scope and literal label shortcuts 1-9 with removal direction. Reuse etiket/bokkkat/melo terminology. Selection/color phrasing and full grammar remain low confidence; clipboard and migration controls remain pending."
+  },
+  {
+    "locale": "wo",
+    "key": "multi-selection-member",
+    "before": "Définir le participant pour la sélection",
+    "after": "Def bokkkat ci yi ñu tànn",
+    "reason": "Replace French selection label/member/color controls with Wolof. Preserve selected-item scope and literal label shortcuts 1-9 with removal direction. Reuse etiket/bokkkat/melo terminology. Selection/color phrasing and full grammar remain low confidence; clipboard and migration controls remain pending."
+  },
+  {
+    "locale": "wo",
+    "key": "remove-labels-multiselect",
+    "before": "La multi-sélection supprime les étiquettes 1-9",
+    "after": "Tànn yu bare dafay dindi etiket yi 1-9",
+    "reason": "Replace French selection label/member/color controls with Wolof. Preserve selected-item scope and literal label shortcuts 1-9 with removal direction. Reuse etiket/bokkkat/melo terminology. Selection/color phrasing and full grammar remain low confidence; clipboard and migration controls remain pending."
+  },
+  {
+    "locale": "wo",
+    "key": "setSelectionColorPopup-title",
+    "before": "Définir la couleur de sélection",
+    "after": "Def melo yi ñu tànn",
+    "reason": "Replace French selection label/member/color controls with Wolof. Preserve selected-item scope and literal label shortcuts 1-9 with removal direction. Reuse etiket/bokkkat/melo terminology. Selection/color phrasing and full grammar remain low confidence; clipboard and migration controls remain pending."
   }
 ]
