@@ -70257,5 +70257,96 @@
     "before": "Sunting teks terjemahan pesanan",
     "after": "Sunting teks teujeumah khusus",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "email-enrollAccount-subject",
+    "before": "Sebuah akun dibuat untuk Anda pada __siteName__",
+    "after": "Akun geupeugot keu droeneueh bak __siteName__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "email-enrollAccount-text",
+    "before": "Halo __user__,\n\nUntuk mulai menggunakan, silakan klik tautan berikut.\n\n__url__\n\nTerima kasih.",
+    "after": "Saleuem __user__,\n\nKeu mulai ngui layanan, neuklik tautan di miyup.\n\n__url__\n\nTeurimong geunaseh.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "email-fail-text",
+    "before": "Ralat semasa percubaan menghantar emel",
+    "after": "Na salah watee geucuba kirem emel",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "email-invite-register-subject",
+    "before": "__inviter__ menhantar jemputan untuk anda",
+    "after": "__inviter__ geukirem undangan keu droeneueh",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "email-invite-subject",
+    "before": "__inviter__ menhantar jemputan untuk anda",
+    "after": "__inviter__ geukirem undangan keu droeneueh",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "email-resetPassword-subject",
+    "before": "Pulihkan kata sandi Anda pada __siteName__",
+    "after": "Atô ulang kata sandi droeneueh bak __siteName__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "email-resetPassword-text",
+    "before": "Halo __user__,\n\nUntuk memulihkan kata sandi Anda, silakan klik tautan berikut.\n\n__url__\n\nTerima kasih.",
+    "after": "Saleuem __user__,\n\nKeu atô ulang kata sandi droeneueh, neuklik tautan di miyup.\n\n__url__\n\nTeurimong geunaseh.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "email-smtp-test-text",
+    "before": "Anda telah berjaya menghantar e-mel",
+    "after": "Droeneueh ka meuhase kirem emel",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "email-verifyEmail-subject",
+    "before": "Verifikasi surel Anda pada __siteName__",
+    "after": "Peubeutoi alamat emel droeneueh bak __siteName__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "email-verifyEmail-text",
+    "before": "Halo __user__,\n\nUntuk memverifikasi surel Anda, silakan klik tautan berikut.\n\n__url__\n\nTerima kasih.",
+    "after": "Saleuem __user__,\n\nKeu peubeutoi alamat emel akun droeneueh, neuklik tautan di miyup.\n\n__url__\n\nTeurimong geunaseh.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "error-board-notAMember",
+    "before": "Anda harus jadi member panel ini untuk melakukannya",
+    "after": "Droeneueh haroh jeuet keu anggota papan nyoe keu peubuet nyan",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "error-board-notAdmin",
+    "before": "Anda harus admin dari panel ini untuk melakukan itu",
+    "after": "Droeneueh haroh jeuet keu admin papan nyoe keu peubuet nyan",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "error-json-malformed",
+    "before": "Teks Anda bukan JSON yang sah",
+    "after": "Teks droeneueh kon JSON nyang sah",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
