@@ -467,3 +467,7 @@ each destination stage. Child-process stdout and stderr are streamed directly to
 the terminal; a 15-second elapsed-time message remains visible during long stages.
 GitHub API requests identify the endpoint, page and retry attempt before fetching,
 without printing authentication headers or tokens. Rate-limit waits remain in effect.
+
+The `releases/mirror.sh` launcher also saves stdout and stderr to
+`.tools/log/mirror/YYYY-MM-DD_HH-MM_SS/mirror-log.txt` while printing them
+to stdout. It prints the log path at startup and preserves command failure status.

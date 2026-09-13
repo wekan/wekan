@@ -26,4 +26,11 @@ mirror "codeberg" "git@codeberg.org:wekan/wekan"
 mirror "sourceforge" "ssh://wekan@git.code.sf.net/p/wekan/code"
 }
 # Bitbucket is inactive because its repository access is unreliable.
-exec node "$WEKAN_ROOT/tools/mirror-menu.mjs" "$@"
+# Stream both output channels to the terminal and retain the complete run log.
+MIRROR_LOG_DIR="$TOOLS_DIR/log/mirror/$(date +%Y-%m-%d_%H-%M_%S)"
+mkdir -p "$MIRROR_LOG_DIR"
+MIRROR_LOG_FILE="$MIRROR_LOG_DIR/mirror-log.txt"
+{
+  printf 'Mirror log: %s\n' "$MIRROR_LOG_FILE"
+  node "$WEKAN_ROOT/tools/mirror-menu.mjs" "$@"
+} 2>&1 | tee -a "$MIRROR_LOG_FILE"

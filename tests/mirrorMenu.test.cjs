@@ -82,6 +82,26 @@ const work = fs.mkdtempSync(path.join(temporary, 'mirror-menu-tests-'));
     assert.equal(await m.streamCommand(process.execPath, ['-e', 'process.exit(0)']), '');
     await assert.rejects(m.streamCommand(process.execPath, ['-e', 'process.exit(7)']), /failed \(7\)/);
   });
+  await test('shell launcher tees output and errors into timestamped logs and keeps failure status', () => {
+    if (process.platform === 'win32') return;
+    const { spawnSync } = require('node:child_process');
+    const launcherRoot = path.join(work, 'launcher');
+    fs.mkdirSync(path.join(launcherRoot, 'releases'), { recursive: true });
+    fs.mkdirSync(path.join(launcherRoot, 'tools'), { recursive: true });
+    fs.copyFileSync(path.join(root, 'releases/mirror.sh'), path.join(launcherRoot, 'releases/mirror.sh'));
+    fs.writeFileSync(path.join(launcherRoot, 'tools/mirror-menu.mjs'), "console.log('stdout fixture'); console.error('stderr fixture'); process.exit(7);\n");
+    const result = spawnSync('bash', [path.join(launcherRoot, 'releases/mirror.sh')], {
+      encoding: 'utf8', env: { ...process.env, PATH: `${path.dirname(process.execPath)}${path.delimiter}${process.env.PATH}` },
+    });
+    assert.equal(result.status, 7);
+    assert.match(result.stdout, /stdout fixture/);
+    assert.match(result.stdout, /stderr fixture/);
+    const logRoot = path.join(launcherRoot, '.tools/log/mirror');
+    const directories = fs.readdirSync(logRoot);
+    assert.equal(directories.length, 1);
+    assert.match(directories[0], /^\d{4}-\d{2}-\d{2}_\d{2}-\d{2}_\d{2}$/);
+    assert.equal(fs.readFileSync(path.join(logRoot, directories[0], 'mirror-log.txt'), 'utf8'), result.stdout);
+  });
   await test('Windows dispatch quotes paths and uses each native batch wrapper', async () => {
     const calls = [];
     await m.sync({ source: 'gitlab', mirrors: ['github'] }, { platform: 'win32', directory: work, run: (tool, args) => { calls.push([tool, args]); return ''; }, log: () => {} });
