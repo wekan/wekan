@@ -94232,5 +94232,68 @@
     "before": "MM-TT-JJJJ",
     "after": "MM-DD-YYYY",
     "reason": "Restore exact source date-format notation YYYY/MM/DD components; German JJJJ/TT components are not the source format identifiers. These are technical format labels, not English prose."
+  },
+  {
+    "locale": "tlh",
+    "key": "cron-jobs",
+    "before": "Geplante Aufgaben",
+    "after": "ta'meH poH ghajbogh Qu'mey",
+    "reason": "Replace German/French scheduled-job state controls with Klingon. Preserve deletion confirmation, successful deletion, pause versus resume versus start, and successful versus failed operations. Reuse descriptive scheduled task with execution time. https://klingonska.org/klo/ordlista-01.html attests yev (pause), taH (continue) and tagh (start); causative forms and resume-again phrase are assembled, low confidence, and need fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "cron-job-delete-confirm",
+    "before": "Sind Sie sicher, dass Sie diese geplante Aufgabe löschen wollen?",
+    "after": "ta'meH poH ghajbogh Qu'vam DaQaw' DaneHbej'a'?",
+    "reason": "Replace German/French scheduled-job state controls with Klingon. Preserve deletion confirmation, successful deletion, pause versus resume versus start, and successful versus failed operations. Reuse descriptive scheduled task with execution time. https://klingonska.org/klo/ordlista-01.html attests yev (pause), taH (continue) and tagh (start); causative forms and resume-again phrase are assembled, low confidence, and need fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "cron-job-deleted",
+    "before": "Geplante Aufgabe erfolgreich gelöscht",
+    "after": "ta'meH poH ghajbogh Qu' Qaw'lu'pu'",
+    "reason": "Replace German/French scheduled-job state controls with Klingon. Preserve deletion confirmation, successful deletion, pause versus resume versus start, and successful versus failed operations. Reuse descriptive scheduled task with execution time. https://klingonska.org/klo/ordlista-01.html attests yev (pause), taH (continue) and tagh (start); causative forms and resume-again phrase are assembled, low confidence, and need fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "cron-job-pause-failed",
+    "before": "Anhalten der geplanten Aufgabe fehlgeschlagen",
+    "after": "ta'meH poH ghajbogh Qu' yevmoHmeH Qu' lujpu'",
+    "reason": "Replace German/French scheduled-job state controls with Klingon. Preserve deletion confirmation, successful deletion, pause versus resume versus start, and successful versus failed operations. Reuse descriptive scheduled task with execution time. https://klingonska.org/klo/ordlista-01.html attests yev (pause), taH (continue) and tagh (start); causative forms and resume-again phrase are assembled, low confidence, and need fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "cron-job-paused",
+    "before": "Geplante Aufgabe erfolgreich angehalten",
+    "after": "ta'meH poH ghajbogh Qu' yevmoHlu'pu'",
+    "reason": "Replace German/French scheduled-job state controls with Klingon. Preserve deletion confirmation, successful deletion, pause versus resume versus start, and successful versus failed operations. Reuse descriptive scheduled task with execution time. https://klingonska.org/klo/ordlista-01.html attests yev (pause), taH (continue) and tagh (start); causative forms and resume-again phrase are assembled, low confidence, and need fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "cron-job-resume-failed",
+    "before": "Échec de la reprise de la tâche planifiée",
+    "after": "ta'meH poH ghajbogh Qu' taHqa'moHmeH Qu' lujpu'",
+    "reason": "Replace German/French scheduled-job state controls with Klingon. Preserve deletion confirmation, successful deletion, pause versus resume versus start, and successful versus failed operations. Reuse descriptive scheduled task with execution time. https://klingonska.org/klo/ordlista-01.html attests yev (pause), taH (continue) and tagh (start); causative forms and resume-again phrase are assembled, low confidence, and need fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "cron-job-resumed",
+    "before": "Tâche planifiée reprise avec succès",
+    "after": "ta'meH poH ghajbogh Qu' taHqa'moHlu'pu'",
+    "reason": "Replace German/French scheduled-job state controls with Klingon. Preserve deletion confirmation, successful deletion, pause versus resume versus start, and successful versus failed operations. Reuse descriptive scheduled task with execution time. https://klingonska.org/klo/ordlista-01.html attests yev (pause), taH (continue) and tagh (start); causative forms and resume-again phrase are assembled, low confidence, and need fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "cron-job-start-failed",
+    "before": "Échec du démarrage de la tâche planifiée",
+    "after": "ta'meH poH ghajbogh Qu' taghmeH Qu' lujpu'",
+    "reason": "Replace German/French scheduled-job state controls with Klingon. Preserve deletion confirmation, successful deletion, pause versus resume versus start, and successful versus failed operations. Reuse descriptive scheduled task with execution time. https://klingonska.org/klo/ordlista-01.html attests yev (pause), taH (continue) and tagh (start); causative forms and resume-again phrase are assembled, low confidence, and need fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "cron-job-started",
+    "before": "Tâche planifiée démarrée avec succès",
+    "after": "ta'meH poH ghajbogh Qu' taghlu'pu'",
+    "reason": "Replace German/French scheduled-job state controls with Klingon. Preserve deletion confirmation, successful deletion, pause versus resume versus start, and successful versus failed operations. Reuse descriptive scheduled task with execution time. https://klingonska.org/klo/ordlista-01.html attests yev (pause), taH (continue) and tagh (start); causative forms and resume-again phrase are assembled, low confidence, and need fluent-speaker validation."
   }
 ]
