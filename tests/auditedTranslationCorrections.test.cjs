@@ -2362,5 +2362,32 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.match(vepsTranslator.t('paste-or-dragdrop'), /panda.*vedä da pästa.*\(vaiše kuva\)/);
   assert.match(vepsTranslator.t('rescue-card-description'), /edel sidä.*sauptad kartan.*kuvadand ei ole kaitud/);
   assert.match(vepsTranslator.t('rescue-card-description-dialogue'), /^Vajehtada.*nügüdläine.*sinun vajehtusil\?$/);
+  const vepsArchiveDeletion = {
+  "archive-all": "Sirdä kaik arhivaha",
+  "archive-board": "Sirdä laud arhivaha",
+  "archive-card": "Sirdä kart arhivaha",
+  "archive-list": "Sirdä lugetiž arhivaha",
+  "archive-selection": "Sirdä valičuz arhivaha",
+  "archiveBoardPopup-title": "Sirtta laud arhivaha?",
+  "archived-boards": "Laudad arhivas",
+  "close-board": "Saupta laud",
+  "archived": "Arhivaha sirttud",
+  "archived-at": "arhivaha sirttud",
+  "close-board-pop": "Sinä void endištada laudan, ku paindad “Arhiv”-knopkad kodilehtpolen ülähäižes osas.",
+  "delete-linked-card-before-this-card": "Sinä ed voi heitta necen kartan edel sidä, ku heitad ühtenzoittud kartan, kudambal om",
+  "delete-linked-cards-before-this-list": "Sinä ed voi heitta necen lugetišen edel sidä, ku heitad ühtenzoittud kartad, miččed ozutaba kartoihe neces lugetišes"
+};
+  for (const [key, value] of Object.entries(vepsArchiveDeletion)) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.equal(vepsTranslator.t(key), value, key);
+    assert.doesNotMatch(value, /Siirrä|Arkistoon|Taulut|Arkistossa|Sulje taulu|Arkistoitu|arkistoitu|Voit palauttaa|Et voi poistaa|ennenkuin|linkitetyn|linkitetyt/, key);
+  }
+  assert.equal(cache['ve-PP'].archive, 'Sirdä arhivaha', 'preserve existing correct archive label');
+  assert.match(vepsTranslator.t('close-board-pop'), /endištada.*“Arhiv”.*kodilehtpolen/);
+  assert.match(vepsTranslator.t('delete-linked-card-before-this-card'), /ed voi heitta.*edel sidä.*ühtenzoittud kartan.*kudambal om$/);
+  assert.match(vepsTranslator.t('delete-linked-cards-before-this-list'), /ed voi heitta.*edel sidä.*ühtenzoittud kartad.*ozutaba kartoihe neces lugetišes/);
+  assert.ok((vepsTranslator.t('delete-linked-card-before-this-card') + ' linkedId: CARD_ID').endsWith('kudambal om linkedId: CARD_ID'));
+  assert.notEqual(vepsTranslator.t('archive-card'), vepsTranslator.t('archive-list'));
+  assert.ok(vepsTranslator.t('archiveBoardPopup-title').endsWith('?'));
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });

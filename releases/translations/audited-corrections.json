@@ -119537,5 +119537,96 @@
     "before": "Korvataanko nykyisen kortin kuvaus muutoksillasi?",
     "after": "Vajehtada kartan nügüdläine kuvadand sinun vajehtusil?",
     "reason": "Replace Finnish clipboard/unsaved-description wording with Veps. MediaWiki vep attests Kopirui tedokaičusehe. Dictionary: panda, vedäda, pästta, dialog, saubata(-ptab), nügüdläine and vajehtuz. Preserve image-only paste, before-closing unsaved condition and replacement with user changes. Keep existing correct copy-to-clipboard value unchanged. Low confidence: composed before-closing sentence and overwrite inflection need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "archive-all",
+    "before": "Siirrä kaikki Arkistoon",
+    "after": "Sirdä kaik arhivaha",
+    "reason": "Replace Finnish archive/linked-deletion wording with Veps. Reuse Sirdä arhivaha, Endišta and ühtenzoittud; dictionary valičuz, saubata(-ptab), ozutada. Preserve restore-from-home-header instruction, deletion order, inbound linked-card direction and fragment preceding linkedId. Low confidence: composed restoration/deletion grammar and UI button/home-header adaptations need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "archive-board",
+    "before": "Siirrä taulu Arkistoon",
+    "after": "Sirdä laud arhivaha",
+    "reason": "Replace Finnish archive/linked-deletion wording with Veps. Reuse Sirdä arhivaha, Endišta and ühtenzoittud; dictionary valičuz, saubata(-ptab), ozutada. Preserve restore-from-home-header instruction, deletion order, inbound linked-card direction and fragment preceding linkedId. Low confidence: composed restoration/deletion grammar and UI button/home-header adaptations need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "archive-card",
+    "before": "Siirrä kortti Arkistoon",
+    "after": "Sirdä kart arhivaha",
+    "reason": "Replace Finnish archive/linked-deletion wording with Veps. Reuse Sirdä arhivaha, Endišta and ühtenzoittud; dictionary valičuz, saubata(-ptab), ozutada. Preserve restore-from-home-header instruction, deletion order, inbound linked-card direction and fragment preceding linkedId. Low confidence: composed restoration/deletion grammar and UI button/home-header adaptations need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "archive-list",
+    "before": "Siirrä lista Arkistoon",
+    "after": "Sirdä lugetiž arhivaha",
+    "reason": "Replace Finnish archive/linked-deletion wording with Veps. Reuse Sirdä arhivaha, Endišta and ühtenzoittud; dictionary valičuz, saubata(-ptab), ozutada. Preserve restore-from-home-header instruction, deletion order, inbound linked-card direction and fragment preceding linkedId. Low confidence: composed restoration/deletion grammar and UI button/home-header adaptations need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "archive-selection",
+    "before": "Siirrä valinta Arkistoon",
+    "after": "Sirdä valičuz arhivaha",
+    "reason": "Replace Finnish archive/linked-deletion wording with Veps. Reuse Sirdä arhivaha, Endišta and ühtenzoittud; dictionary valičuz, saubata(-ptab), ozutada. Preserve restore-from-home-header instruction, deletion order, inbound linked-card direction and fragment preceding linkedId. Low confidence: composed restoration/deletion grammar and UI button/home-header adaptations need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "archiveBoardPopup-title",
+    "before": "Siirrä taulu Arkistoon?",
+    "after": "Sirtta laud arhivaha?",
+    "reason": "Replace Finnish archive/linked-deletion wording with Veps. Reuse Sirdä arhivaha, Endišta and ühtenzoittud; dictionary valičuz, saubata(-ptab), ozutada. Preserve restore-from-home-header instruction, deletion order, inbound linked-card direction and fragment preceding linkedId. Low confidence: composed restoration/deletion grammar and UI button/home-header adaptations need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "archived-boards",
+    "before": "Taulut Arkistossa",
+    "after": "Laudad arhivas",
+    "reason": "Replace Finnish archive/linked-deletion wording with Veps. Reuse Sirdä arhivaha, Endišta and ühtenzoittud; dictionary valičuz, saubata(-ptab), ozutada. Preserve restore-from-home-header instruction, deletion order, inbound linked-card direction and fragment preceding linkedId. Low confidence: composed restoration/deletion grammar and UI button/home-header adaptations need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "close-board",
+    "before": "Sulje taulu",
+    "after": "Saupta laud",
+    "reason": "Replace Finnish archive/linked-deletion wording with Veps. Reuse Sirdä arhivaha, Endišta and ühtenzoittud; dictionary valičuz, saubata(-ptab), ozutada. Preserve restore-from-home-header instruction, deletion order, inbound linked-card direction and fragment preceding linkedId. Low confidence: composed restoration/deletion grammar and UI button/home-header adaptations need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "archived",
+    "before": "Arkistoitu",
+    "after": "Arhivaha sirttud",
+    "reason": "Replace Finnish archive/linked-deletion wording with Veps. Reuse Sirdä arhivaha, Endišta and ühtenzoittud; dictionary valičuz, saubata(-ptab), ozutada. Preserve restore-from-home-header instruction, deletion order, inbound linked-card direction and fragment preceding linkedId. Low confidence: composed restoration/deletion grammar and UI button/home-header adaptations need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "archived-at",
+    "before": "arkistoitu",
+    "after": "arhivaha sirttud",
+    "reason": "Replace Finnish archive/linked-deletion wording with Veps. Reuse Sirdä arhivaha, Endišta and ühtenzoittud; dictionary valičuz, saubata(-ptab), ozutada. Preserve restore-from-home-header instruction, deletion order, inbound linked-card direction and fragment preceding linkedId. Low confidence: composed restoration/deletion grammar and UI button/home-header adaptations need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "close-board-pop",
+    "before": "Voit palauttaa taulun klikkaamalla “Arkisto”-painiketta taululistan yläpalkista.",
+    "after": "Sinä void endištada laudan, ku paindad “Arhiv”-knopkad kodilehtpolen ülähäižes osas.",
+    "reason": "Replace Finnish archive/linked-deletion wording with Veps. Reuse Sirdä arhivaha, Endišta and ühtenzoittud; dictionary valičuz, saubata(-ptab), ozutada. Preserve restore-from-home-header instruction, deletion order, inbound linked-card direction and fragment preceding linkedId. Low confidence: composed restoration/deletion grammar and UI button/home-header adaptations need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "delete-linked-card-before-this-card",
+    "before": "Et voi poistaa tätä korttia ennenkuin ensin poistat linkitetyn kortin jolla on",
+    "after": "Sinä ed voi heitta necen kartan edel sidä, ku heitad ühtenzoittud kartan, kudambal om",
+    "reason": "Replace Finnish archive/linked-deletion wording with Veps. Reuse Sirdä arhivaha, Endišta and ühtenzoittud; dictionary valičuz, saubata(-ptab), ozutada. Preserve restore-from-home-header instruction, deletion order, inbound linked-card direction and fragment preceding linkedId. Low confidence: composed restoration/deletion grammar and UI button/home-header adaptations need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "delete-linked-cards-before-this-list",
+    "before": "Et voi poistaa tätä listaa ennenkuin poistat linkitetyt kortit jotka osoittavat kortteihin tässä listassa",
+    "after": "Sinä ed voi heitta necen lugetišen edel sidä, ku heitad ühtenzoittud kartad, miččed ozutaba kartoihe neces lugetišes",
+    "reason": "Replace Finnish archive/linked-deletion wording with Veps. Reuse Sirdä arhivaha, Endišta and ühtenzoittud; dictionary valičuz, saubata(-ptab), ozutada. Preserve restore-from-home-header instruction, deletion order, inbound linked-card direction and fragment preceding linkedId. Low confidence: composed restoration/deletion grammar and UI button/home-header adaptations need fluent review."
   }
 ]
