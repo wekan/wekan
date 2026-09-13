@@ -117528,5 +117528,89 @@
     "before": "Suodata korttini",
     "after": "Puhtasta minun kartad",
     "reason": "Replace Finnish with Veps, including related unflagged Webhook labels. Preserve outbound versus two-way/global Webhooks, optional authentication, disabling rather than deleting, distinct organization/team creation guidance and personal-card versus assigned-card filtering. Zaiceva/Mullonen 2007 dictionary: oigeta/oigendand, kaks’poline, saubata, kosketuz/olda kosketusiš, üleižiš (general problems); native dialog usage: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json . Webhook and Token are retained technical loan terms. Low confidence: composed Webhook labels and creation/contact guidance grammar require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "archive-board-confirm",
+    "before": "Oletko varma että haluat arkistoida tämän taulun?",
+    "after": "Oled-ik sinä tozi mugošt mel’t, miše tahtoid sirtta necen laudan Arhivaha?",
+    "reason": "Replace Finnish with Veps; preserve board/card/swimlane archive destinations, later recovery and retained activity, ALL archived versus non-archived lost-item scope, exact swimlaneId/listId and named Lost Cards identifiers, automatic repair and cannot-easily-undo wording. Lexical references: Zaiceva/Mullonen 2007 dictionary; https://en.wiktionary.org/wiki/kadoda (kadonu), https://en.wiktionary.org/wiki/kaita (kaitud, preservation), native archive/restore vocabulary from https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json . Low confidence: composed recovery grammar and plural/case forms require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "archive-swimlane",
+    "before": "Siirrä uimarata Arkistoon",
+    "after": "Sirdä ujundšoid Arhivaha",
+    "reason": "Replace Finnish with Veps; preserve board/card/swimlane archive destinations, later recovery and retained activity, ALL archived versus non-archived lost-item scope, exact swimlaneId/listId and named Lost Cards identifiers, automatic repair and cannot-easily-undo wording. Lexical references: Zaiceva/Mullonen 2007 dictionary; https://en.wiktionary.org/wiki/kadoda (kadonu), https://en.wiktionary.org/wiki/kaita (kaitud, preservation), native archive/restore vocabulary from https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json . Low confidence: composed recovery grammar and plural/case forms require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "board-archived",
+    "before": "Tämä taulu on siirretty Arkistoon.",
+    "after": "Nece laud om sirttud Arhivaha.",
+    "reason": "Replace Finnish with Veps; preserve board/card/swimlane archive destinations, later recovery and retained activity, ALL archived versus non-archived lost-item scope, exact swimlaneId/listId and named Lost Cards identifiers, automatic repair and cannot-easily-undo wording. Lexical references: Zaiceva/Mullonen 2007 dictionary; https://en.wiktionary.org/wiki/kadoda (kadonu), https://en.wiktionary.org/wiki/kaita (kaitud, preservation), native archive/restore vocabulary from https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json . Low confidence: composed recovery grammar and plural/case forms require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "card-archive-suggest-cancel",
+    "before": "Voit myöhemmin palauttaa kortin Arkistosta.",
+    "after": "Sinä void möhemba endištada kartan Arhivaspäi.",
+    "reason": "Replace Finnish with Veps; preserve board/card/swimlane archive destinations, later recovery and retained activity, ALL archived versus non-archived lost-item scope, exact swimlaneId/listId and named Lost Cards identifiers, automatic repair and cannot-easily-undo wording. Lexical references: Zaiceva/Mullonen 2007 dictionary; https://en.wiktionary.org/wiki/kadoda (kadonu), https://en.wiktionary.org/wiki/kaita (kaitud, preservation), native archive/restore vocabulary from https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json . Low confidence: composed recovery grammar and plural/case forms require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "card-delete-suggest-archive",
+    "before": "Voit siirtää kortin Arkistoon poistaaksesi sen taululta ja säilyttääksesi toimintalokin.",
+    "after": "Sinä void sirtta kartan Arhivaha, miše heitta sen laudaspäi da kaita tegendad.",
+    "reason": "Replace Finnish with Veps; preserve board/card/swimlane archive destinations, later recovery and retained activity, ALL archived versus non-archived lost-item scope, exact swimlaneId/listId and named Lost Cards identifiers, automatic repair and cannot-easily-undo wording. Lexical references: Zaiceva/Mullonen 2007 dictionary; https://en.wiktionary.org/wiki/kadoda (kadonu), https://en.wiktionary.org/wiki/kaita (kaitud, preservation), native archive/restore vocabulary from https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json . Low confidence: composed recovery grammar and plural/case forms require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "no-archived-swimlanes",
+    "before": "Ei uimaratoja Arkistossa.",
+    "after": "Arhivas ei ole ujundšoiduid.",
+    "reason": "Replace Finnish with Veps; preserve board/card/swimlane archive destinations, later recovery and retained activity, ALL archived versus non-archived lost-item scope, exact swimlaneId/listId and named Lost Cards identifiers, automatic repair and cannot-easily-undo wording. Lexical references: Zaiceva/Mullonen 2007 dictionary; https://en.wiktionary.org/wiki/kadoda (kadonu), https://en.wiktionary.org/wiki/kaita (kaitud, preservation), native archive/restore vocabulary from https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json . Low confidence: composed recovery grammar and plural/case forms require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "restore-all-archived-migration-description",
+    "before": "Palauttaa kaikki arkistoidut uimaradat, listat ja kortit. Korjaa automaattisesti puuttuvat uimaratatunnukset tai listatunnukset, jotta kohteet ovat näkyvissä.",
+    "after": "Endištab kaik arhivaha sirttud ujundšoidud, lugetišed da kartad. Kohendab avtomatižesti swimlaneId libo listId, ku niid ei ole, miše ozutada azjad.",
+    "reason": "Replace Finnish with Veps; preserve board/card/swimlane archive destinations, later recovery and retained activity, ALL archived versus non-archived lost-item scope, exact swimlaneId/listId and named Lost Cards identifiers, automatic repair and cannot-easily-undo wording. Lexical references: Zaiceva/Mullonen 2007 dictionary; https://en.wiktionary.org/wiki/kadoda (kadonu), https://en.wiktionary.org/wiki/kaita (kaitud, preservation), native archive/restore vocabulary from https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json . Low confidence: composed recovery grammar and plural/case forms require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "run-restore-all-archived-migration-confirm",
+    "before": "Tämä palauttaa KAIKKI arkistoidut uintikaistat, listat ja kortit, jolloin ne näkyvät taas. Puuttuvista tunnuksista puuttuvat kohteet korjataan automaattisesti. Tätä ei voi helposti perua. Jatketaanko?",
+    "after": "Nece endištab KAIK arhivaha sirttud ujundšoidud, lugetišed da kartad, miše möst ozutada niid. Azjad ilma ID-ta kohendadas avtomatižesti. Necidä tegendad ei sa kebnašti pördutada. Jatkta?",
+    "reason": "Replace Finnish with Veps; preserve board/card/swimlane archive destinations, later recovery and retained activity, ALL archived versus non-archived lost-item scope, exact swimlaneId/listId and named Lost Cards identifiers, automatic repair and cannot-easily-undo wording. Lexical references: Zaiceva/Mullonen 2007 dictionary; https://en.wiktionary.org/wiki/kadoda (kadonu), https://en.wiktionary.org/wiki/kaita (kaitud, preservation), native archive/restore vocabulary from https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json . Low confidence: composed recovery grammar and plural/case forms require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "restore-lost-cards-migration-description",
+    "before": "Etsii ja palauttaa kortit ja listat, joista puuttuu swimlaneId tai listId. Luo 'Kadonneet kortit' -uimaradan, jotta kaikki kadonneet ovat taas näkyvissä.",
+    "after": "Ecib da endištab kartad da lugetišed, kudambil ei ole swimlaneId libo listId. Tegeb 'Lost Cards' ujundšoidun, miše möst ozutada kaik kadonu azjad.",
+    "reason": "Replace Finnish with Veps; preserve board/card/swimlane archive destinations, later recovery and retained activity, ALL archived versus non-archived lost-item scope, exact swimlaneId/listId and named Lost Cards identifiers, automatic repair and cannot-easily-undo wording. Lexical references: Zaiceva/Mullonen 2007 dictionary; https://en.wiktionary.org/wiki/kadoda (kadonu), https://en.wiktionary.org/wiki/kaita (kaitud, preservation), native archive/restore vocabulary from https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json . Low confidence: composed recovery grammar and plural/case forms require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "run-restore-lost-cards-migration-confirm",
+    "before": "Tämä luo Kadonneet kortit -uimaradan ja palauttaa kaikki kortit ja listat, joista puuttuu uimaradan tunnus tai listan tunnus. Tämä vaikuttaa vain arkistoimattomiin kohteisiin. Jatketaanko?",
+    "after": "Nece tegeb 'Lost Cards' ujundšoidun da endištab kaik kartad da lugetišed, kudambil ei ole swimlaneId libo listId. Nece vajehtab vaiše azjad, miččed ei ole sirttud arhivaha. Jatkta?",
+    "reason": "Replace Finnish with Veps; preserve board/card/swimlane archive destinations, later recovery and retained activity, ALL archived versus non-archived lost-item scope, exact swimlaneId/listId and named Lost Cards identifiers, automatic repair and cannot-easily-undo wording. Lexical references: Zaiceva/Mullonen 2007 dictionary; https://en.wiktionary.org/wiki/kadoda (kadonu), https://en.wiktionary.org/wiki/kaita (kaitud, preservation), native archive/restore vocabulary from https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json . Low confidence: composed recovery grammar and plural/case forms require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "restore-lost-cards-nothing-to-restore",
+    "before": "Ei kadonneita uintikaistoja, listoja tai kortteja palautettavaksi",
+    "after": "Ei ole kadonuid ujundšoiduid, lugetižid libo kartoid endištamižen täht.",
+    "reason": "Replace Finnish with Veps; preserve board/card/swimlane archive destinations, later recovery and retained activity, ALL archived versus non-archived lost-item scope, exact swimlaneId/listId and named Lost Cards identifiers, automatic repair and cannot-easily-undo wording. Lexical references: Zaiceva/Mullonen 2007 dictionary; https://en.wiktionary.org/wiki/kadoda (kadonu), https://en.wiktionary.org/wiki/kaita (kaitud, preservation), native archive/restore vocabulary from https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json . Low confidence: composed recovery grammar and plural/case forms require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "restore-lost-cards-migration",
+    "before": "Palauta kadonneet kortit",
+    "after": "Endišta kadonu kartad",
+    "reason": "Replace Finnish with Veps; preserve board/card/swimlane archive destinations, later recovery and retained activity, ALL archived versus non-archived lost-item scope, exact swimlaneId/listId and named Lost Cards identifiers, automatic repair and cannot-easily-undo wording. Lexical references: Zaiceva/Mullonen 2007 dictionary; https://en.wiktionary.org/wiki/kadoda (kadonu), https://en.wiktionary.org/wiki/kaita (kaitud, preservation), native archive/restore vocabulary from https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json . Low confidence: composed recovery grammar and plural/case forms require fluent-speaker review."
   }
 ]

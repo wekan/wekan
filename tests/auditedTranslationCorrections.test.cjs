@@ -1568,5 +1568,43 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.equal(cache['ve-PP']['shortcut-filter-my-cards'], 'Puhtasta minun kartad');
   assert.doesNotMatch(cache['ve-PP']['shortcut-filter-my-cards'], /märitud/);
   assert.equal(cache['ve-PP']['shortcut-filter-my-assigned-cards'], 'Puhtasta sinei märitud kartad');
+  const vepsArchiveRecoveryRepairs = {
+  "archive-board-confirm": "Oled-ik sinä tozi mugošt mel’t, miše tahtoid sirtta necen laudan Arhivaha?",
+  "archive-swimlane": "Sirdä ujundšoid Arhivaha",
+  "board-archived": "Nece laud om sirttud Arhivaha.",
+  "card-archive-suggest-cancel": "Sinä void möhemba endištada kartan Arhivaspäi.",
+  "card-delete-suggest-archive": "Sinä void sirtta kartan Arhivaha, miše heitta sen laudaspäi da kaita tegendad.",
+  "no-archived-swimlanes": "Arhivas ei ole ujundšoiduid.",
+  "restore-all-archived-migration-description": "Endištab kaik arhivaha sirttud ujundšoidud, lugetišed da kartad. Kohendab avtomatižesti swimlaneId libo listId, ku niid ei ole, miše ozutada azjad.",
+  "run-restore-all-archived-migration-confirm": "Nece endištab KAIK arhivaha sirttud ujundšoidud, lugetišed da kartad, miše möst ozutada niid. Azjad ilma ID-ta kohendadas avtomatižesti. Necidä tegendad ei sa kebnašti pördutada. Jatkta?",
+  "restore-lost-cards-migration-description": "Ecib da endištab kartad da lugetišed, kudambil ei ole swimlaneId libo listId. Tegeb 'Lost Cards' ujundšoidun, miše möst ozutada kaik kadonu azjad.",
+  "run-restore-lost-cards-migration-confirm": "Nece tegeb 'Lost Cards' ujundšoidun da endištab kaik kartad da lugetišed, kudambil ei ole swimlaneId libo listId. Nece vajehtab vaiše azjad, miččed ei ole sirttud arhivaha. Jatkta?",
+  "restore-lost-cards-nothing-to-restore": "Ei ole kadonuid ujundšoiduid, lugetižid libo kartoid endištamižen täht.",
+  "restore-lost-cards-migration": "Endišta kadonu kartad"
+};
+  for (const [key, value] of Object.entries(vepsArchiveRecoveryRepairs)) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.equal(vepsTranslator.t(key), value, key);
+    assert.doesNotMatch(value, /Oletko varma|haluat arkistoida|Siirrä uimarata|Tämä taulu|Voit myöhemmin|palauttaa kortin|Voit siirtää|säilyttääksesi|Ei uimaratoja|Palauttaa kaikki|arkistoidut|Korjaa automaattisesti|Etsii ja palauttaa|Kadonneet kortit|kadonneita uintikaistoja|Palauta kadonneet|Tämä luo|Tämä palauttaa|Jatketaanko/i, key);
+  }
+  assert.match(cache['ve-PP']['archive-swimlane'], /ujundšoid Arhivaha$/);
+  assert.match(cache['ve-PP']['board-archived'], /laud om sirttud Arhivaha/);
+  assert.match(cache['ve-PP']['card-archive-suggest-cancel'], /möhemba.*kartan Arhivaspäi/);
+  assert.match(cache['ve-PP']['card-delete-suggest-archive'], /kartan Arhivaha.*laudaspäi da kaita tegendad/);
+  assert.match(cache['ve-PP']['no-archived-swimlanes'], /Arhivas ei ole/);
+  for (const key of ['restore-all-archived-migration-description', 'run-restore-all-archived-migration-confirm']) {
+    assert.match(cache['ve-PP'][key], /arhivaha sirttud ujundšoidud, lugetišed da kartad/);
+    assert.match(cache['ve-PP'][key], /avtomatižesti/);
+  }
+  for (const key of ['restore-lost-cards-migration-description', 'run-restore-lost-cards-migration-confirm']) {
+    assert.ok(cache['ve-PP'][key].includes("'Lost Cards'"));
+    assert.ok(cache['ve-PP'][key].includes('swimlaneId libo listId'));
+    assert.doesNotMatch(cache['ve-PP'][key], /swimlaneId da listId/);
+  }
+  assert.match(cache['ve-PP']['run-restore-lost-cards-migration-confirm'], /vaiše azjad, miččed ei ole sirttud arhivaha/);
+  assert.match(cache['ve-PP']['run-restore-all-archived-migration-confirm'], /KAIK arhivaha/);
+  assert.match(cache['ve-PP']['run-restore-all-archived-migration-confirm'], /ei sa kebnašti pördutada/);
+  assert.doesNotMatch(cache['ve-PP']['run-restore-all-archived-migration-confirm'], /ei sa pördutada/);
+  for (const key of ['run-restore-lost-cards-migration-confirm', 'run-restore-all-archived-migration-confirm']) assert.match(cache['ve-PP'][key], /Jatkta[?]$/);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });
