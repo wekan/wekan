@@ -83963,5 +83963,68 @@
     "before": "Islamic tabular",
     "after": "Kalendaryo nga Hijri (gin-ihap pinaagi hin talaan, astronomiko nga tinikangan)",
     "reason": "Replace French/English with Waray; preserve literal JSON title/description keys and first/second/last examples, Persian/Buddhist/Chinese/Coptic/Hebrew/national Indian calendar identities, civil versus astronomical tabular starting epoch and moon sighting. Technical calendar vocabulary and complete grammar remain low confidence."
+  },
+  {
+    "locale": "yo",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "Kàlẹ́ńdà orílẹ̀-èdè Íńdíà",
+    "reason": "Replace English and correct Yoruba calendar semantics including unflagged language-versus-calendar and malformed Amete Alem labels; restore national Indian, Hijri variant identities, moon sighting, civil/astronomical tabular epochs and Gregorian ISO weeks. Epoch technical terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "yo",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "Kàlẹ́ńdà Hijri (Saudi Arabia, wíwo òṣùpá)",
+    "reason": "Replace English and correct Yoruba calendar semantics including unflagged language-versus-calendar and malformed Amete Alem labels; restore national Indian, Hijri variant identities, moon sighting, civil/astronomical tabular epochs and Gregorian ISO weeks. Epoch technical terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "yo",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "Kàlẹ́ńdà Hijri (ìṣirò tábìlì, ọjọ́ ìbẹ̀rẹ̀ ìmọ̀ ìràwọ̀)",
+    "reason": "Replace English and correct Yoruba calendar semantics including unflagged language-versus-calendar and malformed Amete Alem labels; restore national Indian, Hijri variant identities, moon sighting, civil/astronomical tabular epochs and Gregorian ISO weeks. Epoch technical terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "yo",
+    "key": "calendar-system-coptic",
+    "before": "Èdè Kopti",
+    "after": "Kàlẹ́ńdà Kopti",
+    "reason": "Replace English and correct Yoruba calendar semantics including unflagged language-versus-calendar and malformed Amete Alem labels; restore national Indian, Hijri variant identities, moon sighting, civil/astronomical tabular epochs and Gregorian ISO weeks. Epoch technical terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "yo",
+    "key": "calendar-system-ethioaa",
+    "before": "Èdè Kalenda Alem Amete tio Etiopia",
+    "after": "Kàlẹ́ńdà Amete Alem ti Ẹtíópíà",
+    "reason": "Replace English and correct Yoruba calendar semantics including unflagged language-versus-calendar and malformed Amete Alem labels; restore national Indian, Hijri variant identities, moon sighting, civil/astronomical tabular epochs and Gregorian ISO weeks. Epoch technical terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "yo",
+    "key": "calendar-system-islamic-civil",
+    "before": "Kàlẹ́ńdà ti Musulumi",
+    "after": "Kàlẹ́ńdà Hijri (ìṣirò tábìlì, ọjọ́ ìbẹ̀rẹ̀ aráàlú)",
+    "reason": "Replace English and correct Yoruba calendar semantics including unflagged language-versus-calendar and malformed Amete Alem labels; restore national Indian, Hijri variant identities, moon sighting, civil/astronomical tabular epochs and Gregorian ISO weeks. Epoch technical terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "yo",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Kàlẹ́ńdà Musulumi",
+    "after": "Kàlẹ́ńdà Hijri (Umm al-Qura)",
+    "reason": "Replace English and correct Yoruba calendar semantics including unflagged language-versus-calendar and malformed Amete Alem labels; restore national Indian, Hijri variant identities, moon sighting, civil/astronomical tabular epochs and Gregorian ISO weeks. Epoch technical terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "yo",
+    "key": "calendar-system-islamic",
+    "before": "Kàlẹ́ńdà Lárúbáwá",
+    "after": "Kàlẹ́ńdà Hijri",
+    "reason": "Replace English and correct Yoruba calendar semantics including unflagged language-versus-calendar and malformed Amete Alem labels; restore national Indian, Hijri variant identities, moon sighting, civil/astronomical tabular epochs and Gregorian ISO weeks. Epoch technical terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "yo",
+    "key": "calendar-system-iso8601",
+    "before": "Kàlẹ́ńdà ISO-8601",
+    "after": "Kàlẹ́ńdà Gregory (àwọn ọ̀sẹ̀ ISO 8601)",
+    "reason": "Replace English and correct Yoruba calendar semantics including unflagged language-versus-calendar and malformed Amete Alem labels; restore national Indian, Hijri variant identities, moon sighting, civil/astronomical tabular epochs and Gregorian ISO weeks. Epoch technical terminology and full grammar remain low confidence."
   }
 ]
