@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 8,929 |
+| Corrected | 8,941 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 175 |
-| Pending review or repair | 6,918 |
+| Pending review or repair | 6,906 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **9,003** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **9,015** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `9f543f14ea4c333133a0b462e08af1be2902188b` — 15 Kinyarwanda calendar findings repaired; **no flagged Kinyarwanda findings remain**. [Published usage](https://www.jw.org/rw/isomero/udutabo/Imfashanyigisho-yIjambo-ryImana/abaheburayo-kalendari-ya-bibiliya/) supports “Kalendari y’Abaheburayo”. Calendar variants are preserved; specialized epoch terminology has low confidence and needs language review. Unflagged translations remain uncertified. Exact-value, placeholder, key-order and idempotency checks pass; live browser verification is unavailable.
+Latest translation fix: **2026-09-13**, local commit `112424bdac04734ba38092efda71aac515c19342` — 12 isiXhosa calendar names repaired; **3 isiXhosa findings remain** for epoch and lunar-observation qualifiers. Proper calendar names are preserved. Specialized wording has low confidence and needs language review; dictionary searches did not establish all terms. Exact-value, placeholder, key-order and idempotency checks pass; live browser verification is unavailable.
 
 **Origin:** not all errors came from Transifex. The captured pull changed 4,061 values; the local audit added 16,020 findings. Bosnian errors already existed in local commit `bdb3b15886a749b725b5290ba0109fcba955f983`. Other ultimate origins remain unverified.
 
