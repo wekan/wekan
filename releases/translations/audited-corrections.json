@@ -78804,5 +78804,47 @@
     "before": "Ajouter un conteneur de modèles",
     "after": "Yokk ndab ngir royukaay yi",
     "reason": "Replace French checklist-copy and template-container controls with Wolof. Preserve copying from template and adding a container for templates rather than a single template. Reuse prior royukaay/checklist terminology; template/container wording and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "allowNonBoardMembers",
+    "before": "Autoriser tous les utilisateurs authentifiés",
+    "after": "May jëfandikukat yi dugg yépp",
+    "reason": "Replace French account permission/invitation/filetype labels with Wolof. Preserve logged-in-only scope, email versus username change, self-invitation prohibition and allowed avatar versus upload filetypes. Reuse fiise/yeb terminology; full grammar and invitation terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "accounts-allowEmailChange",
+    "before": "Autoriser le changement d'adresse mail",
+    "after": "May soppi adreesu email",
+    "reason": "Replace French account permission/invitation/filetype labels with Wolof. Preserve logged-in-only scope, email versus username change, self-invitation prohibition and allowed avatar versus upload filetypes. Reuse fiise/yeb terminology; full grammar and invitation terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "accounts-allowUserNameChange",
+    "before": "Autoriser le changement d'identifiant",
+    "after": "Soppi turu jëfandikukat",
+    "reason": "Replace French account permission/invitation/filetype labels with Wolof. Preserve logged-in-only scope, email versus username change, self-invitation prohibition and allowed avatar versus upload filetypes. Reuse fiise/yeb terminology; full grammar and invitation terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "error-user-notAllowSelf",
+    "before": "Vous ne pouvez pas vous inviter vous-même",
+    "after": "Mënoo woote sa bopp",
+    "reason": "Replace French account permission/invitation/filetype labels with Wolof. Preserve logged-in-only scope, email versus username change, self-invitation prohibition and allowed avatar versus upload filetypes. Reuse fiise/yeb terminology; full grammar and invitation terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "allowed-avatar-filetypes",
+    "before": "Types de fichier autorisés pour l'avatar :",
+    "after": "Xeeti fiise yi ñu may ngir nataalu kont bi:",
+    "reason": "Replace French account permission/invitation/filetype labels with Wolof. Preserve logged-in-only scope, email versus username change, self-invitation prohibition and allowed avatar versus upload filetypes. Reuse fiise/yeb terminology; full grammar and invitation terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "allowed-upload-filetypes",
+    "before": "Types de fichier autorisés pour l'upload :",
+    "after": "Xeeti fiise yi ñu may ngir yeb:",
+    "reason": "Replace French account permission/invitation/filetype labels with Wolof. Preserve logged-in-only scope, email versus username change, self-invitation prohibition and allowed avatar versus upload filetypes. Reuse fiise/yeb terminology; full grammar and invitation terminology remain low confidence."
   }
 ]
