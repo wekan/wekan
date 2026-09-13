@@ -54,7 +54,7 @@ of that remote target. The explicit mapping selects `es-CO.i18n.json`, and the
 script reports the alias instead of uploading the same target twice. Both local
 files remain available; all nine differences were reviewed, with three erroneous values repaired and
 seven valid wording alternatives retained.
-The offline dry run reports 242 distinct targets and the English source.
+The offline dry run reports 241 distinct targets and the English source.
 
 French Belgium/Canada use `fr_BE`/`fr_CA`, Khmer Cambodia uses `km_KH`,
 and Guarani uses Transifex's `gug_PY`. The Khmer hyphen/underscore files
@@ -67,3 +67,10 @@ Portuguese Portugal maps `pt-PT.i18n.json` to `pt_PT`; the local underscore
 variant shares the remote target and is reported as an alias. Local variants
 keep their wording; only the explicitly mapped canonical file round-trips
 through Transifex. The canonical file remains registered and loaded.
+
+Russian Russia maps `ru-RU` to `ru_RU`; its symlink/underscore filenames
+share one remote target and are reported rather than uploaded twice.
+
+Aromanian (`rup`) is absent from the current public Transifex catalogue and
+remains a reported registration failure. It must not be mapped to Romanian
+(`ro`), because those are different languages.
