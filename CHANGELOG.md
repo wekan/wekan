@@ -1092,6 +1092,32 @@ and updates maintainer tooling:
 **Maintenance scripts** - explicit translation uploads and repository mirrors.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/e8be34404">Install complete tooling for active mirrors across platforms</a>. Thanks to xet7.</summary>
+
+The mirror tooling installer now installs missing Git, SSH/SCP/SFTP, curl,
+jq, Node and Go prerequisites as well as gh, glab, Tea, git-bug and Forge.
+Native Debian/Ubuntu, Fedora and Brew packages select the host architecture;
+missing forge packages fall back to native Go builds. Older Unix Go is
+bootstrapped from the official stable catalogue with SHA-256 verification.
+Unix also installs rsync for resumable SourceForge release transfers.
+
+Windows uses a PowerShell installer with winget or existing Chocolatey,
+OpenSSH client detection/installation and refreshed package PATH. Go-built
+commands use .tools/bin or configured GOBIN. Both installers attempt later
+tools after failures, list OK/MISSING commands and return failure if any
+required command remains missing. SourceForge is now included in the
+Windows mirror script, matching the three active Unix targets.
+
+Offline regressions execute Unix and PowerShell install flows and verify
+package mappings, architecture selection, checksum rejection, installed
+command skips, failure continuation and menu parity. Live installation on
+every OS/CPU remains unverified and requires upstream toolchain support.
+Tool installation does not automate SourceForge tracker/release migration.
+No authenticated mirroring, uploads or publishing were performed.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/23eda3ea3">Fix Forge and Tea CLI installation paths</a>. Thanks to xet7.</summary>
 
 The Tools installer previously attempted to install Forge's library root,
