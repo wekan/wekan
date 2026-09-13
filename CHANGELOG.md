@@ -53,29 +53,6 @@ https://wekan.fi/status/
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/316dbdf39fc5c9713925134587bf70bba37afa01">Add member-selected calendars and accessible date/time controls</a>. Thanks to mimZD and xet7.</summary>
-
-Member Settings offers Gregorian by default, Jalali and the additional
-calendars supported by the browser's built-in Unicode calendar conversion.
-Shared date displays, date popups and month views show the selected calendar.
-Mouse selection, Tab, arrow keys and month/year navigation select dates
-without typing; hour/minute lists select time. Native Date storage and ISO
-interchange values are preserved. No runtime dependency or Internet access
-is required. The calendar systems documentation explains available choices,
-keyboard controls and storage behavior.
-
-Twenty-one related Node suites pass, including positive/negative display,
-leap-month and keyboard tests, template compilation and UI font scaling.
-Three Playwright browser tests are registered and syntax-checked; the live
-Meteor server/database was unavailable, so those tests were not run.
-The broader run completed 969 suites with 18 failures before correcting
-three affected UI guards and the documentation link. Some new calendar-name
-translations remain English placeholders; translation completeness and
-unrelated baseline failures are not claimed resolved.
-
-</details>
-
-<details>
 <summary>TODO Later</summary>
 
 <details>
@@ -95,6 +72,46 @@ Checked against GitHub on 2026-07-28 and removed as no longer open: issues
 \#3138, \#3252, \#3276, \#3378, \#3748, \#3828, \#4055, \#4774, \#5149 and
 \#6511. The "already correct in the current code" category went with them - it
 held only issues \#4774 and \#4055, and both are closed now.
+
+</details>
+
+<details>
+<summary>Paused local translation repairs and validation.</summary>
+
+Paused at the maintainer's request on 2026-09-13. The audit tracks 20,081
+findings: 12,866 corrected, 4,059 restored pre-pull values awaiting
+validation, 177 reviewed and retained, and 2,979 pending review or repair.
+The correction inventory records 13,544 exact before/after values across
+201 locale identifiers, including repairs outside the original findings.
+Klingon still has 361 pending flagged findings; stop repairs now and resume
+only when requested. Other substantial queues remain in Venda and regional
+locale files and Tamazight. Silesian database terminology and 17 Tigre
+calendar findings need language-specific review. Restored and unflagged
+values, low-confidence wording and browser rendering remain unverified.
+
+[Translation audit status](docs/Features/Translations/Audit.md) is the short
+resume record; [detailed evidence](docs/Features/Translations/Audit-Evidence.md)
+retains the categorized findings. Not all wrong translations originated on
+Transifex: the evidence includes 4,061 pulled changes and 16,020 additional
+local findings, and Bosnian errors predate the pull. No remote uploads were
+performed. Preserve correct translations and source placeholders on resume.
+
+Coverage audit on 2026-09-13: all 986 Node suites ran; 19 failed. The
+changelog formatting failure was corrected and its 17 checks now pass.
+The other 18 observed failures remain outstanding, without resuming repairs:
+
+- Translation checks: Aragonese, Aromanian, Danish, Estonian/Romanian/Walloon,
+  Friulian, Galician/Xhosa, Ladin, Neapolitan and Sardinian progress suites.
+- Build/backend checks: build-script parity, FerretDB charts and Docker
+  Compose backend parity.
+- UI checks: archive section, viewport spacing and RTL.
+- Pomodoro timer and the OpenAPI multiline-parameter/new-feature route suites.
+
+The calendar/date-popup, OAuth2 domain-policy, audited correction/review,
+progress and mocked Transifex upload suites passed in that run. Browser
+calendar regressions remain registered and syntax-checked; live Meteor,
+identity-provider and browser validation remains outstanding. Mirror-script
+syntax passes; no remote mirror or translation upload was executed.
 
 </details>
 
@@ -549,18 +566,209 @@ the Markdown commit as the template.
 
 # Upcoming WeKan ® release
 
+**In short:** Members can select one calendar independently of their
+interface language, with accessible offline date/time controls and movable,
+resizable date popups. On-premise **OAuth2/OIDC** login gains email-domain
+restrictions. Local translation repairs preserve placeholders and warning
+meanings; the remaining audit is paused and tracked under **TODO Later**.
+Translation upload tooling and repository mirrors are updated, along with
+the Playwright test dependency.
 
-**In short:** Members can choose one calendar independently of their
-interface language, with mouse and keyboard date/time selection and offline
-calendar conversion. On-premise **OAuth2/OIDC** login can also be restricted
-to specific email domains using the existing identity provider integration.
+This release adds the following calendar and login features:
 
-This release adds the following features:
+**Date controls** - one selected calendar and accessible date/time selection.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5057a0a2c1079780f6560369e989d0022c54e53a">Add member-selected calendars and accessible date/time controls</a>. Thanks to mimZD and xet7.</summary>
+
+Member Settings offers Gregorian by default, Jalali and the additional
+calendars supported by the browser's built-in Unicode calendar conversion.
+Shared date displays, date popups and month views show the selected calendar.
+Mouse selection, Tab, arrow keys and month/year navigation select dates
+without typing; hour/minute lists select time. Native Date storage and ISO
+interchange values are preserved. No runtime dependency or Internet access
+is required. The calendar systems documentation explains available choices,
+keyboard controls and storage behavior.
+
+Twenty-one related Node suites pass, including positive/negative display,
+leap-month and keyboard tests, template compilation and UI font scaling.
+Three Playwright browser tests are registered and syntax-checked; the live
+Meteor server/database was unavailable, so those tests were not run.
+The broader run completed 969 suites with 18 failures before correcting
+three affected UI guards and the documentation link. Some new calendar-name
+translations remain English placeholders; translation completeness and
+unrelated baseline failures are not claimed resolved.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/236676ff53c58baaef0ff9484b727445400c6b79">Show full-width calendars directly in date popups</a>. Thanks to xet7.</summary>
+
+Date popups immediately show the selected calendar, including Gregorian,
+and keep the grid visible after selecting a day. The grid spans the popup
+width above the time controls. Scoped cell/button sizing prevents calendar
+days overflowing narrow cells. Only hour and minute dropdowns are visible;
+the combined time value remains hidden for the existing save handlers.
+Mouse selection, keyboard navigation and native date storage are preserved.
+The calendar systems documentation describes the revised popup behavior.
+
+Eighteen related Node suites pass, covering inline visibility, compact-field
+behavior, hidden time values, template compilation, font scaling and docs.
+Four Chromium popup/settings tests pass, including Gregorian and Buddhist
+layout checks and Jalali keyboard selection with native date/time saving.
+The existing month-view browser test fails in its navigation helper because
+that helper waits for list columns in a calendar view; it is not counted
+among the passing popup checks.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/398d5f42d41f6c0cc49f425ea1703fa4a2d059fc">Fit date controls and add bottom-right popup resizing</a>. Thanks to xet7.</summary>
+
+Remove nested date-form scroll areas, viewport-height caps, excess padding
+and margins on calendar buttons. The selected calendar, hour/minute controls,
+Save and Delete fit together in the popup. A bottom-right handle resizes it
+with a mouse or keyboard arrow keys; pointer capture keeps a drag released
+outside from closing it. Content-height and viewport bounds keep controls
+reachable. Only unusually short viewports need scrolling in the outer shell.
+Update the calendar systems documentation and browser layout regressions.
+
+Eighteen related Node suites pass, including captured dragging, keyboard
+resizing, minimum sizes, viewport limits and actual template compilation.
+A standalone Chromium smoke check using the source CSS and resize handlers
+verifies six-week controls fit at 1280x720 and 390x844, and pointer/keyboard
+resizing works without closing the popup. Full-app browser tests are extended
+and registered; the local Meteor server became unavailable before validating
+the final handle implementation. Earlier native-handle attempts failed the
+browser drag test and were replaced with the captured handle.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3988ab5ea">Move date popups from the title bar and theme calendar buttons</a>. Thanks to xet7.</summary>
+
+Drag the date popup title bar to reposition it within the viewport. Calendar
+month/year navigation and day buttons use Save's active theme styling.
+Pointer capture, viewport limits, unrelated pointers and header control
+exclusions have passing regression checks. Calendar control checks pass.
+The browser regression is registered and syntax-checked; a live Meteor UI
+was unavailable for running it.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9fda12cdd">Combine month and formatted date in the date popup heading</a>. Thanks to xet7.</summary>
+
+The calendar heading shows the month name and the member's formatted date.
+The separate Date label and date summary above the calendar are removed.
+Calendar selection, heading formatting and empty-date fallback checks pass,
+as do popup movement and resize checks. The browser regression was extended
+and syntax-checked; the live Meteor UI was unavailable.
+
+</details>
+
+**Login policy** - domain restrictions for the local identity provider.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2fd461fa5582fcdca820cc2dcacaae0e605a66b8">Restrict OAuth2 login by email domain</a>. Thanks to xet7.</summary>
+
+Set `OAUTH2_ALLOWED_EMAIL_DOMAINS` to a comma-separated list of exact domains.
+The provider's mapped email is checked before account creation, merging or
+board/group membership changes. Existing sessions are not revoked. Unset or
+empty configuration preserves current behavior; malformed restrictions deny
+sign-in. The implementation uses no new dependencies or Internet lookup and
+works with an identity provider hosted on the local network.
+
+Positive and negative tests cover exact matching, malformed input, missing
+email and the actual OAuth callback with mocked provider responses. Ten
+related Node suites pass. A live identity-provider/browser login was not run.
+The roadmap export audit records completed checks and the remaining source
+review; the full roadmap implementation remains unfinished.
+
+</details>
+
+and updates the test dependency:
+
+- [Playwright 1.62.1 → 1.63.0](https://github.com/wekan/wekan/commit/a15b065b56c87f9538ea21cd78a385257e71bfee).
+  Updates the browser-test runner and lockfile. Thanks to dependabot.
+
+and updates maintainer tooling:
+
+**Maintenance scripts** - explicit translation uploads and repository mirrors.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/29408a863">Update repository mirrors</a>. Thanks to xet7.</summary>
+
+The human-run mirror script targets GitLab, Codeberg and SourceForge.
+Bitbucket was tried during development and is now disabled because of
+Unauthorized errors. Repository paths remain resolved from the script's
+checkout. Syntax validation does not contact or certify remote mirrors;
+no mirroring or publishing commands were executed for this audit.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5290ee727">Add explicit force upload of every local translation to Transifex</a>. Thanks to xet7.</summary>
+
+The maintainer-run script uploads English source strings and every local target,
+adds missing project languages individually, waits for asynchronous completion,
+and reports all failed languages with reasons and a saved JSON report. The
+existing language reconciliation uses the documented additive relationship API.
+An offline dry run checks 245 targets and the source without network requests.
+Mocked API regression tests cover mappings, registration, polling, unsupported
+languages, failure continuation and summaries, intentional empty source strings,
+placeholder errors and the API credential origin boundary. Tests pass; no live
+Transifex uploads were executed.
+
+</details>
+
+and records the following translation repairs and documentation:
+
+**Locale files** - repair language, meaning and formatting while retaining evidence.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f6e2f742c">Record local translation repairs through the pause</a>. Thanks to xet7.</summary>
+
+Since v11.72, calendar labels and other translation edits touch 244 locale
+files. The reviewed correction inventory now contains 13,544 exact
+before/after records across 201 locale identifiers. Later batches extend
+the earlier entries below, replacing wrongly seeded and mixed-language
+text, correcting kanban terminology, permissions, account emails, activity
+messages, search help, storage/migration controls and irreversible warnings.
+Source placeholders, argument roles, JSON examples and technical date
+formats are preserved. Correct shared vocabulary is reviewed and retained.
+Klingon repairs include transfer states, administrator requirements,
+calendar/activity wording and mouse/keyboard control instructions.
+
+The short audit summary is synchronized with the original categorized
+evidence and correction/review inventories. Language-specific tests and
+shared regression checks cover recorded values, tokens, key order, repair
+idempotency and preference for newer human translations. This is a record
+of completed local batches, not certification of every language: 2,979
+findings remain pending, 4,059 restored values still need validation and
+fluent-speaker/browser checks remain outstanding. Repairs are paused;
+see TODO Later and the translation audit for the dated resume status.
+
+Upcoming regression coverage was audited against all source changes since
+v11.72: existing positive/negative calendar, popup, OAuth2 and translation
+checks cover the implemented behavior; the calendar browser spec is
+registered and syntax-checked. The full Node run completed 986 suites with
+19 failures. Changelog formatting was then corrected (17 focused checks
+pass); 18 other observed failures remain tracked under TODO Later. Mirror
+syntax was checked without running the publishing script. Live browser,
+identity-provider and fluent-speaker checks remain outstanding.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/c8c6d082daf1125d74d7846983d73c6c9e1e8fe3">Repair audited Aragonese translations</a></summary>
 
-Repair wrong-language calendar, account, card-activity, import/export, storage, backup and administration wording. Preserve placeholders, literal JSON examples, vendor names, warning scope and completion messages; retain reviewed shared vocabulary. Contextual meaning and correction-inventory regression checks pass. Aragonese wording needs native-speaker review; the audit remains unfinished. Live Meteor browser verification was unavailable.
+Repair wrong-language calendar, account, card-activity, import/export, storage,
+backup and administration wording. Preserve placeholders, literal JSON examples,
+vendor names, warning scope and completion messages; retain reviewed shared
+vocabulary. Contextual meaning and correction-inventory regression checks pass.
+Aragonese wording needs native-speaker review; the audit remains unfinished.
+Live Meteor browser verification was unavailable.
 
 Thanks to xet7 !
 </details>
@@ -568,7 +776,13 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/dacbe7416fcc04afc1755d66a9b231b16fdc1e1e">Repair audited Asturian translations</a></summary>
 
-Replace audited Spanish wording with Asturian in account controls, card activities, permissions, filters, imports, dates, warnings and attachment settings. Preserve placeholders, JSON examples, storage destinations and irreversible-deletion warnings. The latest batch repairs attachment storage, automatic list width, avatar size and minicard attachment counts. Meaning and correction-inventory regression tests pass; native-speaker review is still needed. Live Meteor browser verification was unavailable.
+Replace audited Spanish wording with Asturian in account controls, card
+activities, permissions, filters, imports, dates, warnings and attachment
+settings. Preserve placeholders, JSON examples, storage destinations and
+irreversible-deletion warnings. The latest batch repairs attachment storage,
+automatic list width, avatar size and minicard attachment counts. Meaning and
+correction-inventory regression tests pass; native-speaker review is still
+needed. Live Meteor browser verification was unavailable.
 
 Thanks to xet7 !
 </details>
@@ -576,7 +790,9 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/0fcfb0e59190f5213786a235dd7d55e14ee4495b">Finish flagged base Galician translation review</a></summary>
 
-Translate filter instructions and two calendar labels, repair two search-formatting defects and retain nine correct findings. Both flagged Galician queues are complete. Translation regression checks pass.
+Translate filter instructions and two calendar labels, repair two
+search-formatting defects and retain nine correct findings. Both flagged
+Galician queues are complete. Translation regression checks pass.
 
 Thanks to xet7 !
 
@@ -585,7 +801,10 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/3de5b15ca2ffed5bc67b67cd786602b470e3f325">Finish flagged Galician regional translation repairs</a></summary>
 
-Repair the final 29 flagged setting, warning, advanced-filter and calendar values, retaining one correct instruction. Preserve filter examples, WIP restrictions and calendar distinctions. Translation regression checks pass; the regional audit queue is complete.
+Repair the final 29 flagged setting, warning, advanced-filter and calendar
+values, retaining one correct instruction. Preserve filter examples, WIP
+restrictions and calendar distinctions. Translation regression checks pass; the
+regional audit queue is complete.
 
 Thanks to xet7 !
 
@@ -594,7 +813,10 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/1b06f4cb7ef46e8946cddab01d7d4c612b5fa433">Fix Galician regional S3 and troubleshooting translations</a></summary>
 
-Replace 33 Portuguese values with reviewed Galician and retain two correct rule/example values. Correct S3 endpoint terminology and preserve MinIO support, troubleshooting commands, task limits and ISO week labels. Translation regression checks pass.
+Replace 33 Portuguese values with reviewed Galician and retain two correct
+rule/example values. Correct S3 endpoint terminology and preserve MinIO support,
+troubleshooting commands, task limits and ISO week labels. Translation
+regression checks pass.
 
 Thanks to xet7 !
 
@@ -603,7 +825,10 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/bb288913e090ab4e310b2762710412877fbe53ce">Fix Galician regional migration limits and monitoring messages</a></summary>
 
-Replace 35 Portuguese values with reviewed Galician. Distinguish paused from stopped migrations and preserve CPU thresholds, millisecond ranges, background continuation, monitoring errors and permanent-deletion warnings. Translation regression checks pass.
+Replace 35 Portuguese values with reviewed Galician. Distinguish paused from
+stopped migrations and preserve CPU thresholds, millisecond ranges, background
+continuation, monitoring errors and permanent-deletion warnings. Translation
+regression checks pass.
 
 Thanks to xet7 !
 
@@ -612,7 +837,10 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/5fe2d75a23b35109ad184037a69208ad0793d05e">Fix Galician regional search and import translations</a></summary>
 
-Replace 29 Portuguese values with reviewed Galician and retain one correct integrity label. Restore label search arguments and valid-data instructions; preserve shortcut states, byte units and migration batch limits. Translation regression checks pass.
+Replace 29 Portuguese values with reviewed Galician and retain one correct
+integrity label. Restore label search arguments and valid-data instructions;
+preserve shortcut states, byte units and migration batch limits. Translation
+regression checks pass.
 
 Thanks to xet7 !
 
@@ -621,7 +849,10 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/427d86c04cd121936b14052398e5e50ba97c0cba">Fix Galician regional email and export translations</a></summary>
 
-Replace 29 Portuguese values with reviewed Galician and retain one correct filter label. Restore export assignee terminology and preserve account email instructions, date categories, filesystem labels and URL placeholders. Translation regression checks pass.
+Replace 29 Portuguese values with reviewed Galician and retain one correct
+filter label. Restore export assignee terminology and preserve account email
+instructions, date categories, filesystem labels and URL placeholders.
+Translation regression checks pass.
 
 Thanks to xet7 !
 
@@ -630,7 +861,10 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/415883c9fab72986d6062aff690ecf366df54530">Fix Galician regional customization and migration translations</a></summary>
 
-Replace 35 Portuguese values with reviewed Galician. Preserve customization filenames, HTML tags, template placeholders, space entities, default logo height and migration control meanings. Translation meaning, placeholder, key-order and idempotency regression checks pass.
+Replace 35 Portuguese values with reviewed Galician. Preserve customization
+filenames, HTML tags, template placeholders, space entities, default logo height
+and migration control meanings. Translation meaning, placeholder, key-order and
+idempotency regression checks pass.
 
 Thanks to xet7 !
 
@@ -639,7 +873,10 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/b2cdec01e9fafc410170b2482d80e64f9f59c3fd">Fix Galician regional storage and scheduled job translations</a></summary>
 
-Replace 28 Portuguese values with reviewed Galician and retain two correct custom-field labels. Preserve storage instructions, display states, sorting order and scheduled-job success/failure messages. Translation meaning, unchanged-review, placeholder, key-order and idempotency regression checks pass.
+Replace 28 Portuguese values with reviewed Galician and retain two correct
+custom-field labels. Preserve storage instructions, display states, sorting
+order and scheduled-job success/failure messages. Translation meaning,
+unchanged-review, placeholder, key-order and idempotency regression checks pass.
 
 Thanks to xet7 !
 
@@ -648,7 +885,10 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/2f6e6884e1e2d45e98a53cb83c0b5a2742bff04b">Fix Galician regional activities and administration translations</a></summary>
 
-Replace 30 Portuguese values with reviewed Galician. Clarify custom-field value clearing and preserve activity argument order, administration scope, workspace actions and archive destinations. Translation meaning, placeholder, key-order and idempotency regression checks pass.
+Replace 30 Portuguese values with reviewed Galician. Clarify custom-field value
+clearing and preserve activity argument order, administration scope, workspace
+actions and archive destinations. Translation meaning, placeholder, key-order
+and idempotency regression checks pass.
 
 Thanks to xet7 !
 
@@ -657,7 +897,10 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/da98201307271e16c69c547ed9f6b5c7febdac11">Fix Galician regional account protection and date messages</a></summary>
 
-Replace 30 Portuguese values with reviewed Galician. Preserve account lockout units and restrictions, clarify date/time changes, and distinguish upcoming, current and past due reminders. Translation meaning, placeholder, key-order and idempotency regression checks pass.
+Replace 30 Portuguese values with reviewed Galician. Preserve account lockout
+units and restrictions, clarify date/time changes, and distinguish upcoming,
+current and past due reminders. Translation meaning, placeholder, key-order and
+idempotency regression checks pass.
 
 Thanks to xet7 !
 
@@ -666,7 +909,10 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/60364ccc13af1e5f52aac7f53ca81d22ecdc5259">Fix Galician regional account and memory diagnostics translations</a></summary>
 
-Replace 23 Portuguese values with reviewed Galician. Preserve account requirements and worker restrictions, distinguish heap from stack, and correct storage-engine and memory diagnostic labels. Translation meaning, placeholder, key-order and idempotency regression checks pass.
+Replace 23 Portuguese values with reviewed Galician. Preserve account
+requirements and worker restrictions, distinguish heap from stack, and correct
+storage-engine and memory diagnostic labels. Translation meaning, placeholder,
+key-order and idempotency regression checks pass.
 
 Thanks to xet7 !
 
@@ -675,7 +921,10 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/767bbcd84ef64c0c9956c1fe8f55ec3736003e7d">Fix Galician regional display and swimlane translations</a></summary>
 
-Replace 25 Portuguese values with reviewed Galician. Restore assignee shortcut terminology and preserve swimlane archive and deletion warnings, private-only visibility, notification scope and export restrictions. Translation meaning, placeholder, key-order and idempotency regression checks pass.
+Replace 25 Portuguese values with reviewed Galician. Restore assignee shortcut
+terminology and preserve swimlane archive and deletion warnings, private-only
+visibility, notification scope and export restrictions. Translation meaning,
+placeholder, key-order and idempotency regression checks pass.
 
 Thanks to xet7 !
 
@@ -684,7 +933,10 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/70864992f231ed50b36c6f98d0cbee34ee0b4759">Fix Galician regional migration confirmations and controls</a></summary>
 
-Replace 20 Portuguese values with reviewed Galician. Preserve migration conditions, archived and non-archived recovery scope, undo warnings, scheduling labels, search scope and card-count thresholds. Translation meaning, placeholder, key-order and idempotency regression checks pass.
+Replace 20 Portuguese values with reviewed Galician. Preserve migration
+conditions, archived and non-archived recovery scope, undo warnings, scheduling
+labels, search scope and card-count thresholds. Translation meaning,
+placeholder, key-order and idempotency regression checks pass.
 
 Thanks to xet7 !
 
@@ -693,7 +945,10 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/d05f4217601a87eb3f8991be4ac76da81e296143">Fix Galician regional rules and recovery translations</a></summary>
 
-Replace 30 Portuguese values with reviewed Galician. Restore the rule trigger for movement to another list and preserve read-only permissions, member-removal consequences and recovery identifiers. Translation meaning, placeholder, key-order and idempotency regression checks pass.
+Replace 30 Portuguese values with reviewed Galician. Restore the rule trigger
+for movement to another list and preserve read-only permissions, member-removal
+consequences and recovery identifiers. Translation meaning, placeholder,
+key-order and idempotency regression checks pass.
 
 Thanks to xet7 !
 
@@ -702,7 +957,10 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/03b8a8a4fd2961b95437049fd568e71e6b3d609e">Fix Galician regional visibility and notification translations</a></summary>
 
-Replace 16 Portuguese values with reviewed Galician. Restore positive-integer search limits and preserve notification scope, board visibility and edit permissions, checklist order and invitation placeholders. Translation meaning, placeholder, key-order and idempotency regression checks pass.
+Replace 16 Portuguese values with reviewed Galician. Restore positive-integer
+search limits and preserve notification scope, board visibility and edit
+permissions, checklist order and invitation placeholders. Translation meaning,
+placeholder, key-order and idempotency regression checks pass.
 
 Thanks to xet7 !
 
@@ -711,7 +969,10 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/97124a0d4ed051afc8688b9e7a4abd7ae8f82b3f">Fix Galician regional migration and attachment translations</a></summary>
 
-Replace 18 Portuguese values with reviewed Galician. Preserve migration permissions and browser warnings, attachment storage destinations, checklist controls and search-count placeholders. Translation meaning, placeholder, key-order and idempotency regression checks pass.
+Replace 18 Portuguese values with reviewed Galician. Preserve migration
+permissions and browser warnings, attachment storage destinations, checklist
+controls and search-count placeholders. Translation meaning, placeholder,
+key-order and idempotency regression checks pass.
 
 Thanks to xet7 !
 
@@ -720,7 +981,10 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/c5429b159d82ee35810e014079c7c7ba5102e731">Fix Galician regional membership and list translations</a></summary>
 
-Replace ten Portuguese values with reviewed Galician. Preserve last-admin restrictions, board-exit consequences, archive restoration and irreversible list deletion warnings. Translation meaning, placeholder, key-order and idempotency regression checks pass.
+Replace ten Portuguese values with reviewed Galician. Preserve last-admin
+restrictions, board-exit consequences, archive restoration and irreversible list
+deletion warnings. Translation meaning, placeholder, key-order and idempotency
+regression checks pass.
 
 Thanks to xet7 !
 
@@ -729,924 +993,1367 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/d98e80bb3055435858c111bddd2fb5197a1a71db">Repair Galician regional credentials and label deletion warnings</a>. Thanks to xet7.</summary>
 
-Repair six regional values with reviewed Galician wording. Preserve unmapped-member fallback, credential alternatives, irreversible label deletion and history loss. Meaning, exact-value, placeholder, key-order and idempotency checks pass. The short translation audit records current progress.
+Repair six regional values with reviewed Galician wording. Preserve
+unmapped-member fallback, credential alternatives, irreversible label deletion
+and history loss. Meaning, exact-value, placeholder, key-order and idempotency
+checks pass. The short translation audit records current progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/5e89d53cf924b799a26db05f7c620b0711b9bef4">Repair Galician regional import and checked item instructions</a>. Thanks to xet7.</summary>
 
-Repair six regional values with reviewed Galician wording. Preserve checked/all-item distinctions, conditional import success, ZIP attachment structure and member mapping. Meaning, exact-value, placeholder, key-order and idempotency checks pass. The short translation audit records current progress.
+Repair six regional values with reviewed Galician wording. Preserve
+checked/all-item distinctions, conditional import success, ZIP attachment
+structure and member mapping. Meaning, exact-value, placeholder, key-order and
+idempotency checks pass. The short translation audit records current progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/9100900db97f1945cfaaf17e7054eb46306e624e">Repair Galician regional time filters and checklist visibility</a>. Thanks to xet7.</summary>
 
-Repair six regional values with reviewed Galician wording. Preserve overtime/spent-time distinctions, completed checklists, all checklist items and mini-card label text. Meaning, exact-value, placeholder, key-order and idempotency checks pass. The short translation audit records current progress.
+Repair six regional values with reviewed Galician wording. Preserve
+overtime/spent-time distinctions, completed checklists, all checklist items and
+mini-card label text. Meaning, exact-value, placeholder, key-order and
+idempotency checks pass. The short translation audit records current progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/4b6fcaa8c1713a69c9b191bdae4e96a047059506">Repair Galician regional search status and all board search title</a>. Thanks to xet7.</summary>
 
-Repair six regional values with reviewed Galician wording. Preserve member/assignee alternatives, archived/unarchived scope, end-date presence and board visibility restrictions; restore all-board search intent. Meaning, exact-value, placeholder, key-order and idempotency checks pass. The short translation audit records current progress.
+Repair six regional values with reviewed Galician wording. Preserve
+member/assignee alternatives, archived/unarchived scope, end-date presence and
+board visibility restrictions; restore all-board search intent. Meaning,
+exact-value, placeholder, key-order and idempotency checks pass. The short
+translation audit records current progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/10cc133fe9fae65f03d524264bedf76092a7fd98">Repair Galician regional board scoped search operators</a>. Thanks to xet7.</summary>
 
-Repair six regional values with reviewed Galician wording. Preserve board-scoped organization/team matches, inclusive day limits and list/swimlane distinctions. Meaning, exact-value, placeholder, key-order and idempotency checks pass. The short translation audit records current progress.
+Repair six regional values with reviewed Galician wording. Preserve board-scoped
+organization/team matches, inclusive day limits and list/swimlane distinctions.
+Meaning, exact-value, placeholder, key-order and idempotency checks pass. The
+short translation audit records current progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/3c142fa6cff23529ca59532fef6a7de08f05d586">Repair Galician regional search day limits and existence predicates</a>. Thanks to xet7.</summary>
 
-Repair six regional values with reviewed Galician wording. Preserve inclusive day limits, overdue/existence syntax, label alternatives and integer page limits; close example formatting. Meaning, exact-value, placeholder, key-order and idempotency checks pass. The short translation audit records current progress.
+Repair six regional values with reviewed Galician wording. Preserve inclusive
+day limits, overdue/existence syntax, label alternatives and integer page
+limits; close example formatting. Meaning, exact-value, placeholder, key-order
+and idempotency checks pass. The short translation audit records current
+progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/0f299014cb0b26cc57019c12d0f7f3b835d68cc9">Repair Galician regional search conditions and operator descriptions</a>. Thanks to xet7.</summary>
 
-Repair six regional values with reviewed Galician wording. Preserve AND conditions, case-insensitive search, archived-card defaults and exact operator placeholders/examples. Meaning, exact-value, placeholder, key-order and idempotency checks pass. The short translation audit records current progress.
+Repair six regional values with reviewed Galician wording. Preserve AND
+conditions, case-insensitive search, archived-card defaults and exact operator
+placeholders/examples. Meaning, exact-value, placeholder, key-order and
+idempotency checks pass. The short translation audit records current progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/068f54dc2f191686f834f0bd3d3bace81f16a27f">Repair Galician regional search and migration descriptions</a>. Thanks to xet7.</summary>
 
-Repair eight regional values with reviewed Galician wording. Preserve storage/reference repairs, missing/corrupt lists, exact search examples and OR conditions. Meaning, exact-value, placeholder, key-order and idempotency checks pass. The short translation audit records current progress.
+Repair eight regional values with reviewed Galician wording. Preserve
+storage/reference repairs, missing/corrupt lists, exact search examples and OR
+conditions. Meaning, exact-value, placeholder, key-order and idempotency checks
+pass. The short translation audit records current progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/9adbfda106bc50b035a415d7e9a2162ebff8972a">Repair Galician regional JSON validation and Excel export messages</a>. Thanks to xet7.</summary>
 
-Repair eight regional values with reviewed Galician wording. Preserve JSON validation distinctions, authorization denial, disk-space failures and export scope. Meaning, exact-value, placeholder, key-order and idempotency checks pass. The short translation audit records current progress.
+Repair eight regional values with reviewed Galician wording. Preserve JSON
+validation distinctions, authorization denial, disk-space failures and export
+scope. Meaning, exact-value, placeholder, key-order and idempotency checks pass.
+The short translation audit records current progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/db4c2bdd9b211960fd3bd3f1734f7d02f5343e6a">Repair Galician regional invitations and board permission errors</a>. Thanks to xet7.</summary>
 
-Repair eight regional values with reviewed Galician wording. Preserve invitation codes/links, member/admin distinctions, CSV/TSV separators and due-card view aliases. Actual registration-email rendering, meaning, exact-value, placeholder, key-order and idempotency checks pass. The short translation audit records current progress.
+Repair eight regional values with reviewed Galician wording. Preserve invitation
+codes/links, member/admin distinctions, CSV/TSV separators and due-card view
+aliases. Actual registration-email rendering, meaning, exact-value, placeholder,
+key-order and idempotency checks pass. The short translation audit records
+current progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/e80df7de02d1c1bc6a5ab06bdd73d41ba4a5dc00">Repair Galician regional due card permissions and account deletion warnings</a>. Thanks to xet7.</summary>
 
-Repair eight regional values with reviewed Galician wording, preserving membership safeguards, irreversible deletion and due-card permissions. Meaning, exact-value, placeholder, key-order and idempotency checks pass. The short translation audit records current progress.
+Repair eight regional values with reviewed Galician wording, preserving
+membership safeguards, irreversible deletion and due-card permissions. Meaning,
+exact-value, placeholder, key-order and idempotency checks pass. The short
+translation audit records current progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/377370367f512f8dc2c5ef1f7aee859614bc17ac">Repair Galician regional deletion safeguards and confirmations</a>. Thanks to xet7.</summary>
 
-Replace 10 Portuguese values with reviewed Galician wording. Preserve irreversible deletion, all-content scope, duplicate-list conditions, linked-card deletion order and membership safeguards. Regression checks verify meanings, exact corrections, source tokens, key order and idempotent repairs. The short translation audit records current progress.
+Replace 10 Portuguese values with reviewed Galician wording. Preserve
+irreversible deletion, all-content scope, duplicate-list conditions, linked-card
+deletion order and membership safeguards. Regression checks verify meanings,
+exact corrections, source tokens, key order and idempotent repairs. The short
+translation audit records current progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/43e16f0128468ad0ca85ab852224a003d3fbb64f">Repair Galician regional template copying and custom field warnings</a>. Thanks to xet7.</summary>
 
-Replace 10 Portuguese values with reviewed Galician wording. Preserve literal JSON fields, checklist aliases and irreversible all-card custom-field deletion/history loss. Regression checks verify JSON parsing, meanings, exact corrections, source tokens, key order and idempotent repairs. The short translation audit records current progress.
+Replace 10 Portuguese values with reviewed Galician wording. Preserve literal
+JSON fields, checklist aliases and irreversible all-card custom-field
+deletion/history loss. Regression checks verify JSON parsing, meanings, exact
+corrections, source tokens, key order and idempotent repairs. The short
+translation audit records current progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/dccb9b9b83d4a0e97b78c50208db5d302fe9e58e">Repair Galician regional conversion and checklist copy messages</a>. Thanks to xet7.</summary>
 
-Replace 10 Portuguese values with reviewed Galician wording. Preserve conversion timing and continued use, migration structural checks, checklist/item deletion distinctions and template-copy intent. Regression checks verify meanings, exact corrections, source tokens, key order and idempotent repairs. The short translation audit records current progress.
+Replace 10 Portuguese values with reviewed Galician wording. Preserve conversion
+timing and continued use, migration structural checks, checklist/item deletion
+distinctions and template-copy intent. Regression checks verify meanings, exact
+corrections, source tokens, key order and idempotent repairs. The short
+translation audit records current progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/fee4a4b23c2bbfba4dd6335dff8223931f964197">Repair Galician regional checklist and comment permission controls</a>. Thanks to xet7.</summary>
 
-Replace 10 Portuguese values with reviewed Galician wording. Preserve checklist/item distinctions, assigned-card and comment-only restrictions and board restoration instructions. Regression checks verify meanings, exact corrections, source tokens, key order and idempotent repairs. The short translation audit records current progress.
+Replace 10 Portuguese values with reviewed Galician wording. Preserve
+checklist/item distinctions, assigned-card and comment-only restrictions and
+board restoration instructions. Regression checks verify meanings, exact
+corrections, source tokens, key order and idempotent repairs. The short
+translation audit records current progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/be7fa49a27fcaf3965903a4a3cd9eb7788c73fb1">Repair Galician regional card deletion and assignee messages</a>. Thanks to xet7.</summary>
 
-Replace 10 Portuguese values with reviewed Galician wording. Preserve irreversible card deletion, archive activity retention, board scope and mini-card sorting; correct assignee terminology. Regression checks verify meanings, exact corrections, source tokens, key order and idempotent repairs. The short translation audit records current progress.
+Replace 10 Portuguese values with reviewed Galician wording. Preserve
+irreversible card deletion, archive activity retention, board scope and
+mini-card sorting; correct assignee terminology. Regression checks verify
+meanings, exact corrections, source tokens, key order and idempotent repairs.
+The short translation audit records current progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/837c590a60b636899f0e3c53328d7943658e64f5">Repair Galician regional board assignee and card archive messages</a>. Thanks to xet7.</summary>
 
-Replace 10 Portuguese values with reviewed Galician wording. Correct assignee terminology and preserve archive visibility/restoration and all-board-settings aliases. Regression checks verify meanings, exact corrections, source tokens, key order and idempotent repairs. The short translation audit records current progress.
+Replace 10 Portuguese values with reviewed Galician wording. Correct assignee
+terminology and preserve archive visibility/restoration and all-board-settings
+aliases. Regression checks verify meanings, exact corrections, source tokens,
+key order and idempotent repairs. The short translation audit records current
+progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/99f53607325a6a0672ba6bee4f43d24f15ed1333">Repair Galician regional board scheduling and deletion messages</a>. Thanks to xet7.</summary>
 
-Replace 10 Portuguese values with reviewed Galician wording. Preserve backup/cleanup scheduling outcomes, permanent deletion scope and public/private HTML emphasis. Regression checks verify meanings, exact corrections, source tokens, key order and idempotent repairs. The short translation audit records current progress.
+Replace 10 Portuguese values with reviewed Galician wording. Preserve
+backup/cleanup scheduling outcomes, permanent deletion scope and public/private
+HTML emphasis. Regression checks verify meanings, exact corrections, source
+tokens, key order and idempotent repairs. The short translation audit records
+current progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/134d8c6dd0f08ce9da6315f56ba9e1958404d73f">Repair Galician regional attachment and board archive settings</a>. Thanks to xet7.</summary>
 
-Replace 10 Portuguese values with reviewed Galician wording. Preserve new/all-card field distinctions, automatic watching, archive scheduling statuses and mini-card attachment counts. Regression checks verify meanings, exact corrections, source tokens, key order and idempotent repairs. The short translation audit records current progress.
+Replace 10 Portuguese values with reviewed Galician wording. Preserve
+new/all-card field distinctions, automatic watching, archive scheduling statuses
+and mini-card attachment counts. Regression checks verify meanings, exact
+corrections, source tokens, key order and idempotent repairs. The short
+translation audit records current progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/953b85ba9f3cc4ec55e87e7f3c3d7ce465fc3e68">Repair Galician regional user status and archive controls</a>. Thanks to xet7.</summary>
 
-Replace 10 Portuguese values with reviewed Galician wording. Restore archive intent, activation controls, all-card field scope and loading data-loss/server-check warnings. Regression checks verify meanings, exact corrections, source tokens, key order and idempotent repairs. The short translation audit records current progress.
+Replace 10 Portuguese values with reviewed Galician wording. Restore archive
+intent, activation controls, all-card field scope and loading
+data-loss/server-check warnings. Regression checks verify meanings, exact
+corrections, source tokens, key order and idempotent repairs. The short
+translation audit records current progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/d4bc1452ecc197057e6b6271b9b8dfd220aad4dd">Repair Galician regional creation controls and administrator description</a>. Thanks to xet7.</summary>
 
-Replace 10 Portuguese values with reviewed Galician wording. Preserve HTML insertion positions, mini-card cover scope, scheduled-job availability and administrator permissions. Regression checks verify meanings, exact corrections, source tokens, key order and idempotent repairs. The short translation audit records current progress.
+Replace 10 Portuguese values with reviewed Galician wording. Preserve HTML
+insertion positions, mini-card cover scope, scheduled-job availability and
+administrator permissions. Regression checks verify meanings, exact corrections,
+source tokens, key order and idempotent repairs. The short translation audit
+records current progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/1d133f6d65e9a9741eebdbe0f7c3ab6ca15ec878">Repair Galician regional checklist and card placement messages</a>. Thanks to xet7.</summary>
 
-Replace 10 Portuguese values with reviewed Galician wording. Preserve checklist-state arguments and top/bottom card placement. Regression checks verify actual checklist-state and item-addition rendering, meanings, exact corrections, source tokens, key order and idempotent repairs. The short translation audit records current progress.
+Replace 10 Portuguese values with reviewed Galician wording. Preserve
+checklist-state arguments and top/bottom card placement. Regression checks
+verify actual checklist-state and item-addition rendering, meanings, exact
+corrections, source tokens, key order and idempotent repairs. The short
+translation audit records current progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/04e1099334b09d4abbdef5bdee32b2b60514f450">Repair Galician regional checklist state activity translations</a>. Thanks to xet7.</summary>
 
-Replace 10 Portuguese activity values with reviewed Galician wording. Preserve checklist-state distinctions. Regression checks verify actual item/checklist/card argument rendering, aliases, exact corrections, source tokens, key order and idempotent repairs. The short translation audit records current progress.
+Replace 10 Portuguese activity values with reviewed Galician wording. Preserve
+checklist-state distinctions. Regression checks verify actual
+item/checklist/card argument rendering, aliases, exact corrections, source
+tokens, key order and idempotent repairs. The short translation audit records
+current progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ccd597b9a1736ec97f6b9bf918357a49df2bae86">Repair Galician regional move and removal activity translations</a>. Thanks to xet7.</summary>
 
-Replace 10 Portuguese activity values with reviewed Galician wording. Regression checks verify actual cross-board move and checklist-item removal rendering, label aliases, exact corrections, source tokens, key order and idempotent repairs. The short translation audit records current progress.
+Replace 10 Portuguese activity values with reviewed Galician wording. Regression
+checks verify actual cross-board move and checklist-item removal rendering,
+label aliases, exact corrections, source tokens, key order and idempotent
+repairs. The short translation audit records current progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ce40c66be59b13b2a2f92790469816d6801f3865">Repair Galician regional creation deletion and import activity translations</a>. Thanks to xet7.</summary>
 
-Replace 12 Portuguese activity values with reviewed Galician wording. Regression checks verify actual custom-field and list-import rendering, comment actions, exact corrections, source tokens, key order and idempotent repairs. The short translation audit records current progress.
+Replace 12 Portuguese activity values with reviewed Galician wording. Regression
+checks verify actual custom-field and list-import rendering, comment actions,
+exact corrections, source tokens, key order and idempotent repairs. The short
+translation audit records current progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/4ee07e41b07ce347c726ea581fd35f999cfe7a7c">Repair Galician regional archive and checklist activity translations</a>. Thanks to xet7.</summary>
 
-Replace 10 Portuguese activity values with reviewed Galician wording. Regression checks verify actual checklist-item, mention and archive rendering, label aliases, exact corrections, source tokens, key order and idempotent repairs. The short translation audit records current progress.
+Replace 10 Portuguese activity values with reviewed Galician wording. Regression
+checks verify actual checklist-item, mention and archive rendering, label
+aliases, exact corrections, source tokens, key order and idempotent repairs. The
+short translation audit records current progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/1b11ec4f37465a798c40a505dae6d2568ba1d18a">Repair Galician regional lockout and activity translations</a>. Thanks to xet7.</summary>
 
-Replace 10 Portuguese values with individually reviewed existing Galician translations. Preserve credential distinctions and activity placeholders. Regression checks verify actual attachment rendering, meanings, exact corrections, tokens, key order and idempotent repairs. The short translation audit records current progress.
+Replace 10 Portuguese values with individually reviewed existing Galician
+translations. Preserve credential distinctions and activity placeholders.
+Regression checks verify actual attachment rendering, meanings, exact
+corrections, tokens, key order and idempotent repairs. The short translation
+audit records current progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/dcd2b6815022ddbcb36d3f32f2be81b47982c883">Finish flagged Slovenian translation repairs</a>. Thanks to xet7.</summary>
 
-Correct the final six flagged values across both Slovenian locales, including who-voted-for-what visibility. Both flagged Slovenian queues are now complete. Regression checks verify meaning, exact corrections, tokens, key order, idempotent repairs and zero pending Slovenian findings. The short audit records 5,027 corrected findings and 10,915 pending findings across other languages.
+Correct the final six flagged values across both Slovenian locales, including
+who-voted-for-what visibility. Both flagged Slovenian queues are now complete.
+Regression checks verify meaning, exact corrections, tokens, key order,
+idempotent repairs and zero pending Slovenian findings. The short audit records
+5,027 corrected findings and 10,915 pending findings across other languages.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/72f95b708303f0c52f74af973aedd06f3875e08a">Repair Slovenian shortcut instructions and export restrictions</a>. Thanks to xet7.</summary>
 
-Correct 20 values across both Slovenian locales. Restore shortcut numbers and ordering, export prohibitions, administrative instructions and vote-deletion warnings. Regression checks verify meanings, exact corrections, source tokens, key order and idempotent repairs. The short translation audit records current progress.
+Correct 20 values across both Slovenian locales. Restore shortcut numbers and
+ordering, export prohibitions, administrative instructions and vote-deletion
+warnings. Regression checks verify meanings, exact corrections, source tokens,
+key order and idempotent repairs. The short translation audit records current
+progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/6c6e567d3722c5908010a1770ca1118da1ae0095">Repair Slovenian support scope and swimlane validation messages</a>. Thanks to xet7.</summary>
 
-Correct 24 values across both Slovenian locales. Restore logged-in-only support, enabled-page status, positive-integer swimlane height and private-board-only visibility. Regression checks verify meanings, exact corrections, source tokens, key order and idempotent repairs. The short translation audit records current progress.
+Correct 24 values across both Slovenian locales. Restore logged-in-only support,
+enabled-page status, positive-integer swimlane height and private-board-only
+visibility. Regression checks verify meanings, exact corrections, source tokens,
+key order and idempotent repairs. The short translation audit records current
+progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/d868269220dac9c43b9a5aba495b8c100a68b8e6">Repair Slovenian migration step terminology</a>. Thanks to xet7.</summary>
 
-Correct 20 values across both Slovenian locales. Restore orphaned-card, duplicate-empty-list, per-swimlane structure and list/swimlane distinctions. Regression checks verify meanings, exact corrections, source tokens, key order and idempotent repairs. The short translation audit records current progress.
+Correct 20 values across both Slovenian locales. Restore orphaned-card,
+duplicate-empty-list, per-swimlane structure and list/swimlane distinctions.
+Regression checks verify meanings, exact corrections, source tokens, key order
+and idempotent repairs. The short translation audit records current progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/72bf36cf4360e3dc3af1c6e8668776885d4e9b59">Repair Slovenian board display and field sum controls</a>. Thanks to xet7.</summary>
 
-Correct 20 values across both Slovenian locales. Restore field sums, per-list card counts, mini-card display, board-member avatars, week start and migration steps. Regression checks verify meanings, exact corrections, source tokens, key order and idempotent repairs. The short translation audit records current progress.
+Correct 20 values across both Slovenian locales. Restore field sums, per-list
+card counts, mini-card display, board-member avatars, week start and migration
+steps. Regression checks verify meanings, exact corrections, source tokens, key
+order and idempotent repairs. The short translation audit records current
+progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/5aab614c48f9aa196d89edbf8ee519ff17c65238">Repair Slovenian search scope and troubleshooting instructions</a>. Thanks to xet7.</summary>
 
-Correct 20 values across both Slovenian locales. Restore full board-search scope, literal snap/Docker troubleshooting commands and pixel units for swimlane height. Regression checks verify meanings, exact corrections, source tokens, key order and idempotent repairs. The short translation audit records current progress.
+Correct 20 values across both Slovenian locales. Restore full board-search
+scope, literal snap/Docker troubleshooting commands and pixel units for swimlane
+height. Regression checks verify meanings, exact corrections, source tokens, key
+order and idempotent repairs. The short translation audit records current
+progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/165b6bde506234ab13def17e4bdce6e315d6f6fc">Repair Slovenian S3 configuration and backup scheduling labels</a>. Thanks to xet7.</summary>
 
-Correct 20 values across both Slovenian locales. Preserve AWS S3/MinIO alternatives, endpoint and region examples, authentication, SSL/TLS and board-backup scope. Regression checks verify meanings, exact corrections, source tokens, key order and idempotent repairs. The short translation audit records current progress.
+Correct 20 values across both Slovenian locales. Preserve AWS S3/MinIO
+alternatives, endpoint and region examples, authentication, SSL/TLS and
+board-backup scope. Regression checks verify meanings, exact corrections, source
+tokens, key order and idempotent repairs. The short translation audit records
+current progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/41bde7259bce62074916a6d80db14ef1d0e319d3">Repair Slovenian migration confirmations and S3 labels</a>. Thanks to xet7.</summary>
 
-Correct 20 values across both Slovenian locales. Preserve conversion/deletion order, duplicate-list conditions, restoration warnings and non-archived-item scope; restore generic S3 labels. Regression checks verify meanings, exact corrections, source tokens, key order and idempotent repairs. The short translation audit records current progress.
+Correct 20 values across both Slovenian locales. Preserve conversion/deletion
+order, duplicate-list conditions, restoration warnings and non-archived-item
+scope; restore generic S3 labels. Regression checks verify meanings, exact
+corrections, source tokens, key order and idempotent repairs. The short
+translation audit records current progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/396eef7189451c9ae78ca84b71b597f53af5956c">Repair Slovenian restoration and unsaved description messages</a>. Thanks to xet7.</summary>
 
-Correct 20 values across both Slovenian locales. Preserve restoration scope, literal identifiers, lost-item visibility and unsaved-description overwrite confirmation. Regression checks verify meanings, exact corrections, source tokens, key order and idempotent repairs. The short translation audit records current progress.
+Correct 20 values across both Slovenian locales. Preserve restoration scope,
+literal identifiers, lost-item visibility and unsaved-description overwrite
+confirmation. Regression checks verify meanings, exact corrections, source
+tokens, key order and idempotent repairs. The short translation audit records
+current progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/0b61362da1c1496350a4301c1446b8f3b2b8e777">Repair Slovenian read permissions and action warnings</a>. Thanks to xet7.</summary>
 
-Correct 24 values across both Slovenian locales. Restore edit prohibitions, assigned-card visibility, permanent planning-poker deletion, label numbers and empty-field matching. Regression checks verify meanings, exact corrections, source tokens, key order and idempotent repairs. The short translation audit records current progress.
+Correct 24 values across both Slovenian locales. Restore edit prohibitions,
+assigned-card visibility, permanent planning-poker deletion, label numbers and
+empty-field matching. Regression checks verify meanings, exact corrections,
+source tokens, key order and idempotent repairs. The short translation audit
+records current progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/c87fab15d03a95017c87a0d573a343a5ae8db558">Repair Slovenian permission and search validation messages</a>. Thanks to xet7.</summary>
 
-Correct 24 values across both Slovenian locales. Restore permission restrictions, notification participation and search validation meanings. Regression checks verify actual operator/value rendering, meanings, exact corrections, source tokens, key order and idempotent repairs. The short translation audit records current progress.
+Correct 24 values across both Slovenian locales. Restore permission
+restrictions, notification participation and search validation meanings.
+Regression checks verify actual operator/value rendering, meanings, exact
+corrections, source tokens, key order and idempotent repairs. The short
+translation audit records current progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/8608a6524b3d547a0e90c22073e46ca7a7e9fd19">Repair Slovenian card views and multi selection messages</a>. Thanks to xet7.</summary>
 
-Correct 24 values across both Slovenian locales. Restore board checkbox selection, card view/sort distinctions, result counts and original checklist-item order. Regression checks verify meanings, exact corrections, source tokens, key order and idempotent repairs. The short translation audit records current progress.
+Correct 24 values across both Slovenian locales. Restore board checkbox
+selection, card view/sort distinctions, result counts and original
+checklist-item order. Regression checks verify meanings, exact corrections,
+source tokens, key order and idempotent repairs. The short translation audit
+records current progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/21b6a673fb4dc2197be35defff9c5bdea46f8916">Repair Slovenian migration permissions and attachment move scope</a>. Thanks to xet7.</summary>
 
-Correct 24 values across both Slovenian locales. Preserve board-administrator migration restrictions, individual migration execution and board/all-attachment scope. Restore mobile-mode and monitoring messages and generic S3 storage labels. Regression checks verify meanings, exact corrections, source tokens, key order and idempotent repairs. The short translation audit records current progress.
+Correct 24 values across both Slovenian locales. Preserve board-administrator
+migration restrictions, individual migration execution and board/all-attachment
+scope. Restore mobile-mode and monitoring messages and generic S3 storage
+labels. Regression checks verify meanings, exact corrections, source tokens, key
+order and idempotent repairs. The short translation audit records current
+progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/25e6b0f917396c39609d7a471ed03f90bbfcf4c4">Repair Slovenian migration status and browser guidance</a>. Thanks to xet7.</summary>
 
-Correct 24 values across both Slovenian locales. Restore migration pause/stop and success/failure distinctions, latest-structure progress and background/browser timing guidance. Regression checks verify meanings, exact corrections, source tokens, key order and idempotent repairs. The short translation audit records current progress.
+Correct 24 values across both Slovenian locales. Restore migration pause/stop
+and success/failure distinctions, latest-structure progress and
+background/browser timing guidance. Regression checks verify meanings, exact
+corrections, source tokens, key order and idempotent repairs. The short
+translation audit records current progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/1220d61867405c9b5a5b433268055b075217c185">Repair Slovenian storage migration limits and upload labels</a>. Thanks to xet7.</summary>
 
-Correct 24 values across both Slovenian locales. Preserve CPU threshold exceedance, batch-size and delay ranges, byte units and generic S3 storage. Regression checks verify meanings, exact corrections, source tokens, key order and idempotent repairs. The short translation audit records current progress.
+Correct 24 values across both Slovenian locales. Preserve CPU threshold
+exceedance, batch-size and delay ranges, byte units and generic S3 storage.
+Regression checks verify meanings, exact corrections, source tokens, key order
+and idempotent repairs. The short translation audit records current progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/c54dc69c18be924a2c32dc7a7efe4e8b2810e559">Repair Slovenian import and invitation instructions</a>. Thanks to xet7.</summary>
 
-Correct 24 values across both Slovenian locales. Preserve import attachment structure, unmapped-member fallback, registration invitation meanings and keyboard-shortcut toggle instructions. Regression checks verify meanings, exact corrections, source tokens, key order and idempotent repairs. The short translation audit records current progress.
+Correct 24 values across both Slovenian locales. Preserve import attachment
+structure, unmapped-member fallback, registration invitation meanings and
+keyboard-shortcut toggle instructions. Regression checks verify meanings, exact
+corrections, source tokens, key order and idempotent repairs. The short
+translation audit records current progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/6d795593f0ae9891e3dcfb23d46b8ed3af722f99">Repair Slovenian search status and checklist visibility messages</a>. Thanks to xet7.</summary>
 
-Correct 30 values across both Slovenian locales. Restore end-date presence, public/private board scope, member/assignee alternatives, GridFS storage labels and all/checked checklist distinctions. Regression checks verify meanings, exact corrections, source tokens, key order and idempotent repairs. The short translation audit records current progress.
+Correct 30 values across both Slovenian locales. Restore end-date presence,
+public/private board scope, member/assignee alternatives, GridFS storage labels
+and all/checked checklist distinctions. Regression checks verify meanings, exact
+corrections, source tokens, key order and idempotent repairs. The short
+translation audit records current progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/cabc9c93ef1c8e919e03a61b5dce094291c92e7f">Repair Slovenian search operator descriptions and examples</a>. Thanks to xet7.</summary>
 
-Correct 32 values across both Slovenian locales. Preserve exact search syntax, label alternatives, inclusive day limits, board-scoped organization/team matches, page limits and descending sorts. Regression checks verify meanings, exact corrections, source tokens, key order and idempotent repairs. The short translation audit records current progress.
+Correct 32 values across both Slovenian locales. Preserve exact search syntax,
+label alternatives, inclusive day limits, board-scoped organization/team
+matches, page limits and descending sorts. Regression checks verify meanings,
+exact corrections, source tokens, key order and idempotent repairs. The short
+translation audit records current progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/f801e3f324bb05387e824281ad486d03e00ee558">Repair Slovenian search instructions and file URL migration messages</a>. Thanks to xet7.</summary>
 
-Correct 36 values across both Slovenian locales. Preserve search OR/AND semantics, archived-card defaults, literal examples and source placeholders. Restore file/avatar storage-backend and broken-reference repair descriptions. Regression checks verify meanings, exact corrections, tokens, key order and idempotent repairs. The short translation audit records current progress.
+Correct 36 values across both Slovenian locales. Preserve search OR/AND
+semantics, archived-card defaults, literal examples and source placeholders.
+Restore file/avatar storage-backend and broken-reference repair descriptions.
+Regression checks verify meanings, exact corrections, tokens, key order and
+idempotent repairs. The short translation audit records current progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/cacb6a910f4f3824ce5298defa80f96810f20c64">Repair Slovenian due card filters and vote date messages</a>. Thanks to xet7.</summary>
 
-Correct 36 values across both Slovenian locales. Restore due-card permission restrictions, vote end dates, CSV/TSV separator meanings, file reports and week filters. Regression checks verify meanings, exact corrections, source tokens, key order and idempotent repairs. The short translation audit records current progress.
+Correct 36 values across both Slovenian locales. Restore due-card permission
+restrictions, vote end dates, CSV/TSV separator meanings, file reports and week
+filters. Regression checks verify meanings, exact corrections, source tokens,
+key order and idempotent repairs. The short translation audit records current
+progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/234c3606255e1a8d7c2fd00389bf369164e2658c">Repair Slovenian deletion safeguards and custom logo translations</a>. Thanks to xet7.</summary>
 
-Correct 50 values across both Slovenian locales. Preserve irreversible-deletion warnings, membership safeguards, linked-card deletion order and empty-duplicate-list conditions. Restore custom-logo and URL labels while retaining literal space entities and default height. Regression checks verify meanings, exact corrections, source tokens, key order and idempotent repairs; the short translation audit records current progress.
+Correct 50 values across both Slovenian locales. Preserve irreversible-deletion
+warnings, membership safeguards, linked-card deletion order and
+empty-duplicate-list conditions. Restore custom-logo and URL labels while
+retaining literal space entities and default height. Regression checks verify
+meanings, exact corrections, source tokens, key order and idempotent repairs;
+the short translation audit records current progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/e0ff5f86d23e9ec6fab0b75a7cdf80bfb709f575">Repair Slovenian migration messages and string template placeholder</a>. Thanks to xet7.</summary>
 
-Correct 50 values across both Slovenian locales. Restore the literal `%{value}` custom-field placeholder, creation-time sorting and board conversion, scheduled-job and migration meanings. Regression checks cover meaning distinctions, exact corrections, source tokens, key order and idempotent repairs. The short audit records 4,505 corrected findings and 11,437 pending findings.
+Correct 50 values across both Slovenian locales. Restore the literal `%{value}`
+custom-field placeholder, creation-time sorting and board conversion,
+scheduled-job and migration meanings. Regression checks cover meaning
+distinctions, exact corrections, source tokens, key order and idempotent
+repairs. The short audit records 4,505 corrected findings and 11,437 pending
+findings.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/e57c76c363b0f15ae639e280ba7475d31e6f997f">Fix Slovenian board and checklist translations</a>. Thanks to xet7.</summary>
 
-Correct 66 values across both Slovenian locales and retain four correct Azure navigation values. Restore board scheduling statuses, assigned-card and comment-only restrictions, checklist/item distinctions and mini-card sorting. Regression checks verify meaning, exact corrections, retained reviews, source tokens, key order and idempotent repairs. The short audit records 4,455 corrected findings and 11,487 pending findings.
+Correct 66 values across both Slovenian locales and retain four correct Azure
+navigation values. Restore board scheduling statuses, assigned-card and
+comment-only restrictions, checklist/item distinctions and mini-card sorting.
+Regression checks verify meaning, exact corrections, retained reviews, source
+tokens, key order and idempotent repairs. The short audit records 4,455
+corrected findings and 11,487 pending findings.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/c7b7fa48b85bbe273220a965b2115b864c82a6de">Repair Slovenian user permissions and attachment translations</a>. Thanks to xet7.</summary>
 
-Correct 64 values across both Slovenian locales. Remove invented payroll restrictions and restore user permissions, workspace controls, attachment storage, URL schemes and avatar messages. Regression checks cover meaning distinctions, exact corrections, placeholders, key order and idempotent repairs. The short audit records 4,389 corrected findings and 11,557 pending findings.
+Correct 64 values across both Slovenian locales. Remove invented payroll
+restrictions and restore user permissions, workspace controls, attachment
+storage, URL schemes and avatar messages. Regression checks cover meaning
+distinctions, exact corrections, placeholders, key order and idempotent repairs.
+The short audit records 4,389 corrected findings and 11,557 pending findings.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/2865c4f73203f96c401d78e5010a17bb6de0f1e0">Fix Slovenian date activity and scheduled job translations</a>. Thanks to xet7.</summary>
 
-Correct 20 values across both Slovenian locales, including date/card argument order and checklist placeholders. Regression checks verify actual rendering, meanings, source tokens, exact corrections, key order and idempotent repairs. The short translation audit summary records 4,325 corrected findings and 11,621 pending findings.
+Correct 20 values across both Slovenian locales, including date/card argument
+order and checklist placeholders. Regression checks verify actual rendering,
+meanings, source tokens, exact corrections, key order and idempotent repairs.
+The short translation audit summary records 4,325 corrected findings and 11,621
+pending findings.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/e83aeb7fa">Repair Slovenian lockout status and mention messages</a>. Thanks to xet7.</summary>
 
-Correct 20 flagged values across both Slovenian locales. Regressions and actual rendering verify credential distinctions, seconds and mention placeholders. Meaning, source-token, exact-value, key-order and repair checks pass. Audit.md records current progress.
+Correct 20 flagged values across both Slovenian locales. Regressions and actual
+rendering verify credential distinctions, seconds and mention placeholders.
+Meaning, source-token, exact-value, key-order and repair checks pass. Audit.md
+records current progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/08767492a">Repair Slovenian accessibility and account protection messages</a>. Thanks to xet7.</summary>
 
-Correct 20 flagged values across both Slovenian locales. Regressions verify accessibility status, unlock-all scope, seconds and failed-attempt thresholds. Meaning, source-token, exact-value, key-order and repair checks pass. Audit.md records current progress.
+Correct 20 flagged values across both Slovenian locales. Regressions verify
+accessibility status, unlock-all scope, seconds and failed-attempt thresholds.
+Meaning, source-token, exact-value, key-order and repair checks pass. Audit.md
+records current progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/c3227b021">Repair Slovenian memory metrics and retain valid reactivity labels</a>. Thanks to xet7.</summary>
 
-Correct 22 flagged values and retain 2 reviewed correct labels. Regressions verify resident memory, executable-code and peak-malloc meanings. Source-token, exact-value, key-order and repair/review checks pass. Audit.md records current progress.
+Correct 22 flagged values and retain 2 reviewed correct labels. Regressions
+verify resident memory, executable-code and peak-malloc meanings. Source-token,
+exact-value, key-order and repair/review checks pass. Audit.md records current
+progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/494b42c98">Repair Slovenian wait indicators and memory labels</a>. Thanks to xet7.</summary>
 
-Correct 16 flagged values across both Slovenian locales. Positive and negative regressions verify target language, double-bounce, bit-pattern and malloc meanings. Source-token, exact-value, key-order and repair checks pass. Audit.md records current progress.
+Correct 16 flagged values across both Slovenian locales. Positive and negative
+regressions verify target language, double-bounce, bit-pattern and malloc
+meanings. Source-token, exact-value, key-order and repair checks pass. Audit.md
+records current progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/a9d0e4ebd">Finish flagged Bosnian translation repairs</a>. Thanks to xet7.</summary>
 
-Correct the final 30 flagged Bosnian values. Regressions verify support access, irreversible deletion, integer heights, keyboard ranges, voting identity and literal filter examples. Meaning, source-token, target-script, exact-value, rendering, key-order and repair checks pass; progress tests confirm zero pending Bosnian findings. Audit.md records current progress.
+Correct the final 30 flagged Bosnian values. Regressions verify support access,
+irreversible deletion, integer heights, keyboard ranges, voting identity and
+literal filter examples. Meaning, source-token, target-script, exact-value,
+rendering, key-order and repair checks pass; progress tests confirm zero pending
+Bosnian findings. Audit.md records current progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ada3af19c">Repair Bosnian migration steps and starred board help</a>. Thanks to xet7.</summary>
 
-Correct 14 flagged values. Regressions verify starred-board ordering, week start, empty duplicates and migration entity names. Meaning, source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records current progress.
+Correct 14 flagged values. Regressions verify starred-board ordering, week
+start, empty duplicates and migration entity names. Meaning, source-token,
+target-script, exact-value, rendering, key-order and repair checks pass.
+Audit.md records current progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/79d7fe500">Repair Bosnian minicard display and field sum labels</a>. Thanks to xet7.</summary>
 
-Correct 10 flagged values. Regressions verify summed field values, per-list counts and minicard display scope. Meaning, source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records current progress.
+Correct 10 flagged values. Regressions verify summed field values, per-list
+counts and minicard display scope. Meaning, source-token, target-script,
+exact-value, rendering, key-order and repair checks pass. Audit.md records
+current progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/1b9f93cbc">Repair Bosnian search scope and swimlane controls</a>. Thanks to xet7.</summary>
 
-Correct 10 flagged values. Regressions verify full search scope, literal commands, pixel units, WIP limits and assigned-card filtering. Meaning, source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records current progress.
+Correct 10 flagged values. Regressions verify full search scope, literal
+commands, pixel units, WIP limits and assigned-card filtering. Meaning,
+source-token, target-script, exact-value, rendering, key-order and repair checks
+pass. Audit.md records current progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/f85e912ad">Repair Bosnian S3 settings and backup translations</a>. Thanks to xet7.</summary>
 
-Correct 10 flagged values. Regressions verify MinIO choice, literal endpoints and region, secret-key authentication, TLS and board backup. Meaning, source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records current progress.
+Correct 10 flagged values. Regressions verify MinIO choice, literal endpoints
+and region, secret-key authentication, TLS and board backup. Meaning,
+source-token, target-script, exact-value, rendering, key-order and repair checks
+pass. Audit.md records current progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/a1fbf5932">Repair Bosnian restoration warnings and S3 labels</a>. Thanks to xet7.</summary>
 
-Correct 8 flagged values. Regressions verify restoration warnings, non-archived scope, field identifiers and S3 authentication. Meaning, source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records current progress.
+Correct 8 flagged values. Regressions verify restoration warnings, non-archived
+scope, field identifiers and S3 authentication. Meaning, source-token,
+target-script, exact-value, rendering, key-order and repair checks pass.
+Audit.md records current progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/1b835520a">Repair Bosnian recovery and migration confirmations</a>. Thanks to xet7.</summary>
 
-Correct 8 flagged values. Regressions verify recovery entities, literal field identifiers and migration confirmation conditions. Meaning, source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records current progress.
+Correct 8 flagged values. Regressions verify recovery entities, literal field
+identifiers and migration confirmation conditions. Meaning, source-token,
+target-script, exact-value, rendering, key-order and repair checks pass.
+Audit.md records current progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/d416cecea">Repair Bosnian rule actions and assigned read role</a>. Thanks to xet7.</summary>
 
-Correct 12 flagged values. Positive and negative regressions verify movement direction, unchecking, value clearing and the assigned-only no-edit restriction. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
+Correct 12 flagged values. Positive and negative regressions verify movement
+direction, unchecking, value clearing and the assigned-only no-edit restriction.
+Source-token, target-script, exact-value, rendering, key-order and repair checks
+pass. Audit.md records dated progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/46772a986">Repair Bosnian board visibility and rule guidance</a>. Thanks to xet7.</summary>
 
-Correct 12 flagged values. Positive and negative regressions verify board editing restrictions, invitation scope, permanent deletion and rule matching. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
+Correct 12 flagged values. Positive and negative regressions verify board
+editing restrictions, invitation scope, permanent deletion and rule matching.
+Source-token, target-script, exact-value, rendering, key-order and repair checks
+pass. Audit.md records dated progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/765ec8f9d">Repair Bosnian query validation and notification messages</a>. Thanks to xet7.</summary>
 
-Correct 12 flagged values. Positive and negative regressions and real rendering verify notification scope, debug predicates, numeric limits and login links. Source-token, target-script, exact-value, key-order and repair checks pass. Audit.md records dated progress.
+Correct 12 flagged values. Positive and negative regressions and real rendering
+verify notification scope, debug predicates, numeric limits and login links.
+Source-token, target-script, exact-value, key-order and repair checks pass.
+Audit.md records dated progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/1629b780b">Repair Bosnian My Cards and role descriptions</a>. Thanks to xet7.</summary>
 
-Correct 12 flagged values. Positive and negative regressions and real count rendering verify My Cards labels, checklist ordering and role restrictions. Source-token, target-script, exact-value, key-order and repair checks pass. Audit.md records dated progress.
+Correct 12 flagged values. Positive and negative regressions and real count
+rendering verify My Cards labels, checklist ordering and role restrictions.
+Source-token, target-script, exact-value, key-order and repair checks pass.
+Audit.md records dated progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/5f8e5f9a2">Repair Bosnian attachment movement and migration permissions</a>. Thanks to xet7.</summary>
 
-Correct 12 flagged values. Positive and negative regressions verify administrator restrictions, board-specific attachment scope, storage destinations and monitoring failures. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
+Correct 12 flagged values. Positive and negative regressions verify
+administrator restrictions, board-specific attachment scope, storage
+destinations and monitoring failures. Source-token, target-script, exact-value,
+rendering, key-order and repair checks pass. Audit.md records dated progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/4f256268d">Repair Bosnian migration outcomes and browser warnings</a>. Thanks to xet7.</summary>
 
-Correct 12 flagged values. Positive and negative regressions verify background continuation, browser warnings, stop-all scope and migration outcomes. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
+Correct 12 flagged values. Positive and negative regressions verify background
+continuation, browser warnings, stop-all scope and migration outcomes.
+Source-token, target-script, exact-value, rendering, key-order and repair checks
+pass. Audit.md records dated progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ee612082c">Repair Bosnian migration limits and storage labels</a>. Thanks to xet7.</summary>
 
-Correct 12 flagged values. Positive and negative regressions verify byte units, storage scope, CPU comparison and exact batch/delay ranges. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
+Correct 12 flagged values. Positive and negative regressions verify byte units,
+storage scope, CPU comparison and exact batch/delay ranges. Source-token,
+target-script, exact-value, rendering, key-order and repair checks pass.
+Audit.md records dated progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/a2ae2424b">Repair Bosnian keyboard toggles and list deletion messages</a>. Thanks to xet7.</summary>
 
-Correct 12 flagged values. Positive and negative regressions verify click instructions, registration invitations, filename cancellation and deletion/departure scope. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
+Correct 12 flagged values. Positive and negative regressions verify click
+instructions, registration invitations, filename cancellation and
+deletion/departure scope. Source-token, target-script, exact-value, rendering,
+key-order and repair checks pass. Audit.md records dated progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7f1fcba79">Repair Bosnian board import and member mapping help</a>. Thanks to xet7.</summary>
 
-Correct 10 flagged values. Positive and negative regressions verify export direction, literal Trello menus, ZIP attachment scope and member-mapping fallback. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
+Correct 10 flagged values. Positive and negative regressions verify export
+direction, literal Trello menus, ZIP attachment scope and member-mapping
+fallback. Source-token, target-script, exact-value, rendering, key-order and
+repair checks pass. Audit.md records dated progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/6a97ff0b6">Repair Bosnian GridFS and checklist visibility translations</a>. Thanks to xet7.</summary>
 
-Correct 12 flagged values. Positive and negative regressions verify public-board scope, GridFS storage and checklist/minicard visibility distinctions. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
+Correct 12 flagged values. Positive and negative regressions verify public-board
+scope, GridFS storage and checklist/minicard visibility distinctions.
+Source-token, target-script, exact-value, rendering, key-order and repair checks
+pass. Audit.md records dated progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/e33acd052">Repair Bosnian search status and assignment translations</a>. Thanks to xet7.</summary>
 
-Correct 12 flagged values. Positive and negative regressions verify end-date status, private-board scope, board assignment, descending sort and modification bounds. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
+Correct 12 flagged values. Positive and negative regressions verify end-date
+status, private-board scope, board assignment, descending sort and modification
+bounds. Source-token, target-script, exact-value, rendering, key-order and
+repair checks pass. Audit.md records dated progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/abd8c53dd">Repair Bosnian search operator translations</a>. Thanks to xet7.</summary>
 
-Correct 12 flagged values. Positive and negative regressions verify literal operator syntax, negation, label alternatives, creation bounds and integer page limits. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
+Correct 12 flagged values. Positive and negative regressions verify literal
+operator syntax, negation, label alternatives, creation bounds and integer page
+limits. Source-token, target-script, exact-value, rendering, key-order and
+repair checks pass. Audit.md records dated progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/4cca1809a">Repair Bosnian migration and global search help</a>. Thanks to xet7.</summary>
 
-Correct 12 flagged values. Positive and negative regressions verify migration repair scope, Boolean search, literal query examples and archive exclusion. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
+Correct 12 flagged values. Positive and negative regressions verify migration
+repair scope, Boolean search, literal query examples and archive exclusion.
+Source-token, target-script, exact-value, rendering, key-order and repair checks
+pass. Audit.md records dated progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/172413419">Repair Bosnian file URL help and filter translations</a>. Thanks to xet7.</summary>
 
-Correct 16 flagged values. Positive and negative regressions verify file-repair scope, CSV/TSV separators, PDF export and week filters. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
+Correct 16 flagged values. Positive and negative regressions verify file-repair
+scope, CSV/TSV separators, PDF export and week filters. Source-token,
+target-script, exact-value, rendering, key-order and repair checks pass.
+Audit.md records dated progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/705fbcf57">Repair Bosnian invitation emails and due card controls</a>. Thanks to xet7.</summary>
 
-Correct 16 flagged values. Positive and negative regressions and real rendering verify invitation scope, email placeholders, due-card permissions and vote end dates. Source-token, target-script, exact-value, key-order and repair checks pass. Audit.md records dated progress.
+Correct 16 flagged values. Positive and negative regressions and real rendering
+verify invitation scope, email placeholders, due-card permissions and vote end
+dates. Source-token, target-script, exact-value, key-order and repair checks
+pass. Audit.md records dated progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/c08f60d0a">Repair Bosnian duplicate list and deletion restrictions</a>. Thanks to xet7.</summary>
 
-Correct 16 flagged values. Positive and negative regressions verify empty-duplicate conditions, membership blockers, irreversible deletion and linked-card direction. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
+Correct 16 flagged values. Positive and negative regressions verify
+empty-duplicate conditions, membership blockers, irreversible deletion and
+linked-card direction. Source-token, target-script, exact-value, rendering,
+key-order and repair checks pass. Audit.md records dated progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/4dbfcd59e">Repair Bosnian deletion warnings and custom URL translations</a>. Thanks to xet7.</summary>
 
-Correct 18 flagged values. Positive and negative regressions verify irreversible deletion scope, image/link URLs, empty duplicate lists, HTML entities and default height. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
+Correct 18 flagged values. Positive and negative regressions verify irreversible
+deletion scope, image/link URLs, empty duplicate lists, HTML entities and
+default height. Source-token, target-script, exact-value, rendering, key-order
+and repair checks pass. Audit.md records dated progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/8ee99e1e9">Repair Bosnian creation dates and scheduled job translations</a>. Thanks to xet7.</summary>
 
-Correct 18 flagged values. Positive and negative regressions verify creation-date ordering, template label identity and scheduled-job results. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
+Correct 18 flagged values. Positive and negative regressions verify
+creation-date ordering, template label identity and scheduled-job results.
+Source-token, target-script, exact-value, rendering, key-order and repair checks
+pass. Audit.md records dated progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/803b62c2d">Repair Bosnian checklist and card access translations</a>. Thanks to xet7.</summary>
 
-Correct 18 flagged values. Positive and negative regressions verify checklist/item deletion distinctions, comment-only restrictions, minicard sorting and conversion scope. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
+Correct 18 flagged values. Positive and negative regressions verify
+checklist/item deletion distinctions, comment-only restrictions, minicard
+sorting and conversion scope. Source-token, target-script, exact-value,
+rendering, key-order and repair checks pass. Audit.md records dated progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/6a959f3a6">Repair Bosnian board scheduling and settings translations</a>. Thanks to xet7.</summary>
 
-Correct 16 flagged values. Positive and negative regressions verify scheduling results, All Boards scope, board-icon instructions and archived-card visibility. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
+Correct 16 flagged values. Positive and negative regressions verify scheduling
+results, All Boards scope, board-icon instructions and archived-card visibility.
+Source-token, target-script, exact-value, rendering, key-order and repair checks
+pass. Audit.md records dated progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/2a4f699e4">Repair Bosnian attachment storage and avatar translations</a>. Thanks to xet7.</summary>
 
-Correct 18 flagged values. Positive and negative regressions verify storage destinations, clickable URL schemes, automatic user addition, avatar limits and new-card scope. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
+Correct 18 flagged values. Positive and negative regressions verify storage
+destinations, clickable URL schemes, automatic user addition, avatar limits and
+new-card scope. Source-token, target-script, exact-value, rendering, key-order
+and repair checks pass. Audit.md records dated progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/47b2d6b12">Repair Bosnian administration and workspace translations</a>. Thanks to xet7.</summary>
 
-Correct 20 flagged values. Positive and negative regressions verify member-removal permission, activation, logged-in scope, literal HTML and the refresh data-loss warning. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
+Correct 20 flagged values. Positive and negative regressions verify
+member-removal permission, activation, logged-in scope, literal HTML and the
+refresh data-loss warning. Source-token, target-script, exact-value, rendering,
+key-order and repair checks pass. Audit.md records dated progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ca539fbe7">Repair Bosnian date activities and reminders</a>. Thanks to xet7.</summary>
 
-Correct 20 flagged values, restoring first-reminder, due-now and custom-field clearing meanings. Positive and negative regressions and actual i18next/sprintf rendering verify dates and mentions. Source-token, target-script, exact-value, key-order and repair checks pass. Audit.md records dated progress.
+Correct 20 flagged values, restoring first-reminder, due-now and custom-field
+clearing meanings. Positive and negative regressions and actual i18next/sprintf
+rendering verify dates and mentions. Source-token, target-script, exact-value,
+key-order and repair checks pass. Audit.md records dated progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/24a1d388c">Repair Bosnian account lockout translations</a>. Thanks to xet7.</summary>
 
-Correct 18 flagged values. Positive and negative regressions verify credential distinctions, seconds, unlock-all scope and self-deletion. Source-token, target-script, exact-value, key-order and repair checks pass. Audit.md records dated progress and the correction commit.
+Correct 18 flagged values. Positive and negative regressions verify credential
+distinctions, seconds, unlock-all scope and self-deletion. Source-token,
+target-script, exact-value, key-order and repair checks pass. Audit.md records
+dated progress and the correction commit.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/48b6b1bb2">Repair Bosnian memory, wait indicators and accessibility translations</a>. Thanks to xet7.</summary>
 
-Replace 21 flagged Serbian-seeded values and finish an older JSON sample repair while preserving literal field names. Positive and negative regressions verify memory metrics and wait indicators; source-token, exact-value, key-order and repair checks pass. Audit.md records the dated commit and remaining findings.
+Replace 21 flagged Serbian-seeded values and finish an older JSON sample repair
+while preserving literal field names. Positive and negative regressions verify
+memory metrics and wait indicators; source-token, exact-value, key-order and
+repair checks pass. Audit.md records the dated commit and remaining findings.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/0c5a561c8">Finish flagged Croatian translation repairs</a>. Thanks to xet7.</summary>
 
-Correct the final 26 flagged Croatian values, including irreversible deletion warnings, keyboard toggles, voter identity, filter help and Hijri calendar distinctions. Positive and negative meaning, source-token, exact-value, rendering, key-order and repair checks pass; progress tests verify the Croatian audit queue is empty. Audit.md records the dated commit and updated overall totals.
+Correct the final 26 flagged Croatian values, including irreversible deletion
+warnings, keyboard toggles, voter identity, filter help and Hijri calendar
+distinctions. Positive and negative meaning, source-token, exact-value,
+rendering, key-order and repair checks pass; progress tests verify the Croatian
+audit queue is empty. Audit.md records the dated commit and updated overall
+totals.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/2019869c7">Repair Croatian migration steps and support access labels</a>. Thanks to xet7.</summary>
 
-Correct 20 reviewed values. Positive and negative regressions verify starred-board ordering, support access and migration entity names. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
+Correct 20 reviewed values. Positive and negative regressions verify
+starred-board ordering, support access and migration entity names. Source-token,
+target-script, exact-value, rendering, key-order and repair checks pass.
+Audit.md records dated progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/13200137a">Repair Croatian swimlane and minicard display controls</a>. Thanks to xet7.</summary>
 
-Correct 16 reviewed values. Positive and negative regressions verify pixel units, field sums, All Boards wording and assignment filters. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
+Correct 16 reviewed values. Positive and negative regressions verify pixel
+units, field sums, All Boards wording and assignment filters. Source-token,
+target-script, exact-value, rendering, key-order and repair checks pass.
+Audit.md records dated progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/6de9e9203">Repair Croatian S3 and search settings</a>. Thanks to xet7.</summary>
 
-Correct 16 reviewed values. Positive and negative regressions verify MinIO support, search scope and literal endpoint and troubleshooting examples. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
+Correct 16 reviewed values. Positive and negative regressions verify MinIO
+support, search scope and literal endpoint and troubleshooting examples.
+Source-token, target-script, exact-value, rendering, key-order and repair checks
+pass. Audit.md records dated progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/c5452ab2a">Repair Croatian recovery scope and migration confirmations</a>. Thanks to xet7.</summary>
 
-Correct 12 reviewed values. Positive and negative regressions verify recovery entity types, non-archived scope, undo warning and literal storage fields. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
+Correct 12 reviewed values. Positive and negative regressions verify recovery
+entity types, non-archived scope, undo warning and literal storage fields.
+Source-token, target-script, exact-value, rendering, key-order and repair checks
+pass. Audit.md records dated progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/02e229d33">Repair Croatian read-only roles and recovery messages</a>. Thanks to xet7.</summary>
 
-Correct 14 reviewed values. Positive and negative regressions verify no-edit restrictions, label range, removal notifications and recovery entity types. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
+Correct 14 reviewed values. Positive and negative regressions verify no-edit
+restrictions, label range, removal notifications and recovery entity types.
+Source-token, target-script, exact-value, rendering, key-order and repair checks
+pass. Audit.md records dated progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/58f0d7b06">Repair Croatian rule actions and public-board invitations</a>. Thanks to xet7.</summary>
 
-Correct 16 reviewed values. Positive and negative regressions verify public-board editing, invitation meaning, move direction and unchecking. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
+Correct 16 reviewed values. Positive and negative regressions verify
+public-board editing, invitation meaning, move direction and unchecking.
+Source-token, target-script, exact-value, rendering, key-order and repair checks
+pass. Audit.md records dated progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/38050f251">Repair Croatian query validation and private-board messages</a>. Thanks to xet7.</summary>
 
-Correct 12 reviewed values. Positive and negative regressions verify integer limits, private-board access and actual operator/login-link rendering. Source-token, target-script, exact-value, key-order and repair checks pass. Audit.md records dated progress.
+Correct 12 reviewed values. Positive and negative regressions verify integer
+limits, private-board access and actual operator/login-link rendering.
+Source-token, target-script, exact-value, key-order and repair checks pass.
+Audit.md records dated progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/4004c2ebd">Repair Croatian card views and assigned-only permissions</a>. Thanks to xet7.</summary>
 
-Correct 14 reviewed values. Positive and negative regressions verify assigned-only visibility, notification scope, checklist order and actual count rendering. Source-token, target-script, exact-value, key-order and repair checks pass. Audit.md records dated progress.
+Correct 14 reviewed values. Positive and negative regressions verify
+assigned-only visibility, notification scope, checklist order and actual count
+rendering. Source-token, target-script, exact-value, key-order and repair checks
+pass. Audit.md records dated progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/be37a2c32">Repair Croatian attachment movement and card sorting labels</a>. Thanks to xet7.</summary>
 
-Correct 12 reviewed values. Positive and negative regressions verify attachment scope, S3 wording, checkbox selection and My Cards sorting labels. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
+Correct 12 reviewed values. Positive and negative regressions verify attachment
+scope, S3 wording, checkbox selection and My Cards sorting labels. Source-token,
+target-script, exact-value, rendering, key-order and repair checks pass.
+Audit.md records dated progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/60f647915">Repair Croatian migration status and operating limits</a>. Thanks to xet7.</summary>
 
-Correct 20 reviewed values. Positive and negative regressions verify CPU thresholds, timing ranges, background continuation, browser warnings and administrator restrictions. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
+Correct 20 reviewed values. Positive and negative regressions verify CPU
+thresholds, timing ranges, background continuation, browser warnings and
+administrator restrictions. Source-token, target-script, exact-value, rendering,
+key-order and repair checks pass. Audit.md records dated progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/b238c35f2">Repair Croatian list warnings and storage migration controls</a>. Thanks to xet7.</summary>
 
-Correct 16 reviewed values. Positive and negative regressions verify irreversible list deletion, board-departure scope, byte units, batch limits and S3 wording. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
+Correct 16 reviewed values. Positive and negative regressions verify
+irreversible list deletion, board-departure scope, byte units, batch limits and
+S3 wording. Source-token, target-script, exact-value, rendering, key-order and
+repair checks pass. Audit.md records dated progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/95f1b2a53">Repair Croatian member mapping and keyboard toggles</a>. Thanks to xet7.</summary>
 
-Correct 12 reviewed values. Positive and negative regressions verify member fallback, registration wording, keyboard toggle direction and label history loss. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
+Correct 12 reviewed values. Positive and negative regressions verify member
+fallback, registration wording, keyboard toggle direction and label history
+loss. Source-token, target-script, exact-value, rendering, key-order and repair
+checks pass. Audit.md records dated progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/f110128f6">Repair Croatian checklist visibility and board import instructions</a>. Thanks to xet7.</summary>
 
-Correct 15 reviewed values. Positive and negative regressions verify export direction, literal Trello menu names and checklist visibility wording. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
+Correct 15 reviewed values. Positive and negative regressions verify export
+direction, literal Trello menu names and checklist visibility wording.
+Source-token, target-script, exact-value, rendering, key-order and repair checks
+pass. Audit.md records dated progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/23bd5535a">Repair Croatian organization and status search operators</a>. Thanks to xet7.</summary>
 
-Correct 12 reviewed values. Positive and negative regressions verify end-date status, board visibility, organization assignment and descending-sort syntax. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
+Correct 12 reviewed values. Positive and negative regressions verify end-date
+status, board visibility, organization assignment and descending-sort syntax.
+Source-token, target-script, exact-value, rendering, key-order and repair checks
+pass. Audit.md records dated progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/89b2b4802">Repair Croatian field and label search instructions</a>. Thanks to xet7.</summary>
 
-Correct seven reviewed values. Positive and negative regressions verify field query syntax, color-or-name matching and positive integer limits. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
+Correct seven reviewed values. Positive and negative regressions verify field
+query syntax, color-or-name matching and positive integer limits. Source-token,
+target-script, exact-value, rendering, key-order and repair checks pass.
+Audit.md records dated progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/11734e472">Repair Croatian date and user search operators</a>. Thanks to xet7.</summary>
 
-Correct eight reviewed values. Positive and negative regressions verify literal user syntax, at-most date ranges and assignment terminology. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
+Correct eight reviewed values. Positive and negative regressions verify literal
+user syntax, at-most date ranges and assignment terminology. Source-token,
+target-script, exact-value, rendering, key-order and repair checks pass.
+Audit.md records dated progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/885563f36">Repair Croatian migration and Boolean search instructions</a>. Thanks to xet7.</summary>
 
-Correct 12 reviewed values. Positive and negative regressions verify executable query examples, OR/AND and case-insensitive search meanings. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
+Correct 12 reviewed values. Positive and negative regressions verify executable
+query examples, OR/AND and case-insensitive search meanings. Source-token,
+target-script, exact-value, rendering, key-order and repair checks pass.
+Audit.md records dated progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/5a9354543">Repair Croatian verification, errors and filter labels</a>. Thanks to xet7.</summary>
 
-Correct 16 reviewed values. Positive and negative regressions verify account-email verification, CSV requirements, week filters and URL repair meanings. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
+Correct 16 reviewed values. Positive and negative regressions verify
+account-email verification, CSV requirements, week filters and URL repair
+meanings. Source-token, target-script, exact-value, rendering, key-order and
+repair checks pass. Audit.md records dated progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/00c8c7b1f">Repair Croatian account emails and due-card views</a>. Thanks to xet7.</summary>
 
-Correct 14 reviewed values. Positive and negative regressions verify invitation meaning, actual email interpolation and due-card permission scope. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
+Correct 14 reviewed values. Positive and negative regressions verify invitation
+meaning, actual email interpolation and due-card permission scope. Source-token,
+target-script, exact-value, rendering, key-order and repair checks pass.
+Audit.md records dated progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/564bd800b">Repair Croatian organization and account deletion messages</a>. Thanks to xet7.</summary>
 
-Correct 12 reviewed values. Positive and negative regressions verify irreversible deletion, existing-member restrictions and subtask destinations. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
+Correct 12 reviewed values. Positive and negative regressions verify
+irreversible deletion, existing-member restrictions and subtask destinations.
+Source-token, target-script, exact-value, rendering, key-order and repair checks
+pass. Audit.md records dated progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/3b4f99d24">Repair Croatian custom URLs and deletion prompts</a>. Thanks to xet7.</summary>
 
-Correct 16 reviewed values. Positive and negative regressions verify URL scope, default logo height, irreversible deletion, duplicate-empty-list conditions and linked-card deletion order. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
+Correct 16 reviewed values. Positive and negative regressions verify URL scope,
+default logo height, irreversible deletion, duplicate-empty-list conditions and
+linked-card deletion order. Source-token, target-script, exact-value, rendering,
+key-order and repair checks pass. Audit.md records dated progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/f1914d07d">Repair Croatian scheduled migrations and template placeholder</a>. Thanks to xet7.</summary>
 
-Correct 16 reviewed values. Positive and negative regressions verify literal template tokens, separator entities and irreversible field deletion. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
+Correct 16 reviewed values. Positive and negative regressions verify literal
+template tokens, separator entities and irreversible field deletion.
+Source-token, target-script, exact-value, rendering, key-order and repair checks
+pass. Audit.md records dated progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/56454dbf9">Repair Croatian checklist forms and board conversion messages</a>. Thanks to xet7.</summary>
 
-Correct 18 reviewed values. Positive and negative regressions verify comment-only permissions, creation-date ordering, checklist forms and normal board use during conversion. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
+Correct 18 reviewed values. Positive and negative regressions verify
+comment-only permissions, creation-date ordering, checklist forms and normal
+board use during conversion. Source-token, target-script, exact-value,
+rendering, key-order and repair checks pass. Audit.md records dated progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/3ace61f58">Repair Croatian board settings and checklist controls</a>. Thanks to xet7.</summary>
 
-Correct 20 reviewed values. Positive and negative regressions verify All Boards settings, checklist/item deletion, membership/assignment and archive restoration meanings. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
+Correct 20 reviewed values. Positive and negative regressions verify All Boards
+settings, checklist/item deletion, membership/assignment and archive restoration
+meanings. Source-token, target-script, exact-value, rendering, key-order and
+repair checks pass. Audit.md records dated progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/685e388ab">Repair Croatian storage paths and scheduled board operations</a>. Thanks to xet7.</summary>
 
-Correct 18 reviewed values. Positive and negative regressions verify URL-scheme instructions, new-card field scope, board-icon actions and scheduled results. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
+Correct 18 reviewed values. Positive and negative regressions verify URL-scheme
+instructions, new-card field scope, board-icon actions and scheduled results.
+Source-token, target-script, exact-value, rendering, key-order and repair checks
+pass. Audit.md records dated progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/78c5f9b42">Repair Croatian user status and attachment settings</a>. Thanks to xet7.</summary>
 
-Correct 18 reviewed values. Positive and negative regressions verify account activation, logged-in user scope, data-loss warnings and S3 wording. Source-token, target-script, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
+Correct 18 reviewed values. Positive and negative regressions verify account
+activation, logged-in user scope, data-loss warnings and S3 wording.
+Source-token, target-script, exact-value, rendering, key-order and repair checks
+pass. Audit.md records dated progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/40db24a44">Repair Croatian administration and custom-field activities</a>. Thanks to xet7.</summary>
 
-Correct 16 reviewed values. Regressions verify date/card rendering, inactive-user and field-clearing meanings, administrator actions and literal HTML delimiters. Source-token, target-script, exact-value, key-order and repair checks pass. Audit.md records dated progress.
+Correct 16 reviewed values. Regressions verify date/card rendering,
+inactive-user and field-clearing meanings, administrator actions and literal
+HTML delimiters. Source-token, target-script, exact-value, key-order and repair
+checks pass. Audit.md records dated progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/2df7a4d02">Repair Croatian lockout results and date activities</a>. Thanks to xet7.</summary>
 
-Correct 16 reviewed values. Positive and negative regressions verify first-reminder and due-now meanings, actual old/new time interpolation and date/card sprintf order. Source-token, target-script, exact-value, key-order and repair checks pass. Audit.md records dated progress.
+Correct 16 reviewed values. Positive and negative regressions verify
+first-reminder and due-now meanings, actual old/new time interpolation and
+date/card sprintf order. Source-token, target-script, exact-value, key-order and
+repair checks pass. Audit.md records dated progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/e2e15108e">Repair Croatian accessibility and account protection translations</a>. Thanks to xet7.</summary>
 
-Correct 18 reviewed values. Positive and negative regressions verify target script, accessibility terminology, credential meanings and timing units. Source-token, exact-value, key-order and repair checks pass. Audit.md records dated progress.
+Correct 18 reviewed values. Positive and negative regressions verify target
+script, accessibility terminology, credential meanings and timing units.
+Source-token, exact-value, key-order and repair checks pass. Audit.md records
+dated progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/482ea38b9">Repair Croatian memory metrics and wait indicators</a>. Thanks to xet7.</summary>
 
-Replace 18 Serbian-seeded values with Croatian wording. Positive and negative regressions verify target script, V8 metric and indicator meanings. Source-token, exact-value, key-order and repair checks pass. Audit.md records dated progress.
+Replace 18 Serbian-seeded values with Croatian wording. Positive and negative
+regressions verify target script, V8 metric and indicator meanings.
+Source-token, exact-value, key-order and repair checks pass. Audit.md records
+dated progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/d3569c77e">Finish flagged Macedonian translation repairs</a>. Thanks to xet7.</summary>
 
-Correct the final 28 flagged values. Regressions verify executable filter examples, integer heights, shortcut ranges, voting visibility and zero remaining Macedonian audit findings. Source-token, exact-value, rendering, key-order and repair checks pass. Audit.md records completion of this locale queue and the remaining multilingual work.
+Correct the final 28 flagged values. Regressions verify executable filter
+examples, integer heights, shortcut ranges, voting visibility and zero remaining
+Macedonian audit findings. Source-token, exact-value, rendering, key-order and
+repair checks pass. Audit.md records completion of this locale queue and the
+remaining multilingual work.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ece4315d2">Repair Macedonian SMTP, migration steps and subtask controls</a>. Thanks to xet7.</summary>
 
-Correct 25 reviewed values. Regressions verify outgoing-email, starred-board ordering, support access and subtask meanings. Source-token, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
+Correct 25 reviewed values. Regressions verify outgoing-email, starred-board
+ordering, support access and subtask meanings. Source-token, exact-value,
+rendering, key-order and repair checks pass. Audit.md records dated progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/5ef5b155b">Repair Macedonian display settings and retain valid sidebar translations</a>. Thanks to xet7.</summary>
 
-Correct 18 reviewed values and retain two correct sidebar translations. Regressions verify parent-card and field-sum meanings, All Boards wording and unchanged sidebar imperatives. Source-token, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
+Correct 18 reviewed values and retain two correct sidebar translations.
+Regressions verify parent-card and field-sum meanings, All Boards wording and
+unchanged sidebar imperatives. Source-token, exact-value, rendering, key-order
+and repair checks pass. Audit.md records dated progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/b9da2ea97">Repair Macedonian S3 settings and search instructions</a>. Thanks to xet7.</summary>
 
-Correct 20 reviewed values. Regressions verify MinIO support, search scope, literal endpoint examples and troubleshooting commands, and pixel units. Source-token, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
+Correct 20 reviewed values. Regressions verify MinIO support, search scope,
+literal endpoint examples and troubleshooting commands, and pixel units.
+Source-token, exact-value, rendering, key-order and repair checks pass. Audit.md
+records dated progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/c9fe9530a">Repair Macedonian recovery and migration confirmations</a>. Thanks to xet7.</summary>
 
-Correct 20 reviewed values. Regressions verify archived recovery, non-archived scope, undo warnings, duplicate-empty-list conditions and literal storage fields. Source-token, exact-value, rendering, key-order and repair checks pass. Audit.md records dated progress.
+Correct 20 reviewed values. Regressions verify archived recovery, non-archived
+scope, undo warnings, duplicate-empty-list conditions and literal storage
+fields. Source-token, exact-value, rendering, key-order and repair checks pass.
+Audit.md records dated progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/1c6281af5">Repair Macedonian rule actions and read-only permissions</a>. Thanks to xet7.</summary>
 
-Correct 24 reviewed values. Positive and negative regressions verify move direction, no-edit restrictions, label range and removal notification meanings. Source-token, exact-value, rendering, key-order and repair checks pass. Audit.md records dated fixes and remaining findings.
+Correct 24 reviewed values. Positive and negative regressions verify move
+direction, no-edit restrictions, label range and removal notification meanings.
+Source-token, exact-value, rendering, key-order and repair checks pass. Audit.md
+records dated fixes and remaining findings.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/3e099f4d5">Repair Macedonian validation, visibility and invitation messages</a>. Thanks to xet7.</summary>
 
-Correct 20 reviewed values. Positive and negative regressions verify positive-integer limits, invitation and editing restrictions, operator interpolation and login-link rendering. Source-token, exact-value, key-order and repair checks pass. Audit.md records dated fixes and remaining findings.
+Correct 20 reviewed values. Positive and negative regressions verify
+positive-integer limits, invitation and editing restrictions, operator
+interpolation and login-link rendering. Source-token, exact-value, key-order and
+repair checks pass. Audit.md records dated fixes and remaining findings.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/0effcb85e">Repair Macedonian card views, permissions and notifications</a>. Thanks to xet7.</summary>
 
-Correct 25 reviewed values. Positive and negative checks verify assigned-only visibility, settings restrictions, creator-or-member notifications, S3 wording and actual card-count rendering. Source-token, exact-value, key-order and repair checks pass. Audit.md records dated fixes and remaining findings.
+Correct 25 reviewed values. Positive and negative checks verify assigned-only
+visibility, settings restrictions, creator-or-member notifications, S3 wording
+and actual card-count rendering. Source-token, exact-value, key-order and repair
+checks pass. Audit.md records dated fixes and remaining findings.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/f98c708e6">Repair Macedonian storage migration and monitoring messages</a>. Thanks to xet7.</summary>
 
-Correct 29 reviewed values. Positive and negative checks verify numeric limits, CPU threshold semantics, background continuation, browser warnings, administrator restrictions and S3 labels. Source-token, exact-value, rendering, key-order and repair checks pass. Audit.md records dated fixes and remaining findings.
+Correct 29 reviewed values. Positive and negative checks verify numeric limits,
+CPU threshold semantics, background continuation, browser warnings,
+administrator restrictions and S3 labels. Source-token, exact-value, rendering,
+key-order and repair checks pass. Audit.md records dated fixes and remaining
+findings.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/9fdbf2017">Repair Macedonian list controls and deletion warnings</a>. Thanks to xet7.</summary>
 
-Correct 23 reviewed values. Regressions verify keyboard-toggle click instructions, irreversible list deletion, the last-administrator restriction and actual list-name sprintf rendering. Source-token, exact-value, key-order and repair checks pass. Audit.md records dated progress.
+Correct 23 reviewed values. Regressions verify keyboard-toggle click
+instructions, irreversible list deletion, the last-administrator restriction and
+actual list-name sprintf rendering. Source-token, exact-value, key-order and
+repair checks pass. Audit.md records dated progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/f90ea9ac6">Repair Macedonian import and registration instructions</a>. Thanks to xet7.</summary>
 
-Correct 16 values, including export menu wording, member mapping and registration invitations. Positive and negative regressions verify the export action and literal Trello menu names, alongside source tokens, exact values, rendering and key order. Audit.md records dated progress.
+Correct 16 values, including export menu wording, member mapping and
+registration invitations. Positive and negative regressions verify the export
+action and literal Trello menu names, alongside source tokens, exact values,
+rendering and key order. Audit.md records dated progress.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/17efcc8ea">Repair Macedonian status, storage and checklist controls</a>. Thanks to xet7.</summary>
 
-Correct 20 reviewed values, restoring end-date status, board visibility, GridFS attachments and checklist terminology. Positive and negative meaning, source-token, rendering, exact-value and key-order checks pass. Audit.md records dated progress and remaining findings.
+Correct 20 reviewed values, restoring end-date status, board visibility, GridFS
+attachments and checklist terminology. Positive and negative meaning,
+source-token, rendering, exact-value and key-order checks pass. Audit.md records
+dated progress and remaining findings.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ba2501e59">Repair Macedonian search operator meanings and literal examples</a>. Thanks to xet7.</summary>
 
-Correct 12 search instructions, preserving query tokens and restoring `has:-due` and label color-or-name matching. Regression checks verify literal syntax, meaning, placeholders, exact values and key order. Translation Audit.md records dated fixes and remaining findings.
+Correct 12 search instructions, preserving query tokens and restoring `has:-due`
+and label color-or-name matching. Regression checks verify literal syntax,
+meaning, placeholders, exact values and key order. Translation Audit.md records
+dated fixes and remaining findings.
 
 </details>
 
@@ -1693,7 +2400,8 @@ pass. Further findings remain under review.
 
 Correct 15 reviewed values, distinguishing date types and restoring sorting
 and card-creator meaning. Positive and negative exact-value, rendering,
-source-token, key-order and repair checks pass. Further findings remain under review.
+source-token, key-order and repair checks pass. Further findings remain under
+review.
 
 </details>
 
@@ -1730,7 +2438,8 @@ checks pass. Further locale findings remain under review.
 
 Correct 15 reviewed values in comments, checklist forms, favorites and board
 conversion instructions. Positive and negative exact-value, rendering,
-source-token, key-order and repair checks pass. Further findings remain under review.
+source-token, key-order and repair checks pass. Further findings remain under
+review.
 
 </details>
 
@@ -1749,7 +2458,8 @@ remain under review.
 
 Correct 15 reviewed values, restoring scheduling, migration, settings and
 visibility meanings. Positive and negative exact-value, source-token,
-rendering, key-order and repair checks pass. Further findings remain under review.
+rendering, key-order and repair checks pass. Further findings remain under
+review.
 
 </details>
 
@@ -1878,7 +2588,8 @@ query and repair checks pass. Further findings remain under review.
 Correct 43 reviewed values and retain two valid template-variable hints.
 Positive and negative translation checks verify native wording, exact source
 placeholders, key order, idempotency and preservation of newer wording.
-Correction and unchanged-review suites pass. Further findings remain under review.
+Correction and unchanged-review suites pass. Further findings remain under
+review.
 
 </details>
 
@@ -1888,7 +2599,8 @@ Correction and unchanged-review suites pass. Further findings remain under revie
 Correct 38 reviewed values and retain two valid Azure navigation instructions.
 Positive and negative checks verify deletion warnings, Slovak vocabulary,
 literal JSON fields, template placeholders, separator entities and exact
-correction/review values. These checks pass. Further findings remain under review.
+correction/review values. These checks pass. Further findings remain under
+review.
 
 </details>
 
@@ -1970,7 +2682,7 @@ locale findings remain under review.
 
 Replace 402 Lithuanian-seeded Latvian strings with Latvian wording and preserve
 search syntax, source placeholders, template tokens and commands. Correct two
-Danish calendar labels in <a href="https://github.com/wekan/wekan/commit/ad8c1170d">ad8c1170d</a>; retain 19 inspected valid Danish strings with explicit reasons.
+Danish calendar labels in <a href="https://github.com/wekan/wekan/commit/ad8c1170d">the Danish calendar repair</a>; retain 19 inspected valid Danish strings with explicit reasons.
 The audit progress tool accounts for every historical audit row and keeps
 unreviewed work visible. The wider repair goal remains unfinished.
 
@@ -1984,27 +2696,12 @@ unavailable.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/5290ee727">Add explicit force upload of every local translation to Transifex</a>. Thanks to xet7.</summary>
-
-The maintainer-run script uploads English source strings and every local target,
-adds missing project languages individually, waits for asynchronous completion,
-and reports all failed languages with reasons and a saved JSON report. The
-existing language reconciliation uses the documented additive relationship API.
-An offline dry run checks 245 targets and the source without network requests.
-Mocked API regression tests cover mappings, registration, polling, unsupported
-languages, failure continuation and summaries, intentional empty source strings,
-placeholder errors and the API credential origin boundary. Tests pass; no live
-Transifex uploads were executed.
-
-</details>
-
-<details>
 <summary><a href="https://github.com/wekan/wekan/commit/7a23353ac">Correct audited local translation problems</a>. Thanks to xet7.</summary>
 
 Correct malformed card-copy JSON examples and kanban board terminology,
 repair mixed-script fragments and calendar names, and replace Persian-seeded
-Arabic strings in <a href="https://github.com/wekan/wekan/commit/a2639d319">a2639d319</a>.
-Additional Mongolian corrections in <a href="https://github.com/wekan/wekan/commit/6988a01bd">6988a01bd</a> and <a href="https://github.com/wekan/wekan/commit/a194b9741">a194b9741</a> replace Russian-seeded prose.
+Arabic strings in <a href="https://github.com/wekan/wekan/commit/a2639d319">the Arabic seed-language repair</a>.
+Additional Mongolian corrections in <a href="https://github.com/wekan/wekan/commit/6988a01bd">the Mongolian prose repair</a> and <a href="https://github.com/wekan/wekan/commit/a194b9741">the additional Mongolian repair</a> replace Russian-seeded prose.
 The dated translation audit records these batches and the remaining review.
 Unicode calendar terminology is included with its license; there is no new
 runtime dependency or external translation service. Dzongkha, Quechua and
@@ -2019,93 +2716,8 @@ unfinished; this entry does not claim every locale is now correct.
 
 </details>
 
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/9fda12cdd">Combine month and formatted date in the date popup heading</a>. Thanks to xet7.</summary>
-
-The calendar heading shows the month name and the member's formatted date.
-The separate Date label and date summary above the calendar are removed.
-Calendar selection, heading formatting and empty-date fallback checks pass,
-as do popup movement and resize checks. The browser regression was extended
-and syntax-checked; the live Meteor UI was unavailable.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/3988ab5ea">Move date popups from the title bar and theme calendar buttons</a>. Thanks to xet7.</summary>
-
-Drag the date popup title bar to reposition it within the viewport. Calendar
-month/year navigation and day buttons use Save's active theme styling.
-Pointer capture, viewport limits, unrelated pointers and header control
-exclusions have passing regression checks. Calendar control checks pass.
-The browser regression is registered and syntax-checked; a live Meteor UI
-was unavailable for running it.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/2fd461fa5582fcdca820cc2dcacaae0e605a66b8">Restrict OAuth2 login by email domain</a>. Thanks to xet7.</summary>
-
-Set `OAUTH2_ALLOWED_EMAIL_DOMAINS` to a comma-separated list of exact domains.
-The provider's mapped email is checked before account creation, merging or
-board/group membership changes. Existing sessions are not revoked. Unset or
-empty configuration preserves current behavior; malformed restrictions deny
-sign-in. The implementation uses no new dependencies or Internet lookup and
-works with an identity provider hosted on the local network.
-
-Positive and negative tests cover exact matching, malformed input, missing
-email and the actual OAuth callback with mocked provider responses. Ten
-related Node suites pass. A live identity-provider/browser login was not run.
-The roadmap export audit records completed checks and the remaining source
-review; the full roadmap implementation remains unfinished.
-
-</details>
-
-and fixes the following date-popup layout bugs:
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/236676ff53c58baaef0ff9484b727445400c6b79">Show full-width calendars directly in date popups</a>. Thanks to xet7.</summary>
-
-Date popups immediately show the selected calendar, including Gregorian,
-and keep the grid visible after selecting a day. The grid spans the popup
-width above the time controls. Scoped cell/button sizing prevents calendar
-days overflowing narrow cells. Only hour and minute dropdowns are visible;
-the combined time value remains hidden for the existing save handlers.
-Mouse selection, keyboard navigation and native date storage are preserved.
-The calendar systems documentation describes the revised popup behavior.
-
-Eighteen related Node suites pass, covering inline visibility, compact-field
-behavior, hidden time values, template compilation, font scaling and docs.
-Four Chromium popup/settings tests pass, including Gregorian and Buddhist
-layout checks and Jalali keyboard selection with native date/time saving.
-The existing month-view browser test fails in its navigation helper because
-that helper waits for list columns in a calendar view; it is not counted
-among the passing popup checks.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/398d5f42d41f6c0cc49f425ea1703fa4a2d059fc">Fit date controls and add bottom-right popup resizing</a>. Thanks to xet7.</summary>
-
-Remove nested date-form scroll areas, viewport-height caps, excess padding
-and margins on calendar buttons. The selected calendar, hour/minute controls,
-Save and Delete fit together in the popup. A bottom-right handle resizes it
-with a mouse or keyboard arrow keys; pointer capture keeps a drag released
-outside from closing it. Content-height and viewport bounds keep controls
-reachable. Only unusually short viewports need scrolling in the outer shell.
-Update the calendar systems documentation and browser layout regressions.
-
-Eighteen related Node suites pass, including captured dragging, keyboard
-resizing, minimum sizes, viewport limits and actual template compilation.
-A standalone Chromium smoke check using the source CSS and resize handlers
-verifies six-week controls fit at 1280x720 and 390x844, and pointer/keyboard
-resizing works without closing the popup. Full-app browser tests are extended
-and registered; the local Meteor server became unavailable before validating
-the final handle implementation. Earlier native-handle attempts failed the
-browser drag test and were replaced with the captured handle.
-
-</details>
-
 Thanks to above GitHub users for their contributions and translators for their translations.
+
 
 # v11.72 2026-09-11 WeKan ® release
 
