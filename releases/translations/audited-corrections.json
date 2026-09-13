@@ -120923,5 +120923,12 @@
     "before": "Kay willaymi: skyta",
     "after": "qhusi",
     "reason": "Reviewed 2026-09-14: replace unrelated message wrapper around English sky with directly attested Quechua sky-blue adjective qhusi: https://en.wiktionary.org/wiki/qhusi . Entry also glosses turquoise, but does not establish pale-turquoise qualifier; retain separate palette variants for further research. Not to be confused with qusi. Wider dialect/palette validation remains open."
+  },
+  {
+    "locale": "qu",
+    "key": "color-crimson",
+    "before": "Kay willaymi: crimsonta",
+    "after": "sañi",
+    "reason": "Reviewed 2026-09-14: replace unrelated message wrapper around English crimson with directly attested Quechua adjective sañi, whose dictionary gloss includes crimson: https://en.wiktionary.org/wiki/sa%C3%B1i . Entry is polysemous (purple/lilac/light brown/lead-colored also); dialect-specific exact palette hue needs review. Keep red and purple labels distinct. Do not infer plum-color wording from this entry."
   }
 ]
