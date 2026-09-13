@@ -2341,5 +2341,26 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.equal(mixedOperatorExample.hasErrors(), false);
   assert.equal(mixedOperatorExample.getQueryParams().getPredicate('list'), 'Joudai');
   assert.equal(mixedOperatorExample.getQueryParams().getPredicate('label'), 'rusked');
+  const vepsClipboardDescriptions = {
+  "clipboard": "Tedokaičuz libo vedä da pästa",
+  "copy-card-link-to-clipboard": "Kopirui kartan link tedokaičusehe",
+  "copy-link-to-clipboard": "Kopirui link tedokaičusehe",
+  "copy-text-to-clipboard": "Kopirui tekst tedokaičusehe",
+  "paste-or-dragdrop": "miše panda, libo vedä da pästa kuvafail sihe (vaiše kuva)",
+  "rescue-card-description": "Ozuta dialog edel sidä, ku sinä sauptad kartan, ku kartan kuvadand ei ole kaitud",
+  "rescue-card-description-dialogue": "Vajehtada kartan nügüdläine kuvadand sinun vajehtusil?"
+};
+  for (const [key, value] of Object.entries(vepsClipboardDescriptions)) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.equal(vepsTranslator.t(key), value, key);
+    assert.doesNotMatch(value, /Leikepöytä|Kopioi|leikepöydälle|liittääksesi|pudota|Näytä|tallentamattomien|Korvataanko|muutoksillasi/, key);
+  }
+  assert.match(vepsTranslator.t('copy-card-link-to-clipboard'), /kartan link/);
+  assert.match(vepsTranslator.t('copy-text-to-clipboard'), /tekst tedokaičusehe/);
+  assert.notEqual(vepsTranslator.t('copy-text-to-clipboard'), vepsTranslator.t('copy-link-to-clipboard'));
+  assert.equal(cache['ve-PP']['copy-to-clipboard'], 'Kopirui buferha', 'preserve the existing correct Veps translation');
+  assert.match(vepsTranslator.t('paste-or-dragdrop'), /panda.*vedä da pästa.*\(vaiše kuva\)/);
+  assert.match(vepsTranslator.t('rescue-card-description'), /edel sidä.*sauptad kartan.*kuvadand ei ole kaitud/);
+  assert.match(vepsTranslator.t('rescue-card-description-dialogue'), /^Vajehtada.*nügüdläine.*sinun vajehtusil\?$/);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });

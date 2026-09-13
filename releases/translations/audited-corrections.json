@@ -119488,5 +119488,54 @@
     "before": "Eri operaattorit ovat *JA* yhteen. Vain kortit jotka täsmää kaikkiin eri operaattoreihin palautetaan.  `__operator_list__:Saatavilla __operator_label__:punainen` palauttaa vain kortit listasta *Saatavilla* joilla on *punainen* nimilappu.",
     "after": "Erazvuiččed operatorad ühtenzoitadas *DA*-kodvindanke. Näguba vaiše kartad, miččil oma kaik neced kodvindad. `__operator_list__:Joudai __operator_label__:rusked` ozutab vaiše kartoid lugetišes *Joudai* *rusked*-znamanke.",
     "reason": "Replace Finnish Boolean-search instructions with Veps, preserving ANY condition for similar operators versus ALL conditions for differing operators and exact placeholders. Dictionary: ühtejiččed (same), erazvuitte (different), rusked (red), ühtenzoitta (combine). Localized sample list names and color use working parser keywords. Low confidence: composed logical instruction syntax needs fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "clipboard",
+    "before": "Leikepöytä tai raahaa ja pudota",
+    "after": "Tedokaičuz libo vedä da pästa",
+    "reason": "Replace Finnish clipboard/unsaved-description wording with Veps. MediaWiki vep attests Kopirui tedokaičusehe. Dictionary: panda, vedäda, pästta, dialog, saubata(-ptab), nügüdläine and vajehtuz. Preserve image-only paste, before-closing unsaved condition and replacement with user changes. Keep existing correct copy-to-clipboard value unchanged. Low confidence: composed before-closing sentence and overwrite inflection need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "copy-card-link-to-clipboard",
+    "before": "Kopioi kortin linkki leikepöydälle",
+    "after": "Kopirui kartan link tedokaičusehe",
+    "reason": "Replace Finnish clipboard/unsaved-description wording with Veps. MediaWiki vep attests Kopirui tedokaičusehe. Dictionary: panda, vedäda, pästta, dialog, saubata(-ptab), nügüdläine and vajehtuz. Preserve image-only paste, before-closing unsaved condition and replacement with user changes. Keep existing correct copy-to-clipboard value unchanged. Low confidence: composed before-closing sentence and overwrite inflection need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "copy-link-to-clipboard",
+    "before": "Kopioi linkki leikepöydälle",
+    "after": "Kopirui link tedokaičusehe",
+    "reason": "Replace Finnish clipboard/unsaved-description wording with Veps. MediaWiki vep attests Kopirui tedokaičusehe. Dictionary: panda, vedäda, pästta, dialog, saubata(-ptab), nügüdläine and vajehtuz. Preserve image-only paste, before-closing unsaved condition and replacement with user changes. Keep existing correct copy-to-clipboard value unchanged. Low confidence: composed before-closing sentence and overwrite inflection need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "copy-text-to-clipboard",
+    "before": "Kopioi teksti leikepöydälle",
+    "after": "Kopirui tekst tedokaičusehe",
+    "reason": "Replace Finnish clipboard/unsaved-description wording with Veps. MediaWiki vep attests Kopirui tedokaičusehe. Dictionary: panda, vedäda, pästta, dialog, saubata(-ptab), nügüdläine and vajehtuz. Preserve image-only paste, before-closing unsaved condition and replacement with user changes. Keep existing correct copy-to-clipboard value unchanged. Low confidence: composed before-closing sentence and overwrite inflection need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "paste-or-dragdrop",
+    "before": "liittääksesi, tai vedä & pudota kuvatiedosto siihen (vain kuva)",
+    "after": "miše panda, libo vedä da pästa kuvafail sihe (vaiše kuva)",
+    "reason": "Replace Finnish clipboard/unsaved-description wording with Veps. MediaWiki vep attests Kopirui tedokaičusehe. Dictionary: panda, vedäda, pästta, dialog, saubata(-ptab), nügüdläine and vajehtuz. Preserve image-only paste, before-closing unsaved condition and replacement with user changes. Keep existing correct copy-to-clipboard value unchanged. Low confidence: composed before-closing sentence and overwrite inflection need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "rescue-card-description",
+    "before": "Näytä pelastusikkuna ennen sulkemista tallentamattomien korttien kuvauksia varten",
+    "after": "Ozuta dialog edel sidä, ku sinä sauptad kartan, ku kartan kuvadand ei ole kaitud",
+    "reason": "Replace Finnish clipboard/unsaved-description wording with Veps. MediaWiki vep attests Kopirui tedokaičusehe. Dictionary: panda, vedäda, pästta, dialog, saubata(-ptab), nügüdläine and vajehtuz. Preserve image-only paste, before-closing unsaved condition and replacement with user changes. Keep existing correct copy-to-clipboard value unchanged. Low confidence: composed before-closing sentence and overwrite inflection need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "rescue-card-description-dialogue",
+    "before": "Korvataanko nykyisen kortin kuvaus muutoksillasi?",
+    "after": "Vajehtada kartan nügüdläine kuvadand sinun vajehtusil?",
+    "reason": "Replace Finnish clipboard/unsaved-description wording with Veps. MediaWiki vep attests Kopirui tedokaičusehe. Dictionary: panda, vedäda, pästta, dialog, saubata(-ptab), nügüdläine and vajehtuz. Preserve image-only paste, before-closing unsaved condition and replacement with user changes. Keep existing correct copy-to-clipboard value unchanged. Low confidence: composed before-closing sentence and overwrite inflection need fluent review."
   }
 ]
