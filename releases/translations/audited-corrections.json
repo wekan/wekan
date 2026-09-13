@@ -86175,5 +86175,12 @@
     "before": "Digalvquodi",
     "after": "ᎠᏣᏪᏐᎸᏍᏙᏗ",
     "reason": "Replace Digalvquodi, associated with sacred/holiday texts, with rest terminology Atsawesolvsdodi from https://www.thepeoplespaths.net/Cherokee/CherokeeWordLists/WordList-R.htm . Write syllabary ᎠᏣᏪᏐᎸᏍᏙᏗ directly. Syllabary rendering and Pomodoro rest-period noun usage remain low confidence; not native-speaker verified."
+  },
+  {
+    "locale": "chr",
+    "key": "pomodoro-start",
+    "before": "Pomodoro alsdayvdi",
+    "after": "Pomodoro ᎠᏂᎩᏍᏗ",
+    "reason": "Replace unverified romanized alsdayvdi with attested Start Anigisdi from https://www.thepeoplespaths.net/Cherokee/CherokeeWordLists/WordList-S.htm , rendered ᎠᏂᎩᏍᏗ. Preserve Pomodoro proper name. Syllabary rendering and action-button phrase remain low confidence; not native-speaker verified."
   }
 ]
