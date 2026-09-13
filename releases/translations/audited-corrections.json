@@ -88058,5 +88058,61 @@
     "before": "a importé le tableau __board__",
     "after": "enüveigon tabi __board__",
     "reason": "Replace French board activity text with Volapük, using existing tab/liman/fel lönik terminology and existing activity perfect-tense style. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf supplies jafön (create), lüükön (add), moükön (remove), radön (erase), topätükön (move), ragiv (archive), nüveigön (import). Preserve each board/member/custom-field placeholder role and archive destination. Data import/custom-field adaptations and assembled grammar remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "attachment-delete-pop",
+    "before": "La suppression d'une pièce jointe est définitive. Cela est irréversible.",
+    "after": "Radam fimükota binon laidik. Sädunam binon nemögik.",
+    "reason": "Replace French attachment/comment interface text with Volapük using existing noet/fimükot/kadil terminology. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests noet (textual remark), laidik (permanent), and existing action/count vocabulary. Preserve irreversible deletion, confirmation, comment count/search placeholder and comment-only/no-comment permissions. Attachment noun adaptation, relative clause and assembled wording remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "comment-delete",
+    "before": "Êtes-vous sûr de vouloir supprimer le commentaire ?",
+    "after": "Fümol-li, das vilol radön noeti?",
+    "reason": "Replace French attachment/comment interface text with Volapük using existing noet/fimükot/kadil terminology. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests noet (textual remark), laidik (permanent), and existing action/count vocabulary. Preserve irreversible deletion, confirmation, comment count/search placeholder and comment-only/no-comment permissions. Attachment noun adaptation, relative clause and assembled wording remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "attachmentActionsPopup-title",
+    "before": "Actions sur les pièces jointes",
+    "after": "Dunots fimükotas",
+    "reason": "Replace French attachment/comment interface text with Volapük using existing noet/fimükot/kadil terminology. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests noet (textual remark), laidik (permanent), and existing action/count vocabulary. Preserve irreversible deletion, confirmation, comment count/search placeholder and comment-only/no-comment permissions. Attachment noun adaptation, relative clause and assembled wording remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "badge-attachment-on-minicard",
+    "before": "Compteur de pièces jointes sur la mini-carte",
+    "after": "Mödot fimükotas su kadil",
+    "reason": "Replace French attachment/comment interface text with Volapük using existing noet/fimükot/kadil terminology. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests noet (textual remark), laidik (permanent), and existing action/count vocabulary. Preserve irreversible deletion, confirmation, comment count/search placeholder and comment-only/no-comment permissions. Attachment noun adaptation, relative clause and assembled wording remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "card-comments-title",
+    "before": "Cette carte a %s commentaires.",
+    "after": "Kad at labon noetis: %s.",
+    "reason": "Replace French attachment/comment interface text with Volapük using existing noet/fimükot/kadil terminology. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests noet (textual remark), laidik (permanent), and existing action/count vocabulary. Preserve irreversible deletion, confirmation, comment count/search placeholder and comment-only/no-comment permissions. Attachment noun adaptation, relative clause and assembled wording remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "comment-not-found",
+    "before": "Carte dont le commentaire contient '%s' non trouvée",
+    "after": "Kad ko noet, kel ninädon vödemi: '%s', no petuvon.",
+    "reason": "Replace French attachment/comment interface text with Volapük using existing noet/fimükot/kadil terminology. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests noet (textual remark), laidik (permanent), and existing action/count vocabulary. Preserve irreversible deletion, confirmation, comment count/search placeholder and comment-only/no-comment permissions. Attachment noun adaptation, relative clause and assembled wording remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "comment-only-desc",
+    "before": "Ne peut que commenter des cartes.",
+    "after": "Kanon te penön noetis su kads.",
+    "reason": "Replace French attachment/comment interface text with Volapük using existing noet/fimükot/kadil terminology. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests noet (textual remark), laidik (permanent), and existing action/count vocabulary. Preserve irreversible deletion, confirmation, comment count/search placeholder and comment-only/no-comment permissions. Attachment noun adaptation, relative clause and assembled wording remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "no-comments-desc",
+    "before": "Impossible de voir les commentaires.",
+    "after": "Kanon no logön noetis.",
+    "reason": "Replace French attachment/comment interface text with Volapük using existing noet/fimükot/kadil terminology. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests noet (textual remark), laidik (permanent), and existing action/count vocabulary. Preserve irreversible deletion, confirmation, comment count/search placeholder and comment-only/no-comment permissions. Attachment noun adaptation, relative clause and assembled wording remain low confidence; native review unavailable."
   }
 ]
