@@ -74569,5 +74569,173 @@
     "before": "Basculer entre le mode mobile et le mode bureau",
     "after": "Passer do môde mobile å môde scribanne ou å rvier",
     "reason": "Replace audited French shortcuts/display controls with Walloon, using existing native terminology and authored computing vocabulary https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve zoom range, enabled/disabled action inversion and distinction between joining and assigning oneself. Full grammar and autocomplete terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "account-locked",
+    "before": "Le compte est temporairement verrouillé en raison de trop de tentatives de connexion échouées. Veuillez réessayer plus tard.",
+    "after": "Li conte est bloké po on tins paski i gn a yeu trop d' sayes d' elodjaedje ki n' ont nén reüssi. Rissayîz pus tård.",
+    "reason": "Replace audited French account/login wording with Walloon. Native username/password/login/settings terminology https://berdelaedje.walon.org/faq.php and https://berdelaedje.walon.org/index.php ; block vocabulary https://dtw.walon.org/index.php?query=bloker . Retain temporary lockout, failed attempts, brute-force protection, seconds and activation action inversion. Full grammar and security terminology remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "accounts-allowUserDelete",
+    "before": "Autoriser les utilisateurs à supprimer leur compte",
+    "after": "Disfacer si conte d' uzeu lu-minme",
+    "reason": "Replace audited French account/login wording with Walloon. Native username/password/login/settings terminology https://berdelaedje.walon.org/faq.php and https://berdelaedje.walon.org/index.php ; block vocabulary https://dtw.walon.org/index.php?query=bloker . Retain temporary lockout, failed attempts, brute-force protection, seconds and activation action inversion. Full grammar and security terminology remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "accounts-lockout-info",
+    "before": "Ces paramètres contrôlent comment les tentatives de connexion sont protégés des attaques par force brute.",
+    "after": "Ces apontiaedjes ci contrôlèt kimint les sayes d' elodjaedje sont disfindowes conte les atakes pa foice brute.",
+    "reason": "Replace audited French account/login wording with Walloon. Native username/password/login/settings terminology https://berdelaedje.walon.org/faq.php and https://berdelaedje.walon.org/index.php ; block vocabulary https://dtw.walon.org/index.php?query=bloker . Retain temporary lockout, failed attempts, brute-force protection, seconds and activation action inversion. Full grammar and security terminology remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "accounts-lockout-locked-users-info",
+    "before": "Utilisateurs actuellement verrouillés pour trop de tentatives de connexion en échec",
+    "after": "Uzeus blokés pol moumint paski i gn a yeu trop d' sayes d' elodjaedje ki n' ont nén reüssi",
+    "reason": "Replace audited French account/login wording with Walloon. Native username/password/login/settings terminology https://berdelaedje.walon.org/faq.php and https://berdelaedje.walon.org/index.php ; block vocabulary https://dtw.walon.org/index.php?query=bloker . Retain temporary lockout, failed attempts, brute-force protection, seconds and activation action inversion. Full grammar and security terminology remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "accounts-lockout-settings",
+    "before": "Paramètres de protection contre la force brute",
+    "after": "Apontiaedjes di disfinde conte li foice brute",
+    "reason": "Replace audited French account/login wording with Walloon. Native username/password/login/settings terminology https://berdelaedje.walon.org/faq.php and https://berdelaedje.walon.org/index.php ; block vocabulary https://dtw.walon.org/index.php?query=bloker . Retain temporary lockout, failed attempts, brute-force protection, seconds and activation action inversion. Full grammar and security terminology remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "accounts-lockout-settings-updated",
+    "before": "Les paramètres de protection contre la force brute ont été mis à jour",
+    "after": "Les apontiaedjes di disfinde conte li foice brute ont stî metous a djoû",
+    "reason": "Replace audited French account/login wording with Walloon. Native username/password/login/settings terminology https://berdelaedje.walon.org/faq.php and https://berdelaedje.walon.org/index.php ; block vocabulary https://dtw.walon.org/index.php?query=bloker . Retain temporary lockout, failed attempts, brute-force protection, seconds and activation action inversion. Full grammar and security terminology remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "admin-people-filter-locked",
+    "before": "Utilisateurs verrouillés seulement",
+    "after": "Seulmint les uzeus blokés",
+    "reason": "Replace audited French account/login wording with Walloon. Native username/password/login/settings terminology https://berdelaedje.walon.org/faq.php and https://berdelaedje.walon.org/index.php ; block vocabulary https://dtw.walon.org/index.php?query=bloker . Retain temporary lockout, failed attempts, brute-force protection, seconds and activation action inversion. Full grammar and security terminology remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "admin-people-user-active",
+    "before": "L'utilisateur est activé - Cliquer pour le désactiver",
+    "after": "L' uzeu est ovrant - clitchîz po l' distinde",
+    "reason": "Replace audited French account/login wording with Walloon. Native username/password/login/settings terminology https://berdelaedje.walon.org/faq.php and https://berdelaedje.walon.org/index.php ; block vocabulary https://dtw.walon.org/index.php?query=bloker . Retain temporary lockout, failed attempts, brute-force protection, seconds and activation action inversion. Full grammar and security terminology remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "admin-people-user-inactive",
+    "before": "L'utilisateur est désactivé - Cliquer pour l'activer",
+    "after": "L' uzeu est distinnou - clitchîz po l' alumer",
+    "reason": "Replace audited French account/login wording with Walloon. Native username/password/login/settings terminology https://berdelaedje.walon.org/faq.php and https://berdelaedje.walon.org/index.php ; block vocabulary https://dtw.walon.org/index.php?query=bloker . Retain temporary lockout, failed attempts, brute-force protection, seconds and activation action inversion. Full grammar and security terminology remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "custom-login-logo-image-url",
+    "before": "URL de l'image du logo de connexion personnalisé",
+    "after": "URL di l' imådje do logo d' elodjaedje da vosse",
+    "reason": "Replace audited French account/login wording with Walloon. Native username/password/login/settings terminology https://berdelaedje.walon.org/faq.php and https://berdelaedje.walon.org/index.php ; block vocabulary https://dtw.walon.org/index.php?query=bloker . Retain temporary lockout, failed attempts, brute-force protection, seconds and activation action inversion. Full grammar and security terminology remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "custom-login-logo-link-url",
+    "before": "Lien URL du logo de connexion personnalisé",
+    "after": "URL del hårdêye do logo d' elodjaedje da vosse",
+    "reason": "Replace audited French account/login wording with Walloon. Native username/password/login/settings terminology https://berdelaedje.walon.org/faq.php and https://berdelaedje.walon.org/index.php ; block vocabulary https://dtw.walon.org/index.php?query=bloker . Retain temporary lockout, failed attempts, brute-force protection, seconds and activation action inversion. Full grammar and security terminology remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "error-ldap-login",
+    "before": "Une erreur s'est produite lors de la tentative de connexion",
+    "after": "Ene aroke a arivé å moumint di sayî di s' elodjî",
+    "reason": "Replace audited French account/login wording with Walloon. Native username/password/login/settings terminology https://berdelaedje.walon.org/faq.php and https://berdelaedje.walon.org/index.php ; block vocabulary https://dtw.walon.org/index.php?query=bloker . Retain temporary lockout, failed attempts, brute-force protection, seconds and activation action inversion. Full grammar and security terminology remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "username-password-required",
+    "before": "Nom d'utilisateur et mot de passe requis",
+    "after": "I fåt on no d' uzeu eyet on sicret",
+    "reason": "Replace audited French account/login wording with Walloon. Native username/password/login/settings terminology https://berdelaedje.walon.org/faq.php and https://berdelaedje.walon.org/index.php ; block vocabulary https://dtw.walon.org/index.php?query=bloker . Retain temporary lockout, failed attempts, brute-force protection, seconds and activation action inversion. Full grammar and security terminology remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "account-created",
+    "before": "Compte créé ! Vous pouvez maintenant vous connecter.",
+    "after": "Conte askepyî! Vos poloz asteure vos elodjî.",
+    "reason": "Replace audited French account/login wording with Walloon. Native username/password/login/settings terminology https://berdelaedje.walon.org/faq.php and https://berdelaedje.walon.org/index.php ; block vocabulary https://dtw.walon.org/index.php?query=bloker . Retain temporary lockout, failed attempts, brute-force protection, seconds and activation action inversion. Full grammar and security terminology remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "account-creation-failed",
+    "before": "Échec de la création du compte",
+    "after": "L' askepiaedje do conte n' a nén reüssi",
+    "reason": "Replace audited French account/login wording with Walloon. Native username/password/login/settings terminology https://berdelaedje.walon.org/faq.php and https://berdelaedje.walon.org/index.php ; block vocabulary https://dtw.walon.org/index.php?query=bloker . Retain temporary lockout, failed attempts, brute-force protection, seconds and activation action inversion. Full grammar and security terminology remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "accounts-allowEmailChange",
+    "before": "Autoriser le changement d'adresse mail",
+    "after": "Permete li candjmint d' adresse emile",
+    "reason": "Replace audited French account/login wording with Walloon. Native username/password/login/settings terminology https://berdelaedje.walon.org/faq.php and https://berdelaedje.walon.org/index.php ; block vocabulary https://dtw.walon.org/index.php?query=bloker . Retain temporary lockout, failed attempts, brute-force protection, seconds and activation action inversion. Full grammar and security terminology remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "accounts-allowUserNameChange",
+    "before": "Autoriser le changement d'identifiant",
+    "after": "Candjmint do no d' uzeu",
+    "reason": "Replace audited French account/login wording with Walloon. Native username/password/login/settings terminology https://berdelaedje.walon.org/faq.php and https://berdelaedje.walon.org/index.php ; block vocabulary https://dtw.walon.org/index.php?query=bloker . Retain temporary lockout, failed attempts, brute-force protection, seconds and activation action inversion. Full grammar and security terminology remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "accounts-lockout-failure-window",
+    "before": "Fenêtre des échecs (secondes)",
+    "after": "Tins po conter les sayes ki n' ont nén reüssi (segondes)",
+    "reason": "Replace audited French account/login wording with Walloon. Native username/password/login/settings terminology https://berdelaedje.walon.org/faq.php and https://berdelaedje.walon.org/index.php ; block vocabulary https://dtw.walon.org/index.php?query=bloker . Retain temporary lockout, failed attempts, brute-force protection, seconds and activation action inversion. Full grammar and security terminology remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "accounts-lockout-failures-before",
+    "before": "Échecs avant verrouillage",
+    "after": "Sayes ki n' ont nén reüssi divant l' blocaedje",
+    "reason": "Replace audited French account/login wording with Walloon. Native username/password/login/settings terminology https://berdelaedje.walon.org/faq.php and https://berdelaedje.walon.org/index.php ; block vocabulary https://dtw.walon.org/index.php?query=bloker . Retain temporary lockout, failed attempts, brute-force protection, seconds and activation action inversion. Full grammar and security terminology remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "accounts-lockout-period",
+    "before": "Durée de verrouillage (secondes)",
+    "after": "Tins do blocaedje (segondes)",
+    "reason": "Replace audited French account/login wording with Walloon. Native username/password/login/settings terminology https://berdelaedje.walon.org/faq.php and https://berdelaedje.walon.org/index.php ; block vocabulary https://dtw.walon.org/index.php?query=bloker . Retain temporary lockout, failed attempts, brute-force protection, seconds and activation action inversion. Full grammar and security terminology remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "already-account",
+    "before": "Vous avez déjà un compte ? Se connecter",
+    "after": "Vos avoz dedja on conte? Elodjîz vos",
+    "reason": "Replace audited French account/login wording with Walloon. Native username/password/login/settings terminology https://berdelaedje.walon.org/faq.php and https://berdelaedje.walon.org/index.php ; block vocabulary https://dtw.walon.org/index.php?query=bloker . Retain temporary lockout, failed attempts, brute-force protection, seconds and activation action inversion. Full grammar and security terminology remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "if-you-already-have-an-account",
+    "before": "Si vous avez déjà un compte",
+    "after": "Si vos avoz dedja on conte",
+    "reason": "Replace audited French account/login wording with Walloon. Native username/password/login/settings terminology https://berdelaedje.walon.org/faq.php and https://berdelaedje.walon.org/index.php ; block vocabulary https://dtw.walon.org/index.php?query=bloker . Retain temporary lockout, failed attempts, brute-force protection, seconds and activation action inversion. Full grammar and security terminology remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "password-mismatch",
+    "before": "Les mots de passe ne correspondent pas",
+    "after": "Les sicrets ni sont nén les minmes",
+    "reason": "Replace audited French account/login wording with Walloon. Native username/password/login/settings terminology https://berdelaedje.walon.org/faq.php and https://berdelaedje.walon.org/index.php ; block vocabulary https://dtw.walon.org/index.php?query=bloker . Retain temporary lockout, failed attempts, brute-force protection, seconds and activation action inversion. Full grammar and security terminology remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "text-below-custom-login-logo",
+    "before": "Texte sous le logo de connexion personnalisé",
+    "after": "Tecse pa dzo l' logo d' elodjaedje da vosse",
+    "reason": "Replace audited French account/login wording with Walloon. Native username/password/login/settings terminology https://berdelaedje.walon.org/faq.php and https://berdelaedje.walon.org/index.php ; block vocabulary https://dtw.walon.org/index.php?query=bloker . Retain temporary lockout, failed attempts, brute-force protection, seconds and activation action inversion. Full grammar and security terminology remain low confidence; source tokens preserved."
   }
 ]
