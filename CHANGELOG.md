@@ -80,8 +80,8 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 14,474 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 1,370 pending review or repair.
+findings: 14,475 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 1,369 pending review or repair.
 The correction inventory records 16,007 exact before/after values across
 201 locale identifiers, including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
@@ -1098,6 +1098,22 @@ Bitbucket was tried during development and is now disabled because of
 Unauthorized errors. Repository paths remain resolved from the script's
 checkout. Syntax validation does not contact or certify remote mirrors;
 no mirroring or publishing commands were executed for this audit.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d656d86c0">Repair Veps field labels and board command grammar</a>. Thanks to xet7.</summary>
+
+Use native Language, Number and Title labels, and correct the click imperative
+in two default-board instructions. Vocabulary and exact correction checks pass.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a98ae0474">Replace Finnish Veps alphabetical title label</a>. Thanks to xet7.</summary>
+
+Use attested Veps title and alphabet vocabulary. The compact sorting label has
+low confidence and needs fluent review. Positive/negative vocabulary checks pass.
 
 </details>
 
