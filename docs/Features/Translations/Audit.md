@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,000 |
+| Corrected | 15,006 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 844 |
+| Pending review or repair | 838 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,023** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,031** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `e71dd2d4f` — repaired **six** original Veps starring/automatic-width findings. Preserve star versus unstar, starred boards at the top of the board list and opposite enable/disable actions. All **17,023** exact corrections pass runtime rendering, placeholder, JSON, key-order and human-preference checks. The original queue has **844** pending findings, including **103** Veps findings. **Low confidence:** technical adaptations and composed grammar/case, relative clauses and scheduling/migration wording need fluent-speaker review. Restored/unflagged values, wrong-language/script checks, keyboard shortcuts and remaining migration/search messages remain unfinished. No translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `5fbd31006` — repaired **eight** Veps consent/notification values, resolving **six** original findings and **two** unflagged errors. Preserve combined consent text, never-notified state, creator OR member, automatic watching and watch subscriptions. Dictionary review uses negative **ed sa**, avoiding Finnish saa. All **17,031** exact corrections pass runtime rendering, placeholder, JSON, key-order and human-preference checks. The original queue has **838** pending findings, including **97** Veps findings. **Low confidence:** legal argument case, technical adaptations and composed notification/migration grammar need fluent-speaker review. Restored/unflagged values, wrong-language/script checks, keyboard shortcuts and remaining migration/search messages remain unfinished. No translations were pushed.
 
 **Build logging update (2026-09-14):** `5f8f22f8c` unifies all logger entry points managed by build.sh/build.bat under operation/date/time directories. Repeated runs stay separate; same-second starts reserve numeric suffixes. Twelve targeted test entries pass; native Windows execution was unavailable. Translation counts and remaining review work are unchanged; translation repairs remain unfinished.
 

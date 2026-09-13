@@ -1245,6 +1245,18 @@ for this change.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/5fbd31006">Repair Veps consent and notification wording</a>. Thanks to xet7.</summary>
+
+Replace eight Finnish values, resolving six original findings and two unflagged
+errors. Preserve combined consent text, never-notified state, creator OR member
+and automatic/watch subscriptions. All 17,031 exact correction checks and
+positive/negative runtime assertions pass. Legal argument case and technical
+grammar need fluent review; 838 original findings and restored-value validation
+remain unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/e71dd2d4f">Repair Veps starring and automatic-width tooltips</a>. Thanks to xet7.</summary>
 
 Replace six original Finnish findings. Preserve star/unstar actions, starred
