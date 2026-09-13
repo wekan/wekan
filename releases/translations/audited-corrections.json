@@ -120664,5 +120664,33 @@
     "before": "Suivant",
     "after": "ⵉⵏⴹⴼⵔ",
     "reason": "Replace French with exact Standard Moroccan Tamazight native UI wording for the matching MediaWiki next message: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Reviewed 2026-09-14; preserve existing correct Latin-script translations in other keys."
+  },
+  {
+    "locale": "zgh",
+    "key": "actions",
+    "before": "الإجراءات",
+    "after": "ⵜⵉⴳⴰⵡⵉⵏ",
+    "reason": "Reviewed 2026-09-14: replace Arabic/French with exact native Standard Moroccan Tamazight wording in matching MediaWiki actions message, English meaning confirmed: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/en.json . Preserve unrelated correct translations."
+  },
+  {
+    "locale": "zgh",
+    "key": "create",
+    "before": "إنشاء",
+    "after": "ⵙⵏⵓⵍⴼⵓ",
+    "reason": "Reviewed 2026-09-14: replace Arabic/French with exact native Standard Moroccan Tamazight wording in matching MediaWiki create message, English meaning confirmed: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/en.json . Preserve unrelated correct translations."
+  },
+  {
+    "locale": "zgh",
+    "key": "download",
+    "before": "تنزيل",
+    "after": "ⴰⴳⵎ",
+    "reason": "Reviewed 2026-09-14: replace Arabic/French with exact native Standard Moroccan Tamazight wording in matching MediaWiki download message, English meaning confirmed: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/en.json . Preserve unrelated correct translations."
+  },
+  {
+    "locale": "zgh",
+    "key": "error",
+    "before": "Erreur",
+    "after": "ⵜⴰⵣⴳⵍⵜ",
+    "reason": "Reviewed 2026-09-14: replace Arabic/French with exact native Standard Moroccan Tamazight wording in matching MediaWiki error message, English meaning confirmed: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/en.json . Preserve unrelated correct translations."
   }
 ]

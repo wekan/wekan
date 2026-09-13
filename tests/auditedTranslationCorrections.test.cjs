@@ -37,6 +37,15 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.notEqual(cache.zgh.help, 'Aide');
   assert.notEqual(cache.zgh.next, 'Suivant');
   assert.equal(cache.zgh.cancel, 'Sefsex');
+  assert.equal(cache.zgh.actions, 'ⵜⵉⴳⴰⵡⵉⵏ');
+  assert.doesNotMatch(cache.zgh.actions, /[\u0600-\u06ffA-Za-z]/);
+  assert.equal(cache.zgh.create, 'ⵙⵏⵓⵍⴼⵓ');
+  assert.doesNotMatch(cache.zgh.create, /[\u0600-\u06ffA-Za-z]/);
+  assert.equal(cache.zgh.download, 'ⴰⴳⵎ');
+  assert.doesNotMatch(cache.zgh.download, /[\u0600-\u06ffA-Za-z]/);
+  assert.equal(cache.zgh.error, 'ⵜⴰⵣⴳⵍⵜ');
+  assert.doesNotMatch(cache.zgh.error, /[\u0600-\u06ffA-Za-z]/);
+
   // Card descriptions use a feminine plural creation form.
   for (const key of ['globalSearch-instructions-operator-creator', 'globalSearch-instructions-operator-created']) {
     assert.match(cache.wa[key], /cåtes askepieyes/);
