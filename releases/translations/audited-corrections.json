@@ -120853,5 +120853,33 @@
     "before": "حذف الكل",
     "after": "ⴽⴽⵙ ⵎⴰⵕⵕⴰ",
     "reason": "Reviewed 2026-09-14: replace Arabic with exact native Standard Moroccan Tamazight UI term from matching MediaWiki filehist-deleteall message: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Collapse refers to hiding expanded UI content, not physical collapse. Rename and More popup headings remain consistent with their controls; unrelated valid translations preserved."
+  },
+  {
+    "locale": "zgh",
+    "key": "remove-btn",
+    "before": "إزالة",
+    "after": "ⵙⵉⵜⵜⵢ",
+    "reason": "Reviewed 2026-09-14: replace Arabic with exact native Standard Moroccan Tamazight UI wording from MediaWiki htmlform-cloner-delete message: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Remove controls discard a selected item/rule; Clear all filters is the same filter-reset action; anonymized fallback denotes user. Preserve unrelated correct translations."
+  },
+  {
+    "locale": "zgh",
+    "key": "r-remove",
+    "before": "إزالة",
+    "after": "ⵙⵉⵜⵜⵢ",
+    "reason": "Reviewed 2026-09-14: replace Arabic with exact native Standard Moroccan Tamazight UI wording from MediaWiki htmlform-cloner-delete message: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Remove controls discard a selected item/rule; Clear all filters is the same filter-reset action; anonymized fallback denotes user. Preserve unrelated correct translations."
+  },
+  {
+    "locale": "zgh",
+    "key": "shortcut-clear-filters",
+    "before": "مسح التصفيات",
+    "after": "ⵚⵚⴼⴹ ⴰⴽⴽⵯ ⵜⵉⵎⵣⵉⵣⴷⴳⵉⵜⵉⵏ",
+    "reason": "Reviewed 2026-09-14: replace Arabic with exact native Standard Moroccan Tamazight UI wording from MediaWiki rcfilters-clear-all-filters message: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Remove controls discard a selected item/rule; Clear all filters is the same filter-reset action; anonymized fallback denotes user. Preserve unrelated correct translations."
+  },
+  {
+    "locale": "zgh",
+    "key": "anonymized-user",
+    "before": "مستخدم",
+    "after": "ⴰⵏⵙⵙⵎⵔⵙ",
+    "reason": "Reviewed 2026-09-14: replace Arabic with exact native Standard Moroccan Tamazight UI wording from MediaWiki filehist-user message: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Remove controls discard a selected item/rule; Clear all filters is the same filter-reset action; anonymized fallback denotes user. Preserve unrelated correct translations."
   }
 ]

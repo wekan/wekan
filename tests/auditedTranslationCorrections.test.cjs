@@ -37,6 +37,15 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.notEqual(cache.zgh.help, 'Aide');
   assert.notEqual(cache.zgh.next, 'Suivant');
   assert.equal(cache.zgh.cancel, 'Sefsex');
+  assert.equal(cache.zgh['remove-btn'], 'ⵙⵉⵜⵜⵢ');
+  assert.doesNotMatch(cache.zgh['remove-btn'], /[\u0600-\u06ff]/);
+  assert.equal(cache.zgh['r-remove'], 'ⵙⵉⵜⵜⵢ');
+  assert.doesNotMatch(cache.zgh['r-remove'], /[\u0600-\u06ff]/);
+  assert.equal(cache.zgh['shortcut-clear-filters'], 'ⵚⵚⴼⴹ ⴰⴽⴽⵯ ⵜⵉⵎⵣⵉⵣⴷⴳⵉⵜⵉⵏ');
+  assert.doesNotMatch(cache.zgh['shortcut-clear-filters'], /[\u0600-\u06ff]/);
+  assert.equal(cache.zgh['anonymized-user'], 'ⴰⵏⵙⵙⵎⵔⵙ');
+  assert.doesNotMatch(cache.zgh['anonymized-user'], /[\u0600-\u06ff]/);
+
   assert.equal(cache.zgh['board-view-collapse'], 'ⵙⵎⵓⵏ');
   assert.doesNotMatch(cache.zgh['board-view-collapse'], /[\u0600-\u06ff]/);
   assert.equal(cache.zgh['collapse'], 'ⵙⵎⵓⵏ');
