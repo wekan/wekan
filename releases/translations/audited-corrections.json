@@ -80848,5 +80848,82 @@
     "before": "Éditer le champ personnalisé",
     "after": "Soppi wàllu dugal",
     "reason": "Replace French custom-field headings and popup titles with Wolof, reusing repaired wàllu dugal bu ñu def ci soxla terminology. Preserve create/edit/delete and plural card-field editing scopes. Existing date popup title retained. Field adaptation and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "r-when-a-card-is-moved",
+    "before": "Quand une carte est déplacée vers une autre liste",
+    "after": "Bu ñu yóbbu karta ci beneen limu",
+    "reason": "Replace French card action/display labels with Wolof. Preserve other-list move trigger, denied Excel/PDF exports, above/below selected card, title filtering, parent-card changes and minicard creator/description/cover scopes. Reuse existing terms. Cover/parent adaptations and full grammar remain low confidence; clipboard/poker labels pending."
+  },
+  {
+    "locale": "wo",
+    "key": "user-can-not-export-card-to-excel",
+    "before": "L'utilisateur ne peut pas exporter la carte vers Excel",
+    "after": "Jëfandikukat bi mënul génne karta ci Excel",
+    "reason": "Replace French card action/display labels with Wolof. Preserve other-list move trigger, denied Excel/PDF exports, above/below selected card, title filtering, parent-card changes and minicard creator/description/cover scopes. Reuse existing terms. Cover/parent adaptations and full grammar remain low confidence; clipboard/poker labels pending."
+  },
+  {
+    "locale": "wo",
+    "key": "user-can-not-export-card-to-pdf",
+    "before": "L'utilisateur ne peut pas exporter de carte en PDF",
+    "after": "Jëfandikukat bi mënul génne karta ci PDF",
+    "reason": "Replace French card action/display labels with Wolof. Preserve other-list move trigger, denied Excel/PDF exports, above/below selected card, title filtering, parent-card changes and minicard creator/description/cover scopes. Reuse existing terms. Cover/parent adaptations and full grammar remain low confidence; clipboard/poker labels pending."
+  },
+  {
+    "locale": "wo",
+    "key": "above-selected-card",
+    "before": "Au-dessus de la carte sélectionnée",
+    "after": "Ci kaw karta bi ñu tànn",
+    "reason": "Replace French card action/display labels with Wolof. Preserve other-list move trigger, denied Excel/PDF exports, above/below selected card, title filtering, parent-card changes and minicard creator/description/cover scopes. Reuse existing terms. Cover/parent adaptations and full grammar remain low confidence; clipboard/poker labels pending."
+  },
+  {
+    "locale": "wo",
+    "key": "below-selected-card",
+    "before": "En dessous de la carte sélectionnée",
+    "after": "Ci suufu karta bi ñu tànn",
+    "reason": "Replace French card action/display labels with Wolof. Preserve other-list move trigger, denied Excel/PDF exports, above/below selected card, title filtering, parent-card changes and minicard creator/description/cover scopes. Reuse existing terms. Cover/parent adaptations and full grammar remain low confidence; clipboard/poker labels pending."
+  },
+  {
+    "locale": "wo",
+    "key": "boardCardTitlePopup-title",
+    "before": "Filtre par titre de carte",
+    "after": "Fëltar ci turu karta",
+    "reason": "Replace French card action/display labels with Wolof. Preserve other-list move trigger, denied Excel/PDF exports, above/below selected card, title filtering, parent-card changes and minicard creator/description/cover scopes. Reuse existing terms. Cover/parent adaptations and full grammar remain low confidence; clipboard/poker labels pending."
+  },
+  {
+    "locale": "wo",
+    "key": "change-card-parent",
+    "before": "Changer le parent de la carte",
+    "after": "Soppi karta bu mag bi",
+    "reason": "Replace French card action/display labels with Wolof. Preserve other-list move trigger, denied Excel/PDF exports, above/below selected card, title filtering, parent-card changes and minicard creator/description/cover scopes. Reuse existing terms. Cover/parent adaptations and full grammar remain low confidence; clipboard/poker labels pending."
+  },
+  {
+    "locale": "wo",
+    "key": "creator-on-minicard",
+    "before": "Créateur sur la mini-carte",
+    "after": "Ki sos karta bi ci karta bu ndaw bi",
+    "reason": "Replace French card action/display labels with Wolof. Preserve other-list move trigger, denied Excel/PDF exports, above/below selected card, title filtering, parent-card changes and minicard creator/description/cover scopes. Reuse existing terms. Cover/parent adaptations and full grammar remain low confidence; clipboard/poker labels pending."
+  },
+  {
+    "locale": "wo",
+    "key": "description-on-minicard",
+    "before": "Description sur la mini-carte",
+    "after": "Melokaan ci karta bu ndaw bi",
+    "reason": "Replace French card action/display labels with Wolof. Preserve other-list move trigger, denied Excel/PDF exports, above/below selected card, title filtering, parent-card changes and minicard creator/description/cover scopes. Reuse existing terms. Cover/parent adaptations and full grammar remain low confidence; clipboard/poker labels pending."
+  },
+  {
+    "locale": "wo",
+    "key": "display-card-creator",
+    "before": "Afficher le créateur de la carte",
+    "after": "Wone ki sos karta bi",
+    "reason": "Replace French card action/display labels with Wolof. Preserve other-list move trigger, denied Excel/PDF exports, above/below selected card, title filtering, parent-card changes and minicard creator/description/cover scopes. Reuse existing terms. Cover/parent adaptations and full grammar remain low confidence; clipboard/poker labels pending."
+  },
+  {
+    "locale": "wo",
+    "key": "cover-attachment-on-minicard",
+    "before": "Vignette sur la mini-carte",
+    "after": "Nataalu muur ci karta bu ndaw bi",
+    "reason": "Replace French card action/display labels with Wolof. Preserve other-list move trigger, denied Excel/PDF exports, above/below selected card, title filtering, parent-card changes and minicard creator/description/cover scopes. Reuse existing terms. Cover/parent adaptations and full grammar remain low confidence; clipboard/poker labels pending."
   }
 ]
