@@ -92881,5 +92881,26 @@
     "before": "Filter-Seitenleiste ein-/ausblenden",
     "after": "wIvmeH retlh tetlh yI'ang/yISo'",
     "reason": "Replace three flagged German sidebar shortcut labels with direct Klingon. Sidebar described using retlh tetlh (side list/panel), as in existing drag-board-to-workspace. Toggle rendered explicitly as show/hide yI'ang/yISo'; distinguish search nejmeH, board raS, and filtering/selecting wIvmeH. Software meaning of selecting as filtering and the side-list description are low confidence and require fluent-speaker validation. No source placeholders changed."
+  },
+  {
+    "locale": "tlh",
+    "key": "set-swimlane-height",
+    "before": "Stelle die Höhe der Swimlane ein",
+    "after": "He Dung bIng je joj chuq yIcher",
+    "reason": "Replace flagged German swimlane-height control with directly assembled Klingon: configure the distance between the swimlane top and bottom (He Dung bIng je joj chuq yIcher). Avoid treating the verb 'ab as a noun for height. Reuse He swimlane/path and cher configure terminology. Descriptive layout wording and full noun combinations have low confidence and need fluent-speaker validation; no placeholders changed."
+  },
+  {
+    "locale": "tlh",
+    "key": "setSwimlaneHeightPopup-title",
+    "before": "Stelle die Höhe der Swimlane ein",
+    "after": "He Dung bIng je joj chuq yIcher",
+    "reason": "Replace flagged German swimlane-height control with directly assembled Klingon: configure the distance between the swimlane top and bottom (He Dung bIng je joj chuq yIcher). Avoid treating the verb 'ab as a noun for height. Reuse He swimlane/path and cher configure terminology. Descriptive layout wording and full noun combinations have low confidence and need fluent-speaker validation; no placeholders changed."
+  },
+  {
+    "locale": "tlh",
+    "key": "swimlaneAddPopup-title",
+    "before": "Swimlane unterhalb einfügen",
+    "after": "bIngDaq He yIchel",
+    "reason": "Replace three flagged German swimlane layout controls with direct Klingon. Reuse He swimlane/path from swimlane, cher configure, chel add and 'ab length from list-width wording. Height rendered descriptively as 'ab chong (vertical length); add-below uses bIngDaq (in the area below). Software layout adaptation, He domain usage and full phrases are low confidence and need fluent-speaker validation. No source placeholders changed."
   }
 ]
