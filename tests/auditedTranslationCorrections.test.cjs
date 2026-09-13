@@ -118,5 +118,10 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.doesNotMatch(veps['accounts-lockout-show-locked-users'], /Näytä|käyttäjät/);
   assert.match(veps['accounts-lockout-all-users-unlocked'], /oma avaitud$/);
   assert.notEqual(veps['accounts-lockout-show-locked-users'], veps['accounts-lockout-all-users-unlocked']);
+  assert.equal(veps['error-user-doesNotExist'], 'Nece kävutai ei ole');
+  assert.match(veps['error-user-notCreated'], /ei ole lodud$/);
+  assert.notEqual(veps['error-user-doesNotExist'], veps['error-user-notCreated']);
+  assert.equal(veps['show-week-of-year'], 'Ozuta voden nedal (ISO 8601)');
+  assert.doesNotMatch(veps['show-week-of-year'], /Näytä|vuoden|viikko/);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });

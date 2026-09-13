@@ -111935,5 +111935,33 @@
     "before": "Kaikki lukitut käyttäjät on avattu",
     "after": "Kaik saubatud kävutajad oma avaitud",
     "reason": "Replace Finnish-seeded Veps locked-user messages. Attested vocabulary: ozutada/show and imperative ozuta, vaiše/only, kaik/all, avaita/unlock and passive avaitud (https://kaikki.org/dictionary/Veps/); saubatud is attested in https://dictorpus.krc.karelia.ru/en/corpus/text/2075; kävutai/user is the Veps MediaWiki namespace (https://doc.wikimedia.org/mediawiki-core/master/php/MessagesVep_8php_source.html). Composed plural/technical account wording has low confidence and needs fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "error-user-doesNotExist",
+    "before": "Tätä käyttäjää ei ole olemassa",
+    "after": "Nece kävutai ei ole",
+    "reason": "Replace Finnish-seeded Veps existence/creation errors and week display label. Veps dictionary attests nece/this, laud/board, olda/exist with connegative ole, loda/create with passive lodud, vozʹ/year with genitive voden, and ozutada/show with imperative ozuta (https://kaikki.org/dictionary/Veps/). User kävutai is attested in the Veps MediaWiki namespace; nedal/week in https://fi.wikibooks.org/wiki/Veps%C3%A4n_kieli/Sanasto . Composed technical wording is low confidence and needs fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "error-user-notCreated",
+    "before": "Tätä käyttäjää ei ole luotu",
+    "after": "Nece kävutai ei ole lodud",
+    "reason": "Replace Finnish-seeded Veps existence/creation errors and week display label. Veps dictionary attests nece/this, laud/board, olda/exist with connegative ole, loda/create with passive lodud, vozʹ/year with genitive voden, and ozutada/show with imperative ozuta (https://kaikki.org/dictionary/Veps/). User kävutai is attested in the Veps MediaWiki namespace; nedal/week in https://fi.wikibooks.org/wiki/Veps%C3%A4n_kieli/Sanasto . Composed technical wording is low confidence and needs fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "error-board-doesNotExist",
+    "before": "Tätä taulua ei ole olemassa",
+    "after": "Nece laud ei ole",
+    "reason": "Replace Finnish-seeded Veps existence/creation errors and week display label. Veps dictionary attests nece/this, laud/board, olda/exist with connegative ole, loda/create with passive lodud, vozʹ/year with genitive voden, and ozutada/show with imperative ozuta (https://kaikki.org/dictionary/Veps/). User kävutai is attested in the Veps MediaWiki namespace; nedal/week in https://fi.wikibooks.org/wiki/Veps%C3%A4n_kieli/Sanasto . Composed technical wording is low confidence and needs fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "show-week-of-year",
+    "before": "Näytä vuoden viikko numero (ISO 8601)",
+    "after": "Ozuta voden nedal (ISO 8601)",
+    "reason": "Replace Finnish-seeded Veps existence/creation errors and week display label. Veps dictionary attests nece/this, laud/board, olda/exist with connegative ole, loda/create with passive lodud, vozʹ/year with genitive voden, and ozutada/show with imperative ozuta (https://kaikki.org/dictionary/Veps/). User kävutai is attested in the Veps MediaWiki namespace; nedal/week in https://fi.wikibooks.org/wiki/Veps%C3%A4n_kieli/Sanasto . Composed technical wording is low confidence and needs fluent-speaker review."
   }
 ]
