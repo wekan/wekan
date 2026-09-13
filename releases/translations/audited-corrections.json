@@ -91607,5 +91607,26 @@
     "before": "Afficher le total des champs en haut de liste",
     "after": "Jonön kobonumi felas pö löp liseda",
     "reason": "Replace French bulk-action titles, first-due-reminder, wish-list example and field-sum label with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests kobonum (numeric sum), vip (wish), meb (reminder), balid (first), tüp (due date), välön (choose), dunot (action), tefü (concerning), liman (member), and ninädapenäd (label). Popup templates offer explicit action choices; preserve label/member difference. Preserve exact __list__/__card__/__board__ placeholders and first due reminder, idiomatic bucket-list example as list of wishes, numeric field sum at list top. Fel is an existing software-field adaptation. Assembled software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "authentication-method",
+    "before": "Méthode d'authentification",
+    "after": "Metod kontrola dientifa",
+    "reason": "Replace French authentication-method labels with consistent descriptive Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests dientif (identity), metod (method), kontrol (check), jonön (show), välön (choose) and votükön (alter). Authentication paraphrased as checking identity; default as selected without changing the setting. Setting template distinguishes generic method, display-method toggle and default-method selector; preserve all three functions rather than conflating authentication with account creation or authorization. Assembled software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "display-authentication-method",
+    "before": "Afficher la méthode d'authentification",
+    "after": "Jonön metodi kontrola dientifa",
+    "reason": "Replace French authentication-method labels with consistent descriptive Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests dientif (identity), metod (method), kontrol (check), jonön (show), välön (choose) and votükön (alter). Authentication paraphrased as checking identity; default as selected without changing the setting. Setting template distinguishes generic method, display-method toggle and default-method selector; preserve all three functions rather than conflating authentication with account creation or authorization. Assembled software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "default-authentication-method",
+    "before": "Méthode d'authentification par défaut",
+    "after": "Metod kontrola dientifa pevälöl nen votükam",
+    "reason": "Replace French authentication-method labels with consistent descriptive Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests dientif (identity), metod (method), kontrol (check), jonön (show), välön (choose) and votükön (alter). Authentication paraphrased as checking identity; default as selected without changing the setting. Setting template distinguishes generic method, display-method toggle and default-method selector; preserve all three functions rather than conflating authentication with account creation or authorization. Assembled software wording remains low confidence pending native review."
   }
 ]
