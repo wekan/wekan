@@ -103297,5 +103297,47 @@
     "before": "Islamic tabular",
     "after": "Khalendara ya Hijri (tafula, nkarhi wo sungula hi tinyeleti)",
     "reason": "Replace English calendar labels using existing locale terminology. Preserve calendar identity and civil versus astronomical tabular epoch distinctions. Specialized wording is low confidence; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "lg",
+    "key": "calendar-system-coptic",
+    "before": "Coptic",
+    "after": "Kalenda y’Abakopti",
+    "reason": "Replace English calendar names directly using existing locale calendar terminology. Preserve Coptic identity and distinguish civil from astronomical tabular epochs. Specialized wording is low confidence; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "lg",
+    "key": "calendar-system-islamic-civil",
+    "before": "Islamic civil",
+    "after": "Kalenda ya Hijri (okubala mu kipande, entandikwa y’ekiseera ky’abantu)",
+    "reason": "Replace English calendar names directly using existing locale calendar terminology. Preserve Coptic identity and distinguish civil from astronomical tabular epochs. Specialized wording is low confidence; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "lg",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "Kalenda ya Hijri (okubala mu kipande, entandikwa y’ekiseera ky’emmunyeenye)",
+    "reason": "Replace English calendar names directly using existing locale calendar terminology. Preserve Coptic identity and distinguish civil from astronomical tabular epochs. Specialized wording is low confidence; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "fj",
+    "key": "calendar-system-coptic",
+    "before": "Coptic",
+    "after": "iVolanivula vakaKopiti",
+    "reason": "Replace English calendar names directly using existing locale calendar terminology. Preserve Coptic identity and distinguish civil from astronomical tabular epochs. Specialized wording is low confidence; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "fj",
+    "key": "calendar-system-islamic-civil",
+    "before": "Islamic civil",
+    "after": "iVolanivula Hijri (vakatau ena tepeli, itekitekivu ni gauna vakavanua)",
+    "reason": "Replace English calendar names directly using existing locale calendar terminology. Preserve Coptic identity and distinguish civil from astronomical tabular epochs. Specialized wording is low confidence; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "fj",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "iVolanivula Hijri (vakatau ena tepeli, itekitekivu ni gauna vakakalokalo)",
+    "reason": "Replace English calendar names directly using existing locale calendar terminology. Preserve Coptic identity and distinguish civil from astronomical tabular epochs. Specialized wording is low confidence; fluent-speaker validation outstanding."
   }
 ]
