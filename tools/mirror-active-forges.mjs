@@ -6,6 +6,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 import { spawnSync, spawn } from 'node:child_process';
 import { pipeline } from 'node:stream/promises';
 import { createHash } from 'node:crypto';
+import { archiveSnapshot, archivedAssets } from './mirror-archive.mjs';
 
 export const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const source = 'repos/wekan/wekan';
@@ -96,6 +97,12 @@ export async function sourceSnapshot(api = cliApi) {
     if (issue.pull_request) {
       const pr = pullMap.get(issue.number);
       if (!pr) throw new Error(`Incomplete GitHub PR listing for #${issue.number}`);
+      issue.originalBody = issue.body;
+      issue.pullMetadata = pr;
+      issue.reviews = await pages(get, `${source}/pulls/${issue.number}/reviews`);
+      const list = grouped.get(issue.number) || [];
+      for (const review of issue.reviews) if (review.html_url) list.push({ ...review, created_at: review.submitted_at, review_state: review.state });
+      grouped.set(issue.number, list);
       issue.body = `${issue.body || ''}\n\nPull request: ${pr.head?.label || '?'} → ${pr.base?.label || '?'}.\nMerged: ${Boolean(pr.merged_at)}.\nPatch: ${issue.pull_request.patch_url || `${issue.html_url}.patch`}`;
     }
     issue.commentsToMirror = (grouped.get(issue.number) || []).sort((a, b) => String(a.created_at).localeCompare(String(b.created_at)));
@@ -104,7 +111,7 @@ export async function sourceSnapshot(api = cliApi) {
   for (const release of releases) release.assets = await pages(get, `${source}/releases/${release.id}/assets`);
   return { issues, releases, labels: await pages(get, `${source}/labels`), milestones: await pages(get, `${source}/milestones?state=all`), capturedAt: new Date().toISOString() };
 }
-const commentBody = c => `${c.path ? `Review comment at ${c.path}${c.line ? `:${c.line}` : ''}:\n\n` : ''}${body(c)}`;
+const commentBody = c => `${marker(c.html_url)}\n\n${c.review_state ? `GitHub review: ${c.review_state}.\n\n` : ''}${c.path ? `Review comment at ${c.path}${c.line ? `:${c.line}` : ''}:\n\n` : ''}${body(c)}`;
 
 export class ForgeAdapter {
   constructor(kind, api = cliApi, uploadMultipart = (endpoint, file) => jsonCommand('glab', ['api', '--hostname', 'gitlab.com', '--method', 'POST', '--form', `file=@${file}`, endpoint])) {
@@ -343,6 +350,40 @@ async function digestMatches(file, digest) {
   for await (const chunk of fs.createReadStream(file)) hash.update(chunk);
   return `sha256:${hash.digest('hex')}`.toLowerCase() === digest.toLowerCase();
 }
+export function syncGit(mirror, run = command, exists = fs.existsSync, tools = path.join(root, '.tools')) {
+  const gitdir = path.join(tools, 'wekan-github-mirror.git');
+  if (!exists(gitdir)) run('git', ['clone', '--mirror', 'https://github.com/wekan/wekan.git', gitdir]);
+  else run('git', ['-C', gitdir, 'fetch', 'origin']);
+  try {
+    run('git', ['-C', gitdir, 'push', mirror.url, 'refs/heads/*:refs/heads/*', 'refs/tags/*:refs/tags/*']);
+  } catch (original) {
+    // Older mirror.sh runs merged GitHub into destination main. Such a main
+    // is no longer an ancestor of GitHub main; preserve those merge commits.
+    const checkout = path.join(tools, `wekan-${mirror.name}`);
+    try {
+      if (!exists(checkout)) run('git', ['clone', '--branch', 'main', mirror.url, checkout]);
+      if (run('git', ['-C', checkout, 'status', '--porcelain']).trim()) throw new Error('Mirror checkout has local changes; preserved');
+      if (run('git', ['-C', checkout, 'symbolic-ref', '--short', 'HEAD']).trim() !== 'main') throw new Error('Mirror checkout is not on main; preserved');
+      for (const key of ['user.name', 'user.email']) {
+        const identity = run('git', ['-C', root, 'config', key]).trim();
+        if (!identity) throw new Error(`Configure ${key} in the WeKan checkout for mirror merge commits`);
+        run('git', ['-C', checkout, 'config', key, identity]);
+      }
+      for (const url of [mirror.url, 'https://github.com/wekan/wekan.git']) {
+        run('git', ['-C', checkout, 'fetch', url, 'main']);
+        try { run('git', ['-C', checkout, 'merge', '--no-edit', 'FETCH_HEAD']); }
+        catch (error) {
+          try { run('git', ['-C', checkout, 'merge', '--abort']); } catch { /* Original error is reported. */ }
+          throw error;
+        }
+      }
+      run('git', ['-C', checkout, 'push', mirror.url, 'HEAD:refs/heads/main']);
+      const other = run('git', ['-C', gitdir, 'for-each-ref', '--format=%(refname)', 'refs/heads', 'refs/tags']).trim().split(/\r?\n/).filter(ref => ref && ref !== 'refs/heads/main');
+      if (other.some(ref => !/^refs\/(heads|tags)\//.test(ref))) throw new Error('Unexpected Git ref in branch/tag inventory');
+      if (other.length) run('git', ['-C', gitdir, 'push', mirror.url, ...other.map(ref => `${ref}:${ref}`)]);
+    } catch (error) { throw new Error(`${original.message}; merge-preserving retry: ${error.message}`); }
+  }
+}
 export async function sourceForgeReleases(snapshot, apply, download, record, run = command, directory = path.join(root, '.tools/tmp/mirror-active')) {
   const user = process.env.WEKAN_SOURCEFORGE_USER || 'wekan';
   if (!/^[a-zA-Z0-9_-]+$/.test(user)) throw new Error('Invalid SourceForge SSH username');
@@ -355,7 +396,7 @@ export async function sourceForgeReleases(snapshot, apply, download, record, run
       const listed = run('sftp', ['-oBatchMode=yes', '-oConnectTimeout=30', '-b', '-', remote], `-ls -1 "${dir}"
 `);
       const names = new Set(listed.split(/\r?\n/).map(s => s.trim().split('/').pop()));
-      const files = (release.assets || []).map(a => ({ asset: a, name: safeSegment(a.name) }));
+      const files = [...(release.assets || []), ...(release.sourceFiles || [])].map(a => ({ asset: a, name: safeSegment(a.name) }));
       const notes = path.join(directory, `${safeSegment(release.tag_name)}.md`);
       const manifest = path.join(directory, `${safeSegment(release.tag_name)}.json`);
       fs.mkdirSync(directory, { recursive: true });
@@ -384,14 +425,14 @@ export async function main(args = process.argv.slice(2)) {
     return;
   }
   if (args.includes('--help')) {
-    console.log('node tools/mirror-active-forges.mjs [--apply] [--code] [--target gitlab|codeberg|sourceforge]\nDefault: read-only preview. --apply copies missing issues/PR conversations, labels, milestones, releases and assets. --code also synchronizes GitHub branches/tags. Uses active calls in releases/mirror.sh. See docs/DeveloperDocs/Forge-Mirroring.md.'); return;
+    console.log('node tools/mirror-active-forges.mjs [--apply] [--code] [--target gitlab|codeberg|sourceforge]\nDefault: read-only preview. --apply archives source files and copies missing issues/PR conversations, labels, milestones, releases and assets. --code also synchronizes GitHub branches/tags. --archive-only --apply updates local files only. Uses active calls in releases/mirror.sh. See releases/mirror.md.'); return;
   }
   let target, snapshotFile, exportFile;
   for (let i = 0; i < args.length; i++) {
     if (args[i] === '--target') { target = args[++i]; if (!target) throw new Error('--target needs a mirror name'); }
     else if (args[i] === '--snapshot') { snapshotFile = args[++i]; if (!snapshotFile) throw new Error('--snapshot needs a filename'); }
     else if (args[i] === '--export-source') { exportFile = args[++i]; if (!exportFile) throw new Error('--export-source needs a filename'); }
-    else if (!['--apply', '--code'].includes(args[i])) throw new Error(`Unknown argument ${args[i]}`);
+    else if (!['--apply', '--code', '--archive-only', '--skip-archive'].includes(args[i])) throw new Error(`Unknown argument ${args[i]}`);
   }
   if (exportFile) {
     if (snapshotFile || args.includes('--apply')) throw new Error('--export-source is read-only and cannot be combined with --apply or --snapshot');
@@ -410,7 +451,7 @@ export async function main(args = process.argv.slice(2)) {
   fs.mkdirSync(logdir, { recursive: true }); fs.mkdirSync(temporary, { recursive: true });
   process.env.TMPDIR = temporary;
   if (process.platform === 'win32') { process.env.TMP = temporary; process.env.TEMP = temporary; }
-  const report = { started: new Date().toISOString(), apply, source: 'https://github.com/wekan/wekan', mirrors: {}, limitations: ['PRs become linked issues; discussion and inline review comments are copied. Review approval summaries, reactions and votes are not copied. GitHub authors/timestamps are recorded as provenance.', 'Issue attachments and inline images retain original URLs; they are not downloaded.', 'Actions workflow files are mirrored with Git; execution logs, secrets and cross-forge executable CI configuration are not copied.', 'SourceForge release notes and binaries use File Release System directories, not native GitLab/Gitea release objects. SourceForge milestones remain in source issue provenance.', 'Projects and wiki are excluded. Draft releases are not published to destinations. Existing destination text is preserved; only missing items/comments/assets are copied.'] };
+  const report = { started: new Date().toISOString(), apply, source: 'https://github.com/wekan/wekan', archive: [], mirrors: {}, limitations: ['PRs become linked issues; issue comments, review summaries and inline review comments are copied. Review states, authors and timestamps appear as provenance; accounts, votes and reactions are not recreated.', 'GitHub issue attachments/images are archived locally; destination Markdown retains original URLs. External website links are preserved in JSON/Markdown rather than downloaded.', 'Actions workflow files are mirrored with Git; execution logs, secrets and cross-forge executable CI configuration are not copied.', 'SourceForge release notes and binaries use File Release System directories, not native GitLab/Gitea release objects. SourceForge milestones remain in source issue provenance.', 'GitHub Discussions, projects and wiki are excluded. Draft releases are archived locally but not published to destinations. Existing destination text is preserved; only missing items/comments/assets are copied.'] };
   const log = line => { console.log(line); fs.appendFileSync(path.join(logdir, 'status.txt'), `${line}\n`); };
   let lastSave = 0;
   const save = (force = true) => {
@@ -425,18 +466,34 @@ export async function main(args = process.argv.slice(2)) {
     fs.writeFileSync(path.join(logdir, 'github.json'), JSON.stringify(snapshot));
   }
   catch (error) { report.sourceError = error.message; save(); throw error; }
-  const download = asset => downloadAsset(asset, temporary);
+  const archiveRecord = (status, detail) => { report.archive.push({ status, detail }); log(`[archive] ${status}: ${detail}`); save(false); };
+  if (!args.includes('--skip-archive')) {
+    try { await archiveSnapshot(snapshot, { root, apply, record: archiveRecord, downloadAsset }); }
+    catch (error) { archiveRecord('failed', error.message); }
+  }
+  log(`[archive] Summary: ${report.archive.filter(e => e.status === 'copied').length} added/updated; ${report.archive.filter(e => e.status === 'retired').length} renamed old; ${report.archive.filter(e => e.status === 'failed').length} failed.`);
+  if (args.includes('--archive-only')) {
+    report.finished = new Date().toISOString(); save();
+    if (report.archive.some(e => e.status === 'failed')) process.exitCode = 1;
+    return;
+  }
+  let archive = { assets: new Map(), sources: new Map() };
+  try { archive = archivedAssets(root, snapshot.releases); } catch (error) { archiveRecord('failed', error.message); }
+  for (const release of snapshot.releases) {
+    release.sourceFiles = (archive.sources.get(release.tag_name) || []).map(({ local, ...file }) => {
+      const id = `archive:${release.tag_name}:${file.name}`;
+      archive.assets.set(id, local); return { ...file, id };
+    });
+  }
+  const download = asset => archive.assets.get(asset.id) || downloadAsset(asset, temporary);
   for (const mirror of mirrors) {
     const entries = report.mirrors[mirror.name] = [];
     const record = (status, detail) => { entries.push({ status, detail }); log(`[${mirror.name}] ${status}: ${detail}`); save(false); };
     if (args.includes('--code')) {
       try {
         if (apply) {
-          const gitdir = path.join(root, '.tools/wekan-github-mirror.git');
-          if (!fs.existsSync(gitdir)) command('git', ['clone', '--mirror', 'https://github.com/wekan/wekan.git', gitdir]);
-          else command('git', ['-C', gitdir, 'fetch', 'origin']);
-          command('git', ['-C', gitdir, 'push', mirror.url, 'refs/heads/*:refs/heads/*', 'refs/tags/*:refs/tags/*']);
-          record('copied', 'Git branches and tags (no forced updates or deletions)');
+          syncGit(mirror);
+          record('copied', 'Git branches and tags (preserving destination main merges; no forced updates or deletions)');
         } else record('planned', 'Git branches and tags');
       } catch (error) { record('failed', `Git: ${error.message}`); }
     }
@@ -453,6 +510,6 @@ export async function main(args = process.argv.slice(2)) {
   }
   for (const limitation of report.limitations) log(`Scope: ${limitation}`);
   report.finished = new Date().toISOString(); save();
-  if (Object.values(report.mirrors).flat().some(e => ['failed', 'conflict'].includes(e.status))) process.exitCode = 1;
+  if (report.archive.some(e => e.status === 'failed') || Object.values(report.mirrors).flat().some(e => ['failed', 'conflict'].includes(e.status))) process.exitCode = 1;
 }
 if (process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href) main().catch(error => { console.error(error.message); process.exitCode = 1; });

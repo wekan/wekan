@@ -27,10 +27,13 @@ WORK_DIR="$(mktemp -d "$TMPDIR/mirror-run.XXXXXX")"
 trap 'rm -rf "$WORK_DIR"' EXIT
 node "$WEKAN_ROOT/tools/mirror-active-forges.mjs" --export-source "$WORK_DIR/github.json"
 STATUS=0
+ARCHIVE_ARGS=(--archive-only)
+if [ "${1:-}" != --preview ]; then ARCHIVE_ARGS+=(--apply); fi
+node "$WEKAN_ROOT/tools/mirror-active-forges.mjs" "${ARCHIVE_ARGS[@]}" --snapshot "$WORK_DIR/github.json" || STATUS=1
 mirror() {
   local name="$1"
   local clone_url="$2" # Also read by the shared engine's active-mirror registry.
-  bash "$SCRIPT_DIR/mirror-$name.sh" ${RUN_ARGS[@]+"${RUN_ARGS[@]}"} --snapshot "$WORK_DIR/github.json" || STATUS=1
+  bash "$SCRIPT_DIR/mirror-$name.sh" ${RUN_ARGS[@]+"${RUN_ARGS[@]}"} --snapshot "$WORK_DIR/github.json" --skip-archive || STATUS=1
 }
 RUN_ARGS=("$@")
 

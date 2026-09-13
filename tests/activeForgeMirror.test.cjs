@@ -127,6 +127,7 @@ const work = fs.mkdtempSync(path.join(process.env.TMPDIR, 'mirror-fixtures-'));
     assert.match(result.issues[1].body, /fork:fix → wekan:main/);
     assert.equal(result.releases[0].assets.length, 1);
     assert.ok(called.some(v => v.includes('/releases/4/assets')));
+    assert.ok(!called.some(v => /(?:discussions|graphql|projects|wiki)/i.test(v)), 'disabled GitHub Discussions, projects and wiki are never requested');
   });
   await test('native adapters use correct label, milestone, note and issue API shapes', async () => {
     for (const kind of ['gitlab', 'codeberg']) {
@@ -261,6 +262,27 @@ const work = fs.mkdtempSync(path.join(process.env.TMPDIR, 'mirror-fixtures-'));
     await m.sourceForgeReleases(data, true, async () => { throw new Error('Already uploaded'); }, () => {}, run, work);
     assert.equal(calls.length, before + 1, 'only inventory is repeated');
     assert.ok(!calls.some(v => v.includes('/../../')));
+    assert.match(m.safeSegment('wekan.tar.gz'), /\.tar\.gz$/);
+  });
+  await test('Git divergence retries by preserving main merges and copies only other explicit refs', () => {
+    const calls = [];
+    const run = (tool, args) => {
+      assert.equal(tool, 'git'); calls.push(args);
+      if (args.includes('refs/heads/*:refs/heads/*')) throw new Error('non-fast-forward');
+      if (args.includes('status')) return '';
+      if (args.includes('symbolic-ref')) return 'main\n';
+      if (args.includes('config') && args.at(-1) === 'user.name') return 'Lauri Ojansivu\n';
+      if (args.includes('config') && args.at(-1) === 'user.email') return 'x@xet7.org\n';
+      if (args.includes('for-each-ref')) return 'refs/heads/main\nrefs/heads/devel\nrefs/tags/v1\n';
+      return '';
+    };
+    m.syncGit({ name: 'codeberg', url: 'git@codeberg.org:wekan/wekan' }, run, () => true, work);
+    assert.equal(calls.filter(v => v.includes('merge') && v.includes('--no-edit')).length, 2);
+    assert.ok(calls.some(v => v.includes('HEAD:refs/heads/main')));
+    assert.ok(calls.some(v => v.includes('refs/heads/devel:refs/heads/devel') && v.includes('refs/tags/v1:refs/tags/v1')));
+    assert.ok(!calls.flat().some(v => ['--force', '--mirror', '--delete'].includes(v)));
+    const bad = (tool, args) => args.includes('status') ? ' M local-file\n' : run(tool, args);
+    assert.throws(() => m.syncGit({ name: 'codeberg', url: 'git@codeberg.org:wekan/wekan' }, bad, () => true, work), /local changes; preserved/);
   });
   await test('per-mirror launchers share snapshot, forward preview and propagate errors without live commands', () => {
     const bin = path.join(work, 'bin'); fs.mkdirSync(bin);
@@ -270,10 +292,11 @@ const work = fs.mkdtempSync(path.join(process.env.TMPDIR, 'mirror-fixtures-'));
     const result = spawnSync('bash', [path.join(root, 'releases/mirror.sh'), '--preview'], { encoding: 'utf8', env: { ...process.env, PATH: `${bin}:${process.env.PATH}`, MIRROR_RECORDER: recorder } });
     assert.equal(result.status, 1, result.stderr);
     const lines = fs.readFileSync(recorder, 'utf8').trim().split('\n');
-    assert.equal(lines.length, 4);
+    assert.equal(lines.length, 5);
     assert.match(lines[0], /--export-source/);
-    assert.ok(lines.slice(1).every(v => /--code/.test(v) && /--snapshot/.test(v) && !/--apply/.test(v)));
-    assert.match(lines[3], /--target sourceforge/, 'later mirror runs after earlier failure');
+    assert.match(lines[1], /--archive-only/);
+    assert.ok(lines.slice(2).every(v => /--code/.test(v) && /--snapshot/.test(v) && /--skip-archive/.test(v) && !/--apply/.test(v)));
+    assert.match(lines[4], /--target sourceforge/, 'later mirror runs after earlier failure');
     const sh = fs.readFileSync(path.join(root, 'build.sh'), 'utf8');
     const desc = sh.match(/"Mirror repo to forges\|([^"]+)"/)[1];
     assert.ok(sh.includes(`"${desc}")\n\t\tmirror_forge`), 'offered menu descriptor has an exact handler');
@@ -289,7 +312,7 @@ const work = fs.mkdtempSync(path.join(process.env.TMPDIR, 'mirror-fixtures-'));
       const file = path.join(bin, name); fs.writeFileSync(file, contents); fs.chmodSync(file, 0o755);
     }
     const file = path.join(work, 'source.json'); fs.writeFileSync(file, JSON.stringify({ ...snapshot([]), capturedAt: new Date().toISOString() }));
-    const result = spawnSync(process.execPath, [path.join(root, 'tools/mirror-active-forges.mjs'), '--apply', '--code', '--target', 'gitlab', '--snapshot', file], { encoding: 'utf8', env: { ...process.env, PATH: `${bin}:${process.env.PATH}`, MIRROR_GIT_RECORDER: recorder } });
+    const result = spawnSync(process.execPath, [path.join(root, 'tools/mirror-active-forges.mjs'), '--apply', '--code', '--skip-archive', '--target', 'gitlab', '--snapshot', file], { encoding: 'utf8', env: { ...process.env, PATH: `${bin}:${process.env.PATH}`, MIRROR_GIT_RECORDER: recorder } });
     const logdir = result.stdout.match(/Report: ([^\r\n]+)/)?.[1];
     try {
       assert.equal(result.status, 0, result.stderr);

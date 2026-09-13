@@ -18,6 +18,10 @@ set "SNAPSHOT=%TEMP%\mirror-source-%RANDOM%-%RANDOM%.json"
 node "%WEKAN_ROOT%\tools\mirror-active-forges.mjs" --export-source "%SNAPSHOT%"
 if errorlevel 1 exit /b 1
 set "STATUS=0"
+set "ARCHIVE_FLAGS=--apply"
+if "%~1"=="--preview" set "ARCHIVE_FLAGS="
+node "%WEKAN_ROOT%\tools\mirror-active-forges.mjs" --archive-only %ARCHIVE_FLAGS% --snapshot "%SNAPSHOT%"
+if errorlevel 1 set "STATUS=1"
 set "TARGETS=%SNAPSHOT%.targets"
 node "%WEKAN_ROOT%\tools\mirror-active-forges.mjs" --list-targets > "%TARGETS%"
 if errorlevel 1 (
@@ -31,6 +35,6 @@ exit /b %STATUS%
 
 :mirror
 REM The shared engine sends branches and tags without force or deletion.
-call "%~dp0mirror-%~1.bat" %3 --snapshot "%SNAPSHOT%"
+call "%~dp0mirror-%~1.bat" %3 --snapshot "%SNAPSHOT%" --skip-archive
 if errorlevel 1 set "STATUS=1"
 exit /b 0
