@@ -78937,5 +78937,40 @@
     "before": "a supprimé le champ personnalisé __customField__ du tableau __board__",
     "after": "far wàllu dugal __customField__ bu ñu def ci soxla ci tablo __board__",
     "reason": "Replace French activity text with Wolof, reusing existing etiket, karta, limu, yoon, tablo and input-field terminology. Preserve all location/member/label placeholders and creation versus deletion versus removal semantics. Janga Wolof dictionary supports génne (take out) and far (delete); full grammar and computing adaptations remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "archive-card",
+    "before": "Archiver la carte",
+    "after": "Yóbbu karta bi ci àrsiw bi",
+    "reason": "Replace French archive action/activity wording with Wolof using existing Yóbbu ci àrsiw bi and karta/limu/yoon/tablo terminology. Preserve all entity/location placeholders and archival rather than permanent deletion. Archive loan and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "act-archivedBoard",
+    "before": "Le tableau __board__ a été déplacé vers les archives",
+    "after": "Tablo __board__ yóbbu nañu ko ci àrsiw bi",
+    "reason": "Replace French archive action/activity wording with Wolof using existing Yóbbu ci àrsiw bi and karta/limu/yoon/tablo terminology. Preserve all entity/location placeholders and archival rather than permanent deletion. Archive loan and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "act-archivedCard",
+    "before": "Carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__ archivée",
+    "after": "Karta __card__ ci limu __list__ ci yoon __swimlane__ ci tablo __board__ yóbbu nañu ko ci àrsiw bi",
+    "reason": "Replace French archive action/activity wording with Wolof using existing Yóbbu ci àrsiw bi and karta/limu/yoon/tablo terminology. Preserve all entity/location placeholders and archival rather than permanent deletion. Archive loan and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "act-archivedList",
+    "before": "Liste __list__ du couloir __swimlane__ du tableau __board__ archivée",
+    "after": "Limu __list__ ci yoon __swimlane__ ci tablo __board__ yóbbu nañu ko ci àrsiw bi",
+    "reason": "Replace French archive action/activity wording with Wolof using existing Yóbbu ci àrsiw bi and karta/limu/yoon/tablo terminology. Preserve all entity/location placeholders and archival rather than permanent deletion. Archive loan and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "act-archivedSwimlane",
+    "before": "Couloir __swimlane__ du tableau __board__ archivé",
+    "after": "Yoon __swimlane__ ci tablo __board__ yóbbu nañu ko ci àrsiw bi",
+    "reason": "Replace French archive action/activity wording with Wolof using existing Yóbbu ci àrsiw bi and karta/limu/yoon/tablo terminology. Preserve all entity/location placeholders and archival rather than permanent deletion. Archive loan and full grammar remain low confidence."
   }
 ]
