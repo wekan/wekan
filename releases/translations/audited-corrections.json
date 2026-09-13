@@ -75997,5 +75997,229 @@
     "before": "Copyî l' hårdêye e tchapea emacralé",
     "after": "Copyî l' hårdêye e presse-papî",
     "reason": "Correct unsupported literal magic-hat wording previously reused for clipboard. Authored KDE Walloon source explicitly uses presse-papî for Clipboard Actions: https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Match existing copy-to-clipboard terminology, preserve source tokens and drag/drop meaning. Full surrounding grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "cron-clear-errors",
+    "before": "Effacer toutes les erreurs",
+    "after": "Netyî totes les arokes",
+    "reason": "Replace audited French scheduled-job/customization/error controls with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve resume/start failure versus success, assetlinks.json/HTML/JSON tag names, default logo height and authorization prohibition. Full grammar and specialized web customization terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "cron-errors-cleared",
+    "before": "Toutes les erreurs ont été effacées avec succès",
+    "after": "Totes les arokes ont stî bén netyeyes",
+    "reason": "Replace audited French scheduled-job/customization/error controls with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve resume/start failure versus success, assetlinks.json/HTML/JSON tag names, default logo height and authorization prohibition. Full grammar and specialized web customization terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "cron-job-resume-failed",
+    "before": "Échec de la reprise de la tâche planifiée",
+    "after": "Li ratacaedje del bouye planifiêye n' a nén reüssi",
+    "reason": "Replace audited French scheduled-job/customization/error controls with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve resume/start failure versus success, assetlinks.json/HTML/JSON tag names, default logo height and authorization prohibition. Full grammar and specialized web customization terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "cron-job-resumed",
+    "before": "Tâche planifiée reprise avec succès",
+    "after": "Li bouye planifiêye a bén rataké",
+    "reason": "Replace audited French scheduled-job/customization/error controls with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve resume/start failure versus success, assetlinks.json/HTML/JSON tag names, default logo height and authorization prohibition. Full grammar and specialized web customization terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "cron-job-start-failed",
+    "before": "Échec du démarrage de la tâche planifiée",
+    "after": "Li cminçaedje del bouye planifiêye n' a nén reüssi",
+    "reason": "Replace audited French scheduled-job/customization/error controls with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve resume/start failure versus success, assetlinks.json/HTML/JSON tag names, default logo height and authorization prohibition. Full grammar and specialized web customization terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "cron-job-started",
+    "before": "Tâche planifiée démarrée avec succès",
+    "after": "Li bouye planifiêye a bén cmincî",
+    "reason": "Replace audited French scheduled-job/customization/error controls with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve resume/start failure versus success, assetlinks.json/HTML/JSON tag names, default logo height and authorization prohibition. Full grammar and specialized web customization terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "cron-resume-paused",
+    "before": "Reprendre les migrations en pause",
+    "after": "Rataker les migråcions djokêyes",
+    "reason": "Replace audited French scheduled-job/customization/error controls with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve resume/start failure versus success, assetlinks.json/HTML/JSON tag names, default logo height and authorization prohibition. Full grammar and specialized web customization terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "cron-retry-failed",
+    "before": "Réessayer les migrations échouées",
+    "after": "Rissayî les migråcions ki n' ont nén reüssi",
+    "reason": "Replace audited French scheduled-job/customization/error controls with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve resume/start failure versus success, assetlinks.json/HTML/JSON tag names, default logo height and authorization prohibition. Full grammar and specialized web customization terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "custom-assetlinks-content",
+    "before": "Contenu assetlinks.json personnalisé (JSON)",
+    "after": "Contnou d' assetlinks.json da vosse (JSON)",
+    "reason": "Replace audited French scheduled-job/customization/error controls with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve resume/start failure versus success, assetlinks.json/HTML/JSON tag names, default logo height and authorization prohibition. Full grammar and specialized web customization terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "custom-assetlinks-enabled",
+    "before": "Activer assetlinks.json personnalisé",
+    "after": "Alumer assetlinks.json da vosse",
+    "reason": "Replace audited French scheduled-job/customization/error controls with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve resume/start failure versus success, assetlinks.json/HTML/JSON tag names, default logo height and authorization prohibition. Full grammar and specialized web customization terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "custom-head-link-tags",
+    "before": "Balises lien personnalisées (HTML)",
+    "after": "Balises link da vosse (HTML)",
+    "reason": "Replace audited French scheduled-job/customization/error controls with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve resume/start failure versus success, assetlinks.json/HTML/JSON tag names, default logo height and authorization prohibition. Full grammar and specialized web customization terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "custom-head-manifest-content",
+    "before": "Contenu du manifeste web personnalisé (JSON)",
+    "after": "Contnou do manifeste waibe da vosse (JSON)",
+    "reason": "Replace audited French scheduled-job/customization/error controls with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve resume/start failure versus success, assetlinks.json/HTML/JSON tag names, default logo height and authorization prohibition. Full grammar and specialized web customization terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "custom-head-meta-tags",
+    "before": "Balises meta personnalisées (HTML)",
+    "after": "Balises meta da vosse (HTML)",
+    "reason": "Replace audited French scheduled-job/customization/error controls with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve resume/start failure versus success, assetlinks.json/HTML/JSON tag names, default logo height and authorization prohibition. Full grammar and specialized web customization terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "custom-head-tags-enabled",
+    "before": "Activer les balises personnalisées",
+    "after": "Alumer les balises head da vosse",
+    "reason": "Replace audited French scheduled-job/customization/error controls with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve resume/start failure versus success, assetlinks.json/HTML/JSON tag names, default logo height and authorization prohibition. Full grammar and specialized web customization terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "custom-help-link-url",
+    "before": "Lien URL vers l'aide personnalisée",
+    "after": "URL del hårdêye d' aidance da vosse",
+    "reason": "Replace audited French scheduled-job/customization/error controls with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve resume/start failure versus success, assetlinks.json/HTML/JSON tag names, default logo height and authorization prohibition. Full grammar and specialized web customization terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "custom-legal-notice-link-url",
+    "before": "URL de la page des mentions légales personnalisées",
+    "after": "URL del pådje d' aviz di lwè da vosse",
+    "reason": "Replace audited French scheduled-job/customization/error controls with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve resume/start failure versus success, assetlinks.json/HTML/JSON tag names, default logo height and authorization prohibition. Full grammar and specialized web customization terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "custom-manifest-enabled",
+    "before": "Activer le manifeste web personnalisé",
+    "after": "Alumer li manifeste waibe da vosse",
+    "reason": "Replace audited French scheduled-job/customization/error controls with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve resume/start failure versus success, assetlinks.json/HTML/JSON tag names, default logo height and authorization prohibition. Full grammar and specialized web customization terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "custom-top-left-corner-logo-height",
+    "before": "Hauteur du logo personnalisé dans le coin supérieur gauche. Défaut : 27",
+    "after": "Hôteur do logo da vosse al copete a hintche. Pa defaut: 27",
+    "reason": "Replace audited French scheduled-job/customization/error controls with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve resume/start failure versus success, assetlinks.json/HTML/JSON tag names, default logo height and authorization prohibition. Full grammar and specialized web customization terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "custom-top-left-corner-logo-image-url",
+    "before": "URL de l'Image du logo personnalisé dans le coin supérieur gauche",
+    "after": "URL di l' imådje do logo da vosse al copete a hintche",
+    "reason": "Replace audited French scheduled-job/customization/error controls with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve resume/start failure versus success, assetlinks.json/HTML/JSON tag names, default logo height and authorization prohibition. Full grammar and specialized web customization terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "custom-top-left-corner-logo-link-url",
+    "before": "Lien URL du logo personnalisé dans le coin supérieur gauche",
+    "after": "URL del hårdêye do logo da vosse al copete a hintche",
+    "reason": "Replace audited French scheduled-job/customization/error controls with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve resume/start failure versus success, assetlinks.json/HTML/JSON tag names, default logo height and authorization prohibition. Full grammar and specialized web customization terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "display-card-creator",
+    "before": "Afficher le créateur de la carte",
+    "after": "Mostrer l' askepieu del cåte",
+    "reason": "Replace audited French scheduled-job/customization/error controls with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve resume/start failure versus success, assetlinks.json/HTML/JSON tag names, default logo height and authorization prohibition. Full grammar and specialized web customization terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "editCustomFieldPopup-title",
+    "before": "Éditer le champ personnalisé",
+    "after": "Candjî l' tchamp",
+    "reason": "Replace audited French scheduled-job/customization/error controls with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve resume/start failure versus success, assetlinks.json/HTML/JSON tag names, default logo height and authorization prohibition. Full grammar and specialized web customization terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "editTranslationPopup-title",
+    "before": "Éditer la traduction personnalisée",
+    "after": "Candjî l' chinne di ratournaedje da vosse",
+    "reason": "Replace audited French scheduled-job/customization/error controls with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve resume/start failure versus success, assetlinks.json/HTML/JSON tag names, default logo height and authorization prohibition. Full grammar and specialized web customization terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "error-invitation-code-not-exist",
+    "before": "Ce code d'invitation n'existe pas.",
+    "after": "Li côde d' invitåcion n' egzistêye nén",
+    "reason": "Replace audited French scheduled-job/customization/error controls with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve resume/start failure versus success, assetlinks.json/HTML/JSON tag names, default logo height and authorization prohibition. Full grammar and specialized web customization terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "error-json-malformed",
+    "before": "Votre texte JSON n'est pas valide",
+    "after": "Vosse tecse n' est nén do JSON valåbe",
+    "reason": "Replace audited French scheduled-job/customization/error controls with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve resume/start failure versus success, assetlinks.json/HTML/JSON tag names, default logo height and authorization prohibition. Full grammar and specialized web customization terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "error-json-schema",
+    "before": "Vos données JSON ne contiennent pas l'information appropriée dans un format correct",
+    "after": "Vos dnêyes JSON ni contnèt nén les bonnes informåcions dins l' bon format",
+    "reason": "Replace audited French scheduled-job/customization/error controls with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve resume/start failure versus success, assetlinks.json/HTML/JSON tag names, default logo height and authorization prohibition. Full grammar and specialized web customization terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "error-notAuthorized",
+    "before": "Vous n'êtes pas autorisé à accéder à cette page.",
+    "after": "Vos n' avoz nén l' droet di vey cisse pådje ci.",
+    "reason": "Replace audited French scheduled-job/customization/error controls with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve resume/start failure versus success, assetlinks.json/HTML/JSON tag names, default logo height and authorization prohibition. Full grammar and specialized web customization terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "error-orgname-taken",
+    "before": "Ce nom d'organisation est déjà utilisé",
+    "after": "Ci no d' organizåcion ci est dedja pris",
+    "reason": "Replace audited French scheduled-job/customization/error controls with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve resume/start failure versus success, assetlinks.json/HTML/JSON tag names, default logo height and authorization prohibition. Full grammar and specialized web customization terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "error-teamname-taken",
+    "before": "Ce nom d'équipe est déjà utilisé",
+    "after": "Ci no d' ekipe ci est dedja pris",
+    "reason": "Replace audited French scheduled-job/customization/error controls with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve resume/start failure versus success, assetlinks.json/HTML/JSON tag names, default logo height and authorization prohibition. Full grammar and specialized web customization terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "error-undefined",
+    "before": "Une erreur inconnue s'est produite",
+    "after": "Ene sacwè n' a nén roté",
+    "reason": "Replace audited French scheduled-job/customization/error controls with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve resume/start failure versus success, assetlinks.json/HTML/JSON tag names, default logo height and authorization prohibition. Full grammar and specialized web customization terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "error-user-notAllowSelf",
+    "before": "Vous ne pouvez pas vous inviter vous-même",
+    "after": "Vos n' poloz nén vos inviter vos-minme",
+    "reason": "Replace audited French scheduled-job/customization/error controls with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve resume/start failure versus success, assetlinks.json/HTML/JSON tag names, default logo height and authorization prohibition. Full grammar and specialized web customization terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "filter-card-title-label",
+    "before": "Filtrer par titre de carte",
+    "after": "Passer pa tite di cåte",
+    "reason": "Replace audited French scheduled-job/customization/error controls with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve resume/start failure versus success, assetlinks.json/HTML/JSON tag names, default logo height and authorization prohibition. Full grammar and specialized web customization terminology remain low confidence; source tokens retained."
   }
 ]
