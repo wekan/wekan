@@ -57797,5 +57797,40 @@
     "before": "Republic of China",
     "after": "ڕۆژژمێری مینگۆ",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ug",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "ھىجرىيە كالېندارى",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ug",
+    "key": "calendar-system-islamic-civil",
+    "before": "Islamic civil",
+    "after": "ھىجرىيە كالېندارى (جەدۋەللىك، پۇقرالىق باشلىنىش دەۋرى)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ug",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "ھىجرىيە كالېندارى (سەئۇدى ئەرەبىستان، ئاينى كۆرۈش ئاساسىدا)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ug",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "ھىجرىيە كالېندارى (جەدۋەللىك، ئاسترونومىيەلىك باشلىنىش دەۋرى)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ug",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "ھىجرىيە كالېندارى (ئۇممۇل قۇرا)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
