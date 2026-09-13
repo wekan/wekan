@@ -98,6 +98,8 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.equal(veps.language, 'Kelʹ');
   assert.equal(veps.number, 'Lugu');
   assert.equal(veps.title, 'Nimi');
+  assert.equal(veps['title-alphabetically'], 'Nimi (kirjamišt)');
+  assert.doesNotMatch(veps['title-alphabetically'], /Otsikko|Aakkos/);
   assert.match(veps['set-default-board-title'], /^Paina,/);
   assert.match(veps['unset-default-board-title'], / Paina,/);
   assert.doesNotMatch(veps['set-default-board-title'] + veps['unset-default-board-title'], /Painda/);

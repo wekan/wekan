@@ -112103,5 +112103,12 @@
     "before": "Nece laud avaidase jäl'ges sizälekirjutandad. Painda, miše azotta sen avtomatine avaiduz.",
     "after": "Nece laud avaidase jäl'ges sizälekirjutandad. Paina, miše azotta sen avtomatine avaiduz.",
     "reason": "Veps dictionary-attested vocabulary kelʹ (language), lugu (number/quantity), nimi (name/title); painda imperative is paina, not the infinitive-like Painda. Kaikki Veps dictionary and Wiktionary Veps entries."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "title-alphabetically",
+    "before": "Otsikko (Aakkosjärjestyksessä)",
+    "after": "Nimi (kirjamišt)",
+    "reason": "Replace Finnish Otsikko (Aakkosjärjestyksessä) with Veps nimi title and kirjamišt alphabet, attested Kaikki/Wiktionary. Low-confidence compact UI wording: parenthetical alphabet indicates alphabetical sorting; fluent review needed."
   }
 ]
