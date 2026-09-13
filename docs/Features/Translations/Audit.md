@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Audit keys |
 | --- | ---: |
-| Explicitly corrected | 7,763 |
+| Explicitly corrected | 7,771 |
 | Restored pre-pull values awaiting further validation | 4,059 |
 | Reviewed and retained unchanged | 175 |
-| Pending review or repair | 8,084 |
+| Pending review or repair | 8,076 |
 | Total tracked | 20,081 |
 
 **Translation repairs remain unfinished.** These counts cover flagged findings; unflagged strings and restored values are not certified as correct.
 
-Fixes cover wrong-language text, terminology, warnings, JSON examples, placeholders and calendar/search formatting. The correction history records **7,836 values**, including fixes outside the audit. Per-language remaining work is available through the command below.
+Fixes cover wrong-language text, terminology, warnings, JSON examples, placeholders and calendar/search formatting. The correction history records **7,844 values**, including fixes outside the audit. Per-language remaining work is available through the command below.
 
-Latest fix: [8fd091387](https://github.com/wekan/wekan/commit/8fd0913872c46e5a65fa9821616e31ca5a3aeb65), **2026-09-13** — seven Aromanian search descriptions repaired, including reversed creation-age wording, with low confidence; **114 Aromanian findings remain**. Exact-value, placeholder, key-order and idempotency checks pass. Wording needs native-speaker review; live browser verification remains unavailable.
+Latest fix: [a501f4223](https://github.com/wekan/wekan/commit/a501f4223a4a5e4d70353614b7a14cc83728dc80), **2026-09-13** — eight Aromanian search descriptions repaired, including reversed modification-age wording, with low confidence; **106 Aromanian findings remain**. Exact-value, placeholder, key-order and idempotency checks pass. Wording needs native-speaker review; live browser verification remains unavailable.
 
 **Provenance:** not all errors came from Transifex. The captured pull changed 4,061 values; the local audit added 16,020 findings. Bosnian errors predated that pull in a [local completion commit](https://github.com/wekan/wekan/commit/bdb3b15886a749b725b5290ba0109fcba955f983). Other ultimate origins remain unverified.
 
