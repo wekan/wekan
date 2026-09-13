@@ -55879,5 +55879,68 @@
     "before": "Viene rimossa una qualsiasi etichetta",
     "after": "Vene levata 'na qualunque etichetta",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "Cube-Grid",
+    "before": "Spinner di attesa Cube-Grid",
+    "after": "Indicatore 'e attesa Cube-Grid",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "DDP_transport",
+    "before": "Trasporto DDP (DDP_TRANSPORT)",
+    "after": "Traspuorto DDP (DDP_TRANSPORT)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "Double-Bounce",
+    "before": "Spinner di attesa Double Bounce",
+    "after": "Indicatore 'e attesa Double Bounce",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "MongoDB_storage_engine",
+    "before": "Storage engine di MongoDB",
+    "after": "Mutore 'e memorizzazzione MongoDB",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "Node_heap_heap_size_limit",
+    "before": "Heap Node: limite di dimensione dell'heap",
+    "after": "Heap Node: limite d'a dimenzione 'e ll'heap",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "Node_heap_malloced_memory",
+    "before": "Heap Node: memoria allocata (malloc)",
+    "after": "Heap Node: memoria allucata (malloc)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "Node_heap_number_of_detached_contexts",
+    "before": "Heap Node: numero di contesti scollegati",
+    "after": "Heap Node: nummero 'e cuntesti sculligati",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "Node_heap_number_of_native_contexts",
+    "before": "Heap Node: numero di contesti nativi",
+    "after": "Heap Node: nummero 'e cuntesti nativi",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "Node_heap_peak_malloced_memory",
+    "before": "Heap Node: picco di memoria allocata (malloc)",
+    "after": "Heap Node: picco 'e memoria allucata (malloc)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
