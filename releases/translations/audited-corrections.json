@@ -76697,5 +76697,152 @@
     "before": "Republic of China",
     "after": "Calindrî Minguo",
     "reason": "Replace audited English calendar labels with Walloon, preserving Dangi/Amete Alem/Hijri/Umm al-Qura/Minguo names. Calindrî attested in native publisher https://lirantoele.walon.org/aurtchives/Rantoele44_etire.pdf and author https://lucyin.walon.org/livreye/lahaye.html . Specialized religious/country adjectives remain low confidence and require further terminology review; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "delete-duplicate-lists-confirm",
+    "before": "Êtes-vous sûr ? Cela supprimera toutes les listes en doublon qui ont le même nom et qui ne contiennent aucune carte.",
+    "after": "Estoz vs seur? Çoula va disfacer totes les djivêyes e dobe ki ont l' minme no et pont d' cåtes.",
+    "reason": "Replace audited French layout/upload/control wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve vertical direction, label range 1-9, multi-selection add/remove behavior, empty same-name duplicate deletion and WIP threshold. Full grammar and specialized path/authentication terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "deposit-subtasks-list",
+    "before": "Liste de destination pour les sous-tâches déposées ici :",
+    "after": "Djivêye di destinåcion des sos-bouyes metowes cial:",
+    "reason": "Replace audited French layout/upload/control wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve vertical direction, label range 1-9, multi-selection add/remove behavior, empty same-name duplicate deletion and WIP threshold. Full grammar and specialized path/authentication terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "disambiguateMultiLabelPopup-title",
+    "before": "Préciser l'action sur l'étiquette",
+    "after": "Tchoezi l' accion so l' etikète",
+    "reason": "Replace audited French layout/upload/control wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve vertical direction, label range 1-9, multi-selection add/remove behavior, empty same-name duplicate deletion and WIP threshold. Full grammar and specialized path/authentication terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "disambiguateMultiMemberPopup-title",
+    "before": "Préciser l'action sur le participant",
+    "after": "Tchoezi l' accion so l' mimbe",
+    "reason": "Replace audited French layout/upload/control wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve vertical direction, label range 1-9, multi-selection add/remove behavior, empty same-name duplicate deletion and WIP threshold. Full grammar and specialized path/authentication terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "enable-vertical-scrollbars",
+    "before": "Activer les barres de défilement verticales",
+    "after": "Alumer les båres di disrôlaedje d' amont a aval",
+    "reason": "Replace audited French layout/upload/control wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve vertical direction, label range 1-9, multi-selection add/remove behavior, empty same-name duplicate deletion and WIP threshold. Full grammar and specialized path/authentication terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "has-overtime-cards",
+    "before": "A des cartes avec du temps supplémentaire",
+    "after": "A des cåtes avou do tins e pus",
+    "reason": "Replace audited French layout/upload/control wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve vertical direction, label range 1-9, multi-selection add/remove behavior, empty same-name duplicate deletion and WIP threshold. Full grammar and specialized path/authentication terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "has-spenttime-cards",
+    "before": "A des cartes avec du temps passé",
+    "after": "A des cåtes avou do tins passé",
+    "reason": "Replace audited French layout/upload/control wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve vertical direction, label range 1-9, multi-selection add/remove behavior, empty same-name duplicate deletion and WIP threshold. Full grammar and specialized path/authentication terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "overtime-hours",
+    "before": "Temps supplémentaire (heures)",
+    "after": "Tins e pus (eures)",
+    "reason": "Replace audited French layout/upload/control wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve vertical direction, label range 1-9, multi-selection add/remove behavior, empty same-name duplicate deletion and WIP threshold. Full grammar and specialized path/authentication terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "paste-or-dragdrop",
+    "before": "pour coller, ou glissez-déposez une image ici (seulement une image)",
+    "after": "po aclaper, ou haetchî et laechî on fitchî d' imådje dessus (imådje seulmint)",
+    "reason": "Replace audited French layout/upload/control wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve vertical direction, label range 1-9, multi-selection add/remove behavior, empty same-name duplicate deletion and WIP threshold. Full grammar and specialized path/authentication terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "prefix-with-full-path",
+    "before": "Préfixer avec le chemin complet",
+    "after": "Mete li complet tchimin divant",
+    "reason": "Replace audited French layout/upload/control wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve vertical direction, label range 1-9, multi-selection add/remove behavior, empty same-name duplicate deletion and WIP threshold. Full grammar and specialized path/authentication terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "subtext-with-full-path",
+    "before": "Sous-titre avec le chemin complet",
+    "after": "Tecse pa dzo avou l' complet tchimin",
+    "reason": "Replace audited French layout/upload/control wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve vertical direction, label range 1-9, multi-selection add/remove behavior, empty same-name duplicate deletion and WIP threshold. Full grammar and specialized path/authentication terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "subtext-with-parent",
+    "before": "Sous-titre avec le parent",
+    "after": "Tecse pa dzo avou l' parint",
+    "reason": "Replace audited French layout/upload/control wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve vertical direction, label range 1-9, multi-selection add/remove behavior, empty same-name duplicate deletion and WIP threshold. Full grammar and specialized path/authentication terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "remove-labels-multiselect",
+    "before": "La multi-sélection supprime les étiquettes 1-9",
+    "after": "Li tchuze multipe oiste les etikètes 1-9",
+    "reason": "Replace audited French layout/upload/control wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve vertical direction, label range 1-9, multi-selection add/remove behavior, empty same-name duplicate deletion and WIP threshold. Full grammar and specialized path/authentication terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "sign-in-to-upload",
+    "before": "Connectez-vous pour téléverser des dépôts",
+    "after": "S' elodjî po evoyî des depôts",
+    "reason": "Replace audited French layout/upload/control wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve vertical direction, label range 1-9, multi-selection add/remove behavior, empty same-name duplicate deletion and WIP threshold. Full grammar and specialized path/authentication terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "upload-completed",
+    "before": "Le chargement est terminé",
+    "after": "Evoyaedje fini",
+    "reason": "Replace audited French layout/upload/control wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve vertical direction, label range 1-9, multi-selection add/remove behavior, empty same-name duplicate deletion and WIP threshold. Full grammar and specialized path/authentication terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "upload-repository",
+    "before": "Téléverser/Mettre à jour le dépôt",
+    "after": "Evoyî ou mete a djoû li depôt",
+    "reason": "Replace audited French layout/upload/control wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve vertical direction, label range 1-9, multi-selection add/remove behavior, empty same-name duplicate deletion and WIP threshold. Full grammar and specialized path/authentication terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "webhook-token",
+    "before": "Jeton (optionnel pour l'authentification)",
+    "after": "Djeton (opcionel po l' otentifiaedje)",
+    "reason": "Replace audited French layout/upload/control wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve vertical direction, label range 1-9, multi-selection add/remove behavior, empty same-name duplicate deletion and WIP threshold. Full grammar and specialized path/authentication terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "wipLimitErrorPopup-dialog-pt1",
+    "before": "Le nombre de cartes de cette liste est supérieur à la limite WIP que vous avez définie.",
+    "after": "Li nombe di bouyes dins cisse djivêye ci est pus grand ki l' limite WIP ki vos avoz definie.",
+    "reason": "Replace audited French layout/upload/control wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve vertical direction, label range 1-9, multi-selection add/remove behavior, empty same-name duplicate deletion and WIP threshold. Full grammar and specialized path/authentication terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "toggle-labels",
+    "before": "Bascule les étiquettes 1-9 pour les cartes. La sélection multiple ajoute les étiquettes 1-9",
+    "after": "Alumer ou distinde les etikètes 1-9 del cåte. Li tchuze multipe radjoute les etikètes 1-9",
+    "reason": "Replace audited French layout/upload/control wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve vertical direction, label range 1-9, multi-selection add/remove behavior, empty same-name duplicate deletion and WIP threshold. Full grammar and specialized path/authentication terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "tracking-info",
+    "before": "Vous serez notifié de toute modification concernant les cartes pour lesquelles vous êtes impliqué en tant que créateur ou participant.",
+    "after": "Vos rçuvoz on notifiaedje po les candjmints des cåtes ki vos nd estoz l' askepieu ou on mimbe.",
+    "reason": "Replace audited French layout/upload/control wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve vertical direction, label range 1-9, multi-selection add/remove behavior, empty same-name duplicate deletion and WIP threshold. Full grammar and specialized path/authentication terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "translation-number",
+    "before": "Le nombre de traductions personnalisées est de :",
+    "after": "Li nombe di chinnes di ratournaedje da vosse est:",
+    "reason": "Replace audited French layout/upload/control wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve vertical direction, label range 1-9, multi-selection add/remove behavior, empty same-name duplicate deletion and WIP threshold. Full grammar and specialized path/authentication terminology remain low confidence; source tokens retained."
   }
 ]
