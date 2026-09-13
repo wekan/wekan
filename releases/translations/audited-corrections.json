@@ -87652,5 +87652,75 @@
     "before": "Vous ne pouvez pas vous inviter vous-même",
     "after": "No kanol vüdön oli",
     "reason": "Replace French/Esperanto invitation action, subject/body and self-invitation error with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests vüd/vüdön (invitation/invite), löfik (dear), kevobön (co-operate), sökön (follow); reuse primary MediaWiki link instructions and checked email/send/thanks/join vocabulary. Preserve __inviter__, __user__, __board__, __url__, quoted board name and paragraph separator representation. Board-membership construction and assembled invitation/error grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "listActionPopup-title",
+    "before": "Actions sur la liste",
+    "after": "Dunots liseda",
+    "reason": "Replace French list action/activity/display/filter labels with Volapük and remove stray 1 before %s in list-renaming activity. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests votanemükön (rename), sulön (filter); primary MediaWiki Volapük source (https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json) attests list/show/hide/change vocabulary. Reuse checked lised/kad/kadil/kontrolalised, tiäd, archive movement and activity tense patterns. Preserve __list__, __board__, %s, all-cards-in-this-list and card-versus-minicard scope. Software senses, derived checklist and assembled activity grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "listDeletePopup-title",
+    "before": "Supprimer la liste ?",
+    "after": "Radön lisedi?",
+    "reason": "Replace French list action/activity/display/filter labels with Volapük and remove stray 1 before %s in list-renaming activity. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests votanemükön (rename), sulön (filter); primary MediaWiki Volapük source (https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json) attests list/show/hide/change vocabulary. Reuse checked lised/kad/kadil/kontrolalised, tiäd, archive movement and activity tense patterns. Preserve __list__, __board__, %s, all-cards-in-this-list and card-versus-minicard scope. Software senses, derived checklist and assembled activity grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "list-archive-cards",
+    "before": "Déplacer toutes les cartes de cette liste vers les archives",
+    "after": "Topätükön kads valik liseda at lü ragiv",
+    "reason": "Replace French list action/activity/display/filter labels with Volapük and remove stray 1 before %s in list-renaming activity. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests votanemükön (rename), sulön (filter); primary MediaWiki Volapük source (https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json) attests list/show/hide/change vocabulary. Reuse checked lised/kad/kadil/kontrolalised, tiäd, archive movement and activity tense patterns. Preserve __list__, __board__, %s, all-cards-in-this-list and card-versus-minicard scope. Software senses, derived checklist and assembled activity grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "activity-changedListTitle",
+    "before": "a renommé la liste en 1%s",
+    "after": "evotanemükon lisedi ad %s",
+    "reason": "Replace French list action/activity/display/filter labels with Volapük and remove stray 1 before %s in list-renaming activity. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests votanemükön (rename), sulön (filter); primary MediaWiki Volapük source (https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json) attests list/show/hide/change vocabulary. Reuse checked lised/kad/kadil/kontrolalised, tiäd, archive movement and activity tense patterns. Preserve __list__, __board__, %s, all-cards-in-this-list and card-versus-minicard scope. Software senses, derived checklist and assembled activity grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "act-createList",
+    "before": "a ajouté la liste __list__ au tableau __board__",
+    "after": "elüükon lisedi __list__ lü tab __board__",
+    "reason": "Replace French list action/activity/display/filter labels with Volapük and remove stray 1 before %s in list-renaming activity. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests votanemükön (rename), sulön (filter); primary MediaWiki Volapük source (https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json) attests list/show/hide/change vocabulary. Reuse checked lised/kad/kadil/kontrolalised, tiäd, archive movement and activity tense patterns. Preserve __list__, __board__, %s, all-cards-in-this-list and card-versus-minicard scope. Software senses, derived checklist and assembled activity grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "showChecklistAtMinicard",
+    "before": "Afficher la check-list dans la minicarte",
+    "after": "Jonön kontrolalisedi su kadil",
+    "reason": "Replace French list action/activity/display/filter labels with Volapük and remove stray 1 before %s in list-renaming activity. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests votanemükön (rename), sulön (filter); primary MediaWiki Volapük source (https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json) attests list/show/hide/change vocabulary. Reuse checked lised/kad/kadil/kontrolalised, tiäd, archive movement and activity tense patterns. Preserve __list__, __board__, %s, all-cards-in-this-list and card-versus-minicard scope. Software senses, derived checklist and assembled activity grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "card-show-lists",
+    "before": "Afficher les listes sur la carte",
+    "after": "Jonön lisedis su kad",
+    "reason": "Replace French list action/activity/display/filter labels with Volapük and remove stray 1 before %s in list-renaming activity. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests votanemükön (rename), sulön (filter); primary MediaWiki Volapük source (https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json) attests list/show/hide/change vocabulary. Reuse checked lised/kad/kadil/kontrolalised, tiäd, archive movement and activity tense patterns. Preserve __list__, __board__, %s, all-cards-in-this-list and card-versus-minicard scope. Software senses, derived checklist and assembled activity grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "card-show-lists-on-minicard",
+    "before": "Afficher les listes sur la mini-carte",
+    "after": "Jonön lisedis su kadil",
+    "reason": "Replace French list action/activity/display/filter labels with Volapük and remove stray 1 before %s in list-renaming activity. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests votanemükön (rename), sulön (filter); primary MediaWiki Volapük source (https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json) attests list/show/hide/change vocabulary. Reuse checked lised/kad/kadil/kontrolalised, tiäd, archive movement and activity tense patterns. Preserve __list__, __board__, %s, all-cards-in-this-list and card-versus-minicard scope. Software senses, derived checklist and assembled activity grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "hide-list-on-minicard",
+    "before": "Masquer la liste sur la mini-carte",
+    "after": "Klänedön lisedi su kadil",
+    "reason": "Replace French list action/activity/display/filter labels with Volapük and remove stray 1 before %s in list-renaming activity. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests votanemükön (rename), sulön (filter); primary MediaWiki Volapük source (https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json) attests list/show/hide/change vocabulary. Reuse checked lised/kad/kadil/kontrolalised, tiäd, archive movement and activity tense patterns. Preserve __list__, __board__, %s, all-cards-in-this-list and card-versus-minicard scope. Software senses, derived checklist and assembled activity grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "list-filter-label",
+    "before": "Filtrer la liste par titre",
+    "after": "Sulön lisedi ma tiäd",
+    "reason": "Replace French list action/activity/display/filter labels with Volapük and remove stray 1 before %s in list-renaming activity. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests votanemükön (rename), sulön (filter); primary MediaWiki Volapük source (https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json) attests list/show/hide/change vocabulary. Reuse checked lised/kad/kadil/kontrolalised, tiäd, archive movement and activity tense patterns. Preserve __list__, __board__, %s, all-cards-in-this-list and card-versus-minicard scope. Software senses, derived checklist and assembled activity grammar remain low confidence; no native-speaker validation."
   }
 ]
