@@ -81513,5 +81513,54 @@
     "before": "Enlever",
     "after": "Dindi melo bi",
     "reason": "Review selection color title against sidebarFilters.jade: applies color to selected items, not selected colors. Clarify with ci selected-item scope. Replace French choose/unset color controls with Wolof, preserving choose versus remove color. Existing Done retained. Full grammar remains low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "add-cron-job",
+    "before": "Ajouter un travail planifié",
+    "after": "Yokk liggéey bu ñu jekkal waxtu wi",
+    "reason": "Replace French scheduled-job/error-clearing controls with Wolof. Preserve scheduled time, adding versus starting versus resuming, success versus failure and clearing all error records. Reuse liggéey/waxtu/njuumte/tambali/antuwul terminology. Scheduling adaptation and full grammar remain low confidence; migration controls remain pending."
+  },
+  {
+    "locale": "wo",
+    "key": "cron-clear-errors",
+    "before": "Effacer toutes les erreurs",
+    "after": "Far njuumte yi yépp",
+    "reason": "Replace French scheduled-job/error-clearing controls with Wolof. Preserve scheduled time, adding versus starting versus resuming, success versus failure and clearing all error records. Reuse liggéey/waxtu/njuumte/tambali/antuwul terminology. Scheduling adaptation and full grammar remain low confidence; migration controls remain pending."
+  },
+  {
+    "locale": "wo",
+    "key": "cron-errors-cleared",
+    "before": "Toutes les erreurs ont été effacées avec succès",
+    "after": "Far nañu njuumte yi yépp bu baax",
+    "reason": "Replace French scheduled-job/error-clearing controls with Wolof. Preserve scheduled time, adding versus starting versus resuming, success versus failure and clearing all error records. Reuse liggéey/waxtu/njuumte/tambali/antuwul terminology. Scheduling adaptation and full grammar remain low confidence; migration controls remain pending."
+  },
+  {
+    "locale": "wo",
+    "key": "cron-job-started",
+    "before": "Tâche planifiée démarrée avec succès",
+    "after": "Liggéey bi ñu jekkal waxtu wi tambali na bu baax",
+    "reason": "Replace French scheduled-job/error-clearing controls with Wolof. Preserve scheduled time, adding versus starting versus resuming, success versus failure and clearing all error records. Reuse liggéey/waxtu/njuumte/tambali/antuwul terminology. Scheduling adaptation and full grammar remain low confidence; migration controls remain pending."
+  },
+  {
+    "locale": "wo",
+    "key": "cron-job-start-failed",
+    "before": "Échec du démarrage de la tâche planifiée",
+    "after": "Tambali liggéey bi ñu jekkal waxtu wi antuwul",
+    "reason": "Replace French scheduled-job/error-clearing controls with Wolof. Preserve scheduled time, adding versus starting versus resuming, success versus failure and clearing all error records. Reuse liggéey/waxtu/njuumte/tambali/antuwul terminology. Scheduling adaptation and full grammar remain low confidence; migration controls remain pending."
+  },
+  {
+    "locale": "wo",
+    "key": "cron-job-resumed",
+    "before": "Tâche planifiée reprise avec succès",
+    "after": "Liggéey bi ñu jekkal waxtu wi wéy na bu baax",
+    "reason": "Replace French scheduled-job/error-clearing controls with Wolof. Preserve scheduled time, adding versus starting versus resuming, success versus failure and clearing all error records. Reuse liggéey/waxtu/njuumte/tambali/antuwul terminology. Scheduling adaptation and full grammar remain low confidence; migration controls remain pending."
+  },
+  {
+    "locale": "wo",
+    "key": "cron-job-resume-failed",
+    "before": "Échec de la reprise de la tâche planifiée",
+    "after": "Wéyal liggéey bi ñu jekkal waxtu wi antuwul",
+    "reason": "Replace French scheduled-job/error-clearing controls with Wolof. Preserve scheduled time, adding versus starting versus resuming, success versus failure and clearing all error records. Reuse liggéey/waxtu/njuumte/tambali/antuwul terminology. Scheduling adaptation and full grammar remain low confidence; migration controls remain pending."
   }
 ]
