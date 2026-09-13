@@ -114033,8 +114033,8 @@
     "locale": "ve-PP",
     "key": "act-addAttachment",
     "before": "lisätty liite __attachment__ kortille __card__ listalla __list__ uimaradalla __swimlane__ taululla __board__",
-    "after": "Ližadud tartutadud fail __attachment__ kartale __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
-    "reason": "Replace Finnish activity text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kart, laud, lugetiž, znam, ühtnik, sel’genzoituz/sel’genzoitta, ujund (swimming), šoid (strip), arhiv, ližata, importiruida and udištada. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests tehtud, heittud, sirttud, vajehtadud and udištadud. Compose ujundšoid for the kanban swimlane metaphor instead of the unsupported uindrada stem; keep action kind, entity/context, source/destination and every case-sensitive placeholder. Low confidence: kanban card/swimlane metaphors, compound terminology and composed UI grammar/inflections require fluent review."
+    "after": "Ližatud tartutadud fail __attachment__ kartale __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
+    "reason": "Replace Finnish activity text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kart, laud, lugetiž, znam, ühtnik, sel’genzoituz/sel’genzoitta, ujund (swimming), šoid (strip), arhiv, ližata, importiruida and udištada. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests tehtud, heittud, sirttud, vajehtadud and udištadud. Compose ujundšoid for the kanban swimlane metaphor instead of the unsupported uindrada stem; keep action kind, entity/context, source/destination and every case-sensitive placeholder. Low confidence: kanban card/swimlane metaphors, compound terminology and composed UI grammar/inflections require fluent review. Refine added to the attested past passive ližatud: https://en.wiktionary.org/wiki/li%C5%BEata and native MediaWiki diff-inline-tooltip-ins/recentchanges-page-added-to-category. Preserve the original before value."
   },
   {
     "locale": "ve-PP",
@@ -114047,15 +114047,15 @@
     "locale": "ve-PP",
     "key": "act-addLabel",
     "before": "Lisätty nimilappu __label__ kortille __card__ listalla __list__ uimaradalla __swimlane__ taululla __board__",
-    "after": "Ližadud znam __label__ kartale __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
-    "reason": "Replace Finnish activity text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kart, laud, lugetiž, znam, ühtnik, sel’genzoituz/sel’genzoitta, ujund (swimming), šoid (strip), arhiv, ližata, importiruida and udištada. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests tehtud, heittud, sirttud, vajehtadud and udištadud. Compose ujundšoid for the kanban swimlane metaphor instead of the unsupported uindrada stem; keep action kind, entity/context, source/destination and every case-sensitive placeholder. Low confidence: kanban card/swimlane metaphors, compound terminology and composed UI grammar/inflections require fluent review."
+    "after": "Ližatud znam __label__ kartale __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
+    "reason": "Replace Finnish activity text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kart, laud, lugetiž, znam, ühtnik, sel’genzoituz/sel’genzoitta, ujund (swimming), šoid (strip), arhiv, ližata, importiruida and udištada. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests tehtud, heittud, sirttud, vajehtadud and udištadud. Compose ujundšoid for the kanban swimlane metaphor instead of the unsupported uindrada stem; keep action kind, entity/context, source/destination and every case-sensitive placeholder. Low confidence: kanban card/swimlane metaphors, compound terminology and composed UI grammar/inflections require fluent review. Refine added to the attested past passive ližatud: https://en.wiktionary.org/wiki/li%C5%BEata and native MediaWiki diff-inline-tooltip-ins/recentchanges-page-added-to-category. Preserve the original before value."
   },
   {
     "locale": "ve-PP",
     "key": "act-addedLabel",
     "before": "Lisätty nimilappu __label__ kortille __card__ listalla __list__ uimaradalla __swimlane__ taululla __board__",
-    "after": "Ližadud znam __label__ kartale __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
-    "reason": "Replace Finnish activity text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kart, laud, lugetiž, znam, ühtnik, sel’genzoituz/sel’genzoitta, ujund (swimming), šoid (strip), arhiv, ližata, importiruida and udištada. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests tehtud, heittud, sirttud, vajehtadud and udištadud. Compose ujundšoid for the kanban swimlane metaphor instead of the unsupported uindrada stem; keep action kind, entity/context, source/destination and every case-sensitive placeholder. Low confidence: kanban card/swimlane metaphors, compound terminology and composed UI grammar/inflections require fluent review."
+    "after": "Ližatud znam __label__ kartale __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
+    "reason": "Replace Finnish activity text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kart, laud, lugetiž, znam, ühtnik, sel’genzoituz/sel’genzoitta, ujund (swimming), šoid (strip), arhiv, ližata, importiruida and udištada. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests tehtud, heittud, sirttud, vajehtadud and udištadud. Compose ujundšoid for the kanban swimlane metaphor instead of the unsupported uindrada stem; keep action kind, entity/context, source/destination and every case-sensitive placeholder. Low confidence: kanban card/swimlane metaphors, compound terminology and composed UI grammar/inflections require fluent review. Refine added to the attested past passive ližatud: https://en.wiktionary.org/wiki/li%C5%BEata and native MediaWiki diff-inline-tooltip-ins/recentchanges-page-added-to-category. Preserve the original before value."
   },
   {
     "locale": "ve-PP",
@@ -114117,15 +114117,15 @@
     "locale": "ve-PP",
     "key": "act-createList",
     "before": "lisätty lista __list__ taululle __board__",
-    "after": "Ližadud lugetiž __list__ laudale __board__",
-    "reason": "Replace Finnish activity text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kart, laud, lugetiž, znam, ühtnik, sel’genzoituz/sel’genzoitta, ujund (swimming), šoid (strip), arhiv, ližata, importiruida and udištada. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests tehtud, heittud, sirttud, vajehtadud and udištadud. Compose ujundšoid for the kanban swimlane metaphor instead of the unsupported uindrada stem; keep action kind, entity/context, source/destination and every case-sensitive placeholder. Low confidence: kanban card/swimlane metaphors, compound terminology and composed UI grammar/inflections require fluent review."
+    "after": "Ližatud lugetiž __list__ laudale __board__",
+    "reason": "Replace Finnish activity text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kart, laud, lugetiž, znam, ühtnik, sel’genzoituz/sel’genzoitta, ujund (swimming), šoid (strip), arhiv, ližata, importiruida and udištada. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests tehtud, heittud, sirttud, vajehtadud and udištadud. Compose ujundšoid for the kanban swimlane metaphor instead of the unsupported uindrada stem; keep action kind, entity/context, source/destination and every case-sensitive placeholder. Low confidence: kanban card/swimlane metaphors, compound terminology and composed UI grammar/inflections require fluent review. Refine added to the attested past passive ližatud: https://en.wiktionary.org/wiki/li%C5%BEata and native MediaWiki diff-inline-tooltip-ins/recentchanges-page-added-to-category. Preserve the original before value."
   },
   {
     "locale": "ve-PP",
     "key": "act-addBoardMember",
     "before": "lisätty jäsen __member__ taululle __board__",
-    "after": "Ližadud ühtnik __member__ laudale __board__",
-    "reason": "Replace Finnish activity text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kart, laud, lugetiž, znam, ühtnik, sel’genzoituz/sel’genzoitta, ujund (swimming), šoid (strip), arhiv, ližata, importiruida and udištada. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests tehtud, heittud, sirttud, vajehtadud and udištadud. Compose ujundšoid for the kanban swimlane metaphor instead of the unsupported uindrada stem; keep action kind, entity/context, source/destination and every case-sensitive placeholder. Low confidence: kanban card/swimlane metaphors, compound terminology and composed UI grammar/inflections require fluent review."
+    "after": "Ližatud ühtnik __member__ laudale __board__",
+    "reason": "Replace Finnish activity text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kart, laud, lugetiž, znam, ühtnik, sel’genzoituz/sel’genzoitta, ujund (swimming), šoid (strip), arhiv, ližata, importiruida and udištada. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests tehtud, heittud, sirttud, vajehtadud and udištadud. Compose ujundšoid for the kanban swimlane metaphor instead of the unsupported uindrada stem; keep action kind, entity/context, source/destination and every case-sensitive placeholder. Low confidence: kanban card/swimlane metaphors, compound terminology and composed UI grammar/inflections require fluent review. Refine added to the attested past passive ližatud: https://en.wiktionary.org/wiki/li%C5%BEata and native MediaWiki diff-inline-tooltip-ins/recentchanges-page-added-to-category. Preserve the original before value."
   },
   {
     "locale": "ve-PP",
@@ -114180,8 +114180,8 @@
     "locale": "ve-PP",
     "key": "act-joinMember",
     "before": "lisätty jäsen __member__ kortille __card__ listalla __list__ uimaradalla __swimlane__ taululla __board__",
-    "after": "Ližadud ühtnik __member__ kartale __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
-    "reason": "Replace Finnish activity text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kart, laud, lugetiž, znam, ühtnik, sel’genzoituz/sel’genzoitta, ujund (swimming), šoid (strip), arhiv, ližata, importiruida and udištada. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests tehtud, heittud, sirttud, vajehtadud and udištadud. Compose ujundšoid for the kanban swimlane metaphor instead of the unsupported uindrada stem; keep action kind, entity/context, source/destination and every case-sensitive placeholder. Low confidence: kanban card/swimlane metaphors, compound terminology and composed UI grammar/inflections require fluent review."
+    "after": "Ližatud ühtnik __member__ kartale __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
+    "reason": "Replace Finnish activity text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kart, laud, lugetiž, znam, ühtnik, sel’genzoituz/sel’genzoitta, ujund (swimming), šoid (strip), arhiv, ližata, importiruida and udištada. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests tehtud, heittud, sirttud, vajehtadud and udištadud. Compose ujundšoid for the kanban swimlane metaphor instead of the unsupported uindrada stem; keep action kind, entity/context, source/destination and every case-sensitive placeholder. Low confidence: kanban card/swimlane metaphors, compound terminology and composed UI grammar/inflections require fluent review. Refine added to the attested past passive ližatud: https://en.wiktionary.org/wiki/li%C5%BEata and native MediaWiki diff-inline-tooltip-ins/recentchanges-page-added-to-category. Preserve the original before value."
   },
   {
     "locale": "ve-PP",
@@ -114320,22 +114320,22 @@
     "locale": "ve-PP",
     "key": "act-addSubtask",
     "before": "lisätty alitehtävä __subtask__ kortille __card__ listalla __list__ uimaradalla __swimlane__ taululla __board__",
-    "after": "Ližadud alategend __subtask__ kartale __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
-    "reason": "Replace Finnish/Venda or mixed checklist text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kodvind (check), lugetiž (list), koht (document item), tegend (task), lopmatoi (unfinished), lopta (finish), znam (mark) and ližata. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests znamoitud (marked), tegendad, peitä, märitadud, and ala- in alalehtpol’ (subpage). Compose kodvindlugetiž/alategend for checklist/subtask; preserve add/remove, check/uncheck, completion/reopening, context and every case-sensitive placeholder, especially __checkList__. Preserve (0/0) counters and minicard context. Low confidence: composed kanban checklist/subtask terminology and UI inflection need fluent review."
+    "after": "Ližatud alategend __subtask__ kartale __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
+    "reason": "Replace Finnish/Venda or mixed checklist text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kodvind (check), lugetiž (list), koht (document item), tegend (task), lopmatoi (unfinished), lopta (finish), znam (mark) and ližata. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests znamoitud (marked), tegendad, peitä, märitadud, and ala- in alalehtpol’ (subpage). Compose kodvindlugetiž/alategend for checklist/subtask; preserve add/remove, check/uncheck, completion/reopening, context and every case-sensitive placeholder, especially __checkList__. Preserve (0/0) counters and minicard context. Low confidence: composed kanban checklist/subtask terminology and UI inflection need fluent review. Refine added to the attested past passive ližatud: https://en.wiktionary.org/wiki/li%C5%BEata and native MediaWiki diff-inline-tooltip-ins/recentchanges-page-added-to-category. Preserve the original before value."
   },
   {
     "locale": "ve-PP",
     "key": "act-addChecklist",
     "before": "lisätty tarkistuslista __checklist__ kortille __card__ listalla __list__ uimaradalla __swimlane__ taululla __board__",
-    "after": "Ližadud kodvindlugetiž __checklist__ kartale __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
-    "reason": "Replace Finnish/Venda or mixed checklist text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kodvind (check), lugetiž (list), koht (document item), tegend (task), lopmatoi (unfinished), lopta (finish), znam (mark) and ližata. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests znamoitud (marked), tegendad, peitä, märitadud, and ala- in alalehtpol’ (subpage). Compose kodvindlugetiž/alategend for checklist/subtask; preserve add/remove, check/uncheck, completion/reopening, context and every case-sensitive placeholder, especially __checkList__. Preserve (0/0) counters and minicard context. Low confidence: composed kanban checklist/subtask terminology and UI inflection need fluent review."
+    "after": "Ližatud kodvindlugetiž __checklist__ kartale __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
+    "reason": "Replace Finnish/Venda or mixed checklist text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kodvind (check), lugetiž (list), koht (document item), tegend (task), lopmatoi (unfinished), lopta (finish), znam (mark) and ližata. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests znamoitud (marked), tegendad, peitä, märitadud, and ala- in alalehtpol’ (subpage). Compose kodvindlugetiž/alategend for checklist/subtask; preserve add/remove, check/uncheck, completion/reopening, context and every case-sensitive placeholder, especially __checkList__. Preserve (0/0) counters and minicard context. Low confidence: composed kanban checklist/subtask terminology and UI inflection need fluent review. Refine added to the attested past passive ližatud: https://en.wiktionary.org/wiki/li%C5%BEata and native MediaWiki diff-inline-tooltip-ins/recentchanges-page-added-to-category. Preserve the original before value."
   },
   {
     "locale": "ve-PP",
     "key": "act-addChecklistItem",
     "before": "lisätty tarkistuslistan kohta __checklistItem__ tarkistuslistalle __checklist__ kortilla __card__ listalla __list__ uimaradalla __swimlane__ taululla __board__",
-    "after": "Ližadud koht __checklistItem__ kodvindlugetišehe __checklist__ kartal __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
-    "reason": "Replace Finnish/Venda or mixed checklist text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kodvind (check), lugetiž (list), koht (document item), tegend (task), lopmatoi (unfinished), lopta (finish), znam (mark) and ližata. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests znamoitud (marked), tegendad, peitä, märitadud, and ala- in alalehtpol’ (subpage). Compose kodvindlugetiž/alategend for checklist/subtask; preserve add/remove, check/uncheck, completion/reopening, context and every case-sensitive placeholder, especially __checkList__. Preserve (0/0) counters and minicard context. Low confidence: composed kanban checklist/subtask terminology and UI inflection need fluent review."
+    "after": "Ližatud koht __checklistItem__ kodvindlugetišehe __checklist__ kartal __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
+    "reason": "Replace Finnish/Venda or mixed checklist text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kodvind (check), lugetiž (list), koht (document item), tegend (task), lopmatoi (unfinished), lopta (finish), znam (mark) and ližata. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests znamoitud (marked), tegendad, peitä, märitadud, and ala- in alalehtpol’ (subpage). Compose kodvindlugetiž/alategend for checklist/subtask; preserve add/remove, check/uncheck, completion/reopening, context and every case-sensitive placeholder, especially __checkList__. Preserve (0/0) counters and minicard context. Low confidence: composed kanban checklist/subtask terminology and UI inflection need fluent review. Refine added to the attested past passive ližatud: https://en.wiktionary.org/wiki/li%C5%BEata and native MediaWiki diff-inline-tooltip-ins/recentchanges-page-added-to-category. Preserve the original before value."
   },
   {
     "locale": "ve-PP",
@@ -114539,5 +114539,166 @@
     "before": "Paina Enter lisätäksesi lisää kohtia",
     "after": "Paina Enter, miše ližata enamba kohtoid",
     "reason": "Replace Finnish/Venda custom-field text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests pöud (field), päivmär (date), nellik (square), valičuz (choice), nimidä, tundmatoi, lugu, tekst, simvol, jagoznam (separator), keskust (space) and sija (position). Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests kävutajan, märitadud, šablon, rivi, format, puhtasta, vajehtadud and heittud. Compose user-defined fields, selection controls and sijaznam placeholder terminology; preserve action kind, field value/context, all-card irreversible deletion/history loss, and literal %{value}/&#32;/&nbsp;/Enter. Low confidence: composed custom-field/control terminology and UI grammar/inflections require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "activity-customfield-created",
+    "before": "luotu mukautettu kenttä %s",
+    "after": "Tehtud kävutajan märitadud pöud %s",
+    "reason": "Replace Finnish or mixed activity/rule messages with Veps using Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, and native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Reuse reviewed checklist/subtask/custom-field and kanban context terminology. Preserve action kind, checkbox versus completion/reopening, add/remove source/destination, field clearing versus deletion, and exact placeholders in source argument order. Correct added to attested past passive ližatud, not ližadud: https://en.wiktionary.org/wiki/li%C5%BEata (past passive table), matching native MediaWiki diff-inline-tooltip-ins/recentchanges-page-added-to-category. Low confidence: composed kanban terminology and remaining UI inflection require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "activity-subtask-added",
+    "before": "lisätty alitehtävä kohteeseen %s",
+    "after": "Ližatud alategend azjale %s",
+    "reason": "Replace Finnish or mixed activity/rule messages with Veps using Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, and native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Reuse reviewed checklist/subtask/custom-field and kanban context terminology. Preserve action kind, checkbox versus completion/reopening, add/remove source/destination, field clearing versus deletion, and exact placeholders in source argument order. Correct added to attested past passive ližatud, not ližadud: https://en.wiktionary.org/wiki/li%C5%BEata (past passive table), matching native MediaWiki diff-inline-tooltip-ins/recentchanges-page-added-to-category. Low confidence: composed kanban terminology and remaining UI inflection require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "activity-checked-item",
+    "before": "ruksattu %s tarkistuslistassa %s / %s",
+    "after": "Znamoitud koht %s kodvindlugetišes %s azjal %s",
+    "reason": "Replace Finnish or mixed activity/rule messages with Veps using Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, and native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Reuse reviewed checklist/subtask/custom-field and kanban context terminology. Preserve action kind, checkbox versus completion/reopening, add/remove source/destination, field clearing versus deletion, and exact placeholders in source argument order. Correct added to attested past passive ližatud, not ližadud: https://en.wiktionary.org/wiki/li%C5%BEata (past passive table), matching native MediaWiki diff-inline-tooltip-ins/recentchanges-page-added-to-category. Low confidence: composed kanban terminology and remaining UI inflection require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "activity-unchecked-item",
+    "before": "poistettu ruksi %s tarkistuslistassa %s / %s",
+    "after": "Heittud znam kohtaspäi %s kodvindlugetišes %s azjal %s",
+    "reason": "Replace Finnish or mixed activity/rule messages with Veps using Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, and native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Reuse reviewed checklist/subtask/custom-field and kanban context terminology. Preserve action kind, checkbox versus completion/reopening, add/remove source/destination, field clearing versus deletion, and exact placeholders in source argument order. Correct added to attested past passive ližatud, not ližadud: https://en.wiktionary.org/wiki/li%C5%BEata (past passive table), matching native MediaWiki diff-inline-tooltip-ins/recentchanges-page-added-to-category. Low confidence: composed kanban terminology and remaining UI inflection require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "activity-checklist-added",
+    "before": "lisätty tarkistuslista kortille %s",
+    "after": "Ližatud kodvindlugetiž azjale %s",
+    "reason": "Replace Finnish or mixed activity/rule messages with Veps using Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, and native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Reuse reviewed checklist/subtask/custom-field and kanban context terminology. Preserve action kind, checkbox versus completion/reopening, add/remove source/destination, field clearing versus deletion, and exact placeholders in source argument order. Correct added to attested past passive ližatud, not ližadud: https://en.wiktionary.org/wiki/li%C5%BEata (past passive table), matching native MediaWiki diff-inline-tooltip-ins/recentchanges-page-added-to-category. Low confidence: composed kanban terminology and remaining UI inflection require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "activity-checklist-removed",
+    "before": "poistettu tarkistuslista kohteesta %s",
+    "after": "Heittud kodvindlugetiž azjaspäi %s",
+    "reason": "Replace Finnish or mixed activity/rule messages with Veps using Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, and native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Reuse reviewed checklist/subtask/custom-field and kanban context terminology. Preserve action kind, checkbox versus completion/reopening, add/remove source/destination, field clearing versus deletion, and exact placeholders in source argument order. Correct added to attested past passive ližatud, not ližadud: https://en.wiktionary.org/wiki/li%C5%BEata (past passive table), matching native MediaWiki diff-inline-tooltip-ins/recentchanges-page-added-to-category. Low confidence: composed kanban terminology and remaining UI inflection require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "activity-checklist-completed",
+    "before": "saatiin valmiiksi tarkistuslista %s / %s",
+    "after": "Loptud kodvindlugetiž %s azjal %s",
+    "reason": "Replace Finnish or mixed activity/rule messages with Veps using Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, and native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Reuse reviewed checklist/subtask/custom-field and kanban context terminology. Preserve action kind, checkbox versus completion/reopening, add/remove source/destination, field clearing versus deletion, and exact placeholders in source argument order. Correct added to attested past passive ližatud, not ližadud: https://en.wiktionary.org/wiki/li%C5%BEata (past passive table), matching native MediaWiki diff-inline-tooltip-ins/recentchanges-page-added-to-category. Low confidence: composed kanban terminology and remaining UI inflection require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "activity-checklist-uncompleted",
+    "before": "keskeneräinen tarkistuslista %s / %s",
+    "after": "Kodvindlugetiž %s om märitadud kut lopmatoi azjal %s",
+    "reason": "Replace Finnish or mixed activity/rule messages with Veps using Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, and native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Reuse reviewed checklist/subtask/custom-field and kanban context terminology. Preserve action kind, checkbox versus completion/reopening, add/remove source/destination, field clearing versus deletion, and exact placeholders in source argument order. Correct added to attested past passive ližatud, not ližadud: https://en.wiktionary.org/wiki/li%C5%BEata (past passive table), matching native MediaWiki diff-inline-tooltip-ins/recentchanges-page-added-to-category. Low confidence: composed kanban terminology and remaining UI inflection require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "activity-checklist-item-added",
+    "before": "lisäsi kohdan tarkistuslistaan '%s' kortilla %s",
+    "after": "Ližatud koht kodvindlugetišehe '%s' azjal %s",
+    "reason": "Replace Finnish or mixed activity/rule messages with Veps using Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, and native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Reuse reviewed checklist/subtask/custom-field and kanban context terminology. Preserve action kind, checkbox versus completion/reopening, add/remove source/destination, field clearing versus deletion, and exact placeholders in source argument order. Correct added to attested past passive ližatud, not ližadud: https://en.wiktionary.org/wiki/li%C5%BEata (past passive table), matching native MediaWiki diff-inline-tooltip-ins/recentchanges-page-added-to-category. Low confidence: composed kanban terminology and remaining UI inflection require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "activity-checklist-item-removed",
+    "before": "poistettu tarkistuslistan kohta '%s' / %s",
+    "after": "Heittud koht kodvindlugetišespäi '%s' azjal %s",
+    "reason": "Replace Finnish or mixed activity/rule messages with Veps using Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, and native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Reuse reviewed checklist/subtask/custom-field and kanban context terminology. Preserve action kind, checkbox versus completion/reopening, add/remove source/destination, field clearing versus deletion, and exact placeholders in source argument order. Correct added to attested past passive ližatud, not ližadud: https://en.wiktionary.org/wiki/li%C5%BEata (past passive table), matching native MediaWiki diff-inline-tooltip-ins/recentchanges-page-added-to-category. Low confidence: composed kanban terminology and remaining UI inflection require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "activity-checked-item-card",
+    "before": "ruksattu %s tarkistuslistassa %s",
+    "after": "Znamoitud koht %s kodvindlugetišes %s",
+    "reason": "Replace Finnish or mixed activity/rule messages with Veps using Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, and native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Reuse reviewed checklist/subtask/custom-field and kanban context terminology. Preserve action kind, checkbox versus completion/reopening, add/remove source/destination, field clearing versus deletion, and exact placeholders in source argument order. Correct added to attested past passive ližatud, not ližadud: https://en.wiktionary.org/wiki/li%C5%BEata (past passive table), matching native MediaWiki diff-inline-tooltip-ins/recentchanges-page-added-to-category. Low confidence: composed kanban terminology and remaining UI inflection require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "activity-unchecked-item-card",
+    "before": "poistettu ruksi %s tarkistuslistassa %s",
+    "after": "Heittud znam kohtaspäi %s kodvindlugetišes %s",
+    "reason": "Replace Finnish or mixed activity/rule messages with Veps using Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, and native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Reuse reviewed checklist/subtask/custom-field and kanban context terminology. Preserve action kind, checkbox versus completion/reopening, add/remove source/destination, field clearing versus deletion, and exact placeholders in source argument order. Correct added to attested past passive ližatud, not ližadud: https://en.wiktionary.org/wiki/li%C5%BEata (past passive table), matching native MediaWiki diff-inline-tooltip-ins/recentchanges-page-added-to-category. Low confidence: composed kanban terminology and remaining UI inflection require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "activity-checklist-completed-card",
+    "before": "valmistui tarkistuslista __checklist__ kortilla __card__ listalla __list__ uimaradalla __swimlane__ taululla __board__",
+    "after": "Loptud kodvindlugetiž __checklist__ kartal __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
+    "reason": "Replace Finnish or mixed activity/rule messages with Veps using Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, and native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Reuse reviewed checklist/subtask/custom-field and kanban context terminology. Preserve action kind, checkbox versus completion/reopening, add/remove source/destination, field clearing versus deletion, and exact placeholders in source argument order. Correct added to attested past passive ližatud, not ližadud: https://en.wiktionary.org/wiki/li%C5%BEata (past passive table), matching native MediaWiki diff-inline-tooltip-ins/recentchanges-page-added-to-category. Low confidence: composed kanban terminology and remaining UI inflection require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "activity-checklist-uncompleted-card",
+    "before": "ei valmistunut tarkistuslista %s",
+    "after": "Kodvindlugetiž %s om märitadud kut lopmatoi",
+    "reason": "Replace Finnish or mixed activity/rule messages with Veps using Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, and native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Reuse reviewed checklist/subtask/custom-field and kanban context terminology. Preserve action kind, checkbox versus completion/reopening, add/remove source/destination, field clearing versus deletion, and exact placeholders in source argument order. Correct added to attested past passive ližatud, not ližadud: https://en.wiktionary.org/wiki/li%C5%BEata (past passive table), matching native MediaWiki diff-inline-tooltip-ins/recentchanges-page-added-to-category. Low confidence: composed kanban terminology and remaining UI inflection require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "activity-editComment",
+    "before": "muokkasi kommenttia %s",
+    "after": "Vajehtadud sel’genzoituz %s",
+    "reason": "Replace Finnish or mixed activity/rule messages with Veps using Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, and native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Reuse reviewed checklist/subtask/custom-field and kanban context terminology. Preserve action kind, checkbox versus completion/reopening, add/remove source/destination, field clearing versus deletion, and exact placeholders in source argument order. Correct added to attested past passive ližatud, not ližadud: https://en.wiktionary.org/wiki/li%C5%BEata (past passive table), matching native MediaWiki diff-inline-tooltip-ins/recentchanges-page-added-to-category. Low confidence: composed kanban terminology and remaining UI inflection require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "activity-deleteComment",
+    "before": "poisti kommentin %s",
+    "after": "Heittud sel’genzoituz %s",
+    "reason": "Replace Finnish or mixed activity/rule messages with Veps using Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, and native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Reuse reviewed checklist/subtask/custom-field and kanban context terminology. Preserve action kind, checkbox versus completion/reopening, add/remove source/destination, field clearing versus deletion, and exact placeholders in source argument order. Correct added to attested past passive ližatud, not ližadud: https://en.wiktionary.org/wiki/li%C5%BEata (past passive table), matching native MediaWiki diff-inline-tooltip-ins/recentchanges-page-added-to-category. Low confidence: composed kanban terminology and remaining UI inflection require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "activity-set-customfield",
+    "before": "asetettu mukautettu kentän '%s' sisällöksi '%s' kortilla %s",
+    "after": "Kävutajan märitadud pöud '%s' om pandud kut '%s' azjal %s",
+    "reason": "Replace Finnish or mixed activity/rule messages with Veps using Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, and native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Reuse reviewed checklist/subtask/custom-field and kanban context terminology. Preserve action kind, checkbox versus completion/reopening, add/remove source/destination, field clearing versus deletion, and exact placeholders in source argument order. Correct added to attested past passive ližatud, not ližadud: https://en.wiktionary.org/wiki/li%C5%BEata (past passive table), matching native MediaWiki diff-inline-tooltip-ins/recentchanges-page-added-to-category. Low confidence: composed kanban terminology and remaining UI inflection require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "activity-unset-customfield",
+    "before": "poistettu mukautettu kenttä '%s' kortilla %s",
+    "after": "Heittud kävutajan märitadud pöudon '%s' znamoičend azjal %s",
+    "reason": "Replace Finnish or mixed activity/rule messages with Veps using Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, and native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Reuse reviewed checklist/subtask/custom-field and kanban context terminology. Preserve action kind, checkbox versus completion/reopening, add/remove source/destination, field clearing versus deletion, and exact placeholders in source argument order. Correct added to attested past passive ližatud, not ližadud: https://en.wiktionary.org/wiki/li%C5%BEata (past passive table), matching native MediaWiki diff-inline-tooltip-ins/recentchanges-page-added-to-category. Low confidence: composed kanban terminology and remaining UI inflection require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-w-label-added",
+    "before": "Mi tahouz lapuk om ližadud",
+    "after": "Mitte taht znam om ližatud",
+    "reason": "Replace Finnish or mixed activity/rule messages with Veps using Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, and native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Reuse reviewed checklist/subtask/custom-field and kanban context terminology. Preserve action kind, checkbox versus completion/reopening, add/remove source/destination, field clearing versus deletion, and exact placeholders in source argument order. Correct added to attested past passive ližatud, not ližadud: https://en.wiktionary.org/wiki/li%C5%BEata (past passive table), matching native MediaWiki diff-inline-tooltip-ins/recentchanges-page-added-to-category. Low confidence: composed kanban terminology and remaining UI inflection require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-w-member-added",
+    "before": "Ühtnik om ližadud",
+    "after": "Ühtnik om ližatud",
+    "reason": "Replace Finnish or mixed activity/rule messages with Veps using Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, and native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Reuse reviewed checklist/subtask/custom-field and kanban context terminology. Preserve action kind, checkbox versus completion/reopening, add/remove source/destination, field clearing versus deletion, and exact placeholders in source argument order. Correct added to attested past passive ližatud, not ližadud: https://en.wiktionary.org/wiki/li%C5%BEata (past passive table), matching native MediaWiki diff-inline-tooltip-ins/recentchanges-page-added-to-category. Low confidence: composed kanban terminology and remaining UI inflection require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-w-assignee-added",
+    "before": "Käsittelijä ližadud",
+    "after": "Märitadud kävutai om ližatud",
+    "reason": "Replace Finnish or mixed activity/rule messages with Veps using Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, and native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Reuse reviewed checklist/subtask/custom-field and kanban context terminology. Preserve action kind, checkbox versus completion/reopening, add/remove source/destination, field clearing versus deletion, and exact placeholders in source argument order. Correct added to attested past passive ližatud, not ližadud: https://en.wiktionary.org/wiki/li%C5%BEata (past passive table), matching native MediaWiki diff-inline-tooltip-ins/recentchanges-page-added-to-category. Low confidence: composed kanban terminology and remaining UI inflection require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-w-checklist-added",
+    "before": "Kontroll-list om ližadud",
+    "after": "Kodvindlugetiž om ližatud",
+    "reason": "Replace Finnish or mixed activity/rule messages with Veps using Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, and native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Reuse reviewed checklist/subtask/custom-field and kanban context terminology. Preserve action kind, checkbox versus completion/reopening, add/remove source/destination, field clearing versus deletion, and exact placeholders in source argument order. Correct added to attested past passive ližatud, not ližadud: https://en.wiktionary.org/wiki/li%C5%BEata (past passive table), matching native MediaWiki diff-inline-tooltip-ins/recentchanges-page-added-to-category. Low confidence: composed kanban terminology and remaining UI inflection require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-w-attachment-added",
+    "before": "Ličtuz om ližadud",
+    "after": "Tartutadud fail om ližatud",
+    "reason": "Replace Finnish or mixed activity/rule messages with Veps using Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, and native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Reuse reviewed checklist/subtask/custom-field and kanban context terminology. Preserve action kind, checkbox versus completion/reopening, add/remove source/destination, field clearing versus deletion, and exact placeholders in source argument order. Correct added to attested past passive ližatud, not ližadud: https://en.wiktionary.org/wiki/li%C5%BEata (past passive table), matching native MediaWiki diff-inline-tooltip-ins/recentchanges-page-added-to-category. Low confidence: composed kanban terminology and remaining UI inflection require fluent review."
   }
 ]

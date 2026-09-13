@@ -611,10 +611,10 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   "card": "Kart",
   "swimlane": "Ujundšoid",
   "comment": "Sel’genzoituz",
-  "act-addAttachment": "Ližadud tartutadud fail __attachment__ kartale __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
+  "act-addAttachment": "Ližatud tartutadud fail __attachment__ kartale __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
   "act-deleteAttachment": "Heittud tartutadud fail __attachment__ kartal __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
-  "act-addLabel": "Ližadud znam __label__ kartale __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
-  "act-addedLabel": "Ližadud znam __label__ kartale __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
+  "act-addLabel": "Ližatud znam __label__ kartale __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
+  "act-addedLabel": "Ližatud znam __label__ kartale __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
   "act-removeLabel": "Heittud znam __label__ kartaspäi __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
   "act-removedLabel": "Heittud znam __label__ kartaspäi __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
   "act-addComment": "Sel’genzoittud kartal __card__: __comment__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
@@ -623,8 +623,8 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   "act-createBoard": "Tehtud laud __board__",
   "act-createSwimlane": "Tehtud ujundšoid __swimlane__ laudale __board__",
   "act-createCard": "Tehtud kart __card__ lugetišehe __list__ ujundšoidul __swimlane__ laudal __board__",
-  "act-createList": "Ližadud lugetiž __list__ laudale __board__",
-  "act-addBoardMember": "Ližadud ühtnik __member__ laudale __board__",
+  "act-createList": "Ližatud lugetiž __list__ laudale __board__",
+  "act-addBoardMember": "Ližatud ühtnik __member__ laudale __board__",
   "act-archivedBoard": "Laud __board__ om sirttud arhivaha",
   "act-archivedCard": "Kart __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__ om sirttud arhivaha",
   "act-archivedList": "Lugetiž __list__ ujundšoidul __swimlane__ laudal __board__ om sirttud arhivaha",
@@ -632,7 +632,7 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   "act-importBoard": "Importiruitud laud __board__",
   "act-importCard": "Importiruitud kart __card__ lugetišehe __list__ ujundšoidul __swimlane__ laudal __board__",
   "act-importList": "Importiruitud lugetiž __list__ ujundšoidule __swimlane__ laudal __board__",
-  "act-joinMember": "Ližadud ühtnik __member__ kartale __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
+  "act-joinMember": "Ližatud ühtnik __member__ kartale __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
   "act-unjoinMember": "Heittud ühtnik __member__ kartaspäi __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
   "act-removeBoardMember": "Heittud ühtnik __member__ laudaspäi __board__",
   "act-moveCard": "Sirttud kart __card__ laudal __board__ lugetišespäi __oldList__ ujundšoidul __oldSwimlane__ lugetišehe __list__ ujundšoidule __swimlane__",
@@ -656,7 +656,7 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.match(vepsTranslator.t('act-moveCard', activitySlots), /lugetišespäi SOURCE_LIST ujundšoidul SOURCE_SWIMLANE lugetišehe LIST ujundšoidule SWIMLANE/);
   assert.match(vepsTranslator.t('act-moveCardToOtherBoard', activitySlots), /laudaspäi SOURCE_BOARD.*laudale BOARD$/);
   assert.match(vepsTranslator.t('act-addAttachment', activitySlots), /ATTACHMENT kartale CARD/);
-  assert.match(vepsTranslator.t('act-joinMember', activitySlots), /^Ližadud ühtnik MEMBER kartale CARD/);
+  assert.match(vepsTranslator.t('act-joinMember', activitySlots), /^Ližatud ühtnik MEMBER kartale CARD/);
   assert.match(vepsTranslator.t('act-unjoinMember', activitySlots), /^Heittud ühtnik MEMBER kartaspäi CARD/);
   assert.match(vepsTranslator.t('act-archivedCard', activitySlots), /om sirttud arhivaha$/);
   assert.doesNotMatch(vepsTranslator.t('act-restoredCard', activitySlots), /arhivaha/);
@@ -673,9 +673,9 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   "hide-checked-items": "Peitä znamoitud kohtad",
   "checklist-count": "Kodvindlugetišen kohtoiden lugu (0/0)",
   "checklist-count-on-minicard": "Kodvindlugetišen kohtoiden lugu (0/0) minikartal",
-  "act-addSubtask": "Ližadud alategend __subtask__ kartale __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
-  "act-addChecklist": "Ližadud kodvindlugetiž __checklist__ kartale __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
-  "act-addChecklistItem": "Ližadud koht __checklistItem__ kodvindlugetišehe __checklist__ kartal __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
+  "act-addSubtask": "Ližatud alategend __subtask__ kartale __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
+  "act-addChecklist": "Ližatud kodvindlugetiž __checklist__ kartale __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
+  "act-addChecklistItem": "Ližatud koht __checklistItem__ kodvindlugetišehe __checklist__ kartal __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
   "act-removeChecklist": "Heittud kodvindlugetiž __checklist__ kartaspäi __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
   "act-removeChecklistItem": "Heittud koht __checklistItem__ kodvindlugetišespäi __checkList__ kartal __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
   "act-checkedItem": "Znamoitud koht __checklistItem__ kodvindlugetišes __checklist__ kartal __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
@@ -738,5 +738,53 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.equal(cache['ve-PP']['custom-field-text'], cache['ve-PP'].text);
   assert.match(vepsTranslator.t('custom-field-stringtemplate-format'), /%\{value\}/);
   assert.deepEqual(entities(cache['ve-PP']['custom-field-stringtemplate-separator']), entities(english['custom-field-stringtemplate-separator']));
+  const vepsChecklistActivityRepairs = {
+  "activity-customfield-created": "Tehtud kävutajan märitadud pöud %s",
+  "activity-subtask-added": "Ližatud alategend azjale %s",
+  "activity-checked-item": "Znamoitud koht %s kodvindlugetišes %s azjal %s",
+  "activity-unchecked-item": "Heittud znam kohtaspäi %s kodvindlugetišes %s azjal %s",
+  "activity-checklist-added": "Ližatud kodvindlugetiž azjale %s",
+  "activity-checklist-removed": "Heittud kodvindlugetiž azjaspäi %s",
+  "activity-checklist-completed": "Loptud kodvindlugetiž %s azjal %s",
+  "activity-checklist-uncompleted": "Kodvindlugetiž %s om märitadud kut lopmatoi azjal %s",
+  "activity-checklist-item-added": "Ližatud koht kodvindlugetišehe '%s' azjal %s",
+  "activity-checklist-item-removed": "Heittud koht kodvindlugetišespäi '%s' azjal %s",
+  "activity-checked-item-card": "Znamoitud koht %s kodvindlugetišes %s",
+  "activity-unchecked-item-card": "Heittud znam kohtaspäi %s kodvindlugetišes %s",
+  "activity-checklist-completed-card": "Loptud kodvindlugetiž __checklist__ kartal __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
+  "activity-checklist-uncompleted-card": "Kodvindlugetiž %s om märitadud kut lopmatoi",
+  "activity-editComment": "Vajehtadud sel’genzoituz %s",
+  "activity-deleteComment": "Heittud sel’genzoituz %s",
+  "activity-set-customfield": "Kävutajan märitadud pöud '%s' om pandud kut '%s' azjal %s",
+  "activity-unset-customfield": "Heittud kävutajan märitadud pöudon '%s' znamoičend azjal %s",
+  "r-w-label-added": "Mitte taht znam om ližatud",
+  "r-w-member-added": "Ühtnik om ližatud",
+  "r-w-assignee-added": "Märitadud kävutai om ližatud",
+  "r-w-checklist-added": "Kodvindlugetiž om ližatud",
+  "r-w-attachment-added": "Tartutadud fail om ližatud",
+  "act-addAttachment": "Ližatud tartutadud fail __attachment__ kartale __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
+  "act-addSubtask": "Ližatud alategend __subtask__ kartale __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
+  "act-addLabel": "Ližatud znam __label__ kartale __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
+  "act-addedLabel": "Ližatud znam __label__ kartale __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
+  "act-addChecklist": "Ližatud kodvindlugetiž __checklist__ kartale __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
+  "act-addChecklistItem": "Ližatud koht __checklistItem__ kodvindlugetišehe __checklist__ kartal __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
+  "act-createList": "Ližatud lugetiž __list__ laudale __board__",
+  "act-addBoardMember": "Ližatud ühtnik __member__ laudale __board__",
+  "act-joinMember": "Ližatud ühtnik __member__ kartale __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__"
+};
+  for (const [key, value] of Object.entries(vepsChecklistActivityRepairs)) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.equal(vepsTranslator.t(key, checklistSlots), value.replace(/__([A-Za-z]+)__/g, (_, name) => checklistSlots[name]), key);
+    assert.doesNotMatch(value, /luotu|mukautettu|lisätty|alitehtävä|ruksattu|poistettu|tarkistuslist|saatiin|valmiiksi|keskeneräinen|lisäsi|kortilla|uimarad|taulull|muokkasi|kommenttia|poisti|asetettu|sisällöksi|Käsittelijä|ližadud/i, key);
+  }
+  assert.equal(vepsTranslator.t('activity-checked-item', { sprintf: ['ITEM', 'CHECKLIST', 'CARD'] }), 'Znamoitud koht ITEM kodvindlugetišes CHECKLIST azjal CARD');
+  assert.equal(vepsTranslator.t('activity-checklist-item-added', { sprintf: ['CHECKLIST', 'CARD'] }), "Ližatud koht kodvindlugetišehe 'CHECKLIST' azjal CARD");
+  assert.equal(vepsTranslator.t('activity-checklist-item-removed', { sprintf: ['CHECKLIST', 'CARD'] }), "Heittud koht kodvindlugetišespäi 'CHECKLIST' azjal CARD");
+  assert.equal(vepsTranslator.t('activity-set-customfield', { sprintf: ['FIELD', 'VALUE', 'CARD'] }), "Kävutajan märitadud pöud 'FIELD' om pandud kut 'VALUE' azjal CARD");
+  assert.equal(vepsTranslator.t('activity-unset-customfield', { sprintf: ['FIELD', 'CARD'] }), "Heittud kävutajan märitadud pöudon 'FIELD' znamoičend azjal CARD");
+  assert.equal(cache['ve-PP']['activity-checklist-completed-card'], cache['ve-PP']['act-completeChecklist']);
+  assert.match(vepsTranslator.t('activity-checklist-uncompleted', { sprintf: ['CHECKLIST', 'CARD'] }), /CHECKLIST om märitadud kut lopmatoi azjal CARD/);
+  assert.match(cache['ve-PP']['r-w-label-added'], /^Mitte taht znam/);
+  for (const value of Object.values(cache['ve-PP'])) assert.doesNotMatch(value, /ližadud/i);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });
