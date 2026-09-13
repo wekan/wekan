@@ -86084,5 +86084,19 @@
     "before": "Indian national",
     "after": "Mamallaqta intiwatana (India)",
     "reason": "Replace English Indian national with Quechua assembled Mamallaqta intiwatana (India). National terminology attested in Quechua national park names https://mapcarta.com/Cerros_de_Amotape_National_Park ; calendar and country in https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/qu.xml . Do not copy Spanish Indio Nacional merely because CLDR contains it. Full assembled phrase remains low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "dz",
+    "key": "calendar-system-dangi",
+    "before": "Dangi (Korean)",
+    "after": "Dangi ཟླ་ཐོ",
+    "reason": "Replace English calendar descriptors with Dzongkha ཟླ་ཐོ, exact calendar term in https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/dz.xml . Preserve proper source names Dangi/Minguo without inventing transliterations. Assembled named-calendar phrases remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "dz",
+    "key": "calendar-system-roc",
+    "before": "Republic of China",
+    "after": "Minguo ཟླ་ཐོ",
+    "reason": "Replace English calendar descriptors with Dzongkha ཟླ་ཐོ, exact calendar term in https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/dz.xml . Preserve proper source names Dangi/Minguo without inventing transliterations. Assembled named-calendar phrases remain low confidence; no native-speaker verification."
   }
 ]
