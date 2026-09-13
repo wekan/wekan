@@ -92921,8 +92921,8 @@
     "locale": "tlh",
     "key": "card-sorting-by-number",
     "before": "Kartensortierung nach Nummer",
-    "after": "mI'mey lo'lu'taHvIS 'echletHommey patlhmoHlu'",
-    "reason": "Replace four flagged German sorting/order labels with direct Klingon. https://tlhingan.org/word/patlh cites Okrand guidance that patlhmoH sorts the items within a list, not the list itself, and attests patlh as order (qepHom 2024). Accordingly use tetlh Dochmey list items or 'echletHommey cards as sorting objects. Sort criterion heading described as sorting data, original order as patlh wa'DIch (first order), and number sorting explicitly uses mI'mey. Existing qIp click/hit UI usage retained. Full software phrases and original-order paraphrase are low confidence and need fluent-speaker validation; no placeholders changed."
+    "after": "mI'mey lo'lu'taHvIS 'echletHommey lupatlhmoHlu'",
+    "reason": "Replace four flagged German sorting/order labels with direct Klingon. https://tlhingan.org/word/patlh cites Okrand guidance that patlhmoH sorts the items within a list, not the list itself, and attests patlh as order (qepHom 2024). Accordingly use tetlh Dochmey list items or 'echletHommey cards as sorting objects. Sort criterion heading described as sorting data, original order as patlh wa'DIch (first order), and number sorting explicitly uses mI'mey. Existing qIp click/hit UI usage retained. Full software phrases and original-order paraphrase are low confidence and need fluent-speaker validation; no placeholders changed. Use lu- with indefinite-subject -lu- and plural objects Qu-Hommey / echletHommey, as documented at https://www.kli.org/duolingo/use-unknown-subjects/. This corrects plural agreement in the assembled wording; full phrase still needs fluent-speaker validation."
   },
   {
     "locale": "tlh",
@@ -93245,5 +93245,40 @@
     "before": "Kommentar löschen?",
     "after": "QInHom Qaw'lu''a'?",
     "reason": "Replace German comment activities and controls with Klingon, using QInHom (small message) already used in restrict-comment-editing. Preserve addition chel versus editing choH and deletion Qaw, absence of comments, and deletion confirmation question. Every named board/swimlane/list/card/comment placeholder and percent token retains its source role. Existing software terminology is reused; assembled clauses are low confidence and need fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "confirm-subtask-delete-popup",
+    "before": "Wollen Sie die Teilaufgabe wirklich löschen?",
+    "after": "Qu'Hom DaQaw' DaneHbej'a'?",
+    "reason": "Replace audited German subtask destination/deletion, PDF export limitation, or minicard numeric sorting with Klingon. Reuse repaired Qu-Hom, PDF export ngeH, and patlhmoH terminology; preserve this-board/added-here destination, confirmation certainty, negative export ability, and numeric-on-minicard qualification. The destination list is described as the list for subtasks added here. Full software wording is assembled, low confidence, and requires fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "deposit-subtasks-board",
+    "before": "Teilaufgaben in diesem Board ablegen:",
+    "after": "raSvamDaq Qu'Hommey tIchel:",
+    "reason": "Replace audited German subtask destination/deletion, PDF export limitation, or minicard numeric sorting with Klingon. Reuse repaired Qu-Hom, PDF export ngeH, and patlhmoH terminology; preserve this-board/added-here destination, confirmation certainty, negative export ability, and numeric-on-minicard qualification. The destination list is described as the list for subtasks added here. Full software wording is assembled, low confidence, and requires fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "deposit-subtasks-list",
+    "before": "Zielliste für hier abgelegte Teilaufgaben:",
+    "after": "naDev luchellu'bogh Qu'HommeyvaD tetlh:",
+    "reason": "Replace audited German subtask destination/deletion, PDF export limitation, or minicard numeric sorting with Klingon. Reuse repaired Qu-Hom, PDF export ngeH, and patlhmoH terminology; preserve this-board/added-here destination, confirmation certainty, negative export ability, and numeric-on-minicard qualification. The destination list is described as the list for subtasks added here. Full software wording is assembled, low confidence, and requires fluent-speaker validation. Use lu- with indefinite-subject -lu- and plural objects Qu-Hommey / echletHommey, as documented at https://www.kli.org/duolingo/use-unknown-subjects/. This corrects plural agreement in the assembled wording; full phrase still needs fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "user-can-not-export-card-to-pdf",
+    "before": "Benutzer kann Karte nicht in ein PDF exportieren",
+    "after": "PDF-vaD 'echletHom ngeHlaHbe' lo'wI'",
+    "reason": "Replace audited German subtask destination/deletion, PDF export limitation, or minicard numeric sorting with Klingon. Reuse repaired Qu-Hom, PDF export ngeH, and patlhmoH terminology; preserve this-board/added-here destination, confirmation certainty, negative export ability, and numeric-on-minicard qualification. The destination list is described as the list for subtasks added here. Full software wording is assembled, low confidence, and requires fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "card-sorting-by-number-on-minicard",
+    "before": "Kartensortierung nach Nummer auf Minikarte",
+    "after": "'echletHom machDaq mI'mey lo'lu'taHvIS 'echletHommey lupatlhmoHlu'",
+    "reason": "Replace audited German subtask destination/deletion, PDF export limitation, or minicard numeric sorting with Klingon. Reuse repaired Qu-Hom, PDF export ngeH, and patlhmoH terminology; preserve this-board/added-here destination, confirmation certainty, negative export ability, and numeric-on-minicard qualification. The destination list is described as the list for subtasks added here. Full software wording is assembled, low confidence, and requires fluent-speaker validation. Use lu- with indefinite-subject -lu- and plural objects Qu-Hommey / echletHommey, as documented at https://www.kli.org/duolingo/use-unknown-subjects/. This corrects plural agreement in the assembled wording; full phrase still needs fluent-speaker validation."
   }
 ]
