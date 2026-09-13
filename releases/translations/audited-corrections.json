@@ -52960,5 +52960,82 @@
     "before": "Impossibile esportare in Excel: spazio su disco insufficiente",
     "after": "No ie meso esporté a Excel: no ie assà spazie liber sun l disco",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "filter-assignee-label",
+    "before": "Filtra secondo l'assegnatario",
+    "after": "Filtré do la persona enciariada",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "filter-custom-fields-label",
+    "before": "Filtra secondo campi personalizzati",
+    "after": "Filtré do i ciamps personalisà",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "filter-no-custom-fields",
+    "before": "Nessun campo personalizzato",
+    "after": "Degun ciamp personalisà",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "fix-avatar-urls-migration",
+    "before": "Correggi URL degli avatar",
+    "after": "Coreje i URL di avatar",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "font-default",
+    "before": "Predefinito (nessun font personalizzato)",
+    "after": "Predefinì (deguna scritura personalisada)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "globalSearch-instructions-notes-1",
+    "before": "È possibile specificare più operatori.",
+    "after": "L ie meso specifiché deplù operadours.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "import-board-instruction-csv",
+    "before": "Incolla in Comma Separated Values (CSV) / Tab Separated Values (TSV) .",
+    "after": "Encolé i valores separà da virgoles (CSV) / i valores separà da tabulazions (TSV).",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "import-trello-parent-workspace",
+    "before": "Colloca gli spazi di lavoro importati sotto",
+    "after": "Meter i spazi de laur importà dessot",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "location-detect-from-map",
+    "before": "Rileva la posizione da qualsiasi link di mappa",
+    "after": "Cherté la posizion da n link de na mapa",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "location-detect-none",
+    "before": "Impossibile rilevare una posizione da questo link.",
+    "after": "No ie stat meso cherté na posizion da chësc link.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "map-provider-saved",
+    "before": "Servizio di mappe predefinito salvato.",
+    "after": "Servisc de mapes predefinì salvà.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
