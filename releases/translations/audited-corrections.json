@@ -86224,5 +86224,33 @@
     "before": "Hebrew",
     "after": "Hebrea kaleandar",
     "reason": "Replace English Hebrew with assembled Northern Sami Hebrea kaleandar. Hebrea adapted from official education authority Hebreagiella https://www.udir.no/lk20/fagkoder/fsp6420?lang=nno and indexed dictionary https://giellatekno.uit.no/dicts/dicts/Jouni_A_Vest_nettisanakirja.pdf ; kaleandar follows documented local terminology. Stem adaptation and full calendar phrase remain low confidence, not independently attested or native-speaker verified."
+  },
+  {
+    "locale": "vo",
+    "key": "createCustomField",
+    "before": "Créer un champ personnalisé",
+    "after": "Jafön feli",
+    "reason": "Replace French field/member-selection wording with Volapük. Dictionary attests jafön (create), fel (general field), votükön (alter), välön (choose), liman (member): https://en.wikibooks.org/wiki/Volap%C3%BCk/English-Volap%C3%BCk_dictionary . Infinitive labels and accusative objects assembled directly; software-field sense and complete UI phrasing remain low confidence pending native review. Preserve source tokens."
+  },
+  {
+    "locale": "vo",
+    "key": "createCustomFieldPopup-title",
+    "before": "Créer un champ personnalisé",
+    "after": "Jafön feli",
+    "reason": "Replace French field/member-selection wording with Volapük. Dictionary attests jafön (create), fel (general field), votükön (alter), välön (choose), liman (member): https://en.wikibooks.org/wiki/Volap%C3%BCk/English-Volap%C3%BCk_dictionary . Infinitive labels and accusative objects assembled directly; software-field sense and complete UI phrasing remain low confidence pending native review. Preserve source tokens."
+  },
+  {
+    "locale": "vo",
+    "key": "editCustomFieldPopup-title",
+    "before": "Éditer le champ personnalisé",
+    "after": "Votükön feli",
+    "reason": "Replace French field/member-selection wording with Volapük. Dictionary attests jafön (create), fel (general field), votükön (alter), välön (choose), liman (member): https://en.wikibooks.org/wiki/Volap%C3%BCk/English-Volap%C3%BCk_dictionary . Infinitive labels and accusative objects assembled directly; software-field sense and complete UI phrasing remain low confidence pending native review. Preserve source tokens."
+  },
+  {
+    "locale": "vo",
+    "key": "importMapMembersAddPopup-title",
+    "before": "Sélectionner le participant",
+    "after": "Välön limani",
+    "reason": "Replace French field/member-selection wording with Volapük. Dictionary attests jafön (create), fel (general field), votükön (alter), välön (choose), liman (member): https://en.wikibooks.org/wiki/Volap%C3%BCk/English-Volap%C3%BCk_dictionary . Infinitive labels and accusative objects assembled directly; software-field sense and complete UI phrasing remain low confidence pending native review. Preserve source tokens."
   }
 ]
