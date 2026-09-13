@@ -90865,5 +90865,68 @@
     "before": "Essayer de se reconnecter.",
     "after": "Steifülön ad yümön dönu.",
     "reason": "Replace French automatic-width controls, avatar size warning and reconnect action with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests vidot (width), itjäfidik (automatic), gebön (use), stopön (stop), gretik (large), steifülön (try) and yümön (connect); MediaWiki Volapük uses klikön for software clicking. List-header template selects disable when auto width is enabled and enable when disabled; preserve opposite current-state/action meanings. Preserve __size__ as an upper bound and reconnect as trying to connect again, not login. Avatar remains a technical borrowing; assembled software wording is low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "cardCustomField-datePopup-title",
+    "before": "Modifier la date",
+    "after": "Votükön däti",
+    "reason": "Replace French/Esperanto date-popup titles and French invitation/test-email messages with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests votükön (alter), dät (date), prim (beginning), fin (end), vögod/vögodam (vote/voting), vüd (invitation), sedön (send), and benosek (success). Follow existing repaired activity wording tüp for due time and dät getama for receipt date; getam is a derived noun. Distinguish start, receipt, due, end and voting-end dates; retain Planning Poker proper name and exact __inviter__ placeholder. Preserve sender/recipient roles and successful email sending. Assembled software wording and proper-name inflection remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "editCardStartDatePopup-title",
+    "before": "Redakti komencdaton",
+    "after": "Votükön däti prima",
+    "reason": "Replace French/Esperanto date-popup titles and French invitation/test-email messages with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests votükön (alter), dät (date), prim (beginning), fin (end), vögod/vögodam (vote/voting), vüd (invitation), sedön (send), and benosek (success). Follow existing repaired activity wording tüp for due time and dät getama for receipt date; getam is a derived noun. Distinguish start, receipt, due, end and voting-end dates; retain Planning Poker proper name and exact __inviter__ placeholder. Preserve sender/recipient roles and successful email sending. Assembled software wording and proper-name inflection remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "editCardDueDatePopup-title",
+    "before": "Modifier la date d'échéance",
+    "after": "Votükön tüpi",
+    "reason": "Replace French/Esperanto date-popup titles and French invitation/test-email messages with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests votükön (alter), dät (date), prim (beginning), fin (end), vögod/vögodam (vote/voting), vüd (invitation), sedön (send), and benosek (success). Follow existing repaired activity wording tüp for due time and dät getama for receipt date; getam is a derived noun. Distinguish start, receipt, due, end and voting-end dates; retain Planning Poker proper name and exact __inviter__ placeholder. Preserve sender/recipient roles and successful email sending. Assembled software wording and proper-name inflection remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "editCardReceivedDatePopup-title",
+    "before": "Modifier la date de réception",
+    "after": "Votükön däti getama",
+    "reason": "Replace French/Esperanto date-popup titles and French invitation/test-email messages with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests votükön (alter), dät (date), prim (beginning), fin (end), vögod/vögodam (vote/voting), vüd (invitation), sedön (send), and benosek (success). Follow existing repaired activity wording tüp for due time and dät getama for receipt date; getam is a derived noun. Distinguish start, receipt, due, end and voting-end dates; retain Planning Poker proper name and exact __inviter__ placeholder. Preserve sender/recipient roles and successful email sending. Assembled software wording and proper-name inflection remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "editCardEndDatePopup-title",
+    "before": "Modifier la date de fin",
+    "after": "Votükön däti fina",
+    "reason": "Replace French/Esperanto date-popup titles and French invitation/test-email messages with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests votükön (alter), dät (date), prim (beginning), fin (end), vögod/vögodam (vote/voting), vüd (invitation), sedön (send), and benosek (success). Follow existing repaired activity wording tüp for due time and dät getama for receipt date; getam is a derived noun. Distinguish start, receipt, due, end and voting-end dates; retain Planning Poker proper name and exact __inviter__ placeholder. Preserve sender/recipient roles and successful email sending. Assembled software wording and proper-name inflection remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "editVoteEndDatePopup-title",
+    "before": "Modifier la date de fin de vote",
+    "after": "Votükön däti fina vögodama",
+    "reason": "Replace French/Esperanto date-popup titles and French invitation/test-email messages with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests votükön (alter), dät (date), prim (beginning), fin (end), vögod/vögodam (vote/voting), vüd (invitation), sedön (send), and benosek (success). Follow existing repaired activity wording tüp for due time and dät getama for receipt date; getam is a derived noun. Distinguish start, receipt, due, end and voting-end dates; retain Planning Poker proper name and exact __inviter__ placeholder. Preserve sender/recipient roles and successful email sending. Assembled software wording and proper-name inflection remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "editPokerEndDatePopup-title",
+    "before": "Changer la date de fin de vote du planning poker",
+    "after": "Votükön däti fina vögodama ela Planning Poker",
+    "reason": "Replace French/Esperanto date-popup titles and French invitation/test-email messages with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests votükön (alter), dät (date), prim (beginning), fin (end), vögod/vögodam (vote/voting), vüd (invitation), sedön (send), and benosek (success). Follow existing repaired activity wording tüp for due time and dät getama for receipt date; getam is a derived noun. Distinguish start, receipt, due, end and voting-end dates; retain Planning Poker proper name and exact __inviter__ placeholder. Preserve sender/recipient roles and successful email sending. Assembled software wording and proper-name inflection remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "email-invite-register-subject",
+    "before": "__inviter__ vous a envoyé une invitation",
+    "after": "__inviter__ esedon ole vüdi",
+    "reason": "Replace French/Esperanto date-popup titles and French invitation/test-email messages with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests votükön (alter), dät (date), prim (beginning), fin (end), vögod/vögodam (vote/voting), vüd (invitation), sedön (send), and benosek (success). Follow existing repaired activity wording tüp for due time and dät getama for receipt date; getam is a derived noun. Distinguish start, receipt, due, end and voting-end dates; retain Planning Poker proper name and exact __inviter__ placeholder. Preserve sender/recipient roles and successful email sending. Assembled software wording and proper-name inflection remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "email-smtp-test-text",
+    "before": "Vous avez envoyé un courriel avec succès",
+    "after": "Esedol penedi leäktronik ko benosek",
+    "reason": "Replace French/Esperanto date-popup titles and French invitation/test-email messages with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests votükön (alter), dät (date), prim (beginning), fin (end), vögod/vögodam (vote/voting), vüd (invitation), sedön (send), and benosek (success). Follow existing repaired activity wording tüp for due time and dät getama for receipt date; getam is a derived noun. Distinguish start, receipt, due, end and voting-end dates; retain Planning Poker proper name and exact __inviter__ placeholder. Preserve sender/recipient roles and successful email sending. Assembled software wording and proper-name inflection remain low confidence pending native review."
   }
 ]
