@@ -277,5 +277,13 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
     assert.doesNotMatch(cache['ve-PP'][key], /Sähköposti|Kirjaudu|Kyllä|KULUNGILE|Varmista/, key);
   }
   assert.equal(cache['ve-PP'].no, 'Ei');
+  for (const [key, value] of Object.entries({
+    file: 'Fail', next: "Uz'", previous: 'Edeline', refresh: 'Udišta',
+    download: 'Pane muštho kut fail', upload: 'Sa', size: "Suruz'", type: 'Tip',
+  })) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.doesNotMatch(cache['ve-PP'][key], /Tiedosto|Seuraava|Edellinen|Päivitä|Lataa|Lähetä|Koko|Tyyppi/, key);
+  }
+  assert.notEqual(cache['ve-PP'].download, cache['ve-PP'].upload);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });

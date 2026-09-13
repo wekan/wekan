@@ -112670,5 +112670,61 @@
     "before": "Varmista",
     "after": "Vahvištoita",
     "reason": "Replace Finnish/Zulu authentication and confirmation labels using directly fetched native Veps software vocabulary at https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: email, pt-login-button, logout, htmlform-yes, ok, confirm. Use the sign-in button imperative Tule. Preserve existing correct Veps Ei for No."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "file",
+    "before": "Tiedosto",
+    "after": "Fail",
+    "reason": "Replace Finnish navigation/file labels with native software terms at https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: table_pager_next/prev, uploadstash-refresh, export-download, upload-dialog-button-upload, upload-maxfilesize, filetype-banned; Fail is also the native MediaWiki file namespace. Download uses the explicit save-as-file phrase, distinct from upload; omit unrelated reference nouns in standalone labels."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "next",
+    "before": "Seuraava",
+    "after": "Uz'",
+    "reason": "Replace Finnish navigation/file labels with native software terms at https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: table_pager_next/prev, uploadstash-refresh, export-download, upload-dialog-button-upload, upload-maxfilesize, filetype-banned; Fail is also the native MediaWiki file namespace. Download uses the explicit save-as-file phrase, distinct from upload; omit unrelated reference nouns in standalone labels."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "previous",
+    "before": "Edellinen",
+    "after": "Edeline",
+    "reason": "Replace Finnish navigation/file labels with native software terms at https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: table_pager_next/prev, uploadstash-refresh, export-download, upload-dialog-button-upload, upload-maxfilesize, filetype-banned; Fail is also the native MediaWiki file namespace. Download uses the explicit save-as-file phrase, distinct from upload; omit unrelated reference nouns in standalone labels."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "refresh",
+    "before": "Päivitä",
+    "after": "Udišta",
+    "reason": "Replace Finnish navigation/file labels with native software terms at https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: table_pager_next/prev, uploadstash-refresh, export-download, upload-dialog-button-upload, upload-maxfilesize, filetype-banned; Fail is also the native MediaWiki file namespace. Download uses the explicit save-as-file phrase, distinct from upload; omit unrelated reference nouns in standalone labels."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "download",
+    "before": "Lataa",
+    "after": "Pane muštho kut fail",
+    "reason": "Replace Finnish navigation/file labels with native software terms at https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: table_pager_next/prev, uploadstash-refresh, export-download, upload-dialog-button-upload, upload-maxfilesize, filetype-banned; Fail is also the native MediaWiki file namespace. Download uses the explicit save-as-file phrase, distinct from upload; omit unrelated reference nouns in standalone labels."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "upload",
+    "before": "Lähetä",
+    "after": "Sa",
+    "reason": "Replace Finnish navigation/file labels with native software terms at https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: table_pager_next/prev, uploadstash-refresh, export-download, upload-dialog-button-upload, upload-maxfilesize, filetype-banned; Fail is also the native MediaWiki file namespace. Download uses the explicit save-as-file phrase, distinct from upload; omit unrelated reference nouns in standalone labels."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "size",
+    "before": "Koko",
+    "after": "Suruz'",
+    "reason": "Replace Finnish navigation/file labels with native software terms at https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: table_pager_next/prev, uploadstash-refresh, export-download, upload-dialog-button-upload, upload-maxfilesize, filetype-banned; Fail is also the native MediaWiki file namespace. Download uses the explicit save-as-file phrase, distinct from upload; omit unrelated reference nouns in standalone labels."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "type",
+    "before": "Tyyppi",
+    "after": "Tip",
+    "reason": "Replace Finnish navigation/file labels with native software terms at https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: table_pager_next/prev, uploadstash-refresh, export-download, upload-dialog-button-upload, upload-maxfilesize, filetype-banned; Fail is also the native MediaWiki file namespace. Download uses the explicit save-as-file phrase, distinct from upload; omit unrelated reference nouns in standalone labels."
   }
 ]
