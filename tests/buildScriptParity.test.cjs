@@ -224,7 +224,7 @@ test('every script in releases/ is reachable from BOTH menus', () => {
     'ferretdb/start-wekan.bat': 'shipped INSIDE the Windows bundle, to start it',
     'build-bundle-win64.bat': 'a Windows batch script - bash cannot run it, so it '
       + 'is not a menu entry; build.bat\'s Bundles menu says to run it directly',
-    'mirror.sh': 'Tools menu launches all three active mirror adapters on Unix',
+    'mirror.sh': 'Tools menu opens mirror settings and synchronization on Unix',
     'mirror.bat': 'Windows Tools menu counterpart of the Unix mirror launcher',
     // Release-workflow helpers. These are called by
     // .github/workflows/release-all.yml, not by a person from a menu: they take
@@ -319,7 +319,7 @@ test('every script in releases/ is reachable from BOTH menus', () => {
   SKIP['translations/repair-audited-translations.mjs'] = 'reviewed repair helper; run directly';
   SKIP['translations/push-all-translations.mjs'] = 'implementation invoked by push-all-translations.sh';
 
-  for (const mirror of ['gitlab', 'codeberg', 'sourceforge']) {
+  for (const mirror of ['github', 'gitlab', 'codeberg', 'sourceforge']) {
     for (const extension of ['sh', 'bat']) {
       SKIP[`mirror-${mirror}.${extension}`] = 'per-target launcher invoked by the Tools mirror flow; verified in activeForgeMirror';
     }

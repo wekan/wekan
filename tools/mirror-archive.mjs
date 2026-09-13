@@ -92,7 +92,7 @@ export function issueFiles(issue) {
       try {
         const u = new URL(raw.replace(/&amp;/g, '&'));
         if (u.username || u.password) continue;
-        if ((u.hostname === 'github.com' && /^\/(?:user-attachments\/(?:assets|files)\/|wekan\/wekan\/files\/)/.test(u.pathname)) || /^(?:user-images|private-user-images)\.githubusercontent\.com$/.test(u.hostname)) urls.add(u.href);
+        if ((u.hostname === 'github.com' && /^\/(?:user-attachments\/(?:assets|files)\/|wekan\/wekan\/files\/)/.test(u.pathname)) || /^(?:user-images|private-user-images)\.githubusercontent\.com$/.test(u.hostname) || (u.hostname === 'gitlab.com' && /^\/wekan\/wekan\/(?:-\/)?uploads\//.test(u.pathname)) || (u.hostname === 'codeberg.org' && /^\/attachments\//.test(u.pathname)) || (u.hostname === 'sourceforge.net' && /^\/(?:rest\/)?p\/wekan\/.+\/(?:attachment|attachments)\//.test(u.pathname))) urls.add(u.href);
       } catch { /* Prose is not a file URL. */ }
     }
   }
@@ -111,7 +111,7 @@ export async function downloadUrl(url, { temporary, previous, cachedFile, fetche
   if (archive) url = `https://codeload.github.com/wekan/wekan/legacy.${archive[1] === 'zipball' ? 'zip' : 'tar.gz'}/${archive[2]}`;
   // Attachment redirects are limited to GitHub's file hosts. No credentials
   // are forwarded to linked websites or arbitrary hosts from issue Markdown.
-  const allowed = host => host === 'github.com' || host === 'codeload.github.com' || host === 'api.github.com' || host.endsWith('.githubusercontent.com') || /^github-production-[a-z0-9-]+\.s3(?:[.-][a-z0-9-]+)?\.amazonaws\.com$/.test(host);
+  const allowed = host => ['github.com', 'codeload.github.com', 'api.github.com', 'gitlab.com', 'codeberg.org', 'sourceforge.net', 'downloads.sourceforge.net'].includes(host) || host.endsWith('.dl.sourceforge.net') || host.endsWith('.githubusercontent.com') || /^github-production-[a-z0-9-]+\.s3(?:[.-][a-z0-9-]+)?\.amazonaws\.com$/.test(host);
   const headers = {};
   if (cachedFile && previous?.etag) headers['If-None-Match'] = previous.etag;
   if (cachedFile && previous?.lastModified) headers['If-Modified-Since'] = previous.lastModified;
@@ -172,7 +172,7 @@ async function archiveItem(base, type, key, source, files, options) {
       } else {
         const cached = validCache(directory, old);
         let fetched;
-        if (descriptor.asset) {
+        if (descriptor.asset && (!descriptor.asset.sourceName || descriptor.asset.sourceName === 'github')) {
           if (cached && old.assetId === descriptor.asset.id && old.size === descriptor.asset.size && old.digest === descriptor.asset.digest) fetched = { file: path.join(directory, old.name), reused: true };
           else fetched = { file: await downloadAsset(descriptor.asset, temporary) };
         } else fetched = await fetchFile(descriptor.source, { temporary, previous: old, cachedFile: cached ? path.join(directory, old.name) : undefined });
@@ -186,7 +186,7 @@ async function archiveItem(base, type, key, source, files, options) {
         }
         validators = { etag: fetched.etag, lastModified: fetched.lastModified, originalName: fetched.originalName };
         const hash = contentHash = fetched.reused && old ? old.sha256 : await sha256(fetched.file);
-        if (descriptor.asset && (fs.statSync(fetched.file).size !== descriptor.asset.size || (descriptor.asset.digest && descriptor.asset.digest !== `sha256:${hash}`))) throw new Error('GitHub asset size/digest mismatch');
+        if (descriptor.asset && ((descriptor.asset.size !== undefined && fs.statSync(fetched.file).size !== descriptor.asset.size) || (descriptor.asset.digest && descriptor.asset.digest !== `sha256:${hash}`))) throw new Error('Source asset size/digest mismatch');
         const same = fs.existsSync(file) && ((cached && old.name === descriptor.name && old.sha256 === hash) || await sha256(file) === hash);
         if (!same) {
           const incoming = path.join(directory, `.incoming-${randomUUID()}`);
@@ -215,7 +215,7 @@ async function archiveItem(base, type, key, source, files, options) {
   writeBytes(path.join(directory, indexName), serialized({ version: 1, type, key, source, files: current }), now);
 }
 async function archiveUnlockedSnapshot(snapshot, { root, apply = true, downloadAsset, fetchFile = downloadUrl, record = () => {}, now = new Date() } = {}) {
-  const base = path.join(root, '.tools/mirror'), temporary = path.join(root, '.tools/tmp/mirror-archive');
+  const base = archiveBase(root, snapshot.sourceName), temporary = path.join(root, '.tools/tmp/mirror-archive');
   if (apply) fs.mkdirSync(temporary, { recursive: true });
   const options = { apply, record, downloadAsset, fetchFile, temporary, now };
   const isPull = issue => Boolean(issue.pull_request || issue.pullMetadata);
@@ -283,10 +283,14 @@ export async function archiveSnapshot(snapshot, options = {}) {
     return await archiveUnlockedSnapshot(snapshot, options);
   } finally { fs.rmSync(lock, { recursive: true, force: true }); }
 }
-export function archivedAssets(root, releases) {
+function archiveBase(root, sourceName = 'github') {
+  if (!['github', 'gitlab', 'codeberg', 'sourceforge'].includes(sourceName)) throw new Error('Unknown archive source');
+  return path.join(root, '.tools/mirror', ...(sourceName === 'github' ? [] : ['sources', sourceName]));
+}
+export function archivedAssets(root, releases, sourceName = 'github') {
   const assets = new Map(), sources = new Map();
   for (const release of releases) {
-    const directory = itemDirectory(path.join(root, '.tools/mirror'), 'releases', release.tag_name);
+    const directory = itemDirectory(archiveBase(root, sourceName), 'releases', release.tag_name);
     const index = loadIndex(directory);
     if (!index || index.sourceMissing || String(index.key) !== String(release.tag_name)) continue;
     for (const file of index.files) {
@@ -294,7 +298,7 @@ export function archivedAssets(root, releases) {
       const local = path.join(directory, file.name);
       if (file.kind === 'asset') {
         const current = (release.assets || []).find(a => a.id === file.assetId);
-        if (current && current.size === file.size && current.digest === file.digest) assets.set(file.assetId, local);
+        if (current && (current.size === undefined || current.size === file.size) && current.digest === file.digest && current.browser_download_url === file.source) assets.set(file.assetId, local);
       }
       if (file.kind === 'source-archive') {
         const list = sources.get(release.tag_name) || [];

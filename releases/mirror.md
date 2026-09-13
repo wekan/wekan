@@ -2,52 +2,86 @@
 
 Design updated: **2026-09-13**.
 
-`releases/mirror.sh` runs `mirror-gitlab.sh`, `mirror-codeberg.sh` and
-`mirror-sourceforge.sh`. Only uncommented `mirror "name" "URL"` calls select
-active targets; Bitbucket remains disabled. `releases/mirror.bat` and the
-corresponding per-mirror `.bat` scripts run the same Node engine on Windows.
-Build menu **Tools → Mirror repo to forges** calls this flow on both platforms.
-The common implementation is `tools/mirror-active-forges.mjs`; persistent local
-files are managed by `tools/mirror-archive.mjs`.
-Projects and wiki are excluded.
+With no arguments, `releases/mirror.sh` and `releases/mirror.bat` open the same
+six-action menu:
+
+1. Sync newest data from source to destination mirrors.
+2. Select source.
+3. Select active mirrors.
+4. Check source and mirror Git/API access.
+5. Check where data is not mirrored yet.
+6. Exit.
+
+GitHub is the default source; GitLab, Codeberg and SourceForge are the default
+mirrors. The source selector supports all four forges. Changing source removes
+it from active mirrors and adds the previous source as a destination. The mirror
+selector accepts comma-separated numbers, `none`, or blank to cancel. Choices
+are saved immediately to `.tools/mirror/settings.txt` and reloaded next time:
+
+```text
+version=1
+source=github
+mirrors=gitlab,codeberg,sourceforge
+```
+
+The source cannot also be a mirror. Invalid, duplicate or unknown settings fail
+instead of silently choosing another destination. All mirrors may be disabled;
+sync then asks for an active destination. The uncommented registry in
+`releases/mirror.sh` supplies defaults until settings exist. Bitbucket is inactive.
+The menu delegates to separate `mirror-github`, `mirror-gitlab`, `mirror-codeberg`
+and `mirror-sourceforge` scripts (`.sh` on Unix, `.bat` on Windows).
+Build menu **Tools → Mirror repo to forges** opens this menu on both platforms.
+Shared implementations are `tools/mirror-menu.mjs`, `tools/mirror-settings.mjs`,
+`tools/mirror-active-forges.mjs` and `tools/mirror-archive.mjs`.
+Discussions, projects and wiki are excluded.
 
 Run these commands yourself from the checkout:
 
 ```sh
-# Read-only preview of all active destinations:
-bash releases/mirror.sh --preview
-# Copy missing data and synchronize Git branches/tags:
+# Open the menu:
 bash releases/mirror.sh
-# One destination, using a fresh GitHub snapshot:
+# Read-only online check:
+bash releases/mirror.sh --check-online
+# Read-only missing-data and Git ancestry check:
+bash releases/mirror.sh --check-missing
+# Unattended sync using saved settings:
+bash releases/mirror.sh --sync
+# One active destination, using the selected source:
 bash releases/mirror-codeberg.sh
 ```
 
-On Windows, use `releases\mirror.bat --preview`, then `releases\mirror.bat`.
+On Windows, use `releases\mirror.bat` for the menu, or the same operation flags.
+`--preview` is an alias of `--check-missing`. Checks never write to a remote: Git
+uses public HTTPS, source/API inventory uses the existing CLI login. API
+authentication/rate-limit errors are reported separately from Git access errors.
+Missing Git branches and differing tags are listed; commit ancestry compares
+source branches with destination branches, preserving extra destination merges.
+Temporary read-only Git repositories are removed after comparison.
 `node tools/mirror-active-forges.mjs` is a read-only data preview; `--apply`
 copies missing data and `--code` includes branches/tags. `--target` selects one
 active mirror. Git updates do not force changes or delete destination refs.
 When destination `main` has merge commits from older mirror runs, the tool
-merges destination and GitHub `main` in `.tools/wekan-<mirror>` and pushes the
+merges destination and selected-source `main` in `.tools/wekan-<mirror>` and pushes the
 combined history. It inherits the root checkout's Git author identity, preserves
 local changes, and aborts conflicting merges. Other divergent branches/tags
 are reported for manual resolution.
 Run the forge CLI installer in the build menu first on a new machine.
 
-The all-mirror launcher reads one fresh, fully paginated GitHub snapshot for
+The all-mirror launcher reads one fresh, fully paginated selected-source snapshot for
 the run, archives its files once, then passes the snapshot to each destination. Individual scripts read a fresh snapshot when run separately. The
 snapshot includes open/closed issues and PRs, issue comments, inline
 review comments and review summaries, labels, milestones, releases and their
 fully paginated assets.
 
-| Data | GitLab | Codeberg | SourceForge |
-| --- | --- | --- | --- |
-| Code, branches, tags, workflow source files | Git | Git | Git |
-| Issues and closed state | Native issues | Native issues | Tracker tickets |
-| PRs | Linked issues with branch/patch information | Same | Same |
-| Issue comments, review summaries and inline comments | Native comments | Native comments | Tracker discussion posts |
-| Labels and milestones | Create missing native entries | Create missing native entries | Labels; milestone link in ticket text |
-| Published release notes | Native releases | Native releases | `README.md` in file release directory |
-| Release binaries | Project uploads linked to release | Native release attachments | SFTP file releases |
+| Data | GitHub | GitLab | Codeberg | SourceForge |
+| --- | --- | --- | --- | --- |
+| Code, branches, tags, workflow source files | Git | Git | Git | Git |
+| Issues and closed state | Native issues | Native issues | Native issues | Tracker tickets |
+| PRs | Linked issues | Linked issues with branch/patch information | Same | Same |
+| Issue comments, review summaries and inline comments | Native comments | Native comments | Native comments | Tracker discussion posts |
+| Labels and milestones | Native entries | Create missing native entries | Create missing native entries | Labels; milestone link in ticket text |
+| Published release notes | Native releases | Native releases | Native releases | `README.md` in file release directory |
+| Release binaries | Native release assets | Project uploads linked to release | Native release attachments | SFTP file releases |
 
 Authenticate `gh`, `glab` and `tea` separately. For Codeberg binary uploads,
 set `CODEBERG_TOKEN` or `GITEA_TOKEN` with repository write permission; metadata
@@ -80,7 +114,7 @@ retained. Each release includes `mirror.json` mapping
 original filenames, sizes, digests and URLs. Uploads use `.part`, then rename
 after success; a partial file is retried on the next run.
 
-Issues and comments use a GitHub URL marker, never a title, as their identity.
+Issues and comments use their original forge URL marker, never a title, as their identity.
 The previous tool's `Mirrored from …` footer is recognized. Existing releases
 match by Git tag; their text is preserved. Removing a mirror's provenance can
 prevent issue matching, so retain its marker/footer. Existing human text and
@@ -91,13 +125,40 @@ copies are attempted again on the next run. An inventory failure stops writes
 to that category rather than assuming it was empty. Other categories and mirrors
 continue, and any failures/conflicts produce a nonzero exit status.
 
-Console status, `status.txt`, `report.json` and the GitHub snapshot are saved in
+Console status, `status.txt`, `report.json` and `source.json` snapshot are saved in
 `.tools/log/mirror-<timestamp>/`. Reports list copied/planned/checked items,
 archive renames and each failure reason. Transfer files stay in `.tools/tmp`;
 completed source files remain in the persistent archive below. Available archived
 release binaries are reused for destination uploads. SourceForge also receives
 the archived source ZIP/tarball files. Archive failures are reported and later
 mirrors still attempt supported data; the overall launcher returns failure.
+
+## Selecting a different source
+
+GitLab reads issues, merge requests and their notes, milestones, labels and
+release links; Codeberg reads issues, pull requests, review comments, labels,
+milestones and release attachments. Native raw metadata is retained alongside
+normalized fields. Existing mirror markers retain original identities when data
+passes through another forge. Native destination URLs also match these identities,
+preventing a copy from being imported back as a new issue in its original forge.
+GitHub can receive linked issues, comments, labels, milestones and native releases;
+binary uploads use authenticated `gh api --input`.
+
+SourceForge reads full Tracker tickets/comments and recursively inventories FRS
+files through read-only SFTP. A directory with `mirror.json` restores the original
+release tag, asset names and provenance. Other leaf directories become synthetic
+`sourceforge-<directory>-<hash>` releases because FRS has no native release objects.
+This preserves all files; it does not invent historical release dates or original
+tags. Synthetic GitHub releases do not replace the latest release designation.
+SourceForge source selection therefore requires read access to FRS over SSH.
+Native SourceForge pull requests, reviews and milestones are unavailable; linked
+PR tickets retain their original PR identity where their marker supplies one.
+
+GitHub's existing archive paths below stay unchanged. Other sources use
+`.tools/mirror/sources/gitlab/`, `sources/codeberg/` or `sources/sourceforge/`, with
+the same `issues`, `pulls` and `releases` layout. Namespacing prevents equal issue
+numbers on different forges from overwriting or retiring each other's files.
+Switching source preserves every previous source archive.
 
 ## Persistent files, additions and history
 
@@ -220,3 +281,10 @@ API references: [GitHub source archives](https://docs.github.com/en/rest/repos/c
 GitHub Discussions are disabled in WeKan and are never fetched or mirrored.
 Issue comments and pull request reviews are separate supported data. Projects
 and wiki are also excluded.
+
+Menu, settings, source-switch identity, native API shapes, read-only checks, Git
+ancestry, Windows dispatch, archive retention and interrupted retries are tested
+with offline fixtures. Live remote synchronization is a maintainer-run operation.
+API references: [GitHub CLI API](https://cli.github.com/manual/gh_api),
+[GitLab releases](https://docs.gitlab.com/api/releases/),
+[Gitea API](https://docs.gitea.com/api/1.24/).

@@ -6,13 +6,14 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 import { spawnSync, spawn } from 'node:child_process';
 import { pipeline } from 'node:stream/promises';
 import { createHash } from 'node:crypto';
-import { archiveSnapshot, archivedAssets } from './mirror-archive.mjs';
+import { archiveSnapshot, archivedAssets, downloadUrl } from './mirror-archive.mjs';
+import { forges, loadSettings } from './mirror-settings.mjs';
 
 export const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const source = 'repos/wekan/wekan';
 const encode = encodeURIComponent;
 export const marker = url => `<!-- wekan-mirror:${url} -->`;
-export const provenance = item => `Mirrored from ${item.html_url}.\nOriginal author: ${item.user?.login || item.author?.login || 'unknown'}; created: ${item.created_at || 'unknown'}.${item.milestone ? `\nMilestone: [${item.milestone.title}](${item.milestone.html_url}).` : ''}${item.assignees?.length ? `\nGitHub assignees: ${item.assignees.map(a => `[${a.login}](${a.html_url})`).join(', ')}.` : ''}`;
+export const provenance = item => `Mirrored from ${item.html_url}.\nOriginal author: ${item.user?.login || item.author?.login || 'unknown'}; created: ${item.created_at || 'unknown'}.${item.milestone ? `\nMilestone: [${item.milestone.title}](${item.milestone.html_url}).` : ''}${item.assignees?.length ? `\nSource assignees: ${item.assignees.map(a => `[${a.login}](${a.html_url})`).join(', ')}.` : ''}`;
 export const body = item => `${marker(item.html_url)}\n\n${item.body || ''}\n\n---\n${provenance(item)}`;
 export const safeSegment = text => {
   if (!text) throw new Error('Empty release path');
@@ -32,7 +33,7 @@ export function activeMirrors(script) {
   return mirrors;
 }
 export function mirroredUrl(text) {
-  const marked = String(text || '').match(/<!-- wekan-mirror:(https:\/\/github\.com\/wekan\/wekan\/[^\s>]+) -->/);
+  const marked = String(text || '').match(/<!-- wekan-mirror:(https:\/\/(?:github\.com\/wekan\/wekan|gitlab\.com\/wekan\/wekan|codeberg\.org\/wekan\/wekan|sourceforge\.net\/(?:p|projects)\/wekan)\/[^\s>]+) -->/);
   if (marked) return marked[1];
   // Recognize the previous engine's footer; never deduplicate by title.
   return String(text || '').match(/Mirrored from (https:\/\/github\.com\/wekan\/wekan\/(?:issues|pull)\/\d+)/i)?.[1];
@@ -111,12 +112,132 @@ export async function sourceSnapshot(api = cliApi) {
   for (const release of releases) release.assets = await pages(get, `${source}/releases/${release.id}/assets`);
   return { issues, releases, labels: await pages(get, `${source}/labels`), milestones: await pages(get, `${source}/milestones?state=all`), capturedAt: new Date().toISOString() };
 }
-const commentBody = c => `${marker(c.html_url)}\n\n${c.review_state ? `GitHub review: ${c.review_state}.\n\n` : ''}${c.path ? `Review comment at ${c.path}${c.line ? `:${c.line}` : ''}:\n\n` : ''}${body(c)}`;
+export async function selectedSnapshot(kind = 'github', api = cliApi, sourceForge = new SourceForgeAdapter()) {
+  if (kind === 'github') {
+    const snapshot = await sourceSnapshot(api);
+    for (const item of [...snapshot.issues, ...snapshot.releases]) {
+      item.source_url = item.html_url;
+      item.sourceMetadata = { ...item }; delete item.sourceMetadata.sourceMetadata;
+      item.html_url = mirroredUrl(item.body) || item.html_url;
+      if (!item.tag_name && !item.pull_request && /\/(?:pulls?|merge_requests)\/\d+$/.test(item.html_url)) item.pull_request = { patch_url: `${item.html_url}.patch` };
+      for (const comment of item.commentsToMirror || []) { comment.source_url = comment.html_url; comment.html_url = mirroredUrl(comment.body) || comment.html_url; }
+    }
+    return { ...snapshot, sourceName: kind, sourceUrl: forges[kind].url };
+  }
+  if (!Object.hasOwn(forges, kind)) throw new Error(`Unknown source: ${kind}`);
+  if (kind === 'sourceforge') return sourceForgeSnapshot(sourceForge);
+  const adapter = new ForgeAdapter(kind, api), gitlab = kind === 'gitlab';
+  const labels = (await adapter.list('labels')).map(l => ({ ...l, color: String(l.color).replace(/^#/, '') }));
+  const milestones = (await adapter.list('milestones?state=all')).map(m => ({ ...m, html_url: m.web_url || m.html_url, due_on: m.due_date || m.due_on }));
+  const issues = [], seen = new Set();
+  const normalize = raw => {
+    const text = gitlab ? raw.description || '' : raw.body || '';
+    const sourceUrl = raw.web_url || raw.html_url;
+    if (!sourceUrl) throw new Error('Source issue is missing its URL');
+    return { ...raw, sourceMetadata: raw, milestone: raw.milestone && (milestones.find(m => m.title === raw.milestone.title) || raw.milestone), assignees: (raw.assignees || []).map(a => ({ ...a, login: a.username || a.login, html_url: a.web_url || a.html_url })), number: raw.iid || raw.number, html_url: mirroredUrl(text) || sourceUrl, source_url: sourceUrl, body: text, user: { ...raw.author || raw.user, login: raw.author?.username || raw.user?.login }, labels: (raw.labels || []).map(l => typeof l === 'string' ? labels.find(label => label.name === l) || { name: l, color: '808080' } : l), state: ['closed', 'merged'].includes(raw.state) ? 'closed' : 'open', commentsToMirror: [] };
+  };
+  for (const raw of await adapter.list(gitlab ? 'issues?state=all' : 'issues?state=all&type=issues')) {
+    const issue = normalize(raw); issue.commentsToMirror = await sourceComments(adapter, raw, false);
+    issues.push(issue); seen.add(issue.html_url);
+  }
+  for (const raw of await adapter.list(gitlab ? 'merge_requests?state=all' : 'pulls?state=all')) {
+    const issue = normalize(raw);
+    if (seen.has(issue.html_url)) continue;
+    issue.originalBody = issue.body;
+    issue.body += `\n\nPull request: ${raw.source_branch || raw.head?.label || '?'} → ${raw.target_branch || raw.base?.label || '?'}.\nMerged: ${Boolean(raw.merged_at)}.\nPatch: ${raw.patch_url || `${issue.source_url}.patch`}`;
+    issue.pull_request = { patch_url: raw.patch_url || `${issue.source_url}.patch` }; issue.pullMetadata = { ...raw, patch_url: issue.pull_request.patch_url };
+    issue.commentsToMirror = await sourceComments(adapter, raw, true);
+    if (!gitlab) {
+      issue.reviews = await adapter.list(`pulls/${raw.number}/reviews`);
+      for (const review of issue.reviews) for (const comment of await adapter.list(`pulls/${raw.number}/reviews/${review.id}/comments`)) issue.commentsToMirror.push({ ...comment, html_url: mirroredUrl(comment.body) || comment.html_url });
+      issue.commentsToMirror.push(...issue.reviews.filter(r => r.html_url).map(r => ({ ...r, review_state: r.state, created_at: r.submitted_at || r.created_at })));
+    }
+    issues.push(issue); seen.add(issue.html_url);
+  }
+  const releases = [];
+  for (const raw of await adapter.releases()) {
+    const text = gitlab ? raw.description || '' : raw.body || '', sourceUrl = raw._links?.self || raw.html_url || `${forges[kind].url}/-/releases/${encode(raw.tag_name)}`;
+    const release = { ...raw, sourceMetadata: raw, body: text, html_url: mirroredUrl(text) || sourceUrl, source_url: sourceUrl, published_at: raw.released_at || raw.published_at, assets: [] };
+    release.assets = (await adapter.assets(raw)).map(a => ({ ...a, id: `${kind}:${a.id}`, sourceName: kind, browser_download_url: a.direct_asset_url || a.browser_download_url || a.url }));
+    const ref = encode(raw.tag_name);
+    release.zipball_url = gitlab ? `${forges[kind].url}/-/archive/${ref}/wekan-${ref}.zip` : `${forges[kind].url}/archive/${ref}.zip`;
+    release.tarball_url = gitlab ? `${forges[kind].url}/-/archive/${ref}/wekan-${ref}.tar.gz` : `${forges[kind].url}/archive/${ref}.tar.gz`;
+    releases.push(release);
+  }
+  return { issues, releases, labels, milestones, sourceName: kind, sourceUrl: forges[kind].url, capturedAt: new Date().toISOString() };
+}
+export async function sourceForgeSnapshot(adapter, { run = command, fetchFile = downloadUrl, directory = path.join(root, '.tools/tmp/mirror-sourceforge') } = {}) {
+  fs.mkdirSync(directory, { recursive: true });
+  await adapter.prepare({ labels: [], milestones: [] }, false);
+  const issues = [], labels = new Map();
+  for (const raw of await adapter.issues()) {
+    const sourceUrl = raw.url ? new URL(raw.url, 'https://sourceforge.net').href : `https://sourceforge.net/p/wekan/${adapter.tracker}/${raw.ticket_num}/`;
+    const issue = { sourceMetadata: raw, number: raw.ticket_num, title: raw.summary, body: raw.description, html_url: mirroredUrl(raw.description) || sourceUrl, source_url: sourceUrl, state: adapter.isClosed(raw) ? 'closed' : 'open', user: { login: raw.reported_by || raw.created_by || 'unknown' }, created_at: raw.created_date, labels: (raw.labels || []).map(name => ({ name, color: '808080' })) };
+    for (const label of issue.labels) labels.set(label.name, label);
+    if (/\/pull\/\d+$/.test(issue.html_url)) issue.pull_request = { patch_url: `${issue.html_url}.patch` };
+    issue.commentsToMirror = (await adapter.comments(raw)).map(c => ({ ...c, body: c.text, html_url: mirroredUrl(c.text) || c.url || `${sourceUrl}#${c._id || c.slug}`, user: { login: c.author?.username || c.author || 'unknown' }, created_at: c.timestamp }));
+    issues.push(issue);
+  }
+  const user = process.env.WEKAN_SOURCEFORGE_USER || 'wekan';
+  if (!/^[a-zA-Z0-9_-]+$/.test(user)) throw new Error('Invalid SourceForge SSH username');
+  const groups = new Map(), remoteRoot = '/home/frs/project/wekan';
+  const visit = relative => {
+    const output = run('sftp', ['-oBatchMode=yes', '-oConnectTimeout=30', '-b', '-', `${user}@frs.sourceforge.net`], `ls -l "${remoteRoot}${relative ? `/${relative}` : ''}"\n`);
+    for (const line of output.split(/\r?\n/)) {
+      if (!line.trim() || line.startsWith('sftp>') || /^Connected to|^Remote working/.test(line)) continue;
+      const match = line.match(/^([d-])[rwxStTs-]{9}\+?\s+\d+\s+\S+\s+\S+\s+(\d+)\s+\S+\s+\d+\s+\S+\s+(.+)$/);
+      if (!match) throw new Error(`Unrecognized SourceForge file inventory: ${line}`);
+      const [, type, size, name] = match;
+      if (!Number.isSafeInteger(Number(size))) throw new Error('Invalid SourceForge file size');
+      if (name === '.' || name === '..') continue;
+      if (/["\r\n/\\]/.test(name)) throw new Error('Unsafe SourceForge inventory filename');
+      const filePath = relative ? `${relative}/${name}` : name;
+      if (type === 'd') { visit(filePath); continue; }
+      const list = groups.get(relative) || [];
+      list.push({ id: `sourceforge:${filePath}`, name, size: Number(size), sourceName: 'sourceforge', browser_download_url: `https://downloads.sourceforge.net/project/wekan/${filePath.split('/').map(encode).join('/')}` }); groups.set(relative, list);
+    }
+  };
+  visit('');
+  const readFile = async asset => {
+    const result = await fetchFile(asset.browser_download_url, { temporary: directory });
+    if (result.missing || !result.file) throw new Error(`Missing SourceForge metadata ${asset.name}`);
+    if (fs.statSync(result.file).size !== asset.size) throw new Error(`Incomplete SourceForge metadata ${asset.name}`);
+    return fs.readFileSync(result.file, 'utf8');
+  };
+  const releases = [];
+  for (const [relative, assets] of groups) {
+    const manifestAsset = assets.find(a => a.name === 'mirror.json'), notesAsset = assets.find(a => a.name === 'README.md');
+    const manifest = manifestAsset ? JSON.parse(await readFile(manifestAsset)) : null;
+    if (manifest && (!manifest.tag || !Array.isArray(manifest.assets) || !mirroredUrl(marker(manifest.source)))) throw new Error('Invalid SourceForge release manifest');
+    const sourceUrl = `https://sourceforge.net/projects/wekan/files/${relative.split('/').filter(Boolean).map(encode).join('/')}/`;
+    const notes = notesAsset ? await readFile(notesAsset) : '';
+    for (const asset of assets) {
+      const original = manifest?.assets.find(a => a.filename === asset.name);
+      if (original) { asset.name = original.original_name; asset.digest = original.digest; }
+    }
+    releases.push({ tag_name: manifest?.tag || `sourceforge-${safeSegment(relative || 'root')}`, name: manifest?.tag || relative || 'SourceForge root files', body: notes, html_url: manifest?.source || sourceUrl, source_url: sourceUrl, published_at: manifest?.published_at, target_commitish: 'main', assets, sourceMetadata: manifest || { directory: relative, syntheticRelease: true } });
+  }
+  return { issues, releases, labels: [...labels.values()], milestones: [], sourceName: 'sourceforge', sourceUrl: forges.sourceforge.url, capturedAt: new Date().toISOString() };
+}
+async function sourceComments(adapter, item, pull) {
+  const gitlab = adapter.kind === 'gitlab', id = item.iid || item.number;
+  const endpoint = gitlab ? `${pull ? 'merge_requests' : 'issues'}/${id}/notes` : `issues/${id}/comments`;
+  const comments = await adapter.list(endpoint);
+  if (gitlab) {
+    const ids = new Set(comments.map(c => c.id));
+    for (const discussion of await adapter.list(`${pull ? 'merge_requests' : 'issues'}/${id}/discussions`)) {
+      if (!Array.isArray(discussion.notes)) throw new Error('Incomplete GitLab discussion inventory');
+      for (const note of discussion.notes) if (!ids.has(note.id)) { comments.push({ ...note, discussion_id: discussion.id }); ids.add(note.id); }
+    }
+  }
+  return comments.map(c => ({ ...c, html_url: mirroredUrl(c.body) || c.html_url || `${item.web_url || item.html_url}#note_${c.id}`, user: { ...c.author || c.user, login: c.author?.username || c.user?.login }, path: c.position?.new_path || c.path, line: c.position?.new_line || c.line }));
+}
+const commentBody = c => `${marker(c.html_url)}\n\n${c.review_state ? `Source review: ${c.review_state}.\n\n` : ''}${c.path ? `Review comment at ${c.path}${c.line ? `:${c.line}` : ''}:\n\n` : ''}${body(c)}`;
 
 export class ForgeAdapter {
-  constructor(kind, api = cliApi, uploadMultipart = (endpoint, file) => jsonCommand('glab', ['api', '--hostname', 'gitlab.com', '--method', 'POST', '--form', `file=@${file}`, endpoint])) {
+  constructor(kind, api = cliApi, uploadMultipart = (endpoint, file) => jsonCommand('glab', ['api', '--hostname', 'gitlab.com', '--method', 'POST', '--form', `file=@${file}`, endpoint]), uploadGithub = (release, asset, file) => jsonCommand('gh', ['api', '--method', 'POST', '--header', 'Content-Type: application/octet-stream', '--input', file, `https://uploads.github.com/repos/wekan/wekan/releases/${release.id}/assets?name=${encode(asset.name)}`])) {
     this.kind = kind; this.api = api;
-    this.uploadMultipart = uploadMultipart;
+    this.uploadMultipart = uploadMultipart; this.uploadGithub = uploadGithub;
     this.base = kind === 'gitlab' ? 'projects/wekan%2Fwekan' : 'repos/wekan/wekan';
     this.labels = new Map(); this.milestones = new Map();
   }
@@ -134,14 +255,14 @@ export class ForgeAdapter {
     for (const milestone of snapshot.milestones) {
       const existing = this.milestones.get(milestone.title);
       if (existing) {
-        if (apply && milestone.state === 'closed' && existing.state !== 'closed') await this.request(`milestones/${existing.id}`, this.kind === 'gitlab' ? 'PUT' : 'PATCH', this.kind === 'gitlab' ? { state_event: 'close' } : { state: 'closed' });
+        if (apply && milestone.state === 'closed' && existing.state !== 'closed') await this.request(`milestones/${this.kind === 'github' ? existing.number : existing.id}`, this.kind === 'gitlab' ? 'PUT' : 'PATCH', this.kind === 'gitlab' ? { state_event: 'close' } : { state: 'closed' });
         continue;
       }
       const data = { title: milestone.title, description: `${milestone.description || ''}\n\n${marker(milestone.html_url)}\n${milestone.html_url}`, ...(milestone.due_on ? (this.kind === 'gitlab' ? { due_date: milestone.due_on.slice(0, 10) } : { due_on: milestone.due_on }) : {}) };
       const created = apply ? await this.request('milestones', 'POST', data) : { ...data, id: -1 };
       this.milestones.set(milestone.title, created);
       record(apply ? 'copied' : 'planned', `milestone ${milestone.title}`);
-      if (apply && milestone.state === 'closed') await this.request(`milestones/${created.id}`, this.kind === 'gitlab' ? 'PUT' : 'PATCH', this.kind === 'gitlab' ? { state_event: 'close' } : { state: 'closed' });
+      if (apply && milestone.state === 'closed') await this.request(`milestones/${this.kind === 'github' ? created.number : created.id}`, this.kind === 'gitlab' ? 'PUT' : 'PATCH', this.kind === 'gitlab' ? { state_event: 'close' } : { state: 'closed' });
     }
   }
   async issues() { return this.list('issues?state=all'); }
@@ -150,7 +271,7 @@ export class ForgeAdapter {
   async create(issue) {
     const labels = (issue.labels || []).map(l => this.labels.get(l.name)).filter(Boolean);
     const milestone = issue.milestone && this.milestones.get(issue.milestone.title);
-    const data = { title: `${issue.pull_request ? '[PR] ' : ''}${issue.title}`, ...(this.kind === 'gitlab' ? { description: body(issue), labels: labels.map(l => l.name).join(','), ...(milestone ? { milestone_id: milestone.id } : {}) } : { body: body(issue), labels: labels.map(l => l.id), ...(milestone ? { milestone: milestone.id } : {}) }) };
+    const data = { title: `${issue.pull_request ? '[PR] ' : ''}${issue.title}`, ...(this.kind === 'gitlab' ? { description: body(issue), labels: labels.map(l => l.name).join(','), ...(milestone ? { milestone_id: milestone.id } : {}) } : { body: body(issue), labels: labels.map(l => this.kind === 'github' ? l.name : l.id), ...(milestone ? { milestone: this.kind === 'github' ? milestone.number : milestone.id } : {}) }) };
     return this.request('issues', 'POST', data);
   }
   async comments(issue) { return this.list(`issues/${this.id(issue)}/${this.kind === 'gitlab' ? 'notes' : 'comments'}`); }
@@ -160,18 +281,20 @@ export class ForgeAdapter {
   releaseText(r) { return this.kind === 'gitlab' ? r.description : r.body; }
   async createRelease(release) {
     const text = `${body(release)}\n\nOriginal release assets:\n${(release.assets || []).map(a => `- [${a.name}](${a.browser_download_url})`).join('\n')}`;
-    return this.request('releases', 'POST', this.kind === 'gitlab' ? { name: release.name || release.tag_name, tag_name: release.tag_name, description: text, released_at: release.published_at || release.created_at } : { name: release.name || release.tag_name, tag_name: release.tag_name, body: text, draft: Boolean(release.draft), prerelease: Boolean(release.prerelease), target_commitish: release.target_commitish });
+    return this.request('releases', 'POST', this.kind === 'gitlab' ? { name: release.name || release.tag_name, tag_name: release.tag_name, description: text, ref: release.target_commitish || 'main', released_at: release.published_at || release.created_at } : { name: release.name || release.tag_name, tag_name: release.tag_name, body: text, draft: Boolean(release.draft), prerelease: Boolean(release.prerelease), ...(this.kind === 'github' && release.sourceMetadata?.syntheticRelease ? { make_latest: 'false' } : {}), target_commitish: release.target_commitish });
   }
   async assets(release) {
     return this.kind === 'gitlab' ? this.list(`releases/${encode(release.tag_name)}/assets/links`) : this.list(`releases/${release.id}/assets`);
   }
   async assetAccess() {
+    if (this.kind === 'github') return '';
     if (this.uploadToken === undefined) this.uploadToken = this.kind === 'gitlab' ? (process.env.GITLAB_TOKEN || process.env.GLAB_TOKEN || process.env.OAUTH_TOKEN || '') : (process.env.CODEBERG_TOKEN || process.env.GITEA_TOKEN || '');
     const token = this.uploadToken;
     if (!token && this.kind !== 'gitlab') throw new Error('Set CODEBERG_TOKEN or GITEA_TOKEN to copy Codeberg release binaries (tea login still handles metadata)');
     return token;
   }
   async uploadAsset(release, asset, file) {
+    if (this.kind === 'github') return this.uploadGithub(release, asset, file);
     const token = await this.assetAccess();
     const host = this.kind === 'gitlab' ? 'https://gitlab.com/api/v4' : 'https://codeberg.org/api/v1';
     const headers = this.kind === 'gitlab' ? { 'PRIVATE-TOKEN': token } : { Authorization: `token ${token}` };
@@ -193,7 +316,7 @@ export class ForgeAdapter {
 }
 
 export class SourceForgeAdapter {
-  constructor(request = httpJson) { this.http = request; this.base = 'https://sourceforge.net/rest/p/wekan'; }
+  constructor(request = httpJson) { this.kind = 'sourceforge'; this.http = request; this.base = 'https://sourceforge.net/rest/p/wekan'; }
   async request(endpoint, method = 'GET', data) {
     const token = process.env.SOURCEFORGE_TOKEN;
     if (method !== 'GET' && !token) throw new Error('Set SOURCEFORGE_TOKEN to a SourceForge OAuth bearer token to copy tracker data');
@@ -270,6 +393,8 @@ export async function syncIssues(adapter, snapshot, apply, record) {
     const url = mirroredUrl(adapter.text(target));
     if (url && existing.has(url)) throw new Error(`Duplicate existing mirror identity ${url}; resolve before synchronization`);
     if (url) existing.set(url, target);
+    const ownUrl = target.html_url || target.web_url || target.url || (adapter.kind === 'sourceforge' ? `https://sourceforge.net/p/wekan/${adapter.tracker}/${target.ticket_num}/` : undefined);
+    if (ownUrl && !existing.has(ownUrl)) existing.set(ownUrl, target);
   }
   for (const issue of snapshot.issues) {
     try {
@@ -283,7 +408,7 @@ export async function syncIssues(adapter, snapshot, apply, record) {
       }
       if (issue.commentsToMirror?.length) {
         const comments = await adapter.comments(target);
-        const urls = new Set(comments.map(c => mirroredUrl(c.body || c.text)).filter(Boolean));
+        const urls = new Set(comments.flatMap(c => [mirroredUrl(c.body || c.text), c.html_url || c.web_url || c.url || (adapter.kind === 'gitlab' ? `${target.web_url}#note_${c.id}` : undefined)]).filter(Boolean));
         for (const comment of issue.commentsToMirror) {
           if (urls.has(comment.html_url)) continue;
           record('planned', `comment ${comment.html_url}`);
@@ -332,6 +457,12 @@ export async function syncReleases(adapter, snapshot, apply, download, record) {
   }
 }
 async function downloadAsset(asset, directory) {
+  if (asset.sourceName && asset.sourceName !== 'github') {
+    const downloaded = await downloadUrl(asset.browser_download_url, { temporary: directory });
+    if (!downloaded.file || downloaded.missing) throw new Error(`Missing source asset ${asset.name}`);
+    if ((asset.size !== undefined && fs.statSync(downloaded.file).size !== asset.size) || (asset.digest && !await digestMatches(downloaded.file, asset.digest))) throw new Error(`Size/digest mismatch downloading ${asset.name}`);
+    return downloaded.file;
+  }
   if (!Number.isInteger(asset.id) || !Number.isSafeInteger(asset.size) || asset.size < 0) throw new Error('Invalid GitHub asset identity/size');
   const file = path.join(directory, `${asset.id}-${safeSegment(asset.name)}`);
   if (fs.existsSync(file) && fs.statSync(file).size === asset.size && (!asset.digest || await digestMatches(file, asset.digest))) return file;
@@ -351,8 +482,9 @@ async function digestMatches(file, digest) {
   return `sha256:${hash.digest('hex')}`.toLowerCase() === digest.toLowerCase();
 }
 export function syncGit(mirror, run = command, exists = fs.existsSync, tools = path.join(root, '.tools')) {
-  const gitdir = path.join(tools, 'wekan-github-mirror.git');
-  if (!exists(gitdir)) run('git', ['clone', '--mirror', 'https://github.com/wekan/wekan.git', gitdir]);
+  const sourceName = mirror.sourceName || 'github', sourceUrl = forges[sourceName].git;
+  const gitdir = path.join(tools, `wekan-${sourceName}-mirror.git`);
+  if (!exists(gitdir)) run('git', ['clone', '--mirror', sourceUrl, gitdir]);
   else run('git', ['-C', gitdir, 'fetch', 'origin']);
   try {
     run('git', ['-C', gitdir, 'push', mirror.url, 'refs/heads/*:refs/heads/*', 'refs/tags/*:refs/tags/*']);
@@ -369,7 +501,7 @@ export function syncGit(mirror, run = command, exists = fs.existsSync, tools = p
         if (!identity) throw new Error(`Configure ${key} in the WeKan checkout for mirror merge commits`);
         run('git', ['-C', checkout, 'config', key, identity]);
       }
-      for (const url of [mirror.url, 'https://github.com/wekan/wekan.git']) {
+      for (const url of [mirror.url, sourceUrl]) {
         run('git', ['-C', checkout, 'fetch', url, 'main']);
         try { run('git', ['-C', checkout, 'merge', '--no-edit', 'FETCH_HEAD']); }
         catch (error) {
@@ -392,11 +524,14 @@ export async function sourceForgeReleases(snapshot, apply, download, record, run
     const dir = `/home/frs/project/wekan/GitHub-releases/${safeSegment(release.tag_name)}`;
     try {
       if (release.draft) { record('unsupported', `SourceForge draft release ${release.tag_name}: kept private at GitHub`); continue; }
-      if (!apply) { record('planned', `SourceForge release files ${release.tag_name}`); continue; }
       const listed = run('sftp', ['-oBatchMode=yes', '-oConnectTimeout=30', '-b', '-', remote], `-ls -1 "${dir}"
 `);
       const names = new Set(listed.split(/\r?\n/).map(s => s.trim().split('/').pop()));
       const files = [...(release.assets || []), ...(release.sourceFiles || [])].map(a => ({ asset: a, name: safeSegment(a.name) }));
+      if (!apply) {
+        for (const name of [...files.map(f => f.name), 'README.md', 'mirror.json']) if (!names.has(name)) record('planned', `SourceForge ${release.tag_name}/${name}`);
+        record('checked', `SourceForge release files ${release.tag_name}`); continue;
+      }
       const notes = path.join(directory, `${safeSegment(release.tag_name)}.md`);
       const manifest = path.join(directory, `${safeSegment(release.tag_name)}.json`);
       fs.mkdirSync(directory, { recursive: true });
@@ -421,49 +556,54 @@ export async function sourceForgeReleases(snapshot, apply, download, record, run
 export async function main(args = process.argv.slice(2)) {
   if (args.includes('--list-targets')) {
     if (args.length !== 1) throw new Error('--list-targets must be used alone');
-    for (const mirror of activeMirrors(fs.readFileSync(path.join(root, 'releases/mirror.sh'), 'utf8'))) console.log(`${mirror.name}\t${mirror.url}`);
+    const settings = loadSettings(root, activeMirrors(fs.readFileSync(path.join(root, 'releases/mirror.sh'), 'utf8')).map(m => m.name));
+    for (const name of settings.mirrors) console.log(`${name}\t${forges[name].push}`);
     return;
   }
   if (args.includes('--help')) {
-    console.log('node tools/mirror-active-forges.mjs [--apply] [--code] [--target gitlab|codeberg|sourceforge]\nDefault: read-only preview. --apply archives source files and copies missing issues/PR conversations, labels, milestones, releases and assets. --code also synchronizes GitHub branches/tags. --archive-only --apply updates local files only. Uses active calls in releases/mirror.sh. See releases/mirror.md.'); return;
+    console.log('node tools/mirror-active-forges.mjs [--apply] [--code] [--source github|gitlab|codeberg|sourceforge] [--target github|gitlab|codeberg|sourceforge]\nDefault: read-only preview. --apply archives source files and copies missing issues/PR conversations, labels, milestones, releases and assets. --code also synchronizes selected-source branches/tags. --archive-only --apply updates local files only. Uses .tools/mirror/settings.txt, falling back to the active registry in releases/mirror.sh. See releases/mirror.md.'); return;
   }
-  let target, snapshotFile, exportFile;
+  let target, snapshotFile, exportFile, selectedSource;
   for (let i = 0; i < args.length; i++) {
     if (args[i] === '--target') { target = args[++i]; if (!target) throw new Error('--target needs a mirror name'); }
+    else if (args[i] === '--source') { selectedSource = args[++i]; if (!Object.hasOwn(forges, selectedSource)) throw new Error('--source needs a known forge name'); }
     else if (args[i] === '--snapshot') { snapshotFile = args[++i]; if (!snapshotFile) throw new Error('--snapshot needs a filename'); }
     else if (args[i] === '--export-source') { exportFile = args[++i]; if (!exportFile) throw new Error('--export-source needs a filename'); }
     else if (!['--apply', '--code', '--archive-only', '--skip-archive'].includes(args[i])) throw new Error(`Unknown argument ${args[i]}`);
   }
+  const settings = loadSettings(root, activeMirrors(fs.readFileSync(path.join(root, 'releases/mirror.sh'), 'utf8')).map(m => m.name));
+  selectedSource ||= settings.source;
   if (exportFile) {
     if (snapshotFile || args.includes('--apply')) throw new Error('--export-source is read-only and cannot be combined with --apply or --snapshot');
-    const snapshot = await sourceSnapshot();
+    const snapshot = await selectedSnapshot(selectedSource);
     fs.mkdirSync(path.dirname(path.resolve(exportFile)), { recursive: true });
     fs.writeFileSync(exportFile, JSON.stringify(snapshot));
-    console.log(`GitHub snapshot: ${snapshot.issues.length} issues/PRs, ${snapshot.releases.length} releases → ${exportFile}`);
+    console.log(`${forges[selectedSource].name} snapshot: ${snapshot.issues.length} issues/PRs, ${snapshot.releases.length} releases → ${exportFile}`);
     return;
   }
   const apply = args.includes('--apply');
-  const mirrors = activeMirrors(fs.readFileSync(path.join(root, 'releases/mirror.sh'), 'utf8')).filter(m => !target || m.name === target);
-  if (!mirrors.length) throw new Error(`Not an active mirror: ${target}`);
+  const mirrors = settings.mirrors.filter(name => name !== selectedSource && (!target || name === target)).map(name => ({ name, url: forges[name].push, sourceName: selectedSource }));
+  if (!mirrors.length && !args.includes('--archive-only')) throw new Error(`No active destination mirrors${target ? `: ${target}` : ''}`);
   const id = new Date().toISOString().replace(/[:.]/g, '-');
   const logdir = path.join(root, '.tools/log', `mirror-${id}`);
   const temporary = path.join(root, '.tools/tmp/mirror-active');
   fs.mkdirSync(logdir, { recursive: true }); fs.mkdirSync(temporary, { recursive: true });
   process.env.TMPDIR = temporary;
   if (process.platform === 'win32') { process.env.TMP = temporary; process.env.TEMP = temporary; }
-  const report = { started: new Date().toISOString(), apply, source: 'https://github.com/wekan/wekan', archive: [], mirrors: {}, limitations: ['PRs become linked issues; issue comments, review summaries and inline review comments are copied. Review states, authors and timestamps appear as provenance; accounts, votes and reactions are not recreated.', 'GitHub issue attachments/images are archived locally; destination Markdown retains original URLs. External website links are preserved in JSON/Markdown rather than downloaded.', 'Actions workflow files are mirrored with Git; execution logs, secrets and cross-forge executable CI configuration are not copied.', 'SourceForge release notes and binaries use File Release System directories, not native GitLab/Gitea release objects. SourceForge milestones remain in source issue provenance.', 'GitHub Discussions, projects and wiki are excluded. Draft releases are archived locally but not published to destinations. Existing destination text is preserved; only missing items/comments/assets are copied.'] };
+  const report = { started: new Date().toISOString(), apply, source: forges[selectedSource].url, archive: [], mirrors: {}, limitations: ['PRs become linked issues; issue comments, review summaries and inline review comments are copied. Review states, authors and timestamps appear as provenance; accounts, votes and reactions are not recreated.', 'GitHub issue attachments/images are archived locally; destination Markdown retains original URLs. External website links are preserved in JSON/Markdown rather than downloaded.', 'Actions workflow files are mirrored with Git; execution logs, secrets and cross-forge executable CI configuration are not copied.', 'SourceForge release notes and binaries use File Release System directories, not native GitLab/Gitea release objects. SourceForge milestones remain in source issue provenance.', 'GitHub Discussions, projects and wiki are excluded. Draft releases are archived locally but not published to destinations. Existing destination text is preserved; only missing items/comments/assets are copied.'] };
   const log = line => { console.log(line); fs.appendFileSync(path.join(logdir, 'status.txt'), `${line}\n`); };
   let lastSave = 0;
   const save = (force = true) => {
     if (!force && Date.now() - lastSave < 500) return;
     fs.writeFileSync(path.join(logdir, 'report.json'), JSON.stringify(report, null, 2) + '\n'); lastSave = Date.now();
   };
-  log(`${apply ? 'APPLY' : 'PREVIEW'}: GitHub → ${mirrors.map(m => m.name).join(', ')}\nReport: ${logdir}`);
+  log(`${apply ? 'APPLY' : 'PREVIEW'}: ${forges[selectedSource].name} → ${mirrors.map(m => m.name).join(', ')}\nReport: ${logdir}`);
   let snapshot;
   try {
-    snapshot = snapshotFile ? JSON.parse(fs.readFileSync(snapshotFile, 'utf8')) : await sourceSnapshot();
+    snapshot = snapshotFile ? JSON.parse(fs.readFileSync(snapshotFile, 'utf8')) : await selectedSnapshot(selectedSource);
     if (!Array.isArray(snapshot.issues) || !Array.isArray(snapshot.releases) || !Array.isArray(snapshot.labels) || !Array.isArray(snapshot.milestones) || !snapshot.capturedAt) throw new Error('Invalid GitHub snapshot');
-    fs.writeFileSync(path.join(logdir, 'github.json'), JSON.stringify(snapshot));
+    if ((snapshot.sourceName || 'github') !== selectedSource) throw new Error('Snapshot does not match selected source');
+    fs.writeFileSync(path.join(logdir, 'source.json'), JSON.stringify(snapshot));
   }
   catch (error) { report.sourceError = error.message; save(); throw error; }
   const archiveRecord = (status, detail) => { report.archive.push({ status, detail }); log(`[archive] ${status}: ${detail}`); save(false); };
@@ -478,7 +618,7 @@ export async function main(args = process.argv.slice(2)) {
     return;
   }
   let archive = { assets: new Map(), sources: new Map() };
-  try { archive = archivedAssets(root, snapshot.releases); } catch (error) { archiveRecord('failed', error.message); }
+  try { archive = archivedAssets(root, snapshot.releases, selectedSource); } catch (error) { archiveRecord('failed', error.message); }
   for (const release of snapshot.releases) {
     release.sourceFiles = (archive.sources.get(release.tag_name) || []).map(({ local, ...file }) => {
       const id = `archive:${release.tag_name}:${file.name}`;

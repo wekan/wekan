@@ -32,12 +32,13 @@ test('Windows discovers its checkout from the script, including the documented D
 });
 
 test('both launchers export once and dispatch each active target', () => {
-  assert.ok(shell.includes('--export-source'));
-  assert.ok(batch.includes('--export-source'));
-  assert.ok(shell.includes('mirror-$name.sh'));
-  assert.ok(batch.includes('mirror-%~1.bat'));
-  assert.ok(shell.includes('--snapshot'));
-  assert.ok(batch.includes('--snapshot'));
+  const menu = read('tools/mirror-menu.mjs');
+  assert.ok(shell.includes('mirror-menu.mjs'));
+  assert.ok(batch.includes('mirror-menu.mjs'));
+  assert.ok(menu.includes('--export-source'));
+  assert.ok(menu.includes('mirror-${target}.sh'));
+  assert.ok(menu.includes('mirror-${target}.bat'));
+  assert.ok(menu.includes('--snapshot'));
   const engine = read('tools/mirror-active-forges.mjs');
   assert.ok(engine.includes("'fetch', 'origin'"), 'existing Git cache fetches new commits');
   assert.ok(engine.includes("'refs/heads/*:refs/heads/*', 'refs/tags/*:refs/tags/*'"), 'only branches and tags are pushed');
@@ -48,8 +49,8 @@ test('the active registry has SSH destinations and Windows reads the same regist
   assert.ok(shell.includes('git@gitlab.com:wekan/wekan'));
   assert.ok(shell.includes('git@codeberg.org:wekan/wekan'));
   assert.ok(shell.includes('ssh://wekan@git.code.sf.net/p/wekan/code'));
-  assert.ok(batch.includes('--list-targets'));
-  assert.ok(batch.includes('do call :mirror %%A %%B'));
+  assert.ok(batch.includes('mirror-menu.mjs'));
+  assert.ok(read('tools/mirror-menu.mjs').includes('loadSettings'));
 });
 
 console.log(`\ngitMirrorUpdateScripts: ${passed} tests passed`);

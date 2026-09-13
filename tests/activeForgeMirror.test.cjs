@@ -290,13 +290,12 @@ const work = fs.mkdtempSync(path.join(process.env.TMPDIR, 'mirror-fixtures-'));
     const node = path.join(bin, 'node');
     fs.writeFileSync(node, '#!/bin/bash\nprintf "%s\\n" "$*" >> "$MIRROR_RECORDER"\nif [[ "$*" = *"--target codeberg"* ]]; then exit 7; fi\n'); fs.chmodSync(node, 0o755);
     const result = spawnSync('bash', [path.join(root, 'releases/mirror.sh'), '--preview'], { encoding: 'utf8', env: { ...process.env, PATH: `${bin}:${process.env.PATH}`, MIRROR_RECORDER: recorder } });
-    assert.equal(result.status, 1, result.stderr);
+    // The launcher now delegates to the shared interactive menu; orchestration
+    // and failure propagation are exercised with injected commands in mirrorMenu.
+    assert.equal(result.status, 0, result.stderr);
     const lines = fs.readFileSync(recorder, 'utf8').trim().split('\n');
-    assert.equal(lines.length, 5);
-    assert.match(lines[0], /--export-source/);
-    assert.match(lines[1], /--archive-only/);
-    assert.ok(lines.slice(2).every(v => /--code/.test(v) && /--snapshot/.test(v) && /--skip-archive/.test(v) && !/--apply/.test(v)));
-    assert.match(lines[4], /--target sourceforge/, 'later mirror runs after earlier failure');
+    assert.equal(lines.length, 1);
+    assert.match(lines[0], /mirror-menu\.mjs --preview/);
     const sh = fs.readFileSync(path.join(root, 'build.sh'), 'utf8');
     const desc = sh.match(/"Mirror repo to forges\|([^"]+)"/)[1];
     assert.ok(sh.includes(`"${desc}")\n\t\tmirror_forge`), 'offered menu descriptor has an exact handler');

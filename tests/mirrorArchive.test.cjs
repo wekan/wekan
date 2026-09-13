@@ -155,6 +155,22 @@ const hash = text => createHash('sha256').update(text).digest('hex');
     assert.ok(f.records.some(r => r[0] === 'failed' && /Invalid file entry/.test(r[1])));
     assert.ok(fs.existsSync(path.join(f.issueDir, 'issue.json')));
   });
+  await test('switching source isolates numeric IDs and retirement; native assets can omit API size', async () => {
+    const f = fixture(); await m.archiveSnapshot(f.snapshot, f.options);
+    const original = read(f.issueDir, 'issue.json');
+    f.snapshot.sourceName = 'gitlab'; f.snapshot.issues[0].title = 'GitLab issue';
+    const asset = f.snapshot.releases[0].assets[0]; asset.sourceName = 'gitlab'; delete asset.size;
+    f.bodies.set(asset.browser_download_url, 'first');
+    await m.archiveSnapshot(f.snapshot, f.options);
+    const nativeDir = path.join(f.root, '.tools/mirror/sources/gitlab/issues/1234');
+    assert.equal(JSON.parse(read(nativeDir, 'issue.json')).title, 'GitLab issue');
+    assert.equal(read(f.issueDir, 'issue.json'), original);
+    assert.equal(m.archivedAssets(f.root, f.snapshot.releases, 'gitlab').assets.size, 1);
+    f.snapshot.issues = []; await m.archiveSnapshot(f.snapshot, f.options);
+    assert.ok(!fs.existsSync(path.join(nativeDir, 'issue.json')));
+    assert.equal(read(f.issueDir, 'issue.json'), original);
+    assert.ok(fs.readdirSync(nativeDir).some(n => n.startsWith('old-')));
+  });
   await test('HTTP redirects, conditional responses, filenames and truncated transfers are checked locally', async () => {
     const temporary = path.join(work, 'http'), headers = [], url = 'https://github.com/user-attachments/assets/abc';
     const fetcher = async (u, opts) => {
