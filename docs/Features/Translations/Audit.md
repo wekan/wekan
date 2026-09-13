@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 14,498 |
+| Corrected | 14,500 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 1,346 |
+| Pending review or repair | 1,344 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **16,057** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **16,059** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-13**, local commit `d26e32c14` — repaired Veps Buddhist/Hijri/Umm al-Qura labels using native religious genitives and calendar vocabulary, preserving identifiers and variant distinctions. Vocabulary evidence includes indexed article copies; direct article fetches failed. Composed names need fluent review. All **16,057** correction records and vocabulary/token/distinct-calendar checks pass. Veps has 605 original findings remaining. Broader wrong-language/script values, restored translations and browser verification remain outstanding.
+Latest translation fix: **2026-09-13**, local commit `aca7cfe2c` — repaired Veps Indian National/Minguo labels with native country/national/republic vocabulary, preserving National and Minguo meanings. Evidence includes indexed article copies; direct fetches failed. Composed names need fluent review. All **16,059** correction records and vocabulary/token/distinct-calendar checks pass. Veps has 603 original findings remaining. Broader wrong-language/script values, restored translations and browser verification remain outstanding.
 
 **Language workflow (2026-09-13):** all 245 popup locales are wired and country-then-language flags are checked (`8549b6c4c`). Browser preference ordering, legacy/script aliases, delayed saved profiles and no automatic profile writes pass runtime checks (`1666a2012`, `37ae64fa8`); actual browser execution remains pending. Uzbek Arabic (`uz-AR`) still contains Latin core labels and needs repair.
 
