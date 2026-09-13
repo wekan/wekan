@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 11,870 |
+| Corrected | 11,874 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 3,976 |
+| Pending review or repair | 3,972 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,256** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,260** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `6714285488452b33b54d88aec27774008df9f6e7` — Cornish Saudi Hijri label now includes lunar sighting, using [Akademi vocabulary](https://www.cornishdictionary.org.uk/sites/default/files/GerlyverPDF_20190723.pdf) and [Saudi country name](https://en.wiktionary.org/wiki/Arabi_an_Saud). Assembled wording remains low confidence; Coptic and tabular/epoch variants remain pending. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; live browser verification is unavailable.
+Latest translation fix: **2026-09-13**, local commit `39a1a9797897dbc400221d21880ca2e7dd9d3857` — 4 Greenlandic named-calendar labels repaired with Ullorsiut, attested in a [published Greenlandic calendar](https://www.bibelselskabet.dk/sites/default/files/files/110x210_bib_groenlandsk_2025-26.pdf). Assembled wording and proper-name renderings remain low confidence; other Greenlandic calendar findings remain pending. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; live browser verification is unavailable.
 
 **Review follow-up:** Silesian `sandstorm-raw-mongodb` remains pending: its wording overlaps Polish and existing Silesian technical strings, but dictionary searches did not establish the full phrase as correct Silesian. Keep the current value until stronger language evidence supports retaining or replacing it.
 
