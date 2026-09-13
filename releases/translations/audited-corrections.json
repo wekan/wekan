@@ -92279,5 +92279,19 @@
     "before": "Burnup",
     "after": "Traballu acabbadu (Burnup)",
     "reason": "Localize chart labels directly into Sardinian using existing Traballu work, chi abarrat remaining, and acabbadu completed vocabulary. Preserve standard Burndown/Burnup chart identifiers in parentheses for recognition. Source chartPlaceholderViews.jade maps both labels to their respective charts. Assembled labels remain low confidence and need native-speaker validation; no correct human translation overwritten."
+  },
+  {
+    "locale": "sc",
+    "key": "r-workspace",
+    "before": "Spazio di lavoro",
+    "after": "Ispàtziu de traballu",
+    "reason": "Correct unflagged Italian wording in the Sardinian locale. Workspace uses existing ispàtziu de traballu from allboards.add-workspace; remaining time uses existing Tempus chi abarrat wording from board-status-remaining-time-total. Direct assembled wording has low confidence and still needs native-speaker validation; no placeholders changed."
+  },
+  {
+    "locale": "sc",
+    "key": "remaining_time",
+    "before": "Tempo rimanente",
+    "after": "Tempus chi abarrat",
+    "reason": "Correct unflagged Italian wording in the Sardinian locale. Workspace uses existing ispàtziu de traballu from allboards.add-workspace; remaining time uses existing Tempus chi abarrat wording from board-status-remaining-time-total. Direct assembled wording has low confidence and still needs native-speaker validation; no placeholders changed."
   }
 ]
