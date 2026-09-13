@@ -52834,5 +52834,68 @@
     "before": "Impossibile avviare il processo pianificato",
     "after": "No ie stat meso envié l laur planificà",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "custom-assetlinks-content",
+    "before": "Contenuto di assetlinks.json personalizzato (JSON)",
+    "after": "Contegn personalisà de assetlinks.json (JSON)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "custom-field-stringtemplate-format",
+    "before": "Formato (usa %{value} come segnaposto)",
+    "after": "Format (adoré %{value} coche segn de sostituzion)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "custom-head-link-tags",
+    "before": "Tag link personalizzati (HTML)",
+    "after": "Tags link personalisà (HTML)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "custom-head-meta-tags",
+    "before": "Tag meta personalizzati (HTML)",
+    "after": "Tags meta personalisà (HTML)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "database-migrate-to-ferretdb",
+    "before": "Migra i dati testuali su FerretDB v1 (SQLite)",
+    "after": "Migré i dac de test a FerretDB v1 (SQLite)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "database-migrate-to-mongodb",
+    "before": "Migra i dati testuali su MongoDB",
+    "after": "Migré i dac de test a MongoDB",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "default-save-storage",
+    "before": "Storage di salvataggio predefinito",
+    "after": "Memorisazion predefinida per salvé",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "default-save-storage-save-failed",
+    "before": "Impossibile salvare lo storage predefinito",
+    "after": "No ie stat meso salvé la memorisazion predefinida",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "default-save-storage-saved",
+    "before": "Storage di salvataggio predefinito salvato",
+    "after": "Memorisazion predefinida salvada",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
