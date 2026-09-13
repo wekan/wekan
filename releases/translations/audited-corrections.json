@@ -93399,5 +93399,33 @@
     "before": "Verschiebe alle Anhänge nach S3",
     "after": "S3-vaD Hoch rarDochmey tIvIHmoH",
     "reason": "Replace German attachment storage controls with Klingon, reusing repaired rarDoch and storage-configuration wording. Preserve singular attachment versus all attachments versus all attachments of the board, destination filesystem/GridFS/S3, minicard count, and deletion question. filesystem is retained as a technical storage-backend borrowing to distinguish it from GridFS and S3. Full software wording and compound inflection are assembled, low confidence, and need fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "globalSearch-instructions-operator-sort",
+    "before": "`__operator_sort__:<sort-name>` – wo *<sort-name>* eines aus `__predicate_due__`, `__predicate_created__` oder `__predicate_modified__` ist.  Zum absteigenden Sortieren ein `-` vor den Sortierschlüssel setzen.",
+    "after": "`__operator_sort__:<sort-name>` - *<sort-name>* DachermeH `__predicate_due__`, `__predicate_created__` pagh `__predicate_modified__` yIwIv. patlh jenvo' patlh 'eSvaD Dochmey DapatlhmoHmeH, patlhmoHmeH pong tlhopDaq `-` yIlan.",
+    "reason": "Replace audited German global-search sorting instructions and sort/status/number errors with Klingon. Preserve all backtick syntax, <sort-name>, predicate tokens, leading minus placement, and descending high-to-low ordering; preserve required number versus received __value__ and the __operator__ actor. Reuse patlhmoH terminology and descriptive software phrases. Full wording is assembled, low confidence, and needs fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "operator-sort-invalid",
+    "before": "Sortierung „%s“ ist ungültig",
+    "after": "'%s' patlhmoHmeH mIw lughbe'",
+    "reason": "Replace audited German global-search sorting instructions and sort/status/number errors with Klingon. Preserve all backtick syntax, <sort-name>, predicate tokens, leading minus placement, and descending high-to-low ordering; preserve required number versus received __value__ and the __operator__ actor. Reuse patlhmoH terminology and descriptive software phrases. Full wording is assembled, low confidence, and needs fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "operator-status-invalid",
+    "before": "„%s“ ist kein gültiger Status",
+    "after": "'%s' Dotlh lughbe'",
+    "reason": "Replace audited German global-search sorting instructions and sort/status/number errors with Klingon. Preserve all backtick syntax, <sort-name>, predicate tokens, leading minus placement, and descending high-to-low ordering; preserve required number versus received __value__ and the __operator__ actor. Reuse patlhmoH terminology and descriptive software phrases. Full wording is assembled, low confidence, and needs fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "operator-number-expected",
+    "before": "Operator „__operator__“ erwartete eine Zahl, bekam aber „__value__“",
+    "after": "mI' poQpu' __operator__; '__value__' Hevpu'",
+    "reason": "Replace audited German global-search sorting instructions and sort/status/number errors with Klingon. Preserve all backtick syntax, <sort-name>, predicate tokens, leading minus placement, and descending high-to-low ordering; preserve required number versus received __value__ and the __operator__ actor. Reuse patlhmoH terminology and descriptive software phrases. Full wording is assembled, low confidence, and needs fluent-speaker validation."
   }
 ]
