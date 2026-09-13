@@ -93056,5 +93056,68 @@
     "before": "Einloggen",
     "after": "yI'el",
     "reason": "Replace German/French account and login controls with Klingon, retaining account creation versus failed creation, existing possession, and ability to sign in now. Reuse the existing technical borrowing account. https://klingonska.org/klo/ordlista-01.html attests chenmoH (create), luj (fail), and apostrophe-el (enter); software use of entering and assembled phrases is low confidence and requires fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "act-addAttachment",
+    "before": "hat Anhang __attachment__  zur Karte __card__ auf der Liste __list__ in Swimlane __swimlane__ in Board __board__ hinzugefügt",
+    "after": "__board__ raSDaq __swimlane__ HeDaq __list__ tetlhDaq __card__ 'echletHomvaD __attachment__ rarDoch chellu'pu'",
+    "reason": "Replace audited German addition/creation activity with Klingon. Preserve every named object and board/swimlane/list context; locative -Daq marks context and -vaD marks the destination card/list/board. Reuse repaired rarDoch, per, Qu-Hom, tetlh, He and raS terminology with completed indefinite-agent addition/creation. All placeholder inventories and roles were reviewed; assembled software phrases are low confidence and need fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "act-addLabel",
+    "before": "hat Label __label__ zur Karte __card__ auf der Liste __list__ in Swimlane __swimlane__ in Board __board__ hinzugefügt",
+    "after": "__board__ raSDaq __swimlane__ HeDaq __list__ tetlhDaq __card__ 'echletHomvaD __label__ per chellu'pu'",
+    "reason": "Replace audited German addition/creation activity with Klingon. Preserve every named object and board/swimlane/list context; locative -Daq marks context and -vaD marks the destination card/list/board. Reuse repaired rarDoch, per, Qu-Hom, tetlh, He and raS terminology with completed indefinite-agent addition/creation. All placeholder inventories and roles were reviewed; assembled software phrases are low confidence and need fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "act-addedLabel",
+    "before": "hat Label __label__ zur Karte __card__ auf der Liste __list__ in Swimlane __swimlane__ in Board __board__ hinzugefügt",
+    "after": "__board__ raSDaq __swimlane__ HeDaq __list__ tetlhDaq __card__ 'echletHomvaD __label__ per chellu'pu'",
+    "reason": "Replace audited German addition/creation activity with Klingon. Preserve every named object and board/swimlane/list context; locative -Daq marks context and -vaD marks the destination card/list/board. Reuse repaired rarDoch, per, Qu-Hom, tetlh, He and raS terminology with completed indefinite-agent addition/creation. All placeholder inventories and roles were reviewed; assembled software phrases are low confidence and need fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "act-addSubtask",
+    "before": "hat Teilaufgabe __subtask__ zur Karte __card__ auf der Liste __list__ in Swimlane __swimlane__ in Board __board__ hinzugefügt",
+    "after": "__board__ raSDaq __swimlane__ HeDaq __list__ tetlhDaq __card__ 'echletHomvaD __subtask__ Qu'Hom chellu'pu'",
+    "reason": "Replace audited German addition/creation activity with Klingon. Preserve every named object and board/swimlane/list context; locative -Daq marks context and -vaD marks the destination card/list/board. Reuse repaired rarDoch, per, Qu-Hom, tetlh, He and raS terminology with completed indefinite-agent addition/creation. All placeholder inventories and roles were reviewed; assembled software phrases are low confidence and need fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "act-createList",
+    "before": "hat Liste __list__ zu Board __board__ hinzugefügt",
+    "after": "__board__ raSvaD __list__ tetlh chellu'pu'",
+    "reason": "Replace audited German addition/creation activity with Klingon. Preserve every named object and board/swimlane/list context; locative -Daq marks context and -vaD marks the destination card/list/board. Reuse repaired rarDoch, per, Qu-Hom, tetlh, He and raS terminology with completed indefinite-agent addition/creation. All placeholder inventories and roles were reviewed; assembled software phrases are low confidence and need fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "act-createCard",
+    "before": "hat Karte __card__ auf der Liste __list__ in Swimlane __swimlane__ in Board __board__ erstellt",
+    "after": "__board__ raSDaq __swimlane__ HeDaq __list__ tetlhvaD __card__ 'echletHom chenmoHlu'pu'",
+    "reason": "Replace audited German addition/creation activity with Klingon. Preserve every named object and board/swimlane/list context; locative -Daq marks context and -vaD marks the destination card/list/board. Reuse repaired rarDoch, per, Qu-Hom, tetlh, He and raS terminology with completed indefinite-agent addition/creation. All placeholder inventories and roles were reviewed; assembled software phrases are low confidence and need fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "act-addChecklist",
+    "before": "hat Checkliste __checklist__ zur Karte __card__ auf der Liste __list__ in Swimlane __swimlane__ in Board __board__ hinzugefügt",
+    "after": "__board__ raSDaq __swimlane__ HeDaq __list__ tetlhDaq __card__ 'echletHomvaD __checklist__ ghItlhHommey tetlh chellu'pu'",
+    "reason": "Replace audited German checklist-addition, attachment-deletion, or label-removal activity with Klingon. Preserve all placeholders and board/swimlane/list/card context, destination -vaD for addition and origin -vo- for removal; distinguish deletion Qaw from removal teq. Reuse existing checklist phrase ghItlhHommey tetlh and repaired attachment/label terms. Full software clauses are assembled, low confidence, and require fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "act-deleteAttachment",
+    "before": "hat Anhang __attachment__ von Karte __card__ auf der Liste __list__ in Swimlane __swimlane__ in Board __board__ gelöscht",
+    "after": "__board__ raSDaq __swimlane__ HeDaq __list__ tetlhDaq __card__ 'echletHomDaq __attachment__ rarDoch Qaw'lu'pu'",
+    "reason": "Replace audited German checklist-addition, attachment-deletion, or label-removal activity with Klingon. Preserve all placeholders and board/swimlane/list/card context, destination -vaD for addition and origin -vo- for removal; distinguish deletion Qaw from removal teq. Reuse existing checklist phrase ghItlhHommey tetlh and repaired attachment/label terms. Full software clauses are assembled, low confidence, and require fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "act-removeLabel",
+    "before": "hat Label __label__ von Karte __card__ auf der Liste __list__ in Swimlane __swimlane__ in Board __board__ entfernt",
+    "after": "__board__ raSDaq __swimlane__ HeDaq __list__ tetlhDaq __card__ 'echletHomvo' __label__ per teqlu'pu'",
+    "reason": "Replace audited German checklist-addition, attachment-deletion, or label-removal activity with Klingon. Preserve all placeholders and board/swimlane/list/card context, destination -vaD for addition and origin -vo- for removal; distinguish deletion Qaw from removal teq. Reuse existing checklist phrase ghItlhHommey tetlh and repaired attachment/label terms. Full software clauses are assembled, low confidence, and require fluent-speaker validation."
   }
 ]
