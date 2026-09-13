@@ -94547,5 +94547,33 @@
     "before": "Ihre JSON-Daten enthalten nicht die gewünschten Informationen im richtigen Format",
     "after": "JSON De'lIjDaq De' lugh tu'lu'be' qoj ghItlhmeH mIw lugh lo'be' De'lIj",
     "reason": "Replace audited German authorization/invitation/schema errors with Klingon. Preserve board member versus board administrator requirements through cannot-do-action-if-not-role conditions, lack of permission to view this page, inability to invite oneself, absent invitation code, and missing proper JSON information or format. Reuse repaired role, invitation and JSON terminology. Full software wording is assembled, low confidence, and needs fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "addmore-detail",
+    "before": "Eine detailliertere Beschreibung hinzufügen",
+    "after": "QIjmeH latlh De' yIchel",
+    "reason": "Replace German description controls and duplicate-empty-list deletion action with Klingon. Reuse repaired QIjmeH De explanation-data terminology; preserve adding more detail and having an unsaved description rather than an unspecified unsaved change. Preserve both duplicate/identical and empty list qualifications with a plural deletion imperative. Full software wording is assembled, low confidence, and needs fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "unsaved-description",
+    "before": "Sie haben eine nicht gespeicherte Änderung.",
+    "after": "pollu'be'bogh QIjmeH De' Daghaj.",
+    "reason": "Replace German description controls and duplicate-empty-list deletion action with Klingon. Reuse repaired QIjmeH De explanation-data terminology; preserve adding more detail and having an unsaved description rather than an unspecified unsaved change. Preserve both duplicate/identical and empty list qualifications with a plural deletion imperative. Full software wording is assembled, low confidence, and needs fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "description",
+    "before": "Beschreibung",
+    "after": "QIjmeH De'",
+    "reason": "Replace German description controls and duplicate-empty-list deletion action with Klingon. Reuse repaired QIjmeH De explanation-data terminology; preserve adding more detail and having an unsaved description rather than an unspecified unsaved change. Preserve both duplicate/identical and empty list qualifications with a plural deletion imperative. Full software wording is assembled, low confidence, and needs fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "delete-duplicate-empty-lists-migration",
+    "before": "Lösche doppelte leere Listen",
+    "after": "rapbogh tetlhmey chIm tIQaw'",
+    "reason": "Replace German description controls and duplicate-empty-list deletion action with Klingon. Reuse repaired QIjmeH De explanation-data terminology; preserve adding more detail and having an unsaved description rather than an unspecified unsaved change. Preserve both duplicate/identical and empty list qualifications with a plural deletion imperative. Full software wording is assembled, low confidence, and needs fluent-speaker validation."
   }
 ]
