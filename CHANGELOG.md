@@ -80,11 +80,11 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 13,046 corrected, 4,058 restored pre-pull values awaiting
-validation, 178 reviewed and retained, and 2,799 pending review or repair.
-The correction inventory records 13,724 exact before/after values across
+findings: 13,146 corrected, 4,058 restored pre-pull values awaiting
+validation, 178 reviewed and retained, and 2,699 pending review or repair.
+The correction inventory records 13,824 exact before/after values across
 201 locale identifiers, including repairs outside the original findings.
-Klingon has 181 pending flagged findings after 180 new repairs; review and repairs are
+Klingon has 81 pending flagged findings after 280 new repairs; review and repairs are
 underway. Other substantial queues remain in Venda and regional
 locale files and Tamazight. Silesian database terminology and 17 Tigre
 calendar findings need language-specific review. Restored and unflagged
@@ -920,6 +920,8 @@ list selectors share the existing view resolver. Missing or invalid profile
 preferences now fall back to the browser preference and Swimlanes without
 reloading. A private current-user publication supplies the board-view
 preference after admin impersonation without exposing other members’ settings.
+<a href="https://github.com/wekan/wekan/commit/1c47bcc4a">Await the Meteor 3 identity switch</a> before returning from impersonation; a deferred-promise
+test checks that subscriptions finish switching and failures propagate.
 Regression tests cover fallback precedence, pending choices, board visibility,
 list scoping and publication isolation; the browser test checks shared lists
 in two swimlanes before and after impersonation. Fresh EVERYTHING verification
