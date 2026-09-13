@@ -92902,5 +92902,33 @@
     "before": "Swimlane unterhalb einfügen",
     "after": "bIngDaq He yIchel",
     "reason": "Replace three flagged German swimlane layout controls with direct Klingon. Reuse He swimlane/path from swimlane, cher configure, chel add and 'ab length from list-width wording. Height rendered descriptively as 'ab chong (vertical length); add-below uses bIngDaq (in the area below). Software layout adaptation, He domain usage and full phrases are low confidence and need fluent-speaker validation. No source placeholders changed."
+  },
+  {
+    "locale": "tlh",
+    "key": "list-sort-by",
+    "before": "Sortieren der Liste nach:",
+    "after": "tetlh Dochmey patlhmoHmeH De':",
+    "reason": "Replace four flagged German sorting/order labels with direct Klingon. https://tlhingan.org/word/patlh cites Okrand guidance that patlhmoH sorts the items within a list, not the list itself, and attests patlh as order (qepHom 2024). Accordingly use tetlh Dochmey list items or 'echletHommey cards as sorting objects. Sort criterion heading described as sorting data, original order as patlh wa'DIch (first order), and number sorting explicitly uses mI'mey. Existing qIp click/hit UI usage retained. Full software phrases and original-order paraphrase are low confidence and need fluent-speaker validation; no placeholders changed."
+  },
+  {
+    "locale": "tlh",
+    "key": "sort-desc",
+    "before": "Zum Sortieren der Liste klicken",
+    "after": "tetlh Dochmey DIpatlhmoHmeH yIqIp",
+    "reason": "Replace four flagged German sorting/order labels with direct Klingon. https://tlhingan.org/word/patlh cites Okrand guidance that patlhmoH sorts the items within a list, not the list itself, and attests patlh as order (qepHom 2024). Accordingly use tetlh Dochmey list items or 'echletHommey cards as sorting objects. Sort criterion heading described as sorting data, original order as patlh wa'DIch (first order), and number sorting explicitly uses mI'mey. Existing qIp click/hit UI usage retained. Full software phrases and original-order paraphrase are low confidence and need fluent-speaker validation; no placeholders changed."
+  },
+  {
+    "locale": "tlh",
+    "key": "card-sorting-by-number",
+    "before": "Kartensortierung nach Nummer",
+    "after": "mI'mey lo'lu'taHvIS 'echletHommey patlhmoHlu'",
+    "reason": "Replace four flagged German sorting/order labels with direct Klingon. https://tlhingan.org/word/patlh cites Okrand guidance that patlhmoH sorts the items within a list, not the list itself, and attests patlh as order (qepHom 2024). Accordingly use tetlh Dochmey list items or 'echletHommey cards as sorting objects. Sort criterion heading described as sorting data, original order as patlh wa'DIch (first order), and number sorting explicitly uses mI'mey. Existing qIp click/hit UI usage retained. Full software phrases and original-order paraphrase are low confidence and need fluent-speaker validation; no placeholders changed."
+  },
+  {
+    "locale": "tlh",
+    "key": "originOrder",
+    "before": "ursprüngliche Reihenfolge",
+    "after": "patlh wa'DIch",
+    "reason": "Replace four flagged German sorting/order labels with direct Klingon. https://tlhingan.org/word/patlh cites Okrand guidance that patlhmoH sorts the items within a list, not the list itself, and attests patlh as order (qepHom 2024). Accordingly use tetlh Dochmey list items or 'echletHommey cards as sorting objects. Sort criterion heading described as sorting data, original order as patlh wa'DIch (first order), and number sorting explicitly uses mI'mey. Existing qIp click/hit UI usage retained. Full software phrases and original-order paraphrase are low confidence and need fluent-speaker validation; no placeholders changed."
   }
 ]
