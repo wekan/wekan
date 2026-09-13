@@ -107000,5 +107000,180 @@
     "before": "`__operator_sort__:<sort-name>` - ​​lapho *<sort-name>* ingenye ye-`__predicate_due__`, `__predicate_created__` noma `__predicate_modified__`.  Ukuze uthole uhlobo olwehlayo, beka `-` ngaphambi kwegama lokuhlunga.",
     "after": "`__operator_sort__:<sort-name>` - hune *<sort-name>* ya vha iṅwe ya `__predicate_due__`, `__predicate_created__` kana `__predicate_modified__`. U dzudzanya u bva nṱha u ya fhasi, vheani `-` phanḓa ha dzina ḽa u dzudzanya.",
     "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal search examples, positive/negative number meanings and export field distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "globalSearch-instructions-operator-status",
+    "before": "`__operator_status__:<status>` - ​​lapho *<status>* ingenye yalezi ezilandelayo:",
+    "after": "`__operator_status__:<status>` - hune *<status>* ya vha iṅwe ya zwi tevhelaho:",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, format extensions, import mapping defaults and selected-parts-only conditions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "globalSearch-instructions-operators",
+    "before": "Ama-opharetha atholakalayo:",
+    "after": "Ndaela dzi re hone:",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, format extensions, import mapping defaults and selected-parts-only conditions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "gridfs-enabled-description",
+    "before": "Sebenzisa i-MongoDB GridFS ukuze ugcine ifayela",
+    "after": "Shumisa MongoDB GridFS u vhulunga faela",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, format extensions, import mapping defaults and selected-parts-only conditions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "has-overtime-cards",
+    "before": "Inamakhadi esikhathi esengeziwe",
+    "after": "I na makhadi a re na tshifhinga tsho fhiraho",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, format extensions, import mapping defaults and selected-parts-only conditions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "header-logo-title",
+    "before": "Buyela ekhasini lakho lamabhodi.",
+    "after": "Vhuyelani kha siaṱari ḽa bodo dzaṋu dza Kanban.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, format extensions, import mapping defaults and selected-parts-only conditions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "hide-finished-checklist",
+    "before": "Fihla uhlu lokuhlola oluqediwe",
+    "after": "Dzumba mutevhe wa u sedza wo fhedzwaho",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, format extensions, import mapping defaults and selected-parts-only conditions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "hide-minicard-label-text",
+    "before": "Fihla umbhalo welebula yekhadi elincane",
+    "after": "Dzumba maipfi a ḽeibuḽu kha khadi ḽiṱuku",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, format extensions, import mapping defaults and selected-parts-only conditions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "hideAllChecklistItems",
+    "before": "Fihla zonke izinto zohlu lokuhlola",
+    "after": "Dzumba zwithu zwoṱhe zwa mutevhe wa u sedza",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, format extensions, import mapping defaults and selected-parts-only conditions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "hideCheckedChecklistItems",
+    "before": "Fihla izinto zohlu lokuhlola ezihloliwe",
+    "after": "Dzumba zwithu zwo swayiwaho zwa mutevhe wa u sedza",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, format extensions, import mapping defaults and selected-parts-only conditions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "idle-migration",
+    "before": "Ukufuduka Okungenzi lutho",
+    "after": "U pfulusa hu sa khou shuma",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, format extensions, import mapping defaults and selected-parts-only conditions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "import-board-instruction-csv",
+    "before": "Namathisela Amanani Ahlukaniswe Ngokhefana(CSV)/ Ithebhu Amanani Ahlukaniswe (TSV) .",
+    "after": "Nambatedzani ndeme dzaṋu dzo fhambanywaho nga khoma (CSV)/thebe (TSV).",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, format extensions, import mapping defaults and selected-parts-only conditions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "import-board-zip",
+    "before": "Engeza ifayela le-.zip elinamafayela ebhodi e-JSON, neziqondiso ezingaphansi zamagama ebhodi anezinamathiselwa",
+    "after": "Engedza faela ya .zip i re na faela dza JSON dza bodo dza Kanban na zwifolda zwa madzina a bodo zwi re na ṱumetshedzo",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, format extensions, import mapping defaults and selected-parts-only conditions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "import-csv-placeholder",
+    "before": "Namathisela idatha yakho evumelekile ye-CSV/TSV lapha",
+    "after": "Nambatedzani data yaṋu yo teaho ya CSV/TSV afha",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, format extensions, import mapping defaults and selected-parts-only conditions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "import-here-instruction",
+    "before": "Ngenisa lapha ifayela le-WeKan (.json noma .zip):",
+    "after": "Dzhenisani faela yo bviswaho kha WeKan (.json kana .zip) afha:",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, format extensions, import mapping defaults and selected-parts-only conditions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "import-json-placeholder",
+    "before": "Namathisela idatha yakho evumelekile ye-JSON lapha",
+    "after": "Nambatedzani data yaṋu yo teaho ya JSON afha",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, format extensions, import mapping defaults and selected-parts-only conditions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "import-members-map-note",
+    "before": "Qaphela: Amalungu angamethiwe azokwabelwa umsebenzisi wamanje.",
+    "after": "Ṱhogomelani: Miraḓo i sa fanyiswaho i ḓo avhelwa mushumisi wa zwino.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, format extensions, import mapping defaults and selected-parts-only conditions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "import-not-wekan-export",
+    "before": "Lelo fayela akulona ifayela le-WeKan elithunyelwe ngaphandle",
+    "after": "Faela iyo a si yo bviswaho kha WeKan",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, format extensions, import mapping defaults and selected-parts-only conditions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "import-parts-instruction",
+    "before": "Kungeniswa kuphela izingxenye ezimakiwe. Ukukhetha okufanayo kusetshenziswa lapho uthumela ngaphandle.",
+    "after": "Hu dzheniswa fhedzi zwipiḓa zwo swayiwaho. Khetho yeneyo i shumiswa na musi hu tshi bviswa.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, format extensions, import mapping defaults and selected-parts-only conditions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "import-show-user-mapping",
+    "before": "Buyekeza amamephu amalungu",
+    "after": "Sedzani u fanyisa miraḓo",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, format extensions, import mapping defaults and selected-parts-only conditions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "import-user-select",
+    "before": "Khetha umsebenzisi wakho okhona ofuna ukumsebenzisa njengaleli lungu",
+    "after": "Nangani mushumisi waṋu a re hone ane na ṱoḓa u mu shumisa sa muraḓo uyu",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, format extensions, import mapping defaults and selected-parts-only conditions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "import-usernames",
+    "before": "Ngenisa Amagama Omsebenzisi",
+    "after": "Dzhenisa madzina a vhashumisi",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, format extensions, import mapping defaults and selected-parts-only conditions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "import-wekan-file",
+    "before": "Ngenisa kusuka efayeleni le-.json noma le-.zip:",
+    "after": "Dzhenisani u bva kha faela yo bviswaho ya .json kana .zip:",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, format extensions, import mapping defaults and selected-parts-only conditions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "integrityReportTitle",
+    "before": "Ubuqotho bohlelo lwamafayela",
+    "after": "Vhungoho ha sisiteme ya faela",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, format extensions, import mapping defaults and selected-parts-only conditions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "invalid-credentials",
+    "before": "Igama lomsebenzisi noma iphasiwedi engavumelekile",
+    "after": "Dzina ḽa mushumisi kana phasiwede a zwi ngo tea",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, format extensions, import mapping defaults and selected-parts-only conditions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "invalid-file",
+    "before": "Uma igama lefayela lingavumelekile, ukulayisha noma ukuqamba kabusha kukhanseliwe.",
+    "after": "Arali dzina ḽa faela ḽi sa ngo tea, u rumela kana u shandula dzina zwi a khanselwa.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, format extensions, import mapping defaults and selected-parts-only conditions. Low-confidence wording; fluent-speaker validation outstanding."
   }
 ]
