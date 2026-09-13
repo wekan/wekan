@@ -80,9 +80,9 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,050 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 794 pending review or repair.
-The correction inventory records 17,112 exact before/after values,
+findings: 15,051 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 793 pending review or repair.
+The correction inventory records 17,114 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
@@ -100,8 +100,8 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383540a; translation repairs have resumed.
-Latest translation fix is 19d4abdf7 (2026-09-14), covering nine Veps
-board-view labels and the current-time action. All correction/rendering checks
+Latest translation fix is 60579f376 (2026-09-14), covering two Neapolitan
+rule-item values. The original Neapolitan queue is empty. All correction/rendering checks
 pass; low-confidence technical terminology remains explicitly tracked.
 The 1,015-suite Node result is historical and predates the latest batches.
 
@@ -574,12 +574,25 @@ the Markdown commit as the template.
 
 # Upcoming WeKan ® release
 
-**In short:** Veps board-view labels now use the locale's language instead of
-Finnish or Venda. Calendar, list and time labels reuse existing terminology,
-while multiple-board calendars and the current-time action stay distinct.
-The translation audit records verified repairs and remaining language reviews.
+**In short:** Veps board-view labels replace Finnish and Venda values, while
+Neapolitan rule-item labels and examples use dictionary-attested terminology.
+Calendar, list and time labels reuse existing wording. Multiple-board calendars,
+current-time actions and comma-separated examples retain their distinctions.
+The audit records verified repairs and remaining language reviews.
 
 This release adds the following translation improvements:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/60579f376">Repair Neapolitan rule item label and list example</a>. Thanks to xet7.</summary>
+
+Use dictionary-attested alimento for the item label and comma-separated rule
+example, preserving three entries and numeric suffixes. Production rendering
+and all 17,114 correction regressions pass, including token, JSON, key-order
+and newer-translation checks. Technical checklist usage needs native review;
+live browser checks were not run. The original Neapolitan queue is empty,
+with 793 findings still pending globally and wider validation unfinished.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/19d4abdf7">Repair Veps board-view labels and current-time action</a>. Thanks to xet7.</summary>

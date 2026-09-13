@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,050 |
+| Corrected | 15,051 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 794 |
+| Pending review or repair | 793 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,112** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,114** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `19d4abdf7` — repaired **nine** Veps board-view values, resolving **one** original finding and **eight** unflagged Finnish/Venda values. Preserve single/multiple-board calendars, swimlanes, lists, table, time, collapse and current-time action; retain existing calendar/list/time terminology and Gantt proper names. All **17,112** exact corrections pass runtime rendering, placeholder, JSON, key-order and human-preference checks. The original queue has **794** pending findings, including **53** Veps findings. **Low confidence:** view-name grammar, collapse adaptation, base-folder terminology, cancellation grammar, unread participle inflection, composed notification/metric/warning/confirmation/presence/logical grammar, home-header/button terminology, scheduling syntax, backup/archive inflection, heap compounds and legal argument case need fluent-speaker review. Restored/unflagged values, wrong-language/script checks, keyboard shortcuts and remaining migration/search messages remain unfinished. Live browser verification was not run for this batch. No translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `60579f376` — repaired **two** Neapolitan rule-item values, resolving **one** original finding and **one** unflagged value. Use dictionary-attested **alimento**, preserving the three comma-separated entries and numeric suffixes. The original Neapolitan queue is empty; wider validation remains unfinished. All **17,114** exact corrections pass runtime rendering, placeholder, JSON, key-order and human-preference checks. The original queue has **793** pending findings, including **53** Veps findings. **Low confidence:** Neapolitan technical checklist usage, Veps view-name grammar, collapse adaptation, base-folder terminology, cancellation grammar, unread participle inflection, composed notification/metric/warning/confirmation/presence/logical grammar, home-header/button terminology, scheduling syntax, backup/archive inflection, heap compounds and legal argument case need fluent-speaker review. Restored/unflagged values, wrong-language/script checks, keyboard shortcuts and remaining migration/search messages remain unfinished. Live browser verification was not run for this batch. No translations were pushed.
 
 **Build logging update (2026-09-14):** `5f8f22f8c` unifies build.sh/build.bat logger directories; `3fedee2b9` prints completion log paths and fixes read-only server manifests in local release preparation. Linux arm64 development and release builds and release startup smoke check pass; 13 targeted test entries pass. Native Windows execution was unavailable. Translation counts and remaining review work are unchanged; translation repairs remain unfinished.
 
