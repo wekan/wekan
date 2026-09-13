@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 12,632 |
+| Corrected | 12,634 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 177 |
-| Pending review or repair | 3,213 |
+| Pending review or repair | 3,211 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Restored and unflagged values still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **13,231** exact before/after values, including repairs outside the audit.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **13,237** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `b318e634a9312f9efe93ee9f2bc78a2ee806ec65` — four flagged German attachment/subtask/membership activity messages replaced with Klingon, preserving source tokens and manually checked placeholder roles. Full phrases and subtask terminology are low confidence and need fluent-speaker validation.
+Latest translation fix: **2026-09-13**, local commit `3c5756824020db0678028a0aa91ad0b8fbb3e82f` — six German subtask labels replaced with consistent Klingon terminology, including related unflagged labels and a deletion question. Software hierarchy terminology and full phrases are low confidence and need fluent-speaker validation.
 
 **Verification:** correction and progress tests pass. Native-speaker and browser checks remain outstanding.
 
