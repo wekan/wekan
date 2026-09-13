@@ -31,6 +31,11 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
     assert.deepEqual(Object.keys(data), Object.keys(english), locale);
     assert.equal(repairLocale(locale, data).changed, 0, 'idempotent after correction');
   }
+  // Card descriptions use a feminine plural creation form.
+  for (const key of ['globalSearch-instructions-operator-creator', 'globalSearch-instructions-operator-created']) {
+    assert.match(cache.wa[key], /cåtes askepieyes/);
+    assert.doesNotMatch(cache.wa[key], /cåtes askepyîs/);
+  }
   // Oromo Hijri labels must distinguish the two epochs and moon sighting.
   for (const [key, epoch] of [['calendar-system-islamic-civil', 'sivilii'], ['calendar-system-islamic-tbla', 'astronomii']]) {
     assert.match(cache.om[key], /gabatee irratti hundaa’e/, 'preserve table-based computation');

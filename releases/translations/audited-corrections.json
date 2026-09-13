@@ -75316,8 +75316,8 @@
     "locale": "wa",
     "key": "globalSearch-instructions-operator-creator",
     "before": "`__operator_creator__:<utilisateur>` - cartes dont le créateur est *<utilisateur>*",
-    "after": "`__operator_creator__:<username>` - cåtes askepyîs pa *<username>*",
-    "reason": "Replace audited French search help with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Keep operator/predicate tokens and angle-bracket metavariables exact, distinguish assignee/member/creator and retain case-insensitive, archived and signed-day semantics. Full grammar and specialized search terminology remain low confidence."
+    "after": "`__operator_creator__:<username>` - cåtes askepieyes pa *<username>*",
+    "reason": "Review earlier Walloon corrections: feminine plural cåtes requires askepieyes rather than masculine askepyîs; preserve operator placeholders and username/day examples. Feminine created form attested in historical KDE socket translations: https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Surrounding search terminology/full grammar remain low confidence."
   },
   {
     "locale": "wa",
@@ -75442,8 +75442,8 @@
     "locale": "wa",
     "key": "globalSearch-instructions-operator-created",
     "before": "`__operator_created__:<n>` - cartes qui ont été créées il y a *<n>* jours ou moins",
-    "after": "`__operator_created__:<n>` - cåtes askepyîs i gn a *<n>* djoûs ou moens",
-    "reason": "Replace audited French search help with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Keep operator/predicate tokens and angle-bracket metavariables exact, distinguish assignee/member/creator and retain case-insensitive, archived and signed-day semantics. Full grammar and specialized search terminology remain low confidence."
+    "after": "`__operator_created__:<n>` - cåtes askepieyes i gn a *<n>* djoûs ou moens",
+    "reason": "Review earlier Walloon corrections: feminine plural cåtes requires askepieyes rather than masculine askepyîs; preserve operator placeholders and username/day examples. Feminine created form attested in historical KDE socket translations: https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Surrounding search terminology/full grammar remain low confidence."
   },
   {
     "locale": "wa",
