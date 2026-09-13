@@ -92776,5 +92776,26 @@
     "before": "Abgeschlossene Checkliste ausblenden",
     "after": "rInbogh ghItlhHommey tetlh yISo'",
     "reason": "Replace German/English checklist labels with direct Klingon, reusing ghItlhHommey tetlh (list of small writings/entries) from act-addChecklistItem and activity-checklist-completed. Add uses yIchel; completed-checklist hiding uses rInbogh and yISo'. In activity-checklist-added, %s remains the destination receiving the checklist and keeps its exact spelling. This descriptive checklist term and full software phrases are low confidence and require fluent-speaker validation; generic labels repaired for contextual consistency beyond flagged findings."
+  },
+  {
+    "locale": "tlh",
+    "key": "hide-checked-items",
+    "before": "Erledigte Einträge ausblenden",
+    "after": "rInbogh ghItlhHommey tISo'",
+    "reason": "Replace three flagged German checklist-item/example labels with direct Klingon, using existing ghItlhHom entry, ghItlhHommey tetlh checklist and Doch thing/item vocabulary. Checked items described as completed entries (rInbogh), consistent with checklist completion wording; plural-object hiding uses tISo'. Deletion remains a question. Comma-separated example retains three numbered entries and exact comma separators. Software-domain descriptions and full phrases are low confidence and need fluent-speaker validation. No placeholders changed."
+  },
+  {
+    "locale": "tlh",
+    "key": "checklistItemDeletePopup-title",
+    "before": "Element der Checkliste löschen?",
+    "after": "ghItlhHommey tetlh ghItlhHom Qaw'lu''a'?",
+    "reason": "Replace three flagged German checklist-item/example labels with direct Klingon, using existing ghItlhHom entry, ghItlhHommey tetlh checklist and Doch thing/item vocabulary. Checked items described as completed entries (rInbogh), consistent with checklist completion wording; plural-object hiding uses tISo'. Deletion remains a question. Comma-separated example retains three numbered entries and exact comma separators. Software-domain descriptions and full phrases are low confidence and need fluent-speaker validation. No placeholders changed."
+  },
+  {
+    "locale": "tlh",
+    "key": "r-items-list",
+    "before": "Element1,Element2,Element3",
+    "after": "Doch1,Doch2,Doch3",
+    "reason": "Replace three flagged German checklist-item/example labels with direct Klingon, using existing ghItlhHom entry, ghItlhHommey tetlh checklist and Doch thing/item vocabulary. Checked items described as completed entries (rInbogh), consistent with checklist completion wording; plural-object hiding uses tISo'. Deletion remains a question. Comma-separated example retains three numbered entries and exact comma separators. Software-domain descriptions and full phrases are low confidence and need fluent-speaker validation. No placeholders changed."
   }
 ]
