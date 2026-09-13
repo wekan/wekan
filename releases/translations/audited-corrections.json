@@ -63999,5 +63999,75 @@
     "before": "Change la couleur de fond du tableau",
     "after": "Kemmañ drekleur an daolenn",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "boardInfoOnMyBoards-title",
+    "before": "Paramètres de tous les tableaux",
+    "after": "Arventennoù an holl daolennoù",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "boardInfoOnMyBoardsPopup-title",
+    "before": "Paramètres de tous les tableaux",
+    "after": "Arventennoù an holl daolennoù",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "boardMinicardSettingsPopup-title",
+    "before": "Paramètres de la minicarte",
+    "after": "Arventennoù ar gartenn vihan",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "boardSubtaskSettingsPopup-title",
+    "before": "Paramètres des sous-tâches",
+    "after": "Arventennoù an is-trevelloù",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "board_assignees",
+    "before": "Tous les intervenants de toutes les cartes de ce tableau",
+    "after": "An holl dud karget eus holl gartennoù an daolenn-mañ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "board_members",
+    "before": "Tous les participants du tableau",
+    "after": "Holl izili an daolenn",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "card-delete-suggest-archive",
+    "before": "Vous pouvez déplacer une carte vers les archives afin de l'enlever du tableau tout en préservant l'activité.",
+    "after": "Gallout a rit kas ur gartenn d’an dielloù evit he zennañ eus an daolenn ha mirout an obererezh.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "card-members-title",
+    "before": "Assigner ou supprimer des participants à la carte.",
+    "after": "Ouzhpennañ izili an daolenn d’ar gartenn pe o zennañ diouti.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "card_assignees",
+    "before": "Tous les intervenants de la carte actuelle de ce tableau",
+    "after": "An holl dud karget eus ar gartenn vremanel en daolenn-mañ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "card_members",
+    "before": "Tous les participants de la carte actuelle dans ce tableau",
+    "after": "Holl izili ar gartenn vremanel en daolenn-mañ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
