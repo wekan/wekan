@@ -118172,5 +118172,82 @@
     "before": "`__operator_comment__:<text>` - kortit joilla on kommentti joka sisältää *<text>*.",
     "after": "`__operator_comment__:<text>` - kartad, miččen sel’genzoituses om *<text>*.",
     "reason": "Replace Finnish/Venda comment labels and search text using existing correct Veps Sel’genzoituz activity/permission terminology. Preserve singular count source, unread versus absent comments, minicard placement, sprintf and localized search operators. The 2007 Zaiceva/Mullonen dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf attests sel’genzoitused and nähta; https://en.wiktionary.org/wiki/lugeda#Veps confirms lugedud (read, past passive); https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json supplies Enamba and native UI grammar. Low confidence: composed relative-clause/count/case grammar needs fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "run-migration",
+    "before": "Suorita siirto",
+    "after": "Tehta migracii",
+    "reason": "Replace Finnish migration control/status/detail wording with dictionary-attested Veps and existing migration terminology. Distinguish pause, resume and stop; composed technical labels need fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "pause-migration",
+    "before": "Keskeytä siirto",
+    "after": "Azota migracii",
+    "reason": "Replace Finnish migration control/status/detail wording with dictionary-attested Veps and existing migration terminology. Distinguish pause, resume and stop; composed technical labels need fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "resume-migration",
+    "before": "Jatka siirtoa",
+    "after": "Jatkta migracii",
+    "reason": "Replace Finnish migration control/status/detail wording with dictionary-attested Veps and existing migration terminology. Distinguish pause, resume and stop; composed technical labels need fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "stop-migration",
+    "before": "Pysäytä siirto",
+    "after": "Seižuta migracii",
+    "reason": "Replace Finnish migration control/status/detail wording with dictionary-attested Veps and existing migration terminology. Distinguish pause, resume and stop; composed technical labels need fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "database-migrations",
+    "before": "Tietokannan siirrot",
+    "after": "Andmbazan migracijad",
+    "reason": "Replace Finnish migration control/status/detail wording with dictionary-attested Veps and existing migration terminology. Distinguish pause, resume and stop; composed technical labels need fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "status",
+    "before": "Tilanne",
+    "after": "Olo",
+    "reason": "Replace Finnish migration control/status/detail wording with dictionary-attested Veps and existing migration terminology. Distinguish pause, resume and stop; composed technical labels need fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "migration-progress-status",
+    "before": "Tilanne",
+    "after": "Olo",
+    "reason": "Replace Finnish migration control/status/detail wording with dictionary-attested Veps and existing migration terminology. Distinguish pause, resume and stop; composed technical labels need fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "details",
+    "before": "Yksityiskohdat",
+    "after": "Tarkkohtad",
+    "reason": "Replace Finnish migration control/status/detail wording with dictionary-attested Veps and existing migration terminology. Distinguish pause, resume and stop; composed technical labels need fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "migration-progress-details",
+    "before": "Yksityiskohdat",
+    "after": "Tarkkohtad",
+    "reason": "Replace Finnish migration control/status/detail wording with dictionary-attested Veps and existing migration terminology. Distinguish pause, resume and stop; composed technical labels need fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "steps",
+    "before": "askelta",
+    "after": "etapad",
+    "reason": "Replace Finnish migration control/status/detail wording with dictionary-attested Veps and existing migration terminology. Distinguish pause, resume and stop; composed technical labels need fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "stop",
+    "before": "Pysäytä",
+    "after": "Seižuta",
+    "reason": "Replace Finnish migration control/status/detail wording with dictionary-attested Veps and existing migration terminology. Distinguish pause, resume and stop; composed technical labels need fluent-speaker review."
   }
 ]

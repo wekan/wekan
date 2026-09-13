@@ -1833,5 +1833,29 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   const unknownCommentQuery = new visibilityContext.Query();
   unknownCommentQuery.buildParams('nonexistentcommentoperator:SEARCH_TEXT');
   assert.equal(unknownCommentQuery.hasErrors(), true);
+  const vepsMigrationControls = {
+  "run-migration": "Tehta migracii",
+  "pause-migration": "Azota migracii",
+  "resume-migration": "Jatkta migracii",
+  "stop-migration": "Seižuta migracii",
+  "database-migrations": "Andmbazan migracijad",
+  "status": "Olo",
+  "migration-progress-status": "Olo",
+  "details": "Tarkkohtad",
+  "migration-progress-details": "Tarkkohtad",
+  "steps": "etapad",
+  "stop": "Seižuta"
+};
+  for (const [key, value] of Object.entries(vepsMigrationControls)) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.equal(vepsTranslator.t(key), value, key);
+    assert.doesNotMatch(value, /Suorita|Keskeytä|Jatka siirtoa|Pysäytä|Tietokannan|Tilanne|Yksityiskohdat|askelta/, key);
+  }
+  assert.equal(cache['ve-PP']['pause-migration'], cache['ve-PP']['pause-all-migrations'].replace('kaik migracijad', 'migracii'));
+  assert.equal(cache['ve-PP']['stop-migration'], cache['ve-PP']['stop-all-migrations'].replace('kaik migracijad', 'migracii'));
+  assert.notEqual(cache['ve-PP']['pause-migration'], cache['ve-PP']['stop-migration']);
+  assert.notEqual(cache['ve-PP']['resume-migration'], cache['ve-PP']['stop-migration']);
+  assert.equal(cache['ve-PP']['migration-progress-status'], cache['ve-PP']['status']);
+  assert.equal(cache['ve-PP']['migration-progress-details'], cache['ve-PP']['details']);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });
