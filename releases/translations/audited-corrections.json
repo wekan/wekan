@@ -82787,5 +82787,61 @@
     "before": "Les tableaux favoris s'affichent en tête de votre liste de tableaux.",
     "after": "Tablo yi ñu màndargaal ak biddiiw dañuy feeñ ci kaw sa limu tablo yi.",
     "reason": "Replace French with Wolof; preserve archive restoration scope, missing swimlaneId/listId automatic repair, Lost Cards recovery lane and empty recovery status, invitation sender, SMTP self-test/host/outgoing port/TLS and starred-board ordering. Recovery/SMTP terminology and complete grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "rescue-card-description",
+    "before": "Afficher le dialogue de sauvegarde avant de fermer les descriptions de carte  en cours de modification",
+    "after": "Wone palanteeru wallu bala tëj bu leeralu karta bi dencuwul",
+    "reason": "Replace French with Wolof; preserve unsaved-description recovery before close and replacement confirmation, maximum task limit, self-assignment, minicard field label, field-value sum at list top, full-path prefix and PDF download fallback. Recovery/sum/path terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "rescue-card-description-dialogue",
+    "before": "Réécrire la description de la carte courante avec vos changements ?",
+    "after": "Wuutal leeralu karta bi ak sa soppi yi?",
+    "reason": "Replace French with Wolof; preserve unsaved-description recovery before close and replacement confirmation, maximum task limit, self-assignment, minicard field label, field-value sum at list top, full-path prefix and PDF download fallback. Recovery/sum/path terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "set-wip-limit-value",
+    "before": "Définit une limite maximale au nombre de cartes de cette liste",
+    "after": "Jekkal kemu limu liggéey yi ci limu bii",
+    "reason": "Replace French with Wolof; preserve unsaved-description recovery before close and replacement confirmation, maximum task limit, self-assignment, minicard field label, field-value sum at list top, full-path prefix and PDF download fallback. Recovery/sum/path terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "shortcut-assign-self",
+    "before": "Affecter cette carte à vous-même",
+    "after": "Sas sa bopp ci karta bi",
+    "reason": "Replace French with Wolof; preserve unsaved-description recovery before close and replacement confirmation, maximum task limit, self-assignment, minicard field label, field-value sum at list top, full-path prefix and PDF download fallback. Recovery/sum/path terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "showLabel-field-on-card",
+    "before": "Indiquer l'étiquette du champ sur la mini-carte",
+    "after": "Wone etiket bu wàllu dugal bi ci karta bu ndaw",
+    "reason": "Replace French with Wolof; preserve unsaved-description recovery before close and replacement confirmation, maximum task limit, self-assignment, minicard field label, field-value sum at list top, full-path prefix and PDF download fallback. Recovery/sum/path terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "showSum-field-on-list",
+    "before": "Afficher le total des champs en haut de liste",
+    "after": "Wone boolebu dayo yi ci wàllu dugal yi ci kaw limu bi",
+    "reason": "Replace French with Wolof; preserve unsaved-description recovery before close and replacement confirmation, maximum task limit, self-assignment, minicard field label, field-value sum at list top, full-path prefix and PDF download fallback. Recovery/sum/path terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "prefix-with-full-path",
+    "before": "Préfixer avec le chemin complet",
+    "after": "Yokk yoon wi mat ci kanam",
+    "reason": "Replace French with Wolof; preserve unsaved-description recovery before close and replacement confirmation, maximum task limit, self-assignment, minicard field label, field-value sum at list top, full-path prefix and PDF download fallback. Recovery/sum/path terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "preview-pdf-not-supported",
+    "before": "Votre périphérique ne supporte pas la prévisualisation de PDF. Essayer plutôt le téléchargement.",
+    "after": "Sa jumtukaay manul a wone PDF bi bala nga yeb ko. Jéemal a yeb ko.",
+    "reason": "Replace French with Wolof; preserve unsaved-description recovery before close and replacement confirmation, maximum task limit, self-assignment, minicard field label, field-value sum at list top, full-path prefix and PDF download fallback. Recovery/sum/path terminology and full grammar remain low confidence."
   }
 ]
