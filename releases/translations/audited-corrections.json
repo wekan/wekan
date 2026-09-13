@@ -81912,5 +81912,54 @@
     "before": "Migrations base de données",
     "after": "Migration yu database",
     "reason": "Replace French migration controls/status labels with Wolof using existing migration, start, stop, selection and status terminology; distinguish resumable pausing from stopping and automatic operation. Step/details/validation phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "cron-migrations",
+    "before": "Migrations planifiées",
+    "after": "Migration yi ñu jekkal waxtu wi",
+    "reason": "Replace French with Wolof using existing migration, error, warning, scheduling, retry and resume terminology; distinguish failed migrations to retry from paused migrations to resume and successful retry initiation from migration completion. Scheduling and complete sentence grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "cron-migration-errors",
+    "before": "Erreurs de migration",
+    "after": "Njuumte yu migration",
+    "reason": "Replace French with Wolof using existing migration, error, warning, scheduling, retry and resume terminology; distinguish failed migrations to retry from paused migrations to resume and successful retry initiation from migration completion. Scheduling and complete sentence grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "cron-migration-warnings",
+    "before": "Avertissements de migration",
+    "after": "Artu yu migration",
+    "reason": "Replace French with Wolof using existing migration, error, warning, scheduling, retry and resume terminology; distinguish failed migrations to retry from paused migrations to resume and successful retry initiation from migration completion. Scheduling and complete sentence grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "cron-no-failed-migrations",
+    "before": "Aucune migration échouée à réessayer",
+    "after": "Amul migration bu antuwul ngir jéemaat",
+    "reason": "Replace French with Wolof using existing migration, error, warning, scheduling, retry and resume terminology; distinguish failed migrations to retry from paused migrations to resume and successful retry initiation from migration completion. Scheduling and complete sentence grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "cron-no-paused-migrations",
+    "before": "Aucune migration en pause à reprendre",
+    "after": "Amul migration bu ñu taxawal ngir dellu ci moom",
+    "reason": "Replace French with Wolof using existing migration, error, warning, scheduling, retry and resume terminology; distinguish failed migrations to retry from paused migrations to resume and successful retry initiation from migration completion. Scheduling and complete sentence grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "cron-migrations-resumed",
+    "before": "Migrations reprises avec succès",
+    "after": "Dellu ci migration yi antu na",
+    "reason": "Replace French with Wolof using existing migration, error, warning, scheduling, retry and resume terminology; distinguish failed migrations to retry from paused migrations to resume and successful retry initiation from migration completion. Scheduling and complete sentence grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "cron-migrations-retried",
+    "before": "Migrations échouées réessayées avec succès",
+    "after": "Jéemaat migration yi antuwul antu na",
+    "reason": "Replace French with Wolof using existing migration, error, warning, scheduling, retry and resume terminology; distinguish failed migrations to retry from paused migrations to resume and successful retry initiation from migration completion. Scheduling and complete sentence grammar remain low confidence."
   }
 ]
