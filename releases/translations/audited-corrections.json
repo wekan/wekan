@@ -83130,5 +83130,54 @@
     "before": "pour coller, ou glissez-déposez une image ici (seulement une image)",
     "after": "ngir taf, walla xëcc te bàyyi fiise bu nataal ci moom (nataal rekk)",
     "reason": "Replace French with Wolof; keep clipboard as temporary copy storage, copy link versus text actions, paste versus drag/drop and image-only restriction. Descriptive clipboard/paste technical terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "editCardStartDatePopup-title",
+    "before": "Modifier la date de début",
+    "after": "Soppi bisu tambali",
+    "reason": "Replace French with Wolof; preserve start versus vote/poker end-date controls, newly created account enrollment and exact tokens/layout, CSV/TSV required information and separator format, archived predicate. Enrollment/schema phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "editPokerEndDatePopup-title",
+    "before": "Changer la date de fin de vote du planning poker",
+    "after": "Soppi bisu jeexu wote bu planning poker",
+    "reason": "Replace French with Wolof; preserve start versus vote/poker end-date controls, newly created account enrollment and exact tokens/layout, CSV/TSV required information and separator format, archived predicate. Enrollment/schema phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "editVoteEndDatePopup-title",
+    "before": "Modifier la date de fin de vote",
+    "after": "Soppi bisu jeexu wote",
+    "reason": "Replace French with Wolof; preserve start versus vote/poker end-date controls, newly created account enrollment and exact tokens/layout, CSV/TSV required information and separator format, archived predicate. Enrollment/schema phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "email-enrollAccount-subject",
+    "before": "Un compte a été créé pour vous sur __siteName__",
+    "after": "Sos nañu kont ngir yaw ci __siteName__",
+    "reason": "Replace French with Wolof; preserve start versus vote/poker end-date controls, newly created account enrollment and exact tokens/layout, CSV/TSV required information and separator format, archived predicate. Enrollment/schema phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "email-enrollAccount-text",
+    "before": "Bonjour __user__,\n\nPour commencer à utiliser ce service, il suffit de cliquer sur le lien ci-dessous.\n\n__url__\n\nMerci.",
+    "after": "Nanga def __user__,\n\nNgir tambali jëfandikoo sarwiis bi, bësal lëkkalekaay bi ci suuf rekk.\n\n__url__\n\nJërëjëf.",
+    "reason": "Replace French with Wolof; preserve start versus vote/poker end-date controls, newly created account enrollment and exact tokens/layout, CSV/TSV required information and separator format, archived predicate. Enrollment/schema phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "error-csv-schema",
+    "before": "Votre fichier CSV (valeurs séparées par des virgules) / TSV (valeurs séparées par des tabulations) ne contient pas d'informations au bon format",
+    "after": "Sa CSV (dayo yi ñu séddale ak virgül) / TSV (dayo yi ñu séddale ak tab) amul xibaar yi war ci format bi jub",
+    "reason": "Replace French with Wolof; preserve start versus vote/poker end-date controls, newly created account enrollment and exact tokens/layout, CSV/TSV required information and separator format, archived predicate. Enrollment/schema phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "globalSearch-instructions-status-archived",
+    "before": "`__predicate_archived__` - cartes qui ont été archivées.",
+    "after": "`__predicate_archived__` - karta yi ñu denc ci àrsiw",
+    "reason": "Replace French with Wolof; preserve start versus vote/poker end-date controls, newly created account enrollment and exact tokens/layout, CSV/TSV required information and separator format, archived predicate. Enrollment/schema phrasing and full grammar remain low confidence."
   }
 ]
