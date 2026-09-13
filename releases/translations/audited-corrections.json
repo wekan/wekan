@@ -83319,5 +83319,33 @@
     "before": "Peut seulement déplacer des cartes, s'assigner à une carte et la commenter.",
     "after": "Yóbbu karta yi, sas sa bopp ci karta ak wax ci karta rekk la man.",
     "reason": "Replace French with Wolof; preserve starred ordering, migration scan scopes, logged-in-only support, archive visibility/recovery path, custom login logo text, admin organization creation, Excel restriction, existing user, minimum 3 characters, WIP recovery alternatives and worker-only capabilities. Recovery/role phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "globalSearch-instructions-description",
+    "before": "Les recherches peuvent inclure des opérateurs pour affiner le résultat. Les opérateurs sont précisés en écrivant l'opérateur suivi d'une valeur séparé par un deux-point. Par exemple, une spécification comme `liste:Bloqué` limiterait le résultat aux cartes qui contiennent une liste appelée *Bloqué*. Si la valeur contient des espaces ou des caractères spéciaux, elle doit être entourée d'apostrophes (par ex. `__operator_list__:\"À valider\"`).",
+    "after": "Seet man na am ay operatër ngir gën a tànn li ñuy seet. Ñuy wax operatër bi ci bind turam ak dayo bi, séddale leen ak ñaari tomb (:). Ci misaal, `list:Blocked` dina yam seet bi ci karta yi nekk ci limu bu tudd *Blocked*. Bu dayo bi am ay diggante walla ay araf yu wuute, war nga ko wër ak ñaari màndarga wax (ci misaal `__operator_list__:\"To Review\"`).",
+    "reason": "Replace French with Wolof; retain literal list:Blocked and quoted operator example, colon syntax, cards contained in named list rather than cards containing list, double-quote requirement, OS uptime, planning-poker start and bucket-list example. Search/quotation technical terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "OS_Uptime",
+    "before": "OS Durée de fonctionnement",
+    "after": "Diir bi OS bi di dox",
+    "reason": "Replace French with Wolof; retain literal list:Blocked and quoted operator example, colon syntax, cards contained in named list rather than cards containing list, double-quote requirement, OS uptime, planning-poker start and bucket-list example. Search/quotation technical terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "cardStartPlanningPokerPopup-title",
+    "before": "Démarrer un planning poker",
+    "after": "Tambali planning poker",
+    "reason": "Replace French with Wolof; retain literal list:Blocked and quoted operator example, colon syntax, cards contained in named list rather than cards containing list, double-quote requirement, OS uptime, planning-poker start and bucket-list example. Search/quotation technical terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "bucket-example",
+    "before": "Comme « Liste d'envies  » par exemple",
+    "after": "Yu mel ni «Limu yi nga bëgg a def» ci misaal",
+    "reason": "Replace French with Wolof; retain literal list:Blocked and quoted operator example, colon syntax, cards contained in named list rather than cards containing list, double-quote requirement, OS uptime, planning-poker start and bucket-list example. Search/quotation technical terminology and full grammar remain low confidence."
   }
 ]
