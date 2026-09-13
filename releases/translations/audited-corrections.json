@@ -77271,5 +77271,47 @@
     "before": "Utilisation mémoire de Node: externe",
     "after": "Memwere eployeye pa Node: memwere esterne",
     "reason": "Replace French memory diagnostics with Walloon, preserving allocated/used/available/limit/peak distinctions and malloc. Keep technical heap loan. does_zap_garbage indicates --zap_code_space activation, not garbage collection activation: https://nodejs.org/api/v8.html#v8getheapstatistics . Native memwere/dispårtixhaedje vocabulary in historical KDE translations: https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Full grammar and technical loans remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "Node_heap_number_of_detached_contexts",
+    "before": "Tas de Node : nombre de contexte détachés",
+    "after": "Heap di Node: nombe di contextes distatchîs",
+    "reason": "Replace French remaining heap/context/resident-memory and OS uptime diagnostics with Walloon. Preserve native versus detached contexts, executable-code heap portion, physical memory and process resident memory versus heap distinction. Technical definitions: https://nodejs.org/api/v8.html#v8getheapstatistics and https://nodejs.org/api/process.html#processmemoryusage ; reuse Walloon memwere/alaedje/grandeu terminology. Context/technical loan vocabulary and full grammar remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "Node_heap_number_of_native_contexts",
+    "before": "Tas de Node : nombre de contexte natifs",
+    "after": "Heap di Node: nombe di contextes natifs",
+    "reason": "Replace French remaining heap/context/resident-memory and OS uptime diagnostics with Walloon. Preserve native versus detached contexts, executable-code heap portion, physical memory and process resident memory versus heap distinction. Technical definitions: https://nodejs.org/api/v8.html#v8getheapstatistics and https://nodejs.org/api/process.html#processmemoryusage ; reuse Walloon memwere/alaedje/grandeu terminology. Context/technical loan vocabulary and full grammar remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "Node_heap_total_heap_size_executable",
+    "before": "Tas de Node : taille totale du tas exécutable",
+    "after": "Heap di Node: grandeu totale del pårt po l' côde egzecutåve",
+    "reason": "Replace French remaining heap/context/resident-memory and OS uptime diagnostics with Walloon. Preserve native versus detached contexts, executable-code heap portion, physical memory and process resident memory versus heap distinction. Technical definitions: https://nodejs.org/api/v8.html#v8getheapstatistics and https://nodejs.org/api/process.html#processmemoryusage ; reuse Walloon memwere/alaedje/grandeu terminology. Context/technical loan vocabulary and full grammar remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "Node_heap_total_physical_size",
+    "before": "Tas de Node : taille totale physique",
+    "after": "Heap di Node: grandeu fizike totale",
+    "reason": "Replace French remaining heap/context/resident-memory and OS uptime diagnostics with Walloon. Preserve native versus detached contexts, executable-code heap portion, physical memory and process resident memory versus heap distinction. Technical definitions: https://nodejs.org/api/v8.html#v8getheapstatistics and https://nodejs.org/api/process.html#processmemoryusage ; reuse Walloon memwere/alaedje/grandeu terminology. Context/technical loan vocabulary and full grammar remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "Node_memory_usage_rss",
+    "before": "Utilisation mémoire de Node : taille de l'ensemble résident",
+    "after": "Memwere eployeye pa Node: grandeu del memwere rezidinte",
+    "reason": "Replace French remaining heap/context/resident-memory and OS uptime diagnostics with Walloon. Preserve native versus detached contexts, executable-code heap portion, physical memory and process resident memory versus heap distinction. Technical definitions: https://nodejs.org/api/v8.html#v8getheapstatistics and https://nodejs.org/api/process.html#processmemoryusage ; reuse Walloon memwere/alaedje/grandeu terminology. Context/technical loan vocabulary and full grammar remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "OS_Uptime",
+    "before": "OS Durée de fonctionnement",
+    "after": "Tins d' alaedje do sistinme d' operåcion",
+    "reason": "Replace French remaining heap/context/resident-memory and OS uptime diagnostics with Walloon. Preserve native versus detached contexts, executable-code heap portion, physical memory and process resident memory versus heap distinction. Technical definitions: https://nodejs.org/api/v8.html#v8getheapstatistics and https://nodejs.org/api/process.html#processmemoryusage ; reuse Walloon memwere/alaedje/grandeu terminology. Context/technical loan vocabulary and full grammar remain low confidence."
   }
 ]
