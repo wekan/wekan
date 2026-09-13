@@ -81366,5 +81366,26 @@
     "before": "Mettre à jour",
     "after": "Yeesal",
     "reason": "Replace French swimlane/checklist/update rule fragments with Wolof using established Yoon/limu bu seetlu/Yeesal terms. r-of-checklist identifies containing checklist for item action. Preserve adding and name/within scopes. Composed sentence grammar remains low confidence; when-a/when-the checklist fragments left pending broader composition review."
+  },
+  {
+    "locale": "wo",
+    "key": "user-username-not-found",
+    "before": "Utilisateur '%s' non trouvé.",
+    "after": "Giseesul turu jëfandikukat '%s'.",
+    "reason": "Replace French username/organization missing-record messages and parent-card display choice with Wolof. Preserve %s placeholders, username rather than generic user, organization identity and do-not-show parent-card behavior. Reuse repaired terminology; full grammar remains low confidence. Migration messages remain pending."
+  },
+  {
+    "locale": "wo",
+    "key": "org-name-not-found",
+    "before": "Organisation '%s' non trouvée.",
+    "after": "Giseesul kureel '%s'.",
+    "reason": "Replace French username/organization missing-record messages and parent-card display choice with Wolof. Preserve %s placeholders, username rather than generic user, organization identity and do-not-show parent-card behavior. Reuse repaired terminology; full grammar remains low confidence. Migration messages remain pending."
+  },
+  {
+    "locale": "wo",
+    "key": "no-parent",
+    "before": "Ne pas afficher le parent",
+    "after": "Bul wone karta bu mag bi",
+    "reason": "Replace French username/organization missing-record messages and parent-card display choice with Wolof. Preserve %s placeholders, username rather than generic user, organization identity and do-not-show parent-card behavior. Reuse repaired terminology; full grammar remains low confidence. Migration messages remain pending."
   }
 ]
