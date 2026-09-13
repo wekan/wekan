@@ -31,6 +31,12 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
     assert.deepEqual(Object.keys(data), Object.keys(english), locale);
     assert.equal(repairLocale(locale, data).changed, 0, 'idempotent after correction');
   }
+  // Exact native UI references replace French without normalizing valid Latin-script Tamazight.
+  assert.equal(cache.zgh.help, 'ⵜⵉⵡⵉⵙⵉ');
+  assert.equal(cache.zgh.next, 'ⵉⵏⴹⴼⵔ');
+  assert.notEqual(cache.zgh.help, 'Aide');
+  assert.notEqual(cache.zgh.next, 'Suivant');
+  assert.equal(cache.zgh.cancel, 'Sefsex');
   // Card descriptions use a feminine plural creation form.
   for (const key of ['globalSearch-instructions-operator-creator', 'globalSearch-instructions-operator-created']) {
     assert.match(cache.wa[key], /cåtes askepieyes/);

@@ -120650,5 +120650,19 @@
     "before": "Islamic tabular",
     "after": "ᎢᏌᎳᎻᎩ (ᏅᏯ, ᏃᏈᏏ ᎢᏳᏍᏗ)",
     "reason": "Replace English calendar variant with exact Cherokee Unicode CLDR core type name at https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/chr.xml; review 2026-09-14. Source entry has no draft marker. Preserve exact native-script variant qualifiers and distinct civil/sighting/tabular/Umm al-Qura names. Further fluent technical review must establish how compact CLDR tabular wording conveys WeKan astronomical-epoch qualifier; do not claim whole-locale validation complete."
+  },
+  {
+    "locale": "zgh",
+    "key": "help",
+    "before": "Aide",
+    "after": "ⵜⵉⵡⵉⵙⵉ",
+    "reason": "Replace French with exact Standard Moroccan Tamazight native UI wording for the matching MediaWiki help message: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Reviewed 2026-09-14; preserve existing correct Latin-script translations in other keys."
+  },
+  {
+    "locale": "zgh",
+    "key": "next",
+    "before": "Suivant",
+    "after": "ⵉⵏⴹⴼⵔ",
+    "reason": "Replace French with exact Standard Moroccan Tamazight native UI wording for the matching MediaWiki next message: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Reviewed 2026-09-14; preserve existing correct Latin-script translations in other keys."
   }
 ]
