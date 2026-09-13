@@ -54738,5 +54738,68 @@
     "before": "Il nome di questo team è già stato preso",
     "after": "Numa a echipãljei easti deagi ufilisitã",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "error-user-notAllowSelf",
+    "before": "Non puoi invitare te stesso",
+    "after": "Nu pots s-ti inviti singur",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "error-user-notCreated",
+    "before": "L'utente non è stato creato",
+    "after": "Aestu ufilisitor nu fu creat",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "error-username-taken",
+    "before": "Questo username è già utilizzato",
+    "after": "Aesta numã di ufilisitor easti deagi ufilisitã",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "filter-assignee-label",
+    "before": "Filtra secondo l'assegnatario",
+    "after": "Filtreadzã dupã persoana atribuitã",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "filter-custom-fields-label",
+    "before": "Filtra secondo campi personalizzati",
+    "after": "Filtreadzã dupã cãmpuri personalizati",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "filter-due-next-week",
+    "before": "Scadenza prossima settimana",
+    "after": "Termen tu sãptãmãna tsi yini",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "filter-labels-label",
+    "before": "Filtra secondo l'etichetta",
+    "after": "Filtreadzã dupã etichetã",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "filter-no-custom-fields",
+    "before": "Nessun campo personalizzato",
+    "after": "Nitsiun cãmpu personalizat",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "globalSearch-instructions-notes-1",
+    "before": "È possibile specificare più operatori.",
+    "after": "Pot s-hibã specificats ma multi operatori.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
