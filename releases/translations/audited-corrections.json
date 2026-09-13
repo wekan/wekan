@@ -79357,5 +79357,68 @@
     "before": "Vous pouvez restaurer le tableau en cliquant sur le bouton « Archives » depuis le menu en entête.",
     "after": "Dinga mën a delloo tablo bi ci bës butoŋu àrsiw bi ci boppu xëtu dalal bi.",
     "reason": "Replace French workspace popup title and archive guidance with Wolof. Match allboards.add-workspace exactly; preserve retaining activity when archiving and restoring board via home-header archive button. Reuse existing archival/recovery vocabulary. Home-header/button adaptations and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "admin-desc",
+    "before": "Peut consulter et modifier les cartes, supprimer des participants et modifier les paramètres du tableau. Peut consulter les activités.\n ",
+    "after": "Mën na gis te soppi karta yi, génne bokkkat yi, te soppi jekkal yi ci tablo bi. Mën na gis jëf yi.",
+    "reason": "Replace French permission descriptions with Wolof. Preserve view/edit/comment distinctions, assigned-only visibility, settings restriction, member removal and minimum one administrator. Reuse jekkal/xalaat/karta/bokkkat/sas terminology. Ordinary-user adaptation, role vocabulary and full grammar remain low confidence; no permission behavior changed."
+  },
+  {
+    "locale": "wo",
+    "key": "comment-only-desc",
+    "before": "Ne peut que commenter des cartes.",
+    "after": "Mën na bind xalaat ci karta yi rekk.",
+    "reason": "Replace French permission descriptions with Wolof. Preserve view/edit/comment distinctions, assigned-only visibility, settings restriction, member removal and minimum one administrator. Reuse jekkal/xalaat/karta/bokkkat/sas terminology. Ordinary-user adaptation, role vocabulary and full grammar remain low confidence; no permission behavior changed."
+  },
+  {
+    "locale": "wo",
+    "key": "comment-assigned-only-desc",
+    "before": "Seules les cartes assignées sont visibles. Commentaire uniquement.",
+    "after": "Karta yi ñu ko sas rekk la mën a gis. Mën na bind xalaat rekk.",
+    "reason": "Replace French permission descriptions with Wolof. Preserve view/edit/comment distinctions, assigned-only visibility, settings restriction, member removal and minimum one administrator. Reuse jekkal/xalaat/karta/bokkkat/sas terminology. Ordinary-user adaptation, role vocabulary and full grammar remain low confidence; no permission behavior changed."
+  },
+  {
+    "locale": "wo",
+    "key": "no-comments-desc",
+    "before": "Impossible de voir les commentaires.",
+    "after": "Mënul gis xalaat yi.",
+    "reason": "Replace French permission descriptions with Wolof. Preserve view/edit/comment distinctions, assigned-only visibility, settings restriction, member removal and minimum one administrator. Reuse jekkal/xalaat/karta/bokkkat/sas terminology. Ordinary-user adaptation, role vocabulary and full grammar remain low confidence; no permission behavior changed."
+  },
+  {
+    "locale": "wo",
+    "key": "read-only-desc",
+    "before": "Peut seulement voir les cartes. Ne peut pas éditer.",
+    "after": "Mën na gis karta yi rekk. Mënul soppi.",
+    "reason": "Replace French permission descriptions with Wolof. Preserve view/edit/comment distinctions, assigned-only visibility, settings restriction, member removal and minimum one administrator. Reuse jekkal/xalaat/karta/bokkkat/sas terminology. Ordinary-user adaptation, role vocabulary and full grammar remain low confidence; no permission behavior changed."
+  },
+  {
+    "locale": "wo",
+    "key": "read-assigned-only-desc",
+    "before": "Seules les cartes assignées sont visibles. Modification impossible.",
+    "after": "Karta yi ñu ko sas rekk la mën a gis. Mënul soppi.",
+    "reason": "Replace French permission descriptions with Wolof. Preserve view/edit/comment distinctions, assigned-only visibility, settings restriction, member removal and minimum one administrator. Reuse jekkal/xalaat/karta/bokkkat/sas terminology. Ordinary-user adaptation, role vocabulary and full grammar remain low confidence; no permission behavior changed."
+  },
+  {
+    "locale": "wo",
+    "key": "last-admin-desc",
+    "before": "Vous ne pouvez pas changer les rôles car il doit y avoir au moins un administrateur.",
+    "after": "Mënuloo soppi cër yi ndax war na am lu néew benn saytukat.",
+    "reason": "Replace French permission descriptions with Wolof. Preserve view/edit/comment distinctions, assigned-only visibility, settings restriction, member removal and minimum one administrator. Reuse jekkal/xalaat/karta/bokkkat/sas terminology. Ordinary-user adaptation, role vocabulary and full grammar remain low confidence; no permission behavior changed."
+  },
+  {
+    "locale": "wo",
+    "key": "normal-desc",
+    "before": "Peut voir et modifier les cartes. Ne peut pas changer les paramètres.",
+    "after": "Mën na gis te soppi karta yi. Mënul soppi jekkal yi.",
+    "reason": "Replace French permission descriptions with Wolof. Preserve view/edit/comment distinctions, assigned-only visibility, settings restriction, member removal and minimum one administrator. Reuse jekkal/xalaat/karta/bokkkat/sas terminology. Ordinary-user adaptation, role vocabulary and full grammar remain low confidence; no permission behavior changed."
+  },
+  {
+    "locale": "wo",
+    "key": "normal-assigned-only-desc",
+    "before": "Seules les cartes assignées sont visibles. Modifier en tant qu'utilisateur normal.",
+    "after": "Karta yi ñu ko sas rekk la mën a gis. Mën na soppi ni jëfandikukat bu yoon.",
+    "reason": "Replace French permission descriptions with Wolof. Preserve view/edit/comment distinctions, assigned-only visibility, settings restriction, member removal and minimum one administrator. Reuse jekkal/xalaat/karta/bokkkat/sas terminology. Ordinary-user adaptation, role vocabulary and full grammar remain low confidence; no permission behavior changed."
   }
 ]
