@@ -71342,5 +71342,138 @@
     "before": "Papar label ruang pada kad mini",
     "after": "Peuleumah label ruang bak kad ubit",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "showSum-field-on-list",
+    "before": "Papar jumlah ruang pada atas senarai",
+    "after": "Peuleumah hase peujumlah nilai ruang di ateueh senarai",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "smtp-host-description",
+    "before": "Alamat server SMTP yang menangani surel Anda.",
+    "after": "Alamat server SMTP nyang peubuet emel droeneueh.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "smtp-port-description",
+    "before": "Port server SMTP yang Anda gunakan untuk mengirim surel.",
+    "after": "Port nyang geungui le server SMTP keu kirem emel.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "smtp-tls-description",
+    "before": "Aktifkan dukungan TLS untuk server SMTP",
+    "after": "Peuhidop dukongan TLS keu server SMTP",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "spent-time-hours",
+    "before": "Waktu yang dihabiskan (jam)",
+    "after": "Watee nyang geungui (jeuem)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "star-board-title",
+    "before": "Klik untuk beri bintang panel ini. Akan muncul paling atas dari daftar panel",
+    "after": "Klik keu boh bintang bak papan nyoe. Jih akan deuh di ateueh senarai papan droeneueh.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "starred-boards-description",
+    "before": "Panel berbintang muncul paling atas dari daftar panel anda",
+    "after": "Papan nyang na bintang deuh di ateueh senarai papan droeneueh.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "subtext-with-full-path",
+    "before": "Subtext dengan rintisan lengkap",
+    "after": "Teks miyup ngon rot lengkap",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "swimlane-height-error-message",
+    "before": "Tinggi Swimlane harus sebuah bilangan bulat positif",
+    "after": "Manyang swimlane haroh lumboi buleuet leubeh nibak 0",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "swimlaneAddPopup-title",
+    "before": "Tambah Aliran Renang di bawah",
+    "after": "Tamah swimlane di miyup",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "tableVisibilityMode-allowPrivateOnly",
+    "before": "Kebolehlihatan Papan: Hanya Benarkan Papan Peribadi",
+    "after": "Papan nyang deuh: peuizin papan pribadi mantong",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "team-name-not-found",
+    "before": "Pasukan '%s' tidak ditemui.",
+    "after": "Tim '%s' hana geuteumeung.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "text-below-custom-login-logo",
+    "before": "Teks di bawah Logo Khas Log Masuk",
+    "after": "Teks di miyup logo login khusus",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "to-create-teams-contact-admin",
+    "before": "Sila berhubung dengan admin untuk mencipta kumpulan",
+    "after": "Keu peugot tim, neuhubong admin.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "toggle-labels",
+    "before": "Togol label 1-9 untuk kad. Pelbagai-pilihan tambah label 1-9",
+    "after": "Tuka label 1-9 bak kad. Pilehan le kad tamah label 1-9",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "tracking-info",
+    "before": "Anda akan dinotifikasi semua perubahan di kartu tersebut diaman anda terlibat sebagai creator atau partisipan",
+    "after": "Droeneueh akan geubri notifikasi peue mantong perubahan bak kad nyang droeneueh ikot seubagoe nyang peugot atawa anggota.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "translation-number",
+    "before": "Nomor dari teks terjemahan pesanan adalah:",
+    "after": "Jeumeulah teks teujeumah khusus:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "unassign-member",
+    "before": "Tidak sertakan partisipan",
+    "after": "Batai tugas anggota",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "unsaved-description",
+    "before": "Anda memiliki deskripsi yang belum disimpan.",
+    "after": "Droeneueh na deskripsi nyang gohlom geukeuneubah.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
