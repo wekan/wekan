@@ -92972,5 +92972,26 @@
     "before": "Teilaufgaben Feld anzeigen",
     "after": "Qu'Hommey De' 'ay' yI'ang",
     "reason": "Replace four flagged German filter/subtask-field labels with direct Klingon. Filtering paraphrased as selection wIv, with card title ('echletHom pong) or user-configured fields (De' 'ay'mey cherbogh lo'wI') explicitly used as criteria through Dalo'taHvIS. Card/list filter retains alternative objects and plural imperative; subtask-field display uses Qu'Hommey De' 'ay' yI'ang. Reuse vocabulary established in adjacent reviewed batches. Selection as filtering, software-field compounds and full clauses are low confidence and require fluent-speaker validation; no placeholders changed."
+  },
+  {
+    "locale": "tlh",
+    "key": "notifications",
+    "before": "Benachrichtigungen",
+    "after": "ghuHmoHmeH QInmey",
+    "reason": "Replace German/French notification controls with Klingon messages for alerting; preserve all-notifications deletion scope and plural imperative. https://klingonska.org/klo/ordlista-01.html attests ghuHmoH (warn) and QIn (message); descriptive software compound ghuHmoHmeH QIn is assembled, low confidence, and needs fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "features-notifications",
+    "before": "Benachrichtigungen",
+    "after": "ghuHmoHmeH QInmey",
+    "reason": "Replace German/French notification controls with Klingon messages for alerting; preserve all-notifications deletion scope and plural imperative. https://klingonska.org/klo/ordlista-01.html attests ghuHmoH (warn) and QIn (message); descriptive software compound ghuHmoHmeH QIn is assembled, low confidence, and needs fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "delete-all-notifications",
+    "before": "Supprimer toutes les notifications",
+    "after": "ghuHmoHmeH QInmey Hoch tIQaw'",
+    "reason": "Replace German/French notification controls with Klingon messages for alerting; preserve all-notifications deletion scope and plural imperative. https://klingonska.org/klo/ordlista-01.html attests ghuHmoH (warn) and QIn (message); descriptive software compound ghuHmoHmeH QIn is assembled, low confidence, and needs fluent-speaker validation."
   }
 ]
