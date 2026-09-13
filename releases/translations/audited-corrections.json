@@ -79567,5 +79567,68 @@
     "before": "Aucune carte trouvée",
     "after": "Giseesul benn karta",
     "reason": "Replace French subtask controls and empty card search result with Wolof. Reuse existing Ligeey ndaw linked-subtask terminology with standardized liggéey spelling. Preserve task/card distinction, destination board/list, delete confirmation and __board__/%s placeholders. Subtask adaptation and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "comments",
+    "before": "Commentaires",
+    "after": "Xalaat yi",
+    "reason": "Replace French comment controls and align unflagged minicard/unread comment wording with existing xalaat terminology. Unread means not read, not new attachments. Preserve assigned-card-only role and search text %s. Existing Wolof reply controls retained. Full grammar and role adaptations remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "comment",
+    "before": "Commenter",
+    "after": "Bind xalaat",
+    "reason": "Replace French comment controls and align unflagged minicard/unread comment wording with existing xalaat terminology. Unread means not read, not new attachments. Preserve assigned-card-only role and search text %s. Existing Wolof reply controls retained. Full grammar and role adaptations remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "comment-only",
+    "before": "Commentaire uniquement",
+    "after": "Bind xalaat rekk",
+    "reason": "Replace French comment controls and align unflagged minicard/unread comment wording with existing xalaat terminology. Unread means not read, not new attachments. Preserve assigned-card-only role and search text %s. Existing Wolof reply controls retained. Full grammar and role adaptations remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "comment-assigned-only",
+    "before": "Commentaire assigné uniquement",
+    "after": "Bind xalaat ci karta yi ñu sas rekk",
+    "reason": "Replace French comment controls and align unflagged minicard/unread comment wording with existing xalaat terminology. Unread means not read, not new attachments. Preserve assigned-card-only role and search text %s. Existing Wolof reply controls retained. Full grammar and role adaptations remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "no-comments",
+    "before": "Aucun commentaire",
+    "after": "Amul xalaat",
+    "reason": "Replace French comment controls and align unflagged minicard/unread comment wording with existing xalaat terminology. Unread means not read, not new attachments. Preserve assigned-card-only role and search text %s. Existing Wolof reply controls retained. Full grammar and role adaptations remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "roles-status-comment",
+    "before": "Commenter",
+    "after": "Bind xalaat",
+    "reason": "Replace French comment controls and align unflagged minicard/unread comment wording with existing xalaat terminology. Unread means not read, not new attachments. Preserve assigned-card-only role and search text %s. Existing Wolof reply controls retained. Full grammar and role adaptations remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "comment-not-found",
+    "before": "Carte dont le commentaire contient '%s' non trouvée",
+    "after": "Giseesul karta bu am xalaat bu am mbind '%s'.",
+    "reason": "Replace French comment controls and align unflagged minicard/unread comment wording with existing xalaat terminology. Unread means not read, not new attachments. Preserve assigned-card-only role and search text %s. Existing Wolof reply controls retained. Full grammar and role adaptations remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "card-has-unread-comments",
+    "before": "Dàkkaay yu bees",
+    "after": "Am na xalaat yu ñu jàngul",
+    "reason": "Replace French comment controls and align unflagged minicard/unread comment wording with existing xalaat terminology. Unread means not read, not new attachments. Preserve assigned-card-only role and search text %s. Existing Wolof reply controls retained. Full grammar and role adaptations remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "card-comments-on-minicard",
+    "before": "Waxtaan ci minikaart",
+    "after": "Xalaat yi ci karta bu ndaw bi",
+    "reason": "Replace French comment controls and align unflagged minicard/unread comment wording with existing xalaat terminology. Unread means not read, not new attachments. Preserve assigned-card-only role and search text %s. Existing Wolof reply controls retained. Full grammar and role adaptations remain low confidence."
   }
 ]
