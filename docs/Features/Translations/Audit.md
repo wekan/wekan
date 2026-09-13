@@ -10,13 +10,13 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 | Pending review or repair | 2,979 |
 | Total tracked | 20,081 |
 
-**Paused at the maintainer’s request on 2026-09-13.** Stop repairs now; resume only when requested. Klingon has **361** pending flagged findings. Restored and unflagged translations still need validation.
+**Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. Klingon has **361** pending flagged findings. Restored and unflagged translations still need validation.
 
 Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **13,544** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-13**, local commit `8ae15efffb1101970ff2bc04f5f628c1c072c307` — restored native Aragonese numbered examples after a mistaken English replacement and localized the Galician storage label. Reviewed shared terms are protected during filling; broader repairs remain paused.
+Latest translation fix: **2026-09-13**, local commit `8ae15efffb1101970ff2bc04f5f628c1c072c307` — restored native Aragonese numbered examples after a mistaken English replacement and localized the Galician storage label. Reviewed shared terms are protected during filling; broader repairs have resumed.
 
-**Verification (2026-09-13):** **999 Node suites, zero failures**; the original 19 failures are resolved. The first complete EVERYTHING run passes all four stages: Meteor (**527**), import (**10**), Node E2E (**10**), three browsers, **103** conformance cases on each of SQLite/PostgreSQL/MySQL/MariaDB and FerretDB unit/vet/integration. Separate URL-prefix preference/logout/invalid-cookie checks pass in all browsers. Two WebKit retries exposed refresh readiness and competing template autofocus; both are repaired, and the refresh check passes ten repetitions without retries. Fresh compiled verification is running. Fluent-speaker checks remain outstanding; translation repairs remain paused.
+**Verification (2026-09-13):** **999 Node suites, zero failures**; the original 19 failures are resolved. The first complete EVERYTHING run passes all four stages: Meteor (**527**), import (**10**), Node E2E (**10**), three browsers, **103** conformance cases on each of SQLite/PostgreSQL/MySQL/MariaDB and FerretDB unit/vet/integration. Separate URL-prefix preference/logout/invalid-cookie checks pass in all browsers. Two WebKit retries exposed refresh readiness and competing template autofocus; both are repaired, and the refresh check passes ten repetitions without retries. Fresh compiled verification is running. Fluent-speaker checks remain outstanding; translation repairs have resumed.
 
 **Unresolved reviews:** Silesian database terminology and 17 Tigre calendar findings need language-specific validation.
 

@@ -76,15 +76,16 @@ held only issues \#4774 and \#4055, and both are closed now.
 </details>
 
 <details>
-<summary>Paused local translation repairs and validation.</summary>
+<summary>Local translation repairs and validation in progress.</summary>
 
-Paused at the maintainer's request on 2026-09-13. The audit tracks 20,081
+Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
+The audit tracks 20,081
 findings: 12,866 corrected, 4,058 restored pre-pull values awaiting
 validation, 178 reviewed and retained, and 2,979 pending review or repair.
 The correction inventory records 13,544 exact before/after values across
 201 locale identifiers, including repairs outside the original findings.
-Klingon still has 361 pending flagged findings; stop repairs now and resume
-only when requested. Other substantial queues remain in Venda and regional
+Klingon still has 361 pending flagged findings; review and repairs are
+underway. Other substantial queues remain in Venda and regional
 locale files and Tamazight. Silesian database terminology and 17 Tigre
 calendar findings need language-specific review. Restored and unflagged
 values, low-confidence wording and browser rendering remain unverified.
@@ -94,7 +95,7 @@ resume record; [detailed evidence](docs/Features/Translations/Audit-Evidence.md)
 retains the categorized findings. Not all wrong translations originated on
 Transifex: the evidence includes 4,061 pulled changes and 16,020 additional
 local findings, and Bosnian errors predate the pull. No remote uploads were
-performed. Preserve correct translations and source placeholders on resume.
+performed. Preserve correct translations and source placeholders during repairs.
 
 Node regressions resolved on 2026-09-13: the original audit ran 986 suites
 with 19 failures. After the recorded source and guard repairs and one new
@@ -568,6 +569,21 @@ restrictions. Local translation repairs preserve placeholders and warning
 meanings; the remaining audit is paused and tracked under **TODO Later**.
 Translation upload tooling and repository mirrors are updated, along with
 the Playwright test dependency.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4a6738330">Keep shared-list cards scoped during partial-profile loading and impersonation</a>. Thanks to gleneindre and xet7.</summary>
+
+Fixes [#6691](https://github.com/wekan/wekan/issues/6691). Board content and
+list selectors share the existing view resolver. Missing or invalid profile
+preferences now fall back to the browser preference and Swimlanes without
+reloading. A private current-user publication supplies the board-view
+preference after admin impersonation without exposing other members’ settings.
+Regression tests cover fallback precedence, pending choices, board visibility,
+list scoping and publication isolation; the browser test checks shared lists
+in two swimlanes before and after impersonation. Fresh EVERYTHING verification
+is running against this change.
+
+</details>
 
 This release adds the following calendar and login features:
 
