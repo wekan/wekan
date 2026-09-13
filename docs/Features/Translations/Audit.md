@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 14,764 |
+| Corrected | 14,777 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 1,080 |
+| Pending review or repair | 1,067 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **16,567** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **16,601** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-13**, local commit `40f27e1fd` — repaired **23** Veps placement/filter/sidebar/label values, resolving **ten** original findings and **13** related unflagged errors. Preserve separate card/swimlane above/below placement, card-or-list filtering, member/assignee/creator distinctions, field-name display on minicards, show/hide sidebar toggles and board-scoped title/description/custom-field search. Correct native core labels remain unchanged. All **16,567** exact corrections and actual positive/negative rendering checks pass. **Low confidence:** composed technical wording, sidebar terminology and inflections need fluent-speaker review; browser verification remains outstanding. Veps has **339** pending original findings. Translation repairs remain active, including restored/unflagged and wrong-language/script validation.
+Latest translation fix: **2026-09-13**, local commit `627b94378` — repaired **34** Veps archive/rule/export/support/multi-selection values, resolving **13** original findings and **21** related unflagged errors. Preserve permanent board deletion and all losses, archive visibility contexts, permission negation and Excel/PDF literals, all-versus-one checklist actions, member-versus-label removal and label assignment toggles. Number keys **1–9** toggle assignment; multi-selection adds labels, matching actual keyboard code. Multi-selection headings/actions are consistent. All **16,601** exact corrections and actual positive/negative rendering checks pass. **Low confidence:** composed technical wording and inflections need fluent-speaker review; browser verification remains outstanding. Veps has **326** pending original findings. Translation repairs remain active, including restored/unflagged and wrong-language/script validation.
 
 **Build interruption (2026-09-13):** local commit `6cd193879` repairs the Meteor 3.6/Rspack 2 build's undeclared body-parser import using Meteor's existing Express parsers. Seven HTTP/build regressions pass. Meteor 3.6-beta.0/Rspack 2.2 and matching Docker metadata are committed locally (`35082f7d7`), and both previously failing version checks pass. All **1,015** Node suites pass. The actual Meteor bundle build remains under verification: the local beta tool is still starting before compilation. Translation counts and the latest translation commit remain unchanged.
 
