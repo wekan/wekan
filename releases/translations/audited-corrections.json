@@ -92692,5 +92692,33 @@
     "before": "Équipes",
     "after": "ghommey",
     "reason": "Replace German not-found messages and related French team labels with direct Klingon using existing tetlh list, per label, ghom team (removeBoardTeamPopup-title), and tu'lu'be' not found/existent wording. %s remains the name of the missing list, label or team; preserve quotation and sentence punctuation. Team plural ghommey formed directly. Software terminology and full phrases are low confidence and need fluent-speaker validation. Generic team labels repaired beyond the flagged audit for consistency."
+  },
+  {
+    "locale": "tlh",
+    "key": "custom-fields",
+    "before": "Benutzerdefinierte Felder",
+    "after": "De' 'ay'mey cherbogh lo'wI'",
+    "reason": "Replace German custom-field labels with direct Klingon descriptive wording De' 'ay'mey cherbogh lo'wI' (data sections/fields which a user configures). Relative clause uses object-verb-subject order; edit uses plural-object tIchoH. Existing De', cher, lo'wI', choH and tu'lu'be' vocabulary retained. Data-section wording for software field and full relative-clause labels are low confidence and require fluent-speaker validation; no placeholders changed."
+  },
+  {
+    "locale": "tlh",
+    "key": "card-edit-custom-fields",
+    "before": "Benutzerdefinierte Felder editieren",
+    "after": "De' 'ay'mey cherbogh lo'wI' tIchoH",
+    "reason": "Replace German custom-field labels with direct Klingon descriptive wording De' 'ay'mey cherbogh lo'wI' (data sections/fields which a user configures). Relative clause uses object-verb-subject order; edit uses plural-object tIchoH. Existing De', cher, lo'wI', choH and tu'lu'be' vocabulary retained. Data-section wording for software field and full relative-clause labels are low confidence and require fluent-speaker validation; no placeholders changed."
+  },
+  {
+    "locale": "tlh",
+    "key": "cardCustomFieldsPopup-title",
+    "before": "Benutzerdefinierte Felder editieren",
+    "after": "De' 'ay'mey cherbogh lo'wI' tIchoH",
+    "reason": "Replace German custom-field labels with direct Klingon descriptive wording De' 'ay'mey cherbogh lo'wI' (data sections/fields which a user configures). Relative clause uses object-verb-subject order; edit uses plural-object tIchoH. Existing De', cher, lo'wI', choH and tu'lu'be' vocabulary retained. Data-section wording for software field and full relative-clause labels are low confidence and require fluent-speaker validation; no placeholders changed."
+  },
+  {
+    "locale": "tlh",
+    "key": "filter-no-custom-fields",
+    "before": "Keine benutzerdefinierten Felder",
+    "after": "De' 'ay'mey cherbogh lo'wI' tu'lu'be'",
+    "reason": "Replace German custom-field labels with direct Klingon descriptive wording De' 'ay'mey cherbogh lo'wI' (data sections/fields which a user configures). Relative clause uses object-verb-subject order; edit uses plural-object tIchoH. Existing De', cher, lo'wI', choH and tu'lu'be' vocabulary retained. Data-section wording for software field and full relative-clause labels are low confidence and require fluent-speaker validation; no placeholders changed."
   }
 ]
