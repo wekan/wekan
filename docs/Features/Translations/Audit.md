@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 12,285 |
+| Corrected | 12,291 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 3,561 |
+| Pending review or repair | 3,555 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Restored and unflagged values still need validation.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,783** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,791** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `b73722e80d343898ac6f61867176f47159d29930` — eleven French swimlane controls/warnings replaced with Volapük. Preserved placement, archive/restore/delete semantics, positive-integer height and exact search syntax; software adaptations and assembled wording remain low confidence.
+Latest translation fix: **2026-09-13**, local commit `3f06b5f96f252e4aeb162c6e1866aec1b8e294c4` — eight Volapük import/member-mapping strings repaired, including French instructions and Esperanto All Boards text. Preserved existing-user matching, map-later/current-user fallback and possible success despite import errors; assembled wording remains low confidence.
 
 **Verification:** correction and progress tests pass, covering exact values, placeholders, JSON examples and key order. Native-speaker and browser checks remain outstanding.
 
