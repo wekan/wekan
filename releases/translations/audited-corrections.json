@@ -82465,5 +82465,61 @@
     "before": "`__predicate_all__` -  toutes les cartes : archivées et non archivées.",
     "after": "`__predicate_all__` - karta yépp, yi ñu denc ci àrsiw ak yi ñu dencul",
     "reason": "Replace French with Wolof; restore explicit OR/any versus AND/all conditions (French optional wording was misleading), preserve literal query examples and argument names, case insensitivity, archive defaults and all-status scope. Search/operator technical terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "globalSearch-instructions-notes-3-2",
+    "before": "Les durées en jours peuvent être précisées soit par un entier positif ou négatif soit en utilisant `__predicate_week__`, `__predicate_month__`, `__predicate_quarter__` ou `__predicate_year__` pour la période courante.",
+    "after": "Man nga wax fan yi ak lim bu mat bu am màndarga + walla -, walla jëfandikoo `__predicate_week__`, `__predicate_month__`, `__predicate_quarter__` walla `__predicate_year__` ngir diir bi ñu nekk.",
+    "reason": "Replace French with Wolof; preserve signed whole-day values/current-period predicates, inclusive up-to due range and overdue distinction, URL repair scope, invitation code error, zoom range and vertical direction. Close the English overdue example backtick for readable Markdown. Numeric/search/scroll technical phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "globalSearch-instructions-operator-due",
+    "before": "`__operator_due__:<n>` - cartes qui arrive à échéance dans moins de *<n>* jours à partir d'aujourd'hui.\n`__operator_due__:__predicate_overdue__` liste toutes les cartes ayant passé la date d'échéance.",
+    "after": "`__operator_due__:<n>` - karta yi ñu war a jeexal ci diir bu tollu ci *<n>* fan jóge ci léegi. `__operator_due__:__predicate_overdue__` day lim karta yépp yi seen bisu jeexal weesu na.",
+    "reason": "Replace French with Wolof; preserve signed whole-day values/current-period predicates, inclusive up-to due range and overdue distinction, URL repair scope, invitation code error, zoom range and vertical direction. Close the English overdue example backtick for readable Markdown. Numeric/search/scroll technical phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "fix-all-file-urls-migration",
+    "before": "Corriger toutes les URL de fichiers",
+    "after": "Defaraat URL yépp yu fiise",
+    "reason": "Replace French with Wolof; preserve signed whole-day values/current-period predicates, inclusive up-to due range and overdue distinction, URL repair scope, invitation code error, zoom range and vertical direction. Close the English overdue example backtick for readable Markdown. Numeric/search/scroll technical phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "fix-avatar-urls-migration",
+    "before": "Corriger les URLs d'avatar",
+    "after": "Defaraat URL yu avatar",
+    "reason": "Replace French with Wolof; preserve signed whole-day values/current-period predicates, inclusive up-to due range and overdue distinction, URL repair scope, invitation code error, zoom range and vertical direction. Close the English overdue example backtick for readable Markdown. Numeric/search/scroll technical phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "error-invitation-code-not-exist",
+    "before": "Ce code d'invitation n'existe pas.",
+    "after": "Kodu woote bi amul",
+    "reason": "Replace French with Wolof; preserve signed whole-day values/current-period predicates, inclusive up-to due range and overdue distinction, URL repair scope, invitation code error, zoom range and vertical direction. Close the English overdue example backtick for readable Markdown. Numeric/search/scroll technical phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "error-undefined",
+    "before": "Une erreur inconnue s'est produite",
+    "after": "Am na lu doxul",
+    "reason": "Replace French with Wolof; preserve signed whole-day values/current-period predicates, inclusive up-to due range and overdue distinction, URL repair scope, invitation code error, zoom range and vertical direction. Close the English overdue example backtick for readable Markdown. Numeric/search/scroll technical phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "enter-zoom-level",
+    "before": "Entrer le niveau d'agrandissement (50-300%) :",
+    "after": "Dugal tolluwaayu maggal (50-300%):",
+    "reason": "Replace French with Wolof; preserve signed whole-day values/current-period predicates, inclusive up-to due range and overdue distinction, URL repair scope, invitation code error, zoom range and vertical direction. Close the English overdue example backtick for readable Markdown. Numeric/search/scroll technical phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "enable-vertical-scrollbars",
+    "before": "Activer les barres de défilement verticales",
+    "after": "Doxal rëdd yi ngir dem ci kaw ak suuf",
+    "reason": "Replace French with Wolof; preserve signed whole-day values/current-period predicates, inclusive up-to due range and overdue distinction, URL repair scope, invitation code error, zoom range and vertical direction. Close the English overdue example backtick for readable Markdown. Numeric/search/scroll technical phrasing and full grammar remain low confidence."
   }
 ]
