@@ -18,6 +18,8 @@ Latest translation fix: **2026-09-13**, local commit `3685fe80df2b726b42c1714aae
 
 **Review follow-up:** Silesian `sandstorm-raw-mongodb` remains pending because available evidence does not distinguish its wording sufficiently from Polish.
 
+**Tigre follow-up:** `tig` has 17 pending calendar findings. Its existing `calendar` value, `ዓውደ ኣዋርሕ`, is attested as [Tigrinya terminology](https://www.geezexperience.com/?dr=0&searchkey=calendar); retrieved CLDR Tigre data supplies no translated calendar names. Validate Tigre vocabulary separately before using this existing term in repairs. This evidence does not yet prove the term is invalid in Tigre.
+
 **Origin:** not all errors came from Transifex. The captured pull changed 4,061 values; the local audit added 16,020 findings. Bosnian errors already existed in local commit `bdb3b15886a749b725b5290ba0109fcba955f983`. Other ultimate origins remain unverified.
 
 [Detailed evidence](Audit-Evidence.md) preserves the original categorized tables.
