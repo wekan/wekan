@@ -64279,5 +64279,75 @@
     "before": "Êtes-vous sûr de vouloir supprimer ce compte ? Cela est irréversible.",
     "after": "Ha sur oc’h e fell deoc’h dilemel ar gont-mañ ? N’haller ket dizober an ober-mañ.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "deleteCommentPopup-title",
+    "before": "Supprimer le commentaire ?",
+    "after": "Dilemel an evezhiadenn ?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "deleteCustomFieldPopup-title",
+    "before": "Supprimer le champ personnalisé ?",
+    "after": "Dilemel ar maezienn personelaet ?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "deleteDuplicateListsPopup-title",
+    "before": "Supprimer les listes en doublon ? ",
+    "after": "Dilemel ar rolloù e doubl",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "deletePokerPopup-title",
+    "before": "Supprimer ce planning poker ?",
+    "after": "Dilemel ar poker steuñviñ ?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "deposit-subtasks-board",
+    "before": "Déposer des sous-tâches dans ce tableau :",
+    "after": "Lakaat an is-trevelloù en daolenn-mañ :",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "dueCardsViewChange-choice-all-description",
+    "before": "Visualise toutes les cartes incomplètes avec une date *échue* pour lesquelles l'utilisateur possède les droits",
+    "after": "Diskouez an holl gartennoù diechu gant un deiziad *termen* eus an taolennoù en deus an implijer gwir da vont enno.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "duplicate-board-confirm",
+    "before": "Êtes-vous sûr de vouloir dupliquer ce tableau ?",
+    "after": "Ha sur oc’h e fell deoc’h eilañ an daolenn-mañ ?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "email-invite-register-text",
+    "before": "Cher/Chère __user__,\n\n__inviter__ vous invite à le rejoindre sur le tableau kanban pour collaborer.\n\nVeuillez suivre le lien ci-dessous :\n__url__\n\nVotre code d'invitation est : __icode__\n\nMerci.",
+    "after": "__user__ ker,\n\n__inviter__ a bed ac’hanoc’h da genlabourat war un daolenn kanban.\n\nHeuilhit al liamm amañ dindan :\n__url__\n\nSetu ho kod pediñ : __icode__\n\nTrugarez.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "email-invite-text",
+    "before": "Cher/Chère __user__,\n\n__inviter__ vous invite à rejoindre le tableau \"__board__\" pour collaborer.\n\nVeuillez suivre le lien ci-dessous :\n\n__url__\n\nMerci.",
+    "after": "__user__ ker,\n\n__inviter__ a bed ac’hanoc’h da vont en daolenn \"__board__\" evit kenlabourat.\n\nHeuilhit al liamm amañ dindan :\n\n__url__\n\nTrugarez.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "error-board-notAMember",
+    "before": "Vous devez être participant de ce tableau pour faire cela",
+    "after": "Ret eo deoc’h bezañ ezel eus an daolenn-mañ evit ober kement-se",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
