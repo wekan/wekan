@@ -50769,5 +50769,61 @@
     "before": "Azure Portal → Storage accounts → il tuo account → nome mostrato in alto (anche in Security + networking → Access keys → Storage account name).",
     "after": "Azure Portal → Storage accounts → u vostru contu → nome affissatu in cima (ancu sottu Security + networking → Access keys → Storage account name).",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "azure-blob-storage-description",
+    "before": "Archiviazione Microsoft Azure Blob.",
+    "after": "Arregistramentu Microsoft Azure Blob.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "azure-connection-string-menu-path",
+    "before": "Azure Portal → Storage accounts → il tuo account → Security + networking → Access keys → key1 → Connection string → Show.",
+    "after": "Azure Portal → Storage accounts → u vostru contu → Security + networking → Access keys → key1 → Connection string → Show.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "azure-container-menu-path",
+    "before": "Azure Portal → Storage accounts → il tuo account → Data storage → Containers → il tuo container (o + Container per crearne uno).",
+    "after": "Azure Portal → Storage accounts → u vostru contu → Data storage → Containers → u vostru cuntainer (o + Container per creà ne unu).",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "background-too-big",
+    "before": "L'immagine di sfondo è troppo grande (Massimo {{size}}).",
+    "after": "L’imagine di fondu hè troppu grande (Massimu {{size}}).",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "below-selected-swimlane",
+    "before": "Sotto la swimlane selezionata",
+    "after": "Sottu à a swimlane scelta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "board-background-delete-pop",
+    "before": "Sei sicuro di voler eliminare questa immagine di sfondo?",
+    "after": "Site sicuru di vulè squassà sta imagine di fondu?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "board-background-image-url",
+    "before": "URL dell'immagine di sfondo",
+    "after": "URL di l’imagine di fondu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "board-change-background-image",
+    "before": "Modificare immagine di sfondo",
+    "after": "Cambià l’imagine di fondu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
