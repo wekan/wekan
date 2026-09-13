@@ -72448,5 +72448,12 @@
     "before": "Islamic (Saudi Arabia)",
     "after": "Kalena Hijri (Saudi Arabia, vaaia o le masina)",
     "reason": "Restore explicit moon sighting in Saudi Hijri calendar label. Samoan calendar discussion uses vaaia o se masina fou and faatoʻā vaaia le masina: https://www.jw.org/sm/lomiga-ma-isi-mea/mekasini/su%CA%BBesu%CA%BBega-olomatamata-iuni-2022/e-te-silafia-iuni-2022-2/ . Retain Saudi Arabia proper name; full specialized phrasing still needs native review."
+  },
+  {
+    "locale": "sm",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "Kalena Hijri (fa'atatau i siata, aso amata e tusa ma le saienisi o le vateatea)",
+    "reason": "Replace English label while retaining chart/table calculation and astronomical starting date. Samoan saienisi/vateatea vocabulary informed by primary article https://www.jw.org/sm/lomiga-ma-isi-mea/mekasini/g20040108/Na-Avea-ma-Au-Tapuaiga-le-Faasaienisi/ ; siata/calendar terminology in https://www.jw.org/sm/lomiga-ma-isi-mea/mekasini/su%CA%BBesu%CA%BBega-olomatamata-iuni-2022/e-te-silafia-iuni-2022-2/ . Direct specialized starting-date phrasing remains low confidence and needs native review."
   }
 ]
