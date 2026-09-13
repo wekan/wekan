@@ -107560,5 +107560,215 @@
     "before": "Chofoza amabhokisi okuhlola ukuze ukhethe amabhodi",
     "after": "Kiḽikani zwibogisi zwa u swaya u nanga bodo dza Kanban",
     "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, numeric limits, background execution and administrator-only migration scope. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "multi-selection-label",
+    "before": "Setha ilebula ukuze ukhethe",
+    "after": "Vhea ḽeibuḽu kha zwo nangwaho",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, HTML link markup, positive-integer limits, muted notifications and original checklist ordering. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "multi-selection-member",
+    "before": "Setha ilungu elizokhethwa",
+    "after": "Vhea muraḓo kha zwo nangwaho",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, HTML link markup, positive-integer limits, muted notifications and original checklist ordering. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "multi-selection-on",
+    "before": "Ukukhetha Okuningi kuvuliwe",
+    "after": "U nanga zwinzhi ho tendelwa",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, HTML link markup, positive-integer limits, muted notifications and original checklist ordering. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "muted-info",
+    "before": "Awusoze waziswe nganoma yiziphi izinguquko kuleli bhodi",
+    "after": "A ni nga vhuya na ḓivhadzwa nga tshanduko dziṅwe na dziṅwe kha bodo iyi ya Kanban",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, HTML link markup, positive-integer limits, muted notifications and original checklist ordering. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "new-outgoing-webhook",
+    "before": "I-Webhook Entsha Ephumayo",
+    "after": "Webhook ntswa ya u bva",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, HTML link markup, positive-integer limits, muted notifications and original checklist ordering. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "newLineNewItem",
+    "before": "Umugqa owodwa wombhalo = into eyodwa yohlu lokuhlola",
+    "after": "Mutaladzi muthihi wa maipfi = tshithu tshithihi tsha mutevhe wa u sedza",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, HTML link markup, positive-integer limits, muted notifications and original checklist ordering. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "newTranslationPopup-title",
+    "before": "Iyunithi yezinhlamvu entsha yokuhumusha yangokwezifiso",
+    "after": "Maipfi maswa a ṱhalutshedzo ya luambo yo dzudzanywaho",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, HTML link markup, positive-integer limits, muted notifications and original checklist ordering. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "newlineBecomesNewChecklistItem",
+    "before": "Umugqa ngamunye wombhalo uba enye yezinto zohlu lokuhlola",
+    "after": "Mutaladzi muṅwe na muṅwe wa maipfi u vha tshithu tshithihi tsha mutevhe wa u sedza",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, HTML link markup, positive-integer limits, muted notifications and original checklist ordering. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "newlineBecomesNewChecklistItemOriginOrder",
+    "before": "Umugqa ngamunye wombhalo uba enye yezinto zohlu lokuhlola, ukuhleleka koqobo",
+    "after": "Mutaladzi muṅwe na muṅwe wa maipfi u vha tshithu tshithihi tsha mutevhe wa u sedza, nga mutevhe wa u thoma",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, HTML link markup, positive-integer limits, muted notifications and original checklist ordering. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "no-archived-boards",
+    "before": "Awekho Amabhodi Kungobo Yomlando.",
+    "after": "A hu na bodo dza Kanban fhethu ha u vhulunga.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, HTML link markup, positive-integer limits, muted notifications and original checklist ordering. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "no-archived-lists",
+    "before": "Alukho uhlu kungobo yomlando.",
+    "after": "A hu na mitevhe fhethu ha u vhulunga.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, HTML link markup, positive-integer limits, muted notifications and original checklist ordering. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "no-archived-swimlanes",
+    "before": "Azikho izindawo zokubhukuda Kungobo yomlando.",
+    "after": "A hu na dziḽaini fhethu ha u vhulunga.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, HTML link markup, positive-integer limits, muted notifications and original checklist ordering. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "no-comments-desc",
+    "before": "Awukwazi ukubona amazwana.",
+    "after": "A nga si vhone mihumbulo.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, HTML link markup, positive-integer limits, muted notifications and original checklist ordering. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "no-issues-found",
+    "before": "Azikho izinkinga ezitholiwe",
+    "after": "A hu ngo wanala thaidzo",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, HTML link markup, positive-integer limits, muted notifications and original checklist ordering. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "no-repositories",
+    "before": "Awekho amaqoqo atholakele",
+    "after": "A hu ngo wanala fhethu ha khoudu",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, HTML link markup, positive-integer limits, muted notifications and original checklist ordering. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "normal-assigned-only",
+    "before": "Kwabelwe Okujwayelekile Kuphela",
+    "after": "Wa nga misi kha o avhelwaho fhedzi",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, HTML link markup, positive-integer limits, muted notifications and original checklist ordering. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "not-accepted-yet",
+    "before": "Isimemo asamukelwe okwamanje",
+    "after": "Thambo a i athu ṱanganedzwa",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, HTML link markup, positive-integer limits, muted notifications and original checklist ordering. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "now-activities-of-all-boards-are-hidden",
+    "before": "Manje yonke imisebenzi yawo wonke amabhodi ifihliwe",
+    "after": "Zwino nyito dzoṱhe dza bodo dzoṱhe dza Kanban dzo dzumbiwa",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, HTML link markup, positive-integer limits, muted notifications and original checklist ordering. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "oidc-button-text",
+    "before": "Enza ngendlela oyifisayo umbhalo wenkinobho ye-OIDC",
+    "after": "Dzudzanyani maipfi a gunubu ya OIDC",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, HTML link markup, positive-integer limits, muted notifications and original checklist ordering. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "operator-debug-invalid",
+    "before": "%s akasona isilandiso sokususa iphutha esivumelekile",
+    "after": "%s a si tshiimo tsho teaho tsha u sedza vhukhakhi",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, HTML link markup, positive-integer limits, muted notifications and original checklist ordering. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "operator-limit-invalid",
+    "before": "%s akuwona umkhawulo ovumelekile.  Umkhawulo kufanele ube inombolo ephelele.",
+    "after": "%s a si mukano wo teaho. Mukano u fanela u vha nomboro yo fhelelaho i re nṱha ha zero.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, HTML link markup, positive-integer limits, muted notifications and original checklist ordering. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "operator-number-expected",
+    "before": "u-opharetha __operator__ ulindele inombolo, uthole '__value__'",
+    "after": "ndaela __operator__ yo lavhelela nomboro, ya wana '__value__'",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, HTML link markup, positive-integer limits, muted notifications and original checklist ordering. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "operator-sort-invalid",
+    "before": "uhlobo lwe-'%s' aluvumelekile",
+    "after": "u dzudzanya ha '%s' a hu ngo tea",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, HTML link markup, positive-integer limits, muted notifications and original checklist ordering. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "operator-status-invalid",
+    "before": "'%s' akusona isimo esivumelekile",
+    "after": "'%s' a si tshiimo tsho teaho",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, HTML link markup, positive-integer limits, muted notifications and original checklist ordering. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "org-name-not-found",
+    "before": "Inhlangano '%s' ayitholakalanga.",
+    "after": "Dzangano '%s' a ḽo ngo wanala.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, HTML link markup, positive-integer limits, muted notifications and original checklist ordering. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "org-number",
+    "before": "Inombolo yezinhlangano ithi:",
+    "after": "Tshivhalo tsha madzangano ndi: ",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, HTML link markup, positive-integer limits, muted notifications and original checklist ordering. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "overtime-hours",
+    "before": "Isikhathi esengeziwe (amahora)",
+    "after": "Tshifhinga tsho fhiraho (awara)",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, HTML link markup, positive-integer limits, muted notifications and original checklist ordering. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "page-maybe-private",
+    "before": "Leli khasi lingase libe yimfihlo. Ungakwazi ukukubuka ngokuthi <a href='%s'>logging in</a>.",
+    "after": "Siaṱari iḽi ḽi nga vha ḽa phuraivethe. Ni nga kona u ḽi vhona nga <a href='%s'>u dzhena</a>.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, HTML link markup, positive-integer limits, muted notifications and original checklist ordering. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "pastdue",
+    "before": "isikhathi samanje esithi %s sesidlulile",
+    "after": "tshifhinga tsha u fhedza tsha zwino %s tsho fhira",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, HTML link markup, positive-integer limits, muted notifications and original checklist ordering. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "paste-or-dragdrop",
+    "before": "ukunamathisela, noma ukuhudula bese udedela ifayela lesithombe kuso (isithombe kuphela)",
+    "after": "u nambatedza, kana u kokodza na u litsha faela ya tshifanyiso khayo (tshifanyiso fhedzi)",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, HTML link markup, positive-integer limits, muted notifications and original checklist ordering. Low-confidence wording; fluent-speaker validation outstanding."
   }
 ]
