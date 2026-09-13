@@ -578,5 +578,34 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.notEqual(cache['ve-PP']['migration-stopped'], cache['ve-PP']['migration-successful']);
   assert.match(cache['ve-PP']['migration-resumed'], /jatktud/);
   assert.match(cache['ve-PP']['migration-resume-failed'], /^Ei voind jatkata/);
+  const vepsMigrationSettingsRepairs = {
+  "migration-batch-size": "Paketan suruz’",
+  "migration-batch-size-description": "Tartutadud failoiden lugumär kätandan täht joga paketas (1-100)",
+  "migration-cpu-threshold": "CPU -ülimär (%)",
+  "migration-cpu-threshold-description": "Azota migracii, konz CPU -kävutuz ülitab necen procentan (10-90)",
+  "migration-delay-ms": "Pidätand (ms)",
+  "migration-delay-ms-description": "Pidätand paketoiden keskes millisekundoiš (100-10000)",
+  "migration-log": "Migracijan aigkirj",
+  "migration-markers": "Migracijan znamad",
+  "migration-steps": "Migracijan etapad",
+  "migration-needed": "Migracii om tarbiž"
+};
+  for (const [key, value] of Object.entries(vepsMigrationSettingsRepairs)) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.equal(vepsTranslator.t(key), value, key);
+    assert.doesNotMatch(value, /Erän|koko|Liitteiden|käsiteltäväksi|kussakin|Suorittimen|kynnys|Keskeytä|ylittää|prosenttiosuuden|Viive|millisekunteina|Siirron|tarvitaan/, key);
+  }
+  for (const [key, range] of [
+    ['migration-batch-size-description', '1-100'],
+    ['migration-cpu-threshold-description', '10-90'],
+    ['migration-delay-ms-description', '100-10000']
+  ]) {
+    assert.equal(cache['ve-PP'][key].match(/\(\d+-\d+\)/g).join(''), `(${range})`);
+  }
+  assert.match(cache['ve-PP']['migration-batch-size-description'], /failoiden lugumär.*joga paketas/);
+  assert.match(cache['ve-PP']['migration-cpu-threshold'], /CPU.*\(%\)/);
+  assert.match(cache['ve-PP']['migration-cpu-threshold-description'], /^Azota migracii, konz CPU -kävutuz ülitab/);
+  assert.match(cache['ve-PP']['migration-delay-ms'], /\(ms\)/);
+  assert.match(cache['ve-PP']['migration-delay-ms-description'], /paketoiden keskes millisekundoiš/);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });

@@ -113937,5 +113937,75 @@
     "before": "Siirto jatkettu",
     "after": "Migracii om jatktud.",
     "reason": "Replace Finnish with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests azotada/seižutada for pause/stop, augotada for start, jatkata (imperative jatkta) for continue, and satusekaz for successful. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests Vaumiž (done), status, hüvin, loptud and azotadud. Use the existing Veps migracii loan for schema/data migration rather than physical file transfer. Preserve all-migration scope and distinguish pause, stop, resume and completion/outcomes. Low confidence: technical loan inflection and composed UI grammar require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "migration-batch-size",
+    "before": "Erän koko",
+    "after": "Paketan suruz’",
+    "reason": "Replace Finnish with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests paket, suruz’, lugumär, pidätand, keskes, procent, etap, znam and tarbiž. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests ülimär/ülitanu, aigkirj and käta; existing Veps WeKan uses kätand and migracii. Preserve CPU, %, ms, attachment-count batch scope, pause when usage exceeds the limit and numeric ranges 1-100/10-90/100-10000. Low confidence: technical batch terminology, millisecond inflection and composed UI grammar need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "migration-batch-size-description",
+    "before": "Liitteiden määrä käsiteltäväksi kussakin erässä (1-100)",
+    "after": "Tartutadud failoiden lugumär kätandan täht joga paketas (1-100)",
+    "reason": "Replace Finnish with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests paket, suruz’, lugumär, pidätand, keskes, procent, etap, znam and tarbiž. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests ülimär/ülitanu, aigkirj and käta; existing Veps WeKan uses kätand and migracii. Preserve CPU, %, ms, attachment-count batch scope, pause when usage exceeds the limit and numeric ranges 1-100/10-90/100-10000. Low confidence: technical batch terminology, millisecond inflection and composed UI grammar need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "migration-cpu-threshold",
+    "before": "Suorittimen kynnys (%)",
+    "after": "CPU -ülimär (%)",
+    "reason": "Replace Finnish with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests paket, suruz’, lugumär, pidätand, keskes, procent, etap, znam and tarbiž. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests ülimär/ülitanu, aigkirj and käta; existing Veps WeKan uses kätand and migracii. Preserve CPU, %, ms, attachment-count batch scope, pause when usage exceeds the limit and numeric ranges 1-100/10-90/100-10000. Low confidence: technical batch terminology, millisecond inflection and composed UI grammar need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "migration-cpu-threshold-description",
+    "before": "Keskeytä siirto kun suorittimen käyttö ylittää tämän prosenttiosuuden (10-90)",
+    "after": "Azota migracii, konz CPU -kävutuz ülitab necen procentan (10-90)",
+    "reason": "Replace Finnish with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests paket, suruz’, lugumär, pidätand, keskes, procent, etap, znam and tarbiž. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests ülimär/ülitanu, aigkirj and käta; existing Veps WeKan uses kätand and migracii. Preserve CPU, %, ms, attachment-count batch scope, pause when usage exceeds the limit and numeric ranges 1-100/10-90/100-10000. Low confidence: technical batch terminology, millisecond inflection and composed UI grammar need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "migration-delay-ms",
+    "before": "Viive (ms)",
+    "after": "Pidätand (ms)",
+    "reason": "Replace Finnish with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests paket, suruz’, lugumär, pidätand, keskes, procent, etap, znam and tarbiž. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests ülimär/ülitanu, aigkirj and käta; existing Veps WeKan uses kätand and migracii. Preserve CPU, %, ms, attachment-count batch scope, pause when usage exceeds the limit and numeric ranges 1-100/10-90/100-10000. Low confidence: technical batch terminology, millisecond inflection and composed UI grammar need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "migration-delay-ms-description",
+    "before": "Viive erien välillä millisekunteina (100-10000)",
+    "after": "Pidätand paketoiden keskes millisekundoiš (100-10000)",
+    "reason": "Replace Finnish with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests paket, suruz’, lugumär, pidätand, keskes, procent, etap, znam and tarbiž. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests ülimär/ülitanu, aigkirj and käta; existing Veps WeKan uses kätand and migracii. Preserve CPU, %, ms, attachment-count batch scope, pause when usage exceeds the limit and numeric ranges 1-100/10-90/100-10000. Low confidence: technical batch terminology, millisecond inflection and composed UI grammar need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "migration-log",
+    "before": "Siirron loki",
+    "after": "Migracijan aigkirj",
+    "reason": "Replace Finnish with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests paket, suruz’, lugumär, pidätand, keskes, procent, etap, znam and tarbiž. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests ülimär/ülitanu, aigkirj and käta; existing Veps WeKan uses kätand and migracii. Preserve CPU, %, ms, attachment-count batch scope, pause when usage exceeds the limit and numeric ranges 1-100/10-90/100-10000. Low confidence: technical batch terminology, millisecond inflection and composed UI grammar need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "migration-markers",
+    "before": "Siirron merkit",
+    "after": "Migracijan znamad",
+    "reason": "Replace Finnish with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests paket, suruz’, lugumär, pidätand, keskes, procent, etap, znam and tarbiž. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests ülimär/ülitanu, aigkirj and käta; existing Veps WeKan uses kätand and migracii. Preserve CPU, %, ms, attachment-count batch scope, pause when usage exceeds the limit and numeric ranges 1-100/10-90/100-10000. Low confidence: technical batch terminology, millisecond inflection and composed UI grammar need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "migration-steps",
+    "before": "Siirron vaiheet",
+    "after": "Migracijan etapad",
+    "reason": "Replace Finnish with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests paket, suruz’, lugumär, pidätand, keskes, procent, etap, znam and tarbiž. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests ülimär/ülitanu, aigkirj and käta; existing Veps WeKan uses kätand and migracii. Preserve CPU, %, ms, attachment-count batch scope, pause when usage exceeds the limit and numeric ranges 1-100/10-90/100-10000. Low confidence: technical batch terminology, millisecond inflection and composed UI grammar need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "migration-needed",
+    "before": "Siirto tarvitaan",
+    "after": "Migracii om tarbiž",
+    "reason": "Replace Finnish with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests paket, suruz’, lugumär, pidätand, keskes, procent, etap, znam and tarbiž. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests ülimär/ülitanu, aigkirj and käta; existing Veps WeKan uses kätand and migracii. Preserve CPU, %, ms, attachment-count batch scope, pause when usage exceeds the limit and numeric ranges 1-100/10-90/100-10000. Low confidence: technical batch terminology, millisecond inflection and composed UI grammar need fluent review."
   }
 ]
