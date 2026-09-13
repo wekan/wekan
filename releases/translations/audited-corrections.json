@@ -84558,5 +84558,33 @@
     "before": "Republic of China",
     "after": "Minguo kaleandar",
     "reason": "Replace English calendar labels with Northern Sami kaleandar, preserving proper Dangi/Hijri/Umm al-Qura/Minguo identities. Calendar noun supported by https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/se.xml and existing locale setting. Complete adapted label grammar remains low confidence; religious/country qualifiers and tabular civil/astronomical epoch and Saudi sighting labels remain pending."
+  },
+  {
+    "locale": "se",
+    "key": "calendar-system-jalali",
+    "before": "Jalali (Fars)",
+    "after": "Jalali (persialaš kaleandar)",
+    "reason": "Replace English/foreign Persian Japanese and Ethiopic calendar names with Northern Sami, preserving Jalali/Amete Alem identifiers. Persian adjective attested at https://bibel.no/nettbibelen/les/sme-2019/DAN/DAN.6; Japanese/Ethiopian adjectives attested in Northern Sami KDE translation at https://sources.debian.org/src/kwidgetsaddons/5.28.0-3/po/se/kwidgetsaddons5_qt.po. These support individual terms, not complete assembled grammar, which remains low confidence. Remaining religious/national and Hijri variant labels need review."
+  },
+  {
+    "locale": "se",
+    "key": "calendar-system-japanese",
+    "before": "Japanese",
+    "after": "Japánalaš kaleandar",
+    "reason": "Replace English/foreign Persian Japanese and Ethiopic calendar names with Northern Sami, preserving Jalali/Amete Alem identifiers. Persian adjective attested at https://bibel.no/nettbibelen/les/sme-2019/DAN/DAN.6; Japanese/Ethiopian adjectives attested in Northern Sami KDE translation at https://sources.debian.org/src/kwidgetsaddons/5.28.0-3/po/se/kwidgetsaddons5_qt.po. These support individual terms, not complete assembled grammar, which remains low confidence. Remaining religious/national and Hijri variant labels need review."
+  },
+  {
+    "locale": "se",
+    "key": "calendar-system-ethiopic",
+    "before": "Ethiopic",
+    "after": "Etiopialaš kaleandar",
+    "reason": "Replace English/foreign Persian Japanese and Ethiopic calendar names with Northern Sami, preserving Jalali/Amete Alem identifiers. Persian adjective attested at https://bibel.no/nettbibelen/les/sme-2019/DAN/DAN.6; Japanese/Ethiopian adjectives attested in Northern Sami KDE translation at https://sources.debian.org/src/kwidgetsaddons/5.28.0-3/po/se/kwidgetsaddons5_qt.po. These support individual terms, not complete assembled grammar, which remains low confidence. Remaining religious/national and Hijri variant labels need review."
+  },
+  {
+    "locale": "se",
+    "key": "calendar-system-ethioaa",
+    "before": "Ethiopic Amete Alem",
+    "after": "Etiopialaš Amete Alem kaleandar",
+    "reason": "Replace English/foreign Persian Japanese and Ethiopic calendar names with Northern Sami, preserving Jalali/Amete Alem identifiers. Persian adjective attested at https://bibel.no/nettbibelen/les/sme-2019/DAN/DAN.6; Japanese/Ethiopian adjectives attested in Northern Sami KDE translation at https://sources.debian.org/src/kwidgetsaddons/5.28.0-3/po/se/kwidgetsaddons5_qt.po. These support individual terms, not complete assembled grammar, which remains low confidence. Remaining religious/national and Hijri variant labels need review."
   }
 ]
