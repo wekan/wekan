@@ -232,3 +232,12 @@ If you are changing Meteor and Node.js versions, you may need to reset Meteor:
 meteor reset
 ```
 Or alternatively, delete wekan repo (if you did not need any changes you made), and clone wekan repo again, and then build etc.
+
+The `build.sh` development bundle option announces cache removal, Meteor npm
+metadata update, dependency installation and compilation before each starts.
+Each stage streams its output to the terminal and the printed timestamped
+`wekan-build.log`. Quiet stages report elapsed time and their process ID every
+15 seconds; this indicates that the command is running, rather than a percentage
+of completion. Required cache removal or dependency installation failures stop
+the build. Meteor npm metadata updating remains best effort and reports a warning
+when it fails. Release bundle preparation uses the same progress reporting.

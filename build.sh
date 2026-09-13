@@ -326,6 +326,32 @@ function kill_all_dev_servers(){
 	fi
 }
 
+# Announce quiet build commands without buffering their own output.
+function build_stage(){
+	(
+		local label="$1"; shift
+		local started=$SECONDS command_pid status elapsed
+		echo "==> $label"
+		"$@" <&0 &
+		command_pid=$!
+		trap 'kill "$command_pid" 2>/dev/null; exit 130' INT
+		trap 'kill "$command_pid" 2>/dev/null; exit 143' TERM
+		# Polling also reaps short commands promptly; SECONDS works in macOS Bash.
+		local next_report=15
+		while kill -0 "$command_pid" 2>/dev/null; do
+			elapsed=$((SECONDS - started))
+			if [ "$elapsed" -ge "$next_report" ]; then
+				echo "    $label: still running (${elapsed}s; PID $command_pid)"
+				next_report=$((elapsed + 15))
+			fi
+			sleep 1
+		done
+		wait "$command_pid"; status=$?
+		echo "<== $label finished ($((SECONDS - started))s; exit $status)"
+		exit "$status"
+	)
+}
+
 # Build WeKan from scratch: reinstall npm deps and produce the .build directory.
 # Used by menu option 2 and auto-invoked by option 9 when .build is missing.
 # Also clears the rspack dev-build caches (_build and node_modules/.cache) so the
@@ -389,9 +415,11 @@ function build_wekan(){
 	fi
 	{
 		echo "===== wekan build started $(date '+%F %T') ====="
-		rm -rf node_modules node_modules/.cache .meteor/local .build _build
-		(meteor update --npm || true) && meteor npm install
-		meteor build .build --directory
+		build_stage "1/4 Remove dependencies and build caches" rm -rf node_modules node_modules/.cache .meteor/local .build _build || return $?
+		# Updating npm metadata has historically been best effort; installation is required.
+		build_stage "2/4 Update Meteor npm metadata" meteor update --npm || echo "WARNING: npm metadata update failed; trying dependency installation."
+		build_stage "3/4 Install npm dependencies" meteor npm install || return $?
+		build_stage "4/4 Compile Meteor development bundle" meteor build .build --directory
 		local rc=$?
 		echo "===== wekan build finished $(date '+%F %T') (exit $rc) ====="
 		return $rc
@@ -455,7 +483,7 @@ function build_wekan(){
 	# hundred megabytes of binaries it will not use to test WeKan's source is
 	# the wrong trade.
 	if [ "${WEKAN_BUILD_RELEASE_BUNDLE:-0}" = "1" ]; then
-		bash releases/build-release-bundle.sh .build/bundle 2>&1 | tee -a "$buildlog"
+		build_stage "Prepare release bundle" bash releases/build-release-bundle.sh .build/bundle 2>&1 | tee -a "$buildlog"
 		local rrc="${PIPESTATUS[0]}"
 		if [ "$rrc" -ne 0 ]; then
 			echo "ERROR: the bundle built, but the release post-processing failed. Its output is in $buildlog"
