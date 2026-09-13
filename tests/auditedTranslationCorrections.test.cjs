@@ -2627,5 +2627,24 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.doesNotMatch(vepsTranslator.t('spent-time-hours'), /Käytetty|tuntia/);
   assert.notEqual(vepsTranslator.t('has-spenttime-cards'), vepsTranslator.t('has-overtime-cards'));
   assert.equal(cache['ve-PP'].hours, 'časud', 'retain existing hours terminology');
+  const vepsWaitIndicators = {
+  "wait-spinner": "Varastusen znam",
+  "Bounce": "Hüpke – varastusen znam",
+  "Cube": "Kub – varastusen znam",
+  "Cube-Grid": "Kuboiden verk – varastusen znam",
+  "Dot": "Čokim – varastusen znam",
+  "Double-Bounce": "Kaks’kerdaine hüpke – varastusen znam",
+  "Rotateplane": "Tazan punond – varastusen znam",
+  "Scaleout": "Kazvand – varastusen znam",
+  "Wave": "Laineh – varastusen znam"
+};
+  for (const [key, value] of Object.entries(vepsWaitIndicators)) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.equal(vepsTranslator.t(key), value, key);
+    assert.doesNotMatch(value, /odotus|Odotus|pyörijä|Kuutio|ristikko|Tupla|pomppu|Pomppu|Pyöritä|Skaalaus|Aalto|Piste/, key);
+  }
+  assert.equal(new Set(Object.values(vepsWaitIndicators)).size, 9, 'preserve all wait-indicator distinctions');
+  assert.notEqual(vepsTranslator.t('Bounce'), vepsTranslator.t('Double-Bounce'));
+  assert.notEqual(vepsTranslator.t('Cube'), vepsTranslator.t('Cube-Grid'));
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });

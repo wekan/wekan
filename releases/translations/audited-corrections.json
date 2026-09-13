@@ -120195,5 +120195,68 @@
     "before": "Käytetty aika (tuntia)",
     "after": "Kävutadud aig (časud)",
     "reason": "Replace Finnish spent-time labels with Veps, reusing existing kävutadud, aig, kartoid and časud. Preserve the distinction between a board containing time-tracked cards and the hours field. Low confidence: composed time-tracked-card instrumental phrase needs fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "wait-spinner",
+    "before": "Odotus pyörijä",
+    "after": "Varastusen znam",
+    "reason": "Replace Finnish wait-spinner controls with Veps. Dictionary varastuz, hüpke, verk, čokim, kaks’kerdaine, taza/punond, kazvand and laineh preserve distinct visual animation descriptions. Animation identifiers/templates remain unchanged. Low confidence: technical kub loan/declension and composed wait-indicator terminology require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "Bounce",
+    "before": "Pomppu odotus pyörijä",
+    "after": "Hüpke – varastusen znam",
+    "reason": "Replace Finnish wait-spinner controls with Veps. Dictionary varastuz, hüpke, verk, čokim, kaks’kerdaine, taza/punond, kazvand and laineh preserve distinct visual animation descriptions. Animation identifiers/templates remain unchanged. Low confidence: technical kub loan/declension and composed wait-indicator terminology require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "Cube",
+    "before": "Kuutio odotus pyörijä",
+    "after": "Kub – varastusen znam",
+    "reason": "Replace Finnish wait-spinner controls with Veps. Dictionary varastuz, hüpke, verk, čokim, kaks’kerdaine, taza/punond, kazvand and laineh preserve distinct visual animation descriptions. Animation identifiers/templates remain unchanged. Low confidence: technical kub loan/declension and composed wait-indicator terminology require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "Cube-Grid",
+    "before": "Kuutio ristikko odotus pyörijä",
+    "after": "Kuboiden verk – varastusen znam",
+    "reason": "Replace Finnish wait-spinner controls with Veps. Dictionary varastuz, hüpke, verk, čokim, kaks’kerdaine, taza/punond, kazvand and laineh preserve distinct visual animation descriptions. Animation identifiers/templates remain unchanged. Low confidence: technical kub loan/declension and composed wait-indicator terminology require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "Dot",
+    "before": "Piste odotus pyörijä",
+    "after": "Čokim – varastusen znam",
+    "reason": "Replace Finnish wait-spinner controls with Veps. Dictionary varastuz, hüpke, verk, čokim, kaks’kerdaine, taza/punond, kazvand and laineh preserve distinct visual animation descriptions. Animation identifiers/templates remain unchanged. Low confidence: technical kub loan/declension and composed wait-indicator terminology require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "Double-Bounce",
+    "before": "Tupla pomppu odotus pyörijä",
+    "after": "Kaks’kerdaine hüpke – varastusen znam",
+    "reason": "Replace Finnish wait-spinner controls with Veps. Dictionary varastuz, hüpke, verk, čokim, kaks’kerdaine, taza/punond, kazvand and laineh preserve distinct visual animation descriptions. Animation identifiers/templates remain unchanged. Low confidence: technical kub loan/declension and composed wait-indicator terminology require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "Rotateplane",
+    "before": "Pyöritä tasoa odotus pyörijä",
+    "after": "Tazan punond – varastusen znam",
+    "reason": "Replace Finnish wait-spinner controls with Veps. Dictionary varastuz, hüpke, verk, čokim, kaks’kerdaine, taza/punond, kazvand and laineh preserve distinct visual animation descriptions. Animation identifiers/templates remain unchanged. Low confidence: technical kub loan/declension and composed wait-indicator terminology require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "Scaleout",
+    "before": "Skaalaus ulos odotus pyörijä",
+    "after": "Kazvand – varastusen znam",
+    "reason": "Replace Finnish wait-spinner controls with Veps. Dictionary varastuz, hüpke, verk, čokim, kaks’kerdaine, taza/punond, kazvand and laineh preserve distinct visual animation descriptions. Animation identifiers/templates remain unchanged. Low confidence: technical kub loan/declension and composed wait-indicator terminology require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "Wave",
+    "before": "Aalto odotus pyörijä",
+    "after": "Laineh – varastusen znam",
+    "reason": "Replace Finnish wait-spinner controls with Veps. Dictionary varastuz, hüpke, verk, čokim, kaks’kerdaine, taza/punond, kazvand and laineh preserve distinct visual animation descriptions. Animation identifiers/templates remain unchanged. Low confidence: technical kub loan/declension and composed wait-indicator terminology require fluent review."
   }
 ]
