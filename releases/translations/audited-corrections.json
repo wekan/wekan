@@ -92314,5 +92314,12 @@
     "before": "Islamic (Saudi Arabia)",
     "after": "Hijri kaleandar (Saudi Arabia, mánu observašuvdna)",
     "reason": "Replace English Hijri calendar labels with direct Northern Sámi wording, preserving tabular/civil versus astronomical starting-date and lunar-observation distinctions. Existing Hijri kaleandar retained. https://samilogutmuitalit.no/nb/node/4100 attests tabealla; https://www.saamicouncil.net/sa/arktalas-ja-birasossodat attests siviila; https://hammerfest.kommune.no/struve-verdensarv/om-struves-meridianbue/?sprak=12 attests astronomalaš observašuvnnat. Starting-date compound álgobeaivi and full grammatical combinations are assembled, not independently attested: low confidence, native-speaker validation required. Saudi Arabia retained as a proper name."
+  },
+  {
+    "locale": "ny",
+    "key": "calendar-system-islamic-civil",
+    "before": "Islamic civil",
+    "after": "Kalendala ya Hijri (yowerengera ndi tebulo, tsiku loyambira lachiboma)",
+    "reason": "Replace English Islamic civil with direct Chichewa Hijri calendar wording. Reuse existing tabular and starting-date wording from calendar-system-islamic-tbla. https://files.peacecorps.gov/multimedia/audio/languagelessons/malawi/MW_Chichewa_Language_Lessons.pdf attests tebulo (table), but does not validate mathematical-table usage. Civil rendered lachiboma as an administrative/civil convention; this domain-specific choice and assembled phrase are low confidence and need native-speaker validation. No placeholders changed."
   }
 ]
