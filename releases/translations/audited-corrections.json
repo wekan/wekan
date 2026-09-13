@@ -50237,5 +50237,61 @@
     "before": "Islamic tabular",
     "after": "Chalender Hijri (tabellar, epoca astronomica)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "Sistema di calendariu (affissera di e date)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "accounts-lockout-info",
+    "before": "Queste impostazioni controllano il modo in cui i tentativi di accesso vengono protetti dagli attacchi di forza bruta.",
+    "after": "Questi parametri cuntrullanu cumu i tentativi di cunnessione sò prutetti contr’à l’attacchi di forza bruta.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "accounts-lockout-settings",
+    "before": "Impostazioni di protezione dalla forza bruta",
+    "after": "Parametri di prutezzione contr’à a forza bruta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "accounts-lockout-settings-updated",
+    "before": "Le impostazioni di protezione dalla forza bruta sono state aggiornate",
+    "after": "I parametri di prutezzione contr’à a forza bruta sò stati aghjurnati",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "activity-checklist-removed",
+    "before": "È stata rimossa una checklist da%s",
+    "after": "hà cacciatu una lista di cuntrollu da %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "activity-removed-label-card",
+    "before": "L' etichetta '%s' è stata rimossa.",
+    "after": "hà cacciatu l’etichetta '%s'",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "boardSubtaskSettingsPopup-title",
+    "before": "Impostazioni sotto-compiti",
+    "after": "Parametri di i sottucompiti",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "created-at-oldest-first",
+    "before": "Data di creazione (dalla più vecchia)",
+    "after": "Data di creazione (e più vechje prima)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
