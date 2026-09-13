@@ -55613,5 +55613,19 @@
     "before": "Computer",
     "after": "Calculatoru",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "globalSearch-instructions-operator-has",
+    "before": "`__operator_has__:<field>` - dove *<field>* è uno di `__predicate_attachment__`, `__predicate_checklist__`, `__predicate_description__`, `__predicate_start__`, `__predicate_due__`, `__predicate_end__`, `__predicate_assignee__` oppure `__predicate_member__`.  Inserendo `-` davanti a *<field>* cerca per l'assenza di un valore nel campo (per esempio `has:-due` cerca per schede senza una data di scadenza).",
+    "after": "`__operator_has__:<field>` - iu *<field>* easti un di `__predicate_attachment__`, `__predicate_checklist__`, `__predicate_description__`, `__predicate_start__`, `__predicate_due__`, `__predicate_end__`, `__predicate_assignee__` icã `__predicate_member__`. Dacã puni un `-` ninti di *<field>*, cautã lipsa di valoari tu aestu cãmpu (di exemplu `has:-due` cautã cãrtsã fãrã datã di termen).",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "acceptance_of_our_legalNotice",
+    "before": "Continuando, accetti il nostro",
+    "after": "Cu continuari, accepti a noastrã",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
