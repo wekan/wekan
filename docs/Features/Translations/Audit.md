@@ -14,7 +14,7 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,374** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `847e92f8bd2ebf203c2b29b913ab5aef992497ad` — five foreign-language label values replaced with Volapük using [Midgley dictionary vocabulary](https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf), preserving quoted names and argument order. Software-label sense and assembled grammar remain low confidence. Exact-value, token, JSON-example, key-order and idempotency checks pass; native-speaker and browser verification remain unavailable.
+Latest translation fix: **2026-09-13**, local commit `43c13e40ac5a83cfcb39e7dbec4a52bd840bad1c` — three earlier Volapük settings repairs refined using computer-specific `väls` terminology in the [Midgley dictionary](https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf), PDF page 265. Original before-values preserved; no additional audit findings closed. Complete labels and workspace compound remain low confidence. Exact-value, token, JSON-example, key-order and idempotency checks pass; native-speaker and browser verification remain unavailable.
 
 **Review follow-up:** Silesian `sandstorm-raw-mongodb` remains pending because available evidence does not distinguish its wording sufficiently from Polish.
 
