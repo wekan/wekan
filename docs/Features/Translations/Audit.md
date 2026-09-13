@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,073 |
+| Corrected | 15,077 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 771 |
+| Pending review or repair | 767 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,171** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,180** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `a526d323c` — repaired **two** Veps spent-time labels, resolving **one** original finding and **one** unflagged Finnish value. Preserve the distinction between boards containing tracked-time cards and the hours field. All **17,171** exact corrections pass runtime rendering, placeholder, JSON, key-order and human-preference checks. The original queue has **771** pending findings, including **34** Veps findings. Live browser verification was not run; no translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `70921d116` — repaired **nine** Veps wait-animation labels, resolving **four** original findings and **five** unflagged Finnish values. Preserve all eight animation choices and their identifiers. All **17,180** exact corrections pass runtime rendering, placeholder, JSON, key-order and human-preference checks. The original queue has **767** pending findings, including **30** Veps findings. **Low confidence:** technical cube borrowing/inflection and composed wait-indicator terminology need fluent review. Live browser verification was not run; no translations were pushed.
 
 **Remaining validation:** all restored/unflagged values and low-confidence replacements remain open. Detailed per-key caveats are retained in the correction ledger and source commits. These include Veps composed UI, card, notification, calendar, timing, file/archive, metric and legal terminology/inflection; Neapolitan technical checklist usage; Fulah/Bambara calendar composition; and CLDR-provisional Ewe civil-calendar wording. Field sums, parent-card terminology, keyboard shortcuts, remaining migration/search messages and other calendar variants need further language research. Wrong-language/script and fluent-speaker checks remain unfinished.
 
