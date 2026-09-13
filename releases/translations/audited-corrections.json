@@ -106125,5 +106125,180 @@
     "before": "Engeza Isitsha Sesifanekiso",
     "after": "Engedza tshifaredzi tsha themphuḽeithi",
     "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, enable/disable distinctions and confirmation questions. Blue term lutombo is supported by the Tshivenda South African Constitution flag legend. Other wording has low confidence; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "created-at-newest-first",
+    "before": "Idalwe Ngo (Okusha Kuqala)",
+    "after": "Yo sikiwa nga (zwiswa u thoma)",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, JSON filenames, HTML entities and scheduled-job success/failure and pause/resume distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "created-at-oldest-first",
+    "before": "Idalwe Kwa (Okudala Kakhulu Kuqala)",
+    "after": "Yo sikiwa nga (zwa kale u thoma)",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, JSON filenames, HTML entities and scheduled-job success/failure and pause/resume distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "cron-errors-cleared",
+    "before": "Wonke amaphutha asulwe ngempumelelo",
+    "after": "Vhukhakhi hoṱhe ho bviswa nga nḓila yo bvelelaho",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, JSON filenames, HTML entities and scheduled-job success/failure and pause/resume distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "cron-job-delete-confirm",
+    "before": "Uqinisekile ukuthi ufuna ukususa lo msebenzi ohleliwe?",
+    "after": "Ni na vhuṱanzi ha uri ni ṱoḓa u susa mushumo uyu wo dzudzanywaho?",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, JSON filenames, HTML entities and scheduled-job success/failure and pause/resume distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "cron-job-delete-failed",
+    "before": "Yehlulekile ukususa umsebenzi ohleliwe",
+    "after": "U susa mushumo wo dzudzanywaho zwo kundelwa",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, JSON filenames, HTML entities and scheduled-job success/failure and pause/resume distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "cron-job-deleted",
+    "before": "Umsebenzi ohleliwe ususwe ngempumelelo",
+    "after": "Mushumo wo dzudzanywaho wo suswa nga nḓila yo bvelelaho",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, JSON filenames, HTML entities and scheduled-job success/failure and pause/resume distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "cron-job-pause-failed",
+    "before": "Yehlulekile ukumisa isikhashana umsebenzi ohleliwe",
+    "after": "U imisa lwa tshifhinganyana mushumo wo dzudzanywaho zwo kundelwa",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, JSON filenames, HTML entities and scheduled-job success/failure and pause/resume distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "cron-job-paused",
+    "before": "Umsebenzi ohleliwe umiswe okwesikhashana ngempumelelo",
+    "after": "Mushumo wo dzudzanywaho wo imiswa lwa tshifhinganyana nga nḓila yo bvelelaho",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, JSON filenames, HTML entities and scheduled-job success/failure and pause/resume distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "cron-job-resume-failed",
+    "before": "Yehlulekile ukuqalisa kabusha umsebenzi ohleliwe",
+    "after": "U thomisa hafhu mushumo wo dzudzanywaho zwo kundelwa",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, JSON filenames, HTML entities and scheduled-job success/failure and pause/resume distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "cron-job-resumed",
+    "before": "Umsebenzi ohleliwe uqaliswe kabusha ngempumelelo",
+    "after": "Mushumo wo dzudzanywaho wo thomiswa hafhu nga nḓila yo bvelelaho",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, JSON filenames, HTML entities and scheduled-job success/failure and pause/resume distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "cron-job-start-failed",
+    "before": "Yehlulekile ukuqala umsebenzi ohleliwe",
+    "after": "U thoma mushumo wo dzudzanywaho zwo kundelwa",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, JSON filenames, HTML entities and scheduled-job success/failure and pause/resume distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "cron-job-started",
+    "before": "Umsebenzi ohleliwe uqale ngempumelelo",
+    "after": "Mushumo wo dzudzanywaho wo thoma nga nḓila yo bvelelaho",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, JSON filenames, HTML entities and scheduled-job success/failure and pause/resume distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "cron-migrations-resumed",
+    "before": "Ukufuduka kuqale kabusha ngempumelelo",
+    "after": "U pfulusa ho thomiswa hafhu nga nḓila yo bvelelaho",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, JSON filenames, HTML entities and scheduled-job success/failure and pause/resume distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "cron-migrations-retried",
+    "before": "Ukufuduka okuhlulekile kuzanywe futhi ngempumelelo",
+    "after": "U pfulusa ho kundelwaho ho lingedzwa hafhu nga nḓila yo bvelelaho",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, JSON filenames, HTML entities and scheduled-job success/failure and pause/resume distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "cron-no-errors",
+    "before": "Awekho amaphutha azoboniswa",
+    "after": "A hu na vhukhakhi ha u sumbedza",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, JSON filenames, HTML entities and scheduled-job success/failure and pause/resume distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "cron-no-failed-migrations",
+    "before": "Akukho ukufuduka okuhlulekile ukuzama futhi",
+    "after": "A hu na u pfulusa ho kundelwaho ha u lingedza hafhu",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, JSON filenames, HTML entities and scheduled-job success/failure and pause/resume distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "cron-no-paused-migrations",
+    "before": "Akukho ukuthutha okumisiwe okuzoqalwa kabusha",
+    "after": "A hu na u pfulusa ho imiswaho lwa tshifhinganyana ha u thomisa hafhu",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, JSON filenames, HTML entities and scheduled-job success/failure and pause/resume distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "cron-resume-paused",
+    "before": "Qalisa kabusha Ukuthutha Okumisiwe",
+    "after": "Thomisa hafhu u pfulusa ho imiswaho lwa tshifhinganyana",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, JSON filenames, HTML entities and scheduled-job success/failure and pause/resume distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "cron-retry-failed",
+    "before": "Zama futhi Ukufuduka Kwehlulekile",
+    "after": "Lingedza hafhu u pfulusa ho kundelwaho",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, JSON filenames, HTML entities and scheduled-job success/failure and pause/resume distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "custom-assetlinks-content",
+    "before": "Okuqukethwe kwe-assetlinks.json kwangokwezifiso (JSON)",
+    "after": "Mafhungo a assetlinks.json o dzudzanywaho (JSON)",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, JSON filenames, HTML entities and scheduled-job success/failure and pause/resume distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "custom-assetlinks-enabled",
+    "before": "Nika amandla i-assetlinks.json yangokwezifiso",
+    "after": "Tendela assetlinks.json yo dzudzanywaho",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, JSON filenames, HTML entities and scheduled-job success/failure and pause/resume distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "custom-field-stringtemplate-format",
+    "before": "Fometha (sebenzisa %{value} njengesibambindawo)",
+    "after": "Tshivhumbeo (shumisa %{value} sa tshiga tsha u imela ndeme)",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, JSON filenames, HTML entities and scheduled-job success/failure and pause/resume distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "custom-field-stringtemplate-separator",
+    "before": "Isihlukanisi (sebenzisa noma   isikhala)",
+    "after": "Tshifhambanyi (shumisa &#32; kana &nbsp; kha tshikhala)",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, JSON filenames, HTML entities and scheduled-job success/failure and pause/resume distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "custom-head-link-tags",
+    "before": "Omaka besixhumanisi ngokwezifiso (HTML)",
+    "after": "Thege dza ḽinki dzo dzudzanywaho (HTML)",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, JSON filenames, HTML entities and scheduled-job success/failure and pause/resume distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "custom-head-manifest-content",
+    "before": "Okuqukethwe kwe-web manifest yangokwezifiso (JSON)",
+    "after": "Mafhungo a web manifest o dzudzanywaho (JSON)",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, JSON filenames, HTML entities and scheduled-job success/failure and pause/resume distinctions. Low-confidence wording; fluent-speaker validation outstanding."
   }
 ]
