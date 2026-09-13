@@ -90613,5 +90613,47 @@
     "before": "Changer les intervenants 1-9 sur une carte (par ordre d'ajout au tableau)",
     "after": "Jonidükön u sädunön jonidükami gebanas 1-9 lü kad (bai leod lüükama lü tab).",
     "reason": "Replace audited French imported-member mapping, automatic domain membership and assignee-toggle descriptions with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests jenöfik (real), domen (domain), itjäfidik (automatic), däl (permission), jonidükön (assign), sädunön (undo), leod (order). Preserve imported member identity and card/comment/activity reassignment, search for any user, adding a new board member with the imported role and never granting additional permissions. Toggle retains assignment/removal, 1-9 and board-addition order. Existing rol and adapted virtualik remain technical borrowings; assembled software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "act-a-endAt",
+    "before": "Modification de la date de fin de __timeOldValue__ à __timeValue__",
+    "after": "evotükon timi fina ad __timeValue__ de (__timeOldValue__)",
+    "reason": "Replace audited French date/time activity, account-created and administrator announcement wording with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nunäd (announcement), getön (receive), prim (beginning), fin (end), dät (date), tim (time), jafön (create). MediaWiki uses Kal for account and nunädön oki for login. Preserve new __timeValue__ versus parenthesized old __timeOldValue__; activities.jade passes receivedDate as first %s and cardLink as second, so do not treat them as two dates. Derived getam (receipt) and assembled software wording remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "act-a-receivedAt",
+    "before": "Modification de la date de réception de __timeOldValue__ à __timeValue__",
+    "after": "evotükon timi getama ad __timeValue__ de (__timeOldValue__)",
+    "reason": "Replace audited French date/time activity, account-created and administrator announcement wording with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nunäd (announcement), getön (receive), prim (beginning), fin (end), dät (date), tim (time), jafön (create). MediaWiki uses Kal for account and nunädön oki for login. Preserve new __timeValue__ versus parenthesized old __timeOldValue__; activities.jade passes receivedDate as first %s and cardLink as second, so do not treat them as two dates. Derived getam (receipt) and assembled software wording remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "act-a-startAt",
+    "before": "Modification de la date de début de __timeOldValue__ à __timeValue__",
+    "after": "evotükon timi prima ad __timeValue__ de (__timeOldValue__)",
+    "reason": "Replace audited French date/time activity, account-created and administrator announcement wording with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nunäd (announcement), getön (receive), prim (beginning), fin (end), dät (date), tim (time), jafön (create). MediaWiki uses Kal for account and nunädön oki for login. Preserve new __timeValue__ versus parenthesized old __timeOldValue__; activities.jade passes receivedDate as first %s and cardLink as second, so do not treat them as two dates. Derived getam (receipt) and assembled software wording remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "activity-receivedDate",
+    "before": "date de réception éditée de %s à %s",
+    "after": "evotükon däti getama ad %s su kad: %s",
+    "reason": "Replace audited French date/time activity, account-created and administrator announcement wording with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nunäd (announcement), getön (receive), prim (beginning), fin (end), dät (date), tim (time), jafön (create). MediaWiki uses Kal for account and nunädön oki for login. Preserve new __timeValue__ versus parenthesized old __timeOldValue__; activities.jade passes receivedDate as first %s and cardLink as second, so do not treat them as two dates. Derived getam (receipt) and assembled software wording remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "account-created",
+    "before": "Compte créé ! Vous pouvez maintenant vous connecter.",
+    "after": "Kal pejafon! Nu kanol nunädön oki.",
+    "reason": "Replace audited French date/time activity, account-created and administrator announcement wording with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nunäd (announcement), getön (receive), prim (beginning), fin (end), dät (date), tim (time), jafön (create). MediaWiki uses Kal for account and nunädön oki for login. Preserve new __timeValue__ versus parenthesized old __timeOldValue__; activities.jade passes receivedDate as first %s and cardLink as second, so do not treat them as two dates. Derived getam (receipt) and assembled software wording remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "admin-announcement-title",
+    "before": "Annonce de l'administrateur",
+    "after": "Nunäd de guvan",
+    "reason": "Replace audited French date/time activity, account-created and administrator announcement wording with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nunäd (announcement), getön (receive), prim (beginning), fin (end), dät (date), tim (time), jafön (create). MediaWiki uses Kal for account and nunädön oki for login. Preserve new __timeValue__ versus parenthesized old __timeOldValue__; activities.jade passes receivedDate as first %s and cardLink as second, so do not treat them as two dates. Derived getam (receipt) and assembled software wording remain low confidence pending native review."
   }
 ]
