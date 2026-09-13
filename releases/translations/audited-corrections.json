@@ -62641,5 +62641,138 @@
     "before": "Téléverser/Mettre à jour le dépôt",
     "after": "Mandar/metre a jorn lo depaus",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "vote-delete-pop",
+    "before": "La suppression est définitive. Vous perdrez toutes les actions associées à ce vote.",
+    "after": "La supression es definitiva. Perdretz totas las accions associadas a aqueste vòte.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "warn-list-archived",
+    "before": "attention : cette carte est dans une liste archivée",
+    "after": "Avertiment : aquesta carta es dins una lista archivada",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "webhook-token",
+    "before": "Jeton (optionnel pour l'authentification)",
+    "after": "Jeton (facultatiu per l’autentificacion)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "wipLimitErrorPopup-dialog-pt1",
+    "before": "Le nombre de cartes de cette liste est supérieur à la limite WIP que vous avez définie.",
+    "after": "Lo nombre de prètzfaches dins aquesta lista es superior a la limita WIP qu’avètz definida.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "calendar-system-buddhist",
+    "before": "Buddhist",
+    "after": "Calendièr bodista",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "calendar-system-chinese",
+    "before": "Chinese",
+    "after": "Calendièr chinés",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "calendar-system-coptic",
+    "before": "Coptic",
+    "after": "Calendièr còpte",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "calendar-system-dangi",
+    "before": "Dangi (Korean)",
+    "after": "Calendièr Dangi (corean)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "calendar-system-ethioaa",
+    "before": "Ethiopic Amete Alem",
+    "after": "Calendièr etiopian Amete Alem",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "calendar-system-ethiopic",
+    "before": "Ethiopic",
+    "after": "Calendièr etiopian",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "calendar-system-hebrew",
+    "before": "Hebrew",
+    "after": "Calendièr ebrieu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "Calendièr nacional indian",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "Calendièr de l’egira",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "calendar-system-islamic-civil",
+    "before": "Islamic civil",
+    "after": "Calendièr de l’egira (tabular, epòca civila)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "Calendièr de l’egira (Arabia Saudita, observacion de la luna)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "Calendièr de l’egira (tabular, epòca astronomica)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "Calendièr de l’egira (Umm al-Qura)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "calendar-system-japanese",
+    "before": "Japanese",
+    "after": "Calendièr japonés",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "calendar-system-roc",
+    "before": "Republic of China",
+    "after": "Calendièr Minguo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
