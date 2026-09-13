@@ -72763,5 +72763,208 @@
     "before": "a déplacé %s de %s vers %s",
     "after": "a bodjî %s di %s viè %s",
     "reason": "Replace audited French with Walloon using existing native attachment/storage, card/list, label and comment terminology. Movement meaning attested: https://dtw.walon.org/index.php?query=bodj%C3%AE ; deletion vocabulary https://denee.walon.org/~lucyin/diccionairaedje/wf/R13.pdf . Preserve storage names, source placeholders and destructive confirmation questions; complete sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "act-addAttachment",
+    "before": "a ajouté la pièce jointe __attachment__ à la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "a radjouté l' pîce djondowe __attachment__ al cåte __card__ del djivêye __list__ do coridôr __swimlane__ do tåvlea __board__",
+    "reason": "Replace audited French activity message with Walloon using existing card/list/swimlane, checklist, attachment and comment terminology. Creation verb: https://dtw.walon.org/index.php?query=askepy%C3%AE ; movement verb: https://dtw.walon.org/index.php?query=bodj%C3%AE . All activity context placeholders retained exactly; full sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "act-addBoardMember",
+    "before": "a ajouté le participant __member__ au tableau __board__",
+    "after": "a radjouté l' mimbe __member__ å tåvlea __board__",
+    "reason": "Replace audited French activity message with Walloon using existing card/list/swimlane, checklist, attachment and comment terminology. Creation verb: https://dtw.walon.org/index.php?query=askepy%C3%AE ; movement verb: https://dtw.walon.org/index.php?query=bodj%C3%AE . All activity context placeholders retained exactly; full sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "act-addChecklist",
+    "before": "a ajouté la checklist __checklist__ à la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "a radjouté l' djivêye di verifiaedje __checklist__ al cåte __card__ del djivêye __list__ do coridôr __swimlane__ do tåvlea __board__",
+    "reason": "Replace audited French activity message with Walloon using existing card/list/swimlane, checklist, attachment and comment terminology. Creation verb: https://dtw.walon.org/index.php?query=askepy%C3%AE ; movement verb: https://dtw.walon.org/index.php?query=bodj%C3%AE . All activity context placeholders retained exactly; full sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "act-addChecklistItem",
+    "before": "a ajouté l'élément __checklistItem__ à la checklist __checklist__ de la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "a radjouté l' cayet __checklistItem__ al djivêye di verifiaedje __checklist__ del cåte __card__ del djivêye __list__ do coridôr __swimlane__ do tåvlea __board__",
+    "reason": "Replace audited French activity message with Walloon using existing card/list/swimlane, checklist, attachment and comment terminology. Creation verb: https://dtw.walon.org/index.php?query=askepy%C3%AE ; movement verb: https://dtw.walon.org/index.php?query=bodj%C3%AE . All activity context placeholders retained exactly; full sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "act-addComment",
+    "before": "a commenté la carte __card__ : __comment__ dans la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "a scrît ene rimåke sol cåte __card__: __comment__ del djivêye __list__ do coridôr __swimlane__ do tåvlea __board__",
+    "reason": "Replace audited French activity message with Walloon using existing card/list/swimlane, checklist, attachment and comment terminology. Creation verb: https://dtw.walon.org/index.php?query=askepy%C3%AE ; movement verb: https://dtw.walon.org/index.php?query=bodj%C3%AE . All activity context placeholders retained exactly; full sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "act-addLabel",
+    "before": "a ajouté l'étiquette __label__ à la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "a radjouté l' etikète __label__ al cåte __card__ del djivêye __list__ do coridôr __swimlane__ do tåvlea __board__",
+    "reason": "Replace audited French activity message with Walloon using existing card/list/swimlane, checklist, attachment and comment terminology. Creation verb: https://dtw.walon.org/index.php?query=askepy%C3%AE ; movement verb: https://dtw.walon.org/index.php?query=bodj%C3%AE . All activity context placeholders retained exactly; full sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "act-addedLabel",
+    "before": "a ajouté l'étiquette __label__ à la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "a radjouté l' etikète __label__ al cåte __card__ del djivêye __list__ do coridôr __swimlane__ do tåvlea __board__",
+    "reason": "Replace audited French activity message with Walloon using existing card/list/swimlane, checklist, attachment and comment terminology. Creation verb: https://dtw.walon.org/index.php?query=askepy%C3%AE ; movement verb: https://dtw.walon.org/index.php?query=bodj%C3%AE . All activity context placeholders retained exactly; full sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "act-archivedBoard",
+    "before": "Le tableau __board__ a été déplacé vers les archives",
+    "after": "Li tåvlea __board__ a stî metou ås årtchives",
+    "reason": "Replace audited French activity message with Walloon using existing card/list/swimlane, checklist, attachment and comment terminology. Creation verb: https://dtw.walon.org/index.php?query=askepy%C3%AE ; movement verb: https://dtw.walon.org/index.php?query=bodj%C3%AE . All activity context placeholders retained exactly; full sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "act-archivedCard",
+    "before": "Carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__ archivée",
+    "after": "Li cåte __card__ del djivêye __list__ do coridôr __swimlane__ do tåvlea __board__ a stî metowe ås årtchives",
+    "reason": "Replace audited French activity message with Walloon using existing card/list/swimlane, checklist, attachment and comment terminology. Creation verb: https://dtw.walon.org/index.php?query=askepy%C3%AE ; movement verb: https://dtw.walon.org/index.php?query=bodj%C3%AE . All activity context placeholders retained exactly; full sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "act-archivedList",
+    "before": "Liste __list__ du couloir __swimlane__ du tableau __board__ archivée",
+    "after": "Li djivêye __list__ do coridôr __swimlane__ do tåvlea __board__ a stî metowe ås årtchives",
+    "reason": "Replace audited French activity message with Walloon using existing card/list/swimlane, checklist, attachment and comment terminology. Creation verb: https://dtw.walon.org/index.php?query=askepy%C3%AE ; movement verb: https://dtw.walon.org/index.php?query=bodj%C3%AE . All activity context placeholders retained exactly; full sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "act-archivedSwimlane",
+    "before": "Couloir __swimlane__ du tableau __board__ archivé",
+    "after": "Li coridôr __swimlane__ do tåvlea __board__ a stî metou ås årtchives",
+    "reason": "Replace audited French activity message with Walloon using existing card/list/swimlane, checklist, attachment and comment terminology. Creation verb: https://dtw.walon.org/index.php?query=askepy%C3%AE ; movement verb: https://dtw.walon.org/index.php?query=bodj%C3%AE . All activity context placeholders retained exactly; full sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "act-atUserComment",
+    "before": "vous a mentionné sur la carte __card__ : __comment__ dans la liste __list__ dans le couloir __swimlane__ dans le tableau __board__",
+    "after": "a cåzé d' vos sol cåte __card__: __comment__ del djivêye __list__ do coridôr __swimlane__ do tåvlea __board__",
+    "reason": "Replace audited French activity message with Walloon using existing card/list/swimlane, checklist, attachment and comment terminology. Creation verb: https://dtw.walon.org/index.php?query=askepy%C3%AE ; movement verb: https://dtw.walon.org/index.php?query=bodj%C3%AE . All activity context placeholders retained exactly; full sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "act-createCard",
+    "before": "a créé la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "a askepyî l' cåte __card__ el djivêye __list__ do coridôr __swimlane__ do tåvlea __board__",
+    "reason": "Replace audited French activity message with Walloon using existing card/list/swimlane, checklist, attachment and comment terminology. Creation verb: https://dtw.walon.org/index.php?query=askepy%C3%AE ; movement verb: https://dtw.walon.org/index.php?query=bodj%C3%AE . All activity context placeholders retained exactly; full sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "act-createCustomField",
+    "before": "a créé le champ personnalisé __customField__ du tableau __board__",
+    "after": "a askepyî l' tchamp da vosse __customField__ å tåvlea __board__",
+    "reason": "Replace audited French activity message with Walloon using existing card/list/swimlane, checklist, attachment and comment terminology. Creation verb: https://dtw.walon.org/index.php?query=askepy%C3%AE ; movement verb: https://dtw.walon.org/index.php?query=bodj%C3%AE . All activity context placeholders retained exactly; full sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "act-createList",
+    "before": "a ajouté la liste __list__ au tableau __board__",
+    "after": "a radjouté l' djivêye __list__ å tåvlea __board__",
+    "reason": "Replace audited French activity message with Walloon using existing card/list/swimlane, checklist, attachment and comment terminology. Creation verb: https://dtw.walon.org/index.php?query=askepy%C3%AE ; movement verb: https://dtw.walon.org/index.php?query=bodj%C3%AE . All activity context placeholders retained exactly; full sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "act-createSwimlane",
+    "before": "a créé le couloir __swimlane__ dans le tableau __board__",
+    "after": "a askepyî l' coridôr __swimlane__ å tåvlea __board__",
+    "reason": "Replace audited French activity message with Walloon using existing card/list/swimlane, checklist, attachment and comment terminology. Creation verb: https://dtw.walon.org/index.php?query=askepy%C3%AE ; movement verb: https://dtw.walon.org/index.php?query=bodj%C3%AE . All activity context placeholders retained exactly; full sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "act-deleteAttachment",
+    "before": "a supprimé la pièce jointe __attachment__ de la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "a disfacé l' pîce djondowe __attachment__ del cåte __card__ del djivêye __list__ do coridôr __swimlane__ do tåvlea __board__",
+    "reason": "Replace audited French activity message with Walloon using existing card/list/swimlane, checklist, attachment and comment terminology. Creation verb: https://dtw.walon.org/index.php?query=askepy%C3%AE ; movement verb: https://dtw.walon.org/index.php?query=bodj%C3%AE . All activity context placeholders retained exactly; full sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "act-deleteComment",
+    "before": "a supprimé le commentaire de la carte __card__ : __comment__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "a disfacé l' rimåke sol cåte __card__: __comment__ del djivêye __list__ do coridôr __swimlane__ do tåvlea __board__",
+    "reason": "Replace audited French activity message with Walloon using existing card/list/swimlane, checklist, attachment and comment terminology. Creation verb: https://dtw.walon.org/index.php?query=askepy%C3%AE ; movement verb: https://dtw.walon.org/index.php?query=bodj%C3%AE . All activity context placeholders retained exactly; full sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "act-deleteCustomField",
+    "before": "a supprimé le champ personnalisé __customField__ du tableau __board__",
+    "after": "a disfacé l' tchamp da vosse __customField__ å tåvlea __board__",
+    "reason": "Replace audited French activity message with Walloon using existing card/list/swimlane, checklist, attachment and comment terminology. Creation verb: https://dtw.walon.org/index.php?query=askepy%C3%AE ; movement verb: https://dtw.walon.org/index.php?query=bodj%C3%AE . All activity context placeholders retained exactly; full sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "act-editComment",
+    "before": "a édité le commentaire de la carte __card__ : __comment__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "a candjî l' rimåke sol cåte __card__: __comment__ del djivêye __list__ do coridôr __swimlane__ do tåvlea __board__",
+    "reason": "Replace audited French activity message with Walloon using existing card/list/swimlane, checklist, attachment and comment terminology. Creation verb: https://dtw.walon.org/index.php?query=askepy%C3%AE ; movement verb: https://dtw.walon.org/index.php?query=bodj%C3%AE . All activity context placeholders retained exactly; full sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "act-joinMember",
+    "before": "a ajouté le participant __member__ à la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "a radjouté l' mimbe __member__ al cåte __card__ del djivêye __list__ do coridôr __swimlane__ do tåvlea __board__",
+    "reason": "Replace audited French activity message with Walloon using existing card/list/swimlane, checklist, attachment and comment terminology. Creation verb: https://dtw.walon.org/index.php?query=askepy%C3%AE ; movement verb: https://dtw.walon.org/index.php?query=bodj%C3%AE . All activity context placeholders retained exactly; full sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "act-moveCard",
+    "before": "a déplacé la carte __card__ du tableau __board__ de la liste __oldList__ du couloir __oldSwimlane__ vers la liste __list__ du couloir __swimlane__",
+    "after": "a bodjî l' cåte __card__ do tåvlea __board__ del djivêye __oldList__ do coridôr __oldSwimlane__ viè l' djivêye __list__ do coridôr __swimlane__",
+    "reason": "Replace audited French activity message with Walloon using existing card/list/swimlane, checklist, attachment and comment terminology. Creation verb: https://dtw.walon.org/index.php?query=askepy%C3%AE ; movement verb: https://dtw.walon.org/index.php?query=bodj%C3%AE . All activity context placeholders retained exactly; full sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "act-moveCardToOtherBoard",
+    "before": "a déplacé la carte __card__ de la liste __oldList__ du couloir __oldSwimlane__ du tableau __oldBoard__ vers la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "a bodjî l' cåte __card__ del djivêye __oldList__ do coridôr __oldSwimlane__ do tåvlea __oldBoard__ viè l' djivêye __list__ do coridôr __swimlane__ do tåvlea __board__",
+    "reason": "Replace audited French activity message with Walloon using existing card/list/swimlane, checklist, attachment and comment terminology. Creation verb: https://dtw.walon.org/index.php?query=askepy%C3%AE ; movement verb: https://dtw.walon.org/index.php?query=bodj%C3%AE . All activity context placeholders retained exactly; full sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "act-removeBoardMember",
+    "before": "a supprimé le participant __member__ du tableau __board__",
+    "after": "a oisté l' mimbe __member__ do tåvlea __board__",
+    "reason": "Replace audited French activity message with Walloon using existing card/list/swimlane, checklist, attachment and comment terminology. Creation verb: https://dtw.walon.org/index.php?query=askepy%C3%AE ; movement verb: https://dtw.walon.org/index.php?query=bodj%C3%AE . All activity context placeholders retained exactly; full sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "act-removeChecklist",
+    "before": "a supprimé la checklist __checklist__ de la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "a oisté l' djivêye di verifiaedje __checklist__ del cåte __card__ del djivêye __list__ do coridôr __swimlane__ do tåvlea __board__",
+    "reason": "Replace audited French activity message with Walloon using existing card/list/swimlane, checklist, attachment and comment terminology. Creation verb: https://dtw.walon.org/index.php?query=askepy%C3%AE ; movement verb: https://dtw.walon.org/index.php?query=bodj%C3%AE . All activity context placeholders retained exactly; full sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "act-removeLabel",
+    "before": "a enlevé l'étiquette __label__ de la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "a oisté l' etikète __label__ del cåte __card__ del djivêye __list__ do coridôr __swimlane__ do tåvlea __board__",
+    "reason": "Replace audited French activity message with Walloon using existing card/list/swimlane, checklist, attachment and comment terminology. Creation verb: https://dtw.walon.org/index.php?query=askepy%C3%AE ; movement verb: https://dtw.walon.org/index.php?query=bodj%C3%AE . All activity context placeholders retained exactly; full sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "act-removedLabel",
+    "before": "a enlevé l'étiquette __label__ de la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "a oisté l' etikète __label__ del cåte __card__ del djivêye __list__ do coridôr __swimlane__ do tåvlea __board__",
+    "reason": "Replace audited French activity message with Walloon using existing card/list/swimlane, checklist, attachment and comment terminology. Creation verb: https://dtw.walon.org/index.php?query=askepy%C3%AE ; movement verb: https://dtw.walon.org/index.php?query=bodj%C3%AE . All activity context placeholders retained exactly; full sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "act-restoredCard",
+    "before": "a restauré la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "a rimetou l' cåte __card__ el djivêye __list__ do coridôr __swimlane__ do tåvlea __board__",
+    "reason": "Replace audited French activity message with Walloon using existing card/list/swimlane, checklist, attachment and comment terminology. Creation verb: https://dtw.walon.org/index.php?query=askepy%C3%AE ; movement verb: https://dtw.walon.org/index.php?query=bodj%C3%AE . All activity context placeholders retained exactly; full sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "act-unjoinMember",
+    "before": "a supprimé le participant __member__ de la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "a oisté l' mimbe __member__ del cåte __card__ del djivêye __list__ do coridôr __swimlane__ do tåvlea __board__",
+    "reason": "Replace audited French activity message with Walloon using existing card/list/swimlane, checklist, attachment and comment terminology. Creation verb: https://dtw.walon.org/index.php?query=askepy%C3%AE ; movement verb: https://dtw.walon.org/index.php?query=bodj%C3%AE . All activity context placeholders retained exactly; full sentence grammar remains low confidence."
   }
 ]
