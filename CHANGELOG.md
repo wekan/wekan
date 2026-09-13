@@ -1245,6 +1245,17 @@ for this change.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/8002bb139">Repair Veps board confirmations and Excel disk-space warning</a>. Thanks to xet7.</summary>
+
+Replace seven Finnish values, resolving five original findings and two unflagged
+errors. Preserve board-title interpolation, removal from every board card,
+duplication and insufficient available disk space. All 16,965 exact correction
+checks and positive/negative runtime assertions pass. Technical grammar needs
+fluent review; 886 original findings and restored-value validation remain open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/852c7d8ef">Repair Veps export fields and checklist line instructions</a>. Thanks to xet7.</summary>
 
 Replace six Finnish values, resolving five original findings and one unflagged
