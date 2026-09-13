@@ -103,7 +103,9 @@ performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383540a; translation repairs have resumed.
 Latest translation fix is 9dcd0aaa5 (2026-09-14), repairing the unflagged
-French Tamazight upload label. Earlier composed headings need fluent review. Previous fix e07d2be5f replaced two English
+French Tamazight upload label. Earlier composed headings need fluent review.
+Tamazight calendar review dd2aaa19a (2026-09-14) records provisional
+Islamic naming and missing variant terminology; no values changed. Previous fix e07d2be5f replaced two English
 Cherokee Hijri labels with exact native-script CLDR variant names. Cherokee’s
 original queue is empty. Compact tabular epoch wording still needs fluent
 technical review. Quechua palette compounds and remaining color wrappers
@@ -646,6 +648,16 @@ The audit records 749 pending original findings and wider unfinished validation.
 This release adds the following translation improvements:
 
 **Translations** - Locale wording repairs and remaining audit progress.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/dd2aaa19a">Record Tamazight calendar reference gaps</a>. Thanks to xet7.</summary>
+
+Record provisional CLDR Islamic naming and missing Buddhist/Hijri variant
+terminology. No values changed. All 17,273 correction checks pass; 734
+original findings and full technical/fluent calendar validation remain
+unfinished.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/9dcd0aaa5">Repair Tamazight upload wording</a>. Thanks to xet7.</summary>
