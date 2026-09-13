@@ -80,14 +80,14 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,066 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 778 pending review or repair.
-The correction inventory records 17,154 exact before/after values,
+findings: 15,067 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 777 pending review or repair.
+The correction inventory records 17,155 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
 German cron label, which now uses the actual tool name Cron.
-The largest original finding queues remain in Veps (41) and Standard Moroccan
+The largest original finding queues remain in Veps (40) and Standard Moroccan
 Tamazight (595). Silesian database terminology and 17 Tigre
 calendar findings need language-specific review. Restored and unflagged
 values, low-confidence wording and browser rendering remain unverified.
@@ -100,8 +100,8 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383540a; translation repairs have resumed.
-Latest translation fix is 1fe66bc7f (2026-09-14), covering eight Veps drag and
-sidebar instructions. The original Neapolitan queue is empty. All correction/rendering checks
+Latest translation fix is d60284038 (2026-09-14), repairing Veps remaining-time
+wording and an earlier assigned-card pronoun. The original Neapolitan queue is empty. All correction/rendering checks
 pass; low-confidence technical terminology remains explicitly tracked.
 Member assignment popup handlers need separate review for apparent reversed
 operations. The 1,015-suite Node result is historical and predates the latest batches.
@@ -586,6 +586,18 @@ skills review documents current safeguards and remaining code improvements.
 This release adds the following translation improvements:
 
 **Translations** - Locale wording repairs and remaining audit progress.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d60284038">Repair Veps remaining-time label and assigned-card pronoun</a>. Thanks to xet7.</summary>
+
+Replace the Finnish remaining-time label and refine an earlier shortcut
+correction from assigned to you to assigned to me. Preserve distinct own-card
+and self-assignment actions and the original correction-ledger before-value.
+All 17,155 correction/rendering checks pass, preserving tokens, JSON,
+key order and newer translations. Timing participle composition needs fluent
+review. Live browser checks were not run; 777 original findings remain pending.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/1fe66bc7f">Repair Veps drag instructions and sidebar controls</a>. Thanks to xet7.</summary>
