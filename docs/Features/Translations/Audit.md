@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 12,670 |
+| Corrected | 12,674 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 177 |
-| Pending review or repair | 3,175 |
+| Pending review or repair | 3,171 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Restored and unflagged values still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **13,278** exact before/after values, including repairs outside the audit.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **13,282** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `1b3e0dfa1a2756a12388d02bab2e276afd085ee6` — German title/alphabetical-sort labels replaced with Klingon using attested written-character/order vocabulary. Full wording is low confidence and needs fluent-speaker validation; runtime collation was not changed.
+Latest translation fix: **2026-09-13**, local commit `d864cbce86e546796f7a37bdaf7d48ac1670f82c` — four flagged German filter/subtask-field controls replaced with Klingon, preserving filter criteria and object distinctions. Full software wording is low confidence and needs fluent-speaker validation.
 
 **Verification:** correction and progress tests pass. Native-speaker and browser checks remain outstanding.
 
