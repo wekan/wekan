@@ -75493,5 +75493,159 @@
     "before": "Les durées en jours peuvent être précisées soit par un entier positif ou négatif soit en utilisant `__predicate_week__`, `__predicate_month__`, `__predicate_quarter__` ou `__predicate_year__` pour la période courante.",
     "after": "Les djoûs polèt esse dnés come on nombe etîr pozitif ou negatif, ou avou `__predicate_week__`, `__predicate_month__`, `__predicate_quarter__` ou `__predicate_year__` po l' periode do moumint.",
     "reason": "Replace audited French search help with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Keep operator/predicate tokens and angle-bracket metavariables exact, distinguish assignee/member/creator and retain case-insensitive, archived and signed-day semantics. Full grammar and specialized search terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "globalSearch-instructions-description",
+    "before": "Les recherches peuvent inclure des opérateurs pour affiner le résultat. Les opérateurs sont précisés en écrivant l'opérateur suivi d'une valeur séparé par un deux-point. Par exemple, une spécification comme `liste:Bloqué` limiterait le résultat aux cartes qui contiennent une liste appelée *Bloqué*. Si la valeur contient des espaces ou des caractères spéciaux, elle doit être entourée d'apostrophes (par ex. `__operator_list__:\"À valider\"`).",
+    "after": "Les cweraedjes polèt aveur des operateurs po-z afiner l' cweraedje. On dene les operateurs tot scrîjant leu no eyet leu valixhance séparés pa deus ponts. Par egzimpe, `list:Blocked` limite li cweraedje ås cåtes dins ene djivêye lomêye *Blocked*. Si l' valixhance a des espåces ou des caracteres sipeciås, i fåt l' mete inte des wiyemets (par egzimpe `__operator_list__:\"To Review\"`).",
+    "reason": "Replace audited French search/control wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Keep OR/AND distinction, executable examples, due predicates and every member notification placeholder exact; preserve removal scope. Full grammar and specialized search terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "globalSearch-instructions-notes-2",
+    "before": "Les opérateurs similaires deviennent *optionnels*. Les cartes correspondant à n'importe quelle condition sont retournées.\n`__operator_list__:Disponible __operator_list__:Bloquée` retournera les cartes contenues dans la liste *Disponible* ou dans la liste *Bloquée*.",
+    "after": "Les operateurs del minme sôre sont raloyîs avou *OR*. Les cåtes ki corespondèt a tot l' minme kéne condicion sont rindeus.\n`__operator_list__:Available __operator_list__:Blocked` rind les cåtes dins les djivêyes lomêyes *Blocked* ou *Available*.",
+    "reason": "Replace audited French search/control wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Keep OR/AND distinction, executable examples, due predicates and every member notification placeholder exact; preserve removal scope. Full grammar and specialized search terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "globalSearch-instructions-notes-3",
+    "before": "Les opérateurs différents sont *combinés*. Seules les cartes correspondant à tous les critères sont retournées.  `__operator_list__:Disponible __operator_label__:rouge` ne retourne que les cartes dans la liste *Disponible* avec une étiquette *rouge*.",
+    "after": "Les operateurs di diferinnès sôres sont raloyîs avou *AND*. Seulmint les cåtes ki corespondèt a tos les operateurs diferins sont rindeus. `__operator_list__:Available __operator_label__:red` rind seulmint les cåtes del djivêye *Available* avou ene etikète *red*.",
+    "reason": "Replace audited French search/control wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Keep OR/AND distinction, executable examples, due predicates and every member notification placeholder exact; preserve removal scope. Full grammar and specialized search terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "globalSearch-instructions-operator-due",
+    "before": "`__operator_due__:<n>` - cartes qui arrive à échéance dans moins de *<n>* jours à partir d'aujourd'hui.\n`__operator_due__:__predicate_overdue__` liste toutes les cartes ayant passé la date d'échéance.",
+    "after": "`__operator_due__:<n>` - cåtes avou ene date limite d' asteure disk' a *<n>* djoûs. `__operator_due__:__predicate_overdue__ mostere totes les cåtes ki leu date limite est passêye.",
+    "reason": "Replace audited French search/control wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Keep OR/AND distinction, executable examples, due predicates and every member notification placeholder exact; preserve removal scope. Full grammar and specialized search terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "search-cards",
+    "before": "Rechercher parmi les titres, descriptions et champs personnalisés des cartes/listes de ce tableau",
+    "after": "Cweri dins les tites des cåtes/djivêyes, les discrijhaedjes eyet les tchamps da vosse di ci tåvlea ci",
+    "reason": "Replace audited French search/control wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Keep OR/AND distinction, executable examples, due predicates and every member notification placeholder exact; preserve removal scope. Full grammar and specialized search terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "remove-background-image",
+    "before": "Supprimer l'image de fond",
+    "after": "Oister l' imådje di fond",
+    "reason": "Replace audited French search/control wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Keep OR/AND distinction, executable examples, due predicates and every member notification placeholder exact; preserve removal scope. Full grammar and specialized search terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "remove-cover",
+    "before": "Supprimer la vignette de la mini-carte",
+    "after": "Oister l' imådje di coviete del minicåte",
+    "reason": "Replace audited French search/control wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Keep OR/AND distinction, executable examples, due predicates and every member notification placeholder exact; preserve removal scope. Full grammar and specialized search terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "removeMemberPopup-title",
+    "before": "Supprimer le participant ?",
+    "after": "Oister li mimbe?",
+    "reason": "Replace audited French search/control wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Keep OR/AND distinction, executable examples, due predicates and every member notification placeholder exact; preserve removal scope. Full grammar and specialized search terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "remove-member-pop",
+    "before": "Supprimer __name__ (__username__) de __boardTitle__ ? Ce participant sera supprimé de toutes les cartes du tableau et recevra une notification.",
+    "after": "Oister __name__ (__username__) di __boardTitle__? Li mimbe serè oisté di totes les cåtes di ci tåvlea ci. I rçurè on notifiaedje.",
+    "reason": "Replace audited French search/control wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Keep OR/AND distinction, executable examples, due predicates and every member notification placeholder exact; preserve removal scope. Full grammar and specialized search terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "remove-organization-from-board",
+    "before": "Voulez-vous vraiment supprimer cette organisation de ce tableau ?",
+    "after": "Estoz vs seur di voleur oister cisse organizåcion ci di ci tåvlea ci?",
+    "reason": "Replace audited French search/control wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Keep OR/AND distinction, executable examples, due predicates and every member notification placeholder exact; preserve removal scope. Full grammar and specialized search terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "remove-team-from-table",
+    "before": "Voulez-vous vraiment supprimer cette équipe du tableau ?",
+    "after": "Estoz vs seur di voleur oister cisse ekipe ci do tåvlea?",
+    "reason": "Replace audited French search/control wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Keep OR/AND distinction, executable examples, due predicates and every member notification placeholder exact; preserve removal scope. Full grammar and specialized search terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "settingsOrgPopup-title",
+    "before": "Paramètres de l'organisation",
+    "after": "Apontiaedjes di l' organizåcion",
+    "reason": "Replace audited French search/control wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Keep OR/AND distinction, executable examples, due predicates and every member notification placeholder exact; preserve removal scope. Full grammar and specialized search terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "settingsUserPopup-title",
+    "before": "Paramètres de l'utilisateur",
+    "after": "Apontiaedjes di l' uzeu",
+    "reason": "Replace audited French search/control wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Keep OR/AND distinction, executable examples, due predicates and every member notification placeholder exact; preserve removal scope. Full grammar and specialized search terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "settingsTranslationPopup-title",
+    "before": "Supprimer cette traduction personnalisée ?",
+    "after": "Disfacer cisse chinne di ratournaedje da vosse ci?",
+    "reason": "Replace audited French search/control wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Keep OR/AND distinction, executable examples, due predicates and every member notification placeholder exact; preserve removal scope. Full grammar and specialized search terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "delete-translation-confirm-popup",
+    "before": "Êtes-vous sûr de vouloir supprimer cette traduction personnalisée ? Cela est irréversible.",
+    "after": "Estoz vs seur di voleur disfacer cisse chinne di ratournaedje da vosse ci? On n' pout nén disfé çoula.",
+    "reason": "Replace audited French search/control wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Keep OR/AND distinction, executable examples, due predicates and every member notification placeholder exact; preserve removal scope. Full grammar and specialized search terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "subtask-settings",
+    "before": "Paramètres des sous-tâches",
+    "after": "Apontiaedjes des sos-bouyes",
+    "reason": "Replace audited French search/control wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Keep OR/AND distinction, executable examples, due predicates and every member notification placeholder exact; preserve removal scope. Full grammar and specialized search terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "subtaskDeletePopup-title",
+    "before": "Supprimer la sous-tâche ?",
+    "after": "Disfacer li sos-bouye?",
+    "reason": "Replace audited French search/control wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Keep OR/AND distinction, executable examples, due predicates and every member notification placeholder exact; preserve removal scope. Full grammar and specialized search terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "autoAddUsersWithDomainName",
+    "before": "Ajouter automatiquement les utilisateurs avec le nom de domaine",
+    "after": "Radjouter otomatikmint les uzeus avou l' no di dominne",
+    "reason": "Replace audited French search/control wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Keep OR/AND distinction, executable examples, due predicates and every member notification placeholder exact; preserve removal scope. Full grammar and specialized search terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "board-drag-drop-reorder-or-click-open",
+    "before": "Glisser-déposer les icônes de tableau pour les réordonner. Cliquer sur l'icône du tableau pour l'ouvrir.",
+    "after": "Haetchîz et laechîz po candjî l' ôre des imådjretes des tåvleas. Clitchîz so l' imådjrete do tåvlea po drovî l' tåvlea.",
+    "reason": "Replace audited French search/control wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Keep OR/AND distinction, executable examples, due predicates and every member notification placeholder exact; preserve removal scope. Full grammar and specialized search terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "open-many-cards-at-once-description",
+    "before": "Chaque carte sur laquelle vous cliquez reste ouverte dans sa propre fenêtre. Lorsque cette option est désactivée, cliquer sur une carte ferme celle qui était ouverte.",
+    "after": "Wårder tchaeke cåte ki vos clitchîz drovowe dins si prôpe purnea. Cwand çoula est distinnou, clitchî so ene cåte clôt li cene ki esteut drovowe.",
+    "reason": "Replace audited French search/control wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Keep OR/AND distinction, executable examples, due predicates and every member notification placeholder exact; preserve removal scope. Full grammar and specialized search terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "close-add-checklist-item",
+    "before": "Fermer ajouter un élément du formulaire checklist",
+    "after": "Clôre li formulaire po radjouter on cayet al djivêye di verifiaedje",
+    "reason": "Replace audited French search/control wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Keep OR/AND distinction, executable examples, due predicates and every member notification placeholder exact; preserve removal scope. Full grammar and specialized search terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "close-edit-checklist-item",
+    "before": "Fermer éditer un élément du formulaire checklist",
+    "after": "Clôre li formulaire po candjî on cayet del djivêye di verifiaedje",
+    "reason": "Replace audited French search/control wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Keep OR/AND distinction, executable examples, due predicates and every member notification placeholder exact; preserve removal scope. Full grammar and specialized search terminology remain low confidence."
   }
 ]
