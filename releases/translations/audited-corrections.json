@@ -92720,5 +92720,33 @@
     "before": "Keine benutzerdefinierten Felder",
     "after": "De' 'ay'mey cherbogh lo'wI' tu'lu'be'",
     "reason": "Replace German custom-field labels with direct Klingon descriptive wording De' 'ay'mey cherbogh lo'wI' (data sections/fields which a user configures). Relative clause uses object-verb-subject order; edit uses plural-object tIchoH. Existing De', cher, lo'wI', choH and tu'lu'be' vocabulary retained. Data-section wording for software field and full relative-clause labels are low confidence and require fluent-speaker validation; no placeholders changed."
+  },
+  {
+    "locale": "tlh",
+    "key": "deleteCustomFieldPopup-title",
+    "before": "Benutzerdefiniertes Feld löschen?",
+    "after": "De' 'ay' cherbogh lo'wI' Qaw'lu''a'?",
+    "reason": "Replace four flagged German field controls with direct Klingon. Reuse descriptive De' 'ay' cherbogh lo'wI' user-configured data field and 'echletHom card terminology established in the preceding batch. Preserve deletion as a question, this field (-vam), all cards (Hoch), and new cards (chu') distinctions. Add/display actions use existing chel and 'ang. Full software phrases and field terminology have low confidence and need fluent-speaker validation; no source tokens changed."
+  },
+  {
+    "locale": "tlh",
+    "key": "show-field-on-card",
+    "before": "Zeige dieses Feld auf der Karte",
+    "after": "'echletHomDaq De' 'ay'vam yI'ang",
+    "reason": "Replace four flagged German field controls with direct Klingon. Reuse descriptive De' 'ay' cherbogh lo'wI' user-configured data field and 'echletHom card terminology established in the preceding batch. Preserve deletion as a question, this field (-vam), all cards (Hoch), and new cards (chu') distinctions. Add/display actions use existing chel and 'ang. Full software phrases and field terminology have low confidence and need fluent-speaker validation; no source tokens changed."
+  },
+  {
+    "locale": "tlh",
+    "key": "always-field-on-card",
+    "before": "Füge Feld allen Karten hinzu",
+    "after": "Hoch 'echletHommeyDaq De' 'ay' yIchel",
+    "reason": "Replace four flagged German field controls with direct Klingon. Reuse descriptive De' 'ay' cherbogh lo'wI' user-configured data field and 'echletHom card terminology established in the preceding batch. Preserve deletion as a question, this field (-vam), all cards (Hoch), and new cards (chu') distinctions. Add/display actions use existing chel and 'ang. Full software phrases and field terminology have low confidence and need fluent-speaker validation; no source tokens changed."
+  },
+  {
+    "locale": "tlh",
+    "key": "automatically-field-on-card",
+    "before": "Füge Feld neuen Karten hinzu",
+    "after": "'echletHommey chu'Daq De' 'ay' yIchel",
+    "reason": "Replace four flagged German field controls with direct Klingon. Reuse descriptive De' 'ay' cherbogh lo'wI' user-configured data field and 'echletHom card terminology established in the preceding batch. Preserve deletion as a question, this field (-vam), all cards (Hoch), and new cards (chu') distinctions. Add/display actions use existing chel and 'ang. Full software phrases and field terminology have low confidence and need fluent-speaker validation; no source tokens changed."
   }
 ]
