@@ -82689,5 +82689,103 @@
     "before": "Préciser l'action sur le participant",
     "after": "Leeral jëf bi ci bokkkat bi",
     "reason": "Replace French with Wolof; preserve CSV/TSV separator distinctions, valid pasted formats, unread marking, all-board activity hiding, separate card windows versus closing the previous one when disabled, OIDC and label/member action clarification. Paste/separator/window technical terminology and complete grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "push-invite-title",
+    "before": "__inviter__ vous a envoyé une invitation",
+    "after": "__inviter__ yónnee na la woote",
+    "reason": "Replace French with Wolof; preserve archive restoration scope, missing swimlaneId/listId automatic repair, Lost Cards recovery lane and empty recovery status, invitation sender, SMTP self-test/host/outgoing port/TLS and starred-board ordering. Recovery/SMTP terminology and complete grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "r-d-unarchive",
+    "before": "Restaurer la carte depuis les archives",
+    "after": "Delloo karta bi jóge ci àrsiw",
+    "reason": "Replace French with Wolof; preserve archive restoration scope, missing swimlaneId/listId automatic repair, Lost Cards recovery lane and empty recovery status, invitation sender, SMTP self-test/host/outgoing port/TLS and starred-board ordering. Recovery/SMTP terminology and complete grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "r-unarchive",
+    "before": "Restaurer depuis les archives",
+    "after": "Delloo jóge ci àrsiw",
+    "reason": "Replace French with Wolof; preserve archive restoration scope, missing swimlaneId/listId automatic repair, Lost Cards recovery lane and empty recovery status, invitation sender, SMTP self-test/host/outgoing port/TLS and starred-board ordering. Recovery/SMTP terminology and complete grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "r-unarchived",
+    "before": "Restauré depuis les archives",
+    "after": "Delloo nañu ko jóge ci àrsiw",
+    "reason": "Replace French with Wolof; preserve archive restoration scope, missing swimlaneId/listId automatic repair, Lost Cards recovery lane and empty recovery status, invitation sender, SMTP self-test/host/outgoing port/TLS and starred-board ordering. Recovery/SMTP terminology and complete grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "restore-all-archived-migration",
+    "before": "Tout restaurer depuis les archives",
+    "after": "Delloo lépp li ñu denc ci àrsiw",
+    "reason": "Replace French with Wolof; preserve archive restoration scope, missing swimlaneId/listId automatic repair, Lost Cards recovery lane and empty recovery status, invitation sender, SMTP self-test/host/outgoing port/TLS and starred-board ordering. Recovery/SMTP terminology and complete grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "restore-all-archived-migration-description",
+    "before": "Restaure tous les couloirs, listes et cartes archivés. Corrige automatiquement les swimlaneId ou listId manquants pour rendre les éléments visibles.",
+    "after": "Delloo yoon yépp, limu yépp ak karta yépp yi ñu denc ci àrsiw. Defaraat ci boppam swimlaneId walla listId yépp yi amul ngir mbir yi feeñ.",
+    "reason": "Replace French with Wolof; preserve archive restoration scope, missing swimlaneId/listId automatic repair, Lost Cards recovery lane and empty recovery status, invitation sender, SMTP self-test/host/outgoing port/TLS and starred-board ordering. Recovery/SMTP terminology and complete grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "restore-lost-cards-migration",
+    "before": "Restaurer les cartes perdues",
+    "after": "Delloo karta yi réer",
+    "reason": "Replace French with Wolof; preserve archive restoration scope, missing swimlaneId/listId automatic repair, Lost Cards recovery lane and empty recovery status, invitation sender, SMTP self-test/host/outgoing port/TLS and starred-board ordering. Recovery/SMTP terminology and complete grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "restore-lost-cards-migration-description",
+    "before": "Recherche et restaure les cartes et listes avec un swimlaneId ou listId manquant. Crée un couloir 'Cartes perdues' pour rendre tous les éléments perdus à nouveau visibles.",
+    "after": "Seet te delloo karta yi ak limu yi amul swimlaneId walla listId. Sos yoon «Karta yi réer» ngir mbir yépp yi réer feeñaat.",
+    "reason": "Replace French with Wolof; preserve archive restoration scope, missing swimlaneId/listId automatic repair, Lost Cards recovery lane and empty recovery status, invitation sender, SMTP self-test/host/outgoing port/TLS and starred-board ordering. Recovery/SMTP terminology and complete grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "restore-lost-cards-nothing-to-restore",
+    "before": "Aucun couloir, liste ou carte perdu à restaurer",
+    "after": "Amul yoon, limu walla karta bu réer ngir delloo",
+    "reason": "Replace French with Wolof; preserve archive restoration scope, missing swimlaneId/listId automatic repair, Lost Cards recovery lane and empty recovery status, invitation sender, SMTP self-test/host/outgoing port/TLS and starred-board ordering. Recovery/SMTP terminology and complete grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "send-smtp-test",
+    "before": "Envoyer un mail de test à vous-même",
+    "after": "Yónnee bataaxalu imeel bu nattu ci sa bopp",
+    "reason": "Replace French with Wolof; preserve archive restoration scope, missing swimlaneId/listId automatic repair, Lost Cards recovery lane and empty recovery status, invitation sender, SMTP self-test/host/outgoing port/TLS and starred-board ordering. Recovery/SMTP terminology and complete grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "smtp-host-description",
+    "before": "L'adresse du serveur SMTP qui gère vos mails.",
+    "after": "Adreesu serwëër SMTP bi di saytu sa bataaxali imeel.",
+    "reason": "Replace French with Wolof; preserve archive restoration scope, missing swimlaneId/listId automatic repair, Lost Cards recovery lane and empty recovery status, invitation sender, SMTP self-test/host/outgoing port/TLS and starred-board ordering. Recovery/SMTP terminology and complete grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "smtp-port-description",
+    "before": "Le port des mails sortants du serveur SMTP.",
+    "after": "Port bi sa serwëër SMTP di jëfandikoo ngir bataaxali imeel yi génn.",
+    "reason": "Replace French with Wolof; preserve archive restoration scope, missing swimlaneId/listId automatic repair, Lost Cards recovery lane and empty recovery status, invitation sender, SMTP self-test/host/outgoing port/TLS and starred-board ordering. Recovery/SMTP terminology and complete grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "smtp-tls-description",
+    "before": "Activer la gestion de TLS sur le serveur SMTP",
+    "after": "Doxal ndimbalu TLS ngir serwëër SMTP bi",
+    "reason": "Replace French with Wolof; preserve archive restoration scope, missing swimlaneId/listId automatic repair, Lost Cards recovery lane and empty recovery status, invitation sender, SMTP self-test/host/outgoing port/TLS and starred-board ordering. Recovery/SMTP terminology and complete grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "starred-boards-description",
+    "before": "Les tableaux favoris s'affichent en tête de votre liste de tableaux.",
+    "after": "Tablo yi ñu màndargaal ak biddiiw dañuy feeñ ci kaw sa limu tablo yi.",
+    "reason": "Replace French with Wolof; preserve archive restoration scope, missing swimlaneId/listId automatic repair, Lost Cards recovery lane and empty recovery status, invitation sender, SMTP self-test/host/outgoing port/TLS and starred-board ordering. Recovery/SMTP terminology and complete grammar remain low confidence."
   }
 ]
