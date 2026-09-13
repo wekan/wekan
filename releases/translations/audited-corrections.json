@@ -117451,5 +117451,82 @@
     "before": "Kaikki toimet poistetaan toimintasyötteestä ja uimaradan poistaminen on lopullista. Tätä ei pysty peruuttamaan.",
     "after": "Kaik tegendad linneba heittud tegendoiden lugetišespäi, da sinä ed voi endištada ujundšoidud. Necidä tegendad ei sa pördutada.",
     "reason": "Replace Finnish with Veps while preserving the literal Enter key, worker-only move/self-assignment/comment permission scope, unsaved description state, and irreversible loss of all swimlane actions. Zaiceva/Mullonen 2007 dictionary: ecta, kirjutada, painda, kaita; native lexical usage: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json . Low confidence: composed permission and deletion-warning grammar/inflections need fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "webhook-title",
+    "before": "Webkoukun nimi",
+    "after": "Webhookan nimi",
+    "reason": "Replace Finnish with Veps, including related unflagged Webhook labels. Preserve outbound versus two-way/global Webhooks, optional authentication, disabling rather than deleting, distinct organization/team creation guidance and personal-card versus assigned-card filtering. Zaiceva/Mullonen 2007 dictionary: oigeta/oigendand, kaks’poline, saubata, kosketuz/olda kosketusiš, üleižiš (general problems); native dialog usage: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json . Webhook and Token are retained technical loan terms. Low confidence: composed Webhook labels and creation/contact guidance grammar require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "webhook-token",
+    "before": "Token (Valinnainen autentikoinnissa)",
+    "after": "Token (ei ole tarbhine autentifikacijan täht)",
+    "reason": "Replace Finnish with Veps, including related unflagged Webhook labels. Preserve outbound versus two-way/global Webhooks, optional authentication, disabling rather than deleting, distinct organization/team creation guidance and personal-card versus assigned-card filtering. Zaiceva/Mullonen 2007 dictionary: oigeta/oigendand, kaks’poline, saubata, kosketuz/olda kosketusiš, üleižiš (general problems); native dialog usage: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json . Webhook and Token are retained technical loan terms. Low confidence: composed Webhook labels and creation/contact guidance grammar require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "outgoing-webhooks",
+    "before": "Lähtevät Webkoukut",
+    "after": "Oigendamižen Webhookad",
+    "reason": "Replace Finnish with Veps, including related unflagged Webhook labels. Preserve outbound versus two-way/global Webhooks, optional authentication, disabling rather than deleting, distinct organization/team creation guidance and personal-card versus assigned-card filtering. Zaiceva/Mullonen 2007 dictionary: oigeta/oigendand, kaks’poline, saubata, kosketuz/olda kosketusiš, üleižiš (general problems); native dialog usage: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json . Webhook and Token are retained technical loan terms. Low confidence: composed Webhook labels and creation/contact guidance grammar require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "bidirectional-webhooks",
+    "before": "Kaksisuuntaiset Webkoukut",
+    "after": "Kaks’poližed Webhookad",
+    "reason": "Replace Finnish with Veps, including related unflagged Webhook labels. Preserve outbound versus two-way/global Webhooks, optional authentication, disabling rather than deleting, distinct organization/team creation guidance and personal-card versus assigned-card filtering. Zaiceva/Mullonen 2007 dictionary: oigeta/oigendand, kaks’poline, saubata, kosketuz/olda kosketusiš, üleižiš (general problems); native dialog usage: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json . Webhook and Token are retained technical loan terms. Low confidence: composed Webhook labels and creation/contact guidance grammar require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "disable-webhook",
+    "before": "Poista käytöstä tämä Webkoukku",
+    "after": "Saupta nece Webhook",
+    "reason": "Replace Finnish with Veps, including related unflagged Webhook labels. Preserve outbound versus two-way/global Webhooks, optional authentication, disabling rather than deleting, distinct organization/team creation guidance and personal-card versus assigned-card filtering. Zaiceva/Mullonen 2007 dictionary: oigeta/oigendand, kaks’poline, saubata, kosketuz/olda kosketusiš, üleižiš (general problems); native dialog usage: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json . Webhook and Token are retained technical loan terms. Low confidence: composed Webhook labels and creation/contact guidance grammar require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "global-webhook",
+    "before": "Kaikenkattavat Webkoukut",
+    "after": "Üleižed Webhookad",
+    "reason": "Replace Finnish with Veps, including related unflagged Webhook labels. Preserve outbound versus two-way/global Webhooks, optional authentication, disabling rather than deleting, distinct organization/team creation guidance and personal-card versus assigned-card filtering. Zaiceva/Mullonen 2007 dictionary: oigeta/oigendand, kaks’poline, saubata, kosketuz/olda kosketusiš, üleižiš (general problems); native dialog usage: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json . Webhook and Token are retained technical loan terms. Low confidence: composed Webhook labels and creation/contact guidance grammar require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "new-outgoing-webhook",
+    "before": "Uusi lähtevä Webkoukku",
+    "after": "Uz’ oigendamižen Webhook",
+    "reason": "Replace Finnish with Veps, including related unflagged Webhook labels. Preserve outbound versus two-way/global Webhooks, optional authentication, disabling rather than deleting, distinct organization/team creation guidance and personal-card versus assigned-card filtering. Zaiceva/Mullonen 2007 dictionary: oigeta/oigendand, kaks’poline, saubata, kosketuz/olda kosketusiš, üleižiš (general problems); native dialog usage: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json . Webhook and Token are retained technical loan terms. Low confidence: composed Webhook labels and creation/contact guidance grammar require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "to-create-organizations-contact-admin",
+    "before": "Luodaksesi organisaatioita, ota yhteyttä ylläpitäjään.",
+    "after": "Sebroiden tegemižen täht ole kosketusiš administratoranke, ole hüvä.",
+    "reason": "Replace Finnish with Veps, including related unflagged Webhook labels. Preserve outbound versus two-way/global Webhooks, optional authentication, disabling rather than deleting, distinct organization/team creation guidance and personal-card versus assigned-card filtering. Zaiceva/Mullonen 2007 dictionary: oigeta/oigendand, kaks’poline, saubata, kosketuz/olda kosketusiš, üleižiš (general problems); native dialog usage: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json . Webhook and Token are retained technical loan terms. Low confidence: composed Webhook labels and creation/contact guidance grammar require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "to-create-teams-contact-admin",
+    "before": "Luodaksesi tiimejä, ota yhteyttä ylläpitäjään.",
+    "after": "Joukuiden tegemižen täht ole kosketusiš administratoranke, ole hüvä.",
+    "reason": "Replace Finnish with Veps, including related unflagged Webhook labels. Preserve outbound versus two-way/global Webhooks, optional authentication, disabling rather than deleting, distinct organization/team creation guidance and personal-card versus assigned-card filtering. Zaiceva/Mullonen 2007 dictionary: oigeta/oigendand, kaks’poline, saubata, kosketuz/olda kosketusiš, üleižiš (general problems); native dialog usage: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json . Webhook and Token are retained technical loan terms. Low confidence: composed Webhook labels and creation/contact guidance grammar require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "shortcut-close-dialog",
+    "before": "Sulje valintaikkuna",
+    "after": "Saubata nece dialogikun",
+    "reason": "Replace Finnish with Veps, including related unflagged Webhook labels. Preserve outbound versus two-way/global Webhooks, optional authentication, disabling rather than deleting, distinct organization/team creation guidance and personal-card versus assigned-card filtering. Zaiceva/Mullonen 2007 dictionary: oigeta/oigendand, kaks’poline, saubata, kosketuz/olda kosketusiš, üleižiš (general problems); native dialog usage: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json . Webhook and Token are retained technical loan terms. Low confidence: composed Webhook labels and creation/contact guidance grammar require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "shortcut-filter-my-cards",
+    "before": "Suodata korttini",
+    "after": "Puhtasta minun kartad",
+    "reason": "Replace Finnish with Veps, including related unflagged Webhook labels. Preserve outbound versus two-way/global Webhooks, optional authentication, disabling rather than deleting, distinct organization/team creation guidance and personal-card versus assigned-card filtering. Zaiceva/Mullonen 2007 dictionary: oigeta/oigendand, kaks’poline, saubata, kosketuz/olda kosketusiš, üleižiš (general problems); native dialog usage: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json . Webhook and Token are retained technical loan terms. Low confidence: composed Webhook labels and creation/contact guidance grammar require fluent-speaker review."
   }
 ]

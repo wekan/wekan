@@ -1538,5 +1538,35 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.match(cache['ve-PP']['unsaved-description'], /ei ole kaitud/);
   assert.match(cache['ve-PP']['swimlane-delete-pop'], /^Kaik tegendad.*heittud tegendoiden lugetišespäi.*ed voi endištada ujundšoidud/);
   assert.match(cache['ve-PP']['swimlane-delete-pop'], /ei sa pördutada\.$/);
+  const vepsWebhookShortcutRepairs = {
+  "webhook-title": "Webhookan nimi",
+  "webhook-token": "Token (ei ole tarbhine autentifikacijan täht)",
+  "outgoing-webhooks": "Oigendamižen Webhookad",
+  "bidirectional-webhooks": "Kaks’poližed Webhookad",
+  "disable-webhook": "Saupta nece Webhook",
+  "global-webhook": "Üleižed Webhookad",
+  "new-outgoing-webhook": "Uz’ oigendamižen Webhook",
+  "to-create-organizations-contact-admin": "Sebroiden tegemižen täht ole kosketusiš administratoranke, ole hüvä.",
+  "to-create-teams-contact-admin": "Joukuiden tegemižen täht ole kosketusiš administratoranke, ole hüvä.",
+  "shortcut-close-dialog": "Saubata nece dialogikun",
+  "shortcut-filter-my-cards": "Puhtasta minun kartad"
+};
+  for (const [key, value] of Object.entries(vepsWebhookShortcutRepairs)) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.equal(vepsTranslator.t(key), value, key);
+    assert.doesNotMatch(value, /Webkouk|Valinnainen|autentikoinnissa|Lähtevät|Kaksisuuntaiset|Poista käytöstä|Kaikenkattavat|Uusi lähtevä|Luodaksesi|ota yhteyttä|ylläpitäjään|Sulje valintaikkuna|Suodata korttini/i, key);
+  }
+  assert.match(cache['ve-PP']['webhook-token'], /ei ole tarbhine autentifikacijan täht/);
+  assert.match(cache['ve-PP']['bidirectional-webhooks'], /^Kaks’poližed/);
+  assert.match(cache['ve-PP']['outgoing-webhooks'], /^Oigendamižen/);
+  assert.match(cache['ve-PP']['new-outgoing-webhook'], /^Uz’ oigendamižen/);
+  assert.match(cache['ve-PP']['global-webhook'], /^Üleižed/);
+  assert.match(cache['ve-PP']['disable-webhook'], /^Saupta nece/);
+  assert.doesNotMatch(cache['ve-PP']['disable-webhook'], /Heitä/);
+  assert.match(cache['ve-PP']['to-create-organizations-contact-admin'], /^Sebroiden.*kosketusiš administratoranke/);
+  assert.match(cache['ve-PP']['to-create-teams-contact-admin'], /^Joukuiden.*kosketusiš administratoranke/);
+  assert.equal(cache['ve-PP']['shortcut-filter-my-cards'], 'Puhtasta minun kartad');
+  assert.doesNotMatch(cache['ve-PP']['shortcut-filter-my-cards'], /märitud/);
+  assert.equal(cache['ve-PP']['shortcut-filter-my-assigned-cards'], 'Puhtasta sinei märitud kartad');
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });
