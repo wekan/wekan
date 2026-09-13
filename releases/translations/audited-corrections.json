@@ -79336,5 +79336,26 @@
     "before": "importer un tableau",
     "after": "dugal tablo",
     "reason": "Replace French import activities and board-import label with Wolof, reusing existing Dugal import control. activities.jade confirms entity/destination/source argument order and board/source pair. Long activities retain destination list/swimlane/board rather than French source-like wording. Preserve all placeholders. Full grammar and computing adaptation remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "addWorkspacePopup-title",
+    "before": "Ajouter un espace de travail",
+    "after": "Yokk barabu liggéey",
+    "reason": "Replace French workspace popup title and archive guidance with Wolof. Match allboards.add-workspace exactly; preserve retaining activity when archiving and restoring board via home-header archive button. Reuse existing archival/recovery vocabulary. Home-header/button adaptations and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "card-delete-suggest-archive",
+    "before": "Vous pouvez déplacer une carte vers les archives afin de l'enlever du tableau tout en préservant l'activité.",
+    "after": "Mën nga yóbbu karta ci àrsiw bi ngir génne ko ci tablo bi te denc jëf yi.",
+    "reason": "Replace French workspace popup title and archive guidance with Wolof. Match allboards.add-workspace exactly; preserve retaining activity when archiving and restoring board via home-header archive button. Reuse existing archival/recovery vocabulary. Home-header/button adaptations and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "close-board-pop",
+    "before": "Vous pouvez restaurer le tableau en cliquant sur le bouton « Archives » depuis le menu en entête.",
+    "after": "Dinga mën a delloo tablo bi ci bës butoŋu àrsiw bi ci boppu xëtu dalal bi.",
+    "reason": "Replace French workspace popup title and archive guidance with Wolof. Match allboards.add-workspace exactly; preserve retaining activity when archiving and restoring board via home-header archive button. Reuse existing archival/recovery vocabulary. Home-header/button adaptations and full grammar remain low confidence."
   }
 ]
