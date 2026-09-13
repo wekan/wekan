@@ -2152,5 +2152,34 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   for (const value of Object.values(periods)) assert.ok(periodText.includes(value));
   assert.match(periodText, /pozitivine libo negativine kogonaine lugu/);
   assert.match(cache['ve-PP']['globalSearch-instructions-notes-4'], /ei erištele surid da penid kirjamid/);
+  const vepsOperatorInstructions = {
+  "operator-label": "znam",
+  "operator-due": "märaig",
+  "predicate-due": "märaig",
+  "globalSearch-instructions-operator-label": "`__operator_label__:<color>` `__operator_label__:<name>` - kartad, miččil om znam, miččen muju om *<color>* libo nimi om *<name>*",
+  "globalSearch-instructions-operator-at": "`__operator_user_abbrev__username` - lühetud `kävutai:<username>`",
+  "globalSearch-instructions-operator-status": "`__operator_status__:<status>` - *<status>* om üks neciš:",
+  "globalSearch-instructions-operator-sort": "`__operator_sort__:<sort-name>` - *<sort-name>* om üks neciš: `__predicate_due__`, `__predicate_created__` libo `__predicate_modified__`. Vastkarižen järgendusen täht pane `-` nimen edele.",
+  "globalSearch-instructions-operator-limit": "`__operator_limit__:<n>` - *<n>* om kogonaine lugu, mi om suremb 0: kartoiden lugumär joga lehtpolel."
+};
+  for (const [key, value] of Object.entries(vepsOperatorInstructions)) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.doesNotMatch(value, /nimilappu|erääntyy|kortit joilla|lyhenne|jossa|Laskevaa|positiivinen kokonaisluku/, key);
+  }
+  const descendingDate = new visibilityContext.Query();
+  descendingDate.buildParams(`${cache['ve-PP']['operator-sort']}:-${cache['ve-PP']['predicate-due']}`);
+  assert.equal(descendingDate.hasErrors(), false);
+  assert.equal(descendingDate.getQueryParams().getPredicate('sort').name, 'dueAt');
+  assert.equal(descendingDate.getQueryParams().getPredicate('sort').order, 'des');
+  for (const value of ['LABEL_VALUE', 'COLOR_VALUE']) {
+    const labelQuery = new visibilityContext.Query();
+    labelQuery.buildParams(`${cache['ve-PP']['operator-label']}:${value}`);
+    assert.equal(labelQuery.hasErrors(), false);
+    assert.equal(labelQuery.getQueryParams().getPredicate('label'), value);
+  }
+  assert.match(cache['ve-PP']['globalSearch-instructions-operator-label'], /\*<color>\* libo nimi om \*<name>\*/);
+  assert.match(cache['ve-PP']['globalSearch-instructions-operator-sort'], /pane `-` nimen edele/);
+  assert.match(vepsTranslator.t('globalSearch-instructions-operator-at', { operator_user_abbrev: '@' }), /`@username`.*`kävutai:<username>`/);
+  assert.match(vepsTranslator.t('globalSearch-instructions-operator-limit', { operator_limit: cache['ve-PP']['operator-limit'] }), /suremb 0.*joga lehtpolel/);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });

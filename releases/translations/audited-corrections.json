@@ -119012,5 +119012,61 @@
     "before": "Tekstihaut ovat kirjainkoosta riippumattomia.",
     "after": "Tekstan ecind ei erištele surid da penid kirjamid.",
     "reason": "Replace Finnish date-search/sort/period/case wording with Veps dictionary nedal, ku, voz-nelländez, aigkeskust, erištelda and existing technical terms. Preserve days-ago-or-less bounds, positive/negative integers, all period placeholders and case insensitivity. Technical grammar remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "operator-label",
+    "before": "nimilappu",
+    "after": "znam",
+    "reason": "Replace Finnish search instructions using Veps znam, muju, lühetud, vastkarine and lehtpol terminology. Preserve color OR name matching, status choices, positive per-page limit and descending minus prefix. Shorthand uses working localized kävutai operator; close the previously unmatched name emphasis marker. Composed technical grammar remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "operator-due",
+    "before": "erääntyy",
+    "after": "märaig",
+    "reason": "Replace Finnish search instructions using Veps znam, muju, lühetud, vastkarine and lehtpol terminology. Preserve color OR name matching, status choices, positive per-page limit and descending minus prefix. Shorthand uses working localized kävutai operator; close the previously unmatched name emphasis marker. Composed technical grammar remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "predicate-due",
+    "before": "erääntyy",
+    "after": "märaig",
+    "reason": "Replace Finnish search instructions using Veps znam, muju, lühetud, vastkarine and lehtpol terminology. Preserve color OR name matching, status choices, positive per-page limit and descending minus prefix. Shorthand uses working localized kävutai operator; close the previously unmatched name emphasis marker. Composed technical grammar remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "globalSearch-instructions-operator-label",
+    "before": "`__operator_label__:<color>` `__operator_label__:<name>` - kortit joilla on nimilappu joka täsmää *<color>* tai *<name>",
+    "after": "`__operator_label__:<color>` `__operator_label__:<name>` - kartad, miččil om znam, miččen muju om *<color>* libo nimi om *<name>*",
+    "reason": "Replace Finnish search instructions using Veps znam, muju, lühetud, vastkarine and lehtpol terminology. Preserve color OR name matching, status choices, positive per-page limit and descending minus prefix. Shorthand uses working localized kävutai operator; close the previously unmatched name emphasis marker. Composed technical grammar remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "globalSearch-instructions-operator-at",
+    "before": "`__operator_user_abbrev__username` - lyhenne `user:<username>`",
+    "after": "`__operator_user_abbrev__username` - lühetud `kävutai:<username>`",
+    "reason": "Replace Finnish search instructions using Veps znam, muju, lühetud, vastkarine and lehtpol terminology. Preserve color OR name matching, status choices, positive per-page limit and descending minus prefix. Shorthand uses working localized kävutai operator; close the previously unmatched name emphasis marker. Composed technical grammar remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "globalSearch-instructions-operator-status",
+    "before": "`__operator_status__:<status>` - jossa *<status>* on yksi seuraavista:",
+    "after": "`__operator_status__:<status>` - *<status>* om üks neciš:",
+    "reason": "Replace Finnish search instructions using Veps znam, muju, lühetud, vastkarine and lehtpol terminology. Preserve color OR name matching, status choices, positive per-page limit and descending minus prefix. Shorthand uses working localized kävutai operator; close the previously unmatched name emphasis marker. Composed technical grammar remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "globalSearch-instructions-operator-sort",
+    "before": "`__operator_sort__:<sort-name>` - jossa *<sort-name>* on yksi näistä: `__predicate_due__`, `__predicate_created__` tai `__predicate_modified__`.  Laskevaa järjestä varten voit laittaa `-` lajiteltavan nimen eteen.",
+    "after": "`__operator_sort__:<sort-name>` - *<sort-name>* om üks neciš: `__predicate_due__`, `__predicate_created__` libo `__predicate_modified__`. Vastkarižen järgendusen täht pane `-` nimen edele.",
+    "reason": "Replace Finnish search instructions using Veps znam, muju, lühetud, vastkarine and lehtpol terminology. Preserve color OR name matching, status choices, positive per-page limit and descending minus prefix. Shorthand uses working localized kävutai operator; close the previously unmatched name emphasis marker. Composed technical grammar remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "globalSearch-instructions-operator-limit",
+    "before": "`__operator_limit__:<n>` - jossa *<n>* on positiivinen kokonaisluku, joka ilmaisee näytettävien korttien määrän sivua kohden.",
+    "after": "`__operator_limit__:<n>` - *<n>* om kogonaine lugu, mi om suremb 0: kartoiden lugumär joga lehtpolel.",
+    "reason": "Replace Finnish search instructions using Veps znam, muju, lühetud, vastkarine and lehtpol terminology. Preserve color OR name matching, status choices, positive per-page limit and descending minus prefix. Shorthand uses working localized kävutai operator; close the previously unmatched name emphasis marker. Composed technical grammar remains low confidence pending fluent review."
   }
 ]
