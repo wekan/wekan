@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 10,238 |
+| Corrected | 10,245 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 5,608 |
+| Pending review or repair | 5,601 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **10,323** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **10,330** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `6b9a9827644289d72b52c32e9477daceea18749d` — four flagged Shona calendar labels repaired, plus four additional calendar/navigation/Gantt labels; **13 flagged Shona findings remain**. Removed translation meta-text and English month wording. Published calendar/country sources are recorded with corrections; specialized grammar still needs native review. Exact-value, placeholder, JSON example, HTML-tag/entity, key-order and idempotency checks pass; live browser verification is unavailable.
+Latest translation fix: **2026-09-13**, local commit `0e0c46be08f4bfbc0266b9d7d8ae1763fe60593e` — seven Shona named calendar descriptions translated using published Buddhist/Persian/country terminology; **6 flagged Shona findings remain**. Sources are recorded with corrections; specialized grammar still needs native review. Exact-value, placeholder, JSON example, HTML-tag/entity, key-order and idempotency checks pass; live browser verification is unavailable.
 
 **Origin:** not all errors came from Transifex. The captured pull changed 4,061 values; the local audit added 16,020 findings. Bosnian errors already existed in local commit `bdb3b15886a749b725b5290ba0109fcba955f983`. Other ultimate origins remain unverified.
 
