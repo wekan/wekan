@@ -60800,5 +60800,75 @@
     "before": "Icône d'espace de travail (markdown)",
     "after": "Icòna de l’espaci de trabalh (markdown)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "allboards.edit-workspace-name",
+    "before": "Nom de l'espace de travail",
+    "after": "Nom de l’espaci de trabalh",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "allboards.workspace-menu",
+    "before": "Menu de l'espace de travail",
+    "after": "Menú de l’espaci de trabalh",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "allowed-avatar-filetypes",
+    "before": "Types de fichier autorisés pour l'avatar :",
+    "after": "Tipes de fichièrs autorizats pels avatars :",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "allowed-upload-filetypes",
+    "before": "Types de fichier autorisés pour l'upload :",
+    "after": "Tipes de fichièrs autorizats pel mandadís :",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "almostdue",
+    "before": "La date d'échéance %s approche",
+    "after": "l’escasença actuala %s s’apròcha",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "already-account",
+    "before": "Vous avez déjà un compte ? Se connecter",
+    "after": "Avètz ja un compte ? Connectatz-vos",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "app-try-reconnect",
+    "before": "Essayer de se reconnecter.",
+    "after": "Ensajatz de vos tornar connectar.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "attachmentActionsPopup-title",
+    "before": "Actions sur les pièces jointes",
+    "after": "Accions de la pèça junta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "authentication-method",
+    "before": "Méthode d'authentification",
+    "after": "Metòde d’autentificacion",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "automatic-linked-url-schemes",
+    "before": "Schémas d'URL personnalisés qui devraient être automatiquement cliquables. Un schéma d'URL par ligne",
+    "after": "Esquèmas d’URL personalizats que devon venir automaticament clicables. Un esquèma d’URL per linha",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
