@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 11,879 |
+| Corrected | 11,885 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 3,967 |
+| Pending review or repair | 3,961 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,265** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,272** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `881f4b98bde8f3a6afcc0cac66d9704d23a60575` — Greenlandic Hebrew calendar label replaced with Juutit ullorsiutaat from indexed [published Greenlandic usage](https://www.jw.org/kl/biibililersaarutit/atuakkat/Inuk-inuit-inuusimasut-pingaarnerpaartaat/Savanik-paarsisoq-savallu-inaat/); separate full-page fetch timed out. Other Greenlandic calendar findings remain pending. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; native-speaker and live browser verification are unavailable.
+Latest translation fix: **2026-09-13**, local commit `0e23830e42c593ba267471cb4a413c1be8e59e00` — 7 Kashubian calendar labels repaired: Polish filler replaced with Kalãdôrz; Chinese/Hebrew and named calendars localized using [published Kashubian vocabulary](https://www.muzeum-kaszubskie.pl/csb/ekspozycja-csb/714-gospodarstwo-domowe-parter-sala-ii-csb). Assembled wording remains low confidence; other calendar findings and unflagged week wording remain pending. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; native-speaker and live browser verification are unavailable.
 
 **Review follow-up:** Silesian `sandstorm-raw-mongodb` remains pending: its wording overlaps Polish and existing Silesian technical strings, but dictionary searches did not establish the full phrase as correct Silesian. Keep the current value until stronger language evidence supports retaining or replacing it.
 
