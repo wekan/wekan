@@ -86364,5 +86364,26 @@
     "before": "Supprimer les listes vides en doublon ? ",
     "after": "Radön lisedis telik vagik",
     "reason": "Replace French duplicate-list deletion labels with directly assembled Volapük. Dictionary https://en.wikibooks.org/wiki/Volap%C3%BCk/English-Volap%C3%BCk_dictionary attests radön (erase), lised (list), telik (double), vagik (empty). Existing local lists uses Liseds. Applying double to duplicate software records and complete inflected UI labels remains low confidence pending native review. Preserve empty-list qualifier and source token inventory."
+  },
+  {
+    "locale": "vo",
+    "key": "fix-avatar-urls-migration",
+    "before": "Corriger les URLs d'avatar",
+    "after": "Verätükam URLs tefü avatar",
+    "reason": "Replace French URL repair labels with directly assembled Volapük. Dictionary https://en.wikibooks.org/wiki/Volap%C3%BCk/English-Volap%C3%BCk_dictionary attests verätükön (correct), ragiv (computer file), tefü (concerning). Use derived action noun verätükam; retain technical identifiers URLs/avatar. Complete phrases and nominalization remain low confidence pending native review. Preserve source tokens."
+  },
+  {
+    "locale": "vo",
+    "key": "step-fix-avatar-urls",
+    "before": "Corriger les URLs d'avatar",
+    "after": "Verätükam URLs tefü avatar",
+    "reason": "Replace French URL repair labels with directly assembled Volapük. Dictionary https://en.wikibooks.org/wiki/Volap%C3%BCk/English-Volap%C3%BCk_dictionary attests verätükön (correct), ragiv (computer file), tefü (concerning). Use derived action noun verätükam; retain technical identifiers URLs/avatar. Complete phrases and nominalization remain low confidence pending native review. Preserve source tokens."
+  },
+  {
+    "locale": "vo",
+    "key": "step-fix-file-urls",
+    "before": "Réparation des URL de fichier",
+    "after": "Verätükam URLs ragivas",
+    "reason": "Replace French URL repair labels with directly assembled Volapük. Dictionary https://en.wikibooks.org/wiki/Volap%C3%BCk/English-Volap%C3%BCk_dictionary attests verätükön (correct), ragiv (computer file), tefü (concerning). Use derived action noun verätükam; retain technical identifiers URLs/avatar. Complete phrases and nominalization remain low confidence pending native review. Preserve source tokens."
   }
 ]
