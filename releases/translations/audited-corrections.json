@@ -92818,5 +92818,26 @@
     "before": "S3 Verbindung fehlgeschlagen",
     "after": "S3 rarmeH Qu' lujpu'",
     "reason": "Replace three flagged German transfer labels with direct Klingon: export card to PDF, failed message sending through the email system, and failed S3 connection. Reuse existing 'echletHom card, ngeH export/send, QIn pat email system, rar connect and Qu' task terminology. Failure uses lujpu' (failed). PDF and S3 identifiers retained exactly. Domain adaptation of purpose clauses and full phrases has low confidence and needs fluent-speaker validation; no source placeholders changed."
+  },
+  {
+    "locale": "tlh",
+    "key": "convert-to-markdown",
+    "before": "Als Markdown konvertieren",
+    "after": "markdown lo'meH yIchoH",
+    "reason": "Replace three flagged German formatting/display labels with direct Klingon: change to use markdown, explanatory data on the small card, and show the card creator. Keep markdown as a format identifier; use existing 'echletHom card, mach small, De' data, choH change, 'ang show and chenmoH create vocabulary. Description is rendered descriptively as QIjmeH De' (data for explaining), creator as chenmoHwI'. Software-domain compounds and full phrases are low confidence and need fluent-speaker validation; no placeholders changed."
+  },
+  {
+    "locale": "tlh",
+    "key": "description-on-minicard",
+    "before": "Beschreibung auf Minikarte",
+    "after": "'echletHom machDaq QIjmeH De'",
+    "reason": "Replace three flagged German formatting/display labels with direct Klingon: change to use markdown, explanatory data on the small card, and show the card creator. Keep markdown as a format identifier; use existing 'echletHom card, mach small, De' data, choH change, 'ang show and chenmoH create vocabulary. Description is rendered descriptively as QIjmeH De' (data for explaining), creator as chenmoHwI'. Software-domain compounds and full phrases are low confidence and need fluent-speaker validation; no placeholders changed."
+  },
+  {
+    "locale": "tlh",
+    "key": "display-card-creator",
+    "before": "Karten-Ersteller anzeigen",
+    "after": "'echletHom chenmoHwI' yI'ang",
+    "reason": "Replace three flagged German formatting/display labels with direct Klingon: change to use markdown, explanatory data on the small card, and show the card creator. Keep markdown as a format identifier; use existing 'echletHom card, mach small, De' data, choH change, 'ang show and chenmoH create vocabulary. Description is rendered descriptively as QIjmeH De' (data for explaining), creator as chenmoHwI'. Software-domain compounds and full phrases are low confidence and need fluent-speaker validation; no placeholders changed."
   }
 ]
