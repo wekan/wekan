@@ -59337,5 +59337,117 @@
     "before": "Déplacer la pièce jointe vers le système de fichier",
     "after": "Desplaçar la pèça junta cap al sistèma de fichièrs",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "attachment-move-storage-gridfs",
+    "before": "Déplacer la pièce jointe vers GridFS",
+    "after": "Desplaçar la pèça junta cap a GridFS",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "attachment-move-storage-s3",
+    "before": "Déplacer la pièce jointe vers S3",
+    "after": "Desplaçar la pèça junta cap a S3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "autoAddUsersWithDomainName",
+    "before": "Ajouter automatiquement les utilisateurs avec le nom de domaine",
+    "after": "Apondre automaticament los utilizaires amb lo nom de domeni",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "automatically-field-on-card",
+    "before": "Ajouter le champ aux cartes nouvellement créées",
+    "after": "Apondre lo camp a las cartas novèlas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "board-delete-notice",
+    "before": "La suppression est définitive. Vous perdrez toutes les listes, cartes et actions associées à ce tableau.",
+    "after": "La supression es definitiva. Perdretz totas las listas, cartas e accions associadas a aqueste tablèu.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "board-drag-drop-reorder-or-click-open",
+    "before": "Glisser-déposer les icônes de tableau pour les réordonner. Cliquer sur l'icône du tableau pour l'ouvrir.",
+    "after": "Lisatz e depausatz las icònas de tablèu per las reordenar. Clicatz sus l’icòna d’un tablèu per lo dobrir.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "board-info-on-my-boards",
+    "before": "Paramètres de tous les tableaux",
+    "after": "Paramètres de totes los tablèus",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "boardInfoOnMyBoards-title",
+    "before": "Paramètres de tous les tableaux",
+    "after": "Paramètres de totes los tablèus",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "boardInfoOnMyBoardsPopup-title",
+    "before": "Paramètres de tous les tableaux",
+    "after": "Paramètres de totes los tablèus",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "boardMinicardSettingsPopup-title",
+    "before": "Paramètres de la mini-carte",
+    "after": "Paramètres de las minicartas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "boardSubtaskSettingsPopup-title",
+    "before": "Paramètres des sous-tâches",
+    "after": "Paramètres de las sostascas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "board_assignees",
+    "before": "Tous les intervenants de toutes les cartes de ce tableau",
+    "after": "Totes los assignataris de totas las cartas d’aqueste tablèu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "board_members",
+    "before": "Tous les participants du tableau",
+    "after": "Totes los membres del tablèu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "Sistèma de calendièr (afichatge de las datas)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "card_assignees",
+    "before": "Tous les intervenants de la carte actuelle de ce tableau",
+    "after": "Totes los assignataris de la carta actuala d’aqueste tablèu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "card_members",
+    "before": "Tous les participants de la carte actuelle dans ce tableau",
+    "after": "Totes los membres de la carta actuala d’aqueste tablèu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
