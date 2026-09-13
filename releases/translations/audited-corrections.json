@@ -56516,5 +56516,180 @@
     "before": "Storage di salvataggio predefinito salvato",
     "after": "Memorizzazzione predefinita pe sarvà sarvata",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "deletePokerPopup-title",
+    "before": "Eliminare il planning poker?",
+    "after": "Scancellà 'o planning poker?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "disable-activities",
+    "before": "Disabilita tutte le attività",
+    "after": "Disattiva tutte ll'attività",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "disable-all-export",
+    "before": "Disabilita tutte le esportazioni",
+    "after": "Disattiva tutte ll'esportazzione",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "disable-all-import",
+    "before": "Disabilita tutte le importazioni",
+    "after": "Disattiva tutte ll'importazzione",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "disable-export-avatars",
+    "before": "Disabilita l'esportazione degli avatar",
+    "after": "Disattiva ll'esportazzione d'e avatar",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "disable-import-avatars",
+    "before": "Disabilita l'importazione degli avatar",
+    "after": "Disattiva ll'importazzione d'e avatar",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "disable-watch",
+    "before": "Disabilita il monitoraggio",
+    "after": "Disattiva 'o monitoraggio",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "disambiguateMultiLabelPopup-title",
+    "before": "Disambiguare l'azione Etichetta",
+    "after": "Sciglie ll'azzione pe ll'etichetta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "disambiguateMultiMemberPopup-title",
+    "before": "Disambiguare l'azione Membro",
+    "after": "Sciglie ll'azzione p'o membro",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "display-authentication-method",
+    "before": "Mostra il metodo di autenticazione",
+    "after": "Mostra 'o metodo 'e autenticazzione",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "duenow",
+    "before": "la data di scadenza attuale %s è oggi",
+    "after": "'a scadenza attuale %s è ogge",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "editTranslationPopup-title",
+    "before": "Modificare stringa di traduzione personalizzata",
+    "after": "Cagna 'a stringa 'e traduzzione personalizzata",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "editVoteEndDatePopup-title",
+    "before": "Cambia data di termine voto",
+    "after": "Cagna 'a data 'e fine d'o voto",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "email-resetPassword-subject",
+    "before": "Ripristina la tua password su on __siteName__",
+    "after": "Reimposta 'a password toja ncopp'a __siteName__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "email-smtp-test-text",
+    "before": "E-mail inviata correttamente",
+    "after": "He mannato 'n'email cu successo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "email-templates-activity-body",
+    "before": "Attività Posta elettronica Testo",
+    "after": "Testo d'a email 'e notifica 'e attività",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "email-templates-activity-subject",
+    "before": "Attività Posta elettronica Soggetto",
+    "after": "Oggetto d'a email 'e notifica 'e attività",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "email-templates-invite-body",
+    "before": "Invita Posta elettronica Testo",
+    "after": "Testo d'a email 'e invito",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "email-templates-invite-subject",
+    "before": "Invita Posta elettronica Soggetto",
+    "after": "Oggetto d'a email 'e invito",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "email-verifyEmail-subject",
+    "before": "Verifica il tuo indirizzo email su __siteName__",
+    "after": "Verifica ll'indirizzo email tuojo ncopp'a __siteName__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "enable-vertical-scrollbars",
+    "before": "Abilita le barre di scorrimento verticali",
+    "after": "Attiva 'e barre 'e scurrimento verticale",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "enable-wip-limit",
+    "before": "Attiva limite Work In Progress",
+    "after": "Attiva 'o limite WIP",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "enter-zoom-level",
+    "before": "Inserisci il livello di zoom (50-300%):",
+    "after": "Miette 'o livello 'e zoom (50-300%):",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "error-email-taken",
+    "before": "L'email è già stata presa",
+    "after": "Chist'indirizzo email è già aduprato",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "error-ldap-login",
+    "before": "C'è stato un errore mentre provavi ad effettuare il login",
+    "after": "Ce sta stato 'n errore mentre pruvave a trasì",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
