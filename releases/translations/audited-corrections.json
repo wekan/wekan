@@ -92041,5 +92041,33 @@
     "before": "Connectez-vous pour téléverser des dépôts",
     "after": "Nunädön oki ad löpükön Repos",
     "reason": "Replace French legacy recovery/repository wording, including related unflagged values. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nenpalön (be an orphan) and gebidik (available); other verbs follow dictionary-based local correct/create/find/update terminology and MediaWiki Volapük login/upload usage. Repo/Repos is a technical borrowing, not independently dictionary-attested; orphan participle is a software metaphor. Assembled wording remains low confidence and needs native-speaker review. No removed legacy migration functionality restored."
+  },
+  {
+    "locale": "vo",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "Kaled slamik (Hijri)",
+    "reason": "Replace English Hijri calendar labels and restore omitted tabular/epoch distinctions. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests slamik (Islamic), taibik (tabular), sifädik (civil), stelavik (astronomic). Calendar epoch paraphrased as starting date rather than era; Hijri and Umm al-Qura preserved as proper names. Dictionary vocabulary supports individual words, not the complete phrases; assembled technical labels remain low confidence and need native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "calendar-system-islamic-civil",
+    "before": "Islamic civil",
+    "after": "Kaled slamik (Hijri; taibik, dät prima sifädik)",
+    "reason": "Replace English Hijri calendar labels and restore omitted tabular/epoch distinctions. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests slamik (Islamic), taibik (tabular), sifädik (civil), stelavik (astronomic). Calendar epoch paraphrased as starting date rather than era; Hijri and Umm al-Qura preserved as proper names. Dictionary vocabulary supports individual words, not the complete phrases; assembled technical labels remain low confidence and need native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "Kaled slamik (Hijri; taibik, dät prima stelavik)",
+    "reason": "Replace English Hijri calendar labels and restore omitted tabular/epoch distinctions. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests slamik (Islamic), taibik (tabular), sifädik (civil), stelavik (astronomic). Calendar epoch paraphrased as starting date rather than era; Hijri and Umm al-Qura preserved as proper names. Dictionary vocabulary supports individual words, not the complete phrases; assembled technical labels remain low confidence and need native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "Kaled slamik (Hijri; Umm al-Qura)",
+    "reason": "Replace English Hijri calendar labels and restore omitted tabular/epoch distinctions. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests slamik (Islamic), taibik (tabular), sifädik (civil), stelavik (astronomic). Calendar epoch paraphrased as starting date rather than era; Hijri and Umm al-Qura preserved as proper names. Dictionary vocabulary supports individual words, not the complete phrases; assembled technical labels remain low confidence and need native-speaker validation."
   }
 ]
