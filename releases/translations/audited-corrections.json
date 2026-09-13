@@ -112376,5 +112376,26 @@
     "before": "Hebrew",
     "after": "Evrejalaižiden kalendar'",
     "reason": "Render Hebrew/Jewish calendar with native Veps evrejalaižiden genitive plural, attested in https://vep.wikipedia.org/wiki/Judaizm, plus dictionary kalendar'. This names the Jewish calendar, not the country Israel or a different calendar. Composed label needs fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "calendar-system-buddhist",
+    "before": "Buddhist",
+    "after": "Buddizman kalendar'",
+    "reason": "Replace English Buddhist/Islamic descriptors with Veps genitives buddizman/islaman, attested in indexed copies of the Veps Wikipedia Sidnei and Pnompen' articles; direct article fetches failed. Combine with dictionary-attested kalendar'. Preserve Hijri/Umm al-Qura identifiers and distinguish the variant. Composed calendar labels need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "Islaman kalendar' (Hijri)",
+    "reason": "Replace English Buddhist/Islamic descriptors with Veps genitives buddizman/islaman, attested in indexed copies of the Veps Wikipedia Sidnei and Pnompen' articles; direct article fetches failed. Combine with dictionary-attested kalendar'. Preserve Hijri/Umm al-Qura identifiers and distinguish the variant. Composed calendar labels need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "Islaman kalendar' (Hijri, Umm al-Qura)",
+    "reason": "Replace English Buddhist/Islamic descriptors with Veps genitives buddizman/islaman, attested in indexed copies of the Veps Wikipedia Sidnei and Pnompen' articles; direct article fetches failed. Combine with dictionary-attested kalendar'. Preserve Hijri/Umm al-Qura identifiers and distinguish the variant. Composed calendar labels need fluent review."
   }
 ]
