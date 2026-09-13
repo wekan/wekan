@@ -1102,6 +1102,16 @@ no mirroring or publishing commands were executed for this audit.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/196c0addc">Save translation upload status to timestamped text logs</a>. Thanks to xet7.</summary>
+
+Keep terminal status and errors in
+.tools/log/push-all-translations_YYYY-MM-DD_HH-MM-SS.txt using local time.
+Offline dry-run and error tests verify saved output and preserved exit status.
+Tigre remains a reported unsupported catalogue language; no uploads were run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/37ae64fa8">Complete browser language aliases and startup regression checks</a>. Thanks to xet7.</summary>
 
 Map bare Cantonese and Wu to existing variants and Macau Chinese to Traditional
