@@ -107350,5 +107350,215 @@
     "before": "Ukusetshenziswa Kwenkumbulo",
     "after": "U shumiswa ha muhumbulo",
     "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, four-digit year example, keyboard enable/disable states and no-undo/last-admin constraints. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "migrate-all-to-filesystem",
+    "before": "Hambisa Konke ku-Filesystem",
+    "after": "Pfulusela zwoṱhe kha sisiteme ya faela",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, numeric limits, background execution and administrator-only migration scope. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "migrated-attachments",
+    "before": "Izinanyathiselwa Ezithuthiwe",
+    "after": "Ṱumetshedzo dzo pfuluswaho",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, numeric limits, background execution and administrator-only migration scope. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "migration-batch-size-description",
+    "before": "Inani lezinanyathiselwa okufanele zicutshungulwe eqeqebeni ngalinye (1-100)",
+    "after": "Tshivhalo tsha ṱumetshedzo dza u shuma kha tshigwada tshiṅwe na tshiṅwe (1-100)",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, numeric limits, background execution and administrator-only migration scope. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "migration-cpu-threshold-description",
+    "before": "Misa isikhashana ukuthutha lapho ukusetshenziswa kwe-CPU kudlula leli phesenti (10-90)",
+    "after": "Imisa u pfulusa lwa tshifhinganyana musi u shumiswa ha CPU hu tshi fhira phesenthe iyi (10-90)",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, numeric limits, background execution and administrator-only migration scope. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "migration-delay-ms-description",
+    "before": "Ukubambezeleka phakathi kwamaqoqo ngama-millisecond (100-10000)",
+    "after": "Tshifhinga tsha u lindela vhukati ha zwigwada nga miḽisekonde (100-10000)",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, numeric limits, background execution and administrator-only migration scope. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "migration-info-text",
+    "before": "Ukuthutha kwesizindalwazi kwenziwa kanye futhi kuthuthukise ukusebenza kwesistimu. Inqubo iyaqhubeka ngemuva ngisho noma uvala isiphequluli sakho.",
+    "after": "U pfulusa database hu itwa luthihi nahone hu khwinisa kushumele kwa sisiteme. Mushumo u bvela phanḓa murahu naho no vala burauza yaṋu.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, numeric limits, background execution and administrator-only migration scope. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "migration-not-needed",
+    "before": "Akukho ukufuduka okudingekayo",
+    "after": "A hu na u pfulusa hu ṱoḓeaho",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, numeric limits, background execution and administrator-only migration scope. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "migration-pause-failed",
+    "before": "Yehlulekile ukumisa isikhashana ukufuduka",
+    "after": "U imisa u pfulusa lwa tshifhinganyana zwo kundelwa",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, numeric limits, background execution and administrator-only migration scope. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "migration-paused",
+    "before": "Ukufuduka kumiswe isikhashana ngempumelelo",
+    "after": "U pfulusa ho imiswa lwa tshifhinganyana nga nḓila yo bvelelaho",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, numeric limits, background execution and administrator-only migration scope. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "migration-pausing",
+    "before": "Imisa isikhashana ukufuduka...",
+    "after": "I khou imisa u pfulusa lwa tshifhinganyana...",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, numeric limits, background execution and administrator-only migration scope. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "migration-progress",
+    "before": "Inqubekelaphambili Yokufuduka",
+    "after": "Mvelaphanḓa ya u pfulusa",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, numeric limits, background execution and administrator-only migration scope. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "migration-progress-title",
+    "before": "Ukufuduka Kwebhodi Kuyaqhubeka",
+    "after": "U pfulusa bodo ya Kanban hu khou bvela phanḓa",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, numeric limits, background execution and administrator-only migration scope. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "migration-resume-failed",
+    "before": "Yehlulekile ukuqalisa kabusha ukuthuthela kwelinye izwe",
+    "after": "U thomisa u pfulusa hafhu zwo kundelwa",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, numeric limits, background execution and administrator-only migration scope. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "migration-resumed",
+    "before": "Ukuthutha kuphinde kwaqala",
+    "after": "U pfulusa ho thomiswa hafhu",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, numeric limits, background execution and administrator-only migration scope. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "migration-start-failed",
+    "before": "Yehlulekile ukuqalisa ukufuduka",
+    "after": "U thoma u pfulusa zwo kundelwa",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, numeric limits, background execution and administrator-only migration scope. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "migration-started",
+    "before": "Ukufuduka kuqale ngempumelelo",
+    "after": "U pfulusa ho thoma nga nḓila yo bvelelaho",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, numeric limits, background execution and administrator-only migration scope. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "migration-stop-confirm",
+    "before": "Uqinisekile ukuthi ufuna ukumisa konke ukufuduka?",
+    "after": "Ni na vhuṱanzi ha uri ni ṱoḓa u imisa u pfulusa hoṱhe?",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, numeric limits, background execution and administrator-only migration scope. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "migration-stop-failed",
+    "before": "Yehlulekile ukumisa ukufuduka",
+    "after": "U imisa u pfulusa zwo kundelwa",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, numeric limits, background execution and administrator-only migration scope. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "migration-stopped",
+    "before": "Ukufuduka kumiswe ngempumelelo",
+    "after": "U pfulusa ho imiswa nga nḓila yo bvelelaho",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, numeric limits, background execution and administrator-only migration scope. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "migration-successful",
+    "before": "Ukuthutha kuqedwe ngempumelelo",
+    "after": "U pfulusa ho fhela nga nḓila yo bvelelaho",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, numeric limits, background execution and administrator-only migration scope. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "migration-warning-text",
+    "before": "Sicela ungasivali isiphequluli sakho ngesikhathi sokuthutha. Inqubo izoqhubeka ngemuva kodwa ingase ithathe isikhathi eside ukuqeda.",
+    "after": "Ni songo vala burauza yaṋu musi hu tshi pfuluswa. Mushumo u ḓo bvela phanḓa murahu fhedzi u nga dzhia tshifhinga tshilapfu u fhela.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, numeric limits, background execution and administrator-only migration scope. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "migrations-admin-only",
+    "before": "Abaphathi bebhodi kuphela abangasebenzisa ukuthuthela kwelinye izwe",
+    "after": "Ndi vhalanguli vha bodo ya Kanban fhedzi vhane vha nga thoma u pfulusa",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, numeric limits, background execution and administrator-only migration scope. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "migrations-description",
+    "before": "Yenza ukuhlolwa kobuqotho bedatha nokulungiswa kwaleli bhodi. Ukuthutha ngakunye kungenziwa ngakunye.",
+    "after": "Sedzani na u lugisa vhungoho ha data ya bodo iyi ya Kanban. U pfulusa huṅwe na huṅwe hu nga itwa nga huṱhe.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, numeric limits, background execution and administrator-only migration scope. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "minicard-settings",
+    "before": "Izilungiselelo zekhadi elincane",
+    "after": "Nzudzanyo dza khadi ḽiṱuku",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, numeric limits, background execution and administrator-only migration scope. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "mobile-desktop-toggle",
+    "before": "Guqula phakathi kweModi Yeselula neyedeskithophu",
+    "after": "Shandula vhukati ha nḓila ya founu na ya dekhisithopo",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, numeric limits, background execution and administrator-only migration scope. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "mongodb-gridfs-storage",
+    "before": "Isitoreji se-MongoDB GridFS",
+    "after": "U vhulunga kha MongoDB GridFS",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, numeric limits, background execution and administrator-only migration scope. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "monitoring-export-failed",
+    "before": "Yehlulekile ukuthumela idatha yokuqapha",
+    "after": "U bvisa data ya u tevhela zwo kundelwa",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, numeric limits, background execution and administrator-only migration scope. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "monitoring-refresh-failed",
+    "before": "Yehlulekile ukuvuselela idatha yokuqapha",
+    "after": "U ḽouda data ya u tevhela hafhu zwo kundelwa",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, numeric limits, background execution and administrator-only migration scope. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "move-all-attachments-to-fs",
+    "before": "Hambisa zonke izinanyathiselwa ohlelweni lwefayela",
+    "after": "Pfulusela ṱumetshedzo dzoṱhe kha sisiteme ya faela",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, numeric limits, background execution and administrator-only migration scope. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "multi-selection-active",
+    "before": "Chofoza amabhokisi okuhlola ukuze ukhethe amabhodi",
+    "after": "Kiḽikani zwibogisi zwa u swaya u nanga bodo dza Kanban",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, numeric limits, background execution and administrator-only migration scope. Low-confidence wording; fluent-speaker validation outstanding."
   }
 ]
