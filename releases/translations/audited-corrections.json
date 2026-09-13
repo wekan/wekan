@@ -68500,5 +68500,89 @@
     "before": "Wznów wstrzymane migracje",
     "after": "Wznōw wstrzimane migracyje",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "custom-assetlinks-content",
+    "before": "Zawartość niestandardowego assetlinks.json (JSON)",
+    "after": "Zawartość włŏsnego assetlinks.json (JSON)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "custom-head-manifest-content",
+    "before": "Zawartość niestandardowego manifestu sieciowego (JSON)",
+    "after": "Zawartość włŏsnego manifestu web (JSON)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "custom-help-link-url",
+    "before": "Niestandardowy URL łącza pomocy",
+    "after": "Włŏsny URL linku pōmocy",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "custom-login-logo-link-url",
+    "before": "URL linku logo ekranu logowania",
+    "after": "Włŏsny URL linku logo logowaniŏ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "database-migrate-to-ferretdb",
+    "before": "Migruj dane tekstowe do FerretDB v1 (SQLite)",
+    "after": "Przeniyś dane tekstowe do FerretDB v1 (SQLite)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "database-migrate-to-mongodb",
+    "before": "Migruj dane tekstowe do MongoDB",
+    "after": "Przeniyś dane tekstowe do MongoDB",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "database-migration-done",
+    "before": "Migracja danych tekstowych zakończona.",
+    "after": "Przenoszynie danych tekstowych skōńczōne.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "default-authentication-method",
+    "before": "Domyślna metoda logowania",
+    "after": "Dōmyślnŏ metoda uwierzytelniyniŏ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "default-save-storage-saved",
+    "before": "Domyślny magazyn zapisu zapisany",
+    "after": "Dōmyślny magazyn zapisu zapisany",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "delete-avatar-confirm",
+    "before": "Czy na pewno chcesz usunąć ten awatar?",
+    "after": "Na isto chcesz wyciepać tyn awatar?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "disambiguateMultiLabelPopup-title",
+    "before": "Doprecyzuj działanie dotyczące etykiety",
+    "after": "Uściślij działanie etykety",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "display-authentication-method",
+    "before": "Wyświetl metodę logowania",
+    "after": "Pokŏż metodã uwierzytelniyniŏ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
