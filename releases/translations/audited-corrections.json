@@ -120608,5 +120608,19 @@
     "before": "Kay willaymi: yellowta",
     "after": "q'illu",
     "reason": "Replace unflagged English color wrapped in unrelated prose with a directly attested Quechua adjective: https://en.wiktionary.org/wiki/q%27illu. Review 2026-09-14. Use standalone lowercase word. qillu also covers orange in the dictionary; do not collapse the distinct orange UI label without additional terminology research. Regional orthography and broader palette usage remain open."
+  },
+  {
+    "locale": "qu",
+    "key": "color-gray",
+    "before": "Kay willaymi: grayta",
+    "after": "uqi",
+    "reason": "Replace unflagged English color wrapped in unrelated prose with directly attested Quechua color adjective: https://en.wiktionary.org/wiki/uqi. Review 2026-09-14. uqi adjective includes gray/ashen/light blue; kulli Quechua adjective includes purple/dark purple. Preserve separate gray, purple and basic blue labels. Regional palette usage remains open. Silver noun qullqi is attested as metal/money, but color adaptation is not yet established; leave that separate finding unresolved."
+  },
+  {
+    "locale": "qu",
+    "key": "color-purple",
+    "before": "Kay willaymi: purpleta",
+    "after": "kulli",
+    "reason": "Replace unflagged English color wrapped in unrelated prose with directly attested Quechua color adjective: https://en.wiktionary.org/wiki/kulli. Review 2026-09-14. uqi adjective includes gray/ashen/light blue; kulli Quechua adjective includes purple/dark purple. Preserve separate gray, purple and basic blue labels. Regional palette usage remains open. Silver noun qullqi is attested as metal/money, but color adaptation is not yet established; leave that separate finding unresolved."
   }
 ]
