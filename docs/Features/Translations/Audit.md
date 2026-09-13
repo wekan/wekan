@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 10,914 |
+| Corrected | 10,918 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 4,932 |
+| Pending review or repair | 4,928 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **11,018** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **11,027** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `017f79fa8f52ea3e5174a33b4698e46cfb30cf2e` — 3 French selection/imported-member instructions replaced with Walloon, preserving assignment keyboard order, content transfer and imported-role permission limits. Sources are recorded with corrections; full grammar and mapping terminology remain low confidence. Exact-value, placeholder, JSON example, HTML-tag/entity, key-order and idempotency checks pass; live browser verification is unavailable.
+Latest translation fix: **2026-09-13**, local commit `18308b476722ef5728dbc97763e57de639e42fda` — 9 French waiting-animation labels replaced with Walloon, retaining the distinct animation descriptions and correcting the cube-grid meaning; includes unflagged labels. Dictionary sources are recorded with corrections; animation vocabulary and full grammar remain low confidence. Exact-value, placeholder, JSON example, HTML-tag/entity, key-order and idempotency checks pass; live browser verification is unavailable.
 
 **Origin:** not all errors came from Transifex. The captured pull changed 4,061 values; the local audit added 16,020 findings. Bosnian errors already existed in local commit `bdb3b15886a749b725b5290ba0109fcba955f983`. Other ultimate origins remain unverified.
 
