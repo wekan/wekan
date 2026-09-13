@@ -54976,5 +54976,68 @@
     "before": "Incolla dei dati JSON validi qui",
     "after": "Lipeshte aua datili JSON validi",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "import-members-map-note",
+    "before": "Nota: I membri non mappati verranno assegnati all'utente corrente.",
+    "after": "Notã: membrilji niatribuits va s-hibã atribuits la ufilisitorlu curentu.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "import-show-user-mapping",
+    "before": "Rivedi la mappatura dei membri",
+    "after": "Verificã atribuirea a membrilor",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "import-user-select",
+    "before": "Scegli l'utente che vuoi venga utilizzato come questo membro",
+    "after": "Aleadzi ufilisitorlu existent tsi vrei s-ufiliseshti ca aestu membru",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "invalid-file",
+    "before": "Se il nome del file non è valido, il caricamento o la ridenominazione viene annullata.",
+    "after": "Dacã numa a fisierlui nu easti validã, încãrcarea icã alãxeari a numãljei s-anuleadzã.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "invite-people-error",
+    "before": "Errore durante l'invio degli inviti di registrazione",
+    "after": "Eroari la trimiteri a invitatsiei ti înregistrari",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "invite-people-success",
+    "before": "Inviti di registrazione inviati correttamente",
+    "after": "Invitatsia ti înregistrari fu trimisã cu sucses",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "label-color-not-found",
+    "before": "Colore etichetta %s non trovato.",
+    "after": "Culoarea a etichetãljei %s nu fu aflatã.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "label-not-found",
+    "before": "Etichetta '%s' non trovata.",
+    "after": "Eticheta '%s' nu fu aflatã.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "last-admin-desc",
+    "before": "Non puoi cambiare i ruoli perché deve esserci almeno un admin.",
+    "after": "Nu pots s-alãxezi rolurili, cã lipsea s-ari cel putsãn un administrator.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
