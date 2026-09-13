@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 12,176 |
+| Corrected | 12,182 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 3,670 |
+| Pending review or repair | 3,664 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,632** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,638** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `15ae8dfd9b6c274da8cc4466ca242b49d6b4a766` — seven French positioning/member/navigation strings repaired in Volapük using existing terminology and [Midgley vocabulary](https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf). Preserved selected objects, directions, self addition, member avatars and own boards destination; assembled wording remains low confidence.
+Latest translation fix: **2026-09-13**, local commit `d2f1b9508f21800b7dbfbf53c499941db47b0488` — six French upload/file-limit/test-email labels repaired in Volapük using [MediaWiki software terminology](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json) and existing vocabulary. Preserved allowed types, maximum byte limits, upload completion and self-addressed test email; assembled wording remains low confidence.
 
 **Verification:** exact values, placeholders, JSON examples, key order and progress-update checks pass. Native-speaker and browser verification remain unavailable.
 
