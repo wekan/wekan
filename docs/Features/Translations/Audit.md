@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 13,680 |
+| Corrected | 13,705 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 178 |
-| Pending review or repair | 2,165 |
+| Pending review or repair | 2,140 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **828** repaired and **Cron** retained as a technical name. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **15,186** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **15,211** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-13**, local commit `0cbfa4f87` — replaced twenty-five further Zulu-seeded Venda scheduling and custom-content controls with Tshivenda, preserving every source placeholder. Direct wording is low confidence and awaits fluent-speaker review. The preceding Luganda/Fijian fix is `9b78486c5`. Klingon fix `1044eebc9` completed the broader German-seed review; **1,189** Klingon values were repaired since resumption. Reviewed shared technical names remain protected. Wider repairs continue.
+Latest translation fix: **2026-09-13**, local commit `59286c27f` — replaced twenty-five further Zulu-seeded Venda branding, defaults and deletion confirmations with Tshivenda, preserving every source placeholder. Direct wording is low confidence and awaits fluent-speaker review. The preceding Luganda/Fijian fix is `9b78486c5`. Klingon fix `1044eebc9` completed the broader German-seed review; **1,189** Klingon values were repaired since resumption. Reviewed shared technical names remain protected. Wider repairs continue.
 
 **Verification (2026-09-13):** **1,002 Node suites, zero failures**; the original 19 failures are resolved. The first complete EVERYTHING run passes all four stages: Meteor (**527**), import (**10**), Node E2E (**10**), three browsers, **103** conformance cases on each of SQLite/PostgreSQL/MySQL/MariaDB and FerretDB unit/vet/integration. Separate URL-prefix preference/logout/invalid-cookie checks pass in all browsers. Two WebKit retries exposed refresh readiness and competing template autofocus; both are repaired, and the refresh check passes ten repetitions without retries. #6691 partial-profile/impersonation regression passes in all three browsers without retries. Fresh EVERYTHING verification is running; an added Fossil script required menu registration, now fixed and checked. Fluent-speaker checks remain outstanding; translation repairs have resumed.
 
