@@ -118319,5 +118319,82 @@
     "before": "Älä sulje selainta siirron aikana. Prosessi jatkuu taustalla mutta voi kestää kauemmin valmistuakseen.",
     "after": "Ala saupta brauzerad migracijan aigan. Process jatkub tagamal, no loptamižen täht voib olda tarbiž enamba aigad.",
     "reason": "Replace flagged Finnish migration warning with Veps. Preserve do-not-close instruction, continuing background processing and possible longer completion time. Dictionary saubata/saupta, jatku-da and tagama; composed technical prose remains low confidence."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "cron-jobs",
+    "before": "Ajastetut työt",
+    "after": "Märitud aiganke radod",
+    "reason": "Replace Finnish scheduled-job notifications with Veps dictionary action verbs. Preserve assigned-time job meaning, active jobs, deletion confirmation and four distinct success/failure pairs. Composed scheduling terminology and inflection remain low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "active-cron-jobs",
+    "before": "Aktiiviset ajastetut työt",
+    "after": "Aktivižed märitud aiganke radod",
+    "reason": "Replace Finnish scheduled-job notifications with Veps dictionary action verbs. Preserve assigned-time job meaning, active jobs, deletion confirmation and four distinct success/failure pairs. Composed scheduling terminology and inflection remain low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "cron-job-delete-confirm",
+    "before": "Haluatko varmasti poistaa tämän ajastetun työn?",
+    "after": "Tahod-ik heitta necen märitud aiganke radan?",
+    "reason": "Replace Finnish scheduled-job notifications with Veps dictionary action verbs. Preserve assigned-time job meaning, active jobs, deletion confirmation and four distinct success/failure pairs. Composed scheduling terminology and inflection remain low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "cron-job-delete-failed",
+    "before": "Ajastetun työn poistaminen epäonnistui",
+    "after": "Ei voind heitta märitud aiganke radad",
+    "reason": "Replace Finnish scheduled-job notifications with Veps dictionary action verbs. Preserve assigned-time job meaning, active jobs, deletion confirmation and four distinct success/failure pairs. Composed scheduling terminology and inflection remain low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "cron-job-deleted",
+    "before": "Ajastettu työ poistettu onnistuneesti",
+    "after": "Märitud aiganke rad om hüvin heittud",
+    "reason": "Replace Finnish scheduled-job notifications with Veps dictionary action verbs. Preserve assigned-time job meaning, active jobs, deletion confirmation and four distinct success/failure pairs. Composed scheduling terminology and inflection remain low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "cron-job-pause-failed",
+    "before": "Ajastetun työn keskeyttäminen epäonnistui",
+    "after": "Ei voind azotada märitud aiganke radad",
+    "reason": "Replace Finnish scheduled-job notifications with Veps dictionary action verbs. Preserve assigned-time job meaning, active jobs, deletion confirmation and four distinct success/failure pairs. Composed scheduling terminology and inflection remain low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "cron-job-paused",
+    "before": "Ajastettu työ keskeytetty onnistuneesti",
+    "after": "Märitud aiganke rad om hüvin azotadud",
+    "reason": "Replace Finnish scheduled-job notifications with Veps dictionary action verbs. Preserve assigned-time job meaning, active jobs, deletion confirmation and four distinct success/failure pairs. Composed scheduling terminology and inflection remain low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "cron-job-resume-failed",
+    "before": "Ajastetun työn jatkaminen epäonnistui",
+    "after": "Ei voind jatkata märitud aiganke radad",
+    "reason": "Replace Finnish scheduled-job notifications with Veps dictionary action verbs. Preserve assigned-time job meaning, active jobs, deletion confirmation and four distinct success/failure pairs. Composed scheduling terminology and inflection remain low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "cron-job-resumed",
+    "before": "Aikataulu työtä jatkettu onnistuneesti",
+    "after": "Märitud aiganke rad om hüvin jatktud",
+    "reason": "Replace Finnish scheduled-job notifications with Veps dictionary action verbs. Preserve assigned-time job meaning, active jobs, deletion confirmation and four distinct success/failure pairs. Composed scheduling terminology and inflection remain low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "cron-job-start-failed",
+    "before": "Aikataulu työn käynnistäminen epäonnistui",
+    "after": "Ei voind zavodida märitud aiganke radad",
+    "reason": "Replace Finnish scheduled-job notifications with Veps dictionary action verbs. Preserve assigned-time job meaning, active jobs, deletion confirmation and four distinct success/failure pairs. Composed scheduling terminology and inflection remain low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "cron-job-started",
+    "before": "Aikataulu työ aloitettu onnistuneesti",
+    "after": "Märitud aiganke rad om hüvin zavoditud",
+    "reason": "Replace Finnish scheduled-job notifications with Veps dictionary action verbs. Preserve assigned-time job meaning, active jobs, deletion confirmation and four distinct success/failure pairs. Composed scheduling terminology and inflection remain low confidence pending fluent review."
   }
 ]

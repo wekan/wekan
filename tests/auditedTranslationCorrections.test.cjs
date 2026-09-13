@@ -1883,5 +1883,34 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.match(cache['ve-PP']['migration-warning-text'], /jatkub tagamal/);
   assert.match(cache['ve-PP']['migration-warning-text'], /voib olda tarbiž enamba aigad/);
   assert.doesNotMatch(cache['ve-PP']['migration-warning-text'], /Älä sulje|Prosessi jatkuu|kestää kauemmin/);
+  const vepsScheduledJobs = {
+  "cron-jobs": "Märitud aiganke radod",
+  "active-cron-jobs": "Aktivižed märitud aiganke radod",
+  "cron-job-delete-confirm": "Tahod-ik heitta necen märitud aiganke radan?",
+  "cron-job-delete-failed": "Ei voind heitta märitud aiganke radad",
+  "cron-job-deleted": "Märitud aiganke rad om hüvin heittud",
+  "cron-job-pause-failed": "Ei voind azotada märitud aiganke radad",
+  "cron-job-paused": "Märitud aiganke rad om hüvin azotadud",
+  "cron-job-resume-failed": "Ei voind jatkata märitud aiganke radad",
+  "cron-job-resumed": "Märitud aiganke rad om hüvin jatktud",
+  "cron-job-start-failed": "Ei voind zavodida märitud aiganke radad",
+  "cron-job-started": "Märitud aiganke rad om hüvin zavoditud"
+};
+  for (const [key, value] of Object.entries(vepsScheduledJobs)) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.equal(vepsTranslator.t(key), value, key);
+    assert.doesNotMatch(value, /Ajastettu|Ajastetun|Ajastetut|Aikataulu|Haluatko|onnistuneesti|epäonnistui|Aktiiviset/, key);
+  }
+  for (const [action, success] of [['delete', 'deleted'], ['pause', 'paused'], ['resume', 'resumed'], ['start', 'started']]) {
+    assert.match(cache['ve-PP'][`cron-job-${action}-failed`], /^Ei voind/);
+    assert.match(cache['ve-PP'][`cron-job-${success}`], /om hüvin/);
+    assert.doesNotMatch(cache['ve-PP'][`cron-job-${success}`], /^Ei/);
+    assert.notEqual(cache['ve-PP'][`cron-job-${action}-failed`], cache['ve-PP'][`cron-job-${success}`]);
+  }
+  assert.match(cache['ve-PP']['cron-job-paused'], /azotadud$/);
+  assert.match(cache['ve-PP']['cron-job-resumed'], /jatktud$/);
+  assert.match(cache['ve-PP']['cron-job-started'], /zavoditud$/);
+  assert.match(cache['ve-PP']['cron-job-deleted'], /heittud$/);
+  assert.match(cache['ve-PP']['cron-job-delete-confirm'], /\?$/);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });
