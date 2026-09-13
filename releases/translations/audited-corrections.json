@@ -83732,5 +83732,40 @@
     "before": "Islamic (Saudi Arabia)",
     "after": "Kalandriye Hijri (Saudi Arabia, gis weer wi)",
     "reason": "Replace English Hijri variant labels with descriptive Wolof; retain tabular calculation, civil versus astronomical epoch as starting-date distinction and Saudi Arabia moon sighting. Civil/astronomical technical adaptations and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "calendar-system-jalali",
+    "before": "Jalali (Fars)",
+    "after": "Kalandriye Jalali (Farsi)",
+    "reason": "Replace bare English calendar labels with Wolof calendar framing; retain Jalali/Farsi, Buddha and Indian national meaning. Coptic/Hebrew names remain English loans pending stronger native terminology evidence; country/religion spellings and full grammar remain low confidence. Zero original flags does not certify terminology complete."
+  },
+  {
+    "locale": "wo",
+    "key": "calendar-system-buddhist",
+    "before": "Buddhist",
+    "after": "Kalandriye bu Budda",
+    "reason": "Replace bare English calendar labels with Wolof calendar framing; retain Jalali/Farsi, Buddha and Indian national meaning. Coptic/Hebrew names remain English loans pending stronger native terminology evidence; country/religion spellings and full grammar remain low confidence. Zero original flags does not certify terminology complete."
+  },
+  {
+    "locale": "wo",
+    "key": "calendar-system-coptic",
+    "before": "Coptic",
+    "after": "Kalandriye Coptic",
+    "reason": "Replace bare English calendar labels with Wolof calendar framing; retain Jalali/Farsi, Buddha and Indian national meaning. Coptic/Hebrew names remain English loans pending stronger native terminology evidence; country/religion spellings and full grammar remain low confidence. Zero original flags does not certify terminology complete."
+  },
+  {
+    "locale": "wo",
+    "key": "calendar-system-hebrew",
+    "before": "Hebrew",
+    "after": "Kalandriye Hebrew",
+    "reason": "Replace bare English calendar labels with Wolof calendar framing; retain Jalali/Farsi, Buddha and Indian national meaning. Coptic/Hebrew names remain English loans pending stronger native terminology evidence; country/religion spellings and full grammar remain low confidence. Zero original flags does not certify terminology complete."
+  },
+  {
+    "locale": "wo",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "Kalandriye bu réewum India",
+    "reason": "Replace bare English calendar labels with Wolof calendar framing; retain Jalali/Farsi, Buddha and Indian national meaning. Coptic/Hebrew names remain English loans pending stronger native terminology evidence; country/religion spellings and full grammar remain low confidence. Zero original flags does not certify terminology complete."
   }
 ]
