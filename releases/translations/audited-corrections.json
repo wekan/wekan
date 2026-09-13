@@ -84446,5 +84446,33 @@
     "before": "Republic of China",
     "after": "Feaillere Minguo",
     "reason": "Replace English calendar labels with existing Manx Feaillere terminology and preserve Dangi/Hijri/Umm al-Qura/Minguo identifiers. Calendar noun attested in Cregeen at https://corpus.gaelg.im/Dictionary/Cregeen/F and https://archive.gaelg.im/www.gaelg.iofm.net/DICTIONARY/maneng.pdf. Adapted identifier-label grammar remains low confidence; country/religious labels and Hijri epoch/sighting terminology remain pending."
+  },
+  {
+    "locale": "gv",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "Corys feaillere (taishbyney dait)",
+    "reason": "Replace foreign-language calendar setting and English/foreign Chinese Japanese Persian labels with Manx dictionary vocabulary. https://archive.gaelg.im/www.gaelg.iofm.net/DICTIONARY/engman.pdf attests system corys, display taishbyney, Chinese lantern londeyr Sheenagh, Japanese Shapaanagh/Shapaanish, Persian Pershish; existing date dait/calendar feaillere reused. Individual terms do not certify assembled label grammar, which remains low confidence. Remaining religious/country calendars and Hijri epoch/sighting require review."
+  },
+  {
+    "locale": "gv",
+    "key": "calendar-system-chinese",
+    "before": "Chinese",
+    "after": "Feaillere Sheenagh",
+    "reason": "Replace foreign-language calendar setting and English/foreign Chinese Japanese Persian labels with Manx dictionary vocabulary. https://archive.gaelg.im/www.gaelg.iofm.net/DICTIONARY/engman.pdf attests system corys, display taishbyney, Chinese lantern londeyr Sheenagh, Japanese Shapaanagh/Shapaanish, Persian Pershish; existing date dait/calendar feaillere reused. Individual terms do not certify assembled label grammar, which remains low confidence. Remaining religious/country calendars and Hijri epoch/sighting require review."
+  },
+  {
+    "locale": "gv",
+    "key": "calendar-system-japanese",
+    "before": "Japanese",
+    "after": "Feaillere Shapaanagh",
+    "reason": "Replace foreign-language calendar setting and English/foreign Chinese Japanese Persian labels with Manx dictionary vocabulary. https://archive.gaelg.im/www.gaelg.iofm.net/DICTIONARY/engman.pdf attests system corys, display taishbyney, Chinese lantern londeyr Sheenagh, Japanese Shapaanagh/Shapaanish, Persian Pershish; existing date dait/calendar feaillere reused. Individual terms do not certify assembled label grammar, which remains low confidence. Remaining religious/country calendars and Hijri epoch/sighting require review."
+  },
+  {
+    "locale": "gv",
+    "key": "calendar-system-jalali",
+    "before": "Jalali (Fars)",
+    "after": "Feaillere Jalali (Pershish)",
+    "reason": "Replace foreign-language calendar setting and English/foreign Chinese Japanese Persian labels with Manx dictionary vocabulary. https://archive.gaelg.im/www.gaelg.iofm.net/DICTIONARY/engman.pdf attests system corys, display taishbyney, Chinese lantern londeyr Sheenagh, Japanese Shapaanagh/Shapaanish, Persian Pershish; existing date dait/calendar feaillere reused. Individual terms do not certify assembled label grammar, which remains low confidence. Remaining religious/country calendars and Hijri epoch/sighting require review."
   }
 ]
