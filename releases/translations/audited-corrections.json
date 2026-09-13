@@ -58707,5 +58707,19 @@
     "before": "Ethiopic",
     "after": "ایتھوپیاہُک کیلنڑَر",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ks",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "ہِجری کیلنڑَر",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ks",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "ہِجری کیلنڑَر (اُم القُریٰ)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
