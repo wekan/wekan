@@ -1,3 +1,4 @@
+import { readAuthenticatedLegacyAvatar } from '/server/lib/legacyAvatarRead';
 /**
  * Universal File Server
  * Ensures all attachments and avatars are always visible regardless of ROOT_URL and PORT settings
@@ -696,6 +697,19 @@ if (Meteor.isServer) {
       // Get avatar from database
       const avatar = await ReactiveCache.getAvatar(fileId);
       if (!avatar) {
+        // This prefix route mounts before avatarServer's narrower route and
+        // also receives /<id>/original/<filename>. Read CollectionFS here
+        // rather than masking the authenticated legacy fallback with a 404.
+        const legacy = await readAuthenticatedLegacyAvatar(req, fileId);
+        if (legacy) {
+          if (handleConditionalRequest(req, res, legacy.avatar)) {
+            legacy.stream.destroy();
+            return;
+          }
+          setFileHeaders(res, legacy.avatar, false);
+          streamFile(res, legacy.stream, legacy.avatar);
+          return;
+        }
         res.writeHead(404);
         res.end('Avatar not found');
         return;
@@ -839,10 +853,20 @@ if (Meteor.isServer) {
       // Try to get avatar from database (new structure first)
       let avatar = await ReactiveCache.getAvatar(avatarId);
 
-      // If not found in new structure, try to handle legacy format
       if (!avatar) {
-        // For legacy avatars, we might need to handle different ID formats
-        // This is a fallback for old CollectionFS avatars
+        // This prefix route mounts before avatarServer's narrower route and
+        // also receives /<id>/original/<filename>. Read CollectionFS here
+        // rather than masking the authenticated legacy fallback with a 404.
+        const legacy = await readAuthenticatedLegacyAvatar(req, avatarId);
+        if (legacy) {
+          if (handleConditionalRequest(req, res, legacy.avatar)) {
+            legacy.stream.destroy();
+            return;
+          }
+          setFileHeaders(res, legacy.avatar, false);
+          streamFile(res, legacy.stream, legacy.avatar);
+          return;
+        }
         res.writeHead(404);
         res.end('Avatar not found');
         return;
