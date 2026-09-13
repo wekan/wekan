@@ -67,6 +67,8 @@ console.log('boardViewMissingProfile6691: fallback, scoping, defaults and privat
   const method = serverSource.slice(serverSource.indexOf('  async impersonate(userId) {'), serverSource.indexOf('  async isImpersonated(userId) {'));
   let finishSwitch;
   const switched = new Promise(resolve => { finishSwitch = resolve; });
+  let enteredSwitch;
+  const entered = new Promise(resolve => { enteredSwitch = resolve; });
   const calls = [];
   const methods = vm.runInNewContext(`({${method}})`, {
     check: () => {}, Match: { Any: {}, test: value => typeof value === 'string' },
@@ -75,9 +77,9 @@ console.log('boardViewMissingProfile6691: fallback, scoping, defaults and privat
     ImpersonatedUsers: { insertAsync: async () => { calls.push('record'); } },
   });
   let returned = false;
-  const result = methods.impersonate.call({ setUserId: id => { calls.push(id); return switched; } }, 'member').then(() => { returned = true; });
+  const result = methods.impersonate.call({ setUserId: id => { calls.push(id); enteredSwitch(); return switched; } }, 'member').then(() => { returned = true; });
   // Let the real async method reach setUserId, but leave its promise pending.
-  for (let index = 0; index < 10; index++) await Promise.resolve();
+  await entered;
   assert.deepEqual(calls, ['record', 'member']);
   assert.equal(returned, false, 'method must not return before subscriptions finish switching');
   finishSwitch();
