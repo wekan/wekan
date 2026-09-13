@@ -66554,5 +66554,117 @@
     "before": "Arrive à échéance semaine prochaine",
     "after": "Termen ar sizhun a zeu",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "filter-due-this-week",
+    "before": "Arrive à échéance cette semaine",
+    "after": "Termen ar sizhun-mañ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "filter-due-today",
+    "before": "Arrive à échéance aujourd'hui",
+    "after": "Termen hiziv",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "filter-no-custom-fields",
+    "before": "Pas de champs personnalisés",
+    "after": "Maezienn personelaet ebet",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "filter-show-archive",
+    "before": "Montrer les listes archivées",
+    "after": "Diskouez ar rolloù diellaouet",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "fix-all-file-urls-migration",
+    "before": "Corriger toutes les URL de fichiers",
+    "after": "Reizhañ holl URLoù ar restroù",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "fix-avatar-urls-migration",
+    "before": "Corriger les URLs d'avatar",
+    "after": "Reizhañ URLoù ar skeudennigoù",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "fix-missing-lists-migration",
+    "before": "Corriger les listes manquantes",
+    "after": "Reizhañ ar rolloù a vank",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "globalSearch-instructions-description",
+    "before": "Les recherches peuvent inclure des opérateurs pour affiner le résultat. Les opérateurs sont précisés en écrivant l'opérateur suivi d'une valeur séparé par un deux-point. Par exemple, une spécification comme `liste:Bloqué` limiterait le résultat aux cartes qui contiennent une liste appelée *Bloqué*. Si la valeur contient des espaces ou des caractères spéciaux, elle doit être entourée d'apostrophes (par ex. `__operator_list__:\"À valider\"`).",
+    "after": "Gallout a ra an enklaskoù kaout oberataerioù evit resisaat an enklask. Skrivit anv an oberataer hag e dalvoud dispartiet gant daouboent. Da skouer, `list:Blocked` a strishfe an enklask d’ar c’hartennoù er roll anvet *Blocked*. Ma vez spasoù pe arouezennoù dibar er talvoud, rankout a ra bezañ etre daouaskoù (da skouer `__operator_list__:\"To Review\"`).",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "globalSearch-instructions-heading",
+    "before": "Instructions de recherche",
+    "after": "Kemennoù enklask",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "globalSearch-instructions-notes-1",
+    "before": "Il est possible d'utiliser plusieurs opérateurs.",
+    "after": "Gallout a reer spisaat meur a oberataer.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "globalSearch-instructions-notes-2",
+    "before": "Les opérateurs similaires deviennent *optionnels*. Les cartes correspondant à n'importe quelle condition sont retournées.\n`__operator_list__:Disponible __operator_list__:Bloquée` retournera les cartes contenues dans la liste *Disponible* ou dans la liste *Bloquée*.",
+    "after": "Kevreet eo an oberataerioù heñvel gant *PE*. Distreiñ a reer ar c’hartennoù a glot gant unan bennak eus an amplegadoù.\n`__operator_list__:Available __operator_list__:Blocked` a zistrofe ar c’hartennoù en ur roll anvet *Blocked* pe *Available*.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "globalSearch-instructions-notes-3",
+    "before": "Les opérateurs différents sont *combinés*. Seules les cartes correspondant à tous les critères sont retournées.  `__operator_list__:Disponible __operator_label__:rouge` ne retourne que les cartes dans la liste *Disponible* avec une étiquette *rouge*.",
+    "after": "Kevreet eo an oberataerioù disheñvel gant *HA*. Ne zistroer nemet ar c’hartennoù a glot gant an holl oberataerioù disheñvel. `__operator_list__:Available __operator_label__:red` a zistro nemet ar c’hartennoù er roll *Available* gant un dikedenn *red*.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "globalSearch-instructions-notes-3-2",
+    "before": "Les durées en jours peuvent être précisées soit par un entier positif ou négatif soit en utilisant `__predicate_week__`, `__predicate_month__`, `__predicate_quarter__` ou `__predicate_year__` pour la période courante.",
+    "after": "Gallout a reer spisaat an deizioù gant un niver anterin pozitivel pe negativel, pe gant `__predicate_week__`, `__predicate_month__`, `__predicate_quarter__` pe `__predicate_year__` evit ar prantad a-vremañ.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "globalSearch-instructions-notes-4",
+    "before": "Les recherches textuelles ne sont pas sensibles à la casse.",
+    "after": "Ne ra ket an enklaskoù testenn kemm etre lizherennoù bras ha bihan.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "globalSearch-instructions-notes-5",
+    "before": "Par défaut, les cartes archivées ne sont pas recherchées.",
+    "after": "Dre ziouer, ne vez ket enklasket er c’hartennoù diellaouet.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "globalSearch-instructions-operator-comment",
+    "before": "`__operator_comment__:<texte>` - cartes dont le commentaire contient *<texte>*.",
+    "after": "`__operator_comment__:<text>` - kartennoù gant un evezhiadenn enni *<text>*.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
