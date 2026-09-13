@@ -92216,5 +92216,33 @@
     "before": "Islamic (Saudi Arabia)",
     "after": "Kalãdôrz Hijri (Saudëjskô Arabiô, òbserwacjô)",
     "reason": "Replace English Hijri variant wording directly with Kashubian, restoring tabular and civil/astronomical epoch distinctions and sighting/observation qualifier. Epoch paraphrased as starting date. Existing local Kalãdôrz Hijri retained. Rada Języka Kaszubskiego https://rjk.org.pl/resolutions/uchwaly-2015/ attests astronomical adjective astronomiczny, adapted to feminine date. Other scientific/name forms and assembled phrases are low confidence, not independently attested in this batch; native-speaker validation required."
+  },
+  {
+    "locale": "haw",
+    "key": "calendar-system-coptic",
+    "before": "Coptic",
+    "after": "ʻAlemanaka Kopita",
+    "reason": "Replace English calendar labels directly with Hawaiian using existing ʻAlemanaka Hijri terminology. Preserve tabular, civil/astronomical starting-date and moon-observation distinctions. University of Hawaiʻi https://www.hilo.hawaii.edu/maunakea/visitor-information/brochure supports kilo hōkū (astronomy); Māmaka Kaiao scan https://tlingitlanguage.com/wp-content/uploads/2015/07/hawaiian-scan.pdf gives pakuhi papa (statistical table). Kīwila follows civil borrowing; Kopita rendering, scientific noun combinations and full phrases remain low confidence and require native-speaker validation. Saudi Arabia retained as proper name."
+  },
+  {
+    "locale": "haw",
+    "key": "calendar-system-islamic-civil",
+    "before": "Islamic civil",
+    "after": "ʻAlemanaka Hijri (ma ka pakuhi papa, lā hoʻomaka kīwila)",
+    "reason": "Replace English calendar labels directly with Hawaiian using existing ʻAlemanaka Hijri terminology. Preserve tabular, civil/astronomical starting-date and moon-observation distinctions. University of Hawaiʻi https://www.hilo.hawaii.edu/maunakea/visitor-information/brochure supports kilo hōkū (astronomy); Māmaka Kaiao scan https://tlingitlanguage.com/wp-content/uploads/2015/07/hawaiian-scan.pdf gives pakuhi papa (statistical table). Kīwila follows civil borrowing; Kopita rendering, scientific noun combinations and full phrases remain low confidence and require native-speaker validation. Saudi Arabia retained as proper name."
+  },
+  {
+    "locale": "haw",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "ʻAlemanaka Hijri (ma ka pakuhi papa, lā hoʻomaka kilo hōkū)",
+    "reason": "Replace English calendar labels directly with Hawaiian using existing ʻAlemanaka Hijri terminology. Preserve tabular, civil/astronomical starting-date and moon-observation distinctions. University of Hawaiʻi https://www.hilo.hawaii.edu/maunakea/visitor-information/brochure supports kilo hōkū (astronomy); Māmaka Kaiao scan https://tlingitlanguage.com/wp-content/uploads/2015/07/hawaiian-scan.pdf gives pakuhi papa (statistical table). Kīwila follows civil borrowing; Kopita rendering, scientific noun combinations and full phrases remain low confidence and require native-speaker validation. Saudi Arabia retained as proper name."
+  },
+  {
+    "locale": "haw",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "ʻAlemanaka Hijri (Saudi Arabia, kilo mahina)",
+    "reason": "Replace English calendar labels directly with Hawaiian using existing ʻAlemanaka Hijri terminology. Preserve tabular, civil/astronomical starting-date and moon-observation distinctions. University of Hawaiʻi https://www.hilo.hawaii.edu/maunakea/visitor-information/brochure supports kilo hōkū (astronomy); Māmaka Kaiao scan https://tlingitlanguage.com/wp-content/uploads/2015/07/hawaiian-scan.pdf gives pakuhi papa (statistical table). Kīwila follows civil borrowing; Kopita rendering, scientific noun combinations and full phrases remain low confidence and require native-speaker validation. Saudi Arabia retained as proper name."
   }
 ]
