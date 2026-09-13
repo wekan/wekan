@@ -60576,5 +60576,89 @@
     "before": "Au-dessus de la carte sélectionnée",
     "after": "Al dessús de la carta seleccionada",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "above-selected-swimlane",
+    "before": "Au-dessus du couloir sélectionné",
+    "after": "Al dessús del corredor seleccionat",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "acceptance_of_our_legalNotice",
+    "before": "En continuant, vous acceptez nos",
+    "after": "En contunhant, acceptatz nòstras",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "accessibility-info-not-added-yet",
+    "before": "L'information d'accessibilité n'a pas encore été ajoutée",
+    "after": "Las informacions d’accessibilitat son pas encara estadas apondudas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "accessibility-page-enabled",
+    "before": "Page d'accessibilité activée",
+    "after": "Pagina d’accessibilitat activada",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "account-created",
+    "before": "Compte créé ! Vous pouvez maintenant vous connecter.",
+    "after": "Compte creat ! Podètz ara vos connectar.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "account-creation-failed",
+    "before": "Échec de la création du compte",
+    "after": "Fracàs de la creacion del compte",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "accounts-allowEmailChange",
+    "before": "Autoriser le changement d'adresse de courriel",
+    "after": "Autorizar lo cambiament d’adreça de corrièl",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "accounts-allowUserNameChange",
+    "before": "Autoriser le changement d'identifiant",
+    "after": "Cambiament del nom d’utilizaire",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "accounts-lockout-failure-window",
+    "before": "Fenêtre des échecs (secondes)",
+    "after": "Interval dels fracasses (segondas)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "accounts-lockout-failures-before",
+    "before": "Échecs avant verrouillage",
+    "after": "Fracasses abans lo blocatge",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "accounts-lockout-period",
+    "before": "Durée de verrouillage (secondes)",
+    "after": "Durada del blocatge (segondas)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "act-a-endAt",
+    "before": "Modification de la date de fin de __timeOldValue__ à __timeValue__",
+    "after": "a modificat la data de fin per __timeValue__ dempuèi (__timeOldValue__)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
