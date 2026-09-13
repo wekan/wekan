@@ -50881,5 +50881,61 @@
     "before": "Conteggio elementi checklist (0/0)",
     "after": "Numeru d’elementi di a lista di cuntrollu (0/0)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "cleanup-old-jobs",
+    "before": "Pulisci i processi vecchi",
+    "after": "Nettà i vechji travagli",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "click-to-disable-fixed-list-width",
+    "before": "Stessa larghezza per tutte le liste attivata. Clicca per disattivare.",
+    "after": "A listessa larghezza per tutte e liste hè attivata. Cliccate per disattivà la.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "click-to-enable-auto-width",
+    "before": "Larghezza lista automatica disabilitata. Fai clic per abilitarla.",
+    "after": "A larghezza autumatica di e liste hè disattivata. Cliccate per attivà la.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "click-to-enable-fixed-list-width",
+    "before": "Stessa larghezza per tutte le liste disattivata. Clicca per attivare.",
+    "after": "A listessa larghezza per tutte e liste hè disattivata. Cliccate per attivà la.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "click-to-star-page",
+    "before": "Clicca per aggiungere questa pagina ai preferiti.",
+    "after": "Cliccate per aghjunghje sta pagina à i favuriti.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "click-to-unstar-page",
+    "before": "Clicca per togliere questa pagina dai preferiti.",
+    "after": "Cliccate per caccià sta pagina da i favuriti.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "cloud-secret-keep-blank",
+    "before": "Lascia vuoto per mantenere il valore attuale.",
+    "after": "Lasciate viotu per mantene u valore attuale.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "cloud-secret-set",
+    "before": "(salvato — lascia vuoto per mantenere)",
+    "after": "(arregistratu — lasciate viotu per mantene)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
