@@ -90718,5 +90718,89 @@
     "before": "Créateur sur la mini-carte",
     "after": "Jafan su kadil",
     "reason": "Replace audited French workspace/account/card controls with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests kadil (small card), jafan (creator), jonidükön (assign), primön (begin), num (number), lönik (own/custom adaptation). Reuse local Lised välas, vobaspad and ninädapenäd terminology. Preserve card labels, numeric minicard sorting, custom fields, member assignment and hierarchy parent rather than biological parent; retain planning poker feature name. Workspace/custom-field/hierarchy adaptation and assembled software wording remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "cron-errors-cleared",
+    "before": "Toutes les erreurs ont été effacées avec succès",
+    "after": "Pöls valik pemoükons ko benosek",
+    "reason": "Replace audited French scheduled-job/migration status and action text with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests fövön (continue/resume, transitive), paudön (pause, intransitive), disinön (schedule), nuned (warning), steifülön (try), plöpön (succeed), benosek (success). Preserve start versus resume, failed versus successful operations, no eligible failed/paused migrations and clearing all errors. Express retry success as successful retry initiation rather than completed migration success; use active paudöl because pause is intransitive. Assembled software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "cron-job-resume-failed",
+    "before": "Échec de la reprise de la tâche planifiée",
+    "after": "No eplöpos ad fövön vobi pedisinöl",
+    "reason": "Replace audited French scheduled-job/migration status and action text with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests fövön (continue/resume, transitive), paudön (pause, intransitive), disinön (schedule), nuned (warning), steifülön (try), plöpön (succeed), benosek (success). Preserve start versus resume, failed versus successful operations, no eligible failed/paused migrations and clearing all errors. Express retry success as successful retry initiation rather than completed migration success; use active paudöl because pause is intransitive. Assembled software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "cron-job-resumed",
+    "before": "Tâche planifiée reprise avec succès",
+    "after": "Vob pedisinöl pefövon ko benosek",
+    "reason": "Replace audited French scheduled-job/migration status and action text with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests fövön (continue/resume, transitive), paudön (pause, intransitive), disinön (schedule), nuned (warning), steifülön (try), plöpön (succeed), benosek (success). Preserve start versus resume, failed versus successful operations, no eligible failed/paused migrations and clearing all errors. Express retry success as successful retry initiation rather than completed migration success; use active paudöl because pause is intransitive. Assembled software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "cron-job-start-failed",
+    "before": "Échec du démarrage de la tâche planifiée",
+    "after": "No eplöpos ad primön vobi pedisinöl",
+    "reason": "Replace audited French scheduled-job/migration status and action text with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests fövön (continue/resume, transitive), paudön (pause, intransitive), disinön (schedule), nuned (warning), steifülön (try), plöpön (succeed), benosek (success). Preserve start versus resume, failed versus successful operations, no eligible failed/paused migrations and clearing all errors. Express retry success as successful retry initiation rather than completed migration success; use active paudöl because pause is intransitive. Assembled software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "cron-job-started",
+    "before": "Tâche planifiée démarrée avec succès",
+    "after": "Vob pedisinöl peprimon ko benosek",
+    "reason": "Replace audited French scheduled-job/migration status and action text with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests fövön (continue/resume, transitive), paudön (pause, intransitive), disinön (schedule), nuned (warning), steifülön (try), plöpön (succeed), benosek (success). Preserve start versus resume, failed versus successful operations, no eligible failed/paused migrations and clearing all errors. Express retry success as successful retry initiation rather than completed migration success; use active paudöl because pause is intransitive. Assembled software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "cron-migration-warnings",
+    "before": "Avertissements de migration",
+    "after": "Nuneds migradas",
+    "reason": "Replace audited French scheduled-job/migration status and action text with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests fövön (continue/resume, transitive), paudön (pause, intransitive), disinön (schedule), nuned (warning), steifülön (try), plöpön (succeed), benosek (success). Preserve start versus resume, failed versus successful operations, no eligible failed/paused migrations and clearing all errors. Express retry success as successful retry initiation rather than completed migration success; use active paudöl because pause is intransitive. Assembled software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "cron-migrations-resumed",
+    "before": "Migrations reprises avec succès",
+    "after": "Migrads pefövons ko benosek",
+    "reason": "Replace audited French scheduled-job/migration status and action text with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests fövön (continue/resume, transitive), paudön (pause, intransitive), disinön (schedule), nuned (warning), steifülön (try), plöpön (succeed), benosek (success). Preserve start versus resume, failed versus successful operations, no eligible failed/paused migrations and clearing all errors. Express retry success as successful retry initiation rather than completed migration success; use active paudöl because pause is intransitive. Assembled software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "cron-migrations-retried",
+    "before": "Migrations échouées réessayées avec succès",
+    "after": "Esteifüloy dönu ko benosek ad dunön migradis no eplöpöl",
+    "reason": "Replace audited French scheduled-job/migration status and action text with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests fövön (continue/resume, transitive), paudön (pause, intransitive), disinön (schedule), nuned (warning), steifülön (try), plöpön (succeed), benosek (success). Preserve start versus resume, failed versus successful operations, no eligible failed/paused migrations and clearing all errors. Express retry success as successful retry initiation rather than completed migration success; use active paudöl because pause is intransitive. Assembled software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "cron-no-failed-migrations",
+    "before": "Aucune migration échouée à réessayer",
+    "after": "Migrad nonik no eplöpöl dabinon ad steifülön dönu",
+    "reason": "Replace audited French scheduled-job/migration status and action text with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests fövön (continue/resume, transitive), paudön (pause, intransitive), disinön (schedule), nuned (warning), steifülön (try), plöpön (succeed), benosek (success). Preserve start versus resume, failed versus successful operations, no eligible failed/paused migrations and clearing all errors. Express retry success as successful retry initiation rather than completed migration success; use active paudöl because pause is intransitive. Assembled software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "cron-no-paused-migrations",
+    "before": "Aucune migration en pause à reprendre",
+    "after": "Migrad nonik paudöl dabinon ad fövön",
+    "reason": "Replace audited French scheduled-job/migration status and action text with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests fövön (continue/resume, transitive), paudön (pause, intransitive), disinön (schedule), nuned (warning), steifülön (try), plöpön (succeed), benosek (success). Preserve start versus resume, failed versus successful operations, no eligible failed/paused migrations and clearing all errors. Express retry success as successful retry initiation rather than completed migration success; use active paudöl because pause is intransitive. Assembled software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "cron-resume-paused",
+    "before": "Reprendre les migrations en pause",
+    "after": "Fövön migradis paudöl",
+    "reason": "Replace audited French scheduled-job/migration status and action text with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests fövön (continue/resume, transitive), paudön (pause, intransitive), disinön (schedule), nuned (warning), steifülön (try), plöpön (succeed), benosek (success). Preserve start versus resume, failed versus successful operations, no eligible failed/paused migrations and clearing all errors. Express retry success as successful retry initiation rather than completed migration success; use active paudöl because pause is intransitive. Assembled software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "cron-retry-failed",
+    "before": "Réessayer les migrations échouées",
+    "after": "Steifülön dönu ad dunön migradis no eplöpöl",
+    "reason": "Replace audited French scheduled-job/migration status and action text with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests fövön (continue/resume, transitive), paudön (pause, intransitive), disinön (schedule), nuned (warning), steifülön (try), plöpön (succeed), benosek (success). Preserve start versus resume, failed versus successful operations, no eligible failed/paused migrations and clearing all errors. Express retry success as successful retry initiation rather than completed migration success; use active paudöl because pause is intransitive. Assembled software wording remains low confidence pending native review."
   }
 ]
