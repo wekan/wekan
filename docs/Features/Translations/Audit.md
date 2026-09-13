@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 14,507 |
+| Corrected | 14,508 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 1,337 |
+| Pending review or repair | 1,336 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **16,104** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **16,107** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-13**, local commit `5f011f219` — repaired eight Finnish Veps navigation/file control labels with verified native software vocabulary. Download's explicit save-as-file wording is distinct from upload. All **16,104** correction records and vocabulary/token checks pass. These unflagged repairs leave original pending counts unchanged. Year-warning digit terminology, lockout/calendar compositions, broader wrong-language/script values, restored translations and browser verification remain outstanding.
+Latest translation fix: **2026-09-13**, local commit `45045afae` — repaired Finnish Veps notification, Delete All Notifications and description labels using dictionary-attested tedotuzed and native software vocabulary. Composed deletion wording needs fluent review; uncertain comment borrowings remain open. All **16,107** correction records and vocabulary/token checks pass. Veps has 595 original findings remaining. Year-warning digit terminology, lockout/calendar compositions, broader wrong-language/script values, restored translations and browser verification remain outstanding.
 
 **Language workflow (2026-09-13):** all 245 popup locales are wired and country-then-language flags are checked (`8549b6c4c`). Browser preference ordering, legacy/script aliases, delayed saved profiles and no automatic profile writes pass runtime checks (`1666a2012`, `37ae64fa8`); actual browser execution remains pending. Uzbek Arabic (`uz-AR`) still contains Latin core labels and needs repair.
 
