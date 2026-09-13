@@ -104235,5 +104235,131 @@
     "before": "`__predicate_archived__` - ​​amakhadi afakwe kungobo yomlando",
     "after": "`__predicate_archived__` - makhadi o vhulungwaho",
     "reason": "Replace Zulu-seeded search help directly with Tshivenda; preserve literal query syntax, source placeholders, negation and archived-status distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "globalSearch-instructions-status-ended",
+    "before": "`__predicate_ended__` - ​​amakhadi anedethi yokuphela",
+    "after": "`__predicate_ended__` - makhadi a re na ḓuvha ḽa u guma",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal vendor menu paths, privacy scopes, archive restoration and irreversible deletion warnings. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "globalSearch-instructions-status-private",
+    "before": "`__predicate_private__` - ​​amakhadi kumabhodi ayimfihlo kuphela",
+    "after": "`__predicate_private__` - makhadi kha bodo dza Kanban dza phuraivethe fhedzi",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal vendor menu paths, privacy scopes, archive restoration and irreversible deletion warnings. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "globalSearch-instructions-status-public",
+    "before": "`__predicate_public__` - ​​amakhadi kumabhodi omphakathi kuphela",
+    "after": "`__predicate_public__` - makhadi kha bodo dza Kanban dza nnyi na nnyi fhedzi",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal vendor menu paths, privacy scopes, archive restoration and irreversible deletion warnings. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "gridfs-attachments",
+    "before": "Okunamathiselwe kwi-GridFS",
+    "after": "Ṱumetshedzo dza GridFS",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal vendor menu paths, privacy scopes, archive restoration and irreversible deletion warnings. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "has-spenttime-cards",
+    "before": "Usebenzise amakhadi esikhathi",
+    "after": "I na makhadi a re na tshifhinga tsho shumiswaho",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal vendor menu paths, privacy scopes, archive restoration and irreversible deletion warnings. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "home-board-empty",
+    "before": "Hudula ibhodi lapha ukuze livuleke ngemva kokungena",
+    "after": "Kokodzani bodo nthihi ya Kanban afha u i vula musi no dzhena",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal vendor menu paths, privacy scopes, archive restoration and irreversible deletion warnings. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "home-board-remove-confirm",
+    "before": "Susa leli bhodi Ekhaya? Ibhodi ngokwalo alisuswa.",
+    "after": "Bvisani bodo iyi ya Kanban kha Hayani? Bodo yone a i suswi.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal vendor menu paths, privacy scopes, archive restoration and irreversible deletion warnings. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "import-board-instruction-about-errors",
+    "before": "Uma uthola amaphutha lapho ungenisa ibhodi, ngezinye izikhathi ukungenisa kusasebenza, futhi ibhodi isekhasini Wonke Amabhodi.",
+    "after": "Arali ni wana vhukhakhi musi ni tshi dzhenisa bodo ya Kanban, nga zwiṅwe zwifhinga u dzhenisa hu kha ḓi shuma nahone bodo i vha kha siaṱari ḽa Bodo dzoṱhe.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal vendor menu paths, privacy scopes, archive restoration and irreversible deletion warnings. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "import-board-instruction-trello",
+    "before": "Ebhodini lakho le-Trello, hamba ku-'Menu', bese uthi 'Okwengeziwe', 'Printa futhi Khipha', 'Khipha i-JSON', bese ukopisha umbhalo owumphumela.",
+    "after": "Kha bodo yaṋu ya Trello, iyani kha 'Menu', nga murahu 'More', 'Print and Export', 'Export JSON', ni kope maipfi o bviswaho.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal vendor menu paths, privacy scopes, archive restoration and irreversible deletion warnings. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "import-board-instruction-wekan",
+    "before": "Ebhodini lakho, hamba 'kumenyu', bese 'Khipha ibhodi', bese ukopisha umbhalo efayeleni elilandiwe.",
+    "after": "Kha bodo yaṋu ya Kanban, iyani kha 'Menu', nga murahu 'Export board', ni kope maipfi a faela yo dauniloudiwaho.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal vendor menu paths, privacy scopes, archive restoration and irreversible deletion warnings. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "import-board-source",
+    "before": "Ngenisa ibhodi (Trello, Jira, ifayela le-WeKan, CSV, Excel, …)",
+    "after": "Dzhenisani bodo ya Kanban (Trello, Jira, WeKan export, CSV, Excel, …)",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal vendor menu paths, privacy scopes, archive restoration and irreversible deletion warnings. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "import-members-map",
+    "before": "Ibhodi lakho elingenisiwe linamalungu athile. Sicela ubeke imephu amalungu ofuna ukuwangenisa kubasebenzisi bakho",
+    "after": "Bodo ya Kanban yo dzheniswaho i na miraḓo. Fanyisani miraḓo ine na ṱoḓa u i dzhenisa na vhashumisi vhaṋu",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal vendor menu paths, privacy scopes, archive restoration and irreversible deletion warnings. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "label-delete-pop",
+    "before": "Akukho ukuhlehlisa. Lokhu kuzosusa le lebula kuwo wonke amakhadi futhi kucekele phansi umlando wayo.",
+    "after": "A zwi koni u humiselwa murahu. Izwi zwi ḓo bvisa ḽeibuḽu iyi kha makhadi oṱhe zwa fhelisa ḓivhazwakale yayo.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal vendor menu paths, privacy scopes, archive restoration and irreversible deletion warnings. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "leave-board-pop",
+    "before": "Uqinisekile ukuthi ufuna ukushiya __boardTitle__? Uzokhishwa kuwo wonke amakhadi kuleli bhodi.",
+    "after": "Ni na vhuṱanzi ha uri ni ṱoḓa u bva kha __boardTitle__? Ni ḓo bviswa kha makhadi oṱhe a bodo iyi ya Kanban.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal vendor menu paths, privacy scopes, archive restoration and irreversible deletion warnings. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "list-archive-cards",
+    "before": "Hambisa wonke amakhadi akulolu hlu kungobo yomlando",
+    "after": "Isa makhadi oṱhe a mutevhe uyu fhethu ha u vhulunga",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal vendor menu paths, privacy scopes, archive restoration and irreversible deletion warnings. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "list-archive-cards-pop",
+    "before": "Lokhu kuzosusa wonke amakhadi akulolu hlu ebhodini. Ukuze ubuke amakhadi Kungobo yomlando futhi uwabuyisele ebhodini, chofoza okuthi “Imenyu\"> “Faka kungobo yomlando”.",
+    "after": "Izwi zwi ḓo bvisa makhadi oṱhe a mutevhe uyu kha bodo ya Kanban. U vhona makhadi o vhulungwaho na u a vhuyedzedza kha bodo, kiḽikani “Menu” > “Archive”.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal vendor menu paths, privacy scopes, archive restoration and irreversible deletion warnings. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "list-archive-pop",
+    "before": "Uhlu ngeke lubonakale ebhodini ngemva kokufakwa kungobo yomlando.",
+    "after": "Mutevhe a u tsha ḓo vhonala kha bodo ya Kanban musi wo vhulungwa.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal vendor menu paths, privacy scopes, archive restoration and irreversible deletion warnings. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "list-delete-suggest-archive",
+    "before": "Ungahambisa uhlu Kungobo yomlando ukuze uyisuse ebhodini futhi ulondoloze umsebenzi.",
+    "after": "Ni nga isa mutevhe fhethu ha u vhulunga u u bvisa kha bodo ya Kanban ni tshi vhulunga nyito.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal vendor menu paths, privacy scopes, archive restoration and irreversible deletion warnings. Low-confidence wording; fluent-speaker validation outstanding."
   }
 ]
