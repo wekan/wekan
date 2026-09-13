@@ -72259,5 +72259,54 @@
     "before": "Mashoko echiShona: Gantt",
     "after": "Gantt",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sn",
+    "key": "calendar-system-jalali",
+    "before": "Jalali (Fars)",
+    "after": "Karenda yeJalali (yePersia)",
+    "reason": "Replace foreign calendar descriptions using Shona Karenda and retained proper names. Published usage supports chiBuddha/Korea https://www.jw.org/sn/Raibhurari/magazini/w20031201/Chavanoendera-Kuchechi/ ; China/India/Japan https://www.jw.org/sn/Raibhurari/magazini/wp20151201/kunzwisisa-bhaibheri/ ; Persia https://www.jw.org/sn/Raibhurari/magazini/w20041215/Pakatadza-Kuwirirana-Kunamata-Kwechokwadi-Nechihedheni/ . Full specialized calendar-label grammar remains subject to native review."
+  },
+  {
+    "locale": "sn",
+    "key": "calendar-system-buddhist",
+    "before": "Buddhist",
+    "after": "Karenda yechiBuddha",
+    "reason": "Replace foreign calendar descriptions using Shona Karenda and retained proper names. Published usage supports chiBuddha/Korea https://www.jw.org/sn/Raibhurari/magazini/w20031201/Chavanoendera-Kuchechi/ ; China/India/Japan https://www.jw.org/sn/Raibhurari/magazini/wp20151201/kunzwisisa-bhaibheri/ ; Persia https://www.jw.org/sn/Raibhurari/magazini/w20041215/Pakatadza-Kuwirirana-Kunamata-Kwechokwadi-Nechihedheni/ . Full specialized calendar-label grammar remains subject to native review."
+  },
+  {
+    "locale": "sn",
+    "key": "calendar-system-chinese",
+    "before": "Chinese",
+    "after": "Karenda yeChina",
+    "reason": "Replace foreign calendar descriptions using Shona Karenda and retained proper names. Published usage supports chiBuddha/Korea https://www.jw.org/sn/Raibhurari/magazini/w20031201/Chavanoendera-Kuchechi/ ; China/India/Japan https://www.jw.org/sn/Raibhurari/magazini/wp20151201/kunzwisisa-bhaibheri/ ; Persia https://www.jw.org/sn/Raibhurari/magazini/w20041215/Pakatadza-Kuwirirana-Kunamata-Kwechokwadi-Nechihedheni/ . Full specialized calendar-label grammar remains subject to native review."
+  },
+  {
+    "locale": "sn",
+    "key": "calendar-system-dangi",
+    "before": "Dangi (Korean)",
+    "after": "Karenda yeDangi (Korea)",
+    "reason": "Replace foreign calendar descriptions using Shona Karenda and retained proper names. Published usage supports chiBuddha/Korea https://www.jw.org/sn/Raibhurari/magazini/w20031201/Chavanoendera-Kuchechi/ ; China/India/Japan https://www.jw.org/sn/Raibhurari/magazini/wp20151201/kunzwisisa-bhaibheri/ ; Persia https://www.jw.org/sn/Raibhurari/magazini/w20041215/Pakatadza-Kuwirirana-Kunamata-Kwechokwadi-Nechihedheni/ . Full specialized calendar-label grammar remains subject to native review."
+  },
+  {
+    "locale": "sn",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "Karenda yenyika yeIndia",
+    "reason": "Replace foreign calendar descriptions using Shona Karenda and retained proper names. Published usage supports chiBuddha/Korea https://www.jw.org/sn/Raibhurari/magazini/w20031201/Chavanoendera-Kuchechi/ ; China/India/Japan https://www.jw.org/sn/Raibhurari/magazini/wp20151201/kunzwisisa-bhaibheri/ ; Persia https://www.jw.org/sn/Raibhurari/magazini/w20041215/Pakatadza-Kuwirirana-Kunamata-Kwechokwadi-Nechihedheni/ . Full specialized calendar-label grammar remains subject to native review."
+  },
+  {
+    "locale": "sn",
+    "key": "calendar-system-japanese",
+    "before": "Japanese",
+    "after": "Karenda yeJapan",
+    "reason": "Replace foreign calendar descriptions using Shona Karenda and retained proper names. Published usage supports chiBuddha/Korea https://www.jw.org/sn/Raibhurari/magazini/w20031201/Chavanoendera-Kuchechi/ ; China/India/Japan https://www.jw.org/sn/Raibhurari/magazini/wp20151201/kunzwisisa-bhaibheri/ ; Persia https://www.jw.org/sn/Raibhurari/magazini/w20041215/Pakatadza-Kuwirirana-Kunamata-Kwechokwadi-Nechihedheni/ . Full specialized calendar-label grammar remains subject to native review."
+  },
+  {
+    "locale": "sn",
+    "key": "calendar-system-roc",
+    "before": "Republic of China",
+    "after": "Karenda yeMinguo",
+    "reason": "Replace foreign calendar descriptions using Shona Karenda and retained proper names. Published usage supports chiBuddha/Korea https://www.jw.org/sn/Raibhurari/magazini/w20031201/Chavanoendera-Kuchechi/ ; China/India/Japan https://www.jw.org/sn/Raibhurari/magazini/wp20151201/kunzwisisa-bhaibheri/ ; Persia https://www.jw.org/sn/Raibhurari/magazini/w20041215/Pakatadza-Kuwirirana-Kunamata-Kwechokwadi-Nechihedheni/ . Full specialized calendar-label grammar remains subject to native review."
   }
 ]
