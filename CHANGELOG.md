@@ -578,7 +578,8 @@ resizable date popups. On-premise **OAuth2/OIDC** login gains email-domain
 restrictions. Local translation repairs preserve placeholders and warning
 meanings; the remaining audit has resumed and is tracked under **TODO Later**.
 Translation upload tooling and repository mirrors are updated, along with
-the Playwright test dependency. Organization mirrors add configured namespaces,
+the Playwright test dependency. Meteor upgrades to 3.6-beta.0 with
+Rspack 2.2 and matching Docker metadata. Organization mirrors add configured namespaces,
 linked comment attachments and offline HTML/CSV archives.
 
 This release adds the following calendar and login features:
@@ -1087,6 +1088,28 @@ New regression checks exercise actual enum generation, logical-anchor
 clearing, locale-specific reviewed values, changed-source rejection and
 safe filling. Full verification results are recorded in TODO Later and
 the translation audit.
+
+</details>
+
+and updates the Meteor build dependencies:
+
+**Build toolchain** - Meteor 3.6 beta and Rspack 2.2.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/35082f7d7">Upgrade Meteor and Rspack build dependencies</a>. Thanks to xet7.</summary>
+
+Upgrade Meteor 3.5.2 to 3.6-beta.0 and synchronize Docker's Meteor pin.
+Commit the corresponding Meteor compiler/package versions and explicit
+existing account-package pins. Update @meteorjs/rspack to 3.0.0-beta.1,
+Rspack CLI/core to 2.2.0 and rsdoctor to 1.5.9; declare Rspack dev-server
+2.2.0 and SWC core 1.15.32 explicitly. The npm lockfile matches both
+application and development dependency declarations.
+
+All 1,015 Node suites pass, including request parsing and actual Rspack
+compilation. Version consistency tests accept the canonical beta release
+and reject stale Meteor/app metadata. Full Meteor bundle verification
+remains pending: the local beta tool is still starting before compilation.
+This dependency commit does not claim the bundle build or UI tests passed.
 
 </details>
 
