@@ -83893,5 +83893,75 @@
     "before": "Il n'y a pas encore d'autres membres réels sur ce tableau. Cherchez ci-dessus pour trouver n'importe quel utilisateur.",
     "after": "Waray pa iba nga tinuod nga miyembro hini nga board. Pamiling ha igbaw basi makita an bisan hin-o nga gumaramit.",
     "reason": "Replace French with Waray; preserve virtual-member/real-user distinction, card/comment/activity transfer, anyone search, imported role for newly added board user and no increased permissions. Technical role/pairing terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wa-RR",
+    "key": "copyManyCardsPopup-format",
+    "before": "[ {\"title\": \"Titre de la première carte\", \"description\":\"Description de la première carte\"}, {\"title\":\"Titre de la seconde carte\",\"description\":\"Description de la seconde carte\"},{\"title\":\"Titre de la dernière carte\",\"description\":\"Description de la dernière carte\"} ]",
+    "after": "[{\"title\": \"Titulo han siyahan nga kard\", \"description\": \"Deskripsyon han siyahan nga kard\"}, {\"title\": \"Titulo han ikaduha nga kard\", \"description\": \"Deskripsyon han ikaduha nga kard\"}, {\"title\": \"Titulo han kataposan nga kard\", \"description\": \"Deskripsyon han kataposan nga kard\"}]",
+    "reason": "Replace French/English with Waray; preserve literal JSON title/description keys and first/second/last examples, Persian/Buddhist/Chinese/Coptic/Hebrew/national Indian calendar identities, civil versus astronomical tabular starting epoch and moon sighting. Technical calendar vocabulary and complete grammar remain low confidence."
+  },
+  {
+    "locale": "wa-RR",
+    "key": "calendar-system-jalali",
+    "before": "Jalali (Fars)",
+    "after": "Kalendaryo nga Jalali (Persiano)",
+    "reason": "Replace French/English with Waray; preserve literal JSON title/description keys and first/second/last examples, Persian/Buddhist/Chinese/Coptic/Hebrew/national Indian calendar identities, civil versus astronomical tabular starting epoch and moon sighting. Technical calendar vocabulary and complete grammar remain low confidence."
+  },
+  {
+    "locale": "wa-RR",
+    "key": "calendar-system-buddhist",
+    "before": "Buddhist",
+    "after": "Kalendaryo nga Budista",
+    "reason": "Replace French/English with Waray; preserve literal JSON title/description keys and first/second/last examples, Persian/Buddhist/Chinese/Coptic/Hebrew/national Indian calendar identities, civil versus astronomical tabular starting epoch and moon sighting. Technical calendar vocabulary and complete grammar remain low confidence."
+  },
+  {
+    "locale": "wa-RR",
+    "key": "calendar-system-chinese",
+    "before": "Chinese",
+    "after": "Kalendaryo han Tsina",
+    "reason": "Replace French/English with Waray; preserve literal JSON title/description keys and first/second/last examples, Persian/Buddhist/Chinese/Coptic/Hebrew/national Indian calendar identities, civil versus astronomical tabular starting epoch and moon sighting. Technical calendar vocabulary and complete grammar remain low confidence."
+  },
+  {
+    "locale": "wa-RR",
+    "key": "calendar-system-coptic",
+    "before": "Coptic",
+    "after": "Kalendaryo nga Koptiko",
+    "reason": "Replace French/English with Waray; preserve literal JSON title/description keys and first/second/last examples, Persian/Buddhist/Chinese/Coptic/Hebrew/national Indian calendar identities, civil versus astronomical tabular starting epoch and moon sighting. Technical calendar vocabulary and complete grammar remain low confidence."
+  },
+  {
+    "locale": "wa-RR",
+    "key": "calendar-system-hebrew",
+    "before": "Hebrew",
+    "after": "Kalendaryo nga Hebreo",
+    "reason": "Replace French/English with Waray; preserve literal JSON title/description keys and first/second/last examples, Persian/Buddhist/Chinese/Coptic/Hebrew/national Indian calendar identities, civil versus astronomical tabular starting epoch and moon sighting. Technical calendar vocabulary and complete grammar remain low confidence."
+  },
+  {
+    "locale": "wa-RR",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "Nasudnon nga kalendaryo han India",
+    "reason": "Replace French/English with Waray; preserve literal JSON title/description keys and first/second/last examples, Persian/Buddhist/Chinese/Coptic/Hebrew/national Indian calendar identities, civil versus astronomical tabular starting epoch and moon sighting. Technical calendar vocabulary and complete grammar remain low confidence."
+  },
+  {
+    "locale": "wa-RR",
+    "key": "calendar-system-islamic-civil",
+    "before": "Islamic civil",
+    "after": "Kalendaryo nga Hijri (gin-ihap pinaagi hin talaan, sibil nga tinikangan)",
+    "reason": "Replace French/English with Waray; preserve literal JSON title/description keys and first/second/last examples, Persian/Buddhist/Chinese/Coptic/Hebrew/national Indian calendar identities, civil versus astronomical tabular starting epoch and moon sighting. Technical calendar vocabulary and complete grammar remain low confidence."
+  },
+  {
+    "locale": "wa-RR",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "Kalendaryo nga Hijri (Saudi Arabia, pagtan-aw han bulan)",
+    "reason": "Replace French/English with Waray; preserve literal JSON title/description keys and first/second/last examples, Persian/Buddhist/Chinese/Coptic/Hebrew/national Indian calendar identities, civil versus astronomical tabular starting epoch and moon sighting. Technical calendar vocabulary and complete grammar remain low confidence."
+  },
+  {
+    "locale": "wa-RR",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "Kalendaryo nga Hijri (gin-ihap pinaagi hin talaan, astronomiko nga tinikangan)",
+    "reason": "Replace French/English with Waray; preserve literal JSON title/description keys and first/second/last examples, Persian/Buddhist/Chinese/Coptic/Hebrew/national Indian calendar identities, civil versus astronomical tabular starting epoch and moon sighting. Technical calendar vocabulary and complete grammar remain low confidence."
   }
 ]
