@@ -80379,5 +80379,61 @@
     "before": "Limu items yu checklist (0/0) ci mini-kart",
     "after": "Limu mbiri limu bu seetlu bi (0/0) ci karta bu ndaw bi",
     "reason": "Replace French checklist controls and mixed-language item counts with Wolof using existing limu bu seetlu terminology. Preserve adding/removing/copying/moving/converting actions, checklist versus item counts, literal (0/0) and minicard scope. Full grammar and computing adaptations remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "delete-duplicate-empty-lists-migration",
+    "before": "Supprimer les listes vides en doublon ? ",
+    "after": "Far limu yi am benn tur te amul karta",
+    "reason": "Replace French list controls with Wolof. Duplicate-list wording refers to same-name lists; preserve empty-card restriction in empty-duplicate actions and confirmation, selecting all cards in current list, Trello import and archive/history preservation. Existing limu/karta vocabulary reused. Duplicate adaptation and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "step-delete-duplicate-empty-lists",
+    "before": "Supprimer les listes vides en doublon ? ",
+    "after": "Far limu yi am benn tur te amul karta",
+    "reason": "Replace French list controls with Wolof. Duplicate-list wording refers to same-name lists; preserve empty-card restriction in empty-duplicate actions and confirmation, selecting all cards in current list, Trello import and archive/history preservation. Existing limu/karta vocabulary reused. Duplicate adaptation and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "delete-duplicate-lists",
+    "before": "Supprimer les listes en doublon ? ",
+    "after": "Far limu yi am benn tur",
+    "reason": "Replace French list controls with Wolof. Duplicate-list wording refers to same-name lists; preserve empty-card restriction in empty-duplicate actions and confirmation, selecting all cards in current list, Trello import and archive/history preservation. Existing limu/karta vocabulary reused. Duplicate adaptation and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "deleteDuplicateListsPopup-title",
+    "before": "Supprimer les listes en doublon ? ",
+    "after": "Far limu yi am benn tur",
+    "reason": "Replace French list controls with Wolof. Duplicate-list wording refers to same-name lists; preserve empty-card restriction in empty-duplicate actions and confirmation, selecting all cards in current list, Trello import and archive/history preservation. Existing limu/karta vocabulary reused. Duplicate adaptation and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "delete-duplicate-lists-confirm",
+    "before": "Êtes-vous sûr ? Cela supprimera toutes les listes en doublon qui ont le même nom et qui ne contiennent aucune carte.",
+    "after": "Ndax wóor na la? Lii dina far limu yi yépp yu am benn tur te amul karta.",
+    "reason": "Replace French list controls with Wolof. Duplicate-list wording refers to same-name lists; preserve empty-card restriction in empty-duplicate actions and confirmation, selecting all cards in current list, Trello import and archive/history preservation. Existing limu/karta vocabulary reused. Duplicate adaptation and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "list-select-cards",
+    "before": "Sélectionner toutes les cartes de cette liste",
+    "after": "Tànn karta yi yépp ci limu bii",
+    "reason": "Replace French list controls with Wolof. Duplicate-list wording refers to same-name lists; preserve empty-card restriction in empty-duplicate actions and confirmation, selecting all cards in current list, Trello import and archive/history preservation. Existing limu/karta vocabulary reused. Duplicate adaptation and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "listImportCardPopup-title",
+    "before": "Importer une carte Trello",
+    "after": "Dugal karta bu Trello",
+    "reason": "Replace French list controls with Wolof. Duplicate-list wording refers to same-name lists; preserve empty-card restriction in empty-duplicate actions and confirmation, selecting all cards in current list, Trello import and archive/history preservation. Existing limu/karta vocabulary reused. Duplicate adaptation and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "list-delete-suggest-archive",
+    "before": "Vous pouvez archiver une liste pour l'enlever du tableau tout en conservant son activité.",
+    "after": "Mën nga yóbbu limu ci àrsiw bi ngir génne ko ci tablo bi te denc jëf yi.",
+    "reason": "Replace French list controls with Wolof. Duplicate-list wording refers to same-name lists; preserve empty-card restriction in empty-duplicate actions and confirmation, selecting all cards in current list, Trello import and archive/history preservation. Existing limu/karta vocabulary reused. Duplicate adaptation and full grammar remain low confidence."
   }
 ]
