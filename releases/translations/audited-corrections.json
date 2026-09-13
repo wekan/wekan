@@ -85125,5 +85125,26 @@
     "before": "Islamic (Saudi Arabia)",
     "after": "Khalentara ya Hijri (Saudi Arabia, go bona ngwedi)",
     "reason": "Replace English religious labels and foreign Fars identifier with Northern Sotho; preserve Jalali and Hijri identities and restore Saudi moon-sighting detail. Mabuddha attested at https://www.jw.org/nso/laeprari/dimakasine/phafoga-no2-2020-jul-aug/go-welwa-ke-mathata-seo-batho-ba-bangwe-ba-se-dumelago/ ; Peresia at https://wol.jw.org/nso/wol/b/r165/lp-se/nwt/15/4 ; ngwedi calendar vocabulary at https://www.jw.org/nso/laeprari/dimakasine/morokami-kgati%C5%A1o-e-ithutwago-june-2022/na-o-be-o-tseba-june-2022-2/ . Complete adapted label grammar remains low confidence; Coptic, national/Ethiopic and tabular epoch variants remain pending."
+  },
+  {
+    "locale": "nso",
+    "key": "calendar-system-ethiopic",
+    "before": "Ethiopic",
+    "after": "Khalentara ya Ethiopia",
+    "reason": "Replace English country calendar labels with Northern Sotho descriptions using existing/published khalentara vocabulary; retain Ethiopia, India and Amete Alem proper identifiers and national distinction. Khalentara attested at https://www.jw.org/nso/laeprari/beibele/nwt/ditaba-t%C5%A1a-tlalelet%C5%A1o-b/khalentara-ya-seheberu-ya-ka-beibeleng/ . Country dictionary searches returned other languages, so retained country spellings are not claimed as attested Northern Sotho. Full assembled grammar, especially national descriptor, remains low confidence; Coptic and tabular epochs remain pending."
+  },
+  {
+    "locale": "nso",
+    "key": "calendar-system-ethioaa",
+    "before": "Ethiopic Amete Alem",
+    "after": "Khalentara ya Amete Alem ya Ethiopia",
+    "reason": "Replace English country calendar labels with Northern Sotho descriptions using existing/published khalentara vocabulary; retain Ethiopia, India and Amete Alem proper identifiers and national distinction. Khalentara attested at https://www.jw.org/nso/laeprari/beibele/nwt/ditaba-t%C5%A1a-tlalelet%C5%A1o-b/khalentara-ya-seheberu-ya-ka-beibeleng/ . Country dictionary searches returned other languages, so retained country spellings are not claimed as attested Northern Sotho. Full assembled grammar, especially national descriptor, remains low confidence; Coptic and tabular epochs remain pending."
+  },
+  {
+    "locale": "nso",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "Khalentara ya setšhaba ya India",
+    "reason": "Replace English country calendar labels with Northern Sotho descriptions using existing/published khalentara vocabulary; retain Ethiopia, India and Amete Alem proper identifiers and national distinction. Khalentara attested at https://www.jw.org/nso/laeprari/beibele/nwt/ditaba-t%C5%A1a-tlalelet%C5%A1o-b/khalentara-ya-seheberu-ya-ka-beibeleng/ . Country dictionary searches returned other languages, so retained country spellings are not claimed as attested Northern Sotho. Full assembled grammar, especially national descriptor, remains low confidence; Coptic and tabular epochs remain pending."
   }
 ]
