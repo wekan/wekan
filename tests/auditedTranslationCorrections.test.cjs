@@ -2029,5 +2029,22 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.match(cache['ve-PP']['normal-desc'], /Ei voi vajehtada sändoid/);
   assert.match(cache['ve-PP']['last-admin-desc'], /üks administrator libo enamba/);
   assert.match(cache['ve-PP']['card-sorting-by-number-on-minicard'], /minikartal$/);
+  const vepsExportChecklist = {
+  "export-card-excel-fields": "Valiče pöudod Excel-irdalevendan täht:",
+  "export-card-field-board-info": "Laudan tedod (Laud, Lugetiž, Ujundšoid)",
+  "export-card-field-people": "Ristitud (Tegii, Ižand, Ühtnikad, Märitud kävutajad)",
+  "owner": "Ižand",
+  "newlineBecomesNewChecklistItem": "Joga tekstan rivi linneb ühteks kodvindlugetišen kohtaks",
+  "newlineBecomesNewChecklistItemOriginOrder": "Joga tekstan rivi linneb ühteks kodvindlugetišen kohtaks, ezmäižes järgenduses"
+};
+  for (const [key, value] of Object.entries(vepsExportChecklist)) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.equal(vepsTranslator.t(key), value, key);
+    assert.doesNotMatch(value, /Valitse|Taulu tiedot|Ihmiset|Luoja|Omistaja|Jäsenet|Käsittelijät|Joka rivistä|tarkistuslistan|alkuperäinen/, key);
+  }
+  assert.match(cache['ve-PP']['export-card-field-people'], /Tegii, Ižand, Ühtnikad, Märitud kävutajad/);
+  assert.match(cache['ve-PP']['export-card-field-board-info'], /Laud, Lugetiž, Ujundšoid/);
+  assert.equal(cache['ve-PP']['newlineBecomesNewChecklistItemOriginOrder'], cache['ve-PP']['newlineBecomesNewChecklistItem'] + ', ezmäižes järgenduses');
+  assert.match(cache['ve-PP']['newlineBecomesNewChecklistItem'], /Joga tekstan rivi.*ühteks.*kohtaks/);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });

@@ -118662,5 +118662,47 @@
     "before": "Et voi vaihtaa rooleja koska täytyy olla olemassa ainakin yksi ylläpitäjä.",
     "after": "Sinä ed voi vajehtada roloid: pidab olda üks administrator libo enamba.",
     "reason": "Replace flagged Finnish card sorting/template/bulk-copy or member-permission prose with Veps dictionary and existing terminology. Preserve literal JSON title/description fields, first/second/last examples, minicard placement, settings prohibition and at least one administrator. Composed technical case/morphology remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "export-card-excel-fields",
+    "before": "Valitse Excel-vientiin sisällytettävät kentät:",
+    "after": "Valiče pöudod Excel-irdalevendan täht:",
+    "reason": "Replace Finnish export-field/checklist-line wording with Veps dictionary vali-ta, ižand, joga, rivi and existing kanban terms. Preserve distinct creator/owner/member/assignee roles, board/list/swimlane fields, one checklist item per line and original order. Composed technical inflection remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "export-card-field-board-info",
+    "before": "Taulu tiedot (Taulu, Lista, Uimarata)",
+    "after": "Laudan tedod (Laud, Lugetiž, Ujundšoid)",
+    "reason": "Replace Finnish export-field/checklist-line wording with Veps dictionary vali-ta, ižand, joga, rivi and existing kanban terms. Preserve distinct creator/owner/member/assignee roles, board/list/swimlane fields, one checklist item per line and original order. Composed technical inflection remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "export-card-field-people",
+    "before": "Ihmiset (Luoja, Omistaja, Jäsenet, Käsittelijät)",
+    "after": "Ristitud (Tegii, Ižand, Ühtnikad, Märitud kävutajad)",
+    "reason": "Replace Finnish export-field/checklist-line wording with Veps dictionary vali-ta, ižand, joga, rivi and existing kanban terms. Preserve distinct creator/owner/member/assignee roles, board/list/swimlane fields, one checklist item per line and original order. Composed technical inflection remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "owner",
+    "before": "Omistaja",
+    "after": "Ižand",
+    "reason": "Replace Finnish export-field/checklist-line wording with Veps dictionary vali-ta, ižand, joga, rivi and existing kanban terms. Preserve distinct creator/owner/member/assignee roles, board/list/swimlane fields, one checklist item per line and original order. Composed technical inflection remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "newlineBecomesNewChecklistItem",
+    "before": "Joka rivistä tekstiä tulee yksi tarkistuslistan kohdista",
+    "after": "Joga tekstan rivi linneb ühteks kodvindlugetišen kohtaks",
+    "reason": "Replace Finnish export-field/checklist-line wording with Veps dictionary vali-ta, ižand, joga, rivi and existing kanban terms. Preserve distinct creator/owner/member/assignee roles, board/list/swimlane fields, one checklist item per line and original order. Composed technical inflection remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "newlineBecomesNewChecklistItemOriginOrder",
+    "before": "Joka rivistä tulee yksi tarkistuslistan kohdista, alkuperäinen järjestys",
+    "after": "Joga tekstan rivi linneb ühteks kodvindlugetišen kohtaks, ezmäižes järgenduses",
+    "reason": "Replace Finnish export-field/checklist-line wording with Veps dictionary vali-ta, ižand, joga, rivi and existing kanban terms. Preserve distinct creator/owner/member/assignee roles, board/list/swimlane fields, one checklist item per line and original order. Composed technical inflection remains low confidence pending fluent review."
   }
 ]
