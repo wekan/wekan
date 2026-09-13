@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 14,860 |
+| Corrected | 14,871 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 984 |
+| Pending review or repair | 973 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **16,790** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **16,802** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-13**, local commit `9b968a7a6` — repaired **11** Veps Webhook/organization-team creation/shortcut-action values, resolving **five** original findings and **six** related unflagged errors. Preserve optional authentication, outbound versus two-way/global Webhooks, disabling rather than deleting, administrator-contact guidance and personal versus assigned-card filtering. All **16,790** exact corrections and positive/negative runtime rendering/placeholder checks pass. **Low confidence:** composed Webhook labels and creation/contact grammar need fluent-speaker review; browser verification remains outstanding. Veps has **243** pending original findings. Keyboard-shortcut family terminology, structure-related migration wording and restored/unflagged and wrong-language/script validation remain pending. Translation repairs remain active.
+Latest translation fix: **2026-09-13**, local commit `eef786892` — repaired **12** Veps archive/recovery values, resolving **11** original findings and **one** related unflagged error. Preserve later recovery, retained activity, all-archived versus non-archived lost-item scope, exact `swimlaneId`/`listId` and named `Lost Cards` identifiers, automatic repair and “cannot easily be undone” wording. All **16,802** exact corrections and positive/negative runtime rendering/placeholder checks pass. **Low confidence:** composed recovery grammar and plural/case forms need fluent-speaker review; browser verification remains outstanding. Veps has **232** pending original findings. Keyboard-shortcut family terminology, structure-related migration wording and restored/unflagged and wrong-language/script validation remain pending. Translation repairs remain active.
 
 **Build interruption (2026-09-13):** local commit `6cd193879` repairs the Meteor 3.6/Rspack 2 build's undeclared body-parser import using Meteor's existing Express parsers. Seven HTTP/build regressions pass. Meteor 3.6-beta.0/Rspack 2.2 and matching Docker metadata are committed locally (`35082f7d7`), and both previously failing version checks pass. All **1,015** Node suites pass. The actual Meteor bundle build remains under verification: the local beta tool is still starting before compilation. Translation counts and the latest translation commit remain unchanged.
 
