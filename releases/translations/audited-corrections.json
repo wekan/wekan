@@ -49173,5 +49173,110 @@
     "before": "`__operator_status__:<status>` - dove *<status>* ie uno di seguenti:",
     "after": "`__operator_status__:<status>` - nua che *<status>* è ina da las suandantas valurs:",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "globalSearch-instructions-operator-swimlane",
+    "before": "`__operator_swimlane__:<title>` - ciartes in swimlane corrispondenti a *<title>*",
+    "after": "`__operator_swimlane__:<title>` - cartas en swimlanes che correspundan al *<title>* inditgà",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "globalSearch-instructions-operator-user",
+    "before": "`__operator_user__:<username>` - ciartes dove *<username>* ie un *membr* o *assegnatario*",
+    "after": "`__operator_user__:<username>` - cartas nua che *<username>* è in *commember* u ina *persuna responsabla*",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "globalSearch-instructions-status-ended",
+    "before": "`__predicate_ended__` - ciartes aventi una data di fine",
+    "after": "`__predicate_ended__` - cartas cun ina data da fin",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "has-spenttime-cards",
+    "before": "Ci ie ciartes cun tempo impiegato",
+    "after": "Ha cartas cun temp impundì",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "hide-checked-items",
+    "before": "Plata articoli controllati",
+    "after": "Zuppentar ils elements marcads",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "import-attachments-zip",
+    "before": "ZIP degli injuntes di Trello (facoltativo, da Trello Card Attachments Downloader)",
+    "after": "ZIP da las agiuntas da Trello (opziunal, da Trello Card Attachments Downloader)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "import-board-instruction-asana",
+    "before": "Incolla un JSON di esportazion di task di Asana ({ \"data\": [...] } dall'esportazion Asana o GET /tasks). I task ie raggruppati in sezioni (memberships); i task completati vann in Fatto.",
+    "after": "Encollar in export JSON da las incumbensas dad Asana ({ \"data\": [...] } da l’export dad Asana u GET /tasks). Las incumbensas vegnan gruppadas en secziuns (memberships); incumbensas terminadas vegnan spustadas en Terminà.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "import-board-instruction-csv",
+    "before": "Incolla in Comma Separated Values (CSV) / Tab Separated Values (TSV) .",
+    "after": "Encollar tias valurs separadas da commas (CSV) / valurs separadas da tabulaturs (TSV).",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "import-board-instruction-issues",
+    "before": "Incolla un array JSON di issue di __sourceName__ (__endpoint__). Le issue diventano ciartes raggruppate nelle liste Aperte / Chiuse.",
+    "after": "Encollar in array JSON dals problems da __sourceName__ (__endpoint__). Ils problems daventan cartas gruppadas en glistas Avert / Serrà.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "import-csv-placeholder",
+    "before": "Incolla di dati CSV/TSV validi qui",
+    "after": "Encollar qua tias datas CSV/TSV validas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "import-dependencies-done",
+    "before": "Importate __imported__ riga/e, __unmatched__ no corrispondenti",
+    "after": "Importà __imported__ lingia(s), __unmatched__ senza correspundenza",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "import-here-instruction",
+    "before": "Importa qui un'esportazion di WeKan (.json o .zip):",
+    "after": "Importar qua in export da WeKan (.json u .zip):",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "import-json-file",
+    "before": "Oppure siel un file JSON di Trello",
+    "after": "U tscherner ina datoteca JSON da Trello",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "import-json-placeholder",
+    "before": "Incolla di dati JSON validi qui",
+    "after": "Encollar qua tias datas JSON validas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "import-members-map-note",
+    "before": "Nota: I membri no mappati verrann assegnati all'utent corrente.",
+    "after": "Remartga: commembers senza attribuziun vegnan attribuids a l’utilisader actual.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
