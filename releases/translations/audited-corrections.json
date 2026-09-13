@@ -89575,8 +89575,8 @@
     "locale": "vo",
     "key": "import-board-zip",
     "before": "Ajouter un fichier .zip qui contient les fichiers JSON du tableau et les noms de sous-répertoires avec les pièces jointes",
-    "after": "Lüükön nünedi .zip, kel ninädon nünedis JSON tabas e donamapis me nems tabas e fimükots",
-    "reason": "Repair French CSV/ZIP import instructions and defective related ZIP/rule-import terminology. Preserve JSON/CSV/TSV/.json/.zip formats, one-or-more/all-boards scope, board-named subfolders/attachments, optional named Trello tool, wait/progress and failure/size/file-count limits. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests map (folder), teilön (separate), liunül (comma), stebedön (wait), and existing file/import/export/rule terms. Donamap subfolder derivation, Tab separator reference, software adaptations and assembled wording remain low confidence; no native-speaker verification."
+    "after": "Lüükön nünedi .zip, kel ninädon nünedis JSON tabas e donaragiviäris me nems tabas e fimükots",
+    "reason": "Repair unreadable uploaded ZIP and unsafe-file-path rejection; replace French separator/paste help preserving exact &#32;/&nbsp; entities and image-only condition. Improve two folder instructions using software-attested ragiviär rather than physical folder map. MediaWiki official Volapük https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json uses löpükön for upload and ragiviär in upload_directory_missing/read_only. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests sefik, refudön, reidön, teil and tränön. Subdirectory derivation, software drag/place/paste/path adaptations and assembled wording remain low confidence; no native-speaker verification. Preserve original correction before-values."
   },
   {
     "locale": "vo",
@@ -89610,8 +89610,8 @@
     "locale": "vo",
     "key": "import-trello-zip-file-hint",
     "before": "Zip ko bal u mödikum tab .json fils e keblünots onas in tabanema sekasitads (de Trello Card Attachments Downloader). Valik tabs paimportons.",
-    "after": "Nüned .zip ko bal u mödikum nüneds .json tabas e fimükots onas in donamaps me nems tabas (de Trello Card Attachments Downloader). Tabs valik panüveigons.",
-    "reason": "Repair French CSV/ZIP import instructions and defective related ZIP/rule-import terminology. Preserve JSON/CSV/TSV/.json/.zip formats, one-or-more/all-boards scope, board-named subfolders/attachments, optional named Trello tool, wait/progress and failure/size/file-count limits. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests map (folder), teilön (separate), liunül (comma), stebedön (wait), and existing file/import/export/rule terms. Donamap subfolder derivation, Tab separator reference, software adaptations and assembled wording remain low confidence; no native-speaker verification."
+    "after": "Nüned .zip ko bal u mödikum nüneds .json tabas e fimükots onas in donaragiviärs me nems tabas (de Trello Card Attachments Downloader). Tabs valik panüveigons.",
+    "reason": "Repair unreadable uploaded ZIP and unsafe-file-path rejection; replace French separator/paste help preserving exact &#32;/&nbsp; entities and image-only condition. Improve two folder instructions using software-attested ragiviär rather than physical folder map. MediaWiki official Volapük https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json uses löpükön for upload and ragiviär in upload_directory_missing/read_only. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests sefik, refudön, reidön, teil and tränön. Subdirectory derivation, software drag/place/paste/path adaptations and assembled wording remain low confidence; no native-speaker verification. Preserve original correction before-values."
   },
   {
     "locale": "vo",
@@ -89675,5 +89675,33 @@
     "before": "Letälolöd reguls peeksportöl (JSON u CSV) u Trello Butler-komandis is",
     "after": "Nüseitolös is nomis peseveigöl (JSON u CSV) u büdis Trello Butler",
     "reason": "Repair French CSV/ZIP import instructions and defective related ZIP/rule-import terminology. Preserve JSON/CSV/TSV/.json/.zip formats, one-or-more/all-boards scope, board-named subfolders/attachments, optional named Trello tool, wait/progress and failure/size/file-count limits. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests map (folder), teilön (separate), liunül (comma), stebedön (wait), and existing file/import/export/rule terms. Donamap subfolder derivation, Tab separator reference, software adaptations and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "import-trello-zip-read-failed",
+    "before": "No eplöpon reidön .zipi peladönöl.",
+    "after": "Nüned .zip pelöpüköl no ekanon pareidön.",
+    "reason": "Repair unreadable uploaded ZIP and unsafe-file-path rejection; replace French separator/paste help preserving exact &#32;/&nbsp; entities and image-only condition. Improve two folder instructions using software-attested ragiviär rather than physical folder map. MediaWiki official Volapük https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json uses löpükön for upload and ragiviär in upload_directory_missing/read_only. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests sefik, refudön, reidön, teil and tränön. Subdirectory derivation, software drag/place/paste/path adaptations and assembled wording remain low confidence; no native-speaker verification. Preserve original correction before-values."
+  },
+  {
+    "locale": "vo",
+    "key": "import-trello-zip-unsafe-path",
+    "before": "Zip sodon vegis neseküräl e perefudon.",
+    "after": "Nüned .zip ninädon vegis nünedas nesefik e perefudon.",
+    "reason": "Repair unreadable uploaded ZIP and unsafe-file-path rejection; replace French separator/paste help preserving exact &#32;/&nbsp; entities and image-only condition. Improve two folder instructions using software-attested ragiviär rather than physical folder map. MediaWiki official Volapük https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json uses löpükön for upload and ragiviär in upload_directory_missing/read_only. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests sefik, refudön, reidön, teil and tränön. Subdirectory derivation, software drag/place/paste/path adaptations and assembled wording remain low confidence; no native-speaker verification. Preserve original correction before-values."
+  },
+  {
+    "locale": "vo",
+    "key": "custom-field-stringtemplate-separator",
+    "before": "Séparateur (utiliser &#32; ou &nbsp; pour un espace)",
+    "after": "Mal teila (gebön &#32; u &nbsp; pro spad)",
+    "reason": "Repair unreadable uploaded ZIP and unsafe-file-path rejection; replace French separator/paste help preserving exact &#32;/&nbsp; entities and image-only condition. Improve two folder instructions using software-attested ragiviär rather than physical folder map. MediaWiki official Volapük https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json uses löpükön for upload and ragiviär in upload_directory_missing/read_only. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests sefik, refudön, reidön, teil and tränön. Subdirectory derivation, software drag/place/paste/path adaptations and assembled wording remain low confidence; no native-speaker verification. Preserve original correction before-values."
+  },
+  {
+    "locale": "vo",
+    "key": "paste-or-dragdrop",
+    "before": "pour coller, ou glissez-déposez une image ici (seulement une image)",
+    "after": "ad nüseitön, u tränön e pladön nünedi magoda is (te magods)",
+    "reason": "Repair unreadable uploaded ZIP and unsafe-file-path rejection; replace French separator/paste help preserving exact &#32;/&nbsp; entities and image-only condition. Improve two folder instructions using software-attested ragiviär rather than physical folder map. MediaWiki official Volapük https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json uses löpükön for upload and ragiviär in upload_directory_missing/read_only. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests sefik, refudön, reidön, teil and tränön. Subdirectory derivation, software drag/place/paste/path adaptations and assembled wording remain low confidence; no native-speaker verification. Preserve original correction before-values."
   }
 ]
