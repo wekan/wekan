@@ -121063,5 +121063,19 @@
     "before": "Exporter la carte vers Excel",
     "after": "ⵙⵙⵓⴼⵖ Takarḍa ⵖⵔ Excel",
     "reason": "Replace French with a direct Standard Moroccan Tamazight composition. Native MediaWiki export attests ssufgh (export) and filecopyerror attests ghr (to); preserve the existing local card noun Takarḍa and Excel product name. LOW CONFIDENCE: complete export-card phrase and mixed-script presentation require fluent technical review. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "custom-field-text",
+    "before": "نص",
+    "after": "ⴰⴹⵕⵉⵙ",
+    "reason": "Replace Arabic text with the native Standard Moroccan Tamazight text noun attested in MediaWiki yourtext (Your text), removing only its possessive qualifier. The complete native noun is attested; preserve the Text field-type meaning. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "custom-field-number",
+    "before": "رقم",
+    "after": "ⴰⵎⴹⴰⵏ",
+    "reason": "Replace Arabic number with the Standard Moroccan Tamazight numeric noun. MediaWiki recentchanges-label-plusminus uses the bound form umdan for number of bytes; use free-state amdan as the standalone Number field-type label. LOW CONFIDENCE: free-state adaptation and this numeric field-type usage require fluent review; do not substitute a count-specific label or translate numeric values. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
   }
 ]
