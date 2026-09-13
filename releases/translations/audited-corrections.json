@@ -77423,22 +77423,22 @@
     "locale": "wo",
     "key": "activity-added-label",
     "before": "a ajouté l'étiquette '%s' à %s",
-    "after": "yokk màndarga '%s' ci %s",
-    "reason": "Replace French card/checklist/label activity wording with Wolof; preserve placement at list top, movement from/to order and %s placeholders. Reuse existing karta/limu/yokk/far terms; vocabulary reference https://jangawolof.org/dictionary/ . Checklist/label/movement terminology and full grammar remain low confidence."
+    "after": "yokk etiket '%s' ci %s",
+    "reason": "Normalize Wolof label terminology to existing etiket across controls and earlier activity repairs. Correct no-label wrong letter meaning, hide-label-text missing text distinction and inheritance wrong good-list meaning. Preserve source tokens and parent-card label scope. Parent-card description and full grammar remain low confidence; includes unflagged values and earlier revisions."
   },
   {
     "locale": "wo",
     "key": "activity-added-label-card",
     "before": "a ajouté l'étiquette '%s'",
-    "after": "yokk màndarga '%s'",
-    "reason": "Replace French card/checklist/label activity wording with Wolof; preserve placement at list top, movement from/to order and %s placeholders. Reuse existing karta/limu/yokk/far terms; vocabulary reference https://jangawolof.org/dictionary/ . Checklist/label/movement terminology and full grammar remain low confidence."
+    "after": "yokk etiket '%s'",
+    "reason": "Normalize Wolof label terminology to existing etiket across controls and earlier activity repairs. Correct no-label wrong letter meaning, hide-label-text missing text distinction and inheritance wrong good-list meaning. Preserve source tokens and parent-card label scope. Parent-card description and full grammar remain low confidence; includes unflagged values and earlier revisions."
   },
   {
     "locale": "wo",
     "key": "activity-removed-label-card",
     "before": "a supprimé l'étiquette '%s'",
-    "after": "far màndarga '%s'",
-    "reason": "Replace French card/checklist/label activity wording with Wolof; preserve placement at list top, movement from/to order and %s placeholders. Reuse existing karta/limu/yokk/far terms; vocabulary reference https://jangawolof.org/dictionary/ . Checklist/label/movement terminology and full grammar remain low confidence."
+    "after": "far etiket '%s'",
+    "reason": "Normalize Wolof label terminology to existing etiket across controls and earlier activity repairs. Correct no-label wrong letter meaning, hide-label-text missing text distinction and inheritance wrong good-list meaning. Preserve source tokens and parent-card label scope. Parent-card description and full grammar remain low confidence; includes unflagged values and earlier revisions."
   },
   {
     "locale": "wo",
@@ -77838,5 +77838,61 @@
     "before": "Noms d'étiquette",
     "after": "Turi etiket yi",
     "reason": "Replace French label controls/errors with Wolof using existing etiket terminology. Correct remove-all-labels wrong dwelling terminology; distinguish label color from a colored label, preserve %s placeholders and whole-card label scope. Full grammar remains low confidence; includes unflagged faulty label controls."
+  },
+  {
+    "locale": "wo",
+    "key": "filter-no-label",
+    "before": "Aucune étiquette",
+    "after": "Amul etiket",
+    "reason": "Normalize Wolof label terminology to existing etiket across controls and earlier activity repairs. Correct no-label wrong letter meaning, hide-label-text missing text distinction and inheritance wrong good-list meaning. Preserve source tokens and parent-card label scope. Parent-card description and full grammar remain low confidence; includes unflagged values and earlier revisions."
+  },
+  {
+    "locale": "wo",
+    "key": "no-label",
+    "before": "Amul araf",
+    "after": "Amul etiket",
+    "reason": "Normalize Wolof label terminology to existing etiket across controls and earlier activity repairs. Correct no-label wrong letter meaning, hide-label-text missing text distinction and inheritance wrong good-list meaning. Preserve source tokens and parent-card label scope. Parent-card description and full grammar remain low confidence; includes unflagged values and earlier revisions."
+  },
+  {
+    "locale": "wo",
+    "key": "r-label",
+    "before": "étiquette",
+    "after": "etiket",
+    "reason": "Normalize Wolof label terminology to existing etiket across controls and earlier activity repairs. Correct no-label wrong letter meaning, hide-label-text missing text distinction and inheritance wrong good-list meaning. Preserve source tokens and parent-card label scope. Parent-card description and full grammar remain low confidence; includes unflagged values and earlier revisions."
+  },
+  {
+    "locale": "wo",
+    "key": "operator-label",
+    "before": "étiquette",
+    "after": "etiket",
+    "reason": "Normalize Wolof label terminology to existing etiket across controls and earlier activity repairs. Correct no-label wrong letter meaning, hide-label-text missing text distinction and inheritance wrong good-list meaning. Preserve source tokens and parent-card label scope. Parent-card description and full grammar remain low confidence; includes unflagged values and earlier revisions."
+  },
+  {
+    "locale": "wo",
+    "key": "label-create",
+    "before": "Créer une étiquette",
+    "after": "Sos etiket",
+    "reason": "Normalize Wolof label terminology to existing etiket across controls and earlier activity repairs. Correct no-label wrong letter meaning, hide-label-text missing text distinction and inheritance wrong good-list meaning. Preserve source tokens and parent-card label scope. Parent-card description and full grammar remain low confidence; includes unflagged values and earlier revisions."
+  },
+  {
+    "locale": "wo",
+    "key": "labels",
+    "before": "Étiquettes",
+    "after": "Etiket yi",
+    "reason": "Normalize Wolof label terminology to existing etiket across controls and earlier activity repairs. Correct no-label wrong letter meaning, hide-label-text missing text distinction and inheritance wrong good-list meaning. Preserve source tokens and parent-card label scope. Parent-card description and full grammar remain low confidence; includes unflagged values and earlier revisions."
+  },
+  {
+    "locale": "wo",
+    "key": "hide-minicard-label-text",
+    "before": "Cacher l'étiquette de la mini-carte",
+    "after": "Nëbb mbindu etiket yi ci karta bu ndaw bi",
+    "reason": "Normalize Wolof label terminology to existing etiket across controls and earlier activity repairs. Correct no-label wrong letter meaning, hide-label-text missing text distinction and inheritance wrong good-list meaning. Preserve source tokens and parent-card label scope. Parent-card description and full grammar remain low confidence; includes unflagged values and earlier revisions."
+  },
+  {
+    "locale": "wo",
+    "key": "subtask-inherit-parent-labels",
+    "before": "Jël limu baax yi ci karto waajur",
+    "after": "Jël etiketi karta bu mag bi",
+    "reason": "Normalize Wolof label terminology to existing etiket across controls and earlier activity repairs. Correct no-label wrong letter meaning, hide-label-text missing text distinction and inheritance wrong good-list meaning. Preserve source tokens and parent-card label scope. Parent-card description and full grammar remain low confidence; includes unflagged values and earlier revisions."
   }
 ]
