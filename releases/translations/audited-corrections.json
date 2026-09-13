@@ -56866,5 +56866,215 @@
     "before": "Rivedi la mappatura dei membri",
     "after": "Cuntrolla 'a currispunnenza d'e membre",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "import-trello-parent-workspace",
+    "before": "Colloca gli spazi di lavoro importati sotto",
+    "after": "Miette 'e spazie 'e lavoro importate sotto",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "import-trello-zip-read-failed",
+    "before": "Impossibile leggere il .zip caricato.",
+    "after": "Nun s'è pututo leggere 'o .zip caricato.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "import-wekan-file",
+    "before": "Importa da un file di esportazione .json o .zip:",
+    "after": "Importa da 'n file 'e esportazzione .json o .zip:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "import-without-mapping-members",
+    "before": "Importa senza mappare i membri (mappa in seguito)",
+    "after": "Importa senza assucià 'e membre (assòcia doppo)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "imported-member-no-account",
+    "before": "Membro importato — nessun account corrispondente ancora",
+    "after": "Membro importato — nun ce sta ancora 'n account currispunnente",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "invite-people-error",
+    "before": "Errore durante l'invio degli inviti di registrazione",
+    "after": "Errore mentre se mannava ll'invito a registrarse",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "invite-people-success",
+    "before": "Inviti di registrazione inviati correttamente",
+    "after": "Invito a registrarse mannato cu successo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "location-detect-from-map",
+    "before": "Rileva la posizione da qualsiasi link di mappa",
+    "after": "Trova 'a pusizzione da qualunque cullegamento a 'na mappa",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "map-provider-saved",
+    "before": "Servizio di mappe predefinito salvato.",
+    "after": "Servizio 'e mappe predefinito sarvato.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "map-to-existing-user",
+    "before": "Associa a un utente esistente",
+    "after": "Assòcia a 'n utente ca già esiste",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "map-to-existing-user-no-results",
+    "before": "Nessun utente corrispondente trovato.",
+    "after": "Nun ce stanno utente currispunnente.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "mapImportedMemberPopup-title",
+    "before": "Associa a un utente esistente",
+    "after": "Assòcia a 'n utente ca già esiste",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "max-avatar-filesize",
+    "before": "Max dimensione di caricamento dell'avatar in byte.",
+    "after": "Dimenzione massima d'o file avatar 'n byte:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "migration-batch-size-description",
+    "before": "Numero di allegati da elaborare in ogni batch (1-100)",
+    "after": "Nummero 'e allegati da trattà pe ogni gruppo (1-100)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "migration-delay-ms-description",
+    "before": "Ritardo tra i batch in millisecondi (100-10000)",
+    "after": "Attesa tra 'e gruppe 'n millisecondi (100-10000)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "migration-not-needed",
+    "before": "Nessuna migrazione necessaria",
+    "after": "Nun serve 'a migrazzione",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "migration-pause-failed",
+    "before": "Impossibile mettere in pausa le migrazioni",
+    "after": "Nun s'è pututo mettere 'e migrazzione 'n pausa",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "migration-resume-failed",
+    "before": "Impossibile riprendere la migrazione",
+    "after": "Nun s'è pututo ripiglià 'a migrazzione",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "migration-start-failed",
+    "before": "Impossibile avviare le migrazioni",
+    "after": "Nun s'è pututo avvià 'e migrazzione",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "migration-stop-confirm",
+    "before": "Sei sicuro di voler arrestare tutte le migrazioni?",
+    "after": "Si' sicuro ca vuó fermà tutte 'e migrazzione?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "migration-stop-failed",
+    "before": "Impossibile arrestare le migrazioni",
+    "after": "Nun s'è pututo fermà 'e migrazzione",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "mobile-desktop-toggle",
+    "before": "Alterna tra modalità mobile e desktop",
+    "after": "Passa tra 'a mudaletà mobile e desktop",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "mongodb-compact-running",
+    "before": "Compact in esecuzione, potrebbe richiedere diversi minuti...",
+    "after": "Sta eseguenno compact; ce ponno vulé parecchie minute...",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "mongodb-compact-success",
+    "before": "Compact completato. Collection compattate:",
+    "after": "Compact cumpletato. Cullezzione cumpattate:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "mongodb-gridfs-storage",
+    "before": "Archiviazione MongoDB GridFS",
+    "after": "Memorizzazzione MongoDB GridFS",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "monitoring-export-failed",
+    "before": "Impossibile esportare i dati di monitoraggio",
+    "after": "Nun s'è pututo esportà 'e date 'e monitoraggio",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "monitoring-refresh-failed",
+    "before": "Impossibile aggiornare i dati di monitoraggio",
+    "after": "Nun s'è pututo aggiurnà 'e date 'e monitoraggio",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "move-progress-file",
+    "before": "Documento in trasferimento",
+    "after": "File",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "multi-selection-off",
+    "before": "Disattiva la selezione multipla",
+    "after": "Disattiva 'a selezzione multipla",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "multi-selection-on",
+    "before": "Selezione multipla attiva",
+    "after": "'A selezzione multipla è attiva",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
