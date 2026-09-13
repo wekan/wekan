@@ -86952,5 +86952,40 @@
     "before": "Équipe '%s' non trouvée.",
     "after": "Kvip '%s' no petuvon.",
     "reason": "Replace French or Esperanto team wording with Volapük. Midgley English/Volapük dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests kvip (team), mödot (quantity), guvan (administrator), kosikön (come into contact), ya (already), dono (below), begö (please); reuse jafön/lüükön/jonön/gebön/tuvön vocabulary. Preserve source lookup token and team-count trailing space. Software senses and assembled grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "delete-team-confirm-popup",
+    "before": "Êtes-vous sûr de vouloir supprimer cette équipe ? Cela est irréversible.",
+    "after": "Fümol-li, das vilol radön kvipi at? Sädunam binon nemögik.",
+    "reason": "Replace French confirmation/warning text with Volapük, preserving certainty questions, delete versus remove-from-board meaning, at-least-one-user deletion blocker and no-undo warning. Checked settingsTeamPopup and removeBoardTeamPopup source. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests fümön (be sure), vilön + infinitive (want), nemu (at least), dutön lü (belong to), sädunön (undo), nemögik (impossible); reuse kvip, radön, moükön, nunäd. Derived sädunam, avatar borrowing, software board terminology and assembled grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "delete-team-warning-message",
+    "before": "Impossible de supprimer cette équipe, au moins un utilisateur lui appartient",
+    "after": "Radön kvipi at binon nemögik: nemu geban bal duton lü on.",
+    "reason": "Replace French confirmation/warning text with Volapük, preserving certainty questions, delete versus remove-from-board meaning, at-least-one-user deletion blocker and no-undo warning. Checked settingsTeamPopup and removeBoardTeamPopup source. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests fümön (be sure), vilön + infinitive (want), nemu (at least), dutön lü (belong to), sädunön (undo), nemögik (impossible); reuse kvip, radön, moükön, nunäd. Derived sädunam, avatar borrowing, software board terminology and assembled grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "remove-team-from-table",
+    "before": "Voulez-vous vraiment supprimer cette équipe du tableau ?",
+    "after": "Fümol-li, das vilol moükön kvipi at de tab?",
+    "reason": "Replace French confirmation/warning text with Volapük, preserving certainty questions, delete versus remove-from-board meaning, at-least-one-user deletion blocker and no-undo warning. Checked settingsTeamPopup and removeBoardTeamPopup source. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests fümön (be sure), vilön + infinitive (want), nemu (at least), dutön lü (belong to), sädunön (undo), nemögik (impossible); reuse kvip, radön, moükön, nunäd. Derived sädunam, avatar borrowing, software board terminology and assembled grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "delete-avatar-confirm",
+    "before": "Êtes-vous sûr de vouloir supprimer cet avatar ?",
+    "after": "Fümol-li, das vilol radön avatari at?",
+    "reason": "Replace French confirmation/warning text with Volapük, preserving certainty questions, delete versus remove-from-board meaning, at-least-one-user deletion blocker and no-undo warning. Checked settingsTeamPopup and removeBoardTeamPopup source. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests fümön (be sure), vilön + infinitive (want), nemu (at least), dutön lü (belong to), sädunön (undo), nemögik (impossible); reuse kvip, radön, moükön, nunäd. Derived sädunam, avatar borrowing, software board terminology and assembled grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "delete-all-notifications-confirm",
+    "before": "Êtes-vous sûr de vouloir supprimer toutes les notifications ? Cette action est irréversible.",
+    "after": "Fümol-li, das vilol radön nunädis valik? Sädunam binon nemögik.",
+    "reason": "Replace French confirmation/warning text with Volapük, preserving certainty questions, delete versus remove-from-board meaning, at-least-one-user deletion blocker and no-undo warning. Checked settingsTeamPopup and removeBoardTeamPopup source. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests fümön (be sure), vilön + infinitive (want), nemu (at least), dutön lü (belong to), sädunön (undo), nemögik (impossible); reuse kvip, radön, moükön, nunäd. Derived sädunam, avatar borrowing, software board terminology and assembled grammar remain low confidence; no native-speaker validation."
   }
 ]
