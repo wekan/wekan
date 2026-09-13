@@ -74191,5 +74191,131 @@
     "before": "Corriger les cartes orphelines",
     "after": "Rapontyî les cåtes ôrfulinnes",
     "reason": "Replace audited French migration descriptions with Walloon using existing native vocabulary and https://dtw.walon.org/index.php?query=raponty%C3%AE . Preserve scope, no-card AND same-title populated duplicate condition, non-archived-only recovery and swimlaneId/listId identifiers. Full grammar and specialized data-integrity terminology remain low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "export-card-field-board-info",
+    "before": "Informations du tableau (Tableau, Liste, Couloir)",
+    "after": "Informåcions do tåvlea (Tåvlea, Djivêye, Coridôr)",
+    "reason": "Replace audited French export/upload/file controls with Walloon, preserving Excel/CSV/TSV/MongoDB names, byte units and field groups. Export vocabulary from authored KDE Walloon translation: https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po ; existing file and clipboard vocabulary reused. Full grammar and specialized received/owner/assignment field terminology remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "export-card-excel",
+    "before": "Exporter la carte vers Excel",
+    "after": "Ebaguer l' cåte viè Excel",
+    "reason": "Replace audited French export/upload/file controls with Walloon, preserving Excel/CSV/TSV/MongoDB names, byte units and field groups. Export vocabulary from authored KDE Walloon translation: https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po ; existing file and clipboard vocabulary reused. Full grammar and specialized received/owner/assignment field terminology remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "export-card-excel-fields",
+    "before": "Sélectionnez les champs à inclure dans l'export Excel :",
+    "after": "Tchoezi les tchamps a mete dins l' ebagaedje Excel:",
+    "reason": "Replace audited French export/upload/file controls with Walloon, preserving Excel/CSV/TSV/MongoDB names, byte units and field groups. Export vocabulary from authored KDE Walloon translation: https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po ; existing file and clipboard vocabulary reused. Full grammar and specialized received/owner/assignment field terminology remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "export-card-excel-no-disk-space",
+    "before": "Impossible d'exporter vers Excel : espace disque insuffisant",
+    "after": "On n' pout nén ebaguer viè Excel: i gn a nén assez d' libe espåce sol plake",
+    "reason": "Replace audited French export/upload/file controls with Walloon, preserving Excel/CSV/TSV/MongoDB names, byte units and field groups. Export vocabulary from authored KDE Walloon translation: https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po ; existing file and clipboard vocabulary reused. Full grammar and specialized received/owner/assignment field terminology remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "export-card-field-dates",
+    "before": "Dates (Création, Réception, Début, Échéance, Fin)",
+    "after": "Dates (Askepiaedje, Rçuvaedje, Cmince, Limite, Fén)",
+    "reason": "Replace audited French export/upload/file controls with Walloon, preserving Excel/CSV/TSV/MongoDB names, byte units and field groups. Export vocabulary from authored KDE Walloon translation: https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po ; existing file and clipboard vocabulary reused. Full grammar and specialized received/owner/assignment field terminology remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "export-card-field-people",
+    "before": "Personnes (Créateur, Propriétaire, Participants, Intervenants)",
+    "after": "Djins (Askepieu, Prôpietaire, Mimbes, Djins avou l' cåte dinêye)",
+    "reason": "Replace audited French export/upload/file controls with Walloon, preserving Excel/CSV/TSV/MongoDB names, byte units and field groups. Export vocabulary from authored KDE Walloon translation: https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po ; existing file and clipboard vocabulary reused. Full grammar and specialized received/owner/assignment field terminology remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "user-can-not-export-card-to-excel",
+    "before": "L'utilisateur ne peut pas exporter la carte vers Excel",
+    "after": "L' uzeu ni pout nén ebaguer l' cåte viè Excel",
+    "reason": "Replace audited French export/upload/file controls with Walloon, preserving Excel/CSV/TSV/MongoDB names, byte units and field groups. Export vocabulary from authored KDE Walloon translation: https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po ; existing file and clipboard vocabulary reused. Full grammar and specialized received/owner/assignment field terminology remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "user-can-not-export-excel",
+    "before": "L'utilisateur ne peut pas exporter vers Excel",
+    "after": "L' uzeu ni pout nén ebaguer viè Excel",
+    "reason": "Replace audited French export/upload/file controls with Walloon, preserving Excel/CSV/TSV/MongoDB names, byte units and field groups. Export vocabulary from authored KDE Walloon translation: https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po ; existing file and clipboard vocabulary reused. Full grammar and specialized received/owner/assignment field terminology remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "allowed-avatar-filetypes",
+    "before": "Types de fichier autorisés pour l'avatar :",
+    "after": "Sôres di fitchîs permetowes po les avatårs:",
+    "reason": "Replace audited French export/upload/file controls with Walloon, preserving Excel/CSV/TSV/MongoDB names, byte units and field groups. Export vocabulary from authored KDE Walloon translation: https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po ; existing file and clipboard vocabulary reused. Full grammar and specialized received/owner/assignment field terminology remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "allowed-upload-filetypes",
+    "before": "Types de fichier autorisés pour l'upload :",
+    "after": "Sôres di fitchîs permetowes po l' evoyaedje:",
+    "reason": "Replace audited French export/upload/file controls with Walloon, preserving Excel/CSV/TSV/MongoDB names, byte units and field groups. Export vocabulary from authored KDE Walloon translation: https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po ; existing file and clipboard vocabulary reused. Full grammar and specialized received/owner/assignment field terminology remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "max-avatar-filesize",
+    "before": "Taille maximum du fichier de l'avatar en octets :",
+    "after": "Grandeu macsimale do fitchî d' avatår en octets:",
+    "reason": "Replace audited French export/upload/file controls with Walloon, preserving Excel/CSV/TSV/MongoDB names, byte units and field groups. Export vocabulary from authored KDE Walloon translation: https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po ; existing file and clipboard vocabulary reused. Full grammar and specialized received/owner/assignment field terminology remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "max-upload-filesize",
+    "before": "Taille maximum du fichier à uploader en octets : ",
+    "after": "Grandeu macsimale do fitchî evoyî en octets:",
+    "reason": "Replace audited French export/upload/file controls with Walloon, preserving Excel/CSV/TSV/MongoDB names, byte units and field groups. Export vocabulary from authored KDE Walloon translation: https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po ; existing file and clipboard vocabulary reused. Full grammar and specialized received/owner/assignment field terminology remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "filesReportTitle",
+    "before": "Rapports sur les fichiers",
+    "after": "Rapoirt des fitchîs",
+    "reason": "Replace audited French export/upload/file controls with Walloon, preserving Excel/CSV/TSV/MongoDB names, byte units and field groups. Export vocabulary from authored KDE Walloon translation: https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po ; existing file and clipboard vocabulary reused. Full grammar and specialized received/owner/assignment field terminology remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "import-csv-placeholder",
+    "before": "Déposez ici vos données valides CSV/TSV",
+    "after": "Aclaper vos valåbes dnêyes CSV/TSV cial",
+    "reason": "Replace audited French export/upload/file controls with Walloon, preserving Excel/CSV/TSV/MongoDB names, byte units and field groups. Export vocabulary from authored KDE Walloon translation: https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po ; existing file and clipboard vocabulary reused. Full grammar and specialized received/owner/assignment field terminology remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "import-board-instruction-csv",
+    "before": "Déposez vos données en CSV (valeurs séparées par des virgules) ou TSV (valeurs séparées par des tabulations).",
+    "after": "Aclaper vos valixhances séparêyes pa des virgules (CSV) ou des tabulåcions (TSV).",
+    "reason": "Replace audited French export/upload/file controls with Walloon, preserving Excel/CSV/TSV/MongoDB names, byte units and field groups. Export vocabulary from authored KDE Walloon translation: https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po ; existing file and clipboard vocabulary reused. Full grammar and specialized received/owner/assignment field terminology remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "error-csv-schema",
+    "before": "Votre fichier CSV (valeurs séparées par des virgules) / TSV (valeurs séparées par des tabulations) ne contient pas d'informations au bon format",
+    "after": "Vos dnêyes CSV (valixhances séparêyes pa des virgules) ou TSV (valixhances séparêyes pa des tabulåcions) ni contnèt nén les bonnes informåcions dins l' bon format ",
+    "reason": "Replace audited French export/upload/file controls with Walloon, preserving Excel/CSV/TSV/MongoDB names, byte units and field groups. Export vocabulary from authored KDE Walloon translation: https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po ; existing file and clipboard vocabulary reused. Full grammar and specialized received/owner/assignment field terminology remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "invalid-file",
+    "before": "Si le nom de fichier est invalide, le téléchargement ou le renommage sera annulé.",
+    "after": "Si l' no do fitchî n' est nén valåbe, l' evoyaedje ou l' candjmint di no est anulé.",
+    "reason": "Replace audited French export/upload/file controls with Walloon, preserving Excel/CSV/TSV/MongoDB names, byte units and field groups. Export vocabulary from authored KDE Walloon translation: https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po ; existing file and clipboard vocabulary reused. Full grammar and specialized received/owner/assignment field terminology remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "MongoDB_storage_engine",
+    "before": "Moteur de stockage MongoDB",
+    "after": "Moteur di stockaedje MongoDB",
+    "reason": "Replace audited French export/upload/file controls with Walloon, preserving Excel/CSV/TSV/MongoDB names, byte units and field groups. Export vocabulary from authored KDE Walloon translation: https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po ; existing file and clipboard vocabulary reused. Full grammar and specialized received/owner/assignment field terminology remain low confidence; source tokens preserved."
   }
 ]
