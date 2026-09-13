@@ -107175,5 +107175,180 @@
     "before": "Uma igama lefayela lingavumelekile, ukulayisha noma ukuqamba kabusha kukhanseliwe.",
     "after": "Arali dzina ḽa faela ḽi sa ngo tea, u rumela kana u shandula dzina zwi a khanselwa.",
     "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, format extensions, import mapping defaults and selected-parts-only conditions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "invalid-time",
+    "before": "Isikhathi esingavumelekile",
+    "after": "Tshifhinga a tshi ngo tea",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, four-digit year example, keyboard enable/disable states and no-undo/last-admin constraints. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "invalid-user",
+    "before": "Umsebenzisi ongavumelekile",
+    "after": "Mushumisi ha ngo tea",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, four-digit year example, keyboard enable/disable states and no-undo/last-admin constraints. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "invalid-year",
+    "before": "Unyaka ongavumelekile. Thayipha zonke izinombolo ezine, isibonelo 2026.",
+    "after": "Ṅwaha a wo ngo tea. Ṅwalani nomboro dzoṱhe nṋa, sa tsumbo 2026.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, four-digit year example, keyboard enable/disable states and no-undo/last-admin constraints. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "invite-people-error",
+    "before": "Iphutha ngenkathi kuthunyelwa isimemo sokubhalisa",
+    "after": "Vhukhakhi musi hu tshi rumelwa thambo ya u ḓiṅwalisa",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, four-digit year example, keyboard enable/disable states and no-undo/last-admin constraints. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "invite-people-success",
+    "before": "Isimemo sokubhalisa sithunyelwe ngempumelelo",
+    "after": "Thambo ya u ḓiṅwalisa yo rumelwa nga nḓila yo bvelelaho",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, four-digit year example, keyboard enable/disable states and no-undo/last-admin constraints. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "just-invited",
+    "before": "Usanda kumenywa kuleli bhodi",
+    "after": "No tou rambwa kha bodo iyi ya Kanban",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, four-digit year example, keyboard enable/disable states and no-undo/last-admin constraints. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "keyboard-shortcuts-disabled",
+    "before": "Izinqamuleli zekhibhodi zivaliwe. Chofoza ukuze unike amandla.",
+    "after": "Nḓila pfufhi dza khibodo dzo dzimwa. Kiḽikani u tendela.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, four-digit year example, keyboard enable/disable states and no-undo/last-admin constraints. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "keyboard-shortcuts-enabled",
+    "before": "Izinqamuleli zekhibhodi zinikwe amandla. Chofoza ukuze ukhubaze.",
+    "after": "Nḓila pfufhi dza khibodo dzo tendelwa. Kiḽikani u dzima.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, four-digit year example, keyboard enable/disable states and no-undo/last-admin constraints. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "label-color-not-found",
+    "before": "Umbala welebula othi %s awutholakali.",
+    "after": "Muvhala wa ḽeibuḽu %s a wo ngo wanala.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, four-digit year example, keyboard enable/disable states and no-undo/last-admin constraints. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "label-default",
+    "before": "%s ilebula (okuzenzakalelayo)",
+    "after": "Ḽeibuḽu %s (ya u thoma)",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, four-digit year example, keyboard enable/disable states and no-undo/last-admin constraints. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "label-not-found",
+    "before": "Ilebula ethi '%s' ayitholakali.",
+    "after": "Ḽeibuḽu '%s' a yo ngo wanala.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, four-digit year example, keyboard enable/disable states and no-undo/last-admin constraints. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "last-admin-desc",
+    "before": "Awukwazi ukushintsha izindima ngoba kufanele okungenani kube nomlawuli oyedwa.",
+    "after": "A ni koni u shandula mishumo ngauri hu fanela u vha na mulanguli muthihi kana vhanzhi.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, four-digit year example, keyboard enable/disable states and no-undo/last-admin constraints. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "left-of-list",
+    "before": "Kwesobunxele sohlu olukhethiwe",
+    "after": "Tsha monde ha mutevhe wo nangwaho",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, four-digit year example, keyboard enable/disable states and no-undo/last-admin constraints. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "link-to-search",
+    "before": "Isixhumanisi salolu sesho",
+    "after": "Ḽinki ya u ṱoḓa uku",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, four-digit year example, keyboard enable/disable states and no-undo/last-admin constraints. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "list-archive-suggest",
+    "before": "Ungakwazi ukubuyisela emuva uhlu kusukela kungobo yomlando kuzilungiselelo zebhodi.",
+    "after": "Ni nga vhuyedzedza mutevhe nga murahu u bva fhethu ha u vhulunga kha nzudzanyo dza bodo ya Kanban.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, four-digit year example, keyboard enable/disable states and no-undo/last-admin constraints. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "list-delete-pop",
+    "before": "Zonke izenzo zizosuswa kokuphakelayo komsebenzi futhi ngeke ukwazi ukubuyisela uhlu. Akukho ukuhlehlisa.",
+    "after": "Nyito dzoṱhe dzi ḓo bviswa kha mutevhe wa nyito nahone a ni tsha ḓo kona u vhuyedzedza mutevhe. A zwi koni u humiselwa murahu.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, four-digit year example, keyboard enable/disable states and no-undo/last-admin constraints. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "list-label-modifiedAt",
+    "before": "Isikhathi Sokugcina Sokufinyelela",
+    "after": "Tshifhinga tsha u dzhena tsha u fhedza",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, four-digit year example, keyboard enable/disable states and no-undo/last-admin constraints. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "listArchivePopup-title",
+    "before": "Faka kungobo yomlando uhlu?",
+    "after": "Isa mutevhe fhethu ha u vhulunga?",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, four-digit year example, keyboard enable/disable states and no-undo/last-admin constraints. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "loading",
+    "before": "Iyalayisha, sicela ulinde.",
+    "after": "I khou ḽouda, lindelani.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, four-digit year example, keyboard enable/disable states and no-undo/last-admin constraints. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "map-to-existing-user-none",
+    "before": "Awekho amanye amalungu angempela kuleli bhodi okwamanje. Sesha ngenhla ukuze uthole noma yimuphi umsebenzisi.",
+    "after": "A hu na miṅwe miraḓo ya vhukuma kha bodo iyi ya Kanban zwino. Ṱoḓani afho nṱha u wana mushumisi muṅwe na muṅwe.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, four-digit year example, keyboard enable/disable states and no-undo/last-admin constraints. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "mark-all-as-read",
+    "before": "Maka konke njengokufundiwe",
+    "after": "Swaya zwoṱhe sa zwo vhalwaho",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, four-digit year example, keyboard enable/disable states and no-undo/last-admin constraints. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "mark-all-as-unread",
+    "before": "Maka konke njengokungafundiwe",
+    "after": "Swaya zwoṱhe sa zwi sa athu vhalwa",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, four-digit year example, keyboard enable/disable states and no-undo/last-admin constraints. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "max-avatar-filesize",
+    "before": "Ubukhulu befayela be-avatar ngamabhayithi:",
+    "after": "Mukano wa vhuhulwane ha faela ya tshifanyiso tsha mushumisi nga baithi:",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, four-digit year example, keyboard enable/disable states and no-undo/last-admin constraints. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "max-upload-filesize",
+    "before": "Ubukhulu befayela lokulayisha ngamabhayithi:",
+    "after": "Mukano wa vhuhulwane ha faela ya u rumela nga baithi:",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, four-digit year example, keyboard enable/disable states and no-undo/last-admin constraints. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "memory-usage",
+    "before": "Ukusetshenziswa Kwenkumbulo",
+    "after": "U shumiswa ha muhumbulo",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, four-digit year example, keyboard enable/disable states and no-undo/last-admin constraints. Low-confidence wording; fluent-speaker validation outstanding."
   }
 ]
