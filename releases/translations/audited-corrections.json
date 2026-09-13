@@ -54143,5 +54143,68 @@
     "before": "Visualizza questo campo sulla scheda",
     "after": "Aratã aestu cãmpu pi cartã",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "show-subtasks-field",
+    "before": "Mostra campo delle sottoattività",
+    "after": "Aratã cãmpul di sublucrãri",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "star-board-title",
+    "before": "Clicca per stellare questa bacheca. Sarà mostrata all'inizio della tua lista bacheche.",
+    "after": "Clicã ti s-marcheadzi aesta tabelã cu stealã. Va s-aparã la ahurhita a listãljei di tabeli a ta.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "starred-boards-description",
+    "before": "Le bacheche stellate vengono mostrate in cima alla lista delle bacheche.",
+    "after": "Tabelili marcati cu stealã aparu la ahurhita a listãljei di tabeli a ta.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "start-day-of-week",
+    "before": "Imposta l'inizio del giorno della settimana",
+    "after": "Aleadzi dzuua di ahurhitã a sãptãmãnãljei",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "subtask-settings",
+    "before": "Impostazioni sotto-compiti",
+    "after": "Sitãri ti sublucrãri",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "tracking-info",
+    "before": "Sarai notificato per tutte le modifiche alle schede delle quali sei creatore o membro.",
+    "after": "Va s-hii notificat ti tuti alãxerili la cãrtsãli iu esht creator icã membru.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "user-can-not-export-card-to-pdf",
+    "before": "L'utente non può esportare la scheda in PDF",
+    "after": "Ufilisitorlu nu poati s-exporteadzã carta tu PDF",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "warn-list-archived",
+    "before": "attenzione: questa scheda si trova in una lista nell'archivio",
+    "after": "Atentsie: aesta cartã easti tu unã listã di Arhivã",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "watching-info",
+    "before": "Sarai notificato per tutte le modifiche in questa bacheca",
+    "after": "Va s-hii notificat ti cathi alãxeari tu aesta tabelã",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
