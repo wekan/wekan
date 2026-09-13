@@ -63201,5 +63201,103 @@
     "before": "Republic of China",
     "after": "Minguo pachachimpu",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gn",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "Arapapaha reko (ára jehechauka)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gn",
+    "key": "calendar-system-jalali",
+    "before": "Jalali (Fars)",
+    "after": "Jalali (Persia rehegua)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gn",
+    "key": "calendar-system-buddhist",
+    "before": "Buddhist",
+    "after": "Buda arapapaha",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gn",
+    "key": "calendar-system-chinese",
+    "before": "Chinese",
+    "after": "China arapapaha",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gn",
+    "key": "calendar-system-coptic",
+    "before": "Coptic",
+    "after": "Copto arapapaha",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gn",
+    "key": "calendar-system-dangi",
+    "before": "Dangi (Korean)",
+    "after": "Dangi arapapaha (Corea rehegua)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gn",
+    "key": "calendar-system-ethioaa",
+    "before": "Ethiopic Amete Alem",
+    "after": "Etiopía Amete Alem arapapaha",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gn",
+    "key": "calendar-system-ethiopic",
+    "before": "Ethiopic",
+    "after": "Etiopía arapapaha",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gn",
+    "key": "calendar-system-hebrew",
+    "before": "Hebrew",
+    "after": "Hebreo arapapaha",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gn",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "India tetã arapapaha",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gn",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "Hijri arapapaha",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gn",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "Hijri arapapaha (Umm al-Qura)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gn",
+    "key": "calendar-system-japanese",
+    "before": "Japanese",
+    "after": "Japón arapapaha",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "gn",
+    "key": "calendar-system-roc",
+    "before": "Republic of China",
+    "after": "Minguo arapapaha",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
