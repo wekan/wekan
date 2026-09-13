@@ -58168,5 +58168,33 @@
     "before": "Republic of China",
     "after": "מינגואָ־קאַלענדאַר",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "cmn",
+    "key": "azure-blob-storage-description",
+    "before": "Microsoft Azure Blob Storage。",
+    "after": "Microsoft Azure Blob 存储服务。",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "cmn",
+    "key": "gcs-storage-description",
+    "before": "Google Cloud Storage。",
+    "after": "Google Cloud 存储服务。",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "cmn",
+    "key": "import-board-instruction-trello",
+    "before": "In your Trello board, go to 'Menu', then 'More', 'Print and Export', 'Export JSON', and copy the resulting text",
+    "after": "在你的 Trello 看板中，依次选择“菜单”（Menu）、“更多”（More）、“打印和导出”（Print and Export）、“导出 JSON”（Export JSON），然后复制生成的文本。",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "cmn",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "伊斯兰历（沙特阿拉伯，观测新月）",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
