@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 11,452 |
+| Corrected | 11,466 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 4,394 |
+| Pending review or repair | 4,380 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **11,789** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **11,803** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `7413939074d1fa3725dcfe73001897a2d5a1c6c3` — 8 French date-search/URL/error/display messages replaced with Wolof. Signed whole-day values/current-period tokens, inclusive due range versus overdue, URL repair scope, invitation code error, zoom range and vertical direction are preserved. Numeric/search/scroll technical phrasing and full grammar remain low confidence. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; live browser verification is unavailable.
+Latest translation fix: **2026-09-13**, local commit `7f0807a11e6c55a5f492c15305677f74d78bea48` — 14 French board/member/status messages replaced with Wolof. Board navigation/search, invalid-filename upload/rename cancellation, invitation status, irreversible all-card label/history removal, loading, member settings and completed migration success are preserved. Registration/cancellation phrasing and full grammar remain low confidence. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; live browser verification is unavailable.
 
 **Review follow-up:** Silesian `sandstorm-raw-mongodb` remains pending: its wording overlaps Polish and existing Silesian technical strings, but dictionary searches did not establish the full phrase as correct Silesian. Keep the current value until stronger language evidence supports retaining or replacing it.
 
