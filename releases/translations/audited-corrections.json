@@ -118095,5 +118095,82 @@
     "before": "Yeneyo domeni i no vha ya tshiṅwe tshiimiswa:",
     "after": "Nece domen om jo toižen sebran oma:",
     "reason": "Replace Finnish/Venda permission, authentication and import-validation text with Veps; align invitation-code label with existing correct Veps registration email. Preserve administrator/member distinction, invalid username OR password, JSON format versus missing schema information, comma/Tab separators, self-invitation restriction and domain ownership. Native permissions, format, invalid-name and reflexive forms follow https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json; katkimel erigoitta (comma separation) is attested in the 2007 Zaiceva/Mullonen dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf. Low confidence: composed import-schema, login-event, domain ownership and case grammar need fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "card-comments-title",
+    "before": "Tässä kortissa on %s kommenttia.",
+    "after": "Necil kartal om %s sel’genzoituz.",
+    "reason": "Replace Finnish/Venda comment labels and search text using existing correct Veps Sel’genzoituz activity/permission terminology. Preserve singular count source, unread versus absent comments, minicard placement, sprintf and localized search operators. The 2007 Zaiceva/Mullonen dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf attests sel’genzoitused and nähta; https://en.wiktionary.org/wiki/lugeda#Veps confirms lugedud (read, past passive); https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json supplies Enamba and native UI grammar. Low confidence: composed relative-clause/count/case grammar needs fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "card-comments-on-minicard",
+    "before": "Nyambedzano kha khadi ṱhukhu",
+    "after": "Sel’genzoitused minikartal",
+    "reason": "Replace Finnish/Venda comment labels and search text using existing correct Veps Sel’genzoituz activity/permission terminology. Preserve singular count source, unread versus absent comments, minicard placement, sprintf and localized search operators. The 2007 Zaiceva/Mullonen dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf attests sel’genzoitused and nähta; https://en.wiktionary.org/wiki/lugeda#Veps confirms lugedud (read, past passive); https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json supplies Enamba and native UI grammar. Low confidence: composed relative-clause/count/case grammar needs fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "card-comments-more",
+    "before": "Lisää",
+    "after": "Enamba",
+    "reason": "Replace Finnish/Venda comment labels and search text using existing correct Veps Sel’genzoituz activity/permission terminology. Preserve singular count source, unread versus absent comments, minicard placement, sprintf and localized search operators. The 2007 Zaiceva/Mullonen dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf attests sel’genzoitused and nähta; https://en.wiktionary.org/wiki/lugeda#Veps confirms lugedud (read, past passive); https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json supplies Enamba and native UI grammar. Low confidence: composed relative-clause/count/case grammar needs fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "card-has-unread-comments",
+    "before": "Nzhamusi ntswa",
+    "after": "Om sel’genzoitusid, miččid ei ole lugedud",
+    "reason": "Replace Finnish/Venda comment labels and search text using existing correct Veps Sel’genzoituz activity/permission terminology. Preserve singular count source, unread versus absent comments, minicard placement, sprintf and localized search operators. The 2007 Zaiceva/Mullonen dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf attests sel’genzoitused and nähta; https://en.wiktionary.org/wiki/lugeda#Veps confirms lugedud (read, past passive); https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json supplies Enamba and native UI grammar. Low confidence: composed relative-clause/count/case grammar needs fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "comments",
+    "before": "Kommentit",
+    "after": "Sel’genzoitused",
+    "reason": "Replace Finnish/Venda comment labels and search text using existing correct Veps Sel’genzoituz activity/permission terminology. Preserve singular count source, unread versus absent comments, minicard placement, sprintf and localized search operators. The 2007 Zaiceva/Mullonen dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf attests sel’genzoitused and nähta; https://en.wiktionary.org/wiki/lugeda#Veps confirms lugedud (read, past passive); https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json supplies Enamba and native UI grammar. Low confidence: composed relative-clause/count/case grammar needs fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "no-comments",
+    "before": "Ei kommentteja",
+    "after": "Ei ole sel’genzoitusid",
+    "reason": "Replace Finnish/Venda comment labels and search text using existing correct Veps Sel’genzoituz activity/permission terminology. Preserve singular count source, unread versus absent comments, minicard placement, sprintf and localized search operators. The 2007 Zaiceva/Mullonen dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf attests sel’genzoitused and nähta; https://en.wiktionary.org/wiki/lugeda#Veps confirms lugedud (read, past passive); https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json supplies Enamba and native UI grammar. Low confidence: composed relative-clause/count/case grammar needs fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "no-comments-desc",
+    "before": "Ei voi nähdä kommentteja",
+    "after": "Ei voi nähta sel’genzoitusid",
+    "reason": "Replace Finnish/Venda comment labels and search text using existing correct Veps Sel’genzoituz activity/permission terminology. Preserve singular count source, unread versus absent comments, minicard placement, sprintf and localized search operators. The 2007 Zaiceva/Mullonen dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf attests sel’genzoitused and nähta; https://en.wiktionary.org/wiki/lugeda#Veps confirms lugedud (read, past passive); https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json supplies Enamba and native UI grammar. Low confidence: composed relative-clause/count/case grammar needs fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "roles-status-comment",
+    "before": "Kommentti",
+    "after": "Sel’genzoituz",
+    "reason": "Replace Finnish/Venda comment labels and search text using existing correct Veps Sel’genzoituz activity/permission terminology. Preserve singular count source, unread versus absent comments, minicard placement, sprintf and localized search operators. The 2007 Zaiceva/Mullonen dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf attests sel’genzoitused and nähta; https://en.wiktionary.org/wiki/lugeda#Veps confirms lugedud (read, past passive); https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json supplies Enamba and native UI grammar. Low confidence: composed relative-clause/count/case grammar needs fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "operator-comment",
+    "before": "kommentti",
+    "after": "sel’genzoituz",
+    "reason": "Replace Finnish/Venda comment labels and search text using existing correct Veps Sel’genzoituz activity/permission terminology. Preserve singular count source, unread versus absent comments, minicard placement, sprintf and localized search operators. The 2007 Zaiceva/Mullonen dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf attests sel’genzoitused and nähta; https://en.wiktionary.org/wiki/lugeda#Veps confirms lugedud (read, past passive); https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json supplies Enamba and native UI grammar. Low confidence: composed relative-clause/count/case grammar needs fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "comment-not-found",
+    "before": "Ei löytynyt korttia jonka kommentti sisältää tekstin'%s'.",
+    "after": "Ei ole löutud kartad, miččen sel’genzoituses om tekst '%s'.",
+    "reason": "Replace Finnish/Venda comment labels and search text using existing correct Veps Sel’genzoituz activity/permission terminology. Preserve singular count source, unread versus absent comments, minicard placement, sprintf and localized search operators. The 2007 Zaiceva/Mullonen dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf attests sel’genzoitused and nähta; https://en.wiktionary.org/wiki/lugeda#Veps confirms lugedud (read, past passive); https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json supplies Enamba and native UI grammar. Low confidence: composed relative-clause/count/case grammar needs fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "globalSearch-instructions-operator-comment",
+    "before": "`__operator_comment__:<text>` - kortit joilla on kommentti joka sisältää *<text>*.",
+    "after": "`__operator_comment__:<text>` - kartad, miččen sel’genzoituses om *<text>*.",
+    "reason": "Replace Finnish/Venda comment labels and search text using existing correct Veps Sel’genzoituz activity/permission terminology. Preserve singular count source, unread versus absent comments, minicard placement, sprintf and localized search operators. The 2007 Zaiceva/Mullonen dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf attests sel’genzoitused and nähta; https://en.wiktionary.org/wiki/lugeda#Veps confirms lugedud (read, past passive); https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json supplies Enamba and native UI grammar. Low confidence: composed relative-clause/count/case grammar needs fluent-speaker review."
   }
 ]

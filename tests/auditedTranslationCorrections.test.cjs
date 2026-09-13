@@ -1795,5 +1795,43 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.match(cache['ve-PP']['error-org-domain-taken'], /jo toižen sebran oma:$/);
   assert.match(cache['ve-PP']['error-ldap-login'], /sistemaha tulendan aigan/);
   assert.doesNotMatch(cache['ve-PP']['error-undefined'], /sistemaha/);
+  const vepsCommentRepairs = {
+  "card-comments-title": "Necil kartal om %s sel’genzoituz.",
+  "card-comments-on-minicard": "Sel’genzoitused minikartal",
+  "card-comments-more": "Enamba",
+  "card-has-unread-comments": "Om sel’genzoitusid, miččid ei ole lugedud",
+  "comments": "Sel’genzoitused",
+  "no-comments": "Ei ole sel’genzoitusid",
+  "no-comments-desc": "Ei voi nähta sel’genzoitusid",
+  "roles-status-comment": "Sel’genzoituz",
+  "operator-comment": "sel’genzoituz",
+  "comment-not-found": "Ei ole löutud kartad, miččen sel’genzoituses om tekst '%s'.",
+  "globalSearch-instructions-operator-comment": "`__operator_comment__:<text>` - kartad, miččen sel’genzoituses om *<text>*."
+};
+  for (const [key, value] of Object.entries(vepsCommentRepairs)) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.doesNotMatch(value, /Tässä kortissa|Kommentit|Kommentti|kommentti|kommentteja|nähdä|Lisää|Nyambedzano|Nzhamusi|Ei löytynyt|kortit joilla/, key);
+    if (!['card-comments-title', 'comment-not-found', 'globalSearch-instructions-operator-comment'].includes(key)) assert.equal(vepsTranslator.t(key), value, key);
+  }
+  assert.equal(vepsTranslator.t('card-comments-title', { sprintf: [1] }), 'Necil kartal om 1 sel’genzoituz.');
+  assert.equal(vepsTranslator.t('comment-not-found', { sprintf: ['SEARCH_TEXT'] }), "Ei ole löutud kartad, miččen sel’genzoituses om tekst 'SEARCH_TEXT'.");
+  assert.equal(vepsTranslator.t('globalSearch-instructions-operator-comment', { operator_comment: cache['ve-PP']['operator-comment'] }), '`sel’genzoituz:<text>` - kartad, miččen sel’genzoituses om *<text>*.');
+  assert.match(cache['ve-PP']['card-has-unread-comments'], /miččid ei ole lugedud/);
+  assert.doesNotMatch(cache['ve-PP']['no-comments'], /lugedud/);
+  assert.match(cache['ve-PP']['card-comments-on-minicard'], /minikartal/);
+  assert.equal(cache['ve-PP']['roles-status-comment'], cache['ve-PP']['comment']);
+  assert.equal(cache['ve-PP']['operator-comment'], cache['ve-PP']['comment'].toLowerCase());
+  // Existing context reads the live repaired cache, including its apostrophe.
+  const commentQuery = new visibilityContext.Query();
+  commentQuery.buildParams(`${cache['ve-PP']['operator-comment']}:SEARCH_TEXT`);
+  assert.equal(commentQuery.hasErrors(), false);
+  assert.equal(commentQuery.getQueryParams().getPredicate('comment'), 'SEARCH_TEXT');
+  const quotedCommentQuery = new visibilityContext.Query();
+  quotedCommentQuery.buildParams(`${cache['ve-PP']['operator-comment']}:"two words"`);
+  assert.equal(quotedCommentQuery.hasErrors(), false);
+  assert.equal(quotedCommentQuery.getQueryParams().getPredicate('comment'), 'two words');
+  const unknownCommentQuery = new visibilityContext.Query();
+  unknownCommentQuery.buildParams('nonexistentcommentoperator:SEARCH_TEXT');
+  assert.equal(unknownCommentQuery.hasErrors(), true);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });
