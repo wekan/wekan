@@ -91271,5 +91271,61 @@
     "before": "Format (utiliser %{value} pour marquer un emplacement)",
     "after": "Fomät (gebolös %{value} äs pladamal)",
     "reason": "Replace French description-recovery, input and multiselection help with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nosükön (cancel), dränön (press), pladön (place), pla (instead of), bepenam (description), dakipön (save), nuik (current), fomät (format), and votanemükön (rename); MediaWiki uses löpükön (upload), telspikot (dialog), sukön (search) and klav: Enter. CardDetails source confirms edited description replaces saved description only after confirmation. Preserve unsaved-description-before-close scope, edited-versus-current replacement, label numbers 1-9, invalid filename causing upload/rename cancellation, Enter name and exact %{value}. Pladamal is an assembled placeholder adaptation; assembled software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "custom-assetlinks-content",
+    "before": "Contenu assetlinks.json personnalisé (JSON)",
+    "after": "Ninäd lönik ela assetlinks.json (JSON)",
+    "reason": "Replace French custom head/manifest/assetlinks/help-link settings with Volapük surrounding prose. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests ninäd (contents), lönik (own), gebön (use), mal (sign), resodatoped (web site), yuf (help), yüm (connection). Preserve assetlinks.json, JSON/HTML, URL and HTML link/meta/head names; manifest remains a technical borrowing, not prose mistakenly retained from French. Setting template/source reviewed for separate enablement and content fields. Custom uses lönik, HTML tags use descriptive mals, web manifest is paraphrased for website; software adaptations and proper-name inflection remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "custom-assetlinks-enabled",
+    "before": "Activer assetlinks.json personnalisé",
+    "after": "Gebön assetlinks.json lönik",
+    "reason": "Replace French custom head/manifest/assetlinks/help-link settings with Volapük surrounding prose. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests ninäd (contents), lönik (own), gebön (use), mal (sign), resodatoped (web site), yuf (help), yüm (connection). Preserve assetlinks.json, JSON/HTML, URL and HTML link/meta/head names; manifest remains a technical borrowing, not prose mistakenly retained from French. Setting template/source reviewed for separate enablement and content fields. Custom uses lönik, HTML tags use descriptive mals, web manifest is paraphrased for website; software adaptations and proper-name inflection remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "custom-head-link-tags",
+    "before": "Balises lien personnalisées (HTML)",
+    "after": "Mals link lönik (HTML)",
+    "reason": "Replace French custom head/manifest/assetlinks/help-link settings with Volapük surrounding prose. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests ninäd (contents), lönik (own), gebön (use), mal (sign), resodatoped (web site), yuf (help), yüm (connection). Preserve assetlinks.json, JSON/HTML, URL and HTML link/meta/head names; manifest remains a technical borrowing, not prose mistakenly retained from French. Setting template/source reviewed for separate enablement and content fields. Custom uses lönik, HTML tags use descriptive mals, web manifest is paraphrased for website; software adaptations and proper-name inflection remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "custom-head-meta-tags",
+    "before": "Balises meta personnalisées (HTML)",
+    "after": "Mals meta lönik (HTML)",
+    "reason": "Replace French custom head/manifest/assetlinks/help-link settings with Volapük surrounding prose. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests ninäd (contents), lönik (own), gebön (use), mal (sign), resodatoped (web site), yuf (help), yüm (connection). Preserve assetlinks.json, JSON/HTML, URL and HTML link/meta/head names; manifest remains a technical borrowing, not prose mistakenly retained from French. Setting template/source reviewed for separate enablement and content fields. Custom uses lönik, HTML tags use descriptive mals, web manifest is paraphrased for website; software adaptations and proper-name inflection remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "custom-head-tags-enabled",
+    "before": "Activer les balises personnalisées",
+    "after": "Gebön mals head lönik",
+    "reason": "Replace French custom head/manifest/assetlinks/help-link settings with Volapük surrounding prose. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests ninäd (contents), lönik (own), gebön (use), mal (sign), resodatoped (web site), yuf (help), yüm (connection). Preserve assetlinks.json, JSON/HTML, URL and HTML link/meta/head names; manifest remains a technical borrowing, not prose mistakenly retained from French. Setting template/source reviewed for separate enablement and content fields. Custom uses lönik, HTML tags use descriptive mals, web manifest is paraphrased for website; software adaptations and proper-name inflection remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "custom-head-manifest-content",
+    "before": "Contenu du manifeste web personnalisé (JSON)",
+    "after": "Ninäd lönik ela manifest pro resodatoped (JSON)",
+    "reason": "Replace French custom head/manifest/assetlinks/help-link settings with Volapük surrounding prose. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests ninäd (contents), lönik (own), gebön (use), mal (sign), resodatoped (web site), yuf (help), yüm (connection). Preserve assetlinks.json, JSON/HTML, URL and HTML link/meta/head names; manifest remains a technical borrowing, not prose mistakenly retained from French. Setting template/source reviewed for separate enablement and content fields. Custom uses lönik, HTML tags use descriptive mals, web manifest is paraphrased for website; software adaptations and proper-name inflection remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "custom-manifest-enabled",
+    "before": "Activer le manifeste web personnalisé",
+    "after": "Gebön manifest lönik pro resodatoped",
+    "reason": "Replace French custom head/manifest/assetlinks/help-link settings with Volapük surrounding prose. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests ninäd (contents), lönik (own), gebön (use), mal (sign), resodatoped (web site), yuf (help), yüm (connection). Preserve assetlinks.json, JSON/HTML, URL and HTML link/meta/head names; manifest remains a technical borrowing, not prose mistakenly retained from French. Setting template/source reviewed for separate enablement and content fields. Custom uses lönik, HTML tags use descriptive mals, web manifest is paraphrased for website; software adaptations and proper-name inflection remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "custom-help-link-url",
+    "before": "Lien URL vers l'aide personnalisée",
+    "after": "URL yüma yufa lönik",
+    "reason": "Replace French custom head/manifest/assetlinks/help-link settings with Volapük surrounding prose. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests ninäd (contents), lönik (own), gebön (use), mal (sign), resodatoped (web site), yuf (help), yüm (connection). Preserve assetlinks.json, JSON/HTML, URL and HTML link/meta/head names; manifest remains a technical borrowing, not prose mistakenly retained from French. Setting template/source reviewed for separate enablement and content fields. Custom uses lönik, HTML tags use descriptive mals, web manifest is paraphrased for website; software adaptations and proper-name inflection remain low confidence pending native review."
   }
 ]
