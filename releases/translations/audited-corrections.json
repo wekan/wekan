@@ -91663,5 +91663,26 @@
     "before": "L'information d'accessibilité n'a pas encore été ajoutée",
     "after": "Nuns begolova no pelüükons nog",
     "reason": "Replace French accessibility page/setting labels with consistent Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests begolov (accessibility; example accessibility of a path), tiäd (title), ninäd (contents), nun (information), gebön (use), lüükön (add), and nog (yet). Preserve accessibility heading, title versus content, enabled page and information not added yet. Extending physical accessibility terminology to software accessibility and assembled wording remain low confidence pending native review; dictionary attestation is not complete phrase validation."
+  },
+  {
+    "locale": "vo",
+    "key": "acceptance_of_our_legalNotice",
+    "before": "En continuant, vous acceptez nos",
+    "after": "Progedölo dasumol",
+    "reason": "Replace French legal-notice and acceptance text with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nun (notice/information), gitavik (legal/juridical), dasumön (accept), progedön (proceed) and lönik (own). Source layouts.jade and layouts.js join acceptance_of_our_legalNotice span to legalNotice link; translation keeps combined continuing->accepting our legal notice semantics, moves our possessive into linked noun phrase and uses accusative nuni as object of dasumol. Source search found no other translated legalNotice uses. Custom legal-notice page URL remains distinct. Assembled legal-notice wording and phrase inflection remain low confidence pending native review; no legal-policy behavior changed."
+  },
+  {
+    "locale": "vo",
+    "key": "legalNotice",
+    "before": "mentions légales",
+    "after": "nuni gitavik obsik",
+    "reason": "Replace French legal-notice and acceptance text with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nun (notice/information), gitavik (legal/juridical), dasumön (accept), progedön (proceed) and lönik (own). Source layouts.jade and layouts.js join acceptance_of_our_legalNotice span to legalNotice link; translation keeps combined continuing->accepting our legal notice semantics, moves our possessive into linked noun phrase and uses accusative nuni as object of dasumol. Source search found no other translated legalNotice uses. Custom legal-notice page URL remains distinct. Assembled legal-notice wording and phrase inflection remain low confidence pending native review; no legal-policy behavior changed."
+  },
+  {
+    "locale": "vo",
+    "key": "custom-legal-notice-link-url",
+    "before": "URL de la page des mentions légales personnalisées",
+    "after": "URL pada nuna gitavik lönik",
+    "reason": "Replace French legal-notice and acceptance text with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nun (notice/information), gitavik (legal/juridical), dasumön (accept), progedön (proceed) and lönik (own). Source layouts.jade and layouts.js join acceptance_of_our_legalNotice span to legalNotice link; translation keeps combined continuing->accepting our legal notice semantics, moves our possessive into linked noun phrase and uses accusative nuni as object of dasumol. Source search found no other translated legalNotice uses. Custom legal-notice page URL remains distinct. Assembled legal-notice wording and phrase inflection remain low confidence pending native review; no legal-policy behavior changed."
   }
 ]
