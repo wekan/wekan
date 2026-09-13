@@ -69242,5 +69242,89 @@
     "before": "Ustaw limit kart na liście",
     "after": "Ustŏw limit WIP",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "settingsTranslationPopup-title",
+    "before": "Skasować tłumaczenie hasła?",
+    "after": "Wyciepać tyn włŏsny tekst tłōmaczyniŏ?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "shortcut-assign-self",
+    "before": "Przypisz siebie do obecnej karty",
+    "after": "Przipisz siebie do terŏźnyj karty",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "shortcut-show-shortcuts",
+    "before": "Przypnij do listy skrótów",
+    "after": "Pokŏż tã listã skrōtōw",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "shortcut-toggle-filterbar",
+    "before": "Przełącz boczny pasek filtru",
+    "after": "Pokŏż/schowej boczny pasek filtrōw",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "show-on-minicard",
+    "before": "Wyświetl na miniaturze karty",
+    "after": "Pokŏż na minikarcie",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "skip-to-content",
+    "before": "Przejdź do treści głównej",
+    "after": "Przejdź do głōwnyj zawartości",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "soft-wip-limit",
+    "before": "Pozwól na nadmiarowe karty na liście",
+    "after": "Miynkki limit WIP",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "sort-desc",
+    "before": "Kliknij by sortować listę",
+    "after": "Kliknij, coby sortować listã",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "start-test-operation",
+    "before": "Rozpocznij operację testową",
+    "after": "Zacznij ôperacyjã testowŏ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "step-convert-shared-lists",
+    "before": "Przekształć listy współdzielone",
+    "after": "Przekształć spōłdzielōne listy",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "step-ensure-lost-cards-swimlane",
+    "before": "Zapewnij ścieżkę Zagubione karty",
+    "after": "Zapewnij tor Lost Cards",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "step-ensure-per-swimlane-lists",
+    "before": "Zapewnij listy per ścieżka",
+    "after": "Zapewnij listy dlŏ kożdygo toru",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
