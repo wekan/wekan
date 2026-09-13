@@ -78195,5 +78195,68 @@
     "before": "Changer les intervenants 1-9 sur une carte (par ordre d'ajout au tableau)",
     "after": "Yokk walla dindi ñi ñu sas karta bi ak tëju 1-9 (topp toftale gi ñu leen yokke ci tablo bi).",
     "reason": "Replace French keyboard help with Wolof, preserving dialog closure, show/hide filter versus search sidebars, autocomplete distinction and 1-9 label/assignment keys. Multi-selection adds labels; assignment order follows addition to board. Autocomplete/window/keyboard terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "calendar-previous-month-label",
+    "before": "Mois précédent",
+    "after": "Weer wi weesu",
+    "reason": "Replace French calendar navigation and start/end/received/due labels with Wolof. Correct date label incorrectly including time; preserve previous versus next month and received versus completion deadline distinctions. General vocabulary reference https://jangawolof.org/dictionary/ ; due/received wording and full grammar remain low confidence, includes unflagged labels."
+  },
+  {
+    "locale": "wo",
+    "key": "calendar-next-month-label",
+    "before": "Mois suivant",
+    "after": "Weer wi di ñëw",
+    "reason": "Replace French calendar navigation and start/end/received/due labels with Wolof. Correct date label incorrectly including time; preserve previous versus next month and received versus completion deadline distinctions. General vocabulary reference https://jangawolof.org/dictionary/ ; due/received wording and full grammar remain low confidence, includes unflagged labels."
+  },
+  {
+    "locale": "wo",
+    "key": "date",
+    "before": "Bés ak waxtu",
+    "after": "Bis",
+    "reason": "Replace French calendar navigation and start/end/received/due labels with Wolof. Correct date label incorrectly including time; preserve previous versus next month and received versus completion deadline distinctions. General vocabulary reference https://jangawolof.org/dictionary/ ; due/received wording and full grammar remain low confidence, includes unflagged labels."
+  },
+  {
+    "locale": "wo",
+    "key": "due-date",
+    "before": "Date d'échéance",
+    "after": "Bis bi ñu war a jeexal",
+    "reason": "Replace French calendar navigation and start/end/received/due labels with Wolof. Correct date label incorrectly including time; preserve previous versus next month and received versus completion deadline distinctions. General vocabulary reference https://jangawolof.org/dictionary/ ; due/received wording and full grammar remain low confidence, includes unflagged labels."
+  },
+  {
+    "locale": "wo",
+    "key": "card-start",
+    "before": "Début",
+    "after": "Tambali",
+    "reason": "Replace French calendar navigation and start/end/received/due labels with Wolof. Correct date label incorrectly including time; preserve previous versus next month and received versus completion deadline distinctions. General vocabulary reference https://jangawolof.org/dictionary/ ; due/received wording and full grammar remain low confidence, includes unflagged labels."
+  },
+  {
+    "locale": "wo",
+    "key": "card-end",
+    "before": "Fin",
+    "after": "Jeex",
+    "reason": "Replace French calendar navigation and start/end/received/due labels with Wolof. Correct date label incorrectly including time; preserve previous versus next month and received versus completion deadline distinctions. General vocabulary reference https://jangawolof.org/dictionary/ ; due/received wording and full grammar remain low confidence, includes unflagged labels."
+  },
+  {
+    "locale": "wo",
+    "key": "card-received",
+    "before": "Reçue",
+    "after": "Jot nañu ko",
+    "reason": "Replace French calendar navigation and start/end/received/due labels with Wolof. Correct date label incorrectly including time; preserve previous versus next month and received versus completion deadline distinctions. General vocabulary reference https://jangawolof.org/dictionary/ ; due/received wording and full grammar remain low confidence, includes unflagged labels."
+  },
+  {
+    "locale": "wo",
+    "key": "card-due",
+    "before": "À échéance",
+    "after": "War na jeex",
+    "reason": "Replace French calendar navigation and start/end/received/due labels with Wolof. Correct date label incorrectly including time; preserve previous versus next month and received versus completion deadline distinctions. General vocabulary reference https://jangawolof.org/dictionary/ ; due/received wording and full grammar remain low confidence, includes unflagged labels."
+  },
+  {
+    "locale": "wo",
+    "key": "start",
+    "before": "Début",
+    "after": "Tambali",
+    "reason": "Replace French calendar navigation and start/end/received/due labels with Wolof. Correct date label incorrectly including time; preserve previous versus next month and received versus completion deadline distinctions. General vocabulary reference https://jangawolof.org/dictionary/ ; due/received wording and full grammar remain low confidence, includes unflagged labels."
   }
 ]
