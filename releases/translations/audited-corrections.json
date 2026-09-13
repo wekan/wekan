@@ -72168,5 +72168,19 @@
     "before": "Republic of China",
     "after": "Kalendala ya Minguo",
     "reason": "Replace Azerbaijani/English calendar wording using existing Chichewa kalendala terminology and retained proper names. Published Chichewa examples: https://www.jw.org/ny/laibulale/baibulo/nwt/zakumapeto-b/chiheberi-kalendala-m%CA%BCbaibulo/ (Hebrew), https://data2.dawateislami.net/Data/Books/Download/ny/pdf/2024/2611-1.pdf?fn=njira-ya-kasambidwe-kusamba (Hijri), https://www.jw.org/ny/laibulale/magazini/g200606/Silika-Nsalu-Yapamwamba-Kwambiri/ (country names), https://www.jw.org/ny/laibulale/magazini/wp20090201/Mayina-Atanthauzo/ (Ethiopia). Full specialized label grammar remains subject to native review."
+  },
+  {
+    "locale": "ny",
+    "key": "calendar-system-buddhist",
+    "before": "Buddhist",
+    "after": "Kalendala ya Chibuda",
+    "reason": "Replace English calendar wording using Chichewa Kalendala ya and Chibuda, attested by publisher https://www.jw.org/ny/laibulale/magazini/g200805/Mtundu-wa-Anthu-Umene-Unatenga-Malo-ku-Asia/ . Full specialized calendar phrasing still needs native review."
+  },
+  {
+    "locale": "ny",
+    "key": "calendar-system-coptic",
+    "before": "Coptic",
+    "after": "Kalendala ya Chikoputiki",
+    "reason": "Replace English calendar wording using Chichewa Kalendala ya and Chikoputiki, attested by publisher https://www.jw.org/ny/laibulale/mabuku/bulu-lapachaka-la-2017/georgia/baibulo-chijojiya/ . Full specialized calendar phrasing still needs native review."
   }
 ]
