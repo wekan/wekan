@@ -53037,5 +53037,96 @@
     "before": "Servizio di mappe predefinito salvato.",
     "after": "Servisc de mapes predefinì salvà.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "migrate-all-to-filesystem",
+    "before": "Migra tutto sul filesystem",
+    "after": "Migré dut al sistem di files",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "monitoring-export-failed",
+    "before": "Impossibile esportare i dati di monitoraggio",
+    "after": "No ie stat meso esporté i dac de monitorag",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "monitoring-refresh-failed",
+    "before": "Impossibile aggiornare i dati di monitoraggio",
+    "after": "No ie stat meso ajorné i dac de monitorag",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "move-progress-file",
+    "before": "Documento in trasferimento",
+    "after": "File",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "multi-selection-off",
+    "before": "Disattiva la selezione multipla",
+    "after": "Desativé la selezion multipla",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "multi-selection-on",
+    "before": "Selezione multipla attiva",
+    "after": "La selezion multipla ie ativa",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "no-repositories",
+    "before": "Nessun repository trovato",
+    "after": "Degun repository ciatà",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "no-shared-templates",
+    "before": "Nessun template condiviso",
+    "after": "Degun model spartì",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "page-maybe-private",
+    "before": "Questa pagina potrebbe essere privata. Potresti essere in grado di vederla <a href='%s'>facendo il log-in</a>.",
+    "after": "Chësta plata pudëssa ester privata. Tu pudësses la vedei cun <a href='%s'>fé l acess</a>.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "r-import-paste",
+    "before": "Incolla qui le regole esportate (JSON o CSV) o i comandi di Trello Butler",
+    "after": "Encolé chilò les regoles esportades (JSON o CSV) o i comanc de Trello Butler",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "r-import-trello",
+    "before": "Importa regole da Trello Butler (per quanto possibile)",
+    "after": "Importé regoles da Trello Butler (tant coche l ie meso)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "r-import-unmapped",
+    "before": "Impossibile mappare __count__ riga/e",
+    "after": "No ie stat meso atribuí __count__ linia/linies",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "r-items-list",
+    "before": "elemento1,elemento2,elemento3",
+    "after": "element1,element2,element3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
