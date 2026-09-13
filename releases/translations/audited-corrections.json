@@ -92069,5 +92069,12 @@
     "before": "Islamic Umm al-Qura",
     "after": "Kaled slamik (Hijri; Umm al-Qura)",
     "reason": "Replace English Hijri calendar labels and restore omitted tabular/epoch distinctions. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests slamik (Islamic), taibik (tabular), sifädik (civil), stelavik (astronomic). Calendar epoch paraphrased as starting date rather than era; Hijri and Umm al-Qura preserved as proper names. Dictionary vocabulary supports individual words, not the complete phrases; assembled technical labels remain low confidence and need native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "calendar-system-japanese",
+    "before": "Japanese",
+    "after": "Kaled Yapänik",
+    "reason": "Replace English Japanese calendar label with existing Volapük Kaled terminology and Yapänik adjective listed under https://en.wiktionary.org/wiki/Yap%C3%A4n; country name also used at https://vo.wikipedia.org/wiki/Yap%C3%A4n. Earlier failed Midgley lookup was not evidence of invalidity. Complete assembled label still needs native-speaker validation."
   }
 ]
