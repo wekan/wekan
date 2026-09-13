@@ -80435,5 +80435,33 @@
     "before": "Vous pouvez archiver une liste pour l'enlever du tableau tout en conservant son activité.",
     "after": "Mën nga yóbbu limu ci àrsiw bi ngir génne ko ci tablo bi te denc jëf yi.",
     "reason": "Replace French list controls with Wolof. Duplicate-list wording refers to same-name lists; preserve empty-card restriction in empty-duplicate actions and confirmation, selecting all cards in current list, Trello import and archive/history preservation. Existing limu/karta vocabulary reused. Duplicate adaptation and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "fix-missing-lists-migration",
+    "before": "Corriger les listes manquantes",
+    "after": "Defaraat limu yi amul",
+    "reason": "Replace French list repair descriptions with Wolof. Preserve missing OR corrupted list cases and continue confirmation; empty-duplicate deletion requires no cards AND another same-title list containing cards. Reuse defaraat/limu/karta terminology. Structural and condition phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "fix-missing-lists-migration-description",
+    "before": "Détecte et répare les listes manquantes ou corrompues dans la structure du tableau.",
+    "after": "Seet te defaraat limu yi amul walla yàqu ci tëralinu tablo bi.",
+    "reason": "Replace French list repair descriptions with Wolof. Preserve missing OR corrupted list cases and continue confirmation; empty-duplicate deletion requires no cards AND another same-title list containing cards. Reuse defaraat/limu/karta terminology. Structural and condition phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "run-fix-missing-lists-migration-confirm",
+    "before": "Cette opération détectera et réparera les listes manquantes ou corrompues dans la structure du tableau. Continuer ?",
+    "after": "Lii dina seet te defaraat limu yi amul walla yàqu ci tëralinu tablo bi. Wéy?",
+    "reason": "Replace French list repair descriptions with Wolof. Preserve missing OR corrupted list cases and continue confirmation; empty-duplicate deletion requires no cards AND another same-title list containing cards. Reuse defaraat/limu/karta terminology. Structural and condition phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "delete-duplicate-empty-lists-migration-description",
+    "before": "Supprime en toute sécurité les listes vides en double. Supprime uniquement les listes qui n'ont aucune carte ET qui ont une autre liste avec le même titre contenant des cartes.",
+    "after": "Far limu yi am benn tur te amul karta ci anam bu wóor. Limu yi amul karta TE am beneen limu bu am benn tur te am karta rekk la ñuy génne.",
+    "reason": "Replace French list repair descriptions with Wolof. Preserve missing OR corrupted list cases and continue confirmation; empty-duplicate deletion requires no cards AND another same-title list containing cards. Reuse defaraat/limu/karta terminology. Structural and condition phrasing and full grammar remain low confidence."
   }
 ]
