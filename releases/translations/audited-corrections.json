@@ -72091,5 +72091,82 @@
     "before": "Islamic tabular",
     "after": "Dhaha Baraa Hijraa (gabatee irratti hundaa’e, guyyaa jalqabaa astronomii)",
     "reason": "Preserve Hijri variants: table-based computation, civil versus astronomical starting date, and Saudi moon sighting. Oromo vocabulary attested in primary educational text https://files.ethiopialearning.com/textbooks/Grade%2001/Grade_1_Subject_MATH_TEACHER_GUIDE_Language_OROMO_Retrieved_20150101.pdf, government Oromo text https://risala.prh.gov.sa/or/content/251 (moon sighting), Oromo research https://ju.edu.et/institute-of-oromo-studies/wp-content/uploads/sites/14/2018/04/GADAA-JOURNAL-BARRUULEE-GADAA.pdf (astronomii), and government translation https://www.dshs.wa.gov/sites/default/files/forms/pdf/03-387aom.pdf (sivilii). Specialized calendar grammar remains low confidence."
+  },
+  {
+    "locale": "ny",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "Dongosolo la kalendala (kuonetsa tsiku)",
+    "reason": "Replace Azerbaijani/English calendar wording using existing Chichewa kalendala terminology and retained proper names. Published Chichewa examples: https://www.jw.org/ny/laibulale/baibulo/nwt/zakumapeto-b/chiheberi-kalendala-m%CA%BCbaibulo/ (Hebrew), https://data2.dawateislami.net/Data/Books/Download/ny/pdf/2024/2611-1.pdf?fn=njira-ya-kasambidwe-kusamba (Hijri), https://www.jw.org/ny/laibulale/magazini/g200606/Silika-Nsalu-Yapamwamba-Kwambiri/ (country names), https://www.jw.org/ny/laibulale/magazini/wp20090201/Mayina-Atanthauzo/ (Ethiopia). Full specialized label grammar remains subject to native review."
+  },
+  {
+    "locale": "ny",
+    "key": "calendar-system-chinese",
+    "before": "Chinese",
+    "after": "Kalendala ya China",
+    "reason": "Replace Azerbaijani/English calendar wording using existing Chichewa kalendala terminology and retained proper names. Published Chichewa examples: https://www.jw.org/ny/laibulale/baibulo/nwt/zakumapeto-b/chiheberi-kalendala-m%CA%BCbaibulo/ (Hebrew), https://data2.dawateislami.net/Data/Books/Download/ny/pdf/2024/2611-1.pdf?fn=njira-ya-kasambidwe-kusamba (Hijri), https://www.jw.org/ny/laibulale/magazini/g200606/Silika-Nsalu-Yapamwamba-Kwambiri/ (country names), https://www.jw.org/ny/laibulale/magazini/wp20090201/Mayina-Atanthauzo/ (Ethiopia). Full specialized label grammar remains subject to native review."
+  },
+  {
+    "locale": "ny",
+    "key": "calendar-system-dangi",
+    "before": "Dangi (Korean)",
+    "after": "Kalendala ya Dangi (Korea)",
+    "reason": "Replace Azerbaijani/English calendar wording using existing Chichewa kalendala terminology and retained proper names. Published Chichewa examples: https://www.jw.org/ny/laibulale/baibulo/nwt/zakumapeto-b/chiheberi-kalendala-m%CA%BCbaibulo/ (Hebrew), https://data2.dawateislami.net/Data/Books/Download/ny/pdf/2024/2611-1.pdf?fn=njira-ya-kasambidwe-kusamba (Hijri), https://www.jw.org/ny/laibulale/magazini/g200606/Silika-Nsalu-Yapamwamba-Kwambiri/ (country names), https://www.jw.org/ny/laibulale/magazini/wp20090201/Mayina-Atanthauzo/ (Ethiopia). Full specialized label grammar remains subject to native review."
+  },
+  {
+    "locale": "ny",
+    "key": "calendar-system-ethioaa",
+    "before": "Ethiopic Amete Alem",
+    "after": "Kalendala ya Ethiopia Amete Alem",
+    "reason": "Replace Azerbaijani/English calendar wording using existing Chichewa kalendala terminology and retained proper names. Published Chichewa examples: https://www.jw.org/ny/laibulale/baibulo/nwt/zakumapeto-b/chiheberi-kalendala-m%CA%BCbaibulo/ (Hebrew), https://data2.dawateislami.net/Data/Books/Download/ny/pdf/2024/2611-1.pdf?fn=njira-ya-kasambidwe-kusamba (Hijri), https://www.jw.org/ny/laibulale/magazini/g200606/Silika-Nsalu-Yapamwamba-Kwambiri/ (country names), https://www.jw.org/ny/laibulale/magazini/wp20090201/Mayina-Atanthauzo/ (Ethiopia). Full specialized label grammar remains subject to native review."
+  },
+  {
+    "locale": "ny",
+    "key": "calendar-system-ethiopic",
+    "before": "Ethiopic",
+    "after": "Kalendala ya Ethiopia",
+    "reason": "Replace Azerbaijani/English calendar wording using existing Chichewa kalendala terminology and retained proper names. Published Chichewa examples: https://www.jw.org/ny/laibulale/baibulo/nwt/zakumapeto-b/chiheberi-kalendala-m%CA%BCbaibulo/ (Hebrew), https://data2.dawateislami.net/Data/Books/Download/ny/pdf/2024/2611-1.pdf?fn=njira-ya-kasambidwe-kusamba (Hijri), https://www.jw.org/ny/laibulale/magazini/g200606/Silika-Nsalu-Yapamwamba-Kwambiri/ (country names), https://www.jw.org/ny/laibulale/magazini/wp20090201/Mayina-Atanthauzo/ (Ethiopia). Full specialized label grammar remains subject to native review."
+  },
+  {
+    "locale": "ny",
+    "key": "calendar-system-hebrew",
+    "before": "Hebrew",
+    "after": "Kalendala ya Chiheberi",
+    "reason": "Replace Azerbaijani/English calendar wording using existing Chichewa kalendala terminology and retained proper names. Published Chichewa examples: https://www.jw.org/ny/laibulale/baibulo/nwt/zakumapeto-b/chiheberi-kalendala-m%CA%BCbaibulo/ (Hebrew), https://data2.dawateislami.net/Data/Books/Download/ny/pdf/2024/2611-1.pdf?fn=njira-ya-kasambidwe-kusamba (Hijri), https://www.jw.org/ny/laibulale/magazini/g200606/Silika-Nsalu-Yapamwamba-Kwambiri/ (country names), https://www.jw.org/ny/laibulale/magazini/wp20090201/Mayina-Atanthauzo/ (Ethiopia). Full specialized label grammar remains subject to native review."
+  },
+  {
+    "locale": "ny",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "Kalendala ya dziko la India",
+    "reason": "Replace Azerbaijani/English calendar wording using existing Chichewa kalendala terminology and retained proper names. Published Chichewa examples: https://www.jw.org/ny/laibulale/baibulo/nwt/zakumapeto-b/chiheberi-kalendala-m%CA%BCbaibulo/ (Hebrew), https://data2.dawateislami.net/Data/Books/Download/ny/pdf/2024/2611-1.pdf?fn=njira-ya-kasambidwe-kusamba (Hijri), https://www.jw.org/ny/laibulale/magazini/g200606/Silika-Nsalu-Yapamwamba-Kwambiri/ (country names), https://www.jw.org/ny/laibulale/magazini/wp20090201/Mayina-Atanthauzo/ (Ethiopia). Full specialized label grammar remains subject to native review."
+  },
+  {
+    "locale": "ny",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "Kalendala ya Hijri",
+    "reason": "Replace Azerbaijani/English calendar wording using existing Chichewa kalendala terminology and retained proper names. Published Chichewa examples: https://www.jw.org/ny/laibulale/baibulo/nwt/zakumapeto-b/chiheberi-kalendala-m%CA%BCbaibulo/ (Hebrew), https://data2.dawateislami.net/Data/Books/Download/ny/pdf/2024/2611-1.pdf?fn=njira-ya-kasambidwe-kusamba (Hijri), https://www.jw.org/ny/laibulale/magazini/g200606/Silika-Nsalu-Yapamwamba-Kwambiri/ (country names), https://www.jw.org/ny/laibulale/magazini/wp20090201/Mayina-Atanthauzo/ (Ethiopia). Full specialized label grammar remains subject to native review."
+  },
+  {
+    "locale": "ny",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "Kalendala ya Hijri (Umm al-Qura)",
+    "reason": "Replace Azerbaijani/English calendar wording using existing Chichewa kalendala terminology and retained proper names. Published Chichewa examples: https://www.jw.org/ny/laibulale/baibulo/nwt/zakumapeto-b/chiheberi-kalendala-m%CA%BCbaibulo/ (Hebrew), https://data2.dawateislami.net/Data/Books/Download/ny/pdf/2024/2611-1.pdf?fn=njira-ya-kasambidwe-kusamba (Hijri), https://www.jw.org/ny/laibulale/magazini/g200606/Silika-Nsalu-Yapamwamba-Kwambiri/ (country names), https://www.jw.org/ny/laibulale/magazini/wp20090201/Mayina-Atanthauzo/ (Ethiopia). Full specialized label grammar remains subject to native review."
+  },
+  {
+    "locale": "ny",
+    "key": "calendar-system-japanese",
+    "before": "Japanese",
+    "after": "Kalendala ya Japan",
+    "reason": "Replace Azerbaijani/English calendar wording using existing Chichewa kalendala terminology and retained proper names. Published Chichewa examples: https://www.jw.org/ny/laibulale/baibulo/nwt/zakumapeto-b/chiheberi-kalendala-m%CA%BCbaibulo/ (Hebrew), https://data2.dawateislami.net/Data/Books/Download/ny/pdf/2024/2611-1.pdf?fn=njira-ya-kasambidwe-kusamba (Hijri), https://www.jw.org/ny/laibulale/magazini/g200606/Silika-Nsalu-Yapamwamba-Kwambiri/ (country names), https://www.jw.org/ny/laibulale/magazini/wp20090201/Mayina-Atanthauzo/ (Ethiopia). Full specialized label grammar remains subject to native review."
+  },
+  {
+    "locale": "ny",
+    "key": "calendar-system-roc",
+    "before": "Republic of China",
+    "after": "Kalendala ya Minguo",
+    "reason": "Replace Azerbaijani/English calendar wording using existing Chichewa kalendala terminology and retained proper names. Published Chichewa examples: https://www.jw.org/ny/laibulale/baibulo/nwt/zakumapeto-b/chiheberi-kalendala-m%CA%BCbaibulo/ (Hebrew), https://data2.dawateislami.net/Data/Books/Download/ny/pdf/2024/2611-1.pdf?fn=njira-ya-kasambidwe-kusamba (Hijri), https://www.jw.org/ny/laibulale/magazini/g200606/Silika-Nsalu-Yapamwamba-Kwambiri/ (country names), https://www.jw.org/ny/laibulale/magazini/wp20090201/Mayina-Atanthauzo/ (Ethiopia). Full specialized label grammar remains subject to native review."
   }
 ]
