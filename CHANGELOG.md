@@ -113,7 +113,10 @@ names and unresolved Coptic/tabular/epoch terminology; no values changed. Previo
 Cherokee Hijri labels with exact native-script CLDR variant names. Cherokee’s
 original queue is empty. Compact tabular epoch wording still needs fluent
 technical review. Quechua palette compounds and remaining color wrappers
-remain open. There are 593 Tamazight findings remaining.
+remain open. There are 590 Tamazight findings remaining.
+Silesian reference review (2026-09-14) confirms shared database/file terms
+in native MediaWiki messages; the full raw-file label remains pending.
+No translation value or finding count changed in that review.
 All correction/rendering checks pass; wider language validation remains open.
 Member assignment popup handlers need separate review for apparent reversed
 operations. The 1,015-suite Node result is historical and predates the latest batches.
