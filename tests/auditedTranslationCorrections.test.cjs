@@ -172,6 +172,10 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
     assert.equal(cache.zgh[key], value);
     assert.match(cache.zgh[key], /^[\u2d30-\u2d7f]+$/);
   }
+  assert.equal(cache.zgh['calendar-system-islamic'], 'ⴰⵙⵎⵍⵓⵙⵙⴰⵏ ⵏ ⵍⵉⵙⵍⴰⵎ');
+  assert.equal(cache.zgh['calendar-system-chinese'], 'ⴰⵙⵎⵍⵓⵙⵙⴰⵏ ⵏ ⵛⵛⵉⵏⵡⴰ');
+  assert.equal(cache.zgh['calendar-system-japanese'], 'ⴰⵙⵎⵍⵓⵙⵙⴰⵏ ⵏ ⵍⵢⴰⴱⴰⵏ');
+  assert.notEqual(cache.zgh['calendar-system-chinese'], cache.zgh['calendar-system-japanese']);
   assert.equal(cache.zgh.title, 'ⴰⵣⵡⵍ');
   assert.equal(cache.zgh.language, 'ⵜⵓⵜⵍⴰⵢⵜ');
   assert.doesNotMatch(cache.zgh.title + cache.zgh.language, /[\u0600-\u06ff]/);

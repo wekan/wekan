@@ -112278,5 +112278,26 @@
     "before": "Moi",
     "after": "ⴰⵢⵢⵓⵔ",
     "reason": "Replace Arabic/French date UI seed with Standard Moroccan Tamazight Tifinagh vocabulary attested in Unicode CLDR 47 zgh calendar key, day/week/month fields, today relative field and time-zone label (akud time). https://www.unicode.org/cldr/charts/47/summary/zgh.html . Preserve existing correct Gregorian calendar translation."
+  },
+  {
+    "locale": "zgh",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "ⴰⵙⵎⵍⵓⵙⵙⴰⵏ ⵏ ⵍⵉⵙⵍⴰⵎ",
+    "reason": "Replace English calendar name with Standard Moroccan Tamazight Tifinagh. Unicode CLDR 47 zgh gives the exact Islamic calendar name and attests country constructions n ccинwa/n lyaban in Chinese/Japanese currency labels; use the existing calendar-of-country pattern (also attested Ethiopic). Composed Chinese/Japanese calendar names need fluent review. https://www.unicode.org/cldr/charts/47/summary/zgh.html"
+  },
+  {
+    "locale": "zgh",
+    "key": "calendar-system-chinese",
+    "before": "Chinese",
+    "after": "ⴰⵙⵎⵍⵓⵙⵙⴰⵏ ⵏ ⵛⵛⵉⵏⵡⴰ",
+    "reason": "Replace English calendar name with Standard Moroccan Tamazight Tifinagh. Unicode CLDR 47 zgh gives the exact Islamic calendar name and attests country constructions n ccинwa/n lyaban in Chinese/Japanese currency labels; use the existing calendar-of-country pattern (also attested Ethiopic). Composed Chinese/Japanese calendar names need fluent review. https://www.unicode.org/cldr/charts/47/summary/zgh.html"
+  },
+  {
+    "locale": "zgh",
+    "key": "calendar-system-japanese",
+    "before": "Japanese",
+    "after": "ⴰⵙⵎⵍⵓⵙⵙⴰⵏ ⵏ ⵍⵢⴰⴱⴰⵏ",
+    "reason": "Replace English calendar name with Standard Moroccan Tamazight Tifinagh. Unicode CLDR 47 zgh gives the exact Islamic calendar name and attests country constructions n ccинwa/n lyaban in Chinese/Japanese currency labels; use the existing calendar-of-country pattern (also attested Ethiopic). Composed Chinese/Japanese calendar names need fluent review. https://www.unicode.org/cldr/charts/47/summary/zgh.html"
   }
 ]
