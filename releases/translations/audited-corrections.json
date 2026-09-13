@@ -93427,5 +93427,40 @@
     "before": "Operator „__operator__“ erwartete eine Zahl, bekam aber „__value__“",
     "after": "mI' poQpu' __operator__; '__value__' Hevpu'",
     "reason": "Replace audited German global-search sorting instructions and sort/status/number errors with Klingon. Preserve all backtick syntax, <sort-name>, predicate tokens, leading minus placement, and descending high-to-low ordering; preserve required number versus received __value__ and the __operator__ actor. Reuse patlhmoH terminology and descriptive software phrases. Full wording is assembled, low confidence, and needs fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "show-card-counter-per-list",
+    "before": "Zeige Kartenanzahl pro Liste",
+    "after": "Hoch tetlhDaq 'echletHommey mI' yI'ang",
+    "reason": "Replace audited German visibility controls with Klingon. Preserve card count per list, hiding only minicard label text, All Boards page destination, board-member avatar images, and week-of-year number with unchanged ISO 8601. Reuse repaired card/list/label/member/image terminology and distinguish singular yI- from plural tI- imperative objects. Full software wording is assembled, low confidence, and needs fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "hide-minicard-label-text",
+    "before": "Labeltext auf Minikarte ausblenden",
+    "after": "'echletHom mach per ghItlh yISo'",
+    "reason": "Replace audited German visibility controls with Klingon. Preserve card count per list, hiding only minicard label text, All Boards page destination, board-member avatar images, and week-of-year number with unchanged ISO 8601. Reuse repaired card/list/label/member/image terminology and distinguish singular yI- from plural tI- imperative objects. Full software wording is assembled, low confidence, and needs fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "show-at-all-boards-page",
+    "before": "Auf der \"Alle Boards\" Seite anzeigen",
+    "after": "Hoch raSmey navDaq yI'ang",
+    "reason": "Replace audited German visibility controls with Klingon. Preserve card count per list, hiding only minicard label text, All Boards page destination, board-member avatar images, and week-of-year number with unchanged ISO 8601. Reuse repaired card/list/label/member/image terminology and distinguish singular yI- from plural tI- imperative objects. Full software wording is assembled, low confidence, and needs fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "show-board_members-avatar",
+    "before": "Zeige Profilbilder der Board-Mitglieder",
+    "after": "raS jeSwI'pu' mIlloghmey tI'ang",
+    "reason": "Replace audited German visibility controls with Klingon. Preserve card count per list, hiding only minicard label text, All Boards page destination, board-member avatar images, and week-of-year number with unchanged ISO 8601. Reuse repaired card/list/label/member/image terminology and distinguish singular yI- from plural tI- imperative objects. Full software wording is assembled, low confidence, and needs fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "show-week-of-year",
+    "before": "Kalenderwoche anzeigen (ISO 8601)",
+    "after": "DIS Hogh mI' yI'ang (ISO 8601)",
+    "reason": "Replace audited German visibility controls with Klingon. Preserve card count per list, hiding only minicard label text, All Boards page destination, board-member avatar images, and week-of-year number with unchanged ISO 8601. Reuse repaired card/list/label/member/image terminology and distinguish singular yI- from plural tI- imperative objects. Full software wording is assembled, low confidence, and needs fluent-speaker validation."
   }
 ]
