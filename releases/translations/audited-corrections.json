@@ -78594,5 +78594,26 @@
     "before": "a créé le tableau __board__",
     "after": "sos tablo __board__",
     "reason": "Replace French card/list/board creation activity with Wolof, preserving creation versus list-addition meaning and all object placeholders. Reuse existing karta/limu/yoon/tablo/sos/yokk vocabulary. Full grammar remains low confidence; existing Wolof card deletion activity is retained."
+  },
+  {
+    "locale": "wo",
+    "key": "act-addComment",
+    "before": "a commenté la carte __card__ : __comment__ dans la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "wax xalaat ci karta __card__: __comment__ ci limu __list__ ci yoon __swimlane__ ci tablo __board__",
+    "reason": "Replace French comment creation/edit/deletion activity with Wolof. Preserve comment content and card/list/swimlane/board placeholders while distinguishing add/edit/delete actions. Comment terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "act-editComment",
+    "before": "a édité le commentaire de la carte __card__ : __comment__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "soppi xalaat ci karta __card__: __comment__ ci limu __list__ ci yoon __swimlane__ ci tablo __board__",
+    "reason": "Replace French comment creation/edit/deletion activity with Wolof. Preserve comment content and card/list/swimlane/board placeholders while distinguishing add/edit/delete actions. Comment terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "act-deleteComment",
+    "before": "a supprimé le commentaire de la carte __card__ : __comment__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "far xalaat ci karta __card__: __comment__ ci limu __list__ ci yoon __swimlane__ ci tablo __board__",
+    "reason": "Replace French comment creation/edit/deletion activity with Wolof. Preserve comment content and card/list/swimlane/board placeholders while distinguishing add/edit/delete actions. Comment terminology and full grammar remain low confidence."
   }
 ]
