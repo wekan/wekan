@@ -92657,5 +92657,40 @@
     "before": "Teilaufgabe löschen?",
     "after": "Qu'Hom Qaw'lu''a'?",
     "reason": "Replace German subtask labels with directly assembled Klingon, consistently using Qu'Hom (minor/component task), as in the previously repaired activity-subtask-added. Configuration uses existing chermeH De'; add uses yIchel and delete confirmation preserves a question using Qaw'lu''a'. Covers flagged settings and unflagged related labels. Qu'Hom as a software hierarchy term and full phrases are low confidence and require fluent-speaker validation. No source tokens changed."
+  },
+  {
+    "locale": "tlh",
+    "key": "list-title-not-found",
+    "before": "Liste „%s“ nicht gefunden.",
+    "after": "'%s' tetlh tu'lu'be'.",
+    "reason": "Replace German not-found messages and related French team labels with direct Klingon using existing tetlh list, per label, ghom team (removeBoardTeamPopup-title), and tu'lu'be' not found/existent wording. %s remains the name of the missing list, label or team; preserve quotation and sentence punctuation. Team plural ghommey formed directly. Software terminology and full phrases are low confidence and need fluent-speaker validation. Generic team labels repaired beyond the flagged audit for consistency."
+  },
+  {
+    "locale": "tlh",
+    "key": "label-not-found",
+    "before": "Label „%s“ nicht gefunden.",
+    "after": "'%s' per tu'lu'be'.",
+    "reason": "Replace German not-found messages and related French team labels with direct Klingon using existing tetlh list, per label, ghom team (removeBoardTeamPopup-title), and tu'lu'be' not found/existent wording. %s remains the name of the missing list, label or team; preserve quotation and sentence punctuation. Team plural ghommey formed directly. Software terminology and full phrases are low confidence and need fluent-speaker validation. Generic team labels repaired beyond the flagged audit for consistency."
+  },
+  {
+    "locale": "tlh",
+    "key": "team-name-not-found",
+    "before": "Team '%s' nicht gefunden.",
+    "after": "'%s' ghom tu'lu'be'.",
+    "reason": "Replace German not-found messages and related French team labels with direct Klingon using existing tetlh list, per label, ghom team (removeBoardTeamPopup-title), and tu'lu'be' not found/existent wording. %s remains the name of the missing list, label or team; preserve quotation and sentence punctuation. Team plural ghommey formed directly. Software terminology and full phrases are low confidence and need fluent-speaker validation. Generic team labels repaired beyond the flagged audit for consistency."
+  },
+  {
+    "locale": "tlh",
+    "key": "team",
+    "before": "Équipe",
+    "after": "ghom",
+    "reason": "Replace German not-found messages and related French team labels with direct Klingon using existing tetlh list, per label, ghom team (removeBoardTeamPopup-title), and tu'lu'be' not found/existent wording. %s remains the name of the missing list, label or team; preserve quotation and sentence punctuation. Team plural ghommey formed directly. Software terminology and full phrases are low confidence and need fluent-speaker validation. Generic team labels repaired beyond the flagged audit for consistency."
+  },
+  {
+    "locale": "tlh",
+    "key": "teams",
+    "before": "Équipes",
+    "after": "ghommey",
+    "reason": "Replace German not-found messages and related French team labels with direct Klingon using existing tetlh list, per label, ghom team (removeBoardTeamPopup-title), and tu'lu'be' not found/existent wording. %s remains the name of the missing list, label or team; preserve quotation and sentence punctuation. Team plural ghommey formed directly. Software terminology and full phrases are low confidence and need fluent-speaker validation. Generic team labels repaired beyond the flagged audit for consistency."
   }
 ]
