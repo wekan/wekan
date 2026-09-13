@@ -61262,5 +61262,89 @@
     "before": "Supprime en toute sécurité les listes vides en double. Supprime uniquement les listes qui n'ont aucune carte ET qui ont une autre liste avec le même titre contenant des cartes.",
     "after": "Suprimís en seguretat las listas voidas en doble. Leva solament las listas sens cap de carta E qu’an una autra lista amb lo meteis títol que conten de cartas.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "delete-duplicate-lists-confirm",
+    "before": "Êtes-vous sûr ? Cela supprimera toutes les listes en doublon qui ont le même nom et qui ne contiennent aucune carte.",
+    "after": "O confirmatz ? Aquò suprimirà totas las listas en doble qu’an lo meteis nom e que contenon pas cap de carta.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "deposit-subtasks-list",
+    "before": "Liste de destination pour les sous-tâches déposées ici :",
+    "after": "Lista de destinacion per las sostascas depausadas aicí :",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "description-on-minicard",
+    "before": "Description sur la mini-carte",
+    "after": "Descripcion sus la minicarta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "display-authentication-method",
+    "before": "Afficher la méthode d'authentification",
+    "after": "Afichar lo metòde d’autentificacion",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "display-card-creator",
+    "before": "Afficher le créateur de la carte",
+    "after": "Afichar lo creator de la carta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "dueCards-noResults-description",
+    "before": "Vous n'avez aucune carte avec échéance en ce moment.",
+    "after": "Avètz pas cap de carta amb una data d’escasença pel moment.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "dueCards-noResults-title",
+    "before": "Aucune carte avec échéance trouvée",
+    "after": "Cap de carta amb escasença pas trobada",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "duenow",
+    "before": "La date d'échéance %s est aujourd'hui",
+    "after": "l’escasença actuala %s es uèi",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "editCardReceivedDatePopup-title",
+    "before": "Modifier la date de réception",
+    "after": "Cambiar la data de recepcion",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "editPokerEndDatePopup-title",
+    "before": "Changer la date de fin de vote du planning poker",
+    "after": "Cambiar la data de fin del vòte del planning poker",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "editTranslationPopup-title",
+    "before": "Éditer la traduction personnalisée",
+    "after": "Modificar la stringa de traduccion personalizada",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "editVoteEndDatePopup-title",
+    "before": "Modifier la date de fin de vote",
+    "after": "Cambiar la data de fin del vòte",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
