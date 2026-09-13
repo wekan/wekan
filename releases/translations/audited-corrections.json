@@ -88485,5 +88485,40 @@
     "before": "Icône d'espace de travail (markdown)",
     "after": "Sümbol vobaspada (markdown)",
     "reason": "Replace French subworkspace/icon labels with Volapük. Reuse existing vobaspad workspace term; Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests dona- compounds for subordinate/lower entities. MediaWiki Volapük https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json attests sümbol (symbol). Preserve subworkspace hierarchy and exact markdown format name. Donavobaspad compound and symbol-to-icon adaptation remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "fix-all-file-urls-migration",
+    "before": "Corriger toutes les URL de fichiers",
+    "after": "Verätükön URLis valik nünedas",
+    "reason": "Replace French migration-action labels with Volapük using existing software file/list/member/avatar terminology. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests verätükön (correct), jafön (create), kontrolön (check). Preserve all file URLs, missing-list/ID scope, create versus repair actions and member-avatar verification. Keep URL and ID technical abbreviations with Volapük endings. Assembled missing-item phrasing and avatar borrowing remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "fix-missing-lists-migration",
+    "before": "Corriger les listes manquantes",
+    "after": "Verätükön lisedis no dabinöl",
+    "reason": "Replace French migration-action labels with Volapük using existing software file/list/member/avatar terminology. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests verätükön (correct), jafön (create), kontrolön (check). Preserve all file URLs, missing-list/ID scope, create versus repair actions and member-avatar verification. Keep URL and ID technical abbreviations with Volapük endings. Assembled missing-item phrasing and avatar borrowing remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "step-create-missing-lists",
+    "before": "Créer les listes manquantes",
+    "after": "Jafön lisedis no dabinöl",
+    "reason": "Replace French migration-action labels with Volapük using existing software file/list/member/avatar terminology. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests verätükön (correct), jafön (create), kontrolön (check). Preserve all file URLs, missing-list/ID scope, create versus repair actions and member-avatar verification. Keep URL and ID technical abbreviations with Volapük endings. Assembled missing-item phrasing and avatar borrowing remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "step-fix-missing-ids",
+    "before": "Réparation des IDs manquants",
+    "after": "Verätükön IDis no dabinöl",
+    "reason": "Replace French migration-action labels with Volapük using existing software file/list/member/avatar terminology. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests verätükön (correct), jafön (create), kontrolön (check). Preserve all file URLs, missing-list/ID scope, create versus repair actions and member-avatar verification. Keep URL and ID technical abbreviations with Volapük endings. Assembled missing-item phrasing and avatar borrowing remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "step-scan-users",
+    "before": "Vérification des avatars du participant du tableau",
+    "after": "Kontrolön avataris limanas taba",
+    "reason": "Replace French migration-action labels with Volapük using existing software file/list/member/avatar terminology. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests verätükön (correct), jafön (create), kontrolön (check). Preserve all file URLs, missing-list/ID scope, create versus repair actions and member-avatar verification. Keep URL and ID technical abbreviations with Volapük endings. Assembled missing-item phrasing and avatar borrowing remain low confidence; native review unavailable."
   }
 ]
