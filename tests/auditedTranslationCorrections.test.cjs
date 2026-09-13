@@ -2439,5 +2439,27 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.match(vepsTranslator.t('writable-path-description'), /^Pähodran te/);
   assert.match(vepsTranslator.t('invalid-file'), /^Ku failan nimi ei ole lasktud, samine libo nimenvajehtuz heittas\.$/);
   assert.equal(cache['ve-PP']['attachments-path'], 'Tartutadud failoiden te', 'retain the correct existing attachment path');
+  const vepsBoardViewLabels = {
+  "board-view": "Laudan nägo",
+  "board-view-cal": "Kalendar'",
+  "board-view-multiboard-cal": "Äjiden laudoiden kalendar'",
+  "board-view-swimlanes": "Ujundšoidud",
+  "board-view-lists": "Lugetišed",
+  "board-view-table": "Tablic",
+  "board-view-time": "Aig",
+  "board-view-collapse": "Penenda",
+  "board-view-timeline-now": "Nügüd’"
+};
+  for (const [key, value] of Object.entries(vepsBoardViewLabels)) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.equal(vepsTranslator.t(key), value, key);
+    assert.doesNotMatch(value, /Taulunäkymä|Kalenteri|Kaikki taulut|Uimaradat|Listat|Taulukko|Pienennä|Zwino/, key);
+  }
+  assert.equal(vepsTranslator.t('board-view-cal'), cache['ve-PP'].calendar);
+  assert.equal(vepsTranslator.t('board-view-lists'), cache['ve-PP'].lists);
+  assert.equal(vepsTranslator.t('board-view-time'), cache['ve-PP'].time);
+  assert.notEqual(vepsTranslator.t('board-view-cal'), vepsTranslator.t('board-view-multiboard-cal'));
+  assert.match(vepsTranslator.t('board-view-multiboard-cal'), /Äjiden laudoiden/);
+  assert.equal(cache['ve-PP']['board-view-gantt'], 'Gantt', 'retain the chart proper name');
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });

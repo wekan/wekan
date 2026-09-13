@@ -119719,5 +119719,68 @@
     "before": "Jos tiedostonimi ei kelpaa, liittäminen tai uudelleennimeäminen perutaan.",
     "after": "Ku failan nimi ei ole lasktud, samine libo nimenvajehtuz heittas.",
     "reason": "Replace Finnish file-storage labels, descriptions and invalid-filename guidance with Veps. Retain avatar-specific storage, writable paths, base directory and cancellation of either upload or rename. Reuse existing allowed-avatar-filetypes kuvan failoiden, attachments-path te and kaičusen täht; dictionary hodr, pä-, nimenvajehtuz and heitta; native MediaWiki illegal-filename supplies ei ole lasktud. Low confidence: composed base-folder terminology and cancellation grammar need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "board-view",
+    "before": "Taulunäkymä",
+    "after": "Laudan nägo",
+    "reason": "Replace Finnish and Venda board-view labels with Veps. Reuse existing calendar, lists, time and ujundšoid terminology. Dictionary nägo, tablic, peneta(-ndab) and nügüd’; retain multi-board distinction and current-time action. Low confidence: composed view-name grammar and UI adaptation of collapse require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "board-view-cal",
+    "before": "Kalenteri",
+    "after": "Kalendar'",
+    "reason": "Replace Finnish and Venda board-view labels with Veps. Reuse existing calendar, lists, time and ujundšoid terminology. Dictionary nägo, tablic, peneta(-ndab) and nügüd’; retain multi-board distinction and current-time action. Low confidence: composed view-name grammar and UI adaptation of collapse require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "board-view-multiboard-cal",
+    "before": "Kalenteri (Kaikki taulut)",
+    "after": "Äjiden laudoiden kalendar'",
+    "reason": "Replace Finnish and Venda board-view labels with Veps. Reuse existing calendar, lists, time and ujundšoid terminology. Dictionary nägo, tablic, peneta(-ndab) and nügüd’; retain multi-board distinction and current-time action. Low confidence: composed view-name grammar and UI adaptation of collapse require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "board-view-swimlanes",
+    "before": "Uimaradat",
+    "after": "Ujundšoidud",
+    "reason": "Replace Finnish and Venda board-view labels with Veps. Reuse existing calendar, lists, time and ujundšoid terminology. Dictionary nägo, tablic, peneta(-ndab) and nügüd’; retain multi-board distinction and current-time action. Low confidence: composed view-name grammar and UI adaptation of collapse require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "board-view-lists",
+    "before": "Listat",
+    "after": "Lugetišed",
+    "reason": "Replace Finnish and Venda board-view labels with Veps. Reuse existing calendar, lists, time and ujundšoid terminology. Dictionary nägo, tablic, peneta(-ndab) and nügüd’; retain multi-board distinction and current-time action. Low confidence: composed view-name grammar and UI adaptation of collapse require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "board-view-table",
+    "before": "Taulukko",
+    "after": "Tablic",
+    "reason": "Replace Finnish and Venda board-view labels with Veps. Reuse existing calendar, lists, time and ujundšoid terminology. Dictionary nägo, tablic, peneta(-ndab) and nügüd’; retain multi-board distinction and current-time action. Low confidence: composed view-name grammar and UI adaptation of collapse require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "board-view-time",
+    "before": "Aika",
+    "after": "Aig",
+    "reason": "Replace Finnish and Venda board-view labels with Veps. Reuse existing calendar, lists, time and ujundšoid terminology. Dictionary nägo, tablic, peneta(-ndab) and nügüd’; retain multi-board distinction and current-time action. Low confidence: composed view-name grammar and UI adaptation of collapse require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "board-view-collapse",
+    "before": "Pienennä",
+    "after": "Penenda",
+    "reason": "Replace Finnish and Venda board-view labels with Veps. Reuse existing calendar, lists, time and ujundšoid terminology. Dictionary nägo, tablic, peneta(-ndab) and nügüd’; retain multi-board distinction and current-time action. Low confidence: composed view-name grammar and UI adaptation of collapse require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "board-view-timeline-now",
+    "before": "Zwino",
+    "after": "Nügüd’",
+    "reason": "Replace Finnish and Venda board-view labels with Veps. Reuse existing calendar, lists, time and ujundšoid terminology. Dictionary nägo, tablic, peneta(-ndab) and nügüd’; retain multi-board distinction and current-time action. Low confidence: composed view-name grammar and UI adaptation of collapse require fluent review."
   }
 ]
