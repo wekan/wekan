@@ -61486,5 +61486,180 @@
     "before": "Corriger toutes les URL de fichiers",
     "after": "Corregir totes los URL dels fichièrs",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "fix-avatar-urls-migration",
+    "before": "Corriger les URLs d'avatar",
+    "after": "Corregir los URL dels avatars",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "fix-missing-lists-migration",
+    "before": "Corriger les listes manquantes",
+    "after": "Corregir las listas mancantas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "globalSearch-instructions-description",
+    "before": "Les recherches peuvent inclure des opérateurs pour affiner le résultat. Les opérateurs sont précisés en écrivant l'opérateur suivi d'une valeur séparé par un deux-point. Par exemple, une spécification comme `liste:Bloqué` limiterait le résultat aux cartes qui contiennent une liste appelée *Bloqué*. Si la valeur contient des espaces ou des caractères spéciaux, elle doit être entourée d'apostrophes (par ex. `__operator_list__:\"À valider\"`).",
+    "after": "Las recèrcas pòdon inclure d’operadors per precisar los resultats. Los operadors se definisson en escrivent lor nom e lor valor separats per dos ponches. Per exemple, `list:Blocked` limita la recèrca a las cartas contengudas dins una lista nomenada *Blocked*. Se la valor conten d’espacis o de caractèrs especials, deu èsser entre verguetas (per exemple, `__operator_list__:\"To Review\"`).",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "globalSearch-instructions-heading",
+    "before": "Instructions de recherche",
+    "after": "Instruccions de recèrca",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "globalSearch-instructions-notes-1",
+    "before": "Il est possible d'utiliser plusieurs opérateurs.",
+    "after": "Se pòdon especificar mantun operador.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "globalSearch-instructions-notes-2",
+    "before": "Les opérateurs similaires deviennent *optionnels*. Les cartes correspondant à n'importe quelle condition sont retournées.\n`__operator_list__:Disponible __operator_list__:Bloquée` retournera les cartes contenues dans la liste *Disponible* ou dans la liste *Bloquée*.",
+    "after": "Los operadors semblables son combinats amb *OR* (O). Las cartas que correspondon a una de las condicions son retornadas.\n`__operator_list__:Available __operator_list__:Blocked` retorna las cartas contengudas dins una lista nomenada *Blocked* o *Available*.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "globalSearch-instructions-notes-3",
+    "before": "Les opérateurs différents sont *combinés*. Seules les cartes correspondant à tous les critères sont retournées.  `__operator_list__:Disponible __operator_label__:rouge` ne retourne que les cartes dans la liste *Disponible* avec une étiquette *rouge*.",
+    "after": "Los operadors diferents son combinats amb *AND* (E). Son retornadas solament las cartas que correspondon a totes los operadors diferents. `__operator_list__:Available __operator_label__:red` retorna solament las cartas de la lista *Available* amb una etiqueta *red*.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "globalSearch-instructions-notes-3-2",
+    "before": "Les durées en jours peuvent être précisées soit par un entier positif ou négatif soit en utilisant `__predicate_week__`, `__predicate_month__`, `__predicate_quarter__` ou `__predicate_year__` pour la période courante.",
+    "after": "Los jorns se pòdon especificar amb un nombre entièr positiu o negatiu, o amb `__predicate_week__`, `__predicate_month__`, `__predicate_quarter__` o `__predicate_year__` per la periòda actuala.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "globalSearch-instructions-notes-4",
+    "before": "Les recherches textuelles ne sont pas sensibles à la casse.",
+    "after": "Las recèrcas de tèxt fan pas de diferéncia entre majusculas e minusculas.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "globalSearch-instructions-notes-5",
+    "before": "Par défaut, les cartes archivées ne sont pas recherchées.",
+    "after": "Per defaut, las cartas archivadas son pas incluidas dins la recèrca.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "globalSearch-instructions-operator-comment",
+    "before": "`__operator_comment__:<texte>` - cartes dont le commentaire contient *<texte>*.",
+    "after": "`__operator_comment__:<text>` - cartas amb un comentari que conten *<text>*.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "globalSearch-instructions-operator-created",
+    "before": "`__operator_created__:<n>` - cartes qui ont été créées il y a *<n>* jours ou moins",
+    "after": "`__operator_created__:<n>` - cartas creadas fa *<n>* jorns o mens",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "globalSearch-instructions-operator-due",
+    "before": "`__operator_due__:<n>` - cartes qui arrive à échéance dans moins de *<n>* jours à partir d'aujourd'hui.\n`__operator_due__:__predicate_overdue__` liste toutes les cartes ayant passé la date d'échéance.",
+    "after": "`__operator_due__:<n>` - cartas amb una escasença d’aicí a *<n>* jorns. `__operator_due__:__predicate_overdue__` lista totas las cartas que lor data d’escasença es passada.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "globalSearch-instructions-operator-hash",
+    "before": "`__operator_label_abbrev__<nom|couleur>` - raccourci pour `__operator_label__:<couleur>` ou `__operator_label__:<nom>`",
+    "after": "`__operator_label_abbrev__<name|color>` - forma abreujada de `__operator_label__:<color>` o `__operator_label__:<name>`",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "globalSearch-instructions-operator-label",
+    "before": "`__operator_label__:<couleur>` `__operator_label__:<nom>` - cartes qui ont une étiquette correspondant à *<couleur>* ou à *<nom>*.",
+    "after": "`__operator_label__:<color>` `__operator_label__:<name>` - cartas amb una etiqueta que correspond a *<color>* o *<name>*.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "globalSearch-instructions-operator-limit",
+    "before": "`__operator_limit__:<n>` - où *<n>* est un entier positif exprimant le nombre de cartes à afficher par page.",
+    "after": "`__operator_limit__:<n>` - *<n>* es un nombre entièr positiu que definís lo nombre de cartas de mostrar per pagina.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "globalSearch-instructions-operator-list",
+    "before": "`__operator_list__:<titre>` - cartes dont les listes correspondent à *<titre>*",
+    "after": "`__operator_list__:<title>` - cartas dins de listas que correspondon al *<title>* especificat",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "globalSearch-instructions-operator-modified",
+    "before": "`__operator_modified__:<n>` - cartes qui ont été modifiées il y a *<n>* jours ou moins",
+    "after": "`__operator_modified__:<n>` - cartas modificadas fa *<n>* jorns o mens",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "globalSearch-instructions-operator-sort",
+    "before": "`__operator_sort__:<tri>` - où *<tri>* est une méthode parmi `__predicate_due__`, `__predicate_created__` ou `__predicate_modified__`.  Pour un tri descendant, préfixez la méthode par `-`.",
+    "after": "`__operator_sort__:<sort-name>` - *<sort-name>* es `__predicate_due__`, `__predicate_created__` o `__predicate_modified__`. Per un tri descreissent, plaçatz un `-` davant lo nom del tri.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "globalSearch-instructions-operator-status",
+    "before": "`__operator_status__:<état>` - où *<état>* est l'un des choix suivants :",
+    "after": "`__operator_status__:<status>` - *<status>* es una de las valors seguentas :",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "globalSearch-instructions-operator-swimlane",
+    "before": "`__operator_swimlane__:<titre>` - cartes dans les couloirs correspondant au *<titre>* spécifié",
+    "after": "`__operator_swimlane__:<title>` - cartas dins de corredors que correspondon al *<title>* especificat",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "globalSearch-instructions-status-all",
+    "before": "`__predicate_all__` -  toutes les cartes : archivées et non archivées.",
+    "after": "`__predicate_all__` - totas las cartas archivadas e non archivadas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "globalSearch-instructions-status-archived",
+    "before": "`__predicate_archived__` - cartes qui ont été archivées.",
+    "after": "`__predicate_archived__` - cartas archivadas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "globalSearch-instructions-status-ended",
+    "before": "`__predicate_ended__` - cartes ayant une date de fin.",
+    "after": "`__predicate_ended__` - cartas amb una data de fin",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "globalSearch-title",
+    "before": "Chercher dans tous les tableaux",
+    "after": "Cercar dins totes los tablèus",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
