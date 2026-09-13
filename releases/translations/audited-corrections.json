@@ -68416,5 +68416,89 @@
     "before": "Kliknij, aby oznaczyć tę stronę gwiazdką.",
     "after": "Kliknij, coby ôznaczyć tã strōnã gwiŏzdkōm.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "cloud-secret-keep-blank",
+    "before": "Pozostaw puste, aby zachować bieżącą wartość.",
+    "after": "Ôstŏw puste, coby zachować terŏźnŏ wartość.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "cloud-secret-set",
+    "before": "(zapisane — pozostaw puste, aby zachować)",
+    "after": "(zapisane — ôstŏw puste, coby zachować)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "confirm-checklist-delete-popup",
+    "before": "Czy na pewno chcesz usunąć tę checklistę?",
+    "after": "Na isto chcesz wyciepać tã listã kōntrolnŏ?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "confirm-checklist-item-delete-popup",
+    "before": "Czy na pewno chcesz usunąć tę pozycję checklisty?",
+    "after": "Na isto chcesz wyciepać tyn elymynt listy kōntrolnyj?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "confirm-subtask-delete-popup",
+    "before": "Czy jesteś pewien, że chcesz usunąć to podzadanie?",
+    "after": "Na isto chcesz wyciepać to podzadanie?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "created-at-newest-first",
+    "before": "daty utworzenia (najpierw najnowsze)",
+    "after": "Daty utworzyniŏ (nojprzōd nojnowsze)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "created-at-oldest-first",
+    "before": "daty utworzenia (najpierw najstarsze)",
+    "after": "Daty utworzyniŏ (nojprzōd nojstarsze)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "cron-job-delete-confirm",
+    "before": "Czy na pewno chcesz usunąć to zaplanowane zadanie?",
+    "after": "Na isto chcesz wyciepać to zaplanowane zadanie?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "cron-no-errors",
+    "before": "Brak błędów do wyświetlenia",
+    "after": "Niy ma błyndōw do pokazaniŏ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "cron-no-failed-migrations",
+    "before": "Brak nieudanych migracji do ponowienia",
+    "after": "Niy ma niyudanych migracyjōw do ponowlyniŏ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "cron-no-paused-migrations",
+    "before": "Brak wstrzymanych migracji do wznowienia",
+    "after": "Niy ma wstrzimanych migracyjōw do wznowlyniŏ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "cron-resume-paused",
+    "before": "Wznów wstrzymane migracje",
+    "after": "Wznōw wstrzimane migracyje",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
