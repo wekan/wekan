@@ -985,6 +985,18 @@ pass. Live FerretDB verification remains in progress.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/8cfee9383">Move header collapse beside Home</a>. Thanks to xet7.</summary>
+
+The header order is Home, collapse, then the page or board title. The existing
+collapse behavior and themed layout remain. Five header suites pass; positive/
+negative ordering guards prevent a duplicate control after the title. A browser
+regression checks desktop/narrow positioning and that Home and the title remain
+visible after collapsing. It syntax-checks and registers; live browser execution
+requires a running WeKan server, unavailable locally.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/00073c3f5">Wait for cookie resume and verify voting and board actions</a>. Thanks to xet7.</summary>
 
 The browser login fixture could start a second login before asynchronous
