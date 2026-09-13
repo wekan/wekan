@@ -78496,5 +78496,40 @@
     "before": "Tous les utilisateurs bloqués ont été déverrouillés",
     "after": "Ubbil nañu konti jëfandikukat yi ñu tëj yépp",
     "reason": "Replace French account-lockout controls/statuses with Wolof, describing user account locking/unlocking rather than deletion. Preserve single versus all locked users, successful unlock, none currently locked and locked-only filtering. Full grammar and account lock/unlock terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "account-locked",
+    "before": "Le compte est temporairement verrouillé en raison de trop de tentatives de connexion échouées. Veuillez réessayer plus tard.",
+    "after": "Tëj nañu kont bi ci diir bu gàtt ndax jéem yu bari yu lajj ngir dugg. Jéemaatal gannaaw.",
+    "reason": "Replace French account protection descriptions with Wolof. Preserve temporary lockout after excessive failed login attempts, retry later, known users with correct username and wrong password versus unknown nonexistent username, current lockout state and self-account deletion. Full grammar and password/settings terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "accounts-lockout-known-users",
+    "before": "Paramètres pour les utilisateurs connus (utilisateur existant, mot de passe incorrect)",
+    "after": "Jekkal yi ci jëfandikukat yi ñu xam (turu jëfandikukat bu jub, baatu jall bu jubul)",
+    "reason": "Replace French account protection descriptions with Wolof. Preserve temporary lockout after excessive failed login attempts, retry later, known users with correct username and wrong password versus unknown nonexistent username, current lockout state and self-account deletion. Full grammar and password/settings terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "accounts-lockout-unknown-users",
+    "before": "Paramètres pour les utilisateurs inconnus (utilisateur inexistant)",
+    "after": "Jekkal yi ci jëfandikukat yi ñu xamul (turu jëfandikukat bu amul)",
+    "reason": "Replace French account protection descriptions with Wolof. Preserve temporary lockout after excessive failed login attempts, retry later, known users with correct username and wrong password versus unknown nonexistent username, current lockout state and self-account deletion. Full grammar and password/settings terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "accounts-lockout-locked-users-info",
+    "before": "Utilisateurs actuellement verrouillés pour trop de tentatives de connexion en échec",
+    "after": "Jëfandikukat yi ñu tëj seeni kont léegi ndax jéem yu bari yu lajj ngir dugg",
+    "reason": "Replace French account protection descriptions with Wolof. Preserve temporary lockout after excessive failed login attempts, retry later, known users with correct username and wrong password versus unknown nonexistent username, current lockout state and self-account deletion. Full grammar and password/settings terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "accounts-allowUserDelete",
+    "before": "Autoriser les utilisateurs à supprimer leur compte",
+    "after": "Far sa kontu jëfandikukat ci sa bopp",
+    "reason": "Replace French account protection descriptions with Wolof. Preserve temporary lockout after excessive failed login attempts, retry later, known users with correct username and wrong password versus unknown nonexistent username, current lockout state and self-account deletion. Full grammar and password/settings terminology remain low confidence."
   }
 ]
