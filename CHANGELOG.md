@@ -3140,6 +3140,17 @@ build-menu parity and shell syntax checks pass. Document offline local use in
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2a5a53cf6">Make five release scripts executable</a>. Thanks to xet7.</summary>
+
+Set executable permissions on `releases/apt-install.sh`,
+`releases/delete-tag.sh`, `releases/fetch.sh`, `releases/fossil.sh` and
+`releases/npm-retry.sh` so maintainers can invoke them directly. Script contents
+are unchanged. Bash syntax checks and the eight npm retry and six Fossil
+regression checks pass. This permission change has no application UI behavior.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 
