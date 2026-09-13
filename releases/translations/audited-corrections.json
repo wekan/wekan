@@ -111277,5 +111277,110 @@
     "before": "Sposta tutte le schede in questa lista",
     "after": "Sposta tute łe schede de sta lista",
     "reason": "Replace Italian-seeded Venetian import/list controls; preserve unmapped-member fallback, keyboard enabled/disabled states, last-admin guard and irreversible label/list loss. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "list-select-cards",
+    "before": "Seleziona tutte le schede in questa lista",
+    "after": "Sełesiona tute łe schede de sta lista",
+    "reason": "Replace Italian-seeded Venetian selection and notification labels; preserve byte units, archive entity distinctions, invitation acceptance and watched-item notification scope. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "loading",
+    "before": "Caricamento in corso, attendere...",
+    "after": "Caricamento, speta par piazer.",
+    "reason": "Replace Italian-seeded Venetian selection and notification labels; preserve byte units, archive entity distinctions, invitation acceptance and watched-item notification scope. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "max-avatar-filesize",
+    "before": "Max dimensione di caricamento dell'avatar in byte.",
+    "after": "Grandesa màsima del file avatar in byte:",
+    "reason": "Replace Italian-seeded Venetian selection and notification labels; preserve byte units, archive entity distinctions, invitation acceptance and watched-item notification scope. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "max-upload-filesize",
+    "before": "Max dimensione di caricamento del file in byte.",
+    "after": "Grandesa màsima del file da cargar in byte:",
+    "reason": "Replace Italian-seeded Venetian selection and notification labels; preserve byte units, archive entity distinctions, invitation acceptance and watched-item notification scope. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "move-selection",
+    "before": "Sposta elementi selezionati",
+    "after": "Sposta ła sełesion",
+    "reason": "Replace Italian-seeded Venetian selection and notification labels; preserve byte units, archive entity distinctions, invitation acceptance and watched-item notification scope. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "moveSelectionPopup-title",
+    "before": "Sposta elementi selezionati",
+    "after": "Sposta ła sełesion",
+    "reason": "Replace Italian-seeded Venetian selection and notification labels; preserve byte units, archive entity distinctions, invitation acceptance and watched-item notification scope. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "multi-selection-on",
+    "before": "Selezione multipla attiva",
+    "after": "Ła sełesion mùltipła ła xe ativa",
+    "reason": "Replace Italian-seeded Venetian selection and notification labels; preserve byte units, archive entity distinctions, invitation acceptance and watched-item notification scope. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "newTranslationPopup-title",
+    "before": "Nuova stringa di traduzione personalizzata",
+    "after": "Nova stringa de tradusion personałizà",
+    "reason": "Replace Italian-seeded Venetian selection and notification labels; preserve byte units, archive entity distinctions, invitation acceptance and watched-item notification scope. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "no-archived-cards",
+    "before": "Non ci sono schede nell'archivio.",
+    "after": "No ghe xe schede inte el archivio.",
+    "reason": "Replace Italian-seeded Venetian selection and notification labels; preserve byte units, archive entity distinctions, invitation acceptance and watched-item notification scope. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "no-archived-lists",
+    "before": "Non ci sono liste nell'archivio.",
+    "after": "No ghe xe liste inte el archivio.",
+    "reason": "Replace Italian-seeded Venetian selection and notification labels; preserve byte units, archive entity distinctions, invitation acceptance and watched-item notification scope. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "no-archived-swimlanes",
+    "before": "Non ci sono swimlane nell'archivio.",
+    "after": "No ghe xe corsie inte el archivio.",
+    "reason": "Replace Italian-seeded Venetian selection and notification labels; preserve byte units, archive entity distinctions, invitation acceptance and watched-item notification scope. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "not-accepted-yet",
+    "before": "Invitato non ancora accettato",
+    "after": "Invito no ancora acetà",
+    "reason": "Replace Italian-seeded Venetian selection and notification labels; preserve byte units, archive entity distinctions, invitation acceptance and watched-item notification scope. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "notify-watch",
+    "before": "Ricevi aggiornamenti per tutte le bacheche, liste o schede che stai seguendo",
+    "after": "Ricevi ajornamenti par i quadri, łe liste o łe schede che te si drio seguir",
+    "reason": "Replace Italian-seeded Venetian selection and notification labels; preserve byte units, archive entity distinctions, invitation acceptance and watched-item notification scope. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "now-activities-of-all-boards-are-hidden",
+    "before": "Ora tutte le attività di tutte le bacheche sono nascoste",
+    "after": "Deso tute łe atività de tuti i quadri łe xe sconte",
+    "reason": "Replace Italian-seeded Venetian selection and notification labels; preserve byte units, archive entity distinctions, invitation acceptance and watched-item notification scope. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "open-many-cards-at-once",
+    "before": "Apri più schede contemporaneamente",
+    "after": "Verzi pì schede insieme",
+    "reason": "Replace Italian-seeded Venetian selection and notification labels; preserve byte units, archive entity distinctions, invitation acceptance and watched-item notification scope. Low-confidence wording; fluent-speaker validation outstanding."
   }
 ]
