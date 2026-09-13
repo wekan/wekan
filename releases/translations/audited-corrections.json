@@ -104081,5 +104081,75 @@
     "before": "Uhlunga amakhadi kuleli bhodi. Chofoza lapha ukuze uhlele isihlungi.",
     "after": "Ni khou ṱalula makhadi kha bodo iyi ya Kanban. Kiḽikani afha u shandula tsha u ṱalula.",
     "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source invitation placeholders, line breaks, permission boundaries and emphasis. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "globalSearch-instructions-description",
+    "before": "Usesho lungabandakanya ama-opharetha ukuze acwenge ukusesha.  Ama-opharetha acaciswa ngokubhala igama lomsebenzisi nenani elihlukaniswe koloni.  Isibonelo, ukucaciswa komsebenzisi kokuthi `list:Blocked` kungakhawulela ukusesha kumakhadi aqukethwe ohlwini oluqanjwe ngokuthi *Ovinjiwe*.  Uma inani liqukethe izikhala noma izinhlamvu ezikhethekile kufanele lifakwe kuzimpawu zokucaphuna (isb. `__operator_list__:\"To Review\"`).",
+    "after": "U ṱoḓa hu nga katela maipfi a ndaela u ṱalula zwine zwa ṱoḓiwa. Ṅwalani dzina ḽa ndaela na ndeme zwi tshi fhambanywa nga kholoni. Sa tsumbo, `list:Blocked` i ṱoḓa makhadi kha mutevhe une dzina ḽawo ḽa vha *Blocked*. Arali ndeme i na zwikhala kana zwiga zwo khetheaho, i fanela u vha vhukati ha zwiga zwa khotheisheni (sa `__operator_list__:\"To Review\"`).",
+    "reason": "Replace Zulu-seeded search help directly with Tshivenda. Preserve query examples, angle-bracket arguments, underscore placeholders and OR versus AND semantics. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "globalSearch-instructions-notes-2",
+    "before": "Ama-opharetha afanayo *NOMA* ahlanganiswe ndawonye.  Amakhadi afana nanoma yimiphi imibandela azobuyiswa.\nU-`__operator_list__:Available __operator_list__:Blocked` uzobuyisela amakhadi aqukethwe kunoma yiluphi uhlu oluqanjwe ngokuthi *Ovinjiwe* noma *Okutholakalayo*.",
+    "after": "Ndaela dzi fanaho dzi ṱanganywa nga *OR* (kana). Hu ḓo bviswa makhadi ane a tevhela tshiṅwe na tshiṅwe tsha zwiimo.\n`__operator_list__:Available __operator_list__:Blocked` i bvisa makhadi kha mutevhe une dzina ḽawo ḽa vha *Blocked* kana *Available*.",
+    "reason": "Replace Zulu-seeded search help directly with Tshivenda. Preserve query examples, angle-bracket arguments, underscore placeholders and OR versus AND semantics. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "globalSearch-instructions-notes-3",
+    "before": "Ama-opharetha ahlukene *FUTHI* ahlanganiswe ndawonye.  Amakhadi afana nawo wonke ama-opharetha ahlukene abuyiselwayo.  U-`__operator_list__:Available __operator_label__:red` ubuyisela amakhadi kuphela ohlwini *Okutholakalayo* anelebula *elibomvu*.",
+    "after": "Ndaela dzi sa fani dzi ṱanganywa nga *AND* (na). Hu bviswa fhedzi makhadi ane a tevhela zwiimo zwoṱhe. `__operator_list__:Available __operator_label__:red` i bvisa fhedzi makhadi kha mutevhe *Available* a re na ḽeibuḽu *red*.",
+    "reason": "Replace Zulu-seeded search help directly with Tshivenda. Preserve query examples, angle-bracket arguments, underscore placeholders and OR versus AND semantics. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "globalSearch-instructions-notes-5",
+    "before": "Ngokuzenzakalelayo amakhadi afakwe kungobo yomlando awaseshwa.",
+    "after": "Nga nḓila ya u thoma, makhadi o vhulungwaho ha ṱoḓiwi.",
+    "reason": "Replace Zulu-seeded search help directly with Tshivenda. Preserve query examples, angle-bracket arguments, underscore placeholders and OR versus AND semantics. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "globalSearch-instructions-operator-assignee",
+    "before": "`__operator_assignee__:<username>` - ​​amakhadi lapho *<username>* *engowabelwe*",
+    "after": "`__operator_assignee__:<username>` - makhadi ane *<username>* a vha o avhelwa mushumo wao",
+    "reason": "Replace Zulu-seeded search help directly with Tshivenda. Preserve query examples, angle-bracket arguments, underscore placeholders and OR versus AND semantics. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "globalSearch-instructions-operator-board",
+    "before": "`__operator_board__:<title>` - ​​amakhadi emabhodini afana nokushiwo *<title>*",
+    "after": "`__operator_board__:<title>` - makhadi kha bodo dza Kanban dzi elanaho na *<title>* yo ṅwalwaho",
+    "reason": "Replace Zulu-seeded search help directly with Tshivenda. Preserve query examples, angle-bracket arguments, underscore placeholders and OR versus AND semantics. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "globalSearch-instructions-operator-comment",
+    "before": "`__operator_comment__:<text>` - ​​amakhadi anamazwana aqukethe *<text>*.",
+    "after": "`__operator_comment__:<text>` - makhadi a re na muhumbulo u re na *<text>*.",
+    "reason": "Replace Zulu-seeded search help directly with Tshivenda. Preserve query examples, angle-bracket arguments, underscore placeholders and OR versus AND semantics. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "globalSearch-instructions-operator-created",
+    "before": "`__operator_created__:<n>` - ​​amakhadi adalwe *<n>* ezinsukwini ezedlule noma ngaphansi",
+    "after": "`__operator_created__:<n>` - makhadi o sikwaho maḓuvha a *<n>* o fhiraho kana a si gathi",
+    "reason": "Replace Zulu-seeded search help directly with Tshivenda. Preserve query examples, angle-bracket arguments, underscore placeholders and OR versus AND semantics. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "globalSearch-instructions-operator-creator",
+    "before": "`__operator_creator__:<username>` - ​​amakhadi lapho *<username>* engumdali wekhadi",
+    "after": "`__operator_creator__:<username>` - makhadi ane *<username>* a vha musiki wao",
+    "reason": "Replace Zulu-seeded search help directly with Tshivenda. Preserve query examples, angle-bracket arguments, underscore placeholders and OR versus AND semantics. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "globalSearch-instructions-operator-due",
+    "before": "`__operator_due__:<n>` - ​​amakhadi okumele akhokhe kufike ezinsukwini *<n>* kusukela manje.  `__operator_due__:__predicate_overdue__ ubala wonke amakhadi adlule usuku lwawo lomnqamulajuqu.",
+    "after": "`__operator_due__:<n>` - makhadi a fanela u fhedzwa hu sa athu fhira maḓuvha a *<n>* u bva zwino. `__operator_due__:__predicate_overdue__ i tevhekanya makhadi oṱhe o fhiraho ḓuvha ḽa u fhedzwa.",
+    "reason": "Replace Zulu-seeded search help directly with Tshivenda. Preserve query examples, angle-bracket arguments, underscore placeholders and OR versus AND semantics. Low-confidence wording; fluent-speaker validation outstanding."
   }
 ]
