@@ -82,7 +82,7 @@ Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
 findings: 15,112 corrected, 4,058 restored pre-pull values awaiting
 validation, 179 reviewed and retained, and 732 pending review or repair.
-The correction inventory records 17,278 exact before/after values,
+The correction inventory records 17,291 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
@@ -102,10 +102,10 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383540a; translation repairs have resumed.
-Latest translation fix is e56bc53e3 (2026-09-14), replacing the French
-Tamazight invalid-email label with exact native MediaWiki wording. The earlier
-Greenlandic Persian name remains CLDR-unconfirmed. Twelve Quechua color
-wrappers and exact-hue review remain; composed headings need fluent review.
+Latest translation fix is ab785976f (2026-09-14), repairing 13 additional
+unflagged Tamazight file/template/preview/watch/role labels. Original pending
+counts remain unchanged. Greenlandic CLDR-unconfirmed wording and twelve
+Quechua color wrappers still need review, alongside composed headings.
 Tamazight calendar review dd2aaa19a (2026-09-14) records provisional
 Islamic naming and missing variant terminology; no values changed.
 Manx calendar review 669be8895 (2026-09-14) records missing CLDR display
@@ -669,6 +669,17 @@ The audit records 749 pending original findings and wider unfinished validation.
 This release adds the following translation improvements:
 
 **Translations** - Locale wording repairs and remaining audit progress.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ab785976f">Repair native Tamazight file and preview labels</a>. Thanks to xet7.</summary>
+
+Replace thirteen French or Arabic template, file, preview, watch and role
+labels with matching native MediaWiki wording. Preserve valid existing
+Tamazight alternatives. All 17,291 correction checks pass; these additional
+unflagged repairs do not reduce the 732 pending original findings. Broader
+language validation and live browser verification remain open.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/e56bc53e3">Use native Tamazight invalid-email wording</a>. Thanks to xet7.</summary>
