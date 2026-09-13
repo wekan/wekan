@@ -81751,5 +81751,40 @@
     "before": "Effectue des vérifications complètes et des corrections pour l'intégrité des données du tableau, y compris l'ordre des listes, les positions des cartes et la structure des couloirs.",
     "after": "Dafay saytu te defaraat lépp ngir done yi ci tablo bi mat te jub, ci biir loolu toftalu limu yi, barabu karta yi ak tëralinu yoon yi.",
     "reason": "Replace French with Wolof using existing migration, board, administrator, repair and structure terminology; preserve admin-only execution, individual runs, latest structure and list/card/swimlane integrity scope. Migration/integrity technical phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "run-comprehensive-migration-confirm",
+    "before": "Cette opération effectuera une migration complète pour vérifier et corriger l'intégrité des données du tableau. Cela peut prendre quelques instants. Continuer ?",
+    "after": "Lii dina doxal migration bu mat ngir saytu te defaraat done yi ci tablo bi ngir ñu mat te jub. Man na jël ay saa. Wéy?",
+    "reason": "Replace French with Wolof; retain comprehensive integrity repair and wait, all attachment URLs versus member avatar URLs, correct storage backend and broken reference repairs. Storage/reference technical phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "run-fix-all-file-urls-migration-confirm",
+    "before": "Cette opération mettra à jour toutes les URL des pièces jointes de ce tableau pour utiliser le bon backend de stockage. Continuer ?",
+    "after": "Lii dina yeesal URL yépp yu fiise yi ñu takkal ci tablo bii ngir jëfandikoo sistemu denc bi jub. Wéy?",
+    "reason": "Replace French with Wolof; retain comprehensive integrity repair and wait, all attachment URLs versus member avatar URLs, correct storage backend and broken reference repairs. Storage/reference technical phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "run-fix-avatar-urls-migration-confirm",
+    "before": "Cette opération mettra à jour les URL des avatars des participants du tableau pour utiliser le bon backend de stockage. Continuer ?",
+    "after": "Lii dina yeesal URL yu avatar yi ci bokkkat yi ci tablo bi ngir jëfandikoo sistemu denc bi jub. Wéy?",
+    "reason": "Replace French with Wolof; retain comprehensive integrity repair and wait, all attachment URLs versus member avatar URLs, correct storage backend and broken reference repairs. Storage/reference technical phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "fix-all-file-urls-migration-description",
+    "before": "Met à jour toutes les URL des pièces jointes de ce tableau pour utiliser le bon backend de stockage et corrige les références de fichiers cassées.",
+    "after": "Yeesal URL yépp yu fiise yi ñu takkal ci tablo bii ngir jëfandikoo sistemu denc bi jub te defaraat lëkkalekaay yu fiise yi yàqu.",
+    "reason": "Replace French with Wolof; retain comprehensive integrity repair and wait, all attachment URLs versus member avatar URLs, correct storage backend and broken reference repairs. Storage/reference technical phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "fix-avatar-urls-migration-description",
+    "before": "Mets à jour les URLs d'avatar des participants du tableau pour utiliser le bon gestionnaire de stockage et corriger les références défaillantes d'avatar ",
+    "after": "Yeesal URL yu avatar yi ci bokkkat yi ci tablo bi ngir jëfandikoo sistemu denc bi jub te defaraat lëkkalekaay yu avatar yi yàqu.",
+    "reason": "Replace French with Wolof; retain comprehensive integrity repair and wait, all attachment URLs versus member avatar URLs, correct storage backend and broken reference repairs. Storage/reference technical phrasing and full grammar remain low confidence."
   }
 ]
