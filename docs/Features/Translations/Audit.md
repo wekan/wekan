@@ -12,9 +12,9 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **11,467** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **11,483** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `61fd37e866a3986b33afd4a4375e4f5ff970504b` — 8 French role/member/assignee labels replaced with Wolof and one earlier description aligned with the retained Ordineer role label. Read-only/assigned-only scopes and membership removal remain distinct. Full grammar and role terminology remain low confidence. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; live browser verification is unavailable.
+Latest translation fix: **2026-09-13**, local commit `a12cd204f73d929f3cf3bc91d0af9a8a8e99c8cd` — 16 checklist controls/item-count labels repaired in Wolof. Add/remove/copy/move/conversion actions, item-count notation and minicard scope remain distinct. Full grammar and computing terminology remain low confidence. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; live browser verification is unavailable.
 
 **Review follow-up:** Silesian `sandstorm-raw-mongodb` remains pending: its wording overlaps Polish and existing Silesian technical strings, but dictionary searches did not establish the full phrase as correct Silesian. Keep the current value until stronger language evidence supports retaining or replacing it.
 
