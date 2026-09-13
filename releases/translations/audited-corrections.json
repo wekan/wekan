@@ -57440,5 +57440,19 @@
     "before": "Mostrare chi ha votato cosa",
     "after": "Mostra chi ha vutato che cosa",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "Node_heap_does_zap_garbage",
+    "before": "Heap Node: does zap garbage",
+    "after": "Heap Node: suverscrive 'a memoria scartata cu 'n modello 'e bit",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "acceptance_of_our_legalNotice",
+    "before": "Continuando, accetti il nostro",
+    "after": "Si cuntinue, accette 'e nnostre",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
