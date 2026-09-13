@@ -69704,5 +69704,75 @@
     "before": "Ubah latar belakang gambar",
     "after": "Ubah gamba latar likot",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "add-cover",
+    "before": "Tambahkan gambar sampul untuk kartu kecil",
+    "after": "Tamah gamba sampul u kad ubit",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "add-custom-html-after-body-start",
+    "before": "Tambahkan HTML khusus setelah <body> mulai",
+    "after": "Tamah HTML khusus lheueh awai <body>",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "add-custom-html-before-body-end",
+    "before": "Tambahkan HTML khusus sebelum </body> berakhir",
+    "after": "Tamah HTML khusus sigohlom akhé </body>",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "add-organizations-label",
+    "before": "Organisasi yang ditambah seperti di bawah",
+    "after": "Organisasi nyang geutamah geupeuleumah di miyup:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "add-teams-label",
+    "before": "Pasukan yang ditambah adalah seperti paparan di bawah:",
+    "after": "Tim nyang geutamah geupeuleumah di miyup:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "always-field-on-card",
+    "before": "tambah ruang pada semua kad",
+    "after": "Tamah ruang u mandum kad",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "archive-board-confirm",
+    "before": "Anda pasti untuk mengarkibkan papan ini?",
+    "after": "Beutoi droeneueh keuneuk geuarsip papan nyoe?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "archive-swimlane",
+    "before": "Pindah aliran renang ke arkib",
+    "after": "Pinah swimlane u Arsip",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "attachment-move-storage-fs",
+    "before": "Pindah lampiran ke sistem fail",
+    "after": "Pinah lampiran u sistem fail",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "attachment-move-storage-gridfs",
+    "before": "Pindah lampiran ke GridFS",
+    "after": "Pinah lampiran u GridFS",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
