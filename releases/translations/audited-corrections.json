@@ -104466,5 +104466,110 @@
     "before": "Vula amakhadi amaningi ngesikhathi esisodwa",
     "after": "Vulani makhadi manzhi nga tshifhinga tshithihi",
     "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, imported-role permission ceiling, restricted-user capabilities and storage targets. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "open-many-cards-at-once-description",
+    "before": "Ikhadi ngalinye oliqhafazayo lihlala livuliwe kuwindi lalo. Uma lokhu kuvaliwe, ukuqhafaza ikhadi kuvala lelo ebelivuliwe.",
+    "after": "Khadi ḽiṅwe na ḽiṅwe ḽine na kiḽika ḽi dzula ḽo vulea kha fasiṱere yaḽo. Musi izwi zwo dzimwa, u kiḽika khadi zwi vala ḽe ḽa vha ḽo vulea.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, privacy/edit permission distinctions and top/bottom movement directions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "operator-has-invalid",
+    "before": "%s akukona ukuhlola ubukhona obuvumelekile",
+    "after": "%s a si u sedza u vha hone ho teaho",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, privacy/edit permission distinctions and top/bottom movement directions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "preview-pdf-not-supported",
+    "before": "Idivayisi yakho ayikusekeli ukuhlola kuqala i-PDF. Zama ukulanda esikhundleni salokho.",
+    "after": "Tshishumiswa tshaṋu a tshi tikedzi u vhona PDF hu sa athu bveledzwa. Lingedzani u i daunilouda.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, privacy/edit permission distinctions and top/bottom movement directions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "private-desc",
+    "before": "Leli bhodi liyimfihlo. Abantu abengezwe ebhodini kuphela abangalibuka futhi balihlele.",
+    "after": "Bodo iyi ya Kanban ndi ya phuraivethe. Ndi vhathu vho engedzwaho kha bodo fhedzi vhane vha nga i vhona na u i khwinisa.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, privacy/edit permission distinctions and top/bottom movement directions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "public-desc",
+    "before": "Leli bhodi lisesidlangalaleni. Ibonakala kunoma ubani onesixhumanisi futhi izovela ezinjinini zokusesha ezifana ne-Google. Abantu abengezwe ebhodini kuphela abangahlela.",
+    "after": "Bodo iyi ya Kanban ndi ya nnyi na nnyi. I vhonala kha muṅwe na muṅwe a re na ḽinki nahone i ḓo vhonala kha nḓila dza u ṱoḓa dzi ngaho Google. Ndi vhathu vho engedzwaho kha bodo fhedzi vhane vha nga i khwinisa.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, privacy/edit permission distinctions and top/bottom movement directions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "push-invite-text",
+    "before": "Sawubona __user__,\n\nU-__inviter__ ukumema ukuthi ujoyine ibhodi \"__board__\" ukuze uthole ukusebenzisana.\n\nSicela ulandele isixhumanisi esingezansi:\n\n__url__\n\nNgiyabonga.",
+    "after": "__user__ a funwaho,\n\n__inviter__ u khou ni ramba u dzhena kha bodo ya Kanban \"__board__\" u shumisana.\n\nTevhelani ḽinki i re afho fhasi:\n\n__url__\n\nRo livhuwa.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, privacy/edit permission distinctions and top/bottom movement directions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "quick-access-description",
+    "before": "Faka inkanyezi ebhodini ukuze ungeze isinqamuleli kule bha.",
+    "after": "Vheani ṋaledzi kha bodo ya Kanban u engedza nḓila pfufhi kha bara iyi.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, privacy/edit permission distinctions and top/bottom movement directions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "r-d-archive",
+    "before": "Hambisa ikhadi kungobo yomlando",
+    "after": "Isa khadi fhethu ha u vhulunga",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, privacy/edit permission distinctions and top/bottom movement directions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "r-d-move-to-bottom-gen",
+    "before": "Hambisa ikhadi phansi ohlwini lwalo",
+    "after": "Isa khadi magumoni a mutevhe waḽo",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, privacy/edit permission distinctions and top/bottom movement directions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "r-d-move-to-bottom-spec",
+    "before": "Hambisa ikhadi phansi ohlwini",
+    "after": "Isa khadi magumoni a mutevhe",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, privacy/edit permission distinctions and top/bottom movement directions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "r-d-move-to-top-gen",
+    "before": "Hambisa ikhadi phezulu ohlwini lwalo",
+    "after": "Isa khadi mathomoni a mutevhe waḽo",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, privacy/edit permission distinctions and top/bottom movement directions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "r-d-move-to-top-spec",
+    "before": "Hambisa ikhadi phezulu ohlwini",
+    "after": "Isa khadi mathomoni a mutevhe",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, privacy/edit permission distinctions and top/bottom movement directions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "r-d-unarchive",
+    "before": "Buyisela ikhadi kusukela kungobo yomlando",
+    "after": "Vhuyedzedza khadi u bva fhethu ha u vhulunga",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, privacy/edit permission distinctions and top/bottom movement directions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "r-remove-all",
+    "before": "Susa wonke amalungu ekhadini",
+    "after": "Bvisa miraḓo yoṱhe kha khadi",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, privacy/edit permission distinctions and top/bottom movement directions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "r-when-a-card-is-moved",
+    "before": "Uma ikhadi lihanjiswa kolunye uhlu",
+    "after": "Musi khadi ḽi tshi pfuluselwa kha muṅwe mutevhe",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, privacy/edit permission distinctions and top/bottom movement directions. Low-confidence wording; fluent-speaker validation outstanding."
   }
 ]
