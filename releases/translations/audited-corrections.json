@@ -94575,5 +94575,54 @@
     "before": "Lösche doppelte leere Listen",
     "after": "rapbogh tetlhmey chIm tIQaw'",
     "reason": "Replace German description controls and duplicate-empty-list deletion action with Klingon. Reuse repaired QIjmeH De explanation-data terminology; preserve adding more detail and having an unsaved description rather than an unspecified unsaved change. Preserve both duplicate/identical and empty list qualifications with a plural deletion imperative. Full software wording is assembled, low confidence, and needs fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "activity-moved",
+    "before": "hat %s von %s nach %s verschoben",
+    "after": "%s vIHmoHlu'pu' (%s-vo' %s-vaD)",
+    "reason": "Replace German generic movement/import/membership activity fragments with Klingon. Verify activities.jade percent-token roles: movement object/source/destination, import object/destination/source, exclusion member/board, and board import board/source. Preserve exact argument order with explicit parenthesized origin -vo- and destination -vaD; retain creation, addition and joining actions. Reuse repaired operation terminology. Full software phrasing is assembled, low confidence, and needs fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "activity-imported",
+    "before": "hat %s in %s von %s importiert",
+    "after": "%s qemlu'pu' (%s-vaD %s-vo')",
+    "reason": "Replace German generic movement/import/membership activity fragments with Klingon. Verify activities.jade percent-token roles: movement object/source/destination, import object/destination/source, exclusion member/board, and board import board/source. Preserve exact argument order with explicit parenthesized origin -vo- and destination -vaD; retain creation, addition and joining actions. Reuse repaired operation terminology. Full software phrasing is assembled, low confidence, and needs fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "activity-excluded",
+    "before": "hat %s von %s ausgeschlossen",
+    "after": "%s teqlu'pu' (%s-vo')",
+    "reason": "Replace German generic movement/import/membership activity fragments with Klingon. Verify activities.jade percent-token roles: movement object/source/destination, import object/destination/source, exclusion member/board, and board import board/source. Preserve exact argument order with explicit parenthesized origin -vo- and destination -vaD; retain creation, addition and joining actions. Reuse repaired operation terminology. Full software phrasing is assembled, low confidence, and needs fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "activity-imported-board",
+    "before": "hat %s von %s importiert",
+    "after": "%s qemlu'pu' (%s-vo')",
+    "reason": "Replace German generic movement/import/membership activity fragments with Klingon. Verify activities.jade percent-token roles: movement object/source/destination, import object/destination/source, exclusion member/board, and board import board/source. Preserve exact argument order with explicit parenthesized origin -vo- and destination -vaD; retain creation, addition and joining actions. Reuse repaired operation terminology. Full software phrasing is assembled, low confidence, and needs fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "activity-created",
+    "before": "hat %s erstellt",
+    "after": "%s chenmoHlu'pu'",
+    "reason": "Replace German generic movement/import/membership activity fragments with Klingon. Verify activities.jade percent-token roles: movement object/source/destination, import object/destination/source, exclusion member/board, and board import board/source. Preserve exact argument order with explicit parenthesized origin -vo- and destination -vaD; retain creation, addition and joining actions. Reuse repaired operation terminology. Full software phrasing is assembled, low confidence, and needs fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "activity-added",
+    "before": "hat %s zu %s hinzugefügt",
+    "after": "%s chellu'pu' (%s-vaD)",
+    "reason": "Replace German generic movement/import/membership activity fragments with Klingon. Verify activities.jade percent-token roles: movement object/source/destination, import object/destination/source, exclusion member/board, and board import board/source. Preserve exact argument order with explicit parenthesized origin -vo- and destination -vaD; retain creation, addition and joining actions. Reuse repaired operation terminology. Full software phrasing is assembled, low confidence, and needs fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "activity-joined",
+    "before": "ist %s beigetreten",
+    "after": "%s-Daq jeSchoH",
+    "reason": "Replace German generic movement/import/membership activity fragments with Klingon. Verify activities.jade percent-token roles: movement object/source/destination, import object/destination/source, exclusion member/board, and board import board/source. Preserve exact argument order with explicit parenthesized origin -vo- and destination -vaD; retain creation, addition and joining actions. Reuse repaired operation terminology. Full software phrasing is assembled, low confidence, and needs fluent-speaker validation."
   }
 ]
