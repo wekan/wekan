@@ -87323,5 +87323,89 @@
     "before": "Sélectionner une couleur",
     "after": "Välön köli",
     "reason": "Replace French board background, minicard cover and selection-colour labels with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests pödaglun (background), magod (image), teg (general cover); reuse previously checked köl (colour), väl/välön (selection/choose), lonön (set), kadil and add/remove/change verbs. Preserve background versus minicard cover scope and choose versus set-colour action. Cover and board software sense adaptations and assembled grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "organizations",
+    "before": "Organisations",
+    "after": "Klubäds",
+    "reason": "Replace French organization labels and warnings with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests klubäd (body of people/corporation), distinct from noganükam (act of organizing); reuse checked team-label grammar/vocabulary for settings, quantity, creation, administrator contact, name already used and no-undo warning. Preserve %s lookup token, organization entity scope and count separator. Software sense adaptation and assembled grammar remain low confidence; no native-speaker validation. Other existing organization wording is not certified or overwritten merely for terminology variation."
+  },
+  {
+    "locale": "vo",
+    "key": "add-organizations",
+    "before": "Ajouter des organisations",
+    "after": "Lüükön klubädis",
+    "reason": "Replace French organization labels and warnings with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests klubäd (body of people/corporation), distinct from noganükam (act of organizing); reuse checked team-label grammar/vocabulary for settings, quantity, creation, administrator contact, name already used and no-undo warning. Preserve %s lookup token, organization entity scope and count separator. Software sense adaptation and assembled grammar remain low confidence; no native-speaker validation. Other existing organization wording is not certified or overwritten merely for terminology variation."
+  },
+  {
+    "locale": "vo",
+    "key": "settingsOrgPopup-title",
+    "before": "Paramètres de l'organisation",
+    "after": "Väls klubäda",
+    "reason": "Replace French organization labels and warnings with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests klubäd (body of people/corporation), distinct from noganükam (act of organizing); reuse checked team-label grammar/vocabulary for settings, quantity, creation, administrator contact, name already used and no-undo warning. Preserve %s lookup token, organization entity scope and count separator. Software sense adaptation and assembled grammar remain low confidence; no native-speaker validation. Other existing organization wording is not certified or overwritten merely for terminology variation."
+  },
+  {
+    "locale": "vo",
+    "key": "org-name-not-found",
+    "before": "Organisation '%s' non trouvée.",
+    "after": "Klubäd '%s' no petuvon.",
+    "reason": "Replace French organization labels and warnings with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests klubäd (body of people/corporation), distinct from noganükam (act of organizing); reuse checked team-label grammar/vocabulary for settings, quantity, creation, administrator contact, name already used and no-undo warning. Preserve %s lookup token, organization entity scope and count separator. Software sense adaptation and assembled grammar remain low confidence; no native-speaker validation. Other existing organization wording is not certified or overwritten merely for terminology variation."
+  },
+  {
+    "locale": "vo",
+    "key": "org-number",
+    "before": "Le nombre d'organisations est de :",
+    "after": "Mödot klubädas: ",
+    "reason": "Replace French organization labels and warnings with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests klubäd (body of people/corporation), distinct from noganükam (act of organizing); reuse checked team-label grammar/vocabulary for settings, quantity, creation, administrator contact, name already used and no-undo warning. Preserve %s lookup token, organization entity scope and count separator. Software sense adaptation and assembled grammar remain low confidence; no native-speaker validation. Other existing organization wording is not certified or overwritten merely for terminology variation."
+  },
+  {
+    "locale": "vo",
+    "key": "add-organizations-label",
+    "before": "Les organisations ajoutées sont affichées ci-dessous :",
+    "after": "Klubäds pelüüköl pajonons dono:",
+    "reason": "Replace French organization labels and warnings with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests klubäd (body of people/corporation), distinct from noganükam (act of organizing); reuse checked team-label grammar/vocabulary for settings, quantity, creation, administrator contact, name already used and no-undo warning. Preserve %s lookup token, organization entity scope and count separator. Software sense adaptation and assembled grammar remain low confidence; no native-speaker validation. Other existing organization wording is not certified or overwritten merely for terminology variation."
+  },
+  {
+    "locale": "vo",
+    "key": "to-create-organizations-contact-admin",
+    "before": "Pour créer des organisations, veuillez contacter l'administrateur.",
+    "after": "Ad jafön klubädis, begö! kosikön ko guvan.",
+    "reason": "Replace French organization labels and warnings with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests klubäd (body of people/corporation), distinct from noganükam (act of organizing); reuse checked team-label grammar/vocabulary for settings, quantity, creation, administrator contact, name already used and no-undo warning. Preserve %s lookup token, organization entity scope and count separator. Software sense adaptation and assembled grammar remain low confidence; no native-speaker validation. Other existing organization wording is not certified or overwritten merely for terminology variation."
+  },
+  {
+    "locale": "vo",
+    "key": "error-orgname-taken",
+    "before": "Ce nom d'organisation est déjà utilisé",
+    "after": "Nem klubäda at ya pagebon",
+    "reason": "Replace French organization labels and warnings with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests klubäd (body of people/corporation), distinct from noganükam (act of organizing); reuse checked team-label grammar/vocabulary for settings, quantity, creation, administrator contact, name already used and no-undo warning. Preserve %s lookup token, organization entity scope and count separator. Software sense adaptation and assembled grammar remain low confidence; no native-speaker validation. Other existing organization wording is not certified or overwritten merely for terminology variation."
+  },
+  {
+    "locale": "vo",
+    "key": "newOrgPopup-title",
+    "before": "Nouvelle organisation",
+    "after": "Klubäd nulik",
+    "reason": "Replace French organization labels and warnings with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests klubäd (body of people/corporation), distinct from noganükam (act of organizing); reuse checked team-label grammar/vocabulary for settings, quantity, creation, administrator contact, name already used and no-undo warning. Preserve %s lookup token, organization entity scope and count separator. Software sense adaptation and assembled grammar remain low confidence; no native-speaker validation. Other existing organization wording is not certified or overwritten merely for terminology variation."
+  },
+  {
+    "locale": "vo",
+    "key": "editOrgPopup-title",
+    "before": "Éditer l'organisation",
+    "after": "Votükön klubädi",
+    "reason": "Replace French organization labels and warnings with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests klubäd (body of people/corporation), distinct from noganükam (act of organizing); reuse checked team-label grammar/vocabulary for settings, quantity, creation, administrator contact, name already used and no-undo warning. Preserve %s lookup token, organization entity scope and count separator. Software sense adaptation and assembled grammar remain low confidence; no native-speaker validation. Other existing organization wording is not certified or overwritten merely for terminology variation."
+  },
+  {
+    "locale": "vo",
+    "key": "delete-org-confirm-popup",
+    "before": "Êtes-vous sûr de vouloir supprimer cette organisation ? Cela est irréversible.",
+    "after": "Fümol-li, das vilol radön klubädi at? Sädunam binon nemögik.",
+    "reason": "Replace French organization labels and warnings with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests klubäd (body of people/corporation), distinct from noganükam (act of organizing); reuse checked team-label grammar/vocabulary for settings, quantity, creation, administrator contact, name already used and no-undo warning. Preserve %s lookup token, organization entity scope and count separator. Software sense adaptation and assembled grammar remain low confidence; no native-speaker validation. Other existing organization wording is not certified or overwritten merely for terminology variation."
+  },
+  {
+    "locale": "vo",
+    "key": "operator-org",
+    "before": "organisation",
+    "after": "klubäd",
+    "reason": "Replace French organization labels and warnings with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests klubäd (body of people/corporation), distinct from noganükam (act of organizing); reuse checked team-label grammar/vocabulary for settings, quantity, creation, administrator contact, name already used and no-undo warning. Preserve %s lookup token, organization entity scope and count separator. Software sense adaptation and assembled grammar remain low confidence; no native-speaker validation. Other existing organization wording is not certified or overwritten merely for terminology variation."
   }
 ]
