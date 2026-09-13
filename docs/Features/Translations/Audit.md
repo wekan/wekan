@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Audit keys |
 | --- | ---: |
-| Explicitly corrected | 6,912 |
+| Explicitly corrected | 6,915 |
 | Restored pre-pull values awaiting further validation | 4,059 |
 | Reviewed and retained unchanged | 175 |
-| Pending review or repair | 8,935 |
+| Pending review or repair | 8,932 |
 | Total tracked | 20,081 |
 
 **Translation repairs remain unfinished.** These counts cover flagged findings; unflagged strings and restored values are not certified as correct.
 
-Fixes cover wrong-language text, terminology, warnings, JSON examples, placeholders and calendar/search formatting. The correction history records **6,985 values**, including fixes outside the audit. Per-language remaining work is available through the command below.
+Fixes cover wrong-language text, terminology, warnings, JSON examples, placeholders and calendar/search formatting. The correction history records **6,988 values**, including fixes outside the audit. Per-language remaining work is available through the command below.
 
-Latest fix: [ee1997274](https://github.com/wekan/wekan/commit/ee19972742c3bfe454a3dc913f2023a37c833dd2), **2026-09-13** — three Romansh invitation/email-verification values repaired; **192 Romansh findings remain**. Exact-value, placeholder, key-order and idempotency checks pass. Wording needs native-speaker review; live browser verification remains unavailable.
+Latest fix: [59680da9d](https://github.com/wekan/wekan/commit/59680da9ddb5e9454a22fad5ddbdba2b3c14ae24), **2026-09-13** — three Romansh email-verification, scrollbar and WIP-limit values repaired; **189 Romansh findings remain**. Exact-value, placeholder, key-order and idempotency checks pass. Wording needs native-speaker review; live browser verification remains unavailable.
 
 **Provenance:** not all errors came from Transifex. The captured pull changed 4,061 values; the local audit added 16,020 findings. Bosnian errors predated that pull in a [local completion commit](https://github.com/wekan/wekan/commit/bdb3b15886a749b725b5290ba0109fcba955f983). Other ultimate origins remain unverified.
 
