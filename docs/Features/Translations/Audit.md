@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Audit keys |
 | --- | ---: |
-| Explicitly corrected | 7,619 |
+| Explicitly corrected | 7,626 |
 | Restored pre-pull values awaiting further validation | 4,059 |
 | Reviewed and retained unchanged | 175 |
-| Pending review or repair | 8,228 |
+| Pending review or repair | 8,221 |
 | Total tracked | 20,081 |
 
 **Translation repairs remain unfinished.** These counts cover flagged findings; unflagged strings and restored values are not certified as correct.
 
-Fixes cover wrong-language text, terminology, warnings, JSON examples, placeholders and calendar/search formatting. The correction history records **7,692 values**, including fixes outside the audit. Per-language remaining work is available through the command below.
+Fixes cover wrong-language text, terminology, warnings, JSON examples, placeholders and calendar/search formatting. The correction history records **7,699 values**, including fixes outside the audit. Per-language remaining work is available through the command below.
 
-Latest fix: [4b6c72504](https://github.com/wekan/wekan/commit/4b6c72504aad851e07f6baf2e8fd356b6605825c), **2026-09-13** — two Aromanian invitation emails repaired with low confidence; **258 Aromanian findings remain**. Exact-value, placeholder, key-order and idempotency checks pass. Wording needs native-speaker review; live browser verification remains unavailable.
+Latest fix: [ff910b6ac](https://github.com/wekan/wekan/commit/ff910b6ac7b89b846292efd3c568d2577cb24db6), **2026-09-13** — seven Aromanian search, checklist and membership messages repaired with low confidence; **251 Aromanian findings remain**. Exact-value, placeholder, key-order and idempotency checks pass. Wording needs native-speaker review; live browser verification remains unavailable.
 
 **Provenance:** not all errors came from Transifex. The captured pull changed 4,061 values; the local audit added 16,020 findings. Bosnian errors predated that pull in a [local completion commit](https://github.com/wekan/wekan/commit/bdb3b15886a749b725b5290ba0109fcba955f983). Other ultimate origins remain unverified.
 
