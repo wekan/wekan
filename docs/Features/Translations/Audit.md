@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 8,135 |
+| Corrected | 8,152 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 175 |
-| Pending review or repair | 7,712 |
+| Pending review or repair | 7,695 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **8,208** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **8,225** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `042f03566a47ca9faa02e8b783c86a91eb8e5d61` — Neapolitan heap diagnostic and legal-notice acceptance repaired; **1 Neapolitan finding remains**, the shared item-list example. Diagnostic meaning was checked against [Node documentation](https://nodejs.org/api/v8.html#v8getheapstatistics). Wording needs native-speaker review. Exact-value, placeholder, key-order and idempotency checks pass; live browser verification is unavailable.
+Latest translation fix: **2026-09-13**, local commit `ade5ed0b9dc5e927a1f856efe0e16bcb78812645` — seventeen Latin calendar labels repaired; **no flagged Latin findings remain**. Civil, astronomical and lunar-observation variants remain distinct. Specialized terminology needs language review. Exact-value, placeholder, key-order and idempotency checks pass; live browser verification is unavailable.
 
 **Origin:** not all errors came from Transifex. The captured pull changed 4,061 values; the local audit added 16,020 findings. Bosnian errors already existed in local commit `bdb3b15886a749b725b5290ba0109fcba955f983`. Other ultimate origins remain unverified.
 
