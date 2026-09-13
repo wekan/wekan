@@ -91033,5 +91033,33 @@
     "before": "Définir le participant pour la sélection",
     "after": "Lonön limani pro väl",
     "reason": "Repair French selection, unread/read and disabled-keyboard wording; align the paired keyboard tooltip with the same Volapük wording. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests büd (command), kvad (square), mäkön (mark), reidön (read), välön (select), lonön (set/determine), liman (member), and ninädapenäd (label); MediaWiki Volapük uses klikön for software clicking. Klavabüd and kvads mäkama are descriptive software adaptations. Sidebar template preserves enabled->disable and disabled->enable actions; notifications retain all-read versus all-unread, board selection retains clicking checkboxes, and bulk-selection controls retain label versus member. Assembled software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "delete-duplicate-empty-lists-migration-description",
+    "before": "Supprime en toute sécurité les listes vides en double. Supprime uniquement les listes qui n'ont aucune carte ET qui ont une autre liste avec le même titre contenant des cartes.",
+    "after": "Sefiko radon lisedis telik vagik. Te lisedis radon, kels ninädons kadis nonik E labons lisedi votik ko tiäd ot, kel ninädon kadis.",
+    "reason": "Replace French duplicate-list deletion warnings and duplicate-board action with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests sefik (safe), radön (erase), telik (double), vagik (empty), tiäd (title), ninädön (contain), kopiedön (copy), balido (firstly), jenöfik (real), and zesüdik (necessary). Preserve conjunctive migration conditions: empty list AND another same-title list containing cards; preserve conversion of shared lists to per-swimlane lists before deletion and only redundant empty lists removed. Distinct sidebar confirmation preserves same-name/no-cards conditions. Source reviewed: server/migrations/deleteDuplicateEmptyLists.js and client/components/sidebar/sidebar.js. Shared lists paraphrased as used across horizontal parts, swimlane as dil horitätik, redundant as nezesüdik; assembled software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "delete-duplicate-lists-confirm",
+    "before": "Êtes-vous sûr ? Cela supprimera toutes les listes en doublon qui ont le même nom et qui ne contiennent aucune carte.",
+    "after": "Fümol-li? At oradon lisedis telik valik, kels labons nemi ot e ninädons kadis nonik.",
+    "reason": "Replace French duplicate-list deletion warnings and duplicate-board action with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests sefik (safe), radön (erase), telik (double), vagik (empty), tiäd (title), ninädön (contain), kopiedön (copy), balido (firstly), jenöfik (real), and zesüdik (necessary). Preserve conjunctive migration conditions: empty list AND another same-title list containing cards; preserve conversion of shared lists to per-swimlane lists before deletion and only redundant empty lists removed. Distinct sidebar confirmation preserves same-name/no-cards conditions. Source reviewed: server/migrations/deleteDuplicateEmptyLists.js and client/components/sidebar/sidebar.js. Shared lists paraphrased as used across horizontal parts, swimlane as dil horitätik, redundant as nezesüdik; assembled software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "run-delete-duplicate-empty-lists-migration-confirm",
+    "before": "Cette opération convertira d'abord les listes partagées en listes par couloir, puis supprimera les listes vides qui ont une liste en double avec le même titre contenant des cartes. Seules les listes vides vraiment redondantes seront supprimées. Continuer ?",
+    "after": "At balido votükon lisedis pegeböl fa dils horitätik mödik ad liseds pro dil horitätik alik, e poso radon lisedis vagik, kels labons lisedi telik ko tiäd ot, kel ninädon kadis. Te liseds vagik jenöfiko nezesüdik pemoükons. Progedön-li?",
+    "reason": "Replace French duplicate-list deletion warnings and duplicate-board action with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests sefik (safe), radön (erase), telik (double), vagik (empty), tiäd (title), ninädön (contain), kopiedön (copy), balido (firstly), jenöfik (real), and zesüdik (necessary). Preserve conjunctive migration conditions: empty list AND another same-title list containing cards; preserve conversion of shared lists to per-swimlane lists before deletion and only redundant empty lists removed. Distinct sidebar confirmation preserves same-name/no-cards conditions. Source reviewed: server/migrations/deleteDuplicateEmptyLists.js and client/components/sidebar/sidebar.js. Shared lists paraphrased as used across horizontal parts, swimlane as dil horitätik, redundant as nezesüdik; assembled software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "duplicate-board",
+    "before": "Dupliquer le tableau",
+    "after": "Kopiedön tabi",
+    "reason": "Replace French duplicate-list deletion warnings and duplicate-board action with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests sefik (safe), radön (erase), telik (double), vagik (empty), tiäd (title), ninädön (contain), kopiedön (copy), balido (firstly), jenöfik (real), and zesüdik (necessary). Preserve conjunctive migration conditions: empty list AND another same-title list containing cards; preserve conversion of shared lists to per-swimlane lists before deletion and only redundant empty lists removed. Distinct sidebar confirmation preserves same-name/no-cards conditions. Source reviewed: server/migrations/deleteDuplicateEmptyLists.js and client/components/sidebar/sidebar.js. Shared lists paraphrased as used across horizontal parts, swimlane as dil horitätik, redundant as nezesüdik; assembled software wording remains low confidence pending native review."
   }
 ]
