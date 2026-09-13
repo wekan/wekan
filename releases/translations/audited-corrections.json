@@ -62914,5 +62914,110 @@
     "before": "Higyiri Kalɛnda (tabula, sivil epokyi",
     "after": "Higyiri Kalɛnda (tabula, sivil epokyi)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rw",
+    "key": "calendar-system-buddhist",
+    "before": "Buddhist",
+    "after": "Kalendari y’Ababuda",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rw",
+    "key": "calendar-system-chinese",
+    "before": "Chinese",
+    "after": "Kalendari y’Abashinwa",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rw",
+    "key": "calendar-system-coptic",
+    "before": "Coptic",
+    "after": "Kalendari y’Abakoputi",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rw",
+    "key": "calendar-system-dangi",
+    "before": "Dangi (Korean)",
+    "after": "Kalendari ya Dangi (Koreya)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rw",
+    "key": "calendar-system-ethioaa",
+    "before": "Ethiopic Amete Alem",
+    "after": "Kalendari ya Etiyopiya Amete Alem",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rw",
+    "key": "calendar-system-ethiopic",
+    "before": "Ethiopic",
+    "after": "Kalendari ya Etiyopiya",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rw",
+    "key": "calendar-system-hebrew",
+    "before": "Hebrew",
+    "after": "Kalendari y’Abaheburayo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rw",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "Kalendari y’igihugu cy’Ubuhinde",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rw",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "Kalendari ya Hijri",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rw",
+    "key": "calendar-system-islamic-civil",
+    "before": "Islamic civil",
+    "after": "Kalendari ya Hijri (ishingiye ku mbonerahamwe, intangiriro y’igihe mbonezamubano)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rw",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "Kalendari ya Hijri (Arabiya Sawudite, kwitegereza ukwezi)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rw",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "Kalendari ya Hijri (ishingiye ku mbonerahamwe, intangiriro y’igihe y’inyenyeri)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rw",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "Kalendari ya Hijri (Umm al-Qura)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rw",
+    "key": "calendar-system-japanese",
+    "before": "Japanese",
+    "after": "Kalendari y’Abayapani",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rw",
+    "key": "calendar-system-roc",
+    "before": "Republic of China",
+    "after": "Kalendari ya Minguo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
