@@ -52897,5 +52897,68 @@
     "before": "Storage di salvataggio predefinito salvato",
     "after": "Memorisazion predefinida salvada",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "editVoteEndDatePopup-title",
+    "before": "Cambia data di termine voto",
+    "after": "Mudé la data de fin dla votazion",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "email-enrollAccount-text",
+    "before": "Ciao __user__,\n\nPer iniziare ad utilizzare il servizio, clicca sul link seguente:\n\n__url__\n\nGrazie.",
+    "after": "Bun dé __user__,\\n\\nPer taché a adoré l servisc, clica sun l link dessot.\\n\\n__url__\\n\\nDe gra.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "email-smtp-test-text",
+    "before": "E-mail inviata correttamente",
+    "after": "Tu às envià n email cun suzes",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "email-templates-invite-body",
+    "before": "Invita Posta elettronica Testo",
+    "after": "Test dl email de envit",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "email-templates-invite-subject",
+    "before": "Invita Posta elettronica Soggetto",
+    "after": "Ogiet dl email de envit",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "enable-wip-limit",
+    "before": "Attiva limite Work In Progress",
+    "after": "Ativé l limit di laures en curs (WIP)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "enter-zoom-level",
+    "before": "Inserisci il livello di zoom (50-300%):",
+    "after": "Inserì l livel de zoom (50-300%):",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "expand-checklist",
+    "before": "Espandi la lista di controllo",
+    "after": "Davèrje la lista de control",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "export-card-excel-no-disk-space",
+    "before": "Impossibile esportare in Excel: spazio su disco insufficiente",
+    "after": "No ie meso esporté a Excel: no ie assà spazie liber sun l disco",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
