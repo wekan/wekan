@@ -87771,5 +87771,54 @@
     "before": "Note : les éléments de la check-list doivent être séparés par des virgules.",
     "after": "Noet: notetis kontrolaliseda mutol penön e dilädön me liunüls.",
     "reason": "Replace French checklist close-form, delete confirmation and line/comma instructions with Volapük after checking inline close links and newline order options in checklists.jade/js. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests färmükön (close), fomet (printed form), rigik (original), liunül (comma); primary MediaWiki terminology supplies lien (text line). Reuse checked checklist/item/text/order/confirmation vocabulary. Preserve add-versus-edit, checklist-versus-item deletion, line-to-item mapping, original order and comma separation meaning. Form software adaptation, derived checklist and assembled grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "globalSearch-title",
+    "before": "Chercher dans tous les tableaux",
+    "after": "Sukön in tabs valik",
+    "reason": "Replace French search heading/link and private/public/archive predicate descriptions with Volapük. Primary MediaWiki source (https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json) attests Suk/Sukön search vocabulary; Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests lejonod (instruction), privatik (restricted/private), notidik (public with general access). Reuse checked kad/tab/ragiv/yüm/te/valik vocabulary. Preserve predicate code tokens and Markdown and only-private/only-public/archived-plus-unarchived scope. Archive/board software senses and assembled grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "globalSearch-instructions-heading",
+    "before": "Instructions de recherche",
+    "after": "Lejonods suka",
+    "reason": "Replace French search heading/link and private/public/archive predicate descriptions with Volapük. Primary MediaWiki source (https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json) attests Suk/Sukön search vocabulary; Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests lejonod (instruction), privatik (restricted/private), notidik (public with general access). Reuse checked kad/tab/ragiv/yüm/te/valik vocabulary. Preserve predicate code tokens and Markdown and only-private/only-public/archived-plus-unarchived scope. Archive/board software senses and assembled grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "link-to-search",
+    "before": "Lien vers cette recherche",
+    "after": "Yüm lü suk at",
+    "reason": "Replace French search heading/link and private/public/archive predicate descriptions with Volapük. Primary MediaWiki source (https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json) attests Suk/Sukön search vocabulary; Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests lejonod (instruction), privatik (restricted/private), notidik (public with general access). Reuse checked kad/tab/ragiv/yüm/te/valik vocabulary. Preserve predicate code tokens and Markdown and only-private/only-public/archived-plus-unarchived scope. Archive/board software senses and assembled grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "globalSearch-instructions-status-private",
+    "before": "`__predicate_private__` - uniquement les cartes qui sont dans un tableau privé.",
+    "after": "`__predicate_private__` - kads te in tabs privatik",
+    "reason": "Replace French search heading/link and private/public/archive predicate descriptions with Volapük. Primary MediaWiki source (https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json) attests Suk/Sukön search vocabulary; Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests lejonod (instruction), privatik (restricted/private), notidik (public with general access). Reuse checked kad/tab/ragiv/yüm/te/valik vocabulary. Preserve predicate code tokens and Markdown and only-private/only-public/archived-plus-unarchived scope. Archive/board software senses and assembled grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "globalSearch-instructions-status-public",
+    "before": "`__predicate_public__` - uniquement les cartes qui sont dans un tableau public.",
+    "after": "`__predicate_public__` - kads te in tabs notidik",
+    "reason": "Replace French search heading/link and private/public/archive predicate descriptions with Volapük. Primary MediaWiki source (https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json) attests Suk/Sukön search vocabulary; Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests lejonod (instruction), privatik (restricted/private), notidik (public with general access). Reuse checked kad/tab/ragiv/yüm/te/valik vocabulary. Preserve predicate code tokens and Markdown and only-private/only-public/archived-plus-unarchived scope. Archive/board software senses and assembled grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "globalSearch-instructions-status-archived",
+    "before": "`__predicate_archived__` - cartes qui ont été archivées.",
+    "after": "`__predicate_archived__` - kads in ragiv",
+    "reason": "Replace French search heading/link and private/public/archive predicate descriptions with Volapük. Primary MediaWiki source (https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json) attests Suk/Sukön search vocabulary; Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests lejonod (instruction), privatik (restricted/private), notidik (public with general access). Reuse checked kad/tab/ragiv/yüm/te/valik vocabulary. Preserve predicate code tokens and Markdown and only-private/only-public/archived-plus-unarchived scope. Archive/board software senses and assembled grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "globalSearch-instructions-status-all",
+    "before": "`__predicate_all__` -  toutes les cartes : archivées et non archivées.",
+    "after": "`__predicate_all__` - kads valik in ragiv e no in ragiv",
+    "reason": "Replace French search heading/link and private/public/archive predicate descriptions with Volapük. Primary MediaWiki source (https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json) attests Suk/Sukön search vocabulary; Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests lejonod (instruction), privatik (restricted/private), notidik (public with general access). Reuse checked kad/tab/ragiv/yüm/te/valik vocabulary. Preserve predicate code tokens and Markdown and only-private/only-public/archived-plus-unarchived scope. Archive/board software senses and assembled grammar remain low confidence; no native-speaker validation."
   }
 ]
