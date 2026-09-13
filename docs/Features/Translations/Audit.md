@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 8,184 |
+| Corrected | 8,189 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 175 |
-| Pending review or repair | 7,663 |
+| Pending review or repair | 7,658 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **8,257** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **8,262** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `325e530b17e16998117a85182588c1832e1fe730` — fifteen Central Kurdish calendar labels repaired; **no flagged Central Kurdish findings remain**. Civil, astronomical and lunar-observation variants remain distinct. Specialized terminology needs native-speaker review. Exact-value, placeholder, key-order and idempotency checks pass; live browser verification is unavailable.
+Latest translation fix: **2026-09-13**, local commit `3ccbe11648a34ed801671835a0d44c1082f8b115` — five Uyghur Hijri calendar labels repaired; **no flagged Uyghur findings remain**. Civil, astronomical and lunar-observation variants remain distinct. Specialized terminology needs native-speaker review. Exact-value, placeholder, key-order and idempotency checks pass; live browser verification is unavailable.
 
 **Origin:** not all errors came from Transifex. The captured pull changed 4,061 values; the local audit added 16,020 findings. Bosnian errors already existed in local commit `bdb3b15886a749b725b5290ba0109fcba955f983`. Other ultimate origins remain unverified.
 
