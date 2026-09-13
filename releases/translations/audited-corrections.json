@@ -84522,7 +84522,7 @@
     "key": "calendar-system-islamic-rgsa",
     "before": "Islamic (Saudi Arabia)",
     "after": "Feaillere Hijri (Saudi Arabia, baght ny heayst)",
-    "reason": "Replace English Saudi Hijri label and restore missing moon-sighting detail in Manx. https://archive.gaelg.im/www.gaelg.iofm.net/DICTIONARY/engman.pdf attests observation baght (p378), moon eayst and genitive ny heayst in moonshine (p357), visual observation baght sooilley (p618). Complete adapted sighting phrase remains low confidence; Coptic and civil/astronomical tabular epoch labels remain pending."
+    "reason": "Replace English Saudi Hijri label and restore missing moon-sighting detail in Manx. https://archive.gaelg.im/www.gaelg.iofm.net/DICTIONARY/engman.pdf attests observation baght (p378), moon eayst and genitive ny heayst in moonshine (p357), visual observation baght sooilley (p618). Complete adapted sighting phrase remains low confidence; Coptic and civil/astronomical tabular epoch labels remain pending. Review 2026-09-14: https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/gv.xml contains no calendar display-name type entries. It does not validate this composed sighting label or supply the pending Coptic/civil/tabular names. Dictionary searches did not establish a Manx Coptic name; retain those findings pending terminology research, including full tabular and civil/astronomical epoch qualifiers. No values changed; fluent and technical validation remains open."
   },
   {
     "locale": "se",
