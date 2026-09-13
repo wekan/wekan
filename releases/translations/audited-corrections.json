@@ -54626,5 +54626,47 @@
     "before": "Ripristina la tua password su on __siteName__",
     "after": "Reseteadzã zborlu di intrari pi __siteName__",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "email-enrollAccount-text",
+    "before": "Ciao __user__,\n\nPer iniziare ad utilizzare il servizio, clicca sul link seguente:\n\n__url__\n\nGrazie.",
+    "after": "Bunã __user__,\\n\\nTi s-ahurheshti s-ufiliseshti servitslu, clicã ligãtura di ma njos.\\n\\n__url__\\n\\nHaristo.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "email-resetPassword-text",
+    "before": "Ciao __user__,\n\nPer ripristinare la tua password, clicca sul link seguente:\n\n__url__\n\nGrazie.",
+    "after": "Bunã __user__,\\n\\nTi s-reseteadzi zborlu di intrari, clicã ligãtura di ma njos.\\n\\n__url__\\n\\nHaristo.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "email-smtp-test-text",
+    "before": "E-mail inviata correttamente",
+    "after": "Trimiseshi un email cu sucses",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "email-verifyEmail-subject",
+    "before": "Verifica il tuo indirizzo email su __siteName__",
+    "after": "Verificã adresa di email pi __siteName__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "email-verifyEmail-text",
+    "before": "Ciao __user__,\n\nPer verificare il tuo account email, clicca sul link seguente:\n\n__url__\n\nGrazie.",
+    "after": "Bunã __user__,\\n\\nTi s-verifici email-lu a contului, clicã ligãtura di ma njos.\\n\\n__url__\\n\\nHaristo.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "error-email-taken",
+    "before": "L'email è già stata presa",
+    "after": "Adresa di email easti deagi ufilisitã",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
