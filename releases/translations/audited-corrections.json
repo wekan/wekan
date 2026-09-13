@@ -85664,5 +85664,33 @@
     "before": "ISO 8601",
     "after": "Gregoriana литэ (ISO 8601 долоон хоног)",
     "reason": "Replace English Chinese/Japanese calendar labels with Buryat and restore Gregorian ISO week detail missing from bare ISO label. Хитадай and Японой country genitives attested at https://burunen.ru/bur/news/sports/101623-ana-andaa-kh-rebeg-y/ ; литэ and долоон хоног wording supported at https://burunen.ru/bur/news/society/135207-manay-lite/ . Retain Gregorian identity in Latin spelling pending established Buryat rendering. Complete adapted label grammar remains low confidence; setting, other religious/country and Hijri variant labels remain pending."
+  },
+  {
+    "locale": "bua",
+    "key": "calendar-system-ethiopic",
+    "before": "Ethiopic",
+    "after": "Эфиопиин литэ",
+    "reason": "Replace English Ethiopian/Amete Alem, Indian national and Buddhist calendar labels with Buryat; retain Amete Alem identity and national distinction. Эфиопи attested at https://burunen.ru/bur/news/culture/75219-buryaad-ulasay-tsirkyn-altan-amzhalta/ ; Энэдхэгэй and буддын шажанай at https://burunen.ru/bur/news/politics/100750-khuraldaan-tukhay-anamzhanuud/ ; үндэһэн at https://burunen.ru/bur/news/society/104021-ekhe-khelen-araday-kh-sen/ . Calendar литэ previously attested. Derived Ethiopian genitive, national descriptor and full assembled calendar grammar remain low confidence; setting, Persian/Hebrew/Coptic and Hijri variants remain pending."
+  },
+  {
+    "locale": "bua",
+    "key": "calendar-system-ethioaa",
+    "before": "Ethiopic Amete Alem",
+    "after": "Эфиопиин Amete Alem литэ",
+    "reason": "Replace English Ethiopian/Amete Alem, Indian national and Buddhist calendar labels with Buryat; retain Amete Alem identity and national distinction. Эфиопи attested at https://burunen.ru/bur/news/culture/75219-buryaad-ulasay-tsirkyn-altan-amzhalta/ ; Энэдхэгэй and буддын шажанай at https://burunen.ru/bur/news/politics/100750-khuraldaan-tukhay-anamzhanuud/ ; үндэһэн at https://burunen.ru/bur/news/society/104021-ekhe-khelen-araday-kh-sen/ . Calendar литэ previously attested. Derived Ethiopian genitive, national descriptor and full assembled calendar grammar remain low confidence; setting, Persian/Hebrew/Coptic and Hijri variants remain pending."
+  },
+  {
+    "locale": "bua",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "Энэдхэгэй үндэһэн литэ",
+    "reason": "Replace English Ethiopian/Amete Alem, Indian national and Buddhist calendar labels with Buryat; retain Amete Alem identity and national distinction. Эфиопи attested at https://burunen.ru/bur/news/culture/75219-buryaad-ulasay-tsirkyn-altan-amzhalta/ ; Энэдхэгэй and буддын шажанай at https://burunen.ru/bur/news/politics/100750-khuraldaan-tukhay-anamzhanuud/ ; үндэһэн at https://burunen.ru/bur/news/society/104021-ekhe-khelen-araday-kh-sen/ . Calendar литэ previously attested. Derived Ethiopian genitive, national descriptor and full assembled calendar grammar remain low confidence; setting, Persian/Hebrew/Coptic and Hijri variants remain pending."
+  },
+  {
+    "locale": "bua",
+    "key": "calendar-system-buddhist",
+    "before": "Buddhist",
+    "after": "Буддын шажанай литэ",
+    "reason": "Replace English Ethiopian/Amete Alem, Indian national and Buddhist calendar labels with Buryat; retain Amete Alem identity and national distinction. Эфиопи attested at https://burunen.ru/bur/news/culture/75219-buryaad-ulasay-tsirkyn-altan-amzhalta/ ; Энэдхэгэй and буддын шажанай at https://burunen.ru/bur/news/politics/100750-khuraldaan-tukhay-anamzhanuud/ ; үндэһэн at https://burunen.ru/bur/news/society/104021-ekhe-khelen-araday-kh-sen/ . Calendar литэ previously attested. Derived Ethiopian genitive, national descriptor and full assembled calendar grammar remain low confidence; setting, Persian/Hebrew/Coptic and Hijri variants remain pending."
   }
 ]
