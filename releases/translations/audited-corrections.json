@@ -61094,5 +61094,89 @@
     "before": "Avertissements de migration",
     "after": "Avertiments de migracion",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "cron-migrations-resumed",
+    "before": "Migrations reprises avec succès",
+    "after": "Migracions represas amb succès",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "cron-migrations-retried",
+    "before": "Migrations échouées réessayées avec succès",
+    "after": "Migracions fracassadas tornadas ensajar amb succès",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "cron-no-failed-migrations",
+    "before": "Aucune migration échouée à réessayer",
+    "after": "Cap de migracion fracassada de tornar ensajar",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "cron-no-paused-migrations",
+    "before": "Aucune migration en pause à reprendre",
+    "after": "Cap de migracion en pausa de reprendre",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "cron-resume-paused",
+    "before": "Reprendre les migrations en pause",
+    "after": "Reprendre las migracions en pausa",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "cron-retry-failed",
+    "before": "Réessayer les migrations échouées",
+    "after": "Tornar ensajar las migracions fracassadas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "custom-assetlinks-content",
+    "before": "Contenu assetlinks.json personnalisé (JSON)",
+    "after": "Contengut personalizat d’assetlinks.json (JSON)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "custom-assetlinks-enabled",
+    "before": "Activer assetlinks.json personnalisé",
+    "after": "Activar assetlinks.json personalizat",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "custom-field-delete-pop",
+    "before": "Cette action est irréversible. Elle supprimera ce champ personnalisé de toutes les cartes et détruira son historique.",
+    "after": "Aquesta accion se pòt pas anullar. Levarà aqueste camp personalizat de totas las cartas e destruirà son istoric.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "custom-field-stringtemplate-format",
+    "before": "Format (utiliser %{value} pour marquer un emplacement)",
+    "after": "Format (utilizatz %{value} coma marcador de valor)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "custom-field-stringtemplate-separator",
+    "before": "Séparateur (utiliser &#32; ou &nbsp; pour un espace)",
+    "after": "Separador (utilizatz &#32; o &nbsp; per un espaci)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "custom-head-link-tags",
+    "before": "Balises lien personnalisées (HTML)",
+    "after": "Balizas link personalizadas (HTML)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
