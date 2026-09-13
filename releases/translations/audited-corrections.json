@@ -55809,5 +55809,75 @@
     "before": "aggiunto il sottocompito a 1%s",
     "after": "ha aggiunto 'na sottoattività a %s",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "add-cover",
+    "before": "Aggiungi immagine di copertina a minicard",
+    "after": "Aggiunge 'n'immaggine 'e cupertina â minicarta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "add-cron-job",
+    "before": "Aggiungi processo pianificato",
+    "after": "Aggiunge 'na fatica prugrammata",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "add-custom-html-after-body-start",
+    "before": "Aggiungi codice HTML personalizzato dopo <body> inzio",
+    "after": "Aggiunge HTML personalizzato doppo ll'inizio <body>",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "add-template-container",
+    "before": "Aggiungi contenitore di Template",
+    "after": "Aggiunge 'n cuntenitore 'e mudelli",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "addWorkspacePopup-title",
+    "before": "Aggiungi spazio di lavoro",
+    "after": "Aggiunge 'n spazio 'e lavoro",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "allboards.add-subworkspace",
+    "before": "Aggiungi sotto-spazio di lavoro",
+    "after": "Aggiunge 'n sottospazio 'e lavoro",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "allboards.add-workspace",
+    "before": "Aggiungi spazio di lavoro",
+    "after": "Aggiunge 'n spazio 'e lavoro",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "createTemplateContainerPopup-title",
+    "before": "Aggiungi contenitore di Template",
+    "after": "Aggiunge 'n cuntenitore 'e mudelli",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "r-w-attachment-added",
+    "before": "Viene aggiunto un allegato",
+    "after": "Vene aggiunto 'n allegato",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "r-w-label-removed",
+    "before": "Viene rimossa una qualsiasi etichetta",
+    "after": "Vene levata 'na qualunque etichetta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
