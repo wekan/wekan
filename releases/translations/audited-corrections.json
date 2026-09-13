@@ -51847,5 +51847,61 @@
     "before": "Nessun template condiviso",
     "after": "Nisun mudellu spartutu",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "not-accepted-yet",
+    "before": "Invitato non ancora accettato",
+    "after": "Invitu micca ancu accettatu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "oidc-button-text",
+    "before": "Personalizza il testo del pulsante OIDC",
+    "after": "Persunalizà u testu di u buttone OIDC",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "operator-debug-invalid",
+    "before": "%s non è un valido predicato di debug",
+    "after": "%s ùn hè micca un predicatu di debug validu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "operator-has-invalid",
+    "before": "%s non è un controllo di esistenza valido",
+    "after": "%s ùn hè micca una verificazione d’esistenza valida",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "operator-limit-invalid",
+    "before": "%s non è un limite valido.  Il limite dovrebbe essere un numero intero positivo.",
+    "after": "%s ùn hè micca una limita valida. A limita deve esse un numeru interu pusitivu.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "operator-number-expected",
+    "before": "l'operatore __operator__ prevede un numero, invece è stato fornito '__value__'",
+    "after": "L’operatore __operator__ aspettava un numeru, hà ricevutu '__value__'",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "operator-sort-invalid",
+    "before": "L'ordinamento di '%s' non è valido",
+    "after": "L’urdinamentu di '%s' ùn hè micca validu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "operator-status-invalid",
+    "before": "'%s' non è uno stato valido",
+    "after": "'%s' ùn hè micca un statu validu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
