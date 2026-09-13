@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,015 |
+| Corrected | 15,027 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 829 |
+| Pending review or repair | 817 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,042** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,058** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `e7b7cc760` — repaired **eleven** Veps heap metric labels, resolving **nine** original findings and **two** unflagged errors. Peak malloc allocation no longer means erroneous memory; the debug overwrite flag no longer means garbage collection. Node metric definitions: [V8 heap statistics](https://nodejs.org/api/v8.html#v8getheapstatistics). All **17,042** exact corrections pass runtime rendering, placeholder, JSON, key-order and human-preference checks. The original queue has **829** pending findings, including **88** Veps findings. **Low confidence:** heap technical compounds/inflection, legal argument case and composed notification/migration grammar need fluent-speaker review. Restored/unflagged values, wrong-language/script checks, keyboard shortcuts and remaining migration/search messages remain unfinished. No translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `036ea09e2` — repaired **sixteen** Veps board scheduling/cleanup values, resolving **twelve** original findings and **four** unflagged errors. Preserve failed scheduling versus failed operations, successful scheduling, coming-soon functionality and board OR operation search. Dictionary review uses **puhtastand**, **rad(-on)** and **pigai**; existing job/backup terminology is reused. All **17,058** exact corrections pass runtime rendering, placeholder, JSON, key-order and human-preference checks. The original queue has **817** pending findings, including **76** Veps findings. **Low confidence:** scheduling syntax and backup/archive inflection, heap technical compounds, legal argument case and composed notification/migration grammar need fluent-speaker review. Restored/unflagged values, wrong-language/script checks, keyboard shortcuts and remaining migration/search messages remain unfinished. No translations were pushed.
 
 **Build logging update (2026-09-14):** `5f8f22f8c` unifies build.sh/build.bat logger directories; `3fedee2b9` prints completion log paths and fixes read-only server manifests in local release preparation. Linux arm64 development and release builds and release startup smoke check pass; 13 targeted test entries pass. Native Windows execution was unavailable. Translation counts and remaining review work are unchanged; translation repairs remain unfinished.
 
