@@ -111809,5 +111809,33 @@
     "before": "Zeitplan",
     "after": "Cron",
     "reason": "Correct mistaken retained-review decision: Zeitplan is German prose, not the shared tool name Cron. Preserve the actual technical name Cron without inventing a Klingon product name."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "day",
+    "before": "Päivä",
+    "after": "Päiv",
+    "reason": "Replace Finnish-seeded basic date units with Veps vocabulary. Source: https://fi.wikibooks.org/wiki/Veps%C3%A4n_kieli/Sanasto (päiv, nedalin päiväd, kud). Plural days uses Veps nominative plural; inflection in composed UI requires review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "week",
+    "before": "Viikko",
+    "after": "Nedal",
+    "reason": "Replace Finnish-seeded basic date units with Veps vocabulary. Source: https://fi.wikibooks.org/wiki/Veps%C3%A4n_kieli/Sanasto (päiv, nedalin päiväd, kud). Plural days uses Veps nominative plural; inflection in composed UI requires review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "month",
+    "before": "Kuukausi",
+    "after": "Ku",
+    "reason": "Replace Finnish-seeded basic date units with Veps vocabulary. Source: https://fi.wikibooks.org/wiki/Veps%C3%A4n_kieli/Sanasto (päiv, nedalin päiväd, kud). Plural days uses Veps nominative plural; inflection in composed UI requires review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "days",
+    "before": "päivää",
+    "after": "päiväd",
+    "reason": "Replace Finnish-seeded basic date units with Veps vocabulary. Source: https://fi.wikibooks.org/wiki/Veps%C3%A4n_kieli/Sanasto (päiv, nedalin päiväd, kud). Plural days uses Veps nominative plural; inflection in composed UI requires review."
   }
 ]
