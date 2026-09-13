@@ -60156,5 +60156,75 @@
     "before": "Cette opération mettra à jour les URL des avatars des participants du tableau pour utiliser le bon backend de stockage. Continuer ?",
     "after": "Aquò actualizarà las URL dels avatars dels membres del tablèu per utilizar lo sistèma de conservacion corrècte. Contunhar ?",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "run-fix-missing-lists-migration-confirm",
+    "before": "Cette opération détectera et réparera les listes manquantes ou corrompues dans la structure du tableau. Continuer ?",
+    "after": "Aquò detectarà e repararà las listas mancantas o corrompudas dins l’estructura del tablèu. Contunhar ?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "search-cards",
+    "before": "Rechercher parmi les titres, descriptions et champs personnalisés des cartes/listes de ce tableau",
+    "after": "Cercar dins los títols, las descripcions e los camps personalizats de las cartas/listas d’aqueste tablèu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "settingsOrgPopup-title",
+    "before": "Paramètres de l'organisation",
+    "after": "Paramètres de l’organizacion",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "settingsTranslationPopup-title",
+    "before": "Supprimer cette traduction personnalisée ?",
+    "after": "Suprimir aquesta stringa de traduccion personalizada ?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "settingsUserPopup-title",
+    "before": "Paramètres de l'utilisateur",
+    "after": "Paramètres de l’utilizaire",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "shortcut-add-self",
+    "before": "S'ajouter à la carte courante",
+    "after": "Vos apondre a la carta actuala",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "shortcut-toggle-sidebar",
+    "before": "Afficher/Masquer la barre latérale du tableau",
+    "after": "Afichar/amagar la barra laterala del tablèu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "show-board_members-avatar",
+    "before": "Afficher les avatars des participants du tableau.",
+    "after": "Afichar los avatars dels membres del tablèu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "showChecklistAtMinicard",
+    "before": "Afficher la check-list dans la minicarte",
+    "after": "Afichar la lista de contraròtle sus la minicarta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "star-board-title",
+    "before": "Cliquer pour ajouter ce tableau aux favoris. Il sera affiché en tête de votre liste de tableaux.",
+    "after": "Clicatz per marcar aqueste tablèu amb una estela. Apareisserà en naut de vòstra lista de tablèus.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
