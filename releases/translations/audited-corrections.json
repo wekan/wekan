@@ -85783,5 +85783,12 @@
     "before": "Jalali (Fars)",
     "after": "Kalender Jalali (Persek)",
     "reason": "Replace English Hebrew / foreign Persian descriptor with Cornish Ebrowek attested in https://sordya.net/2026/09/08/a-dhiavesi-kernewek-outsourcing-the-cornish-language/ and Persek (Persian language) in https://www.skeulantavas.com/literature/dhe-n-golowjy . Existing Cornish kalender verified by Akademi dictionary. Calendar combination and Persek as calendar-origin descriptor remain low confidence; not native-speaker validated. Jalali identity preserved."
+  },
+  {
+    "locale": "kw",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "Kalender Hijri (Arabi an Saud, gweles an loor)",
+    "reason": "Restore missing lunar-sighting distinction using Cornish kalender, gweles (see), loor (moon) documented in https://www.cornishdictionary.org.uk/sites/default/files/GerlyverPDF_20190723.pdf and Saudi Arabia name https://en.wiktionary.org/wiki/Arabi_an_Saud . Hijri identity preserved; assembled sighting phrase remains low confidence, not native-speaker verified."
   }
 ]
