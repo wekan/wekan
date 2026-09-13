@@ -80,9 +80,9 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,105 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 739 pending review or repair.
-The correction inventory records 17,234 exact before/after values,
+findings: 15,107 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 737 pending review or repair.
+The correction inventory records 17,236 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
@@ -100,12 +100,12 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383540a; translation repairs have resumed.
-Latest translation fix is 190fd16a2 (2026-09-14), repairing unflagged Quechua
-gold/silver labels with composed material-plus-color wording. Compound
-grammar and palette adaptation need fluent review. Remaining color wrappers,
-pink/orange/shade distinctions and two calendar variants remain unresolved.
-There are 593 Tamazight findings remaining. Wider language validation remains
-open. All correction/rendering checks pass.
+Latest translation fix is e07d2be5f (2026-09-14), replacing two English
+Cherokee Hijri labels with exact native-script CLDR variant names. Cherokee’s
+original queue is empty. Compact tabular epoch wording still needs fluent
+technical review. Quechua palette compounds and remaining color wrappers
+remain open. There are 593 Tamazight findings remaining.
+All correction/rendering checks pass; wider language validation remains open.
 Member assignment popup handlers need separate review for apparent reversed
 operations. The 1,015-suite Node result is historical and predates the latest batches.
 
@@ -643,6 +643,17 @@ The audit records 749 pending original findings and wider unfinished validation.
 This release adds the following translation improvements:
 
 **Translations** - Locale wording repairs and remaining audit progress.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e07d2be5f">Repair Cherokee Hijri variant wording</a>. Thanks to xet7.</summary>
+
+Replace English Saudi sighting and tabular labels with exact native-script
+CLDR core names. Preserve distinct calendar variants. All 17,236 correction
+checks pass; Cherokee’s original queue is empty and 737 findings remain
+elsewhere. Compact tabular epoch wording needs fluent technical review.
+Live browser verification was not run.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/190fd16a2">Repair Quechua metallic color wording</a>. Thanks to xet7.</summary>

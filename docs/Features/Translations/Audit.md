@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,105 |
+| Corrected | 15,107 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 739 |
+| Pending review or repair | 737 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,234** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,236** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `190fd16a2` — repaired two unflagged Quechua gold/silver labels with composed material-plus-color wording. Material nouns and color terminology are reference-supported; **low confidence:** compound grammar and UI palette adaptation need fluent technical review. All **17,234** exact correction/rendering checks pass. Original counts remain **739** pending findings, including two Quechua calendar variants and **593** Tamazight findings. Remaining color wrappers and pink/orange/shade distinctions need review. Wider restored/unflagged and low-confidence validation remains open. Live browser verification was not run; no translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `e07d2be5f` — replaced two English Cherokee Hijri-variant labels with exact native-script CLDR core names, preserving distinct variants. All **17,236** exact correction/rendering checks pass. Original pending findings total **737**; Cherokee’s original queue is empty. **Remaining review:** establish how the compact CLDR tabular name conveys the astronomical-epoch qualifier. Wider restored/unflagged and low-confidence validation, Quechua palette compounds and remaining color wrappers remain open. Live browser verification was not run; no translations were pushed.
 
 **Language validation (2026-09-14), local commit `e4e3aa590`:** Wiktionary’s Veps transitive inflection tables confirm `surenda` (make larger) and `penenda` (make smaller) as second-person singular commands. Their imperative morphology is now reference-supported; screen-zoom usage remains open. The original keyboard findings remain unresolved: searches and the cached dictionary did not establish reliable keyboard-shortcut terminology. Counts are unchanged. References and the remaining scope are recorded per key in the correction ledger.
 
