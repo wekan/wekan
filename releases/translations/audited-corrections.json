@@ -109380,5 +109380,180 @@
     "before": "Il filtro avanzato permette di scrivere una stringa contenente i seguenti operatori: == != <= >= && || ( ) Uno spazio è usato come separatore tra gli operatori. Si può filtrare per tutti i campi personalizzati, scrivendo i loro nomi e valori. Per esempio: Campo1 == Valore1. Nota: Se i campi o i valori contengono spazi, è necessario incapsularli all'interno di apici singoli. Per esempio: 'Campo 1' == 'Valore 1'. Per i singoli caratteri di controllo (' \\\\/) che devono essere ignorati, si può usare \\\\. Per esempio: C1 == Campo1 == L'\\\\ho. Si possono anche combinare condizioni multiple. Per esempio: C1 == V1 || C1 ==V2. Di norma tutti gli operatori vengono letti da sinistra a destra. Si può cambiare l'ordine posizionando delle parentesi. Per esempio: C1 == V1 && ( C2 == V2 || C2 == V3) . Inoltre è possibile cercare nei campi di testo usando le espressioni regolari (n.d.t. regex): F1 ==/Tes.*/i",
     "after": "El filtro avansà el permete de scrìvar na stringa co sti operatori: == != <= >= && || ( ) Un spàsio el separa i operatori. Te pol filtrar tuti i canpi personałizài scrivendo i so nomi e vałori. Par esenpio: Field1 == Value1. Nota: se i canpi o i vałori i gà spàsi, metełi tra virgołete singołe. Par esenpio: 'Field 1' == 'Value 1'. Par saltar i caràteri de controło singołi (' \\/), te pol doparar \\. Par esenpio: Field1 == I\\'m. Te pol anca conbinar pì condision. Par esenpio: F1 == V1 || F1 == V2. De sołito i operatori i vien łeti da sinistra a destra. Te pol canbiar el òrdine metendo parèntesi. Par esenpio: F1 == V1 && ( F2 == V2 || F2 == V3 ). Te pol anca sercar inte i canpi de testo co espresion regołari: F1 == /Tes.*/i",
     "reason": "Replace Italian filter prose with Venetian and restore exact English executable examples, single backslash escapes, quote delimiters and operator spacing. Low-confidence prose; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "board-title-not-found",
+    "before": "Bacheca '%s' non trovata.",
+    "after": "Quadro '%s' no trovà.",
+    "reason": "Replace Italian-seeded board/card controls with Venetian; preserve irreversible warnings, archive recovery, star/unstar distinction and JSON property names. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "boardChangeColorPopup-title",
+    "before": "Cambia sfondo della bacheca",
+    "after": "Canbia el sfondo del quadro",
+    "reason": "Replace Italian-seeded board/card controls with Venetian; preserve irreversible warnings, archive recovery, star/unstar distinction and JSON property names. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "boardInfoOnMyBoards-title",
+    "before": "Impostazioni di tutte le bacheche",
+    "after": "Inpostasion de tuti i quadri",
+    "reason": "Replace Italian-seeded board/card controls with Venetian; preserve irreversible warnings, archive recovery, star/unstar distinction and JSON property names. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "boardInfoOnMyBoardsPopup-title",
+    "before": "Impostazioni di tutte le bacheche",
+    "after": "Inpostasion de tuti i quadri",
+    "reason": "Replace Italian-seeded board/card controls with Venetian; preserve irreversible warnings, archive recovery, star/unstar distinction and JSON property names. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "boardSubtaskSettingsPopup-title",
+    "before": "Impostazioni sotto-compiti",
+    "after": "Inpostasion dei sotoconpiti",
+    "reason": "Replace Italian-seeded board/card controls with Venetian; preserve irreversible warnings, archive recovery, star/unstar distinction and JSON property names. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "card-archive-suggest-cancel",
+    "before": "Puoi ripristinare la scheda più tardi dall'archivio",
+    "after": "Te podarè rimetar ła scheda dal archivio pì tardi.",
+    "reason": "Replace Italian-seeded board/card controls with Venetian; preserve irreversible warnings, archive recovery, star/unstar distinction and JSON property names. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "card-archived",
+    "before": "Questa scheda è stata spostata nell'archivio",
+    "after": "Sta scheda ła xe stà spostà inte el archivio.",
+    "reason": "Replace Italian-seeded board/card controls with Venetian; preserve irreversible warnings, archive recovery, star/unstar distinction and JSON property names. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "card-comments-title",
+    "before": "Questa scheda ha %s commento.",
+    "after": "Sta scheda ła gà %s comento.",
+    "reason": "Replace Italian-seeded board/card controls with Venetian; preserve irreversible warnings, archive recovery, star/unstar distinction and JSON property names. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "card-delete-notice",
+    "before": "L'eliminazione è permanente. Tutte le azioni associate a questa scheda andranno perse.",
+    "after": "Scancełar el xe definitivo. Te perderè tute łe asion łigà a sta scheda.",
+    "reason": "Replace Italian-seeded board/card controls with Venetian; preserve irreversible warnings, archive recovery, star/unstar distinction and JSON property names. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "card-delete-pop",
+    "before": "Tutte le azioni saranno rimosse dal flusso attività e non sarai in grado di riaprire la scheda. Non potrai tornare indietro.",
+    "after": "Tute łe asion łe vegnarà cavà dal elenco de atività e no te podarè rivèrzar ła scheda. No se po tornar indrìo.",
+    "reason": "Replace Italian-seeded board/card controls with Venetian; preserve irreversible warnings, archive recovery, star/unstar distinction and JSON property names. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "card-delete-suggest-archive",
+    "before": "Puoi spostare una scheda nell'archivio per rimuoverla dalla bacheca e mantenere la sua attività.",
+    "after": "Te pol spostar na scheda inte el archivio par cavarła dal quadro e conservar ła so atività.",
+    "reason": "Replace Italian-seeded board/card controls with Venetian; preserve irreversible warnings, archive recovery, star/unstar distinction and JSON property names. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "card-edit-custom-fields",
+    "before": "Modifica campi personalizzati",
+    "after": "Canbia i canpi personałizài",
+    "reason": "Replace Italian-seeded board/card controls with Venetian; preserve irreversible warnings, archive recovery, star/unstar distinction and JSON property names. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "card-labels-title",
+    "before": "Cambia le etichette per questa scheda.",
+    "after": "Canbia łe etichete de ła scheda.",
+    "reason": "Replace Italian-seeded board/card controls with Venetian; preserve irreversible warnings, archive recovery, star/unstar distinction and JSON property names. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "card-members-title",
+    "before": "Aggiungi o rimuovi membri della bacheca da questa scheda",
+    "after": "Zonta o cava i membri del quadro da ła scheda.",
+    "reason": "Replace Italian-seeded board/card controls with Venetian; preserve irreversible warnings, archive recovery, star/unstar distinction and JSON property names. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "card-sorting-by-number",
+    "before": "Ordinamento scheda per numero",
+    "after": "Òrdine de łe schede par nùmaro",
+    "reason": "Replace Italian-seeded board/card controls with Venetian; preserve irreversible warnings, archive recovery, star/unstar distinction and JSON property names. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "card-sorting-by-number-on-minicard",
+    "before": "La scheda viene ordinata per numero sulla minicard",
+    "after": "Òrdine de łe schede par nùmaro so ła scheda picenina",
+    "reason": "Replace Italian-seeded board/card controls with Venetian; preserve irreversible warnings, archive recovery, star/unstar distinction and JSON property names. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "cardCustomFieldsPopup-title",
+    "before": "Modifica campi personalizzati",
+    "after": "Canbia i canpi personałizài",
+    "reason": "Replace Italian-seeded board/card controls with Venetian; preserve irreversible warnings, archive recovery, star/unstar distinction and JSON property names. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "change-card-parent",
+    "before": "Cambia la scheda genitore",
+    "after": "Canbia ła scheda mare",
+    "reason": "Replace Italian-seeded board/card controls with Venetian; preserve irreversible warnings, archive recovery, star/unstar distinction and JSON property names. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "click-to-disable-auto-width",
+    "before": "Larghezza automatica della lista abilitata. Clicca per disabilitarla.",
+    "after": "Łarghesa automàtica de ła lista ativà. Clica par disativarła.",
+    "reason": "Replace Italian-seeded board/card controls with Venetian; preserve irreversible warnings, archive recovery, star/unstar distinction and JSON property names. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "click-to-star",
+    "before": "Clicca per stellare questa bacheca",
+    "after": "Clica par zontar na steła a sto quadro.",
+    "reason": "Replace Italian-seeded board/card controls with Venetian; preserve irreversible warnings, archive recovery, star/unstar distinction and JSON property names. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "click-to-unstar",
+    "before": "Clicca per togliere la stella da questa bacheca.",
+    "after": "Clica par cavar ła steła da sto quadro.",
+    "reason": "Replace Italian-seeded board/card controls with Venetian; preserve irreversible warnings, archive recovery, star/unstar distinction and JSON property names. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "close-board-pop",
+    "before": "Potrai ripristinare la bacheca cliccando sul tasto \"Archivio\"  presente nell'intestazione della home.",
+    "after": "Te podarè rimetar el quadro clicando el boton “Archivio” inte ła intestasion de ła pàjina prinsipałe.",
+    "reason": "Replace Italian-seeded board/card controls with Venetian; preserve irreversible warnings, archive recovery, star/unstar distinction and JSON property names. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "copy-card-link-to-clipboard",
+    "before": "Copia link della scheda negli appunti",
+    "after": "Copia el łigamento de ła scheda inte i aponti",
+    "reason": "Replace Italian-seeded board/card controls with Venetian; preserve irreversible warnings, archive recovery, star/unstar distinction and JSON property names. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "copyManyCardsPopup-format",
+    "before": "[ {\"title\": \"Titolo prima scheda\", \"description\":\"Descrizione prima scheda\"}, {\"title\":\"Titolo seconda scheda\",\"description\":\"Descrizione seconda scheda\"},{\"title\":\"Titolo ultima scheda\",\"description\":\"Descrizione ultima scheda\"} ]",
+    "after": "[ {\"title\": \"Tìtoło de ła prima scheda\", \"description\":\"Descrision de ła prima scheda\"}, {\"title\":\"Tìtoło de ła seconda scheda\",\"description\":\"Descrision de ła seconda scheda\"},{\"title\":\"Tìtoło de ła ùltima scheda\",\"description\":\"Descrision de ła ùltima scheda\"} ]",
+    "reason": "Replace Italian-seeded board/card controls with Venetian; preserve irreversible warnings, archive recovery, star/unstar distinction and JSON property names. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "copyManyCardsPopup-instructions",
+    "before": "Titolo e la descrizione della scheda di destinazione in questo formato JSON",
+    "after": "Tìtołi e descrision de łe schede de destinasion in sto formato JSON",
+    "reason": "Replace Italian-seeded board/card controls with Venetian; preserve irreversible warnings, archive recovery, star/unstar distinction and JSON property names. Low-confidence wording; fluent-speaker validation outstanding."
   }
 ]
