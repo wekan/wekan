@@ -67422,5 +67422,89 @@
     "before": "Cette opération créera un couloir « Cartes perdues » et restaurera toutes les cartes et listes avec un swimlaneId ou listId manquant. Cela n'affecte que les éléments non archivés. Continuer ?",
     "after": "Krouet e vo un trepas « Lost Cards » hag adsevet e vo an holl gartennoù ha rolloù gant swimlaneId pe listId a vank. Ne sell an ober-mañ nemet ouzh an elfennoù nann-diellaouet. Kenderc’hel?",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "search-example",
+    "before": "Écrivez le texte que vous recherchez et appuyez sur Entrée",
+    "after": "Skrivit an destenn a glaskit ha pouezit war Enankañ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "select-migration",
+    "before": "Sélectionner une migration",
+    "after": "Diuzañ un treuzkas roadennoù",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "send-smtp-test",
+    "before": "Envoyer un mail de test à vous-même",
+    "after": "Kas ur postel amprouiñ deoc’h hoc’h-unan",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "server-error-troubleshooting",
+    "before": "Merci de soumettre l'erreur générée par le serveur. Pour une installation snap, lancer `sudo snap logs wekan.wekan`. Pour une installation docker, lancer `sudo docker logs wekan-app`",
+    "after": "Kasit ar fazi ganet gant ar servijer mar plij.\nEvit ur staliadur snap, sevenit: `sudo snap logs wekan.wekan`\nEvit ur staliadur Docker, sevenit: `sudo docker logs wekan-app`",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "set-swimlane-height",
+    "before": "Définir la hauteur du couloir",
+    "after": "Lakaat uhelder an trepas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "set-swimlane-height-value",
+    "before": "Hauteur du couloir (pixels)",
+    "after": "Uhelder an trepas (pikselioù)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "set-wip-limit-value",
+    "before": "Définit une limite maximale au nombre de cartes de cette liste",
+    "after": "Lakaat ur vevenn evit an niver brasañ a drevelloù er roll-mañ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "setSelectionColorPopup-title",
+    "before": "Définir la couleur de sélection",
+    "after": "Lakaat liv an diuzad",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "setSwimlaneHeightPopup-title",
+    "before": "Définir la hauteur du couloir",
+    "after": "Lakaat uhelder an trepas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "shortcut-assign-self",
+    "before": "Affecter cette carte à vous-même",
+    "after": "Deverkañ ar gartenn a-vremañ deoc’h hoc’h-unan",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "shortcut-autocomplete-emoji",
+    "before": "Auto-complétion des emoji",
+    "after": "Klokaat an emoji ent emgefre",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "shortcut-autocomplete-members",
+    "before": "Auto-complétion des participants",
+    "after": "Klokaat an izili ent emgefre",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
