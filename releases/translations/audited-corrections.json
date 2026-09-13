@@ -75297,5 +75297,201 @@
     "before": "Chargement en cours, veuillez patienter. Vous risquez de perdre des données si vous rechargez la page. Si le chargement échoue, veuillez vérifier que le serveur n'est pas arrêté.",
     "after": "Tcherdjaedje, ratindoz. Rafristi l' pådje va fé pierde des dnêyes. Si l' tcherdjaedje ni rote nén, verifyîz ki l' sierveu n' est nén aresté.",
     "reason": "Replace audited French invitations/email/notification prose with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve every invitation, URL, site and username token; retain password reset versus email verification, board departure scope and offline data-loss warning. Full grammar and invitation terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "globalSearch-instructions-operator-assignee",
+    "before": "`__operator_assignee__:<nom>` - cartes *assignées* à l'utilisateur *<nom>*",
+    "after": "`__operator_assignee__:<username>` - cåtes ki sont dinêyes a *<username>*",
+    "reason": "Replace audited French search help with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Keep operator/predicate tokens and angle-bracket metavariables exact, distinguish assignee/member/creator and retain case-insensitive, archived and signed-day semantics. Full grammar and specialized search terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "globalSearch-instructions-operator-member",
+    "before": "`__operator_member__:<nom>` - cartes pour lesquelles l'utilisateur *<nom>* est *participant*",
+    "after": "`__operator_member__:<username>` - cåtes ki *<username>* nd est on *mimbe*",
+    "reason": "Replace audited French search help with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Keep operator/predicate tokens and angle-bracket metavariables exact, distinguish assignee/member/creator and retain case-insensitive, archived and signed-day semantics. Full grammar and specialized search terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "globalSearch-instructions-operator-creator",
+    "before": "`__operator_creator__:<utilisateur>` - cartes dont le créateur est *<utilisateur>*",
+    "after": "`__operator_creator__:<username>` - cåtes askepyîs pa *<username>*",
+    "reason": "Replace audited French search help with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Keep operator/predicate tokens and angle-bracket metavariables exact, distinguish assignee/member/creator and retain case-insensitive, archived and signed-day semantics. Full grammar and specialized search terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "globalSearch-instructions-operator-user",
+    "before": "`__operator_user__:<nom>` - cartes où l'utilisateur <nom> est *assigné* ou est un *participant*.",
+    "after": "`__operator_user__:<username>` - cåtes ki *<username>* nd est on *mimbe* ou ki sont dinêyes a lu",
+    "reason": "Replace audited French search help with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Keep operator/predicate tokens and angle-bracket metavariables exact, distinguish assignee/member/creator and retain case-insensitive, archived and signed-day semantics. Full grammar and specialized search terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "globalSearch-instructions-operator-board",
+    "before": "`__operator_board__:<titre>` - cartes dont le tableau correspond à *<titre>*",
+    "after": "`__operator_board__:<title>` - cåtes dins des tåvleas ki corespondèt å *<title>* dné",
+    "reason": "Replace audited French search help with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Keep operator/predicate tokens and angle-bracket metavariables exact, distinguish assignee/member/creator and retain case-insensitive, archived and signed-day semantics. Full grammar and specialized search terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "globalSearch-instructions-operator-list",
+    "before": "`__operator_list__:<titre>` - cartes dont les listes correspondent à *<titre>*",
+    "after": "`__operator_list__:<title>` - cåtes dins des djivêyes ki corespondèt å *<title>* dné",
+    "reason": "Replace audited French search help with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Keep operator/predicate tokens and angle-bracket metavariables exact, distinguish assignee/member/creator and retain case-insensitive, archived and signed-day semantics. Full grammar and specialized search terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "globalSearch-instructions-operator-swimlane",
+    "before": "`__operator_swimlane__:<titre>` - cartes dans les couloirs correspondant au *<titre>* spécifié",
+    "after": "`__operator_swimlane__:<title>` - cåtes dins des coridôrs ki corespondèt å *<title>* dné",
+    "reason": "Replace audited French search help with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Keep operator/predicate tokens and angle-bracket metavariables exact, distinguish assignee/member/creator and retain case-insensitive, archived and signed-day semantics. Full grammar and specialized search terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "globalSearch-instructions-operator-org",
+    "before": "`__operator_org__:<display name|short name>` - cartes appartenant à un tableau assigné à l'organisation *<name>*",
+    "after": "`__operator_org__:<display name|short name>` - cåtes d' on tåvlea dné a l' organizåcion *<name>*",
+    "reason": "Replace audited French search help with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Keep operator/predicate tokens and angle-bracket metavariables exact, distinguish assignee/member/creator and retain case-insensitive, archived and signed-day semantics. Full grammar and specialized search terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "globalSearch-instructions-operator-team",
+    "before": "`__operator_team__:<display name|short name>` - cartes appartenant à un tableau assigné à l'équipe *<name>*",
+    "after": "`__operator_team__:<display name|short name>` - cåtes d' on tåvlea dné a l' ekipe *<name>*",
+    "reason": "Replace audited French search help with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Keep operator/predicate tokens and angle-bracket metavariables exact, distinguish assignee/member/creator and retain case-insensitive, archived and signed-day semantics. Full grammar and specialized search terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "globalSearch-instructions-status-private",
+    "before": "`__predicate_private__` - uniquement les cartes qui sont dans un tableau privé.",
+    "after": "`__predicate_private__` - cåtes seulmint dins des tåvleas privés",
+    "reason": "Replace audited French search help with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Keep operator/predicate tokens and angle-bracket metavariables exact, distinguish assignee/member/creator and retain case-insensitive, archived and signed-day semantics. Full grammar and specialized search terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "globalSearch-instructions-status-public",
+    "before": "`__predicate_public__` - uniquement les cartes qui sont dans un tableau public.",
+    "after": "`__predicate_public__` - cåtes seulmint dins des tåvleas publikes",
+    "reason": "Replace audited French search help with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Keep operator/predicate tokens and angle-bracket metavariables exact, distinguish assignee/member/creator and retain case-insensitive, archived and signed-day semantics. Full grammar and specialized search terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "globalSearch-instructions-status-all",
+    "before": "`__predicate_all__` -  toutes les cartes : archivées et non archivées.",
+    "after": "`__predicate_all__` - totes les cåtes, ås årtchives ou nén",
+    "reason": "Replace audited French search help with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Keep operator/predicate tokens and angle-bracket metavariables exact, distinguish assignee/member/creator and retain case-insensitive, archived and signed-day semantics. Full grammar and specialized search terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "globalSearch-instructions-status-archived",
+    "before": "`__predicate_archived__` - cartes qui ont été archivées.",
+    "after": "`__predicate_archived__` - cåtes metowes ås årtchives",
+    "reason": "Replace audited French search help with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Keep operator/predicate tokens and angle-bracket metavariables exact, distinguish assignee/member/creator and retain case-insensitive, archived and signed-day semantics. Full grammar and specialized search terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "globalSearch-instructions-status-ended",
+    "before": "`__predicate_ended__` - cartes ayant une date de fin.",
+    "after": "`__predicate_ended__` - cåtes avou ene date di fén",
+    "reason": "Replace audited French search help with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Keep operator/predicate tokens and angle-bracket metavariables exact, distinguish assignee/member/creator and retain case-insensitive, archived and signed-day semantics. Full grammar and specialized search terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "globalSearch-instructions-heading",
+    "before": "Instructions de recherche",
+    "after": "Instrucions di cweraedje",
+    "reason": "Replace audited French search help with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Keep operator/predicate tokens and angle-bracket metavariables exact, distinguish assignee/member/creator and retain case-insensitive, archived and signed-day semantics. Full grammar and specialized search terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "globalSearch-title",
+    "before": "Chercher dans tous les tableaux",
+    "after": "Cweri dins tos les tåvleas",
+    "reason": "Replace audited French search help with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Keep operator/predicate tokens and angle-bracket metavariables exact, distinguish assignee/member/creator and retain case-insensitive, archived and signed-day semantics. Full grammar and specialized search terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "globalSearch-instructions-notes-1",
+    "before": "Il est possible d'utiliser plusieurs opérateurs.",
+    "after": "On pout dner pus d' on operateur.",
+    "reason": "Replace audited French search help with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Keep operator/predicate tokens and angle-bracket metavariables exact, distinguish assignee/member/creator and retain case-insensitive, archived and signed-day semantics. Full grammar and specialized search terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "globalSearch-instructions-notes-4",
+    "before": "Les recherches textuelles ne sont pas sensibles à la casse.",
+    "after": "Li cweraedje di tecse ni fwait nén d' diferince entre les grandès et les ptitès letes.",
+    "reason": "Replace audited French search help with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Keep operator/predicate tokens and angle-bracket metavariables exact, distinguish assignee/member/creator and retain case-insensitive, archived and signed-day semantics. Full grammar and specialized search terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "globalSearch-instructions-notes-5",
+    "before": "Par défaut, les cartes archivées ne sont pas recherchées.",
+    "after": "Pa defaut, on n' cwire nén dins les cåtes ås årtchives.",
+    "reason": "Replace audited French search help with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Keep operator/predicate tokens and angle-bracket metavariables exact, distinguish assignee/member/creator and retain case-insensitive, archived and signed-day semantics. Full grammar and specialized search terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "globalSearch-instructions-operator-comment",
+    "before": "`__operator_comment__:<texte>` - cartes dont le commentaire contient *<texte>*.",
+    "after": "`__operator_comment__:<text>` - cåtes avou ene rimåke ki contént *<text>*.",
+    "reason": "Replace audited French search help with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Keep operator/predicate tokens and angle-bracket metavariables exact, distinguish assignee/member/creator and retain case-insensitive, archived and signed-day semantics. Full grammar and specialized search terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "globalSearch-instructions-operator-created",
+    "before": "`__operator_created__:<n>` - cartes qui ont été créées il y a *<n>* jours ou moins",
+    "after": "`__operator_created__:<n>` - cåtes askepyîs i gn a *<n>* djoûs ou moens",
+    "reason": "Replace audited French search help with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Keep operator/predicate tokens and angle-bracket metavariables exact, distinguish assignee/member/creator and retain case-insensitive, archived and signed-day semantics. Full grammar and specialized search terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "globalSearch-instructions-operator-modified",
+    "before": "`__operator_modified__:<n>` - cartes qui ont été modifiées il y a *<n>* jours ou moins",
+    "after": "`__operator_modified__:<n>` - cåtes candjeyes i gn a *<n>* djoûs ou moens",
+    "reason": "Replace audited French search help with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Keep operator/predicate tokens and angle-bracket metavariables exact, distinguish assignee/member/creator and retain case-insensitive, archived and signed-day semantics. Full grammar and specialized search terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "globalSearch-instructions-operator-limit",
+    "before": "`__operator_limit__:<n>` - où *<n>* est un entier positif exprimant le nombre de cartes à afficher par page.",
+    "after": "`__operator_limit__:<n>` - *<n>* est on nombe etîr pozitif ki dene li nombe di cåtes a mostrer pa pådje.",
+    "reason": "Replace audited French search help with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Keep operator/predicate tokens and angle-bracket metavariables exact, distinguish assignee/member/creator and retain case-insensitive, archived and signed-day semantics. Full grammar and specialized search terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "globalSearch-instructions-operator-status",
+    "before": "`__operator_status__:<état>` - où *<état>* est l'un des choix suivants :",
+    "after": "`__operator_status__:<status>` - *<status>* est onk des cayets ki shuvèt:",
+    "reason": "Replace audited French search help with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Keep operator/predicate tokens and angle-bracket metavariables exact, distinguish assignee/member/creator and retain case-insensitive, archived and signed-day semantics. Full grammar and specialized search terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "globalSearch-instructions-operator-label",
+    "before": "`__operator_label__:<couleur>` `__operator_label__:<nom>` - cartes qui ont une étiquette correspondant à *<couleur>* ou à *<nom>*.",
+    "after": "`__operator_label__:<color>` `__operator_label__:<name>` - cåtes avou ene etikète ki corespond a *<color>* ou a *<name>*",
+    "reason": "Replace audited French search help with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Keep operator/predicate tokens and angle-bracket metavariables exact, distinguish assignee/member/creator and retain case-insensitive, archived and signed-day semantics. Full grammar and specialized search terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "globalSearch-instructions-operator-hash",
+    "before": "`__operator_label_abbrev__<nom|couleur>` - raccourci pour `__operator_label__:<couleur>` ou `__operator_label__:<nom>`",
+    "after": "`__operator_label_abbrev__<name|color>` - rascourti po `__operator_label__:<color>` ou `__operator_label__:<name>`",
+    "reason": "Replace audited French search help with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Keep operator/predicate tokens and angle-bracket metavariables exact, distinguish assignee/member/creator and retain case-insensitive, archived and signed-day semantics. Full grammar and specialized search terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "globalSearch-instructions-operator-sort",
+    "before": "`__operator_sort__:<tri>` - où *<tri>* est une méthode parmi `__predicate_due__`, `__predicate_created__` ou `__predicate_modified__`.  Pour un tri descendant, préfixez la méthode par `-`.",
+    "after": "`__operator_sort__:<sort-name>` - *<sort-name>* est `__predicate_due__`, `__predicate_created__` ou `__predicate_modified__`. Po on rindaedje decroexhant, mete on `-` divant l' no do rindaedje.",
+    "reason": "Replace audited French search help with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Keep operator/predicate tokens and angle-bracket metavariables exact, distinguish assignee/member/creator and retain case-insensitive, archived and signed-day semantics. Full grammar and specialized search terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "globalSearch-instructions-notes-3-2",
+    "before": "Les durées en jours peuvent être précisées soit par un entier positif ou négatif soit en utilisant `__predicate_week__`, `__predicate_month__`, `__predicate_quarter__` ou `__predicate_year__` pour la période courante.",
+    "after": "Les djoûs polèt esse dnés come on nombe etîr pozitif ou negatif, ou avou `__predicate_week__`, `__predicate_month__`, `__predicate_quarter__` ou `__predicate_year__` po l' periode do moumint.",
+    "reason": "Replace audited French search help with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Keep operator/predicate tokens and angle-bracket metavariables exact, distinguish assignee/member/creator and retain case-insensitive, archived and signed-day semantics. Full grammar and specialized search terminology remain low confidence."
   }
 ]
