@@ -55389,5 +55389,110 @@
     "before": "Mostra l'etichetta di campo su minischeda",
     "after": "Aratã eticheta a cãmpului pi minicartã",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "smtp-host-description",
+    "before": "L'indirizzo del server SMTP che gestisce le tue email.",
+    "after": "Adresa a serverlui SMTP tsi administreadzã email-urili a tali.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "smtp-tls-description",
+    "before": "Abilita supporto TLS per server SMTP",
+    "after": "Activeadzã suport TLS ti serverlu SMTP",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "soft-wip-limit",
+    "before": "Limite Work in progress soft",
+    "after": "Limitã flexibilã di lucru tu progres (WIP)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "sort-desc",
+    "before": "Clicca per ordinare la lista",
+    "after": "Clicã ti s-arãndezi lista",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "subtext-with-full-path",
+    "before": "Sottotesto con percorso completo",
+    "after": "Text di ma njos cu calea completã",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "swimlane-title-not-found",
+    "before": "Swimlane '%s' non trovata.",
+    "after": "Culoarlu '%s' nu fu aflat.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "tableVisibilityMode-allowPrivateOnly",
+    "before": "Visibilità bacheche: Consenti solo le bacheche private",
+    "after": "Vizibilitati di tabeli: permiti mash tabeli privati",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "text-below-custom-login-logo",
+    "before": "Testo sotto il logo personalizzato per il login",
+    "after": "Text di ma njos di logo-lu personalizat ti intrari",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "title-alphabetically",
+    "before": "Titolo (ordine alfabetico)",
+    "after": "Titlu (alfabetic)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "to-create-organizations-contact-admin",
+    "before": "Per creare organizzazioni, cortesemente contattare l'amministratore.",
+    "after": "Ti s-creadzi organizatsii, contacteadzã administratorlu.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "translation-number",
+    "before": "Il numero di stringhe di traduzione personalizzate è:",
+    "after": "Numirlu di stringhi di traducere personalizati easti:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "unsaved-description",
+    "before": "Hai una descrizione non salvata",
+    "after": "Ai unã descriari niaspusã.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "user-can-not-export-excel",
+    "before": "L'utente non può effettuare l'esportazione in Excel",
+    "after": "Ufilisitorlu nu poati s-exporteadzã tu Excel",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "user-username-not-found",
+    "before": "Username '%s' non trovato.",
+    "after": "Numa di ufilisitor '%s' nu fu aflatã.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "webhook-token",
+    "before": "Token (facoltativo per l'autenticazione)",
+    "after": "Token (optsional ti autentificari)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
