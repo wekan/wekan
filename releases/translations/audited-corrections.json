@@ -85853,5 +85853,54 @@
     "before": "Hebrew",
     "after": "Juutit ullorsiutaat",
     "reason": "Replace English Hebrew calendar label with Greenlandic phrase juutit ullorsiutaat directly attested for Jewish calendar months Kislev and Passover in https://www.jw.org/kl/biibililersaarutit/atuakkat/Inuk-inuit-inuusimasut-pingaarnerpaartaat/Savanik-paarsisoq-savallu-inaat/ . Capitalize initial label character and remove publisher discretionary soft hyphens; no assembled grammar introduced. Evidence is indexed article text returned by search; separate full-page fetch timed out. No native-speaker review performed."
+  },
+  {
+    "locale": "csb",
+    "key": "calendar",
+    "before": "Kalendarz — pò kaszëbskù",
+    "after": "Kalãdôrz",
+    "reason": "Replace Polish-labelled filler / English calendar names with Kashubian kalãdôrz attested in https://www.muzeum-kaszubskie.pl/csb/ekspozycja-csb/714-gospodarstwo-domowe-parter-sala-ii-csb . Chinese/Hebrew adjectives chińsczi/hebrajsczi attested in indexed https://miesiecznikpomerania.pl/images/archiwum_pliki_pdf/pomerania/2019/POMERANIA_9_534_2019_net.pdf . Preserve named calendar identities. Assembled labels remain low confidence; no native-speaker review."
+  },
+  {
+    "locale": "csb",
+    "key": "calendar-system-chinese",
+    "before": "Chinese",
+    "after": "Chińsczi kalãdôrz",
+    "reason": "Replace Polish-labelled filler / English calendar names with Kashubian kalãdôrz attested in https://www.muzeum-kaszubskie.pl/csb/ekspozycja-csb/714-gospodarstwo-domowe-parter-sala-ii-csb . Chinese/Hebrew adjectives chińsczi/hebrajsczi attested in indexed https://miesiecznikpomerania.pl/images/archiwum_pliki_pdf/pomerania/2019/POMERANIA_9_534_2019_net.pdf . Preserve named calendar identities. Assembled labels remain low confidence; no native-speaker review."
+  },
+  {
+    "locale": "csb",
+    "key": "calendar-system-hebrew",
+    "before": "Hebrew",
+    "after": "Hebrajsczi kalãdôrz",
+    "reason": "Replace Polish-labelled filler / English calendar names with Kashubian kalãdôrz attested in https://www.muzeum-kaszubskie.pl/csb/ekspozycja-csb/714-gospodarstwo-domowe-parter-sala-ii-csb . Chinese/Hebrew adjectives chińsczi/hebrajsczi attested in indexed https://miesiecznikpomerania.pl/images/archiwum_pliki_pdf/pomerania/2019/POMERANIA_9_534_2019_net.pdf . Preserve named calendar identities. Assembled labels remain low confidence; no native-speaker review."
+  },
+  {
+    "locale": "csb",
+    "key": "calendar-system-dangi",
+    "before": "Dangi (Korean)",
+    "after": "Kalãdôrz Dangi",
+    "reason": "Replace Polish-labelled filler / English calendar names with Kashubian kalãdôrz attested in https://www.muzeum-kaszubskie.pl/csb/ekspozycja-csb/714-gospodarstwo-domowe-parter-sala-ii-csb . Chinese/Hebrew adjectives chińsczi/hebrajsczi attested in indexed https://miesiecznikpomerania.pl/images/archiwum_pliki_pdf/pomerania/2019/POMERANIA_9_534_2019_net.pdf . Preserve named calendar identities. Assembled labels remain low confidence; no native-speaker review."
+  },
+  {
+    "locale": "csb",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "Kalãdôrz Hijri",
+    "reason": "Replace Polish-labelled filler / English calendar names with Kashubian kalãdôrz attested in https://www.muzeum-kaszubskie.pl/csb/ekspozycja-csb/714-gospodarstwo-domowe-parter-sala-ii-csb . Chinese/Hebrew adjectives chińsczi/hebrajsczi attested in indexed https://miesiecznikpomerania.pl/images/archiwum_pliki_pdf/pomerania/2019/POMERANIA_9_534_2019_net.pdf . Preserve named calendar identities. Assembled labels remain low confidence; no native-speaker review."
+  },
+  {
+    "locale": "csb",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "Kalãdôrz Hijri (Umm al-Qura)",
+    "reason": "Replace Polish-labelled filler / English calendar names with Kashubian kalãdôrz attested in https://www.muzeum-kaszubskie.pl/csb/ekspozycja-csb/714-gospodarstwo-domowe-parter-sala-ii-csb . Chinese/Hebrew adjectives chińsczi/hebrajsczi attested in indexed https://miesiecznikpomerania.pl/images/archiwum_pliki_pdf/pomerania/2019/POMERANIA_9_534_2019_net.pdf . Preserve named calendar identities. Assembled labels remain low confidence; no native-speaker review."
+  },
+  {
+    "locale": "csb",
+    "key": "calendar-system-roc",
+    "before": "Republic of China",
+    "after": "Kalãdôrz Minguo",
+    "reason": "Replace Polish-labelled filler / English calendar names with Kashubian kalãdôrz attested in https://www.muzeum-kaszubskie.pl/csb/ekspozycja-csb/714-gospodarstwo-domowe-parter-sala-ii-csb . Chinese/Hebrew adjectives chińsczi/hebrajsczi attested in indexed https://miesiecznikpomerania.pl/images/archiwum_pliki_pdf/pomerania/2019/POMERANIA_9_534_2019_net.pdf . Preserve named calendar identities. Assembled labels remain low confidence; no native-speaker review."
   }
 ]
