@@ -1219,6 +1219,17 @@ for this change.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/34708699c">Repair Veps migration steps and browser warning</a>. Thanks to xet7.</summary>
+
+Replace ten Finnish values, resolving one original finding and nine unflagged
+errors. Preserve restore targets, validation and the instruction to keep the
+browser open while background processing continues and may take longer.
+All 16,903 exact correction checks pass. Technical grammar needs fluent review;
+932 original findings and restored-value validation remain unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/782cd2fc7">Repair Veps migration controls and status labels</a>. Thanks to xet7.</summary>
 
 Replace eleven additional unflagged Finnish translations with Veps. Preserve
