@@ -111851,5 +111851,61 @@
     "before": "Kalendar sistem (data görünüşü)",
     "after": "Kalendarin sistem (päivän näütamine)",
     "reason": "Replace Finnish calendar and Turkic-seeded selector text with Veps. Actual Veps newspaper usage attests kalendar': https://omamedia.ru/news/oma_tal_vku_kodiman_lehtpolil/ and corpus https://dictorpus.krc.karelia.ru/ru/corpus/text/1150 . Selector compound wording is low confidence; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "color-black",
+    "before": "musta",
+    "after": "must",
+    "reason": "Replace Finnish-seeded basic color vocabulary with attested Veps terms. Source: https://fi.wikibooks.org/wiki/Veps%C3%A4n_kieli/Sanasto section Mujud. Specialized shades remain for separate semantic review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "color-blue",
+    "before": "sininen",
+    "after": "sinine",
+    "reason": "Replace Finnish-seeded basic color vocabulary with attested Veps terms. Source: https://fi.wikibooks.org/wiki/Veps%C3%A4n_kieli/Sanasto section Mujud. Specialized shades remain for separate semantic review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "color-gray",
+    "before": "harmaa",
+    "after": "hahk",
+    "reason": "Replace Finnish-seeded basic color vocabulary with attested Veps terms. Source: https://fi.wikibooks.org/wiki/Veps%C3%A4n_kieli/Sanasto section Mujud. Specialized shades remain for separate semantic review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "color-green",
+    "before": "vihreä",
+    "after": "vihand",
+    "reason": "Replace Finnish-seeded basic color vocabulary with attested Veps terms. Source: https://fi.wikibooks.org/wiki/Veps%C3%A4n_kieli/Sanasto section Mujud. Specialized shades remain for separate semantic review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "color-orange",
+    "before": "oranssi",
+    "after": "oranž",
+    "reason": "Replace Finnish-seeded basic color vocabulary with attested Veps terms. Source: https://fi.wikibooks.org/wiki/Veps%C3%A4n_kieli/Sanasto section Mujud. Specialized shades remain for separate semantic review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "color-red",
+    "before": "punainen",
+    "after": "rusked",
+    "reason": "Replace Finnish-seeded basic color vocabulary with attested Veps terms. Source: https://fi.wikibooks.org/wiki/Veps%C3%A4n_kieli/Sanasto section Mujud. Specialized shades remain for separate semantic review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "color-white",
+    "before": "valkoinen",
+    "after": "vauged",
+    "reason": "Replace Finnish-seeded basic color vocabulary with attested Veps terms. Source: https://fi.wikibooks.org/wiki/Veps%C3%A4n_kieli/Sanasto section Mujud. Specialized shades remain for separate semantic review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "color-yellow",
+    "before": "keltainen",
+    "after": "pakuine",
+    "reason": "Replace Finnish-seeded basic color vocabulary with attested Veps terms. Source: https://fi.wikibooks.org/wiki/Veps%C3%A4n_kieli/Sanasto section Mujud. Specialized shades remain for separate semantic review."
   }
 ]

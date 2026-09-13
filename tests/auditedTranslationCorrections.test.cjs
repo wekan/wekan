@@ -103,5 +103,11 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.doesNotMatch(veps.days, /päivää/);
   assert.doesNotMatch(veps.week, /Viikko/);
   assert.doesNotMatch(veps.month, /Kuukausi/);
+  for (const [color, expected] of Object.entries({black: 'must', blue: 'sinine', gray: 'hahk', green: 'vihand', orange: 'oranž', red: 'rusked', white: 'vauged', yellow: 'pakuine'})) {
+    assert.equal(veps[`color-${color}`], expected, `Veps basic color: ${color}`);
+  }
+  assert.doesNotMatch(veps['color-green'], /vihreä/);
+  assert.doesNotMatch(veps['color-red'], /punainen/);
+  assert.doesNotMatch(veps['color-white'], /valkoinen/);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });
