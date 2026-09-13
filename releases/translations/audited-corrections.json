@@ -103766,5 +103766,145 @@
     "before": "Hambisa okunamathiselwe ku-S3",
     "after": "Pfulusela ṱumetshedzo kha S3",
     "reason": "Replace Zulu-seeded interface prose directly with Tshivenda. Preserve source placeholders, permission capabilities and permanent/no-undo warning. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "attachments-path-description",
+    "before": "Indlela lapho amafayela okunamathiselwe agcinwa khona",
+    "after": "Nḓila ine faela dza ṱumetshedzo dza vhulungwa khayo",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, archive versus deletion, permanent data-loss warnings and permission boundaries. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "board-delete-notice",
+    "before": "Ukususa kungunaphakade. Uzolahlekelwa yizo zonke izinhlu, amakhadi nezenzo ezihlobene naleli bhodi.",
+    "after": "U susa ndi ha tshoṱhe. Ni ḓo xelelwa nga mitevhe yoṱhe, makhadi na nyito dzi elanaho na bodo iyi ya Kanban.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, archive versus deletion, permanent data-loss warnings and permission boundaries. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "board-drag-drop-reorder-or-click-open",
+    "before": "Hudula bese udedela ukuze uhlele kabusha izithonjana zebhodi. Chofoza isithonjana sebhodi ukuze uvule ibhodi.",
+    "after": "Kokodzani ni litshe zwiga zwa bodo u shandula mutevhe wazwo. Kiḽikani tshiga tsha bodo u i vula.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, archive versus deletion, permanent data-loss warnings and permission boundaries. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "board-open-and-move-between-remaining-and-workspaces",
+    "before": "Chofoza ukuze uvule ibhodi. Sebenzisa isibambo sokuhudula ukuze unikeze ibhodi ku-__workspaces__ (yehlisa indawo yokusebenza kubha eseceleni).",
+    "after": "Kiḽikani u vula bodo. Shumisani tshifaro tsha u kokodza u avhela bodo kha __workspaces__ (i litsheni kha fhethu ha mushumo kha phanele ya thungo).",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, archive versus deletion, permanent data-loss warnings and permission boundaries. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "board-title-not-found",
+    "before": "Ibhodi elithi '%s' alitholakali.",
+    "after": "Bodo ya Kanban '%s' a yo ngo wanala.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, archive versus deletion, permanent data-loss warnings and permission boundaries. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "board_assignees",
+    "before": "Bonke abanikezwayo bawo wonke amakhadi kuleli bhodi",
+    "after": "Vho avhelwaho mushumo vhoṱhe kha makhadi oṱhe a bodo iyi ya Kanban",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, archive versus deletion, permanent data-loss warnings and permission boundaries. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "card-archive-pop",
+    "before": "Ikhadi ngeke libonakale kulolu hlu ngemva kokufaka kungobo yomlando ikhadi.",
+    "after": "Khadi a ḽi tsha ḓo vhonala kha mutevhe uyu musi ḽo iswa fhethu ha u vhulunga.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, archive versus deletion, permanent data-loss warnings and permission boundaries. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "card-archive-suggest-cancel",
+    "before": "Ungakwazi ukubuyisela ikhadi kusukela kungobo yomlando.",
+    "after": "Ni nga vhuyedzedza khadi nga murahu u bva fhethu ha u vhulunga.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, archive versus deletion, permanent data-loss warnings and permission boundaries. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "card-delete-pop",
+    "before": "Zonke izenzo zizosuswa kokuphakelayo komsebenzi futhi ngeke ukwazi ukuphinda uvule ikhadi. Akukho ukuhlehlisa.",
+    "after": "Nyito dzoṱhe dzi ḓo suswa kha mutevhe wa nyito, nahone a ni tsha ḓo kona u vula khadi hafhu. A zwi koni u humiselwa murahu.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, archive versus deletion, permanent data-loss warnings and permission boundaries. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "card-delete-suggest-archive",
+    "before": "Ungahambisa ikhadi Kungobo yomlando ukuze ulisuse ebhodini futhi ulondoloze umsebenzi.",
+    "after": "Ni nga isa khadi fhethu ha u vhulunga u ḽi bvisa kha bodo ya Kanban ni tshi vhulunga nyito.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, archive versus deletion, permanent data-loss warnings and permission boundaries. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "card-members-title",
+    "before": "Engeza noma khipha amalungu ebhodi ekhadini.",
+    "after": "Engedzani kana ni suse miraḓo ya bodo ya Kanban kha khadi.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, archive versus deletion, permanent data-loss warnings and permission boundaries. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "card-sorting-by-number",
+    "before": "Ukuhlunga ikhadi ngenombolo",
+    "after": "U dzudzanya makhadi nga nomboro",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, archive versus deletion, permanent data-loss warnings and permission boundaries. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "card-sorting-by-number-on-minicard",
+    "before": "Ukuhlunga ikhadi ngenombolo ekhadini elincane",
+    "after": "U dzudzanya makhadi nga nomboro kha khadi ḽiṱuku",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, archive versus deletion, permanent data-loss warnings and permission boundaries. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "cardArchivePopup-title",
+    "before": "Faka kungobo yomlando ikhadi?",
+    "after": "Isa khadi fhethu ha u vhulunga?",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, archive versus deletion, permanent data-loss warnings and permission boundaries. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "card_assignees",
+    "before": "Bonke abanikezwa ikhadi lamanje kuleli bhodi",
+    "after": "Vho avhelwaho mushumo vhoṱhe kha khadi ḽa zwino kha bodo iyi ya Kanban",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, archive versus deletion, permanent data-loss warnings and permission boundaries. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "clipboard",
+    "before": "Ibhodi lokunamathisela noma hudula udedele",
+    "after": "Fhethu ha u kopa kana u kokodza na u litsha",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, archive versus deletion, permanent data-loss warnings and permission boundaries. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "close-board-pop",
+    "before": "Uzokwazi ukubuyisela ibhodi ngokuchofoza inkinobho ethi “Faka kungobo yomlando” kunhlokweni yasekhaya.",
+    "after": "Ni ḓo kona u vhuyedzedza bodo nga u kiḽika gunubu ya “Fhethu ha u vhulunga” kha ṱhoho ya siaṱari ḽa hayani.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, archive versus deletion, permanent data-loss warnings and permission boundaries. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "comment-assigned-only-desc",
+    "before": "Amakhadi abelwe kuphela abonakalayo. Angabeka amazwana kuphela.",
+    "after": "Hu vhonala makhadi o avhelwaho fhedzi. Ni nga ṅwala mihumbulo fhedzi.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, archive versus deletion, permanent data-loss warnings and permission boundaries. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "comment-not-found",
+    "before": "Ikhadi elinamazwana aqukethe umbhalo othi '%s' alitholakali.",
+    "after": "Khadi ḽine muhumbulo waḽo wa vha na maipfi '%s' a ḽo ngo wanala.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, archive versus deletion, permanent data-loss warnings and permission boundaries. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "comprehensive-board-migration-description",
+    "before": "Yenza ukuhlola okuphelele nokulungiswa kobuqotho bedatha yebhodi, okuhlanganisa ukuhleleka kohlu, ukuma kwamakhadi, nesakhiwo sokubhukuda.",
+    "after": "I sedza na u lugisa vhungoho ha data ya bodo ya Kanban nga vhuḓalo, hu tshi katelwa mutevhe wa mitevhe, fhethu ha makhadi na nzudzanyo ya dziḽaini.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, archive versus deletion, permanent data-loss warnings and permission boundaries. Low-confidence wording; fluent-speaker validation outstanding."
   }
 ]
