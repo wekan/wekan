@@ -74051,5 +74051,145 @@
     "before": "Réparation des IDs manquants",
     "after": "Rapontyî les ID ki mankèt",
     "reason": "Replace audited French migration/repair controls with Walloon; preserve operation scope, missing IDs, file versus avatar URLs and paused versus failed migrations. Repair/update verb https://dtw.walon.org/index.php?query=raponty%C3%AE and existing native terminology reused. Full grammar and specialized migration terminology remain low confidence; source placeholders and technical identifiers retained."
+  },
+  {
+    "locale": "wa",
+    "key": "comprehensive-board-migration",
+    "before": "Migration complète de tableau",
+    "after": "Migråcion complete do tåvlea",
+    "reason": "Replace audited French migration descriptions with Walloon using existing native vocabulary and https://dtw.walon.org/index.php?query=raponty%C3%AE . Preserve scope, no-card AND same-title populated duplicate condition, non-archived-only recovery and swimlaneId/listId identifiers. Full grammar and specialized data-integrity terminology remain low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "comprehensive-board-migration-description",
+    "before": "Effectue des vérifications complètes et des corrections pour l'intégrité des données du tableau, y compris l'ordre des listes, les positions des cartes et la structure des couloirs.",
+    "after": "Fwait des verifiaedjes et des rapontiaedjes complets po l' integrité des dnêyes do tåvlea, avou l' ôre des djivêyes, les plaeces des cåtes eyet l' strutcheure des coridôrs.",
+    "reason": "Replace audited French migration descriptions with Walloon using existing native vocabulary and https://dtw.walon.org/index.php?query=raponty%C3%AE . Preserve scope, no-card AND same-title populated duplicate condition, non-archived-only recovery and swimlaneId/listId identifiers. Full grammar and specialized data-integrity terminology remain low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "migrations-description",
+    "before": "Exécute les vérifications d'intégrité des données et les réparations pour ce tableau. Chaque migration peut être exécutée individuellement.",
+    "after": "Enonder des verifiaedjes et des rapontiaedjes di l' integrité des dnêyes di ci tåvlea ci. Tchaeke migråcion pout esse enondêye tote seule.",
+    "reason": "Replace audited French migration descriptions with Walloon using existing native vocabulary and https://dtw.walon.org/index.php?query=raponty%C3%AE . Preserve scope, no-card AND same-title populated duplicate condition, non-archived-only recovery and swimlaneId/listId identifiers. Full grammar and specialized data-integrity terminology remain low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "run-comprehensive-migration-confirm",
+    "before": "Cette opération effectuera une migration complète pour vérifier et corriger l'intégrité des données du tableau. Cela peut prendre quelques instants. Continuer ?",
+    "after": "Çoula va fé ene migråcion complete po verifyî et rapontyî l' integrité des dnêyes do tåvlea. Çoula pout prinde sacwants moumints. Continouwer?",
+    "reason": "Replace audited French migration descriptions with Walloon using existing native vocabulary and https://dtw.walon.org/index.php?query=raponty%C3%AE . Preserve scope, no-card AND same-title populated duplicate condition, non-archived-only recovery and swimlaneId/listId identifiers. Full grammar and specialized data-integrity terminology remain low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "fix-all-file-urls-migration-description",
+    "before": "Met à jour toutes les URL des pièces jointes de ce tableau pour utiliser le bon backend de stockage et corrige les références de fichiers cassées.",
+    "after": "Rapontye totes les URL des pîces djondowes di ci tåvlea ci po eployî l' bon stockaedje, et rapontye les mwaijhès referinces ås fitchîs.",
+    "reason": "Replace audited French migration descriptions with Walloon using existing native vocabulary and https://dtw.walon.org/index.php?query=raponty%C3%AE . Preserve scope, no-card AND same-title populated duplicate condition, non-archived-only recovery and swimlaneId/listId identifiers. Full grammar and specialized data-integrity terminology remain low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "run-fix-all-file-urls-migration-confirm",
+    "before": "Cette opération mettra à jour toutes les URL des pièces jointes de ce tableau pour utiliser le bon backend de stockage. Continuer ?",
+    "after": "Çoula va rapontyî totes les URL des pîces djondowes di ci tåvlea ci po eployî l' bon stockaedje. Continouwer?",
+    "reason": "Replace audited French migration descriptions with Walloon using existing native vocabulary and https://dtw.walon.org/index.php?query=raponty%C3%AE . Preserve scope, no-card AND same-title populated duplicate condition, non-archived-only recovery and swimlaneId/listId identifiers. Full grammar and specialized data-integrity terminology remain low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "fix-avatar-urls-migration-description",
+    "before": "Mets à jour les URLs d'avatar des participants du tableau pour utiliser le bon gestionnaire de stockage et corriger les références défaillantes d'avatar ",
+    "after": "Rapontye les URL des avatårs des mimbes do tåvlea po eployî l' bon stockaedje, et rapontye les mwaijhès referinces ås avatårs.",
+    "reason": "Replace audited French migration descriptions with Walloon using existing native vocabulary and https://dtw.walon.org/index.php?query=raponty%C3%AE . Preserve scope, no-card AND same-title populated duplicate condition, non-archived-only recovery and swimlaneId/listId identifiers. Full grammar and specialized data-integrity terminology remain low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "run-fix-avatar-urls-migration-confirm",
+    "before": "Cette opération mettra à jour les URL des avatars des participants du tableau pour utiliser le bon backend de stockage. Continuer ?",
+    "after": "Çoula va rapontyî les URL des avatårs des mimbes do tåvlea po eployî l' bon stockaedje. Continouwer?",
+    "reason": "Replace audited French migration descriptions with Walloon using existing native vocabulary and https://dtw.walon.org/index.php?query=raponty%C3%AE . Preserve scope, no-card AND same-title populated duplicate condition, non-archived-only recovery and swimlaneId/listId identifiers. Full grammar and specialized data-integrity terminology remain low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "fix-missing-lists-migration-description",
+    "before": "Détecte et répare les listes manquantes ou corrompues dans la structure du tableau.",
+    "after": "Trove et rapontye les djivêyes ki mankèt ou k' sont corompowes dins l' strutcheure do tåvlea.",
+    "reason": "Replace audited French migration descriptions with Walloon using existing native vocabulary and https://dtw.walon.org/index.php?query=raponty%C3%AE . Preserve scope, no-card AND same-title populated duplicate condition, non-archived-only recovery and swimlaneId/listId identifiers. Full grammar and specialized data-integrity terminology remain low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "run-fix-missing-lists-migration-confirm",
+    "before": "Cette opération détectera et réparera les listes manquantes ou corrompues dans la structure du tableau. Continuer ?",
+    "after": "Çoula va trover et rapontyî les djivêyes ki mankèt ou k' sont corompowes dins l' strutcheure do tåvlea. Continouwer?",
+    "reason": "Replace audited French migration descriptions with Walloon using existing native vocabulary and https://dtw.walon.org/index.php?query=raponty%C3%AE . Preserve scope, no-card AND same-title populated duplicate condition, non-archived-only recovery and swimlaneId/listId identifiers. Full grammar and specialized data-integrity terminology remain low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "delete-duplicate-empty-lists-migration-description",
+    "before": "Supprime en toute sécurité les listes vides en double. Supprime uniquement les listes qui n'ont aucune carte ET qui ont une autre liste avec le même titre contenant des cartes.",
+    "after": "Disface sins dandjî les vudes djivêyes e dobe. Oiste seulmint les djivêyes ki n' ont pont d' cåtes ET k' ont ene ôte djivêye avou l' minme tite et des cåtes.",
+    "reason": "Replace audited French migration descriptions with Walloon using existing native vocabulary and https://dtw.walon.org/index.php?query=raponty%C3%AE . Preserve scope, no-card AND same-title populated duplicate condition, non-archived-only recovery and swimlaneId/listId identifiers. Full grammar and specialized data-integrity terminology remain low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "restore-all-archived-migration-description",
+    "before": "Restaure tous les couloirs, listes et cartes archivés. Corrige automatiquement les swimlaneId ou listId manquants pour rendre les éléments visibles.",
+    "after": "Rimete tos les coridôrs, les djivêyes eyet les cåtes metous ås årtchives. Rapontye otomatikmint les swimlaneId ou listId ki mankèt po rinde les cayets veyåves.",
+    "reason": "Replace audited French migration descriptions with Walloon using existing native vocabulary and https://dtw.walon.org/index.php?query=raponty%C3%AE . Preserve scope, no-card AND same-title populated duplicate condition, non-archived-only recovery and swimlaneId/listId identifiers. Full grammar and specialized data-integrity terminology remain low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "restore-lost-cards-migration-description",
+    "before": "Recherche et restaure les cartes et listes avec un swimlaneId ou listId manquant. Crée un couloir 'Cartes perdues' pour rendre tous les éléments perdus à nouveau visibles.",
+    "after": "Trove et rimete les cåtes eyet les djivêyes avou on swimlaneId ou listId ki manke. Askepeye on coridôr «Cåtes pierdowes» po rinde tos les cayets pierdous veyåves di novea.",
+    "reason": "Replace audited French migration descriptions with Walloon using existing native vocabulary and https://dtw.walon.org/index.php?query=raponty%C3%AE . Preserve scope, no-card AND same-title populated duplicate condition, non-archived-only recovery and swimlaneId/listId identifiers. Full grammar and specialized data-integrity terminology remain low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "run-restore-lost-cards-migration-confirm",
+    "before": "Cette opération créera un couloir « Cartes perdues » et restaurera toutes les cartes et listes avec un swimlaneId ou listId manquant. Cela n'affecte que les éléments non archivés. Continuer ?",
+    "after": "Çoula va askepyî on coridôr «Cåtes pierdowes» et rimete totes les cåtes eyet les djivêyes avou on swimlaneId ou listId ki manke. Çoula toûche seulmint les cayets ki n' sont nén ås årtchives. Continouwer?",
+    "reason": "Replace audited French migration descriptions with Walloon using existing native vocabulary and https://dtw.walon.org/index.php?query=raponty%C3%AE . Preserve scope, no-card AND same-title populated duplicate condition, non-archived-only recovery and swimlaneId/listId identifiers. Full grammar and specialized data-integrity terminology remain low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "run-restore-all-archived-migration-confirm",
+    "before": "Cette opération restaurera TOUS les couloirs, listes et cartes archivés, les rendant à nouveau visibles. Les éléments avec des identifiants manquants seront automatiquement corrigés. Cette action ne peut pas être facilement annulée. Continuer ?",
+    "after": "Çoula va rimete TOS les coridôrs, les djivêyes eyet les cåtes metous ås årtchives po les rinde veyåves di novea. Les cayets avou des ID ki mankèt seront rapontyîs otomatikmint. Çoula n' pout nén esse disfwait åjheymint. Continouwer?",
+    "reason": "Replace audited French migration descriptions with Walloon using existing native vocabulary and https://dtw.walon.org/index.php?query=raponty%C3%AE . Preserve scope, no-card AND same-title populated duplicate condition, non-archived-only recovery and swimlaneId/listId identifiers. Full grammar and specialized data-integrity terminology remain low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "run-delete-duplicate-empty-lists-migration-confirm",
+    "before": "Cette opération convertira d'abord les listes partagées en listes par couloir, puis supprimera les listes vides qui ont une liste en double avec le même titre contenant des cartes. Seules les listes vides vraiment redondantes seront supprimées. Continuer ?",
+    "after": "Çoula va d' aprume converti les djivêyes pårtaedjeyes en des djivêyes pa coridôr, et poy disfacer les vudes djivêyes avou ene dobe djivêye do minme tite ki contént des cåtes. Seulmint les vudes djivêyes ki sont bén e dobe seront oistêyes. Continouwer?",
+    "reason": "Replace audited French migration descriptions with Walloon using existing native vocabulary and https://dtw.walon.org/index.php?query=raponty%C3%AE . Preserve scope, no-card AND same-title populated duplicate condition, non-archived-only recovery and swimlaneId/listId identifiers. Full grammar and specialized data-integrity terminology remain low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "step-convert-shared-lists",
+    "before": "Convertir les listes partagées",
+    "after": "Converti les djivêyes pårtaedjeyes",
+    "reason": "Replace audited French migration descriptions with Walloon using existing native vocabulary and https://dtw.walon.org/index.php?query=raponty%C3%AE . Preserve scope, no-card AND same-title populated duplicate condition, non-archived-only recovery and swimlaneId/listId identifiers. Full grammar and specialized data-integrity terminology remain low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "step-ensure-lost-cards-swimlane",
+    "before": "Assurer le couloir des cartes perdues",
+    "after": "Verifyî l' coridôr des cåtes pierdowes",
+    "reason": "Replace audited French migration descriptions with Walloon using existing native vocabulary and https://dtw.walon.org/index.php?query=raponty%C3%AE . Preserve scope, no-card AND same-title populated duplicate condition, non-archived-only recovery and swimlaneId/listId identifiers. Full grammar and specialized data-integrity terminology remain low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "step-ensure-per-swimlane-lists",
+    "before": "Assurer les listes par couloir",
+    "after": "Verifyî les djivêyes pa coridôr",
+    "reason": "Replace audited French migration descriptions with Walloon using existing native vocabulary and https://dtw.walon.org/index.php?query=raponty%C3%AE . Preserve scope, no-card AND same-title populated duplicate condition, non-archived-only recovery and swimlaneId/listId identifiers. Full grammar and specialized data-integrity terminology remain low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "step-fix-orphaned-cards",
+    "before": "Corriger les cartes orphelines",
+    "after": "Rapontyî les cåtes ôrfulinnes",
+    "reason": "Replace audited French migration descriptions with Walloon using existing native vocabulary and https://dtw.walon.org/index.php?query=raponty%C3%AE . Preserve scope, no-card AND same-title populated duplicate condition, non-archived-only recovery and swimlaneId/listId identifiers. Full grammar and specialized data-integrity terminology remain low confidence; placeholders preserved."
   }
 ]
